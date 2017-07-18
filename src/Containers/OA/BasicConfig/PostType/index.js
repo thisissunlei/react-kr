@@ -159,6 +159,7 @@ export default class PostType extends Component{
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>
+				<TableFooter></TableFooter>
            </Table>
 		  </Section>
 

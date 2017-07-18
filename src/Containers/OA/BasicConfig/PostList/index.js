@@ -116,7 +116,7 @@ export default class PostList extends Component{
 	render(){
 		const {openNew,openEdit,openDel} = this.allConfig;
 		return(
-      	<div className="basic-post-list" style={{padding:25}}>
+      	<div className="basic-post-list">
 		  	<Section title="职务列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 			    <Col
@@ -157,23 +157,22 @@ export default class PostList extends Component{
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
-				onExport={this.onExport}
-				exportSwitch={true}
 			>
 				<TableHeader>
-					<TableHeaderColumn>职务类型</TableHeaderColumn>
+					<TableHeaderColumn>职务名称</TableHeaderColumn>
 					<TableHeaderColumn>编码</TableHeaderColumn>
 					<TableHeaderColumn>状态</TableHeaderColumn>
 					<TableHeaderColumn>排序号</TableHeaderColumn>
 					<TableHeaderColumn>职务类型名称</TableHeaderColumn>
 					<TableHeaderColumn>操作人</TableHeaderColumn>
 					<TableHeaderColumn>更新时间</TableHeaderColumn>
-
+					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >
 					<TableRow>
 						<TableRowColumn name="intentionCityName" ></TableRowColumn>
 						<TableRowColumn name="stationNum"></TableRowColumn>
+						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
@@ -187,31 +186,30 @@ export default class PostList extends Component{
 				<TableFooter></TableFooter>
            </Table>
 		   {/*新建用户*/}
-			<Drawer
+			<Dialog
+				title="新增职务"
+				onClose={this.newSwidth}
 				open={openNew}
-				width={750}
-				openSecondary={true}
-				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+				contentStyle ={{ width: '630px',height:'560px'}}
 			>
 				<AddPostList
 					onCancel={this.newSwidth}
 					onSubmit={this.addSubmit}
 					onClose = {this.allClose}   
 				/>
-			</Drawer>
+			</Dialog>
 			{/*编辑用户*/}
-			<Drawer
+			<Dialog
+				title="编辑职务"
+				onClose={this.editSwidth}
 				open={openEdit}
-				width={750}
-				openSecondary={true}
-				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-				onClose = {this.allClose}
+				contentStyle ={{ width: '630px',height:'630px'}}
 			>
 				<EditPostList
 					onCancel={this.editSwidth}
 					onSubmit={this.editSubmit}   
 				/>
-			</Drawer>
+			</Dialog>
 			{/*开通门禁*/}
 			<Dialog
 				title="删除职务"

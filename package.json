@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev:test",
-    "dev:test": " export NODE_ENV=test  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch  --inline",
-    "dev:test01": " export NODE_ENV=test01  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch  --inline",
-    "dev:test02": " export NODE_ENV=test02  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch  --inline",
-    "dev:liuyihao": " export NODE_ENV=liuyihao  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile --hot --watch  --inline",
+    "dev:test": " export NODE_ENV=test  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors",
+    "dev:test01": " export NODE_ENV=test01  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile",
+    "dev:test02": " export NODE_ENV=test02  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile ",
+    "dev:liuyihao": " export NODE_ENV=liuyihao  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors ",
     "build": "export NODE_ENV=production  &&  npm run dll && webpack --config ./webpack/webpack-production.config.js --progress --colors",
     "dll": "webpack --config ./webpack/webpack-dll.config.js --progress --colors --profile",
     "lint": "eslint *.js ./src/**"

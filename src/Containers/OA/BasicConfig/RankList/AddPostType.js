@@ -10,7 +10,7 @@ import {
 import {reduxForm}  from 'redux-form';
 import './index.less';
 
-class AddPostList  extends React.Component{
+class AddPostType  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -32,42 +32,33 @@ class AddPostList  extends React.Component{
 
 		return(
 
-			<div className='oa-post-list'>
+			<div className='m-add-post'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-                       <KrField 
-                            grid={1}
+
+                       <KrField grid={1/2}
                             style={{width:262,display:'block'}}
                             name="area"
                             component="input"
-                            label="职务名称"
+                            label="职级名称"
                             requireLabel={true}
 						/>
-                        <KrField
-                            grid={1}
+                        <KrField grid={1/2}
                             style={{width:262,display:'block'}}
                             name="area"
                             component="input"
-                            label="编码"
+                            label="职级编码"
                             requireLabel={true}
 						/>
 
-                         <KrField style={{width:262,display:'block'}} name="enable" component="group" label="是否启用" requireLabel={true}>
+                         <KrField style={{width:262,display:'block'}} name="enable" component="group" label="职级状态" requireLabel={true}>
  							 <KrField name="enable" label="启用" type="radio" value='1' />
- 							 <KrField name="enable" label="不启用" type="radio" value='0' />
+ 							 <KrField name="enable" label="停用" type="radio" value='0' />
  						</KrField>
 
-                         <KrField
-                            grid={1}
-                            style={{width:262,display:'block'}}
-                            name="area"
-                            component="select"
-                            label="职务类型名称"
-                            requireLabel={true}
-						/>
+                        <KrField grid={1} label="职级描述" name="arround" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
 
-                         <KrField grid={1} label="描述" name="arround" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
-
-                        <Grid style={{marginBottom:5,marginLeft:-50}}>
+                        
+                       <Grid style={{marginTop:10,marginBottom:5,marginLeft:-50}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
@@ -89,4 +80,4 @@ const validate = values =>{
 	return errors
 }
 
-export default reduxForm({ form: 'AddPostList',validate})(AddPostList);
+export default reduxForm({ form: 'AddPostType',validate})(AddPostType);
