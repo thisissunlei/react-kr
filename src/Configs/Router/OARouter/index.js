@@ -25,6 +25,12 @@ const OA_Organization_Home = (location, callback) => {
   }, 'OA_Organization_Home')
 }
 
+const OA_Organization_Labour = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/Organization/Labour').default)
+  }, 'OA_Organization_Labour')
+}
+
 const OA_PersonalManage_PeopleState = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/OA/PersonalManage/PeopleState').default)
@@ -55,6 +61,7 @@ module.exports =()=>{
           {/*组织架构*/}
             <Route path="organization" getComponent={Basic}>
               <Route path="home" getComponent={OA_Organization_Home}/>
+              <Route path=":dimId/labour" getComponent={OA_Organization_Labour}/>
             </Route>
             
 						{/*人员管理*/}
