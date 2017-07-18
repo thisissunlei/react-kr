@@ -5,7 +5,7 @@ import {
 	Http,
 	DateFormat,
 } from "kr/Utils";
-
+import { observer, inject } from 'mobx-react';
 import {
 	KrField,
 	Table,
@@ -28,13 +28,13 @@ import {
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
-import HighSearchForm from './HighSearchForm';
-import Createdialog from './Createdialog.js';
-import Editdialog from './Editdialog.js';
-import Viewdialog from './Viewdialog.js';
+import CreateDialog from './Createdialog';
+import EditDialog from './Editdialog';
+import Viewdialog from './Viewdialog';
+
+
 @inject("NavModel")
 @observer
-
 export default class Labour extends React.Component {
 
 	constructor(props, context) {
@@ -150,26 +150,88 @@ openHighSearch = () => {
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
+						<div className="search"> 
+							<input type="text" placeholder="ddd" />
+							<span className="searching">
 
+							</span>
+						</div>							
 					</div>
 					<div className="right">
 						<div className="header">
-							<div className="title">
+							<span className="title">
+								abc
+								<span className="title-list">
+									<span className="top-square">
+
+									</span>
+									<span className="item">
+										asdf
+									</span>
+									<span className="item">
+										asdf
+									</span>
+								</span>
+							</span>
 							
 								<span className="square">
 
 								</span>
+							
+						</div>
+						<div className="center-row">
+							<div className="department">
+								<div className="department-logo">
+
+								</div>
+								<div className="department-name">
+									asfsdf
+								</div>
+								<div className="department-tab-list">
+									<div className="department-tab department-tab-active"> 
+										fsaf
+									</div>
+									<div className="department-tab"> 
+										fsaf
+									</div>
+								</div>
+								
+							</div>
+							<div className="button-group">
+								<Button
+      									label="编辑"
+      									type="button"
+      									onTouchTap={this.onCancel}
+      									height={30}
+      									width={80}
+												backgroundColor='#fcfcfc'
+												labelColor='#666'
+												shadow="no"
+      					/>
+								<div className="btn-center">
+
+								</div>
+								<Button
+      									label="查看"
+      									type="button"
+      									onTouchTap={this.onCancel}
+      									height={30}
+      									width={80}
+												backgroundColor='#F5F6FA'
+												labelColor='#666'
+												shadow="no"
+      					/>
 							</div>
 						</div>
-					</div>
-					<Grid style={{marginBottom:22,marginTop:2}}>
+					
+					<Grid style={{marginBottom:14,marginTop:14}}>
 						<Row>
 						<Col md={4} align="left" >
-								<Button label="新建" type="button" operateCode="sso_appVersion_new" onClick={this.openCreateDialog} width={70} height={26} fontSize={14}/>
+								<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}/>
 						</Col>
 						<Col md={8} align="right">
 							<div className="u-search">
-									<SearchForm onSubmit={this.searchParams} openSearch={this.openHighSearch} />
+									<SearchForm onSubmit={this.searchParams} />
 							</div>
 						</Col>
 					  </Row>
@@ -247,6 +309,7 @@ openHighSearch = () => {
       </TableBody>
       <TableFooter></TableFooter>
     </Table>
+		</div>
         <Dialog 
             title="新建机构维度" 
             modal={true} 

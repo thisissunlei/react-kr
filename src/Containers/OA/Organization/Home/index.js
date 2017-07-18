@@ -106,13 +106,13 @@ export default class Home extends React.Component {
 	}
 updateData=()=>{
 		  var _this = this;
-			Http.request('dim-list', {
+			// Http.request('dim-list', {
 
-      },{}).then(function(response) {
-          _this.setState({dimension: response.items},function(){
+      // },{}).then(function(response) {
+      //     _this.setState({dimension: response.items},function(){
     
-          })
-      }).catch(function(err) {});
+      //     })
+      // }).catch(function(err) {});
     
 	}
   render() {
