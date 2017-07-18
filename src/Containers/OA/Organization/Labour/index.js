@@ -51,7 +51,7 @@ export default class Labour extends React.Component {
 			openViewDialog:false,
 		}
 	}
-    componentDidMount(){
+  componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.setSidebar(false);
 	}
@@ -148,8 +148,20 @@ openHighSearch = () => {
 		let {itemDetail} = this.state;
 
 		return (
-			<div className="g-applogin-list">
-				<Section title="APP版本管理" >
+			<div className="g-oa-labour">
+					<div className="left">
+
+					</div>
+					<div className="right">
+						<div className="header">
+							<div className="title">
+							
+								<span className="square">
+
+								</span>
+							</div>
+						</div>
+					</div>
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
 						<Col md={4} align="left" >
@@ -235,7 +247,6 @@ openHighSearch = () => {
       </TableBody>
       <TableFooter></TableFooter>
     </Table>
-  </Section>
         <Dialog 
             title="新建机构维度" 
             modal={true} 
