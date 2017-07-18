@@ -205,7 +205,7 @@ export default class InService  extends React.Component{
 						title="提示"
 						onClose={this.cancelLeave}
 						open={this.state.openLeave}
-						contentStyle ={{ width: '444px',height:'190px'}}
+						contentStyle ={{ width: '630px',height:'355px'}}
 					>
 					<Leave
 					   onCancel={this.cancelLeave}

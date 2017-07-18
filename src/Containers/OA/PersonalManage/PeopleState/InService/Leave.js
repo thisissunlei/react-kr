@@ -4,10 +4,12 @@ import {
     Col,
     Row,
     ButtonGroup,
-    Button
+    Button,
+    KrField
 } from 'kr-ui';
+import {reduxForm}  from 'redux-form';
 
-export default class Leave extends React.Component{
+ class Leave extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -25,12 +27,21 @@ export default class Leave extends React.Component{
 
 
 	render(){
+        let {handleSubmit}=this.props;
 
 		return(
 
-			<div>
-               <p style={{textAlign:'center',color:'#000',fontSize:'16px',marginTop:'25px'}}>确定离职吗？</p>
-			   <Grid style={{marginTop:25}}>
+			<div style={{marginTop:'35px'}}>
+             <form onSubmit={handleSubmit(this.onSubmit)}>
+              <KrField grid={1/2}
+                            style={{width:262,marginLeft:28}}
+                            name="area"
+                            component="select"
+                            label="离职类型"
+                            requireLabel={true}
+				/>
+               <KrField grid={1} label="离职原因" name="arround" heightStyle={{height:"78px",width:'500px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517,marginLeft:'28px'}} lengthClass='list-len-textarea'/>
+			   <Grid>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
@@ -40,9 +51,16 @@ export default class Leave extends React.Component{
                                 </Col>
                             </Row>
                 </Grid>
+              </form>
 			</div>
 		);
 	}
-
 }
 
+const validate = values =>{
+	const errors = {};
+    
+	return errors
+}
+
+export default reduxForm({ form: 'Leave',validate})(Leave);

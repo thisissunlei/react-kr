@@ -43,67 +43,83 @@ class AddPerson  extends React.Component{
                             style={{width:262}}
                             name="area"
                             component="input"
-                            label="编号"
-                            requireLabel={true}
-						/>
-                        <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
-                            name="area"
-                            component="input"
                             label="姓名"
                             requireLabel={true}
 						/>
-
-                         <KrField grid={1/2} style={{width:262}} name="enable" component="group" label="性别" requireLabel={true}>
+                       
+                         <KrField grid={1/2} style={{width:262,marginLeft:28}} name="enable" component="group" label="性别" requireLabel={true}>
  							 <KrField name="enable" label="男" type="radio" value='1' />
  							 <KrField name="enable" label="女" type="radio" value='0' />
  						</KrField>
 
-                         {/*部门和职位*/}
+                          <KrField grid={1/2}
+                            style={{width:262}}
+                            name="area"
+                            component="input"
+                            label="手机号"
+                            requireLabel={true}
+						/>
+
+
+                        
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="input"
-                            label="姓名"
+                            label="人员编号"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="area"
                             component="input"
-                            label="姓名"
+                            label="部门"
                             requireLabel={true}
 						/>
-                         {/*部门和职位*/}
+                        
 
                         <KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
 								name="floor"
 								component="select"
-								label="员工属性"
+								label="直接上级"
 							 	requireLabel={true}
-							 	//options={}
 						 />
 
                          <KrField grid={1/2}
                             style={{width:262}}
                             name="area"
                             component="input"
-                            label="身份证"
+                            label="职务"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="input"
-                            label="手机号"
+                            label="职级"
+                            requireLabel={true}
+						/>
+
+                         <KrField grid={1/2}
+                            style={{width:262}}
+                            name="area"
+                            component="date"
+                            label="入职时间"
+                            requireLabel={true}
+						/>
+                        <KrField grid={1/2}
+                            style={{width:262,marginLeft:28}}
+                            name="area"
+                            component="select"
+                            label="员工属性"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="area"
-                            component="input"
-                            label="工资卡号"
+                            component="select"
+                            label="员工类别"
                             requireLabel={true}
 						/>
 
