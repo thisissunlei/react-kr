@@ -158,6 +158,6 @@ module.exports = {
 	CheckPermission,
 	TextLabel,
 	Tree,
-	SliderTree
+	SliderTree,
 	TabsControl,
 }
