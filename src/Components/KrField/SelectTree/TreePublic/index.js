@@ -5,10 +5,15 @@ import Tree, { TreeNode }from '../../../Tree'
 export default class TreePublic extends React.Component{
 	constructor(props,context){
 		super(props,context)
-		console.log(mockData,"LLLLL")
 	}
 
+	onCheck = (checkedKeys) =>{
+		console.log(checkedKeys,"??????")
+	}
 
+	onSelect = (selectedKeys, info) =>{
+		console.log('onSelect', selectedKeys, info);
+	}
 	render(){
         const {title} = this.props;
 		const loop = data => {
@@ -26,7 +31,8 @@ export default class TreePublic extends React.Component{
             <div>
              	<Tree
 				    checkable 
-					multiple={this.props.multiple}
+					onCheck={this.onCheck}
+					onSelect={this.onSelect}
 				>
 					{treeNodes}
 				</Tree>
