@@ -57,12 +57,8 @@ import Nothing from './Nothing';
 import PlanMapAll from './PlanMapAll';
 import ToTop from './ToTop';
 import Tree from './Tree';
-<<<<<<< HEAD
 import SliderTree from './SliderTree'
-=======
 import TabsControl from './TabsControl';
-
->>>>>>> e6343932973b78f1cb8d68d7a794e1c3698df6ec
 import {
 	Grid,
 	Row,
@@ -162,9 +158,6 @@ module.exports = {
 	CheckPermission,
 	TextLabel,
 	Tree,
-<<<<<<< HEAD
 	SliderTree
-=======
 	TabsControl,
->>>>>>> e6343932973b78f1cb8d68d7a794e1c3698df6ec
 }
