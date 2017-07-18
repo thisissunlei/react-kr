@@ -157,8 +157,6 @@ export default class PostList extends Component{
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
-				onExport={this.onExport}
-				exportSwitch={true}
 			>
 				<TableHeader>
 					<TableHeaderColumn>职务名称</TableHeaderColumn>

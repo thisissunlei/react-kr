@@ -161,6 +161,7 @@ export default class RankList extends Component{
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>
+				<TableFooter></TableFooter>
            </Table>
 		  </Section>
 
