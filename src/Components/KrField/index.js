@@ -58,6 +58,7 @@ import SearchOrderCommunity from './SearchOrderCommunity';
 import ActivityCommunityList from './ActivityCommunityList';
 import SearchCityCommunity from './SearchCityCommunity';
 import ChangeUploadImageComponent from './ChangeUploadImageComponent';
+import SelectTime from './SelectTime';
 class FieldRevert extends React.Component {
 
 		static propTypes = {
@@ -260,6 +261,11 @@ class FieldRevert extends React.Component {
 			if (component === 'selectTime') {
 				return (
 					<FieldRevert {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			if (component === 'timeSelect') {
+				return (
+					<FieldRevert {...this.props} component={SelectTime}  style={WrapStyles} {...other}/>
 				);
 			}
 
