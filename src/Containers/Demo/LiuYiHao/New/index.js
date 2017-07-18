@@ -1,15 +1,9 @@
 import React from 'react';
 import {
-	PlanMap
+	KrField
 } from 'kr-ui';
-import Original from './Original';
-
-import {
-
-PlanMapContent
-
-} from 'kr/PureComponents';
-export default class New extends React.Component {
+import {reduxForm} from 'redux-form';
+class New extends React.Component {
 
 
 	constructor(props, context) {
@@ -28,10 +22,17 @@ export default class New extends React.Component {
 	render() {
 		return (
 			<div style = {{height:2000}}>
-					
-					
+				<KrField
+					grid={1}
+					style={{width:262,display:'block'}}
+					name="area"
+					component="selectTree"
+					label="职务类型名称"
+					requireLabel={true}
+				/>
 			</div>
 
 		);
 	}
 }
+export default reduxForm({ form: 'New'})(New);
