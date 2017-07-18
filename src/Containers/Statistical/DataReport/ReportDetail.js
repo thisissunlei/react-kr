@@ -41,7 +41,7 @@ export default class ReportDetail extends React.Component{
 			where.push(`${item}=${searchParams[item]}`);
 			}
 		}
-		var url = `http://optest02.krspace.cn/api/krspace-finance-web/csr/source/stat/export/type/sign?${where.join('&')}`
+		var url = `http://op.krspace.cn/api/krspace-finance-web/csr/source/stat/export/type/sign?${where.join('&')}`
 		window.location.href = url;
 	}
 
@@ -60,7 +60,7 @@ export default class ReportDetail extends React.Component{
 			where.push(`${item}=${searchParams[item]}`);
 			}
 		}
-		var url = `http://optest02.krspace.cn/api/krspace-finance-web/csr/source/stat/export/type/add?${where.join('&')}`
+		var url = `http://op.krspace.cn/api/krspace-finance-web/csr/source/stat/export/type/add?${where.join('&')}`
 		window.location.href = url;
 	}
     

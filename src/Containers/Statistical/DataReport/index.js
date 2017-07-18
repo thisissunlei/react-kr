@@ -61,7 +61,7 @@ export default class DataReport extends React.Component {
 			where.push(`${item}=${searchParams[item]}`);
 			}
 		}
-		var url = `http://optest02.krspace.cn/api/krspace-finance-web/csr/source/stat/export/type/list?${where.join('&')}`
+		var url = `http://op.krspace.cn/api/krspace-finance-web/csr/source/stat/export/type/list?${where.join('&')}`
 		window.location.href = url;
 	}
 	

@@ -38,7 +38,6 @@ module.exports = {
     url: '/api/krspace-finance-web/stat/merchant/data/customer?endDate={endDate}&startDate={startDate}',
     method: 'get'
  },
-
    //招商数据统计-导出
  'already-export':{
     url: '/api/krspace-finance-web/stat/merchant/data/customer/export?groupId={groupId}&endDate={endDate}&startDate={startDate}',
@@ -66,8 +65,6 @@ module.exports = {
     url: '/api/krspace-finance-web/finance/explan?customerId={customerId}&corporationId={corporationId}&dayType={dayType}&communityId={communityId}&end={end}&endDate={endDate}',
     method: 'get'
   },
-
-
   // 数据统计-账龄分析-高级查询主体准备数据
   'getMainbody':{
     url: '/api/krspace-finance-web/fna-corporation-list',
