@@ -10,7 +10,7 @@ import {
 import {reduxForm}  from 'redux-form';
 import './index.less';
 
-class AddPostType  extends React.Component{
+class EditPostType  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -35,7 +35,7 @@ class AddPostType  extends React.Component{
 			<div className='m-add-post'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon"></span><label className="title-text">新建职务类型</label></div>
+                            <div><span className="new-icon"></span><label className="title-text">编辑职务类型</label></div>
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 
@@ -51,6 +51,14 @@ class AddPostType  extends React.Component{
                             name="area"
                             component="input"
                             label="编码"
+                            requireLabel={true}
+						/>
+
+                        <KrField grid={1}
+                            style={{width:262}}
+                            name="area"
+                            component="input"
+                            label="排序号"
                             requireLabel={true}
 						/>
 
@@ -79,4 +87,4 @@ const validate = values =>{
 	return errors
 }
 
-export default reduxForm({ form: 'AddPostType',validate})(AddPostType);
+export default reduxForm({ form: 'EditPostType',validate})(EditPostType);

@@ -1,9 +1,4 @@
 import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
-
 import {
 	KrField,
 	Table,
@@ -27,19 +22,34 @@ import {
 	Message,
 	Section
 } from 'kr-ui';
+import AddPostType from './AddPostType';
+import EditPostType from './EditPostType';
+import DeletePost from './DeletePost';
+
 export default class PostType extends Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			openPostType:false
+			openPostType:false,
+			openEditType:false,
+			openDelete:false
 		}
 	}
 
 
-	onExport = () =>{
-
+	onOperation=(type,itemDetail)=>{
+		if(type=='edit'){
+			this.setState({
+			  openEditType:true	
+			})
+		}else if(type=='delete'){
+			this.setState({
+			  openDelete:true	
+			})
+		}
 	}
+
 
 	//搜索确定
 	onSearchSubmit = ()=>{
@@ -52,15 +62,49 @@ export default class PostType extends Component{
 		  openPostType:!this.state.openPostType
 	  })
 	}
-	
-	//关闭所有侧滑
-	allClose = () =>{
+
+	//新建职务类型提交
+	addPostSubmit=()=>{
 
 	}
+	
+	//编辑职务类型关闭
+	openEditPost=()=>{
+       this.setState({
+		  openEditType:!this.state.openEditType
+	  })
+	}
+
+    //编辑职务类型提交
+	editPostSubmit=()=>{
+       
+	}
+
+
+	//关闭所有侧滑
+	allClose = () =>{
+       this.setState({
+		  openEditType:false,
+		  openPostType:false
+	  })
+	}
+
+   //删除关闭
+   cancelDelete=()=>{
+     this.setState({
+		 openDelete:!this.state.openDelete
+	 })
+   }
+
+   //删除提交
+   deleteSubmit=()=>{
+     
+   }
+    
 
 	render(){
 		return(
-      	<div className="oa-post-type" style={{paddingTop:25}}>
+      	<div className="oa-post-type">
 		    <Section title="职务类型" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 
@@ -124,10 +168,41 @@ export default class PostType extends Component{
 					open={this.state.openPostType}
 					width={750}
 					openSecondary={true}
+					onClose={this.allClose}
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 				>
-				
+			  <AddPostType 
+			    onSubmit={this.addPostSubmit}
+				onCancel={this.openAddPost}
+			  />
 			</Drawer>
+
+			{/*编辑职务*/}
+			<Drawer
+					open={this.state.openEditType}
+					width={750}
+					openSecondary={true}
+					onClose={this.allClose}
+					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+				>
+			  <EditPostType 
+			    onSubmit={this.editPostSubmit}
+				onCancel={this.openEditPost}
+			  />
+			</Drawer>
+
+			{/*删除*/}
+			<Dialog
+				title="提示"
+				onClose={this.cancelDelete}
+				open={this.state.openDelete}
+				contentStyle ={{ width: '444px',height:'190px'}}
+			>
+			<DeletePost
+				onCancel={this.cancelDelete}
+				onSubmit={this.deleteSubmit}  	
+			/>
+			</Dialog>
         </div>
 		);
 	}
