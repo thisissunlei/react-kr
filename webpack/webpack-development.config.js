@@ -12,39 +12,41 @@ const node_modules_dir = path.join(process.cwd(), 'node_modules');
 
 var env = process.env.NODE_ENV || 'development';
 
-console.log('=== 所在环境 ===\n', env, Envs.test);
-
 const config = {
 	entry: {
 		page_app: [
-			'webpack/hot/dev-server',
-			'webpack/hot/only-dev-server',
 			path.join(process.cwd(), '/src/Page/App/index.js'),
 		],
 		page_login: path.join(process.cwd(), '/src/Page/Login/index.js')
 	},
 	resolve: {
 		extensions: ['', '.js', '.less', '.png', '.jpg', '.svg'],
+		root:[
+			path.resolve(node_modules_dir)
+		],
+		modulesDirectories: ['node_modules'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
-			'redux': path.join(node_modules_dir, 'redux'),
-			'react-redux': path.join(node_modules_dir, 'react-redux'),
+			'react-dom':path.join(node_modules_dir,'/react-dom/dist/react-dom.min'),
+			'react-redux': path.join(node_modules_dir, '/react-redux/dist/react-redux.min'),
+			'react-select':path.join(node_modules_dir,'/react-select/dist/react-select.min'),
+			'redux':path.join(node_modules_dir,'/redux/dist/redux.min'),
+			'redux-from':path.join(node_modules_dir,'/redux-form/redux-form.min'),
 			'mobx': path.join(node_modules_dir, 'mobx'),
 			'mobx-react': path.join(node_modules_dir, 'mobx-react'),
 			'react-router': path.join(node_modules_dir, 'react-router'),
-			'material-ui': path.join(node_modules_dir, 'material-ui'),
+			'material-ui': path.join(node_modules_dir, '/material-ui'),
 			'lodash': path.join(node_modules_dir, 'lodash')
 		},
 	},
 	devServer: {
 		contentBase: buildPath,
 		devtool: 'eval',
-		hot: true,
 		inline: true,
 		port: 8001,
 		outputPath: buildPath,
-		 disableHostCheck: true,
+		disableHostCheck: true,
 		proxy: {
 			'/api': {
 				target: Envs[process.env.NODE_ENV],
@@ -61,7 +63,7 @@ const config = {
 		chunkFilename: 'scripts/[name].js',
 		publicPath: "/"
 	},
-	noParse: ['/node_modules/'],
+
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new HappyPack({
@@ -88,7 +90,7 @@ const config = {
 			template: './src/Page/Login/index.template.html',
 			excludeChunks: ['page_app'],
 			inject: 'body',
-			cache: false,
+			cache: true,
 			showErrors: true,
 		}),
 		new CopyWebpackPlugin([
@@ -98,6 +100,7 @@ const config = {
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
+		noParse: ['/node_modules/'],
 		/*
 		preLoaders: [
      {
@@ -135,7 +138,7 @@ const config = {
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
-				loader: 'file?name=[name].[ext]?[hash]'
+				loader: 'file?name=[name].[ext]'
 			},
 			{
 				test: /\.eot/,
