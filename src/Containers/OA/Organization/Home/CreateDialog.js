@@ -55,15 +55,7 @@ class CreateDialog extends React.Component {
                     placeholder="机构维度"
                     requireLabel={true}
                 />
-                <KrField
-                    style={{width:262}}
-                    inline={false}
-                    label="排序"
-                    component="input"
-                    name="sort"
-                    placeholder="排序号"
-                    requireLabel={true}
-                />
+                
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
       						<ButtonGroup>

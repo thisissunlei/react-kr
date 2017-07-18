@@ -28,9 +28,12 @@ export default class Button extends React.Component {
 		 *自定义样式名称
 		 */
 		className: React.PropTypes.string,
+		//oa阴影
+		shadow: React.PropTypes.string,
 		/**
 		 *子元素
 		 */
+		
 		children: React.PropTypes.node,
 		/**
 		 *行内样式
@@ -118,6 +121,7 @@ export default class Button extends React.Component {
 			linkTrue,
 			operateCode,
 			menusCode,
+			shadow,
 			...other
 			
 		} = this.props;
@@ -136,11 +140,19 @@ export default class Button extends React.Component {
 			// border:'1px solid #499df1',
 			// borderRadius:4,
 		};
-		let divStyle = {
-			boxShadow: "0 2px 8px rgba(134,174,214,.7)",
-			border:border,
-			borderRadius:4,
+		if (shadow=='no') {
+			var divStyle = {
+				border:'1px solid #E7E7E7',
+				borderRadius:4,
+			}
+			
+		}else{
+			var divStyle = {
+				border:'1px solid #E7E7E7',
+				borderRadius:4,
+			}
 		}
+		
 		let labelStyle={
 			padding:0,
 			fontSize:fontSize|| 14

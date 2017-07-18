@@ -34,80 +34,50 @@ class EditPostList  extends React.Component{
 
 			<div className='oa-post-list'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-                      <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon"></span><label className="title-text">新增用户</label></div>
-                            <div className="person-close" onClick={this.onCancel}></div>
-                      </div>
 
-                       <KrField grid={1/2}
-                            style={{width:262}}
+                      <KrField 
+                            grid={1}
+                            style={{width:262,display:'block'}}
                             name="area"
                             component="input"
-                            label="编号"
+                            label="职务名称"
                             requireLabel={true}
 						/>
-                        <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
+                        <KrField
+                            grid={1}
+                            style={{width:262,display:'block'}}
                             name="area"
                             component="input"
-                            label="姓名"
+                            label="编码"
                             requireLabel={true}
 						/>
 
-                         <KrField grid={1/2} style={{width:262}} name="enable" component="group" label="性别" requireLabel={true}>
- 							 <KrField name="enable" label="男" type="radio" value='1' />
- 							 <KrField name="enable" label="女" type="radio" value='0' />
+                         <KrField style={{width:262,display:'block'}} name="enable" component="group" label="是否启用" requireLabel={true}>
+ 							 <KrField name="enable" label="启用" type="radio" value='1' />
+ 							 <KrField name="enable" label="不启用" type="radio" value='0' />
  						</KrField>
 
-                         {/*部门和职位*/}
-                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
+                          <KrField
+                            grid={1}
+                            style={{width:262,display:'block'}}
                             name="area"
                             component="input"
-                            label="姓名"
-                            requireLabel={true}
-						/>
-                        <KrField grid={1/2}
-                            style={{width:262}}
-                            name="area"
-                            component="input"
-                            label="姓名"
-                            requireLabel={true}
-						/>
-                         {/*部门和职位*/}
-
-                        <KrField grid={1/2}
-								style={{width:262,marginLeft:28}}
-								name="floor"
-								component="select"
-								label="员工属性"
-							 	requireLabel={true}
-							 	//options={}
-						 />
-
-                         <KrField grid={1/2}
-                            style={{width:262}}
-                            name="area"
-                            component="input"
-                            label="身份证"
-                            requireLabel={true}
-						/>
-                        <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
-                            name="area"
-                            component="input"
-                            label="手机号"
-                            requireLabel={true}
-						/>
-                        <KrField grid={1/2}
-                            style={{width:262}}
-                            name="area"
-                            component="input"
-                            label="工资卡号"
+                            label="排序"
                             requireLabel={true}
 						/>
 
-                        <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
+                         <KrField
+                            grid={1}
+                            style={{width:262,display:'block'}}
+                            name="area"
+                            component="select"
+                            label="职务类型名称"
+                            requireLabel={true}
+						/>
+
+                         <KrField grid={1} label="描述" name="arround" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+
+                        <Grid style={{marginBottom:5,marginLeft:-50}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
