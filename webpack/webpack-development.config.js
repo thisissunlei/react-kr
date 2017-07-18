@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
 const buildPath = path.join(process.cwd(), 'dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -12,7 +13,7 @@ const node_modules_dir = path.join(process.cwd(), 'node_modules');
 
 var env = process.env.NODE_ENV || 'development';
 
-const config = {
+const webpackConfigs = {
 	entry: {
 		page_app: [
 			path.join(process.cwd(), '/src/Page/App/index.js'),
@@ -100,7 +101,14 @@ const config = {
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
-		noParse: ['/node_modules/'],
+		noParse: [
+			'/node_modules/',
+			path.join(node_modules_dir,'/react-dom/dist/react-dom.min'),
+			path.join(node_modules_dir, '/react-redux/dist/react-redux.min'),
+			path.join(node_modules_dir,'/react-select/dist/react-select.min'),
+			path.join(node_modules_dir,'/redux/dist/redux.min'),
+			path.join(node_modules_dir,'/redux-form/redux-form.min'),	
+		],
 		/*
 		preLoaders: [
      {
@@ -168,4 +176,4 @@ const config = {
 	},
 };
 
-module.exports = config;
+module.exports = webpackConfigs;
