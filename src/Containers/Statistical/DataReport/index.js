@@ -111,7 +111,7 @@ export default class DataReport extends React.Component {
 						title="报表明细"
 						onClose={this.detailClick}
 						open={this.state.openReportDetail}
-						contentStyle ={{ width: '85%',height:'650px',overflowY:'scroll'}}
+						contentStyle ={{ width: '85%',height:'600px',overflowY:'scroll'}}
 					>
 						<ReportDetail 
 						/>
