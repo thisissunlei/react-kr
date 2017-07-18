@@ -1,9 +1,4 @@
 import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
-
 import {
 	KrField,
 	Table,
@@ -22,59 +17,112 @@ import {
     ListGroup,
     ListGroupItem,
     SearchForms,
-	Drawer,
 	Tooltip,
 	Message,
-	CheckPermission
+	Section
 } from 'kr-ui';
+import AddPostType from './AddPostType';
+import EditPostType from './EditPostType';
+import DeletePost from './DeletePost';
+
 export default class RankList extends Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			searchParams : {},
+			openPostType:false,
+			openEditType:false,
+			openDelete:false
 		}
 	}
 
 
-	onExport = () =>{
-
+	onOperation=(type,itemDetail)=>{
+		if(type=='edit'){
+			this.setState({
+			  openEditType:true	
+			})
+		}else if(type=='delete'){
+			this.setState({
+			  openDelete:true	
+			})
+		}
 	}
+
 
 	//搜索确定
 	onSearchSubmit = ()=>{
+       
+	}
+	
+	//新建职务类型
+	openAddPost=()=>{
+      this.setState({
+		  openPostType:!this.state.openPostType
+	  })
+	}
+
+	//新建职务类型提交
+	addPostSubmit=()=>{
 
 	}
 	
-	
+	//编辑职务类型关闭
+	openEditPost=()=>{
+       this.setState({
+		  openEditType:!this.state.openEditType
+	  })
+	}
+
+    //编辑职务类型提交
+	editPostSubmit=()=>{
+       
+	}
+
+
 	//关闭所有侧滑
 	allClose = () =>{
-
+       this.setState({
+		  openEditType:false,
+		  openPostType:false
+	  })
 	}
+
+   //删除关闭
+   cancelDelete=()=>{
+     this.setState({
+		 openDelete:!this.state.openDelete
+	 })
+   }
+
+   //删除提交
+   deleteSubmit=()=>{
+     
+   }
+    
 
 	render(){
 		return(
-      	<div className="oa-leave-position" style={{paddingTop:25}}>
-		
+      	<div className="oa-post-type">
+		    <Section title="职级管理" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
-			        
+
 				<Col
-					align="right" 
-					style={{
-							marginTop:0,
-							float:"right",
-							marginRight:-10
-						   }}
+					style={{float:'left'}}
 				>
-					<ListGroup>
-						<ListGroupItem>
-							<SearchForms 
-								placeholder='请输入姓名' 
-								onSubmit={this.onSearchSubmit}
-							/>
-						</ListGroupItem>
-					</ListGroup>
+					<Button
+							label="新建职级"
+							type='button'
+							onTouchTap={this.openAddPost}
+					/>
 				</Col>
+			        
+					<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
+								<ListGroup>
+									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入姓名' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
+								</ListGroup>
+					</Col>
+
 	        </Row>
 
 
@@ -82,22 +130,21 @@ export default class RankList extends Component{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
-	            displayCheckbox={true}
+	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='shareCustomers'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
-				onExport={this.onExport}
-				exportSwitch={true}
 			>
 				<TableHeader>
-					<TableHeaderColumn>部门</TableHeaderColumn>
-					<TableHeaderColumn>姓名</TableHeaderColumn>
-					<TableHeaderColumn>人员编码</TableHeaderColumn>
-					<TableHeaderColumn>职位</TableHeaderColumn>
-					<TableHeaderColumn>入职时间</TableHeaderColumn>
+					<TableHeaderColumn>职级名称</TableHeaderColumn>
+					<TableHeaderColumn>编码</TableHeaderColumn>
 					<TableHeaderColumn>状态</TableHeaderColumn>
-
+					<TableHeaderColumn>职级描述</TableHeaderColumn>
+					<TableHeaderColumn>排序号</TableHeaderColumn>
+					<TableHeaderColumn>操作人</TableHeaderColumn>
+					<TableHeaderColumn>操作时间</TableHeaderColumn>
+					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >
 					<TableRow>
@@ -107,10 +154,55 @@ export default class RankList extends Component{
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
+						<TableRowColumn name="receiveName"></TableRowColumn>
+						<TableRowColumn type="operation">
+                            <Button label="编辑"  type="operation"  operation="edit"/>
+			                <Button label="删除"  type="operation"  operation="delete" />
+			            </TableRowColumn>
 					</TableRow>
 				</TableBody>
 				<TableFooter></TableFooter>
            </Table>
+		  </Section>
+
+		  {/*新建职务*/}
+			<Dialog
+					title="新建职级"
+					onClose={this.openAddPost}
+					open={this.state.openPostType}
+					contentStyle ={{ width: '630px',height:'500px'}}
+				>
+			  <AddPostType 
+			    onSubmit={this.addPostSubmit}
+				onCancel={this.openAddPost}
+			  />
+			</Dialog>
+
+			{/*编辑职务*/}
+			<Dialog
+					title="编辑职级"
+					onClose={this.openEditPost}
+					open={this.state.openEditType}
+					contentStyle ={{ width: '630px',height:'500px'}}
+				>
+			  <EditPostType 
+			    onSubmit={this.editPostSubmit}
+				onCancel={this.openEditPost}
+			  />
+			</Dialog>
+
+			{/*删除*/}
+			<Dialog
+				title="提示"
+				onClose={this.cancelDelete}
+				open={this.state.openDelete}
+				contentStyle ={{ width: '444px',height:'190px'}}
+			>
+			<DeletePost
+				onCancel={this.cancelDelete}
+				onSubmit={this.deleteSubmit}  	
+			/>
+			</Dialog>
         </div>
 		);
 	}
