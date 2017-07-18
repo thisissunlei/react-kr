@@ -25,8 +25,12 @@ import {
 	Drawer,
 	Tooltip,
 	Message,
+	Section,
 	CheckPermission
 } from 'kr-ui';
+import AddPostList from './AddPostList';
+import EditPostList from './EditPostList';
+import Delete from './Delete';
 export default class PostList extends Component{
 
 	constructor(props,context){
@@ -86,11 +90,34 @@ export default class PostList extends Component{
 		this.allConfig.openDel = false;
 		this.isRender();
 	}
-
-	render(){
-		return(
-      	<div className="basic-post-list" style={{paddingTop:25,background:"#fff"}}>
+	//新建确定
+	addSubmit = (values) =>{
 		
+	}
+	//编辑确定
+	editSubmit = () =>{
+
+	}
+	//删除按钮确定t
+	delSubmit = () =>{
+
+	}
+	//相关操作
+	onOperation = (type, itemDetail) =>{
+		if(type == "edit"){
+			this.editSwidth();
+
+		}else if(type == "del"){
+			this.delSwidth();
+
+		}
+
+	}
+	render(){
+		const {openNew,openEdit,openDel} = this.allConfig;
+		return(
+      	<div className="basic-post-list" style={{padding:25}}>
+		  	<Section title="职务列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 			    <Col
 					style={{float:'left'}}
@@ -98,7 +125,7 @@ export default class PostList extends Component{
 					<Button
 							label="新建用户"
 							type='button'
-							onTouchTap={this.openAddPersonal}
+							onTouchTap={this.newSwidth}
 					/>
 				</Col>
 				<Col
@@ -134,12 +161,13 @@ export default class PostList extends Component{
 				exportSwitch={true}
 			>
 				<TableHeader>
-					<TableHeaderColumn>部门</TableHeaderColumn>
-					<TableHeaderColumn>姓名</TableHeaderColumn>
-					<TableHeaderColumn>人员编码</TableHeaderColumn>
-					<TableHeaderColumn>职位</TableHeaderColumn>
-					<TableHeaderColumn>入职时间</TableHeaderColumn>
+					<TableHeaderColumn>职务类型</TableHeaderColumn>
+					<TableHeaderColumn>编码</TableHeaderColumn>
 					<TableHeaderColumn>状态</TableHeaderColumn>
+					<TableHeaderColumn>排序号</TableHeaderColumn>
+					<TableHeaderColumn>职务类型名称</TableHeaderColumn>
+					<TableHeaderColumn>操作人</TableHeaderColumn>
+					<TableHeaderColumn>更新时间</TableHeaderColumn>
 
 				</TableHeader>
 				<TableBody >
@@ -150,10 +178,53 @@ export default class PostList extends Component{
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
+						<TableRowColumn type="operation">
+							<Button label="编辑"  type="operation"  operation="edit" />
+							<Button label="删除"  type="operation"  operation="del" />
+						</TableRowColumn>
 					</TableRow>
 				</TableBody>
 				<TableFooter></TableFooter>
            </Table>
+		   {/*新建用户*/}
+			<Drawer
+				open={openNew}
+				width={750}
+				openSecondary={true}
+				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+			>
+				<AddPostList
+					onCancel={this.newSwidth}
+					onSubmit={this.addSubmit}
+					onClose = {this.allClose}   
+				/>
+			</Drawer>
+			{/*编辑用户*/}
+			<Drawer
+				open={openEdit}
+				width={750}
+				openSecondary={true}
+				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+				onClose = {this.allClose}
+			>
+				<EditPostList
+					onCancel={this.editSwidth}
+					onSubmit={this.editSubmit}   
+				/>
+			</Drawer>
+			{/*开通门禁*/}
+			<Dialog
+				title="删除职务"
+				onClose={this.delSwidth}
+				open={openDel}
+				contentStyle ={{ width: '444px'}}
+			>
+				<Delete
+					onCancel={this.delSwidth}
+					onSubmit={this.delSubmit}  
+				/>
+			</Dialog>
+			</Section>
         </div>
 		);
 	}
