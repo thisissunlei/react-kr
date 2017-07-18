@@ -35,10 +35,8 @@ export default class Help extends React.Component{
 		return(
 
 			<div>
-				<div className="m-welcome" style={styles}>
-				</div>
-
-						<UpdateLog />
+				<div className="m-welcome" style={styles}> </div>
+				<UpdateLog />
 			</div>
 		);
 
