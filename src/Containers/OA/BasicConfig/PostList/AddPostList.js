@@ -39,14 +39,14 @@ class AddPostList  extends React.Component{
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 
-                       <KrField grid={1/2}
+                       <KrField 
                             style={{width:262}}
                             name="area"
                             component="input"
                             label="职务名称"
                             requireLabel={true}
 						/>
-                        <KrField grid={1/2}
+                        <KrField
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="input"
@@ -54,13 +54,13 @@ class AddPostList  extends React.Component{
                             requireLabel={true}
 						/>
 
-                         <KrField grid={1/2} style={{width:262}} name="enable" component="group" label="是否启用" requireLabel={true}>
+                         <KrField style={{width:262}} name="enable" component="group" label="是否启用" requireLabel={true}>
  							 <KrField name="enable" label="启用" type="radio" value='1' />
  							 <KrField name="enable" label="不启用" type="radio" value='0' />
  						</KrField>
 
                          {/*部门和职位*/}
-                         <KrField grid={1/2}
+                         <KrField
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="input"
