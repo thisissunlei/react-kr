@@ -179,6 +179,7 @@ class CustomerList extends React.Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
+
 			<Title value="客户列表"/>
 
 			<Tabs className="tabs">
