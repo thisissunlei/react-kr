@@ -52,6 +52,7 @@ class EditNewList extends React.Component {
 
 	render() {
 		const { handleSubmit} = this.props;
+		let {itemData} = this.props;
 		
 		return (
 			<div className="new-create-system">
@@ -80,11 +81,12 @@ class EditNewList extends React.Component {
 					 	/>
 					 	<KrField
 							name="code"
-							component="label"
+							component="labelText"
 							label="系统编码"
 							left={20}
 							requireLabel={true}
 							grid={1/2}
+							value={itemData.code}
 							inline={false}
 					 	/>
 					 	<KrField

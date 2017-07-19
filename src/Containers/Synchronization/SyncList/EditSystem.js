@@ -29,6 +29,8 @@ class EditNewList extends React.Component {
 	}
 	componentDidMount(){
 		let {itemData} = this.props;
+		itemData.mainId += '';
+		itemData.systemId +="" ;
 		Store.dispatch(initialize('EditNewList', itemData));
 	}
 	componentWillMount() {
@@ -46,8 +48,9 @@ class EditNewList extends React.Component {
 
 	render() {
 		const { handleSubmit} = this.props;
-		let options = [{label:'1',value:'1'},{label:'12',value:'12'},]
-		
+		let {itemData} = this.props;
+		let {systemList,mainList} = this.props;
+		console.log('edit',systemList,itemData.systemId,itemData.systemName);
 		return (
 			<div className="new-create-system">
 				<div className="u-title-box">
@@ -71,7 +74,7 @@ class EditNewList extends React.Component {
 							style={{marginRight:30,width:280}}
 							requireLabel={true}
 							grid={1/2}
-							options={options}
+							options={mainList}
 
 					 	/>
 					 	<KrField
@@ -82,7 +85,7 @@ class EditNewList extends React.Component {
 							left={20}
 							grid={1/2}
 							requireLabel={true}
-							options={options}
+							options={systemList}
 					 	/>
 	                	<KrField
 								grid={1/2}

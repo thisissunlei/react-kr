@@ -36,12 +36,14 @@ export default class FailList extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state= {
-			searchList:{}
+			searchList:{
+				status:'1'
+			}
 		}
 	}
 	componentDidMount(){
 		let {searchList} = this.props;
-		let value = {status:1};
+		let value = {status:'1'};
 		value = Object.assign({},searchList,value);
 		this.setState({
 			searchList:value
@@ -51,7 +53,7 @@ export default class FailList extends React.Component {
 		if(this.props.searchList != nextProps.searchList){
 
 			let {searchList} = nextProps;
-			let value = {status:1};
+			let value = {status:'1'};
 			value = Object.assign({},searchList,value);
 			this.setState({
 				searchList:value
@@ -61,14 +63,15 @@ export default class FailList extends React.Component {
 	
 
 	render() {
-		console.log('success',this.state.searchList)
+		console.log('success',this.state.searchList);
+		let {searchList} = this.state;
 		return (
 			<div style={{marginTop:30}}>
 				<Table
 		                  style={{marginTop:20}}
 		                  ajax={true}
-		                  ajaxUrlName='get-news-list'
-		                  ajaxParams={this.state.searchList}
+		                  ajaxUrlName='sync-log-list'
+		                  ajaxParams={searchList}
 		                  onOperation={this.onOperation}
 		                  onPageChange={this.onPageChange}
 		              >

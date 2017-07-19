@@ -30,10 +30,11 @@ import SearchList from './SearchList';
 import FailList from './FailList';
 import SuccessList from './SuccessList';
 import {
-	observer
+	observer,
+	inject
 } from 'mobx-react';
 import './index.less';
-
+@inject("NavModel")
 @observer
 export default class Journal extends React.Component {
 
@@ -43,10 +44,19 @@ export default class Journal extends React.Component {
 	}
 
 	componentDidMount(){
-		let value = {
-			mainpartId:this.props.params.main,
-			systemId:this.props.params.system
+		let {params} = this.props;
+		if(params.main == 'main'){
+			params.main = '';
 		}
+		if(params.system == 'system'){
+			params.system = ''
+		}
+		let value = {
+			mainpartId:params.main,
+			systemId:params.system
+		}
+		const {NavModel} = this.props;
+		NavModel.setSidebar(false);
 		State.searchParams = Object.assign({},State.searchParams,value);
 	}
 
@@ -89,7 +99,7 @@ export default class Journal extends React.Component {
 	render() {
 		let {handleSubmit} = this.props;
 		return (
-			    <div>
+			    <div  style={{minHeight:910}}>
 					<Title value="日志列表"/>
 					<Section title="日志列表"  >
 					<Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>

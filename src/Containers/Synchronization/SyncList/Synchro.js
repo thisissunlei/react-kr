@@ -88,9 +88,9 @@ export default class Synchro extends React.Component {
                 <Button  label="同步" type="submit"  width={60}/>
             </form>
 
-            {!!State.synchroList.length && 
+            {State.result.load && 
             	<div className="m-sync-result">
-            		导入完成【成功：{State.pages.page}条，失败：<span style={{color:'red'}}>{State.pages.page}</span>条】
+            		导入完成【成功：{State.result.success}条，失败：<span style={{color:'red'}}>{State.result.fail}</span>条】
             	</div>
             }
 
@@ -116,7 +116,7 @@ export default class Synchro extends React.Component {
 			        	})}
 				</TableBody>
 			</Table>}
-           {!!State.pages.page && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.pages.totalCount} page={State.pages.page} pageSize={State.pages.pageSize} onPageChange={this.onPageChange}/></div>}
+           {/* !!State.pages.page && <div className='footPage' style={rowFootStyle}><Pagination  totalCount={State.pages.totalCount} page={State.pages.page} pageSize={State.pages.pageSize} onPageChange={this.onPageChange}/></div>*/}
 
 				
 		</div>

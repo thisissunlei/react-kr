@@ -15,8 +15,6 @@ let State = observable({
 		page:1,
 		pageSize:15,
 		name:'',
-		systemId:'',
-		title:''
 	}
 });
 State.setEditSystem = action(function(data){
@@ -29,14 +27,14 @@ State.syncMainPart = action(function(value) {
 	let reload = {
 		time:+new Date()
 	}
-	this.searchParams = Object.assign({},_this.searchParams,reload);
+	
 	this.createSystem = false;
 	this.openEditSystem = false;
 	Http.request('sync-main-part', '',value).then(function(response) {
 		Message.success('提交成功');
-		// _this.searchParams = searchParams;
+		_this.searchParams = Object.assign({},_this.searchParams,reload);
 	}).catch(function(err) {
-		Message.error('提交失败');
+		Message.error(err.message);
 	});
 
 });

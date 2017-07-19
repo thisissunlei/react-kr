@@ -24,7 +24,7 @@ import {
 	CheckPermission
 } from 'kr-ui';
 import State from './State';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {reduxForm,initialize} from 'redux-form';
 // import NewCreateSystem from './NewCreateSystem';
 // import EditSystem from './EditSystem';
@@ -40,6 +40,55 @@ export default class Journal extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		console.log('searchList',this.props.params)
+		this.state = {
+			systemList:[],
+			mainList:[]
+		}
+	}
+
+	componentDidMount(){
+		this.getMainpartList();
+		this.getSystemList();
+		let {params} = this.props;
+		params.mainId += '';
+		params.systemId +="" ;
+		console.log('=======',params);
+		Store.dispatch(initialize('Journal', params));
+	}
+
+	getSystemList=()=>{
+		let _this = this;
+		Http.request('system-select-list',{}).then(function(response) {
+			response = response.map((item)=>{
+				let obj = item;
+				obj.label = item.name;
+				obj.value = item.id + '';
+				return obj
+			})
+			_this.setState({
+				systemList:response
+			})
+		}).catch(function(err) {
+			Message.error('失败');
+		});
+
+	}
+	getMainpartList=()=>{
+		let _this = this;
+		Http.request('main-select-list',{}).then(function(response) {
+			response = response.map((item)=>{
+				let obj = item;
+				obj.label = item.name;
+				obj.value = item.id + '';
+				return obj
+			})
+			_this.setState({
+				mainList:response
+			})
+		}).catch(function(err) {
+			Message.error('失败');
+		});
+
 	}
 
 	openNewCreat=()=>{
@@ -71,11 +120,7 @@ export default class Journal extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel()
 	}
-	componentDidMount(){
-		let {params} = this.props;
-		console.log('=======',params);
-		Store.dispatch(initialize('Journal', params));
-	}
+	
 	componentWillReceiveProps(nextProps) {
 		if(this.props.params != nextProps.params){
 			console.log(nextProps.params)
@@ -85,8 +130,9 @@ export default class Journal extends React.Component {
 	
 
 	render() {
-		let options = [{label:'a',value:'1'},{label:'b',value:'2'},{label:'c',value:'3'},{label:'d',value:'4'},]
+		let options = [{label:'定时',value:'TIMING'},{label:'手动',value:'MANUAL'}]
 		let {handleSubmit} = this.props;
+		let {systemList,mainList} = this.state;
 		return (
 			<div style={{marginTop:30}}>
 			<form className="m-new-create m-new-dialog-create" onSubmit={handleSubmit(this.onSubmit)} >
@@ -96,7 +142,7 @@ export default class Journal extends React.Component {
 						label="同步系统" 
 						grid={1/2}
 						right={34}
-						options={options}  
+						options={systemList}  
 						/>
 					<KrField 
 						grid={1/2}  
@@ -104,7 +150,7 @@ export default class Journal extends React.Component {
 						type="select" 
 						label="同步主体" 
 						right={34}
-						options={options}
+						options={mainList}
 						component="select" />
 					<KrField 
 						grid={1/2}  

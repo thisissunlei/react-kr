@@ -19,7 +19,7 @@ import {
 } from 'kr-ui';
 import {reduxForm,initialize} from 'redux-form';
 import State from './State';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import NewCreateSystem from './NewCreateSystem';
 import EditSystem from './EditSystem';
 import Synchro from './Synchro';
@@ -33,6 +33,49 @@ export default class List extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.state = {
+			systemList:[],
+			mainList:[]
+		}
+	}
+
+	componentDidMount(){
+		this.getMainpartList();
+		this.getSystemList();
+	}
+	getSystemList=()=>{
+		let _this = this;
+		Http.request('system-select-list',{}).then(function(response) {
+			response = response.map((item)=>{
+				let obj = item;
+				obj.label = item.name;
+				obj.value = item.id + '';
+				return obj
+			})
+			_this.setState({
+				systemList:response
+			})
+		}).catch(function(err) {
+			Message.error('失败');
+		});
+
+	}
+	getMainpartList=()=>{
+		let _this = this;
+		Http.request('main-select-list',{}).then(function(response) {
+			response = response.map((item)=>{
+				let obj = item;
+				obj.label = item.name;
+				obj.value = item.id + '';
+				return obj
+			})
+			_this.setState({
+				mainList:response
+			})
+		}).catch(function(err) {
+			Message.error('失败');
+		});
+
 	}
 
 	openNewCreat=()=>{
@@ -48,10 +91,10 @@ export default class List extends React.Component {
 		State.openEditSystem = false;
 	}
 	editSystemSubmit=(values)=>{
+		State.postSync(values);
 		console.log('submit',values)
 	}
 	openSynchro=(item)=>{
-		console.log('openSynchro')
 		State.editData = item;
 		State.openSynchro = true;
 	}
@@ -59,30 +102,32 @@ export default class List extends React.Component {
 		State.openSynchro = false;
 	}
 	NewCreateSubmit=(values)=>{
+		State.postSync(values);
 		console.log('submit',values)
 	}
 	changeToJournal=(value)=>{
 		console.log('change',value)
-		location.href = '/#/Synchronization/journal/'+'2/3';
+		location.href = `/#/Synchronization/journal/${value.mainId}/${value.systemId}`;
 	}
 	changeContent=(person)=>{
 		let value = {
-			mainId:person.value
+			mainId:person.value||''
 		}
 		State.searchParams = Object.assign({},State.searchParams,value);
 	}
 	changeSystem=(person)=>{
 		let value = {
-			systemId:person.value
+			systemId:person.value|| ''
 		}
 		State.searchParams = Object.assign({},State.searchParams,value);
 	}
 	
 
 	render() {
-		let options =[{label:'1',value:'1'},{label:'12',value:'12'},{label:'13',value:'13'},]
+		console.log('3',this.systemList);
+		let {systemList,mainList} = this.state;
 		return (
-			    <div>
+			    <div style={{minHeight:910}}>
 					<Title value="系统订阅列表"/>
 					<Section title="系统订阅列表"  >
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
@@ -94,7 +139,7 @@ export default class List extends React.Component {
 								label="同步主体：  "
 								right={20}
 								inline={true}
-								options={options}
+								options={this.state.mainList}
 								style={{width:210,float:'right'}}
 								onChange={this.changeContent}
 						 	/>
@@ -105,7 +150,7 @@ export default class List extends React.Component {
 								label="同步系统：  "
 								right={20}
 								inline={true}
-								options={options}
+								options={this.state.systemList}
 								style={{width:210,float:'right'}}
 								onChange={this.changeSystem}
 						 	/>
@@ -114,7 +159,7 @@ export default class List extends React.Component {
 						<Table
 		                  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='get-news-list'
+		                  ajaxUrlName='sync-main-system-list'
 		                  ajaxParams={State.searchParams}
 		                  onOperation={this.onOperation}
 		                  onPageChange={this.onPageChange}
@@ -132,7 +177,7 @@ export default class List extends React.Component {
 		              <TableBody>
 		              	<TableRow>
 		              		 <TableRowColumn 
-		              		 	name="title"
+		              		 	name="mainName"
 		              		 	component={(value,oldValue)=>{
 									var TooltipStyle=""
 									if(value.length==""){
@@ -145,7 +190,7 @@ export default class List extends React.Component {
 								 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
-		              		 		name="newsDesc"
+		              		 		name="mainCode"
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -158,11 +203,17 @@ export default class List extends React.Component {
 										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>
-		              		 <TableRowColumn name="publishedStatusName"></TableRowColumn>
-		              		 <TableRowColumn name="stickStatusName"></TableRowColumn>
-		              		 <TableRowColumn name="publishedTime" > </TableRowColumn>
-		              		 <TableRowColumn name="orderNum"></TableRowColumn>
-		              		 <TableRowColumn name="createUser"></TableRowColumn>
+		              		 <TableRowColumn name="systemName"></TableRowColumn>
+		              		 <TableRowColumn name="interfaceAdd"></TableRowColumn>
+		              		 <TableRowColumn name="failures" > </TableRowColumn>
+		              		 <TableRowColumn name="syncTime" 
+		              		 	component={(value,oldValue)=>{
+									 return (<div className='financeDetail-hover'>
+									 	{DateFormat(oldValue.syncTime,'yyyy/mm/dd')}
+
+									 	</div>)
+								 }}></TableRowColumn>
+		              		 <TableRowColumn name="remark"></TableRowColumn>
 		              		 <TableRowColumn name="createUser"
 								component={(value,oldValue,itemData)=>{
 									return(
@@ -186,7 +237,7 @@ export default class List extends React.Component {
 			             onClose={this.NewCreateCancle}
 			             openSecondary={true}
 			           >
-			             <NewCreateSystem onSubmit={this.NewCreateSubmit}  onCancel={this.NewCreateCancle}/>
+			             <NewCreateSystem onSubmit={this.NewCreateSubmit}  onCancel={this.NewCreateCancle} systemList={systemList} mainList={mainList}/>
 			        </Drawer>
 			        <Drawer
 			             modal={true}
@@ -195,7 +246,7 @@ export default class List extends React.Component {
 			             onClose={this.closeEditSystem}
 			             openSecondary={true}
 			           >
-			             <EditSystem onSubmit={this.editSystemSubmit}  onCancel={this.closeEditSystem} itemData={State.editData}/>
+			             <EditSystem onSubmit={this.editSystemSubmit}  onCancel={this.closeEditSystem} itemData={State.editData} systemList={systemList} mainList={mainList}/>
 			        </Drawer>
 			        <Drawer
 			             modal={true}

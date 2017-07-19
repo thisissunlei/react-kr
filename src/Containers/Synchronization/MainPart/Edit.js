@@ -80,7 +80,7 @@ class EditNewList extends React.Component {
 							label="主体编码"
 							right={20}
 							grid={1/2}
-							value={itemData.orderNum}
+							value={itemData.code}
 							requireLabel={true}
 							inline={false}
 					 	/>

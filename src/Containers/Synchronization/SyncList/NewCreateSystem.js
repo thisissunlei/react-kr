@@ -43,7 +43,7 @@ class CreateNewList extends React.Component {
 
 	render() {
 		const { handleSubmit} = this.props;
-		let options = [{label:'1',value:'1'},{label:'12',value:'12'},]
+		let {systemList,mainList} = this.props;
 		
 		return (
 			<div className="new-create-system">
@@ -68,7 +68,7 @@ class CreateNewList extends React.Component {
 							style={{marginRight:30,width:280}}
 							requireLabel={true}
 							grid={1/2}
-							options={options}
+							options={mainList}
 
 					 	/>
 					 	<KrField
@@ -78,7 +78,7 @@ class CreateNewList extends React.Component {
 							label="同步系统"
 							left={20}
 							grid={1/2}
-							options={options}
+							options={systemList}
 							requireLabel={true}
 					 	/>
 	                	<KrField

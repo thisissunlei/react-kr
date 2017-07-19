@@ -24,6 +24,7 @@ let State = observable({
 		page:1,
 		pageSize:15,
 		beginDate:'',
+		status:'0',
 		content:'',
 		endDate:'',
 		mainpartId:'',
@@ -35,24 +36,24 @@ let State = observable({
 
 State.getJournalList = action(function(value) {
 	var _this = this;
-	Http.request('get-news-list', value).then(function(response) {
+	Http.request('sync-log-list', value).then(function(response) {
 		_this.itemsList = response.items;
 		_this.loading = false;
 		_this.pageInfo = response;
 	}).catch(function(err) {
-		Message.error('下线失败');
+		Message.error('获取失败');
 	});
 
 });
 
 State.reload = action(function(ids) {
 	var _this = this;
-	let searchParams = Object.assign(_this.searchParams,{time:+new Date()})
 	Http.request('re-sync','',ids+'').then(function(response) {
+		let searchParams = Object.assign(_this.searchParams,{time:+new Date()})
 		Message.success('同步成功');
 		_this.searchParams = searchParams;
 	}).catch(function(err) {
-		Message.error('同步成功');
+		Message.error(err.message);
 	});
 
 });

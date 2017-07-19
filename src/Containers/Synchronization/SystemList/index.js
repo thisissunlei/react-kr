@@ -39,8 +39,6 @@ export default class List extends React.Component {
 		State.createSystem = false;
 	}
 	openEditSystem=(itemData)=>{
-		itemData.name = 'aaa';
-		itemData.code = '12';
 		State.openEditSystemFn(itemData);
 	}
 	closeEditSystem=()=>{
@@ -85,7 +83,7 @@ export default class List extends React.Component {
 						<Table
 		                  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='get-news-list'
+		                  ajaxUrlName='system-list'
 		                  ajaxParams={State.searchParams}
 		                  onOperation={this.onOperation}
 		                  onPageChange={this.onPageChange}
@@ -101,7 +99,7 @@ export default class List extends React.Component {
 		              <TableBody>
 		              	<TableRow>
 		              		 <TableRowColumn 
-		              		 	name="title"
+		              		 	name="name"
 		              		 	component={(value,oldValue)=>{
 									var TooltipStyle=""
 									if(value.length==""){
@@ -114,7 +112,7 @@ export default class List extends React.Component {
 								 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
-		              		 		name="newsDesc"
+		              		 		name="code"
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -127,9 +125,9 @@ export default class List extends React.Component {
 										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>
-		              		 <TableRowColumn name="publishedStatusName"></TableRowColumn>
-		              		 <TableRowColumn name="stickStatusName"></TableRowColumn>
-		              		 <TableRowColumn name="publishedTime" > </TableRowColumn>
+		              		 <TableRowColumn name="linkman"></TableRowColumn>
+		              		 <TableRowColumn name="phone"></TableRowColumn>
+		              		 <TableRowColumn name="remark" > </TableRowColumn>
 		              		 <TableRowColumn  name="createUser"
 		              		 	component={(value,oldValue,itemData)=>{
 									return (

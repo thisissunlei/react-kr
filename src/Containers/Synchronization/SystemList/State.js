@@ -22,10 +22,10 @@ State.openEditSystemFn = action(function(item) {
 });
 State.submitForm = action(function(value){
 	var _this = this;
-	this.searchParams = object.assign({},{time:+new Date()});
 	Http.request('sync-system',{},value).then(function(response){
 		Message.success('操作成功');
 		_this.openEditSystem = false;
+		_this.searchParams = Object.assign({},_this.searchParams,{time:+new Date()});
 		_this.createSystem = false;
 	}).catch(function(err){
 		Message.error(err.message);

@@ -41,7 +41,6 @@ export default class List extends React.Component {
 		State.createSystem = false;
 	}
 	openEditSystem=(itemData)=>{
-		itemData.name = 'aaa';
 		State.setEditSystem(itemData);
 	}
 	closeEditSystem=()=>{
@@ -55,11 +54,9 @@ export default class List extends React.Component {
 	}
 	onSearch=(values)=>{
 		let value = {
-			title:values.content,
 			name:values.content
 		}
 		State.searchParams = Object.assign({},State.searchParams,value);
-		console.log('onSearch',State.searchParams)
 	}
 	onPageChange=(page)=>{
 		let value = {
@@ -86,7 +83,7 @@ export default class List extends React.Component {
 						<Table
 		                  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='get-news-list'
+		                  ajaxUrlName='sync-list'
 		                  ajaxParams={State.searchParams}
 		                  onOperation={this.onOperation}
 		                  onPageChange={this.onPageChange}
@@ -96,13 +93,14 @@ export default class List extends React.Component {
 		                  <TableHeaderColumn width={160}>编码</TableHeaderColumn>
 		                  <TableHeaderColumn>失败数</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步时间</TableHeaderColumn>
-		                  <TableHeaderColumn>备注</TableHeaderColumn>
+		                  <TableHeaderColumn>最近同步系统</TableHeaderColumn>
+		                  <TableHeaderColumn width={160}>备注</TableHeaderColumn>
 		                  <TableHeaderColumn>操作</TableHeaderColumn>
 		              </TableHeader>
 		              <TableBody>
 		              	<TableRow>
 		              		 <TableRowColumn 
-		              		 	name="title"
+		              		 	name="name"
 		              		 	component={(value,oldValue)=>{
 									var TooltipStyle=""
 									if(value.length==""){
@@ -117,22 +115,34 @@ export default class List extends React.Component {
 								 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
-		              		 		name="newsDesc"
+		              		 		name="code"
 									component={(value,oldValue)=>{
-										var TooltipStyle=""
-										if(value.length==""){
-											TooltipStyle="none"
-
-										}else{
-											TooltipStyle="block";
-										}
-										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
+										 return (<div className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 			</div>)
 									 }}
 		              		 ></TableRowColumn>
-		              		 <TableRowColumn name="publishedTime" > </TableRowColumn>
-		              		 <TableRowColumn name="orderNum"></TableRowColumn>
-		              		 <TableRowColumn name="createUser"></TableRowColumn>
+		              		 <TableRowColumn name="failures" > </TableRowColumn>
+		              		 <TableRowColumn name="syncTime"
+		              		 	component={(value,oldValue)=>{
+									 return (<div className='financeDetail-hover'>
+									 	{DateFormat(oldValue.syncTime,'yyyy/mm/dd')}
+
+									 	</div>)
+								 }}></TableRowColumn>
+		              		 <TableRowColumn name="systemName"></TableRowColumn>
+		              		 <TableRowColumn name="remark" 
+		              		 	component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+									}else{
+										TooltipStyle="block";
+									}
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 	<Tooltip offsetTop={5} place='top' >
+											{value}
+									 	</Tooltip></div>)
+								 }}></TableRowColumn>
 		              		 <TableRowColumn name="createUser"
 								component={(value,oldValue,itemData)=>{
 									return(

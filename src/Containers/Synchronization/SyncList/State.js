@@ -10,11 +10,15 @@ let State = observable({
 	openEditSystem:false,
 	openSynchro:false,
 	synchroList:[],
-	pages:{page:0},
+	result:{
+		success:0,
+		fail:0,
+		load:false
+	},
 	searchParams:{
 		page:1,
 		pageSize:15,
-		name:'',
+		mainId:'',
 		systemId:''
 	},
 	searchSync:{
@@ -22,7 +26,9 @@ let State = observable({
 		pageSize:10,
 		interfaceAddL:'',
 		remark:''
-	}
+	},
+	systemList:[],
+	mainpartList:[],
 
 });
 State.setEditSystem = action(function(data){
@@ -32,15 +38,33 @@ State.setEditSystem = action(function(data){
 
 State.getSyncList = action(function(value) {
 	var _this = this;
-	this.searchSync = Object.assign({},value);
-	Http.request('get-news-list', _this.searchSync).then(function(response) {
+	this.searchSync = Object.assign({},this.searchSync,value);
+	Http.request('system-list-manual','', _this.searchSync).then(function(response) {
 		_this.synchroList = response.items;
-		_this.pages = response;
+		response.load=true;
+		_this.result = response;
 	}).catch(function(err) {
 		Message.error('下线失败');
 	});
 
 });
+State.postSync = action(function(value) {
+	var _this = this;
+	let reload = {
+		time:+new Date()
+	}
+	
+	this.createSystem = false;
+	this.openEditSystem = false;
+	Http.request('new-sync-main-system', '',value).then(function(response) {
+		Message.success('提交成功');
+		_this.searchParams = Object.assign({},_this.searchParams,reload);
+	}).catch(function(err) {
+		Message.error('提交失败');
+	});
+
+});
+
 
 
 module.exports = State;

@@ -20,6 +20,7 @@ import {
 	Pagination,
 	Grid,
 	ListGroup,
+	Notify,
 	ListGroupItem,
 	CheckPermission
 } from 'kr-ui';
@@ -71,6 +72,13 @@ export default class FailList extends React.Component {
 		ids = selecedList.map((item)=>{
 			return item.id
 		})
+		if(!ids.length){
+			Notify.show([{
+				message: '请先选择同步数据',
+				type: 'danger',
+			}]);
+			return;
+		}
 		State.reload(ids);
 
 		
@@ -103,20 +111,20 @@ export default class FailList extends React.Component {
 		              	{!!State.itemsList.length && State.itemsList.map((item,index)=>{
 		              		return (
 								<TableRow key={index}>
-				              		 <TableRowColumn style={{width:220,overflow:'hidden'}}>
-				              		 	{item.title}
-				              		 </TableRowColumn>
-				              		 <TableRowColumn  style={{width:220,overflow:'hidden'}}>
-				              		 	{item.newsDesc}
+				              		 <TableRowColumn >
+				              		 	{item.mainName}
 				              		 </TableRowColumn>
 				              		 <TableRowColumn >
-				              		 	{item.publishedStatusName}
+				              		 	{DateFormat(item.syncTime,'yyyy/mm/dd')}
+				              		 </TableRowColumn>
+				              		 <TableRowColumn >
+				              		 	{item.mode=='TIMING'?'定时':'手动'}
 				              		 </TableRowColumn>
 				              		 <TableRowColumn>
-				              		 	{item.stickStatusName}
+				              		 	{item.status?'成功':'失败'}
 				              		 </TableRowColumn>
-				              		 <TableRowColumn>
-				              		 	{item.publishedTime} 
+				              		 <TableRowColumn  style={{width:220,overflow:'hidden'}}>
+				              		 	{item.content} 
 				              		 </TableRowColumn>
 				              	</TableRow>
 		              		)
@@ -126,7 +134,7 @@ export default class FailList extends React.Component {
            			
 
 		            </Table>
-		            {!State.loading && <div className='footPage' style={rowFootStyle}>
+		            {!State.loading && !!State.pageInfo.totalCount && <div className='footPage' style={rowFootStyle}>
            				<Pagination  totalCount={State.pageInfo.totalCount} page={State.pageInfo.page} pageSize={State.pageInfo.pageSize} onPageChange={this.onPageChange}/>
            			</div>}
 			</div>
