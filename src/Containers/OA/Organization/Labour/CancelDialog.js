@@ -39,8 +39,6 @@ import './index.less';
 export default class CancelDialog extends Component {
 	constructor(props, context) {
 		super(props, context);
-
-
 	}
 	onCancel = () => {
 		let {

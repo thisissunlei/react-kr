@@ -52,6 +52,7 @@ export default class Labour extends React.Component {
 			openViewDialog:false,
 			tabSelect:1,
 			openCancelDialog:false,
+			newPage:1,
 		}
 	}
 	checkTab=(item)=>{
@@ -73,18 +74,28 @@ export default class Labour extends React.Component {
 			this.openCancelDialog();
 		}
 	}
-
-//普通查询
-	searchParams = (form) => {
-		var _this = this;
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				version: form.content
-			}
-		})
-	}
+	//搜索
+    onSearchSubmit = (value) => {
+        let {searchParams} = this.state;
+        if (value.filter == 'company') {
+            this.setState({
+                searchParams: {
+                    page: this.state.newPage,
+                    pageSize: 15,
+                    accountName: value.content
+                }
+            })
+        }
+        if (value.filter == 'city') {
+            this.setState({
+                searchParams: {
+                    page: this.state.newPage,
+                    pageSize: 15,
+                    realName: value.content
+                }
+            })
+        }
+    }
 	openCancelDialog=()=>{
 		this.setState({
 			openCancelDialog: !this.state.openCancelDialog
@@ -118,8 +129,8 @@ export default class Labour extends React.Component {
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
-		params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
-		Http.request('save-version', {}, params).then(function(response) {
+		               //params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
+		Http.request('org-update', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
 			_this.changeP();
@@ -162,7 +173,15 @@ export default class Labour extends React.Component {
     }
 	render() {
 		let {itemDetail,data} = this.state;
-
+		let options = [
+            {
+                label: '人名',
+                value: 'company'
+            }, {
+                label: '邮箱',
+                value: 'city'
+            }
+        ];
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
@@ -220,7 +239,7 @@ export default class Labour extends React.Component {
 								<Button
       									label="编辑"
       									type="button"
-      									onTouchTap={this.onCancel}
+      									onTouchTap={this.openEditDialog}
       									height={30}
       									width={80}
 												backgroundColor='#fcfcfc'
@@ -250,13 +269,11 @@ export default class Labour extends React.Component {
 											<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}/>
 									</Col>
 									<Col md={8} align="right">
-										<div className="u-search">
-												<SearchForm onSubmit={this.searchParams} />
-										</div>
+										
 									</Col>
 									</Row>
 								</Grid>
-								<Table
+							<Table
 								style={{marginTop:10}}
 								displayCheckbox={false}
 								onLoaded={this.onLoaded}
@@ -264,8 +281,8 @@ export default class Labour extends React.Component {
 								ajaxUrlName='get-version-list'
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
-						onPageChange={this.onPageChange}
-									>
+								onPageChange={this.onPageChange}
+							>
 							<TableHeader>
 							<TableHeaderColumn>系统版本</TableHeaderColumn>
 							<TableHeaderColumn>设备类型</TableHeaderColumn>
@@ -302,11 +319,10 @@ export default class Labour extends React.Component {
 					<Grid style={{marginBottom:14,marginTop:14}}>
 									<Row>
 									<Col md={4} align="left" >
-											<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}/>
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
-												<SearchForm onSubmit={this.searchParams} />
+												<SearchForm onSubmit={this.searchParams} searchFilter={options}/>
 										</div>
 									</Col>
 									</Row>
@@ -376,15 +392,15 @@ export default class Labour extends React.Component {
                 <Viewdialog detail={this.state.data} onCancel={this.openViewDialog} />
         </Dialog>
         <Dialog 
-                title="编辑机构维度" 
+                title="编辑XXX" 
                 modal={true} 
-                open={this.state.openEdit} 
-                onClose={this.openEdit} 
+                open={this.state.openEditDialog} 
+                onClose={this.openEditDialog} 
                 contentStyle={{
                     width: 374
                 }}
         >
-                <EditDialog detail={this.state.itemDetail} onSubmit={this.onNewEditSubmit} onCancel={this.openEdit} />
+                <EditDialog detail={this.state.itemDetail} onSubmit={this.onNewEditSubmit} onCancel={this.openEditDialog} />
         </Dialog>
 				<Dialog 
                 title="提示" 

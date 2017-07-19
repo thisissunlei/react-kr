@@ -17,8 +17,9 @@ export default class Viewdialog extends React.Component {
     componentDidMount() {
     //   var _this = this;
     //   var id = this.props.detail.id
-    //   Http.request('get-version-detail', {
-    //           id: id
+    //   Http.request('org-detail', {
+    //           orgId: orgId,
+    //           orgType: orgType
     //       }).then(function(response) {
     //           _this.setState({infoList: response})
     //       }).catch(function(err) {});
@@ -36,13 +37,13 @@ export default class Viewdialog extends React.Component {
                 <KrField
                     style={{width:262}}
                     inline={false}
-                    value={infoList.version}
+                    value={infoList.name}
                     label="机构名称"
                     component="labelText"
                 />
                 <KrField
                     style={{width:262}}
-                    value={infoList.osType}
+                    value={infoList.type}
                     label="排序"
                     inline={false}
                     component="labelText"
@@ -53,7 +54,7 @@ export default class Viewdialog extends React.Component {
                     component="labelText"
                     label="技术部ID号"
                     inline={false}
-                    value={infoList.appType}
+                    value={infoList.id}
                 />
             </div>
         );
