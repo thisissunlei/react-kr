@@ -3,6 +3,7 @@ import {
 	
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
+import PersonalInfo from './PersonalInfo';
 import './index.less';
 
 export default class PeopleDetail  extends React.Component{
@@ -20,7 +21,8 @@ export default class PeopleDetail  extends React.Component{
 			<div className='people-detail'>
 			  <div className='detail-left'>left</div>
 			  <div className='detail-right'>
-			    <BasicInfo />
+			    {/*<BasicInfo />*/}
+					<PersonalInfo />
 			  </div>
 			</div>
 		);
