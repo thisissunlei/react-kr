@@ -22,12 +22,11 @@ export default class PeopleDetail  extends React.Component{
 			<div className='people-detail'>
 			  <div className='detail-left'>left</div>
 			  <div className='detail-right'>
-			    {/*<BasicInfo />*/}
-					 <PersonalInfo />
-           {/*<WorkInfo />*/}
+			     <BasicInfo />
+				 {/*<PersonalInfo />*/}
+                 {/*<WorkInfo />*/}
 			  </div>
 			</div>
 		);
 	}
-
 }
