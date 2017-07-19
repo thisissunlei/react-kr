@@ -158,7 +158,7 @@ module.exports = {
 	ToTop,
 	CheckPermission,
 	TextLabel,
-	Tree,
+	...Tree,
 	SliderTree,
 	...TabControl,
 	UpImages

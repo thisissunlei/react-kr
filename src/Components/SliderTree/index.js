@@ -1,7 +1,10 @@
 import React from 'react';
 import './index.less';
+
 import mockData from './Data.json'
-import Tree, { TreeNode }from '../Tree'
+
+import {Tree,TreeNode }from '../Tree';
+
 export default class SliderTree extends React.Component{
 	constructor(props,context){
 		super(props,context)
