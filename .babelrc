@@ -5,7 +5,8 @@
 	"transform-dev-warning",
 	"transform-class-properties",
 	"transform-decorators-legacy",
-	"react-hot-loader/babel"
+	"react-hot-loader/babel",
+"transform-object-assign"
   ],
   "env": {
 	  "test": {

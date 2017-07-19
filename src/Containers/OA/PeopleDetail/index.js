@@ -1,6 +1,7 @@
 import React from 'react';
 import {	
-	
+	TabC,
+	TabCs
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
 import PersonalInfo from './PersonalInfo';
@@ -20,11 +21,30 @@ export default class PeopleDetail  extends React.Component{
 		return(
 
 			<div className='people-detail'>
-			  <div className='detail-left'>left</div>
+			  <div className='detail-left'>
+				<div className='left-pic'>
+					pic
+				</div>
+				<div className='left-text'>
+					123
+				</div>
+			  </div>
 			  <div className='detail-right'>
-			     <BasicInfo />
-				 {/*<PersonalInfo />*/}
-                 {/*<WorkInfo />*/}
+				  <TabCs
+			      >
+				  <TabC label='基本信息'> 
+					  <BasicInfo />
+				  </TabC> 
+				  
+				  <TabC label='个人信息'> 
+					  <PersonalInfo />
+				  </TabC> 
+
+				  <TabC label='工作信息'> 
+					  <WorkInfo />
+				  </TabC> 
+			  </TabCs>
+			    
 			  </div>
 			</div>
 		);

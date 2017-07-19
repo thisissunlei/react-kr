@@ -6,6 +6,7 @@ module.exports = {
       method: 'get'
   },
   //新建维度
+  
   'dim-save': {
       url: '/api/krspace-erp-web/dim/save',
       method: 'post'
