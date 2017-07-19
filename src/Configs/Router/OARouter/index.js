@@ -55,6 +55,12 @@ const OA_BasicConfig_RankList = (location, callback) => {
   }, 'OA_BasicConfig_RankList')
 }
 
+const OA_PeopleDetail = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/PeopleDetail').default)
+  }, 'OA_PeopleDetail')
+}
+
 module.exports =()=>{
 	return (
         <Route path="oa" getComponent={Basic}>
@@ -75,6 +81,9 @@ module.exports =()=>{
 						  <Route path="postType" getComponent={OA_BasicConfig_PostType}/>
 						  <Route path="rankList" getComponent={OA_BasicConfig_RankList}/>
             </Route>
+
+             {/*人员详情*/}
+						<Route path="peopleDetail" getComponent={OA_PeopleDetail}/>
         </Route>
 	);
 };
