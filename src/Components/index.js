@@ -58,7 +58,6 @@ import PlanMapAll from './PlanMapAll';
 import ToTop from './ToTop';
 import Tree from './Tree';
 import SliderTree from './SliderTree'
-import TabsControl from './TabsControl';
 import {
 	Grid,
 	Row,
@@ -159,5 +158,4 @@ module.exports = {
 	TextLabel,
 	Tree,
 	SliderTree,
-	TabsControl,
 }

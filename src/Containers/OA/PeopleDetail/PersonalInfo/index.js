@@ -83,7 +83,7 @@ export default class PersonalInfo  extends React.Component{
 						<span className='title-name'>个人资料</span>
 						<span className='title-right'>编辑</span>
 				  </div>
-                  <ul className='info-inner'>
+                  <ul className='info-inner personal-inner'>
 					{
 					  infoName.map((item,index)=>{
                         return (<li>
@@ -94,12 +94,14 @@ export default class PersonalInfo  extends React.Component{
 					}		
 				  </ul>
 
-                 <div className='title family'>
-						<span className='title-blue'></span>
-						<span className='title-name'>家庭资料</span>
-						<span className='title-right'>添加</span>
-				 </div>
-                  
+				<div className='info-title'>
+					<div className='title family'>
+							<span className='title-blue'></span>
+							<span className='title-name'>家庭资料</span>
+							<span className='title-right'>添加</span>
+					</div>
+                </div> 
+				 
 				 <Table
                     //ajax={true}
                     onOperation={this.onOperation}
@@ -136,12 +138,13 @@ export default class PersonalInfo  extends React.Component{
 			        </TableBody>
               </Table>
 
-			  <div className='title family'>
-						<span className='title-blue'></span>
-						<span className='title-name'>工作经历</span>
-						<span className='title-right'>添加</span>
-				 </div>
-                  
+			  <div className='info-title'>
+				<div className='title family'>
+							<span className='title-blue'></span>
+							<span className='title-name'>工作经历</span>
+							<span className='title-right'>添加</span>
+					</div>
+                </div>  
 				 <Table
                     //ajax={true}
                     onOperation={this.onOperation}
