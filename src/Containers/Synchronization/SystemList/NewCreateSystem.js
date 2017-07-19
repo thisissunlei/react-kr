@@ -63,7 +63,7 @@ class CreateNewList extends React.Component {
 							type="text"
 							component="input"
 							label="系统名称"
-							style={{marginRight:20,width:280}}
+							right={20}
 							requireLabel={true}
 							grid={1/2}
 

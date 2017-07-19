@@ -74,7 +74,7 @@ class EditNewList extends React.Component {
 							type="text"
 							component="input"
 							label="系统名称"
-							style={{marginRight:30,width:280}}
+							right={20}
 							requireLabel={true}
 							grid={1/2}
 
@@ -101,14 +101,15 @@ class EditNewList extends React.Component {
 	                	<KrField
 								grid={1/2}
 								name="linkman"
+								type="text"
 								component="input"
 								label="联系人"
-								maxSize={300}
 								requireLabel={true}
 								left={20}
 						/>
 						<KrField 
 								name="phone"
+								type="text"
 								component="input"
 								requireLabel={true}
 								label="联系人手机号"
