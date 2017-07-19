@@ -32,6 +32,14 @@ export default class List extends React.Component {
 		super(props, context);
 	}
 
+	componentDidMount(){
+		console.log('----')
+		State.searchParams={
+			name:'',
+			time:+new Date()
+		}
+	}
+
 	openNewCreat=()=>{
 		State.createSystem = true;
 	}
@@ -127,7 +135,19 @@ export default class List extends React.Component {
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn name="linkman"></TableRowColumn>
 		              		 <TableRowColumn name="phone"></TableRowColumn>
-		              		 <TableRowColumn name="remark" > </TableRowColumn>
+		              		 <TableRowColumn name="remark"
+		              		 component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+									}else{
+										TooltipStyle="block";
+									}
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 	<Tooltip offsetTop={5} place='top' >
+											{value}
+									 	</Tooltip></div>)
+								 }} > </TableRowColumn>
 		              		 <TableRowColumn  name="createUser"
 		              		 	component={(value,oldValue,itemData)=>{
 									return (

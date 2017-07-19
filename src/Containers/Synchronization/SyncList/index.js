@@ -40,6 +40,12 @@ export default class List extends React.Component {
 	}
 
 	componentDidMount(){
+		State.searchParams={
+			page:1,
+			pageSize:15,
+			mainId:'',
+			systemId:''
+		}
 		this.getMainpartList();
 		this.getSystemList();
 	}
@@ -213,7 +219,19 @@ export default class List extends React.Component {
 
 									 	</div>)
 								 }}></TableRowColumn>
-		              		 <TableRowColumn name="remark"></TableRowColumn>
+		              		 <TableRowColumn name="remark"
+		              		 component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+									}else{
+										TooltipStyle="block";
+									}
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 	<Tooltip offsetTop={5} place='top' >
+											{value}
+									 	</Tooltip></div>)
+								 }}></TableRowColumn>
 		              		 <TableRowColumn name="createUser"
 								component={(value,oldValue,itemData)=>{
 									return(

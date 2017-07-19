@@ -33,6 +33,14 @@ export default class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 	}
+	componentDidMount(){
+		console.log('----')
+		State.searchParams={
+			page:1,
+			pageSize:15,
+			name:'',
+		}
+	}
 
 	openNewCreat=()=>{
 		State.createSystem = true;
@@ -67,6 +75,7 @@ export default class List extends React.Component {
 	}
 
 	render() {
+		console.log('main',State.searchParams)
 		return (
 			    <div  style={{minHeight:'910',backgroundColor:"#fff"}}>
 					<Title value="同步主体列表"/>
