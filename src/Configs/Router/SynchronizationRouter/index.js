@@ -41,7 +41,7 @@ module.exports =()=>{
 
 
 	return (
-		<Route path="Synchronization" getComponent={Basic}>
+		<Route path="permission/Synchronization" getComponent={Basic}>
 			<Route path="system" getComponent={Synchronization_System_List}/>
 			<Route path="content" getComponent={Synchronization_Content_List}/>
 			<Route path="main" getComponent={Synchronization_MainPart_List}/>

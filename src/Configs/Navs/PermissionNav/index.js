@@ -75,6 +75,34 @@ module.exports = [
 				},
 				]
 			},
+			{
+				primaryText: "同步中心",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: 'permission/Synchronization',
+				menuItems: [
+					{
+						primaryText: '同步主体',
+						router: '/permission/Synchronization/main',
+						menuCode: 'oper_csr_base',
+					},
+					{
+						primaryText: '同步系统',
+						router: '/permission/Synchronization/system',
+						menuCode: 'contract_list_base',
+					},
+					{
+						primaryText: '系统订阅',
+						router: '/permission/Synchronization/content',
+						menuCode: 'oper_csr_marketList_base',
+					},
+					{
+						primaryText: '日志列表',
+						router: '/permission/Synchronization/journal/main/system',
+						menuCode: 'oper_csr_marketList_base',
+					},
+				]
+			},
 
 
 

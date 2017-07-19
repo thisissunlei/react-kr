@@ -15,11 +15,10 @@ import KnowledgeNav from './KnowledgeNav';
 import PowerNav from './PowerNav';
 import WebBackstageNav from './WebBackstageNav';
 import PermissionNav from './PermissionNav';
-import SynchronizationNav from './SynchronizationNav';
 
 import OtherNav from './OtherNav';
 
-const NavItems = [].concat(HomeNav,SynchronizationNav,StatisticalNav,CommunityNav,OperationNav,MemberNav,FinanceNav,RetailNav,OANav,KnowledgeNav,PowerNav,WebBackstageNav,OtherNav,PermissionNav);
+const NavItems = [].concat(HomeNav,StatisticalNav,CommunityNav,OperationNav,MemberNav,FinanceNav,RetailNav,OANav,KnowledgeNav,PowerNav,WebBackstageNav,OtherNav,PermissionNav);
 
 module.exports = {
     current_parent: '',
