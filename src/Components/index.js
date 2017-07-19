@@ -59,6 +59,7 @@ import ToTop from './ToTop';
 import Tree from './Tree';
 import SliderTree from './SliderTree';
 import TabControl from './TabControl/index';
+import UpImages from './UpImages';
 import {
 	Grid,
 	Row,
@@ -159,5 +160,6 @@ module.exports = {
 	TextLabel,
 	Tree,
 	SliderTree,
-	...TabControl
+	...TabControl,
+	UpImages
 }

@@ -5,13 +5,13 @@ import {
 	Field,
 	reduxForm
 } from 'redux-form';
-import Message from '../../Message';
+import Message from '../Message';
 import ReactDOM from 'react-dom';
 import './index.less';
 import refresh from "./images/refresh.svg";
 import deleteImg from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
-import WrapComponent from '../WrapComponent';
+import WrapComponent from '../KrField/WrapComponent';
 export default class OaUploadImage extends Component {
 	static defaultProps = {
 
@@ -213,18 +213,18 @@ export default class OaUploadImage extends Component {
 		let {children,className,style,meta: { touched, error },type,label,inline,requireLabel,name,...other} = this.props;
 		let {operateImg} = this.state;
 		return(
-			<div className = "ui-oa-upload-image">
+			
 		 	<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
-			<div className="ui-oa-upload-box">
+			<div className="ui-uploadimg-box">
 				<div className='ui-uploadimg-outbox' >
 					<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
 						{this.state.imgSrc&&
 						 <div style={{position:'absolute',zIndex:'10',backgroundImage:`url(${this.state.imgSrc})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain',width:'120px',height:'75px'}}></div>
 						 }
 						<div className='ui-uploadimg-inner' >
-                            <span>更换图像</span>
+							<span className='ui-uploadimg-button'>+</span>
 							<input type='file' onChange={this.onChange} ref="inputImg"/>
-							
+							<span className='ui-uploadimg-tip'>上传图片</span>
 						</div>
 						<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none",zIndex:'11',width:120,height:75,textAlign:'center'}}>
 							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg} style={{marginRight:'30px'}}>
@@ -240,7 +240,6 @@ export default class OaUploadImage extends Component {
 			</div>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 		</WrapComponent>
-        </div>
 		);
 	}
 }
