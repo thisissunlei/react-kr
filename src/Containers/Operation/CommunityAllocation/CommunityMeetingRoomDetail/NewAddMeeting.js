@@ -15,6 +15,8 @@ import {
 	inject
 } from 'mobx-react';
 
+import './spaceList.less';
+
 
 const renderField = ({ input, label, placeholder,type, meta: { touched, error }}) => (
   <div>
@@ -89,12 +91,18 @@ class NewAddMeeting  extends React.Component{
 
     onSubmit=(values)=> {
 		values.id='';
-
+		if(values.startTime && values.endTime){
+			var startTime=values.startTime.substring(0,10);
+			var endTime=values.endTime.substring(0,10);
+			values.closeStartDate=`${startTime} ${values.StartTimeStr}`;
+			values.closeEndDate=`${endTime} ${values.EndTimeStr}`;
+		}
 		values.communityId=this.props.CommunityMeetingModel.communityId;
+		
 	    const {
 		   onSubmit
 		} = this.props;
-		onSubmit && onSubmit(values);
+		//onSubmit && onSubmit(values);
 	}
 
 	onCancel=()=> {
@@ -145,6 +153,8 @@ class NewAddMeeting  extends React.Component{
           Store.dispatch(change('NewAddMeeting','quotedPrice','0'))
        }
 	}
+
+
 
 
 
@@ -226,9 +236,9 @@ class NewAddMeeting  extends React.Component{
 
                {watchMeeting&&<div><div style={{display:'block'}} className='community-list-time'>
 
-											<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' requireLabel={true}/>
+											<KrField component="timeSelect" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' requireLabel={true}/>
 											<span style={{display:'inline-block',marginTop:35,marginLeft:-10}}>-</span>
-											<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr'/>
+											<KrField component="timeSelect"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr'/>
                </div>
 
 
@@ -294,7 +304,34 @@ class NewAddMeeting  extends React.Component{
 
                       <KrField grid={1/2} style={{width:262,marginLeft:29}} name="quotedPrice" component="input"  label="报价"
                         onBlur={this.priceBlur}/>	
-
+					{watchMeeting && <div className="u-meet-setting">
+										<div className="u-checkbox">
+											会议室被占用设置
+										</div>
+										<div className="u-meet-setTime">
+												<KrField
+														style={{width:120}}
+														name="startTime"
+														component="date"
+												/>
+												<KrField 
+														component="timeSelect"
+														style={{width:108,marginLeft:40}} 
+														name='StartTimeStr'
+												/>
+												<span style={{display:'inline-block',paddingLeft:10,marginTop:20}}>-</span>
+												<KrField
+														style={{width:120}}
+														name="endTime"
+														component="date"
+												/>
+												<KrField 
+														component="timeSelect"  
+														style={{width:108,marginLeft:40}} 
+														name='EndTimeStr'
+												/>
+										</div>
+									</div>}
 
 						<div className='meeting-device'><KrField
 							label="设备情况"
@@ -422,4 +459,6 @@ errors.maskStation = membersArrayErrors
 
 		return errors
 }
-export default reduxForm({ form: 'NewAddMeeting',validate})(NewAddMeeting);
+export default reduxForm({ form: 'NewAddMeeting',
+	//validate
+})(NewAddMeeting);
