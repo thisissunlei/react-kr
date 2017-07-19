@@ -25,15 +25,19 @@ class EditDialog extends React.Component {
     }
     constructor(props, context) {
         super(props, context);
-        this.state={
-            infoList:{},
-        }
     }
     componentDidMount() {
+        var detail = this.props.detail;
         var _this = this;
         var infoList = {};
-        infoList = this.props.detail;
-        Store.dispatch(initialize('EditDialog', infoList));
+        console.log(detail);
+        Http.request('dim-detail', {
+            id:detail.id
+        }).then(function(response) {
+           Store.dispatch(initialize('EditDialog', response));
+        }).catch(function(err) {});
+
+        
     }
 
     onCancel = () => {

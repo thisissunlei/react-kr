@@ -44,6 +44,8 @@ export default class Labour extends React.Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
+				orgId:1,
+				orgType:0,
 			},
 			data:{},
 			itemDetail: '',
@@ -280,28 +282,32 @@ export default class Labour extends React.Component {
 								displayCheckbox={false}
 								onLoaded={this.onLoaded}
 								ajax={true}
-								ajaxUrlName='get-version-list'
+								ajaxUrlName='next-org-list'
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
 							>
 							<TableHeader>
-							<TableHeaderColumn>系统版本</TableHeaderColumn>
-							<TableHeaderColumn>设备类型</TableHeaderColumn>
-							<TableHeaderColumn>下载地址</TableHeaderColumn>
-							<TableHeaderColumn>是否强制更新</TableHeaderColumn>
+							<TableHeaderColumn>ID</TableHeaderColumn>
+							<TableHeaderColumn>下级名称</TableHeaderColumn>
+							<TableHeaderColumn>下级类型</TableHeaderColumn>
+							<TableHeaderColumn>状态</TableHeaderColumn>
+							<TableHeaderColumn>创建日期</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 						</TableHeader>
 
 						<TableBody>
 							<TableRow>
-								<TableRowColumn name="version" ></TableRowColumn>
+								<TableRowColumn name="juniorId" ></TableRowColumn>
 
-								<TableRowColumn name="osTypeName"></TableRowColumn>
+								<TableRowColumn name="juniorName"></TableRowColumn>
+					<TableRowColumn name="juniorType" options={[
+						{label:'部门',value:'0'},
+						{label:'分部',value:'1'}
+					]}></TableRowColumn>
+					<TableRowColumn name="status"></TableRowColumn>
 					
-					<TableRowColumn name="forcedName"></TableRowColumn>
-				
-					<TableRowColumn type="date" name="publishTime" component={(value)=>{
+					<TableRowColumn type="date" name="createTime" component={(value)=>{
 									return (
 										<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>
 									)

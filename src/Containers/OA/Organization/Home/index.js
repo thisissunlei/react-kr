@@ -79,6 +79,7 @@ export default class Home extends React.Component {
         var form = Object.assign({},form);
         var _this = this;   
         Http.request('dim-save', {}, form).then(function(response) {
+            _this.updateData();
             Message.success('新建机构成功');
             _this.openCreate();
         }).catch(function(err) {
@@ -88,10 +89,11 @@ export default class Home extends React.Component {
     onNewEditSubmit = (form) => {
         var form = Object.assign({},form);
         var _this = this;
-        form.id = itemDetail.id;
         Http.request('dim-update', {}, form).then(function(response) {
+            _this.updateData();
             Message.success('修改成功');
             _this.openEdit();
+            
         }).catch(function(err) {
             Message.error(err.message);
         });

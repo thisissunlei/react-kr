@@ -15,6 +15,11 @@ module.exports = {
       url: '/api/krspace-erp-web/dim/update',
       method: 'post'
   },
+  //维度详情
+  'dim-detail': {
+      url: '/api/krspace-erp-web/dim/detail?id={id}',
+      method: 'get'
+  },
   //查看某个机构
   'org-detail': {
       url: '/api/krspace-erp-web/dim/org-detail?orgId={orgId}&orgType={orgType}',
