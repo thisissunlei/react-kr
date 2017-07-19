@@ -146,7 +146,7 @@ export default class FailList extends React.Component {
            		</div>
            		<div style={{display:!!State.itemsList.length?'none':'block'}}>
            			<Table
-					     style={{margin:'30px 0'}}
+					     style={{margin:'30px 0',borderBottom:'none'}}
 			            displayCheckbox={false}
 							  >
 				        <TableHeader>
@@ -156,7 +156,8 @@ export default class FailList extends React.Component {
 		                  <TableHeaderColumn>同步状态</TableHeaderColumn>
 		                  <TableHeaderColumn>内容</TableHeaderColumn>
 				      	</TableHeader>
-						<TableBody className='noDataBody' style={{borderBottom:'none'}}>
+
+						<TableBody className='noDataBody' borderBodyStyle style={{borderBottom:'none'}}>
 							<TableRow style={{backgroundColor:'#fff'}}>
 								<TableRowColumn colSpan={100} >
 									<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>

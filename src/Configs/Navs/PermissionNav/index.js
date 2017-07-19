@@ -84,22 +84,22 @@ module.exports = [
 					{
 						primaryText: '同步主体',
 						router: '/permission/Synchronization/main',
-						menuCode: 'oper_csr_base',
+						menuCode: 'sync_main_part',
 					},
 					{
 						primaryText: '同步系统',
 						router: '/permission/Synchronization/system',
-						menuCode: 'contract_list_base',
+						menuCode: 'sync_system',
 					},
 					{
 						primaryText: '系统订阅',
 						router: '/permission/Synchronization/content',
-						menuCode: 'oper_csr_marketList_base',
+						menuCode: 'sync_main_system',
 					},
 					{
 						primaryText: '日志列表',
 						router: '/permission/Synchronization/journal/main/system',
-						menuCode: 'oper_csr_marketList_base',
+						menuCode: 'sync_log',
 					},
 				]
 			},

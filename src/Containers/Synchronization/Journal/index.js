@@ -45,6 +45,10 @@ export default class Journal extends React.Component {
 
 	componentDidMount(){
 		let {params} = this.props;
+		const {NavModel} = this.props;
+		if(params.main != 'main' || params.system != 'system'){
+			NavModel.setSidebar(false);
+		}
 		if(params.main == 'main'){
 			params.main = '';
 		}
@@ -55,8 +59,8 @@ export default class Journal extends React.Component {
 			mainpartId:params.main,
 			systemId:params.system
 		}
-		const {NavModel} = this.props;
-		NavModel.setSidebar(false);
+
+		
 		State.searchParams = Object.assign({},State.searchParams,value);
 	}
 
