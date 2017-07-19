@@ -86,7 +86,7 @@ export default class PersonalInfo  extends React.Component{
                   <ul className='info-inner personal-inner'>
 					{
 					  infoName.map((item,index)=>{
-                        return (<li>
+                        return (<li key={index}>
 							<span className='name'>{item.name}</span>
 							<span className='info'>{item.detail}</span>
 					   </li>)
