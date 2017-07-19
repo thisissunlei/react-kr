@@ -32,7 +32,27 @@ class Createdialog extends Component {
 
             <div>
               <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
-                
+                <KrField
+                    style={{width:262}}
+                    inline={false}
+                    label="下级名称"
+                    component="select"
+                    name="orgName"
+                    requireLabel={true}
+                    placeholder="机构维度"
+                />
+                <KrField
+                    name="orgType"
+                    style={{width:262}}
+                    component="select"
+                    label="下级类型"
+                    options={[
+                        {label:'部门',value:'0'},
+                        {label:'分部',value:'1'}
+    				]}
+                    inline={false}
+                    requireLabel={true}
+				/>
               </form>
             </div>
         );

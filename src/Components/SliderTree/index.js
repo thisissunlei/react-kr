@@ -34,7 +34,7 @@ export default class SliderTree extends React.Component{
 		return (
             <div>
              	<Tree
-				    checkable 
+				    
 					onCheck={this.onCheck}
 					onSelect={this.onSelect}
 				>
