@@ -107,7 +107,7 @@ export default class List extends React.Component {
 	}
 	changeToJournal=(value)=>{
 		console.log('change',value)
-		location.href = `/#/Synchronization/journal/${value.mainId}/${value.systemId}`;
+		location.href = `/#/permission/Synchronization/journal/${value.mainId}/${value.systemId}`;
 	}
 	changeContent=(person)=>{
 		let value = {
