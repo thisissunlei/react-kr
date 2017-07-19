@@ -11,7 +11,7 @@ export default class SliderTree extends React.Component{
 	}
 	//勾选
 	onCheck = (checkedKeys) =>{
-		console.log(checkedKeys,"??????")
+		
 	}
 	//点击选择事件
 	onSelect = (item) =>{
