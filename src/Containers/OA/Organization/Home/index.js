@@ -29,7 +29,7 @@ export default class Home extends React.Component {
 	constructor(props,context){
 		super(props, context);
     this.state={
-      dimension:[{name:'name1'},{name:'name2'},{name:'name3'},{name:'name4'},{name:'name5'},{name:'name6'},{name:'name7'}],
+      dimension:[],
       openEdit:false,
 			openCreate:false,  
       itemDetail:{},
@@ -52,7 +52,7 @@ export default class Home extends React.Component {
 		let openCreate = this.state.openCreate;
 		var _this = this;
 		this.setState({
-			openCreate:!openCreate
+			openCreate:!openCreate,
 		})
 	}
   renderDimension=(item,index)=>{
@@ -75,44 +75,36 @@ export default class Home extends React.Component {
     )
   }
   onNewCreateSubmit=(form)=> {
+        console.log(1);
         var form = Object.assign({},form);
         var _this = this;   
-        // Http.request('createSsoUser', {}, form).then(function(response) {
-        //     Message.success('新建机构成功');
-        //     _this.openCreate();
-        // }).catch(function(err) {
-        //     Message.error(err.message);
-        // });
+        Http.request('dim-save', {}, form).then(function(response) {
+            Message.success('新建机构成功');
+            _this.openCreate();
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
     }
     onNewEditSubmit = (form) => {
         var form = Object.assign({},form);
         var _this = this;
-        // Http.request('editSsoUser', {}, form).then(function(response) {
-        //     Message.success('修改成功');
-        //     _this.openEdit();
-        // }).catch(function(err) {
-        //     Message.error(err.message);
-        // });
+        form.id = itemDetail.id;
+        Http.request('dim-update', {}, form).then(function(response) {
+            Message.success('修改成功');
+            _this.openEdit();
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
     }
-    updateData=()=>{
-		    var _this = this;
-        // Http.request('get-menu-list', {
-
-        // },{}).then(function(response) {
-        //     _this.setState({dimension: response.items},function(){
-      
-        //     })
-        // }).catch(function(err) {});
-	}
 updateData=()=>{
 		  var _this = this;
-			// Http.request('dim-list', {
+			Http.request('dim-list', {
 
-      // },{}).then(function(response) {
-      //     _this.setState({dimension: response.items},function(){
+      },{}).then(function(response) {
+          _this.setState({dimension: response.items},function(){
     
-      //     })
-      // }).catch(function(err) {});
+          })
+      }).catch(function(err) {});
     
 	}
   render() {
