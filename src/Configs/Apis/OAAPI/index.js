@@ -11,7 +11,7 @@ module.exports = {
       method: 'post'
   },
   //编辑维度
-  'dim-save': {
+  'dim-update': {
       url: '/api/krspace-erp-web/dim/update',
       method: 'post'
   },

@@ -24,7 +24,8 @@ import {
 	Col,
 	Dialog,
 	KrDate,
-	Message
+	Message,
+	SliderTree,
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
@@ -32,7 +33,6 @@ import CreateDialog from './Createdialog';
 import EditDialog from './Editdialog';
 import Viewdialog from './Viewdialog';
 import CancelDialog from './CancelDialog';
-
 
 @inject("NavModel")
 @observer
@@ -185,6 +185,7 @@ export default class Labour extends React.Component {
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
+						<form>
 						<div className="search"> 
 							<input type="text" placeholder="ddd" />
 							<span className="searching">
@@ -192,8 +193,9 @@ export default class Labour extends React.Component {
 							</span>
 						</div>
 						<div className="oa-tree">
-							
-						</div>							
+						<SliderTree />
+						</div>
+						</form>							
 					</div>
 					<div className="right">
 						<div className="header">
@@ -412,6 +414,17 @@ export default class Labour extends React.Component {
                 }}
         >
                 <CancelDialog detail={this.state.itemDetail} onSubmit={this.onCancelSubmit} onCancel={this.openCancelDialog} />
+        </Dialog>
+				<Dialog 
+                title="新建下级" 
+                modal={true} 
+                open={this.state.openCreateDialog} 
+                onClose={this.openCreateDialog} 
+                contentStyle={{
+                    width: 374
+                }}
+        >
+                <CreateDialog detail={this.state.itemDetail} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
         </Dialog>
 </div>
 		);

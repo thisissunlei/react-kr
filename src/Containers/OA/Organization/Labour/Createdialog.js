@@ -23,6 +23,7 @@ class Createdialog extends Component {
     }
     onSubmit = (form) => {
         const {onSubmit} = this.props;
+        var form = Object.assign({},form);
         onSubmit && onSubmit(form);
     }
 
@@ -31,19 +32,19 @@ class Createdialog extends Component {
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:262,marginTop:20,paddingLeft:23}}  >
                 <KrField
                     style={{width:262}}
                     inline={false}
                     label="下级名称"
-                    component="select"
+                    component="input"
                     name="orgName"
                     requireLabel={true}
-                    placeholder="机构维度"
+                    placeholder="下级名称"
                 />
                 <KrField
                     name="orgType"
-                    style={{width:262}}
+                    style={{width:262,marginTop:6}}
                     component="select"
                     label="下级类型"
                     options={[
@@ -53,6 +54,53 @@ class Createdialog extends Component {
                     inline={false}
                     requireLabel={true}
 				/>
+                <KrField
+                    style={{width:262,marginTop:6}}
+                    inline={false}
+                    label="编码"
+                    component="input"
+                    name="orgCode"
+                    requireLabel={true}
+                    placeholder="编码"
+                />
+                <KrField 
+                    style={{width:262,marginTop:6}}  
+                    name="lessorContactid" 
+                    component="searchOaPersonal" 
+                    label="负责人" 
+                    placeholder="负责人"
+                    requireLabel={true}
+                />
+                <KrField 
+                    style={{width:262,marginTop:6}}  
+                    name="lessorContactid" 
+                    component="searchOaPersonal" 
+                    label="管理员" 
+                    placeholder="管理员"
+                    requireLabel={true}
+                />
+                <Row style={{marginTop:20,marginBottom:6}}>
+      					<Col md={12} align="center">
+      						<ButtonGroup>
+      							<div className='ui-btn-center'>
+      								<Button
+      										label="确定"
+      										type="submit"
+      										height={34}
+      										width={90}
+      								/>
+      							</div>
+      							<Button
+      									label="取消"
+      									type="button"
+      									onTouchTap={this.onCancel}
+      									cancle={true}
+      									height={33}
+      									width={90}
+      							/>
+      						</ButtonGroup>
+      				</Col>
+      			</Row>
               </form>
             </div>
         );
@@ -62,8 +110,11 @@ class Createdialog extends Component {
 // const validate = values => {
 
 // 	const errors = {}
-// 	if (!values.version) {
-// 		errors.version = '请输入版本';
+// 	if (!values.name) {
+// 		errors.version = '请输入下级名称';
+// 	}
+//     if (!values.version) {
+// 		errors.version = '请选择类型';
 // 	}
  
 // 	return errors
