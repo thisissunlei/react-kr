@@ -67,7 +67,7 @@ class EditDialog extends React.Component {
                     inline={false}
                     label="排序"
                     component="input"
-                    name="name"
+                    name="sort"
                     requireLabel={true}
                     placeholder="排序"
                 />
