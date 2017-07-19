@@ -207,19 +207,27 @@ class TreeNode extends React.Component {
           delete animProps.animation.appear;
         }
       }
+
+      return (
+        <span>
+           {!props.expanded ? null : <ul className={classNames(cls)} data-expanded={props.expanded}>
+            {React.Children.map(children, (item, index) => {
+              return props.root.renderTreeNode(item, index, props.pos);
+            }, props.root)}
+          </ul>}
+        </span>
+      );
       newChildren = (
         <Animate {...animProps}
           showProp="data-expanded"
           transitionAppear={transitionAppear}
           component=""
         >
-          {!props.expanded ? null : <ul className={classNames(cls)} data-expanded={props.expanded}>
-            {React.Children.map(children, (item, index) => {
-              return props.root.renderTreeNode(item, index, props.pos);
-            }, props.root)}
-          </ul>}
+         
         </Animate>
       );
+
+
     }
     return newChildren;
   }
