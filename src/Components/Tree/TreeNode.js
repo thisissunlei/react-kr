@@ -42,6 +42,7 @@ class TreeNode extends React.Component {
   }
 
   onSelect() {
+    
     this.props.root.onSelect(this);
   }
 
@@ -261,6 +262,7 @@ class TreeNode extends React.Component {
     };
 
     const selectHandle = () => {
+      /*==========icon修改的位置(this.props.itemData)获取位置的数据===========*/
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span className={classNames(iconEleCls)}></span> : null;
       const title = <span className={`${prefixCls}-title`}>{content}</span>;

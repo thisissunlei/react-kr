@@ -15,13 +15,14 @@ export default class Viewdialog extends React.Component {
     		}
     }
     componentDidMount() {
-      var _this = this;
-      var id = this.props.detail.id
-      Http.request('get-version-detail', {
-              id: id
-          }).then(function(response) {
-              _this.setState({infoList: response})
-          }).catch(function(err) {});
+    //   var _this = this;
+    //   var id = this.props.detail.id
+    //   Http.request('org-detail', {
+    //           orgId: orgId,
+    //           orgType: orgType
+    //       }).then(function(response) {
+    //           _this.setState({infoList: response})
+    //       }).catch(function(err) {});
     }
     onCancel = () => {
         const {onCancel} = this.props;
@@ -29,76 +30,32 @@ export default class Viewdialog extends React.Component {
     }
 
     render() {
-        const {handleSubmit} = this.props;
         let {infoList} = this.state;
         return (
 
-            <div style={{width:670,marginTop:30,paddingLeft:80,paddingRight:40}}>
-                <span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
-                <div className="u-operations-edit-title">
-                  <span>版本详情</span>
-                </div>
+              <div style={{width:262,marginTop:20,paddingLeft:23}}>
                 <KrField
-                    style={{width:260}}
+                    style={{width:262}}
                     inline={false}
-                    value={infoList.version}
-                    label="系统版本"
+                    value={infoList.name}
+                    label="机构名称"
                     component="labelText"
                 />
                 <KrField
-                    style={{width:260,marginLeft:25}}
-                    value={infoList.osType}
-                    label="设备类型"
+                    style={{width:262}}
+                    value={infoList.type}
+                    label="排序"
                     inline={false}
                     component="labelText"
                 />
+                
                 <KrField
-                    style={{width:260}}
-                    value={infoList.enable=='ENABLE'?'启用':'未启用'}
-                    label="启用标识"
-                    inline={false}
+                    style={{width:262}}
                     component="labelText"
-                />
-                <KrField
-                    style={{width:260,marginLeft:25}}
-                    value={infoList.forced=='FORCED'?'强制':'不强制'}
-                    label="是否强制更新"
+                    label="技术部ID号"
                     inline={false}
-                    component="labelText"
+                    value={infoList.id}
                 />
-                <KrField
-                    style={{width:260}}
-                    component="labelText"
-                    label="app类型"
-                    inline={false}
-                    value={infoList.appType}
-                />
-                <KrField
-                    style={{width:260,marginLeft:25}}
-                    label="下载地址"
-                    value={infoList.downUrl}
-                    inline={false}
-                    component="labelText"
-                />
-                <KrField
-                    style={{width:260}}
-                    inline={false}
-                    component="labelText"
-                    inline={false}
-                    label="发布时间"
-                    value={< KrDate style = {{marginTop:5}} value = {
-                            infoList.publishTime
-                    }
-                    format = "yyyy-mm-dd HH:MM:ss" />}
-                />
-                <KrField
-                    style={{width:545}}
-                    label="版本更新内容"
-                    inline={false}
-                    value={infoList.updateInfo}
-                    component="labelText"
-                />
-
             </div>
         );
     }

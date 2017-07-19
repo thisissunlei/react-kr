@@ -56,7 +56,7 @@ class CreateDialog extends React.Component {
                     requireLabel={true}
                 />
                 
-                <Row style={{marginTop:30,marginBottom:15}}>
+                <Row style={{marginTop:20,marginBottom:6}}>
       					<Col md={12} align="center">
       						<ButtonGroup>
       							<div className='ui-btn-center'>

@@ -24,14 +24,15 @@ import {
 	Col,
 	Dialog,
 	KrDate,
-	Message
+	Message,
+	SliderTree,
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
 import CreateDialog from './Createdialog';
 import EditDialog from './Editdialog';
 import Viewdialog from './Viewdialog';
-
+import CancelDialog from './CancelDialog';
 
 @inject("NavModel")
 @observer
@@ -44,12 +45,14 @@ export default class Labour extends React.Component {
 				page: 1,
 				pageSize: 15,
 			},
+			data:{},
 			itemDetail: '',
-			openHighSearch: false,
 			openCreateDialog: false,
 			openEditDialog: false,
 			openViewDialog:false,
 			tabSelect:1,
+			openCancelDialog:false,
+			newPage:1,
 		}
 	}
 	checkTab=(item)=>{
@@ -67,34 +70,35 @@ export default class Labour extends React.Component {
 			itemDetail
 		});
 
-		if (type == 'view') {
-			this.openViewDialog();
-		}else if (type == 'edit') {
-			this.openEditDialog();
+		if (type == 'cancle') {
+			this.openCancelDialog();
 		}
 	}
-//高级查询
-openHighSearch = () => {
-    this.setState({
-      openHighSearch: !this.state.openHighSearch
-    })
-  }
-
-	onSearchSubmit = (form) => {
+	//搜索
+    onSearchSubmit = (value) => {
+        let {searchParams} = this.state;
+        if (value.filter == 'company') {
+            this.setState({
+                searchParams: {
+                    page: this.state.newPage,
+                    pageSize: 15,
+                    accountName: value.content
+                }
+            })
+        }
+        if (value.filter == 'city') {
+            this.setState({
+                searchParams: {
+                    page: this.state.newPage,
+                    pageSize: 15,
+                    realName: value.content
+                }
+            })
+        }
+    }
+	openCancelDialog=()=>{
 		this.setState({
-			searchParams:form
-		})
-		this.openHighSearch();
-	}
-//普通查询
-	searchParams = (form) => {
-		var _this = this;
-		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				version: form.content
-			}
+			openCancelDialog: !this.state.openCancelDialog
 		})
 	}
 	openViewDialog = () => {
@@ -125,12 +129,29 @@ openHighSearch = () => {
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
-		params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
-		Http.request('save-version', {}, params).then(function(response) {
+		               //params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
+		Http.request('org-update', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
 			_this.changeP();
 		}).catch(function(err) {
+			Message.error(err.message)
+		});
+	}
+	onCancelSubmit=()=>{
+		let {
+			itemDetail
+		} = this.state;
+		var _this = this;
+		Http.request('org-cancel', {
+			orgId: itemDetail.orgId,
+			orgType:itemDetail.orgType,
+		}).then(function(response) {
+			_this.openCancelDialog();
+			Message.success('封存成功');
+			_this.changeP();
+		}).catch(function(err) {
+			_this.openCancelDialog();
 			Message.error(err.message)
 		});
 	}
@@ -151,17 +172,30 @@ openHighSearch = () => {
         })
     }
 	render() {
-		let {itemDetail} = this.state;
-
+		let {itemDetail,data} = this.state;
+		let options = [
+            {
+                label: '人名',
+                value: 'company'
+            }, {
+                label: '邮箱',
+                value: 'city'
+            }
+        ];
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
+						<form>
 						<div className="search"> 
 							<input type="text" placeholder="ddd" />
 							<span className="searching">
 
 							</span>
-						</div>							
+						</div>
+						<div className="oa-tree">
+						<SliderTree />
+						</div>
+						</form>							
 					</div>
 					<div className="right">
 						<div className="header">
@@ -207,7 +241,7 @@ openHighSearch = () => {
 								<Button
       									label="编辑"
       									type="button"
-      									onTouchTap={this.onCancel}
+      									onTouchTap={this.openEditDialog}
       									height={30}
       									width={80}
 												backgroundColor='#fcfcfc'
@@ -220,7 +254,7 @@ openHighSearch = () => {
 								<Button
       									label="查看"
       									type="button"
-      									onTouchTap={this.onCancel}
+      									onTouchTap={this.openViewDialog}
       									height={30}
       									width={80}
 												backgroundColor='#F5F6FA'
@@ -237,13 +271,11 @@ openHighSearch = () => {
 											<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}/>
 									</Col>
 									<Col md={8} align="right">
-										<div className="u-search">
-												<SearchForm onSubmit={this.searchParams} />
-										</div>
+										
 									</Col>
 									</Row>
 								</Grid>
-								<Table
+							<Table
 								style={{marginTop:10}}
 								displayCheckbox={false}
 								onLoaded={this.onLoaded}
@@ -251,8 +283,8 @@ openHighSearch = () => {
 								ajaxUrlName='get-version-list'
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
-						onPageChange={this.onPageChange}
-									>
+								onPageChange={this.onPageChange}
+							>
 							<TableHeader>
 							<TableHeaderColumn>系统版本</TableHeaderColumn>
 							<TableHeaderColumn>设备类型</TableHeaderColumn>
@@ -275,8 +307,7 @@ openHighSearch = () => {
 									)
 								}}> </TableRowColumn>
 							<TableRowColumn>
-									<Button label="查看"  type="operation" operation="view"/>
-									<Button label="编辑"  type="operation" operation="edit"/>
+									<Button label="封存"  type="operation" operation="cancle"/>
 							</TableRowColumn>
 							</TableRow>
 						</TableBody>
@@ -290,11 +321,10 @@ openHighSearch = () => {
 					<Grid style={{marginBottom:14,marginTop:14}}>
 									<Row>
 									<Col md={4} align="left" >
-											<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}/>
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
-												<SearchForm onSubmit={this.searchParams} />
+												<SearchForm onSubmit={this.searchParams} searchFilter={options}/>
 										</div>
 									</Col>
 									</Row>
@@ -353,26 +383,48 @@ openHighSearch = () => {
 		}
 		</div>
         <Dialog 
-            title="新建机构维度" 
+            title="查看XXX" 
             modal={true} 
-            open={this.state.openCreate} 
-            onClose={this.openCreate} 
+            open={this.state.openViewDialog} 
+            onClose={this.openViewDialog} 
             contentStyle={{
                 width: 374
             }}
         >
-                <CreateDialog onSubmit={this.onNewCreateSubmit} onCancel={this.openCreate} />
+                <Viewdialog detail={this.state.data} onCancel={this.openViewDialog} />
         </Dialog>
         <Dialog 
-                title="编辑机构维度" 
+                title="编辑XXX" 
                 modal={true} 
-                open={this.state.openEdit} 
-                onClose={this.openEdit} 
+                open={this.state.openEditDialog} 
+                onClose={this.openEditDialog} 
                 contentStyle={{
                     width: 374
                 }}
         >
-                <EditDialog detail={this.state.itemDetail} onSubmit={this.onNewEditSubmit} onCancel={this.openEdit} />
+                <EditDialog detail={this.state.itemDetail} onSubmit={this.onNewEditSubmit} onCancel={this.openEditDialog} />
+        </Dialog>
+				<Dialog 
+                title="提示" 
+                modal={true} 
+                open={this.state.openCancelDialog} 
+                onClose={this.openCancelDialog} 
+                contentStyle={{
+                    width: 374
+                }}
+        >
+                <CancelDialog detail={this.state.itemDetail} onSubmit={this.onCancelSubmit} onCancel={this.openCancelDialog} />
+        </Dialog>
+				<Dialog 
+                title="新建下级" 
+                modal={true} 
+                open={this.state.openCreateDialog} 
+                onClose={this.openCreateDialog} 
+                contentStyle={{
+                    width: 374
+                }}
+        >
+                <CreateDialog detail={this.state.itemDetail} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
         </Dialog>
 </div>
 		);

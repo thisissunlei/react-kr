@@ -255,6 +255,9 @@ class Tree extends React.Component {
     const selectedKeys = [...this.state.selectedKeys];
     const eventKey = treeNode.props.eventKey;
     const index = selectedKeys.indexOf(eventKey);
+  
+    
+
     let selected;
     if (index !== -1) {
       selected = false;
@@ -267,9 +270,12 @@ class Tree extends React.Component {
       selectedKeys.push(eventKey);
     }
     const selectedNodes = [];
+    let nodeName = "";
     if (selectedKeys.length) {
       loopAllChildren(this.props.children, (item) => {
         if (selectedKeys.indexOf(item.key) !== -1) {
+          nodeName = item.props.title;
+           
           selectedNodes.push(item);
         }
       });
@@ -279,13 +285,15 @@ class Tree extends React.Component {
       node: treeNode,
       selected,
       selectedNodes,
+      nodeName
     };
     if (!('selectedKeys' in this.props)) {
       this.setState({
         selectedKeys,
       });
     }
-    props.onSelect(selectedKeys, newSt);
+
+    props.onSelect(treeNode.props.itemData);
   }
 
   onMouseEnter(e, treeNode) {

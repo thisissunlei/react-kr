@@ -21,7 +21,9 @@ import {
 	ListGroupItem,
 	Message,
 } from 'kr-ui';
-import AddPerson from './AddPerson';
+import {
+	AddPostPeople
+} from 'kr/PureComponents';
 import Leave from './Leave';
 import Remove from './Remove';
 import Transfer from './Transfer';
@@ -46,6 +48,11 @@ export default class InService  extends React.Component{
       this.setState({
 		  openAddPerson:!this.state.openAddPerson
 	  })
+   }
+  
+   //新建用户提交
+   addPersonSubmit=(params)=>{
+     console.log('params',params);   
    }
 
    //操作
@@ -115,6 +122,13 @@ export default class InService  extends React.Component{
    //开通门禁提交
    addCardSubmit=()=>{
     
+   }
+   
+   //关闭所有侧滑
+   allClose=()=>{
+      this.setState({
+		  openAddPerson:false
+	  })
    }
 
 	render(){
@@ -188,17 +202,12 @@ export default class InService  extends React.Component{
 					</Table>
 
 					{/*新建用户*/}
-					<Drawer
-							open={this.state.openAddPerson}
-							width={750}
-							openSecondary={true}
-							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-					 >
-						<AddPerson
-			               onCancel={this.openAddPersonal}
-						   onSubmit={this.addPersonSubmit}   
-						/>
-					</Drawer>
+					<AddPostPeople 
+					 onCancel={this.openAddPersonal}
+					 onSubmit={this.addPersonSubmit}
+					 open={this.state.openAddPerson} 
+					 onClose={this.allClose}  
+					/>
 
 					{/*离职*/}
 					<Dialog

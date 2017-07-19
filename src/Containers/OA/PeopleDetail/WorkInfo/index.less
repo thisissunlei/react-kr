@@ -1,0 +1,102 @@
+.info-wrap{
+    height:600px;
+    overflow-y: scroll;
+    background:#fff;
+     .title-out{
+             margin-right:15px; 
+             border-bottom:solid 1px #E1E6EB; 
+             line-height:38px;
+             height:38px;
+             padding-top: 8px;
+            .title-blue{
+                width:2px;
+                height:12px;
+                background: #4990E2;
+                display:inline-block;
+                margin-top: 14px;
+                margin-right: 6px;
+                margin-left:15px;
+            }
+            .title-name{
+                font-family: PingFangSC-Medium;
+                font-size: 14px;
+                color: #333333;
+            }
+            .title-right{
+                display:inline-block;
+                width:48px;
+                height:38px;
+                text-align:right;
+                font-family: PingFangSC-Regular;
+                font-size: 14px;
+                color: #4990E2;
+                float: right;
+                margin-right: 28px;
+                cursor:pointer;
+                background:url(../images/edit.svg) no-repeat left center;
+            }
+    }
+    .info-inner{
+      width:100%;
+        li{
+          margin:0 15px; 
+          line-height:38px;
+          height:38px;
+          border-bottom:solid 1px #E1E6EB; 
+          display: -webkit-flex;
+          display:flex;
+          .name{
+              width:269px;
+              flex-grow:0;
+              display:inline-block;
+              color:#333;
+              font-size:14px;
+              font-family: PingFangSC-Regular;
+          }
+         .info{
+             flex-grow:1;
+             display:inline-block;
+             color:#666;
+             font-size:14px;
+             font-family: PingFangSC-Regular;
+          }
+        }
+    }
+
+
+    .m-work{
+     margin-left: 42px;
+     padding: 35px 45px 48px 53px;
+    .title{
+        position: relative;
+        font-size: 18px;
+        margin-left: -5px;
+        .new-icon{
+        display: inline-block;
+        width: 42px;
+        height: 42px;
+        vertical-align:middle;
+        background: url(../images/meeting.svg) no-repeat;
+        background-position: center center;
+        background-size: 100% 100%;
+        }
+
+        label{
+        vertical-align:middle;
+        display: inline-block;
+        margin-left: 10px;
+        }
+    }
+    .person-close{
+        position: absolute;
+        display: block;
+        width: 20px;
+        height: 20px;
+        right: 0px;
+        top:0px;
+        cursor: pointer;
+        background: url(../images/close.svg) no-repeat;
+        background-position: center center;
+    }
+ }
+}
