@@ -18,20 +18,6 @@ export default class PeopleDetail  extends React.Component{
 
 	render(){
 
-		let initStyle={
-			color:'#666666',
-			border: '1px solid #E1E6EB',
-			borderRadius: '4px 4px 0 0',
-			borderBottom:'none',
-		}
-        
-		let activeStyle={
-			color:'#4990E2',
-			border: '1px solid #E1E6EB',
-			borderRadius: '4px 4px 0 0',
-			borderBottom:'none'
-		}
-
 		return(
 
 			<div className='people-detail'>
@@ -45,8 +31,6 @@ export default class PeopleDetail  extends React.Component{
 			  </div>
 			  <div className='detail-right'>
 				  <TabCs
-					initStyle={initStyle} 
-					activeStyle={activeStyle}
 			      >
 				  <TabC label='基本信息'> 
 					  <BasicInfo />
