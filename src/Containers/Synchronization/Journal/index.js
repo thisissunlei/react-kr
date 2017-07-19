@@ -99,9 +99,9 @@ export default class Journal extends React.Component {
 	render() {
 		let {handleSubmit} = this.props;
 		return (
-			    <div  style={{minHeight:910}}>
+			    <div  style={{minHeight:'910',backgroundColor:"#fff"}}>
 					<Title value="日志列表"/>
-					<Section title="日志列表"  >
+					<Section title="日志列表">
 					<Row style={{marginBottom:12,marginTop:-4,zIndex:6,position:'relative'}}>
 						  <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
 						          <ListGroup>

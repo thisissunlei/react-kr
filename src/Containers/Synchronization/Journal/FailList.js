@@ -93,8 +93,12 @@ export default class FailList extends React.Component {
 
 	render() {
 		let rowFootStyle = {};
+		let rowStyle = {
+			display:!!State.itemsList.length?'none':'block'
+		}
 		return (
 			<div style={{marginTop:30,minHeight:'910'}}>
+				<div style={{display:!!State.itemsList.length?'block':'none'}}>
 				<Button  label="重新同步" type="submit" width={100} height={30} fontSize={16} onTouchTap={this.sendData}/>
 				<Table
 		                  style={{margin:'30px 0'}}
@@ -134,9 +138,38 @@ export default class FailList extends React.Component {
            			
 
 		            </Table>
+
+		            
 		            {!State.loading && !!State.pageInfo.totalCount && <div className='footPage' style={rowFootStyle}>
            				<Pagination  totalCount={State.pageInfo.totalCount} page={State.pageInfo.page} pageSize={State.pageInfo.pageSize} onPageChange={this.onPageChange}/>
            			</div>}
+           		</div>
+           		<div style={{display:!!State.itemsList.length?'none':'block'}}>
+           			<Table
+					     style={{margin:'30px 0'}}
+			            displayCheckbox={false}
+							  >
+				        <TableHeader>
+				          <TableHeaderColumn >主体</TableHeaderColumn>
+		                  <TableHeaderColumn>时间</TableHeaderColumn>
+		                  <TableHeaderColumn>同步方式</TableHeaderColumn>
+		                  <TableHeaderColumn>同步状态</TableHeaderColumn>
+		                  <TableHeaderColumn>内容</TableHeaderColumn>
+				      	</TableHeader>
+						<TableBody className='noDataBody' style={{borderBottom:'none'}}>
+							<TableRow style={{backgroundColor:'#fff'}}>
+								<TableRowColumn colSpan={100} >
+									<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
+										<div className="ui-nothing">
+											<div className="icon"></div>
+											<p className="tip">暂时还没有数据呦~</p>
+										</div>
+									</div>
+								</TableRowColumn>
+							</TableRow>
+						</TableBody>
+					</Table>
+           		</div>
 			</div>
 		);
 

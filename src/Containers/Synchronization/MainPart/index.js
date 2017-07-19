@@ -68,9 +68,9 @@ export default class List extends React.Component {
 
 	render() {
 		return (
-			    <div style={{minHeight:910}}>
+			    <div  style={{minHeight:'910',backgroundColor:"#fff"}}>
 					<Title value="同步主体列表"/>
-					<Section title="同步主体列表"  >
+					<Section title="同步主体列表" >
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 							<Button label="新建"  onTouchTap={this.openNewCreat} />
 							<SearchForms 
