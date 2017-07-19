@@ -10,7 +10,7 @@ import {
 import {reduxForm}  from 'redux-form';
 import './index.less';
 
-class EditFamily  extends React.Component{
+class EditWork  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -32,10 +32,10 @@ class EditFamily  extends React.Component{
 
 		return(
 
-			<div className='m-person'>
+			<div className='m-work'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon"></span><label className="title-text">编辑家庭成员</label></div>
+                            <div><span className="new-icon"></span><label className="title-text">编辑工作信息</label></div>
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 
@@ -43,37 +43,41 @@ class EditFamily  extends React.Component{
                             style={{width:262}}
                             name="area"
                             component="input"
-                            label="成员"
+                            label="工资卡号"
                             requireLabel={true}
 						/>
 
-                          <KrField grid={1/2}
+                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="area"
-                            component="input"
-                            label="称谓"
-                             requireLabel={true}
+                            component="date"
+                            label="核算单位"
+                            requireLabel={true}
 						/>
-                        
-                        <KrField grid={1/2}
+                       
+
+                          <KrField grid={1/2}
                             style={{width:262}}
                             name="area"
-                            component="input"
-                            label="身份证"
+                            component="date"
+                            label="试用期到期时间"
 						/>
+
+
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="area"
-                            component="input"
-                            label="工作单位"
-                             requireLabel={true}
+                            component="date"
+                            label="劳动合同终止时间"
+                            requireLabel={true}
 						/>
+
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="area"
                             component="input"
-                            label="职务"
+                            label="公司邮箱"
                             requireLabel={true}
 						/>
                         
@@ -82,17 +86,15 @@ class EditFamily  extends React.Component{
 								style={{width:262,marginLeft:28}}
 								name="floor"
 								component="input"
-								label="地址"
-                                requireLabel={true}
+								label="名片tilte"
 						 />
 
                          <KrField grid={1/2}
                             style={{width:262}}
                             name="area"
                             component="input"
-                            label="联系电话"
+                            label="入职来源"
 						/>
-
                        
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
                             <Row>
@@ -116,4 +118,4 @@ const validate = values =>{
 	return errors
 }
 
-export default reduxForm({ form: 'EditFamily',validate})(EditFamily);
+export default reduxForm({ form: 'EditWork',validate})(EditWork);
