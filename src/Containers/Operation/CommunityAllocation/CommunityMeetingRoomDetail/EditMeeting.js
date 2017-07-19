@@ -155,6 +155,12 @@ class EditMeeting  extends React.Component{
 	  }
 
     onSubmit=(values)=> {
+    	if(values.startTime && values.endTime){
+			var startTime=values.startTime.substring(0,10);
+			var endTime=values.endTime.substring(0,10);
+			values.closeStartDate=`${startTime} ${values.StartTimeStr}`;
+			values.closeEndDate=`${endTime} ${values.EndTimeStr}`;
+		}
 		values.id=this.props.CommunityMeetingModel.deleteId;
 		values.communityId=this.props.CommunityMeetingModel.communityId;
 	    const {
