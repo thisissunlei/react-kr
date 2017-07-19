@@ -97,11 +97,12 @@ export default class List extends React.Component {
 		                  onPageChange={this.onPageChange}
 		              >
 		              <TableHeader>
-		                  <TableHeaderColumn width={160}>系统名称</TableHeaderColumn>
-		                  <TableHeaderColumn width={160}>编码</TableHeaderColumn>
+		                  <TableHeaderColumn width={100}>系统名称</TableHeaderColumn>
+		                  <TableHeaderColumn width={100}>编码</TableHeaderColumn>
+		                  <TableHeaderColumn width={100}>IP</TableHeaderColumn>
 		                  <TableHeaderColumn>联系人</TableHeaderColumn>
 		                  <TableHeaderColumn>电话</TableHeaderColumn>
-		                  <TableHeaderColumn>备注</TableHeaderColumn>
+		                  <TableHeaderColumn width={300}>备注</TableHeaderColumn>
 		                  <TableHeaderColumn>操作</TableHeaderColumn>
 		              </TableHeader>
 		              <TableBody>
@@ -115,7 +116,7 @@ export default class List extends React.Component {
 									}else{
 										TooltipStyle="block";
 									}
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 								 }}
 		              		 ></TableRowColumn>
@@ -129,9 +130,12 @@ export default class List extends React.Component {
 										}else{
 											TooltipStyle="block";
 										}
-										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 									 }}
+		              		 ></TableRowColumn>
+		              		 <TableRowColumn 
+		              		 		name="ip"
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn name="linkman"></TableRowColumn>
 		              		 <TableRowColumn name="phone"></TableRowColumn>
@@ -143,7 +147,7 @@ export default class List extends React.Component {
 									}else{
 										TooltipStyle="block";
 									}
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >
 											{value}
 									 	</Tooltip></div>)

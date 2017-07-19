@@ -120,6 +120,7 @@ class EditNewList extends React.Component {
 								component="textarea" 
 								name="remark" 
 								label="备注" 
+								maxSize={100}
 								defaultValue=''
 								/>
 						<Grid style={{marginTop:50,width:'100%'}}>
@@ -145,28 +146,34 @@ const validate = values => {
 	if(!values.name){
 		errors.name = '请输入系统名称';
 	}
-	if(values.name){
-		if(values.name.length>50){
-			errors.name = '系统名称不能超过50字';
-		}
+	if(values.name && values.name.length>20){
+		errors.name = '系统名称不能超过20字';
 	}
+	if(values.code && values.code.length>20){
+		errors.code = '系统编码名称不能超过20字';
+	}
+
 	if(!values.code){
 		errors.code = '请输入系统编码';
 	}
 	if(!values.ip){
 		errors.ip = '请输入系统IP';
 	}
+	if(values.ip && values.ip.length>50){
+		errors.ip = 'IP名称不能超过50字';
+	}
 	if(!values.linkman){
 		errors.linkman = '请输入联系人';
+	}
+	if(values.linkman && values.linkman.length>10){
+		errors.linkman = 'IP名称不能超过10字';
 	}
 	if(!values.phone){
 		errors.phone = '请输入联系人手机号';
 	}
 	if( values.phone && !(/^1[3|5][0-9]\d{4,8}$/.test(values.phone))){
 		errors.phone = '请输入正确联系人手机号';
-	}
-	
-	
+	}	
 
 	return errors
 }

@@ -82,6 +82,7 @@ class CreateNewList extends React.Component {
 								component="textarea" 
 								name="remark" 
 								label="备注" 
+								maxSize={50}
 								defaultValue=''
 								/>
 						<Grid style={{marginTop:50,width:'100%'}}>
@@ -107,8 +108,11 @@ const validate = values => {
 	if(!values.name){
 		errors.name = '请输入主体名称';
 	}
-	if(values.name && values.name.length>50){
-		errors.name = '主体名称不能超过50字';
+	if(values.name && values.name.length>20){
+		errors.name = '主体名称不能超过20字'
+	}
+	if(values.code && values.code.length>20){
+		errors.code = '主体编码不能超过20字';
 	}
 	if(!values.code){
 		errors.code = '请输入主体编码';

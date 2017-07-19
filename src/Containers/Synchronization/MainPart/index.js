@@ -103,7 +103,7 @@ export default class List extends React.Component {
 		                  <TableHeaderColumn>失败数</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步时间</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步系统</TableHeaderColumn>
-		                  <TableHeaderColumn width={160}>备注</TableHeaderColumn>
+		                  <TableHeaderColumn width={300}>备注</TableHeaderColumn>
 		                  <TableHeaderColumn>操作</TableHeaderColumn>
 		              </TableHeader>
 		              <TableBody>
@@ -147,7 +147,7 @@ export default class List extends React.Component {
 									}else{
 										TooltipStyle="block";
 									}
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >
 											{value}
 									 	</Tooltip></div>)

@@ -85,7 +85,7 @@ export default class FailList extends React.Component {
 		              <TableBody>
 		              	<TableRow>
 		              		 <TableRowColumn 
-		              		 	name="title"
+		              		 	name="mainName"
 		              		 	component={(value,oldValue)=>{
 									var TooltipStyle=""
 									if(value.length==""){
@@ -98,22 +98,37 @@ export default class FailList extends React.Component {
 								 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
-		              		 		name="newsDesc"
-									component={(value,oldValue)=>{
-										var TooltipStyle=""
-										if(value.length==""){
-											TooltipStyle="none"
+		              		 	name='syncTime'
+		              		 	component={(value,oldValue)=>{
+									 return (<div className='financeDetail-hover'>
+									 	{DateFormat(oldValue.syncTime,'yyyy/mm/dd')}
 
-										}else{
-											TooltipStyle="block";
-										}
-										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
-									 }}
+									 	</div>)
+								 }}
 		              		 ></TableRowColumn>
-		              		 <TableRowColumn name="publishedStatusName"></TableRowColumn>
-		              		 <TableRowColumn name="stickStatusName"></TableRowColumn>
-		              		 <TableRowColumn name="publishedTime" > </TableRowColumn>
+		              		 <TableRowColumn name="mode"
+		              		 component={(value,oldValue)=>{
+									 return (<div className='financeDetail-hover'>
+									 	{oldValue.mode=='TIMING'?'定时':'手动'}
+									 	</div>)
+								 }}></TableRowColumn>
+		              		 <TableRowColumn name="stickStatusName"
+		              		  component={(value,oldValue)=>{
+									 return (<div className='financeDetail-hover'>
+									 	{oldValue.status?'成功':'失败'}
+									 	</div>)
+								 }}></TableRowColumn>
+		              		 <TableRowColumn name="content"
+		              		 component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+									}else{
+										TooltipStyle="block";
+									}
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
+								 }} > </TableRowColumn>
 		              	</TableRow>
 		              </TableBody>
 		               <TableFooter></TableFooter>
