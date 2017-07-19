@@ -32,7 +32,7 @@ export default class WorkInfo  extends React.Component{
 
 		return(
 			<div className='info-wrap'>
-				  <div className='title'>
+				  <div className='title-out'>
 						<span className='title-blue'></span>
 						<span className='title-name'>工作信息</span>
 						<span className='title-right'>编辑</span>
