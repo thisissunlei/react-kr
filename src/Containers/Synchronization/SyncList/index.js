@@ -171,14 +171,14 @@ export default class List extends React.Component {
 		                  onPageChange={this.onPageChange}
 		              >
 		              <TableHeader>
-		                  <TableHeaderColumn width={160}>主体名称</TableHeaderColumn>
-		                  <TableHeaderColumn width={160}>主体编码</TableHeaderColumn>
+		                  <TableHeaderColumn width={100}>主体名称</TableHeaderColumn>
+		                  <TableHeaderColumn width={100}>主体编码</TableHeaderColumn>
 		                  <TableHeaderColumn>订阅系统</TableHeaderColumn>
-		                  <TableHeaderColumn>接口地址</TableHeaderColumn>
+		                  <TableHeaderColumn width={160}>接口地址</TableHeaderColumn>
 		                  <TableHeaderColumn>失败数</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步时间</TableHeaderColumn>
 		                  <TableHeaderColumn>备注</TableHeaderColumn>
-		                  <TableHeaderColumn>操作</TableHeaderColumn>
+		                  <TableHeaderColumn width={160}>操作</TableHeaderColumn>
 		              </TableHeader>
 		              <TableBody>
 		              	<TableRow>
@@ -191,7 +191,7 @@ export default class List extends React.Component {
 									}else{
 										TooltipStyle="block";
 									}
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 								 }}
 		              		 ></TableRowColumn>
@@ -205,12 +205,23 @@ export default class List extends React.Component {
 										}else{
 											TooltipStyle="block";
 										}
-										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn name="systemName"></TableRowColumn>
-		              		 <TableRowColumn name="interfaceAdd"></TableRowColumn>
+		              		 <TableRowColumn name="interfaceAdd"
+		              		 component={(value,oldValue)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="block";
+										}
+										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
+									 }}></TableRowColumn>
 		              		 <TableRowColumn name="failures" > </TableRowColumn>
 		              		 <TableRowColumn name="syncTime" 
 		              		 	component={(value,oldValue)=>{

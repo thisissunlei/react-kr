@@ -157,7 +157,7 @@ const validate = values => {
 	if(!values.phone){
 		errors.phone = '请输入联系人手机号';
 	}
-	if( values.phone && !(/^1[3|5][0-9]\d{4,8}$/.test(values.phone))){
+	if( values.phone && !(/^1[34578]\d{9}$/.test(values.phone))){
 		errors.phone = '请输入正确联系人手机号';
 	}
 	
