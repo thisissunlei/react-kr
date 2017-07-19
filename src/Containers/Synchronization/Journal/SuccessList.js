@@ -115,7 +115,7 @@ export default class FailList extends React.Component {
 		              		 <TableRowColumn name="stickStatusName"
 		              		  component={(value,oldValue)=>{
 									 return (<div className='financeDetail-hover'>
-									 	{oldValue.status?'成功':'失败'}
+									 	{'成功'}
 									 	</div>)
 								 }}></TableRowColumn>
 		              		 <TableRowColumn name="content"
