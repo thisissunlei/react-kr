@@ -4,6 +4,7 @@ import {
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
 import PersonalInfo from './PersonalInfo';
+import WorkInfo from './WorkInfo';
 import './index.less';
 
 export default class PeopleDetail  extends React.Component{
@@ -22,7 +23,8 @@ export default class PeopleDetail  extends React.Component{
 			  <div className='detail-left'>left</div>
 			  <div className='detail-right'>
 			    {/*<BasicInfo />*/}
-					<PersonalInfo />
+					{/*<PersonalInfo />*/}
+           <WorkInfo />
 			  </div>
 			</div>
 		);
