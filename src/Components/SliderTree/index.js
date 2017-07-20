@@ -62,11 +62,15 @@ export default class SliderTree extends React.Component {
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
+
 	}
 
 	filterTreeNode = (treeNode) => {
+
 		return this.filterFn(treeNode.props.title);
+
 	}
+
 
 	onChange = (event) => {
 
@@ -84,7 +88,9 @@ export default class SliderTree extends React.Component {
 		if (this.state.inputValue && key.indexOf(this.state.inputValue) > -1) {
 			return true;
 		}
+
 		return false;
+
 	}
 	onExpand = (expandedKeys) => {
 		 this.filterKeys = undefined;
