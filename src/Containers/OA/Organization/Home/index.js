@@ -64,7 +64,7 @@ export default class Home extends React.Component {
       'background':'url('+require("./images/b"+imageNum+".svg")+') no-repeat center'
     };
     return (
-      <div className="item" key={index} style={style}>
+      <div onClick={this.toLabour.bind(this,item)} className="item" key={index} style={style}>
         <span className="item-edit" onClick={this.openEdit.bind(this,item)}>
           
         </span>
@@ -74,11 +74,10 @@ export default class Home extends React.Component {
       </div>
     )
   }
-  onNewCreateSubmit=(form)=> {
-        console.log(1);
-        var form = Object.assign({},form);
+  onNewCreateSubmit=(data)=> {
         var _this = this;   
         Http.request('dim-save', {}, form).then(function(response) {
+            _this.updateData();
             Message.success('新建机构成功');
             _this.openCreate();
         }).catch(function(err) {
@@ -88,25 +87,29 @@ export default class Home extends React.Component {
     onNewEditSubmit = (form) => {
         var form = Object.assign({},form);
         var _this = this;
-        form.id = itemDetail.id;
         Http.request('dim-update', {}, form).then(function(response) {
+            _this.updateData();
             Message.success('修改成功');
             _this.openEdit();
         }).catch(function(err) {
             Message.error(err.message);
         });
     }
-updateData=()=>{
-		  var _this = this;
-			Http.request('dim-list', {
+    updateData=()=>{
+          var _this = this;
+          Http.request('dim-list', {
 
-      },{}).then(function(response) {
-          _this.setState({dimension: response.items},function(){
-    
-          })
-      }).catch(function(err) {});
-    
-	}
+          },{}).then(function(response) {
+              _this.setState({dimension: response.items},function(){
+        
+              })
+          }).catch(function(err) {});
+        
+  }
+  toLabour=(item)=>{
+    var dimId = item.id;
+    window.open(`./#/oa/organization/${dimId}/labour`, dimId);
+  }
   render() {
 
 

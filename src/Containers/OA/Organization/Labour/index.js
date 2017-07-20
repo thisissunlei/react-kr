@@ -44,6 +44,8 @@ export default class Labour extends React.Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
+				orgId:0,
+				orgType:-1,
 			},
 			data:{},
 			itemDetail: '',
@@ -53,6 +55,8 @@ export default class Labour extends React.Component {
 			tabSelect:1,
 			openCancelDialog:false,
 			newPage:1,
+			treeData:[],
+			renderTree:false,
 		}
 	}
 	checkTab=(item)=>{
@@ -63,6 +67,25 @@ export default class Labour extends React.Component {
   componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.setSidebar(false);
+		var dimId = this.props.params.dimId;
+		var _this = this;
+		// Http.request('org-list', {
+		// 	id:dimId
+		// },{}).then(function(response) {
+		// 	console.log(response);
+		// 	_this.setState({
+		// 		treeData:response.childList,
+		// 		searchParams: {
+		// 			page: 1,
+		// 			pageSize: 15,
+		// 			orgId:response.orgId,
+		// 			orgType:response.orgType,
+		// 		},
+		// 	},function(){
+		// 		_this.renderTree();
+		// 	})
+		// }).catch(function(err) {});
+		
 	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
@@ -96,6 +119,11 @@ export default class Labour extends React.Component {
             })
         }
     }
+	renderTree=()=>{
+		this.setState({
+			renderTree:true,
+		})
+	}
 	openCancelDialog=()=>{
 		this.setState({
 			openCancelDialog: !this.state.openCancelDialog
@@ -171,21 +199,27 @@ export default class Labour extends React.Component {
             searchParams:searchParams,
         })
     }
+	onSerchSubmit = (form) => {
+		this.setState({
+			searchParams:{
+				nameAndEmail:form.content,
+			}
+		})
+	}
+	p=(data)=>{
+		// if(data.id>120){
+		// 	return;
+		// }else{
+			
+		// }
+		console.log(data);
+	}
 	render() {
 		let {itemDetail,data} = this.state;
-		let options = [
-            {
-                label: '人名',
-                value: 'company'
-            }, {
-                label: '邮箱',
-                value: 'city'
-            }
-        ];
+		
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
-						<form>
 						<div className="search"> 
 							<input type="text" placeholder="ddd" />
 							<span className="searching">
@@ -193,9 +227,8 @@ export default class Labour extends React.Component {
 							</span>
 						</div>
 						<div className="oa-tree">
-						<SliderTree />
+							{this.state.renderTree && <SliderTree data={this.state.treeData} onSelect={this.p}/>}
 						</div>
-						</form>							
 					</div>
 					<div className="right">
 						<div className="header">
@@ -244,9 +277,9 @@ export default class Labour extends React.Component {
       									onTouchTap={this.openEditDialog}
       									height={30}
       									width={80}
-												backgroundColor='#fcfcfc'
-												labelColor='#666'
-												shadow="no"
+										backgroundColor='#fcfcfc'
+										labelColor='#666'
+										shadow="no"
       					/>
 								<div className="btn-center">
 
@@ -257,9 +290,9 @@ export default class Labour extends React.Component {
       									onTouchTap={this.openViewDialog}
       									height={30}
       									width={80}
-												backgroundColor='#F5F6FA'
-												labelColor='#666'
-												shadow="no"
+										backgroundColor='#F5F6FA'
+										labelColor='#666'
+										shadow="no"
       					/>
 							</div>
 						</div>
@@ -280,28 +313,32 @@ export default class Labour extends React.Component {
 								displayCheckbox={false}
 								onLoaded={this.onLoaded}
 								ajax={true}
-								ajaxUrlName='get-version-list'
+								ajaxUrlName='next-org-list'
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
 							>
 							<TableHeader>
-							<TableHeaderColumn>系统版本</TableHeaderColumn>
-							<TableHeaderColumn>设备类型</TableHeaderColumn>
-							<TableHeaderColumn>下载地址</TableHeaderColumn>
-							<TableHeaderColumn>是否强制更新</TableHeaderColumn>
+							<TableHeaderColumn>ID</TableHeaderColumn>
+							<TableHeaderColumn>下级名称</TableHeaderColumn>
+							<TableHeaderColumn>下级类型</TableHeaderColumn>
+							<TableHeaderColumn>状态</TableHeaderColumn>
+							<TableHeaderColumn>创建日期</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 						</TableHeader>
 
 						<TableBody>
 							<TableRow>
-								<TableRowColumn name="version" ></TableRowColumn>
+								<TableRowColumn name="juniorId" ></TableRowColumn>
 
-								<TableRowColumn name="osTypeName"></TableRowColumn>
+								<TableRowColumn name="juniorName"></TableRowColumn>
+					<TableRowColumn name="juniorType" options={[
+						{label:'部门',value:'0'},
+						{label:'分部',value:'1'}
+					]}></TableRowColumn>
+					<TableRowColumn name="status"></TableRowColumn>
 					
-					<TableRowColumn name="forcedName"></TableRowColumn>
-				
-					<TableRowColumn type="date" name="publishTime" component={(value)=>{
+					<TableRowColumn type="date" name="createTime" component={(value)=>{
 									return (
 										<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>
 									)
@@ -324,7 +361,7 @@ export default class Labour extends React.Component {
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
-												<SearchForm onSubmit={this.searchParams} searchFilter={options}/>
+												<SearchForm onSubmit={this.searchParams}/>
 										</div>
 									</Col>
 									</Row>
@@ -334,47 +371,32 @@ export default class Labour extends React.Component {
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxUrlName='op-code-list'
+							ajaxUrlName='hrm-list'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
 							onPageChange={this.onPageChange}
 						>
 						<TableHeader>
-						<TableHeaderColumn>名称</TableHeaderColumn>
-						<TableHeaderColumn>编码</TableHeaderColumn>
-						<TableHeaderColumn>创建人</TableHeaderColumn>
-						<TableHeaderColumn>创建时间</TableHeaderColumn>
-						<TableHeaderColumn>操作</TableHeaderColumn>
+						<TableHeaderColumn>ID</TableHeaderColumn>
+						<TableHeaderColumn>部门名称</TableHeaderColumn>
+						<TableHeaderColumn>人员名称</TableHeaderColumn>
+						<TableHeaderColumn>邮箱</TableHeaderColumn>
+						<TableHeaderColumn>入职日期</TableHeaderColumn>
+						<TableHeaderColumn>状态</TableHeaderColumn>
 					</TableHeader>
 
 					<TableBody>
 						<TableRow>
-							<TableRowColumn name="name"></TableRowColumn>
-							<TableRowColumn name="codeName" 
-								 component={(value)=>{
-                  var styles = {
-                    display:'block',
-                    paddingTop:5
-                  };
-                  if(value.length==""){
-                    styles.display="none"
-
-                  }else{
-                    styles.display="block";
-                  }
-                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:220,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                 }}
-							></TableRowColumn>
-							<TableRowColumn name="creater"></TableRowColumn>
-							<TableRowColumn type="date" name="createDate" component={(value)=>{
+							<TableRowColumn name="hrmId"></TableRowColumn>
+							<TableRowColumn name="departName"></TableRowColumn>
+							<TableRowColumn name="userName"></TableRowColumn>
+							<TableRowColumn name="mail"></TableRowColumn>
+							<TableRowColumn type="entryTime" name="createDate" component={(value)=>{
 								return (
 									<KrDate value={value} format = "yyyy-mm-dd HH:MM:ss" />
 								)
 							}}> </TableRowColumn>
-							<TableRowColumn>
-									<Button label="编辑"   type="operation" operateCode="sso_resource_edit" operation="edit"/>
-							 </TableRowColumn>
+							<TableHeaderColumn name="status"></TableHeaderColumn>
 						 </TableRow>
 					</TableBody>
 					<TableFooter></TableFooter>

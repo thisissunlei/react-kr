@@ -8,19 +8,34 @@ import {Tree,TreeNode }from '../Tree';
 export default class SliderTree extends React.Component{
 	constructor(props,context){
 		super(props,context)
+		
+	}
+	static propTypes = {
+				//autoExpandParent: React.PropTypes.bool,
+				//expandedKeys: React.PropTypes.array,
+				data:React.PropTypes.array
 	}
 	//勾选
 	onCheck = (checkedKeys) =>{
-		console.log(checkedKeys,"??????")
+		
 	}
 	//点击选择事件
 	onSelect = (item) =>{
 		let {onSelect} = this.props;
 
 		onSelect && onSelect(item);
+		//console.log(item);
 
 	}
-
+	// onExpand = () =>{
+	// 	let {onExpand} = this.props;
+	// 	onExpand && onExpand();
+	// }
+	// filterTreeNode = () =>{
+	// 	let {filterTreeNode} = this.props;
+	// 	filterTreeNode && filterTreeNode();
+	// }
+	
 	animate = (node, show, done) => {
 		let height = node.offsetHeight;
 		return cssAnimation(node, 'collapse', {
@@ -66,11 +81,21 @@ export default class SliderTree extends React.Component{
 				return <TreeNode key={item.id} title={item.codeName} itemData={item} />;
 			});
 		};
-		let treeNodes = loop(mockData);
+		let treeNodes = loop(this.props.data || mockData);
 		return (
             <div>
-             	<Tree
-				    
+             	{/*<Tree
+				 	filterTreeNode={this.filterTreeNode}
+				 	autoExpandParent={this.props.autoExpandParent}
+				 	expandedKeys={this.props.expandedKeys}
+				    onExpand={this.onExpand}
+					onCheck={this.onCheck}
+					onSelect={this.onSelect}
+					filterTreeNode={this.filterTreeNode}
+				>
+					{treeNodes}
+				</Tree>*/}
+				<Tree
 					onCheck={this.onCheck}
 					onSelect={this.onSelect}
 				>

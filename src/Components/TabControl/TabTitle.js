@@ -7,17 +7,8 @@ export default class TabTitle extends React.Component {
            active:0
         }
         const {initStyle, activeStyle} = props;
-        this.init = initStyle||{
-            display:"inline-block",
-            padding:"10px 20px",
-            background:"#ccc",
-        }
-        this.active = activeStyle || {
-            display:"inline-block",
-            padding:"10px 20px",
-            background:"#ccc",
-            color:"red",       
-        }
+        this.init ='ui-init-class ui-tab-control'
+        this.active ='ui-active-class ui-tab-control'
 	}
     componentDidMount(){
        
@@ -40,8 +31,7 @@ export default class TabTitle extends React.Component {
                     onClick = {()=>{
                         this.titleClick(item,index);
                     }}
-                    style = {defaultStyel}
-                    className='ui-tab-default'
+                    className={defaultStyel}
                     >
                         {item}
                     </span>)

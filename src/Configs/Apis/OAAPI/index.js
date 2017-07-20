@@ -6,7 +6,6 @@ module.exports = {
       method: 'get'
   },
   //新建维度
-  
   'dim-save': {
       url: '/api/krspace-erp-web/dim/save',
       method: 'post'
@@ -15,6 +14,11 @@ module.exports = {
   'dim-update': {
       url: '/api/krspace-erp-web/dim/update',
       method: 'post'
+  },
+  //维度详情
+  'dim-detail': {
+      url: '/api/krspace-erp-web/dim/detail?id={id}',
+      method: 'get'
   },
   //查看某个机构
   'org-detail': {
@@ -33,12 +37,12 @@ module.exports = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}',
+      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}',
       method: 'get'
   },
   //根据机构ID获取下级机构
   'next-org-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?next-org-list={next-org-list}',
+      url: '/api/krspace-erp-web/dim/next-org-list?orgId={orgId}&orgType={orgType}',
       method: 'get'
   },
   //新建下级
