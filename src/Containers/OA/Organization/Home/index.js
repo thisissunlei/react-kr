@@ -75,8 +75,6 @@ export default class Home extends React.Component {
     )
   }
   onNewCreateSubmit=(data)=> {
-        console.log(1);
-        
         var _this = this;   
         Http.request('dim-save', {}, form).then(function(response) {
             _this.updateData();
