@@ -46,7 +46,7 @@ export default class Labour extends React.Component {
 				page: 1,
 				pageSize: 15,
 				orgId:'1',
-				orgType:"ROOT",
+				orgType:"DEPARTMENT",
 			},
 			data:{},
 			itemDetail: '',
