@@ -23,7 +23,11 @@ export default class TreeDialog extends React.Component{
 		return (
             <div>
 			 
-             	 <SliderTree onSelect = {this.onSelect} />
+             	<SliderTree 
+					onSelect = {this.onSelect}  
+					ajaxUrlName = {"org-list"}
+					params = {{id:1}} 
+				/>
 			  
 			  
             </div>

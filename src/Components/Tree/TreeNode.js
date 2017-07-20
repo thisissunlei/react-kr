@@ -42,7 +42,7 @@ class TreeNode extends React.Component {
   }
 
   onSelect() {
-    
+
     this.props.root.onSelect(this);
   }
 
@@ -225,7 +225,7 @@ class TreeNode extends React.Component {
           transitionAppear={transitionAppear}
           component=""
         >
-         
+
         </Animate>
       );
 
@@ -233,7 +233,9 @@ class TreeNode extends React.Component {
     }
     return newChildren;
   }
+  // iconJudge = () =>{
 
+  // }
   render() {
     const props = this.props;
     const prefixCls = props.prefixCls;
@@ -260,29 +262,30 @@ class TreeNode extends React.Component {
       [`${prefixCls}-iconEle`]: true,
       [`${prefixCls}-icon_loading`]: this.state.dataLoading,
       [`${prefixCls}-icon__${iconState}`]: true,
+      
     };
 
     const selectHandle = () => {
       /*==========icon修改的位置(this.props.itemData)获取位置的数据===========*/
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
-        <span 
+        <span
           className={classNames(iconEleCls)}
           onClick = {()=>{
               if(props.type == "allSelect"){
                 return ;
               }
               this.onExpand();
-          }} 
-        
+          }}
+
         ></span> : null;
-      const title = <span 
+      const title = <span
                       className={`${prefixCls}-title`}
                       onClick = {()=>{
                         if(props.type == "allSelect"){
                           return ;
                         }
                         this.onExpand();
-                      }} 
+                      }}
                     >
                         {content}
                       </span>;
@@ -293,15 +296,15 @@ class TreeNode extends React.Component {
       //disabled 是否禁止
       if (!props.disabled) {
         /*=========父节点是否可选择的判断=========*/
-        if (props.selected || !props._dropTrigger && this.state.dragNodeHighlight) 
+        if (props.selected || !props._dropTrigger && this.state.dragNodeHighlight)
         {
           domProps.className += ` ${prefixCls}-node-selected`;
         }
         if(props.expanded && props.itemData.children.length!=0){
           domProps.className += ` ${prefixCls}-node-selected`;
-          
+
         }
-        
+
         domProps.onClick = (e) => {
           e.preventDefault();
           if (props.selectable) {
@@ -380,7 +383,7 @@ class TreeNode extends React.Component {
         cls[`${prefixCls}-noline_docu_open`] = false;
         cls[`${prefixCls}-noline_docu_close`] = true;
       }
-      
+
       return <span className={classNames(cls)}></span>;
     };
 

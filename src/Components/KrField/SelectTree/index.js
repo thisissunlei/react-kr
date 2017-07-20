@@ -42,7 +42,7 @@ export default class SelectTree extends React.Component{
 	}
 
 	onFocus=(value)=>{
-		console.log("adasd","PPPPPPP")
+		
 		this.setState({
 			isDialog:true,
 		})
@@ -55,8 +55,12 @@ export default class SelectTree extends React.Component{
 		})
 	}
 	onSelect = (data) =>{
-		console.log(data,"KKKKKKKK");
-		this.dlogSwidch();
+		console.log(data,">>>>>>>")
+		let {input,onChange} = this.props;
+		// var value = (item && item.value) || '';
+		input.onChange({});
+		// onChange && onChange(item);
+		
 	}
 
 	render(){
