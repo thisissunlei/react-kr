@@ -18,6 +18,7 @@ export default class SliderTree extends React.Component{
 		let {onSelect} = this.props;
 
 		onSelect && onSelect(item);
+		console.log(item);
 
 	}
 
