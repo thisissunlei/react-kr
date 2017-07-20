@@ -6,7 +6,7 @@ import Animate from 'rc-animate';
 import { browser } from './util';
 import toArray from 'rc-util/lib/Children/toArray';
 import './assets/index.less'
-
+var IconType = ["ROOT","DEPARTMENT","SUBCOMPANY"];
 const browserUa = typeof window !== 'undefined' ? browser(window.navigator) : '';
 const ieOrEdge = /.*(IE|Edge).+/.test(browserUa);
 // const uaArray = browserUa.split(' ');
@@ -233,13 +233,25 @@ class TreeNode extends React.Component {
     }
     return newChildren;
   }
-  conJudge = (prefixCls,iconState,type) =>{
-    if(!type){
+  iconJudge = (prefixCls,iconState,props) =>{
+    var props = this.props;
+    if(!props.type){
       return `${prefixCls}-icon__${iconState}`
-    }else if(type){
-      var allTypes = type.split("-");
+    }else if(props.type){
+      var allTypes = props.type.split("-");
+      
+      var typeText = "";
+      // console.log(props.itemData.treeType,IconType[0])
       if(allTypes[0]=="department"){
-        
+          for(let i=0;i<IconType.length;i++){
+            if(props.itemData.treeType == IconType[i]){
+              // console.log()
+                typeText = IconType[i]+"_"+iconState;
+                break;
+            }
+          }
+      }else{
+        typeText =iconState;
       }
 
       if(allTypes[0] == "role"){
@@ -248,7 +260,9 @@ class TreeNode extends React.Component {
       
       if(allTypes[0] == "personnel"){
 
-      } 
+      }
+     
+      return `${prefixCls}-icon__${typeText}` 
     }
   }
   render() {
@@ -272,16 +286,17 @@ class TreeNode extends React.Component {
     // if (!props.expanded) {
     //   newChildren = null;
     // }
-
+    console.log("9999999",props);
+    var iconTypeName = this.iconJudge(prefixCls,iconState,props);
     const iconEleCls = {
       [`${prefixCls}-iconEle`]: true,
       [`${prefixCls}-icon_loading`]: this.state.dataLoading,
-      [`${prefixCls}-icon__${iconState}`]: true,
-      
-      
+      // [`${prefixCls}-icon__${iconState}`]: true,
+      [iconTypeName]:true,
     };
 
     const selectHandle = () => {
+      var showIcon = !props.itemData.children.length?"none":"inline-block";
       /*==========icon修改的位置(this.props.itemData)获取位置的数据===========*/
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span
@@ -293,6 +308,7 @@ class TreeNode extends React.Component {
               }
               this.onExpand();
           }}
+          style = {{display:showIcon}}
 
         ></span> : null;
       const title = <span

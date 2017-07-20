@@ -6,6 +6,9 @@ export default class TreeDialog extends React.Component{
 	constructor(props,context){
 		super(props,context)
 		// this.getTreeData();
+		this.state = {
+			searchKey:''
+		}
 	}
 	onSelect = (data) =>{
 		const {onSelect} = this.props;
@@ -17,16 +20,24 @@ export default class TreeDialog extends React.Component{
 	// getTreeData = () =>{
 	// 	Http.request()
 	// }
+	change = (event) =>{
+		this.setState({
+			searchKey:event.target.value,
+		})
+	}
 
 	render(){
        
 		return (
             <div>
+				<input type="text" onChange = {this.change}/>
 			 
              	<SliderTree 
 					onSelect = {this.onSelect}  
 					ajaxUrlName = {"org-list"}
 					params = {{id:1}} 
+					type = "department-radio"
+					searchKey = {this.state.searchKey}
 				/>
 			  
 			  
