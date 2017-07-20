@@ -91,7 +91,12 @@ export default class PostList extends Component{
 	}
 	//新建确定
 	addSubmit = (values) =>{
-		
+		Http.request('postListAdd',{},values).then(function(response) {
+           console.log('va',values);
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+		console.log('values',values);
 	}
 	//编辑确定
 	editSubmit = () =>{
@@ -153,7 +158,7 @@ export default class PostList extends Component{
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName='shareCustomers'
+	            ajaxUrlName="postJobList"
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
 			>
@@ -189,7 +194,7 @@ export default class PostList extends Component{
 				title="新增职务"
 				onClose={this.newSwidth}
 				open={openNew}
-				contentStyle ={{ width: '630px',height:'560px'}}
+				contentStyle ={{ width: '630px',height:'auto'}}
 			>
 				<AddPostList
 					onCancel={this.newSwidth}

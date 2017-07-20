@@ -55,4 +55,14 @@ module.exports = {
       url: '/api/krspace-erp-web/dim/cancel',
       method: 'post'
   },
+  //职务列表－列表
+  'postJobList': {
+      url: '/api/krspace-erp-web/hrm/job/list/type/search?page={page}&pageSize={pageSize}&typeId={typeId}&name={name}',
+      method: 'get'
+  },
+  //职务列表－新增
+  'postListAdd': {
+      url: '/api/krspace-erp-web/hrm/job/add',
+      method: 'post'
+  },
 }
