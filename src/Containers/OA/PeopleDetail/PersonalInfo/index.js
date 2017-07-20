@@ -216,7 +216,7 @@ export default class PersonalInfo  extends React.Component{
 			];
 
 		return(
-			<div className='info-wrap'>
+			<div className='info-wrap-p'>
 				  <div className='title-out'>
 						<span className='title-blue'></span>
 						<span className='title-name'>个人资料</span>

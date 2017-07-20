@@ -58,7 +58,8 @@ export default class InService  extends React.Component{
    //操作
    onOperation=(type, itemDetail)=>{
       if(type=='edit'){
-
+		 let personId=1;
+         window.open(`./#/oa/${personId}/peopleDetail`,'123');
 	  }else if(type=='leave'){
 		  this.setState({
 			  openLeave:true
@@ -182,13 +183,13 @@ export default class InService  extends React.Component{
 
 					<TableBody >
 						<TableRow>
-							<TableRowColumn name="code">123</TableRowColumn>
-							<TableRowColumn name="name">123</TableRowColumn>
-							<TableRowColumn name="cityName">123</TableRowColumn>
-							<TableRowColumn name="area">123</TableRowColumn>
-							<TableRowColumn name="orderNum">12</TableRowColumn>
-						    <TableRowColumn name="openDate">12</TableRowColumn>
-							<TableRowColumn name="opened">12</TableRowColumn>
+							<TableRowColumn>123</TableRowColumn>
+							<TableRowColumn>123</TableRowColumn>
+							<TableRowColumn>123</TableRowColumn>
+							<TableRowColumn>123</TableRowColumn>
+							<TableRowColumn>12</TableRowColumn>
+						    <TableRowColumn>12</TableRowColumn>
+							<TableRowColumn>12</TableRowColumn>
 						    <TableRowColumn type="operation">
 							   <Button label="编辑"  type="operation"  operation="edit"/>
 							   <Button label="离职"  type="operation"  operation="leave"/>

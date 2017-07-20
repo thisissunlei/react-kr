@@ -64,7 +64,7 @@ export default class Home extends React.Component {
       'background':'url('+require("./images/b"+imageNum+".svg")+') no-repeat center'
     };
     return (
-      <div className="item" key={index} style={style}>
+      <div onClick={this.toLabour.bind(this,item)} className="item" key={index} style={style}>
         <span className="item-edit" onClick={this.openEdit.bind(this,item)}>
           
         </span>
@@ -75,8 +75,6 @@ export default class Home extends React.Component {
     )
   }
   onNewCreateSubmit=(data)=> {
-        console.log(1);
-        
         var _this = this;   
         Http.request('dim-save', {}, form).then(function(response) {
             _this.updateData();
@@ -97,17 +95,21 @@ export default class Home extends React.Component {
             Message.error(err.message);
         });
     }
-updateData=()=>{
-		  var _this = this;
-			Http.request('dim-list', {
+    updateData=()=>{
+          var _this = this;
+          Http.request('dim-list', {
 
-      },{}).then(function(response) {
-          _this.setState({dimension: response.items},function(){
-    
-          })
-      }).catch(function(err) {});
-    
-	}
+          },{}).then(function(response) {
+              _this.setState({dimension: response.items},function(){
+        
+              })
+          }).catch(function(err) {});
+        
+  }
+  toLabour=(item)=>{
+    var dimId = item.id;
+    window.open(`./#/oa/organization/${dimId}/labour`, dimId);
+  }
   render() {
 
 

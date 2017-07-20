@@ -11,10 +11,12 @@ import {Tree,TreeNode }from '../Tree';
 export default class SliderTree extends React.Component{
 	constructor(props,context){
 		super(props,context)
+
 		this.state = {
 			treeData:[]
 		}
-		this.getTreeData();
+		// this.getTreeData();
+		
 	}
 	//勾选
 	onCheck = (checkedKeys) =>{
@@ -23,15 +25,12 @@ export default class SliderTree extends React.Component{
 	//点击选择事件
 	onSelect = (item) =>{
 		let {onSelect} = this.props;
-		onSelect && onSelect(item);
-
-
-		
+		onSelect && onSelect(item);	
 	}
 	getTreeData = () =>{
-		const {ajaxUrlName,promise} = this.props;
-		promise = promise||{};
-		Http.request(ajaxUrlName,,promise).then(function(response) {
+		const {ajaxUrlName,params} = this.props;
+		params = params||{};
+		Http.request(ajaxUrlName,params).then(function(response) {
 			// this.setState({
 			// 	t
 			// })
@@ -58,8 +57,8 @@ export default class SliderTree extends React.Component{
 		let treeNodes = loop(mockData);
 		return (
             <div>
-             	<Tree
-				    
+             
+				<Tree
 					onCheck={this.onCheck}
 					onSelect={this.onSelect}
 				>

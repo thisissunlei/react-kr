@@ -54,7 +54,7 @@ export default class WorkInfo  extends React.Component{
 			];
 
 		return(
-			<div className='info-wrap'>
+			<div className='info-wrap-w'>
 				  <div className='title-out'>
 						<span className='title-blue'></span>
 						<span className='title-name'>工作信息</span>

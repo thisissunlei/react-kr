@@ -44,8 +44,8 @@ export default class Labour extends React.Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				orgId:1,
-				orgType:0,
+				orgId:0,
+				orgType:-1,
 			},
 			data:{},
 			itemDetail: '',
@@ -55,6 +55,8 @@ export default class Labour extends React.Component {
 			tabSelect:1,
 			openCancelDialog:false,
 			newPage:1,
+			treeData:[],
+			renderTree:false,
 		}
 	}
 	checkTab=(item)=>{
@@ -65,6 +67,25 @@ export default class Labour extends React.Component {
   componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.setSidebar(false);
+		var dimId = this.props.params.dimId;
+		var _this = this;
+		// Http.request('org-list', {
+		// 	id:dimId
+		// },{}).then(function(response) {
+		// 	console.log(response);
+		// 	_this.setState({
+		// 		treeData:response.childList,
+		// 		searchParams: {
+		// 			page: 1,
+		// 			pageSize: 15,
+		// 			orgId:response.orgId,
+		// 			orgType:response.orgType,
+		// 		},
+		// 	},function(){
+		// 		_this.renderTree();
+		// 	})
+		// }).catch(function(err) {});
+		
 	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
@@ -98,6 +119,11 @@ export default class Labour extends React.Component {
             })
         }
     }
+	renderTree=()=>{
+		this.setState({
+			renderTree:true,
+		})
+	}
 	openCancelDialog=()=>{
 		this.setState({
 			openCancelDialog: !this.state.openCancelDialog
@@ -186,6 +212,7 @@ export default class Labour extends React.Component {
 		// }else{
 			
 		// }
+		console.log(data);
 	}
 	render() {
 		let {itemDetail,data} = this.state;
@@ -193,7 +220,6 @@ export default class Labour extends React.Component {
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
-						<form>
 						<div className="search"> 
 							<input type="text" placeholder="ddd" />
 							<span className="searching">
@@ -201,9 +227,8 @@ export default class Labour extends React.Component {
 							</span>
 						</div>
 						<div className="oa-tree">
-							<SliderTree onSelect={this.p}/>
+							{this.state.renderTree && <SliderTree data={this.state.treeData} onSelect={this.p}/>}
 						</div>
-						</form>							
 					</div>
 					<div className="right">
 						<div className="header">
