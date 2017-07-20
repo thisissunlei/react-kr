@@ -177,7 +177,7 @@ export default class List extends React.Component {
 		                  <TableHeaderColumn width={160}>接口地址</TableHeaderColumn>
 		                  <TableHeaderColumn>失败数</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步时间</TableHeaderColumn>
-		                  <TableHeaderColumn>备注</TableHeaderColumn>
+		                  <TableHeaderColumn width={160}>备注</TableHeaderColumn>
 		                  <TableHeaderColumn width={160}>操作</TableHeaderColumn>
 		              </TableHeader>
 		              <TableBody>
@@ -225,16 +225,25 @@ export default class List extends React.Component {
 		              		 <TableRowColumn name="failures" > </TableRowColumn>
 		              		 <TableRowColumn name="syncTime" 
 		              		 	component={(value,oldValue)=>{
+		              		 		if(!!!value){
+		              		 			return (
+											<span>-</span>
+		              		 			)
+		              		 		}else{
 									 return (<div className='financeDetail-hover'>
 									 	{DateFormat(oldValue.syncTime,'yyyy/mm/dd')}
 
 									 	</div>)
+									}
 								 }}></TableRowColumn>
 		              		 <TableRowColumn name="remark"
 		              		 component={(value,oldValue)=>{
 									var TooltipStyle=""
 									if(value.length==""){
 										TooltipStyle="none"
+										return(
+											<span>-</span>
+											)
 									}else{
 										TooltipStyle="block";
 									}

@@ -133,24 +133,55 @@ export default class List extends React.Component {
 		              		 <TableRowColumn name="failures" > </TableRowColumn>
 		              		 <TableRowColumn name="syncTime"
 		              		 	component={(value,oldValue)=>{
+		              		 		if(!!!value){
+		              		 			return(
+											<span className='tableOver' style={{display:"block"}}>-</span>
+
+		              		 			)
+		              		 		}else{
 									 return (<div className='financeDetail-hover'>
 									 	{DateFormat(oldValue.syncTime,'yyyy/mm/dd')}
 
 									 	</div>)
+									}
 								 }}></TableRowColumn>
-		              		 <TableRowColumn name="systemName"></TableRowColumn>
+		              		 <TableRowColumn name="systemName"
+		              		 component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(!!!value){
+										TooltipStyle="none";
+										value='-';
+										return(
+											<span className='tableOver'>{value}</span>
+											)
+									}else{
+										TooltipStyle="block";
+
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver'>{value}</span>
+											 	<Tooltip offsetTop={5} place='top' >
+													{value}
+											 	</Tooltip>
+										 	</div>)
+									}
+								 }}
+		              		 ></TableRowColumn>
 		              		 <TableRowColumn name="remark" 
 		              		 	component={(value,oldValue)=>{
 									var TooltipStyle=""
-									if(value.length==""){
-										TooltipStyle="none"
+									if(!!!value){
+										TooltipStyle="none";
+										value="-";
+										return(
+										<span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										)
 									}else{
 										TooltipStyle="block";
-									}
+									
 									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >
-											{value}
+											<span>{value}</span>
 									 	</Tooltip></div>)
+									}
 								 }}></TableRowColumn>
 		              		 <TableRowColumn name="createUser"
 								component={(value,oldValue,itemData)=>{
