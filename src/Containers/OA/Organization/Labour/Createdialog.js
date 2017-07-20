@@ -60,7 +60,7 @@ class Createdialog extends Component {
                     inline={false}
                     label="编码"
                     component="input"
-                    name="orgCode"
+                    name="code"
                     requireLabel={true}
                     placeholder="编码"
                 />

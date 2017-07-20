@@ -1,0 +1,144 @@
+.ui-oa-upload-image{
+	width:100%;
+    height: 100%;
+	text-align:center;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    .ui-form-item{
+        display: block;
+        width: 100%;
+        height: 100%;
+        .ui-form-label{
+             display: block;
+            width: 0%;
+            height: 0%;
+            padding: 0px;
+        }
+        .ui-form-controller{
+            width: 100%;
+            height: 100%;
+            .ui-oa-upload-box{
+                 width: 100%;
+            height: 100%;
+            }
+        }
+    }
+	.ui-uploadimg-outbox{
+		 width: 100%;
+        height: 100%;
+		
+	
+		
+		
+		display:block;
+		.ui-uploadimg-innerbox{
+			position:relative;
+			//width:100%;
+			//height:100%;
+            display: block;
+             width: 100%;
+            height: 100%;
+			
+			
+			
+			.ui-uploadimg-inner{
+				position:absolute;
+				width: 100%;
+                height: 100%;
+				display:inline-block;
+				text-align: center;
+                left:0px;
+                // background: url()
+                transition: all .3s;
+                background: rgba(54,70,93,0);
+                span{
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    height: 40px;
+                    line-height: 45px;
+                    text-align: center;
+                    top: 50%;
+                    margin-top: -20px;
+                    opacity: 0;
+                    transition: all 0.3s;
+                }
+				input {
+					display: block;
+                    opacity: 0;
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
+				}
+				.image{
+					position: absolute;
+				    left: -84px;
+				    top: -34px;
+				}
+			}
+            .ui-uploadimg-inner:hover{
+                 background: rgba(54,70,93,0.90);
+            }
+            .ui-uploadimg-inner:hover span{
+                color: #fff;
+                opacity: 1;
+            }
+           
+			.ui-uploadimg-fresh-delete{
+				position:absolute;
+				top:0;
+				left:0;
+				width:214px;
+				height:138px;
+				line-height:138px;
+				background-color:rgba(0,0,0,0.4);
+				.ui-uploadimg-operateimg{
+					position: relative;
+				    display: inline-block;
+					width:30px;
+					height:30px;
+					background-color:#fff;
+					border-radius: 15px;
+					text-align:center;
+					cursor: pointer;
+					margin-bottom:19px;
+					.ui-refreshImgBtn{
+						position:absolute;
+						width:30px;
+						height:30px;
+						border-radius: 15px;
+						left:0;
+						opacity: 0;
+						cursor: pointer;
+					}
+				}
+				.ui-uploadimg-operateimg-left{
+					margin-right:52px;
+					text-align:center;
+				}
+				.ui-uploadimg-operateimg-btn{
+					position:absolute;
+					width:18px;
+					left:6px;
+					top:6px;
+				}
+				
+			}
+		}
+	}
+	.ui-uploadimg-notice{
+		margin:0;
+		color:#999999;
+		margin-top:7px;
+		span{
+			font-size:12px;
+		}
+	}
+	.ui-uploadimg-error{
+		font-size:12px;
+		margin:0;
+		color: #ff6868;
+		margin-top:7px;
+	}
+}

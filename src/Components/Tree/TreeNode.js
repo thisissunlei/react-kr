@@ -343,8 +343,16 @@ class TreeNode extends React.Component {
         cls[`${prefixCls}-center_docu`] = !props.last;
         cls[`${prefixCls}-bottom_docu`] = props.last;
       } else {
-        cls[`${prefixCls}-noline_docu`] = true;
+        cls[`${prefixCls}-noline_docu_close`] = true;
       }
+      if(props.selected){
+        cls[`${prefixCls}-noline_docu_close`] = false;
+        cls[`${prefixCls}-noline_docu_open`] = true;
+      }else{
+        cls[`${prefixCls}-noline_docu_open`] = false;
+        cls[`${prefixCls}-noline_docu_close`] = true;
+      }
+      console.log(props,">>>>>>");
       return <span className={classNames(cls)}></span>;
     };
 

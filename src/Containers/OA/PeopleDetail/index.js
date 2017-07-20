@@ -1,13 +1,14 @@
 import React from 'react';
 import {	
 	TabC,
-	TabCs
+	TabCs,
+	
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
 import PersonalInfo from './PersonalInfo';
 import WorkInfo from './WorkInfo';
 import './index.less';
-
+import UserImage from './UserImage';
 export default class PeopleDetail  extends React.Component{
 
 	constructor(props,context){
@@ -23,10 +24,15 @@ export default class PeopleDetail  extends React.Component{
 			<div className='people-detail'>
 			  <div className='detail-left'>
 				<div className='left-pic'>
-					pic
+
+					<UserImage />
 				</div>
 				<div className='left-text'>
-					123
+					张屈
+					<div className = "left-intro">
+						<span>水电费防守打法</span>
+						<lable>水电费防守打法</lable>
+					</div>
 				</div>
 			  </div>
 			  <div className='detail-right'>
