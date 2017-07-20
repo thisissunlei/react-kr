@@ -117,15 +117,15 @@ class TreeNode extends React.Component {
   onExpand = () => {
     const callbackPromise = this.props.root.onExpand(this);
     if (callbackPromise && typeof callbackPromise === 'object') {
-      // const setLoading = (dataLoading) => {
-      //   this.setState({ dataLoading });
-      // };
-      // setLoading(true);
-      // callbackPromise.then(() => {
-      //   setLoading(false);
-      // }, () => {
-      //   setLoading(false);
-      // });
+      const setLoading = (dataLoading) => {
+        this.setState({ dataLoading });
+      };
+      setLoading(true);
+      callbackPromise.then(() => {
+        setLoading(false);
+      }, () => {
+        setLoading(false);
+      });
     }
   }
 
@@ -233,9 +233,24 @@ class TreeNode extends React.Component {
     }
     return newChildren;
   }
-  // iconJudge = () =>{
+  conJudge = (prefixCls,iconState,type) =>{
+    if(!type){
+      return `${prefixCls}-icon__${iconState}`
+    }else if(type){
+      var allTypes = type.split("-");
+      if(allTypes[0]=="department"){
+        
+      }
 
-  // }
+      if(allTypes[0] == "role"){
+        
+      }
+      
+      if(allTypes[0] == "personnel"){
+
+      } 
+    }
+  }
   render() {
     const props = this.props;
     const prefixCls = props.prefixCls;
@@ -263,6 +278,7 @@ class TreeNode extends React.Component {
       [`${prefixCls}-icon_loading`]: this.state.dataLoading,
       [`${prefixCls}-icon__${iconState}`]: true,
       
+      
     };
 
     const selectHandle = () => {
@@ -270,7 +286,8 @@ class TreeNode extends React.Component {
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span
           className={classNames(iconEleCls)}
-          onClick = {()=>{
+          onClick = {(e)=>{
+            e.preventDefault();
               if(props.type == "allSelect"){
                 return ;
               }
@@ -280,15 +297,17 @@ class TreeNode extends React.Component {
         ></span> : null;
       const title = <span
                       className={`${prefixCls}-title`}
-                      onClick = {()=>{
+                      onClick = {(e)=>{
+                        e.preventDefault();
                         if(props.type == "allSelect"){
                           return ;
                         }
+                        
                         this.onExpand();
                       }}
                     >
                         {content}
-                      </span>;
+                    </span>;
       const wrap = `${prefixCls}-node-content-wrapper`;
       const domProps = {
         className: `${wrap} ${wrap}-${iconState === expandedState ? iconState : 'normal'}`,
