@@ -38,12 +38,12 @@ module.exports = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}',
+      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}',
       method: 'get'
   },
   //根据机构ID获取下级机构
   'next-org-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?next-org-list={next-org-list}',
+      url: '/api/krspace-erp-web/dim/next-org-list?orgId={orgId}&orgType={orgType}',
       method: 'get'
   },
   //新建下级

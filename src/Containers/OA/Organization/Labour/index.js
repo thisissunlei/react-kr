@@ -173,17 +173,23 @@ export default class Labour extends React.Component {
             searchParams:searchParams,
         })
     }
+	onSerchSubmit = (form) => {
+		this.setState({
+			searchParams:{
+				nameAndEmail:form.content,
+			}
+		})
+	}
+	p=(data)=>{
+		// if(data.id>120){
+		// 	return;
+		// }else{
+			
+		// }
+	}
 	render() {
 		let {itemDetail,data} = this.state;
-		let options = [
-            {
-                label: '人名',
-                value: 'company'
-            }, {
-                label: '邮箱',
-                value: 'city'
-            }
-        ];
+		
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
@@ -195,7 +201,7 @@ export default class Labour extends React.Component {
 							</span>
 						</div>
 						<div className="oa-tree">
-						<SliderTree />
+							<SliderTree onSelect={this.p}/>
 						</div>
 						</form>							
 					</div>
@@ -246,9 +252,9 @@ export default class Labour extends React.Component {
       									onTouchTap={this.openEditDialog}
       									height={30}
       									width={80}
-												backgroundColor='#fcfcfc'
-												labelColor='#666'
-												shadow="no"
+										backgroundColor='#fcfcfc'
+										labelColor='#666'
+										shadow="no"
       					/>
 								<div className="btn-center">
 
@@ -259,9 +265,9 @@ export default class Labour extends React.Component {
       									onTouchTap={this.openViewDialog}
       									height={30}
       									width={80}
-												backgroundColor='#F5F6FA'
-												labelColor='#666'
-												shadow="no"
+										backgroundColor='#F5F6FA'
+										labelColor='#666'
+										shadow="no"
       					/>
 							</div>
 						</div>
@@ -330,7 +336,7 @@ export default class Labour extends React.Component {
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
-												<SearchForm onSubmit={this.searchParams} searchFilter={options}/>
+												<SearchForm onSubmit={this.searchParams}/>
 										</div>
 									</Col>
 									</Row>
@@ -340,47 +346,32 @@ export default class Labour extends React.Component {
 							displayCheckbox={false}
 							onLoaded={this.onLoaded}
 							ajax={true}
-							ajaxUrlName='op-code-list'
+							ajaxUrlName='hrm-list'
 							ajaxParams={this.state.searchParams}
 							onOperation={this.onOperation}
 							onPageChange={this.onPageChange}
 						>
 						<TableHeader>
-						<TableHeaderColumn>名称</TableHeaderColumn>
-						<TableHeaderColumn>编码</TableHeaderColumn>
-						<TableHeaderColumn>创建人</TableHeaderColumn>
-						<TableHeaderColumn>创建时间</TableHeaderColumn>
-						<TableHeaderColumn>操作</TableHeaderColumn>
+						<TableHeaderColumn>ID</TableHeaderColumn>
+						<TableHeaderColumn>部门名称</TableHeaderColumn>
+						<TableHeaderColumn>人员名称</TableHeaderColumn>
+						<TableHeaderColumn>邮箱</TableHeaderColumn>
+						<TableHeaderColumn>入职日期</TableHeaderColumn>
+						<TableHeaderColumn>状态</TableHeaderColumn>
 					</TableHeader>
 
 					<TableBody>
 						<TableRow>
-							<TableRowColumn name="name"></TableRowColumn>
-							<TableRowColumn name="codeName" 
-								 component={(value)=>{
-                  var styles = {
-                    display:'block',
-                    paddingTop:5
-                  };
-                  if(value.length==""){
-                    styles.display="none"
-
-                  }else{
-                    styles.display="block";
-                  }
-                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:220,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                 }}
-							></TableRowColumn>
-							<TableRowColumn name="creater"></TableRowColumn>
-							<TableRowColumn type="date" name="createDate" component={(value)=>{
+							<TableRowColumn name="hrmId"></TableRowColumn>
+							<TableRowColumn name="departName"></TableRowColumn>
+							<TableRowColumn name="userName"></TableRowColumn>
+							<TableRowColumn name="mail"></TableRowColumn>
+							<TableRowColumn type="entryTime" name="createDate" component={(value)=>{
 								return (
 									<KrDate value={value} format = "yyyy-mm-dd HH:MM:ss" />
 								)
 							}}> </TableRowColumn>
-							<TableRowColumn>
-									<Button label="编辑"   type="operation" operateCode="sso_resource_edit" operation="edit"/>
-							 </TableRowColumn>
+							<TableHeaderColumn name="status"></TableHeaderColumn>
 						 </TableRow>
 					</TableBody>
 					<TableFooter></TableFooter>
