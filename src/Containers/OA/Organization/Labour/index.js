@@ -46,7 +46,7 @@ export default class Labour extends React.Component {
 				page: 1,
 				pageSize: 15,
 				orgId:'1',
-				orgType:"DEPARTMENT",
+				orgType:"ROOT",
 			},
 			data:{},
 			itemDetail: '',
@@ -60,6 +60,7 @@ export default class Labour extends React.Component {
 			renderTree:false,
 			openUnCancelDialog:false,
 			dimData:[],
+			searchKey:'',
 		}
 	}
 	checkTab=(item)=>{
@@ -220,12 +221,16 @@ export default class Labour extends React.Component {
 			}
 		})
 	}
-	p=(data)=>{
-		// if(data.id>120){
-		// 	return;
-		// }else{
-			
-		// }
+	onSelect=(data)=>{
+		this.setState({
+			searchParams:{
+				page: 1,
+				pageSize: 15,
+				orgId:data.orgId,
+				orgType:data.treeType,
+			},
+			data:data
+		})
 		console.log(data);
 	}
 	toOtherDim=(item)=>{
@@ -239,20 +244,32 @@ export default class Labour extends React.Component {
 			</span>
 		)
 	}
+	change = (event) =>{
+		this.setState({
+			searchKey:event.target.value,
+		})
+	}
 	render() {
+		console.log(this.state.searchParams);
 		let {itemDetail,data} = this.state;
 		var logFlag = '';
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
 						<div className="search"> 
-							<input type="text" placeholder="ddd" />
+							<input type="text" onChange = {this.change} placeholder="ddd" />
 							<span className="searching">
-
+								
 							</span>
 						</div>
 						<div className="oa-tree">
-							{this.state.renderTree && <SliderTree treeData={this.state.treeData} onSelect={this.p}/>}
+							<SliderTree 
+								onSelect = {this.onSelect}  
+								ajaxUrlName = {"org-list"}
+								params = {{id:1}} 
+								type = "department-radio"
+								searchKey = {this.state.searchKey}
+							/>
 						</div>
 					</div>
 					<div className="right">
@@ -284,7 +301,7 @@ export default class Labour extends React.Component {
 
 								</div>
 								<div className="department-name">
-									36Kr
+									{this.state.data.orgName || '36Kr'}
 								</div>
 								<div className="department-tab-list">
 									<div className={`department-tab ${this.state.tabSelect==1?'department-tab-active':''}`} onClick={this.checkTab.bind(this,1)}> 
