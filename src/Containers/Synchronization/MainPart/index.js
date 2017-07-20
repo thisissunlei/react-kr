@@ -98,8 +98,8 @@ export default class List extends React.Component {
 		                  onPageChange={this.onPageChange}
 		              >
 		              <TableHeader>
-		                  <TableHeaderColumn width={160}>主体名称</TableHeaderColumn>
-		                  <TableHeaderColumn width={160}>编码</TableHeaderColumn>
+		                  <TableHeaderColumn width={100}>主体名称</TableHeaderColumn>
+		                  <TableHeaderColumn width={100}>编码</TableHeaderColumn>
 		                  <TableHeaderColumn>失败数</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步时间</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步系统</TableHeaderColumn>
@@ -117,7 +117,7 @@ export default class List extends React.Component {
 									}else{
 										TooltipStyle="block";
 									}
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >
 											{value}
 									 	</Tooltip></div>)
@@ -126,7 +126,7 @@ export default class List extends React.Component {
 		              		 <TableRowColumn 
 		              		 		name="code"
 									component={(value,oldValue)=>{
-										 return (<div className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 return (<div className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										 			</div>)
 									 }}
 		              		 ></TableRowColumn>
