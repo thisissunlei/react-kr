@@ -54,7 +54,6 @@ export default class SliderTree extends React.Component {
 
 			_this.setState({
 				treeData: [response],
-				inputValue: "公"
 			});
 
 			_this.filterKeys = [];
@@ -94,26 +93,16 @@ export default class SliderTree extends React.Component {
 		 	autoExpandParent: false,
 		 });
 	}
+	componentWillReceiveProps(nextProps){
+		let {inputValue} = this.state;
+		if(nextProps.searchKey && inputValue!=nextProps.searchKey){
+			this.setState({
+				inputValue: nextProps.searchKey
+			});
+		}
+	}
 
-<<<<<<< HEAD
-	render(){
-      const {title,type} = this.props;
-		const {treeData} = this.state;
 
-		const loop = data => {
-			if(data.length!=0){
-					return data.map((item) => {
-						
-						if (item.children.length !=0) {
-							return (<TreeNode key={onlyKey++} title={item.orgName} type = {type} itemData={item}>
-										{loop(item.children)}
-									</TreeNode>);
-						}
-						return <TreeNode key={onlyKey++} title={item.orgName} type = {type} itemData={item} />;
-					});
-				// }
-			}
-=======
 	render() {
 
 		const { title, type } = this.props;
@@ -139,7 +128,6 @@ export default class SliderTree extends React.Component {
 				return <TreeNode key={key} title={item.orgName} type={type} itemData={item} />;
 			});
 
->>>>>>> 0bf7ce19a2ab6df89d01462bcea0d1441d35e822
 		};
 
 
@@ -156,7 +144,7 @@ export default class SliderTree extends React.Component {
 		return (
 			<div>
 
-				<input placeholder="请筛选" value={this.state.inputValue} onChange={this.onChange} />
+				{/*<input placeholder="请筛选" value={this.state.inputValue} onChange={this.onChange} />*/}
 
 				<Tree
 					onCheck={this.onCheck}
