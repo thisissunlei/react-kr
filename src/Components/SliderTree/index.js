@@ -1,6 +1,9 @@
 import React from 'react';
 import './index.less';
-
+import {
+	Message
+} from 'kr-ui';
+import {Http} from 'kr/Utils';
 import mockData from './Data.json'
 
 import {Tree,TreeNode }from '../Tree';
@@ -8,6 +11,10 @@ import {Tree,TreeNode }from '../Tree';
 export default class SliderTree extends React.Component{
 	constructor(props,context){
 		super(props,context)
+		this.state = {
+			treeData:[]
+		}
+		this.getTreeData();
 	}
 	//勾选
 	onCheck = (checkedKeys) =>{
@@ -16,56 +23,37 @@ export default class SliderTree extends React.Component{
 	//点击选择事件
 	onSelect = (item) =>{
 		let {onSelect} = this.props;
-
 		onSelect && onSelect(item);
-		console.log(item);
 
+
+		
 	}
-
-	animate = (node, show, done) => {
-		let height = node.offsetHeight;
-		return cssAnimation(node, 'collapse', {
-			start() {
-			if (!show) {
-				node.style.height = `${node.offsetHeight}px`;
-			} else {
-				height = node.offsetHeight;
-				node.style.height = 0;
-			}
-			},
-			active() {
-				node.style.height = `${show ? height : 0}px`;
-			},
-			end() {
-				node.style.height = '';
-			done();
-			},
+	getTreeData = () =>{
+		const {ajaxUrlName,promise} = this.props;
+		promise = promise||{};
+		Http.request(ajaxUrlName,,promise).then(function(response) {
+			// this.setState({
+			// 	t
+			// })
+		}).catch(function(err) {
+			Message.error(err.message);
 		});
 	}
-
-
 	render(){
-        const {title} = this.props;
-		const animation = {
-			enter(node, done) {
-				return this.animate(node, true, done);
-			},
-			leave(node, done) {
-				return this.animate(node, false, done);
-			},
-			appear(node, done) {
-				return this.animate(node, true, done);
-			},
-		};
+        const {title,type} = this.props;
+		const {treeData} = this.state;
+		
 		const loop = data => {
-			return data.map((item) => {
-				if (item.children.length !=0) {
-				return (<TreeNode key={item.id} title={item.codeName} itemData={item}>
-							{loop(item.children)}
-						</TreeNode>);
-				}
-				return <TreeNode key={item.id} title={item.codeName} itemData={item} />;
-			});
+			if(data.length!=0){
+				return data.map((item) => {
+					if (item.children.length !=0) {
+					return (<TreeNode key={item.id} title={item.codeName} type = {type} itemData={item}>
+								{loop(item.children)}
+							</TreeNode>);
+					}
+					return <TreeNode key={item.id} title={item.codeName} type = {type} itemData={item} />;
+				});
+			}
 		};
 		let treeNodes = loop(mockData);
 		return (

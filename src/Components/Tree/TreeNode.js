@@ -113,19 +113,19 @@ class TreeNode extends React.Component {
     });
     this.props.root.onDragEnd(e, this);
   }
-
+  /*====展开函数=====*/
   onExpand = () => {
     const callbackPromise = this.props.root.onExpand(this);
     if (callbackPromise && typeof callbackPromise === 'object') {
-      const setLoading = (dataLoading) => {
-        this.setState({ dataLoading });
-      };
-      setLoading(true);
-      callbackPromise.then(() => {
-        setLoading(false);
-      }, () => {
-        setLoading(false);
-      });
+      // const setLoading = (dataLoading) => {
+      //   this.setState({ dataLoading });
+      // };
+      // setLoading(true);
+      // callbackPromise.then(() => {
+      //   setLoading(false);
+      // }, () => {
+      //   setLoading(false);
+      // });
     }
   }
 
@@ -151,6 +151,7 @@ class TreeNode extends React.Component {
       switcherCls[`${prefixCls}-switcher-disabled`] = true;
       return <span className={classNames(switcherCls)}></span>;
     }
+    /*=========展开的尖括号=========*/
     return <span className={classNames(switcherCls)} onClick={this.onExpand}></span>;
   }
 
@@ -264,16 +265,43 @@ class TreeNode extends React.Component {
     const selectHandle = () => {
       /*==========icon修改的位置(this.props.itemData)获取位置的数据===========*/
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
-        <span className={classNames(iconEleCls)}></span> : null;
-      const title = <span className={`${prefixCls}-title`}>{content}</span>;
+        <span 
+          className={classNames(iconEleCls)}
+          onClick = {()=>{
+              if(props.type == "allSelect"){
+                return ;
+              }
+              this.onExpand();
+          }} 
+        
+        ></span> : null;
+      const title = <span 
+                      className={`${prefixCls}-title`}
+                      onClick = {()=>{
+                        if(props.type == "allSelect"){
+                          return ;
+                        }
+                        this.onExpand();
+                      }} 
+                    >
+                        {content}
+                      </span>;
       const wrap = `${prefixCls}-node-content-wrapper`;
       const domProps = {
         className: `${wrap} ${wrap}-${iconState === expandedState ? iconState : 'normal'}`,
       };
+      //disabled 是否禁止
       if (!props.disabled) {
-        if (props.selected || !props._dropTrigger && this.state.dragNodeHighlight) {
+        /*=========父节点是否可选择的判断=========*/
+        if (props.selected || !props._dropTrigger && this.state.dragNodeHighlight) 
+        {
           domProps.className += ` ${prefixCls}-node-selected`;
         }
+        if(props.expanded && props.itemData.children.length!=0){
+          domProps.className += ` ${prefixCls}-node-selected`;
+          
+        }
+        
         domProps.onClick = (e) => {
           e.preventDefault();
           if (props.selectable) {
@@ -352,7 +380,7 @@ class TreeNode extends React.Component {
         cls[`${prefixCls}-noline_docu_open`] = false;
         cls[`${prefixCls}-noline_docu_close`] = true;
       }
-      console.log(props,">>>>>>");
+      
       return <span className={classNames(cls)}></span>;
     };
 
