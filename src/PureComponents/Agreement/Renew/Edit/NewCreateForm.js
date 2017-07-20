@@ -165,7 +165,11 @@ class NewCreateForm extends React.Component {
 
 	// station list
 	onStationCancel() {
-		this.openStationDialog();
+		console.log('===cancle===>2')
+
+		this.setState({
+			openStation: false
+		});
 	}
 
 	onStationSubmit(stationVos) {
@@ -574,6 +578,7 @@ class NewCreateForm extends React.Component {
 						title="分配工位"
 						open={this.state.openStation}
 						modal={true}
+						bodyStyle={{overflowY:'scroll'}}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true} onClose={this.onStationCancel}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} changeValues={this.props.changeValues} params={{mainBillid:initialValues.mainbillid,contractId:initialValues.id}}/>

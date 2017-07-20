@@ -206,7 +206,9 @@ export default class MemeberEditMemberForm extends React.Component {
 
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}}/>
 
-					<KrField name="jobId" grid={1/2} label="职位" component="select" left={30} options={jobList}/>
+					<KrField name="jobId" grid={1/2} label="职位" component="select" left={30} options={jobList} style={{width:'252px'}}/>
+					<KrField grid={1/2} name="idCardNo" type="text" label="身份证号" style={{width:'252px'}} />
+					
 					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
 						<Row>
 							<ListGroup>
@@ -229,6 +231,10 @@ const validate = values => {
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
+	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
+    if( values.idCardNo && !reg.test(values.idCardNo)){   
+         errors.idCardNo = '身份证输入不合法';   
+    }
 
 	// if (!values.email) {
 	// 	errors.email = '请输入邮箱';

@@ -24,6 +24,7 @@ let State = observable({
 	deleteIndentId:"",
 	presentShow:false,
 	isEditCustomer:false,
+	screening:["内部推荐","外部推荐","推介人计划","中介客源"],
 
 });
 
@@ -66,14 +67,20 @@ State.lookListId=action(function(params,operType) {
 	Http.request('get-detail-info',data).then(function(response) {
          _this.detail=response;
          _this.loading=false;
-				 if(response.sourceName && response.sourceName.indexOf('推荐') != -1){
-
- 				 	 _this.presentShow = true;
- 				}else{
- 				 _this.presentShow = false;
- 				}
-		}).catch(function(err) {
-			Message.error(err.message);
+		 let show = false;
+		 for(var i=0;i<_this.screening.length;i++){
+			 if(_this.screening[i] === response.sourceName){
+				 show = true;
+				 break;
+			 }
+		 }
+		if(show){
+			_this.presentShow = true;
+		}else{
+			_this.presentShow = false;
+		}
+	}).catch(function(err) {
+		Message.error(err.message);
 	});
 })
 // 获取删除的订单的id

@@ -186,7 +186,9 @@ class NewCreateForm extends React.Component {
 
 	// station list
 	onStationCancel() {
-		this.openStationDialog();
+		this.setState({
+			openStation: false
+		});
 	}
 
 
@@ -574,6 +576,7 @@ class NewCreateForm extends React.Component {
 						title="分配工位"
 						open={this.state.openStation}
 						modal={true}
+						bodyStyle={{overflowY:'scroll'}}
 						onClose={this.onStationCancel}
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true}>

@@ -74,14 +74,6 @@ class SearchForm extends Component {
 
 		let {todayDate}=this.props;
 
-		let options=[
-		 {label:'公司名称',value:'company'},
-		 {label:'城市',value:'city'},
-		 {label:'社区',value:'community'},
-		 {label:'销售员',value:'people'},
-		 {label:'录入人',value:'write'},
-		]
-
 		return (
 
 			<form name="transferSearchForm" className="appointment-visit-form" style={{height:50 }}>

@@ -51,14 +51,8 @@ class CommunityList  extends React.Component{
       cityData:'',
       timeStart:'',
       timeEnd:'',
-      cityId:'',
-      photoF:[],
-      photoL:[],
-      photoD:[],
       communityId:'',
-      //communityName:'',
-      picSrc:'',
-			picId:''
+			cityId:''
     }
 	}
 
@@ -70,6 +64,7 @@ class CommunityList  extends React.Component{
    //新建社区开关
    openAddCommunity=()=>{
    	  cityDataState.setCity("请选择");
+			State.isCorpRank=false;
    	  State.searchDataHere();
       State.switchNewCommunityList();
    }
@@ -81,128 +76,13 @@ class CommunityList  extends React.Component{
    onNewCommunitySubmit=(value)=>{
    	    value = Object.assign({},value);
         
-        //亮点开始
-   	    var brightsStr=[];
-        if(value.bright_basic){
-         value.bright_basic.map((item)=>{
-              if(!item){
-                return ;
-            }
-             let {type,brightPoints} = item;
-             let bright = Object.assign({},{type,brightPoints})
-             brightsStr.push(bright);
-         });
-       }
-
-   	    if(value.bright_service){
-   	       value.bright_service.map((item)=>{
-   	   	  if(!item){
-             return ;
-   	   	  }
-          let {type,brightPoints} = item;
-             let bright = Object.assign({},{type,brightPoints})
-             brightsStr.push(bright)
-   	     })
-   	    }
-
-   	    if(value.bright_special){
-   	      value.bright_special.map((item,index)=>{
-   	   	 if(!item){
-            return ;
-   	   	  }
-          let {type,brightPoints} = item;
-             let bright = Object.assign({},{type,brightPoints})
-             brightsStr.push(bright)
-   	     })
-   	    }
-
-   	    if(value.bright_bright){
-   	      value.bright_bright.map((item,index)=>{
-   	   	  if(!item){
-             return ;
-   	   	   }
-             let {type,brightPoints} = item;
-             let bright = Object.assign({},{type,brightPoints})
-             brightsStr.push(bright)
-   	     })
-   	    }
-
-   	    if(value.brightPorts){
-   	      brightsStr.push({type:'TRANSPORTATION',brightPoints:value.brightPorts.brightPoints});
-   	    }
-   	    if(value.brightRound){
-   	      brightsStr.push({type:'PERIMETER',brightPoints:value.brightRound.brightPoints});
-   	    }
-   	    if(brightsStr.length){
-   	       value.brightsStr=JSON.stringify(brightsStr);
-   	    }
-        //亮点结束
-
-
-
         //楼层开始
    	    value.wherefloorsStr=JSON.stringify(value.wherefloors);
         //楼层结束
 
-
-
-        //工位开始
-   	    if(value.porTypes){
-   	       value.porTypesStr=JSON.stringify(value.porTypes);
-   	    }
-        //工位结束
-
-
-       //图片开始
-       var photosStr=[];
-       if(value.photosStr_first){
-         	value.photosStr_first.map((item,index)=>{
-            let images = Object.assign({},{type:'THEFIRST',photoId:item.photoId,first:(index?false:true)})
-         	  photosStr.push(images)
-          })
-        }
-
-        if(value.photosStr_list){
-         	value.photosStr_list.map((item,index)=>{
-         	  let images = Object.assign({},{type:'LIST',photoId:item.photoId,first:(index?false:true)})
-             photosStr.push(images)
-          })
-         }
-
-         if(value.photosStr_detail){
-          	value.photosStr_detail.map((item,index)=>{
-          	let images = Object.assign({},{type:'DETAILS',photoId:item.photoId,first:(index?false:true)})
-            photosStr.push(images)
-          })
-         }
-
-         
-         
-				 if(value.picId){
-					  photosStr.push({type:'MOBILE_STATION',photoId:value.picId,first:true});
-				 }
-
-
-         value.photosStr=JSON.stringify(photosStr);
-
-         delete value.photosStr_first;
-         delete value.photosStr_list;
-         delete value.photosStr_detail;
-         delete value.bright_basic;
-         delete value.bright_service;
-         delete value.bright_special;
-         delete value.bright_bright;
-         delete value.brightPorts;
-         delete value.brightRound;
-         delete value.brights;
          delete value.wherefloors;
-         delete value.porTypes;
-         delete value.photoVOs;
-				 delete value.picId;
 
          //图片结束
-
-        
    	     State.onNewCommunitySubmit(value);
 
    }
@@ -228,6 +108,7 @@ class CommunityList  extends React.Component{
          return ;
       }
        if(type=='edit'){
+				  State.isCorpRank=false;
       	  State.searchDataHere();
           this.ajaxSendData(itemDetail.id);
       }
@@ -245,103 +126,23 @@ class CommunityList  extends React.Component{
 
           Store.dispatch(initialize('editCommunityList',response));
 
-
           Store.dispatch(change('editCommunityList','local',response.longitude+','+response.latitude));
 
-          var bright_basic=[];
-          var bright_service=[];
-          var bright_special=[];
-          var bright_bright=[];
-
-          var photo_First=[];
-          var photo_List=[];
-          var photo_Detail=[];
-          response.photoVOs.map((item,index)=>{
-            if(item.type=='THEFIRST'){
-              item.src=item.photoUrl;
-              delete item.photoUrl;
-              photo_First.push(item);
-            }
-            if(item.type=='LIST'){
-              item.src=item.photoUrl;
-              delete item.photoUrl;
-              photo_List.push(item);
-            }
-            if(item.type=='DETAILS'){
-              item.src=item.photoUrl;
-              delete item.photoUrl;
-              photo_Detail.push(item);
-            }
-						if(item.type=='MOBILE_STATION'){
-							selectHas=true;
-              _this.setState({
-								picSrc:item.photoUrl,
-								picId:item.photoId
-							})
-						}
-          })
-
-					if(response.photoVOs.length==0||!selectHas){
-						_this.setState({
-							picSrc:'',
-							picId:''
-						})
-					}
-
-
+        
 
           _this.setState({
             timeStart:response.businessBegin,
             timeEnd:response.businessEnd,
-            cityId:response.cityId,
-            photoF:photo_First,
-            photoL:photo_List,
-            photoD:photo_Detail,
             communityId:response.id,
-            //communityName:response.name,
+						cityId:response.cityId,
             cityData:`${response.provinceName}/${response.cityName}/${response.countyName}`
           })
-
-          response.brights.map((item,index)=>{
-            if(item.type=="BRIGHTPOINTS"){
-              bright_bright.push(item);
-            }
-            if(item.type=="INFRASTRUCTURE"){
-              bright_basic.push(item);
-            }
-            if(item.type=="SPECIALSERVICE"){
-              bright_special.push(item);
-            }
-            if(item.type=="BASICSERVICE"){
-              bright_service.push(item);
-            }
-            if(item.type=="TRANSPORTATION"){
-              Store.dispatch(change('editCommunityList','brightPorts.brightPoints',item.brightPoints));
-            }
-            if(item.type=="PERIMETER"){
-              Store.dispatch(change('editCommunityList','brightRound.brightPoints',item.brightPoints));
-            }
-          })
-
-          Store.dispatch(change('editCommunityList','porTypes',response.porTypes.length?response.porTypes:[{}]));
-          Store.dispatch(change('editCommunityList','bright_bright',bright_bright.length?bright_bright:[{type:'BRIGHTPOINTS'}]));
-          Store.dispatch(change('editCommunityList','bright_special',bright_special.length?bright_special:[{type:'SPECIALSERVICE'}]));
-          Store.dispatch(change('editCommunityList','bright_service',bright_service.length?bright_service:[{type:'INFRASTRUCTURE'}]));
-          Store.dispatch(change('editCommunityList','bright_basic',bright_basic.length?bright_basic:[{type:'BASICSERVICE'}]));
-
+      
           if(response.opened==true){
             Store.dispatch(change('editCommunityList','opened','1'));
           }
           if(response.opened==false){
             Store.dispatch(change('editCommunityList','opened','0'));
-          }
-
-
-          if(response.portalShow==true){
-            Store.dispatch(change('editCommunityList','portalShow','1'));
-          }
-          if(response.portalShow==false){
-            Store.dispatch(change('editCommunityList','portalShow','0'));
           }
 
           State.switchEditList();
@@ -368,8 +169,6 @@ class CommunityList  extends React.Component{
       openDateEnd:'',
       openDateBegin:'',
       businessAreaId:'',
-      portalShow:'',
-      cityId:'',
       countyId:'',
       searchKey:'',
       searchType:''
@@ -462,7 +261,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,cityId,photoF,photoL,photoD,communityId,picSrc,picId}=this.state;
+    let {cityData,timeStart,timeEnd,communityId,cityId}=this.state;
 
 		return(
 
@@ -509,7 +308,6 @@ class CommunityList  extends React.Component{
                   <TableHeaderColumn>所属城市</TableHeaderColumn>
                   <TableHeaderColumn><span style={{fontSize:'16px',display:'inline-block',paddingBottom:'4px'}}>社区面积m</span><sup>2</sup></TableHeaderColumn>
 		              <TableHeaderColumn>社区排序</TableHeaderColumn>
-		              <TableHeaderColumn>官网显示状态</TableHeaderColumn>
 		              <TableHeaderColumn>开业时间</TableHeaderColumn>
 		              <TableHeaderColumn>开业状态</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
@@ -524,7 +322,6 @@ class CommunityList  extends React.Component{
 			                <TableRowColumn name="orderNum" component={(value,oldValue)=>{
                              return (<div>{value?value:'-'}</div>)
                            }}></TableRowColumn>
-			                <TableRowColumn name="portalShow" options={[{label:'显示',value:'true'},{label:'不显示',value:'false'}]}></TableRowColumn>
 			                <TableRowColumn name="openDate" component={(value,oldValue)=>{
 														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
@@ -539,76 +336,68 @@ class CommunityList  extends React.Component{
             </Table>
 
                    {/*新建*/}
-					<Drawer
-				        open={State.openNewCommunity}
-				        width={750}
-				        openSecondary={true}
-				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
-				        onClose={this.whiteClose}
-			        >
-						<NewCommunityList
-								onSubmit={this.onNewCommunitySubmit}
-								onCancel={this.cancelAddCommunity}
-								open={State.openNewCommunity}
-						/>
+											<Drawer
+														open={State.openNewCommunity}
+														width={750}
+														openSecondary={true}
+														containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+														onClose={this.whiteClose}
+													>
+												<NewCommunityList
+														onSubmit={this.onNewCommunitySubmit}
+														onCancel={this.cancelAddCommunity}
+														communityId={communityId}
+												/>
 
 		            </Drawer>
 
 		             {/*编辑*/}
-					<Drawer
-				        open={State.openEditCommunity}
-				        width={750}
-				        openSecondary={true}
-				        onClose={this.whiteClose}
-				        containerStyle={{top:60,paddingBottom:48,zIndex:21}}
-			        >
-						<EditCommunityList
-								onSubmit={this.onNewCommunitySubmit}
-								onCancel={this.switchEditList}
-								open={State.openEditCommunity}
-                cityData={cityData}
-                timeStart={timeStart}
-                timeEnd={timeEnd}
-                cityId={cityId}
-                photoF={photoF}
-                photoL={photoL}
-                photoD={photoD}
-                communityId={communityId}
-                //communityName={communityName}
-								picSrc={picSrc}
-								picId={picId}
-						/>
+									<Drawer
+												open={State.openEditCommunity}
+												width={750}
+												openSecondary={true}
+												onClose={this.whiteClose}
+												containerStyle={{top:60,paddingBottom:48,zIndex:21}}
+											>
+										<EditCommunityList
+												onSubmit={this.onNewCommunitySubmit}
+												onCancel={this.switchEditList}
+												cityData={cityData}
+												timeStart={timeStart}
+												timeEnd={timeEnd}
+												communityId={communityId}
+												cityId={cityId}
+										/>
 
-		            </Drawer>
+									</Drawer>
 
                     {/*高级查询*/}
                     <Dialog
-						title="高级查询"
-						onClose={this.openSearchUpperDialog}
-						open={State.openSearchUpper}
-						contentStyle ={{ width: '666px',height:'458px'}}
-					>
-						<SearchUpperForm
-						    onCancel={this.openSearchUpperDialog}
-						    onSubmit={this.onSearchUpperSubmit}
-						    open={State.openSearchUpper}
-						/>
-				    </Dialog>
+										title="高级查询"
+										onClose={this.openSearchUpperDialog}
+										open={State.openSearchUpper}
+										contentStyle ={{ width: '666px',height:'385px'}}
+										>
+											<SearchUpperForm
+													onCancel={this.openSearchUpperDialog}
+													onSubmit={this.onSearchUpperSubmit}
+											/>
+									</Dialog>
 
 
                      {/*查看*/}
-					<Drawer
-				        open={State.openWatchCommunity}
-				        width={750}
-				        onClose={this.whiteClose}
-				        openSecondary={true}
-				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
-			        >
-						<WatchCommunityList
-								onCancel={this.onSwitchCancelWatchList}
-						/>
+											<Drawer
+														open={State.openWatchCommunity}
+														width={750}
+														onClose={this.whiteClose}
+														openSecondary={true}
+														containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+													>
+												<WatchCommunityList
+														onCancel={this.onSwitchCancelWatchList}
+												/>
 
-		            </Drawer>
+											</Drawer>
 
        </Section>
 

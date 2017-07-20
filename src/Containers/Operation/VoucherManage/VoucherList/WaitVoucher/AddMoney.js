@@ -40,8 +40,10 @@ class AddMoney extends React.Component {
 			accountList: [],
 			mainbillInfo: {},
 			finaflowInfo: {},
-      AddInfo:{},
-      mainBillList:[],
+			AddInfo:{},
+			mainBillList:[],
+			//我司账户名称
+			accountNum:''
 		}
 		this.receivedBtnFormChangeValues = {};
     this.getAddInfo();
@@ -62,6 +64,12 @@ class AddMoney extends React.Component {
          })
      })
   }
+
+  accountChange=(param)=>{
+        this.setState({
+			accountNum:param.accountNum
+		})
+	}
 
 	trim = (str) => {
 		return str.replace(/\s+/g, "");
@@ -242,6 +250,7 @@ class AddMoney extends React.Component {
 	}
 
 	onSubmit = (form) => {
+		let {accountNum}=this.state;
 		if (!form.contract) {
 			Message.error('请选择对应合同');
 			return;
@@ -301,6 +310,7 @@ class AddMoney extends React.Component {
 			onSubmit
 		} = this.props;
 		var params = {
+			accountNum:accountNum,
 			accountId: form.accountId,
 			dealTime: form.dealTime,
 			mainBillId: form.mainBillId,
@@ -714,6 +724,7 @@ class AddMoney extends React.Component {
 								label="我司账户"
 								options={accountList}
 								requireLabel={true}
+								onChange={this.accountChange}
 						/>
 						<KrField
 								style={{width:260}}

@@ -209,6 +209,7 @@ export default class CreateMemberForm extends React.Component {
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={20}  onBlur={this.EmailonBlur}  requireLabel={true}/>
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={20}  requireLabel={true} />
 					<KrField name="jobId" grid={1/2} label="职位" defaultValue={detail.jobName} component="select" left={20} options={jobList}/>
+					<KrField grid={1/2} name="idCardNo" type="text" label="身份证号" style={{width:'252px'}} />
 					<Grid style={{margin:'20px 0'}}>
 						<Row>
 							<ListGroup>
@@ -245,6 +246,10 @@ const validate = values => {
 	if (!values.companyId) {
 		errors.companyId = '请输入公司';
 	}
+	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
+    if( values.idCardNo && !reg.test(values.idCardNo)){   
+        errors.idCardNo = '身份证输入不合法';   
+    }
 
 	// if (!values.jobId) {
 	// 	errors.jobId = '请输入职位';
