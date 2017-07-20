@@ -42,7 +42,7 @@ export default class SelectTree extends React.Component{
 	}
 
 	onFocus=(value)=>{
-		console.log("adasd","PPPPPPP")
+		
 		this.setState({
 			isDialog:true,
 		})
@@ -54,7 +54,14 @@ export default class SelectTree extends React.Component{
 			isDialog:false,
 		})
 	}
-
+	onSelect = (data) =>{
+		console.log(data,">>>>>>>")
+		let {input,onChange} = this.props;
+		// var value = (item && item.value) || '';
+		input.onChange({});
+		// onChange && onChange(item);
+		
+	}
 
 	render(){
 		const {isDialog} = this.state;
@@ -109,9 +116,10 @@ export default class SelectTree extends React.Component{
 					title="删除职务"
 					onClose={this.dlogSwidch}
 					open={isDialog}
+					
 					contentStyle ={{ width: '444px'}}
 				 >
-					<TreeDialog />
+					<TreeDialog onSelect = {this.onSelect}/>
 				</Dialog>
 			 </WrapComponent>
 		 );
