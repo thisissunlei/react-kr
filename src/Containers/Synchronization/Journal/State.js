@@ -48,7 +48,7 @@ State.getJournalList = action(function(value) {
 
 State.reload = action(function(ids) {
 	var _this = this;
-	Http.request('re-sync','',ids+'').then(function(response) {
+	Http.request('re-sync','',{ids:ids+''}).then(function(response) {
 		let searchParams = Object.assign(_this.searchParams,{time:+new Date()})
 		Message.success('同步成功');
 		_this.searchParams = searchParams;
