@@ -33,6 +33,7 @@ import CreateDialog from './Createdialog';
 import EditDialog from './Editdialog';
 import Viewdialog from './Viewdialog';
 import CancelDialog from './CancelDialog';
+import UnCancelDialog from './UnCancelDialog';
 
 @inject("NavModel")
 @observer
@@ -44,8 +45,8 @@ export default class Labour extends React.Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				orgId:0,
-				orgType:-1,
+				orgId:'1',
+				orgType:"DEPARTMENT",
 			},
 			data:{},
 			itemDetail: '',
@@ -57,6 +58,8 @@ export default class Labour extends React.Component {
 			newPage:1,
 			treeData:[],
 			renderTree:false,
+			openUnCancelDialog:false,
+			dimData:[],
 		}
 	}
 	checkTab=(item)=>{
@@ -85,6 +88,11 @@ export default class Labour extends React.Component {
 		// 		_this.renderTree();
 		// 	})
 		// }).catch(function(err) {});
+		Http.request('dim-list', {
+              
+          }).then(function(response) {
+              _this.setState({dimData: response.items})
+          }).catch(function(err) {});
 		
 	}
 	//操作相关
@@ -95,30 +103,10 @@ export default class Labour extends React.Component {
 
 		if (type == 'cancle') {
 			this.openCancelDialog();
+		}else if (type == 'unCancle') {
+			this.openUnCancelDialog();
 		}
 	}
-	//搜索
-    onSearchSubmit = (value) => {
-        let {searchParams} = this.state;
-        if (value.filter == 'company') {
-            this.setState({
-                searchParams: {
-                    page: this.state.newPage,
-                    pageSize: 15,
-                    accountName: value.content
-                }
-            })
-        }
-        if (value.filter == 'city') {
-            this.setState({
-                searchParams: {
-                    page: this.state.newPage,
-                    pageSize: 15,
-                    realName: value.content
-                }
-            })
-        }
-    }
 	renderTree=()=>{
 		this.setState({
 			renderTree:true,
@@ -127,6 +115,11 @@ export default class Labour extends React.Component {
 	openCancelDialog=()=>{
 		this.setState({
 			openCancelDialog: !this.state.openCancelDialog
+		})
+	}
+	openUnCancelDialog=()=>{
+		this.setState({
+			openUnCancelDialog: !this.state.openUnCancelDialog
 		})
 	}
 	openViewDialog = () => {
@@ -146,7 +139,9 @@ export default class Labour extends React.Component {
 	}
 	onCreatSubmit = (params) => {
 		var _this = this;
-		Http.request('save-version', {}, params).then(function(response) {
+		console.log(">>>>",params);
+		// form.dimId = this.props.params.dimId;
+		Http.request('save-junior', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
 			_this.changeP();
@@ -171,9 +166,10 @@ export default class Labour extends React.Component {
 			itemDetail
 		} = this.state;
 		var _this = this;
-		Http.request('org-cancel', {
-			orgId: itemDetail.orgId,
+		Http.request('org-cancel',{},{
+			orgId: itemDetail.juniorId,
 			orgType:itemDetail.orgType,
+			status: '0'
 		}).then(function(response) {
 			_this.openCancelDialog();
 			Message.success('封存成功');
@@ -181,6 +177,24 @@ export default class Labour extends React.Component {
 		}).catch(function(err) {
 			_this.openCancelDialog();
 			Message.error(err.message)
+		});
+	}
+	onUnCancelSubmit=()=>{
+		let {
+			searchParams
+		} = this.state;
+		var _this = this;
+		Http.request('org-cancel', {},{
+			orgId: searchParams.orgId,
+			orgType:searchParams.orgType,
+			status: '1'
+		}).then(function(response) {
+			_this.openUnCancelDialog();
+			Message.success('解封成功');
+			_this.changeP();
+		}).catch(function(err) {
+			_this.openUnCancelDialog();
+			Message.error(err.message);
 		});
 	}
 	//改变页码
@@ -214,9 +228,20 @@ export default class Labour extends React.Component {
 		// }
 		console.log(data);
 	}
+	toOtherDim=(item)=>{
+		var dimId = item.id;
+		window.open(`./#/oa/organization/${dimId}/labour`, dimId);
+	}
+	renderDimList=(item,index)=>{
+		return (
+			<span onClick={this.toOtherDim.bind(this,item)} key={index} className="item">
+					{item.name}
+			</span>
+		)
+	}
 	render() {
 		let {itemDetail,data} = this.state;
-		
+		var logFlag = '';
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
@@ -227,22 +252,23 @@ export default class Labour extends React.Component {
 							</span>
 						</div>
 						<div className="oa-tree">
-							{this.state.renderTree && <SliderTree data={this.state.treeData} onSelect={this.p}/>}
+							{this.state.renderTree && <SliderTree treeData={this.state.treeData} onSelect={this.p}/>}
 						</div>
 					</div>
 					<div className="right">
 						<div className="header">
 							<span className="title">
-								abc
+								人力维度
 								<span className="title-list">
 									<span className="top-square">
 
 									</span>
+									{this.state.dimData.map((item,index)=>{return this.renderDimList(item,index)})}
 									<span className="item">
-										asdf
+										下级机构
 									</span>
 									<span className="item">
-										asdf
+										人员信息
 									</span>
 								</span>
 							</span>
@@ -258,43 +284,49 @@ export default class Labour extends React.Component {
 
 								</div>
 								<div className="department-name">
-									asfsdf
+									36Kr
 								</div>
 								<div className="department-tab-list">
 									<div className={`department-tab ${this.state.tabSelect==1?'department-tab-active':''}`} onClick={this.checkTab.bind(this,1)}> 
-										fsaf
+										下级机构
 									</div>
 									<div className={`department-tab ${this.state.tabSelect==2?'department-tab-active':''}`} onClick={this.checkTab.bind(this,2)}> 
-										fsafda
+										人员信息
 									</div>
 								</div>
 								
 							</div>
-							<div className="button-group">
-								<Button
-      									label="编辑"
-      									type="button"
-      									onTouchTap={this.openEditDialog}
-      									height={30}
-      									width={80}
-										backgroundColor='#fcfcfc'
-										labelColor='#666'
-										shadow="no"
-      					/>
-								<div className="btn-center">
-
-								</div>
-								<Button
-      									label="查看"
-      									type="button"
-      									onTouchTap={this.openViewDialog}
-      									height={30}
-      									width={80}
-										backgroundColor='#F5F6FA'
-										labelColor='#666'
-										shadow="no"
-      					/>
-							</div>
+							
+								{(this.state.searchParams.orgId!=0&&this.state.searchParams.orgId!=-1)&&
+									<div className="button-group">
+										<div className="btn-center">
+											<Button
+												label="编辑"
+												type="button"
+												onTouchTap={this.openEditDialog}
+												height={30}
+												width={80}
+												backgroundColor='#fcfcfc'
+												labelColor='#666'
+												shadow="no"
+											/>
+										</div>
+										<Button
+											label="查看"
+											type="button"
+											onTouchTap={this.openViewDialog}
+											height={30}
+											width={80}
+											backgroundColor='#F5F6FA'
+											labelColor='#666'
+											shadow="no"
+      									/>
+									</div>
+								}
+								
+								
+								
+							
 						</div>
 					{this.state.tabSelect==1 &&
 							<div>
@@ -332,11 +364,22 @@ export default class Labour extends React.Component {
 								<TableRowColumn name="juniorId" ></TableRowColumn>
 
 								<TableRowColumn name="juniorName"></TableRowColumn>
-					<TableRowColumn name="juniorType" options={[
-						{label:'部门',value:'0'},
-						{label:'分部',value:'1'}
-					]}></TableRowColumn>
-					<TableRowColumn name="status"></TableRowColumn>
+					<TableRowColumn name="juniorType"></TableRowColumn>
+					<TableRowColumn name="status" 
+						component={(value, oldValue) => {
+							if (value == '已封存') {
+								logFlag = true;
+								return (
+									<div style={{color:'#FF5B52'}}>{value}</div>
+								)
+							}else{
+								logFlag = false;
+								return (
+									<div>{value}</div>
+								)
+							}
+                         }}
+					></TableRowColumn>
 					
 					<TableRowColumn type="date" name="createTime" component={(value)=>{
 									return (
@@ -344,7 +387,7 @@ export default class Labour extends React.Component {
 									)
 								}}> </TableRowColumn>
 							<TableRowColumn>
-									<Button label="封存"  type="operation" operation="cancle"/>
+									{logFlag?<Button label="解封"  type="operation" operation="unCancle"/>:<Button label="封存"  type="operation" operation="cancle"/>}
 							</TableRowColumn>
 							</TableRow>
 						</TableBody>
@@ -413,7 +456,7 @@ export default class Labour extends React.Component {
                 width: 374
             }}
         >
-                <Viewdialog detail={this.state.data} onCancel={this.openViewDialog} />
+                <Viewdialog detail={this.state.searchParams} onCancel={this.openViewDialog} />
         </Dialog>
         <Dialog 
                 title="编辑XXX" 
@@ -424,9 +467,9 @@ export default class Labour extends React.Component {
                     width: 374
                 }}
         >
-                <EditDialog detail={this.state.itemDetail} onSubmit={this.onNewEditSubmit} onCancel={this.openEditDialog} />
+                <EditDialog detail={this.state.searchParams} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
         </Dialog>
-				<Dialog 
+		<Dialog 
                 title="提示" 
                 modal={true} 
                 open={this.state.openCancelDialog} 
@@ -437,7 +480,18 @@ export default class Labour extends React.Component {
         >
                 <CancelDialog detail={this.state.itemDetail} onSubmit={this.onCancelSubmit} onCancel={this.openCancelDialog} />
         </Dialog>
-				<Dialog 
+		<Dialog 
+                title="提示" 
+                modal={true} 
+                open={this.state.openUnCancelDialog} 
+                onClose={this.openUnCancelDialog} 
+                contentStyle={{
+                    width: 374
+                }}
+        >
+                <UnCancelDialog detail={this.state.itemDetail} onSubmit={this.onUnCancelSubmit} onCancel={this.openUnCancelDialog} />
+        </Dialog>
+		<Dialog 
                 title="新建下级" 
                 modal={true} 
                 open={this.state.openCreateDialog} 
@@ -446,7 +500,7 @@ export default class Labour extends React.Component {
                     width: 374
                 }}
         >
-                <CreateDialog detail={this.state.itemDetail} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
+                <CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
         </Dialog>
 </div>
 		);

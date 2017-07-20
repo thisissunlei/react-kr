@@ -13,7 +13,6 @@ export default class SliderTree extends React.Component{
 	static propTypes = {
 				//autoExpandParent: React.PropTypes.bool,
 				//expandedKeys: React.PropTypes.array,
-				data:React.PropTypes.array
 	}
 	//勾选
 	onCheck = (checkedKeys) =>{
@@ -59,7 +58,7 @@ export default class SliderTree extends React.Component{
 
 
 	render(){
-        const {title} = this.props;
+        const {title,treeData} = this.props;
 		const animation = {
 			enter(node, done) {
 				return this.animate(node, true, done);
@@ -81,7 +80,7 @@ export default class SliderTree extends React.Component{
 				return <TreeNode key={item.id} title={item.codeName} itemData={item} />;
 			});
 		};
-		let treeNodes = loop(this.props.data || mockData);
+		let treeNodes = loop(treeData);
 		return (
             <div>
              	{/*<Tree
