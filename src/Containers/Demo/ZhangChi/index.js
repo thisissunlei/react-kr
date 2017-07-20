@@ -6,6 +6,7 @@ import {
 	XTable,
 	XTableRow,
 	Section,
+	SliderTree,
 } from 'kr-ui';
 
 export default class ZhangChi extends React.Component {
@@ -37,7 +38,7 @@ export default class ZhangChi extends React.Component {
 
 		return (
 			<Section title="demo">
-				<PlanMap />
+				{/*<PlanMap />
 					<XTable ajaxUrlName="signCustomers" ajaxParams={this.state.searchParams}>
 								<XTableRow label="全选" type="checkbox" name="all" width={30}/>
 								<XTableRow label="公司名称" name="signCityName" width={300} tooltip="我的世界"/>
@@ -47,7 +48,19 @@ export default class ZhangChi extends React.Component {
 								<XTableRow label="操作" type="operation" component={(scope)=>{
 										return <Button onClick={this.onClick} label={scope.signCityName} type="button"/>;
 									}} />
-					</XTable>
+					</XTable>*/}
+
+
+					<div className="search"> 
+						<input type="text" placeholder="ddd" />
+						<span className="searching">
+
+						</span>
+					</div>
+					
+					<SliderTree />
+
+
 			</Section>
 
 		);

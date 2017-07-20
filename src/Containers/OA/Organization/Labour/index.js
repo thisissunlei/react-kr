@@ -193,7 +193,6 @@ export default class Labour extends React.Component {
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
-						<form>
 						<div className="search"> 
 							<input type="text" placeholder="ddd" />
 							<span className="searching">
@@ -203,7 +202,6 @@ export default class Labour extends React.Component {
 						<div className="oa-tree">
 							<SliderTree onSelect={this.p}/>
 						</div>
-						</form>							
 					</div>
 					<div className="right">
 						<div className="header">
