@@ -10,6 +10,7 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
+	Message,
 	Dialog,
 	Tooltip,
 	Drawer,
@@ -25,7 +26,7 @@ import {
 } from 'kr-ui';
 import State from './State';
 import {DateFormat,Http} from 'kr/Utils';
-import {reduxForm,initialize} from 'redux-form';
+import {reduxForm,initialize,change} from 'redux-form';
 // import NewCreateSystem from './NewCreateSystem';
 // import EditSystem from './EditSystem';
 // import Synchro from './Synchro';
@@ -42,7 +43,9 @@ export default class Journal extends React.Component {
 		console.log('searchList',this.props.params)
 		this.state = {
 			systemList:[],
-			mainList:[]
+			mainList:[],
+			begin:'',
+			end:''
 		}
 	}
 
@@ -52,7 +55,6 @@ export default class Journal extends React.Component {
 		let {params} = this.props;
 		params.mainId += '';
 		params.systemId +="" ;
-		console.log('=======',params);
 		Store.dispatch(initialize('Journal', params));
 	}
 
@@ -127,6 +129,39 @@ export default class Journal extends React.Component {
 			Store.dispatch(initialize('Journal', nextProps.params));
 		}
 	}
+	beginDataChange=(beginTime)=>{
+		console.log('begin');
+		let {end,begin} = this.state;
+		this.setState({
+			begin:beginTime
+		})
+		if(end == ''){
+			Store.dispatch(change('Journal','beginDate', beginTime));
+			return
+		}
+		if(+new Date(end) <  +new Date(beginTime)){
+			Message.error('失败');
+			Store.dispatch(change('Journal','beginDate', new Date()));
+			Store.dispatch(change('Journal','endDate', new Date()));
+		}
+
+	}
+	endDataChange=(endTime)=>{
+		let {end,begin} = this.state;
+		this.setState({
+				end:endTime
+			})
+		if(begin == ''){
+			Store.dispatch(change('Journal','endDate',endTime));
+			return;
+		}
+		if(+new Date(begin) >  +new Date(endTime)){
+			Message.error('失败');
+			Store.dispatch(change('Journal','beginDate', new Date()));
+			Store.dispatch(change('Journal','endDate', new Date()));
+			return;
+		}
+	}
 	
 
 	render() {
@@ -169,9 +204,9 @@ export default class Journal extends React.Component {
 					<KrField grid={1/1}  component="group" label="同步时间" style={{marginTop:3}}>
 						<div className='ui-listDate'>
 							<ListGroup>
-								<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="beginDate" component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="beginDate" component="date" onChange={this.beginDataChange}/></div></ListGroupItem>
 									<div style = {{display:"inline-block",marginTop:20}} className='ui-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='ui-date-end'><KrField name="endDate" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-end'><KrField name="endDate" style={{width:260,marginTop:2}} component="date" onChange={this.endDataChange}/></div></ListGroupItem>
 							</ListGroup>
 		                </div>
 					</KrField>
