@@ -83,7 +83,7 @@ module.exports =()=>{
             </Route>
 
              {/*人员详情*/}
-						<Route path="peopleDetail" getComponent={OA_PeopleDetail}/>
+            <Route path=":personId/peopleDetail" getComponent={OA_PeopleDetail}/>
         </Route>
 	);
 };
