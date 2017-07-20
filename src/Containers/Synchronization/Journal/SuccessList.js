@@ -107,9 +107,9 @@ export default class FailList extends React.Component {
 								 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn name="mode"
-		              		 component={(value,oldValue)=>{
+		              		 component={(value,oldValue)=>{	
 									 return (<div className='financeDetail-hover'>
-									 	{oldValue.mode=='TIMING'?'定时':'手动'}
+									 	{value==='TIMING'?'定时':'手动'}
 									 	</div>)
 								 }}></TableRowColumn>
 		              		 <TableRowColumn name="stickStatusName"

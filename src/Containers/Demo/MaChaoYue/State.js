@@ -26,6 +26,9 @@ let State = observable({
 		phone:'',
 		email:''
 	},
+	searchParams:{
+		
+	}
 	
 });
 
