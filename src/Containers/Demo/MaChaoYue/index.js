@@ -65,19 +65,13 @@ class MaChaoYue extends React.Component {
 	}
 	componentWillMount() {
 		let height = document.getElementsByClassName('demo-Machaoyue')[0];
-		console.log('will',height)
 	}
 	componentDidMount() {
 		let height = document.getElementsByClassName('demo-Machaoyue')[0].offsetHeight;
-		console.log('======',height)
 		this.pages = Math.ceil(height/1120)+1;
-		console.log('did',this.pages)
 	}
 
 
-
-	
-	
 	render() {
 		// let {communitys}=this.state;
 		const {handleSubmit}=this.props;
