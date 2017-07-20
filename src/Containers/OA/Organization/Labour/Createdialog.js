@@ -51,6 +51,7 @@ class Createdialog extends Component {
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
         params.dimId = this.props.params.dimId;
+        params.orgId = this.props.detail.orgId;
         params.superOrgType = this.props.detail.orgType;
         onSubmit && onSubmit(params);
     }
