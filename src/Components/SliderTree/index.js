@@ -11,8 +11,8 @@ export default class SliderTree extends React.Component{
 		
 	}
 	static propTypes = {
-				autoExpandParent: React.PropTypes.bool,
-				expandedKeys: React.PropTypes.array,
+				//autoExpandParent: React.PropTypes.bool,
+				//expandedKeys: React.PropTypes.array,
 	}
 	//勾选
 	onCheck = (checkedKeys) =>{
@@ -26,14 +26,14 @@ export default class SliderTree extends React.Component{
 		//console.log(item);
 
 	}
-	onExpand = () =>{
-		let {onExpand} = this.props;
-		onExpand && onExpand();
-	}
-	filterTreeNode = () =>{
-		let {filterTreeNode} = this.props;
-		filterTreeNode && filterTreeNode();
-	}
+	// onExpand = () =>{
+	// 	let {onExpand} = this.props;
+	// 	onExpand && onExpand();
+	// }
+	// filterTreeNode = () =>{
+	// 	let {filterTreeNode} = this.props;
+	// 	filterTreeNode && filterTreeNode();
+	// }
 	
 	animate = (node, show, done) => {
 		let height = node.offsetHeight;
@@ -83,7 +83,7 @@ export default class SliderTree extends React.Component{
 		let treeNodes = loop(this.props.data || mockData);
 		return (
             <div>
-             	<Tree
+             	{/*<Tree
 				 	filterTreeNode={this.filterTreeNode}
 				 	autoExpandParent={this.props.autoExpandParent}
 				 	expandedKeys={this.props.expandedKeys}
@@ -91,6 +91,12 @@ export default class SliderTree extends React.Component{
 					onCheck={this.onCheck}
 					onSelect={this.onSelect}
 					filterTreeNode={this.filterTreeNode}
+				>
+					{treeNodes}
+				</Tree>*/}
+				<Tree
+					onCheck={this.onCheck}
+					onSelect={this.onSelect}
 				>
 					{treeNodes}
 				</Tree>

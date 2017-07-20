@@ -55,6 +55,7 @@ export default class Labour extends React.Component {
 			tabSelect:1,
 			openCancelDialog:false,
 			newPage:1,
+			treeData:{}
 		}
 	}
 	checkTab=(item)=>{
@@ -65,6 +66,7 @@ export default class Labour extends React.Component {
   componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.setSidebar(false);
+
 	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
@@ -186,6 +188,7 @@ export default class Labour extends React.Component {
 		// }else{
 			
 		// }
+		console.log(data);
 	}
 	render() {
 		let {itemDetail,data} = this.state;
@@ -287,7 +290,7 @@ export default class Labour extends React.Component {
 								onLoaded={this.onLoaded}
 								ajax={true}
 								ajaxUrlName='next-org-list'
-								ajaxParams={this.state.searchParams}
+								ajaxParams={this.state.searchParamsOrg}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
 							>
