@@ -62,7 +62,7 @@ export default class BasicInfo  extends React.Component{
 			];
 
 		return(
-			<div className='info-wrap'>
+			<div className='info-wrap-b'>
 				  <div className='title-out'>
 						<span className='title-blue'></span>
 						<span className='title-name'>基本信息</span>
