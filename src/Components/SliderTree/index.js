@@ -13,6 +13,7 @@ export default class SliderTree extends React.Component{
 	static propTypes = {
 				//autoExpandParent: React.PropTypes.bool,
 				//expandedKeys: React.PropTypes.array,
+				data:React.PropTypes.array
 	}
 	//勾选
 	onCheck = (checkedKeys) =>{
