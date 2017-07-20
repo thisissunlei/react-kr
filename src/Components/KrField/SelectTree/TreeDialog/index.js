@@ -27,6 +27,7 @@ export default class TreeDialog extends React.Component{
 					onSelect = {this.onSelect}  
 					ajaxUrlName = {"org-list"}
 					params = {{id:1}} 
+					type = "department-radio"
 				/>
 			  
 			  

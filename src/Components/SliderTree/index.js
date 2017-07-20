@@ -89,7 +89,7 @@ export default class SliderTree extends React.Component{
 										{loop(item.children)}
 									</TreeNode>);
 						}
-						return <TreeNode key={} title={item.orgName} type = {type} itemData={item} />;
+						return <TreeNode key={onlyKey++} title={item.orgName} type = {type} itemData={item} />;
 					});
 				// }
 			}
