@@ -13,6 +13,9 @@ class Transfer extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+        this.state = {
+            department:''
+        }
 	}
     
      onSubmit=(values)=>{
@@ -24,10 +27,18 @@ class Transfer extends React.Component{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
+    componentWillReceiveProps(nextProps){
+        let {department} = this.state;
+        if(nextProps.department != department){
+            this.setState({
+                department:nextProps.department,
+            })
+        }
 
+    }
 
 	render(){
-       
+        let {department} = this.state;
         let {handleSubmit}=this.props;
 
 		return(
@@ -40,6 +51,7 @@ class Transfer extends React.Component{
                             name="area"
                             component="labelText"
                             label="原部门:"
+                            value = {department}
                             requireLabel={true}
 						/>
                  <KrField grid={1}

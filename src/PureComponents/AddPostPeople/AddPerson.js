@@ -78,15 +78,13 @@ class AddPerson  extends React.Component{
                             requireLabel={true}
                         />
                         
-                        
-
                         <KrField grid={1/2}
-								style={{width:262,marginLeft:28}}
-								name="floor"
-								component="select"
-								label="直接上级"
-							 	requireLabel={true}
-						 />
+                            style={{width:262,marginLeft:28}}
+                            name="selectTree"
+                            component="selectTree"
+                            label="直接上级"
+                            requireLabel={true}
+						/>
 
                          <KrField grid={1/2}
                             style={{width:262}}

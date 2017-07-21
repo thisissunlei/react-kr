@@ -76,5 +76,28 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
       method: 'get'
   },
+   /*====在职列表接口*/
+   //在职列表-列表接口
+  'getInServiceList': {
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
+    method: 'get'
+  },
+  //在职列表-获取离职类型
+  'getDepartureType': {
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
+    method: 'get'
+  },
+   //在职列表-离职提交
+ 'leaveOnSubmit': {
+    url: '/api/krspace-erp-web/hrm/resource/dimission',
+    method: 'post'
+  },
+   //在职列表-离职提交
+ 'transferOnSubmit': {
+    url: '/api/krspace-erp-web/hrm/resource/move',
+    method: 'post'
+  },
 
+  
+  
 }

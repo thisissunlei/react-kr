@@ -24,6 +24,7 @@ import {
 import {
 	AddPostPeople
 } from 'kr/PureComponents';
+import {Http} from 'kr/Utils';
 import Leave from './Leave';
 import Remove from './Remove';
 import Transfer from './Transfer';
@@ -39,7 +40,13 @@ export default class InService  extends React.Component{
 			openLeave:false,
 			openRemove:false,
 			openTransfer:false,
-			openCard:false
+			openCard:false,
+			searchParams : {
+				page:1,
+				pageSize:15,
+				searchKey:''
+			},
+			oldDepartment:'',
 		}
 	}
    
@@ -49,7 +56,7 @@ export default class InService  extends React.Component{
 		  openAddPerson:!this.state.openAddPerson
 	  })
    }
-  
+   
    //新建用户提交
    addPersonSubmit=(params)=>{
      console.log('params',params);   
@@ -59,14 +66,15 @@ export default class InService  extends React.Component{
    onOperation=(type, itemDetail)=>{
       if(type=='edit'){
 		 let personId=1;
-         window.open(`./#/oa/${personId}/peopleDetail`,'123');
+         this.goDetail(itemDetail)
 	  }else if(type=='leave'){
 		  this.setState({
 			  openLeave:true
 		  })
 	  }else if(type=='go'){
           this.setState({
-			  openTransfer:true
+			  openTransfer:true,
+			  oldDepartment:itemDetail.depId
 		  })
 	  }else if(type=='open'){
           this.setState({
@@ -86,8 +94,15 @@ export default class InService  extends React.Component{
 	 })
    }
    //离职提交
-   addLeaveSubmit=()=>{
-      
+   addLeaveSubmit=(data)=>{
+
+	var param = Object.assign({},data);
+	var _this = this;
+	Http.request("leaveOnSubmit",param).then(function (response) {
+		_this.cancelLeave()
+	}).catch(function (err) {
+		Message.error(err.message);
+	});
    }
   
   //解除关闭
@@ -110,9 +125,16 @@ export default class InService  extends React.Component{
    }
   
    //调动提交
-   addTransferSubmit=()=>{
-     
+   addTransferSubmit=(data)=>{
+		var param = Object.assign({},data);
+		var _this = this;
+		Http.request("transferOnSubmit",param).then(function (response) {
+			_this.cancelTransfer()
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
    }
+  
    
    //开通门禁取消
    cancelCard=()=>{
@@ -131,9 +153,19 @@ export default class InService  extends React.Component{
 		  openAddPerson:false
 	  })
    }
-
+   onSearchSubmit = (data) =>{
+	var searchParams = Object.assign({},this.state.searchParams);
+	searchParams.searchKey = data.content;
+	this.setState({
+		searchParams
+	})
+   }
+   //跳转详情页
+   goDetail = (data) =>{
+		window.open(`./#/oa/${data.personId}/peopleDetail`,'123');
+   }
 	render(){
-
+		const {oldDepartment} = this.state;
 		return(
 
 			<div>
@@ -165,41 +197,48 @@ export default class InService  extends React.Component{
 						displayCheckbox={true}
 						exportSwitch={true}
 						onExport={this.onExport}
-						//ajaxParams={State.searchParams}
+						ajaxParams={this.state.searchParams}
 						onPageChange={this.onPageChange}
-						ajaxUrlName='communitySearch'
+						ajaxUrlName='getInServiceList'
 						ajaxFieldListName="items"
 					  >
-					<TableHeader>
-							<TableHeaderColumn>部门</TableHeaderColumn>
-							<TableHeaderColumn>姓名</TableHeaderColumn>
-						    <TableHeaderColumn>人员编码</TableHeaderColumn>
-						    <TableHeaderColumn>职位</TableHeaderColumn>
-							<TableHeaderColumn>入职时间</TableHeaderColumn>
-							<TableHeaderColumn>状态</TableHeaderColumn>
-							<TableHeaderColumn>是否开通账号</TableHeaderColumn>
-							<TableHeaderColumn>操作</TableHeaderColumn>
-					</TableHeader>
+						<TableHeader>
+								<TableHeaderColumn>部门</TableHeaderColumn>
+								<TableHeaderColumn>姓名</TableHeaderColumn>
+								<TableHeaderColumn>人员编码</TableHeaderColumn>
+								<TableHeaderColumn>职位</TableHeaderColumn>
+								<TableHeaderColumn>入职时间</TableHeaderColumn>
+								<TableHeaderColumn>状态</TableHeaderColumn>
+								<TableHeaderColumn>是否开通账号</TableHeaderColumn>
+								<TableHeaderColumn>操作</TableHeaderColumn>
+						</TableHeader>
 
-					<TableBody >
-						<TableRow>
-							<TableRowColumn>123</TableRowColumn>
-							<TableRowColumn>123</TableRowColumn>
-							<TableRowColumn>123</TableRowColumn>
-							<TableRowColumn>123</TableRowColumn>
-							<TableRowColumn>12</TableRowColumn>
-						    <TableRowColumn>12</TableRowColumn>
-							<TableRowColumn>12</TableRowColumn>
-						    <TableRowColumn type="operation">
-							   <Button label="编辑"  type="operation"  operation="edit"/>
-							   <Button label="离职"  type="operation"  operation="leave"/>
-							   <Button label="调动"  type="operation"  operation="go"/>
-							   <Button label="解除账号"  type="operation"  operation="open"/>
-							   <Button label="开通门禁卡"  type="operation"  operation="give"/>
-							</TableRowColumn>
+						<TableBody >
+							<TableRow>
+								<TableRowColumn name ="depId" ></TableRowColumn>
+								<TableRowColumn 
+									name ="name"
+									component={(value,oldValue,detail)=>{
+										return (<div onClick = {() =>{
+												this.goDetail(detail)
+												}}>value</div>)
+									}} 
+								 ></TableRowColumn>
+								<TableRowColumn name ="code" ></TableRowColumn>
+								<TableRowColumn name ="jobName" ></TableRowColumn>
+								<TableRowColumn name ="entryDate" ></TableRowColumn>
+								<TableRowColumn name ="status" ></TableRowColumn>
+								<TableRowColumn name ="name" >12</TableRowColumn>
+								<TableRowColumn type="operation">
+								<Button label="编辑"  type="operation"  operation="edit"/>
+								<Button label="离职"  type="operation"  operation="leave"/>
+								<Button label="调动"  type="operation"  operation="go"/>
+								<Button label="解除账号"  type="operation"  operation="open"/>
+								<Button label="开通门禁卡"  type="operation"  operation="give"/>
+								</TableRowColumn>
 							</TableRow>
-							</TableBody>
-						    <TableFooter></TableFooter>
+						</TableBody>
+						<TableFooter></TableFooter>
 					</Table>
 
 					{/*新建用户*/}
@@ -242,6 +281,7 @@ export default class InService  extends React.Component{
 						onClose={this.cancelTransfer}
 						open={this.state.openTransfer}
 						contentStyle ={{ width: '444px'}}
+						department = {oldDepartment}
 					>
 					<Transfer
 						onCancel={this.cancelTransfer}
