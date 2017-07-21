@@ -8,6 +8,10 @@ import bloodType from './bloodType.json';
 import degree from './degree.json';
 import educationType from './educationType.json';
 import entryResource from './entryResource.json';
+import healthyStatus from './healthyStatus.json';
+import householdType from './householdType.json';
+
+
 
 
 export default class SelecTemployees extends React.Component {
@@ -41,6 +45,14 @@ render() {
 			//入职来源
 			case "entryResource":
 				data=entryResource;
+				break;
+			//健康状况
+			case "healthyStatus":
+				data=healthyStatus;
+				break;
+			//户口类型
+			case "householdType":
+				data=householdType;
 				break;
 
 			default:
