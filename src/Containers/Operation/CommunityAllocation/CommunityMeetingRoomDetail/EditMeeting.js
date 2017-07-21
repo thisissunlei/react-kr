@@ -331,9 +331,9 @@ class EditMeeting  extends React.Component{
 
 				 {watchMeeting&&<div>
 				 	<div style={{display:'block'}} className='community-list-time'>
-								<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' timeNum={timeStart} requireLabel={true}/>
+								<KrField component="timeSelect" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' timeNum={timeStart} requireLabel={true}/>
 								<span style={{display:'inline-block',marginTop:35,marginLeft:-11,marginRight:1}}>-</span>
-								<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr' timeNum={timeEnd}/>
+								<KrField component="timeSelect"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr' timeNum={timeEnd}/>
 				 </div>
 
 
