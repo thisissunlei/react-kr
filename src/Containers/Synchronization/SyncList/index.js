@@ -173,7 +173,7 @@ export default class List extends React.Component {
 		              <TableHeader>
 		                  <TableHeaderColumn width={100}>主体名称</TableHeaderColumn>
 		                  <TableHeaderColumn width={100}>主体编码</TableHeaderColumn>
-		                  <TableHeaderColumn>订阅系统</TableHeaderColumn>
+		                  <TableHeaderColumn width={100}>订阅系统</TableHeaderColumn>
 		                  <TableHeaderColumn width={160}>接口地址</TableHeaderColumn>
 		                  <TableHeaderColumn>失败数</TableHeaderColumn>
 		                  <TableHeaderColumn>最近同步时间</TableHeaderColumn>
@@ -209,7 +209,17 @@ export default class List extends React.Component {
 										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>
-		              		 <TableRowColumn name="systemName"></TableRowColumn>
+		              		 <TableRowColumn name="systemName"
+		              		 component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+									}else{
+										TooltipStyle="block";
+									}
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
+								 }}></TableRowColumn>
 		              		 <TableRowColumn name="interfaceAdd"
 		              		 component={(value,oldValue)=>{
 										var TooltipStyle=""
