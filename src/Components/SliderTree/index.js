@@ -142,7 +142,9 @@ export default class SliderTree extends React.Component {
 		let expandedKeys = this.state.expandedKeys;
 		let autoExpandParent = this.state.autoExpandParent;
 
-		if (this.filterKeys.length) {
+		var filterKeys = this.filterKeys;
+
+		if (filterKeys && filterKeys.length) {
 			expandedKeys = this.filterKeys;
 			autoExpandParent = true;
 		}
