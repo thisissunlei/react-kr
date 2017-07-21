@@ -47,6 +47,10 @@ export default class Synchro extends React.Component {
 		};
 		State.getSyncList(value);
 	}
+	onCancel=()=>{
+		let {onCancel} = this.props;
+		onCancel && onCancel()
+	}
 	
 
 	render() {
