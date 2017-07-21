@@ -11,6 +11,15 @@ import entryResource from './entryResource.json';
 import healthyStatus from './healthyStatus.json';
 import householdType from './householdType.json';
 
+import nation from './nation.json';
+import leaveType from './leaveType.json';
+import maritalStatus from './maritalStatus.json';
+import politicsStatus from './politicsStatus.json';
+import resourceRelation from './resourceRelation.json';
+import resourceStatus from './resourceStatus.json';
+import resourceType from './resourceType.json';
+
+
 
 
 
@@ -53,6 +62,34 @@ render() {
 			//户口类型
 			case "householdType":
 				data=householdType;
+				break;
+			//民族
+			case "nation":
+				data=nation;
+				break;
+			//离职类型
+			case "leaveType":
+				data=leaveType;
+				break;
+			//婚姻状况
+			case "maritalStatus":
+				data=maritalStatus;
+				break;
+			//政治面貌
+			case "politicsStatus":
+				data=politicsStatus;
+				break;
+			//亲属关系
+			case "resourceRelation":
+				data=resourceRelation;
+				break;
+			//员工属性
+			case "resourceStatus":
+				data=resourceStatus;
+				break;
+			//员工类别
+			case "resourceType":
+				data=resourceType;
 				break;
 
 			default:

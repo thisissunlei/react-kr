@@ -119,14 +119,16 @@ class AddPerson  extends React.Component{
                             component="selecTemployees"
                             label="员工属性"
                             requireLabel={true}
+                            otherType="resourceStatus"
 
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="type"
-                            component="select"
+                            component="selecTemployees"
                             label="员工类别"
                             requireLabel={true}
+                            otherType="resourceType"
 						/>
 
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
