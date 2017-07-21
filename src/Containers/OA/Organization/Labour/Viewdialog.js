@@ -15,14 +15,15 @@ export default class Viewdialog extends React.Component {
     		}
     }
     componentDidMount() {
-    //   var _this = this;
-    //   var id = this.props.detail.id
-    //   Http.request('org-detail', {
-    //           orgId: orgId,
-    //           orgType: orgType
-    //       }).then(function(response) {
-    //           _this.setState({infoList: response})
-    //       }).catch(function(err) {});
+      var _this = this;
+      var orgId = this.props.detail.orgId;
+      var orgType = this.props.detail.orgType;
+      Http.request('org-detail', {
+              orgId: orgId,
+              orgType: orgType
+          }).then(function(response) {
+              _this.setState({infoList: response})
+          }).catch(function(err) {});
     }
     onCancel = () => {
         const {onCancel} = this.props;
@@ -37,14 +38,28 @@ export default class Viewdialog extends React.Component {
                 <KrField
                     style={{width:262}}
                     inline={false}
-                    value={infoList.name}
-                    label="机构名称"
+                    value={infoList.orgName}
+                    label="名称"
                     component="labelText"
                 />
                 <KrField
-                    style={{width:262}}
-                    value={infoList.type}
-                    label="排序"
+                    style={{width:262,marginTop:6}}
+                    value={infoList.orgSort}
+                    label="排序号"
+                    inline={false}
+                    component="labelText"
+                />
+                <KrField
+                    style={{width:262,marginTop:6}}
+                    value={infoList.code}
+                    label="编码"
+                    inline={false}
+                    component="labelText"
+                />
+                <KrField
+                    style={{width:262,marginTop:6}}
+                    value={infoList.chargeName}
+                    label="负责人"
                     inline={false}
                     component="labelText"
                 />
@@ -52,9 +67,9 @@ export default class Viewdialog extends React.Component {
                 <KrField
                     style={{width:262}}
                     component="labelText"
-                    label="技术部ID号"
+                    label="管理员"
                     inline={false}
-                    value={infoList.id}
+                    value={infoList.adminName}
                 />
             </div>
         );

@@ -289,7 +289,7 @@ class TreeNode extends React.Component {
     // if (!props.expanded) {
     //   newChildren = null;
     // }
-    console.log("9999999",props);
+    
     var iconTypeName = this.iconJudge(prefixCls,iconState,props);
     const iconEleCls = {
       [`${prefixCls}-iconEle`]: true,

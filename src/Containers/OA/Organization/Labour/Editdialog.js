@@ -23,14 +23,18 @@ class Editdialog extends React.Component {
     }
     constructor(props, context) {
         super(props, context);
-
+        this.state={
+            infoList:{},
+        }
     }
     componentDidMount() {
 
         var _this = this;
-        var id = this.props.detail.id
-        Http.request('get-version-detail', {
-                id: id
+        var orgId = this.props.detail.orgId;
+        var orgType = this.props.detail.orgType;
+        Http.request('org-detail', {
+                orgId: orgId,
+                orgType:orgType
             },{}).then(function(response) {
                 _this.setState({infoList: response},function(){
                   Store.dispatch(initialize('editdialog', _this.state.infoList));
@@ -57,20 +61,46 @@ class Editdialog extends React.Component {
                 <KrField
                     style={{width:262}}
                     inline={false}
-                    label="机构维度名称"
+                    label="名称"
                     component="input"
-                    name="name"
+                    name="orgName"
                     requireLabel={true}
-                    placeholder="机构维度"
+                    placeholder="名称"
                 />
+               
                 <KrField
                     style={{width:262,marginTop:6}}
                     inline={false}
-                    label="排序"
-                    component="input"
-                    name="name"
+                    label="编码"
+                    component="labelText"
+                    name="code"
                     requireLabel={true}
-                    placeholder="排序"
+                    placeholder="编码"
+                    value={this.state.infoList.code}
+                />
+                <KrField 
+                    style={{width:262,marginTop:6}}  
+                    name="chargeId" 
+                    component="searchOaPersonal" 
+                    label="负责人" 
+                    placeholder="负责人"
+                    requireLabel={true}
+                />
+                <KrField 
+                    style={{width:262,marginTop:6}}  
+                    name="adminId" 
+                    component="searchOaPersonal" 
+                    label="管理员" 
+                    placeholder="管理员"
+                    requireLabel={true}
+                />
+                <KrField 
+                    style={{width:262,marginTop:6}}  
+                    name="orgSort" 
+                    component="input" 
+                    label="排序号" 
+                    placeholder="排序号"
+                    requireLabel={true}
                 />
                 <Row style={{marginTop:20,marginBottom:6}}>
       					<Col md={12} align="center">
@@ -104,26 +134,17 @@ class Editdialog extends React.Component {
 const validate = values => {
 
 	const errors = {}
-	if (!values.version) {
-		errors.version = '请输入版本';
+	if (!values.orgName) {
+		errors.orgName = '请输入名称';
 	}
-    if (!values.osType) {
-		errors.osType = '请选择设备类型';
+    if (!values.orgSort) {
+		errors.orgSort = '请输入排序号';
 	}
-    if (!values.forced) {
-		errors.forced = '请选择是否强制更新';
+    if (!values.adminId) {
+		errors.adminId = '请选择管理员';
 	}
-    if (!values.publishTime) {
-		errors.publishTime = '请选择发布时间';
-	}
-    if (!values.downUrl) {
-		errors.downUrl = '请输入下载地址';
-	}
-    if (!values.appType) {
-		errors.appType = '请选择app类型';
-	}
-    if (!values.enable) {
-		errors.enable = '请选择启用类型';
+    if (!values.chargeId) {
+		errors.chargeId = '请选择负责人';
 	}
 
 	return errors

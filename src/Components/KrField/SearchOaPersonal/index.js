@@ -2,73 +2,113 @@ import React from 'react';
 import {
 	Http
 } from "kr/Utils";
-
 import ReactSelectAsync from '../../Select/Async';
 
-import {Actions,Store} from 'kr/Redux';
-
-
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchOaPersonal extends React.Component {
+export default class SearchOaPersonal extends React.Component {
 
 	static defaultProps = {
-		placeholder:'请输入...'
+		placeholder: '请输入...'
 	}
 
 	static PropTypes = {
-		placeholder:React.PropTypes.string,
-		inline:React.PropTypes.bool
+		placeholder: React.PropTypes.string,
+		inline: React.PropTypes.bool
 	}
 
-	constructor(props){
+	constructor(props) {
 		super(props)
 
-		this.onChange = this.onChange.bind(this);
-		this.getOptions = this.getOptions.bind(this);
+		this.state = {
+			isLoading: true
+		}
 	}
 
-	componentDidMount(){
-		let {input} = this.props;
+	componentDidMount() {
+		let {
+			input
+		} = this.props;
 	}
 
-	onInputChange=()=>{
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.showName != this.props.showName) {
+			this.selectCustomer.loadOptions();
+		}
+
+	}
+
+	onInputChange = () => {
 
 
 	}
 
-	onChange(item){
-		console.log(item,"++++++++")
-		let {input,onChange} = this.props;
+	onChange = (item) => {
+
+		let {
+			input,
+			onChange
+		} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
 		onChange && onChange(item);
+
 	}
 
-	getOptions(phoneOrEmail){
+	getOptions = (name) => {
+
+		var _this = this;
 		return new Promise((resolve, reject) => {
-			Http.request('web-user-select',{ phoneOrEmail:phoneOrEmail }).then(function(response){
-				response.forEach(function(item,index){
-					item.value = item.id;
-					item.label = item.lastname;
+			Http.request('hrm-search', {
+				nameOrEmail: name || ''
+			}).then(function(response) {
+				response.items.forEach(function(item, index) {
+					return item
 				});
-				resolve({options:response});
-			}).catch(function(err){
+				resolve({
+					options: response.items
+				});
+				_this.setState({
+					isLoading: false
+				})
+			}).catch(function(err) {
 				reject(err);
+				_this.setState({
+					isLoading: false
+				})
 			});
 		});
 	}
 
-	render(){
+	render() {
 
-		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
+		let {
+			input,
+			label,
+			type,
+			meta: {
+				touched,
+				error
+			},
+			placeholder,
+			children,
+			disabled,
+			style,
+			requireLabel,
+			...other
+		} = this.props;
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
-					filterOptions={false}
 					name={input.name}
+					isLoading={this.state.isLoading}
 					value={input.value}
+					ref={(selectCustomer)=>this.selectCustomer=selectCustomer}
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"
