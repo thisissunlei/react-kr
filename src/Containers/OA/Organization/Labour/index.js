@@ -72,6 +72,7 @@ export default class Labour extends React.Component {
 			selectStyle:{
 				'display':'none'
 			},
+			update:new Date(),
 		}
 	}
 	checkTab=(item)=>{
@@ -179,12 +180,18 @@ export default class Labour extends React.Component {
 		// form.dimId = this.props.params.dimId;
 		Http.request('save-junior', {}, params).then(function(response) {
 			_this.openCreateDialog();
+			_this.updateTime();
 			Message.success('新建成功');
 			_this.changeP();
 		}).catch(function(err) {
 			Message.error(err.message)
 		});
 
+	}
+	updateTime=()=>{
+		this.setState({
+			update:new Date(),
+		})
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
@@ -281,7 +288,14 @@ export default class Labour extends React.Component {
 		// this.setState({
 		// 	dimId:dimId
 		// })
-		window.open(`./#/oa/organization/${dimId}/labour`, dimId);
+		this.setState({
+			selectStyle:{
+				'display':'none'
+			},
+			stlyeBool:false,
+		},function(){
+			window.location.href=`./#/oa/organization/${dimId}/labour`;
+		})
 	}
 	renderDimList=(item,index)=>{
 		return (
@@ -314,7 +328,7 @@ export default class Labour extends React.Component {
 		})
 	}
 	render() {
-		let {itemDetail,data,dimId,styleBool} = this.state;
+		let {itemDetail,data,dimId,styleBool,update} = this.state;
 		var logFlag = '';
 		var style = {};
 		return (
@@ -357,6 +371,7 @@ export default class Labour extends React.Component {
 								params = {{id:this.props.params.dimId}}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
+								update={update}
 							/>
 						</div>
 					</div>
@@ -400,7 +415,7 @@ export default class Labour extends React.Component {
 											onTouchTap={this.openViewDialog}
 											height={30}
 											width={80}
-											backgroundColor='#F5F6FA'
+											backgroundColor='#fcfcfc'
 											labelColor='#666'
 											shadow="no"
       									/>
@@ -497,7 +512,7 @@ export default class Labour extends React.Component {
 					<Grid style={{marginBottom:20,marginTop:20}}>
 									<Row>
 									<Col md={4} align="left" >
-											<Button label="新建人员" type="button" onClick={this.openCreatePerson} width={80} height={30} fontSize={14}/>
+											<Button label="新增员工" type="button" onClick={this.openCreatePerson} width={80} height={30} fontSize={14}/>
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
@@ -570,7 +585,7 @@ export default class Labour extends React.Component {
                 open={this.state.openEditDialog} 
                 onClose={this.openEditDialog} 
                 contentStyle={{
-                    width: 374
+                    width: 685
                 }}
         >
                 <EditDialog detail={this.state.searchParams} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
@@ -603,7 +618,7 @@ export default class Labour extends React.Component {
                 open={this.state.openCreateDialog} 
                 onClose={this.openCreateDialog} 
                 contentStyle={{
-                    width: 374
+                    width: 685
                 }}
         >
                 <CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />

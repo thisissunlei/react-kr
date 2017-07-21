@@ -27,6 +27,7 @@ export default class SliderTree extends React.Component {
 			expandedKeys: [],
 			autoExpandParent: true,
 			visible: false,
+			update:this.props.update
 		}
 
 		this.getTreeData();
@@ -105,12 +106,20 @@ export default class SliderTree extends React.Component {
 				inputValue: nextProps.searchKey
 			});
 		}
+		
 		let paramsChange = false;
 		for(let i in nextProps.params){
 			if(nextProps.params[i] != this.params[i]){
 				paramsChange = true;
 				break;
 			}
+		}
+		if(this.state.update!=nextProps.update){
+			this.setState({
+				update:nextProps.update
+			})
+			console.log("打印个东西");
+			paramsChange=true;
 		}
 		if(paramsChange){
 			this.getTreeData();

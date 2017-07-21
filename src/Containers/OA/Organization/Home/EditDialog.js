@@ -65,6 +65,7 @@ class EditDialog extends React.Component {
                     name="name"
                     requireLabel={true}
                     placeholder="机构维度"
+                    maxLength={10}
                 />
                 <KrField
                     style={{width:262}}
