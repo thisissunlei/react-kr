@@ -152,7 +152,7 @@ const validate = values => {
 		errors.linkman = '请输入联系人';
 	}
 	if(values.linkman && values.linkman.length>10){
-		errors.linkman = 'IP名称不能超过10字';
+		errors.linkman = '联系人不能超过10字';
 	}
 	if(!values.phone){
 		errors.phone = '请输入联系人手机号';
