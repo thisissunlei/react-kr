@@ -120,7 +120,6 @@ class AddPerson  extends React.Component{
                             label="员工属性"
                             requireLabel={true}
                             otherType="resourceStatus"
-
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
