@@ -1,0 +1,8 @@
+
+[
+  {"value":"UNENTRY","label":"待入职"},
+  {"value":"PROBATION","label":"试用"},
+  {"value":"REGULAR","label":"正式"},
+  {"value":"UNDIMISSION","label":"待离职"},
+  {"value":"DIMISSION","label":"离职"}
+]
