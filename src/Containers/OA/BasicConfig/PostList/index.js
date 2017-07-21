@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
-
+import {Store} from 'kr/Redux';
+import {
+  initialize
+} from 'redux-form';
 import {
 	KrField,
 	Table,
@@ -42,16 +43,25 @@ export default class PostList extends Component{
 			openNew : false,
 			openEdit : false,
 			openDel : false,
-			searchParams : {
-
-			}
 		}
 	}
+   
 
-
-	onExport = () =>{
-
+   componentWillMount(){
+	  this.dataReady();
 	}
+    
+	//数据准备
+	dataReady=()=>{
+	   Http.request('postListAdd').then(function(response) {
+           console.log('response',response);
+           
+        }).catch(function(err) {
+          Message.error(err.message);
+        });	
+	}
+
+
 	//是否要渲染
 	isRender = () =>{
 		this.setState({
@@ -60,7 +70,13 @@ export default class PostList extends Component{
 	}
 	//搜索确定
 	onSearchSubmit = ()=>{
-
+		 let obj = {
+			name: params.content,
+            pageSize:15
+		}
+		this.setState({
+		  searchParams:obj	
+		})
 	}
 	//新建页开关
 	newSwidth = () =>{
@@ -91,32 +107,81 @@ export default class PostList extends Component{
 	}
 	//新建确定
 	addSubmit = (values) =>{
+		console.log('values1',values);
 		Http.request('postListAdd',{},values).then(function(response) {
-           console.log('va',values);
+            _this.setState({
+			searchParams:{
+				time:+new Date(),
+				page:1,
+				pageSize:15
+			 } 
+			}) 
         }).catch(function(err) {
           Message.error(err.message);
         });
-		console.log('values',values);
 	}
 	//编辑确定
 	editSubmit = () =>{
-
+         var _this=this;
+			Http.request('postListAdd',{},params).then(function(response) {
+				console.log('response',response);
+				_this.setState({
+					searchParams:{
+						time:+new Date(),
+						page:_this.state.searchParams.page,
+						pageSize:15
+					}  
+				})
+				}).catch(function(err) {
+				Message.error(err.message);
+				});
 	}
-	//删除按钮确定t
+	//删除按钮确定
 	delSubmit = () =>{
-
+		Http.request('postListAdd',{},params).then(function(response) {
+           console.log('response',response);
+           _this.setState({
+			  searchParams:{
+				  time:+new Date(),
+				  page:1,
+				  pageSize:15
+			  }  
+		   })
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
 	}
 	//相关操作
 	onOperation = (type, itemDetail) =>{
 		if(type == "edit"){
+			this.getEditData(itemDetail.id);
 			this.editSwidth();
-
 		}else if(type == "del"){
 			this.delSwidth();
 
 		}
-
 	}
+
+    //获取编辑信息
+	getEditData=(id)=>{
+		var _this=this;
+       Http.request('postListAdd',{id:id}).then(function(response) {
+           console.log('response',response);
+           Store.dispatch(initialize('EditPostList',response));
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+	}
+
+	pageChange=(page)=>{
+	   var searchParams={
+         page:page
+       }
+	  this.setState({
+		 searchParams:Object.assign({},this.state.searchParams,searchParams)
+	  })
+   }
+
 	render(){
 		const {openNew,openEdit,openDel} = this.allConfig;
 		return(
@@ -156,7 +221,7 @@ export default class PostList extends Component{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
-	            displayCheckbox={true}
+	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName="postJobList"
 	            ajaxFieldListName="items"
@@ -174,13 +239,13 @@ export default class PostList extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="intentionCityName" ></TableRowColumn>
-						<TableRowColumn name="stationNum"></TableRowColumn>
-						<TableRowColumn name="receiveName"></TableRowColumn>
-						<TableRowColumn name="receiveName"></TableRowColumn>
-						<TableRowColumn name="receiveName"></TableRowColumn>
-						<TableRowColumn name="receiveName"></TableRowColumn>
-						<TableRowColumn name="receiveName"></TableRowColumn>
+						<TableRowColumn name="123" ></TableRowColumn>
+						<TableRowColumn name="code"></TableRowColumn>
+						<TableRowColumn name="123"></TableRowColumn>
+						<TableRowColumn name="orderNum"></TableRowColumn>
+						<TableRowColumn name="jobTypeName"></TableRowColumn>
+						<TableRowColumn name="updatorName"></TableRowColumn>
+						<TableRowColumn name="uTime"></TableRowColumn>
 						<TableRowColumn type="operation">
 							<Button label="编辑"  type="operation"  operation="edit" />
 							<Button label="删除"  type="operation"  operation="del" />

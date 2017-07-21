@@ -18,6 +18,11 @@ import AddWork from './AddWork';
 import EditWork from './EditWork';
 import DeleteFamily from './DeleteFamily';
 import DeleteWork from './DeleteWork';
+import {Http} from 'kr/Utils';
+import {Store} from 'kr/Redux';
+import {
+  initialize
+} from 'redux-form';
 
 export default class PersonalInfo  extends React.Component{
 
@@ -30,13 +35,43 @@ export default class PersonalInfo  extends React.Component{
 			openEditF:false,
 			openEditW:false,
 			openDeleteF:false,
-			openDeleteW:false
+			openDeleteW:false,
+			//人员个人信息
+			personInfo:{},
+			//家庭情况
+			familySearchParams:{
+
+			},
+			//工作经历
+			workSearchParams:{
+
+			}
 		}
+	}
+
+
+	componentWillMount(){
+	  let {personId}=this.props;
+	  //获取个人信息
+	  this.personData(personId);
+	}
+
+	//获取个人信息
+	personData=(id)=>{
+       Http.request('postListAdd',{id:id}).then(function(response) {
+           console.log('va',response);
+		   this.setState({
+			   personInfo:response
+		   })
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
 	}
     
 	//家庭操作
 	onFamilyOperation=(type,itemDetail)=>{
        if(type=='edit'){
+		    this.getFamilyInfo(itemDetail.id);
 			this.setState({
 			  openEditF:!this.state.openEditF
 			})
@@ -46,10 +81,21 @@ export default class PersonalInfo  extends React.Component{
 			})
 	   }
 	} 
+
+	//获取家庭编辑信息
+	getFamilyInfo=(id)=>{
+	    Http.request('postListAdd',{id:id}).then(function(response) {
+           console.log('va',response);
+		    Store.dispatch(initialize('EditFamily',response));
+        }).catch(function(err) {
+          Message.error(err.message);
+        });	
+	}
     
 	//工作操作
     onWorkOperation=(type,itemDetail)=>{
        if(type=='edit'){
+		    this.getWorkInfo(itemDetail.id);
 			this.setState({
 			  openEditW:!this.state.openEditW
 			})
@@ -59,10 +105,21 @@ export default class PersonalInfo  extends React.Component{
 			})
 	   }
 	}
-
+    
+	//获取工作编辑信息
+	getWorkInfo=(id)=>{
+	    Http.request('postListAdd',{id:id}).then(function(response) {
+           console.log('va',response);
+		    Store.dispatch(initialize('EditWork',response));
+        }).catch(function(err) {
+           Message.error(err.message);
+        });	
+	}
 
    //编辑个人信息开关
    openPerson=()=>{
+	   let {personInfo}=this.state;
+	   Store.dispatch(initialize('EditPerson',personInfo));
 	   this.setState({
 		   openEdit:!this.state.openEdit
 	   })
@@ -70,7 +127,13 @@ export default class PersonalInfo  extends React.Component{
    
    //编辑提交
    editSubmit=(params)=>{
-    
+       var _this=this;
+       Http.request('postListAdd',{},params).then(function(response) {
+           console.log('response',response);
+           _this.personData(params.id);
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
    }
    
    //新增家庭人员开关
@@ -82,7 +145,17 @@ export default class PersonalInfo  extends React.Component{
    
    //新增家庭提交
    addPerSubmit=(params)=>{
-     
+      var _this=this;
+       Http.request('postListAdd',{},params).then(function(response) {
+           console.log('response',response);
+           _this.setState({
+			   familySearchParams:{
+				   time:+new Date()
+			   }
+		   })
+       }).catch(function(err) {
+          Message.error(err.message);
+        });
    }
 
   //编辑家庭人员开关
@@ -91,11 +164,7 @@ export default class PersonalInfo  extends React.Component{
 		openEditF:!this.state.openEditF
 	 })
    }
-   
-   //编辑人员提交
-   EditPerSubmit=()=>{
-
-   }
+  
 
    //新增工作经历开关
    addWork=()=>{
@@ -106,7 +175,17 @@ export default class PersonalInfo  extends React.Component{
 
    //新增工作经历提交
    addWorkSubmit=(params)=>{
-
+      var _this=this;
+       Http.request('postListAdd',{},params).then(function(response) {
+           console.log('response',response);
+           _this.setState({
+			   workSearchParams:{
+				   time:+new Date()
+			   }
+		   })
+       }).catch(function(err) {
+          Message.error(err.message);
+       });
    }
 
    //编辑工作开关
@@ -116,10 +195,6 @@ export default class PersonalInfo  extends React.Component{
 	 })  
    }
    
-   //编辑工作提交
-   editWorkSubmit=()=>{
-
-   }
 
    //关闭删除人员
    cancelDelete=()=>{
@@ -130,7 +205,17 @@ export default class PersonalInfo  extends React.Component{
   
    //删除人员提交
    deleteSubmit=()=>{
-     
+     var _this=this;
+       Http.request('postListAdd',{},params).then(function(response) {
+           console.log('response',response);
+           _this.setState({
+			   familySearchParams:{
+				   time:+new Date()
+			   }
+		   })
+       }).catch(function(err) {
+          Message.error(err.message);
+       });
    }
   
    //关闭删除工作
@@ -142,7 +227,17 @@ export default class PersonalInfo  extends React.Component{
    
    //关闭删除提交
    delWorkSubmit=()=>{
-     
+     var _this=this;
+       Http.request('postListAdd',{},params).then(function(response) {
+           console.log('response',response);
+           _this.setState({
+			   workSearchParams:{
+				   time:+new Date()
+			   }
+		   })
+       }).catch(function(err) {
+          Message.error(err.message);
+       });
    }
   
   //关闭所有
@@ -158,61 +253,63 @@ export default class PersonalInfo  extends React.Component{
 
 	render(){
 
+		let {personInfo,familySearchParams,workSearchParams}=this.state;
+
 		let infoName=[
 			 {name:'身份证号码',
-			  detail:123},
+			  detail:personInfo.idCard},
 			 {name:'出生日期',
-			  detail:123},
+			  detail:personInfo.birthday},
 			 {name:'星座',
-			  detail:123},
+			  detail:personInfo.constellation},
 			 {name:'血型',
-			  detail:123},
+			  detail:personInfo.bloodType},
 			 {name:'民族',
-			  detail:123},
+			  detail:personInfo.nation},
 			 {name:'籍贯',
-			  detail:123},
+			  detail:personInfo.nativePlace},
 			 {name:'户口',
-			  detail:123},
+			  detail:personInfo.household},
 			 {name:'政治面貌',
-			  detail:123},
+			  detail:personInfo.politicsStatus},
 			 {name:'入团时间',
-			  detail:123},
+			  detail:personInfo.leagueDate},
 			 {name:'入党时间',
-			  detail:123},
+			  detail:personInfo.partyDate},
 			 {name:'毕业院校',
-			  detail:123},
+			  detail:personInfo.college},
               {name:'专业',
-			  detail:123},
+			  detail:personInfo.major},
               {name:'学历',
-			  detail:123},
+			  detail:personInfo.education},
               {name:'学位',
-			  detail:123},
+			  detail:personInfo.degree},
               {name:'参加工作时间',
-			  detail:123},
+			  detail:personInfo.workDate},
               {name:'现居住地',
-			  detail:123},
+			  detail:personInfo.currentAddress},
               {name:'暂/居住证号码',
-			  detail:123},
+			  detail:personInfo.temporaryPermit},
               {name:'个人邮箱',
-			  detail:123},
+			  detail:personInfo.personEmail},
               {name:'微信号',
-			  detail:123},
+			  detail:personInfo.wechat},
               {name:'联系电话',
-			  detail:123},
+			  detail:personInfo.mobilePhone},
               {name:'身高(cm)',
-			  detail:123},
+			  detail:personInfo.height},
               {name:'体重(公斤)',
-			  detail:123},
+			  detail:personInfo.weight},
               {name:'健康状况',
-			  detail:123},
+			  detail:personInfo.healthy},
               {name:'婚姻状况',
-			  detail:123},
+			  detail:personInfo.maritalStatus},
               {name:'紧急联系人姓名',
-			  detail:123},
+			  detail:personInfo.emergencyContact},
               {name:'紧急联系人电话',
-			  detail:123},
+			  detail:personInfo.emergencyPhone},
               {name:'紧急联系人关系',
-			  detail:123},
+			  detail:personInfo.emergencyRelation},
 			];
 
 		return(
@@ -242,12 +339,12 @@ export default class PersonalInfo  extends React.Component{
                 </div> 
 				 
 				 <Table
-                    //ajax={true}
+                    ajax={true}
                     onOperation={this.onFamilyOperation}
                     displayCheckbox={false}
-                    //ajaxParams={}
-                    //ajaxUrlName=''
-                    //ajaxFieldListName="items"
+                    ajaxParams={familySearchParams}
+                    ajaxUrlName='123'
+                    ajaxFieldListName="items"
 					  >
 		            <TableHeader className='detail-header'>
 		              <TableHeaderColumn className='header-row'>成员</TableHeaderColumn>
@@ -262,13 +359,13 @@ export default class PersonalInfo  extends React.Component{
 
 			        <TableBody >
 			              <TableRow className='detail-row'>		                
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
+							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='calledStr'></TableRowColumn>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='idCard'></TableRowColumn>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='company'></TableRowColumn>
+							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='position'></TableRowColumn>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='address'></TableRowColumn>
+							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contractPhone'></TableRowColumn>
 			                <TableRowColumn type="operation">
                                   <Button label="编辑"  type="operation"  operation="edit"/>
 			                      <Button label="删除"  type="operation"  operation="delete" />
@@ -286,12 +383,12 @@ export default class PersonalInfo  extends React.Component{
               </div>  
 
 				 <Table
-                    //ajax={true}
+                    ajax={true}
                     onOperation={this.onWorkOperation}
                     displayCheckbox={false}
-                    //ajaxParams={}
-                    //ajaxUrlName=''
-                    //ajaxFieldListName="items"
+                    ajaxParams={workSearchParams}
+                    ajaxUrlName='345'
+                    ajaxFieldListName="items"
 					  >
 		            <TableHeader className='detail-header'>
 		              <TableHeaderColumn className='header-row'>公司名称</TableHeaderColumn>
@@ -306,13 +403,13 @@ export default class PersonalInfo  extends React.Component{
 
 			        <TableBody >
 			              <TableRow className='detail-row'>		                
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
-							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>12</TableRowColumn>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='company'></TableRowColumn>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='job'></TableRowColumn>
+							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='startDate'></TableRowColumn>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='endDate'></TableRowColumn>
+							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactName'></TableRowColumn>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactPhone'></TableRowColumn>
+							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactEmail'></TableRowColumn>
 			                <TableRowColumn type="operation">
                                   <Button label="编辑"  type="operation"  operation="edit"/>
 			                      <Button label="删除"  type="operation"  operation="delete" />
@@ -359,7 +456,7 @@ export default class PersonalInfo  extends React.Component{
 					 >
 						<EditFamily
 			               onCancel={this.EditFamily}
-						   onSubmit={this.EditPerSubmit}   
+						   onSubmit={this.addPerSubmit}   
 						/>
 					</Drawer>
 
@@ -387,7 +484,7 @@ export default class PersonalInfo  extends React.Component{
 					 >
 						<EditWork
 			               onCancel={this.editWork}
-						   onSubmit={this.editWorkSubmit}   
+						   onSubmit={this.addWorkSubmit}   
 						/>
 					</Drawer>
 

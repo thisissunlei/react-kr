@@ -37,14 +37,14 @@ class EditPostType  extends React.Component{
 
                        <KrField grid={1}
                             style={{width:262,display:'block'}}
-                            name="area"
+                            name="name"
                             component="input"
                             label="职务类型名称"
                             requireLabel={true}
 						/>
                         <KrField grid={1}
                             style={{width:262,display:'block'}}
-                            name="area"
+                            name="code"
                             component="input"
                             label="编码"
                             requireLabel={true}
@@ -52,13 +52,21 @@ class EditPostType  extends React.Component{
 
                         <KrField grid={1}
                             style={{width:262,display:'block'}}
-                            name="area"
+                            name="orderNum"
                             component="input"
                             label="排序号"
                             requireLabel={true}
 						/>
 
-                        <KrField grid={1} label="描述" name="arround" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+                         <KrField grid={1/2}
+                            style={{width:262,display:'block'}}
+                            name="subId"
+                            component="select"
+                            label="分部"
+                            requireLabel={true}
+						/>
+
+                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
 
                         
                        <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>

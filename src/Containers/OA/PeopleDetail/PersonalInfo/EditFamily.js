@@ -41,7 +41,7 @@ class EditFamily  extends React.Component{
 
                        <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="name"
                             component="input"
                             label="成员"
                             requireLabel={true}
@@ -49,7 +49,7 @@ class EditFamily  extends React.Component{
 
                           <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="called"
                             component="input"
                             label="称谓"
                              requireLabel={true}
@@ -57,21 +57,21 @@ class EditFamily  extends React.Component{
                         
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="idCard"
                             component="input"
                             label="身份证"
 						/>
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="company"
                             component="input"
                             label="工作单位"
                              requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="position"
                             component="input"
                             label="职务"
                             requireLabel={true}
@@ -80,7 +80,7 @@ class EditFamily  extends React.Component{
 
                         <KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
-								name="floor"
+								name="address"
 								component="input"
 								label="地址"
                                 requireLabel={true}
@@ -88,7 +88,7 @@ class EditFamily  extends React.Component{
 
                          <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="contractPhone"
                             component="input"
                             label="联系电话"
 						/>

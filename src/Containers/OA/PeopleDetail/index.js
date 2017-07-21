@@ -2,22 +2,27 @@ import React from 'react';
 import {	
 	TabC,
 	TabCs,
-	
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 import BasicInfo from './BasicInfo';
 import PersonalInfo from './PersonalInfo';
 import WorkInfo from './WorkInfo';
 import './index.less';
 import UserImage from './UserImage';
+
 export default class PeopleDetail  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.state={
+			personId:this.props.params.personId,
+		}
 	}
-
-
+   	
 
 	render(){
+
+		let {personId}=this.state;
 
 		return(
 
@@ -39,15 +44,21 @@ export default class PeopleDetail  extends React.Component{
 				  <TabCs
 			      >
 				  <TabC label='基本信息'> 
-					  <BasicInfo />
+					  <BasicInfo
+					    personId={personId} 
+					  />
 				  </TabC> 
 				  
 				  <TabC label='个人信息'> 
-					  <PersonalInfo />
+					  <PersonalInfo 
+					    personId={personId} 
+					  />
 				  </TabC> 
 
 				  <TabC label='工作信息'> 
-					  <WorkInfo />
+					  <WorkInfo 
+					   personId={personId} 
+					  />
 				  </TabC> 
 			  </TabCs>
 			    

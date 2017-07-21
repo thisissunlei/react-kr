@@ -41,7 +41,7 @@ class EditWork  extends React.Component{
 
                        <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="company"
                             component="input"
                             label="公司名称"
                             requireLabel={true}
@@ -49,7 +49,7 @@ class EditWork  extends React.Component{
 
                           <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="job"
                             component="input"
                             label="职务"
                              requireLabel={true}
@@ -57,21 +57,21 @@ class EditWork  extends React.Component{
                         
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="startDate"
                             component="date"
                             label="开始时间"
 						/>
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="endDate"
                             component="date"
                             label="终止时间"
                              requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="contactName"
                             component="input"
                             label="联系人姓名"
                             requireLabel={true}
@@ -79,7 +79,7 @@ class EditWork  extends React.Component{
 
                         <KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
-								name="floor"
+								name="contactPhone"
 								component="input"
 								label="联系人电话"
                                 requireLabel={true}
@@ -88,7 +88,7 @@ class EditWork  extends React.Component{
 
                         <KrField grid={1/2}
 								style={{width:262}}
-								name="floor"
+								name="contactEmail"
 								component="input"
 								label="联系人邮箱"
 						 />

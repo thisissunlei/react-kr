@@ -41,7 +41,7 @@ class EditPerson  extends React.Component{
 
                        <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="idCard"
                             component="input"
                             label="身份证号码"
                             requireLabel={true}
@@ -49,7 +49,7 @@ class EditPerson  extends React.Component{
 
                           <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="birthday"
                             component="date"
                             label="出生日期"
                             requireLabel={true}
@@ -57,20 +57,20 @@ class EditPerson  extends React.Component{
                         
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="constellation"
                             component="input"
                             label="星座"
 						/>
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="bloodType"
                             component="input"
                             label="血型"
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="nation"
                             component="input"
                             label="民族"
                             requireLabel={true}
@@ -79,7 +79,7 @@ class EditPerson  extends React.Component{
 
                         <KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
-								name="floor"
+								name="nativePlace"
 								component="input"
 								label="籍贯"
                                 requireLabel={true}
@@ -87,98 +87,98 @@ class EditPerson  extends React.Component{
 
                          <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="household"
                             component="select"
                             label="户口"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="politicsStatus"
                             component="select"
                             label="政治面貌"
 						/>
 
                          <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="leagueDate"
                             component="date"
                             label="入团时间"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="partyDate"
                             component="date"
                             label="入党时间"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="college"
                             component="input"
                             label="毕业院校"
 						/>
 
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="major"
                             component="input"
                             label="专业"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="education"
                             component="input"
                             label="学历"
 						/>
 
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="degree"
                             component="input"
                             label="学位"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="workDate"
                             component="date"
                             label="参加工作时间"
 						/>
 
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="currentAddress"
                             component="input"
                             label="现居住地"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="temporaryPermit"
                             component="input"
                             label="暂/居住证号码"
 						/>
 
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="personEmail"
                             component="input"
                             label="个人邮箱"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="wechat"
                             component="input"
                             label="微信号"
 						/>
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="mobilePhone"
                             component="input"
                             label="联系电话"
                             requireLabel={true}
@@ -186,35 +186,35 @@ class EditPerson  extends React.Component{
 
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="height"
                             component="input"
                             label="身高(cm)"
 						/>
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="weight"
                             component="input"
                             label="体重(公斤)"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="healthy"
                             component="input"
                             label="健康状况"
 						/>
  
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="maritalStatus"
                             component="select"
                             label="婚姻状况"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="emergencyContact"
                             component="input"
                             label="紧急联系人姓名"
                             requireLabel={true}
@@ -222,7 +222,7 @@ class EditPerson  extends React.Component{
 
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="emergencyPhone"
                             component="input"
                             label="紧急联系人电话"
                             requireLabel={true}
@@ -230,7 +230,7 @@ class EditPerson  extends React.Component{
 
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="emergencyRelation"
                             component="input"
                             label="紧急联系人关系"
 						/>
