@@ -11,10 +11,11 @@ module.exports = [
 				primaryText: '组织架构',
 				iconName: 'icon-schema',
 				iconColor: '#79859a',
+				menuCode: 'hrmOrganization',
 				menuItems: [
 					{
 						primaryText: '机构维度',
-						menuCode: 'sso_userList_base',
+						menuCode: 'oa_hrm_organization',
 						router: '/oa/organization/home',
 					}
 				]
@@ -55,24 +56,6 @@ module.exports = [
 				]
 			}, 
 
-
-			/* ---- 老系统 ---- */
-			{
-				primaryText: '组织架构',
-				menuCode: 'hrmOrganization',
-				iconName: 'icon-schema',
-				iconColor: '#79859a',
-				router: 'hrmOrganization',
-				menuItems: [
-					{
-						primaryText: '架构列表',
-						menuCode: 'oa_hrm_organization',
-						router: 'oa_sysparamadmin',
-						originUrl: '/krspace_oa_web/hrm/hrmOrganization/main?mid=40'
-					}
-				]
-				
-			}, 
 			{
 				primaryText: '基础配置',
 				menuCode: 'hrmbasedataadmin',

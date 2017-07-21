@@ -1,0 +1,12 @@
+[
+  {"value":"POSTDOCTOR","label":"博士后"},
+  {"value":"DOCTOR","label":"博士"},
+  {"value":"MASTER","label":"硕士"},
+  {"value":"GRADUATE","label":"研究生"},
+  {"value":"REGULAR","label":"本科"},
+  {"value":"JUNIOR","label":"大专"},
+  {"value":"SENIOR","label":"高中"},
+  {"value":"TECHNICAL","label":"中专"},
+  {"value":"MIDDLE","label":"中学"},
+  {"value":"PRIMARY","label":"小学"}
+]
