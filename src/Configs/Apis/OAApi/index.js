@@ -42,7 +42,7 @@ module.exports = {
   },
   //根据机构ID获取下级机构
   'next-org-list': {
-      url: '/api/krspace-erp-web/dim/next-org-list?orgId={orgId}&orgType={orgType}',
+      url: '/api/krspace-erp-web/dim/next-org-list?orgId={orgId}&orgType={orgType}&dimId={dimId}',
       method: 'get'
   },
   //新建下级
@@ -54,6 +54,11 @@ module.exports = {
   'org-cancel': {
       url: '/api/krspace-erp-web/dim/cancel',
       method: 'post'
+  },
+  //获取所有的维度（排除自己)
+  'extra-list': {
+      url: '/api/krspace-erp-web/dim/extra-list?dimId={dimId}',
+      method: 'get'
   },
   //人员组件
   'hrm-search': {

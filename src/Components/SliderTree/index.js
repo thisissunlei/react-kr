@@ -49,7 +49,7 @@ export default class SliderTree extends React.Component {
 		let { ajaxUrlName, params } = this.props;
 
 		params = params || {};
-		this.params = params;
+		this.params = Object.assign({},params);
 		const _this = this;
 		Http.request(ajaxUrlName, params).then(function (response) {
 
