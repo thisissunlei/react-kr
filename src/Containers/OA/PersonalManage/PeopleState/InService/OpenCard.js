@@ -45,7 +45,7 @@ class OpenCard extends React.Component{
 
 	render(){
        
-        let {handleSubmit}=this.props;
+        let {handleSubmit,employees}=this.props;
 
 		return(
 
@@ -56,11 +56,12 @@ class OpenCard extends React.Component{
                             style={{width:262,marginLeft:28}}
                             name="area"
                             component="labelText"
+                            value = {employees.name} 
                             label="姓名:"
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            value = {employees.phone} 
                             component="labelText"
                             label="手机号:"
 						/>

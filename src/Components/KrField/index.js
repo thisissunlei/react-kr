@@ -61,7 +61,8 @@ import ChangeUploadImageComponent from './ChangeUploadImageComponent';
 import SelectTree from './SelectTree';
 import SearchOaPersonal from './SearchOaPersonal';
 import OaUploadImage from './OaUploadImage';
-
+//血型
+import SelecTemployees from './SelecTemployees';
 class FieldRevert extends React.Component {
 
 		static propTypes = {
@@ -456,7 +457,13 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={OaUploadImage}  style={WrapStyles} {...other}/>
 				)
 			}
-			
+			if (component === 'selecTemployees') {
+				return (
+					<FieldRevert {...this.props} component={SelecTemployees}  style={WrapStyles} {...other}/>
+				)
+			}
+
+		
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
