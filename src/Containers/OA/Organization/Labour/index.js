@@ -52,9 +52,15 @@ export default class Labour extends React.Component {
 				orgId: '1',
 				orgType: "ROOT",
 				dimId: this.props.params.dimId,
-				openAddPersonal: false,
 			},
-			data: {},
+			openAddPersonal: false,
+			data: {
+				page: 1,
+				pageSize: 15,
+				orgId: '1',
+				orgType: "ROOT",
+				dimId: this.props.params.dimId,
+			},
 			itemDetail: {},
 			openCreateDialog: false,
 			openEditDialog: false,
@@ -69,11 +75,11 @@ export default class Labour extends React.Component {
 			searchKey: '',
 			dimId: this.props.params.dimId,
 			dimName: '',
-			stlyeBool: false,
+			styleBool: false,
+			dataName:{},
 			selectStyle: {
 				'display': 'none'
 			},
-			update: new Date(),
 		}
 	}
 	checkTab = (item) => {
@@ -139,7 +145,7 @@ export default class Labour extends React.Component {
 			selectStyle: {
 				'display': 'none'
 			},
-			stlyeBool: false,
+			styleBool: false,
 		})
 	}
 	//操作相关
@@ -188,30 +194,6 @@ export default class Labour extends React.Component {
 		})
 	}
 
-	onCreatSubmit = (params) => {
-
-		var _this = this;
-		Http.request('save-junior', {}, params).then(function (response) {
-
-			_this.openCreateDialog();
-			_this.updateTime();
-			Message.success('新建成功');
-			_this.changeP();
-
-			_this.getTreeData();
-
-
-		}).catch(function (err) {
-			Message.error(err.message)
-		});
-
-	}
-	updateTime = () => {
-		this.setState({
-			update: new Date(),
-		})
-	}
-
 	getOrganizationDetail = ()=>{
 
 		const {searchParams} = this.state;
@@ -220,12 +202,19 @@ export default class Labour extends React.Component {
 
 		Http.request('org-detail', searchParams).then(function (response) {
 
-			const data = {};
+			const dataName = {};
 
-			data.orgName = response.orgName;
+			dataName.orgName = response.orgName;
 
 			that.setState({
-				data
+				dataName,
+				// searchParams: {
+				// 	page: 1,
+				// 	pageSize: 15,
+				// 	orgId: '1',
+				// 	orgType: "ROOT",
+				// 	dimId: this.props.params.dimId,
+				// },
 			});
 
 		}).catch(function (err) {
@@ -233,10 +222,19 @@ export default class Labour extends React.Component {
 		});
 
 	}
+	onCreatSubmit = (params) => {
 
-
-
-
+		var _this = this;
+		Http.request('save-junior', {}, params).then(function (response) {
+			_this.openCreateDialog();
+			Message.success('新建成功');
+			_this.changeP();
+			_this.getTreeData();
+			_this.getOrganizationDetail();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+	}
 	onEditSubmit = (params) => {
 
 		var _this = this;
@@ -245,11 +243,10 @@ export default class Labour extends React.Component {
 
 
 			_this.openEditDialog();
+			Message.success('修改成功');
 			_this.changeP();
 			_this.getTreeData();
 			_this.getOrganizationDetail();
-
-			Message.success('修改成功');
 
 		}).catch(function (err) {
 			Message.error(err.message)
@@ -293,21 +290,25 @@ export default class Labour extends React.Component {
 		});
 	}
 	//改变页码
-	changeP = () => {
-		var timer = new Date();
-		var searchParams = Object.assign({}, this.state.searchParams);
-		searchParams.timer = timer;
-		this.setState({
-			searchParams: searchParams,
-		})
-	}
-	onPageChange = (page) => {
-		var searchParams = Object.assign({}, this.state.searchParams);
-		searchParams.page = page;
-		this.setState({
-			searchParams: searchParams,
-		})
-	}
+    changeP=()=>{
+        var timer = new Date();
+		let data = this.state.data;
+        this.setState({
+            searchParams: {
+					pageSize: 15,
+					orgId: data.orgId,
+					orgType: data.orgType,
+					dimId: data.dimId,
+                    page: this.state.newPage,
+                    timer: timer,
+            }
+        })
+    }
+    onPageChange=(page)=>{
+        this.setState({
+            newPage:page,
+        })
+    }
 	onSerchSubmit = (form) => {
 		this.setState({
 			searchParams: {
@@ -323,35 +324,79 @@ export default class Labour extends React.Component {
 	onSelect = (data) => {
 
 		this.setState({
-			data,
+			data:{
+				orgId: data.orgId,
+				orgType: data.treeType,
+				dimId:this.props.params.dimId
+			},
+			dataName:data,
 			searchParams: {
 				page: 1,
 				pageSize: 15,
 				orgId: data.orgId,
 				orgType: data.treeType,
+				dimId:this.props.params.dimId
 			}
 		});
 
 	}
 
-	onCheck = () => {
-
-	}
-
 	toOtherDim = (item) => {
 		var dimId = item.id;
+		console.log(this.state.styleBool);
+		var _this= this;
 		this.setState({
 			selectStyle: {
 				'display': 'none'
 			},
-			stlyeBool: false,
+			styleBool: false,
 		}, function () {
-			window.location.href = `./#/oa/organization/${dimId}/labour`;
+			console.log(this.state.styleBool);
+			_this.getOrganizationDetail();
+			_this.getDimensionalityDetail();
+
+			Http.request("org-list", {id:dimId}).then(function (response) {
+				_this.setState({
+					treeData: [response],
+				},function(){
+					
+				});
+			}).catch(function (err) {
+				Message.error(err.message);
+			});
+
+			
+
+			Http.request('dim-detail', { id:dimId }).then(function (response) {
+			_this.setState({ dimName: response.name })
+		}).catch(function (err) { });
+
+			Http.request('extra-list', {
+			dimId: dimId
+			}).then(function (response) {
+				_this.setState({ dimData: response.items })
+			}).catch(function (err) { });
+
+			Http.request('org-detail', _this.state.data).then(function (response) {
+				const dataName = {};
+				dataName.orgName = response.orgName;
+				_this.setState({
+					dataName,
+				});
+				}).catch(function (err) {
+			});
+
 		})
+
 	}
 	renderDimList = (item, index) => {
 		return (
-			<span onClick={this.toOtherDim.bind(this, item)} key={index} className="item">
+			<span onClick={(event)=>{
+					event.stopPropagation();
+					this.toOtherDim(item)
+					}
+				} 
+				key={index} className="item">
 				{item.name}
 			</span>
 		)
@@ -366,7 +411,7 @@ export default class Labour extends React.Component {
 			selectStyle: {
 				'display': 'inline-block'
 			},
-			stlyeBool: true,
+			styleBool: true,
 		})
 	}
 
@@ -397,14 +442,14 @@ export default class Labour extends React.Component {
 	}
 
 	render() {
-		let { itemDetail, data, dimId, styleBool, update } = this.state;
+		let { itemDetail, data, dimId, styleBool} = this.state;
 		var logFlag = '';
 		var style = {};
 		return (
 			<div className="g-oa-labour">
 				<div className="left">
 					<div className="header">
-						<span className="title" style={{ 'backgroundColor': `${this.state.stlyeBool ? '#fff' : ''}` }} onClick={(event) => {
+						<span className="title" style={{ 'backgroundColor': `${styleBool?'#fff':''}` }} onClick={(event) => {
 							event.stopPropagation();
 							this.clickSelect();
 						}}>
@@ -447,7 +492,7 @@ export default class Labour extends React.Component {
 
 							</div>
 							<div className="department-name">
-								{this.state.data.orgName || '36Kr'}
+								{this.state.dataName.orgName || '36Kr'}
 							</div>
 							<div className="department-tab-list">
 								<div className={`department-tab ${this.state.tabSelect == 1 ? 'department-tab-active' : ''}`} onClick={this.checkTab.bind(this, 1)}>
@@ -639,7 +684,7 @@ export default class Labour extends React.Component {
 					open={this.state.openViewDialog}
 					onClose={this.openViewDialog}
 					contentStyle={{
-						width: 374
+						width: 685
 					}}
 				>
 					<Viewdialog detail={this.state.searchParams} onCancel={this.openViewDialog} />
@@ -653,7 +698,7 @@ export default class Labour extends React.Component {
 						width: 685
 					}}
 				>
-					<EditDialog detail={this.state.searchParams} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
+					<EditDialog detail={this.state.data} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
 				</Dialog>
 				<Dialog
 					title="提示"
@@ -686,7 +731,7 @@ export default class Labour extends React.Component {
 						width: 685
 					}}
 				>
-					<CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
+					<CreateDialog params={this.props.params} detail={this.state.data} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
 				</Dialog>
 				{/*新建用户*/}
 				{/*<AddPostPeople 
