@@ -37,28 +37,35 @@ class EditPostType  extends React.Component{
 
                        <KrField grid={1/2}
                             style={{width:262,display:'block'}}
-                            name="area"
+                            name="name"
                             component="input"
                             label="职级名称"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262,display:'block'}}
-                            name="area"
-                            component="input"
-                            label="职级编码"
+                            name="typeId"
+                            component="select"
+                            label="职务类型"
                             requireLabel={true}
 						/>
 
-                         <KrField style={{width:262,display:'block'}} name="enable" component="group" label="职级状态" requireLabel={true}>
- 							 <KrField name="enable" label="启用" type="radio" value='1' />
- 							 <KrField name="enable" label="停用" type="radio" value='0' />
+                        <KrField grid={1/2}
+                            style={{width:262,display:'block'}}
+                            name="level"
+                            component="input"
+                            label="等级"
+                            requireLabel={true}
+						/>
+                         <KrField style={{width:262,display:'block'}} name="enabled" component="group" label="职级状态" requireLabel={true}>
+ 							 <KrField name="enabled" label="启用" type="radio" value='1' />
+ 							 <KrField name="enabled" label="停用" type="radio" value='0' />
  						</KrField>
 
-                        <KrField grid={1} label="职级描述" name="arround" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+                        <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
 
                         
-                       <Grid style={{marginTop:10,marginBottom:5,marginLeft:-50}}>
+                       <Grid style={{marginBottom:5,marginLeft:-50}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
@@ -76,6 +83,22 @@ class EditPostType  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+
+     if(!values.name){
+       errors.name='请填写职级名称';  
+    }else if(values.name.length>10){
+       errors.name='职级名称不能超过10个字符';   
+    }
+   
+   if(!values.typeId){
+       errors.typeId='请选择职务类型';
+   }
+
+   if(!values.level){
+       errors.level='请填写等级';
+   }else if(isNaN(level)&&level<=30){
+       errors.level='等级必须是数字且最大不超过30'
+   }
     
 	return errors
 }

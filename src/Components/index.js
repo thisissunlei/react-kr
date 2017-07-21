@@ -60,6 +60,7 @@ import Tree from './Tree';
 import SliderTree from './SliderTree';
 import TabControl from './TabControl/index';
 import UpImages from './UpImages';
+import SwitchSlide from './SwitchSlide';
 import {
 	Grid,
 	Row,
@@ -161,5 +162,6 @@ module.exports = {
 	...Tree,
 	SliderTree,
 	...TabControl,
-	UpImages
+	UpImages,
+	SwitchSlide
 }

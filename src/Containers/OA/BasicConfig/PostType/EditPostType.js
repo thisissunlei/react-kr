@@ -37,14 +37,14 @@ class EditPostType  extends React.Component{
 
                        <KrField grid={1}
                             style={{width:262,display:'block'}}
-                            name="area"
+                            name="name"
                             component="input"
                             label="职务类型名称"
                             requireLabel={true}
 						/>
                         <KrField grid={1}
                             style={{width:262,display:'block'}}
-                            name="area"
+                            name="code"
                             component="input"
                             label="编码"
                             requireLabel={true}
@@ -52,16 +52,24 @@ class EditPostType  extends React.Component{
 
                         <KrField grid={1}
                             style={{width:262,display:'block'}}
-                            name="area"
+                            name="orderNum"
                             component="input"
                             label="排序号"
                             requireLabel={true}
 						/>
 
-                        <KrField grid={1} label="描述" name="arround" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+                         <KrField grid={1}
+                            style={{width:262,display:'block'}}
+                            name="subId"
+                            component="select"
+                            label="分部"
+                            requireLabel={true}
+						/>
+
+                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'532px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
 
                         
-                       <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
+                       <Grid style={{marginBottom:5,marginLeft:-50}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
@@ -79,7 +87,31 @@ class EditPostType  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-    
+    let stationN = /^([1-9][0-9]{0,2})$/;
+
+     if(!values.name){
+       errors.name='请填写职务类型名称';  
+    }else if(values.name.length>20){
+       errors.name='职务类型名称不能超过20个字符';   
+    }
+
+    if(!values.code){
+      errors.code='请填写职务类型编码'  
+    }else if(values.code.length>10){
+       errors.code='职务类型编码不能超过10个字符';   
+    }
+
+    if(!values.subId){
+       errors.subId='请选择分部'   
+    }
+
+    if(!values.orderNum){
+       errors.orderNum='请填写排序号'
+    }else if(isNaN(orderNum)){
+       errors.orderNum='排序号必须是数字'  
+    }
+
+
 	return errors
 }
 

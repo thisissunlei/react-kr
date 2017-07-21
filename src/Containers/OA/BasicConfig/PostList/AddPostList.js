@@ -103,6 +103,10 @@ const validate = values =>{
     }else if(values.code.length>10){
        errors.code='职务编码不能超过10个字符';   
     }
+
+    if(!values.typeId){
+        errors.typeId='请选择职务类型名称';  
+    }
     
 
 	return errors

@@ -47,6 +47,11 @@ export default class InService  extends React.Component{
 				searchKey:''
 			},
 			oldDepartment:'',
+			employees:{
+				name:'',
+				phone:'',
+			}
+			
 		}
 	}
    
@@ -77,12 +82,19 @@ export default class InService  extends React.Component{
 			  oldDepartment:itemDetail.depId
 		  })
 	  }else if(type=='open'){
+
           this.setState({
-			  openRemove:true
+			  openRemove:true,
+			  resourceId:itemDetail.id
+
 		  })
 	  }else if(type=='give'){
           this.setState({
-			  openCard:true
+			  openCard:true,
+			  employees:{
+				name:itemDetail.name,
+				phone:itemDetail.mobilePhone,
+			  }
 		  })
 	  }
    }
@@ -113,7 +125,15 @@ export default class InService  extends React.Component{
    }
    
    //解除提交
-   addRemoveSubmit=()=>{
+   addRemoveSubmit=(data)=>{
+	   const _this = this;
+	   const {resourceId} = this.props;
+	   let param = {resourceId:resourceId||''};
+        Http.request("removeAccount",param).then(function (response) {
+            _this.cancelRemove();
+        }).catch(function (err) {
+            Message.error(err.message);
+        });
 
    }
    
@@ -165,7 +185,7 @@ export default class InService  extends React.Component{
 		window.open(`./#/oa/${data.personId}/peopleDetail`,'123');
    }
 	render(){
-		const {oldDepartment} = this.state;
+		const {oldDepartment,employees} = this.state;
 		return(
 
 			<div>
@@ -234,7 +254,7 @@ export default class InService  extends React.Component{
 								<Button label="离职"  type="operation"  operation="leave"/>
 								<Button label="调动"  type="operation"  operation="go"/>
 								<Button label="解除账号"  type="operation"  operation="open"/>
-								<Button label="开通门禁卡"  type="operation"  operation="give"/>
+								<Button label="绑定门禁卡"  type="operation"  operation="give"/>
 								</TableRowColumn>
 							</TableRow>
 						</TableBody>
@@ -299,6 +319,7 @@ export default class InService  extends React.Component{
 					<OpenCard
 						onCancel={this.cancelCard}
 						onSubmit={this.addCardSubmit}  
+						employees = {employees}
 					/>
 					</Dialog>
 			</div>

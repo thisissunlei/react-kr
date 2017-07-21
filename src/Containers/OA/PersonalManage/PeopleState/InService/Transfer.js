@@ -8,15 +8,30 @@ import {
     ButtonGroup,
     Button
 } from 'kr-ui';
+import {Http} from 'kr/Utils'
 
 class Transfer extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
         this.state = {
-            department:''
+            department:'',
+            departmentLis:''
         }
+        this.getDepartmentList()
 	}
+    //获取部门列表
+    getDepartmentList = () =>{
+        const _this = this;
+        Http.request("getDepartmentList").then(function (response) {
+            _this.setState({
+                
+                departmentLis: [{label:"主动被动",value:"INITIATIVE"},{label:"被动",value:"PASSIVITY"}],
+            });
+        }).catch(function (err) {
+            Message.error(err.message);
+        });
+    }
     
      onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -38,7 +53,7 @@ class Transfer extends React.Component{
     }
 
 	render(){
-        let {department} = this.state;
+        let {department,departmentList} = this.state;
         let {handleSubmit}=this.props;
 
 		return(
@@ -56,11 +71,12 @@ class Transfer extends React.Component{
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
-                            name="area"
-                            component="input"
+                            name="depId"
+                            component="select"
                             label="部门:"
                             inline={true}
                             requireLabel={true}
+                            options={departmentList}
 					    />
 
 			   <Grid style={{marginTop:17,marginBottom:5}}>

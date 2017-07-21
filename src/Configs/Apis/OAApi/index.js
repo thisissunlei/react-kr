@@ -87,7 +87,7 @@ module.exports = {
     url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
     method: 'get'
   },
-  //在职列表-获取离职类型
+  //在职列表-获取离职类型   ------
   'getDepartureType': {
     url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
     method: 'get'
@@ -102,7 +102,16 @@ module.exports = {
     url: '/api/krspace-erp-web/hrm/resource/move',
     method: 'post'
   },
-
+  //在职列表-部门下拉  -----
+ 'getDepartmentList': {
+    url: '/api/krspace-erp-web/hrm/resource/move',
+    method: 'get'
+  },
+  //在职列表-接触账号  -----
+ 'removeAccount': {
+    url: '/api/krspace-erp-web/hrm/resource/delete/account',
+    method: 'post'
+  },
   
   
 }

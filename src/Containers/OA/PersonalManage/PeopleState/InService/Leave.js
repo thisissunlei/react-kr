@@ -53,13 +53,13 @@ import {reduxForm}  from 'redux-form';
              <form onSubmit={handleSubmit(this.onSubmit)}>
               <KrField grid={1/2}
                         style={{width:262,marginLeft:28}}
-                        name="area"
+                        name="leaveType"
                         component="select"
                         label="离职类型"
-                        requireLabel={true}
+                        requireLabel={false}
                         options={departureTypes}
 				/>
-               <KrField grid={1} label="离职原因" name="arround" heightStyle={{height:"78px",width:'500px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517,marginLeft:'28px'}} lengthClass='list-len-textarea'/>
+               <KrField grid={1} label="离职原因" name="leaveReason" heightStyle={{height:"78px",width:'500px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517,marginLeft:'28px'}} lengthClass='list-len-textarea'/>
 			   <Grid>
                     <Row>
                         <Col md={12} align="center">
