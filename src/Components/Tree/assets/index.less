@@ -1,4 +1,5 @@
 @treePrefixCls: rc-tree;
+
 .@{treePrefixCls} {
   margin: 0;
   padding: 5px;
@@ -107,6 +108,7 @@
         &.@{treePrefixCls}-bottom_close {
           background-position: -74px -36px;
         }
+        /*========父节点========*/
         &.@{treePrefixCls}-noline_open {
           // background-position: -43px 61px;
           background: url('./images/noline_open.svg') no-repeat center;
@@ -198,6 +200,40 @@
   &-icon__close {
     margin-right: 2px;
     background: url('./images/department_close.svg') no-repeat center;
+    vertical-align: top;
+  }
+// var IconType = ["ROOT","DEPARTMENT","SUBCOMPANY"];
+  &-icon__ROOT_open {
+    margin-right: 2px;
+    background: url('./images/sel_company.svg') no-repeat center;
+    vertical-align: top;
+  }
+   &-icon__ROOT_close {
+    margin-right: 2px;
+    background: url('./images/nor_company.svg') no-repeat center;
+    vertical-align: top;
+  }
+
+  &-icon__SUBCOMPANY_open {
+    margin-right: 2px;
+    background: url('./images/department_open.svg') no-repeat center;
+    vertical-align: top;
+  }
+   &-icon__SUBCOMPANY_close {
+    margin-right: 2px;
+    background: url('./images/department_close.svg') no-repeat center;
+    vertical-align: top;
+  }
+
+
+  &-icon__DEPARTMENT_open {
+    margin-right: 2px;
+    background: url('./images/sel_group.svg') no-repeat center;
+    vertical-align: top;
+  }
+   &-icon__DEPARTMENT_close {
+    margin-right: 2px;
+    background: url('./images/nor_group.svg') no-repeat center;
     vertical-align: top;
   }
   //最高级别

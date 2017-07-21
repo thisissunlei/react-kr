@@ -255,8 +255,8 @@ class Tree extends React.Component {
     const selectedKeys = [...this.state.selectedKeys];
     const eventKey = treeNode.props.eventKey;
     const index = selectedKeys.indexOf(eventKey);
-  
-    
+
+
 
     let selected;
     if (index !== -1) {
@@ -275,7 +275,7 @@ class Tree extends React.Component {
       loopAllChildren(this.props.children, (item) => {
         if (selectedKeys.indexOf(item.key) !== -1) {
           nodeName = item.props.title;
-           
+
           selectedNodes.push(item);
         }
       });

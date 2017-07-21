@@ -11,8 +11,76 @@
     border-radius: 4px 0 0 4px;
     height: auto;
     display: inline-block;
-    height: 900px;
+    height: 652px;
     vertical-align: top;
+    padding-top: 6px;
+    .header{
+        border-bottom: 1px solid #e8e9e9;
+          .title{
+            line-height: 40px;
+            margin-right: 10px;
+            height: 40px;
+            position: relative;
+            display: inline-block;
+            .title-text{
+              margin-right: 10px;
+            }
+            .title-list{
+              position: absolute;
+              top: 34px;
+              left: 50%;
+              display: none;
+              width: 128px;
+              height: auto;
+              box-shadow: 0 1px 4px 0 #9B9B9B;
+              border-radius: 4px;
+              background: #fff;
+              z-index: 2;
+              transform: translateX(-50%);
+              .top-square{
+                position: absolute;
+                background: #fff;
+                width: 7px;
+                height: 7px;
+                top: -2px;
+                left: 50%;
+                box-shadow: -2px -2px 2px -1px #dfdfdf;
+                transform: translateX(-50%) rotate(45deg);
+                z-index: -1;
+              }
+              .item{
+                text-align: center;
+                line-height: 30px;
+                height: 30px;
+                display: block;
+                width: 100%;
+                border-radius: 4px;
+                &:hover{
+                  background: #F5F6FA;
+                }
+              }
+            }
+            &:hover{
+              .title-list{
+                display: inline-block;
+              }
+            }
+            .square{
+              display: inline-block;
+              width: 7px;
+              height: 7px;
+              border: 1px solid #666;
+              border-top: none;
+              border-left: none;
+              transform:rotate(45deg);
+              margin-bottom: 2px;
+          }
+          }
+      }
+    .oa-tree{
+      margin-left: -9px;
+      margin-top: 9px;
+    }
     .search{
       width:100%;
       line-height: 38px;
@@ -54,66 +122,6 @@
       background: #fff;
       padding: 0 2%;
       vertical-align: top;
-      .header{
-        border-bottom: 1px solid #e8e9e9;
-          .title{
-            line-height: 40px;
-            margin-right: 10px;
-            height: 40px;
-            position: relative;
-            display: inline-block;
-            .title-list{
-              position: absolute;
-              top: 34px;
-              left: -180%;
-              display: none;
-              width: 128px;
-              height: auto;
-              box-shadow: 0 1px 4px 0 #9B9B9B;
-              border-radius: 4px;
-              background: #fff;
-              z-index: 2;
-              .top-square{
-                position: absolute;
-                background: #fff;
-                width: 7px;
-                height: 7px;
-                top: -2px;
-                left: 50%;
-                box-shadow: -2px -2px 2px -1px #dfdfdf;
-                transform: translateX(-50%) rotate(45deg);
-                z-index: -1;
-              }
-              .item{
-                text-align: center;
-                line-height: 30px;
-                height: 30px;
-                display: block;
-                width: 100%;
-                border-radius: 4px;
-                &:hover{
-                  background: #F5F6FA;
-                }
-              }
-            }
-            &:hover{
-              .title-list{
-                display: inline-block;
-              }
-            }
-          }
-          
-          .square{
-              display: inline-block;
-              width: 7px;
-              height: 7px;
-              border: 1px solid #666;
-              border-top: none;
-              border-left: none;
-              transform:rotate(45deg);
-              margin-bottom: 2px;
-          }
-      }
       .center-row{
         height: 60px;
         box-sizing: border-box;
@@ -125,6 +133,7 @@
           top: 10px;
           left: 0;
           height: 50px;
+          width: 100%;
           .department-logo{
             position: absolute;
             top: 0;

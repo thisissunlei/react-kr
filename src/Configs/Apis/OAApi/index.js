@@ -37,12 +37,12 @@ module.exports = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}',
+      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}',
       method: 'get'
   },
   //根据机构ID获取下级机构
   'next-org-list': {
-      url: '/api/krspace-erp-web/dim/next-org-list?orgId={orgId}&orgType={orgType}',
+      url: '/api/krspace-erp-web/dim/next-org-list?orgId={orgId}&orgType={orgType}&dimId={dimId}',
       method: 'get'
   },
   //新建下级
@@ -55,6 +55,16 @@ module.exports = {
       url: '/api/krspace-erp-web/dim/cancel',
       method: 'post'
   },
+  //获取所有的维度（排除自己)
+  'extra-list': {
+      url: '/api/krspace-erp-web/dim/extra-list?dimId={dimId}',
+      method: 'get'
+  },
+  //人员组件
+  'hrm-search': {
+      url: '/api/krspace-erp-web/hrm/resource/select/type/name-or-email?nameOrEmail={nameOrEmail}',
+      method: 'get'
+  },
   //职务列表－列表
   'postJobList': {
       url: '/api/krspace-erp-web/hrm/job/list/type/search?page={page}&pageSize={pageSize}&typeId={typeId}&name={name}',
@@ -65,4 +75,34 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/job/add',
       method: 'post'
   },
+  /*====离职列表接口*/
+  //离职列表-列表接口
+  'getLeaveList': {
+      url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
+      method: 'get'
+  },
+   /*====在职列表接口*/
+   //在职列表-列表接口
+  'getInServiceList': {
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
+    method: 'get'
+  },
+  //在职列表-获取离职类型
+  'getDepartureType': {
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
+    method: 'get'
+  },
+   //在职列表-离职提交
+ 'leaveOnSubmit': {
+    url: '/api/krspace-erp-web/hrm/resource/dimission',
+    method: 'post'
+  },
+   //在职列表-离职提交
+ 'transferOnSubmit': {
+    url: '/api/krspace-erp-web/hrm/resource/move',
+    method: 'post'
+  },
+
+  
+  
 }

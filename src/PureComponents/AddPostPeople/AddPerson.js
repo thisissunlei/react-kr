@@ -69,22 +69,22 @@ class AddPerson  extends React.Component{
                             label="人员编号"
                             requireLabel={true}
 						/>
-                        <KrField grid={1/2}
+                        <KrField
+                            grid={1/2}
                             style={{width:262}}
                             name="area"
-                            component="input"
+                            component="selectTree"
                             label="部门"
                             requireLabel={true}
-						/>
+                        />
                         
-
                         <KrField grid={1/2}
-								style={{width:262,marginLeft:28}}
-								name="floor"
-								component="select"
-								label="直接上级"
-							 	requireLabel={true}
-						 />
+                            style={{width:262,marginLeft:28}}
+                            name="selectTree"
+                            component="selectTree"
+                            label="直接上级"
+                            requireLabel={true}
+						/>
 
                          <KrField grid={1/2}
                             style={{width:262}}

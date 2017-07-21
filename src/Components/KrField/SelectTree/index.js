@@ -42,19 +42,28 @@ export default class SelectTree extends React.Component{
 	}
 
 	onFocus=(value)=>{
-		console.log("adasd","PPPPPPP")
+		
 		this.setState({
 			isDialog:true,
 		})
 		
 	}
-	//
+	onSubmit = () =>{
+
+	}
 	dlogSwidch = () =>{
 		this.setState({
 			isDialog:false,
 		})
 	}
-
+	onSelect = (data) =>{
+		
+		let {input,onChange} = this.props;
+		// var value = (item && item.value) || '';
+		input.onChange({});
+		// onChange && onChange(item);
+		
+	}
 
 	render(){
 		const {isDialog} = this.state;
@@ -102,16 +111,17 @@ export default class SelectTree extends React.Component{
 
 		 return (
 			 <WrapComponent {...wrapProps}>
-				 <div>tree</div>
+				 
 				 <Input  onClick = {this.onFocus} {...inputProps}/>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <Dialog
 					title="删除职务"
 					onClose={this.dlogSwidch}
 					open={isDialog}
+					
 					contentStyle ={{ width: '444px'}}
 				 >
-					<TreeDialog />
+					<TreeDialog onSelect = {this.onSelect} onSubmit = {this.on}/>
 				</Dialog>
 			 </WrapComponent>
 		 );

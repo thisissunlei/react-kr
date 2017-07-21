@@ -1,107 +1,184 @@
 import React from 'react';
 import './index.less';
-
+import {
+	Message
+} from 'kr-ui';
+import { Http } from 'kr/Utils';
 import mockData from './Data.json'
 
-import {Tree,TreeNode }from '../Tree';
+import { Tree, TreeNode } from '../Tree';
+export default class SliderTree extends React.Component {
 
-export default class SliderTree extends React.Component{
-	constructor(props,context){
-		super(props,context)
-		
-	}
-	static propTypes = {
-				//autoExpandParent: React.PropTypes.bool,
-				//expandedKeys: React.PropTypes.array,
-				data:React.PropTypes.array
+	/**type类型司由连个字符串拼接成的 类似 department-left
+	 * ----  第一个值   ------   第二个值   -----       最终值       ---
+	 * ---- department ------   radio    ----- department-radio  ---
+	 * ---- department ------   select   ----- department-select ---
+	 * ----    role    ------   radio    -----     role-radio    ---
+	 * ----    role    ------   select   -----     role-select   ---
+	 * ----  personnel ------   radio    -----  personnel-radio  ---
+	 * ----  personnel ------   select   ----- personnel-select  ---
+	 */
+	constructor(props, context) {
+		super(props, context)
+
+		this.state = {
+			treeData: [],
+			inputValue: '',
+			expandedKeys: [],
+			autoExpandParent: true,
+			visible: false,
+		}
+
+		this.getTreeData();
+
+		this.params = {};
+		this.onlyKey = 0;
+
 	}
 	//勾选
-	onCheck = (checkedKeys) =>{
-		
+	onCheck = (checkedKeys) => {
+
 	}
 	//点击选择事件
-	onSelect = (item) =>{
-		let {onSelect} = this.props;
-
+	onSelect = (item) => {
+		let { onSelect } = this.props;
 		onSelect && onSelect(item);
-		//console.log(item);
-
 	}
-	// onExpand = () =>{
-	// 	let {onExpand} = this.props;
-	// 	onExpand && onExpand();
-	// }
-	// filterTreeNode = () =>{
-	// 	let {filterTreeNode} = this.props;
-	// 	filterTreeNode && filterTreeNode();
-	// }
-	
-	animate = (node, show, done) => {
-		let height = node.offsetHeight;
-		return cssAnimation(node, 'collapse', {
-			start() {
-			if (!show) {
-				node.style.height = `${node.offsetHeight}px`;
-			} else {
-				height = node.offsetHeight;
-				node.style.height = 0;
-			}
-			},
-			active() {
-				node.style.height = `${show ? height : 0}px`;
-			},
-			end() {
-				node.style.height = '';
-			done();
-			},
-		});
-	}
+	getTreeData = () => {
 
+		let { ajaxUrlName, params } = this.props;
 
-	render(){
-        const {title} = this.props;
-		const animation = {
-			enter(node, done) {
-				return this.animate(node, true, done);
-			},
-			leave(node, done) {
-				return this.animate(node, false, done);
-			},
-			appear(node, done) {
-				return this.animate(node, true, done);
-			},
-		};
-		const loop = data => {
-			return data.map((item) => {
-				if (item.children.length !=0) {
-				return (<TreeNode key={item.id} title={item.codeName} itemData={item}>
-							{loop(item.children)}
-						</TreeNode>);
-				}
-				return <TreeNode key={item.id} title={item.codeName} itemData={item} />;
+		params = params || {};
+		this.params = Object.assign({},params);
+		const _this = this;
+		Http.request(ajaxUrlName, params).then(function (response) {
+
+			_this.setState({
+				treeData: [response],
 			});
+
+			_this.filterKeys = [];
+			
+
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
+
+	}
+
+	filterTreeNode = (treeNode) => {
+
+		return this.filterFn(treeNode.props.title);
+
+	}
+
+
+	onChange = (event) => {
+
+		this.filterKeys = [];
+		this.setState({
+			inputValue: event.target.value
+		});
+
+	}
+
+	filterFn = (key) => {
+
+		key = key.toString();
+
+		if (this.state.inputValue && key.indexOf(this.state.inputValue) > -1) {
+			return true;
+		}
+
+		return false;
+
+	}
+	onExpand = (expandedKeys) => {
+		 this.filterKeys = undefined;
+		 
+
+		 this.setState({
+		 	expandedKeys,
+		 	autoExpandParent: false,
+		 });
+	}
+	componentWillReceiveProps(nextProps){
+		let {inputValue} = this.state;
+		if(nextProps.searchKey && inputValue!=nextProps.searchKey){
+			this.setState({
+				inputValue: nextProps.searchKey
+			});
+		}
+		let paramsChange = false;
+		for(let i in nextProps.params){
+			if(nextProps.params[i] != this.params[i]){
+				paramsChange = true;
+				break;
+			}
+		}
+		if(paramsChange){
+			this.getTreeData();
+		}
+	}
+
+
+	render() {
+
+		const { title, type } = this.props;
+		const { treeData } = this.state;
+		var that = this;
+
+		const loop = (data,parentIndex=0) => {
+
+			return data.map((item,index) => {
+
+
+				var key = parentIndex+'-'+item.orgName;
+
+				if (this.filterKeys && this.filterFn(key)) {
+					this.filterKeys.push(key);
+				}
+
+				if (item.children) {
+					return (<TreeNode key={key} title={item.orgName} type={type} itemData={item}>
+						{loop(item.children,key)}
+					</TreeNode>);
+				}
+				console.log("-----",key);
+				return <TreeNode key={key} title={item.orgName} type={type} itemData={item} />;
+			});
+
 		};
-		let treeNodes = loop(this.props.data || mockData);
+
+
+
+		let expandedKeys = this.state.expandedKeys;
+		let autoExpandParent = this.state.autoExpandParent;
+		if (this.filterKeys) {
+			expandedKeys = this.filterKeys;
+			autoExpandParent = true;
+		}
+
+		let treeNodes = loop(treeData);
+
 		return (
-            <div>
-             	{/*<Tree
-				 	filterTreeNode={this.filterTreeNode}
-				 	autoExpandParent={this.props.autoExpandParent}
-				 	expandedKeys={this.props.expandedKeys}
-				    onExpand={this.onExpand}
-					onCheck={this.onCheck}
-					onSelect={this.onSelect}
-					filterTreeNode={this.filterTreeNode}
-				>
-					{treeNodes}
-				</Tree>*/}
+			<div>
+
+				{/*<input placeholder="请筛选" value={this.state.inputValue} onChange={this.onChange} />*/}
+
 				<Tree
 					onCheck={this.onCheck}
+					onExpand={this.onExpand}
 					onSelect={this.onSelect}
+					expandedKeys={expandedKeys}
+					autoExpandParent={true}
+					filterTreeNode={this.filterTreeNode}
+					
 				>
 					{treeNodes}
 				</Tree>
-            </div>
-        )
-	 }
- }
+
+			</div>
+		)
+	}
+}

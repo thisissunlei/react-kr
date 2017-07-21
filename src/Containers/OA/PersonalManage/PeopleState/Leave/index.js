@@ -32,19 +32,28 @@ export default class Leave extends Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			searchParams : {},
+			searchParams : {
+				page:1,
+				pageSize:15,
+				searchKey:'',
+			},
 		}
 	}
 
 
-	onExport = () =>{
-
-	}
+	
 
 	//搜索确定
-	onSearchSubmit = ()=>{
-
-	}
+	onSearchSubmit = (data)=>{
+		// searchKey = data.value;
+		// let {searchParams} = this.state;
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.searchKey = data.content;
+		this.setState({
+			searchParams
+		})
+		
+	}	
 	
 	
 	//关闭所有侧滑
@@ -70,6 +79,7 @@ export default class Leave extends Component{
 						<ListGroupItem>
 							<SearchForms 
 								placeholder='请输入姓名' 
+								inputName='search'
 								onSubmit={this.onSearchSubmit}
 							/>
 						</ListGroupItem>
@@ -84,7 +94,7 @@ export default class Leave extends Component{
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName='shareCustomers'
+	            ajaxUrlName='getLeaveList'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
 				onExport={this.onExport}
@@ -101,12 +111,43 @@ export default class Leave extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="intentionCityName" ></TableRowColumn>
-						<TableRowColumn name="stationNum"></TableRowColumn>
-						<TableRowColumn name="receiveName"></TableRowColumn>
-						<TableRowColumn name="receiveName"></TableRowColumn>
-						<TableRowColumn name="receiveName"></TableRowColumn>
-						<TableRowColumn name="receiveName"></TableRowColumn>
+						<TableRowColumn 
+							name="intentionCityName" 
+							component={(value,oldValue)=>{
+								return (<span>value</span>)
+							}}
+						></TableRowColumn>
+						<TableRowColumn name="name"></TableRowColumn>
+						<TableRowColumn name="code"></TableRowColumn>
+						<TableRowColumn name="jobName"></TableRowColumn>
+						<TableRowColumn 
+							name="entryDate"
+							component={(value,oldValue)=>{
+								return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+							}}
+						></TableRowColumn>
+						<TableRowColumn name="status"
+							component={(value,oldValue)=>{
+								let status = ""
+								if(value == "UNENTRY"){
+									status = "待入职"
+								}
+								if(value == "PROBATION"){
+									status = "试用"
+								}
+								if(value == "REGULAR"){
+									status = "正式"
+								}
+								if(value == "UNDIMISSION"){
+									status = "待离职"
+								}
+								if(value == "DIMISSION"){
+									status = "离职"
+								}
+								return (<span>{status}</span>)
+							}}
+						
+						></TableRowColumn>
 					</TableRow>
 				</TableBody>
 				<TableFooter></TableFooter>

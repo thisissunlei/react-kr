@@ -101,7 +101,6 @@ const config = {
 			moveToParents: true
 		}),
 		new webpack.optimize.MinChunkSizePlugin({
-
 			compress: {
 				warnings: false,
 				drop_debugger: true,
