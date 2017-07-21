@@ -42,7 +42,6 @@ export default class Home extends React.Component {
   openEdit=(item)=>{
 		let openEdit = this.state.openEdit;
 		var _this = this;
-    console.log(item);
 		this.setState({
 			itemDetail:item,
 			openEdit:!openEdit

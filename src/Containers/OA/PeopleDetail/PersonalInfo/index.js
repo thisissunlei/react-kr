@@ -59,7 +59,6 @@ export default class PersonalInfo  extends React.Component{
 	//获取个人信息
 	personData=(id)=>{
        Http.request('postListAdd',{id:id}).then(function(response) {
-           console.log('va',response);
 		   this.setState({
 			   personInfo:response
 		   })
@@ -85,7 +84,6 @@ export default class PersonalInfo  extends React.Component{
 	//获取家庭编辑信息
 	getFamilyInfo=(id)=>{
 	    Http.request('postListAdd',{id:id}).then(function(response) {
-           console.log('va',response);
 		    Store.dispatch(initialize('EditFamily',response));
         }).catch(function(err) {
           Message.error(err.message);
@@ -109,7 +107,6 @@ export default class PersonalInfo  extends React.Component{
 	//获取工作编辑信息
 	getWorkInfo=(id)=>{
 	    Http.request('postListAdd',{id:id}).then(function(response) {
-           console.log('va',response);
 		    Store.dispatch(initialize('EditWork',response));
         }).catch(function(err) {
            Message.error(err.message);
@@ -147,7 +144,6 @@ export default class PersonalInfo  extends React.Component{
    addPerSubmit=(params)=>{
       var _this=this;
        Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.setState({
 			   familySearchParams:{
 				   time:+new Date()
@@ -177,7 +173,6 @@ export default class PersonalInfo  extends React.Component{
    addWorkSubmit=(params)=>{
       var _this=this;
        Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.setState({
 			   workSearchParams:{
 				   time:+new Date()
