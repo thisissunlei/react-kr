@@ -77,14 +77,12 @@ export default class Synchro extends React.Component {
 							type="text"
 							component="input"
 							label="接口地址 ：  "
-							style={{marginRight:20,width:260}}
-							grid={1/3}
+							style={{marginRight:20,width:300}}
 							inline={true}
 
 					 	/>
                 <KrField 
                 	name="remark" 
-                	grid={1/3} 
                 	component="input"  
                 	label="备注：  " 
                 	inline={true} 

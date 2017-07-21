@@ -117,18 +117,26 @@ export default class List extends React.Component {
 									}else{
 										TooltipStyle="block";
 									}
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 return (<div style={{display:TooltipStyle}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >
-											{value}
+											<div style={{maxWidth:"200px",minWidth:100,whiteSpace:"normal",lineHeight:"22px"}}>{value}</div>
 									 	</Tooltip></div>)
 								 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
 		              		 		name="code"
 									component={(value,oldValue)=>{
-										 return (<div className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-										 			</div>)
-									 }}
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+									}else{
+										TooltipStyle="block";
+									}
+									 return (<div style={{display:TooltipStyle}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 	<Tooltip offsetTop={5} place='top' >
+											<div style={{maxWidth:"200px",minWidth:100,whiteSpace:"normal",lineHeight:"22px"}}>{value}</div>
+									 	</Tooltip></div>)
+								 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn name="failures" > </TableRowColumn>
 		              		 <TableRowColumn name="syncTime"
@@ -177,9 +185,9 @@ export default class List extends React.Component {
 									}else{
 										TooltipStyle="block";
 									
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 return (<div style={{display:TooltipStyle}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >
-											<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div>
+											<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
 									 	</Tooltip></div>)
 									}
 								 }}></TableRowColumn>
