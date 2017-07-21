@@ -488,7 +488,7 @@ export default class Labour extends React.Component {
 							<TableRowColumn name="departName"></TableRowColumn>
 							<TableRowColumn name="userName"></TableRowColumn>
 							<TableRowColumn name="email"></TableRowColumn>
-							<TableRowColumn type="entryTime" name="createDate" component={(value)=>{
+							<TableRowColumn type="date" name="entryTime" component={(value)=>{
 								return (
 									<KrDate value={value} format = "yyyy-mm-dd HH:MM:ss" />
 								)
