@@ -87,6 +87,7 @@ export default class SliderTree extends React.Component {
 	}
 	onExpand = (expandedKeys) => {
 		 this.filterKeys = undefined;
+		 
 
 		 this.setState({
 		 	expandedKeys,
@@ -148,7 +149,7 @@ export default class SliderTree extends React.Component {
 
 				<Tree
 					onCheck={this.onCheck}
-					 onExpand={this.onExpand}
+					onExpand={this.onExpand}
 					onSelect={this.onSelect}
 					expandedKeys={expandedKeys}
 					autoExpandParent={true}

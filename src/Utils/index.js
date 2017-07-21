@@ -11,6 +11,7 @@ import  DateCompareValue from './DateCompareValue';
 import Map from './Map';
 import  Mouse from './Mouse';
 import Baidu from './Baidu';
+import PublicFn from './PublicFn';
 
 module.exports = {
 	...ClassNames,
@@ -25,5 +26,6 @@ module.exports = {
 	DateFormat,
 	Mouse,
 	Baidu,
+	...PublicFn
 
 }

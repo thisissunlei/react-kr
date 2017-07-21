@@ -48,14 +48,16 @@ export default class SelectTree extends React.Component{
 		})
 		
 	}
-	//
+	onSubmit = () =>{
+
+	}
 	dlogSwidch = () =>{
 		this.setState({
 			isDialog:false,
 		})
 	}
 	onSelect = (data) =>{
-		console.log(data,">>>>>>>")
+		
 		let {input,onChange} = this.props;
 		// var value = (item && item.value) || '';
 		input.onChange({});
@@ -109,7 +111,7 @@ export default class SelectTree extends React.Component{
 
 		 return (
 			 <WrapComponent {...wrapProps}>
-				 <div>tree</div>
+				 
 				 <Input  onClick = {this.onFocus} {...inputProps}/>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <Dialog
@@ -119,7 +121,7 @@ export default class SelectTree extends React.Component{
 					
 					contentStyle ={{ width: '444px'}}
 				 >
-					<TreeDialog onSelect = {this.onSelect}/>
+					<TreeDialog onSelect = {this.onSelect} onSubmit = {this.on}/>
 				</Dialog>
 			 </WrapComponent>
 		 );
