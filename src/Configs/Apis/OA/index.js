@@ -70,4 +70,11 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/job/add',
       method: 'post'
   },
+  /*====离职列表借口*/
+  //职务列表－新增
+  'postListAdd': {
+      url: '/api/krspace-erp-web/hrm/job/add',
+      method: 'post'
+  },
+
 }
