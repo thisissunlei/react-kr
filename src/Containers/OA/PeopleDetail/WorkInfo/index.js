@@ -4,18 +4,45 @@ import {
 } from 'kr-ui';
 import './index.less';
 import EditWork from './EditWork';
+import {Http} from 'kr/Utils';
+import {Store} from 'kr/Redux';
+import {
+  initialize
+} from 'redux-form';
 
 export default class WorkInfo  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			openEdit:false
+			openEdit:false,
+			workInfo:{}
 		}
+	}
+
+
+	componentWillMount(){
+		let {personId}=this.props;
+		//获取工作信息
+        this.workData(personId);
+	}
+
+	//获取工作信息
+	workData=(id)=>{
+       Http.request('postListAdd',{id:id}).then(function(response) {
+           console.log('va',response);
+		   this.setState({
+			   workInfo:response
+		   })
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
 	}
    
     //编辑打开
 	basicEdit=()=>{
+	   let {workInfo}=this.state;
+	   Store.dispatch(initialize('EditWork',workInfo));
        this.setState({
 		 openEdit:!this.state.openEdit
 	   })
@@ -23,7 +50,13 @@ export default class WorkInfo  extends React.Component{
     
 	//编辑提交
 	editSubmit=(params)=>{
-      
+       var _this=this;
+       Http.request('postListAdd',{},params).then(function(response) {
+           console.log('response',response);
+           _this.workData(params.id);
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
 	}
     
 	//关闭所有
@@ -36,21 +69,23 @@ export default class WorkInfo  extends React.Component{
 
 	render(){
 
+		let {workInfo}=this.state;
+
 		let infoName=[
 			 {name:'工资卡号',
-			  detail:123},
+			  detail:workInfo.wageCard},
 			 {name:'核算单位',
-			  detail:123},
+			  detail:workInfo.w},
 			 {name:'试用期到期时间',
-			  detail:123},
+			  detail:workInfo.probationEndDate},
 			 {name:'劳动合同终止时间',
-			  detail:123},
+			  detail:workInfo.contractEndDate},
 			 {name:'入职来源',
-			  detail:123},
+			  detail:workInfo.entrySource},
 			 {name:'名片title',
-			  detail:123},
+			  detail:workInfo.cardTitle},
 			 {name:'公司邮箱',
-			  detail:123},
+			  detail:workInfo.w},
 			];
 
 		return(

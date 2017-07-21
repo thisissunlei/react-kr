@@ -41,20 +41,20 @@ class EditBasic  extends React.Component{
 
                        <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="name"
                             component="input"
                             label="姓名"
                             requireLabel={true}
 						/>
                        
-                         <KrField grid={1/2} style={{width:262,marginLeft:28}} name="enable" component="group" label="性别" requireLabel={true}>
- 							 <KrField name="enable" label="男" type="radio" value='1' />
- 							 <KrField name="enable" label="女" type="radio" value='0' />
+                         <KrField grid={1/2} style={{width:262,marginLeft:28}} name="sex" component="group" label="性别" requireLabel={true}>
+ 							 <KrField name="sex" label="男" type="radio" value='1' />
+ 							 <KrField name="sex" label="女" type="radio" value='0' />
  						</KrField>
 
                           <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="mobilePhone"
                             component="input"
                             label="手机号"
                             requireLabel={true}
@@ -64,14 +64,14 @@ class EditBasic  extends React.Component{
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="code"
                             component="input"
                             label="人员编号"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="depId"
                             component="input"
                             label="部门"
                             requireLabel={true}
@@ -80,7 +80,7 @@ class EditBasic  extends React.Component{
 
                         <KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
-								name="floor"
+								name="leader"
 								component="select"
 								label="直接上级"
 							 	requireLabel={true}
@@ -88,14 +88,14 @@ class EditBasic  extends React.Component{
 
                          <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="jobId"
                             component="input"
                             label="职务"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="levelId"
                             component="input"
                             label="职级"
                             requireLabel={true}
@@ -103,21 +103,21 @@ class EditBasic  extends React.Component{
 
                          <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="entryDate"
                             component="date"
                             label="入职时间"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="status"
                             component="select"
                             label="员工属性"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="type"
                             component="select"
                             label="员工类别"
                             requireLabel={true}
