@@ -58,10 +58,10 @@ class AddPostType  extends React.Component{
                             requireLabel={true}
 						/>
 
-                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'532px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
 
                         
-                       <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
+                       <Grid style={{marginBottom:5,marginLeft:-50}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
@@ -79,6 +79,22 @@ class AddPostType  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+
+     if(!values.name){
+       errors.name='请填写职务类型名称';  
+    }else if(values.name.length>20){
+       errors.name='职务类型名称不能超过20个字符';   
+    }
+
+    if(!values.code){
+      errors.code='请填写职务类型编码'  
+    }else if(values.code.length>10){
+       errors.code='职务类型编码不能超过10个字符';   
+    }
+
+    if(!values.subId){
+       errors.subId='请选择分部'   
+    }
     
 	return errors
 }

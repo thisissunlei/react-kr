@@ -254,7 +254,7 @@ export default class PostType extends Component{
 					title="新增职务类型"
 					onClose={this.openAddPost}
 					open={this.state.openPostType}
-					contentStyle ={{ width: '630px',height:'450px'}}
+					contentStyle ={{ width: '630px',height:'500px'}}
 				>
 			  <AddPostType 
 			    onSubmit={this.addPostSubmit}
@@ -267,7 +267,7 @@ export default class PostType extends Component{
 					title="编辑职务类型"
 					onClose={this.openEditPost}
 					open={this.state.openEditType}
-					contentStyle ={{ width: '630px',height:'520px'}}
+					contentStyle ={{ width: '630px',height:'575px'}}
 				>
 			  <EditPostType 
 			    onSubmit={this.editPostSubmit}

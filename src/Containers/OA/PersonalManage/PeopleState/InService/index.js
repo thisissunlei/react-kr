@@ -234,7 +234,7 @@ export default class InService  extends React.Component{
 								<Button label="离职"  type="operation"  operation="leave"/>
 								<Button label="调动"  type="operation"  operation="go"/>
 								<Button label="解除账号"  type="operation"  operation="open"/>
-								<Button label="开通门禁卡"  type="operation"  operation="give"/>
+								<Button label="绑定门禁卡"  type="operation"  operation="give"/>
 								</TableRowColumn>
 							</TableRow>
 						</TableBody>

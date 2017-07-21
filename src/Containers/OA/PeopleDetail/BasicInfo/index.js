@@ -94,7 +94,9 @@ export default class BasicInfo  extends React.Component{
 			 {name:'员工属性',
 			  detail:basicInfo.status},
 			 {name:'员工类别',
-			  detail:basicInfo.type}
+			  detail:basicInfo.type},
+			 {name:'公司邮箱',
+			  detail:basicInfo.type},  
 			];
 
 		return(

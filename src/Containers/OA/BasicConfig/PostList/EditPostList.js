@@ -95,6 +95,28 @@ class EditPostList  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+
+      if(!values.name){
+       errors.name='请填写职务名称';  
+    }else if(values.name.length>20){
+       errors.name='职务名称不能超过20个字符';   
+    }
+
+    if(!values.code){
+      errors.code='请填写职务编码'  
+    }else if(values.code.length>10){
+       errors.code='职务编码不能超过10个字符';   
+    }
+
+    if(!values.typeId){
+        errors.typeId='请选择职务类型名称';  
+    }
+
+    if(!values.orderNum){
+       errors.orderNum='请填写排序号'
+    }else if(isNaN(orderNum)){
+       errors.orderNum='排序号必须是数字'  
+    }
     
 	return errors
 }
