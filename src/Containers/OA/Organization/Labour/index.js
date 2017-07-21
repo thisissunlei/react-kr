@@ -44,6 +44,7 @@ export default class Labour extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+
 		this.state = {
 			searchParams: {
 				page: 1,
