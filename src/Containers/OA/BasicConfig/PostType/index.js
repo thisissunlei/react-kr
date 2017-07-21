@@ -48,7 +48,7 @@ export default class PostType extends Component{
 	}
     
 	componentWillMount(){
-		this.dataReady();
+		//this.dataReady();
 	}
 
 	onOperation=(type,itemDetail)=>{
@@ -105,9 +105,9 @@ export default class PostType extends Component{
 	}
 
 	//新建职务类型提交
-	addPostSubmit=()=>{
+	addPostSubmit=(params)=>{
        var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
+       Http.request('post-type-add',{},params).then(function(response) {
            console.log('response',response);
            _this.setState({
 						searchParams:{
@@ -218,7 +218,7 @@ export default class PostType extends Component{
               onOperation={this.onOperation}
 	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName='shareCustomers'
+	            ajaxUrlName='postTypeList'
 	            ajaxFieldListName="items"
 				      onPageChange = {this.pageChange}
 			>

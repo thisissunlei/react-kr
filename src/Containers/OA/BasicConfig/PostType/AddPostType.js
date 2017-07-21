@@ -92,9 +92,9 @@ const validate = values =>{
        errors.code='职务类型编码不能超过10个字符';   
     }
 
-    if(!values.subId){
+    /*if(!values.subId){
        errors.subId='请选择分部'   
-    }
+    }*/
     
 	return errors
 }
