@@ -97,7 +97,6 @@ export default class SliderTree extends React.Component {
 		 	expandedKeys,
 		 	autoExpandParent: false,
 		 });
-		 console.log(expandedKeys);
 	}
 	componentWillReceiveProps(nextProps){
 		let {inputValue} = this.state;
