@@ -31,7 +31,7 @@ export default class SliderTree extends React.Component {
 
 		this.getTreeData();
 
-
+		this.params = {};
 		this.onlyKey = 0;
 
 	}
@@ -49,6 +49,7 @@ export default class SliderTree extends React.Component {
 		let { ajaxUrlName, params } = this.props;
 
 		params = params || {};
+		this.params = params;
 		const _this = this;
 		Http.request(ajaxUrlName, params).then(function (response) {
 
@@ -57,6 +58,7 @@ export default class SliderTree extends React.Component {
 			});
 
 			_this.filterKeys = [];
+			
 
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -107,6 +109,16 @@ export default class SliderTree extends React.Component {
 				inputValue: nextProps.searchKey
 			});
 		}
+		let paramsChange = false;
+		for(let i in nextProps.params){
+			if(nextProps.params[i] != this.params[i]){
+				paramsChange = true;
+				break;
+			}
+		}
+		if(paramsChange){
+			this.getTreeData();
+		}
 	}
 
 
@@ -132,6 +144,7 @@ export default class SliderTree extends React.Component {
 						{loop(item.children,key)}
 					</TreeNode>);
 				}
+				console.log("-----",key);
 				return <TreeNode key={key} title={item.orgName} type={type} itemData={item} />;
 			});
 
@@ -160,6 +173,7 @@ export default class SliderTree extends React.Component {
 					expandedKeys={expandedKeys}
 					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}
+					
 				>
 					{treeNodes}
 				</Tree>

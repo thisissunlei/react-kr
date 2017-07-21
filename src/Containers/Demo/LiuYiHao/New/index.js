@@ -14,9 +14,6 @@ class New extends React.Component {
 
 		this.state = {
 		}
-
-		console.log(numberToSign(410324199403041456),">>>>>>>")
-
 	}
 
 
