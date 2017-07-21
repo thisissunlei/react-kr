@@ -54,6 +54,10 @@ render() {
 			case "householdType":
 				data=householdType;
 				break;
+			//离职类型
+			case "leaveType":
+				data=householdType;
+				break;
 
 			default:
 				data=temployees;
