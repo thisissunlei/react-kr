@@ -65,6 +65,7 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/resource/select/type/name-or-email?nameOrEmail={nameOrEmail}',
       method: 'get'
   },
+  /*职务列表*/
   //职务列表－列表
   'postJobList': {
       url: '/api/krspace-erp-web/hrm/job/list/type/search?page={page}&pageSize={pageSize}&typeId={typeId}&name={name}',
@@ -75,6 +76,7 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/job/add',
       method: 'post'
   },
+
   /*====离职列表接口*/
   //离职列表-列表接口
   'getLeaveList': {
@@ -113,5 +115,33 @@ module.exports = {
     method: 'post'
   },
   
+  /*职务类型*/
+  //职务类型－列表
+  'postTypeList': {
+    url: '/api/krspace-erp-web/hrm/job-type/list/type/search?code={code}&name={name}',
+    method: 'get'
+  },
+  //职务类型新增
+  'post-type-add': {
+    url: '/api/krspace-erp-web/hrm/job-type/add',
+    method: 'post'
+  },
+  //职务类型获取编辑信息
+  'post-type-watch': {
+    url: '/api/krspace-erp-web/hrm/job-type/info/type/edit',
+    method: 'get'
+  },
+   //职务类型编辑提交
+  'post-type-edit': {
+    url: '/api/krspace-erp-web/hrm/job-type/edit',
+    method: 'post'
+  },
+   //职务类型删除
+  'post-type-delete': {
+    url: '/api/krspace-erp-web/hrm/job-type/delete',
+    method: 'post'
+  },
+
+
   
 }
