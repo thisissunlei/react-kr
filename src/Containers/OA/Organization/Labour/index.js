@@ -88,7 +88,6 @@ export default class Labour extends React.Component {
 		// Http.request('org-list', {
 		// 	id:dimId
 		// },{}).then(function(response) {
-		// 	console.log(response);
 		// 	_this.setState({
 		// 		treeData:response.childList,
 		// 		searchParams: {
@@ -176,7 +175,6 @@ export default class Labour extends React.Component {
 	}
 	onCreatSubmit = (params) => {
 		var _this = this;
-		console.log(">>>>",params);
 		// form.dimId = this.props.params.dimId;
 		Http.request('save-junior', {}, params).then(function(response) {
 			_this.openCreateDialog();
@@ -284,10 +282,6 @@ export default class Labour extends React.Component {
 	}
 	toOtherDim=(item)=>{
 		var dimId = item.id;
-		// console.log(item);
-		// this.setState({
-		// 	dimId:dimId
-		// })
 		this.setState({
 			selectStyle:{
 				'display':'none'

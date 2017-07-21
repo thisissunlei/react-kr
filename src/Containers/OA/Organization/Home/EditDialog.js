@@ -30,7 +30,6 @@ class EditDialog extends React.Component {
         var detail = this.props.detail;
         var _this = this;
         var infoList = {};
-        console.log(detail);
         Http.request('dim-detail', {
             id:detail.id
         }).then(function(response) {

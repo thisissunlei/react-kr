@@ -54,7 +54,6 @@ export default class PostList extends Component{
 	//数据准备
 	dataReady=()=>{
 	   Http.request('postListAdd').then(function(response) {
-           console.log('response',response);
            
         }).catch(function(err) {
           Message.error(err.message);
@@ -107,7 +106,6 @@ export default class PostList extends Component{
 	}
 	//新建确定
 	addSubmit = (values) =>{
-		console.log('values1',values);
 		Http.request('postListAdd',{},values).then(function(response) {
             _this.setState({
 			searchParams:{
@@ -124,7 +122,6 @@ export default class PostList extends Component{
 	editSubmit = () =>{
          var _this=this;
 			Http.request('postListAdd',{},params).then(function(response) {
-				console.log('response',response);
 				_this.setState({
 					searchParams:{
 						time:+new Date(),
@@ -139,7 +136,6 @@ export default class PostList extends Component{
 	//删除按钮确定
 	delSubmit = () =>{
 		Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.setState({
 			  searchParams:{
 				  time:+new Date(),
@@ -166,7 +162,6 @@ export default class PostList extends Component{
 	getEditData=(id)=>{
 		var _this=this;
        Http.request('postListAdd',{id:id}).then(function(response) {
-           console.log('response',response);
            Store.dispatch(initialize('EditPostList',response));
         }).catch(function(err) {
           Message.error(err.message);
