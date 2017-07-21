@@ -83,9 +83,7 @@ export default class WorkInfo  extends React.Component{
 			 {name:'入职来源',
 			  detail:workInfo.entrySource},
 			 {name:'名片title',
-			  detail:workInfo.cardTitle},
-			 {name:'公司邮箱',
-			  detail:workInfo.w},
+			  detail:workInfo.cardTitle}
 			];
 
 		return(

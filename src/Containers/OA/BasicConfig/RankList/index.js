@@ -255,7 +255,7 @@ export default class RankList extends Component{
 					title="新建职级"
 					onClose={this.openAddPost}
 					open={this.state.openPostType}
-					contentStyle ={{ width: '630px',height:'500px'}}
+					contentStyle ={{ width: '630px',height:'555px'}}
 				>
 			  <AddPostType 
 			    onSubmit={this.addPostSubmit}
@@ -268,7 +268,7 @@ export default class RankList extends Component{
 					title="编辑职级"
 					onClose={this.openEditPost}
 					open={this.state.openEditType}
-					contentStyle ={{ width: '630px',height:'500px'}}
+					contentStyle ={{ width: '630px',height:'555px'}}
 				>
 			  <EditPostType 
 			    onSubmit={this.editPostSubmit}

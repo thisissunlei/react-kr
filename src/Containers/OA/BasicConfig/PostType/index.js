@@ -48,7 +48,7 @@ export default class PostType extends Component{
 	}
     
 	componentWillMount(){
-		this.dataReady();
+		//this.dataReady();
 	}
 
 	onOperation=(type,itemDetail)=>{
@@ -105,9 +105,9 @@ export default class PostType extends Component{
 	}
 
 	//新建职务类型提交
-	addPostSubmit=()=>{
+	addPostSubmit=(params)=>{
        var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
+       Http.request('post-type-add',{},params).then(function(response) {
            console.log('response',response);
            _this.setState({
 						searchParams:{
@@ -218,7 +218,7 @@ export default class PostType extends Component{
               onOperation={this.onOperation}
 	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName='shareCustomers'
+	            ajaxUrlName='postTypeList'
 	            ajaxFieldListName="items"
 				      onPageChange = {this.pageChange}
 			>
@@ -254,7 +254,7 @@ export default class PostType extends Component{
 					title="新增职务类型"
 					onClose={this.openAddPost}
 					open={this.state.openPostType}
-					contentStyle ={{ width: '630px',height:'450px'}}
+					contentStyle ={{ width: '630px',height:'500px'}}
 				>
 			  <AddPostType 
 			    onSubmit={this.addPostSubmit}
@@ -267,7 +267,7 @@ export default class PostType extends Component{
 					title="编辑职务类型"
 					onClose={this.openEditPost}
 					open={this.state.openEditType}
-					contentStyle ={{ width: '630px',height:'520px'}}
+					contentStyle ={{ width: '630px',height:'575px'}}
 				>
 			  <EditPostType 
 			    onSubmit={this.editPostSubmit}

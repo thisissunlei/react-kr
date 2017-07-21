@@ -68,6 +68,7 @@ export default class Labour extends React.Component {
 			searchKey:'',
 			dimId:this.props.params.dimId,
 			dimName:'',
+			stlyeBool:false,
 			selectStyle:{
 				'display':'none'
 			},
@@ -124,6 +125,7 @@ export default class Labour extends React.Component {
 			selectStyle:{
 				'display':'none'
 			},
+			stlyeBool:false,
 		})
 	}
 	//操作相关
@@ -270,6 +272,9 @@ export default class Labour extends React.Component {
 			data:data
 		})
 	}
+	onCheck=()=>{
+
+	}
 	toOtherDim=(item)=>{
 		var dimId = item.id;
 		// console.log(item);
@@ -295,26 +300,23 @@ export default class Labour extends React.Component {
 			selectStyle:{
 				'display':'inline-block'
 			},
+			stlyeBool:true,
 		})
 	}
 	render() {
-		console.log(this.state.itemDetail);
-		let {itemDetail,data,dimId} = this.state;
+		let {itemDetail,data,dimId,styleBool} = this.state;
 		var logFlag = '';
 		var style = {};
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
 						<div className="header">
-							<span className="title" onClick={(event)=>{
+							<span className="title" style={{'backgroundColor':`${this.state.stlyeBool?'#fff':''}`}} onClick={(event)=>{
 									event.stopPropagation();							
 									this.clickSelect();
 								}}>
 								<span className="title-text">{this.state.dimName}</span>
 								<span className="title-list" style={this.state.selectStyle}>
-									<span className="top-square">
-
-									</span>
 									{this.state.dimData.map((item,index)=>{return this.renderDimList(item,index)})}
 									<span className="item">
 										下级机构
@@ -340,6 +342,7 @@ export default class Labour extends React.Component {
 						<div className="oa-tree">
 							<SliderTree 
 								onSelect = {this.onSelect}  
+								onCheck={this.onCheck}
 								ajaxUrlName = {"org-list"}
 								params = {{id:this.props.params.dimId}}
 								type = "department-radio"

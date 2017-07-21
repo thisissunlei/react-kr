@@ -151,7 +151,7 @@ class TreeNode extends React.Component {
       switcherCls[`${prefixCls}-switcher-disabled`] = true;
       return <span className={classNames(switcherCls)}></span>;
     }
-    if(!props.itemData.children.length ){
+    if(!props.itemData.children.length){
       switcherCls[`${prefixCls}-noline_docu_${expandedState}`] = true;
     }
     /*=========展开的尖括号=========*/
