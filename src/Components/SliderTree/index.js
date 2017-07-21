@@ -35,10 +35,6 @@ export default class SliderTree extends React.Component {
 		this.onlyKey = 0;
 
 	}
-	//勾选
-	onCheck = (checkedKeys) => {
-
-	}
 	//点击选择事件
 	onSelect = (item) => {
 		let { onSelect } = this.props;
@@ -101,6 +97,7 @@ export default class SliderTree extends React.Component {
 		 	expandedKeys,
 		 	autoExpandParent: false,
 		 });
+		 console.log(expandedKeys);
 	}
 	componentWillReceiveProps(nextProps){
 		let {inputValue} = this.state;
@@ -144,7 +141,6 @@ export default class SliderTree extends React.Component {
 						{loop(item.children,key)}
 					</TreeNode>);
 				}
-				console.log("-----",key);
 				return <TreeNode key={key} title={item.orgName} type={type} itemData={item} />;
 			});
 

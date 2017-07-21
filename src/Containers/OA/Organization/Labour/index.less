@@ -4,9 +4,8 @@
     margin-left: 11px !important;
   }
   .left{
-    box-sizing: border-box;
-    width: 28%;
-    padding: 1.5%;
+    width: 25%;
+    padding: 10px 20px 0 10px;
     background: #F0F1F6;
     border-radius: 4px 0 0 4px;
     height: auto;
@@ -16,27 +15,29 @@
     padding-top: 6px;
     .header{
         border-bottom: 1px solid #e8e9e9;
+        position: relative;
           .title{
             line-height: 40px;
-            margin-right: 10px;
             height: 40px;
-            position: relative;
+            border-radius: 4px;
             display: inline-block;
+            padding: 0 10px;
+           
             .title-text{
               margin-right: 10px;
             }
             .title-list{
               position: absolute;
-              top: 34px;
-              left: 50%;
+              top: 40px;
+              left: 0;
               display: none;
-              width: 128px;
+              width: 100%;
               height: auto;
-              box-shadow: 0 1px 4px 0 #9B9B9B;
               border-radius: 4px;
               background: #fff;
               z-index: 2;
-              transform: translateX(-50%);
+              
+              border-top: none;
               .top-square{
                 position: absolute;
                 background: #fff;
@@ -49,12 +50,14 @@
                 z-index: -1;
               }
               .item{
-                text-align: center;
+                box-sizing: border-box;
+                text-align: left;
                 line-height: 30px;
                 height: 30px;
                 display: block;
                 width: 100%;
                 border-radius: 4px;
+                padding-left: 10px;
                 &:hover{
                   background: #F5F6FA;
                 }
@@ -78,7 +81,7 @@
           }
       }
     .oa-tree{
-      margin-left: -9px;
+      margin-left: 1px;
       margin-top: 9px;
     }
     .search{
@@ -89,6 +92,7 @@
       border: 1px solid #DFDFDF;
       border-radius: 4px; 
       position: relative;
+      margin-left: 10px;
       input{
         height: 38px;
         width: 86%;
