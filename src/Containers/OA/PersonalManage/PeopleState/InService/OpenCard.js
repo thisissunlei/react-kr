@@ -13,6 +13,9 @@ class OpenCard extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+        this.state = {
+            employees:{},
+        }
 	}
     
      onSubmit=(values)=>{
@@ -24,7 +27,21 @@ class OpenCard extends React.Component{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
-
+    componentWillReceiveProps(nextProps) {
+        var flog = false;
+        for(let i in nextProps.employees){
+            if(nextProps.employees[i]){
+                flog = true;
+                break;
+            }
+        }
+        if(flog){
+             this.setState({
+                employees:nextProps.employees,
+            })
+        }
+       
+    }
 
 	render(){
        
