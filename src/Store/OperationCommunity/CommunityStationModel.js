@@ -75,7 +75,7 @@ State.stationSubmit=action(function(params){
 	data.page = page==1 ? 1 : this.searchParams.page;
 	data.time = +new Date();
 	data.communityId = this.communityId;
-	console.log(data,"<<<<<<")
+	
 	Http.request('station-edit',{},params).then(function(response) {
 	 _this.openStationEdit = false;
 	 _this.openStation = false;
