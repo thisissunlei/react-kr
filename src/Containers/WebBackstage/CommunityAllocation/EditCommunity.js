@@ -246,7 +246,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 pictureMemory={'300'}
                                 requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                 inline={false}
-                                formfile=' '
+                                formfile='file '
                                 defaultValue={stationValue}
                                 center='center'
                             />

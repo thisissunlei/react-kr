@@ -12,16 +12,17 @@ import refresh from "./images/refresh.svg";
 import deleteImg from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
 import WrapComponent from '../WrapComponent';
-
+import PropTypes from 'prop-types'
 export default class UploadImageComponent extends Component {
 	static defaultProps = {
-
+			
 	}
 
 
-	static PropTypes = {
-		className: React.PropTypes.string,
-		onDeleteImg: React.PropTypes.func,
+	static propTypes = {
+		className : PropTypes.string,
+		onDeleteImg : PropTypes.func,
+		
 	}
 	constructor(props,context){
 		super(props,context);
@@ -35,6 +36,7 @@ export default class UploadImageComponent extends Component {
 			operateImg :false,
 			files :{},
 			imageStatus : true,
+
 
 			isInit:true
 		}
@@ -85,7 +87,7 @@ export default class UploadImageComponent extends Component {
 				imgSrc:defaultValue
 		  });
 		}
-		
+
 	}
 
 	onTokenError() {
@@ -193,7 +195,8 @@ export default class UploadImageComponent extends Component {
 			return;
 		}
 		var form = new FormData();
-		form.append('file', file);
+
+		form.append(formfile, file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
@@ -273,7 +276,7 @@ export default class UploadImageComponent extends Component {
 											const {input}=_this.props;
 								            input.onChange(xhrfile.response.data);
 										}else{
-											
+
 										 	if(xhrfile.response.data instanceof Array){
 											 _this.refs.uploadImage.src = xhrfile.response.data[0].ossHref;
 											 const {input}=_this.props;
@@ -303,15 +306,15 @@ export default class UploadImageComponent extends Component {
 													});
 			                         }
 							}else{
-								 
+
 									let deviationW = 50;
 									let deviationH = 50;
 									var realWidth = Number(photoSize.substr(0,photoSize.indexOf("*")));
 									var realHeight =Number(photoSize.substr(photoSize.indexOf("*")+1));
 									if((
-										width >= (realWidth-deviationW) && 
-										width <= (realWidth+deviationW)) && 
-										(height >= (realHeight-deviationH) && 
+										width >= (realWidth-deviationW) &&
+										width <= (realWidth+deviationW)) &&
+										(height >= (realHeight-deviationH) &&
 										height <= (realHeight+deviationH)
 										)){
 									_this.refs.uploadImage.src = xhrfile.response.data;
