@@ -7,7 +7,8 @@ import {
     ButtonGroup,
     Button
 } from 'kr-ui';
-import {reduxForm}  from 'redux-form';
+import {reduxForm,change}  from 'redux-form';
+import {Store} from 'kr/Redux';
 import './index.less';
 
 class AddPerson  extends React.Component{
@@ -15,6 +16,10 @@ class AddPerson  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 	}
+
+    componentDidMount(){
+        Store.dispatch(change('AddPerson','sex','MALE'))
+    }
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -41,20 +46,20 @@ class AddPerson  extends React.Component{
 
                        <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="name"
                             component="input"
                             label="姓名"
                             requireLabel={true}
 						/>
                        
-                         <KrField grid={1/2} style={{width:262,marginLeft:28}} name="enable" component="group" label="性别" requireLabel={true}>
- 							 <KrField name="enable" label="男" type="radio" value='1' />
- 							 <KrField name="enable" label="女" type="radio" value='0' />
+                         <KrField grid={1/2} style={{width:262,marginLeft:28}} name="sex" component="group" label="性别" requireLabel={true}>
+ 							 <KrField name="sex" label="男" type="radio" value='MALE' />
+ 							 <KrField name="sex" label="女" type="radio" value='FAMALE' />
  						</KrField>
 
                           <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="mobilePhone"
                             component="input"
                             label="手机号"
                             requireLabel={true}
@@ -64,7 +69,7 @@ class AddPerson  extends React.Component{
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="code"
                             component="input"
                             label="人员编号"
                             requireLabel={true}
@@ -72,7 +77,7 @@ class AddPerson  extends React.Component{
                         <KrField
                             grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="depId"
                             component="selectTree"
                             label="部门"
                             requireLabel={true}
@@ -80,7 +85,7 @@ class AddPerson  extends React.Component{
                         
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="selectTree"
+                            name="leader"
                             component="selectTree"
                             label="直接上级"
                             requireLabel={true}
@@ -88,14 +93,14 @@ class AddPerson  extends React.Component{
 
                          <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="jobId"
                             component="input"
                             label="职务"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="levelId"
                             component="input"
                             label="职级"
                             requireLabel={true}
@@ -103,21 +108,22 @@ class AddPerson  extends React.Component{
 
                          <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="entryDate"
                             component="date"
                             label="入职时间"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
-                            component="select"
+                            name="status"
+                            component="selecTemployees"
                             label="员工属性"
                             requireLabel={true}
+
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="type"
                             component="select"
                             label="员工类别"
                             requireLabel={true}
