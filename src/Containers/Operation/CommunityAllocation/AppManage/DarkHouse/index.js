@@ -81,7 +81,6 @@ export default class DarkHouse extends React.Component {
 		let {
 			itemDetail
 		} = this.state;
-		console.log(itemDetail);
 		var _this = this;
 		Http.request('punish-release', {},{
 			id: itemDetail.id
