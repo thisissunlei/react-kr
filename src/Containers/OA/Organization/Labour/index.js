@@ -27,12 +27,16 @@ import {
 	Message,
 	SliderTree,
 } from 'kr-ui';
-import './index.less';
+
 import SearchForm from './SearchForm';
 import CreateDialog from './Createdialog';
 import EditDialog from './Editdialog';
 import Viewdialog from './Viewdialog';
 import CancelDialog from './CancelDialog';
+
+
+
+import './index.less';
 
 @inject("NavModel")
 @observer
