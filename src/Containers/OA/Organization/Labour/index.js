@@ -48,40 +48,40 @@ export default class Labour extends React.Component {
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				orgId:'1',
-				orgType:"ROOT",
-				dimId:this.props.params.dimId,
-				openAddPersonal:false,
+				orgId: '1',
+				orgType: "ROOT",
+				dimId: this.props.params.dimId,
+				openAddPersonal: false,
 			},
-			data:{},
-			itemDetail:{},
+			data: {},
+			itemDetail: {},
 			openCreateDialog: false,
 			openEditDialog: false,
-			openViewDialog:false,
-			tabSelect:1,
-			openCancelDialog:false,
-			newPage:1,
-			treeData:[],
-			renderTree:false,
-			openUnCancelDialog:false,
-			dimData:[],
-			searchKey:'',
-			dimId:this.props.params.dimId,
-			dimName:'',
-			stlyeBool:false,
-			selectStyle:{
-				'display':'none'
+			openViewDialog: false,
+			tabSelect: 1,
+			openCancelDialog: false,
+			newPage: 1,
+			treeData: [],
+			renderTree: false,
+			openUnCancelDialog: false,
+			dimData: [],
+			searchKey: '',
+			dimId: this.props.params.dimId,
+			dimName: '',
+			stlyeBool: false,
+			selectStyle: {
+				'display': 'none'
 			},
-			update:new Date(),
+			update: new Date(),
 		}
 	}
-	checkTab=(item)=>{
-			this.setState({
-				tabSelect:item,
-			})
+	checkTab = (item) => {
+		this.setState({
+			tabSelect: item,
+		})
 	}
-  componentDidMount(){
-		const {NavModel} = this.props;
+	componentDidMount() {
+		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
 		var dimId = this.props.params.dimId;
 		var _this = this;
@@ -101,31 +101,44 @@ export default class Labour extends React.Component {
 		// 	})
 		// }).catch(function(err) {});
 		Http.request('extra-list', {
-              dimId:dimId
-          }).then(function(response) {
-              _this.setState({dimData: response.items})
-          }).catch(function(err) {});
+			dimId: dimId
+		}).then(function (response) {
+			_this.setState({ dimData: response.items })
+		}).catch(function (err) { });
 
-		  Http.request('dim-detail', {
-              id:dimId
-          }).then(function(response) {
-              _this.setState({dimName: response.name})
-          }).catch(function(err) {});
 
-		  this.initSelect();
+		this.getDimensionalityDetail();
+
+		this.initSelect();
+
+		this.getTreeData();
 	}
-	componentWillUnmount(){
+
+	//获取维度信息
+	getDimensionalityDetail = () => {
+
+		const that = this;
+		const { params } = this.props;
+		const id = params.dimId;
+
+		Http.request('dim-detail', { id }).then(function (response) {
+			that.setState({ dimName: response.name })
+		}).catch(function (err) { });
+
+	}
+
+	componentWillUnmount() {
 		window.removeEventListener("click", this.controlSelect, false);
 	}
-	initSelect=(e)=>{
-		window.addEventListener("click",this.controlSelect);
+	initSelect = (e) => {
+		window.addEventListener("click", this.controlSelect);
 	}
-	controlSelect=()=>{
+	controlSelect = () => {
 		this.setState({
-			selectStyle:{
-				'display':'none'
+			selectStyle: {
+				'display': 'none'
 			},
-			stlyeBool:false,
+			stlyeBool: false,
 		})
 	}
 	//操作相关
@@ -136,26 +149,26 @@ export default class Labour extends React.Component {
 
 		if (type == 'cancle') {
 			this.openCancelDialog();
-		}else if (type == 'unCancle') {
+		} else if (type == 'unCancle') {
 			this.openUnCancelDialog();
 		}
 	}
-	renderTree=()=>{
+	renderTree = () => {
 		this.setState({
-			renderTree:true,
+			renderTree: true,
 		})
 	}
-	openCancelDialog=(detail)=>{
+	openCancelDialog = (detail) => {
 
 		this.setState({
 			openCancelDialog: !this.state.openCancelDialog,
-			itemDetail:detail,
+			itemDetail: detail,
 		})
 	}
-	openUnCancelDialog=(detail)=>{
+	openUnCancelDialog = (detail) => {
 		this.setState({
 			openUnCancelDialog: !this.state.openUnCancelDialog,
-			itemDetail:detail,
+			itemDetail: detail,
 		})
 	}
 	openViewDialog = () => {
@@ -173,267 +186,324 @@ export default class Labour extends React.Component {
 			openEditDialog: !this.state.openEditDialog
 		})
 	}
+
 	onCreatSubmit = (params) => {
+
 		var _this = this;
-		// form.dimId = this.props.params.dimId;
-		Http.request('save-junior', {}, params).then(function(response) {
+		Http.request('save-junior', {}, params).then(function (response) {
+
 			_this.openCreateDialog();
 			_this.updateTime();
 			Message.success('新建成功');
 			_this.changeP();
-		}).catch(function(err) {
+
+			_this.getTreeData();
+
+
+		}).catch(function (err) {
 			Message.error(err.message)
 		});
 
 	}
-	updateTime=()=>{
+	updateTime = () => {
 		this.setState({
-			update:new Date(),
+			update: new Date(),
 		})
 	}
+
+	getOrganizationDetail = ()=>{
+
+		const {searchParams} = this.state;
+
+		const that = this;
+
+		Http.request('org-detail', searchParams).then(function (response) {
+
+			const data = {};
+
+			data.orgName = response.orgName;
+
+			that.setState({
+				data
+			});
+
+		}).catch(function (err) {
+
+		});
+
+	}
+
+
+
+
 	onEditSubmit = (params) => {
+
 		var _this = this;
-		               //params.publishTime=DateFormat(params.publishTime,"yyyy-mm-dd hh:MM:ss")
-		Http.request('org-update', {}, params).then(function(response) {
+
+		Http.request('org-update', {}, params).then(function (response) {
+
+
 			_this.openEditDialog();
-			Message.success('修改成功');
 			_this.changeP();
-		}).catch(function(err) {
+			_this.getTreeData();
+			_this.getOrganizationDetail();
+
+			Message.success('修改成功');
+
+		}).catch(function (err) {
 			Message.error(err.message)
 		});
+
 	}
-	onCancelSubmit=()=>{
+	onCancelSubmit = () => {
 		let {
 			itemDetail
 		} = this.state;
 		var _this = this;
-		Http.request('org-cancel',{},{
+		Http.request('org-cancel', {}, {
 			orgId: itemDetail.juniorId,
-			orgType:itemDetail.juniorType=="分部"?'SUBCOMPANY':'DEPARTMENT',
+			orgType: itemDetail.juniorType == "分部" ? 'SUBCOMPANY' : 'DEPARTMENT',
 			status: '0'
-		}).then(function(response) {
+		}).then(function (response) {
 			_this.openCancelDialog();
 			Message.success('封存成功');
 			_this.changeP();
-		}).catch(function(err) {
+		}).catch(function (err) {
 			_this.openCancelDialog();
 			Message.error(err.message)
 		});
 	}
-	onUnCancelSubmit=()=>{
+	onUnCancelSubmit = () => {
 		let {
 			itemDetail
 		} = this.state;
 		var _this = this;
-		Http.request('org-cancel', {},{
+		Http.request('org-cancel', {}, {
 			orgId: itemDetail.juniorId,
-			orgType:itemDetail.juniorType=="分部"?'SUBCOMPANY':'DEPARTMENT',
+			orgType: itemDetail.juniorType == "分部" ? 'SUBCOMPANY' : 'DEPARTMENT',
 			status: '1'
-		}).then(function(response) {
+		}).then(function (response) {
 			_this.openUnCancelDialog();
 			Message.success('解封成功');
 			_this.changeP();
-		}).catch(function(err) {
+		}).catch(function (err) {
 			_this.openUnCancelDialog();
 			Message.error(err.message);
 		});
 	}
 	//改变页码
-    changeP=()=>{
-        var timer = new Date();
-		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.timer=timer;
+	changeP = () => {
+		var timer = new Date();
+		var searchParams = Object.assign({}, this.state.searchParams);
+		searchParams.timer = timer;
 		this.setState({
-            searchParams:searchParams,
-        })
-    }
-	onPageChange=(page)=>{
-		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.page=page;
+			searchParams: searchParams,
+		})
+	}
+	onPageChange = (page) => {
+		var searchParams = Object.assign({}, this.state.searchParams);
+		searchParams.page = page;
 		this.setState({
-            searchParams:searchParams,
-        })
-    }
+			searchParams: searchParams,
+		})
+	}
 	onSerchSubmit = (form) => {
 		this.setState({
-			searchParams:{
+			searchParams: {
 				page: 1,
 				pageSize: 15,
-				orgId:'1',
-				orgType:"ROOT",
-				dimId:this.props.params.dimId,
-				nameAndEmail:form.content,
+				orgId: '1',
+				orgType: "ROOT",
+				dimId: this.props.params.dimId,
+				nameAndEmail: form.content,
 			}
 		})
 	}
-	onSelect=(data)=>{
+	onSelect = (data) => {
+
 		this.setState({
-			searchParams:{
+			data,
+			searchParams: {
 				page: 1,
 				pageSize: 15,
-				orgId:data.orgId,
-				orgType:data.treeType,
-			},
-			data:data
-		})
-	}
-	onCheck=()=>{
+				orgId: data.orgId,
+				orgType: data.treeType,
+			}
+		});
 
 	}
-	toOtherDim=(item)=>{
+
+	onCheck = () => {
+
+	}
+
+	toOtherDim = (item) => {
 		var dimId = item.id;
 		this.setState({
-			selectStyle:{
-				'display':'none'
+			selectStyle: {
+				'display': 'none'
 			},
-			stlyeBool:false,
-		},function(){
-			window.location.href=`./#/oa/organization/${dimId}/labour`;
+			stlyeBool: false,
+		}, function () {
+			window.location.href = `./#/oa/organization/${dimId}/labour`;
 		})
 	}
-	renderDimList=(item,index)=>{
+	renderDimList = (item, index) => {
 		return (
-			<span onClick={this.toOtherDim.bind(this,item)} key={index} className="item">
-					{item.name}
+			<span onClick={this.toOtherDim.bind(this, item)} key={index} className="item">
+				{item.name}
 			</span>
 		)
 	}
-	change = (event) =>{
+	change = (event) => {
 		this.setState({
-			searchKey:event.target.value,
+			searchKey: event.target.value,
 		})
 	}
-	clickSelect=()=>{
+	clickSelect = () => {
 		this.setState({
-			selectStyle:{
-				'display':'inline-block'
+			selectStyle: {
+				'display': 'inline-block'
 			},
-			stlyeBool:true,
+			stlyeBool: true,
 		})
 	}
-	allClose=()=>{
+
+	allClose = () => {
 		this.setState({
-			openAddPerson:false
+			openAddPerson: false
 		})
 	}
-	openAddPerson=()=>{
+
+	openAddPerson = () => {
 		this.setState({
-			openAddPerson:!this.state.openAddPerson,
+			openAddPerson: !this.state.openAddPerson,
 		})
 	}
+
+	getTreeData = () => {
+		const params = { id: this.props.params.dimId }
+
+		const _this = this;
+
+		Http.request("org-list", params).then(function (response) {
+			_this.setState({
+				treeData: [response],
+			});
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
+	}
+
 	render() {
-		let {itemDetail,data,dimId,styleBool,update} = this.state;
+		let { itemDetail, data, dimId, styleBool, update } = this.state;
 		var logFlag = '';
 		var style = {};
 		return (
 			<div className="g-oa-labour">
-					<div className="left">
-						<div className="header">
-							<span className="title" style={{'backgroundColor':`${this.state.stlyeBool?'#fff':''}`}} onClick={(event)=>{
-									event.stopPropagation();							
-									this.clickSelect();
-								}}>
-								<span className="title-text">{this.state.dimName}</span>
-								<span className="title-list" style={this.state.selectStyle}>
-									{this.state.dimData.map((item,index)=>{return this.renderDimList(item,index)})}
-									<span className="item">
-										下级机构
+				<div className="left">
+					<div className="header">
+						<span className="title" style={{ 'backgroundColor': `${this.state.stlyeBool ? '#fff' : ''}` }} onClick={(event) => {
+							event.stopPropagation();
+							this.clickSelect();
+						}}>
+							<span className="title-text">{this.state.dimName}</span>
+							<span className="title-list" style={this.state.selectStyle}>
+								{this.state.dimData.map((item, index) => { return this.renderDimList(item, index) })}
+								<span className="item">
+									下级机构
 									</span>
-									<span className="item">
-										人员信息
+								<span className="item">
+									人员信息
 									</span>
-								</span>
-								<span className="square">
+							</span>
+							<span className="square">
 
-								</span>
 							</span>
-							
-								
-							
-						</div>
-						<div className="search"> 
-							<input type="text" onChange = {this.change} placeholder="输入机构名称" />
-							<span className="searching">
-								
-							</span>
-						</div>
-						<div className="oa-tree">
-							<SliderTree 
-								onSelect = {this.onSelect}  
-								onCheck={this.onCheck}
-								ajaxUrlName = {"org-list"}
-								params = {{id:this.props.params.dimId}}
-								type = "department-radio"
-								searchKey = {this.state.searchKey}
-								update={update}
-							/>
-						</div>
+						</span>
+
 					</div>
-					<div className="right">
-						<div className="center-row">
-							<div className="department">
-								<div className="department-logo">
+					<div className="search">
+						<input type="text" onChange={this.change} placeholder="输入机构名称" />
+						<span className="searching">
 
-								</div>
-								<div className="department-name">
-									{this.state.data.orgName || '36Kr'}
-								</div>
-								<div className="department-tab-list">
-									<div className={`department-tab ${this.state.tabSelect==1?'department-tab-active':''}`} onClick={this.checkTab.bind(this,1)}> 
-										下级机构
-									</div>
-									<div className={`department-tab ${this.state.tabSelect==2?'department-tab-active':''}`} onClick={this.checkTab.bind(this,2)}> 
-										人员信息
-									</div>
-								</div>
-								
+						</span>
+					</div>
+					<div className="oa-tree">
+						<SliderTree
+							onSelect={this.onSelect}
+							onCheck={this.onCheck}
+							type="department-radio"
+							treeData={this.state.treeData}
+							searchKey={this.state.searchKey}
+						/>
+					</div>
+				</div>
+				<div className="right">
+					<div className="center-row">
+						<div className="department">
+							<div className="department-logo">
+
 							</div>
-							
-								{this.state.searchParams.orgType!='ROOT'&&
-									<div className="button-group">
-										<div className="btn-center">
-											<Button
-												label="编辑"
-												type="button"
-												onTouchTap={this.openEditDialog}
-												height={30}
-												width={80}
-												backgroundColor='#fcfcfc'
-												labelColor='#666'
-												shadow="no"
-											/>
-										</div>
-										<Button
-											label="查看"
-											type="button"
-											onTouchTap={this.openViewDialog}
-											height={30}
-											width={80}
-											backgroundColor='#fcfcfc'
-											labelColor='#666'
-											shadow="no"
-      									/>
+							<div className="department-name">
+								{this.state.data.orgName || '36Kr'}
+							</div>
+							<div className="department-tab-list">
+								<div className={`department-tab ${this.state.tabSelect == 1 ? 'department-tab-active' : ''}`} onClick={this.checkTab.bind(this, 1)}>
+									下级机构
 									</div>
-								}
-								
-								
-								
-							
+								<div className={`department-tab ${this.state.tabSelect == 2 ? 'department-tab-active' : ''}`} onClick={this.checkTab.bind(this, 2)}>
+									人员信息
+									</div>
+							</div>
+
 						</div>
-					{this.state.tabSelect==1 &&
-							<div>
-								<Grid style={{marginBottom:20,marginTop:20}}>
-									<Row>
+
+						{this.state.searchParams.orgType != 'ROOT' &&
+							<div className="button-group">
+								<div className="btn-center">
+									<Button
+										label="编辑"
+										type="button"
+										onTouchTap={this.openEditDialog}
+										height={30}
+										width={80}
+										backgroundColor='#fcfcfc'
+										labelColor='#666'
+										shadow="no"
+									/>
+								</div>
+								<Button
+									label="查看"
+									type="button"
+									onTouchTap={this.openViewDialog}
+									height={30}
+									width={80}
+									backgroundColor='#fcfcfc'
+									labelColor='#666'
+									shadow="no"
+								/>
+							</div>
+						}
+
+
+
+
+					</div>
+					{this.state.tabSelect == 1 &&
+						<div>
+							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
+								<Row>
 									<Col md={4} align="left" >
-											<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}/>
+										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14} />
 									</Col>
 									<Col md={8} align="right">
-										
+
 									</Col>
-									</Row>
-								</Grid>
+								</Row>
+							</Grid>
 							<Table
-								style={{marginTop:10}}
+								style={{ marginTop: 10 }}
 								displayCheckbox={false}
 								onLoaded={this.onLoaded}
 								ajax={true}
@@ -442,189 +512,189 @@ export default class Labour extends React.Component {
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
 							>
-							<TableHeader>
-							<TableHeaderColumn>ID</TableHeaderColumn>
-							<TableHeaderColumn>下级名称</TableHeaderColumn>
-							<TableHeaderColumn>下级类型</TableHeaderColumn>
-							<TableHeaderColumn>状态</TableHeaderColumn>
-							<TableHeaderColumn>创建日期</TableHeaderColumn>
-					<TableHeaderColumn>操作</TableHeaderColumn>
-						</TableHeader>
+								<TableHeader>
+									<TableHeaderColumn>ID</TableHeaderColumn>
+									<TableHeaderColumn>下级名称</TableHeaderColumn>
+									<TableHeaderColumn>下级类型</TableHeaderColumn>
+									<TableHeaderColumn>状态</TableHeaderColumn>
+									<TableHeaderColumn>创建日期</TableHeaderColumn>
+									<TableHeaderColumn>操作</TableHeaderColumn>
+								</TableHeader>
 
-						<TableBody>
-							<TableRow>
-								<TableRowColumn name="juniorId" ></TableRowColumn>
+								<TableBody>
+									<TableRow>
+										<TableRowColumn name="juniorId" ></TableRowColumn>
 
-								<TableRowColumn name="juniorName"></TableRowColumn>
-					<TableRowColumn name="juniorType"></TableRowColumn>
-					<TableRowColumn name="status" 
-						component={(value, oldValue) => {
-							
-							if (value == '已封存') {
-								logFlag = true;
-								return (
-									<div style={{color:'#FF5B52'}}>{value}</div>
-								)
-							}else{
-								logFlag = false;
-								return (
-									<div>{value}</div>
-								)
-							}
-                         }}
-					></TableRowColumn>
-					
-					<TableRowColumn type="date" name="createTime" component={(value)=>{
-									return (
-										<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>
-									)
-								}}> </TableRowColumn>
-							<TableRowColumn type="operation" name="status"
-								component={(value, oldValue,itemDetail) => {
-									if (logFlag) {
-										
-										return (
-											<Button onClick={this.openUnCancelDialog.bind(this,itemDetail)} label="解封"  type="operation" operation="unCancle"/>
-										)
-									}else{
-										return (
-											<Button label="封存" onClick={this.openCancelDialog.bind(this,itemDetail)}  type="operation" operation="cancle"/>
-										)
-									}
-								}}
-							>
-							</TableRowColumn>
-							</TableRow>
-						</TableBody>
-						<TableFooter></TableFooter>
-					</Table>
-				</div>
-		}
-		{
-			this.state.tabSelect==2 &&
-			<div>
-					<Grid style={{marginBottom:20,marginTop:20}}>
-									<Row>
+										<TableRowColumn name="juniorName"></TableRowColumn>
+										<TableRowColumn name="juniorType"></TableRowColumn>
+										<TableRowColumn name="status"
+											component={(value, oldValue) => {
+
+												if (value == '已封存') {
+													logFlag = true;
+													return (
+														<div style={{ color: '#FF5B52' }}>{value}</div>
+													)
+												} else {
+													logFlag = false;
+													return (
+														<div>{value}</div>
+													)
+												}
+											}}
+										></TableRowColumn>
+
+										<TableRowColumn type="date" name="createTime" component={(value) => {
+											return (
+												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
+											)
+										}}> </TableRowColumn>
+										<TableRowColumn type="operation" name="status"
+											component={(value, oldValue, itemDetail) => {
+												if (logFlag) {
+
+													return (
+														<Button onClick={this.openUnCancelDialog.bind(this, itemDetail)} label="解封" type="operation" operation="unCancle" />
+													)
+												} else {
+													return (
+														<Button label="封存" onClick={this.openCancelDialog.bind(this, itemDetail)} type="operation" operation="cancle" />
+													)
+												}
+											}}
+										>
+										</TableRowColumn>
+									</TableRow>
+								</TableBody>
+								<TableFooter></TableFooter>
+							</Table>
+						</div>
+					}
+					{
+						this.state.tabSelect == 2 &&
+						<div>
+							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
+								<Row>
 									<Col md={4} align="left" >
-											<Button label="新增员工" type="button" onClick={this.openCreatePerson} width={80} height={30} fontSize={14}/>
+										<Button label="新增员工" type="button" onClick={this.openCreatePerson} width={80} height={30} fontSize={14} />
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
-												<SearchForm onSubmit={this.onSerchSubmit}/>
+											<SearchForm onSubmit={this.onSerchSubmit} />
 										</div>
 									</Col>
-									</Row>
-								</Grid>
-	        		<Table
-							style={{marginTop:10}}
-							displayCheckbox={false}
-							onLoaded={this.onLoaded}
-							ajax={true}
-							ajaxUrlName='hrm-list'
-							ajaxParams={this.state.searchParams}
-							onOperation={this.onOperation}
-							onPageChange={this.onPageChange}
-						>
-						<TableHeader>
-						<TableHeaderColumn>ID</TableHeaderColumn>
-						<TableHeaderColumn>部门名称</TableHeaderColumn>
-						<TableHeaderColumn>人员名称</TableHeaderColumn>
-						<TableHeaderColumn>邮箱</TableHeaderColumn>
-						<TableHeaderColumn>入职日期</TableHeaderColumn>
-						<TableHeaderColumn>状态</TableHeaderColumn>
-					</TableHeader>
+								</Row>
+							</Grid>
+							<Table
+								style={{ marginTop: 10 }}
+								displayCheckbox={false}
+								onLoaded={this.onLoaded}
+								ajax={true}
+								ajaxUrlName='hrm-list'
+								ajaxParams={this.state.searchParams}
+								onOperation={this.onOperation}
+								onPageChange={this.onPageChange}
+							>
+								<TableHeader>
+									<TableHeaderColumn>ID</TableHeaderColumn>
+									<TableHeaderColumn>部门名称</TableHeaderColumn>
+									<TableHeaderColumn>人员名称</TableHeaderColumn>
+									<TableHeaderColumn>邮箱</TableHeaderColumn>
+									<TableHeaderColumn>入职日期</TableHeaderColumn>
+									<TableHeaderColumn>状态</TableHeaderColumn>
+								</TableHeader>
 
-					<TableBody>
-						<TableRow>
-							<TableRowColumn name="hrmId"></TableRowColumn>
-							<TableRowColumn name="departName"></TableRowColumn>
-							<TableRowColumn name="userName"></TableRowColumn>
-							<TableRowColumn name="email"></TableRowColumn>
-							<TableRowColumn type="date" name="entryTime" component={(value)=>{
-								return (
-									<KrDate value={value} format = "yyyy-mm-dd HH:MM:ss" />
-								)
-							}}> </TableRowColumn>
-							<TableRowColumn name="status"
-								component={(value, oldValue) => {
-									if(value=='未开通'){
-										style={'color':'#FF5B52'}
-									}
-									return(
-										<div style={style}>{value}</div>
-									)
-                         		}}
-							></TableRowColumn>
-						 </TableRow>
-					</TableBody>
-					<TableFooter></TableFooter>
-					</Table>
-			</div>
-		}
-		</div>
-        <Dialog 
-            title={`查看${data.orgName?data.orgName:'36Kr'}`}
-            modal={true} 
-            open={this.state.openViewDialog} 
-            onClose={this.openViewDialog} 
-            contentStyle={{
-                width: 374
-            }}
-        >
-                <Viewdialog detail={this.state.searchParams} onCancel={this.openViewDialog} />
-        </Dialog>
-        <Dialog 
-                title={`编辑${data.orgName?data.orgName:'36Kr'}`}
-                modal={true} 
-                open={this.state.openEditDialog} 
-                onClose={this.openEditDialog} 
-                contentStyle={{
-                    width: 685
-                }}
-        >
-                <EditDialog detail={this.state.searchParams} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
-        </Dialog>
-		<Dialog 
-                title="提示" 
-                modal={true} 
-                open={this.state.openCancelDialog} 
-                onClose={this.openCancelDialog} 
-                contentStyle={{
-                    width: 374
-                }}
-        >
-                <CancelDialog detail={this.state.itemDetail} onSubmit={this.onCancelSubmit} onCancel={this.openCancelDialog} />
-        </Dialog>
-		<Dialog 
-                title="提示" 
-                modal={true} 
-                open={this.state.openUnCancelDialog} 
-                onClose={this.openUnCancelDialog} 
-                contentStyle={{
-                    width: 374
-                }}
-        >
-                <UnCancelDialog detail={this.state.itemDetail} onSubmit={this.onUnCancelSubmit} onCancel={this.openUnCancelDialog} />
-        </Dialog>
-		<Dialog 
-                title="新建下级" 
-                modal={true} 
-                open={this.state.openCreateDialog} 
-                onClose={this.openCreateDialog} 
-                contentStyle={{
-                    width: 685
-                }}
-        >
-                <CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
-        </Dialog>
-		{/*新建用户*/}
-		{/*<AddPostPeople 
+								<TableBody>
+									<TableRow>
+										<TableRowColumn name="hrmId"></TableRowColumn>
+										<TableRowColumn name="departName"></TableRowColumn>
+										<TableRowColumn name="userName"></TableRowColumn>
+										<TableRowColumn name="email"></TableRowColumn>
+										<TableRowColumn type="date" name="entryTime" component={(value) => {
+											return (
+												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
+											)
+										}}> </TableRowColumn>
+										<TableRowColumn name="status"
+											component={(value, oldValue) => {
+												if (value == '未开通') {
+													style = { 'color': '#FF5B52' }
+												}
+												return (
+													<div style={style}>{value}</div>
+												)
+											}}
+										></TableRowColumn>
+									</TableRow>
+								</TableBody>
+								<TableFooter></TableFooter>
+							</Table>
+						</div>
+					}
+				</div>
+				<Dialog
+					title={`查看${data.orgName ? data.orgName : '36Kr'}`}
+					modal={true}
+					open={this.state.openViewDialog}
+					onClose={this.openViewDialog}
+					contentStyle={{
+						width: 374
+					}}
+				>
+					<Viewdialog detail={this.state.searchParams} onCancel={this.openViewDialog} />
+				</Dialog>
+				<Dialog
+					title={`编辑${data.orgName ? data.orgName : '36Kr'}`}
+					modal={true}
+					open={this.state.openEditDialog}
+					onClose={this.openEditDialog}
+					contentStyle={{
+						width: 685
+					}}
+				>
+					<EditDialog detail={this.state.searchParams} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
+				</Dialog>
+				<Dialog
+					title="提示"
+					modal={true}
+					open={this.state.openCancelDialog}
+					onClose={this.openCancelDialog}
+					contentStyle={{
+						width: 374
+					}}
+				>
+					<CancelDialog detail={this.state.itemDetail} onSubmit={this.onCancelSubmit} onCancel={this.openCancelDialog} />
+				</Dialog>
+				<Dialog
+					title="提示"
+					modal={true}
+					open={this.state.openUnCancelDialog}
+					onClose={this.openUnCancelDialog}
+					contentStyle={{
+						width: 374
+					}}
+				>
+					<UnCancelDialog detail={this.state.itemDetail} onSubmit={this.onUnCancelSubmit} onCancel={this.openUnCancelDialog} />
+				</Dialog>
+				<Dialog
+					title="新建下级"
+					modal={true}
+					open={this.state.openCreateDialog}
+					onClose={this.openCreateDialog}
+					contentStyle={{
+						width: 685
+					}}
+				>
+					<CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
+				</Dialog>
+				{/*新建用户*/}
+				{/*<AddPostPeople 
 			onCancel={this.openAddPerson}
 			onSubmit={this.addPersonSubmit}
 			open={this.state.openAddPerson} 
 			onClose={this.allClose}  
 		/>*/}
-</div>
+			</div>
 		);
 	}
 

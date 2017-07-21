@@ -30,35 +30,16 @@ export default class SliderTree extends React.Component {
 			update:this.props.update
 		}
 
-		this.getTreeData();
-
 		this.params = {};
 		this.onlyKey = 0;
+
+		this.filterKeys = [];
 
 	}
 	//点击选择事件
 	onSelect = (item) => {
 		let { onSelect } = this.props;
 		onSelect && onSelect(item);
-	}
-	getTreeData = () => {
-
-		let { ajaxUrlName, params } = this.props;
-
-		params = params || {};
-		this.params = Object.assign({},params);
-		const _this = this;
-		Http.request(ajaxUrlName, params).then(function (response) {
-
-			_this.setState({
-				treeData: [response],
-			});
-			_this.filterKeys = [];
-
-		}).catch(function (err) {
-			Message.error(err.message);
-		});
-
 	}
 
 	filterTreeNode = (treeNode) => {
@@ -111,7 +92,6 @@ export default class SliderTree extends React.Component {
 			this.setState({
 				update:nextProps.update
 			})
-			console.log("打印个东西");
 			paramsChange=true;
 		}
 		if(paramsChange){
@@ -122,8 +102,8 @@ export default class SliderTree extends React.Component {
 
 	render() {
 
-		const { title, type } = this.props;
-		const { treeData } = this.state;
+		const { title, type,treeData } = this.props;
+
 		var that = this;
 
 		const loop = (data,parentIndex=0) => {
@@ -146,7 +126,6 @@ export default class SliderTree extends React.Component {
 			});
 
 		};
-
 
 		let expandedKeys = this.state.expandedKeys;
 		let autoExpandParent = this.state.autoExpandParent;
