@@ -68,6 +68,9 @@ export default class Labour extends React.Component {
 			searchKey:'',
 			dimId:this.props.params.dimId,
 			dimName:'',
+			selectStyle:{
+				'display':'none'
+			},
 		}
 	}
 	checkTab=(item)=>{
@@ -107,6 +110,21 @@ export default class Labour extends React.Component {
           }).then(function(response) {
               _this.setState({dimName: response.name})
           }).catch(function(err) {});
+
+		  this.initSelect();
+	}
+	componentWillUnmount(){
+		window.removeEventListener("click", this.controlSelect, false);
+	}
+	initSelect=(e)=>{
+		window.addEventListener("click",this.controlSelect);
+	}
+	controlSelect=()=>{
+		this.setState({
+			selectStyle:{
+				'display':'none'
+			},
+		})
 	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
@@ -272,6 +290,13 @@ export default class Labour extends React.Component {
 			searchKey:event.target.value,
 		})
 	}
+	clickSelect=()=>{
+		this.setState({
+			selectStyle:{
+				'display':'inline-block'
+			},
+		})
+	}
 	render() {
 		console.log(this.state.itemDetail);
 		let {itemDetail,data,dimId} = this.state;
@@ -280,6 +305,32 @@ export default class Labour extends React.Component {
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
+						<div className="header">
+							<span className="title" onClick={(event)=>{
+									event.stopPropagation();							
+									this.clickSelect();
+								}}>
+								<span className="title-text">{this.state.dimName}</span>
+								<span className="title-list" style={this.state.selectStyle}>
+									<span className="top-square">
+
+									</span>
+									{this.state.dimData.map((item,index)=>{return this.renderDimList(item,index)})}
+									<span className="item">
+										下级机构
+									</span>
+									<span className="item">
+										人员信息
+									</span>
+								</span>
+								<span className="square">
+
+								</span>
+							</span>
+							
+								
+							
+						</div>
 						<div className="search"> 
 							<input type="text" onChange = {this.change} placeholder="输入机构名称" />
 							<span className="searching">
@@ -297,28 +348,6 @@ export default class Labour extends React.Component {
 						</div>
 					</div>
 					<div className="right">
-						<div className="header">
-							<span className="title">
-								{this.state.dimName}
-								<span className="title-list">
-									<span className="top-square">
-
-									</span>
-									{this.state.dimData.map((item,index)=>{return this.renderDimList(item,index)})}
-									<span className="item">
-										下级机构
-									</span>
-									<span className="item">
-										人员信息
-									</span>
-								</span>
-							</span>
-							
-								<span className="square">
-
-								</span>
-							
-						</div>
 						<div className="center-row">
 							<div className="department">
 								<div className="department-logo">
