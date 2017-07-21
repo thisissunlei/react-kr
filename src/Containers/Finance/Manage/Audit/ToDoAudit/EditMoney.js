@@ -62,7 +62,9 @@ class EditMoney extends React.Component {
 			Loading: false,
 			topInfoList:[],
 			//我司账户的名称
-			accountNum:''
+			accountNum:'',
+			//新旧我司id
+			oldId:''
 		}
 		this.getDetailInfo();
 		this.getInfo();
@@ -78,6 +80,11 @@ class EditMoney extends React.Component {
 	}
 
 	accountChange=(param)=>{
+		if(!param){
+	      this.setState({
+			oldId:''
+		 })  
+		}
         this.setState({
 			accountNum:param.accountNum
 		})
@@ -108,7 +115,8 @@ class EditMoney extends React.Component {
 					infoList: response,
 					flowAmount: response.flowAmount.replace(/,/gi,''),
 					corporationId: response.corporationId,
-					accountNum:response.accountNum
+					accountNum:response.accountNum,
+					oldId:(response.accountId==-1)?response.accountNum:''
 				})
 				var form = {
 					"value": response.payWay
@@ -763,7 +771,8 @@ class EditMoney extends React.Component {
 				accountList,
 				infoList,
 				Loading,
-				topInfoList
+				topInfoList,
+				oldId
 			} = this.state;
 			return (
 				<div className="u-audit-add u-audit-edit">
@@ -829,6 +838,8 @@ class EditMoney extends React.Component {
 								label="我司账户"
 								options={accountList}
 								requireLabel={true}
+								isPlace={true}
+								placeholder={oldId?oldId:'请选择'}
 								onChange={this.accountChange}
 
 						/>

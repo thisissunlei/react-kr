@@ -56,6 +56,7 @@ import DivTitle from './DivTitle';
 import Nothing from './Nothing';
 import PlanMapAll from './PlanMapAll';
 import ToTop from './ToTop';
+import Chip from './Chip';
 
 import {
 	Grid,
@@ -154,5 +155,6 @@ module.exports = {
 	...PlanMap,
 	ToTop,
 	CheckPermission,
-	TextLabel
+	TextLabel,
+	Chip
 }
