@@ -17,6 +17,7 @@
   "devDependencies": {
     "@types/selenium-webdriver": "2.44.26",
     "Promise": "1.0.5",
+    "autoprefixer": "^7.1.2",
     "babel-cli": "6.7.7",
     "babel-core": "6.7.7",
     "babel-eslint": "6.1.2",
@@ -88,6 +89,10 @@
     "nodemon": "1.10.0",
     "open": "0.0.5",
     "phone-regex": "2.0.0",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^10.0.0",
+    "postcss-loader": "^2.0.6",
+    "precss": "^2.0.0",
     "promise-polyfill": "6.0.2",
     "rc-tooltip": "^3.4.3",
     "react": "15.3.2",
