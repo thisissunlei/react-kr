@@ -1,0 +1,5 @@
+[
+  {"value":"HEALTHY","label":"健康"},
+  {"value":"SUBHEALTHY","label":"亚健康"},
+  {"value":"UNHEALTHY","label":"非健康"}
+]

@@ -26,6 +26,7 @@ import {
 	KrDate,
 	Message,
 	SliderTree,
+	AddPostPeople
 } from 'kr-ui';
 
 import SearchForm from './SearchForm';
@@ -34,8 +35,6 @@ import EditDialog from './Editdialog';
 import Viewdialog from './Viewdialog';
 import CancelDialog from './CancelDialog';
 import UnCancelDialog from './UnCancelDialog';
-
-
 
 import './index.less';
 
@@ -51,7 +50,8 @@ export default class Labour extends React.Component {
 				pageSize: 15,
 				orgId:'1',
 				orgType:"ROOT",
-				dimId:this.props.params.dimId
+				dimId:this.props.params.dimId,
+				openAddPersonal:false,
 			},
 			data:{},
 			itemDetail:{},
@@ -303,6 +303,16 @@ export default class Labour extends React.Component {
 			stlyeBool:true,
 		})
 	}
+	allClose=()=>{
+		this.setState({
+			openAddPerson:false
+		})
+	}
+	openAddPerson=()=>{
+		this.setState({
+			openAddPerson:!this.state.openAddPerson,
+		})
+	}
 	render() {
 		let {itemDetail,data,dimId,styleBool} = this.state;
 		var logFlag = '';
@@ -403,7 +413,7 @@ export default class Labour extends React.Component {
 						</div>
 					{this.state.tabSelect==1 &&
 							<div>
-								<Grid style={{marginBottom:14,marginTop:14}}>
+								<Grid style={{marginBottom:20,marginTop:20}}>
 									<Row>
 									<Col md={4} align="left" >
 											<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}/>
@@ -484,9 +494,10 @@ export default class Labour extends React.Component {
 		{
 			this.state.tabSelect==2 &&
 			<div>
-					<Grid style={{marginBottom:14,marginTop:14}}>
+					<Grid style={{marginBottom:20,marginTop:20}}>
 									<Row>
 									<Col md={4} align="left" >
+											<Button label="新建人员" type="button" onClick={this.openCreatePerson} width={80} height={30} fontSize={14}/>
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
@@ -597,6 +608,13 @@ export default class Labour extends React.Component {
         >
                 <CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
         </Dialog>
+		{/*新建用户*/}
+		{/*<AddPostPeople 
+			onCancel={this.openAddPerson}
+			onSubmit={this.addPersonSubmit}
+			open={this.state.openAddPerson} 
+			onClose={this.allClose}  
+		/>*/}
 </div>
 		);
 	}
