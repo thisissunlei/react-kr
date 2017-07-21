@@ -126,7 +126,6 @@ export default class PersonalInfo  extends React.Component{
    editSubmit=(params)=>{
        var _this=this;
        Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.personData(params.id);
         }).catch(function(err) {
           Message.error(err.message);
@@ -202,7 +201,6 @@ export default class PersonalInfo  extends React.Component{
    deleteSubmit=()=>{
      var _this=this;
        Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.setState({
 			   familySearchParams:{
 				   time:+new Date()
@@ -224,7 +222,6 @@ export default class PersonalInfo  extends React.Component{
    delWorkSubmit=()=>{
      var _this=this;
        Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.setState({
 			   workSearchParams:{
 				   time:+new Date()
