@@ -10,9 +10,11 @@ import educationType from './educationType.json';
 import entryResource from './entryResource.json';
 import healthyStatus from './healthyStatus.json';
 import householdType from './householdType.json';
-
-
-
+import leaveType from './leaveType.json';
+import maritalStatus from './maritalStatus.json';
+import nation from './nation.json';
+import politicsStatus from './politicsStatus.json';
+import resourceRelation from './resourceRelation.json';
 
 export default class SelecTemployees extends React.Component {
 
@@ -56,8 +58,24 @@ render() {
 				break;
 			//离职类型
 			case "leaveType":
-				data=householdType;
+				data=leaveType;
 				break;
+			//婚姻状况
+			case "maritalStatus":
+				data=maritalStatus;
+				break;
+			//民族
+			case "nation":
+				data=nation;
+				break;
+			//政治面貌
+			case "politicsStatus":
+				data=politicsStatus;
+				break;
+			case "resourceRelation":
+				data=resourceRelation;
+				break;
+
 
 			default:
 				data=temployees;
