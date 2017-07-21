@@ -22,6 +22,7 @@ import {
 import {
 	observer
 } from 'mobx-react';
+import {DateFormat,Http} from 'kr/Utils';
 import './index.less';
 import State from './State';
 @observer
@@ -107,10 +108,10 @@ export default class Synchro extends React.Component {
 					{State.synchroList.map((item,index)=>{
 			        		return (
 				        		<TableRow key={index}>
-					                <TableRowColumn><span className="tableOver">{item.createUser}</span></TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.orderNum}</span></TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.orderNum}</span></TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.id}</span></TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.order}</span></TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{DateFormat(item.syncTime,'yyyy/MM/dd')}</span></TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.status}</span></TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.content}</span></TableRowColumn>
 					            </TableRow>
 					          	);
 			        	})}

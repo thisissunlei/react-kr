@@ -151,7 +151,7 @@ export default class List extends React.Component {
 										TooltipStyle="block";
 									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >
-											{value}
+											<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{value}</div>
 									 	</Tooltip></div>)
 									}
 								 }} > </TableRowColumn>

@@ -288,7 +288,7 @@ export default class List extends React.Component {
 			        </Drawer>
 			        <Drawer
 			             modal={true}
-			             width={750}
+			             width={800}
 			             open={State.openSynchro}
 			             onClose={this.closeSynchro}
 			             openSecondary={true}
