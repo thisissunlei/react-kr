@@ -70,4 +70,11 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/job/add',
       method: 'post'
   },
+  /*====离职列表接口*/
+  //离职列表-列表接口
+  'getLeaveList': {
+      url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
+      method: 'get'
+  },
+
 }

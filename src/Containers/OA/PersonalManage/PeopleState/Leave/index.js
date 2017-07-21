@@ -84,7 +84,7 @@ export default class Leave extends Component{
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName='shareCustomers'
+	            ajaxUrlName='getLeaveList'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
 				onExport={this.onExport}
@@ -102,7 +102,7 @@ export default class Leave extends Component{
 				<TableBody >
 					<TableRow>
 						<TableRowColumn name="intentionCityName" ></TableRowColumn>
-						<TableRowColumn name="stationNum"></TableRowColumn>
+						<TableRowColumn name="name"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
 						<TableRowColumn name="receiveName"></TableRowColumn>
