@@ -1,6 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
+
+const autoprefixer = require('autoprefixer');
+const precss       = require('precss');
+
 const buildPath = path.join(process.cwd(), 'dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -45,7 +49,7 @@ const webpackConfigs = {
 	devServer: {
 		contentBase: buildPath,
 		devtool: 'eval',
-		cache:true,
+		cache: true,
 		port: 8001,
 		outputPath: buildPath,
 		disableHostCheck: true,
@@ -64,10 +68,10 @@ const webpackConfigs = {
 	},
 	plugins: [
 		new webpack.DllReferencePlugin({
-             context:__dirname,
-           	 manifest: require(path.join(buildPath,'vendors/manifest.json')),
-           	 name:'lib'
-        }),
+			context: __dirname,
+			manifest: require(path.join(buildPath, 'vendors/manifest.json')),
+			name: 'lib'
+		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new HappyPack({
 			id: 'jsx',
@@ -139,7 +143,7 @@ const webpackConfigs = {
 			},
 			{
 				test: /\.less$/,
-				loader: "style-loader!css-loader!less-loader"
+				loader: "style-loader!css-loader!postcss-loader?pack=cleaner!less-loader"
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
@@ -162,6 +166,14 @@ const webpackConfigs = {
 				loader: 'file?prefix=font/'
 			}
 		],
+		postcss: function () {
+
+			return {
+				defaults: [autoprefixer, precss],
+				cleaner: [autoprefixer({ browsers: ['IE 10', 'IE 11', 'firefox 20', 'ios_saf 8.4', 'android 4.3'] })]
+			};
+
+		},
 	},
 	eslint: {
 		configFile: path.join(process.cwd(), '.eslintrc'),
