@@ -59,16 +59,6 @@ class Editdialog extends React.Component {
             <div>
               <form onSubmit={handleSubmit(this.onSubmit)} style={{width:262,marginTop:20,paddingLeft:23}}  >
                 <KrField
-                    style={{width:262}}
-                    inline={false}
-                    label="名称"
-                    component="input"
-                    name="orgName"
-                    requireLabel={true}
-                    placeholder="名称"
-                />
-               
-                <KrField
                     style={{width:262,marginTop:6}}
                     inline={false}
                     label="编码"
@@ -78,6 +68,16 @@ class Editdialog extends React.Component {
                     placeholder="编码"
                     value={this.state.infoList.code}
                 />
+                <KrField
+                    style={{width:262}}
+                    inline={false}
+                    label="名称"
+                    component="input"
+                    name="orgName"
+                    requireLabel={true}
+                    placeholder="名称"
+                />
+               
                 <KrField 
                     style={{width:262,marginTop:6}}  
                     name="chargeId" 

@@ -46,7 +46,7 @@ export default class Labour extends React.Component {
 				page: 1,
 				pageSize: 15,
 				orgId:'1',
-				orgType:"DEPARTMENT",
+				orgType:"ROOT",
 			},
 			data:{},
 			itemDetail: '',
@@ -61,6 +61,7 @@ export default class Labour extends React.Component {
 			openUnCancelDialog:false,
 			dimData:[],
 			searchKey:'',
+			dimId:this.props.params.dimId,
 		}
 	}
 	checkTab=(item)=>{
@@ -94,7 +95,6 @@ export default class Labour extends React.Component {
           }).then(function(response) {
               _this.setState({dimData: response.items})
           }).catch(function(err) {});
-		
 	}
 	//操作相关
 	onOperation = (type, itemDetail) => {
@@ -217,6 +217,8 @@ export default class Labour extends React.Component {
 	onSerchSubmit = (form) => {
 		this.setState({
 			searchParams:{
+				page: 1,
+				pageSize: 15,
 				nameAndEmail:form.content,
 			}
 		})
@@ -231,11 +233,14 @@ export default class Labour extends React.Component {
 			},
 			data:data
 		})
-		console.log(data);
 	}
 	toOtherDim=(item)=>{
 		var dimId = item.id;
-		window.open(`./#/oa/organization/${dimId}/labour`, dimId);
+		console.log(item);
+		this.setState({
+			dimId:dimId
+		})
+		//window.open(`./#/oa/organization/${dimId}/labour`, dimId);
 	}
 	renderDimList=(item,index)=>{
 		return (
@@ -251,13 +256,13 @@ export default class Labour extends React.Component {
 	}
 	render() {
 		console.log(this.state.searchParams);
-		let {itemDetail,data} = this.state;
+		let {itemDetail,data,dimId} = this.state;
 		var logFlag = '';
 		return (
 			<div className="g-oa-labour">
 					<div className="left">
 						<div className="search"> 
-							<input type="text" onChange = {this.change} placeholder="ddd" />
+							<input type="text" onChange = {this.change} placeholder="输入机构名称" />
 							<span className="searching">
 								
 							</span>
@@ -266,7 +271,7 @@ export default class Labour extends React.Component {
 							<SliderTree 
 								onSelect = {this.onSelect}  
 								ajaxUrlName = {"org-list"}
-								params = {{id:1}} 
+								params = {{id:this.state.dimId}}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 							/>
@@ -384,6 +389,7 @@ export default class Labour extends React.Component {
 					<TableRowColumn name="juniorType"></TableRowColumn>
 					<TableRowColumn name="status" 
 						component={(value, oldValue) => {
+							
 							if (value == '已封存') {
 								logFlag = true;
 								return (
@@ -403,8 +409,20 @@ export default class Labour extends React.Component {
 										<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>
 									)
 								}}> </TableRowColumn>
-							<TableRowColumn>
-									{logFlag?<Button label="解封"  type="operation" operation="unCancle"/>:<Button label="封存"  type="operation" operation="cancle"/>}
+							<TableRowColumn type="operation"
+								component={(value, oldValue) => {
+									if (logFlag) {
+										
+										return (
+											<Button onClick={this.openUnCancelDialog} label="解封"  type="operation" operation="unCancle"/>
+										)
+									}else{
+										return (
+											<Button label="封存" onClick={this.openCancelDialog}  type="operation" operation="cancle"/>
+										)
+									}
+								}}
+							>
 							</TableRowColumn>
 							</TableRow>
 						</TableBody>
@@ -421,7 +439,7 @@ export default class Labour extends React.Component {
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
-												<SearchForm onSubmit={this.searchParams}/>
+												<SearchForm onSubmit={this.onSerchSubmit}/>
 										</div>
 									</Col>
 									</Row>
@@ -465,7 +483,7 @@ export default class Labour extends React.Component {
 		}
 		</div>
         <Dialog 
-            title="查看XXX" 
+            title={`查看${data.orgName?data.orgName:'36Kr'}`}
             modal={true} 
             open={this.state.openViewDialog} 
             onClose={this.openViewDialog} 
@@ -476,7 +494,7 @@ export default class Labour extends React.Component {
                 <Viewdialog detail={this.state.searchParams} onCancel={this.openViewDialog} />
         </Dialog>
         <Dialog 
-                title="编辑XXX" 
+                title={`编辑${data.orgName?data.orgName:'36Kr'}`}
                 modal={true} 
                 open={this.state.openEditDialog} 
                 onClose={this.openEditDialog} 
