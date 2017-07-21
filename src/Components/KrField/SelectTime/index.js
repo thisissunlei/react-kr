@@ -14,6 +14,8 @@ export default class SelectTimeComponent extends React.Component{
 			hourNum:'',
 			minuteNum:'',
 			timeNum:'',
+
+			isInit:false
 	    }
     }
 
@@ -34,9 +36,9 @@ export default class SelectTimeComponent extends React.Component{
     }
 
     componentDidMount() {
-		document.body.addEventListener("click",this.onClickOther); 		
-
+		document.body.addEventListener("click",this.onClickOther);		
 	}
+
 
 	componentWillUnmount(){
 		document.body.removeEventListener("click",this.onClickOther); 	
@@ -99,6 +101,7 @@ export default class SelectTimeComponent extends React.Component{
 		}
 
 		let value=hour + ":" + minute;
+		console.log('tttt',value);
 		input.onChange(value);
 		onChange && onChange(value); 
 
@@ -156,6 +159,10 @@ export default class SelectTimeComponent extends React.Component{
 			onChange:this.inputChange.bind(this,hourNum,minuteNum),
 			style:inputDetailStyle
 		}
+
+        
+
+		
         
 		return (
 		<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
