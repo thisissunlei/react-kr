@@ -64,8 +64,13 @@ export default class Home extends React.Component {
       'background':'url('+require("./images/b"+imageNum+".svg")+') no-repeat center'
     };
     return (
-      <div onClick={this.toLabour.bind(this,item)} className="item" key={index} style={style}>
-        <span className="item-edit" onClick={this.openEdit.bind(this,item)}>
+      <div onClick={() =>{
+          this.toLabour(item)
+        }} className="item" key={index} style={style}>
+        <span className="item-edit" onClick={(event)=>{
+            event.stopPropagation();
+            this.openEdit(item)
+          }}>
           
         </span>
         <span className="item-text">
@@ -76,7 +81,7 @@ export default class Home extends React.Component {
   }
   onNewCreateSubmit=(data)=> {
         var _this = this;   
-        Http.request('dim-save', {}, form).then(function(response) {
+        Http.request('dim-save', {}, data).then(function(response) {
             _this.updateData();
             Message.success('新建机构成功');
             _this.openCreate();

@@ -37,7 +37,7 @@ module.exports = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}',
+      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}',
       method: 'get'
   },
   //根据机构ID获取下级机构
@@ -55,6 +55,11 @@ module.exports = {
       url: '/api/krspace-erp-web/dim/cancel',
       method: 'post'
   },
+  //人员组件
+  'hrm-search': {
+      url: '/api/krspace-erp-web/hrm/resource/select/type/name-or-email?nameOrEmail={nameOrEmail}',
+      method: 'get'
+  },
   //职务列表－列表
   'postJobList': {
       url: '/api/krspace-erp-web/hrm/job/list/type/search?page={page}&pageSize={pageSize}&typeId={typeId}&name={name}',
@@ -65,4 +70,11 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/job/add',
       method: 'post'
   },
+  /*====离职列表借口*/
+  //职务列表－新增
+  'postListAdd': {
+      url: '/api/krspace-erp-web/hrm/job/add',
+      method: 'post'
+  },
+
 }

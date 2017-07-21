@@ -151,6 +151,9 @@ class TreeNode extends React.Component {
       switcherCls[`${prefixCls}-switcher-disabled`] = true;
       return <span className={classNames(switcherCls)}></span>;
     }
+    if(!props.itemData.children.length ){
+      switcherCls[`${prefixCls}-noline_docu_${expandedState}`] = true;
+    }
     /*=========展开的尖括号=========*/
     return <span className={classNames(switcherCls)} onClick={this.onExpand}></span>;
   }
@@ -286,7 +289,7 @@ class TreeNode extends React.Component {
     // if (!props.expanded) {
     //   newChildren = null;
     // }
-    console.log("9999999",props);
+    
     var iconTypeName = this.iconJudge(prefixCls,iconState,props);
     const iconEleCls = {
       [`${prefixCls}-iconEle`]: true,

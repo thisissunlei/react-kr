@@ -2,6 +2,9 @@ import React from 'react';
 import {
 	KrField
 } from 'kr-ui';
+import {
+	numberToSign
+} from 'kr/Utils'
 import {reduxForm} from 'redux-form';
 class New extends React.Component {
 
@@ -11,6 +14,8 @@ class New extends React.Component {
 
 		this.state = {
 		}
+
+		console.log(numberToSign(410324199403041456),">>>>>>>")
 
 	}
 
