@@ -44,7 +44,7 @@ State.getSyncList = action(function(value) {
 		response.load=true;
 		_this.result = response;
 	}).catch(function(err) {
-		Message.error('下线失败');
+		Message.error('失败');
 	});
 
 });
@@ -60,7 +60,7 @@ State.postSync = action(function(value) {
 		Message.success('提交成功');
 		_this.searchParams = Object.assign({},_this.searchParams,reload);
 	}).catch(function(err) {
-		Message.error('提交失败');
+		Message.error(err.message);
 	});
 
 });

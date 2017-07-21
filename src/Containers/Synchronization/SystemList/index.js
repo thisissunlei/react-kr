@@ -136,6 +136,17 @@ export default class List extends React.Component {
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
 		              		 		name="ip"
+		              		 		component={(value,oldValue)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="block";
+										}
+										 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
+									 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn name="linkman"></TableRowColumn>
 		              		 <TableRowColumn name="phone"></TableRowColumn>
