@@ -71,11 +71,11 @@ class Createdialog extends Component {
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
                     grid={1/2}
-                    label="名称"
+                    label="下级名称"
                     component="input"
                     name="orgName"
                     requireLabel={true}
-                    placeholder="名称"
+                    placeholder="下级名称"
                 />
                 <KrField
                     name="orgType"
@@ -103,7 +103,7 @@ class Createdialog extends Component {
                     component="searchOaPersonal" 
                     label="负责人" 
                     grid={1/2}
-                    placeholder="负责人"
+                    placeholder="请选择"
                     requireLabel={true}
                 />
                 <KrField 
@@ -112,7 +112,7 @@ class Createdialog extends Component {
                     component="searchOaPersonal" 
                     grid={1/2}
                     label="管理员" 
-                    placeholder="管理员"
+                    placeholder="请选择"
                     requireLabel={true}
                 />
                 <Row style={{marginTop:20,marginBottom:6}}>
@@ -148,7 +148,10 @@ const validate = values => {
 	const errors = {}
 	if (!values.orgName) {
 		errors.orgName = '请输入下级名称';
+	}else if (values.orgName.length>10) {
+		errors.orgName = '下级名称最多10个字符！';
 	}
+    
     if (!values.adminId) {
 		errors.adminId = '请选择管理员';
 	}

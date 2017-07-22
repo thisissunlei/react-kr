@@ -86,7 +86,7 @@ class Editdialog extends React.Component {
                     component="searchOaPersonal" 
                     grid={1/2}
                     label="负责人" 
-                    placeholder="负责人"
+                    placeholder="请选择"
                     requireLabel={true}
                 />
                 <KrField 
@@ -95,7 +95,7 @@ class Editdialog extends React.Component {
                     component="searchOaPersonal" 
                     grid={1/2}
                     label="管理员" 
-                    placeholder="管理员"
+                    placeholder="请选择"
                     requireLabel={true}
                 />
                 <KrField 
@@ -113,7 +113,7 @@ class Editdialog extends React.Component {
                     component="searchOaPersonal" 
                     grid={1/2}
                     label="管理员" 
-                    placeholder="管理员"
+                    placeholder="请选择"
                     requireLabel={true}
                 />
                 <Row style={{marginTop:20,marginBottom:6}}>
@@ -150,7 +150,10 @@ const validate = values => {
 	const errors = {}
 	if (!values.orgName) {
 		errors.orgName = '请输入名称';
+	}else if (values.orgName.length>10) {
+		errors.orgName = '下级名称最多10个字符！';
 	}
+    
     if (!values.orgSort) {
 		errors.orgSort = '请输入排序号';
 	}

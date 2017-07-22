@@ -33,12 +33,27 @@ export default class Home extends React.Component {
       openEdit:false,
 			openCreate:false,  
       itemDetail:{},
+      addLastLineDim:false,
     }
 	}
 
   componentDidMount() {
     this.updateData();
+    //this.renderAddWhite();
   }
+  // renderAddWhite=()=>{
+  //   var that = this;
+  //   var width = this.refs.main.getBoundingClientRect().width*0.94;
+  //   var num = Math.floor(width/200);
+  //   window.setTimeout(function(){
+  //     that.lastLineDimNum = num-1-that.dimLength%num;
+  //     if (that.lastLineDimNum) {
+  //       that.setState({
+  //         addLastLineDim:true
+  //       })
+  //     }
+  //   },500)
+  // }
   openEdit=(item)=>{
 		let openEdit = this.state.openEdit;
 		var _this = this;
@@ -100,33 +115,55 @@ export default class Home extends React.Component {
         });
     }
     updateData=()=>{
-          var _this = this;
+          var that = this;
           Http.request('dim-list', {
-
           },{}).then(function(response) {
-              _this.setState({dimension: response.items},function(){
-        
-              })
+              that.dimLength = response.items.length;
+              renderAddWhite();
+              that.setState({dimension: response.items})
+              function renderAddWhite() {
+                  var width = that.refs.main.getBoundingClientRect().width*0.94;
+                  var num = Math.floor(width/200);
+                    that.lastLineDimNum = num-1-that.dimLength%num;
+                    if (that.lastLineDimNum) {
+                      that.setState({
+                        addLastLineDim:true
+                      })
+                    }
+              }
           }).catch(function(err) {});
-        
   }
   toLabour=(item)=>{
     var dimId = item.id;
     window.open(`./#/oa/organization/${dimId}/labour`, dimId);
   }
+  addLastLineDim=()=>{
+    console.log(this.lastLineDimNum);
+    var arr = [];
+    for (var i=0;i<this.lastLineDimNum;i++) {
+      arr.push(
+        <div key={i} className="item">
+          
+        </div>
+      )
+    }
+    console.log(arr);
+    return arr;
+  }
   render() {
 
-
+    console.log(this.state.addLastLineDim);
     return (
       <div className="g-oa">
         <Section title="机构维度">
-        			<div className="main">
+        			<div className="main" ref="main">
                 {this.state.dimension.map((item,index)=>{
                   return this.renderDimension(item,index);
                 })}
                 <div className="item-add item" onClick={this.openCreate}>
                  
                 </div>
+                {this.state.addLastLineDim && this.addLastLineDim()}
               </div>
         </Section>
         <Dialog 

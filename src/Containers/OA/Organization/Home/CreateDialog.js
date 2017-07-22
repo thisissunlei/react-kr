@@ -54,7 +54,6 @@ class CreateDialog extends React.Component {
                     name="name"
                     placeholder="机构维度"
                     requireLabel={true}
-                    maxLength={10}
                 />
                 
                 <Row style={{marginTop:20,marginBottom:6}}>
@@ -90,8 +89,11 @@ const validate = values => {
 
 	const errors = {};
 	if (!values.name) {
-		errors.name = '请输入机构维度名称';
+		errors.name = '请输入维度名称';
+	}else if(values.name.length>10) {
+		errors.name = '维度名称最多10个字符！';
 	}
+    
 	if (!values.sort) {
 		errors.sort = '请输入排序号';
 	}
