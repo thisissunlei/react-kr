@@ -42,7 +42,6 @@ class TreeNode extends React.Component {
   }
 
   onSelect() {
-
     this.props.root.onSelect(this);
   }
 
@@ -305,11 +304,12 @@ class TreeNode extends React.Component {
         <span
           className={classNames(iconEleCls)}
           onClick = {(e)=>{
+             this.onExpand(e);
             e.preventDefault();
               if(props.type == "allSelect"){
                 return ;
               }
-              this.onExpand();
+             
           }}
           style = {{display:showIcon}}
 
@@ -317,12 +317,14 @@ class TreeNode extends React.Component {
       const title = <span
                       className={`${prefixCls}-title`}
                       onClick = {(e)=>{
+                         this.onExpand(e);
+
                         e.preventDefault();
                         if(props.type == "allSelect"){
                           return ;
                         }
                         
-                        this.onExpand();
+                       
                       }}
                     >
                         {content}
