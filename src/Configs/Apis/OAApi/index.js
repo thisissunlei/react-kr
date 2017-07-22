@@ -1,5 +1,5 @@
 //OA
-module.exports = {
+var OAApi = {
   //维度列表
   'dim-list': {
       url: '/api/krspace-erp-web/dim/list',
@@ -37,12 +37,12 @@ module.exports = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&dimId={dimId}',
+      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&dimId={dimId}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
   //根据机构ID获取下级机构
   'next-org-list': {
-      url: '/api/krspace-erp-web/dim/next-org-list?orgId={orgId}&orgType={orgType}&dimId={dimId}',
+      url: '/api/krspace-erp-web/dim/next-org-list?orgId={orgId}&orgType={orgType}&dimId={dimId}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
   //新建下级
@@ -207,6 +207,96 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/resource/info/type/edit?id={id}',
       method: 'get'
   },
+  //基本信息编辑
+  'people-basic-edit': {
+      url: '/api/krspace-erp-web/hrm/resource/edit',
+      method: 'post'
+  },
+  //个人信息显示
+  'people-person-watch': {
+      url: '/api/krspace-erp-web/hrm/resource/info/type/person?resourceId={resourceId}',
+      method: 'get'
+  },
+  //编辑个人信息提交
+  'people-person-edit': {
+      url: '/api/krspace-erp-web/hrm/resource/edit/type/person',
+      method: 'post'
+  },
+  //工作信息接口
+  'people-work-watch': {
+      url: '/api/krspace-erp-web/hrm/resource/info/type/workinfo?resourceId={resourceId}',
+      method: 'get'
+  },
+  //编辑工作信息提交
+  'people-workinfo-edit': {
+      url: '/api/krspace-erp-web/hrm/resource/edit/type/workinfo',
+      method: 'post'
+  },
+
+  /*家庭*/
+  //个人信息里面的家庭列表
+  'people-family-list': {
+      url: '/api/krspace-erp-web/hrm/resource/list/type/family?resourceId={resourceId}',
+      method: 'get'
+  },
+
+  //个人信息里面的家庭获取编辑信息
+  'people-family-get': {
+      url: '/api/krspace-erp-web/hrm/resource/info/type/family?id={id}',
+      method: 'get'
+  },
+  
+  //个人信息里面的家庭新增
+  'people-family-add': {
+      url: '/api/krspace-erp-web/hrm/resource/add/type/family',
+      method: 'post'
+  },
+
+  //个人信息里面的家庭编辑提交
+  'people-family-edit': {
+      url: '/api/krspace-erp-web/hrm/resource/edit/type/family',
+      method: 'post'
+  },
+
+  //个人信息里面的家庭删除
+  'people-family-delete': {
+      url: '/api/krspace-erp-web/hrm/resource/delete/type/family?id={id}',
+      method: 'delete'
+  },
+
+  /*工作记录 */
+  //个人信息里面的工作记录列表
+  'people-job-list': {
+      url: '/api/krspace-erp-web/hrm/resource/list/type/work-record?resourceId={resourceId}',
+      method: 'get'
+  },
+  
+  //个人信息里面的工作记录获取编辑
+  'people-job-get': {
+      url: '/api/krspace-erp-web/hrm/resource/info/type/work-record?id={id}',
+      method: 'get'
+  },
+  
+  //个人信息里面的工作记录新增
+  'people-job-add': {
+      url: '/api/krspace-erp-web/hrm/resource/add/type/work-record',
+      method: 'post'
+  },
+
+  //个人信息里面的工作记录编辑提交
+  'people-job-edit': {
+      url: '/api/krspace-erp-web/hrm/resource/edit/type/work-record',
+      method: 'post'
+  },
+
+  //个人信息里面的工作记录删除
+  'people-job-delete': {
+      url: '/api/krspace-erp-web/hrm/resource/delete/type/work-record?id={id}',
+      method: 'delete'
+  },
+
+
+
 
   /*=====树的接口======*/
   //部门树
@@ -241,6 +331,6 @@ module.exports = {
       url:'/api/krspace-erp-web/hrm/resource/add',
       method: 'post'
   }
-
-  
 }
+
+module.exports=OAApi;

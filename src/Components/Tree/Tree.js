@@ -251,11 +251,11 @@ class Tree extends React.Component {
   }
 
   onSelect(treeNode) {
+
     const props = this.props;
     const selectedKeys = [...this.state.selectedKeys];
     const eventKey = treeNode.props.eventKey;
     const index = selectedKeys.indexOf(eventKey);
-
 
 
     let selected;
