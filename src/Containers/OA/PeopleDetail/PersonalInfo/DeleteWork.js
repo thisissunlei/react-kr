@@ -13,9 +13,9 @@ export default class DeleteWork extends React.Component{
 		super(props, context);
 	}
     
-     onSubmit=(values)=>{
+     onSubmit=()=>{
         const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);
+        onSubmit && onSubmit();
     }
 
     onCancel=()=>{
@@ -34,7 +34,7 @@ export default class DeleteWork extends React.Component{
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
-                                    <div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
+                                    <div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定" onTouchTap={this.onSubmit}/></div>
                                     <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
                                 </ButtonGroup>
                                 </Col>

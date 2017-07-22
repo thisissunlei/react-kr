@@ -45,8 +45,6 @@ export default class Leave extends Component{
 
 	//搜索确定
 	onSearchSubmit = (data)=>{
-		// searchKey = data.value;
-		// let {searchParams} = this.state;
 		var searchParams = Object.assign({},this.state.searchParams);
 		searchParams.searchKey = data.content;
 		this.setState({

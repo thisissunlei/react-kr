@@ -58,22 +58,25 @@ class EditPerson  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="constellation"
-                            component="input"
+                            component="selecTemployees"
                             label="星座"
+                            otherType="temployees"
 						/>
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="bloodType"
-                            component="input"
+                            component="selecTemployees"
                             label="血型"
+                            otherType="bloodType"
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="nation"
-                            component="input"
+                            component="selecTemployees"
                             label="民族"
                             requireLabel={true}
+                            otherType="nation"
 						/>
                         
 
@@ -88,15 +91,17 @@ class EditPerson  extends React.Component{
                          <KrField grid={1/2}
                             style={{width:262}}
                             name="household"
-                            component="select"
+                            component="selecTemployees"
                             label="户口"
+                            otherType="householdType"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="politicsStatus"
-                            component="select"
+                            component="selecTemployees"
                             label="政治面貌"
+                            otherType="politicsStatus"
 						/>
 
                          <KrField grid={1/2}
@@ -130,15 +135,17 @@ class EditPerson  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="education"
-                            component="input"
+                            component="selecTemployees"
                             label="学历"
+                            otherType="educationType"
 						/>
 
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="degree"
-                            component="input"
+                            component="selecTemployees"
                             label="学位"
+                            otherType="degree"
 						/>
 
                         <KrField grid={1/2}
@@ -201,15 +208,17 @@ class EditPerson  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="healthy"
-                            component="input"
+                            component="selecTemployees"
                             label="健康状况"
+                            otherType="healthyStatus"
 						/>
  
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="maritalStatus"
-                            component="select"
+                            component="selecTemployees"
                             label="婚姻状况"
+                            otherType="maritalStatus"
 						/>
 
                         <KrField grid={1/2}
@@ -231,8 +240,9 @@ class EditPerson  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="emergencyRelation"
-                            component="input"
+                            component="selecTemployees"
                             label="紧急联系人关系"
+                            otherType="resourceRelation"
 						/>
  
 

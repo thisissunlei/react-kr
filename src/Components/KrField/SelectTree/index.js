@@ -25,7 +25,8 @@ export default class SelectTree extends React.Component{
 			isDialog:false,
 			data:{
 				orgName:"请选择"
-			}
+			},
+			oneOpen:true,
 		}
 	}
 
@@ -55,7 +56,6 @@ export default class SelectTree extends React.Component{
 		this.dlogSwidch();
 	}
 	onSubmit = (data) =>{
-		console.log(this.state.data,">>>>>>");
 		if( data.orgName == "" ){
 			return ;
 		}
@@ -63,7 +63,8 @@ export default class SelectTree extends React.Component{
 		input.onChange(data);
 		this.dlogSwidch();
 		this.setState({
-			data
+			data,
+			oneOpen:false,
 		})
 	}
 
@@ -83,7 +84,8 @@ export default class SelectTree extends React.Component{
 	}
 
 	render(){
-		const {isDialog,data} = this.state;
+		const {isDialog,data,oneOpen} = this.state;
+		const {ajaxUrlName,value} = this.props;
 		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
 
 			if(type === 'hidden'){
@@ -130,7 +132,7 @@ export default class SelectTree extends React.Component{
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{data && data.orgName}</div>
+				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && value)? value : data.orgName  }</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 
@@ -139,9 +141,9 @@ export default class SelectTree extends React.Component{
 					title="人员"
 					onClose={this.dlogSwidch}
 					open={isDialog}
-					contentStyle ={{ width: '690px',height:'636px'}}
+					contentStyle ={{ width: '690px',height:'590px'}}
 				 >
-					<TreeDialog onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<TreeDialog  ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>
 				</div>
 			 </WrapComponent>

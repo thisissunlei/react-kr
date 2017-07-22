@@ -1,6 +1,8 @@
 import React from 'react';
 import {	
-   Drawer	
+   Drawer,
+   Dictionary,
+   KrDate	
 } from 'kr-ui';
 import './index.less';
 import EditBasic from './EditBasic';
@@ -48,15 +50,24 @@ export default class BasicInfo  extends React.Component{
 		 openEdit:!this.state.openEdit
 	   })
 	}
+
+	cancelEdit=()=>{
+	  this.setState({
+		 openEdit:!this.state.openEdit
+	   })	
+	}
     
 	//编辑提交
 	editSubmit=(params)=>{
+	   let {personId}=this.props;
+	   params.id=personId;
 	   var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
+       Http.request('people-basic-edit',{},params).then(function(response) {
            _this.basicData(params.id);
         }).catch(function(err) {
           Message.error(err.message);
         });
+		this.cancelEdit();
 	}
     
 	//关闭所有
@@ -89,11 +100,15 @@ export default class BasicInfo  extends React.Component{
 			 {name:'职级',
 			  detail:basicInfo.levelName},
 			 {name:'入职时间',
-			  detail:basicInfo.entryDate},
+			  detail:<KrDate value={basicInfo.entryDate} format="yyyy-mm-dd"/>},
 			 {name:'员工属性',
-			  detail:basicInfo.status},
+			  detail:basicInfo.status,
+			  type:'ERP_ResourceStatus',
+			  isSwitch:true},
 			 {name:'员工类别',
-			  detail:basicInfo.type},
+			  detail:basicInfo.type,
+			  type:'ERP_ResourceType',
+			  isSwitch:true},
 			 {name:'公司邮箱',
 			  detail:basicInfo.email},  
 			];
@@ -110,7 +125,9 @@ export default class BasicInfo  extends React.Component{
 					  infoName.map((item,index)=>{
                         return (<li key={index}>
 							<span className='name'>{item.name}</span>
-							<span className='info'>{item.detail}</span>
+							<span className='info'>
+								{item.isSwitch?<Dictionary type={item.type} value={item.detail}/>:item.detail}
+							</span>
 					   </li>)
 					  })	
 					}		
@@ -125,7 +142,7 @@ export default class BasicInfo  extends React.Component{
 							onClose={this.allClose}
 					 >
 						<EditBasic
-			               onCancel={this.basicEdit}
+			               onCancel={this.cancelEdit}
 						   onSubmit={this.editSubmit}   
 						/>
 					</Drawer>

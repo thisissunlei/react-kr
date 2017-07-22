@@ -36,7 +36,7 @@ render() {
 				break;
 			//血型
 			case "bloodType":
-				data=temployees;
+				data=bloodType;
 				break;
 			//学士学位
 			case "degree":

@@ -64,7 +64,6 @@ class EditDialog extends React.Component {
                     name="name"
                     requireLabel={true}
                     placeholder="机构维度"
-                    maxLength={10}
                 />
                 <KrField
                     style={{width:262}}
@@ -108,7 +107,9 @@ const validate = values => {
 
 	const errors = {};
 	if (!values.name) {
-		errors.name = '请输入导航名称';
+		errors.name = '请输入维度名称';
+	}else if (values.name.length>10) {
+		errors.name = '维度名称最多10个字符！';
 	}
 	
 	return errors;

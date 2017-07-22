@@ -50,9 +50,10 @@ class EditFamily  extends React.Component{
                           <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="called"
-                            component="input"
+                            component="selecTemployees"
                             label="称谓"
-                             requireLabel={true}
+                            requireLabel={true}
+                             otherType="resourceRelation"
 						/>
                         
                         <KrField grid={1/2}
