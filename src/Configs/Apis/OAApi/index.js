@@ -198,5 +198,10 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/resource/info/type/edit?id={id}',
       method: 'get'
   },
-  
+
+  /*=====树的接口======*/
+  'get-department-tree': {
+      url: '/api/krspace-erp-web/tree/dep',
+      method: 'get'
+  }
 }
