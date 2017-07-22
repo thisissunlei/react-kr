@@ -15,23 +15,7 @@ import {reduxForm}  from 'redux-form';
 
 	constructor(props,context){
 		super(props, context);
-        this.state = {
-            departureTypes: [{label:"主动被动",value:"INITIATIVE"},{label:"被动",value:"PASSIVITY"}],
-        }
-        this.getDepartureType();
 	}
-    //获取离职类型
-    getDepartureType = () =>{
-        const _this = this;
-        Http.request("getDepartureType").then(function (response) {
-            _this.setState({
-                // departureTypes: responses,
-                departureTypes: [{label:"主动被动",value:"INITIATIVE"},{label:"被动",value:"PASSIVITY"}],
-            });
-        }).catch(function (err) {
-            Message.error(err.message);
-        });
-    }
      onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -45,7 +29,6 @@ import {reduxForm}  from 'redux-form';
 
 	render(){
         let {handleSubmit}=this.props;
-        let {departureTypes} = this.state;
 
 		return(
 
@@ -54,10 +37,10 @@ import {reduxForm}  from 'redux-form';
               <KrField grid={1/2}
                         style={{width:262,marginLeft:28}}
                         name="leaveType"
-                        component="select"
+                        component="selecTemployees"
                         label="离职类型"
                         requireLabel={false}
-                        options={departureTypes}
+                        otherType="leaveType"
 				/>
                <KrField grid={1} label="离职原因" name="leaveReason" heightStyle={{height:"78px",width:'500px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517,marginLeft:'28px'}} lengthClass='list-len-textarea'/>
 			   <Grid>
