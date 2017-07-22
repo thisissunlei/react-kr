@@ -48,8 +48,8 @@ class EditBasic  extends React.Component{
 						/>
                        
                          <KrField grid={1/2} style={{width:262,marginLeft:28}} name="sex" component="group" label="性别" requireLabel={true}>
- 							 <KrField name="sex" label="男" type="radio" value='1' />
- 							 <KrField name="sex" label="女" type="radio" value='0' />
+ 							 <KrField name="sex" label="男" type="radio" value='MALE' />
+ 							 <KrField name="sex" label="女" type="radio" value='FAMALE' />
  						</KrField>
 
                           <KrField grid={1/2}
@@ -60,8 +60,7 @@ class EditBasic  extends React.Component{
                             requireLabel={true}
 						/>
 
-
-                        
+   
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="code"
@@ -111,16 +110,18 @@ class EditBasic  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="status"
-                            component="select"
+                            component="selecTemployees"
                             label="员工属性"
                             requireLabel={true}
+                            otherType="resourceStatus"
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="type"
-                            component="select"
+                            component="selecTemployees"
                             label="员工类别"
                             requireLabel={true}
+                            otherType="resourceType"
 						/>
 
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
