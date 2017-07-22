@@ -8,9 +8,14 @@ export default class TreeDialog extends React.Component{
 		super(props,context)
 		// this.getTreeData();
 		this.state = {
-			detail:'',
+			detail:{
+				orgName:''
+			},
 			isList:false,
+			searchKey:'',
+			treeData : [],
 		}
+		this.getTreeData();
 	}
 	onSelect = (data) =>{
 		const {onSelect} = this.props;
@@ -24,7 +29,8 @@ export default class TreeDialog extends React.Component{
 					treeType:data.treeType,
 					orgName:data.orgName,
 					
-				}
+				},
+				
 			})
 			
 		}
@@ -40,7 +46,9 @@ export default class TreeDialog extends React.Component{
 		const _this = this;
 		Http.request("org-list", {id:1}).then(function (response) {
 
-
+			_this.setState({
+				treeData:[response]
+			})
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -59,7 +67,10 @@ export default class TreeDialog extends React.Component{
 		 onCancel && onCancel();
 	}
 	deletList = () => {
+		let detail = Object.assign({},this.state.detail);
+		detail.orgName = "";
 		this.setState({
+			detail,
 			isList:false,
 		})
 	}
@@ -71,6 +82,12 @@ export default class TreeDialog extends React.Component{
 			  </div>
 	
 	}
+	treeChange = (event) =>{
+		console.log(event.target.value);
+		this.setState({
+			searchKey:event.target.value,
+		})
+	}
 	render(){
        let {detail,isList} = this.state;
 		return (
@@ -78,17 +95,26 @@ export default class TreeDialog extends React.Component{
 
 				<div className = "tree-content">
 					<div className = "content-left">
-						<div>
+						<div className = "serch">
+							<input type="text" placeholder="请输入关键字搜索" onChange = {this.treeChange}/>
+							<span className = "oa-search-icon search-icon"></span>
+						</div>
+						<div className = "tree-content-left-right">
+
 							<SliderTree 
 								onSelect = {this.onSelect}  
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
-								
+								treeData = {this.state.treeData}
 							/>
 						</div>
 					</div>
 					<div className = "content-right" >
-						<div>
+						<div className = "serch">
+							<input type="text" placeholder="请输入关键字搜索" />
+							<span className = "oa-search-icon search-icon"></span>
+						</div>
+						<div className = "tree-content-left-right">
 							{isList && this.listRender()}
 						</div>
 					</div>
