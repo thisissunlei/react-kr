@@ -45,7 +45,7 @@ export default class BasicInfo  extends React.Component{
     //编辑打开
 	basicEdit=()=>{
 	   let {basicInfo}=this.state;
-	   Store.dispatch(initialize('EditBasic',basicInfo));
+	   Store.dispatch(initialize('editPerson',basicInfo));
        this.setState({
 		 openEdit:!this.state.openEdit
 	   })
@@ -144,6 +144,7 @@ export default class BasicInfo  extends React.Component{
 						<EditBasic
 			               onCancel={this.cancelEdit}
 						   onSubmit={this.editSubmit}   
+						   basicInfo = {basicInfo}
 						/>
 					</Drawer>
 			</div>
