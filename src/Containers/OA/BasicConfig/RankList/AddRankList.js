@@ -7,14 +7,19 @@ import {
     ButtonGroup,
     Button
 } from 'kr-ui';
-import {reduxForm}  from 'redux-form';
+import {reduxForm,change}  from 'redux-form';
+import {Store} from 'kr/Redux';
 import './index.less';
 
-class AddPostType  extends React.Component{
+class AddRankList  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 	}
+
+    componentDidMount(){
+        Store.dispatch(change('AddRankList','enabled','true'))
+    }
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -28,7 +33,7 @@ class AddPostType  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,jobTypes}=this.props;
 
 		return(
 
@@ -48,6 +53,7 @@ class AddPostType  extends React.Component{
                             component="select"
                             label="职务类型"
                             requireLabel={true}
+                            options={jobTypes}
 						/>
 
                         <KrField grid={1/2}
@@ -59,8 +65,8 @@ class AddPostType  extends React.Component{
 						/>
 
                          <KrField style={{width:262,display:'block'}} name="enabled" component="group" label="职级状态" requireLabel={true}>
- 							 <KrField name="enabled" label="启用" type="radio" value='1' />
- 							 <KrField name="enabled" label="停用" type="radio" value='0' />
+ 							 <KrField name="enabled" label="启用" type="radio" value='true' />
+ 							 <KrField name="enabled" label="停用" type="radio" value='false' />
  						</KrField>
 
                         <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'532px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
@@ -97,12 +103,14 @@ const validate = values =>{
 
    if(!values.level){
        errors.level='请填写等级';
-   }else if(isNaN(level)&&level<=30){
-       errors.level='等级必须是数字且最大不超过30'
+   }else if(isNaN(values.level)){
+       errors.level='等级必须是数字'
+   }else if(values.level>30){
+       errors.level='等级最大不超过30'
    }
    
     
 	return errors
 }
 
-export default reduxForm({ form: 'AddPostType',validate})(AddPostType);
+export default reduxForm({ form: 'AddRankList',validate})(AddRankList);

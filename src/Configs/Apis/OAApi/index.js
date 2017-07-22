@@ -65,18 +65,6 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/resource/select/type/name-or-email?nameOrEmail={nameOrEmail}',
       method: 'get'
   },
-  /*职务列表*/
-  //职务列表－列表
-  'postJobList': {
-      url: '/api/krspace-erp-web/hrm/job/list/type/search?page={page}&pageSize={pageSize}&typeId={typeId}&name={name}',
-      method: 'get'
-  },
-  //职务列表－新增
-  'postListAdd': {
-      url: '/api/krspace-erp-web/hrm/job/add',
-      method: 'post'
-  },
-
   /*====离职列表接口*/
   //离职列表-列表接口
   'getLeaveList': {
@@ -121,6 +109,11 @@ module.exports = {
     url: '/api/krspace-erp-web/hrm/job-type/list/type/search?code={code}&name={name}',
     method: 'get'
   },
+  //职务类型－下拉数据
+  'post-type-info': {
+    url: '/api/krspace-erp-web/hrm/job-type/info/type/edit-data',
+    method: 'get'
+  },
   //职务类型新增
   'post-type-add': {
     url: '/api/krspace-erp-web/hrm/job-type/add',
@@ -128,7 +121,7 @@ module.exports = {
   },
   //职务类型获取编辑信息
   'post-type-watch': {
-    url: '/api/krspace-erp-web/hrm/job-type/info/type/edit',
+    url: '/api/krspace-erp-web/hrm/job-type/info/type/edit?id={id}',
     method: 'get'
   },
    //职务类型编辑提交
@@ -138,10 +131,68 @@ module.exports = {
   },
    //职务类型删除
   'post-type-delete': {
-    url: '/api/krspace-erp-web/hrm/job-type/delete',
+    url: '/api/krspace-erp-web/hrm/job-type/delete?id={id}',
+    method: 'delete'
+  },
+  /*职级列表*/
+   //职级列表－列表
+  'rank-list-list': {
+    url: '/api/krspace-erp-web/hrm/job-level/list/type/search?name={name}&typeId={typeId}',
+    method: 'get'
+  },
+  //职级职务类型名称下拉
+  'rank-type-info': {
+    url: '/api/krspace-erp-web/hrm/job-type/select/type/info?orgType={orgType}&orgId={orgId}',
+    method: 'get'
+  },
+  //职级列表－新增
+  'rank-list-add': {
+    url: '/api/krspace-erp-web/hrm/job-level/add',
     method: 'post'
   },
-
-
+  //职级列表－编辑
+  'rank-list-edit': {
+    url: '/api/krspace-erp-web/hrm/job-level/edit',
+    method: 'post'
+  },
+  //职级列表－获取编辑信息
+  'rank-list-watch': {
+    url: '/api/krspace-erp-web/hrm/job-level/info/type/edit?id={id}',
+    method: 'get'
+  },
+  //职级列表－删除
+  'rank-list-delete': {
+    url: '/api/krspace-erp-web/hrm/job-level/delete?id={id}',
+    method: 'delete'
+  },
+  /*职务列表*/
+  //职务列表－列表
+  'postJobList': {
+      url: '/api/krspace-erp-web/hrm/job/list/type/search?page={page}&pageSize={pageSize}&typeId={typeId}&name={name}',
+      method: 'get'
+  },
+  //职务列表－新增
+  'postListAdd': {
+      url: '/api/krspace-erp-web/hrm/job/add',
+      method: 'post'
+  },
+   //职务列表－编辑
+  'post-list-edit': {
+      url: '/api/krspace-erp-web/hrm/job/edit',
+      method: 'post'
+  },
+  //职务列表－删除
+  'post-list-delete': {
+      url: '/api/krspace-erp-web/hrm/job/delete?id={id}',
+      method: 'delete'
+  },
+  //职务列表－查看
+  'post-list-watch': {
+      url: '/api/krspace-erp-web/hrm/job/info/type/edit?id={id}',
+      method: 'get'
+  },
+  
+  /*人员详情*/
+  
   
 }

@@ -57,7 +57,7 @@ class Editdialog extends React.Component {
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:685,marginTop:20}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:644,marginTop:20}}  >
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
@@ -105,6 +105,15 @@ class Editdialog extends React.Component {
                     component="input" 
                     label="排序号" 
                     placeholder="排序号"
+                    requireLabel={true}
+                />
+                <KrField 
+                    style={{width:262,marginTop:6}}  
+                    name="adminId" 
+                    component="searchOaPersonal" 
+                    grid={1/2}
+                    label="管理员" 
+                    placeholder="管理员"
                     requireLabel={true}
                 />
                 <Row style={{marginTop:20,marginBottom:6}}>

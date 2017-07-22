@@ -24,7 +24,7 @@ import {
     SearchForms,
 	Tooltip,
 	Message,
-	Section
+	Section,
 } from 'kr-ui';
 import AddPostType from './AddPostType';
 import EditPostType from './EditPostType';
@@ -42,13 +42,17 @@ export default class PostType extends Component{
 				page:1,
 				pageSize:15
 			},
-			//数据准备
+			//数据准备分部
+			subCompany:[],
 
+			//删除id
+			deleteId:''
+      
 		}
 	}
     
 	componentWillMount(){
-		//this.dataReady();
+		this.dataReady();
 	}
 
 	onOperation=(type,itemDetail)=>{
@@ -59,23 +63,28 @@ export default class PostType extends Component{
 			})
 		}else if(type=='delete'){
 			this.setState({
-			  openDelete:true	
+			  openDelete:true,	
+				deleteId:itemDetail.id
 			})
 		}
 	}
 
 	//数据准备
 	dataReady=()=>{
-	   Http.request('postListAdd').then(function(response) {
-        }).catch(function(err) {
+		var _this=this;
+	   Http.request('post-type-info').then(function(response) {
+				_this.setState({
+					subCompany:response.subcompanys
+				})
+     }).catch(function(err) {
           Message.error(err.message);
-        });	
+     });	
 	}
 
 	//获取编辑信息
 	getEditData=(id)=>{
 		var _this=this;
-       Http.request('postListAdd',{id:id}).then(function(response) {
+       Http.request('post-type-watch',{id:id}).then(function(response) {
            Store.dispatch(initialize('EditPostType',response));
         }).catch(function(err) {
           Message.error(err.message);
@@ -88,10 +97,10 @@ export default class PostType extends Component{
        let obj = {
 			name: params.content,
             pageSize:15
-		}
-		this.setState({
-		  searchParams:obj	
-		})
+		  }
+			this.setState({
+				searchParams:obj	
+			})
 	}
 	
 	//新建职务类型
@@ -112,6 +121,7 @@ export default class PostType extends Component{
 							pageSize:15
 						}  
 					})
+					_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -127,14 +137,16 @@ export default class PostType extends Component{
     //编辑职务类型提交
 	editPostSubmit=(params)=>{
         var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
+       Http.request('post-type-edit',{},params).then(function(response) {
            _this.setState({
-			  searchParams:{
-				  time:+new Date(),
-				  page:_this.state.searchParams.page,
-				  pageSize:15
-			  }  
-		   })
+						searchParams:{
+							time:+new Date(),
+							page:_this.state.searchParams.page,
+							pageSize:15,
+							name:_this.state.searchParams.name?_this.state.searchParams.name:""
+						}  
+					})
+					_this.openEditPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -158,14 +170,18 @@ export default class PostType extends Component{
 
    //删除提交
    deleteSubmit=()=>{
-     Http.request('postListAdd',{},params).then(function(response) {
+		 let {deleteId}=this.state;
+		 console.log('fff',deleteId);
+		 var _this=this;
+     Http.request('post-type-delete',{id:deleteId}).then(function(response) {
            _this.setState({
-			  searchParams:{
-				  time:+new Date(),
-				  page:1,
-				  pageSize:15
-			  }  
-		   })
+						searchParams:{
+							time:+new Date(),
+							page:1,
+							pageSize:15
+						}  
+					})
+					_this.cancelDelete();
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -181,6 +197,8 @@ export default class PostType extends Component{
    }
 
 	render(){
+
+		let {subCompany}=this.state;
 
 		return(
       	<div className="oa-post-type">
@@ -232,7 +250,9 @@ export default class PostType extends Component{
 						<TableRowColumn name="descr"></TableRowColumn>
 						<TableRowColumn name="orderNum"></TableRowColumn>
 						<TableRowColumn name="updatorName"></TableRowColumn>
-						<TableRowColumn name="uTime"></TableRowColumn>
+						<TableRowColumn name="uTime" component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+						}}></TableRowColumn>
 						<TableRowColumn type="operation">
                             <Button label="编辑"  type="operation"  operation="edit"/>
 			                <Button label="删除"  type="operation"  operation="delete" />
@@ -248,11 +268,12 @@ export default class PostType extends Component{
 					title="新增职务类型"
 					onClose={this.openAddPost}
 					open={this.state.openPostType}
-					contentStyle ={{ width: '630px',height:'500px'}}
+					contentStyle ={{ width: '630px',height:'auto'}}
 				>
 			  <AddPostType 
 			    onSubmit={this.addPostSubmit}
-				onCancel={this.openAddPost}
+				  onCancel={this.openAddPost}
+					subCompany={subCompany}
 			  />
 			</Dialog>
 
@@ -261,11 +282,12 @@ export default class PostType extends Component{
 					title="编辑职务类型"
 					onClose={this.openEditPost}
 					open={this.state.openEditType}
-					contentStyle ={{ width: '630px',height:'575px'}}
+					contentStyle ={{ width: '630px',height:'auto'}}
 				>
 			  <EditPostType 
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
+				subCompany={subCompany}
 			  />
 			</Dialog>
 
