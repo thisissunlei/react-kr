@@ -39,15 +39,16 @@ export default class TreeDialog extends React.Component{
 	}
 	getTreeData = () => {
 
-		let { ajaxUrlName} = this.props;
-		
+		let { ajaxUrlName, params } = this.props;
+
+		params = params || {};
+		this.params = Object.assign({},params);
 		const _this = this;
-		Http.request(ajaxUrlName).then(function (response) {
+		Http.request("org-list", {id:1}).then(function (response) {
 
 			_this.setState({
-				treeData:response.items
+				treeData:[response]
 			})
-			console.log(response.items)
 		}).catch(function (err) {
 			Message.error(err.message);
 		});

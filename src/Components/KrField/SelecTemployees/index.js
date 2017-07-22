@@ -10,7 +10,6 @@ import educationType from './educationType.json';
 import entryResource from './entryResource.json';
 import healthyStatus from './healthyStatus.json';
 import householdType from './householdType.json';
-
 import nation from './nation.json';
 import leaveType from './leaveType.json';
 import maritalStatus from './maritalStatus.json';
@@ -18,10 +17,6 @@ import politicsStatus from './politicsStatus.json';
 import resourceRelation from './resourceRelation.json';
 import resourceStatus from './resourceStatus.json';
 import resourceType from './resourceType.json';
-
-
-
-
 
 export default class SelecTemployees extends React.Component {
 

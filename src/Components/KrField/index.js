@@ -63,6 +63,8 @@ import SearchOaPersonal from './SearchOaPersonal';
 import OaUploadImage from './OaUploadImage';
 //血型
 import SelecTemployees from './SelecTemployees';
+import SwitchSlide from './SwitchSlide';
+
 class FieldRevert extends React.Component {
 
 		static propTypes = {
@@ -460,6 +462,12 @@ class FieldRevert extends React.Component {
 			if (component === 'selecTemployees') {
 				return (
 					<FieldRevert {...this.props} component={SelecTemployees}  style={WrapStyles} {...other}/>
+				)
+			}
+
+			if (component === 'switchSlide') {
+				return (
+					<FieldRevert {...this.props} component={SwitchSlide}  style={WrapStyles} {...other}/>
 				)
 			}
 

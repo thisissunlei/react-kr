@@ -26,7 +26,6 @@ export default class Master extends React.Component {
 	constructor(props,context){
 		super(props, context);
 
-
 		this.constructor.childContextTypes= {
            params: React.PropTypes.object.isRequired
 		}
