@@ -33,11 +33,25 @@ export default class Home extends React.Component {
       openEdit:false,
 			openCreate:false,  
       itemDetail:{},
+      addLastLineDim:false,
     }
 	}
 
   componentDidMount() {
     this.updateData();
+    var that = this;
+    var width = this.refs.main.getBoundingClientRect().width*0.94;
+    var num = Math.floor(width/200);
+    console.log();
+    window.setTimeout(function(){
+      that.lastLineDimNum = num-1-that.dimLength%num;
+      if (that.lastLineDimNum) {
+        that.setState({
+          addLastLineDim:true
+        })
+      }
+    },500)
+    
   }
   openEdit=(item)=>{
 		let openEdit = this.state.openEdit;
@@ -101,11 +115,13 @@ export default class Home extends React.Component {
     }
     updateData=()=>{
           var _this = this;
+
           Http.request('dim-list', {
 
           },{}).then(function(response) {
               _this.setState({dimension: response.items},function(){
-        
+                _this.dimLength = response.items.length;
+                console.log("length",_this.dimLength)
               })
           }).catch(function(err) {});
         
@@ -114,19 +130,35 @@ export default class Home extends React.Component {
     var dimId = item.id;
     window.open(`./#/oa/organization/${dimId}/labour`, dimId);
   }
+  addLastLineDim=()=>{
+    console.log(this.lastLineDimNum);
+
+
+    var arr = [];
+    for (var i=0;i<this.lastLineDimNum;i++) {
+      arr.push(
+        <div key={i} className="item">
+          
+        </div>
+      )
+    }
+    console.log(arr);
+    return arr;
+  }
   render() {
 
-
+    console.log(this.state.addLastLineDim);
     return (
       <div className="g-oa">
         <Section title="机构维度">
-        			<div className="main">
+        			<div className="main" ref="main">
                 {this.state.dimension.map((item,index)=>{
                   return this.renderDimension(item,index);
                 })}
                 <div className="item-add item" onClick={this.openCreate}>
                  
                 </div>
+                {this.state.addLastLineDim && this.addLastLineDim()}
               </div>
         </Section>
         <Dialog 
