@@ -7,8 +7,18 @@ import {
 import './index.less';
 
 
-
 class Tree extends React.Component {
+
+	static defaultProps = {
+		onCheck: React.PropTypes.func,
+		onExpand: React.PropTypes.func,
+		onSelect: React.PropTypes.func,
+		defaultExpandAll: React.PropTypes.bool,
+		defaultExpandedKeys: React.PropTypes.array,
+		expandedKeys: React.PropTypes.array,
+		autoExpandParent: React.PropTypes.bool,
+		filterTreeNode: React.PropTypes.func,
+	}
 
 	constructor(props, context) {
 		super(props, context)
