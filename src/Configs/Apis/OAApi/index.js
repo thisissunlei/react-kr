@@ -203,5 +203,11 @@ module.exports = {
   'get-department-tree': {
       url: '/api/krspace-erp-web/tree/dep',
       method: 'get'
-  }
+  },
+
+  'get-personnel-tree': {
+      url: ' /api/krspace-erp-web/tree/hrm-person',
+      method: 'get'
+  },
+  
 }
