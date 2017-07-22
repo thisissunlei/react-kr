@@ -57,10 +57,11 @@ class Editdialog extends React.Component {
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:262,marginTop:20,paddingLeft:23}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:685,marginTop:20}}  >
                 <KrField
-                    style={{width:262,marginTop:6}}
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
+                    grid={1/2}
                     label="编码"
                     component="labelText"
                     name="code"
@@ -71,6 +72,7 @@ class Editdialog extends React.Component {
                 <KrField
                     style={{width:262}}
                     inline={false}
+                    grid={1/2}
                     label="名称"
                     component="input"
                     name="orgName"
@@ -79,9 +81,10 @@ class Editdialog extends React.Component {
                 />
                
                 <KrField 
-                    style={{width:262,marginTop:6}}  
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}  
                     name="chargeId" 
                     component="searchOaPersonal" 
+                    grid={1/2}
                     label="负责人" 
                     placeholder="负责人"
                     requireLabel={true}
@@ -90,13 +93,15 @@ class Editdialog extends React.Component {
                     style={{width:262,marginTop:6}}  
                     name="adminId" 
                     component="searchOaPersonal" 
+                    grid={1/2}
                     label="管理员" 
                     placeholder="管理员"
                     requireLabel={true}
                 />
                 <KrField 
-                    style={{width:262,marginTop:6}}  
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}  
                     name="orgSort" 
+                    grid={1/2}
                     component="input" 
                     label="排序号" 
                     placeholder="排序号"

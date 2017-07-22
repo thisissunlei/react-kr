@@ -67,8 +67,6 @@ export default class PostType extends Component{
 	//数据准备
 	dataReady=()=>{
 	   Http.request('postListAdd').then(function(response) {
-           console.log('response',response);
-           
         }).catch(function(err) {
           Message.error(err.message);
         });	
@@ -78,7 +76,6 @@ export default class PostType extends Component{
 	getEditData=(id)=>{
 		var _this=this;
        Http.request('postListAdd',{id:id}).then(function(response) {
-           console.log('response',response);
            Store.dispatch(initialize('EditPostType',response));
         }).catch(function(err) {
           Message.error(err.message);
@@ -108,7 +105,6 @@ export default class PostType extends Component{
 	addPostSubmit=(params)=>{
        var _this=this;
        Http.request('post-type-add',{},params).then(function(response) {
-           console.log('response',response);
            _this.setState({
 						searchParams:{
 							time:+new Date(),
@@ -132,7 +128,6 @@ export default class PostType extends Component{
 	editPostSubmit=(params)=>{
         var _this=this;
        Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.setState({
 			  searchParams:{
 				  time:+new Date(),
@@ -164,7 +159,6 @@ export default class PostType extends Component{
    //删除提交
    deleteSubmit=()=>{
      Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.setState({
 			  searchParams:{
 				  time:+new Date(),

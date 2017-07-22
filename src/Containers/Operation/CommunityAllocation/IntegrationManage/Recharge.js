@@ -101,7 +101,6 @@ const validate = values => {
 		const errors = {};
 		//正整数
 		let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
-		console.log('000000',numberNotZero.test(values.pointNum))
 		if (!values.pointNum ) {
 			errors.pointNum = '请输入正整数';
 		}

@@ -30,7 +30,6 @@ export default class BasicInfo  extends React.Component{
 	//获取基本信息
 	basicData=(id)=>{
        Http.request('postListAdd',{id:id}).then(function(response) {
-           console.log('va',response);
 		   this.setState({
 			   basicInfo:response
 		   })
@@ -53,7 +52,6 @@ export default class BasicInfo  extends React.Component{
 	editSubmit=(params)=>{
 	   var _this=this;
        Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.basicData(params.id);
         }).catch(function(err) {
           Message.error(err.message);

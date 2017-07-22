@@ -78,7 +78,6 @@ class MaChaoYue extends React.Component {
 		let communitys = [1,2,3];
 		let src = `http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/app_public_upload/201706/I/172847235_696.png`;
 		
-		console.log('render',this.pages)
 		return (
 			    <div style={{background: '#fff',height:1400}} className="demo-Machaoyue">
 				<CommonItem />

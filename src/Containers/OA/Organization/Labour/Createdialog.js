@@ -30,6 +30,10 @@ class Createdialog extends Component {
                         {label:'部门',value:'DEPARTMENT'},
     				];
             
+        }else if(this.props.detail.orgType=='ROOT'){
+            opt = [
+                        {label:'分部',value:'SUBCOMPANY'}
+    				];
         }else{
           opt = [
                         {label:'部门',value:'DEPARTMENT'},
@@ -57,16 +61,16 @@ class Createdialog extends Component {
     }
 
     render() {
-        console.log(this.props.detail);
         const {handleSubmit} = this.props;
         
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:262,marginTop:20,paddingLeft:23}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:685,marginTop:20}}  >
                 <KrField
-                    style={{width:262}}
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
+                    grid={1/2}
                     label="名称"
                     component="input"
                     name="orgName"
@@ -77,15 +81,17 @@ class Createdialog extends Component {
                     name="orgType"
                     style={{width:262,marginTop:6}}
                     component="select"
+                    grid={1/2}
                     label="下级类型"
                     options={this.state.options}
                     inline={false}
                     requireLabel={true}
 				/>
                 <KrField
-                    style={{width:262,marginTop:6}}
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
                     label="编码"
+                    grid={1/2}
                     component="input"
                     name="code"
                     requireLabel={true}
@@ -96,13 +102,15 @@ class Createdialog extends Component {
                     name="chargeId" 
                     component="searchOaPersonal" 
                     label="负责人" 
+                    grid={1/2}
                     placeholder="负责人"
                     requireLabel={true}
                 />
                 <KrField 
-                    style={{width:262,marginTop:6}}  
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}  
                     name="adminId" 
                     component="searchOaPersonal" 
+                    grid={1/2}
                     label="管理员" 
                     placeholder="管理员"
                     requireLabel={true}

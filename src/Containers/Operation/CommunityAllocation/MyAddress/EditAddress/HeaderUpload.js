@@ -131,7 +131,6 @@ export default class HeaderUpload extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-									console.log('ddddd',fileResponse)
 									_this.setState({
 										imgSrc:fileResponse.data
 									})

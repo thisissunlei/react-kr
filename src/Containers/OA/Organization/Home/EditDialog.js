@@ -30,7 +30,6 @@ class EditDialog extends React.Component {
         var detail = this.props.detail;
         var _this = this;
         var infoList = {};
-        console.log(detail);
         Http.request('dim-detail', {
             id:detail.id
         }).then(function(response) {
@@ -65,6 +64,7 @@ class EditDialog extends React.Component {
                     name="name"
                     requireLabel={true}
                     placeholder="机构维度"
+                    maxLength={10}
                 />
                 <KrField
                     style={{width:262}}

@@ -42,7 +42,6 @@ export default class Home extends React.Component {
   openEdit=(item)=>{
 		let openEdit = this.state.openEdit;
 		var _this = this;
-    console.log(item);
 		this.setState({
 			itemDetail:item,
 			openEdit:!openEdit
@@ -83,7 +82,7 @@ export default class Home extends React.Component {
         var _this = this;   
         Http.request('dim-save', {}, data).then(function(response) {
             _this.updateData();
-            Message.success('新建机构成功');
+            Message.success('新建维度成功');
             _this.openCreate();
         }).catch(function(err) {
             Message.error(err.message);
