@@ -25,7 +25,8 @@ export default class SwitchSlide extends React.Component{
 			isDialog:false,
 			data:{
 				label:"请选择"
-			}
+			},
+			oneOpen:true
 		}
 	}
 
@@ -62,9 +63,10 @@ export default class SwitchSlide extends React.Component{
 		let {input} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();
-		console.log(data,"oooooo");
+		
 		this.setState({
-			data
+			data,
+			oneOpen:false
 		})
 	}
 
@@ -75,7 +77,7 @@ export default class SwitchSlide extends React.Component{
 	}
 	render(){
 		const {isDialog,listRender,data} = this.state;
-		const {letfData,control} = this.props;
+		const {letfData,control,value} = this.props;
 		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
 
 			if(type === 'hidden'){
@@ -121,7 +123,7 @@ export default class SwitchSlide extends React.Component{
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{data && data.label}</div>
+				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && value)? value : data.label}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 

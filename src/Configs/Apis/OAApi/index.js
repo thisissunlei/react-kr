@@ -213,6 +213,17 @@ var OAApi = {
       url: '/api/krspace-erp-web/hrm/resource/edit/type/person',
       method: 'post'
   },
+
+  /*=====树的接口======*/
+  'get-department-tree': {
+      url: '/api/krspace-erp-web/tree/dep',
+      method: 'get'
+  },
+
+  'get-personnel-tree': {
+      url: '/api/krspace-erp-web/tree/hrm-person',
+      method: 'get'
+  },
 }
 
 module.exports=OAApi;

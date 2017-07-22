@@ -74,22 +74,25 @@ class AddPerson  extends React.Component{
                             label="人员编号"
                             requireLabel={true}
 						/>
-                        <KrField
+                       <KrField
                             grid={1/2}
                             style={{width:262}}
                             name="depId"
                             component="selectTree"
                             label="部门"
+                            ajaxUrlName = "get-department-tree"
                             requireLabel={true}
                         />
-                        
-                        <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
-                            name="leader"
+                                
+                       <KrField
+                            grid={1/2}
+                            style={{width:262}}
+                            name="depId"
                             component="selectTree"
                             label="直接上级"
+                            ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
-						/>
+                        />
 
                          <KrField grid={1/2}
                             style={{width:262}}
