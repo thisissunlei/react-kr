@@ -28,7 +28,7 @@ class EditPostType  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,subCompany}=this.props;
 
 		return(
 
@@ -64,6 +64,7 @@ class EditPostType  extends React.Component{
                             component="select"
                             label="分部"
                             requireLabel={true}
+                            options={subCompany}
 						/>
 
                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'532px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
@@ -107,7 +108,7 @@ const validate = values =>{
 
     if(!values.orderNum){
        errors.orderNum='请填写排序号'
-    }else if(isNaN(orderNum)){
+    }else if(isNaN(values.orderNum)){
        errors.orderNum='排序号必须是数字'  
     }
 
