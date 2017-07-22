@@ -68,13 +68,13 @@ module.exports = {
   /*====离职列表接口*/
   //离职列表-列表接口
   'getLeaveList': {
-      url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
+      url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize={pageSize}&searchKey={searchKey}',
       method: 'get'
   },
    /*====在职列表接口*/
    //在职列表-列表接口
   'getInServiceList': {
-    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&searchKey={searchKey}',
     method: 'get'
   },
   //在职列表-获取离职类型   ------
@@ -102,7 +102,16 @@ module.exports = {
     url: '/api/krspace-erp-web/hrm/resource/delete/account',
     method: 'post'
   },
-  
+  //在职列表-绑定门禁卡  -----
+ 'bindingCard': {
+    url: '/api/krspace-erp-web/hrm/resource/binding/card',
+    method: 'post'
+  },
+   //在职列表-获取门禁卡信息  -----
+ 'cardInfo': {
+    url: '/api/krspace-erp-web/hrm/resource/info/type/card?resourceId={resourceId}',
+    method: 'get'
+  },
   /*职务类型*/
   //职务类型－列表
   'postTypeList': {
@@ -200,14 +209,38 @@ module.exports = {
   },
 
   /*=====树的接口======*/
+  //部门树
   'get-department-tree': {
       url: '/api/krspace-erp-web/tree/dep',
       method: 'get'
   },
-
+  //人员树
   'get-personnel-tree': {
       url: '/api/krspace-erp-web/tree/hrm-person',
       method: 'get'
   },
+
+  //职务类型
+  'get-position-type-list': {
+      url: '/api/krspace-erp-web/hrm/job-type/select/type/info?orgType={orgType}&orgId={orgId}',
+      method: 'get'
+  },
+
+  //职务
+  'get-position-list': {
+      url: '/api/krspace-erp-web/hrm/job/select/type/job-type?typeId={typeId}',
+      method: 'get'
+  },
+    //职级
+  'get-rank-list': {
+      url: '/api/krspace-erp-web/hrm/job-level/select/type/job-type?typeId={typeId}',
+      method: 'get'
+  },
+  //新建人员
+  'submit-new-personnel':{
+      url:'/api/krspace-erp-web/hrm/resource/add',
+      method: 'post'
+  }
+
   
 }

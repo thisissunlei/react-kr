@@ -20,6 +20,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
+	Dictionary
 } from 'kr-ui';
 import {
 	AddPostPeople
@@ -63,12 +64,20 @@ export default class InService  extends React.Component{
    }
    
    //新建用户提交
-   addPersonSubmit=(params)=>{
-     console.log('params',params);   
+   addPersonSubmit=(param)=>{
+    var data = Object.assign({},param);
+	var _this = this;
+	
+	Http.request("submit-new-personnel",{},data).then(function (response) {
+		_this.openAddPersonal()
+	}).catch(function (err) {
+		Message.error(err.message);
+	});
    }
 
    //操作
    onOperation=(type, itemDetail)=>{
+	   
       if(type=='edit'){
 		 let personId=1;
          this.goDetail(itemDetail)
@@ -89,9 +98,11 @@ export default class InService  extends React.Component{
 
 		  })
 	  }else if(type=='give'){
+		  console.log(itemDetail);
           this.setState({
 			  openCard:true,
 			  employees:{
+				id:itemDetail.id,
 				name:itemDetail.name,
 				phone:itemDetail.mobilePhone,
 			  }
@@ -148,7 +159,7 @@ export default class InService  extends React.Component{
    addTransferSubmit=(data)=>{
 		var param = Object.assign({},data);
 		var _this = this;
-		Http.request("transferOnSubmit",param).then(function (response) {
+		Http.request("transferOnSubmit",{},param).then(function (response) {
 			_this.cancelTransfer()
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -164,7 +175,12 @@ export default class InService  extends React.Component{
    }
    //开通门禁提交
    addCardSubmit=()=>{
-    
+		Http.request("bindingCard",{},param).then(function (response) {
+			_this.cancelCard();
+			Message.success("绑定成功");
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
    }
    
    //关闭所有侧滑
@@ -212,7 +228,7 @@ export default class InService  extends React.Component{
 
 					<Table
 						style={{marginTop:8}}
-						//ajax={true}
+						ajax={true}
 						onOperation={this.onOperation}
 						displayCheckbox={true}
 						exportSwitch={true}
@@ -222,6 +238,7 @@ export default class InService  extends React.Component{
 						ajaxUrlName='getInServiceList'
 						ajaxFieldListName="items"
 					  >
+					  
 						<TableHeader>
 								<TableHeaderColumn>部门</TableHeaderColumn>
 								<TableHeaderColumn>姓名</TableHeaderColumn>
@@ -241,14 +258,24 @@ export default class InService  extends React.Component{
 									component={(value,oldValue,detail)=>{
 										return (<div onClick = {() =>{
 												this.goDetail(detail)
-												}}>value</div>)
+												}}>{value}</div>)
 									}} 
 								 ></TableRowColumn>
-								<TableRowColumn name ="code" ></TableRowColumn>
+								<TableRowColumn name="code"></TableRowColumn>
 								<TableRowColumn name ="jobName" ></TableRowColumn>
-								<TableRowColumn name ="entryDate" ></TableRowColumn>
-								<TableRowColumn name ="status" ></TableRowColumn>
-								<TableRowColumn name ="name" >12</TableRowColumn>
+								<TableRowColumn 
+									name ="entryDate" 
+									component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+									}}
+										
+								></TableRowColumn>
+								<TableRowColumn name ="status" 
+									component={(value,oldValue)=>{
+										return (<Dictionary type='ERP_ResourceStatus' value={value}/>)
+									}}
+								></TableRowColumn>
+								<TableRowColumn name ="hasAccount" ></TableRowColumn>
 								<TableRowColumn type="operation">
 								<Button label="编辑"  type="operation"  operation="edit"/>
 								<Button label="离职"  type="operation"  operation="leave"/>

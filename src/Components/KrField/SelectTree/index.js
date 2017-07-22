@@ -59,13 +59,15 @@ export default class SelectTree extends React.Component{
 		if( data.orgName == "" ){
 			return ;
 		}
-		let {input} = this.props;
+		let {input,onChange} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();
 		this.setState({
 			data,
 			oneOpen:false,
 		})
+		onChange && onChange(data);
+
 	}
 
 	dlogSwidch = () =>{
