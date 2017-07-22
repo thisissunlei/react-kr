@@ -46,13 +46,14 @@ export default class InService  extends React.Component{
 				pageSize:15,
 				searchKey:''
 			},
-			oldDepartment:'',
 			employees:{
 				name:'',
 				phone:'',
 			},
 			//离职id
-			leaveId:''
+			leaveId:'',
+			//调动数据
+			transferDetail:{}
 			
 		}
 	}
@@ -82,7 +83,7 @@ export default class InService  extends React.Component{
 	  }else if(type=='go'){
           this.setState({
 			  openTransfer:true,
-			  oldDepartment:itemDetail.depId
+			  transferDetail:itemDetail
 		  })
 	  }else if(type=='open'){
 
@@ -112,7 +113,7 @@ export default class InService  extends React.Component{
    addLeaveSubmit=(data)=>{
 	let {leaveId}=this.state;
 	var param = Object.assign({},data);
-	param.id=leaveId;
+	param.resourceId=leaveId;
 	var searchParams={
 		time:+new Date()
 	}
@@ -195,7 +196,8 @@ export default class InService  extends React.Component{
 		window.open(`./#/oa/${data.personId}/peopleDetail`,'123');
    }
 	render(){
-		const {oldDepartment,employees} = this.state;
+		const {transferDetail,employees} = this.state;
+		console.log('frrr',transferDetail);
 		return(
 
 			<div>
@@ -255,7 +257,7 @@ export default class InService  extends React.Component{
 									}} 
 								 ></TableRowColumn>
 								<TableRowColumn name ="code" ></TableRowColumn>
-								<TableRowColumn name ="jobId" ></TableRowColumn>
+								<TableRowColumn name ="jobName" ></TableRowColumn>
 								<TableRowColumn name ="entryDate" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						         }}></TableRowColumn>
@@ -313,11 +315,11 @@ export default class InService  extends React.Component{
 						onClose={this.cancelTransfer}
 						open={this.state.openTransfer}
 						contentStyle ={{ width: '444px'}}
-						department = {oldDepartment}
 					>
 					<Transfer
 						onCancel={this.cancelTransfer}
 						onSubmit={this.addTransferSubmit}  
+						department = {transferDetail}
 					/>
 					</Dialog>
 

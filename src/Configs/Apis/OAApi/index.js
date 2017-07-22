@@ -74,7 +74,7 @@ var OAApi = {
    /*====在职列表接口*/
    //在职列表-列表接口
   'getInServiceList': {
-    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize?{pageSize}&searchKey&{searchKey}',
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&searchKey&{searchKey}',
     method: 'get'
   },
   //在职列表-获取离职类型   ------
@@ -100,6 +100,12 @@ var OAApi = {
   //在职列表-接触账号  -----
  'removeAccount': {
     url: '/api/krspace-erp-web/hrm/resource/delete/account',
+    method: 'post'
+  },
+
+  //在职列表调动提交
+   'service-switch': {
+    url: '/api/krspace-erp-web/hrm/resource/move',
     method: 'post'
   },
   

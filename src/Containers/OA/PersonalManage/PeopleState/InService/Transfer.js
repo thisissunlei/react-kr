@@ -14,24 +14,7 @@ class Transfer extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-        this.state = {
-            department:'',
-            departmentLis:''
-        }
-        this.getDepartmentList()
 	}
-    //获取部门列表
-    getDepartmentList = () =>{
-        const _this = this;
-        Http.request("getDepartmentList").then(function (response) {
-            _this.setState({
-                
-                departmentLis: [{label:"主动被动",value:"INITIATIVE"},{label:"被动",value:"PASSIVITY"}],
-            });
-        }).catch(function (err) {
-            Message.error(err.message);
-        });
-    }
     
      onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -42,20 +25,12 @@ class Transfer extends React.Component{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
-    componentWillReceiveProps(nextProps){
-        let {department} = this.state;
-        if(nextProps.department != department){
-            this.setState({
-                department:nextProps.department,
-            })
-        }
-
-    }
+  
 
 	render(){
-        let {department,departmentList} = this.state;
-        let {handleSubmit}=this.props;
 
+        let {handleSubmit,department}=this.props;
+        
 		return(
 
 			<div>
@@ -63,10 +38,9 @@ class Transfer extends React.Component{
                
                 <KrField grid={1}
                             style={{width:262,marginLeft:28}}
-                            name="area"
                             component="labelText"
                             label="原部门:"
-                            value = {department}
+                            value = {department.depName}
                             requireLabel={true}
 						/>
                  <KrField grid={1}
@@ -76,7 +50,6 @@ class Transfer extends React.Component{
                             label="部门:"
                             inline={true}
                             requireLabel={true}
-                            options={departmentList}
 					    />
 
 			   <Grid style={{marginTop:17,marginBottom:5}}>
