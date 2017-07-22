@@ -206,7 +206,7 @@ module.exports = {
   },
 
   'get-personnel-tree': {
-      url: ' /api/krspace-erp-web/tree/hrm-person',
+      url: '/api/krspace-erp-web/tree/hrm-person',
       method: 'get'
   },
   

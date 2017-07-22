@@ -45,8 +45,9 @@ export default class TreeDialog extends React.Component{
 		Http.request(ajaxUrlName).then(function (response) {
 
 			_this.setState({
-				treeData:[response]
+				treeData:response.items
 			})
+			console.log(response.items)
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
