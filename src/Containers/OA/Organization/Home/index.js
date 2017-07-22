@@ -39,21 +39,21 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     this.updateData();
-    this.renderAddWhite();
+    //this.renderAddWhite();
   }
-  renderAddWhite=()=>{
-    var that = this;
-    var width = this.refs.main.getBoundingClientRect().width*0.94;
-    var num = Math.floor(width/200);
-    window.setTimeout(function(){
-      that.lastLineDimNum = num-1-that.dimLength%num;
-      if (that.lastLineDimNum) {
-        that.setState({
-          addLastLineDim:true
-        })
-      }
-    },500)
-  }
+  // renderAddWhite=()=>{
+  //   var that = this;
+  //   var width = this.refs.main.getBoundingClientRect().width*0.94;
+  //   var num = Math.floor(width/200);
+  //   window.setTimeout(function(){
+  //     that.lastLineDimNum = num-1-that.dimLength%num;
+  //     if (that.lastLineDimNum) {
+  //       that.setState({
+  //         addLastLineDim:true
+  //       })
+  //     }
+  //   },500)
+  // }
   openEdit=(item)=>{
 		let openEdit = this.state.openEdit;
 		var _this = this;
@@ -99,7 +99,6 @@ export default class Home extends React.Component {
             _this.updateData();
             Message.success('新建维度成功');
             _this.openCreate();
-            _this.renderAddWhite();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -111,23 +110,28 @@ export default class Home extends React.Component {
             _this.updateData();
             Message.success('修改成功');
             _this.openEdit();
-            _this.renderAddWhite();
         }).catch(function(err) {
             Message.error(err.message);
         });
     }
     updateData=()=>{
-          var _this = this;
-
+          var that = this;
           Http.request('dim-list', {
-
           },{}).then(function(response) {
-              _this.setState({dimension: response.items},function(){
-                _this.dimLength = response.items.length;
-                console.log("length",_this.dimLength)
-              })
+              that.dimLength = response.items.length;
+              renderAddWhite();
+              that.setState({dimension: response.items})
+              function renderAddWhite() {
+                  var width = that.refs.main.getBoundingClientRect().width*0.94;
+                  var num = Math.floor(width/200);
+                    that.lastLineDimNum = num-1-that.dimLength%num;
+                    if (that.lastLineDimNum) {
+                      that.setState({
+                        addLastLineDim:true
+                      })
+                    }
+              }
           }).catch(function(err) {});
-        
   }
   toLabour=(item)=>{
     var dimId = item.id;
