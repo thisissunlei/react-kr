@@ -1,16 +1,65 @@
 .tree-dialog{
+    height: 535px;
+    background: #fff;
+    text-align: center;
     .content-left{
-        width: 190px;
+        width: 395px;
         overflow: auto;
-        height: 300px;
-        border: 1px solid #ccc;
+        height: 476px;
+        border: 1px solid #E1E6EB;
+        display: inline-block;
+        border-radius: 4px;
+        float: left;
+
     }
     .content-right{
-        width: 190px;
-        position: absolute;
-        top: 0px;
-        right: 10px;
+        width: 230px;
+        float: left;
+        height: 476px;
+        margin-left: 10px;
+         display: inline-block;
+        left:10px;
         border:1px solid #ccc;
-        height: 300px;
+        background: #FFFFFF;
+        border: 1px solid #E1E6EB;
+        border-radius: 4px;
+        .everyHave{
+            position: relative;
+            height: 36px;
+            line-height: 17px;
+            box-sizing: border-box;
+            padding: 10px;
+            border-bottom:1px solid #E1E6EB;
+            cursor: pointer;
+          
+        }
+        
+    }
+
+    .content-left:hover{
+        border: 1px solid #AADBFE
+    }
+    .content-right:hover{
+        border: 1px solid #AADBFE
+    }
+    .botton{
+        display: inline-block;
+        padding: 0px 25px;
+        cursor: pointer;
+        
+    }
+    .tree-dialog-bottom{
+        background: #F6F6F6;
+        height: 40px;
+        width: 100%;
+        text-align: center;
+        line-height: 40px;
+        position: absolute;
+        bottom: 0px;
+    }
+    .tree-content{
+        display: inline-block;
+        text-align:left;
+    
     }
 }

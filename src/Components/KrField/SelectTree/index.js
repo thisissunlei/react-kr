@@ -23,6 +23,7 @@ export default class SelectTree extends React.Component{
 		super(props,context)
 		this.state = {
 			isDialog:false,
+			data:''
 		}
 	}
 
@@ -48,9 +49,16 @@ export default class SelectTree extends React.Component{
 		})
 		
 	}
-	onSubmit = () =>{
+	onSubmit = (data) =>{
 
+		let {input} = this.props;
+		input.onChange(data);
+		this.dlogSwidch();
+		this.setState({
+			data
+		})
 	}
+
 	dlogSwidch = () =>{
 		this.setState({
 			isDialog:false,
@@ -60,13 +68,14 @@ export default class SelectTree extends React.Component{
 		
 		let {input,onChange} = this.props;
 		// var value = (item && item.value) || '';
-		input.onChange({});
+		// input.onChange({});
+		this.dlogSwidch();
 		// onChange && onChange(item);
 		
 	}
 
 	render(){
-		const {isDialog} = this.state;
+		const {isDialog,data} = this.state;
 		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
 
 			if(type === 'hidden'){
@@ -112,17 +121,21 @@ export default class SelectTree extends React.Component{
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
-				 <Input  onClick = {this.onFocus} {...inputProps}/>
+				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps}/>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+				 <div className = "select-tree">
+
+				 
 				 <Dialog
-					title="删除职务"
+					title="人员"
 					onClose={this.dlogSwidch}
 					open={isDialog}
 					
-					contentStyle ={{ width: '444px'}}
+					contentStyle ={{ width: '690px',height:'636px'}}
 				 >
-					<TreeDialog onSelect = {this.onSelect} onSubmit = {this.on}/>
+					<TreeDialog onSelect = {this.onSelect} onSubmit = {this.onSubmit}/>
 				</Dialog>
+				</div>
 			 </WrapComponent>
 		 );
 	 }

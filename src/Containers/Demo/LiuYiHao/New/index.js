@@ -25,10 +25,12 @@ class New extends React.Component {
 		return (
 			<div style = {{height:2000}}>
 				<KrField
-					
-					otherType = "233"
-					component="selecTemployees"
-					
+					grid={1/2}
+					style={{width:262}}
+					name="depId"
+					component="selectTree"
+					label="部门"
+					requireLabel={true}
 				/>
 			</div>
 
