@@ -23,8 +23,8 @@ class WuShuLin extends React.Component {
 		return (
 			<div>
               <SwitchSlide 
-			   leftData={['nnn','gg','hhh']}
-			   control='double'
+			   leftData={['nnn','gg','hhh','ns']}
+			   control='single'
 			  />
 		    </div>
 		);

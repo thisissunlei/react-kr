@@ -9,7 +9,7 @@ var baseUrl = 'http://op.krspace.cn';
 
 switch(env){
 
-    case 'prod':{
+    case 'production':{
       baseUrl = 'http://op.krspace.cn';
       break;
     }
@@ -30,7 +30,7 @@ switch(env){
     }
 
     default:{
-      baseUrl = 'http://optest02.krspace.cn';
+      baseUrl = 'http://op.krspace.cn';
     }
 
 }
