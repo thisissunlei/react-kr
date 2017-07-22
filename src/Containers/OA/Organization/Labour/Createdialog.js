@@ -62,7 +62,7 @@ class Createdialog extends Component {
 
     render() {
         const {handleSubmit,detail} = this.props;
-        console.log(detail);
+       // console.log(detail);
         return (
 
             <div>

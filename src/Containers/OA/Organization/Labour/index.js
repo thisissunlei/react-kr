@@ -69,7 +69,6 @@ export default class Labour extends React.Component {
 			openCancelDialog: false,
 			newPage: 1,
 			treeData: [],
-			renderTree: false,
 			openUnCancelDialog: false,
 			dimData: [],
 			searchKey: '',
@@ -92,27 +91,12 @@ export default class Labour extends React.Component {
 		NavModel.setSidebar(false);
 		var dimId = this.props.params.dimId;
 		var _this = this;
-		// Http.request('org-list', {
-		// 	id:dimId
-		// },{}).then(function(response) {
-		// 	_this.setState({
-		// 		treeData:response.childList,
-		// 		searchParams: {
-		// 			page: 1,
-		// 			pageSize: 15,
-		// 			orgId:response.orgId,
-		// 			orgType:response.orgType,
-		// 		},
-		// 	},function(){
-		// 		_this.renderTree();
-		// 	})
-		// }).catch(function(err) {});
+		
 		Http.request('extra-list', {
 			dimId: dimId
 		}).then(function (response) {
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
-
 
 		this.getDimensionalityDetail();
 
@@ -125,9 +109,9 @@ export default class Labour extends React.Component {
 	getDimensionalityDetail = () => {
 
 		const that = this;
-		const { params } = this.props;
-		const id = params.dimId;
-
+		const { searchParams } = this.state;
+		const id = searchParams.dimId;
+		
 		Http.request('dim-detail', { id }).then(function (response) {
 			that.setState({ dimName: response.name })
 		}).catch(function (err) { });
@@ -160,11 +144,6 @@ export default class Labour extends React.Component {
 			this.openUnCancelDialog();
 		}
 	}
-	renderTree = () => {
-		this.setState({
-			renderTree: true,
-		})
-	}
 	openCancelDialog = (detail) => {
 
 		this.setState({
@@ -196,16 +175,11 @@ export default class Labour extends React.Component {
 
 	getOrganizationDetail = ()=>{
 
-		const {searchParams} = this.state;
-
+		var searchParams = Object.assign({},this.state.searchParams);
 		const that = this;
-
 		Http.request('org-detail', searchParams).then(function (response) {
-
 			const dataName = {};
-
 			dataName.orgName = response.orgName;
-
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -216,6 +190,7 @@ export default class Labour extends React.Component {
 				// 	dimId: this.props.params.dimId,
 				// },
 			});
+			
 
 		}).catch(function (err) {
 
@@ -223,11 +198,12 @@ export default class Labour extends React.Component {
 
 	}
 	onCreatSubmit = (params) => {
-
+		console.log("提交的版本",params);
 		var _this = this;
 		Http.request('save-junior', {}, params).then(function (response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
+			
 			_this.changeP();
 			_this.getTreeData();
 			_this.getOrganizationDetail();
@@ -236,12 +212,8 @@ export default class Labour extends React.Component {
 		});
 	}
 	onEditSubmit = (params) => {
-
 		var _this = this;
-
 		Http.request('org-update', {}, params).then(function (response) {
-
-
 			_this.openEditDialog();
 			Message.success('修改成功');
 			_this.changeP();
@@ -292,21 +264,18 @@ export default class Labour extends React.Component {
 	//改变页码
     changeP=()=>{
         var timer = new Date();
-		let data = this.state.data;
-        this.setState({
-            searchParams: {
-					pageSize: 15,
-					orgId: data.orgId,
-					orgType: data.orgType,
-					dimId: data.dimId,
-                    page: this.state.newPage,
-                    timer: timer,
-            }
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.timer=timer;
+		// console.log("changeP",searchParams);
+		this.setState({
+            searchParams:searchParams,
         })
     }
-    onPageChange=(page)=>{
-        this.setState({
-            newPage:page,
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
+		this.setState({
+            searchParams:searchParams,
         })
     }
 	onSerchSubmit = (form) => {
@@ -329,7 +298,10 @@ export default class Labour extends React.Component {
 				orgType: data.treeType,
 				dimId:this.props.params.dimId
 			},
-			dataName:data,
+			dataName:{
+				orgName:data.orgName,
+			},
+			
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -350,44 +322,27 @@ export default class Labour extends React.Component {
 				'display': 'none'
 			},
 			styleBool: false,
+			searchParams: {
+				page: 1,
+				pageSize: 15,
+				orgId: '1',
+				orgType: "ROOT",
+				dimId: dimId,
+			},
 		}, function () {
-			console.log(this.state.styleBool);
-			_this.getOrganizationDetail();
-			_this.getDimensionalityDetail();
-
-			Http.request("org-list", {id:dimId}).then(function (response) {
-				_this.setState({
-					treeData: [response],
-				},function(){
-					
-				});
-			}).catch(function (err) {
-				Message.error(err.message);
-			});
-
-			
-
-			Http.request('dim-detail', { id:dimId }).then(function (response) {
-			_this.setState({ dimName: response.name })
-		}).catch(function (err) { });
-
-			Http.request('extra-list', {
-			dimId: dimId
-			}).then(function (response) {
-				_this.setState({ dimData: response.items })
-			}).catch(function (err) { });
-
-			Http.request('org-detail', _this.state.data).then(function (response) {
-				const dataName = {};
-				dataName.orgName = response.orgName;
-				_this.setState({
-					dataName,
-				});
-				}).catch(function (err) {
-			});
-
+			window.location.href = `./#/oa/organization/${dimId}/labour`;		
+			_this.reloadDim();
 		})
 
+	}
+	reloadDim=()=>{
+			var that = this;
+			// window.setTimeout(function(){
+			// 	console.log(that.props.params.dimId);
+			// },200)
+			that.getOrganizationDetail();
+			that.getTreeData();
+			that.getDimensionalityDetail();
 	}
 	renderDimList = (item, index) => {
 		return (
@@ -442,7 +397,8 @@ export default class Labour extends React.Component {
 	}
 
 	render() {
-		let { itemDetail, data, dimId, styleBool} = this.state;
+		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
+		//console.log(this.props.params.dimId);		
 		var logFlag = '';
 		var style = {};
 		return (
@@ -679,7 +635,7 @@ export default class Labour extends React.Component {
 					}
 				</div>
 				<Dialog
-					title={`查看${data.orgName ? data.orgName : '36Kr'}`}
+					title={`查看${dataName.orgName ? dataName.orgName : '36Kr'}`}
 					modal={true}
 					open={this.state.openViewDialog}
 					onClose={this.openViewDialog}
@@ -690,7 +646,7 @@ export default class Labour extends React.Component {
 					<Viewdialog detail={this.state.searchParams} onCancel={this.openViewDialog} />
 				</Dialog>
 				<Dialog
-					title={`编辑${data.orgName ? data.orgName : '36Kr'}`}
+					title={`编辑${dataName.orgName ? dataName.orgName : '36Kr'}`}
 					modal={true}
 					open={this.state.openEditDialog}
 					onClose={this.openEditDialog}
@@ -698,7 +654,7 @@ export default class Labour extends React.Component {
 						width: 685
 					}}
 				>
-					<EditDialog detail={this.state.data} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
+					<EditDialog detail={this.state.searchParams} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
 				</Dialog>
 				<Dialog
 					title="提示"
@@ -731,7 +687,7 @@ export default class Labour extends React.Component {
 						width: 685
 					}}
 				>
-					<CreateDialog params={this.props.params} detail={this.state.data} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
+					<CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
 				</Dialog>
 				{/*新建用户*/}
 				{/*<AddPostPeople 

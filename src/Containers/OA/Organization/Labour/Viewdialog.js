@@ -32,6 +32,12 @@ export default class Viewdialog extends React.Component {
 
     render() {
         let {infoList} = this.state;
+        var orgType='';
+        if(infoList.orgType=="SUBCOMPANY"){
+            orgType = "分部";
+        }else if(infoList.orgType=="DEPARTMENT"){
+            orgType="部门";
+        }
         return (
 
               <div style={{width:644,marginTop:20,paddingLeft:23}}>
@@ -45,6 +51,14 @@ export default class Viewdialog extends React.Component {
                 />
                 <KrField
                     style={{width:262,marginTop:6}}
+                    inline={false}
+                    value={orgType}
+                    label="类型"
+                    grid={1/2}
+                    component="labelText"
+                />
+                <KrField
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     value={infoList.orgSort}
                     label="排序号"
                     inline={false}
@@ -52,7 +66,7 @@ export default class Viewdialog extends React.Component {
                     component="labelText"
                 />
                 <KrField
-                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
+                    style={{width:262,marginTop:6}}
                     value={infoList.code}
                     label="编码"
                     inline={false}
@@ -60,7 +74,7 @@ export default class Viewdialog extends React.Component {
                     component="labelText"
                 />
                 <KrField
-                    style={{width:262,marginTop:6}}
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     value={infoList.chargeName}
                     label="负责人"
                     grid={1/2}
@@ -69,7 +83,7 @@ export default class Viewdialog extends React.Component {
                 />
                 
                 <KrField
-                    style={{width:262,marginRight:28,marginLeft:35}}
+                    style={{width:262,marginRight:28}}
                     component="labelText"
                     label="管理员"
                     grid={1/2}
