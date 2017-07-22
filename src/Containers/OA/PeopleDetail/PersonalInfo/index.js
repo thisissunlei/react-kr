@@ -8,7 +8,8 @@ import {
 	TableRowColumn,
     Button,
 	Drawer,
-	Dialog
+	Dialog,
+	Message
 } from 'kr-ui';
 import './index.less';
 import EditPerson from './EditPerson';
@@ -58,8 +59,9 @@ export default class PersonalInfo  extends React.Component{
 
 	//获取个人信息
 	personData=(id)=>{
-       Http.request('postListAdd',{id:id}).then(function(response) {
-		   this.setState({
+	   var _this=this;
+       Http.request('people-person-watch',{resourceId:id}).then(function(response) {
+		   _this.setState({
 			   personInfo:response
 		   })
         }).catch(function(err) {
@@ -125,8 +127,8 @@ export default class PersonalInfo  extends React.Component{
    //编辑提交
    editSubmit=(params)=>{
        var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
-           _this.personData(params.id);
+       Http.request('people-person-edit',{},params).then(function(response) {
+           _this.personData(params.resourceId);
         }).catch(function(err) {
           Message.error(err.message);
         });

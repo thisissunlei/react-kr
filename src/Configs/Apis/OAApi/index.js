@@ -1,5 +1,5 @@
 //OA
-module.exports = {
+var OAApi = {
   //维度列表
   'dim-list': {
       url: '/api/krspace-erp-web/dim/list',
@@ -198,5 +198,21 @@ module.exports = {
       url: '/api/krspace-erp-web/hrm/resource/info/type/edit?id={id}',
       method: 'get'
   },
-  
+  //个人信息显示
+  'people-person-watch': {
+      url: '/api/krspace-erp-web/hrm/resource/info/type/person?resourceId={resourceId}',
+      method: 'get'
+  },
+  //工作信息接口
+  'people-work-watch': {
+      url: '/api/krspace-erp-web/hrm/resource/info/type/workinfo?resourceId={resourceId}',
+      method: 'get'
+  },
+  //编辑个人信息提交
+  'people-person-edit': {
+      url: '/api/krspace-erp-web/hrm/resource/edit/type/person',
+      method: 'post'
+  },
 }
+
+module.exports=OAApi;
