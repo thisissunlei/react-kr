@@ -50,7 +50,9 @@ export default class InService  extends React.Component{
 			employees:{
 				name:'',
 				phone:'',
-			}
+			},
+			//离职id
+			leaveId:''
 			
 		}
 	}
@@ -74,7 +76,8 @@ export default class InService  extends React.Component{
          this.goDetail(itemDetail)
 	  }else if(type=='leave'){
 		  this.setState({
-			  openLeave:true
+			  openLeave:true,
+			  leaveId:itemDetail.id
 		  })
 	  }else if(type=='go'){
           this.setState({
@@ -107,14 +110,21 @@ export default class InService  extends React.Component{
    }
    //离职提交
    addLeaveSubmit=(data)=>{
-
+	let {leaveId}=this.state;
 	var param = Object.assign({},data);
+	param.id=leaveId;
+	var searchParams={
+		time:+new Date()
+	}
 	var _this = this;
-	Http.request("leaveOnSubmit",param).then(function (response) {
-		_this.cancelLeave()
+	Http.request("leaveOnSubmit",{},param).then(function (response) {
+		_this.setState({
+			searchParams:Object.assign({},_this.state.searchParams,searchParams)
+		})
 	}).catch(function (err) {
 		Message.error(err.message);
 	});
+	 this.cancelLeave();
    }
   
   //解除关闭
@@ -212,7 +222,7 @@ export default class InService  extends React.Component{
 
 					<Table
 						style={{marginTop:8}}
-						//ajax={true}
+						ajax={true}
 						onOperation={this.onOperation}
 						displayCheckbox={true}
 						exportSwitch={true}
@@ -235,20 +245,22 @@ export default class InService  extends React.Component{
 
 						<TableBody >
 							<TableRow>
-								<TableRowColumn name ="depId" ></TableRowColumn>
+								<TableRowColumn name ="depName" ></TableRowColumn>
 								<TableRowColumn 
 									name ="name"
 									component={(value,oldValue,detail)=>{
 										return (<div onClick = {() =>{
 												this.goDetail(detail)
-												}}>value</div>)
+												}}>{value}</div>)
 									}} 
 								 ></TableRowColumn>
 								<TableRowColumn name ="code" ></TableRowColumn>
-								<TableRowColumn name ="jobName" ></TableRowColumn>
-								<TableRowColumn name ="entryDate" ></TableRowColumn>
+								<TableRowColumn name ="jobId" ></TableRowColumn>
+								<TableRowColumn name ="entryDate" component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+						         }}></TableRowColumn>
 								<TableRowColumn name ="status" ></TableRowColumn>
-								<TableRowColumn name ="name" >12</TableRowColumn>
+								<TableRowColumn name ="hasAccount" ></TableRowColumn>
 								<TableRowColumn type="operation">
 								<Button label="编辑"  type="operation"  operation="edit"/>
 								<Button label="离职"  type="operation"  operation="leave"/>
