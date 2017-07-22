@@ -1,7 +1,8 @@
 import React from 'react';
 import {reduxForm} from 'redux-form';
 import {
-	SwitchSlide
+	SwitchSlide,
+	KrField
 } from 'kr-ui';
 import './index.less';
 class WuShuLin extends React.Component {
@@ -22,10 +23,16 @@ class WuShuLin extends React.Component {
 
 		return (
 			<div>
-              <SwitchSlide 
-			   leftData={['nnn','gg','hhh','ns']}
-			   control='single'
-			  />
+			  <KrField
+					grid={1/2}
+					style={{width:262}}
+					name="depId"
+					letfData={[{label:'nnn'},{label:'gg'},{label:'hhh'},{label:'ns'}]}
+					component="switchSlide"
+					label="部门"
+					control='single'
+					requireLabel={true}
+				/>
 		    </div>
 		);
 	}
