@@ -24,15 +24,16 @@ export default class SliderTree extends React.Component {
 		this.state = {
 			treeData: [],
 			inputValue: '',
-			expandedKeys: [],
+			expandedKeys: ['0-36kr'],
 			autoExpandParent: true,
 			visible: false,
+			update:this.props.update
 		}
-
-		this.getTreeData();
 
 		this.params = {};
 		this.onlyKey = 0;
+
+		this.filterKeys = [];
 
 	}
 	//点击选择事件
@@ -40,34 +41,10 @@ export default class SliderTree extends React.Component {
 		let { onSelect } = this.props;
 		onSelect && onSelect(item);
 	}
-	getTreeData = () => {
-
-		let { ajaxUrlName, params } = this.props;
-
-		params = params || {};
-		this.params = Object.assign({},params);
-		const _this = this;
-		Http.request(ajaxUrlName, params).then(function (response) {
-
-			_this.setState({
-				treeData: [response],
-			});
-
-			_this.filterKeys = [];
-			
-
-		}).catch(function (err) {
-			Message.error(err.message);
-		});
-
-	}
 
 	filterTreeNode = (treeNode) => {
-
 		return this.filterFn(treeNode.props.title);
-
 	}
-
 
 	onChange = (event) => {
 
@@ -87,11 +64,9 @@ export default class SliderTree extends React.Component {
 		}
 
 		return false;
-
 	}
 	onExpand = (expandedKeys) => {
 		 this.filterKeys = undefined;
-		 
 
 		 this.setState({
 		 	expandedKeys,
@@ -105,12 +80,19 @@ export default class SliderTree extends React.Component {
 				inputValue: nextProps.searchKey
 			});
 		}
+		
 		let paramsChange = false;
 		for(let i in nextProps.params){
 			if(nextProps.params[i] != this.params[i]){
 				paramsChange = true;
 				break;
 			}
+		}
+		if(this.state.update!=nextProps.update){
+			this.setState({
+				update:nextProps.update
+			})
+			paramsChange=true;
 		}
 		if(paramsChange){
 			this.getTreeData();
@@ -120,8 +102,8 @@ export default class SliderTree extends React.Component {
 
 	render() {
 
-		const { title, type } = this.props;
-		const { treeData } = this.state;
+		const { title, type,treeData } = this.props;
+
 		var that = this;
 
 		const loop = (data,parentIndex=0) => {
@@ -131,8 +113,8 @@ export default class SliderTree extends React.Component {
 
 				var key = parentIndex+'-'+item.orgName;
 
-				if (this.filterKeys && this.filterFn(key)) {
-					this.filterKeys.push(key);
+				if (that.filterKeys && that.filterFn(key)) {
+					that.filterKeys.push(key);
 				}
 
 				if (item.children) {
@@ -145,11 +127,12 @@ export default class SliderTree extends React.Component {
 
 		};
 
-
-
 		let expandedKeys = this.state.expandedKeys;
 		let autoExpandParent = this.state.autoExpandParent;
-		if (this.filterKeys) {
+
+		var filterKeys = this.filterKeys;
+
+		if (filterKeys && filterKeys.length) {
 			expandedKeys = this.filterKeys;
 			autoExpandParent = true;
 		}
@@ -165,10 +148,11 @@ export default class SliderTree extends React.Component {
 					onCheck={this.onCheck}
 					onExpand={this.onExpand}
 					onSelect={this.onSelect}
+					defaultExpandAll={false}
+					defaultExpandedKeys={['0-36kr']}
 					expandedKeys={expandedKeys}
 					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}
-					
 				>
 					{treeNodes}
 				</Tree>

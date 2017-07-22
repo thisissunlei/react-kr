@@ -46,7 +46,6 @@ class NewCreateDefinitionForm extends React.Component{
 	}
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
-		console.log(community,">>>>>")
   		let _this = this;
   		if(community == null){
   			_this.setState({

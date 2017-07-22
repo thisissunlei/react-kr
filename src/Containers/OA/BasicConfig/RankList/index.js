@@ -69,8 +69,6 @@ export default class RankList extends Component{
 	//数据准备
 	dataReady=()=>{
 	   Http.request('postListAdd').then(function(response) {
-           console.log('response',response);
-           
         }).catch(function(err) {
           Message.error(err.message);
         });	
@@ -81,7 +79,6 @@ export default class RankList extends Component{
 	getEditData=(id)=>{
 		var _this=this;
        Http.request('postListAdd',{id:id}).then(function(response) {
-           console.log('response',response);
            Store.dispatch(initialize('EditPostType',response));
         }).catch(function(err) {
           Message.error(err.message);
@@ -109,7 +106,6 @@ export default class RankList extends Component{
 
 	//新建职务类型提交
 	addPostSubmit=()=>{
-       console.log('values1',values);
 		Http.request('postListAdd',{},values).then(function(response) {
             _this.setState({
 			searchParams:{
@@ -134,7 +130,6 @@ export default class RankList extends Component{
 	editPostSubmit=()=>{
        var _this=this;
 			Http.request('postListAdd',{},params).then(function(response) {
-				console.log('response',response);
 				_this.setState({
 					searchParams:{
 						time:+new Date(),
@@ -166,7 +161,6 @@ export default class RankList extends Component{
    //删除提交
    deleteSubmit=()=>{
       Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.setState({
 			  searchParams:{
 				  time:+new Date(),

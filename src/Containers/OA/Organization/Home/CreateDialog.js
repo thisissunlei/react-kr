@@ -54,6 +54,7 @@ class CreateDialog extends React.Component {
                     name="name"
                     placeholder="机构维度"
                     requireLabel={true}
+                    maxLength={10}
                 />
                 
                 <Row style={{marginTop:20,marginBottom:6}}>

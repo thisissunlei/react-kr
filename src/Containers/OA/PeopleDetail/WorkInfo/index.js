@@ -30,7 +30,6 @@ export default class WorkInfo  extends React.Component{
 	//获取工作信息
 	workData=(id)=>{
        Http.request('postListAdd',{id:id}).then(function(response) {
-           console.log('va',response);
 		   this.setState({
 			   workInfo:response
 		   })
@@ -52,7 +51,6 @@ export default class WorkInfo  extends React.Component{
 	editSubmit=(params)=>{
        var _this=this;
        Http.request('postListAdd',{},params).then(function(response) {
-           console.log('response',response);
            _this.workData(params.id);
         }).catch(function(err) {
           Message.error(err.message);

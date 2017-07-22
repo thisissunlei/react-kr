@@ -40,7 +40,7 @@ class AddPerson  extends React.Component{
 			<div className='m-addPerson'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon"></span><label className="title-text">新增用户</label></div>
+                            <div><span className="new-icon"></span><label className="title-text">新增员工</label></div>
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 
@@ -98,6 +98,7 @@ class AddPerson  extends React.Component{
                             label="职务"
                             requireLabel={true}
 						/>
+
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="levelId"
@@ -148,6 +149,33 @@ class AddPerson  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+    let reg= /^1[34578]\d{9}$/; 
+
+    if(!values.name){
+        errors.name='请填写名称';
+    }else if(values.name.length>10){
+        errors.name='名称最多10个字符';
+    }
+
+    if(!values.code){
+        errors.code='请填写编号';
+    }else if(values.code.length>10){
+        errors.code='编号最多10个字符';
+    }
+
+    if(!values.status){
+        errors.status='请选择员工属性';
+    }
+
+    if(!values.type){
+        errors.type='请选择员工类别';
+    }
+
+     if(!values.mobilePhone){
+        errors.mobilePhone='请填写手机号码';
+    }else if(!reg.test(values.mobilePhone)){
+        errors.mobilePhone='请填写正确手机号码';
+    }
     
 	return errors
 }

@@ -46,7 +46,6 @@ export default class ZhangChi extends React.Component {
     });
   }
   onSelect=(selectedKeys, info)=> {
-    console.log('selected: ', info);
     this.setState({
       visible: false,
       sel: info.node.props.title,
@@ -54,7 +53,6 @@ export default class ZhangChi extends React.Component {
   }
   onExpand=(expandedKeys)=> {
     this.filterKeys = undefined;
-    console.log('onExpand', arguments);
     // if not set autoExpandParent to false, if children expanded, parent can not collapse.
     // or, you can remove all expanded chilren keys.
     this.setState({
@@ -63,7 +61,6 @@ export default class ZhangChi extends React.Component {
     });
   }
   filterTreeNode=(treeNode)=> {
-    console.log(treeNode);
     // 根据 key 进行搜索，可以根据其他数据，如 value
     return this.filterFn(treeNode.props.eventKey);
   }

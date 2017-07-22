@@ -19,10 +19,8 @@ State.getListDic = action(function() {
 	var _this = this;
 	Http.request('getListDic', {}).then(function(response) {
 		
-		console.log("response",response,response.Maker,response.Maker.length);
 		var arrNew = []
 		for (var i=0;i<response.Maker.length;i++){
-			console.log("response.Maker[i]",response.Maker[i].desc);
 			arrNew[i] = {
 						label:response.Maker[i].desc,
 						value:response.Maker[i].value

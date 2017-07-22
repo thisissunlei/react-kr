@@ -185,7 +185,6 @@ export default class List extends React.Component {
 		params.interCode=values.interCode;
 		Http.request('CardEdit', {}, params).then(function(response) {
 			_this.openEditDetailDialog();
-			// console.log("_this.state.realPage",_this.state.realPage);
 			_this.setState({
 				searchParams: {
 					foreignCode:_this.state.searchParams.foreignCode,
@@ -293,7 +292,6 @@ export default class List extends React.Component {
 		})
 	}
 	onPageChange=(page)=>{
-		console.log("page",page);
 		this.setState({
 			realPage: page
 		})
