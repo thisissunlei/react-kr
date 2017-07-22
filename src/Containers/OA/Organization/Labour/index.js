@@ -52,9 +52,15 @@ export default class Labour extends React.Component {
 				orgId: '1',
 				orgType: "ROOT",
 				dimId: this.props.params.dimId,
-				openAddPersonal: false,
 			},
-			data: {},
+			openAddPersonal: false,
+			data: {
+				page: 1,
+				pageSize: 15,
+				orgId: '1',
+				orgType: "ROOT",
+				dimId: this.props.params.dimId,
+			},
 			itemDetail: {},
 			openCreateDialog: false,
 			openEditDialog: false,
@@ -63,17 +69,16 @@ export default class Labour extends React.Component {
 			openCancelDialog: false,
 			newPage: 1,
 			treeData: [],
-			renderTree: false,
 			openUnCancelDialog: false,
 			dimData: [],
 			searchKey: '',
 			dimId: this.props.params.dimId,
 			dimName: '',
-			stlyeBool: false,
+			styleBool: false,
+			dataName:{},
 			selectStyle: {
 				'display': 'none'
 			},
-			update: new Date(),
 		}
 	}
 	checkTab = (item) => {
@@ -86,27 +91,12 @@ export default class Labour extends React.Component {
 		NavModel.setSidebar(false);
 		var dimId = this.props.params.dimId;
 		var _this = this;
-		// Http.request('org-list', {
-		// 	id:dimId
-		// },{}).then(function(response) {
-		// 	_this.setState({
-		// 		treeData:response.childList,
-		// 		searchParams: {
-		// 			page: 1,
-		// 			pageSize: 15,
-		// 			orgId:response.orgId,
-		// 			orgType:response.orgType,
-		// 		},
-		// 	},function(){
-		// 		_this.renderTree();
-		// 	})
-		// }).catch(function(err) {});
+		
 		Http.request('extra-list', {
 			dimId: dimId
 		}).then(function (response) {
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
-
 
 		this.getDimensionalityDetail();
 
@@ -119,9 +109,9 @@ export default class Labour extends React.Component {
 	getDimensionalityDetail = () => {
 
 		const that = this;
-		const { params } = this.props;
-		const id = params.dimId;
-
+		const { searchParams } = this.state;
+		const id = searchParams.dimId;
+		
 		Http.request('dim-detail', { id }).then(function (response) {
 			that.setState({ dimName: response.name })
 		}).catch(function (err) { });
@@ -139,7 +129,7 @@ export default class Labour extends React.Component {
 			selectStyle: {
 				'display': 'none'
 			},
-			stlyeBool: false,
+			styleBool: false,
 		})
 	}
 	//操作相关
@@ -153,11 +143,6 @@ export default class Labour extends React.Component {
 		} else if (type == 'unCancle') {
 			this.openUnCancelDialog();
 		}
-	}
-	renderTree = () => {
-		this.setState({
-			renderTree: true,
-		})
 	}
 	openCancelDialog = (detail) => {
 
@@ -188,68 +173,52 @@ export default class Labour extends React.Component {
 		})
 	}
 
-	onCreatSubmit = (params) => {
-
-		var _this = this;
-		Http.request('save-junior', {}, params).then(function (response) {
-
-			_this.openCreateDialog();
-			_this.updateTime();
-			Message.success('新建成功');
-			_this.changeP();
-
-			_this.getTreeData();
-
-
-		}).catch(function (err) {
-			Message.error(err.message)
-		});
-
-	}
-	updateTime = () => {
-		this.setState({
-			update: new Date(),
-		})
-	}
-
 	getOrganizationDetail = ()=>{
 
-		const {searchParams} = this.state;
-
+		var searchParams = Object.assign({},this.state.searchParams);
 		const that = this;
-
 		Http.request('org-detail', searchParams).then(function (response) {
-
-			const data = {};
-
-			data.orgName = response.orgName;
-
+			const dataName = {};
+			dataName.orgName = response.orgName;
 			that.setState({
-				data
+				dataName,
+				// searchParams: {
+				// 	page: 1,
+				// 	pageSize: 15,
+				// 	orgId: '1',
+				// 	orgType: "ROOT",
+				// 	dimId: this.props.params.dimId,
+				// },
 			});
+			
 
 		}).catch(function (err) {
 
 		});
 
 	}
-
-
-
-
-	onEditSubmit = (params) => {
-
+	onCreatSubmit = (params) => {
+		console.log("提交的版本",params);
 		var _this = this;
-
-		Http.request('org-update', {}, params).then(function (response) {
-
-
-			_this.openEditDialog();
+		Http.request('save-junior', {}, params).then(function (response) {
+			_this.openCreateDialog();
+			Message.success('新建成功');
+			
 			_this.changeP();
 			_this.getTreeData();
 			_this.getOrganizationDetail();
-
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+	}
+	onEditSubmit = (params) => {
+		var _this = this;
+		Http.request('org-update', {}, params).then(function (response) {
+			_this.openEditDialog();
 			Message.success('修改成功');
+			_this.changeP();
+			_this.getTreeData();
+			_this.getOrganizationDetail();
 
 		}).catch(function (err) {
 			Message.error(err.message)
@@ -293,21 +262,22 @@ export default class Labour extends React.Component {
 		});
 	}
 	//改变页码
-	changeP = () => {
-		var timer = new Date();
-		var searchParams = Object.assign({}, this.state.searchParams);
-		searchParams.timer = timer;
+    changeP=()=>{
+        var timer = new Date();
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.timer=timer;
+		// console.log("changeP",searchParams);
 		this.setState({
-			searchParams: searchParams,
-		})
-	}
-	onPageChange = (page) => {
-		var searchParams = Object.assign({}, this.state.searchParams);
-		searchParams.page = page;
+            searchParams:searchParams,
+        })
+    }
+	onPageChange=(page)=>{
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
 		this.setState({
-			searchParams: searchParams,
-		})
-	}
+            searchParams:searchParams,
+        })
+    }
 	onSerchSubmit = (form) => {
 		this.setState({
 			searchParams: {
@@ -323,35 +293,65 @@ export default class Labour extends React.Component {
 	onSelect = (data) => {
 
 		this.setState({
-			data,
+			data:{
+				orgId: data.orgId,
+				orgType: data.treeType,
+				dimId:this.props.params.dimId
+			},
+			dataName:{
+				orgName:data.orgName,
+			},
+			
 			searchParams: {
 				page: 1,
 				pageSize: 15,
 				orgId: data.orgId,
 				orgType: data.treeType,
+				dimId:this.props.params.dimId
 			}
 		});
 
 	}
 
-	onCheck = () => {
-
-	}
-
 	toOtherDim = (item) => {
 		var dimId = item.id;
+		console.log(this.state.styleBool);
+		var _this= this;
 		this.setState({
 			selectStyle: {
 				'display': 'none'
 			},
-			stlyeBool: false,
+			styleBool: false,
+			searchParams: {
+				page: 1,
+				pageSize: 15,
+				orgId: '1',
+				orgType: "ROOT",
+				dimId: dimId,
+			},
 		}, function () {
-			window.location.href = `./#/oa/organization/${dimId}/labour`;
+			window.location.href = `./#/oa/organization/${dimId}/labour`;		
+			_this.reloadDim();
 		})
+
+	}
+	reloadDim=()=>{
+			var that = this;
+			// window.setTimeout(function(){
+			// 	console.log(that.props.params.dimId);
+			// },200)
+			that.getOrganizationDetail();
+			that.getTreeData();
+			that.getDimensionalityDetail();
 	}
 	renderDimList = (item, index) => {
 		return (
-			<span onClick={this.toOtherDim.bind(this, item)} key={index} className="item">
+			<span onClick={(event)=>{
+					event.stopPropagation();
+					this.toOtherDim(item)
+					}
+				} 
+				key={index} className="item">
 				{item.name}
 			</span>
 		)
@@ -366,7 +366,7 @@ export default class Labour extends React.Component {
 			selectStyle: {
 				'display': 'inline-block'
 			},
-			stlyeBool: true,
+			styleBool: true,
 		})
 	}
 
@@ -397,14 +397,15 @@ export default class Labour extends React.Component {
 	}
 
 	render() {
-		let { itemDetail, data, dimId, styleBool, update } = this.state;
+		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
+		//console.log(this.props.params.dimId);		
 		var logFlag = '';
 		var style = {};
 		return (
 			<div className="g-oa-labour">
 				<div className="left">
 					<div className="header">
-						<span className="title" style={{ 'backgroundColor': `${this.state.stlyeBool ? '#fff' : ''}` }} onClick={(event) => {
+						<span className="title" style={{ 'backgroundColor': `${styleBool?'#fff':''}` }} onClick={(event) => {
 							event.stopPropagation();
 							this.clickSelect();
 						}}>
@@ -447,7 +448,7 @@ export default class Labour extends React.Component {
 
 							</div>
 							<div className="department-name">
-								{this.state.data.orgName || '36Kr'}
+								{this.state.dataName.orgName || '36Kr'}
 							</div>
 							<div className="department-tab-list">
 								<div className={`department-tab ${this.state.tabSelect == 1 ? 'department-tab-active' : ''}`} onClick={this.checkTab.bind(this, 1)}>
@@ -634,18 +635,18 @@ export default class Labour extends React.Component {
 					}
 				</div>
 				<Dialog
-					title={`查看${data.orgName ? data.orgName : '36Kr'}`}
+					title={`查看${dataName.orgName ? dataName.orgName : '36Kr'}`}
 					modal={true}
 					open={this.state.openViewDialog}
 					onClose={this.openViewDialog}
 					contentStyle={{
-						width: 374
+						width: 685
 					}}
 				>
 					<Viewdialog detail={this.state.searchParams} onCancel={this.openViewDialog} />
 				</Dialog>
 				<Dialog
-					title={`编辑${data.orgName ? data.orgName : '36Kr'}`}
+					title={`编辑${dataName.orgName ? dataName.orgName : '36Kr'}`}
 					modal={true}
 					open={this.state.openEditDialog}
 					onClose={this.openEditDialog}
