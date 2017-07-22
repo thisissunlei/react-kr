@@ -35,8 +35,9 @@ class OpenCard extends React.Component{
         let {cardInfo} = this.state;
         var form = Object.assign({},values);
         form.name = employees.name;
-        form.cardId = cardInfo.cardId;
+        form.cardId = cardInfo.cardId||"";
         form.ssoId = cardInfo.ssoId;
+        form.mobilePhone = employees.mobilePhone;
         onSubmit && onSubmit(form);
     }
 
@@ -62,8 +63,7 @@ class OpenCard extends React.Component{
 
 	render(){
        
-        let {handleSubmit,employees}=this.props;
-        console.log(employees);
+        let {handleSubmit,employees,cardInfo}=this.props;
 		return(
 
 			<div>
@@ -78,7 +78,7 @@ class OpenCard extends React.Component{
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
-                            value = {employees.phone} 
+                            value = {employees.mobilePhone} 
                             component="labelText"
                             label="手机号"
                             name="mobilePhone"
@@ -88,7 +88,7 @@ class OpenCard extends React.Component{
                             name="cardNo"
                             component="input"
                             label="会员卡号"
-                            
+                            value = {cardInfo && cardInfo.cardNo || ''}
                             inline={true}
                             requireLabel={true}
 					    />

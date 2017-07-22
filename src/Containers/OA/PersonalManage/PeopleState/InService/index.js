@@ -51,7 +51,10 @@ export default class InService  extends React.Component{
 			employees:{
 				name:'',
 				phone:'',
-			}
+			},
+			//离职id
+			leaveId:'',
+			resourceId:''
 			
 		}
 	}
@@ -83,7 +86,8 @@ export default class InService  extends React.Component{
          this.goDetail(itemDetail)
 	  }else if(type=='leave'){
 		  this.setState({
-			  openLeave:true
+			  openLeave:true,
+			  leaveId:itemDetail.id
 		  })
 	  }else if(type=='go'){
           this.setState({
@@ -98,14 +102,9 @@ export default class InService  extends React.Component{
 
 		  })
 	  }else if(type=='give'){
-		  console.log(itemDetail);
           this.setState({
 			  openCard:true,
-			  employees:{
-				id:itemDetail.id,
-				name:itemDetail.name,
-				phone:itemDetail.mobilePhone,
-			  }
+			  employees:itemDetail
 		  })
 	  }
    }
@@ -118,14 +117,21 @@ export default class InService  extends React.Component{
    }
    //离职提交
    addLeaveSubmit=(data)=>{
-
+	let {leaveId}=this.state;
 	var param = Object.assign({},data);
+	param.id=leaveId;
+	var searchParams={
+		time:+new Date()
+	}
 	var _this = this;
-	Http.request("leaveOnSubmit",param).then(function (response) {
-		_this.cancelLeave()
+	Http.request("leaveOnSubmit",{},param).then(function (response) {
+		_this.setState({
+			searchParams:Object.assign({},_this.state.searchParams,searchParams)
+		})
 	}).catch(function (err) {
 		Message.error(err.message);
 	});
+	 this.cancelLeave();
    }
   
   //解除关闭
@@ -139,6 +145,7 @@ export default class InService  extends React.Component{
    addRemoveSubmit=(data)=>{
 	   const _this = this;
 	   const {resourceId} = this.props;
+	   console.log(resourceId,">>>>>>>")
 	   let param = {resourceId:resourceId||''};
         Http.request("removeAccount",param).then(function (response) {
             _this.cancelRemove();
@@ -174,7 +181,7 @@ export default class InService  extends React.Component{
 	 })  
    }
    //开通门禁提交
-   addCardSubmit=()=>{
+   addCardSubmit=(param)=>{
 		Http.request("bindingCard",{},param).then(function (response) {
 			_this.cancelCard();
 			Message.success("绑定成功");
@@ -252,7 +259,7 @@ export default class InService  extends React.Component{
 
 						<TableBody >
 							<TableRow>
-								<TableRowColumn name ="depId" ></TableRowColumn>
+								<TableRowColumn name ="depName" ></TableRowColumn>
 								<TableRowColumn 
 									name ="name"
 									component={(value,oldValue,detail)=>{
