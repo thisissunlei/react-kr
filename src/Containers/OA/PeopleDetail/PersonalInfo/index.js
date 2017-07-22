@@ -9,7 +9,9 @@ import {
     Button,
 	Drawer,
 	Dialog,
-	Message
+	Message,
+	Dictionary,
+	KrDate
 } from 'kr-ui';
 import './index.less';
 import EditPerson from './EditPerson';
@@ -41,12 +43,16 @@ export default class PersonalInfo  extends React.Component{
 			personInfo:{},
 			//家庭情况
 			familySearchParams:{
-
+				resourceId:this.props.personId
 			},
 			//工作经历
 			workSearchParams:{
-
-			}
+				resourceId:this.props.personId
+			},
+			//家庭删除id
+			familyId:'',
+			//工作记录删除id
+			jobId:''
 		}
 	}
 
@@ -78,14 +84,15 @@ export default class PersonalInfo  extends React.Component{
 			})
 	   }else if(type=='delete'){
 		   this.setState({
-			  openDeleteF:!this.state.openDeleteF
+			  openDeleteF:!this.state.openDeleteF,
+			  familyId:itemDetail.id
 			})
 	   }
 	} 
 
 	//获取家庭编辑信息
 	getFamilyInfo=(id)=>{
-	    Http.request('postListAdd',{id:id}).then(function(response) {
+	    Http.request('people-family-get',{id:id}).then(function(response) {
 		    Store.dispatch(initialize('EditFamily',response));
         }).catch(function(err) {
           Message.error(err.message);
@@ -101,14 +108,15 @@ export default class PersonalInfo  extends React.Component{
 			})
 	   }else if(type=='delete'){
 		   this.setState({
-			  openDeleteW:!this.state.openDeleteW
+			  openDeleteW:!this.state.openDeleteW,
+			  jobId:itemDetail.id
 			})
 	   }
 	}
     
 	//获取工作编辑信息
 	getWorkInfo=(id)=>{
-	    Http.request('postListAdd',{id:id}).then(function(response) {
+	    Http.request('people-job-get',{id:id}).then(function(response) {
 		    Store.dispatch(initialize('EditWork',response));
         }).catch(function(err) {
            Message.error(err.message);
@@ -126,12 +134,23 @@ export default class PersonalInfo  extends React.Component{
    
    //编辑提交
    editSubmit=(params)=>{
+	   let {personId}=this.props;
+	   delete params.uTime;
+	   params.resourceId=personId;
        var _this=this;
        Http.request('people-person-edit',{},params).then(function(response) {
            _this.personData(params.resourceId);
+		   _this.cancelPerson();
         }).catch(function(err) {
           Message.error(err.message);
         });
+   }
+   
+   //编辑关闭
+   cancelPerson=()=>{
+		this.setState({
+		   openEdit:!this.state.openEdit
+	   })
    }
    
    //新增家庭人员开关
@@ -143,16 +162,38 @@ export default class PersonalInfo  extends React.Component{
    
    //新增家庭提交
    addPerSubmit=(params)=>{
+	  let {personId}=this.props;
+	  params.resourceId=personId;
       var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
+       Http.request('people-family-add',{},params).then(function(response) {
            _this.setState({
 			   familySearchParams:{
-				   time:+new Date()
+				   time:+new Date(),
+				   resourceId:params.resourceId
 			   }
 		   })
        }).catch(function(err) {
           Message.error(err.message);
         });
+	   this.addFamily();
+   }
+   
+   //编辑家庭提交
+   editPerSubmit=(params)=>{
+	  let {personId}=this.props;
+	  params.resourceId=personId;
+	  var _this=this;
+       Http.request('people-family-edit',{},params).then(function(response) {
+           _this.setState({
+			   familySearchParams:{
+				   time:+new Date(),
+				   resourceId:params.resourceId
+			   }
+		   })
+       }).catch(function(err) {
+          Message.error(err.message);
+        });
+	  this.EditFamily();
    }
 
   //编辑家庭人员开关
@@ -172,16 +213,38 @@ export default class PersonalInfo  extends React.Component{
 
    //新增工作经历提交
    addWorkSubmit=(params)=>{
+	 let {personId}=this.props;
+	  params.resourceId=personId;
       var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
+       Http.request('people-job-add',{},params).then(function(response) {
            _this.setState({
 			   workSearchParams:{
-				   time:+new Date()
+				   time:+new Date(),
+				   resourceId:params.resourceId
 			   }
 		   })
        }).catch(function(err) {
           Message.error(err.message);
        });
+	   this.addWork();
+   }
+
+   //编辑工作经历提交
+   editWorkSubmit=(params)=>{
+	 let {personId}=this.props;
+	  params.resourceId=personId;
+	  var _this=this;
+       Http.request('people-job-edit',{},params).then(function(response) {
+           _this.setState({
+			   workSearchParams:{
+				   time:+new Date(),
+				   resourceId:params.resourceId
+			   }
+		   })
+       }).catch(function(err) {
+          Message.error(err.message);
+        });
+	  this.editWork();
    }
 
    //编辑工作开关
@@ -201,16 +264,20 @@ export default class PersonalInfo  extends React.Component{
   
    //删除人员提交
    deleteSubmit=()=>{
+	 let {familyId}=this.state; 
+	 let {personId}=this.props;
      var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
+       Http.request('people-family-delete',{id:familyId}).then(function(response) {
            _this.setState({
 			   familySearchParams:{
-				   time:+new Date()
+				   time:+new Date(),
+				   resourceId:personId
 			   }
 		   })
        }).catch(function(err) {
           Message.error(err.message);
        });
+	   this.cancelDelete();
    }
   
    //关闭删除工作
@@ -222,16 +289,20 @@ export default class PersonalInfo  extends React.Component{
    
    //关闭删除提交
    delWorkSubmit=()=>{
+	 let {jobId}=this.state;
+	 let {personId}=this.props;
      var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
+       Http.request('people-job-delete',{id:jobId}).then(function(response) {
            _this.setState({
 			   workSearchParams:{
-				   time:+new Date()
+				   time:+new Date(),
+				   resourceId:personId
 			   }
 		   })
        }).catch(function(err) {
           Message.error(err.message);
        });
+	   this.cancelDelWork();
    }
   
   //关闭所有
@@ -253,33 +324,47 @@ export default class PersonalInfo  extends React.Component{
 			 {name:'身份证号码',
 			  detail:personInfo.idCard},
 			 {name:'出生日期',
-			  detail:personInfo.birthday},
+			  detail:<KrDate value={personInfo.birthday} format="yyyy-mm-dd"/>},
 			 {name:'星座',
+			  type:'ERP_Constellation',
+			  isSwitch:true,
 			  detail:personInfo.constellation},
 			 {name:'血型',
+			  type:'ERP_BloodType',
+			  isSwitch:true,
 			  detail:personInfo.bloodType},
 			 {name:'民族',
+			  type:'ERP_Nation',
+			  isSwitch:true,
 			  detail:personInfo.nation},
 			 {name:'籍贯',
 			  detail:personInfo.nativePlace},
 			 {name:'户口',
+			  type:'ERP_HouseholdType',
+			  isSwitch:true,
 			  detail:personInfo.household},
 			 {name:'政治面貌',
+			  type:'ERP_PoliticsStatus',
+			  isSwitch:true,
 			  detail:personInfo.politicsStatus},
 			 {name:'入团时间',
-			  detail:personInfo.leagueDate},
+			  detail:<KrDate value={personInfo.leagueDate} format="yyyy-mm-dd"/>},
 			 {name:'入党时间',
-			  detail:personInfo.partyDate},
+			  detail:<KrDate value={personInfo.partyDate} format="yyyy-mm-dd"/>},
 			 {name:'毕业院校',
 			  detail:personInfo.college},
               {name:'专业',
 			  detail:personInfo.major},
               {name:'学历',
+			   type:'ERP_EducationType',
+			   isSwitch:true,
 			  detail:personInfo.education},
               {name:'学位',
+			   type:'ERP_Degree',
+			   isSwitch:true,
 			  detail:personInfo.degree},
               {name:'参加工作时间',
-			  detail:personInfo.workDate},
+			  detail:<KrDate value={personInfo.workDate} format="yyyy-mm-dd"/>},
               {name:'现居住地',
 			  detail:personInfo.currentAddress},
               {name:'暂/居住证号码',
@@ -295,14 +380,20 @@ export default class PersonalInfo  extends React.Component{
               {name:'体重(公斤)',
 			  detail:personInfo.weight},
               {name:'健康状况',
+			   type:'ERP_HealthyStatus',
+			   isSwitch:true,
 			  detail:personInfo.healthy},
               {name:'婚姻状况',
+			   type:'ERP_MaritalStatus',
+			   isSwitch:true,
 			  detail:personInfo.maritalStatus},
               {name:'紧急联系人姓名',
 			  detail:personInfo.emergencyContact},
               {name:'紧急联系人电话',
 			  detail:personInfo.emergencyPhone},
               {name:'紧急联系人关系',
+			  type:'ERP_ResourceRelation',
+			  isSwitch:true,
 			  detail:personInfo.emergencyRelation},
 			];
 
@@ -318,7 +409,9 @@ export default class PersonalInfo  extends React.Component{
 					  infoName.map((item,index)=>{
                         return (<li key={index}>
 							<span className='name'>{item.name}</span>
-							<span className='info'>{item.detail}</span>
+							<span className='info'>
+								{item.isSwitch?<Dictionary type={item.type} value={item.detail}/>:item.detail}
+							</span>
 					   </li>)
 					  })	
 					}		
@@ -337,7 +430,7 @@ export default class PersonalInfo  extends React.Component{
                     onOperation={this.onFamilyOperation}
                     displayCheckbox={false}
                     ajaxParams={familySearchParams}
-                    ajaxUrlName='123'
+                    ajaxUrlName='people-family-list'
                     ajaxFieldListName="items"
 					  >
 		            <TableHeader className='detail-header'>
@@ -381,7 +474,7 @@ export default class PersonalInfo  extends React.Component{
                     onOperation={this.onWorkOperation}
                     displayCheckbox={false}
                     ajaxParams={workSearchParams}
-                    ajaxUrlName='345'
+                    ajaxUrlName='people-job-list'
                     ajaxFieldListName="items"
 					  >
 		            <TableHeader className='detail-header'>
@@ -399,8 +492,12 @@ export default class PersonalInfo  extends React.Component{
 			              <TableRow className='detail-row'>		                
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='company'></TableRowColumn>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='job'></TableRowColumn>
-							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='startDate'></TableRowColumn>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='endDate'></TableRowColumn>
+							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='startDate' component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+						}}></TableRowColumn>
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='endDate' component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+						}}></TableRowColumn>
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactName'></TableRowColumn>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactPhone'></TableRowColumn>
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactEmail'></TableRowColumn>
@@ -421,7 +518,7 @@ export default class PersonalInfo  extends React.Component{
 							onClose={this.allClose}
 					 >
 						<EditPerson
-			               onCancel={this.openPerson}
+			               onCancel={this.cancelPerson}
 						   onSubmit={this.editSubmit}   
 						/>
 					</Drawer>
@@ -450,7 +547,7 @@ export default class PersonalInfo  extends React.Component{
 					 >
 						<EditFamily
 			               onCancel={this.EditFamily}
-						   onSubmit={this.addPerSubmit}   
+						   onSubmit={this.editPerSubmit}   
 						/>
 					</Drawer>
 
@@ -478,7 +575,7 @@ export default class PersonalInfo  extends React.Component{
 					 >
 						<EditWork
 			               onCancel={this.editWork}
-						   onSubmit={this.addWorkSubmit}   
+						   onSubmit={this.editWorkSubmit}   
 						/>
 					</Drawer>
 

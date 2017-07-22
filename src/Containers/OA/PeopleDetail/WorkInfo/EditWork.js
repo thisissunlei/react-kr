@@ -41,7 +41,7 @@ class EditWork  extends React.Component{
 
                        <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="wageCard"
                             component="input"
                             label="工资卡号"
                             requireLabel={true}
@@ -49,8 +49,8 @@ class EditWork  extends React.Component{
 
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
-                            component="date"
+                            name="calculateCompany"
+                            component="input"
                             label="核算单位"
                             requireLabel={true}
 						/>
@@ -58,7 +58,7 @@ class EditWork  extends React.Component{
 
                           <KrField grid={1/2}
                             style={{width:262}}
-                            name="area"
+                            name="probationEndDate"
                             component="date"
                             label="试用期到期时间"
 						/>
@@ -67,33 +67,26 @@ class EditWork  extends React.Component{
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="contractEndDate"
                             component="date"
                             label="劳动合同终止时间"
                             requireLabel={true}
 						/>
 
-                        <KrField grid={1/2}
-                            style={{width:262}}
-                            name="area"
-                            component="input"
-                            label="公司邮箱"
-                            requireLabel={true}
-						/>
                         
-
                         <KrField grid={1/2}
-								style={{width:262,marginLeft:28}}
-								name="floor"
+								style={{width:262}}
+								name="cardTitle"
 								component="input"
 								label="名片tilte"
 						 />
 
                          <KrField grid={1/2}
-                            style={{width:262}}
-                            name="area"
-                            component="input"
+                            style={{width:262,marginLeft:28}}
+                            name="entrySource"
+                            component="selecTemployees"
                             label="入职来源"
+                            otherType="entryResource"
 						/>
                        
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
