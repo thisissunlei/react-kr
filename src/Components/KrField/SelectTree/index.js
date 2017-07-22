@@ -139,7 +139,7 @@ export default class SelectTree extends React.Component{
 					title="人员"
 					onClose={this.dlogSwidch}
 					open={isDialog}
-					contentStyle ={{ width: '690px',height:'636px'}}
+					contentStyle ={{ width: '690px',height:'590px'}}
 				 >
 					<TreeDialog onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>

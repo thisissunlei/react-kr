@@ -137,7 +137,7 @@ export default class TreeDialog extends React.Component{
 	render(){
        let {isList} = this.state;
 		return (
-            <div className = "tree-dialog" style = {{position:"relative",textAlign:"center"}}>
+            <div className = "switch-dialog" style = {{position:"relative",textAlign:"center"}}>
 
 				<div className = "tree-content">
 					<div className = "content-left">
