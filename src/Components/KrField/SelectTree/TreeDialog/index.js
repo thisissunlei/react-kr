@@ -40,8 +40,6 @@ export default class TreeDialog extends React.Component{
 	getTreeData = () => {
 
 		let { ajaxUrlName} = this.props;
-
-		params = params || {};
 		
 		const _this = this;
 		Http.request(ajaxUrlName).then(function (response) {
