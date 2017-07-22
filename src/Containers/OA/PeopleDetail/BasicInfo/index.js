@@ -93,9 +93,11 @@ export default class BasicInfo  extends React.Component{
 			  detail:basicInfo.entryDate},
 			 {name:'员工属性',
 			  detail:basicInfo.status,
+			  type:'ERP_ResourceStatus',
 			  isSwitch:true},
 			 {name:'员工类别',
 			  detail:basicInfo.type,
+			  type:'ERP_ResourceType',
 			  isSwitch:true},
 			 {name:'公司邮箱',
 			  detail:basicInfo.email},  
@@ -114,7 +116,7 @@ export default class BasicInfo  extends React.Component{
                         return (<li key={index}>
 							<span className='name'>{item.name}</span>
 							<span className='info'>
-								{item.isSwitch?<Dictionary type=''  value={item.detail}/>:item.detail}
+								{item.isSwitch?<Dictionary type={item.type} value={item.detail}/>:item.detail}
 							</span>
 					   </li>)
 					  })	
