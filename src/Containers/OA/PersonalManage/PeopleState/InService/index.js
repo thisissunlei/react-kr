@@ -182,6 +182,7 @@ export default class InService  extends React.Component{
    }
    //开通门禁提交
    addCardSubmit=(param)=>{
+	   var _this = this;
 		Http.request("bindingCard",{},param).then(function (response) {
 			_this.cancelCard();
 			Message.success("绑定成功");
