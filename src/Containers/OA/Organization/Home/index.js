@@ -39,10 +39,12 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     this.updateData();
+    this.renderAddWhite();
+  }
+  renderAddWhite=()=>{
     var that = this;
     var width = this.refs.main.getBoundingClientRect().width*0.94;
     var num = Math.floor(width/200);
-    console.log();
     window.setTimeout(function(){
       that.lastLineDimNum = num-1-that.dimLength%num;
       if (that.lastLineDimNum) {
@@ -51,7 +53,6 @@ export default class Home extends React.Component {
         })
       }
     },500)
-    
   }
   openEdit=(item)=>{
 		let openEdit = this.state.openEdit;
@@ -98,6 +99,7 @@ export default class Home extends React.Component {
             _this.updateData();
             Message.success('新建维度成功');
             _this.openCreate();
+            _this.renderAddWhite();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -109,6 +111,7 @@ export default class Home extends React.Component {
             _this.updateData();
             Message.success('修改成功');
             _this.openEdit();
+            _this.renderAddWhite();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -132,8 +135,6 @@ export default class Home extends React.Component {
   }
   addLastLineDim=()=>{
     console.log(this.lastLineDimNum);
-
-
     var arr = [];
     for (var i=0;i<this.lastLineDimNum;i++) {
       arr.push(

@@ -71,11 +71,11 @@ class Createdialog extends Component {
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
                     grid={1/2}
-                    label="名称"
+                    label="下级名称"
                     component="input"
                     name="orgName"
                     requireLabel={true}
-                    placeholder="名称"
+                    placeholder="下级名称"
                 />
                 <KrField
                     name="orgType"
