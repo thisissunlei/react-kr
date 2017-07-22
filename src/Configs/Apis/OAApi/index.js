@@ -193,6 +193,10 @@ module.exports = {
   },
   
   /*人员详情*/
-  
+  //基本信息显示
+  'people-basic-watch': {
+      url: '/api/krspace-erp-web/hrm/resource/info/type/edit?id={id}',
+      method: 'get'
+  },
   
 }

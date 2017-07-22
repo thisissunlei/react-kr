@@ -1,6 +1,7 @@
 import React from 'react';
 import {	
-   Drawer	
+   Drawer,
+   Dictionary	
 } from 'kr-ui';
 import './index.less';
 import EditBasic from './EditBasic';
@@ -29,8 +30,9 @@ export default class BasicInfo  extends React.Component{
 
 	//获取基本信息
 	basicData=(id)=>{
-       Http.request('postListAdd',{id:id}).then(function(response) {
-		   this.setState({
+	   var _this=this;
+       Http.request('people-basic-watch',{id:id}).then(function(response) {
+		   _this.setState({
 			   basicInfo:response
 		   })
         }).catch(function(err) {
@@ -74,27 +76,29 @@ export default class BasicInfo  extends React.Component{
 			 {name:'姓名',
 			  detail:basicInfo.name},
 			 {name:'性别',
-			  detail:123},
+			  detail:basicInfo.sex=='MALE'?'男':'女'},
 			 {name:'手机号',
 			  detail:basicInfo.mobilePhone},
 			 {name:'编码',
 			  detail:basicInfo.code},
 			 {name:'部门',
-			  detail:123},
+			  detail:basicInfo.depName},
 			 {name:'直接上级',
-			  detail:basicInfo.leader},
+			  detail:basicInfo.leaderName},
 			 {name:'职务',
-			  detail:123},
+			  detail:basicInfo.jobName},
 			 {name:'职级',
-			  detail:123},
+			  detail:basicInfo.levelName},
 			 {name:'入职时间',
 			  detail:basicInfo.entryDate},
 			 {name:'员工属性',
-			  detail:basicInfo.status},
+			  detail:basicInfo.status,
+			  isSwitch:true},
 			 {name:'员工类别',
-			  detail:basicInfo.type},
+			  detail:basicInfo.type,
+			  isSwitch:true},
 			 {name:'公司邮箱',
-			  detail:basicInfo.type},  
+			  detail:basicInfo.email},  
 			];
 
 		return(
@@ -109,7 +113,9 @@ export default class BasicInfo  extends React.Component{
 					  infoName.map((item,index)=>{
                         return (<li key={index}>
 							<span className='name'>{item.name}</span>
-							<span className='info'>{item.detail}</span>
+							<span className='info'>
+								{item.isSwitch?<Dictionary type=''  value={item.detail}/>:item.detail}
+							</span>
 					   </li>)
 					  })	
 					}		
