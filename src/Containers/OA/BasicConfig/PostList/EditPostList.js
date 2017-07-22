@@ -28,7 +28,7 @@ class EditPostList  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,jobTypes}=this.props;
 
 		return(
 
@@ -53,8 +53,8 @@ class EditPostList  extends React.Component{
 						/>
 
                          <KrField style={{width:262,display:'block'}} name="enabled" component="group" label="是否启用" requireLabel={true}>
- 							 <KrField name="enabled" label="启用" type="radio" value='1' />
- 							 <KrField name="enabled" label="不启用" type="radio" value='0' />
+ 							 <KrField name="enabled" label="启用" type="radio" value='true' />
+ 							 <KrField name="enabled" label="不启用" type="radio" value='false' />
  						</KrField>
 
                           <KrField
@@ -73,6 +73,7 @@ class EditPostList  extends React.Component{
                             component="select"
                             label="职务类型名称"
                             requireLabel={true}
+                            options={jobTypes}
 						/>
 
                          <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
@@ -114,7 +115,7 @@ const validate = values =>{
 
     if(!values.orderNum){
        errors.orderNum='请填写排序号'
-    }else if(isNaN(orderNum)){
+    }else if(isNaN(values.orderNum)){
        errors.orderNum='排序号必须是数字'  
     }
     

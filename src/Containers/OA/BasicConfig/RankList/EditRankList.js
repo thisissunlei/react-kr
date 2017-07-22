@@ -10,7 +10,7 @@ import {
 import {reduxForm}  from 'redux-form';
 import './index.less';
 
-class EditPostType  extends React.Component{
+class EditRankList  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -28,7 +28,7 @@ class EditPostType  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,jobTypes}=this.props;
 
 		return(
 
@@ -48,6 +48,7 @@ class EditPostType  extends React.Component{
                             component="select"
                             label="职务类型"
                             requireLabel={true}
+                            options={jobTypes}
 						/>
 
                         <KrField grid={1/2}
@@ -58,8 +59,8 @@ class EditPostType  extends React.Component{
                             requireLabel={true}
 						/>
                          <KrField style={{width:262,display:'block'}} name="enabled" component="group" label="职级状态" requireLabel={true}>
- 							 <KrField name="enabled" label="启用" type="radio" value='1' />
- 							 <KrField name="enabled" label="停用" type="radio" value='0' />
+ 							 <KrField name="enabled" label="启用" type="radio" value='true' />
+ 							 <KrField name="enabled" label="停用" type="radio" value='false' />
  						</KrField>
 
                         <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
@@ -94,13 +95,15 @@ const validate = values =>{
        errors.typeId='请选择职务类型';
    }
 
-   if(!values.level){
+  if(!values.level){
        errors.level='请填写等级';
-   }else if(isNaN(level)&&level<=30){
-       errors.level='等级必须是数字且最大不超过30'
+   }else if(isNaN(values.level)){
+       errors.level='等级必须是数字'
+   }else if(values.level>30){
+       errors.level='等级最大不超过30'
    }
     
 	return errors
 }
 
-export default reduxForm({ form: 'EditPostType',validate})(EditPostType);
+export default reduxForm({ form: 'EditRankList',validate})(EditRankList);

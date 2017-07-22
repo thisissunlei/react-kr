@@ -18,7 +18,7 @@ class AddPostList  extends React.Component{
 	}
 
     componentDidMount(){
-        Store.dispatch(change('AddPostList','enabled','1'))
+        Store.dispatch(change('AddPostList','enabled','true'))
     }
 
     onSubmit=(values)=>{
@@ -33,7 +33,7 @@ class AddPostList  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,jobTypes}=this.props;
 
 		return(
 
@@ -57,8 +57,8 @@ class AddPostList  extends React.Component{
 						/>
 
                          <KrField style={{width:262,display:'block'}} name="enabled" component="group" label="是否启用" requireLabel={true}>
- 							 <KrField name="enabled" label="启用" type="radio" value='1' />
- 							 <KrField name="enabled" label="不启用" type="radio" value='0' />
+ 							 <KrField name="enabled" label="启用" type="radio" value='true' />
+ 							 <KrField name="enabled" label="不启用" type="radio" value='false' />
  						</KrField>
 
                          <KrField
@@ -67,7 +67,7 @@ class AddPostList  extends React.Component{
                             name="typeId"
                             component="select"
                             label="职务类型名称"
-                            options={[{label:'w',value:'true'},{label:'i',value:'false'}]}
+                            options={jobTypes}
                             requireLabel={true}
 						/>
 

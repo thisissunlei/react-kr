@@ -26,8 +26,8 @@ import {
 	Message,
 	Section
 } from 'kr-ui';
-import AddPostType from './AddPostType';
-import EditPostType from './EditPostType';
+import AddRankList from './AddRankList';
+import EditRankList from './EditRankList';
 import DeletePost from './DeletePost';
 
 export default class RankList extends Component{
@@ -42,7 +42,11 @@ export default class RankList extends Component{
 			searchParams:{
 				page:1,
 				pageSize:15
-			}
+			},
+			//数据准备下拉
+			jobTypes:[],
+			//删除id
+			deleteId:''
 		}
 	}
 
@@ -60,7 +64,8 @@ export default class RankList extends Component{
 			})
 		}else if(type=='delete'){
 			this.setState({
-			  openDelete:true	
+			  openDelete:true,
+				deleteId:itemDetail.id	
 			})
 		}
 	}
@@ -68,18 +73,30 @@ export default class RankList extends Component{
 
 	//数据准备
 	dataReady=()=>{
-	   Http.request('postListAdd').then(function(response) {
-        }).catch(function(err) {
+		 var _this=this;
+	   Http.request('rank-type-info',{
+		   orgType:'DEPARTMENT',
+		   orgId:'5'
+	   }).then(function(response) {
+		   _this.setState({
+			    jobTypes:response.jobTypes
+		  })
+     }).catch(function(err) {
           Message.error(err.message);
-        });	
+     });	
 	}
 
 
 	//获取编辑信息
 	getEditData=(id)=>{
 		var _this=this;
-       Http.request('postListAdd',{id:id}).then(function(response) {
-           Store.dispatch(initialize('EditPostType',response));
+       Http.request('rank-list-watch',{id:id}).then(function(response) {
+				    if(response.enabled){
+							response.enabled='true'  
+							}else{
+								response.enabled='false'   
+						 }
+           Store.dispatch(initialize('EditRankList',response));
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -87,11 +104,11 @@ export default class RankList extends Component{
 
 
 	//搜索确定
-	onSearchSubmit = ()=>{
+	onSearchSubmit = (params)=>{
        let obj = {
-			name: params.content,
+			      name: params.content,
             pageSize:15
-		}
+		} 
 		this.setState({
 		  searchParams:obj	
 		})
@@ -105,15 +122,17 @@ export default class RankList extends Component{
 	}
 
 	//新建职务类型提交
-	addPostSubmit=()=>{
-		Http.request('postListAdd',{},values).then(function(response) {
+	addPostSubmit=(values)=>{
+		var _this=this;
+		Http.request('rank-list-add',{},values).then(function(response) {
             _this.setState({
-			searchParams:{
-				time:+new Date(),
-				page:1,
-				pageSize:15
-			 } 
-			}) 
+							searchParams:{
+								time:+new Date(),
+								page:1,
+								pageSize:15
+							} 
+						})
+						_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -127,16 +146,18 @@ export default class RankList extends Component{
 	}
 
     //编辑职务类型提交
-	editPostSubmit=()=>{
+	editPostSubmit=(params)=>{
        var _this=this;
-			Http.request('postListAdd',{},params).then(function(response) {
+			Http.request('rank-list-edit',{},params).then(function(response) {
 				_this.setState({
 					searchParams:{
 						time:+new Date(),
 						page:_this.state.searchParams.page,
-						pageSize:15
+						pageSize:15,
+						name:_this.state.searchParams.name?_this.state.searchParams.name:""
 					}  
 				})
+				_this.openEditPost();
 				}).catch(function(err) {
 				Message.error(err.message);
 				});
@@ -160,14 +181,17 @@ export default class RankList extends Component{
 
    //删除提交
    deleteSubmit=()=>{
-      Http.request('postListAdd',{},params).then(function(response) {
+		  let {deleteId}=this.state;
+			var _this=this;
+      Http.request('rank-list-delete',{id:deleteId}).then(function(response) {
            _this.setState({
-			  searchParams:{
-				  time:+new Date(),
-				  page:1,
-				  pageSize:15
-			  }  
-		   })
+							searchParams:{
+								time:+new Date(),
+								page:1,
+								pageSize:15
+							}  
+						})
+					_this.cancelDelete();	
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -185,6 +209,7 @@ export default class RankList extends Component{
     
 
 	render(){
+		let {jobTypes}=this.state;
 		return(
       	<div className="oa-post-type">
 		    <Section title="职级管理" description="" style={{marginBottom:-5,minHeight:910}}>
@@ -215,7 +240,7 @@ export default class RankList extends Component{
                 onOperation={this.onOperation}
 	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName='shareCustomers'
+	            ajaxUrlName='rank-list-list'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
 			>
@@ -230,10 +255,12 @@ export default class RankList extends Component{
 				<TableBody >
 					<TableRow>
 						<TableRowColumn name="name" ></TableRowColumn>
-						<TableRowColumn name="enbaled"></TableRowColumn>
+						<TableRowColumn name="enabled" options={[{label:'启用',value:'true'},{label:'停用',value:'false'}]}></TableRowColumn>
 						<TableRowColumn name="descr"></TableRowColumn>
 						<TableRowColumn name="updatorName"></TableRowColumn>
-						<TableRowColumn name="uTime"></TableRowColumn>
+						<TableRowColumn name="cTime" component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+						}}></TableRowColumn>
 						<TableRowColumn type="operation">
                             <Button label="编辑"  type="operation"  operation="edit"/>
 			                <Button label="删除"  type="operation"  operation="delete" />
@@ -249,11 +276,12 @@ export default class RankList extends Component{
 					title="新建职级"
 					onClose={this.openAddPost}
 					open={this.state.openPostType}
-					contentStyle ={{ width: '630px',height:'555px'}}
+					contentStyle ={{ width: '630px',height:'auto'}}
 				>
-			  <AddPostType 
+			  <AddRankList 
 			    onSubmit={this.addPostSubmit}
-				onCancel={this.openAddPost}
+				 onCancel={this.openAddPost}
+				 jobTypes={jobTypes}
 			  />
 			</Dialog>
 
@@ -262,11 +290,12 @@ export default class RankList extends Component{
 					title="编辑职级"
 					onClose={this.openEditPost}
 					open={this.state.openEditType}
-					contentStyle ={{ width: '630px',height:'555px'}}
+					contentStyle ={{ width: '630px',height:'auto'}}
 				>
-			  <EditPostType 
+			  <EditRankList 
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
+				jobTypes={jobTypes}
 			  />
 			</Dialog>
 

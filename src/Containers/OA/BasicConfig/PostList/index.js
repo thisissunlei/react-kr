@@ -38,6 +38,11 @@ export default class PostList extends Component{
 		this.state={
 			searchParams : {},
 			other:"",
+			//数据准备下拉
+			jobTypes:[],
+			//删除id
+			deleteId:''
+			
 		}
 		this.allConfig = {
 			openNew : false,
@@ -53,8 +58,14 @@ export default class PostList extends Component{
     
 	//数据准备
 	dataReady=()=>{
-	   Http.request('postListAdd').then(function(response) {
-           
+	   var _this=this;
+	   Http.request('rank-type-info',{
+		   orgType:'DEPARTMENT',
+		   orgId:'5'
+	   }).then(function(response) {
+		   _this.setState({
+			   jobTypes:response.jobTypes
+		   })
         }).catch(function(err) {
           Message.error(err.message);
         });	
@@ -68,7 +79,7 @@ export default class PostList extends Component{
 		})
 	}
 	//搜索确定
-	onSearchSubmit = ()=>{
+	onSearchSubmit = (params)=>{
 		 let obj = {
 			name: params.content,
             pageSize:15
@@ -106,6 +117,7 @@ export default class PostList extends Component{
 	}
 	//新建确定
 	addSubmit = (values) =>{
+		var _this=this;
 		Http.request('postListAdd',{},values).then(function(response) {
             _this.setState({
 			searchParams:{
@@ -114,28 +126,33 @@ export default class PostList extends Component{
 				pageSize:15
 			 } 
 			}) 
+		  _this.newSwidth();
         }).catch(function(err) {
           Message.error(err.message);
         });
 	}
 	//编辑确定
-	editSubmit = () =>{
+	editSubmit = (params) =>{
          var _this=this;
-			Http.request('postListAdd',{},params).then(function(response) {
+			Http.request('post-list-edit',{},params).then(function(response) {
 				_this.setState({
 					searchParams:{
 						time:+new Date(),
 						page:_this.state.searchParams.page,
-						pageSize:15
+						pageSize:15,
+						name:_this.state.searchParams.name?_this.state.searchParams.name:""
 					}  
 				})
+				_this.editSwidth();
 				}).catch(function(err) {
 				Message.error(err.message);
 				});
 	}
 	//删除按钮确定
 	delSubmit = () =>{
-		Http.request('postListAdd',{},params).then(function(response) {
+		let {deleteId}=this.state;
+		var _this=this;
+		Http.request('post-list-delete',{id:deleteId}).then(function(response) {
            _this.setState({
 			  searchParams:{
 				  time:+new Date(),
@@ -143,6 +160,7 @@ export default class PostList extends Component{
 				  pageSize:15
 			  }  
 		   })
+		   _this.delSwidth();
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -154,15 +172,22 @@ export default class PostList extends Component{
 			this.editSwidth();
 		}else if(type == "del"){
 			this.delSwidth();
-
+			this.setState({
+				deleteId:itemDetail.id
+			})
 		}
 	}
 
     //获取编辑信息
 	getEditData=(id)=>{
 		var _this=this;
-       Http.request('postListAdd',{id:id}).then(function(response) {
-           Store.dispatch(initialize('EditPostList',response));
+       Http.request('post-list-watch',{id:id}).then(function(response) {
+		   if(response.enabled){
+			 response.enabled='true'  
+		   }else{
+			 response.enabled='false'   
+		   }
+           Store.dispatch(initialize('EditPostList',response));		   
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -178,6 +203,7 @@ export default class PostList extends Component{
    }
 
 	render(){
+		let {jobTypes}=this.state;
 		const {openNew,openEdit,openDel} = this.allConfig;
 		return(
       	<div className="basic-post-list">
@@ -187,7 +213,7 @@ export default class PostList extends Component{
 					style={{float:'left'}}
 				>
 					<Button
-							label="新建用户"
+							label="新建职务"
 							type='button'
 							onTouchTap={this.newSwidth}
 					/>
@@ -234,13 +260,15 @@ export default class PostList extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="123" ></TableRowColumn>
+						<TableRowColumn name="name" ></TableRowColumn>
 						<TableRowColumn name="code"></TableRowColumn>
-						<TableRowColumn name="123"></TableRowColumn>
+						<TableRowColumn name="enabledStr"></TableRowColumn>
 						<TableRowColumn name="orderNum"></TableRowColumn>
 						<TableRowColumn name="jobTypeName"></TableRowColumn>
 						<TableRowColumn name="updatorName"></TableRowColumn>
-						<TableRowColumn name="uTime"></TableRowColumn>
+						<TableRowColumn name="cTime" component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+						}}></TableRowColumn>
 						<TableRowColumn type="operation">
 							<Button label="编辑"  type="operation"  operation="edit" />
 							<Button label="删除"  type="operation"  operation="del" />
@@ -259,7 +287,8 @@ export default class PostList extends Component{
 				<AddPostList
 					onCancel={this.newSwidth}
 					onSubmit={this.addSubmit}
-					onClose = {this.allClose}   
+					onClose = {this.allClose}  
+					jobTypes={jobTypes} 
 				/>
 			</Dialog>
 			{/*编辑用户*/}
@@ -271,7 +300,8 @@ export default class PostList extends Component{
 			>
 				<EditPostList
 					onCancel={this.editSwidth}
-					onSubmit={this.editSubmit}   
+					onSubmit={this.editSubmit}
+					jobTypes={jobTypes}   
 				/>
 			</Dialog>
 			{/*开通门禁*/}

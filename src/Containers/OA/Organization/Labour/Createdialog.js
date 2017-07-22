@@ -61,12 +61,12 @@ class Createdialog extends Component {
     }
 
     render() {
-        const {handleSubmit} = this.props;
-        
+        const {handleSubmit,detail} = this.props;
+       // console.log(detail);
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:685,marginTop:20}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:644,marginTop:20}}  >
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
