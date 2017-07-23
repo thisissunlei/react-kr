@@ -31,11 +31,13 @@ class EditPerson  extends React.Component{
 
     onSubmit=(values)=>{
         
+        let {basicInfo} = this.props;
         let params = Object.assign({},values);
-        params.jobId = values.jobId.value;
-        params.leader = values.leader.orgId;
-        params.treeType = values.leader.treeType;
-        params.levelId = values.levelId.value;
+
+        params.jobId = values.jobId.value || basicInfo.jobId||"";
+        params.leader = values.leader.orgId || basicInfo.leaderId||"";
+        params.treeType = values.leader.treeType||"";
+        params.levelId = values.levelId.value|| basicInfo.Id||"";
 
     
         const {onSubmit}=this.props;
@@ -94,7 +96,7 @@ class EditPerson  extends React.Component{
 			<div className='m-addPerson'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon"></span><label className="title-text">新增员工</label></div>
+                            <div><span className="new-icon"></span><label className="title-text">编辑员工</label></div>
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 
