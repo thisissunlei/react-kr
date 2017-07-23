@@ -24,8 +24,13 @@ class EditPerson  extends React.Component{
         }
         let {basicInfo} = this.props;
         console.log(basicInfo,"?>>>>>>>??")
-        // this.getPositionType();
-        // this.getPrepareData();
+        var orgType = "DEPARTMENT";
+        if(!basicInfo.depId){
+            orgType = "SUBCOMPANY";
+        }
+
+        this.getPositionType({orgId:basicInfo.depId,treeType:orgType});
+        this.getPrepareData({value:basicInfo.typeId});
 	}
 
     componentDidMount(){
@@ -39,9 +44,9 @@ class EditPerson  extends React.Component{
         let params = Object.assign({},values);
 
         params.jobId = values.jobId.value || basicInfo.jobId||"";
-        params.leader = values.leader.orgId || basicInfo.leaderId||"";
+        params.leader = values.leader.orgId || basicInfo.leader||"";
         params.treeType = values.leader.treeType||"";
-        params.levelId = values.levelId.value|| basicInfo.Id||"";
+        params.levelId = values.levelId.value|| basicInfo.levelId||"";
 
     
         const {onSubmit}=this.props;
@@ -94,7 +99,7 @@ class EditPerson  extends React.Component{
 
         let {handleSubmit,basicInfo}=this.props;
         let {rankList,positionList,isPositionRank,positionType} = this.state;
-       console.log(basicInfo,":::::::")
+      
 		return(
 
 			<div className='m-addPerson'>

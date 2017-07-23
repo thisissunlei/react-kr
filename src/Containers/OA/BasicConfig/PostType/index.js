@@ -49,11 +49,14 @@ export default class PostType extends Component{
 			deleteId:''
       
 		}
+		this.dataReady();
 	}
     
 	componentWillMount(){
 		this.dataReady();
 	}
+
+	
 
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
