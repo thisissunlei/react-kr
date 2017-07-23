@@ -89,7 +89,6 @@ const config = {
 				warnings: false,
 				drop_console: true,
 				drop_debugger: true,
-
 			},
 			output: {
 				comments: false,
@@ -104,6 +103,7 @@ const config = {
 			minSizeReduce: 1.5,
 			moveToParents: true
 		}),
+
 		new webpack.optimize.MinChunkSizePlugin({
 			compress: {
 				warnings: false,
