@@ -107,6 +107,8 @@ class Editdialog extends React.Component {
                     placeholder="排序号"
                     requireLabel={true}
                 />
+                {/*
+
                 <KrField 
                     style={{width:262,marginTop:6}}  
                     name="adminId" 
@@ -116,6 +118,10 @@ class Editdialog extends React.Component {
                     placeholder="请选择"
                     requireLabel={true}
                 />
+
+
+                */}
+
                 <Row style={{marginTop:20,marginBottom:6}}>
       					<Col md={12} align="center">
       						<ButtonGroup>

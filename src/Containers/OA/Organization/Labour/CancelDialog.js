@@ -59,7 +59,7 @@ export default class CancelDialog extends Component {
 		return (
 			<div className="g-delete">
 				<div className="u-delete-title">
-					确定要封存该部门吗？
+					确定要封存吗？
 				</div>
 				<Row style={{marginBottom:15}}>
 				<Col md={12} align="center">
