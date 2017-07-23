@@ -2,6 +2,7 @@ import React from 'react';
 import {	
 	TabC,
 	TabCs,
+	Dictionary
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import BasicInfo from './BasicInfo';
@@ -45,20 +46,21 @@ export default class PeopleDetail  extends React.Component{
 	render(){
 
 		let {personId,detail}=this.state;
-		console.log(detail,"KKKKKKKK")
+	
 		return(
 
 			<div className='people-detail'>
 			  <div className='detail-left'>
 				<div className='left-pic'>
-
-					<UserImage />
+				   <UserImage />			
 				</div>
 				<div className='left-text'>
 					{detail.name}
 					<div className = "left-intro">
-						<span>水电费防守打法</span>
-						<lable>水电费防守打法</lable>
+						<div style={{width:'120px'}}><Dictionary type='ERP_ResourceStatus' value={detail.status} style={{display:'inline-block',marginRight:'5px'}}/>
+						<span style={{display:'inline-block',marginRight:'5px'}}> | </span>
+						<span style={{display:'inline-block'}}>{detail.jobName}</span></div>
+						<div style={{color:'#333',fontSize:'12px',marginTop:"5px",width:'120px'}}>{detail.depName}</div>
 					</div>
 				</div>
 			  </div>

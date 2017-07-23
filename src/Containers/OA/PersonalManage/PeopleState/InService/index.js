@@ -319,7 +319,7 @@ export default class InService  extends React.Component{
 									component={(value,oldValue,detail)=>{
 										return (<div onClick = {() =>{
 												this.goDetail(detail)
-												}}>{value}</div>)
+												}} style={{color:'#499df1',cursor:'pointer'}}>{value}</div>)
 									}} 
 								 ></TableRowColumn>
 								<TableRowColumn name="code"></TableRowColumn>

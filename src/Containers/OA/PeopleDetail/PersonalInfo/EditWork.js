@@ -113,6 +113,34 @@ class EditWork  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+
+    let phone=/^1[34578]\d{9}$/;
+    let email=/^[\w_\-\.]+@[\w\-]+(?:\.[\w\-]+)+$/;
+
+    if(!values.company){
+        errors.company='请填写公司名称';
+    }
+    if(!values.job){
+        errors.job='请填写职务';
+    }
+    if(!values.startDate){
+        errors.startDate='请填写开始时间';
+    }
+    if(!values.endDate){
+        errors.endDate='请填写结束时间';
+    }
+    if(!values.jcontactNameob){
+        errors.contactName='请填写联系人姓名';
+    }
+    if(!values.contactPhone){
+        errors.contactPhone='请填写联系电话';
+    }else if(!phone.test(values.contactPhone.toString().trim())){
+        errors.contactPhone='请填写正确联系电话'; 
+    }
+ 
+    if(!email.test(values.contactEmail)){
+        errors.contactEmail='请填写正确联系人邮箱'; 
+    }
     
 	return errors
 }
