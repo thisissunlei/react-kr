@@ -24,9 +24,8 @@ class AddPerson  extends React.Component{
         }
 	}
 
-    componentDidMount(){
-        Store.dispatch(change('AddPerson','sex','MALE'))
-        
+    componentWillMount(){
+      Store.dispatch(change('AddPerson','sex','MALE'))
     }
 
     onSubmit=(values)=>{
@@ -161,7 +160,7 @@ class AddPerson  extends React.Component{
                          {this.props.changeValues.depId &&<KrField
                             grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="depId"
+                            name="typeId"
                             component="select"
                             label="职务类型"
                             onChange = {this.positionTypeChange}
@@ -261,6 +260,20 @@ const validate = values =>{
 
      if(!values.depId){
         errors.depId='请选择部门';
+    }
+
+    if(!values.typeId){
+        errors.typeId='请选择职务类型';
+    }
+    if(!values.jobId){
+        errors.jobId='请选择职务';
+    }
+    if(!values.levelId){
+        errors.levelId='请选择职级';
+    }
+
+     if(!values.entryDate){
+        errors.entryDate='请选择入职时间';
     }
 
      if(!values.mobilePhone){

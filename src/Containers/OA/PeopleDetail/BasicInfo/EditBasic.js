@@ -244,7 +244,9 @@ class EditPerson  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+    
     let reg= /^1[34578]\d{9}$/; 
+    let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
 
     if(!values.name){
         errors.name='请填写名称';
@@ -266,10 +268,38 @@ const validate = values =>{
         errors.type='请选择员工类别';
     }
 
+    if(!values.leader){
+        errors.leader='请选择直接上级';
+    }
+
+     if(!values.depId){
+        errors.depId='请选择部门';
+    }
+
+    if(!values.typeId){
+        errors.typeId='请选择职务类型';
+    }
+    if(!values.jobId){
+        errors.jobId='请选择职务';
+    }
+    if(!values.levelId){
+        errors.levelId='请选择职级';
+    }
+
+     if(!values.entryDate){
+        errors.entryDate='请选择入职时间';
+    }
+
      if(!values.mobilePhone){
         errors.mobilePhone='请填写手机号码';
     }else if(!reg.test(values.mobilePhone)){
         errors.mobilePhone='请填写正确手机号码';
+    }
+
+     if(!values.email){
+        errors.email='请填写公司邮箱';
+    }else if(!ph.test(values.email)){
+        errors.email='请填写正确公司邮箱';
     }
     
 	return errors
