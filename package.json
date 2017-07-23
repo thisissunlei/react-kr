@@ -8,12 +8,10 @@
     "dev:test": " export NODE_ENV=test  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --inline",
     "dev:test01": " export NODE_ENV=test01  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
     "dev:test02": " export NODE_ENV=test02  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
-
     "dic:test": " export NODE_ENV=test &&  node ./task/loadDictionary.js",
     "dic:test01": " export NODE_ENV=test01 &&  node ./task/loadDictionary.js",
     "dic:test02": " export NODE_ENV=test02 &&  node ./task/loadDictionary.js",
     "dic": " export NODE_ENV=production &&  node ./task/loadDictionary.js",
-
     "build": "export NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors",
     "dll": "export NODE_ENV=production && webpack --config ./webpack/webpack-dll.config.js --progress --colors --profile",
     "lint": "eslint *.js ./src/**"

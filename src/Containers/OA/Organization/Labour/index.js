@@ -28,7 +28,7 @@ import {
 	SliderTree,
 } from 'kr-ui';
 
-import {AddPostPeople} from 'kr/PureComponent';
+import {AddPostPeople} from 'kr/PureComponents';
 
 import SearchForm from './SearchForm';
 import CreateDialog from './Createdialog';
@@ -691,12 +691,14 @@ export default class Labour extends React.Component {
 					<CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
 				</Dialog>
 				{/*新建用户*/}
+
                     <AddPostPeople 
                         onCancel={this.openAddPerson}
                         onSubmit={this.addPersonSubmit}
                         open={this.state.openAddPerson} 
                         onClose={this.allClose}  
                     />
+
                 </div>
             );
         }
