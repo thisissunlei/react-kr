@@ -138,7 +138,7 @@ const validate = values =>{
         errors.contactPhone='请填写正确联系电话'; 
     }
  
-    if(!email.test(values.contactEmail)){
+    if(values.contactEmail&&!email.test(values.contactEmail)){
         errors.contactEmail='请填写正确联系人邮箱'; 
     }
     
