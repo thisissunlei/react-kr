@@ -1,8 +1,4 @@
 import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
 
 import {
 	KrField,
@@ -27,6 +23,7 @@ import {
 	Message,
 	CheckPermission
 } from 'kr-ui';
+
 export default class Leave extends Component{
 
 	constructor(props,context){

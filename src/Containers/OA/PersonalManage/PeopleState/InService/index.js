@@ -364,7 +364,7 @@ export default class InService  extends React.Component{
 
 					{/*离职*/}
 					<Dialog
-						title="提示"
+						title="离职"
 						onClose={this.cancelLeave}
 						open={this.state.openLeave}
 						contentStyle ={{ width: '630px',height:'355px'}}
@@ -377,7 +377,7 @@ export default class InService  extends React.Component{
 
 					{/*解除帐号*/}
 					<Dialog
-						title="提示"
+						title="解除帐号"
 						onClose={this.cancelRemove}
 						open={this.state.openRemove}
 						contentStyle ={{ width: '444px',height:'190px'}}
