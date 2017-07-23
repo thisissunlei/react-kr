@@ -223,13 +223,13 @@ export default class OaUploadImage extends Component {
 						 }
 						<div className='ui-uploadimg-inner' >
                             <span>更换图像</span>
-							<input type='file' onChange={this.onChange} ref="inputImg"/>
+							{/*<input type='file' onChange={this.onChange} ref="inputImg"/>*/}
 							
 						</div>
 						<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none",zIndex:'11',width:120,height:75,textAlign:'center'}}>
 							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg} style={{marginRight:'30px'}}>
 								<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh"/>
-								<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>
+								{/*<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>*/}
 							</div>
 							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.deleteImg}>
 								<img src={deleteImg} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
