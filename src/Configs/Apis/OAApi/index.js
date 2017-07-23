@@ -74,8 +74,7 @@ var OAApi = {
    /*====在职列表接口*/
    //在职列表-列表接口
   'getInServiceList': {
-    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&searchKey={searchKey}',
-    method: 'get'
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&searchKey&{searchKey}',
   },
   //在职列表-获取离职类型   ------
   'getDepartureType': {
@@ -87,11 +86,6 @@ var OAApi = {
     url: '/api/krspace-erp-web/hrm/resource/dimission',
     method: 'post'
   },
-   //在职列表-离职提交
- 'transferOnSubmit': {
-    url: '/api/krspace-erp-web/hrm/resource/move',
-    method: 'post'
-  },
   //在职列表-部门下拉  -----
  'getDepartmentList': {
     url: '/api/krspace-erp-web/hrm/resource/move',
@@ -100,6 +94,11 @@ var OAApi = {
   //在职列表-接触账号  -----
  'removeAccount': {
     url: '/api/krspace-erp-web/hrm/resource/delete/account',
+    method: 'post'
+  },
+  //在职列表调动提交
+   'service-switch': {
+    url: '/api/krspace-erp-web/hrm/resource/move',
     method: 'post'
   },
   //在职列表-绑定门禁卡  -----
@@ -330,7 +329,17 @@ var OAApi = {
   'submit-new-personnel':{
       url:'/api/krspace-erp-web/hrm/resource/add',
       method: 'post'
-  }
+  },
+  //在职解除帐号
+   'remove-account':{
+      url:'/api/krspace-erp-web/hrm/resource/delete/account',
+      method: 'post'
+  },
+  //在职开通账号
+  'open-account':{
+      url:'/api/krspace-erp-web/hrm/resource/open/account',
+      method: 'post'
+  },
 }
 
 module.exports=OAApi;
