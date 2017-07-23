@@ -2,11 +2,12 @@ import React from 'react';
 import {	
    Drawer,
    Dictionary,
-   KrDate	
+   KrDate,
+   Message	
 } from 'kr-ui';
 import './index.less';
 import EditBasic from './EditBasic';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {Store} from 'kr/Redux';
 import {
   initialize
@@ -60,14 +61,22 @@ export default class BasicInfo  extends React.Component{
 	//编辑提交
 	editSubmit=(params)=>{
 	   let {personId}=this.props;
-	   params.id=personId;
+	   let subParams = Object.assign({},params);
+	   subParams.uTime = DateFormat(subParams.uTime,"yyyy-mm-dd hh:MM:ss")
+	   subParams.cTime = DateFormat(subParams.cTime,"yyyy-mm-dd hh:MM:ss")
+	   subParams.leaveDate = DateFormat(subParams.leaveDate,"yyyy-mm-dd hh:MM:ss")
+	   subParams.entryDate = DateFormat(subParams.entryDate,"yyyy-mm-dd hh:MM:ss")
+	   
+	   
+	   subParams.id=personId;
 	   var _this=this;
-       Http.request('people-basic-edit',{},params).then(function(response) {
+       Http.request('people-basic-edit',{},subParams).then(function(response) {
            _this.basicData(params.id);
+		   _this.cancelEdit();
         }).catch(function(err) {
           Message.error(err.message);
         });
-		this.cancelEdit();
+	
 	}
     
 	//关闭所有
