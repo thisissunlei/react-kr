@@ -152,7 +152,8 @@ export default class SwitchSlide extends React.Component{
 		 }
 
 
-        const dialogTitle = label || '选择组件';
+        var dialogTitle = label || '组件';
+        dialogTitle = "选择" + dialogTitle;
 
 		 return (
 			 <WrapComponent {...wrapProps}>
