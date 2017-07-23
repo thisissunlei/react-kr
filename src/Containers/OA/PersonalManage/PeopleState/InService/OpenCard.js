@@ -6,21 +6,39 @@ import {
     Col,
     Row,
     ButtonGroup,
-    Button
+    Button,
+    Message
 } from 'kr-ui';
-
+import {Http} from 'kr/Utils';
 class OpenCard extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
         this.state = {
             employees:{},
+            cardInfo:{},
         }
 	}
-    
+    componentDidMount(){
+        const {employees}=this.props;
+        var _this = this;
+        Http.request("cardInfo",{resourceId:employees.id}).then(function (response) {
+           _this.setState({
+               cardInfo:response
+           })
+        }).catch(function (err) {
+            Message.error(err.message);
+        });
+    }
      onSubmit=(values)=>{
-        const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);
+        const {onSubmit,employees}=this.props;
+        let {cardInfo} = this.state;
+        var form = Object.assign({},values);
+        form.name = employees.name;
+        form.cardId = cardInfo.cardId||"";
+        form.ssoId = cardInfo.ssoId;
+        form.mobilePhone = employees.mobilePhone;
+        onSubmit && onSubmit(form);
     }
 
     onCancel=()=>{
@@ -45,8 +63,7 @@ class OpenCard extends React.Component{
 
 	render(){
        
-        let {handleSubmit,employees}=this.props;
-
+        let {handleSubmit,employees,cardInfo}=this.props;
 		return(
 
 			<div>
@@ -54,22 +71,24 @@ class OpenCard extends React.Component{
                
                 <KrField grid={1}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="name"
                             component="labelText"
                             value = {employees.name} 
-                            label="姓名:"
+                            label="姓名"
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
-                            value = {employees.phone} 
+                            value = {employees.mobilePhone} 
                             component="labelText"
-                            label="手机号:"
+                            label="手机号"
+                            name="mobilePhone"
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
-                            name="area"
+                            name="cardNo"
                             component="input"
-                            label="会员卡号:"
+                            label="会员卡号"
+                            value = {cardInfo && cardInfo.cardNo || ''}
                             inline={true}
                             requireLabel={true}
 					    />

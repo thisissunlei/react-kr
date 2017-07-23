@@ -20,6 +20,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
+	Dictionary
 } from 'kr-ui';
 import {
 	AddPostPeople
@@ -41,6 +42,7 @@ export default class InService  extends React.Component{
 			openRemove:false,
 			openTransfer:false,
 			openCard:false,
+			openAccount:false,
 			searchParams : {
 				page:1,
 				pageSize:15,
@@ -53,9 +55,11 @@ export default class InService  extends React.Component{
 			//离职id
 			leaveId:'',
 			//调动数据
-			transferDetail:{}
-			
+			transferDetail:{},
+			resourceId:'',
 		}
+		//判断是否解绑账号
+		this.isCard=false;
 	}
    
    //新建用户
@@ -66,42 +70,62 @@ export default class InService  extends React.Component{
    }
    
    //新建用户提交
-   addPersonSubmit=(params)=>{
-     console.log('params',params);   
+   addPersonSubmit=(param)=>{
+    var data = Object.assign({},param);
+	var _this = this;
+	
+	Http.request("submit-new-personnel",{},data).then(function (response) {
+		_this.openAddPersonal()
+	}).catch(function (err) {
+		Message.error(err.message);
+	});
+   }
+   
+   //操作开关
+   //编辑打开
+   operationEdit=(itemDetail)=>{
+        this.goDetail(itemDetail);	
+   }
+   //离职打开
+   operationLeave=(itemDetail)=>{
+       this.setState({
+			openLeave:true,
+			leaveId:itemDetail.id
+		})
+   }
+   //解除账号打开
+   operationRemove=(itemDetail)=>{
+	    this.setState({
+			  openRemove:true,
+			  resourceId:itemDetail.id
+		})	
    }
 
-   //操作
-   onOperation=(type, itemDetail)=>{
-      if(type=='edit'){
-		 let personId=1;
-         this.goDetail(itemDetail)
-	  }else if(type=='leave'){
-		  this.setState({
-			  openLeave:true,
-			  leaveId:itemDetail.id
-		  })
-	  }else if(type=='go'){
-          this.setState({
+   //调动打开
+   operationTransfer=(itemDetail)=>{
+		 this.setState({
 			  openTransfer:true,
 			  transferDetail:itemDetail
 		  })
-	  }else if(type=='open'){
-
-          this.setState({
-			  openRemove:true,
-			  resourceId:itemDetail.id
-
-		  })
-	  }else if(type=='give'){
-          this.setState({
-			  openCard:true,
-			  employees:{
-				name:itemDetail.name,
-				phone:itemDetail.mobilePhone,
-			  }
-		  })
-	  }
    }
+
+   //绑定门禁卡打开
+   operationCard=(itemDetail)=>{
+		this.setState({
+			  openCard:true,
+			  employees:itemDetail
+		})
+   }
+
+   //开通账号打开
+   operationAccount=(itemDetail)=>{
+       this.setState({
+			  openAccount:true,
+			  resourceId:itemDetail.id
+		})
+   }
+
+
    
    //离职关闭
    cancelLeave=()=>{
@@ -136,17 +160,52 @@ export default class InService  extends React.Component{
    }
    
    //解除提交
-   addRemoveSubmit=(data)=>{
+   addRemoveSubmit=()=>{
 	   const _this = this;
-	   const {resourceId} = this.props;
-	   let param = {resourceId:resourceId||''};
-        Http.request("removeAccount",param).then(function (response) {
-            _this.cancelRemove();
+	   const {resourceId} = this.state;
+	    var param={};
+	    param.resourceId=resourceId;
+		var searchParams={
+		  time:+new Date()
+	    }
+        Http.request("remove-account",{},param).then(function (response) {
+			_this.setState({
+               searchParams:Object.assign({},_this.state.searchParams,searchParams)
+		    })
         }).catch(function (err) {
             Message.error(err.message);
         });
+		_this.cancelRemove();
 
    }
+
+   //开通关闭
+    cancelAccount=()=>{
+	 this.setState({
+		openAccount:!this.state.openAccount
+	 })  
+   }
+
+     //开通提交
+   addOpenSubmit=()=>{
+	   const _this = this;
+	   const {resourceId} = this.state;
+	    var param={};
+	    param.resourceId=resourceId;
+		var searchParams={
+		  time:+new Date()
+	    }
+        Http.request("open-account",{},param).then(function (response) {
+			_this.setState({
+               searchParams:Object.assign({},_this.state.searchParams,searchParams)
+		    })
+        }).catch(function (err) {
+            Message.error(err.message);
+        });
+        _this.cancelAccount();
+	
+   }
+   
    
    //调动取消
    cancelTransfer=()=>{
@@ -159,7 +218,7 @@ export default class InService  extends React.Component{
    addTransferSubmit=(data)=>{
 		var param = Object.assign({},data);
 		var _this = this;
-		Http.request("transferOnSubmit",param).then(function (response) {
+		Http.request("transferOnSubmit",{},param).then(function (response) {
 			_this.cancelTransfer()
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -174,8 +233,14 @@ export default class InService  extends React.Component{
 	 })  
    }
    //开通门禁提交
-   addCardSubmit=()=>{
-    
+   addCardSubmit=(param)=>{
+	   var _this = this;
+		Http.request("bindingCard",{},param).then(function (response) {
+			_this.cancelCard();
+			Message.success("绑定成功");
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
    }
    
    //关闭所有侧滑
@@ -196,8 +261,7 @@ export default class InService  extends React.Component{
 		window.open(`./#/oa/${data.personId}/peopleDetail`,'123');
    }
 	render(){
-		const {transferDetail,employees} = this.state;
-		console.log('frrr',transferDetail);
+		const {transferDetail,employees,isCard} = this.state;
 		return(
 
 			<div>
@@ -234,6 +298,7 @@ export default class InService  extends React.Component{
 						ajaxUrlName='getInServiceList'
 						ajaxFieldListName="items"
 					  >
+					  
 						<TableHeader>
 								<TableHeaderColumn>部门</TableHeaderColumn>
 								<TableHeaderColumn>姓名</TableHeaderColumn>
@@ -256,19 +321,31 @@ export default class InService  extends React.Component{
 												}}>{value}</div>)
 									}} 
 								 ></TableRowColumn>
-								<TableRowColumn name ="code" ></TableRowColumn>
+								<TableRowColumn name="code"></TableRowColumn>
 								<TableRowColumn name ="jobName" ></TableRowColumn>
-								<TableRowColumn name ="entryDate" component={(value,oldValue)=>{
+								<TableRowColumn 
+									name ="entryDate" 
+									component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-						         }}></TableRowColumn>
-								<TableRowColumn name ="status" ></TableRowColumn>
-								<TableRowColumn name ="hasAccount" ></TableRowColumn>
-								<TableRowColumn type="operation">
-								<Button label="编辑"  type="operation"  operation="edit"/>
-								<Button label="离职"  type="operation"  operation="leave"/>
-								<Button label="调动"  type="operation"  operation="go"/>
-								<Button label="解除账号"  type="operation"  operation="open"/>
-								<Button label="绑定门禁卡"  type="operation"  operation="give"/>
+									}}
+										
+								></TableRowColumn>
+								<TableRowColumn name ="status" 
+									component={(value,oldValue)=>{
+										return (<Dictionary type='ERP_ResourceStatus' value={value}/>)
+									}}
+								></TableRowColumn>
+								<TableRowColumn name ="hasAccountStr"></TableRowColumn>
+								<TableRowColumn type="operation" component={(value,oldValue,detail)=>{
+										return <span>
+											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
+												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
+												<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>
+												{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
+												<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>
+											</span>
+								 }}>		
 								</TableRowColumn>
 							</TableRow>
 						</TableBody>
@@ -306,6 +383,19 @@ export default class InService  extends React.Component{
 					<Remove
 						onCancel={this.cancelRemove}
 						onSubmit={this.addRemoveSubmit}  
+					/>
+					</Dialog>
+
+					{/*开通帐号*/}
+					<Dialog
+						title="提示"
+						onClose={this.cancelAccount}
+						open={this.state.openAccount}
+						contentStyle ={{ width: '444px',height:'190px'}}
+					>
+					<Remove
+						onCancel={this.cancelAccount}
+						onSubmit={this.addOpenSubmit}  
 					/>
 					</Dialog>
 

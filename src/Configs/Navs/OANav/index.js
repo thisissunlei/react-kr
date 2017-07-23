@@ -23,7 +23,7 @@ module.exports = [
 			}, 
 			{
 				primaryText: '人员管理',
-				iconName: 'icon-schema',
+				iconName: 'icon-administrator',
 				iconColor: '#79859a',
 				menuItems: [
 					{
@@ -35,7 +35,7 @@ module.exports = [
 			}, 
 			{
 				primaryText: '基础配置',
-				iconName: 'icon-schema',
+				iconName: 'icon-basis',
 				iconColor: '#79859a',
 				menuItems: [
 					{
@@ -56,7 +56,7 @@ module.exports = [
 				]
 			}, 
 
-			{
+			/*{
 				primaryText: '基础配置',
 				menuCode: 'hrmbasedataadmin',
 				iconName: 'icon-basis',
@@ -90,7 +90,7 @@ module.exports = [
 					},
 
 				]
-			}]
+			}*/]
 
 	}
 ]

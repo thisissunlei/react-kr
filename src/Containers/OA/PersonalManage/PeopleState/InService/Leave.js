@@ -15,7 +15,23 @@ import {reduxForm}  from 'redux-form';
 
 	constructor(props,context){
 		super(props, context);
+        this.state = {
+            departureTypes: [{label:"主动被动",value:"INITIATIVE"},{label:"被动",value:"PASSIVITY"}],
+        }
 	}
+    // //获取离职类型
+    // getDepartureType = () =>{
+    //     const _this = this;
+    //     Http.request("getDepartureType").then(function (response) {
+    //         _this.setState({
+    //             // departureTypes: responses,
+    //             departureTypes: [{label:"主动被动",value:"INITIATIVE"},{label:"被动",value:"PASSIVITY"}],
+    //         });
+    //     }).catch(function (err) {
+    //         Message.error(err.message);
+    //     });
+    // }
+	
      onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);

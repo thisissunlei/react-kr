@@ -30,7 +30,7 @@ class Transfer extends React.Component{
 	render(){
 
         let {handleSubmit,department}=this.props;
-        
+
 		return(
 
 			<div>
@@ -46,9 +46,9 @@ class Transfer extends React.Component{
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
                             name="depId"
-                            component="select"
+                            component="selectTree"
                             label="部门:"
-                            inline={true}
+                            ajaxUrlName = "get-department-tree"
                             requireLabel={true}
 					    />
 
