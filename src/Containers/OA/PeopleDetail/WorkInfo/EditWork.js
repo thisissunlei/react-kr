@@ -107,6 +107,23 @@ class EditWork  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+
+     if(!values.wageCard){
+       errors.wageCard='请填写工资卡号'
+    }else if(isNaN(values.wageCard)){
+       errors.wageCard='工资卡号必须是数字'  
+    }else if(values.wageCard.length>12||values.wageCard.length<6){
+       errors.wageCard='工资卡号在6-12位之间'   
+    }
+
+     if(!values.calculateCompany){
+       errors.calculateCompany='请填写核算单位'
+     }
+     
+    if(!values.contractEndDate){
+       errors.contractEndDate='请填写劳动终止时间'
+     }
+
     
 	return errors
 }

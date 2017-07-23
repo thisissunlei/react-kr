@@ -21,7 +21,7 @@ import AddWork from './AddWork';
 import EditWork from './EditWork';
 import DeleteFamily from './DeleteFamily';
 import DeleteWork from './DeleteWork';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {Store} from 'kr/Redux';
 import {
   initialize
@@ -136,6 +136,10 @@ export default class PersonalInfo  extends React.Component{
    editSubmit=(params)=>{
 	   let {personId}=this.props;
 	   delete params.uTime;
+	   params.birthday = DateFormat(params.birthday,"yyyy-mm-dd hh:MM:ss");
+	   params.workDate = DateFormat(params.workDate,"yyyy-mm-dd hh:MM:ss");
+	   params.partyDate = DateFormat(params.partyDate,"yyyy-mm-dd hh:MM:ss");
+	   params.leagueDate = DateFormat(params.leagueDate,"yyyy-mm-dd hh:MM:ss");
 	   params.resourceId=personId;
        var _this=this;
        Http.request('people-person-edit',{},params).then(function(response) {

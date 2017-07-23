@@ -7,7 +7,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import EditWork from './EditWork';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {Store} from 'kr/Redux';
 import {
   initialize
@@ -55,6 +55,8 @@ export default class WorkInfo  extends React.Component{
 	editSubmit=(params)=>{
 	   let {personId}=this.props;
 	   delete params.uTime;
+	   params.probationEndDate = DateFormat(params.probationEndDate,"yyyy-mm-dd hh:MM:ss");
+	   params.contractEndDate = DateFormat(params.contractEndDate,"yyyy-mm-dd hh:MM:ss");
 	   params.resourceId=personId;
        var _this=this;
 	   Http.request('people-workinfo-edit',{},params).then(function(response) {
