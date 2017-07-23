@@ -58,6 +58,7 @@ class Editdialog extends React.Component {
 
             <div>
               <form onSubmit={handleSubmit(this.onSubmit)} style={{width:644,marginTop:20}}  >
+              {/*
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
@@ -69,6 +70,7 @@ class Editdialog extends React.Component {
                     placeholder="编码"
                     value={this.state.infoList.code}
                 />
+              */}
                 <KrField
                     style={{width:262}}
                     inline={false}

@@ -101,7 +101,7 @@ class AddPostList  extends React.Component{
                             style={{width:262,display:'block'}}
                             name="typeId"
                             component="select"
-                            label="职务类型名称"
+                            label="职务类型"
                             options={jobTypes}
                             requireLabel={true}
 						/>
