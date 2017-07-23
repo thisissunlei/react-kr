@@ -4,6 +4,7 @@ import React, {
 
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Proptypes from 'prop-types';
 
 import './index.less';
 
@@ -18,45 +19,45 @@ export default class Button extends Component {
 	}
 
 	static propTypes = {
-		className: React.PropTypes.string,
-		children: React.PropTypes.node,
+		className: PropTypes.string,
+		children: PropTypes.node,
 		/**
 		* 样式
 		*/
-		style: React.PropTypes.object,
+		style:PropTypes.object,
 		/**
 		*类型
 		*/
-		type: React.PropTypes.string,
+		type:PropTypes.string,
 		/**
 		*按钮文字
 		*/
-		label: React.PropTypes.string,
+		label:PropTypes.string,
 		/**
 		*禁用
 		*/
-		disabled: React.PropTypes.bool,
+		disabled:PropTypes.bool,
 		/**
 		*背景颜色
 		*/
-		backgroundColor: React.PropTypes.string,
+		backgroundColor:PropTypes.string,
 		/**
 		*文字颜色
 		*/
-		labelColor: React.PropTypes.string,
-		cancle:React.PropTypes.bool,
+		labelColor:PropTypes.string,
+		cancle:PropTypes.bool,
 		/**
 		* 宽
 		*/
-		width:React.PropTypes.number,
+		width:PropTypes.number,
 		/**
 		*高
 		*/
-		height:React.PropTypes.number,
+		height:PropTypes.number,
 		/**
 		*
 		*/
-		fontSize:React.PropTypes.number,
+		fontSize:PropTypes.number,
 
 	}
 
