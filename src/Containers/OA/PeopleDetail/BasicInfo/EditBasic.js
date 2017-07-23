@@ -23,7 +23,9 @@ class EditPerson  extends React.Component{
             isPositionRank:false,
         }
         let {basicInfo} = this.props;
-
+        console.log(basicInfo,"?>>>>>>>??")
+        // this.getPositionType();
+        // this.getPrepareData();
 	}
 
     componentDidMount(){
