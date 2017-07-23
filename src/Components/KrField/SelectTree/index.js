@@ -27,6 +27,7 @@ export default class SelectTree extends React.Component{
 				orgName:"请选择"
 			},
 			oneOpen:true,
+			other:''
 		}
 	}
 
@@ -84,10 +85,17 @@ export default class SelectTree extends React.Component{
 		// onChange && onChange(item);
 		
 	}
+	 componentWillReceiveProps (nextProps) {
+        if (nextProps.valueText) {
+           this.setState({
+			   other:new Date()
+		   })
+        }
+    }
 
 	render(){
 		const {isDialog,data,oneOpen} = this.state;
-		const {ajaxUrlName,value} = this.props;
+		const {ajaxUrlName,valueText} = this.props;
 		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
 
 			if(type === 'hidden'){
@@ -129,12 +137,11 @@ export default class SelectTree extends React.Component{
 			 ...other,
 			 autoFocus,
 		 }
-
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && value)? value : data.orgName  }</div>
+				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText)? valueText : data.orgName  }</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 

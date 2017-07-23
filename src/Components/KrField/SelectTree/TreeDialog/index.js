@@ -47,7 +47,6 @@ export default class TreeDialog extends React.Component{
 			_this.setState({
 				treeData:response.items
 			})
-			console.log(response.items)
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -82,7 +81,6 @@ export default class TreeDialog extends React.Component{
 	
 	}
 	treeChange = (event) =>{
-		console.log(event.target.value);
 		this.setState({
 			searchKey:event.target.value,
 		})
