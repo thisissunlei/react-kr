@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -23,54 +24,54 @@ export default class Button extends React.Component {
 		/**
 		 * 按钮大小：large、defualt、small、xsmall
 		 */
-		size:React.PropTypes.string,
+		size:PropTypes.string,
 		/**
 		 *自定义样式名称
 		 */
-		className: React.PropTypes.string,
+		className: PropTypes.string,
 		//oa阴影
-		shadow: React.PropTypes.string,
+		shadow: PropTypes.string,
 		/**
 		 *子元素
 		 */
 		
-		children: React.PropTypes.node,
+		children: PropTypes.node,
 		/**
 		 *行内样式
 		 */
-		style: React.PropTypes.object,
+		style: PropTypes.object,
 		/**
 		 *按钮类型：button、link、submit
 		 */
-		type: React.PropTypes.string,
+		type: PropTypes.string,
 		/**
 		 *按钮文本显示
 		 */
-		label: React.PropTypes.string,
+		label: PropTypes.string,
 		/**
 		 *按钮禁用
 		 */
-		disabled: React.PropTypes.bool,
-		backgroundColor: React.PropTypes.string,
-		labelColor: React.PropTypes.string,
-		cancle:React.PropTypes.bool,
+		disabled: PropTypes.bool,
+		backgroundColor: PropTypes.string,
+		labelColor: PropTypes.string,
+		cancle:PropTypes.bool,
 		/**
 		 *宽
 		 */
-		width:React.PropTypes.number,
+		width:PropTypes.number,
 		/**
 		 *高
 		 */
-		height:React.PropTypes.number,
-		fontSize:React.PropTypes.number,
+		height:PropTypes.number,
+		fontSize:PropTypes.number,
 		/**
 		*高级查询的行内样式
 		*/
-		searchStyle:React.PropTypes.object,
+		searchStyle:PropTypes.object,
 		/**
 		*高级查询点击事件
 		*/
-		searchClick:React.PropTypes.func,
+		searchClick:PropTypes.func,
 	}
 
 
