@@ -22,6 +22,8 @@ class EditPerson  extends React.Component{
             positionType:[],
             isPositionRank:false,
         }
+        let {basicInfo} = this.props;
+
 	}
 
     componentDidMount(){
@@ -166,7 +168,7 @@ class EditPerson  extends React.Component{
                          {this.props.changeValues.depId &&<KrField
                             grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="depId"
+                            name="typeId"
                             component="select"
                             label="职务类型"
                             

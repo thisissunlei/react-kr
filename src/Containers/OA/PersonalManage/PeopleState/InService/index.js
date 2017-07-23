@@ -216,6 +216,7 @@ export default class InService  extends React.Component{
   
    //调动提交
    addTransferSubmit=(data)=>{
+	   console.log(data,">>>>>>>>>>>")
 		var param = Object.assign({},data);
 		var _this = this;
 		Http.request("transferOnSubmit",{},param).then(function (response) {
