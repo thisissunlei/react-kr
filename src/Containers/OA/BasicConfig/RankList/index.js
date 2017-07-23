@@ -227,7 +227,7 @@ export default class RankList extends Component{
 			        
 					<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 								<ListGroup>
-									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入姓名' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
+									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入职级名称' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
 								</ListGroup>
 					</Col>
 

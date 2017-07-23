@@ -126,10 +126,10 @@ export default class PostList extends Component{
 				pageSize:15
 			 } 
 			}) 
-		  _this.newSwidth();
         }).catch(function(err) {
           Message.error(err.message);
         });
+		 this.newSwidth();
 	}
 	//编辑确定
 	editSubmit = (params) =>{
@@ -142,11 +142,11 @@ export default class PostList extends Component{
 						pageSize:15,
 						name:_this.state.searchParams.name?_this.state.searchParams.name:""
 					}  
-				})
-				_this.editSwidth();
+				 })
 				}).catch(function(err) {
 				Message.error(err.message);
-				});
+			});
+			this.editSwidth();
 	}
 	//删除按钮确定
 	delSubmit = () =>{
@@ -160,10 +160,10 @@ export default class PostList extends Component{
 				  pageSize:15
 			  }  
 		   })
-		   _this.delSwidth();
         }).catch(function(err) {
           Message.error(err.message);
         });
+		this.delSwidth();
 	}
 	//相关操作
 	onOperation = (type, itemDetail) =>{
@@ -229,7 +229,7 @@ export default class PostList extends Component{
 					<ListGroup>
 						<ListGroupItem>
 							<SearchForms 
-								placeholder='请输入姓名' 
+								placeholder='请输入职务名称' 
 								onSubmit={this.onSearchSubmit}
 							/>
 						</ListGroupItem>

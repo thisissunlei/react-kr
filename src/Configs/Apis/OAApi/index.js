@@ -114,7 +114,7 @@ var OAApi = {
   /*职务类型*/
   //职务类型－列表
   'postTypeList': {
-    url: '/api/krspace-erp-web/hrm/job-type/list/type/search?code={code}&name={name}',
+    url: '/api/krspace-erp-web/hrm/job-type/list/type/search?code={code}&name={name}&page={page}&pageSize={pageSize}',
     method: 'get'
   },
   //职务类型－下拉数据
@@ -145,7 +145,7 @@ var OAApi = {
   /*职级列表*/
    //职级列表－列表
   'rank-list-list': {
-    url: '/api/krspace-erp-web/hrm/job-level/list/type/search?name={name}&typeId={typeId}',
+    url: '/api/krspace-erp-web/hrm/job-level/list/type/search?name={name}&typeId={typeId}&page={page}&pageSize={pageSize}',
     method: 'get'
   },
   //职级职务类型名称下拉
