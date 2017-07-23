@@ -24,7 +24,7 @@ class AddPerson  extends React.Component{
         }
 	}
 
-    componentWillMount(){
+    componentDidMount(){
       Store.dispatch(change('AddPerson','sex','MALE'))
     }
 
