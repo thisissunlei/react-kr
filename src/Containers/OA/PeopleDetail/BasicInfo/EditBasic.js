@@ -175,7 +175,7 @@ class EditPerson  extends React.Component{
                             requireLabel={true}
                         />}
 
-                        {isPositionRank &&<KrField
+                        {(isPositionRank ||basicInfo.jobName) &&<KrField
                             grid={1/2}
                             style={{width:262}}
                             name="jobId"
@@ -186,7 +186,7 @@ class EditPerson  extends React.Component{
                             control='single'
                             requireLabel={true}
                         />}
-                         {isPositionRank && <KrField
+                         {(isPositionRank||basicInfo.levelName) && <KrField
                             grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="levelId"

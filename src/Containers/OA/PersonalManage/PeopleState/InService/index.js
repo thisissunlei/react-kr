@@ -404,7 +404,7 @@ export default class InService  extends React.Component{
 						title="人员调动"
 						onClose={this.cancelTransfer}
 						open={this.state.openTransfer}
-						contentStyle ={{ width: '444px'}}
+						contentStyle ={{ width: '444px',overflow:'inherit'}}
 					>
 					<Transfer
 						onCancel={this.cancelTransfer}

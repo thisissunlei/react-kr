@@ -55,7 +55,7 @@ export default class PeopleDetail  extends React.Component{
 					<UserImage />
 				</div>
 				<div className='left-text'>
-					{detail.name}
+				
 					<div className = "left-intro">
 						<span>水电费防守打法</span>
 						<lable>水电费防守打法</lable>
