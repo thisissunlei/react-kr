@@ -258,7 +258,8 @@ export default class InService  extends React.Component{
    }
    //跳转详情页
    goDetail = (data) =>{
-		window.open(`./#/oa/${data.personId}/peopleDetail`,'123');
+	    let personId=data.id;
+		window.open(`./#/oa/${personId}/peopleDetail`,'123');
    }
 	render(){
 		const {transferDetail,employees,isCard} = this.state;
