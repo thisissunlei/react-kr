@@ -55,7 +55,7 @@ export default class PeopleDetail  extends React.Component{
 				   <UserImage />			
 				</div>
 				<div className='left-text'>
-					{detail.name}
+				
 					<div className = "left-intro">
 						<div style={{width:'120px'}}><Dictionary type='ERP_ResourceStatus' value={detail.status} style={{display:'inline-block',marginRight:'5px'}}/>
 						<span style={{display:'inline-block',marginRight:'5px'}}> | </span>
