@@ -219,7 +219,7 @@ export default class InService  extends React.Component{
 	   console.log(data,">>>>>>>>>>>")
 		var param = Object.assign({},data);
 		var _this = this;
-		Http.request("service-switch",{},param).then(function (response) {
+		Http.request("service-switchgit",{},param).then(function (response) {
 			_this.cancelTransfer()
 		}).catch(function (err) {
 			Message.error(err.message);
