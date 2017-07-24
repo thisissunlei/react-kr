@@ -129,7 +129,7 @@ const validate = values =>{
     if(!values.endDate){
         errors.endDate='请填写结束时间';
     }
-    if(!values.jcontactNameob){
+    if(!values.contactName){
         errors.contactName='请填写联系人姓名';
     }
     if(!values.contactPhone){

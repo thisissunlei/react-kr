@@ -237,6 +237,8 @@ export default class PersonalInfo  extends React.Component{
    editWorkSubmit=(params)=>{
 	 let {personId}=this.props;
 	  params.resourceId=personId;
+	  params.endDate = DateFormat(params.endDate,"yyyy-mm-dd hh:MM:ss");
+	  params.startDate = DateFormat(params.startDate,"yyyy-mm-dd hh:MM:ss");
 	  var _this=this;
        Http.request('people-job-edit',{},params).then(function(response) {
            _this.setState({
