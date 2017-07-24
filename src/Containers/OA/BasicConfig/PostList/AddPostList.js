@@ -17,7 +17,8 @@ class AddPostList  extends React.Component{
 	constructor(props,context){
 		super(props, context);
         this.state = {
-            jobTypes:[]
+            jobTypes:[],
+            isType : false,
         }
 	}
 
@@ -26,7 +27,6 @@ class AddPostList  extends React.Component{
     }
     //
     onChange = (data) =>{
-      
         this.dataReady(data);
     }
     //数据准备
@@ -37,7 +37,8 @@ class AddPostList  extends React.Component{
 		   orgId:data.value
 	   }).then(function(response) {
 		   _this.setState({
-			   jobTypes:response.jobTypes
+			   jobTypes:response.jobTypes,
+               isType:true
 		   })
         }).catch(function(err) {
           Message.error(err.message);
@@ -57,7 +58,7 @@ class AddPostList  extends React.Component{
 	render(){
 
         let {handleSubmit,subCompany}=this.props;
-        let {jobTypes} = this.state;
+        let {jobTypes,isType} = this.state;
 
 		return(
 
@@ -96,7 +97,7 @@ class AddPostList  extends React.Component{
 						/>
 
 
-                         <KrField
+                        {isType&&<KrField
                             grid={1}
                             style={{width:262,display:'block'}}
                             name="typeId"
@@ -104,7 +105,7 @@ class AddPostList  extends React.Component{
                             label="职务类型"
                             options={jobTypes}
                             requireLabel={true}
-						/>
+						/>}
 
                          <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'532px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
 
@@ -143,7 +144,10 @@ const validate = values =>{
         errors.typeId='请选择职务类型名称';  
     }
     
-
+    if(!values.subId){
+        errors.subId='请选择分部';
+    }
+    
 	return errors
 }
 
