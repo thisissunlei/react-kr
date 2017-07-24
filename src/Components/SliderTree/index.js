@@ -24,7 +24,7 @@ export default class SliderTree extends React.Component {
 		this.state = {
 			treeData: [],
 			inputValue: '',
-			expandedKeys: ['0-36kr'],
+			expandedKeys: ['0-0'],
 			autoExpandParent: true,
 			visible: false,
 			update:this.props.update
@@ -67,7 +67,6 @@ export default class SliderTree extends React.Component {
 	}
 	onExpand = (expandedKeys) => {
 		 this.filterKeys = undefined;
-
 		 this.setState({
 		 	expandedKeys,
 		 	autoExpandParent: false,
@@ -80,25 +79,19 @@ export default class SliderTree extends React.Component {
 				inputValue: nextProps.searchKey
 			});
 		}
-		
-		let paramsChange = false;
-		for(let i in nextProps.params){
-			if(nextProps.params[i] != this.params[i]){
-				paramsChange = true;
-				break;
-			}
-		}
-		if(this.state.update!=nextProps.update){
-			this.setState({
-				update:nextProps.update
-			})
-			paramsChange=true;
-		}
-		if(paramsChange){
-			this.getTreeData();
-		}
+
 	}
 
+	/*
+	 shouldComponentUpdate(nextProps) {
+
+		if(nextProps.searchKey !== this.state.inputValue){
+			return true;
+		}
+
+		return false;
+	 }
+	 */
 
 	render() {
 
@@ -111,18 +104,19 @@ export default class SliderTree extends React.Component {
 			return data.map((item,index) => {
 
 
-				var key = parentIndex+'-'+item.orgName;
+				var realKey = parentIndex+'-'+item.orgName;
+				var key = parentIndex+'-'+index;
 
 				if (that.filterKeys && that.filterFn(key)) {
 					that.filterKeys.push(key);
 				}
 
 				if (item.children) {
-					return (<TreeNode key={key} title={item.orgName} type={type} itemData={item}>
+					return (<TreeNode key={key} realKey={realKey} title={item.orgName} type={type} itemData={item}>
 						{loop(item.children,key)}
 					</TreeNode>);
 				}
-				return <TreeNode key={key} title={item.orgName} type={type} itemData={item} />;
+				return <TreeNode key={key} realKey={realKey} title={item.orgName} type={type} itemData={item} />;
 			});
 
 		};
@@ -148,8 +142,8 @@ export default class SliderTree extends React.Component {
 					onCheck={this.onCheck}
 					onExpand={this.onExpand}
 					onSelect={this.onSelect}
-					defaultExpandAll={false}
-					defaultExpandedKeys={['0-36kr']}
+					defaultExpandAll={true}
+					defaultExpandedKeys={['0-0']}
 					expandedKeys={expandedKeys}
 					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}

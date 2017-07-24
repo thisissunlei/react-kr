@@ -9,17 +9,42 @@ import {
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils'
 import './index.less';
 
 class AddRankList  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+        this.state = {
+            jobTypes:[],
+        }
 	}
 
     componentDidMount(){
         Store.dispatch(change('AddRankList','enabled','true'))
     }
+    onChange = (data) =>{
+       this.dataReady(data); 
+    }
+
+    //类型
+	dataReady=(data)=>{
+       var _this=this;
+	   Http.request('rank-type-info',{
+		   orgType:'DEPARTMENT',
+		   orgId:data.value
+	   }).then(function(response) {
+
+		   _this.setState({
+			    jobTypes:response.jobTypes
+		  })
+
+     }).catch(function(err) {
+          Message.error(err.message);
+     });	
+	}
+
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -33,7 +58,8 @@ class AddRankList  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,jobTypes}=this.props;
+        let {handleSubmit,subCompany}=this.props;
+        let {jobTypes} = this.state;
 
 		return(
 
@@ -47,6 +73,17 @@ class AddRankList  extends React.Component{
                             label="职级名称"
                             requireLabel={true}
 						/>
+
+                         <KrField grid={1}
+                            style={{width:262,display:'block'}}
+                            name="subId"
+                            component="select"
+                            label="分部"
+                            onChange = {this.onChange}
+                            requireLabel={true}
+                            options={subCompany}
+						/>
+
                         <KrField grid={1/2}
                             style={{width:262,display:'block'}}
                             name="typeId"
@@ -56,6 +93,7 @@ class AddRankList  extends React.Component{
                             options={jobTypes}
 						/>
 
+                       
                         <KrField grid={1/2}
                             style={{width:262,display:'block'}}
                             name="level"

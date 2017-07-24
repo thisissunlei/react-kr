@@ -9,6 +9,7 @@ import './index.less';
 import Dialog from '../../Dialog'
 import mockData from './Data.json';
 import TreeDialog from './TreeDialog/index';
+
 export default class SelectTree extends React.Component{
 
 	static propTypes = {
@@ -27,6 +28,7 @@ export default class SelectTree extends React.Component{
 				orgName:"请选择"
 			},
 			oneOpen:true,
+			other:''
 		}
 	}
 
@@ -52,20 +54,24 @@ export default class SelectTree extends React.Component{
 		})
 		
 	}
+
 	onCancel = () =>{
 		this.dlogSwidch();
 	}
+
 	onSubmit = (data) =>{
 		if( data.orgName == "" ){
 			return ;
 		}
-		let {input} = this.props;
+		let {input,onChange} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();
 		this.setState({
 			data,
 			oneOpen:false,
 		})
+		onChange && onChange(data);
+
 	}
 
 	dlogSwidch = () =>{
@@ -82,11 +88,40 @@ export default class SelectTree extends React.Component{
 		// onChange && onChange(item);
 		
 	}
+	 componentWillReceiveProps (nextProps) {
+        if (nextProps.valueText) {
+           this.setState({
+			   other:new Date()
+		   })
+        }
+    }
 
 	render(){
+
 		const {isDialog,data,oneOpen} = this.state;
-		const {ajaxUrlName,value} = this.props;
-		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
+
+		const {ajaxUrlName,valueText} = this.props;
+
+		let {
+            input,
+            prompt,
+            label,
+            notifys, 
+            type, 
+            meta: { touched, error } ,
+            requireLabel,
+            onChange,
+            onBlur,
+            onFocus,
+            disabled,
+            placeholder,
+            style,
+            inline,
+            simple,
+            heightStyle,
+            autoFocus,
+            ...other
+        } = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -128,20 +163,24 @@ export default class SelectTree extends React.Component{
 			 autoFocus,
 		 }
 
+        var dialogTitle = label || '组件';
+
+        dialogTitle = "选择" + dialogTitle;
+
+
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && value)? value : data.orgName  }</div>
+				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText)? valueText : data.orgName  }</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 
-				 
 				 <Dialog
-					title="人员"
+					title={dialogTitle}
 					onClose={this.dlogSwidch}
 					open={isDialog}
-					contentStyle ={{ width: '690px',height:'590px'}}
+					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
 					<TreeDialog  ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>

@@ -49,11 +49,14 @@ export default class PostType extends Component{
 			deleteId:''
       
 		}
+		this.dataReady();
 	}
     
 	componentWillMount(){
 		this.dataReady();
 	}
+
+	
 
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
@@ -121,10 +124,10 @@ export default class PostType extends Component{
 							pageSize:15
 						}  
 					})
-					_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
+		this.openAddPost();
 	}
 	
 	//编辑职务类型关闭
@@ -146,10 +149,10 @@ export default class PostType extends Component{
 							name:_this.state.searchParams.name?_this.state.searchParams.name:""
 						}  
 					})
-					_this.openEditPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
+		this.openEditPost();
 	}
 
 
@@ -171,7 +174,6 @@ export default class PostType extends Component{
    //删除提交
    deleteSubmit=()=>{
 		 let {deleteId}=this.state;
-		 console.log('fff',deleteId);
 		 var _this=this;
      Http.request('post-type-delete',{id:deleteId}).then(function(response) {
            _this.setState({
@@ -181,10 +183,10 @@ export default class PostType extends Component{
 							pageSize:15
 						}  
 					})
-					_this.cancelDelete();
         }).catch(function(err) {
           Message.error(err.message);
         });
+		this.cancelDelete();
    }
 
    pageChange=(page)=>{
@@ -217,7 +219,7 @@ export default class PostType extends Component{
 			        
 					<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 								<ListGroup>
-									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入姓名' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
+									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入职务类型名称' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
 								</ListGroup>
 					</Col>
 
@@ -247,7 +249,17 @@ export default class PostType extends Component{
 					<TableRow>
 						<TableRowColumn name="name" ></TableRowColumn>
 						<TableRowColumn name="code"></TableRowColumn>
-						<TableRowColumn name="descr"></TableRowColumn>
+						<TableRowColumn name="descr" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 						<TableRowColumn name="orderNum"></TableRowColumn>
 						<TableRowColumn name="updatorName"></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{

@@ -9,17 +9,40 @@ import {
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils'
 import './index.less';
 
 class AddPostList  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+        this.state = {
+            jobTypes:[]
+        }
 	}
 
     componentDidMount(){
         Store.dispatch(change('AddPostList','enabled','true'))
     }
+    //
+    onChange = (data) =>{
+      
+        this.dataReady(data);
+    }
+    //数据准备
+	dataReady=(data)=>{
+	   var _this=this;
+	   Http.request('rank-type-info',{
+		   orgType:'DEPARTMENT',
+		   orgId:data.value
+	   }).then(function(response) {
+		   _this.setState({
+			   jobTypes:response.jobTypes
+		   })
+        }).catch(function(err) {
+          Message.error(err.message);
+        });	
+	}
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -33,7 +56,8 @@ class AddPostList  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,jobTypes}=this.props;
+        let {handleSubmit,subCompany}=this.props;
+        let {jobTypes} = this.state;
 
 		return(
 
@@ -61,12 +85,23 @@ class AddPostList  extends React.Component{
  							 <KrField name="enabled" label="不启用" type="radio" value='false' />
  						</KrField>
 
+                        <KrField grid={1}
+                            style={{width:262,display:'block'}}
+                            name="subId"
+                            component="select"
+                            label="分部"
+                            onChange = {this.onChange}
+                            requireLabel={true}
+                            options={subCompany}
+						/>
+
+
                          <KrField
                             grid={1}
                             style={{width:262,display:'block'}}
                             name="typeId"
                             component="select"
-                            label="职务类型名称"
+                            label="职务类型"
                             options={jobTypes}
                             requireLabel={true}
 						/>

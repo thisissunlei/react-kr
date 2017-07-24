@@ -1,11 +1,13 @@
 import React from 'react';
 import {	
    Drawer,
-   Dictionary	
+   Dictionary,
+   KrDate,
+   Message	
 } from 'kr-ui';
 import './index.less';
 import EditBasic from './EditBasic';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {Store} from 'kr/Redux';
 import {
   initialize
@@ -44,20 +46,37 @@ export default class BasicInfo  extends React.Component{
     //编辑打开
 	basicEdit=()=>{
 	   let {basicInfo}=this.state;
-	   Store.dispatch(initialize('EditBasic',basicInfo));
+	   Store.dispatch(initialize('editPerson',basicInfo));
        this.setState({
 		 openEdit:!this.state.openEdit
 	   })
 	}
+
+	cancelEdit=()=>{
+	  this.setState({
+		 openEdit:!this.state.openEdit
+	   })	
+	}
     
 	//编辑提交
 	editSubmit=(params)=>{
+	   let {personId}=this.props;
+	   let subParams = Object.assign({},params);
+	   subParams.uTime = DateFormat(subParams.uTime,"yyyy-mm-dd hh:MM:ss")
+	   subParams.cTime = DateFormat(subParams.cTime,"yyyy-mm-dd hh:MM:ss")
+	   subParams.leaveDate = DateFormat(subParams.leaveDate,"yyyy-mm-dd hh:MM:ss")
+	   subParams.entryDate = DateFormat(subParams.entryDate,"yyyy-mm-dd hh:MM:ss")
+	   
+	   
+	   subParams.id=personId;
 	   var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
+       Http.request('people-basic-edit',{},subParams).then(function(response) {
            _this.basicData(params.id);
+		   _this.cancelEdit();
         }).catch(function(err) {
           Message.error(err.message);
         });
+	
 	}
     
 	//关闭所有
@@ -90,7 +109,7 @@ export default class BasicInfo  extends React.Component{
 			 {name:'职级',
 			  detail:basicInfo.levelName},
 			 {name:'入职时间',
-			  detail:basicInfo.entryDate},
+			  detail:<KrDate value={basicInfo.entryDate} format="yyyy-mm-dd"/>},
 			 {name:'员工属性',
 			  detail:basicInfo.status,
 			  type:'ERP_ResourceStatus',
@@ -132,8 +151,9 @@ export default class BasicInfo  extends React.Component{
 							onClose={this.allClose}
 					 >
 						<EditBasic
-			               onCancel={this.basicEdit}
+			               onCancel={this.cancelEdit}
 						   onSubmit={this.editSubmit}   
+						   basicInfo = {basicInfo}
 						/>
 					</Drawer>
 			</div>

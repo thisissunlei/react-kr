@@ -8,12 +8,10 @@
     "dev:test": " export NODE_ENV=test  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --inline",
     "dev:test01": " export NODE_ENV=test01  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
     "dev:test02": " export NODE_ENV=test02  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
-
     "dic:test": " export NODE_ENV=test &&  node ./task/loadDictionary.js",
     "dic:test01": " export NODE_ENV=test01 &&  node ./task/loadDictionary.js",
     "dic:test02": " export NODE_ENV=test02 &&  node ./task/loadDictionary.js",
     "dic": " export NODE_ENV=production &&  node ./task/loadDictionary.js",
-
     "build": "export NODE_ENV=production  &&  webpack --config ./webpack/webpack-production.config.js --progress --colors",
     "dll": "export NODE_ENV=production && webpack --config ./webpack/webpack-dll.config.js --progress --colors --profile",
     "lint": "eslint *.js ./src/**"
@@ -100,6 +98,7 @@
     "postcss-loader": "^2.0.6",
     "precss": "^2.0.0",
     "promise-polyfill": "6.0.2",
+    "prop-types": "^15.5.10",
     "rc-tooltip": "^3.4.3",
     "react": "15.3.2",
     "react-addons-create-fragment": "15.4.1",
@@ -161,7 +160,6 @@
     "nzh": "0.0.4",
     "object-assign": "^4.1.0",
     "polyfills": "2.1.1",
-    "prop-types": "^15.5.10",
     "qrcode.react": "0.6.1",
     "rc-animate": "^2.4.0",
     "rc-tooltip": "^3.4.3",

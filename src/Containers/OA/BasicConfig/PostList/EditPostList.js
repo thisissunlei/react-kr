@@ -43,6 +43,7 @@ class EditPostList  extends React.Component{
                             label="职务名称"
                             requireLabel={true}
 						/>
+
                         <KrField
                             grid={1}
                             style={{width:262,display:'block'}}
@@ -117,6 +118,8 @@ const validate = values =>{
        errors.orderNum='请填写排序号'
     }else if(isNaN(values.orderNum)){
        errors.orderNum='排序号必须是数字'  
+    }else if(values.orderNum<1){
+       errors.orderNum='排序号必须大于等于1'   
     }
     
 	return errors

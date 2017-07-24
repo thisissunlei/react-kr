@@ -7,8 +7,11 @@ import {
     ButtonGroup,
     Button
 } from 'kr-ui';
-import {reduxForm}  from 'redux-form';
+import {numberToSign} from 'kr/Utils';
+import {reduxForm,change}  from 'redux-form';
 import './index.less';
+import {Store} from 'kr/Redux';
+
 
 class EditPerson  extends React.Component{
 
@@ -24,6 +27,14 @@ class EditPerson  extends React.Component{
     onCancel=()=>{
         const {onCancel}=this.props;
         onCancel && onCancel();
+    }
+
+
+    temployChange=(params)=>{
+        var param=params.toString().trim()
+        if(param.length>14){
+          Store.dispatch(change('EditPerson','constellation',numberToSign(param).value));
+       }
     }
 
 	render(){
@@ -45,6 +56,7 @@ class EditPerson  extends React.Component{
                             component="input"
                             label="身份证号码"
                             requireLabel={true}
+                            onChange={this.temployChange}
 						/>
 
                           <KrField grid={1/2}
@@ -58,22 +70,25 @@ class EditPerson  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="constellation"
-                            component="input"
+                            component="selecTemployees"
                             label="星座"
+                            otherType="temployees"
 						/>
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="bloodType"
-                            component="input"
+                            component="selecTemployees"
                             label="血型"
+                            otherType="bloodType"
 						/>
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="nation"
-                            component="input"
+                            component="selecTemployees"
                             label="民族"
                             requireLabel={true}
+                            otherType="nation"
 						/>
                         
 
@@ -88,15 +103,17 @@ class EditPerson  extends React.Component{
                          <KrField grid={1/2}
                             style={{width:262}}
                             name="household"
-                            component="select"
+                            component="selecTemployees"
                             label="户口"
+                            otherType="householdType"
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="politicsStatus"
-                            component="select"
+                            component="selecTemployees"
                             label="政治面貌"
+                            otherType="politicsStatus"
 						/>
 
                          <KrField grid={1/2}
@@ -130,15 +147,17 @@ class EditPerson  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="education"
-                            component="input"
+                            component="selecTemployees"
                             label="学历"
+                            otherType="educationType"
 						/>
 
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="degree"
-                            component="input"
+                            component="selecTemployees"
                             label="学位"
+                            otherType="degree"
 						/>
 
                         <KrField grid={1/2}
@@ -201,15 +220,17 @@ class EditPerson  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="healthy"
-                            component="input"
+                            component="selecTemployees"
                             label="健康状况"
+                            otherType="healthyStatus"
 						/>
  
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="maritalStatus"
-                            component="select"
+                            component="selecTemployees"
                             label="婚姻状况"
+                            otherType="maritalStatus"
 						/>
 
                         <KrField grid={1/2}
@@ -231,8 +252,9 @@ class EditPerson  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="emergencyRelation"
-                            component="input"
+                            component="selecTemployees"
                             label="紧急联系人关系"
+                            otherType="resourceRelation"
 						/>
  
 
@@ -255,6 +277,46 @@ class EditPerson  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+
+    let phone=/^1[34578]\d{9}$/;
+    let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
+
+    if(!values.idCard){
+      errors.idCard='请填写身份证号';  
+    }
+
+    if(!values.birthday){
+      errors.birthday='请填写出生日期';  
+    }
+
+    if(!values.nation){
+      errors.nation='请填写名族';  
+    }else if(values.nation.length>10){
+        errors.nation='名族最多十个字符';  
+    }
+
+    if(!values.nativePlace){
+      errors.nativePlace='请填写籍贯';  
+    }else if(values.nativePlace.length>10){
+        errors.nativePlace='籍贯最多十个字符';  
+    }
+
+    if(!values.mobilePhone){
+      errors.mobilePhone='请填写联系电话';  
+    }
+
+    if(!values.emergencyContact){
+      errors.emergencyContact='请填写紧急联系人姓名';  
+    }else if(values.emergencyContact.length>10){
+        errors.emergencyContact='紧急联系人姓名最多十个字符';  
+    }
+
+    if(!values.emergencyPhone){
+      errors.emergencyPhone='请填写紧急联系人电话';  
+    }else if(!phone.test(values.emergencyPhone.toString().trim())&&!ph.test(values.emergencyPhone.toString().trim())){
+       errors.emergencyPhone='请填写正确紧急联系人电话';   
+    }
+
     
 	return errors
 }

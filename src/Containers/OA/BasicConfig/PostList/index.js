@@ -41,7 +41,8 @@ export default class PostList extends Component{
 			//数据准备下拉
 			jobTypes:[],
 			//删除id
-			deleteId:''
+			deleteId:'',
+			subCompany:[]
 			
 		}
 		this.allConfig = {
@@ -49,27 +50,26 @@ export default class PostList extends Component{
 			openEdit : false,
 			openDel : false,
 		}
+		
 	}
    
 
    componentWillMount(){
 	  this.dataReady();
 	}
-    
-	//数据准备
+	//分部选择
 	dataReady=()=>{
-	   var _this=this;
-	   Http.request('rank-type-info',{
-		   orgType:'DEPARTMENT',
-		   orgId:'5'
-	   }).then(function(response) {
-		   _this.setState({
-			   jobTypes:response.jobTypes
-		   })
-        }).catch(function(err) {
+		var _this=this;
+	   Http.request('post-type-info').then(function(response) {
+				_this.setState({
+					subCompany:response.subcompanys
+				})
+     }).catch(function(err) {
           Message.error(err.message);
-        });	
+     });	
 	}
+    
+	
 
 
 	//是否要渲染
@@ -126,10 +126,10 @@ export default class PostList extends Component{
 				pageSize:15
 			 } 
 			}) 
-		  _this.newSwidth();
         }).catch(function(err) {
           Message.error(err.message);
         });
+		 this.newSwidth();
 	}
 	//编辑确定
 	editSubmit = (params) =>{
@@ -142,11 +142,11 @@ export default class PostList extends Component{
 						pageSize:15,
 						name:_this.state.searchParams.name?_this.state.searchParams.name:""
 					}  
-				})
-				_this.editSwidth();
+				 })
 				}).catch(function(err) {
 				Message.error(err.message);
-				});
+			});
+			this.editSwidth();
 	}
 	//删除按钮确定
 	delSubmit = () =>{
@@ -160,10 +160,10 @@ export default class PostList extends Component{
 				  pageSize:15
 			  }  
 		   })
-		   _this.delSwidth();
         }).catch(function(err) {
           Message.error(err.message);
         });
+		this.delSwidth();
 	}
 	//相关操作
 	onOperation = (type, itemDetail) =>{
@@ -203,7 +203,7 @@ export default class PostList extends Component{
    }
 
 	render(){
-		let {jobTypes}=this.state;
+		let {jobTypes,subCompany}=this.state;
 		const {openNew,openEdit,openDel} = this.allConfig;
 		return(
       	<div className="basic-post-list">
@@ -229,7 +229,7 @@ export default class PostList extends Component{
 					<ListGroup>
 						<ListGroupItem>
 							<SearchForms 
-								placeholder='请输入姓名' 
+								placeholder='请输入职务名称' 
 								onSubmit={this.onSearchSubmit}
 							/>
 						</ListGroupItem>
@@ -288,7 +288,7 @@ export default class PostList extends Component{
 					onCancel={this.newSwidth}
 					onSubmit={this.addSubmit}
 					onClose = {this.allClose}  
-					jobTypes={jobTypes} 
+					subCompany = {subCompany}
 				/>
 			</Dialog>
 			{/*编辑用户*/}

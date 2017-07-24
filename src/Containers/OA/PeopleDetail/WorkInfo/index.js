@@ -1,10 +1,13 @@
 import React from 'react';
 import {	
-	Drawer
+	Drawer,
+	KrDate,
+	Message,
+	Dictionary
 } from 'kr-ui';
 import './index.less';
 import EditWork from './EditWork';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {Store} from 'kr/Redux';
 import {
   initialize
@@ -29,8 +32,9 @@ export default class WorkInfo  extends React.Component{
 
 	//获取工作信息
 	workData=(id)=>{
-       Http.request('postListAdd',{id:id}).then(function(response) {
-		   this.setState({
+	   var _this=this;
+       Http.request('people-work-watch',{resourceId:id}).then(function(response) {
+		   _this.setState({
 			   workInfo:response
 		   })
         }).catch(function(err) {
@@ -49,12 +53,24 @@ export default class WorkInfo  extends React.Component{
     
 	//编辑提交
 	editSubmit=(params)=>{
+	   let {personId}=this.props;
+	   delete params.uTime;
+	   params.probationEndDate = DateFormat(params.probationEndDate,"yyyy-mm-dd hh:MM:ss");
+	   params.contractEndDate = DateFormat(params.contractEndDate,"yyyy-mm-dd hh:MM:ss");
+	   params.resourceId=personId;
        var _this=this;
-       Http.request('postListAdd',{},params).then(function(response) {
-           _this.workData(params.id);
+	   Http.request('people-workinfo-edit',{},params).then(function(response) {
+		   _this.workData(params.resourceId);
+	       _this.basicCancel();
         }).catch(function(err) {
           Message.error(err.message);
         });
+	}
+
+	basicCancel=()=>{
+		this.setState({
+		  openEdit:!this.state.openEdit
+	   })	
 	}
     
 	//关闭所有
@@ -73,12 +89,14 @@ export default class WorkInfo  extends React.Component{
 			 {name:'工资卡号',
 			  detail:workInfo.wageCard},
 			 {name:'核算单位',
-			  detail:workInfo.w},
+			  detail:workInfo.calculateCompany},
 			 {name:'试用期到期时间',
-			  detail:workInfo.probationEndDate},
+			  detail:<KrDate value={workInfo.probationEndDate} format="yyyy-mm-dd"/>},
 			 {name:'劳动合同终止时间',
-			  detail:workInfo.contractEndDate},
+			  detail:<KrDate value={workInfo.contractEndDate} format="yyyy-mm-dd"/>},
 			 {name:'入职来源',
+			  type:'ERP_EntryResource',
+			  isSwitch:true,
 			  detail:workInfo.entrySource},
 			 {name:'名片title',
 			  detail:workInfo.cardTitle}
@@ -96,7 +114,9 @@ export default class WorkInfo  extends React.Component{
 					  infoName.map((item,index)=>{
                         return (<li key={index}>
 							<span className='name'>{item.name}</span>
-							<span className='info'>{item.detail}</span>
+							<span className='info'>
+								{item.isSwitch?<Dictionary type={item.type} value={item.detail}/>:item.detail}
+							</span>
 					   </li>)
 					  })	
 					}		
@@ -111,7 +131,7 @@ export default class WorkInfo  extends React.Component{
 							onClose={this.allClose}
 					 >
 						<EditWork
-			               onCancel={this.basicEdit}
+			               onCancel={this.basicCancel}
 						   onSubmit={this.editSubmit}   
 						/>
 					</Drawer>

@@ -9,6 +9,7 @@ import './index.less';
 import Dialog from '../../Dialog'
 
 import SwitchDialog from './SwitchDialog/index';
+
 export default class SwitchSlide extends React.Component{
 
 	static propTypes = {
@@ -76,9 +77,40 @@ export default class SwitchSlide extends React.Component{
 		})
 	}
 	render(){
-		const {isDialog,listRender,data} = this.state;
-		const {letfData,control,value} = this.props;
-		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
+
+		const {
+            isDialog,
+            listRender,
+            data,
+            oneOpen
+        } = this.state;
+
+		const {
+            letfData,
+            control,
+            valueText
+        } = this.props;
+
+		let {
+            input,
+            prompt,
+            label,
+            notifys,
+            type,
+            meta: { touched, error } ,
+            requireLabel,
+            onChange,
+            onBlur,
+            onFocus,
+            disabled,
+            placeholder,
+            style,
+            inline,
+            simple,
+            heightStyle,
+            autoFocus,
+            ...other
+        } = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -119,17 +151,21 @@ export default class SwitchSlide extends React.Component{
 			 autoFocus,
 		 }
 
+
+        var dialogTitle = label || '组件';
+        dialogTitle = "选择" + dialogTitle;
+
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && value)? value : data.label}</div>
+				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText)? valueText : data.label}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 
 				 
 				 <Dialog
-					title="人员"
+					title={dialogTitle}
 					onClose={this.dlogSwidch}
 					open={isDialog}
 					contentStyle ={{ width: '510px',height:'590px'}}

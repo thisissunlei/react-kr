@@ -26,8 +26,9 @@ import {
 	KrDate,
 	Message,
 	SliderTree,
-	AddPostPeople
-} from 'kr-ui';
+} from 'kr-ui'; 
+
+import {AddPostPeople} from 'kr/PureComponents';
 
 import SearchForm from './SearchForm';
 import CreateDialog from './Createdialog';
@@ -370,6 +371,12 @@ export default class Labour extends React.Component {
 		})
 	}
 
+	openCreatePerson=()=>{
+		this.setState({
+			openAddPerson: !this.state.openAddPerson,
+		})
+	}
+
 	allClose = () => {
 		this.setState({
 			openAddPerson: false
@@ -572,7 +579,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新增员工" type="button" onClick={this.openCreatePerson} width={80} height={30} fontSize={14} />
+										<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} />
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
@@ -683,15 +690,15 @@ export default class Labour extends React.Component {
 				>
 					<CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
 				</Dialog>
+
 				{/*新建用户*/}
-				{/*<AddPostPeople 
-			onCancel={this.openAddPerson}
-			onSubmit={this.addPersonSubmit}
-			open={this.state.openAddPerson} 
-			onClose={this.allClose}  
-		/>*/}
+				<AddPostPeople 
+					onCancel={this.openAddPerson}
+					onSubmit={this.addPersonSubmit}
+					open={this.state.openAddPerson} 
+					onClose={this.allClose}  
+				/>
 			</div>
 		);
 	}
-
 }

@@ -1,8 +1,4 @@
 import React,{Component} from 'react';
-import { connect } from 'react-redux';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
 
 import {
 	KrField,
@@ -27,6 +23,7 @@ import {
 	Message,
 	CheckPermission
 } from 'kr-ui';
+
 export default class Leave extends Component{
 
 	constructor(props,context){
@@ -45,8 +42,6 @@ export default class Leave extends Component{
 
 	//搜索确定
 	onSearchSubmit = (data)=>{
-		// searchKey = data.value;
-		// let {searchParams} = this.state;
 		var searchParams = Object.assign({},this.state.searchParams);
 		searchParams.searchKey = data.content;
 		this.setState({
@@ -58,7 +53,7 @@ export default class Leave extends Component{
 	
 	//关闭所有侧滑
 	allClose = () =>{
-
+			
 	}
 
 	render(){
@@ -92,13 +87,11 @@ export default class Leave extends Component{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
-	            displayCheckbox={true}
+	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='getLeaveList'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
-				onExport={this.onExport}
-				exportSwitch={true}
 			>
 				<TableHeader>
 					<TableHeaderColumn>部门</TableHeaderColumn>
