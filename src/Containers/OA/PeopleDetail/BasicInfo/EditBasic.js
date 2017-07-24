@@ -48,7 +48,7 @@ class EditPerson  extends React.Component{
         params.leader = values.leader.orgId || basicInfo.leader||"";
         params.treeType = values.leader.treeType||"";
         params.levelId = values.levelId.value|| basicInfo.levelId||"";
-
+        console.log(params,"OOOOOOOOO")
     
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
