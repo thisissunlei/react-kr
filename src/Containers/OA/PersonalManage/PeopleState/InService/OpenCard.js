@@ -63,7 +63,8 @@ class OpenCard extends React.Component{
 
 	render(){
        
-        let {handleSubmit,employees,cardInfo}=this.props;
+        let {handleSubmit,employees}=this.props;
+        let {cardInfo}=this.state;
 		return(
 
 			<div>
