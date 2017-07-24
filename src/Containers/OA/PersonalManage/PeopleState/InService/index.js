@@ -30,6 +30,7 @@ import Leave from './Leave';
 import Remove from './Remove';
 import Transfer from './Transfer';
 import OpenCard from './OpenCard';
+import OpenAccount from './OpenAccount';
 import './index.less';
 
 export default class InService  extends React.Component{
@@ -396,7 +397,7 @@ export default class InService  extends React.Component{
 						open={this.state.openAccount}
 						contentStyle ={{ width: '444px',height:'190px'}}
 					>
-					<Remove
+					<OpenAccount
 						onCancel={this.cancelAccount}
 						onSubmit={this.addOpenSubmit}  
 					/>
