@@ -151,6 +151,8 @@ export default class RankList extends Component{
     //编辑职务类型提交
 	editPostSubmit=(params)=>{
        var _this=this;
+	    delete params.cTime;
+		delete params.uTime;
 			Http.request('rank-list-edit',{},params).then(function(response) {
 				_this.setState({
 					searchParams:{
