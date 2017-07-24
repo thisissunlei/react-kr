@@ -6,7 +6,7 @@ import Animate from 'rc-animate';
 import { browser } from './util';
 import toArray from 'rc-util/lib/Children/toArray';
 import './assets/index.less'
-var IconType = ["ROOT","DEPARTMENT","SUBCOMPANY","NONE"];
+var IconType = ["ROOT","SUBCOMPANY","DEPARTMENT","NONE"];
 const browserUa = typeof window !== 'undefined' ? browser(window.navigator) : '';
 const ieOrEdge = /.*(IE|Edge).+/.test(browserUa);
 // const uaArray = browserUa.split(' ');
