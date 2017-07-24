@@ -2,6 +2,7 @@ import React from 'react';
 import './index.less';
 import SliderTree from'../../../SliderTree'
 import Button from '../../../Button'
+import Message from '../../../Message'
 import {Http} from 'kr/Utils'
 export default class TreeDialog extends React.Component{
 	constructor(props,context){
@@ -18,9 +19,9 @@ export default class TreeDialog extends React.Component{
 		this.getTreeData();
 	}
 	onSelect = (data) =>{
-		const {onSelect} = this.props;
+		const {onSelect,treeType} = this.props;
 		const that = this;
-		if(!data.children.length){
+		if(treeType == "personnel" && data.treeType == "NONE"){
 			this.setState({
 				isList:true,
 				detail:{
@@ -32,8 +33,24 @@ export default class TreeDialog extends React.Component{
 				},
 				
 			})
-			
 		}
+		if(treeType == "department" && data.treeType == "DEPARTMENT"){
+			this.setState({
+				isList:true,
+				detail:{
+					orgId:data.orgId,
+					pId:data.pId,
+					treeType:data.treeType,
+					orgName:data.orgName,
+					
+				},
+				
+			})
+		}
+		
+			
+			
+		
 
 		
 	}

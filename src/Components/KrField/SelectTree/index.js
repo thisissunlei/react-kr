@@ -63,7 +63,6 @@ export default class SelectTree extends React.Component{
 		if( data.orgName == "" ){
 			return ;
 		}
-	
 		let {input,onChange} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();
@@ -72,6 +71,7 @@ export default class SelectTree extends React.Component{
 			oneOpen:false,
 		})
 		onChange && onChange(data);
+		
 
 	}
 
@@ -184,7 +184,7 @@ export default class SelectTree extends React.Component{
 					open={isDialog}
 					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
-					<TreeDialog  params = {params}  ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<TreeDialog  params = {params}  treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>
 				</div>
 			 </WrapComponent>
