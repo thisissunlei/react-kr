@@ -277,9 +277,9 @@ export default class InService  extends React.Component{
 								style={{float:'left'}}
 							>
 								<Button
-										label="新建用户"
-										type='button'
-										onTouchTap={this.openAddPersonal}
+									label="新建用户"
+									type='button'
+									onTouchTap={this.openAddPersonal}
 								/>
 							</Col>
 

@@ -43,7 +43,7 @@ export default class SliderTree extends React.Component {
 	}
 
 	filterTreeNode = (treeNode) => {
-		return this.filterFn(treeNode.props.title);
+		return this.filterFn(treeNode.props.realKey);
 	}
 
 	onChange = (event) => {
@@ -135,9 +135,6 @@ export default class SliderTree extends React.Component {
 
 		return (
 			<div>
-
-				{/*<input placeholder="请筛选" value={this.state.inputValue} onChange={this.onChange} />*/}
-
 				<Tree
 					onCheck={this.onCheck}
 					onExpand={this.onExpand}
@@ -145,7 +142,7 @@ export default class SliderTree extends React.Component {
 					defaultExpandAll={true}
 					defaultExpandedKeys={['0-0']}
 					expandedKeys={expandedKeys}
-					autoExpandParent={true}
+					autoExpandParent={autoExpandParent}
 					filterTreeNode={this.filterTreeNode}
 				>
 					{treeNodes}
