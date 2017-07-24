@@ -65,9 +65,7 @@ export default class BasicInfo  extends React.Component{
 	   subParams.uTime = DateFormat(subParams.uTime,"yyyy-mm-dd hh:MM:ss")
 	   subParams.cTime = DateFormat(subParams.cTime,"yyyy-mm-dd hh:MM:ss")
 	   subParams.leaveDate = DateFormat(subParams.leaveDate,"yyyy-mm-dd hh:MM:ss")
-	   subParams.entryDate = DateFormat(subParams.entryDate,"yyyy-mm-dd hh:MM:ss")
-	   
-	   
+	   subParams.entryDate = DateFormat(subParams.entryDate,"yyyy-mm-dd hh:MM:ss")  
 	   subParams.id=personId;
 	   var _this=this;
        Http.request('people-basic-edit',{},subParams).then(function(response) {
@@ -76,7 +74,6 @@ export default class BasicInfo  extends React.Component{
         }).catch(function(err) {
           Message.error(err.message);
         });
-	
 	}
     
 	//关闭所有

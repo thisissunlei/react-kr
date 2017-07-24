@@ -60,9 +60,10 @@ export default class SelectTree extends React.Component{
 	}
 
 	onSubmit = (data) =>{
-		if( data.orgName == "" ){
+		if( data.orgName == ""||data.treeType != "NONE" ){
 			return ;
 		}
+	
 		let {input,onChange} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();

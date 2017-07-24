@@ -29,8 +29,9 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '人员列表',
-						menuCode: 'sso_userList_base',
-						router: 'oa/personalManage/peopleState',
+						menuCode: 'hrm_resources_list',
+						router: '/oa/personalManage/peopleState',
+						
 					}
 				]
 			}, 
@@ -48,18 +49,18 @@ module.exports = [
 					},
 					{
 						primaryText: '职务类型',
-						menuCode: 'oa_dictjob_type',
-						router: 'oa/basicConfig/postType',
+						menuCode: 'hrm_job_type_list',
+						router: '/oa/basicConfig/postType',
 					},
 					{
 						primaryText: '职务列表',
-						menuCode: 'oa_dictjob_list',
-						router: 'oa/basicConfig/postList',
+						menuCode: 'hrm_job_list',
+						router: '/oa/basicConfig/postList',
 					},
 					{
 						primaryText: '职级列表',
-						menuCode: 'oa_dictjoblevellist',
-						router: 'oa/basicConfig/rankList',
+						menuCode: 'hrm_job_level_list',
+						router: '/oa/basicConfig/rankList',
 					},
 					{
 						primaryText: '来源系统',

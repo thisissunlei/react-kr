@@ -176,10 +176,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:params.resourceId
 			   }
 		   })
+		    _this.addFamily();
        }).catch(function(err) {
           Message.error(err.message);
         });
-	   this.addFamily();
    }
    
    //编辑家庭提交
@@ -194,10 +194,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:params.resourceId
 			   }
 		   })
+		   _this.EditFamily();
        }).catch(function(err) {
           Message.error(err.message);
         });
-	  this.EditFamily();
    }
 
   //编辑家庭人员开关
@@ -227,16 +227,18 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:params.resourceId
 			   }
 		   })
+		   _this.addWork();
        }).catch(function(err) {
           Message.error(err.message);
        });
-	   this.addWork();
    }
 
    //编辑工作经历提交
    editWorkSubmit=(params)=>{
 	 let {personId}=this.props;
 	  params.resourceId=personId;
+	  params.endDate = DateFormat(params.endDate,"yyyy-mm-dd hh:MM:ss");
+	  params.startDate = DateFormat(params.startDate,"yyyy-mm-dd hh:MM:ss");
 	  var _this=this;
        Http.request('people-job-edit',{},params).then(function(response) {
            _this.setState({
@@ -245,10 +247,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:params.resourceId
 			   }
 		   })
+		    _this.editWork();
        }).catch(function(err) {
           Message.error(err.message);
         });
-	  this.editWork();
    }
 
    //编辑工作开关
@@ -278,10 +280,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:personId
 			   }
 		   })
+		   _this.cancelDelete();
        }).catch(function(err) {
           Message.error(err.message);
        });
-	   this.cancelDelete();
    }
   
    //关闭删除工作
@@ -303,10 +305,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:personId
 			   }
 		   })
+		   _this.cancelDelWork();
        }).catch(function(err) {
           Message.error(err.message);
        });
-	   this.cancelDelWork();
    }
   
   //关闭所有
@@ -378,7 +380,7 @@ export default class PersonalInfo  extends React.Component{
               {name:'微信号',
 			  detail:personInfo.wechat},
               {name:'联系电话',
-			  detail:personInfo.mobilePhone},
+			  detail:personInfo.personPhone},
               {name:'身高(cm)',
 			  detail:personInfo.height},
               {name:'体重(公斤)',

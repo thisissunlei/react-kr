@@ -73,9 +73,15 @@ export default class InService  extends React.Component{
    addPersonSubmit=(param)=>{
     var data = Object.assign({},param);
 	var _this = this;
-	
+	data.depId=data.depId.orgId;
+	var searchParams={
+		time:+new Date()
+	}
 	Http.request("submit-new-personnel",{},data).then(function (response) {
-		_this.openAddPersonal()
+		_this.setState({
+			searchParams:Object.assign({},_this.state.searchParams,searchParams)
+		})
+		_this.openAddPersonal();
 	}).catch(function (err) {
 		Message.error(err.message);
 	});
@@ -146,10 +152,10 @@ export default class InService  extends React.Component{
 		_this.setState({
 			searchParams:Object.assign({},_this.state.searchParams,searchParams)
 		})
+		_this.cancelLeave();
 	}).catch(function (err) {
 		Message.error(err.message);
 	});
-	 this.cancelLeave();
    }
   
   //解除关闭
@@ -172,11 +178,10 @@ export default class InService  extends React.Component{
 			_this.setState({
                searchParams:Object.assign({},_this.state.searchParams,searchParams)
 		    })
+			_this.cancelRemove();
         }).catch(function (err) {
             Message.error(err.message);
         });
-		_this.cancelRemove();
-
    }
 
    //开通关闭
@@ -199,11 +204,10 @@ export default class InService  extends React.Component{
 			_this.setState({
                searchParams:Object.assign({},_this.state.searchParams,searchParams)
 		    })
+			_this.cancelAccount();
         }).catch(function (err) {
             Message.error(err.message);
         });
-        _this.cancelAccount();
-	
    }
    
    
@@ -216,10 +220,9 @@ export default class InService  extends React.Component{
   
    //调动提交
    addTransferSubmit=(data)=>{
-	   console.log(data,">>>>>>>>>>>")
 		var param = Object.assign({},data);
 		var _this = this;
-		Http.request("service-switchgit",{},param).then(function (response) {
+		Http.request("service-switch",{},param).then(function (response) {
 			_this.cancelTransfer()
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -274,9 +277,9 @@ export default class InService  extends React.Component{
 								style={{float:'left'}}
 							>
 								<Button
-										label="新建用户"
-										type='button'
-										onTouchTap={this.openAddPersonal}
+									label="新建用户"
+									type='button'
+									onTouchTap={this.openAddPersonal}
 								/>
 							</Col>
 

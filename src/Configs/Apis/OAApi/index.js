@@ -74,7 +74,7 @@ var OAApi = {
    /*====在职列表接口*/
    //在职列表-列表接口
   'getInServiceList': {
-    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&searchKey&{searchKey}',
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&searchKey={searchKey}',
   },
   //在职列表-获取离职类型   ------
   'getDepartureType': {

@@ -5,8 +5,10 @@ import {
     Col,
     Row,
     ButtonGroup,
-    Button
+    Button,
+    Message
 } from 'kr-ui';
+import {Http} from 'kr/Utils'
 import {reduxForm}  from 'redux-form';
 import './index.less';
 
@@ -14,9 +16,17 @@ class EditPostList  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+        this.state ={
+            jobTypes:[],
+            isType : false,
+
+        }
+
+        let {editDetail} = this.props;
 	}
 
     onSubmit=(values)=>{
+
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
     }
@@ -25,11 +35,35 @@ class EditPostList  extends React.Component{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
+    onChange = (data) =>{
+        this.dataReady(data);
+    }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.editDetail.subId ){
+            this.dataReady({value:nextProps.editDetail.subId});
+        }
+       
+    }
+      //数据准备
+	dataReady=(data)=>{
+	   var _this=this;
+	   Http.request('rank-type-info',{
+		   orgType:'DEPARTMENT',
+		   orgId:data.value
+	   }).then(function(response) {
+		   _this.setState({
+			   jobTypes:response.jobTypes,
+               isType:true,
+		   })
+        }).catch(function(err) {
+          Message.error(err.message);
+        });	
+	}
 
 	render(){
 
-        let {handleSubmit,jobTypes}=this.props;
-
+        let {handleSubmit,subCompany,editDetail}=this.props;
+        let {jobTypes,isType} = this.state;
 		return(
 
 			<div className='oa-post-list'>
@@ -67,15 +101,25 @@ class EditPostList  extends React.Component{
                             requireLabel={true}
 						/>
 
-                         <KrField
+                         <KrField grid={1}
+                            style={{width:262,display:'block'}}
+                            name="subId"
+                            component="select"
+                            label="分部"
+                            onChange = {this.onChange}
+                            requireLabel={true}
+                            options={subCompany}
+						/>
+                         { (isType || editDetail.typeId)  && <KrField
                             grid={1}
                             style={{width:262,display:'block'}}
                             name="typeId"
                             component="select"
                             label="职务类型名称"
                             requireLabel={true}
+                           
                             options={jobTypes}
-						/>
+						/>}
 
                          <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'542px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
 
@@ -112,6 +156,10 @@ const validate = values =>{
 
     if(!values.typeId){
         errors.typeId='请选择职务类型名称';  
+    }
+
+    if(!values.subId){
+        errors.subId='请选择分部';
     }
 
     if(!values.orderNum){

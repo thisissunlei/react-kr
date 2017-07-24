@@ -41,13 +41,14 @@ export default class RankList extends Component{
 
 			searchParams:{
 				page:1,
-				pageSize:15
+				pageSize:15,
 			},
 			//数据准备下拉
 			jobTypes:[],
 			//删除id
 			deleteId:'',
-			subCompany:[]
+			subCompany:[],
+			editDetail:{}
 		}
 	}
 
@@ -60,6 +61,7 @@ export default class RankList extends Component{
 	dataReady=()=>{
 		var _this=this;
 	   Http.request('post-type-info').then(function(response) {
+		   		console.log(response,">>>>>>>>")
 				_this.setState({
 					subCompany:response.subcompanys
 				})
@@ -87,12 +89,16 @@ export default class RankList extends Component{
 	//获取编辑信息
 	getEditData=(id)=>{
 		var _this=this;
-       Http.request('rank-list-watch',{id:id}).then(function(response) {
-				    if(response.enabled){
-							response.enabled='true'  
-							}else{
-								response.enabled='false'   
-						 }
+        Http.request('rank-list-watch',{id:id}).then(function(response) {
+			if(response.enabled){
+				response.enabled='true'  
+			}else{
+				response.enabled='false'   
+			}
+			console.log(response,":::::::::")
+			_this.setState({
+				editDetail:response
+			})
            Store.dispatch(initialize('EditRankList',response));
         }).catch(function(err) {
           Message.error(err.message);
@@ -129,10 +135,10 @@ export default class RankList extends Component{
 								pageSize:15
 							} 
 						})
+				_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
-				  this.openAddPost();
 	}
 	
 	//编辑职务类型关闭
@@ -145,6 +151,8 @@ export default class RankList extends Component{
     //编辑职务类型提交
 	editPostSubmit=(params)=>{
        var _this=this;
+	    delete params.cTime;
+		delete params.uTime;
 			Http.request('rank-list-edit',{},params).then(function(response) {
 				_this.setState({
 					searchParams:{
@@ -154,10 +162,10 @@ export default class RankList extends Component{
 						name:_this.state.searchParams.name?_this.state.searchParams.name:""
 					}  
 				})
+				_this.openEditPost();
 				}).catch(function(err) {
 				Message.error(err.message);
 			});
-			this.openEditPost();
 	}
 
 
@@ -182,16 +190,16 @@ export default class RankList extends Component{
 			var _this=this;
       Http.request('rank-list-delete',{id:deleteId}).then(function(response) {
            _this.setState({
-							searchParams:{
-								time:+new Date(),
-								page:1,
-								pageSize:15
-							}  
-						})
+				searchParams:{
+					time:+new Date(),
+					page:1,
+					pageSize:15
+				}  
+			})
+			_this.cancelDelete();	
         }).catch(function(err) {
           Message.error(err.message);
         });
-				this.cancelDelete();	
    }
 
    pageChange=(page)=>{
@@ -206,7 +214,7 @@ export default class RankList extends Component{
     
 
 	render(){
-		let {jobTypes,subCompany}=this.state;
+		let {jobTypes,subCompany,editDetail}=this.state;
 		return(
       	<div className="oa-post-type">
 		    <Section title="职级管理" description="" style={{marginBottom:-5,minHeight:910}}>
@@ -274,11 +282,13 @@ export default class RankList extends Component{
 					onClose={this.openAddPost}
 					open={this.state.openPostType}
 					contentStyle ={{ width: '630px',height:'auto'}}
-				>
+			>
 			  <AddRankList 
-			    onSubmit={this.addPostSubmit}
+			     onSubmit={this.addPostSubmit}
 				 onCancel={this.openAddPost}
+
 				 subCompany = {subCompany} 
+
 			  />
 			</Dialog>
 
@@ -292,7 +302,8 @@ export default class RankList extends Component{
 			  <EditRankList 
 					onSubmit={this.editPostSubmit}
 					onCancel={this.openEditPost}
-					jobTypes={jobTypes}
+					subCompany = {subCompany} 
+					editDetail = {editDetail}
 			  />
 			</Dialog>
 

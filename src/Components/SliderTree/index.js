@@ -135,9 +135,6 @@ export default class SliderTree extends React.Component {
 
 		return (
 			<div>
-
-				{/*<input placeholder="请筛选" value={this.state.inputValue} onChange={this.onChange} />*/}
-
 				<Tree
 					onCheck={this.onCheck}
 					onExpand={this.onExpand}

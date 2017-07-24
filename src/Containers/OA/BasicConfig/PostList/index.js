@@ -42,7 +42,8 @@ export default class PostList extends Component{
 			jobTypes:[],
 			//删除id
 			deleteId:'',
-			subCompany:[]
+			subCompany:[],
+			editDetail:{},
 			
 		}
 		this.allConfig = {
@@ -50,6 +51,7 @@ export default class PostList extends Component{
 			openEdit : false,
 			openDel : false,
 		}
+
 		
 	}
    
@@ -107,14 +109,6 @@ export default class PostList extends Component{
 		this.allConfig.openDel = !openDel;
 		this.isRender();
 	}
-	//关闭所有侧滑
-	allClose = () =>{
-		let {openNew,openEdit,openDel} = this.allConfig;
-		this.allConfig.openNew = false;
-		this.allConfig.openEdit = false;
-		this.allConfig.openDel = false;
-		this.isRender();
-	}
 	//新建确定
 	addSubmit = (values) =>{
 		var _this=this;
@@ -126,14 +120,16 @@ export default class PostList extends Component{
 				pageSize:15
 			 } 
 			}) 
+			 _this.newSwidth();
         }).catch(function(err) {
           Message.error(err.message);
         });
-		 this.newSwidth();
 	}
 	//编辑确定
 	editSubmit = (params) =>{
          var _this=this;
+		  delete params.cTime;
+		  delete params.uTime;
 			Http.request('post-list-edit',{},params).then(function(response) {
 				_this.setState({
 					searchParams:{
@@ -143,10 +139,10 @@ export default class PostList extends Component{
 						name:_this.state.searchParams.name?_this.state.searchParams.name:""
 					}  
 				 })
+				 _this.editSwidth();
 				}).catch(function(err) {
 				Message.error(err.message);
 			});
-			this.editSwidth();
 	}
 	//删除按钮确定
 	delSubmit = () =>{
@@ -160,10 +156,10 @@ export default class PostList extends Component{
 				  pageSize:15
 			  }  
 		   })
+		   _this.delSwidth();
         }).catch(function(err) {
           Message.error(err.message);
-        });
-		this.delSwidth();
+        });	
 	}
 	//相关操作
 	onOperation = (type, itemDetail) =>{
@@ -180,13 +176,18 @@ export default class PostList extends Component{
 
     //获取编辑信息
 	getEditData=(id)=>{
+		let {subCompany} = this.state;
 		var _this=this;
        Http.request('post-list-watch',{id:id}).then(function(response) {
+		   console.log(response,subCompany,">>>>>>>>")
 		   if(response.enabled){
 			 response.enabled='true'  
 		   }else{
 			 response.enabled='false'   
 		   }
+		   _this.setState({
+			   editDetail:response
+		   })
            Store.dispatch(initialize('EditPostList',response));		   
         }).catch(function(err) {
           Message.error(err.message);
@@ -203,7 +204,7 @@ export default class PostList extends Component{
    }
 
 	render(){
-		let {jobTypes,subCompany}=this.state;
+		let {jobTypes,subCompany,editDetail}=this.state;
 		const {openNew,openEdit,openDel} = this.allConfig;
 		return(
       	<div className="basic-post-list">
@@ -287,7 +288,6 @@ export default class PostList extends Component{
 				<AddPostList
 					onCancel={this.newSwidth}
 					onSubmit={this.addSubmit}
-					onClose = {this.allClose}  
 					subCompany = {subCompany}
 				/>
 			</Dialog>
@@ -296,12 +296,13 @@ export default class PostList extends Component{
 				title="编辑职务"
 				onClose={this.editSwidth}
 				open={openEdit}
-				contentStyle ={{ width: '630px',height:'630px'}}
+				contentStyle ={{ width: '630px',height:'auto'}}
 			>
 				<EditPostList
 					onCancel={this.editSwidth}
 					onSubmit={this.editSubmit}
-					jobTypes={jobTypes}   
+					subCompany = {subCompany}
+					editDetail = {editDetail}
 				/>
 			</Dialog>
 			{/*开通门禁*/}

@@ -30,7 +30,10 @@ export default class PeopleDetail  extends React.Component{
 		let {personId}=this.state;
 		//获取基本信息
     this.basicData(personId);
+	}
 
+
+	componentDidMount(){
 		 const {NavModel} = this.props;
      NavModel.setSidebar(false);
 	}
@@ -53,13 +56,16 @@ export default class PeopleDetail  extends React.Component{
 	render(){
 
 		let {personId,detail}=this.state;
-	
+	  
 		return(
 
 			<div className='people-detail'>
 			  <div className='detail-left'>
 				<div className='left-pic'>
-				   <UserImage />			
+				   {/*<UserImage />*/}
+					 <div className='now-change-pic'>
+						   
+					 </div>			
 				</div>
 				<div className='left-text'>
 				
@@ -67,7 +73,9 @@ export default class PeopleDetail  extends React.Component{
 						<div style={{width:'120px'}}><Dictionary type='ERP_ResourceStatus' value={detail.status} style={{display:'inline-block',marginRight:'5px'}}/>
 						<span style={{display:'inline-block',marginRight:'5px'}}> | </span>
 						<span style={{display:'inline-block'}}>{detail.jobName}</span></div>
-						<div style={{color:'#333',fontSize:'12px',marginTop:"5px",width:'120px'}}>{detail.depName}</div>
+						<div style={{color:'#333',fontSize:'12px',marginTop:"5px",width:'120px'}}>
+							{detail.dimName}/{detail.depName}
+						</div>
 					</div>
 				</div>
 			  </div>
