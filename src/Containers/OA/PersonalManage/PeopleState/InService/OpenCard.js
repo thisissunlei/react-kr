@@ -1,5 +1,5 @@
 import React from 'react';
-import {reduxForm}  from 'redux-form';
+import {reduxForm,change}  from 'redux-form';
 import {
     KrField,
     Grid,
@@ -10,6 +10,7 @@ import {
     Message
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
+import {Store} from 'kr/Redux';
 class OpenCard extends React.Component{
 
 	constructor(props,context){
@@ -26,6 +27,7 @@ class OpenCard extends React.Component{
            _this.setState({
                cardInfo:response
            })
+            Store.dispatch(change('OpenCard','cardNo',response.cardNo?response.cardNo:''))
         }).catch(function (err) {
             Message.error(err.message);
         });
@@ -64,7 +66,7 @@ class OpenCard extends React.Component{
 	render(){
        
         let {handleSubmit,employees}=this.props;
-        let {cardInfo}=this.state;
+        
 		return(
 
 			<div>
@@ -89,7 +91,6 @@ class OpenCard extends React.Component{
                             name="cardNo"
                             component="input"
                             label="会员卡号"
-                            value = {cardInfo && cardInfo.cardNo || ''}
                             inline={true}
                             requireLabel={true}
 					    />
