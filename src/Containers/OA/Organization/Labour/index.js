@@ -383,7 +383,7 @@ export default class Labour extends React.Component {
 	}
 	change = (event) => {
 		this.setState({
-			searchKey: event.target.value,
+			searchKey: event.target.value || ' ',
 		})
 	}
 	clickSelect = () => {
@@ -666,7 +666,7 @@ export default class Labour extends React.Component {
 					}
 				</div>
 				<Dialog
-					title={`查看${dataName.orgName ? dataName.orgName : '36Kr'}`}
+					title={dataName.orgName?dataName.orgName:'36Kr'}
 					modal={true}
 					open={this.state.openViewDialog}
 					onClose={this.openViewDialog}
