@@ -64,8 +64,10 @@ import OaUploadImage from './OaUploadImage';
 //血型
 import SelecTemployees from './SelecTemployees';
 import SwitchSlide from './SwitchSlide';
+
 // import OaTreeDepartment from './OaTreeDepartment';
 // import OaTreePersonnel from './OaTreePersonnel';
+
 
 
 class FieldRevert extends React.Component {
@@ -483,6 +485,7 @@ class FieldRevert extends React.Component {
 			// 		<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
 			// 	)
 			// }
+
 			
 		
 			return (
