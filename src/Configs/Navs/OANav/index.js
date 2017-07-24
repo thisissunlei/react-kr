@@ -64,7 +64,7 @@ module.exports = [
 					},
 					{
 						primaryText: '来源系统',
-						menuCode: 'oa_docsource_list',
+						menuCode: 'doc_source',
 						router: 'docSourceServiceAdmin',
 						originUrl: '/krspace_oa_web/doc/docSourceService/toDocSourceServiceList?mid=59'
 					}

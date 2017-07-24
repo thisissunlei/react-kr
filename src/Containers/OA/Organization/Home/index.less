@@ -3,13 +3,14 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        padding: 5px 3% 20px;
+        padding: 12px 3% 20px;
         justify-content: space-between;
+        min-height: 620px;
         .item{
             width: 200px;
             height: 260px;
             background-size:cover; 
-            margin: 25px 0;
+            margin: 25px 2%;
             position: relative;
             cursor: pointer;
             &:hover .item-edit{
@@ -20,8 +21,8 @@
                 height: 30px;
                 border-radius: 50%;
                 position: absolute;
-                right: 15px;
-                top: 15px;
+                right: 10px;
+                top: 10px;
                 background: url('./images/edit.svg') no-repeat center;
                 background-size: 17px 17px;
                 display: none;
@@ -46,7 +47,12 @@
         }
     }
     .ui-btn-center{
-        margin-right: 40px;
+        margin-right: 29px;
         display: inline-block;
+    }
+    @media screen and (min-width: 1766px) {
+        .main {
+                padding: 12px 9% 20px;
+        }
     }
 }

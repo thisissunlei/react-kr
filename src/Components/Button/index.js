@@ -148,8 +148,9 @@ export default class Button extends React.Component {
 			
 		}else{
 			var divStyle = {
-				border:'1px solid #E7E7E7',
+				border:border,
 				borderRadius:4,
+				boxShadow: "0 1px 4px rgba(134,174,214,.5)",
 			}
 		}
 		
