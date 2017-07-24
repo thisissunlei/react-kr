@@ -129,7 +129,7 @@ const validate = values =>{
 
     if(!values.company){
         errors.company='请填写工作单位';  
-    }else if(values.company.length>10){
+    }else if(values.company.length>20){
         errors.company='工作单位最多二十个字符';  
     }
 
