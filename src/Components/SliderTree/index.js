@@ -131,6 +131,8 @@ export default class SliderTree extends React.Component {
 			autoExpandParent = true;
 		}
 
+		
+
 		let treeNodes = loop(treeData);
 
 		return (
