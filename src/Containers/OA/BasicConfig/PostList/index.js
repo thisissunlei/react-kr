@@ -42,7 +42,8 @@ export default class PostList extends Component{
 			jobTypes:[],
 			//删除id
 			deleteId:'',
-			subCompany:[]
+			subCompany:[],
+			editDetail:{},
 			
 		}
 		this.allConfig = {
@@ -50,6 +51,7 @@ export default class PostList extends Component{
 			openEdit : false,
 			openDel : false,
 		}
+
 		
 	}
    
@@ -105,14 +107,6 @@ export default class PostList extends Component{
 	delSwidth = () =>{
 		let {openDel} = this.allConfig;
 		this.allConfig.openDel = !openDel;
-		this.isRender();
-	}
-	//关闭所有侧滑
-	allClose = () =>{
-		let {openNew,openEdit,openDel} = this.allConfig;
-		this.allConfig.openNew = false;
-		this.allConfig.openEdit = false;
-		this.allConfig.openDel = false;
 		this.isRender();
 	}
 	//新建确定
@@ -180,13 +174,18 @@ export default class PostList extends Component{
 
     //获取编辑信息
 	getEditData=(id)=>{
+		let {subCompany} = this.state;
 		var _this=this;
        Http.request('post-list-watch',{id:id}).then(function(response) {
+		   console.log(response,subCompany,">>>>>>>>")
 		   if(response.enabled){
 			 response.enabled='true'  
 		   }else{
 			 response.enabled='false'   
 		   }
+		   _this.setState({
+			   editDetail:response
+		   })
            Store.dispatch(initialize('EditPostList',response));		   
         }).catch(function(err) {
           Message.error(err.message);
@@ -203,7 +202,7 @@ export default class PostList extends Component{
    }
 
 	render(){
-		let {jobTypes,subCompany}=this.state;
+		let {jobTypes,subCompany,editDetail}=this.state;
 		const {openNew,openEdit,openDel} = this.allConfig;
 		return(
       	<div className="basic-post-list">
@@ -287,7 +286,6 @@ export default class PostList extends Component{
 				<AddPostList
 					onCancel={this.newSwidth}
 					onSubmit={this.addSubmit}
-					onClose = {this.allClose}  
 					subCompany = {subCompany}
 				/>
 			</Dialog>
@@ -301,7 +299,8 @@ export default class PostList extends Component{
 				<EditPostList
 					onCancel={this.editSwidth}
 					onSubmit={this.editSubmit}
-					jobTypes={jobTypes}   
+					subCompany = {subCompany}
+					editDetail = {editDetail}
 				/>
 			</Dialog>
 			{/*开通门禁*/}
