@@ -5,7 +5,8 @@ import {
     Col,
     Row,
     ButtonGroup,
-    Button
+    Button,
+    Message
 } from 'kr-ui';
 import {reduxForm,change,formValueSelector}  from 'redux-form';
 import {Store,connect} from 'kr/Redux';
@@ -87,8 +88,13 @@ class AddPerson  extends React.Component{
 	render(){
 
         let {handleSubmit}=this.props;
-        let {rankList,positionList,isPositionRank,positionType} = this.state;
-       
+        let {
+                rankList,
+                positionList,
+                isPositionRank,
+                positionType,
+            } = this.state;
+       console.log(this.props.dimId,"111111-----")
 		return(
 
 			<div className='m-addPerson'>
@@ -111,7 +117,7 @@ class AddPerson  extends React.Component{
  							 <KrField name="sex" label="女" type="radio" value='FAMALE' />
  						</KrField>
 
-                          <KrField grid={1/2}
+                        <KrField grid={1/2}
                             style={{width:262}}
                             name="mobilePhone"
                             component="input"
@@ -142,7 +148,9 @@ class AddPerson  extends React.Component{
                             name="leader"
                             component="selectTree"
                             label="直接上级"
+                            treeType = "personnel"
                             ajaxUrlName = "get-personnel-tree"
+                            params = {{dimId:this.props.dimId||''}}
                             requireLabel={true}
                         />
 
@@ -152,6 +160,8 @@ class AddPerson  extends React.Component{
                             name="depId"
                             component="selectTree"
                             label="部门"
+                            treeType = "department"
+                            params = {{dimId:this.props.dimId||''}}
                             onChange = {this.onChange}
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}

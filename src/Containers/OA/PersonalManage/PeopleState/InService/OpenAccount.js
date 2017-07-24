@@ -7,7 +7,7 @@ import {
     Button
 } from 'kr-ui';
 
-export default class Remove extends React.Component{
+export default class OpenAccount extends React.Component{
 
 	constructor(props,context){
 		super(props, context);

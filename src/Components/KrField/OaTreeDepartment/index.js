@@ -8,9 +8,9 @@ import {stopSubmit,submit,blur,stopAsyncValidation,touch} from 'redux-form';
 import './index.less';
 import Dialog from '../../Dialog'
 import mockData from './Data.json';
-import TreeDialog from './TreeDialog/index';
+import DepartmentDialog from './DepartmentDialog/index';
 
-export default class SelectTree extends React.Component{
+export default class OaTreeDepartment extends React.Component{
 
 	static propTypes = {
 		inline:React.PropTypes.bool,
@@ -63,6 +63,7 @@ export default class SelectTree extends React.Component{
 		if( data.orgName == "" ){
 			return ;
 		}
+	
 		let {input,onChange} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();
@@ -71,7 +72,6 @@ export default class SelectTree extends React.Component{
 			oneOpen:false,
 		})
 		onChange && onChange(data);
-		
 
 	}
 
@@ -121,7 +121,6 @@ export default class SelectTree extends React.Component{
             simple,
             heightStyle,
             autoFocus,
-			params,
             ...other
         } = this.props;
 
@@ -169,7 +168,7 @@ export default class SelectTree extends React.Component{
 
         dialogTitle = "选择" + dialogTitle;
 
-		console.log(this.props.params,"222222-----")
+
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
@@ -184,7 +183,7 @@ export default class SelectTree extends React.Component{
 					open={isDialog}
 					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
-					<TreeDialog  params = {params}  treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<DepartmentDialog  ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>
 				</div>
 			 </WrapComponent>

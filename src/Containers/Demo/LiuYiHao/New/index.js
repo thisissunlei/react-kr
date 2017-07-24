@@ -26,10 +26,13 @@ class New extends React.Component {
 			<div style = {{height:2000}}>
 				<KrField
 					grid={1/2}
-					style={{width:262}}
-					name="depId"
+					style={{width:262,marginLeft:28}}
+					name="leader"
 					component="selectTree"
-					label="部门"
+					label="直接上级"
+					treeType = "personnel"
+					ajaxUrlName = "get-personnel-tree"
+					params = {{dimId:''}}
 					requireLabel={true}
 				/>
 			</div>

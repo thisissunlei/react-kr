@@ -30,6 +30,7 @@ import Leave from './Leave';
 import Remove from './Remove';
 import Transfer from './Transfer';
 import OpenCard from './OpenCard';
+import OpenAccount from './OpenAccount';
 import './index.less';
 
 export default class InService  extends React.Component{
@@ -339,14 +340,14 @@ export default class InService  extends React.Component{
 									}}
 								></TableRowColumn>
 								<TableRowColumn name ="hasAccountStr"></TableRowColumn>
-								<TableRowColumn type="operation" component={(value,oldValue,detail)=>{
+								<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
 										return <span>
 											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
 												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
 												<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>
 												{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
 												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>
+												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
 											</span>
 								 }}>		
 								</TableRowColumn>
@@ -396,7 +397,7 @@ export default class InService  extends React.Component{
 						open={this.state.openAccount}
 						contentStyle ={{ width: '444px',height:'190px'}}
 					>
-					<Remove
+					<OpenAccount
 						onCancel={this.cancelAccount}
 						onSubmit={this.addOpenSubmit}  
 					/>

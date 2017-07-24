@@ -2,9 +2,8 @@ import React from 'react';
 import './index.less';
 import SliderTree from'../../../SliderTree'
 import Button from '../../../Button'
-import Message from '../../../Message'
 import {Http} from 'kr/Utils'
-export default class TreeDialog extends React.Component{
+export default class PersonnelDialog extends React.Component{
 	constructor(props,context){
 		super(props,context)
 		// this.getTreeData();
@@ -16,12 +15,23 @@ export default class TreeDialog extends React.Component{
 			searchKey:'',
 			treeData : [],
 		}
-		this.getTreeData();
+		
+	}
+
+	packagData = (data) =>{
+		// if(data.children.length){
+		// 	data.isClick = true;
+		// }else{
+		// 	data.map.map((item,index)=>{
+
+		// 	})
+		// }
+		
 	}
 	onSelect = (data) =>{
-		const {onSelect,treeType} = this.props;
+		const {onSelect} = this.props;
 		const that = this;
-		if(treeType == "personnel" && data.treeType == "NONE"){
+		if(!data.children.length){
 			this.setState({
 				isList:true,
 				detail:{
@@ -29,46 +39,15 @@ export default class TreeDialog extends React.Component{
 					pId:data.pId,
 					treeType:data.treeType,
 					orgName:data.orgName,
-					
 				},
 				
 			})
-		}
-		if(treeType == "department" && data.treeType == "DEPARTMENT"){
-			this.setState({
-				isList:true,
-				detail:{
-					orgId:data.orgId,
-					pId:data.pId,
-					treeType:data.treeType,
-					orgName:data.orgName,
-					
-				},
-				
-			})
-		}
-		
 			
-			
-		
+		}
 
 		
 	}
-	getTreeData = () => {
-
-		let { ajaxUrlName,params} = this.props;
-		
-		const _this = this;
-		Http.request(ajaxUrlName,params).then(function (response) {
-
-			_this.setState({
-				treeData:response.items
-			})
-		}).catch(function (err) {
-			Message.error(err.message);
-		});
-
-	}
+	
 
 	
 	onSumit = () =>{
@@ -103,6 +82,7 @@ export default class TreeDialog extends React.Component{
 		})
 	}
 	render(){
+	   let {treeData} = this.props;
        let {detail,isList} = this.state;
 		return (
             <div className = "tree-dialog" style = {{position:"relative",textAlign:"center"}}>
@@ -119,7 +99,7 @@ export default class TreeDialog extends React.Component{
 								onSelect = {this.onSelect}  
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
-								treeData = {this.state.treeData}
+								treeData = {treeData}
 							/>
 						</div>
 					</div>
