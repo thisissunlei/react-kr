@@ -105,10 +105,7 @@ export default class Leave extends Component{
 				<TableBody >
 					<TableRow>
 						<TableRowColumn 
-							name="intentionCityName" 
-							component={(value,oldValue)=>{
-								return (<span>value</span>)
-							}}
+							name="depName" 
 						></TableRowColumn>
 						<TableRowColumn name="name"></TableRowColumn>
 						<TableRowColumn name="code"></TableRowColumn>
@@ -116,7 +113,7 @@ export default class Leave extends Component{
 						<TableRowColumn 
 							name="entryDate"
 							component={(value,oldValue)=>{
-								return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+								return (<KrDate value={value} format="yyyy-mm-dd"/>)
 							}}
 						></TableRowColumn>
 						<TableRowColumn name="status"
