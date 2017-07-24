@@ -339,7 +339,7 @@ export default class InService  extends React.Component{
 									}}
 								></TableRowColumn>
 								<TableRowColumn name ="hasAccountStr"></TableRowColumn>
-								<TableRowColumn type="operation" component={(value,oldValue,detail)=>{
+								<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
 										return <span>
 											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
 												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
