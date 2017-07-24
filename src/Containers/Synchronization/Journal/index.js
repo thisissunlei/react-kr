@@ -130,7 +130,7 @@ export default class Journal extends React.Component {
 							autoScrollBodyContent={true}
 							autoDetectWindowHeight={true}
 							onClose={this.openSearchUpperDialog}>
-								<SearchList onSubmit={this.onSearchSubmit} onCancel={this.openSearchUpperDialog} params={State.searchParams}/>
+								<SearchList onSubmit={this.onSearchSubmit} onCancel={this.openSearchUpperDialog} params={this.props.params}/>
 					    </Dialog>
 					</Section>
 					

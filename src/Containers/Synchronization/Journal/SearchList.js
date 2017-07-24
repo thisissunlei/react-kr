@@ -26,7 +26,7 @@ import {
 } from 'kr-ui';
 import State from './State';
 import {DateFormat,Http} from 'kr/Utils';
-import {reduxForm,initialize,change} from 'redux-form';
+import {reduxForm,initialize,change,reset} from 'redux-form';
 // import NewCreateSystem from './NewCreateSystem';
 // import EditSystem from './EditSystem';
 // import Synchro from './Synchro';
@@ -52,10 +52,13 @@ export default class Journal extends React.Component {
 	componentDidMount(){
 		this.getMainpartList();
 		this.getSystemList();
-		let {params} = this.props;
-		params.mainId += '';
-		params.systemId +="" ;
-		Store.dispatch(initialize('Journal', params));
+		Store.dispatch(reset('Journal'));
+		// console.log('did')
+
+		// let {params} = this.props;
+		// params.mainpartId = params.main+'';
+		// params.systemId = params.system+"" ;
+		// Store.dispatch(initialize('Journal', params));
 	}
 
 	getSystemList=()=>{
@@ -124,10 +127,10 @@ export default class Journal extends React.Component {
 	}
 	
 	componentWillReceiveProps(nextProps) {
-		if(this.props.params != nextProps.params){
-			console.log(nextProps.params)
-			Store.dispatch(initialize('Journal', nextProps.params));
-		}
+		// if(this.props.params != nextProps.params){
+		// 	console.log(nextProps.params)
+		// 	Store.dispatch(initialize('Journal', nextProps.params));
+		// }
 	}
 	beginDataChange=(beginTime)=>{
 		console.log('begin');
