@@ -66,7 +66,6 @@ export default class BasicInfo  extends React.Component{
 	   subParams.cTime = DateFormat(subParams.cTime,"yyyy-mm-dd hh:MM:ss")
 	   subParams.leaveDate = DateFormat(subParams.leaveDate,"yyyy-mm-dd hh:MM:ss")
 	   subParams.entryDate = DateFormat(subParams.entryDate,"yyyy-mm-dd hh:MM:ss")  
-	   subParams.depId=subParams.depId.orgId;
 	   subParams.id=personId;
 	   var _this=this;
        Http.request('people-basic-edit',{},subParams).then(function(response) {

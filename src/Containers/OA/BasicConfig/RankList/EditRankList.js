@@ -7,6 +7,7 @@ import {
     ButtonGroup,
     Button
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 import {reduxForm}  from 'redux-form';
 import './index.less';
 
@@ -14,7 +15,39 @@ class EditRankList  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+        this.state = {
+            jobTypes:[],
+            isType : false,
+        }
 	}
+
+     componentWillReceiveProps(nextProps){
+        
+        if(nextProps.editDetail.subId ){
+            this.dataReady({value:nextProps.editDetail.subId});
+        }
+       
+    }
+     //类型
+	dataReady=(data)=>{
+       var _this=this;
+	   Http.request('rank-type-info',{
+		   orgType:'DEPARTMENT',
+		   orgId:data.value
+	   }).then(function(response) {
+
+		   _this.setState({
+			    jobTypes:response.jobTypes
+		  })
+
+     }).catch(function(err) {
+          Message.error(err.message);
+     });	
+	}
+    onChange = (data) =>{
+        console.log(data,"????????")
+        this.dataReady(data)
+    }
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -28,7 +61,8 @@ class EditRankList  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,jobTypes}=this.props;
+        let {handleSubmit,subCompany,editDetail}=this.props;
+        let {jobTypes,isType} = this.state;
 
 		return(
 
@@ -41,15 +75,25 @@ class EditRankList  extends React.Component{
                             component="input"
                             label="职级名称"
                             requireLabel={true}
+                            
 						/>
-                        <KrField grid={1/2}
+                         <KrField grid={1}
+                            style={{width:262,display:'block'}}
+                            name="subId"
+                            component="select"
+                            label="分部"
+                            onChange = {this.onChange}
+                            requireLabel={true}
+                            options={subCompany}
+						/>
+                      {(isType || editDetail.subId ) && <KrField grid={1/2}
                             style={{width:262,display:'block'}}
                             name="typeId"
                             component="select"
                             label="职务类型"
                             requireLabel={true}
                             options={jobTypes}
-						/>
+						/>}
 
                         <KrField grid={1/2}
                             style={{width:262,display:'block'}}

@@ -18,6 +18,7 @@ class AddRankList  extends React.Component{
 		super(props, context);
         this.state = {
             jobTypes:[],
+            isType :false
         }
 	}
 
@@ -37,7 +38,8 @@ class AddRankList  extends React.Component{
 	   }).then(function(response) {
 
 		   _this.setState({
-			    jobTypes:response.jobTypes
+			    jobTypes:response.jobTypes,
+                isType:true,
 		  })
 
      }).catch(function(err) {
@@ -59,7 +61,7 @@ class AddRankList  extends React.Component{
 	render(){
 
         let {handleSubmit,subCompany}=this.props;
-        let {jobTypes} = this.state;
+        let {jobTypes,isType} = this.state;
 
 		return(
 
@@ -84,14 +86,14 @@ class AddRankList  extends React.Component{
                             options={subCompany}
 						/>
 
-                        <KrField grid={1/2}
+                        {isType && <KrField grid={1/2}
                             style={{width:262,display:'block'}}
                             name="typeId"
                             component="select"
                             label="职务类型"
                             requireLabel={true}
                             options={jobTypes}
-						/>
+						/>}
 
                        
                         <KrField grid={1/2}
