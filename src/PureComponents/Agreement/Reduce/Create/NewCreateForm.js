@@ -477,6 +477,7 @@ class NewCreateForm extends Component {
 							modal={true}
 							autoScrollBodyContent={true}
 							autoDetectWindowHeight={true}
+							bodyStyle={{overflowY:'scroll'}}
 							onClose={this.onStationCancel}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} params= {this.props.params}/>
 					    </Dialog>

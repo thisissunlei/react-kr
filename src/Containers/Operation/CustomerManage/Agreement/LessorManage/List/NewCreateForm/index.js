@@ -346,10 +346,6 @@ const validate = values => {
               memberErrors = '请填写银行账户'
 
 			}
-            if (porTypes&& (isNaN(porTypes.toString().trim()) || porTypes.toString().trim().length >=30)) {
-              memberErrors = '银行卡号必须为数字，切最长为30个数字'
-
-            }
 			membersArrayErrors[memberIndex] = memberErrors
           })
         if(membersArrayErrors.length) {

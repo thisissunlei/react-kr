@@ -86,6 +86,12 @@ const Permission_AccountManage_OperationSource = (location, callback) => {
     callback(null, require('kr/Containers/Permission/AccountManage/OperationSource').default)
   }, 'Permission_AccountManage_OperationSource')
 }
+
+const Permission_MenuSetting = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/MenuSetting').default)
+  }, 'Permission_MenuSetting')
+}
 module.exports =()=>{
 
 	return (
@@ -104,6 +110,7 @@ module.exports =()=>{
 			<Redirect from="permission" to="permission/userlist"/>
 		</Route>
     <Route path="opCode" getComponent={Permission_OpCode}/>
+    <Route path="menuSetting" getComponent={Permission_MenuSetting}/>
 		<Route path="personalCenter" getComponent={Permission_PersonalCenter}/>
 	  <Redirect from="permission" to="permission/personalCenter" />
     <Route path="systemManage" getComponent={Basic}>
