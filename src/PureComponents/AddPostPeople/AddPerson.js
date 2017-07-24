@@ -23,9 +23,10 @@ class AddPerson  extends React.Component{
             isPositionRank:false,
         }
 	}
+    
 
     componentDidMount(){
-      Store.dispatch(change('AddPerson','sex','MALE'))
+      Store.dispatch(change('addPerson','sex','MALE'))
     }
 
     onSubmit=(values)=>{

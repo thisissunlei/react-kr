@@ -30,7 +30,10 @@ export default class PeopleDetail  extends React.Component{
 		let {personId}=this.state;
 		//获取基本信息
     this.basicData(personId);
+	}
 
+
+	componentDidMount(){
 		 const {NavModel} = this.props;
      NavModel.setSidebar(false);
 	}
@@ -59,7 +62,10 @@ export default class PeopleDetail  extends React.Component{
 			<div className='people-detail'>
 			  <div className='detail-left'>
 				<div className='left-pic'>
-				   <UserImage />			
+				   {/*<UserImage />*/}
+					 <div className='now-change-pic'>
+						   
+					 </div>			
 				</div>
 				<div className='left-text'>
 				

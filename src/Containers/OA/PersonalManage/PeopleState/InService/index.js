@@ -73,12 +73,18 @@ export default class InService  extends React.Component{
    addPersonSubmit=(param)=>{
     var data = Object.assign({},param);
 	var _this = this;
-	
+	data.depId=data.depId.orgId;
+	var searchParams={
+		time:+new Date()
+	}
 	Http.request("submit-new-personnel",{},data).then(function (response) {
-		_this.openAddPersonal()
+		_this.setState({
+			searchParams:Object.assign({},_this.state.searchParams,searchParams)
+		})
 	}).catch(function (err) {
 		Message.error(err.message);
 	});
+	this.openAddPersonal();
    }
    
    //操作开关
