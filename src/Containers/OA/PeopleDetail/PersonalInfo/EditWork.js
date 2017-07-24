@@ -115,7 +115,7 @@ const validate = values =>{
 	const errors = {};
 
     let phone=/^1[34578]\d{9}$/;
-    let email=/^[\w_\-\.]+@[\w\-]+(?:\.[\w\-]+)+$/;
+    let email=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 
     if(!values.company){
         errors.company='请填写公司名称';
@@ -138,9 +138,9 @@ const validate = values =>{
         errors.contactPhone='请填写正确联系电话'; 
     }
  
-    /*if(values.contactEmail&&!email.test(values.contactEmail)){
+    if(values.contactEmail&&!email.test(values.contactEmail)){
         errors.contactEmail='请填写正确联系人邮箱'; 
-    }*/
+    }
     
 	return errors
 }
