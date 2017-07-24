@@ -54,7 +54,7 @@ export default class Labour extends React.Component {
 				orgType: "ROOT",
 				dimId: this.props.params.dimId,
 			},
-			openAddPerson: false,
+			openAddPerson:false,
 			data: {
 				page: 1,
 				pageSize: 15,
