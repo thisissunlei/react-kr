@@ -24,7 +24,7 @@ export default class SliderTree extends React.Component {
 		this.state = {
 			treeData: [],
 			inputValue: '',
-			expandedKeys: ['0-36kr'],
+			expandedKeys: ['0-0'],
 			autoExpandParent: true,
 			visible: false,
 			update:this.props.update
@@ -142,8 +142,8 @@ export default class SliderTree extends React.Component {
 					onCheck={this.onCheck}
 					onExpand={this.onExpand}
 					onSelect={this.onSelect}
-					defaultExpandAll={false}
-					defaultExpandedKeys={['0-36kr']}
+					defaultExpandAll={true}
+					defaultExpandedKeys={['0-0']}
 					expandedKeys={expandedKeys}
 					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}

@@ -16,16 +16,22 @@ class EditPerson  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+
         this.state = {
             positionList:[],
             rankList:[],
             positionType:[],
             isPositionRank:false,
         }
+
         let {basicInfo} = this.props;
-        console.log(basicInfo,"?>>>>>>>??")
-        // this.getPositionType();
-        // this.getPrepareData();
+        var orgType = "DEPARTMENT";
+        if(!basicInfo.depId){
+            orgType = "SUBCOMPANY";
+        }
+
+        this.getPositionType({orgId:basicInfo.depId,treeType:orgType});
+        this.getPrepareData({value:basicInfo.typeId});
 	}
 
     componentDidMount(){
@@ -39,9 +45,9 @@ class EditPerson  extends React.Component{
         let params = Object.assign({},values);
 
         params.jobId = values.jobId.value || basicInfo.jobId||"";
-        params.leader = values.leader.orgId || basicInfo.leaderId||"";
+        params.leader = values.leader.orgId || basicInfo.leader||"";
         params.treeType = values.leader.treeType||"";
-        params.levelId = values.levelId.value|| basicInfo.Id||"";
+        params.levelId = values.levelId.value|| basicInfo.levelId||"";
 
     
         const {onSubmit}=this.props;
@@ -94,13 +100,13 @@ class EditPerson  extends React.Component{
 
         let {handleSubmit,basicInfo}=this.props;
         let {rankList,positionList,isPositionRank,positionType} = this.state;
-       console.log(basicInfo,":::::::")
+      
 		return(
 
 			<div className='m-addPerson'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon"></span><label className="title-text">编辑员工</label></div>
+                            <div><span className="new-icon"></span><label className="title-text">编辑基本信息</label></div>
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 
@@ -151,7 +157,6 @@ class EditPerson  extends React.Component{
                             ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
                             valueText = {basicInfo.leaderName}
-                            
                         />
 
                         <KrField

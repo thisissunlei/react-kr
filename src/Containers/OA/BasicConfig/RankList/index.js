@@ -46,7 +46,8 @@ export default class RankList extends Component{
 			//数据准备下拉
 			jobTypes:[],
 			//删除id
-			deleteId:''
+			deleteId:'',
+			subCompany:[]
 		}
 	}
 
@@ -55,7 +56,17 @@ export default class RankList extends Component{
 	  this.dataReady();
 	}
 
-
+	//分部选择
+	dataReady=()=>{
+		var _this=this;
+	   Http.request('post-type-info').then(function(response) {
+				_this.setState({
+					subCompany:response.subcompanys
+				})
+     }).catch(function(err) {
+          Message.error(err.message);
+     });	
+	}
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
 			this.getEditData(itemDetail.id);
@@ -71,20 +82,6 @@ export default class RankList extends Component{
 	}
 
 
-	//数据准备
-	dataReady=()=>{
-		 var _this=this;
-	   Http.request('rank-type-info',{
-		   orgType:'DEPARTMENT',
-		   orgId:'5'
-	   }).then(function(response) {
-		   _this.setState({
-			    jobTypes:response.jobTypes
-		  })
-     }).catch(function(err) {
-          Message.error(err.message);
-     });	
-	}
 
 
 	//获取编辑信息
@@ -209,7 +206,7 @@ export default class RankList extends Component{
     
 
 	render(){
-		let {jobTypes}=this.state;
+		let {jobTypes,subCompany}=this.state;
 		return(
       	<div className="oa-post-type">
 		    <Section title="职级管理" description="" style={{marginBottom:-5,minHeight:910}}>
@@ -281,7 +278,7 @@ export default class RankList extends Component{
 			  <AddRankList 
 			    onSubmit={this.addPostSubmit}
 				 onCancel={this.openAddPost}
-				 jobTypes={jobTypes}
+				 subCompany = {subCompany} 
 			  />
 			</Dialog>
 
@@ -293,9 +290,9 @@ export default class RankList extends Component{
 					contentStyle ={{ width: '630px',height:'auto'}}
 				>
 			  <EditRankList 
-			    onSubmit={this.editPostSubmit}
-				onCancel={this.openEditPost}
-				jobTypes={jobTypes}
+					onSubmit={this.editPostSubmit}
+					onCancel={this.openEditPost}
+					jobTypes={jobTypes}
 			  />
 			</Dialog>
 

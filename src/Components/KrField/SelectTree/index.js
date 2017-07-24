@@ -9,6 +9,7 @@ import './index.less';
 import Dialog from '../../Dialog'
 import mockData from './Data.json';
 import TreeDialog from './TreeDialog/index';
+
 export default class SelectTree extends React.Component{
 
 	static propTypes = {
@@ -53,9 +54,11 @@ export default class SelectTree extends React.Component{
 		})
 		
 	}
+
 	onCancel = () =>{
 		this.dlogSwidch();
 	}
+
 	onSubmit = (data) =>{
 		if( data.orgName == "" ){
 			return ;
@@ -94,9 +97,31 @@ export default class SelectTree extends React.Component{
     }
 
 	render(){
+
 		const {isDialog,data,oneOpen} = this.state;
+
 		const {ajaxUrlName,valueText} = this.props;
-		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
+
+		let {
+            input,
+            prompt,
+            label,
+            notifys, 
+            type, 
+            meta: { touched, error } ,
+            requireLabel,
+            onChange,
+            onBlur,
+            onFocus,
+            disabled,
+            placeholder,
+            style,
+            inline,
+            simple,
+            heightStyle,
+            autoFocus,
+            ...other
+        } = this.props;
 
 			if(type === 'hidden'){
 				return (
@@ -137,6 +162,12 @@ export default class SelectTree extends React.Component{
 			 ...other,
 			 autoFocus,
 		 }
+
+        var dialogTitle = label || '组件';
+
+        dialogTitle = "选择" + dialogTitle;
+
+
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
@@ -145,9 +176,8 @@ export default class SelectTree extends React.Component{
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 
-				 
 				 <Dialog
-					title="人员"
+					title={dialogTitle}
 					onClose={this.dlogSwidch}
 					open={isDialog}
 					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}

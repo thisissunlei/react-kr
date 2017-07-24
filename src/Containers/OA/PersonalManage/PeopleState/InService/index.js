@@ -219,7 +219,7 @@ export default class InService  extends React.Component{
 	   console.log(data,">>>>>>>>>>>")
 		var param = Object.assign({},data);
 		var _this = this;
-		Http.request("transferOnSubmit",{},param).then(function (response) {
+		Http.request("service-switchgit",{},param).then(function (response) {
 			_this.cancelTransfer()
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -375,7 +375,7 @@ export default class InService  extends React.Component{
 
 					{/*解除帐号*/}
 					<Dialog
-						title="提示"
+						title="解除帐号"
 						onClose={this.cancelRemove}
 						open={this.state.openRemove}
 						contentStyle ={{ width: '444px',height:'190px'}}

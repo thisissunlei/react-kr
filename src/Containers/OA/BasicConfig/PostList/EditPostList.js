@@ -43,6 +43,7 @@ class EditPostList  extends React.Component{
                             label="职务名称"
                             requireLabel={true}
 						/>
+
                         <KrField
                             grid={1}
                             style={{width:262,display:'block'}}
