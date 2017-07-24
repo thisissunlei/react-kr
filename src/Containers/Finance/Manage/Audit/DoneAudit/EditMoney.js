@@ -65,7 +65,9 @@ class EditMoney extends React.Component {
 			corporationId: '',
 			Loading: false,
 			//我司账户名称
-			accountNum:''
+			accountNum:'',
+			//新旧我司id
+			oldId:''
 		}
 
 		this.getDetailInfo();
@@ -83,6 +85,11 @@ class EditMoney extends React.Component {
 
 
 	accountChange=(param)=>{
+       if(!param){
+	      this.setState({
+			oldId:''
+		 })  
+		}
         this.setState({
 			accountNum:param.accountNum
 		})
@@ -161,7 +168,8 @@ class EditMoney extends React.Component {
 					infoList: response,
 					flowAmount: response.flowAmount.replace(/,/gi,''),
 					corporationId: response.corporationId,
-					accountNum:response.accountNum
+					accountNum:response.accountNum,
+					oldId:(response.accountId==-1)?response.accountNum:''
 				})
 				var form = {
 					"value": response.payWay
@@ -722,7 +730,8 @@ class EditMoney extends React.Component {
 				accountList,
 				infoList,
 				flowAmount,
-				Loading
+				Loading,
+				oldId
 			} = this.state;
 			return (
 				<div className="u-audit-add">
@@ -813,6 +822,8 @@ class EditMoney extends React.Component {
 								options={accountList}
 								requireLabel={true}
 								onChange={this.accountChange}
+								isPlace={true}
+								placeholder={oldId?oldId:'请选择'}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}

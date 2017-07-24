@@ -152,6 +152,10 @@ export default class Button extends React.Component {
 				border:'1px solid #E7E7E7',
 				borderRadius:4,
 			}
+		let divStyle = {
+			boxShadow: "0 1px 4px rgba(134,174,214,.5)",
+			border:border,
+			borderRadius:4,
 		}
 		
 		let labelStyle={

@@ -34,6 +34,9 @@ import {
 import {
 	default as SystemManage
 } from './SystemManage';
+import {
+	default as MenuSetting
+} from './MenuSetting';
 module.exports = {
 	Home,
 	Basic,
@@ -47,4 +50,5 @@ module.exports = {
 	LoginLog,
 	SystemManage,
 	OpCode,
+	MenuSetting
 }

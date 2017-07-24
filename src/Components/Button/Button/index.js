@@ -97,7 +97,7 @@ export default class Button extends Component {
 			// borderRadius:4,
 		};
 		let divStyle = {
-			boxShadow: "0 2px 8px rgba(134,174,214,.7)",
+			boxShadow: "0 1px 4px rgba(134,174,214,.5)",
 			border:border,
 			borderRadius:4,
 		}

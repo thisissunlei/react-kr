@@ -160,6 +160,9 @@ Message.success = function(messages) {
 Message.error = function(messages) {
 	commonRender(messages, 'error');
 };
+Message.errortimeout = function(messages) {
+	commonRender(messages, 'error',commonTimeout);
+};
 Message.warn = function(messages, type, fn) {
 	warnRender(messages, type, fn);
 };
