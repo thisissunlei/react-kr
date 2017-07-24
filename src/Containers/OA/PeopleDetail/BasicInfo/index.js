@@ -100,7 +100,7 @@ export default class BasicInfo  extends React.Component{
 			 {name:'部门',
 			  detail:basicInfo.depName},
 			 {name:'直接上级',
-			  detail:basicInfo.leader},
+			  detail:basicInfo.leaderName},
 			 {name:'职务',
 			  detail:basicInfo.jobName},
 			 {name:'职级',

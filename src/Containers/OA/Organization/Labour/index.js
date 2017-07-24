@@ -54,7 +54,7 @@ export default class Labour extends React.Component {
 				orgType: "ROOT",
 				dimId: this.props.params.dimId,
 			},
-			openAddPersonal: false,
+			openAddPerson:false,
 			data: {
 				page: 1,
 				pageSize: 15,
@@ -147,9 +147,9 @@ export default class Labour extends React.Component {
 	var _this = this;
 	data.depId=data.depId.orgId;
 	Http.request("submit-new-personnel",{},data).then(function (response) {
-		_this.openAddPersonal();
+		_this.openAddPerson();
 		_this.changeP();
-		Message.succuess("新建成功");
+		Message.success("新建成功");
 		_this.changeP();
 	}).catch(function (err) {
 		Message.error(err.message);
@@ -383,7 +383,7 @@ export default class Labour extends React.Component {
 	}
 	change = (event) => {
 		this.setState({
-			searchKey: event.target.value,
+			searchKey: event.target.value || ' ',
 		})
 	}
 	clickSelect = () => {
@@ -666,7 +666,7 @@ export default class Labour extends React.Component {
 					}
 				</div>
 				<Dialog
-					title={`查看${dataName.orgName ? dataName.orgName : '36Kr'}`}
+					title={dataName.orgName?dataName.orgName:'36Kr'}
 					modal={true}
 					open={this.state.openViewDialog}
 					onClose={this.openViewDialog}
