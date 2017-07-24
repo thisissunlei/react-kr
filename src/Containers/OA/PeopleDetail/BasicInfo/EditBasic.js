@@ -252,6 +252,7 @@ const validate = values =>{
     
     let reg= /^1[34578]\d{9}$/; 
     let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
+    let email=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 
     if(!values.name){
         errors.name='请填写名称';
@@ -303,6 +304,8 @@ const validate = values =>{
 
     if(!values.email){
         errors.email='请填写公司邮箱';
+    }else if(!email.test(values.email)){
+        errors.email='请填写正确公司邮箱';
     }
     
 	return errors
