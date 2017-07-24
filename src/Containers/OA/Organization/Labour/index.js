@@ -137,7 +137,7 @@ export default class Labour extends React.Component {
    addPersonSubmit=(param)=>{
     var data = Object.assign({},param);
 	var _this = this;
-	
+	data.depId=data.depId.orgId;
 	Http.request("submit-new-personnel",{},data).then(function (response) {
 		_this.openAddPersonal();
 		_this.changeP();
