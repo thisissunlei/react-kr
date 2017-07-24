@@ -27,7 +27,7 @@ module.exports = [
 				iconColor: '#79859a',
 				menuItems: [
 					{
-						primaryText: '在职列表',
+						primaryText: '人员列表',
 						menuCode: 'sso_userList_base',
 						router: 'oa/personalManage/peopleState',
 					}
