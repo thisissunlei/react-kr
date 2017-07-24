@@ -43,7 +43,7 @@ export default class SliderTree extends React.Component {
 	}
 
 	filterTreeNode = (treeNode) => {
-		return this.filterFn(treeNode.props.title);
+		return this.filterFn(treeNode.props.realKey);
 	}
 
 	onChange = (event) => {
@@ -145,7 +145,7 @@ export default class SliderTree extends React.Component {
 					defaultExpandAll={true}
 					defaultExpandedKeys={['0-0']}
 					expandedKeys={expandedKeys}
-					autoExpandParent={true}
+					autoExpandParent={autoExpandParent}
 					filterTreeNode={this.filterTreeNode}
 				>
 					{treeNodes}

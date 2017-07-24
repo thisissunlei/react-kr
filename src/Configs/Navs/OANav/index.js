@@ -16,7 +16,7 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '机构维度',
-						menuCode: 'oa_hrm_organization',
+						menuCode: 'dim_list',
 						router: '/oa/organization/home',
 					}
 				]	

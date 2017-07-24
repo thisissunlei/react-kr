@@ -628,6 +628,8 @@ export default class Labour extends React.Component {
 											component={(value, oldValue) => {
 												if (value == '未开通') {
 													style = { 'color': '#FF5B52' }
+												}else{
+													style = {}
 												}
 												return (
 													<div style={style}>{value}</div>
