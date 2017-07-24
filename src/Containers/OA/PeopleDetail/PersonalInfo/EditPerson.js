@@ -197,7 +197,7 @@ class EditPerson  extends React.Component{
                         
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
-                            name="mobilePhone"
+                            name="personPhone"
                             component="input"
                             label="联系电话"
                             requireLabel={true}
@@ -301,8 +301,8 @@ const validate = values =>{
         errors.nativePlace='籍贯最多十个字符';  
     }
 
-    if(!values.mobilePhone){
-      errors.mobilePhone='请填写联系电话';  
+    if(!values.personPhone){
+      errors.personPhone='请填写联系电话';  
     }
 
     if(!values.emergencyContact){

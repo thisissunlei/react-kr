@@ -378,7 +378,7 @@ export default class PersonalInfo  extends React.Component{
               {name:'微信号',
 			  detail:personInfo.wechat},
               {name:'联系电话',
-			  detail:personInfo.mobilePhone},
+			  detail:personInfo.personPhone},
               {name:'身高(cm)',
 			  detail:personInfo.height},
               {name:'体重(公斤)',

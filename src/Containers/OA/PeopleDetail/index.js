@@ -56,7 +56,7 @@ export default class PeopleDetail  extends React.Component{
 	render(){
 
 		let {personId,detail}=this.state;
-	
+	  
 		return(
 
 			<div className='people-detail'>
