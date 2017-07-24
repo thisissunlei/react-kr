@@ -1,0 +1,170 @@
+{
+    "code": 1,
+    "data": {
+        "signList": [
+            {
+                "code": "direct_source",
+                "name": "直销客源"
+            },
+            {
+                "code": "unappoint_guest",
+                "name": "非预约客人"
+            },
+            {
+                "code": "58tongcheng",
+                "name": "58同城"
+            },
+            {
+                "code": "others_online",
+                "name": "其他线上渠道"
+            },
+            {
+                "code": "400_hotline",
+                "name": "400热线"
+            },
+            {
+                "code": "baidu_business_bridge",
+                "name": "百度商桥"
+            },
+            {
+                "code": "weixin",
+                "name": "微信公众号"
+            },
+            {
+                "code": "activity",
+                "name": "活动客源"
+            },
+            {
+                "code": "toutiao",
+                "name": "今日头条"
+            },
+            {
+                "code": "outdoor_advertising",
+                "name": "户外广告"
+            },
+            {
+                "code": "kr_space_introduce",
+                "name": "内部推荐"
+            },
+            {
+                "code": "agent_source",
+                "name": "中介客源"
+            },
+            {
+                "code": "email_and_sms",
+                "name": "邮件或短信"
+            },
+            {
+                "code": "marketing",
+                "name": "市场合作"
+            },
+            {
+                "code": "krspace_visit",
+                "name": "官网预约"
+            },
+            {
+                "code": "app_source",
+                "name": "APP预约"
+            },
+            {
+                "code": "wechat_referee",
+                "name": "推介人计划"
+            },
+            {
+                "code": "external_introduce",
+                "name": "外部推荐"
+            },
+            {
+                "code": "others",
+                "name": "其他"
+            },
+            {
+                "code": "total",
+                "name": "合计"
+            }
+        ],
+        "addList": [
+            {
+                "code": "direct_source",
+                "name": "直销客源"
+            },
+            {
+                "code": "unappoint_guest",
+                "name": "非预约客人"
+            },
+            {
+                "code": "58tongcheng",
+                "name": "58同城"
+            },
+            {
+                "code": "others_online",
+                "name": "其他线上渠道"
+            },
+            {
+                "code": "400_hotline",
+                "name": "400热线"
+            },
+            {
+                "code": "baidu_business_bridge",
+                "name": "百度商桥"
+            },
+            {
+                "code": "weixin",
+                "name": "微信公众号"
+            },
+            {
+                "code": "activity",
+                "name": "活动客源"
+            },
+            {
+                "code": "toutiao",
+                "name": "今日头条"
+            },
+            {
+                "code": "outdoor_advertising",
+                "name": "户外广告"
+            },
+            {
+                "code": "kr_space_introduce",
+                "name": "内部推荐"
+            },
+            {
+                "code": "agent_source",
+                "name": "中介客源"
+            },
+            {
+                "code": "email_and_sms",
+                "name": "邮件或短信"
+            },
+            {
+                "code": "marketing",
+                "name": "市场合作"
+            },
+            {
+                "code": "krspace_visit",
+                "name": "官网预约"
+            },
+            {
+                "code": "app_source",
+                "name": "APP预约"
+            },
+            {
+                "code": "wechat_referee",
+                "name": "推介人计划"
+            },
+            {
+                "code": "external_introduce",
+                "name": "外部推荐"
+            },
+            {
+                "code": "others",
+                "name": "其他"
+            },
+            {
+                "code": "total",
+                "name": "合计"
+            }
+        ]
+    },
+    "message": "ok"
+}
