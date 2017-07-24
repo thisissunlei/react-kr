@@ -121,6 +121,7 @@ export default class SelectTree extends React.Component{
             simple,
             heightStyle,
             autoFocus,
+			params,
             ...other
         } = this.props;
 
@@ -168,7 +169,7 @@ export default class SelectTree extends React.Component{
 
         dialogTitle = "选择" + dialogTitle;
 
-
+		console.log(this.props.params,"222222-----")
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
@@ -183,7 +184,7 @@ export default class SelectTree extends React.Component{
 					open={isDialog}
 					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
-					<TreeDialog  ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<TreeDialog  params = {params}  ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>
 				</div>
 			 </WrapComponent>
