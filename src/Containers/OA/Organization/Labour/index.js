@@ -419,12 +419,6 @@ export default class Labour extends React.Component {
 							<span className="title-text">{this.state.dimName}</span>
 							<span className="title-list" style={this.state.selectStyle}>
 								{this.state.dimData.map((item, index) => { return this.renderDimList(item, index) })}
-								<span className="item">
-									下级机构
-									</span>
-								<span className="item">
-									人员信息
-									</span>
 							</span>
 							<span className="square">
 
