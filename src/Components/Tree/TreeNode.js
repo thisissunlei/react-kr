@@ -306,9 +306,7 @@ class TreeNode extends React.Component {
           onClick = {(e)=>{
              this.onExpand(e);
             e.preventDefault();
-              if(props.type == "allSelect"){
-                return ;
-              }
+              
              
           }}
           style = {{display:showIcon}}
