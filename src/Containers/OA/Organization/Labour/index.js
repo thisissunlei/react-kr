@@ -133,6 +133,20 @@ export default class Labour extends React.Component {
 			styleBool: false,
 		})
 	}
+	//新建用户提交
+   addPersonSubmit=(param)=>{
+    var data = Object.assign({},param);
+	var _this = this;
+	
+	Http.request("submit-new-personnel",{},data).then(function (response) {
+		_this.openAddPersonal();
+		_this.changeP();
+		Message.succuess("新建成功");
+		_this.changeP();
+	}).catch(function (err) {
+		Message.error(err.message);
+	});
+   }
 	//操作相关
 	onOperation = (type, itemDetail) => {
 		this.setState({
@@ -199,12 +213,10 @@ export default class Labour extends React.Component {
 
 	}
 	onCreatSubmit = (params) => {
-		console.log("提交的版本",params);
 		var _this = this;
 		Http.request('save-junior', {}, params).then(function (response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
-			
 			_this.changeP();
 			_this.getTreeData();
 			_this.getOrganizationDetail();
@@ -368,12 +380,6 @@ export default class Labour extends React.Component {
 				'display': 'inline-block'
 			},
 			styleBool: true,
-		})
-	}
-
-	openCreatePerson=()=>{
-		this.setState({
-			openAddPerson: !this.state.openAddPerson,
 		})
 	}
 
