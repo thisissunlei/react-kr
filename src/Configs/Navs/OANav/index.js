@@ -49,7 +49,7 @@ module.exports = [
 					},
 					{
 						primaryText: '职务类型',
-						menuCode: 'hrm_job_type_lis',
+						menuCode: 'hrm_job_type_list',
 						router: '/oa/basicConfig/postType',
 					},
 					{
