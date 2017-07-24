@@ -259,6 +259,7 @@ export default class Labour extends React.Component {
 			_this.openCancelDialog();
 			Message.success('封存成功');
 			_this.changeP();
+			_this.getTreeData();
 		}).catch(function (err) {
 			_this.openCancelDialog();
 			Message.error(err.message)
@@ -276,6 +277,7 @@ export default class Labour extends React.Component {
 		}).then(function (response) {
 			_this.openUnCancelDialog();
 			Message.success('解封成功');
+			_this.getTreeData();
 			_this.changeP();
 		}).catch(function (err) {
 			_this.openUnCancelDialog();
@@ -354,6 +356,7 @@ export default class Labour extends React.Component {
 			_this.getExaList();
 			window.location.href = `./#/oa/organization/${dimId}/labour`;		
 			_this.reloadDim();
+			_this.getTreeData();
 		})
 
 	}
@@ -384,12 +387,22 @@ export default class Labour extends React.Component {
 		})
 	}
 	clickSelect = () => {
-		this.setState({
-			selectStyle: {
-				'display': 'inline-block'
-			},
-			styleBool: true,
-		})
+		if(this.state.selectStyle.display=='none'){
+			this.setState({
+				selectStyle: {
+					'display': 'inline-block'
+				},
+				styleBool: true,
+			})
+		}else{
+			this.setState({
+				selectStyle: {
+					'display': 'none'
+				},
+				styleBool: false,
+			})
+		}
+		
 	}
 
 	allClose = () => {
@@ -405,7 +418,7 @@ export default class Labour extends React.Component {
 	}
 
 	getTreeData = () => {
-		const params = { id: this.props.params.dimId }
+		const params = { id: this.state.searchParams.dimId }
 
 		const _this = this;
 
@@ -714,6 +727,8 @@ export default class Labour extends React.Component {
 					onSubmit={this.addPersonSubmit}
 					open={this.state.openAddPerson} 
 					onClose={this.allClose}  
+					dimId={this.state.searchParams.dimId}
+					departMent={this.state.dataName.orgName}
 				/>
 			</div>
 		);

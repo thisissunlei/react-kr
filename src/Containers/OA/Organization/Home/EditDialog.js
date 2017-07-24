@@ -66,7 +66,7 @@ class EditDialog extends React.Component {
                     placeholder="机构维度"
                 />
                 <KrField
-                    style={{width:262}}
+                    style={{width:262,marginTop:6}}
                     inline={false}
                     label="排序"
                     component="input"
@@ -74,7 +74,7 @@ class EditDialog extends React.Component {
                     requireLabel={true}
                     placeholder="排序"
                 />
-                <Row style={{marginTop:30,marginBottom:15}}>
+                <Row style={{marginTop:15,marginBottom:6}}>
       					<Col md={12} align="center">
       						<ButtonGroup>
       							<div className='ui-btn-center'>
