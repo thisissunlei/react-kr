@@ -145,7 +145,7 @@ export default class SliderTree extends React.Component {
 					defaultExpandAll={true}
 					defaultExpandedKeys={['0-0']}
 					expandedKeys={expandedKeys}
-					autoExpandParent={true}
+					autoExpandParent={autoExpandParent}
 					filterTreeNode={this.filterTreeNode}
 				>
 					{treeNodes}
