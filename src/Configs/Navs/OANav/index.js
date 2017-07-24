@@ -30,7 +30,8 @@ module.exports = [
 					{
 						primaryText: '人员列表',
 						menuCode: 'hrm_resources_list',
-						router: 'oa/personalManage/peopleState',
+						router: '/oa/personalManage/peopleState',
+						
 					}
 				]
 			}, 
@@ -49,17 +50,17 @@ module.exports = [
 					{
 						primaryText: '职务类型',
 						menuCode: 'hrm_job_type_lis',
-						router: 'oa/basicConfig/postType',
+						router: '/oa/basicConfig/postType',
 					},
 					{
 						primaryText: '职务列表',
 						menuCode: 'hrm_job_list',
-						router: 'oa/basicConfig/postList',
+						router: '/oa/basicConfig/postList',
 					},
 					{
 						primaryText: '职级列表',
 						menuCode: 'hrm_job_level_list',
-						router: 'oa/basicConfig/rankList',
+						router: '/oa/basicConfig/rankList',
 					},
 					{
 						primaryText: '来源系统',
