@@ -4,6 +4,8 @@ import {
 	TabCs,
 	Dictionary
 } from 'kr-ui';
+import { observer,inject } from 'mobx-react';
+import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import BasicInfo from './BasicInfo';
 import PersonalInfo from './PersonalInfo';
@@ -11,6 +13,8 @@ import WorkInfo from './WorkInfo';
 import './index.less';
 import UserImage from './UserImage';
 
+@inject("NavModel")
+@observer
 export default class PeopleDetail  extends React.Component{
 
 	constructor(props,context){
@@ -25,7 +29,10 @@ export default class PeopleDetail  extends React.Component{
   componentWillMount(){
 		let {personId}=this.state;
 		//获取基本信息
-        this.basicData(personId);
+    this.basicData(personId);
+
+		 const {NavModel} = this.props;
+     NavModel.setSidebar(false);
 	}
 
 

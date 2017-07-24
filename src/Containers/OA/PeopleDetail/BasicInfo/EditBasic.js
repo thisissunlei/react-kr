@@ -296,10 +296,8 @@ const validate = values =>{
         errors.mobilePhone='请填写正确手机号码';
     }
 
-     if(!values.email){
+    if(!values.email){
         errors.email='请填写公司邮箱';
-    }else if(!ph.test(values.email)){
-        errors.email='请填写正确公司邮箱';
     }
     
 	return errors

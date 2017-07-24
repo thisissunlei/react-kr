@@ -292,9 +292,7 @@ export default class InService  extends React.Component{
 						style={{marginTop:8}}
 						ajax={true}
 						onOperation={this.onOperation}
-						displayCheckbox={true}
-						exportSwitch={true}
-						onExport={this.onExport}
+						displayCheckbox={false}
 						ajaxParams={this.state.searchParams}
 						onPageChange={this.onPageChange}
 						ajaxUrlName='getInServiceList'
@@ -364,10 +362,10 @@ export default class InService  extends React.Component{
 
 					{/*离职*/}
 					<Dialog
-						title="提示"
+						title="离职"
 						onClose={this.cancelLeave}
 						open={this.state.openLeave}
-						contentStyle ={{ width: '630px',height:'355px'}}
+						contentStyle ={{ width: '630px',height:'auto'}}
 					>
 					<Leave
 					   onCancel={this.cancelLeave}

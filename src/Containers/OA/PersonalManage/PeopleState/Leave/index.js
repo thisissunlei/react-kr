@@ -56,7 +56,7 @@ export default class Leave extends Component{
 	
 	//关闭所有侧滑
 	allClose = () =>{
-
+			
 	}
 
 	render(){
@@ -90,13 +90,11 @@ export default class Leave extends Component{
 			    style={{marginTop:8}}
                 ajax={true}
                 onOperation={this.onOperation}
-	            displayCheckbox={true}
+	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='getLeaveList'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
-				onExport={this.onExport}
-				exportSwitch={true}
 			>
 				<TableHeader>
 					<TableHeaderColumn>部门</TableHeaderColumn>

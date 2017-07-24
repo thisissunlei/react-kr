@@ -284,8 +284,6 @@ const validate = values =>{
 
      if(!values.email){
         errors.email='请填写公司邮箱';
-    }else if(!ph.test(values.email)){
-        errors.email='请填写正确公司邮箱';
     }
     
 	return errors

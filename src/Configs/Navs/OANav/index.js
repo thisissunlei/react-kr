@@ -6,6 +6,7 @@ module.exports = [
 		//menuCode: 'oa',
 		router: 'oa',
 		//originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45',
+		originUrl: '#/oa/organization/home',
 		menuItems: [
 			{
 				primaryText: '组织架构',
@@ -18,17 +19,17 @@ module.exports = [
 						menuCode: 'oa_hrm_organization',
 						router: '/oa/organization/home',
 					}
-				]
-				
+				]	
 			}, 
 			{
 				primaryText: '人员管理',
 				iconName: 'icon-administrator',
+				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',
 				menuItems: [
 					{
 						primaryText: '在职列表',
-						menuCode: 'sso_userList_base',
+						menuCode: 'oa_hrm_resourceActive_base',
 						router: 'oa/personalManage/peopleState',
 					}
 				]
@@ -36,21 +37,22 @@ module.exports = [
 			{
 				primaryText: '基础配置',
 				iconName: 'icon-basis',
+				menuCode: 'hrmbasedataadmin',
 				iconColor: '#79859a',
 				menuItems: [
 					{
 						primaryText: '职务类型',
-						menuCode: 'sso_userList_base',
+						menuCode: 'oa_dictjob_type',
 						router: 'oa/basicConfig/postType',
 					},
 					{
 						primaryText: '职务列表',
-						menuCode: 'sso_userList_base',
+						menuCode: 'oa_dictjob_list',
 						router: 'oa/basicConfig/postList',
 					},
 					{
 						primaryText: '职级列表',
-						menuCode: 'sso_userList_base',
+						menuCode: 'oa_dictjoblevellist',
 						router: 'oa/basicConfig/rankList',
 					}
 				]
