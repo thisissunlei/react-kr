@@ -43,7 +43,7 @@ export default class SliderTree extends React.Component {
 	}
 
 	filterTreeNode = (treeNode) => {
-		return this.filterFn(treeNode.props.title);
+		return this.filterFn(treeNode.props.realKey);
 	}
 
 	onChange = (event) => {
