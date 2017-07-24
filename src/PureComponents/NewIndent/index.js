@@ -41,6 +41,9 @@ import {Http} from "kr/Utils";
 			stationTypeList:[],
 			visitTypeList:[]
 		};
+		this.state={
+			showSection:false
+		}
 
 	}
 	onSubmit = (values) => {
@@ -52,6 +55,8 @@ import {Http} from "kr/Utils";
 		}
 		values.customerid=listId;
 		values.mainbillname=_this.props.NewIndentModel.orderName;
+		console.log('submot',values);
+		return;
 		Http.request('enter-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
 			_this.props.NewIndentModel.searchParams={
@@ -105,6 +110,15 @@ import {Http} from "kr/Utils";
 	}
 	mainbilltypeChange=(value)=>{
 		this.props.NewIndentModel.orderName=this.props.customerName+value.label+this.props.orderCount;
+		if(value.value == 16 || value.value == 23 || value.value == 18){
+			this.setState({
+				showSection:true
+			})
+		}else{
+			this.setState({
+				showSection:false
+			})
+		}
 
 	}
 
@@ -117,6 +131,7 @@ import {Http} from "kr/Utils";
 		// if(!isOpenIndent){
 		// 	city="无"
 		// }
+		let options = [{value:'1',label:'a'},{value:'11',label:'aa'},]
 
 		return (
 
@@ -135,11 +150,24 @@ import {Http} from "kr/Utils";
 					<KrField grid={1/2} label="所在社区" name="communityid" component="searchCommunityAll" style={{width:262,marginLeft:30}}
 							onChange={this.communityChange}
 							inline={false}
+							requireLabel={true}
+					/>
+					<KrField grid={1/2} label="销售员" name="man" style={{width:262,marginLeft:15}} component="searchPersonel"
+							requireLabel={true}
+					/>
+					<KrField grid={1/2} label="销售时间" name="date" component="date" style={{width:262,marginLeft:30}}
+							inline={false}
+							requireLabel={true}
 					/>
 
+					
+
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>
-					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={this.props.NewIndentModel.orderName?this.props.NewIndentModel.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
-					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
+					<KrField grid={1} label="订单名称" name="section" style={{width:262,marginLeft:30}} component="labelText" value={this.props.NewIndentModel.orderName?this.props.NewIndentModel.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
+					{this.state.showSection && <KrField grid={1/2} label="部门" name="section" style={{width:262,marginLeft:15}} component="select"
+							options={options}
+					/>}
+					<KrField grid={1} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 					<Row>
@@ -166,6 +194,13 @@ const validate = values =>{
 		}
 		if(!values.communityid){
 			errors.communityid = '请选择所在社区';
+		}
+
+		if(!values.man){
+			errors.man = '请选择销售员';
+		}
+		if(!values.date){
+			errors.date = '请选择销售时间';
 		}
 
 

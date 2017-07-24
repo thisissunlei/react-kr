@@ -13,6 +13,7 @@ let State = observable({
 		searchParams:{
 			page:1,
 		},
+		mainbilltype:'',
 		openNewMerchants:false,
 		openLookMerchants:false,
 		openEditCustomerList:false,
