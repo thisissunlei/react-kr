@@ -9,6 +9,7 @@
     list-style: none;
     white-space: nowrap;
     outline: 0;
+    line-height: 28px;
     .draggable {
       color: #333;
       -moz-user-select: none;
@@ -207,6 +208,7 @@
     background: url('./images/sel_company.svg') no-repeat center;
     vertical-align: top;
   }
+  //根节点图标
    &-icon__ROOT_close {
     margin-right: 2px;
     background: url('./images/nor_company.svg') no-repeat center;
@@ -235,12 +237,19 @@
     background: url('./images/nor_group.svg') no-repeat center;
     vertical-align: top;
   }
+  &-icon__NONE_open {
+   display: none;
+  }
+   &-icon__NONE_close {
+   display: none;
+  }
   //最高级别
   &-icon__open__Big {
     margin-right: 2px;
     background: url('./images/department_open.svg') no-repeat center;
     vertical-align: top;
   }
+ 
   &-icon__close__Big {
     margin-right: 2px;
     background: url('./images/department_close.svg') no-repeat center;

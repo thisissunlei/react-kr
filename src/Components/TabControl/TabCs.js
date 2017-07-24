@@ -46,7 +46,7 @@ export default class TabCs extends React.Component {
                     labels = {this.getLabels()} 
                     onSubmit = {this.titleClick} 
                 />
-              
+                
                 {this.tabRender()}
             </div>
 		);

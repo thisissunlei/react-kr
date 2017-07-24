@@ -43,9 +43,9 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '参数配置',
-						menuCode: 'sysparamadmin',
+						menuCode: 'oa_param_set',
 						router: 'sysparamadmin',
-						originUrl: '/krspace_knowledge_web/sys/sysParam/toSysParamList?mid=50'
+						originUrl: '/krspace_oa_web/sys/sysParam/toSysParamList?mid=50'
 					},
 					{
 						primaryText: '职务类型',
@@ -64,9 +64,9 @@ module.exports = [
 					},
 					{
 						primaryText: '来源系统',
-						menuCode: 'docSourceServiceAdmin',
+						menuCode: 'doc_source',
 						router: 'docSourceServiceAdmin',
-						originUrl: '/krspace_knowledge_web/doc/docSourceService/toDocSourceServiceList?mid=59'
+						originUrl: '/krspace_oa_web/doc/docSourceService/toDocSourceServiceList?mid=59'
 					}
 				]
 			},
@@ -79,24 +79,23 @@ module.exports = [
 				menuItems: [	 
 					{
 						primaryText: '文件类型',
-						menuCode: 'docFiletypeAdmin',
+						menuCode: 'oa_docfile_type',
 						router: 'docFiletypeAdmin',
-						originUrl: '/krspace_knowledge_web/doc/docFiletype/toDocFiletypeList?mid=56'
+						originUrl: '/krspace_oa_web/doc/docFiletype/toDocFiletypeList?mid=56'
 					}, 
 					{
 						primaryText: '文件范围',
-						menuCode: 'docFileRangeAdmin',
+						menuCode: 'oa_docfilerange',
 						router: 'docFileRangeAdmin',
-						originUrl: '/krspace_knowledge_web/doc/docFileRange/toDocFileRangeList?mid=57'
+						originUrl: '/krspace_oa_web/doc/docFileRange/toDocFileRangeList?mid=57'
 					},
 					{
 						primaryText: '文档设置',
-						menuCode: 'docFileAdmin',
+						menuCode: 'oa_doctype',
 						router: 'docFileAdmin',
-						originUrl: '/krspace_knowledge_web/doc/docFile/toDocTypeList?mid=67'
+						originUrl: '/krspace_oa_web/doc/docFile/toDocTypeList?mid=67'
 					},
-
-				]
+				 ]
 			  } 
 			]
 	}

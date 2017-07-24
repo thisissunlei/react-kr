@@ -60,7 +60,7 @@ export default class SelectTree extends React.Component{
 	}
 
 	onSubmit = (data) =>{
-		if( data.orgName == ""||data.treeType != "NONE" ){
+		if( data.orgName == "" ){
 			return ;
 		}
 	
