@@ -300,12 +300,12 @@ var OAApi = {
   /*=====树的接口======*/
   //部门树
   'get-department-tree': {
-      url: '/api/krspace-erp-web/tree/dep',
+      url: '/api/krspace-erp-web/tree/dep?dimId={dimId}',
       method: 'get'
   },
   //人员树
   'get-personnel-tree': {
-      url: '/api/krspace-erp-web/tree/hrm-person',
+      url: '/api/krspace-erp-web/tree/hrm-person?dimId={dimId}',
       method: 'get'
   },
 

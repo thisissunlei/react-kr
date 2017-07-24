@@ -8,7 +8,7 @@ import {stopSubmit,submit,blur,stopAsyncValidation,touch} from 'redux-form';
 import './index.less';
 import Dialog from '../../Dialog'
 import mockData from './Data.json';
-import DepartmentDialog from './DepartmentDialog';
+import DepartmentDialog from './DepartmentDialog/index';
 
 export default class OaTreeDepartment extends React.Component{
 

@@ -9,8 +9,9 @@ export default class AddPostPeople  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 	}
-
+	
 	render(){
+		console.log(this.props.dimId,"000000000-----")
 
 		return(
 
@@ -24,6 +25,7 @@ export default class AddPostPeople  extends React.Component{
 							onClose={this.props.onClose}
 					 >
 						<AddPerson
+						   dimId={this.props.dimId||""}
 			               onCancel={this.props.onCancel}
 						   onSubmit={this.props.onSubmit}   
 						/>

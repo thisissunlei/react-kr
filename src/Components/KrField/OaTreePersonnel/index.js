@@ -101,7 +101,7 @@ export default class OaTreePersonnel extends React.Component{
 
 		const {isDialog,data,oneOpen} = this.state;
 
-		const {ajaxUrlName,valueText} = this.props;
+		// const {ajaxUrlName,} = this.props;
 
 		let {
             input,
@@ -121,6 +121,8 @@ export default class OaTreePersonnel extends React.Component{
             simple,
             heightStyle,
             autoFocus,
+			treeData,
+			valueText,
             ...other
         } = this.props;
 
@@ -183,7 +185,7 @@ export default class OaTreePersonnel extends React.Component{
 					open={isDialog}
 					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
-					<DepartmentDialog  ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<DepartmentDialog  treeData = {treeData} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>
 				</div>
 			 </WrapComponent>

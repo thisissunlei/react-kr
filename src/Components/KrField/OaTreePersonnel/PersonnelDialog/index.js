@@ -15,7 +15,18 @@ export default class PersonnelDialog extends React.Component{
 			searchKey:'',
 			treeData : [],
 		}
-		this.getTreeData();
+		
+	}
+
+	packagData = (data) =>{
+		// if(data.children.length){
+		// 	data.isClick = true;
+		// }else{
+		// 	data.map.map((item,index)=>{
+
+		// 	})
+		// }
+		
 	}
 	onSelect = (data) =>{
 		const {onSelect} = this.props;
@@ -28,7 +39,6 @@ export default class PersonnelDialog extends React.Component{
 					pId:data.pId,
 					treeType:data.treeType,
 					orgName:data.orgName,
-					
 				},
 				
 			})
@@ -37,21 +47,7 @@ export default class PersonnelDialog extends React.Component{
 
 		
 	}
-	getTreeData = () => {
-
-		let { ajaxUrlName} = this.props;
-		
-		const _this = this;
-		Http.request(ajaxUrlName).then(function (response) {
-
-			_this.setState({
-				treeData:response.items
-			})
-		}).catch(function (err) {
-			Message.error(err.message);
-		});
-
-	}
+	
 
 	
 	onSumit = () =>{
@@ -86,6 +82,7 @@ export default class PersonnelDialog extends React.Component{
 		})
 	}
 	render(){
+	   let {treeData} = this.props;
        let {detail,isList} = this.state;
 		return (
             <div className = "tree-dialog" style = {{position:"relative",textAlign:"center"}}>
@@ -102,7 +99,7 @@ export default class PersonnelDialog extends React.Component{
 								onSelect = {this.onSelect}  
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
-								treeData = {this.state.treeData}
+								treeData = {treeData}
 							/>
 						</div>
 					</div>
