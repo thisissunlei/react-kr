@@ -41,6 +41,12 @@ module.exports = [
 				iconColor: '#79859a',
 				menuItems: [
 					{
+						primaryText: '参数配置',
+						menuCode: 'sysparamadmin',
+						router: 'sysparamadmin',
+						originUrl: '/krspace_knowledge_web/sys/sysParam/toSysParamList?mid=50'
+					},
+					{
 						primaryText: '职务类型',
 						menuCode: 'oa_dictjob_type',
 						router: 'oa/basicConfig/postType',
@@ -54,45 +60,43 @@ module.exports = [
 						primaryText: '职级列表',
 						menuCode: 'oa_dictjoblevellist',
 						router: 'oa/basicConfig/rankList',
+					},
+					{
+						primaryText: '来源系统',
+						menuCode: 'docSourceServiceAdmin',
+						router: 'docSourceServiceAdmin',
+						originUrl: '/krspace_knowledge_web/doc/docSourceService/toDocSourceServiceList?mid=59'
 					}
 				]
-			}, 
-
-			/*{
-				primaryText: '基础配置',
-				menuCode: 'hrmbasedataadmin',
-				iconName: 'icon-basis',
+			},
+			{
+				primaryText: '文档管理',
+				iconName: 'icon-file',
 				iconColor: '#79859a',
-				iconColor: '#79859a',
-				router: 'hrmbasedataadmin',
-				menuItems: [
+				menuCode: 'docadmin',
+				router: 'docadmin',
+				menuItems: [	 
 					{
-						primaryText: '参数配置',
-						menuCode: 'oa_param_set',
-						router: 'oa_sysparamadmin',
-						originUrl: '/krspace_oa_web/sys/sysParam/toSysParamList?mid=30'
+						primaryText: '文件类型',
+						menuCode: 'docFiletypeAdmin',
+						router: 'docFiletypeAdmin',
+						originUrl: '/krspace_knowledge_web/doc/docFiletype/toDocFiletypeList?mid=56'
 					}, 
 					{
-						primaryText: '职务类型',
-						menuCode: 'oa_dictjob_type',
-						router: 'dictJobType',
-						originUrl: '/krspace_oa_web/dict/dictJobType/toDictJobTypeList?mid=38'
-					}, 
+						primaryText: '文件范围',
+						menuCode: 'docFileRangeAdmin',
+						router: 'docFileRangeAdmin',
+						originUrl: '/krspace_knowledge_web/doc/docFileRange/toDocFileRangeList?mid=57'
+					},
 					{
-						primaryText: '职务管理',
-						menuCode: 'oa_dictjob_list',
-						router: 'dictJob',
-						originUrl: '/krspace_oa_web/dict/dictJob/toDictJobList?mid=37'
-					}, 
-					{
-						primaryText: '职级管理',
-						menuCode: 'oa_dictjoblevellist',
-						router: 'dictJobLevel',
-						originUrl: '/krspace_oa_web/dict/dictJobLevel/toEDictJobLevelList?mid=39'
+						primaryText: '文档设置',
+						menuCode: 'docFileAdmin',
+						router: 'docFileAdmin',
+						originUrl: '/krspace_knowledge_web/doc/docFile/toDocTypeList?mid=67'
 					},
 
 				]
-			}*/]
-
+			  } 
+			]
 	}
 ]
