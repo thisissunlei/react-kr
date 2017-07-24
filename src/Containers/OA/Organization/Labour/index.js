@@ -105,7 +105,15 @@ export default class Labour extends React.Component {
 
 		this.getTreeData();
 	}
+	getExaList=()=>{
+		var _this = this;
 
+		Http.request('extra-list', {
+			dimId: _this.state.searchParams.dimId
+		}).then(function (response) {
+			_this.setState({ dimData: response.items })
+		}).catch(function (err) { });
+	}
 	//获取维度信息
 	getDimensionalityDetail = () => {
 
@@ -343,6 +351,7 @@ export default class Labour extends React.Component {
 				dimId: dimId,
 			},
 		}, function () {
+			_this.getExaList();
 			window.location.href = `./#/oa/organization/${dimId}/labour`;		
 			_this.reloadDim();
 		})
