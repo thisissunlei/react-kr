@@ -124,10 +124,10 @@ export default class PostType extends Component{
 							pageSize:15
 						}  
 					})
+					_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
-		this.openAddPost();
 	}
 	
 	//编辑职务类型关闭
@@ -149,10 +149,11 @@ export default class PostType extends Component{
 							name:_this.state.searchParams.name?_this.state.searchParams.name:""
 						}  
 					})
+					_this.openEditPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
-		this.openEditPost();
+		
 	}
 
 
@@ -183,10 +184,10 @@ export default class PostType extends Component{
 							pageSize:15
 						}  
 					})
+			_this.cancelDelete();
         }).catch(function(err) {
           Message.error(err.message);
         });
-		this.cancelDelete();
    }
 
    pageChange=(page)=>{

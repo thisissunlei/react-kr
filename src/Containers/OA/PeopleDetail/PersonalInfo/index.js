@@ -176,10 +176,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:params.resourceId
 			   }
 		   })
+		    _this.addFamily();
        }).catch(function(err) {
           Message.error(err.message);
         });
-	   this.addFamily();
    }
    
    //编辑家庭提交
@@ -194,10 +194,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:params.resourceId
 			   }
 		   })
+		   _this.EditFamily();
        }).catch(function(err) {
           Message.error(err.message);
         });
-	  this.EditFamily();
    }
 
   //编辑家庭人员开关
@@ -227,10 +227,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:params.resourceId
 			   }
 		   })
+		   _this.addWork();
        }).catch(function(err) {
           Message.error(err.message);
        });
-	   this.addWork();
    }
 
    //编辑工作经历提交
@@ -247,10 +247,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:params.resourceId
 			   }
 		   })
+		    _this.editWork();
        }).catch(function(err) {
           Message.error(err.message);
         });
-	  this.editWork();
    }
 
    //编辑工作开关
@@ -280,10 +280,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:personId
 			   }
 		   })
+		   _this.cancelDelete();
        }).catch(function(err) {
           Message.error(err.message);
        });
-	   this.cancelDelete();
    }
   
    //关闭删除工作
@@ -305,10 +305,10 @@ export default class PersonalInfo  extends React.Component{
 				   resourceId:personId
 			   }
 		   })
+		   _this.cancelDelWork();
        }).catch(function(err) {
           Message.error(err.message);
        });
-	   this.cancelDelWork();
    }
   
   //关闭所有

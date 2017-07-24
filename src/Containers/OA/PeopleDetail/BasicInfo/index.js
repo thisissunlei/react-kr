@@ -70,10 +70,10 @@ export default class BasicInfo  extends React.Component{
 	   var _this=this;
        Http.request('people-basic-edit',{},subParams).then(function(response) {
            _this.basicData(params.id);
+		   _this.cancelEdit();
         }).catch(function(err) {
           Message.error(err.message);
         });
-	    this.cancelEdit();
 	}
     
 	//关闭所有

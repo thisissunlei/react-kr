@@ -81,10 +81,10 @@ export default class InService  extends React.Component{
 		_this.setState({
 			searchParams:Object.assign({},_this.state.searchParams,searchParams)
 		})
+		_this.openAddPersonal();
 	}).catch(function (err) {
 		Message.error(err.message);
 	});
-	this.openAddPersonal();
    }
    
    //操作开关
@@ -152,10 +152,10 @@ export default class InService  extends React.Component{
 		_this.setState({
 			searchParams:Object.assign({},_this.state.searchParams,searchParams)
 		})
+		_this.cancelLeave();
 	}).catch(function (err) {
 		Message.error(err.message);
 	});
-	 this.cancelLeave();
    }
   
   //解除关闭
@@ -178,11 +178,10 @@ export default class InService  extends React.Component{
 			_this.setState({
                searchParams:Object.assign({},_this.state.searchParams,searchParams)
 		    })
+			_this.cancelRemove();
         }).catch(function (err) {
             Message.error(err.message);
         });
-		_this.cancelRemove();
-
    }
 
    //开通关闭
@@ -205,11 +204,10 @@ export default class InService  extends React.Component{
 			_this.setState({
                searchParams:Object.assign({},_this.state.searchParams,searchParams)
 		    })
+			_this.cancelAccount();
         }).catch(function (err) {
             Message.error(err.message);
         });
-        _this.cancelAccount();
-	
    }
    
    
