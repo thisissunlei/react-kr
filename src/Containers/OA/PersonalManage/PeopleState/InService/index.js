@@ -222,10 +222,9 @@ export default class InService  extends React.Component{
   
    //调动提交
    addTransferSubmit=(data)=>{
-	   console.log(data,">>>>>>>>>>>")
 		var param = Object.assign({},data);
 		var _this = this;
-		Http.request("service-switchgit",{},param).then(function (response) {
+		Http.request("service-switch",{},param).then(function (response) {
 			_this.cancelTransfer()
 		}).catch(function (err) {
 			Message.error(err.message);
