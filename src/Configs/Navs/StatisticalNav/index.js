@@ -19,6 +19,11 @@ module.exports = [
 					router: '/statistical/agingaccount',
 					menuCode: 'finance_explan',
 				},
+				{
+					primaryText: "客户分析",
+					router: '/statistical/dataReport',
+					menuCode: 'stat_csr_sourceStat_base',
+				},
 			]
 		},
 		]

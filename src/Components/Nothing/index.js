@@ -14,7 +14,7 @@ export default class TableHeaderColumn extends React.Component {
 	render() {
         const {style} = this.props;
 		return (
-			<div  className="ui-nothing" style = {style}>
+			<div  className="ui-nothing" style = {style||{}}>
 				<div className="icon"></div>
 				<p className="tip">暂时还没有数据呦~</p>
 			</div>
