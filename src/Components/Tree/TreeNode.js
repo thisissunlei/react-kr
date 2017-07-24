@@ -6,7 +6,7 @@ import Animate from 'rc-animate';
 import { browser } from './util';
 import toArray from 'rc-util/lib/Children/toArray';
 import './assets/index.less'
-var IconType = ["ROOT","DEPARTMENT","SUBCOMPANY"];
+var IconType = ["ROOT","DEPARTMENT","SUBCOMPANY","NONE"];
 const browserUa = typeof window !== 'undefined' ? browser(window.navigator) : '';
 const ieOrEdge = /.*(IE|Edge).+/.test(browserUa);
 // const uaArray = browserUa.split(' ');
@@ -247,7 +247,7 @@ class TreeNode extends React.Component {
       if(allTypes[0]=="department"){
           for(let i=0;i<IconType.length;i++){
             if(props.itemData.treeType == IconType[i]){
-              // console.log()
+              
                 typeText = IconType[i]+"_"+iconState;
                 break;
             }
@@ -298,7 +298,7 @@ class TreeNode extends React.Component {
     };
 
     const selectHandle = () => {
-      var showIcon = !props.itemData.children.length?"none":"inline-block";
+      var showIcon = props.itemData.treeType == "NONE"?"none":"inline-block";
       /*==========icon修改的位置(this.props.itemData)获取位置的数据===========*/
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span
@@ -312,7 +312,7 @@ class TreeNode extends React.Component {
           style = {{display:showIcon}}
 
         ></span> : null;
-      const title = <span
+       const title = <span
                       className={`${prefixCls}-title`}
                       onClick = {(e)=>{
                          this.onExpand(e);
@@ -325,8 +325,8 @@ class TreeNode extends React.Component {
                        
                       }}
                     >
-                        {content}
-                    </span>;
+                      {content}
+                   </span>;
       const wrap = `${prefixCls}-node-content-wrapper`;
       const domProps = {
         className: `${wrap} ${wrap}-${iconState === expandedState ? iconState : 'normal'}`,
