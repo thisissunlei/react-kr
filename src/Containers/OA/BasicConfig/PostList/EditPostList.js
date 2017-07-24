@@ -110,7 +110,7 @@ class EditPostList  extends React.Component{
                             requireLabel={true}
                             options={subCompany}
 						/>
-                         { isType || editDetail.typeId   && <KrField
+                         { (isType || editDetail.typeId)  && <KrField
                             grid={1}
                             style={{width:262,display:'block'}}
                             name="typeId"
@@ -156,6 +156,10 @@ const validate = values =>{
 
     if(!values.typeId){
         errors.typeId='请选择职务类型名称';  
+    }
+
+    if(!values.subId){
+        errors.subId='请选择分部';
     }
 
     if(!values.orderNum){

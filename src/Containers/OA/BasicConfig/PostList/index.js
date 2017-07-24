@@ -128,6 +128,8 @@ export default class PostList extends Component{
 	//编辑确定
 	editSubmit = (params) =>{
          var _this=this;
+		  delete params.cTime;
+		  delete params.uTime;
 			Http.request('post-list-edit',{},params).then(function(response) {
 				_this.setState({
 					searchParams:{
@@ -294,7 +296,7 @@ export default class PostList extends Component{
 				title="编辑职务"
 				onClose={this.editSwidth}
 				open={openEdit}
-				contentStyle ={{ width: '630px',height:'630px'}}
+				contentStyle ={{ width: '630px',height:'auto'}}
 			>
 				<EditPostList
 					onCancel={this.editSwidth}
