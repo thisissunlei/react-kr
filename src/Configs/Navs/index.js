@@ -16,6 +16,8 @@ import OANav from './OANav';
 import PermissionNav from './PermissionNav';
 //综合办公
 import OtherNav from './OtherNav';
+//行政管理
+import AdministrationNav from './AdministrationNav';
 
 // import StatisticalNav from './StatisticalNav';
 // import CommunityNav from './CommunityNav';
@@ -25,7 +27,7 @@ import OtherNav from './OtherNav';
 // import PowerNav from './PowerNav';
 // import WebBackstageNav from './WebBackstageNav';
 
-const NavItems = [].concat(HomeNav,OperationNav,FinanceNav,OANav,OtherNav,PermissionNav);
+const NavItems = [].concat(HomeNav,OperationNav,FinanceNav,OANav,OtherNav,PermissionNav,AdministrationNav);
 
 module.exports = {
     current_parent: '',
