@@ -19,7 +19,7 @@ import PermissionNav from './PermissionNav';
 
 import OtherNav from './OtherNav';
 
-const NavItems = [].concat(HomeNav,StatisticalNav,CommunityNav,OperationNav,MemberNav,FinanceNav,RetailNav,OANav,KnowledgeNav,PowerNav,WebBackstageNav,OtherNav,PermissionNav);
+const NavItems = [].concat(HomeNav,OperationNav,FinanceNav,RetailNav,OANav,KnowledgeNav,PowerNav,OtherNav,PermissionNav);
 
 module.exports = {
     current_parent: '',
