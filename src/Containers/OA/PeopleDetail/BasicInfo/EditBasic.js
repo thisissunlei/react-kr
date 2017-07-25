@@ -5,7 +5,8 @@ import {
     Col,
     Row,
     ButtonGroup,
-    Button
+    Button,
+    Message
 } from 'kr-ui';
 import {reduxForm,change,formValueSelector}  from 'redux-form';
 import {Store,connect} from 'kr/Redux';
@@ -22,6 +23,13 @@ class EditPerson  extends React.Component{
             rankList:[],
             positionType:[],
             isPositionRank:false,
+            //选择部门
+            isDepSelect:true,
+
+            basicInfo:{
+
+            }
+
         }
 
         let {basicInfo} = this.props;
@@ -35,8 +43,10 @@ class EditPerson  extends React.Component{
 	}
 
     componentDidMount(){
-        Store.dispatch(change('AddPerson','sex','MALE'))
-        
+      let {basicInfo}=this.props;
+      this.setState({
+          basicInfo
+      })
     }
 
     onSubmit=(values)=>{
@@ -48,7 +58,6 @@ class EditPerson  extends React.Component{
         params.leader = values.leader.orgId || basicInfo.leader||"";
         params.treeType = values.leader.treeType||"";
         params.levelId = values.levelId.value|| basicInfo.levelId||"";
-        console.log(params,"OOOOOOOOO")
     
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
@@ -60,19 +69,31 @@ class EditPerson  extends React.Component{
     }
     onChange = (data) =>{
         this.getPositionType(data);
+        Store.dispatch(change('editPerson','typeId',' '));
+        this.setState({
+            isDepSelect:false
+        })
     }
     positionTypeChange = (data) =>{
-        this.getPrepareData(data)
+        let {basicInfo}=this.state;
+        basicInfo.jobName='请选择';
+        basicInfo.levelName='请选择';
+        this.getPrepareData(data);
+        this.setState({
+            isDepSelect:true,
+            basicInfo
+        })
+        Store.dispatch(change('editPerson','jobId',' '));  
+        Store.dispatch(change('editPerson','levelId',' ')); 
     }
     getPositionType = (param) =>{
         var that = this;
         Http.request('get-position-type-list',{orgType:param.treeType,orgId:param.orgId}).then(function(response) {
              that.setState({
-                 positionType:response.jobTypes,
-                 
+                 positionType:response.jobTypes,   
              })
         }).catch(function(err) {
-
+            Message.error(err.message);
         });
     }
     getPrepareData = (param) =>{
@@ -84,7 +105,7 @@ class EditPerson  extends React.Component{
                  isPositionRank:true
              })
         }).catch(function(err) {
-
+            Message.error(err.message);
         });
 
 
@@ -98,8 +119,9 @@ class EditPerson  extends React.Component{
     }
 	render(){
 
-        let {handleSubmit,basicInfo}=this.props;
-        let {rankList,positionList,isPositionRank,positionType} = this.state;
+        let {handleSubmit}=this.props;
+        let {rankList,positionList,isPositionRank,positionType,isDepSelect,basicInfo} = this.state;
+        
       
 		return(
 
@@ -179,31 +201,30 @@ class EditPerson  extends React.Component{
                             style={{width:262,marginLeft:28}}
                             name="typeId"
                             component="select"
-                            label="职务类型"
-                            
+                            label="职务类型"   
                             onChange = {this.positionTypeChange}
                             options = {positionType}
                             requireLabel={true}
                         />}
 
-                        {(isPositionRank ||basicInfo.jobName) &&<KrField
+                        {(isPositionRank ||basicInfo.jobName)&&isDepSelect &&<KrField
                             grid={1/2}
                             style={{width:262}}
                             name="jobId"
                             letfData={positionList}
                             component="switchSlide"
                             label="职务"
-                             valueText = {basicInfo.jobName}
+                            valueText = {basicInfo.jobName}
                             control='single'
                             requireLabel={true}
                         />}
-                         {(isPositionRank||basicInfo.levelName) && <KrField
+                         {(isPositionRank||basicInfo.levelName)&&isDepSelect&& <KrField
                             grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="levelId"
                             letfData={rankList}
                             component="switchSlide"
-                             valueText = {basicInfo.levelName}
+                            valueText = {basicInfo.levelName}
                             label="职级"
                             control='single'
                             requireLabel={true}
@@ -325,7 +346,6 @@ EditPerson = reduxForm({
 export default connect((state) => {
 
 	let changeValues = {};
-    // console.ls
 
 	changeValues.depId = selector(state, 'depId');
 	
