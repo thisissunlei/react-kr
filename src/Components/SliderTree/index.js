@@ -25,14 +25,13 @@ export default class SliderTree extends React.Component {
 			treeData: [],
 			inputValue: '',
 			expandedKeys: ['0-0'],
-			autoExpandParent: true,
 			visible: false,
 			update:this.props.update
 		}
 
 		this.params = {};
 		this.onlyKey = 0;
-
+		this.autoExpandParent = true;
 		this.filterKeys = [];
 
 	}
@@ -66,9 +65,10 @@ export default class SliderTree extends React.Component {
 	}
 	onExpand = (expandedKeys) => {
 		 this.filterKeys = [];
+		 this.autoExpandParent = false;
 		 this.setState({
 		 	expandedKeys,
-		 	autoExpandParent: false,
+		 	
 		 });
 	}
 	componentWillReceiveProps(nextProps){
@@ -125,13 +125,12 @@ export default class SliderTree extends React.Component {
 		};
 
 		let expandedKeys = this.state.expandedKeys;
-		let autoExpandParent = this.state.autoExpandParent;
-
+		
 		var filterKeys = this.filterKeys;
 		if (filterKeys && filterKeys.length) {
 
 			expandedKeys = this.filterKeys;
-			autoExpandParent = true;
+			this.autoExpandParent = true;
 		}
 
 		
@@ -147,7 +146,7 @@ export default class SliderTree extends React.Component {
 					defaultExpandAll={true}
 					defaultExpandedKeys={['0-0']}
 					expandedKeys={expandedKeys}
-					autoExpandParent={autoExpandParent}
+					autoExpandParent={this.autoExpandParent}
 					filterTreeNode={this.filterTreeNode}
 				>
 					{treeNodes}

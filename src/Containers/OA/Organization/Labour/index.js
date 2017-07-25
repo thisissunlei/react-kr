@@ -380,6 +380,8 @@ export default class Labour extends React.Component {
 			</span>
 		)
 	}
+
+	//========****************=========
 	change = (event) => {
 		this.setState({
 			searchKey: event.target.value || ' ',
@@ -431,8 +433,7 @@ export default class Labour extends React.Component {
 	}
 
 	render() {
-		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
-		//console.log(this.props.params.dimId);		
+		let { itemDetail, data, dimId, styleBool,dataName} = this.state;	
 		var logFlag = '';
 		var style = {};
 		return (
