@@ -154,6 +154,7 @@ class EditPerson  extends React.Component{
                             name="leader"
                             component="selectTree"
                             label="直接上级"
+                            treeType = "personnel"
                             ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
                             valueText = {basicInfo.leaderName}
@@ -165,6 +166,7 @@ class EditPerson  extends React.Component{
                             name="depId"
                             component="selectTree"
                             label="部门"
+                            treeType = "department"
                             onChange = {this.onChange}
                             valueText = {basicInfo.depName}
                             ajaxUrlName = "get-department-tree"

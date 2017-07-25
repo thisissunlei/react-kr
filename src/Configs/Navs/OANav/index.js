@@ -2,23 +2,35 @@
 module.exports = [
 
 	{
-		primaryText: "OA办公",
-		//menuCode: 'oa',
+		primaryText: "人事管理",
 		router: 'oa',
-		//originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45',
 		originUrl: '#/oa/organization/home',
 		menuItems: [
 			{
-				primaryText: '组织架构',
+				primaryText: '人事主页',
 				iconName: 'icon-schema',
 				iconColor: '#79859a',
-				menuCode: 'hrmOrganization',
+				menuCode: '',
+				menuItems: [
+					
+				]	
+			}, 
+			{
+				primaryText: '人事资料',
+				iconName: 'icon-schema',
+				iconColor: '#79859a',
+				menuCode: '',
 				menuItems: [
 					{
-						primaryText: '机构维度',
-						menuCode: 'dim_list',
-						router: '/oa/organization/home',
-					}
+						primaryText: '我的卡片',
+						menuCode: '',
+						router: '',
+					},
+					{
+						primaryText: '我的同事',
+						menuCode: '',
+						router: '',
+					},
 				]	
 			}, 
 			{
@@ -35,6 +47,7 @@ module.exports = [
 					}
 				]
 			}, 
+			
 			{
 				primaryText: '基础配置',
 				iconName: 'icon-basis',
@@ -42,10 +55,9 @@ module.exports = [
 				iconColor: '#79859a',
 				menuItems: [
 					{
-						primaryText: '参数配置',
-						menuCode: 'oa_param_set',
-						router: 'sysparamadmin',
-						originUrl: '/krspace_oa_web/sys/sysParam/toSysParamList?mid=50'
+						primaryText: '机构设置',
+						menuCode: 'dim_list',
+						router: '/oa/organization/home',
 					},
 					{
 						primaryText: '职务类型',
@@ -63,40 +75,13 @@ module.exports = [
 						router: '/oa/basicConfig/rankList',
 					},
 					{
-						primaryText: '来源系统',
-						menuCode: 'doc_source',
-						router: 'docSourceServiceAdmin',
-						originUrl: '/krspace_oa_web/doc/docSourceService/toDocSourceServiceList?mid=59'
+						primaryText: '机构分权',
+						menuCode: '',
+						router: '',
 					}
 				]
 			},
-			{
-				primaryText: '文档管理',
-				iconName: 'icon-file',
-				iconColor: '#79859a',
-				menuCode: 'docadmin',
-				router: 'docadmin',
-				menuItems: [	 
-					{
-						primaryText: '文件类型',
-						menuCode: 'oa_docfile_type',
-						router: 'docFiletypeAdmin',
-						originUrl: '/krspace_oa_web/doc/docFiletype/toDocFiletypeList?mid=56'
-					}, 
-					{
-						primaryText: '文件范围',
-						menuCode: 'oa_docfilerange',
-						router: 'docFileRangeAdmin',
-						originUrl: '/krspace_oa_web/doc/docFileRange/toDocFileRangeList?mid=57'
-					},
-					{
-						primaryText: '文档设置',
-						menuCode: 'oa_doctype',
-						router: 'docFileAdmin',
-						originUrl: '/krspace_oa_web/doc/docFile/toDocTypeList?mid=67'
-					},
-				 ]
-			  } 
+			
 			]
 	}
 ]
