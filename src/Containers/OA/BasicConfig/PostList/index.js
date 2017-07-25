@@ -283,7 +283,7 @@ export default class PostList extends Component{
 				title="新增职务"
 				onClose={this.newSwidth}
 				open={openNew}
-				contentStyle ={{ width: '640px',height:'auto'}}
+				contentStyle ={{ width: '666px',height:'auto'}}
 			>
 				<AddPostList
 					onCancel={this.newSwidth}
@@ -296,7 +296,7 @@ export default class PostList extends Component{
 				title="编辑职务"
 				onClose={this.editSwidth}
 				open={openEdit}
-				contentStyle ={{ width: '640px',height:'auto'}}
+				contentStyle ={{ width: '666px',height:'auto'}}
 			>
 				<EditPostList
 					onCancel={this.editSwidth}

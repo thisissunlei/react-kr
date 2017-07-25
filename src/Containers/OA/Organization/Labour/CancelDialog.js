@@ -61,7 +61,7 @@ export default class CancelDialog extends Component {
 				<div className="u-delete-title">
 					确定要封存吗？
 				</div>
-				<Row style={{marginBottom:15}}>
+				<Row style={{marginBottom:5}}>
 				<Col md={12} align="center">
 					<ButtonGroup>
 						<div  className='ui-btn-center'><Button  label="确定" type="button"   onTouchTap={this.onSubmit} height={34} width={90}/></div>

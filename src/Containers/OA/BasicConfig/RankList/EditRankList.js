@@ -78,7 +78,7 @@ class EditRankList  extends React.Component{
                             
 						/>
                          <KrField grid={1/2}
-                            style={{width:262,marginLeft:20}}
+                            style={{width:262,marginLeft:34}}
                             name="subId"
                             component="select"
                             label="分部"
@@ -96,21 +96,21 @@ class EditRankList  extends React.Component{
 						/>}
 
                         <KrField grid={1/2}
-                            style={(isType || editDetail.subId )?{width:262,marginLeft:20}:{width:262}}
+                            style={(isType || editDetail.subId )?{width:262,marginLeft:34}:{width:262}}
                             name="level"
                             component="input"
                             label="等级"
                             requireLabel={true}
 						/>
-                         <KrField style={(isType || editDetail.subId )?{width:262}:{width:262,marginLeft:20}} name="enabled" component="group" label="职级状态" requireLabel={true}>
+                         <KrField style={(isType || editDetail.subId )?{width:262}:{width:262,marginLeft:34}} name="enabled" component="group" label="职级状态" requireLabel={true}>
  							 <KrField name="enabled" label="启用" type="radio" value='true' />
  							 <KrField name="enabled" label="停用" type="radio" value='false' />
  						</KrField>
 
-                        <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'536px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+                        <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'550px'}}  component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='list-len-textarea'/>
 
                         
-                       <Grid style={{marginBottom:5,marginLeft:-50}}>
+                       <Grid style={{marginBottom:5,marginLeft:-25}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
