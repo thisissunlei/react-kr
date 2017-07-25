@@ -149,7 +149,7 @@ export default class Labour extends React.Component {
 	Http.request("submit-new-personnel",{},data).then(function (response) {
 		_this.openAddPerson();
 		_this.changeP();
-		Message.succuess("新建成功");
+		Message.success("新建成功");
 		_this.changeP();
 	}).catch(function (err) {
 		Message.error(err.message);

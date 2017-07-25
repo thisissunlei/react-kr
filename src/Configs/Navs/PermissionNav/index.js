@@ -1,9 +1,17 @@
 module.exports = [
 
 	{
-		primaryText: "单点系统",
+		primaryText: "基础管理",
 		router: 'permission',
 		menuItems: [
+			{
+				primaryText: "基础主页",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: '',
+				menuItems: [
+				]
+			},
 			{
 				primaryText: "账户管理",
 				iconName: 'icon-wendang',
@@ -68,18 +76,35 @@ module.exports = [
 				router: 'permission/systemManage',
 				menuItems: [
 					{
-					primaryText: 'APP版本管理',
+					primaryText: 'APP版本',
 					router: '/permission/systemManage/appLoginLogs',
 					menuCode: 'sso_appVersion_base',
 				},
 				{
-					primaryText: 'PC版本管理',
+					primaryText: 'PC版本',
 					router: '/permission/systemManage/update-log',
 					menuCode: 'op_ver',
 				},
 				]
 			},
-
+			{
+				primaryText: "流程管理",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: '',
+				menuItems: [
+					{
+					primaryText: '流程类型',
+					router: '',
+					menuCode: '',
+				},
+				{
+					primaryText: '流程列表',
+					router: '',
+					menuCode: '',
+				},
+				]
+			},
 
 
 		]

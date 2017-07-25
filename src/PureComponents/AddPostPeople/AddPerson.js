@@ -22,7 +22,9 @@ class AddPerson  extends React.Component{
             rankList:[],
             positionType:[],
             isPositionRank:false,
+          
         }
+        this.isDimId = false;
 	}
     
 
@@ -52,6 +54,15 @@ class AddPerson  extends React.Component{
     }
     positionTypeChange = (data) =>{
         this.getPrepareData(data)
+    }
+    componentWillReceiveProps(nextProps) {
+        if(!this.isDimId && nextProps.dimId){
+            this.setState({
+                dimId:nextProps.dimId,
+            })
+            this.isDimId = true;
+        }
+        
     }
     getPositionType = (param) =>{
         var that = this;
@@ -93,8 +104,10 @@ class AddPerson  extends React.Component{
                 positionList,
                 isPositionRank,
                 positionType,
+                dimId
+
             } = this.state;
-       console.log(this.props.dimId,"111111-----")
+           
 		return(
 
 			<div className='m-addPerson'>
@@ -150,7 +163,7 @@ class AddPerson  extends React.Component{
                             label="直接上级"
                             treeType = "personnel"
                             ajaxUrlName = "get-personnel-tree"
-                            params = {{dimId:this.props.dimId||''}}
+                            params = {{dimId:dimId||''}}
                             requireLabel={true}
                         />
 
@@ -161,7 +174,7 @@ class AddPerson  extends React.Component{
                             component="selectTree"
                             label="部门"
                             treeType = "department"
-                            params = {{dimId:this.props.dimId||''}}
+                            params = {{dimId:dimId||''}}
                             onChange = {this.onChange}
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}

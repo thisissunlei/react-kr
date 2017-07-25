@@ -11,7 +11,6 @@ export default class AddPostPeople  extends React.Component{
 	}
 	
 	render(){
-		console.log(this.props.dimId,"000000000-----")
 
 		return(
 

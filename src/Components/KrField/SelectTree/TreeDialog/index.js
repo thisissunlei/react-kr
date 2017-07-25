@@ -57,10 +57,10 @@ export default class TreeDialog extends React.Component{
 	getTreeData = () => {
 
 		let { ajaxUrlName,params} = this.props;
-		
+		let paramsData = Object.assign({},params);
 		const _this = this;
-		Http.request(ajaxUrlName,params).then(function (response) {
-
+		Http.request(ajaxUrlName,paramsData).then(function (response) {
+			
 			_this.setState({
 				treeData:response.items
 			})
@@ -90,6 +90,9 @@ export default class TreeDialog extends React.Component{
 		})
 	}
 	listRender = () =>{
+		
+
+		
 		const {detail} = this.state;
 		return <div className = "everyHave">
 					{detail && detail.orgName}
@@ -119,7 +122,7 @@ export default class TreeDialog extends React.Component{
 								onSelect = {this.onSelect}  
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
-								treeData = {this.state.treeData}
+								treeData = {this.state.treeData||[]}
 							/>
 						</div>
 					</div>

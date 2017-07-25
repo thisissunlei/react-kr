@@ -2,7 +2,7 @@ import React from 'react';
 
 import WrapComponent from '../WrapComponent';
 import Input from '../../Input';
-
+import Message from '../../Message'
 import {stopSubmit,submit,blur,stopAsyncValidation,touch} from 'redux-form';
 
 import './index.less';
@@ -28,7 +28,7 @@ export default class SelectTree extends React.Component{
 				orgName:"请选择"
 			},
 			oneOpen:true,
-			other:''
+			other:'',
 		}
 	}
 
@@ -60,7 +60,15 @@ export default class SelectTree extends React.Component{
 	}
 
 	onSubmit = (data) =>{
+		let {treeType} = this.props;
 		if( data.orgName == "" ){
+			if(treeType == "department"){
+				Message.error("请选择职务");
+			}else{
+				Message.error("请选择人员");
+			}
+			
+			
 			return ;
 		}
 		let {input,onChange} = this.props;
