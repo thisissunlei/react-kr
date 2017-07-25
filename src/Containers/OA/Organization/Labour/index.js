@@ -76,10 +76,14 @@ export default class Labour extends React.Component {
 			dimId: this.props.params.dimId,
 			dimName: '',
 			styleBool: false,
-			dataName:{},
+			dataName:{
+				orgName:'36Kr',
+				status:'0'
+			},
 			selectStyle: {
 				'display': 'none'
 			},
+			dimIdStatus:'0',
 		}
 	}
 	checkTab = (item) => {
@@ -90,6 +94,7 @@ export default class Labour extends React.Component {
 	componentDidMount() {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
+		console.log("进入~··");
 		var dimId = this.props.params.dimId;
 		var _this = this;
 		
@@ -112,6 +117,14 @@ export default class Labour extends React.Component {
 			dimId: _this.state.searchParams.dimId
 		}).then(function (response) {
 			_this.setState({ dimData: response.items })
+		}).catch(function (err) { });
+	}
+	getMainDimId=()=>{
+		const that = this;
+		const { searchParams } = this.state;
+		const id = searchParams.dimId;
+		Http.request('is-main-dim', {dimId:dimId}).then(function (response) {
+			that.setState({dimIdStatus: response.items.isMain})
 		}).catch(function (err) { });
 	}
 	//获取维度信息
@@ -203,6 +216,7 @@ export default class Labour extends React.Component {
 		Http.request('org-detail', searchParams).then(function (response) {
 			const dataName = {};
 			dataName.orgName = response.orgName;
+			dataName.status = response.status;
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -314,17 +328,13 @@ export default class Labour extends React.Component {
 		})
 	}
 	onSelect = (data) => {
-
+		var _this = this;
 		this.setState({
 			data:{
 				orgId: data.orgId,
 				orgType: data.treeType,
 				dimId:this.props.params.dimId
 			},
-			dataName:{
-				orgName:data.orgName,
-			},
-			
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -332,6 +342,8 @@ export default class Labour extends React.Component {
 				orgType: data.treeType,
 				dimId:this.props.params.dimId
 			}
+		},function(){
+			_this.getOrganizationDetail();
 		});
 
 	}
@@ -357,6 +369,7 @@ export default class Labour extends React.Component {
 			window.location.href = `./#/oa/organization/${dimId}/labour`;		
 			_this.reloadDim();
 			_this.getTreeData();
+			_this.getMainDimId();
 		})
 
 	}
@@ -382,8 +395,13 @@ export default class Labour extends React.Component {
 		)
 	}
 	change = (event) => {
+		
 		this.setState({
 			searchKey: event.target.value || ' ',
+		},function(){
+			console.log(this.state.searchKey);
+			//this.refs.searchKey.click();
+			//this.refs.searchKey.focus();
 		})
 	}
 	clickSelect = () => {
@@ -455,7 +473,7 @@ export default class Labour extends React.Component {
 
 					</div>
 					<div className="search">
-						<input type="text" onChange={this.change} placeholder="输入机构名称" />
+						<input type="text" onChange={this.change} placeholder="输入机构名称" ref="searchKey"/>
 						<span className="searching">
 
 						</span>
@@ -607,7 +625,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} />
+										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} />}
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
@@ -727,7 +745,6 @@ export default class Labour extends React.Component {
 					onSubmit={this.addPersonSubmit}
 					open={this.state.openAddPerson} 
 					onClose={this.allClose}  
-					dimId={this.state.searchParams.dimId}
 					departMent={this.state.dataName.orgName}
 				/>
 			</div>
