@@ -203,6 +203,7 @@ export default class Labour extends React.Component {
 		Http.request('org-detail', searchParams).then(function (response) {
 			const dataName = {};
 			dataName.orgName = response.orgName;
+			dataName.status = response.status;
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -314,17 +315,13 @@ export default class Labour extends React.Component {
 		})
 	}
 	onSelect = (data) => {
-
+		var _this = this;
 		this.setState({
 			data:{
 				orgId: data.orgId,
 				orgType: data.treeType,
 				dimId:this.props.params.dimId
 			},
-			dataName:{
-				orgName:data.orgName,
-			},
-			
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -332,6 +329,8 @@ export default class Labour extends React.Component {
 				orgType: data.treeType,
 				dimId:this.props.params.dimId
 			}
+		},function(){
+			_this.getOrganizationDetail();
 		});
 
 	}
@@ -526,7 +525,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14} />
+										{this.state.dataName.status==1?'':<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14} />}
 									</Col>
 									<Col md={8} align="right">
 
@@ -643,7 +642,7 @@ export default class Labour extends React.Component {
 										<TableRowColumn name="email"></TableRowColumn>
 										<TableRowColumn type="date" name="entryTime" component={(value) => {
 											return (
-												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
+												<KrDate value={value} format="yyyy-mm-dd" />
 											)
 										}}> </TableRowColumn>
 										<TableRowColumn name="status"
