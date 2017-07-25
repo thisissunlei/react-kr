@@ -83,7 +83,7 @@ export default class Viewdialog extends React.Component {
                 />
                 
                 <KrField
-                    style={{width:262,marginRight:28}}
+                    style={{width:262,marginRight:28,marginTop:6}}
                     component="labelText"
                     label="管理员"
                     grid={1/2}

@@ -32,7 +32,7 @@ class EditFamily  extends React.Component{
 
 		return(
 
-			<div className='m-person'>
+			<div className='m-person m-person-family'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
                             <div><span className="new-icon"></span><label className="title-text">编辑家庭成员</label></div>

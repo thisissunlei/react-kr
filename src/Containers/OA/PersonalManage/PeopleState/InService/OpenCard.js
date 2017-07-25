@@ -40,6 +40,7 @@ class OpenCard extends React.Component{
         form.cardId = cardInfo.cardId||"";
         form.ssoId = cardInfo.ssoId;
         form.mobilePhone = employees.mobilePhone;
+        form.isBound=cardInfo.isBound;
         onSubmit && onSubmit(form);
     }
 
@@ -114,6 +115,10 @@ class OpenCard extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+
+    if(!values.cardNo){
+      errors.cardNo='请填写会员卡号'; 
+    }
     
 	return errors
 }

@@ -63,9 +63,9 @@ export default class SelectTree extends React.Component{
 		let {treeType} = this.props;
 		if( data.orgName == "" ){
 			if(treeType == "department"){
-				Message.error("请选择职务");
+				Message.error("请选择部门");
 			}else{
-				Message.error("请选择人员");
+				Message.error("请选择直接上级");
 			}
 			
 			
@@ -129,7 +129,6 @@ export default class SelectTree extends React.Component{
             simple,
             heightStyle,
             autoFocus,
-			params,
             ...other
         } = this.props;
 
@@ -177,7 +176,7 @@ export default class SelectTree extends React.Component{
 
         dialogTitle = "选择" + dialogTitle;
 
-		console.log(this.props.params,"222222-----")
+		
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
@@ -192,7 +191,7 @@ export default class SelectTree extends React.Component{
 					open={isDialog}
 					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
-					<TreeDialog  params = {params}  treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<TreeDialog  treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>
 				</div>
 			 </WrapComponent>

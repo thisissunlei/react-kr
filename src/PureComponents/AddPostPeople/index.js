@@ -24,7 +24,7 @@ export default class AddPostPeople  extends React.Component{
 							onClose={this.props.onClose}
 					 >
 						<AddPerson
-						   dimId={this.props.dimId||""}
+						  
 			               onCancel={this.props.onCancel}
 						   onSubmit={this.props.onSubmit}   
 						/>

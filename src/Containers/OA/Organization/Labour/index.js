@@ -394,6 +394,8 @@ export default class Labour extends React.Component {
 			</span>
 		)
 	}
+
+	//========****************=========
 	change = (event) => {
 		
 		this.setState({
@@ -450,8 +452,7 @@ export default class Labour extends React.Component {
 	}
 
 	render() {
-		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
-		//console.log(this.props.params.dimId);		
+		let { itemDetail, data, dimId, styleBool,dataName} = this.state;	
 		var logFlag = '';
 		var style = {};
 		return (
@@ -661,7 +662,7 @@ export default class Labour extends React.Component {
 										<TableRowColumn name="email"></TableRowColumn>
 										<TableRowColumn type="date" name="entryTime" component={(value) => {
 											return (
-												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
+												<KrDate value={value} format="yyyy-mm-dd" />
 											)
 										}}> </TableRowColumn>
 										<TableRowColumn name="status"

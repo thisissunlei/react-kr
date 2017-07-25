@@ -56,10 +56,9 @@ export default class TreeDialog extends React.Component{
 	}
 	getTreeData = () => {
 
-		let { ajaxUrlName,params} = this.props;
-		let paramsData = Object.assign({},params);
+		let { ajaxUrlName} = this.props;
 		const _this = this;
-		Http.request(ajaxUrlName,paramsData).then(function (response) {
+		Http.request(ajaxUrlName).then(function (response) {
 			
 			_this.setState({
 				treeData:response.items
