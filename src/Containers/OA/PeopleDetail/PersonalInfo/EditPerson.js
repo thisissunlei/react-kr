@@ -317,6 +317,14 @@ const validate = values =>{
        errors.emergencyPhone='请填写正确紧急联系人电话';   
     }
 
+    if(values.height&&isNaN(values.height)){
+       errors.height='请输入数字'  
+    }
+
+    if(values.weight&&isNaN(values.weight)){
+       errors.weight='请输入数字'  
+    }
+
     
 	return errors
 }
