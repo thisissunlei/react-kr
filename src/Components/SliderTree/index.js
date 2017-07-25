@@ -25,7 +25,6 @@ export default class SliderTree extends React.Component {
 			treeData: [],
 			inputValue: '',
 			expandedKeys: ['0-0'],
-			autoExpandParent: true,
 			visible: false,
 			update:this.props.update,
 			expandData:{
@@ -36,8 +35,8 @@ export default class SliderTree extends React.Component {
 
 		this.params = {};
 		this.onlyKey = 0;
-
-		this.filterKeys = [];
+		this.autoExpandParent = true;
+		this.filterKeys = ['0-0'];
 
 	}
 	//点击选择事件
@@ -48,15 +47,6 @@ export default class SliderTree extends React.Component {
 
 	filterTreeNode = (treeNode) => {
 		return this.filterFn(treeNode.props.realKey);
-	}
-
-	onChange = (event) => {
-
-		this.filterKeys = [];
-		this.setState({
-			inputValue: event.target.value
-		});
-
 	}
 
 	filterFn = (key) => {
@@ -70,13 +60,13 @@ export default class SliderTree extends React.Component {
 	}
 	//打开事件
 	onExpand = (expandedKeys,other) => {
-		 this.filterKeys = [];
 		 let {expanded,eventKey} = other.node.props
 		
 		 this.setState({
 		 	expandedKeys,
 		 	autoExpandParent: false,
 			expandData:{expanded,eventKey}
+
 		 });
 	}
 	componentWillReceiveProps(nextProps){
@@ -101,33 +91,62 @@ export default class SliderTree extends React.Component {
 	 */
 	filterShowArr = (filterKeys) =>{
 		// var newFilterKeys = [].concat(filterKeys);
+		
+		console.log("PPPPP",filterKeys)
 		const {expanded,eventKey} = this.state.expandData;
-
+		
 		let isPush = true;
 		let newFilterKeys = [];
 		if(!eventKey){
+			
 			newFilterKeys = filterKeys;
 		}else{
-			newFilterKeys = filterKeys.map((item,index)=>{
+			
+			 filterKeys.map((item,index)=>{
 				if(expanded && item == eventKey){
-					return;
-				}
-				if(!expanded && item == eventKey){
 					isPush = false;
+					
+				}else if(!expanded && item == eventKey){
+					isPush = false;
+					newFilterKeys.push(item);
+				}else{
+					isPush = false;
+					if(!item){
+						
+					}else{
+						newFilterKeys.push(item);
+					}
 				}
-				return item;
+				
 			})
 			if(isPush){
-				newFilterKeys.push(eventKey);
+				if(!eventKey){
+					
+				}else{
+					console.log(eventKey,"is")
+					newFilterKeys.push(eventKey);
+				}
+				
 			}
 		}
 		
 
-
-		console.log(newFilterKeys,">>>>>")
-		return newFilterKeys;
+		
+		// this.filterKeys = this.unique(this.filterKeys.concat(newFilterKeys));
+		// console.log(this.filterKeys,"8888888888")
+		console.log("iiiiiiiii",this.unique(this.filterKeys.concat(newFilterKeys)))
+		return this.unique(this.filterKeys.concat(newFilterKeys));
 	}
-
+	unique = (arr) =>{
+		var tmpArr = [], hash = {};//hash为hash表
+		for(var i=0;i<arr.length;i++){
+		if(!hash[arr[i]]){//如果hash表中没有当前项
+			hash[arr[i]] = true;//存入hash表
+			tmpArr.push(arr[i]);//存入临时数组
+		}
+		}
+		return tmpArr;
+	}
 	render() {
 
 		const { title, type,treeData } = this.props;
@@ -145,6 +164,7 @@ export default class SliderTree extends React.Component {
 				
 				if (that.filterKeys && that.filterFn(realKey)) {
 					that.filterKeys.push(key);
+					
 				
 				}
 
@@ -160,15 +180,15 @@ export default class SliderTree extends React.Component {
 
 		};
 
-		let expandedKeys =  this.filterShowArr(this.state.expandedKeys);
+		let expandedKeys = [].concat(this.filterShowArr([].concat(this.filterKeys)));
 		let autoExpandParent = this.state.autoExpandParent;
 
-		var filterKeys = this.filterKeys;
+		// var filterKeys = this.filterKeys;
 		// if (filterKeys && filterKeys.length) {
-
 		// 	expandedKeys = this.filterKeys;
 		// 	autoExpandParent = true;
 		// }
+
 
 		
 
@@ -183,7 +203,7 @@ export default class SliderTree extends React.Component {
 					defaultExpandAll={true}
 					defaultExpandedKeys={['0-0']}
 					expandedKeys={expandedKeys}
-					autoExpandParent={autoExpandParent}
+					autoExpandParent={false}
 					filterTreeNode={this.filterTreeNode}
 				>
 					{treeNodes}

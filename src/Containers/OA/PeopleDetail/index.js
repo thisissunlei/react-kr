@@ -37,7 +37,11 @@ export default class PeopleDetail  extends React.Component{
 		 const {NavModel} = this.props;
      NavModel.setSidebar(false);
 	}
+  
 
+	chengLeft=(id)=>{
+     this.basicData(id);
+	}
 
 
 	//获取基本信息
@@ -74,7 +78,7 @@ export default class PeopleDetail  extends React.Component{
 						<span style={{display:'inline-block',marginRight:'5px'}}> | </span>
 						<span style={{display:'inline-block'}}>{detail.jobName}</span></div>
 						<div style={{color:'#333',fontSize:'12px',marginTop:"5px",width:'120px'}}>
-							{detail.dimName}/{detail.depName}
+							{detail.orgPathName}
 						</div>
 					</div>
 				</div>
@@ -85,6 +89,7 @@ export default class PeopleDetail  extends React.Component{
 				  <TabC label='基本信息'> 
 					  <BasicInfo
 					    personId={personId} 
+							chengLeft={this.chengLeft}
 					  />
 				  </TabC> 
 				  

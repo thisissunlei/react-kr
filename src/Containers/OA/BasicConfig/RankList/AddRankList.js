@@ -69,15 +69,15 @@ class AddRankList  extends React.Component{
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 
                        <KrField grid={1/2}
-                            style={{width:262,display:'block'}}
+                            style={{width:262}}
                             name="name"
                             component="input"
                             label="职级名称"
                             requireLabel={true}
 						/>
 
-                         <KrField grid={1}
-                            style={{width:262,display:'block'}}
+                         <KrField grid={1/2}
+                            style={{width:262,marginLeft:20}}
                             name="subId"
                             component="select"
                             label="分部"
@@ -87,7 +87,7 @@ class AddRankList  extends React.Component{
 						/>
 
                         {isType && <KrField grid={1/2}
-                            style={{width:262,display:'block'}}
+                            style={{width:262}}
                             name="typeId"
                             component="select"
                             label="职务类型"
@@ -97,19 +97,19 @@ class AddRankList  extends React.Component{
 
                        
                         <KrField grid={1/2}
-                            style={{width:262,display:'block'}}
+                            style={isType?{width:262,marginLeft:20}:{width:262}}
                             name="level"
                             component="input"
                             label="等级"
                             requireLabel={true}
 						/>
 
-                         <KrField style={{width:262,display:'block'}} name="enabled" component="group" label="职级状态" requireLabel={true}>
+                         <KrField style={isType?{width:262}:{width:262,marginLeft:20}} name="enabled" component="group" label="职级状态" requireLabel={true}>
  							 <KrField name="enabled" label="启用" type="radio" value='true' />
  							 <KrField name="enabled" label="停用" type="radio" value='false' />
  						</KrField>
 
-                        <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'532px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+                        <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'536px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
 
                         
                        <Grid style={{marginBottom:5,marginLeft:-50}}>

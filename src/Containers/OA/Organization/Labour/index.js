@@ -203,6 +203,7 @@ export default class Labour extends React.Component {
 		Http.request('org-detail', searchParams).then(function (response) {
 			const dataName = {};
 			dataName.orgName = response.orgName;
+			dataName.status = response.status;
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -314,17 +315,13 @@ export default class Labour extends React.Component {
 		})
 	}
 	onSelect = (data) => {
-
+		var _this = this;
 		this.setState({
 			data:{
 				orgId: data.orgId,
 				orgType: data.treeType,
 				dimId:this.props.params.dimId
 			},
-			dataName:{
-				orgName:data.orgName,
-			},
-			
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -332,6 +329,8 @@ export default class Labour extends React.Component {
 				orgType: data.treeType,
 				dimId:this.props.params.dimId
 			}
+		},function(){
+			_this.getOrganizationDetail();
 		});
 
 	}
@@ -381,6 +380,8 @@ export default class Labour extends React.Component {
 			</span>
 		)
 	}
+
+	//========****************=========
 	change = (event) => {
 		this.setState({
 			searchKey: event.target.value || ' ',
@@ -432,8 +433,7 @@ export default class Labour extends React.Component {
 	}
 
 	render() {
-		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
-		//console.log(this.props.params.dimId);		
+		let { itemDetail, data, dimId, styleBool,dataName} = this.state;	
 		var logFlag = '';
 		var style = {};
 		return (
@@ -607,7 +607,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} />
+										{this.state.dataName.status==1?'':<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} />}
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
@@ -643,7 +643,7 @@ export default class Labour extends React.Component {
 										<TableRowColumn name="email"></TableRowColumn>
 										<TableRowColumn type="date" name="entryTime" component={(value) => {
 											return (
-												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
+												<KrDate value={value} format="yyyy-mm-dd" />
 											)
 										}}> </TableRowColumn>
 										<TableRowColumn name="status"
@@ -727,7 +727,6 @@ export default class Labour extends React.Component {
 					onSubmit={this.addPersonSubmit}
 					open={this.state.openAddPerson} 
 					onClose={this.allClose}  
-					dimId={this.state.searchParams.dimId}
 					departMent={this.state.dataName.orgName}
 				/>
 			</div>
