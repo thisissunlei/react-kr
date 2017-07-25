@@ -22,177 +22,272 @@ export default class SliderTree extends React.Component {
 		super(props, context)
 
 		this.state = {
-			treeData: [],
 			inputValue: '',
-			expandedKeys: ['0-0'],
-			visible: false,
-			update:this.props.update,
-			expandData:{
-				expanded:'',
-				eventKey:''
-			},
+			expandedKeys: ['0-36kr'],
 		}
 
-		this.params = {};
-		this.onlyKey = 0;
-		this.autoExpandParent = true;
-		this.filterKeys = ['0-0'];
+		this.allKeys = [];
+
+		this.searchExpandedKeys = [];
 
 	}
+
+
 	//点击选择事件
 	onSelect = (item) => {
 		let { onSelect } = this.props;
 		onSelect && onSelect(item);
 	}
 
+
 	filterTreeNode = (treeNode) => {
-		return this.filterFn(treeNode.props.realKey);
-	}
 
-	filterFn = (key) => {
+		var {eventKey} = treeNode.props;
 
-		key = key.toString();
-		if (this.state.inputValue && key.indexOf(this.state.inputValue) > -1) {
+		var {searchKey} = this.props;
+
+		const  key = eventKey.toString();
+
+		if(!searchKey){
+			return false;
+		}
+		
+		const keyArray = key.split('-');
+		const str = keyArray.pop();
+
+		if (str.indexOf(searchKey) !== -1) {
 			return true;
 		}
 
 		return false;
 	}
+
+	allKeysHasKey = (key,nextSearchKey)=>{
+
+		var {searchKey} = this.props;
+		if(nextSearchKey){
+			searchKey = nextSearchKey;
+		};
+		 key = key.toString();
+
+		if(!searchKey){
+			return false;
+		}
+
+		if (key.indexOf(searchKey) !== -1) {
+			return true;
+		}
+
+		return false;
+
+	}
+
+
+
 	//打开事件
-	onExpand = (expandedKeys,other) => {
-		 let {expanded,eventKey} = other.node.props
-		
-		 this.setState({
-		 	expandedKeys,
-		 	autoExpandParent: false,
-			expandData:{expanded,eventKey}
+	onExpand = (keys,treeNode) => {
 
-		 });
-	}
-	componentWillReceiveProps(nextProps){
-		let {inputValue} = this.state;
-		if(nextProps.searchKey && inputValue!=nextProps.searchKey){
-			this.setState({
-				inputValue: nextProps.searchKey
-			});
-		}
+		 let {eventKey,expanded} = treeNode.node.props
 
-	}
+		var {expandedKeys} = this.state;
 
-	/*
-	 shouldComponentUpdate(nextProps) {
+		var index = expandedKeys.indexOf(eventKey);
 
-		if(nextProps.searchKey !== this.state.inputValue){
-			return true;
-		}
-
-		return false;
-	 }
-	 */
-	filterShowArr = (filterKeys) =>{
-		// var newFilterKeys = [].concat(filterKeys);
-		
-		console.log("PPPPP",filterKeys)
-		const {expanded,eventKey} = this.state.expandData;
-		
-		let isPush = true;
-		let newFilterKeys = [];
-		if(!eventKey){
-			
-			newFilterKeys = filterKeys;
+		if( index === -1){
+			expandedKeys.push(eventKey);
 		}else{
+			expandedKeys.splice(index,1);
+		}
+
+
+
+
+		const {searchKey} = this.props;
+
+		/*
+		const keyIndex = eventKey.indexOf(searchKey);
+		const nextKeyStr = eventKey.substr(keyIndex).split('-');
+		const parentKeys = (eventKey.substr(0,keyIndex)+nextKeyStr.shift()).split('-');
+*/
+
+
+		const searchExpandedKeys = this.searchExpandedKeys;
+
+		console.log('searchExpandedKeys:',searchExpandedKeys);
+
+		if(this.props.searchKey && !expanded && searchExpandedKeys.indexOf(eventKey) !== -1){
+			console.log('eventKey:',eventKey,searchExpandedKeys);
+			this.setSearchExpandedKeys(this.props.searchKey);
+			return ;
+		}
+
+		expandedKeys = expandedKeys.filter(function(key){
+				return key.indexOf(eventKey+'-') === -1;
+				});
+
+
+		this.setState({
+				expandedKeys,
+				});
+
+
+		
+
+
+	}
+
+
+	registerAllKeys = (key)=>{
+
+		var allKeys = this.allKeys;
+
+		if(allKeys.indexOf(key) === -1){
+			allKeys.push(key);
+		}
+
+		this.allKeys = allKeys;
+	}
+
+
+	setSearchExpandedKeys = (nextSearchKey)=>{
+
+		
+
+		var expandedKeys = [];
+
+		const allKeys = this.allKeys;
+		const that = this;
+		const filterKeys = allKeys.filter((key) =>{
+			return  this.allKeysHasKey(key,nextSearchKey);
+		});
+
+
+		filterKeys.map(function(item){
+
+			const  index = item.indexOf(nextSearchKey);
 			
-			 filterKeys.map((item,index)=>{
-				if(expanded && item == eventKey){
-					isPush = false;
-					
-				}else if(!expanded && item == eventKey){
-					isPush = false;
-					newFilterKeys.push(item);
-				}else{
-					isPush = false;
-					if(!item){
-						
-					}else{
-						newFilterKeys.push(item);
-					}
+			if(index === -1){
+				return ;
+			};
+
+			const prevStr = item.substr(0,index);
+			const  keyArray = prevStr.split('-');
+			const nextStr = keyArray.pop() + item.substr(index);
+			var nextKeyArray = nextStr.split('-');
+
+
+			nextKeyArray = nextKeyArray.filter(function(key){
+				return key.indexOf(nextSearchKey) !== -1;
+			});
+
+			//const nextKeyReduceStr  = nextKeyArray.join('-');
+
+			const nextKey = keyArray.concat(nextKeyArray).join('-');
+
+
+			expandedKeys.push(nextKey);
+
+
+			keyArray.reduce(function(prev,next){
+				var key = prev+'-'+next;
+				expandedKeys.push(key);
+				return key;
+			});
+
+
+		});
+
+		expandedKeys = this.uniqueArray(expandedKeys);
+
+
+		/*
+		expandedKeys = expandedKeys.filter(function(key){
+
+			if(key.indexOf(nextSearchKey) !== -1){
+			 const lastStr = key.split('-').pop();
+				console.log('lastStr:',lastStr);
+				if(lastStr.indexOf(nextSearchKey) == -1) {
+					return false;
 				}
-				
-			})
-			if(isPush){
-				if(!eventKey){
-					
-				}else{
-					console.log(eventKey,"is")
-					newFilterKeys.push(eventKey);
-				}
-				
+			};
+
+			return true;
+
+		});
+*/
+
+
+		console.log('expandedKeys:',expandedKeys);
+
+		this.searchExpandedKeys = [].concat(expandedKeys);
+
+
+		this.setState({
+			expandedKeys
+		});
+
+	}
+
+	uniqueArray = (arr) =>{
+		var tmpArr = [];
+		for(var i=0; i<arr.length; i++){
+			if(arr.indexOf(arr[i]) == i){
+				tmpArr.push(arr[i]);
 			}
 		}
-		
-
-		
-		// this.filterKeys = this.unique(this.filterKeys.concat(newFilterKeys));
-		// console.log(this.filterKeys,"8888888888")
-		console.log("iiiiiiiii",this.unique(this.filterKeys.concat(newFilterKeys)))
-		return this.unique(this.filterKeys.concat(newFilterKeys));
-	}
-	unique = (arr) =>{
-		var tmpArr = [], hash = {};//hash为hash表
-		for(var i=0;i<arr.length;i++){
-		if(!hash[arr[i]]){//如果hash表中没有当前项
-			hash[arr[i]] = true;//存入hash表
-			tmpArr.push(arr[i]);//存入临时数组
-		}
-		}
 		return tmpArr;
+	}	
+
+	componentDidMount(){
+		//this.setSearchExpandedKeys(this.props.searchKey);
 	}
+
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.searchKey !== this.props.searchKey){
+			this.setSearchExpandedKeys(nextProps.searchKey);
+		};
+
+	}
+
+
 	render() {
 
 		const { title, type,treeData } = this.props;
 
 		var that = this;
 
+		this.allKeys = [];
+
 		const loop = (data,parentIndex=0) => {
 
 			return data.map((item,index) => {
 
 
-				var realKey = parentIndex+'-'+item.orgName;
-				var key = parentIndex+'-'+index;
-				
-				
-				if (that.filterKeys && that.filterFn(realKey)) {
-					that.filterKeys.push(key);
-					
-				
-				}
+				var key = parentIndex+'-'+item.orgName;
+
+				that.registerAllKeys(key);
 
 				if (item.children) {
 					return (
-						<TreeNode key={key} realKey={realKey} title={item.orgName} type={type} itemData={item}>
+						<TreeNode key={key} parentKey={parentIndex} title={item.orgName} type={type} itemData={item}>
 							{loop(item.children,key)}
 						</TreeNode>
 					);
 				}
-				return <TreeNode key={key} realKey={realKey} title={item.orgName} type={type} itemData={item} />;
+
+				return <TreeNode key={key}  parentKey={parentIndex} title={item.orgName} type={type} itemData={item} />;
+
 			});
+
 
 		};
 
-		let expandedKeys = [].concat(this.filterShowArr([].concat(this.filterKeys)));
-		let autoExpandParent = this.state.autoExpandParent;
-
-		// var filterKeys = this.filterKeys;
-		// if (filterKeys && filterKeys.length) {
-		// 	expandedKeys = this.filterKeys;
-		// 	autoExpandParent = true;
-		// }
-
-
-		
 
 		let treeNodes = loop(treeData);
+
+		const {expandedKeys} = this.state;
+
 	
 		return (
 			<div>
@@ -201,9 +296,8 @@ export default class SliderTree extends React.Component {
 					onExpand={this.onExpand}
 					onSelect={this.onSelect}
 					defaultExpandAll={true}
-					defaultExpandedKeys={['0-0']}
 					expandedKeys={expandedKeys}
-					autoExpandParent={false}
+					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}
 				>
 					{treeNodes}
