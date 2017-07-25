@@ -119,13 +119,13 @@ import {
 		State.orderName=this.props.customerName+value.label+this.props.orderCount;
 		if(value.value == 16 || value.value == 23 || value.value == 18){
 			this.setState({
-				showSection:true
-			})
-		}else{
-			this.setState({
 				showSection:false
 			},function(){
 				Store.dispatch(change('EditIndent','departmentId',''));
+			})
+		}else{
+			this.setState({
+				showSection:true
 			})
 		}
 	}
