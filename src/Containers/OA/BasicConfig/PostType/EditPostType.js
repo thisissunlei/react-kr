@@ -35,31 +35,31 @@ class EditPostType  extends React.Component{
 			<div className='m-add-post'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 
-                       <KrField grid={1}
-                            style={{width:262,display:'block'}}
+                       <KrField grid={1/2}
+                            style={{width:262}}
                             name="name"
                             component="input"
                             label="职务类型名称"
                             requireLabel={true}
 						/>
-                        <KrField grid={1}
-                            style={{width:262,display:'block'}}
+                        <KrField grid={1/2}
+                            style={{width:262,marginLeft:20}}
                             name="code"
                             component="input"
                             label="编码"
                             requireLabel={true}
 						/>
 
-                        <KrField grid={1}
-                            style={{width:262,display:'block'}}
+                        <KrField grid={1/2}
+                            style={{width:262}}
                             name="orderNum"
                             component="input"
                             label="排序号"
                             requireLabel={true}
 						/>
 
-                         <KrField grid={1}
-                            style={{width:262,display:'block'}}
+                         <KrField grid={1/2}
+                            style={{width:262,marginLeft:20}}
                             name="subId"
                             component="select"
                             label="分部"
@@ -67,7 +67,7 @@ class EditPostType  extends React.Component{
                             options={subCompany}
 						/>
 
-                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'532px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'536px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
 
                         
                        <Grid style={{marginBottom:5,marginLeft:-50}}>
