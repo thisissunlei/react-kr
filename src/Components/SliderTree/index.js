@@ -58,7 +58,6 @@ export default class SliderTree extends React.Component {
 	filterFn = (key) => {
 
 		key = key.toString();
-
 		if (this.state.inputValue && key.indexOf(this.state.inputValue) > -1) {
 			return true;
 		}
@@ -66,7 +65,7 @@ export default class SliderTree extends React.Component {
 		return false;
 	}
 	onExpand = (expandedKeys) => {
-		 this.filterKeys = undefined;
+		 this.filterKeys = [];
 		 this.setState({
 		 	expandedKeys,
 		 	autoExpandParent: false,
@@ -106,15 +105,19 @@ export default class SliderTree extends React.Component {
 
 				var realKey = parentIndex+'-'+item.orgName;
 				var key = parentIndex+'-'+index;
-
-				if (that.filterKeys && that.filterFn(key)) {
+				
+				
+				if (that.filterKeys && that.filterFn(realKey)) {
 					that.filterKeys.push(key);
+				
 				}
 
 				if (item.children) {
-					return (<TreeNode key={key} realKey={realKey} title={item.orgName} type={type} itemData={item}>
-						{loop(item.children,key)}
-					</TreeNode>);
+					return (
+						<TreeNode key={key} realKey={realKey} title={item.orgName} type={type} itemData={item}>
+							{loop(item.children,key)}
+						</TreeNode>
+					);
 				}
 				return <TreeNode key={key} realKey={realKey} title={item.orgName} type={type} itemData={item} />;
 			});
@@ -125,8 +128,8 @@ export default class SliderTree extends React.Component {
 		let autoExpandParent = this.state.autoExpandParent;
 
 		var filterKeys = this.filterKeys;
-
 		if (filterKeys && filterKeys.length) {
+
 			expandedKeys = this.filterKeys;
 			autoExpandParent = true;
 		}
@@ -134,7 +137,7 @@ export default class SliderTree extends React.Component {
 		
 
 		let treeNodes = loop(treeData);
-
+	
 		return (
 			<div>
 				<Tree

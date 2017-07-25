@@ -31,7 +31,7 @@ module.exports = [
 					},
 					{
 						primaryText: '凭证列表',
-			            router: '/operation/voucherManage/voucherList',
+			            router: '/finance/voucherManage/voucherList',
 			            menuCode: 'upload_evidence_base',
 					},
 					

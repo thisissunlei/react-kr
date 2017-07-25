@@ -525,7 +525,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										{this.state.dataName.status==1?'':<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14} />}
+										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14} />
 									</Col>
 									<Col md={8} align="right">
 
@@ -606,7 +606,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} />
+										{this.state.dataName.status==1?'':<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} />}
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
@@ -726,7 +726,6 @@ export default class Labour extends React.Component {
 					onSubmit={this.addPersonSubmit}
 					open={this.state.openAddPerson} 
 					onClose={this.allClose}  
-					dimId={this.state.searchParams.dimId}
 					departMent={this.state.dataName.orgName}
 				/>
 			</div>
