@@ -63,9 +63,9 @@ export default class SelectTree extends React.Component{
 		let {treeType} = this.props;
 		if( data.orgName == "" ){
 			if(treeType == "department"){
-				Message.error("请选择职务");
+				Message.error("请选择部门");
 			}else{
-				Message.error("请选择人员");
+				Message.error("请选择直接上级");
 			}
 			
 			
