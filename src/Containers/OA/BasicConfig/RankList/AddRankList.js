@@ -65,7 +65,7 @@ class AddRankList  extends React.Component{
 
 		return(
 
-			<div className='m-add-post'>
+			<div className='m-rank-post'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 
                        <KrField grid={1/2}
@@ -109,7 +109,7 @@ class AddRankList  extends React.Component{
  							 <KrField name="enabled" label="停用" type="radio" value='false' />
  						</KrField>
 
-                        <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'550px'}}  component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='list-len-textarea'/>
+                        <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'550px'}} style={{width:560}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='list-len-textarea'/>
 
                         
                        <Grid style={{marginBottom:5,marginLeft:-25}}>
