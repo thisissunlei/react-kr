@@ -102,10 +102,11 @@ export default class ReportDetail extends React.Component{
 		              <TableHeaderColumn className='header-row'>创建日期</TableHeaderColumn>
 					  {State.isAdd=='sign'&&<TableHeaderColumn className='header-row'>签约时间</TableHeaderColumn>}
 					  {State.isAdd=='sign'&&<TableHeaderColumn className='header-row'>签约用时</TableHeaderColumn>}
-					  {State.isAdd=='sign'&&<TableHeaderColumn className='header-row'>签约工位数</TableHeaderColumn>}
-					  {State.isAdd=='sign'&&<TableHeaderColumn className='header-row'>签约独立办公空间数</TableHeaderColumn>}
+					  {State.isAdd=='sign'&&<TableHeaderColumn className='header-row'>工位数</TableHeaderColumn>}
+					  {State.isAdd=='sign'&&<TableHeaderColumn className='header-row'>独立办公空间数</TableHeaderColumn>}
 					  {State.isAdd=='sign'&&<TableHeaderColumn className='header-row'>合同开始日期</TableHeaderColumn>}
 					  {State.isAdd=='sign'&&<TableHeaderColumn className='header-row'>合同结束日期</TableHeaderColumn>}
+					  {State.isAdd=='sign'&&<TableHeaderColumn className='header-row'>销售员</TableHeaderColumn>}
 		              {State.isAdd=='add'&&<TableHeaderColumn className='header-row'>领取人</TableHeaderColumn>}
 		          	</TableHeader>
 
@@ -149,6 +150,9 @@ export default class ReportDetail extends React.Component{
 		 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 		 					}}></TableRowColumn>}
 			                {State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseEndDate' component={(value,oldValue)=>{
+		 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+		 					}}></TableRowColumn>}
+		 					{State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='man' component={(value,oldValue)=>{
 		 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 		 					}}></TableRowColumn>}
 			                {State.isAdd=='add'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}  name='receiveName' component={(value,oldValue)=>{
