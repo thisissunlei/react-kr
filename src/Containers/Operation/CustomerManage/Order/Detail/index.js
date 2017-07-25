@@ -926,9 +926,9 @@ export default class OrderDetail extends React.Component {
 				<Col  md={4} ><KrField label="其他回款" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>
 				</Row>
 				<Row>
-				<Col  md={4} ><KrField label="销售员" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="-" alignRight={true}/></Col>
-				<Col  md={4} ><KrField label="销售时间" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="-" alignRight={true}/></Col>
-				<Col  md={4} ><KrField label="部门" component="labelText" value={orderBaseInfo.refundamount} defaultValue="-" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="销售员" component="labelText" value={orderBaseInfo.saleId} defaultValue="-" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="销售时间" component="labelText" value={orderBaseInfo.saleTime} defaultValue="-" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="部门" component="labelText" value={orderBaseInfo.departmentId} defaultValue="-" alignRight={true}/></Col>
 				</Row>
 				{/*				<Row>
 								<Col  md={4} ><div className="staion">工位编号</div><div className="view"  onTouchTap={this.onView} >点击查看</div></Col>

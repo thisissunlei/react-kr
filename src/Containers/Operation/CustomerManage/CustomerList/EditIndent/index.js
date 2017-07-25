@@ -61,8 +61,6 @@ import {
 		values.mainbillname=State.orderName||this.props.mainbillname;
 		values.mainbillcode="";
 		let _this=this;
-		console.log('submit',values);
-		return;
 		Http.request('edit-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
          	_this.onCancel();
@@ -124,6 +122,8 @@ import {
 		}else{
 			this.setState({
 				showSection:false
+			},function(){
+				Store.dispatch(change('EditIndent','departmentId',''));
 			})
 		}
 	}
@@ -133,7 +133,8 @@ import {
 		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount,mainbillname,cityNameIndent} = this.props;
 		let citys=State.cityLable||cityNameIndent;
 			citys=!citys?"无":citys;
-		let options = [{value:'1',label:'a'},{value:'11',label:'aa'},]
+		let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
+
 
 		return (
 
@@ -153,10 +154,10 @@ import {
 							onChange={this.communityChange}
 							inline={false}
 					/>
-					<KrField grid={1/2} label="销售员" name="man" style={{width:262,marginLeft:15}} component="searchPersonel"
-							requireLabel={true}
+					<KrField grid={1/2} label="销售员" name="saleId" style={{width:262,marginLeft:15}} component="searchPersonel"
+							requireLabel={true} placeholder={this.props.saleName}
 					/>
-					<KrField grid={1/2} label="销售时间" name="date" component="date" style={{width:262,marginLeft:30}}
+					<KrField grid={1/2} label="销售时间" name="saleTime" component="date" style={{width:262,marginLeft:30}}
 							inline={false}
 							requireLabel={true}
 					/>
@@ -165,8 +166,8 @@ import {
 
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={citys} inline={false}/>
 					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:mainbillname} requireLabel={true} inline={false}/>
-					{this.state.showSection && <KrField grid={1/2} label="部门" name="section" style={{width:262,marginLeft:15}} component="select"
-							options={State.orderFound}
+					{this.state.showSection && <KrField grid={1/2} label="部门" name="departmentId" style={{width:262,marginLeft:15}} component="select"
+							options={options}
 					/>}
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>
@@ -197,11 +198,11 @@ const validate = values =>{
 		if(!values.communityid){
 			errors.communityid = '请选择所在社区';
 		}
-		if(!values.man){
-			errors.man = '请选择销售员';
+		if(!values.saleId){
+			errors.saleId = '请选择销售员';
 		}
-		if(!values.date){
-			errors.date = '请选择销售时间';
+		if(!values.saleTime){
+			errors.saleTime = '请选择销售时间';
 		}
 		return errors
 	}

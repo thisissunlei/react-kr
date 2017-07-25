@@ -178,8 +178,11 @@ class SignedClient extends React.Component{
 			data.communityid=response.communityid;
 			data.mainbilltype=response.mainbilltype;
 			data.mainbilldesc=response.mainbilldesc;
+			data.saleId=response.saleId+'';
+			data = Object.assign({},response,data);
 			Store.dispatch(initialize('EditIndent',data));
 			State.mainbillname=response.mainbillname;
+			State.saleName=response.saleName;
 			State.mainbilltype=response.mainbilltype;
 			State.customerName=response.customerName;
 			State.orderCount=response.orderCount;
@@ -545,6 +548,7 @@ class SignedClient extends React.Component{
 							 companyName={State.companyName}
 							 onCancel={this.switchEditIndent}
 							 listId={State.listId}
+							 saleName={State.saleName}
 			                 orderReady={orderReady}
 			                 editIndentData={State.editIndentData}
 			                 editIndentId={State.editIndentId}
