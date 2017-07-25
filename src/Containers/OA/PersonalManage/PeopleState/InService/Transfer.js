@@ -53,6 +53,7 @@ class Transfer extends React.Component{
                             name="depId"
                             component="selectTree"
                             label="部门:"
+                            treeType = "department"
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}
 					    />
