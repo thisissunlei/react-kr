@@ -32,7 +32,7 @@ class EditPostType  extends React.Component{
 
 		return(
 
-			<div className='m-add-post'>
+			<div className='m-type-post'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 
                        <KrField grid={1/2}
@@ -67,7 +67,7 @@ class EditPostType  extends React.Component{
                             options={subCompany}
 						/>
 
-                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'550px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' lengthClass='list-len-textarea'/>
+                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'550px'}} style={{width:560}} component="textarea"  maxSize={30} placeholder='请输入描述' lengthClass='list-len-textarea'/>
 
                         
                        <Grid style={{marginBottom:5,marginLeft:-25}}>
