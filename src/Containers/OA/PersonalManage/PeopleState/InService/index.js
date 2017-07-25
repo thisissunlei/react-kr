@@ -20,7 +20,8 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
-	Dictionary
+	Dictionary,
+	Tooltip
 } from 'kr-ui';
 import {
 	AddPostPeople
@@ -355,7 +356,17 @@ export default class InService  extends React.Component{
 									}} 
 								 ></TableRowColumn>
 								<TableRowColumn name="code"></TableRowColumn>
-								<TableRowColumn name ="jobName" ></TableRowColumn>
+								<TableRowColumn name ="jobName" component={(value,oldValue)=>{
+														var TooltipStyle=""
+														if(value.length==""){
+															TooltipStyle="none"
+
+														}else{
+															TooltipStyle="inline-block";
+														}
+														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+													 }}></TableRowColumn>
 								<TableRowColumn 
 									name ="entryDate" 
 									component={(value,oldValue)=>{
