@@ -31,6 +31,7 @@ import Remove from './Remove';
 import Transfer from './Transfer';
 import OpenCard from './OpenCard';
 import OpenAccount from './OpenAccount';
+import IsSure from './IsSure';
 import './index.less';
 
 export default class InService  extends React.Component{
@@ -44,6 +45,7 @@ export default class InService  extends React.Component{
 			openTransfer:false,
 			openCard:false,
 			openAccount:false,
+			openSure:false,
 			searchParams : {
 				page:1,
 				pageSize:15,
@@ -58,9 +60,9 @@ export default class InService  extends React.Component{
 			//调动数据
 			transferDetail:{},
 			resourceId:'',
+			//绑定的数据
+			cardParam:''
 		}
-		//判断是否解绑账号
-		this.isCard=false;
 	}
    
    //新建用户
@@ -192,7 +194,7 @@ export default class InService  extends React.Component{
 	 })  
    }
 
-     //开通提交
+    //开通提交
    addOpenSubmit=()=>{
 	   const _this = this;
 	   const {resourceId} = this.state;
@@ -239,15 +241,42 @@ export default class InService  extends React.Component{
    }
    //开通门禁提交
    addCardSubmit=(param)=>{
-	   var _this = this;
-		Http.request("bindingCard",{},param).then(function (response) {
+	   if(param.isBound){
+		 this.setState({
+			 cardParam:param,
+			 openSure:true
+		 })
+	   }else {
+		   var _this = this;
+			Http.request("bindingCard",{},param).then(function (response) {
+				_this.cancelCard();
+				Message.success("绑定成功");
+			}).catch(function (err) {
+				Message.error(err.message);
+			});
+	   }
+   }
+
+   //是否确定
+   cancelSure=()=>{
+	  this.setState({
+		openSure:!this.state.openSure
+	 })    
+   }
+   
+   //是否确定
+   addSureSubmit=()=>{
+	   let {cardParam}=this.state;
+       var _this = this;
+		Http.request("bindingCard",{},cardParam).then(function (response) {
 			_this.cancelCard();
 			Message.success("绑定成功");
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
+		this.cancelSure();
    }
-   
+
    //关闭所有侧滑
    allClose=()=>{
       this.setState({
@@ -267,7 +296,7 @@ export default class InService  extends React.Component{
 		window.open(`./#/oa/${personId}/peopleDetail`,'123');
    }
 	render(){
-		const {transferDetail,employees,isCard} = this.state;
+		const {transferDetail,employees} = this.state;
 		return(
 
 			<div>
@@ -387,6 +416,20 @@ export default class InService  extends React.Component{
 					<Remove
 						onCancel={this.cancelRemove}
 						onSubmit={this.addRemoveSubmit}  
+					/>
+					</Dialog>
+
+					{/*是否更换门禁卡*/}
+					<Dialog
+						title="提示"
+						onClose={this.cancelSure}
+						open={this.state.openSure}
+						contentStyle ={{ width: '444px',height:'190px'}}
+						stylesCard={true}
+					>
+					<IsSure
+						onCancel={this.cancelSure}
+						onSubmit={this.addSureSubmit}  
 					/>
 					</Dialog>
 

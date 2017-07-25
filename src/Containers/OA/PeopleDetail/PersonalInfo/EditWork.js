@@ -5,9 +5,11 @@ import {
     Col,
     Row,
     ButtonGroup,
-    Button
+    Button,
+    Message
 } from 'kr-ui';
 import {reduxForm}  from 'redux-form';
+import {DateFormat} from 'kr/Utils';
 import './index.less';
 
 class EditWork  extends React.Component{
@@ -17,8 +19,16 @@ class EditWork  extends React.Component{
 	}
 
     onSubmit=(values)=>{
+        var params=Object.assign({},values);
+        var signStartDate=DateFormat(params.startDate,"yyyy-mm-dd hh:MM:ss");
+        var signEndDate=DateFormat(params.endDate,"yyyy-mm-dd hh:MM:ss");
+        if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
+            Message.error('开始时间不能大于终止时间');
+            return ;
+        }
+        
         const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);
+        onSubmit && onSubmit(params);
     }
 
     onCancel=()=>{
