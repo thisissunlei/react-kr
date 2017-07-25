@@ -59,7 +59,8 @@ class AddMoney extends React.Component {
 			corporationId: "",
 			oldData:[],
 			//我司账户名称
-			accountNum:''
+			accountNum:'',
+			showSection:false
 		}
 		this.receivedBtnFormChangeValues = {};
 
@@ -281,10 +282,12 @@ class AddMoney extends React.Component {
 		Http.request('get-mainbill-info', {
 			mainBillId: form.value
 		}, {}).then(function(response) {
-
+			console.log('---->',response,!!response.department)
+			
 			_this.setState({
 				mainbillInfo: response,
-				corporationId: response.corporationId
+				corporationId: response.corporationId,
+				showSection:!!response.department?true:false
 			})
 
 		}).catch(function(err) {});
@@ -308,8 +311,10 @@ class AddMoney extends React.Component {
 			response.scvList.map((item) => {
 				Store.dispatch(change('addMoney', `no-${item.id}`, ''));
 			})
+
 			_this.setState({
-				finaflowInfo: response
+				finaflowInfo: response,
+				
 			})
 
 		}).catch(function(err) {});
@@ -747,6 +752,8 @@ class AddMoney extends React.Component {
 				flowAmount,
 				oldData
 			} = this.state;
+			let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
+
 			return (
 				<div className="u-audit-add  u-audit-edit">
 			     <div className="u-audit-add-title">
@@ -833,6 +840,15 @@ class AddMoney extends React.Component {
 								label="收款日期"
 								requireLabel={true}
 						/>
+						{this.state.showSection && <KrField
+								style={{width:260,marginLeft:25}}
+								name="departmentId"
+								type="text"
+								options={options}
+								component="select"
+								label="部门"
+								
+						/>}
 						<KrField
 								style={{width:548}}
 								name="remark"

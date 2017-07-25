@@ -109,7 +109,7 @@ import {Http} from "kr/Utils";
 	}
 	mainbilltypeChange=(value)=>{
 		this.props.NewIndentModel.orderName=this.props.customerName+value.label+this.props.orderCount;
-		if(value.value == 16 || value.value == 23 || value.value == 18){
+		if(value.value == 16 && value.value == 23 && value.value == 18){
 			this.setState({
 				showSection:true
 			})
