@@ -74,7 +74,7 @@ class AddPostList  extends React.Component{
 						/>
                         <KrField
                             grid={1/2}
-                            style={{width:262,marginLeft:20}}
+                            style={{width:262,marginLeft:34}}
                             name="code"
                             component="input"
                             label="编码"
@@ -87,7 +87,7 @@ class AddPostList  extends React.Component{
  						</KrField>
 
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:20}}
+                            style={{width:262,marginLeft:34}}
                             name="subId"
                             component="select"
                             label="分部"
@@ -107,9 +107,9 @@ class AddPostList  extends React.Component{
                             requireLabel={true}
 						/>}
 
-                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'536px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'550px'}}  component="textarea"  maxSize={30}  placeholder='请输入描述' lengthClass='list-len-textarea'/>
 
-                        <Grid style={{marginBottom:5,marginLeft:-50}}>
+                        <Grid style={{marginBottom:5,marginLeft:-25}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
