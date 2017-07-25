@@ -186,16 +186,27 @@ class EditMoney extends React.Component {
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
+		if(!form.value){
+			_this.setState({
+				accountList: []
+			})
+			return;
+		}
 		Store.dispatch(change('editMoneys', 'accountId', ''));
 		Http.request('get-account-info', {
 			corporationId: this.state.corporationId,
 			accountType: form.value
 		}).then(function(response) {
-			accountList = response.map((item, index) => {
-				item.label = item.accountNum;
-				item.value = item.accountId;
-				return item;
-			})
+			if(!response.length){
+				accountList = []
+			}else{
+				accountList = response.map((item, index) => {
+					item.label = item.accountNum;
+					item.value = item.accountId;
+					return item;
+				})
+			}
+			
 			_this.setState({
 				accountList: accountList
 			})
