@@ -4,22 +4,28 @@
  * 导航字典
  *
  */
+ //首页
 import HomeNav from './HomeNav';
-import StatisticalNav from './StatisticalNav';
-import CommunityNav from './CommunityNav';
+//运营管理
 import OperationNav from './OperationNav';
-import MemberNav from './MemberNav';
+//财法管理
 import FinanceNav from './FinanceNav';
-import RetailNav from './RetailNav';
+//人事管理
 import OANav from './OANav';
-import KnowledgeNav from './KnowledgeNav';
-import PowerNav from './PowerNav';
-import WebBackstageNav from './WebBackstageNav';
+//基础管理
 import PermissionNav from './PermissionNav';
-
+//综合办公
 import OtherNav from './OtherNav';
 
-const NavItems = [].concat(HomeNav,OperationNav,FinanceNav,RetailNav,OANav,KnowledgeNav,PowerNav,OtherNav,PermissionNav);
+// import StatisticalNav from './StatisticalNav';
+// import CommunityNav from './CommunityNav';
+// import MemberNav from './MemberNav';
+// import RetailNav from './RetailNav';
+// import KnowledgeNav from './KnowledgeNav';
+// import PowerNav from './PowerNav';
+// import WebBackstageNav from './WebBackstageNav';
+
+const NavItems = [].concat(HomeNav,OperationNav,FinanceNav,OANav,OtherNav,PermissionNav);
 
 module.exports = {
     current_parent: '',
