@@ -42,7 +42,7 @@ class EditWork  extends React.Component{
 
 		return(
 
-			<div className='m-person'>
+			<div className='m-person m-person-work'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
                             <div><span className="new-icon"></span><label className="title-text">编辑工作经历</label></div>
