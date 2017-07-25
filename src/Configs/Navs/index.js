@@ -27,7 +27,7 @@ import AdministrationNav from './AdministrationNav';
 // import PowerNav from './PowerNav';
 // import WebBackstageNav from './WebBackstageNav';
 
-const NavItems = [].concat(HomeNav,OperationNav,FinanceNav,OANav,OtherNav,PermissionNav,AdministrationNav);
+const NavItems = [].concat(HomeNav,OtherNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav);
 
 module.exports = {
     current_parent: '',

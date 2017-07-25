@@ -57,6 +57,11 @@ const Finance_Manage_Audit = (location, callback) => {
     callback(null, require('kr/Containers/Finance/Manage/Audit').default)
   }, 'Finance_Manage_Audit')
 }
+const Operation_VoucherManage_VoucherList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Operation/VoucherManage/VoucherList').default)
+  }, 'Operation_VoucherManage_VoucherList')
+}
 
 
 module.exports =()=>{
@@ -84,6 +89,11 @@ module.exports =()=>{
                     <Route path="auditlist" getComponent={Finance_Manage_Audit}/>
                 </Route>
             </Route>
+            {/*凭证管理*/}
+                <Route path="voucherManage" getComponent={Basic} >
+                {/*凭证列表*/}
+                  <Route path="voucherList" getComponent={Operation_VoucherManage_VoucherList}/>
+                </Route>
         </Route>
 	);
 };
