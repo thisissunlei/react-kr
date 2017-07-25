@@ -54,6 +54,7 @@ import {Http} from "kr/Utils";
 			values.mainbilldesc="";
 		}
 		values.customerid=listId;
+		console.log('submit',values)
 		values.mainbillname=_this.props.NewIndentModel.orderName;
 		Http.request('enter-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);

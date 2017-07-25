@@ -4,7 +4,7 @@ import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -60,6 +60,8 @@ import {
 		values.id=this.props.editIndentId;
 		values.mainbillname=State.orderName||this.props.mainbillname;
 		values.mainbillcode="";
+		console.log('value',values,DateFormat(values.saleTime,'yyyy-mm-dd'))
+		values.saleTime = DateFormat(values.saleTime,'yyyy-mm-dd 00:00:00');
 		let _this=this;
 		Http.request('edit-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
