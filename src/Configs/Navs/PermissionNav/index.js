@@ -105,6 +105,39 @@ module.exports = [
 				},
 				]
 			},
+			{
+				primaryText: "知识中心",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: '',
+				menuItems: [
+					{
+						primaryText: '来源系统',
+						menuCode: 'doc_source',
+						router: 'docSourceServiceAdmin',
+						originUrl: '/krspace_oa_web/doc/docSourceService/toDocSourceServiceList?mid=59'
+					},
+					{
+						primaryText: '文件类型',
+						menuCode: 'oa_docfile_type',
+						router: 'docFiletypeAdmin',
+						originUrl: '/krspace_oa_web/doc/docFiletype/toDocFiletypeList?mid=56'
+					}, 
+					{
+						primaryText: '文件范围',
+						menuCode: 'oa_docfilerange',
+						router: 'docFileRangeAdmin',
+						originUrl: '/krspace_oa_web/doc/docFileRange/toDocFileRangeList?mid=57'
+					},
+					{
+						primaryText: '文档设置',
+						menuCode: 'oa_doctype',
+						router: 'docFileAdmin',
+						originUrl: '/krspace_oa_web/doc/docFile/toDocTypeList?mid=67'
+					},
+				
+				]
+			},
 
 
 		]
