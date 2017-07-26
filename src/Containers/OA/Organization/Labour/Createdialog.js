@@ -148,8 +148,8 @@ const validate = values => {
 	const errors = {}
 	if (!values.orgName) {
 		errors.orgName = '请输入下级名称';
-	}else if (values.orgName.length>10) {
-		errors.orgName = '下级名称最多10个字符！';
+	}else if (values.orgName.length>20) {
+		errors.orgName = '下级名称最多20个字符！';
 	}
     
     // if (!values.adminId) {
