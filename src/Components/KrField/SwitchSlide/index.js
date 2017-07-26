@@ -191,6 +191,7 @@ export default class SwitchSlide extends React.Component{
 					title={dialogTitle}
 					onClose={this.dlogSwidch}
 					open={isDialog}
+					noMaxHeight = {true}
 					contentStyle ={{ width: '510px',height:'590px'}}
 				 >
 					<SwitchDialog  

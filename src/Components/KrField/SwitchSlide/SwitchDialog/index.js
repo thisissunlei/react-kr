@@ -25,8 +25,6 @@ export default class TreeDialog extends React.Component{
 	onSumit = () =>{
 		const {rightData} = this.state;
 		let {onSubmit} = this.props;
-
-		console.log(rightData,">>>>>>")
 		onSubmit && onSubmit(rightData[0])
 		
 	}
