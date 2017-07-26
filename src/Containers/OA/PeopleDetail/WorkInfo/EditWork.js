@@ -112,8 +112,8 @@ const validate = values =>{
        errors.wageCard='请填写工资卡号'
     }else if(isNaN(values.wageCard)){
        errors.wageCard='工资卡号必须是数字'  
-    }else if(values.wageCard.length>12||values.wageCard.length<6){
-       errors.wageCard='工资卡号在6-12位之间'   
+    }else if(values.wageCard.length>25||values.wageCard.length<12){
+       errors.wageCard='工资卡号在12-25位之间'   
     }
 
      if(!values.calculateCompany){
