@@ -182,7 +182,7 @@ export default class InService  extends React.Component{
 	var _this = this;
 	Http.request("leaveOnSubmit",{},param).then(function (response) {
 		_this.setState({
-			searchParams:Object.assign({},_this.state.searchParams,searchParams)
+			searchParams:Object.assign({},_this.state.searchParams,searchParams),
 		})
 		_this.cancelLeave();
 	}).catch(function (err) {
