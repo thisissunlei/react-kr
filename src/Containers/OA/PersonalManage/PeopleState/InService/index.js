@@ -78,6 +78,19 @@ export default class InService  extends React.Component{
 		}
 	}
 
+	//离职列表数据访问
+	leaveData=()=>{
+		Http.request("getLeaveList",{
+			    page:1,
+				pageSize:15,
+				searchKey:'',
+		}).then(function (response) {
+		    
+		}).catch(function (err) {
+		   Message.error(err.message);
+		});
+	}
+
 
 	componentDidMount() {
 		var {checkOperate} = this.props.NavModel;
@@ -184,6 +197,7 @@ export default class InService  extends React.Component{
 		_this.setState({
 			searchParams:Object.assign({},_this.state.searchParams,searchParams),
 		})
+		_this.leaveData();
 		_this.cancelLeave();
 	}).catch(function (err) {
 		Message.error(err.message);
