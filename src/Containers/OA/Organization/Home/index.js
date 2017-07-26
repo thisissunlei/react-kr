@@ -34,6 +34,7 @@ export default class Home extends React.Component {
 			openCreate:false,  
       itemDetail:{},
       addLastLineDim:false,
+      addLastLineDimArr:[],
     }
 	}
 
@@ -126,9 +127,7 @@ export default class Home extends React.Component {
                   var num = Math.floor(width/200);
                     that.lastLineDimNum = num-1-that.dimLength%num;
                     if (that.lastLineDimNum) {
-                      that.setState({
-                        addLastLineDim:true
-                      })
+                     that.addLastLineDim();
                     }
               }
           }).catch(function(err) {});
@@ -138,21 +137,28 @@ export default class Home extends React.Component {
     window.open(`./#/oa/organization/${dimId}/labour`, dimId);
   }
   addLastLineDim=()=>{
-    console.log(this.lastLineDimNum);
+    console.log("afdafds",this.lastLineDimNum);
     var arr = [];
     for (var i=0;i<this.lastLineDimNum;i++) {
-      arr.push(
-        <div key={i} className="item">
-          
-        </div>
-      )
+      arr.push({i})
     }
-    console.log(arr);
-    return arr;
+    this.setState({
+      addLastLineDimArr:arr,
+    })
+   
+  }
+  renderAddDim=(item,index)=>{
+    
+    return(
+      <div className="item" key={index}>
+
+      </div>
+    )
   }
   render() {
-
-    console.log(this.state.addLastLineDim);
+    console.log(this.state.addLastLineDimArr);
+    //console.log(this.state.addLastLineDim);
+    console.log("render",this.lastLineDimNum);
     return (
       <div className="g-oa">
         <Section title="机构维度">
@@ -163,7 +169,9 @@ export default class Home extends React.Component {
                 <div className="item-add item" onClick={this.openCreate}>
                  
                 </div>
-                {this.state.addLastLineDim && this.addLastLineDim()}
+                {this.state.addLastLineDimArr.map((item,index)=>{
+                  return this.renderAddDim(item,index);
+                })}
               </div>
         </Section>
         <Dialog 
