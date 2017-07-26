@@ -264,7 +264,7 @@ export default class RankList extends Component{
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
 		 										}
-		 										return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
 						<TableRowColumn name="enabled" options={[{label:'启用',value:'true'},{label:'停用',value:'false'}]}></TableRowColumn>
 						<TableRowColumn name="descr" component={(value,oldValue)=>{
@@ -272,7 +272,7 @@ export default class RankList extends Component{
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
 		 										}
-		 										return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
 						<TableRowColumn name="updatorName"></TableRowColumn>
 						<TableRowColumn name="cTime" component={(value,oldValue)=>{
