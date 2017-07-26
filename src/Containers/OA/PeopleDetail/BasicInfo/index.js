@@ -12,7 +12,12 @@ import {Store} from 'kr/Redux';
 import {
   initialize
 } from 'redux-form';
-
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("NavModel")
+@observer
 export default class BasicInfo  extends React.Component{
 
 	constructor(props,context){
@@ -20,10 +25,21 @@ export default class BasicInfo  extends React.Component{
 		this.state={
 			openEdit:false,
 			basicInfo:{},
+			isEdit:false,
 		}
 	}
     
 
+	componentDidMount() {
+		var {checkOperate} = this.props.NavModel;
+		setTimeout(function() {
+			this.setState({
+				isEdit : checkOperate("hrm_resource_base")
+			})
+			hrm_resource_edit
+		},500);	
+
+	}
 	componentWillMount(){
 		let {personId}=this.props;
 		//获取基本信息
@@ -90,7 +106,7 @@ export default class BasicInfo  extends React.Component{
 
 	render(){
 
-		let {basicInfo}=this.state;
+		let {basicInfo,isEdit}=this.state;
 
 		let infoName=[
 			 {name:'姓名',
@@ -128,7 +144,7 @@ export default class BasicInfo  extends React.Component{
 				  <div className='title-out'>
 						<span className='title-blue'></span>
 						<span className='title-name'>基本信息</span>
-						<span className='title-right' onClick={this.basicEdit}>编辑</span>
+						{isEdit && <span className='title-right' onClick={this.basicEdit}>编辑</span>}
 				  </div>
                   <ul className='info-inner'>
 					{

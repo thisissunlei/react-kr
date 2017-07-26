@@ -52,7 +52,9 @@ export default class PersonalInfo  extends React.Component{
 			//家庭删除id
 			familyId:'',
 			//工作记录删除id
-			jobId:''
+			jobId:'',
+			isEditUser:false,
+			
 		}
 	}
 
@@ -61,6 +63,17 @@ export default class PersonalInfo  extends React.Component{
 	  let {personId}=this.props;
 	  //获取个人信息
 	  this.personData(personId);
+	}
+	componentDidMount() {
+		var {checkOperate} = this.props.NavModel;
+		setTimeout(function() {
+			this.setState({
+				isEditUser : checkOperate("hrm_resource_edit")
+				
+			})
+		
+		},500);	
+
 	}
 
 	//获取个人信息
@@ -408,7 +421,7 @@ export default class PersonalInfo  extends React.Component{
 				  <div className='title-out'>
 						<span className='title-blue'></span>
 						<span className='title-name'>个人资料</span>
-						<span className='title-right' onClick={this.openPerson}>编辑</span>
+						{isEditUser && <span className='title-right' onClick={this.openPerson}>编辑</span>}
 				  </div>
                   <ul className='info-inner personal-inner'>
 					{
@@ -427,7 +440,7 @@ export default class PersonalInfo  extends React.Component{
 					<div className='title-out family'>
 							<span className='title-blue'></span>
 							<span className='title-name'>家庭资料</span>
-							<span className='title-right' onClick={this.addFamily}>添加</span>
+							{isEditUser && <span className='title-right' onClick={this.addFamily}>添加</span>}
 					</div>
                 </div> 
 				 
@@ -460,8 +473,8 @@ export default class PersonalInfo  extends React.Component{
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='address'></TableRowColumn>
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contractPhone'></TableRowColumn>
 			                <TableRowColumn type="operation">
-                                  <Button label="编辑"  type="operation"  operation="edit"/>
-			                      <Button label="删除"  type="operation"  operation="delete" />
+                                  <Button label="编辑" operateCode="hrm_resource_edit" type="operation"  operation="edit"/>
+			                      <Button label="删除" operateCode="hrm_resource_edit"  type="operation"  operation="delete" />
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
@@ -471,7 +484,7 @@ export default class PersonalInfo  extends React.Component{
 				<div className='title-out family'>
 							<span className='title-blue'></span>
 							<span className='title-name'>工作经历</span>
-							<span className='title-right' onClick={this.addWork}>添加</span>
+							{isEditUser && <span className='title-right' onClick={this.addWork}>添加</span>}
 					</div>
               </div>  
 
@@ -508,8 +521,8 @@ export default class PersonalInfo  extends React.Component{
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactPhone'></TableRowColumn>
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactEmail'></TableRowColumn>
 			                <TableRowColumn type="operation">
-                                  <Button label="编辑"  type="operation"  operation="edit"/>
-			                      <Button label="删除"  type="operation"  operation="delete" />
+                                  <Button label="编辑" operateCode="hrm_resource_editt"  type="operation"  operation="edit"/>
+			                      <Button label="删除" operateCode="hrm_resource_edit"  type="operation"  operation="delete" />
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
