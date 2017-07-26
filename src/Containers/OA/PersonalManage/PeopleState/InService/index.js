@@ -479,7 +479,7 @@ export default class InService  extends React.Component{
 
 					{/*开通门禁*/}
 					<Dialog
-						title="开通门禁卡"
+						title="绑定门禁卡"
 						onClose={this.cancelCard}
 						open={this.state.openCard}
 						contentStyle ={{ width: '444px'}}

@@ -91,7 +91,7 @@ export default class WorkInfo  extends React.Component{
 			 {name:'核算单位',
 			  detail:workInfo.calculateCompany},
 			 {name:'试用期到期时间',
-			  detail:<KrDate value={workInfo.probationEndDate} format="yyyy-mm-dd"/>},
+			  detail:workInfo.probationEndDate?<KrDate value={workInfo.probationEndDate} format="yyyy-mm-dd"/>:"-"},
 			 {name:'劳动合同终止时间',
 			  detail:<KrDate value={workInfo.contractEndDate} format="yyyy-mm-dd"/>},
 			 {name:'入职来源',
@@ -99,7 +99,7 @@ export default class WorkInfo  extends React.Component{
 			  isSwitch:true,
 			  detail:workInfo.entrySource},
 			 {name:'名片title',
-			  detail:workInfo.cardTitle}
+			  detail:workInfo.cardTitle?workInfo.cardTitle:'-'}
 			];
 
 		return(

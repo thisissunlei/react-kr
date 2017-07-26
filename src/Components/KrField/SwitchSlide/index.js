@@ -30,16 +30,19 @@ export default class SwitchSlide extends React.Component{
 			valueText:'',
 		}
 	}
+   
+   isClear=()=>{
+	   console.log('sd');
+   }
 
-
-    componentWillReceiveProps(nextProps){
+   /* componentWillReceiveProps(nextProps){
 		let {oneOpen}=this.state;
         if(nextProps.valueText!==this.state.valueText){
 		    this.setState({
 				valueText:nextProps.valueText
 			})
 	    }
-	}
+	}*/
 
 	onChange = (value)=>{
 

@@ -224,7 +224,7 @@ class EditPerson  extends React.Component{
                             name="levelId"
                             letfData={rankList}
                             component="switchSlide"
-                            valueText = {basicInfo.levelName}
+                            valueText ={basicInfo.levelName}
                             label="职级"
                             control='single'
                             requireLabel={true}
