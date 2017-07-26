@@ -71,7 +71,7 @@ class EditPostList  extends React.Component{
 
                       <KrField 
                             grid={1}
-                            style={{width:262}}
+                            style={{width:262,marginBottom:5}}
                             name="name"
                             component="input"
                             label="职务名称"
@@ -80,21 +80,21 @@ class EditPostList  extends React.Component{
 
                         <KrField
                             grid={1}
-                            style={{width:262,marginLeft:34}}
+                            style={{width:262,marginLeft:34,marginBottom:5}}
                             name="code"
                             component="input"
                             label="编码"
                             requireLabel={true}
 						/>
 
-                         <KrField style={{width:262}} name="enabled" component="group" label="是否启用" requireLabel={true}>
+                         <div className='m-post-enable'><KrField style={{width:262}} name="enabled" component="group" label="是否启用" requireLabel={true}>
  							 <KrField name="enabled" label="启用" type="radio" value='true' />
  							 <KrField name="enabled" label="不启用" type="radio" value='false' />
- 						</KrField>
+ 						</KrField></div>
 
                           <KrField
                             grid={1}
-                            style={{width:262,marginLeft:34}}
+                            style={{width:262,marginLeft:34,marginBottom:5}}
                             name="orderNum"
                             component="input"
                             label="排序"
@@ -102,7 +102,7 @@ class EditPostList  extends React.Component{
 						/>
 
                          <KrField grid={1}
-                            style={{width:262}}
+                            style={{width:262,marginBottom:5}}
                             name="subId"
                             component="select"
                             label="分部"
@@ -112,7 +112,7 @@ class EditPostList  extends React.Component{
 						/>
                          { (isType || editDetail.typeId)  && <KrField
                             grid={1}
-                            style={{width:262,marginLeft:34}}
+                            style={{width:262,marginLeft:34,marginBottom:5}}
                             name="typeId"
                             component="select"
                             label="职务类型名称"
@@ -122,7 +122,7 @@ class EditPostList  extends React.Component{
 
                          <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'550px'}}  component="textarea"  maxSize={30} style={{width:560}} placeholder='请输入描述'  lengthClass='list-len-textarea'/>
 
-                        <Grid style={{marginBottom:5,marginLeft:-25}}>
+                        <Grid style={{marginBottom:5,marginLeft:-25,marginTop:-12}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

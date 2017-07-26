@@ -69,7 +69,7 @@ class EditPerson  extends React.Component{
     }
     onChange = (data) =>{
         this.getPositionType(data);
-        Store.dispatch(change('editPerson','typeId',' '));
+        Store.dispatch(change('editPerson','typeId',''));
         this.setState({
             isDepSelect:false
         })
@@ -83,8 +83,8 @@ class EditPerson  extends React.Component{
             isDepSelect:true,
             basicInfo
         })
-        Store.dispatch(change('editPerson','jobId',' '));  
-        Store.dispatch(change('editPerson','levelId',' ')); 
+        Store.dispatch(change('editPerson','jobId',''));  
+        Store.dispatch(change('editPerson','levelId','')); 
     }
     getPositionType = (param) =>{
         var that = this;
@@ -304,14 +304,14 @@ const validate = values =>{
      if(!values.depId){
         errors.depId='请选择部门';
     }
-
+    
     if(!values.typeId){
         errors.typeId='请选择职务类型';
     }
-    if(!values.jobId){
+    if(!values.jobId.orgId){
         errors.jobId='请选择职务';
     }
-    if(!values.levelId){
+    if(!values.levelId.orgId){
         errors.levelId='请选择职级';
     }
 
