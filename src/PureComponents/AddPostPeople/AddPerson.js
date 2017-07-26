@@ -53,14 +53,19 @@ class AddPerson  extends React.Component{
         this.getPositionType(data);
          Store.dispatch(change('addPerson','typeId',' '));
          this.setState({
-            isDepSelect:false
+            isDepSelect:false,
+            valueText:""
         })
     }
+    // zhiwu-type
     positionTypeChange = (data) =>{
         this.getPrepareData(data);
+        var _this=this;
         this.setState({
             isDepSelect:true,
         })
+         
+        
         Store.dispatch(change('addPerson','jobId',' '));  
         Store.dispatch(change('addPerson','levelId',' '));
     }
@@ -199,6 +204,8 @@ class AddPerson  extends React.Component{
                             label="职务"
                             control='single'
                             requireLabel={true}
+                            ref={(ref) => this.mapComponent = ref}
+                        
                         />}
                          {isPositionRank &&isDepSelect&& <KrField
                             grid={1/2}

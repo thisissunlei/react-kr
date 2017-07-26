@@ -51,12 +51,12 @@ import {reduxForm}  from 'redux-form';
                    heightStyle={{height:"78px",width:'500px'}}  
                    component="textarea"
                    maxSize={30} 
-                    requireLabel={true}
+                   requireLabel={true}
                    placeholder="请输入描述" 
-                   style={{width:517,marginLeft:'28px'}} 
-                   lengthClass='list-len-textarea'/>
+                   style={{width:510,marginLeft:'28px'}} 
+                   lengthClass='leave-len-textarea'/>
                    
-			   <Grid>
+			   <Grid style={{marginTop:-12,marginBottom:5}}>
                     <Row>
                         <Col md={12} align="center">
                         <ButtonGroup>
