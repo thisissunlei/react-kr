@@ -138,7 +138,7 @@ export default class Home extends React.Component {
     window.open(`./#/oa/organization/${dimId}/labour`, dimId);
   }
   addLastLineDim=()=>{
-    console.log("进入添加空白函数",this.lastLineDimNum);
+    //console.log("进入添加空白函数",this.lastLineDimNum);
     var arr = [];
     for (var i=0;i<this.lastLineDimNum;i++) {
       arr.push({i})
