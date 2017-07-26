@@ -123,10 +123,11 @@ export default class Home extends React.Component {
               renderAddWhite();
               that.setState({dimension: response.items})
               function renderAddWhite() {
-                  var width = that.refs.main.getBoundingClientRect().width*0.94;
-                  var num = Math.floor(width/200);
+                  var width = that.refs.main.getBoundingClientRect().width*0.86;
+                  console.log("width",width);
+                  var num = Math.floor(width/(200+(width*0.04)));
                     that.lastLineDimNum = num-1-that.dimLength%num;
-                    if (that.lastLineDimNum) {
+                    if (that.lastLineDimNum>0) {
                      that.addLastLineDim();
                     }
               }

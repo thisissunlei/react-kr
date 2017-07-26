@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.less';
+import { observer, inject } from 'mobx-react';
 import {
 	Dialog,
 	Button,
