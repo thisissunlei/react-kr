@@ -16,7 +16,9 @@ import './index.less';
 class AddPerson  extends React.Component{
 
 	constructor(props,context){
+
 		super(props, context);
+
         this.state = {
             positionList:[],
             rankList:[],
@@ -24,8 +26,13 @@ class AddPerson  extends React.Component{
             isPositionRank:false,
             //选择部门
             isDepSelect:true,
+            basicInfo:{
+                jobName:"",
+                levelName:'',
+            }
         }
-	}
+
+}
     
 
     componentDidMount(){
@@ -50,19 +57,25 @@ class AddPerson  extends React.Component{
         onCancel && onCancel();
     }
     onChange = (data) =>{
-        this.getPositionType(data);
+        
+       
+      
          Store.dispatch(change('addPerson','typeId',' '));
          this.setState({
-            isDepSelect:false,
-            valueText:""
+            isPositionRank:false,
         })
+        this.getPositionType(data);
     }
     // zhiwu-type
     positionTypeChange = (data) =>{
+       
         this.getPrepareData(data);
+        let {basicInfo}=this.state;
+        basicInfo.jobName='请选择';
+        basicInfo.levelName='请选择';
         var _this=this;
         this.setState({
-            isDepSelect:true,
+            basicInfo
         })
          
         
@@ -83,11 +96,13 @@ class AddPerson  extends React.Component{
     }
     getPrepareData = (param) =>{
         const _this = this; 
-        
+       
         Http.request('get-position-list',{typeId:param.value}).then(function(response) {
+            console.log("OOOOOOOOO")
              _this.setState({
                  positionList:response,
-                 isPositionRank:true
+                 isPositionRank:true,
+             
              })
         }).catch(function(err) {
 
@@ -102,6 +117,58 @@ class AddPerson  extends React.Component{
 
         });
     }
+
+	renderJobAndLevel =()=>{
+
+
+        let {
+                rankList,
+                positionList,
+                isPositionRank,
+                positionType,
+                isDepSelect,
+                basicInfo
+            } = this.state;
+
+		if(!isPositionRank){
+			return null;
+		};
+		
+
+		return (
+		<div>
+
+<KrField
+                            grid={1/2}
+                            style={{width:262}}
+                            name="jobId"
+                            letfData={positionList}
+                            component="switchSlide"
+                            label="职务"
+                            valueText = {basicInfo.jobName}
+                            control='single'
+                            requireLabel={true}
+                        />
+
+                         <KrField
+                            grid={1/2}
+                            style={{width:262,marginLeft:28}}
+                            name="levelId"
+                            letfData={rankList}
+                            component="switchSlide"
+                            label="职级"
+                            valueText = {basicInfo.levelName}
+                            control='single'
+                            requireLabel={true}
+                        />
+
+</div>
+
+);
+
+
+	}
+
 	render(){
 
         let {handleSubmit}=this.props;
@@ -111,7 +178,9 @@ class AddPerson  extends React.Component{
                 isPositionRank,
                 positionType,
                 isDepSelect,
+                basicInfo
             } = this.state;
+        console.log(basicInfo,"////////////")
            
 		return(
 
@@ -194,29 +263,8 @@ class AddPerson  extends React.Component{
                             options = {positionType}
                             requireLabel={true}
                         />}
+			                {this.renderJobAndLevel()}
 
-                        {isPositionRank &&isDepSelect&&<KrField
-                            grid={1/2}
-                            style={{width:262,marginTop:6}}
-                            name="jobId"
-                            letfData={positionList}
-                            component="switchSlide"
-                            label="职务"
-                            control='single'
-                            requireLabel={true}
-                            ref={(ref) => this.mapComponent = ref}
-                        
-                        />}
-                         {isPositionRank &&isDepSelect&& <KrField
-                            grid={1/2}
-                            style={{width:262,marginTop:6,marginLeft:28}}
-                            name="levelId"
-                            letfData={rankList}
-                            component="switchSlide"
-                            label="职级"
-                            control='single'
-                            requireLabel={true}
-                        />}
 
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:!this.props.changeValues.depId?28:0,marginTop:6}}

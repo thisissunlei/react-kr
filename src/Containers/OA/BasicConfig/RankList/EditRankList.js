@@ -70,7 +70,7 @@ class EditRankList  extends React.Component{
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 
                        <KrField grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginBottom:5}}
                             name="name"
                             component="input"
                             label="职级名称"
@@ -78,7 +78,7 @@ class EditRankList  extends React.Component{
                             
 						/>
                          <KrField grid={1/2}
-                            style={{width:262,marginLeft:34}}
+                            style={{width:262,marginLeft:34,marginBottom:5}}
                             name="subId"
                             component="select"
                             label="分部"
@@ -87,7 +87,7 @@ class EditRankList  extends React.Component{
                             options={subCompany}
 						/>
                       {(isType || editDetail.subId ) && <KrField grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginBottom:5}}
                             name="typeId"
                             component="select"
                             label="职务类型"
@@ -96,21 +96,21 @@ class EditRankList  extends React.Component{
 						/>}
 
                         <KrField grid={1/2}
-                            style={(isType || editDetail.subId )?{width:262,marginLeft:34}:{width:262}}
+                            style={(isType || editDetail.subId )?{width:262,marginLeft:34,marginBottom:5}:{width:262,marginBottom:5}}
                             name="level"
                             component="input"
                             label="等级"
                             requireLabel={true}
 						/>
-                         <KrField style={(isType || editDetail.subId )?{width:262}:{width:262,marginLeft:34}} name="enabled" component="group" label="职级状态" requireLabel={true}>
+                         <div className='m-post-enable'><KrField style={(isType || editDetail.subId )?{width:262,marginBottom:5}:{width:262,marginLeft:34,marginBottom:5}} name="enabled" component="group" label="职级状态" requireLabel={true}>
  							 <KrField name="enabled" label="启用" type="radio" value='true' />
  							 <KrField name="enabled" label="停用" type="radio" value='false' />
- 						</KrField>
+ 						</KrField></div>
 
                         <KrField grid={1} label="职级描述" name="descr" heightStyle={{height:"78px",width:'550px'}} style={{width:560}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='list-len-textarea'/>
 
                         
-                       <Grid style={{marginBottom:5,marginLeft:-25}}>
+                       <Grid style={{marginBottom:5,marginLeft:-25,marginTop:-12}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
