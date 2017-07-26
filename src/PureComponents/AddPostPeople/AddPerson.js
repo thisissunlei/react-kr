@@ -343,10 +343,11 @@ const validate = values =>{
     if(!values.typeId){
         errors.typeId='请选择职务类型';
     }
-    if(!values.jobId){
+
+    if(values.jobId&&!values.jobId.orgId){
         errors.jobId='请选择职务';
     }
-    if(!values.levelId){
+    if(values.levelId&&!values.levelId.orgId){
         errors.levelId='请选择职级';
     }
 
