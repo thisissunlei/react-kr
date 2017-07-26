@@ -585,7 +585,7 @@ export default class EquipmentDefinition extends React.Component {
 
 
 
-              <TableRowColumn style={{width:160,overflow:"visible"}} name="hardwareId" component={(value,oldValue)=>{
+              {/*<TableRowColumn style={{width:160,overflow:"visible"}} name="hardwareId" component={(value,oldValue)=>{
                             var TooltipStyle=""
                             if(value.length==""){
                               TooltipStyle="none"
@@ -595,7 +595,16 @@ export default class EquipmentDefinition extends React.Component {
                             }
                              return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-              }} ></TableRowColumn>
+              }} ></TableRowColumn>*/}
+
+
+              <TableRowColumn name="hardwareId" style={{width:310}}
+              component={(value,oldValue)=>{
+                if(value==""){
+                  value="-"
+                }
+                return (<span>{value}</span>)}}
+              ></TableRowColumn>
 
 
 

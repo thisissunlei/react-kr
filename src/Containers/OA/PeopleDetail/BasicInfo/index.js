@@ -32,8 +32,9 @@ export default class BasicInfo  extends React.Component{
 
 	componentDidMount() {
 		var {checkOperate} = this.props.NavModel;
+		var _this = this;
 		setTimeout(function() {
-			this.setState({
+			_this.setState({
 				isEdit : checkOperate("hrm_resource_base")
 			})
 			hrm_resource_edit
