@@ -26,7 +26,12 @@ import {Store} from 'kr/Redux';
 import {
   initialize
 } from 'redux-form';
-
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("NavModel")
+@observer
 export default class PersonalInfo  extends React.Component{
 
 	constructor(props,context){
@@ -338,7 +343,7 @@ export default class PersonalInfo  extends React.Component{
 
 	render(){
 
-		let {personInfo,familySearchParams,workSearchParams}=this.state;
+		let {personInfo,familySearchParams,workSearchParams,isEditUser}=this.state;
 
 		let infoName=[
 			 {name:'身份证号码',
