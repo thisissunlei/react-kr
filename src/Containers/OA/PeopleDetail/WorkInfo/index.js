@@ -12,15 +12,31 @@ import {Store} from 'kr/Redux';
 import {
   initialize
 } from 'redux-form';
-
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@inject("NavModel")
+@observer
 export default class WorkInfo  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
 			openEdit:false,
-			workInfo:{}
+			workInfo:{},
+			isEdit:false
 		}
+	}
+
+	componentDidMount() {
+		var {checkOperate} = this.props.NavModel;
+		var _this=this;
+		setTimeout(function() {
+		   _this.setState({
+			 isEdit :checkOperate("hrm_resource_workinfo_edit"),
+		   })
+		},500);	
 	}
 
 
@@ -83,7 +99,7 @@ export default class WorkInfo  extends React.Component{
 
 	render(){
 
-		let {workInfo}=this.state;
+		let {workInfo,isEdit}=this.state;
 
 		let infoName=[
 			 {name:'工资卡号',
@@ -107,7 +123,7 @@ export default class WorkInfo  extends React.Component{
 				  <div className='title-out'>
 						<span className='title-blue'></span>
 						<span className='title-name'>工作信息</span>
-						<span className='title-right' onClick={this.basicEdit}>编辑</span>
+						{isEdit&&<span className='title-right' onClick={this.basicEdit}>编辑</span>}
 				  </div>
                   <ul className='info-inner'>
 					{
