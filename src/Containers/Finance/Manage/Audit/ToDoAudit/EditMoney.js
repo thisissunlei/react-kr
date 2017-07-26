@@ -865,6 +865,7 @@ class EditMoney extends React.Component {
 								component="labelText"
 								label="部门"
 								inline={false}
+								defaultValue="无"
 								value={infoList.department}
 						/>
 						<KrField
