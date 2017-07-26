@@ -32,21 +32,6 @@ export default class SelectTree extends React.Component{
 		}
 	}
 
-	onChange = (value)=>{
-
-		// let {input} = this.props;
-		// input.onChange(value);
-		// const {onChange} = this.props;
-		// onChange && onChange(value,input)
-	}
-
-	onBlur=(value)=>{
-		// let {input} = this.props;
-		// input.onBlur(value);
-		// const {onBlur} = this.props;
-		// onBlur && onBlur(value)
-	}
-
 	onFocus=(value)=>{
 		
 		this.setState({
@@ -91,10 +76,6 @@ export default class SelectTree extends React.Component{
 	onSelect = (data) =>{
 		
 		let {input,onChange} = this.props;
-		// var value = (item && item.value) || '';
-		// input.onChange({});
-		
-		// onChange && onChange(item);
 		
 	}
 	 componentWillReceiveProps (nextProps) {
