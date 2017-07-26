@@ -69,15 +69,15 @@ class PersonalManage extends React.Component {
                     <Tabs className="tabs">
                             <Tab label="在职" onActive={this.inServiceClick} style={serviceStyle}>
 
-                                    <InService
+                                    {tab=='inservice'&&<InService
                                        
-                                    />
+                                    />}
                             </Tab>
-                            <Tab label="离职"  onActive={this.leaveClick} style={leaveStyle}>
+                            <Tab label="离职" onActive={this.leaveClick} style={leaveStyle}>
 
-                                    <Leave
+                                    {tab=='leave'&&<Leave
                                         
-                                    />
+                                    />}
                             </Tab>
                     </Tabs>
 		   </div>
