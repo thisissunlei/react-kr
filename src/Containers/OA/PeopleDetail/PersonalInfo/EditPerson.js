@@ -303,6 +303,8 @@ const validate = values =>{
 
     if(!values.personPhone){
       errors.personPhone='请填写联系电话';  
+    }else if(!phone.test(values.personPhone.toString().trim())&&!ph.test(values.personPhone.toString().trim())){
+       errors.personPhone='请填写正确联系人电话';   
     }
 
     if(!values.emergencyContact){
@@ -315,6 +317,14 @@ const validate = values =>{
       errors.emergencyPhone='请填写紧急联系人电话';  
     }else if(!phone.test(values.emergencyPhone.toString().trim())&&!ph.test(values.emergencyPhone.toString().trim())){
        errors.emergencyPhone='请填写正确紧急联系人电话';   
+    }
+
+    if(values.height&&isNaN(values.height)){
+       errors.height='请输入数字'  
+    }
+
+    if(values.weight&&isNaN(values.weight)){
+       errors.weight='请输入数字'  
     }
 
     

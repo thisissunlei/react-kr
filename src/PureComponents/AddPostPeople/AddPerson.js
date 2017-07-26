@@ -22,7 +22,8 @@ class AddPerson  extends React.Component{
             rankList:[],
             positionType:[],
             isPositionRank:false,
-          
+            //选择部门
+            isDepSelect:true,
         }
 	}
     
@@ -50,9 +51,18 @@ class AddPerson  extends React.Component{
     }
     onChange = (data) =>{
         this.getPositionType(data);
+         Store.dispatch(change('addPerson','typeId',' '));
+         this.setState({
+            isDepSelect:false
+        })
     }
     positionTypeChange = (data) =>{
-        this.getPrepareData(data)
+        this.getPrepareData(data);
+        this.setState({
+            isDepSelect:true,
+        })
+        Store.dispatch(change('addPerson','jobId',' '));  
+        Store.dispatch(change('addPerson','levelId',' '));
     }
     
     getPositionType = (param) =>{
@@ -95,8 +105,7 @@ class AddPerson  extends React.Component{
                 positionList,
                 isPositionRank,
                 positionType,
-              
-
+                isDepSelect,
             } = this.state;
            
 		return(
@@ -181,7 +190,7 @@ class AddPerson  extends React.Component{
                             requireLabel={true}
                         />}
 
-                        {isPositionRank &&<KrField
+                        {isPositionRank &&isDepSelect&&<KrField
                             grid={1/2}
                             style={{width:262}}
                             name="jobId"
@@ -191,7 +200,7 @@ class AddPerson  extends React.Component{
                             control='single'
                             requireLabel={true}
                         />}
-                         {isPositionRank && <KrField
+                         {isPositionRank &&isDepSelect&& <KrField
                             grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="levelId"

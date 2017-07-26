@@ -116,12 +116,11 @@ class EditPostList  extends React.Component{
                             name="typeId"
                             component="select"
                             label="职务类型名称"
-                            requireLabel={true}
-                           
+                            requireLabel={true}                  
                             options={jobTypes}
 						/>}
 
-                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'550px'}}  component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='list-len-textarea'/>
+                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'550px'}}  component="textarea"  maxSize={30} style={{width:560}} placeholder='请输入描述'  lengthClass='list-len-textarea'/>
 
                         <Grid style={{marginBottom:5,marginLeft:-25}}>
                             <Row>
