@@ -92,6 +92,8 @@ class FieldRevert extends React.Component {
 				return <MobxForm.Field {...this.props} />;
 			}
 
+			console.log('--->>>>>>',this.props);
+
 			return <Field  {...this.props} />;
 
 		}
@@ -471,6 +473,7 @@ class FieldRevert extends React.Component {
 			}
 
 			if (component === 'switchSlide') {
+				console.log('<<<--->',this.props.valueText);
 				return (
 					<FieldRevert {...this.props} component={SwitchSlide}  style={WrapStyles} {...other}/>
 				)

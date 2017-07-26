@@ -21,28 +21,37 @@ export default class SwitchSlide extends React.Component{
 	}
 
 	constructor(props,context){
+
 		super(props,context)
+
 		this.state = {
 			isDialog:false,
 			data:{
 				label:"请选择"
 			},
-			valueText:'',
+			valueText:props.valueText,
 		}
+
 	}
    
-   isClear=()=>{
-	   console.log('sd');
-   }
 
-   /* componentWillReceiveProps(nextProps){
+
+    componentWillReceiveProps(nextProps){
 		let {oneOpen}=this.state;
+		let {label} = this.props;
+
         if(nextProps.valueText!==this.state.valueText){
+			
 		    this.setState({
 				valueText:nextProps.valueText
 			})
 	    }
-	}*/
+	}
+
+	componentDidMount(){
+
+
+	}
 
 	onChange = (value)=>{
 
@@ -74,15 +83,14 @@ export default class SwitchSlide extends React.Component{
 		if( !data || !data.label ){
 			return ;
 		}
-		console.log('gggggg',data);
+		
 		let {input} = this.props;
 		input.onChange(data);
-		this.dlogSwidch();
-		
 		this.setState({
 			data,
 			valueText:data.label
 		})
+		this.dlogSwidch();
 	}
 
 	dlogSwidch = () =>{
@@ -170,12 +178,11 @@ export default class SwitchSlide extends React.Component{
 
         var dialogTitle = label || '组件';
         dialogTitle = "选择" + dialogTitle;
-
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input "  onClick = {this.onFocus}>{valueText}</div>
+					<div className = "oa-imulation-input "  onClick = {this.onFocus}>{valueText}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 
