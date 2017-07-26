@@ -71,7 +71,7 @@ class OpenCard extends React.Component{
 		return(
 
 			<div>
-              <form onSubmit={handleSubmit(this.onSubmit)}>
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
                
                 <KrField grid={1}
                             style={{width:262,marginLeft:28}}
@@ -87,16 +87,16 @@ class OpenCard extends React.Component{
                             label="手机号"
                             name="mobilePhone"
 						/>
-                 <KrField grid={1}
+                 <div className='m-member-card'><KrField grid={1}
                             style={{width:262,marginLeft:28}}
                             name="cardNo"
                             component="input"
                             label="会员卡号"
                             inline={true}
                             requireLabel={true}
-					    />
+					    /></div>
 
-			   <Grid style={{marginTop:17,marginBottom:5}}>
+			   <Grid style={{marginTop:26,marginBottom:5}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

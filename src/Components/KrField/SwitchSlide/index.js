@@ -33,10 +33,10 @@ export default class SwitchSlide extends React.Component{
 		}
 
 	}
+   
 
 
     componentWillReceiveProps(nextProps){
-
 		let {oneOpen}=this.state;
 		let {label} = this.props;
 

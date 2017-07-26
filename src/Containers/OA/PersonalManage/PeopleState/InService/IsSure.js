@@ -29,7 +29,7 @@ export default class IsSure extends React.Component{
 		return(
 
 			<div>
-               <p style={{textAlign:'center',color:'#000',fontSize:'16px',marginTop:'25px'}}>是否更换门禁卡号？</p>
+               <p style={{textAlign:'center',color:'#666',fontSize:'14px',marginTop:'25px'}}>是否更换门禁卡号？</p>
 			   <Grid style={{marginTop:25}}>
                             <Row>
                                 <Col md={12} align="center">
