@@ -61,7 +61,6 @@ class TreeNode extends React.Component {
   }
 
   onDragStart = (e) => {
-    // console.log('dragstart', this.props.eventKey, e);
     // e.preventDefault();
     e.stopPropagation();
     this.setState({
@@ -243,14 +242,27 @@ class TreeNode extends React.Component {
       var allTypes = props.type.split("-");
       
       var typeText = "";
-      // console.log(props.itemData.treeType,IconType[0])
       if(allTypes[0]=="department"){
           for(let i=0;i<IconType.length;i++){
             if(props.itemData.treeType == IconType[i]){
-              
-                typeText = IconType[i]+"_"+iconState;
+                if(props.children.length == 0){
+                  if(props.selected){
+                    typeText = IconType[i]+"_"+"open";
+                    
+                  }else{
+                     typeText = IconType[i]+"_"+"close";
+                  }
+                }else{
+                  typeText = IconType[i]+"_"+iconState;
+                }
+                
+                
                 break;
             }
+            // if(open){
+
+            // }
+
           }
       }else{
         typeText =iconState;
@@ -276,7 +288,7 @@ class TreeNode extends React.Component {
     let canRenderSwitcher = true;
     const content = props.title;
     let newChildren = this.renderChildren(props);
-    if (!newChildren || newChildren === props.children) {
+    if (!newChildren || newChildren === props.children||!props.children.length) {
       // content = newChildren;
       newChildren = null;
       if (!props.loadData || props.isLeaf) {
@@ -334,11 +346,12 @@ class TreeNode extends React.Component {
       //disabled 是否禁止
       if (!props.disabled) {
         /*=========父节点是否可选择的判断=========*/
-        if (props.selected || !props._dropTrigger && this.state.dragNodeHighlight)
+       
+        if (props.itemData.children.length!=0 && props.expanded)
         {
           domProps.className += ` ${prefixCls}-node-selected`;
         }
-        if(props.expanded && props.itemData.children.length!=0){
+        if(props.itemData.children.length == 0 && props.selected){
           domProps.className += ` ${prefixCls}-node-selected`;
 
         }
@@ -404,6 +417,7 @@ class TreeNode extends React.Component {
     const filterCls = props.filterTreeNode(this) ? 'filter-node' : '';
 
     const noopSwitcher = () => {
+     
       const cls = {
         [`${prefixCls}-switcher`]: true,
         [`${prefixCls}-switcher-noop`]: true,
@@ -414,6 +428,8 @@ class TreeNode extends React.Component {
       } else {
         cls[`${prefixCls}-noline_docu_close`] = true;
       }
+      
+      
       if(props.selected){
         cls[`${prefixCls}-noline_docu_close`] = false;
         cls[`${prefixCls}-noline_docu_open`] = true;
@@ -421,7 +437,6 @@ class TreeNode extends React.Component {
         cls[`${prefixCls}-noline_docu_open`] = false;
         cls[`${prefixCls}-noline_docu_close`] = true;
       }
-
       return <span className={classNames(cls)}></span>;
     };
 
