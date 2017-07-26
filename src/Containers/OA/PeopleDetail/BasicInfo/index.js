@@ -19,13 +19,10 @@ export default class BasicInfo  extends React.Component{
 		super(props, context);
 		this.state={
 			openEdit:false,
-			basicInfo:{}
+			basicInfo:{},
 		}
 	}
     
-	componentWillUnmount(){
-       
-	}
 
 	componentWillMount(){
 		let {personId}=this.props;

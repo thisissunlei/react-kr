@@ -149,8 +149,8 @@ const validate = values =>{
 
     if(!values.code){
       errors.code='请填写职务编码'  
-    }else if(values.code.length>10){
-       errors.code='职务编码不能超过10个字符';   
+    }else if(values.code.length>30){
+       errors.code='职务编码不能超过30个字符';   
     }
 
     if(!values.typeId){
