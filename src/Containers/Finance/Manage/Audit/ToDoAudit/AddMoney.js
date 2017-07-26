@@ -60,7 +60,8 @@ class AddMoney extends React.Component {
 			oldData:[],
 			//我司账户名称
 			accountNum:'',
-			showSection:false
+			showSection:false,
+			department:''
 		}
 		this.receivedBtnFormChangeValues = {};
 
@@ -282,18 +283,10 @@ class AddMoney extends React.Component {
 		Http.request('get-mainbill-info', {
 			mainBillId: form.value
 		}, {}).then(function(response) {
-			console.log('---->',response,!!response.department)
-			if(!!response.department){
-				Store.dispatch(change('addMoney', 'departmentId', response.departmentId));
-
-			}else{
-				Store.dispatch(change('addMoney', 'departmentId', ''));
-
-			}
-			
 			_this.setState({
 				mainbillInfo: response,
 				corporationId: response.corporationId,
+				department:response.department,
 				showSection:!!response.department?true:false
 			})
 
@@ -849,10 +842,12 @@ class AddMoney extends React.Component {
 						/>
 						{this.state.showSection && <KrField
 								style={{width:260,marginLeft:25}}
-								name="departmentId"
+								name="department"
 								type="text"
-								options={options}
-								component="select"
+								component="labelText"
+								defaultValue='无'
+								inline={false}
+								value={this.state.department}
 								label="部门"
 								
 						/>}

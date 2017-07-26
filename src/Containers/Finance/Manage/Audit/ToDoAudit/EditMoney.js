@@ -860,6 +860,14 @@ class EditMoney extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
+								style={{width:260,marginLeft:25}}
+								name="dealTime"
+								component="labelText"
+								label="部门"
+								inline={false}
+								value={infoList.department}
+						/>
+						<KrField
 								style={{width:548}}
 								name="remark"
 								component="textarea"
