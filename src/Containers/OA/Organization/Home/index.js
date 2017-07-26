@@ -1,7 +1,4 @@
-import React, {
-	Component,
-	PropTypes
-} from 'react';
+import React from 'react';
 import {
 	KrField,
 	Button,
@@ -123,13 +120,16 @@ export default class Home extends React.Component {
               renderAddWhite();
               that.setState({dimension: response.items})
               function renderAddWhite() {
-                  var width = that.refs.main.getBoundingClientRect().width*0.86;
-                  console.log("width",width);
+                  //console.log("clientWidth",document.body.clientWidth,"offsetwidth",document.body.offsetWidth);
+                  if(document.body.clientWidth>1765){
+                    var width = that.refs.main.getBoundingClientRect().width*0.82;
+                  }else{
+                    var width = that.refs.main.getBoundingClientRect().width*0.94;
+                  }
+                  //console.log("width",width);
                   var num = Math.floor(width/(200+(width*0.04)));
                     that.lastLineDimNum = num-1-that.dimLength%num;
-                    if (that.lastLineDimNum>0) {
-                     that.addLastLineDim();
-                    }
+                    that.addLastLineDim();
               }
           }).catch(function(err) {});
   }
@@ -138,7 +138,7 @@ export default class Home extends React.Component {
     window.open(`./#/oa/organization/${dimId}/labour`, dimId);
   }
   addLastLineDim=()=>{
-    console.log("afdafds",this.lastLineDimNum);
+    console.log("进入添加空白函数",this.lastLineDimNum);
     var arr = [];
     for (var i=0;i<this.lastLineDimNum;i++) {
       arr.push({i})
@@ -157,9 +157,9 @@ export default class Home extends React.Component {
     )
   }
   render() {
-    console.log(this.state.addLastLineDimArr);
+    //console.log(this.state.addLastLineDimArr);
     //console.log(this.state.addLastLineDim);
-    console.log("render",this.lastLineDimNum);
+    //console.log("render",this.lastLineDimNum);
     return (
       <div className="g-oa">
         <Section title="机构维度">
