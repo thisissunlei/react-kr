@@ -84,6 +84,7 @@ export default class Labour extends React.Component {
 				'display': 'none'
 			},
 			dimIdStatus:'0',
+			openHighSearch:false,
 		}
 	}
 	checkTab = (item) => {
@@ -461,6 +462,19 @@ export default class Labour extends React.Component {
 		ids = String(ids);
 		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
 		window.location.href = url;
+	}
+	//高级查询
+	openHighSearch = () => {
+		this.setState({
+		openHighSearch: !this.state.openHighSearch
+		})
+	}
+
+	onSearchSubmit = (form) => {
+		this.setState({
+			searchParams:form
+		})
+		this.openHighSearch();
 	}
 	render() {
 		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
