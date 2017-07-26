@@ -450,7 +450,18 @@ export default class Labour extends React.Component {
 			Message.error(err.message);
 		});
 	}
-
+	// 导出Excle表格
+	onExport=(values)=>{
+		let ids = [];
+		if (values.length != 0) {
+			values.map((item, value) => {
+				ids.push(item.id)
+			});
+		}
+		ids = String(ids);
+		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		window.location.href = url;
+	}
 	render() {
 		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
 		var logFlag = '';
@@ -646,6 +657,7 @@ export default class Labour extends React.Component {
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
+								onExport={this.onExport}
 							>
 								<TableHeader>
 									<TableHeaderColumn>ID</TableHeaderColumn>
