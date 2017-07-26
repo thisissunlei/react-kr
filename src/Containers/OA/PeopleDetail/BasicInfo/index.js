@@ -29,9 +29,6 @@ export default class BasicInfo  extends React.Component{
 		}
 	}
     
-	componentWillUnmount(){
-       
-	}
 
 	componentDidMount() {
 		var {checkOperate} = this.props.NavModel;

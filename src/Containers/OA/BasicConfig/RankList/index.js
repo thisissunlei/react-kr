@@ -225,6 +225,7 @@ export default class RankList extends Component{
 							label="新建职级"
 							type='button'
 							onTouchTap={this.openAddPost}
+							operateCode="hrm_job_level_edit"
 					/>
 				</Col>
 			        
@@ -277,8 +278,8 @@ export default class RankList extends Component{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}}></TableRowColumn>
 						<TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation"  operation="edit"/>
-			                <Button label="删除"  type="operation"  operation="delete" />
+                            <Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_job_level_edit"/>
+			                <Button label="删除"  type="operation"  operation="delete" operateCode="hrm_job_level_edit"/>
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>

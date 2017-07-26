@@ -41,7 +41,7 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '人员列表',
-						menuCode: 'hrm_resources_list',
+						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/oa/personalManage/peopleState',
 						
 					}

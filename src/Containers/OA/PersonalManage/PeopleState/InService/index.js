@@ -62,8 +62,30 @@ export default class InService  extends React.Component{
 			transferDetail:{},
 			resourceId:'',
 			//绑定的数据
-			cardParam:''
+			cardParam:'',
+			//权限
+			isLeave:'',
+			isRemove:'',
+			istranfer:'',
+			isCard:'',
+			isOpen:''
 		}
+	}
+
+
+	componentDidMount() {
+		var {checkOperate} = this.props.NavModel;
+		var _this=this;
+		setTimeout(function() {
+		   _this.setState({
+			 isLeave :checkOperate("hrm_resource_dimission"),
+		     isRemove : checkOperate("hrm_resource_account"),
+		     istranfer : checkOperate("hrm_resource_move"),
+			 isCard : checkOperate("hrm_resource_card"),
+		     isOpen : checkOperate("hrm_resource_account")
+		   })
+		},500);	
+
 	}
    
    //新建用户
@@ -303,7 +325,7 @@ export default class InService  extends React.Component{
 		window.open(`./#/oa/${personId}/peopleDetail`,'123');
    }
 	render(){
-		const {transferDetail,employees} = this.state;
+		const {transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;
 		return(
 
 			<div className='m-inservice-list'>
@@ -314,9 +336,10 @@ export default class InService  extends React.Component{
 								style={{float:'left'}}
 							>
 								<Button
-									label="新建用户"
+									label="新建人员"
 									type='button'
 									onTouchTap={this.openAddPersonal}
+									operateCode="hrm_resource_add"
 								/>
 							</Col>
 
@@ -385,11 +408,11 @@ export default class InService  extends React.Component{
 								<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
 										return <span>
 											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
-												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
-												<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>
-												{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
-												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
+												{isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
+												{istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
+												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+												{isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
+												{isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
 											</span>
 								 }}>		
 								</TableRowColumn>
