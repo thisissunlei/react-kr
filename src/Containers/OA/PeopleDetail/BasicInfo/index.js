@@ -22,7 +22,10 @@ export default class BasicInfo  extends React.Component{
 			basicInfo:{}
 		}
 	}
-
+    
+	componentWillUnmount(){
+       
+	}
 
 	componentWillMount(){
 		let {personId}=this.props;
