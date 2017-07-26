@@ -32,21 +32,6 @@ export default class SelectTree extends React.Component{
 		}
 	}
 
-	onChange = (value)=>{
-
-		// let {input} = this.props;
-		// input.onChange(value);
-		// const {onChange} = this.props;
-		// onChange && onChange(value,input)
-	}
-
-	onBlur=(value)=>{
-		// let {input} = this.props;
-		// input.onBlur(value);
-		// const {onBlur} = this.props;
-		// onBlur && onBlur(value)
-	}
-
 	onFocus=(value)=>{
 		
 		this.setState({
@@ -91,10 +76,6 @@ export default class SelectTree extends React.Component{
 	onSelect = (data) =>{
 		
 		let {input,onChange} = this.props;
-		// var value = (item && item.value) || '';
-		// input.onChange({});
-		
-		// onChange && onChange(item);
 		
 	}
 	 componentWillReceiveProps (nextProps) {
@@ -189,7 +170,7 @@ export default class SelectTree extends React.Component{
 					title={dialogTitle}
 					onClose={this.dlogSwidch}
 					open={isDialog}
-					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
+					contentStyle ={{ width: '674px',height:'580px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
 					<TreeDialog  treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>

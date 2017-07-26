@@ -21,14 +21,36 @@ export default class SwitchSlide extends React.Component{
 	}
 
 	constructor(props,context){
+
 		super(props,context)
+
 		this.state = {
 			isDialog:false,
 			data:{
 				label:"请选择"
 			},
-			oneOpen:true
+			valueText:props.valueText,
 		}
+
+	}
+   
+
+
+    componentWillReceiveProps(nextProps){
+		let {oneOpen}=this.state;
+		let {label} = this.props;
+
+        if(nextProps.valueText!==this.state.valueText){
+			
+		    this.setState({
+				valueText:nextProps.valueText
+			})
+	    }
+	}
+
+	componentDidMount(){
+
+
 	}
 
 	onChange = (value)=>{
@@ -61,14 +83,14 @@ export default class SwitchSlide extends React.Component{
 		if( !data || !data.label ){
 			return ;
 		}
+		
 		let {input} = this.props;
 		input.onChange(data);
-		this.dlogSwidch();
-		
 		this.setState({
 			data,
-			oneOpen:false
+			valueText:data.label
 		})
+		this.dlogSwidch();
 	}
 
 	dlogSwidch = () =>{
@@ -82,13 +104,13 @@ export default class SwitchSlide extends React.Component{
             isDialog,
             listRender,
             data,
-            oneOpen
+            oneOpen,
+			valueText
         } = this.state;
 
 		const {
             letfData,
             control,
-            valueText
         } = this.props;
 
 		let {
@@ -109,6 +131,8 @@ export default class SwitchSlide extends React.Component{
             simple,
             heightStyle,
             autoFocus,
+			//联动清空
+			isClear,
             ...other
         } = this.props;
 
@@ -154,12 +178,11 @@ export default class SwitchSlide extends React.Component{
 
         var dialogTitle = label || '组件';
         dialogTitle = "选择" + dialogTitle;
-
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText)? valueText : data.label}</div>
+					<div className = "oa-imulation-input "  onClick = {this.onFocus}>{valueText}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 

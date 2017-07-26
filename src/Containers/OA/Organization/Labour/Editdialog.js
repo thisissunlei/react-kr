@@ -57,7 +57,7 @@ class Editdialog extends React.Component {
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:644,marginTop:20}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:636,marginTop:20}}  >
               {/*
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
@@ -72,7 +72,7 @@ class Editdialog extends React.Component {
                 />
               */}
                 <KrField
-                    style={{width:262}}
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
                     grid={1/2}
                     label="名称"
@@ -83,25 +83,25 @@ class Editdialog extends React.Component {
                 />
                
                 <KrField 
-                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}  
+                    style={{width:262,marginTop:6}}  
                     name="chargeId" 
                     component="searchOaPersonal" 
                     grid={1/2}
                     label="负责人" 
                     placeholder="请选择"
-                    requireLabel={true}
+                    requireLabel={false}
                 />
                 <KrField 
-                    style={{width:262,marginTop:6}}  
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}  
                     name="adminId" 
                     component="searchOaPersonal" 
                     grid={1/2}
                     label="管理员" 
                     placeholder="请选择"
-                    requireLabel={true}
+                    requireLabel={false}
                 />
                 <KrField 
-                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}  
+                    style={{width:262,marginTop:6}}  
                     name="orgSort" 
                     grid={1/2}
                     component="input" 
@@ -158,19 +158,19 @@ const validate = values => {
 	const errors = {}
 	if (!values.orgName) {
 		errors.orgName = '请输入名称';
-	}else if (values.orgName.length>10) {
-		errors.orgName = '下级名称最多10个字符！';
+	}else if (values.orgName.length>20) {
+		errors.orgName = '下级名称最多20个字符！';
 	}
     
     if (!values.orgSort) {
 		errors.orgSort = '请输入排序号';
 	}
-    if (!values.adminId) {
-		errors.adminId = '请选择管理员';
-	}
-    if (!values.chargeId) {
-		errors.chargeId = '请选择负责人';
-	}
+    // if (!values.adminId) {
+	// 	errors.adminId = '请选择管理员';
+	// }
+    // if (!values.chargeId) {
+	// 	errors.chargeId = '请选择负责人';
+	// }
 
 	return errors
 }

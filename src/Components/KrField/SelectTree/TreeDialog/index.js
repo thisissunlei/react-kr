@@ -136,7 +136,7 @@ export default class TreeDialog extends React.Component{
 					</div>
 				</div>
 			  <div className = "tree-dialog-bottom" style = {{textAline:"center"}}>
-			  		<span className = "botton" style = {{color:'#499DF1'}} onClick = {this.onSumit}>确定</span>
+			  		<span className = "botton"  onClick = {this.onSumit}>确定</span>
 					<span className = "botton" onClick = {this.onCancel} >取消</span>	
 			  </div>
         </div>

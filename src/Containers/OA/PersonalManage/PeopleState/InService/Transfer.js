@@ -42,14 +42,14 @@ class Transfer extends React.Component{
               <form onSubmit={handleSubmit(this.onSubmit)}>
                
                 <KrField grid={1}
-                            style={{width:262,marginLeft:28}}
+                            style={{width:262,marginLeft:60,marginBottom:2}}
                             component="labelText"
                             label="原部门:"
                             value = {department.depName}
                             requireLabel={true}
 						/>
                  <KrField grid={1}
-                            style={{width:262,marginLeft:28}}
+                            style={{width:262,marginLeft:60}}
                             name="depId"
                             component="selectTree"
                             label="部门:"

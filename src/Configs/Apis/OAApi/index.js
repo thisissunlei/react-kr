@@ -65,6 +65,11 @@ var OAApi = {
       url: '/api/krspace-erp-web/hrm/resource/select/type/name-or-email?nameOrEmail={nameOrEmail}',
       method: 'get'
   },
+  //判断是否是主维度
+  'is-main-dim': {
+      url: '/api/krspace-erp-web/dim/is-main-dim?dimId={dimId}',
+      method: 'get'
+  },
   /*====离职列表接口*/
   //离职列表-列表接口
   'getLeaveList': {

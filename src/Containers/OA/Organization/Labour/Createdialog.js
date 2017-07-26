@@ -66,7 +66,7 @@ class Createdialog extends Component {
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:644,marginTop:20}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:636,marginTop:20}}  >
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
@@ -104,7 +104,7 @@ class Createdialog extends Component {
                     label="负责人" 
                     grid={1/2}
                     placeholder="请选择"
-                    requireLabel={true}
+                    requireLabel={false}
                 />
                 <KrField 
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}  
@@ -113,7 +113,7 @@ class Createdialog extends Component {
                     grid={1/2}
                     label="管理员" 
                     placeholder="请选择"
-                    requireLabel={true}
+                    requireLabel={false}
                 />
                 <Row style={{marginTop:20,marginBottom:6}}>
       					<Col md={12} align="center">
@@ -148,18 +148,20 @@ const validate = values => {
 	const errors = {}
 	if (!values.orgName) {
 		errors.orgName = '请输入下级名称';
-	}else if (values.orgName.length>10) {
-		errors.orgName = '下级名称最多10个字符！';
+	}else if (values.orgName.length>20) {
+		errors.orgName = '下级名称最多20个字符！';
 	}
     
-    if (!values.adminId) {
-		errors.adminId = '请选择管理员';
-	}
-    if (!values.chargeId) {
-		errors.chargeId = '请选择负责人';
-	}
+    // if (!values.adminId) {
+	// 	errors.adminId = '请选择管理员';
+	// }
+    // if (!values.chargeId) {
+	// 	errors.chargeId = '请选择负责人';
+	// }
     if (!values.code) {
 		errors.code = '请输入编码';
+	}else if (values.code.length>30) {
+		errors.code = '下级名称最多30个字符！';
 	}
     if (!values.orgType) {
 		errors.orgType = '请选择下级类型';

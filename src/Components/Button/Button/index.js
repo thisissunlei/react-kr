@@ -10,6 +10,11 @@ import './index.less';
 
 export default class Button extends Component {
 
+
+
+
+
+	
 	static displayName = 'Button';
 
 	static defaultProps = {
@@ -19,45 +24,45 @@ export default class Button extends Component {
 	}
 
 	static propTypes = {
-		className: PropTypes.string,
-		children: PropTypes.node,
+		className: React.PropTypes.string,,
+		children: React.PropTypes.node,
 		/**
 		* 样式
 		*/
-		style:PropTypes.object,
+		style:React.PropTypes.object,
 		/**
 		*类型
 		*/
-		type:PropTypes.string,
+		type:React.PropTypes.string,
 		/**
 		*按钮文字
 		*/
-		label:PropTypes.string,
+		label:React.PropTypes.string,
 		/**
 		*禁用
 		*/
-		disabled:PropTypes.bool,
+		disabled:React.PropTypes.bool,
 		/**
 		*背景颜色
 		*/
-		backgroundColor:PropTypes.string,
+		backgroundColor:React.PropTypes.string,
 		/**
 		*文字颜色
 		*/
-		labelColor:PropTypes.string,
-		cancle:PropTypes.bool,
+		labelColor:React.PropTypes.string,
+		cancle:React.PropTypes.bool,
 		/**
 		* 宽
 		*/
-		width:PropTypes.number,
+		width:React.PropTypes.number,
 		/**
 		*高
 		*/
-		height:PropTypes.number,
+		height:React.PropTypes.number,
 		/**
 		*
 		*/
-		fontSize:PropTypes.number,
+		fontSize:React.PropTypes.number,
 
 	}
 

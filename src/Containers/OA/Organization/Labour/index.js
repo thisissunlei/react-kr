@@ -76,10 +76,14 @@ export default class Labour extends React.Component {
 			dimId: this.props.params.dimId,
 			dimName: '',
 			styleBool: false,
-			dataName:{},
+			dataName:{
+				orgName:'36Kr',
+				status:'0'
+			},
 			selectStyle: {
 				'display': 'none'
 			},
+			dimIdStatus:'0',
 		}
 	}
 	checkTab = (item) => {
@@ -90,6 +94,7 @@ export default class Labour extends React.Component {
 	componentDidMount() {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
+		console.log("进入~··");
 		var dimId = this.props.params.dimId;
 		var _this = this;
 		
@@ -112,6 +117,14 @@ export default class Labour extends React.Component {
 			dimId: _this.state.searchParams.dimId
 		}).then(function (response) {
 			_this.setState({ dimData: response.items })
+		}).catch(function (err) { });
+	}
+	getMainDimId=()=>{
+		const that = this;
+		const { searchParams } = this.state;
+		const id = searchParams.dimId;
+		Http.request('is-main-dim', {dimId:dimId}).then(function (response) {
+			that.setState({dimIdStatus: response.items.isMain})
 		}).catch(function (err) { });
 	}
 	//获取维度信息
@@ -203,7 +216,7 @@ export default class Labour extends React.Component {
 		Http.request('org-detail', searchParams).then(function (response) {
 			const dataName = {};
 			dataName.orgName = response.orgName;
-			dataName.status = response.status;
+			dataName.status = response.status || '0';
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -356,6 +369,7 @@ export default class Labour extends React.Component {
 			window.location.href = `./#/oa/organization/${dimId}/labour`;		
 			_this.reloadDim();
 			_this.getTreeData();
+			_this.getMainDimId();
 		})
 
 	}
@@ -380,9 +394,16 @@ export default class Labour extends React.Component {
 			</span>
 		)
 	}
+
+	//========****************=========
 	change = (event) => {
+		
 		this.setState({
 			searchKey: event.target.value || ' ',
+		},function(){
+			console.log(this.state.searchKey);
+			//this.refs.searchKey.click();
+			//this.refs.searchKey.focus();
 		})
 	}
 	clickSelect = () => {
@@ -432,7 +453,6 @@ export default class Labour extends React.Component {
 
 	render() {
 		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
-		//console.log(this.props.params.dimId);		
 		var logFlag = '';
 		var style = {};
 		return (
@@ -454,7 +474,7 @@ export default class Labour extends React.Component {
 
 					</div>
 					<div className="search">
-						<input type="text" onChange={this.change} placeholder="输入机构名称" />
+						<input type="text" onChange={this.change} placeholder="输入机构名称" ref="searchKey"/>
 						<span className="searching">
 
 						</span>
@@ -498,6 +518,7 @@ export default class Labour extends React.Component {
 										onTouchTap={this.openEditDialog}
 										height={30}
 										width={80}
+										labelStyle={{fontWeight:0}}
 										backgroundColor='#fcfcfc'
 										labelColor='#666'
 										shadow="no"
@@ -508,6 +529,7 @@ export default class Labour extends React.Component {
 									type="button"
 									onTouchTap={this.openViewDialog}
 									height={30}
+									labelStyle={{fontWeight:0}}
 									width={80}
 									backgroundColor='#fcfcfc'
 									labelColor='#666'
@@ -525,7 +547,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14} />
+										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
 									</Col>
 									<Col md={8} align="right">
 
@@ -606,7 +628,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										{this.state.dataName.status==1?'':<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} />}
+										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />}
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">

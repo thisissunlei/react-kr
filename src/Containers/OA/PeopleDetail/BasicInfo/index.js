@@ -22,7 +22,10 @@ export default class BasicInfo  extends React.Component{
 			basicInfo:{}
 		}
 	}
-
+    
+	componentWillUnmount(){
+       
+	}
 
 	componentWillMount(){
 		let {personId}=this.props;
@@ -61,7 +64,10 @@ export default class BasicInfo  extends React.Component{
 	//编辑提交
 	editSubmit=(params)=>{
 	   let {personId}=this.props;
+	   const {chengLeft}=this.props;
 	   let subParams = Object.assign({},params);
+	   console.log('subParams',subParams);
+	   subParams.depId=subParams.depId.orgId?subParams.depId.orgId:subParams.depId;
 	   subParams.uTime = DateFormat(subParams.uTime,"yyyy-mm-dd hh:MM:ss")
 	   subParams.cTime = DateFormat(subParams.cTime,"yyyy-mm-dd hh:MM:ss")
 	   subParams.leaveDate = DateFormat(subParams.leaveDate,"yyyy-mm-dd hh:MM:ss")
@@ -70,6 +76,7 @@ export default class BasicInfo  extends React.Component{
 	   var _this=this;
        Http.request('people-basic-edit',{},subParams).then(function(response) {
            _this.basicData(params.id);
+		   chengLeft && chengLeft(params.id);
 		   _this.cancelEdit();
         }).catch(function(err) {
           Message.error(err.message);

@@ -261,11 +261,23 @@ export default class PostList extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="name" ></TableRowColumn>
+						<TableRowColumn name="name"  component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
 						<TableRowColumn name="code"></TableRowColumn>
 						<TableRowColumn name="enabledStr"></TableRowColumn>
 						<TableRowColumn name="orderNum"></TableRowColumn>
-						<TableRowColumn name="jobTypeName"></TableRowColumn>
+						<TableRowColumn name="jobTypeName" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
 						<TableRowColumn name="updatorName"></TableRowColumn>
 						<TableRowColumn name="cTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
@@ -283,7 +295,7 @@ export default class PostList extends Component{
 				title="新增职务"
 				onClose={this.newSwidth}
 				open={openNew}
-				contentStyle ={{ width: '630px',height:'auto'}}
+				contentStyle ={{ width: '666px',height:'auto'}}
 			>
 				<AddPostList
 					onCancel={this.newSwidth}
@@ -296,7 +308,7 @@ export default class PostList extends Component{
 				title="编辑职务"
 				onClose={this.editSwidth}
 				open={openEdit}
-				contentStyle ={{ width: '630px',height:'auto'}}
+				contentStyle ={{ width: '666px',height:'auto'}}
 			>
 				<EditPostList
 					onCancel={this.editSwidth}

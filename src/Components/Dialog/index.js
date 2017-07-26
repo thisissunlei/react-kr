@@ -154,6 +154,9 @@ export default class DialogComponent extends React.Component {
 		let styles = {};
 		let closeStyle = {};
 		if (open) {
+			if(this.props.stylesCard){
+			  styles.zIndex='1200';	
+			}
 			styles.display = 'block';
 		} else {
 			styles.display = 'none';

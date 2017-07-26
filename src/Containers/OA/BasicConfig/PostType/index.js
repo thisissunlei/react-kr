@@ -248,19 +248,27 @@ export default class PostType extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="name" ></TableRowColumn>
-						<TableRowColumn name="code"></TableRowColumn>
+						<TableRowColumn name="name" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
+						<TableRowColumn name="code" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }}></TableRowColumn>
 						<TableRowColumn name="descr" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
-
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }}></TableRowColumn>
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
 						<TableRowColumn name="orderNum"></TableRowColumn>
 						<TableRowColumn name="updatorName"></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
@@ -281,7 +289,7 @@ export default class PostType extends Component{
 					title="新增职务类型"
 					onClose={this.openAddPost}
 					open={this.state.openPostType}
-					contentStyle ={{ width: '630px',height:'auto'}}
+					contentStyle ={{ width: '666px',height:'auto'}}
 				>
 			  <AddPostType 
 			    onSubmit={this.addPostSubmit}
@@ -295,7 +303,7 @@ export default class PostType extends Component{
 					title="编辑职务类型"
 					onClose={this.openEditPost}
 					open={this.state.openEditType}
-					contentStyle ={{ width: '630px',height:'auto'}}
+					contentStyle ={{ width: '666px',height:'auto'}}
 				>
 			  <EditPostType 
 			    onSubmit={this.editPostSubmit}

@@ -32,18 +32,18 @@ class AddPostType  extends React.Component{
 
 		return(
 
-			<div className='m-add-post'>
+			<div className='m-type-post'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 
                        <KrField grid={1/2}
-                            style={{width:262,display:'block'}}
+                            style={{width:262,marginBottom:5}}
                             name="name"
                             component="input"
                             label="职务类型名称"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,display:'block'}}
+                            style={{width:262,marginLeft:34,marginBottom:5}}
                             name="code"
                             component="input"
                             label="编码"
@@ -51,7 +51,7 @@ class AddPostType  extends React.Component{
 						/>
 
                         <KrField grid={1/2}
-                            style={{width:262,display:'block'}}
+                            style={{width:262,marginBottom:5}}
                             name="subId"
                             component="select"
                             label="分部"
@@ -59,10 +59,10 @@ class AddPostType  extends React.Component{
                             options={subCompany}
 						/>
 
-                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'532px'}}  component="textarea"  maxSize={30} placeholder='请输入描述' style={{width:517}} lengthClass='list-len-textarea'/>
+                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'550px'}} style={{width:560}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='list-len-textarea'/>
 
                         
-                       <Grid style={{marginBottom:5,marginLeft:-50}}>
+                       <Grid style={{marginBottom:5,marginLeft:-25,marginTop:-12}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
@@ -89,8 +89,8 @@ const validate = values =>{
 
     if(!values.code){
       errors.code='请填写职务类型编码'  
-    }else if(values.code.length>10){
-       errors.code='职务类型编码不能超过10个字符';   
+    }else if(values.code.length>20){
+       errors.code='职务类型编码不能超过20个字符';   
     }
 
     if(!values.subId){

@@ -109,7 +109,13 @@ export default class Leave extends Component{
 						></TableRowColumn>
 						<TableRowColumn name="name"></TableRowColumn>
 						<TableRowColumn name="code"></TableRowColumn>
-						<TableRowColumn name="jobName"></TableRowColumn>
+						<TableRowColumn name="jobName" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }}  ></TableRowColumn>
 						<TableRowColumn 
 							name="entryDate"
 							component={(value,oldValue)=>{

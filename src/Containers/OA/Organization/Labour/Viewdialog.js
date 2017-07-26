@@ -75,7 +75,7 @@ export default class Viewdialog extends React.Component {
                 />
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
-                    value={infoList.chargeName}
+                    value={infoList.chargeName || '无'}
                     label="负责人"
                     grid={1/2}
                     inline={false}
@@ -88,7 +88,7 @@ export default class Viewdialog extends React.Component {
                     label="管理员"
                     grid={1/2}
                     inline={false}
-                    value={infoList.adminName}
+                    value={infoList.adminName || '无'}
                 />
             </div>
         );
