@@ -97,6 +97,8 @@ class SearchUpperForm extends React.Component {
 			pristine,
 			reset
 		} = this.props;
+		let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
+
 
 		return (
 
@@ -115,6 +117,8 @@ class SearchUpperForm extends React.Component {
 					</ListGroup>
                     </div>
 				</KrField>
+				<KrField right={39} grid={1/2} inline={false} name="departmentId" component="select" label="部门" options={options}/>
+
 
 
 

@@ -48,7 +48,7 @@ import {
 		console.log('edit',this.props);
 		let {mainbilltype} = this.props;
 		this.state = {
-			showSection:(mainbilltype==16&&mainbilltype==23&&mainbilltype==18)?true:false
+			showSection:(mainbilltype!=16&&mainbilltype!=23&&mainbilltype!=18)?true:false
 		}
 	}
 
@@ -92,7 +92,7 @@ import {
 			if(this.props.mainbilltype != nextProps.mainbilltype){
 				let {mainbilltype} = nextProps;
 				this.setState({
-					showSection:(mainbilltype==16||mainbilltype==23||mainbilltype==18)?true:false
+					showSection:(mainbilltype!=16&& mainbilltype!=23&&mainbilltype!=18)?true:false
 
 				})
 			}
