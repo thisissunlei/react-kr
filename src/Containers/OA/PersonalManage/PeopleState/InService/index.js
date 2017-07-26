@@ -34,7 +34,13 @@ import OpenCard from './OpenCard';
 import OpenAccount from './OpenAccount';
 import IsSure from './IsSure';
 import './index.less';
+import {
+	observer,
+	inject
+} from 'mobx-react';
 
+@inject("NavModel")
+@observer
 export default class InService  extends React.Component{
 
 	constructor(props,context){
@@ -64,11 +70,11 @@ export default class InService  extends React.Component{
 			//绑定的数据
 			cardParam:'',
 			//权限
-			isLeave:'',
-			isRemove:'',
-			istranfer:'',
-			isCard:'',
-			isOpen:''
+			isLeave:false,
+			isRemove:false,
+			istranfer:false,
+			isCard:false,
+			isOpen:false
 		}
 	}
 
