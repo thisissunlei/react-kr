@@ -123,20 +123,20 @@ class AddPerson  extends React.Component{
                       </div>
 
                        <KrField grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginTop:6}}
                             name="name"
                             component="input"
                             label="姓名"
                             requireLabel={true}
 						/>
                        
-                         <KrField grid={1/2} style={{width:262,marginLeft:28}} name="sex" component="group" label="性别" requireLabel={true}>
- 							 <KrField name="sex" label="男" type="radio" value='MALE' />
- 							 <KrField name="sex" label="女" type="radio" value='FAMALE' />
+                         <KrField grid={1/2} style={{width:262,marginTop:6,marginLeft:28}} name="sex" component="group" label="性别" requireLabel={true}>
+ 							 <KrField style={{marginTop:6}} name="sex" label="男" type="radio" value='MALE' />
+ 							 <KrField style={{marginTop:6}} name="sex" label="女" type="radio" value='FAMALE' />
  						</KrField>
 
                         <KrField grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginTop:6}}
                             name="mobilePhone"
                             component="input"
                             label="手机号"
@@ -144,7 +144,7 @@ class AddPerson  extends React.Component{
 						/>
 
                          <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
+                            style={{width:262,marginLeft:28,marginTop:6}}
                             name="email"
                             component="input"
                             label="公司邮箱"
@@ -153,7 +153,7 @@ class AddPerson  extends React.Component{
 
                         
                          <KrField grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginTop:6}}
                             name="code"
                             component="input"
                             label="人员编号"
@@ -162,7 +162,7 @@ class AddPerson  extends React.Component{
 
                         <KrField
                             grid={1/2}
-                            style={{width:262,marginLeft:28}}
+                            style={{width:262,marginLeft:28,marginTop:6}}
                             name="leader"
                             component="selectTree"
                             label="直接上级"
@@ -173,7 +173,7 @@ class AddPerson  extends React.Component{
 
                         <KrField
                             grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginTop:6}}
                             name="depId"
                             component="selectTree"
                             label="部门"
@@ -186,7 +186,7 @@ class AddPerson  extends React.Component{
             
                          {this.props.changeValues.depId &&<KrField
                             grid={1/2}
-                            style={{width:262,marginLeft:28}}
+                            style={{width:262,marginLeft:28,marginTop:6}}
                             name="typeId"
                             component="select"
                             label="职务类型"
@@ -197,7 +197,7 @@ class AddPerson  extends React.Component{
 
                         {isPositionRank &&isDepSelect&&<KrField
                             grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginTop:6}}
                             name="jobId"
                             letfData={positionList}
                             component="switchSlide"
@@ -209,7 +209,7 @@ class AddPerson  extends React.Component{
                         />}
                          {isPositionRank &&isDepSelect&& <KrField
                             grid={1/2}
-                            style={{width:262,marginLeft:28}}
+                            style={{width:262,marginTop:6,marginLeft:28}}
                             name="levelId"
                             letfData={rankList}
                             component="switchSlide"
@@ -219,14 +219,14 @@ class AddPerson  extends React.Component{
                         />}
 
                          <KrField grid={1/2}
-                            style={{width:262,marginLeft:!this.props.changeValues.depId?28:0}}
+                            style={{width:262,marginLeft:!this.props.changeValues.depId?28:0,marginTop:6}}
                             name="entryDate"
                             component="date"
                             label="入职时间"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:!this.props.changeValues.depId?0:28}}
+                            style={{width:262,marginLeft:!this.props.changeValues.depId?0:28,marginTop:6}}
                             name="status"
                             component="selecTemployees"
                             label="员工属性"
@@ -234,7 +234,7 @@ class AddPerson  extends React.Component{
                             otherType="resourceStatus"
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:!this.props.changeValues.depId?28:0}}
+                            style={{width:262,marginLeft:!this.props.changeValues.depId?28:0,marginTop:6}}
                             name="type"
                             component="selecTemployees"
                             label="员工类别"
