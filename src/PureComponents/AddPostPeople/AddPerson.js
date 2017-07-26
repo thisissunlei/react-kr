@@ -71,12 +71,18 @@ class AddPerson  extends React.Component{
        
         this.getPrepareData(data);
         let {basicInfo}=this.state;
-        basicInfo.jobName='请选择';
-        basicInfo.levelName='请选择';
-        var _this=this;
-        this.setState({
-            basicInfo
-        })       
+         if(data && data.value){
+            this.getPrepareData(data);
+            this.setState({
+                isDepSelect:true,
+                basicInfo
+            })
+        }else{
+            this.setState({
+                basicInfo
+            })
+        }
+              
         Store.dispatch(change('addPerson','jobId',''));  
         Store.dispatch(change('addPerson','levelId',''));
     }

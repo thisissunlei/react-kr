@@ -37,7 +37,7 @@ export default class BasicInfo  extends React.Component{
 			_this.setState({
 				isEdit : checkOperate("hrm_resource_base")
 			})
-			hrm_resource_edit
+			
 		},500);	
 
 	}
