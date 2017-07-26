@@ -215,6 +215,7 @@ export default class PostType extends Component{
 							label="新建"
 							type='button'
 							onTouchTap={this.openAddPost}
+							operateCode="hrm_job_type_add"
 					/>
 				</Col>
 			        
@@ -275,8 +276,8 @@ export default class PostType extends Component{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}}></TableRowColumn>
 						<TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation"  operation="edit"/>
-			                <Button label="删除"  type="operation"  operation="delete" />
+                            <Button label="编辑" operateCode="hrm_job_type_edit" type="operation"  operation="edit"/>
+			                <Button label="删除" operateCode="hrn_job_type_delete" type="operation"  operation="delete" />
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>
