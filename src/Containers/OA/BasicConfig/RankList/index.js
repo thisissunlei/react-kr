@@ -259,9 +259,21 @@ export default class RankList extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="name" ></TableRowColumn>
+						<TableRowColumn name="name" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
 						<TableRowColumn name="enabled" options={[{label:'启用',value:'true'},{label:'停用',value:'false'}]}></TableRowColumn>
-						<TableRowColumn name="descr"></TableRowColumn>
+						<TableRowColumn name="descr" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
 						<TableRowColumn name="updatorName"></TableRowColumn>
 						<TableRowColumn name="cTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
