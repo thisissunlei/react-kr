@@ -109,6 +109,7 @@ export default class Labour extends React.Component {
 		this.initSelect();
 
 		this.getTreeData();
+		this.getMainDimId();
 	}
 	getExaList=()=>{
 		var _this = this;
@@ -122,9 +123,9 @@ export default class Labour extends React.Component {
 	getMainDimId=()=>{
 		const that = this;
 		const { searchParams } = this.state;
-		const id = searchParams.dimId;
+		const dimId = searchParams.dimId;
 		Http.request('is-main-dim', {dimId:dimId}).then(function (response) {
-			that.setState({dimIdStatus: response.items.isMain})
+			that.setState({dimIdStatus: response.isMain})
 		}).catch(function (err) { });
 	}
 	//获取维度信息
