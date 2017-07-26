@@ -283,6 +283,13 @@ class AddMoney extends React.Component {
 			mainBillId: form.value
 		}, {}).then(function(response) {
 			console.log('---->',response,!!response.department)
+			if(!!response.department){
+				Store.dispatch(change('addMoney', 'departmentId', response.departmentId));
+
+			}else{
+				Store.dispatch(change('addMoney', 'departmentId', ''));
+
+			}
 			
 			_this.setState({
 				mainbillInfo: response,
