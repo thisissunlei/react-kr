@@ -61,7 +61,6 @@ export default class RankList extends Component{
 	dataReady=()=>{
 		var _this=this;
 	   Http.request('post-type-info').then(function(response) {
-		   		console.log(response,">>>>>>>>")
 				_this.setState({
 					subCompany:response.subcompanys
 				})
@@ -95,7 +94,6 @@ export default class RankList extends Component{
 			}else{
 				response.enabled='false'   
 			}
-			console.log(response,":::::::::")
 			_this.setState({
 				editDetail:response
 			})

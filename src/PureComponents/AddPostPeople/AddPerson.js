@@ -311,7 +311,7 @@ const validate = values =>{
     let reg= /^1[34578]\d{9}$/; 
     let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
     let email=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-
+    console.log(">>>>>>",values.jobId)
     if(!values.name){
         errors.name='请填写名称';
     }else if(values.name.length>10){
