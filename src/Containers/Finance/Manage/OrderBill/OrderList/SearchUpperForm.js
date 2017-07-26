@@ -105,7 +105,7 @@ class SearchUpperForm extends React.Component {
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:34,marginLeft:36}}>
 
 				<KrField grid={1/2} right={39} style={{height:36,marginBottom:28}} name="mainbillname" type="text" label="订单名称"/>
-				<KrField grid={1/2}  component="labelText"/>
+				<KrField right={39} grid={1/2} inline={false} name="departmentId" component="select"  style={{marginTop:7,marginLeft:-10}} label="部门" options={options}/>
 				<KrField right={39} grid={1/2} inline={false} name="communityid" style={{marginTop:'7px'}} component="searchCommunityAll" label="所属社区" onChange={this.onChangeCommunity}/>
 				<KrField  grid={1/2} right={39} name="mainbilltype" type="select" style={{marginTop:7,marginLeft:-10}} label="订单类型" options={this.state.mainbilltypeList}>
 				</KrField>
@@ -117,7 +117,6 @@ class SearchUpperForm extends React.Component {
 					</ListGroup>
                     </div>
 				</KrField>
-				<KrField right={39} grid={1/2} inline={false} name="departmentId" component="select" label="部门" options={options}/>
 
 
 
