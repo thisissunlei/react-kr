@@ -189,7 +189,7 @@ export default class SelectTree extends React.Component{
 					title={dialogTitle}
 					onClose={this.dlogSwidch}
 					open={isDialog}
-					contentStyle ={{ width: '674px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
+					contentStyle ={{ width: '674px',height:'580px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
 					<TreeDialog  treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>
