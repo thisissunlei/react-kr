@@ -60,7 +60,7 @@ class AddPerson  extends React.Component{
         
        
       
-         Store.dispatch(change('addPerson','typeId',' '));
+         Store.dispatch(change('addPerson','typeId',''));
          this.setState({
             isPositionRank:false,
         })
@@ -76,11 +76,9 @@ class AddPerson  extends React.Component{
         var _this=this;
         this.setState({
             basicInfo
-        })
-         
-        
-        Store.dispatch(change('addPerson','jobId',' '));  
-        Store.dispatch(change('addPerson','levelId',' '));
+        })       
+        Store.dispatch(change('addPerson','jobId',''));  
+        Store.dispatch(change('addPerson','levelId',''));
     }
     
     getPositionType = (param) =>{
@@ -344,12 +342,18 @@ const validate = values =>{
         errors.typeId='请选择职务类型';
     }
 
-    if(values.jobId&&!values.jobId.orgId){
+    if(!values.jobId){
+        errors.jobId='请选择职务';
+    }else if((typeof (values.jobId))=='object'&&!values.jobId.value){
         errors.jobId='请选择职务';
     }
-    if(values.levelId&&!values.levelId.orgId){
+
+    if(!values.levelId){
+        errors.levelId='请选择职级';
+    }else if((typeof (values.levelId))=='object'&&!values.levelId.value){
         errors.levelId='请选择职级';
     }
+   
 
      if(!values.entryDate){
         errors.entryDate='请选择入职时间';
