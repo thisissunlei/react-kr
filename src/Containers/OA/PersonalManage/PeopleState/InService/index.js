@@ -306,7 +306,7 @@ export default class InService  extends React.Component{
 		const {transferDetail,employees} = this.state;
 		return(
 
-			<div>
+			<div className='m-inservice-list'>
 					<Title value="在职列表"/>
 						<Row style={{marginBottom:21,position:'relative',zIndex:5,marginTop:20}}>
 
