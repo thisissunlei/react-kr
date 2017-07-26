@@ -63,6 +63,7 @@ export default class BasicInfo  extends React.Component{
 	   let {personId}=this.props;
 	   const {chengLeft}=this.props;
 	   let subParams = Object.assign({},params);
+	   console.log('subParams',subParams);
 	   subParams.depId=subParams.depId.orgId?subParams.depId.orgId:subParams.depId;
 	   subParams.uTime = DateFormat(subParams.uTime,"yyyy-mm-dd hh:MM:ss")
 	   subParams.cTime = DateFormat(subParams.cTime,"yyyy-mm-dd hh:MM:ss")
