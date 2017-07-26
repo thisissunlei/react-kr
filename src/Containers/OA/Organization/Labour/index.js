@@ -216,7 +216,7 @@ export default class Labour extends React.Component {
 		Http.request('org-detail', searchParams).then(function (response) {
 			const dataName = {};
 			dataName.orgName = response.orgName;
-			dataName.status = response.status;
+			dataName.status = response.status || '0';
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -452,7 +452,7 @@ export default class Labour extends React.Component {
 	}
 
 	render() {
-		let { itemDetail, data, dimId, styleBool,dataName} = this.state;	
+		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
 		var logFlag = '';
 		var style = {};
 		return (
@@ -518,6 +518,7 @@ export default class Labour extends React.Component {
 										onTouchTap={this.openEditDialog}
 										height={30}
 										width={80}
+										labelStyle={{fontWeight:0}}
 										backgroundColor='#fcfcfc'
 										labelColor='#666'
 										shadow="no"
@@ -528,6 +529,7 @@ export default class Labour extends React.Component {
 									type="button"
 									onTouchTap={this.openViewDialog}
 									height={30}
+									labelStyle={{fontWeight:0}}
 									width={80}
 									backgroundColor='#fcfcfc'
 									labelColor='#666'
@@ -545,7 +547,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14} />
+										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
 									</Col>
 									<Col md={8} align="right">
 
@@ -626,7 +628,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} />}
+										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />}
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
