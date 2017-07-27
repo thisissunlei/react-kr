@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	Table,
@@ -157,6 +157,7 @@ class SignedClient extends React.Component{
 	openEditIndent=(editIndentId)=>{
 		var data={};
 		var {orderReady}=this.props;
+		console.log('open-edit',orderReady);
 		State.editIndentIdChange(editIndentId);
 
 		data.mainBillId=editIndentId;
@@ -174,11 +175,15 @@ class SignedClient extends React.Component{
 			}
 			data.cityid=orderReady.communityCity[i].cityId;
 			data.mainbillname=response.mainbillname;
-			data.communityid=""+response.communityid;
+			data.communityid=response.communityid;
 			data.mainbilltype=response.mainbilltype;
 			data.mainbilldesc=response.mainbilldesc;
+			data.saleId=response.saleId+'';
+			data = Object.assign({},response,data);
 			Store.dispatch(initialize('EditIndent',data));
 			State.mainbillname=response.mainbillname;
+			State.saleName=response.saleName;
+			State.mainbilltype=response.mainbilltype;
 			State.customerName=response.customerName;
 			State.orderCount=response.orderCount;
 
@@ -355,7 +360,7 @@ class SignedClient extends React.Component{
         	display:'none'
         }
       }
-
+      console.log('====>',State.mainbilltype)
 
 		return(
       <div className="m-signed" style={{paddingTop:25}}>
@@ -451,11 +456,11 @@ class SignedClient extends React.Component{
 			                <TableRowColumn name="sourceName"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
 
-														 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="billCreateDate" type='date' component={(value,oldValue)=>{
 
-														 return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
+														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
 			                <TableRowColumn type="operation">
 			                    <Button label="查看"  type="operation"  operation="watch" />
@@ -543,12 +548,14 @@ class SignedClient extends React.Component{
 							 companyName={State.companyName}
 							 onCancel={this.switchEditIndent}
 							 listId={State.listId}
+							 saleName={State.saleName}
 			                 orderReady={orderReady}
 			                 editIndentData={State.editIndentData}
 			                 editIndentId={State.editIndentId}
 			                 customerName={State.customerName}
 			                 orderCount={State.orderCount}
 			                 mainbillname={State.mainbillname}
+			                 mainbilltype={State.mainbilltype}
 			                 cityNameIndent={State.editIndentState}
 			                 listValue={State.editprojectName}
 						/>

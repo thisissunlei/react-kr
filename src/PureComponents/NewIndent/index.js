@@ -41,6 +41,9 @@ import {Http} from "kr/Utils";
 			stationTypeList:[],
 			visitTypeList:[]
 		};
+		this.state={
+			showSection:false
+		}
 
 	}
 	onSubmit = (values) => {
@@ -51,6 +54,7 @@ import {Http} from "kr/Utils";
 			values.mainbilldesc="";
 		}
 		values.customerid=listId;
+		console.log('submit',values)
 		values.mainbillname=_this.props.NewIndentModel.orderName;
 		Http.request('enter-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
@@ -105,6 +109,15 @@ import {Http} from "kr/Utils";
 	}
 	mainbilltypeChange=(value)=>{
 		this.props.NewIndentModel.orderName=this.props.customerName+value.label+this.props.orderCount;
+		if(value.value == 16 || value.value == 23 || value.value == 18){
+			this.setState({
+				showSection:false
+			})
+		}else{
+			this.setState({
+				showSection:true
+			})
+		}
 
 	}
 
@@ -117,6 +130,7 @@ import {Http} from "kr/Utils";
 		// if(!isOpenIndent){
 		// 	city="无"
 		// }
+		let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
 
 		return (
 
@@ -126,7 +140,7 @@ import {Http} from "kr/Utils";
 						<div className="order-close" onClick={this.onCancel}></div>
 				</div>
 
-				<div className="kk" style={{marginTop:30,paddingLeft:20}}>
+				<div className="kk" style={{marginTop:30,paddingLeft:20,fontSize:'14px'}}>
 					<KrField grid={1/2} label="订单类型" name="mainbilltype" style={{width:262,marginLeft:15}} component="select"
 							options={this.props.NewIndentModel.orderFound}
 							requireLabel={true}
@@ -135,11 +149,24 @@ import {Http} from "kr/Utils";
 					<KrField grid={1/2} label="所在社区" name="communityid" component="searchCommunityAll" style={{width:262,marginLeft:30}}
 							onChange={this.communityChange}
 							inline={false}
+							requireLabel={true}
+					/>
+					<KrField grid={1/2} label="销售员" name="saleId" style={{width:262,marginLeft:15}} component="searchPersonel"
+							requireLabel={true}
+					/>
+					<KrField grid={1/2} label="销售时间" name="saleTime" component="date" style={{width:262,marginLeft:30}}
+							inline={false}
+							requireLabel={true}
 					/>
 
+					
+
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={city} inline={false}/>
-					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={this.props.NewIndentModel.orderName?this.props.NewIndentModel.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
-					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
+					<KrField grid={1} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={this.props.NewIndentModel.orderName?this.props.NewIndentModel.orderName:customerName+orderCount} requireLabel={true} inline={false}/>
+					{this.state.showSection && <KrField grid={1/2} label="部门" name="departmentId" style={{width:262,marginLeft:15}} component="select"
+							options={options}
+					/>}
+					<KrField grid={1} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 					<Row>
@@ -166,6 +193,13 @@ const validate = values =>{
 		}
 		if(!values.communityid){
 			errors.communityid = '请选择所在社区';
+		}
+
+		if(!values.saleId){
+			errors.saleId = '请选择销售员';
+		}
+		if(!values.saleTime){
+			errors.saleTime = '请选择销售时间';
 		}
 
 
