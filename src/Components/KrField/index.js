@@ -58,6 +58,18 @@ import SearchOrderCommunity from './SearchOrderCommunity';
 import ActivityCommunityList from './ActivityCommunityList';
 import SearchCityCommunity from './SearchCityCommunity';
 import ChangeUploadImageComponent from './ChangeUploadImageComponent';
+import SelectTree from './SelectTree';
+import SearchOaPersonal from './SearchOaPersonal';
+import OaUploadImage from './OaUploadImage';
+//血型
+import SelecTemployees from './SelecTemployees';
+import SwitchSlide from './SwitchSlide';
+
+// import OaTreeDepartment from './OaTreeDepartment';
+// import OaTreePersonnel from './OaTreePersonnel';
+
+
+
 class FieldRevert extends React.Component {
 
 		static propTypes = {
@@ -79,6 +91,8 @@ class FieldRevert extends React.Component {
 			if(isMobx){
 				return <MobxForm.Field {...this.props} />;
 			}
+
+			console.log('--->>>>>>',this.props);
 
 			return <Field  {...this.props} />;
 
@@ -437,7 +451,46 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchSourceList}  style={WrapStyles} {...other}/>
 				)
 			}
+			if (component === 'selectTree') {
+				return (
+					<FieldRevert {...this.props} component={SelectTree}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'searchOaPersonal') {
+				return (
+					<FieldRevert {...this.props} component={SearchOaPersonal}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'oaUploadImage') {
+				return (
+					<FieldRevert {...this.props} component={OaUploadImage}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'selecTemployees') {
+				return (
+					<FieldRevert {...this.props} component={SelecTemployees}  style={WrapStyles} {...other}/>
+				)
+			}
 
+			if (component === 'switchSlide') {
+				console.log('<<<--->',this.props.valueText);
+				return (
+					<FieldRevert {...this.props} component={SwitchSlide}  style={WrapStyles} {...other}/>
+				)
+			}
+			// if (component === 'treeDepartment') {
+			// 	return (
+			// 		<FieldRevert {...this.props} component={OaTreeDepartment}  style={WrapStyles} {...other}/>
+			// 	)
+			// }
+			// if (component === 'treePersonnel') {
+			// 	return (
+			// 		<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
+			// 	)
+			// }
+
+			
+		
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);

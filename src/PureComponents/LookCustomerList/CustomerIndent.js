@@ -25,7 +25,8 @@ import {
 	CheckPermission
 
 } from 'kr-ui';
-import './index.less'
+import './index.less';
+import {Http,DateFormat} from 'kr/Utils';
 
 import State from './State';
 import {
@@ -91,6 +92,8 @@ class CustomerIndent extends Component{
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="已回款额:" style={unifyStyle} component="labelText" value={item.contractBackamount} defaultValue='0' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="离开日期:" style={unifyStyle} component="labelText" value={item.ucontractLeavedate} inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="未回款额:" style={unifyStyle} component="labelText" value={item.unBackamount} defaultValue='0' inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="销售员:" style={unifyStyle} component="labelText" value={item.saleName} defaultValue='无' inline={true} /></li>
+					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="销售时间:" style={unifyStyle} component="labelText" value={DateFormat(item.saleTime,'yyyy-mm-dd')} defaultValue='0' inline={true} /></li>
 					<div style={{marginTop:20,textAlign: "center"}} className='btnBoxShadow'>
 						
 							<span>

@@ -1,10 +1,19 @@
 module.exports = [
 
 	{
-		primaryText: "运营平台",
+		primaryText: "运营管理",
 		router: 'operation',
 		originUrl: '#/operation/customerManage/customerList',
 		menuItems: [
+			{
+				primaryText: "运营主页",
+				iconName: 'icon-user',
+				iconColor: '#79859a',
+				router: '',
+				menuItems: [
+					
+				]
+			},
 			{
 				primaryText: "客户管理",
 				iconName: 'icon-user',
@@ -28,6 +37,146 @@ module.exports = [
 					},
 				]
 			},
+			{
+				primaryText: '会员管理',
+				iconName: 'icon-vip',
+				iconColor: '#79859a',
+				router: '/member/memberManage/list',
+				menuItems: [
+					{
+						primaryText: "会员列表",
+						router: '/member/memberManage/list',
+						menuCode: 'mbr_list_base',
+					}, 
+					{
+						primaryText: "会员卡管理",
+						router: '/member/memberManage/card',
+						menuCode: 'mbr_card_base',
+					}, 
+					{
+						primaryText: "会员配置",
+						router: '/member/memberManage/setting',
+						menuCode: 'mbr_define',
+					},
+				]
+			},
+			{
+				primaryText: '社区经营',
+				iconName: 'icon-com',
+				iconColor: '#79859a',
+				router: 'community',
+				menuItems: [
+					{
+						primaryText: '计划表',
+						menuCode: 'cmt_run',
+						router: '/community/communityManage/detail',
+					},
+					{
+						primaryText: '销控表',
+						menuCode: 'cmt_sell_control',
+						router: '/community/communityManage/controlTable',
+					},
+					{
+						primaryText: '催款表',
+						menuCode: 'payment_reminder',
+						router: '/community/paymentremindtable',
+					},
+					{
+						primaryText: '预约参观',
+						menuCode: 'com_sys_visitList_base',
+						router: '/community/communityManage/visitorsToRecord'
+					},
+					{
+						primaryText: '访客登记',
+						menuCode: 'visitRecord',
+						router: '/community/visitor/list'
+						
+					},
+					{
+						primaryText: '支持列表',
+						menuCode: 'mobile_question_base',
+						router: '/community/communityManage/holdList'
+					},
+					{
+						primaryText: '空间预订',
+						menuCode: 'oper_appointment_base',
+						router: '/community/communityManage/allAppointment'
+					},
+				]
+			},
+			{
+				primaryText: '数据统计',
+				iconName: 'icon-com',
+				iconColor: '#79859a',
+				router: 'statistical',
+				menuItems: [
+					{
+						primaryText: "集团经营",
+						router: '/statistical/index',
+						menuCode: 'stat_group',
+					},
+					{
+						primaryText: "账龄统计",
+						router: '/statistical/agingaccount',
+						menuCode: 'finance_explan',
+					},
+					{
+						primaryText: "客户分析",
+						router: '/statistical/dataReport',
+						menuCode: 'stat_csr_sourceStat_base',
+					},
+				]
+			},
+			{
+				primaryText: 'APP管理',
+				iconName: 'icon-com',
+				iconColor: '#79859a',
+				menuItems: [
+					{
+						primaryText: '我的地点',
+						menuCode: 'communityNotice',
+						router: '/operation/communityAllocation/myaddress'
+					},
+					{
+						primaryText: '群组帖子',
+						menuCode: 'oper_cluster_base',
+						router: '/operation/communityAllocation/appmanage'
+					},
+					{
+						primaryText: '公告管理',
+						menuCode: 'oper_notice_base',
+						router: '/operation/communityAllocation/noticemanage'
+					},
+					{
+						primaryText: '积分管理',
+						menuCode: 'oper_integration_base',
+						router: '/operation/communityAllocation/integration'
+					},
+				]
+			},
+			{
+				primaryText: '官网管理',
+				iconName: 'icon-com',
+				iconColor: '#79859a',
+				router: 'activity',
+				menuItems: [
+					{
+						primaryText: '活动列表',
+						menuCode: 'main_acitvity',
+						router: '/WebBackstage/activity/list',
+					},{
+						primaryText: '新闻列表',
+						menuCode: 'main_news',
+						router: '/WebBackstage/news/list',
+					},
+					{
+						primaryText: '社区配置',
+						menuCode: 'krspace_cmt',
+						router: '/WebBackstage/communityAllocation',
+					}
+				]
+			},
+
 			{
 				primaryText: "社区配置",
 				iconName: 'icon-community',
@@ -61,30 +210,25 @@ module.exports = [
 						primaryText: '平面图配置',
 						menuCode: 'oper_cmt_graph_base',
 						router: '/operation/communityAllocation/communityPlanList'
-
 					},
 					
+				]
+			},
+			{
+				primaryText: '硬件平台',
+				iconName: 'icon-com',
+				iconColor: '#79859a',
+				menuItems: [
 					{
-						primaryText: '我的地点',
-						menuCode: 'communityNotice',
-						router: '/operation/communityAllocation/myaddress'
+						primaryText: "门禁授权",
+						router: '/member/memberManage/doormanage',
+						menuCode: 'door_base',
 					},
 					{
-						primaryText: '群组帖子',
-						menuCode: 'oper_cluster_base',
-						router: '/operation/communityAllocation/appmanage'
+						primaryText: '设备定义',
+						menuCode: 'sysDeviceDefinitionList',
+						router: '/operation/basicconfig/equipmentdefinition'
 					},
-					{
-						primaryText: '公告管理',
-						menuCode: 'oper_notice_base',
-						router: '/operation/communityAllocation/noticemanage'
-					},
-					{
-						primaryText: '积分管理',
-						menuCode: 'oper_integration_base',
-						router: '/operation/communityAllocation/integration'
-					},
-					
 					
 				]
 			},
@@ -97,12 +241,7 @@ module.exports = [
 				menuCode: 'basic_config',
 				menuItems: [
 					{
-						primaryText: "参数配置",
-						menuCode: 'operate_sysparamadmin',
-						originUrl: '/krspace_operate_web/sys/sysParam/toSysParamList?mid=60',
-					},
-					{
-						primaryText: "客户来源配置",
+						primaryText: "客户来源",
 						menuCode: 'oper_csr_sourceList_base',
 						router: '/operation/customerManage/customerSource',
 					},
@@ -116,7 +255,6 @@ module.exports = [
 						menuCode: 'oper_cmt_codeList_base',
 						router: '/operation/communityAllocation/codeClassification'
 					},
-
 					{
 						primaryText: '商圈列表',
 		                menuCode: 'oper_cmt_businessAreaList_base',
@@ -127,34 +265,10 @@ module.exports = [
 						menuCode: 'lessor_management_base',
 						router: '/operation/customerManage/agreement/lessorManage/list',
 					},
-					{
-						primaryText: '设备定义',
-						menuCode: 'sysDeviceDefinitionList',
-
-						// originUrl: '/krspace_operate_web/community/sysDeviceDefinition/toSysDeviceDefinitionList?mid=105'
-						router: '/operation/basicconfig/equipmentdefinition'
-					},
-					{
-
-						primaryText: '分组管理',
-						menuCode: 'oper_cmt_statList_base',
-						router: '/operation/groupSetting'
-					}
+					
 				]
 			},
-			{
-			  primaryText: "凭证管理",
-	          iconName: 'icon-wendang',
-	          iconColor: '#79859a',
-	          router: 'voucherManage',
-	          menuCode: 'evidenceAdmin',
-	          menuItems: [{
-	            primaryText: '凭证列表',
-	            router: '/operation/voucherManage/voucherList',
-	            menuCode: 'upload_evidence_base',
-	          }
-	          ]
-			},
+			
 		]
 	}
 

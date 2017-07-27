@@ -379,11 +379,7 @@ module.exports =()=>{
 		<Route path="businessList" getComponent={Operation_BasicConfig_BusinessList} />
 	  </Route>
 
-		{/*凭证管理*/}
-		<Route path="voucherManage" getComponent={Basic} >
-		{/*凭证列表*/}
-			<Route path="voucherList" getComponent={Operation_VoucherManage_VoucherList}/>
-		</Route>
+		
 
 		{/*客户管理*/}
 		<Route path="customerManage" getComponent={Basic}>

@@ -9,7 +9,7 @@ const env = process.env.NODE_ENV || 'development';
 
 const configs = {
   entry: {
-    lib: [
+    vendors: [
       'react',
       'react-dom',
       'redux',
@@ -17,13 +17,12 @@ const configs = {
       'mobx',
       'mobx-react',
       'react-router',
-      'material-ui',
       'lodash',
     ]
   },
   output: {
     path: path.resolve(buildPath),
-    filename: 'vendors/lib.js',
+    filename: 'vendors/index.js',
     library: 'lib',
   },
   plugins: [

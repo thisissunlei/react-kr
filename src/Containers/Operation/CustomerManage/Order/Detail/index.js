@@ -47,7 +47,7 @@ import {
 } from 'material-ui';
 import Circle from './circle';
 import './active.less';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import ReactTooltip from 'react-tooltip'
 
 import {Agreement} from 'kr/PureComponents';
@@ -924,6 +924,11 @@ export default class OrderDetail extends React.Component {
 				<Col  md={4} ><KrField label="实收押金" component="labelText" value={orderBaseInfo.realdeposit} defaultValue="0" alignRight={true}/></Col>
 				<Col  md={4} ><KrField label="实收定金" component="labelText" value={orderBaseInfo.realdownpayment} defaultValue="0" alignRight={true}/></Col>
 				<Col  md={4} ><KrField label="其他回款" component="labelText" value={orderBaseInfo.refundamount} defaultValue="0" alignRight={true}/></Col>
+				</Row>
+				<Row>
+				<Col  md={4} ><KrField label="销售员" component="labelText" value={orderBaseInfo.saleName} defaultValue="-" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="销售时间" component="labelText" value={DateFormat(orderBaseInfo.saleTime,'yyyy-mm-dd')} defaultValue="-" alignRight={true}/></Col>
+				<Col  md={4} ><KrField label="部门" component="labelText" value={orderBaseInfo.department} defaultValue="-" alignRight={true}/></Col>
 				</Row>
 				{/*				<Row>
 								<Col  md={4} ><div className="staion">工位编号</div><div className="view"  onTouchTap={this.onView} >点击查看</div></Col>

@@ -40,7 +40,6 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 	}
 
 	onSubmit = (values)=>{
-		Debug.log("======>values",values);
 	}
 
 	onClick = ()=>{

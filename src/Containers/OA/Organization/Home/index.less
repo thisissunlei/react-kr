@@ -1,0 +1,58 @@
+.g-oa{
+    .main{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 12px 3% 20px;
+        justify-content: space-between;
+        min-height: 620px;
+        .item{
+            width: 200px;
+            height: 260px;
+            background-size:cover; 
+            margin: 25px 2%;
+            position: relative;
+            cursor: pointer;
+            &:hover .item-edit{
+                display: inline-block;
+            }
+            .item-edit{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                background: url('./images/edit.svg') no-repeat center;
+                background-size: 17px 17px;
+                display: none;
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.3)
+                }
+            }
+            .item-text{
+                display: inline-block;
+                position: absolute;
+                top: 44px;
+                left: 40px;
+                width: 123px;
+                height: 66px;
+                font-size: 24px;
+                color: #fff;
+                word-wrap:break-word;
+            }
+        }
+        .item-add{
+            background: url('./images/add.svg') no-repeat center;
+        }
+    }
+    .ui-btn-center{
+        margin-right: 29px;
+        display: inline-block;
+    }
+    @media screen and (min-width: 1766px) {
+        .main {
+                padding: 12px 9% 20px;
+        }
+    }
+}
