@@ -70,7 +70,6 @@ import HeaderUpload from './HeaderUpload';
 		 	let manager = [];
 		 	State.detailData = response;
 			Store.dispatch(initialize('EditAddress', State.detailData));
-			console.log('initialize',State.detailData)
 			response.cmtManagerList.map((item)=>{
 				if(item.managerType=='COMMUNITY_LEADER'){
 					State.editLeader = item;
@@ -129,11 +128,8 @@ import HeaderUpload from './HeaderUpload';
 		item[type]= value;
 	}
 	positionChange=(index, value,type)=>{
-		console.log(index, value,type)
-
 	}
 	onBlur=(item,type)=>{
-		console.log('item',item.managerEmail,type)
 		if(type === 'managerPhone' && item.managerPhone){
 			var isPhone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 			var  phone= /^400-([0-9]){1}([0-9-]{7})$/;
@@ -162,7 +158,6 @@ import HeaderUpload from './HeaderUpload';
 		}
 	}
 	onChange=()=>{
-		console.log('onChange');
 	}
 	onLeaderChange=(type,value)=>{
 		State.editLeader[type]= value;
@@ -183,8 +178,6 @@ import HeaderUpload from './HeaderUpload';
 				managerType:'COMMUNITY_MANAGER'
 			};
 		State.editStationVos.push(item);
-		console.log(State.stationVos.length)
-
 	}
 	reduceArr=(index)=>{
 		State.editStationVos.splice(index,1);

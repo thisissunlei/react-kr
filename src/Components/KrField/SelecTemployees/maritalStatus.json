@@ -1,0 +1,6 @@
+
+[
+  {"value":"UNMARRIED","label":"未婚"},
+  {"value":"MARRIED","label":"已婚"},
+  {"value":"DIVORCED","label":"离异"}
+]

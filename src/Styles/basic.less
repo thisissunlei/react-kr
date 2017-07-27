@@ -12,9 +12,10 @@ html{
 body{
     font-family: Lantinghei SC,Open Sans,Arial,Hiragino Sans GB,Microsoft YaHei,STHeiti,WenQuanYi Micro Hei,SimSun,sans-serif;
 	height:100%;
-	background-color:#F1F2F7;
+	background-color:#F9F9FC;
 	position:relative;
 }
+
 .app {
 	top:0;
 	right:0;
@@ -29,7 +30,6 @@ body{
 		left:0;
 		right:0;
 		position:absolute;
-		margin-bottom:-50px;
 		overflow:hidden;
 	}
 }
@@ -41,4 +41,46 @@ body{
 	height:auto;
 	position:relative;
 }
+
+.ui-tab-control{
+    padding: 10px 17px;
+    display:inline-block;
+    cursor:pointer;
+    text-align:center;
+    font-size: 14px;
+    font-family: PingFangSC-Regular;
+}
+.ui-oa-del{
+	width: 15px;
+	height: 15px;
+	background: url(./images/del.svg) center;
+	background-size: cover;
+	display: inline-block;
+	float: right;
+}
+
+.oa-imulation-input{
+	box-shadow: border-box;
+    border: 1px solid #ddd;
+    padding: 0px;
+    height: 38px;
+    line-height: 38px;
+    border-radius: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+	background: #fff;
+	cursor: pointer;
+}
+.oa-search-icon{
+	width: 15px;
+	height: 15px;
+	background: url(./images/icon_search_nor.svg) center;
+	background-size: cover;
+	display: inline-block;
+	float: right;
+}
+
 input::-webkit-file-upload-button { cursor:pointer; }

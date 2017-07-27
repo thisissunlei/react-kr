@@ -92,6 +92,7 @@ export default class InputComponent extends React.Component{
 			 <WrapComponent {...wrapProps}>
 				 <Input {...inputProps}/>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+				 
 			 </WrapComponent>
 		 );
 	 }
