@@ -25,6 +25,7 @@ import {
 	Tooltip,
 	Message,
 	Section,
+	Drawer
 } from 'kr-ui';
 import AddOrganization from './AddOrganization';
 //import EditRole from './EditRole';
@@ -253,7 +254,7 @@ export default class OrganizationList extends Component{
 
 		  {/*新建*/}
 			<Drawer
-					open={this.state.openAddPost}
+					open={this.state.openPostType}
 					width={750}
 					openSecondary={true}
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
