@@ -61,7 +61,6 @@ export default class RankList extends Component{
 	dataReady=()=>{
 		var _this=this;
 	   Http.request('post-type-info').then(function(response) {
-		   		console.log(response,">>>>>>>>")
 				_this.setState({
 					subCompany:response.subcompanys
 				})
@@ -95,7 +94,6 @@ export default class RankList extends Component{
 			}else{
 				response.enabled='false'   
 			}
-			console.log(response,":::::::::")
 			_this.setState({
 				editDetail:response
 			})
@@ -227,6 +225,7 @@ export default class RankList extends Component{
 							label="新建职级"
 							type='button'
 							onTouchTap={this.openAddPost}
+							operateCode="hrm_job_level_edit"
 					/>
 				</Col>
 			        
@@ -279,8 +278,8 @@ export default class RankList extends Component{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}}></TableRowColumn>
 						<TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation"  operation="edit"/>
-			                <Button label="删除"  type="operation"  operation="delete" />
+                            <Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_job_level_edit"/>
+			                <Button label="删除"  type="operation"  operation="delete" operateCode="hrm_job_level_edit"/>
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>

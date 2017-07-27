@@ -124,9 +124,9 @@ export default class Labour extends React.Component {
 	getMainDimId=()=>{
 		const that = this;
 		const { searchParams } = this.state;
-		const id = searchParams.dimId;
+		const dimId = searchParams.dimId;
 		Http.request('is-main-dim', {dimId:dimId}).then(function (response) {
-			that.setState({dimIdStatus: response.items.isMain})
+			that.setState({dimIdStatus: response.isMain})
 		}).catch(function (err) { });
 	}
 	//获取维度信息
@@ -318,15 +318,10 @@ export default class Labour extends React.Component {
         })
     }
 	onSearchSubmit = (form) => {
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.nameAndEmail = form.content;
 		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				orgId: '1',
-				orgType: "ROOT",
-				dimId: this.props.params.dimId,
-				nameAndEmail: form.content,
-			}
+			searchParams
 		})
 	}
 	onSelect = (data) => {
@@ -481,6 +476,7 @@ export default class Labour extends React.Component {
 		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
 		var logFlag = '';
 		var style = {};
+		console.log(this.state.searchParams.orgType);
 		return (
 			<div className="g-oa-labour">
 				<div className="left">

@@ -33,7 +33,7 @@ class AddPostList  extends React.Component{
 	dataReady=(data)=>{
 	   var _this=this;
 	   Http.request('rank-type-info',{
-		   orgType:'DEPARTMENT',
+		   orgType:'SUBCOMPANY',
 		   orgId:data.value
 	   }).then(function(response) {
 		   _this.setState({
@@ -136,8 +136,8 @@ const validate = values =>{
 
     if(!values.code){
       errors.code='请填写职务编码'  
-    }else if(values.code.length>10){
-       errors.code='职务编码不能超过10个字符';   
+    }else if(values.code.length>30){
+       errors.code='职务编码不能超过30个字符';   
     }
 
     if(!values.typeId){

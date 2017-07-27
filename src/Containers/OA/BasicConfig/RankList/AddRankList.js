@@ -33,7 +33,7 @@ class AddRankList  extends React.Component{
 	dataReady=(data)=>{
        var _this=this;
 	   Http.request('rank-type-info',{
-		   orgType:'DEPARTMENT',
+		   orgType:'SUBCOMPANY',
 		   orgId:data.value
 	   }).then(function(response) {
 

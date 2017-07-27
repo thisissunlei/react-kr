@@ -78,11 +78,19 @@ class EditPerson  extends React.Component{
         let {basicInfo}=this.state;
         basicInfo.jobName='请选择';
         basicInfo.levelName='请选择';
-        this.getPrepareData(data);
-        this.setState({
-            isDepSelect:true,
-            basicInfo
-        })
+        if(data && data.value){
+            this.getPrepareData(data);
+            this.setState({
+                isDepSelect:true,
+                basicInfo
+            })
+        }else{
+            this.setState({
+                
+                basicInfo
+            })
+        }
+       
         Store.dispatch(change('editPerson','jobId',''));  
         Store.dispatch(change('editPerson','levelId','')); 
     }

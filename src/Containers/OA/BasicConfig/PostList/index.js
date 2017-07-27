@@ -217,6 +217,7 @@ export default class PostList extends Component{
 							label="新建职务"
 							type='button'
 							onTouchTap={this.newSwidth}
+							operateCode="hrm_job_edit"
 					/>
 				</Col>
 				<Col
@@ -283,8 +284,8 @@ export default class PostList extends Component{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}}></TableRowColumn>
 						<TableRowColumn type="operation">
-							<Button label="编辑"  type="operation"  operation="edit" />
-							<Button label="删除"  type="operation"  operation="del" />
+							<Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_job_edit"/>
+							<Button label="删除"  type="operation"  operation="del" operateCode="hrm_job_edit"/>
 						</TableRowColumn>
 					</TableRow>
 				</TableBody>
