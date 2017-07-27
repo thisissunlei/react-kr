@@ -61,6 +61,18 @@ const OA_PeopleDetail = (location, callback) => {
   }, 'OA_PeopleDetail')
 }
 
+const OA_OrganizationPower_OrganizationList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/OrganizationPower/OrganizationList').default)
+  }, 'OA_OrganizationPower_OrganizationList')
+}
+
+const OA_OrganizationPower_Role = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/OrganizationPower/Role').default)
+  }, 'OA_OrganizationPower_Role')
+}
+
 module.exports =()=>{
 	return (
         <Route path="oa" getComponent={Basic}>
@@ -84,6 +96,13 @@ module.exports =()=>{
 
              {/*人员详情*/}
             <Route path=":personId/peopleDetail" getComponent={OA_PeopleDetail}/>
+
+
+            {/*机构分权*/}
+            <Route path="organizationPower" getComponent={Basic}>
+						  <Route path="organizationList" getComponent={OA_OrganizationPower_OrganizationList}/>
+						  <Route path="role" getComponent={OA_OrganizationPower_Role}/>
+            </Route>
         </Route>
 	);
 };
