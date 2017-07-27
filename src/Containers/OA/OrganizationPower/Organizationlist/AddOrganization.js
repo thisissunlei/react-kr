@@ -7,7 +7,8 @@ import {
     ButtonGroup,
     Button
 } from 'kr-ui';
-import {reduxForm}  from 'redux-form';
+import {reduxForm,change}  from 'redux-form';
+import {Store} from 'kr/Redux';
 import './index.less';
 
 class AddOrganization  extends React.Component{
@@ -15,6 +16,10 @@ class AddOrganization  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 	}
+
+    componentDidMount(){
+         Store.dispatch(change('AddOrganization','enabled','true'));
+    }
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
