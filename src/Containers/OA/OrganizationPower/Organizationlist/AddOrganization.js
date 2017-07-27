@@ -39,6 +39,10 @@ class AddOrganization  extends React.Component{
 
 			<div className='m-or-role'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
+                      <div className="title" style={{marginBottom:"30px"}}>
+                            <div><span className="new-icon-add"></span><label className="title-text">新增机构分权</label></div>
+                            <div className="person-close" onClick={this.onCancel}></div>
+                      </div>
 
                        <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
@@ -72,7 +76,7 @@ class AddOrganization  extends React.Component{
                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='role-len-textarea'/>
 
                         
-                       <Grid style={{marginBottom:5,marginLeft:-32,marginTop:-12}}>
+                       <Grid style={{marginBottom:5,marginLeft:-30,marginTop:-12}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

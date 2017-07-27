@@ -53,7 +53,7 @@ class EditRole  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="orderNum"
-                            component="input"
+                            component="selectTree"
                             label="分配人员"
                             requireLabel={true}
 						/>

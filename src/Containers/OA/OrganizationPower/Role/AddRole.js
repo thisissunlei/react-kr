@@ -53,7 +53,7 @@ class AddRole  extends React.Component{
                         <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="subId"
-                            component="input"
+                            component="selectTree"
                             label="分配人员"
                             requireLabel={true}
                             options={subCompany}

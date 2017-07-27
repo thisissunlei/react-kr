@@ -154,6 +154,15 @@ export default class OrganizationList extends Component{
 		 searchParams:Object.assign({},this.state.searchParams,searchParams)
 	  })
    }
+   
+   //全部关闭
+   allClose=()=>{
+      this.setState({
+		 openPostType:false,
+		 openEditType:false, 
+	  })
+   }
+
 
 	render(){
 
@@ -243,18 +252,19 @@ export default class OrganizationList extends Component{
 		  </Section>
 
 		  {/*新建*/}
-			<Dialog
-					title="新建机构分权"
-					onClose={this.openAddPost}
-					open={this.state.openPostType}
-					contentStyle ={{ width: '685px',height:'auto'}}
+			<Drawer
+					open={this.state.openAddPost}
+					width={750}
+					openSecondary={true}
+					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					onClose={this.allClose}
 				>
 			  <AddOrganization 
 			      onSubmit={this.addPostSubmit}
 				  onCancel={this.openAddPost}
 				  latitude={latitude}
 			  />
-			</Dialog>
+			</Drawer>
 
 			{/*编辑*/}
 			 {/*<Dialog
