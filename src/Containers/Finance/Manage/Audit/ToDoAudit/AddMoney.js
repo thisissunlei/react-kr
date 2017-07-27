@@ -318,17 +318,27 @@ class AddMoney extends React.Component {
 		form = Object.assign({},form);
 		var accountList;
 		var _this = this;
+		if(!form.value){
+			_this.setState({
+				accountList: []
+			})
+			return;
+		}
 		var corporationId = this.state.corporationId || this.props.corporationId;
 		Store.dispatch(change('addMoney', 'accountId', ''));
 		Http.request('get-account-info', {
 			accountType: form.value,
 			corporationId
 		}).then(function(response) {
-			accountList = response.map((item, index) => {
-				item.label = item.accountNum;
-				item.value = item.accountId;
-				return item;
-			})
+			if(!response.length){
+				accountList = []
+			}else{
+				accountList = response.map((item, index) => {
+					item.label = item.accountNum;
+					item.value = item.accountId;
+					return item;
+				})
+			}
 			_this.setState({
 				accountList: accountList
 			})

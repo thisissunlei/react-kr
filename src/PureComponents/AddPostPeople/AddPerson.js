@@ -60,7 +60,7 @@ class AddPerson  extends React.Component{
         
        
       
-         Store.dispatch(change('addPerson','typeId',' '));
+         Store.dispatch(change('addPerson','typeId',''));
          this.setState({
             isPositionRank:false,
         })
@@ -71,16 +71,20 @@ class AddPerson  extends React.Component{
        
         this.getPrepareData(data);
         let {basicInfo}=this.state;
-        basicInfo.jobName='请选择';
-        basicInfo.levelName='请选择';
-        var _this=this;
-        this.setState({
-            basicInfo
-        })
-         
-        
-        Store.dispatch(change('addPerson','jobId',' '));  
-        Store.dispatch(change('addPerson','levelId',' '));
+         if(data && data.value){
+            this.getPrepareData(data);
+            this.setState({
+                isDepSelect:true,
+                basicInfo
+            })
+        }else{
+            this.setState({
+                basicInfo
+            })
+        }
+              
+        Store.dispatch(change('addPerson','jobId',''));  
+        Store.dispatch(change('addPerson','levelId',''));
     }
     
     getPositionType = (param) =>{
@@ -311,7 +315,7 @@ const validate = values =>{
     let reg= /^1[34578]\d{9}$/; 
     let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
     let email=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-
+    console.log(">>>>>>",values.jobId)
     if(!values.name){
         errors.name='请填写名称';
     }else if(values.name.length>10){
@@ -344,12 +348,18 @@ const validate = values =>{
         errors.typeId='请选择职务类型';
     }
 
-    if(values.jobId&&!values.jobId.orgId){
+    if(!values.jobId){
+        errors.jobId='请选择职务';
+    }else if((typeof (values.jobId))=='object'&&!values.jobId.value){
         errors.jobId='请选择职务';
     }
-    if(values.levelId&&!values.levelId.orgId){
+
+    if(!values.levelId){
+        errors.levelId='请选择职级';
+    }else if((typeof (values.levelId))=='object'&&!values.levelId.value){
         errors.levelId='请选择职级';
     }
+   
 
      if(!values.entryDate){
         errors.entryDate='请选择入职时间';

@@ -36,7 +36,7 @@ import EditDialog from './Editdialog';
 import Viewdialog from './Viewdialog';
 import CancelDialog from './CancelDialog';
 import UnCancelDialog from './UnCancelDialog';
-
+import HighSearchForm from './HighSearchForm';
 import './index.less';
 
 @inject("NavModel")
@@ -95,7 +95,7 @@ export default class Labour extends React.Component {
 	componentDidMount() {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
-		console.log("进入~··");
+		//console.log("进入~··");
 		var dimId = this.props.params.dimId;
 		var _this = this;
 		
@@ -110,6 +110,7 @@ export default class Labour extends React.Component {
 		this.initSelect();
 
 		this.getTreeData();
+		this.getMainDimId();
 	}
 	getExaList=()=>{
 		var _this = this;
@@ -123,9 +124,9 @@ export default class Labour extends React.Component {
 	getMainDimId=()=>{
 		const that = this;
 		const { searchParams } = this.state;
-		const id = searchParams.dimId;
+		const dimId = searchParams.dimId;
 		Http.request('is-main-dim', {dimId:dimId}).then(function (response) {
-			that.setState({dimIdStatus: response.items.isMain})
+			that.setState({dimIdStatus: response.isMain})
 		}).catch(function (err) { });
 	}
 	//获取维度信息
@@ -316,16 +317,11 @@ export default class Labour extends React.Component {
             searchParams:searchParams,
         })
     }
-	onSerchSubmit = (form) => {
+	onSearchSubmit = (form) => {
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.nameAndEmail = form.content;
 		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				orgId: '1',
-				orgType: "ROOT",
-				dimId: this.props.params.dimId,
-				nameAndEmail: form.content,
-			}
+			searchParams
 		})
 	}
 	onSelect = (data) => {
@@ -470,7 +466,7 @@ export default class Labour extends React.Component {
 		})
 	}
 
-	onSearchSubmit = (form) => {
+	onHighSearchSubmit = (form) => {
 		this.setState({
 			searchParams:form
 		})
@@ -480,6 +476,7 @@ export default class Labour extends React.Component {
 		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
 		var logFlag = '';
 		var style = {};
+		console.log(this.state.searchParams.orgType);
 		return (
 			<div className="g-oa-labour">
 				<div className="left">
@@ -590,10 +587,11 @@ export default class Labour extends React.Component {
 								onPageChange={this.onPageChange}
 							>
 								<TableHeader>
-									<TableHeaderColumn>ID</TableHeaderColumn>
+									<TableHeaderColumn>编号</TableHeaderColumn>
 									<TableHeaderColumn>下级名称</TableHeaderColumn>
 									<TableHeaderColumn>下级类型</TableHeaderColumn>
-									<TableHeaderColumn>状态</TableHeaderColumn>
+									<TableHeaderColumn>账号是否开通</TableHeaderColumn>
+									<TableHeaderColumn>操作人</TableHeaderColumn>
 									<TableHeaderColumn>创建日期</TableHeaderColumn>
 									<TableHeaderColumn>操作</TableHeaderColumn>
 								</TableHeader>
@@ -626,6 +624,7 @@ export default class Labour extends React.Component {
 												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
 											)
 										}}> </TableRowColumn>
+										<TableRowColumn name="operater"></TableRowColumn>
 										<TableRowColumn type="operation" name="status"
 											component={(value, oldValue, itemDetail) => {
 												if (logFlag) {
@@ -657,7 +656,7 @@ export default class Labour extends React.Component {
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
-											<SearchForm onSubmit={this.onSerchSubmit} />
+											<SearchForm onSubmit={this.onSearchSubmit}  openSearch={this.openHighSearch}/>
 										</div>
 									</Col>
 								</Row>
@@ -676,16 +675,21 @@ export default class Labour extends React.Component {
 								<TableHeader>
 									<TableHeaderColumn>ID</TableHeaderColumn>
 									<TableHeaderColumn>部门名称</TableHeaderColumn>
+									<TableHeaderColumn>员工类别</TableHeaderColumn>
 									<TableHeaderColumn>人员名称</TableHeaderColumn>
+									<TableHeaderColumn>员工属性</TableHeaderColumn>
 									<TableHeaderColumn>邮箱</TableHeaderColumn>
 									<TableHeaderColumn>入职日期</TableHeaderColumn>
 									<TableHeaderColumn>状态</TableHeaderColumn>
+									<TableHeaderColumn>操作</TableHeaderColumn>
 								</TableHeader>
 
 								<TableBody>
 									<TableRow>
 										<TableRowColumn name="hrmId"></TableRowColumn>
 										<TableRowColumn name="departName"></TableRowColumn>
+										<TableRowColumn name="departName"></TableRowColumn>
+										<TableRowColumn name="userName"></TableRowColumn>
 										<TableRowColumn name="userName"></TableRowColumn>
 										<TableRowColumn name="email"></TableRowColumn>
 										<TableRowColumn type="date" name="entryTime" component={(value) => {
@@ -705,6 +709,17 @@ export default class Labour extends React.Component {
 												)
 											}}
 										></TableRowColumn>
+										<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
+										return <span>
+											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
+												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
+												<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>
+												{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
+												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
+											</span>
+										}}>		
+										</TableRowColumn>
 									</TableRow>
 								</TableBody>
 								<TableFooter></TableFooter>
@@ -767,7 +782,19 @@ export default class Labour extends React.Component {
 				>
 					<CreateDialog params={this.props.params} detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
 				</Dialog>
-
+				{/*高级查询*/}
+				<Dialog
+						title="高级查询"
+						modal={true}
+						open={this.state.openHighSearch}
+						onClose={this.openHighSearch}
+						contentStyle={{width:685}}
+					>
+						<HighSearchForm
+									onSubmit={this.onHighSearchSubmit}
+									onCancel={this.openHighSearch}
+						/>
+					</Dialog>
 				{/*新建用户*/}
 				<AddPostPeople 
 					onCancel={this.openAddPerson}

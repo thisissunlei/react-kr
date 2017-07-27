@@ -41,7 +41,7 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '人员列表',
-						menuCode: 'hrm_resources_list',
+						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/oa/personalManage/peopleState',
 						
 					}
@@ -56,7 +56,7 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '机构设置',
-						menuCode: 'dim_list',
+						menuCode: 'hrm_dim_list',
 						router: '/oa/organization/home',
 					},
 					{

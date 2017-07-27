@@ -32,7 +32,7 @@ class EditRankList  extends React.Component{
 	dataReady=(data)=>{
        var _this=this;
 	   Http.request('rank-type-info',{
-		   orgType:'DEPARTMENT',
+		   orgType:'SUBCOMPANY',
 		   orgId:data.value
 	   }).then(function(response) {
 
@@ -45,7 +45,6 @@ class EditRankList  extends React.Component{
      });	
 	}
     onChange = (data) =>{
-        console.log(data,"????????")
         this.dataReady(data)
     }
 
