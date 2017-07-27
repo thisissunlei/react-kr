@@ -1,74 +1,46 @@
 import React from 'react';
-import {bindActionCreators} from 'redux';
-import { connect } from 'react-redux';
+import {
+  reduxForm,
+  change,
+  arrayPush,
+  initialize
+} from 'redux-form';
 
-import * as actionCreators from 'kr-ui/../Redux/Actions';
-import './index.less';
+import {
+  Actions,
+  Store
+} from 'kr/Redux';
+import {
+	
 
+} from 'kr-ui';
+import  "./index.less";
+import {Http,DateFormat} from "kr/Utils";
+import {
+	observer,
+	inject
+} from 'mobx-react';
 
+@observer
 
-class Home extends React.Component{
+class Home  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-
-		this.state = {
-			open:false
-		}
 	}
 
-
-	componentDidMount() {
-
+	componentDidMount(){
 	}
 
-	handleToggle(){
+	render(){
+		
+		return(
+			<div style={{border:'1px solid red',minHeight:'910'}}>
 
-		this.setState({open: !this.state.open});
-
-		var {actions,sidebar_nav} = this.props;
-
-		actions.switchSidebarNav(!!!sidebar_nav.switch_value);
-
-	}
-
-
-	render() {
-
-		return (
-
-			<div>
-
-
-			<div className="main">
-				<div className="l-sidebar">
-				hahahahah
-			hhhhh
-				</div>
-
-			</div>
-
-
-
-
-	</div>
+	     	</div>
 
 		);
 	}
 }
 
-
-function mapStateToProps(state){
-
-	return {
-		sidebar_nav:state.sidebar_nav,
-	};
-}
-
-function mapDispatchToProps(dispatch){
-	return {
-		actions:bindActionCreators(Object.assign({},actionCreators),dispatch)
-	};
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+export default Home;
