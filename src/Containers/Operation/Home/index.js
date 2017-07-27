@@ -11,7 +11,7 @@ import {
   Store
 } from 'kr/Redux';
 import {
-	
+	Title
 
 } from 'kr-ui';
 import  "./index.less";
@@ -35,7 +35,10 @@ class Home  extends React.Component{
 	render(){
 		
 		return(
-			<div style={{border:'1px solid red',minHeight:'910'}}>
+			<div style={{border:'1px solid red',minHeight:'910'}} className="operation-home">
+				<Title value="运营首页" />
+				<div className="home-left"></div>
+				<div className="home-right"></div>
 
 	     	</div>
 
