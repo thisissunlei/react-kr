@@ -98,13 +98,12 @@ class EditMeeting  extends React.Component{
 			var _this=this;
 			Http.request('meeting-room-eidData',data).then(function(response) {
 				   
-				   
 				   response.startTime=response.closeStartDate || 0;
 				   response.endTime=response.closeEndDate  || 0;
 				   if(response.closeStartDate && response.closeEndDate ){
-						 var StartTimeStr=DateFormat(response.startTime, 'yyyy-mm-dd hh:MM:ss');
+						 var StartTimeStr=DateFormat(response.startTime, 'yyyy-mm-dd HH:MM:ss');
 						 	 StartTimeStr=StartTimeStr.substr(11,5);
-						 var EndTimeStr=DateFormat(response.endTime, 'yyyy-mm-dd hh:MM:ss')
+						 var EndTimeStr=DateFormat(response.endTime, 'yyyy-mm-dd HH:MM:ss')
 						     EndTimeStr=EndTimeStr.substr(11,5);
 						      _this.setState({
 								 StartTimeStr,
