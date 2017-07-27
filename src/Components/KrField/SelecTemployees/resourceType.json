@@ -1,0 +1,6 @@
+
+[
+  {"value":"INTERNAL","label":"内部"},
+  {"value":"EXTERNAL","label":"外部"},
+  {"value":"INTERN","label":"实习"}
+]

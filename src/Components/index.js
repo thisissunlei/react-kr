@@ -56,8 +56,12 @@ import DivTitle from './DivTitle';
 import Nothing from './Nothing';
 import PlanMapAll from './PlanMapAll';
 import ToTop from './ToTop';
+import Tree from './Tree';
+import SliderTree from './SliderTree';
+import TabControl from './TabControl/index';
+import UpImages from './UpImages';
+import SwitchSlide from './SwitchSlide';
 import Chip from './Chip';
-
 import {
 	Grid,
 	Row,
@@ -156,5 +160,10 @@ module.exports = {
 	ToTop,
 	CheckPermission,
 	TextLabel,
+	...Tree,
+	SliderTree,
+	...TabControl,
+	UpImages,
+	SwitchSlide,
 	Chip
 }

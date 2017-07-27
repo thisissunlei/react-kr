@@ -8,6 +8,7 @@ import UrgeMoney from './UrgeMoney';
 import SelectCity from './SelectCity';
 import TheBell from './TheBell';
 import PlanMapContent from './PlanMapContent';
+import AddPostPeople from './AddPostPeople';
 
 module.exports = {
 	Agreement,
@@ -20,5 +21,6 @@ module.exports = {
 	NewIndent,
 	TheBell,
 	PlanMapContent,
+	AddPostPeople
 }
 

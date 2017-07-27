@@ -21,7 +21,7 @@ module.exports = [
 						router: '/WebBackstage/news/list',
 					},
 					{
-						primaryText: '官网社区配置',
+						primaryText: '社区配置',
 						menuCode: 'krspace_cmt',
 						router: '/WebBackstage/communityAllocation',
 					}
