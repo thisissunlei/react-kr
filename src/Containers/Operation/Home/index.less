@@ -1,7 +1,36 @@
 .operation-home{
-	display:flex;
+	// display:flex;
+	.home-main-part{
+		background-color: #fff;
+		height: 60px;
+		border-radius: 4px;
+		width: 100%;
+		line-height: 60px;
+		margin-bottom: 20px;
+		.community-img{
+			width: 22px;
+			height: 22px;
+			margin-left: 20px;
+			float: left;
+			margin-right:10px;
+			margin-top: 18px; 
+		}
+		.community-name{
+			font-size: 18px;
+			color: #394457;
+			margin-right: 30px;
+		}
+		.change-name{
+			font-size: 14px;
+			color: #2D8DCD;
+			cursor: pointer;
+		}
+	}
+	.home-content{
+		display: flex;
+	}
 	.home-left{
-		height:200px;
+		min-height:200px;
 		border:1px solid green;
 		flex:2;
 		margin-right: 20px;
@@ -12,6 +41,39 @@
 		// margin-left:20px; 
 		border:1px solid black;
 		flex:1;
+	}
+	.item-left-line-one{
+		display: flex;
+		height: 146px;
+		
+		.item{
+			border-radius: 4px;
+			background-color: #fff;
+			padding:16px 30px;
+
+		}
+		.item-one{
+			flex:2;
+			margin-right:20px;
+			.tab-lists{
+				font-size: 16px;
+				color:#999;
+				height: 20px;
+				line-height: 20px;
+			}
+			.stations-num{
+				text-align: center;
+				font-size: 44px;
+				color: #FF7876;
+			}
+		}
+		.item-tow{
+			margin-right:20px;
+			flex:2;
+		}
+		.item-three{
+			flex:1;
+		}
 	}
 }
 

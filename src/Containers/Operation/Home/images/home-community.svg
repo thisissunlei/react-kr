@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_社区</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="底部运营主页" transform="translate(-190.000000, -98.000000)">
+            <g id="社区切换">
+                <g transform="translate(170.000000, 80.000000)">
+                    <g id="icon_社区" transform="translate(20.000000, 18.000000)">
+                        <path d="M1.75,19.2324 L1.75,21.8024 C1.75,22.3074 2.162,22.7504 2.767,22.7504 L11.75,22.7504 L11.75,22.7504 C17.825,22.7504 22.75,17.8254 22.75,11.7504 C22.75,5.6744 17.825,0.7504 11.75,0.7504 C5.675,0.7504 0.75,5.6744 0.75,11.7504 C0.75,13.4614 0.89,14.7754 1.587,16.2194" id="Stroke-1" stroke="#333333" stroke-width="1.5" stroke-linecap="round"></path>
+                        <path d="M16.2827,9.1719 C15.0357,7.9259 12.9967,7.9259 11.7497,9.1719 C10.5037,7.9259 8.4637,7.9259 7.2177,9.1719 C5.9707,10.4179 5.9707,12.4579 7.2177,13.7039 L11.7497,18.2369 L16.2827,13.7039 C17.5297,12.4579 17.5297,10.4179 16.2827,9.1719" id="Fill-3" fill="#2D8DCD"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
