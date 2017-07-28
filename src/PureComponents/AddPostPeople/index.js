@@ -11,9 +11,9 @@ export default class AddPostPeople  extends React.Component{
 	}
 	
 	render(){
-
+		console.log(this.props,"////////////")
 		return(
-
+			
 			<div>
                    {/*新建用户*/}
 					<Drawer

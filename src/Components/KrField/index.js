@@ -92,7 +92,7 @@ class FieldRevert extends React.Component {
 				return <MobxForm.Field {...this.props} />;
 			}
 
-			console.log('--->>>>>>',this.props);
+			//console.log('--->>>>>>',this.props);
 
 			return <Field  {...this.props} />;
 
