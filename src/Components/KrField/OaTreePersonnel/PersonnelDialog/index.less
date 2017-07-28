@@ -1,7 +1,25 @@
-.tree-dialog{
-    height: 535px;
+.tree-personnel{
+    height: 525px;
     background: #fff;
     text-align: center;
+    .personnel-title{
+        text-align: left;
+        height: 40px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        .personnel-title-icon{
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            vertical-align: middle;
+            background: url('./images/personnel.svg') no-repeat center;
+        }
+        .personnel-title-text{
+          vertical-align: middle;  
+          margin-left: 10px;
+        }
+    }
     .serch{
         background: #FFFFFF;
       
@@ -13,16 +31,13 @@
     }
     .tree-content-left-right{
         border: 1px solid #E1E6EB;
-        height: 426px;
+        height: 376px;
          border-radius: 4px;
          margin-top: 10px;
           overflow: auto;
     }
     .content-left{
         width: 395px;
-       
-        height: 476px;
-        
         display: inline-block;
        
         float: left;
@@ -31,7 +46,7 @@
     .content-right{
         width: 230px;
         float: left;
-        height: 476px;
+      
         margin-left: 10px;
         display: inline-block;
         left:10px;
@@ -40,7 +55,7 @@
        
         .everyHave{
             position: relative;
-            height: 36px;
+            min-height: 36px;
             line-height: 17px;
             box-sizing: border-box;
             padding: 10px;
@@ -52,14 +67,17 @@
     }
 
     .tree-content-left-right:hover{
-        border: 1px solid #AADBFE
+        border: 0.6px solid #499df1;
+        box-shadow: 0px 0px 4px #499df1;
     }
 
     .botton{
         display: inline-block;
         padding: 0px 25px;
-        cursor: pointer;
-        
+        cursor: pointer;    
+    }
+    .botton:hover{
+        color:#499df1;
     }
     .tree-dialog-bottom{
         background: #F6F6F6;

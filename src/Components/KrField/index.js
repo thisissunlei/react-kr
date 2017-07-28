@@ -64,8 +64,10 @@ import OaUploadImage from './OaUploadImage';
 //血型
 import SelecTemployees from './SelecTemployees';
 import SwitchSlide from './SwitchSlide';
-
-// import OaTreeDepartment from './OaTreeDepartment';
+//部门树
+import OaTreeDepartment from './OaTreeDepartment';
+//人员树
+import OaTreePersonnel from './OaTreePersonnel';
 // import OaTreePersonnel from './OaTreePersonnel';
 
 
@@ -478,16 +480,16 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SwitchSlide}  style={WrapStyles} {...other}/>
 				)
 			}
-			// if (component === 'treeDepartment') {
-			// 	return (
-			// 		<FieldRevert {...this.props} component={OaTreeDepartment}  style={WrapStyles} {...other}/>
-			// 	)
-			// }
-			// if (component === 'treePersonnel') {
-			// 	return (
-			// 		<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
-			// 	)
-			// }
+			if (component === 'treeDepartment') {
+				return (
+					<FieldRevert {...this.props} component={OaTreeDepartment}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'treePersonnel') {
+				return (
+					<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
+				)
+			}
 
 			
 		
