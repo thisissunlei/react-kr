@@ -1,7 +1,7 @@
 import React from 'react';
 import {	
-	Tabs,
-	Tab
+	TabCs,
+	TabC
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
 import RoleorgaList from './RoleorgaList';
@@ -16,6 +16,21 @@ export default class EditOrganization  extends React.Component{
 
 
 	render(){
+		
+		var inStyle={
+			background:'#fff',
+			width: '50%',
+            borderBottom: '1px solid #D7D7D7',
+			padding:'10px 0'
+		}
+
+		var acStyle={
+			background:'#fff',
+			width: '50%',
+            borderBottom:'2px solid #499df1',
+			padding:'10px 0'
+		}
+		
 
 		return(
 
@@ -27,17 +42,18 @@ export default class EditOrganization  extends React.Component{
                     </div>
 			    </div>
 				<div className='role-tab'>    
-					<Tabs className="tabs"
-						inkBarStyle={{background:"#499df1",top:0}}
-						>
-							<Tab label="基本信息" >
-									<BasicInfo/>
-							</Tab>
-
-							<Tab label="分配角色及机构" >
-									<RoleorgaList/>
-							</Tab>
-			       </Tabs>
+				    <TabCs
+					  inStyle={inStyle}
+					  acStyle={acStyle}
+			        >
+						<TabC label='基本信息'> 
+							<BasicInfo/>
+						</TabC> 
+						
+						<TabC label='分配角色及机构'> 
+							<RoleorgaList/>
+						</TabC> 
+				  </TabCs>
 			  </div>
 			</div>
 		);

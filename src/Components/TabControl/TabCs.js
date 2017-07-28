@@ -35,16 +35,16 @@ export default class TabCs extends React.Component {
     }
 
 	render() {
-        const {children,initStyle,activeStyle} = this.props;
+        const {children,inStyle,acStyle} = this.props;
         const {labels} = this.state;
         
 		return (
             <div>
                 <TabTitle
-                    initStyle = {initStyle}
-                    activeStyle = {activeStyle}
                     labels = {this.getLabels()} 
                     onSubmit = {this.titleClick} 
+                    acStyle={acStyle}
+                    inStyle={inStyle}
                 />
                 
                 {this.tabRender()}

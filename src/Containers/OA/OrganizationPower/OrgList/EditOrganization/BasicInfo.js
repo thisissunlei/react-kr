@@ -71,7 +71,7 @@ class  BasicInfo extends React.Component{
                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='role-len-textarea'/>
 
                         
-                       <Grid style={{marginBottom:5,marginLeft:-30,marginTop:-12}}>
+                       <Grid style={{marginBottom:5,marginLeft:-45,marginTop:-12}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
