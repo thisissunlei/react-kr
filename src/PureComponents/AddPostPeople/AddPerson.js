@@ -41,18 +41,17 @@ class AddPerson  extends React.Component{
       let {orgDetail}=this.props;
       Store.dispatch(change('addPerson','sex','MALE'));
       Store.dispatch(change('addPerson','depId',orgDetail.orgId));
-      //this.getPositionType(data);
+      this.getPositionType(orgDetail);
     }
 
     onSubmit=(values)=>{
-        
+         let {orgDetail}=this.props;
         let params = Object.assign({},values);
         params.jobId = values.jobId.value;
         params.leader = values.leader.orgId;
         params.treeType = values.leader.treeType;
         params.levelId = values.levelId.value;
 
-    
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
     }

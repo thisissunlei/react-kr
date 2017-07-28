@@ -86,7 +86,7 @@ export default class Labour extends React.Component {
 				orgName:'36Kr',
 				orgId:'1',
 				status:'0',
-				orgType: "ROOT",
+				treeType: "ROOT",
 			},
 			selectStyle: {
 				'display': 'none'
@@ -202,7 +202,9 @@ export default class Labour extends React.Component {
    addPersonSubmit=(param)=>{
     var data = Object.assign({},param);
 	var _this = this;
-	data.depId=data.depId.orgId;
+	if(data.depId.orgId){
+	  data.depId=data.depId.orgId;
+	}	
 	Http.request("submit-new-personnel",{},data).then(function (response) {
 		_this.openAddPerson();
 		_this.changeP();
@@ -262,7 +264,7 @@ export default class Labour extends React.Component {
 			dataName.orgName = response.orgName;
 			dataName.status = response.status || '0';
 			dataName.orgId = response.orgId || '1';
-			dataName.orgType = response.orgType || 'ROOT';
+			dataName.treeType = response.orgType || 'ROOT';
 			that.setState({
 				dataName,
 				// searchParams: {
