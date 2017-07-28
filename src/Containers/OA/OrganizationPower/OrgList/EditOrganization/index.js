@@ -12,7 +12,11 @@ export default class EditOrganization  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 	}
-
+    
+	 onCancel=()=>{
+        const {onCancel}=this.props;
+        onCancel && onCancel();
+    }
 
 
 	render(){
@@ -47,7 +51,12 @@ export default class EditOrganization  extends React.Component{
 					  acStyle={acStyle}
 			        >
 						<TabC label='基本信息'> 
-							<BasicInfo/>
+							<BasicInfo
+							  dimName={this.props.dimName}
+							  code={this.props.code}
+							  onCancel={this.onCancel}
+							  onSubmit={this.onSubmit}
+							/>
 						</TabC> 
 						
 						<TabC label='分配角色及机构'> 
