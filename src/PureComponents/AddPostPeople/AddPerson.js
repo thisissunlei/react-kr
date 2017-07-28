@@ -175,7 +175,8 @@ class AddPerson  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,orgDetail}=this.props;
+        console.log('ddddorgDetail',orgDetail);
         let {
                 rankList,
                 positionList,
@@ -251,6 +252,7 @@ class AddPerson  extends React.Component{
                             label="部门"
                             treeType = "department"
                             onChange = {this.onChange}
+                            valueText={orgDetail.orgName?orgDetail.orgName:''}
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}
                         />

@@ -32,7 +32,7 @@ class AddRole  extends React.Component{
 
 		return(
 
-			<div className='m-or-role'>
+			<div className='m-role-role'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 
                        <KrField grid={1/2}

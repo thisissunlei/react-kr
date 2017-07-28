@@ -67,8 +67,8 @@ export default class Role extends Component{
 	//获取编辑信息
 	getEditData=(id)=>{
 		var _this=this;
-       Http.request('post-type-watch',{id:id}).then(function(response) {
-           Store.dispatch(initialize('EditPostType',response));
+       Http.request('role-watch',{id:id}).then(function(response) {
+           Store.dispatch(initialize('EditRole',response));
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -96,7 +96,7 @@ export default class Role extends Component{
 	//新建提交
 	addPostSubmit=(params)=>{
        var _this=this;
-       Http.request('post-type-add',{},params).then(function(response) {
+       Http.request('role-add',{},params).then(function(response) {
            _this.setState({
 						searchParams:{
 							time:+new Date(),
@@ -120,7 +120,7 @@ export default class Role extends Component{
     //编辑提交
 	editPostSubmit=(params)=>{
         var _this=this;
-       Http.request('post-type-edit',{},params).then(function(response) {
+       Http.request('role-edit',{},params).then(function(response) {
            _this.setState({
 						searchParams:{
 							time:+new Date(),
@@ -148,7 +148,7 @@ export default class Role extends Component{
    deleteSubmit=()=>{
 		 let {deleteId}=this.state;
 		 var _this=this;
-     Http.request('post-type-delete',{id:deleteId}).then(function(response) {
+     Http.request('role-delete',{id:deleteId}).then(function(response) {
            _this.setState({
 						searchParams:{
 							time:+new Date(),
@@ -205,7 +205,7 @@ export default class Role extends Component{
 					onOperation={this.onOperation}
 					displayCheckbox={false}
 					ajaxParams={this.state.searchParams}
-					ajaxUrlName='postTypeList'
+					ajaxUrlName='role-list'
 					ajaxFieldListName="items"
 				    onPageChange = {this.pageChange}
 			>
@@ -234,22 +234,22 @@ export default class Role extends Component{
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
-						<TableRowColumn name="descr" component={(value,oldValue)=>{
+						<TableRowColumn name="allotUser" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-						<TableRowColumn name="orderNum" component={(value,oldValue)=>{
+						<TableRowColumn name="desc" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
-						<TableRowColumn name="updatorName"></TableRowColumn>
-						<TableRowColumn name="uTime" component={(value,oldValue)=>{
+						<TableRowColumn name="operator"></TableRowColumn>
+						<TableRowColumn name="time" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}}></TableRowColumn>
 						<TableRowColumn type="operation">
@@ -293,7 +293,7 @@ export default class Role extends Component{
 				title="提示"
 				onClose={this.cancelDelete}
 				open={this.state.openDelete}
-				contentStyle ={{ width: '444px',height:'190px'}}
+				contentStyle ={{ width: '446px',height:'236px'}}
 			>
 			<DeleteRole
 				onCancel={this.cancelDelete}
