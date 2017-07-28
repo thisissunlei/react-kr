@@ -61,10 +61,10 @@ const OA_PeopleDetail = (location, callback) => {
   }, 'OA_PeopleDetail')
 }
 
-const OA_OrganizationPower_OrganizationList = (location, callback) => {
+const OA_OrganizationPower_OrgList = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/OA/OrganizationPower/OrganizationList').default)
-  }, 'OA_OrganizationPower_OrganizationList')
+    callback(null, require('kr/Containers/OA/OrganizationPower/OrgList').default)
+  }, 'OA_OrganizationPower_OrgList')
 }
 
 const OA_OrganizationPower_Role = (location, callback) => {
@@ -100,7 +100,7 @@ module.exports =()=>{
 
             {/*机构分权*/}
             <Route path="organizationPower" getComponent={Basic}>
-						  <Route path="organizationList" getComponent={OA_OrganizationPower_OrganizationList}/>
+						  <Route path="orgList" getComponent={OA_OrganizationPower_OrgList}/>
 						  <Route path="role" getComponent={OA_OrganizationPower_Role}/>
             </Route>
         </Route>

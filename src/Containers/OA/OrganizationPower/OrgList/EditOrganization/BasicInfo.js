@@ -11,15 +11,12 @@ import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import './index.less';
 
-class AddOrganization  extends React.Component{
+class  BasicInfo extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 	}
 
-    componentDidMount(){
-         Store.dispatch(change('AddOrganization','enabled','true'));
-    }
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -33,17 +30,12 @@ class AddOrganization  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,latitude}=this.props;
+        let {handleSubmit}=this.props;
 
 		return(
 
-			<div className='m-or-role'>
+			<div className='m-edit-role'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-                      <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon-add"></span><label className="title-text">新增机构分权</label></div>
-                            <div className="person-close" onClick={this.onCancel}></div>
-                      </div>
-
                        <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
@@ -51,24 +43,27 @@ class AddOrganization  extends React.Component{
                             label="机构分权名称"
                             requireLabel={true}
 						/>
-                        <KrField grid={1/2}
-                            style={{width:262,marginLeft:27,marginBottom:5}}
+                        <div className='add-code'><KrField grid={1/2}
+                            style={{width:262,marginLeft:32,marginBottom:5}}
                             name="code"
-                            component="input"
+                            component="labelText"
                             label="编码"
+                            value='123'
                             requireLabel={true}
-						/>
+                            inline={false}
+						/></div>
 
                         <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="subId"
-                            component="select"
+                            component="labelText"
                             label="所属纬度"
+                            value='123'
                             requireLabel={true}
-                            options={latitude}
+                            inline={false}
 						/>
 
-                         <div className='m-or-enable'><KrField style={{width:262,marginLeft:27}} name="enabled" component="group" label="是否启用" requireLabel={true}>
+                         <div className='m-edit-enable'><KrField style={{width:262,marginLeft:32}} name="enabled" component="group" label="是否启用" requireLabel={true}>
  							 <KrField name="enabled" label="启用" type="radio" value='true' />
  							 <KrField name="enabled" label="不启用" type="radio" value='false' />
  						</KrField></div>
@@ -114,4 +109,4 @@ const validate = values =>{
 	return errors
 }
 
-export default reduxForm({ form: 'AddOrganization',validate})(AddOrganization);
+export default reduxForm({ form: 'BasicInfo',validate})(BasicInfo);

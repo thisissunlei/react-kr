@@ -28,9 +28,9 @@ import {
 	Drawer
 } from 'kr-ui';
 import AddOrganization from './AddOrganization';
-//import EditRole from './EditRole';
+import EditOrganization from './EditOrganization';
 
-export default class OrganizationList extends Component{
+export default class OrgList extends Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -268,17 +268,18 @@ export default class OrganizationList extends Component{
 			</Drawer>
 
 			{/*编辑*/}
-			 {/*<Dialog
-					title="编辑角色"
-					onClose={this.openEditPost}
-					open={this.state.openEditType}
-					contentStyle ={{ width: '685px',height:'auto'}}
+			 <Drawer
+			  		open={this.state.openEditType}
+					width={750}
+					openSecondary={true}
+					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					onClose={this.allClose}
 				>
-			  <EditRole 
+			  <EditOrganization 
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
 			  />
-			</Dialog>*/}
+			</Drawer>
         </div>
 		);
 	}
