@@ -84,7 +84,7 @@ export default class Labour extends React.Component {
 			styleBool: false,
 			dataName:{
 				orgName:'36Kr',
-				orgId:'1'
+				orgId:'1',
 				status:'0'
 			},
 			selectStyle: {
