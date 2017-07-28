@@ -20,7 +20,7 @@ class Transfer extends React.Component{
         let {department} = this.props;
         let submitData = {
             depId:values.depId.orgId,
-            resourceId:department.id
+            resourceId:department.hrmId
         }
         const {onSubmit}=this.props;
         onSubmit && onSubmit(submitData);
@@ -45,7 +45,7 @@ class Transfer extends React.Component{
                             style={{width:262,marginLeft:60,marginBottom:2}}
                             component="labelText"
                             label="原部门:"
-                            value = {department.depName}
+                            value = {department.departName}
                             requireLabel={true}
 						/>
                  <KrField grid={1}

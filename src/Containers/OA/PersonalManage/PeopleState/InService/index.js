@@ -129,14 +129,14 @@ export default class InService  extends React.Component{
    operationLeave=(itemDetail)=>{
        this.setState({
 			openLeave:true,
-			leaveId:itemDetail.id
+			leaveId:itemDetail.hrmId
 		})
    }
    //解除账号打开
    operationRemove=(itemDetail)=>{
 	    this.setState({
 			  openRemove:true,
-			  resourceId:itemDetail.id
+			  resourceId:itemDetail.hrmId
 		})	
    }
 
@@ -160,7 +160,7 @@ export default class InService  extends React.Component{
    operationAccount=(itemDetail)=>{
        this.setState({
 			  openAccount:true,
-			  resourceId:itemDetail.id
+			  resourceId:itemDetail.hrmId
 		})
    }
 
