@@ -68,7 +68,7 @@ export default class Role extends Component{
 	getEditData=(id)=>{
 		var _this=this;
        Http.request('role-watch',{id:id}).then(function(response) {
-           Store.dispatch(initialize('EditPostType',response));
+           Store.dispatch(initialize('EditRole',response));
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -148,7 +148,7 @@ export default class Role extends Component{
    deleteSubmit=()=>{
 		 let {deleteId}=this.state;
 		 var _this=this;
-     Http.request('role-delete',{id:deleteId}).then(function(response) {
+      Http.request('role-delete',{},{id:deleteId}).then(function(response) {
            _this.setState({
 						searchParams:{
 							time:+new Date(),
