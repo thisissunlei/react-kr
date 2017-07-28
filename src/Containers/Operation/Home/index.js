@@ -45,18 +45,17 @@ class Home  extends React.Component{
 		State.openChangeCommunity = false;
 	}
 	ChangeCommunity=(form)=>{
-		console.log('=====>',form)
 		State.ChangeCommunity(form);
 	}
 
 	render(){
 		
 		return(
-			<div style={{border:'1px solid red',minHeight:'910'}} className="operation-home">
+			<div style={{minHeight:'910'}} className="operation-home">
 				<Title value="运营首页" />
 				<div className="home-main-part">
 					<img src={home} className="community-img"/>
-					<span className="community-name">{State.info.communityId}</span>
+					<span className="community-name">{State.info.communityName}</span>
 					<span className='change-name' onClick={this.openChangeCommunityDialog}>切换社区</span>
 				</div>
 				<div className='home-content'> 
