@@ -11,6 +11,7 @@ import {
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import {Store} from 'kr/Redux';
+import './index.less';
 class OpenCard extends React.Component{
 
 	constructor(props,context){
