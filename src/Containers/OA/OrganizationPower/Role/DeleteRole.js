@@ -29,8 +29,8 @@ export default class DeleteRole extends React.Component{
 		return(
 
 			<div>
-               <p style={{textAlign:'center',color:'#000',fontSize:'16px',marginTop:'25px'}}>确定删除吗？</p>
-			   <Grid style={{marginTop:25}}>
+               <p style={{textAlign:'center',color:'#333',fontSize:'16px',marginTop:'44px'}}>确定删除吗？</p>
+			   <Grid style={{marginTop:53}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

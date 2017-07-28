@@ -24,7 +24,7 @@ export default class AddPostPeople  extends React.Component{
 							onClose={this.props.onClose}
 					 >
 						<AddPerson
-						  
+						   orgDetail={this.props.orgDetail || ''}
 			               onCancel={this.props.onCancel}
 						   onSubmit={this.props.onSubmit}   
 						/>
