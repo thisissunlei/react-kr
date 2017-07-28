@@ -370,6 +370,56 @@ var OAApi = {
       url:'/api/krspace-erp-web/hrm/role/detail?id={id}',
       method: 'get'
   },
+   //机构分权－列表
+  'org-power-list':{
+      url:'/api/krspace-erp-web/hrm/org/list?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+   //机构分权－新增
+  'org-power-add':{
+      url:'/api/krspace-erp-web/hrm/org/add',
+      method: 'post'
+  },
+   //机构分权－查看
+  'org-power-watch':{
+      url:'/api/krspace-erp-web/hrm/org/detail?id={id}',
+      method: 'get'
+  },
+   //机构分权－编辑
+  'org-power-edit':{
+      url:'/api/krspace-erp-web/hrm/org/edit',
+      method: 'post'
+  },
+   //机构分权－分配角色列表
+  'role-power-list':{
+      url:'/api/krspace-erp-web/hrm/org/allot-role-list?id={id}',
+      method: 'get'
+  },
+   //机构分权－分配角色列表删除
+  'role-power-delete':{
+      url:'/api/krspace-erp-web/hrm/org/delete-org-role',
+      method: 'post'
+  },
+   //机构分权－分配角色列表新增
+  'role-power-add':{
+      url:'/api/krspace-erp-web/hrm/org/add-org-role',
+      method: 'post'
+  },
+   //机构分权－分配角色列表查看
+  'role-power-watch':{
+      url:'/api/krspace-erp-web/hrm/org/detail-org-role?orgDetailId={orgDetailId}',
+      method: 'get'
+  },
+   //机构分权－分配角色列表编辑
+  'role-power-edit':{
+      url:'/api/krspace-erp-web/hrm/org/edit-org-role',
+      method: 'post'
+  },
+   //机构分权－获取所有角色
+  'role-power-all':{
+      url:'/api/krspace-erp-web/hrm/role/all',
+      method: 'get'
+  },
 }
 
 module.exports=OAApi;
