@@ -51,7 +51,7 @@ class Transfer extends React.Component{
                  <KrField grid={1}
                             style={{width:262,marginLeft:60}}
                             name="depId"
-                            component="selectTree"
+                            component="treeDepartment"
                             label="部门:"
                             treeType = "department"
                             ajaxUrlName = "get-department-tree"

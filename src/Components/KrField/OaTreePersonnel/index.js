@@ -2,13 +2,13 @@ import React from 'react';
 
 import WrapComponent from '../WrapComponent';
 import Input from '../../Input';
-
+import Message from '../../Message'
 import {stopSubmit,submit,blur,stopAsyncValidation,touch} from 'redux-form';
 
 import './index.less';
 import Dialog from '../../Dialog'
-import mockData from './Data.json';
-import DepartmentDialog from './DepartmentDialog';
+// import mockData from './Data.json';
+import PersonnelDialog from './PersonnelDialog/index';
 
 export default class OaTreePersonnel extends React.Component{
 
@@ -28,23 +28,8 @@ export default class OaTreePersonnel extends React.Component{
 				orgName:"请选择"
 			},
 			oneOpen:true,
-			other:''
+			other:'',
 		}
-	}
-
-	onChange = (value)=>{
-
-		// let {input} = this.props;
-		// input.onChange(value);
-		// const {onChange} = this.props;
-		// onChange && onChange(value,input)
-	}
-
-	onBlur=(value)=>{
-		// let {input} = this.props;
-		// input.onBlur(value);
-		// const {onBlur} = this.props;
-		// onBlur && onBlur(value)
 	}
 
 	onFocus=(value)=>{
@@ -60,10 +45,17 @@ export default class OaTreePersonnel extends React.Component{
 	}
 
 	onSubmit = (data) =>{
+		let {treeType} = this.props;
 		if( data.orgName == "" ){
+			if(treeType == "department"){
+				Message.error("请选择部门");
+			}else{
+				Message.error("请选择直接上级");
+			}
+			
+			
 			return ;
 		}
-	
 		let {input,onChange} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();
@@ -72,6 +64,7 @@ export default class OaTreePersonnel extends React.Component{
 			oneOpen:false,
 		})
 		onChange && onChange(data);
+		
 
 	}
 
@@ -83,10 +76,6 @@ export default class OaTreePersonnel extends React.Component{
 	onSelect = (data) =>{
 		
 		let {input,onChange} = this.props;
-		// var value = (item && item.value) || '';
-		// input.onChange({});
-		
-		// onChange && onChange(item);
 		
 	}
 	 componentWillReceiveProps (nextProps) {
@@ -101,7 +90,7 @@ export default class OaTreePersonnel extends React.Component{
 
 		const {isDialog,data,oneOpen} = this.state;
 
-		// const {ajaxUrlName,} = this.props;
+		const {ajaxUrlName,valueText} = this.props;
 
 		let {
             input,
@@ -121,8 +110,6 @@ export default class OaTreePersonnel extends React.Component{
             simple,
             heightStyle,
             autoFocus,
-			treeData,
-			valueText,
             ...other
         } = this.props;
 
@@ -170,7 +157,7 @@ export default class OaTreePersonnel extends React.Component{
 
         dialogTitle = "选择" + dialogTitle;
 
-
+		
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
@@ -183,9 +170,10 @@ export default class OaTreePersonnel extends React.Component{
 					title={dialogTitle}
 					onClose={this.dlogSwidch}
 					open={isDialog}
-					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
+					noMaxHeight = {true}
+					contentStyle ={{ width: '653px',height:'580px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
-					<DepartmentDialog  treeData = {treeData} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<PersonnelDialog  treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>
 				</div>
 			 </WrapComponent>

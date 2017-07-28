@@ -182,7 +182,7 @@ class EditPerson  extends React.Component{
                             grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="leader"
-                            component="selectTree"
+                            component="treePersonnel"
                             label="直接上级"
                             treeType = "personnel"
                             ajaxUrlName = "get-personnel-tree"
@@ -194,7 +194,7 @@ class EditPerson  extends React.Component{
                             grid={1/2}
                             style={{width:262}}
                             name="depId"
-                            component="selectTree"
+                            component="treeDepartment"
                             label="部门"
                             treeType = "department"
                             onChange = {this.onChange}

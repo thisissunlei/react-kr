@@ -2,6 +2,7 @@ import React from 'react';
 import './index.less';
 import SliderTree from'../../../SliderTree'
 import Button from '../../../Button'
+import Message from '../../../Message'
 import {Http} from 'kr/Utils'
 export default class PersonnelDialog extends React.Component{
 	constructor(props,context){
@@ -15,23 +16,12 @@ export default class PersonnelDialog extends React.Component{
 			searchKey:'',
 			treeData : [],
 		}
-		
-	}
-
-	packagData = (data) =>{
-		// if(data.children.length){
-		// 	data.isClick = true;
-		// }else{
-		// 	data.map.map((item,index)=>{
-
-		// 	})
-		// }
-		
+		this.getTreeData();
 	}
 	onSelect = (data) =>{
-		const {onSelect} = this.props;
+		const {onSelect,treeType} = this.props;
 		const that = this;
-		if(!data.children.length){
+		if(treeType == "personnel" && data.treeType == "NONE"){
 			this.setState({
 				isList:true,
 				detail:{
@@ -39,15 +29,45 @@ export default class PersonnelDialog extends React.Component{
 					pId:data.pId,
 					treeType:data.treeType,
 					orgName:data.orgName,
+					
 				},
 				
 			})
-			
 		}
+		if(treeType == "department" && data.treeType == "DEPARTMENT"){
+			this.setState({
+				isList:true,
+				detail:{
+					orgId:data.orgId,
+					pId:data.pId,
+					treeType:data.treeType,
+					orgName:data.orgName,
+					
+				},
+				
+			})
+		}
+		
+			
+			
+		
 
 		
 	}
-	
+	getTreeData = () => {
+
+		let { ajaxUrlName} = this.props;
+		const _this = this;
+		Http.request(ajaxUrlName).then(function (response) {
+			
+			_this.setState({
+				treeData:response.items
+			})
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
+
+	}
 
 	
 	onSumit = () =>{
@@ -69,6 +89,9 @@ export default class PersonnelDialog extends React.Component{
 		})
 	}
 	listRender = () =>{
+		
+
+		
 		const {detail} = this.state;
 		return <div className = "everyHave">
 					{detail && detail.orgName}
@@ -82,13 +105,12 @@ export default class PersonnelDialog extends React.Component{
 		})
 	}
 	render(){
-	   let {treeData} = this.props;
        let {detail,isList} = this.state;
 		return (
-            <div className = "tree-dialog" style = {{position:"relative",textAlign:"center"}}>
-
+            <div className = "tree-personnel" style = {{position:"relative",textAlign:"center"}}>
+				<div className = "personnel-title"><span className = "personnel-title-icon"></span><span className = "personnel-title-text">人员</span></div>
 				<div className = "tree-content">
-					<div className = "content-left">
+					<div className = "content-left clear">
 						<div className = "serch">
 							<input type="text" placeholder="请输入关键字搜索" onChange = {this.treeChange}/>
 							<span className = "oa-search-icon search-icon"></span>
@@ -99,11 +121,12 @@ export default class PersonnelDialog extends React.Component{
 								onSelect = {this.onSelect}  
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
-								treeData = {treeData}
+								treeData = {this.state.treeData||[]}
+								checkable = {false}
 							/>
 						</div>
 					</div>
-					<div className = "content-right" >
+					<div className = "content-right clear" >
 						<div className = "serch">
 							<input type="text" placeholder="请输入关键字搜索" />
 							<span className = "oa-search-icon search-icon"></span>
@@ -114,7 +137,7 @@ export default class PersonnelDialog extends React.Component{
 					</div>
 				</div>
 			  <div className = "tree-dialog-bottom" style = {{textAline:"center"}}>
-			  		<span className = "botton" style = {{color:'#499DF1'}} onClick = {this.onSumit}>确定</span>
+			  		<span className = "botton"  onClick = {this.onSumit}>确定</span>
 					<span className = "botton" onClick = {this.onCancel} >取消</span>	
 			  </div>
         </div>
