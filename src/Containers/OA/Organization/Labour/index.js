@@ -86,7 +86,7 @@ export default class Labour extends React.Component {
 				orgName:'36Kr',
 				orgId:'1',
 				status:'0',
-				treeType: "ROOT",
+				orgType: "ROOT",
 			},
 			selectStyle: {
 				'display': 'none'
@@ -262,7 +262,7 @@ export default class Labour extends React.Component {
 			dataName.orgName = response.orgName;
 			dataName.status = response.status || '0';
 			dataName.orgId = response.orgId || '1';
-			dataName.treeType = response.orgType || 'ROOT';
+			dataName.orgType = response.orgType || 'ROOT';
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -493,6 +493,7 @@ export default class Labour extends React.Component {
 	// 导出Excle表格
 	onExport=(values)=>{
 		let ids = [];
+		console.log(this.state.searchParams);
 		var type = this.state.searchParams.orgType;
 		var id = this.state.searchParams.orgId;
 		var dimId = this.state.searchParams.dimId;
@@ -501,7 +502,7 @@ export default class Labour extends React.Component {
 				ids.push(item.juniorId)
 			});
 		}
-		var url = `/api/krspace-erp-web/dim/export-hrm-org-excel?orgIds=${ids}&dimId={dimId}&superOrgId={id}&orgType={type}`
+		var url = `/api/krspace-erp-web/dim/export-hrm-org-excel?orgIds=${ids}&dimId=${dimId}&superOrgId=${id}&orgType=${type}`
 		window.location.href = url;
 	}
 
@@ -515,7 +516,7 @@ export default class Labour extends React.Component {
 				ids.push(item.hrmId)
 			});
 		}
-		var url = `/api/krspace-erp-web/dim/export-hrm-resource-excel?hrmResourceIds=${ids}&dimId={dimId}&orgId={id}&orgType={type}`
+		var url = `/api/krspace-erp-web/dim/export-hrm-resource-excel?hrmResourceIds=${ids}&dimId=${dimId}&orgId=${id}&orgType=${type}`
 		window.location.href = url;
 	}
 	//高级查询
