@@ -68,7 +68,7 @@ export default class Role extends Component{
 	getEditData=(id)=>{
 		var _this=this;
        Http.request('role-watch',{id:id}).then(function(response) {
-           Store.dispatch(initialize('EditRole',response));
+           Store.dispatch(initialize('EditPostType',response));
         }).catch(function(err) {
           Message.error(err.message);
         });
