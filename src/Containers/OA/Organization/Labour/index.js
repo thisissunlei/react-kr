@@ -523,9 +523,10 @@ export default class Labour extends React.Component {
 	}
 
 	onHighSearchSubmit = (form) => {
-		this.setState({
-			searchParams:form
-		})
+		console.log(form);
+		// this.setState({
+		// 	searchParams:form
+		// })
 		this.openHighSearch();
 	}
 
@@ -547,14 +548,14 @@ export default class Labour extends React.Component {
    operationLeave=(itemDetail)=>{
        this.setState({
 			openLeave:true,
-			leaveId:itemDetail.id
+			leaveId:itemDetail.hrmId
 		})
    }
    //解除账号打开
    operationRemove=(itemDetail)=>{
 	    this.setState({
 			  openRemove:true,
-			  resourceId:itemDetail.id
+			  resourceId:itemDetail.hrmId
 		})	
    }
 
@@ -578,7 +579,7 @@ export default class Labour extends React.Component {
    operationAccount=(itemDetail)=>{
        this.setState({
 			  openAccount:true,
-			  resourceId:itemDetail.id
+			  resourceId:itemDetail.hrmId
 		})
    }
 
@@ -880,7 +881,7 @@ export default class Labour extends React.Component {
 												}
 											}}
 										></TableRowColumn>
-										<TableRowColumn name="operater"></TableRowColumn>
+										<TableRowColumn name="updateName"></TableRowColumn>
 										<TableRowColumn type="date" name="createTime" component={(value) => {
 											return (
 												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
@@ -938,9 +939,9 @@ export default class Labour extends React.Component {
 								<TableHeader>
 									<TableHeaderColumn>编号</TableHeaderColumn>
 									<TableHeaderColumn>部门名称</TableHeaderColumn>
-									{/*<TableHeaderColumn>员工类别</TableHeaderColumn>*/}
+									<TableHeaderColumn>员工类别</TableHeaderColumn>
 									<TableHeaderColumn>人员名称</TableHeaderColumn>
-									{/*<TableHeaderColumn>员工属性</TableHeaderColumn>*/}
+									<TableHeaderColumn>员工属性</TableHeaderColumn>
 									<TableHeaderColumn>邮箱</TableHeaderColumn>
 									<TableHeaderColumn>入职日期</TableHeaderColumn>
 									<TableHeaderColumn>状态</TableHeaderColumn>
@@ -951,7 +952,7 @@ export default class Labour extends React.Component {
 									<TableRow>
 										<TableRowColumn name="identifier"></TableRowColumn>
 										<TableRowColumn name="departName"></TableRowColumn>
-										{/*<TableRowColumn name="hrmResourceType"></TableRowColumn>*/}
+										<TableRowColumn name="hrmResourceType"></TableRowColumn>
 										<TableRowColumn name="userName"
 											component={(value,oldValue,detail)=>{
 												return (<div onClick = {() =>{
@@ -959,7 +960,7 @@ export default class Labour extends React.Component {
 														}} style={{color:'#499df1',cursor:'pointer'}}>{value}</div>)
 											}} 
 										></TableRowColumn>
-										{/*<TableRowColumn name="hrmResourceAttributes"></TableRowColumn>*/}
+										<TableRowColumn name="hrmResourceAttributes"></TableRowColumn>
 										<TableRowColumn name="email"></TableRowColumn>
 										<TableRowColumn type="date" name="entryTime" component={(value) => {
 											return (
@@ -1070,8 +1071,7 @@ export default class Labour extends React.Component {
 					onSubmit={this.addPersonSubmit}
 					open={this.state.openAddPerson} 
 					onClose={this.allClose}  
-					orgId={this.state.searchParams.orgId}
-					orgName={this.state.dataName.orgName}
+					orgDetail={this.state.searchParams}
 				/>
 				{/*离职*/}
 					<Dialog

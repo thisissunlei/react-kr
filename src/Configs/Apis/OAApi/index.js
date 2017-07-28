@@ -37,7 +37,7 @@ var OAApi = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&dimId={dimId}&page={page}&pageSize={pageSize}',
+      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&dimId={dimId}&page={page}&pageSize={pageSize}&hrmResourceAttributes={hrmResourceAttributes}&hrmResourceType={hrmResourceType}&startTime={startTime}&startTime={startTime}&endTime={endTime}',
       method: 'get'
   },
   //根据机构ID获取下级机构
