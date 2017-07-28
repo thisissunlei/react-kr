@@ -85,7 +85,8 @@ export default class Labour extends React.Component {
 			dataName:{
 				orgName:'36Kr',
 				orgId:'1',
-				status:'0'
+				status:'0',
+				orgType: "ROOT",
 			},
 			selectStyle: {
 				'display': 'none'
@@ -261,6 +262,7 @@ export default class Labour extends React.Component {
 			dataName.orgName = response.orgName;
 			dataName.status = response.status || '0';
 			dataName.orgId = response.orgId || '1';
+			dataName.orgType = response.orgType || 'ROOT';
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -962,7 +964,14 @@ export default class Labour extends React.Component {
 											}} 
 										></TableRowColumn>
 										<TableRowColumn name="hrmResourceAttributes"></TableRowColumn>
-										<TableRowColumn name="email"></TableRowColumn>
+										<TableRowColumn name="email"
+											component={(value,oldValue)=>{
+		 										var maxWidth=6;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,6)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
 										<TableRowColumn type="date" name="entryTime" component={(value) => {
 											return (
 												<KrDate value={value} format="yyyy-mm-dd" />
@@ -980,7 +989,7 @@ export default class Labour extends React.Component {
 												)
 											}}
 										></TableRowColumn>
-										<TableRowColumn type="operation" style={{width:'200px'}} component={(value,oldValue,detail)=>{
+										<TableRowColumn type="operation" style={{width:'240px'}} component={(value,oldValue,detail)=>{
 										return <span>
 											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
 												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
