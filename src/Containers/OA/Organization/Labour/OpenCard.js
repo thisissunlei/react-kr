@@ -11,6 +11,7 @@ import {
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import {Store} from 'kr/Redux';
+import './index.less';
 class OpenCard extends React.Component{
 
 	constructor(props,context){
@@ -23,7 +24,7 @@ class OpenCard extends React.Component{
     componentDidMount(){
         const {employees}=this.props;
         var _this = this;
-        Http.request("cardInfo",{resourceId:employees.id}).then(function (response) {
+        Http.request("cardInfo",{resourceId:employees.hrmId}).then(function (response) {
            _this.setState({
                cardInfo:response
            })
@@ -77,7 +78,7 @@ class OpenCard extends React.Component{
                             style={{width:262,marginLeft:28}}
                             name="name"
                             component="labelText"
-                            value = {employees.name} 
+                            value = {employees.userName} 
                             label="姓名"
 						/>
                  <KrField grid={1}

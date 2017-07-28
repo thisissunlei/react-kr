@@ -29,25 +29,29 @@ class AddPerson  extends React.Component{
             basicInfo:{
                 jobName:"",
                 levelName:'',
-            }
+            },
+            //控制职务类型是否出现
+            isType:false
         }
 
 }
     
 
     componentDidMount(){
-      Store.dispatch(change('addPerson','sex','MALE'))
+      let {orgDetail}=this.props;
+      Store.dispatch(change('addPerson','sex','MALE'));
+      Store.dispatch(change('addPerson','depId',orgDetail.orgId));
+      this.getPositionType(orgDetail);
     }
 
     onSubmit=(values)=>{
-        
+         let {orgDetail}=this.props;
         let params = Object.assign({},values);
         params.jobId = values.jobId.value;
         params.leader = values.leader.orgId;
         params.treeType = values.leader.treeType;
         params.levelId = values.levelId.value;
 
-    
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
     }
@@ -56,13 +60,11 @@ class AddPerson  extends React.Component{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
-    onChange = (data) =>{
-        
-       
-      
+    onChange = (data) =>{  
          Store.dispatch(change('addPerson','typeId',''));
          this.setState({
             isPositionRank:false,
+            isType:true
         })
         this.getPositionType(data);
     }
@@ -131,7 +133,8 @@ class AddPerson  extends React.Component{
                 isPositionRank,
                 positionType,
                 isDepSelect,
-                basicInfo
+                basicInfo,
+                isType
             } = this.state;
 
 		if(!isPositionRank){
@@ -175,14 +178,18 @@ class AddPerson  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,orgDetail}=this.props;
+
+        console.log('ffff',orgDetail);
+       
         let {
                 rankList,
                 positionList,
                 isPositionRank,
                 positionType,
                 isDepSelect,
-                basicInfo
+                basicInfo,
+                isType
             } = this.state;
            
 		return(
@@ -251,11 +258,12 @@ class AddPerson  extends React.Component{
                             label="部门"
                             treeType = "department"
                             onChange = {this.onChange}
+                            valueText={orgDetail.orgName?orgDetail.orgName:''}
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}
                         />
             
-                         {this.props.changeValues.depId &&<KrField
+                         {(isType || orgDetail.orgId)&&<KrField
                             grid={1/2}
                             style={{width:262,marginLeft:28,marginTop:6}}
                             name="typeId"
@@ -269,14 +277,14 @@ class AddPerson  extends React.Component{
 
 
                          <KrField grid={1/2}
-                            style={{width:262,marginLeft:!this.props.changeValues.depId?28:0,marginTop:6}}
+                            style={{width:262,marginLeft:(isType || orgDetail.orgId)?0:28,marginTop:6}}
                             name="entryDate"
                             component="date"
                             label="入职时间"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:!this.props.changeValues.depId?0:28,marginTop:6}}
+                            style={{width:262,marginLeft:(isType || orgDetail.orgId)?28:0,marginTop:6}}
                             name="status"
                             component="selecTemployees"
                             label="员工属性"
@@ -284,7 +292,7 @@ class AddPerson  extends React.Component{
                             otherType="resourceStatus"
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:!this.props.changeValues.depId?28:0,marginTop:6}}
+                            style={{width:262,marginLeft:(isType || orgDetail.orgId)?0:28,marginTop:6}}
                             name="type"
                             component="selecTemployees"
                             label="员工类别"

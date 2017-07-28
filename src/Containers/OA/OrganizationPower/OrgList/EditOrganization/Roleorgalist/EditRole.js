@@ -7,14 +7,20 @@ import {
     ButtonGroup,
     Button
 } from 'kr-ui';
-import {reduxForm}  from 'redux-form';
+import {reduxForm,change}  from 'redux-form';
+import {Store} from 'kr/Redux';
+import {Http} from 'kr/Utils'
 import './index.less';
 
-class AddRole  extends React.Component{
+class EditRole  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+        this.state = {
+         
+        }
 	}
+
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -28,40 +34,44 @@ class AddRole  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,subCompany}=this.props;
+        let {handleSubmit}=this.props;
 
 		return(
 
-			<div className='m-role-role'>
+			<div className='m-add-role'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 
-                       <KrField grid={1/2}
+                        <KrField
+                            grid={1}
                             style={{width:262,marginBottom:5}}
-                            name="name"
-                            component="input"
-                            label="角色名称"
-                            requireLabel={true}
-						/>
-                        <KrField grid={1/2}
-                            style={{width:262,marginLeft:27,marginBottom:5}}
                             name="code"
-                            component="input"
-                            label="编码"
+                            component="select"
+                            label="角色"
                             requireLabel={true}
 						/>
 
-                        <KrField grid={1/2}
+
+                        <KrField grid={1}
                             style={{width:262,marginBottom:5}}
-                            name="allotUserId"
-                            component="input"
-                            label="分配人员"
+                            name="subId"
+                            component="select"
+                            label="机构类型"
+                            onChange = {this.onChange}
                             requireLabel={true}
 						/>
 
-                        <KrField grid={1} label="描述" name="desc" heightStyle={{height:"78px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='role-len-textarea'/>
 
-                        
-                       <Grid style={{marginBottom:5,marginLeft:-32,marginTop:-12}}>
+                       <KrField
+                            grid={1}
+                            style={{width:262}}
+                            name="typeId"
+                            component="selectTree"
+                            label="选择机构"
+                            requireLabel={true}
+						/>
+
+
+                        <Grid style={{marginBottom:5,marginLeft:-28,marginTop:18}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
@@ -80,23 +90,27 @@ class AddRole  extends React.Component{
 const validate = values =>{
 	const errors = {};
 
-     if(!values.name){
-       errors.name='请填写角色名称';  
+    if(!values.name){
+       errors.name='请填写职务名称';  
     }else if(values.name.length>20){
-       errors.name='角色名称不能超过20个字符';   
+       errors.name='职务名称不能超过20个字符';   
     }
 
     if(!values.code){
-      errors.code='请填写编码'  
+      errors.code='请填写职务编码'  
     }else if(values.code.length>30){
-       errors.code='编码不能超过30个字符';   
+       errors.code='职务编码不能超过30个字符';   
     }
 
-    /*if(!values.allotUserId){
-       errors.allotUserId='请选择分部'   
-    }*/
+    if(!values.typeId){
+        errors.typeId='请选择职务类型名称';  
+    }
+    
+    if(!values.subId){
+        errors.subId='请选择分部';
+    }
     
 	return errors
 }
 
-export default reduxForm({ form: 'AddRole',validate})(AddRole);
+export default reduxForm({ form: 'EditRole',validate})(EditRole);

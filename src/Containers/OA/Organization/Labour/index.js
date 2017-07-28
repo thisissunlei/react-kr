@@ -84,7 +84,9 @@ export default class Labour extends React.Component {
 			styleBool: false,
 			dataName:{
 				orgName:'36Kr',
-				status:'0'
+				orgId:'1',
+				status:'0',
+				treeType: "ROOT",
 			},
 			selectStyle: {
 				'display': 'none'
@@ -200,7 +202,9 @@ export default class Labour extends React.Component {
    addPersonSubmit=(param)=>{
     var data = Object.assign({},param);
 	var _this = this;
-	data.depId=data.depId.orgId;
+	if(data.depId.orgId){
+	  data.depId=data.depId.orgId;
+	}	
 	Http.request("submit-new-personnel",{},data).then(function (response) {
 		_this.openAddPerson();
 		_this.changeP();
@@ -259,6 +263,8 @@ export default class Labour extends React.Component {
 			const dataName = {};
 			dataName.orgName = response.orgName;
 			dataName.status = response.status || '0';
+			dataName.orgId = response.orgId || '1';
+			dataName.treeType = response.orgType || 'ROOT';
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -387,7 +393,6 @@ export default class Labour extends React.Component {
 
 	toOtherDim = (item) => {
 		var dimId = item.id;
-		console.log(this.state.styleBool);
 		var _this= this;
 		this.setState({
 			selectStyle: {
@@ -438,7 +443,7 @@ export default class Labour extends React.Component {
 		this.setState({
 			searchKey: event.target.value || ' ',
 		},function(){
-			console.log(this.state.searchKey);
+			// console.log(this.state.searchKey);
 			//this.refs.searchKey.click();
 			//this.refs.searchKey.focus();
 		})
@@ -490,6 +495,7 @@ export default class Labour extends React.Component {
 	// 导出Excle表格
 	onExport=(values)=>{
 		let ids = [];
+		console.log(this.state.searchParams);
 		var type = this.state.searchParams.orgType;
 		var id = this.state.searchParams.orgId;
 		var dimId = this.state.searchParams.dimId;
@@ -498,7 +504,7 @@ export default class Labour extends React.Component {
 				ids.push(item.juniorId)
 			});
 		}
-		var url = `/api/krspace-erp-web/dim/export-hrm-org-excel?orgIds=${ids}&dimId={dimId}&superOrgId={id}&orgType={type}`
+		var url = `/api/krspace-erp-web/dim/export-hrm-org-excel?orgIds=${ids}&dimId=${dimId}&superOrgId=${id}&orgType=${type}`
 		window.location.href = url;
 	}
 
@@ -512,7 +518,7 @@ export default class Labour extends React.Component {
 				ids.push(item.hrmId)
 			});
 		}
-		var url = `/api/krspace-erp-web/dim/export-hrm-resource-excel?hrmResourceIds=${ids}&dimId={dimId}&orgId={id}&orgType={type}`
+		var url = `/api/krspace-erp-web/dim/export-hrm-resource-excel?hrmResourceIds=${ids}&dimId=${dimId}&orgId=${id}&orgType=${type}`
 		window.location.href = url;
 	}
 	//高级查询
@@ -523,6 +529,7 @@ export default class Labour extends React.Component {
 	}
 
 	onHighSearchSubmit = (form) => {
+		console.log("HighSearch",form);
 		this.setState({
 			searchParams:form
 		})
@@ -547,14 +554,14 @@ export default class Labour extends React.Component {
    operationLeave=(itemDetail)=>{
        this.setState({
 			openLeave:true,
-			leaveId:itemDetail.id
+			leaveId:itemDetail.hrmId
 		})
    }
    //解除账号打开
    operationRemove=(itemDetail)=>{
 	    this.setState({
 			  openRemove:true,
-			  resourceId:itemDetail.id
+			  resourceId:itemDetail.hrmId
 		})	
    }
 
@@ -578,7 +585,7 @@ export default class Labour extends React.Component {
    operationAccount=(itemDetail)=>{
        this.setState({
 			  openAccount:true,
-			  resourceId:itemDetail.id
+			  resourceId:itemDetail.hrmId
 		})
    }
 
@@ -736,7 +743,7 @@ export default class Labour extends React.Component {
 		var orgtype = this.state.searchParams.orgType;
 		var style = {};
 		var index = 0;
-		console.log(this.state.searchParams.orgType);
+		// console.log(this.state.searchParams.orgType);
 		return (
 			<div className="g-oa-labour">
 				<div className="left">
@@ -880,7 +887,7 @@ export default class Labour extends React.Component {
 												}
 											}}
 										></TableRowColumn>
-										<TableRowColumn name="operater"></TableRowColumn>
+										<TableRowColumn name="updateName"></TableRowColumn>
 										<TableRowColumn type="date" name="createTime" component={(value) => {
 											return (
 												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
@@ -938,9 +945,9 @@ export default class Labour extends React.Component {
 								<TableHeader>
 									<TableHeaderColumn>编号</TableHeaderColumn>
 									<TableHeaderColumn>部门名称</TableHeaderColumn>
-									{/*<TableHeaderColumn>员工类别</TableHeaderColumn>*/}
+									<TableHeaderColumn>员工类别</TableHeaderColumn>
 									<TableHeaderColumn>人员名称</TableHeaderColumn>
-									{/*<TableHeaderColumn>员工属性</TableHeaderColumn>*/}
+									<TableHeaderColumn>员工属性</TableHeaderColumn>
 									<TableHeaderColumn>邮箱</TableHeaderColumn>
 									<TableHeaderColumn>入职日期</TableHeaderColumn>
 									<TableHeaderColumn>状态</TableHeaderColumn>
@@ -951,7 +958,7 @@ export default class Labour extends React.Component {
 									<TableRow>
 										<TableRowColumn name="identifier"></TableRowColumn>
 										<TableRowColumn name="departName"></TableRowColumn>
-										{/*<TableRowColumn name="hrmResourceType"></TableRowColumn>*/}
+										<TableRowColumn name="hrmResourceType"></TableRowColumn>
 										<TableRowColumn name="userName"
 											component={(value,oldValue,detail)=>{
 												return (<div onClick = {() =>{
@@ -959,8 +966,15 @@ export default class Labour extends React.Component {
 														}} style={{color:'#499df1',cursor:'pointer'}}>{value}</div>)
 											}} 
 										></TableRowColumn>
-										{/*<TableRowColumn name="hrmResourceAttributes"></TableRowColumn>*/}
-										<TableRowColumn name="email"></TableRowColumn>
+										<TableRowColumn name="hrmResourceAttributes"></TableRowColumn>
+										<TableRowColumn name="email"
+											component={(value,oldValue)=>{
+		 										var maxWidth=6;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,6)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
 										<TableRowColumn type="date" name="entryTime" component={(value) => {
 											return (
 												<KrDate value={value} format="yyyy-mm-dd" />
@@ -978,14 +992,14 @@ export default class Labour extends React.Component {
 												)
 											}}
 										></TableRowColumn>
-										<TableRowColumn type="operation" style={{width:'200px'}} component={(value,oldValue,detail)=>{
+										<TableRowColumn type="operation" style={{width:'240px'}} component={(value,oldValue,detail)=>{
 										return <span>
 											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
 												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
 												<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>
-												{/*{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+												{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
 												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}*/}
+												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
 											</span>
 										}}>		
 										</TableRowColumn>
@@ -1062,6 +1076,7 @@ export default class Labour extends React.Component {
 						<HighSearchForm
 									onSubmit={this.onHighSearchSubmit}
 									onCancel={this.openHighSearch}
+									detail={this.state.searchParams}
 						/>
 					</Dialog>
 				{/*新建用户*/}
@@ -1070,8 +1085,7 @@ export default class Labour extends React.Component {
 					onSubmit={this.addPersonSubmit}
 					open={this.state.openAddPerson} 
 					onClose={this.allClose}  
-					orgId={this.state.searchParams.orgId}
-					orgName={this.state.dataName.orgName}
+					orgDetail={this.state.dataName}
 				/>
 				{/*离职*/}
 					<Dialog

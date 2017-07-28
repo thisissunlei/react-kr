@@ -1,10 +1,10 @@
 import {
-	default as OrganizationList
-} from './OrganizationList';
+	default as OrgList
+} from './OrgList';
 import {
 	default as Role
 } from './Role';
 module.exports = {
-	OrganizationList,
+	OrgList,
 	Role
 }
