@@ -28,7 +28,7 @@ class New extends React.Component {
 					grid={1/2}
 					style={{width:262,marginLeft:28}}
 					name="leader"
-					component="selectTree"
+					component="treeDepartment"
 					label="直接上级"
 					treeType = "personnel"
 					ajaxUrlName = "get-personnel-tree"
