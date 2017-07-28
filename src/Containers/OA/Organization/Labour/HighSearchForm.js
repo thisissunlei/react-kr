@@ -65,26 +65,30 @@ class HighSearchForm extends React.Component {
 			    		grid={1/2}
 						right={27}
  						left={42}
-			    		name="osType"
+			    		name="hrmResourceType"
 			    		type="select"
 			    		style={{marginTop:4}}
 			    		label="员工类别"
 						options={[
-					      {label:'android',value:'ANDROID'},
-					      {label:'ios',value:'IOS'}
+					      {label:'内部',value:'INTERNAL'},
+					      {label:'外部',value:'EXTERNAL'},
+						  {label:'实习',value:'INTERN'},
 					    ]}
 					/>
 					<KrField
 			    		grid={1/2}
 						right={63}
  						left={4}
-			    		name="osType"
+			    		name="hrmResourceAttributes"
 			    		type="select"
 			    		style={{marginTop:4}}
 			    		label="员工属性"
 						options={[
-					      {label:'android',value:'ANDROID'},
-					      {label:'ios',value:'IOS'}
+					     {label:'待入职',value:'UNENTRY'},
+					      {label:'试用',value:'PROBATION'},
+						  {label:'正式',value:'REGULAR'},
+						  {label:'待离职',value:'UNDIMISSION'},
+						  {label:'离职',value:'DIMISSION'},
 					    ]}
 					/>
 					<KrField
@@ -97,9 +101,9 @@ class HighSearchForm extends React.Component {
 					>
 							<div className='ui-listDate' style={{marginTop:-8}}>
 								<ListGroup>
-									<ListGroupItem><div className='ui-date-start' style={{width:248}} ><KrField  style={{width:248,marginLeft:-10,marginTop:2}} name="startDate" component="date" /></div></ListGroupItem>
+									<ListGroupItem><div className='ui-date-start' style={{width:248}} ><KrField  style={{width:248,marginLeft:-10,marginTop:2}} name="startTime" component="date" /></div></ListGroupItem>
 										<div className='ui-line-down'  style={{marginTop:25,display:'inline-block'}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-									<ListGroupItem><div className='ui-date-end'><KrField name="endDate" style={{width:248,marginTop:2}} component="date" /></div></ListGroupItem>
+									<ListGroupItem><div className='ui-date-end'><KrField name="endTime" style={{width:248,marginTop:2}} component="date" /></div></ListGroupItem>
 								</ListGroup>
 			                </div>
 					</KrField>

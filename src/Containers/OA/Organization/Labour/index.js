@@ -37,6 +37,12 @@ import Viewdialog from './Viewdialog';
 import CancelDialog from './CancelDialog';
 import UnCancelDialog from './UnCancelDialog';
 import HighSearchForm from './HighSearchForm';
+import Leave from './Leave';
+import Remove from './Remove';
+import Transfer from './Transfer';
+import OpenCard from './OpenCard';
+import OpenAccount from './OpenAccount';
+import IsSure from './IsSure';
 import './index.less';
 
 @inject("NavModel")
@@ -85,6 +91,31 @@ export default class Labour extends React.Component {
 			},
 			dimIdStatus:'0',
 			openHighSearch:false,
+			orgId:'',
+			//操作
+			openLeave:false,
+			openRemove:false,
+			openTransfer:false,
+			openCard:false,
+			openAccount:false,
+			openSure:false,
+			employees:{
+				name:'',
+				phone:'',
+			},
+			//离职id
+			leaveId:'',
+			//调动数据
+			transferDetail:{},
+			resourceId:'',
+			//绑定的数据
+			cardParam:'',
+			//权限
+			isLeave:false,
+			isRemove:false,
+			istranfer:false,
+			isCard:false,
+			isOpen:false
 		}
 	}
 	checkTab = (item) => {
@@ -98,7 +129,7 @@ export default class Labour extends React.Component {
 		//console.log("进入~··");
 		var dimId = this.props.params.dimId;
 		var _this = this;
-		
+		var {checkOperate} = this.props.NavModel;
 		Http.request('extra-list', {
 			dimId: dimId
 		}).then(function (response) {
@@ -111,6 +142,15 @@ export default class Labour extends React.Component {
 
 		this.getTreeData();
 		this.getMainDimId();
+		// setTimeout(function() {
+		//    _this.setState({
+		// 	 isLeave :checkOperate("hrm_resource_dimission"),
+		//      isRemove : checkOperate("hrm_resource_account"),
+		//      istranfer : checkOperate("hrm_resource_move"),
+		// 	 isCard : checkOperate("hrm_resource_card"),
+		//      isOpen : checkOperate("hrm_resource_account")
+		//    })
+		// },500);	
 	}
 	getExaList=()=>{
 		var _this = this;
@@ -450,13 +490,29 @@ export default class Labour extends React.Component {
 	// 导出Excle表格
 	onExport=(values)=>{
 		let ids = [];
+		var type = this.state.searchParams.orgType;
+		var id = this.state.searchParams.orgId;
+		var dimId = this.state.searchParams.dimId;
 		if (values.length != 0) {
 			values.map((item, value) => {
-				ids.push(item.id)
+				ids.push(item.juniorId)
 			});
 		}
-		ids = String(ids);
-		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		var url = `/api/krspace-erp-web/dim/export-hrm-org-excel?orgIds=${ids}&dimId={dimId}&superOrgId={id}&orgType={type}`
+		window.location.href = url;
+	}
+
+	onExportHrm=(values)=>{
+		let ids = [];
+		var type = this.state.searchParams.orgType;
+		var id = this.state.searchParams.orgId;
+		var dimId = this.state.searchParams.dimId;
+		if (values.length != 0) {
+			values.map((item, value) => {
+				ids.push(item.hrmId)
+			});
+		}
+		var url = `/api/krspace-erp-web/dim/export-hrm-resource-excel?hrmResourceIds=${ids}&dimId={dimId}&orgId={id}&orgType={type}`
 		window.location.href = url;
 	}
 	//高级查询
@@ -472,10 +528,214 @@ export default class Labour extends React.Component {
 		})
 		this.openHighSearch();
 	}
+
+
+	
+
+   //跳转详情页
+   goDetail = (data) =>{
+	    let personId=data.hrmId;
+		window.open(`./#/oa/${personId}/peopleDetail`,'123');
+   }
+
+   //操作开关
+   //编辑打开
+   operationEdit=(itemDetail)=>{
+        this.goDetail(itemDetail);	
+   }
+   //离职打开
+   operationLeave=(itemDetail)=>{
+       this.setState({
+			openLeave:true,
+			leaveId:itemDetail.id
+		})
+   }
+   //解除账号打开
+   operationRemove=(itemDetail)=>{
+	    this.setState({
+			  openRemove:true,
+			  resourceId:itemDetail.id
+		})	
+   }
+
+   //调动打开
+   operationTransfer=(itemDetail)=>{
+		 this.setState({
+			  openTransfer:true,
+			  transferDetail:itemDetail
+		  })
+   }
+
+   //绑定门禁卡打开
+   operationCard=(itemDetail)=>{
+		this.setState({
+			  openCard:true,
+			  employees:itemDetail
+		})
+   }
+
+   //开通账号打开
+   operationAccount=(itemDetail)=>{
+       this.setState({
+			  openAccount:true,
+			  resourceId:itemDetail.id
+		})
+   }
+
+
+   
+   //离职关闭
+   cancelLeave=()=>{
+     this.setState({
+		openLeave:!this.state.openLeave
+	 })
+   }
+   //离职提交
+   addLeaveSubmit=(data)=>{
+	let {leaveId}=this.state;
+	var param = Object.assign({},data);
+	param.resourceId=leaveId;
+	var searchParams={
+		time:+new Date()
+	}
+	var _this = this;
+	Http.request("leaveOnSubmit",{},param).then(function (response) {
+		_this.setState({
+			searchParams:Object.assign({},_this.state.searchParams,searchParams),
+		})
+		_this.cancelLeave();
+	}).catch(function (err) {
+		Message.error(err.message);
+	});
+   }
+  
+  //解除关闭
+   cancelRemove=()=>{
+	 this.setState({
+		openRemove:!this.state.openRemove
+	 })  
+   }
+   
+   //解除提交
+   addRemoveSubmit=()=>{
+	   const _this = this;
+	   const {resourceId} = this.state;
+	    var param={};
+	    param.resourceId=resourceId;
+		var searchParams={
+		  time:+new Date()
+	    }
+        Http.request("remove-account",{},param).then(function (response) {
+			_this.setState({
+               searchParams:Object.assign({},_this.state.searchParams,searchParams)
+		    })
+			_this.cancelRemove();
+        }).catch(function (err) {
+            Message.error(err.message);
+        });
+   }
+
+   //开通关闭
+    cancelAccount=()=>{
+	 this.setState({
+		openAccount:!this.state.openAccount
+	 })  
+   }
+
+    //开通提交
+   addOpenSubmit=()=>{
+	   const _this = this;
+	   const {resourceId} = this.state;
+	    var param={};
+	    param.resourceId=resourceId;
+		var searchParams={
+		  time:+new Date()
+	    }
+        Http.request("open-account",{},param).then(function (response) {
+			_this.setState({
+               searchParams:Object.assign({},_this.state.searchParams,searchParams)
+		    })
+			_this.cancelAccount();
+        }).catch(function (err) {
+            Message.error(err.message);
+        });
+   }
+   
+   
+   //调动取消
+   cancelTransfer=()=>{
+	 this.setState({
+		openTransfer:!this.state.openTransfer
+	 })  
+   }
+  
+   //调动提交
+   addTransferSubmit=(data)=>{
+		var param = Object.assign({},data);
+		var _this = this;
+		var searchParams={
+		  time:+new Date()
+	    }
+		Http.request("service-switch",{},param).then(function (response) {
+			_this.setState({
+               searchParams:Object.assign({},_this.state.searchParams,searchParams)
+		    })
+			_this.cancelTransfer()
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
+   }
+  
+   
+   //开通门禁取消
+   cancelCard=()=>{
+	  this.setState({
+		openCard:!this.state.openCard
+	 })  
+   }
+   //开通门禁提交
+   addCardSubmit=(param)=>{
+	   if(param.isBound){
+		 this.setState({
+			 cardParam:param,
+			 openSure:true
+		 })
+	   }else {
+		   var _this = this;
+			Http.request("bindingCard",{},param).then(function (response) {
+				_this.cancelCard();
+				Message.success("绑定成功");
+			}).catch(function (err) {
+				Message.error(err.message);
+			});
+	   }
+   }
+
+   //是否确定
+   cancelSure=()=>{
+	  this.setState({
+		openSure:!this.state.openSure
+	 })    
+   }
+   
+   //是否确定
+   addSureSubmit=()=>{
+	   let {cardParam}=this.state;
+       var _this = this;
+		Http.request("bindingCard",{},cardParam).then(function (response) {
+			_this.cancelCard();
+			Message.success("绑定成功");
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
+		this.cancelSure();
+   }
 	render() {
-		let { itemDetail, data, dimId, styleBool,dataName} = this.state;
+		let { itemDetail, data, dimId, styleBool,dataName,transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;
 		var logFlag = '';
+		var orgtype = this.state.searchParams.orgType;
 		var style = {};
+		var index = 0;
 		console.log(this.state.searchParams.orgType);
 		return (
 			<div className="g-oa-labour">
@@ -514,7 +774,7 @@ export default class Labour extends React.Component {
 				<div className="right">
 					<div className="center-row">
 						<div className="department">
-							<div className="department-logo">
+							<div className={`department-logo ${orgtype}`}>
 
 							</div>
 							<div className="department-name">
@@ -577,14 +837,16 @@ export default class Labour extends React.Component {
 								</Row>
 							</Grid>
 							<Table
-								style={{ marginTop: 10 }}
-								displayCheckbox={false}
+								style={{marginTop:10,position:'inherit'}}
+								displayCheckbox={true}
 								onLoaded={this.onLoaded}
 								ajax={true}
 								ajaxUrlName='next-org-list'
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
+								onExport={this.onExport}
+								exportSwitch={true}
 							>
 								<TableHeader>
 									<TableHeaderColumn>编号</TableHeaderColumn>
@@ -598,7 +860,7 @@ export default class Labour extends React.Component {
 
 								<TableBody>
 									<TableRow>
-										<TableRowColumn name="juniorId" ></TableRowColumn>
+										<TableRowColumn name="identifier" ></TableRowColumn>
 
 										<TableRowColumn name="juniorName"></TableRowColumn>
 										<TableRowColumn name="juniorType"></TableRowColumn>
@@ -618,13 +880,13 @@ export default class Labour extends React.Component {
 												}
 											}}
 										></TableRowColumn>
-
+										<TableRowColumn name="operater"></TableRowColumn>
 										<TableRowColumn type="date" name="createTime" component={(value) => {
 											return (
 												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
 											)
 										}}> </TableRowColumn>
-										<TableRowColumn name="operater"></TableRowColumn>
+										
 										<TableRowColumn type="operation" name="status"
 											component={(value, oldValue, itemDetail) => {
 												if (logFlag) {
@@ -663,21 +925,22 @@ export default class Labour extends React.Component {
 							</Grid>
 							<Table
 								style={{ marginTop: 10 }}
-								displayCheckbox={false}
+								displayCheckbox={true}
 								onLoaded={this.onLoaded}
 								ajax={true}
 								ajaxUrlName='hrm-list'
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
-								onExport={this.onExport}
+								onExport={this.onExportHrm}
+								exportSwitch={true}
 							>
 								<TableHeader>
-									<TableHeaderColumn>ID</TableHeaderColumn>
+									<TableHeaderColumn>编号</TableHeaderColumn>
 									<TableHeaderColumn>部门名称</TableHeaderColumn>
-									<TableHeaderColumn>员工类别</TableHeaderColumn>
+									{/*<TableHeaderColumn>员工类别</TableHeaderColumn>*/}
 									<TableHeaderColumn>人员名称</TableHeaderColumn>
-									<TableHeaderColumn>员工属性</TableHeaderColumn>
+									{/*<TableHeaderColumn>员工属性</TableHeaderColumn>*/}
 									<TableHeaderColumn>邮箱</TableHeaderColumn>
 									<TableHeaderColumn>入职日期</TableHeaderColumn>
 									<TableHeaderColumn>状态</TableHeaderColumn>
@@ -686,11 +949,17 @@ export default class Labour extends React.Component {
 
 								<TableBody>
 									<TableRow>
-										<TableRowColumn name="hrmId"></TableRowColumn>
+										<TableRowColumn name="identifier"></TableRowColumn>
 										<TableRowColumn name="departName"></TableRowColumn>
-										<TableRowColumn name="departName"></TableRowColumn>
-										<TableRowColumn name="userName"></TableRowColumn>
-										<TableRowColumn name="userName"></TableRowColumn>
+										{/*<TableRowColumn name="hrmResourceType"></TableRowColumn>*/}
+										<TableRowColumn name="userName"
+											component={(value,oldValue,detail)=>{
+												return (<div onClick = {() =>{
+														this.goDetail(detail)
+														}} style={{color:'#499df1',cursor:'pointer'}}>{value}</div>)
+											}} 
+										></TableRowColumn>
+										{/*<TableRowColumn name="hrmResourceAttributes"></TableRowColumn>*/}
 										<TableRowColumn name="email"></TableRowColumn>
 										<TableRowColumn type="date" name="entryTime" component={(value) => {
 											return (
@@ -709,14 +978,14 @@ export default class Labour extends React.Component {
 												)
 											}}
 										></TableRowColumn>
-										<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
+										<TableRowColumn type="operation" style={{width:'200px'}} component={(value,oldValue,detail)=>{
 										return <span>
 											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
 												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
 												<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>
-												{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+												{/*{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
 												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
+												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}*/}
 											</span>
 										}}>		
 										</TableRowColumn>
@@ -801,8 +1070,89 @@ export default class Labour extends React.Component {
 					onSubmit={this.addPersonSubmit}
 					open={this.state.openAddPerson} 
 					onClose={this.allClose}  
-					departMent={this.state.dataName.orgName}
+					orgId={this.state.searchParams.orgId}
+					orgName={this.state.dataName.orgName}
 				/>
+				{/*离职*/}
+					<Dialog
+						title="离职"
+						onClose={this.cancelLeave}
+						open={this.state.openLeave}
+						contentStyle ={{ width: '630px',height:'auto'}}
+					>
+					<Leave
+					   onCancel={this.cancelLeave}
+					   onSubmit={this.addLeaveSubmit}  	
+					/>
+					</Dialog>
+
+					{/*解除帐号*/}
+					<Dialog
+						title="解除帐号"
+						onClose={this.cancelRemove}
+						open={this.state.openRemove}
+						contentStyle ={{ width: '444px',height:'190px'}}
+					>
+					<Remove
+						onCancel={this.cancelRemove}
+						onSubmit={this.addRemoveSubmit}  
+					/>
+					</Dialog>
+
+					{/*是否更换门禁卡*/}
+					<Dialog
+						title="提示"
+						onClose={this.cancelSure}
+						open={this.state.openSure}
+						contentStyle ={{ width: '444px',height:'190px'}}
+						stylesCard={true}
+					>
+					<IsSure
+						onCancel={this.cancelSure}
+						onSubmit={this.addSureSubmit}  
+					/>
+					</Dialog>
+
+					{/*开通帐号*/}
+					<Dialog
+						title="提示"
+						onClose={this.cancelAccount}
+						open={this.state.openAccount}
+						contentStyle ={{ width: '444px',height:'190px'}}
+					>
+					<OpenAccount
+						onCancel={this.cancelAccount}
+						onSubmit={this.addOpenSubmit}  
+					/>
+					</Dialog>
+
+					{/*人员调动*/}
+					<Dialog
+						title="人员调动"
+						onClose={this.cancelTransfer}
+						open={this.state.openTransfer}
+						contentStyle ={{ width: '444px',overflow:'inherit'}}
+					>
+					<Transfer
+						onCancel={this.cancelTransfer}
+						onSubmit={this.addTransferSubmit}  
+						department = {transferDetail}
+					/>
+					</Dialog>
+
+					{/*开通门禁*/}
+					<Dialog
+						title="绑定门禁卡"
+						onClose={this.cancelCard}
+						open={this.state.openCard}
+						contentStyle ={{ width: '444px'}}
+					>
+					<OpenCard
+						onCancel={this.cancelCard}
+						onSubmit={this.addCardSubmit}  
+						employees = {employees}
+					/>
+					</Dialog>
 			</div>
 		);
 	}

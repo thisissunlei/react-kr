@@ -168,6 +168,7 @@ export default class Table extends React.Component {
 		if (onProcessData) {
 			state = onProcessData(state);
 		}
+		
 		return state;
 	}
 
@@ -178,11 +179,13 @@ export default class Table extends React.Component {
 		let {
 			defaultSelectedRows
 		} = this.props;
-
+		for(var i=0;i<state.response.items.length;i++){
+			state.response.items[i].identifier=i+1;
+		}
+		
 		state.selectedRows = defaultSelectedRows;
 
 		state = this.onProcessData(state);
-
 		this.setState(state, function() {
 			this.onLoaded();
 		});
