@@ -31,10 +31,14 @@ class HighSearchForm extends React.Component {
 	componentDidMount(){
 	}
 	onSubmit = (form) => {
-		form = Object.assign({},form);
+		var form = Object.assign({},form);
 		const {
+			detail,
 			onSubmit
 		} = this.props;
+		form.orgId=detail.orgId;
+		form.dimId=detail.dimId;
+		form.orgType=detail.orgType;
 		onSubmit && onSubmit(form);
 	}
 	openSearch = () => {

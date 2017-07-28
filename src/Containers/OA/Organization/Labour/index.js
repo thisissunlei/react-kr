@@ -84,6 +84,7 @@ export default class Labour extends React.Component {
 			styleBool: false,
 			dataName:{
 				orgName:'36Kr',
+				orgId:'1'
 				status:'0'
 			},
 			selectStyle: {
@@ -259,6 +260,7 @@ export default class Labour extends React.Component {
 			const dataName = {};
 			dataName.orgName = response.orgName;
 			dataName.status = response.status || '0';
+			dataName.orgId = response.orgId || '1';
 			that.setState({
 				dataName,
 				// searchParams: {
@@ -387,7 +389,6 @@ export default class Labour extends React.Component {
 
 	toOtherDim = (item) => {
 		var dimId = item.id;
-		console.log(this.state.styleBool);
 		var _this= this;
 		this.setState({
 			selectStyle: {
@@ -438,7 +439,7 @@ export default class Labour extends React.Component {
 		this.setState({
 			searchKey: event.target.value || ' ',
 		},function(){
-			console.log(this.state.searchKey);
+			// console.log(this.state.searchKey);
 			//this.refs.searchKey.click();
 			//this.refs.searchKey.focus();
 		})
@@ -523,10 +524,10 @@ export default class Labour extends React.Component {
 	}
 
 	onHighSearchSubmit = (form) => {
-		console.log(form);
-		// this.setState({
-		// 	searchParams:form
-		// })
+		console.log("HighSearch",form);
+		this.setState({
+			searchParams:form
+		})
 		this.openHighSearch();
 	}
 
@@ -737,7 +738,7 @@ export default class Labour extends React.Component {
 		var orgtype = this.state.searchParams.orgType;
 		var style = {};
 		var index = 0;
-		console.log(this.state.searchParams.orgType);
+		// console.log(this.state.searchParams.orgType);
 		return (
 			<div className="g-oa-labour">
 				<div className="left">
@@ -984,9 +985,9 @@ export default class Labour extends React.Component {
 											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
 												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
 												<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>
-												{/*{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+												{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
 												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}*/}
+												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
 											</span>
 										}}>		
 										</TableRowColumn>
@@ -1063,6 +1064,7 @@ export default class Labour extends React.Component {
 						<HighSearchForm
 									onSubmit={this.onHighSearchSubmit}
 									onCancel={this.openHighSearch}
+									detail={this.state.searchParams}
 						/>
 					</Dialog>
 				{/*新建用户*/}
@@ -1071,7 +1073,7 @@ export default class Labour extends React.Component {
 					onSubmit={this.addPersonSubmit}
 					open={this.state.openAddPerson} 
 					onClose={this.allClose}  
-					orgDetail={this.state.searchParams}
+					orgDetail={this.state.dataName}
 				/>
 				{/*离职*/}
 					<Dialog
