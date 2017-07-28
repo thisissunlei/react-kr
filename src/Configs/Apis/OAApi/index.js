@@ -345,6 +345,31 @@ var OAApi = {
       url:'/api/krspace-erp-web/hrm/resource/open/account',
       method: 'post'
   },
+  //角色管理－列表
+  'role-list':{
+      url:'/api/krspace-erp-web/hrm/role/list?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+   //角色管理－新增
+  'role-add':{
+      url:'/api/krspace-erp-web/hrm/role/add',
+      method: 'post'
+  },
+   //角色管理-编辑
+  'role-edit':{
+      url:'/api/krspace-erp-web/hrm/role/edit',
+      method: 'post'
+  },
+   //角色管理-删除
+  'role-delete':{
+      url:'/api/krspace-erp-web/hrm/role/delete',
+      method: 'post'
+  },
+   //角色管理-查看
+  'role-watch':{
+      url:'/api/krspace-erp-web/hrm/role/detail?id={id}',
+      method: 'get'
+  },
 }
 
 module.exports=OAApi;
