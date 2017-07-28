@@ -52,14 +52,13 @@ class AddRole  extends React.Component{
 
                         <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
-                            name="subId"
-                            component="selectTree"
+                            name="allotUserId"
+                            component="input"
                             label="分配人员"
                             requireLabel={true}
-                            options={subCompany}
 						/>
 
-                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='role-len-textarea'/>
+                        <KrField grid={1} label="描述" name="desc" heightStyle={{height:"78px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='role-len-textarea'/>
 
                         
                        <Grid style={{marginBottom:5,marginLeft:-32,marginTop:-12}}>
@@ -82,20 +81,20 @@ const validate = values =>{
 	const errors = {};
 
      if(!values.name){
-       errors.name='请填写职务类型名称';  
+       errors.name='请填写角色名称';  
     }else if(values.name.length>20){
-       errors.name='职务类型名称不能超过20个字符';   
+       errors.name='角色名称不能超过20个字符';   
     }
 
     if(!values.code){
-      errors.code='请填写职务类型编码'  
-    }else if(values.code.length>20){
-       errors.code='职务类型编码不能超过20个字符';   
+      errors.code='请填写编码'  
+    }else if(values.code.length>30){
+       errors.code='编码不能超过30个字符';   
     }
 
-    if(!values.subId){
-       errors.subId='请选择分部'   
-    }
+    /*if(!values.allotUserId){
+       errors.allotUserId='请选择分部'   
+    }*/
     
 	return errors
 }
