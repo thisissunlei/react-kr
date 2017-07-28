@@ -142,7 +142,7 @@ class AddPerson  extends React.Component{
 		return (
 		<div>
 
-<KrField
+                        <KrField
                             grid={1/2}
                             style={{width:262}}
                             name="jobId"
@@ -184,7 +184,6 @@ class AddPerson  extends React.Component{
                 isDepSelect,
                 basicInfo
             } = this.state;
-        console.log(basicInfo,"////////////")
            
 		return(
 
@@ -255,7 +254,6 @@ class AddPerson  extends React.Component{
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}
                         />
-                                
             
                          {this.props.changeValues.depId &&<KrField
                             grid={1/2}
@@ -315,7 +313,6 @@ const validate = values =>{
     let reg= /^1[34578]\d{9}$/; 
     let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
     let email=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-    console.log(">>>>>>",values.jobId)
     if(!values.name){
         errors.name='请填写名称';
     }else if(values.name.length>10){
@@ -392,7 +389,6 @@ AddPerson = reduxForm({
 export default connect((state) => {
 
 	let changeValues = {};
-    // console.ls
 
 	changeValues.depId = selector(state, 'depId');
 	
