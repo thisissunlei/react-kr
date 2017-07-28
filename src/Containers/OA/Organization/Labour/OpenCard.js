@@ -23,7 +23,7 @@ class OpenCard extends React.Component{
     componentDidMount(){
         const {employees}=this.props;
         var _this = this;
-        Http.request("cardInfo",{resourceId:employees.id}).then(function (response) {
+        Http.request("cardInfo",{resourceId:employees.hrmId}).then(function (response) {
            _this.setState({
                cardInfo:response
            })
@@ -77,7 +77,7 @@ class OpenCard extends React.Component{
                             style={{width:262,marginLeft:28}}
                             name="name"
                             component="labelText"
-                            value = {employees.name} 
+                            value = {employees.userName} 
                             label="姓名"
 						/>
                  <KrField grid={1}
