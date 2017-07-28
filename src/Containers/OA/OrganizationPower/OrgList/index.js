@@ -44,8 +44,7 @@ export default class OrgList extends Component{
 			//数据准备
 			latitude:'',
 			//编辑回显
-			code:'',
-			dimName:''
+			id:'',
 		}
 	}
     
@@ -69,33 +68,14 @@ export default class OrgList extends Component{
     
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
-			this.getEditData(itemDetail.id);
 			this.setState({
-			  openEditType:true	
+			  openEditType:true,
+			  id:itemDetail.id
 			})
 		}
 	}
 
-
-	//获取编辑信息
-	getEditData=(id)=>{
-		var _this=this;
-       Http.request('org-power-watch',{id:id}).then(function(response) {
-		   if(response.enable==1){
-			  response.enable='1'; 
-		   }else{
-			  response.enable='0';  
-		   }
-           Store.dispatch(initialize('BasicInfo',response));
-		   _this.setState({
-			   code:response.code,
-			   dimName:response.dimName
-		   })
-        }).catch(function(err) {
-          Message.error(err.message);
-        });
-	}
-
+	
 
 	//搜索确定
 	onSearchSubmit = (params)=>{
@@ -179,7 +159,7 @@ export default class OrgList extends Component{
 
 	render(){
 
-		let {latitude,dimName,code}=this.state;
+		let {latitude,id}=this.state;
 
 		return(
       	<div className="oa-or-role">
@@ -290,8 +270,7 @@ export default class OrgList extends Component{
 			  <EditOrganization 
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
-				dimName={dimName}
-				code={code}
+				id={id}
 			  />
 			</Drawer>
         </div>

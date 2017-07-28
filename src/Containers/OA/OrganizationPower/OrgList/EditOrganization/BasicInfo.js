@@ -7,7 +7,8 @@ import {
     ButtonGroup,
     Button
 } from 'kr-ui';
-import {reduxForm,change}  from 'redux-form';
+import {Http} from 'kr/Utils';
+import {reduxForm,initialize}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import './index.less';
 
@@ -15,8 +16,35 @@ class  BasicInfo extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+        this.state={
+            code:'',
+            dimName:''
+        }
 	}
 
+    componentDidMount(){
+        let {id}=this.props;
+        this.getEditData(id);
+    }
+   
+   //获取编辑信息
+	getEditData=(id)=>{
+		var _this=this;
+       Http.request('org-power-watch',{id:id}).then(function(response) {
+		   if(response.enable==1){
+			  response.enable='1'; 
+		   }else{
+			  response.enable='0';  
+		   }
+           Store.dispatch(initialize('BasicInfo',response));
+		   _this.setState({
+			   code:response.code,
+			   dimName:response.dimName
+		   })
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+	}
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -30,7 +58,8 @@ class  BasicInfo extends React.Component{
 
 	render(){
 
-        let {handleSubmit,dimName,code}=this.props;
+        let {handleSubmit}=this.props;
+        let {dimName,code}=this.state;
 
 		return(
 

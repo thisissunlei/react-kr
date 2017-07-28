@@ -52,8 +52,7 @@ export default class EditOrganization  extends React.Component{
 			        >
 						<TabC label='基本信息'> 
 							<BasicInfo
-							  dimName={this.props.dimName}
-							  code={this.props.code}
+							  id={this.props.id}
 							  onCancel={this.onCancel}
 							  onSubmit={this.onSubmit}
 							/>
