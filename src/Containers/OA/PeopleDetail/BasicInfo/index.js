@@ -24,7 +24,9 @@ export default class BasicInfo  extends React.Component{
 		super(props, context);
 		this.state={
 			openEdit:false,
-			basicInfo:{},
+			basicInfo:{
+				orgName:''
+			},
 			isEdit:false,
 		}
 	}
@@ -171,7 +173,7 @@ export default class BasicInfo  extends React.Component{
 						<EditBasic
 			               onCancel={this.cancelEdit}
 						   onSubmit={this.editSubmit}   
-						   basicInfo = {basicInfo}
+						   basicInfo = { basicInfo.leaderName ? [basicInfo]:[{leaderName:'',basicInfo:''}]}
 						/>
 					</Drawer>
 			</div>
