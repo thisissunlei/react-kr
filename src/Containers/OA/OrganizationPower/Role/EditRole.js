@@ -50,13 +50,15 @@ class EditRole  extends React.Component{
                             requireLabel={true}
 						/>
 
-                        <KrField grid={1/2}
+                        <KrField
+                            grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="allotUserId"
-                            component="input"
+                            component="treePersonnel"
                             label="分配人员"
+                            ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
-						/>
+                        />
 
 
                         <KrField grid={1} label="描述" name="desc" heightStyle={{height:"78px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述' lengthClass='role-len-textarea'/>
