@@ -420,6 +420,16 @@ var OAApi = {
       url:'/api/krspace-erp-web/hrm/role/all',
       method: 'get'
   },
+   //机构分权－部门树
+  'role-dep-tree':{
+      url:'/api/krspace-erp-web/tree/org-auth-dep',
+      method: 'get'
+  },
+   //机构分权－分部树
+  'role-sub-tree':{
+      url:'/api/krspace-erp-web/tree/org-auth-sub',
+      method: 'get'
+  },
 }
 
 module.exports=OAApi;
