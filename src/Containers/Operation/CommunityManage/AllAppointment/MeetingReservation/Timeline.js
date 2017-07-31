@@ -66,7 +66,9 @@ export default class Timeline extends React.Component {
     generateCalibration = () =>{
         let {endTime,startTime,width}=this.state;
         let elems = [];
-        
+        if(endTime.h==23 && endTime.m == 59){
+            endTime.h=24
+        }
         
         for(var i= startTime.h;i<endTime.h;i++){
             let border= "0px solid #ccc"
@@ -84,6 +86,7 @@ export default class Timeline extends React.Component {
     }
     //转化为时分
     hourFormat = (time) =>{
+        
         let date = DateFormat(time,24).split(" ");
         let obj = {
             h:Number(date[date.length-1].split(":")[0]),
@@ -99,6 +102,7 @@ export default class Timeline extends React.Component {
         if(!data.appointments){
             return null;
         }
+
         let elems =  data.appointments.map(function(item,index){
             let inData = Object.assign({}, item);
             inData.beginTime = _this.hourFormat(item.beginTime);
@@ -162,14 +166,17 @@ export default class Timeline extends React.Component {
     render(){
         const {startTime,endTime,coordinates,openDetail,location,detailData,width} = this.state;
         const {data} = this.props;
-       
+        if(endTime.h==23 && endTime.m == 59){
+            endTime.h=24
+        }
         let len = endTime.h - startTime.h;
+        
         let inWidth = width*len+1;
-       
+        
         if(!data){
             return null;
         }
-
+        
         return(
             <div className="metting-Timeline">
                
