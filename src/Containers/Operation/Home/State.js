@@ -37,7 +37,7 @@ let State = observable({
 	fCustomer :false,
 	newClue:false,
 	cityList :[],
-	community:[]
+	communitys:[]
 
 });
 //select下拉数组的初始化
@@ -83,6 +83,18 @@ State.getCommunityList=action(function(){
 			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
+})
+
+State.getCommunity=action(function(id){
+	let list = [];
+	list = this.cityList.filter((item)=>{
+		if(item.id === id){
+			return item;
+		}
+	})
+	State.communitys = list[0].communitys;
+	console.log('==State===>',list[0].communitys,list[0].communitys.length)
+	
 })
 
 

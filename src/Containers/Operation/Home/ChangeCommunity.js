@@ -36,7 +36,9 @@ class ChangeCommunity  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.cityId = '';
+		this.state = {
+			communitys:[]
+		}
 	}
 
 	componentDidMount(){
@@ -54,22 +56,28 @@ class ChangeCommunity  extends React.Component{
 
 	}
 	changeCity=(value)=>{
-		this.cityId = value.id;
-		console.log('======',value,this.cityId)
+		// State.getCommunity(value.id)
+		Store.dispatch(change('ChangeCommunity', 'communityId', ''));
+		Store.dispatch(change('ChangeCommunity', 'cityId', value.id));
+		
+		let list = [];
+		list = State.cityList.filter((item)=>{
+			if(item.id === value.id){
+				return item;
+			}
+		})
+		console.log('===city===',list);
+		this.setState({
+			communitys:list[0].communitys
+		})
 
 		
 	}
 
 	render(){
 		let {handleSubmit} = this.props;
-		let _this = this;
-		let communityList = []
-		communityList = State.cityList.filter(function(item){
-			if(item.id == _this.cityId){
-				return item.communitys;
-			}
-		})
-		console.log('render====>',this.cityId,communityList)
+		let {communitys} = this.state;
+		console.log('====render===',communitys)
 		return(
 			<div style={{padding:'30px 0 10px 0'}}>
 				<form  onSubmit={handleSubmit(this.onSubmit)}>
@@ -89,7 +97,7 @@ class ChangeCommunity  extends React.Component{
 						name="communityId" 
 						component="select" 
 						left={20} 
-						options={communityList}  
+						options={communitys}  
 						inline={false} 
 						onChange={this.ChangeCommunity}
 					/>
