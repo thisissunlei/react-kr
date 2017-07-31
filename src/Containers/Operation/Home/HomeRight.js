@@ -22,6 +22,7 @@ import {
 } from 'kr-ui';
 import home from './images/home-community.svg';
 import  "./index.less";
+import State from './State';
 import {Http,DateFormat} from "kr/Utils";
 import {
 	observer,
@@ -36,6 +37,35 @@ class HomeRight  extends React.Component{
 	}
 
 	componentDidMount(){
+	}
+	clickSpan=(type)=>{
+		switch (type){
+			case 'monthPayment':
+				State.openMonthPayment = true;
+				break;
+			case 'allPayment':
+				State.openAllPayment = true;
+				break;
+			case 'arrearages':
+				State.arrearages = true;
+				break;
+			case 'settledCustomer':
+				State.openSettledCustomer = true;
+				break;
+			case 'signedCustomer':
+				State.signedCustomer = true;
+				break;
+			case 'allCustomer':
+				State.allCustomer = true;
+				break;
+			case 'fCustomer':
+				State.fCustomer = true;
+				break;
+			case 'newClue':
+				State.newClue = true;
+			default:
+				return;
+		}
 	}
 
 
@@ -66,23 +96,23 @@ class HomeRight  extends React.Component{
 						<div className="item-list">
 							<div className='item-head'>账户信息</div>
 							<div className="lists-info">
-								<div className='list-info'>
+								<div className='list-info' onClick={this.clickSpan.bind(this,'monthPayment')}>
 									<div className="item-title">本月回款</div>
 									<div className="item-content"  style={{color:'#FF7876'}}>2000员</div>
 								</div>
-								<div className='list-info'>
+								<div className='list-info' onClick={this.clickSpan.bind(this,'allPayment')}>
 									<div className="item-title">累计回款</div>
 									<div className="item-content"  style={{color:'#FF7876'}}>2000员</div>
 								</div>
-								<div className='list-info'>
+								<div className='list-info' onClick={this.clickSpan.bind(this,'arrearages')}>
 									<div className="item-title">社区欠款</div>
 									<div className="item-content"  style={{color:'#FF7876'}}>2000员</div>
 								</div>
-								<div className='list-info'>
+								<div className='list-info' style={{cursor:'auto'}}>
 									<div className="item-title">本月收入</div>
 									<div className="item-content"  style={{color:'#8290A8'}}>2000员</div>
 								</div>
-								<div className='list-info'>
+								<div className='list-info' style={{cursor:'auto'}}>
 									<div className="item-title">累计收入</div>
 									<div className="item-content"  style={{color:'#8290A8'}}>2000员</div>
 								</div>
@@ -92,23 +122,23 @@ class HomeRight  extends React.Component{
 						<div className="item-list">
 							<div className='item-head'>客户信息</div>
 							<div className="lists-info">
-								<div className='list-info'>
+								<div className='list-info'  onClick={this.clickSpan.bind(this,'settledCustomer')}>
 									<div className="item-title">现入驻客户</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>2000员</div>
 								</div>
-								<div className='list-info'>
+								<div className='list-info' onClick={this.clickSpan.bind(this,'signedCustomer')}>
 									<div className="item-title">已约未入驻</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>2000员</div>
 								</div>
-								<div className='list-info'>
+								<div className='list-info' onClick={this.clickSpan.bind(this,'allCustomer')}>
 									<div className="item-title">客户总数</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>2000员</div>
 								</div>
-								<div className='list-info'>
+								<div className='list-info' onClick={this.clickSpan.bind(this,'fCustomer')}>
 									<div className="item-title">跟进中客户</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>2000员</div>
 								</div>
-								<div className='list-info'>
+								<div className='list-info' onClick={this.clickSpan.bind(this,'newClue')}>
 									<div className="item-title">新增线索</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>2000员</div>
 								</div>

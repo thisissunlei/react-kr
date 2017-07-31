@@ -21,7 +21,9 @@ import {
 
 } from 'kr-ui';
 import home from './images/home-community.svg';
-import PaymentTable from './PaymentTable'
+import PaymentTable from './PaymentTable';
+import OrderTable from './OrderTable';
+import AgreementTable from './AgreementTable';
 import  "./index.less";
 import State from './State';
 import {Http,DateFormat} from "kr/Utils";
@@ -103,7 +105,11 @@ class HomeLeft  extends React.Component{
 						</div>
 					</div>
 					<div className="item-left-table-content">
-						<PaymentTable />
+						{State.tableType == 'payment' && <PaymentTable />}
+						{State.tableType == 'order' && <OrderTable />}
+						{State.tableType == 'agreement' && <AgreementTable />}
+						{State.tableType == 'visit' && <AgreementTable />}
+
 					</div>
 				</div>
 				

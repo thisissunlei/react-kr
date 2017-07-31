@@ -32,7 +32,7 @@ import {
 } from 'mobx-react';
 @observer
 
-class PaymentTable  extends React.Component{
+class AgreementTable  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -43,6 +43,10 @@ class PaymentTable  extends React.Component{
 	onPageChange=(page)=>{
 		console.log('page',page);
 	}
+	click=(item)=>{
+		window.open('#/operation/customerManage/customerList','_target')
+	}
+
 
 	render(){
 		
@@ -52,15 +56,16 @@ class PaymentTable  extends React.Component{
 					<thead>
 						<tr>
 							<td style={{maxWidth:300}}>客户</td>
-							<td ><div >应缴日期</div></td>
-							<td ><div>应缴金额</div></td>
-							<td ><div>账款期间</div></td>
+							<td ><div >开始时间</div></td>
+							<td ><div>工位／独立空间</div></td>
+							<td ><div>联系人</div></td>
+							<td ><div>联系方式</div></td>
 						</tr>
 					</thead>
 					<tbody>
 						{State.paymentList.map((item,index)=>{
 							return (
-								<tr key={index}>
+								<tr key={index} onClick={this.click.bind(this,item)} >
 									<td style={{maxWidth:300}}>
 										<div style={{height:40}}>
 											<span className="tableOver">{item.lessorAddress}</span>
@@ -70,11 +75,9 @@ class PaymentTable  extends React.Component{
 									<td >{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</td>
 									<td >{item.id}</td>
 									<td >
-										<div style={{height:40}}>
-											<span className="tableOver">{DateFormat(item.leaseBegindate,'yyyy-mm-dd')}至{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</span>
-											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{DateFormat(item.leaseBegindate,'yyyy-mm-dd')}至{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</div></Tooltip>
-										</div>
+										田欢欢
 									</td>
+									<td>13314619606</td>
 								</tr>
 
 							)
@@ -95,4 +98,4 @@ class PaymentTable  extends React.Component{
 	}
 }
 
-export default PaymentTable;
+export default AgreementTable;

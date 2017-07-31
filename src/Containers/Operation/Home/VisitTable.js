@@ -32,7 +32,7 @@ import {
 } from 'mobx-react';
 @observer
 
-class PaymentTable  extends React.Component{
+class VisitTable  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -43,6 +43,10 @@ class PaymentTable  extends React.Component{
 	onPageChange=(page)=>{
 		console.log('page',page);
 	}
+	click=(item)=>{
+		window.open('#/operation/customerManage/customerList','_target')
+	}
+
 
 	render(){
 		
@@ -51,30 +55,26 @@ class PaymentTable  extends React.Component{
 				<table>
 					<thead>
 						<tr>
-							<td style={{maxWidth:300}}>客户</td>
-							<td ><div >应缴日期</div></td>
-							<td ><div>应缴金额</div></td>
-							<td ><div>账款期间</div></td>
+							<td >访客姓名</td>
+							<td ><div >访客电话</div></td>
+							<td ><div>拜访日期</div></td>
+							<td ><div>拜访人数</div></td>
+							<td ><div>预约来源</div></td>
 						</tr>
 					</thead>
 					<tbody>
 						{State.paymentList.map((item,index)=>{
 							return (
-								<tr key={index}>
-									<td style={{maxWidth:300}}>
-										<div style={{height:40}}>
-											<span className="tableOver">{item.lessorAddress}</span>
-											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{item.lessorAddress}</div></Tooltip>
-										</div>
+								<tr key={index} onClick={this.click.bind(this,item)} >
+									<td>
+										田欢欢
 									</td>
 									<td >{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</td>
 									<td >{item.id}</td>
 									<td >
-										<div style={{height:40}}>
-											<span className="tableOver">{DateFormat(item.leaseBegindate,'yyyy-mm-dd')}至{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</span>
-											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{DateFormat(item.leaseBegindate,'yyyy-mm-dd')}至{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</div></Tooltip>
-										</div>
+										田欢欢
 									</td>
+									<td>13314619606</td>
 								</tr>
 
 							)
@@ -95,4 +95,4 @@ class PaymentTable  extends React.Component{
 	}
 }
 
-export default PaymentTable;
+export default VisitTable;

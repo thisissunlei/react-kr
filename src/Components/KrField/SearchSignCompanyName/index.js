@@ -60,10 +60,10 @@ export default class  SearchSignCompanyName extends React.Component {
 
 	render(){
 
-		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
-
+		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,inline,requireLabel,...other} = this.props;
+		console.log('===select===>',inline)
 		return (
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 					<ReactSelectAsync
 					name={input.name}
 					value={input.value}

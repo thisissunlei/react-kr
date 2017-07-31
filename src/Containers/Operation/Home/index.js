@@ -18,6 +18,7 @@ import home from './images/home-community.svg';
 import  "./index.less";
 import ChangeCommunity from './ChangeCommunity';
 import HomeLeft from './HomeLeft';
+import MonthPayment from './MonthPayment';
 import HomeRight from './HomeRight';
 import State from './State';
 import {Http,DateFormat} from "kr/Utils";
@@ -37,6 +38,7 @@ class Home  extends React.Component{
 	componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.setSidebar(false);
+		State.getCommunityList()
 	}
 	openChangeCommunityDialog=()=>{
 		State.openChangeCommunity = true;
@@ -47,7 +49,13 @@ class Home  extends React.Component{
 	ChangeCommunity=(form)=>{
 		State.ChangeCommunity(form);
 	}
+	openMonthPayment=()=>{
+		State.openMonthPayment = true;
+	}
 
+	closeMonthPayment=()=>{
+		State.openMonthPayment = false;
+	}
 	render(){
 		
 		return(
@@ -74,6 +82,14 @@ class Home  extends React.Component{
 				open={State.openChangeCommunity}
 				contentStyle={{width:665}}>
 					<ChangeCommunity  onCancel={this.closeChangeCommunityDialog} onSubmit={this.ChangeCommunity}/>
+				</Dialog>
+				<Dialog
+						title="本月回款"
+						onClose={this.closeMonthPayment}
+						open={State.openMonthPayment}
+						contentStyle ={{ width: '85%',height:'600px'}}
+					>
+						<MonthPayment />
 				</Dialog>
 	     	</div>
 

@@ -3,12 +3,14 @@ import {
   reduxForm,
   change,
   arrayPush,
-  initialize
+  initialize,
+  formValueSelector
 } from 'redux-form';
 
 import {
   Actions,
-  Store
+  Store,
+  connect
 } from 'kr/Redux';
 import {
 	Title,Dialog,
@@ -22,6 +24,7 @@ import {
 } from 'kr-ui';
 import home from './images/home-community.svg';
 import  "./index.less";
+import State from './State';
 import {Http,DateFormat} from "kr/Utils";
 import {
 	observer,
@@ -33,6 +36,7 @@ class ChangeCommunity  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.cityId = '';
 	}
 
 	componentDidMount(){
@@ -42,7 +46,6 @@ class ChangeCommunity  extends React.Component{
 		onCancel && onCancel();
 	}
 	onSubmit=(value)=>{
-		console.log('====>',value)
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(value);
 	}
@@ -50,25 +53,54 @@ class ChangeCommunity  extends React.Component{
 		Store.dispatch(change('ChangeCommunity', 'communityName', value.label));
 
 	}
+	changeCity=(value)=>{
+		this.cityId = value.id;
+		console.log('======',value,this.cityId)
+
+		
+	}
 
 	render(){
 		let {handleSubmit} = this.props;
-		let options = [{label:'C1',value:'c1'},{label:'C2',value:'c2'},{label:'C3',value:'c3'},{label:'C4',value:'c4'},]
-		
+		let communityList = State.cityList.filter((item)=>{
+			if(item.id === this.cityId){
+				return item.communitys
+			}else{
+				return []
+			}
+		})
+		console.log('render====>'.this.cityId,communityList)
 		return(
 			<div style={{padding:'30px 0 10px 0'}}>
 				<form  onSubmit={handleSubmit(this.onSubmit)}>
 
-					<KrField grid={1/2} label="城市" name="cityId" component="select" right={20} options={options} inline={false}/>
-					<KrField grid={1/2} label="社区" name="communityId" component="select" left={20} options={options}  inline={false} onChange={this.ChangeCommunity}/>
+					<KrField grid={1/2} 
+						label="城市" 
+						name="cityId" 
+						component="select" 
+						right={20} 
+						options={State.cityList} 
+						inline={false}
+						onChange={this.changeCity}
+					/>
+					<KrField 
+						grid={1/2} 
+						label="社区" 
+						name="communityId" 
+						component="select" 
+						left={20} 
+						options={communityList}  
+						inline={false} 
+						onChange={this.ChangeCommunity}
+					/>
 					<KrField grid={1/2} label="社区名称" name="communityName" type="hidden" component="hidden"  />
 
-					<Grid style={{marginTop:20,marginRight:40}}>
+					<Grid style={{marginTop:20}}>
 						<Row>
 							<Col md={12} align="center">
 								<ButtonGroup>
 
-									<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit" joinEditForm /></div>
+									<div style = {{display:"inline-block",marginRight:40}}><Button  label="确定" type="submit" joinEditForm /></div>
 									<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 								</ButtonGroup>
 							</Col>
@@ -82,5 +114,16 @@ class ChangeCommunity  extends React.Component{
 		);
 	}
 }
+const validate = values => {
+	const errors = {};
+	if (!values.cityId) {
+		errors.cityId = '请选择城市';
+	}
 
-export default reduxForm({ form: 'ChangeCommunity'})(ChangeCommunity);
+	if (!values.communityId ) {
+		errors.communityId = '请选择社区';
+	}
+
+	return errors
+}
+export default reduxForm({ form: 'ChangeCommunity',validate})(ChangeCommunity);

@@ -92,7 +92,6 @@ class FieldRevert extends React.Component {
 				return <MobxForm.Field {...this.props} />;
 			}
 
-			console.log('--->>>>>>',this.props);
 
 			return <Field  {...this.props} />;
 
@@ -148,7 +147,6 @@ class FieldRevert extends React.Component {
 				lengthClass,
 				...other
 			} = this.props;
-
 
 			let WrapStyles = Object.assign({}, {
 				width: (grid * 100) + '%',
