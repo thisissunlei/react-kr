@@ -292,7 +292,7 @@ class TreeNode extends React.Component {
     };
 
     const selectHandle = () => {
-      var showIcon = props.itemData.treeType == "NONE"?"none":"inline-block";
+      
       /*==========icon修改的位置(this.props.itemData)获取位置的数据===========*/
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span
@@ -300,19 +300,15 @@ class TreeNode extends React.Component {
           onClick = {(e)=>{
              this.onExpand(e);
             e.preventDefault();
-              
-             
           }}
-          style = {{display:showIcon}}
+        
 
         ></span> : null;
        const title = <span
                       className={`${prefixCls}-title`}
                       onClick = {(e)=>{
                          this.onExpand(e);
-
                         e.preventDefault();
-                       
                       }}
                     >
                       {content}
