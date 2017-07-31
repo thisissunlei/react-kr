@@ -72,6 +72,8 @@ export default class PersonnelDialog extends React.Component{
 			detail,
 		})
 	}
+
+
 	//获取tree的数据
 	getTreeData = () => {
 
@@ -126,7 +128,10 @@ export default class PersonnelDialog extends React.Component{
 			isList:false,
 		})
 	}
-
+	//获取选择的keys
+	getSelectKeys = (data,parentIndex=0) =>{
+		var key = parentIndex+'-'+item.orgName;
+	}
 	listRender = () =>{
 		const {detail} = this.state;
 		if(detail[0].orgName == ""){

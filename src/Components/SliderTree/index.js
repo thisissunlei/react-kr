@@ -29,6 +29,7 @@ export default class SliderTree extends React.Component {
 		this.allKeys = [];
 
 		this.searchExpandedKeys = [];
+		this.onlyKey = 0;
 
 	}
 
@@ -244,7 +245,7 @@ export default class SliderTree extends React.Component {
 			return data.map((item,index) => {
 
 
-				var key = parentIndex+'-'+item.orgName;
+				var key = parentIndex+'-'+item.orgName + this.onlyKey++;
 
 				that.registerAllKeys(key);
 
