@@ -81,6 +81,7 @@ export default class DepartmentDialog extends React.Component{
 
 	}
 	fnTree = (data) =>{
+		let key  = 0;
 		var arr = data.map((item,index)=>{
 			var obj = Object.assign({},item);
 			if(obj.children.length!=0){
@@ -91,7 +92,7 @@ export default class DepartmentDialog extends React.Component{
 			}else{
 				obj.isClick = false;
 			}
-			
+			obj.key = key++;
 			return obj;
 			
 		})
