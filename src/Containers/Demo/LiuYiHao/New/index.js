@@ -31,7 +31,7 @@ class New extends React.Component {
 					component="treePersonnel"
 					label="直接上级"
 					treeType = "personnel"
-					ajaxUrlName = "get-personnel-tree"
+					ajaxUrlName = "get-personnel-tree-demo"
 					params = {{dimId:''}}
 					checkable = {true}
 				/>

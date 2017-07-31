@@ -314,6 +314,14 @@ var OAApi = {
       method: 'get'
   },
 
+   //------------人员树
+   //
+  'get-personnel-tree-demo': {
+      url: '/api/krspace-erp-web/tree/org-auth-resource',
+      method: 'get'
+  },
+
+
   //职务类型
   'get-position-type-list': {
       url: '/api/krspace-erp-web/hrm/job-type/select/type/info?orgType={orgType}&orgId={orgId}',

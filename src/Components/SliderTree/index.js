@@ -23,7 +23,7 @@ export default class SliderTree extends React.Component {
 
 		this.state = {
 			inputValue: '',
-			expandedKeys: ['0-36kr'],
+			expandedKeys: ['0-36kr0'],
 		}
 
 		this.allKeys = [];
@@ -245,7 +245,7 @@ export default class SliderTree extends React.Component {
 			return data.map((item,index) => {
 
 
-				var key = parentIndex+'-'+item.orgName + this.onlyKey++;
+				var key = parentIndex+'-'+item.orgName+item.key;
 
 				that.registerAllKeys(key);
 

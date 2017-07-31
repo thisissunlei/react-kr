@@ -15,6 +15,7 @@ export default class PersonnelDialog extends React.Component{
 			treeData : [],
 		}
 		this.getTreeData();
+		this.onlyKey = 0;
 	}
 	componentDidMount(){
 		let {echoList} = this.props;
@@ -80,7 +81,7 @@ export default class PersonnelDialog extends React.Component{
 		let { ajaxUrlName} = this.props;
 		const _this = this;
 		Http.request(ajaxUrlName).then(function (response) {
-		
+			console.log(_this.fnTree(response.items),"PPPPPP")
 			_this.setState({
 				treeData:_this.fnTree(response.items)
 			})
@@ -90,6 +91,7 @@ export default class PersonnelDialog extends React.Component{
 
 	}
 	fnTree = (data) =>{
+		let key = 0;
 		var arr = data.map((item,index)=>{
 			var obj = Object.assign({},item);
 			if(obj.children.length!=0){
@@ -100,7 +102,7 @@ export default class PersonnelDialog extends React.Component{
 			}else{
 				obj.isClick = false;
 			}
-			
+			obj.key = key++;
 			return obj;
 			
 		})
