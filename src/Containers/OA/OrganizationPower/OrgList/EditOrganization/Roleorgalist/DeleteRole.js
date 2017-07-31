@@ -29,7 +29,7 @@ export default class DeleteRole extends React.Component{
 		return(
 
 			<div>
-               <p style={{textAlign:'center',color:'#333',fontSize:'14px',marginTop:'44px'}}>确定删除123吗？</p>
+               <p style={{textAlign:'center',color:'#333',fontSize:'14px',marginTop:'44px'}}>确定删除吗？</p>
 			   <Grid style={{marginTop:53}}>
                             <Row>
                                 <Col md={12} align="center">

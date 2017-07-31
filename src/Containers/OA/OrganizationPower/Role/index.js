@@ -43,7 +43,9 @@ export default class Role extends Component{
 				pageSize:15
 			},
 			//删除id
-			deleteId:''     
+			deleteId:'',
+			//编辑detail
+			detail:[]     
 		}
 	}
     
@@ -69,6 +71,9 @@ export default class Role extends Component{
 		var _this=this;
        Http.request('role-watch',{id:id}).then(function(response) {
            Store.dispatch(initialize('EditRole',response));
+		   _this.setState({
+			   detail:response.allotUser
+		   })
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -95,6 +100,12 @@ export default class Role extends Component{
 
 	//新建提交
 	addPostSubmit=(params)=>{
+	   params=Object.assign({},params);
+	   var id=[];
+	   params.allotUserId.map((item,index)=>{
+		  id.push(item.orgId);
+	   })
+	   params.allotUserId=id;
        var _this=this;
        Http.request('role-add',{},params).then(function(response) {
            _this.setState({
@@ -173,7 +184,8 @@ export default class Role extends Component{
    }
 
 	render(){
-
+        
+		let {detail}=this.state;
 
 		return(
       	<div className="oa-or-role">
@@ -285,6 +297,7 @@ export default class Role extends Component{
 			  <EditRole 
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
+				detail={detail}
 			  />
 			</Dialog>
 

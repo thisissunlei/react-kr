@@ -85,17 +85,20 @@ class EditRole  extends React.Component{
                             onChange = {this.onChange}
                             ajaxUrlName = "role-dep-tree"
                             requireLabel={true}
+                            checkable = {true}
                         />}
+
 
                          {!isSure&&<KrField
                             grid={1/2}
                             style={{width:262}}
                             name="orgId"
-                            component="treeDepartment"
+                            component="treeDivision"
                             label="选择机构"
                             onChange = {this.onChange}
                             ajaxUrlName = "role-sub-tree"
                             requireLabel={true}
+                            checkable = {true}
                         />}
 
 
@@ -118,24 +121,12 @@ class EditRole  extends React.Component{
 const validate = values =>{
 	const errors = {};
 
-    if(!values.name){
-       errors.name='请填写职务名称';  
-    }else if(values.name.length>20){
-       errors.name='职务名称不能超过20个字符';   
+    if(!values.roleId){
+       errors.roleId='请选择角色';  
     }
 
-    if(!values.code){
-      errors.code='请填写职务编码'  
-    }else if(values.code.length>30){
-       errors.code='职务编码不能超过30个字符';   
-    }
-
-    if(!values.typeId){
-        errors.typeId='请选择职务类型名称';  
-    }
-    
-    if(!values.subId){
-        errors.subId='请选择分部';
+    if(!values.orgType){
+      errors.orgType='请选择机构类型'  
     }
     
 	return errors

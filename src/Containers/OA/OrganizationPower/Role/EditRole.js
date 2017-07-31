@@ -16,6 +16,7 @@ class EditRole  extends React.Component{
 		super(props, context);
 	}
 
+
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -28,7 +29,15 @@ class EditRole  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,subCompany}=this.props;
+        let {handleSubmit,detail}=this.props;
+         
+        
+        detail.map((item,index)=>{
+            item.orgName=item.label;
+            item.orgId=item.value;
+        })
+
+        console.log('de',detail);
 
 		return(
 
@@ -58,6 +67,8 @@ class EditRole  extends React.Component{
                             label="分配人员"
                             ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
+                            checkable = {true}
+                            valueText={(detail && detail[0] && detail[0].orgName)?detail:[{orgName:''}]}
                         />
 
 

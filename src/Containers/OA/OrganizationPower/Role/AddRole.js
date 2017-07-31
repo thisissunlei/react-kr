@@ -59,6 +59,7 @@ class AddRole  extends React.Component{
                             label="分配人员"
                             ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
+                            checkable = {true}
                         />
 
                         <KrField grid={1} label="描述" name="desc" heightStyle={{height:"78px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='role-len-textarea'/>

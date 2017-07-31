@@ -45,7 +45,9 @@ export default class RoleorgaList extends Component{
 				id:this.props.id
 			},
 			//角色
-			roleArr:[]
+			roleArr:[],
+
+			deleteId:''
 		}
 	}
     
@@ -53,13 +55,14 @@ export default class RoleorgaList extends Component{
     
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
-			this.getEditData(itemDetail.id);
+			this.getEditData(itemDetail.orgDetailId);
 			this.setState({
 			  openEditType:true	
 			})
 		}else if(type=='delete'){
 			this.setState({
-			  openDelete:true
+			  openDelete:true,
+			  deleteId:itemDetail.orgDetailId
 			})		
 		}
 	}
@@ -109,7 +112,8 @@ export default class RoleorgaList extends Component{
 						searchParams:{
 							time:+new Date(),
 							page:1,
-							pageSize:15
+							pageSize:15,
+							id:_this.props.id
 						}  
 					})
 					_this.openAddPost();
@@ -136,7 +140,8 @@ export default class RoleorgaList extends Component{
 							time:+new Date(),
 							page:_this.state.searchParams.page,
 							pageSize:15,
-							name:_this.state.searchParams.name?_this.state.searchParams.name:""
+							name:_this.state.searchParams.name?_this.state.searchParams.name:"",
+							id:_this.props.id
 						}  
 					})
 					_this.openEditPost();
@@ -162,7 +167,8 @@ export default class RoleorgaList extends Component{
 			  searchParams:{
 				  time:+new Date(),
 				  page:1,
-				  pageSize:15
+				  pageSize:15,
+				  id:_this.props.id
 			  }  
 		   })
 		   _this.delSwidth();
