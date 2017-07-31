@@ -152,7 +152,7 @@ export default class DivisionDialog extends React.Component{
 		} = this.props;
 		return (
             <div className = "tree-division" style = {{position:"relative",textAlign:"center"}}>
-				<div className = "department-title"><span className = "department-title-icon"></span><span className = "department-title-text">部门</span></div>
+				<div className = "department-title"><span className = "department-title-icon"></span><span className = "department-title-text">分部</span></div>
 
 				<div className = "tree-content">
 					<div className = "content-left clear">
