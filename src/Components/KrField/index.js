@@ -68,6 +68,8 @@ import SwitchSlide from './SwitchSlide';
 import OaTreeDepartment from './OaTreeDepartment';
 //人员树
 import OaTreePersonnel from './OaTreePersonnel';
+//分部树
+import OaTreeDivision from './OaTreeDivision' 
 // import OaTreePersonnel from './OaTreePersonnel';
 
 
@@ -490,8 +492,11 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
 				)
 			}
-
-			
+			if (component === 'treeDivision') {
+				return (
+					<FieldRevert {...this.props} component={OaTreeDivision}  style={WrapStyles} {...other}/>
+				)
+			}
 		
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
