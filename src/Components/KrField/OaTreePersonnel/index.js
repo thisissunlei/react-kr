@@ -105,6 +105,7 @@ export default class OaTreePersonnel extends React.Component{
             simple,
             heightStyle,
             autoFocus,
+
             ...other
         } = this.props;
 
@@ -151,13 +152,36 @@ export default class OaTreePersonnel extends React.Component{
         var dialogTitle = label || '组件';
 
         dialogTitle = "选择" + dialogTitle;
-
+		let textData = [];
+		if(oneOpen && valueText && valueText[0].orgName){
+				textData = [].concat(valueText);
+		}else{
+			textData = [].concat(data);
+		}
+		var text = '';
+		for(let i=0 ;i<textData.length;i++){
+			if(i==0){
+				text+= text;
+			}else{
+				text+= ","+text;
+			}
+		}
+		
+		
+		let inputstyle = {};
+		if(other.checkable){
+			inputstyle = {
+				overflow: "hidden",
+				textOverflow:"ellipsis",
+				whiteSpace: "nowrap",
+			}
+		}
 		
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText && valueText[0].orgName)? valueText[0].orgName : data[0].orgName }</div>
+				 <div className = "oa-imulation-input " style = {inputstyle} onClick = {this.onFocus}>{text}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 
