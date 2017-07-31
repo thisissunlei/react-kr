@@ -31,7 +31,7 @@ import EditRole from './EditRole';
 import DeleteRole from './DeleteRole';
 import './index.less';
 
-export default class RoleorgaList extends Component{
+export default class RoleOrgaList extends Component{
 
 	constructor(props,context){
 		super(props, context);
