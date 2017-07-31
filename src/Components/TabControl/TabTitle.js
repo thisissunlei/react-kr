@@ -10,9 +10,10 @@ export default class TabTitle extends React.Component {
         this.active =this.props.activeClass+' ui-tab-control';
         this.acStyle=this.props.acStyle;
         this.inStyle=this.props.inStyle;
+        this.tabsLineWidth = 0;
 	}
     componentDidMount(){
-       
+        this.tabsLineWidth = this.title.clientWidth
     }
     titleClick = (label,index) =>{
         this.setState({
@@ -27,26 +28,45 @@ export default class TabTitle extends React.Component {
         const {active} = this.state;
         const _this=this;
         let titles = labels.map((item,index)=>{
-            let defaultStyel = index == active ? _this.active : _this.init;
-            let style=index == active?_this.acStyle:_this.inStyle
-            return (<span key = {index} 
+            let defaultStyel =  _this.init;
+            if(!this.tabsLineWidth){
+                defaultStyel = index==0 ?_this.active:_this.init;
+            }
+            let style = _this.inStyle
+            return (<span 
+                   
+                    key = {index} 
                     onClick = {()=>{
                         this.titleClick(item,index);
                     }}
-                    style={style}
+                   
                     className={defaultStyel}
                     >
                         {item}
                     </span>)
         })
+        
         return titles;
     }
 	render() {
-        const {children,justify} = this.props;
-        
+        const {children,justify,labels} = this.props;
+        const {active} = this.state;
+        let width = this.tabsLineWidth/labels.length
+        let activeStyle = {width:width,left:active*width}
+        if(!width){
+           activeStyle = {left:active*width}
+        }
+       
 		return (
-            <div>
+            <div style = {{position:"relative"}}
+             ref = {
+                        (ref) =>{
+                            this.title = ref;
+                        }
+                    }
+            >
                  {this.titleRender()}   
+                 <div className = "ui-oa-tabs-line" style = {activeStyle}></div>
             </div>
 		);
 

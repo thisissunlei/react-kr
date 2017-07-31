@@ -1,5 +1,6 @@
 import React from 'react';
 import TabTitle from './TabTitle'
+import './index.less'
 export default class TabCs extends React.Component {
     constructor(props,context){
 		super(props, context);
@@ -39,7 +40,7 @@ export default class TabCs extends React.Component {
         const {labels} = this.state;
         
 		return (
-            <div>
+            <div class = "ui-oa-tabs">
                 <TabTitle
                     labels = {this.getLabels()} 
                     onSubmit = {this.titleClick} 
