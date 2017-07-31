@@ -25,20 +25,6 @@ export default class EditOrganization  extends React.Component{
 
 	render(){
 		
-		var inStyle={
-			background:'#fff',
-			width: '50%',
-            borderBottom: '1px solid #D7D7D7',
-			padding:'10px 0'
-		}
-
-		var acStyle={
-			background:'#fff',
-			width: '50%',
-            borderBottom:'2px solid #499df1',
-			padding:'10px 0'
-		}
-		
 
 		return(
 
@@ -51,8 +37,8 @@ export default class EditOrganization  extends React.Component{
 			    </div>
 				<div className='role-tab'>    
 				    <TabCs
-					  inStyle={inStyle}
-					  acStyle={acStyle}
+					  activeClass='ui-line-active'
+					  initClass='ui-line-init'
 			        >
 						<TabC label='基本信息'> 
 							<BasicInfo

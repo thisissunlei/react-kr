@@ -86,6 +86,8 @@ export default class PeopleDetail  extends React.Component{
 			  </div>
 			  <div className='detail-right'>
 				  <TabCs
+					  activeClass='ui-active-class'
+						initClass='ui-init-class'
 			      >
 				  <TabC label='基本信息'> 
 					  <BasicInfo

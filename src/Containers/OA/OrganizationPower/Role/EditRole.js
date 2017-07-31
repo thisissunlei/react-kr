@@ -37,7 +37,6 @@ class EditRole  extends React.Component{
             item.orgId=item.value;
         })
 
-        console.log('de',detail);
 
 		return(
 

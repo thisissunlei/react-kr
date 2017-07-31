@@ -6,8 +6,8 @@ export default class TabTitle extends React.Component {
         this.state = {
            active:0
         }
-        this.init ='ui-init-class ui-tab-control';
-        this.active ='ui-active-class ui-tab-control';
+        this.init =this.props.initClass+' ui-tab-control';
+        this.active =this.props.activeClass+' ui-tab-control';
         this.acStyle=this.props.acStyle;
         this.inStyle=this.props.inStyle;
 	}
