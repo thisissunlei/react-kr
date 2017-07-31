@@ -16,21 +16,28 @@ export default class PersonnelDialog extends React.Component{
 		}
 		this.getTreeData();
 	}
+	componentDidMount(){
+		let {echoList} = this.props;
+		if(!echoList){
+			return;
+		}
+		this.setState({
+			detail:echoList
+		})
+		
+	}
 	onSelect = (data) =>{
 		const {onSelect,treeType} = this.props;
 		const that = this;
 		
 		if(treeType == "personnel" && data.treeType == "NONE"){
 			this.setState({
-				
 				detail:[{
 					orgId:data.orgId,
 					pId:data.pId,
 					treeType:data.treeType,
 					orgName:data.orgName,
-					
-				}],
-				
+				}]	
 			})
 		}
 		if(treeType == "department" && data.treeType == "DEPARTMENT"){
