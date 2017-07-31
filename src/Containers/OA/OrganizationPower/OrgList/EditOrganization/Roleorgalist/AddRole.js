@@ -132,6 +132,10 @@ const validate = values =>{
       errors.orgType='请选择机构类型'  
     }
 
+    if(!values.orgId){
+      errors.orgId='请选择机构'  
+    }
+
     
 	return errors
 }

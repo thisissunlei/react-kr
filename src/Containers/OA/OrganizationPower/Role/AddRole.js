@@ -96,9 +96,9 @@ const validate = values =>{
        errors.code='编码不能超过30个字符';   
     }
 
-    /*if(!values.allotUserId){
-       errors.allotUserId='请选择分部'   
-    }*/
+    if(!values.allotUserId){
+       errors.allotUserId='请选择分配人员'   
+    }
     
 	return errors
 }
