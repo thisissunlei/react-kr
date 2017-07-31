@@ -110,6 +110,8 @@ export default class FailList extends React.Component {
 		                  <TableHeaderColumn>同步方式</TableHeaderColumn>
 		                  <TableHeaderColumn>同步状态</TableHeaderColumn>
 		                  <TableHeaderColumn>内容</TableHeaderColumn>
+		                  <TableHeaderColumn>同步信息</TableHeaderColumn>
+
 		              </TableHeader>
 		              <TableBody>
 		              	{!!State.itemsList.length && State.itemsList.map((item,index)=>{
@@ -126,6 +128,9 @@ export default class FailList extends React.Component {
 				              		 </TableRowColumn>
 				              		 <TableRowColumn>
 				              		 	{item.status?'成功':'失败'}
+				              		 </TableRowColumn>
+				              		 <TableRowColumn  style={{width:220,overflow:'hidden'}}>
+				              		 	{item.content} 
 				              		 </TableRowColumn>
 				              		 <TableRowColumn  style={{width:220,overflow:'hidden'}}>
 				              		 	{item.message} 
@@ -155,6 +160,7 @@ export default class FailList extends React.Component {
 		                  <TableHeaderColumn>同步方式</TableHeaderColumn>
 		                  <TableHeaderColumn>同步状态</TableHeaderColumn>
 		                  <TableHeaderColumn>内容</TableHeaderColumn>
+		                  <TableHeaderColumn>同步信息</TableHeaderColumn>
 				      	</TableHeader>
 
 						<TableBody className='noDataBody' borderBodyStyle style={{borderBottom:'none'}}>
