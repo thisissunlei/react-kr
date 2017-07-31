@@ -4,14 +4,13 @@ import SliderTree from'../../../SliderTree'
 import Button from '../../../Button'
 import Message from '../../../Message'
 import {Http} from 'kr/Utils'
+import krData from '../kr.json'
 export default class DepartmentDialog extends React.Component{
 	constructor(props,context){
 		super(props,context)
 		// this.getTreeData();
 		this.state = {
-			detail:{
-				orgName:''
-			},
+			detail:[{orgName:''}],
 			isList:false,
 			searchKey:'',
 			treeData : [],
@@ -24,51 +23,80 @@ export default class DepartmentDialog extends React.Component{
 		if(treeType == "personnel" && data.treeType == "NONE"){
 			this.setState({
 				isList:true,
-				detail:{
+				detail:[{
 					orgId:data.orgId,
 					pId:data.pId,
 					treeType:data.treeType,
 					orgName:data.orgName,
 					
-				},
+				}],
 				
 			})
 		}
 		if(treeType == "department" && data.treeType == "DEPARTMENT"){
 			this.setState({
 				isList:true,
-				detail:{
+				detail:[{
 					orgId:data.orgId,
 					pId:data.pId,
 					treeType:data.treeType,
 					orgName:data.orgName,
 					
-				},
+				}],
 				
 			})
 		}
-		
-			
-			
-		
-
-		
 	}
+	getCheckData = (treeDatas) =>{
+		let detailData = [].concat(treeDatas);
+		
+		let detail = [];
+		
+		for(let i=0;i<detailData.length;i++){
+			if(detailData[i].isClick){
+				detail.push(detailData[i]);
+			}
+		}
+		if(!detail.length){
+			detail.push({orgName:''});
+		}
+		
+		this.setState({
+			detail,
+		})
+	}
+	//获取tree的数据
 	getTreeData = () => {
 
 		let { ajaxUrlName} = this.props;
 		const _this = this;
 		Http.request(ajaxUrlName).then(function (response) {
-			
+		
 			_this.setState({
-				treeData:response.items
+				treeData:_this.fnTree(response.items)
 			})
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
 
 	}
-
+	fnTree = (data) =>{
+		var arr = data.map((item,index)=>{
+			var obj = Object.assign({},item);
+			if(obj.children.length!=0){
+				obj.children = this.fnTree(obj.children);
+			}
+			if(obj.treeType === "DEPARTMENT"){
+				obj.isClick = true;
+			}else{
+				obj.isClick = false;
+			}
+			
+			return obj;
+			
+		})
+		return arr;
+	}
 	
 	onSumit = () =>{
 		const {detail} = this.state;
@@ -80,23 +108,32 @@ export default class DepartmentDialog extends React.Component{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	}
-	deletList = () => {
-		let detail = Object.assign({},this.state.detail);
-		detail.orgName = "";
+	deletList = (event,index) => {
+		let detail = [].concat(this.state.detail);
+		detail.splice(index,1);
+		if(!detail.length){
+			detail.push({orgName:''});
+		}
 		this.setState({
 			detail,
 			isList:false,
 		})
 	}
-	listRender = () =>{
-		
 
-		
+	listRender = () =>{
 		const {detail} = this.state;
-		return <div className = "everyHave">
-					{detail && detail.orgName}
-					<span className="ui-oa-del" onClick = {this.deletList}></span>
+		if(detail[0].orgName == ""){
+			return ;
+		}
+		let lists = detail.map((item,index)=>{
+			return <div className = "everyHave">
+					{item.orgName || ''}
+					<span className="ui-oa-del" onClick = {()=>{
+							this.deletList(event,index)
+						}}></span>
 			  </div>
+		})
+		return lists;
 	
 	}
 	treeChange = (event) =>{
@@ -105,7 +142,14 @@ export default class DepartmentDialog extends React.Component{
 		})
 	}
 	render(){
-       let {detail,isList} = this.state;
+       let {
+		   detail,
+		   isList,
+		   treeData,
+		} = this.state;
+		let {
+			...other
+		} = this.props;
 		return (
             <div className = "tree-department" style = {{position:"relative",textAlign:"center"}}>
 				<div className = "department-title"><span className = "department-title-icon"></span><span className = "department-title-text">部门</span></div>
@@ -122,8 +166,9 @@ export default class DepartmentDialog extends React.Component{
 								onSelect = {this.onSelect}  
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
-								treeData = {this.state.treeData||[]}
-								checkable = {false}
+								treeData = {treeData||[]}
+								getCheckData = {this.getCheckData} 
+								{...other}
 							/>
 						</div>
 					</div>
@@ -133,7 +178,7 @@ export default class DepartmentDialog extends React.Component{
 							<span className = "oa-search-icon search-icon"></span>
 						</div>
 						<div className = "tree-content-left-right">
-							{isList && this.listRender()}
+							{this.listRender()}
 						</div>
 					</div>
 				</div>

@@ -32,6 +32,18 @@ export default class SliderTree extends React.Component {
 
 	}
 
+	onCheck = (keys,treeNode)=>{
+
+		let  checkDatas = treeNode.checkedNodes.map((item,index)=>{
+			let detailData =Object.assign({},item.props.itemData);
+			delete detailData.children;
+			return detailData;
+		})
+		
+		let {getCheckData} = this.props;
+		getCheckData && getCheckData(checkDatas);
+		
+	}
 
 	//点击选择事件
 	onSelect = (item) => {
@@ -99,41 +111,25 @@ export default class SliderTree extends React.Component {
 			expandedKeys.splice(index,1);
 		}
 
-
-
-
 		const {searchKey} = this.props;
-
-		/*
-		const keyIndex = eventKey.indexOf(searchKey);
-		const nextKeyStr = eventKey.substr(keyIndex).split('-');
-		const parentKeys = (eventKey.substr(0,keyIndex)+nextKeyStr.shift()).split('-');
-*/
 
 
 		const searchExpandedKeys = this.searchExpandedKeys;
 
-		console.log('searchExpandedKeys:',searchExpandedKeys);
 
 		if(this.props.searchKey && !expanded && searchExpandedKeys.indexOf(eventKey) !== -1){
-			console.log('eventKey:',eventKey,searchExpandedKeys);
 			this.setSearchExpandedKeys(this.props.searchKey);
 			return ;
 		}
 
 		expandedKeys = expandedKeys.filter(function(key){
-				return key.indexOf(eventKey+'-') === -1;
-				});
+			return key.indexOf(eventKey+'-') === -1;
+		});
 
 
 		this.setState({
 				expandedKeys,
 				});
-
-
-		
-
-
 	}
 
 
@@ -198,27 +194,6 @@ export default class SliderTree extends React.Component {
 		});
 
 		expandedKeys = this.uniqueArray(expandedKeys);
-
-
-		/*
-		expandedKeys = expandedKeys.filter(function(key){
-
-			if(key.indexOf(nextSearchKey) !== -1){
-			 const lastStr = key.split('-').pop();
-				console.log('lastStr:',lastStr);
-				if(lastStr.indexOf(nextSearchKey) == -1) {
-					return false;
-				}
-			};
-
-			return true;
-
-		});
-*/
-
-
-		console.log('expandedKeys:',expandedKeys);
-
 		this.searchExpandedKeys = [].concat(expandedKeys);
 
 

@@ -235,14 +235,7 @@ class TreeNode extends React.Component {
     return newChildren;
   }
   iconJudge = (prefixCls,iconState,props) =>{
-    var props = this.props;
-    if(!props.type){
-      return `${prefixCls}-icon__${iconState}`
-    }else if(props.type){
-      var allTypes = props.type.split("-");
-      
-      var typeText = "";
-      if(allTypes[0]=="department"){
+          var typeText = ""
           for(let i=0;i<IconType.length;i++){
             if(props.itemData.treeType == IconType[i]){
                 if(props.children.length == 0){
@@ -264,20 +257,9 @@ class TreeNode extends React.Component {
             // }
 
           }
-      }else{
-        typeText =iconState;
-      }
-
-      if(allTypes[0] == "role"){
-        
-      }
-      
-      if(allTypes[0] == "personnel"){
-
-      }
      
       return `${prefixCls}-icon__${typeText}` 
-    }
+    
   }
   render() {
     const props = this.props;
@@ -330,10 +312,6 @@ class TreeNode extends React.Component {
                          this.onExpand(e);
 
                         e.preventDefault();
-                        if(props.type == "allSelect"){
-                          return ;
-                        }
-                        
                        
                       }}
                     >
@@ -351,7 +329,7 @@ class TreeNode extends React.Component {
         {
           domProps.className += ` ${prefixCls}-node-selected`;
         }
-        if(props.itemData.children.length == 0 && props.selected){
+        if(props.itemData.children.length == 0 && props.itemData.isClick && props.selected){
           domProps.className += ` ${prefixCls}-node-selected`;
 
         }
