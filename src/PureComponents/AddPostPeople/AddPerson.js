@@ -255,7 +255,7 @@ class AddPerson  extends React.Component{
                             component="treeDepartment"
                             label="部门"
                             onChange = {this.onChange}
-                            valueText={orgDetail?orgDetail:[{orgName:''}]}
+                            valueText={orgDetail}
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}
                         />

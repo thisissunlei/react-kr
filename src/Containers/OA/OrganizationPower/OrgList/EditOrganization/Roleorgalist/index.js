@@ -84,7 +84,7 @@ export default class RoleorgaList extends Component{
 	//获取编辑信息
 	getEditData=(id)=>{
 		var _this=this;
-       Http.request('role-power-watch',{id:id}).then(function(response) {
+       Http.request('role-power-watch',{orgDetailId:id}).then(function(response) {
            Store.dispatch(initialize('EditRole',response));
         }).catch(function(err) {
           Message.error(err.message);
@@ -101,6 +101,8 @@ export default class RoleorgaList extends Component{
 
 	//新建提交
 	addPostSubmit=(params)=>{
+	   params=Object.assign({},params);
+	   params.id=this.props.id;
        var _this=this;
        Http.request('role-power-add',{},params).then(function(response) {
            _this.setState({
@@ -126,6 +128,8 @@ export default class RoleorgaList extends Component{
     //编辑提交
 	editPostSubmit=(params)=>{
         var _this=this;
+		params=Object.assign({},params);
+	    params.id=this.props.id;
        Http.request('role-power-edit',{},params).then(function(response) {
            _this.setState({
 						searchParams:{
