@@ -161,9 +161,9 @@ export default class OaTreePersonnel extends React.Component{
 		var text = '';
 		for(let i=0 ;i<textData.length;i++){
 			if(i==0){
-				text+= text;
+				text+= textData[i].orgName;
 			}else{
-				text+= ","+text;
+				text+= ","+textData[i].orgName;
 			}
 		}
 		
