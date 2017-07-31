@@ -42,6 +42,7 @@ class AgreementTable  extends React.Component{
 	}
 	onPageChange=(page)=>{
 		console.log('page',page);
+		State.getIncomeList({page:page,pageSize:10})
 	}
 	click=(item)=>{
 		window.open('#/operation/customerManage/customerList','_target')
@@ -63,7 +64,7 @@ class AgreementTable  extends React.Component{
 						</tr>
 					</thead>
 					<tbody>
-						{State.paymentList.map((item,index)=>{
+						{State.agreementList.items.map((item,index)=>{
 							return (
 								<tr key={index} onClick={this.click.bind(this,item)} >
 									<td style={{maxWidth:300}}>
@@ -86,7 +87,7 @@ class AgreementTable  extends React.Component{
 				</table>
 
            		<div className='footPage' style={{marginTop:40}}>
-           			<Pagination  totalCount={20} page={1} pageSize={10} onPageChange={this.onPageChange}/>
+           			<Pagination  totalCount={State.agreementList.totalCount} page={State.agreementList.page} pageSize={10} onPageChange={this.onPageChange}/>
            		</div>
 
 				

@@ -33,6 +33,7 @@ class Home  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		State.getHomeData({cmtId:''})
 	}
 
 	componentDidMount(){

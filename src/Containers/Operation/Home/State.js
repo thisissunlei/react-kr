@@ -27,7 +27,10 @@ let State = observable({
 	//收账payment、订单order、带入驻合同agreement、预约参观visit
 	tableType:'payment',
 	loading:true,
-	paymentList:[],
+	paymentList:{
+		items:[]
+	},
+	InfoData:{},
 	openMonthPayment:false,
 	openAllPayment:false,
 	arrearages:false,
@@ -37,9 +40,32 @@ let State = observable({
 	fCustomer :false,
 	newClue:false,
 	cityList :[],
-	communitys:[]
+	communitys:[],
+	orderList:{
+		items:[]
+	},
+	agreementList:{
+		items:[]
+	},
+	visitList:{
+		items:[]
+	},
+
 
 });
+
+// 获取运营主页数据
+State.getHomeData=action(function(params){
+		let _this = this;
+		Http.request('get-home-data', params).then(function(response) {
+			_this.InfoData = response;
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		//Store.dispatch(Actions.switchSidebarNav(false));
+})
+
+
 //select下拉数组的初始化
 State.selectDataInit=action(function(params) {
 	this.selectData=params;
@@ -51,17 +77,16 @@ State.ChangeCommunity = action(function(value) {
 
 // 获取应收账款的数据
 State.getPaymentList=action(function(params){
-		// params = {page:1,pageSize:10};
 		let _this = this;
-		Http.request('contract-list', params).then(function(response) {
-			_this.paymentList = response.items;
+		Http.request('get-accounts-receivable', params).then(function(response) {
+			_this.paymentList = response;
 			_this.loading = false;
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
-// 获取应收账款的数据
+// 获取切换社区
 State.getCommunityList=action(function(){
 		let _this = this;
 		Http.request('getActivityCommunityList',"").then(function(response){
@@ -84,6 +109,35 @@ State.getCommunityList=action(function(){
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
+// 获取订单到期列表
+State.getOrderList=action(function(params){
+		let _this = this;
+		Http.request('get-expire-contract',params).then(function(response){
+			_this.orderList = response;
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		//Store.dispatch(Actions.switchSidebarNav(false));
+})
+// 待驻合同列表
+State.getIncomeList=action(function(params){
+		let _this = this;
+		Http.request('get-settled-contract',params).then(function(response){
+			_this.agreementList = response;
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		//Store.dispatch(Actions.switchSidebarNav(false));
+})
+// 预约参观列表
+State.getVisitList=action(function(params){
+		let _this = this;
+		Http.request('get-appointment',params).then(function(response){
+			_this.visitList = response
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+})
 
 State.getCommunity=action(function(id){
 	let list = [];
@@ -93,8 +147,34 @@ State.getCommunity=action(function(id){
 		}
 	})
 	State.communitys = list[0].communitys;
-	console.log('==State===>',list[0].communitys,list[0].communitys.length)
 	
+})
+
+// 获取切换社区
+State.getLeftList =action(function(type){
+		let _this = this;
+		let params = {page:1,pageSize:10}
+
+		switch (type){
+			case 'payment':
+				_this.getPaymentList(params);
+				_this.tableType = type;
+				break;
+			case 'order':
+				_this.tableType = type;
+				_this.getOrderList(params);
+				break;
+			case 'agreement':
+				_this.tableType = type;
+				_this.getIncomeList(params);
+				break;
+			case 'visit':
+				_this.tableType = type;
+			 	_this.getVisitList(params)
+			 	break;
+			default:
+				return;
+		}
 })
 
 

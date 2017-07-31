@@ -75,7 +75,7 @@ class MonthPayment extends React.Component{
 						page:1,
 						pageSize:10
 					}}
-                    ajaxUrlName='contract-list'
+                    ajaxUrlName='get-month-payment'
                     ajaxFieldListName="items"
 					  >
 		            <TableHeader className='detail-header'>

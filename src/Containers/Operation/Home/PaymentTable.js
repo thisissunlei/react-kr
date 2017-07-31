@@ -41,6 +41,7 @@ class PaymentTable  extends React.Component{
 	componentDidMount(){
 	}
 	onPageChange=(page)=>{
+		State.getPaymentList({page:page,pageSize:10})
 		console.log('page',page);
 	}
 
@@ -58,7 +59,7 @@ class PaymentTable  extends React.Component{
 						</tr>
 					</thead>
 					<tbody>
-						{State.paymentList.map((item,index)=>{
+						{State.paymentList.items.map((item,index)=>{
 							return (
 								<tr key={index}>
 									<td style={{maxWidth:300}}>
@@ -83,7 +84,7 @@ class PaymentTable  extends React.Component{
 				</table>
 
            		<div className='footPage' style={{marginTop:40}}>
-           			<Pagination  totalCount={20} page={1} pageSize={10} onPageChange={this.onPageChange}/>
+           			<Pagination  totalCount={State.paymentList.totalCount} page={State.paymentList.page} pageSize={10} onPageChange={this.onPageChange}/>
            		</div>
 
 				
