@@ -277,7 +277,7 @@ export default class Role extends Component{
 						}}></TableRowColumn>
 						<TableRowColumn type="operation">
                             <Button label="编辑"  type="operation"  operation="edit"/>
-			                <Button label="删除"  type="operation"  operation="delete" />
+			                {/*<Button label="删除"  type="operation"  operation="delete" />*/}
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>

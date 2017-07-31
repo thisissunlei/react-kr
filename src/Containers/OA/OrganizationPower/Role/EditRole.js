@@ -58,7 +58,7 @@ class EditRole  extends React.Component{
                             name="allotUserId"
                             component="treePersonnel"
                             label="分配人员"
-                            ajaxUrlName = "get-personnel-tree"
+                            ajaxUrlName = "role-new-tree"
                             requireLabel={true}
                             checkable = {true}
                             valueText={(detail && detail[0] && detail[0].orgName)?detail:[{orgName:''}]}
