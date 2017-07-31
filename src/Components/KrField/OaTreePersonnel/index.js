@@ -153,8 +153,10 @@ export default class OaTreePersonnel extends React.Component{
 
         dialogTitle = "选择" + dialogTitle;
 		let textData = [];
+		let echoList = null;
 		if(oneOpen && valueText && valueText[0].orgName){
-				textData = [].concat(valueText);
+			textData = [].concat(valueText);
+			echoList = [].concat(valueText);
 		}else{
 			textData = [].concat(data);
 		}
@@ -191,8 +193,17 @@ export default class OaTreePersonnel extends React.Component{
 					open={isDialog}
 					noMaxHeight = {true}
 					contentStyle ={{ width: '653px',height:'580px',position:'fixed',left: "50%",marginLeft:'-345px'}}
+
 				 >
-					<PersonnelDialog {...other} treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<PersonnelDialog 
+						{...other} 
+						treeType = {this.props.treeType} 
+						ajaxUrlName = {ajaxUrlName} 
+						onSelect = {this.onSelect} 
+						onSubmit = {this.onSubmit} 
+						onCancel = {this.onCancel}
+						echoList = {echoList}
+					/>
 				</Dialog>
 				</div>
 			 </WrapComponent>
