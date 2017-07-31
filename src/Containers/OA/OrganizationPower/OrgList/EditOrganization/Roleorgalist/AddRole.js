@@ -17,11 +17,12 @@ class AddRole  extends React.Component{
 	constructor(props,context){
 		super(props, context);
         this.state = {
-         
+           isSure:false
         }
 	}
 
     componentDidMount(){
+        Store.dispatch(change('AddRole','orgType','SUBCOMPANY'));
     }
 
 
@@ -35,9 +36,23 @@ class AddRole  extends React.Component{
         onCancel && onCancel();
     }
 
+    typeOnChange=(param)=>{
+       console.log('dddd',param);
+       if(param.value=='DEPARTMENT'){
+           this.setState({
+             isSure:true  
+           })
+       }else{
+          this.setState({
+             isSure:false
+          })
+       }
+    }
+
 	render(){
 
         let {handleSubmit,roleArr}=this.props;
+        let {isSure}=this.state;
 
 		return(
 
@@ -60,20 +75,33 @@ class AddRole  extends React.Component{
                             name="orgType"
                             component="select"
                             label="机构类型"
-                            onChange = {this.onChange}
+                            onChange = {this.typeOnChange}
                             requireLabel={true}
                             options={[{value:'DEPARTMENT',label:'部门'},{value:'SUBCOMPANY',label:'分部'}]}
 						/>
 
 
-                       <KrField
-                            grid={1}
+                        {isSure&&<KrField
+                            grid={1/2}
                             style={{width:262}}
                             name="orgId"
-                            component="selectTree"
+                            component="treeDepartment"
                             label="选择机构"
+                            onChange = {this.onChange}
+                            ajaxUrlName = "role-dep-tree"
                             requireLabel={true}
-						/>
+                        />}
+
+                         {!isSure&&<KrField
+                            grid={1/2}
+                            style={{width:262}}
+                            name="orgId"
+                            component="treeDepartment"
+                            label="选择机构"
+                            onChange = {this.onChange}
+                            ajaxUrlName = "role-sub-tree"
+                            requireLabel={true}
+                        />}
 
 
                         <Grid style={{marginBottom:5,marginLeft:-28,marginTop:18}}>
