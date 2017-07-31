@@ -4,7 +4,6 @@ import SliderTree from'../../../SliderTree'
 import Button from '../../../Button'
 import Message from '../../../Message'
 import {Http} from 'kr/Utils'
-import krData from '../kr.json'
 export default class DivisionDialog extends React.Component{
 	constructor(props,context){
 		super(props,context)
@@ -67,6 +66,7 @@ export default class DivisionDialog extends React.Component{
 	}
 	//获取tree的数据
 	getTreeData = () => {
+
 
 		let { ajaxUrlName} = this.props;
 		const _this = this;
