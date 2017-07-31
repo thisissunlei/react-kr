@@ -4,7 +4,7 @@ import {
 	TabC
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
-import RoleorgaList from './RoleorgaList';
+import RoleOrgaList from './RoleOrgaList/index.js';
 import './index.less';
 
 export default class EditOrganization  extends React.Component{
@@ -63,7 +63,7 @@ export default class EditOrganization  extends React.Component{
 						</TabC> 
 						
 						<TabC label='分配角色及机构'> 
-							<RoleorgaList
+							<RoleOrgaList
 							 id={this.props.id}
 							/>
 						</TabC> 
