@@ -28,7 +28,7 @@ class AddRole  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,subCompany}=this.props;
+        let {handleSubmit}=this.props;
 
 		return(
 

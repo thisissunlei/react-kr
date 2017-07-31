@@ -49,11 +49,6 @@ class EditRole  extends React.Component{
         let {handleSubmit,roleArr,detail}=this.props;
         let {isSure}=this.state;
 
-         detail.map((item,index)=>{
-            item.orgName=item.label;
-            item.orgId=item.value;
-        })
-
         
 		return(
 

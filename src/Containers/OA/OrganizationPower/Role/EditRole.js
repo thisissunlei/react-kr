@@ -31,12 +31,6 @@ class EditRole  extends React.Component{
 
         let {handleSubmit,detail}=this.props;
          
-        
-        detail.map((item,index)=>{
-            item.orgName=item.label;
-            item.orgId=item.value;
-        })
-
 
 		return(
 
