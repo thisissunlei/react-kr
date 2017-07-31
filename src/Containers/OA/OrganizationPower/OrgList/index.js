@@ -42,7 +42,9 @@ export default class OrgList extends Component{
 				pageSize:15
 			},
 			//数据准备
-			latitude:''
+			latitude:'',
+			//编辑回显
+			id:'',
 		}
 	}
     
@@ -53,9 +55,9 @@ export default class OrgList extends Component{
 	//所属纬度数据准备
 	dataReady=()=>{
 		var _this=this;
-	   Http.request('post-type-info').then(function(response) {
+	   Http.request('dim-list').then(function(response) {
 				_this.setState({
-					//latitude:response.subcompanys
+					latitude:response.items
 				})
      }).catch(function(err) {
           Message.error(err.message);
@@ -66,24 +68,14 @@ export default class OrgList extends Component{
     
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
-			this.getEditData(itemDetail.id);
 			this.setState({
-			  openEditType:true	
+			  openEditType:true,
+			  id:itemDetail.id
 			})
 		}
 	}
 
-
-	//获取编辑信息
-	getEditData=(id)=>{
-		var _this=this;
-       Http.request('post-type-watch',{id:id}).then(function(response) {
-           Store.dispatch(initialize('EditPostType',response));
-        }).catch(function(err) {
-          Message.error(err.message);
-        });
-	}
-
+	
 
 	//搜索确定
 	onSearchSubmit = (params)=>{
@@ -106,7 +98,7 @@ export default class OrgList extends Component{
 	//新建提交
 	addPostSubmit=(params)=>{
        var _this=this;
-       Http.request('post-type-add',{},params).then(function(response) {
+       Http.request('org-power-add',{},params).then(function(response) {
            _this.setState({
 						searchParams:{
 							time:+new Date(),
@@ -130,7 +122,7 @@ export default class OrgList extends Component{
     //编辑提交
 	editPostSubmit=(params)=>{
         var _this=this;
-       Http.request('post-type-edit',{},params).then(function(response) {
+       Http.request('org-power-edit',{},params).then(function(response) {
            _this.setState({
 						searchParams:{
 							time:+new Date(),
@@ -167,7 +159,7 @@ export default class OrgList extends Component{
 
 	render(){
 
-		let {latitude}=this.state;
+		let {latitude,id}=this.state;
 
 		return(
       	<div className="oa-or-role">
@@ -200,7 +192,7 @@ export default class OrgList extends Component{
 					onOperation={this.onOperation}
 					displayCheckbox={false}
 					ajaxParams={this.state.searchParams}
-					ajaxUrlName='postTypeList'
+					ajaxUrlName='org-power-list'
 					ajaxFieldListName="items"
 				    onPageChange = {this.pageChange}
 			>
@@ -230,17 +222,17 @@ export default class OrgList extends Component{
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
-						<TableRowColumn name="orderNum"></TableRowColumn>
-						<TableRowColumn name="updatorName" component={(value,oldValue)=>{
+						<TableRowColumn name="dimName"></TableRowColumn>
+						<TableRowColumn name="desc" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
-						<TableRowColumn name="descr"></TableRowColumn>
-						<TableRowColumn name="orderNum"></TableRowColumn>
-						<TableRowColumn name="uTime" component={(value,oldValue)=>{
+						<TableRowColumn name="enable"></TableRowColumn>
+						<TableRowColumn name="operator"></TableRowColumn>
+						<TableRowColumn name="time" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}}></TableRowColumn>
 						<TableRowColumn type="operation">
@@ -278,6 +270,7 @@ export default class OrgList extends Component{
 			  <EditOrganization 
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
+				id={id}
 			  />
 			</Drawer>
         </div>

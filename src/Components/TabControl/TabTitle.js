@@ -6,9 +6,10 @@ export default class TabTitle extends React.Component {
         this.state = {
            active:0
         }
-        const {initStyle, activeStyle} = props;
-        this.init ='ui-init-class ui-tab-control'
-        this.active ='ui-active-class ui-tab-control'
+        this.init ='ui-init-class ui-tab-control';
+        this.active ='ui-active-class ui-tab-control';
+        this.acStyle=this.props.acStyle;
+        this.inStyle=this.props.inStyle;
 	}
     componentDidMount(){
        
@@ -27,10 +28,12 @@ export default class TabTitle extends React.Component {
         const _this=this;
         let titles = labels.map((item,index)=>{
             let defaultStyel = index == active ? _this.active : _this.init;
+            let style=index == active?_this.acStyle:_this.inStyle
             return (<span key = {index} 
                     onClick = {()=>{
                         this.titleClick(item,index);
                     }}
+                    style={style}
                     className={defaultStyel}
                     >
                         {item}

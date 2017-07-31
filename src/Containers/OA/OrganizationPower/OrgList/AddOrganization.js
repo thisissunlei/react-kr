@@ -18,7 +18,7 @@ class AddOrganization  extends React.Component{
 	}
 
     componentDidMount(){
-         Store.dispatch(change('AddOrganization','enabled','true'));
+         Store.dispatch(change('AddOrganization','enable','1'));
     }
 
     onSubmit=(values)=>{
@@ -34,6 +34,14 @@ class AddOrganization  extends React.Component{
 	render(){
 
         let {handleSubmit,latitude}=this.props;
+
+        var lati=[];
+        latitude.map((item,index)=>{
+            var list={};
+            list.value=item.id;
+            list.label=item.name;
+            lati.push(list);
+        })
 
 		return(
 
@@ -61,19 +69,19 @@ class AddOrganization  extends React.Component{
 
                         <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
-                            name="subId"
+                            name="dimId"
                             component="select"
                             label="所属纬度"
                             requireLabel={true}
-                            options={latitude}
+                            options={lati}
 						/>
 
-                         <div className='m-or-enable'><KrField style={{width:262,marginLeft:29}} name="enabled" component="group" label="是否启用" requireLabel={true}>
- 							 <KrField name="enabled" label="启用" type="radio" value='true' />
- 							 <KrField name="enabled" label="不启用" type="radio" value='false' />
+                         <div className='m-or-enable'><KrField style={{width:262,marginLeft:29}} name="enable" component="group" label="是否启用" requireLabel={true}>
+ 							 <KrField name="enable" label="启用" type="radio" value='1' />
+ 							 <KrField name="enable" label="不启用" type="radio" value='0' />
  						</KrField></div>
 
-                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'544px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='role-len-textarea'/>
+                        <KrField grid={1} label="描述" name="desc" heightStyle={{height:"78px",width:'544px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='role-len-textarea'/>
 
                         
                        <Grid style={{marginBottom:5,marginLeft:-42,marginTop:-12}}>
@@ -96,19 +104,19 @@ const validate = values =>{
 	const errors = {};
 
      if(!values.name){
-       errors.name='请填写职务类型名称';  
-    }else if(values.name.length>20){
-       errors.name='职务类型名称不能超过20个字符';   
+       errors.name='请填写机构分权名称'; 
+    }else if(values.name.length>30){
+       errors.name='机构分权名称不能超过30个字符';   
     }
 
     if(!values.code){
-      errors.code='请填写职务类型编码'  
-    }else if(values.code.length>20){
-       errors.code='职务类型编码不能超过20个字符';   
+      errors.code='请填写编码'  
+    }else if(values.code.length>30){
+       errors.code='编码不能超过30个字符';   
     }
 
-    if(!values.subId){
-       errors.subId='请选择分部'   
+    if(!values.dimId){
+       errors.dimId='请选择纬度'   
     }
     
 	return errors
