@@ -10,7 +10,7 @@ import Dialog from '../../Dialog'
 // import mockData from './Data.json';
 import DivisionDialog from './DivisionDialog/index';
 
-export default class OaTreeDepartment extends React.Component{
+export default class OaTreeDivision extends React.Component{
 
 	static propTypes = {
 		inline:React.PropTypes.bool,
