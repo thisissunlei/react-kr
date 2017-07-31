@@ -147,8 +147,7 @@ export default class OaTreeDepartment extends React.Component{
 			 className,
 			 style:heightStyle,
 			 onChange:this.onChange,
-			//  onBlur:this.onBlur,
-			//  onFocus:this.onFocus,
+			
 			 ...other,
 			 autoFocus,
 		 }
@@ -162,7 +161,7 @@ export default class OaTreeDepartment extends React.Component{
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText)? valueText : data[0].orgName  }</div>
+				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText[0].orgName)? valueText[0].orgName : data[0].orgName  }</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 
