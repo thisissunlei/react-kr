@@ -61,9 +61,18 @@ import ChangeUploadImageComponent from './ChangeUploadImageComponent';
 import SelectTree from './SelectTree';
 import SearchOaPersonal from './SearchOaPersonal';
 import OaUploadImage from './OaUploadImage';
+//客户来源搜索下拉
+import SelectCustomerSource from './SelectCustomerSource';
+
 //血型
 import SelecTemployees from './SelecTemployees';
 import SwitchSlide from './SwitchSlide';
+//高级查询客户来源
+import UpMerchantsSource from './UpMerchantsSource';
+import UpSignedClientSource from './UpSignedClientSource';
+
+UpSignedClientSource
+
 
 // import OaTreeDepartment from './OaTreeDepartment';
 // import OaTreePersonnel from './OaTreePersonnel';
@@ -91,8 +100,6 @@ class FieldRevert extends React.Component {
 			if(isMobx){
 				return <MobxForm.Field {...this.props} />;
 			}
-
-			console.log('--->>>>>>',this.props);
 
 			return <Field  {...this.props} />;
 
@@ -473,24 +480,27 @@ class FieldRevert extends React.Component {
 			}
 
 			if (component === 'switchSlide') {
-				console.log('<<<--->',this.props.valueText);
 				return (
 					<FieldRevert {...this.props} component={SwitchSlide}  style={WrapStyles} {...other}/>
 				)
 			}
-			// if (component === 'treeDepartment') {
-			// 	return (
-			// 		<FieldRevert {...this.props} component={OaTreeDepartment}  style={WrapStyles} {...other}/>
-			// 	)
-			// }
-			// if (component === 'treePersonnel') {
-			// 	return (
-			// 		<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
-			// 	)
-			// }
 
-			
-		
+			if (component === 'customerSource') {
+				return (
+					<FieldRevert {...this.props} component={SelectCustomerSource}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'upMerchantsSource') {
+				return (
+					<FieldRevert {...this.props} component={UpMerchantsSource}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'upSignedClientSource') {
+				return (
+					<FieldRevert {...this.props} component={UpSignedClientSource}  style={WrapStyles} {...other}/>
+				)
+			}
+			UpSignedClientSource
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);
