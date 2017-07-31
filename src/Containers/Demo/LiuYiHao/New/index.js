@@ -28,12 +28,12 @@ class New extends React.Component {
 					grid={1/2}
 					style={{width:262,marginLeft:28}}
 					name="leader"
-					component="treeDepartment"
+					component="treePersonnel"
 					label="直接上级"
 					treeType = "personnel"
 					ajaxUrlName = "get-personnel-tree"
 					params = {{dimId:''}}
-					requireLabel={true}
+					checkable = {true}
 				/>
 			</div>
 

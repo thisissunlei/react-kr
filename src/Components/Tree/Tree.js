@@ -219,6 +219,8 @@ class Tree extends React.Component {
       const halfChecked = this.props.checkedKeys ? this.props.checkedKeys.halfChecked : [];
       this.props.onCheck(getStrictlyValue(checkedKeys, halfChecked), newSt);
     } else {
+     
+      
       if (checked && index === -1) {
         this.treeNodesStates[treeNode.props.pos].checked = true;
         const checkedPositions = [];

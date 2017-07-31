@@ -24,9 +24,9 @@ export default class OaTreeDepartment extends React.Component{
 		super(props,context)
 		this.state = {
 			isDialog:false,
-			data:{
+			data:[{
 				orgName:"请选择"
-			},
+			}],
 			oneOpen:true,
 			other:'',
 		}
@@ -46,7 +46,7 @@ export default class OaTreeDepartment extends React.Component{
 
 	onSubmit = (data) =>{
 		let {treeType} = this.props;
-		if( data.orgName == "" ){
+		if( data[0].orgName == "" ){
 			if(treeType == "department"){
 				Message.error("请选择部门");
 			}else{
@@ -161,8 +161,8 @@ export default class OaTreeDepartment extends React.Component{
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
-				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText)? valueText : data.orgName  }</div>
+				 <Input onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
+				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText)? valueText : data[0].orgName  }</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 
@@ -173,7 +173,7 @@ export default class OaTreeDepartment extends React.Component{
 					noMaxHeight = {true}
 					contentStyle ={{ width: '653px',height:'580px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
-					<DepartmentDialog  treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<DepartmentDialog {...other} treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
 				</Dialog>
 				</div>
 			 </WrapComponent>
