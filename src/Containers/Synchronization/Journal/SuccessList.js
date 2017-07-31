@@ -118,7 +118,7 @@ export default class FailList extends React.Component {
 									 	{'成功'}
 									 	</div>)
 								 }}></TableRowColumn>
-		              		 <TableRowColumn name="content"
+		              		 <TableRowColumn name="message"
 		              		 component={(value,oldValue)=>{
 									var TooltipStyle=""
 									if(value.length==""){

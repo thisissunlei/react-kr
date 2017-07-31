@@ -128,7 +128,7 @@ export default class FailList extends React.Component {
 				              		 	{item.status?'成功':'失败'}
 				              		 </TableRowColumn>
 				              		 <TableRowColumn  style={{width:220,overflow:'hidden'}}>
-				              		 	{item.content} 
+				              		 	{item.message} 
 				              		 </TableRowColumn>
 				              	</TableRow>
 		              		)
