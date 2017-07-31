@@ -59,7 +59,9 @@ export default class EditOrganization  extends React.Component{
 						</TabC> 
 						
 						<TabC label='分配角色及机构'> 
-							<RoleorgaList/>
+							<RoleorgaList
+							 id={this.props.id}
+							/>
 						</TabC> 
 				  </TabCs>
 			  </div>

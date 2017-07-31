@@ -34,7 +34,7 @@ class EditRole  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,roleArr}=this.props;
 
 		return(
 
@@ -44,27 +44,29 @@ class EditRole  extends React.Component{
                         <KrField
                             grid={1}
                             style={{width:262,marginBottom:5}}
-                            name="code"
+                            name="roleId"
                             component="select"
                             label="角色"
                             requireLabel={true}
+                            options={roleArr}
 						/>
 
 
                         <KrField grid={1}
                             style={{width:262,marginBottom:5}}
-                            name="subId"
+                            name="orgType"
                             component="select"
                             label="机构类型"
                             onChange = {this.onChange}
                             requireLabel={true}
+                            options={[{value:'DEPARTMENT',label:'部门'},{value:'SUBCOMPANY',label:'分部'}]}
 						/>
 
 
                        <KrField
                             grid={1}
                             style={{width:262}}
-                            name="typeId"
+                            name="orgId"
                             component="selectTree"
                             label="选择机构"
                             requireLabel={true}

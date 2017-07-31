@@ -41,8 +41,11 @@ export default class RoleorgaList extends Component{
 			openDelete:false,
 			searchParams:{
 				page:1,
-				pageSize:15
+				pageSize:15,
+				id:this.props.id
 			},
+			//角色
+			roleArr:[]
 		}
 	}
     
@@ -60,13 +63,29 @@ export default class RoleorgaList extends Component{
 			})		
 		}
 	}
-
+    
+	componentWillMount(){
+	  this.dataReady();
+	}
+    
+	//数据准备
+	dataReady=()=>{
+		var _this=this;
+	   Http.request('role-power-all').then(function(response) {
+				_this.setState({
+					roleArr:response.items
+				})
+     }).catch(function(err) {
+          Message.error(err.message);
+     });	
+	}
+	
 
 	//获取编辑信息
 	getEditData=(id)=>{
 		var _this=this;
-       Http.request('post-type-watch',{id:id}).then(function(response) {
-           Store.dispatch(initialize('EditPostType',response));
+       Http.request('role-power-watch',{id:id}).then(function(response) {
+           Store.dispatch(initialize('EditRole',response));
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -83,7 +102,7 @@ export default class RoleorgaList extends Component{
 	//新建提交
 	addPostSubmit=(params)=>{
        var _this=this;
-       Http.request('post-type-add',{},params).then(function(response) {
+       Http.request('role-power-add',{},params).then(function(response) {
            _this.setState({
 						searchParams:{
 							time:+new Date(),
@@ -107,7 +126,7 @@ export default class RoleorgaList extends Component{
     //编辑提交
 	editPostSubmit=(params)=>{
         var _this=this;
-       Http.request('post-type-edit',{},params).then(function(response) {
+       Http.request('role-power-edit',{},params).then(function(response) {
            _this.setState({
 						searchParams:{
 							time:+new Date(),
@@ -134,7 +153,7 @@ export default class RoleorgaList extends Component{
 	delSubmit = () =>{
 		let {deleteId}=this.state;
 		var _this=this;
-		Http.request('post-list-delete',{id:deleteId}).then(function(response) {
+		Http.request('role-power-delete',{id:deleteId}).then(function(response) {
            _this.setState({
 			  searchParams:{
 				  time:+new Date(),
@@ -151,6 +170,8 @@ export default class RoleorgaList extends Component{
 
 
 	render(){
+
+		let {roleArr}=this.state;
 
 		return(
 
@@ -176,7 +197,7 @@ export default class RoleorgaList extends Component{
 					onOperation={this.onOperation}
 					displayCheckbox={false}
 					ajaxParams={this.state.searchParams}
-					ajaxUrlName='postTypeList'
+					ajaxUrlName='role-power-list'
 					ajaxFieldListName="items"
 			>
 				<TableHeader className='detail-header'>
@@ -187,15 +208,15 @@ export default class RoleorgaList extends Component{
 				</TableHeader>
 				<TableBody>
 					<TableRow className='detail-row'>
-						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="name"></TableRowColumn>
-						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="code" component={(value,oldValue)=>{
+						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="roleName"></TableRowColumn>
+						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="roleDesc" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
-						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="updatorName" component={(value,oldValue)=>{
+						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="orgName" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
@@ -220,6 +241,7 @@ export default class RoleorgaList extends Component{
 				<AddRole
 					onCancel={this.openAddPost}
 					onSubmit={this.addPostSubmit}
+					roleArr={roleArr}
 				/>
 			</Dialog>
 			{/*编辑*/}
@@ -232,6 +254,7 @@ export default class RoleorgaList extends Component{
 				<EditRole
 					onCancel={this.openEditPost}
 					onSubmit={this.editPostSubmit}
+					roleArr={roleArr}
 				/>
 			</Dialog>
 
