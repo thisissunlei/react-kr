@@ -80,7 +80,7 @@ export default class FailList extends React.Component {
 		                  <TableHeaderColumn>时间</TableHeaderColumn>
 		                  <TableHeaderColumn>同步方式</TableHeaderColumn>
 		                  <TableHeaderColumn>同步状态</TableHeaderColumn>
-		                  <TableHeaderColumn>内容</TableHeaderColumn>
+		                  <TableHeaderColumn style={{width:300}}>内容</TableHeaderColumn>
 		              </TableHeader>
 		              <TableBody>
 		              	<TableRow>
@@ -126,8 +126,10 @@ export default class FailList extends React.Component {
 									}else{
 										TooltipStyle="block";
 									}
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-									 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 	<Tooltip offsetTop={5} place='top' >
+											<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
+									 	</Tooltip></div>)
 								 }} > </TableRowColumn>
 		              	</TableRow>
 		              </TableBody>
