@@ -26,20 +26,21 @@ class EditPerson  extends React.Component{
             //选择部门
             isDepSelect:true,
 
-            basicInfo:{
-
-            }
+            basicInfo:[{
+                leaderName:'',
+                depName:'s'
+            }]
 
         }
 
         let {basicInfo} = this.props;
         var orgType = "DEPARTMENT";
-        if(!basicInfo.depId){
+        if(!basicInfo[0].depId){
             orgType = "SUBCOMPANY";
         }
 
-        this.getPositionType({orgId:basicInfo.depId,treeType:orgType});
-        this.getPrepareData({value:basicInfo.typeId});
+        this.getPositionType({orgId:basicInfo[0].depId,treeType:orgType});
+        this.getPrepareData({value:basicInfo[0].typeId});
 	}
 
     componentDidMount(){
@@ -54,10 +55,10 @@ class EditPerson  extends React.Component{
         let {basicInfo} = this.props;
         let params = Object.assign({},values);
 
-        params.jobId = values.jobId.value || basicInfo.jobId||"";
-        params.leader = values.leader.orgId || basicInfo.leader||"";
+        params.jobId = values.jobId.value || basicInfo[0].jobId||"";
+        params.leader = values.leader.orgId || basicInfo[0].leader||"";
         params.treeType = values.leader.treeType||"";
-        params.levelId = values.levelId.value|| basicInfo.levelId||"";
+        params.levelId = values.levelId.value|| basicInfo[0].levelId||"";
     
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
@@ -76,8 +77,8 @@ class EditPerson  extends React.Component{
     }
     positionTypeChange = (data) =>{
         let {basicInfo}=this.state;
-        basicInfo.jobName='请选择';
-        basicInfo.levelName='请选择';
+        basicInfo[0].jobName='请选择';
+        basicInfo[0].levelName='请选择';
         if(data && data.value){
             this.getPrepareData(data);
             this.setState({
@@ -187,7 +188,8 @@ class EditPerson  extends React.Component{
                             treeType = "personnel"
                             ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
-                            valueText = {basicInfo.leaderName}
+                            valueText = {basicInfo[0].leaderName?[{orgName:basicInfo[0].leaderName}]:[{orgName:''}]}
+                            
                         />
 
                         <KrField
@@ -198,7 +200,7 @@ class EditPerson  extends React.Component{
                             label="部门"
                             treeType = "department"
                             onChange = {this.onChange}
-                            valueText = {basicInfo.depName}
+                            valueText = {basicInfo[0].depName?[{orgName:basicInfo[0].depName}]:[{orgName:''}]}
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}
                         />
