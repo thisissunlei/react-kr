@@ -144,12 +144,17 @@ export default class RoleorgaList extends Component{
         var _this=this;
 		params=Object.assign({},params);
 	    params.id=this.props.id;
-		console.log('ddddd',params);
-		/*var orgId=[];
-		params.orgId.map((item,index)=>{
+		var orgId=[];
+		if(params.orgId[0].orgName){
+		  params.orgId.map((item,index)=>{
 			orgId.push(item.orgId);
-		})
-		params.orgId=orgId;*/
+		 })
+		}else {
+		  params.orgList.map((item,index)=>{
+			orgId.push(item.orgId);
+		 })	
+		}	
+		params.orgId=orgId;
        Http.request('role-power-edit',{},params).then(function(response) {
            _this.setState({
 						searchParams:{
