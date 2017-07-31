@@ -49,11 +49,6 @@ class EditRole  extends React.Component{
         let {handleSubmit,roleArr,detail}=this.props;
         let {isSure}=this.state;
 
-         detail.map((item,index)=>{
-            item.orgName=item.label;
-            item.orgId=item.value;
-        })
-
         
 		return(
 
@@ -135,6 +130,11 @@ const validate = values =>{
 
     if(!values.orgType){
       errors.orgType='请选择机构类型'  
+    }
+
+
+    if(values.orgList&&values.orgList.length==0){
+       errors.orgId='请选择机构'   
     }
     
 	return errors

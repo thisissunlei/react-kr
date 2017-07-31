@@ -28,7 +28,7 @@ class AddRole  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,subCompany}=this.props;
+        let {handleSubmit}=this.props;
 
 		return(
 
@@ -57,7 +57,7 @@ class AddRole  extends React.Component{
                             name="allotUserId"
                             component="treePersonnel"
                             label="分配人员"
-                            ajaxUrlName = "get-personnel-tree"
+                            ajaxUrlName = "role-new-tree"
                             requireLabel={true}
                             checkable = {true}
                         />
@@ -96,9 +96,9 @@ const validate = values =>{
        errors.code='编码不能超过30个字符';   
     }
 
-    /*if(!values.allotUserId){
-       errors.allotUserId='请选择分部'   
-    }*/
+    if(!values.allotUserId){
+       errors.allotUserId='请选择分配人员'   
+    }
     
 	return errors
 }

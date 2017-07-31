@@ -438,6 +438,11 @@ var OAApi = {
       url:'/api/krspace-erp-web/tree/org-auth-sub',
       method: 'get'
   },
+  //机构分权－新的人员树
+  'role-new-tree':{
+      url:'/api/krspace-erp-web/tree/org-auth-resource',
+      method: 'get'
+  },
 }
 
 module.exports=OAApi;

@@ -31,13 +31,6 @@ class EditRole  extends React.Component{
 
         let {handleSubmit,detail}=this.props;
          
-        
-        detail.map((item,index)=>{
-            item.orgName=item.label;
-            item.orgId=item.value;
-        })
-
-        console.log('de',detail);
 
 		return(
 
@@ -65,7 +58,7 @@ class EditRole  extends React.Component{
                             name="allotUserId"
                             component="treePersonnel"
                             label="分配人员"
-                            ajaxUrlName = "get-personnel-tree"
+                            ajaxUrlName = "role-new-tree"
                             requireLabel={true}
                             checkable = {true}
                             valueText={(detail && detail[0] && detail[0].orgName)?detail:[{orgName:''}]}
@@ -106,9 +99,10 @@ const validate = values =>{
        errors.code='编码不能超过30个字符';   
     }
 
-    /*if(!values.allotUserId){
-       errors.allotUserId='请选择分部'   
-    }*/
+    
+    if(values.allotUser&&values.allotUser.length==0){
+       errors.allotUserId='请选择分配人员'   
+    }
     
 
 	return errors
