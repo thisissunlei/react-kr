@@ -64,12 +64,12 @@ class PaymentTable  extends React.Component{
 								<tr key={index}>
 									<td style={{maxWidth:300}}>
 										<div style={{height:40}}>
-											<span className="tableOver">{item.lessorAddress}</span>
-											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{item.lessorAddress}</div></Tooltip>
+											<span className="tableOver">{item.customer}</span>
+											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{item.customer}</div></Tooltip>
 										</div>
 									</td>
 									<td >{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</td>
-									<td >{item.id}</td>
+									<td >{item.payableMoney}</td>
 									<td >
 										<div style={{height:40}}>
 											<span className="tableOver">{DateFormat(item.leaseBegindate,'yyyy-mm-dd')}至{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</span>

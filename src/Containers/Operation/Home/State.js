@@ -20,7 +20,8 @@ let State = observable({
 	openChangeCommunity:false,
 	info:{
 		communityName:'酒仙桥社区',
-		communityId:''
+		communityId:'',
+		cityId:''
 	},
 	stationType:'rent',
 	roomType:'rent',
@@ -59,6 +60,7 @@ State.getHomeData=action(function(params){
 		let _this = this;
 		Http.request('get-home-data', params).then(function(response) {
 			_this.InfoData = response;
+			_this.getPaymentList({page:1,pageSize:10,cmtId:_this.info.communityId})
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -72,12 +74,15 @@ State.selectDataInit=action(function(params) {
 });
 State.ChangeCommunity = action(function(value) {
 	this.info = value;
+	console.log('======',value);
+	State.getHomeData({cmtId:value.communityId})
 	this.openChangeCommunity = false;
 });
 
 // 获取应收账款的数据
 State.getPaymentList=action(function(params){
 		let _this = this;
+		params = Object.assign({},params,{cmtId:_this.info.communityId})
 		Http.request('get-accounts-receivable', params).then(function(response) {
 			_this.paymentList = response;
 			_this.loading = false;
@@ -112,6 +117,7 @@ State.getCommunityList=action(function(){
 // 获取订单到期列表
 State.getOrderList=action(function(params){
 		let _this = this;
+		params = Object.assign({},params,{cmtId:_this.info.communityId})
 		Http.request('get-expire-contract',params).then(function(response){
 			_this.orderList = response;
 		}).catch(function(err) {
@@ -122,6 +128,7 @@ State.getOrderList=action(function(params){
 // 待驻合同列表
 State.getIncomeList=action(function(params){
 		let _this = this;
+		params = Object.assign({},params,{cmtId:_this.info.communityId})
 		Http.request('get-settled-contract',params).then(function(response){
 			_this.agreementList = response;
 		}).catch(function(err) {
@@ -132,6 +139,7 @@ State.getIncomeList=action(function(params){
 // 预约参观列表
 State.getVisitList=action(function(params){
 		let _this = this;
+		params = Object.assign({},params,{cmtId:_this.info.communityId})
 		Http.request('get-appointment',params).then(function(response){
 			_this.visitList = response
 		}).catch(function(err) {

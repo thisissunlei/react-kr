@@ -14,8 +14,8 @@ import {
 	SearchForms
 } from 'kr-ui';
 import {reduxForm} from 'redux-form';
-import State from './State.js';
-import './detail.less';
+import State from '../State';
+import '../detail.less';
 import {
 	observer
 } from 'mobx-react';
@@ -73,66 +73,59 @@ class MonthPayment extends React.Component{
                     onExport={this.onExportSign}
                     ajaxParams={{
 						page:1,
-						pageSize:10
+						pageSize:10,
+						cmtId:State.info.communityId
 					}}
-                    ajaxUrlName='get-month-payment'
+                    ajaxUrlName='get-cmt-arrearages'
                     ajaxFieldListName="items"
 					  >
 		            <TableHeader className='detail-header'>
 		              <TableHeaderColumn className='header-row'>社区名称</TableHeaderColumn>
 		              <TableHeaderColumn className='header-row'>客户名称</TableHeaderColumn>
                       <TableHeaderColumn className='header-row'>订单名称</TableHeaderColumn>
-		              <TableHeaderColumn className='header-row'>回款金额</TableHeaderColumn>
-					  <TableHeaderColumn className='header-row'>回款时间</TableHeaderColumn>
-					  <TableHeaderColumn className='header-row'>回款类型</TableHeaderColumn>
-					  <TableHeaderColumn className='header-row'>付款时间</TableHeaderColumn>
+		              <TableHeaderColumn className='header-row'>履约保证金欠款</TableHeaderColumn>
+					  <TableHeaderColumn className='header-row'>工位服务费欠款</TableHeaderColumn>
+					  <TableHeaderColumn className='header-row'>账款周期</TableHeaderColumn>
 		          	</TableHeader>
 
 			        <TableBody >
 			              <TableRow className='detail-row'>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='communityName' component={(value,oldValue)=>{
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='community' component={(value,oldValue)=>{
 		 						var maxWidth=6;
 		 						if(value.length>maxWidth){
 		 						 value = value.substring(0,6)+"...";
 		 						}
 		 						return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}} ></TableRowColumn>
-                            <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='sourceName' component={(value,oldValue)=>{
+                            <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='customer' component={(value,oldValue)=>{
 		 							var maxWidth=6;
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='company' component={(value,oldValue)=>{
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='mainbillName' component={(value,oldValue)=>{
 		 							var maxWidth=6;
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='company' component={(value,oldValue)=>{
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='paymentAmount' component={(value,oldValue)=>{
 		 							var maxWidth=6;
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='company' component={(value,oldValue)=>{
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='paymentDate' component={(value,oldValue)=>{
 		 							var maxWidth=6;
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='company' component={(value,oldValue)=>{
-		 							var maxWidth=6;
-		 							if(value.length>maxWidth){
-		 							 value = value.substring(0,6)+"...";
-		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='company' component={(value,oldValue)=>{
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='paymentType' component={(value,oldValue)=>{
 		 							var maxWidth=6;
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";

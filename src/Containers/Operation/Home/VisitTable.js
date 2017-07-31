@@ -68,14 +68,14 @@ class VisitTable  extends React.Component{
 							return (
 								<tr key={index} onClick={this.click.bind(this,item)} >
 									<td>
-										田欢欢
+										{item.visitor}
 									</td>
-									<td >{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</td>
-									<td >{item.id}</td>
+									<td >{item.phone}</td>
+									<td >{item.date}</td>
 									<td >
-										田欢欢
+										{item.number}
 									</td>
-									<td>13314619606</td>
+									<td>{item.source}</td>
 								</tr>
 
 							)

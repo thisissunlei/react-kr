@@ -18,7 +18,8 @@ import home from './images/home-community.svg';
 import  "./index.less";
 import ChangeCommunity from './ChangeCommunity';
 import HomeLeft from './HomeLeft';
-import MonthPayment from './MonthPayment';
+import MonthPayment from './RightDialog/MonthPayment';
+import AllPayment from './RightDialog/AllPayment';
 import HomeRight from './HomeRight';
 import State from './State';
 import {Http,DateFormat} from "kr/Utils";
@@ -57,6 +58,27 @@ class Home  extends React.Component{
 	closeMonthPayment=()=>{
 		State.openMonthPayment = false;
 	}
+	closeAllPayment=()=>{
+		State.openAllPayment = false;
+	}
+	closeArrearages=()=>{
+		State.arrearages = false;
+	}
+	closeSettledCustomer=()=>{
+		State.settledCustomer  = false;
+	}
+	closeNewClue=()=>{
+		State.newClue = false;
+	}
+	closeFCustomer=()=>{
+		State.fCustomer = false;
+	}
+	closeAllCustomer=()=>{
+		State.allCustomer = false;
+	}
+	closeSignedCustomer=()=>{
+		State.signedCustomer = false;
+	}
 	render(){
 		
 		return(
@@ -91,6 +113,62 @@ class Home  extends React.Component{
 						contentStyle ={{ width: '85%',height:'600px'}}
 					>
 						<MonthPayment />
+				</Dialog>
+				<Dialog
+						title="累积回款"
+						onClose={this.closeAllPayment}
+						open={State.openAllPayment}
+						contentStyle ={{ width: '85%',height:'600px'}}
+					>
+						<AllPayment />
+				</Dialog>
+				<Dialog
+						title="社区欠款"
+						onClose={this.closeArrearages}
+						open={State.arrearages}
+						contentStyle ={{ width: '85%',height:'600px'}}
+					>
+						<AllPayment />
+				</Dialog>
+				<Dialog
+						title="现入驻客户"
+						onClose={this.closeSettledCustomer}
+						open={State.settledCustomer}
+						contentStyle ={{ width: '85%',height:'600px'}}
+					>
+						<AllPayment />
+				</Dialog>
+				<Dialog
+						title="已约未入驻"
+						onClose={this.closeSignedCustomer}
+						open={State.signedCustomer}
+						contentStyle ={{ width: '85%',height:'600px'}}
+					>
+						<AllPayment />
+				</Dialog>
+				<Dialog
+						title="客户总数"
+						onClose={this.closeAllCustomer}
+						open={State.allCustomer}
+						contentStyle ={{ width: '85%',height:'600px'}}
+					>
+						<AllPayment />
+				</Dialog>
+				<Dialog
+						title="跟进中客户"
+						onClose={this.closeFCustomer}
+						open={State.fCustomer}
+						contentStyle ={{ width: '85%',height:'600px'}}
+					>
+						<AllPayment />
+				</Dialog>
+				<Dialog
+						title="新增线索"
+						onClose={this.closeNewClue}
+						open={State.newClue}
+						contentStyle ={{ width: '85%',height:'600px'}}
+					>
+						<AllPayment />
 				</Dialog>
 	     	</div>
 

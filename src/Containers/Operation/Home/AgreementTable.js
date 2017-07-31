@@ -69,16 +69,16 @@ class AgreementTable  extends React.Component{
 								<tr key={index} onClick={this.click.bind(this,item)} >
 									<td style={{maxWidth:300}}>
 										<div style={{height:40}}>
-											<span className="tableOver">{item.lessorAddress}</span>
-											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{item.lessorAddress}</div></Tooltip>
+											<span className="tableOver">{item.customer}</span>
+											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{item.customer}</div></Tooltip>
 										</div>
 									</td>
 									<td >{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</td>
-									<td >{item.id}</td>
+									<td >{item.stations}/{item.boardrooms}</td>
 									<td >
-										田欢欢
+										{item.contact}
 									</td>
-									<td>13314619606</td>
+									<td>{item.phone}</td>
 								</tr>
 
 							)
