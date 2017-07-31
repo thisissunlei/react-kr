@@ -1,9 +1,17 @@
 module.exports = [
 
 	{
-		primaryText: "单点系统",
+		primaryText: "基础管理",
 		router: 'permission',
 		menuItems: [
+			{
+				primaryText: "基础主页",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: '',
+				menuItems: [
+				]
+			},
 			{
 				primaryText: "账户管理",
 				iconName: 'icon-wendang',
@@ -34,6 +42,10 @@ module.exports = [
 					primaryText: '业务代码',
 					router: '/permission/opCode',
 					menuCode: 'sso_businessCode_base',
+				},{
+					primaryText: '菜单配置',
+					router: '/permission/menuSetting',
+					menuCode: 'sso_module_list',
 				}]
 			},
 			{
@@ -64,18 +76,68 @@ module.exports = [
 				router: 'permission/systemManage',
 				menuItems: [
 					{
-					primaryText: 'APP版本管理',
+					primaryText: 'APP版本',
 					router: '/permission/systemManage/appLoginLogs',
 					menuCode: 'sso_appVersion_base',
 				},
 				{
-					primaryText: 'PC版本管理',
+					primaryText: 'PC版本',
 					router: '/permission/systemManage/update-log',
 					menuCode: 'op_ver',
 				},
 				]
 			},
-
+			{
+				primaryText: "流程管理",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: '',
+				menuItems: [
+					{
+					primaryText: '流程类型',
+					router: '',
+					menuCode: '',
+				},
+				{
+					primaryText: '流程列表',
+					router: '',
+					menuCode: '',
+				},
+				]
+			},
+			{
+				primaryText: "知识中心",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: '',
+				menuItems: [
+					{
+						primaryText: '来源系统',
+						menuCode: 'doc_source',
+						router: 'docSourceServiceAdmin',
+						originUrl: '/krspace_oa_web/doc/docSourceService/toDocSourceServiceList?mid=59'
+					},
+					{
+						primaryText: '文件类型',
+						menuCode: 'oa_docfile_type',
+						router: 'docFiletypeAdmin',
+						originUrl: '/krspace_oa_web/doc/docFiletype/toDocFiletypeList?mid=56'
+					}, 
+					{
+						primaryText: '文件范围',
+						menuCode: 'oa_docfilerange',
+						router: 'docFileRangeAdmin',
+						originUrl: '/krspace_oa_web/doc/docFileRange/toDocFileRangeList?mid=57'
+					},
+					{
+						primaryText: '文档设置',
+						menuCode: 'oa_doctype',
+						router: 'docFileAdmin',
+						originUrl: '/krspace_oa_web/doc/docFile/toDocTypeList?mid=67'
+					},
+				
+				]
+			},
 
 
 		]

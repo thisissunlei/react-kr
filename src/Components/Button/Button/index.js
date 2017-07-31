@@ -4,11 +4,17 @@ import React, {
 
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Proptypes from 'prop-types';
 
 import './index.less';
 
 export default class Button extends Component {
 
+
+
+
+
+	
 	static displayName = 'Button';
 
 	static defaultProps = {
@@ -18,32 +24,32 @@ export default class Button extends Component {
 	}
 
 	static propTypes = {
-		className: React.PropTypes.string,
+		className: React.PropTypes.string,,
 		children: React.PropTypes.node,
 		/**
 		* 样式
 		*/
-		style: React.PropTypes.object,
+		style:React.PropTypes.object,
 		/**
 		*类型
 		*/
-		type: React.PropTypes.string,
+		type:React.PropTypes.string,
 		/**
 		*按钮文字
 		*/
-		label: React.PropTypes.string,
+		label:React.PropTypes.string,
 		/**
 		*禁用
 		*/
-		disabled: React.PropTypes.bool,
+		disabled:React.PropTypes.bool,
 		/**
 		*背景颜色
 		*/
-		backgroundColor: React.PropTypes.string,
+		backgroundColor:React.PropTypes.string,
 		/**
 		*文字颜色
 		*/
-		labelColor: React.PropTypes.string,
+		labelColor:React.PropTypes.string,
 		cancle:React.PropTypes.bool,
 		/**
 		* 宽
@@ -96,7 +102,7 @@ export default class Button extends Component {
 			// borderRadius:4,
 		};
 		let divStyle = {
-			boxShadow: "0 2px 8px rgba(134,174,214,.7)",
+			boxShadow: "0 1px 4px rgba(134,174,214,.5)",
 			border:border,
 			borderRadius:4,
 		}

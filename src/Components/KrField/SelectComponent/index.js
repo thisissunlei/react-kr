@@ -100,8 +100,16 @@ render() {
 			requireLabel,
 			options,
 			multi,
+			isPlace,
 			...other
 		} = this.props;
+        
+		var placeholder='';
+		if(isPlace){
+		 	placeholder=this.props.placeholder
+		}else{
+		    placeholder='请选择'	
+		}
 
 		if (multi) {
 			return (
@@ -138,7 +146,7 @@ render() {
 									clearable={true}
 									options={options}
 									onChange={this.onChange}
-									placeholder="请选择"
+									placeholder={placeholder}
 									onValueClick={function(){
 
 									}}

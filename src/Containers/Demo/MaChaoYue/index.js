@@ -65,26 +65,19 @@ class MaChaoYue extends React.Component {
 	}
 	componentWillMount() {
 		let height = document.getElementsByClassName('demo-Machaoyue')[0];
-		console.log('will',height)
 	}
 	componentDidMount() {
 		let height = document.getElementsByClassName('demo-Machaoyue')[0].offsetHeight;
-		console.log('======',height)
 		this.pages = Math.ceil(height/1120)+1;
-		console.log('did',this.pages)
 	}
 
 
-
-	
-	
 	render() {
 		// let {communitys}=this.state;
 		const {handleSubmit}=this.props;
 		let communitys = [1,2,3];
 		let src = `http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/app_public_upload/201706/I/172847235_696.png`;
 		
-		console.log('render',this.pages)
 		return (
 			    <div style={{background: '#fff',height:1400}} className="demo-Machaoyue">
 				<CommonItem />

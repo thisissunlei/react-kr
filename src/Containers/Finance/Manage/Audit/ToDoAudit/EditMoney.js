@@ -62,7 +62,9 @@ class EditMoney extends React.Component {
 			Loading: false,
 			topInfoList:[],
 			//我司账户的名称
-			accountNum:''
+			accountNum:'',
+			//新旧我司id
+			oldId:''
 		}
 		this.getDetailInfo();
 		this.getInfo();
@@ -78,6 +80,11 @@ class EditMoney extends React.Component {
 	}
 
 	accountChange=(param)=>{
+		if(!param){
+	      this.setState({
+			oldId:''
+		 })  
+		}
         this.setState({
 			accountNum:param.accountNum
 		})
@@ -108,7 +115,8 @@ class EditMoney extends React.Component {
 					infoList: response,
 					flowAmount: response.flowAmount.replace(/,/gi,''),
 					corporationId: response.corporationId,
-					accountNum:response.accountNum
+					accountNum:response.accountNum,
+					oldId:(response.accountId==-1)?response.accountNum:''
 				})
 				var form = {
 					"value": response.payWay
@@ -178,16 +186,27 @@ class EditMoney extends React.Component {
 	getAccount = (form) => {
 		var accountList;
 		var _this = this;
+		if(!form.value){
+			_this.setState({
+				accountList: []
+			})
+			return;
+		}
 		Store.dispatch(change('editMoneys', 'accountId', ''));
 		Http.request('get-account-info', {
 			corporationId: this.state.corporationId,
 			accountType: form.value
 		}).then(function(response) {
-			accountList = response.map((item, index) => {
-				item.label = item.accountNum;
-				item.value = item.accountId;
-				return item;
-			})
+			if(!response.length){
+				accountList = []
+			}else{
+				accountList = response.map((item, index) => {
+					item.label = item.accountNum;
+					item.value = item.accountId;
+					return item;
+				})
+			}
+			
 			_this.setState({
 				accountList: accountList
 			})
@@ -763,7 +782,8 @@ class EditMoney extends React.Component {
 				accountList,
 				infoList,
 				Loading,
-				topInfoList
+				topInfoList,
+				oldId
 			} = this.state;
 			return (
 				<div className="u-audit-add u-audit-edit">
@@ -829,6 +849,8 @@ class EditMoney extends React.Component {
 								label="我司账户"
 								options={accountList}
 								requireLabel={true}
+								isPlace={true}
+								placeholder={oldId?oldId:'请选择'}
 								onChange={this.accountChange}
 
 						/>
@@ -847,6 +869,15 @@ class EditMoney extends React.Component {
 								component="date"
 								label="收款日期"
 								requireLabel={true}
+						/>
+						<KrField
+								style={{width:260,marginLeft:25}}
+								name="dealTime"
+								component="labelText"
+								label="部门"
+								inline={false}
+								defaultValue="无"
+								value={infoList.department}
 						/>
 						<KrField
 								style={{width:548}}

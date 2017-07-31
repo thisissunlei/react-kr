@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.less';
+import { observer, inject } from 'mobx-react';
 import {
 	Dialog,
 	Button,
@@ -14,8 +15,11 @@ import {
 import {
 	Http
 } from "kr/Utils";
+
 import { Actions, Store } from 'kr/Redux';
 import UpdatePasswordForm from './UpdatePasswordForm';
+@inject("NavModel")
+@observer
 
 export default class PersonalCenter extends React.Component {
 	static displayName = 'PersonalCenter';
@@ -99,7 +103,8 @@ export default class PersonalCenter extends React.Component {
 	}
 	componentDidMount() {
 		this.initBasicInfo();
-		Store.dispatch(Actions.switchSidebarNav(false));
+		const {NavModel} = this.props;
+		NavModel.setSidebar(false);
 	}
 	componentWillReceiveProps() {
 	}

@@ -4,7 +4,7 @@ import {connect} from 'kr/Redux';
 
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -45,6 +45,11 @@ import {
 		};
 		let selectData=props.selectData||selectDatas;
 		State.selectDataInit(selectData);
+		console.log('edit',this.props);
+		let {mainbilltype} = this.props;
+		this.state = {
+			showSection:(mainbilltype!=16&&mainbilltype!=23&&mainbilltype!=18)?true:false
+		}
 	}
 
 
@@ -55,6 +60,8 @@ import {
 		values.id=this.props.editIndentId;
 		values.mainbillname=State.orderName||this.props.mainbillname;
 		values.mainbillcode="";
+		console.log('value',values,DateFormat(values.saleTime,'yyyy-mm-dd'))
+		values.saleTime = DateFormat(values.saleTime,'yyyy-mm-dd 00:00:00');
 		let _this=this;
 		Http.request('edit-order',{},values).then(function(response) {
 			_this.props.CommunityDetailModel.orderList(_this.props.listId);
@@ -82,6 +89,13 @@ import {
 			if(typeof(nextProps.orderReady)=="function"){
 				return;
 			}
+			if(this.props.mainbilltype != nextProps.mainbilltype){
+				let {mainbilltype} = nextProps;
+				this.setState({
+					showSection:(mainbilltype!=16&& mainbilltype!=23&&mainbilltype!=18)?true:false
+
+				})
+			}
 			if(State.isInit){
 				return;
 			}
@@ -103,7 +117,17 @@ import {
 	}
 	mainbilltypeChange=(value)=>{
 		State.orderName=this.props.customerName+value.label+this.props.orderCount;
-
+		if(value.value == 16 || value.value == 23 || value.value == 18){
+			this.setState({
+				showSection:false
+			},function(){
+				Store.dispatch(change('EditIndent','departmentId',''));
+			})
+		}else{
+			this.setState({
+				showSection:true
+			})
+		}
 	}
 
 
@@ -111,6 +135,9 @@ import {
 		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount,mainbillname,cityNameIndent} = this.props;
 		let citys=State.cityLable||cityNameIndent;
 			citys=!citys?"无":citys;
+		let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
+
+
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
@@ -129,9 +156,21 @@ import {
 							onChange={this.communityChange}
 							inline={false}
 					/>
+					<KrField grid={1/2} label="销售员" name="saleId" style={{width:262,marginLeft:15}} component="searchPersonel"
+							requireLabel={true} placeholder={this.props.saleName}
+					/>
+					<KrField grid={1/2} label="销售时间" name="saleTime" component="date" style={{width:262,marginLeft:30}}
+							inline={false}
+							requireLabel={true}
+					/>
+
+					
 
 					<KrField grid={1/2} label="所在城市" name="cityid" component="labelText" style={{width:262,marginLeft:15}} value={citys} inline={false}/>
 					<KrField grid={1/2} label="订单名称" name="mainbillname" style={{width:262,marginLeft:30}} component="labelText" value={State.orderName?State.orderName:mainbillname} requireLabel={true} inline={false}/>
+					{this.state.showSection && <KrField grid={1/2} label="部门" name="departmentId" style={{width:262,marginLeft:15}} component="select"
+							options={options}
+					/>}
 					<KrField grid={1/2} label="订单描述" name="mainbilldesc" style={{width:555,marginLeft:15,marginTop:-5}} heightStyle={{height:"80px"}}  component="textarea"  maxSize={100} requireLabel={false} />
 				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
@@ -160,6 +199,12 @@ const validate = values =>{
 		}
 		if(!values.communityid){
 			errors.communityid = '请选择所在社区';
+		}
+		if(!values.saleId){
+			errors.saleId = '请选择销售员';
+		}
+		if(!values.saleTime){
+			errors.saleTime = '请选择销售时间';
 		}
 		return errors
 	}
