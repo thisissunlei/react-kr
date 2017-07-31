@@ -62,14 +62,14 @@ class ChangeCommunity  extends React.Component{
 
 	render(){
 		let {handleSubmit} = this.props;
-		let communityList = State.cityList.filter((item)=>{
-			if(item.id === this.cityId){
-				return item.communitys
-			}else{
-				return []
+		let _this = this;
+		let communityList = []
+		communityList = State.cityList.filter(function(item){
+			if(item.id == _this.cityId){
+				return item.communitys;
 			}
 		})
-		console.log('render====>'.this.cityId,communityList)
+		console.log('render====>',this.cityId,communityList)
 		return(
 			<div style={{padding:'30px 0 10px 0'}}>
 				<form  onSubmit={handleSubmit(this.onSubmit)}>
