@@ -134,8 +134,7 @@ export default class OrgList extends Component{
 					_this.openEditPost();
         }).catch(function(err) {
           Message.error(err.message);
-        });
-		
+        });	
 	}
 
    //分页

@@ -46,8 +46,13 @@ class EditRole  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,roleArr}=this.props;
+        let {handleSubmit,roleArr,detail}=this.props;
         let {isSure}=this.state;
+
+         detail.map((item,index)=>{
+            item.orgName=item.label;
+            item.orgId=item.value;
+        })
 
 		return(
 
@@ -86,6 +91,7 @@ class EditRole  extends React.Component{
                             ajaxUrlName = "role-dep-tree"
                             requireLabel={true}
                             checkable = {true}
+                            valueText={(detail && detail[0] && detail[0].orgName)?detail:[{orgName:''}]}
                         />}
 
 
@@ -99,6 +105,7 @@ class EditRole  extends React.Component{
                             ajaxUrlName = "role-sub-tree"
                             requireLabel={true}
                             checkable = {true}
+                            valueText={(detail && detail[0] && detail[0].orgName)?detail:[{orgName:''}]}
                         />}
 
 

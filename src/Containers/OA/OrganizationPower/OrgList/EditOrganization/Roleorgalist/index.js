@@ -47,7 +47,9 @@ export default class RoleorgaList extends Component{
 			//角色
 			roleArr:[],
 
-			deleteId:''
+			deleteId:'',
+			//编辑detail
+			detail:[]   
 		}
 	}
     
@@ -89,6 +91,9 @@ export default class RoleorgaList extends Component{
 		var _this=this;
        Http.request('role-power-watch',{orgDetailId:id}).then(function(response) {
            Store.dispatch(initialize('EditRole',response));
+		   _this.setState({
+			   detail:response.orgList
+		   })
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -106,6 +111,11 @@ export default class RoleorgaList extends Component{
 	addPostSubmit=(params)=>{
 	   params=Object.assign({},params);
 	   params.id=this.props.id;
+	   var orgId=[];
+	   params.orgId.map((item,index)=>{
+		  orgId.push(item.orgId);
+	   })
+	   params.orgId=orgId;
        var _this=this;
        Http.request('role-power-add',{},params).then(function(response) {
            _this.setState({
@@ -134,6 +144,12 @@ export default class RoleorgaList extends Component{
         var _this=this;
 		params=Object.assign({},params);
 	    params.id=this.props.id;
+		console.log('ddddd',params);
+		/*var orgId=[];
+		params.orgId.map((item,index)=>{
+			orgId.push(item.orgId);
+		})
+		params.orgId=orgId;*/
        Http.request('role-power-edit',{},params).then(function(response) {
            _this.setState({
 						searchParams:{
@@ -162,7 +178,7 @@ export default class RoleorgaList extends Component{
 	delSubmit = () =>{
 		let {deleteId}=this.state;
 		var _this=this;
-		Http.request('role-power-delete',{id:deleteId}).then(function(response) {
+		Http.request('role-power-delete',{},{orgDetailId:deleteId}).then(function(response) {
            _this.setState({
 			  searchParams:{
 				  time:+new Date(),
@@ -181,7 +197,7 @@ export default class RoleorgaList extends Component{
 
 	render(){
 
-		let {roleArr}=this.state;
+		let {roleArr,detail}=this.state;
 
 		return(
 
@@ -265,6 +281,7 @@ export default class RoleorgaList extends Component{
 					onCancel={this.openEditPost}
 					onSubmit={this.editPostSubmit}
 					roleArr={roleArr}
+					detail={detail}
 				/>
 			</Dialog>
 

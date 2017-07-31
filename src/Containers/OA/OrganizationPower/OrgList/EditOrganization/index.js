@@ -17,7 +17,11 @@ export default class EditOrganization  extends React.Component{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
-
+    
+	onSubmit=(values)=>{
+	   const {onSubmit}=this.props;
+        onSubmit && onSubmit(values);	
+	}
 
 	render(){
 		

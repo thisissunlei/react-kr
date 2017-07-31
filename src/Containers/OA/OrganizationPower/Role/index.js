@@ -130,7 +130,18 @@ export default class Role extends Component{
 
     //编辑提交
 	editPostSubmit=(params)=>{
-        var _this=this;
+       var _this=this;
+	   var id=[];
+	   if(params.allotUserId){
+		  params.allotUserId.map((item,index)=>{
+		    id.push(item.orgId);
+	     })  
+	   }else{
+		 params.allotUser.map((item,index)=>{
+		    id.push(item.orgId);
+	     })  
+	   }
+	   params.allotUserId=id;
        Http.request('role-edit',{},params).then(function(response) {
            _this.setState({
 						searchParams:{

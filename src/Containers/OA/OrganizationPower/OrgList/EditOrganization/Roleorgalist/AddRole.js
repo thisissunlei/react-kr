@@ -89,6 +89,7 @@ class AddRole  extends React.Component{
                             onChange = {this.onChange}
                             ajaxUrlName = "role-dep-tree"
                             requireLabel={true}
+                            checkable = {true}
                         />}
 
                          {!isSure&&<KrField
@@ -100,6 +101,7 @@ class AddRole  extends React.Component{
                             onChange = {this.onChange}
                             ajaxUrlName = "role-sub-tree"
                             requireLabel={true}
+                            checkable = {true}
                         />}
 
 
