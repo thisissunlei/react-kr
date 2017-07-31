@@ -37,7 +37,6 @@ class AddRole  extends React.Component{
     }
 
     typeOnChange=(param)=>{
-       console.log('dddd',param);
        if(param.value=='DEPARTMENT'){
            this.setState({
              isSure:true  
