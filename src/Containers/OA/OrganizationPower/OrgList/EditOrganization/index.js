@@ -4,7 +4,7 @@ import {
 	TabC
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
-import RoleOrgaList from './RoleOrgaList';
+import RoleOrgaList from './RoleOrgaList/index.js';
 import './index.less';
 
 export default class EditOrganization  extends React.Component{
