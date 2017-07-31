@@ -48,21 +48,14 @@ class MaChaoYue extends React.Component {
 	}
 	componentWillMount() {
 	}
-	componentDidMount() {
-	}
-	click=()=>{
-		this.setState({
-			value:'大叔大婶大所大所大所大所大所多打算大多的撒大大所大所多的撒大大多大大所大大所多大所大所大所多大叔大婶'
-		})
-	}
 
 
-
-	
-	
 	render() {
-		console.log('render',this.pages)
 		let {value} = this.state;
+		const {handleSubmit}=this.props;
+		let communitys = [1,2,3];
+		let src = `http://krspace-upload-test.oss-cn-beijing.aliyuncs.com/app_public_upload/201706/I/172847235_696.png`;
+		
 		return (
 			    <div style={{background: '#fff',height:1400}} className="demo-Machaoyue">
 

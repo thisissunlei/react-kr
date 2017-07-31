@@ -1,5 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
+const fs = require('fs');
+
+const autoprefixer = require('autoprefixer');
+const precss       = require('precss');
+
 const buildPath = path.join(process.cwd(), 'dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -12,39 +17,42 @@ const node_modules_dir = path.join(process.cwd(), 'node_modules');
 
 var env = process.env.NODE_ENV || 'development';
 
-console.log('=== 所在环境 ===\n', env, Envs.test);
-
-const config = {
+const webpackConfigs = {
 	entry: {
 		page_app: [
 			'webpack/hot/dev-server',
-			'webpack/hot/only-dev-server',
 			path.join(process.cwd(), '/src/Page/App/index.js'),
 		],
 		page_login: path.join(process.cwd(), '/src/Page/Login/index.js')
 	},
 	resolve: {
 		extensions: ['', '.js', '.less', '.png', '.jpg', '.svg'],
+		root: [
+			path.resolve(node_modules_dir)
+		],
+		modulesDirectories: ['node_modules'],
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
-			'redux': path.join(node_modules_dir, 'redux'),
-			'react-redux': path.join(node_modules_dir, 'react-redux'),
+			'react-dom': path.join(node_modules_dir, '/react-dom/dist/react-dom.min'),
+			'react-redux': path.join(node_modules_dir, '/react-redux/dist/react-redux.min'),
+			'react-select': path.join(node_modules_dir, '/react-select/dist/react-select.min'),
+			'redux': path.join(node_modules_dir, '/redux/dist/redux.min'),
+			'redux-from': path.join(node_modules_dir, '/redux-form/redux-form.min'),
 			'mobx': path.join(node_modules_dir, 'mobx'),
 			'mobx-react': path.join(node_modules_dir, 'mobx-react'),
 			'react-router': path.join(node_modules_dir, 'react-router'),
-			'material-ui': path.join(node_modules_dir, 'material-ui'),
+			'material-ui': path.join(node_modules_dir, '/material-ui'),
 			'lodash': path.join(node_modules_dir, 'lodash')
 		},
 	},
 	devServer: {
 		contentBase: buildPath,
 		devtool: 'eval',
-		hot: true,
-		inline: true,
+		cache: true,
 		port: 8001,
 		outputPath: buildPath,
-		 disableHostCheck: true,
+		disableHostCheck: true,
 		proxy: {
 			'/api': {
 				target: Envs[process.env.NODE_ENV],
@@ -52,17 +60,18 @@ const config = {
 			}
 		}
 	},
-	externals: {
-		React: true,
-	},
 	output: {
 		path: buildPath,
 		filename: 'scripts/[name].js',
 		chunkFilename: 'scripts/[name].js',
 		publicPath: "/"
 	},
-	noParse: ['/node_modules/'],
 	plugins: [
+		new webpack.DllReferencePlugin({
+			context: __dirname,
+			manifest: require(path.join(buildPath, 'vendors/manifest.json')),
+			name: 'lib'
+		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new HappyPack({
 			id: 'jsx',
@@ -88,7 +97,7 @@ const config = {
 			template: './src/Page/Login/index.template.html',
 			excludeChunks: ['page_app'],
 			inject: 'body',
-			cache: false,
+			cache: true,
 			showErrors: true,
 		}),
 		new CopyWebpackPlugin([
@@ -98,6 +107,9 @@ const config = {
 	module: {
 		exprContextRegExp: /$^/,
 		exprContextCritical: false,
+		noParse: [
+			'/node_modules/',
+		],
 		/*
 		preLoaders: [
      {
@@ -131,11 +143,11 @@ const config = {
 			},
 			{
 				test: /\.less$/,
-				loader: "style-loader!css-loader!less-loader"
+				loader: "style-loader!css-loader!postcss-loader?pack=cleaner!less-loader"
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
-				loader: 'file?name=[name].[ext]?[hash]'
+				loader: 'file?name=[name].[ext]'
 			},
 			{
 				test: /\.eot/,
@@ -154,6 +166,14 @@ const config = {
 				loader: 'file?prefix=font/'
 			}
 		],
+		postcss: function () {
+
+			return {
+				defaults: [autoprefixer, precss],
+				cleaner: [autoprefixer({ browsers: ['IE 10', 'IE 11', 'firefox 20', 'ios_saf 8.4', 'android 4.3'] })]
+			};
+
+		},
 	},
 	eslint: {
 		configFile: path.join(process.cwd(), '.eslintrc'),
@@ -165,4 +185,5 @@ const config = {
 	},
 };
 
-module.exports = config;
+
+module.exports = webpackConfigs;

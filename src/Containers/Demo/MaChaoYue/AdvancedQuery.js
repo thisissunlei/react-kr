@@ -126,7 +126,6 @@ export default class AdvanceSearchDateForm extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-									console.log('ddddd',fileResponse)
 									_this.setState({
 										imgSrc:fileResponse.data
 									})
@@ -168,7 +167,6 @@ export default class AdvanceSearchDateForm extends Component {
 		// let {index} = this.props;
 		// let imgUrl = State.stationVos[index].headerUrl;
 		let {imgSrc} = this.state;
-		console.log('img')
 		return(
 			<div className="ui-upload-header">
 				<div className='ui-uploadimg-inner' >

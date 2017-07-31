@@ -59,7 +59,9 @@ class AddMoney extends React.Component {
 			corporationId: "",
 			oldData:[],
 			//我司账户名称
-			accountNum:''
+			accountNum:'',
+			showSection:false,
+			department:''
 		}
 		this.receivedBtnFormChangeValues = {};
 
@@ -281,10 +283,11 @@ class AddMoney extends React.Component {
 		Http.request('get-mainbill-info', {
 			mainBillId: form.value
 		}, {}).then(function(response) {
-
 			_this.setState({
 				mainbillInfo: response,
-				corporationId: response.corporationId
+				corporationId: response.corporationId,
+				department:response.department,
+				showSection:!!response.department?true:false
 			})
 
 		}).catch(function(err) {});
@@ -308,8 +311,10 @@ class AddMoney extends React.Component {
 			response.scvList.map((item) => {
 				Store.dispatch(change('addMoney', `no-${item.id}`, ''));
 			})
+
 			_this.setState({
-				finaflowInfo: response
+				finaflowInfo: response,
+				
 			})
 
 		}).catch(function(err) {});
@@ -318,17 +323,27 @@ class AddMoney extends React.Component {
 		form = Object.assign({},form);
 		var accountList;
 		var _this = this;
+		if(!form.value){
+			_this.setState({
+				accountList: []
+			})
+			return;
+		}
 		var corporationId = this.state.corporationId || this.props.corporationId;
 		Store.dispatch(change('addMoney', 'accountId', ''));
 		Http.request('get-account-info', {
 			accountType: form.value,
 			corporationId
 		}).then(function(response) {
-			accountList = response.map((item, index) => {
-				item.label = item.accountNum;
-				item.value = item.accountId;
-				return item;
-			})
+			if(!response.length){
+				accountList = []
+			}else{
+				accountList = response.map((item, index) => {
+					item.label = item.accountNum;
+					item.value = item.accountId;
+					return item;
+				})
+			}
 			_this.setState({
 				accountList: accountList
 			})
@@ -737,6 +752,8 @@ class AddMoney extends React.Component {
 				flowAmount,
 				oldData
 			} = this.state;
+			let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
+
 			return (
 				<div className="u-audit-add  u-audit-edit">
 			     <div className="u-audit-add-title">
@@ -823,6 +840,17 @@ class AddMoney extends React.Component {
 								label="收款日期"
 								requireLabel={true}
 						/>
+						{this.state.showSection && <KrField
+								style={{width:260,marginLeft:25}}
+								name="department"
+								type="text"
+								component="labelText"
+								defaultValue='无'
+								inline={false}
+								value={this.state.department}
+								label="部门"
+								
+						/>}
 						<KrField
 								style={{width:548}}
 								name="remark"

@@ -1,0 +1,6 @@
+[
+  {"value":"NONDEGREE","label":"无"},
+  {"value":"BACHELOR","label":"学士"},
+  {"value":"MASTER","label":"硕士"},
+  {"value":"DOCTOR","label":"博士"}
+]

@@ -29,9 +29,15 @@ injectTapEventPlugin({
 
 import * as Actions from 'kr/Redux/Actions';
 
+
 import {Debug} from 'kr/Utils';
 
 window.Debug = Debug;
+
+
+if(module.hot) {
+	module.hot.accept();
+}
 
 
 ReactDOM.render((

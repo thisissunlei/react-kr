@@ -9,7 +9,7 @@ var baseUrl = 'http://op.krspace.cn';
 
 switch(env){
 
-    case 'prod':{
+    case 'production':{
       baseUrl = 'http://op.krspace.cn';
       break;
     }
@@ -30,21 +30,31 @@ switch(env){
     }
 
     default:{
-      baseUrl = 'http://optest02.krspace.cn';
+      baseUrl = 'http://op.krspace.cn';
     }
 
 }
 
 
-function loadDictionaryData(callback){
-    var cityFile = path.resolve(folderPath, 'dictionary.js');
-    request(baseUrl+'/api/krspace-finance-web/dict/common', function (error, response, body) {
+function loadErpDictionaryData(){
+    var cityFile = path.resolve(folderPath, 'dictionary/erp.js');
+    request(baseUrl+'/api/krspace-erp-web/dict/common', function (error, response, body) {
         if (!error && response.statusCode == 200) {
             fs.writeFileSync(cityFile, 'module.exports = '+JSON.stringify(JSON.parse(body).data))+";";
-            callback && callback();
         }
     })
 }
 
 
+function loadDictionaryData(){
+    var cityFile = path.resolve(folderPath, 'dictionary/common.js');
+    request(baseUrl+'/api/krspace-finance-web/dict/common', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            fs.writeFileSync(cityFile, 'module.exports = '+JSON.stringify(JSON.parse(body).data))+";";
+        }
+
+    })
+}
+
+loadErpDictionaryData();
 loadDictionaryData();

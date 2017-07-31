@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="4px" viewBox="0 0 8 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>sel_arrows</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-6" transform="translate(-46.000000, -238.000000)" fill="#4A90E2">
+            <path d="M53.5038156,238.086985 L50.0046672,241.342884 L46.4962017,238.078315 C46.3833407,237.9733 46.1996146,237.973983 46.0858357,238.079853 C45.9720569,238.185722 45.9712766,238.356676 46.0841835,238.461691 L49.7690774,241.890424 C49.7773848,241.900759 49.7862429,241.910795 49.7962944,241.920147 C49.9100733,242.026017 50.0938453,242.0267 50.2067062,241.921685 L53.9158339,238.470361 C54.0286948,238.365345 54.0279604,238.194391 53.9141816,238.088522 C53.8004027,237.982653 53.6167225,237.981969 53.5038156,238.086985 Z" id="sel_arrows" transform="translate(50.000000, 240.000000) rotate(-360.000000) translate(-50.000000, -240.000000) "></path>
+        </g>
+    </g>
+</svg>
