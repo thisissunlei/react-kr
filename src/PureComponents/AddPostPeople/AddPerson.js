@@ -40,12 +40,11 @@ class AddPerson  extends React.Component{
     componentDidMount(){
       let {orgDetail}=this.props;
       Store.dispatch(change('addPerson','sex','MALE'));
-      Store.dispatch(change('addPerson','depId',orgDetail.orgId));
+      Store.dispatch(change('addPerson','depId',orgDetail[0].orgId));
       this.getPositionType(orgDetail);
     }
 
     onSubmit=(values)=>{
-         let {orgDetail}=this.props;
         let params = Object.assign({},values);
         params.jobId = values.jobId.value;
         params.leader = values.leader.orgId;
@@ -245,7 +244,6 @@ class AddPerson  extends React.Component{
                             name="leader"
                             component="treePersonnel"
                             label="直接上级"
-                            treeType = "personnel"
                             ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
                         />
@@ -256,14 +254,13 @@ class AddPerson  extends React.Component{
                             name="depId"
                             component="treeDepartment"
                             label="部门"
-                            treeType = "department"
                             onChange = {this.onChange}
-                            valueText={orgDetail.orgName?orgDetail.orgName:''}
+                            valueText={orgDetail?orgDetail:[{orgName:''}]}
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}
                         />
             
-                         {(isType || orgDetail.orgId)&&<KrField
+                         {(isType || orgDetail[0].orgId)&&<KrField
                             grid={1/2}
                             style={{width:262,marginLeft:28,marginTop:6}}
                             name="typeId"
@@ -277,14 +274,14 @@ class AddPerson  extends React.Component{
 
 
                          <KrField grid={1/2}
-                            style={{width:262,marginLeft:(isType || orgDetail.orgId)?0:28,marginTop:6}}
+                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?0:28,marginTop:6}}
                             name="entryDate"
                             component="date"
                             label="入职时间"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:(isType || orgDetail.orgId)?28:0,marginTop:6}}
+                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?28:0,marginTop:6}}
                             name="status"
                             component="selecTemployees"
                             label="员工属性"
@@ -292,7 +289,7 @@ class AddPerson  extends React.Component{
                             otherType="resourceStatus"
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:(isType || orgDetail.orgId)?0:28,marginTop:6}}
+                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?0:28,marginTop:6}}
                             name="type"
                             component="selecTemployees"
                             label="员工类别"
