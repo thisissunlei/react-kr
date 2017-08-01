@@ -26,7 +26,7 @@ import {
 	KrDate,
 	Message,
 	SliderTree,
-} from 'kr-ui'; 
+} from 'kr-ui';
 
 import {AddPostPeople} from 'kr/PureComponents';
 
@@ -125,6 +125,21 @@ export default class Labour extends React.Component {
 			tabSelect: item,
 		})
 	}
+	fnTree = (data) =>{
+		let key = 0;
+		var arr = data.map((item,index)=>{
+			var obj = Object.assign({},item);
+			if(obj.children.length!=0){
+				obj.children = this.fnTree(obj.children);
+			}
+			
+			obj.isClick = true;
+			obj.key = key++;
+			return obj;
+		})
+		return arr;
+	}
+
 	componentDidMount() {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
@@ -152,7 +167,7 @@ export default class Labour extends React.Component {
 		// 	 isCard : checkOperate("hrm_resource_card"),
 		//      isOpen : checkOperate("hrm_resource_account")
 		//    })
-		// },500);	
+		// },500);
 	}
 	getExaList=()=>{
 		var _this = this;
@@ -177,7 +192,7 @@ export default class Labour extends React.Component {
 		const that = this;
 		const { searchParams } = this.state;
 		const id = searchParams.dimId;
-		
+
 		Http.request('dim-detail', { id }).then(function (response) {
 			that.setState({ dimName: response.name })
 		}).catch(function (err) { });
@@ -204,7 +219,7 @@ export default class Labour extends React.Component {
 	var _this = this;
 	if(data.depId.orgId){
 	  data.depId=data.depId.orgId;
-	}	
+	}
 	Http.request("submit-new-personnel",{},data).then(function (response) {
 		_this.openAddPerson();
 		_this.changeP();
@@ -275,7 +290,7 @@ export default class Labour extends React.Component {
 				// 	dimId: this.props.params.dimId,
 				// },
 			});
-			
+
 
 		}).catch(function (err) {
 
@@ -408,7 +423,7 @@ export default class Labour extends React.Component {
 			},
 		}, function () {
 			_this.getExaList();
-			window.location.href = `./#/oa/organization/${dimId}/labour`;		
+			window.location.href = `./#/oa/organization/${dimId}/labour`;
 			_this.reloadDim();
 			_this.getTreeData();
 			_this.getMainDimId();
@@ -430,7 +445,7 @@ export default class Labour extends React.Component {
 					event.stopPropagation();
 					this.toOtherDim(item)
 					}
-				} 
+				}
 				key={index} className="item">
 				{item.name}
 			</span>
@@ -439,7 +454,7 @@ export default class Labour extends React.Component {
 
 	//========****************=========
 	change = (event) => {
-		
+
 		this.setState({
 			searchKey: event.target.value || ' ',
 		},function(){
@@ -464,7 +479,7 @@ export default class Labour extends React.Component {
 				styleBool: false,
 			})
 		}
-		
+
 	}
 
 	allClose = () => {
@@ -485,8 +500,9 @@ export default class Labour extends React.Component {
 		const _this = this;
 
 		Http.request("org-list", params).then(function (response) {
+			
 			_this.setState({
-				treeData: [response],
+				treeData: _this.fnTree([response]),
 			});
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -537,7 +553,7 @@ export default class Labour extends React.Component {
 	}
 
 
-	
+
 
    //跳转详情页
    goDetail = (data) =>{
@@ -548,7 +564,7 @@ export default class Labour extends React.Component {
    //操作开关
    //编辑打开
    operationEdit=(itemDetail)=>{
-        this.goDetail(itemDetail);	
+        this.goDetail(itemDetail);
    }
    //离职打开
    operationLeave=(itemDetail)=>{
@@ -562,7 +578,7 @@ export default class Labour extends React.Component {
 	    this.setState({
 			  openRemove:true,
 			  resourceId:itemDetail.hrmId
-		})	
+		})
    }
 
    //调动打开
@@ -590,7 +606,7 @@ export default class Labour extends React.Component {
    }
 
 
-   
+
    //离职关闭
    cancelLeave=()=>{
      this.setState({
@@ -615,14 +631,14 @@ export default class Labour extends React.Component {
 		Message.error(err.message);
 	});
    }
-  
+
   //解除关闭
    cancelRemove=()=>{
 	 this.setState({
 		openRemove:!this.state.openRemove
-	 })  
+	 })
    }
-   
+
    //解除提交
    addRemoveSubmit=()=>{
 	   const _this = this;
@@ -646,7 +662,7 @@ export default class Labour extends React.Component {
     cancelAccount=()=>{
 	 this.setState({
 		openAccount:!this.state.openAccount
-	 })  
+	 })
    }
 
     //开通提交
@@ -667,15 +683,15 @@ export default class Labour extends React.Component {
             Message.error(err.message);
         });
    }
-   
-   
+
+
    //调动取消
    cancelTransfer=()=>{
 	 this.setState({
 		openTransfer:!this.state.openTransfer
-	 })  
+	 })
    }
-  
+
    //调动提交
    addTransferSubmit=(data)=>{
 		var param = Object.assign({},data);
@@ -692,13 +708,13 @@ export default class Labour extends React.Component {
 			Message.error(err.message);
 		});
    }
-  
-   
+
+
    //开通门禁取消
    cancelCard=()=>{
 	  this.setState({
 		openCard:!this.state.openCard
-	 })  
+	 })
    }
    //开通门禁提交
    addCardSubmit=(param)=>{
@@ -722,9 +738,9 @@ export default class Labour extends React.Component {
    cancelSure=()=>{
 	  this.setState({
 		openSure:!this.state.openSure
-	 })    
+	 })
    }
-   
+
    //是否确定
    addSureSubmit=()=>{
 	   let {cardParam}=this.state;
@@ -770,7 +786,7 @@ export default class Labour extends React.Component {
 					</div>
 					<div className="oa-tree">
 						<SliderTree
-							onSelect={this.onSelect}
+							onSelectTree={this.onSelect}
 							onCheck={this.onCheck}
 							type="department-radio"
 							treeData={this.state.treeData}
@@ -893,7 +909,7 @@ export default class Labour extends React.Component {
 												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
 											)
 										}}> </TableRowColumn>
-										
+
 										<TableRowColumn type="operation" name="status"
 											component={(value, oldValue, itemDetail) => {
 												if (logFlag) {
@@ -964,7 +980,7 @@ export default class Labour extends React.Component {
 												return (<div onClick = {() =>{
 														this.goDetail(detail)
 														}} style={{color:'#499df1',cursor:'pointer'}}>{value}</div>)
-											}} 
+											}}
 										></TableRowColumn>
 										<TableRowColumn name="hrmResourceAttributes"></TableRowColumn>
 										<TableRowColumn name="email"
@@ -1001,7 +1017,7 @@ export default class Labour extends React.Component {
 												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
 												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
 											</span>
-										}}>		
+										}}>
 										</TableRowColumn>
 									</TableRow>
 								</TableBody>
@@ -1080,11 +1096,11 @@ export default class Labour extends React.Component {
 						/>
 					</Dialog>
 				{/*新建用户*/}
-				<AddPostPeople 
+				<AddPostPeople
 					onCancel={this.openAddPerson}
 					onSubmit={this.addPersonSubmit}
-					open={this.state.openAddPerson} 
-					onClose={this.allClose}  
+					open={this.state.openAddPerson}
+					onClose={this.allClose}
 					orgDetail={this.state.dataName}
 				/>
 				{/*离职*/}
@@ -1096,7 +1112,7 @@ export default class Labour extends React.Component {
 					>
 					<Leave
 					   onCancel={this.cancelLeave}
-					   onSubmit={this.addLeaveSubmit}  	
+					   onSubmit={this.addLeaveSubmit}
 					/>
 					</Dialog>
 
@@ -1109,7 +1125,7 @@ export default class Labour extends React.Component {
 					>
 					<Remove
 						onCancel={this.cancelRemove}
-						onSubmit={this.addRemoveSubmit}  
+						onSubmit={this.addRemoveSubmit}
 					/>
 					</Dialog>
 
@@ -1123,7 +1139,7 @@ export default class Labour extends React.Component {
 					>
 					<IsSure
 						onCancel={this.cancelSure}
-						onSubmit={this.addSureSubmit}  
+						onSubmit={this.addSureSubmit}
 					/>
 					</Dialog>
 
@@ -1136,7 +1152,7 @@ export default class Labour extends React.Component {
 					>
 					<OpenAccount
 						onCancel={this.cancelAccount}
-						onSubmit={this.addOpenSubmit}  
+						onSubmit={this.addOpenSubmit}
 					/>
 					</Dialog>
 
@@ -1149,7 +1165,7 @@ export default class Labour extends React.Component {
 					>
 					<Transfer
 						onCancel={this.cancelTransfer}
-						onSubmit={this.addTransferSubmit}  
+						onSubmit={this.addTransferSubmit}
 						department = {transferDetail}
 					/>
 					</Dialog>
@@ -1163,7 +1179,7 @@ export default class Labour extends React.Component {
 					>
 					<OpenCard
 						onCancel={this.cancelCard}
-						onSubmit={this.addCardSubmit}  
+						onSubmit={this.addCardSubmit}
 						employees = {employees}
 					/>
 					</Dialog>

@@ -27,12 +27,12 @@ export default class PersonnelDialog extends React.Component{
 		this.setState({
 			detail:echoList
 		})
-		
+
 	}
 	onSelect = (data) =>{
 		const {onSelect,treeType} = this.props;
 		const that = this;
-		
+
 		if(treeType == "personnel" && data.treeType == "NONE"){
 			this.setState({
 				detail:[{
@@ -40,7 +40,7 @@ export default class PersonnelDialog extends React.Component{
 					pId:data.pId,
 					treeType:data.treeType,
 					orgName:data.orgName,
-				}]	
+				}]
 			})
 		}
 		if(treeType == "department" && data.treeType == "DEPARTMENT"){
@@ -51,19 +51,19 @@ export default class PersonnelDialog extends React.Component{
 					pId:data.pId,
 					treeType:data.treeType,
 					orgName:data.orgName,
-					
-					
+
+
 				}],
-				
+
 			})
-			
+
 		}
 	}
 	getCheckData = (treeDatas) =>{
 		let detailData = [].concat(treeDatas);
-		
+
 		let detail = [];
-		
+
 		for(let i=0;i<detailData.length;i++){
 			if(detailData[i].isClick){
 				detail.push(detailData[i]);
@@ -72,7 +72,7 @@ export default class PersonnelDialog extends React.Component{
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
-		
+
 		this.setState({
 			detail,
 		})
@@ -108,16 +108,16 @@ export default class PersonnelDialog extends React.Component{
 			}
 			obj.key = key++;
 			return obj;
-			
+
 		})
 		return arr;
 	}
-	
+
 	onSumit = () =>{
 		const {detail} = this.state;
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(detail)
-		
+
 	}
 	onCancel = () =>{
 		 const {onCancel} = this.props;
@@ -140,7 +140,7 @@ export default class PersonnelDialog extends React.Component{
 	}
 	//获取选择的keys
 	getSelectKeys = (data,detail,parentIndex) =>{
-		
+
 		var arr = data.map((item,index)=>{
 			var key = parentIndex+'-'+item.orgName+item.key;
 			for(let i=0;i<detail.length;i++){
@@ -148,14 +148,14 @@ export default class PersonnelDialog extends React.Component{
 					this.selectKeys.push(key)
 				}
 			}
-			
+
 			if(item.children.length!=0){
 				this.getSelectKeys(item.children,detail,parentIndex++)
 			}
-			
-			
+
+
 		})
-		
+
 	}
 	//选中列表显示
 	listRender = () =>{
@@ -187,11 +187,11 @@ export default class PersonnelDialog extends React.Component{
 		})
 
 		return lists;
-	
+
 	}
 	//搜索框
 	treeChange = (event) =>{
-		
+
 		this.setState({
 			searchKey:event.target.value,
 		})
@@ -209,7 +209,7 @@ export default class PersonnelDialog extends React.Component{
 		   treeData
 		} = this.state;
 		let {
-			 ...other
+			 checkable
 		} = this.props;
 		return (
             <div className = "tree-personnel" style = {{position:"relative",textAlign:"center"}}>
@@ -222,14 +222,14 @@ export default class PersonnelDialog extends React.Component{
 						</div>
 						<div className = "tree-content-left-right">
 
-							<SliderTree 
-								onSelect = {this.onSelect}  
+							<SliderTree
+								onSelect = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}
 								getCheckData = {this.getCheckData}
-								
-								{...other}
+								checkable = {checkable||false}
+
 
 							/>
 						</div>
@@ -246,7 +246,7 @@ export default class PersonnelDialog extends React.Component{
 				</div>
 			  <div className = "tree-dialog-bottom" style = {{textAline:"center"}}>
 			  		<span className = "botton"  onClick = {this.onSumit}>确定</span>
-					<span className = "botton" onClick = {this.onCancel} >取消</span>	
+					<span className = "botton" onClick = {this.onCancel} >取消</span>
 			  </div>
         </div>
         )

@@ -241,15 +241,15 @@ class TreeNode extends React.Component {
                 if(props.children.length == 0){
                   if(props.selected){
                     typeText = IconType[i]+"_"+"open";
-                    
+
                   }else{
                      typeText = IconType[i]+"_"+"close";
                   }
                 }else{
                   typeText = IconType[i]+"_"+iconState;
                 }
-                
-                
+
+
                 break;
             }
             // if(open){
@@ -257,9 +257,9 @@ class TreeNode extends React.Component {
             // }
 
           }
-     
-      return `${prefixCls}-icon__${typeText}` 
-    
+
+      return `${prefixCls}-icon__${typeText}`
+
   }
   render() {
     const props = this.props;
@@ -282,7 +282,7 @@ class TreeNode extends React.Component {
     // if (!props.expanded) {
     //   newChildren = null;
     // }
-    
+
     var iconTypeName = this.iconJudge(prefixCls,iconState,props);
     const iconEleCls = {
       [`${prefixCls}-iconEle`]: true,
@@ -292,7 +292,7 @@ class TreeNode extends React.Component {
     };
 
     const selectHandle = () => {
-      
+
       /*==========icon修改的位置(this.props.itemData)获取位置的数据===========*/
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span
@@ -301,7 +301,7 @@ class TreeNode extends React.Component {
              this.onExpand(e);
             e.preventDefault();
           }}
-        
+
 
         ></span> : null;
        const title = <span
@@ -320,7 +320,7 @@ class TreeNode extends React.Component {
       //disabled 是否禁止
       if (!props.disabled) {
         /*=========父节点是否可选择的判断=========*/
-       
+
         if (props.itemData.children.length!=0 && props.expanded)
         {
           domProps.className += ` ${prefixCls}-node-selected`;
@@ -333,6 +333,7 @@ class TreeNode extends React.Component {
         domProps.onClick = (e) => {
           e.preventDefault();
           if (props.selectable) {
+            console.log("NNNNNN")
             this.onSelect();
           }
           // not fire check event
@@ -391,7 +392,7 @@ class TreeNode extends React.Component {
     const filterCls = props.filterTreeNode(this) ? 'filter-node' : '';
 
     const noopSwitcher = () => {
-     
+
       const cls = {
         [`${prefixCls}-switcher`]: true,
         [`${prefixCls}-switcher-noop`]: true,
@@ -402,8 +403,8 @@ class TreeNode extends React.Component {
       } else {
         cls[`${prefixCls}-noline_docu_close`] = true;
       }
-      
-      
+
+
       if(props.selected){
         cls[`${prefixCls}-noline_docu_close`] = false;
         cls[`${prefixCls}-noline_docu_open`] = true;

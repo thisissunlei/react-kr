@@ -20,38 +20,27 @@ export default class DepartmentDialog extends React.Component{
 	onSelect = (data) =>{
 		const {onSelect,treeType} = this.props;
 		const that = this;
-		if(treeType == "personnel" && data.treeType == "NONE"){
-			this.setState({
-				isList:true,
-				detail:[{
-					orgId:data.orgId,
-					pId:data.pId,
-					treeType:data.treeType,
-					orgName:data.orgName,
-					
-				}],
-				
-			})
-		}
-		if(treeType == "department" && data.treeType == "DEPARTMENT"){
-			this.setState({
-				isList:true,
-				detail:[{
-					orgId:data.orgId,
-					pId:data.pId,
-					treeType:data.treeType,
-					orgName:data.orgName,
-					
-				}],
-				
-			})
-		}
+		console.log(data,">>>>>>");
+
+		this.setState({
+			isList:true,
+			detail:[{
+				orgId:data.orgId,
+				pId:data.pId,
+				treeType:data.treeType,
+				orgName:data.orgName,
+
+			}],
+
+		})
+
+
 	}
 	getCheckData = (treeDatas) =>{
 		let detailData = [].concat(treeDatas);
-		
+
 		let detail = [];
-		
+
 		for(let i=0;i<detailData.length;i++){
 			if(detailData[i].isClick){
 				detail.push(detailData[i]);
@@ -60,7 +49,7 @@ export default class DepartmentDialog extends React.Component{
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
-		
+
 		this.setState({
 			detail,
 		})
@@ -71,7 +60,7 @@ export default class DepartmentDialog extends React.Component{
 		let { ajaxUrlName} = this.props;
 		const _this = this;
 		Http.request(ajaxUrlName).then(function (response) {
-		
+
 			_this.setState({
 				treeData:_this.fnTree(response.items)
 			})
@@ -94,16 +83,16 @@ export default class DepartmentDialog extends React.Component{
 			}
 			obj.key = key++;
 			return obj;
-			
+
 		})
 		return arr;
 	}
-	
+
 	onSumit = () =>{
 		const {detail} = this.state;
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(detail)
-		
+
 	}
 	onCancel = () =>{
 		 const {onCancel} = this.props;
@@ -135,7 +124,7 @@ export default class DepartmentDialog extends React.Component{
 			  </div>
 		})
 		return lists;
-	
+
 	}
 	treeChange = (event) =>{
 		this.setState({
@@ -149,7 +138,8 @@ export default class DepartmentDialog extends React.Component{
 		   treeData,
 		} = this.state;
 		let {
-			...other
+			checkable
+			
 		} = this.props;
 		return (
             <div className = "tree-department" style = {{position:"relative",textAlign:"center"}}>
@@ -163,13 +153,13 @@ export default class DepartmentDialog extends React.Component{
 						</div>
 						<div className = "tree-content-left-right">
 
-							<SliderTree 
-								onSelect = {this.onSelect}  
+							<SliderTree
+								onSelectTree = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}
-								getCheckData = {this.getCheckData} 
-								{...other}
+								getCheckData = {this.getCheckData}
+								checkable = {checkable||false}
 							/>
 						</div>
 					</div>
@@ -185,7 +175,7 @@ export default class DepartmentDialog extends React.Component{
 				</div>
 			  <div className = "tree-dialog-bottom" style = {{textAline:"center"}}>
 			  		<span className = "botton"  onClick = {this.onSumit}>确定</span>
-					<span className = "botton" onClick = {this.onCancel} >取消</span>	
+					<span className = "botton" onClick = {this.onCancel} >取消</span>
 			  </div>
         </div>
         )
