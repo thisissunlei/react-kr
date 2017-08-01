@@ -174,7 +174,7 @@ class TreeNode extends React.Component {
     //   checkboxCls[`${prefixCls}-checkbox-disabled`] = true;
     //   return <span ref="checkbox" className={classNames(checkboxCls)}>{customEle}</span>;
     // }
-    if(!props.itemData.noCheck){
+    if(props.itemData.noCheck){
        checkboxCls[`${prefixCls}-checkbox-onCheck`] = true;
     }
     return (
