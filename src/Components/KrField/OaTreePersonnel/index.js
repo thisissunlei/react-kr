@@ -48,7 +48,7 @@ export default class OaTreePersonnel extends React.Component{
 		let {treeType} = this.props;
 		if( data[0].orgName == "" ){
 			
-			Message.error("请选择直接上级");
+			Message.error("请选择人员");
 			return ;
 		}
 		let {input,onChange} = this.props;
