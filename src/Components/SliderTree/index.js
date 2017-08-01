@@ -34,22 +34,22 @@ export default class SliderTree extends React.Component {
 	}
 
 	onCheck = (keys,treeNode)=>{
-
 		let  checkDatas = treeNode.checkedNodes.map((item,index)=>{
 			let detailData =Object.assign({},item.props.itemData);
 			delete detailData.children;
 			return detailData;
 		})
-		
+
 		let {getCheckData} = this.props;
 		getCheckData && getCheckData(checkDatas);
-		
+
 	}
 
 	//点击选择事件
 	onSelect = (item) => {
-		let { onSelect } = this.props;
-		onSelect && onSelect(item);
+		console.log("-------",item)
+		let { onSelectTree } = this.props;
+		onSelectTree && onSelectTree(item);
 	}
 
 
@@ -64,7 +64,7 @@ export default class SliderTree extends React.Component {
 		if(!searchKey){
 			return false;
 		}
-		
+
 		const keyArray = key.split('-');
 		const str = keyArray.pop();
 
@@ -148,7 +148,7 @@ export default class SliderTree extends React.Component {
 
 	setSearchExpandedKeys = (nextSearchKey)=>{
 
-		
+
 
 		var expandedKeys = [];
 
@@ -162,7 +162,7 @@ export default class SliderTree extends React.Component {
 		filterKeys.map(function(item){
 
 			const  index = item.indexOf(nextSearchKey);
-			
+
 			if(index === -1){
 				return ;
 			};
@@ -212,7 +212,7 @@ export default class SliderTree extends React.Component {
 			}
 		}
 		return tmpArr;
-	}	
+	}
 
 	componentDidMount(){
 		//this.setSearchExpandedKeys(this.props.searchKey);
@@ -229,11 +229,11 @@ export default class SliderTree extends React.Component {
 
 	render() {
 
-		const { 
-			title, 
+		const {
+			title,
 			type,
 			treeData,
-			...other 
+			...other
 		} = this.props;
 
 		var that = this;
@@ -269,7 +269,7 @@ export default class SliderTree extends React.Component {
 
 		const {expandedKeys} = this.state;
 
-	
+
 		return (
 			<div>
 				<Tree
