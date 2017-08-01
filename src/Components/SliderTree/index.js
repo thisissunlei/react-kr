@@ -233,6 +233,7 @@ export default class SliderTree extends React.Component {
 			title,
 			type,
 			treeData,
+			TreeTheme,
 			...other
 		} = this.props;
 
@@ -280,6 +281,7 @@ export default class SliderTree extends React.Component {
 					expandedKeys={expandedKeys}
 					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}
+					theme = {TreeTheme || ""}
 					{...other}
 				>
 					{treeNodes}

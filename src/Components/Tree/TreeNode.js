@@ -417,15 +417,33 @@ class TreeNode extends React.Component {
       }
       return <span className={classNames(cls)}></span>;
     };
-
+    let length = props.eventKey.split("-").length-1;
+    let bg = "transparent"
+    if(
+     
+       !props.root.props.checkable && props.selected && props.itemData.isClick
+    ){
+       bg = "#F0F0F0"
+      if(props.root.props.theme == "institutionsTheme"){
+        bg="#E5E6ED"
+      }
+       
+    }
+   
+    
     return (
       <li {...liProps} ref="li"
         className={classNames(props.className, disabledCls, dragOverCls, filterCls) }
       >
-        {canRenderSwitcher ? this.renderSwitcher(props, expandedState) : noopSwitcher()}
-        {props.checkable ? this.renderCheckbox(props) : null}
-        {selectHandle()}
-        {newChildren}
+        <div style = {{width:'100%',height:28,position:"absolute",background:bg,zIndex:'0'}}></div>
+        <div style = {{width:'100%',background:"transparent",zIndex:'1',position: "relative"}}>
+        <span style = {{width:20*length,display:'inline-block'}}></span>
+          {canRenderSwitcher ? this.renderSwitcher(props, expandedState) : noopSwitcher()}
+          {props.checkable ? this.renderCheckbox(props) : null}
+          {selectHandle()}
+          {newChildren}
+        </div>
+         
       </li>
     );
   }

@@ -9,6 +9,7 @@
     list-style: none;
     white-space: nowrap;
     outline: 0;
+    position: relative;
     line-height: 28px;
     color: #666;
     .draggable {
@@ -21,6 +22,7 @@
       -khtml-user-drag: element;
       -webkit-user-drag: element;
     }
+   
     &.drag-over {
       > .draggable {
         background-color: #316ac5;
@@ -46,7 +48,7 @@
     }
     ul {
       margin: 0;
-      padding: 0 0 0 18px;
+      // padding: 0 0 0 18px;
       &.@{treePrefixCls}-line {
         background: url('data:image/gif;base64,R0lGODlhCQACAIAAAMzMzP///yH5BAEAAAEALAAAAAAJAAIAAAIEjI9pUAA7') 0 0 repeat-y;
       }
