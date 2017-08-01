@@ -463,6 +463,9 @@ export default class Labour extends React.Component {
 		})
 	}
 	clickSelect = () => {
+		if(this.state.dimData.length==0){
+			return;
+		}
 		if(this.state.selectStyle.display=='none'){
 			this.setState({
 				selectStyle: {
@@ -771,9 +774,13 @@ export default class Labour extends React.Component {
 							<span className="title-list" style={this.state.selectStyle}>
 								{this.state.dimData.map((item, index) => { return this.renderDimList(item, index) })}
 							</span>
-							<span className="square">
+							{this.state.dimData.length>0
+								&&
+								<span className="square">
 
-							</span>
+								</span>
+							}
+							
 						</span>
 
 					</div>
