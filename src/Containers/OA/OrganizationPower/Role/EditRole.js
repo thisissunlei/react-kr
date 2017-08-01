@@ -29,7 +29,7 @@ class EditRole  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,detail}=this.props;
+        let {handleSubmit,detail,code}=this.props;
          
 
 		return(
@@ -44,13 +44,15 @@ class EditRole  extends React.Component{
                             label="角色名称"
                             requireLabel={true}
 						/>
-                        <KrField grid={1/2}
+                        <div className='role-code'><KrField grid={1/2}
                             style={{width:262,marginLeft:27,marginBottom:5}}
                             name="code"
-                            component="input"
+                            component="labelText"
                             label="编码"
                             requireLabel={true}
-						/>
+                            inline={false}
+                            value={code}
+						/></div>
 
                         <KrField
                             grid={1/2}
