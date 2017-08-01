@@ -1,5 +1,6 @@
 import React from 'react';
-import TabTitle from './TabTitle'
+import TabTitle from './TabTitle';
+import TabFirst from './TabFirst';
 import './index.less'
 export default class TabCs extends React.Component {
     constructor(props,context){
@@ -36,19 +37,20 @@ export default class TabCs extends React.Component {
     }
 
 	render() {
-        const {children,inStyle,acStyle,initClass,activeClass} = this.props;
+        const {children,isDetail} = this.props;
         const {labels} = this.state;
         
 		return (
             <div class = "ui-oa-tabs">
-                <TabTitle
+                {isDetail=='role'&&<TabTitle
                     labels = {this.getLabels()} 
                     onSubmit = {this.titleClick} 
-                    acStyle={acStyle}
-                    inStyle={inStyle}
-                    initClass={initClass}
-                    activeClass={activeClass}
-                />
+                />}
+
+                 {isDetail=='detail'&&<TabFirst
+                    labels = {this.getLabels()} 
+                    onSubmit = {this.titleClick} 
+                />}
                 
                 {this.tabRender()}
             </div>

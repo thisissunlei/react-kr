@@ -37,8 +37,7 @@ export default class EditOrganization  extends React.Component{
 			    </div>
 				<div className='role-tab'>    
 				    <TabCs
-					  activeClass='ui-line-active'
-					  initClass='ui-line-init'
+					  isDetail='role'
 			        >
 						<TabC label='基本信息'> 
 							<BasicInfo
