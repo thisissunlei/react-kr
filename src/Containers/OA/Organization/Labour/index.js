@@ -132,7 +132,6 @@ export default class Labour extends React.Component {
 			if(obj.children.length!=0){
 				obj.children = this.fnTree(obj.children);
 			}
-			
 			obj.isClick = true;
 			obj.key = key++;
 			return obj;

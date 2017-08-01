@@ -20,21 +20,19 @@ export default class DepartmentDialog extends React.Component{
 	onSelect = (data) =>{
 		const {onSelect,treeType} = this.props;
 		const that = this;
-		console.log(data,">>>>>>");
+		if(data.treeType == "DEPARTMENT"){
+			this.setState({
+				isList:true,
+				detail:[{
+					orgId:data.orgId,
+					pId:data.pId,
+					treeType:data.treeType,
+					orgName:data.orgName,
 
-		this.setState({
-			isList:true,
-			detail:[{
-				orgId:data.orgId,
-				pId:data.pId,
-				treeType:data.treeType,
-				orgName:data.orgName,
+				}],
 
-			}],
-
-		})
-
-
+			})
+		}
 	}
 	getCheckData = (treeDatas) =>{
 		let detailData = [].concat(treeDatas);
@@ -80,6 +78,9 @@ export default class DepartmentDialog extends React.Component{
 				obj.isClick = true;
 			}else{
 				obj.isClick = false;
+			}
+			if(!obj.children.length && obj.treeType === "SUBCOMPANY"){
+				obj.noCheck = true;
 			}
 			obj.key = key++;
 			return obj;

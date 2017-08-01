@@ -19,7 +19,7 @@ export default class DivisionDialog extends React.Component{
 	onSelect = (data) =>{
 		const {onSelect,treeType} = this.props;
 		const that = this;
-		if(treeType == "personnel" && data.treeType == "NONE"){
+		if(data.treeType == "SUBCOMPANY"){
 			this.setState({
 				isList:true,
 				detail:[{
@@ -32,7 +32,7 @@ export default class DivisionDialog extends React.Component{
 
 			})
 		}
-		if(treeType == "department" && data.treeType == "DEPARTMENT"){
+		if(data.treeType == "DEPARTMENT"){
 			this.setState({
 				isList:true,
 				detail:[{
@@ -164,7 +164,7 @@ export default class DivisionDialog extends React.Component{
 						<div className = "tree-content-left-right">
 
 							<SliderTree
-								onSelect = {this.onSelect}
+								onSelectTree = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}

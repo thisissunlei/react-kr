@@ -33,7 +33,7 @@ export default class PersonnelDialog extends React.Component{
 		const {onSelect,treeType} = this.props;
 		const that = this;
 
-		if(treeType == "personnel" && data.treeType == "NONE"){
+		if( data.treeType == "NONE"){
 			this.setState({
 				detail:[{
 					orgId:data.orgId,
@@ -43,21 +43,7 @@ export default class PersonnelDialog extends React.Component{
 				}]
 			})
 		}
-		if(treeType == "department" && data.treeType == "DEPARTMENT"){
-			this.setState({
-				isList:true,
-				detail:[{
-					orgId:data.orgId,
-					pId:data.pId,
-					treeType:data.treeType,
-					orgName:data.orgName,
-
-
-				}],
-
-			})
-
-		}
+		
 	}
 	getCheckData = (treeDatas) =>{
 		let detailData = [].concat(treeDatas);
@@ -105,6 +91,9 @@ export default class PersonnelDialog extends React.Component{
 				obj.isClick = true;
 			}else{
 				obj.isClick = false;
+			}
+			if(!obj.children.length && obj.treeType === "SUBCOMPANY"){
+				obj.noCheck = true;
 			}
 			obj.key = key++;
 			return obj;
@@ -223,7 +212,7 @@ export default class PersonnelDialog extends React.Component{
 						<div className = "tree-content-left-right">
 
 							<SliderTree
-								onSelect = {this.onSelect}
+								onSelectTree = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}

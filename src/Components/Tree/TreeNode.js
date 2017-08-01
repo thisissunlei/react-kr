@@ -170,9 +170,12 @@ class TreeNode extends React.Component {
     if (typeof props.checkable !== 'boolean') {
       customEle = props.checkable;
     }
-    if (props.disabled || props.disableCheckbox) {
-      checkboxCls[`${prefixCls}-checkbox-disabled`] = true;
-      return <span ref="checkbox" className={classNames(checkboxCls)}>{customEle}</span>;
+    // if (props.disabled || props.disableCheckbox) {
+    //   checkboxCls[`${prefixCls}-checkbox-disabled`] = true;
+    //   return <span ref="checkbox" className={classNames(checkboxCls)}>{customEle}</span>;
+    // }
+    if(props.itemData.noCheck){
+       checkboxCls[`${prefixCls}-checkbox-onCheck`] = true;
     }
     return (
       <span ref="checkbox"

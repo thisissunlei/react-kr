@@ -47,11 +47,8 @@ export default class OaTreeDepartment extends React.Component{
 	onSubmit = (data) =>{
 		let {treeType} = this.props;
 		if( data[0].orgName == "" ){
-			if(treeType == "department"){
+		
 				Message.error("请选择部门");
-			}else{
-				Message.error("请选择直接上级");
-			}
 			
 			
 			return ;
