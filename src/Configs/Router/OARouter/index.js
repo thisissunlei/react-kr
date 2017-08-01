@@ -61,6 +61,12 @@ const OA_PeopleDetail = (location, callback) => {
   }, 'OA_PeopleDetail')
 }
 
+const OA_ProcessManage_DealNewThings= (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/ProcessManage/DealNewThings').default)
+  }, 'OA_ProcessManage_DealNewThings')
+}
+
 module.exports =()=>{
 	return (
         <Route path="oa" getComponent={Basic}>
@@ -84,6 +90,10 @@ module.exports =()=>{
 
              {/*人员详情*/}
             <Route path=":personId/peopleDetail" getComponent={OA_PeopleDetail}/>
+            {/*流程管理*/}
+            <Route path="processManage" getComponent={Basic}>
+              <Route path="processManage/dealNewThings" getComponent={OA_ProcessManage_DealNewThings}/>
+            </Route>
         </Route>
 	);
 };

@@ -81,6 +81,19 @@ module.exports = [
 					}
 				]
 			},
+			{
+				primaryText: '流程管理',
+				iconName: 'icon-administrator',
+				menuCode: 'hrmresourceadmin',
+				iconColor: '#79859a',
+				menuItems: [
+					{
+						primaryText: '新办事宜',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/oa/processManage/dealNewThings',
+					}
+				]
+			}, 
 			
 			]
 	}
