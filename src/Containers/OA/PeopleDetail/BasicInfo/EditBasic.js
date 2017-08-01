@@ -130,8 +130,6 @@ class EditPerson  extends React.Component{
 
         let {handleSubmit}=this.props;
         let {rankList,positionList,isPositionRank,positionType,isDepSelect,basicInfo} = this.state;
-
-        console.log('basic',basicInfo);
         
       
 		return(
@@ -226,7 +224,7 @@ class EditPerson  extends React.Component{
                             letfData={positionList}
                             component="switchSlide"
                             label="职务"
-                            valueText = {basicInfo.jobName}
+                            valueText = {basicInfo[0].jobName}
                             control='single'
                             requireLabel={true}
                         />}
@@ -236,7 +234,7 @@ class EditPerson  extends React.Component{
                             name="levelId"
                             letfData={rankList}
                             component="switchSlide"
-                            valueText ={basicInfo.levelName}
+                            valueText ={basicInfo[0].levelName}
                             label="职级"
                             control='single'
                             requireLabel={true}
