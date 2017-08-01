@@ -45,7 +45,7 @@ class AgreementTable  extends React.Component{
 		State.getIncomeList({page:page,pageSize:10})
 	}
 	click=(item)=>{
-		window.open('#/operation/customerManage/customerList','_target')
+		State.setAgreementData(item);
 	}
 
 

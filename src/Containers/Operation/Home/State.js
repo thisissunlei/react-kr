@@ -51,6 +51,9 @@ let State = observable({
 	visitList:{
 		items:[]
 	},
+	openAgreementDetail:false,
+	customerId:'',
+	mainbillId:''
 
 
 });
@@ -65,6 +68,11 @@ State.getHomeData=action(function(params){
 			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
+})
+State.setAgreementData = action(function(data){
+	this.openAgreementDetail = true;
+	this.customerId = data.customerId;
+	this.mainbillId = data.mainbillId;
 })
 
 

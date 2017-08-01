@@ -44,9 +44,6 @@ class VisitTable  extends React.Component{
 		console.log('page',page);
 		State.getVisitList({page:page,pageSize:10})
 	}
-	click=(item)=>{
-		window.open('#/operation/customerManage/customerList','_target')
-	}
 
 
 	render(){
@@ -66,7 +63,7 @@ class VisitTable  extends React.Component{
 					<tbody>
 						{State.visitList.items.map((item,index)=>{
 							return (
-								<tr key={index} onClick={this.click.bind(this,item)} >
+								<tr key={index} >
 									<td>
 										{item.visitor}
 									</td>

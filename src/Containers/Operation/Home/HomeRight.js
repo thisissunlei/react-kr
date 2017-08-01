@@ -79,21 +79,21 @@ class HomeRight  extends React.Component{
 			<div >
 				<div className="item-left-line-right">
 					<div className="first-item">
-						<div className="items">
+						<div className="items item">
 							<div className="item-title">社区出租率</div>
-							<div className="item-content"  style={{color:'#499DF1'}}>60%</div>
+							<div className="item-content"  style={{color:'#499DF1'}}>160%</div>
 						</div>
-						<div className="items">
+						<div className="items item">
 							<div className="item-title"><span className="icon-month item-logo"></span>经营月报</div>
 							<div className="item-content" style={{color:'#8290A8'}}>{month}月</div>
 						</div>
-						<div className="items">
+						<div className="items item">
 							<div className="item-title"><span className="icon-day item-logo"></span>经营日报</div>
 							<div className="item-content" style={{color:'#8290A8'}}>{day}日</div>
 						</div>
 					</div>
 					<div className="second-item">
-						<div className="item-list">
+						<div className="item-list item">
 							<div className='item-head'>账户信息</div>
 							<div className="lists-info">
 								<div className='list-info' onClick={this.clickSpan.bind(this,'monthPayment')}>
@@ -119,7 +119,7 @@ class HomeRight  extends React.Component{
 							</div>
 
 						</div>
-						<div className="item-list">
+						<div className="item-list  item">
 							<div className='item-head'>客户信息</div>
 							<div className="lists-info">
 								<div className='list-info'  onClick={this.clickSpan.bind(this,'settledCustomer')}>

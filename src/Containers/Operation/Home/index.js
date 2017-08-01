@@ -11,7 +11,7 @@ import {
   Store
 } from 'kr/Redux';
 import {
-	Title,Dialog
+	Title,Dialog,Drawer
 
 } from 'kr-ui';
 import home from './images/home-community.svg';
@@ -28,11 +28,14 @@ import NewClue from './RightDialog/NewClue';
 import SettledCustomer from './RightDialog/SettledCustomer';
 import HomeRight from './HomeRight';
 import State from './State';
-import {Http,DateFormat} from "kr/Utils";
+import {Http,DateFormat,Money} from "kr/Utils";
 import {
 	observer,
 	inject
 } from 'mobx-react';
+import {
+	Agreement
+} from 'kr/PureComponents';
 @inject("NavModel")
 @observer
 
@@ -85,7 +88,11 @@ class Home  extends React.Component{
 	closeSignedCustomer=()=>{
 		State.signedCustomer = false;
 	}
+	detailOpenAgreement=()=>{
+		State.openAgreementDetail = false
+	}
 	render(){
+		console.log('index=======>',Money('120102'))
 		
 		return(
 			<div style={{minHeight:'910'}} className="operation-home">
@@ -176,6 +183,19 @@ class Home  extends React.Component{
 					>
 						<NewClue />
 				</Dialog>
+				<Drawer
+				        open={State.openAgreementDetail}
+				        width={750}
+				        onClose={this.detailOpenAgreement}
+				        openSecondary={true}
+				        containerStyle={{top:60,paddingBottom:48,zIndex:8}}
+			        >
+                        <Agreement.Join.Detail
+						 params={{id:State.InfoData.communityId,customerId:State.customerId,orderId:State.mainbillId}}
+                         onCancel={this.detailOpenAgreement}
+						/>
+
+		           </Drawer>
 	     	</div>
 
 		);
