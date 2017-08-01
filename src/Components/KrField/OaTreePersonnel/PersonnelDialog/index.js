@@ -13,6 +13,7 @@ export default class PersonnelDialog extends React.Component{
 			isList:false,
 			searchKey:'',
 			treeData : [],
+			listSearchKey:''
 		}
 		this.selectKeys = ["0-120"];
 		this.getTreeData();
@@ -84,7 +85,6 @@ export default class PersonnelDialog extends React.Component{
 		let { ajaxUrlName} = this.props;
 		const _this = this;
 		Http.request(ajaxUrlName).then(function (response) {
-			console.log(_this.fnTree(response.items),"PPPPPP")
 			_this.setState({
 				treeData:_this.fnTree(response.items)
 			})
@@ -93,6 +93,7 @@ export default class PersonnelDialog extends React.Component{
 		});
 
 	}
+	//对树进行处理
 	fnTree = (data) =>{
 		let key = 0;
 		var arr = data.map((item,index)=>{
@@ -122,6 +123,7 @@ export default class PersonnelDialog extends React.Component{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	}
+	//删除选择
 	deletList = (event,index) => {
 		let {treeData} = this.state;
 		let detail = [].concat(this.state.detail);
@@ -131,7 +133,6 @@ export default class PersonnelDialog extends React.Component{
 		}
 		this.selectKeys = [];
 		this.getSelectKeys(treeData,detail,0);
-		console.log(this.selectKeys,"KKKKK")
 		this.setState({
 			detail,
 			isList:false,
@@ -156,26 +157,49 @@ export default class PersonnelDialog extends React.Component{
 		})
 		
 	}
-
+	//选中列表显示
 	listRender = () =>{
-		const {detail} = this.state;
+		const {detail,listSearchKey} = this.state;
 		if(detail[0].orgName == ""){
 			return ;
 		}
+		console.log("list")
+
 		let lists = detail.map((item,index)=>{
-			return <div className = "everyHave">
-					{item.orgName || ''}
-					<span className="ui-oa-del" onClick = {()=>{
-							this.deletList(event,index)
-						}}></span>
-			  </div>
+			console.log(item.orgName.indexOf(listSearchKey),"ii")
+			if(listSearchKey ===''){
+				return <div className = "everyHave">
+						{item.orgName || ''}
+						<span className="ui-oa-del" onClick = {()=>{
+								this.deletList(event,index)
+							}}></span>
+				</div>
+			}else{
+				if(item.orgName.indexOf(listSearchKey)!=-1){
+					return <div className = "everyHave">
+								{item.orgName || ''}
+								<span className="ui-oa-del" onClick = {()=>{
+									this.deletList(event,index)
+								}}></span>
+							</div>
+				}
+			}
 		})
+
 		return lists;
 	
 	}
+	//搜索框
 	treeChange = (event) =>{
+		
 		this.setState({
 			searchKey:event.target.value,
+		})
+	}
+	listChange = (event) =>{
+		console.log("change")
+		this.setState({
+			listSearchKey:event.target.value
 		})
 	}
 	render(){
@@ -212,7 +236,7 @@ export default class PersonnelDialog extends React.Component{
 					</div>
 					<div className = "content-right clear" >
 						<div className = "serch">
-							<input type="text" placeholder="请输入关键字搜索" />
+							<input type="text" placeholder="请输入关键字搜索" onChange = {this.listChange} />
 							<span className = "oa-search-icon search-icon"></span>
 						</div>
 						<div className = "tree-content-left-right">
