@@ -188,6 +188,7 @@ class EditPerson  extends React.Component{
                             component="treePersonnel"
                             label="直接上级"
                             treeType = "personnel"
+                            requireLabel={true}
                             ajaxUrlName = "get-personnel-tree"
                             valueText = {basicInfo[0].leaderName?[{orgName:basicInfo[0].leaderName}]:[{orgName:''}]}
                             
@@ -312,6 +313,11 @@ const validate = values =>{
     if(!values.status){
         errors.status='请选择员工属性';
     }
+    
+     if(!values.leader){
+        errors.leader='请选择直接上级';
+    }
+
 
     if(!values.type){
         errors.type='请选择员工类别';

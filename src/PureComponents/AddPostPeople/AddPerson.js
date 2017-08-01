@@ -249,6 +249,7 @@ class AddPerson  extends React.Component{
                             name="leader"
                             component="treePersonnel"
                             label="直接上级"
+                            requireLabel={true}
                             ajaxUrlName = "get-personnel-tree"
                         />
 
@@ -350,7 +351,9 @@ const validate = values =>{
         errors.type='请选择员工类别';
     }
 
-
+    if(!values.leader){
+        errors.leader='请选择直接上级';
+    }
 
      if(!values.depId){
         errors.depId='请选择部门';
