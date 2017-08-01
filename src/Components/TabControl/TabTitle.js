@@ -25,19 +25,21 @@ export default class TabTitle extends React.Component {
         const {labels} = this.props;
         const {active} = this.state;
         const _this=this;
+        let width=(1/labels.length)*100;
         let titles = labels.map((item,index)=>{
             let defaultStyel =  _this.init;
             if(!this.tabsLineWidth){
                 defaultStyel = index==0 ?_this.active:_this.init;
             }
-            let style = _this.inStyle
             return (<span 
                    
                     key = {index} 
                     onClick = {()=>{
                         this.titleClick(item,index);
                     }}
-                    style={index==active?{color:'#499df1',fontSize:'16px'}:{color:'#666',fontSize:'16px'}}
+                    style={index==active?
+                    {color:'#499df1',fontSize:'16px',width:width+'%'}:
+                    {color:'#666',fontSize:'16px',width:width+'%'}}
                     className={defaultStyel}
                     >
                         {item}
