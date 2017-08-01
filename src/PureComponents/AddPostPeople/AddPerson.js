@@ -284,7 +284,7 @@ class AddPerson  extends React.Component{
                             style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?28:0,marginTop:6}}
                             name="status"
                             component="selecTemployees"
-                            label="员工属性"
+                            label="员工状态"
                             requireLabel={true}
                             otherType="resourceStatus"
 						/>
@@ -295,6 +295,14 @@ class AddPerson  extends React.Component{
                             label="员工类别"
                             requireLabel={true}
                             otherType="resourceType"
+						/>
+                        <KrField grid={1/2}
+                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?28:0,marginTop:6}}
+                            name="property"
+                            component="selecTemployees"
+                            label="员工属性"
+                            requireLabel={true}
+                            otherType="resourceProperty"
 						/>
 
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
