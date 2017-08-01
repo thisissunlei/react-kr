@@ -106,7 +106,6 @@ export default class InService  extends React.Component{
    addPersonSubmit=(param)=>{
     var data = Object.assign({},param);
 	var _this = this;
-	data.depId=data.depId.orgId;
 	var searchParams={
 		time:+new Date()
 	}

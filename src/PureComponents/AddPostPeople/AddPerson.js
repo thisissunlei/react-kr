@@ -41,15 +41,18 @@ class AddPerson  extends React.Component{
       let {orgDetail}=this.props;
       Store.dispatch(change('addPerson','sex','MALE'));
       Store.dispatch(change('addPerson','depId',orgDetail[0].orgId));
-      this.getPositionType(orgDetail);
+      this.getPositionType(orgDetail[0]);
     }
 
     onSubmit=(values)=>{
         let params = Object.assign({},values);
+        console.log('value',values);
         params.jobId = values.jobId.value;
-        params.leader = values.leader.orgId;
+        params.leader = values.leader[0].orgId;
         params.treeType = values.leader.treeType;
         params.levelId = values.levelId.value;
+        params.depId=values.depId[0].orgId;
+        console.log('params',params);
 
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
@@ -59,13 +62,13 @@ class AddPerson  extends React.Component{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
-    onChange = (data) =>{  
+    onChange = (data) =>{
          Store.dispatch(change('addPerson','typeId',''));
          this.setState({
             isPositionRank:false,
             isType:true
         })
-        this.getPositionType(data);
+        this.getPositionType(data[0]);
     }
     // zhiwu-type
     positionTypeChange = (data) =>{
@@ -178,8 +181,6 @@ class AddPerson  extends React.Component{
 	render(){
 
         let {handleSubmit,orgDetail}=this.props;
-
-        console.log('ffff',orgDetail);
        
         let {
                 rankList,

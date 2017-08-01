@@ -69,7 +69,7 @@ class EditPerson  extends React.Component{
         onCancel && onCancel();
     }
     onChange = (data) =>{
-        this.getPositionType(data);
+        this.getPositionType(data[0]);
         Store.dispatch(change('editPerson','typeId',''));
         this.setState({
             isDepSelect:false
@@ -130,6 +130,8 @@ class EditPerson  extends React.Component{
 
         let {handleSubmit}=this.props;
         let {rankList,positionList,isPositionRank,positionType,isDepSelect,basicInfo} = this.state;
+
+        console.log('basic',basicInfo);
         
       
 		return(
@@ -251,7 +253,7 @@ class EditPerson  extends React.Component{
                             style={{width:262,marginLeft:!this.props.changeValues.depId?0:28}}
                             name="status"
                             component="selecTemployees"
-                            label="员工属性"
+                            label="员工状态"
                             requireLabel={true}
                             otherType="resourceStatus"
 						/>
@@ -264,7 +266,7 @@ class EditPerson  extends React.Component{
                             otherType="resourceType"
 						/>
                          <KrField grid={1/2}
-                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?28:0,marginTop:6}}
+                            style={{width:262,marginLeft:!this.props.changeValues.depId?0:28,marginTop:6}}
                             name="property"
                             component="selecTemployees"
                             label="员工属性"
