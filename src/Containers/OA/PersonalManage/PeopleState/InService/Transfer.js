@@ -18,8 +18,9 @@ class Transfer extends React.Component{
     
      onSubmit=(values)=>{
         let {department} = this.props;
+
         let submitData = {
-            depId:values.depId.orgId,
+            depId:values.depId[0].orgId,
             resourceId:department.id
         }
         const {onSubmit}=this.props;
@@ -76,6 +77,10 @@ class Transfer extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+
+    if(!values.depId){
+       errors.depId='请选择部门';
+    }
     
 	return errors
 }
