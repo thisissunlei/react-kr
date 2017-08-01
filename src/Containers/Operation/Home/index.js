@@ -20,6 +20,12 @@ import ChangeCommunity from './ChangeCommunity';
 import HomeLeft from './HomeLeft';
 import MonthPayment from './RightDialog/MonthPayment';
 import AllPayment from './RightDialog/AllPayment';
+import Arrearages from './RightDialog/Arrearages';
+import SignedCustomer from './RightDialog/SignedCustomer';
+import AllCustomer from './RightDialog/AllCustomer';
+import FCustomer from './RightDialog/FCustomer';
+import NewClue from './RightDialog/NewClue';
+import SettledCustomer from './RightDialog/SettledCustomer';
 import HomeRight from './HomeRight';
 import State from './State';
 import {Http,DateFormat} from "kr/Utils";
@@ -65,7 +71,7 @@ class Home  extends React.Component{
 		State.arrearages = false;
 	}
 	closeSettledCustomer=()=>{
-		State.settledCustomer  = false;
+		State.openSettledCustomer  = false;
 	}
 	closeNewClue=()=>{
 		State.newClue = false;
@@ -110,7 +116,7 @@ class Home  extends React.Component{
 						title="本月回款"
 						onClose={this.closeMonthPayment}
 						open={State.openMonthPayment}
-						contentStyle ={{ width: '85%',height:'600px'}}
+						contentStyle ={{ width: '85%',height:'570px'}}
 					>
 						<MonthPayment />
 				</Dialog>
@@ -118,7 +124,7 @@ class Home  extends React.Component{
 						title="累积回款"
 						onClose={this.closeAllPayment}
 						open={State.openAllPayment}
-						contentStyle ={{ width: '85%',height:'600px'}}
+						contentStyle ={{ width: '85%',height:'570px'}}
 					>
 						<AllPayment />
 				</Dialog>
@@ -126,49 +132,49 @@ class Home  extends React.Component{
 						title="社区欠款"
 						onClose={this.closeArrearages}
 						open={State.arrearages}
-						contentStyle ={{ width: '85%',height:'600px'}}
+						contentStyle ={{ width: '85%',height:'570px'}}
 					>
-						<AllPayment />
+						<Arrearages />
 				</Dialog>
 				<Dialog
 						title="现入驻客户"
 						onClose={this.closeSettledCustomer}
-						open={State.settledCustomer}
-						contentStyle ={{ width: '85%',height:'600px'}}
+						open={State.openSettledCustomer}
+						contentStyle ={{ width: '85%',height:'570px'}}
 					>
-						<AllPayment />
+						<SettledCustomer />
 				</Dialog>
 				<Dialog
 						title="已约未入驻"
 						onClose={this.closeSignedCustomer}
 						open={State.signedCustomer}
-						contentStyle ={{ width: '85%',height:'600px'}}
+						contentStyle ={{ width: '85%',height:'570px'}}
 					>
-						<AllPayment />
+						<SignedCustomer />
 				</Dialog>
 				<Dialog
 						title="客户总数"
 						onClose={this.closeAllCustomer}
 						open={State.allCustomer}
-						contentStyle ={{ width: '85%',height:'600px'}}
+						contentStyle ={{ width: '85%',height:'570px'}}
 					>
-						<AllPayment />
+						<AllCustomer />
 				</Dialog>
 				<Dialog
 						title="跟进中客户"
 						onClose={this.closeFCustomer}
 						open={State.fCustomer}
-						contentStyle ={{ width: '85%',height:'600px'}}
+						contentStyle ={{ width: '85%',height:'570px'}}
 					>
-						<AllPayment />
+						<FCustomer />
 				</Dialog>
 				<Dialog
 						title="新增线索"
 						onClose={this.closeNewClue}
 						open={State.newClue}
-						contentStyle ={{ width: '85%',height:'600px'}}
+						contentStyle ={{ width: '85%',height:'570px'}}
 					>
-						<AllPayment />
+						<NewClue />
 				</Dialog>
 	     	</div>
 

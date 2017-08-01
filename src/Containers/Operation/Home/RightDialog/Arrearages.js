@@ -24,6 +24,9 @@ class MonthPayment extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.state={
+			customerId:''
+		}
 	}
 
 	
@@ -31,11 +34,8 @@ class MonthPayment extends React.Component{
 	//导出
 	onExportSign=(values)=>{
 		var searchParams={
-            cityId:State.detailCityId,
-			communityId:State.detailCommunityId,
-			sourceId:State.sourceId,
-			searchStartDate:State.searchStartDate,
-			searchEndDate:State.searchEndDate
+            cmtId:State.info.communityId,
+			customerId:this.state.customerId
 		}
 		var where=[];
 		for(var item in searchParams){
@@ -43,8 +43,15 @@ class MonthPayment extends React.Component{
 			where.push(`${item}=${searchParams[item]}`);
 			}
 		}
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/csr/source/stat/export/type/sign?${where.join('&')}`
+		var url = `http://optest.krspace.cn/api/krspace-finance-web/operation/cmt-arrearages-excel?${where.join('&')}`
 		window.location.href = url;
+	}
+
+	searchSignChange=(value)=>{
+		console.log('month',value)
+		this.setState({
+			customerId:value.value
+		})
 	}
 
 
@@ -52,9 +59,10 @@ class MonthPayment extends React.Component{
     
 
 	render(){
+		let {customerId} = this.state;
         
 		return(
-			<div className='detail-report'>
+			<div className='detail-report' style={{height:470}}>
 				<form style={{textAlign:'right',marginBottom:'-33px'}}>
 						<KrField  grid={1/2}  	
 							name="companyId" 
@@ -74,7 +82,8 @@ class MonthPayment extends React.Component{
                     ajaxParams={{
 						page:1,
 						pageSize:10,
-						cmtId:State.info.communityId
+						cmtId:State.info.communityId,
+						customerId:customerId
 					}}
                     ajaxUrlName='get-cmt-arrearages'
                     ajaxFieldListName="items"
