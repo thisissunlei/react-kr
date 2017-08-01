@@ -50,6 +50,7 @@ class SearchUpperForm extends React.Component {
 			dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"},
 			operType:props.operType
 		}
+		this.type = "";
 
 	}
 
@@ -85,12 +86,15 @@ class SearchUpperForm extends React.Component {
 			    var communityList=searchParams.intentionCommunities;
 			    var levelList=searchParams.levelIds;
 			    sourceList=searchParams.sourceIds;
+				this.type == "Merchants"
 		    }
 		    if(searchSignParams){
 		    	var belongCity=searchSignParams.cities;
+				this.type == "SignedClient"
 		    }
 			if(flag == '签约'){
 				sourceList = searchSignParams.sources
+				this.type == "SignedClient"
 			}
 
 
@@ -102,8 +106,7 @@ class SearchUpperForm extends React.Component {
 				/>
 				<KrField  grid={1/2} right={34} name="communityId"  style={{marginTop:4}} component='searchCommunityAll' label="签约社区" inline={false} onChange={this.onChangeSign} placeholder='请输入社区名称'/>
 				<KrField  grid={1/2} right={34} name="mainBillType"  style={{marginLeft:-5,marginTop:4}} component='searchSignBill' label="订单类型" inline={false} onChange={this.onChangeSignBill} placeholder='请输入订单类型'/>
-				<KrField  grid={1/2} right={34} name="sourceId" type="select"  style={{marginTop:4}} label="客户来源"
-				  options={sourceList}
+				<KrField  grid={1/2} right={34} name="sourceId" component="upSignedClientSource"  style={{marginTop:4}} label="客户来源"
 				></KrField>
 				<KrField grid={1/1}  component="group" label="工位签约时间" style={{marginTop:3}}>
 				
@@ -125,8 +128,8 @@ class SearchUpperForm extends React.Component {
 				<KrField  grid={1/2} right={34} style={{marginLeft:-5,marginTop:4}}  name="levelId" type="select"  label="客户分类"
 				 options={levelList}
 				/>
-				<KrField  grid={1/2} right={34} name="sourceId" type="select"  style={{marginTop:4}} label="客户来源"
-				  options={sourceList}
+				<KrField  grid={1/2} right={34} name="sourceId" component="upMerchantsSource"  style={{marginTop:4}} label="客户来源"
+				 
 				></KrField>
 				<KrField grid={1/1}  component="group" label="创建时间" style={{marginTop:3}}>
 				<div className='ui-listDate'>

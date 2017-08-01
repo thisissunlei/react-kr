@@ -328,6 +328,15 @@ class EditMoney extends React.Component {
 								value={DateFormat(infoList.dealTime,"yyyy-mm-dd")}
 						/>
 						<KrField
+								style={{width:260,marginLeft: 25}}
+								name="dealTime"
+								component="labelText"
+								label="部门"
+								inline={false}
+								defaultValue='无'
+								value={infoList.department}
+						/>
+						<KrField
 								style={{width:548}}
 								name="remark"
 								component="textarea"

@@ -219,8 +219,7 @@ import {
 							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 
-									{State.isPermissions ? <KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="select"
-											options={dataReady.customerSourceList}
+									{State.isPermissions ? <KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="customerSource"
 											requireLabel={true}
 											onChange={this.sourceCustomer}
 									/> :
