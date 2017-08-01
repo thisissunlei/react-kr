@@ -174,7 +174,7 @@ class TreeNode extends React.Component {
     //   checkboxCls[`${prefixCls}-checkbox-disabled`] = true;
     //   return <span ref="checkbox" className={classNames(checkboxCls)}>{customEle}</span>;
     // }
-    if(props.itemData.noCheck){
+    if(!props.itemData.noCheck){
        checkboxCls[`${prefixCls}-checkbox-onCheck`] = true;
     }
     return (
@@ -242,7 +242,7 @@ class TreeNode extends React.Component {
           for(let i=0;i<IconType.length;i++){
             if(props.itemData.treeType == IconType[i]){
                 if(props.children.length == 0){
-                  if(props.selected){
+                  if(props.selected && props.itemData.isClick){
                     typeText = IconType[i]+"_"+"open";
 
                   }else{
@@ -408,7 +408,7 @@ class TreeNode extends React.Component {
       }
 
 
-      if(props.selected){
+      if(props.selected && props.itemData.isClick){
         cls[`${prefixCls}-noline_docu_close`] = false;
         cls[`${prefixCls}-noline_docu_open`] = true;
       }else{
