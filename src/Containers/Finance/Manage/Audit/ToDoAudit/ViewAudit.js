@@ -327,6 +327,16 @@ export default class ViewAudit extends React.Component {
                 format = "yyyy-mm-dd" />}
 						/>
 						<KrField
+								style={{width:260,marginLeft:25}}
+								name="payAccount"
+								inline={false}
+								type="text"
+								component="labelText"
+								defaultValue='无'
+								label="部门"
+								value={infoList.department}
+						/>
+						<KrField
 								style={{width:548}}
 								name="remark"
 								component="labelText"

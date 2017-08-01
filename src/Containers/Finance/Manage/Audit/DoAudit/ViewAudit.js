@@ -303,6 +303,15 @@ export default class ViewAudit extends React.Component {
                             label="收款日期" 
                             value={DateFormat(infoList.dealTime, "yyyy-mm-dd")}
                     />
+                    <KrField
+                                style={{width:260,marginLeft: 25}}
+                                name="dealTime"
+                                component="labelText"
+                                label="部门"
+                                defaultValue='无'
+                                inline={false}
+                                value={infoList.department}
+                        />
                     <KrField 
                             style={{width: 548 }} 
                             name="remark" 
