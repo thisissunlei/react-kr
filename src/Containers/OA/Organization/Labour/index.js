@@ -797,6 +797,7 @@ export default class Labour extends React.Component {
 							type="department-radio"
 							treeData={this.state.treeData}
 							searchKey={this.state.searchKey}
+							TreeTheme = "institutionsTheme"
 						/>
 					</div>
 				</div>
