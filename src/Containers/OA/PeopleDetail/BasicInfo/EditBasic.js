@@ -56,8 +56,10 @@ class EditPerson  extends React.Component{
         let params = Object.assign({},values);
 
         params.jobId = values.jobId.value || basicInfo[0].jobId||"";
-        params.leader = values.leader.orgId || basicInfo[0].leader||"";
-        params.treeType = values.leader.treeType||"";
+        if(values.leader){
+             params.leader = values.leader.orgId || basicInfo[0].leader||"";
+             params.treeType = values.leader.treeType||"";
+        }
         params.levelId = values.levelId.value|| basicInfo[0].levelId||"";
     
         const {onSubmit}=this.props;
@@ -187,7 +189,6 @@ class EditPerson  extends React.Component{
                             label="直接上级"
                             treeType = "personnel"
                             ajaxUrlName = "get-personnel-tree"
-                            requireLabel={true}
                             valueText = {basicInfo[0].leaderName?[{orgName:basicInfo[0].leaderName}]:[{orgName:''}]}
                             
                         />
@@ -314,10 +315,6 @@ const validate = values =>{
 
     if(!values.type){
         errors.type='请选择员工类别';
-    }
-
-    if(!values.leader){
-        errors.leader='请选择直接上级';
     }
 
      if(!values.depId){
