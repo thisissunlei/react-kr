@@ -92,7 +92,7 @@ module.exports =()=>{
             <Route path=":personId/peopleDetail" getComponent={OA_PeopleDetail}/>
             {/*流程管理*/}
             <Route path="processManage" getComponent={Basic}>
-              <Route path="processManage/dealNewThings" getComponent={OA_ProcessManage_DealNewThings}/>
+              <Route path="dealNewThings" getComponent={OA_ProcessManage_DealNewThings}/>
             </Route>
         </Route>
 	);
