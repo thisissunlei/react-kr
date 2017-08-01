@@ -4,6 +4,7 @@ import {
   change,
   arrayPush,
   initialize,
+  reset,
   formValueSelector
 } from 'redux-form';
 
@@ -39,6 +40,8 @@ class ChangeCommunity  extends React.Component{
 		this.state = {
 			communitys:[]
 		}
+		Store.dispatch(reset('ChangeCommunity'));
+
 	}
 
 	componentDidMount(){
@@ -56,8 +59,7 @@ class ChangeCommunity  extends React.Component{
 
 	}
 	changeCity=(value)=>{
-		// State.getCommunity(value.id)
-		Store.dispatch(change('ChangeCommunity', 'communityId', ''));
+		Store.dispatch(reset('ChangeCommunity'));
 		Store.dispatch(change('ChangeCommunity', 'cityId', value.id));
 		
 		let list = [];
@@ -66,7 +68,6 @@ class ChangeCommunity  extends React.Component{
 				return item;
 			}
 		})
-		console.log('===city===',list);
 		this.setState({
 			communitys:list[0].communitys
 		})

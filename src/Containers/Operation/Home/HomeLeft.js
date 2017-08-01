@@ -56,6 +56,18 @@ class HomeLeft  extends React.Component{
 
 
 	render(){
+		let left = 20;
+		if(State.tableType === 'payment'){
+			left = 20
+		}else if(State.tableType === 'order'){
+			left = 90
+		}else if(State.tableType === 'agreement'){
+			left = 168
+		}else if(State.tableType === 'visit'){
+			left = 245
+		}else{
+			left = 20
+		}
 		
 		return(
 			<div >
@@ -70,9 +82,9 @@ class HomeLeft  extends React.Component{
 							<span className="tab-list" style={{color:State.stationType == 'all'?'#394457':'#999'}}
 							onTouchTap={this.onChangeTab.bind(this,'all')}>总工位数</span>
 						</div>
-						{State.stationType == 'rent' && <div className="stations-num">{State.InfoData.letStation} <span style={{fontSize:'20px'}}>个</span></div>}
-						{State.stationType == 'free' && <div className="stations-num">{State.InfoData.vacantStation} <span style={{fontSize:'20px'}}>个</span></div>}
-						{State.stationType == 'all' && <div className="stations-num">{State.InfoData.totalStation} <span style={{fontSize:'20px'}}>个</span></div>}
+						{State.stationType == 'rent' && <div className="stations-num">{State.InfoData.letStation} <span style={{fontSize:'16px'}}>个</span></div>}
+						{State.stationType == 'free' && <div className="stations-num">{State.InfoData.vacantStation} <span style={{fontSize:'16px'}}>个</span></div>}
+						{State.stationType == 'all' && <div className="stations-num">{State.InfoData.totalStation} <span style={{fontSize:'16px'}}>个</span></div>}
 					</span>
 					<span className='item-tow item'>
 						<div className="tab-lists">
@@ -83,13 +95,13 @@ class HomeLeft  extends React.Component{
 							<span className="tab-list" style={{color:State.roomType == 'all'?'#394457':'#999'}}
 							onTouchTap={this.onChangeRoom.bind(this,'all')}>总房间数</span>
 						</div>
-						{State.roomType == 'rent' && <div className="room-num">{State.InfoData.letRoom} <span style={{fontSize:'20px'}}>间</span></div>}
-						{State.roomType == 'free' && <div className="room-num">{State.InfoData.vacantRoom} <span style={{fontSize:'20px'}}>间</span></div>}
-						{State.roomType == 'all' && <div className="room-num">{State.InfoData.totalRoom} <span style={{fontSize:'20px'}}>间</span></div>}
+						{State.roomType == 'rent' && <div className="room-num">{State.InfoData.letRoom} <span style={{fontSize:'16px'}}>间</span></div>}
+						{State.roomType == 'free' && <div className="room-num">{State.InfoData.vacantRoom} <span style={{fontSize:'16px'}}>间</span></div>}
+						{State.roomType == 'all' && <div className="room-num">{State.InfoData.totalRoom} <span style={{fontSize:'16px'}}>间</span></div>}
 					</span>
 					<span className='item-three item'>
 						<span className="tab-list">平均工位月均价</span>
-						<span className="price-num">{State.InfoData.averagePrice}<span style={{fontSize:'20px'}}>/月</span></span>
+						<span className="price-num">{/*State.InfoData.averagePrice*/}1111<span style={{fontSize:'16px'}}>/月</span></span>
 					</span>
 				</div>
 				<div className='item-left-table'>
@@ -101,9 +113,10 @@ class HomeLeft  extends React.Component{
 							<span className={State.tableType=='order'?'tab-list active':'tab-list'} 
 							onTouchTap={this.onChangeTable.bind(this,'order')}>到期订单</span>
 							<span className={State.tableType=='agreement'?'tab-list active':'tab-list'}
-							onTouchTap={this.onChangeTable.bind(this,'agreement')}>待驻合同</span>
+							onTouchTap={this.onChangeTable.bind(this,'agreement')}>待入驻合同</span>
 							<span className={State.tableType=='visit'?'tab-list active':'tab-list'} 
 							onTouchTap={this.onChangeTable.bind(this,'visit')}>预约参观</span>
+							<span className="active-line" style={{left:left}}></span>
 						</div>
 					</div>
 					<div className="item-left-table-content">

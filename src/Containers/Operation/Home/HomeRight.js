@@ -20,6 +20,8 @@ import {
 	ButtonGroup,
 
 } from 'kr-ui';
+import monthSvg from './images/month.svg';
+import daySvg from './images/day.svg';
 import home from './images/home-community.svg';
 import  "./index.less";
 import State from './State';
@@ -84,11 +86,11 @@ class HomeRight  extends React.Component{
 							<div className="item-content"  style={{color:'#499DF1'}}>160%</div>
 						</div>
 						<div className="items item">
-							<div className="item-title"><span className="icon-month item-logo"></span>经营月报</div>
+							<div className="item-title"><span className="icon-month item-logo"><img src={monthSvg} /></span>经营月报</div>
 							<div className="item-content" style={{color:'#8290A8'}}>{month}月</div>
 						</div>
 						<div className="items item">
-							<div className="item-title"><span className="icon-day item-logo"></span>经营日报</div>
+							<div className="item-title"><span className="icon-day item-logo"><img src={daySvg} /></span>经营日报</div>
 							<div className="item-content" style={{color:'#8290A8'}}>{day}日</div>
 						</div>
 					</div>
