@@ -24,16 +24,34 @@ export default class SliderTree extends React.Component {
 		this.state = {
 			inputValue: '',
 			expandedKeys: ['0-36kr0'],
+			checkedKeys:props.TreeCheckedKeys || []
 		}
 
 		this.allKeys = [];
 
 		this.searchExpandedKeys = [];
 		this.onlyKey = 0;
+		this.CheckedKeys = [];
 
 	}
 
+
+
 	onCheck = (keys,treeNode)=>{
+
+/*
+		var checkedKeys = [];
+
+		treeNode.checkedNodes.map((item,index)=>{
+			checkedKeys.push(item.key);
+		})
+
+
+		this.setState({checkedKeys})
+	*/
+
+
+
 		let  checkDatas = treeNode.checkedNodes.map((item,index)=>{
 			let detailData =Object.assign({},item.props.itemData);
 			delete detailData.children;
@@ -42,6 +60,7 @@ export default class SliderTree extends React.Component {
 
 		let {getCheckData} = this.props;
 		getCheckData && getCheckData(checkDatas);
+	
 
 	}
 
@@ -224,6 +243,12 @@ export default class SliderTree extends React.Component {
 			this.setSearchExpandedKeys(nextProps.searchKey);
 		};
 
+		if(nextProps.TreeCheckedKeys.length !== 0){
+			this.setState({
+				checkedKeys:nextProps.TreeCheckedKeys
+			})
+		}
+
 	}
 
 
@@ -236,6 +261,7 @@ export default class SliderTree extends React.Component {
 			TreeTheme,
 			...other
 		} = this.props;
+	
 
 		var that = this;
 
@@ -268,9 +294,11 @@ export default class SliderTree extends React.Component {
 
 		let treeNodes = loop(treeData);
 
-		const {expandedKeys} = this.state;
+		const {expandedKeys,checkedKeys} = this.state;
 
 
+
+		console.log(checkedKeys,">>>>>")
 		return (
 			<div>
 				<Tree
@@ -282,6 +310,7 @@ export default class SliderTree extends React.Component {
 					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}
 					theme = {TreeTheme || ""}
+					checkedKeys = {checkedKeys}
 					{...other}
 				>
 					{treeNodes}

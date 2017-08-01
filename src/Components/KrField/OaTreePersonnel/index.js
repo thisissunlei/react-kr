@@ -33,11 +33,11 @@ export default class OaTreePersonnel extends React.Component{
 	}
 
 	onFocus=(value)=>{
-		
+
 		this.setState({
 			isDialog:true,
 		})
-		
+
 	}
 
 	onCancel = () =>{
@@ -47,7 +47,7 @@ export default class OaTreePersonnel extends React.Component{
 	onSubmit = (data) =>{
 		let {treeType} = this.props;
 		if( data[0].orgName == "" ){
-			
+
 			Message.error("请选择人员");
 			return ;
 		}
@@ -59,7 +59,7 @@ export default class OaTreePersonnel extends React.Component{
 			oneOpen:false,
 		})
 		onChange && onChange(data);
-		
+
 
 	}
 
@@ -69,9 +69,9 @@ export default class OaTreePersonnel extends React.Component{
 		})
 	}
 	onSelect = (data) =>{
-		
+
 		let {input,onChange} = this.props;
-		
+
 	}
 	 componentWillReceiveProps (nextProps) {
         if (nextProps.valueText) {
@@ -91,8 +91,8 @@ export default class OaTreePersonnel extends React.Component{
             input,
             prompt,
             label,
-            notifys, 
-            type, 
+            notifys,
+            type,
             meta: { touched, error } ,
             requireLabel,
             onChange,
@@ -148,10 +148,8 @@ export default class OaTreePersonnel extends React.Component{
 			 ...other,
 			 autoFocus,
 		 }
-
-        var dialogTitle = label || '组件';
-
-        dialogTitle = "选择" + dialogTitle;
+    var dialogTitle = label || '组件';
+    dialogTitle = "选择" + dialogTitle;
 		let textData = [];
 		let echoList = null;
 		if(oneOpen && valueText && valueText[0].orgName){
@@ -168,8 +166,8 @@ export default class OaTreePersonnel extends React.Component{
 				text+= ","+textData[i].orgName;
 			}
 		}
-		
-		
+
+
 		let inputstyle = {};
 		if(other.checkable){
 			inputstyle = {
@@ -178,10 +176,10 @@ export default class OaTreePersonnel extends React.Component{
 				whiteSpace: "nowrap",
 			}
 		}
-		
+
 		 return (
 			 <WrapComponent {...wrapProps}>
-				 
+
 				 <Input onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
 				 <div className = "oa-imulation-input " style = {inputstyle} onClick = {this.onFocus}>{text}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
@@ -195,12 +193,12 @@ export default class OaTreePersonnel extends React.Component{
 					contentStyle ={{ width: '653px',height:'580px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 
 				 >
-					<PersonnelDialog 
-						{...other} 
-						treeType = {this.props.treeType} 
-						ajaxUrlName = {ajaxUrlName} 
-						onSelect = {this.onSelect} 
-						onSubmit = {this.onSubmit} 
+					<PersonnelDialog
+						{...other}
+						treeType = {this.props.treeType}
+						ajaxUrlName = {ajaxUrlName}
+						onSelect = {this.onSelect}
+						onSubmit = {this.onSubmit}
 						onCancel = {this.onCancel}
 						echoList = {echoList}
 					/>

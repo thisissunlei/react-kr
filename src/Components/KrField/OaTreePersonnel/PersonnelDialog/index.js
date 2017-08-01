@@ -15,7 +15,7 @@ export default class PersonnelDialog extends React.Component{
 			treeData : [],
 			listSearchKey:''
 		}
-		this.selectKeys = ["0-120"];
+		this.selectKeys = [];
 		this.getTreeData();
 		this.onlyKey = 0;
 	}
@@ -43,9 +43,10 @@ export default class PersonnelDialog extends React.Component{
 				}]
 			})
 		}
-		
+
 	}
 	getCheckData = (treeDatas) =>{
+		const {treeData} = this.state;
 		let detailData = [].concat(treeDatas);
 
 		let detail = [];
@@ -58,7 +59,9 @@ export default class PersonnelDialog extends React.Component{
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
-
+		this.selectKeys = [];
+		this.getSelectKeys(treeData,detail,0);
+		console.log(this.selectKeys,"LLLLL")
 		this.setState({
 			detail,
 		})
@@ -129,21 +132,23 @@ export default class PersonnelDialog extends React.Component{
 	}
 	//获取选择的keys
 	getSelectKeys = (data,detail,parentIndex) =>{
-
 		var arr = data.map((item,index)=>{
 			var key = parentIndex+'-'+item.orgName+item.key;
 			for(let i=0;i<detail.length;i++){
 				if(item.treeType == detail[i].treeType && item.orgId == detail[i].orgId ){
+
 					this.selectKeys.push(key)
 				}
 			}
 
 			if(item.children.length!=0){
-				this.getSelectKeys(item.children,detail,parentIndex++)
+				this.getSelectKeys(item.children,detail,key)
 			}
 
 
+
 		})
+
 
 	}
 	//选中列表显示
@@ -152,10 +157,8 @@ export default class PersonnelDialog extends React.Component{
 		if(detail[0].orgName == ""){
 			return ;
 		}
-		console.log("list")
 
 		let lists = detail.map((item,index)=>{
-			console.log(item.orgName.indexOf(listSearchKey),"ii")
 			if(listSearchKey ===''){
 				return <div className = "everyHave">
 						{item.orgName || ''}
@@ -186,7 +189,6 @@ export default class PersonnelDialog extends React.Component{
 		})
 	}
 	listChange = (event) =>{
-		console.log("change")
 		this.setState({
 			listSearchKey:event.target.value
 		})
@@ -218,7 +220,7 @@ export default class PersonnelDialog extends React.Component{
 								treeData = {treeData||[]}
 								getCheckData = {this.getCheckData}
 								checkable = {checkable||false}
-
+								TreeCheckedKeys = {this.selectKeys}
 
 							/>
 						</div>

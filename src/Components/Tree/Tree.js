@@ -38,8 +38,9 @@ class Tree extends React.Component {
       st.expandedKeys = expandedKeys;
     }
     if (checkedKeys) {
-      if (nextProps.checkedKeys === this.props.checkedKeys) {
-        this.checkedKeysChange = false;
+      if (nextProps.checkedKeys.join() === this.props.checkedKeys.join()) {
+       // this.checkedKeysChange = false;
+          this.checkedKeysChange = true;
       } else {
         this.checkedKeysChange = true;
       }
@@ -184,6 +185,8 @@ class Tree extends React.Component {
   }
 
   onCheck = (treeNode) => {
+
+
     let checked = !treeNode.props.checked;
     if (treeNode.props.halfChecked) {
       checked = true;
@@ -222,7 +225,17 @@ class Tree extends React.Component {
      
       
       if (checked && index === -1) {
+      
+
+        
+        if(!this.treeNodesStates.hasOwnProperty(treeNode.props.pos)){
+             this.treeNodesStates[treeNode.props.pos] = {}; 
+        }
+        
+        
         this.treeNodesStates[treeNode.props.pos].checked = true;
+
+
         const checkedPositions = [];
         Object.keys(this.treeNodesStates).forEach(i => {
           if (this.treeNodesStates[i].checked) {
@@ -240,6 +253,7 @@ class Tree extends React.Component {
       newSt.checkedNodes = checkKeys.checkedNodes;
       newSt.checkedNodesPositions = checkKeys.checkedNodesPositions;
       newSt.halfCheckedKeys = checkKeys.halfCheckedKeys;
+
       this.checkKeys = checkKeys;
 
       this._checkedKeys = checkedKeys = checkKeys.checkedKeys;
