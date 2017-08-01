@@ -14,6 +14,7 @@ export default class PersonnelDialog extends React.Component{
 			searchKey:'',
 			treeData : [],
 		}
+		this.selectKeys = ["0-120"];
 		this.getTreeData();
 		this.onlyKey = 0;
 	}
@@ -50,9 +51,11 @@ export default class PersonnelDialog extends React.Component{
 					treeType:data.treeType,
 					orgName:data.orgName,
 					
+					
 				}],
 				
 			})
+			
 		}
 	}
 	getCheckData = (treeDatas) =>{
@@ -120,20 +123,40 @@ export default class PersonnelDialog extends React.Component{
 		 onCancel && onCancel();
 	}
 	deletList = (event,index) => {
+		let {treeData} = this.state;
 		let detail = [].concat(this.state.detail);
 		detail.splice(index,1);
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
+		this.selectKeys = [];
+		this.getSelectKeys(treeData,detail,0);
+		console.log(this.selectKeys,"KKKKK")
 		this.setState({
 			detail,
 			isList:false,
 		})
 	}
 	//获取选择的keys
-	getSelectKeys = (data,parentIndex=0) =>{
-		var key = parentIndex+'-'+item.orgName;
+	getSelectKeys = (data,detail,parentIndex) =>{
+		
+		var arr = data.map((item,index)=>{
+			var key = parentIndex+'-'+item.orgName+item.key;
+			for(let i=0;i<detail.length;i++){
+				if(item.treeType == detail[i].treeType && item.orgId == detail[i].orgId ){
+					this.selectKeys.push(key)
+				}
+			}
+			
+			if(item.children.length!=0){
+				this.getSelectKeys(item.children,detail,parentIndex++)
+			}
+			
+			
+		})
+		
 	}
+
 	listRender = () =>{
 		const {detail} = this.state;
 		if(detail[0].orgName == ""){
@@ -181,6 +204,7 @@ export default class PersonnelDialog extends React.Component{
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}
 								getCheckData = {this.getCheckData}
+								
 								{...other}
 
 							/>
