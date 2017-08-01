@@ -104,7 +104,7 @@ class Createdialog extends Component {
                     label="负责人" 
                     grid={1/2}
                     placeholder="请选择"
-                    requireLabel={false}
+                    requireLabel={true}
                 />
                 <KrField 
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}  
@@ -113,7 +113,7 @@ class Createdialog extends Component {
                     grid={1/2}
                     label="管理员" 
                     placeholder="请选择"
-                    requireLabel={false}
+                    requireLabel={true}
                 />
                 <Row style={{marginTop:20,marginBottom:6}}>
       					<Col md={12} align="center">
@@ -152,12 +152,12 @@ const validate = values => {
 		errors.orgName = '下级名称最多20个字符！';
 	}
     
-    // if (!values.adminId) {
-	// 	errors.adminId = '请选择管理员';
-	// }
-    // if (!values.chargeId) {
-	// 	errors.chargeId = '请选择负责人';
-	// }
+    if (!values.adminId) {
+		errors.adminId = '请选择管理员';
+	}
+    if (!values.chargeId) {
+		errors.chargeId = '请选择负责人';
+	}
     if (!values.code) {
 		errors.code = '请输入编码';
 	}else if (values.code.length>30) {
