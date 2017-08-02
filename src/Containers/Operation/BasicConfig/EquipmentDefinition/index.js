@@ -232,8 +232,9 @@ export default class EquipmentDefinition extends React.Component {
         filter : "deviceCode",
         content : "",
         timer : new Date(),
+        realPage:1,
         equipmentParams:{
-          
+          page:1,
           communityId :values.communityId || "",
           deviceCode : values.value || "",
           floor : values.floor || "",
