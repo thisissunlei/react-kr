@@ -218,7 +218,7 @@ export default class EquipmentDefinition extends React.Component {
         content : "",
         realPage :1,
         equipmentParams:{
-         
+          page:1,
           communityId :values.communityId || "",
           hardwareId : values.value || "",
           floor : values.floor || "",
