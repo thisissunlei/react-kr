@@ -38,20 +38,7 @@ export default class SliderTree extends React.Component {
 
 
 	onCheck = (keys,treeNode)=>{
-
-/*
-		var checkedKeys = [];
-
-		treeNode.checkedNodes.map((item,index)=>{
-			checkedKeys.push(item.key);
-		})
-
-
-		this.setState({checkedKeys})
-	*/
-
-
-
+	
 		let  checkDatas = treeNode.checkedNodes.map((item,index)=>{
 			let detailData =Object.assign({},item.props.itemData);
 			delete detailData.children;
@@ -66,7 +53,6 @@ export default class SliderTree extends React.Component {
 
 	//点击选择事件
 	onSelect = (item) => {
-		console.log("-------",item)
 		let { onSelectTree } = this.props;
 		onSelectTree && onSelectTree(item);
 	}
@@ -243,7 +229,7 @@ export default class SliderTree extends React.Component {
 			this.setSearchExpandedKeys(nextProps.searchKey);
 		};
 
-		if(nextProps.TreeCheckedKeys.join() !== this.state.checkedKeys.join()){
+		if(nextProps.TreeCheckedKeys && nextProps.TreeCheckedKeys.join() !== this.state.checkedKeys.join()){
 			this.setState({
 				checkedKeys:nextProps.TreeCheckedKeys
 			})
