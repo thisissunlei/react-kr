@@ -154,10 +154,11 @@ export default class OaTreeDepartment extends React.Component{
 		let textData = [];
 		if(oneOpen && valueText && valueText[0].orgName){
 			textData = [].concat(valueText);
-			echoList = [].concat(valueText);
+			
 		}else{
 			textData = [].concat(data);
 		}
+		echoList = [].concat(textData);
 		var text = '';
 		for(let i=0 ;i<textData.length;i++){
 			if(i==0){
