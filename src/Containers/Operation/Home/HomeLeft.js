@@ -101,7 +101,7 @@ class HomeLeft  extends React.Component{
 					</span>
 					<span className='item-three item'>
 						<span className="tab-list">平均工位月均价</span>
-						<span className="price-num">{/*State.InfoData.averagePrice*/}1111<span style={{fontSize:'16px'}}>/月</span></span>
+						<span className="price-num">{State.InfoData.averagePrice}<span style={{fontSize:'16px'}}>/月</span></span>
 					</span>
 				</div>
 				<div className='item-left-table'>

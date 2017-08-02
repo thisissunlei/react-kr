@@ -83,7 +83,7 @@ class HomeRight  extends React.Component{
 					<div className="first-item">
 						<div className="items item">
 							<div className="item-title">社区出租率</div>
-							<div className="item-content"  style={{color:'#499DF1'}}>160%</div>
+							<div className="item-content"  style={{color:'#499DF1'}}>{State.InfoData.rate}</div>
 						</div>
 						<div className="items item">
 							<div className="item-title"><span className="icon-month item-logo"><img src={monthSvg} /></span>经营月报</div>
@@ -100,7 +100,7 @@ class HomeRight  extends React.Component{
 							<div className="lists-info">
 								<div className='list-info' onClick={this.clickSpan.bind(this,'monthPayment')}>
 									<div className="item-title">本月回款</div>
-									<div className="item-content"  style={{color:'#FF7876'}}>{State.InfoData.backMoney}</div>
+									<div className="item-content"  style={{color:'#FF7876'}}>{State.InfoData.backMoney|| '0' }</div>
 								</div>
 								<div className='list-info' onClick={this.clickSpan.bind(this,'allPayment')}>
 									<div className="item-title">累计回款</div>

@@ -63,6 +63,10 @@ State.getHomeData=action(function(params){
 		let _this = this;
 		Http.request('get-home-data', params).then(function(response) {
 			_this.InfoData = response;
+			let info = {};
+			info.communityName = response.community;
+			info.communityId = response.communityId;
+			_this.info = info;
 			_this.getPaymentList({page:1,pageSize:10,cmtId:_this.info.communityId})
 		}).catch(function(err) {
 			Message.error(err.message);

@@ -49,6 +49,7 @@ class PaymentTable  extends React.Component{
 		
 		return(
 			<div className="payment-table">
+				{!!State.paymentList.items.length && 
 				<table>
 					<thead>
 						<tr>
@@ -68,12 +69,12 @@ class PaymentTable  extends React.Component{
 											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{item.customer}</div></Tooltip>
 										</div>
 									</td>
-									<td >{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</td>
-									<td >{item.payableMoney}</td>
+									<td >{DateFormat(item.installmentReminddate,'yyyy-mm-dd')}</td>
+									<td >{item.installmentAmount}</td>
 									<td >
 										<div style={{height:40}}>
-											<span className="tableOver">{DateFormat(item.leaseBegindate,'yyyy-mm-dd')}至{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</span>
-											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{DateFormat(item.leaseBegindate,'yyyy-mm-dd')}至{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</div></Tooltip>
+											<span className="tableOver">{DateFormat(item.installmentBegindate,'yyyy-mm-dd')}至{DateFormat(item.installmentEnddate,'yyyy-mm-dd')}</span>
+											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{DateFormat(item.installmentBegindate,'yyyy-mm-dd')}至{DateFormat(item.installmentEnddate,'yyyy-mm-dd')}</div></Tooltip>
 										</div>
 									</td>
 								</tr>
@@ -81,11 +82,12 @@ class PaymentTable  extends React.Component{
 							)
 						})}
 					</tbody>
-				</table>
+				</table>}
 
+           		{!!State.paymentList.items.length && 
            		<div className='footPage' style={{marginTop:40}}>
            			<Pagination  totalCount={State.paymentList.totalCount} page={State.paymentList.page} pageSize={10} onPageChange={this.onPageChange}/>
-           		</div>
+           		</div>}
 
 				
 

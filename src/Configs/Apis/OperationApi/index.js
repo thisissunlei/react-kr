@@ -682,67 +682,67 @@ module.exports = {
 
     //运营主页--本月回款
     'get-month-payment': {
-        url: '/mockjsdata/51/operation/month-payment?customerId={customerId}&cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/month-payment?customerId={customerId}&cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--累积回款
     'get-total-payment': {
-        url: '/mockjsdata/51/operation/total-payment?customerId={customerId}&cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/total-payment?customerId={customerId}&cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--社区欠款
     'get-cmt-arrearages': {
-        url: '/mockjsdata/51/operation/cmt-arrearages?customerId={customerId}&cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/cmt-arrearages?customerId={customerId}&cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--现入住
     'get-settled-customer': {
-        url: '/mockjsdata/51/operation/settled-customer?customerId={customerId}&cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/settled-customer?customerId={customerId}&cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--未入住
     'get-signed-customer': {
-        url: '/mockjsdata/51/operation/signed-customer?customerId={customerId}&cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/signed-customer?customerId={customerId}&cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--客户总数
     'get-total-customer': {
-        url: '/mockjsdata/51/operation/total-customer?customerId={customerId}&cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/total-customer?customerId={customerId}&cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--跟进中
     'get-following-customer': {
-        url: '/mockjsdata/51/operation/following-customer?customerId={customerId}&cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/following-customer?customerId={customerId}&cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--新增线索
     'get-new-clue': {
-        url: '/mockjsdata/51/operation/new-clue?customerId={customerId}&cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/new-clue?customerId={customerId}&cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--数据
     'get-home-data': {
-        url: '/mockjsdata/51/operation/home?cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/home?cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--应收账款
     'get-accounts-receivable': {
-        url: '/mockjsdata/51/opteration/accounts-receivable?cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/accounts-receivable?cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--到期合同
     'get-expire-contract': {
-        url: '/mockjsdata/51/operation/expire-contract?cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/expire-contract?cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--带入驻合同
     'get-settled-contract': {
-        url: '/mockjsdata/51/operation/settled-contract?cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/settled-contract?cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--带入驻合同
     'get-appointment': {
-        url: '/mockjsdata/51/operation/appointment?cmtId={cmtId}',
+        url: '/apis/krspace-finance-web/operation/appointment?cmtId={cmtId}',
         method: 'get'
     },
 
