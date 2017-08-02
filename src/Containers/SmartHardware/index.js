@@ -1,6 +1,6 @@
-import { default as ActivityManage} from './ActivityManage';
-import { default as News from './News';
+
+import { default as DoorManage} from './DoorManage';
+
 module.exports = {
-	ActivityManage,
-	News
+	DoorManage,
 }

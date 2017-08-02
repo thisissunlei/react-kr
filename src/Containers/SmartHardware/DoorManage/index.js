@@ -1,6 +1,6 @@
 
 
-import { default as List} from './List';
+import { default as EquipmentAllManage} from './EquipmentAllManage';
 module.exports = {
-	List,
+	EquipmentAllManage,
 }
