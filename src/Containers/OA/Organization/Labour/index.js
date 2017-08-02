@@ -149,6 +149,7 @@ export default class Labour extends React.Component {
 		Http.request('extra-list', {
 			dimId: dimId
 		}).then(function (response) {
+			console.log("-.........>",response.items)
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 
@@ -174,6 +175,7 @@ export default class Labour extends React.Component {
 		Http.request('extra-list', {
 			dimId: _this.state.searchParams.dimId
 		}).then(function (response) {
+			console.log("------->",response.items)
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 	}
@@ -388,15 +390,15 @@ export default class Labour extends React.Component {
 		var _this = this;
 		this.setState({
 			data:{
-				orgId: data.orgId,
-				orgType: data.treeType,
+				orgId: data[0].orgId,
+				orgType: data[0].treeType,
 				dimId:this.props.params.dimId
 			},
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				orgId: data.orgId,
-				orgType: data.treeType,
+				orgId: data[0].orgId,
+				orgType: data[0].treeType,
 				dimId:this.props.params.dimId
 			}
 		},function(){
@@ -793,7 +795,6 @@ export default class Labour extends React.Component {
 					<div className="oa-tree">
 						<SliderTree
 							onSelectTree={this.onSelect}
-							onCheck={this.onCheck}
 							type="department-radio"
 							treeData={this.state.treeData}
 							searchKey={this.state.searchKey}

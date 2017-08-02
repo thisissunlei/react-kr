@@ -242,12 +242,21 @@ class TreeNode extends React.Component {
           for(let i=0;i<IconType.length;i++){
             if(props.itemData.treeType == IconType[i]){
                 if(props.children.length == 0){
-                  if(props.selected && props.itemData.isClick){
-                    typeText = IconType[i]+"_"+"open";
-
+                  if(props.root.props.check){
+                    if(props.itemData.isSelect){
+                      typeText = IconType[i]+"_"+"open";
+                    }else{
+                      typeText = IconType[i]+"_"+"close";
+                    }
                   }else{
-                     typeText = IconType[i]+"_"+"close";
+                    if(props.selected && props.itemData.isClick){
+                      typeText = IconType[i]+"_"+"open";
+
+                    }else{
+                      typeText = IconType[i]+"_"+"close";
+                    }
                   }
+                  
                 }else{
                   typeText = IconType[i]+"_"+iconState;
                 }
@@ -300,19 +309,9 @@ class TreeNode extends React.Component {
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span
           className={classNames(iconEleCls)}
-          onClick = {(e)=>{
-             this.onExpand(e);
-            e.preventDefault();
-          }}
-
-
         ></span> : null;
        const title = <span
                       className={`${prefixCls}-title`}
-                      onClick = {(e)=>{
-                         this.onExpand(e);
-                        e.preventDefault();
-                      }}
                     >
                       {content}
                    </span>;
@@ -323,20 +322,24 @@ class TreeNode extends React.Component {
       //disabled 是否禁止
       if (!props.disabled) {
         /*=========父节点是否可选择的判断=========*/
+       if(props.root.props.check){
+        if(props.itemData.isSelect|| props.expanded){
+            domProps.className += ` ${prefixCls}-node-selected`;
+          }
+       }else{
+          if (props.itemData.children.length!=0 && props.expanded)
+          {
+            domProps.className += ` ${prefixCls}-node-selected`;
+          }
+          if(props.itemData.children.length == 0 && props.itemData.isClick && props.selected){
+            domProps.className += ` ${prefixCls}-node-selected`;
 
-        if (props.itemData.children.length!=0 && props.expanded)
-        {
-          domProps.className += ` ${prefixCls}-node-selected`;
-        }
-        if(props.itemData.children.length == 0 && props.itemData.isClick && props.selected){
-          domProps.className += ` ${prefixCls}-node-selected`;
-
-        }
+          }
+       }
 
         domProps.onClick = (e) => {
           e.preventDefault();
           if (props.selectable) {
-            console.log("NNNNNN")
             this.onSelect();
           }
           // not fire check event
@@ -407,20 +410,31 @@ class TreeNode extends React.Component {
         cls[`${prefixCls}-noline_docu_close`] = true;
       }
 
-
-      if(props.selected && props.itemData.isClick){
-        cls[`${prefixCls}-noline_docu_close`] = false;
-        cls[`${prefixCls}-noline_docu_open`] = true;
+      if(props.root.props.check){
+          if( props.itemData.isClick && props.itemData.isSelect){
+             cls[`${prefixCls}-noline_docu_close`] = false;
+            cls[`${prefixCls}-noline_docu_open`] = true;
+          }else{
+             cls[`${prefixCls}-noline_docu_open`] = false;
+             cls[`${prefixCls}-noline_docu_close`] = true;
+          }
       }else{
-        cls[`${prefixCls}-noline_docu_open`] = false;
-        cls[`${prefixCls}-noline_docu_close`] = true;
+
+         if(props.selected && props.itemData.isClick){
+          cls[`${prefixCls}-noline_docu_close`] = false;
+          cls[`${prefixCls}-noline_docu_open`] = true;
+        }else{
+          cls[`${prefixCls}-noline_docu_open`] = false;
+          cls[`${prefixCls}-noline_docu_close`] = true;
+        }
       }
+     
       return <span className={classNames(cls)}></span>;
     };
     let length = props.eventKey.split("-").length-1;
     let bg = "transparent"
     if(
-     
+        
        !props.root.props.checkable && props.selected && props.itemData.isClick
     ){
        bg = "#F0F0F0"
@@ -429,6 +443,15 @@ class TreeNode extends React.Component {
       }
        
     }
+    if(props.root.props.check){
+     
+       if(!props.itemData.isSelect){
+          bg = "transparent";
+        }else{
+          bg = "#F0F0F0"
+        }
+    }
+   
    
     
     return (
