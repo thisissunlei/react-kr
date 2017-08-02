@@ -126,7 +126,7 @@ export default class NoticeManage extends React.Component {
 		                 
 					  >
 				            <TableHeader>
-				              <TableHeaderColumn>群组名称</TableHeaderColumn>
+				              <TableHeaderColumn>公告类型</TableHeaderColumn>
 				              <TableHeaderColumn>社区名称</TableHeaderColumn>
 				              <TableHeaderColumn>发布内容</TableHeaderColumn>
 				              <TableHeaderColumn>发布时间</TableHeaderColumn>

@@ -159,7 +159,7 @@ class CreateNotice extends React.Component {
 								component="select"
 								name="groupType"
 								options={groupType}
-								label="群组类型"
+								label="公告类型"
 								requireLabel={true}
 								onChange={this.selectType}
 						 	/>
@@ -174,32 +174,22 @@ class CreateNotice extends React.Component {
 						 		onChange={this.selectGroup}
 						 	/>:''}
 						 	<KrField
-								style={{width:260,margintop:20}}
-								component="select"
-								name="clusterId"
-								options={groupList}
-								label="所属群组"
+								style={{width:260,marginRight:25,margintop:20}}
+								name="publishedTime"
+								component="date"
+								label="发布时间"
 								requireLabel={true}
-								
 						 	/>
-						 	<KrField
-								style={{width:548}}
-								name="content"
-								component="textarea"
-								label="公告内容"
-								maxSize={500}
+						 	<KrField 
+								component="editor" 
+								name="content" 
+								label="公告内容" 
+								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
-							/>
-							<KrField 
-								name="imgUrl"
-								label="公告图片"
-								component="uploadImg"
-								innerBoxStyle={{width:200,height:160}}
-								imagesStyle={{width:160}}
-                    			innerStyle={{left:0,top:60}}
-								requestURI = {this.state.requestURI}
-								inline={false}
+								defaultValue=''
 								/>
+						 	
+							
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">
