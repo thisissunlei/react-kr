@@ -190,9 +190,15 @@ class NewCreateForm extends React.Component {
 		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
 
 		this.setAllRent(stationVos);
+		let openAdd = stationVos.length>5?true:false;
 		this.setState({
 			stationVos,
+			oldBasicStationVos:stationVos,
 			delStationVos
+		},function(){
+			if(openAdd){
+				this.minusClick()
+			}
 		});
 
 		this.openStationDialog();
@@ -220,13 +226,14 @@ class NewCreateForm extends React.Component {
 		let {
 			selectedStation,
 			stationVos,
+			oldBasicStationVos,
 			delStationVos
 		} = this.state;
 		let {initialValues} = this.props;
 
 		
 
-		stationVos = stationVos.filter(function(item, index) {
+		stationVos = oldBasicStationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				delStationVos.push(item);
 				return false;
@@ -238,11 +245,11 @@ class NewCreateForm extends React.Component {
 		this.setAllRent(stationVos);
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
 		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
-		console.log('delStationVos',delStationVos)
-
+		console.log('delete',oldBasicStationVos,stationVos,delStationVos)
 		this.setState({
 			stationVos,
 			delStationVos,
+			oldBasicStationVos:stationVos,
 			allRent
 		});
 
@@ -274,10 +281,12 @@ class NewCreateForm extends React.Component {
 		let initialValues = nextProps.initialValues;
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
+			let delStationVos = nextProps.delStationVos;
 			let originStationVos = [].concat(stationVos);
 			this.setState({
 				stationVos,
 				originStationVos,
+				delStationVos,
 				oldBasicStationVos:stationVos
 			},function(){
 				let {stationVos,oldBasicStationVos,openAdd}=_this.state;
@@ -309,19 +318,9 @@ class NewCreateForm extends React.Component {
 		} = this.props;
 		let {
 			stationVos,
+			oldBasicStationVos,
 			delStationVos,
 		} = this.state;
-
-		// delStationVos = originStationVos.filter(function(origin){
-		// 		var isOk = true;
-		// 		stationVos.map(function(station){
-		// 				if(station.id == origin.id){
-		// 						isOk = false;
-		// 				}
-		// 		});
-		// 		return isOk;
-		// });
-		// form.contractmark = '';
 		if(typeof form.contractmark == 'undefined'){
 			form.contractmark = '';
 		}
@@ -348,8 +347,10 @@ class NewCreateForm extends React.Component {
 		form.lessorContactid = form.lessorContactid;
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
 
-		form.stationVos = JSON.stringify(stationVos);
+		form.stationVos = JSON.stringify(oldBasicStationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
+		console.log('------->',form.delStationVos,'======',form.stationVos);
+		// return;
 
 		if(!!!form.agreement){
 			form.agreement = '无';
