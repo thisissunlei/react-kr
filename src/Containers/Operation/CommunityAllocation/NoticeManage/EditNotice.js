@@ -20,15 +20,13 @@ import {
 import './index.less';
 
 
-class CreateNotice extends React.Component {
+class EditNotice extends React.Component {
 
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			groupList:[],
 			ifCity:false,
-			requestURI :'/api/krspace-finance-web/activity/upload-pic',
 			groupType:[],
 		}
 		this.getType();
@@ -72,27 +70,10 @@ class CreateNotice extends React.Component {
 			this.setState({
 				ifCity:false
 			})
-			this.getGrouo();
+			
 		}
 	}
-	getGrouo=()=>{
-		var _this=this;
-		Http.request('country-cluster-list').then(function(response) {
-			response.clusterList.map((item)=>{
-				item.label=item.clusterName;
-				item.value=item.id;
-				return item;
-			})
-			_this.setState({
-				groupList:response.clusterList
-			})
-			
-			
-		}).catch(function(err) {
-			Message.error(err.message);
-		});	
-	}
-
+	
 	selectGroup=(item)=>{
 		var _this=this;
 		Http.request('topic-cluster-list',{cmtId:item.id}).then(function(response) {
@@ -101,9 +82,7 @@ class CreateNotice extends React.Component {
 				item.value=item.id;
 				return item;
 			})
-			_this.setState({
-				groupList:response.clusterList
-			})
+			
 			
 			
 		}).catch(function(err) {
@@ -141,7 +120,7 @@ class CreateNotice extends React.Component {
 				reset
 			} = this.props;
 			let {
-				groupList,
+				
 				ifCity,
 				groupType,
 			}=this.state;
@@ -150,7 +129,7 @@ class CreateNotice extends React.Component {
 		return (
 			<div className="g-create-notice">
 				<div className="u-create-title">
-						<div className="title-text">新建公告</div>
+						<div className="title-text">编辑公告</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
@@ -216,18 +195,16 @@ const validate = values => {
 
 
 		if (!values.groupType) {
-			errors.groupType = '请选择群组类型';
+			errors.groupType = '请选择公告类型';
 		}
 
 		if (!values.cmtName) {
 			errors.cmtName = '请选择所属社区';
 		}
 
-		if (!values.clusterId) {
-			errors.clusterId = '请选择所属群组';
-		}
+		
 		if (!values.content) {
-			errors.content = '请输入帖子内容';
+			errors.content = '请输入公告内容';
 		}
 		
 		
@@ -236,7 +213,7 @@ const validate = values => {
 }
 
 export default reduxForm({
-		form: 'createNotice',
+		form: 'editNotice',
 		 validate,
 		
-	})(CreateNotice);
+	})(EditNotice);

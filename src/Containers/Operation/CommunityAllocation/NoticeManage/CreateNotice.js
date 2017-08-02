@@ -27,7 +27,6 @@ class CreateNotice extends React.Component {
 		super(props, context);
 		this.state = {
 			ifCity:false,
-			requestURI :'/api/krspace-finance-web/activity/upload-pic',
 			groupType:[],
 		}
 		this.getType();
@@ -196,18 +195,16 @@ const validate = values => {
 
 
 		if (!values.groupType) {
-			errors.groupType = '请选择群组类型';
+			errors.groupType = '请选择公告类型';
 		}
 
 		if (!values.cmtName) {
 			errors.cmtName = '请选择所属社区';
 		}
 
-		if (!values.clusterId) {
-			errors.clusterId = '请选择所属群组';
-		}
+		
 		if (!values.content) {
-			errors.content = '请输入帖子内容';
+			errors.content = '请输入公告内容';
 		}
 		
 		

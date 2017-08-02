@@ -19,6 +19,7 @@ import {
 } from 'kr-ui';
 import CreateNotice from './CreateNotice';
 import ViewNotice from './ViewNotice';
+import EditNotice from './EditNotice';
 import './index.less';
 export default class NoticeManage extends React.Component {
 
@@ -33,6 +34,7 @@ export default class NoticeManage extends React.Component {
 			openNewCreat:false,
 			openView:false,
 			openDelete:false,
+			openEdit:false,
 		}
 
 	}
@@ -52,7 +54,10 @@ export default class NoticeManage extends React.Component {
          this.openView();
           break;
         }
-        
+        case  'edit':{
+         this.openEdit(itemDetail);
+          break;
+        }
         case  'delete':{
          this.openDelete(itemDetail);
           break;
@@ -88,6 +93,11 @@ export default class NoticeManage extends React.Component {
 			openView:!this.state.openView
 		})
 	}
+	openEdit=()=>{
+		this.setState({
+			openEdit:!this.state.openEdit
+		})
+	}
 	openDelete=()=>{
 		this.setState({
 			openDelete:!this.state.openDelete
@@ -102,6 +112,9 @@ export default class NoticeManage extends React.Component {
 		})
 		this.openNewCreat();
 	}
+	editSubmit=()=>{
+		
+	}
 	
 	render() {
 		let {itemDetail}=this.state;
@@ -115,6 +128,11 @@ export default class NoticeManage extends React.Component {
 								label="新建公告"
 								type='button'
 								onTouchTap={this.openNewCreat}
+							/>
+						<Button
+								label="编辑公告"
+								type='button'
+								onTouchTap={this.openEdit}
 							/>
 					</div>
 					<Table
@@ -166,7 +184,9 @@ export default class NoticeManage extends React.Component {
 					                <TableRowColumn>
 					                	<Button label="查看"  type="operation"  operation="view"/>
 									  	<Button label="删除"  type="operation"  operation="delete"/>
-					                </TableRowColumn>
+									  	<Button label="编辑"  type="operation"  operation="edit"/>
+									  	<Button label="发布"  type="operation"  operation="publish"/>
+					              	</TableRowColumn>
 					               </TableRow>
 					        </TableBody>
 			        		<TableFooter></TableFooter>
@@ -183,6 +203,19 @@ export default class NoticeManage extends React.Component {
 	             	<CreateNotice 
 	             			onCancel={this.openNewCreat} 
 	             			onSubmit={this.createSubmit} 
+	             	 />
+	           </Drawer>
+	           <Drawer
+	             modal={true}
+	             width={750}
+	             open={this.state.openEdit}
+	             onClose={this.openEdit}
+	             openSecondary={true}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+	           >
+	             	<EditNotice 
+	             			onCancel={this.openEdit} 
+	             			onSubmit={this.editSubmit} 
 	             	 />
 	           </Drawer>
 	           <Drawer
