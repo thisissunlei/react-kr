@@ -8,7 +8,6 @@ import {
 import { observer, inject } from 'mobx-react';
 import './index.less';
 import PostVoucher from './PostVoucher';
-//import GroupManages from './GroupManages';
 import DarkHouse from './DarkHouse';
 @inject("NavModel")
 @observer
@@ -21,7 +20,6 @@ export default class AppManage extends React.Component {
 			tab: 'table',
 			communityId: '',
 			initSearch:'',
-			Ifgroup:false,
 			Ifpost:false,
 			Ifdark:false,
 			timer:0
@@ -33,12 +31,6 @@ export default class AppManage extends React.Component {
 		var _this=this;
 		const {NavModel} = this.props;
 		var _this=this;
-		setTimeout(function(){
-			var Ifgroup=NavModel.checkOperate('cluster_list');
-			_this.setState({
-				Ifgroup
-			})
-		},1000);
 		setTimeout(function(){
 			var Ifpost=NavModel.checkOperate('cluster_topic_list');
 			_this.setState({
@@ -53,20 +45,7 @@ export default class AppManage extends React.Component {
 		},1000);
 	}
 
-	merchants = () =>{
-		let {
-			tab,
-			initSearch
-		} = this.state;
-		tab = 'merchants';
-		initSearch='m';
-		var timer = new Date();
-		this.setState({
-			tab,
-			initSearch,
-			timer:timer,
-		});
-	}
+	
 
 	personal = () => {
 		let {
@@ -100,7 +79,6 @@ export default class AppManage extends React.Component {
 		let {
 			tab,
 			initSearch,
-			Ifgroup,
 			Ifpost,
 			Ifdark
 		} = this.state;
@@ -117,8 +95,6 @@ export default class AppManage extends React.Component {
             fontSize:'16px'
 		}
 
-
-		let merchantsStyle = (tab == 'merchants'||tab=='table') ? activeTab : commenTab;
 		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
 		let homeStyle = (tab == 'home') ? activeTab : commenTab;
 
@@ -134,14 +110,7 @@ export default class AppManage extends React.Component {
 			<Title value="App后台"/>
 
 			<Tabs className="tabs">
-					{/*
-					Ifgroup&&(
-								<Tab label="群组管理" onActive={this.merchants} style={merchantsStyle}>
-									<GroupManages timer={this.state.timer}/>
-								</Tab>
-							)
 					
-					*/}
 					{
 					Ifpost&&(
 								<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
