@@ -30,6 +30,7 @@ import StatisticalRouter from './StatisticalRouter';
 import OARouter from './OARouter';
 import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
+import SmartHardware from './SmartHardware';
 
 const Master = (location, callback) => {
   require.ensure([], require => {
@@ -112,6 +113,9 @@ export default (
 
         {/*文档管理*/}
         {DocumentRouter()}
+        
+        {/*智能硬件*/}
+        {SmartHardware()}
 
 		{/*帮助*/}
 		<Route path="help" getComponent={Help}/>
