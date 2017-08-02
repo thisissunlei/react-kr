@@ -49,7 +49,9 @@ export default class RoleOrgaList extends Component{
 
 			deleteId:'',
 			//编辑detail
-			detail:[]   
+			detail:[],
+			//type
+			depType:''   
 		}
 	}
     
@@ -91,8 +93,10 @@ export default class RoleOrgaList extends Component{
 		var _this=this;
        Http.request('role-power-watch',{orgDetailId:id}).then(function(response) {
            Store.dispatch(initialize('EditRole',response));
+		   console.log('dddd',response);
 		   _this.setState({
-			   detail:response.orgList
+			   detail:response.orgList,
+			   depType:response.orgType
 		   })
         }).catch(function(err) {
           Message.error(err.message);
@@ -202,7 +206,7 @@ export default class RoleOrgaList extends Component{
 
 	render(){
 
-		let {roleArr,detail}=this.state;
+		let {roleArr,detail,depType}=this.state;
 
 		return(
 
@@ -287,6 +291,7 @@ export default class RoleOrgaList extends Component{
 					onSubmit={this.editPostSubmit}
 					roleArr={roleArr}
 					detail={detail}
+					depType={depType}
 				/>
 			</Dialog>
 
