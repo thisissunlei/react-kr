@@ -246,9 +246,12 @@ class NewCreateForm extends React.Component {
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
 		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
 		console.log('delete',oldBasicStationVos,stationVos,delStationVos)
+		let openAdd = stationVos.length>5?true:false;
+
 		this.setState({
 			stationVos,
 			delStationVos,
+			openAdd,
 			oldBasicStationVos:stationVos,
 			allRent
 		});
