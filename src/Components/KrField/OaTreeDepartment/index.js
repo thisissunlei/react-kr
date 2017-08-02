@@ -150,11 +150,11 @@ export default class OaTreeDepartment extends React.Component{
 		 }
 
         var dialogTitle = label || '组件';
-
-        dialogTitle = "选择" + dialogTitle;
+		let echoList = null;
 		let textData = [];
 		if(oneOpen && valueText && valueText[0].orgName){
 			textData = [].concat(valueText);
+			echoList = [].concat(valueText);
 		}else{
 			textData = [].concat(data);
 		}
@@ -174,7 +174,7 @@ export default class OaTreeDepartment extends React.Component{
 				whiteSpace: "nowrap",
 			}
 		}
-
+		console.log("textData---->")
 		
 		 return (
 			 <WrapComponent {...wrapProps}>
@@ -191,7 +191,16 @@ export default class OaTreeDepartment extends React.Component{
 					noMaxHeight = {true}
 					contentStyle ={{ width: '653px',height:'580px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
-					<DepartmentDialog {...other} treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<DepartmentDialog 
+						
+						treeType = {this.props.treeType} 
+						ajaxUrlName = {ajaxUrlName} 
+						onSelect = {this.onSelect} 
+						onSubmit = {this.onSubmit} 
+						onCancel = {this.onCancel}
+						echoList = {echoList}
+						{...other} 
+					/>
 				</Dialog>
 				</div>
 			 </WrapComponent>

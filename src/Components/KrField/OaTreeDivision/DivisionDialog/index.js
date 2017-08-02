@@ -14,7 +14,19 @@ export default class DivisionDialog extends React.Component{
 			searchKey:'',
 			treeData : [],
 		}
+		this.selectKeys = [];
 		this.getTreeData();
+	}
+
+	componentDidMount(){
+		let {echoList} = this.props;
+		if(!echoList){
+			return;
+		}
+		this.setState({
+			detail:echoList
+		})
+
 	}
 	onSelect = (data) =>{
 		const {onSelect,treeType} = this.props;
@@ -59,7 +71,6 @@ export default class DivisionDialog extends React.Component{
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
-
 		this.setState({
 			detail,
 		})
@@ -99,6 +110,24 @@ export default class DivisionDialog extends React.Component{
 		return arr;
 	}
 
+	//获取选择的keys
+	getSelectKeys = (data,detail,parentIndex) =>{
+		var arr = data.map((item,index)=>{
+			var key = parentIndex+'-'+item.orgName+item.key;
+			for(let i=0;i<detail.length;i++){
+				if(item.treeType == detail[i].treeType && item.orgId == detail[i].orgId ){
+
+					this.selectKeys.push(key)
+				}
+			}
+
+			if(item.children.length!=0){
+				this.getSelectKeys(item.children,detail,key)
+			}
+		})
+
+	}
+
 	onSumit = () =>{
 		const {detail} = this.state;
 		let {onSubmit} = this.props;
@@ -115,6 +144,7 @@ export default class DivisionDialog extends React.Component{
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
+		
 		this.setState({
 			detail,
 			isList:false,
@@ -122,10 +152,12 @@ export default class DivisionDialog extends React.Component{
 	}
 
 	listRender = () =>{
-		const {detail} = this.state;
+		const {detail,treeData} = this.state;
 		if(detail[0].orgName == ""){
 			return ;
 		}
+		this.selectKeys = [];
+		this.getSelectKeys(treeData,detail,0)
 		let lists = detail.map((item,index)=>{
 			return <div className = "everyHave">
 					{item.orgName || ''}
@@ -151,6 +183,8 @@ export default class DivisionDialog extends React.Component{
 		let {
 			checkable
 		} = this.props;
+		this.selectKeys = [];
+		this.getSelectKeys(treeData,detail,0)
 		return (
             <div className = "tree-division" style = {{position:"relative",textAlign:"center"}}>
 				<div className = "department-title"><span className = "department-title-icon"></span><span className = "department-title-text">分部</span></div>
@@ -163,14 +197,23 @@ export default class DivisionDialog extends React.Component{
 						</div>
 						<div className = "tree-content-left-right">
 
-							<SliderTree
+							{!checkable && <SliderTree
 								onSelectTree = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}
 								getCheckData = {this.getCheckData}
 								checkable = {checkable||false}
-							/>
+							/>}
+							{checkable && <SliderTree
+								onSelectTree = {this.onSelect}
+								type = "department-radio"
+								searchKey = {this.state.searchKey}
+								treeData = {treeData||[]}
+								getCheckData = {this.getCheckData}
+								checkable = {checkable||false}
+								TreeCheckedKeys = {this.selectKeys}
+							/>}
 						</div>
 					</div>
 					<div className = "content-right clear" >

@@ -243,7 +243,7 @@ export default class SliderTree extends React.Component {
 			this.setSearchExpandedKeys(nextProps.searchKey);
 		};
 
-		if(nextProps.TreeCheckedKeys.length !== 0){
+		if(nextProps.TreeCheckedKeys.join() !== this.state.checkedKeys.join()){
 			this.setState({
 				checkedKeys:nextProps.TreeCheckedKeys
 			})
@@ -295,13 +295,9 @@ export default class SliderTree extends React.Component {
 		let treeNodes = loop(treeData);
 
 		const {expandedKeys,checkedKeys} = this.state;
-
-
-
-		console.log(checkedKeys,">>>>>")
 		return (
 			<div>
-				<Tree
+			<Tree
 					onCheck={this.onCheck}
 					onExpand={this.onExpand}
 					onSelect={this.onSelect}
@@ -315,6 +311,7 @@ export default class SliderTree extends React.Component {
 				>
 					{treeNodes}
 				</Tree>
+
 
 			</div>
 		)

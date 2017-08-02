@@ -15,7 +15,20 @@ export default class DepartmentDialog extends React.Component{
 			searchKey:'',
 			treeData : [],
 		}
+		this.selectKeys = [];
 		this.getTreeData();
+
+	}
+
+	componentDidMount(){
+		let {echoList} = this.props;
+		if(!echoList){
+			return;
+		}
+		this.setState({
+			detail:echoList
+		})
+
 	}
 	onSelect = (data) =>{
 		const {onSelect,treeType} = this.props;
@@ -34,7 +47,9 @@ export default class DepartmentDialog extends React.Component{
 			})
 		}
 	}
+	//勾选被点击
 	getCheckData = (treeDatas) =>{
+		const {treeData} = this.state;
 		let detailData = [].concat(treeDatas);
 
 		let detail = [];
@@ -47,10 +62,30 @@ export default class DepartmentDialog extends React.Component{
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
-
 		this.setState({
 			detail,
 		})
+	}
+	//获取选择的keys
+	getSelectKeys = (data,detail,parentIndex) =>{
+		var arr = data.map((item,index)=>{
+			var key = parentIndex+'-'+item.orgName+item.key;
+			for(let i=0;i<detail.length;i++){
+				if(item.treeType == detail[i].treeType && item.orgId == detail[i].orgId ){
+
+					this.selectKeys.push(key)
+				}
+			}
+
+			if(item.children.length!=0){
+				this.getSelectKeys(item.children,detail,key)
+			}
+
+
+
+		})
+
+
 	}
 	//获取tree的数据
 	getTreeData = () => {
@@ -142,6 +177,8 @@ export default class DepartmentDialog extends React.Component{
 			checkable
 			
 		} = this.props;
+		this.selectKeys = [];
+		this.getSelectKeys(treeData,detail,0)
 		return (
             <div className = "tree-department" style = {{position:"relative",textAlign:"center"}}>
 				<div className = "department-title"><span className = "department-title-icon"></span><span className = "department-title-text">部门</span></div>
@@ -154,14 +191,23 @@ export default class DepartmentDialog extends React.Component{
 						</div>
 						<div className = "tree-content-left-right">
 
-							<SliderTree
+							{!checkable && <SliderTree
 								onSelectTree = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}
 								getCheckData = {this.getCheckData}
 								checkable = {checkable||false}
-							/>
+							/>}
+							{checkable && <SliderTree
+								onSelectTree = {this.onSelect}
+								type = "department-radio"
+								searchKey = {this.state.searchKey}
+								treeData = {treeData||[]}
+								getCheckData = {this.getCheckData}
+								checkable = {checkable||false}
+								TreeCheckedKeys = {this.selectKeys}
+							/>}
 						</div>
 					</div>
 					<div className = "content-right clear" >

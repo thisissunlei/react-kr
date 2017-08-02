@@ -151,10 +151,11 @@ export default class OaTreeDivision extends React.Component{
 
         var dialogTitle = label || '组件';
 
-        dialogTitle = "选择" + dialogTitle;
+        let echoList = null;
 		let textData = [];
 		if(oneOpen && valueText && valueText[0].orgName){
-			textData = [].concat(valueText);
+			textData = [].concat(valueText); 
+			echoList = [].concat(valueText); 
 		}else{
 			textData = [].concat(data);
 		}
@@ -162,6 +163,7 @@ export default class OaTreeDivision extends React.Component{
 		for(let i=0 ;i<textData.length;i++){
 			if(i==0){
 				text+= textData[i].orgName;
+
 			}else{
 				text+= ","+textData[i].orgName;
 			}
@@ -175,7 +177,7 @@ export default class OaTreeDivision extends React.Component{
 			}
 		}
 
-		
+		console.log("---->",echoList)
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
@@ -191,7 +193,14 @@ export default class OaTreeDivision extends React.Component{
 					noMaxHeight = {true}
 					contentStyle ={{ width: '653px',height:'580px',position:'fixed',left: "50%",marginLeft:'-345px'}}
 				 >
-					<DivisionDialog {...other} treeType = {this.props.treeType} ajaxUrlName = {ajaxUrlName} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<DivisionDialog {...other} 
+					treeType = {this.props.treeType}
+					echoList = {echoList}
+					ajaxUrlName = {ajaxUrlName} 
+					onSelect = {this.onSelect} 
+					onSubmit = {this.onSubmit} 
+					onCancel = {this.onCancel}
+					/>
 				</Dialog>
 				</div>
 			 </WrapComponent>

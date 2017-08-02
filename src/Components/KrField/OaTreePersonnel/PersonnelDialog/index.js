@@ -17,7 +17,6 @@ export default class PersonnelDialog extends React.Component{
 		}
 		this.selectKeys = [];
 		this.getTreeData();
-		this.onlyKey = 0;
 	}
 	componentDidMount(){
 		let {echoList} = this.props;
@@ -59,9 +58,6 @@ export default class PersonnelDialog extends React.Component{
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
-		this.selectKeys = [];
-		this.getSelectKeys(treeData,detail,0);
-		console.log(this.selectKeys,"LLLLL")
 		this.setState({
 			detail,
 		})
@@ -123,8 +119,6 @@ export default class PersonnelDialog extends React.Component{
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
-		this.selectKeys = [];
-		this.getSelectKeys(treeData,detail,0);
 		this.setState({
 			detail,
 			isList:false,
@@ -132,6 +126,7 @@ export default class PersonnelDialog extends React.Component{
 	}
 	//获取选择的keys
 	getSelectKeys = (data,detail,parentIndex) =>{
+		
 		var arr = data.map((item,index)=>{
 			var key = parentIndex+'-'+item.orgName+item.key;
 			for(let i=0;i<detail.length;i++){
@@ -153,11 +148,10 @@ export default class PersonnelDialog extends React.Component{
 	}
 	//选中列表显示
 	listRender = () =>{
-		const {detail,listSearchKey} = this.state;
+		const {detail,listSearchKey,treeData} = this.state;
 		if(detail[0].orgName == ""){
 			return ;
 		}
-
 		let lists = detail.map((item,index)=>{
 			if(listSearchKey ===''){
 				return <div className = "everyHave">
@@ -202,6 +196,8 @@ export default class PersonnelDialog extends React.Component{
 		let {
 			 checkable
 		} = this.props;
+		this.selectKeys = [];
+		this.getSelectKeys(treeData,detail,0)
 		return (
             <div className = "tree-personnel" style = {{position:"relative",textAlign:"center"}}>
 				<div className = "personnel-title"><span className = "personnel-title-icon"></span><span className = "personnel-title-text">人员</span></div>
@@ -212,8 +208,7 @@ export default class PersonnelDialog extends React.Component{
 							<span className = "oa-search-icon search-icon"></span>
 						</div>
 						<div className = "tree-content-left-right">
-
-							<SliderTree
+						 <SliderTree
 								onSelectTree = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
