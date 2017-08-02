@@ -18,13 +18,14 @@ import {
 	Http
 } from "kr/Utils";
 import './index.less';
-
+import FirstMenu from './FirstMenu';
 export default class DealNewThings extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
         this.state={
             thingsType:[{"name":"打我的"},{"name":"打你的"},{"name":"打他的"}],
+            newThings:[{"name":"打我的","children":[{"name":"打我的"},{"name":"打我的"},{"name":"打我的"}]},{"name":"打你的","children":[{"name":"打我的"},{"name":"打我的"},{"name":"打我的"}]},{"name":"打他的","children":[{"name":"打我的"},{"name":"打我的"},{"name":"打我的"}]}],
         }
 	}
 
@@ -33,7 +34,7 @@ export default class DealNewThings extends React.Component {
     //this.renderAddWhite();
   }
   //渲染色块
-  renderThings=(item,index)=>{
+  renderThingsType=(item,index)=>{
     var imageNum = (index+1)%7;
     if (imageNum == 0){
       imageNum = 7;
@@ -51,7 +52,15 @@ export default class DealNewThings extends React.Component {
         <span className="item-text">
           {item.name}
         </span>
+        <span className="close">
+
+        </span>
       </div>
+    )
+  }
+  renderNewThings=(item,index)=>{
+    return (
+        <FirstMenu key={index} detail={item} onSubmit={this.updateData}/>
     )
   }
   toLabour=(item)=>{
@@ -65,13 +74,17 @@ export default class DealNewThings extends React.Component {
         <Section borderBool={false} title="我的常用">
             <div className="first-main">
                 {this.state.thingsType.map((item,index)=>{
-                    return this.renderThings(item,index)
+                    return this.renderThingsType(item,index)
                 })}
             </div>
             
         </Section>
         <Section borderBool={false} title="新办事宜">
-        
+            <div className="second-main">
+                {this.state.newThings.map((item,index)=>{
+                    return this.renderNewThings(item,index)
+                })}
+            </div>
         </Section>
       </div>
     );

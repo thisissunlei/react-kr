@@ -1,4 +1,5 @@
 .g-deal-newthings{
+    font-family: PingFangSC-Regular;
     .first-main{
         .item{
             position: relative;
@@ -6,7 +7,13 @@
             height: 130px;
             display: inline-block;
             margin-left: 60px;
-            margin-right: 40px;
+            margin-right: 20px;
+            &:hover{
+                .close{
+                    display: inline-block;
+                    cursor: pointer;
+                }
+            }
             &:last-child{
                 margin-right: 0;
             }
@@ -58,7 +65,19 @@
             .class-7{
                 background-color: #FF8FB5;
             }
+            .close{
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                background: url('./images/close.svg') no-repeat center center;
+                background-size: cover;
+                display: none;
+            }
         }
     }
-    
+    .second-main{
+        overflow: hidden;
+    }
 }
