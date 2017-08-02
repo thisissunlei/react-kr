@@ -8,7 +8,7 @@ import {
 import { observer, inject } from 'mobx-react';
 import './index.less';
 import PostVoucher from './PostVoucher';
-import GroupManages from './GroupManages';
+//import GroupManages from './GroupManages';
 import DarkHouse from './DarkHouse';
 @inject("NavModel")
 @observer
@@ -134,14 +134,14 @@ export default class AppManage extends React.Component {
 			<Title value="App后台"/>
 
 			<Tabs className="tabs">
-					{
+					{/*
 					Ifgroup&&(
 								<Tab label="群组管理" onActive={this.merchants} style={merchantsStyle}>
 									<GroupManages timer={this.state.timer}/>
 								</Tab>
 							)
 					
-					}
+					*/}
 					{
 					Ifpost&&(
 								<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
