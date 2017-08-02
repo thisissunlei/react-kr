@@ -142,14 +142,14 @@ export default class Labour extends React.Component {
 	componentDidMount() {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
-		//console.log("进入~··");
+		
 		var dimId = this.props.params.dimId;
 		var _this = this;
 		var {checkOperate} = this.props.NavModel;
 		Http.request('extra-list', {
 			dimId: dimId
 		}).then(function (response) {
-			console.log("-.........>",response.items)
+			
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 
@@ -175,7 +175,7 @@ export default class Labour extends React.Component {
 		Http.request('extra-list', {
 			dimId: _this.state.searchParams.dimId
 		}).then(function (response) {
-			console.log("------->",response.items)
+			
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 	}
@@ -459,7 +459,7 @@ export default class Labour extends React.Component {
 		this.setState({
 			searchKey: event.target.value || ' ',
 		},function(){
-			// console.log(this.state.searchKey);
+			
 			//this.refs.searchKey.click();
 			//this.refs.searchKey.focus();
 		})
@@ -515,7 +515,8 @@ export default class Labour extends React.Component {
 	// 导出Excle表格
 	onExport=(values)=>{
 		let ids = [];
-		console.log(this.state.searchParams);
+		
+		
 		var type = this.state.searchParams.orgType;
 		var id = this.state.searchParams.orgId;
 		var dimId = this.state.searchParams.dimId;
@@ -549,7 +550,7 @@ export default class Labour extends React.Component {
 	}
 
 	onHighSearchSubmit = (form) => {
-		console.log("HighSearch",form);
+		
 		this.setState({
 			searchParams:form
 		})
@@ -763,7 +764,7 @@ export default class Labour extends React.Component {
 		var orgtype = this.state.searchParams.orgType;
 		var style = {};
 		var index = 0;
-		// console.log(this.state.searchParams.orgType);
+		
 		return (
 			<div className="g-oa-labour">
 				<div className="left">
@@ -883,7 +884,7 @@ export default class Labour extends React.Component {
 									<TableHeaderColumn>编号</TableHeaderColumn>
 									<TableHeaderColumn>下级名称</TableHeaderColumn>
 									<TableHeaderColumn>下级类型</TableHeaderColumn>
-									<TableHeaderColumn>账号是否开通</TableHeaderColumn>
+									<TableHeaderColumn>状态</TableHeaderColumn>
 									<TableHeaderColumn>操作人</TableHeaderColumn>
 									<TableHeaderColumn>创建日期</TableHeaderColumn>
 									<TableHeaderColumn>操作</TableHeaderColumn>
@@ -971,10 +972,10 @@ export default class Labour extends React.Component {
 									<TableHeaderColumn>部门名称</TableHeaderColumn>
 									<TableHeaderColumn>员工类别</TableHeaderColumn>
 									<TableHeaderColumn>人员名称</TableHeaderColumn>
-									<TableHeaderColumn>员工属性</TableHeaderColumn>
+									<TableHeaderColumn>员工状态</TableHeaderColumn>
 									<TableHeaderColumn>邮箱</TableHeaderColumn>
 									<TableHeaderColumn>入职日期</TableHeaderColumn>
-									<TableHeaderColumn>状态</TableHeaderColumn>
+									<TableHeaderColumn>账号是否开通</TableHeaderColumn>
 									<TableHeaderColumn>操作</TableHeaderColumn>
 								</TableHeader>
 

@@ -17,10 +17,12 @@ class EditRole  extends React.Component{
 	constructor(props,context){
 		super(props, context);
         this.state = {
-          isSure:false
+          isSure:false,
+          detail:[]
         }
 	}
-
+    
+  
 
     componentWillReceiveProps(nextProps){
         if(nextProps.depType!=this.props.depType){
@@ -34,6 +36,12 @@ class EditRole  extends React.Component{
                 })
             }
         }
+        if(nextProps.detail!=this.props.detail){
+             this.setState({
+                detail:nextProps.detail 
+            })
+        }
+
     }
 
 
@@ -50,21 +58,22 @@ class EditRole  extends React.Component{
      typeOnChange=(param)=>{
        if(param.value=='DEPARTMENT'){
            this.setState({
-             isSure:true  
+             isSure:true,
+             detail:[]  
            })
        }else{
           this.setState({
-             isSure:false
+             isSure:false,
+             detail:[]
           })
        }
     }
 
 	render(){
 
-        let {handleSubmit,roleArr,detail}=this.props;
-        let {isSure}=this.state;
+        let {handleSubmit,roleArr}=this.props;
+        let {isSure,detail}=this.state;
 
-        
 		return(
 
 			<div className='m-add-role'>

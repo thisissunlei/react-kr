@@ -24,7 +24,6 @@ export default class SliderTree extends React.Component {
 		this.state = {
 			inputValue: '',
 			expandedKeys: ['0-36kr0'],
-			checkedKeys:props.TreeCheckedKeys || [],
 			treeData : props.treeData,
 		}
 
@@ -252,11 +251,7 @@ export default class SliderTree extends React.Component {
 			this.setSearchExpandedKeys(nextProps.searchKey);
 		};
 		this.selectData = nextProps.treeDefaultSelectedKeys||[];
-		if(nextProps.treeDefaultSelectedKeys && nextProps.treeDefaultSelectedKeys.join() !== this.state.checkedKeys.join()){
-			this.setState({
-				checkedKeys:nextProps.treeDefaultSelectedKeys
-			})
-		}
+		
 
 	}
 
@@ -339,7 +334,6 @@ export default class SliderTree extends React.Component {
 					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}
 					onRightClick = {this.onRightClick}
-					defaultSelectedKeys = {checkedKeys}
 					theme = {TreeTheme || ""}
 					
 					{...other}

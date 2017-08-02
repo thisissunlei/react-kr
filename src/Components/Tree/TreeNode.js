@@ -241,32 +241,27 @@ class TreeNode extends React.Component {
           var typeText = ""
           for(let i=0;i<IconType.length;i++){
             if(props.itemData.treeType == IconType[i]){
-                if(props.children.length == 0){
+               
                   if(props.root.props.check){
+
                     if(props.itemData.isSelect){
                       typeText = IconType[i]+"_"+"open";
                     }else{
                       typeText = IconType[i]+"_"+"close";
                     }
                   }else{
-                    if(props.selected && props.itemData.isClick){
+                   
+                   
+                    if(props.selected && props.itemData.isClick ){
                       typeText = IconType[i]+"_"+"open";
 
                     }else{
                       typeText = IconType[i]+"_"+"close";
                     }
                   }
-                  
-                }else{
-                  typeText = IconType[i]+"_"+iconState;
-                }
-
-
                 break;
             }
-            // if(open){
-
-            // }
+          
 
           }
 
@@ -299,7 +294,6 @@ class TreeNode extends React.Component {
     const iconEleCls = {
       [`${prefixCls}-iconEle`]: true,
       [`${prefixCls}-icon_loading`]: this.state.dataLoading,
-      // [`${prefixCls}-icon__${iconState}`]: true,
       [iconTypeName]:true,
     };
 
@@ -309,6 +303,7 @@ class TreeNode extends React.Component {
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span
           className={classNames(iconEleCls)}
+           
         ></span> : null;
        const title = <span
                       className={`${prefixCls}-title`}
@@ -327,11 +322,11 @@ class TreeNode extends React.Component {
             domProps.className += ` ${prefixCls}-node-selected`;
           }
        }else{
-          if (props.itemData.children.length!=0 && props.expanded)
+          if (!props.selected && props.expanded)
           {
             domProps.className += ` ${prefixCls}-node-selected`;
           }
-          if(props.itemData.children.length == 0 && props.itemData.isClick && props.selected){
+          if(props.itemData.isClick && props.selected){
             domProps.className += ` ${prefixCls}-node-selected`;
 
           }
@@ -435,7 +430,7 @@ class TreeNode extends React.Component {
     let bg = "transparent"
     if(
         
-       !props.root.props.checkable && props.selected && props.itemData.isClick
+       !props.root.props.check && props.selected && props.itemData.isClick
     ){
        bg = "#F0F0F0"
       if(props.root.props.theme == "institutionsTheme"){

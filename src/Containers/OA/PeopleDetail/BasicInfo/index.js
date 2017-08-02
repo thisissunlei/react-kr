@@ -84,9 +84,9 @@ export default class BasicInfo  extends React.Component{
 	   let subParams = Object.assign({},params);
 	   
 	   subParams.depId=(subParams.depId[0] && subParams.depId[0].orgId)?subParams.depId[0].orgId:subParams.depId;
-	   subParams.uTime = DateFormat(subParams.uTime,"yyyy-mm-dd hh:MM:ss")
-	   subParams.cTime = DateFormat(subParams.cTime,"yyyy-mm-dd hh:MM:ss")
-	   subParams.leaveDate = DateFormat(subParams.leaveDate,"yyyy-mm-dd hh:MM:ss")
+	   delete subParams.uTime;
+	   delete subParams.cTime;
+	   delete subParams.leaveDate;
 	   subParams.entryDate = DateFormat(subParams.entryDate,"yyyy-mm-dd hh:MM:ss")  
 	   subParams.id=personId;
 	   var _this=this;
