@@ -82,8 +82,8 @@ class HighSearchForm extends React.Component {
 			    		name="hrmResourceAttributes"
 			    		component="selecTemployees"
 			    		style={{marginTop:4}}
-			    		label="员工属性"
-						otherType="resourceProperty"
+			    		label="员工状态"
+						otherType="resourceStatus"
 					/>
 					<KrField
 							grid={1/1}

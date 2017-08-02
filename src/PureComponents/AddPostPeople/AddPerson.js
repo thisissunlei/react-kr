@@ -47,10 +47,8 @@ class AddPerson  extends React.Component{
     onSubmit=(values)=>{
         let params = Object.assign({},values);
         params.jobId = values.jobId.value;
-        if(values.leader){
-            params.leader = values.leader[0].orgId;
-            params.treeType = values.leader[0].treeType;
-        }    
+        params.leader = values.leader[0].orgId;
+        params.treeType = values.leader[0].treeType;
         params.levelId = values.levelId.value;
         if(typeof (values.depId)=='number'){
            params.depId=values.depId;
