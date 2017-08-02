@@ -134,6 +134,14 @@ class CreateNotice extends React.Component {
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField
+								style={{width:548}}
+								name="title"
+								type="text"
+								component="input"
+								label="公告标题"
+								requireLabel={true}
+						 	/>
+							<KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								component="select"
 								name="groupType"
