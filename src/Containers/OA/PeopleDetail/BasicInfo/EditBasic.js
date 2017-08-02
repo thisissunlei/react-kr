@@ -55,12 +55,12 @@ class EditPerson  extends React.Component{
         let {basicInfo} = this.props;
         let params = Object.assign({},values);
 
-        params.jobId = values.jobId.value || basicInfo[0].jobId||"";
-        if(values.leader){
-             params.leader = values.leader.orgId || basicInfo[0].leader||"";
-             params.treeType = values.leader.treeType||"";
-        }
-        params.levelId = values.levelId.value|| basicInfo[0].levelId||"";
+
+        params.jobId = (values.jobId.value)? values.jobId.value:basicInfo[0].jobId;
+        params.leader = (values.leader[0]&&values.leader[0].orgId)?values.leader[0].orgId:basicInfo[0].leader;
+        params.treeType = (values.leader[0]&&values.leader[0].treeType)?values.leader[0].treeType:"";
+        params.levelId = (values.levelId.value)?values.levelId.value:basicInfo[0].levelId;
+        
     
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
