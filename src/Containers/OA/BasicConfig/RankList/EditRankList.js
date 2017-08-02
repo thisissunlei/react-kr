@@ -8,7 +8,8 @@ import {
     Button
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
-import {reduxForm}  from 'redux-form';
+import {reduxForm,change}  from 'redux-form';
+import {Store} from 'kr/Redux';
 import './index.less';
 
 class EditRankList  extends React.Component{
@@ -21,12 +22,11 @@ class EditRankList  extends React.Component{
         }
 	}
 
-     componentWillReceiveProps(nextProps){
-        
-        if(nextProps.editDetail.subId ){
+     componentWillReceiveProps(nextProps){  
+         let {isType}=this.state;   
+        if(nextProps.editDetail.subId&&!isType){
             this.dataReady({value:nextProps.editDetail.subId});
-        }
-       
+        }     
     }
      //类型
 	dataReady=(data)=>{
@@ -37,7 +37,8 @@ class EditRankList  extends React.Component{
 	   }).then(function(response) {
 
 		   _this.setState({
-			    jobTypes:response.jobTypes
+			    jobTypes:response.jobTypes,
+                isType:true
 		  })
 
      }).catch(function(err) {
@@ -45,6 +46,7 @@ class EditRankList  extends React.Component{
      });	
 	}
     onChange = (data) =>{
+        Store.dispatch(change('EditRankList','typeId',''));
         this.dataReady(data)
     }
 
