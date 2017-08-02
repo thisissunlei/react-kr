@@ -56,8 +56,10 @@ class EditPerson  extends React.Component{
         let params = Object.assign({},values);
 
         params.jobId = values.jobId.value || basicInfo[0].jobId||"";
-        params.leader = values.leader.orgId || basicInfo[0].leader||"";
-        params.treeType = values.leader.treeType||"";
+        if(values.leader){
+             params.leader = values.leader.orgId || basicInfo[0].leader||"";
+             params.treeType = values.leader.treeType||"";
+        }
         params.levelId = values.levelId.value|| basicInfo[0].levelId||"";
     
         const {onSubmit}=this.props;
@@ -130,8 +132,6 @@ class EditPerson  extends React.Component{
 
         let {handleSubmit}=this.props;
         let {rankList,positionList,isPositionRank,positionType,isDepSelect,basicInfo} = this.state;
-
-        console.log('basic',basicInfo);
         
       
 		return(
@@ -188,8 +188,8 @@ class EditPerson  extends React.Component{
                             component="treePersonnel"
                             label="直接上级"
                             treeType = "personnel"
-                            ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
+                            ajaxUrlName = "get-personnel-tree"
                             valueText = {basicInfo[0].leaderName?[{orgName:basicInfo[0].leaderName}]:[{orgName:''}]}
                             
                         />
@@ -226,7 +226,7 @@ class EditPerson  extends React.Component{
                             letfData={positionList}
                             component="switchSlide"
                             label="职务"
-                            valueText = {basicInfo.jobName}
+                            valueText = {basicInfo[0].jobName}
                             control='single'
                             requireLabel={true}
                         />}
@@ -236,7 +236,7 @@ class EditPerson  extends React.Component{
                             name="levelId"
                             letfData={rankList}
                             component="switchSlide"
-                            valueText ={basicInfo.levelName}
+                            valueText ={basicInfo[0].levelName}
                             label="职级"
                             control='single'
                             requireLabel={true}
@@ -313,13 +313,14 @@ const validate = values =>{
     if(!values.status){
         errors.status='请选择员工属性';
     }
+    
+     if(!values.leader){
+        errors.leader='请选择直接上级';
+    }
+
 
     if(!values.type){
         errors.type='请选择员工类别';
-    }
-
-    if(!values.leader){
-        errors.leader='请选择直接上级';
     }
 
      if(!values.depId){

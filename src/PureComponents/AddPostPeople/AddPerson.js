@@ -46,13 +46,17 @@ class AddPerson  extends React.Component{
 
     onSubmit=(values)=>{
         let params = Object.assign({},values);
-        console.log('value',values);
         params.jobId = values.jobId.value;
-        params.leader = values.leader[0].orgId;
-        params.treeType = values.leader.treeType;
+        if(values.leader){
+            params.leader = values.leader[0].orgId;
+            params.treeType = values.leader[0].treeType;
+        }    
         params.levelId = values.levelId.value;
-        params.depId=values.depId[0].orgId;
-        console.log('params',params);
+        if(typeof (values.depId)=='number'){
+           params.depId=values.depId;
+        }else{
+           params.depId=values.depId[0].orgId;       
+        }
 
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
@@ -245,8 +249,8 @@ class AddPerson  extends React.Component{
                             name="leader"
                             component="treePersonnel"
                             label="直接上级"
-                            ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
+                            ajaxUrlName = "get-personnel-tree"
                         />
 
                         <KrField

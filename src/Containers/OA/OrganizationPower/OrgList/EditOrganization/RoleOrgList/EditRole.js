@@ -22,6 +22,22 @@ class EditRole  extends React.Component{
 	}
 
 
+    componentWillReceiveProps(nextProps){
+        console.log('bbb',nextProps.depType,this.props.depType);
+        if(nextProps.depType!=this.props.depType){
+            if(nextProps.depType=='DEPARTMENT'){
+                    this.setState({
+                    isSure:true  
+                })
+            }else{
+                this.setState({
+                    isSure:false
+                })
+            }
+        }
+    }
+
+
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);

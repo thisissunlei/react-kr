@@ -255,8 +255,8 @@ const validate = values =>{
 		}
 		if (!values.name) {
 			errors.name = '请填写联系人姓名';
-		}else if(values.name.length>20){
-			errors.name = '最多输入20个字符';
+		}else if(values.name.length>80){
+			errors.name = '最多输入80个字符';
 		}
 		if (!values.tel) {
 			errors.tel = '请填写联系人电话';
@@ -284,8 +284,8 @@ const validate = values =>{
 
 		if (!values.company) {
 			errors.company = '请填写公司名称';
-		}else if(values.company.length>20){
-			errors.company = '最多输入20个字符';
+		}else if(values.company.length>80){
+			errors.company = '最多输入80个字符';
 		}
 		//公司规模
 		if(values.teamNum&&isNaN(values.teamNum)){
@@ -298,7 +298,7 @@ const validate = values =>{
 		}
 
 
-		if(values.amount&&values.amount.length>12){
+		if(values.amount&&values.amount.length>20){
 			errors.amount = '最多输入20个字符';
 		}else if(values.amount&&isNaN(values.amount)){
 			errors.amount = '请输入数字';
