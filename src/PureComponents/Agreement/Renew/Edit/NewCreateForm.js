@@ -254,6 +254,10 @@ class NewCreateForm extends React.Component {
 			openAdd,
 			oldBasicStationVos:stationVos,
 			allRent
+		},function(){
+			if(openAdd){
+				this.minusClick()
+			}
 		});
 
 
