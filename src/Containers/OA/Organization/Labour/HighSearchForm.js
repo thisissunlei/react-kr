@@ -69,31 +69,21 @@ class HighSearchForm extends React.Component {
 			    		grid={1/2}
 						right={27}
  						left={42}
+						component="selecTemployees"
 			    		name="hrmResourceType"
-			    		type="select"
 			    		style={{marginTop:4}}
 			    		label="员工类别"
-						options={[
-					      {label:'内部',value:'INTERNAL'},
-					      {label:'外部',value:'EXTERNAL'},
-						  {label:'实习',value:'INTERN'},
-					    ]}
+						otherType="resourceType"
 					/>
 					<KrField
 			    		grid={1/2}
 						right={63}
  						left={4}
 			    		name="hrmResourceAttributes"
-			    		type="select"
+			    		component="selecTemployees"
 			    		style={{marginTop:4}}
 			    		label="员工属性"
-						options={[
-					     {label:'待入职',value:'UNENTRY'},
-					      {label:'试用',value:'PROBATION'},
-						  {label:'正式',value:'REGULAR'},
-						  {label:'待离职',value:'UNDIMISSION'},
-						  {label:'离职',value:'DIMISSION'},
-					    ]}
+						otherType="resourceProperty"
 					/>
 					<KrField
 							grid={1/1}

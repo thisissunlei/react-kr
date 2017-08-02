@@ -242,12 +242,14 @@ export default class SliderTree extends React.Component {
 		if(nextProps.searchKey !== this.props.searchKey){
 			this.setSearchExpandedKeys(nextProps.searchKey);
 		};
-
-		if(nextProps.TreeCheckedKeys.join() !== this.state.checkedKeys.join()){
-			this.setState({
-				checkedKeys:nextProps.TreeCheckedKeys
-			})
+		if(nextProps.TreeCheckedKeys){
+			if(nextProps.TreeCheckedKeys.join() !== this.state.checkedKeys.join()){
+				this.setState({
+					checkedKeys:nextProps.TreeCheckedKeys
+				})
+			}
 		}
+		
 
 	}
 

@@ -882,7 +882,7 @@ export default class Labour extends React.Component {
 									<TableHeaderColumn>编号</TableHeaderColumn>
 									<TableHeaderColumn>下级名称</TableHeaderColumn>
 									<TableHeaderColumn>下级类型</TableHeaderColumn>
-									<TableHeaderColumn>账号是否开通</TableHeaderColumn>
+									<TableHeaderColumn>状态</TableHeaderColumn>
 									<TableHeaderColumn>操作人</TableHeaderColumn>
 									<TableHeaderColumn>创建日期</TableHeaderColumn>
 									<TableHeaderColumn>操作</TableHeaderColumn>
@@ -973,7 +973,7 @@ export default class Labour extends React.Component {
 									<TableHeaderColumn>员工属性</TableHeaderColumn>
 									<TableHeaderColumn>邮箱</TableHeaderColumn>
 									<TableHeaderColumn>入职日期</TableHeaderColumn>
-									<TableHeaderColumn>状态</TableHeaderColumn>
+									<TableHeaderColumn>账号是否开通</TableHeaderColumn>
 									<TableHeaderColumn>操作</TableHeaderColumn>
 								</TableHeader>
 
