@@ -3,12 +3,14 @@ import {default as PersonalManage} from './PersonalManage';
 import {default as PeopleDetail} from './PeopleDetail';
 import {default as BasicConfig} from './BasicConfig';
 import {default as OrganizationPower} from './OrganizationPower';
+import {default as OaBackground} from './OaBackground';
 module.exports = {
 	...Organization,
 	...PersonalManage,
 	...BasicConfig,
 	...PeopleDetail,
-	...OrganizationPower
+	...OrganizationPower,
+	...OaBackground
 }
 
 
