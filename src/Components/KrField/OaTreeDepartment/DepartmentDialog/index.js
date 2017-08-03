@@ -109,7 +109,7 @@ export default class DepartmentDialog extends React.Component{
 
 	listRender = () =>{
 		const {detail} = this.state;
-		if(detail[0].orgName == ""|| detail[0].orgName="请选择"){
+		if(detail[0].orgName == "" || detail[0].orgName=="请选择"){
 			return ;
 		}
 		let lists = detail.map((item,index)=>{

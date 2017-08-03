@@ -113,7 +113,7 @@ export default class PersonnelDialog extends React.Component{
 	listRender = () =>{
 		const {detail,listSearchKey} = this.state;
 
-		if(detail[0].orgName == ""|| detail[0].orgName="请选择"){
+		if(detail[0].orgName == ""|| detail[0].orgName=="请选择"){
 			return ;
 		}
 		let lists = detail.map((item,index)=>{
