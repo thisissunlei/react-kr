@@ -1,52 +1,65 @@
 
 module.exports = [
-
 	{
 		primaryText: "综合办公",
-		router: 'oa',
-		originUrl: '#/oa/organization/home',
+		router: 'office',
 		menuItems: [
 			{
-				primaryText: '人事主页',
-				iconName: 'icon-schema',
+				primaryText: "办公主页",
+				router: 'office',
+				iconName: 'icon-money',
 				iconColor: '#79859a',
-				menuCode: '',
 				menuItems: [
 					
-				]	
-			}, 
-			{
-				primaryText: '人事资料',
-				iconName: 'icon-schema',
-				iconColor: '#79859a',
-				menuCode: '',
-				menuItems: [
-					{
-						primaryText: '我的卡片',
-						menuCode: '',
-						router: '',
-					},
-					{
-						primaryText: '我的同事',
-						menuCode: '',
-						router: '',
-					},
-				]	
-			}, 
-			{
-				primaryText: '人员管理',
-				iconName: 'icon-administrator',
-				menuCode: 'hrmresourceadmin',
-				iconColor: '#79859a',
-				menuItems: [
-					{
-						primaryText: '人员列表',
-						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/oa/personalManage/peopleState',
-						
-					}
 				]
-			}, 	
+			},
+			{
+				primaryText: '新办事宜',
+				iconName: 'icon-schema',
+				router: 'office',
+				iconColor: '#79859a',
+				menuCode: 'hrm_resourcesList_incumbency',
+				menuItems: [
+					{
+						primaryText: '发起流程',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/office/officeBackground/todo',
+					},
+				]	
+			}, 
+			{
+				primaryText: '待办事宜',
+				iconName: 'icon-schema',
+				router: 'office',
+				iconColor: '#79859a',
+				menuCode: 'hrm_resourcesList_incumbency',
+				menuItems: [
+					{
+						primaryText: '待办列表',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/office/officeBackground/todo',
+					},
+				]	
+			}, 
+			{
+				primaryText: '已办事宜',
+				iconName: 'icon-schema',
+				router: 'office',
+				iconColor: '#79859a',
+				menuCode: 'hrm_resourcesList_incumbency',
+				menuItems: [
+					{
+						primaryText: '已办列表',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/office/officeBackground/downOffice',
+					},
+					{
+						primaryText: '我发起的',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/office/officeBackground/newOffice',
+					},
+				]	
+			}, 
 		]
 	}
 ]
