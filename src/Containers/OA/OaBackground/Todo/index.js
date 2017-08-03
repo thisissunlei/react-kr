@@ -1,6 +1,5 @@
 import React from 'react';
 import {	
-	Section,
 	IframeContent
 } from 'kr-ui';
 
@@ -13,14 +12,12 @@ export default class Initialize  extends React.Component{
 
 	render(){
 
-		let url='http://www.baidu.com';
+		let url='http://localhost:8080/hz7rest/workflow/manager/embed/index.jsp#workcenter/todo/todo.list';
 
 		return(
 
 			<div>
-					<Section title="订单账单列表" description="" >
-					  <IframeContent src={url}  width={'100%'} height={800} scrolling="no"/>
-					</Section>
+				<IframeContent src={url}  width={'100%'} height={800} scrolling="no"/>
 			</div>
 		);
 	}
