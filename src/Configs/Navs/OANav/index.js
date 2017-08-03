@@ -91,7 +91,12 @@ module.exports = [
 						primaryText: '新办事宜',
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/oa/processManage/dealNewThings',
-					}
+					},
+					{
+						primaryText: '流程配置',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/oa/processManage/processSetting',
+					},
 				]
 			}, 
 			

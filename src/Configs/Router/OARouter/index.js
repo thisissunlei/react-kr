@@ -67,6 +67,12 @@ const OA_ProcessManage_DealNewThings= (location, callback) => {
   }, 'OA_ProcessManage_DealNewThings')
 }
 
+const OA_ProcessManage_ProcessSetting= (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/ProcessManage/ProcessSetting').default)
+  }, 'OA_ProcessManage_ProcessSetting')
+}
+
 module.exports =()=>{
 	return (
         <Route path="oa" getComponent={Basic}>
@@ -93,6 +99,7 @@ module.exports =()=>{
             {/*流程管理*/}
             <Route path="processManage" getComponent={Basic}>
               <Route path="dealNewThings" getComponent={OA_ProcessManage_DealNewThings}/>
+              <Route path="processSetting" getComponent={OA_ProcessManage_ProcessSetting}/>
             </Route>
         </Route>
 	);

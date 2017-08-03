@@ -345,6 +345,24 @@ var OAApi = {
       url:'/api/krspace-erp-web/hrm/resource/open/account',
       method: 'post'
   },
+
+
+   /*流程*/
+  //流程--我的常用
+  'process-common':{
+      url:'/api/krspace-erp-web/wf/my/common',
+      method: 'get'
+  },
+  //流程--获取新办
+  'process-new-request':{
+      url:'/api/krspace-erp-web/new/request/list',
+      method: 'get'
+  },
+  //流程--流程类型树
+  'process-typetree':{
+      url:'/api/krspace-erp-web/wf/type/list?name={name}',
+      method: 'get'
+  },
 }
 
 module.exports=OAApi;

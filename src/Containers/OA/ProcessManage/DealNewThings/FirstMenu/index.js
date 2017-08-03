@@ -53,14 +53,31 @@ export default class FirstMenu extends React.Component {
 				<div className="left">
                     {item.name}
                 </div>
-                <div className="right">
+                <div className={`right ${item.click?" ":"right-unclickable"}`}>
 
                 </div>
 			</div>
 		)
 	}
 	
-	
+	onAddThings=(item)=>{
+		const {
+			onSubmit,
+		} = this.props;
+		var _this = this;
+		
+		Http.request('first-second-delete', {},{
+			id:itemDetail.id
+		}).then(function(response) {
+			onSubmit();
+			Message.success("删除成功");
+			_this.openDeleteFirst();
+		}).catch(function(err) {
+			Message.error(err.message);
+			_this.openDeleteFirst();
+		});
+	}
+
 	render() {
         let {item,editStyle,editState,itemDetail} = this.state;
 		console.log("detail",this.state.item);		
