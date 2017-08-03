@@ -241,7 +241,7 @@ class TreeNode extends React.Component {
           var typeText = ""
           for(let i=0;i<IconType.length;i++){
             if(props.itemData.treeType == IconType[i]){
-               
+
                   if(props.root.props.check){
 
                     if(props.itemData.isSelect){
@@ -250,8 +250,8 @@ class TreeNode extends React.Component {
                       typeText = IconType[i]+"_"+"close";
                     }
                   }else{
-                   
-                   
+
+
                     if(props.selected && props.itemData.isClick ){
                       typeText = IconType[i]+"_"+"open";
 
@@ -261,7 +261,7 @@ class TreeNode extends React.Component {
                   }
                 break;
             }
-          
+
 
           }
 
@@ -303,7 +303,7 @@ class TreeNode extends React.Component {
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span
           className={classNames(iconEleCls)}
-           
+
         ></span> : null;
        const title = <span
                       className={`${prefixCls}-title`}
@@ -423,32 +423,32 @@ class TreeNode extends React.Component {
           cls[`${prefixCls}-noline_docu_close`] = true;
         }
       }
-     
+
       return <span className={classNames(cls)}></span>;
     };
-    let length = props.eventKey.split("-").length-1;
+    let length = props.pos.split("-").length-1;
     let bg = "transparent"
     if(
-        
+
        !props.root.props.check && props.selected && props.itemData.isClick
     ){
        bg = "#F0F0F0"
       if(props.root.props.theme == "institutionsTheme"){
         bg="#E5E6ED"
       }
-       
+
     }
     if(props.root.props.check){
-     
+
        if(!props.itemData.isSelect){
           bg = "transparent";
         }else{
           bg = "#F0F0F0"
         }
     }
-   
-   
-    
+
+
+
     return (
       <li {...liProps} ref="li"
         className={classNames(props.className, disabledCls, dragOverCls, filterCls) }
@@ -461,7 +461,7 @@ class TreeNode extends React.Component {
           {selectHandle()}
           {newChildren}
         </div>
-         
+
       </li>
     );
   }
