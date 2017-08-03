@@ -36,7 +36,7 @@ export default class DivisionDialog extends React.Component{
 				detail.push(data[i]);
 			}
 		}
-		
+
 		if(!detail[0] || detail.length == 0){
 			detail = [{orgName:''}]
 		}
@@ -44,7 +44,7 @@ export default class DivisionDialog extends React.Component{
 			detail,
 		})
 	}
-	
+
 	//获取tree的数据
 	getTreeData = () => {
 
@@ -96,7 +96,7 @@ export default class DivisionDialog extends React.Component{
 		if(!detail.length){
 			detail.push({orgName:''});
 		}
-		
+
 		this.setState({
 			detail,
 			isList:false,
@@ -105,7 +105,7 @@ export default class DivisionDialog extends React.Component{
 
 	listRender = () =>{
 		const {detail,treeData} = this.state;
-		if(detail[0].orgName == ""){
+		if(detail[0].orgName == ""|| detail[0].orgName="请选择"){
 			return ;
 		}
 		let lists = detail.map((item,index)=>{
@@ -152,15 +152,15 @@ export default class DivisionDialog extends React.Component{
 								treeData = {treeData||[]}
 								check = {true}
 								treeDefaultSelectedKeys = {detail}
-								multiple 
+								multiple
 							/>}
 							{!checkable && <SliderTree
 								onSelectTree = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}
-								
-								
+
+
 							/>}
 						</div>
 					</div>

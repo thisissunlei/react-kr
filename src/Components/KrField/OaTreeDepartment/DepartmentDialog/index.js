@@ -10,7 +10,7 @@ export default class DepartmentDialog extends React.Component{
 		super(props,context)
 		// this.getTreeData();
 		this.state = {
-			detail:[{orgName:''}],
+			detail:[{orgName:'请选择'}],
 			isList:false,
 			searchKey:'',
 			treeData : [],
@@ -32,14 +32,14 @@ export default class DepartmentDialog extends React.Component{
 	}
 	onSelect = (data) =>{
 		const {onSelect,treeType} = this.props;
-		
+
 		let detail = [];
 		for(let i=0;i<data.length;i++){
 			if(data[i].treeType == "DEPARTMENT"){
 				detail.push(data[i]);
 			}
 		}
-		
+
 		if(!detail[0] || detail.length == 0){
 			detail = [{orgName:''}]
 		}
@@ -47,7 +47,7 @@ export default class DepartmentDialog extends React.Component{
 			detail,
 		})
 	}
-	
+
 	//获取tree的数据
 	getTreeData = () => {
 
@@ -109,7 +109,7 @@ export default class DepartmentDialog extends React.Component{
 
 	listRender = () =>{
 		const {detail} = this.state;
-		if(detail[0].orgName == ""){
+		if(detail[0].orgName == ""|| detail[0].orgName="请选择"){
 			return ;
 		}
 		let lists = detail.map((item,index)=>{
@@ -138,7 +138,7 @@ export default class DepartmentDialog extends React.Component{
 			checkable
 		} = this.props;
 		console.log("++++++",detail)
-		
+
 		return (
             <div className = "tree-department" style = {{position:"relative",textAlign:"center"}}>
 				<div className = "department-title"><span className = "department-title-icon"></span><span className = "department-title-text">部门</span></div>
@@ -158,15 +158,15 @@ export default class DepartmentDialog extends React.Component{
 								treeData = {treeData||[]}
 								check = {true}
 								treeDefaultSelectedKeys = {detail}
-								multiple 
+								multiple
 							/>}
 							{!checkable && <SliderTree
 								onSelectTree = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}
-								
-								
+
+
 							/>}
 						</div>
 					</div>

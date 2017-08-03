@@ -45,7 +45,7 @@ export default class PersonnelDialog extends React.Component{
 			detail,
 		})
 	}
-	
+
 
 
 	//获取tree的数据
@@ -108,12 +108,12 @@ export default class PersonnelDialog extends React.Component{
 			isList:false,
 		})
 	}
-	
+
 	//选中列表显示
 	listRender = () =>{
 		const {detail,listSearchKey} = this.state;
-			
-		if(detail[0].orgName == ""){
+
+		if(detail[0].orgName == ""|| detail[0].orgName="请选择"){
 			return ;
 		}
 		let lists = detail.map((item,index)=>{
@@ -159,7 +159,7 @@ export default class PersonnelDialog extends React.Component{
 		} = this.state;
 		let {
 			 checkable,
-			 
+
 		} = this.props;
 		return (
             <div className = "tree-personnel" style = {{position:"relative",textAlign:"center"}}>
@@ -178,15 +178,15 @@ export default class PersonnelDialog extends React.Component{
 								treeData = {treeData||[]}
 								check = {true}
 								treeDefaultSelectedKeys = {detail}
-								multiple 
+								multiple
 							/>}
 							{!checkable && <SliderTree
 								onSelectTree = {this.onSelect}
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {treeData||[]}
-								
-								
+
+
 							/>}
 						</div>
 					</div>
