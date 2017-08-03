@@ -176,18 +176,22 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let allRent = 0;
 		let {initialValues} = this.props;
-		let oldStationsVos = this.state.stationVos;
-		let delStationVos = Object.assign([],oldStationsVos,this.state.delStationVos)
+		let oldStationsVos = this.state.oldBasicStationVos;
+		let delStationVos = this.state.oldBasicStationVos;
+		// let delStationVos = Object.assign([],oldStationsVos,this.state.delStationVos)
 		stationVos.map(item=>{
 			oldStationsVos.map((values,index)=>{
 				if(item.stationId == values.stationId){
+					console.log('==========',index)
 					delStationVos.splice(index,1)
 				}
 			})
 		})
+		delStationVos = delStationVos.concat(_this.state.delStationVos);
 
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
 		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
+		console.log('====submit====',delStationVos)
 
 		this.setAllRent(stationVos);
 		let openAdd = stationVos.length>5?true:false;
