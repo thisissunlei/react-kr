@@ -27,9 +27,11 @@ class CreateNotice extends React.Component {
 		super(props, context);
 		this.state = {
 			ifCity:false,
-			groupType:[],
+			groupType:[
+				
+			],
 		}
-		this.getType();
+		//this.getType();
 	}
 	
 	componentDidMount() {
@@ -56,7 +58,7 @@ class CreateNotice extends React.Component {
 			
 		}).catch(function(err) {
 			Message.error(err.message);
-		});	
+		});	                                                                                                                     ， 
 
    	}
 	selectType=(item)=>{
@@ -65,7 +67,7 @@ class CreateNotice extends React.Component {
 		if(item.value=="COMMUNITY"){
 			this.setState({
 				ifCity:true
-			})
+			})。                                                                                                     
 		}else{
 			this.setState({
 				ifCity:false

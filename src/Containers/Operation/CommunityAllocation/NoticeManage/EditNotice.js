@@ -29,7 +29,7 @@ class EditNotice extends React.Component {
 			ifCity:false,
 			groupType:[],
 		}
-		this.getType();
+		//this.getType();
 	}
 	
 	componentDidMount() {
@@ -163,9 +163,9 @@ class EditNotice extends React.Component {
 						 	<KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								name="publishedTime"
-								component="date"
-								label="发布时间"
-								requireLabel={true}
+								label="创建时间"
+								inline={false} 
+								component="labelText"
 						 	/>
 						 	<KrField 
 								component="editor" 
