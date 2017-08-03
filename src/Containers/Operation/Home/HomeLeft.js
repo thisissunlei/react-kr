@@ -21,10 +21,10 @@ import {
 
 } from 'kr-ui';
 import home from './images/home-community.svg';
-import PaymentTable from './PaymentTable';
-import OrderTable from './OrderTable';
-import AgreementTable from './AgreementTable';
-import VisitTable from './VisitTable';
+import PaymentTable from './LeftTable/PaymentTable';
+import OrderTable from './LeftTable/OrderTable';
+import AgreementTable from './LeftTable/AgreementTable';
+import VisitTable from './LeftTable/VisitTable';
 import  "./index.less";
 import State from './State';
 import {Http,DateFormat} from "kr/Utils";
@@ -100,7 +100,9 @@ class HomeLeft  extends React.Component{
 						{State.roomType == 'all' && <div className="room-num">{State.InfoData.totalRoom} <span style={{fontSize:'16px'}}>间</span></div>}
 					</span>
 					<span className='item-three item'>
-						<span className="tab-list">平均工位月均价</span>
+						<div className="tab-lists">
+							<span className="tab-list">平均工位月均价</span>
+						</div>
 						<span className="price-num">{State.InfoData.averagePrice}<span style={{fontSize:'16px'}}>/月</span></span>
 					</span>
 				</div>

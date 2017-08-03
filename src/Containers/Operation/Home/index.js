@@ -92,8 +92,6 @@ class Home  extends React.Component{
 		State.openAgreementDetail = false
 	}
 	render(){
-		console.log('index=======>',Money('120102'))
-		
 		return(
 			<div style={{minHeight:'910'}} className="operation-home">
 				<Title value="运营首页" />

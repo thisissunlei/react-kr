@@ -22,9 +22,10 @@ import {
 	ButtonGroup,
 
 } from 'kr-ui';
-import home from './images/home-community.svg';
-import  "./index.less";
-import State from './State';
+import home from '../images/home-community.svg';
+import NullTable from './NullTable';
+import  "../index.less";
+import State from '../State';
 import {Http,DateFormat} from "kr/Utils";
 import {
 	observer,
@@ -53,6 +54,7 @@ class OrderTable  extends React.Component{
 		
 		return(
 			<div className="payment-table">
+				{!! State.orderList.items.length && 
 				<table>
 					<thead>
 						<tr>
@@ -84,11 +86,15 @@ class OrderTable  extends React.Component{
 							)
 						})}
 					</tbody>
-				</table>
+				</table>}
 
+           		{!!State.orderList.items.length && 
            		<div className='footPage' style={{marginTop:40}}>
            			<Pagination  totalCount={State.orderList.totalCount} page={State.orderList.page} pageSize={10} onPageChange={this.onPageChange}/>
-           		</div>
+           		</div>}
+				{!State.orderList.items.length && 
+					<NullTable />
+           		}
 
 				
 

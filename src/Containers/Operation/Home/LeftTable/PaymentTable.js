@@ -22,10 +22,12 @@ import {
 	ButtonGroup,
 
 } from 'kr-ui';
-import home from './images/home-community.svg';
-import  "./index.less";
-import State from './State';
-import {Http,DateFormat} from "kr/Utils";
+import home from '../images/home-community.svg';
+import  "../index.less";
+import NullTable from './NullTable';
+
+import State from '../State';
+import {Http,DateFormat,Money} from "kr/Utils";
 import {
 	observer,
 	inject
@@ -70,7 +72,7 @@ class PaymentTable  extends React.Component{
 										</div>
 									</td>
 									<td >{DateFormat(item.installmentReminddate,'yyyy-mm-dd')}</td>
-									<td >{item.installmentAmount}</td>
+									<td >{Money(item.installmentAmount+'')}</td>
 									<td >
 										<div style={{height:40}}>
 											<span className="tableOver">{DateFormat(item.installmentBegindate,'yyyy-mm-dd')}至{DateFormat(item.installmentEnddate,'yyyy-mm-dd')}</span>

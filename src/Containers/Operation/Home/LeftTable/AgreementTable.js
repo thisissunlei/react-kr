@@ -22,9 +22,11 @@ import {
 	ButtonGroup,
 
 } from 'kr-ui';
-import home from './images/home-community.svg';
-import  "./index.less";
-import State from './State';
+import home from '../images/home-community.svg';
+import  "../index.less";
+import NullTable from './NullTable';
+
+import State from '../State';
 import {Http,DateFormat} from "kr/Utils";
 import {
 	observer,
@@ -53,6 +55,7 @@ class AgreementTable  extends React.Component{
 		
 		return(
 			<div className="payment-table">
+				{!!State.agreementList.items.length && 
 				<table>
 					<thead>
 						<tr>
@@ -84,11 +87,15 @@ class AgreementTable  extends React.Component{
 							)
 						})}
 					</tbody>
-				</table>
+				</table>}
 
+           		{!!State.agreementList.items.length && 
            		<div className='footPage' style={{marginTop:40}}>
            			<Pagination  totalCount={State.agreementList.totalCount} page={State.agreementList.page} pageSize={10} onPageChange={this.onPageChange}/>
-           		</div>
+           		</div>}
+           		{!State.agreementList.items.length && 
+           			<NullTable />
+           		}
 
 				
 

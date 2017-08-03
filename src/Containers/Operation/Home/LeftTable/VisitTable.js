@@ -22,9 +22,10 @@ import {
 	ButtonGroup,
 
 } from 'kr-ui';
-import home from './images/home-community.svg';
-import  "./index.less";
-import State from './State';
+import home from '../images/home-community.svg';
+import NullTable from './NullTable';
+import  "../index.less";
+import State from '../State';
 import {Http,DateFormat} from "kr/Utils";
 import {
 	observer,
@@ -50,6 +51,7 @@ class VisitTable  extends React.Component{
 		
 		return(
 			<div className="payment-table">
+				{!!State.visitList.items.length && 
 				<table>
 					<thead>
 						<tr>
@@ -78,11 +80,12 @@ class VisitTable  extends React.Component{
 							)
 						})}
 					</tbody>
-				</table>
-
+				</table>}
+				{!!State.visitList.items.length && 
            		<div className='footPage' style={{marginTop:40}}>
            			<Pagination  totalCount={State.visitList.totalCount} page={State.visitList.page} pageSize={10} onPageChange={this.onPageChange}/>
-           		</div>
+           		</div>}
+           		{!State.visitList.items.length && <NullTable />}
 
 				
 

@@ -86,7 +86,6 @@ State.selectDataInit=action(function(params) {
 });
 State.ChangeCommunity = action(function(value) {
 	this.info = value;
-	console.log('======',value);
 	State.getHomeData({cmtId:value.communityId})
 	this.openChangeCommunity = false;
 });
@@ -133,7 +132,7 @@ State.getOrderList=action(function(params){
 		Http.request('get-expire-contract',params).then(function(response){
 			_this.orderList = response;
 		}).catch(function(err) {
-			Message.error(err.message);
+			// Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })

@@ -85,7 +85,7 @@ class MonthPayment extends React.Component{
 						cmtId:State.info.communityId,
 						customerId:customerId
 					}}
-                    ajaxUrlName='get-signed-customer'
+                    ajaxUrlName='get-total-customer'
                     ajaxFieldListName="items"
 					  >
 		            <TableHeader className='detail-header'>
