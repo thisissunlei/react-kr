@@ -165,8 +165,6 @@ class NewCreateForm extends React.Component {
 
 	// station list
 	onStationCancel() {
-		console.log('===cancle===>2')
-
 		this.setState({
 			openStation: false
 		});
@@ -182,7 +180,6 @@ class NewCreateForm extends React.Component {
 		stationVos.map(item=>{
 			oldStationsVos.map((values,index)=>{
 				if(item.stationId == values.stationId){
-					console.log('==========',index)
 					delStationVos.splice(index,1)
 				}
 			})
@@ -191,7 +188,6 @@ class NewCreateForm extends React.Component {
 
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
 		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
-		console.log('====submit====',delStationVos)
 
 		this.setAllRent(stationVos);
 		let openAdd = stationVos.length>5?true:false;
@@ -249,7 +245,6 @@ class NewCreateForm extends React.Component {
 		this.setAllRent(stationVos);
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
 		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
-		console.log('delete',oldBasicStationVos,stationVos,delStationVos)
 		let openAdd = stationVos.length>5?true:false;
 
 		this.setState({
@@ -360,8 +355,6 @@ class NewCreateForm extends React.Component {
 
 		form.stationVos = JSON.stringify(oldBasicStationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
-		console.log('------->',form.delStationVos,'======',form.stationVos);
-		// return;
 
 		if(!!!form.agreement){
 			form.agreement = '无';
