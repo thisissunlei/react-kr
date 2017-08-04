@@ -212,6 +212,7 @@ export default class Role extends Component{
 							label="新建"
 							type='button'
 							onTouchTap={this.openAddPost}
+							operateCode="hrm_role_add"
 					/>
 				</Col>
 			        
@@ -278,7 +279,7 @@ export default class Role extends Component{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}}></TableRowColumn>
 						<TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation"  operation="edit"/>
+                            <Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_role_edit"/>
 			                {/*<Button label="删除"  type="operation"  operation="delete" />*/}
 			            </TableRowColumn>
 					</TableRow>
