@@ -47,10 +47,11 @@ export default class AllTypes extends React.Component {
 		super(props, context);
 		this.state = {
 			item:this.props.detail,
-            openEditDialog:false,
 			itemDetail:{},
             tabSelect: 1,
             openCreateDrawer:false,
+            openEditDialog:false,
+            openSetDialog:false,
             newPage: 1,
             searchParams: {
 				page: 1,
@@ -82,17 +83,21 @@ export default class AllTypes extends React.Component {
 		this.setState({
 			itemDetail
 		});
-
-		if (type == 'cancle') {
-			this.openCancelDialog();
-		} else if (type == 'unCancle') {
-			this.openUnCancelDialog();
+		if (type == 'edit') {
+			this.openEditDialog();
+		} else if (type == 'set') {
+			this.openSetDialog();
 		}
 	}
 
 	openCreateDialog = () => {
 		this.setState({
 			openCreateDialog: !this.state.openCreateDialog
+		})
+	}
+    openSetDialog = () => {
+		this.setState({
+			openSetDialog: !this.state.openSetDialog
 		})
 	}
 	openEditDialog = () => {
@@ -129,6 +134,30 @@ export default class AllTypes extends React.Component {
 			Message.error(err.message)
 		});
 	}
+    onCreatDrawerSubmit = (params) => {
+		var _this = this;
+		Http.request('process-add-type', {}, params).then(function (response) {
+			_this.openCreateDialog();
+			Message.success('新建成功');
+			_this.changeP();
+			_this.getTreeData();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+	}
+    toBasicSetting=(form)=>{
+        var _this = this;
+        Http.request('process-add-type', {}, params).then(function (response) {
+			_this.openCreateDialog();
+			//Message.success('新建成功');
+			_this.changeP();
+			_this.getTreeData();
+            let processId = form.id
+            window.open(`./#/oa/processManage/processSetting/${processId}/basicSetting`);
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+    }
     //改变页码
     changeP=()=>{
         var timer = new Date();
@@ -178,7 +207,7 @@ export default class AllTypes extends React.Component {
                         <Grid style={{ marginBottom: 20, marginTop: 20 }}>
                             <Row>
                                 <Col md={4} align="left" >
-                                    <Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
+                                    <Button label="新建" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
                                 </Col>
                                 <Col md={8} align="right">
 
@@ -210,42 +239,15 @@ export default class AllTypes extends React.Component {
 
                                     <TableRowColumn name="juniorName"></TableRowColumn>
                                     <TableRowColumn name="juniorType"></TableRowColumn>
-                                    <TableRowColumn name="status"
-                                        component={(value, oldValue) => {
-
-                                            if (value == '已封存') {
-                                                logFlag = true;
-                                                return (
-                                                    <div style={{ color: '#FF5B52' }}>{value}</div>
-                                                )
-                                            } else {
-                                                logFlag = false;
-                                                return (
-                                                    <div>{value}</div>
-                                                )
-                                            }
-                                        }}
-                                    ></TableRowColumn>
+                                    <TableRowColumn name="status"></TableRowColumn>
 
                                     <TableRowColumn type="date" name="createTime" component={(value) => {
                                         return (
                                             <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
                                         )
                                     }}> </TableRowColumn>
-                                    <TableRowColumn type="operation" name="status"
-                                        component={(value, oldValue, itemDetail) => {
-                                            if (logFlag) {
-
-                                                return (
-                                                    <Button onClick={this.openUnCancelDialog.bind(this, itemDetail)} label="解封" type="operation" operation="unCancle" />
-                                                )
-                                            } else {
-                                                return (
-                                                    <Button label="编辑" onClick={this.openCancelDialog.bind(this, itemDetail)} type="operation" operation="cancle" />
-                                                )
-                                            }
-                                        }}
-                                    >
+                                    <TableRowColumn>
+                                        <Button label="配置" type="operation" operation="edit" />
                                     </TableRowColumn>
                                 </TableRow>
                             </TableBody>
@@ -295,13 +297,7 @@ export default class AllTypes extends React.Component {
                                 <TableRow>
                                     <TableRowColumn name="hrmId"></TableRowColumn>
                                     <TableRowColumn name="departName"></TableRowColumn>
-                                    <TableRowColumn name="userName"></TableRowColumn>
-                                    <TableRowColumn name="email"></TableRowColumn>
-                                    <TableRowColumn type="date" name="entryTime" component={(value) => {
-                                        return (
-                                            <KrDate value={value} format="yyyy-mm-dd" />
-                                        )
-                                    }}> </TableRowColumn>
+                                    <TableRowColumn name="departName"></TableRowColumn>
                                     <TableRowColumn name="status"
                                         component={(value, oldValue) => {
                                             if (value == '未开通') {
@@ -314,6 +310,29 @@ export default class AllTypes extends React.Component {
                                             )
                                         }}
                                     ></TableRowColumn>
+                                    <TableRowColumn name="status"
+                                        component={(value, oldValue) => {
+                                            if (value == '未开通') {
+                                                style = { 'color': '#FF5B52' }
+                                            }else{
+                                                style = {}
+                                            }
+                                            return (
+                                                <div style={style}>{value}</div>
+                                            )
+                                        }}
+                                    ></TableRowColumn>
+                                    <TableRowColumn name="userName"></TableRowColumn>
+                                    <TableRowColumn name="email"></TableRowColumn>
+                                    <TableRowColumn name="email"></TableRowColumn>
+                                    <TableRowColumn type="date" name="entryTime" component={(value) => {
+                                        return (
+                                            <KrDate value={value} format="yyyy-mm-dd" />
+                                        )
+                                    }}> </TableRowColumn>
+                                    <TableRowColumn>
+                                        <Button label="配置" type="operation" operation="set" />
+									</TableRowColumn>
                                 </TableRow>
                             </TableBody>
                             <TableFooter></TableFooter>
@@ -329,7 +348,7 @@ export default class AllTypes extends React.Component {
 						width: 685
 					}}
 				>
-					{/*<CreateDialog detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />*/}
+					<CreateDialog detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
 				</Dialog>
                 <Dialog
 					title="编辑流程类型"
@@ -347,9 +366,9 @@ export default class AllTypes extends React.Component {
                     width={750}
                     openSecondary={true}
                     containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-                    onClose={this.state.openCreateDrawer}
+                    onClose={this.openCreateDrawer}
 				>
-					<CreateDrawer detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDrawer} />
+					<CreateDrawer detail={this.state.searchParams} onSubmit={this.onCreatDrawerSubmit} toBasicSetting={this.toBasicSetting} onCancel={this.openCreateDrawer} />
 				</Drawer>
 			</div>
 		);

@@ -38,6 +38,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
+import EditDialog from './EditDialog';
 import CreateDrawer from './CreateDrawer';
 export default class SingleType extends React.Component {
 
@@ -48,7 +49,8 @@ export default class SingleType extends React.Component {
 			editState:false,
 			itemDetail:{},
             newPage: 1,
-            openCreatDrawer:false,
+            openCreateDrawer:false,
+			openEditDialog:false,
             searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -86,9 +88,9 @@ export default class SingleType extends React.Component {
 			openEditDialog: !this.state.openEditDialog
 		})
 	}
-    openCreatDrawer=()=>{
+    openCreateDrawer=()=>{
         this.setState({
-			openCreatDrawer: !this.state.openCreatDrawer
+			openCreateDrawer: !this.state.openCreateDrawer
 		})
     }
 	onCreatSubmit = (params) => {
@@ -165,7 +167,7 @@ export default class SingleType extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新建" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
+										<Button label="新建" type="button" onClick={this.openCreateDrawer} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
 									</Col>
 									<Col md={8} align="right">
 
@@ -232,14 +234,25 @@ export default class SingleType extends React.Component {
 							</Table>
 						</div>
                     <Drawer
-							open={this.state.openCreatDrawer}
+							open={this.state.openCreateDrawer}
 							width={750}
 							openSecondary={true}
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-							onClose={this.state.openCreatDrawer}
+							onClose={this.openCreateDrawer}
 					 >
-						<CreateDrawer detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreatDrawer} />
+						<CreateDrawer detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDrawer} />
 					</Drawer>
+					<Dialog
+						title="编辑流程类型"
+						modal={true}
+						open={this.state.openEditDialog}
+						onClose={this.openEditDialog}
+						contentStyle={{
+							width: 685
+						}}
+					>
+						<EditDialog detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
+					</Dialog>
 			</div>
 		);
 	}

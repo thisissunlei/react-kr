@@ -85,9 +85,9 @@ export default class ProcessSetting extends React.Component {
 		// 	Message.error(err.message);
 		// });
 	}
-    renderTree=(item)=>{
+    renderTree=(item,index)=>{
         return(
-            <div onClick={this.selectType.bind(this,item)} className={`process-tree ${item.active?'active':''}`}>
+            <div key={index} onClick={this.selectType.bind(this,item)} className={`process-tree ${item.active?'active':''}`}>
                 - {item.label}
             </div>
         )

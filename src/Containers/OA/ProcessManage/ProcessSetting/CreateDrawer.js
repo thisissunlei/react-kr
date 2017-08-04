@@ -47,6 +47,26 @@ class CreateDrawer extends React.Component {
 			
 		}
 	}
+	onCancel = () => {
+		let {
+			onCancel
+		} = this.props;
+		onCancel && onCancel();
+	}
+	onSubmit = (form) => {
+		let {
+			onSubmit
+		} = this.props;
+		
+		onSubmit && onSubmit(form);
+	}
+	toBasicSetting=(form)=>{
+		let {
+			toBasicSetting
+		} = this.props;
+		
+		toBasicSetting && onSubmit(form);
+	}
 		render() {
 
 			const {
@@ -63,61 +83,101 @@ class CreateDrawer extends React.Component {
 			     	<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 			     </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
-					<CircleStyleTwo num="1" info="付款信息">
+					<CircleStyleTwo num="1" info="基本信息">
 						<KrField
 								style={{width:260}}
 								name="customerId"
-								component="searchCustomer"
-								label="客户名称"
+								label="流程名称"
+								component="input"
 								requireLabel={true}
-								onChange={this.openCustomer}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="mainBillId"
-								component="searchMainbill"
-								label="所属订单"
+								component="input"
+								label="流程编码"
 								requireLabel={true}
-								customerId={customerId}
 						/>
 						<KrField
 								style={{width:260}}
-								name="accountId"
-								component="select"
-								label="我司账户"
-								options={accountList}
+								name="payAccount"
+								type="text"
+								component="input"
+								label="流程类型"
 								requireLabel={true}
-								onChange={this.accountChange}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
 								name="payAccount"
 								type="text"
-								ref="payAccount"
 								component="input"
-								label="付款账户"
+								label="排序号"
 								requireLabel={true}
-								
 						/>
+						<KrField
+								style={{width:260}}
+								name="payAccount"
+								type="text"
+								component="input"
+								label="慧正流程唯一标识"
+								requireLabel={true}
+						/>
+						<KrField
+								style={{width:260,marginLeft:25}}
+								name="accountId"
+								component="select"
+								label="对接人"
+								requireLabel={true}
+						/>
+						
 						<KrField
 								style={{width:548}}
 								name="remark"
 								component="textarea"
 								label="描述"
-								maxSize={100}
+								maxSize={200}
 						/>
 					
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="开关设置" circle="bottom">
-						<div className="u-add-total-count">
-							
-						</div>
 						<Grid style={{marginTop:50,width:'81%'}}>
+							<KrField style={{width:220,marginBottom:16}}  name="type" component="group" label="发起流程请求" inline={false} requireLabel={true}>
+								<KrField
+										name="type"
+										label="允许"
+										type="radio"
+										value="MENU"
+										checked={true}
+										style={{marginRight:24}}
+								/>
+								<KrField
+										name="type"
+										label="不允许"
+										type="radio"
+										value="OPERATION"
+								/>
+							</KrField>
+							<KrField style={{width:220,marginLeft:66,marginBottom:16}}  name="type" component="group" label="新办是否显示" inline={false} requireLabel={true}>
+								<KrField
+										name="type"
+										label="显示"
+										type="radio"
+										value="MENU"
+										checked={true}
+										style={{marginRight:24}}
+								/>
+								<KrField
+										name="type"
+										label="不显示"
+										type="radio"
+										value="OPERATION"
+								/>
+							</KrField>
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit"  />
-								<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
+								<Button  label="确定" type="submit"/>
+								<Button  label="保存并进入流程配置" type="submit" width={178} cancle={true} type="button"  onTouchTap={this.toBasicSetting}/>
 							</ButtonGroup>
 						  </Col>
 						</Row>

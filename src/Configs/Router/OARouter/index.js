@@ -73,6 +73,12 @@ const OA_ProcessManage_ProcessSetting= (location, callback) => {
   }, 'OA_ProcessManage_ProcessSetting')
 }
 
+const OA_ProcessManage_BasicSetting= (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/ProcessManage/BasicSetting').default)
+  }, 'OA_ProcessManage_BasicSetting')
+}
+
 module.exports =()=>{
 	return (
         <Route path="oa" getComponent={Basic}>
@@ -100,6 +106,7 @@ module.exports =()=>{
             <Route path="processManage" getComponent={Basic}>
               <Route path="dealNewThings" getComponent={OA_ProcessManage_DealNewThings}/>
               <Route path="processSetting" getComponent={OA_ProcessManage_ProcessSetting}/>
+              <Route path=":processId/basicSetting" getComponent={OA_ProcessManage_BasicSetting}/>
             </Route>
         </Route>
 	);

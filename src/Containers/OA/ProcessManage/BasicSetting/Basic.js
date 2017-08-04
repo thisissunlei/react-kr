@@ -11,7 +11,7 @@ import {
     Dialog,
 } from 'kr-ui';
 import {reduxForm, formValueSelector, change} from 'redux-form';
-class Createdialog extends Component {
+class Basic extends Component {
     static PropTypes = {
         detail: React.PropTypes.object,
         onSubmit: React.PropTypes.func,
@@ -155,8 +155,8 @@ const validate = values => {
 	return errors
 }
 export default reduxForm({
-	form: 'Createdialog',
+	form: 'Basic',
   enableReinitialize: true,
   validate,
 	keepDirtyOnReinitialize: true,
-})(Createdialog);
+})(Basic);
