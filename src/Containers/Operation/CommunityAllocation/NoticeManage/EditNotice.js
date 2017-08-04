@@ -185,7 +185,7 @@ class EditNotice extends React.Component {
 						 	/>
 						 	<KrField 
 								component="editor" 
-								name="content" 
+								name="richText" 
 								label="公告内容" 
 								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
