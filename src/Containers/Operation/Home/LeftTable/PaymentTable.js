@@ -90,6 +90,9 @@ class PaymentTable  extends React.Component{
            		<div className='footPage' style={{marginTop:40}}>
            			<Pagination  totalCount={State.paymentList.totalCount} page={State.paymentList.page} pageSize={10} onPageChange={this.onPageChange}/>
            		</div>}
+           		{!State.paymentList.items.length && 
+					<NullTable />
+           		}
 
 				
 

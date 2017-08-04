@@ -69,7 +69,7 @@ State.getHomeData=action(function(params){
 			_this.info = info;
 			_this.getPaymentList({page:1,pageSize:10,cmtId:_this.info.communityId})
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.error('后台出错，请联系管理员');
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
@@ -86,6 +86,13 @@ State.selectDataInit=action(function(params) {
 });
 State.ChangeCommunity = action(function(value) {
 	this.info = value;
+	this.InfoData = {};
+	this.tableType='payment';
+	let obj = {items:[],page:1,pageSize:10,totalCount:0};
+	this.paymentList = obj;
+	this.orderList = obj;
+	this.agreementList = obj;
+	this.visitList = obj;
 	State.getHomeData({cmtId:value.communityId})
 	this.openChangeCommunity = false;
 });
@@ -121,7 +128,7 @@ State.getCommunityList=action(function(){
 				return obj;
 			})
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.error('后台出错，请联系管理员');
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
@@ -143,7 +150,7 @@ State.getIncomeList=action(function(params){
 		Http.request('get-settled-contract',params).then(function(response){
 			_this.agreementList = response;
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.error('后台出错，请联系管理员');
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
@@ -154,7 +161,7 @@ State.getVisitList=action(function(params){
 		Http.request('get-appointment',params).then(function(response){
 			_this.visitList = response
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.error('后台出错，请联系管理员');
 		});
 })
 
