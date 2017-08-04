@@ -23,7 +23,7 @@ import {
 	CircleStyleTwo,
 	Message
 } from 'kr-ui';
-import './index.less';
+import './CreateDrawer.less';
 
 
 class CreateDrawer extends React.Component {
@@ -44,40 +44,22 @@ class CreateDrawer extends React.Component {
 			customerId: " ",
 			billInfo: " ",
 			corporationId: "",
-			oldData:[],
-			//我司账户名称
-			accountNum:'',
-			showSection:false,
-			department:''
+			
 		}
-		this.receivedBtnFormChangeValues = {};
-
-
 	}
 		render() {
 
 			const {
 				error,
 				handleSubmit,
-				pristine,
 				reset
 			} = this.props;
-			let {
-				payment,
-				accountList,
-				mainbillInfo,
-				showName,
-				customerId,
-				flowAmount,
-				oldData
-			} = this.state;
-			let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
-
+		
 			return (
-				<div className="u-audit-add  u-audit-edit">
+				<div className="u-creat-drawer">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
-			     	<span>添加回款</span>
+			     	<span>新建流程</span>
 			     	<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 			     </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
@@ -89,7 +71,6 @@ class CreateDrawer extends React.Component {
 								label="客户名称"
 								requireLabel={true}
 								onChange={this.openCustomer}
-								showName={showName}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
@@ -98,40 +79,6 @@ class CreateDrawer extends React.Component {
 								label="所属订单"
 								requireLabel={true}
 								customerId={customerId}
-								onChange={this.getMainbillInfo}
-						/>
-						<KrField
-								style={{width:260}}
-								component="labelText"
-								inline={false}
-								label="订单起止"
-								defaultValue="-"
-								value={mainbillInfo.mainBillDate}
-						/>
-						<KrField
-								style={{width:260,marginLeft:25}}
-								component="labelText"
-								inline={false}
-								label="公司主体"
-								defaultValue="-"
-								value={mainbillInfo.corporationName}
-						/>
-						<KrField
-								style={{width:260}}
-								component="labelText"
-								inline={false}
-								label="社区名称"
-								defaultValue="-"
-								value={mainbillInfo.communityName}
-						/>
-						<KrField
-								style={{width:260,marginLeft:25}}
-								name="payWay"
-								component="select"
-								label="收款方式"
-								options={payment}
-								onChange={this.getAccount}
-								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260}}
@@ -153,53 +100,17 @@ class CreateDrawer extends React.Component {
 								
 						/>
 						<KrField
-								style={{width:260}}
-								name="dealTime"
-								component="date"
-								label="收款日期"
-								requireLabel={true}
-						/>
-						{this.state.showSection && <KrField
-								style={{width:260,marginLeft:25}}
-								name="department"
-								type="text"
-								component="labelText"
-								defaultValue='无'
-								inline={false}
-								value={this.state.department}
-								label="部门"
-								
-						/>}
-						<KrField
 								style={{width:548}}
 								name="remark"
 								component="textarea"
-								label="备注"
+								label="描述"
 								maxSize={100}
 						/>
-						<KrField
-							 	name="contractFileList"
-							 	component="input"
-							 	type="hidden"
-							 	label="合同附件"
-						/>
-						<KrField
-							style={{width:548}}
-							name="uploadFileIds"
-							component="file"
-							label="上传附件"
-							ref="uploadFileIds"
-							defaultValue={[]}
-							onChange={(files)=>{
-								Store.dispatch(change('AddMoney','contractFileList',files));
-							}}
-						/>
+					
 					</CircleStyleTwo>
-					<CircleStyleTwo num="2" info="付款明细" circle="bottom">
+					<CircleStyleTwo num="2" info="开关设置" circle="bottom">
 						<div className="u-add-total-count">
-							<span className="u-add-total-icon"></span>
-							<span className="u-add-total-title">付款总金额：</span>
-							<span>{flowAmount}</span>
+							
 						</div>
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >

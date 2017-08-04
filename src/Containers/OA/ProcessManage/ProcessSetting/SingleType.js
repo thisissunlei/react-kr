@@ -33,11 +33,12 @@ import {
 	SearchForms,
 	KrDate,
 	Message,
-    Chip
+    Chip,
+    Drawer
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
-import CreateDialog from './Createdialog';
+import CreateDrawer from './CreateDrawer';
 export default class SingleType extends React.Component {
 
 	constructor(props, context) {
@@ -47,6 +48,7 @@ export default class SingleType extends React.Component {
 			editState:false,
 			itemDetail:{},
             newPage: 1,
+            openCreatDrawer:false,
             searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -79,18 +81,16 @@ export default class SingleType extends React.Component {
 			this.openUnCancelDialog();
 		}
 	}
-
-	openCreateDialog = () => {
-		this.setState({
-			openCreateDialog: !this.state.openCreateDialog
-		})
-	}
 	openEditDialog = () => {
 		this.setState({
 			openEditDialog: !this.state.openEditDialog
 		})
 	}
-
+    openCreatDrawer=()=>{
+        this.setState({
+			openCreatDrawer: !this.state.openCreatDrawer
+		})
+    }
 	onCreatSubmit = (params) => {
 		var _this = this;
 		Http.request('save-junior', {}, params).then(function (response) {
@@ -232,13 +232,13 @@ export default class SingleType extends React.Component {
 							</Table>
 						</div>
                     <Drawer
-							open={this.state.openEditDialog}
+							open={this.state.openCreatDrawer}
 							width={750}
 							openSecondary={true}
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-							onClose={this.state.openEditDialog}
+							onClose={this.state.openCreatDrawer}
 					 >
-						{/*<EditDialog detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openEditDialog} />*/}
+						<CreateDrawer detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreatDrawer} />
 					</Drawer>
 			</div>
 		);

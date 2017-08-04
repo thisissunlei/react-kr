@@ -32,6 +32,7 @@ import SearchForm from './SearchForm';
 
 import AllTypes from './AllTypes';
 import SingleType from './SingleType';
+
 // import EditDialog from './Editdialog';
 // import Viewdialog from './Viewdialog';
 // import CancelDialog from './CancelDialog';

@@ -33,12 +33,14 @@ import {
 	SearchForms,
 	KrDate,
 	Message,
-    Chip
+    Chip,
+    Drawer
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
-import CreateDialog from './Createdialog';
 import EditDialog from './EditDialog';
+import CreateDialog from './Createdialog';
+import CreateDrawer from './CreateDrawer';
 export default class AllTypes extends React.Component {
 
 	constructor(props, context) {
@@ -48,6 +50,7 @@ export default class AllTypes extends React.Component {
             openEditDialog:false,
 			itemDetail:{},
             tabSelect: 1,
+            openCreateDrawer:false,
             newPage: 1,
             searchParams: {
 				page: 1,
@@ -97,7 +100,11 @@ export default class AllTypes extends React.Component {
 			openEditDialog: !this.state.openEditDialog
 		})
 	}
-
+    openCreateDrawer=()=>{
+        this.setState({
+			openCreateDrawer: !this.state.openCreateDrawer
+		})
+    }
 	onCreatSubmit = (params) => {
 		var _this = this;
 		Http.request('process-add-type', {}, params).then(function (response) {
@@ -252,7 +259,7 @@ export default class AllTypes extends React.Component {
                         <Grid style={{ marginBottom: 20, marginTop: 20 }}>
                             <Row>
                                 <Col md={4} align="left" >
-                                    <Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />
+                                    <Button label="新建" type="button" onClick={this.openCreateDrawer} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />
                                 </Col>
                                 <Col md={8} align="right">
                                     <div className="u-search">
@@ -335,6 +342,15 @@ export default class AllTypes extends React.Component {
 				>
 					{/*<EditDialog detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />*/}
 				</Dialog>
+                <Drawer
+                    open={this.state.openCreateDrawer}
+                    width={750}
+                    openSecondary={true}
+                    containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+                    onClose={this.state.openCreateDrawer}
+				>
+					<CreateDrawer detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDrawer} />
+				</Drawer>
 			</div>
 		);
 	}
