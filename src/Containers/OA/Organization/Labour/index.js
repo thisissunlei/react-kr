@@ -563,7 +563,7 @@ export default class Labour extends React.Component {
    //跳转详情页
    goDetail = (data) =>{
 	    let personId=data.hrmId;
-		window.open(`./#/oa/${personId}/peopleDetail`,'123');
+		  window.open(`./#/oa/${personId}/peopleDetail`,'_blank');
    }
 
    //操作开关
