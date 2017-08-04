@@ -11,7 +11,7 @@ import {
     Dialog,
 } from 'kr-ui';
 import {reduxForm, formValueSelector, change} from 'redux-form';
-class Createdialog extends Component {
+class EditDialog extends Component {
     static PropTypes = {
         detail: React.PropTypes.object,
         onSubmit: React.PropTypes.func,
@@ -24,28 +24,17 @@ class Createdialog extends Component {
         }
     }
     componentDidMount() {
-        // var opt=[];
-        // if (this.props.detail.orgType=='DEPARTMENT') {
-        //    opt = [
-        //                 {label:'部门',value:'DEPARTMENT'},
-    	// 			];
-            
-        // }else if(this.props.detail.orgType=='ROOT'){
-        //     opt = [
-        //                 {label:'分部',value:'SUBCOMPANY'}
-    	// 			];
-        // }else{
-        //   opt = [
-        //                 {label:'部门',value:'DEPARTMENT'},
-        //                 {label:'分部',value:'SUBCOMPANY'}
-    	// 			];
-        // }
-        // this.setState({
-        //     options:opt
-        // },function(){
-        //     Store.dispatch(change('Createdialog','orgType','DEPARTMENT'));
-        // })
-        Store.dispatch(change('Createdialog','sex','MALE'))
+        var _this = this;
+        var orgId = this.props.detail.orgId;
+        var orgType = this.props.detail.orgType;
+        Http.request('org-detail', {
+                orgId: orgId,
+                orgType:orgType
+            },{}).then(function(response) {
+                _this.setState({infoList: response},function(){
+                  Store.dispatch(initialize('editdialog', _this.state.infoList));
+                })
+            }).catch(function(err) {});
     }
     onCancel = () => {
         const {onCancel} = this.props;
@@ -74,7 +63,7 @@ class Createdialog extends Component {
                     grid={1/2}
                     label="流程类型名称"
                     component="input"
-                    name="orgName"
+                    name="name"
                     requireLabel={true}
                     placeholder="请输入流程类型名称"
                 />
@@ -84,7 +73,7 @@ class Createdialog extends Component {
                     label="排序号"
                     grid={1/2}
                     component="input"
-                    name="code"
+                    name="orderNum"
                     requireLabel={true}
                     placeholder="排序号"
                 />
@@ -155,8 +144,8 @@ const validate = values => {
 	return errors
 }
 export default reduxForm({
-	form: 'Createdialog',
+	form: 'EditDialog',
   enableReinitialize: true,
   validate,
 	keepDirtyOnReinitialize: true,
-})(Createdialog);
+})(EditDialog);

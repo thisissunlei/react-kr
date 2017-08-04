@@ -363,6 +363,16 @@ var OAApi = {
       url:'/api/krspace-erp-web/wf/type/list?name={name}',
       method: 'get'
   },
+  //流程--新增流程类型
+  'process-add-type':{
+      url:'/api/krspace-erp-web/wf/type/add',
+      method: 'post'
+  },
+  //流程--编辑流程类型
+  'process-edit-type':{
+      url:'/api/krspace-erp-web/wf/type/edit',
+      method: 'post'
+  },
 }
 
 module.exports=OAApi;

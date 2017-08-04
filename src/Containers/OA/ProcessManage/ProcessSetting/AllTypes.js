@@ -38,13 +38,14 @@ import {
 import './index.less';
 import SearchForm from './SearchForm';
 import CreateDialog from './Createdialog';
+import EditDialog from './EditDialog';
 export default class AllTypes extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
 			item:this.props.detail,
-			editState:false,
+            openEditDialog:false,
 			itemDetail:{},
             tabSelect: 1,
             newPage: 1,
@@ -99,9 +100,21 @@ export default class AllTypes extends React.Component {
 
 	onCreatSubmit = (params) => {
 		var _this = this;
-		Http.request('save-junior', {}, params).then(function (response) {
+		Http.request('process-add-type', {}, params).then(function (response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
+			_this.changeP();
+			_this.getTreeData();
+			_this.getOrganizationDetail();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+	}
+    onEditSubmit = (params) => {
+		var _this = this;
+		Http.request('process-edit-type', {}, params).then(function (response) {
+			_this.openCreateDialog();
+			Message.success('修改成功');
 			_this.changeP();
 			_this.getTreeData();
 			_this.getOrganizationDetail();
@@ -176,10 +189,10 @@ export default class AllTypes extends React.Component {
                             onPageChange={this.onPageChange}
                         >
                             <TableHeader>
-                                <TableHeaderColumn>ID</TableHeaderColumn>
-                                <TableHeaderColumn>下级名称</TableHeaderColumn>
-                                <TableHeaderColumn>下级类型</TableHeaderColumn>
-                                <TableHeaderColumn>状态</TableHeaderColumn>
+                                <TableHeaderColumn>流程类型</TableHeaderColumn>
+                                <TableHeaderColumn>排序号</TableHeaderColumn>
+                                <TableHeaderColumn>描述</TableHeaderColumn>
+                                <TableHeaderColumn>操作人</TableHeaderColumn>
                                 <TableHeaderColumn>创建日期</TableHeaderColumn>
                                 <TableHeaderColumn>操作</TableHeaderColumn>
                             </TableHeader>
@@ -221,7 +234,7 @@ export default class AllTypes extends React.Component {
                                                 )
                                             } else {
                                                 return (
-                                                    <Button label="封存" onClick={this.openCancelDialog.bind(this, itemDetail)} type="operation" operation="cancle" />
+                                                    <Button label="编辑" onClick={this.openCancelDialog.bind(this, itemDetail)} type="operation" operation="cancle" />
                                                 )
                                             }
                                         }}
@@ -259,12 +272,16 @@ export default class AllTypes extends React.Component {
                             onPageChange={this.onPageChange}
                         >
                             <TableHeader>
-                                <TableHeaderColumn>ID</TableHeaderColumn>
-                                <TableHeaderColumn>部门名称</TableHeaderColumn>
-                                <TableHeaderColumn>人员名称</TableHeaderColumn>
-                                <TableHeaderColumn>邮箱</TableHeaderColumn>
-                                <TableHeaderColumn>入职日期</TableHeaderColumn>
-                                <TableHeaderColumn>状态</TableHeaderColumn>
+                                <TableHeaderColumn>流程名称</TableHeaderColumn>
+                                <TableHeaderColumn>流程编码</TableHeaderColumn>
+                                <TableHeaderColumn>顺序</TableHeaderColumn>
+                                <TableHeaderColumn>发起流程请求</TableHeaderColumn>
+                                <TableHeaderColumn>新办是否显示</TableHeaderColumn>
+                                <TableHeaderColumn>慧正流程唯一标识</TableHeaderColumn>
+                                <TableHeaderColumn>描述</TableHeaderColumn>
+                                <TableHeaderColumn>操作人</TableHeaderColumn>
+                                <TableHeaderColumn>操作时间</TableHeaderColumn>
+                                <TableHeaderColumn>操作</TableHeaderColumn>
                             </TableHeader>
 
                             <TableBody>
@@ -297,7 +314,7 @@ export default class AllTypes extends React.Component {
                     </div>
                 }
                 <Dialog
-					title="新建下级"
+					title="新建流程类型"
 					modal={true}
 					open={this.state.openCreateDialog}
 					onClose={this.openCreateDialog}
@@ -306,6 +323,17 @@ export default class AllTypes extends React.Component {
 					}}
 				>
 					{/*<CreateDialog detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />*/}
+				</Dialog>
+                <Dialog
+					title="编辑流程类型"
+					modal={true}
+					open={this.state.openEditDialog}
+					onClose={this.openEditDialog}
+					contentStyle={{
+						width: 685
+					}}
+				>
+					{/*<EditDialog detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />*/}
 				</Dialog>
 			</div>
 		);
