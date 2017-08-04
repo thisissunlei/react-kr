@@ -15,11 +15,12 @@ class Transfer extends React.Component{
 	constructor(props,context){
 		super(props, context);
 	}
-    
+
      onSubmit=(values)=>{
         let {department} = this.props;
+        console.log(values,">>>>")
         let submitData = {
-            depId:values.depId.orgId,
+            depId:values.depId[0].orgId,
             resourceId:department.hrmId
         }
         const {onSubmit}=this.props;
@@ -30,7 +31,7 @@ class Transfer extends React.Component{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
-  
+
 
 	render(){
 
@@ -40,7 +41,7 @@ class Transfer extends React.Component{
 
 			<div>
               <form onSubmit={handleSubmit(this.onSubmit)}>
-               
+
                 <KrField grid={1}
                             style={{width:262,marginLeft:60,marginBottom:2}}
                             component="labelText"
@@ -48,16 +49,17 @@ class Transfer extends React.Component{
                             value = {department.departName}
                             requireLabel={true}
 						/>
-                 <KrField grid={1}
-                            style={{width:262,marginLeft:60}}
-                            name="depId"
-                            component="selectTree"
-                            label="部门:"
-                            treeType = "department"
-                            ajaxUrlName = "get-department-tree"
-                            requireLabel={true}
-					    />
 
+              <KrField
+                  grid={1}
+                  style={{width:262,marginLeft:60}}
+                  name="depId"
+                  component="treeDepartment"
+                  label="部门"
+                  treeType = "department"
+                  ajaxUrlName = "get-department-tree"
+                  requireLabel={true}
+              />
 			   <Grid style={{marginTop:17,marginBottom:5}}>
                             <Row>
                                 <Col md={12} align="center">
@@ -76,7 +78,7 @@ class Transfer extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-    
+
 	return errors
 }
 
