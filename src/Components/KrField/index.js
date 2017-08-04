@@ -58,6 +58,9 @@ import SearchOrderCommunity from './SearchOrderCommunity';
 import ActivityCommunityList from './ActivityCommunityList';
 import SearchCityCommunity from './SearchCityCommunity';
 import ChangeUploadImageComponent from './ChangeUploadImageComponent';
+
+import SelectTime from './SelectTime';
+
 import SelectTree from './SelectTree';
 import SearchOaPersonal from './SearchOaPersonal';
 import OaUploadImage from './OaUploadImage';
@@ -67,6 +70,7 @@ import SwitchSlide from './SwitchSlide';
 
 // import OaTreeDepartment from './OaTreeDepartment';
 // import OaTreePersonnel from './OaTreePersonnel';
+
 
 
 
@@ -274,6 +278,11 @@ class FieldRevert extends React.Component {
 			if (component === 'selectTime') {
 				return (
 					<FieldRevert {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			if (component === 'timeSelect') {
+				return (
+					<FieldRevert {...this.props} component={SelectTime}  style={WrapStyles} {...other}/>
 				);
 			}
 

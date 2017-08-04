@@ -58,6 +58,16 @@ export default class MeetingReservation extends React.Component {
 		this.refreshList();
 		
 	}
+	 //转化为时分
+    hourFormat = (time) =>{
+        
+        let date = DateFormat(time,24).split(" ");
+        let obj = {
+            h:Number(date[date.length-1].split(":")[0]),
+            m:Number(date[date.length-1].split(":")[1]),
+        }
+        return obj;
+    }
 	//生成时间轴的方法
 	generateElems = () =>{
 		const {data} = this.state;
@@ -65,9 +75,11 @@ export default class MeetingReservation extends React.Component {
 		if(!data){
 			return null;
 		}
-		
 		let elems = data.map(function(item,index){
-			
+				
+			if(_this.hourFormat(item.orderEndTime).h==0){
+				item.orderEndTime=item.orderEndTime-1
+			}
 			return <Timeline 
 						key = {index}
 						data = {item}
@@ -81,7 +93,7 @@ export default class MeetingReservation extends React.Component {
 	onPageChange = (page) =>{
 		 let {searchParams} = this.state;
 		 let _this = this;
-		console.log("page")
+		
 		 this.setState({
 			 searchParams:{
 				communityId:searchParams.communityId,
@@ -137,7 +149,7 @@ export default class MeetingReservation extends React.Component {
 	mtDelete = (data,fn) =>{
 		const {searchParams} = this.state;
 		let _this = this;
-		console.log("delete")
+		
 		 fn();
 		Http.request("meeting-reservation-delete",{id:data.id}).then(function(response) {
 			 _this.refreshList();

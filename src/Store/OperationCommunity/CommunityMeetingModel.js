@@ -94,6 +94,7 @@ State.stationSubmit=action(function(params){
 	 _this.openStationEdit=false;
 	 _this.openStation=false;
 	 _this.searchParams=data;
+	 Message.success('操作成功');
  }).catch(function(err) {
 		Message.error(err.message);
  });
