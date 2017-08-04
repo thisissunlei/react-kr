@@ -45,31 +45,7 @@ export default class NoticeManage extends React.Component {
 		
 		
 	}
-	//操作相关
-  	onOperation = (type, itemDetail) => {
-      this.setState({
-        itemDetail
-      });
-      switch (type){
-        case  'view':{
-         this.openView();
-          break;
-        }
-        case  'edit':{
-         this.openEdit(itemDetail);
-          break;
-        }
-        case  'delete':{
-         this.openDelete();
-          break;
-        }
-        case  'publish':{
-         this.openPublish();
-          break;
-        }
-        
-      }
-    }
+	
     //删除
 	onDeleteData=()=>{
 		var _this=this;
@@ -110,23 +86,28 @@ export default class NoticeManage extends React.Component {
 		})
 
 	}
-	openView=()=>{
+	openView=(itemDetail)=>{
+		
 		this.setState({
+			itemDetail,
 			openView:!this.state.openView
 		})
 	}
-	openEdit=()=>{
+	openEdit=(itemDetail)=>{
 		this.setState({
+			itemDetail,
 			openEdit:!this.state.openEdit
 		})
 	}
-	openDelete=()=>{
+	openDelete=(itemDetail)=>{
 		this.setState({
+			itemDetail,
 			openDelete:!this.state.openDelete
 		})
 	}
-	openPublish=()=>{
+	openPublish=(itemDetail)=>{
 		this.setState({
+			itemDetail,
 			openPublish:!this.state.openPublish
 		})
 	}
@@ -199,13 +180,13 @@ export default class NoticeManage extends React.Component {
 					                ></TableRowColumn>
 					                <TableRowColumn 
 					                	name="published"
-										component={(value) => {
+										component={(value,oldValue,itemDetail) => {
 											if(value==1){
 												return(
 													<div style={{display:'inline'}}>
-													<Button label="查看"  type="operation"  operation="view"/>
-												  	<Button label="删除"  type="operation"  operation="delete"/>
-												  	<Button label="编辑"  type="operation"  operation="edit"/>
+													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
+												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
+												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
 													</div>
 													)
 					                         
@@ -213,10 +194,10 @@ export default class NoticeManage extends React.Component {
 											if(value==0){
 												return(
 													<div style={{display:'inline'}}> 
-													<Button label="查看"  type="operation"  operation="view"/>
-												  	<Button label="删除"  type="operation"  operation="delete"/>
-												  	<Button label="编辑"  type="operation"  operation="edit"/>
-												  	<Button label="发布"  type="operation"  operation="publish"/>
+													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
+												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
+												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
+												  	<Button label="发布" type="operation" onClick={this.openPublish.bind(this,itemDetail)} />
 													</div>
 													)
 											}
