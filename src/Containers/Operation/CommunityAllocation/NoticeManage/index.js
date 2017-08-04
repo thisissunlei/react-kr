@@ -141,7 +141,13 @@ export default class NoticeManage extends React.Component {
 		this.openNewCreat();
 	}
 	editSubmit=()=>{
-
+		this.setState({
+			searchParams:{
+					date:new Date(),
+					pageSize:15
+				}
+		})
+		this.openEdit();
 	}
 	
 	render() {
@@ -224,7 +230,8 @@ export default class NoticeManage extends React.Component {
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
 	             	<EditNotice 
-	             			onCancel={this.openEdit} 
+	             			onCancel={this.openEdit}
+	             			detail={itemDetail} 
 	             			onSubmit={this.editSubmit} 
 	             	 />
 	           </Drawer>

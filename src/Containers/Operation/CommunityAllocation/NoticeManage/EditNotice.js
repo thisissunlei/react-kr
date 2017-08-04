@@ -1,8 +1,12 @@
 import React from 'react';
-import {Http} from 'kr/Utils';
+import {
+	Http,
+	DateFormat
+} from 'kr/Utils';
 import {
 	reduxForm,
-	change
+	change,
+	initialize
 } from 'redux-form';
 import {
 	Actions,
@@ -15,7 +19,8 @@ import {
 	Col,
 	ButtonGroup,
 	Button,
-	Message
+	Message,
+	KrDate,
 } from 'kr-ui';
 import './index.less';
 
@@ -28,28 +33,58 @@ class EditNotice extends React.Component {
 		this.state = {
 			ifCity:false,
 			groupType:[],
+			infoList:[]
 		}
 		this.getType();
+		
 	}
 	
 	componentDidMount() {
-        
-    }
+		var _this=this;
+		setTimeout(function(){
+			_this.getInfo();
+		},1000)
+		
+	}
+	getInfo=()=>{
+		var _this=this;
+		const {detail}=this.props;
+		Http.request('get-notice-detail',{id:detail.id}).then(function(response) {
+			if(response.type==0){
+				_this.setState({
+					ifCity:true
+				})
+			}else{
+				_this.setState({
+					ifCity:false
+				})
+			}
 
+			_this.setState({
+				infoList:response
+			})
+			response.type=String(response.type)
+			Store.dispatch(initialize('editNotice', response));
+			
+			
+		}).catch(function(err) {
+			Message.error(err.message);
+		});	
+	}
    	getType=()=>{
    		var _this=this;
 		Http.request('get-findCmtRight').then(function(response) {
 			if(response.hasRight==1){
 				_this.setState({
 					groupType:[
-						{label:'全国群组',value:'COUNTRYWIDE'},
-						{label:'社区群组',value:'COMMUNITY'}
+						{label:'全国群组',value:"1"},
+						{label:'社区群组',value:"0"}
 					]
 				})
 			}else if(response.hasRight==0){
 				_this.setState({
 					groupType:[
-						{label:'社区群组',value:'COMMUNITY'}
+						{label:'社区群组',value:"0"}
 					]
 				})
 			}
@@ -60,9 +95,9 @@ class EditNotice extends React.Component {
 
    	}
 	selectType=(item)=>{
-		Store.dispatch(change('createNotice', 'clusterId', ''));
-		Store.dispatch(change('createNotice', 'cmtName', ''));
-		if(item.value=="COMMUNITY"){
+		console.log()
+		Store.dispatch(change('editNotice', 'cmtId', ''));
+		if(item.value==0){
 			this.setState({
 				ifCity:true
 			})
@@ -79,13 +114,9 @@ class EditNotice extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
-		var params={
-			clusterId:form.clusterId,
-			content:form.content,
-			imgUrl:form.imgUrl  || ''
-		}
-		Http.request('create-cmt-topic',{},params).then(function(response) {
-			Message.success('新建成功')
+		form.publishTime=DateFormat(form.publishTime, "yyyy-mm-dd hh:MM:ss");
+		Http.request('edit-notice',{},form).then(function(response) {
+			Message.success('编辑成功')
 			onSubmit && onSubmit();
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -106,7 +137,7 @@ class EditNotice extends React.Component {
 				reset
 			} = this.props;
 			let {
-				
+				infoList,
 				ifCity,
 				groupType,
 			}=this.state;
@@ -130,7 +161,7 @@ class EditNotice extends React.Component {
 							<KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								component="select"
-								name="groupType"
+								name="type"
 								options={groupType}
 								label="公告类型"
 								requireLabel={true}
@@ -138,7 +169,7 @@ class EditNotice extends React.Component {
 						 	/>
 						 	{ifCity?<KrField  
 					 			style={{width:262}} 
-					 			name="cmtName"
+					 			name="cmtId"
 					 			component='searchCommunityAll'  
 					 			label="所属社区" 
 					 			inline={false}  
@@ -147,10 +178,10 @@ class EditNotice extends React.Component {
 						 	/>:''}
 						 	<KrField
 								style={{width:260,marginRight:25,margintop:20}}
-								name="publishedTime"
-								label="创建时间"
-								inline={false} 
-								component="labelText"
+								name="publishTime"
+								component="date"
+								label="发布时间"
+								requireLabel={true}
 						 	/>
 						 	<KrField 
 								component="editor" 
@@ -158,7 +189,7 @@ class EditNotice extends React.Component {
 								label="公告内容" 
 								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
-								defaultValue=''
+								defaultValue={infoList.richText}
 								/>
 
 
