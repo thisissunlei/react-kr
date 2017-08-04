@@ -700,7 +700,6 @@ export default class Labour extends React.Component {
    //调动提交
    addTransferSubmit=(data)=>{
 
-		console.log(data,">>>>>>")
 		var param = Object.assign({},data);
 		var _this = this;
 		var searchParams={
