@@ -159,15 +159,15 @@ export default class Labour extends React.Component {
 
 		this.getTreeData();
 		this.getMainDimId();
-		// setTimeout(function() {
-		//    _this.setState({
-		// 	 isLeave :checkOperate("hrm_resource_dimission"),
-		//      isRemove : checkOperate("hrm_resource_account"),
-		//      istranfer : checkOperate("hrm_resource_move"),
-		// 	 isCard : checkOperate("hrm_resource_card"),
-		//      isOpen : checkOperate("hrm_resource_account")
-		//    })
-		// },500);
+		setTimeout(function() {
+		   _this.setState({
+			 isLeave :checkOperate("hrm_resource_dimission"),
+		     isRemove : checkOperate("hrm_resource_account"),
+		     istranfer : checkOperate("hrm_resource_move"),
+			 isCard : checkOperate("hrm_resource_card"),
+		     isOpen : checkOperate("hrm_resource_account")
+		   })
+		},500);
 	}
 	getExaList=()=>{
 		var _this = this;
@@ -836,6 +836,7 @@ export default class Labour extends React.Component {
 										backgroundColor='#fcfcfc'
 										labelColor='#666'
 										shadow="no"
+										operateCode="hrm_dim_update_junior"
 									/>
 								</div>
 								<Button
@@ -861,7 +862,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
+										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14} operateCode="hrm_dim_save_junior" labelStyle={{fontWeight:400,padding:0}}/>
 									</Col>
 									<Col md={8} align="right">
 
@@ -928,7 +929,7 @@ export default class Labour extends React.Component {
 													)
 												} else {
 													return (
-														<Button label="封存" onClick={this.openCancelDialog.bind(this, itemDetail)} type="operation" operation="cancle" />
+														<Button label="封存" onClick={this.openCancelDialog.bind(this, itemDetail)} type="operation" operation="cancle" operateCode="hrm_dim_cancle_junior" />
 													)
 												}
 											}}
@@ -946,7 +947,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />}
+										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新增员工" type="button" operateCode="hrm_resource_add" onClick={this.openAddPerson} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />}
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
@@ -1020,11 +1021,11 @@ export default class Labour extends React.Component {
 										<TableRowColumn type="operation" style={{width:'240px'}} component={(value,oldValue,detail)=>{
 										return <span>
 											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
-												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
-												<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>
-												{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
-												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
+												{isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
+												{istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
+												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+												{isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
+												{isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
 											</span>
 										}}>
 										</TableRowColumn>
