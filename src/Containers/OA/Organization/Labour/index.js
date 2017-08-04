@@ -849,6 +849,7 @@ export default class Labour extends React.Component {
 									backgroundColor='#fcfcfc'
 									labelColor='#666'
 									shadow="no"
+									operateCode="hrm_dim_detial_junior"
 								/>
 							</div>
 						}
