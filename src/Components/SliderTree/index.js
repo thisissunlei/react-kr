@@ -24,7 +24,7 @@ export default class SliderTree extends React.Component {
 		this.state = {
 			inputValue: '',
 			expandedKeys: ['0-36kr0'],
-			checkedKeys:props.TreeCheckedKeys || []
+			treeData : props.treeData,
 		}
 
 		this.allKeys = [];
@@ -32,29 +32,51 @@ export default class SliderTree extends React.Component {
 		this.searchExpandedKeys = [];
 		this.onlyKey = 0;
 		this.CheckedKeys = [];
+		this.selectData = props.treeDefaultSelectedKeys||[];
+		this.selectName = [];
 
 	}
 
+	onRightClick = (keys,treeNode) =>{
+		
 
+	}
 
 	onCheck = (keys,treeNode)=>{
 	
-		let  checkDatas = treeNode.checkedNodes.map((item,index)=>{
-			let detailData =Object.assign({},item.props.itemData);
-			delete detailData.children;
-			return detailData;
-		})
+		// let  checkDatas = treeNode.checkedNodes.map((item,index)=>{
+		// 	let detailData =Object.assign({},item.props.itemData);
+		// 	delete detailData.children;
+		// 	return detailData;
+		// })
 
-		let {getCheckData} = this.props;
-		getCheckData && getCheckData(checkDatas);
+		// let {getCheckData} = this.props;
+		// getCheckData && getCheckData(checkDatas);
 	
 
 	}
 
 	//点击选择事件
-	onSelect = (item) => {
+	onSelect = (TreeNode) => {
+		
+		
 		let { onSelectTree } = this.props;
-		onSelectTree && onSelectTree(item);
+		let isHave = false;
+		let itemIndex;
+		
+		this.selectData.map((item,index)=>{
+			if(item.orgId == TreeNode.orgId && item.treeType == TreeNode.treeType ){
+				itemIndex = index;
+				isHave = true;
+			}
+		});
+		if(isHave){
+			this.selectData.splice(itemIndex,1);
+		}else{
+			this.selectData.push(TreeNode);
+		}
+		let datas = this.selectData
+		onSelectTree && onSelectTree(datas);
 	}
 
 
@@ -228,15 +250,34 @@ export default class SliderTree extends React.Component {
 		if(nextProps.searchKey !== this.props.searchKey){
 			this.setSearchExpandedKeys(nextProps.searchKey);
 		};
-		if(nextProps.TreeCheckedKeys && nextProps.TreeCheckedKeys.join() !== this.state.checkedKeys.join()){
-			this.setState({
-				checkedKeys:nextProps.TreeCheckedKeys
-			})
-		}
+		this.selectData = nextProps.treeDefaultSelectedKeys||[];
 		
 
 	}
 
+	fnTree = (data) =>{
+			let _this = this;
+			let key = 0;
+			var arr = data.map((item,index)=>{
+				var obj = Object.assign({},item);
+				if(!obj.isSelect){
+					obj.isSelect = false;
+				}
+				for(let i=0;i<this.selectData.length;i++){
+					
+					if(_this.selectData[i].treeType == obj.treeType && _this.selectData[i].orgId == obj.orgId ){
+						
+						obj.isSelect = true;
+					}
+				}
+				if(obj.children.length){
+					obj.children = this.fnTree(obj.children);
+				}
+				return obj;
+
+			})
+			return arr;
+		}
 
 	render() {
 
@@ -247,7 +288,7 @@ export default class SliderTree extends React.Component {
 			TreeTheme,
 			...other
 		} = this.props;
-	
+		let {checkedKeys} = this.state;
 
 		var that = this;
 
@@ -276,11 +317,12 @@ export default class SliderTree extends React.Component {
 
 
 		};
+	
 
 
-		let treeNodes = loop(treeData);
+		let treeNodes = loop(this.fnTree(treeData));
 
-		const {expandedKeys,checkedKeys} = this.state;
+		const {expandedKeys} = this.state;
 		return (
 			<div>
 			<Tree
@@ -291,8 +333,9 @@ export default class SliderTree extends React.Component {
 					expandedKeys={expandedKeys}
 					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}
+					onRightClick = {this.onRightClick}
 					theme = {TreeTheme || ""}
-					checkedKeys = {checkedKeys}
+					
 					{...other}
 				>
 					{treeNodes}

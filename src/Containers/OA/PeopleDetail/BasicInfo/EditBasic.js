@@ -294,7 +294,7 @@ class EditPerson  extends React.Component{
 const validate = values =>{
 	const errors = {};
     
-    let reg= /^1[34578]\d{9}$/; 
+    let reg= /^1\d{10}$/; 
     let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
     let email=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 

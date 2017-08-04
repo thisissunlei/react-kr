@@ -33,7 +33,7 @@ class New extends React.Component {
 					treeType = "personnel"
 					ajaxUrlName = "get-personnel-tree-demo"
 					params = {{dimId:''}}
-					
+					checkable = {true}
 				/>
 			</div>
 
