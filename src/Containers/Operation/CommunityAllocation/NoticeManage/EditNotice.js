@@ -29,7 +29,7 @@ class EditNotice extends React.Component {
 			ifCity:false,
 			groupType:[],
 		}
-		//this.getType();
+		this.getType();
 	}
 	
 	componentDidMount() {
@@ -38,7 +38,7 @@ class EditNotice extends React.Component {
 
    	getType=()=>{
    		var _this=this;
-		Http.request('get-findRight').then(function(response) {
+		Http.request('get-findCmtRight').then(function(response) {
 			if(response.hasRight==1){
 				_this.setState({
 					groupType:[
@@ -74,21 +74,7 @@ class EditNotice extends React.Component {
 		}
 	}
 	
-	selectGroup=(item)=>{
-		var _this=this;
-		Http.request('topic-cluster-list',{cmtId:item.id}).then(function(response) {
-			response.clusterList.map((item)=>{
-				item.label=item.clusterName;
-				item.value=item.id;
-				return item;
-			})
-			
-			
-			
-		}).catch(function(err) {
-			Message.error(err.message);
-		});	
-	}
+	
 
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
@@ -158,7 +144,6 @@ class EditNotice extends React.Component {
 					 			inline={false}  
 					 			placeholder='请输入社区名称' 
 						 		requireLabel={true}
-						 		onChange={this.selectGroup}
 						 	/>:''}
 						 	<KrField
 								style={{width:260,marginRight:25,margintop:20}}
