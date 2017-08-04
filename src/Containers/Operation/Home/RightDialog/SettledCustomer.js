@@ -14,6 +14,7 @@ import {
 	SearchForms
 } from 'kr-ui';
 import {reduxForm} from 'redux-form';
+import {DateFormat,Money} from "kr/Utils";
 import State from '../State';
 import '../detail.less';
 import {
@@ -48,7 +49,11 @@ class MonthPayment extends React.Component{
 	}
 
 	searchSignChange=(value)=>{
-		console.log('month',value)
+		if(!!value){
+			value = {
+				value:''
+			}
+		}
 		this.setState({
 			customerId:value.value
 		})
@@ -113,33 +118,25 @@ class MonthPayment extends React.Component{
 		 							}
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseStart' component={(value,oldValue)=>{
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseStart' component={(value,oldValue,itemData)=>{
 		 							var maxWidth=6;
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.leaseStart,'yyyy-mm-dd')}</span></div>)
 		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseEnd' component={(value,oldValue)=>{
-		 							var maxWidth=6;
-		 							if(value.length>maxWidth){
-		 							 value = value.substring(0,6)+"...";
-		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseEnd' component={(value,oldValue,itemData)=>{
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.leaseEnd,'yyyy-mm-dd')}</span></div>)
 		 					}}></TableRowColumn>
 		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='expenses' component={(value,oldValue)=>{
-		 							var maxWidth=6;
-		 							if(value.length>maxWidth){
-		 							 value = value.substring(0,6)+"...";
-		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{Money(value)}</span></div>)
 		 					}}></TableRowColumn>
 		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='payAmount' component={(value,oldValue)=>{
 		 							var maxWidth=6;
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{Money(value)}</span></div>)
 		 					}}></TableRowColumn>
 			               </TableRow>
 			        </TableBody>

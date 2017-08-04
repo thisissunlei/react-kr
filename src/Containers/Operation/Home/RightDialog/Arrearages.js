@@ -16,6 +16,7 @@ import {
 import {reduxForm} from 'redux-form';
 import State from '../State';
 import '../detail.less';
+import {DateFormat,Money} from "kr/Utils";
 import {
 	observer
 } from 'mobx-react';
@@ -48,7 +49,11 @@ class MonthPayment extends React.Component{
 	}
 
 	searchSignChange=(value)=>{
-		console.log('month',value)
+		if(!value){
+			value = {
+				value :''
+			}
+		}
 		this.setState({
 			customerId:value.value
 		})
@@ -94,7 +99,7 @@ class MonthPayment extends React.Component{
                       <TableHeaderColumn className='header-row'>订单名称</TableHeaderColumn>
 		              <TableHeaderColumn className='header-row'>履约保证金欠款</TableHeaderColumn>
 					  <TableHeaderColumn className='header-row'>工位服务费欠款</TableHeaderColumn>
-					  <TableHeaderColumn className='header-row'>账款周期</TableHeaderColumn>
+					  <TableHeaderColumn className='header-row' style={{width:250}}>账款周期</TableHeaderColumn>
 		          	</TableHeader>
 
 			        <TableBody >
@@ -120,26 +125,18 @@ class MonthPayment extends React.Component{
 		 							}
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='paymentAmount' component={(value,oldValue)=>{
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='deposit' component={(value,oldValue)=>{
 		 							var maxWidth=6;
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='paymentDate' component={(value,oldValue)=>{
-		 							var maxWidth=6;
-		 							if(value.length>maxWidth){
-		 							 value = value.substring(0,6)+"...";
-		 							}
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='rent' component={(value,oldValue)=>{
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='paymentType' component={(value,oldValue)=>{
-		 							var maxWidth=6;
-		 							if(value.length>maxWidth){
-		 							 value = value.substring(0,6)+"...";
-		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='rent' component={(value,oldValue,itemData)=>{
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span>{DateFormat(itemData.periodStart,'yyyy-mm-dd')}至{DateFormat(itemData.periodEnd,'yyyy-mm-dd')}</span></div>)
 		 					}}></TableRowColumn>
 			               </TableRow>
 			        </TableBody>

@@ -93,7 +93,7 @@ State.ChangeCommunity = action(function(value) {
 	this.orderList = obj;
 	this.agreementList = obj;
 	this.visitList = obj;
-	State.getHomeData({cmtId:value.communityId})
+	State.getHomeData({cmtId:value.communityId});
 	this.openChangeCommunity = false;
 });
 
