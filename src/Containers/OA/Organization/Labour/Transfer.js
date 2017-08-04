@@ -18,7 +18,7 @@ class Transfer extends React.Component{
 
      onSubmit=(values)=>{
         let {department} = this.props;
-        console.log(values,">>>>")
+      
         let submitData = {
             depId:values.depId[0].orgId,
             resourceId:department.hrmId
