@@ -231,17 +231,15 @@ export default class SingleType extends React.Component {
 								<TableFooter></TableFooter>
 							</Table>
 						</div>
-                <Dialog
-					title="新建下级"
-					modal={true}
-					open={this.state.openCreateDialog}
-					onClose={this.openCreateDialog}
-					contentStyle={{
-						width: 685
-					}}
-				>
-					{/*<CreateDialog detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />*/}
-				</Dialog>
+                    <Drawer
+							open={this.state.openEditDialog}
+							width={750}
+							openSecondary={true}
+							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+							onClose={this.state.openEditDialog}
+					 >
+						{/*<EditDialog detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openEditDialog} />*/}
+					</Drawer>
 			</div>
 		);
 	}
