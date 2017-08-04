@@ -74,23 +74,7 @@ const OA_OrganizationPower_Role = (location, callback) => {
 }
 
 
-const OA_OaBackground_DownOffice = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/OA/OaBackground/DownOffice').default)
-  }, 'OA_OaBackground_DownOffice')
-}
 
-const OA_OaBackground_NewOffice = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/OA/OaBackground/NewOffice').default)
-  }, 'OA_OaBackground_NewOffice')
-}
-
-const OA_OaBackground_Todo = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/OA/OaBackground/Todo').default)
-  }, 'OA_OaBackground_Todo')
-}
 
 module.exports =()=>{
 	return (
@@ -123,12 +107,6 @@ module.exports =()=>{
 						  <Route path="role" getComponent={OA_OrganizationPower_Role}/>
             </Route>
 
-            {/*oa后台*/}
-            <Route path="oaBackground" getComponent={Basic}>
-						  <Route path="downOffice" getComponent={OA_OaBackground_DownOffice}/>
-						  <Route path="newOffice" getComponent={OA_OaBackground_NewOffice}/>
-              <Route path="todo" getComponent={OA_OaBackground_Todo}/>
-            </Route>
         </Route>
 	);
 };

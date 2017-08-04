@@ -221,6 +221,7 @@ export default class RoleOrgaList extends Component{
 							label="添加"
 							type='button'
 							onTouchTap={this.openAddPost}
+							operateCode="hrm_org_auth_allot"
 					/>
 				</Col>
 	        </Row>
@@ -259,8 +260,8 @@ export default class RoleOrgaList extends Component{
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
 						<TableRowColumn type="operation">
-                            <Button label="编辑" style={{borderRight:'solid 1px #E1E6EB'}} type="operation"  operation="edit"/>
-							<Button label="删除" style={{borderRight:'solid 1px #E1E6EB'}} type="operation"  operation="delete"/>
+                            <Button label="编辑" style={{borderRight:'solid 1px #E1E6EB'}} type="operation"  operation="edit" operateCode="hrm_org_auth_allot"/>
+							<Button label="删除" style={{borderRight:'solid 1px #E1E6EB'}} type="operation"  operation="delete" operateCode="hrm_org_auth_allot"/>
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>
