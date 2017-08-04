@@ -197,11 +197,33 @@ export default class NoticeManage extends React.Component {
 					                	name="published" 
 										options={[{label:'已发布',value:'1'},{label:'未发布',value:'0'}]}
 					                ></TableRowColumn>
-					                <TableRowColumn>
-					                	<Button label="查看"  type="operation"  operation="view"/>
-									  	<Button label="删除"  type="operation"  operation="delete"/>
-									  	<Button label="编辑"  type="operation"  operation="edit"/>
-									  	<Button label="发布"  type="operation"  operation="publish"/>
+					                <TableRowColumn 
+					                	name="published"
+										component={(value) => {
+											if(value==1){
+												return(
+													<div style={{display:'inline'}}>
+													<Button label="查看"  type="operation"  operation="view"/>
+												  	<Button label="删除"  type="operation"  operation="delete"/>
+												  	<Button label="编辑"  type="operation"  operation="edit"/>
+													</div>
+													)
+					                         
+											}
+											if(value==0){
+												return(
+													<div style={{display:'inline'}}> 
+													<Button label="查看"  type="operation"  operation="view"/>
+												  	<Button label="删除"  type="operation"  operation="delete"/>
+												  	<Button label="编辑"  type="operation"  operation="edit"/>
+												  	<Button label="发布"  type="operation"  operation="publish"/>
+													</div>
+													)
+											}
+					                    }}
+					                >
+					                	
+									  	
 					              	</TableRowColumn>
 					               </TableRow>
 					        </TableBody>
