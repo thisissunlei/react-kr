@@ -157,16 +157,6 @@ export default class NoticeManage extends React.Component {
 								type='button'
 								onTouchTap={this.openNewCreat}
 							/>
-						<Button
-								label="编辑公告"
-								type='button'
-								onTouchTap={this.openEdit}
-							/>
-						<Button 
-								label="发布"  
-								type="button" 
-							 	onTouchTap={this.openPublish}
-							/>
 					</div>
 					<Table
 						  style={{marginTop:10}}
@@ -174,7 +164,6 @@ export default class NoticeManage extends React.Component {
 		                  ajaxUrlName='get-notice-page'
 		                  ajaxParams={this.state.searchParams}
 		                  onOperation={this.onOperation}
-		                 
 					  >
 				            <TableHeader>
 				              <TableHeaderColumn>公告标题</TableHeaderColumn>
@@ -192,7 +181,7 @@ export default class NoticeManage extends React.Component {
 					                <TableRowColumn name="typeName"></TableRowColumn>
 					                <TableRowColumn name="cmtName" ></TableRowColumn>
 					                <TableRowColumn 
-					                	name="ctime" 
+					                	name="publishTime" 
 					                	component={(value) => {
 					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
 					                    }}

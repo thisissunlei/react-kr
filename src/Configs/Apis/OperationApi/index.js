@@ -666,7 +666,12 @@ module.exports = {
     },
     //APP管理-公告管理-获取公告详情
     'get-notice-detail': {
-        url: '/api/krspace-finance-web/notice/management/detail',
+        url: '/api/krspace-finance-web/notice/management/detail?id={id}',
+        method: 'get'
+    },
+    //APP管理-公告管理-获取是否有全国 公告的权限
+    'get-findCmtRight': {
+        url: '/api/krspace-finance-web/notice/management/findCmtRight',
         method: 'get'
     },
 }

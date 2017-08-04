@@ -58,7 +58,7 @@ class CreateNotice extends React.Component {
 			
 		}).catch(function(err) {
 			Message.error(err.message);
-		});	                                                                                                                     ， 
+		});	                                                                                                                      
 
    	}
 	selectType=(item)=>{
@@ -67,7 +67,7 @@ class CreateNotice extends React.Component {
 		if(item.value=="COMMUNITY"){
 			this.setState({
 				ifCity:true
-			})。                                                                                                     
+			})                                                                                                   
 		}else{
 			this.setState({
 				ifCity:false
@@ -203,9 +203,12 @@ const validate = values => {
 
 		const errors = {};
 
+		if (!values.title) {
+			errors.title = '请填写公告标题';
+		}
 
-		if (!values.groupType) {
-			errors.groupType = '请选择公告类型';
+		if (!values.title) {
+			errors.title = '请选择公告类型';
 		}
 
 		if (!values.cmtName) {
