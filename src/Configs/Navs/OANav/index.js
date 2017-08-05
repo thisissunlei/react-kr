@@ -75,10 +75,15 @@ module.exports = [
 						router: '/oa/basicConfig/rankList',
 					},
 					{
+						primaryText: '角色列表',
+						menuCode: 'hrm_role_list',
+						router: '/oa/organizationPower/role',
+					},
+					{
 						primaryText: '机构分权',
-						menuCode: '',
-						router: '',
-					}
+						menuCode: 'hrm_org_auth_list',
+						router: '/oa/organizationPower/orgList',
+					},
 				]
 			},
 			{

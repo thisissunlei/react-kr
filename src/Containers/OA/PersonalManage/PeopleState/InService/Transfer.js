@@ -18,8 +18,9 @@ class Transfer extends React.Component{
     
      onSubmit=(values)=>{
         let {department} = this.props;
+
         let submitData = {
-            depId:values.depId.orgId,
+            depId:values.depId[0].orgId,
             resourceId:department.id
         }
         const {onSubmit}=this.props;
@@ -51,7 +52,7 @@ class Transfer extends React.Component{
                  <KrField grid={1}
                             style={{width:262,marginLeft:60}}
                             name="depId"
-                            component="selectTree"
+                            component="treeDepartment"
                             label="部门:"
                             treeType = "department"
                             ajaxUrlName = "get-department-tree"
@@ -76,6 +77,10 @@ class Transfer extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+
+    if(!values.depId){
+       errors.depId='请选择部门';
+    }
     
 	return errors
 }

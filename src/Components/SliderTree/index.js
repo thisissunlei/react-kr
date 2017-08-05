@@ -23,20 +23,60 @@ export default class SliderTree extends React.Component {
 
 		this.state = {
 			inputValue: '',
-			expandedKeys: ['0-36kr'],
+			expandedKeys: ['0-36kr0'],
+			treeData : props.treeData,
 		}
 
 		this.allKeys = [];
 
 		this.searchExpandedKeys = [];
+		this.onlyKey = 0;
+		this.CheckedKeys = [];
+		this.selectData = props.treeDefaultSelectedKeys||[];
+		this.selectName = [];
 
 	}
 
+	onRightClick = (keys,treeNode) =>{
+		
+
+	}
+
+	onCheck = (keys,treeNode)=>{
+	
+		// let  checkDatas = treeNode.checkedNodes.map((item,index)=>{
+		// 	let detailData =Object.assign({},item.props.itemData);
+		// 	delete detailData.children;
+		// 	return detailData;
+		// })
+
+		// let {getCheckData} = this.props;
+		// getCheckData && getCheckData(checkDatas);
+	
+
+	}
 
 	//点击选择事件
-	onSelect = (item) => {
-		let { onSelect } = this.props;
-		onSelect && onSelect(item);
+	onSelect = (TreeNode) => {
+		
+		
+		let { onSelectTree } = this.props;
+		let isHave = false;
+		let itemIndex;
+		
+		this.selectData.map((item,index)=>{
+			if(item.orgId == TreeNode.orgId && item.treeType == TreeNode.treeType ){
+				itemIndex = index;
+				isHave = true;
+			}
+		});
+		if(isHave){
+			this.selectData.splice(itemIndex,1);
+		}else{
+			this.selectData.push(TreeNode);
+		}
+		let datas = this.selectData
+		onSelectTree && onSelectTree(datas);
 	}
 
 
@@ -51,7 +91,7 @@ export default class SliderTree extends React.Component {
 		if(!searchKey){
 			return false;
 		}
-		
+
 		const keyArray = key.split('-');
 		const str = keyArray.pop();
 
@@ -99,41 +139,25 @@ export default class SliderTree extends React.Component {
 			expandedKeys.splice(index,1);
 		}
 
-
-
-
 		const {searchKey} = this.props;
-
-		/*
-		const keyIndex = eventKey.indexOf(searchKey);
-		const nextKeyStr = eventKey.substr(keyIndex).split('-');
-		const parentKeys = (eventKey.substr(0,keyIndex)+nextKeyStr.shift()).split('-');
-*/
 
 
 		const searchExpandedKeys = this.searchExpandedKeys;
 
-		console.log('searchExpandedKeys:',searchExpandedKeys);
 
 		if(this.props.searchKey && !expanded && searchExpandedKeys.indexOf(eventKey) !== -1){
-			console.log('eventKey:',eventKey,searchExpandedKeys);
 			this.setSearchExpandedKeys(this.props.searchKey);
 			return ;
 		}
 
 		expandedKeys = expandedKeys.filter(function(key){
-				return key.indexOf(eventKey+'-') === -1;
-				});
+			return key.indexOf(eventKey+'-') === -1;
+		});
 
 
 		this.setState({
 				expandedKeys,
 				});
-
-
-		
-
-
 	}
 
 
@@ -151,7 +175,7 @@ export default class SliderTree extends React.Component {
 
 	setSearchExpandedKeys = (nextSearchKey)=>{
 
-		
+
 
 		var expandedKeys = [];
 
@@ -165,7 +189,7 @@ export default class SliderTree extends React.Component {
 		filterKeys.map(function(item){
 
 			const  index = item.indexOf(nextSearchKey);
-			
+
 			if(index === -1){
 				return ;
 			};
@@ -198,27 +222,6 @@ export default class SliderTree extends React.Component {
 		});
 
 		expandedKeys = this.uniqueArray(expandedKeys);
-
-
-		/*
-		expandedKeys = expandedKeys.filter(function(key){
-
-			if(key.indexOf(nextSearchKey) !== -1){
-			 const lastStr = key.split('-').pop();
-				console.log('lastStr:',lastStr);
-				if(lastStr.indexOf(nextSearchKey) == -1) {
-					return false;
-				}
-			};
-
-			return true;
-
-		});
-*/
-
-
-		console.log('expandedKeys:',expandedKeys);
-
 		this.searchExpandedKeys = [].concat(expandedKeys);
 
 
@@ -236,7 +239,7 @@ export default class SliderTree extends React.Component {
 			}
 		}
 		return tmpArr;
-	}	
+	}
 
 	componentDidMount(){
 		//this.setSearchExpandedKeys(this.props.searchKey);
@@ -247,13 +250,45 @@ export default class SliderTree extends React.Component {
 		if(nextProps.searchKey !== this.props.searchKey){
 			this.setSearchExpandedKeys(nextProps.searchKey);
 		};
+		this.selectData = nextProps.treeDefaultSelectedKeys||[];
+		
 
 	}
 
+	fnTree = (data) =>{
+			let _this = this;
+			let key = 0;
+			var arr = data.map((item,index)=>{
+				var obj = Object.assign({},item);
+				if(!obj.isSelect){
+					obj.isSelect = false;
+				}
+				for(let i=0;i<this.selectData.length;i++){
+					
+					if(_this.selectData[i].treeType == obj.treeType && _this.selectData[i].orgId == obj.orgId ){
+						
+						obj.isSelect = true;
+					}
+				}
+				if(obj.children.length){
+					obj.children = this.fnTree(obj.children);
+				}
+				return obj;
+
+			})
+			return arr;
+		}
 
 	render() {
 
-		const { title, type,treeData } = this.props;
+		const {
+			title,
+			type,
+			treeData,
+			TreeTheme,
+			...other
+		} = this.props;
+		let {checkedKeys} = this.state;
 
 		var that = this;
 
@@ -264,7 +299,7 @@ export default class SliderTree extends React.Component {
 			return data.map((item,index) => {
 
 
-				var key = parentIndex+'-'+item.orgName;
+				var key = parentIndex+'-'+item.orgName+item.key;
 
 				that.registerAllKeys(key);
 
@@ -282,16 +317,15 @@ export default class SliderTree extends React.Component {
 
 
 		};
+	
 
 
-		let treeNodes = loop(treeData);
+		let treeNodes = loop(this.fnTree(treeData));
 
 		const {expandedKeys} = this.state;
-
-	
 		return (
 			<div>
-				<Tree
+			<Tree
 					onCheck={this.onCheck}
 					onExpand={this.onExpand}
 					onSelect={this.onSelect}
@@ -299,9 +333,14 @@ export default class SliderTree extends React.Component {
 					expandedKeys={expandedKeys}
 					autoExpandParent={true}
 					filterTreeNode={this.filterTreeNode}
+					onRightClick = {this.onRightClick}
+					theme = {TreeTheme || ""}
+					
+					{...other}
 				>
 					{treeNodes}
 				</Tree>
+
 
 			</div>
 		)
