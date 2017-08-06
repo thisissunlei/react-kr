@@ -10,21 +10,11 @@ import {Message} from 'kr-ui';
 
 let State = observable({
 
-	
-	items : [],
-	advanceQueryDialogOpen :false,
-	mainbodyOptions:[],
-
-	// 截止日期
-	endDate:'',
-	// 客户名称
-	customerId:'',
-	corporationId:'',
-	communityId:'',
-	// 欠费天数
-	dayType:'',
-	// 是否结束
-	end :''
+	openHardwareDetail:false,
+	opsnNewCreate:false,
+	equipmentDatailInfo:[],
+	selectedDeleteIds:'',
+	makerOptions :[]
 
 });
 
@@ -65,6 +55,50 @@ State.getDetailList= action(function() {
 		State.items = response;
 		
 		
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+
+});
+
+// 删除设备
+State.deleteEquipment= action(function() {
+	
+	var params={
+		// ids : State.selectedDeleteIds,
+		// endDate : State.endDate,
+		// customerId :  State.customerId,
+		// corporationId : State.corporationId,
+		// communityId : State.communityId,
+		// dayType : State.dayType,
+		// end : State.end
+	}
+	
+	//Http.request('deleteEquipment', searchParams).then(function(response) {
+		
+		//State.items = response;
+		
+	//}).catch(function(err) {
+		//Message.error(err.message);
+	//});
+
+});
+
+// 获取设备厂家列表
+State.getListDic = action(function() {
+	var _this = this;
+	Http.request('getListDic', {}).then(function(response) {
+		
+		var arrNew = []
+		for (var i=0;i<response.Maker.length;i++){
+			arrNew[i] = {
+						label:response.Maker[i].desc,
+						value:response.Maker[i].value
+					}
+		}
+		
+		State.makerOptions = arrNew;
+
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
