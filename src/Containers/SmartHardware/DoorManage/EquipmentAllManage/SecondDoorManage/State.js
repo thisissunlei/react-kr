@@ -12,6 +12,7 @@ let State = observable({
 
 	openHardwareDetail:false,
 	openNewCreate:false,
+	openEditDialog:false,
 	openConfirmDelete:false,
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',

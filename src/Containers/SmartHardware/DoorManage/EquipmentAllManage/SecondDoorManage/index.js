@@ -27,6 +27,7 @@ import {
 
 import EquipmentDtail from './EquipmentDtail';
 import NewCreate from './NewCreate';
+import EditForm from './EditForm';
 
 @inject("NavModel")
 @observer
@@ -73,13 +74,13 @@ export default class SecondDoorManage  extends React.Component{
 			itemDetail
 		});
 		if (type == 'delete') {
-			State.openConfirmDelete=true;
-			//State.selectedDeleteIds = itemDetail.id;
-			//State.deleteEquipment();
+
+			this.closeConfirmDeleteFun();
+			
 		}
 		if (type == 'edit') {
-			//this.openEditDetailDialog();
-			console.log("点击了编辑");
+			
+			this.openEditDialogFun();
 		}
 		
 	}
@@ -127,6 +128,14 @@ export default class SecondDoorManage  extends React.Component{
 		State.openConfirmDelete = !State.openConfirmDelete;
 	}
 
+	openSeeDetail=()=>{
+		State.openHardwareDetail = !State.openHardwareDetail;
+	}
+
+	openEditDialogFun=()=>{
+		State.openEditDialog = !State.openEditDialog;
+	}
+
 	confirmDelete=()=>{
 
 		this.closeConfirmDeleteFun();
@@ -136,6 +145,7 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	render(){
+		let {itemDetail}=this.state;
 		return(
 			<div>
 				<div style={{padding:"20px 0 0 0"}}>
@@ -262,11 +272,11 @@ export default class SecondDoorManage  extends React.Component{
 			        </Table>
 			        <Drawer 
 			        	open={State.openHardwareDetail}
-			        	onClose = {this.closeAll}
+			        	onClose = {this.openSeeDetail}
 					    width={"70%"} 
 					    openSecondary={true} 
 					>
-						<EquipmentDtail onCancel={this.closeAll}/>
+						<EquipmentDtail onCancel={this.openSeeDetail}/>
 					</Drawer>
 					<Dialog
 			          title="新增设备定义"
@@ -278,25 +288,20 @@ export default class SecondDoorManage  extends React.Component{
 			            onCancel={this.openNewCreateDialog}
 			            style ={{paddingTop:'35px'}}
 			            onSubmit = {this.onSubmitNewCreateEquipment}
-			            isDoorNumHas= {this.isDoorNumHas}
-			            hardwareIdHas ={this.hardwareIdHas}
 			            saveAndNewCreate= {this.saveAndNewCreate}
 			          />
 			        </Dialog>
 			        <Dialog
 			          title="编辑设备"
-			          open={this.state.openEditEquipment}
-			          onClose={this.openEditEquipmentDialog}
+			          open={State.openEditDialog}
+			          onClose={this.openEditDialogFun}
 			          contentStyle={{width:687}}
 			        >
-			          {/*<NewCreate
+			          <EditForm
 			            detail={itemDetail}
 			            onSubmit = {this.onSubmitNewCreateEquipment}
-			            isDoorNumHas= {this.isDoorNumHas}
-			            hardwareIdHas ={this.hardwareIdHas}
-			            saveAndNewCreate= {this.saveAndNewCreate}
-			            closeEditEquipment = {this.openEditEquipmentDialog}
-			          />*/}
+			            closeEditEquipment = {this.openEditDialogFun}
+			          />
 			        </Dialog>
 			        <Dialog
 			          title="提示"
