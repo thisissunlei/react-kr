@@ -25,9 +25,10 @@ import {
 	inject
 } from 'mobx-react';
 
-import EquipmentDtail from './EquipmentDtail';
+import EquipmentDetail from './EquipmentDetail';
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
+import NewEquipmentList from './NewEquipmentList';
 
 @inject("NavModel")
 @observer
@@ -136,6 +137,10 @@ export default class SecondDoorManage  extends React.Component{
 		State.openEditDialog = !State.openEditDialog;
 	}
 
+	openSearchEquipmentFun=()=>{
+		State.openSearchEquipment = !State.openSearchEquipment;
+	}
+
 	confirmDelete=()=>{
 
 		this.closeConfirmDeleteFun();
@@ -152,7 +157,7 @@ export default class SecondDoorManage  extends React.Component{
 					<Button label="刷新"  onTouchTap={this.freshPage} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
-					<Button label="设备搜索"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
+					<Button label="设备搜索"  onTouchTap={this.openSearchEquipmentFun} className="button-list"/>
 				</div>
 				<div>
 					<Table
@@ -276,8 +281,17 @@ export default class SecondDoorManage  extends React.Component{
 					    width={"70%"} 
 					    openSecondary={true} 
 					>
-						<EquipmentDtail onCancel={this.openSeeDetail}/>
+						<EquipmentDetail onCancel={this.openSeeDetail}/>
 					</Drawer>
+					 <Drawer 
+			        	open={State.openSearchEquipment}
+			        	onClose = {this.openSearchEquipmentFun}
+					    width={"70%"} 
+					    openSecondary={true} 
+					>
+						<NewEquipmentList onCancel={this.openSearchEquipmentFun}/>
+					</Drawer>
+					
 					<Dialog
 			          title="新增设备定义"
 			          open={State.openNewCreate}

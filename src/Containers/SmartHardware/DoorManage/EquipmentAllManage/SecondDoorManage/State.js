@@ -14,6 +14,7 @@ let State = observable({
 	openNewCreate:false,
 	openEditDialog:false,
 	openConfirmDelete:false,
+	openSearchEquipment:false,
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
 	makerOptions :[]
