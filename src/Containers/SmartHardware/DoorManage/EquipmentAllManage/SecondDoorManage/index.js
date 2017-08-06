@@ -10,7 +10,9 @@ import {
 	change
 } from 'redux-form';
 import {
-	Message,Dialog,Button,Table,TableHeader,TableHeaderColumn,TableBody,TableRow,TableRowColumn,TableFooter,Tooltip,Drawer
+	Message,Dialog,Button,Table,TableHeader,TableHeaderColumn,TableBody
+	,TableRow,TableRowColumn,TableFooter,Tooltip,Drawer,Grid,Row,
+	ListGroup,ListGroupItem
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import $ from 'jquery';
@@ -71,8 +73,9 @@ export default class SecondDoorManage  extends React.Component{
 			itemDetail
 		});
 		if (type == 'delete') {
-			State.selectedDeleteIds = itemDetail.id;
-			State.deleteEquipment();
+			State.openConfirmDelete=true;
+			//State.selectedDeleteIds = itemDetail.id;
+			//State.deleteEquipment();
 		}
 		if (type == 'edit') {
 			//this.openEditDetailDialog();
@@ -117,7 +120,19 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	openNewCreateDialog=()=>{
-		State.opsnNewCreate = !State.opsnNewCreate;
+		State.openNewCreate = !State.openNewCreate;
+	}
+
+	closeConfirmDeleteFun=()=>{
+		State.openConfirmDelete = !State.openConfirmDelete;
+	}
+
+	confirmDelete=()=>{
+
+		this.closeConfirmDeleteFun();
+		State.selectedDeleteIds = this.state.itemDetail.id;
+		State.deleteEquipment();
+
 	}
 
 	render(){
@@ -255,7 +270,7 @@ export default class SecondDoorManage  extends React.Component{
 					</Drawer>
 					<Dialog
 			          title="新增设备定义"
-			          open={State.opsnNewCreate}
+			          open={State.openNewCreate}
 			          onClose={this.openNewCreateDialog}
 			          contentStyle={{width:687}}
 			        >
@@ -282,6 +297,28 @@ export default class SecondDoorManage  extends React.Component{
 			            saveAndNewCreate= {this.saveAndNewCreate}
 			            closeEditEquipment = {this.openEditEquipmentDialog}
 			          />*/}
+			        </Dialog>
+			        <Dialog
+			          title="提示"
+			          open={State.openConfirmDelete}
+			          onClose={this.closeConfirmDeleteFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除吗？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmDelete} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeConfirmDeleteFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
 			        </Dialog>
 				</div>
 				

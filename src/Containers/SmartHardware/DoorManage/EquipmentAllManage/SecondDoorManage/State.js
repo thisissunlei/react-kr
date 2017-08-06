@@ -11,7 +11,8 @@ import {Message} from 'kr-ui';
 let State = observable({
 
 	openHardwareDetail:false,
-	opsnNewCreate:false,
+	openNewCreate:false,
+	openConfirmDelete:false,
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
 	makerOptions :[]
