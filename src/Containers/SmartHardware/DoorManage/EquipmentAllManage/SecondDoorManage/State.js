@@ -10,6 +10,7 @@ import {Message} from 'kr-ui';
 
 let State = observable({
 
+	realPage : 1,
 	openHardwareDetail:false,
 	openNewCreate:false,
 	openEditDialog:false,
@@ -22,26 +23,13 @@ let State = observable({
 		        page : 1,
 		        pageSize: 15
 		      },
+	searchEquipmentParam:{
+		page : 1,
+		pageSize: 15
+	}
 
 });
 
-
-// 高级查询主体准备数据
-State.getMainbody = action(function() {
-	
-	Http.request('getMainbody', {}).then(function(response) {
-		
-		for(var i=0;i<response.length;i++){
-			State.mainbodyOptions.push({
-				label:response[i].corporationName,
-				value:response[i].id,
-			})
-		}
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-
-});
 
 // 获取列表数据
 State.getDetailList= action(function() {
@@ -71,17 +59,8 @@ State.getDetailList= action(function() {
 // 删除设备
 State.deleteEquipment= action(function() {
 	
-	var params={
-		// ids : State.selectedDeleteIds,
-		// endDate : State.endDate,
-		// customerId :  State.customerId,
-		// corporationId : State.corporationId,
-		// communityId : State.communityId,
-		// dayType : State.dayType,
-		// end : State.end
-	}
 	
-	//Http.request('deleteEquipment', searchParams).then(function(response) {
+	//Http.request('deleteEquipment', State.selectedDeleteIds).then(function(response) {
 		
 		//State.items = response;
 		
@@ -112,6 +91,7 @@ State.getListDic = action(function() {
 
 });
 
+//新增
 State.newCreateSecondDoor = action(function(values){
 	
 	Http.request('equipmentNewCreateOrEdit',{},values ).then(function(response) {
@@ -136,6 +116,7 @@ State.newCreateSecondDoor = action(function(values){
 
 })
 
+//编辑
 State.editSecondDoor = action(function(values){
 	
 	Http.request('equipmentNewCreateOrEdit',{},values ).then(function(response) {
@@ -151,7 +132,7 @@ State.editSecondDoor = action(function(values){
 	}).catch(function(err) {
 		State.openNewCreate =false;
 		State.equipmentParams = {
-			page:1,
+			page:State.realPage,
 			pageSize:15,
 			date: new Date()		
 		}
@@ -159,6 +140,39 @@ State.editSecondDoor = action(function(values){
 	});	
 
 })
+
+//刷新
+State.freshPage = action(function(){
+	State.equipmentParams = {
+        date:new Date(),
+        page : State.realPage,
+        pageSize: 15
+    }	
+})
+
+//刷新设备搜索页面
+State.freshSearchEquipmentPage = action(function(){
+	State.searchEquipmentParam = {
+        date:new Date(),
+        page : 1,
+        pageSize: 15
+    }	
+})
+
+//分配设备所在位置（添加）
+State.addEquipment = action(function(param){
+	
+	// Http.request('addEquipmentUrl', param).then(function(response) {
+	// 	Message.success("添加成功");
+	// 	State.freshPage();
+	// 	State.freshSearchEquipmentPage();
+
+	// }).catch(function(err) {
+	// 	Message.error(err.message);
+	// });
+})
+
+
 
 
 module.exports = State;

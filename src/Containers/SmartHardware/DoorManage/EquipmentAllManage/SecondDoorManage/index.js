@@ -29,6 +29,7 @@ import EquipmentDetail from './EquipmentDetail';
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
 import NewEquipmentList from './NewEquipmentList';
+import EquipmentSearch from './EquipmentSearch';
 
 @inject("NavModel")
 @observer
@@ -53,13 +54,9 @@ export default class SecondDoorManage  extends React.Component{
 	}
 	componentWillReceiveProps(nextProps){
 	}
-	//刷新
-	freshPage=()=>{
-		State.equipmentParams = {
-	        date:new Date(),
-	        page : 1,
-	        pageSize: 15
-	    }
+
+	freshPageThis=()=>{
+		State.freshPage();
 	}
 
 	
@@ -79,9 +76,9 @@ export default class SecondDoorManage  extends React.Component{
 		}
 		
 	}
-	seeDatailInfoFun=(value)=>{
+	seeDetailInfoFun=(value)=>{
 		State.openHardwareDetail = true;
-		console.log("seeDatailInfoFun-----",value.target.innerHTML);
+		console.log("seeDetailInfoFun-----",value.target.innerHTML);
 	}
 
 	closeAll=()=>{
@@ -106,35 +103,30 @@ export default class SecondDoorManage  extends React.Component{
 		var selectedIdsArr = this.state.selectIds;
 		State.selectedDeleteIds = selectedIdsArr.join(",");
 		State.deleteEquipment();
-		this.setState({
-			equipmentParams: {
-		        date:new Date(),
-		        page : 1,
-		        pageSize: 15
-		    }
-		})
+		State.freshPage();
+		
 	}
-
+	//打开新建
 	openNewCreateDialog=()=>{
 		State.openNewCreate = !State.openNewCreate;
 	}
-
+	//打开确认删除
 	closeConfirmDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
 	}
-
+	//打开查看详情
 	openSeeDetail=()=>{
 		State.openHardwareDetail = !State.openHardwareDetail;
 	}
-
+	//打开编辑
 	openEditDialogFun=()=>{
 		State.openEditDialog = !State.openEditDialog;
 	}
-
+	//打开设备搜索
 	openSearchEquipmentFun=()=>{
 		State.openSearchEquipment = !State.openSearchEquipment;
 	}
-
+	//确认删除
 	confirmDelete=()=>{
 
 		this.closeConfirmDeleteFun();
@@ -143,12 +135,16 @@ export default class SecondDoorManage  extends React.Component{
 
 	}
 
+	onPageChangeFun=(page)=>{
+		State.realPage =page;
+	}
+
 	render(){
 		let {itemDetail}=this.state;
 		return(
 			<div>
 				<div style={{padding:"20px 0 0 0"}}>
-					<Button label="刷新"  onTouchTap={this.freshPage} className="button-list"/>
+					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
 					<Button label="设备搜索"  onTouchTap={this.openSearchEquipmentFun} className="button-list"/>
@@ -165,7 +161,7 @@ export default class SecondDoorManage  extends React.Component{
 			            ajaxFieldListName='items'
 			            ajaxUrlName='equipmentList'
 			            ajaxParams={State.equipmentParams}
-			            onPageChange={this.onPageChange}
+			            onPageChange={this.onPageChangeFun}
 			            displayCheckbox={true}
 			            onSelect={this.onSelcet}
 			          >
@@ -177,19 +173,13 @@ export default class SecondDoorManage  extends React.Component{
 				            <TableHeaderColumn>类型</TableHeaderColumn>
 				            <TableHeaderColumn>厂商</TableHeaderColumn>
 				            <TableHeaderColumn>属性</TableHeaderColumn>
-				            <TableHeaderColumn>对应功能</TableHeaderColumn>
 				            <TableHeaderColumn>是否上线</TableHeaderColumn>
 			                <TableHeaderColumn>连接状态</TableHeaderColumn>
 			                <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 			          	<TableBody >
 				            <TableRow>
-				            	<TableRowColumn name="communityName" component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+				            	<TableRowColumn name="communityName"></TableRowColumn>
 								<TableRowColumn style={{width:160,overflow:"visible"}} name="showTitle" component={(value,oldValue)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
@@ -212,7 +202,7 @@ export default class SecondDoorManage  extends React.Component{
 									if(value==""){
 										value="-"
 									}
-									return (<Button  label={value}  type="operation" operation="seeDatailInfo" onTouchTap={this.seeDatailInfoFun.bind(value)}/>)}}
+									return (<Button  label={value}  type="operation" operation="seeDatailInfo" onTouchTap={this.seeDetailInfoFun.bind(value)}/>)}}
 								></TableRowColumn>
 								<TableRowColumn name="typeName" component={(value,oldValue)=>{
 									if(value==""){
@@ -233,12 +223,7 @@ export default class SecondDoorManage  extends React.Component{
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 								
-								<TableRowColumn name="functionName" component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+							
 								<TableRowColumn name="enable"
 					              component={(value,oldValue)=>{
 					                var spanColorOnline="";
@@ -280,10 +265,10 @@ export default class SecondDoorManage  extends React.Component{
 					 <Drawer 
 			        	open={State.openSearchEquipment}
 			        	onClose = {this.openSearchEquipmentFun}
-					    width={"70%"} 
+					    width={"90%"} 
 					    openSecondary={true} 
 					>
-						<NewEquipmentList onCancel={this.openSearchEquipmentFun}/>
+						<EquipmentSearch onCancel={this.openSearchEquipmentFun}/>
 					</Drawer>
 					
 					<Dialog

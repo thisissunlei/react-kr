@@ -529,8 +529,8 @@ export default class EquipmentDefinition extends React.Component {
       <div className = "equipment-define" style={{minHeight:'910',backgroundColor:"#fff"}}>
         <div className="uploadWarn" style={{display:openTipWarn?"block":"none"}}><img src={error2} className="tipImg"/>{tipText}</div>
         <Title value="设备定义 "/>
-        <Section title={`设备定义`} description="" >
-          <form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
+        
+          <form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45,marginTop:20}}>
             <Grid>
               <Row>
                 <ListGroup>
@@ -727,7 +727,7 @@ export default class EquipmentDefinition extends React.Component {
           </TableBody>
           <TableFooter></TableFooter>
           </Table>
-        </Section>
+       
         <Dialog
           title="新增设备定义"
           open={this.state.openNewCreateDefinition}

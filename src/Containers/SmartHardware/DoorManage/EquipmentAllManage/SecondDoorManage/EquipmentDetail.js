@@ -10,7 +10,7 @@ import {
 	observer
 } from 'mobx-react';
 @ observer
-export default class EquipmentDatail extends React.Component{
+export default class EquipmentDetail extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
