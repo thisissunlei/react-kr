@@ -134,7 +134,7 @@ class MonthPayment extends React.Component{
 		 					}}></TableRowColumn>
 		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='payAmount' component={(value,oldValue)=>{
 
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{Money(value)}</span></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{Money(value) || '0'}</span></div>)
 		 					}}></TableRowColumn>
 			               </TableRow>
 			        </TableBody>
