@@ -91,7 +91,7 @@ export default class InService  extends React.Component{
 		     istranfer : checkOperate("hrm_resource_move"),
 			   isCard : checkOperate("hrm_resource_card"),
 		     isOpen : checkOperate("hrm_resource_account"),
-         isEdit : checkOperate("hrm_resource_edit");
+         isEdit : checkOperate("hrm_resource_edit"),
 		   })
 		},500);
 
