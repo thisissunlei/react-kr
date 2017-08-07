@@ -1,5 +1,5 @@
 import React from 'react';
-import {Http} from 'kr/Utils';
+import {Http,ReactHtmlParser} from 'kr/Utils';
 import {
 	Title,
 	Section,
@@ -36,15 +36,12 @@ export default class NoticeManage extends React.Component {
 			openDelete:false,
 			openEdit:false,
 			openPublish:false,
+			viewRichText:false,
+			viewItem:{},
 		}
 
 	}
 
-	componentDidMount() {
-		
-		
-		
-	}
 	
     //删除
 	onDeleteData=()=>{
@@ -111,6 +108,13 @@ export default class NoticeManage extends React.Component {
 			openPublish:!this.state.openPublish
 		})
 	}
+	//预览
+	viewRichText=(item)=>{
+		this.setState({
+			viewRichText:!this.state.viewRichText,
+			viewItem:item
+		})
+	}
 
 	createSubmit=()=>{
 		this.setState({
@@ -131,8 +135,22 @@ export default class NoticeManage extends React.Component {
 		this.openEdit();
 	}
 	
+	renderViewRichText=()=>{
+		let {viewItem}=this.state;
+		
+		return(
+			<div className="u-view-rich-text">
+				<div className="u-view-rich-context">
+					{viewItem && ReactHtmlParser(viewItem)}
+				</div>
+				<span className="u-view-close" onTouchTap={this.viewRichText}></span>
+				
+			</div>
+			) 
+	}
+
 	render() {
-		let {itemDetail}=this.state;
+		let {itemDetail,viewRichText}=this.state;
 		return (
 
 			<div className="g-notice" >
@@ -210,6 +228,7 @@ export default class NoticeManage extends React.Component {
 					        </TableBody>
 			        		<TableFooter></TableFooter>
             		</Table>
+            		{viewRichText && this.renderViewRichText()}
 				</Section>
 				<Drawer
 	             modal={true}
@@ -222,6 +241,7 @@ export default class NoticeManage extends React.Component {
 	             	<CreateNotice 
 	             			onCancel={this.openNewCreat} 
 	             			onSubmit={this.createSubmit} 
+	             			viewRichText={this.viewRichText}
 	             	 />
 	           </Drawer>
 	           <Drawer
@@ -235,7 +255,8 @@ export default class NoticeManage extends React.Component {
 	             	<EditNotice 
 	             			onCancel={this.openEdit}
 	             			detail={itemDetail} 
-	             			onSubmit={this.editSubmit} 
+	             			onSubmit={this.editSubmit}
+	             			viewRichText={this.viewRichText} 
 	             	 />
 	           </Drawer>
 	           <Drawer

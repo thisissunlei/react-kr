@@ -33,7 +33,8 @@ class EditNotice extends React.Component {
 		this.state = {
 			ifCity:false,
 			groupType:[],
-			infoList:[]
+			infoList:[],
+			
 		}
 		this.getType();
 		
@@ -45,6 +46,12 @@ class EditNotice extends React.Component {
 			_this.getInfo();
 		},1000)
 		
+	}
+	
+	viewRichText=()=>{
+		let richText=this.refs.richText._reactInternalInstance._context._reduxForm.values;
+		let {viewRichText} = this.props;
+		viewRichText && viewRichText(richText.richText)
 	}
 	getInfo=()=>{
 		var _this=this;
@@ -186,14 +193,15 @@ class EditNotice extends React.Component {
 						 	<KrField 
 								component="editor" 
 								name="richText" 
-								label="公告内容" 
+								label="公告内容"
+								ref="richText" 
 								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
 								defaultValue={infoList.richText}
 								/>
 
 
-						 <div  className="u-view">
+						 <div  className="u-view" onClick={this.viewRichText}>
 						 	点击预览
 						 </div>
 							
@@ -207,7 +215,6 @@ class EditNotice extends React.Component {
 						  </Col>
 						</Row>
 						</Grid>
-						
 				</form>
 			</div>
 		);
