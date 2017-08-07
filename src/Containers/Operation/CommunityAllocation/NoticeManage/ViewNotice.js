@@ -128,7 +128,7 @@ class ViewNotice extends React.Component {
 								}
 
 							/>
-							<div style={{width:560,marginLeft:16}}>
+							<div className="u-notice-con">
 								<div>公告内容</div>
 								{infoList.richText && ReactHtmlParser(infoList.richText)}
 							</div>
