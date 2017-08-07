@@ -8,8 +8,9 @@ import {
     Button,
     Message
 } from 'kr-ui';
-import {Http} from 'kr/Utils'
-import {reduxForm}  from 'redux-form';
+import {Http} from 'kr/Utils';
+import {reduxForm,change}  from 'redux-form';
+import {Store} from 'kr/Redux';
 import './index.less';
 
 class EditPostList  extends React.Component{
@@ -36,13 +37,14 @@ class EditPostList  extends React.Component{
         onCancel && onCancel();
     }
     onChange = (data) =>{
+        Store.dispatch(change('EditPostList','typeId',''));
         this.dataReady(data);
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.editDetail.subId ){
+        let {isType}=this.state;
+        if(nextProps.editDetail.subId&&!isType){
             this.dataReady({value:nextProps.editDetail.subId});
-        }
-       
+        }    
     }
       //数据准备
 	dataReady=(data)=>{

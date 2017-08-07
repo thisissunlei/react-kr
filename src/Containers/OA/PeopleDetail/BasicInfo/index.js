@@ -24,7 +24,9 @@ export default class BasicInfo  extends React.Component{
 		super(props, context);
 		this.state={
 			openEdit:false,
-			basicInfo:{},
+			basicInfo:{
+				orgName:''
+			},
 			isEdit:false,
 		}
 	}
@@ -80,11 +82,11 @@ export default class BasicInfo  extends React.Component{
 	   let {personId}=this.props;
 	   const {chengLeft}=this.props;
 	   let subParams = Object.assign({},params);
-	   console.log('subParams',subParams);
-	   subParams.depId=subParams.depId.orgId?subParams.depId.orgId:subParams.depId;
-	   subParams.uTime = DateFormat(subParams.uTime,"yyyy-mm-dd hh:MM:ss")
-	   subParams.cTime = DateFormat(subParams.cTime,"yyyy-mm-dd hh:MM:ss")
-	   subParams.leaveDate = DateFormat(subParams.leaveDate,"yyyy-mm-dd hh:MM:ss")
+	   
+	   subParams.depId=(subParams.depId[0] && subParams.depId[0].orgId)?subParams.depId[0].orgId:subParams.depId;
+	   delete subParams.uTime;
+	   delete subParams.cTime;
+	   delete subParams.leaveDate;
 	   subParams.entryDate = DateFormat(subParams.entryDate,"yyyy-mm-dd hh:MM:ss")  
 	   subParams.id=personId;
 	   var _this=this;
@@ -171,7 +173,7 @@ export default class BasicInfo  extends React.Component{
 						<EditBasic
 			               onCancel={this.cancelEdit}
 						   onSubmit={this.editSubmit}   
-						   basicInfo = {basicInfo}
+						   basicInfo = {[basicInfo]}
 						/>
 					</Drawer>
 			</div>

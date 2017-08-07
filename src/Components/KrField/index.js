@@ -64,12 +64,22 @@ import SelectTime from './SelectTime';
 import SelectTree from './SelectTree';
 import SearchOaPersonal from './SearchOaPersonal';
 import OaUploadImage from './OaUploadImage';
+//客户来源搜索下拉
+import SelectCustomerSource from './SelectCustomerSource';
+
 //血型
 import SelecTemployees from './SelecTemployees';
 import SwitchSlide from './SwitchSlide';
+//部门树
+import OaTreeDepartment from './OaTreeDepartment';
+//人员树
+import OaTreePersonnel from './OaTreePersonnel';
+//分部树
+import OaTreeDivision from './OaTreeDivision' 
+//高级查询客户来源
+import UpMerchantsSource from './UpMerchantsSource';
+import UpSignedClientSource from './UpSignedClientSource';
 
-// import OaTreeDepartment from './OaTreeDepartment';
-// import OaTreePersonnel from './OaTreePersonnel';
 
 
 
@@ -95,8 +105,6 @@ class FieldRevert extends React.Component {
 			if(isMobx){
 				return <MobxForm.Field {...this.props} />;
 			}
-
-			console.log('--->>>>>>',this.props);
 
 			return <Field  {...this.props} />;
 
@@ -350,12 +358,6 @@ class FieldRevert extends React.Component {
 			 );
 			}
 
-
-
-
-
-
-
 			if (component === 'searchCompany') {
 				return (
 					<FieldRevert {...this.props} component={SearchCompanyComponent}  style={WrapStyles} {...other}/>
@@ -482,24 +484,41 @@ class FieldRevert extends React.Component {
 			}
 
 			if (component === 'switchSlide') {
-				console.log('<<<--->',this.props.valueText);
 				return (
 					<FieldRevert {...this.props} component={SwitchSlide}  style={WrapStyles} {...other}/>
 				)
 			}
-			// if (component === 'treeDepartment') {
-			// 	return (
-			// 		<FieldRevert {...this.props} component={OaTreeDepartment}  style={WrapStyles} {...other}/>
-			// 	)
-			// }
-			// if (component === 'treePersonnel') {
-			// 	return (
-			// 		<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
-			// 	)
-			// }
+			if (component === 'treeDepartment') {
+				return (
+					<FieldRevert {...this.props} component={OaTreeDepartment}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'treePersonnel') {
+				return (
+					<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'treeDivision') {
+				return (
+					<FieldRevert {...this.props} component={OaTreeDivision}  style={WrapStyles} {...other}/>
+				)
+			}
 
-			
-		
+			if (component === 'customerSource') {
+				return (
+					<FieldRevert {...this.props} component={SelectCustomerSource}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'upMerchantsSource') {
+				return (
+					<FieldRevert {...this.props} component={UpMerchantsSource}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'upSignedClientSource') {
+				return (
+					<FieldRevert {...this.props} component={UpSignedClientSource}  style={WrapStyles} {...other}/>
+				)
+			}
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);

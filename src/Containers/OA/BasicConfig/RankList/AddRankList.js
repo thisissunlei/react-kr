@@ -26,6 +26,7 @@ class AddRankList  extends React.Component{
         Store.dispatch(change('AddRankList','enabled','true'))
     }
     onChange = (data) =>{
+       Store.dispatch(change('AddRankList','typeId',''));
        this.dataReady(data); 
     }
 
