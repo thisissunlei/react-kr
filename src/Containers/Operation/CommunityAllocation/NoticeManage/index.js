@@ -38,6 +38,7 @@ export default class NoticeManage extends React.Component {
 			openPublish:false,
 			viewRichText:false,
 			viewItem:{},
+			page:1,
 		}
 
 	}
@@ -52,7 +53,8 @@ export default class NoticeManage extends React.Component {
 			Message.success('删除成功！');
 			_this.setState({
 				searchParams:{
-					date:new Date()
+					date:new Date(),
+					page:_this.state.page
 				}
 			})
 
@@ -69,13 +71,20 @@ export default class NoticeManage extends React.Component {
 			Message.success('发布成功！');
 			_this.setState({
 				searchParams:{
-					date:new Date()
+					date:new Date(),
+					page:_this.state.page
 				}
 			})
 
 		}).catch(function (err) { 
 			Message.error(err.message)
 		});
+	}
+
+	pageChange = (page) =>{
+		this.setState({
+			page
+		})
 	}
 	openNewCreat=()=>{
 		this.setState({
@@ -129,7 +138,8 @@ export default class NoticeManage extends React.Component {
 		this.setState({
 			searchParams:{
 					date:new Date(),
-					pageSize:15
+					pageSize:15,
+					page:this.state.page
 				}
 		})
 		this.openEdit();
@@ -168,6 +178,7 @@ export default class NoticeManage extends React.Component {
 		                  ajaxUrlName='get-notice-page'
 		                  ajaxParams={this.state.searchParams}
 		                  onOperation={this.onOperation}
+		                  onPageChange = {this.pageChange}
 					  >
 				            <TableHeader>
 				              <TableHeaderColumn>公告标题</TableHeaderColumn>
