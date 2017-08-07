@@ -242,6 +242,7 @@ export default class FirstMenu extends React.Component {
 			onSubmit();
 			Message.success("删除成功");
 			_this.openDeleteFirst();
+			_this.onEditState();
 		}).catch(function(err) {
 			Message.error(err.message);
 			_this.openDeleteFirst();
@@ -302,7 +303,7 @@ export default class FirstMenu extends React.Component {
 			'border':'1px solid #e8e9e9',
 			'lineHeight':'35px'
 		}
-		console.log(this.state.item);		
+		console.log(this.state.editState,this.state.itemDetail);		
 		return (
 			<div className="first-menu">
 				<div className="first-title-row">

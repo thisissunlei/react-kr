@@ -147,8 +147,6 @@ export default class SelectTree extends React.Component{
 			 className,
 			 style:heightStyle,
 			 onChange:this.onChange,
-			//  onBlur:this.onBlur,
-			//  onFocus:this.onFocus,
 			 ...other,
 			 autoFocus,
 		 }
