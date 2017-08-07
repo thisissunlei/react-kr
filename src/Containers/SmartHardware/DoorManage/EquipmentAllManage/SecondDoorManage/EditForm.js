@@ -189,21 +189,19 @@ class EditEquipmentForm extends React.Component{
   		}
   		Store.dispatch(change('EditEquipmentForm','propertyId',propertyId.value));
   		Store.dispatch(change('EditEquipmentForm','locationId',""));
-  // 		this.setState({
-		// 	statusClick : 1
-		// })
+
   	}
 	//选择对应功能
-	onchooseCorrespondingFunction=(functionId)=>{
-		if(functionId == null){
-			return;
-		}
-		this.setState({
-			functionId : functionId.value
-		})
+	// onchooseCorrespondingFunction=(functionId)=>{
+	// 	if(functionId == null){
+	// 		return;
+	// 	}
+	// 	this.setState({
+	// 		functionId : functionId.value
+	// 	})
 
-    	Store.dispatch(change('EditEquipmentForm','functionId',functionId.value));
-	}
+ //    	Store.dispatch(change('EditEquipmentForm','functionId',functionId.value));
+	// }
 	// 选择对应位置
 	onchooseCorrespondingLocation=(locationId)=>{
 		if(locationId == null){
@@ -237,30 +235,30 @@ class EditEquipmentForm extends React.Component{
 		})
 	}
 	// 判断门编号是否存在
-	doorNumHasFun=(deviceCode)=>{
-		if(!deviceCode || /^\s+$/.test(deviceCode)){
-			return;
-		}
-		let _this = this;
-		let params = {
-			code :deviceCode,
-			type :"deviceCode",
-			id : this.detail.id
-		}
-		Http.request('doorNumberAndHardwareId',params).
-		then(function(response){
-			_this.setState({
-	 			doorNumHasStatus : false
-	 		})
-		}).catch(function(err){
-	 		let {isDoorNumHas} = _this.props;
-	 		isDoorNumHas && isDoorNumHas();
-	 		_this.setState({
-	 			doorNumHas:true,
-	 			doorNumHasStatus : true,
-	 		})
-		});
-	}
+	// doorNumHasFun=(deviceCode)=>{
+	// 	if(!deviceCode || /^\s+$/.test(deviceCode)){
+	// 		return;
+	// 	}
+	// 	let _this = this;
+	// 	let params = {
+	// 		code :deviceCode,
+	// 		type :"deviceCode",
+	// 		id : this.detail.id
+	// 	}
+	// 	Http.request('doorNumberAndHardwareId',params).
+	// 	then(function(response){
+	// 		_this.setState({
+	//  			doorNumHasStatus : false
+	//  		})
+	// 	}).catch(function(err){
+	//  		let {isDoorNumHas} = _this.props;
+	//  		isDoorNumHas && isDoorNumHas();
+	//  		_this.setState({
+	//  			doorNumHas:true,
+	//  			doorNumHasStatus : true,
+	//  		})
+	// 	});
+	// }
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
 		let _this = this;
@@ -304,16 +302,6 @@ class EditEquipmentForm extends React.Component{
 		values.id = this.state.id;
 		let _this = this;
 		values.enable = this.state.isOnlines?"ONLINE":"OFFLINE";
-		// if(this.state.doorNumHasStatus){
-		// 	let {isDoorNumHas} =this.props;
-		// 	isDoorNumHas && isDoorNumHas();
-		// 	return;
-		// }
-		// if(this.state.hardwareidHasStatus){
-		// 	let {hardwareIdHas} =this.props;
-		// 	hardwareIdHas && hardwareIdHas();
-		// 	return;
-		// }
 		let EditParams = {
 				communityId : values.communityId,
 				deviceCode : values.deviceCode,
@@ -328,32 +316,17 @@ class EditEquipmentForm extends React.Component{
 				typeId : values.typeId,
 				makerId : values.makerId
 			}
-		// 此处判断门编号是否存在
-		let deviceCodeParams = {
-			code :values.deviceCode,
-			type :"deviceCode",
-			id : values.id
-		}
+		// 此处判断智能硬件是否存在
 		let hardwareIdParams  = {
 			code :values.hardwareId,
 			type :"hardwareid",
 			id :values.id
 		}
-		Http.request('doorNumberAndHardwareId',deviceCodeParams).
-		then(function(response){
-			Http.request('doorNumberAndHardwareId',hardwareIdParams).
-			then(function(response){
-
-				const  {onSubmit} = _this.props;
-				onSubmit && onSubmit(EditParams);
-
-			}).catch(function(err){
-		 		let {hardwareIdHas} = _this.props;
-		 		 hardwareIdHas &&  hardwareIdHas();
-			});
+		Http.request('doorNumberAndHardwareId',hardwareIdParams).then(function(response){
+			State.editSecondDoor(EditParams);
+			State.openEditDialog = false;
 		}).catch(function(err){
-	 		let {isDoorNumHas} = _this.props;
-	 		isDoorNumHas && isDoorNumHas();
+	 		Message.error(err.message);
 		});
 
 	}
@@ -371,16 +344,16 @@ class EditEquipmentForm extends React.Component{
 			value: 1
 		}];
 		// 对应功能选项
-		let correspondingFunction =[{
-			label: '开门',
-			value: 1
-		},{
-			label: '开门／预定',
-			value: 2
-		},{
-			label: '预定',
-			value: 3
-		}]
+		// let correspondingFunction =[{
+		// 	label: '开门',
+		// 	value: 1
+		// },{
+		// 	label: '开门／预定',
+		// 	value: 2
+		// },{
+		// 	label: '预定',
+		// 	value: 3
+		// }]
 		return(
 			<div style={{padding:'35px 0 0 35px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -415,7 +388,6 @@ class EditEquipmentForm extends React.Component{
 						label="门编号"
 						requireLabel={true}
 						style={{width:'252px'}}
-						onBlur = {this.doorNumHasFun}
 					/>
 					<KrField grid={1/2} name="hardwareId"
 						component = "input"
@@ -441,15 +413,7 @@ class EditEquipmentForm extends React.Component{
 						requireLabel={true}
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
-					<KrField name="functionId"
-						component="select"
-						options={correspondingFunction}
-						label="对应功能"
-						onChange = {this.onchooseCorrespondingFunction}
-						requireLabel={true}
-						style={{width:'252px'}}
-						ref= "loacationKrfield"
-					/>
+					
 					<KrField name="locationId"
 						component="select"
 						options={locationOptions}
@@ -525,9 +489,9 @@ const validate = values=>{
 	// 		errors.locationId = '对应位置为必填项';
 	// 	}
 	// }
-	if(!values.functionId){
-		errors.functionId = '对应功能为必填项';
-	}
+	// if(!values.functionId){
+	// 	errors.functionId = '对应功能为必填项';
+	// }
 	return errors;
 }
 export default EditEquipmentForm = reduxForm({

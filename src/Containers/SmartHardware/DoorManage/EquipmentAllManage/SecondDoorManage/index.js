@@ -40,10 +40,7 @@ export default class SecondDoorManage  extends React.Component{
 		super(props, context);
 		this.state = {
 			selectIds : [],
-			equipmentParams: {
-		        page : 1,
-		        pageSize: 15
-		      },
+			
 		}
 	}
 
@@ -58,14 +55,11 @@ export default class SecondDoorManage  extends React.Component{
 	}
 	//刷新
 	freshPage=()=>{
-		this.setState({
-			
-			equipmentParams: {
-		        date:new Date(),
-		        page : 1,
-		        pageSize: 15
-		    },
-		})
+		State.equipmentParams = {
+	        date:new Date(),
+	        page : 1,
+	        pageSize: 15
+	    }
 	}
 
 	
@@ -170,7 +164,7 @@ export default class SecondDoorManage  extends React.Component{
 			            exportSwitch={false}
 			            ajaxFieldListName='items'
 			            ajaxUrlName='equipmentList'
-			            ajaxParams={this.state.equipmentParams}
+			            ajaxParams={State.equipmentParams}
 			            onPageChange={this.onPageChange}
 			            displayCheckbox={true}
 			            onSelect={this.onSelcet}

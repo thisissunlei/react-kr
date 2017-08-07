@@ -17,7 +17,11 @@ let State = observable({
 	openSearchEquipment:false,
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
-	makerOptions :[]
+	makerOptions :[],
+	equipmentParams: {
+		        page : 1,
+		        pageSize: 15
+		      },
 
 });
 
@@ -108,8 +112,66 @@ State.getListDic = action(function() {
 
 });
 
+State.newCreateSecondDoor = action(function(values){
+	
+	Http.request('equipmentNewCreateOrEdit',{},values ).then(function(response) {
+		
+		State.equipmentParams = {
+			page:1,
+			pageSize:15,
+			date: new Date()		
+		}
+		State.openNewCreate =false;
+		Message.success("新增成功");
 
+	}).catch(function(err) {
+		State.openNewCreate =false;
+		State.equipmentParams = {
+			page:1,
+			pageSize:15,
+			date: new Date()		
+		}
+		Message.error(err.message);
+	});	
 
+})
+
+State.editSecondDoor = action(function(values){
+	
+	Http.request('equipmentNewCreateOrEdit',{},values ).then(function(response) {
+		
+		State.equipmentParams = {
+			page:1,
+			pageSize:15,
+			date: new Date()		
+		}
+		State.openNewCreate =false;
+		Message.success("编辑成功");
+
+	}).catch(function(err) {
+		State.openNewCreate =false;
+		State.equipmentParams = {
+			page:1,
+			pageSize:15,
+			date: new Date()		
+		}
+		Message.error(err.message);
+	});	
+
+})
 
 
 module.exports = State;
+
+
+
+
+
+
+
+
+
+
+
+
+

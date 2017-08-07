@@ -14,6 +14,7 @@ import {
 	ListGroupItem,
 	Button,
 	Notify,
+	Message,
 	err
 } from 'kr-ui';
 class NewCreateDefinitionForm extends React.Component{
@@ -120,16 +121,7 @@ class NewCreateDefinitionForm extends React.Component{
   		})
   		Store.dispatch(change('NewCreateDefinitionForm','propertyId',propertyId.value));
   	}
-	//选择对应功能
-	onchooseCorrespondingFunction=(functionId)=>{
-		this.setState({
-			functionId : functionId.value
-		})
-		if(functionId == null){
-			return;
-		}
-    	Store.dispatch(change('NewCreateDefinitionForm','functionId',functionId.value));
-	}
+	
 	// 选择对应位置
 	onchooseCorrespondingLocation=(locationId)=>{
 		this.setState({
@@ -166,34 +158,35 @@ class NewCreateDefinitionForm extends React.Component{
 		})
 	}
 	// 判断门编号是否存在
-	doorNumHasFun=(deviceCode)=>{
-		this.setState({
-			doorNumHas:false,
-			deviceCode : deviceCode
-		})
-		if(!deviceCode || /^\s+$/.test(deviceCode)){
-			return;
-		}
-		let _this = this;
-		let params = {
-			code :deviceCode,
-			type :"deviceCode",
-			id : ''
-		}
-		Http.request('doorNumberAndHardwareId',params).
-		then(function(response){
-			_this.setState({
-	 			doorNumHasStatus : false
-	 		})
-		}).catch(function(err){
-	 		let {isDoorNumHas} = _this.props;
-	 		isDoorNumHas && isDoorNumHas();
-	 		_this.setState({
-	 			doorNumHas:true,
-	 			doorNumHasStatus : true
-	 		})
-		});
-	}
+	// doorNumHasFun=(deviceCode)=>{
+	// 	this.setState({
+	// 		doorNumHas:false,
+	// 		deviceCode : deviceCode
+	// 	})
+	// 	if(!deviceCode || /^\s+$/.test(deviceCode)){
+	// 		return;
+	// 	}
+	// 	let _this = this;
+	// 	let params = {
+	// 		code :deviceCode,
+	// 		type :"deviceCode",
+	// 		id : ''
+	// 	}
+	// 	Http.request('doorNumberAndHardwareId',params).
+	// 	then(function(response){
+	// 		_this.setState({
+	//  			doorNumHasStatus : false
+	//  		})
+	// 	}).catch(function(err){
+	//  		let {isDoorNumHas} = _this.props;
+	//  		isDoorNumHas && isDoorNumHas();
+	//  		_this.setState({
+	//  			doorNumHas:true,
+	//  			doorNumHasStatus : true
+	//  		})
+	//  		Message.error(err.message);
+	// 	});
+	// }
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
 		this.setState({
@@ -222,6 +215,7 @@ class NewCreateDefinitionForm extends React.Component{
 		 			hardwareidHasStatus: true,
 		 			defaultChecked : true
 		 		})	
+		 		Message.error(err.message);
 		});
 	}
 	chooseONLINE=(e)=>{
@@ -247,23 +241,24 @@ class NewCreateDefinitionForm extends React.Component{
 			id :''
 		}
 // 此处判断门编号是否存在
-		Http.request('doorNumberAndHardwareId',deviceCodeParams).
-		then(function(response){
-			Http.request('doorNumberAndHardwareId',hardwareIdParams).
-			then(function(response){
-				const  {onSubmit} = _this.props;
-				onSubmit && onSubmit(values);
+		// Http.request('doorNumberAndHardwareId',deviceCodeParams).
+		// then(function(response){
+		Http.request('doorNumberAndHardwareId',hardwareIdParams).then(function(response){
+
+				State.newCreateSecondDoor(values);
  
-			}).catch(function(err){
-		 		let {hardwareIdHas} = _this.props;
-		 		 hardwareIdHas &&  hardwareIdHas();
-		 		 Message.error(err.message)
-			});
 		}).catch(function(err){
-	 		let {isDoorNumHas} = _this.props;
-	 		isDoorNumHas && isDoorNumHas();
-	 		Message.error(err.message)
-		});		
+	 		let {hardwareIdHas} = _this.props;
+	 		 hardwareIdHas &&  hardwareIdHas();
+	 		 Message.error(err.message)
+
+		});
+		// }).catch(function(err){
+	 // 		let {isDoorNumHas} = _this.props;
+	 // 		isDoorNumHas && isDoorNumHas();
+	 // 		Message.error(err.message)
+	 		
+		// });		
 	}
 	render(){
 		let {floorsOptions,propertyOption,propertyId,locationOptions,defaultChecked} =this.state;
@@ -273,17 +268,7 @@ class NewCreateDefinitionForm extends React.Component{
 			value: 1
 		}];
 
-		// 对应功能选项
-		let correspondingFunction =[{
-			label: '开门',
-			value: 1
-		},{
-			label: '开门／预定',
-			value: 2
-		},{
-			label: '预定',
-			value: 3
-		}]
+		
 		const { error, handleSubmit, pristine, reset} = this.props;
 		return(
 			<div style={{padding:'35px 0 0 35px'}}>
@@ -355,16 +340,7 @@ class NewCreateDefinitionForm extends React.Component{
 						errors={{requiredValue:'属性为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
-					<KrField name="functionId" 
-						component="select" 
-						options={correspondingFunction}
-						label="对应功能"
-						onChange = {this.onchooseCorrespondingFunction}  
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'对应功能为必填项'}} 
-						style={{width:'252px'}}
-					/>
+					
 					<KrField name="locationId" 
 						component="select" 
 						options={locationOptions}
@@ -435,9 +411,7 @@ const validate = values=>{
 	if(!values.propertyId){
 		errors.propertyId = '属性为必填项';
 	}
-	if(!values.functionId){
-		errors.functionId = '对应功能为必填项';
-	}
+	
 	return errors;
 }
 export default NewCreateDefinitionForm = reduxForm({
