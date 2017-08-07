@@ -1,0 +1,247 @@
+[
+    {
+        "children": [
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "orgId": 50,
+                                "orgName": "测试啊啊啊",
+                                "pId": 30,
+                                "treeType": "DEPARTMENT"
+                            }
+                        ],
+                        "orgId": 30,
+                        "orgName": "保洁（外包）",
+                        "pId": 0,
+                        "treeType": "DEPARTMENT"
+                    }
+                ],
+                "orgId": 4,
+                "orgName": "武汉氪空间",
+                "pId": 0,
+                "treeType": "SUBCOMPANY"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "orgId": 20,
+                                "orgName": "12",
+                                "pId": 0,
+                                "treeType": "NONE"
+                            }
+                        ],
+                        "orgId": 34,
+                        "orgName": "投资拓展部",
+                        "pId": 0,
+                        "treeType": "DEPARTMENT"
+                    },
+                    {
+                        "children": [],
+                        "orgId": 35,
+                        "orgName": "工程设计部",
+                        "pId": 0,
+                        "treeType": "DEPARTMENT"
+                    },
+                    {
+                        "children": [],
+                        "orgId": 36,
+                        "orgName": "服务支持中心SS",
+                        "pId": 0,
+                        "treeType": "DEPARTMENT"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [
+                                    {
+                                        "children": [
+                                            {
+                                                "children": [
+                                                    {
+                                                        "children": [],
+                                                        "orgId": 44,
+                                                        "orgName": "测试1",
+                                                        "pId": 33,
+                                                        "treeType": "DEPARTMENT"
+                                                    }
+                                                ],
+                                                "orgId": 33,
+                                                "orgName": "test1",
+                                                "pId": 32,
+                                                "treeType": "DEPARTMENT"
+                                            }
+                                        ],
+                                        "orgId": 32,
+                                        "orgName": "test",
+                                        "pId": 31,
+                                        "treeType": "DEPARTMENT"
+                                    }
+                                ],
+                                "orgId": 31,
+                                "orgName": "技术组",
+                                "pId": 29,
+                                "treeType": "DEPARTMENT"
+                            }
+                        ],
+                        "orgId": 29,
+                        "orgName": "产品技术部",
+                        "pId": 0,
+                        "treeType": "DEPARTMENT"
+                    },
+                    {
+                        "children": [],
+                        "orgId": 55,
+                        "orgName": "工程设计   部",
+                        "pId": 0,
+                        "treeType": "DEPARTMENT"
+                    },
+                    {
+                        "children": [],
+                        "orgId": 66,
+                        "orgName": "工程设计部",
+                        "pId": 1,
+                        "treeType": "SUBCOMPANY"
+                    }
+                ],
+                "orgId": 1,
+                "orgName": "氪空间总部",
+                "pId": 0,
+                "treeType": "SUBCOMPANY"
+            },
+            {
+                "children": [],
+                "orgId": 41,
+                "orgName": "苏州氪空间",
+                "pId": 0,
+                "treeType": "SUBCOMPANY"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "orgId": 24,
+                                "orgName": "就没了看的",
+                                "pId": 0,
+                                "treeType": "NONE"
+                            },
+                            {
+                                "children": [],
+                                "orgId": 32,
+                                "orgName": "ert",
+                                "pId": 0,
+                                "treeType": "NONE"
+                            },
+                            {
+                                "children": [],
+                                "orgId": 40,
+                                "orgName": "23",
+                                "pId": 0,
+                                "treeType": "NONE"
+                            },
+                            {
+                                "children": [],
+                                "orgId": 42,
+                                "orgName": "wwwwww",
+                                "pId": 0,
+                                "treeType": "NONE"
+                            },
+                            {
+                                "children": [],
+                                "orgId": 43,
+                                "orgName": "iuyuuyuo",
+                                "pId": 0,
+                                "treeType": "NONE"
+                            },
+                            {
+                                "children": [],
+                                "orgId": 44,
+                                "orgName": "cccccc",
+                                "pId": 0,
+                                "treeType": "NONE"
+                            }
+                        ],
+                        "orgId": 37,
+                        "orgName": "南京氪空间",
+                        "pId": 0,
+                        "treeType": "DEPARTMENT"
+                    }
+                ],
+                "orgId": 42,
+                "orgName": "南京分公司",
+                "pId": 0,
+                "treeType": "SUBCOMPANY"
+            },
+            {
+                "children": [
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "orgId": 33,
+                                "orgName": "132qw",
+                                "pId": 0,
+                                "treeType": "NONE"
+                            }
+                        ],
+                        "orgId": 38,
+                        "orgName": "杭州氪空间",
+                        "pId": 0,
+                        "treeType": "DEPARTMENT"
+                    },
+                    {
+                        "children": [],
+                        "orgId": 67,
+                        "orgName": "杭州分公司",
+                        "pId": 43,
+                        "treeType": "SUBCOMPANY"
+                    }
+                ],
+                "orgId": 43,
+                "orgName": "杭州分公司",
+                "pId": 0,
+                "treeType": "SUBCOMPANY"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "orgId": 39,
+                        "orgName": "沈阳氪空间",
+                        "pId": 0,
+                        "treeType": "DEPARTMENT"
+                    },
+                    {
+                        "children": [],
+                        "orgId": 68,
+                        "orgName": "沈阳氪空间",
+                        "pId": 44,
+                        "treeType": "SUBCOMPANY"
+                    }
+                ],
+                "orgId": 44,
+                "orgName": "沈阳分公司",
+                "pId": 0,
+                "treeType": "SUBCOMPANY"
+            },
+            {
+                "children": [],
+                "orgId": 57,
+                "orgName": "dasfsdaf",
+                "pId": 0,
+                "treeType": "SUBCOMPANY"
+            }
+        ],
+        "orgId": 1,
+        "orgName": "36kr",
+        "pId": 0,
+        "treeType": "ROOT"
+    }
+]
