@@ -142,14 +142,14 @@ export default class Labour extends React.Component {
 	componentDidMount() {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
-		
+
 		var dimId = this.props.params.dimId;
 		var _this = this;
 		var {checkOperate} = this.props.NavModel;
 		Http.request('extra-list', {
 			dimId: dimId
 		}).then(function (response) {
-			
+
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 
@@ -175,7 +175,7 @@ export default class Labour extends React.Component {
 		Http.request('extra-list', {
 			dimId: _this.state.searchParams.dimId
 		}).then(function (response) {
-			
+
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 	}
@@ -459,7 +459,7 @@ export default class Labour extends React.Component {
 		this.setState({
 			searchKey: event.target.value || ' ',
 		},function(){
-			
+
 			//this.refs.searchKey.click();
 			//this.refs.searchKey.focus();
 		})
@@ -504,7 +504,7 @@ export default class Labour extends React.Component {
 		const _this = this;
 
 		Http.request("org-list", params).then(function (response) {
-			
+
 			_this.setState({
 				treeData: _this.fnTree([response]),
 			});
@@ -515,8 +515,8 @@ export default class Labour extends React.Component {
 	// 导出Excle表格
 	onExport=(values)=>{
 		let ids = [];
-		
-		
+
+
 		var type = this.state.searchParams.orgType;
 		var id = this.state.searchParams.orgId;
 		var dimId = this.state.searchParams.dimId;
@@ -550,7 +550,7 @@ export default class Labour extends React.Component {
 	}
 
 	onHighSearchSubmit = (form) => {
-		
+
 		this.setState({
 			searchParams:form
 		})
@@ -563,7 +563,7 @@ export default class Labour extends React.Component {
    //跳转详情页
    goDetail = (data) =>{
 	    let personId=data.hrmId;
-		window.open(`./#/oa/${personId}/peopleDetail`,'123');
+		  window.open(`./#/oa/${personId}/peopleDetail`,'_blank');
    }
 
    //操作开关
@@ -699,11 +699,13 @@ export default class Labour extends React.Component {
 
    //调动提交
    addTransferSubmit=(data)=>{
+
 		var param = Object.assign({},data);
 		var _this = this;
 		var searchParams={
 		  time:+new Date()
 	    }
+
 		Http.request("service-switch",{},param).then(function (response) {
 			_this.setState({
                searchParams:Object.assign({},_this.state.searchParams,searchParams)
@@ -764,7 +766,7 @@ export default class Labour extends React.Component {
 		var orgtype = this.state.searchParams.orgType;
 		var style = {};
 		var index = 0;
-		
+
 		return (
 			<div className="g-oa-labour">
 				<div className="left">
@@ -783,7 +785,7 @@ export default class Labour extends React.Component {
 
 								</span>
 							}
-							
+
 						</span>
 
 					</div>
