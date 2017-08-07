@@ -74,7 +74,8 @@ export default class InService  extends React.Component{
 			isRemove:false,
 			istranfer:false,
 			isCard:false,
-			isOpen:false
+			isOpen:false,
+      isEdit:false,
 		}
 	}
 
@@ -85,23 +86,24 @@ export default class InService  extends React.Component{
 		var _this=this;
 		setTimeout(function() {
 		   _this.setState({
-			 isLeave :checkOperate("hrm_resource_dimission"),
+			   isLeave :checkOperate("hrm_resource_dimission"),
 		     isRemove : checkOperate("hrm_resource_account"),
 		     istranfer : checkOperate("hrm_resource_move"),
-			 isCard : checkOperate("hrm_resource_card"),
-		     isOpen : checkOperate("hrm_resource_account")
+			   isCard : checkOperate("hrm_resource_card"),
+		     isOpen : checkOperate("hrm_resource_account"),
+         isEdit : checkOperate("hrm_resource_edit");
 		   })
-		},500);	
+		},500);
 
 	}
-   
+
    //新建用户
    openAddPersonal=()=>{
       this.setState({
 		  openAddPerson:!this.state.openAddPerson
 	  })
    }
-   
+
    //新建用户提交
    addPersonSubmit=(param)=>{
     var data = Object.assign({},param);
@@ -118,11 +120,11 @@ export default class InService  extends React.Component{
 		Message.error(err.message);
 	});
    }
-   
+
    //操作开关
    //编辑打开
    operationEdit=(itemDetail)=>{
-        this.goDetail(itemDetail);	
+        this.goDetail(itemDetail);
    }
    //离职打开
    operationLeave=(itemDetail)=>{
@@ -136,7 +138,7 @@ export default class InService  extends React.Component{
 	    this.setState({
 			  openRemove:true,
 			  resourceId:itemDetail.id
-		})	
+		})
    }
 
    //调动打开
@@ -164,7 +166,7 @@ export default class InService  extends React.Component{
    }
 
 
-   
+
    //离职关闭
    cancelLeave=()=>{
      this.setState({
@@ -189,14 +191,14 @@ export default class InService  extends React.Component{
 		Message.error(err.message);
 	});
    }
-  
+
   //解除关闭
    cancelRemove=()=>{
 	 this.setState({
 		openRemove:!this.state.openRemove
-	 })  
+	 })
    }
-   
+
    //解除提交
    addRemoveSubmit=()=>{
 	   const _this = this;
@@ -220,7 +222,7 @@ export default class InService  extends React.Component{
     cancelAccount=()=>{
 	 this.setState({
 		openAccount:!this.state.openAccount
-	 })  
+	 })
    }
 
     //开通提交
@@ -241,15 +243,15 @@ export default class InService  extends React.Component{
             Message.error(err.message);
         });
    }
-   
-   
+
+
    //调动取消
    cancelTransfer=()=>{
 	 this.setState({
 		openTransfer:!this.state.openTransfer
-	 })  
+	 })
    }
-  
+
    //调动提交
    addTransferSubmit=(data)=>{
 		var param = Object.assign({},data);
@@ -266,13 +268,13 @@ export default class InService  extends React.Component{
 			Message.error(err.message);
 		});
    }
-  
-   
+
+
    //开通门禁取消
    cancelCard=()=>{
 	  this.setState({
 		openCard:!this.state.openCard
-	 })  
+	 })
    }
    //开通门禁提交
    addCardSubmit=(param)=>{
@@ -296,9 +298,9 @@ export default class InService  extends React.Component{
    cancelSure=()=>{
 	  this.setState({
 		openSure:!this.state.openSure
-	 })    
+	 })
    }
-   
+
    //是否确定
    addSureSubmit=()=>{
 	   let {cardParam}=this.state;
@@ -331,7 +333,7 @@ export default class InService  extends React.Component{
 		window.open(`./#/oa/${personId}/peopleDetail`,'_blank');
    }
 	render(){
-		const {transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;
+		const {transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen,isEdit} = this.state;
 		return(
 
 			<div className='m-inservice-list'>
@@ -367,7 +369,7 @@ export default class InService  extends React.Component{
 						ajaxUrlName='getInServiceList'
 						ajaxFieldListName="items"
 					  >
-					  
+
 						<TableHeader>
 								<TableHeaderColumn>部门</TableHeaderColumn>
 								<TableHeaderColumn>姓名</TableHeaderColumn>
@@ -382,13 +384,13 @@ export default class InService  extends React.Component{
 						<TableBody >
 							<TableRow>
 								<TableRowColumn name ="depName" ></TableRowColumn>
-								<TableRowColumn 
+								<TableRowColumn
 									name ="name"
 									component={(value,oldValue,detail)=>{
 										return (<div onClick = {() =>{
 												this.goDetail(detail)
 												}} style={{color:'#499df1',cursor:'pointer'}}>{value}</div>)
-									}} 
+									}}
 								 ></TableRowColumn>
 								<TableRowColumn name="code"></TableRowColumn>
 								<TableRowColumn name ="jobName" component={(value,oldValue)=>{
@@ -398,14 +400,14 @@ export default class InService  extends React.Component{
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-								<TableRowColumn 
-									name ="entryDate" 
+								<TableRowColumn
+									name ="entryDate"
 									component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 									}}
-										
+
 								></TableRowColumn>
-								<TableRowColumn name ="status" 
+								<TableRowColumn name ="status"
 									component={(value,oldValue)=>{
 										return (<Dictionary type='ERP_ResourceStatus' value={value}/>)
 									}}
@@ -413,14 +415,14 @@ export default class InService  extends React.Component{
 								<TableRowColumn name ="hasAccountStr"></TableRowColumn>
 								<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
 										return <span>
-											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
+											    {isEdit&&<span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>}
 												{isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
 												{istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
 												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
 												{isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
 												{isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
 											</span>
-								 }}>		
+								 }}>
 								</TableRowColumn>
 							</TableRow>
 						</TableBody>
@@ -428,11 +430,11 @@ export default class InService  extends React.Component{
 					</Table>
 
 					{/*新建用户*/}
-					<AddPostPeople 
+					<AddPostPeople
 					 onCancel={this.openAddPersonal}
 					 onSubmit={this.addPersonSubmit}
-					 open={this.state.openAddPerson} 
-					 onClose={this.allClose}  
+					 open={this.state.openAddPerson}
+					 onClose={this.allClose}
 					/>
 
 					{/*离职*/}
@@ -444,7 +446,7 @@ export default class InService  extends React.Component{
 					>
 					<Leave
 					   onCancel={this.cancelLeave}
-					   onSubmit={this.addLeaveSubmit}  	
+					   onSubmit={this.addLeaveSubmit}
 					/>
 					</Dialog>
 
@@ -457,7 +459,7 @@ export default class InService  extends React.Component{
 					>
 					<Remove
 						onCancel={this.cancelRemove}
-						onSubmit={this.addRemoveSubmit}  
+						onSubmit={this.addRemoveSubmit}
 					/>
 					</Dialog>
 
@@ -471,7 +473,7 @@ export default class InService  extends React.Component{
 					>
 					<IsSure
 						onCancel={this.cancelSure}
-						onSubmit={this.addSureSubmit}  
+						onSubmit={this.addSureSubmit}
 					/>
 					</Dialog>
 
@@ -484,7 +486,7 @@ export default class InService  extends React.Component{
 					>
 					<OpenAccount
 						onCancel={this.cancelAccount}
-						onSubmit={this.addOpenSubmit}  
+						onSubmit={this.addOpenSubmit}
 					/>
 					</Dialog>
 
@@ -497,7 +499,7 @@ export default class InService  extends React.Component{
 					>
 					<Transfer
 						onCancel={this.cancelTransfer}
-						onSubmit={this.addTransferSubmit}  
+						onSubmit={this.addTransferSubmit}
 						department = {transferDetail}
 					/>
 					</Dialog>
@@ -511,7 +513,7 @@ export default class InService  extends React.Component{
 					>
 					<OpenCard
 						onCancel={this.cancelCard}
-						onSubmit={this.addCardSubmit}  
+						onSubmit={this.addCardSubmit}
 						employees = {employees}
 					/>
 					</Dialog>
