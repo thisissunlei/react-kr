@@ -91,18 +91,30 @@ export default class SingleType extends React.Component {
 		})
     }
 	onCreateSubmit = (params) => {
-		var form = Object.assign({},params);
-        let limitId = this.state.itemDetail.limitId;
-		form.limitId=limitId;
-        form.wfId=this.props.params.processId;
-		var _this = this;
-		Http.request('process-authority-add', {}, form).then(function (response) {
-			_this.openCreateDialog();
-			Message.success('新建成功');
-			_this.changeP();
-		}).catch(function (err) {
-			Message.error(err.message)
-		});
+        console.log(params);
+	// 	var form = Object.assign({},params);
+    //     let limitId = this.state.itemDetail.limitId;
+	// 	form.limitId=limitId;
+    //     form.wfId=this.props.params.processId;
+    //     var id=[];
+    //     if(params.rangeId){
+    //         params.rangeId.map((item,index)=>{
+    //             id.push(item.orgId);
+    //         })  
+    //     }else{
+    //         params.rangeId.map((item,index)=>{
+    //             id.push(item.orgId);
+    //         })  
+    //     }
+	//    params.rangeId=id;
+	// 	var _this = this;
+	// 	Http.request('process-authority-add', {}, form).then(function (response) {
+	// 		_this.openCreateDialog();
+	// 		Message.success('新建成功');
+	// 		_this.changeP();
+	// 	}).catch(function (err) {
+	// 		Message.error(err.message)
+	// 	});
 	}
     onEditSubmit = (params) => {
         var form = Object.assign({},params);
@@ -117,6 +129,35 @@ export default class SingleType extends React.Component {
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
+	}
+    //编辑提交
+	editPostSubmit=(params)=>{
+       var _this=this;
+	   var id=[];
+	   if(params.allotUserId){
+		  params.allotUserId.map((item,index)=>{
+		    id.push(item.orgId);
+	     })  
+	   }else{
+		 params.allotUser.map((item,index)=>{
+		    id.push(item.orgId);
+	     })  
+	   }
+	   params.allotUserId=id;
+       Http.request('role-edit',{},params).then(function(response) {
+           _this.setState({
+						searchParams:{
+							time:+new Date(),
+							page:_this.state.searchParams.page,
+							pageSize:15,
+							name:_this.state.searchParams.name?_this.state.searchParams.name:""
+						}  
+					})
+					_this.openEditPost();
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+		
 	}
     onDeleteSubmit = () => {
         let limitId = this.state.itemDetail.limitId;

@@ -105,7 +105,7 @@ class Createdialog extends Component {
                             style={{width:262}}
                             name="rangeId"
                             component="treeDivision"
-                            label="选择机构"
+                            label="选择范围"
                             ajaxUrlName = "role-sub-tree"
                             requireLabel={true}
                             checkable = {true}

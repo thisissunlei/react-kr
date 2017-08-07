@@ -17,28 +17,45 @@ import {
 import {reduxForm, formValueSelector, change} from 'redux-form';
 class EditDialog extends Component {
     static PropTypes = {
-        detail: React.PropTypes.object,
         onSubmit: React.PropTypes.func,
         onCancel: React.PropTypes.func,
     }
     constructor(props, context) {
         super(props, context);
         this.state={
-            options:[],
+            range:'',
+            limit:'',
+            rangeType:0,       
+            infoList:{} 
         }
     }
     componentDidMount() {
         var _this = this;
-        // var orgId = this.props.detail.orgId;
-        // var orgType = this.props.detail.orgType;
-        // Http.request('org-detail', {
-        //         orgId: orgId,
-        //         orgType:orgType
-        //     },{}).then(function(response) {
-        //         _this.setState({infoList: response},function(){
-        //           Store.dispatch(initialize('editdialog', _this.state.infoList));
-        //         })
-        //     }).catch(function(err) {});
+        var id = this.props.id;
+        var rangeType;
+        Http.request('org-detail', {
+                limitId: id,
+            },{}).then(function(response) {
+                if(response.limitType=='SUBCOMPANY'){
+                    rangeType=1;
+                }else if(response.limitType=='DEPARTMENT'){
+                    rangeType=2;
+                }else if(response.limitType=='ROLE'){
+                    rangeType=3;
+                }else if(response.limitType=='HRMRESOURCE'){
+                    rangeType=4;
+                }else{
+                    rangeType=0;
+                }
+                _this.setState({
+                    range:response.limitType=='ALL'?false:true,
+                    limit:response.limitType=='SUBCOMPANY'||'DEPARTMENT'?true:false,
+                    rangeType:rangeType,
+                    infoList:response,
+                },function(){
+                  Store.dispatch(initialize('EditDialog', _this.state.infoList));
+                })
+        }).catch(function(err) {});
     }
     onCancel = () => {
         const {onCancel} = this.props;
@@ -122,6 +139,7 @@ class EditDialog extends Component {
                             ajaxUrlName = "role-sub-tree"
                             requireLabel={true}
                             checkable = {true}
+                            valueText={(this.state.infoList.range && this.state.infoList[0] && this.state.infoList[0].orgName)?this.state.infoList:[{orgName:''}]}
                         />
                     }
                     {this.state.rangeType == '2'
@@ -135,6 +153,7 @@ class EditDialog extends Component {
                             ajaxUrlName = "role-dep-tree"
                             requireLabel={true}
                             checkable = {true}
+                            valueText={(this.state.infoList.range && this.state.infoList[0] && this.state.infoList[0].orgName)?this.state.infoList:[{orgName:''}]}
                         />
                     }
                     {this.state.rangeType == '3'
@@ -148,6 +167,7 @@ class EditDialog extends Component {
                             ajaxUrlName = "role-sub-tree"
                             requireLabel={true}
                             checkable = {true}
+                            valueText={(this.state.infoList.range && this.state.infoList[0] && this.state.infoList[0].orgName)?this.state.infoList:[{orgName:''}]}
                         />
                     }
                     {this.state.rangeType == '4'
@@ -157,10 +177,11 @@ class EditDialog extends Component {
                             style={{width:262}}
                             name="rangeId"
                             component="treePersonnel"
-                            label="选择人员"
+                            label="选择范围"
                             ajaxUrlName = "role-new-tree"
                             requireLabel={true}
                             checkable = {true}
+                            valueText={(this.state.infoList.range && this.state.infoList[0] && this.state.infoList[0].orgName)?this.state.infoList:[{orgName:''}]}
                         />
                 }
                 {this.state.rangeType == '0'
