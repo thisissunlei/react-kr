@@ -89,7 +89,7 @@ class Createdialog extends Component {
                     placeholder="排序号"
                 />*/}
                 <KrField style={{width:262,marginTop:14,marginLeft:28}} name="enable" component="group" label="是否显示" grid={1} requireLabel={false}>
-                    <KrField style={{marginTop:10}} name="enable" label="显示" type="radio" value={true} />
+                    <KrField style={{marginTop:10,marginRight:24,marginLeft:4}} name="enable" label="显示" type="radio" value={true} />
                     <KrField style={{marginTop:10}} name="enable" label="不显示" type="radio" value={false} />
  				</KrField>
                <KrField

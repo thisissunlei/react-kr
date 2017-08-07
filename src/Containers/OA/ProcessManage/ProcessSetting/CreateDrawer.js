@@ -151,7 +151,7 @@ class CreateDrawer extends React.Component {
 										type="radio"
 										value="MENU"
 										checked={true}
-										style={{marginRight:24}}
+										style={{marginRight:24,marginLeft:4}}
 								/>
 								<KrField
 										name="type"
@@ -167,7 +167,7 @@ class CreateDrawer extends React.Component {
 										type="radio"
 										value="MENU"
 										checked={true}
-										style={{marginRight:24}}
+										style={{marginRight:24,marginLeft:4}}
 								/>
 								<KrField
 										name="type"

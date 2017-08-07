@@ -150,7 +150,7 @@ export default class SingleType extends React.Component {
 	render() {
         let {item,itemDetail} = this.state;
 		return (
-			<div style={{marginTop:30,paddingLeft:45}}>
+			<div className="g-initiator" style={{marginTop:30,paddingLeft:45}}>
                 <Grid style={{ marginBottom: 20, marginTop: 20 }}>
                     <Row>
                         <Col md={4} align="left" >
@@ -164,12 +164,10 @@ export default class SingleType extends React.Component {
                 <Table
                     style={{ marginTop: 10 }}
                     displayCheckbox={false}
-                    onLoaded={this.onLoaded}
                     ajax={true}
                     ajaxUrlName='findUserByRoleId'
                     ajaxParams={this.state.searchParams}
                     onOperation={this.onOperation}
-                    onPageChange={this.onPageChange}
                 >
                     <TableHeader>
                         <TableHeaderColumn>类型</TableHeaderColumn>
@@ -191,7 +189,6 @@ export default class SingleType extends React.Component {
                             </TableRowColumn>
                         </TableRow>
                     </TableBody>
-                    <TableFooter></TableFooter>
                 </Table>
             <Dialog
                 title="新建权限"
@@ -199,7 +196,7 @@ export default class SingleType extends React.Component {
                 open={this.state.openCreateDialog}
                 onClose={this.openCreateDialog}
                 contentStyle={{
-                    width: 685
+                    width: 374
                 }}
             >
                 <CreateDialog detail={this.state.searchParams} onSubmit={this.onCreateSubmit} onCancel={this.openCreateDialog} />
@@ -210,7 +207,7 @@ export default class SingleType extends React.Component {
                 open={this.state.openEditDialog}
                 onClose={this.openEditDialog}
                 contentStyle={{
-                    width: 685
+                    width: 374
                 }}
             >
                 <EditDialog detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />

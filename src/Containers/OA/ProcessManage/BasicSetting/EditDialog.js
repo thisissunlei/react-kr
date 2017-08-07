@@ -48,53 +48,152 @@ class EditDialog extends Component {
         
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
-        params.dimId = this.props.detail.dimId;
-        params.orgId = this.props.detail.orgId;
-        params.superOrgType = this.props.detail.orgType;
         onSubmit && onSubmit(params);
     }
-
+    changeType=(item)=>{
+        switch(item.value)
+            {
+            case 'SUBCOMPANY':
+                this.setState({
+                    limit:true,
+                    rangeType:1,
+                })
+                break;
+            case 'ROLE':
+                this.setState({
+                    limit:false,
+                    rangeType:3,
+                })
+                break;
+            case 'DEPARTMENT':
+                this.setState({
+                    limit:true,
+                    rangeType:2,
+                })
+                break;
+            case 'ALL':
+                this.setState({
+                    limit:false,
+                    rangeType:0,
+                })
+                break;
+            case 'HRMRESOURCE':
+                this.setState({
+                    limit:false,
+                    rangeType:4,
+                })
+                break;        
+            }
+    }
     render() {
         const {handleSubmit,detail} = this.props;
        // console.log(detail);
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:636,marginTop:20}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:262,marginTop:30,paddingLeft:32}}  >
                 <KrField
-                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
+                    style={{width:262}}
                     inline={false}
-                    grid={1/2}
-                    label="流程类型名称"
-                    component="input"
-                    name="orgName"
+                    label="权限类型"
+                    component="select"
+                    name="limitType"
                     requireLabel={true}
-                    placeholder="请输入流程类型名称"
+                    placeholder="权限类型"
+                    options={
+                        [
+                            {label:'分部',value:'SUBCOMPANY'},
+                            {label:'部门',value:'DEPARTMENT'},
+                            {label:'角色',value:'ROLE'},
+                            {label:'人员',value:'HRMRESOURCE'},
+                            {label:'所有人',value:'ALL'},
+    				    ]
+                    }
+                    onChange={this.changeType}
                 />
-                <KrField
-                    style={{width:262,marginTop:6}}
-                    inline={false}
-                    label="排序号"
-                    grid={1/2}
-                    component="input"
-                    name="code"
-                    requireLabel={true}
-                    placeholder="排序号"
-                />
-                <KrField style={{width:262,marginTop:14,marginLeft:28}} name="sex" component="group" label="是否显示" grid={1} requireLabel={false}>
-                    <KrField style={{marginTop:10}} name="sex" label="显示" type="radio" value='MALE' />
-                    <KrField style={{marginTop:10}} name="sex" label="不显示" type="radio" value='FAMALE' />
+                     {this.state.rangeType == '1'
+                        &&
+                        <KrField
+                            grid={1/2}
+                            style={{width:262}}
+                            name="rangeId"
+                            component="treeDivision"
+                            label="选择机构"
+                            ajaxUrlName = "role-sub-tree"
+                            requireLabel={true}
+                            checkable = {true}
+                        />
+                    }
+                    {this.state.rangeType == '2'
+                        &&
+                        <KrField
+                            grid={1/2}
+                            style={{width:262}}
+                            name="rangeId"
+                            component="treeDepartment"
+                            label="选择机构"
+                            ajaxUrlName = "role-dep-tree"
+                            requireLabel={true}
+                            checkable = {true}
+                        />
+                    }
+                    {this.state.rangeType == '3'
+                        &&
+                        <KrField
+                            grid={1/2}
+                            style={{width:262}}
+                            name="rangeId"
+                            component="treeDivision"
+                            label="选择机构"
+                            ajaxUrlName = "role-sub-tree"
+                            requireLabel={true}
+                            checkable = {true}
+                        />
+                    }
+                    {this.state.rangeType == '4'
+                        &&
+                        <KrField
+                            grid={1/2}
+                            style={{width:262}}
+                            name="rangeId"
+                            component="treePersonnel"
+                            label="选择人员"
+                            ajaxUrlName = "role-new-tree"
+                            requireLabel={true}
+                            checkable = {true}
+                        />
+                }
+                {this.state.rangeType == '0'
+                        &&
+                        ''
+                }
+
+                {
+                    this.state.limit &&
+                    <KrField
+                        style={{width:262,marginTop:6}}
+                        inline={false}
+                        label="限定条件"
+                        component="select"
+                        name="limitAuth"
+                        options={
+                            [
+                                {label:'所有人',value:'0'},
+                                {label:'负责人',value:'1'},
+                                {label:'管理员',value:'2'},
+                            ]
+                        }
+                        requireLabel={true}
+                        placeholder="限定条件"
+                    />
+                }
+                
+                <KrField style={{width:262,marginTop:8}} name="enable" component="group" label="是否启用" grid={1} requireLabel={false}>
+                    <KrField style={{marginTop:10,marginRight:24,marginLeft:4}} name="enable" label="启用" type="radio" value='1' />
+                    <KrField style={{marginTop:10}} name="enable" label="不启用" type="radio" value='0' />
  				</KrField>
-               <KrField
-                  grid={1}
-                  left={30}
-                  name="desc"
-                  component="textarea"
-                  maxSize={50}
-                  style={{marginTop:12,height:78,width:590}}
-                  label="描述"
-                />
-                <Row style={{marginTop:78,marginBottom:6}}>
+               
+                <Row style={{marginTop:15,marginBottom:6}}>
       					<Col md={12} align="center">
       						<ButtonGroup>
       							<div className='ui-btn-center'>
@@ -114,7 +213,8 @@ class EditDialog extends Component {
       									width={90}
       							/>
       						</ButtonGroup>
-      				</Col>
+
+      					 </Col>
       			</Row>
               </form>
             </div>

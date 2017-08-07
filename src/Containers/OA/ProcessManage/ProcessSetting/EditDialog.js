@@ -82,7 +82,7 @@ class EditDialog extends Component {
                     placeholder="排序号"
                 />
                 <KrField style={{width:262,marginTop:14,marginLeft:28}} name="sex" component="group" label="是否显示" grid={1} requireLabel={false}>
-                    <KrField style={{marginTop:10}} name="sex" label="显示" type="radio" value='MALE' />
+                    <KrField style={{marginTop:10,marginRight:24}} name="sex" label="显示" type="radio" value='MALE' />
                     <KrField style={{marginTop:10}} name="sex" label="不显示" type="radio" value='FAMALE' />
  				</KrField>
                <KrField
