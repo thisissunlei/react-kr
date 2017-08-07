@@ -3,22 +3,17 @@ import './index.less';
 import SliderTree from'../../../SliderTree'
 import Button from '../../../Button'
 import {Http} from 'kr/Utils'
-export default class TreeDialog extends React.Component{
+export default class MultiSwitchDialog extends React.Component{
 	constructor(props,context){
 		super(props,context)
 		this.state = {
 			detail:{
 				orgName:''
 			},
-            leftData:this.props.leftData ||[],
+            leftData:this.initData(this.props.leftData ||[],this.props.rightData||[]),
 			rightData:this.props.rightData||[],
-
-		
-			
-
 		}
 		this.leftSearch();
-		
 	}
 
 	
@@ -32,27 +27,31 @@ export default class TreeDialog extends React.Component{
 		 const {onCancel} = this.props;
 		 onCancel && onCancel();
 	}
-	deletList = () => {
-		let leftData = [].concat(this.state.leftData,this.state.rightData);
-		let rightData = [];
+	deletList = (index) => {
+		let leftData = [].concat(this.state.leftData);
+		console.log(leftData,index);
+		leftData[index].visable=false;
 		this.setState({
 			leftData,
-			rightData,
 		})
 	}
 	listRender = () =>{
-		const {rightData} = this.state;
+		const {leftData} = this.state;
 		
-		let rightList  = rightData.map((item,index)=>{
+		let rightList  = leftData.map((item,index)=>{
 			if(!item.isSearch){
 				return null;
 			}	
-			return <div className = "everyHave">
-					{item.label}
-					<span className="ui-oa-del" onClick = {this.deletList}></span>
-			  </div>
+			if(item.visable){
+				return <div className = "everyHave">
+							{item.label}
+							<span className="ui-oa-del" onClick = {this.deletList.bind(this,index)}></span>
+					</div>
+			}
+			
 	
 		})
+		console.log('rightList',rightList);
 		return rightList;
 		
 	}
@@ -61,12 +60,27 @@ export default class TreeDialog extends React.Component{
     leftCheckClick = (event, index) =>{
 
     }
+	initData=(data,rightData)=>{
+		var param = data.map((item,index)=>{
+			//改变这里
+			if(item){
+				item.visable=false;
+			}
+			for(var i=0;i<rightData.length;i++){
+				if(rightData[i].value==item.value){
+					item.visable=true;
+				}
+			}
+			return item;
+		})
+		return param;
+	}
 	leftLiClick = (item,index) =>{
-		let leftData = [].concat(this.state.leftData,this.state.rightData);
-		let rightData = leftData.splice(index,1);
+		let leftData = [].concat(this.state.leftData);
+		console.log(leftData);
+		leftData[index].visable = true;		
 		this.setState({
 			leftData,
-			rightData,
 		})
 		
 	}
@@ -112,23 +126,26 @@ export default class TreeDialog extends React.Component{
 			if(!item.isSearch){
 				return null;
 			}
-            return <div
+			if(!item.visable){
+				return <div
 						className = "everyHave" 
                         key={index} 
                         onClick={() =>{
                             this.leftLiClick(item,index)
                         }}
                     >
-                            {
+                            {/*{
                                 control=='double'&&
                                 <input type="checkBox"  
                                     onClick={(event) =>{
                                         this.leftCheckClick(event,index)
                                     }}
                                 />
-                            }
+                            }*/}
                         {item.label}
                     </div>
+			}
+            
         })  
 		return leftArr;
     }

@@ -9,7 +9,7 @@ import './index.less';
 import Dialog from '../../Dialog'
 
 import SwitchDialog from './SwitchDialog/index';
-
+import MultiSwitchDialog from './MultiSwitchDialog/index';
 export default class SwitchSlide extends React.Component{
 
 	static propTypes = {
@@ -18,6 +18,7 @@ export default class SwitchSlide extends React.Component{
 		heightStyle:React.PropTypes.object,
 		maxLength:React.PropTypes.number,
 		autoFocus:React.PropTypes.bool,
+		multiSwitch:React.PropTypes.bool,
 	}
 
 	constructor(props,context){
@@ -109,8 +110,9 @@ export default class SwitchSlide extends React.Component{
         } = this.state;
 
 		const {
-            letfData,
+            leftData,
             control,
+			multiSwitch
         } = this.props;
 
 		let {
@@ -194,13 +196,26 @@ export default class SwitchSlide extends React.Component{
 					noMaxHeight = {true}
 					contentStyle ={{ width: '510px',height:'590px'}}
 				 >
-					<SwitchDialog  
-                        letfData = {letfData}
-						control={control}
-                        onSelect = {this.onSelect} 
-                        onSubmit = {this.onSubmit} 
-                        onCancel = {this.onCancel}
-                    />
+				 	{
+						 multiSwitch
+						 ? 
+						 <MultiSwitchDialog  
+							leftData = {leftData}
+							control={control}
+							onSelect = {this.onSelect} 
+							onSubmit = {this.onSubmit} 
+							onCancel = {this.onCancel}
+						/>
+						:
+						<SwitchDialog  
+							leftData = {leftData}
+							control={control}
+							onSelect = {this.onSelect} 
+							onSubmit = {this.onSubmit} 
+							onCancel = {this.onCancel}
+						/>
+					 }
+					
 				</Dialog>
 				</div>
 			 </WrapComponent>
