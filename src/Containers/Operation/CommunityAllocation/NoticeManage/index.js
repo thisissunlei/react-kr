@@ -137,7 +137,6 @@ export default class NoticeManage extends React.Component {
 	
 	renderViewRichText=()=>{
 		let {viewItem}=this.state;
-		
 		return(
 			<div className="u-view-rich-text">
 				<div className="u-view-rich-context">

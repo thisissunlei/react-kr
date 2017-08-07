@@ -92,6 +92,13 @@ class CreateNotice extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
+	viewRichText=()=>{
+		let richText=this.refs.richText._reactInternalInstance._context._reduxForm.values;
+		let {viewRichText} = this.props;
+		viewRichText && viewRichText(richText.richText)
+		
+	}
 	
 	
 	render() {
@@ -159,7 +166,7 @@ class CreateNotice extends React.Component {
 								/>
 
 
-						 <div  className="u-view">
+						 <div  className="u-view" onClick={this.viewRichText}>
 						 	点击预览
 						 </div>
 							
