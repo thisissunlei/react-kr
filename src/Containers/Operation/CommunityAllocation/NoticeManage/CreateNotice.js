@@ -30,6 +30,7 @@ class CreateNotice extends React.Component {
 			groupType:[
 				
 			],
+			richTextValue:''
 		}
 		this.getType();
 	}
@@ -93,10 +94,15 @@ class CreateNotice extends React.Component {
 		onCancel && onCancel();
 	}
 
+	viewChange=(item)=>{
+		this.setState({
+			richTextValue:item
+		})
+	}
 	viewRichText=()=>{
-		let richText=this.refs.richText._reactInternalInstance._context._reduxForm.values;
+		let {richTextValue}=this.state;
 		let {viewRichText} = this.props;
-		viewRichText && viewRichText(richText.richText)
+		viewRichText && viewRichText(richTextValue)
 		
 	}
 	
@@ -163,6 +169,7 @@ class CreateNotice extends React.Component {
 								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
 								defaultValue=''
+								onChange={this.viewChange}
 								/>
 
 

@@ -34,7 +34,7 @@ class EditNotice extends React.Component {
 			ifCity:false,
 			groupType:[],
 			infoList:[],
-			
+			richTextValue:''
 		}
 		this.getType();
 		
@@ -48,10 +48,15 @@ class EditNotice extends React.Component {
 		
 	}
 	
+	viewChange=(item)=>{
+		this.setState({
+			richTextValue:item
+		})
+	}
 	viewRichText=()=>{
-		let richText=this.refs.richText._reactInternalInstance._context._reduxForm.values;
+		let {richTextValue}=this.state;
 		let {viewRichText} = this.props;
-		viewRichText && viewRichText(richText.richText)
+		viewRichText && viewRichText(richTextValue)
 	}
 	getInfo=()=>{
 		var _this=this;
@@ -194,10 +199,10 @@ class EditNotice extends React.Component {
 								component="editor" 
 								name="richText" 
 								label="公告内容"
-								ref="richText" 
 								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
 								defaultValue={infoList.richText}
+								onChange={this.viewChange}
 								/>
 
 
