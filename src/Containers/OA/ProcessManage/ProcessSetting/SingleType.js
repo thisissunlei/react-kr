@@ -40,6 +40,7 @@ import './index.less';
 import SearchForm from './SearchForm';
 import EditDialog from './EditDialog';
 import CreateDrawer from './CreateDrawer';
+import HighSearchForm from './HighSearchForm';
 export default class SingleType extends React.Component {
 
 	constructor(props, context) {
@@ -51,6 +52,7 @@ export default class SingleType extends React.Component {
             newPage: 1,
             openCreateDrawer:false,
 			openEditDialog:false,
+			openHighSearch:false,
             searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -76,12 +78,13 @@ export default class SingleType extends React.Component {
 		this.setState({
 			itemDetail
 		});
-
-		if (type == 'cancle') {
-			this.openCancelDialog();
-		} else if (type == 'unCancle') {
-			this.openUnCancelDialog();
+		if (type == 'set') {
+			this.openSetDialog();
 		}
+	}
+	openSetDialog = () => {
+		var processId =  this.state.itemDetail.processId;
+		window.open(`./#/oa/processManage/processSetting/${processId}/basicSetting`);
 	}
 	openEditDialog = () => {
 		this.setState({
@@ -123,7 +126,21 @@ export default class SingleType extends React.Component {
             searchParams:searchParams,
         })
     }
+	//高级查询
+	openHighSearch = () => {
+		this.setState({
+		openHighSearch: !this.state.openHighSearch
+		})
+	}
 
+	onHighSearchSubmit = (form) => {
+		var form = Object.assign({},this.state.searchParams);
+		form.typeId=this.state.searchParams.typeId;
+		this.setState({
+			searchParams:form
+		})
+		this.openHighSearch();
+	}
 	render() {
         let {item,itemDetail} = this.state;
 		return (
@@ -170,7 +187,9 @@ export default class SingleType extends React.Component {
 										<Button label="新建" type="button" onClick={this.openCreateDrawer} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
 									</Col>
 									<Col md={8} align="right">
-
+										<div className="u-search">
+											<SearchForm onSubmit={this.onSearchSubmit}  openSearch={this.openHighSearch}/>
+										</div>
 									</Col>
 								</Row>
 							</Grid>
@@ -187,6 +206,7 @@ export default class SingleType extends React.Component {
 								<TableHeader>
 									<TableHeaderColumn>流程名称</TableHeaderColumn>
 									<TableHeaderColumn>流程编码</TableHeaderColumn>
+									<TableHeaderColumn>流程类型</TableHeaderColumn>
 									<TableHeaderColumn>顺序</TableHeaderColumn>
 									<TableHeaderColumn>发起流程请求</TableHeaderColumn>
 									<TableHeaderColumn>新办是否显示</TableHeaderColumn>
@@ -199,36 +219,46 @@ export default class SingleType extends React.Component {
 
 								<TableBody>
 									<TableRow>
-										<TableRowColumn name="juniorId" ></TableRowColumn>
-
-										<TableRowColumn name="juniorName"></TableRowColumn>
-										<TableRowColumn name="juniorType"></TableRowColumn>
-										<TableRowColumn name="status"
-											component={(value, oldValue) => {
-
-												if (value == '已封存') {
-													logFlag = true;
-													return (
-														<div style={{ color: '#FF5B52' }}>{value}</div>
-													)
-												} else {
-													logFlag = false;
-													return (
-														<div>{value}</div>
-													)
-												}
-											}}
-										></TableRowColumn>
-
-										<TableRowColumn type="date" name="createTime" component={(value) => {
-											return (
-												<KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
-											)
-										}}> </TableRowColumn>
-										<TableRowColumn>
-                                            <Button label="配置" type="operation" operation="cancle" />
-										</TableRowColumn>
-									</TableRow>
+                                    <TableRowColumn name="wfName"></TableRowColumn>
+                                    <TableRowColumn name="wfCode"></TableRowColumn>
+                                    <TableRowColumn name="wfTypeName"></TableRowColumn>
+                                    <TableRowColumn name="wfOrderNum"></TableRowColumn>
+                                    <TableRowColumn name="allowRequest"
+                                        component={(value, oldValue) => {
+                                            if (value == '不允许') {
+                                                style = { 'color': '#FF5B52' }
+                                            }else{
+                                                style = {}
+                                            }
+                                            return (
+                                                <div style={style}>{value}</div>
+                                            )
+                                        }}
+                                    ></TableRowColumn>
+                                    <TableRowColumn name="newRequestShow"
+                                        component={(value, oldValue) => {
+                                            if (value == '不显示') {
+                                                style = { 'color': '#FF5B52' }
+                                            }else{
+                                                style = {}
+                                            }
+                                            return (
+                                                <div style={style}>{value}</div>
+                                            )
+                                        }}
+                                    ></TableRowColumn>
+                                    <TableRowColumn name="hzCode"></TableRowColumn>
+                                    <TableRowColumn name="descr"></TableRowColumn>
+                                    <TableRowColumn name="operator"></TableRowColumn>
+                                    <TableRowColumn type="date" name="operatorTime" component={(value) => {
+                                        return (
+                                            <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
+                                        )
+                                    }}> </TableRowColumn>
+                                    <TableRowColumn>
+                                        <Button label="配置" type="operation" operation="set" />
+									</TableRowColumn>
+                                </TableRow>
 								</TableBody>
 								<TableFooter></TableFooter>
 							</Table>
@@ -252,6 +282,20 @@ export default class SingleType extends React.Component {
 						}}
 					>
 						<EditDialog detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
+					</Dialog>
+					{/*高级查询*/}
+					<Dialog
+						title="高级查询"
+						modal={true}
+						open={this.state.openHighSearch}
+						onClose={this.openHighSearch}
+						contentStyle={{width:685}}
+					>
+						<HighSearchForm
+							onSubmit={this.onHighSearchSubmit}
+							onCancel={this.openHighSearch}
+							detail={this.state.searchParams}
+						/>
 					</Dialog>
 			</div>
 		);

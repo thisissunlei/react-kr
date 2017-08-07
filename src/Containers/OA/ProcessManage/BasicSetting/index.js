@@ -42,6 +42,10 @@ import DeleteDialog from './DeleteDialog';
 import EditDialog from './EditDialog';
 import Basic from './Basic';
 import InitiatorSetting from './InitiatorSetting';
+import { observer, inject } from 'mobx-react';
+
+@inject("NavModel")
+@observer
 export default class BasicSetting extends React.Component {
 
 	constructor(props, context) {
@@ -60,60 +64,25 @@ export default class BasicSetting extends React.Component {
 		}
 	}
     componentDidMount() {
-		
-		
+		const { NavModel } = this.props;
+		NavModel.setSidebar(false);
 		var _this = this;
-		
-		
 	}
-	onSerchSubmit = (form) => {
-		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.nameAndEmail = form.content;
-		this.setState({
-			searchParams
-		})
-	}
-    //操作相关
-	onOperation = (type, itemDetail) => {
-		this.setState({
-			itemDetail
-		});
-		if (type == 'edit') {
-			this.openEditDialog();
-		} else if (type == 'delete') {
-			this.openDeleteDialog();
-		}
-	}
-    openDeleteDialog = () => {
-		this.setState({
-			openDeleteDialog: !this.state.openDeleteDialog,
-		})
-	}
-	openEditDialog = () => {
-		this.setState({
-			openEditDialog: !this.state.openEditDialog
-		})
-	}
-    openCreateDialog=()=>{
-        this.setState({
-			openCreateDialog: !this.state.openCreateDialog
-		})
-    }
-	onCreatSubmit = (params) => {
+
+	onSaveSubmit = (params) => {
 		var _this = this;
-		Http.request('save-junior', {}, params).then(function (response) {
-			_this.openCreateDialog();
+		var form = Object.assign({},params);
+		form.wfId=this.props.params.processId;
+		Http.request('save-junior', {}, form).then(function (response) {
 			Message.success('新建成功');
-			_this.changeP();
-			_this.getTreeData();
-			_this.getOrganizationDetail();
+			// _this.changeP();
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
 	}
     //返回
     toBack=()=>{
-        
+        window.location.href='./#/oa/processManage/processSetting'
     }
     //改变页码
     changeP=()=>{
@@ -151,7 +120,7 @@ export default class BasicSetting extends React.Component {
                         </div>
                         <div className="department-tab-list">
                             <div className="department-tab department-tab-active" style={{cursor:"default"}}>
-                                流程列表
+                                基础设置
                             </div>
                             
                         </div>
@@ -173,15 +142,13 @@ export default class BasicSetting extends React.Component {
                     </div>
 
 				</div>
-				<TabCs>
+				<TabCs isDetail='process'>
                     <TabC label='基本信息'> 
-                        <Basic
-                        />
+                        <Basic id={this.props.params.processId} onSubmit = {this.onSaveSubmit}/>
                     </TabC> 
                     
                     <TabC label='发起人设置'> 
-                        <InitiatorSetting
-                        />
+                        <InitiatorSetting id={this.props.params.processId} />
                     </TabC> 
                  </TabCs>
             </div>

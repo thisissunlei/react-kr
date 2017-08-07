@@ -77,6 +77,7 @@ const OA_ProcessManage_BasicSetting= (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/OA/ProcessManage/BasicSetting').default)
   }, 'OA_ProcessManage_BasicSetting')
+}
 
 const OA_OrganizationPower_OrgList = (location, callback) => {
   require.ensure([], require => {
@@ -118,6 +119,7 @@ module.exports =()=>{
               <Route path="dealNewThings" getComponent={OA_ProcessManage_DealNewThings}/>
               <Route path="processSetting" getComponent={OA_ProcessManage_ProcessSetting}/>
               <Route path=":processId/basicSetting" getComponent={OA_ProcessManage_BasicSetting}/>
+            </Route>  
             {/*机构分权*/}
             <Route path="organizationPower" getComponent={Basic}>
 						  <Route path="orgList" getComponent={OA_OrganizationPower_OrgList}/>

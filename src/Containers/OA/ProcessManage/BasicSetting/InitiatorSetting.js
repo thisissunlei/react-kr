@@ -64,13 +64,6 @@ export default class SingleType extends React.Component {
 		
 		
 	}
-	onSerchSubmit = (form) => {
-		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.nameAndEmail = form.content;
-		this.setState({
-			searchParams
-		})
-	}
     //操作相关
 	onOperation = (type, itemDetail) => {
 		this.setState({
@@ -97,22 +90,45 @@ export default class SingleType extends React.Component {
 			openCreateDialog: !this.state.openCreateDialog
 		})
     }
-	onCreatSubmit = (params) => {
+	onCreateSubmit = (params) => {
+		var form = Object.assign({},params);
+        let limitId = this.state.itemDetail.limitId;
+		form.limitId=limitId;
+        form.wfId=this.props.params.processId;
 		var _this = this;
-		Http.request('save-junior', {}, params).then(function (response) {
+		Http.request('process-authority-add', {}, form).then(function (response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
 			_this.changeP();
-			_this.getTreeData();
-			_this.getOrganizationDetail();
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
 	}
-    //返回
-    toBack=()=>{
-        
-    }
+    onEditSubmit = (params) => {
+        var form = Object.assign({},params);
+        let limitId = this.state.itemDetail.limitId;
+		form.limitId=limitId;
+        form.wfId=this.props.params.processId;
+		var _this = this;
+		Http.request('process-authority-edit', {}, form).then(function (response) {
+			_this.openCreateDialog();
+			Message.success('编辑成功');
+			_this.changeP();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+	}
+    onDeleteSubmit = () => {
+        let limitId = this.state.itemDetail.limitId;
+		var _this = this;
+		Http.request('process-authority-detail', {}, {limitId:limitId}).then(function (response) {
+			_this.openDeleteDialog();
+			Message.success('删除成功');
+			_this.changeP();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+	}
     //改变页码
     changeP=()=>{
         var timer = new Date();
@@ -134,11 +150,11 @@ export default class SingleType extends React.Component {
 	render() {
         let {item,itemDetail} = this.state;
 		return (
-			<div style={{marginTop:30}}>
+			<div style={{marginTop:30,paddingLeft:45}}>
                 <Grid style={{ marginBottom: 20, marginTop: 20 }}>
                     <Row>
                         <Col md={4} align="left" >
-                            <Button label="新建权限" type="button" onClick={this.openCreateDrawer} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
+                            <Button label="新建权限" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
                         </Col>
                         <Col md={8} align="right">
 
@@ -156,48 +172,22 @@ export default class SingleType extends React.Component {
                     onPageChange={this.onPageChange}
                 >
                     <TableHeader>
-                        <TableHeaderColumn>流程名称</TableHeaderColumn>
-                        <TableHeaderColumn>流程编码</TableHeaderColumn>
-                        <TableHeaderColumn>顺序</TableHeaderColumn>
-                        <TableHeaderColumn>发起流程请求</TableHeaderColumn>
-                        <TableHeaderColumn>新办是否显示</TableHeaderColumn>
-                        <TableHeaderColumn>慧正流程唯一标识</TableHeaderColumn>
-                        <TableHeaderColumn>描述</TableHeaderColumn>
-                        <TableHeaderColumn>操作人</TableHeaderColumn>
-                        <TableHeaderColumn>操作时间</TableHeaderColumn>
+                        <TableHeaderColumn>类型</TableHeaderColumn>
+                        <TableHeaderColumn>选择范围</TableHeaderColumn>
+                        <TableHeaderColumn>限定条件</TableHeaderColumn>
+                        <TableHeaderColumn>是否启用</TableHeaderColumn>
                         <TableHeaderColumn>操作</TableHeaderColumn>
                     </TableHeader>
 
                     <TableBody>
                         <TableRow>
                             <TableRowColumn name="juniorId" ></TableRowColumn>
-
+                            <TableRowColumn name="juniorName"></TableRowColumn>
                             <TableRowColumn name="juniorName"></TableRowColumn>
                             <TableRowColumn name="juniorType"></TableRowColumn>
-                            <TableRowColumn name="status"
-                                component={(value, oldValue) => {
-
-                                    if (value == '已封存') {
-                                        logFlag = true;
-                                        return (
-                                            <div style={{ color: '#FF5B52' }}>{value}</div>
-                                        )
-                                    } else {
-                                        logFlag = false;
-                                        return (
-                                            <div>{value}</div>
-                                        )
-                                    }
-                                }}
-                            ></TableRowColumn>
-
-                            <TableRowColumn type="date" name="createTime" component={(value) => {
-                                return (
-                                    <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
-                                )
-                            }}> </TableRowColumn>
                             <TableRowColumn>
-                                <Button label="配置" type="operation" operation="cancle" />
+                                <Button label="编辑" type="operation" operation="edit" />
+                                <Button label="删除" type="operation" operation="delete" />
                             </TableRowColumn>
                         </TableRow>
                     </TableBody>
@@ -212,7 +202,7 @@ export default class SingleType extends React.Component {
                     width: 685
                 }}
             >
-                <CreateDialog detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
+                <CreateDialog detail={this.state.searchParams} onSubmit={this.onCreateSubmit} onCancel={this.openCreateDialog} />
             </Dialog>
             <Dialog
                 title="编辑权限"

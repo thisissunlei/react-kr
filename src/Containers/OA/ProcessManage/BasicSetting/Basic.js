@@ -46,6 +46,7 @@ class Basic extends Component {
         //     Store.dispatch(change('Createdialog','orgType','DEPARTMENT'));
         // })
         Store.dispatch(change('Createdialog','sex','MALE'))
+        Store.dispatch(change('Createdialog','sex','MALE'))
     }
     onCancel = () => {
         const {onCancel} = this.props;
@@ -67,14 +68,34 @@ class Basic extends Component {
         return (
 
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:636,marginTop:20}}  >
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:636,marginTop:20,paddingLeft:12}}  >
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
                     grid={1/2}
-                    label="流程类型名称"
+                    label="流程名称"
                     component="input"
-                    name="orgName"
+                    name="wfName"
+                    requireLabel={true}
+                    placeholder="请输入流程类型名称"
+                />
+                <KrField
+                    style={{width:262,marginTop:6}}
+                    inline={false}
+                    label="流程编码"
+                    grid={1/2}
+                    component="input"
+                    name="wfCode"
+                    requireLabel={true}
+                    placeholder="排序号"
+                />
+                <KrField
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
+                    inline={false}
+                    grid={1/2}
+                    label="流程类型"
+                    component="input"
+                    name="wfTypeId"
                     requireLabel={true}
                     placeholder="请输入流程类型名称"
                 />
@@ -84,21 +105,46 @@ class Basic extends Component {
                     label="排序号"
                     grid={1/2}
                     component="input"
-                    name="code"
+                    name="wfOrderNum"
                     requireLabel={true}
                     placeholder="排序号"
                 />
-                <KrField style={{width:262,marginTop:14,marginLeft:28}} name="sex" component="group" label="是否显示" grid={1} requireLabel={false}>
-                    <KrField style={{marginTop:10}} name="sex" label="显示" type="radio" value='MALE' />
-                    <KrField style={{marginTop:10}} name="sex" label="不显示" type="radio" value='FAMALE' />
+                <KrField
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
+                    inline={false}
+                    grid={1/2}
+                    label="慧正流程唯一标识"
+                    component="input"
+                    name="hzCode"
+                    requireLabel={true}
+                    placeholder="请输入流程类型名称"
+                />
+                <KrField
+                    style={{width:262,marginTop:6}}
+                    inline={false}
+                    label="对接人"
+                    grid={1/2}
+                    component="select"
+                    name="hrmResourceId"
+                    requireLabel={true}
+                    placeholder="排序号"
+                />
+                
+                <KrField style={{width:262,marginTop:14,marginLeft:28}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={true}>
+                    <KrField style={{marginTop:10}} name="allowRequest" label="允许" type="radio" value={true} />
+                    <KrField style={{marginTop:10}} name="allowRequest" label="不允许" type="radio" value={false} />
+ 				</KrField>
+                 <KrField style={{width:262,marginTop:14,marginLeft:34}} name="newRequestShow" component="group" label="新办是否显示" grid={1} requireLabel={true}>
+                    <KrField style={{marginTop:10}} name="newRequestShow" label="显示" type="radio" value={true} />
+                    <KrField style={{marginTop:10}} name="newRequestShow" label="不显示" type="radio" value={false} />
  				</KrField>
                <KrField
                   grid={1}
                   left={30}
-                  name="desc"
+                  name="descr"
                   component="textarea"
-                  maxSize={50}
-                  style={{marginTop:12,height:78,width:590}}
+                  maxSize={200}
+                  style={{marginTop:12,height:56,width:590}}
                   label="描述"
                 />
                 <Row style={{marginTop:78,marginBottom:6}}>
@@ -106,20 +152,12 @@ class Basic extends Component {
       						<ButtonGroup>
       							<div className='ui-btn-center'>
       								<Button
-      										label="确定"
+      										label="保存"
       										type="submit"
       										height={34}
       										width={90}
       								/>
       							</div>
-      							<Button
-      									label="取消"
-      									type="button"
-      									onTouchTap={this.onCancel}
-      									cancle={true}
-      									height={33}
-      									width={90}
-      							/>
       						</ButtonGroup>
       				</Col>
       			</Row>

@@ -366,9 +366,14 @@ var OAApi = {
       url:'/api/krspace-erp-web/new/request/list',
       method: 'get'
   },
-  //流程--流程类型树
+  //流程--流程类型列表
   'process-typetree':{
       url:'/api/krspace-erp-web/wf/type/list?name={name}',
+      method: 'get'
+  },
+  //流程--流程类型树
+  'process-type-list':{
+      url:'/api/krspace-erp-web/wf/type/page?name={name}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
   //流程--新增流程类型
@@ -381,6 +386,71 @@ var OAApi = {
       url:'/api/krspace-erp-web/wf/type/edit',
       method: 'post'
   },
+  //流程--流程类型详情
+  'process-type-detail':{
+      url:'/api/krspace-erp-web/wf/type/detail?typeId={typeId}',
+      method: 'get'
+  },
+
+
+
+  //流程--分页获取流程列表
+  'process-list':{
+      url:'/api/krspace-erp-web/wf/base/page?allowRequest={allowRequest}&newRequestShow={newRequestShow}&wfName={wfName}&page={page}&pageSize={pageSize}&typeId={typeId}&wfCode={wfCode}',
+      method: 'get'
+  },
+  //流程--新建流程
+  'process-add':{
+      url:'/api/krspace-erp-web/wf/base/add',
+      method: 'post'
+  },
+  //流程--新建流程
+  'process-add':{
+      url:'/api/krspace-erp-web/wf/base/add',
+      method: 'post'
+  },
+  //流程--编辑流程
+  'process-edit':{
+      url:'/api/krspace-erp-web/wf/base/edit',
+      method: 'post'
+  },
+  //流程--查看流程
+  'process-detail':{
+      url:'/api/krspace-erp-web/wf/base/detail?wfId={wfId}',
+      method: 'get'
+  },
+
+  
+
+
+  //流程--权限--列表
+  'process-authority-list':{
+      url:'/api/krspace-erp-web/wf/base/auth/list?wfId={wfId}',
+      method: 'get'
+  },
+  //流程--权限--新建
+  'process-authority-add':{
+      url:'/api/krspace-erp-web/wf/base/auth/add',
+      method: 'post'
+  },
+  //流程--权限--编辑
+  'process-authority-edit':{
+      url:'/api/krspace-erp-web/wf/base/auth/edit',
+      method: 'post'
+  },
+  //流程--权限--查看
+  'process-authority-detail':{
+      url:'/api/krspace-erp-web/wf/base/auth/detail?limitId={limitId}',
+      method: 'get'
+  },
+  //流程--权限--删除
+  'process-authority-detail':{
+      url:'/api/krspace-erp-web/wf/base/auth/delete',
+      method: 'post'
+  },
+
+
+
   //角色管理－列表
   'role-list':{
       url:'/api/krspace-erp-web/hrm/role/list?name={name}&page={page}&pageSize={pageSize}',

@@ -41,6 +41,7 @@ import SearchForm from './SearchForm';
 import EditDialog from './EditDialog';
 import CreateDialog from './Createdialog';
 import CreateDrawer from './CreateDrawer';
+import HighSearchForm from './HighSearchForm';
 export default class AllTypes extends React.Component {
 
 	constructor(props, context) {
@@ -96,9 +97,8 @@ export default class AllTypes extends React.Component {
 		})
 	}
     openSetDialog = () => {
-		this.setState({
-			openSetDialog: !this.state.openSetDialog
-		})
+        var processId =  this.state.itemDetail.processId;
+		window.open(`./#/oa/processManage/processSetting/${processId}/basicSetting`);
 	}
 	openEditDialog = () => {
 		this.setState({
@@ -175,7 +175,21 @@ export default class AllTypes extends React.Component {
             searchParams:searchParams,
         })
     }
+    //高级查询
+	openHighSearch = () => {
+		this.setState({
+		openHighSearch: !this.state.openHighSearch
+		})
+	}
 
+	onHighSearchSubmit = (form) => {
+		var form = Object.assign({},this.state.searchParams);
+		form.typeId=this.state.searchParams.typeId;
+		this.setState({
+			searchParams:form
+		})
+		this.openHighSearch();
+	}
 	render() {
         let {item,itemDetail} = this.state;
 		return (
@@ -235,19 +249,18 @@ export default class AllTypes extends React.Component {
 
                             <TableBody>
                                 <TableRow>
-                                    <TableRowColumn name="juniorId" ></TableRowColumn>
+                                    <TableRowColumn name="name" ></TableRowColumn>
+                                    <TableRowColumn name="orderNum"></TableRowColumn>
+                                    <TableRowColumn name="descr"></TableRowColumn>
+                                    <TableRowColumn name="operator"></TableRowColumn>
 
-                                    <TableRowColumn name="juniorName"></TableRowColumn>
-                                    <TableRowColumn name="juniorType"></TableRowColumn>
-                                    <TableRowColumn name="status"></TableRowColumn>
-
-                                    <TableRowColumn type="date" name="createTime" component={(value) => {
+                                    <TableRowColumn type="operatorTime" name="createTime" component={(value) => {
                                         return (
                                             <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
                                         )
                                     }}> </TableRowColumn>
                                     <TableRowColumn>
-                                        <Button label="配置" type="operation" operation="edit" />
+                                        <Button label="编辑" type="operation" operation="edit" />
                                     </TableRowColumn>
                                 </TableRow>
                             </TableBody>
@@ -265,7 +278,7 @@ export default class AllTypes extends React.Component {
                                 </Col>
                                 <Col md={8} align="right">
                                     <div className="u-search">
-                                        <SearchForm onSubmit={this.onSerchSubmit} />
+                                        <SearchForm onSubmit={this.onSearchSubmit}  openSearch={this.openHighSearch}/>
                                     </div>
                                 </Col>
                             </Row>
@@ -283,6 +296,7 @@ export default class AllTypes extends React.Component {
                             <TableHeader>
                                 <TableHeaderColumn>流程名称</TableHeaderColumn>
                                 <TableHeaderColumn>流程编码</TableHeaderColumn>
+                                <TableHeaderColumn>流程类型</TableHeaderColumn>
                                 <TableHeaderColumn>顺序</TableHeaderColumn>
                                 <TableHeaderColumn>发起流程请求</TableHeaderColumn>
                                 <TableHeaderColumn>新办是否显示</TableHeaderColumn>
@@ -295,12 +309,13 @@ export default class AllTypes extends React.Component {
 
                             <TableBody>
                                 <TableRow>
-                                    <TableRowColumn name="hrmId"></TableRowColumn>
-                                    <TableRowColumn name="departName"></TableRowColumn>
-                                    <TableRowColumn name="departName"></TableRowColumn>
-                                    <TableRowColumn name="status"
+                                    <TableRowColumn name="wfName"></TableRowColumn>
+                                    <TableRowColumn name="wfCode"></TableRowColumn>
+                                    <TableRowColumn name="wfTypeName"></TableRowColumn>
+                                    <TableRowColumn name="wfOrderNum"></TableRowColumn>
+                                    <TableRowColumn name="allowRequest"
                                         component={(value, oldValue) => {
-                                            if (value == '未开通') {
+                                            if (value == '不允许') {
                                                 style = { 'color': '#FF5B52' }
                                             }else{
                                                 style = {}
@@ -310,9 +325,9 @@ export default class AllTypes extends React.Component {
                                             )
                                         }}
                                     ></TableRowColumn>
-                                    <TableRowColumn name="status"
+                                    <TableRowColumn name="newRequestShow"
                                         component={(value, oldValue) => {
-                                            if (value == '未开通') {
+                                            if (value == '不显示') {
                                                 style = { 'color': '#FF5B52' }
                                             }else{
                                                 style = {}
@@ -322,12 +337,12 @@ export default class AllTypes extends React.Component {
                                             )
                                         }}
                                     ></TableRowColumn>
-                                    <TableRowColumn name="userName"></TableRowColumn>
-                                    <TableRowColumn name="email"></TableRowColumn>
-                                    <TableRowColumn name="email"></TableRowColumn>
-                                    <TableRowColumn type="date" name="entryTime" component={(value) => {
+                                    <TableRowColumn name="hzCode"></TableRowColumn>
+                                    <TableRowColumn name="descr"></TableRowColumn>
+                                    <TableRowColumn name="operator"></TableRowColumn>
+                                    <TableRowColumn type="date" name="operatorTime" component={(value) => {
                                         return (
-                                            <KrDate value={value} format="yyyy-mm-dd" />
+                                            <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
                                         )
                                     }}> </TableRowColumn>
                                     <TableRowColumn>
@@ -370,6 +385,20 @@ export default class AllTypes extends React.Component {
 				>
 					<CreateDrawer detail={this.state.searchParams} onSubmit={this.onCreatDrawerSubmit} toBasicSetting={this.toBasicSetting} onCancel={this.openCreateDrawer} />
 				</Drawer>
+                {/*高级查询*/}
+				<Dialog
+						title="高级查询"
+						modal={true}
+						open={this.state.openHighSearch}
+						onClose={this.openHighSearch}
+						contentStyle={{width:685}}
+					>
+                    <HighSearchForm
+                                onSubmit={this.onHighSearchSubmit}
+                                onCancel={this.openHighSearch}
+                                detail={this.state.searchParams}
+                    />
+                </Dialog>
 			</div>
 		);
 	}

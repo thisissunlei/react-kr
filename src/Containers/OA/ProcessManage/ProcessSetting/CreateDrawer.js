@@ -86,21 +86,21 @@ class CreateDrawer extends React.Component {
 					<CircleStyleTwo num="1" info="基本信息">
 						<KrField
 								style={{width:260}}
-								name="customerId"
+								name="wfName"
 								label="流程名称"
 								component="input"
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="mainBillId"
+								name="wfCode"
 								component="input"
 								label="流程编码"
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260}}
-								name="payAccount"
+								name="wfTypeId"
 								type="text"
 								component="input"
 								label="流程类型"
@@ -108,7 +108,7 @@ class CreateDrawer extends React.Component {
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="payAccount"
+								name="wfOrderNum"
 								type="text"
 								component="input"
 								label="排序号"
@@ -116,23 +116,26 @@ class CreateDrawer extends React.Component {
 						/>
 						<KrField
 								style={{width:260}}
-								name="payAccount"
+								name="hzCode"
 								type="text"
 								component="input"
 								label="慧正流程唯一标识"
 								requireLabel={true}
 						/>
+					
 						<KrField
-								style={{width:260,marginLeft:25}}
-								name="accountId"
-								component="select"
-								label="对接人"
-								requireLabel={true}
-						/>
+                            grid={1/2}
+                            style={{width:260,marginLeft:25}}
+                            name="hrmResourceId"
+                            component="treePersonnel"
+                            label="对接人"
+                            requireLabel={true}
+                            ajaxUrlName = "get-personnel-tree"
+                        />
 						
 						<KrField
 								style={{width:548}}
-								name="remark"
+								name="descr"
 								component="textarea"
 								label="描述"
 								maxSize={200}

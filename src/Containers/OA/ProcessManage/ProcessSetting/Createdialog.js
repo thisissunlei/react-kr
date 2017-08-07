@@ -74,11 +74,11 @@ class Createdialog extends Component {
                     grid={1/2}
                     label="流程类型名称"
                     component="input"
-                    name="orgName"
+                    name="name"
                     requireLabel={true}
                     placeholder="请输入流程类型名称"
                 />
-                <KrField
+                {/*<KrField
                     style={{width:262,marginTop:6}}
                     inline={false}
                     label="排序号"
@@ -87,10 +87,10 @@ class Createdialog extends Component {
                     name="code"
                     requireLabel={true}
                     placeholder="排序号"
-                />
-                <KrField style={{width:262,marginTop:14,marginLeft:28}} name="sex" component="group" label="是否显示" grid={1} requireLabel={false}>
-                    <KrField style={{marginTop:10}} name="sex" label="显示" type="radio" value='MALE' />
-                    <KrField style={{marginTop:10}} name="sex" label="不显示" type="radio" value='FAMALE' />
+                />*/}
+                <KrField style={{width:262,marginTop:14,marginLeft:28}} name="enable" component="group" label="是否显示" grid={1} requireLabel={false}>
+                    <KrField style={{marginTop:10}} name="enable" label="显示" type="radio" value={true} />
+                    <KrField style={{marginTop:10}} name="enable" label="不显示" type="radio" value={false} />
  				</KrField>
                <KrField
                   grid={1}

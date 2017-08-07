@@ -52,12 +52,11 @@ class Createdialog extends Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
-        
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
-        params.dimId = this.props.detail.dimId;
-        params.orgId = this.props.detail.orgId;
-        params.superOrgType = this.props.detail.orgType;
+        // params.dimId = this.props.detail.dimId;
+        // params.orgId = this.props.detail.orgId;
+        // params.superOrgType = this.props.detail.orgType;
         onSubmit && onSubmit(params);
     }
 
