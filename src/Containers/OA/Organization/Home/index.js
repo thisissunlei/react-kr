@@ -79,6 +79,7 @@ export default class Home extends React.Component {
       <div onClick={() =>{
           this.toLabour(item)
         }} className="item" key={index} style={style}>
+        {item.isMainDim && <span className="main-dim"></span>}
         <span className="item-edit" onClick={(event)=>{
             event.stopPropagation();
             this.openEdit(item)

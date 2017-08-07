@@ -1,6 +1,22 @@
-
 [
-  {"value":"INTERNAL","label":"内部"},
-  {"value":"EXTERNAL","label":"外部"},
-  {"value":"INTERN","label":"实习"}
+    {
+        "label": "正式工",
+        "value": "FORMAL"
+    },
+    {
+        "label": "劳务工",
+        "value": "EMPLOYEES"
+    },
+    {
+        "label": "实习生",
+        "value": "INTERN"
+    },
+    {
+        "label": "稿酬",
+        "value": "REMUNERATION"
+    },
+    {
+        "label": "兼职",
+        "value": "PART_TIME"
+    }
 ]

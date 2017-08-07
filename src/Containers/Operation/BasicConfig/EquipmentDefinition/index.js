@@ -218,7 +218,7 @@ export default class EquipmentDefinition extends React.Component {
         content : "",
         realPage :1,
         equipmentParams:{
-         
+          page:1,
           communityId :values.communityId || "",
           hardwareId : values.value || "",
           floor : values.floor || "",
@@ -232,8 +232,9 @@ export default class EquipmentDefinition extends React.Component {
         filter : "deviceCode",
         content : "",
         timer : new Date(),
+        realPage:1,
         equipmentParams:{
-          
+          page:1,
           communityId :values.communityId || "",
           deviceCode : values.value || "",
           floor : values.floor || "",
@@ -321,7 +322,15 @@ export default class EquipmentDefinition extends React.Component {
               deviceCode: "",
               page : _this.state.realPage,
               pageSize: 15,
-              timer : new Date()
+              timer : new Date(),
+              //上线成功后要将原来的查询条件带上
+              communityId: _this.state.equipmentParams.communityId,
+              deviceCode :_this.state.equipmentParams.deviceCode || '',
+              hardwareId :_this.state.equipmentParams.hardwareId || '',
+              floor :_this.state.equipmentParams.floor||'',
+              functionId :_this.state.equipmentParams.functionId||'',
+              propertyId :_this.state.equipmentParams.propertyId||'',
+              typeId :_this.state.equipmentParams.typeId||''
             }
           })
         }else{
@@ -406,7 +415,15 @@ export default class EquipmentDefinition extends React.Component {
             content: '',
             page : _this.state.realPage,
             pageSize: 15,
-            timer : new Date()
+            timer : new Date(),
+            //上线成功后要将原来的查询条件带上
+            communityId: _this.state.equipmentParams.communityId,
+            deviceCode :_this.state.equipmentParams.deviceCode || '',
+            hardwareId :_this.state.equipmentParams.hardwareId || '',
+            floor :_this.state.equipmentParams.floor||'',
+            functionId :_this.state.equipmentParams.functionId||'',
+            propertyId :_this.state.equipmentParams.propertyId||'',
+            typeId :_this.state.equipmentParams.typeId||''
           },
         })
       }).catch(function(err){
@@ -419,7 +436,15 @@ export default class EquipmentDefinition extends React.Component {
             content: '',
             page : _this.state.realPage,
             pageSize: 15,
-            timer : new Date()
+            timer : new Date(),
+            //上线成功后要将原来的查询条件带上
+            communityId: _this.state.equipmentParams.communityId|| '',
+            deviceCode :_this.state.equipmentParams.deviceCode || '',
+            hardwareId :_this.state.equipmentParams.hardwareId || '',
+            floor :_this.state.equipmentParams.floor||'',
+            functionId :_this.state.equipmentParams.functionId||'',
+            propertyId :_this.state.equipmentParams.propertyId||'',
+            typeId :_this.state.equipmentParams.typeId||''
           },
         })
 
@@ -445,7 +470,15 @@ export default class EquipmentDefinition extends React.Component {
             content: '',
             page : _this.state.realPage,
             pageSize: 15,
-            timer : new Date()
+            timer : new Date(),
+            //上线成功后要将原来的查询条件带上
+            communityId: _this.state.equipmentParams.communityId||'',
+            deviceCode :_this.state.equipmentParams.deviceCode || '',
+            hardwareId :_this.state.equipmentParams.hardwareId || '',
+            floor :_this.state.equipmentParams.floor||'',
+            functionId :_this.state.equipmentParams.functionId||'',
+            propertyId :_this.state.equipmentParams.propertyId||'',
+            typeId :_this.state.equipmentParams.typeId||''
           },
         })
       }).catch(function(err){
@@ -458,7 +491,15 @@ export default class EquipmentDefinition extends React.Component {
             content: '',
             page : _this.state.realPage,
             pageSize: 15,
-            timer : new Date()
+            timer : new Date(),
+            //上线成功后要将原来的查询条件带上
+            communityId: _this.state.equipmentParams.communityId || '',
+            deviceCode :_this.state.equipmentParams.deviceCode || '',
+            hardwareId :_this.state.equipmentParams.hardwareId || '',
+            floor :_this.state.equipmentParams.floor||'',
+            functionId :_this.state.equipmentParams.functionId||'',
+            propertyId :_this.state.equipmentParams.propertyId||'',
+            typeId :_this.state.equipmentParams.typeId||''
           },
         })
      });

@@ -81,6 +81,7 @@ class CustomerList extends React.Component {
          State.orderReady=response;
 		}).catch(function(err) {
 			Message.error(err.message);
+			
 		});
 	}
     //招商和个人的高级查询的数据准备
