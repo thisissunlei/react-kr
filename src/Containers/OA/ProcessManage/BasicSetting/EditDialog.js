@@ -169,6 +169,18 @@ class EditDialog extends Component {
                             checkable = {true}
                             valueText={(this.state.infoList.range && this.state.infoList[0] && this.state.infoList[0].orgName)?this.state.infoList:[{orgName:''}]}
                         />
+                        <KrField
+                            grid={1/2}
+                            style={{width:262}}
+                            name="rangeId"
+                            {/*letfData={positionList}*/}
+                            component="switchSlide"
+                            label="选择机构"
+                            control='single'
+                            requireLabel={true}
+                            multiSwitch={true}
+                            {/*valueText = {this.state.infoList.range}*/}
+                        />
                     }
                     {this.state.rangeType == '4'
                         &&

@@ -130,11 +130,13 @@ class Createdialog extends Component {
                             grid={1/2}
                             style={{width:262}}
                             name="rangeId"
-                            component="treeDivision"
+                            {/*letfData={positionList}*/}
+                            component="switchSlide"
                             label="选择机构"
-                            ajaxUrlName = "role-sub-tree"
+                            control='single'
                             requireLabel={true}
-                            checkable = {true}
+                            multiSwitch={true}
+                            {/*valueText = {this.state.infoList.range}*/}
                         />
                     }
                     {this.state.rangeType == '4'
