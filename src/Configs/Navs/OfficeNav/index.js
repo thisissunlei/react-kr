@@ -21,9 +21,9 @@ module.exports = [
 				menuCode: 'hrm_resourcesList_incumbency',
 				menuItems: [
 					{
-						primaryText: '发起流程',
+						primaryText: '新办事宜',
 						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/office/officeBackground/todo',
+						router: '/permission/processManage/dealNewThings',
 					},
 				]	
 			}, 

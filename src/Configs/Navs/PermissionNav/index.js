@@ -93,15 +93,16 @@ module.exports = [
 				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',
 				menuItems: [
+					
 					{
-						primaryText: '新办事宜',
-						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/permission/processManage/dealNewThings',
-					},
-					{
-						primaryText: '流程配置',
+						primaryText: '流程列表',
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/permission/processManage/processSetting',
+					},
+					{
+						primaryText: '慧正流程',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '',
 					},
 				]
 			}, 
