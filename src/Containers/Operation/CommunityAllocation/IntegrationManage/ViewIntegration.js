@@ -8,7 +8,8 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Tooltip
+	Tooltip,
+	KrDate
 } from 'kr-ui';
 import './index.less';
 
@@ -63,6 +64,7 @@ export default class ViewIntegration extends React.Component {
 				              <TableHeaderColumn>社区</TableHeaderColumn>
 				              <TableHeaderColumn>记录描述</TableHeaderColumn>
 				              <TableHeaderColumn>积分</TableHeaderColumn>
+				              <TableHeaderColumn>创建时间</TableHeaderColumn>
 				              <TableHeaderColumn>操作人</TableHeaderColumn>
 				          	</TableHeader>
 
@@ -123,6 +125,12 @@ export default class ViewIntegration extends React.Component {
 											}}></TableRowColumn>
 					                <TableRowColumn name="pointAmount" ></TableRowColumn>
 					                <TableRowColumn 
+					                	name="cDate" 
+					                	component={(value) => {
+					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+					                    }}
+					                ></TableRowColumn>
+					                <TableRowColumn 
 					                		name="operater" 
 					                		component={(value,oldValue)=>{
 												var TooltipStyle=""
@@ -139,6 +147,7 @@ export default class ViewIntegration extends React.Component {
 												 	</div>
 												)
 											}} ></TableRowColumn>
+									
 					               </TableRow>
 					        </TableBody>
 			        		<TableFooter></TableFooter>
