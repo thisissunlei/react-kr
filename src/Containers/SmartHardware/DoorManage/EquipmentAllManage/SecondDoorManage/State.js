@@ -240,8 +240,8 @@ State.freshSearchEquipmentPage = action(function(){
 })
 
 //分配设备所在位置（添加）
-State.addEquipment = action(function(param){
-	
+State.equipmentAddLocation = action(function(param){
+	console.log("param",param);
 	// Http.request('addEquipmentUrl', param).then(function(response) {
 	// 	Message.success("添加成功");
 	// 	State.freshPage();
@@ -251,6 +251,8 @@ State.addEquipment = action(function(param){
 	// 	Message.error(err.message);
 	// });
 })
+
+
 
 
 

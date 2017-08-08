@@ -47,10 +47,13 @@ export default class EquipmentSearch extends React.Component{
 		}	
 	}
 
+	addEquipmentFun=(thisParams,item)=>{
+		State.equipmentAddLocation(thisParams.hardId);
+	}
 	renderTableBody=()=>{
+		let _this = this;
 		var search_equipment_list = State.searchEquipmentList;
 		var DOM_list = search_equipment_list.map(function(item,index){
-			console.log("item",item.IP,"index",index);
 			return(
 				<div className="table-item" key={index}>
 					<div  className="table-item-index">{item.hardId}</div>
@@ -58,8 +61,7 @@ export default class EquipmentSearch extends React.Component{
 					<div  className="table-item-index">{item.APPVersion}</div>
 					<div  className="table-item-index">{item.marker}</div>
 					<div  className="table-item-index">{item.marker}</div>
-					<div  className="table-item-index">添加</div>
-
+					<div  className="table-item-index table-item-last" onClick={_this.addEquipmentFun.bind(this,item)}>添加</div>
 				</div>
 			)
 		});
