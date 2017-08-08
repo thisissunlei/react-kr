@@ -24,20 +24,8 @@ class NewCreateDefinitionForm extends React.Component{
 			locationOpen:false,
 			floorsOptions:[],
 			locationOptions:[],
-			confirmSubmit : false,
-			doorNumHas:false,
-			doorNumHasStatus :false,
 			communityId :'',
 			propertyOption :[{label:"",value:""}],
-			hardwareidHasStatus : false,
-			isOnlines:true,
-			showTitle :'',
-			deviceCode:'',
-			hardwareId:'',
-			typeId : '',
-			doorType :  '',
-			functionId :  '',
-			roomId : ''
 		}
 	}
 	onCancel=()=>{
@@ -74,16 +62,7 @@ class NewCreateDefinitionForm extends React.Component{
     	}).catch(function(err){
     	})
   	}
-  	//选择类型
-  	onchooseType=(typeId)=>{
-  		this.setState({
-  			typeId :typeId.value
-  		})
-  		if(typeId == null){
-			return;
-		}
-    	Store.dispatch(change('NewCreateDefinitionForm','typeId',typeId.value));
-  	}
+  	
   	//选择属性(会议室／大门)
 	onchooseProperty=(doorType)=>{
 		console.log("doorType",doorType);
@@ -116,17 +95,12 @@ class NewCreateDefinitionForm extends React.Component{
   				locationOpen : false
   			})
   		}
-  		this.setState({
-  			doorType : doorType.value
-  		})
+  		
   		Store.dispatch(change('NewCreateDefinitionForm','doorType',doorType.value));
   	}
 	
 	// 选择对应位置
 	onchooseCorrespondingLocation=(roomId)=>{
-		this.setState({
-			roomId : roomId.value
-		})
 		if(roomId == null){
 			return;
 		}
@@ -152,11 +126,7 @@ class NewCreateDefinitionForm extends React.Component{
 		}
 		
 	}
-	onChangeTitle=(showTitle)=>{
-		this.setState({
-			showTitle : showTitle 
-		})
-	}
+	
 	
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
@@ -183,8 +153,6 @@ class NewCreateDefinitionForm extends React.Component{
 		let hardwareIdparams = {
 			deviceId :values.deviceId
 		}
-		console.log("hardwareIdparams",hardwareIdparams)
-		console.log("提交");
 
 		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
 
@@ -313,13 +281,13 @@ const validate = values=>{
 		errors.floor = '楼层为必填项';
 	}
 	if(!values.title || /^\s+$/.test(values.title)){
-		errors.showTitle = '展示标题为必填项';
+		errors.title = '展示标题为必填项';
 	}
 	if(values.title && values.title.length>13){
-		errors.showTitle = '展示标题最多13个字符';
+		errors.title = '展示标题最多13个字符';
 	}
 	if(!values.doorCode || /^\s+$/.test(values.doorCode)){
-		errors.deviceCode = '门编号为必填项';
+		errors.doorCode = '门编号为必填项';
 	}
 	if(values.doorCode  && values.doorCode.length>50){
 		errors.doorCode = '门编号最多50个字符';
