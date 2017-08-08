@@ -80,17 +80,39 @@ export default class SwitchSlide extends React.Component{
 		this.dlogSwidch();
 	}
 	onSubmit = (data) =>{
-		
-		if( !data || !data.label ){
-			return ;
+		const multSwitch = this.props.multiSwitch;
+		if(multiSwitch){
+			if( !data || !data[0].label ){
+				return ;
+			}
+			
+			let {input} = this.props;
+			input.onChange(data);
+			var valueText = [];
+			if(data.length){
+				data.map((item,index)=>{
+					valueText.push(item.label)
+				})
+			}
+			valueText = valueText.join(",");
+			console.log("valueText",valueText);
+			this.setState({
+				data,
+				valueText:valueText || '请输入'
+			})			
+		}else{
+			if( !data || !data.label ){
+				return ;
+			}
+			
+			let {input} = this.props;
+			input.onChange(data);
+			this.setState({
+				data,
+				valueText:data.label
+			})
 		}
 		
-		let {input} = this.props;
-		input.onChange(data);
-		this.setState({
-			data,
-			valueText:data.label
-		})
 		this.dlogSwidch();
 	}
 
