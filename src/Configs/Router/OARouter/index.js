@@ -73,6 +73,9 @@ const OA_OrganizationPower_Role = (location, callback) => {
   }, 'OA_OrganizationPower_Role')
 }
 
+
+
+
 module.exports =()=>{
 	return (
         <Route path="oa" getComponent={Basic}>
@@ -102,6 +105,7 @@ module.exports =()=>{
 						  <Route path="orgList" getComponent={OA_OrganizationPower_OrgList}/>
 						  <Route path="role" getComponent={OA_OrganizationPower_Role}/>
             </Route>
+
         </Route>
 	);
 };
