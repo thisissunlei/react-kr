@@ -44,9 +44,26 @@ export default class EquipmentSearch extends React.Component{
 			var param_hardware = itemDetail.hardwareId;
 			State.addEquipment(param_hardware);
 			
-		}
-		
-		
+		}	
+	}
+
+	renderTableBody=()=>{
+		var search_equipment_list = State.searchEquipmentList;
+		var DOM_list = search_equipment_list.map(function(item,index){
+			console.log("item",item.IP,"index",index);
+			return(
+				<div className="table-item" key={index}>
+					<div  className="table-item-index">{item.hardId}</div>
+					<div  className="table-item-index">{item.IP}</div>
+					<div  className="table-item-index">{item.APPVersion}</div>
+					<div  className="table-item-index">{item.marker}</div>
+					<div  className="table-item-index">{item.marker}</div>
+					<div  className="table-item-index">添加</div>
+
+				</div>
+			)
+		});
+		return DOM_list;
 	}
 	
 	render(){
@@ -58,102 +75,22 @@ export default class EquipmentSearch extends React.Component{
 				<h1>设备搜索</h1>
 				<div className="detail-list-equipment search-equipment">
 					
-					<Table
-			            className="member-list-table"
-			            ajax={true}
-			            onProcessData={(state)=>{
-			              return state;
-			             }}
-			            onOperation={this.onOperation}
-			            exportSwitch={false}
-			            ajaxFieldListName='items'
-			            ajaxUrlName='equipmentList'
-			            ajaxParams={State.searchEquipmentParam}
-			            onPageChange={this.onPageChangeFun}
-			            displayCheckbox={false}
-			            onSelect={this.onSelcet}
-			          >
-			            <TableHeader>
-			              	<TableHeaderColumn>社区名称</TableHeaderColumn>
-			              	<TableHeaderColumn>展示标题</TableHeaderColumn>
-				            <TableHeaderColumn>门编号</TableHeaderColumn>
-				            <TableHeaderColumn>智能硬件ID</TableHeaderColumn>
-				            <TableHeaderColumn>类型</TableHeaderColumn>
-				            <TableHeaderColumn>厂商</TableHeaderColumn>
-				            <TableHeaderColumn>属性</TableHeaderColumn>
-				            <TableHeaderColumn>是否上线</TableHeaderColumn>
-			                <TableHeaderColumn>连接状态</TableHeaderColumn>
-			                <TableHeaderColumn>操作</TableHeaderColumn>
-			          	</TableHeader>
-			          	<TableBody >
-				            <TableRow>
-				            	<TableRowColumn name="communityName"></TableRowColumn>
-								<TableRowColumn style={{width:160,overflow:"visible"}} name="showTitle" component={(value,oldValue)=>{
-		                            var TooltipStyle=""
-		                            if(value.length==""){
-		                              TooltipStyle="none"
-
-		                            }else{
-		                              TooltipStyle="block";
-		                            }
-		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-		              			}} ></TableRowColumn>
-		              			<TableRowColumn name="deviceCode" component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-				            	<TableRowColumn name="hardwareId" style={{width:300}}></TableRowColumn>
-								<TableRowColumn name="typeName" component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								<TableRowColumn name="maker" component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								<TableRowColumn name="propertyName" component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								<TableRowColumn name="enable"
-					              component={(value,oldValue)=>{
-					                var spanColorOnline="";
-					                if(value=="OFFLINE"){
-					                  value="未上线";
-					                  spanColorOnline = "#ff6868";
-					                }else if(value=="ONLINE"){
-					                  value="已上线";
-					                }
-					                return (<span style={{color:spanColorOnline}}>{value}</span>)}}>
-					            </TableRowColumn>
-					            <TableRowColumn name="activityTypeId"
-					              component={(value,oldValue)=>{
-					                var spanColor = "";
-					                if(value=="UNLINK"){
-					                  value="未连接";
-					                  spanColor = "#ff6868";
-					                }else if(value=="LINK"){
-					                  value="已连接";
-					                }
-					                return (<span style={{color:spanColor}}>{value}</span>)}}>
-					            </TableRowColumn>
-					            <TableRowColumn type="operation"> 
-									<Button  label="添加"  type="operation" operation="add"/>
-					            </TableRowColumn>
-								
-				            </TableRow>
-			            </TableBody>
-			            <TableFooter></TableFooter>
-			        </Table>
+				
+			        <div className="table-box">
+			        	<div className="table-header">
+			        		<div className="header-item">硬件ID</div>
+			        		<div className="header-item">IP地址</div>
+			        		<div className="header-item">APP版本</div>
+			        		<div className="header-item">底层固件版本</div>
+			        		<div className="header-item">标记</div>
+			        		<div className="header-item">操作</div>
+			        	</div>
+			        	<div className="table-body">
+			        		{
+			        			this.renderTableBody()
+			        		}
+			        	</div>
+			        </div>
 				</div>
 				<img src={require("./images/selectOne.svg")} className="end-img"/>
 				<div className="btn-div">

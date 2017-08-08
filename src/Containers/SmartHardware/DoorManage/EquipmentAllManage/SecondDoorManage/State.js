@@ -26,7 +26,87 @@ let State = observable({
 	searchEquipmentParam:{
 		page : 1,
 		pageSize: 15
-	}
+	},
+	searchEquipmentList :[
+		{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :"DJA05"
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+		,{
+			hardId :122,
+			IP :"10.6.10.17",
+			APPVersion :1.0,
+			marker :'DJA05'
+		}
+	]
 
 });
 
