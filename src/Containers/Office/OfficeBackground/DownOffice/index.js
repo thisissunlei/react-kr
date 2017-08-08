@@ -12,7 +12,7 @@ export default class Initialize  extends React.Component{
 
 	render(){
 
-		let url='/hz7rest/workflow/manager/embed/index.jsp#workcenter/todo/haddone.list';
+		let url=window.location.hostname+'/hz7rest/workflow/manager/embed/index.jsp#workcenter/todo/haddone.list';
 
 		return(
 
