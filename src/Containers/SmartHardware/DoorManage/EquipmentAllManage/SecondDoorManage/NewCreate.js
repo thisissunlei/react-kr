@@ -47,9 +47,14 @@ class NewCreateDefinitionForm extends React.Component{
 			communityId : community.id
 		}
 		this.setState({
-			communityId :community.id
+			communityId :community.id,
+			locationOpen :false
 		})
     	Store.dispatch(change('NewCreateDefinitionForm', 'communityId', community.communityId));
+  		Store.dispatch(change('NewCreateDefinitionForm','doorType',''));
+		Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
+
+
     	Http.request('getFloorByComunity',CommunityId)
     	.then(function(response){
     		var arrNew = []
@@ -91,6 +96,8 @@ class NewCreateDefinitionForm extends React.Component{
 	    		})
 			});	
   		}else{
+
+  			Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
   			_this.setState({
   				locationOpen : false
   			})
@@ -168,7 +175,7 @@ class NewCreateDefinitionForm extends React.Component{
 	render(){
 		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked} =this.state;
 		
-		
+		console.log("locationOptions",locationOptions);
 		const { error, handleSubmit, reset} = this.props;
 		return(
 			<div style={{padding:'35px 0 0 35px'}}>
@@ -231,7 +238,7 @@ class NewCreateDefinitionForm extends React.Component{
 						errors={{requiredValue:'属性为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
-					<KrField name="maker" 
+					<KrField name="maker" grid={1/2}
 						component="select" 
 						label="厂家" 
 						options = {State.makerOptions}
@@ -240,7 +247,7 @@ class NewCreateDefinitionForm extends React.Component{
 						errors={{requiredValue:'厂家为必填项'}} 
 						style={{width:'252px'}}
 					/>
-					<KrField name="roomId" 
+					<KrField name="roomId" grid={1/2}
 						component="select" 
 						options={locationOptions}
 						label="对应位置"
