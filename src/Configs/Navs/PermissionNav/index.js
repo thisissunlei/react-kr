@@ -93,7 +93,7 @@ module.exports = [
 				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',
 				menuItems: [
-					
+
 					{
 						primaryText: '流程列表',
 						menuCode: 'hrm_resourcesList_incumbency',
@@ -103,10 +103,11 @@ module.exports = [
 						primaryText: '慧正流程',
 						menuCode: 'hrm_resourcesList_incumbency',
 						originUrl:'/hz7rest/horizon/module/flash/flow/designer.wf',
+						target:'_blank'
 					},
 				]
-			}, 
-			
+			},
+
 			{
 				primaryText: "知识中心",
 				iconName: 'icon-wendang',
@@ -124,7 +125,7 @@ module.exports = [
 						menuCode: 'oa_docfile_type',
 						router: 'docFiletypeAdmin',
 						originUrl: '/krspace_oa_web/doc/docFiletype/toDocFiletypeList?mid=56'
-					}, 
+					},
 					{
 						primaryText: '文件范围',
 						menuCode: 'oa_docfilerange',
@@ -137,7 +138,7 @@ module.exports = [
 						router: 'docFileAdmin',
 						originUrl: '/krspace_oa_web/doc/docFile/toDocTypeList?mid=67'
 					},
-				
+
 				]
 			},
 
