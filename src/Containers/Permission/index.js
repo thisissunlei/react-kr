@@ -37,6 +37,9 @@ import {
 import {
 	default as MenuSetting
 } from './MenuSetting';
+import {
+	default as ProcessManage
+} from './ProcessManage';
 module.exports = {
 	Home,
 	Basic,
@@ -50,5 +53,6 @@ module.exports = {
 	LoginLog,
 	SystemManage,
 	OpCode,
-	MenuSetting
+	MenuSetting,
+	ProcessManage,
 }

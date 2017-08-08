@@ -88,23 +88,24 @@ module.exports = [
 				]
 			},
 			{
-				primaryText: "流程管理",
+				primaryText: '流程管理',
 				iconName: 'icon-wendang',
+				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',
-				router: '',
 				menuItems: [
 					{
-					primaryText: '流程类型',
-					router: '',
-					menuCode: '',
-				},
-				{
-					primaryText: '流程列表',
-					router: '',
-					menuCode: '',
-				},
+						primaryText: '新办事宜',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/permission/processManage/dealNewThings',
+					},
+					{
+						primaryText: '流程配置',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/permission/processManage/processSetting',
+					},
 				]
-			},
+			}, 
+			
 			{
 				primaryText: "知识中心",
 				iconName: 'icon-wendang',

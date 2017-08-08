@@ -10,6 +10,8 @@ export default class MultiSwitchDialog extends React.Component{
 			detail:{
 				orgName:''
 			},
+			searchKeyRight:'',
+			searchKeyLeft:'',
             leftData:this.initData(this.props.leftData ||[],this.props.rightData||[]),
 			rightData:this.props.rightData||[],
 		}
@@ -18,9 +20,15 @@ export default class MultiSwitchDialog extends React.Component{
 
 	
 	onSumit = () =>{
-		const {rightData} = this.state;
+		const {leftData} = this.state;
 		let {onSubmit} = this.props;
-		onSubmit && onSubmit(rightData[0])
+		var submitData=[];
+		leftData.map((item,index)=>{
+			if(item.visable){
+				 submitData.push(item);
+			}
+		})
+		onSubmit && onSubmit(submitData);
 		
 	}
 	onCancel = () =>{
@@ -37,12 +45,9 @@ export default class MultiSwitchDialog extends React.Component{
 	}
 	listRender = () =>{
 		const {leftData} = this.state;
-		
+		var searchKey = this.state.searchKeyRight;
 		let rightList  = leftData.map((item,index)=>{
-			if(!item.isSearch){
-				return null;
-			}	
-			if(item.visable){
+			if(item.visable && item.label.indexOf(searchKey)!= -1){
 				return <div className = "everyHave">
 							{item.label}
 							<span className="ui-oa-del" onClick = {this.deletList.bind(this,index)}></span>
@@ -51,7 +56,6 @@ export default class MultiSwitchDialog extends React.Component{
 			
 	
 		})
-		console.log('rightList',rightList);
 		return rightList;
 		
 	}
@@ -87,46 +91,26 @@ export default class MultiSwitchDialog extends React.Component{
 	leftSearch = (event) =>{
 		let searchKey = event?event.target.value :'';
 		
-		let leftData = [].concat(this.state.leftData);
-		let searchData = leftData.map((item,index)=>{
-			if(item.label.indexOf(searchKey) !=-1 ){
-				item.isSearch = true;
-			}else{
-				item.isSearch = false;
-			}
-			return item;
-		})
 		this.setState({
-			leftData : searchData,
+			searchKeyLeft : searchKey,
 		})
 	}
 	rightSerch = (event) =>{
 		let searchKey = event?event.target.value :'';
 		
-		let rightData = [].concat(this.state.rightData);
-		let searchData = rightData.map((item,index)=>{
-			if(item.label.indexOf(searchKey) !=-1 ){
-				item.isSearch = true;
-			}else{
-				item.isSearch = false;
-			}
-			return item;
-		})
 		this.setState({
-			rightData : searchData,
+			searchKeyRight : searchKey,
 		})
 	}
 
     renderLeft = () =>{
         const {control,leftData} = this.state;
-		
+		var searchKey = this.state.searchKeyLeft;
 		
 
          let leftArr = leftData.map((item,index)=>{
-			if(!item.isSearch){
-				return null;
-			}
-			if(!item.visable){
+		
+			if(!item.visable && item.label.indexOf(searchKey) != -1){
 				return <div
 						className = "everyHave" 
                         key={index} 

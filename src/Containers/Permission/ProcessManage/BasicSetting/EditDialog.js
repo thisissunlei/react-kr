@@ -162,24 +162,13 @@ class EditDialog extends Component {
                             grid={1/2}
                             style={{width:262}}
                             name="rangeId"
-                            component="treeDivision"
-                            label="选择机构"
-                            ajaxUrlName = "role-sub-tree"
-                            requireLabel={true}
-                            checkable = {true}
-                            valueText={(this.state.infoList.range && this.state.infoList[0] && this.state.infoList[0].orgName)?this.state.infoList:[{orgName:''}]}
-                        />
-                        <KrField
-                            grid={1/2}
-                            style={{width:262}}
-                            name="rangeId"
-                            {/*letfData={positionList}*/}
+                            letfData={this.state.infoList.range}
                             component="switchSlide"
                             label="选择机构"
                             control='single'
                             requireLabel={true}
                             multiSwitch={true}
-                            {/*valueText = {this.state.infoList.range}*/}
+                            valueText = {this.state.infoList.range}
                         />
                     }
                     {this.state.rangeType == '4'
