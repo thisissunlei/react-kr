@@ -19,6 +19,7 @@ let State = observable({
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
 	makerOptions :[],
+	deviceVO:{},
 	equipmentSecondParams: {
 		        page : 1,
 		        pageSize: 15

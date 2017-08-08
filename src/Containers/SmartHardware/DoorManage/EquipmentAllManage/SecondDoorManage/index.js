@@ -62,6 +62,7 @@ export default class SecondDoorManage  extends React.Component{
 	
 	//操作相关
 	onOperation=(type, itemDetail)=>{
+		console.log(type,itemDetail);
 		this.setState({
 			itemDetail
 		});
@@ -76,9 +77,11 @@ export default class SecondDoorManage  extends React.Component{
 		}
 		
 	}
-	seeDetailInfoFun=(value)=>{
+	seeDetailInfoFun=(value,itemData)=>{
+		console.log("value",value,"itemData",itemData);
+		State.deviceVO = value.deviceVO;
 		State.openHardwareDetail = true;
-		console.log("seeDetailInfoFun-----",value.target.innerHTML);
+		
 	}
 
 	closeAll=()=>{
@@ -196,11 +199,11 @@ export default class SecondDoorManage  extends React.Component{
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 								<TableRowColumn name="deviceId"  style={{width:310}} type="operation"
-									component={(value,oldValue)=>{
+									component={(value,oldValue,itemData)=>{
 									if(value==""){
 										value="-"
 									}
-									return (<Button  label={value}  type="operation" operation="seeDatailInfo" onTouchTap={this.seeDetailInfoFun.bind(value)}/>)}}
+									return (<Button  label={value}  type="operation" operation="seeDatailInfo" onTouchTap={this.seeDetailInfoFun.bind(value,itemData)}/>)}}
 								></TableRowColumn>
 								
 								<TableRowColumn name="maker" component={(value,oldValue)=>{

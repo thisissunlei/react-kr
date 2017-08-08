@@ -30,7 +30,8 @@ export default class EquipmentDetail extends React.Component{
 	}
 	
 	render(){
-		
+		var params = Object.assign({},State.deviceVO);
+
 		return (
 			<div className="seconde-dialog">
 
@@ -38,20 +39,15 @@ export default class EquipmentDetail extends React.Component{
 				<h1>设备信息</h1>
 				<div className="detail-list-equipment">
 					<dl>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
-						<dd>硬件ID</dd><dt>13242245</dt>
+
+						<dd>硬件ID:</dd><dt>{params.deviceId}</dt>
+						<dd>底层固件版本:</dd><dt>{params.driverV}</dt>
+						<dd>IP地址:</dd><dt>{params.ip}</dt>
+						<dd>内存:</dd><dt>{params.mem}</dt>
+						<dd>标记:</dd><dt>{params.name}</dt>
+						<dd>存储容量:</dd><dt>{params.rom}</dt>
+						<dd>sd卡容量:</dd><dt>{params.sd}</dt>
+						<dd>APP版本:</dd><dt>{params.v}</dt>
 						
 					</dl>
 				</div>
