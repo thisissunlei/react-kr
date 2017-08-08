@@ -214,6 +214,7 @@ class Tree extends React.Component {
           newSt.checkedNodes.push(item);
         }
       });
+     
       if (!('checkedKeys' in this.props)) {
         this.setState({
           checkedKeys,
@@ -234,7 +235,6 @@ class Tree extends React.Component {
         
         
         this.treeNodesStates[treeNode.props.pos].checked = true;
-
 
         const checkedPositions = [];
         Object.keys(this.treeNodesStates).forEach(i => {
@@ -308,7 +308,8 @@ class Tree extends React.Component {
         selectedKeys,
       });
     }
-
+    
+    
     props.onSelect(treeNode.props.itemData);
   }
 

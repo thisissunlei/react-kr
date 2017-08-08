@@ -142,13 +142,14 @@ export default class Labour extends React.Component {
 	componentDidMount() {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
-		//console.log("进入~··");
+
 		var dimId = this.props.params.dimId;
 		var _this = this;
 		var {checkOperate} = this.props.NavModel;
 		Http.request('extra-list', {
 			dimId: dimId
 		}).then(function (response) {
+
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 
@@ -158,15 +159,15 @@ export default class Labour extends React.Component {
 
 		this.getTreeData();
 		this.getMainDimId();
-		// setTimeout(function() {
-		//    _this.setState({
-		// 	 isLeave :checkOperate("hrm_resource_dimission"),
-		//      isRemove : checkOperate("hrm_resource_account"),
-		//      istranfer : checkOperate("hrm_resource_move"),
-		// 	 isCard : checkOperate("hrm_resource_card"),
-		//      isOpen : checkOperate("hrm_resource_account")
-		//    })
-		// },500);
+		setTimeout(function() {
+		   _this.setState({
+			 isLeave :checkOperate("hrm_resource_dimission"),
+		     isRemove : checkOperate("hrm_resource_account"),
+		     istranfer : checkOperate("hrm_resource_move"),
+			 isCard : checkOperate("hrm_resource_card"),
+		     isOpen : checkOperate("hrm_resource_account")
+		   })
+		},500);
 	}
 	getExaList=()=>{
 		var _this = this;
@@ -174,6 +175,7 @@ export default class Labour extends React.Component {
 		Http.request('extra-list', {
 			dimId: _this.state.searchParams.dimId
 		}).then(function (response) {
+
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 	}
@@ -388,15 +390,15 @@ export default class Labour extends React.Component {
 		var _this = this;
 		this.setState({
 			data:{
-				orgId: data.orgId,
-				orgType: data.treeType,
+				orgId: data[0].orgId,
+				orgType: data[0].treeType,
 				dimId:this.props.params.dimId
 			},
 			searchParams: {
 				page: 1,
 				pageSize: 15,
-				orgId: data.orgId,
-				orgType: data.treeType,
+				orgId: data[0].orgId,
+				orgType: data[0].treeType,
 				dimId:this.props.params.dimId
 			}
 		},function(){
@@ -457,7 +459,7 @@ export default class Labour extends React.Component {
 		this.setState({
 			searchKey: event.target.value || ' ',
 		},function(){
-			// console.log(this.state.searchKey);
+
 			//this.refs.searchKey.click();
 			//this.refs.searchKey.focus();
 		})
@@ -502,7 +504,7 @@ export default class Labour extends React.Component {
 		const _this = this;
 
 		Http.request("org-list", params).then(function (response) {
-			
+
 			_this.setState({
 				treeData: _this.fnTree([response]),
 			});
@@ -513,7 +515,8 @@ export default class Labour extends React.Component {
 	// 导出Excle表格
 	onExport=(values)=>{
 		let ids = [];
-		console.log(this.state.searchParams);
+
+
 		var type = this.state.searchParams.orgType;
 		var id = this.state.searchParams.orgId;
 		var dimId = this.state.searchParams.dimId;
@@ -547,7 +550,7 @@ export default class Labour extends React.Component {
 	}
 
 	onHighSearchSubmit = (form) => {
-		console.log("HighSearch",form);
+
 		this.setState({
 			searchParams:form
 		})
@@ -560,7 +563,7 @@ export default class Labour extends React.Component {
    //跳转详情页
    goDetail = (data) =>{
 	    let personId=data.hrmId;
-		window.open(`./#/oa/${personId}/peopleDetail`,'123');
+		  window.open(`./#/oa/${personId}/peopleDetail`,'_blank');
    }
 
    //操作开关
@@ -696,11 +699,13 @@ export default class Labour extends React.Component {
 
    //调动提交
    addTransferSubmit=(data)=>{
+
 		var param = Object.assign({},data);
 		var _this = this;
 		var searchParams={
 		  time:+new Date()
 	    }
+
 		Http.request("service-switch",{},param).then(function (response) {
 			_this.setState({
                searchParams:Object.assign({},_this.state.searchParams,searchParams)
@@ -761,7 +766,7 @@ export default class Labour extends React.Component {
 		var orgtype = this.state.searchParams.orgType;
 		var style = {};
 		var index = 0;
-		// console.log(this.state.searchParams.orgType);
+
 		return (
 			<div className="g-oa-labour">
 				<div className="left">
@@ -780,7 +785,7 @@ export default class Labour extends React.Component {
 
 								</span>
 							}
-							
+
 						</span>
 
 					</div>
@@ -793,7 +798,6 @@ export default class Labour extends React.Component {
 					<div className="oa-tree">
 						<SliderTree
 							onSelectTree={this.onSelect}
-							onCheck={this.onCheck}
 							type="department-radio"
 							treeData={this.state.treeData}
 							searchKey={this.state.searchKey}
@@ -834,6 +838,7 @@ export default class Labour extends React.Component {
 										backgroundColor='#fcfcfc'
 										labelColor='#666'
 										shadow="no"
+										operateCode="hrm_dim_update_junior"
 									/>
 								</div>
 								<Button
@@ -846,6 +851,7 @@ export default class Labour extends React.Component {
 									backgroundColor='#fcfcfc'
 									labelColor='#666'
 									shadow="no"
+									operateCode="hrm_dim_detail_junior"
 								/>
 							</div>
 						}
@@ -859,7 +865,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
+										<Button label="新建下级" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14} operateCode="hrm_dim_save_junior" labelStyle={{fontWeight:400,padding:0}}/>
 									</Col>
 									<Col md={8} align="right">
 
@@ -926,7 +932,7 @@ export default class Labour extends React.Component {
 													)
 												} else {
 													return (
-														<Button label="封存" onClick={this.openCancelDialog.bind(this, itemDetail)} type="operation" operation="cancle" />
+														<Button label="封存" onClick={this.openCancelDialog.bind(this, itemDetail)} type="operation" operation="cancle" operateCode="hrm_dim_cancle_junior" />
 													)
 												}
 											}}
@@ -944,7 +950,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新增员工" type="button" onClick={this.openAddPerson} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />}
+										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新增员工" type="button" operateCode="hrm_resource_add" onClick={this.openAddPerson} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />}
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
@@ -1018,11 +1024,11 @@ export default class Labour extends React.Component {
 										<TableRowColumn type="operation" style={{width:'240px'}} component={(value,oldValue,detail)=>{
 										return <span>
 											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
-												<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>
-												<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>
-												{value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
-												{!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												{value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
+												{isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
+												{istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
+												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+												{isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
+												{isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
 											</span>
 										}}>
 										</TableRowColumn>

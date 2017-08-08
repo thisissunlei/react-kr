@@ -175,7 +175,6 @@ export default class OaTreeDepartment extends React.Component{
 				whiteSpace: "nowrap",
 			}
 		}
-		console.log("textData---->")
 		
 		 return (
 			 <WrapComponent {...wrapProps}>
