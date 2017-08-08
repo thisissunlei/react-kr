@@ -471,7 +471,6 @@ class FieldRevert extends React.Component {
 			}
 
 			if (component === 'switchSlide') {
-				console.log('<<<--->',this.props.valueText);
 				return (
 					<FieldRevert {...this.props} component={SwitchSlide}  style={WrapStyles} {...other}/>
 				)

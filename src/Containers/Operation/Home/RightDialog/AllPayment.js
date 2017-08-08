@@ -50,6 +50,11 @@ class MonthPayment extends React.Component{
 	}
 	searchSignChange=(value)=>{
 		console.log('month',value)
+		if(!value){
+			value = {
+				value:''
+			}
+		}
 		this.setState({
 			customerId:value.value
 		})
@@ -128,12 +133,12 @@ class MonthPayment extends React.Component{
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{Money(value)}</span><Tooltip offsetTop={8} place='top'>{Money(oldValue)}</Tooltip></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{Money(value)}</span></div>)
 		 					}}></TableRowColumn>
 		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='paymentDate' component={(value,oldValue,itemData)=>{
 		 							var maxWidth=6;
 		 							console.log(value,itemData.paymentDate,DateFormat(itemData.paymentDate,'yyyy-mm-dd'))
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.paymentDate,'yyyy-mm-dd')}</span><Tooltip offsetTop={8} place='top'>{DateFormat(itemData.paymentDate,'yyyy-mm-dd')}</Tooltip></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.paymentDate,'yyyy-mm-dd')}</span></div>)
 		 					}}></TableRowColumn>
 		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='paymentType' component={(value,oldValue)=>{
 		 							var maxWidth=6;
@@ -141,14 +146,14 @@ class MonthPayment extends React.Component{
 		 							if(value.length>maxWidth){
 		 							 value = date.substring(0,6)+"...";
 		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
 		 					}}></TableRowColumn>
 		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='payType' component={(value,oldValue)=>{
 		 							var maxWidth=6;
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value || '-'}</span></div>)
 		 					}}></TableRowColumn>
 			               </TableRow>
 			        </TableBody>

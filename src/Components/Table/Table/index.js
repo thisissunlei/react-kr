@@ -612,7 +612,7 @@ export default class Table extends React.Component {
 				<tbody>
 					<tr style={{backgroundColor:'#fff'}}>
 						<TableRowColumn colSpan={100} >
-							<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
+							<div style={{textAlign:'center',paddingTop:90,paddingBottom:90}}>
 								<div className="ui-nothing">
 									<div className="icon"></div>
 									<p className="tip">暂时还没有数据呦~</p>

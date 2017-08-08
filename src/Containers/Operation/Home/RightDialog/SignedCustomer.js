@@ -15,6 +15,7 @@ import {
 } from 'kr-ui';
 import {reduxForm} from 'redux-form';
 import State from '../State';
+import {DateFormat,Money} from "kr/Utils";
 import '../detail.less';
 import {
 	observer
@@ -68,7 +69,7 @@ class MonthPayment extends React.Component{
 		            <TableHeader className='detail-header'>
 		              <TableHeaderColumn className='header-row'>社区名称</TableHeaderColumn>
 		              <TableHeaderColumn className='header-row'>客户名称</TableHeaderColumn>
-                      <TableHeaderColumn className='header-row'>工位/独立办公空间数</TableHeaderColumn>
+                      <TableHeaderColumn className='header-row' style={{width:120}}>工位/独立办公空间数</TableHeaderColumn>
 		              <TableHeaderColumn className='header-row'>起租日期</TableHeaderColumn>
 					  <TableHeaderColumn className='header-row'>结束日期</TableHeaderColumn>
 					  <TableHeaderColumn className='header-row'>联系人</TableHeaderColumn>
@@ -93,23 +94,15 @@ class MonthPayment extends React.Component{
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
 
-			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='customer' component={(value,oldValue,itemData)=>{
+			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB',width:120}} name='customer' component={(value,oldValue,itemData)=>{
 		 							let values = itemData.stations + '/'+itemData.boardrooms;
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{values}</span><Tooltip offsetTop={8} place='top'>{values}</Tooltip></div>)
 		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseStart' component={(value,oldValue)=>{
-		 							var maxWidth=6;
-		 							if(value.length>maxWidth){
-		 							 value = value.substring(0,6)+"...";
-		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseStart' component={(value,oldValue,itemData)=>{
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.leaseStart,'yyyy-mm-dd')}</span></div>)
 		 					}}></TableRowColumn>
-		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseEnd' component={(value,oldValue)=>{
-		 							var maxWidth=6;
-		 							if(value.length>maxWidth){
-		 							 value = value.substring(0,6)+"...";
-		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseEnd' component={(value,oldValue,itemData)=>{
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.leaseEnd,'yyyy-mm-dd')}</span></div>)
 		 					}}></TableRowColumn>
 		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contact' component={(value,oldValue)=>{
 		 							var maxWidth=6;
@@ -119,10 +112,6 @@ class MonthPayment extends React.Component{
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
 		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='phone' component={(value,oldValue)=>{
-		 							var maxWidth=6;
-		 							if(value.length>maxWidth){
-		 							 value = value.substring(0,6)+"...";
-		 							}
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 					}}></TableRowColumn>
 			               </TableRow>

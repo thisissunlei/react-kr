@@ -6,7 +6,6 @@ function Money(props,minus){
     
 
     let str = props;
-    console.log('Money',str,!!!str,typeof str)
     if(!!!str){
         return false;
     }

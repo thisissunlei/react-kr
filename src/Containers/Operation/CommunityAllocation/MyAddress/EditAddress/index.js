@@ -145,7 +145,6 @@ import HeaderUpload from './HeaderUpload';
 
 		}else if(type === 'managerEmail' && item.managerEmail){
 			let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;	
-			console.log(!email.test(item.managerEmail))
 			if(!email.test(item.managerEmail)){
 				Notify.show([{
 					message: '请填写正确的邮箱',
