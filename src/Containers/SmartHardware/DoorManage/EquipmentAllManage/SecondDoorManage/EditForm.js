@@ -139,17 +139,7 @@ class EditEquipmentForm extends React.Component{
 
     	})
   	}
-  	//选择类型
-  	onchooseType=(typeId)=>{
-  		if(typeId == null){
-			return;
-		}else{
-			this.setState({
-	  			typeId :typeId.value,
-	  		})
-		}
-    	Store.dispatch(change('EditEquipmentForm','typeId',typeId.value));
-  	}
+  	
   	//选择属性(获取会议室／大门)
 	onchooseProperty=(propertyId)=>{
 		let _this = this;
@@ -191,17 +181,7 @@ class EditEquipmentForm extends React.Component{
   		Store.dispatch(change('EditEquipmentForm','locationId',""));
 
   	}
-	//选择对应功能
-	// onchooseCorrespondingFunction=(functionId)=>{
-	// 	if(functionId == null){
-	// 		return;
-	// 	}
-	// 	this.setState({
-	// 		functionId : functionId.value
-	// 	})
 
- //    	Store.dispatch(change('EditEquipmentForm','functionId',functionId.value));
-	// }
 	// 选择对应位置
 	onchooseCorrespondingLocation=(locationId)=>{
 		if(locationId == null){
@@ -234,31 +214,7 @@ class EditEquipmentForm extends React.Component{
 			showTitle : showTitle
 		})
 	}
-	// 判断门编号是否存在
-	// doorNumHasFun=(deviceCode)=>{
-	// 	if(!deviceCode || /^\s+$/.test(deviceCode)){
-	// 		return;
-	// 	}
-	// 	let _this = this;
-	// 	let params = {
-	// 		code :deviceCode,
-	// 		type :"deviceCode",
-	// 		id : this.detail.id
-	// 	}
-	// 	Http.request('doorNumberAndHardwareId',params).
-	// 	then(function(response){
-	// 		_this.setState({
-	//  			doorNumHasStatus : false
-	//  		})
-	// 	}).catch(function(err){
-	//  		let {isDoorNumHas} = _this.props;
-	//  		isDoorNumHas && isDoorNumHas();
-	//  		_this.setState({
-	//  			doorNumHas:true,
-	//  			doorNumHasStatus : true,
-	//  		})
-	// 	});
-	// }
+
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
 		let _this = this;
@@ -289,14 +245,7 @@ class EditEquipmentForm extends React.Component{
 	 		})
 		});
 	}
-	// 是否上线
-	chooseONLINE=(e)=>{
-		this.setState({
-			isOnlines : !this.state.isOnlines
-		},function(){
-			Store.dispatch(change('EditEquipmentForm','enable',this.state.isOnlines));
-		})
-	}
+
 	// 编辑设备定义
 	onSubmit=(values)=>{
 		values.id = this.state.id;
@@ -338,22 +287,7 @@ class EditEquipmentForm extends React.Component{
 	render(){
 		let {floorsOptions,propertyOption,propertyId,locationOptions,defaultChecked} =this.state;
 		const { error,handleSubmit,pristine,reset,detail} = this.props;
-		// 类型待选项
-		let typeOptions = [{
-			label: '门禁',
-			value: 1
-		}];
-		// 对应功能选项
-		// let correspondingFunction =[{
-		// 	label: '开门',
-		// 	value: 1
-		// },{
-		// 	label: '开门／预定',
-		// 	value: 2
-		// },{
-		// 	label: '预定',
-		// 	value: 3
-		// }]
+		
 		return(
 			<div style={{padding:'35px 0 0 35px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -397,14 +331,7 @@ class EditEquipmentForm extends React.Component{
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onBlur = {this.hardwareIdHasFun}
 					/>
-					<KrField name="typeId"
-						component="select"
-						label="类型"
-						onChange = {this.onchooseType}
-						options={typeOptions}
-						requireLabel={true}
-						style={{width:'252px'}}
-					/>
+					
 					<KrField name="propertyId"
 						component="select"
 						label="属性"
@@ -430,10 +357,6 @@ class EditEquipmentForm extends React.Component{
 						style={{width:'252px'}}
 
 					/>
-					<div style={{marginLeft:6}}>
-						<input type="checkbox"  defaultChecked={this.state.isOnlines} onChange={this.chooseONLINE}/>
-						<span style={{fontSize:14,color:"#333333"}} >保存后自动上线</span>
-					</div>
 
 					<Grid style={{marginTop:19,marginBottom:'4px'}}>
 						<Row style={{textAlign:'center'}}>

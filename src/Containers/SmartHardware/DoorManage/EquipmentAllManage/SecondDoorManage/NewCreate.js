@@ -157,36 +157,7 @@ class NewCreateDefinitionForm extends React.Component{
 			showTitle : showTitle 
 		})
 	}
-	// 判断门编号是否存在
-	// doorNumHasFun=(deviceCode)=>{
-	// 	this.setState({
-	// 		doorNumHas:false,
-	// 		deviceCode : deviceCode
-	// 	})
-	// 	if(!deviceCode || /^\s+$/.test(deviceCode)){
-	// 		return;
-	// 	}
-	// 	let _this = this;
-	// 	let params = {
-	// 		code :deviceCode,
-	// 		type :"deviceCode",
-	// 		id : ''
-	// 	}
-	// 	Http.request('doorNumberAndHardwareId',params).
-	// 	then(function(response){
-	// 		_this.setState({
-	//  			doorNumHasStatus : false
-	//  		})
-	// 	}).catch(function(err){
-	//  		let {isDoorNumHas} = _this.props;
-	//  		isDoorNumHas && isDoorNumHas();
-	//  		_this.setState({
-	//  			doorNumHas:true,
-	//  			doorNumHasStatus : true
-	//  		})
-	//  		Message.error(err.message);
-	// 	});
-	// }
+	
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
 		this.setState({
@@ -218,14 +189,7 @@ class NewCreateDefinitionForm extends React.Component{
 		 		Message.error(err.message);
 		});
 	}
-	chooseONLINE=(e)=>{
-		this.setState({
-			isOnlines : !this.state.isOnlines
-		},function(){
-			Store.dispatch(change('NewCreateDefinitionForm','enable',this.state.isOnlines));
-		})
-		
-	}
+
 	// 新增设备定义
 	onSubmit=(values)=>{
 		let _this = this;
@@ -240,9 +204,7 @@ class NewCreateDefinitionForm extends React.Component{
 			type :"hardwareid",
 			id :''
 		}
-// 此处判断门编号是否存在
-		// Http.request('doorNumberAndHardwareId',deviceCodeParams).
-		// then(function(response){
+
 		Http.request('doorNumberAndHardwareId',hardwareIdParams).then(function(response){
 
 				State.newCreateSecondDoor(values);
@@ -253,21 +215,11 @@ class NewCreateDefinitionForm extends React.Component{
 	 		 Message.error(err.message)
 
 		});
-		// }).catch(function(err){
-	 // 		let {isDoorNumHas} = _this.props;
-	 // 		isDoorNumHas && isDoorNumHas();
-	 // 		Message.error(err.message)
-	 		
-		// });		
+		
 	}
 	render(){
 		let {floorsOptions,propertyOption,propertyId,locationOptions,defaultChecked} =this.state;
-		// 类型待选项
-		let typeOptions = [{
-			label: '门禁',
-			value: 1
-		}];
-
+		
 		
 		const { error, handleSubmit, pristine, reset} = this.props;
 		return(
@@ -320,16 +272,7 @@ class NewCreateDefinitionForm extends React.Component{
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onBlur = {this.hardwareIdHasFun}
 					/>
-					<KrField name="typeId" 
-						component="select" 
-						label="类型" 
-						onChange = {this.onchooseType}
-						options={typeOptions} 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'类型为必填项'}} 
-						style={{width:'252px'}}
-					/>
+					
 					<KrField name="propertyId" 
 						component="select" 
 						label="属性"
@@ -357,10 +300,7 @@ class NewCreateDefinitionForm extends React.Component{
 						errors={{requiredValue:'厂家为必填项'}} 
 						style={{width:'252px'}}
 					/>
-					<div style={{marginLeft:6}}>
-						<input type="checkbox"  defaultChecked={this.state.isOnlines} onChange={this.chooseONLINE}/> 
-						<span style={{fontSize:14,color:"#333333"}} >保存后自动上线</span>
-					</div>
+					
 					
 					<Grid style={{marginTop:19,marginBottom:'4px'}}>
 						<Row style={{textAlign:'center'}}>

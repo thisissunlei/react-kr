@@ -16,7 +16,7 @@ import NotifyApi from './NotifyApi';
 import StatisticalApi from './StatisticalApi';
 import CommonApi from './CommonApi';
 import OAApi from './OAApi';
-
+import SmartHardware from './SmartHardware';
 
 
 
@@ -37,5 +37,6 @@ module.exports = {
   ...StatisticalApi,
   ...WebBackstageApi,
   ...CommonApi,
-  ...OAApi
+  ...OAApi,
+  ...SmartHardware
 }

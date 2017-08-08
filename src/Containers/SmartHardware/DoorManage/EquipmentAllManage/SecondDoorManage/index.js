@@ -159,8 +159,8 @@ export default class SecondDoorManage  extends React.Component{
 			            onOperation={this.onOperation}
 			            exportSwitch={false}
 			            ajaxFieldListName='items'
-			            ajaxUrlName='equipmentList'
-			            ajaxParams={State.equipmentParams}
+			            ajaxUrlName='getDecondeEquipmentList'
+			            ajaxParams={State.equipmentSecondParams}
 			            onPageChange={this.onPageChangeFun}
 			            displayCheckbox={true}
 			            onSelect={this.onSelcet}
@@ -170,17 +170,15 @@ export default class SecondDoorManage  extends React.Component{
 			              	<TableHeaderColumn>展示标题</TableHeaderColumn>
 				            <TableHeaderColumn>门编号</TableHeaderColumn>
 				            <TableHeaderColumn>智能硬件ID</TableHeaderColumn>
-				            <TableHeaderColumn>类型</TableHeaderColumn>
 				            <TableHeaderColumn>厂商</TableHeaderColumn>
 				            <TableHeaderColumn>属性</TableHeaderColumn>
-				            <TableHeaderColumn>是否上线</TableHeaderColumn>
 			                <TableHeaderColumn>连接状态</TableHeaderColumn>
 			                <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 			          	<TableBody >
 				            <TableRow>
 				            	<TableRowColumn name="communityName"></TableRowColumn>
-								<TableRowColumn style={{width:160,overflow:"visible"}} name="showTitle" component={(value,oldValue)=>{
+								<TableRowColumn style={{width:160,overflow:"visible"}} name="roomName" component={(value,oldValue)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
 		                              TooltipStyle="none"
@@ -191,58 +189,47 @@ export default class SecondDoorManage  extends React.Component{
 		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
-								<TableRowColumn name="deviceCode" component={(value,oldValue)=>{
+								<TableRowColumn name="doorCode" component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="hardwareId"  style={{width:310}} type="operation"
+								<TableRowColumn name="deviceId"  style={{width:310}} type="operation"
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<Button  label={value}  type="operation" operation="seeDatailInfo" onTouchTap={this.seeDetailInfoFun.bind(value)}/>)}}
 								></TableRowColumn>
-								<TableRowColumn name="typeName" component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								
 								<TableRowColumn name="maker" component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="propertyName" component={(value,oldValue)=>{
-									if(value==""){
+								<TableRowColumn name="doorType" component={(value,oldValue)=>{
+									if(value == 1){
+										value = "大门"
+									}else if(value==2){
+										value = "会议室"
+									}else if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 								
 							
-								<TableRowColumn name="enable"
-					              component={(value,oldValue)=>{
-					                var spanColorOnline="";
-					                if(value=="OFFLINE"){
-					                  value="未上线";
-					                  spanColorOnline = "#ff6868";
-					                }else if(value=="ONLINE"){
-					                  value="已上线";
-					                }
-					                return (<span style={{color:spanColorOnline}}>{value}</span>)}}>
-					            </TableRowColumn>
-					            <TableRowColumn name="activityTypeId"
+								
+					            <TableRowColumn name="logined"
 					              component={(value,oldValue)=>{
 					                var spanColor = "";
-					                if(value=="UNLINK"){
-					                  value="未连接";
-					                  spanColor = "#ff6868";
-					                }else if(value=="LINK"){
-					                  value="已连接";
+					                if(value  == true){
+					                	value="已连接";
+					                }else{
+					                	value="未连接";
+					                	spanColor = "#ff6868";
 					                }
 					                return (<span style={{color:spanColor}}>{value}</span>)}}>
 					            </TableRowColumn>

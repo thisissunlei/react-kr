@@ -19,7 +19,7 @@ let State = observable({
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
 	makerOptions :[],
-	equipmentParams: {
+	equipmentSecondParams: {
 		        page : 1,
 		        pageSize: 15
 		      },
@@ -223,7 +223,7 @@ State.editSecondDoor = action(function(values){
 
 //刷新
 State.freshPage = action(function(){
-	State.equipmentParams = {
+	State.equipmentSecondParams = {
         date:new Date(),
         page : State.realPage,
         pageSize: 15
