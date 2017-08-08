@@ -226,11 +226,9 @@ class EditEquipmentForm extends React.Component{
 			return;
 		}
 		let hardwareIdparams = {
-			code :hardwareId,
-			type :"hardwareid",
-			id : this.detail.id
+			deviceId :hardwareId,
 		}
-		Http.request('doorNumberAndHardwareId',hardwareIdparams)
+		Http.request('getDeviceIDRepeat',hardwareIdparams)
 		.then(function(response){
 	 		_this.setState({
 	 			hardwareidHasStatus : false,

@@ -175,9 +175,9 @@ State.getListDic = action(function() {
 //新增
 State.newCreateSecondDoor = action(function(values){
 	
-	Http.request('equipmentNewCreateOrEdit',{},values ).then(function(response) {
+	Http.request('addOrEditEquipment',{},values ).then(function(response) {
 		
-		State.equipmentParams = {
+		State.equipmentSecondParams = {
 			page:1,
 			pageSize:15,
 			date: new Date()		
@@ -187,7 +187,7 @@ State.newCreateSecondDoor = action(function(values){
 
 	}).catch(function(err) {
 		State.openNewCreate =false;
-		State.equipmentParams = {
+		State.equipmentSecondParams = {
 			page:1,
 			pageSize:15,
 			date: new Date()		
@@ -202,7 +202,7 @@ State.editSecondDoor = action(function(values){
 	
 	Http.request('equipmentNewCreateOrEdit',{},values ).then(function(response) {
 		
-		State.equipmentParams = {
+		State.equipmentSecondParams = {
 			page:1,
 			pageSize:15,
 			date: new Date()		
@@ -212,7 +212,7 @@ State.editSecondDoor = action(function(values){
 
 	}).catch(function(err) {
 		State.openNewCreate =false;
-		State.equipmentParams = {
+		State.equipmentSecondParams = {
 			page:State.realPage,
 			pageSize:15,
 			date: new Date()		
