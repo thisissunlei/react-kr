@@ -102,7 +102,7 @@ module.exports = [
 					{
 						primaryText: '慧正流程',
 						menuCode: 'hrm_resourcesList_incumbency',
-						router:'/hz7rest/horizon/module/flash/flow/designer.wf',
+						originUrl:'/hz7rest/horizon/module/flash/flow/designer.wf',
 					},
 				]
 			}, 
