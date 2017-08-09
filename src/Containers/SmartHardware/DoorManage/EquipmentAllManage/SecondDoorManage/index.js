@@ -12,7 +12,7 @@ import {
 import {
 	Message,Dialog,Button,Table,TableHeader,TableHeaderColumn,TableBody
 	,TableRow,TableRowColumn,TableFooter,Tooltip,Drawer,Grid,Row,
-	ListGroup,ListGroupItem
+	ListGroup,ListGroupItem,SearchForms
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import $ from 'jquery';
@@ -30,6 +30,7 @@ import NewCreate from './NewCreate';
 import EditForm from './EditForm';
 import NewEquipmentList from './NewEquipmentList';
 import EquipmentSearch from './EquipmentSearch';
+import EquipmentSearchForm from './EquipmentSearchForm';
 
 @inject("NavModel")
 @observer
@@ -51,6 +52,7 @@ export default class SecondDoorManage  extends React.Component{
 		State.getListDic();
 	}
 	componentWillUnmount(){
+
 	}
 	componentWillReceiveProps(nextProps){
 	}
@@ -89,9 +91,11 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	onSelcet=(result,selectedListData)=>{
+		console.log("selectedListData",selectedListData);
 		var ids=[];
 		for(var i=0;i<selectedListData.length;i++){
 			ids.push(selectedListData[i].id);
+			console.log("ids",ids);
 		}
 		this.setState({
 			selectIds:ids
@@ -103,10 +107,10 @@ export default class SecondDoorManage  extends React.Component{
 			Message.error("请选择您要删除的设备");
 			return;
 		}
+		console.log("selectedIdsArr",selectedIdsArr);
 		var selectedIdsArr = this.state.selectIds;
 		State.selectedDeleteIds = selectedIdsArr.join(",");
-		State.deleteEquipment();
-		State.freshPage();
+		State.deleteEquipmentBatch();
 		
 	}
 	//打开新建
@@ -129,32 +133,61 @@ export default class SecondDoorManage  extends React.Component{
 	openSearchEquipmentFun=()=>{
 		State.openSearchEquipment = !State.openSearchEquipment;
 	}
+
+
+	openSearchEquipmentList=()=>{
+		this.openSearchEquipmentFun();
+		State.getUnusedEquipmentFun();
+	}
 	//确认删除
 	confirmDelete=()=>{
 
 		this.closeConfirmDeleteFun();
 		State.selectedDeleteIds = this.state.itemDetail.id;
-		State.deleteEquipment();
+		State.deleteEquipmentSingle();
 
 	}
 
 	onPageChangeFun=(page)=>{
+
 		State.realPage =page;
 	}
 
+	openEquipmentsearchDialogFun=()=>{
+
+		State.openSearchDialog = !State.openSearchDialog;
+	}
+
+
+
+	
+
+
 	render(){
 		let {itemDetail}=this.state;
+		let options=[{
+		      label:"门编号",
+		      value:"doorCode"
+		    },{
+		      label:"硬件编号",
+		      value:"deviceId"
+		    }]
 		return(
 			<div>
 				<div style={{padding:"20px 0 0 0"}}>
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
-					<Button label="设备搜索"  onTouchTap={this.openSearchEquipmentFun} className="button-list"/>
+					<Button label="设备搜索"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
+					
 				</div>
 				<div>
+					<EquipmentSearchForm/>
+				</div>
+				
+				<div>
 					<Table
-			            className="member-list-table"
+			            className="second-equipment-table"
 			            ajax={true}
 			            onProcessData={(state)=>{
 			              return state;
@@ -222,9 +255,7 @@ export default class SecondDoorManage  extends React.Component{
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								
 							
-								
 					            <TableRowColumn name="logined"
 					              component={(value,oldValue)=>{
 					                var spanColor = "";
@@ -285,6 +316,20 @@ export default class SecondDoorManage  extends React.Component{
 			            onSubmit = {this.onSubmitNewCreateEquipment}
 			            closeEditEquipment = {this.openEditDialogFun}
 			          />
+			        </Dialog>
+			        <Dialog
+			          title="高级查询"
+			          open={State.openSearchDialog}
+			          onClose={this.openEquipmentsearchDialogFun}
+			          contentStyle={{width:687}}
+			        >
+			          	<EquipmentSearchForm
+			            	detail={itemDetail}
+			            	onSubmit = {this.onSubmitNewCreateEquipment}
+			            	closeEditEquipment = {this.openEquipmentsearchDialogFun}
+			            	content={this.state.content}
+            				filter={this.state.filter}
+			          	/>
 			        </Dialog>
 			        <Dialog
 			          title="提示"

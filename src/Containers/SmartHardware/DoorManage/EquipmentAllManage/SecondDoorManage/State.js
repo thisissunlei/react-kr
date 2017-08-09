@@ -16,98 +16,27 @@ let State = observable({
 	openEditDialog:false,
 	openConfirmDelete:false,
 	openSearchEquipment:false,
+	openSearchDialog :false,
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
 	makerOptions :[],
 	deviceVO:{},
 	equipmentSecondParams: {
+		        
+		        communityId:'',
+		        deviceId :'',
+		        doorCode :'',
+		        doorType : '',
+		        floor : '',
 		        page : 1,
-		        pageSize: 15
+		        pageSize: 15,
+
 		      },
 	searchEquipmentParam:{
 		page : 1,
 		pageSize: 15
 	},
-	searchEquipmentList :[
-		{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :"DJA05"
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-		,{
-			hardId :122,
-			IP :"10.6.10.17",
-			APPVersion :1.0,
-			marker :'DJA05'
-		}
-	]
+	searchEquipmentList :[]
 
 });
 
@@ -137,17 +66,29 @@ State.getDetailList= action(function() {
 
 });
 
-// 删除设备
-State.deleteEquipment= action(function() {
+// 批量删除设备
+State.deleteEquipmentBatch= action(function() {
+	
+	Http.request('deleteEquipmentBatch',{},{ids:State.selectedDeleteIds}).then(function(response) {
+		
+		State.freshPageReturn();
+		
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+
+});
+
+//单个删除
+State.deleteEquipmentSingle= action(function() {
 	
 	
-	//Http.request('deleteEquipment', State.selectedDeleteIds).then(function(response) {
+	Http.request('deleteEquipmentSingleURL',{},{id:State.selectedDeleteIds}).then(function(response) {
 		
-		//State.items = response;
-		
-	//}).catch(function(err) {
-		//Message.error(err.message);
-	//});
+		State.freshPageReturn();		
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
 
 });
 
@@ -200,18 +141,18 @@ State.newCreateSecondDoor = action(function(values){
 //编辑
 State.editSecondDoor = action(function(values){
 	
-	Http.request('equipmentNewCreateOrEdit',{},values ).then(function(response) {
+	Http.request('addOrEditEquipment',{},values ).then(function(response) {
 		
 		State.equipmentSecondParams = {
-			page:1,
+			page:State.realPage,
 			pageSize:15,
 			date: new Date()		
 		}
-		State.openNewCreate =false;
+		State.openEditDialog =false;
 		Message.success("编辑成功");
 
 	}).catch(function(err) {
-		State.openNewCreate =false;
+		State.openEditDialog =false;
 		State.equipmentSecondParams = {
 			page:State.realPage,
 			pageSize:15,
@@ -224,6 +165,15 @@ State.editSecondDoor = action(function(values){
 
 //刷新
 State.freshPage = action(function(){
+	State.equipmentSecondParams = {
+        date:new Date(),
+        page : 1,
+        pageSize: 15
+    }	
+})
+
+//刷新并保持原查询条件
+State.freshPageReturn =  action(function(){
 	State.equipmentSecondParams = {
         date:new Date(),
         page : State.realPage,
@@ -240,17 +190,29 @@ State.freshSearchEquipmentPage = action(function(){
     }	
 })
 
+
+//
+State.getUnusedEquipmentFun = action(function(){
+	
+	Http.request('getUnusedEquipment', {}).then(function(response) {
+		console.log("response",response);
+		State.searchEquipmentList = response.items;
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
 //分配设备所在位置（添加）
 State.equipmentAddLocation = action(function(param){
-	console.log("param",param);
-	// Http.request('addEquipmentUrl', param).then(function(response) {
-	// 	Message.success("添加成功");
-	// 	State.freshPage();
-	// 	State.freshSearchEquipmentPage();
+	var urlParams = {deviceId:param}
+	Http.request('changeUnusedToList',{},urlParams).then(function(response) {
 
-	// }).catch(function(err) {
-	// 	Message.error(err.message);
-	// });
+		Message.success("添加成功");
+		State.freshPageReturn();
+		State.freshSearchEquipmentPage();
+
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
 })
 
 

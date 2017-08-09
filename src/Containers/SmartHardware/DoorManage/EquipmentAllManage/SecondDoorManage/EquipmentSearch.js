@@ -34,21 +34,9 @@ export default class EquipmentSearch extends React.Component{
 		State.openSearchEquipment= false;
 	}
 
-	//操作相关
-	onOperation=(type, itemDetail)=>{
-		this.setState({
-			itemDetail
-		});
-		if (type == 'add') {
-
-			var param_hardware = itemDetail.hardwareId;
-			State.addEquipment(param_hardware);
-			
-		}	
-	}
 
 	addEquipmentFun=(thisParams,item)=>{
-		State.equipmentAddLocation(thisParams.hardId);
+		State.equipmentAddLocation(thisParams.deviceId);
 	}
 	renderTableBody=()=>{
 		let _this = this;
@@ -56,11 +44,14 @@ export default class EquipmentSearch extends React.Component{
 		var DOM_list = search_equipment_list.map(function(item,index){
 			return(
 				<div className="table-item" key={index}>
-					<div  className="table-item-index">{item.hardId}</div>
-					<div  className="table-item-index">{item.IP}</div>
-					<div  className="table-item-index">{item.APPVersion}</div>
-					<div  className="table-item-index">{item.marker}</div>
-					<div  className="table-item-index">{item.marker}</div>
+					<div  className="table-item-index">{item.deviceId}</div>
+					<div  className="table-item-index">{item.driverV}</div>
+					<div  className="table-item-index">{item.ip}</div>
+					<div  className="table-item-index">{item.mem}</div>
+					<div  className="table-item-index">{item.name}</div>
+					<div  className="table-item-index">{item.rom}</div>
+					<div  className="table-item-index">{item.sd}</div>
+					<div  className="table-item-index">{item.v}</div>
 					<div  className="table-item-index table-item-last" onClick={_this.addEquipmentFun.bind(this,item)}>添加</div>
 				</div>
 			)
@@ -81,10 +72,13 @@ export default class EquipmentSearch extends React.Component{
 			        <div className="table-box">
 			        	<div className="table-header">
 			        		<div className="header-item">硬件ID</div>
+			        		<div className="header-item">固件版本</div>
 			        		<div className="header-item">IP地址</div>
-			        		<div className="header-item">APP版本</div>
-			        		<div className="header-item">底层固件版本</div>
+			        		<div className="header-item">内存</div>
 			        		<div className="header-item">标记</div>
+			        		<div className="header-item">存储容量</div>
+			        		<div className="header-item">sd容量</div>
+			        		<div className="header-item">app版本</div>
 			        		<div className="header-item">操作</div>
 			        	</div>
 			        	<div className="table-body">

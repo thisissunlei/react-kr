@@ -19,6 +19,33 @@ module.exports = {
       url: '/mockjsdata/53/krspace-iot-platform-web/door-device/edit',
       method: 'put'
    },
+   //批量删除设备
+   'deleteEquipmentBatch':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/delete-batch',
+      method: 'delete'
+   },
+
+   //单个删除
+   'deleteEquipmentSingleURL':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/delete',
+      method: 'delete'
+   },
+
+    
+    //获取为使用设备
+   'getUnusedEquipment':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/unused-list',
+      method: 'get'
+   },
+   //将没有用过的设备添加到列表中
+   'changeUnusedToList':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/enable',
+      method: 'post'
+   },
+    
+
+
+    
    
    
    
