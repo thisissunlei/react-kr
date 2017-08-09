@@ -65,6 +65,7 @@ export default class MultiSwitchDialog extends React.Component{
 
     }
 	initData=(data,rightData)=>{
+		console.log(rightData);
 		var param = data.map((item,index)=>{
 			//改变这里
 			if(item){

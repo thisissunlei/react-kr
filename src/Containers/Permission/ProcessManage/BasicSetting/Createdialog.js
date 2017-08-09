@@ -10,6 +10,10 @@ import {
     Col,
     Dialog,
 } from 'kr-ui';
+import {
+	Http,
+	DateFormat
+} from "kr/Utils"
 import {reduxForm, formValueSelector, change} from 'redux-form';
 class Createdialog extends Component {
     static PropTypes = {
@@ -23,13 +27,22 @@ class Createdialog extends Component {
             range:true,
             limit:true,
             rangeType:1,
+            allRole:[],
         }
     }
     componentDidMount() {
         Store.dispatch(change('Createdialog','limitType','SUBCOMPANY'));
         Store.dispatch(change('Createdialog','limitAuth','ALL'));
         Store.dispatch(change('Createdialog','enable','1'));
-    }
+        var _this = this;
+        Http.request('role-power-all', {}).then(function (response) {
+            _this.setState({
+                allRole:response.items
+            })
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+    }   
     onCancel = () => {
         const {onCancel} = this.props;
         onCancel && onCancel()
@@ -130,10 +143,11 @@ class Createdialog extends Component {
                             grid={1/2}
                             style={{width:262}}
                             name="rangeId"
-                            leftData={this.state.infoList.range}
+                            leftData={this.state.allRole}
                             component="switchSlide"
-                            label="选择机构"
-                            control='single'
+                            label="选择角色"
+                            checkable = {true}
+                            control='double'
                             requireLabel={true}
                             multiSwitch={true}
                         />

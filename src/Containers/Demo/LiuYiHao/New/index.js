@@ -119,6 +119,20 @@ class New extends React.Component {
 		super(props, context);
 
 		this.state = {
+            right:[
+                {
+                    "label": "财务主管",
+                    "value": 1
+                },
+                {
+                    "label": "财务总监",
+                    "value": 2
+                },
+                {
+                    "label": "财务经理",
+                    "value": 3
+                },
+            ]
 		}
 	}
 
@@ -142,6 +156,7 @@ class New extends React.Component {
 						control='double'
 						requireLabel={true}
 						multiSwitch={true}
+                        rightData={this.state.right}
 				/>
 			</div>
 

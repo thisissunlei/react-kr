@@ -26,7 +26,8 @@ class EditDialog extends Component {
             range:'',
             limit:'',
             rangeType:0,       
-            infoList:{} 
+            infoList:{},
+            allRole:[],
         }
     }
     componentDidMount() {
@@ -57,6 +58,13 @@ class EditDialog extends Component {
                   Store.dispatch(initialize('EditDialog', _this.state.infoList));
                 })
         }).catch(function(err) {});
+        Http.request('role-power-all', {}).then(function (response) {
+            _this.setState({
+                allRole:response.items
+            })
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
     }
     onCancel = () => {
         const {onCancel} = this.props;
@@ -163,13 +171,14 @@ class EditDialog extends Component {
                             grid={1/2}
                             style={{width:262}}
                             name="rangeId"
-                            leftData={this.state.infoList.range}
+                            leftData={this.state.allRole}
                             component="switchSlide"
-                            label="选择机构"
-                            control='single'
+                            label="选择角色"
+                            checkable = {true}
+                            control='double'
                             requireLabel={true}
                             multiSwitch={true}
-                            valueText = {this.state.infoList.range}
+                            rightData={this.state.infoList.roleRange}
                         />
                     }
                     {this.state.rangeType == '4'

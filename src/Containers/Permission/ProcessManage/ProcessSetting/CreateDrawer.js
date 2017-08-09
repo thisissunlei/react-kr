@@ -60,18 +60,23 @@ class CreateDrawer extends React.Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
+	commonSubmit=()=>{
+		this.submitType = 1;
+	}
+	basicSubmit=()=>{
+		this.submitType = 2;
+	}
 	onSubmit = (form) => {
 		let {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(form);
-	}
-	toBasicSetting=(form)=>{
-		let {
+			onSubmit,
 			toBasicSetting
 		} = this.props;
+		if(this.submitType==1){
+			onSubmit && onSubmit(form);
+		}else{
+			toBasicSetting && toBasicSetting(form);
+		}
 		
-		toBasicSetting && toBasicSetting(form);
 	}
 		render() {
 
@@ -88,7 +93,7 @@ class CreateDrawer extends React.Component {
 			     	<span>新建流程</span>
 			     	<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 			     </div>
-			     <form onSubmit={handleSubmit(this.onSubmit)} >
+			     <form ref="creatDrawer" onSubmit={handleSubmit(this.onSubmit)} >
 					<CircleStyleTwo num="1" info="基本信息">
 						<KrField
 								style={{width:260}}
@@ -183,8 +188,8 @@ class CreateDrawer extends React.Component {
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit"/>
-								<Button  label="保存并进入流程配置" type="submit" width={178} cancle={true} type="button"  onTouchTap={this.toBasicSetting}/>
+								<Button  label="确定" type="submit"onTouchTap={this.commonSubmit}/>
+								<Button  label="保存并进入流程配置" width={178} cancle={true} type="submit" onTouchTap={this.basicSubmit}/>
 							</ButtonGroup>
 						  </Col>
 						</Row>

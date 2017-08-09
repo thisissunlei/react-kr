@@ -95,7 +95,7 @@ export default class SingleType extends React.Component {
         var id=[];
         if(form.rangeId){
             form.rangeId.map((item,index)=>{
-                id.push(item.orgId);
+                id.push(item.value);
             })
 				form.rangeId=id;		  
         }

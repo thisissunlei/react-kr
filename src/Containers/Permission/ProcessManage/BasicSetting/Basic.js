@@ -118,7 +118,7 @@ class Basic extends Component {
                     label="对接人"
                     requireLabel={true}
                     ajaxUrlName = "get-personnel-tree"
-                    valueText={(infoList.range && infoList.range[0] && infoList.range[0].orgName)?detail:[{orgName:''}]}
+                    valueText={(infoList.hrmResource && infoList.hrmResource[0] && infoList.hrmResource[0].orgName)?infoList.hrmResource:[{orgName:''}]}
                 />
                 
                 <KrField style={{width:262,marginTop:14,marginLeft:28}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={true}>

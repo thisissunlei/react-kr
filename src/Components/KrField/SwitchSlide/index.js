@@ -30,7 +30,7 @@ export default class SwitchSlide extends React.Component{
 			data:{
 				label:"请选择"
 			},
-			valueText:props.valueText,
+			valueText:'',
 		}
 
 	}
@@ -39,19 +39,42 @@ export default class SwitchSlide extends React.Component{
 
     componentWillReceiveProps(nextProps){
 		let {oneOpen}=this.state;
-		let {label} = this.props;
-
-        if(nextProps.valueText!==this.state.valueText){
-			
-		    this.setState({
-				valueText:nextProps.valueText
-			})
-	    }
+		let {label,multiSwitch} = this.props;
+		
+		if(multiSwitch){
+			// console.log(this.state.valueText);
+			// this.setState({
+			// 		valueText:this.state.valueText
+			// 	})
+		}else{
+			if(nextProps.valueText!==this.state.valueText){
+				// console.log("进入next");
+				this.setState({
+					valueText:nextProps.valueText
+				})
+	    	}
+		}
+        
 	}
 
 	componentDidMount(){
-
-
+		const {multiSwitch,rightData} = this.props;
+		if(multiSwitch){
+			var valueText = [];
+			if(rightData.length){
+				rightData.map((item,index)=>{
+					valueText.push(item.label)
+				})
+			}
+			valueText = valueText.join(",");
+			this.setState({
+				valueText:valueText || '请选择'
+			})
+		}else{
+			this.setState({
+				valueText:this.props.valueText
+			})
+		}
 	}
 
 	onChange = (value)=>{
@@ -80,7 +103,8 @@ export default class SwitchSlide extends React.Component{
 		this.dlogSwidch();
 	}
 	onSubmit = (data) =>{
-		const multSwitch = this.props.multiSwitch;
+		const multiSwitch = this.props.multiSwitch;
+		// console.log("submit",data);
 		if(multiSwitch){
 			if( !data || !data[0].label ){
 				return ;
@@ -95,11 +119,12 @@ export default class SwitchSlide extends React.Component{
 				})
 			}
 			valueText = valueText.join(",");
-			console.log("valueText",valueText);
+			
 			this.setState({
 				data,
-				valueText:valueText || '请输入'
-			})			
+				valueText:valueText
+			})
+			// console.log("valueText",valueText);			
 		}else{
 			if( !data || !data.label ){
 				return ;
@@ -134,7 +159,8 @@ export default class SwitchSlide extends React.Component{
 		const {
             leftData,
             control,
-			multiSwitch
+			multiSwitch,
+			rightData,
         } = this.props;
 
 		let {
@@ -159,7 +185,6 @@ export default class SwitchSlide extends React.Component{
 			isClear,
             ...other
         } = this.props;
-
 			if(type === 'hidden'){
 				return (
 					<div>
@@ -202,44 +227,55 @@ export default class SwitchSlide extends React.Component{
 
         var dialogTitle = label || '组件';
         dialogTitle = "选择" + dialogTitle;
+		var multiDialogTitle = label || '组件';
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
 					<div className = "oa-imulation-input "  onClick = {this.onFocus}>{valueText}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-				 <div className = "select-tree">
-
-				 
-				 <Dialog
-					title={dialogTitle}
-					onClose={this.dlogSwidch}
-					open={isDialog}
-					noMaxHeight = {true}
-					contentStyle ={{ width: '510px',height:'590px'}}
-				 >
 				 	{
 						 multiSwitch
 						 ? 
-						 <MultiSwitchDialog  
-							leftData = {leftData}
-							control={control}
-							onSelect = {this.onSelect} 
-							onSubmit = {this.onSubmit} 
-							onCancel = {this.onCancel}
-						/>
+						 <div className = "select-multi-tree">
+							<Dialog
+								title={multiDialogTitle}
+								onClose={this.dlogSwidch}
+								open={isDialog}
+								noMaxHeight = {true}
+								contentStyle ={{ width: '510px',height:'590px'}}
+							>
+								<MultiSwitchDialog  
+									leftData = {leftData}
+									rightData={rightData}
+									control={control}
+									onSelect = {this.onSelect} 
+									onSubmit = {this.onSubmit} 
+									onCancel = {this.onCancel}
+								/>
+								</Dialog>
+						</div>
 						:
-						<SwitchDialog  
-							leftData = {leftData}
-							control={control}
-							onSelect = {this.onSelect} 
-							onSubmit = {this.onSubmit} 
-							onCancel = {this.onCancel}
-						/>
+						<div className = "select-tree">
+							<Dialog
+								title={dialogTitle}
+								onClose={this.dlogSwidch}
+								open={isDialog}
+								noMaxHeight = {true}
+								contentStyle ={{ width: '510px',height:'590px'}}
+							>
+								<SwitchDialog  
+									leftData = {leftData}
+									control={control}
+									onSelect = {this.onSelect} 
+									onSubmit = {this.onSubmit} 
+									onCancel = {this.onCancel}
+								/>
+							</Dialog>
+						</div>		
 					 }
 					
-				</Dialog>
-				</div>
+				
 			 </WrapComponent>
 		 );
 	 }

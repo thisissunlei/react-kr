@@ -141,15 +141,17 @@ export default class AllTypes extends React.Component {
 		});
 	}
     toBasicSetting=(form)=>{
-        var _this = this;
+        const {onSubmit} = this.props;
 		var params = Object.assign({},form);
         params.hrmResourceId = params.hrmResourceId[0].orgId;
+        var _this = this;
         Http.request('process-add', {}, params).then(function (response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
 			_this.changeP();
             let processId = response.wfId;
-            window.location.href = `./#/permission/processManage/processSetting/${processId}/basicSetting`;
+            window.location.href = `./#/permission/processManage/${processId}/basicSetting`;
+            onSubmit();
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
