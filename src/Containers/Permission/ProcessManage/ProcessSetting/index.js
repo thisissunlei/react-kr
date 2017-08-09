@@ -55,6 +55,7 @@ export default class ProcessSetting extends React.Component {
             //类型名称
             processName:"全部类型",
             selectColor:0,
+			searchKey:'',
             treeActive:true,
 			typeId:'0',
 			timer:new Date(),
@@ -66,7 +67,6 @@ export default class ProcessSetting extends React.Component {
 	componentDidMount() {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
-		console.log("进入~··");
 		var _this = this;
 		this.state.typeTree.map((item,index)=>{
             item.active=false;
@@ -77,11 +77,21 @@ export default class ProcessSetting extends React.Component {
 
     //树相关
 	getTreeData = () => {
+
 		const _this = this;
-		Http.request("process-typetree", {}).then(function (response) {
+		Http.request("process-typetree", {name:_this.state.searchKey}).then(function (response) {
 			_this.setState({
 				typeTree: response.items,
+			},function(){
+				console.log(_this.state.searchKey);
+				if(_this.state.searchKey && response.items.length){
+					console.log("进入",_this.state.searchKey);
+					_this.selectType(response.items[0]);
+				}else{
+					_this.selectType(-1);
+				}
 			});
+			
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -96,10 +106,9 @@ export default class ProcessSetting extends React.Component {
     change = (event) => {
 		
 		this.setState({
-			searchKey: event.target.value || ' ',
+			searchKey: event.target.value || '',
 		},function(){
-			console.log(this.state.searchKey);
-			
+			this.getTreeData();			
 		})
 	}
     selectType=(item)=>{
@@ -143,7 +152,6 @@ export default class ProcessSetting extends React.Component {
 	}
     //更新数据
     updateData=()=>{
-		console.log("update");
 		this.getTreeData();
 		this.getProcessDetail();
 	}
@@ -152,7 +160,6 @@ export default class ProcessSetting extends React.Component {
 		let { itemDetail, data, styleBool,dataName,treeActive} = this.state;
 		var logFlag = '';
 		var style = {};
-        console.log(this.state.typeTree);
 		return (
 			<div className="g-process-setting">
 				<div className="left">

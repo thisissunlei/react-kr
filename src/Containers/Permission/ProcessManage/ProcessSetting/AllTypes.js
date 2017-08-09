@@ -67,7 +67,6 @@ export default class AllTypes extends React.Component {
 		
 		var _this = this;
 		
-		console.log("typeId",_this.props.typeId);
 	}
     checkTab = (item) => {
 		this.setState({
@@ -256,7 +255,7 @@ export default class AllTypes extends React.Component {
                                 <TableHeaderColumn>排序号</TableHeaderColumn>
                                 <TableHeaderColumn>描述</TableHeaderColumn>
                                 <TableHeaderColumn>操作人</TableHeaderColumn>
-                                <TableHeaderColumn>创建日期</TableHeaderColumn>
+                                <TableHeaderColumn>操作时间</TableHeaderColumn>
                                 <TableHeaderColumn>操作</TableHeaderColumn>
                             </TableHeader>
 

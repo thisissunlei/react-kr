@@ -23,7 +23,7 @@ module.exports = [
 					{
 						primaryText: '新办事宜',
 						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/permission/processManage/dealNewThings',
+						router: '/office/officeBackground/newOffice',
 					},
 				]	
 			}, 

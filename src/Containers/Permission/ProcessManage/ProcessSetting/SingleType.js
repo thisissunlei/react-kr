@@ -72,9 +72,9 @@ export default class SingleType extends React.Component {
 	componentWillReceiveProps(nextProps){
 		let {searchParams}=this.state;
 		let {typeId,processName} = this.props;
-		console.log("nextProps",nextProps);
+		// console.log("nextProps",nextProps);
         if(nextProps.processName!==this.state.processName){
-			console.log("进入props");
+			// console.log("进入props");
 		    this.setState({
 				searchParams: {
 					page: 1,
@@ -200,7 +200,7 @@ export default class SingleType extends React.Component {
 	}
 	render() {
         let {item,itemDetail} = this.state;
-		console.log(this.state.processName);
+		// console.log(this.state.processName);
 		return (
 			<div>
                 <div className="center-row">
