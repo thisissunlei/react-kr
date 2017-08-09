@@ -1,0 +1,26 @@
+[
+    {
+        "label": "正式",
+        "value": "OFFICIAL"
+    },
+    {
+        "label": "税优",
+        "value": "TAX_QUALIFIED"
+    },
+    {
+        "label": "外籍",
+        "value": "FOREIGN"
+    },
+    {
+        "label": "外部",
+        "value": "EXTERNAL"
+    },
+    {
+        "label": "实习",
+        "value": "INTERNSHIP"
+    },
+    {
+        "label": "兼职",
+        "value": "PART_TIME"
+    }
+]

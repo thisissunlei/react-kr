@@ -11,9 +11,8 @@ export default class AddPostPeople  extends React.Component{
 	}
 	
 	render(){
-
 		return(
-
+			
 			<div>
                    {/*新建用户*/}
 					<Drawer
@@ -24,7 +23,7 @@ export default class AddPostPeople  extends React.Component{
 							onClose={this.props.onClose}
 					 >
 						<AddPerson
-						  
+						   orgDetail={(this.props.orgDetail && this.props.orgDetail.orgName)?[this.props.orgDetail]:[{orgName:''}]}
 			               onCancel={this.props.onCancel}
 						   onSubmit={this.props.onSubmit}   
 						/>
