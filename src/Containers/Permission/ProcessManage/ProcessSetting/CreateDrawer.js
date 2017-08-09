@@ -214,7 +214,9 @@ class CreateDrawer extends React.Component {
 		if (!values.wfCode) {
 			errors.wfCode = '请输入流程编码';
 		}
-
+		if (!values.wfTypeId) {
+			errors.wfTypeId = '请选择流程类型';
+		}
 		if (!values.wfOrderNum) {
 			errors.wfOrderNum = '请输入排序号';
 		}

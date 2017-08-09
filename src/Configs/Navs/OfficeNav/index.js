@@ -21,7 +21,7 @@ module.exports = [
 				menuCode: 'hrm_resourcesList_incumbency',
 				menuItems: [
 					{
-						primaryText: '新办事宜',
+						primaryText: '发起流程',
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/office/officeBackground/newOffice',
 					},

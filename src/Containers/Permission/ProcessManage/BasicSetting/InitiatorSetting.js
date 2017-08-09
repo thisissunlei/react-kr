@@ -122,12 +122,18 @@ export default class SingleType extends React.Component {
                 id.push(item.orgId);
             })
 			form.rangeId=id;	
-        }else if(form.rangeId && form.rangeId[0] && form.rangeId[0].value){
-            form.rangeId.map((item,index)=>{
+        }else if(form.roleId && form.roleId[0] && form.roleId[0].value){
+            form.roleId.map((item,index)=>{
                 id.push(item.value);
             })
 			form.rangeId=id;	
+        }else{
+            form.roleId.map((item,index)=>{
+                id.push(item);
+            })
+			form.rangeId=id;
         }
+        console.log("init",form);
 		var _this = this;
 		Http.request('process-authority-edit', {}, form).then(function (response) {
 			_this.openEditDialog();

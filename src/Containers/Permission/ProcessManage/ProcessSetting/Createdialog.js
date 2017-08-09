@@ -110,7 +110,7 @@ const validate = values => {
 	if (!values.name) {
 		errors.name = '请输入流程类型名称';
 	}else if (values.name.length>10) {
-		errors.name = '流程类型名称最多20个字符！';
+		errors.name = '流程类型名称最多10个字符！';
 	}
     
     // if (!values.adminId) {

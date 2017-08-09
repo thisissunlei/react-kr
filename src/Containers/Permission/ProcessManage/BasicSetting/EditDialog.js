@@ -44,14 +44,16 @@ class EditDialog extends Component {
                     rangeType=2;
                 }else if(response.limitType=='ROLE'){
                     rangeType=3;
+                    
                 }else if(response.limitType=='HRMRESOURCE'){
                     rangeType=4;
                 }else{
                     rangeType=0;
+                    
                 }
                 _this.setState({
                     range:response.limitType=='ALL'?false:true,
-                    limit:response.limitType=='SUBCOMPANY'||'DEPARTMENT'?true:false,
+                    limit:(response.limitType=='SUBCOMPANY'||response.limitType=='DEPARTMENT')?true:false,
                     rangeType:rangeType,
                     infoList:response,
                 },function(){
@@ -77,6 +79,7 @@ class EditDialog extends Component {
         onSubmit && onSubmit(params);
     }
     changeType=(item)=>{
+        console.log("进入change");
         switch(item.value)
             {
             case 'SUBCOMPANY':
@@ -113,7 +116,7 @@ class EditDialog extends Component {
     }
     render() {
         const {handleSubmit,detail} = this.props;
-        console.log(this.state.infoList);
+        console.log(this.state.rangeType,"rangetype",this.state.limit,"limit");
         return (
 
             <div>
@@ -148,7 +151,7 @@ class EditDialog extends Component {
                             ajaxUrlName = "role-sub-tree"
                             requireLabel={true}
                             checkable = {true}
-                            valueText={(this.state.infoList.range && this.state.infoList.range[0] && this.state.infoList.range[0].orgName)?this.state.infoList.range:[{orgName:''}]}
+                            valueText={(this.state.infoList.rangeId && this.state.infoList.rangeId[0] && this.state.infoList.rangeId[0].orgName)?this.state.infoList.rangeId:[{orgName:''}]}
                         />
                     }
                     {this.state.rangeType == '2'
@@ -162,7 +165,7 @@ class EditDialog extends Component {
                             ajaxUrlName = "role-dep-tree"
                             requireLabel={true}
                             checkable = {true}
-                            valueText={(this.state.infoList.range && this.state.infoList.range[0] && this.state.infoList.range[0].orgName)?this.state.infoList.range:[{orgName:''}]}
+                            valueText={(this.state.infoList.rangeId && this.state.infoList.rangeId[0] && this.state.infoList.rangeId[0].orgName)?this.state.infoList.rangeId:[{orgName:''}]}
                         />
                     }
                     {this.state.rangeType == '3'
@@ -170,7 +173,7 @@ class EditDialog extends Component {
                         <KrField
                             grid={1/2}
                             style={{width:262}}
-                            name="rangeId"
+                            name="roleId"
                             leftData={this.state.allRole}
                             component="switchSlide"
                             label="选择角色"
@@ -192,7 +195,7 @@ class EditDialog extends Component {
                             ajaxUrlName = "role-new-tree"
                             requireLabel={true}
                             checkable = {true}
-                            valueText={(this.state.infoList.range && this.state.infoList.range[0] && this.state.infoList.range[0].orgName)?this.state.infoList.range:[{orgName:''}]}
+                            valueText={(this.state.infoList.rangeId && this.state.infoList.rangeId[0] && this.state.infoList.rangeId[0].orgName)?this.state.infoList.rangeId:[{orgName:''}]}
                         />
                 }
                 {this.state.rangeType == '0'

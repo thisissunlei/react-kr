@@ -156,6 +156,22 @@ export default class AllTypes extends React.Component {
 			Message.error(err.message)
 		});
     }
+    onEditSubmit = (params) => {
+        // console.log("saf");
+        const {updateDetail,onSubmit} = this.props;
+        var params = Object.assign({},params);
+        params.typeId = this.state.itemDetail.id;
+        // console.log(this.state.itemDetail.id,params);
+		var _this = this;
+		Http.request('process-edit-type', {}, params).then(function (response) {
+			_this.openEditDialog();
+			Message.success('修改成功');
+			_this.changeP();
+            onSubmit();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+	}
     //改变页码
     changeP=()=>{
         var timer = new Date();
@@ -265,7 +281,14 @@ export default class AllTypes extends React.Component {
                                 <TableRow>
                                     <TableRowColumn name="name" ></TableRowColumn>
                                     <TableRowColumn name="orderNum"></TableRowColumn>
-                                    <TableRowColumn name="descr"></TableRowColumn>
+                                    <TableRowColumn name="descr"
+                                        component={(value,oldValue)=>{
+		 										var maxWidth=20;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,20)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
                                     <TableRowColumn name="operator"></TableRowColumn>
 
                                     <TableRowColumn type="operatorTime" name="createTime" component={(value) => {
@@ -354,7 +377,7 @@ export default class AllTypes extends React.Component {
 									component={(value,oldValue)=>{
 		 										var maxWidth=8;
 		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,6)+"...";
+		 										 value = value.substring(0,8)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>

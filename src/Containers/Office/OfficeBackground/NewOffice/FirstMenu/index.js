@@ -57,7 +57,7 @@ export default class FirstMenu extends React.Component {
 		let {editStyle,editState} = this.state;
 		return (
 			<div className="apply" key={index}>
-				<div className="left">
+				<div className="left" onClick={this.toHz.bind(this,item)}>
                     {item.name}
                 </div>
                 <div onClick={this.onAddThings.bind(this,item)} className={`right ${item.click?" ":"right-unclickable"}`}>
@@ -66,7 +66,9 @@ export default class FirstMenu extends React.Component {
 			</div>
 		)
 	}
-	
+	toHz=(item)=>{
+		window.open(`${item.hzUrl}`);
+	}
 	onAddThings=(item)=>{
 		const {
 			onSubmit,

@@ -47,7 +47,7 @@ class Basic extends Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
-        
+        // console.log("basic",form);
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
         onSubmit && onSubmit(params);
@@ -118,7 +118,7 @@ class Basic extends Component {
                     label="对接人"
                     requireLabel={true}
                     ajaxUrlName = "get-personnel-tree"
-                    valueText={(infoList.hrmResource && infoList.hrmResource[0] && infoList.hrmResource[0].orgName)?infoList.hrmResource:[{orgName:''}]}
+                    valueText={(infoList.hrmResourceId && infoList.hrmResourceId[0] && infoList.hrmResourceId[0].orgName)?infoList.hrmResourceId:[{orgName:''}]}
                 />
                 
                 <KrField style={{width:262,marginTop:14,marginLeft:28}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={true}>
@@ -175,9 +175,9 @@ const validate = values => {
 			errors.wfOrderNum = '请输入排序号';
 		}
 
-		if (!values.hrmResourceId) {
-			errors.hrmResourceId = '请选择对接人';
-		}
+		// if (!values.hrmResourceId) {
+		// 	errors.hrmResourceId = '请选择对接人';
+		// }
 		if (!values.hzCode) {
 			errors.hzCode = '请输入慧正流程唯一标识';
 		}else if (values.hzCode.length>50) {

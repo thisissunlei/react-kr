@@ -46,7 +46,7 @@ export default class NewOffice extends React.Component {
     // };
     return (
       <div onClick={()=>{
-            this.toLabour(item)
+            this.toHz(item)
           }} className="item" key={index}>
         <span className={`top-circle class-${imageNum}`} >
           <span>{item.name.substring(0,2)}</span>
@@ -69,8 +69,8 @@ export default class NewOffice extends React.Component {
         <FirstMenu key={index} detail={item} onSubmit={this.updateData}/>
     )
   }
-  toLabour=(item)=>{
-
+  toHz=(item)=>{
+    window.open(`${item.hzUrl}`);
   }
   //移除部分
   openDelete=()=>{
