@@ -14,7 +14,7 @@ import {
 	Http,
 	DateFormat
 } from "kr/Utils";
-import {reduxForm, formValueSelector, change} from 'redux-form';
+import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 class EditDialog extends Component {
     static PropTypes = {
         detail: React.PropTypes.object,
@@ -25,32 +25,34 @@ class EditDialog extends Component {
         super(props, context);
         this.state={
             options:[],
+            infoList:{},
         }
     }
     componentDidMount() {
         var _this = this;
-        // var orgId = this.props.detail.orgId;
-        // var orgType = this.props.detail.orgType;
-        // Http.request('org-detail', {
-        //         orgId: orgId,
-        //         orgType:orgType
-        //     },{}).then(function(response) {
-        //         _this.setState({infoList: response},function(){
-        //           Store.dispatch(initialize('editdialog', _this.state.infoList));
-        //         })
-        //     }).catch(function(err) {});
+        if(this.props.type=="all"){
+            console.log(this.props.itemDetail);
+            var typeId = this.props.itemDetail.id;
+        }else{
+            var typeId = this.props.detail.typeId;
+        }  
+        Http.request('process-type-detail', {
+                typeId: typeId,
+            },{}).then(function(response) {
+                  response.enable = response.enable.toString();
+                  console.log(typeof response.enable);
+                _this.setState({infoList: response},function(){
+                  Store.dispatch(initialize('EditDialog', _this.state.infoList));
+                })
+            }).catch(function(err) {});
     }
     onCancel = () => {
         const {onCancel} = this.props;
         onCancel && onCancel()
     }
     onSubmit = (form) => {
-        
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
-        params.dimId = this.props.detail.dimId;
-        params.orgId = this.props.detail.orgId;
-        params.superOrgType = this.props.detail.orgType;
         onSubmit && onSubmit(params);
     }
 
@@ -67,7 +69,7 @@ class EditDialog extends Component {
                     grid={1/2}
                     label="流程类型名称"
                     component="input"
-                    name="orgName"
+                    name="name"
                     requireLabel={true}
                     placeholder="请输入流程类型名称"
                 />
@@ -77,13 +79,13 @@ class EditDialog extends Component {
                     label="排序号"
                     grid={1/2}
                     component="input"
-                    name="code"
+                    name="orderNum"
                     requireLabel={true}
                     placeholder="排序号"
                 />
-                <KrField style={{width:262,marginTop:14,marginLeft:28}} name="sex" component="group" label="是否显示" grid={1} requireLabel={false}>
-                    <KrField style={{marginTop:10,marginRight:24}} name="sex" label="显示" type="radio" value='MALE' />
-                    <KrField style={{marginTop:10}} name="sex" label="不显示" type="radio" value='FAMALE' />
+                <KrField style={{width:262,marginTop:14,marginLeft:28}} name="enable" component="group" label="是否显示" grid={1} requireLabel={false}>
+                    <KrField style={{marginTop:10,marginRight:24}} name="enable" label="显示" type="radio" value="1" />
+                    <KrField style={{marginTop:10}} name="enable" label="不显示" type="radio" value="0" />
  				</KrField>
                <KrField
                   grid={1}

@@ -79,7 +79,7 @@ import OaTreeDivision from './OaTreeDivision'
 //高级查询客户来源
 import UpMerchantsSource from './UpMerchantsSource';
 import UpSignedClientSource from './UpSignedClientSource';
-
+import SearchProcessType from './SearchProcessType';
 
 
 
@@ -470,6 +470,11 @@ class FieldRevert extends React.Component {
 			if (component === 'searchOaPersonal') {
 				return (
 					<FieldRevert {...this.props} component={SearchOaPersonal}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'SearchProcessType') {
+				return (
+					<FieldRevert {...this.props} component={SearchProcessType}  style={WrapStyles} {...other}/>
 				)
 			}
 			if (component === 'oaUploadImage') {

@@ -73,8 +73,9 @@ export default class BasicSetting extends React.Component {
 		var _this = this;
 		var form = Object.assign({},params);
 		form.wfId=this.props.params.processId;
-		Http.request('save-junior', {}, form).then(function (response) {
-			Message.success('新建成功');
+		form.hrmResourceId = form.hrmResourceId[0].orgId;
+		Http.request('process-edit', {}, form).then(function (response) {
+			Message.success('保存成功');
 			// _this.changeP();
 		}).catch(function (err) {
 			Message.error(err.message)
@@ -82,7 +83,7 @@ export default class BasicSetting extends React.Component {
 	}
     //返回
     toBack=()=>{
-        window.location.href='./#/oa/processManage/processSetting'
+        window.location.href='./#/permission/processManage/processSetting'
     }
     //改变页码
     changeP=()=>{

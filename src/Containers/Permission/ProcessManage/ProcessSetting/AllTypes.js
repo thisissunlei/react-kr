@@ -38,6 +38,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
+import SearchTypeForm from './SearchTypeForm';
 import EditDialog from './EditDialog';
 import CreateDialog from './Createdialog';
 import CreateDrawer from './CreateDrawer';
@@ -57,6 +58,7 @@ export default class AllTypes extends React.Component {
             searchParams: {
 				page: 1,
 				pageSize: 15,
+                typeId:this.props.typeId,
 			},
 		}
 	}
@@ -65,7 +67,7 @@ export default class AllTypes extends React.Component {
 		
 		var _this = this;
 		
-		
+		console.log("typeId",_this.props.typeId);
 	}
     checkTab = (item) => {
 		this.setState({
@@ -83,12 +85,15 @@ export default class AllTypes extends React.Component {
 	onOperation = (type, itemDetail) => {
 		this.setState({
 			itemDetail
-		});
-		if (type == 'edit') {
-			this.openEditDialog();
-		} else if (type == 'set') {
-			this.openSetDialog();
-		}
+		},function(){
+            if (type == 'edit') {
+                this.openEditDialog();
+            } else if (type == 'set') {
+                this.openSetDialog();
+            }
+        });
+        
+		
 	}
 
 	openCreateDialog = () => {
@@ -97,8 +102,8 @@ export default class AllTypes extends React.Component {
 		})
 	}
     openSetDialog = () => {
-        var processId =  this.state.itemDetail.processId;
-		window.open(`./#/oa/processManage/processSetting/${processId}/basicSetting`);
+        var processId =  this.state.itemDetail.wfId;
+		window.location.href = `./#/permission/processManage/${processId}/basicSetting`;
 	}
 	openEditDialog = () => {
 		this.setState({
@@ -111,49 +116,41 @@ export default class AllTypes extends React.Component {
 		})
     }
 	onCreatSubmit = (params) => {
+       const {onSubmit} = this.props;
 		var _this = this;
 		Http.request('process-add-type', {}, params).then(function (response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
 			_this.changeP();
-			_this.getTreeData();
-			_this.getOrganizationDetail();
-		}).catch(function (err) {
-			Message.error(err.message)
-		});
-	}
-    onEditSubmit = (params) => {
-		var _this = this;
-		Http.request('process-edit-type', {}, params).then(function (response) {
-			_this.openCreateDialog();
-			Message.success('修改成功');
-			_this.changeP();
-			_this.getTreeData();
-			_this.getOrganizationDetail();
+            onSubmit();
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
 	}
     onCreatDrawerSubmit = (params) => {
+        const {onSubmit} = this.props;
+        var params = Object.assign({},params);
+        params.hrmResourceId = params.hrmResourceId[0].orgId;
 		var _this = this;
-		Http.request('process-add-type', {}, params).then(function (response) {
-			_this.openCreateDialog();
+		Http.request('process-add', {}, params).then(function (response) {
+			_this.openCreateDrawer();
 			Message.success('新建成功');
 			_this.changeP();
-			_this.getTreeData();
+            onSubmit();
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
 	}
     toBasicSetting=(form)=>{
         var _this = this;
-        Http.request('process-add-type', {}, params).then(function (response) {
+		var params = Object.assign({},form);
+        params.hrmResourceId = params.hrmResourceId[0].orgId;
+        Http.request('process-add', {}, params).then(function (response) {
 			_this.openCreateDialog();
-			//Message.success('新建成功');
+			Message.success('新建成功');
 			_this.changeP();
-			_this.getTreeData();
-            let processId = form.id
-            window.open(`./#/oa/processManage/processSetting/${processId}/basicSetting`);
+            let processId = response.wfId;
+            window.location.href = `./#/permission/processManage/processSetting/${processId}/basicSetting`;
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
@@ -175,6 +172,20 @@ export default class AllTypes extends React.Component {
             searchParams:searchParams,
         })
     }
+    onSearchTypeSubmit = (form) => {
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.name = form.content;
+		this.setState({
+			searchParams
+		})
+	}
+    onSearchSubmit = (form) => {
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.wfName = form.content;
+		this.setState({
+			searchParams
+		})
+	}
     //高级查询
 	openHighSearch = () => {
 		this.setState({
@@ -183,8 +194,10 @@ export default class AllTypes extends React.Component {
 	}
 
 	onHighSearchSubmit = (form) => {
-		var form = Object.assign({},this.state.searchParams);
+		var form = Object.assign({},form);
 		form.typeId=this.state.searchParams.typeId;
+        form.page=1;
+        form.pageSize=15;
 		this.setState({
 			searchParams:form
 		})
@@ -224,16 +237,16 @@ export default class AllTypes extends React.Component {
                                     <Button label="新建" type="button" onClick={this.openCreateDialog} width={80} height={30} fontSize={14}  labelStyle={{fontWeight:400,padding:0}}/>
                                 </Col>
                                 <Col md={8} align="right">
-
+                                    <SearchTypeForm onSubmit={this.onSearchTypeSubmit} />
                                 </Col>
                             </Row>
                         </Grid>
-                        {/*<Table
+                        <Table
                             style={{ marginTop: 10 }}
                             displayCheckbox={false}
                             onLoaded={this.onLoaded}
                             ajax={true}
-                            ajaxUrlName='op-code-list'
+                            ajaxUrlName='process-type-list'
                             ajaxParams={this.state.searchParams}
                             onOperation={this.onOperation}
                             onPageChange={this.onPageChange}
@@ -265,7 +278,7 @@ export default class AllTypes extends React.Component {
                                 </TableRow>
                             </TableBody>
                             <TableFooter></TableFooter>
-                        </Table>*/}
+                        </Table>
                     </div>
                 }
                 {
@@ -283,12 +296,12 @@ export default class AllTypes extends React.Component {
                                 </Col>
                             </Row>
                         </Grid>
-                        {/*<Table
+                        <Table
                             style={{ marginTop: 10 }}
                             displayCheckbox={false}
                             onLoaded={this.onLoaded}
                             ajax={true}
-                            ajaxUrlName='findUserByRoleId'
+                            ajaxUrlName='process-list'
                             ajaxParams={this.state.searchParams}
                             onOperation={this.onOperation}
                             onPageChange={this.onPageChange}
@@ -315,10 +328,9 @@ export default class AllTypes extends React.Component {
                                     <TableRowColumn name="wfOrderNum"></TableRowColumn>
                                     <TableRowColumn name="allowRequest"
                                         component={(value, oldValue) => {
+                                            var style = {};
                                             if (value == '不允许') {
                                                 style = { 'color': '#FF5B52' }
-                                            }else{
-                                                style = {}
                                             }
                                             return (
                                                 <div style={style}>{value}</div>
@@ -327,22 +339,22 @@ export default class AllTypes extends React.Component {
                                     ></TableRowColumn>
                                     <TableRowColumn name="newRequestShow"
                                         component={(value, oldValue) => {
+                                            var styleTwo = {};
                                             if (value == '不显示') {
-                                                style = { 'color': '#FF5B52' }
-                                            }else{
-                                                style = {}
+                                                styleTwo = { 'color': '#FF5B52' }
                                             }
                                             return (
-                                                <div style={style}>{value}</div>
+
+                                                <div style={styleTwo}>{value}</div>
                                             )
                                         }}
                                     ></TableRowColumn>
                                     <TableRowColumn name="hzCode"></TableRowColumn>
-                                    <TableRowColumn name="descr"></TableRowColumn>
+                                    <TableRowColumn name="dscr"></TableRowColumn>
                                     <TableRowColumn name="operator"></TableRowColumn>
                                     <TableRowColumn type="date" name="operatorTime" component={(value) => {
                                         return (
-                                            <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
+                                           <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
                                         )
                                     }}> </TableRowColumn>
                                     <TableRowColumn>
@@ -351,7 +363,7 @@ export default class AllTypes extends React.Component {
                                 </TableRow>
                             </TableBody>
                             <TableFooter></TableFooter>
-                        </Table>*/}
+                        </Table>
                     </div>
                 }
                 <Dialog
@@ -374,7 +386,7 @@ export default class AllTypes extends React.Component {
 						width: 685
 					}}
 				>
-					{/*<EditDialog detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />*/}
+					<EditDialog itemDetail={this.state.itemDetail} type="all" detail={this.state.searchParams} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
 				</Dialog>
                 <Drawer
                     open={this.state.openCreateDrawer}

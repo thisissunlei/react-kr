@@ -10,7 +10,11 @@ import {
     Col,
     Dialog,
 } from 'kr-ui';
-import {reduxForm, formValueSelector, change} from 'redux-form';
+import {
+	Http,
+	DateFormat
+} from "kr/Utils";
+import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 class Basic extends Component {
     static PropTypes = {
         detail: React.PropTypes.object,
@@ -21,32 +25,22 @@ class Basic extends Component {
         super(props, context);
         this.state={
             options:[],
+            infoList:[],
         }
     }
     componentDidMount() {
-        // var opt=[];
-        // if (this.props.detail.orgType=='DEPARTMENT') {
-        //    opt = [
-        //                 {label:'部门',value:'DEPARTMENT'},
-    	// 			];
-            
-        // }else if(this.props.detail.orgType=='ROOT'){
-        //     opt = [
-        //                 {label:'分部',value:'SUBCOMPANY'}
-    	// 			];
-        // }else{
-        //   opt = [
-        //                 {label:'部门',value:'DEPARTMENT'},
-        //                 {label:'分部',value:'SUBCOMPANY'}
-    	// 			];
-        // }
-        // this.setState({
-        //     options:opt
-        // },function(){
-        //     Store.dispatch(change('Createdialog','orgType','DEPARTMENT'));
-        // })
-        Store.dispatch(change('Createdialog','sex','MALE'))
-        Store.dispatch(change('Createdialog','sex','MALE'))
+        var _this = this;
+            console.log(_this.props.id);
+        var wfId = _this.props.id;
+        Http.request('process-detail', {
+                wfId: wfId,
+            },{}).then(function(response) {
+                  response.newRequestShow = response.newRequestShow.toString();
+                  response.allowRequest = response.allowRequest.toString();
+                _this.setState({infoList: response},function(){
+                  Store.dispatch(initialize('Basic', _this.state.infoList));
+                })
+            }).catch(function(err) {});
     }
     onCancel = () => {
         const {onCancel} = this.props;
@@ -56,14 +50,12 @@ class Basic extends Component {
         
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
-        params.dimId = this.props.detail.dimId;
-        params.orgId = this.props.detail.orgId;
-        params.superOrgType = this.props.detail.orgType;
         onSubmit && onSubmit(params);
     }
 
     render() {
         const {handleSubmit,detail} = this.props;
+        const {infoList} = this.state;
        // console.log(detail);
         return (
 
@@ -91,13 +83,11 @@ class Basic extends Component {
                 />
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
-                    inline={false}
-                    grid={1/2}
-                    label="流程类型"
-                    component="input"
                     name="wfTypeId"
+                    type="text"
+                    component="SearchProcessType"
+                    label="流程类型"
                     requireLabel={true}
-                    placeholder="请输入流程类型名称"
                 />
                 <KrField
                     style={{width:262,marginTop:6}}
@@ -122,21 +112,22 @@ class Basic extends Component {
                 <KrField
                     style={{width:262,marginTop:6}}
                     inline={false}
-                    label="对接人"
                     grid={1/2}
-                    component="select"
                     name="hrmResourceId"
+                    component="treePersonnel"
+                    label="对接人"
                     requireLabel={true}
-                    placeholder="排序号"
+                    ajaxUrlName = "get-personnel-tree"
+                    valueText={(infoList.range && infoList.range[0] && infoList.range[0].orgName)?detail:[{orgName:''}]}
                 />
                 
                 <KrField style={{width:262,marginTop:14,marginLeft:28}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={true}>
-                    <KrField style={{marginTop:10}} name="allowRequest" label="允许" type="radio" value={true} />
-                    <KrField style={{marginTop:10}} name="allowRequest" label="不允许" type="radio" value={false} />
+                    <KrField style={{marginTop:10}} name="allowRequest" label="允许" type="radio" value="1" />
+                    <KrField style={{marginTop:10}} name="allowRequest" label="不允许" type="radio" value="0" />
  				</KrField>
                  <KrField style={{width:262,marginTop:14,marginLeft:34}} name="newRequestShow" component="group" label="新办是否显示" grid={1} requireLabel={true}>
-                    <KrField style={{marginTop:10}} name="newRequestShow" label="显示" type="radio" value={true} />
-                    <KrField style={{marginTop:10}} name="newRequestShow" label="不显示" type="radio" value={false} />
+                    <KrField style={{marginTop:10}} name="newRequestShow" label="显示" type="radio" value="1" />
+                    <KrField style={{marginTop:10}} name="newRequestShow" label="不显示" type="radio" value="0" />
  				</KrField>
                <KrField
                   grid={1}

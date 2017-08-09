@@ -366,12 +366,14 @@ var OAApi = {
       url:'/api/krspace-erp-web/new/request/list',
       method: 'get'
   },
-  //流程--流程类型列表
+
+
+  //流程--流程类型树
   'process-typetree':{
       url:'/api/krspace-erp-web/wf/type/list?name={name}',
       method: 'get'
   },
-  //流程--流程类型树
+  //流程--流程类型列表
   'process-type-list':{
       url:'/api/krspace-erp-web/wf/type/page?name={name}&page={page}&pageSize={pageSize}',
       method: 'get'
@@ -391,18 +393,17 @@ var OAApi = {
       url:'/api/krspace-erp-web/wf/type/detail?typeId={typeId}',
       method: 'get'
   },
-
+  //流程--流程类型搜索下拉选
+  'process-search-select':{
+      url:'/api/krspace-erp-web/wf/type/select?name={name}',
+      method: 'get'
+  },
 
 
   //流程--分页获取流程列表
   'process-list':{
       url:'/api/krspace-erp-web/wf/base/page?allowRequest={allowRequest}&newRequestShow={newRequestShow}&wfName={wfName}&page={page}&pageSize={pageSize}&typeId={typeId}&wfCode={wfCode}',
       method: 'get'
-  },
-  //流程--新建流程
-  'process-add':{
-      url:'/api/krspace-erp-web/wf/base/add',
-      method: 'post'
   },
   //流程--新建流程
   'process-add':{
@@ -444,7 +445,7 @@ var OAApi = {
       method: 'get'
   },
   //流程--权限--删除
-  'process-authority-detail':{
+  'process-authority-delete':{
       url:'/api/krspace-erp-web/wf/base/auth/delete',
       method: 'post'
   },

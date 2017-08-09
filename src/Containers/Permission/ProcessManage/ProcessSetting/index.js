@@ -51,12 +51,16 @@ export default class ProcessSetting extends React.Component {
 			itemDetail: {},
 			openCreateDialog: false,
 			newPage: 1,
-			typeTree: [{"label":"人事"},{"label":"财务"},{"label":"行政"}],
+			typeTree: [],
             //类型名称
             processName:"全部类型",
             selectColor:0,
             treeActive:true,
+			typeId:'0',
+			timer:new Date(),
 		}
+		this.processName="全部类型";
+		this.typeId = '0';
 	}
 
 	componentDidMount() {
@@ -73,22 +77,19 @@ export default class ProcessSetting extends React.Component {
 
     //树相关
 	getTreeData = () => {
-		// const params = { id: this.state.searchParams.dimId }
-
-		// const _this = this;
-
-		// Http.request("process-typetree", {name:_this.searchName}).then(function (response) {
-		// 	_this.setState({
-		// 		typeTree: [response.items],
-		// 	});
-		// }).catch(function (err) {
-		// 	Message.error(err.message);
-		// });
+		const _this = this;
+		Http.request("process-typetree", {}).then(function (response) {
+			_this.setState({
+				typeTree: response.items,
+			});
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
 	}
     renderTree=(item,index)=>{
         return(
             <div key={index} onClick={this.selectType.bind(this,item)} className={`process-tree ${item.active?'active':''}`}>
-                - {item.label}
+                - {item.name}
             </div>
         )
     }
@@ -98,56 +99,57 @@ export default class ProcessSetting extends React.Component {
 			searchKey: event.target.value || ' ',
 		},function(){
 			console.log(this.state.searchKey);
-			//this.refs.searchKey.click();
-			//this.refs.searchKey.focus();
+			
 		})
 	}
     selectType=(item)=>{
         if(item!=-1){
-            console.log("啦啦啦啦");
-            
             this.state.typeTree.map((itemAll,index)=>{
                 itemAll.active=false;
                 return itemAll;
             })
             item.active=true;
+			this.processName = item.name;
+			this.typeId = item.id;
             this.setState({
                 treeActive:false,
-                processName:item.label,
+                // processName:item.name,
+				// typeId:item.id,
             })
         }else{
             this.setState({
                 treeActive:true,
-                processName:"全部类型",
+                // processName:"全部类型",
+				// typeId:'0',
             })
+			this.processName = "全部类型";
+			this.typeId = '0';
             this.state.typeTree.map((item,index)=>{
                 item.active=false;
                 return item;
             })
         }
     }
-   
+	getProcessDetail=()=>{
+		var _this = this;
+		Http.request('process-type-detail', {
+                typeId:_this.typeId,
+            }).then(function(response) {
+                _this.processName=response.name;
+				_this.setState({
+					timer:new Date()
+				})
+            }).catch(function(err) {});
+	}
     //更新数据
     updateData=()=>{
-		    var _this = this;
-			// Http.request('process-common', {
-
-      //       },{}).then(function(response) {
-      //           _this.setState({thingsType: response.items},function(){
-					
-      //           })
-      //       }).catch(function(err) {});
-      // Http.request('process-new-request', {
-
-    //       },{}).then(function(response) {
-    //           _this.setState({newThings: response.items},function(){
-        
-    //           })
-    //       }).catch(function(err) {});
-    
+		console.log("update");
+		this.getTreeData();
+		this.getProcessDetail();
 	}
+
 	render() {
-		let { itemDetail, data, dimId, styleBool,dataName,treeActive} = this.state;
+		let { itemDetail, data, styleBool,dataName,treeActive} = this.state;
 		var logFlag = '';
 		var style = {};
         console.log(this.state.typeTree);
@@ -171,9 +173,9 @@ export default class ProcessSetting extends React.Component {
 				</div>
 				<div className="right">
                     {
-                            this.state.processName=="全部类型" 
-                            ?<AllTypes onSubmit={this.updateData} processName={this.state.processName}/>
-                            :<SingleType onSubmit={this.updateData} processName={this.state.processName}/>
+                            this.processName=="全部类型" 
+                            ?<AllTypes onSubmit={this.updateData} processName={this.processName} typeId={this.typeId}/>
+                            :<SingleType onSubmit={this.updateData} processName={this.processName} typeId={this.typeId}/>
                     }
 					
 				</div>

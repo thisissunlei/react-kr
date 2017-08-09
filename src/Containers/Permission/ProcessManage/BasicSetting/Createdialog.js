@@ -27,7 +27,7 @@ class Createdialog extends Component {
     }
     componentDidMount() {
         Store.dispatch(change('Createdialog','limitType','SUBCOMPANY'));
-        Store.dispatch(change('Createdialog','limitAuth','0'));
+        Store.dispatch(change('Createdialog','limitAuth','ALL'));
         Store.dispatch(change('Createdialog','enable','1'));
     }
     onCancel = () => {
@@ -166,9 +166,9 @@ class Createdialog extends Component {
                         name="limitAuth"
                         options={
                             [
-                                {label:'所有人',value:'0'},
-                                {label:'负责人',value:'1'},
-                                {label:'管理员',value:'2'},
+                                {label:'所有人',value:'ALL'},
+                                {label:'负责人',value:'MANAGER'},
+                                {label:'管理员',value:'ADMIN'},
                             ]
                         }
                         requireLabel={true}

@@ -47,6 +47,13 @@ class CreateDrawer extends React.Component {
 			
 		}
 	}
+	componentDidMount(){
+		Store.dispatch(change('CreateDrawer','newRequestShow',"1"));
+		Store.dispatch(change('CreateDrawer','allowRequest',"1"));
+		if(this.props.detail.typeId!='0'){
+			Store.dispatch(change('CreateDrawer','wfTypeId',this.props.detail.typeId))
+		}
+	}
 	onCancel = () => {
 		let {
 			onCancel
@@ -57,7 +64,6 @@ class CreateDrawer extends React.Component {
 		let {
 			onSubmit
 		} = this.props;
-		
 		onSubmit && onSubmit(form);
 	}
 	toBasicSetting=(form)=>{
@@ -65,7 +71,7 @@ class CreateDrawer extends React.Component {
 			toBasicSetting
 		} = this.props;
 		
-		toBasicSetting && onSubmit(form);
+		toBasicSetting && toBasicSetting(form);
 	}
 		render() {
 
@@ -102,7 +108,7 @@ class CreateDrawer extends React.Component {
 								style={{width:260}}
 								name="wfTypeId"
 								type="text"
-								component="input"
+								component="SearchProcessType"
 								label="流程类型"
 								requireLabel={true}
 						/>
@@ -144,36 +150,34 @@ class CreateDrawer extends React.Component {
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="开关设置" circle="bottom">
 						<Grid style={{marginTop:50,width:'81%'}}>
-							<KrField style={{width:220,marginBottom:16}}  name="type" component="group" label="发起流程请求" inline={false} requireLabel={true}>
+							<KrField style={{width:220,marginBottom:16}}  name="allowRequest" component="group" label="发起流程请求" inline={false} requireLabel={true}>
 								<KrField
-										name="type"
+										name="allowRequest"
 										label="允许"
 										type="radio"
-										value="MENU"
-										checked={true}
+										value="1"
 										style={{marginRight:24,marginLeft:4}}
 								/>
 								<KrField
-										name="type"
+										name="allowRequest"
 										label="不允许"
 										type="radio"
-										value="OPERATION"
+										value="0"
 								/>
 							</KrField>
-							<KrField style={{width:220,marginLeft:66,marginBottom:16}}  name="type" component="group" label="新办是否显示" inline={false} requireLabel={true}>
+							<KrField style={{width:220,marginLeft:66,marginBottom:16}}  name="newRequestShow" component="group" label="新办是否显示" inline={false} requireLabel={true}>
 								<KrField
-										name="type"
+										name="newRequestShow"
 										label="显示"
 										type="radio"
-										value="MENU"
-										checked={true}
+										value="1"
 										style={{marginRight:24,marginLeft:4}}
 								/>
 								<KrField
-										name="type"
+										name="newRequestShow"
 										label="不显示"
 										type="radio"
-										value="OPERATION"
+										value="0"
 								/>
 							</KrField>
 						<Row >

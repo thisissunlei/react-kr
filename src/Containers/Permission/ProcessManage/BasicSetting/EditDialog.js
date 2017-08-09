@@ -14,7 +14,7 @@ import {
 	Http,
 	DateFormat
 } from "kr/Utils";
-import {reduxForm, formValueSelector, change} from 'redux-form';
+import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 class EditDialog extends Component {
     static PropTypes = {
         onSubmit: React.PropTypes.func,
@@ -31,11 +31,12 @@ class EditDialog extends Component {
     }
     componentDidMount() {
         var _this = this;
-        var id = this.props.id;
+        var id = this.props.detail.limitId;
         var rangeType;
-        Http.request('org-detail', {
+        Http.request('process-authority-detail', {
                 limitId: id,
             },{}).then(function(response) {
+                response.enable = response.enable.toString();
                 if(response.limitType=='SUBCOMPANY'){
                     rangeType=1;
                 }else if(response.limitType=='DEPARTMENT'){
@@ -104,7 +105,7 @@ class EditDialog extends Component {
     }
     render() {
         const {handleSubmit,detail} = this.props;
-       // console.log(detail);
+        console.log(this.state.infoList);
         return (
 
             <div>
@@ -139,7 +140,7 @@ class EditDialog extends Component {
                             ajaxUrlName = "role-sub-tree"
                             requireLabel={true}
                             checkable = {true}
-                            valueText={(this.state.infoList.range && this.state.infoList[0] && this.state.infoList[0].orgName)?this.state.infoList:[{orgName:''}]}
+                            valueText={(this.state.infoList.range && this.state.infoList.range[0] && this.state.infoList.range[0].orgName)?this.state.infoList.range:[{orgName:''}]}
                         />
                     }
                     {this.state.rangeType == '2'
@@ -153,7 +154,7 @@ class EditDialog extends Component {
                             ajaxUrlName = "role-dep-tree"
                             requireLabel={true}
                             checkable = {true}
-                            valueText={(this.state.infoList.range && this.state.infoList[0] && this.state.infoList[0].orgName)?this.state.infoList:[{orgName:''}]}
+                            valueText={(this.state.infoList.range && this.state.infoList.range[0] && this.state.infoList.range[0].orgName)?this.state.infoList.range:[{orgName:''}]}
                         />
                     }
                     {this.state.rangeType == '3'
@@ -182,7 +183,7 @@ class EditDialog extends Component {
                             ajaxUrlName = "role-new-tree"
                             requireLabel={true}
                             checkable = {true}
-                            valueText={(this.state.infoList.range && this.state.infoList[0] && this.state.infoList[0].orgName)?this.state.infoList:[{orgName:''}]}
+                            valueText={(this.state.infoList.range && this.state.infoList.range[0] && this.state.infoList.range[0].orgName)?this.state.infoList.range:[{orgName:''}]}
                         />
                 }
                 {this.state.rangeType == '0'
@@ -200,9 +201,9 @@ class EditDialog extends Component {
                         name="limitAuth"
                         options={
                             [
-                                {label:'所有人',value:'0'},
-                                {label:'负责人',value:'1'},
-                                {label:'管理员',value:'2'},
+                                {label:'所有人',value:'ALL'},
+                                {label:'负责人',value:'MANAGER'},
+                                {label:'管理员',value:'ADMIN'},
                             ]
                         }
                         requireLabel={true}

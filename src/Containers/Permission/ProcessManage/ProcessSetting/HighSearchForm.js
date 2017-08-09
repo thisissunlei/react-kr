@@ -36,9 +36,6 @@ class HighSearchForm extends React.Component {
 			detail,
 			onSubmit
 		} = this.props;
-		form.orgId=detail.orgId;
-		form.dimId=detail.dimId;
-		form.orgType=detail.orgType;
 		onSubmit && onSubmit(form);
 	}
 	openSearch = () => {
@@ -69,29 +66,27 @@ class HighSearchForm extends React.Component {
 			    		grid={1/2}
 						right={27}
  						left={42}
-						component="selecTemployees"
-			    		name="hrmResourceType"
+						component="input"
+			    		name="wfName"
 			    		style={{marginTop:4}}
 			    		label="流程名称"
-						otherType="resourceType"
 					/>
 					<KrField
 			    		grid={1/2}
 						right={63}
  						left={4}
-			    		name="hrmResourceAttributes"
-			    		component="selecTemployees"
+			    		name="wfCode"
+			    		component="input"
 			    		style={{marginTop:4}}
 			    		label="流程编码"
-						otherType="resourceStatus"
 					/>
 					<KrField style={{width:262,marginTop:6,marginLeft:43}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={false}>
-						<KrField style={{marginTop:10,marginRight:24}} name="allowRequest" label="允许" type="radio" value={true} />
-						<KrField style={{marginTop:10}} name="allowRequest" label="不允许" type="radio" value={false} />
+						<KrField style={{marginTop:10,marginRight:24}} name="allowRequest" label="允许" type="radio" value="1" />
+						<KrField style={{marginTop:10}} name="allowRequest" label="不允许" type="radio" value="0" />
 					</KrField>
 					<KrField style={{width:262,marginTop:6,marginLeft:19}} name="newRequestShow" component="group" label="新办是否显示" grid={1} requireLabel={false}>
-						<KrField style={{marginTop:10,marginRight:24}} name="newRequestShow" label="显示" type="radio" value={true} />
-						<KrField style={{marginTop:10}} name="newRequestShow" label="不显示" type="radio" value={false} />
+						<KrField style={{marginTop:10,marginRight:24}} name="newRequestShow" label="显示" type="radio" value="1" />
+						<KrField style={{marginTop:10}} name="newRequestShow" label="不显示" type="radio" value="0" />
 					</KrField>
 				<Grid style={{marginTop:15,marginBottom:5}}>
 					<Row>

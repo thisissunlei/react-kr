@@ -24,40 +24,15 @@ class Createdialog extends Component {
         }
     }
     componentDidMount() {
-        // var opt=[];
-        // if (this.props.detail.orgType=='DEPARTMENT') {
-        //    opt = [
-        //                 {label:'部门',value:'DEPARTMENT'},
-    	// 			];
-            
-        // }else if(this.props.detail.orgType=='ROOT'){
-        //     opt = [
-        //                 {label:'分部',value:'SUBCOMPANY'}
-    	// 			];
-        // }else{
-        //   opt = [
-        //                 {label:'部门',value:'DEPARTMENT'},
-        //                 {label:'分部',value:'SUBCOMPANY'}
-    	// 			];
-        // }
-        // this.setState({
-        //     options:opt
-        // },function(){
-        //     Store.dispatch(change('Createdialog','orgType','DEPARTMENT'));
-        // })
-        Store.dispatch(change('Createdialog','sex','MALE'))
+        Store.dispatch(change('Createdialog','enable',"1"))
     }
     onCancel = () => {
         const {onCancel} = this.props;
         onCancel && onCancel()
     }
     onSubmit = (form) => {
-        
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
-        params.dimId = this.props.detail.dimId;
-        params.orgId = this.props.detail.orgId;
-        params.superOrgType = this.props.detail.orgType;
         onSubmit && onSubmit(params);
     }
 
@@ -89,8 +64,8 @@ class Createdialog extends Component {
                     placeholder="排序号"
                 />*/}
                 <KrField style={{width:262,marginTop:14,marginLeft:28}} name="enable" component="group" label="是否显示" grid={1} requireLabel={false}>
-                    <KrField style={{marginTop:10,marginRight:24,marginLeft:4}} name="enable" label="显示" type="radio" value={true} />
-                    <KrField style={{marginTop:10}} name="enable" label="不显示" type="radio" value={false} />
+                    <KrField style={{marginTop:10,marginRight:24,marginLeft:4}} name="enable" label="显示" type="radio" value="1" />
+                    <KrField style={{marginTop:10}} name="enable" label="不显示" type="radio" value="0" />
  				</KrField>
                <KrField
                   grid={1}

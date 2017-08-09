@@ -54,15 +54,12 @@ export default class SingleType extends React.Component {
             searchParams: {
 				page: 1,
 				pageSize: 15,
+				wfId:this.props.id,
 			},
 		}
 	}
     componentDidMount() {
-		
-		
 		var _this = this;
-		
-		
 	}
     //操作相关
 	onOperation = (type, itemDetail) => {
@@ -92,77 +89,49 @@ export default class SingleType extends React.Component {
     }
 	onCreateSubmit = (params) => {
         console.log(params);
-	// 	var form = Object.assign({},params);
-    //     let limitId = this.state.itemDetail.limitId;
-	// 	form.limitId=limitId;
-    //     form.wfId=this.props.params.processId;
-    //     var id=[];
-    //     if(params.rangeId){
-    //         params.rangeId.map((item,index)=>{
-    //             id.push(item.orgId);
-    //         })  
-    //     }else{
-    //         params.rangeId.map((item,index)=>{
-    //             id.push(item.orgId);
-    //         })  
-    //     }
-	//    params.rangeId=id;
-	// 	var _this = this;
-	// 	Http.request('process-authority-add', {}, form).then(function (response) {
-	// 		_this.openCreateDialog();
-	// 		Message.success('新建成功');
-	// 		_this.changeP();
-	// 	}).catch(function (err) {
-	// 		Message.error(err.message)
-	// 	});
+		console.log(this.props.id);
+		var form = Object.assign({},params);
+        form.wfId=this.props.id;
+        var id=[];
+        if(form.rangeId){
+            form.rangeId.map((item,index)=>{
+                id.push(item.orgId);
+            })
+				form.rangeId=id;		  
+        }
+		var _this = this;
+		Http.request('process-authority-add', {}, form).then(function (response) {
+			_this.openCreateDialog();
+			Message.success('新建成功');
+			_this.changeP();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
 	}
     onEditSubmit = (params) => {
         var form = Object.assign({},params);
-        let limitId = this.state.itemDetail.limitId;
-		form.limitId=limitId;
-        form.wfId=this.props.params.processId;
+        form.wfId=this.props.id;
+        var id=[];
+        if(form.rangeId){
+            form.rangeId.map((item,index)=>{
+                id.push(item.orgId);
+            })
+				form.rangeId=id;		  
+        }
 		var _this = this;
 		Http.request('process-authority-edit', {}, form).then(function (response) {
-			_this.openCreateDialog();
+			_this.openEditDialog();
 			Message.success('编辑成功');
 			_this.changeP();
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
 	}
-    //编辑提交
-	editPostSubmit=(params)=>{
-       var _this=this;
-	   var id=[];
-	   if(params.allotUserId){
-		  params.allotUserId.map((item,index)=>{
-		    id.push(item.orgId);
-	     })  
-	   }else{
-		 params.allotUser.map((item,index)=>{
-		    id.push(item.orgId);
-	     })  
-	   }
-	   params.allotUserId=id;
-       Http.request('role-edit',{},params).then(function(response) {
-           _this.setState({
-						searchParams:{
-							time:+new Date(),
-							page:_this.state.searchParams.page,
-							pageSize:15,
-							name:_this.state.searchParams.name?_this.state.searchParams.name:""
-						}  
-					})
-					_this.openEditPost();
-        }).catch(function(err) {
-          Message.error(err.message);
-        });
-		
-	}
     onDeleteSubmit = () => {
         let limitId = this.state.itemDetail.limitId;
+		console.log(this.state.itemDetail);
 		var _this = this;
-		Http.request('process-authority-detail', {}, {limitId:limitId}).then(function (response) {
+		Http.request('process-authority-delete', {}, {limitId:limitId}).then(function (response) {
 			_this.openDeleteDialog();
 			Message.success('删除成功');
 			_this.changeP();
@@ -175,7 +144,6 @@ export default class SingleType extends React.Component {
         var timer = new Date();
 		var searchParams = Object.assign({},this.state.searchParams);
 		searchParams.timer=timer;
-		// console.log("changeP",searchParams);
 		this.setState({
             searchParams:searchParams,
         })
@@ -206,11 +174,11 @@ export default class SingleType extends React.Component {
                     style={{ marginTop: 10 }}
                     displayCheckbox={false}
                     ajax={true}
-                    ajaxUrlName='findUserByRoleId'
+                    ajaxUrlName='process-authority-list'
                     ajaxParams={this.state.searchParams}
                     onOperation={this.onOperation}
                 >
-                    <TableHeader>
+                    <TableHeader className="detail-header">
                         <TableHeaderColumn>类型</TableHeaderColumn>
                         <TableHeaderColumn>选择范围</TableHeaderColumn>
                         <TableHeaderColumn>限定条件</TableHeaderColumn>
@@ -220,10 +188,10 @@ export default class SingleType extends React.Component {
 
                     <TableBody>
                         <TableRow>
-                            <TableRowColumn name="juniorId" ></TableRowColumn>
-                            <TableRowColumn name="juniorName"></TableRowColumn>
-                            <TableRowColumn name="juniorName"></TableRowColumn>
-                            <TableRowColumn name="juniorType"></TableRowColumn>
+                            <TableRowColumn name="limitType" ></TableRowColumn>
+                            <TableRowColumn name="range"></TableRowColumn>
+                            <TableRowColumn name="limitAuth"></TableRowColumn>
+                            <TableRowColumn name="enable"></TableRowColumn>
                             <TableRowColumn>
                                 <Button label="编辑" type="operation" operation="edit" />
                                 <Button label="删除" type="operation" operation="delete" />
@@ -262,7 +230,7 @@ export default class SingleType extends React.Component {
                     width: 374
                 }}
             >
-                <DeleteDialog  onCancel={this.openDeleteDialog} />
+                <DeleteDialog onSubmit={this.onDeleteSubmit}  onCancel={this.openDeleteDialog} />
             </Dialog>
         
         </div>

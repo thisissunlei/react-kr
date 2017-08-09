@@ -45,6 +45,7 @@ export default class SingleType extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+		
 		this.state = {
 			item:this.props.detail,
 			editState:false,
@@ -53,9 +54,11 @@ export default class SingleType extends React.Component {
             openCreateDrawer:false,
 			openEditDialog:false,
 			openHighSearch:false,
+			processName:this.props.processName,
             searchParams: {
 				page: 1,
 				pageSize: 15,
+				typeId:this.props.typeId,
 			},
 		}
 	}
@@ -65,6 +68,22 @@ export default class SingleType extends React.Component {
 		var _this = this;
 		
 		
+	}
+	componentWillReceiveProps(nextProps){
+		let {searchParams}=this.state;
+		let {typeId,processName} = this.props;
+		console.log("nextProps",nextProps);
+        if(nextProps.processName!==this.state.processName){
+			console.log("进入props");
+		    this.setState({
+				searchParams: {
+					page: 1,
+					pageSize: 15,
+					typeId:nextProps.typeId,
+				},
+				processName:nextProps.processName,
+			})
+	    }
 	}
 	onSerchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);
@@ -77,14 +96,16 @@ export default class SingleType extends React.Component {
 	onOperation = (type, itemDetail) => {
 		this.setState({
 			itemDetail
+		},function(){
+			if (type == 'set') {
+				this.openSetDialog();
+			}
 		});
-		if (type == 'set') {
-			this.openSetDialog();
-		}
+		
 	}
 	openSetDialog = () => {
-		var processId =  this.state.itemDetail.processId;
-		window.open(`./#/oa/processManage/processSetting/${processId}/basicSetting`);
+		var processId =  this.state.itemDetail.wfId;
+		window.open(`./#/permission/processManage/${processId}/basicSetting`);
 	}
 	openEditDialog = () => {
 		this.setState({
@@ -97,18 +118,47 @@ export default class SingleType extends React.Component {
 		})
     }
 	onCreatSubmit = (params) => {
+        const {onSubmit} = this.props;
+        var params = Object.assign({},params);
+        params.hrmResourceId = params.hrmResourceId[0].orgId;
 		var _this = this;
-		Http.request('save-junior', {}, params).then(function (response) {
-			_this.openCreateDialog();
+		Http.request('process-add', {}, params).then(function (response) {
+			_this.openCreateDrawer();
 			Message.success('新建成功');
 			_this.changeP();
-			_this.getTreeData();
-			_this.getOrganizationDetail();
+            onSubmit();
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
 	}
-
+	toBasicSetting=(form)=>{
+        var _this = this;
+		var params = Object.assign({},form);
+        params.hrmResourceId = params.hrmResourceId[0].orgId;
+        Http.request('process-add', {}, params).then(function (response) {
+			_this.openCreateDialog();
+			Message.success('新建成功');
+			_this.changeP();
+            let processId = response.wfId;
+            window.location.href = `./#/permission/processManage/processSetting/${processId}/basicSetting`;
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+    }
+	onEditSubmit = (params) => {
+        const {onSubmit} = this.props;
+        var params = Object.assign({},params);
+        params.typeId = this.props.typeId;
+		var _this = this;
+		Http.request('process-edit-type', {}, params).then(function (response) {
+			_this.openEditDialog();
+			Message.success('修改成功');
+			_this.changeP();
+            onSubmit();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+	}
     //改变页码
     changeP=()=>{
         var timer = new Date();
@@ -126,6 +176,13 @@ export default class SingleType extends React.Component {
             searchParams:searchParams,
         })
     }
+	onSearchSubmit = (form) => {
+		var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.wfName = form.content;
+		this.setState({
+			searchParams
+		})
+	}
 	//高级查询
 	openHighSearch = () => {
 		this.setState({
@@ -143,6 +200,7 @@ export default class SingleType extends React.Component {
 	}
 	render() {
         let {item,itemDetail} = this.state;
+		console.log(this.state.processName);
 		return (
 			<div>
                 <div className="center-row">
@@ -150,11 +208,11 @@ export default class SingleType extends React.Component {
                             <div className="department">
                                 <div className="department-logo">
                                     <span>
-                                        {this.props.processName.substr(0,2)}
+                                        {this.state.processName.substr(0,2)}
                                     </span>
                                 </div>
                                 <div className="department-name">
-                                    {this.props.processName}
+                                    {this.state.processName}
                                 </div>
                                 <div className="department-tab-list">
                                     <div className="department-tab" style={{cursor:"default"}}>
@@ -198,7 +256,7 @@ export default class SingleType extends React.Component {
 								displayCheckbox={false}
 								onLoaded={this.onLoaded}
 								ajax={true}
-								ajaxUrlName='findUserByRoleId'
+								ajaxUrlName='process-list'
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
@@ -225,10 +283,9 @@ export default class SingleType extends React.Component {
                                     <TableRowColumn name="wfOrderNum"></TableRowColumn>
                                     <TableRowColumn name="allowRequest"
                                         component={(value, oldValue) => {
+											var style = {};
                                             if (value == '不允许') {
                                                 style = { 'color': '#FF5B52' }
-                                            }else{
-                                                style = {}
                                             }
                                             return (
                                                 <div style={style}>{value}</div>
@@ -237,13 +294,12 @@ export default class SingleType extends React.Component {
                                     ></TableRowColumn>
                                     <TableRowColumn name="newRequestShow"
                                         component={(value, oldValue) => {
+											var styleTwo = {};
                                             if (value == '不显示') {
-                                                style = { 'color': '#FF5B52' }
-                                            }else{
-                                                style = {}
+                                                styleTwo = { 'color': '#FF5B52' }
                                             }
                                             return (
-                                                <div style={style}>{value}</div>
+                                                <div style={styleTwo}>{value}</div>
                                             )
                                         }}
                                     ></TableRowColumn>
@@ -270,7 +326,7 @@ export default class SingleType extends React.Component {
 							containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 							onClose={this.openCreateDrawer}
 					 >
-						<CreateDrawer detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDrawer} />
+						<CreateDrawer detail={this.state.searchParams} toBasicSetting={this.toBasicSetting} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDrawer} />
 					</Drawer>
 					<Dialog
 						title="编辑流程类型"
@@ -281,7 +337,7 @@ export default class SingleType extends React.Component {
 							width: 685
 						}}
 					>
-						<EditDialog detail={this.state.itemDetail} onSubmit={this.onEditSubmit} onCancel={this.openEditDialog} />
+						<EditDialog type="single" detail={this.state.searchParams} onSubmit={this.onEditSubmit}  onCancel={this.openEditDialog} />
 					</Dialog>
 					{/*高级查询*/}
 					<Dialog
