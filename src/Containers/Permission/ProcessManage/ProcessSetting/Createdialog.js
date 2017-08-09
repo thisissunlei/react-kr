@@ -107,10 +107,10 @@ class Createdialog extends Component {
 const validate = values => {
 
 	const errors = {}
-	if (!values.orgName) {
-		errors.orgName = '请输入下级名称';
-	}else if (values.orgName.length>20) {
-		errors.orgName = '下级名称最多20个字符！';
+	if (!values.name) {
+		errors.name = '请输入流程类型名称';
+	}else if (values.name.length>10) {
+		errors.name = '流程类型名称最多20个字符！';
 	}
     
     // if (!values.adminId) {
@@ -119,14 +119,14 @@ const validate = values => {
     // if (!values.chargeId) {
 	// 	errors.chargeId = '请选择负责人';
 	// }
-    if (!values.code) {
-		errors.code = '请输入编码';
-	}else if (values.code.length>30) {
-		errors.code = '下级名称最多30个字符！';
-	}
-    if (!values.orgType) {
-		errors.orgType = '请选择下级类型';
-	}
+    // if (!values.code) {
+	// 	errors.code = '请输入编码';
+	// }else if (values.code.length>30) {
+	// 	errors.code = '下级名称最多30个字符！';
+	// }
+    // if (!values.orgType) {
+	// 	errors.orgType = '请选择下级类型';
+	// }
 	return errors
 }
 export default reduxForm({

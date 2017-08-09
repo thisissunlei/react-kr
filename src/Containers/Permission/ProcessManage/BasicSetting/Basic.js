@@ -161,26 +161,29 @@ class Basic extends Component {
 const validate = values => {
 
 	const errors = {}
-	if (!values.orgName) {
-		errors.orgName = '请输入下级名称';
-	}else if (values.orgName.length>20) {
-		errors.orgName = '下级名称最多20个字符！';
-	}
-    
-    // if (!values.adminId) {
-	// 	errors.adminId = '请选择管理员';
-	// }
-    // if (!values.chargeId) {
-	// 	errors.chargeId = '请选择负责人';
-	// }
-    if (!values.code) {
-		errors.code = '请输入编码';
-	}else if (values.code.length>30) {
-		errors.code = '下级名称最多30个字符！';
-	}
-    if (!values.orgType) {
-		errors.orgType = '请选择下级类型';
-	}
+	
+		if (!values.wfName) {
+			errors.wfName = '请输入流程名称';
+		}else if (values.wfName.length>20) {
+			errors.wfName = '流程名称最多20个字符！';
+		}   
+		if (!values.wfCode) {
+			errors.wfCode = '请输入流程编码';
+		}
+
+		if (!values.wfOrderNum) {
+			errors.wfOrderNum = '请输入排序号';
+		}
+
+		if (!values.hrmResourceId) {
+			errors.hrmResourceId = '请选择对接人';
+		}
+		if (!values.hzCode) {
+			errors.hzCode = '请输入慧正流程唯一标识';
+		}else if (values.hzCode.length>50) {
+			errors.hzCode = '慧正流程唯一标识最多50个字符！';
+		} 
+
 	return errors
 }
 export default reduxForm({

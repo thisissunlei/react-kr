@@ -206,27 +206,27 @@ class CreateDrawer extends React.Component {
 
 		const errors = {};
 
-
-		if (!values.customerId) {
-			errors.customerId = '请选择客户名称';
+		if (!values.wfName) {
+			errors.wfName = '请输入流程名称';
+		}else if (values.wfName.length>20) {
+			errors.wfName = '流程名称最多20个字符！';
+		}   
+		if (!values.wfCode) {
+			errors.wfCode = '请输入流程编码';
 		}
 
-		if (!values.mainBillId) {
-			errors.mainBillId = '请选择所属订单';
+		if (!values.wfOrderNum) {
+			errors.wfOrderNum = '请输入排序号';
 		}
 
-		if (!values.payWay) {
-			errors.payWay = '请选择收款方式';
+		if (!values.hrmResourceId) {
+			errors.hrmResourceId = '请选择对接人';
 		}
-		if (!values.accountId) {
-			errors.accountId = '请选择我司账户';
-		}
-		if (!values.payAccount) {
-			errors.payAccount = '请输入付款账户';
-		}
-		if (!values.dealTime) {
-			errors.dealTime = '请选择收款日期';
-		}
+		if (!values.hzCode) {
+			errors.hzCode = '请输入慧正流程唯一标识';
+		}else if (values.hzCode.length>50) {
+			errors.hzCode = '慧正流程唯一标识最多50个字符！';
+		} 
 
 
 		return errors
