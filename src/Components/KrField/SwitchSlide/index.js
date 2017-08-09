@@ -62,7 +62,7 @@ export default class SwitchSlide extends React.Component{
 		const {multiSwitch,rightData} = this.props;
 		if(multiSwitch){
 			var valueText = [];
-			if(rightData.length){
+			if(rightData && rightData.length){
 				rightData.map((item,index)=>{
 					valueText.push(item.label)
 				})

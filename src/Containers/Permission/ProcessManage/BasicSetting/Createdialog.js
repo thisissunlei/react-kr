@@ -48,6 +48,7 @@ class Createdialog extends Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
+        console.log(form);
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
         onSubmit && onSubmit(params);

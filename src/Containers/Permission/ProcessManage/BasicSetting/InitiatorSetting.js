@@ -93,11 +93,16 @@ export default class SingleType extends React.Component {
 		var form = Object.assign({},params);
         form.wfId=this.props.id;
         var id=[];
-        if(form.rangeId){
+        if(form.rangeId && form.rangeId[0] && form.rangeId[0].orgId){
+            form.rangeId.map((item,index)=>{
+                id.push(item.orgId);
+            })
+			form.rangeId=id;	
+        }else if(form.rangeId && form.rangeId[0] && form.rangeId[0].value){
             form.rangeId.map((item,index)=>{
                 id.push(item.value);
             })
-				form.rangeId=id;		  
+			form.rangeId=id;	
         }
 		var _this = this;
 		Http.request('process-authority-add', {}, form).then(function (response) {
@@ -112,11 +117,16 @@ export default class SingleType extends React.Component {
         var form = Object.assign({},params);
         form.wfId=this.props.id;
         var id=[];
-        if(form.rangeId){
+        if(form.rangeId && form.rangeId[0] && form.rangeId[0].orgId){
             form.rangeId.map((item,index)=>{
                 id.push(item.orgId);
             })
-				form.rangeId=id;		  
+			form.rangeId=id;	
+        }else if(form.rangeId && form.rangeId[0] && form.rangeId[0].value){
+            form.rangeId.map((item,index)=>{
+                id.push(item.value);
+            })
+			form.rangeId=id;	
         }
 		var _this = this;
 		Http.request('process-authority-edit', {}, form).then(function (response) {

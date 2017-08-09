@@ -91,7 +91,7 @@ export default class NewOffice extends React.Component {
         console.log("进入up");
         Http.request('process-common', {
               }).then(function(response) {
-                  _this.setState({thingsType: response.items},function(){
+                  _this.setState({thingsType: response.items.slice(0,6)},function(){
             
                   })
               }).catch(function(err) {});

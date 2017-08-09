@@ -118,7 +118,7 @@ export default class SingleType extends React.Component {
 		})
     }
 	onCreatSubmit = (params) => {
-        const {onSubmit} = this.props;
+        // const {updateTree} = this.props;
         var params = Object.assign({},params);
         params.hrmResourceId = params.hrmResourceId[0].orgId;
 		var _this = this;
@@ -126,7 +126,7 @@ export default class SingleType extends React.Component {
 			_this.openCreateDrawer();
 			Message.success('新建成功');
 			_this.changeP();
-            onSubmit();
+            // updateTree();
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
@@ -137,7 +137,7 @@ export default class SingleType extends React.Component {
         params.hrmResourceId = params.hrmResourceId[0].orgId;
         var _this = this;
         Http.request('process-add', {}, params).then(function (response) {
-			_this.openCreateDialog();
+			_this.openCreateDrawer();
 			Message.success('新建成功');
 			_this.changeP();
             let processId = response.wfId;
@@ -148,7 +148,7 @@ export default class SingleType extends React.Component {
 		});
     }
 	onEditSubmit = (params) => {
-        const {onSubmit} = this.props;
+        const {updateDetail,onSubmit} = this.props;
         var params = Object.assign({},params);
         params.typeId = this.props.typeId;
 		var _this = this;
@@ -156,7 +156,7 @@ export default class SingleType extends React.Component {
 			_this.openEditDialog();
 			Message.success('修改成功');
 			_this.changeP();
-            onSubmit();
+            updateDetail();
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
@@ -283,7 +283,7 @@ export default class SingleType extends React.Component {
                                     <TableRowColumn name="wfCode"></TableRowColumn>
                                     <TableRowColumn name="wfTypeName"></TableRowColumn>
                                     <TableRowColumn name="wfOrderNum"></TableRowColumn>
-                                    <TableRowColumn name="allowRequest"
+                                    <TableRowColumn name="allowRequest"  style={{width:'100px'}}
                                         component={(value, oldValue) => {
 											var style = {};
                                             if (value == '不允许') {
@@ -294,7 +294,7 @@ export default class SingleType extends React.Component {
                                             )
                                         }}
                                     ></TableRowColumn>
-                                    <TableRowColumn name="newRequestShow"
+                                    <TableRowColumn name="newRequestShow" style={{width:'100px'}}
                                         component={(value, oldValue) => {
 											var styleTwo = {};
                                             if (value == '不显示') {
@@ -305,8 +305,23 @@ export default class SingleType extends React.Component {
                                             )
                                         }}
                                     ></TableRowColumn>
-                                    <TableRowColumn name="hzCode"></TableRowColumn>
-                                    <TableRowColumn name="descr"></TableRowColumn>
+                                    <TableRowColumn name="hzCode"
+									  style={{width:'150px'}}
+									component={(value,oldValue)=>{
+		 										var maxWidth=8;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,6)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
+                                    <TableRowColumn name="descr"
+									component={(value,oldValue)=>{
+		 										var maxWidth=6;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,6)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
                                     <TableRowColumn name="operator"></TableRowColumn>
                                     <TableRowColumn type="date" name="operatorTime" component={(value) => {
                                         return (
