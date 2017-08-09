@@ -109,10 +109,10 @@ class MonthPayment extends React.Component{
 		 							if(value.length>maxWidth){
 		 							 value = value.substring(0,6)+"...";
 		 							}
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value || '-'}</span></div>)
 		 					}}></TableRowColumn>
 		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='phone' component={(value,oldValue)=>{
-		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value || '-'}</span></div>)
 		 					}}></TableRowColumn>
 			               </TableRow>
 			        </TableBody>

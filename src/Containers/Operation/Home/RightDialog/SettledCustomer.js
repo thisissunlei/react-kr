@@ -49,7 +49,7 @@ class MonthPayment extends React.Component{
 	}
 
 	searchSignChange=(value)=>{
-		if(!!value){
+		if(!value){
 			value = {
 				value:''
 			}

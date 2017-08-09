@@ -76,10 +76,10 @@ class AgreementTable  extends React.Component{
 											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{item.customer}</div></Tooltip>
 										</div>
 									</td>
-									<td >{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</td>
-									<td >{item.stations}/{item.boardrooms}</td>
+									<td >{DateFormat(item.leaseBegindate,'yyyy-mm-dd')}</td>
+									<td >{item.stationnum}/{item.boardroom}</td>
 									<td >
-										{item.contact}
+										{item.leaseContact}
 									</td>
 									<td>{item.phone}</td>
 								</tr>

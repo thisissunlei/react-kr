@@ -75,7 +75,7 @@ class OrderTable  extends React.Component{
 											<Tooltip offsetTop={5} place='top'><div style={{width:200,lineHeight:'20px'}}>{item.mainbillName}</div></Tooltip>
 										</div>
 									</td>
-									<td >{DateFormat(item.leaseEnddate,'yyyy-mm-dd')}</td>
+									<td >{DateFormat(item.expirationDate,'yyyy-mm-dd')}</td>
 									<td >{item.stations}/{item.boardrooms}</td>
 									<td >
 										{item.contact}
