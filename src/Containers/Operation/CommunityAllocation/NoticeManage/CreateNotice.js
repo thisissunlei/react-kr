@@ -45,14 +45,14 @@ class CreateNotice extends React.Component {
 			if(response.hasRight==1){
 				_this.setState({
 					groupType:[
-						{label:'全国群组',value:"1"},
-						{label:'社区群组',value:"0"}
+						{label:'全国公告',value:"1"},
+						{label:'社区公告',value:"0"}
 					]
 				})
 			}else if(response.hasRight==0){
 				_this.setState({
 					groupType:[
-						{label:'社区群组',value:"0"}
+						{label:'社区公告',value:"0"}
 					]
 				})
 			}

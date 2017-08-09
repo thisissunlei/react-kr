@@ -34,7 +34,11 @@ class EditNotice extends React.Component {
 			ifCity:false,
 			groupType:[],
 			infoList:[],
-			richTextValue:''
+			richTextValue:'',
+			cmtName:'',
+			title:'',
+			type:'',
+			publishTime:'',
 		}
 		this.getType();
 		
@@ -54,9 +58,25 @@ class EditNotice extends React.Component {
 		})
 	}
 	viewRichText=()=>{
-		let {richTextValue}=this.state;
+		let {richTextValue,ifCity,cmtName,title,type,publishTime}=this.state;
 		let {viewRichText} = this.props;
-		viewRichText && viewRichText(richTextValue)
+		
+		let  typetxt=type==1?'全国公告':'社区公告';
+		let  time=new Date(publishTime);
+		let  year=time.getFullYear();
+		let  Month=time.getMonth()+1;
+		let  date=time.getDate();
+		let form={
+			  richTextValue:richTextValue,
+			  title,
+			  typetxt,
+			  time:`${year}年${Month}月${date}日`,
+			  type
+			}
+		if(ifCity){
+			form.cmtName=cmtName;
+		}
+		viewRichText && viewRichText(form)
 	}
 	getInfo=()=>{
 		var _this=this;
@@ -73,7 +93,11 @@ class EditNotice extends React.Component {
 			}
 
 			_this.setState({
-				infoList:response
+				infoList:response,
+				title:response.title,
+				type:response.type,
+				cmtName:response.cmtName,
+				publishTime:response.publishTime
 			})
 			response.type=String(response.type)
 			Store.dispatch(initialize('editNotice', response));
@@ -89,14 +113,14 @@ class EditNotice extends React.Component {
 			if(response.hasRight==1){
 				_this.setState({
 					groupType:[
-						{label:'全国群组',value:"1"},
-						{label:'社区群组',value:"0"}
+						{label:'全国公告',value:"1"},
+						{label:'社区公告',value:"0"}
 					]
 				})
 			}else if(response.hasRight==0){
 				_this.setState({
 					groupType:[
-						{label:'社区群组',value:"0"}
+						{label:'社区公告',value:"0"}
 					]
 				})
 			}
@@ -107,7 +131,6 @@ class EditNotice extends React.Component {
 
    	}
 	selectType=(item)=>{
-		console.log()
 		Store.dispatch(change('editNotice', 'cmtId', ''));
 		if(item.value==0){
 			this.setState({
@@ -117,8 +140,10 @@ class EditNotice extends React.Component {
 			this.setState({
 				ifCity:false
 			})
-			
 		}
+		this.setState({
+			type:item.value
+		})
 	}
 	
 	
@@ -139,7 +164,22 @@ class EditNotice extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	
+	selectCommunity=(item)=>{
+		this.setState({
+			cmtName:item.label
+		})
+	}
+	changeTitle=(item)=>{
+		this.setState({
+			title:item
+		})
+	}
+	selectTime=(item)=>{
+		let time=Date.parse(item)
+		this.setState({
+			publishTime:time
+		})
+	}
 	
 	render() {
 			const {
@@ -166,14 +206,17 @@ class EditNotice extends React.Component {
 								style={{width:548}}
 								name="title"
 								type="text"
+								ref="title"
 								component="input"
 								label="公告标题"
 								requireLabel={true}
+								onChange={this.changeTitle}
 						 	/>
 							<KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								component="select"
 								name="type"
+								ref="type"
 								options={groupType}
 								label="公告类型"
 								requireLabel={true}
@@ -183,17 +226,20 @@ class EditNotice extends React.Component {
 					 			style={{width:262}} 
 					 			name="cmtId"
 					 			component='searchCommunityAll'  
-					 			label="所属社区" 
+					 			label="所属社区"
 					 			inline={false}  
 					 			placeholder='请输入社区名称' 
 						 		requireLabel={true}
+						 		onChange={this.selectCommunity}
 						 	/>:''}
 						 	<KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								name="publishTime"
+								ref="publishTime"
 								component="date"
 								label="发布时间"
 								requireLabel={true}
+								onChange={this.selectTime}
 						 	/>
 						 	<KrField 
 								component="editor" 
