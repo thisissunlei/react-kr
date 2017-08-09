@@ -259,7 +259,6 @@ class EditDetailForm extends React.Component {
 									pictureFormat={'JPG,PNG,GIF'}
 									pictureMemory={'200'}
 									requestURI = {host+'/api/krspace-finance-web/activity/upload-pic'}
-									requireLabel={true}
 									label="公章"
 									deviation = {"50*50"}
 									inline={false}
@@ -357,9 +356,6 @@ const validate = values => {
 	}
 	if(!values.enableflag){
 		errors.enableflag = '是否选择为必填'
-	}
-	if(!values.cachetUrl){
-		errors.cachetUrl = '请上传公章'
 	}
 	 if (!values.bankAccount || !values.bankAccount.length) {
           errors.bankAccount = { _error: 'At least one member must be entered' }
