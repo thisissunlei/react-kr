@@ -34,16 +34,20 @@ class NewCreateDefinitionForm extends React.Component{
 	}
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
+  		
+
+  		Store.dispatch(change('NewCreateDefinitionForm', 'floor', ''))
+
   		let _this = this;
-  		if(community == null){
+  		if(!community){
   			_this.setState({
   				locationOpen : false,
   				floorsOptions : []
   			})
-  			Store.dispatch(change('NewCreateDefinitionForm', 'doorType', ""))
+  			console.log("community == null");
 			return;
 		}
-		let CommunityId = {
+		let httpParam = {
 			communityId : community.id
 		}
 		this.setState({
@@ -55,8 +59,7 @@ class NewCreateDefinitionForm extends React.Component{
 		Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
 
 
-    	Http.request('getFloorByComunity',CommunityId)
-    	.then(function(response){
+    	Http.request('getFloorByComunity',httpParam).then(function(response){
     		var arrNew = []
     		for (var i=0;i<response.floors.length;i++){
     			arrNew[i] = {label:response.floors[i],value:response.floors[i]}
@@ -65,12 +68,13 @@ class NewCreateDefinitionForm extends React.Component{
     			floorsOptions : arrNew
     		})
     	}).catch(function(err){
+
     	})
   	}
   	
   	//选择属性(会议室／大门)
 	onchooseProperty=(doorType)=>{
-		console.log("doorType",doorType);
+
 		let _this = this;
 		if(doorType == null){
 			_this.setState({

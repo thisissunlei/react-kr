@@ -96,13 +96,15 @@ class EditForm extends React.Component{
 	}
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
+  		
+
+  		Store.dispatch(change('EditForm', 'floor', ""))
   		let _this = this;
   		if(community == null){
   			_this.setState({
   				locationOpen : false,
   				floorsOptions : []
   			})
-  			Store.dispatch(change('EditForm', 'floor', ""))
 			return;
 		}
 		let CommunityId = {
@@ -114,7 +116,7 @@ class EditForm extends React.Component{
 		})
     	Store.dispatch(change('EditForm', 'communityId', community.communityId));
 		Store.dispatch(change('EditForm','roomId',''));
-
+  		Store.dispatch(change('EditForm','doorType',''));
 
     	Http.request('getFloorByComunity',CommunityId).then(function(response){
     		var arrNew = []
@@ -125,6 +127,7 @@ class EditForm extends React.Component{
     			floorsOptions : arrNew
     		})
     	}).catch(function(err){
+    		
     	})
   	}
   	
