@@ -220,9 +220,9 @@ export default class List extends React.Component {
 		})
 	}
 	onPageChange=(page)=>{
-		
-		State.realPage = page 
-		
+		this.setState({
+			realPage : page 
+		})
 	}
 	render() {
 		let {
