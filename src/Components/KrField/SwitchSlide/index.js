@@ -31,6 +31,7 @@ export default class SwitchSlide extends React.Component{
 				label:"请选择"
 			},
 			valueText:'',
+			rightData:this.props.rightData
 		}
 
 	}
@@ -112,6 +113,7 @@ export default class SwitchSlide extends React.Component{
 			
 			let {input} = this.props;
 			input.onChange(data);
+			
 			var valueText = [];
 			if(data.length){
 				data.map((item,index)=>{
@@ -122,7 +124,8 @@ export default class SwitchSlide extends React.Component{
 			
 			this.setState({
 				data,
-				valueText:valueText
+				valueText:valueText,
+				rightData:data
 			})
 			// console.log("valueText",valueText);			
 		}else{
@@ -247,7 +250,7 @@ export default class SwitchSlide extends React.Component{
 							>
 								<MultiSwitchDialog  
 									leftData = {leftData}
-									rightData={rightData}
+									rightData={this.state.rightData}
 									control={control}
 									onSelect = {this.onSelect} 
 									onSubmit = {this.onSubmit} 
