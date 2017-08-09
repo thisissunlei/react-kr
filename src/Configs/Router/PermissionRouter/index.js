@@ -142,7 +142,7 @@ module.exports =()=>{
       <Route path="dealNewThings" getComponent={Permission_ProcessManage_DealNewThings}/>
       <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
       <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
-    </Route> 
+    </Route>
 	  </Route>
 
 
