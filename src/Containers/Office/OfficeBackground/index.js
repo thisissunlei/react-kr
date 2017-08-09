@@ -7,8 +7,12 @@ import {
 import {
 	default as Todo
 } from './Todo';
+import {
+	default as OwnAdd
+} from './OwnAdd';
 module.exports = {
 	DownOffice,
 	NewOffice,
-    Todo
+    Todo,
+	OwnAdd,
 }

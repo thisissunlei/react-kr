@@ -227,7 +227,11 @@ export default class SwitchSlide extends React.Component{
 			 autoFocus,
 		 }
 
-
+		 var inputStyle = {
+				overflow: "hidden",
+				textOverflow:"ellipsis",
+				whiteSpace: "nowrap",
+			}
         var dialogTitle = label || '组件';
         dialogTitle = "选择" + dialogTitle;
 		var multiDialogTitle = label || '组件';
@@ -235,7 +239,7 @@ export default class SwitchSlide extends React.Component{
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-					<div className = "oa-imulation-input "  onClick = {this.onFocus}>{valueText}</div>
+					<div className = "oa-imulation-input " style={inputStyle}  onClick = {this.onFocus}>{valueText}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 	{
 						 multiSwitch

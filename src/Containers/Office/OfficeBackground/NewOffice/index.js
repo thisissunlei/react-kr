@@ -25,8 +25,8 @@ export default class NewOffice extends React.Component {
 	constructor(props,context){
 		super(props, context);
         this.state={
-            thingsType:[{"name":"打我的"},{"name":"打你的"},{"name":"打他的"}],
-            newThings:[{"name":"打我的","children":[{"name":"打我的"},{"name":"打我的"},{"name":"打我的"}]},{"name":"打你的","children":[{"name":"打我的"},{"name":"打我的"},{"name":"打我的"}]},{"name":"打他的","children":[{"name":"打我的"},{"name":"打我的"},{"name":"打我的"}]}],
+            thingsType:[],
+            newThings:[],
             openDelete:false,
         }
 	}
@@ -64,6 +64,7 @@ export default class NewOffice extends React.Component {
     )
   }
   renderNewThings=(item,index)=>{
+    console.log("进入renderNew",item);
     return (
         <FirstMenu key={index} detail={item} onSubmit={this.updateData}/>
     )
@@ -79,32 +80,31 @@ export default class NewOffice extends React.Component {
   }
   toDelete=(item)=>{
       var _this = this;
-      // Http.request('get-menu-list', {
+      Http.request('office-new-delete', {
 
-      //       },{id:item.id}).then(function(response) {
-        //         _this.updateData();
-      //       }).catch(function(err) {});
+            },{myCommonId:item.id}).then(function(response) {
+                _this.updateData();
+            }).catch(function(err) {});
   }
   updateData=()=>{
 		    var _this = this;
-			// Http.request('process-common', {
-
-      //       },{}).then(function(response) {
-      //           _this.setState({thingsType: response.items},function(){
-					
-      //           })
-      //       }).catch(function(err) {});
-      // Http.request('process-new-request', {
-
-    //       },{}).then(function(response) {
-    //           _this.setState({newThings: response.items},function(){
-        
-    //           })
-    //       }).catch(function(err) {});
+        console.log("进入up");
+        Http.request('process-common', {
+              }).then(function(response) {
+                  _this.setState({thingsType: response.items},function(){
+            
+                  })
+              }).catch(function(err) {});
+        Http.request('process-new-request', {
+            }).then(function(response) {
+                _this.setState({newThings: response.items},function(){
+          
+                })
+            }).catch(function(err) {});
     
 	}
   render() {
-   
+   console.log("进入render",this.state.newThings);
     return (
       <div className="g-deal-newthings">
         <Section borderBool={false} title="我的常用">

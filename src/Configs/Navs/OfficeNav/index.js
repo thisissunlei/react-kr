@@ -56,7 +56,7 @@ module.exports = [
 					{
 						primaryText: '我发起的',
 						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/office/officeBackground/newOffice',
+						router: '/office/officeBackground/ownAdd',
 					},
 				]	
 			}, 

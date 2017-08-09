@@ -37,6 +37,12 @@ const Office_OfficeBackground_Todo = (location, callback) => {
   }, 'Office_OfficeBackground_Todo')
 }
 
+const Office_OfficeBackground_OwnAdd = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Office/OfficeBackground/OwnAdd').default)
+  }, 'Office_OfficeBackground_OwnAdd')
+}
+
 module.exports =()=>{
 	return (
         <Route path="office" getComponent={Basic}>
@@ -45,6 +51,7 @@ module.exports =()=>{
                 <Route path="downOffice" getComponent={Office_OfficeBackground_DownOffice}/>
                 <Route path="newOffice" getComponent={Office_OfficeBackground_NewOffice}/>
                 <Route path="todo" getComponent={Office_OfficeBackground_Todo}/>
+                <Route path="ownAdd" getComponent={Office_OfficeBackground_OwnAdd}/>
             </Route>
         </Route>
 	);
