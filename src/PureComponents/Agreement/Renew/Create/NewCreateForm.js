@@ -320,7 +320,8 @@ class NewCreateForm extends Component {
 			changeValues
 		} = this.props;
 		let {
-			stationVos
+			stationVos,
+			oldBasicStationVos
 		} = this.state;
 
 		if (!stationVos.length) {
@@ -332,7 +333,7 @@ class NewCreateForm extends Component {
 		};
 
 
-		form.stationVosList = stationVos;
+		form.stationVosList = oldBasicStationVos;
 		form.lessorAddress = changeValues.lessorAddress;
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd 00:00:00");
@@ -340,7 +341,7 @@ class NewCreateForm extends Component {
 
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
 
-		form.stationVos = JSON.stringify(stationVos);
+		form.stationVos = JSON.stringify(oldBasicStationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = (this.state.allRent).toFixed(2);
 		if(!!!form.agreement){

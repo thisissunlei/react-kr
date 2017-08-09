@@ -179,8 +179,10 @@ export default class Table extends React.Component {
 		let {
 			defaultSelectedRows
 		} = this.props;
-		for(var i=0;i<state.response.items.length;i++){
-			state.response.items[i].identifier=i+1;
+		if(state.response.items){
+			for(var i=0;i<state.response.items.length;i++){
+				state.response.items[i].identifier=i+1;
+			}
 		}
 		
 		state.selectedRows = defaultSelectedRows;
