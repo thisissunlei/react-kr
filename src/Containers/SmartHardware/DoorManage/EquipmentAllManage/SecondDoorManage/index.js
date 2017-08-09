@@ -28,7 +28,6 @@ import {
 import EquipmentDetail from './EquipmentDetail';
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
-import NewEquipmentList from './NewEquipmentList';
 import EquipmentSearch from './EquipmentSearch';
 import EquipmentSearchForm from './EquipmentSearchForm';
 

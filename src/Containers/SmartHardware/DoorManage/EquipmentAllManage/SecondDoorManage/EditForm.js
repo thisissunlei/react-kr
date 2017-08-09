@@ -238,7 +238,7 @@ class EditForm extends React.Component{
 		
 		const { error, handleSubmit, reset} = this.props;
 		return(
-			<div style={{padding:'35px 0 0 35px'}}>
+			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
@@ -322,8 +322,8 @@ class EditForm extends React.Component{
 					/>
 					
 					
-					<Grid style={{marginTop:19,marginBottom:'4px'}}>
-						<Row style={{textAlign:'center'}}>
+					<Grid>
+						<Row style={{textAlign:'center',marginLeft:'-40px'}}>
 							<ListGroup >
 								<ListGroupItem style={{padding:0,display:'inline-block',marginRight:30}}>
 									<Button  label="提交" type="submit"/>
