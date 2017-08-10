@@ -45,7 +45,7 @@ class CreateNotice extends React.Component {
         	flag:nextProps.flag
         })
     }
-
+	
    	getType=()=>{
    		var _this=this;
 		Http.request('get-findCmtRight').then(function(response) {

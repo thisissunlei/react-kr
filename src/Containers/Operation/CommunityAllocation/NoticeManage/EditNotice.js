@@ -50,7 +50,7 @@ class EditNotice extends React.Component {
 		setTimeout(function(){
 			_this.getInfo();
 		},1000)
-		
+
 	}
 	componentWillReceiveProps(nextProps) {
         this.setState({
