@@ -17,7 +17,7 @@ export default class Initialize  extends React.Component{
 
 		return(
 
-			<div style={{marginleft:'-20px',marginTop:'-20px',marginRight:'-15px'}}>
+			<div style={{marginLeft:'-20px',marginTop:'-20px',marginRight:'-15px'}}>
 				<IframeContent src={url}  width={'100%'} height={800} scrolling="no"/>
 			</div>
 		);
