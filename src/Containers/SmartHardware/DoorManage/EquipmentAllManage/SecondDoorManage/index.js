@@ -213,7 +213,7 @@ export default class SecondDoorManage  extends React.Component{
 			          	<TableBody >
 				            <TableRow>
 				            	<TableRowColumn name="communityName"></TableRowColumn>
-								<TableRowColumn style={{width:160,overflow:"visible"}} name="roomName" component={(value,oldValue)=>{
+								<TableRowColumn style={{width:160,overflow:"visible"}} name="title" component={(value,oldValue)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
 		                              TooltipStyle="none"

@@ -23,7 +23,8 @@ import {
 	TableRowColumn,
 	Tooltip,
 } from 'kr-ui';
-import {Http} from 'kr/Utils';
+import {Http,ShallowEqual} from 'kr/Utils';
+
 
 export default class FinishUploadImgForm extends React.Component{
 	constructor(props) {
@@ -38,8 +39,8 @@ export default class FinishUploadImgForm extends React.Component{
 	      rightfontColor : false,
 	      leftfontColor : true,
 	      optionsFloor:[],
-	      selectedIds:[],
-	      totleNum : 0
+	      totleNum : 0,
+	      devices : []
 	    };
 	}
 	componentDidMount(){
@@ -48,25 +49,29 @@ export default class FinishUploadImgForm extends React.Component{
 			id : _this.detail.id,
 			communityId : _this.detail.communityId
 		}
-		Http.request('doorCustomerDevice',listParams)
-	      .then(function(response){
+		Http.request('doorCustomerDevice',listParams).then(function(response){
+	      	
+			var responseP = response;
 	      	var totleNum =0;
-	      	var componentSelected =[];
-	      	for(var i=0;i<response.length;i++){
+	      	var devicesT = []
+	      	for(var i=0;i<responseP.length;i++){
 
-	      		for(var j =0;j<response[i].deviceList.length;j++){
+	      		for(var j =0;j<responseP[i].deviceList.length;j++){
 	      			totleNum++;
-	      			if(response[i].deviceList[j].checked){
+	      			if(responseP[i].deviceList[j].checked){
 
-	      				componentSelected.push(response[i].deviceList[j].id);
+	      				devicesT.push({
+	      					deviceId: responseP[i].deviceList[j].id,
+	      					isIotDevice: responseP[i].deviceList[j].isIotDevice
+	      				})
+
 	      			}
 	      		}
 	      	}
-
 	      	_this.setState({
 	      		optionsFloor : response,
-	      		selectedIds : componentSelected,
 	      		totleNum: totleNum,
+	      		devices : devicesT
 	      	})
 	      }).catch(function(err){
 	        Notify.show([{
@@ -88,8 +93,12 @@ export default class FinishUploadImgForm extends React.Component{
 	selectInput=(item)=>{
 		item.checked = !item.checked;
 		let _this =this;
-		var newSelecetId = item.id;
-		let newArr = _this.state.selectedIds;
+		var newSelecetId = {
+			deviceId:item.id,
+			isIotDevice : item.isIotDevice
+		}
+
+		let newArr = _this.state.devices;
 		// 被选中
 		if(item.checked){
 			if(newArr.length==0){
@@ -97,7 +106,7 @@ export default class FinishUploadImgForm extends React.Component{
 			}else{
 				var copyNum = 0;
 				for(var i=0;i<newArr.length;i++){
-					if(newSelecetId == newArr[i]){
+					if(ShallowEqual(newSelecetId,newArr[i])){
 						copyNum++;
 					}
 				}
@@ -109,7 +118,7 @@ export default class FinishUploadImgForm extends React.Component{
 		}else{
 			for(var i=0;i<newArr.length;i++){
 				var ishave;
-				if(newSelecetId == newArr[i]){
+				if(ShallowEqual(newSelecetId,newArr[i])){
 					ishave = i;
 					newArr.splice(i,1);
 				}
@@ -117,7 +126,7 @@ export default class FinishUploadImgForm extends React.Component{
 		}
 
 		_this.setState({
-			selectedIds : newArr
+			devices : newArr
 		})
 	}
 
@@ -143,50 +152,66 @@ export default class FinishUploadImgForm extends React.Component{
 
 	selectAll=(item,e)=>{
 
-
 		if(e.target.checked){
 			let newArrEmpty = [];
-			// 将每个IDpush进selectedId  办理yuan sh
+			// 将每个IDpush进devices
 
 			for(var i=0;i<item.deviceList.length;i++){
 
 				item.deviceList[i].checked = true;
 
-				newArrEmpty.push(item.deviceList[i].id);
+				newArrEmpty.push({
+
+							deviceId:item.deviceList[i].id,
+							isIotDevice : item.deviceList[i].isIotDevice
+						
+						});
 			}
 
-			let OriginArr = this.state.selectedIds;
+			let OriginArr = this.state.devices;
 			var newArr = OriginArr.concat(newArrEmpty);
 
 			// 去重
-			var EArr = [];
-			EArr.push(newArr[0]);
+			var EArr = [newArr[0]];
 
 			for(var i=1;i<newArr.length;i++){
 
-				if(EArr.indexOf(newArr[i])==-1){
+				var num = 0;
+				
+				for(var j=0;j<EArr.length;j++){
+					if(ShallowEqual(EArr[j],newArr[i])){
+						num++
+					}
+				}
+				if(num==0){
 					EArr.push(newArr[i])
 				}
 			}
 
+			
+
+
 			this.setState({
-				selectedIds:EArr
+				devices:EArr
 			})
 		}else{
 			let newArrEmpty = [];
-			// 将每个IDpush进selectedId  办理yuan sh
+			// 将每个IDpush进devices
 
 			for(var i=0;i<item.deviceList.length;i++){
 				item.deviceList[i].checked = false;
 				// 需要去除的
-				newArrEmpty.push(item.deviceList[i].id);
+				newArrEmpty.push({
+							deviceId:item.deviceList[i].id,
+							isIotDevice : item.deviceList[i].isIotDevice
+						});
 			}
 
-			let OriginArr = this.state.selectedIds;
+			let OriginArr = this.state.devices;
 			var EmptyArr = [];
 			for(var i =0;i<OriginArr.length;i++){
 				for(var j=0;j<newArrEmpty.length;j++){
-					if(OriginArr[i] ==newArrEmpty[j] ){
+					if(ShallowEqual(OriginArr[i],newArrEmpty[j])){
 
 						EmptyArr.push(i);
 					}
@@ -200,9 +225,8 @@ export default class FinishUploadImgForm extends React.Component{
 			for(var p=0;p<EmptyArr.length;p++){
 				OriginArr.splice(EmptyArr[p],1);
 			}
-
 			this.setState({
-				selectedIds:OriginArr
+				devices:OriginArr
 			})
 		}
 
@@ -320,19 +344,28 @@ export default class FinishUploadImgForm extends React.Component{
 	// 确认授权
 	impowerToCustomer=()=>{
 		let _this =this;
-		var deviceId =this.state.selectedIds;
-
-		// 数组去重
-		var n = [];
-		n.push(deviceId[0]);
-		for(var i = 1; i < deviceId.length; i++) {
-
-			if (deviceId.indexOf(deviceId[i]) == i) n.push(deviceId[i]);
+		var devicesT =this.state.devices;
+		if(devicesT.length>1){
+			// 数组去重
+			var n = [devicesT[0]];
+			for(var i = 1; i < devicesT.length; i++) {
+				var num = 0
+				for(var j=0;j<n.length;j++){
+					if(ShallowEqual(devicesT[i],n[j])){
+						num++
+					}
+				}
+				if(num==0){
+					n.push(devicesT[i]);
+				}
+			}
+		}else{
+			var n =[];
 		}
+		
 
 		let ids = {deviceIds:n,id:this.detail.id}
-		Http.request('doorCustomerGrant',{},ids)
-	    .then(function(response){
+		Http.request('doorCustomerGrant',{},ids).then(function(response){
 		      	_this.closeImpoerList();
 		      	Message.success("操作成功");
 
