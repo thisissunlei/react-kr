@@ -44,7 +44,6 @@ class NewCreateDefinitionForm extends React.Component{
   				locationOpen : false,
   				floorsOptions : []
   			})
-  			console.log("community == null");
 			return;
 		}
 		let httpParam = {
@@ -159,7 +158,6 @@ class NewCreateDefinitionForm extends React.Component{
 
 	// 新增设备定义
 	onSubmit=(values)=>{
-		console.log(values,values);
 		let _this = this;
 		let hardwareIdparams = {
 			deviceId :values.deviceId
@@ -179,7 +177,6 @@ class NewCreateDefinitionForm extends React.Component{
 	render(){
 		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked} =this.state;
 		
-		console.log("locationOptions",locationOptions);
 		const { error, handleSubmit, reset} = this.props;
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>

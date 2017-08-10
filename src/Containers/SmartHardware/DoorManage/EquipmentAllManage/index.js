@@ -45,7 +45,6 @@ export default class AgingAccount  extends React.Component{
 
 	render(){
 		let {TabNum} = this.state;
-		console.log("State.TabNum",this.state.TabNum);
 		return(
 
 			<div className="equipment-all">
