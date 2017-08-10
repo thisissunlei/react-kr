@@ -117,8 +117,8 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		
 		State.equipmentSecondParams =  {
 			communityId: State.equipmentSecondParams.communityId,
-	        deviceId : State.equipmentSecondParams.deviceId,
-	        doorCode : State.equipmentSecondParams.doorCode,
+	        deviceId : State.equipmentSecondParams.deviceId || '',
+	        doorCode : State.equipmentSecondParams.doorCode || '',
 	        doorType : doorTypeReal,
 	        floor : State.equipmentSecondParams.floor,
 	        page : State.realPage,
