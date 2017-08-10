@@ -93,7 +93,6 @@ module.exports = [
 				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',
 				menuItems: [
-
 					{
 						primaryText: '流程列表',
 						menuCode: 'hrm_resourcesList_incumbency',

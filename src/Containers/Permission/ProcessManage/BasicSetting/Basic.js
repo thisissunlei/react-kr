@@ -76,10 +76,10 @@ class Basic extends Component {
                     inline={false}
                     label="流程编码"
                     grid={1/2}
-                    component="input"
+                    component="labelText"
                     name="wfCode"
                     requireLabel={true}
-                    placeholder="排序号"
+                    value={infoList.wfCode}
                 />
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
@@ -167,17 +167,14 @@ const validate = values => {
 		}else if (values.wfName.length>20) {
 			errors.wfName = '流程名称最多20个字符！';
 		}   
-		if (!values.wfCode) {
-			errors.wfCode = '请输入流程编码';
-		}
 
 		if (!values.wfOrderNum) {
 			errors.wfOrderNum = '请输入排序号';
 		}
 
-		// if (!values.hrmResourceId) {
-		// 	errors.hrmResourceId = '请选择对接人';
-		// }
+		if (!values.hrmResourceId) {
+			errors.hrmResourceId = '请选择对接人';
+		}
 		if (!values.hzCode) {
 			errors.hzCode = '请输入慧正流程唯一标识';
 		}else if (values.hzCode.length>50) {
