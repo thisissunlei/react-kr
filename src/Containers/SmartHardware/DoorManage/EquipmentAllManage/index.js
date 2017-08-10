@@ -5,7 +5,7 @@ import {Actions,Store,connect} from 'kr/Redux';
 import Baidu from 'kr/Utils/Baidu';
 import {Http} from 'kr/Utils';
 import './index.less';
-import FirstEquipment from "./FirstDoorManage";
+import FirstEquipment from "../../../Operation/BasicConfig/EquipmentDefinition";
 import SecondDoorManage from "./SecondDoorManage";
 import{
   Tabs,
