@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	IframeContent
 } from 'kr-ui';
 
@@ -14,10 +14,10 @@ export default class Initialize  extends React.Component{
 
 		let url='/hz7rest/workflow/manager/embed/index.jsp#workcenter/todo/haddone.list';
 
-		
+
 		return(
 
-			<div>
+			<div style={{marginleft:'-20px',marginTop:'-20px',marginRight:'-15px'}}>
 				<IframeContent src={url}  width={'100%'} height={800} scrolling="no"/>
 			</div>
 		);
