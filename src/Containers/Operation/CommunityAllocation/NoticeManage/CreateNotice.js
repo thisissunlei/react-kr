@@ -30,7 +30,11 @@ class CreateNotice extends React.Component {
 			groupType:[
 				
 			],
-			richTextValue:''
+			richTextValue:'',
+			cmtName:'',
+			title:'',
+			type:'',
+			publishTime:'',
 		}
 		this.getType();
 	}
@@ -74,6 +78,9 @@ class CreateNotice extends React.Component {
 			})
 			
 		}
+		this.setState({
+			type:item.value
+		})
 	}
 	
 	
@@ -100,12 +107,45 @@ class CreateNotice extends React.Component {
 		})
 	}
 	viewRichText=()=>{
-		let {richTextValue}=this.state;
+		let {richTextValue,ifCity,cmtName,title,type,publishTime}=this.state;
 		let {viewRichText} = this.props;
-		viewRichText && viewRichText(richTextValue)
+		
+		let  typetxt=type==1?'全国公告':'社区公告';
+		let  time=new Date(publishTime);
+		let  year=time.getFullYear();
+		let  Month=time.getMonth()+1;
+		let  date=time.getDate();
+		let form={
+			  richTextValue:richTextValue,
+			  title,
+			  typetxt,
+			  time:`${year}年${Month}月${date}日`,
+			  type
+			}
+		if(ifCity){
+			form.cmtName=cmtName;
+		}
+
+		viewRichText && viewRichText(form)
 		
 	}
 	
+	selectCommunity=(item)=>{
+		this.setState({
+			cmtName:item.label
+		})
+	}
+	changeTitle=(item)=>{
+		this.setState({
+			title:item
+		})
+	}
+	selectTime=(item)=>{
+		let time=Date.parse(item)
+		this.setState({
+			publishTime:time
+		})
+	}
 	
 	render() {
 			const {
@@ -135,6 +175,7 @@ class CreateNotice extends React.Component {
 								component="input"
 								label="公告标题"
 								requireLabel={true}
+								onChange={this.changeTitle}
 						 	/>
 							<KrField
 								style={{width:260,marginRight:25,margintop:20}}
@@ -153,7 +194,7 @@ class CreateNotice extends React.Component {
 					 			inline={false}  
 					 			placeholder='请输入社区名称' 
 						 		requireLabel={true}
-						 		
+						 		onChange={this.selectCommunity}
 						 	/>:''}
 						 	<KrField
 								style={{width:260,marginRight:25,margintop:20}}
@@ -161,6 +202,7 @@ class CreateNotice extends React.Component {
 								component="date"
 								label="发布时间"
 								requireLabel={true}
+								onChange={this.selectTime}
 						 	/>
 						 	<KrField 
 								component="editor" 
