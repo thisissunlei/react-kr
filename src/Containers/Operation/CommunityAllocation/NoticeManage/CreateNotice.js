@@ -35,12 +35,15 @@ class CreateNotice extends React.Component {
 			title:'',
 			type:'',
 			publishTime:'',
+			flag:0
 		}
 		this.getType();
 	}
 	
-	componentDidMount() {
-        
+	componentWillReceiveProps(nextProps) {
+        this.setState({
+        	flag:nextProps.flag
+        })
     }
 
    	getType=()=>{
@@ -88,6 +91,9 @@ class CreateNotice extends React.Component {
 		let {onSubmit} = this.props;
 		var _this=this;
 		
+		if(this.state.flag==1){
+			return
+		}
 		Http.request('create-notice',{},form).then(function(response) {
 			Message.success('新建成功')
 			onSubmit && onSubmit();
@@ -109,7 +115,6 @@ class CreateNotice extends React.Component {
 	viewRichText=()=>{
 		let {richTextValue,ifCity,cmtName,title,type,publishTime}=this.state;
 		let {viewRichText} = this.props;
-		
 		let  typetxt=type==1?'全国公告':'社区公告';
 		let  time=new Date(publishTime);
 		let  year=time.getFullYear();
@@ -125,8 +130,16 @@ class CreateNotice extends React.Component {
 		if(ifCity){
 			form.cmtName=cmtName;
 		}
-
-		viewRichText && viewRichText(form)
+		if(form.richTextValue &&form.title &&form.typetxt && form.time){
+			this.setState({
+				flag:1
+			})
+			viewRichText && viewRichText(form)
+			return
+		}
+		
+		
+		
 		
 	}
 	
@@ -167,7 +180,7 @@ class CreateNotice extends React.Component {
 						<div className="title-text">新建公告</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
-				<form onSubmit={handleSubmit(this.onSubmit)} >
+				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField
 								style={{width:548}}
 								name="title"
@@ -215,15 +228,15 @@ class CreateNotice extends React.Component {
 								/>
 
 
-						 <div  className="u-view" onClick={this.viewRichText}>
-						 	点击预览
+						 <div  className="u-view" >
+						 	<Button  label="点击预览" type="submit" onClick={this.viewRichText}/>
 						 </div>
 							
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit"  />
+								<Button  label="确定" type="submit" />
 								<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
 							</ButtonGroup>
 						  </Col>

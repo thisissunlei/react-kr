@@ -253,7 +253,7 @@ class EditNotice extends React.Component {
 
 
 						 <div  className="u-view" onClick={this.viewRichText}>
-						 	点击预览
+						 	<Button  label="点击预览" type="submit" onClick={this.viewRichText}/>
 						 </div>
 							
 						<Grid style={{marginTop:50,width:'81%'}}>

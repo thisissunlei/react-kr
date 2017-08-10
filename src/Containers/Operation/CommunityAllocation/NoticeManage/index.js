@@ -39,6 +39,7 @@ export default class NoticeManage extends React.Component {
 			viewRichText:false,
 			viewItem:{},
 			page:1,
+			flag:0,
 		}
 
 	}
@@ -121,7 +122,8 @@ export default class NoticeManage extends React.Component {
 	viewRichText=(item)=>{
 		this.setState({
 			viewRichText:!this.state.viewRichText,
-			viewItem:item
+			viewItem:item,
+			flag:0
 		})
 	}
 
@@ -163,7 +165,7 @@ export default class NoticeManage extends React.Component {
 	}
 
 	render() {
-		let {itemDetail,viewRichText}=this.state;
+		let {itemDetail,viewRichText,flag}=this.state;
 		return (
 
 			<div className="g-notice" >
@@ -256,6 +258,7 @@ export default class NoticeManage extends React.Component {
 	             			onCancel={this.openNewCreat} 
 	             			onSubmit={this.createSubmit} 
 	             			viewRichText={this.viewRichText}
+	             			flag={flag}
 	             	 />
 	           </Drawer>
 	           <Drawer
@@ -271,6 +274,7 @@ export default class NoticeManage extends React.Component {
 	             			detail={itemDetail} 
 	             			onSubmit={this.editSubmit}
 	             			viewRichText={this.viewRichText} 
+	             			flag={flag}
 	             	 />
 	           </Drawer>
 	           <Drawer
