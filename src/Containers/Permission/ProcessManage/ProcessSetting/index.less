@@ -169,6 +169,36 @@
     background:url(images/highSearch.svg) no-repeat center center;
     background-size: cover;
   }
+  .ui-table td{
+  	&:nth-child(8){
+  		.ui-tooltip{
+  			display:inline-block;
+  			width:280px;
+  			white-space:normal;
+  		  word-wrap:break-word;
+  		  word-break: normal;
+        .top-arrow{
+          display: none;
+        }
+      }
+  	}
+	}
+  .type-table{
+    .ui-table td{
+      &:nth-child(3){
+        .ui-tooltip{
+          display:inline-block;
+          width:280px;
+          white-space:normal;
+          word-wrap:break-word;
+          word-break: normal;
+          .top-arrow{
+            display: none;
+          }
+        }
+      }
+	  }
+  }
 }
 
 

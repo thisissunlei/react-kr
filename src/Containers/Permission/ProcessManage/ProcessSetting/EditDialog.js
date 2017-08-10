@@ -91,7 +91,7 @@ class EditDialog extends Component {
                <KrField
                   grid={1}
                   left={30}
-                  name="desc"
+                  name="descr"
                   component="textarea"
                   maxSize={50}
                   style={{marginTop:12,height:78,width:590}}

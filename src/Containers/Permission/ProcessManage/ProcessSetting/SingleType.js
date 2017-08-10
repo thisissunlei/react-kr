@@ -279,9 +279,42 @@ export default class SingleType extends React.Component {
 
 								<TableBody>
 									<TableRow>
-                                    <TableRowColumn name="wfName"></TableRowColumn>
-                                    <TableRowColumn name="wfCode"></TableRowColumn>
-                                    <TableRowColumn name="wfTypeName"></TableRowColumn>
+                                    <TableRowColumn name="wfName" 
+										component={(value,oldValue)=>{
+                                                        var maxWidth=4;
+                                                        if(value){
+                                                            if(value.length>maxWidth){
+                                                                value = value.substring(0,4)+"...";
+                                                            }
+                                                        }else{
+                                                            value="无"
+                                                        }
+                                                        return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+                                                }} ></TableRowColumn>
+                                    <TableRowColumn name="wfCode"
+                                        component={(value,oldValue)=>{
+		 										var maxWidth=4;
+		 										if(value){
+                                                    if(value.length>maxWidth){
+                                                        value = value.substring(0,4)+"...";
+                                                    }
+                                                }else{
+                                                    value="无"
+                                                }
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
+                                    <TableRowColumn name="wfTypeName" 
+										component={(value,oldValue)=>{
+                                                        var maxWidth=4;
+                                                        if(value){
+                                                            if(value.length>maxWidth){
+                                                                value = value.substring(0,4)+"...";
+                                                            }
+                                                        }else{
+                                                            value="无"
+                                                        }
+                                                        return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+                                                }} ></TableRowColumn>
                                     <TableRowColumn name="wfOrderNum"></TableRowColumn>
                                     <TableRowColumn name="allowRequest"  style={{width:'100px'}}
                                         component={(value, oldValue) => {
@@ -306,7 +339,7 @@ export default class SingleType extends React.Component {
                                         }}
                                     ></TableRowColumn>
                                     <TableRowColumn name="hzCode"
-									  style={{width:'150px'}}
+									  style={{width:'130px'}}
 									component={(value,oldValue)=>{
 		 										var maxWidth=8;
 		 										if(value.length>maxWidth){
@@ -316,10 +349,14 @@ export default class SingleType extends React.Component {
 		 								 }} ></TableRowColumn>
                                     <TableRowColumn name="descr"
 									component={(value,oldValue)=>{
-		 										var maxWidth=6;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,6)+"...";
-		 										}
+		 										var maxWidth=5;
+		 										if(value){
+                                                    if(value.length>maxWidth){
+                                                        value = value.substring(0,5)+"...";
+                                                    }
+                                                }else{
+                                                    value="无"
+                                                }
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
                                     <TableRowColumn name="operator"></TableRowColumn>
