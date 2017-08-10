@@ -59,6 +59,9 @@ export default class ProcessSetting extends React.Component {
             treeActive:true,
 			typeId:'0',
 			timer:new Date(),
+			treeIndex:{
+				"index":'',
+			},
 		}
 		this.processName="全部类型";
 		this.typeId = '0';
@@ -77,7 +80,7 @@ export default class ProcessSetting extends React.Component {
 
     //树相关
 	getTreeData = () => {
-
+		console.log("getTree");
 		const _this = this;
 		Http.request("process-typetree", {name:_this.state.searchKey}).then(function (response) {
 			_this.setState({
@@ -99,13 +102,17 @@ export default class ProcessSetting extends React.Component {
 	//树相关
 	getEditTreeData = () => {
 		const _this = this;
-		var treeIndex = this.treeIndex;
+		var treeIndex = Object.assign({},_this.state.treeIndex);
+		var index = treeIndex.index;
 		Http.request("process-typetree", {}).then(function (response) {
+			console.log("请求",_this.state.treeIndex);
 			_this.setState({
 				typeTree: response.items,
 			},function(){
-				_this.selectType(response.items[treeIndex]);
+				_this.selectType(response.items[index],index);
 			});
+			// _this.treeIndex = treeIndex;
+			
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -118,7 +125,7 @@ export default class ProcessSetting extends React.Component {
         )
     }
     change = (event) => {
-		
+		console.log("dsafdsf");
 		this.setState({
 			searchKey: event.target.value || '',
 		},function(){
@@ -135,11 +142,16 @@ export default class ProcessSetting extends React.Component {
 			this.processName = item.name;
 			this.typeId = item.id;
 			this.nodeData = item;
-			this.treeIndex = index;
+
+
+		console.log('--->>>',index)
             this.setState({
                 treeActive:false,
                 // processName:item.name,
 				// typeId:item.id,
+				treeIndex:{
+					'index':index
+				}
             })
         }else{
             this.setState({
@@ -181,7 +193,7 @@ export default class ProcessSetting extends React.Component {
 		let { itemDetail, data, styleBool,dataName,treeActive} = this.state;
 		var logFlag = '';
 		var style = {};
-		console.log(this.typeId,"type");
+		console.log(this.state.treeIndex.index,"index");
 		return (
 			<div className="g-process-setting">
 				<div className="left">

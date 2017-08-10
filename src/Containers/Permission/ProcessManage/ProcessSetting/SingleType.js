@@ -279,7 +279,7 @@ export default class SingleType extends React.Component {
 
 								<TableBody>
 									<TableRow>
-                                    <TableRowColumn name="wfName" 
+                                    <TableRowColumn name="wfName" style={{width:80}}
 										component={(value,oldValue)=>{
                                                         var maxWidth=4;
                                                         if(value){
@@ -291,7 +291,7 @@ export default class SingleType extends React.Component {
                                                         }
                                                         return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
                                                 }} ></TableRowColumn>
-                                    <TableRowColumn name="wfCode"
+                                    <TableRowColumn name="wfCode" style={{width:80}}
                                         component={(value,oldValue)=>{
 		 										var maxWidth=4;
 		 										if(value){
@@ -303,7 +303,7 @@ export default class SingleType extends React.Component {
                                                 }
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-                                    <TableRowColumn name="wfTypeName" 
+                                    <TableRowColumn name="wfTypeName" style={{width:80}}
 										component={(value,oldValue)=>{
                                                         var maxWidth=4;
                                                         if(value){
