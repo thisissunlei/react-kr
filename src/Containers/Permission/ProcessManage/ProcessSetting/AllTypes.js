@@ -291,7 +291,7 @@ export default class AllTypes extends React.Component {
 		 								 }} ></TableRowColumn>
                                     <TableRowColumn name="operator"></TableRowColumn>
 
-                                    <TableRowColumn type="operatorTime" name="createTime" component={(value) => {
+                                    <TableRowColumn type="date" name="operatorTime" component={(value) => {
                                         return (
                                             <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
                                         )
