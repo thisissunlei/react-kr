@@ -39,6 +39,7 @@ class EditNotice extends React.Component {
 			title:'',
 			type:'',
 			publishTime:'',
+			flag:0,
 		}
 		this.getType();
 		
@@ -51,6 +52,11 @@ class EditNotice extends React.Component {
 		},1000)
 		
 	}
+	componentWillReceiveProps(nextProps) {
+        this.setState({
+        	flag:nextProps.flag
+        })
+    }
 	
 	viewChange=(item)=>{
 		this.setState({
@@ -76,7 +82,14 @@ class EditNotice extends React.Component {
 		if(ifCity){
 			form.cmtName=cmtName;
 		}
-		viewRichText && viewRichText(form)
+		if(form.richTextValue &&form.title &&form.typetxt && form.time){
+			this.setState({
+				flag:1
+			})
+			viewRichText && viewRichText(form)
+			return
+		}
+		
 	}
 	getInfo=()=>{
 		var _this=this;
@@ -151,6 +164,9 @@ class EditNotice extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
+		if(this.state.flag==1){
+			return
+		}
 		form.publishTime=DateFormat(form.publishTime, "yyyy-mm-dd hh:MM:ss");
 		Http.request('edit-notice',{},form).then(function(response) {
 			Message.success('编辑成功')
@@ -275,22 +291,25 @@ const validate = values => {
 
 		const errors = {};
 
-
-		if (!values.groupType) {
-			errors.groupType = '请选择公告类型';
+		if (!values.title) {
+			errors.title = '请填写公告标题';
 		}
 
-		if (!values.cmtName) {
-			errors.cmtName = '请选择所属社区';
+		if (!values.type) {
+			errors.type = '请选择公告类型';
 		}
 
-		
-		if (!values.content) {
-			errors.content = '请输入公告内容';
+		if (!values.cmtId) {
+			errors.cmtId = '请选择所属社区';
+		}
+		if (!values.publishTime) {
+			errors.publishTime = '请输入发布时间';
 		}
 		
+		if (!values.richText) {
+			errors.richText = '请输入公告内容';
+		}
 		
-
 		return errors
 }
 
