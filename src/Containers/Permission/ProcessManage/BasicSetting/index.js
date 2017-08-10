@@ -61,12 +61,18 @@ export default class BasicSetting extends React.Component {
 				page: 1,
 				pageSize: 15,
 			},
+			infoList:{},
 		}
 	}
     componentDidMount() {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
 		var _this = this;
+		Http.request('process-detail', {
+                wfId: _this.props.params.processId,
+            },{}).then(function(response) {
+                _this.setState({infoList: response})
+            }).catch(function(err) {});
 	}
 
 	onSaveSubmit = (params) => {
@@ -104,6 +110,7 @@ export default class BasicSetting extends React.Component {
     }
 
 	render() {
+		console.log(this.state.infoList);
         let {item,itemDetail} = this.state;
 		return (
 			<div className="g-basic-setting">
@@ -111,13 +118,11 @@ export default class BasicSetting extends React.Component {
                     <div className="department">
                         <div className="department-logo">
                             <span>
-                                请假
-                                {/*{this.props.processName.substr(0,2)}*/}
+                                {this.state.infoList.wfName?this.state.infoList.wfName.substring(0,2):''}
                             </span>
                         </div>
                         <div className="department-name">
-                            {/*{this.props.processName}*/}
-                            请假申请
+                            {this.state.infoList.wfName}
                         </div>
                         <div className="department-tab-list">
                             <div className="department-tab department-tab-active" style={{cursor:"default"}}>
