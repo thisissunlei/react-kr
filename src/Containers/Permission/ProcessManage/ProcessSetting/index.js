@@ -93,8 +93,10 @@ export default class ProcessSetting extends React.Component {
 				if(_this.state.searchKey && response.items.length){
 					if(index>0){
 						_this.selectType(response.items[index],index);
-					}else{
+					}else if(!index){
 						_this.selectType(response.items[0],0);
+					}else if(index==-1){
+						_this.selectType(-1,-1);
 					}
 					
 				}else{//搜索没结果的情况
