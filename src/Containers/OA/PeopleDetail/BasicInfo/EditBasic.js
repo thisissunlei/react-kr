@@ -26,20 +26,21 @@ class EditPerson  extends React.Component{
             //选择部门
             isDepSelect:true,
 
-            basicInfo:{
-
-            }
+            basicInfo:[{
+                leaderName:'',
+                depName:'s'
+            }]
 
         }
 
         let {basicInfo} = this.props;
         var orgType = "DEPARTMENT";
-        if(!basicInfo.depId){
+        if(!basicInfo[0].depId){
             orgType = "SUBCOMPANY";
         }
 
-        this.getPositionType({orgId:basicInfo.depId,treeType:orgType});
-        this.getPrepareData({value:basicInfo.typeId});
+        this.getPositionType({orgId:basicInfo[0].depId,treeType:orgType});
+        this.getPrepareData({value:basicInfo[0].typeId});
 	}
 
     componentDidMount(){
@@ -54,10 +55,12 @@ class EditPerson  extends React.Component{
         let {basicInfo} = this.props;
         let params = Object.assign({},values);
 
-        params.jobId = values.jobId.value || basicInfo.jobId||"";
-        params.leader = values.leader.orgId || basicInfo.leader||"";
-        params.treeType = values.leader.treeType||"";
-        params.levelId = values.levelId.value|| basicInfo.levelId||"";
+
+        params.jobId = (values.jobId.value)? values.jobId.value:basicInfo[0].jobId;
+        params.leader = (values.leader[0]&&values.leader[0].orgId)?values.leader[0].orgId:basicInfo[0].leader;
+        params.treeType = (values.leader[0]&&values.leader[0].treeType)?values.leader[0].treeType:"";
+        params.levelId = (values.levelId.value)?values.levelId.value:basicInfo[0].levelId;
+        
     
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
@@ -68,7 +71,7 @@ class EditPerson  extends React.Component{
         onCancel && onCancel();
     }
     onChange = (data) =>{
-        this.getPositionType(data);
+        this.getPositionType(data[0]);
         Store.dispatch(change('editPerson','typeId',''));
         this.setState({
             isDepSelect:false
@@ -76,8 +79,8 @@ class EditPerson  extends React.Component{
     }
     positionTypeChange = (data) =>{
         let {basicInfo}=this.state;
-        basicInfo.jobName='请选择';
-        basicInfo.levelName='请选择';
+        basicInfo[0].jobName='请选择';
+        basicInfo[0].levelName='请选择';
         if(data && data.value){
             this.getPrepareData(data);
             this.setState({
@@ -182,23 +185,24 @@ class EditPerson  extends React.Component{
                             grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="leader"
-                            component="selectTree"
+                            component="treePersonnel"
                             label="直接上级"
                             treeType = "personnel"
-                            ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
-                            valueText = {basicInfo.leaderName}
+                            ajaxUrlName = "get-personnel-tree"
+                            valueText = {basicInfo[0].leaderName?[{orgName:basicInfo[0].leaderName}]:[{orgName:''}]}
+                            
                         />
 
                         <KrField
                             grid={1/2}
                             style={{width:262}}
                             name="depId"
-                            component="selectTree"
+                            component="treeDepartment"
                             label="部门"
                             treeType = "department"
                             onChange = {this.onChange}
-                            valueText = {basicInfo.depName}
+                            valueText = {basicInfo[0].depName?[{orgName:basicInfo[0].depName}]:[{orgName:''}]}
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}
                         />
@@ -222,7 +226,7 @@ class EditPerson  extends React.Component{
                             letfData={positionList}
                             component="switchSlide"
                             label="职务"
-                            valueText = {basicInfo.jobName}
+                            valueText = {basicInfo[0].jobName}
                             control='single'
                             requireLabel={true}
                         />}
@@ -232,7 +236,7 @@ class EditPerson  extends React.Component{
                             name="levelId"
                             letfData={rankList}
                             component="switchSlide"
-                            valueText ={basicInfo.levelName}
+                            valueText ={basicInfo[0].levelName}
                             label="职级"
                             control='single'
                             requireLabel={true}
@@ -249,7 +253,7 @@ class EditPerson  extends React.Component{
                             style={{width:262,marginLeft:!this.props.changeValues.depId?0:28}}
                             name="status"
                             component="selecTemployees"
-                            label="员工属性"
+                            label="员工状态"
                             requireLabel={true}
                             otherType="resourceStatus"
 						/>
@@ -261,6 +265,15 @@ class EditPerson  extends React.Component{
                             requireLabel={true}
                             otherType="resourceType"
 						/>
+                         <KrField grid={1/2}
+                            style={{width:262,marginLeft:!this.props.changeValues.depId?0:28,marginTop:6}}
+                            name="property"
+                            component="selecTemployees"
+                            label="员工属性"
+                            requireLabel={true}
+                            otherType="resourceProperty"
+						/>
+
 
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
                             <Row>
@@ -281,7 +294,7 @@ class EditPerson  extends React.Component{
 const validate = values =>{
 	const errors = {};
     
-    let reg= /^1[34578]\d{9}$/; 
+    let reg= /^1\d{10}$/; 
     let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
     let email=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 
@@ -300,13 +313,14 @@ const validate = values =>{
     if(!values.status){
         errors.status='请选择员工属性';
     }
+    
+     if(!values.leader){
+        errors.leader='请选择直接上级';
+    }
+
 
     if(!values.type){
         errors.type='请选择员工类别';
-    }
-
-    if(!values.leader){
-        errors.leader='请选择直接上级';
     }
 
      if(!values.depId){

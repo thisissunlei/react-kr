@@ -122,6 +122,7 @@ export default class TreeDialog extends React.Component{
 								type = "department-radio"
 								searchKey = {this.state.searchKey}
 								treeData = {this.state.treeData||[]}
+								checkable = {false}
 							/>
 						</div>
 					</div>

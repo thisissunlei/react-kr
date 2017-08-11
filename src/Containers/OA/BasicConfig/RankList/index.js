@@ -251,6 +251,7 @@ export default class RankList extends Component{
 				<TableHeader>
 					<TableHeaderColumn>职级名称</TableHeaderColumn>
 					<TableHeaderColumn>状态</TableHeaderColumn>
+					<TableHeaderColumn>职务类型</TableHeaderColumn>
 					<TableHeaderColumn>职级描述</TableHeaderColumn>
 					<TableHeaderColumn>操作人</TableHeaderColumn>
 					<TableHeaderColumn>操作时间</TableHeaderColumn>
@@ -266,6 +267,13 @@ export default class RankList extends Component{
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
 						<TableRowColumn name="enabled" options={[{label:'启用',value:'true'},{label:'停用',value:'false'}]}></TableRowColumn>
+						<TableRowColumn name="jobTypeName" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }} ></TableRowColumn>
 						<TableRowColumn name="descr" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
