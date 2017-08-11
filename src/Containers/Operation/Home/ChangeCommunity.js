@@ -78,7 +78,6 @@ class ChangeCommunity  extends React.Component{
 	render(){
 		let {handleSubmit} = this.props;
 		let {communitys} = this.state;
-		console.log('====render===',communitys)
 		return(
 			<div style={{padding:'30px 0 10px 0'}}>
 				<form  onSubmit={handleSubmit(this.onSubmit)}>

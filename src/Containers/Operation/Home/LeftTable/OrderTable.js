@@ -46,7 +46,9 @@ class OrderTable  extends React.Component{
 		State.getOrderList({page:page,pageSize:10})
 	}
 	click=(item)=>{
-		window.open('#/operation/customerManage/customerList','_target')
+		let customerId = item.customerId ;
+		let orderId = item.mainbillId ;
+		window.open(`/#/operation/customerManage/${customerId}/order/${orderId}/detail`,'_target')
 	}
 
 
