@@ -69,7 +69,7 @@ class Createdialog extends Component {
  				</KrField>
                <KrField
                   grid={1}
-                  left={30}
+                  left={35}
                   name="desc"
                   component="textarea"
                   maxSize={50}

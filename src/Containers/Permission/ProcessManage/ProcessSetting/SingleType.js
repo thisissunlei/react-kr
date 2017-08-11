@@ -156,7 +156,7 @@ export default class SingleType extends React.Component {
 			_this.openEditDialog();
 			Message.success('修改成功');
 			_this.changeP();
-            updateDetail();
+            updateDetail("isEdit");
 		}).catch(function (err) {
 			Message.error(err.message)
 		});

@@ -60,7 +60,7 @@ export default class ProcessSetting extends React.Component {
 			typeId:'0',
 			timer:new Date(),
 			treeIndex:{
-				"index":'',
+				"index":'-1',
 			},
 		}
 		this.processName="全部类型";
@@ -79,10 +79,10 @@ export default class ProcessSetting extends React.Component {
 	}
 
     //树相关
-	getTreeData = () => {
+	getTreeData = (isEdit) => {
 		const _this = this;
 		var treeIndex = Object.assign({},_this.state.treeIndex);
-		var index = treeIndex.index || 0;
+		var index = treeIndex.index;
 		console.log("getTree",index);
 		Http.request("process-typetree", {name:_this.state.searchKey}).then(function (response) {
 			_this.setState({
@@ -90,18 +90,40 @@ export default class ProcessSetting extends React.Component {
 			},function(){
 				console.log(_this.state.searchKey);
 				//搜索有结果的情况
-				if(_this.state.searchKey && response.items.length){
-					if(index>0){
-						_this.selectType(response.items[index],index);
-					}else if(!index){
-						_this.selectType(response.items[0],0);
-					}else if(index==-1){
+				// if(_this.state.searchKey && response.items.length){
+				// 	if(index>0){
+				// 		_this.selectType(response.items[index],index);
+				// 	}else if(!index){
+				// 		_this.selectType(response.items[0],0);
+				// 	}else if(index==-1){
+				// 		_this.selectType(-1,-1);
+				// 	}
+					
+				// }else if(!_this.state.searchKey && index!=-1){//没搜索且有index
+				// 	_this.selectType(response.items[index],index);
+				// }else{// if(_this.state.searchKey && !response.items.length){//有搜索没结果&&没搜索没index
+				// 	_this.selectType(-1,-1);
+				// }
+				if(!_this.state.searchKey){//没搜索
+					// _this.selectType(-1,-1);
+					if(isEdit && isEdit=="isEdit"){
+							_this.selectType(response.items[index],index);
+						}else{
+							_this.selectType(-1,-1);
+					}
+				}else{
+					if(response.items.length){//有搜索值且搜到
+						if(isEdit && isEdit=="isEdit"){//有搜索值且搜到且编辑之后
+							_this.selectType(response.items[index],index);
+						}else{//有搜索值且搜到且没编辑
+							_this.selectType(response.items[0],0);
+						}
+						
+					}else{//有搜索值且没搜到
 						_this.selectType(-1,-1);
 					}
-					
-				}else{//搜索没结果的情况
-					_this.selectType(-1,-1);
 				}
+				
 			});
 			
 		}).catch(function (err) {
@@ -197,8 +219,9 @@ export default class ProcessSetting extends React.Component {
 		this.getTreeData();
 		this.getProcessDetail();
 	}
-	updateDetail=()=>{
-		this.getTreeData();
+	updateDetail=(isEdit)=>{
+	
+		this.getTreeData(isEdit);
 		// this.getProcessDetail();
 		// console.log(this.nodeData);
 		
