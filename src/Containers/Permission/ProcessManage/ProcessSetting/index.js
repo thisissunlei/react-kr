@@ -80,18 +80,25 @@ export default class ProcessSetting extends React.Component {
 
     //树相关
 	getTreeData = () => {
-		console.log("getTree");
 		const _this = this;
+		var treeIndex = Object.assign({},_this.state.treeIndex);
+		var index = treeIndex.index || 0;
+		console.log("getTree",index);
 		Http.request("process-typetree", {name:_this.state.searchKey}).then(function (response) {
 			_this.setState({
 				typeTree: response.items,
 			},function(){
 				console.log(_this.state.searchKey);
+				//搜索有结果的情况
 				if(_this.state.searchKey && response.items.length){
-					console.log("进入",_this.state.searchKey);
-					_this.selectType(response.items[0]);
-				}else{
-					_this.selectType(-1);
+					if(index>0){
+						_this.selectType(response.items[index],index);
+					}else{
+						_this.selectType(response.items[0],0);
+					}
+					
+				}else{//搜索没结果的情况
+					_this.selectType(-1,-1);
 				}
 			});
 			
@@ -105,11 +112,14 @@ export default class ProcessSetting extends React.Component {
 		var treeIndex = Object.assign({},_this.state.treeIndex);
 		var index = treeIndex.index;
 		Http.request("process-typetree", {}).then(function (response) {
-			console.log("请求",_this.state.treeIndex);
 			_this.setState({
 				typeTree: response.items,
 			},function(){
-				_this.selectType(response.items[index],index);
+				if(_this.state.searchKey && response.items.length){
+					_this.selectType(response.items[index],index);
+				}else{
+					_this.selectType(response.items[index],index);
+				}
 			});
 			// _this.treeIndex = treeIndex;
 			
@@ -125,7 +135,6 @@ export default class ProcessSetting extends React.Component {
         )
     }
     change = (event) => {
-		console.log("dsafdsf");
 		this.setState({
 			searchKey: event.target.value || '',
 		},function(){
@@ -158,6 +167,9 @@ export default class ProcessSetting extends React.Component {
                 treeActive:true,
                 // processName:"全部类型",
 				// typeId:'0',
+				treeIndex:{
+					'index':-1
+				}
             })
 			this.processName = "全部类型";
 			this.typeId = '0';
@@ -184,7 +196,7 @@ export default class ProcessSetting extends React.Component {
 		this.getProcessDetail();
 	}
 	updateDetail=()=>{
-		this.getEditTreeData();
+		this.getTreeData();
 		// this.getProcessDetail();
 		// console.log(this.nodeData);
 		
