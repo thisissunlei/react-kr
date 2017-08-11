@@ -113,7 +113,7 @@ export default class AppManage extends React.Component {
 					
 					{
 					Ifpost&&(
-								<Tab label="帖子审核" onActive={this.personal}  style={personalStyle}>
+								<Tab label="举报列表" onActive={this.personal}  style={personalStyle}>
 									<PostVoucher timer={this.state.timer}/>
 								</Tab>
 							)

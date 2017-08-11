@@ -64,7 +64,7 @@ export default class ViewIntegration extends React.Component {
 				              <TableHeaderColumn>社区</TableHeaderColumn>
 				              <TableHeaderColumn>记录描述</TableHeaderColumn>
 				              <TableHeaderColumn>积分</TableHeaderColumn>
-				              <TableHeaderColumn>创建时间</TableHeaderColumn>
+				              <TableHeaderColumn>操作时间</TableHeaderColumn>
 				              <TableHeaderColumn>操作人</TableHeaderColumn>
 				          	</TableHeader>
 					        <TableBody >
