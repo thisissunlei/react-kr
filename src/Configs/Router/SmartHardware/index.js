@@ -31,10 +31,7 @@ module.exports =()=>{
 			<Route path="doormanage" getComponent={Basic}>
 				<Route path="equipmentmanage" getComponent={SmartHardware_DoorManage_EquipmentAllManage}/>
 			</Route>
-			{/*<Route path="news" getComponent={Basic}>
-				<Route path="list" getComponent={WebBackstage_News}/>
-			</Route>
-			<Route path="communityAllocation" getComponent={WebBackstage_CommunityAllocation}/>*/}
+			
 		</Route>
 	);
 };

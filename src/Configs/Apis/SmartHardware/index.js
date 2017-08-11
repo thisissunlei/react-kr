@@ -1,5 +1,5 @@
 
-//官网后台
+//智能硬件
 
 module.exports = {
 	
@@ -32,7 +32,7 @@ module.exports = {
    },
 
     
-    //获取为使用设备
+    //获取为使用设备list
    'getUnusedEquipment':{
       url: '/mockjsdata/53/krspace-iot-platform-web/door-device/unused-list',
       method: 'get'
