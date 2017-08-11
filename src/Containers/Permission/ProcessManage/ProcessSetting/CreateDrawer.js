@@ -110,7 +110,7 @@ class CreateDrawer extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginTop:4}}
 								name="wfTypeId"
 								type="text"
 								component="SearchProcessType"
@@ -118,7 +118,7 @@ class CreateDrawer extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260,marginLeft:25}}
+								style={{width:260,marginLeft:25,marginTop:4}}
 								name="wfOrderNum"
 								type="text"
 								component="input"
@@ -126,7 +126,7 @@ class CreateDrawer extends React.Component {
 								requireLabel={true}
 						/>
 						<KrField
-								style={{width:260}}
+								style={{width:260,marginTop:4}}
 								name="hzCode"
 								type="text"
 								component="input"
@@ -136,7 +136,7 @@ class CreateDrawer extends React.Component {
 					
 						<KrField
                             grid={1/2}
-                            style={{width:260,marginLeft:25}}
+                            style={{width:260,marginLeft:25,marginTop:4}}
                             name="hrmResourceId"
                             component="treePersonnel"
                             label="对接人"
@@ -145,7 +145,7 @@ class CreateDrawer extends React.Component {
                         />
 						
 						<KrField
-								style={{width:548}}
+								style={{width:548,marginTop:4}}
 								name="descr"
 								component="textarea"
 								label="描述"
