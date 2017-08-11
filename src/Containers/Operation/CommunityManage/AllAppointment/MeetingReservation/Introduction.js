@@ -51,8 +51,11 @@ export default class Introduction extends React.Component {
 				if(data.beginTime.m){
 					detailWidth = detailWidth -width/2;
 				}
-				if(data.endTime.m){
+				if(data.endTime.m<=30){
 					detailWidth = detailWidth +width/2;
+				}
+				if(data.endTime.m>30){
+					detailWidth = detailWidth +width;
 				}
 				let coordinates = {
 					x:pagex+(detailWidth-offsetx)-5,

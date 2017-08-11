@@ -1,9 +1,9 @@
 import React from 'react';
-import {	
+import {
    Drawer,
    Dictionary,
    KrDate,
-   Message	
+   Message
 } from 'kr-ui';
 import './index.less';
 import EditBasic from './EditBasic';
@@ -24,21 +24,23 @@ export default class BasicInfo  extends React.Component{
 		super(props, context);
 		this.state={
 			openEdit:false,
-			basicInfo:{},
+			basicInfo:{
+				orgName:''
+			},
 			isEdit:false,
 		}
 	}
-    
+
 
 	componentDidMount() {
 		var {checkOperate} = this.props.NavModel;
 		var _this = this;
 		setTimeout(function() {
 			_this.setState({
-				isEdit : checkOperate("hrm_resource_base")
+				isEdit : checkOperate("hrm_resource_base_edit")
 			})
-			
-		},500);	
+
+		},500);
 
 	}
 	componentWillMount(){
@@ -58,8 +60,8 @@ export default class BasicInfo  extends React.Component{
           Message.error(err.message);
         });
 	}
-    
-    
+
+
     //编辑打开
 	basicEdit=()=>{
 	   let {basicInfo}=this.state;
@@ -72,20 +74,20 @@ export default class BasicInfo  extends React.Component{
 	cancelEdit=()=>{
 	  this.setState({
 		 openEdit:!this.state.openEdit
-	   })	
+	   })
 	}
-    
+
 	//编辑提交
 	editSubmit=(params)=>{
 	   let {personId}=this.props;
 	   const {chengLeft}=this.props;
 	   let subParams = Object.assign({},params);
-	   console.log('subParams',subParams);
-	   subParams.depId=subParams.depId.orgId?subParams.depId.orgId:subParams.depId;
-	   subParams.uTime = DateFormat(subParams.uTime,"yyyy-mm-dd hh:MM:ss")
-	   subParams.cTime = DateFormat(subParams.cTime,"yyyy-mm-dd hh:MM:ss")
-	   subParams.leaveDate = DateFormat(subParams.leaveDate,"yyyy-mm-dd hh:MM:ss")
-	   subParams.entryDate = DateFormat(subParams.entryDate,"yyyy-mm-dd hh:MM:ss")  
+
+	   subParams.depId=(subParams.depId[0] && subParams.depId[0].orgId)?subParams.depId[0].orgId:subParams.depId;
+	   delete subParams.uTime;
+	   delete subParams.cTime;
+	   delete subParams.leaveDate;
+	   subParams.entryDate = DateFormat(subParams.entryDate,"yyyy-mm-dd hh:MM:ss")
 	   subParams.id=personId;
 	   var _this=this;
        Http.request('people-basic-edit',{},subParams).then(function(response) {
@@ -96,7 +98,7 @@ export default class BasicInfo  extends React.Component{
           Message.error(err.message);
         });
 	}
-    
+
 	//关闭所有
 	allClose=()=>{
       this.setState({
@@ -137,7 +139,7 @@ export default class BasicInfo  extends React.Component{
 			  type:'ERP_ResourceType',
 			  isSwitch:true},
 			 {name:'公司邮箱',
-			  detail:basicInfo.email},  
+			  detail:basicInfo.email},
 			];
 
 		return(
@@ -156,8 +158,8 @@ export default class BasicInfo  extends React.Component{
 								{item.isSwitch?<Dictionary type={item.type} value={item.detail}/>:item.detail}
 							</span>
 					   </li>)
-					  })	
-					}		
+					  })
+					}
 				  </ul>
 
 				  {/*编辑基本信息*/}
@@ -170,8 +172,8 @@ export default class BasicInfo  extends React.Component{
 					 >
 						<EditBasic
 			               onCancel={this.cancelEdit}
-						   onSubmit={this.editSubmit}   
-						   basicInfo = {basicInfo}
+						   onSubmit={this.editSubmit}
+						   basicInfo = {[basicInfo]}
 						/>
 					</Drawer>
 			</div>

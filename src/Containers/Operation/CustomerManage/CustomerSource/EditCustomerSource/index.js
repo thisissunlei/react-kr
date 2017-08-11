@@ -533,8 +533,8 @@ const validate = values =>{
 	}else if(values.orderNum.toString().trim()&&!numberNotZero.test(values.orderNum.toString().trim())){
 		errors.orderNum = "序号必须为正整数"
 	}
-
-	if(!values.brokerage){
+	console.log(values.brokerage,">>>>>c")
+	if(values.brokerage===''){
 		errors.brokerage = '拥金比例为必填项';
 	}else if(!decimal.test(values.brokerage)){
 		errors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';
