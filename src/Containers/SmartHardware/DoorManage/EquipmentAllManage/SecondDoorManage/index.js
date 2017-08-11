@@ -63,7 +63,6 @@ export default class SecondDoorManage  extends React.Component{
 	
 	//操作相关
 	onOperation=(type, itemDetail)=>{
-		console.log(type,itemDetail);
 		this.setState({
 			itemDetail
 		});
@@ -79,7 +78,6 @@ export default class SecondDoorManage  extends React.Component{
 		
 	}
 	seeDetailInfoFun=(value,itemData)=>{
-		console.log("value",value,"itemData",itemData);
 		State.deviceVO = value.deviceVO;
 		State.openHardwareDetail = true;
 		
@@ -90,11 +88,9 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	onSelcet=(result,selectedListData)=>{
-		console.log("selectedListData",selectedListData);
 		var ids=[];
 		for(var i=0;i<selectedListData.length;i++){
 			ids.push(selectedListData[i].id);
-			console.log("ids",ids);
 		}
 		this.setState({
 			selectIds:ids
@@ -106,7 +102,6 @@ export default class SecondDoorManage  extends React.Component{
 			Message.error("请选择您要删除的设备");
 			return;
 		}
-		console.log("selectedIdsArr",selectedIdsArr);
 		var selectedIdsArr = this.state.selectIds;
 		State.selectedDeleteIds = selectedIdsArr.join(",");
 		State.deleteEquipmentBatch();
