@@ -51,6 +51,11 @@ class ChangeCommunity  extends React.Component{
 		onCancel && onCancel();
 	}
 	onSubmit=(value)=>{
+		console.log('=======',value)
+		if(!value.communityId){
+			return;
+		}
+		localStorage.setItem('OP_HOME_COMMUNITY',value.communityId);
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(value);
 	}
@@ -86,7 +91,8 @@ class ChangeCommunity  extends React.Component{
 						label="城市" 
 						name="cityId" 
 						component="select" 
-						right={20} 
+						right={15} 
+						left={30}
 						options={State.cityList} 
 						inline={false}
 						onChange={this.changeCity}
@@ -96,7 +102,8 @@ class ChangeCommunity  extends React.Component{
 						label="社区" 
 						name="communityId" 
 						component="select" 
-						left={20} 
+						left={15} 
+						right={40}
 						options={communitys}  
 						inline={false} 
 						onChange={this.ChangeCommunity}

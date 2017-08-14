@@ -115,6 +115,12 @@ export default class SingleType extends React.Component {
     openCreateDrawer=()=>{
         this.setState({
 			openCreateDrawer: !this.state.openCreateDrawer
+		},function(){
+			if(this.state.openCreateDrawer){
+				document.body.style.overflowY="hidden";
+			}else{
+				document.body.style.overflowY="auto";
+			}
 		})
     }
 	onCreatSubmit = (params) => {
