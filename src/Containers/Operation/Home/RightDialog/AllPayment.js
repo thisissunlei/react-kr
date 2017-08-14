@@ -45,7 +45,7 @@ class MonthPayment extends React.Component{
 			where.push(`${item}=${searchParams[item]}`);
 			}
 		}
-		var url = `http://optest.krspace.cn/api/krspace-finance-web/operation/total-payment-excel?${where.join('&')}`
+		var url = `http://optest02.krspace.cn/api/krspace-finance-web/operation/total-payment-excel?${where.join('&')}`
 		window.location.href = url;
 	}
 	searchSignChange=(value)=>{
