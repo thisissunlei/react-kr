@@ -74,7 +74,7 @@ class MonthPayment extends React.Component{
 						<KrField  grid={1/2}  	
 							name="companyId" 
 							inline={true} 
-							component='searchSignCompany'  
+							component='searchSignCompanyName'  
 							label="客户名称" 
 							placeholder='请输入客户名称' 
 							onChange={this.searchSignChange}
