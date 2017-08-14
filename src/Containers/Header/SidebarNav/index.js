@@ -11,23 +11,25 @@ export default class SidebarNav extends React.Component {
 	constructor(props,context){
 		super(props, context);
 	}
-	
+
 	renderMenuItems=(menuItems)=>{
 
 		return menuItems.map((item,index)=>{
 			var path=item.originUrl?item.originUrl:`.#${item.router}`;
-			return(
-					<a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.primaryText}</a>
-				)
+			if(!item.target){
+				return <a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.primaryText}</a>
+			}else{
+				return <a href={path}  target={item.target} className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.primaryText}</a>
+			}
 		})
 	}
-	
+
 	render() {
 
 		const {NavModel} = this.props;
 
 		const sidebarNavs = NavModel.sidebarNavs;
-		
+
 			return (
 				<div className="g-sidebar-nav">
 					<div className="m-siderbar-list">
@@ -52,6 +54,6 @@ export default class SidebarNav extends React.Component {
 				</div>
 		   );
 
-		
+
 	}
 }
