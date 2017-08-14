@@ -682,67 +682,67 @@ module.exports = {
 
     //运营主页--本月回款
     'get-month-payment': {
-        url: '/apis/krspace-finance-web/operation/month-payment?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/month-payment?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--累积回款
     'get-total-payment': {
-        url: '/apis/krspace-finance-web/operation/total-payment?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/total-payment?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--社区欠款
     'get-cmt-arrearages': {
-        url: '/apis/krspace-finance-web/operation/cmt-arrearages?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/cmt-arrearages?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--现入住
     'get-settled-customer': {
-        url: '/apis/krspace-finance-web/operation/settled-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/settled-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--未入住
     'get-signed-customer': {
-        url: '/apis/krspace-finance-web/operation/signed-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/signed-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--客户总数
     'get-total-customer': {
-        url: '/apis/krspace-finance-web/operation/total-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/total-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--跟进中
     'get-following-customer': {
-        url: '/apis/krspace-finance-web/operation/following-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/following-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--新增线索
     'get-new-clue': {
-        url: '/apis/krspace-finance-web/operation/new-clue?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/new-clue?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--数据
     'get-home-data': {
-        url: '/apis/krspace-finance-web/operation/home?cmtId={cmtId}',
+        url: '/api/krspace-finance-web/operation/home?cmtId={cmtId}',
         method: 'get'
     },
     //运营主页--应收账款
     'get-accounts-receivable': {
-        url: '/apis/krspace-finance-web/operation/accounts-receivable?cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/accounts-receivable?cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--到期合同
     'get-expire-contract': {
-        url: '/apis/krspace-finance-web/operation/expire-contract?cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/expire-contract?cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--带入驻合同
     'get-settled-contract': {
-        url: '/apis/krspace-finance-web/operation/settled-contract?cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/settled-contract?cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //运营主页--带入驻合同
     'get-appointment': {
-        url: '/apis/krspace-finance-web/operation/appointment?cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/operation/appointment?cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
 
