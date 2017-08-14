@@ -745,6 +745,10 @@ module.exports = {
         url: '/api/krspace-finance-web/operation/appointment?cmtId={cmtId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
+    'get-company-name': {
+        url: '/api/krspace-finance-web/customer/all-customers?company={company}',
+        method: 'get'
+    },
 
 }
 
