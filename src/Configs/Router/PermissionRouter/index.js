@@ -93,12 +93,6 @@ const Permission_MenuSetting = (location, callback) => {
   }, 'Permission_MenuSetting')
 }
 
-const Permission_ProcessManage_DealNewThings= (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Permission/ProcessManage/DealNewThings').default)
-  }, 'Permission_ProcessManage_DealNewThings')
-}
-
 const Permission_ProcessManage_ProcessSetting= (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Permission/ProcessManage/ProcessSetting').default)
@@ -139,7 +133,6 @@ module.exports =()=>{
     </Route>
     {/*流程管理*/}
     <Route path="processManage" getComponent={Basic}>
-      <Route path="dealNewThings" getComponent={Permission_ProcessManage_DealNewThings}/>
       <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
       <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
     </Route>

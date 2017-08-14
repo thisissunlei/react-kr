@@ -283,10 +283,10 @@ export default class AllTypes extends React.Component {
                                     <TableRowColumn name="orderNum"></TableRowColumn>
                                     <TableRowColumn name="descr"
                                         component={(value,oldValue)=>{
-		 										var maxWidth=20;
+		 										var maxWidth=10;
                                                 if(value){
                                                     if(value.length>maxWidth){
-                                                        value = value.substring(0,20)+"...";
+                                                        value = value.substring(0,10)+"...";
                                                     }
                                                 }else{
                                                     value="无"
