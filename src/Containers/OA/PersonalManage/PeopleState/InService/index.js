@@ -106,7 +106,6 @@ export default class InService  extends React.Component{
    addPersonSubmit=(param)=>{
     var data = Object.assign({},param);
 	var _this = this;
-	data.depId=data.depId.orgId;
 	var searchParams={
 		time:+new Date()
 	}
@@ -329,7 +328,7 @@ export default class InService  extends React.Component{
    //跳转详情页
    goDetail = (data) =>{
 	    let personId=data.id;
-		window.open(`./#/oa/${personId}/peopleDetail`,'123');
+		window.open(`./#/oa/${personId}/peopleDetail`,'_blank');
    }
 	render(){
 		const {transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;

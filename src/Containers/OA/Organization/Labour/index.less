@@ -37,6 +37,7 @@
               z-index: 2;
               border-top-left-radius: 0;
               border-right-left-radius: 0;
+              overflow: auto;
               .top-square{
                 position: absolute;
                 background: #fff;
@@ -144,9 +145,18 @@
             left: 0;
             width: 40px;
             height: 40px;
-            background: url('./images/department.svg') no-repeat left center;
             background-size:cover; 
           }
+          .ROOT{
+            background: url('./images/root.svg') no-repeat left center;
+          }
+          .DEPARTMENT{
+            background: url('./images/sub.svg') no-repeat left center;
+          }
+          .SUBCOMPANY{
+            background: url('./images/dep1.svg') no-repeat left center;
+          }
+
           .department-name{
             position: absolute;
             top: 0px;
@@ -204,6 +214,21 @@
   .tfoot td{
     padding-top: 34px;
     padding-bottom: 34px;
+  }
+  .u-high-search{
+    width:24px;
+    height:24px;
+    display:inline-block;
+    float:right;
+    margin:2px 0 0 28px;
+    background:url(images/highSearch.svg) no-repeat center center;
+    background-size: cover;
+  }
+  .search-form .icon-searching {
+    margin-left: 11px !important;
+  }
+  .m-member-card .ui-form-label.inline {
+    margin-right: 7px;
   }
 }
 

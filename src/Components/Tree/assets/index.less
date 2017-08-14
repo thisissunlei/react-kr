@@ -9,6 +9,7 @@
     list-style: none;
     white-space: nowrap;
     outline: 0;
+    position: relative;
     line-height: 28px;
     color: #666;
     .draggable {
@@ -21,6 +22,7 @@
       -khtml-user-drag: element;
       -webkit-user-drag: element;
     }
+   
     &.drag-over {
       > .draggable {
         background-color: #316ac5;
@@ -46,7 +48,7 @@
     }
     ul {
       margin: 0;
-      padding: 0 0 0 18px;
+      // padding: 0 0 0 18px;
       &.@{treePrefixCls}-line {
         background: url('data:image/gif;base64,R0lGODlhCQACAIAAAMzMzP///yH5BAEAAAEALAAAAAAJAAIAAAIEjI9pUAA7') 0 0 repeat-y;
       }
@@ -138,15 +140,20 @@
         width: 16px;
         height: 16px;
         margin: 0 3px;
-        background-position: -41px 126px;
+        background: url('./images/nor_select.svg') no-repeat center;
         &-checked {
-          background-position: -41px 107px;
+
+           background: url('./images/sel_select.svg') no-repeat center;
         }
         &-indeterminate {
-          background-position: -41px 107px;
+          background: url('./images/sel_select.svg') no-repeat center;
         }
         &-disabled {
           background-position: 0 -56px;
+        }
+        &-onCheck{
+           cursor:default;
+           background: url('./images/unclickable.svg') no-repeat center;
         }
         &.@{treePrefixCls}-checkbox-checked.@{treePrefixCls}-checkbox-disabled {
           background-position: -14px -56px;
@@ -218,31 +225,37 @@
 
   &-icon__SUBCOMPANY_open {
     margin-right: 2px;
-    background: url('./images/department_open.svg') no-repeat center;
+    background: url('./images/sel_branch.svg') no-repeat center;
     vertical-align: top;
   }
    &-icon__SUBCOMPANY_close {
     margin-right: 2px;
-    background: url('./images/department_close.svg') no-repeat center;
+    background: url('./images/nor_branch.svg') no-repeat center;
     vertical-align: top;
   }
 
 
   &-icon__DEPARTMENT_open {
     margin-right: 2px;
-    background: url('./images/sel_group.svg') no-repeat center;
+    background: url('./images/sel_department.svg') no-repeat center;
     vertical-align: top;
   }
    &-icon__DEPARTMENT_close {
     margin-right: 2px;
-    background: url('./images/nor_group.svg') no-repeat center;
+    background: url('./images/nor_department.svg') no-repeat center;
     vertical-align: top;
   }
   &-icon__NONE_open {
-   display: none;
+  //  display: none;
+      width: 16px;
+      height: 16px;
+      background: url('./images/sel_member.svg') no-repeat center;
   }
    &-icon__NONE_close {
-   display: none;
+  //  display: none;
+      width: 16px;
+      height: 16px;
+      background: url('./images/nor_member.svg') no-repeat center;
   }
   //最高级别
   &-icon__open__Big {
@@ -279,7 +292,7 @@
   }
 
   &-icon__docu {
-    display: none !important;
+    // display: none !important;
     margin-right: 2px;
     background-position: -110px -32px;
     vertical-align: top;

@@ -37,7 +37,7 @@ var OAApi = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&dimId={dimId}&page={page}&pageSize={pageSize}',
+      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&dimId={dimId}&page={page}&pageSize={pageSize}&hrmResourceAttributes={hrmResourceAttributes}&hrmResourceType={hrmResourceType}&startTime={startTime}&endTime={endTime}',
       method: 'get'
   },
   //根据机构ID获取下级机构
@@ -314,6 +314,14 @@ var OAApi = {
       method: 'get'
   },
 
+   //------------人员树
+   //
+  'get-personnel-tree-demo': {
+      url: '/api/krspace-erp-web/tree/org-auth-resource',
+      method: 'get'
+  },
+
+
   //职务类型
   'get-position-type-list': {
       url: '/api/krspace-erp-web/hrm/job-type/select/type/info?orgType={orgType}&orgId={orgId}',
@@ -348,19 +356,36 @@ var OAApi = {
 
 
    /*流程*/
-  //流程--我的常用
+  //流程--获取我的常用
   'process-common':{
       url:'/api/krspace-erp-web/wf/my/common',
       method: 'get'
   },
   //流程--获取新办
   'process-new-request':{
-      url:'/api/krspace-erp-web/new/request/list',
+      url:'/api/krspace-erp-web/wf/new/request/list',
       method: 'get'
   },
+  //流程--添加新办至我的常用
+  'office-new-add':{
+      url:'/api/krspace-erp-web/wf/my/add',
+      method: 'post'
+  },
+  //流程--删除新办
+  'office-new-delete':{
+      url:'/api/krspace-erp-web/wf/my/delete',
+      method: 'post'
+  },
+
+
   //流程--流程类型树
   'process-typetree':{
       url:'/api/krspace-erp-web/wf/type/list?name={name}',
+      method: 'get'
+  },
+  //流程--流程类型列表
+  'process-type-list':{
+      url:'/api/krspace-erp-web/wf/type/page?name={name}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
   //流程--新增流程类型
@@ -372,6 +397,160 @@ var OAApi = {
   'process-edit-type':{
       url:'/api/krspace-erp-web/wf/type/edit',
       method: 'post'
+  },
+  //流程--流程类型详情
+  'process-type-detail':{
+      url:'/api/krspace-erp-web/wf/type/detail?typeId={typeId}',
+      method: 'get'
+  },
+  //流程--流程类型搜索下拉选
+  'process-search-select':{
+      url:'/api/krspace-erp-web/wf/type/select?name={name}',
+      method: 'get'
+  },
+
+
+  //流程--分页获取流程列表
+  'process-list':{
+      url:'/api/krspace-erp-web/wf/base/page?allowRequest={allowRequest}&newRequestShow={newRequestShow}&wfName={wfName}&page={page}&pageSize={pageSize}&typeId={typeId}&wfCode={wfCode}',
+      method: 'get'
+  },
+  //流程--新建流程
+  'process-add':{
+      url:'/api/krspace-erp-web/wf/base/add',
+      method: 'post'
+  },
+  //流程--编辑流程
+  'process-edit':{
+      url:'/api/krspace-erp-web/wf/base/edit',
+      method: 'post'
+  },
+  //流程--查看流程
+  'process-detail':{
+      url:'/api/krspace-erp-web/wf/base/detail?wfId={wfId}',
+      method: 'get'
+  },
+
+  
+
+
+  //流程--权限--列表
+  'process-authority-list':{
+      url:'/api/krspace-erp-web/wf/base/auth/list?wfId={wfId}',
+      method: 'get'
+  },
+  //流程--权限--新建
+  'process-authority-add':{
+      url:'/api/krspace-erp-web/wf/base/auth/add',
+      method: 'post'
+  },
+  //流程--权限--编辑
+  'process-authority-edit':{
+      url:'/api/krspace-erp-web/wf/base/auth/edit',
+      method: 'post'
+  },
+  //流程--权限--查看
+  'process-authority-detail':{
+      url:'/api/krspace-erp-web/wf/base/auth/detail?limitId={limitId}',
+      method: 'get'
+  },
+  //流程--权限--删除
+  'process-authority-delete':{
+      url:'/api/krspace-erp-web/wf/base/auth/delete',
+      method: 'post'
+  },
+
+
+
+  //角色管理－列表
+  'role-list':{
+      url:'/api/krspace-erp-web/hrm/role/list?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+   //角色管理－新增
+  'role-add':{
+      url:'/api/krspace-erp-web/hrm/role/add',
+      method: 'post'
+  },
+   //角色管理-编辑
+  'role-edit':{
+      url:'/api/krspace-erp-web/hrm/role/edit',
+      method: 'post'
+  },
+   //角色管理-删除
+  'role-delete':{
+      url:'/api/krspace-erp-web/hrm/role/delete',
+      method: 'post'
+  },
+   //角色管理-查看
+  'role-watch':{
+      url:'/api/krspace-erp-web/hrm/role/detail?id={id}',
+      method: 'get'
+  },
+   //机构分权－列表
+  'org-power-list':{
+      url:'/api/krspace-erp-web/hrm/org/list?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+   //机构分权－新增
+  'org-power-add':{
+      url:'/api/krspace-erp-web/hrm/org/add',
+      method: 'post'
+  },
+   //机构分权－查看
+  'org-power-watch':{
+      url:'/api/krspace-erp-web/hrm/org/detail?id={id}',
+      method: 'get'
+  },
+   //机构分权－编辑
+  'org-power-edit':{
+      url:'/api/krspace-erp-web/hrm/org/edit',
+      method: 'post'
+  },
+   //机构分权－分配角色列表
+  'role-power-list':{
+      url:'/api/krspace-erp-web/hrm/org/allot-role-list?id={id}',
+      method: 'get'
+  },
+   //机构分权－分配角色列表删除
+  'role-power-delete':{
+      url:'/api/krspace-erp-web/hrm/org/delete-org-role',
+      method: 'post'
+  },
+   //机构分权－分配角色列表新增
+  'role-power-add':{
+      url:'/api/krspace-erp-web/hrm/org/add-org-role',
+      method: 'post'
+  },
+   //机构分权－分配角色列表查看
+  'role-power-watch':{
+      url:'/api/krspace-erp-web/hrm/org/detail-org-role?orgDetailId={orgDetailId}',
+      method: 'get'
+  },
+   //机构分权－分配角色列表编辑
+  'role-power-edit':{
+      url:'/api/krspace-erp-web/hrm/org/edit-org-role',
+      method: 'post'
+  },
+   //机构分权－获取所有角色
+  'role-power-all':{
+      url:'/api/krspace-erp-web/hrm/role/all',
+      method: 'get'
+  },
+   //机构分权－部门树
+  'role-dep-tree':{
+      url:'/api/krspace-erp-web/tree/org-auth-dep',
+      method: 'get'
+  },
+   //机构分权－分部树
+  'role-sub-tree':{
+      url:'/api/krspace-erp-web/tree/org-auth-sub',
+      method: 'get'
+  },
+  //机构分权－新的人员树
+  'role-new-tree':{
+      url:'/api/krspace-erp-web/tree/org-auth-resource',
+      method: 'get'
   },
 }
 

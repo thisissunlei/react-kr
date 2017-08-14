@@ -10,7 +10,7 @@ export default class TreeDialog extends React.Component{
 			detail:{
 				orgName:''
 			},
-            letfData:this.props.letfData ||[],
+            leftData:this.props.leftData ||[],
 			rightData:this.props.rightData||[],
 
 		
@@ -33,10 +33,10 @@ export default class TreeDialog extends React.Component{
 		 onCancel && onCancel();
 	}
 	deletList = () => {
-		let letfData = [].concat(this.state.letfData,this.state.rightData);
+		let leftData = [].concat(this.state.leftData,this.state.rightData);
 		let rightData = [];
 		this.setState({
-			letfData,
+			leftData,
 			rightData,
 		})
 	}
@@ -62,10 +62,10 @@ export default class TreeDialog extends React.Component{
 
     }
 	leftLiClick = (item,index) =>{
-		let letfData = [].concat(this.state.letfData,this.state.rightData);
-		let rightData = letfData.splice(index,1);
+		let leftData = [].concat(this.state.leftData,this.state.rightData);
+		let rightData = leftData.splice(index,1);
 		this.setState({
-			letfData,
+			leftData,
 			rightData,
 		})
 		
@@ -73,8 +73,8 @@ export default class TreeDialog extends React.Component{
 	leftSearch = (event) =>{
 		let searchKey = event?event.target.value :'';
 		
-		let letfData = [].concat(this.state.letfData);
-		let searchData = letfData.map((item,index)=>{
+		let leftData = [].concat(this.state.leftData);
+		let searchData = leftData.map((item,index)=>{
 			if(item.label.indexOf(searchKey) !=-1 ){
 				item.isSearch = true;
 			}else{
@@ -83,7 +83,7 @@ export default class TreeDialog extends React.Component{
 			return item;
 		})
 		this.setState({
-			letfData : searchData,
+			leftData : searchData,
 		})
 	}
 	rightSerch = (event) =>{
@@ -104,11 +104,11 @@ export default class TreeDialog extends React.Component{
 	}
 
     renderLeft = () =>{
-        const {control,letfData} = this.state;
+        const {control,leftData} = this.state;
 		
 		
 
-         let leftArr = letfData.map((item,index)=>{
+         let leftArr = leftData.map((item,index)=>{
 			if(!item.isSearch){
 				return null;
 			}

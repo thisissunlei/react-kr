@@ -61,23 +61,20 @@ const OA_PeopleDetail = (location, callback) => {
   }, 'OA_PeopleDetail')
 }
 
-const OA_ProcessManage_DealNewThings= (location, callback) => {
+const OA_OrganizationPower_OrgList = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/OA/ProcessManage/DealNewThings').default)
-  }, 'OA_ProcessManage_DealNewThings')
+    callback(null, require('kr/Containers/OA/OrganizationPower/OrgList').default)
+  }, 'OA_OrganizationPower_OrgList')
 }
 
-const OA_ProcessManage_ProcessSetting= (location, callback) => {
+const OA_OrganizationPower_Role = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/OA/ProcessManage/ProcessSetting').default)
-  }, 'OA_ProcessManage_ProcessSetting')
+    callback(null, require('kr/Containers/OA/OrganizationPower/Role').default)
+  }, 'OA_OrganizationPower_Role')
 }
 
-const OA_ProcessManage_BasicSetting= (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/OA/ProcessManage/BasicSetting').default)
-  }, 'OA_ProcessManage_BasicSetting')
-}
+
+
 
 module.exports =()=>{
 	return (
@@ -102,12 +99,13 @@ module.exports =()=>{
 
              {/*人员详情*/}
             <Route path=":personId/peopleDetail" getComponent={OA_PeopleDetail}/>
-            {/*流程管理*/}
-            <Route path="processManage" getComponent={Basic}>
-              <Route path="dealNewThings" getComponent={OA_ProcessManage_DealNewThings}/>
-              <Route path="processSetting" getComponent={OA_ProcessManage_ProcessSetting}/>
-              <Route path=":processId/basicSetting" getComponent={OA_ProcessManage_BasicSetting}/>
+             
+            {/*机构分权*/}
+            <Route path="organizationPower" getComponent={Basic}>
+						  <Route path="orgList" getComponent={OA_OrganizationPower_OrgList}/>
+						  <Route path="role" getComponent={OA_OrganizationPower_Role}/>
             </Route>
+
         </Route>
 	);
 };

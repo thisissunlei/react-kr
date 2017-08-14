@@ -29,25 +29,33 @@ class AddPerson  extends React.Component{
             basicInfo:{
                 jobName:"",
                 levelName:'',
-            }
+            },
+            //控制职务类型是否出现
+            isType:false
         }
 
 }
     
 
     componentDidMount(){
-      Store.dispatch(change('addPerson','sex','MALE'))
+      let {orgDetail}=this.props;
+      Store.dispatch(change('addPerson','sex','MALE'));
+      Store.dispatch(change('addPerson','depId',orgDetail[0].orgId));
+      this.getPositionType(orgDetail[0]);
     }
 
     onSubmit=(values)=>{
-        
         let params = Object.assign({},values);
         params.jobId = values.jobId.value;
-        params.leader = values.leader.orgId;
-        params.treeType = values.leader.treeType;
+        params.leader = values.leader[0].orgId;
+        params.treeType = values.leader[0].treeType;
         params.levelId = values.levelId.value;
+        if(typeof (values.depId)=='number'){
+           params.depId=values.depId;
+        }else{
+           params.depId=values.depId[0].orgId;       
+        }
 
-    
         const {onSubmit}=this.props;
         onSubmit && onSubmit(params);
     }
@@ -57,14 +65,12 @@ class AddPerson  extends React.Component{
         onCancel && onCancel();
     }
     onChange = (data) =>{
-        
-       
-      
          Store.dispatch(change('addPerson','typeId',''));
          this.setState({
             isPositionRank:false,
+            isType:true
         })
-        this.getPositionType(data);
+        this.getPositionType(data[0]);
     }
     // zhiwu-type
     positionTypeChange = (data) =>{
@@ -131,7 +137,8 @@ class AddPerson  extends React.Component{
                 isPositionRank,
                 positionType,
                 isDepSelect,
-                basicInfo
+                basicInfo,
+                isType
             } = this.state;
 
 		if(!isPositionRank){
@@ -142,11 +149,11 @@ class AddPerson  extends React.Component{
 		return (
 		<div>
 
-<KrField
+                        <KrField
                             grid={1/2}
                             style={{width:262}}
                             name="jobId"
-                            letfData={positionList}
+                            leftData={positionList}
                             component="switchSlide"
                             label="职务"
                             valueText = {basicInfo.jobName}
@@ -158,7 +165,7 @@ class AddPerson  extends React.Component{
                             grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="levelId"
-                            letfData={rankList}
+                            leftData={rankList}
                             component="switchSlide"
                             label="职级"
                             valueText = {basicInfo.levelName}
@@ -175,16 +182,17 @@ class AddPerson  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,orgDetail}=this.props;
+       
         let {
                 rankList,
                 positionList,
                 isPositionRank,
                 positionType,
                 isDepSelect,
-                basicInfo
+                basicInfo,
+                isType
             } = this.state;
-        console.log(basicInfo,"////////////")
            
 		return(
 
@@ -237,27 +245,25 @@ class AddPerson  extends React.Component{
                             grid={1/2}
                             style={{width:262,marginLeft:28,marginTop:6}}
                             name="leader"
-                            component="selectTree"
+                            component="treePersonnel"
                             label="直接上级"
-                            treeType = "personnel"
-                            ajaxUrlName = "get-personnel-tree"
                             requireLabel={true}
+                            ajaxUrlName = "get-personnel-tree"
                         />
 
                         <KrField
                             grid={1/2}
                             style={{width:262,marginTop:6}}
                             name="depId"
-                            component="selectTree"
+                            component="treeDepartment"
                             label="部门"
-                            treeType = "department"
                             onChange = {this.onChange}
+                            valueText={orgDetail}
                             ajaxUrlName = "get-department-tree"
                             requireLabel={true}
                         />
-                                
             
-                         {this.props.changeValues.depId &&<KrField
+                         {(isType || orgDetail[0].orgId)&&<KrField
                             grid={1/2}
                             style={{width:262,marginLeft:28,marginTop:6}}
                             name="typeId"
@@ -271,27 +277,35 @@ class AddPerson  extends React.Component{
 
 
                          <KrField grid={1/2}
-                            style={{width:262,marginLeft:!this.props.changeValues.depId?28:0,marginTop:6}}
+                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?0:28,marginTop:6}}
                             name="entryDate"
                             component="date"
                             label="入职时间"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:!this.props.changeValues.depId?0:28,marginTop:6}}
+                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?28:0,marginTop:6}}
                             name="status"
                             component="selecTemployees"
-                            label="员工属性"
+                            label="员工状态"
                             requireLabel={true}
                             otherType="resourceStatus"
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:!this.props.changeValues.depId?28:0,marginTop:6}}
+                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?0:28,marginTop:6}}
                             name="type"
                             component="selecTemployees"
                             label="员工类别"
                             requireLabel={true}
                             otherType="resourceType"
+						/>
+                        <KrField grid={1/2}
+                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?28:0,marginTop:6}}
+                            name="property"
+                            component="selecTemployees"
+                            label="员工属性"
+                            requireLabel={true}
+                            otherType="resourceProperty"
 						/>
 
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
@@ -312,10 +326,9 @@ class AddPerson  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-    let reg= /^1[34578]\d{9}$/; 
+    let reg= /^1\d{10}$/; 
     let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
     let email=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-    console.log(">>>>>>",values.jobId)
     if(!values.name){
         errors.name='请填写名称';
     }else if(values.name.length>10){
@@ -392,7 +405,6 @@ AddPerson = reduxForm({
 export default connect((state) => {
 
 	let changeValues = {};
-    // console.ls
 
 	changeValues.depId = selector(state, 'depId');
 	

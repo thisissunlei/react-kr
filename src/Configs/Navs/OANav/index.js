@@ -75,31 +75,17 @@ module.exports = [
 						router: '/oa/basicConfig/rankList',
 					},
 					{
+						primaryText: '角色列表',
+						menuCode: 'hrm_role_list',
+						router: '/oa/organizationPower/role',
+					},
+					{
 						primaryText: '机构分权',
-						menuCode: '',
-						router: '',
-					}
+						menuCode: 'hrm_org_auth_list',
+						router: '/oa/organizationPower/orgList',
+					},
 				]
 			},
-			{
-				primaryText: '流程管理',
-				iconName: 'icon-administrator',
-				menuCode: 'hrmresourceadmin',
-				iconColor: '#79859a',
-				menuItems: [
-					{
-						primaryText: '新办事宜',
-						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/oa/processManage/dealNewThings',
-					},
-					{
-						primaryText: '流程配置',
-						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/oa/processManage/processSetting',
-					},
-				]
-			}, 
-			
 			]
 	}
 ]
