@@ -83,15 +83,15 @@ class HomeRight  extends React.Component{
 					<div className="first-item">
 						<div className="items item">
 							<div className="item-title">社区出租率</div>
-							<div className="item-content"  style={{color:'#499DF1'}}>{State.InfoData.rate || '0'} </div>
+							<div className="item-content"  style={{color:'#499DF1',fontWeight: 600}}>{State.InfoData.rate || '0'} </div>
 						</div>
 						<div className="items item">
 							<div className="item-title"><span className="icon-month item-logo"><img src={monthSvg} /></span>经营月报</div>
-							<div className="item-content" style={{color:'#8290A8'}}>{month}月</div>
+							<div className="item-content" style={{color:'#8290A8',fontWeight: 600}}>{month}月</div>
 						</div>
 						<div className="items item">
 							<div className="item-title"><span className="icon-day item-logo"><img src={daySvg} /></span>经营日报</div>
-							<div className="item-content" style={{color:'#8290A8'}}>{day}日</div>
+							<div className="item-content" style={{color:'#8290A8',fontWeight: 600}}>{day}日</div>
 						</div>
 					</div>
 					<div className="second-item">

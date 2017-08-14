@@ -43,12 +43,17 @@ class Home  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-		State.getHomeData({cmtId:''})
 	}
 
 	componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.setSidebar(false);
+		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
+		if(communityId){
+			State.getHomeData({cmtId:communityId})
+		}else{
+			State.getHomeData({cmtId:''})
+		}
 		State.getCommunityList()
 	}
 	openChangeCommunityDialog=()=>{
@@ -90,6 +95,12 @@ class Home  extends React.Component{
 	}
 	detailOpenAgreement=()=>{
 		State.openAgreementDetail = false
+	}
+	componentWillUnmount(){
+		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
+		console.log('----componentWillUnmount----',communityId);
+		localStorage.removeItem('OP_HOME_COMMUNITY');
+
 	}
 	render(){
 		return(
