@@ -37,8 +37,7 @@ export default class OaUploadImage extends Component {
 			files: []
 		});
 	}
-	componentDidMount() {
-	}
+
 	componentWillReceiveProps(nextProps){
 	 if(nextProps.defaultValue&&nextProps.defaultValue.hasOwnProperty('picUrl')&&nextProps.defaultValue.picUrl!=''){
 		 this.setInitValue(nextProps.defaultValue);
@@ -58,14 +57,11 @@ export default class OaUploadImage extends Component {
 				imgUpload:true,
 				imgSrc:defaultValue.picUrl
 		});
-		input.onChange(defaultValue.picId); 
-		
+		input.onChange(defaultValue.picId);
+
 	}
 
 
-	onTokenError() {
-		Message.error('初始化上传文件失败,请重新上传');
-	}
 	operationImg=()=>{
 		if(this.state.imgUpload){
 			this.setState({
@@ -80,19 +76,18 @@ export default class OaUploadImage extends Component {
 			})
 		}
 	}
-	onTokenSuccess(form) {
-		this.setState({
-			form
-		});
-	}
+
+  //错误提示
 	onError=(message)=>{
 		message = message || '上传文件失败，请重新上传';
-        Message.error(message);
+    Message.error(message);
 		this.setState({
 			progress: 0,
 			imgUpload: false
 		});
 	}
+
+  //上传文件
 	onChange=(event)=>{
 		let {requestUrl}=this.props;
 		this.setState({
@@ -118,22 +113,9 @@ export default class OaUploadImage extends Component {
 				});
 			}, 300);
 		}
-		
+
 		var form = new FormData();
 		form.append('file', file);
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4) {
-				if (xhr.status === 200) {
-					var response = xhr.response.data;
-					form.append('sourceservicetoken', response.token);
-					form.append('docTypeCode', response.docTypeCode);
-					form.append('operater', response.operater);
-					_this.onTokenSuccess({
-						sourceservicetoken: response.token,
-						docTypeCode: response.docTypeCode,
-						operater: response.operater
-					});
 					var xhrfile = new XMLHttpRequest();
 					xhrfile.onreadystatechange = function() {
 						if (xhrfile.readyState === 4) {
@@ -156,21 +138,8 @@ export default class OaUploadImage extends Component {
 					xhrfile.responseType = 'json';
 					xhrfile.withCredentials = true;
 					xhrfile.send(form);
-				} else {
-					_this.onTokenError();
 				}
-			}
-		};
 
-		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
-		xhr.responseType = 'json';
-		xhr.send(null);
-		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
-		_this.setState({
-			imgUpload: true,
-			operateImg : false
-		});
-	}
 	// 校验宽高
 	functionHeightWidth=(file,xhrfile)=>{
 		let _this = this;
@@ -184,20 +153,21 @@ export default class OaUploadImage extends Component {
                     var image = new Image();
                     image.onload=function(){
                         	_this.setState({
-								imageStatus : true,
-								imgUpload : true,
-								operateImg : false,
-								imgSrc:xhrfile.response.data[0].ossHref
-							});
-							const {input}=_this.props;
-							input.onChange(xhrfile.response.data[0].id);          
+														imageStatus : true,
+														imgUpload : true,
+														operateImg : false,
+														imgSrc:xhrfile.response.data[0].ossHref
+													});
+											const {input}=_this.props;
+											input.onChange(xhrfile.response.data[0].id);
                     };
                     image.src= data;
                  };
                  reader.readAsDataURL(fileData);
              }
 	}
-	// 删除图片
+
+	//删除图片
 	deleteImg=()=>{
 		this.setState({
 			imgSrc: "",
@@ -209,6 +179,7 @@ export default class OaUploadImage extends Component {
 		const {input}=this.props;
 		input.onChange("");
 	}
+
 	render() {
 		let {children,className,style,meta: { touched, error },type,label,inline,requireLabel,name,...other} = this.props;
 		let {operateImg} = this.state;
@@ -219,17 +190,16 @@ export default class OaUploadImage extends Component {
 				<div className='ui-uploadimg-outbox' >
 					<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
 						{this.state.imgSrc&&
-						 <div style={{position:'absolute',zIndex:'10',backgroundImage:`url(${this.state.imgSrc})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain',width:'120px',height:'75px'}}></div>
+						 <div style={{position:'absolute',zIndex:'10',backgroundImage:`url(${this.state.imgSrc})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain',width:'120px',height:'120px'}}></div>
 						 }
 						<div className='ui-uploadimg-inner' >
-                            <span>更换图像</span>
-							{/*<input type='file' onChange={this.onChange} ref="inputImg"/>*/}
-							
+               <span>更换图像</span>
+							 <input type='file' onChange={this.onChange} ref="inputImg" style={{marginTop:'-20px'}}/>
 						</div>
-						<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none",zIndex:'11',width:120,height:75,textAlign:'center'}}>
+						<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none",zIndex:'11',width:120,height:120,textAlign:'center'}}>
 							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg} style={{marginRight:'30px'}}>
 								<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh"/>
-								{/*<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>*/}
+								<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>
 							</div>
 							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.deleteImg}>
 								<img src={deleteImg} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>

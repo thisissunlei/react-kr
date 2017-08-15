@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	KrField,
     Grid,
     Col,
@@ -34,13 +34,13 @@ class UserImageChange  extends React.Component{
 
 			<div className='detail-user-image'>
 				 <form  onSubmit={handleSubmit(this.onSubmit)}>
-                      
-                       <KrField 
+
+                       <KrField
                             name="area"
                             component="oaUploadImage"
-                            
                             requireLabel={false}
-						/>     
+														requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+						/>
                  </form>
 			</div>
 		);
@@ -49,7 +49,7 @@ class UserImageChange  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-    
+
 	return errors
 }
 

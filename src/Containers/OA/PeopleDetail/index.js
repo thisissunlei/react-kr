@@ -68,10 +68,10 @@ export default class PeopleDetail  extends React.Component{
 			<div className='people-detail'>
 			  <div className='detail-left'>
 				<div className='left-pic'>
-				   {/*<UserImage />*/}
-					 <div className='now-change-pic'>
+				   <UserImage />
+					 {/*<div className='now-change-pic'>
 
-					 </div>
+					 </div>*/}
 				</div>
 				<div className='left-text'>
 
