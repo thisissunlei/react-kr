@@ -86,7 +86,6 @@ module.exports = [
 					},
 				]
 			},
-			
 			]
 	}
 ]

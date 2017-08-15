@@ -27,13 +27,19 @@ export default class ZhangChi extends React.Component {
 	}
 	componentDidMount(){
 		var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        slidesPerView: 3,
-        paginationClickable: true,
-        spaceBetween: 30,
-				loop:true,
-				autoplay : 560,
-    });
+			slidesPerView: 3,
+			paginationClickable: true,
+			spaceBetween: 30,
+			loop:true,
+			autoplay : 560,
+		});
+		var swiperTwo = new Swiper('.swiper-container2', {
+			scrollbar: '.swiper-scrollbar',
+			slidesPerView: 1,
+			scrollbarHide: false,
+			slidesPerView: 'auto',
+			centeredSlides: true,
+		});
 	}
 	// onClick = ()=>{
 	// 	var searchParams = {
@@ -129,7 +135,19 @@ export default class ZhangChi extends React.Component {
             <div className="swiper-slide5 swiper-slide">Slide 5</div>
             <div className="swiper-slide6 swiper-slide">Slide 6</div>
         </div>
-        <div className="swiper-pagination"></div>
+    </div>
+
+
+	<div className="swiper-container2">
+        <div className="swiper-wrapper">
+            <div className="swiper-slide swiper-slide1">Slide 1</div>
+            <div className="swiper-slide swiper-slide2">Slide 2</div>
+            <div className="swiper-slide swiper-slide3">Slide 3</div>
+            <div className="swiper-slide swiper-slide4">Slide 4</div>
+            <div className="swiper-slide swiper-slide5">Slide 5</div>
+            <div className="swiper-slide swiper-slide6">Slide 6</div>
+        </div>
+        <div className="swiper-scrollbar"></div>
     </div>
 
 			</Section>

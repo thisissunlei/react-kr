@@ -8,7 +8,7 @@ module.exports = {
 	...PersonalManage,
 	...BasicConfig,
 	...PeopleDetail,
-	...OrganizationPower
+	...OrganizationPower,
 }
 
 
