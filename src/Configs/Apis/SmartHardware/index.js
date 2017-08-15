@@ -6,40 +6,40 @@ module.exports = {
 
 	//二代们近列表
    'getDecondeEquipmentList':{
-      url: '/api/krspace-iot-platform-web/door-device/list?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&page={page}&pageSize={pageSize}',
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/list?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
    //新增编辑设备实时校验编号
    'getDeviceIDRepeat':{
-      url: '/api/krspace-iot-platform-web/door-device/deviceid-check?deviceId={deviceId}',
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/deviceid-check?deviceId={deviceId}',
       method: 'get'
    },
    //新增编辑设备
    'addOrEditEquipment':{
-      url: '/api/krspace-iot-platform-web/door-device/edit',
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/edit',
       method: 'put'
    },
    //批量删除设备
    'deleteEquipmentBatch':{
-      url: '/api/krspace-iot-platform-web/door-device/delete-batch',
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/delete-batch',
       method: 'delete'
    },
 
    //单个删除
    'deleteEquipmentSingleURL':{
-      url: '/api/krspace-iot-platform-web/door-device/delete',
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/delete',
       method: 'delete'
    },
 
     
     //获取为使用设备list
    'getUnusedEquipment':{
-      url: '/api/krspace-iot-platform-web/door-device/unused-list',
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/unused-list',
       method: 'get'
    },
    //将没有用过的设备添加到列表中
    'changeUnusedToList':{
-      url: '/api/krspace-iot-platform-web/door-device/enable',
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/enable',
       method: 'post'
    },
 

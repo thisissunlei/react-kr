@@ -234,8 +234,11 @@ export default class SecondDoorManage  extends React.Component{
 								></TableRowColumn>
 								
 								<TableRowColumn name="maker" component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
+									if(value=="SHEN_DIAN"){
+										value="深电"
+									}
+									if(value=="ZHONG_KONG"){
+										value="中控"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>

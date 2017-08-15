@@ -98,7 +98,7 @@ export default class List extends React.Component {
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn style={{width:160,overflow:"visible"}} name="content" component={(value,oldValue)=>{
+								<TableRowColumn style={{width:200,overflow:"visible"}} name="content" component={(value,oldValue)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
 		                              TooltipStyle="none"

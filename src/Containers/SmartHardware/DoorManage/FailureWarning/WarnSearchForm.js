@@ -141,13 +141,17 @@ class DoorWarnForm extends React.Component{
 					</ListGroupItem>
 					
 					<ListGroupItem>
-						<KrField grid={1/2} name="logType" 
-							type="text" 
+						
+						<KrField name="logType" 
+							component="select" 
 							label="报警类型：" 
-							style={{width:255}}
+							options = {State.makerOptions}
+							style={{width:'252px'}}
+							onChange = {this.getFloor}
 							inline={true}
 						/>
 					</ListGroupItem>
+					
 				</ListGroup>
 				<ListGroup className="sec-list">
 					

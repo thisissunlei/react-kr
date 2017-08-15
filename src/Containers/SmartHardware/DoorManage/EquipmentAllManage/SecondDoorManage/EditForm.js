@@ -45,13 +45,13 @@ class EditForm extends React.Component{
 	getBasicData=(detail)=>{
 
 
-		detail.communityId=1;
-		detail.maker = "SHEN_DIAN";
-		detail.floor = 3;
-		detail.title = "二代门禁标题";
-		detail.doorType = 2;
-		detail.roomId = 770;
-		detail.memo = "我是备注啊哈哈哈";
+		// detail.communityId=1;
+		// detail.maker = "SHEN_DIAN";
+		// detail.floor = 3;
+		// detail.title = "二代门禁标题";
+		// detail.doorType = 2;
+		// detail.roomId = 770;
+		// detail.memo = "我是备注啊哈哈哈";
 
 
 		let _this = this;

@@ -136,7 +136,6 @@ export default class DateComponent extends React.Component {
 			backgroundColor: 'transparent',
 			opacity: 0
 		}
-		
 
 		return (
 

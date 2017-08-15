@@ -25,7 +25,6 @@ let State = observable({
 State.getListDic = action(function() {
 	var _this = this;
 	Http.request('getListDic', {}).then(function(response) {
-		console.log("response",response);
 		var arrNew = []
 		for (var i=0;i<response.Maker.length;i++){
 			arrNew[i] = {
