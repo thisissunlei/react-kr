@@ -170,9 +170,12 @@ class TreeNode extends React.Component {
     if (typeof props.checkable !== 'boolean') {
       customEle = props.checkable;
     }
-    if (props.disabled || props.disableCheckbox) {
-      checkboxCls[`${prefixCls}-checkbox-disabled`] = true;
-      return <span ref="checkbox" className={classNames(checkboxCls)}>{customEle}</span>;
+    // if (props.disabled || props.disableCheckbox) {
+    //   checkboxCls[`${prefixCls}-checkbox-disabled`] = true;
+    //   return <span ref="checkbox" className={classNames(checkboxCls)}>{customEle}</span>;
+    // }
+    if(props.itemData.noCheck){
+       checkboxCls[`${prefixCls}-checkbox-onCheck`] = true;
     }
     return (
       <span ref="checkbox"
@@ -235,49 +238,35 @@ class TreeNode extends React.Component {
     return newChildren;
   }
   iconJudge = (prefixCls,iconState,props) =>{
-    var props = this.props;
-    if(!props.type){
-      return `${prefixCls}-icon__${iconState}`
-    }else if(props.type){
-      var allTypes = props.type.split("-");
-      
-      var typeText = "";
-      if(allTypes[0]=="department"){
+          var typeText = ""
           for(let i=0;i<IconType.length;i++){
             if(props.itemData.treeType == IconType[i]){
-                if(props.children.length == 0){
-                  if(props.selected){
-                    typeText = IconType[i]+"_"+"open";
-                    
+
+                  if(props.root.props.check){
+
+                    if(props.itemData.isSelect){
+                      typeText = IconType[i]+"_"+"open";
+                    }else{
+                      typeText = IconType[i]+"_"+"close";
+                    }
                   }else{
-                     typeText = IconType[i]+"_"+"close";
+
+
+                    if(props.selected && props.itemData.isClick ){
+                      typeText = IconType[i]+"_"+"open";
+
+                    }else{
+                      typeText = IconType[i]+"_"+"close";
+                    }
                   }
-                }else{
-                  typeText = IconType[i]+"_"+iconState;
-                }
-                
-                
                 break;
             }
-            // if(open){
 
-            // }
 
           }
-      }else{
-        typeText =iconState;
-      }
 
-      if(allTypes[0] == "role"){
-        
-      }
-      
-      if(allTypes[0] == "personnel"){
+      return `${prefixCls}-icon__${typeText}`
 
-      }
-     
-      return `${prefixCls}-icon__${typeText}` 
-    }
   }
   render() {
     const props = this.props;
@@ -300,42 +289,24 @@ class TreeNode extends React.Component {
     // if (!props.expanded) {
     //   newChildren = null;
     // }
-    
+
     var iconTypeName = this.iconJudge(prefixCls,iconState,props);
     const iconEleCls = {
       [`${prefixCls}-iconEle`]: true,
       [`${prefixCls}-icon_loading`]: this.state.dataLoading,
-      // [`${prefixCls}-icon__${iconState}`]: true,
       [iconTypeName]:true,
     };
 
     const selectHandle = () => {
-      var showIcon = props.itemData.treeType == "NONE"?"none":"inline-block";
+
       /*==========icon修改的位置(this.props.itemData)获取位置的数据===========*/
       const icon = (props.showIcon || props.loadData && this.state.dataLoading) ?
         <span
           className={classNames(iconEleCls)}
-          onClick = {(e)=>{
-             this.onExpand(e);
-            e.preventDefault();
-              
-             
-          }}
-          style = {{display:showIcon}}
 
         ></span> : null;
        const title = <span
                       className={`${prefixCls}-title`}
-                      onClick = {(e)=>{
-                         this.onExpand(e);
-
-                        e.preventDefault();
-                        if(props.type == "allSelect"){
-                          return ;
-                        }
-                        
-                       
-                      }}
                     >
                       {content}
                    </span>;
@@ -346,15 +317,20 @@ class TreeNode extends React.Component {
       //disabled 是否禁止
       if (!props.disabled) {
         /*=========父节点是否可选择的判断=========*/
-       
-        if (props.itemData.children.length!=0 && props.expanded)
-        {
-          domProps.className += ` ${prefixCls}-node-selected`;
-        }
-        if(props.itemData.children.length == 0 && props.selected){
-          domProps.className += ` ${prefixCls}-node-selected`;
+       if(props.root.props.check){
+        if(props.itemData.isSelect|| props.expanded){
+            domProps.className += ` ${prefixCls}-node-selected`;
+          }
+       }else{
+          if (!props.selected && props.expanded)
+          {
+            domProps.className += ` ${prefixCls}-node-selected`;
+          }
+          if(props.itemData.isClick && props.selected){
+            domProps.className += ` ${prefixCls}-node-selected`;
 
-        }
+          }
+       }
 
         domProps.onClick = (e) => {
           e.preventDefault();
@@ -417,7 +393,7 @@ class TreeNode extends React.Component {
     const filterCls = props.filterTreeNode(this) ? 'filter-node' : '';
 
     const noopSwitcher = () => {
-     
+
       const cls = {
         [`${prefixCls}-switcher`]: true,
         [`${prefixCls}-switcher-noop`]: true,
@@ -428,26 +404,64 @@ class TreeNode extends React.Component {
       } else {
         cls[`${prefixCls}-noline_docu_close`] = true;
       }
-      
-      
-      if(props.selected){
-        cls[`${prefixCls}-noline_docu_close`] = false;
-        cls[`${prefixCls}-noline_docu_open`] = true;
+
+      if(props.root.props.check){
+          if( props.itemData.isClick && props.itemData.isSelect){
+             cls[`${prefixCls}-noline_docu_close`] = false;
+            cls[`${prefixCls}-noline_docu_open`] = true;
+          }else{
+             cls[`${prefixCls}-noline_docu_open`] = false;
+             cls[`${prefixCls}-noline_docu_close`] = true;
+          }
       }else{
-        cls[`${prefixCls}-noline_docu_open`] = false;
-        cls[`${prefixCls}-noline_docu_close`] = true;
+
+         if(props.selected && props.itemData.isClick){
+          cls[`${prefixCls}-noline_docu_close`] = false;
+          cls[`${prefixCls}-noline_docu_open`] = true;
+        }else{
+          cls[`${prefixCls}-noline_docu_open`] = false;
+          cls[`${prefixCls}-noline_docu_close`] = true;
+        }
       }
+
       return <span className={classNames(cls)}></span>;
     };
+    let length = props.pos.split("-").length-1;
+    let bg = "transparent"
+    if(
+
+       !props.root.props.check && props.selected && props.itemData.isClick
+    ){
+       bg = "#F0F0F0"
+      if(props.root.props.theme == "institutionsTheme"){
+        bg="#E5E6ED"
+      }
+
+    }
+    if(props.root.props.check){
+
+       if(!props.itemData.isSelect){
+          bg = "transparent";
+        }else{
+          bg = "#F0F0F0"
+        }
+    }
+
+
 
     return (
       <li {...liProps} ref="li"
         className={classNames(props.className, disabledCls, dragOverCls, filterCls) }
       >
-        {canRenderSwitcher ? this.renderSwitcher(props, expandedState) : noopSwitcher()}
-        {props.checkable ? this.renderCheckbox(props) : null}
-        {selectHandle()}
-        {newChildren}
+        <div style = {{width:'100%',height:28,position:"absolute",background:bg,zIndex:'0'}}></div>
+        <div style = {{width:'100%',background:"transparent",zIndex:'1',position: "relative"}}>
+        <span style = {{width:20*length,display:'inline-block'}}></span>
+          {canRenderSwitcher ? this.renderSwitcher(props, expandedState) : noopSwitcher()}
+          {props.checkable ? this.renderCheckbox(props) : null}
+          {selectHandle()}
+          {newChildren}
+        </div>
+
       </li>
     );
   }

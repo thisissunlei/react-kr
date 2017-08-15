@@ -2,13 +2,13 @@ import React from 'react';
 
 import WrapComponent from '../WrapComponent';
 import Input from '../../Input';
-
+import Message from '../../Message'
 import {stopSubmit,submit,blur,stopAsyncValidation,touch} from 'redux-form';
 
 import './index.less';
 import Dialog from '../../Dialog'
-import mockData from './Data.json';
-import DepartmentDialog from './DepartmentDialog';
+// import mockData from './Data.json';
+import PersonnelDialog from './PersonnelDialog/index';
 
 export default class OaTreePersonnel extends React.Component{
 
@@ -24,35 +24,20 @@ export default class OaTreePersonnel extends React.Component{
 		super(props,context)
 		this.state = {
 			isDialog:false,
-			data:{
+			data:[{
 				orgName:"请选择"
-			},
+			}],
 			oneOpen:true,
-			other:''
+			other:'',
 		}
 	}
 
-	onChange = (value)=>{
-
-		// let {input} = this.props;
-		// input.onChange(value);
-		// const {onChange} = this.props;
-		// onChange && onChange(value,input)
-	}
-
-	onBlur=(value)=>{
-		// let {input} = this.props;
-		// input.onBlur(value);
-		// const {onBlur} = this.props;
-		// onBlur && onBlur(value)
-	}
-
 	onFocus=(value)=>{
-		
+
 		this.setState({
 			isDialog:true,
 		})
-		
+
 	}
 
 	onCancel = () =>{
@@ -60,10 +45,12 @@ export default class OaTreePersonnel extends React.Component{
 	}
 
 	onSubmit = (data) =>{
-		if( data.orgName == "" ){
+		let {treeType} = this.props;
+		if( data[0].orgName == "" ){
+
+			Message.error("请选择人员");
 			return ;
 		}
-	
 		let {input,onChange} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();
@@ -73,6 +60,7 @@ export default class OaTreePersonnel extends React.Component{
 		})
 		onChange && onChange(data);
 
+
 	}
 
 	dlogSwidch = () =>{
@@ -81,13 +69,9 @@ export default class OaTreePersonnel extends React.Component{
 		})
 	}
 	onSelect = (data) =>{
-		
+
 		let {input,onChange} = this.props;
-		// var value = (item && item.value) || '';
-		// input.onChange({});
-		
-		// onChange && onChange(item);
-		
+
 	}
 	 componentWillReceiveProps (nextProps) {
         if (nextProps.valueText) {
@@ -101,14 +85,14 @@ export default class OaTreePersonnel extends React.Component{
 
 		const {isDialog,data,oneOpen} = this.state;
 
-		// const {ajaxUrlName,} = this.props;
+		const {ajaxUrlName,valueText} = this.props;
 
 		let {
             input,
             prompt,
             label,
-            notifys, 
-            type, 
+            notifys,
+            type,
             meta: { touched, error } ,
             requireLabel,
             onChange,
@@ -121,8 +105,7 @@ export default class OaTreePersonnel extends React.Component{
             simple,
             heightStyle,
             autoFocus,
-			treeData,
-			valueText,
+
             ...other
         } = this.props;
 
@@ -165,17 +148,40 @@ export default class OaTreePersonnel extends React.Component{
 			 ...other,
 			 autoFocus,
 		 }
+    var dialogTitle = label || '组件';
+    dialogTitle = "选择" + dialogTitle;
+		let textData = [];
+		let echoList = null;
+		if(oneOpen && valueText && valueText[0].orgName){
+			textData = [].concat(valueText);
+		}else{
+			textData = [].concat(data);
+		}
+		echoList = [].concat(textData);
+		var text = '';
+		for(let i=0 ;i<textData.length;i++){
+			if(i==0){
+				text+= textData[i].orgName;
+			}else{
+				text+= ","+textData[i].orgName;
+			}
+		}
 
-        var dialogTitle = label || '组件';
 
-        dialogTitle = "选择" + dialogTitle;
-
+		let inputstyle = {};
+		if(other.checkable){
+			inputstyle = {
+				overflow: "hidden",
+				textOverflow:"ellipsis",
+				whiteSpace: "nowrap",
+			}
+		}
 
 		 return (
 			 <WrapComponent {...wrapProps}>
-				 
-				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-				 <div className = "oa-imulation-input " onClick = {this.onFocus}>{(oneOpen && valueText)? valueText : data.orgName  }</div>
+
+				 <Input onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
+				 <div className = "oa-imulation-input " style = {inputstyle} onClick = {this.onFocus}>{text}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 <div className = "select-tree">
 
@@ -183,9 +189,19 @@ export default class OaTreePersonnel extends React.Component{
 					title={dialogTitle}
 					onClose={this.dlogSwidch}
 					open={isDialog}
-					contentStyle ={{ width: '690px',height:'590px',position:'fixed',left: "50%",marginLeft:'-345px'}}
+					noMaxHeight = {true}
+					contentStyle ={{ width: '653px',height:'580px',position:'fixed',left: "50%",marginLeft:'-345px'}}
+
 				 >
-					<DepartmentDialog  treeData = {treeData} onSelect = {this.onSelect} onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>
+					<PersonnelDialog
+						{...other}
+						treeType = {this.props.treeType}
+						ajaxUrlName = {ajaxUrlName}
+						onSelect = {this.onSelect}
+						onSubmit = {this.onSubmit}
+						onCancel = {this.onCancel}
+						echoList = {echoList}
+					/>
 				</Dialog>
 				</div>
 			 </WrapComponent>

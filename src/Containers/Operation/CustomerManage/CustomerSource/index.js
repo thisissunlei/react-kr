@@ -245,6 +245,14 @@ export default class CustomerSource  extends Component{
 			searchParams,
 		})
 	}
+	onPageChange = (page) =>{
+		var searchParams = Object.assign({}, this.state.searchParams);
+		searchParams.page = page;
+		this.setState({
+			searchParams
+		})
+	
+	}
 	render(){
 		const {isEdit,isNew,searchParams,isDel,sourceId} = this.state;
 		
@@ -275,7 +283,7 @@ export default class CustomerSource  extends Component{
                                     displayCheckbox={false}
                                     onExport={this.onExport}
                                     ajaxParams={searchParams}
-
+									onPageChange = {this.onPageChange}
                                     ajaxFieldListName="items"
                                     ajaxUrlName='list-source'
                             >

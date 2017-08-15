@@ -119,6 +119,7 @@ searchParams = Object.assign({},defaultParams,searchParams);
 
  //新建提交
  stationAddSubmit=(params)=>{
+ 	
 	 params = Object.assign({},params);
 	 //亮点开始
 	 var maskList=[];

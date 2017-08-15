@@ -233,7 +233,6 @@ class NewCreateForm extends React.Component {
 									pictureMemory={'200'}
 									requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
 									deviation = {"50*50"}
-									requireLabel={true}
 									label="上传列表详情图"
 									inline={false}
 								/>
@@ -326,10 +325,6 @@ const validate = values => {
 	if(!values.enableflag){
 		errors.enableflag = '是否选择为必填'
 	}
-	if(!values.cachetUrl){
-		errors.cachetUrl = '请上传公章'
-	}
-
 
 	 if (!values.bankAccount || !values.bankAccount.length) {
           errors.bankAccount = { _error: 'At least one member must be entered' }

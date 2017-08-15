@@ -514,7 +514,7 @@ const validate = values =>{
 	}
 	
 
-	if(!values.brokerage){
+	if(values.brokerage===''){
 		errors.brokerage = '拥金比例为必填项';
 	}else if(!decimal.test(values.brokerage)){
 		errors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';

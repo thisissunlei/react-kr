@@ -27,6 +27,7 @@ class AddPostList  extends React.Component{
     }
     //
     onChange = (data) =>{
+        Store.dispatch(change('AddPostList','typeId',''));
         this.dataReady(data);
     }
     //数据准备
