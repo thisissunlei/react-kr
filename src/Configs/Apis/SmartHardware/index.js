@@ -49,6 +49,13 @@ module.exports = {
       url: '/mockjsdata/53/krspace-iot-platform-web/door-open-log/list?communityId={communityId}&deviceId={deviceId}&edate={edate}&memberName={memberName}&page={page}&pageSize={pageSize}&phone={phone}&sdate={sdate}',
       method: 'get'
    },
+
+   //报警日志列表
+
+   'getWarningLog':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/device-log/list?deviceId={deviceId}&etime={etime}&logType={logType}&page={page}&pageSize={pageSize}&stime={stime}',
+      method: 'get'
+   },
     
 
    

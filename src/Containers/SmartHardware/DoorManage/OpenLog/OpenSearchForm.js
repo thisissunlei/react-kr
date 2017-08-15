@@ -44,30 +44,31 @@ class OpenLogForm extends React.Component{
 	}
 	onSubmit=(values)=>{
 		
-		if(values.startTime && values.endTime){
-			var start=Date.parse(DateFormat(values.startTime,"yyyy-mm-dd hh:MM:ss"));
-			var end=Date.parse(DateFormat(values.endTime,"yyyy-mm-dd hh:MM:ss"));
+		if(values.sdate && values.edate){
+			var start=Date.parse(DateFormat(values.sdate,"yyyy-mm-dd hh:MM:ss"));
+			var end=Date.parse(DateFormat(values.edate,"yyyy-mm-dd hh:MM:ss"));
 			if(start>end){
 				Message.error("结束时间不能小于开始时间");
 				return ;
 			}
 		}
-		console.log("values",values);
 		State.openLogSearchParams={
 			page:1,
 			pageSize:15,
-			sdate : values.startTime || '',
-			edate: values.endTime || '',
+			sdate : values.sdate || '',
+			edate: values.edate || '',
 			communityId: values.communityId || '',
 			deviceId: values.deviceId || '',
 			memberName:  values.memberName || '',
 			phone :  values.phone || '',
 		}
-		console.log("State.openLogSearchParams",State.openLogSearchParams);
 	}
 
 	onClearAll=()=>{
 		Store.dispatch(reset('OpenLogForm',''));
+		Store.dispatch(change('OpenLogForm','sdate',''));
+		Store.dispatch(change('OpenLogForm','edate',''));
+
 		State.openLogSearchParams={
 			page:1,
 			pageSize:15,
@@ -80,37 +81,38 @@ class OpenLogForm extends React.Component{
 		}
 	}
 
-	onStartChange=(startTime)=>{
+	onStartChange=(sdate)=>{
 		let {searchParams}=this.state;
-		let start=Date.parse(DateFormat(startTime,"yyyy-mm-dd hh:MM:ss"));
-		if(searchParams.endTime){
-			var end=Date.parse(DateFormat(searchParams.endTime,"yyyy-mm-dd hh:MM:ss"))
+		let start=Date.parse(DateFormat(sdate,"yyyy-mm-dd hh:MM:ss"));
+		if(searchParams.edate){
+			var end=Date.parse(DateFormat(searchParams.edate,"yyyy-mm-dd hh:MM:ss"))
 		}
-		if(searchParams.endTime&&start>end){
+		if(searchParams.edate&&start>end){
 			Message.error("结束时间不能小于开始时间");
 			return ;
 		}
 
-		Store.dispatch(change('OpenLogForm','startTime',startTime));
-		searchParams = Object.assign({}, searchParams, {startTime});
+		Store.dispatch(change('OpenLogForm','sdate',sdate));
+		searchParams = Object.assign({}, searchParams, {sdate});
 
 		this.setState({
 			searchParams
 		});
 
 	}
-	onEndChange=(endTime)=>{
+	onEndChange=(edate)=>{
 		let {searchParams}=this.state;
 		
-		let end=Date.parse(DateFormat(endTime,"yyyy-mm-dd hh:MM:ss"));
-		if(searchParams.startTime){
-			var start=Date.parse(DateFormat(searchParams.startTime,"yyyy-mm-dd hh:MM:ss"));
+		let end=Date.parse(DateFormat(edate,"yyyy-mm-dd hh:MM:ss"));
+		if(searchParams.sdate){
+			var start=Date.parse(DateFormat(searchParams.sdate,"yyyy-mm-dd hh:MM:ss"));
 		}
-		if(searchParams.startTime&&start>end){
+		if(searchParams.sdate&&start>end){
 			Message.error("结束时间不能小于开始时间");
 			return ;
 		}
-		Store.dispatch(change('OpenLogForm','endTime',endTime));			 searchParams = Object.assign({}, searchParams, {endTime});
+		Store.dispatch(change('OpenLogForm','edate',edate));			 
+		searchParams = Object.assign({}, searchParams, {edate});
 		this.setState({
 			searchParams
 		});
@@ -122,12 +124,12 @@ class OpenLogForm extends React.Component{
 				<ListGroup>
 					<ListGroupItem>
 						
-							<KrField label="开门时间：" name="sdate" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange}/>
+							<KrField label="开始时间：" name="sdate" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange} placeholder="日期"/>
 						
 					</ListGroupItem>
 
 					<ListGroupItem>
-							<KrField label="至：" name="edate" component="date" inline={true} style={{width:200,marginTop:-3}} onChange={this.onEndChange} />
+							<KrField label="至：" name="edate" component="date" inline={true} style={{width:200,marginTop:-3}} onChange={this.onEndChange}  placeholder="日期"/>
 					</ListGroupItem>
 					<ListGroupItem>
 						<span className="community-list">
@@ -163,10 +165,10 @@ class OpenLogForm extends React.Component{
 						/>
 					</ListGroupItem>
 
-					<ListGroupItem style={{float:"right"}}>
+					<ListGroupItem style={{float:"right",margin:"10px 20px 10px 0"}}>
 						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />
 					</ListGroupItem>
-					<ListGroupItem style={{float:"right"}}>
+					<ListGroupItem style={{float:"right",margin:10}}>
 						<Button  label="搜索" type="submit"/>
 					</ListGroupItem>
 					

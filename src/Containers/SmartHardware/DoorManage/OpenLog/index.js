@@ -17,7 +17,7 @@ import {
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
-import SecDoorOpenLog from './SecDoorOpenLog';
+import OpenSearchForm from './OpenSearchForm';
 import './index.less';
 import State from './State';
 import {
@@ -72,7 +72,7 @@ export default class List extends React.Component {
 					<Title value="开门记录"/>
 					<Section title={`开门记录`} description="" >
 						<div>
-							<SecDoorOpenLog/>
+							<OpenSearchForm/>
 						</div>
 						<Table
 							className="member-list-table"
@@ -102,62 +102,68 @@ export default class List extends React.Component {
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>
 								<TableRow>
-								<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
-								<TableRowColumn name="phone"
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								<TableRowColumn name="name"
+								<TableRowColumn name="time" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
+								
+								<TableRowColumn name="communityName"
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								 ></TableRowColumn>
-								<TableRowColumn name="wechatNick"
+								<TableRowColumn name="doorCode"
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="email" style={{overflow:"hidden"}}
+								<TableRowColumn name="deviceId" style={{overflow:"hidden"}}
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="jobName"
+								<TableRowColumn name="memberName"
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="cityName"
+								<TableRowColumn name="company"
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="companyName" style={{overflow:"hidden"}}
+								<TableRowColumn name="phone" style={{overflow:"hidden"}}
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="registerName"
+								<TableRowColumn name="openType"
 								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
+									if(value=="1"){
+										value="刷卡开门"
+									}else if(value=="2"){
+										value = "微信开门"
 									}
-									return (<span>{value}</span>)}}></TableRowColumn>
+								return (<span>{value}</span>)}}></TableRowColumn>
+									<TableRowColumn name="success"
+								component={(value,oldValue)=>{
+									var spanColor
+									if(value=="true"){
+										value="成功"
+									}else{
+										value = "失败"
+										spanColor = "#ff6868";
+									}
+								return (<span style={{color:spanColor}}>{value}</span>)}}></TableRowColumn>
 								
 							 </TableRow>
 						</TableBody>

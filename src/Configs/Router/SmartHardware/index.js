@@ -27,6 +27,12 @@ const SmartHardware_DoorManage_OpenLog = (location, callback) => {
   }, 'SmartHardware_DoorManage_OpenLog')
 }
 
+const SmartHardware_DoorManage_FailureWarning = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/DoorManage/FailureWarning').default)
+  }, 'SmartHardware_DoorManage_FailureWarning')
+}
+
 
 module.exports =()=>{
 
@@ -37,6 +43,8 @@ module.exports =()=>{
 			<Route path="doormanage" getComponent={Basic}>
 				<Route path="equipmentmanage" getComponent={SmartHardware_DoorManage_EquipmentAllManage}/>
 				<Route path="openlog" getComponent={SmartHardware_DoorManage_OpenLog}/>
+				<Route path="warning" getComponent={SmartHardware_DoorManage_FailureWarning}/>
+				
 			</Route>
 			
 		</Route>
