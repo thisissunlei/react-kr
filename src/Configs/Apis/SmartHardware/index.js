@@ -51,11 +51,19 @@ module.exports = {
    },
 
    //报警日志列表
-
    'getWarningLog':{
       url: '/mockjsdata/53/krspace-iot-platform-web/device-log/list?deviceId={deviceId}&etime={etime}&logType={logType}&page={page}&pageSize={pageSize}&stime={stime}',
       method: 'get'
    },
+
+
+   //报警日志报警类型
+   'getWarningType':{
+      url: '/mockjsdata/53//krspace-iot-platform-web/dict/common',
+      method: 'get'
+   },
+
+   
     
 
    

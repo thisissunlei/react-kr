@@ -38,7 +38,7 @@ export default class List extends React.Component {
 	}
 
 	componentDidMount(){
-		State.getListDic();
+		State.getWarningTypeList();
 	}
 	
 	onLoaded=(response)=>{

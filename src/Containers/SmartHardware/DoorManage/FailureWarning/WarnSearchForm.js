@@ -145,7 +145,7 @@ class DoorWarnForm extends React.Component{
 						<KrField name="logType" 
 							component="select" 
 							label="报警类型：" 
-							options = {State.makerOptions}
+							options = {State.LogTypeOptions}
 							style={{width:'252px'}}
 							onChange = {this.getFloor}
 							inline={true}

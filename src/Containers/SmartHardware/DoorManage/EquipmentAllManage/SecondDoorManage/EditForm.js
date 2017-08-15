@@ -36,22 +36,13 @@ class EditForm extends React.Component{
 	}
 	componentWillReceiveProps(nextProps){
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
-			console.log("this.setState");
+			
 			this.setState({
 				initializeValues:nextProps.detail
 			})
 		}
 	}
 	getBasicData=(detail)=>{
-
-
-		// detail.communityId=1;
-		// detail.maker = "SHEN_DIAN";
-		// detail.floor = 3;
-		// detail.title = "二代门禁标题";
-		// detail.doorType = 2;
-		// detail.roomId = 770;
-		// detail.memo = "我是备注啊哈哈哈";
 
 
 		let _this = this;
@@ -74,7 +65,7 @@ class EditForm extends React.Component{
 	    			floorsOptions : arrNew,
 	    			floor : detail.floor,
 	    			communityId : detail.communityId,
-	    			propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2}]
+	    			propertyOption :[{label: '大门',value: "1"},{label: '会议室',value: "2"}]
 	    		})
 	    }).catch(function(err){
 
@@ -189,7 +180,7 @@ class EditForm extends React.Component{
 				floorNum : floor.value
 			},function(){
 				_this.setState({
-					propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2}]
+					propertyOption :[{label: '大门',value: '1'},{label: '会议室',value: '2'}]
 				})
 			})
 		}
@@ -236,7 +227,7 @@ class EditForm extends React.Component{
 	render(){
 		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked} =this.state;
 		
-		const { error, handleSubmit, reset} = this.props;
+		const { error, handleSubmit, reset ,detail} = this.props;
 		return(
 			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -307,13 +298,16 @@ class EditForm extends React.Component{
 						errors={{requiredValue:'厂家为必填项'}} 
 						style={{width:'252px'}}
 					/>
-					<KrField name="roomId" grid={1/2}
-						component="select" 
-						options={locationOptions}
-						label="对应位置"
-						onChange = {this.onchooseCorrespondingLocation}  
-						style={{width:'252px',margin:'0 35px 5px 0',display:this.state.locationOpen?'block':'none'}}
-					/>
+					{
+						detail.doorType == 2 && <KrField name="roomId" grid={1/2}
+							component="select" 
+							options={locationOptions}
+							label="对应位置"
+							onChange = {this.onchooseCorrespondingLocation}  
+							style={{width:'252px',margin:'0 35px 5px 0',display:this.state.locationOpen?'block':'none'}}
+						/>
+					}
+					
 					<KrField
 						label="备注"
 						name ="memo"

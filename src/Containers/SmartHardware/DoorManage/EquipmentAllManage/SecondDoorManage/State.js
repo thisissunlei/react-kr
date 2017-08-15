@@ -72,7 +72,7 @@ State.deleteEquipmentBatch= action(function() {
 	Http.request('deleteEquipmentBatch',{},{ids:State.selectedDeleteIds}).then(function(response) {
 		
 		State.freshPageReturn();
-		
+		Message.success("删除成功");
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
@@ -85,7 +85,8 @@ State.deleteEquipmentSingle= action(function() {
 	
 	Http.request('deleteEquipmentSingleURL',{},{id:State.selectedDeleteIds}).then(function(response) {
 		
-		State.freshPageReturn();		
+		State.freshPageReturn();	
+		Message.success("删除成功");
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
@@ -195,7 +196,6 @@ State.freshSearchEquipmentPage = action(function(){
 State.getUnusedEquipmentFun = action(function(){
 	
 	Http.request('getUnusedEquipment', {}).then(function(response) {
-		console.log("response",response);
 		State.searchEquipmentList = response.items;
 	}).catch(function(err) {
 		Message.error(err.message);
@@ -214,10 +214,6 @@ State.equipmentAddLocation = action(function(param){
 		Message.error(err.message);
 	});
 })
-
-
-
-
 
 
 module.exports = State;

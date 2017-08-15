@@ -22,18 +22,18 @@ let State = observable({
 
 
 // 获取日志类型列表
-State.getListDic = action(function() {
+State.getWarningTypeList = action(function() {
 	var _this = this;
-	Http.request('getListDic', {}).then(function(response) {
+	Http.request('getWarningType', {}).then(function(response) {
 		var arrNew = []
-		for (var i=0;i<response.Maker.length;i++){
+		for (var i=0;i<response.LogType.length;i++){
 			arrNew[i] = {
-						label:response.Maker[i].desc,
-						value:response.Maker[i].value
+						label:response.LogType[i].desc,
+						value:response.LogType[i].value
 					}
 		}
 		
-		State.makerOptions = arrNew;
+		State.LogTypeOptions = arrNew;
 
 	}).catch(function(err) {
 		Message.error(err.message);
