@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	TabC,
 	TabCs,
 	Dictionary
@@ -23,21 +23,23 @@ export default class PeopleDetail  extends React.Component{
 			personId:this.props.params.personId,
 			detail:'',
 		}
-
 	}
 
   componentWillMount(){
 		let {personId}=this.state;
-		//获取基本信息
-    this.basicData(personId);
-	}
+    if(!personId){
+      //获取我的卡片基本信息
 
+		}else{
+			//获取基本信息
+	    this.basicData(personId);
+		}
+	}
 
 	componentDidMount(){
 		 const {NavModel} = this.props;
      NavModel.setSidebar(false);
 	}
-  
 
 	chengLeft=(id)=>{
      this.basicData(id);
@@ -55,12 +57,12 @@ export default class PeopleDetail  extends React.Component{
 			Message.error(err.message);
 		});
 	}
-   	
+
 
 	render(){
 
 		let {personId,detail}=this.state;
-	  
+
 		return(
 
 			<div className='people-detail'>
@@ -68,11 +70,11 @@ export default class PeopleDetail  extends React.Component{
 				<div className='left-pic'>
 				   {/*<UserImage />*/}
 					 <div className='now-change-pic'>
-						   
-					 </div>			
+
+					 </div>
 				</div>
 				<div className='left-text'>
-				
+
 					<div className = "left-intro">
 						<div style={{fontSize:'16px',color:'#333',marginBottom:'3px',marginTop:'3px'}}>{detail.name}</div>
 						<div style={{width:'120px'}}><Dictionary type='ERP_ResourceStatus' value={detail.status} style={{display:'inline-block',marginRight:'5px'}}/>
@@ -88,26 +90,26 @@ export default class PeopleDetail  extends React.Component{
 				  <TabCs
 					  isDetail='detail'
 			      >
-				  <TabC label='基本信息'> 
+				  <TabC label='基本信息'>
 					  <BasicInfo
-					    personId={personId} 
+					    personId={personId}
 							chengLeft={this.chengLeft}
 					  />
-				  </TabC> 
-				  
-				  <TabC label='个人信息'> 
-					  <PersonalInfo 
-					    personId={personId} 
-					  />
-				  </TabC> 
+				  </TabC>
 
-				  <TabC label='工作信息'> 
-					  <WorkInfo 
-					   personId={personId} 
+				  <TabC label='个人信息'>
+					  <PersonalInfo
+					    personId={personId}
 					  />
-				  </TabC> 
+				  </TabC>
+
+				  <TabC label='工作信息'>
+					  <WorkInfo
+					   personId={personId}
+					  />
+				  </TabC>
 			  </TabCs>
-			    
+
 			  </div>
 			</div>
 		);
