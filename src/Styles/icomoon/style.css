@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?v4kcv8');
-  src:  url('fonts/icomoon.eot?v4kcv8#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?v4kcv8') format('truetype'),
-    url('fonts/icomoon.woff?v4kcv8') format('woff'),
-    url('fonts/icomoon.svg?v4kcv8#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?4yr6ux');
+  src:  url('fonts/icomoon.eot?4yr6ux#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?4yr6ux') format('truetype'),
+    url('fonts/icomoon.woff?4yr6ux') format('woff'),
+    url('fonts/icomoon.svg?4yr6ux#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,48 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-day .path1:before {
+  content: "\e91d";
+  color: rgb(153, 153, 153);
+}
+.icon-day .path2:before {
+  content: "\e91e";
+  margin-left: -1em;
+  color: rgb(153, 153, 153);
+}
+.icon-day .path3:before {
+  content: "\e91f";
+  margin-left: -1em;
+  color: rgb(153, 153, 153);
+}
+.icon-day .path4:before {
+  content: "\e920";
+  margin-left: -1em;
+  color: rgb(45, 141, 205);
+}
+.icon-month .path1:before {
+  content: "\e921";
+  color: rgb(153, 153, 153);
+}
+.icon-month .path2:before {
+  content: "\e922";
+  margin-left: -1em;
+  color: rgb(153, 153, 153);
+}
+.icon-month .path3:before {
+  content: "\e923";
+  margin-left: -1em;
+  color: rgb(153, 153, 153);
+}
+.icon-month .path4:before {
+  content: "\e924";
+  margin-left: -1em;
+  color: rgb(73, 157, 241);
+}
+.icon-home-community:before {
+  content: "\e91a";
+  color: #000;
+}
 .icon-close:before {
   content: "\e919";
 }
@@ -32,66 +74,87 @@
 }
 .icon-more:before {
   content: "\e917";
+  color: #499df1;
 }
 .icon-excel:before {
   content: "\e900";
+  color: #7ab55c;
 }
 .icon-template:before {
   content: "\e915";
+  color: #666;
 }
 .icon-basis:before {
   content: "\e901";
+
 }
 .icon-money:before {
   content: "\e902";
+
 }
 .icon-com:before {
   content: "\e903";
+
 }
 .icon-community:before {
   content: "\e904";
+
 }
 .icon-dandian_nor:before {
   content: "\e905";
+
 }
 .icon-orderForm:before {
   content: "\e906";
+
 }
 .icon-administrator:before {
   content: "\e907";
+
 }
 .icon-schema:before {
   content: "\e908";
+
 }
 .icon-control:before {
   content: "\e909";
+
 }
 .icon-look:before {
   content: "\e90c";
+
 }
 .icon-user:before {
   content: "\e90d";
+
 }
 .icon-return:before {
   content: "\e90e";
+  color: #fff;
 }
 .icon-commodityManage:before {
   content: "\e90f";
+
 }
 .icon-vip:before {
   content: "\e910";
+
 }
 .icon-file:before {
   content: "\e911";
+
 }
 .icon-wendang:before {
   content: "\e912";
+
 }
 .icon-system:before {
   content: "\e913";
+
 }
 .icon-account:before {
   content: "\e914";
+   
 }
 .icon-icon_return_01:before {
   content: "\e90a";
@@ -101,5 +164,5 @@
 }
 .icon-delete:before {
   content: "\e916";
+  color: #ff6868;
 }
-

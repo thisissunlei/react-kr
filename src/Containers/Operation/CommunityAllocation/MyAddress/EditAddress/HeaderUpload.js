@@ -170,7 +170,6 @@ export default class HeaderUpload extends Component {
 	}
 	render() {
 		let {imgSrc} = this.state;
-		console.log('img')
 		return(
 			<div className="ui-upload-header">
 				<div className='ui-uploadimg-inner' >

@@ -353,6 +353,115 @@ var OAApi = {
       url:'/api/krspace-erp-web/hrm/resource/open/account',
       method: 'post'
   },
+
+
+   /*流程*/
+  //流程--获取我的常用
+  'process-common':{
+      url:'/api/krspace-erp-web/wf/my/common',
+      method: 'get'
+  },
+  //流程--获取新办
+  'process-new-request':{
+      url:'/api/krspace-erp-web/wf/new/request/list',
+      method: 'get'
+  },
+  //流程--添加新办至我的常用
+  'office-new-add':{
+      url:'/api/krspace-erp-web/wf/my/add',
+      method: 'post'
+  },
+  //流程--删除新办
+  'office-new-delete':{
+      url:'/api/krspace-erp-web/wf/my/delete',
+      method: 'post'
+  },
+
+
+  //流程--流程类型树
+  'process-typetree':{
+      url:'/api/krspace-erp-web/wf/type/list?name={name}',
+      method: 'get'
+  },
+  //流程--流程类型列表
+  'process-type-list':{
+      url:'/api/krspace-erp-web/wf/type/page?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+  //流程--新增流程类型
+  'process-add-type':{
+      url:'/api/krspace-erp-web/wf/type/add',
+      method: 'post'
+  },
+  //流程--编辑流程类型
+  'process-edit-type':{
+      url:'/api/krspace-erp-web/wf/type/edit',
+      method: 'post'
+  },
+  //流程--流程类型详情
+  'process-type-detail':{
+      url:'/api/krspace-erp-web/wf/type/detail?typeId={typeId}',
+      method: 'get'
+  },
+  //流程--流程类型搜索下拉选
+  'process-search-select':{
+      url:'/api/krspace-erp-web/wf/type/select?name={name}',
+      method: 'get'
+  },
+
+
+  //流程--分页获取流程列表
+  'process-list':{
+      url:'/api/krspace-erp-web/wf/base/page?allowRequest={allowRequest}&newRequestShow={newRequestShow}&wfName={wfName}&page={page}&pageSize={pageSize}&typeId={typeId}&wfCode={wfCode}',
+      method: 'get'
+  },
+  //流程--新建流程
+  'process-add':{
+      url:'/api/krspace-erp-web/wf/base/add',
+      method: 'post'
+  },
+  //流程--编辑流程
+  'process-edit':{
+      url:'/api/krspace-erp-web/wf/base/edit',
+      method: 'post'
+  },
+  //流程--查看流程
+  'process-detail':{
+      url:'/api/krspace-erp-web/wf/base/detail?wfId={wfId}',
+      method: 'get'
+  },
+
+  
+
+
+  //流程--权限--列表
+  'process-authority-list':{
+      url:'/api/krspace-erp-web/wf/base/auth/list?wfId={wfId}',
+      method: 'get'
+  },
+  //流程--权限--新建
+  'process-authority-add':{
+      url:'/api/krspace-erp-web/wf/base/auth/add',
+      method: 'post'
+  },
+  //流程--权限--编辑
+  'process-authority-edit':{
+      url:'/api/krspace-erp-web/wf/base/auth/edit',
+      method: 'post'
+  },
+  //流程--权限--查看
+  'process-authority-detail':{
+      url:'/api/krspace-erp-web/wf/base/auth/detail?limitId={limitId}',
+      method: 'get'
+  },
+  //流程--权限--删除
+  'process-authority-delete':{
+      url:'/api/krspace-erp-web/wf/base/auth/delete',
+      method: 'post'
+  },
+
+
+
   //角色管理－列表
   'role-list':{
       url:'/api/krspace-erp-web/hrm/role/list?name={name}&page={page}&pageSize={pageSize}',

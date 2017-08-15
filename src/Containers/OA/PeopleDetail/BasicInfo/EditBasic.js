@@ -223,7 +223,7 @@ class EditPerson  extends React.Component{
                             grid={1/2}
                             style={{width:262}}
                             name="jobId"
-                            letfData={positionList}
+                            leftData={positionList}
                             component="switchSlide"
                             label="职务"
                             valueText = {basicInfo[0].jobName}
@@ -234,7 +234,7 @@ class EditPerson  extends React.Component{
                             grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="levelId"
-                            letfData={rankList}
+                            leftData={rankList}
                             component="switchSlide"
                             valueText ={basicInfo[0].levelName}
                             label="职级"

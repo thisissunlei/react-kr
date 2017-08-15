@@ -121,6 +121,10 @@ export default class Header extends React.Component {
 	}
 
 	logout = ()=>{
+		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
+		if(communityId){
+			localStorage.removeItem('OP_HOME_COMMUNITY');
+		}
 
 		Http.request('user-logout').then(function(response) {
 			window.location.href = "/new/login.html";

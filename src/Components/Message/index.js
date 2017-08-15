@@ -97,8 +97,9 @@ function commonTimeout() {
 function commonTimeoutWarn() {
 	setTimeout(function() {
 		ReactDOM.render(<div className='hide'></div>, shadowDOM);
-	}, 2000)
+	}, 1000)
 }
+
 
 /**
  * type success error normal

@@ -28,6 +28,7 @@ import WebBackstageRouter from './WebBackstageRouter';
 import FinanceRouter from './FinanceRouter';
 import StatisticalRouter from './StatisticalRouter';
 import OARouter from './OARouter';
+import OfficeRouter from './OfficeRouter';
 import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
 
@@ -87,13 +88,17 @@ export default (
 
         {/*统计看板*/}
 
-            {StatisticalRouter()}
+        {StatisticalRouter()}
 
         {/*社区经营*/}
         {CommunityRouter()}
 
         {/*OA办公*/}
         {OARouter()}
+
+        {/*综合办公*/}
+        {OfficeRouter()}
+
         {/*商品零售*/}
 
         {RetailRouter()}
