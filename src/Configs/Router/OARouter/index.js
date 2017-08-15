@@ -73,12 +73,6 @@ const OA_OrganizationPower_Role = (location, callback) => {
   }, 'OA_OrganizationPower_Role')
 }
 
-const OA_PersonData_MyCard = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/OA/PersonData/MyCard').default)
-  }, 'OA_PersonData_MyCard')
-}
-
 const OA_PersonData_MyColleague = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/OA/PersonData/MyColleague').default)
@@ -97,7 +91,7 @@ module.exports =()=>{
 
 						{/*人事资料*/}
             <Route path="personData" getComponent={Basic}>
-						  <Route path="myCard" getComponent={OA_PersonData_MyCard}/>
+						  <Route path=":personId/myCard" getComponent={OA_PeopleDetail}/>
 						  <Route path="myColleague" getComponent={OA_PersonData_MyColleague}/>
             </Route>
 
