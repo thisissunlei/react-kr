@@ -23,13 +23,11 @@ export default class OaUploadImage extends Component {
 		super(props,context);
 		this.state={
 			imgSrc:'',
-			// 图片是否已经上传到界面
+			//图片是否已经上传到界面
 			imgUpload: false,
 			timer :"",
 			operateImg :false,
 			files :{},
-			imageStatus : true,
-			isInit:true
 		}
 	}
 	componentWillUnmount() {
@@ -39,21 +37,14 @@ export default class OaUploadImage extends Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-	 if(nextProps.defaultValue&&nextProps.defaultValue.hasOwnProperty('picUrl')&&nextProps.defaultValue.picUrl!=''){
+	 if(this.props.defaultValue!=nextProps.defaultValue){
 		 this.setInitValue(nextProps.defaultValue);
 	  }
 	}
 
 	setInitValue(defaultValue) {
 		let {input}=this.props;
-		let {
-			isInit
-		} = this.state;
-		if (!isInit) {
-			return;
-		}
 		this.setState({
-				isInit: false,
 				imgUpload:true,
 				imgSrc:defaultValue.picUrl
 		});
@@ -153,7 +144,6 @@ export default class OaUploadImage extends Component {
                     var image = new Image();
                     image.onload=function(){
                         	_this.setState({
-														imageStatus : true,
 														imgUpload : true,
 														operateImg : false,
 														imgSrc:xhrfile.response.data[0].ossHref
@@ -190,14 +180,14 @@ export default class OaUploadImage extends Component {
 				<div className='ui-uploadimg-outbox' >
 					<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg}>
 						{this.state.imgSrc&&
-						 <div style={{position:'absolute',zIndex:'10',backgroundImage:`url(${this.state.imgSrc})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain',width:'120px',height:'120px'}}></div>
-						 }
+						 <div className='img-watch' style={{backgroundImage:`url(${this.state.imgSrc})`}}></div>
+						}
 						<div className='ui-uploadimg-inner' >
-               <span>更换图像</span>
+               {/*<span>更换图像</span>*/}
 							 <input type='file' onChange={this.onChange} ref="inputImg" style={{marginTop:'-20px'}}/>
 						</div>
-						<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none",zIndex:'11',width:120,height:120,textAlign:'center'}}>
-							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.reFreshImg} style={{marginRight:'30px'}}>
+						<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none"}}>
+							<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" style={{marginRight:'30px',marginTop:'45px'}}>
 								<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh"/>
 								<input type='file' onChange={this.onChange} ref="inputImgNew" className="ui-refreshImgBtn"/>
 							</div>
