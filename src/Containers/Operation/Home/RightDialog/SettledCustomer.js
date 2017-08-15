@@ -96,6 +96,7 @@ class MonthPayment extends React.Component{
 		            <TableHeader className='detail-header'>
 		              <TableHeaderColumn className='header-row'>社区名称</TableHeaderColumn>
 		              <TableHeaderColumn className='header-row'>客户名称</TableHeaderColumn>
+                      <TableHeaderColumn className='header-row' style={{width:120}}>工位/独立办公空间数</TableHeaderColumn>
 					  <TableHeaderColumn className='header-row'>起租日期</TableHeaderColumn>
 					  <TableHeaderColumn className='header-row'>结束日期</TableHeaderColumn>
 					  <TableHeaderColumn className='header-row'>费用总额</TableHeaderColumn>
@@ -117,6 +118,10 @@ class MonthPayment extends React.Component{
 		 							 value = value.substring(0,6)+"...";
 		 							}
 		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 					}}></TableRowColumn>
+		 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB',width:120}} name='customer' component={(value,oldValue,itemData)=>{
+		 							let values = itemData.stations + '/'+itemData.boardrooms;
+		 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{values}</span><Tooltip offsetTop={8} place='top'>{values}</Tooltip></div>)
 		 					}}></TableRowColumn>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseStart' component={(value,oldValue,itemData)=>{
 		 							var maxWidth=6;

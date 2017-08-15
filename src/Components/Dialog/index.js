@@ -154,6 +154,7 @@ export default class DialogComponent extends React.Component {
 
 		let styles = {};
 		let closeStyle = {};
+		var page = this.getPageWidthOrHeight();
 		if (open) {
 			if(this.props.stylesCard){
 			  styles.zIndex='1200';	
