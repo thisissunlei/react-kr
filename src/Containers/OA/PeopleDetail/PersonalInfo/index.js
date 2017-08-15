@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	Table,
 	TableHeader,
 	TableHeaderColumn,
@@ -59,15 +59,20 @@ export default class PersonalInfo  extends React.Component{
 			//工作记录删除id
 			jobId:'',
 			isEditUser:false,
-			
+
 		}
 	}
 
 
 	componentWillMount(){
 	  let {personId}=this.props;
-	  //获取个人信息
-	  this.personData(personId);
+		if(!personId){
+			 //获取我的卡片个人信息
+
+		}else{
+			//获取个人信息
+		  this.personData(personId);
+		}
 	}
 	componentDidMount() {
 		var {checkOperate} = this.props.NavModel;
@@ -75,10 +80,10 @@ export default class PersonalInfo  extends React.Component{
 		setTimeout(function() {
 			_this.setState({
 				isEditUser : checkOperate("hrm_resource_edit")
-				
+
 			})
-		
-		},500);	
+
+		},500);
 
 	}
 
@@ -93,7 +98,7 @@ export default class PersonalInfo  extends React.Component{
           Message.error(err.message);
         });
 	}
-    
+
 	//家庭操作
 	onFamilyOperation=(type,itemDetail)=>{
        if(type=='edit'){
@@ -107,7 +112,7 @@ export default class PersonalInfo  extends React.Component{
 			  familyId:itemDetail.id
 			})
 	   }
-	} 
+	}
 
 	//获取家庭编辑信息
 	getFamilyInfo=(id)=>{
@@ -115,9 +120,9 @@ export default class PersonalInfo  extends React.Component{
 		    Store.dispatch(initialize('EditFamily',response));
         }).catch(function(err) {
           Message.error(err.message);
-        });	
+        });
 	}
-    
+
 	//工作操作
     onWorkOperation=(type,itemDetail)=>{
        if(type=='edit'){
@@ -132,14 +137,14 @@ export default class PersonalInfo  extends React.Component{
 			})
 	   }
 	}
-    
+
 	//获取工作编辑信息
 	getWorkInfo=(id)=>{
 	    Http.request('people-job-get',{id:id}).then(function(response) {
 		    Store.dispatch(initialize('EditWork',response));
         }).catch(function(err) {
            Message.error(err.message);
-        });	
+        });
 	}
 
    //编辑个人信息开关
@@ -150,7 +155,7 @@ export default class PersonalInfo  extends React.Component{
 		   openEdit:!this.state.openEdit
 	   })
    }
-   
+
    //编辑提交
    editSubmit=(params)=>{
 	   let {personId}=this.props;
@@ -168,21 +173,21 @@ export default class PersonalInfo  extends React.Component{
           Message.error(err.message);
         });
    }
-   
+
    //编辑关闭
    cancelPerson=()=>{
 		this.setState({
 		   openEdit:!this.state.openEdit
 	   })
    }
-   
+
    //新增家庭人员开关
    addFamily=()=>{
      this.setState({
 		openAddF:!this.state.openAddF
 	 })
    }
-   
+
    //新增家庭提交
    addPerSubmit=(params)=>{
 	  let {personId}=this.props;
@@ -200,7 +205,7 @@ export default class PersonalInfo  extends React.Component{
           Message.error(err.message);
         });
    }
-   
+
    //编辑家庭提交
    editPerSubmit=(params)=>{
 	  let {personId}=this.props;
@@ -225,13 +230,13 @@ export default class PersonalInfo  extends React.Component{
 		openEditF:!this.state.openEditF
 	 })
    }
-  
+
 
    //新增工作经历开关
    addWork=()=>{
 	 this.setState({
 		openAddW:!this.state.openAddW
-	 })  
+	 })
    }
 
    //新增工作经历提交
@@ -276,20 +281,20 @@ export default class PersonalInfo  extends React.Component{
    editWork=()=>{
     this.setState({
 		openEditW:!this.state.openEditW
-	 })  
+	 })
    }
-   
+
 
    //关闭删除人员
    cancelDelete=()=>{
      this.setState({
 		openDeleteF:!this.state.openDeleteF
-	 })  
+	 })
    }
-  
+
    //删除人员提交
    deleteSubmit=()=>{
-	 let {familyId}=this.state; 
+	 let {familyId}=this.state;
 	 let {personId}=this.props;
      var _this=this;
        Http.request('people-family-delete',{id:familyId}).then(function(response) {
@@ -304,14 +309,14 @@ export default class PersonalInfo  extends React.Component{
           Message.error(err.message);
        });
    }
-  
+
    //关闭删除工作
    cancelDelWork=()=>{
 	 this.setState({
 		openDeleteW:!this.state.openDeleteW
-	 })  
+	 })
    }
-   
+
    //关闭删除提交
    delWorkSubmit=()=>{
 	 let {jobId}=this.state;
@@ -329,7 +334,7 @@ export default class PersonalInfo  extends React.Component{
           Message.error(err.message);
        });
    }
-  
+
   //关闭所有
    allClose=()=>{
       this.setState({
@@ -350,7 +355,9 @@ export default class PersonalInfo  extends React.Component{
 			  detail:personInfo.idCard},
 			 {name:'出生日期',
 			  detail:<KrDate value={personInfo.birthday} format="yyyy-mm-dd"/>},
-			 {name:'星座',
+			  {name:'职级',
+ 			  detail:personInfo.levelName},
+			  {name:'星座',
 			  type:'ERP_Constellation',
 			  isSwitch:true,
 			  detail:personInfo.constellation},
@@ -438,8 +445,8 @@ export default class PersonalInfo  extends React.Component{
 								{item.isSwitch?<Dictionary type={item.type} value={item.detail}/>:item.detail}
 							</span>
 					   </li>)
-					  })	
-					}		
+					  })
+					}
 				  </ul>
 
 				<div className='info-title'>
@@ -448,8 +455,8 @@ export default class PersonalInfo  extends React.Component{
 							<span className='title-name'>家庭资料</span>
 							{isEditUser && <span className='title-right' onClick={this.addFamily}>添加</span>}
 					</div>
-                </div> 
-				 
+                </div>
+
 				 <Table
                     ajax={true}
                     onOperation={this.onFamilyOperation}
@@ -470,7 +477,7 @@ export default class PersonalInfo  extends React.Component{
 		          	</TableHeader>
 
 			        <TableBody >
-			              <TableRow className='detail-row'>		                
+			              <TableRow className='detail-row'>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='calledStr'></TableRowColumn>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='idCard'></TableRowColumn>
@@ -492,7 +499,7 @@ export default class PersonalInfo  extends React.Component{
 							<span className='title-name'>工作经历</span>
 							{isEditUser && <span className='title-right' onClick={this.addWork}>添加</span>}
 					</div>
-              </div>  
+              </div>
 
 				 <Table
                     ajax={true}
@@ -514,7 +521,7 @@ export default class PersonalInfo  extends React.Component{
 		          	</TableHeader>
 
 			        <TableBody >
-			              <TableRow className='detail-row'>		                
+			              <TableRow className='detail-row'>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='company'></TableRowColumn>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='job'></TableRowColumn>
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='startDate' component={(value,oldValue)=>{
@@ -544,7 +551,7 @@ export default class PersonalInfo  extends React.Component{
 					 >
 						<EditPerson
 			               onCancel={this.cancelPerson}
-						   onSubmit={this.editSubmit}   
+						   onSubmit={this.editSubmit}
 						/>
 					</Drawer>
 
@@ -558,7 +565,7 @@ export default class PersonalInfo  extends React.Component{
 					 >
 						<AddFamily
 			               onCancel={this.addFamily}
-						   onSubmit={this.addPerSubmit}   
+						   onSubmit={this.addPerSubmit}
 						/>
 					</Drawer>
 
@@ -572,7 +579,7 @@ export default class PersonalInfo  extends React.Component{
 					 >
 						<EditFamily
 			               onCancel={this.EditFamily}
-						   onSubmit={this.editPerSubmit}   
+						   onSubmit={this.editPerSubmit}
 						/>
 					</Drawer>
 
@@ -586,7 +593,7 @@ export default class PersonalInfo  extends React.Component{
 					 >
 						<AddWork
 			               onCancel={this.addWork}
-						   onSubmit={this.addWorkSubmit}   
+						   onSubmit={this.addWorkSubmit}
 						/>
 					</Drawer>
 
@@ -600,7 +607,7 @@ export default class PersonalInfo  extends React.Component{
 					 >
 						<EditWork
 			               onCancel={this.editWork}
-						   onSubmit={this.editWorkSubmit}   
+						   onSubmit={this.editWorkSubmit}
 						/>
 					</Drawer>
 
@@ -613,7 +620,7 @@ export default class PersonalInfo  extends React.Component{
 					>
 					<DeleteFamily
 						onCancel={this.cancelDelete}
-						onSubmit={this.deleteSubmit}  
+						onSubmit={this.deleteSubmit}
 					/>
 					</Dialog>
 
@@ -626,7 +633,7 @@ export default class PersonalInfo  extends React.Component{
 					>
 					<DeleteWork
 						onCancel={this.cancelDelWork}
-						onSubmit={this.delWorkSubmit}  
+						onSubmit={this.delWorkSubmit}
 					/>
 					</Dialog>
 

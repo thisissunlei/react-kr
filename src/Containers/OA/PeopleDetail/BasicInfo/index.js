@@ -45,8 +45,13 @@ export default class BasicInfo  extends React.Component{
 	}
 	componentWillMount(){
 		let {personId}=this.props;
-		//获取基本信息
-        this.basicData(personId);
+    if(!personId){
+      //获取我的卡片基本信息
+
+    }else{
+      //获取基本信息
+      this.basicData(personId);
+    }
 	}
 
 	//获取基本信息
@@ -126,8 +131,6 @@ export default class BasicInfo  extends React.Component{
 			  detail:basicInfo.leaderName},
 			 {name:'职务',
 			  detail:basicInfo.jobName},
-			 {name:'职级',
-			  detail:basicInfo.levelName},
 			 {name:'入职时间',
 			  detail:<KrDate value={basicInfo.entryDate} format="yyyy-mm-dd"/>},
 			 {name:'员工属性',
