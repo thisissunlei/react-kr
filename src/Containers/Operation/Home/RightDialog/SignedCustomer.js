@@ -51,7 +51,7 @@ class MonthPayment extends React.Component{
 	render(){
         
 		return(
-			<div className='detail-report' style={{height:470}}>
+			<div className='detail-report' style={{height:489}}>
 	         <Table
                     ajax={true}
                     onOperation={this.onOperation}

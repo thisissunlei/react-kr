@@ -69,8 +69,8 @@ class MonthPayment extends React.Component{
 
         
 		return(
-			<div className='detail-report' style={{height:470}}>
-				<form style={{textAlign:'right',marginBottom:'-33px'}}>
+			<div className='detail-report' style={{height:489}}>
+				<form style={{textAlign:'right',marginBottom:'-20px',marginTop:10}}>
 						<KrField  grid={1/2}  	
 							name="companyId" 
 							inline={true} 

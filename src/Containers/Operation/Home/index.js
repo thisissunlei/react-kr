@@ -132,7 +132,7 @@ class Home  extends React.Component{
 						title="本月回款"
 						onClose={this.closeMonthPayment}
 						open={State.openMonthPayment}
-						contentStyle ={{ width: '85%',height:'570px'}}
+						contentStyle ={{ width: '85%',height:'590px'}}
 					>
 						<MonthPayment />
 				</Dialog>
@@ -140,7 +140,7 @@ class Home  extends React.Component{
 						title="累积回款"
 						onClose={this.closeAllPayment}
 						open={State.openAllPayment}
-						contentStyle ={{ width: '85%',height:'570px'}}
+						contentStyle ={{ width: '85%',height:'590px'}}
 					>
 						<AllPayment />
 				</Dialog>
@@ -148,7 +148,7 @@ class Home  extends React.Component{
 						title="社区欠款"
 						onClose={this.closeArrearages}
 						open={State.arrearages}
-						contentStyle ={{ width: '85%',height:'570px'}}
+						contentStyle ={{ width: '85%',height:'590px'}}
 					>
 						<Arrearages />
 				</Dialog>
@@ -156,7 +156,7 @@ class Home  extends React.Component{
 						title="现入驻客户"
 						onClose={this.closeSettledCustomer}
 						open={State.openSettledCustomer}
-						contentStyle ={{ width: '85%',height:'570px'}}
+						contentStyle ={{ width: '85%',height:'590px'}}
 					>
 						<SettledCustomer />
 				</Dialog>
@@ -164,7 +164,7 @@ class Home  extends React.Component{
 						title="已约未入驻"
 						onClose={this.closeSignedCustomer}
 						open={State.signedCustomer}
-						contentStyle ={{ width: '85%',height:'570px'}}
+						contentStyle ={{ width: '85%',height:'590px'}}
 					>
 						<SignedCustomer />
 				</Dialog>
@@ -172,7 +172,7 @@ class Home  extends React.Component{
 						title="客户总数"
 						onClose={this.closeAllCustomer}
 						open={State.allCustomer}
-						contentStyle ={{ width: '85%',height:'570px'}}
+						contentStyle ={{ width: '85%',height:'590px'}}
 					>
 						<AllCustomer />
 				</Dialog>
@@ -180,7 +180,7 @@ class Home  extends React.Component{
 						title="跟进中客户"
 						onClose={this.closeFCustomer}
 						open={State.fCustomer}
-						contentStyle ={{ width: '85%',height:'570px'}}
+						contentStyle ={{ width: '85%',height:'590px'}}
 					>
 						<FCustomer />
 				</Dialog>
@@ -188,7 +188,7 @@ class Home  extends React.Component{
 						title="新增线索"
 						onClose={this.closeNewClue}
 						open={State.newClue}
-						contentStyle ={{ width: '85%',height:'570px'}}
+						contentStyle ={{ width: '85%',height:'590px'}}
 					>
 						<NewClue />
 				</Dialog>
