@@ -12,7 +12,7 @@ import {
 import {
 	Message,Dialog,Button,Table,TableHeader,TableHeaderColumn,TableBody
 	,TableRow,TableRowColumn,TableFooter,Tooltip,Drawer,Grid,Row,
-	ListGroup,ListGroupItem,SearchForms
+	ListGroup,ListGroupItem,SearchForms,FontIcon
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import $ from 'jquery';
@@ -30,6 +30,8 @@ import NewCreate from './NewCreate';
 import EditForm from './EditForm';
 import EquipmentSearch from './EquipmentSearch';
 import EquipmentSearchForm from './EquipmentSearchForm';
+import UpgradeForm from './UpgradeForm';
+import EquipmentCache from './EquipmentCache';
 
 @inject("NavModel")
 @observer
@@ -41,6 +43,8 @@ export default class SecondDoorManage  extends React.Component{
 		super(props, context);
 		this.state = {
 			selectIds : [],
+			openMenu :false,
+			showOpretion : false
 			
 		}
 	}
@@ -63,6 +67,7 @@ export default class SecondDoorManage  extends React.Component{
 	
 	//操作相关
 	onOperation=(type, itemDetail)=>{
+		console.log("itemDetail",itemDetail);
 		this.setState({
 			itemDetail
 		});
@@ -153,12 +158,110 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 
+	showMoreOpretion=(thisP,value,itemData)=>{
+		this.setState({
+			showOpretion :!this.state.showOpretion,
+		})
+		State.itemDetail = thisP;
+	}
 
+	editList=(thisP,value,itemData)=>{
+		console.log("thisP",thisP,'value',value,'itemData',itemData);
+		this.setState({
+			itemDetail:thisP
+		});
+		this.openEditDialogFun();
+	}
+
+	deleteList=(thisP,value,itemData)=>{
+		this.setState({
+			itemDetail:thisP
+		});
+		this.closeConfirmDeleteFun();
+	}
+
+	//升级
+	upgrade=(thisP,value,itemData)=>{
+		this.setState({
+			showOpretion:false
+		})
+		this.upgradeDialogFun();
+	}
+
+	//控制升级窗口是否显示
+	upgradeDialogFun=()=>{
+		State.upgradeDialog = !State.upgradeDialog;
+	}
+	//点击清空缓存
+	clearCache=()=>{
+		this.setState({
+			showOpretion:false
+		})
+		this.openClearCachedFun();
+	}
+	//控制确认清空缓存窗口是否显示
+	openClearCachedFun=()=>{
+		State.openClearCached = !State.openClearCached;
+	}
+
+	//点击断开重连
+	connectAgain=()=>{
+		this.setState({
+			showOpretion:false
+		})
+		this.openConnectAgianFun();
+	}
+
+	openConnectAgianFun=()=>{
+		State.openConnectAgian = !State.openConnectAgian;
+	}
+
+	openDoorInline=()=>{
+		this.setState({
+			showOpretion:false
+		})
+		State.openDoorOnlineAction();
+	}
+
+	deviceCache=()=>{
+		this.setState({
+			showOpretion:false
+		})
+		this.openEquipmentCacheFun();
+
+	}
+
+	openEquipmentCacheFun=()=>{
+		State.openEquipmentCache = !State.openEquipmentCache;
+	}
 	
+		
+
+	getDoorPassWord=()=>{
+		this.setState({
+			showOpretion:false
+		})
+		State.getPassword();
+	}
+
+
+	confirmClearCache=()=>{
+		State.clearCacheAction();
+		State.openClearCached =false;
+	}
+
+	confirmConnnetAgain=()=>{
+		State.disConnectAction();
+		State.openConnectAgian =false;
+	}
+
+	passwordDialogFun=()=>{
+		State.passwordDialog = !State.passwordDialog;
+	}
 
 
 	render(){
-		let {itemDetail}=this.state;
+		let {itemDetail,showOpretion}=this.state;
 		let options=[{
 		      label:"门编号",
 		      value:"doorCode"
@@ -167,12 +270,12 @@ export default class SecondDoorManage  extends React.Component{
 		      value:"deviceId"
 		    }]
 		return(
-			<div>
+			<div >
 				<div style={{padding:"20px 0 0 0"}}>
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
-					<Button label="设备搜索"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
+					<Button label="设备发现"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
 					
 				</div>
 				<div>
@@ -264,10 +367,34 @@ export default class SecondDoorManage  extends React.Component{
 					                }
 					                return (<span style={{color:spanColor}}>{value}</span>)}}>
 					            </TableRowColumn>
-					            <TableRowColumn type="operation"> 
-									<Button  label="编辑"  type="operation" operation="edit"/>
-									<Button  label="删除"  type="operation" operation="delete"/>
-					            </TableRowColumn>
+					            <TableRowColumn type="operation"
+									component={
+										(value,oldValue,itemData)=>{
+											if(value==""){
+												value="-"
+											}
+											return (
+													<div>
+														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
+														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
+														<div style={{display:"inline-block",height:40,verticalAlign:"middle"}}>
+															<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,value,itemData)} linkTrue/>
+															<div style={{visibility:showOpretion?"visible":"hidden",padding:"10px 5px", background:" #fff",border:"solid 1px rgba(204, 204, 204, 0.98)",borderRadius: '3px',position:"relative",cursor:"pointer"}}>
+																<div onClick={this.upgrade.bind(this,value,itemData)} className="list-div">升级</div>
+																<div onClick={this.clearCache.bind(this,value,itemData)} className="list-div">清空设备缓存</div>
+																<div onClick={this.connectAgain.bind(this,value,itemData)} className="list-div">断开重连</div>
+																<div onClick={this.getDoorPassWord.bind(this,value,itemData)} className="list-div">获取口令</div>
+																<div onClick={this.openDoorInline.bind(this,value,itemData)} className="list-div">远程开门</div>
+																<div onClick={this.deviceCache.bind(this,value,itemData)} className="list-div">查看设备缓存</div>
+															</div>
+
+														</div>
+													</div>
+												)
+										}
+									}
+								> 
+								</TableRowColumn>
 				            </TableRow>
 			            </TableBody>
 			            <TableFooter></TableFooter>
@@ -329,7 +456,15 @@ export default class SecondDoorManage  extends React.Component{
 			          	/>
 			        </Dialog>
 			        <Dialog
-			          title="提示"
+			          title="升级"
+			          open={State.upgradeDialog}
+			          onClose={this.upgradeDialogFun}
+			          contentStyle={{width:687}}
+			        >
+			          	<UpgradeForm/>
+			        </Dialog>
+			        <Dialog
+			          title="删除提示"
 			          open={State.openConfirmDelete}
 			          onClose={this.closeConfirmDeleteFun}
 			          contentStyle={{width:443,height:236}}
@@ -350,6 +485,81 @@ export default class SecondDoorManage  extends React.Component{
 			                </Grid>
 			          </div>
 			        </Dialog>
+
+			        <Dialog
+			          title="清空缓存提示"
+			          open={State.openClearCached}
+			          onClose={this.openClearCachedFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>清空设备缓存可导致断网时无法开门，确认清空设备缓存吗？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmClearCache} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openClearCachedFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+			        
+			        <Dialog
+			          title="断开重连提示"
+			          open={State.openConnectAgian}
+			          onClose={this.openConnectAgianFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>断开重连有可能导致设备连接失败,确定要断开重连吗？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmConnnetAgain} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openConnectAgianFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+			        <Dialog
+			          title="口令"
+			          open={State.passwordDialog}
+			          onClose={this.passwordDialogFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>口令码：{State.EquipmentPassword}</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                    
+			                      <ListGroupItem style={{width:400,textAlign:'center',padding:0}}>
+			                        <Button  label="确定" type="button"  cancle={true} onTouchTap={this.passwordDialogFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+
+			         <Drawer 
+			        	open={State.openEquipmentCache}
+			        	onClose = {this.openEquipmentCacheFun}
+					    width={"90%"} 
+					    openSecondary={true} 
+					>
+						<EquipmentCache onCancel={this.openEquipmentCacheFun}/>
+					</Drawer>
 				</div>
 				
 			</div>

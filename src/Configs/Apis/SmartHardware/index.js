@@ -59,10 +59,61 @@ module.exports = {
 
    //报警日志报警类型
    'getWarningType':{
-      url: '/mockjsdata/53//krspace-iot-platform-web/dict/common',
+      url: '/mockjsdata/53/krspace-iot-platform-web/dict/common',
       method: 'get'
    },
 
+   //升级设备
+   'upgradeEquipment':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/upgrade',
+      method: 'post'
+   },
+
+
+   //清空设备缓存
+   'clearEquipmentCacheURL':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-card-burn/clear',
+      method: 'post'
+   },
+
+   //清空设备缓存
+   'disconnnetEquipmentURL':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/disconnect',
+      method: 'post'
+   },
+
+   //获取口令
+   'getPasswordURL':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/totpkey',
+      method: 'get'
+   },
+
+
+   //远程开门
+   'openDoorOnlineURL':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/open-door',
+      method: 'post'
+   },
+
+   //获取设备缓存
+   'getEquipmentCacheURL':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/card-rule/list?deviceId={deviceId}&lastCardNo={lastCardNo}&limit={limit}',
+      method: 'get'
+   },
+
+
+   //获取发现设备开关的状态
+   'getSwitchStatusUrl':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/init-on-off',
+      method: 'get'
+   },
+
+
+   //设置设备自动连接入库
+   'changeSwitchStatusUrl':{
+      url: '/mockjsdata/53/krspace-iot-platform-web/door-device/init-on-off/switch',
+      method: 'post'
+   },
    
     
 

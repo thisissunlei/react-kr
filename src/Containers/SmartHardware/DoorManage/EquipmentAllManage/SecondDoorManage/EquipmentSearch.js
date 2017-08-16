@@ -5,6 +5,9 @@ import {
 } from 'redux-form';
 import {KrField,Grid,Row,Button,ListGroup,ListGroupItem,Loading,Table,TableHeader,TableHeaderColumn,TableBody
 	,TableRow,TableRowColumn,TableFooter,Tooltip} from 'kr-ui';
+import {
+	Toggle
+}from 'material-ui';
 import './index.less';
 import State from './State';
 import {
@@ -21,14 +24,16 @@ export default class EquipmentSearch extends React.Component{
 	componentWillMount() {
 	}
 
-	onOperation=()=>{
-
+	changeSearchEquipment=(event,isInputChecked)=>{
+		console.log("event",event,"isInputChecked",isInputChecked);
+		State.changeSwitchStatusAction({onOff:isInputChecked})
 	}
 
 	componentWillReceiveProps(nextProps){
 	}
 
 	componentDidMount(){
+		State.getWitchFind();
 	}
 	closeDialog=()=>{
 		State.openSearchEquipment= false;
@@ -63,9 +68,12 @@ export default class EquipmentSearch extends React.Component{
 		
 		return (
 			<div className="seconde-dialog">
-
+				<div style={{paddingLeft:20}}>
+					<Toggle defaultToggled={State.switch} labelPosition='right' label="发现设备开关" labelStyle={{fontSize:14}} onToggle={this.changeSearchEquipment}/>
+				</div>
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
-				<h1>设备搜索</h1>
+				<h1>设备发现</h1>
+
 				<div className="detail-list-equipment search-equipment">
 					
 				
