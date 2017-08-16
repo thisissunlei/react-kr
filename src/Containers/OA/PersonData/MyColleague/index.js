@@ -87,8 +87,8 @@ export default class MyColleague extends React.Component {
 
 	componentDidMount() {
 		//侧栏默认关闭
-		const { NavModel } = this.props;
-		NavModel.setSidebar();
+		/*const { NavModel } = this.props;
+		NavModel.setSidebar();*/
 
 		//获取树的数据
 		this.getTreeData();

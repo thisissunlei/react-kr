@@ -37,8 +37,11 @@ export default class PeopleDetail  extends React.Component{
 	}
 
 	componentDidMount(){
-		 const {NavModel} = this.props;
-     NavModel.setSidebar(false);
+		 let {personId}=this.state;
+		 if(personId){
+			 const {NavModel} = this.props;
+			 NavModel.setSidebar(false);
+		 }
 	}
 
 	chengLeft=(id)=>{
