@@ -78,9 +78,8 @@ export default class FailList extends React.Component {
 		              <TableHeader>
 		                  <TableHeaderColumn >主体</TableHeaderColumn>
 		                  <TableHeaderColumn>时间</TableHeaderColumn>
-		                  <TableHeaderColumn>同步方式</TableHeaderColumn>
-		                  <TableHeaderColumn>同步状态</TableHeaderColumn>
-		                  <TableHeaderColumn style={{width:200}}>内容</TableHeaderColumn>
+		                  <TableHeaderColumn style={{width:80}}>同步方式</TableHeaderColumn>
+		                  <TableHeaderColumn style={{width:300}}>内容</TableHeaderColumn>
 		                  <TableHeaderColumn  style={{width:200}}>同步信息</TableHeaderColumn>
 		              </TableHeader>
 		              <TableBody>
@@ -112,13 +111,7 @@ export default class FailList extends React.Component {
 									 return (<div className='financeDetail-hover'>
 									 	{value==='TIMING'?'定时':'手动'}
 									 	</div>)
-								 }}></TableRowColumn>
-		              		 <TableRowColumn name="stickStatusName"
-		              		  component={(value,oldValue)=>{
-									 return (<div className='financeDetail-hover'>
-									 	{'成功'}
-									 	</div>)
-								 }}></TableRowColumn>
+								 }} style={{width:80}}></TableRowColumn>
 		              		 <TableRowColumn name="content"
 		              		 component={(value,oldValue)=>{
 									var TooltipStyle=""
@@ -127,9 +120,9 @@ export default class FailList extends React.Component {
 									}else{
 										TooltipStyle="block";
 									}
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:200,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 									 	<Tooltip offsetTop={5} place='top' >
-											<div style={{width:"200px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
+											<div style={{width:"300px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
 									 	</Tooltip></div>)
 								 }} > </TableRowColumn>
 							<TableRowColumn name="message"

@@ -113,8 +113,7 @@ export default class FailList extends React.Component {
 		              <TableHeader>
 		                  <TableHeaderColumn >主体</TableHeaderColumn>
 		                  <TableHeaderColumn>时间</TableHeaderColumn>
-		                  <TableHeaderColumn>同步方式</TableHeaderColumn>
-		                  <TableHeaderColumn>同步状态</TableHeaderColumn>
+		                  <TableHeaderColumn style={{width:80}}>同步方式</TableHeaderColumn>
 		                  <TableHeaderColumn>内容</TableHeaderColumn>
 		                  <TableHeaderColumn>同步信息</TableHeaderColumn>
 
@@ -129,17 +128,27 @@ export default class FailList extends React.Component {
 				              		 <TableRowColumn >
 				              		 	{DateFormat(item.syncTime,'yyyy/mm/dd')}
 				              		 </TableRowColumn>
-				              		 <TableRowColumn >
+				              		 <TableRowColumn style={{width:80}}>
 				              		 	{item.mode=='TIMING'?'定时':'手动'}
 				              		 </TableRowColumn>
-				              		 <TableRowColumn>
-				              		 	{item.status?'成功':'失败'}
+				              		 <TableRowColumn  style={{width:320}}>
+				              		 	
+				              		 	<div style={{paddingTop:5,overflow:'hidden',width:320}} className='financeDetail-hover'>
+				              		 		<span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{item.content}</span>
+									 		
+									 	</div>
+									 	<Tooltip offsetTop={5} place='top' >
+											<div style={{width:"300px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{item.content}</div>
+									 	</Tooltip>
 				              		 </TableRowColumn>
-				              		 <TableRowColumn  style={{width:220,overflow:'hidden'}}>
-				              		 	{item.content} 
-				              		 </TableRowColumn>
-				              		 <TableRowColumn  style={{width:220,overflow:'hidden'}}>
-				              		 	{item.message} 
+				              		 <TableRowColumn  style={{width:220}}>
+				              		 	<div style={{paddingTop:5,overflow:'hidden',width:220}} className='financeDetail-hover'>
+				              		 		<span className='tableOver' style={{maxWidth:200,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{item.message}</span>
+									 		
+									 	</div>
+									 	<Tooltip offsetTop={5} place='top' >
+												<div style={{width:"200px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{item.message}</div>
+									 		</Tooltip>
 				              		 </TableRowColumn>
 				              	</TableRow>
 		              		)
