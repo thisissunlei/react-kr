@@ -91,7 +91,7 @@ module.exports =()=>{
 
 						{/*人事资料*/}
             <Route path="personData" getComponent={Basic}>
-						  <Route path="myCard" getComponent={OA_PeopleDetail}/>
+						  <Route path=":personId/myCard" getComponent={OA_PeopleDetail}/>
 						  <Route path="myColleague" getComponent={OA_PersonData_MyColleague}/>
             </Route>
 

@@ -66,13 +66,7 @@ export default class PersonalInfo  extends React.Component{
 
 	componentWillMount(){
 	  let {personId}=this.props;
-		if(!personId){
-			 //获取我的卡片个人信息
-
-		}else{
-			//获取个人信息
 		  this.personData(personId);
-		}
 	}
 	componentDidMount() {
 		var {checkOperate} = this.props.NavModel;

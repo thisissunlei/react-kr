@@ -42,13 +42,7 @@ export default class WorkInfo  extends React.Component{
 
 	componentWillMount(){
 		let {personId}=this.props;
-		if(!personId){
-			//获取我的卡片工作信息
-
-		}else{
-			//获取工作信息
 	    this.workData(personId);
-		}
 	}
 
 	//获取工作信息

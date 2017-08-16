@@ -45,13 +45,7 @@ export default class BasicInfo  extends React.Component{
 	}
 	componentWillMount(){
 		let {personId}=this.props;
-    if(!personId){
-      //获取我的卡片基本信息
-
-    }else{
-      //获取基本信息
       this.basicData(personId);
-    }
 	}
 
 	//获取基本信息

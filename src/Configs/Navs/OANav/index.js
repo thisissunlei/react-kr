@@ -24,7 +24,7 @@ module.exports = [
 					{
 						primaryText: '我的卡片',
 						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/oa/personData/myCard',
+						router: '/oa/personData/0/myCard',
 					},
 					{
 						primaryText: '我的同事',

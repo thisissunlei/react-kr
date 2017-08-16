@@ -21,7 +21,8 @@ import {
 	ListGroupItem,
 	Message,
 	Dictionary,
-	Tooltip
+	Tooltip,
+  Pagination
 } from 'kr-ui';
 import {
 	AddPostPeople
@@ -56,6 +57,7 @@ export default class InService  extends React.Component{
 			searchParams : {
 				page:1,
 				pageSize:15,
+        totalCount:'',
 				searchKey:''
 			},
 			employees:{
@@ -76,10 +78,32 @@ export default class InService  extends React.Component{
 			isCard:false,
 			isOpen:false,
       isEdit:false,
+
+      //列表数据
+      listData:[],
 		}
 	}
 
+  componentWillMount(){
+    this.listAjaxdData();
+  }
 
+  //列表请求
+  listAjaxdData=()=>{
+      let {searchParams}=this.state;
+      var _this=this;
+      Http.request("getInServiceList",searchParams).then(function (response) {
+        searchParams.page=response.page;
+        searchParams.pageSize=response.pageSize;
+        searchParams.totalCount=response.totalCount;
+        _this.setState({
+          listData:response.items,
+          searchParams
+        })
+     }).catch(function (err) {
+       Message.error(err.message);
+     });
+  }
 
 	componentDidMount() {
 		var {checkOperate} = this.props.NavModel;
@@ -332,8 +356,21 @@ export default class InService  extends React.Component{
 	    let personId=data.id;
 		window.open(`./#/oa/${personId}/peopleDetail`,'_blank');
    }
+
+  //翻页
+   onPageChange=(page)=>{
+    let {searchParams}=this.state;
+    searchParams.page=page;
+    searchParams.pageSize=15;
+    this.setState({
+      searchParams
+    },function(){
+      this.listAjaxdData();
+    })
+   }
+
 	render(){
-		const {transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen,isEdit} = this.state;
+		const {transferDetail,searchParams,employees,isLeave,isRemove,istranfer,isCard,isOpen,isEdit,listData} = this.state;
 		return(
 
 			<div className='m-inservice-list'>
@@ -359,92 +396,74 @@ export default class InService  extends React.Component{
 
 					</Row>
 
-					<Table
-						style={{marginTop:8,width:1800}}
-						ajax={true}
-						onOperation={this.onOperation}
-						displayCheckbox={false}
-						ajaxParams={this.state.searchParams}
-						onPageChange={this.onPageChange}
-						ajaxUrlName='getInServiceList'
-						ajaxFieldListName="items"
-					  >
-						<TableHeader>
-                <TableHeaderColumn>姓名</TableHeaderColumn>
-                <TableHeaderColumn>编号</TableHeaderColumn>
-                <TableHeaderColumn>分部</TableHeaderColumn>
-								<TableHeaderColumn>部门</TableHeaderColumn>
-								<TableHeaderColumn>直接上级</TableHeaderColumn>
-								<TableHeaderColumn>职务</TableHeaderColumn>
-								<TableHeaderColumn>职级</TableHeaderColumn>
-								<TableHeaderColumn>员工属性</TableHeaderColumn>
-								<TableHeaderColumn>员工类别</TableHeaderColumn>
-								<TableHeaderColumn>员工状态</TableHeaderColumn>
-								<TableHeaderColumn>是否开通账号</TableHeaderColumn>
-                <TableHeaderColumn>手机号</TableHeaderColumn>
-								<TableHeaderColumn>公司邮箱</TableHeaderColumn>
-                <TableHeaderColumn>入职时间</TableHeaderColumn>
-								<TableHeaderColumn>创建人</TableHeaderColumn>
-                <TableHeaderColumn>创建时间</TableHeaderColumn>
-								<TableHeaderColumn>操作</TableHeaderColumn>
-						</TableHeader>
 
-						<TableBody >
-							<TableRow>
-                <TableRowColumn name ="depName" ></TableRowColumn>
-								<TableRowColumn name ="depName" ></TableRowColumn>
-                <TableRowColumn name ="depName" ></TableRowColumn>
-                <TableRowColumn name ="depName" ></TableRowColumn>
-                <TableRowColumn name ="depName" ></TableRowColumn>
-                <TableRowColumn name ="depName" ></TableRowColumn>
-                <TableRowColumn name ="depName" ></TableRowColumn>
-                <TableRowColumn name ="depName" ></TableRowColumn>
-                <TableRowColumn name ="depName" ></TableRowColumn>
-                <TableRowColumn name ="depName" ></TableRowColumn>
-								<TableRowColumn
-									name ="name"
-									component={(value,oldValue,detail)=>{
-										return (<div onClick = {() =>{
-												this.goDetail(detail)
-												}} style={{color:'#499df1',cursor:'pointer'}}>{value}</div>)
-									}}
-								 ></TableRowColumn>
-								<TableRowColumn name="code"></TableRowColumn>
-								<TableRowColumn name ="jobName" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
-								<TableRowColumn
-									name ="entryDate"
-									component={(value,oldValue)=>{
-										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-									}}
+          <div className='list-scroll-data'>
+    					<Table
+    						style={{marginTop:8,width:1800}}
+    						displayCheckbox={false}
+    					  >
+    						<TableHeader>
+                    <TableHeaderColumn>姓名</TableHeaderColumn>
+                    <TableHeaderColumn>编号</TableHeaderColumn>
+                    <TableHeaderColumn>分部</TableHeaderColumn>
+    								<TableHeaderColumn>部门</TableHeaderColumn>
+    								<TableHeaderColumn>直接上级</TableHeaderColumn>
+    								<TableHeaderColumn>职务</TableHeaderColumn>
+    								<TableHeaderColumn>职级</TableHeaderColumn>
+    								<TableHeaderColumn>员工属性</TableHeaderColumn>
+    								<TableHeaderColumn>员工类别</TableHeaderColumn>
+    								<TableHeaderColumn>员工状态</TableHeaderColumn>
+    								<TableHeaderColumn>是否开通账号</TableHeaderColumn>
+                    <TableHeaderColumn>手机号</TableHeaderColumn>
+    								<TableHeaderColumn>公司邮箱</TableHeaderColumn>
+                    <TableHeaderColumn>入职时间</TableHeaderColumn>
+    								<TableHeaderColumn>创建人</TableHeaderColumn>
+                    <TableHeaderColumn>创建时间</TableHeaderColumn>
+    								<TableHeaderColumn>操作</TableHeaderColumn>
+    						</TableHeader>
 
-								></TableRowColumn>
-								<TableRowColumn name ="status"
-									component={(value,oldValue)=>{
-										return (<Dictionary type='ERP_ResourceStatus' value={value}/>)
-									}}
-								></TableRowColumn>
-								<TableRowColumn name ="hasAccountStr"></TableRowColumn>
-								<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
-										return <span>
-											    {isEdit&&<span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>}
-												{isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
-												{istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
-												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
-												{isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												{isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
-											</span>
-								 }}>
-								</TableRowColumn>
-							</TableRow>
-						</TableBody>
-						<TableFooter></TableFooter>
-					</Table>
+    						<TableBody >
+                 {
+                    listData.map((item,index)=>{
+                       return (
+                         <TableRow>
+                           <TableRowColumn>{item.name}</TableRowColumn>
+           								 <TableRowColumn>{item.code}</TableRowColumn>
+                           <TableRowColumn>{item.code}</TableRowColumn>
+                           <TableRowColumn>{item.code}</TableRowColumn>
+                           <TableRowColumn>{item.code}</TableRowColumn>
+                           <TableRowColumn>{item.code}</TableRowColumn>
+                           <TableRowColumn>{item.code}</TableRowColumn>
+                           <TableRowColumn>{item.code}</TableRowColumn>
+                           <TableRowColumn>{item.code}</TableRowColumn>
+                           <TableRowColumn>{item.code}</TableRowColumn>
+           								 <TableRowColumn>{item.code}</TableRowColumn>
+           								 <TableRowColumn>{item.code}</TableRowColumn>
+           								 <TableRowColumn>{item.code}</TableRowColumn>
+           								 <TableRowColumn>{item.code}</TableRowColumn>
+           								 <TableRowColumn>{item.code}</TableRowColumn>
+           								 <TableRowColumn>{item.code}</TableRowColumn>
+           								 <TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
+           										return <span>
+           											  {isEdit&&<span onClick={this.operationEdit.bind(this,item)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>}
+           												{isLeave&&<span onClick={this.operationLeave.bind(this,item)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
+           												{istranfer&&<span onClick={this.operationTransfer.bind(this,item)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
+           												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,item)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+           												{isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,item)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
+           												{isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,item)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
+           											</span>
+           								 }}>
+           								</TableRowColumn>
+           							</TableRow>
+                       )
+                    })
+                 }
+
+    						</TableBody>
+    					</Table>
+            </div>
+
+            <div style={{paddingTop:'50px',paddingBottom:'50px'}}><Pagination  totalCount={searchParams.totalCount} page={searchParams.page} pageSize={searchParams.pageSize} onPageChange={this.onPageChange}/></div>
 
 					{/*新建用户*/}
 					<AddPostPeople

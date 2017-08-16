@@ -27,18 +27,12 @@ export default class PeopleDetail  extends React.Component{
 
   componentWillMount(){
 		let {personId}=this.state;
-    if(!personId){
-      //获取我的卡片基本信息
-
-		}else{
-			//获取基本信息
 	    this.basicData(personId);
-		}
 	}
 
 	componentDidMount(){
 		 let {personId}=this.state;
-		 if(personId){
+		 if(personId!=0){
 			 const {NavModel} = this.props;
 			 NavModel.setSidebar(false);
 		 }
