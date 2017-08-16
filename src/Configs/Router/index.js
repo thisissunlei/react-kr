@@ -31,6 +31,7 @@ import OARouter from './OARouter';
 import OfficeRouter from './OfficeRouter';
 import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
+import HomeRouter from './HomeRouter';
 
 const Master = (location, callback) => {
   require.ensure([], require => {
@@ -62,8 +63,6 @@ const Undefined = (location, callback) => {
     callback(null, require('kr/Containers/Undefined').default)
   }, 'Undefined')
 }
-
-
 
 export default (
 
@@ -117,6 +116,9 @@ export default (
 
         {/*文档管理*/}
         {DocumentRouter()}
+
+        {/*OA主页*/}
+        {HomeRouter()}
 
 		{/*帮助*/}
 		<Route path="help" getComponent={Help}/>

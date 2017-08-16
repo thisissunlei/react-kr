@@ -27,7 +27,7 @@ export default class ZhangChi extends React.Component {
 	}
 	componentDidMount(){
 		var swiper = new Swiper('.swiper-container', {
-			slidesPerView: 3,
+			slidesPerView: 6,
 			paginationClickable: true,
 			spaceBetween: 30,
 			loop:true,
@@ -39,6 +39,7 @@ export default class ZhangChi extends React.Component {
 			scrollbarHide: false,
 			slidesPerView: 'auto',
 			centeredSlides: true,
+			autoplay : 560,
 		});
 	}
 	// onClick = ()=>{
@@ -134,6 +135,7 @@ export default class ZhangChi extends React.Component {
             <div className="swiper-slide4 swiper-slide">Slide 4</div>
             <div className="swiper-slide5 swiper-slide">Slide 5</div>
             <div className="swiper-slide6 swiper-slide">Slide 6</div>
+			
         </div>
     </div>
 
