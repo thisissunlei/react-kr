@@ -171,6 +171,7 @@ openHighSearch = () => {
         <TableHeaderColumn>系统版本</TableHeaderColumn>
         <TableHeaderColumn>设备类型</TableHeaderColumn>
         <TableHeaderColumn>下载地址</TableHeaderColumn>
+        <TableHeaderColumn>安装包大小</TableHeaderColumn>
         <TableHeaderColumn>是否强制更新</TableHeaderColumn>
 		<TableHeaderColumn>启用标识</TableHeaderColumn>
 		<TableHeaderColumn>APP类型</TableHeaderColumn>
@@ -199,6 +200,7 @@ openHighSearch = () => {
                     <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                  }}>
         </TableRowColumn>
+        <TableRowColumn name="appSize"></TableRowColumn>
 		 <TableRowColumn name="forcedName"></TableRowColumn>
 		<TableRowColumn name="enableName"></TableRowColumn>
           <TableRowColumn name="appTypeName"></TableRowColumn>

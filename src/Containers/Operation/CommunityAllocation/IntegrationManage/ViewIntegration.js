@@ -8,7 +8,8 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Tooltip
+	Tooltip,
+	KrDate
 } from 'kr-ui';
 import './index.less';
 
@@ -42,11 +43,12 @@ export default class ViewIntegration extends React.Component {
 				infoList,
 				ifCity,
 			}=this.state;
+			const {detail}=this.props;
 			
 		return (
 			<div className="g-view-integration">
 				<div className="u-create-title">
-						<div className="title-text">积分消费记录</div>
+						<div className="title-text"><span className="u-view-customerName">{detail.customerName}</span>—积分消费记录</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<div style={{paddingLeft:50}}>
@@ -59,34 +61,14 @@ export default class ViewIntegration extends React.Component {
 		                  displayCheckbox={false}
 					  >
 				            <TableHeader>
-				              <TableHeaderColumn>客户名称</TableHeaderColumn>
 				              <TableHeaderColumn>社区</TableHeaderColumn>
 				              <TableHeaderColumn>记录描述</TableHeaderColumn>
 				              <TableHeaderColumn>积分</TableHeaderColumn>
+				              <TableHeaderColumn>操作时间</TableHeaderColumn>
 				              <TableHeaderColumn>操作人</TableHeaderColumn>
 				          	</TableHeader>
-
 					        <TableBody >
 					              <TableRow>
-					                <TableRowColumn 
-					                	name="customerName"
-					                	component={(value,oldValue)=>{
-												var TooltipStyle=""
-												if(value.length==""){
-													TooltipStyle="none"
-
-												}else{
-													TooltipStyle="inline-block";
-												}
-												return (
-													<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
-													<span className='tableOver' style={{maxWidth:150,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",paddingTop: '6px'}}>{value}</span>
-												 		<Tooltip offsetTop={5} place='top'>{value}</Tooltip>
-												 	</div>
-												)
-											}} 
-					                >
-					                </TableRowColumn>
 					                <TableRowColumn 
 					                		name="cmtName"
 					                		component={(value,oldValue)=>{
@@ -123,6 +105,12 @@ export default class ViewIntegration extends React.Component {
 											}}></TableRowColumn>
 					                <TableRowColumn name="pointAmount" ></TableRowColumn>
 					                <TableRowColumn 
+					                	name="cDate" 
+					                	component={(value) => {
+					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+					                    }}
+					                ></TableRowColumn>
+					                <TableRowColumn 
 					                		name="operater" 
 					                		component={(value,oldValue)=>{
 												var TooltipStyle=""
@@ -139,6 +127,7 @@ export default class ViewIntegration extends React.Component {
 												 	</div>
 												)
 											}} ></TableRowColumn>
+									
 					               </TableRow>
 					        </TableBody>
 			        		<TableFooter></TableFooter>
