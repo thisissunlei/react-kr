@@ -639,6 +639,17 @@ module.exports = {
         url: '/api/krspace-finance-web/csr/source/info/type/edit?id={id}',
         method: 'get'
     },
+
+    //运营平台-基本配置-设备定义（一代门禁）--重置设备
+    'resetEquipmentInfo': {
+        url: '/api/krspace-finance-web/community/sysDeviceDefinition/device-definition/actions/reset',
+        method: 'post'
+    },
+    //运营平台-基本配置-设备定义（一代门禁）--删除设备
+    'deleteEquipmentInfo': {
+        url: '/api/krspace-finance-web/community/sysDeviceDefinition/device-definition/actions/delete',
+        method: 'post'
+    },
     //APP管理-公告管理-公告分页
     'get-notice-page': {
         url: '/api/krspace-finance-web/notice/management/page?page={page}&pageSize={pageSize}',
@@ -674,6 +685,7 @@ module.exports = {
         url: '/api/krspace-finance-web/notice/management/findCmtRight',
         method: 'get'
     },
+
 }
 
 
