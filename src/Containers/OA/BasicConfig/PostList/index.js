@@ -44,7 +44,7 @@ export default class PostList extends Component{
 			deleteId:'',
 			subCompany:[],
 			editDetail:{},
-			
+
 		}
 		this.allConfig = {
 			openNew : false,
@@ -52,9 +52,9 @@ export default class PostList extends Component{
 			openDel : false,
 		}
 
-		
+
 	}
-   
+
 
    componentWillMount(){
 	  this.dataReady();
@@ -68,10 +68,10 @@ export default class PostList extends Component{
 				})
      }).catch(function(err) {
           Message.error(err.message);
-     });	
+     });
 	}
-    
-	
+
+
 
 
 	//是否要渲染
@@ -87,7 +87,7 @@ export default class PostList extends Component{
             pageSize:15
 		}
 		this.setState({
-		  searchParams:obj	
+		  searchParams:obj
 		})
 	}
 	//新建页开关
@@ -96,7 +96,7 @@ export default class PostList extends Component{
 		this.allConfig.openNew = !openNew;
 		this.isRender();
 	}
-	
+
 	//编辑页开关
 	editSwidth = () =>{
 		let {openEdit} = this.allConfig;
@@ -118,8 +118,8 @@ export default class PostList extends Component{
 				time:+new Date(),
 				page:1,
 				pageSize:15
-			 } 
-			}) 
+			 }
+			})
 			 _this.newSwidth();
         }).catch(function(err) {
           Message.error(err.message);
@@ -137,7 +137,7 @@ export default class PostList extends Component{
 						page:_this.state.searchParams.page,
 						pageSize:15,
 						name:_this.state.searchParams.name?_this.state.searchParams.name:""
-					}  
+					}
 				 })
 				 _this.editSwidth();
 				}).catch(function(err) {
@@ -154,12 +154,12 @@ export default class PostList extends Component{
 				  time:+new Date(),
 				  page:1,
 				  pageSize:15
-			  }  
+			  }
 		   })
 		   _this.delSwidth();
         }).catch(function(err) {
           Message.error(err.message);
-        });	
+        });
 	}
 	//相关操作
 	onOperation = (type, itemDetail) =>{
@@ -181,14 +181,14 @@ export default class PostList extends Component{
        Http.request('post-list-watch',{id:id}).then(function(response) {
 		   console.log(response,subCompany,">>>>>>>>")
 		   if(response.enabled){
-			 response.enabled='true'  
+			 response.enabled='true'
 		   }else{
-			 response.enabled='false'   
+			 response.enabled='false'
 		   }
 		   _this.setState({
 			   editDetail:response
 		   })
-           Store.dispatch(initialize('EditPostList',response));		   
+           Store.dispatch(initialize('EditPostList',response));
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -221,7 +221,7 @@ export default class PostList extends Component{
 					/>
 				</Col>
 				<Col
-					align="right" 
+					align="right"
 					style={{
 							marginTop:0,
 							float:"right",
@@ -230,8 +230,8 @@ export default class PostList extends Component{
 				>
 					<ListGroup>
 						<ListGroupItem>
-							<SearchForms 
-								placeholder='请输入职务名称' 
+							<SearchForms
+								placeholder='请输入职务名称'
 								onSubmit={this.onSearchSubmit}
 							/>
 						</ListGroupItem>
@@ -252,23 +252,21 @@ export default class PostList extends Component{
 			>
 				<TableHeader>
 					<TableHeaderColumn>职务名称</TableHeaderColumn>
-					<TableHeaderColumn>编码</TableHeaderColumn>
+					<TableHeaderColumn>职务编码</TableHeaderColumn>
+          <TableHeaderColumn>所属分部</TableHeaderColumn>
+          <TableHeaderColumn>职务类型</TableHeaderColumn>
 					<TableHeaderColumn>状态</TableHeaderColumn>
 					<TableHeaderColumn>排序号</TableHeaderColumn>
-					<TableHeaderColumn>职务类型名称</TableHeaderColumn>
+					<TableHeaderColumn>描述</TableHeaderColumn>
 					<TableHeaderColumn>操作人</TableHeaderColumn>
-					<TableHeaderColumn>更新时间</TableHeaderColumn>
+					<TableHeaderColumn>操作时间</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="name"  component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
+            <TableRowColumn name="code"></TableRowColumn>
+            <TableRowColumn name="enabledStr"></TableRowColumn>
+						<TableRowColumn name="name"></TableRowColumn>
 						<TableRowColumn name="code"></TableRowColumn>
 						<TableRowColumn name="enabledStr"></TableRowColumn>
 						<TableRowColumn name="orderNum"></TableRowColumn>
@@ -288,9 +286,9 @@ export default class PostList extends Component{
 							<Button label="删除"  type="operation"  operation="del" operateCode="hrm_job_edit"/>
 						</TableRowColumn>
 					</TableRow>
-				</TableBody>
+				 </TableBody>
 				<TableFooter></TableFooter>
-           </Table>
+      </Table>
 		   {/*新建用户*/}
 			<Dialog
 				title="新增职务"
@@ -327,7 +325,7 @@ export default class PostList extends Component{
 			>
 				<Delete
 					onCancel={this.delSwidth}
-					onSubmit={this.delSubmit}  
+					onSubmit={this.delSubmit}
 				/>
 			</Dialog>
 			</Section>

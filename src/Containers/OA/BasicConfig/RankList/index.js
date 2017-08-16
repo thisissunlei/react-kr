@@ -66,18 +66,18 @@ export default class RankList extends Component{
 				})
      }).catch(function(err) {
           Message.error(err.message);
-     });	
+     });
 	}
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
 			this.getEditData(itemDetail.id);
 			this.setState({
-			  openEditType:true	
+			  openEditType:true
 			})
 		}else if(type=='delete'){
 			this.setState({
 			  openDelete:true,
-				deleteId:itemDetail.id	
+				deleteId:itemDetail.id
 			})
 		}
 	}
@@ -90,9 +90,9 @@ export default class RankList extends Component{
 		var _this=this;
         Http.request('rank-list-watch',{id:id}).then(function(response) {
 			if(response.enabled){
-				response.enabled='true'  
+				response.enabled='true'
 			}else{
-				response.enabled='false'   
+				response.enabled='false'
 			}
 			_this.setState({
 				editDetail:response
@@ -109,12 +109,12 @@ export default class RankList extends Component{
        let obj = {
 			      name: params.content,
             pageSize:15
-		} 
+		}
 		this.setState({
-		  searchParams:obj	
+		  searchParams:obj
 		})
 	}
-	
+
 	//新建职务类型
 	openAddPost=()=>{
       this.setState({
@@ -131,14 +131,14 @@ export default class RankList extends Component{
 								time:+new Date(),
 								page:1,
 								pageSize:15
-							} 
+							}
 						})
 				_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
 	}
-	
+
 	//编辑职务类型关闭
 	openEditPost=()=>{
        this.setState({
@@ -158,7 +158,7 @@ export default class RankList extends Component{
 						page:_this.state.searchParams.page,
 						pageSize:15,
 						name:_this.state.searchParams.name?_this.state.searchParams.name:""
-					}  
+					}
 				})
 				_this.openEditPost();
 				}).catch(function(err) {
@@ -192,9 +192,9 @@ export default class RankList extends Component{
 					time:+new Date(),
 					page:1,
 					pageSize:15
-				}  
+				}
 			})
-			_this.cancelDelete();	
+			_this.cancelDelete();
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -209,7 +209,7 @@ export default class RankList extends Component{
 	  })
    }
 
-    
+
 
 	render(){
 		let {jobTypes,subCompany,editDetail}=this.state;
@@ -228,7 +228,7 @@ export default class RankList extends Component{
 							operateCode="hrm_job_level_edit"
 					/>
 				</Col>
-			        
+
 					<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 								<ListGroup>
 									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入职级名称' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
@@ -250,30 +250,22 @@ export default class RankList extends Component{
 			>
 				<TableHeader>
 					<TableHeaderColumn>职级名称</TableHeaderColumn>
+          <TableHeaderColumn>等级</TableHeaderColumn>
+          <TableHeaderColumn>所属分部</TableHeaderColumn>
+          <TableHeaderColumn>职务类型</TableHeaderColumn>
 					<TableHeaderColumn>状态</TableHeaderColumn>
-					<TableHeaderColumn>职务类型</TableHeaderColumn>
-					<TableHeaderColumn>职级描述</TableHeaderColumn>
+					<TableHeaderColumn>描述</TableHeaderColumn>
 					<TableHeaderColumn>操作人</TableHeaderColumn>
 					<TableHeaderColumn>操作时间</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="name" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
+            <TableRowColumn name="updatorName"></TableRowColumn>
+            <TableRowColumn name="updatorName"></TableRowColumn>
+						<TableRowColumn name="name"></TableRowColumn>
 						<TableRowColumn name="enabled" options={[{label:'启用',value:'true'},{label:'停用',value:'false'}]}></TableRowColumn>
-						<TableRowColumn name="jobTypeName" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
+						<TableRowColumn name="jobTypeName"></TableRowColumn>
 						<TableRowColumn name="descr" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
@@ -290,9 +282,9 @@ export default class RankList extends Component{
 			                <Button label="删除"  type="operation"  operation="delete" operateCode="hrm_job_level_edit"/>
 			            </TableRowColumn>
 					</TableRow>
-				</TableBody>
+				 </TableBody>
 				<TableFooter></TableFooter>
-           </Table>
+       </Table>
 		  </Section>
 
 		  {/*新建职务*/}
@@ -302,11 +294,11 @@ export default class RankList extends Component{
 					open={this.state.openPostType}
 					contentStyle ={{ width: '666px',height:'auto'}}
 			>
-			  <AddRankList 
+			  <AddRankList
 			     onSubmit={this.addPostSubmit}
 				 onCancel={this.openAddPost}
 
-				 subCompany = {subCompany} 
+				 subCompany = {subCompany}
 
 			  />
 			</Dialog>
@@ -318,10 +310,10 @@ export default class RankList extends Component{
 					open={this.state.openEditType}
 					contentStyle ={{ width: '666px',height:'auto'}}
 				>
-			  <EditRankList 
+			  <EditRankList
 					onSubmit={this.editPostSubmit}
 					onCancel={this.openEditPost}
-					subCompany = {subCompany} 
+					subCompany = {subCompany}
 					editDetail = {editDetail}
 			  />
 			</Dialog>
@@ -335,7 +327,7 @@ export default class RankList extends Component{
 			>
 			<DeletePost
 				onCancel={this.cancelDelete}
-				onSubmit={this.deleteSubmit}  	
+				onSubmit={this.deleteSubmit}
 			/>
 			</Dialog>
         </div>

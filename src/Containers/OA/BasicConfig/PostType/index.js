@@ -47,26 +47,26 @@ export default class PostType extends Component{
 
 			//删除id
 			deleteId:''
-      
+
 		}
 		this.dataReady();
 	}
-    
+
 	componentWillMount(){
 		this.dataReady();
 	}
 
-	
+
 
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
 			this.getEditData(itemDetail.id);
 			this.setState({
-			  openEditType:true	
+			  openEditType:true
 			})
 		}else if(type=='delete'){
 			this.setState({
-			  openDelete:true,	
+			  openDelete:true,
 				deleteId:itemDetail.id
 			})
 		}
@@ -81,7 +81,7 @@ export default class PostType extends Component{
 				})
      }).catch(function(err) {
           Message.error(err.message);
-     });	
+     });
 	}
 
 	//获取编辑信息
@@ -102,10 +102,10 @@ export default class PostType extends Component{
             pageSize:15
 		  }
 			this.setState({
-				searchParams:obj	
+				searchParams:obj
 			})
 	}
-	
+
 	//新建职务类型
 	openAddPost=()=>{
       this.setState({
@@ -122,14 +122,14 @@ export default class PostType extends Component{
 							time:+new Date(),
 							page:1,
 							pageSize:15
-						}  
+						}
 					})
 					_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
 	}
-	
+
 	//编辑职务类型关闭
 	openEditPost=()=>{
        this.setState({
@@ -147,13 +147,13 @@ export default class PostType extends Component{
 							page:_this.state.searchParams.page,
 							pageSize:15,
 							name:_this.state.searchParams.name?_this.state.searchParams.name:""
-						}  
+						}
 					})
 					_this.openEditPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
-		
+
 	}
 
 
@@ -182,7 +182,7 @@ export default class PostType extends Component{
 							time:+new Date(),
 							page:1,
 							pageSize:15
-						}  
+						}
 					})
 			_this.cancelDelete();
         }).catch(function(err) {
@@ -218,7 +218,7 @@ export default class PostType extends Component{
 							operateCode="hrm_job_type_add"
 					/>
 				</Col>
-			        
+
 					<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 								<ListGroup>
 									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入职务类型名称' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
@@ -239,30 +239,20 @@ export default class PostType extends Component{
 				      onPageChange = {this.pageChange}
 			>
 				<TableHeader>
-					<TableHeaderColumn>职务类型名称</TableHeaderColumn>
-					<TableHeaderColumn>编码</TableHeaderColumn>
+					<TableHeaderColumn>类型名称</TableHeaderColumn>
+					<TableHeaderColumn>类型编码</TableHeaderColumn>
+          <TableHeaderColumn>所属分部</TableHeaderColumn>
 					<TableHeaderColumn>描述</TableHeaderColumn>
 					<TableHeaderColumn>排序号</TableHeaderColumn>
 					<TableHeaderColumn>操作人</TableHeaderColumn>
-					<TableHeaderColumn>更新时间</TableHeaderColumn>
+					<TableHeaderColumn>操作时间</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="name" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
-						<TableRowColumn name="code" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }}></TableRowColumn>
+            <TableRowColumn name="orderNum"></TableRowColumn>
+						<TableRowColumn name="name"></TableRowColumn>
+						<TableRowColumn name="code"></TableRowColumn>
 						<TableRowColumn name="descr" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
@@ -280,9 +270,9 @@ export default class PostType extends Component{
 			                <Button label="删除" operateCode="hrn_job_type_delete" type="operation"  operation="delete" />
 			            </TableRowColumn>
 					</TableRow>
-				</TableBody>
+				 </TableBody>
 				<TableFooter></TableFooter>
-           </Table>
+       </Table>
 		  </Section>
 
 		  {/*新建职务*/}
@@ -292,7 +282,7 @@ export default class PostType extends Component{
 					open={this.state.openPostType}
 					contentStyle ={{ width: '666px',height:'auto'}}
 				>
-			  <AddPostType 
+			  <AddPostType
 			    onSubmit={this.addPostSubmit}
 				  onCancel={this.openAddPost}
 					subCompany={subCompany}
@@ -306,7 +296,7 @@ export default class PostType extends Component{
 					open={this.state.openEditType}
 					contentStyle ={{ width: '666px',height:'auto'}}
 				>
-			  <EditPostType 
+			  <EditPostType
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
 				subCompany={subCompany}
@@ -322,7 +312,7 @@ export default class PostType extends Component{
 			>
 			<DeletePost
 				onCancel={this.cancelDelete}
-				onSubmit={this.deleteSubmit}  	
+				onSubmit={this.deleteSubmit}
 			/>
 			</Dialog>
         </div>

@@ -360,7 +360,7 @@ export default class InService  extends React.Component{
 					</Row>
 
 					<Table
-						style={{marginTop:8}}
+						style={{marginTop:8,width:1800}}
 						ajax={true}
 						onOperation={this.onOperation}
 						displayCheckbox={false}
@@ -369,21 +369,38 @@ export default class InService  extends React.Component{
 						ajaxUrlName='getInServiceList'
 						ajaxFieldListName="items"
 					  >
-
 						<TableHeader>
+                <TableHeaderColumn>姓名</TableHeaderColumn>
+                <TableHeaderColumn>编号</TableHeaderColumn>
+                <TableHeaderColumn>分部</TableHeaderColumn>
 								<TableHeaderColumn>部门</TableHeaderColumn>
-								<TableHeaderColumn>姓名</TableHeaderColumn>
-								<TableHeaderColumn>人员编码</TableHeaderColumn>
-								<TableHeaderColumn>职位</TableHeaderColumn>
-								<TableHeaderColumn>入职时间</TableHeaderColumn>
-								<TableHeaderColumn>状态</TableHeaderColumn>
+								<TableHeaderColumn>直接上级</TableHeaderColumn>
+								<TableHeaderColumn>职务</TableHeaderColumn>
+								<TableHeaderColumn>职级</TableHeaderColumn>
+								<TableHeaderColumn>员工属性</TableHeaderColumn>
+								<TableHeaderColumn>员工类别</TableHeaderColumn>
+								<TableHeaderColumn>员工状态</TableHeaderColumn>
 								<TableHeaderColumn>是否开通账号</TableHeaderColumn>
+                <TableHeaderColumn>手机号</TableHeaderColumn>
+								<TableHeaderColumn>公司邮箱</TableHeaderColumn>
+                <TableHeaderColumn>入职时间</TableHeaderColumn>
+								<TableHeaderColumn>创建人</TableHeaderColumn>
+                <TableHeaderColumn>创建时间</TableHeaderColumn>
 								<TableHeaderColumn>操作</TableHeaderColumn>
 						</TableHeader>
 
 						<TableBody >
 							<TableRow>
+                <TableRowColumn name ="depName" ></TableRowColumn>
 								<TableRowColumn name ="depName" ></TableRowColumn>
+                <TableRowColumn name ="depName" ></TableRowColumn>
+                <TableRowColumn name ="depName" ></TableRowColumn>
+                <TableRowColumn name ="depName" ></TableRowColumn>
+                <TableRowColumn name ="depName" ></TableRowColumn>
+                <TableRowColumn name ="depName" ></TableRowColumn>
+                <TableRowColumn name ="depName" ></TableRowColumn>
+                <TableRowColumn name ="depName" ></TableRowColumn>
+                <TableRowColumn name ="depName" ></TableRowColumn>
 								<TableRowColumn
 									name ="name"
 									component={(value,oldValue,detail)=>{
