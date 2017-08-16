@@ -28,7 +28,7 @@ import {
 import EquipmentDetail from './EquipmentDetail';
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
-import EquipmentSearch from './EquipmentSearch';
+import EquipmentFind from './EquipmentFind';
 import EquipmentSearchForm from './EquipmentSearchForm';
 import UpgradeForm from './UpgradeForm';
 import EquipmentCache from './EquipmentCache';
@@ -413,7 +413,7 @@ export default class SecondDoorManage  extends React.Component{
 					    width={"90%"} 
 					    openSecondary={true} 
 					>
-						<EquipmentSearch onCancel={this.openSearchEquipmentFun}/>
+						<EquipmentFind onCancel={this.openSearchEquipmentFun}/>
 					</Drawer>
 					
 					<Dialog

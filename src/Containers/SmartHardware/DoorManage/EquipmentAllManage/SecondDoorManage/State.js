@@ -301,8 +301,6 @@ State.getEquipmentCache = action(function(){
 
 State.getWitchFind = action(function(){
 	Http.request('getSwitchStatusUrl',{}).then(function(response) {
-
-		console.log("response",response);
 		State.switch = response.onOff;
 	}).catch(function(err) {
 		Message.error(err.message);
@@ -311,8 +309,12 @@ State.getWitchFind = action(function(){
 
 State.changeSwitchStatusAction = action(function(params){
 	Http.request('changeSwitchStatusUrl',{},params).then(function(response) {
-
-		Message.success("设置成功");
+		if(params.onOff){
+			Message.success("设备连接自动入库");
+		}else{
+			Message.success("设备连接不自动入库");
+		}
+		
 	}).catch(function(err) {
 		Message.error(err.message);
 	});

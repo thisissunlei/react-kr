@@ -25,7 +25,6 @@ export default class EquipmentSearch extends React.Component{
 	}
 
 	changeSearchEquipment=(event,isInputChecked)=>{
-		console.log("event",event,"isInputChecked",isInputChecked);
 		State.changeSwitchStatusAction({onOff:isInputChecked})
 	}
 
