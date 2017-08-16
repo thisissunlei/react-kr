@@ -44,27 +44,31 @@ export default class NewOffice extends React.Component {
     // var style = {
     //   'background':'url('+require("./images/b"+imageNum+".svg")+') no-repeat center'
     // };
-    return (
-      <div onClick={()=>{
-            this.toHz(item)
-          }} className="item" key={index}>
-        <span className={`top-circle class-${imageNum}`} >
-          <span>{item.name.substring(0,2)}</span>
-        </span>
-        <span className="item-text">
-          {item.name}
-        </span>
-        <span className="close" onClick={(event)=>{
-            event.stopPropagation();
-            this.toDelete(item)
-          }}>
+    console.log("进入render");
+      if (item) {
+      console.log("item");
+      return (
+            <div onClick={()=>{
+                this.toHz(item)
+              }} className="item" key={index}>
+            <span className={`top-circle class-${imageNum}`} >
+              <span>{item.name.substring(0,2)}</span>
+            </span>
+            <span className="item-text">
+              {item.name}
+            </span>
+            <span className="close" onClick={(event)=>{
+                event.stopPropagation();
+                this.toDelete(item)
+              }}>
 
-        </span>
-      </div>
-    )
+            </span>
+          </div>
+      )
+    }
+              
   }
   renderNewThings=(item,index)=>{
-    console.log("进入renderNew",item);
     return (
         <FirstMenu key={index} detail={item} onSubmit={this.updateData}/>
     )
@@ -104,14 +108,18 @@ export default class NewOffice extends React.Component {
     
 	}
   render() {
-   console.log("进入render",this.state.newThings);
     return (
       <div className="g-deal-newthings">
         <Section borderBool={false} title="我的常用">
             <div className="first-main">
-                {this.state.thingsType.map((item,index)=>{
+                {this.state.thingsType.length?this.state.thingsType.map((item,index)=>{
                     return this.renderThingsType(item,index)
-                })}
+                }):
+                  <div className="null-image">
+                    
+                   </div>
+                }
+
             </div>
             
         </Section>
