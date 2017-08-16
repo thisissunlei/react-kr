@@ -38,6 +38,11 @@ export default class FailList extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.state= {
+			searchList:{
+				status:'0'
+			}
+		}
 	}
 	componentDidMount(){
 		let {searchList} = this.props;
@@ -87,6 +92,7 @@ export default class FailList extends React.Component {
 		let {searchList} = this.props;
 		searchList.page = page;
 		searchList.pageSize = 15;
+		searchList.status = '0';
 		State.getJournalList(this.props.searchList);
 	}
 	
