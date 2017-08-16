@@ -294,6 +294,9 @@ const validate = values => {
 		if (!values.title) {
 			errors.title = '请填写公告标题';
 		}
+		if (values.title && values.title.length>50) {
+			errors.title = '公告标题不能超过50个字符';
+		}
 
 		if (!values.type) {
 			errors.type = '请选择公告类型';
