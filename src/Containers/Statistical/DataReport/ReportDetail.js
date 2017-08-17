@@ -152,9 +152,7 @@ export default class ReportDetail extends React.Component{
 			                {State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaseEndDate' component={(value,oldValue)=>{
 		 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 		 					}}></TableRowColumn>}
-		 					{State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='man' component={(value,oldValue)=>{
-		 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-		 					}}></TableRowColumn>}
+		 					{State.isAdd=='sign'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='salesman' ></TableRowColumn>}
 			                {State.isAdd=='add'&&<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}  name='receiveName' component={(value,oldValue)=>{
 								                 var param='';
 								                 if(value){

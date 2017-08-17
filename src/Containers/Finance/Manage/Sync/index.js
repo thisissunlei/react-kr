@@ -127,19 +127,6 @@ export default class AttributeSetting extends React.Component {
 
 	render() {
 
-		let {
-			list
-		} = this.state;
-
-		if (!list.totalCount) {
-			list.sumcome = 0;
-		}
-		if (!list.totalCount) {
-			list.sumAmount = 0;
-		}
-
-
-
 		return (
 
 			<div className='m-order-list'>
@@ -209,22 +196,31 @@ export default class AttributeSetting extends React.Component {
 				</Table>
 
 					</Section>
-{/*Dialog
-					title="绑定社区"
-					open={this.state.isBindCommunity}
-					onClose={this.bindCommunityClose}
-					contentStyle={{width:687,height:450,overflow:'scroll'}}
-       			>
-	          		<BindCommunity
-					  	jsonData = {jsonData}
-						onCancel = {this.bindCommunityClose}
-						checkedSubmit = {this.checkedSubmit}
-						existing = {chipData}
-					/>
-			    </Dialog>*/}
 			    <Drawer
 						title="新建"
 						open={State.openCreate}
+						width={750}
+						onClose = {this.onClose}
+						openSecondary={true}
+						className='m-finance-drawer'
+						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					>
+						<Create />
+				  </Drawer>
+				<Drawer
+						title="查看"
+						open={State.openView}
+						width={750}
+						onClose = {this.onClose}
+						openSecondary={true}
+						className='m-finance-drawer'
+						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					>
+						<Create />
+				  </Drawer>
+				<Drawer
+						title="编辑"
+						open={State.openEdit}
 						width={750}
 						onClose = {this.onClose}
 						openSecondary={true}

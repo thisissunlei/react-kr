@@ -320,7 +320,8 @@ class NewCreateForm extends Component {
 			changeValues
 		} = this.props;
 		let {
-			stationVos
+			stationVos,
+			oldBasicStationVos
 		} = this.state;
 
 		if (!stationVos.length) {
@@ -332,7 +333,7 @@ class NewCreateForm extends Component {
 		};
 
 
-		form.stationVosList = stationVos;
+		form.stationVosList = oldBasicStationVos;
 		form.lessorAddress = changeValues.lessorAddress;
 
 		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd 00:00:00");
@@ -340,7 +341,7 @@ class NewCreateForm extends Component {
 
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
 
-		form.stationVos = JSON.stringify(stationVos);
+		form.stationVos = JSON.stringify(oldBasicStationVos);
 		form.contractVersionType = 'NEW';
 		form.totalrent = (this.state.allRent).toFixed(2);
 		if(!!!form.agreement){
@@ -445,7 +446,7 @@ class NewCreateForm extends Component {
 		} = this.state;
 		console.log('=====>',openAdd)
 		let allRentName = this.dealRentName(allRent);
-		var agreementValue = '如社区申请增加补充条款的，补充条款内容经法务审核通过后，社区将审核通过的内容邮件发送法务林玉洁（linyujie@krspace.cn），抄送技术部陈振江（chenzhenjiang@krspace.cn），冯西臣（fengxichen@krspace.cn），由技术部修改该内容，修改后邮件回复社区即可联网打印盖章版本。';
+		var agreementValue = '如社区申请增加补充条款的，补充条款内容经法务审核通过后，社区将审核通过的内容邮件发送法务林玉洁（linyujie@krspace.cn），抄送技术部田欢（tianhuan@krspace.cn），冯西臣（fengxichen@krspace.cn），由技术部修改该内容，修改后邮件回复社区即可联网打印盖章版本。';
 
 
 		return (

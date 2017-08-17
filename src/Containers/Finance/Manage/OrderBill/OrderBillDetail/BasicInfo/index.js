@@ -3,6 +3,8 @@ import './index.less';
 import {
 	KrField
 } from 'kr-ui';
+import {Http,DateFormat} from 'kr/Utils';
+
 
 
 export default class BasicInfo extends React.Component {
@@ -72,6 +74,11 @@ export default class BasicInfo extends React.Component {
 			            <KrField grid={1/3} alignRight={true} label="回款总额:" component="labelText" value={detail.totalPayment} defaultValue="无"/>
 
 			            <KrField grid={1/3} alignRight={true} label="未回款额:" colorStyle={style} component="labelText" value={detail.notPaymentAmount} defaultValue="无"/>
+			            <KrField grid={1/3} alignRight={true} label="销售员:" component="labelText" value={detail.saleName} defaultValue="-"/>
+
+			            <KrField grid={1/3} alignRight={true} label="销售时间:" component="labelText" value={DateFormat(detail.saleTime,'yyyy-mm-dd')} defaultValue="-"/>
+
+			            <KrField grid={1/3} alignRight={true} label="部门:" component="labelText" value={detail.department} defaultValue="-"/>
 			            {/*{detailPayment.map((item,index)=>
 						    <KrField key={index} grid={1/3} label={item.propname} component="labelText" value={item.propamount}/>
 						 )}

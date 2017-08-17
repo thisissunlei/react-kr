@@ -2,83 +2,91 @@
 module.exports = [
 
 	{
-		primaryText: "OA办公",
-		menuCode: 'oa',
+		primaryText: "人事管理",
 		router: 'oa',
-		originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45',
+		originUrl: '#/oa/organization/home',
 		menuItems: [
 			{
-				primaryText: '组织架构',
-				menuCode: 'hrmOrganization',
+				primaryText: '人事主页',
 				iconName: 'icon-schema',
 				iconColor: '#79859a',
-				router: 'hrmOrganization',
+				menuCode: '',
 				menuItems: [
-					{
-						primaryText: '架构列表',
-						menuCode: 'oa_hrm_organization',
-						router: 'oa_sysparamadmin',
-						originUrl: '/krspace_oa_web/hrm/hrmOrganization/main?mid=40'
-					}
-				]
-				
+					
+				]	
 			}, 
 			{
-				primaryText: '基础配置',
-				menuCode: 'hrmbasedataadmin',
-				iconName: 'icon-basis',
+				primaryText: '人事资料',
+				iconName: 'icon-schema',
 				iconColor: '#79859a',
-				iconColor: '#79859a',
-				router: 'hrmbasedataadmin',
+				menuCode: '',
 				menuItems: [
 					{
-						primaryText: '参数配置',
-						menuCode: 'oa_param_set',
-						router: 'oa_sysparamadmin',
-						originUrl: '/krspace_oa_web/sys/sysParam/toSysParamList?mid=30'
-					}, 
-					{
-						primaryText: '职务类型',
-						menuCode: 'oa_dictjob_type',
-						router: 'dictJobType',
-						originUrl: '/krspace_oa_web/dict/dictJobType/toDictJobTypeList?mid=38'
-					}, 
-					{
-						primaryText: '职务管理',
-						menuCode: 'oa_dictjob_list',
-						router: 'dictJob',
-						originUrl: '/krspace_oa_web/dict/dictJob/toDictJobList?mid=37'
-					}, 
-					{
-						primaryText: '职级管理',
-						menuCode: 'oa_dictjoblevellist',
-						router: 'dictJobLevel',
-						originUrl: '/krspace_oa_web/dict/dictJobLevel/toEDictJobLevelList?mid=39'
+						primaryText: '我的卡片',
+						menuCode: '',
+						router: '',
 					},
-
-				]
+					{
+						primaryText: '我的同事',
+						menuCode: '',
+						router: '',
+					},
+				]	
 			}, 
 			{
 				primaryText: '人员管理',
 				iconName: 'icon-administrator',
-				iconColor: '#79859a',
-
-				iconColor: '#79859a',
 				menuCode: 'hrmresourceadmin',
-				router: 'hrmresourceadmin',
+				iconColor: '#79859a',
 				menuItems: [
 					{
-						primaryText: '在职列表',
-						menuCode: 'oa_hrm_resourceActive_base',
-						router: 'hrmresourcelistactive',
-						originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListActive?mid=45'
-					}, 
+						primaryText: '人员列表',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/oa/personalManage/peopleState',
+						
+					}
+				]
+			}, 
+			
+			{
+				primaryText: '基础配置',
+				iconName: 'icon-basis',
+				menuCode: 'hrmbasedataadmin',
+				iconColor: '#79859a',
+				menuItems: [
 					{
-						primaryText: '离职列表',
-						menuCode: 'oa_hrm_resourceLeave_base',
-						router: 'hrmresourcelistleave',
-						originUrl: '/krspace_oa_web/hrm/hrmResource/toHrmResourceListLeave?mid=55'
-					}, ]
-			}, ]
+						primaryText: '机构设置',
+						menuCode: 'hrm_dim_list',
+						router: '/oa/organization/home',
+					},
+					{
+						primaryText: '职务类型',
+						menuCode: 'hrm_job_type_list',
+						router: '/oa/basicConfig/postType',
+					},
+					{
+						primaryText: '职务列表',
+						menuCode: 'hrm_job_list',
+						router: '/oa/basicConfig/postList',
+					},
+					{
+						primaryText: '职级列表',
+						menuCode: 'hrm_job_level_list',
+						router: '/oa/basicConfig/rankList',
+					},
+					{
+						primaryText: '角色列表',
+						menuCode: 'hrm_role_list',
+						router: '/oa/organizationPower/role',
+					},
+					{
+						primaryText: '机构分权',
+						menuCode: 'hrm_org_auth_list',
+						router: '/oa/organizationPower/orgList',
+					},
+				]
+			},
+			
+			]
 	}
 ]

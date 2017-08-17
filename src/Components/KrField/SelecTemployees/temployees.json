@@ -1,0 +1,15 @@
+[
+    {"value":"ARIES","label":"白羊座"},
+    {"value":"TAURUS","label":"金牛座"},
+    {"value":"GEMINI","label":"双子座"},
+    {"value":"CANCER","label":"巨蟹座"},
+    {"value":"LEO","label":"狮子座"},
+    {"value":"VIRGO","label":"处女座"},
+    {"value":"VIRGO","label":"处女座"},
+    {"value":"LIBRA","label":"天秤座"},
+    {"value":"SAGITTARIUS","label":"射手座"},
+    {"value":"CAPRICORN","label":"摩羯座"},
+    {"value":"AQUARIUS","label":"水瓶座"},
+    {"value":"PISCES","label":"双鱼座"}
+
+]

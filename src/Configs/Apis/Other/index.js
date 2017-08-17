@@ -228,7 +228,7 @@ const APIS = {
     },
     //财务管理－订单账单列表-分页获取订单
     'getFinaDataByList': {
-        url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&mainbillname={mainbillname}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}',
+        url: '/api/krspace-finance-web/finaccount/data/getFinaDataByAjax?page={page}&pageSize={pageSize}&mainbillname={mainbillname}&startDate={startDate}&endDate={endDate}&mainbilltype={mainbilltype}&communityid={communityid}&departmentId={departmentId}',
         method: 'get'
     },
     //财务管理－订单账单列表-高级查询

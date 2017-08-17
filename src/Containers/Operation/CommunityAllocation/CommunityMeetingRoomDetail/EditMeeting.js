@@ -2,7 +2,7 @@ import React from 'react';
 import {Actions,Store} from 'kr/Redux';
 //import {mobxForm}  from 'kr/Utils/MobxForm';
 import {reduxForm,initialize,change,FieldArray}  from 'redux-form';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {
 	KrField,
 	Button,
@@ -17,7 +17,7 @@ import {
 	inject
 } from 'mobx-react';
 
-
+import './spaceList.less';
 
 const renderField = ({ input, label, placeholder,type, meta: { touched, error }}) => (
   <div>
@@ -84,6 +84,8 @@ class EditMeeting  extends React.Component{
 			picId:'',
 			timeStart:'',
 			timeEnd:'',
+			StartTimeStr:'',
+     	    EndTimeStr:'',
 		}
 	}
 
@@ -95,7 +97,21 @@ class EditMeeting  extends React.Component{
 			data.id=id;
 			var _this=this;
 			Http.request('meeting-room-eidData',data).then(function(response) {
-				   //$form.changeValues(response);
+				   
+				   response.startTime=response.closeStartDate || 0;
+				   response.endTime=response.closeEndDate  || 0;
+				   if(response.closeStartDate && response.closeEndDate ){
+						 var StartTimeStr=DateFormat(response.startTime, 'yyyy-mm-dd HH:MM:ss');
+						 	 StartTimeStr=StartTimeStr.substr(11,5);
+						 var EndTimeStr=DateFormat(response.endTime, 'yyyy-mm-dd HH:MM:ss')
+						     EndTimeStr=EndTimeStr.substr(11,5);
+						      _this.setState({
+								 StartTimeStr,
+						   		 EndTimeStr
+						   })
+				   }
+				  
+
 				   if(response.enable==1){
 				   	 response.enable='1';
 				   }else if(response.enable==0){
@@ -143,6 +159,7 @@ class EditMeeting  extends React.Component{
 						 picId:response.picId,
 						 timeStart:response.orderStartTimeStr,
 						 timeEnd:response.orderEndTimeStr,
+						 
 				   })
 				        Store.dispatch(initialize('EditMeeting',response));
 						Store.dispatch(change('EditMeeting','maskStation',response.activeTypes.length?response.activeTypes:[{}]));
@@ -155,11 +172,23 @@ class EditMeeting  extends React.Component{
 	  }
 
     onSubmit=(values)=> {
+
+    	if(values.startTime && values.endTime){
+			var startTime=DateFormat(values.startTime, 'yyyy-mm-dd hh:MM:ss');
+				startTime=startTime.substring(0,10);
+			var endTime=DateFormat(values.endTime, 'yyyy-mm-dd hh:MM:ss');
+				endTime=endTime.substring(0,10);
+			var StartTimeStr=values.StartTimeStr || this.state.StartTimeStr;
+			var EndTimeStr=values.EndTimeStr || this.state.EndTimeStr;
+			values.closeStartDate=`${startTime} ${StartTimeStr}`;
+			values.closeEndDate=`${endTime} ${EndTimeStr}`;
+		}
 		values.id=this.props.CommunityMeetingModel.deleteId;
 		values.communityId=this.props.CommunityMeetingModel.communityId;
 	    const {
 		   onSubmit
 		} = this.props;
+		console.log(values)
 		onSubmit && onSubmit(values);
 	}
 
@@ -220,7 +249,17 @@ class EditMeeting  extends React.Component{
 
      const {handleSubmit}=this.props;
 
-     let {listDevice,watchMeeting,watchHouse,picUrl,timeStart,timeEnd,picId}=this.state;
+     let {
+     	  listDevice,
+     	  watchMeeting,
+     	  watchHouse,
+     	  picUrl,
+     	  timeStart,
+     	  timeEnd,
+     	  picId,
+     	  StartTimeStr,
+     	  EndTimeStr
+     	}=this.state;
 
 	  let defaultValue={
 			picId:picId,
@@ -289,11 +328,13 @@ class EditMeeting  extends React.Component{
 
 
 
-				 {watchMeeting&&<div><div style={{display:'block'}} className='community-list-time'>
-								<KrField component="selectTime" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' timeNum={timeStart} requireLabel={true}/>
+				 {watchMeeting&&<div>
+				 	<div style={{display:'block'}} className='community-list-time'>
+								<KrField component="timeSelect" label='预定时段'  style={{width:144,zIndex:5}} name='orderStartTimeStr' timeNum={timeStart} requireLabel={true}/>
 								<span style={{display:'inline-block',marginTop:35,marginLeft:-11,marginRight:1}}>-</span>
-								<KrField component="selectTime"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr' timeNum={timeEnd}/>
+								<KrField component="timeSelect"  style={{width:144,zIndex:5,marginLeft:-1,marginTop:15}} name='orderEndTimeStr' timeNum={timeEnd}/>
 				 </div>
+
 
 				 <KrField grid={1/2}
  					style={{width:262}}
@@ -352,7 +393,7 @@ class EditMeeting  extends React.Component{
 				placeholder='场地描述'
 				/></span>}
 
-
+				
 
 				<KrField grid={1/2} style={{width:262}} name="enable" component="group" label="启用状态">
 					<KrField name="enable" label="启用" type="radio" value='1' />
@@ -361,8 +402,37 @@ class EditMeeting  extends React.Component{
 
 			    <KrField grid={1/2} style={{width:262,marginLeft:29}} name="quotedPrice" component="input"  label="报价"
                  onBlur={this.priceBlur}/>	
-
-
+				
+				{watchMeeting && <div className="u-meet-setting">
+										<div className="u-checkbox">
+											会议室被占用设置
+										</div>
+										<div className="u-meet-setTime">
+												<KrField
+														style={{width:120}}
+														name="startTime"
+														component="date"
+												/>
+												<KrField 
+														component="timeSelect"
+														style={{width:108,marginLeft:40}} 
+														name="StartTimeStr"
+														timeNum={StartTimeStr}
+												/>
+												<span style={{display:'inline-block',paddingLeft:10,marginTop:20}}>-</span>
+												<KrField
+														style={{width:120}}
+														name="endTime"
+														component="date"
+												/>
+												<KrField 
+														component="timeSelect"  
+														style={{width:108,marginLeft:40}} 
+														name="EndTimeStr"
+														timeNum={EndTimeStr}
+												/>
+										</div>
+									</div>}
 			    <div className='meeting-device'><KrField
 							label="设备情况"
 							name='deviceIds'

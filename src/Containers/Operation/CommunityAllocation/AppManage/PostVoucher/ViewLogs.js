@@ -75,7 +75,6 @@ class ViewLogs extends React.Component {
 		onCancel && onCancel();
 	}
 	changeCheck=()=>{
-		console.log("asdfasdf");
 		var _this = this;
 		this.setState({
 			ownFlag:!_this.state.ownFlag,
@@ -125,7 +124,6 @@ class ViewLogs extends React.Component {
 			detail,
 			onSubmit
 		} = this.props;
-		console.log(form);
 		form.id=detail.id;
 		form.status = this.refs.status.value;
 		Http.request('topic-handle', {},form).then(function(response) {

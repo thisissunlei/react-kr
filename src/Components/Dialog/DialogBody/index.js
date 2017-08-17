@@ -30,7 +30,7 @@ export default class DialogBody extends React.Component {
 
 	initializeDialogBodyStyles = ()=>{
 
-		const {fixed} = this.props;
+		const {fixed,noMaxHeight} = this.props;
 
 		var ele = null;
 
@@ -55,9 +55,11 @@ export default class DialogBody extends React.Component {
 		}catch(err){
 			eleBoxStyle = {width:0,height:0};
 		}
-
-		ele.style.maxHeight = page.height-200+'px';
-		ele.style.minHeight = 100 +'px';
+		if(!noMaxHeight){
+			ele.style.maxHeight = page.height-200+'px';
+			ele.style.minHeight = 100 +'px';
+		}
+		
 
 		if(fixed){
 			return ;

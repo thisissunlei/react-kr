@@ -147,6 +147,7 @@ export default class DialogComponent extends React.Component {
 			footerStyle,
 			actions,
 			fixed,
+			noMaxHeight,
 			dialogHeaderStyle,
 			...other
 		} = this.props;
@@ -154,6 +155,9 @@ export default class DialogComponent extends React.Component {
 		let styles = {};
 		let closeStyle = {};
 		if (open) {
+			if(this.props.stylesCard){
+			  styles.zIndex='1200';	
+			}
 			styles.display = 'block';
 		} else {
 			styles.display = 'none';
@@ -170,7 +174,7 @@ export default class DialogComponent extends React.Component {
 						<div className="dialog-header-title"> {title} </div>
 						<span className="close" onClick={this.onClose} style={closeStyle}></span>
 					</div>
-					{open && <DialogBody bodyStyle={bodyStyle} fixed={fixed}> {children} </DialogBody>}
+					{open && <DialogBody noMaxHeight = {noMaxHeight} bodyStyle={bodyStyle} fixed={fixed}> {children} </DialogBody>}
 					{open && actions && <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}
 				</div>
 			</div>

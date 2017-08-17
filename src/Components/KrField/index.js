@@ -58,6 +58,32 @@ import SearchOrderCommunity from './SearchOrderCommunity';
 import ActivityCommunityList from './ActivityCommunityList';
 import SearchCityCommunity from './SearchCityCommunity';
 import ChangeUploadImageComponent from './ChangeUploadImageComponent';
+
+import SelectTime from './SelectTime';
+
+import SelectTree from './SelectTree';
+import SearchOaPersonal from './SearchOaPersonal';
+import OaUploadImage from './OaUploadImage';
+//客户来源搜索下拉
+import SelectCustomerSource from './SelectCustomerSource';
+
+//血型
+import SelecTemployees from './SelecTemployees';
+import SwitchSlide from './SwitchSlide';
+//部门树
+import OaTreeDepartment from './OaTreeDepartment';
+//人员树
+import OaTreePersonnel from './OaTreePersonnel';
+//分部树
+import OaTreeDivision from './OaTreeDivision' 
+//高级查询客户来源
+import UpMerchantsSource from './UpMerchantsSource';
+import UpSignedClientSource from './UpSignedClientSource';
+
+
+
+
+
 class FieldRevert extends React.Component {
 
 		static propTypes = {
@@ -262,6 +288,11 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SelectTimeComponent}  style={WrapStyles} {...other}/>
 				);
 			}
+			if (component === 'timeSelect') {
+				return (
+					<FieldRevert {...this.props} component={SelectTime}  style={WrapStyles} {...other}/>
+				);
+			}
 
 			if (component === 'SearchList') {
 				return (
@@ -326,12 +357,6 @@ class FieldRevert extends React.Component {
 				 <Field {...this.props} component={SearchOrderCommunity}  style={WrapStyles} {...other}/>
 			 );
 			}
-
-
-
-
-
-
 
 			if (component === 'searchCompany') {
 				return (
@@ -437,7 +462,63 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchSourceList}  style={WrapStyles} {...other}/>
 				)
 			}
+			if (component === 'selectTree') {
+				return (
+					<FieldRevert {...this.props} component={SelectTree}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'searchOaPersonal') {
+				return (
+					<FieldRevert {...this.props} component={SearchOaPersonal}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'oaUploadImage') {
+				return (
+					<FieldRevert {...this.props} component={OaUploadImage}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'selecTemployees') {
+				return (
+					<FieldRevert {...this.props} component={SelecTemployees}  style={WrapStyles} {...other}/>
+				)
+			}
 
+			if (component === 'switchSlide') {
+				return (
+					<FieldRevert {...this.props} component={SwitchSlide}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'treeDepartment') {
+				return (
+					<FieldRevert {...this.props} component={OaTreeDepartment}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'treePersonnel') {
+				return (
+					<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'treeDivision') {
+				return (
+					<FieldRevert {...this.props} component={OaTreeDivision}  style={WrapStyles} {...other}/>
+				)
+			}
+
+			if (component === 'customerSource') {
+				return (
+					<FieldRevert {...this.props} component={SelectCustomerSource}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'upMerchantsSource') {
+				return (
+					<FieldRevert {...this.props} component={UpMerchantsSource}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'upSignedClientSource') {
+				return (
+					<FieldRevert {...this.props} component={UpSignedClientSource}  style={WrapStyles} {...other}/>
+				)
+			}
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);

@@ -1,15 +1,12 @@
 import React from 'react';
 import {
-	PlanMap
+	KrField
 } from 'kr-ui';
-import Original from './Original';
-
 import {
-
-PlanMapContent
-
-} from 'kr/PureComponents';
-export default class New extends React.Component {
+	numberToSign
+} from 'kr/Utils'
+import {reduxForm} from 'redux-form';
+class New extends React.Component {
 
 
 	constructor(props, context) {
@@ -17,7 +14,6 @@ export default class New extends React.Component {
 
 		this.state = {
 		}
-
 	}
 
 
@@ -28,10 +24,20 @@ export default class New extends React.Component {
 	render() {
 		return (
 			<div style = {{height:2000}}>
-					
-					
+				<KrField
+					grid={1/2}
+					style={{width:262,marginLeft:28}}
+					name="leader"
+					component="treePersonnel"
+					label="直接上级"
+					treeType = "personnel"
+					ajaxUrlName = "get-personnel-tree-demo"
+					params = {{dimId:''}}
+					checkable = {true}
+				/>
 			</div>
 
 		);
 	}
 }
+export default reduxForm({ form: 'New'})(New);

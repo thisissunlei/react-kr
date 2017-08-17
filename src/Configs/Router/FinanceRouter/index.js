@@ -63,6 +63,12 @@ const Finance_Manage_Sync = (location, callback) => {
   }, 'Finance_Manage_Sync')
 }
 
+const Operation_VoucherManage_VoucherList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Operation/VoucherManage/VoucherList').default)
+  }, 'Operation_VoucherManage_VoucherList')
+}
+
 
 module.exports =()=>{
 	return (
@@ -93,6 +99,11 @@ module.exports =()=>{
                     <Route path="list" getComponent={Finance_Manage_Sync}/>
                 </Route>
             </Route>
+            {/*凭证管理*/}
+                <Route path="voucherManage" getComponent={Basic} >
+                {/*凭证列表*/}
+                  <Route path="voucherList" getComponent={Operation_VoucherManage_VoucherList}/>
+                </Route>
         </Route>
 	);
 };
