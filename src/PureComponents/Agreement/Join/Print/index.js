@@ -96,14 +96,14 @@ export default class JoinPrint extends React.Component {
 		return (
 		<div style={{background:'#fff'}}>
 			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
-				<Title value={`${State.baseInfo.leaseName}-入驻服务协议`}/>
+				<Title value={`${State.baseInfo.leaseName}-入驻办公室/工位附表`}/>
 			{/*<div style={style}></div>*/}
 				{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 					return item
 				})}
 				<Print.Header
 					baseInfo={State.baseInfo}
-					orderInfo="入驻服务协议"
+					orderInfo="入驻办公室/工位附表"
 				/>
 				<Print.BaseInfo baseInfo={State.baseInfo}/>
 
