@@ -68,7 +68,18 @@ export default class EquipmentSearch extends React.Component{
 		return (
 			<div className="seconde-dialog">
 				<div style={{paddingLeft:20}}>
-					<Toggle defaultToggled={State.switch} labelPosition='right' label="发现设备开关" labelStyle={{fontSize:14}} onToggle={this.changeSearchEquipment}/>
+					<Toggle 
+						defaultToggled={State.switch} 
+						label="发现设备开关" 
+						labelPosition="right"
+						labelStyle={{fontSize:14,width:100,marginTop:5}} 
+						onToggle={this.changeSearchEquipment}
+						trackStyle={{height:25,lineHeight:25}}
+						thumbStyle={{marginTop:5}}
+						thumbSwitchedStyle={{marginTop:5,backgroundColor:'#499df1'}}
+						trackSwitchedStyle={{backgroundColor:"red"}}
+					/>
+					
 				</div>
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
 				<h1>设备发现</h1>

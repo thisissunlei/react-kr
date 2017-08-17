@@ -46,13 +46,47 @@
 	}
 	dt{
 		width:50%;
+		vertical-align: middle;
+
 	}
 	dd{
 		width:46%;
 		text-align:right;
 		padding-right:20px;
 		box-sizing: border-box;
+		vertical-align: middle;
 	}
+	dd:nth-of-type(odd){
+		background-color: #eee;
+	}
+	dt:nth-of-type(odd){
+		background-color: #eee;
+	}
+	.string { color: green; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: red; }
+    .tr-line{
+    	font-size:14px;
+    	display: flex;
+    	margin: 0 30px;
+    	.td-left{
+    		width: 40%;
+		    text-align: right;
+		    padding-right: 10px;
+		    display: flex;
+		    align-items: center;
+		    justify-content: flex-end;
+		    padding:5px; 
+    	}
+    	.td-right{
+    		padding:5px; 
+    	}
+    }
+    .tr-line:nth-child(odd){
+    	background-color: #f2f2f2;
+    }
 }
 .end-img{
 	width: 20px;
@@ -137,6 +171,9 @@
 	width:150px;
 	margin-left:5px;
 }
+
+
+
 
 
 
