@@ -27,17 +27,13 @@ import {
 } from 'kr-ui';
 import {Chip} from 'material-ui'
 import {Http} from 'kr/Utils';
+import State from './State';
 import './index.less';
 import {
 	observer
 } from 'mobx-react';
 import BindCommunity from './BindCommunity';
 
-const chipData1 = [
-
-      {id: 1, name: '北京创业大街社区'},
-      {id: 2, name: '北京酒仙桥社区'}
-    ]
 @observer
 class NewCreateForm extends React.Component {
 
@@ -61,7 +57,6 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentDidMount() {
-		Store.dispatch(change('newCreateForm','bankAccount',['']));
 
 	}
 	getEditReadyData = () =>{
@@ -83,7 +78,7 @@ class NewCreateForm extends React.Component {
 	}
 	onSubmit = (values) => {
 		let data = Object.assign({}, values);
-		data.cmtId =this.cmtIdData();
+		data.cmtIds =this.cmtIdData();
 		console.log('=============',data)
 		const {onSubmit} = this.props;
 		var _this = this;

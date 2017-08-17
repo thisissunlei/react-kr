@@ -375,7 +375,7 @@ module.exports = {
     },
     //同步中心创建提交
     'get-tongbu-submit': {
-        url: '/apis/krspace-op-web/sync/sync-cmt-ctrl',
+        url: 'http://st.krspace.cn/api/krspace-op-web/sync/sync-cmt-ctrl',
         method: 'post'
     },
 }

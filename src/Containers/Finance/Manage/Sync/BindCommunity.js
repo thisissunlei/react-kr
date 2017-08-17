@@ -78,7 +78,7 @@ class BindCommunity extends React.Component {
 		let values = {id:this.props.cmtId||''};
 		console.log(this.props.cmtId,"KKKKKKK");
 		const {existing} = this.props;
-		Http.request('bindCommunity',values).then(function(response) {
+		Http.request('getActivityCommunityList',values).then(function(response) {
 			self.setState({
 				checkedCmt:self.nameConversion(response.items,existing)
 			})
