@@ -214,6 +214,7 @@ State.equipmentAddLocation = action(function(param){
 	Http.request('changeUnusedToList',{},urlParams).then(function(response) {
 
 		Message.success("添加成功");
+		State.getUnusedEquipmentFun();
 		State.freshPageReturn();
 
 	}).catch(function(err) {
