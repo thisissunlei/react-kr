@@ -53,7 +53,8 @@ let State = observable({
 	},
 	openAgreementDetail:false,
 	customerId:'',
-	mainbillId:''
+	mainbillId:'',
+	id:''
 
 
 });
@@ -69,14 +70,15 @@ State.getHomeData=action(function(params){
 			_this.info = info;
 			_this.getPaymentList({page:1,pageSize:10,cmtId:_this.info.communityId})
 		}).catch(function(err) {
-			Message.error('后台出错，请联系管理员');
+			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
 State.setAgreementData = action(function(data){
 	this.openAgreementDetail = true;
-	this.customerId = data.customerId;
-	this.mainbillId = data.mainbillId;
+	this.customerId = data.customerid;
+	this.mainbillId = data.mainbillid;
+	this.id = data.id;
 })
 
 
@@ -107,6 +109,8 @@ State.getPaymentList=action(function(params){
 			_this.paymentList = response;
 			_this.loading = false;
 		}).catch(function(err) {
+			console.log(err)
+
 			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
@@ -114,8 +118,7 @@ State.getPaymentList=action(function(params){
 // 获取切换社区
 State.getCommunityList=action(function(){
 		let _this = this;
-		Http.request('getActivityCommunityList',"").then(function(response){
-			console.log('==community===>',response)
+		Http.request('get-community-list',"").then(function(response){
 			_this.cityList= response.map((item,index)=>{
 				
 				item.communitys = item.communitys.map(value=>{
@@ -130,6 +133,7 @@ State.getCommunityList=action(function(){
 				return obj;
 			})
 		}).catch(function(err) {
+			console.log(err)
 			Message.error('后台出错，请联系管理员');
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
@@ -152,6 +156,8 @@ State.getIncomeList=action(function(params){
 		Http.request('get-settled-contract',params).then(function(response){
 			_this.agreementList = response;
 		}).catch(function(err) {
+			console.log(err)
+
 			Message.error('后台出错，请联系管理员');
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
@@ -163,6 +169,8 @@ State.getVisitList=action(function(params){
 		Http.request('get-appointment',params).then(function(response){
 			_this.visitList = response
 		}).catch(function(err) {
+			console.log(err)
+
 			Message.error('后台出错，请联系管理员');
 		});
 })

@@ -47,7 +47,7 @@ class Home  extends React.Component{
 
 	componentDidMount(){
 		const {NavModel} = this.props;
-		NavModel.setSidebar(false);
+		// NavModel.setSidebar(false);
 		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
 		if(communityId){
 			State.getHomeData({cmtId:communityId})
@@ -200,7 +200,7 @@ class Home  extends React.Component{
 				        containerStyle={{top:60,paddingBottom:48,zIndex:8}}
 			        >
                         <Agreement.Join.Detail
-						 params={{id:State.InfoData.communityId,customerId:State.customerId,orderId:State.mainbillId}}
+						 params={{id:State.id,customerId:State.customerId,orderId:State.mainbillId}}
                          onCancel={this.detailOpenAgreement}
 						/>
 
