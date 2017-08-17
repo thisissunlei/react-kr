@@ -117,10 +117,10 @@ export default class IncreasePrint extends React.Component {
 			{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 				return item
 			})}
-				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(增加)`}/>
+				<Title value={`${State.baseInfo.leaseName}-入驻办公室/工位补充附表(增加)`}/>
 				<Print.Header
 					baseInfo={State.baseInfo}
-					orderInfo="入驻服务协议补充协议(增加)"
+					orderInfo="入驻办公室/工位补充附表(增加)"
 				/>
 				<Print.BaseInfo baseInfo={State.baseInfo}/>
 				<Print.Station
