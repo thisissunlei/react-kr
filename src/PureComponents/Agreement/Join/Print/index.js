@@ -39,7 +39,7 @@ export default class JoinPrint extends React.Component {
 		setTimeout(function() {
 			State.cachet = _this.renderImg();
 		 	window.print();
-		 	// window.close();
+		 	window.close();
 		 }, 1200)
 
 
