@@ -111,8 +111,8 @@ export default class FailList extends React.Component {
 		                  onSelect={this.onStationSelect}
 		              >
 		              <TableHeader>
-		                  <TableHeaderColumn >主体</TableHeaderColumn>
-		                  <TableHeaderColumn>时间</TableHeaderColumn>
+		                  <TableHeaderColumn style={{width:100}}>主体</TableHeaderColumn>
+		                  <TableHeaderColumn style={{width:100}}>时间</TableHeaderColumn>
 		                  <TableHeaderColumn style={{width:80}}>同步方式</TableHeaderColumn>
 		                  <TableHeaderColumn>内容</TableHeaderColumn>
 		                  <TableHeaderColumn>同步信息</TableHeaderColumn>
@@ -122,28 +122,28 @@ export default class FailList extends React.Component {
 		              	{!!State.itemsList.length && State.itemsList.map((item,index)=>{
 		              		return (
 								<TableRow key={index}>
-				              		 <TableRowColumn >
+				              		 <TableRowColumn style={{width:100}}>
 				              		 	{item.mainName}
-				              		 </TableRowColumn>
-				              		 <TableRowColumn >
+				              		 </TableRowColumn >
+				              		 <TableRowColumn style={{width:100}}>
 				              		 	{DateFormat(item.syncTime,'yyyy/mm/dd')}
 				              		 </TableRowColumn>
 				              		 <TableRowColumn style={{width:80}}>
 				              		 	{item.mode=='TIMING'?'定时':'手动'}
 				              		 </TableRowColumn>
-				              		 <TableRowColumn  style={{width:320}}>
+				              		 <TableRowColumn >
 				              		 	
-				              		 	<div style={{paddingTop:5,overflow:'hidden',width:320}} className='financeDetail-hover'>
-				              		 		<span className='tableOver' style={{maxWidth:300,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{item.content}</span>
+				              		 	<div style={{paddingTop:5,overflow:'hidden'}} className='financeDetail-hover'>
+				              		 		<span className='tableOver' style={{width:'90%',display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{item.content}</span>
 									 		
 									 	</div>
 									 	<Tooltip offsetTop={5} place='top' >
 											<div style={{width:"300px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{item.content}</div>
 									 	</Tooltip>
 				              		 </TableRowColumn>
-				              		 <TableRowColumn  style={{width:220}}>
-				              		 	<div style={{paddingTop:5,overflow:'hidden',width:220}} className='financeDetail-hover'>
-				              		 		<span className='tableOver' style={{maxWidth:200,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{item.message}</span>
+				              		 <TableRowColumn>
+				              		 	<div style={{paddingTop:5,overflow:'hidden'}} className='financeDetail-hover'>
+				              		 		<span className='tableOver' style={{width:'90%',display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{item.message}</span>
 									 		
 									 	</div>
 									 	<Tooltip offsetTop={5} place='top' >
