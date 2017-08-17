@@ -16,17 +16,20 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Title,
-	Tooltip
+	Tooltip,
+	Drawer
 } from 'kr-ui';
+import {
+	observer
+} from 'mobx-react';
 
 import './index.less'
-// //高级查询
-// import SearchUpperForm from './SearchUpperForm';
-// //搜索
-// import SearchForm from './SearchForm';
+import State from './State';
+// import BindCommunity from './BindCommunity';
+import Create from './Create';
 
 
-
+@observer
 export default class AttributeSetting extends React.Component {
 
 	constructor(props, context) {
@@ -66,8 +69,12 @@ export default class AttributeSetting extends React.Component {
 		});
 
 		if (type == 'view') {
+			console.log('====view===')
 			let orderId = itemDetail.id
-			window.open(`./#/finance/Manage/orderbill/${orderId}/detail`,orderId);
+		}
+		if (type == 'edit') {
+			let orderId = itemDetail.id
+			console.log('====edit===')
 		}
 	}
 
@@ -111,6 +118,10 @@ export default class AttributeSetting extends React.Component {
 			list
 		})
 	}
+	create=()=>{
+		State.openCreate = true;
+		console.log('-----',State.openCreate)
+	}
 
 
 
@@ -132,46 +143,11 @@ export default class AttributeSetting extends React.Component {
 		return (
 
 			<div className='m-order-list'>
-					<Title value="订单账单列表_财务管理"/>
-					<Section title="订单账单列表" description="" style={{marginBottom:-5,minHeight:910}}>
-
-					<div  className='ui-orderList'><Grid style={{marginTop:-5}}>
-						<Row>
-							<Col md={7} align="left">
-								<ListGroup >
-									<div className="list-name">
-									<span className='ui-incomeMoney'>
-									</span>
-									<span className="font-width">收入总额:</span>
-									<span className="font-width font-num">{list.sumcome}</span>
-									</div>
-									<div className="list-name">
-									<span className='ui-receiveMoney'>
-									</span>
-									<span className="font-width">回款总额:</span>
-									<span className="font-width font-num">{list.sumAmount}</span>
-									</div>
-									<div className="list-name">
-									<span className='ui-selfMoney'></span>
-
-									<span className="font-width">余额:</span>
-									<span className="font-width font-num">{list.summount}</span>
-									</div>
-
-
-								</ListGroup>
-							</Col>
-							<Col md={5} align="right" style={{marginTop:7}}>
-								<ListGroup>
-									<ListGroupItem> <SearchForm onSubmit={this.onSearchSubmit} onCancel={this.onSearchCancel}/></ListGroupItem>
-									<ListGroupItem> <Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'5'}}/></ListGroupItem>
-								</ListGroup>
-							</Col>
-						</Row>
-					</Grid></div>
-
-
-
+					<Title value="同步中心"/>
+					<Section title="同步中心" description="" style={{marginBottom:-5,minHeight:910}}>
+					<div>
+						<span className="create" onClick={this.create}>创建</span>
+					</div>
 				<Table  style={{marginTop:10}}
 						displayCheckbox={true}
 						onLoaded={this.onLoaded}
@@ -185,16 +161,12 @@ export default class AttributeSetting extends React.Component {
 						  >
 
 					<TableHeader>
-					<TableHeaderColumn>订单名称</TableHeaderColumn>
-					<TableHeaderColumn>订单类型</TableHeaderColumn>
-					<TableHeaderColumn>所在社区</TableHeaderColumn>
-					<TableHeaderColumn>工位</TableHeaderColumn>
-					<TableHeaderColumn>起始日期</TableHeaderColumn>
-					<TableHeaderColumn>结束日期</TableHeaderColumn>
-					<TableHeaderColumn>收入总额</TableHeaderColumn>
-					<TableHeaderColumn>回款总额</TableHeaderColumn>
-					<TableHeaderColumn>余额</TableHeaderColumn>
-					<TableHeaderColumn>定金/押金</TableHeaderColumn>
+					<TableHeaderColumn>同步月份</TableHeaderColumn>
+					<TableHeaderColumn>同步系统</TableHeaderColumn>
+					<TableHeaderColumn>同步主体</TableHeaderColumn>
+					<TableHeaderColumn>同步社区</TableHeaderColumn>
+					<TableHeaderColumn>操作人</TableHeaderColumn>
+					<TableHeaderColumn>操作时间</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 
@@ -226,21 +198,41 @@ export default class AttributeSetting extends React.Component {
 						<TableRowColumn name="stationnum"></TableRowColumn>
 						<TableRowColumn name="contractEntrydate" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn name="contractLeavedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
-						<TableRowColumn name="come"></TableRowColumn>
-						<TableRowColumn name="backMount"></TableRowColumn>
-						<TableRowColumn name="mount"></TableRowColumn>
-						<TableRowColumn name="rentOrDeposit"></TableRowColumn>
 						<TableRowColumn>
 							  <Button label="查看"  type="operation" operation="view"/>
+							  <Button label="编辑"  type="operation" operation="edit"/>
 						 </TableRowColumn>
 					 </TableRow>
 				</TableBody>
 
-				<TableFooter></TableFooter>
 
 				</Table>
 
 					</Section>
+{/*Dialog
+					title="绑定社区"
+					open={this.state.isBindCommunity}
+					onClose={this.bindCommunityClose}
+					contentStyle={{width:687,height:450,overflow:'scroll'}}
+       			>
+	          		<BindCommunity
+					  	jsonData = {jsonData}
+						onCancel = {this.bindCommunityClose}
+						checkedSubmit = {this.checkedSubmit}
+						existing = {chipData}
+					/>
+			    </Dialog>*/}
+			    <Drawer
+						title="新建"
+						open={State.openCreate}
+						width={750}
+						onClose = {this.onClose}
+						openSecondary={true}
+						className='m-finance-drawer'
+						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+					>
+						<Create />
+				  </Drawer>
 
 			</div>
 

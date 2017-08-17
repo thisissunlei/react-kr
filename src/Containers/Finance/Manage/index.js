@@ -10,11 +10,14 @@ import {
 import {
 	default as Audit
 } from './Audit';
-
+import {
+	default as Sync
+} from './Sync';
 module.exports = {
 	OrderBill,
 	Invoice,
 	FundSetting,
-	Audit
+	Audit,
+	Sync
 }
 

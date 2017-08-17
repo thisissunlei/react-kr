@@ -57,6 +57,11 @@ const Finance_Manage_Audit = (location, callback) => {
     callback(null, require('kr/Containers/Finance/Manage/Audit').default)
   }, 'Finance_Manage_Audit')
 }
+const Finance_Manage_Sync = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Finance/Manage/Sync').default)
+  }, 'Finance_Manage_Sync')
+}
 
 
 module.exports =()=>{
@@ -82,6 +87,10 @@ module.exports =()=>{
                 {/*审核列表*/}
                 <Route path="audit" getComponent={Basic}>
                     <Route path="auditlist" getComponent={Finance_Manage_Audit}/>
+                </Route>
+                {/*开票列表*/}
+                <Route path="sync" getComponent={Basic}>
+                    <Route path="list" getComponent={Finance_Manage_Sync}/>
                 </Route>
             </Route>
         </Route>
