@@ -39,7 +39,7 @@ export default class JoinPrint extends React.Component {
 		setTimeout(function() {
 			State.cachet = _this.renderImg();
 		 	window.print();
-		 	window.close();
+		 	// window.close();
 		 }, 1200)
 
 
@@ -52,12 +52,12 @@ export default class JoinPrint extends React.Component {
 		var printHeight = printList.offsetHeight;
 		if(printHeight>1120  &&  !this.init){
 			this.init = true;
-			this.pages = Math.ceil(printHeight/1120) + 1;
+			this.pages = Math.ceil(printHeight/1120) + 2;
 			printList.style.height = Math.ceil(printHeight/1120)*297-4 + 'mm';
 		}
 		
 		let str=[] ;
-		let page = this.pages || 2;
+		let page = this.pages || 3;
 		console.log(this.page)
 		if(page<=1){
 			return;
@@ -97,7 +97,6 @@ export default class JoinPrint extends React.Component {
 		<div style={{background:'#fff'}}>
 			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
 				<Title value={`${State.baseInfo.leaseName}-入驻办公室/工位附表`}/>
-			{/*<div style={style}></div>*/}
 				{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 					return item
 				})}
@@ -119,7 +118,6 @@ export default class JoinPrint extends React.Component {
 					installmentPlans={State.installmentPlans}
 
 				/>
-				{/*<Button onClick={this.print}>print</Button>*/}
 				{
 					(State.baseInfo.agreement && State.baseInfo.agreement.length>45)?(
 							<div className="print-text">

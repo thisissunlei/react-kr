@@ -50,7 +50,7 @@ export default class RenewPrint extends React.Component {
 			this.init = true;
 			printList.style.height = Math.ceil(printHeight/1200)*297-4 + 'mm';
 		}
-		this.pages = Math.ceil(printHeight/1200) + 1;
+		this.pages = Math.ceil(printHeight/1200) + 2;
 		let str=[] ;
 		let page = this.pages;
 		if(page<=1){
