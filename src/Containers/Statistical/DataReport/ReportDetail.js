@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	Section,
     Table,
     TableHeader,
@@ -24,7 +24,7 @@ export default class ReportDetail extends React.Component{
 		super(props, context);
 	}
 
-	
+
 
 	//导出
 	onExportSign=(values)=>{
@@ -63,14 +63,14 @@ export default class ReportDetail extends React.Component{
 		var url = `http://op.krspace.cn/api/krspace-finance-web/csr/source/stat/export/type/add?${where.join('&')}`
 		window.location.href = url;
 	}
-    
-    
+
+
 	/*onSearchSubmit=(value)=>{
       console.log('value',value);
 	}*/
 
 	render(){
-        
+
 		return(
 			<div className='detail-report'>
 			 {/*<div className='report-search'><SearchForms placeholder='请输入关键字'  onSubmit={this.onSearchSubmit}/></div>*/}

@@ -234,7 +234,7 @@ export default class SearchForms extends Component{
 
 	onChange = (event) =>{
 		let values = event.target.value;
-		
+
 		const {onChange} = this.props;
 		onChange && onChange(values)
 	}
@@ -255,7 +255,7 @@ export default class SearchForms extends Component{
 
 					<ul onMouseOver={this.selectShow} onMouseOut={this.selectHidden} ref={li=>{this.li = li}}>
 						{searchFilter && searchFilter.map((item,index)=>{
-					
+
 								return (
 									<li className={`${index}`} onClick={this.getValue} key={index}>
 										{item.label}
@@ -272,7 +272,7 @@ export default class SearchForms extends Component{
 	render(){
 		var placeholder=this.props.placeholder||"请输入查找内容"
 
-		let {style,inputName,searchFilter} = this.props;
+		let {style,inputName,searchFilter,contentStyle} = this.props;
 		let {otherName}=this.state;
 
 		if(!inputName){
@@ -284,7 +284,7 @@ export default class SearchForms extends Component{
 				<div className="search-status" >
 					{this.renderFilter()}
 
-					<div className="search-content">
+					<div className="search-content" style={contentStyle}>
 						<input type="text" autoComplete="off"  onChange = {this.onChange} className="search-val" placeholder={placeholder}  name={inputName} id={inputName} ref="realInput"/>
 					</div>
 				</div>

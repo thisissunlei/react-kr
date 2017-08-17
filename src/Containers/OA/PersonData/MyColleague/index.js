@@ -87,8 +87,8 @@ export default class MyColleague extends React.Component {
 
 	componentDidMount() {
 		//侧栏默认关闭
-		/*const { NavModel } = this.props;
-		NavModel.setSidebar();*/
+		const { NavModel } = this.props;
+		NavModel.setSidebar();
 
 		//获取树的数据
 		this.getTreeData();
@@ -257,38 +257,48 @@ export default class MyColleague extends React.Component {
 									</Col>
 								</Row>
 							</Grid>
+						<div className='colleague-report'>
 							<Table
 								style={{marginTop:10,position:'inherit'}}
-								displayCheckbox={true}
+								displayCheckbox={false}
 								onLoaded={this.onLoaded}
-								ajax={true}
+								//ajax={true}
 								ajaxUrlName='next-org-list'
+								ajaxFieldListName="items"
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onExport={this.onExport}
 								exportSwitch={true}
 							>
-								<TableHeader>
-									<TableHeaderColumn>姓名</TableHeaderColumn>
-									<TableHeaderColumn>分部</TableHeaderColumn>
-									<TableHeaderColumn>部门</TableHeaderColumn>
-									<TableHeaderColumn>直接上级</TableHeaderColumn>
-									<TableHeaderColumn>职务</TableHeaderColumn>
-									<TableHeaderColumn>邮箱</TableHeaderColumn>
-									<TableHeaderColumn>手机号</TableHeaderColumn>
-									<TableHeaderColumn>入职时间</TableHeaderColumn>
-									<TableHeaderColumn>员工状态</TableHeaderColumn>
+								<TableHeader className='detail-header'>
+									<TableHeaderColumn className='header-row'>姓名</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>分部</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>部门</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>直接上级</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>职务</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>邮箱</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>手机号</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>入职时间</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>员工状态</TableHeaderColumn>
 								</TableHeader>
 
 								<TableBody>
-									<TableRow>
+									<TableRow className='detail-row'>
 										{/*我的同事的表格*/}
-										<TableRowColumn name="identifier"></TableRowColumn>
-
+										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
 									</TableRow>
 								</TableBody>
 								<TableFooter></TableFooter>
 							</Table>
+						 </div>
 						</div>
 					}
 
@@ -305,37 +315,48 @@ export default class MyColleague extends React.Component {
 									</Col>
 								</Row>
 							</Grid>
+						<div className='colleague-report'>
 							<Table
 								style={{ marginTop: 10 }}
-								displayCheckbox={true}
+								displayCheckbox={false}
 								onLoaded={this.onLoaded}
-								ajax={true}
+								//ajax={true}
 								ajaxUrlName='hrm-list'
+								ajaxFieldListName="items"
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onExport={this.onExportHrm}
 								exportSwitch={true}
 							>
-								<TableHeader>
-									<TableHeaderColumn>姓名</TableHeaderColumn>
-									<TableHeaderColumn>分部</TableHeaderColumn>
-									<TableHeaderColumn>部门</TableHeaderColumn>
-									<TableHeaderColumn>直接上级</TableHeaderColumn>
-									<TableHeaderColumn>职务</TableHeaderColumn>
-									<TableHeaderColumn>邮箱</TableHeaderColumn>
-									<TableHeaderColumn>手机号</TableHeaderColumn>
-									<TableHeaderColumn>入职时间</TableHeaderColumn>
-									<TableHeaderColumn>员工状态</TableHeaderColumn>
+								<TableHeader className='detail-header'>
+									<TableHeaderColumn className='header-row'>姓名</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>分部</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>部门</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>直接上级</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>职务</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>邮箱</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>手机号</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>入职时间</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>员工状态</TableHeaderColumn>
 								</TableHeader>
 
 								<TableBody>
-									<TableRow>
+									<TableRow className='detail-row'>
 										{/*我的下属的表格*/}
-										<TableRowColumn name="identifier"></TableRowColumn>
+										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
 									</TableRow>
 								</TableBody>
 								<TableFooter></TableFooter>
 							</Table>
+						 </div>
 						</div>
 					}
 				</div>
