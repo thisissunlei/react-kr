@@ -115,7 +115,7 @@ export default class FailList extends React.Component {
 		                  <TableHeaderColumn style={{width:100}}>时间</TableHeaderColumn>
 		                  <TableHeaderColumn style={{width:80}}>同步方式</TableHeaderColumn>
 		                  <TableHeaderColumn>内容</TableHeaderColumn>
-		                  <TableHeaderColumn>同步信息</TableHeaderColumn>
+		                  <TableHeaderColumn style={{width:150}}>同步信息</TableHeaderColumn>
 
 		              </TableHeader>
 		              <TableBody>
@@ -141,7 +141,7 @@ export default class FailList extends React.Component {
 											<div style={{width:"300px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{item.content}</div>
 									 	</Tooltip>
 				              		 </TableRowColumn>
-				              		 <TableRowColumn>
+				              		 <TableRowColumn style={{width:150}}>
 				              		 	<div style={{paddingTop:5,overflow:'hidden'}} className='financeDetail-hover'>
 				              		 		<span className='tableOver' style={{width:'90%',display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{item.message}</span>
 									 		
