@@ -27,7 +27,10 @@ import {
 } from 'kr-ui';
 import {Chip} from 'material-ui'
 import {Http} from 'kr/Utils';
-import './index.less'
+import './index.less';
+import {
+	observer
+} from 'mobx-react';
 import BindCommunity from './BindCommunity';
 
 const chipData1 = [
@@ -35,7 +38,7 @@ const chipData1 = [
       {id: 1, name: '北京创业大街社区'},
       {id: 2, name: '北京酒仙桥社区'}
     ]
-
+@observer
 class NewCreateForm extends React.Component {
 
 	constructor(props) {
@@ -82,19 +85,19 @@ class NewCreateForm extends React.Component {
 		let data = Object.assign({}, values);
 		data.cmtId =this.cmtIdData();
 		console.log('=============',data)
-		// const {onSubmit} = this.props;
-		// var _this = this;
-		// Http.request('addFnaCorporation', {}, data).then(function(response) {
-		// 	onSubmit && onSubmit();
-		// 	_this.onCancel();
+		const {onSubmit} = this.props;
+		var _this = this;
+		Http.request('get-tongbu-submit', {}, data).then(function(response) {
+			onSubmit && onSubmit();
+			_this.onCancel();
 
 
-		// }).catch(function(err) {
-		// 	Notify.show([{
-		// 		message: err.message,
-		// 		type: 'danger',
-		// 	}]);
-		// });
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
 
 
 	}
@@ -175,11 +178,11 @@ class NewCreateForm extends React.Component {
 							<label className="small-title">基本信息</label>
 						</div>
 						<div className="small-cheek">
-								<KrField grid={1/2} label="同步月份"  name="date" style={{width:262,marginLeft:15}} component="date" requireLabel={true}/>
-								<KrField grid={1/2} label="同步系统" name="system" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
-								<KrField grid={1/2} label="同步主体" name="conten" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
+								<KrField grid={1/2} label="同步月份"  name="syncDate" style={{width:262,marginLeft:15}} component="date" requireLabel={true}/>
+								<KrField grid={1/2} label="同步系统" name="syncSystem" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={State.syncSystem}/>
+								<KrField grid={1/2} label="同步主体" name="syncMainPart" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={State.syncMainPartType}/>
 								<div className='remaskInfo'>
-									<KrField grid={1} label="备注" name="corDesc" style={{marginLeft:15,marginTop:10,marginBottom:10}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/>
+									<KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:10,marginBottom:10}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/>
 								</div>
 
 								<div className="middle-round"></div>
@@ -252,9 +255,6 @@ const validate = values => {
 
 export default reduxForm({
 	form: 'newCreateForm',
-	initialValues: {
-		enableflag: 'ENABLE'
-	},
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true

@@ -44,6 +44,7 @@ export default class AttributeSetting extends React.Component {
 			}
 
 		}
+		State.getBasicData()
 	}
 
 
@@ -121,6 +122,14 @@ export default class AttributeSetting extends React.Component {
 	create=()=>{
 		State.openCreate = true;
 		console.log('-----',State.openCreate)
+	}
+	onCancel=()=>{
+		State.openCreate = false;
+		State.openView = false;
+		State.openEdit = false;
+	}
+	CreateSubmit=()=>{
+		State.openCreate = false;
 	}
 
 
@@ -200,12 +209,12 @@ export default class AttributeSetting extends React.Component {
 						title="新建"
 						open={State.openCreate}
 						width={750}
-						onClose = {this.onClose}
+						onClose = {this.onCancel}
 						openSecondary={true}
 						className='m-finance-drawer'
 						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					>
-						<Create />
+						<Create onSubmit={this.CreateSubmit} onCancel={this.onCancel}/>
 				  </Drawer>
 				<Drawer
 						title="查看"
