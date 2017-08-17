@@ -91,6 +91,14 @@ export default class Viewdialog extends React.Component {
                     }
                     format = "yyyy-mm-dd HH:MM:ss" />}
                 />
+                 <KrField
+                    style={{width:260,marginLeft:25}}
+                    label="安装包大小"
+                    value={infoList.appSize}
+                    inline={false}
+                    component="labelText"
+                />
+                
                 <KrField
                     style={{width:545}}
                     label="版本更新内容"
