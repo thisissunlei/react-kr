@@ -8,8 +8,20 @@ import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
 let State = observable({
 	openCreate:false,
+	openView:false,
+	openEdit:false,
 	syncMainPartType:[],
-	syncSystem:[]
+	syncSystem:[],
+	search:{
+		page:1,
+		pageSize:1,
+		content:''
+	},
+	itemData:{
+		syncDate:+new Date(),
+		remark:'123456',
+		
+	}
 });
 
 State.getBasicData = action(function(id) {
@@ -20,7 +32,6 @@ State.getBasicData = action(function(id) {
 		let syncMainPartType = [];
 		let syncSystem = [];
 		for(var p in response.syncMainPartType){
-			console.log('--->',p,response.syncMainPartType[p])
 			let obj = {};
 			obj.label = response.syncMainPartType[p];
 			obj.value = p;
@@ -32,7 +43,6 @@ State.getBasicData = action(function(id) {
 			obj.value = q;
 			syncSystem.push(obj);
 		}
-		console.log('======',syncMainPartType,syncSystem)
 		_this.syncSystem = syncSystem;
 		_this.syncMainPartType = syncMainPartType;
 	}).catch(function(err) {
@@ -40,6 +50,14 @@ State.getBasicData = action(function(id) {
 	});
 
 });
+State.showView=action(function(data){
+	this.openView = true;
+	this.itemData = data;
+})
+State.showEdit=action(function(data){
+	this.openEdit = true;
+	this.itemData = data;
+})
 
 
 

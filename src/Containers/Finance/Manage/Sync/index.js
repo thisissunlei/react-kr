@@ -17,7 +17,8 @@ import {
 	ListGroupItem,
 	Title,
 	Tooltip,
-	Drawer
+	Drawer,
+	SearchForms
 } from 'kr-ui';
 import {
 	observer
@@ -27,6 +28,8 @@ import './index.less'
 import State from './State';
 // import BindCommunity from './BindCommunity';
 import Create from './Create';
+import Edit from './Edit';
+import View from './View';
 
 
 @observer
@@ -64,18 +67,14 @@ export default class AttributeSetting extends React.Component {
 
 	//操作相关(查看)
 	onOperation=(type, itemDetail)=>{
-
-		this.setState({
-			itemDetail
-		});
-
 		if (type == 'view') {
-			console.log('====view===')
-			let orderId = itemDetail.id
+			let orderId = itemDetail.id;
+			State.showView(itemDetail)
 		}
 		if (type == 'edit') {
+			console.log('=======',State.openEdit)
 			let orderId = itemDetail.id
-			console.log('====edit===')
+			State.showEdit(itemDetail);
 		}
 	}
 
@@ -101,24 +100,7 @@ export default class AttributeSetting extends React.Component {
 		});
 	}
 
-   //高级搜索提交
-	onSearchUpperSubmit=(searchParams)=>{
-		searchParams = Object.assign({}, this.state.searchParams, searchParams);
-		this.setState({
-			searchParams,
-			openSearch: !this.state.openSearch
-		});
 
-	}
-
-
-    //加载完将所有的table数据都获取过来了
-	onLoaded=(response)=>{
-		let list = response;
-		this.setState({
-			list
-		})
-	}
 	create=()=>{
 		State.openCreate = true;
 		console.log('-----',State.openCreate)
@@ -130,6 +112,15 @@ export default class AttributeSetting extends React.Component {
 	}
 	CreateSubmit=()=>{
 		State.openCreate = false;
+	}
+	onSearchSubmit=(value)=>{
+		console.log('value',value)
+		let search = {
+			page:1,
+			pageSize:2,
+			content:value.content
+		}
+		State.search = search;
 	}
 
 
@@ -143,6 +134,7 @@ export default class AttributeSetting extends React.Component {
 					<Section title="同步中心" description="" style={{marginBottom:-5,minHeight:910}}>
 					<div>
 						<span className="create" onClick={this.create}>创建</span>
+						<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach"/>
 					</div>
 				<Table  style={{marginTop:10}}
 						displayCheckbox={true}
@@ -150,10 +142,9 @@ export default class AttributeSetting extends React.Component {
 						ajax={true}
 						ajaxFieldListName="finaContractMainbillVOList"
 						ajaxUrlName='getFinaDataByList'
-						ajaxParams={this.state.searchParams}
+						ajaxParams={State.search}
 						onOperation={this.onOperation}
-						exportSwitch={true}
-						onExport={this.onExport}
+						exportSwitch={false}
 						  >
 
 					<TableHeader>
@@ -200,6 +191,7 @@ export default class AttributeSetting extends React.Component {
 						 </TableRowColumn>
 					 </TableRow>
 				</TableBody>
+				<TableFooter></TableFooter>
 
 
 				</Table>
@@ -220,23 +212,23 @@ export default class AttributeSetting extends React.Component {
 						title="查看"
 						open={State.openView}
 						width={750}
-						onClose = {this.onClose}
+						onClose = {this.onCancel}
 						openSecondary={true}
 						className='m-finance-drawer'
 						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					>
-						<Create />
+						<View onSubmit={this.CreateSubmit} onCancel={this.onCancel} />
 				  </Drawer>
 				<Drawer
 						title="编辑"
 						open={State.openEdit}
 						width={750}
-						onClose = {this.onClose}
+						onClose = {this.onCancel}
 						openSecondary={true}
 						className='m-finance-drawer'
 						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					>
-						<Create />
+						<Edit onSubmit={this.CreateSubmit} onCancel={this.onCancel}/>
 				  </Drawer>
 
 			</div>

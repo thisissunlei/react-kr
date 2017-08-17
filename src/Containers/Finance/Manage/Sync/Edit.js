@@ -40,7 +40,7 @@ class NewCreateForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			chipData : [],
+			chipData :[{name: "大成国际社区", id: 43}],
 			isBindCommunitys : false,
 			readyData:{}
 		}
@@ -79,7 +79,6 @@ class NewCreateForm extends React.Component {
 	onSubmit = (values) => {
 		let data = Object.assign({}, values);
 		data.cmtIds =this.cmtIdData();
-		console.log('=============',data)
 		const {onSubmit} = this.props;
 		var _this = this;
 		Http.request('get-tongbu-submit', {}, data).then(function(response) {
@@ -163,7 +162,7 @@ class NewCreateForm extends React.Component {
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">新建</label></div>
+						<div><span className="new-icon"></span><label className="title-text">编辑</label></div>
 						<div className="customer-close" onClick={this.onCancel}></div>
 				</div>
 				<div className="cheek">
@@ -242,18 +241,7 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
-	if(!values.syncDate){
-		errors.syncDate = '请选择时间'
-	}
-	if(!values.syncSystem){
-		errors.syncDate = '请选择同步系统'
-	}
-	if(!values.syncMainPart){
-		errors.syncDate = '请选择同步主体'
-	}
-	if(!values.syncMainPart){
-		errors.syncDate = '请选择同步主体'
-	}
+	
 
 
 	return errors

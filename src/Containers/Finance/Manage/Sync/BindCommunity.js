@@ -47,8 +47,8 @@ class BindCommunity extends React.Component {
 		var allArr = [];
 		data.map(function(item,index){
 			var arr = [];
-			for (let i = 0; i<item.community.length;i++){
-				let every = item.community[i];
+			for (let i = 0; i<item.communitys.length;i++){
+				let every = item.communitys[i];
 				var flag = false;
 				for(let j=0;j<existing.length;j++){
 					if(every.id == existing[j].id){
@@ -65,7 +65,7 @@ class BindCommunity extends React.Component {
 			allArr.push({
 				value:item.id,
 				label:item.name,
-				community:arr
+				communitys:arr
 			})
 		})
 		return allArr;
@@ -80,7 +80,7 @@ class BindCommunity extends React.Component {
 		const {existing} = this.props;
 		Http.request('getActivityCommunityList',values).then(function(response) {
 			self.setState({
-				checkedCmt:self.nameConversion(response.items,existing)
+				checkedCmt:self.nameConversion(response,existing)
 			})
 		}).catch(function(err) {
 			Notify.show([{
@@ -112,7 +112,7 @@ class BindCommunity extends React.Component {
 		let checkedArr = [];
 		let obj = [].concat(checkedCmt);
 		for (let i = 0; i < obj.length; i++){
-				obj[i].community.map(function(item,index){
+				obj[i].communitys.map(function(item,index){
 						if(item.checked){
 							checkedArr.push({
 								id:item.value,
@@ -131,7 +131,7 @@ class BindCommunity extends React.Component {
 		let newCheckedCmt = [].concat(checkedCmt);
 		for(let i=0; i<newCheckedCmt.length; i++){
 			if(newCheckedCmt[i].id == all.value){
-				newCheckedCmt[i].community = data;
+				newCheckedCmt[i].communitys = data;
 			}
 		}
 		
@@ -156,7 +156,7 @@ class BindCommunity extends React.Component {
 						label=""
 						name='contract'
 						component="groupCheckbox"
-						defaultValue={item.community}
+						defaultValue={item.communitys}
 						requireLabel={false}
 						checkAllData = {{label:item.label,value:item.value}}
 						isCheckAll = {true}
