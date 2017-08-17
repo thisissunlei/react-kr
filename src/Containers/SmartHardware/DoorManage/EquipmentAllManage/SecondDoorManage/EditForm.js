@@ -190,13 +190,15 @@ class EditForm extends React.Component{
 	
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
-		
+		let {detail} = this.props;
+		console.log("detail",detail);
 		if(!hardwareId || /^\s+$/.test(hardwareId)){
 			return;
 		}
 		let _this = this;
 		let hardwareIdparams = {
 			deviceId :hardwareId,
+			id: detail.id
 		}
 		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
 	 		
@@ -206,11 +208,13 @@ class EditForm extends React.Component{
 		});
 	}
 
-	// 新增设备定义
+	// 编辑设备定义
 	onSubmit=(values)=>{
+		let {detail} = this.props;
 		let _this = this;
 		let hardwareIdparams = {
-			deviceId :values.deviceId
+			deviceId :values.deviceId,
+			id: detail.id
 		}
 
 		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){

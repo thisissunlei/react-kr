@@ -11,7 +11,7 @@ module.exports = {
    },
    //新增编辑设备实时校验编号
    'getDeviceIDRepeat':{
-      url: '/api/iot-platform/door-device/deviceid-check?deviceId={deviceId}',
+      url: '/api/iot-platform/door-device/deviceid-check?deviceId={deviceId}&id={id}',
       method: 'get'
    },
    //新增编辑设备
