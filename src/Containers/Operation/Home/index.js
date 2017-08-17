@@ -137,7 +137,7 @@ class Home  extends React.Component{
 						<MonthPayment />
 				</Dialog>
 				<Dialog
-						title="累积回款"
+						title="累计回款"
 						onClose={this.closeAllPayment}
 						open={State.openAllPayment}
 						contentStyle ={{ width: '85%',height:'590px'}}
