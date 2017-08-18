@@ -36,6 +36,7 @@ State.ajaxListData=action(function(ajaxData){
 	    //错误到了这一层要深究
 		ajaxData = Object.assign({},ajaxData);
 	    var _this = this;
+	    console.log('====列表数据请求====')
 		Http.request('contract-list', ajaxData).then(function(response) {
 			_this.contractList=response.items;
 			_this.totalPaper=response.totalCount;
