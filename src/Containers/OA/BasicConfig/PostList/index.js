@@ -264,12 +264,12 @@ export default class PostList extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-            <TableRowColumn name="code"></TableRowColumn>
-            <TableRowColumn name="enabledStr"></TableRowColumn>
-						<TableRowColumn name="name"></TableRowColumn>
-						<TableRowColumn name="code"></TableRowColumn>
-						<TableRowColumn name="enabledStr" style={{width:60}}></TableRowColumn>
-						<TableRowColumn name="orderNum" style={{width:60}}></TableRowColumn>
+            <TableRowColumn name="code" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+            <TableRowColumn name="enabledStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="code" style={{wordWrap:'break-word',whiteSpace:'normal',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="enabledStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="orderNum" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="jobTypeName" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
@@ -277,10 +277,10 @@ export default class PostList extends Component{
 		 										}
 		 										return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-						<TableRowColumn name="updatorName"></TableRowColumn>
+						<TableRowColumn name="updatorName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="cTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-						}} style={{width:150}}></TableRowColumn>
+						}} style={{width:150}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn type="operation">
 							<Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_job_edit"/>
 							<Button label="删除"  type="operation"  operation="del" operateCode="hrm_job_edit"/>

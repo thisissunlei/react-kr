@@ -44,49 +44,34 @@ export default class RoleOrgaList extends Component{
 				pageSize:15,
 				id:this.props.id
 			},
-			//角色
-			roleArr:[],
-
 			deleteId:'',
 			//编辑detail
 			detail:[],
 			//type
-			depType:''   
+			depType:''
 		}
 	}
-    
 
-    
+
+
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
 			this.getEditData(itemDetail.orgDetailId);
 			this.setState({
-			  openEditType:true	
+			  openEditType:true
 			})
 		}else if(type=='delete'){
 			this.setState({
 			  openDelete:true,
 			  deleteId:itemDetail.orgDetailId
-			})		
+			})
 		}
 	}
-    
+
 	componentWillMount(){
-	  this.dataReady();
+	  
 	}
-    
-	//数据准备
-	dataReady=()=>{
-		var _this=this;
-	   Http.request('role-power-all').then(function(response) {
-				_this.setState({
-					roleArr:response.items
-				})
-     }).catch(function(err) {
-          Message.error(err.message);
-     });	
-	}
-	
+
 
 	//获取编辑信息
 	getEditData=(id)=>{
@@ -103,7 +88,7 @@ export default class RoleOrgaList extends Component{
         });
 	}
 
-	
+
 	//新建开关
 	openAddPost=()=>{
       this.setState({
@@ -128,14 +113,14 @@ export default class RoleOrgaList extends Component{
 							page:1,
 							pageSize:15,
 							id:_this.props.id
-						}  
+						}
 					})
 					_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
 	}
-	
+
 	//编辑关闭
 	openEditPost=()=>{
        this.setState({
@@ -156,8 +141,8 @@ export default class RoleOrgaList extends Component{
 		}else {
 		  params.orgList.map((item,index)=>{
 			orgId.push(item.orgId);
-		 })	
-		}	
+		 })
+		}
 		params.orgId=orgId;
        Http.request('role-power-edit',{},params).then(function(response) {
            _this.setState({
@@ -167,13 +152,13 @@ export default class RoleOrgaList extends Component{
 							pageSize:15,
 							name:_this.state.searchParams.name?_this.state.searchParams.name:"",
 							id:_this.props.id
-						}  
+						}
 					})
 					_this.openEditPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
-		
+
 	}
 
 	//删除页面的开关
@@ -194,19 +179,19 @@ export default class RoleOrgaList extends Component{
 				  page:1,
 				  pageSize:15,
 				  id:_this.props.id
-			  }  
+			  }
 		   })
 		   _this.delSwidth();
         }).catch(function(err) {
           Message.error(err.message);
-        });	
+        });
 	}
 
 
 
 	render(){
 
-		let {roleArr,detail,depType}=this.state;
+		let {detail,depType}=this.state;
 
 		return(
 
@@ -238,13 +223,27 @@ export default class RoleOrgaList extends Component{
 			>
 				<TableHeader className='detail-header'>
 					<TableHeaderColumn className='header-row'>角色</TableHeaderColumn>
+          <TableHeaderColumn className='header-row'>机构类型</TableHeaderColumn>
+          <TableHeaderColumn className='header-row'>机构</TableHeaderColumn>
 					<TableHeaderColumn className='header-row'>角色描述</TableHeaderColumn>
-					<TableHeaderColumn className='header-row'>机构</TableHeaderColumn>
 					<TableHeaderColumn className='header-row'>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody>
 					<TableRow className='detail-row'>
-						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="roleName"></TableRowColumn>
+						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="roleName" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }}></TableRowColumn>
+            <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="roleDesc" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }}></TableRowColumn>
 						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="roleDesc" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
@@ -277,7 +276,6 @@ export default class RoleOrgaList extends Component{
 				<AddRole
 					onCancel={this.openAddPost}
 					onSubmit={this.addPostSubmit}
-					roleArr={roleArr}
 				/>
 			</Dialog>
 			{/*编辑*/}
@@ -290,7 +288,6 @@ export default class RoleOrgaList extends Component{
 				<EditRole
 					onCancel={this.openEditPost}
 					onSubmit={this.editPostSubmit}
-					roleArr={roleArr}
 					detail={detail}
 					depType={depType}
 				/>
@@ -306,7 +303,7 @@ export default class RoleOrgaList extends Component{
 				>
 				<DeleteRole
 					onCancel={this.delSwidth}
-					onSubmit={this.delSubmit}  
+					onSubmit={this.delSubmit}
 				/>
 				</Dialog>
         </div>

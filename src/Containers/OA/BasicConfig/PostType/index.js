@@ -250,9 +250,9 @@ export default class PostType extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-            <TableRowColumn name="orderNum"></TableRowColumn>
-						<TableRowColumn name="name"></TableRowColumn>
-						<TableRowColumn name="code"></TableRowColumn>
+            <TableRowColumn name="orderNum" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="code" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="descr" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
@@ -260,11 +260,11 @@ export default class PostType extends Component{
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-						<TableRowColumn name="orderNum"></TableRowColumn>
-						<TableRowColumn name="updatorName"></TableRowColumn>
+						<TableRowColumn name="orderNum" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="updatorName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-						}}></TableRowColumn>
+						}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn type="operation">
                             <Button label="编辑" operateCode="hrm_job_type_edit" type="operation"  operation="edit"/>
 			                <Button label="删除" operateCode="hrn_job_type_delete" type="operation"  operation="delete" />
