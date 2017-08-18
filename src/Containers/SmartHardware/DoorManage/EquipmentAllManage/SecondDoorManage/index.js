@@ -163,6 +163,10 @@ export default class SecondDoorManage  extends React.Component{
 		State.itemDetail = thisP;
 	}
 
+	showOpretionFun=()=>{
+		State.showOpretion = !State.showOpretion;
+	}
+
 	editList=(thisP,value,itemData)=>{
 		console.log("thisP",thisP,'value',value,'itemData',itemData);
 		this.setState({
@@ -579,11 +583,8 @@ export default class SecondDoorManage  extends React.Component{
 			                  	</Row>
 			                  	<Row>
 				                    <ListGroup>
-				                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-				                        <Button  label="确定" type="submit" onClick={this.confirmConnnetAgain} style={{width:100}}/>
-				                      </ListGroupItem>
 				                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-				                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.showOpretionFun} style={{width:100}}/>
+				                        <Button  label="关闭" type="button"   onTouchTap={this.showOpretionFun} style={{width:100}}/>
 				                      </ListGroupItem>
 				                    </ListGroup>
 				                </Row>

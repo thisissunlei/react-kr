@@ -66,9 +66,6 @@ class NewCreateDefinitionForm extends React.Component{
 		    },{
 		      label:"APP",
 		      value:"APP"
-		    },{
-		      label:"H5",
-		      value:"H5"
 		    }]
 		const { error, handleSubmit, reset} = this.props;
 		return(
