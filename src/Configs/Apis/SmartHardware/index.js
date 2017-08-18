@@ -22,7 +22,7 @@ module.exports = {
    //批量删除设备
    'deleteEquipmentBatch':{
       url: '/api/iot-platform/door-device/delete-batch',
-      method: 'delete'
+      method: 'post'
    },
 
    //单个删除
