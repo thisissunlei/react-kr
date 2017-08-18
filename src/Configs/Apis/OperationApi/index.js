@@ -572,46 +572,7 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/community/select/use/type/city',
          method: 'get'
       },
-      //公告管理-公告列表
-       'notice-list':{
-         url: '/api/krspace-finance-web/topic/manage/find-page?page={page}&pageSize={pageSize}',
-         method: 'get'
-      },
-      //公告管理-获取帖子详情
-       'get-findDetail':{
-         url: '/api/krspace-finance-web/topic/manage/find-detail?topicId={topicId}',
-         method: 'get'
-      },
-      //公告管理-删除帖子
-       'del-notice':{
-         url: '/api/krspace-finance-web/topic/manage/del',
-         method: 'post'
-      },
-      //公告管理-获取是否有全国发帖权限
-       'get-findRight':{
-         url: '/api/krspace-finance-web/topic/manage/find-right',
-         method: 'get'
-      },
-      //公告管理-新建帖子-全国
-       'create-country-topic':{
-         url: '/api/krspace-finance-web/topic/manage/create-country-topic',
-         method: 'post'
-      },
-      //公告管理-新建帖子-社区
-       'create-cmt-topic':{
-         url: '/api/krspace-finance-web/topic/manage/create-cmt-topic',
-         method: 'post'
-      },
-      //公告管理-新建帖子-社区群组
-       'topic-cluster-list':{
-         url: '/api/krspace-finance-web/topic/manage/cluster-list?cmtId={cmtId}',
-         method: 'get'
-      },
-      //公告管理-新建帖子-全国群组
-       'country-cluster-list':{
-         url: '/api/krspace-finance-web/topic/manage/country-cluster-list',
-         method: 'get'
-      },
+      
       // 获取枚举字典接口
       'getListDic': {
             url: '/api/krspace-finance-web/dict/common',
@@ -678,6 +639,53 @@ module.exports = {
         url: '/api/krspace-finance-web/csr/source/info/type/edit?id={id}',
         method: 'get'
     },
+
+    //运营平台-基本配置-设备定义（一代门禁）--重置设备
+    'resetEquipmentInfo': {
+        url: '/api/krspace-finance-web/community/sysDeviceDefinition/device-definition/actions/reset',
+        method: 'post'
+    },
+    //运营平台-基本配置-设备定义（一代门禁）--删除设备
+    'deleteEquipmentInfo': {
+        url: '/api/krspace-finance-web/community/sysDeviceDefinition/device-definition/actions/delete',
+        method: 'post'
+    },
+    //APP管理-公告管理-公告分页
+    'get-notice-page': {
+        url: '/api/krspace-finance-web/notice/management/page?page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //APP管理-公告管理-创建公告
+    'create-notice': {
+        url: '/api/krspace-finance-web/notice/management/create',
+        method: 'post'
+    },
+    //APP管理-公告管理-删除公告
+    'delete-notice': {
+        url: '/api/krspace-finance-web/notice/management/delete',
+        method: 'post'
+    },
+    //APP管理-公告管理-发布公告
+    'publish-notice': {
+        url: '/api/krspace-finance-web/notice/management/publish',
+        method: 'post'
+    },
+    //APP管理-公告管理-编辑公告
+    'edit-notice': {
+        url: '/api/krspace-finance-web/notice/management/edit',
+        method: 'post'
+    },
+    //APP管理-公告管理-获取公告详情
+    'get-notice-detail': {
+        url: '/api/krspace-finance-web/notice/management/detail?id={id}',
+        method: 'get'
+    },
+    //APP管理-公告管理-获取是否有全国 公告的权限
+    'get-findCmtRight': {
+        url: '/api/krspace-finance-web/notice/management/findCmtRight',
+        method: 'get'
+    },
+
 }
 
 
