@@ -74,6 +74,21 @@ const OA_OrganizationPower_Role = (location, callback) => {
 }
 
 
+/*首页配置-轮播列表*/
+const OA_HomePageSetting_SwperList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/HomePageSetting/SwperList').default)
+  }, 'OA_HomePageSetting_SwperList')
+}
+
+/*首页配置-动态列表*/
+const OA_HomePageSetting_DynamicsList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/HomePageSetting/DynamicsList').default)
+  }, 'OA_HomePageSetting_DynamicsList')
+}
+
+
 
 
 module.exports =()=>{
@@ -84,7 +99,7 @@ module.exports =()=>{
               <Route path="home" getComponent={OA_Organization_Home}/>
               <Route path=":dimId/labour" getComponent={OA_Organization_Labour}/>
             </Route>
-            
+
 						{/*人员管理*/}
             <Route path="personalManage" getComponent={Basic}>
 						  <Route path="peopleState" getComponent={OA_PersonalManage_PeopleState}/>
@@ -96,15 +111,23 @@ module.exports =()=>{
 						  <Route path="postType" getComponent={OA_BasicConfig_PostType}/>
 						  <Route path="rankList" getComponent={OA_BasicConfig_RankList}/>
             </Route>
+            {/*首页配置*/}
+            {/*HomePageSetting*/}
+             <Route path="homePageSetting" getComponent={Basic}>
+
+						  <Route path="swperList" getComponent={OA_HomePageSetting_SwperList}/>
+						  <Route path="dynamicsList" getComponent={OA_HomePageSetting_DynamicsList}/>
+            </Route>
 
              {/*人员详情*/}
             <Route path=":personId/peopleDetail" getComponent={OA_PeopleDetail}/>
-             
+
             {/*机构分权*/}
             <Route path="organizationPower" getComponent={Basic}>
 						  <Route path="orgList" getComponent={OA_OrganizationPower_OrgList}/>
 						  <Route path="role" getComponent={OA_OrganizationPower_Role}/>
             </Route>
+
 
         </Route>
 	);

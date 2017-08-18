@@ -86,6 +86,25 @@ module.exports = [
 					},
 				]
 			},
+			{
+				primaryText: '首页配置',
+				iconName: 'icon-basis',
+				menuCode: 'hrmbasedataadmin',
+				iconColor: '#79859a',
+				menuItems: [
+					{
+						primaryText: '轮播图列表',
+						menuCode: 'hrm_dim_list',
+						router: '/oa/homePageSetting/swperList',
+					},
+					{
+						primaryText: '最新动态列表',
+						menuCode: 'hrm_dim_list',
+						router: '/oa/homePageSetting/dynamicsList',
+					},
+					
+				]
+			},
 			]
 	}
 ]
