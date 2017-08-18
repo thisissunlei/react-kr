@@ -75,8 +75,6 @@ export default class AttributeSetting extends React.Component {
 			State.showView(itemDetail)
 		}
 		if (type == 'edit') {
-			console.log('=======',State.openEdit)
-			let orderId = itemDetail.id
 			State.showEdit(itemDetail);
 		}
 	}
@@ -183,7 +181,9 @@ export default class AttributeSetting extends React.Component {
 								TooltipStyle="block";
 							}
 							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{str}</span>
-							 	<Tooltip offsetTop={5} place='top'><div style={{width:250}}>{str}</div></Tooltip></div>)
+							 	<Tooltip offsetTop={5} place='top'>
+											<div style={{width:"260px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{str}</div>
+								</Tooltip></div>)
 						}} ></TableRowColumn>
 						<TableRowColumn name="name" ></TableRowColumn>
 						<TableRowColumn name="operateTime" type="date" format="yyyy-mm-dd"></TableRowColumn>

@@ -40,7 +40,7 @@ class NewCreateForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			chipData :[{name: "大成国际社区", id: 43}],
+			chipData :State.itemData.cmts,
 			isBindCommunitys : false,
 			readyData:{}
 		}
@@ -57,7 +57,8 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentDidMount() {
-
+		Store.dispatch(initialize('newCreateForm', State.itemData));
+		console.log('====',State.itemData)
 	}
 	getEditReadyData = () =>{
 		let self = this;
