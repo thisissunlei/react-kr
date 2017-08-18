@@ -552,6 +552,36 @@ var OAApi = {
       url:'/api/krspace-erp-web/tree/org-auth-resource',
       method: 'get'
   },
+
+  //首页管理
+  //首页-轮播列表
+  'home-swper-list':{
+      url:'/api/krspace-erp-web/sys/slider/list?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+  //首页-轮播新建
+  'home-swper-add':{
+      url:'/api/krspace-erp-web/sys/slider/add',
+      method: 'post'
+  },
+  //首页-轮播编辑
+  'home-swper-add':{
+      url:'/api/krspace-erp-web/sys/slider/edit',
+      method: 'post'
+  },
+  //首页-轮播详情
+  'home-swper-detail':{
+      url:' /api/krspace-erp-web/sys/slider/detail?id={id}',
+      method: 'get'
+  },
+  //首页-轮播删除
+  'home-swper-delete':{
+      url:'/api/krspace-erp-web/sys/slider/delete',
+      method: 'post'
+  },
+  //首页最新动态
+  
+
 }
 
 module.exports=OAApi;
