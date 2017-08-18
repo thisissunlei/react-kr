@@ -134,7 +134,7 @@ State.getCommunityList=action(function(){
 			})
 		}).catch(function(err) {
 			console.log(err)
-			Message.error('后台出错，请联系管理员');
+			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
@@ -158,7 +158,7 @@ State.getIncomeList=action(function(params){
 		}).catch(function(err) {
 			console.log(err)
 
-			Message.error('后台出错，请联系管理员');
+			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
@@ -171,7 +171,7 @@ State.getVisitList=action(function(params){
 		}).catch(function(err) {
 			console.log(err)
 
-			Message.error('后台出错，请联系管理员');
+			Message.error(err.message);
 		});
 })
 

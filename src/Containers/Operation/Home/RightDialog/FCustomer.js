@@ -48,6 +48,11 @@ class MonthPayment extends React.Component{
 	}
 
 	searchSignChange=(value)=>{
+		if(!value){
+			value={
+				value:''
+			}
+		}
 		this.setState({
 			customerId:value.value
 		})
