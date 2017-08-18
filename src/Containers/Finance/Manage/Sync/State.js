@@ -14,7 +14,7 @@ let State = observable({
 	syncSystem:[],
 	search:{
 		page:1,
-		pageSize:1,
+		pageSize:15,
 		content:'',
 		time:+new Date()
 	},

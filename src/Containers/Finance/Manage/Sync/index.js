@@ -121,9 +121,9 @@ export default class AttributeSetting extends React.Component {
 	}
 	communityList=(list)=>{
 		let str = list.map((item)=>{
-			return item.name+','
+			return item.name
 		})
-		return str.Substring(0,str.length - 1)
+		return str.join(',');
 	}
 
 
