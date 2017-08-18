@@ -69,7 +69,7 @@ export default class RoleOrgaList extends Component{
 	}
 
 	componentWillMount(){
-	  
+
 	}
 
 
@@ -238,23 +238,23 @@ export default class RoleOrgaList extends Component{
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
             <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="roleDesc" component={(value,oldValue)=>{
-		 										var maxWidth=10;
+		 										var maxWidth=8;
 		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
+		 										 value = value.substring(0,8)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
 						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="roleDesc" component={(value,oldValue)=>{
-		 										var maxWidth=10;
+		 										var maxWidth=8;
 		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
+		 										 value = value.substring(0,8)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
 						<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name="orgName" component={(value,oldValue)=>{
-		 										var maxWidth=10;
+		 										var maxWidth=8;
 		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
+		 										 value = value.substring(0,8)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
