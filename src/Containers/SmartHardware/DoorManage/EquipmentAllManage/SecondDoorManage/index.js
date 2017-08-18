@@ -573,7 +573,7 @@ export default class SecondDoorManage  extends React.Component{
 				                        <Button  label="查看设备缓存" type="button"  cancle={true} onTouchTap={this.deviceCache} style={{width:100}}/>
 				                      </ListGroupItem>
 				                      <ListGroupItem style={{textAlign:'left',padding:0,paddingLeft:15}}>
-				                        	<Button  label="获取口令" type="button"  cancle={true} onTouchTap={this.getDoorPassWord} style={{width:100}}/>
+				                        	<Button  label="升级" type="button"  cancle={true} onTouchTap={this.upgrade} style={{width:100}}/>
 				                      </ListGroupItem>
 				                    </ListGroup>
 			                  	</Row>
