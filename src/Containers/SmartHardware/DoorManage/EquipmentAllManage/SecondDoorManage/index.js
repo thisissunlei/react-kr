@@ -546,21 +546,47 @@ export default class SecondDoorManage  extends React.Component{
 			          title="按钮库"
 			          open={State.showOpretion}
 			          onClose={this.showOpretionFun}
-			          contentStyle={{width:443,height:236}}
+			          contentStyle={{width:500,height:300}}
 			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>按钮库</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-			                        <Button  label="确定" type="submit" onClick={this.confirmConnnetAgain} />
-			                      </ListGroupItem>
-			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.showOpretionFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
+			          <div style={{}}>
+			            	<Grid style={{marginBottom:'4px'}}>
+			            		<Row style={{marginBottom:10}}>
+				                    <ListGroup>
+				                      <ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
+				                        <Button  label="清空设备缓存" type="button" onClick={this.clearCache} cancle={true}  style={{width:100}}/>
+				                        
+				                      </ListGroupItem>
+				                      <ListGroupItem style={{textAlign:'left',padding:0,paddingLeft:15}}>
+				                        <Button  label="断开重连" type="button"  cancle={true} onTouchTap={this.connectAgain} style={{width:100}}/>
+				                      </ListGroupItem>
+				                      <ListGroupItem style={{textAlign:'left',padding:0,paddingLeft:15}}>
+				                        	<Button  label="获取口令" type="button"  cancle={true} onTouchTap={this.getDoorPassWord} style={{width:100}}/>
+				                      </ListGroupItem>
+				                    </ListGroup>
+			                  	</Row>
+			                  	<Row style={{marginBottom:10}}>
+				                    <ListGroup>
+				                      <ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
+				                        <Button  label="远程开门" type="button" onClick={this.openDoorInline} cancle={true} style={{width:100}}/>
+				                      </ListGroupItem>
+				                      <ListGroupItem style={{textAlign:'left',padding:0,paddingLeft:15}}>
+				                        <Button  label="查看设备缓存" type="button"  cancle={true} onTouchTap={this.deviceCache} style={{width:100}}/>
+				                      </ListGroupItem>
+				                      <ListGroupItem style={{textAlign:'left',padding:0,paddingLeft:15}}>
+				                        	<Button  label="获取口令" type="button"  cancle={true} onTouchTap={this.getDoorPassWord} style={{width:100}}/>
+				                      </ListGroupItem>
+				                    </ListGroup>
+			                  	</Row>
+			                  	<Row>
+				                    <ListGroup>
+				                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+				                        <Button  label="确定" type="submit" onClick={this.confirmConnnetAgain} style={{width:100}}/>
+				                      </ListGroupItem>
+				                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+				                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.showOpretionFun} style={{width:100}}/>
+				                      </ListGroupItem>
+				                    </ListGroup>
+				                </Row>
 			                </Grid>
 			          </div>
 			        </Dialog>
