@@ -130,7 +130,7 @@ class NewCreateDefinitionForm extends React.Component{
 				floorNum : floor.value
 			},function(){
 				_this.setState({
-					propertyOption :[{label: '大门',value: 1},{label: '会议室',value: 2}]
+					propertyOption :State.propertyOption
 				})
 			})
 		}

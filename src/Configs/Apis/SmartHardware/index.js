@@ -54,7 +54,7 @@ module.exports = {
       method: 'get'
    },
 
-   //报警日志报警类型
+   //获取字典（报警日志）
    'getWarningType':{
       url: '/api/iot-platform/dict/common',
       method: 'get'
@@ -108,5 +108,40 @@ module.exports = {
       url: '/api/iot-platform/door-device/init-on-off/switch',
       method: 'post'
    },
+
+
+   //设置重启设备系统
+   'restartSystemsUrl':{
+      url: '/api/iot-platform/door-device/admin/actions/reboot-os',
+      method: 'put'
+   },
+
+    //设置APP
+   'restartAPPUrl':{
+      url: '/api/iot-platform/door-device/admin/actions/reboot-app',
+      method: 'put'
+   },
+
+
+    //获取管理员密码
+   'getManagerPsdUrl':{
+      url: '/api/iot-platform/door-device/admin/admin-pwd?deviceId={deviceId}',
+      method: 'get'
+   },
+
+   //恢复出厂设置
+   'resetEquipmentUrl':{
+      url: '/api/iot-platform/door-device/admin/actions/reset-config',
+      method: 'put'
+   },
+
+   //刷新H5
+   'freshHTMLUrl':{
+      url: '/api/iot-platform/door-device/admin/actions/refresh-screen',
+      method: 'put'
+   },
+
+   
+   
    
 }

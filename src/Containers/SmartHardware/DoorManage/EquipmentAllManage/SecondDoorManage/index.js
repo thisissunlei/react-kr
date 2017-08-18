@@ -51,7 +51,7 @@ export default class SecondDoorManage  extends React.Component{
 	componentWillMount(){
 	}
 	componentDidMount() {
-		State.getListDic();
+		State.getDicList();
 	}
 	componentWillUnmount(){
 
@@ -250,6 +250,90 @@ export default class SecondDoorManage  extends React.Component{
 		State.passwordDialog = !State.passwordDialog;
 	}
 
+	//刷新H5页面
+	freshH5=()=>{
+		State.showOpretion=false;
+		this.openFreshHTMLDialogFun();
+	}
+
+
+	//刷新H5页面窗口
+	openFreshHTMLDialogFun=()=>{
+		State.openFreshHTMLDialog = !State.openFreshHTMLDialog;
+	}
+
+	//确认刷新h5页面
+	confirmFreshHTML=()=>{
+		State.confirmFreshHTMLAction();
+		this.openFreshHTMLDialogFun();
+	}
+
+
+	//恢复设备出厂设置
+	resetEquipmentOrigin=()=>{
+		State.showOpretion=false;
+		this.resetEquipmentDialogFun();
+	}
+
+	//恢复出厂设置提示窗口
+	resetEquipmentDialogFun=()=>{
+		State.resetEquipmentDialog = !State.resetEquipmentDialog;
+	}  
+
+	//确认恢复出厂设置
+	confirmResetEquipment=()=>{
+		State.confirmResetEquipmentAction();
+		this.resetEquipmentDialogFun();
+	}
+
+	//获取管理员密码
+	getManagerPsd=()=>{
+		State.showOpretion=false;
+		this.openManagePsdFun();
+		State.getManagerPsdFun();
+	}
+
+	//管理员密码出口
+	openManagePsdFun=()=>{
+		State.openManagePsd = !State.openManagePsd;
+	}
+
+	//重启APP
+	restartAPP=()=>{
+		console.log("重启APP");
+		State.showOpretion=false
+		this.openRestartAPPDialogFun()
+	}
+	//重启APP提示
+	openRestartAPPDialogFun=()=>{
+		State.openRestartAPPDialog = !State.openRestartAPPDialog;
+	}
+
+	//确认重启APP
+	confirmOpenRestartAPP=()=>{
+		State.confirmOpenRestartAPPAction();
+		this.openRestartAPPDialogFun();
+	}
+
+	//重启设备系统
+	restartSystems=()=>{
+		console.log("重启设备系统");
+		this.openRestartSystemsDialogFun();
+		State.showOpretion=false
+
+	}
+
+	//重启设备系统提示
+	openRestartSystemsDialogFun = ()=>{
+		State.openRestartSystemsDialog=!State.openRestartSystemsDialog;
+	}
+
+	//确认重启设备系统
+	confirmOpenRestartSystems=()=>{
+		State.confirmOpenRestartSystemsAction();
+		this.openRestartSystemsDialogFun();
+	}
+
 
 	render(){
 		let {itemDetail}=this.state;
@@ -328,21 +412,14 @@ export default class SecondDoorManage  extends React.Component{
 									return (<Button  label={value}  type="operation" operation="seeDatailInfo" onTouchTap={this.seeDetailInfoFun.bind(value,itemData)}/>)}}
 								></TableRowColumn>
 								
-								<TableRowColumn name="maker" component={(value,oldValue)=>{
-									if(value=="SHEN_DIAN"){
-										value="深电"
-									}
-									if(value=="ZHONG_KONG"){
-										value="中控"
+								<TableRowColumn name="makerName" component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="doorType" component={(value,oldValue)=>{
-									if(value == 1){
-										value = "大门"
-									}else if(value==2){
-										value = "会议室"
-									}else if(value==""){
+								<TableRowColumn name="doorTypeName" component={(value,oldValue)=>{
+									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
@@ -515,6 +592,73 @@ export default class SecondDoorManage  extends React.Component{
 			          </div>
 			        </Dialog>
 			        <Dialog
+			          title="重启设备系统提示"
+			          open={State.openRestartSystemsDialog}
+			          onClose={this.openRestartSystemsDialogFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>重启设备系统有可能导致设备几分钟不可用，确定重启？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmOpenRestartSystems} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openRestartSystemsDialogFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+
+			        <Dialog
+			          title="刷新H5页面提示"
+			          open={State.openFreshHTMLDialog}
+			          onClose={this.openFreshHTMLDialogFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>刷新H5页面可能导致页面显示不正常，确定刷新？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmFreshHTML} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openFreshHTMLDialogFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+			        <Dialog
+			          title="恢复出厂设置提示"
+			          open={State.resetEquipmentDialog}
+			          onClose={this.resetEquipmentDialogFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>恢复出厂设置可能导致设备无法被发现，确定恢复出厂设置？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmResetEquipment} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.resetEquipmentDialogFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+			        <Dialog
 			          title="口令"
 			          open={State.passwordDialog}
 			          onClose={this.passwordDialogFun}
@@ -534,8 +678,48 @@ export default class SecondDoorManage  extends React.Component{
 			                </Grid>
 			          </div>
 			        </Dialog>
-
-
+			        <Dialog
+			          title="管理员密码"
+			          open={State.openManagePsd}
+			          onClose={this.openManagePsdFun}
+			          contentStyle={{width:443,height:260}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>主密码：{State.managePsd.main}</p>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>备用密码：{State.managePsd.backup}</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:400,textAlign:'center',padding:0}}>
+			                        <Button  label="确定" type="button"  cancle={true} onTouchTap={this.openManagePsdFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+			        <Dialog
+			          title="重启APP提示"
+			          open={State.openRestartAPPDialog}
+			          onClose={this.openRestartAPPDialogFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>重启APP可能会导致失败，确定重启？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmOpenRestartAPP} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openRestartAPPDialogFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
 
 			         <Drawer 
 			        	open={State.openEquipmentCache}
@@ -550,41 +734,60 @@ export default class SecondDoorManage  extends React.Component{
 			          title="按钮库"
 			          open={State.showOpretion}
 			          onClose={this.showOpretionFun}
-			          contentStyle={{width:500,height:300}}
+			          contentStyle={{width:590,height:320}}
 			        >
-			          <div style={{}}>
+			          <div style={{paddingTop:30}}>
 			            	<Grid style={{marginBottom:'4px'}}>
-			            		<Row style={{marginBottom:10}}>
+			            		<Row style={{marginBottom:10,paddingLeft:10}}>
 				                    <ListGroup>
-				                      <ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
-				                        <Button  label="清空设备缓存" type="button" onClick={this.clearCache} cancle={true}  style={{width:100}}/>
+				                    	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
+				                        	<Button  label="升级" type="button"  cancle={true} onTouchTap={this.upgrade} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
+				                        	<Button  label="清空设备缓存" type="button" onClick={this.clearCache} cancle={true}  style={{width:115}}/>
 				                        
-				                      </ListGroupItem>
-				                      <ListGroupItem style={{textAlign:'left',padding:0,paddingLeft:15}}>
-				                        <Button  label="断开重连" type="button"  cancle={true} onTouchTap={this.connectAgain} style={{width:100}}/>
-				                      </ListGroupItem>
-				                      <ListGroupItem style={{textAlign:'left',padding:0,paddingLeft:15}}>
-				                        	<Button  label="获取口令" type="button"  cancle={true} onTouchTap={this.getDoorPassWord} style={{width:100}}/>
-				                      </ListGroupItem>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
+				                        	<Button  label="断开重连" type="button"  cancle={true} onTouchTap={this.connectAgain} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0}}>
+				                        	<Button  label="获取口令" type="button"  cancle={true} onTouchTap={this.getDoorPassWord} style={{width:115}}/>
+				                      	</ListGroupItem>
 				                    </ListGroup>
 			                  	</Row>
-			                  	<Row style={{marginBottom:10}}>
+			                  	<Row style={{marginBottom:10,paddingLeft:10}}>
 				                    <ListGroup>
-				                      <ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
-				                        <Button  label="远程开门" type="button" onClick={this.openDoorInline} cancle={true} style={{width:100}}/>
-				                      </ListGroupItem>
-				                      <ListGroupItem style={{textAlign:'left',padding:0,paddingLeft:15}}>
-				                        <Button  label="查看设备缓存" type="button"  cancle={true} onTouchTap={this.deviceCache} style={{width:100}}/>
-				                      </ListGroupItem>
-				                      <ListGroupItem style={{textAlign:'left',padding:0,paddingLeft:15}}>
-				                        	<Button  label="升级" type="button"  cancle={true} onTouchTap={this.upgrade} style={{width:100}}/>
-				                      </ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
+				                        	<Button  label="远程开门" type="button" onClick={this.openDoorInline} cancle={true} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
+				                        	<Button  label="查看设备缓存" type="button"  cancle={true} onTouchTap={this.deviceCache} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
+				                        	<Button  label="刷新H5" type="button"  cancle={true} onTouchTap={this.freshH5} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0}}>
+				                        	<Button  label="恢复设备出厂设置" type="button"  cancle={true} onTouchTap={this.resetEquipmentOrigin} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                    </ListGroup>
+			                  	</Row>
+			                  	<Row style={{marginBottom:10,paddingLeft:10}}>
+				                    <ListGroup>
+				                      	<ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
+				                        	<Button  label="获取管理员密码" type="button" onClick={this.getManagerPsd} cancle={true} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
+				                        	<Button  label="重启设备APP" type="button"  cancle={true} onTouchTap={this.restartAPP} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
+				                        	<Button  label="重启设备系统" type="button"  cancle={true} onTouchTap={this.restartSystems} style={{width:115}}/>
+				                      	</ListGroupItem>
 				                    </ListGroup>
 			                  	</Row>
 			                  	<Row>
 				                    <ListGroup>
-				                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-				                        <Button  label="关闭" type="button"   onTouchTap={this.showOpretionFun} style={{width:100}}/>
+				                      <ListGroupItem style={{width:580,textAlign:'center',padding:0,marginTop:10}}>
+				                        <Button  label="关闭" type="button"   onTouchTap={this.showOpretionFun} style={{width:115}}/>
 				                      </ListGroupItem>
 				                    </ListGroup>
 				                </Row>

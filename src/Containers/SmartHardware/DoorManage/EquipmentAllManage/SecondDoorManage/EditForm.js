@@ -65,7 +65,7 @@ class EditForm extends React.Component{
 	    			floorsOptions : arrNew,
 	    			floor : detail.floor,
 	    			communityId : detail.communityId,
-	    			propertyOption :[{label: '大门',value: "1"},{label: '会议室',value: "2"}]
+	    			propertyOption :State.propertyOption
 	    		})
 	    }).catch(function(err){
 
@@ -235,6 +235,8 @@ class EditForm extends React.Component{
 		return(
 			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
+					<div><span>智能硬件ID</span><span>{detail.deviceId}</span></div>
+					
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
 						onChange = {this.onChangeSearchCommunity}
@@ -273,15 +275,7 @@ class EditForm extends React.Component{
 						style={{width:'252px'}}
 						onBlur = {this.doorNumHasFun}
 					/>
-					<KrField grid={1/2} name="deviceId" 
-						type="text" 
-						label="智能硬件ID" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'智能硬件ID为必填项'}} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						onBlur = {this.hardwareIdHasFun}
-					/>
+					
 					
 					<KrField name="doorType" 
 						component="select" 

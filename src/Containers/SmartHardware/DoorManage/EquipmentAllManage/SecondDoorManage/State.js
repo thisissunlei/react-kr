@@ -46,7 +46,13 @@ let State = observable({
 	cachedeviceId: '',
 	equipmentCacheitems :[],
 	switch : false,
-	showOpretion : false
+	showOpretion : false,
+	openRestartSystemsDialog : false,
+	openRestartAPPDialog :false,
+	openManagePsd :false,
+	managePsd :{},
+	resetEquipmentDialog : false,
+	openFreshHTMLDialog :false
 
 });
 
@@ -103,26 +109,38 @@ State.deleteEquipmentSingle= action(function() {
 
 });
 
-// 获取设备厂家列表
-State.getListDic = action(function() {
+// 获取通用字典
+State.getDicList = action(function() {
 	var _this = this;
-	Http.request('getListDic', {}).then(function(response) {
+	Http.request('getWarningType', {}).then(function(response) {
 		
-		var arrNew = []
+		var arrNewMaker = []
+		var arrNewDoorType = []
 		for (var i=0;i<response.Maker.length;i++){
-			arrNew[i] = {
+			// console.log("response",response);
+			// console.log("response.Maker[i]",response.Maker[i]);
+			// console.log("response.DoorType[i]",response.DoorType[i]);
+			arrNewMaker[i] = {
 						label:response.Maker[i].desc,
 						value:response.Maker[i].value
 					}
+			arrNewDoorType[i] = {
+						label:response.DoorType[i].desc,
+						value:response.DoorType[i].value
+					}
 		}
 		
-		State.makerOptions = arrNew;
+		State.makerOptions = arrNewMaker;
+		State.propertyOption = arrNewDoorType;
+		// State.propertyOption = [{label:"大门",value:"GATA"},{label:"会议室",value:"MEET"}]
 
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
 
 });
+
+
 
 //新增
 State.newCreateSecondDoor = action(function(values){
@@ -323,20 +341,66 @@ State.changeSwitchStatusAction = action(function(params){
 })
 
 
+//确认重启设备系统
+State.confirmOpenRestartSystemsAction = action(function(){
+	var urlParams = {deviceId:State.itemDetail.deviceId}
+	Http.request('restartSystemsUrl',{},urlParams).then(function(response) {
+		Message.success("设备接收到重启命令");
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
+//确认重启APP
+State.confirmOpenRestartAPPAction = action(function(){
+	var urlParams = {deviceId:State.itemDetail.deviceId}
+	Http.request('restartAPPUrl',{},urlParams).then(function(response) {
+		Message.success("设备接收到重启APP命令");
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
+//获取管理员密码
+State.getManagerPsdFun = action(function(){
+	var urlParams = {deviceId:State.itemDetail.deviceId}
+	Http.request('getManagerPsdUrl',urlParams).then(function(response) {
+		console.log("response",response);
+		State.managePsd = {
+			main : response.main,
+			backup :response.backup
+		}
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
+
+//确认恢复出厂设置
+State.confirmResetEquipmentAction  = action(function(){
+	var urlParams = {deviceId:State.itemDetail.deviceId}
+	Http.request('resetEquipmentUrl',{},urlParams).then(function(response) {
+		console.log("response",response);
+		Message.success("设备已收到恢复出厂设置的消息");
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
+//确认刷新H5
+State.confirmFreshHTMLAction = action(function(){
+	var urlParams = {deviceId:State.itemDetail.deviceId}
+	Http.request('freshHTMLUrl',{},urlParams).then(function(response) {
+		
+		Message.success("设备已经收到刷新H5页面的消息");
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
 
 
 
 module.exports = State;
-
-
-
-
-
-
-
-
-
-
-
 
 
