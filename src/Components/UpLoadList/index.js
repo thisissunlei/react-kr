@@ -146,7 +146,7 @@ export default class UpLoadList extends React.Component {
 			fileId:id.id
 		}).then(function(response) {
 			_this.getFileList(_this.props.detail.id);
-			onChange && onChange(files);
+			onChange && onChange();
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
