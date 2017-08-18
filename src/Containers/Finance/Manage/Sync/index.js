@@ -23,6 +23,9 @@ import {
 import {
 	observer
 } from 'mobx-react';
+import {
+	Http,DateFormat
+} from "kr/Utils";
 
 import './index.less'
 import State from './State';
@@ -122,6 +125,12 @@ export default class AttributeSetting extends React.Component {
 		}
 		State.search = search;
 	}
+	communityList=(list)=>{
+		let str = list.map((item)=>{
+			return item.name+','
+		})
+		return str
+	}
 
 
 
@@ -140,8 +149,7 @@ export default class AttributeSetting extends React.Component {
 						displayCheckbox={true}
 						onLoaded={this.onLoaded}
 						ajax={true}
-						ajaxFieldListName="finaContractMainbillVOList"
-						ajaxUrlName='getFinaDataByList'
+						ajaxUrlName='get-tongbu-basic-list'
 						ajaxParams={State.search}
 						onOperation={this.onOperation}
 						exportSwitch={false}
@@ -159,32 +167,26 @@ export default class AttributeSetting extends React.Component {
 
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
-						<TableRowColumn style={{width:160,overflow:"visible"}} name="mainbillname" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
-
-														}else{
-															TooltipStyle="block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+						<TableRowColumn name="mainbillname" component={(value,oldValue,itemData)=>{
+														 return (<div style={{paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{DateFormat(itemData.operateTime,'yyyy/mm')}</span></div>)
 													 }} ></TableRowColumn>
-						<TableRowColumn name="mainBillTypeName" options={[{label:'工位入驻订单',value:'STATION'}]}></TableRowColumn>
-						<TableRowColumn style={{width:160,overflow:"visible"}} name="community" component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
+						<TableRowColumn name="syncSystemName"></TableRowColumn>
+						<TableRowColumn name="syncMainPartName" ></TableRowColumn>
+						<TableRowColumn name="stationnum"  component={(value,oldValue,itemData)=>{
+							let str = this.communityList(itemData.cmts);
+							console.log(str)
+							var TooltipStyle=""
+							if(str.length==""){
+								TooltipStyle="none"
 
-														}else{
-															TooltipStyle="block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-											}} ></TableRowColumn>
-						<TableRowColumn name="stationnum"></TableRowColumn>
-						<TableRowColumn name="contractEntrydate" type="date" format="yyyy-mm-dd"></TableRowColumn>
-						<TableRowColumn name="contractLeavedate" type="date" format="yyyy-mm-dd"></TableRowColumn>
+							}else{
+								TooltipStyle="block";
+							}
+							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{str}</span>
+							 	<Tooltip offsetTop={5} place='top'><div style={{width:250}}>{str}</div></Tooltip></div>)
+						}} ></TableRowColumn>
+						<TableRowColumn name="name" ></TableRowColumn>
+						<TableRowColumn name="operateTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
 						<TableRowColumn>
 							  <Button label="查看"  type="operation" operation="view"/>
 							  <Button label="编辑"  type="operation" operation="edit"/>

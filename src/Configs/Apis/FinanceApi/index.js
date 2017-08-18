@@ -373,6 +373,10 @@ module.exports = {
         url: 'http://st.krspace.cn/api/krspace-op-web/sync/sync-cmt-ctrl-create',
         method: 'get'
     },
+    'get-tongbu-basic-list': {
+        url: 'http://st.krspace.cn/api/krspace-op-web/sync/sync-cmt-ctrl-list',
+        method: 'get'
+    },
     //同步中心创建提交
     'get-tongbu-submit': {
         url: 'http://st.krspace.cn/api/krspace-op-web/sync/sync-cmt-ctrl',
