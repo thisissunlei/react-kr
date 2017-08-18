@@ -59,7 +59,7 @@ export default class DynamicsList extends Component{
    //获取详情信息
    getDetail = (id) =>{
 		var _this = this;
-		Http.request("home-swper-detail",{id:id}).then(function (response) {
+		Http.request("dynamics-detail",{id:id}).then(function (response) {
 			Store.dispatch(initialize('EditSwper',response));
 			_this.setState({
 				photoUrl:photoUrl,
@@ -107,7 +107,7 @@ export default class DynamicsList extends Component{
    deleteSubmit = () =>{
 	   let {nowId} = this.state;
 	   let _this = this;
-	   Http.request("home-swper-delete",{},{id:nowId}).then(function (response) {
+	   Http.request("dynamics-delete",{},{id:nowId}).then(function (response) {
 			Message.success("删除成功");
 			_this.switchOpenDelete()
 		}).catch(function (err) {
@@ -140,7 +140,7 @@ export default class DynamicsList extends Component{
 	   let params = Object.assign({},data);
 	   
 	   let _this = this;
-	   Http.request("home-swper-delete",{},params).then(function (response) {
+	   Http.request("dynamics-add",{},params).then(function (response) {
 			Message.success("新建成功");
 			_this.switchOpenAdd()
 		}).catch(function (err) {
@@ -153,7 +153,7 @@ export default class DynamicsList extends Component{
 		var params = this.state;
 		params.id = nowId;
 		let _this = this;
-	   	Http.request("home-swper-delete",{},params).then(function (response) {
+	   	Http.request("dynamics-edit",{},params).then(function (response) {
 			Message.success("编辑成功");
 			_this.switchOpenEdit()
 		}).catch(function (err) {
@@ -195,7 +195,7 @@ export default class DynamicsList extends Component{
 				onOperation={this.onOperation}
 				displayCheckbox={false}
 				ajaxParams={this.state.searchParams}
-				ajaxUrlName='role-list'
+				ajaxUrlName='dynamics-list'
 				ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
 			>
