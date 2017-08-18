@@ -32,8 +32,20 @@ export default class EquipmentDetail extends React.Component{
 	closeDialog=()=>{
 		State.openHardwareDetail= false;
 	}
+
+	freshEquipmentReporter=()=>{
+		console.log("刷新设备上报信息");
+		let _this = this;
+		State.freshEquipmentReporterAction();
+		console.log("State.deviceVO.report",State.deviceVO.report);
+		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.report));
+
+	}
 	
 	syntaxHighlight=(json)=>{
+		if(!json){
+			return;
+		}
 		json = JSON.parse(json);
 	    if (typeof json != 'string') {
 	        json = JSON.stringify(json, undefined, 2);
@@ -63,7 +75,7 @@ export default class EquipmentDetail extends React.Component{
 
 		return (
 			<div className="seconde-dialog">
-
+				<Button label="刷新设备上报信息" onTouchTap={this.freshEquipmentReporter} style={{width:150,marginLeft:20}}/>
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
 				<h1>设备信息</h1>
 				<div className="detail-list-equipment">
@@ -72,11 +84,7 @@ export default class EquipmentDetail extends React.Component{
 						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{params.deviceId}</div></div>
 						<div className="tr-line"><div className="td-left">底层固件版本:</div><div className="td-right">{params.driverV}</div></div>
 						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{params.ip}</div></div>
-						<div className="tr-line"><div className="td-left">内存:</div><div className="td-right">{params.mem}</div></div>
 						<div className="tr-line"><div className="td-left">标记:</div><div className="td-right">{params.name}</div></div>
-						<div className="tr-line"><div className="td-left">存储容量:</div><div className="td-right">{params.rom}</div></div>
-						<div className="tr-line"><div className="td-left">sd卡容量:</div><div className="td-right">{params.sd}</div></div>
-						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{params.v}</div></div>
 						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{params.v}</div></div>
 						<div className="tr-line"><div className="td-left">设备上报信息:</div><div className="td-right"><pre id="json-str-report"></pre></div></div>
 						<div className="tr-line"><div className="td-left">设备影子信息:</div><div className="td-right"><pre id="json-str-desired"></pre></div></div>

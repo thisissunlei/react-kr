@@ -399,6 +399,18 @@ State.confirmFreshHTMLAction = action(function(){
 })
 
 
+//刷新设备上报信息
+State.freshEquipmentReporterAction = action(function(){
+	var urlParams = {deviceId:State.deviceVO.deviceId}
+	Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
+		State.deviceVO.report = response.reported;
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
+
+
 
 
 module.exports = State;

@@ -141,6 +141,14 @@ module.exports = {
       method: 'put'
    },
 
+
+   //更新设备上报信息
+   'freshReporteInfoUrl':{
+      url: '/api/iot-platform/door-device/admin/actions/refresh-reported-info?deviceId={deviceId}',
+      method: 'get'
+   },
+
+
    
    
    
