@@ -44,7 +44,6 @@ export default class SecondDoorManage  extends React.Component{
 		this.state = {
 			selectIds : [],
 			openMenu :false,
-			showOpretion : false
 			
 		}
 	}
@@ -159,9 +158,8 @@ export default class SecondDoorManage  extends React.Component{
 
 
 	showMoreOpretion=(thisP,value,itemData)=>{
-		this.setState({
-			showOpretion :!this.state.showOpretion,
-		})
+		
+		State.showOpretion = !State.showOpretion;
 		State.itemDetail = thisP;
 	}
 
@@ -182,9 +180,7 @@ export default class SecondDoorManage  extends React.Component{
 
 	//升级
 	upgrade=(thisP,value,itemData)=>{
-		this.setState({
-			showOpretion:false
-		})
+		State.showOpretion=false
 		this.upgradeDialogFun();
 	}
 
@@ -194,9 +190,8 @@ export default class SecondDoorManage  extends React.Component{
 	}
 	//点击清空缓存
 	clearCache=()=>{
-		this.setState({
-			showOpretion:false
-		})
+		
+		State.showOpretion=false
 		this.openClearCachedFun();
 	}
 	//控制确认清空缓存窗口是否显示
@@ -206,9 +201,7 @@ export default class SecondDoorManage  extends React.Component{
 
 	//点击断开重连
 	connectAgain=()=>{
-		this.setState({
-			showOpretion:false
-		})
+		State.showOpretion=false
 		this.openConnectAgianFun();
 	}
 
@@ -217,16 +210,12 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	openDoorInline=()=>{
-		this.setState({
-			showOpretion:false
-		})
+		State.showOpretion=false
 		State.openDoorOnlineAction();
 	}
 
 	deviceCache=()=>{
-		this.setState({
-			showOpretion:false
-		})
+		State.showOpretion=false
 		this.openEquipmentCacheFun();
 
 	}
@@ -238,9 +227,7 @@ export default class SecondDoorManage  extends React.Component{
 		
 
 	getDoorPassWord=()=>{
-		this.setState({
-			showOpretion:false
-		})
+		State.showOpretion=false
 		State.getPassword();
 	}
 
@@ -261,7 +248,8 @@ export default class SecondDoorManage  extends React.Component{
 
 
 	render(){
-		let {itemDetail,showOpretion}=this.state;
+		let {itemDetail}=this.state;
+		let {showOpretion} = State;
 		let options=[{
 		      label:"门编号",
 		      value:"doorCode"
@@ -379,15 +367,6 @@ export default class SecondDoorManage  extends React.Component{
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
 														<div style={{display:"inline-block",height:40,verticalAlign:"middle"}}>
 															<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,value,itemData)} linkTrue/>
-															<div style={{visibility:showOpretion?"visible":"hidden",padding:"10px 5px", background:" #fff",border:"solid 1px rgba(204, 204, 204, 0.98)",borderRadius: '3px',position:"relative",cursor:"pointer"}}>
-																<div onClick={this.upgrade.bind(this,value,itemData)} className="list-div">升级</div>
-																<div onClick={this.clearCache.bind(this,value,itemData)} className="list-div">清空设备缓存</div>
-																<div onClick={this.connectAgain.bind(this,value,itemData)} className="list-div">断开重连</div>
-																<div onClick={this.getDoorPassWord.bind(this,value,itemData)} className="list-div">获取口令</div>
-																<div onClick={this.openDoorInline.bind(this,value,itemData)} className="list-div">远程开门</div>
-																<div onClick={this.deviceCache.bind(this,value,itemData)} className="list-div">查看设备缓存</div>
-															</div>
-
 														</div>
 													</div>
 												)
@@ -552,6 +531,8 @@ export default class SecondDoorManage  extends React.Component{
 			          </div>
 			        </Dialog>
 
+
+
 			         <Drawer 
 			        	open={State.openEquipmentCache}
 			        	onClose = {this.openEquipmentCacheFun}
@@ -560,6 +541,29 @@ export default class SecondDoorManage  extends React.Component{
 					>
 						<EquipmentCache onCancel={this.openEquipmentCacheFun}/>
 					</Drawer>
+
+					<Dialog
+			          title="按钮库"
+			          open={State.showOpretion}
+			          onClose={this.showOpretionFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>按钮库</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmConnnetAgain} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.showOpretionFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
 				</div>
 				
 			</div>

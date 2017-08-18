@@ -46,6 +46,7 @@ let State = observable({
 	cachedeviceId: '',
 	equipmentCacheitems :[],
 	switch : false,
+	showOpretion : false
 
 });
 
