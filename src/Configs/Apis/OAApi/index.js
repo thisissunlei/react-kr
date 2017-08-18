@@ -579,7 +579,9 @@ var OAApi = {
       url:'/api/krspace-erp-web/sys/slider/delete',
       method: 'post'
   },
-  //首页管理
+  //首页最新动态
+  
+
 }
 
 module.exports=OAApi;

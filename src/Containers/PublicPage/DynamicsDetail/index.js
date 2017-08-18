@@ -8,7 +8,10 @@ import {
 	SliderTree,
 } from 'kr-ui';
 import React, { PropTypes } from 'react';
+import { observer, inject } from 'mobx-react';
 import './index.less';
+@inject("NavModel")
+@observer
 export default class DynamicsDetail extends React.Component {
 
 	constructor(props, context) {
@@ -23,7 +26,9 @@ export default class DynamicsDetail extends React.Component {
 
 	}
 	componentDidMount(){
-		
+		const { NavModel } = this.props;
+		NavModel.setSidebar(false);
+
 	}
 	
 	render() {
