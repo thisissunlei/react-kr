@@ -44,9 +44,7 @@ export default class NewOffice extends React.Component {
     // var style = {
     //   'background':'url('+require("./images/b"+imageNum+".svg")+') no-repeat center'
     // };
-    console.log("进入render");
       if (item) {
-      console.log("item");
       return (
             <div onClick={()=>{
                 this.toHz(item)
@@ -74,7 +72,9 @@ export default class NewOffice extends React.Component {
     )
   }
   toHz=(item)=>{
-    window.open(`${item.hzUrl}`);
+    if(item.click){
+      //window.open(`${item.hzUrl}`);
+    }
   }
   //移除部分
   openDelete=()=>{
