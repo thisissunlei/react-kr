@@ -58,7 +58,7 @@ class SearchForm extends React.Component {
 		return (
 			<div>
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>
-				<SearchForms onSubmit={this.onSubmit} placeholder="请输入姓名或邮箱" inputName="receviers"/>
+				<SearchForms onSubmit={this.onSubmit} placeholder="请输入姓名/编号" inputName="receviers"/>
 			</div>
 		);
 	}

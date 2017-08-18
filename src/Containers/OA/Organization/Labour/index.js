@@ -950,7 +950,7 @@ export default class Labour extends React.Component {
 							<Grid style={{ marginBottom: 20, marginTop: 20 }}>
 								<Row>
 									<Col md={4} align="left" >
-										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新增员工" type="button" operateCode="hrm_resource_add" onClick={this.openAddPerson} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />}
+										{(this.state.dimIdStatus==0&&dataName.status==0)&&<Button label="新建人员" type="button" operateCode="hrm_resource_add" onClick={this.openAddPerson} width={80} height={30} fontSize={14} labelStyle={{fontWeight:400,padding:0}} />}
 									</Col>
 									<Col md={8} align="right">
 										<div className="u-search">
