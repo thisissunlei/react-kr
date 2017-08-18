@@ -148,6 +148,37 @@
                         cursor: pointer;
                     }
                 }
+                .apply{
+                    display: flex;
+                    padding: 20px 0;
+                    justify-content: space-around;
+                    .apply-item{
+                        width:75px;
+                        height: 100px;
+                        position: relative;
+                        div{
+                            display: inline-block;
+                        }
+                        &:nth-child(1){
+                                .pic{
+                                position: absolute;
+                                width: 75px;
+                                height: 75px;
+                                background: url('./images/cloud.png') no-repeat center center;
+                                left: 0;
+                                top: 0;
+                                background-size: cover;
+                                }
+                                .text{
+                                    position: absolute;
+                                    width: 100%;
+                                    left: 0;
+                                    bottom: 0;
+                                    text-align: center;
+                                }
+                        }
+                    }
+                }
                 .main{
                     padding: 0 10px;
                     .item{
@@ -200,8 +231,12 @@
                     }
                     .swiper-slide{
                         height: 100%;
+                        position: relative;
                         .swiper-text{
-
+                            position: absolute;
+                            right: 0;
+                            bottom: 0;
+                            display:inline-block;
                             width: 100%;
                             height: 60px;
                             line-height: 60px;

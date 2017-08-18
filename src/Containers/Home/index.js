@@ -134,12 +134,27 @@ export default class Home extends React.Component {
 						<div className="g-home-middle-item">
 							<div className="swiper-container-one">
 								<div className="swiper-wrapper">
-									<div className="swiper-slide swiper-slide1">Slide 1
-										
+									<div className="swiper-slide swiper-slide1">
+										Slide 1
+										<div className="swiper-text">
+
+										</div>
 									</div>
-									<div className="swiper-slide swiper-slide2">Slide 2</div>
-									<div className="swiper-slide swiper-slide3">Slide 3</div>
-									<div className="swiper-slide swiper-slide4">Slide 4</div>
+									<div className="swiper-slide swiper-slide2">Slide 2
+										<div className="swiper-text">
+
+										</div>
+									</div>
+									<div className="swiper-slide swiper-slide3">Slide 3
+										<div className="swiper-text">
+
+										</div>
+									</div>
+									<div className="swiper-slide swiper-slide4">Slide 4
+										<div className="swiper-text">
+
+										</div>
+									</div>
 								</div>
 								<div className="swiper-scrollbar"></div>
 								<div className="oa-one-swiper-prev"></div>
@@ -178,9 +193,20 @@ export default class Home extends React.Component {
 									
 								</div>
 								<div className="left">
-									最近动态
+									相关应用
 								</div>
 								
+							</div>
+							
+							<div className="apply">
+								<div className="apply-item">
+									<div className="pic">
+
+									</div>
+									<div className="text">
+										云快报
+									</div>
+								</div>
 							</div>
 						</div>
 				</div>
