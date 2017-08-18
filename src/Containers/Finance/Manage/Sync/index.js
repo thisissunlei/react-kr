@@ -111,23 +111,19 @@ export default class AttributeSetting extends React.Component {
 		State.openView = false;
 		State.openEdit = false;
 	}
-	CreateSubmit=()=>{
-		State.openCreate = false;
-	}
 	onSearchSubmit=(value)=>{
-		console.log('value',value)
 		let search = {
 			page:1,
 			pageSize:2,
 			content:value.content
 		}
-		State.search = search;
+		State.search = State.search = Object.assign({},search,State.search);;
 	}
 	communityList=(list)=>{
 		let str = list.map((item)=>{
 			return item.name+','
 		})
-		return str
+		return str.Substring(0,str.length - 1)
 	}
 
 
@@ -141,7 +137,7 @@ export default class AttributeSetting extends React.Component {
 					<Section title="同步中心" description="" style={{marginBottom:-5,minHeight:910}}>
 					<div>
 						<span className="create" onClick={this.create}>创建</span>
-						<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach"/>
+						{/*<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach"/>*/}
 					</div>
 				<Table  style={{marginTop:10}}
 						displayCheckbox={true}
@@ -166,7 +162,7 @@ export default class AttributeSetting extends React.Component {
 				<TableBody>
 						 <TableRow displayCheckbox={true}>
 						<TableRowColumn name="mainbillname" component={(value,oldValue,itemData)=>{
-														 return (<div style={{paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{DateFormat(itemData.operateTime,'yyyy/mm')}</span></div>)
+														 return (<div style={{paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block"}}>{DateFormat(itemData.syncDate,'yyyy/mm')}</span></div>)
 													 }} ></TableRowColumn>
 						<TableRowColumn name="syncSystemName"></TableRowColumn>
 						<TableRowColumn name="syncMainPartName" ></TableRowColumn>
@@ -208,7 +204,7 @@ export default class AttributeSetting extends React.Component {
 						className='m-finance-drawer'
 						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					>
-						<Create onSubmit={this.CreateSubmit} onCancel={this.onCancel}/>
+						<Create  onCancel={this.onCancel}/>
 				  </Drawer>
 				<Drawer
 						title="查看"
@@ -219,7 +215,7 @@ export default class AttributeSetting extends React.Component {
 						className='m-finance-drawer'
 						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					>
-						<View onSubmit={this.CreateSubmit} onCancel={this.onCancel} />
+						<View onCancel={this.onCancel} />
 				  </Drawer>
 				<Drawer
 						title="编辑"
@@ -230,7 +226,7 @@ export default class AttributeSetting extends React.Component {
 						className='m-finance-drawer'
 						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					>
-						<Edit onSubmit={this.CreateSubmit} onCancel={this.onCancel}/>
+						<Edit  onCancel={this.onCancel}/>
 				  </Drawer>
 
 			</div>

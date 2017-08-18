@@ -26,7 +26,7 @@ import {
 	Dialog
 } from 'kr-ui';
 import {Chip} from 'material-ui'
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import State from './State';
 import './index.less';
 import {
@@ -40,7 +40,7 @@ class NewCreateForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			chipData : [],
+			chipData : State.itemData.cmts,
 			isBindCommunitys : false,
 			readyData:{}
 		}
@@ -57,6 +57,7 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentDidMount() {
+		Store.dispatch(initialize('newCreateForm', State.itemData));
 
 	}
 	getEditReadyData = () =>{
@@ -125,14 +126,7 @@ class NewCreateForm extends React.Component {
 	//生成样式
 	renderChip(data) {
 		return (
-		<Chip
-			key={data.id}
-
-			onRequestDelete={() => this.handleRequestDelete(data)}
-			style={this.styles.chip}
-		>
-			{data.name}
-		</Chip>
+			<span style={{marginRight:15}}>{data.name}</span>
 		);
 	}
 	//删除方法
@@ -173,11 +167,11 @@ class NewCreateForm extends React.Component {
 							<label className="small-title">基本信息</label>
 						</div>
 						<div className="small-cheek">
-								<KrField grid={1/2} label="同步月份"  name="syncDate" style={{width:262,marginLeft:15}} component="date" requireLabel={true}/>
-								<KrField grid={1/2} label="同步系统" name="syncSystem" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={State.syncSystem}/>
-								<KrField grid={1/2} label="同步主体" name="syncMainPart" style={{width:262,marginLeft:15}} component="select" requireLabel={true} options={State.syncMainPartType}/>
-								<div className='remaskInfo'>
-									<KrField grid={1} label="备注" name="remark" style={{marginLeft:15,marginTop:10,marginBottom:10}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/>
+							<KrField component="labelText" grid={1/2} inline={false} right={60} label="同步月份:" value={DateFormat(State.itemData.syncDate,'yyyy/mm')} defaultValue="无" requireBlue={true}/>
+							<KrField component="labelText" grid={1/2} inline={false} left={60} label="同步系统:" value={State.itemData.syncSystemName} defaultValue="无" requireBlue={true}/>
+							<KrField component="labelText" grid={1/2} inline={false} right={60} label="同步主体:" value={State.itemData.syncMainPartName} defaultValue="无" requireBlue={true}/>
+								<div className='remaskInfo' style={{marginTop:20}}>
+									<KrField grid={1} label="备注" inline={false} name="remark"  component="labelText" requireLabel={false} value={State.itemData.remark} defaultValue="无" />
 								</div>
 
 								<div className="middle-round"></div>
@@ -192,17 +186,6 @@ class NewCreateForm extends React.Component {
 							<div style={this.styles.wrapper}>
 								{this.state.chipData.map(this.renderChip,this)}
 							</div>
-							<span onClick = {this.bindClick}
-								style = {{
-										display:'inline-block',
-										margin:4,
-										background:"#499df1",
-										borderRadius: '4px',
-										padding:" 5px 10px 5px 5px",
-										color: "#fff",
-										cursor: "pointer"
-									}}
-							>+绑定社区</span>
 
 						</div>
 						<div className="end-round"></div>
@@ -212,26 +195,12 @@ class NewCreateForm extends React.Component {
 						<Col md={12} align="center">
 							<ButtonGroup>
 
-								<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
-								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
+								<Button  label="取消" type="button"  onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
 					</Row>
 				</Grid>
 
-			<Dialog
-					title="绑定社区"
-					open={this.state.isBindCommunity}
-					onClose={this.bindCommunityClose}
-					contentStyle={{width:687,height:450,overflow:'scroll'}}
-       		>
-          		<BindCommunity
-				  	jsonData = {jsonData}
-					onCancel = {this.bindCommunityClose}
-					checkedSubmit = {this.checkedSubmit}
-					existing = {chipData}
-				/>
-		    </Dialog>
 
 			</form>
 		);

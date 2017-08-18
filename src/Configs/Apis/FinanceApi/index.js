@@ -374,7 +374,7 @@ module.exports = {
         method: 'get'
     },
     'get-tongbu-basic-list': {
-        url: 'http://st.krspace.cn/api/krspace-op-web/sync/sync-cmt-ctrl-list',
+        url: 'http://st.krspace.cn/api/krspace-op-web/sync/sync-cmt-ctrl-list?page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //同步中心创建提交

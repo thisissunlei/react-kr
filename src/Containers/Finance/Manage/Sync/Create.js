@@ -23,7 +23,8 @@ import {
 	Notify,
 	ButtonGroup,
 	Checkbox,
-	Dialog
+	Dialog,
+	Message
 } from 'kr-ui';
 import {Chip} from 'material-ui'
 import {Http} from 'kr/Utils';
@@ -79,12 +80,11 @@ class NewCreateForm extends React.Component {
 	onSubmit = (values) => {
 		let data = Object.assign({}, values);
 		data.cmtIds =this.cmtIdData();
-		console.log('=============',data)
-		const {onSubmit} = this.props;
 		var _this = this;
 		Http.request('get-tongbu-submit', {}, data).then(function(response) {
-			onSubmit && onSubmit();
 			_this.onCancel();
+			Message.success('创建成功');
+			State.editSubmit()
 
 
 		}).catch(function(err) {

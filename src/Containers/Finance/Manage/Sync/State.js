@@ -15,7 +15,8 @@ let State = observable({
 	search:{
 		page:1,
 		pageSize:1,
-		content:''
+		content:'',
+		time:+new Date()
 	},
 	itemData:{
 		syncDate:+new Date(),
@@ -57,6 +58,14 @@ State.showView=action(function(data){
 State.showEdit=action(function(data){
 	this.openEdit = true;
 	this.itemData = data;
+})
+State.editSubmit=action(function(){
+	let search={
+		page:1,
+		pageSize:15,
+		time:+new Date()
+	}
+	this.search = Object.assign({},this.search,search)
 })
 
 

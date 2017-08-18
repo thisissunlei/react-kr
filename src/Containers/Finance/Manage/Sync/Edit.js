@@ -23,10 +23,13 @@ import {
 	Notify,
 	ButtonGroup,
 	Checkbox,
-	Dialog
+	Dialog,
+	Message
 } from 'kr-ui';
 import {Chip} from 'material-ui'
-import {Http} from 'kr/Utils';
+import {
+	Http,DateFormat
+} from "kr/Utils";
 import State from './State';
 import './index.less';
 import {
@@ -80,10 +83,12 @@ class NewCreateForm extends React.Component {
 	onSubmit = (values) => {
 		let data = Object.assign({}, values);
 		data.cmtIds =this.cmtIdData();
-		const {onSubmit} = this.props;
+		data.operateTime = DateFormat(+new Date(),'yyyy-mm-dd 00:00:00')
+		data.syncDate = DateFormat(data.syncDate,'yyyy-mm-dd 00:00:00')
 		var _this = this;
 		Http.request('get-tongbu-submit', {}, data).then(function(response) {
-			onSubmit && onSubmit();
+			State.editSubmit();
+			Message.success('修改成功');
 			_this.onCancel();
 
 
