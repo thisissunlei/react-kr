@@ -17,7 +17,7 @@ module.exports = {
 	LookCustomerList,
 	InfoList,
 	UrgeMoney,
-  SelectCity,
+  	SelectCity,
 	NewIndent,
 	TheBell,
 	PlanMapContent,

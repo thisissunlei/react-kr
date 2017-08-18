@@ -32,6 +32,7 @@ import OfficeRouter from './OfficeRouter';
 import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
 import HomeRouter from './HomeRouter';
+import PublicPageRouter from './PublicPageRouter';
 
 const Master = (location, callback) => {
   require.ensure([], require => {
@@ -119,6 +120,8 @@ export default (
 
         {/*OA主页*/}
         {HomeRouter()}
+        
+        {PublicPageRouter()}
 
 		{/*帮助*/}
 		<Route path="help" getComponent={Help}/>
