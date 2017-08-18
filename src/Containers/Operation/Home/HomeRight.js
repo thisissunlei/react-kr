@@ -17,6 +17,7 @@ import {
 	Row,
 	Col,
 	Button,
+	Message,
 	ButtonGroup,
 
 } from 'kr-ui';
@@ -41,6 +42,10 @@ class HomeRight  extends React.Component{
 	componentDidMount(){
 	}
 	clickSpan=(type)=>{
+		if(!State.noPerssion){
+			Message.error('无社区权限');
+			return;
+		}
 		switch (type){
 			case 'monthPayment':
 				State.openMonthPayment = true;

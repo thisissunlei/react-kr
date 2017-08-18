@@ -54,7 +54,8 @@ let State = observable({
 	openAgreementDetail:false,
 	customerId:'',
 	mainbillId:'',
-	id:''
+	id:'',
+	noPerssion:true
 
 
 });
@@ -68,8 +69,12 @@ State.getHomeData=action(function(params){
 			info.communityName = response.community;
 			info.communityId = response.communityId;
 			_this.info = info;
+			_this.noPerssion = true;
 			_this.getPaymentList({page:1,pageSize:10,cmtId:_this.info.communityId})
 		}).catch(function(err) {
+			if(err.message == '无社区权限'){
+				_this.noPerssion = false;
+			}
 			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
@@ -145,7 +150,7 @@ State.getOrderList=action(function(params){
 		Http.request('get-expire-contract',params).then(function(response){
 			_this.orderList = response;
 		}).catch(function(err) {
-			// Message.error(err.message);
+			Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
