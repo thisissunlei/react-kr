@@ -18,7 +18,8 @@ class AddSwper extends React.Component{
 		super(props, context);
         this.state = {
             jobTypes:[],
-            isType :false
+            isType :false,
+            
         }
 	}
 
@@ -26,7 +27,7 @@ class AddSwper extends React.Component{
         Store.dispatch(change('AddSwper','enable',"1"))
     }
     
-   
+  
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -41,7 +42,9 @@ class AddSwper extends React.Component{
 
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType} = this.state;
-        let host = "http://"+window.location.host;
+        // let host = "http://"+window.location.host;
+        let host = "http://optest02.krspace.cn/"
+
 
 		return(
 
@@ -57,14 +60,14 @@ class AddSwper extends React.Component{
 					<KrField grid={1/2} label="链接地址" name="linkUrl" style={{width:262,marginLeft:30}} component="input" requireLabel={true} inline={false}/>
                     <KrField grid={1/2} label="是否上线" name="enable" style={{width:262,marginLeft:15,marginRight:13}} component="group">
                         <KrField name="enable" label="是" type="radio" value="1" style={{marginTop:5,display:'inline-block',width:84}}/>
-                        <KrField name="enable" label="否" type="radio" value="2" style={{marginTop:5,display:'inline-block',width:53}}/>
+                        <KrField name="enable" label="否" type="radio" value="0" style={{marginTop:5,display:'inline-block',width:53}}/>
                     </KrField>
                     <div style = {{marginLeft:15}}>
                         <KrField
                             name="photoUrl"
                             component="newuploadImage"
-                            innerstyle={{width:500,height:300,padding:10,marginLeft:-80}}
-                            photoSize={'500*300'}
+                            innerstyle={{width:500,height:344,padding:10,marginLeft:-80}}
+                            photoSize={'500*334'}
                             pictureFormat={'JPG,PNG,GIF'}
                             pictureMemory={'200'}
                             requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}

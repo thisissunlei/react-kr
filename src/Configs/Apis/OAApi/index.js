@@ -556,7 +556,7 @@ var OAApi = {
   //首页管理
   //首页-轮播列表
   'home-swper-list':{
-      url:'/mockjsdata/9/krspace-erp-web/sys/slider/list?name={name}&page={page}&pageSize={pageSize}',
+      url:'/api/krspace-erp-web/sys/slider/list?name={name}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
   //首页-轮播新建
@@ -566,12 +566,12 @@ var OAApi = {
   },
   //首页-轮播编辑
   'home-swper-edit':{
-      url:'/mockjsdata/9/krspace-erp-web/sys/slider/edit',
+      url:'/api/krspace-erp-web/sys/slider/edit',
       method: 'post'
   },
   //首页-轮播详情
   'home-swper-detail':{
-      url:'/mockjsdata/9/krspace-erp-web/sys/slider/detail?id={id}',
+      url:'/api/krspace-erp-web/sys/slider/detail?id={id}',
       method: 'get'
   },
   //首页-轮播删除
