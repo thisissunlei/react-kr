@@ -366,6 +366,9 @@ const validate = values=>{
 	if(!values.doorType){
 		errors.doorType = '属性为必填项';
 	}
+	if(!values.maker){
+		errors.maker = '厂家为必填项';
+	}
 	
 	return errors;
 }
