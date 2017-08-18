@@ -111,6 +111,11 @@
             &:last-child{
                 margin-right: 0;
             }
+            &:nth-child(2){
+                .title{
+                   margin-bottom: 8px;
+                }
+            }
             &:nth-child(2),&:nth-child(3){
                 .title{
                     height: 39px;
@@ -161,21 +166,38 @@
                         }
                         &:nth-child(1){
                                 .pic{
-                                position: absolute;
-                                width: 75px;
-                                height: 75px;
-                                background: url('./images/cloud.png') no-repeat center center;
-                                left: 0;
-                                top: 0;
-                                background-size: cover;
+                                    background: url('./images/cloud.png') no-repeat center center;
                                 }
-                                .text{
-                                    position: absolute;
-                                    width: 100%;
-                                    left: 0;
-                                    bottom: 0;
-                                    text-align: center;
+                        }
+                        &:nth-child(2){
+                                .pic{
+                                    background: url('./images/forum.png') no-repeat center center;
                                 }
+                        }
+                        &:nth-child(3){
+                                .pic{
+                                    background: url('./images/more-apply.png') no-repeat center center;
+                                }
+                        }
+                        &:nth-child(4){
+                                .pic{
+                                    background: url('./images/more-apply.png') no-repeat center center;
+                                }
+                        }
+                        .pic{
+                            position: absolute;
+                            width: 75px;
+                            height: 75px;
+                            left: 0;
+                            top: 0;
+                            background-size: cover;
+                        }
+                        .text{
+                            position: absolute;
+                            width: 100%;
+                            left: 0;
+                            bottom: 0;
+                            text-align: center;
                         }
                     }
                 }
@@ -183,8 +205,8 @@
                     padding: 0 10px;
                     .item{
                         position: relative;
-                        line-height: 40px;
-                        height: 40px;
+                        line-height: 30px;
+                        height: 30px;
                         cursor:pointer;
                         .circle{
                             display: inline-block;
@@ -197,7 +219,7 @@
                             transform: translateY(-50%);
                             left: 4px;
                         }
-                        .read-circle{
+                        .readcircle{
                             background: #CBD1D8;
                         }
                         .item-text{
@@ -282,8 +304,8 @@
         }
     }
     .g-home-bottom{
-        height: 330px;
-        margin-top: 20px;
+        // height: 340px;
+        margin: 20px 0;
         background: #fff;
         width: 100%;
         .title{
@@ -316,12 +338,42 @@
         }
         .home-swiper{
             box-sizing: border-box;
-            padding: 25px 8%;
+            padding: 25px 8% 20px;
             position: relative;
-            
+            // height: 300px;
             .swiper-slide{
+                display: block;
                 width: 12% !important;
-                height: 240px;
+                // height: 240px;
+                // position: relative;
+                .swiper-pic{
+                    width: 100%;
+                    // position: absolute;
+                    // top: 0;
+                    // left: 0;
+                    border-radius: 50%;
+                }
+                .name{
+                    width: 100%;
+                    // position: absolute;
+                    // bottom: 40px;
+                    // left: 0;
+                    text-align: center;
+                    font-size: 16px;
+                    color: #333333;
+                    line-height: 30px;
+                    margin-top: 12px;
+                }
+                .job{
+                    width: 100%;
+                    // position: absolute;
+                    // bottom: 0;
+                    // left: 0;
+                    text-align: center;
+                    font-size: 16px;
+                    line-height: 30px;
+                    color: #666666;
+                }
             }
             .oa-swiper-prev,.oa-swiper-next{
                 width: 24px;
@@ -358,6 +410,6 @@
 
 
 .swiper-container {
-        width: 100%;
-        height: 100%;
-    }
+    width: 100%;
+    height: 100%;
+}
