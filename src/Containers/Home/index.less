@@ -8,9 +8,11 @@
             height: 90px;
             background: #fff;
             margin-right: 20px;
+            
             .date{
                 text-align: center;
                 height:100%;
+                box-shadow: 0 1px 3px 0 rgba(0,0,0,0.10);
                 .left-date{
                     display: inline-block;
                     font-size: 34px;
@@ -35,6 +37,7 @@
             height: 90px;
             background: #fff;
             margin-right: 20px;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.10);
             .left{
                 flex: 1;
                 display: inline-block;
@@ -77,9 +80,19 @@
                 }
                 .top{
                     position: absolute;
+                    top: 16%;
+                    width: 100%;
+                    font-size: 28px;
+                    color: #333333;
+                    left: 0;
                 }
                 .bottom{
                     position: absolute;
+                    font-size: 14px;
+                    width: 100%;
+                    color: #666666;
+                    left: 0;
+                    bottom: 16%;
                 }
             }
             &:last-child{
@@ -173,18 +186,20 @@
                 }
             }
             &:nth-child(1){
-                
+                overflow: hidden;
                 .swiper-container-one{
                     width: 100%;
                     height: 100%;
                     position: relative;
                     overflow: hidden;
+
                     &:hover{
                         .oa-one-swiper-prev,.oa-one-swiper-next{
                             display: inline-block;
                         }
                     }
                     .swiper-slide{
+                        height: 100%;
                         .swiper-text{
 
                             width: 100%;
@@ -197,7 +212,7 @@
                         }
                     }
                     .swiper-slide1{
-                        background:#000;
+                        background:yellow;
                     }
                     .swiper-slide2{
                         background:#abcdef;
@@ -216,15 +231,16 @@
                         top: 50%;
                         transform: translateY(-50%);
                         background: url('./images/common-one-next.svg') no-repeat center center;
-                        background-size: 26px 26px;
+                        background-size: cover;
                         cursor:pointer;
+                        z-index: 1;
                     }
                     .oa-one-swiper-prev{
-                        left: 3%;
+                        left: 4%;
                         transform: translateY(-50%) rotateY(180deg);
                     }
                     .oa-one-swiper-next{
-                        right: 3%;
+                        right: 4%;
                     }
                 }
             }

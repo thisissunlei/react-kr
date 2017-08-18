@@ -46,15 +46,16 @@ export default class Home extends React.Component {
 			spaceBetween: width,
 		});
 		var swiperone = new Swiper('.swiper-container-one', {
-			loop:true,
-			// prevButton:'.oa-one-swiper-prev',
-			// nextButton:'.oa-one-swiper-next',
-			// scrollbar: '.swiper-scrollbar',
-			slidesPerView: 1,
+			// loop:true,
+			effect : 'fade',
+			prevButton:'.oa-one-swiper-prev',
+			nextButton:'.oa-one-swiper-next',
+			scrollbar: '.swiper-scrollbar',
 			scrollbarHide: false,
-			slidesPerView: 'auto',
-			centeredSlides: true,
-			autoplay : 560,
+			// slidesPerView: 'auto',
+			// centeredSlides: true,
+			autoplay : 2000,
+			autoplayDisableOnInteraction:false,
 		});
 	}, 100);
 	
@@ -82,7 +83,7 @@ export default class Home extends React.Component {
 							</div>
 							<div className="right">
 								<span className="top">
-
+										8
 								</span>
 								<span className="bottom">
 									待办事宜
@@ -95,7 +96,7 @@ export default class Home extends React.Component {
 							</div>
 							<div className="right">
 								<span className="top">
-
+									2
 								</span>
 								<span className="bottom">
 									已办事宜
@@ -108,7 +109,7 @@ export default class Home extends React.Component {
 							</div>
 							<div className="right">
 								<span className="top">
-
+									7
 								</span>
 								<span className="bottom">
 									我的请求
@@ -121,8 +122,8 @@ export default class Home extends React.Component {
 							</div>
 							<div className="right">
 								<span className="top">
-
-								</span>
+											3
+								</span>	
 								<span className="bottom">
 									发起流程
 								</span>
@@ -140,6 +141,9 @@ export default class Home extends React.Component {
 									<div className="swiper-slide swiper-slide3">Slide 3</div>
 									<div className="swiper-slide swiper-slide4">Slide 4</div>
 								</div>
+								<div className="swiper-scrollbar"></div>
+								<div className="oa-one-swiper-prev"></div>
+    							<div className="oa-one-swiper-next"></div>
 								
 							</div>
 
@@ -207,6 +211,7 @@ export default class Home extends React.Component {
 						</div>
 						<div className="oa-swiper-prev"></div>
     					<div className="oa-swiper-next"></div>
+						
 					</div>
 					
 					
