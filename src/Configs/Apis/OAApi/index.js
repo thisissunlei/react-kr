@@ -553,6 +553,11 @@ var OAApi = {
       method: 'get'
   },
 
+  //首页
+  'home-index':{
+      url:'/api/krspace-erp-web/sys/base/data',
+      method: 'get'
+  },
   //首页管理
   //首页-轮播列表
   'home-swper-list':{
