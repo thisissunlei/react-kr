@@ -166,6 +166,13 @@ module.exports = {
       url: '/api/iot-platform/device-upgrade/actions/delete',
       method: 'delete'
    },
+
+   //获取升级信息下拉列表
+   'getUpgradeInfoUrl':{
+      url: '/api/iot-platform/device-upgrade/select',
+      method: 'get'
+   },
+
    
    
 }

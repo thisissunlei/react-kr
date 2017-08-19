@@ -52,6 +52,8 @@ export default class SecondDoorManage  extends React.Component{
 	}
 	componentDidMount() {
 		State.getDicList();
+		//获取升级信息列表
+		State.getUpgradeTypeOptions();
 	}
 	componentWillUnmount(){
 
@@ -519,7 +521,7 @@ export default class SecondDoorManage  extends React.Component{
 			          title="升级"
 			          open={State.upgradeDialog}
 			          onClose={this.upgradeDialogFun}
-			          contentStyle={{width:687}}
+			          contentStyle={{width:400}}
 			        >
 			          	<UpgradeForm/>
 			        </Dialog>

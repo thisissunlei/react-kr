@@ -44,12 +44,15 @@ class NewCreateDefinitionForm extends React.Component{
 	
 	// 确认升级设备
 	onSubmit=(values)=>{
-		
+		console.log("values",values);
+		if(!values.value){
+			Message.error("请选择升级内容");
+			return;
+		}
 		State.upgradeDialog = false;
 		var postParams = {
 			deviceId :State.itemDetail.deviceId,
-			type :values.type,
-			url : values.url
+			type :values.value,
 		}
 		Http.request('upgradeEquipment',{},postParams).then(function(response) {
 			State.freshPageReturn();
@@ -60,32 +63,19 @@ class NewCreateDefinitionForm extends React.Component{
 		
 	}
 	render(){
-		let typeOptions=[{
-		      label:"C",
-		      value:"C"
-		    },{
-		      label:"APP",
-		      value:"APP"
-		    }]
+		
 		const { error, handleSubmit, reset} = this.props;
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					
-					<KrField name="type" 
+					<KrField name="value" 
 						component="select" 
-						label="类型" 
-						options = {typeOptions}
-						style={{width:'252px',marginRight:20}}
+						label="升级内容" 
+						options = {State.typeOptions}
+						style={{width:'252px',margin:"0 auto"}}
 						onChange = {this.getFloor}
 						
-					/>
-					<KrField grid={1/2} 
-						name="url" 
-						type="text" 
-						label="升级包地址"  
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						onBlur = {this.onChangeTitle}
 					/>
 					
 					<Grid>
