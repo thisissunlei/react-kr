@@ -48,24 +48,17 @@ export default class SecondDoorManage  extends React.Component{
 		}
 	}
 
-	componentWillMount(){
-	}
+
 	componentDidMount() {
 		State.getDicList();
 		//获取升级信息列表
 		State.getUpgradeTypeOptions();
-	}
-	componentWillUnmount(){
-
-	}
-	componentWillReceiveProps(nextProps){
 	}
 
 	freshPageThis=()=>{
 		State.freshPage();
 	}
 
-	
 	//操作相关
 	onOperation=(type, itemDetail)=>{
 		console.log("itemDetail",itemDetail);
@@ -102,17 +95,7 @@ export default class SecondDoorManage  extends React.Component{
 			selectIds:ids
 		})
 	}
-	//批量删除
-	deleteSelectEquipment=()=>{
-		if(this.state.selectIds.length == 0){
-			Message.error("请选择您要删除的设备");
-			return;
-		}
-		var selectedIdsArr = this.state.selectIds;
-		State.selectedDeleteIds = selectedIdsArr.join(",");
-		State.deleteEquipmentBatch();
-		
-	}
+
 	//打开新建
 	openNewCreateDialog=()=>{
 		State.openNewCreate = !State.openNewCreate;
@@ -336,6 +319,30 @@ export default class SecondDoorManage  extends React.Component{
 		this.openRestartSystemsDialogFun();
 	}
 
+	//点击批量删除
+	deleteSelectEquipment = ()=>{
+		if(this.state.selectIds.length == 0){
+			console.log("this.state.selectIds.length ");
+			Message.error("请选择您要删除的设备");
+			return;
+		}
+		this.deleteSelectEquipmentFun();
+	}
+
+	//批量删除提示窗口
+	deleteSelectEquipmentFun=()=>{
+		State.openConfirmDeleteBatch = !State.openConfirmDeleteBatch
+	}
+
+	//批量删除
+	confirmDeleteBatch=()=>{
+		
+		var selectedIdsArr = this.state.selectIds;
+		State.selectedDeleteIds = selectedIdsArr.join(",");
+		State.deleteEquipmentBatch();
+		this.deleteSelectEquipmentFun();
+	}
+
 
 	render(){
 		let {itemDetail}=this.state;
@@ -549,6 +556,28 @@ export default class SecondDoorManage  extends React.Component{
 			          </div>
 			        </Dialog>
 
+			        <Dialog
+			          title="批量删除提示"
+			          open={State.openConfirmDeleteBatch}
+			          onClose={this.copenConfirmDeleteBatchFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除吗？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmDeleteBatch} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.copenConfirmDeleteBatchFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
 			        <Dialog
 			          title="清空缓存提示"
 			          open={State.openClearCached}

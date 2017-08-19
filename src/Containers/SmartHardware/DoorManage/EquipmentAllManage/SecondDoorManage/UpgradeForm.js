@@ -52,7 +52,7 @@ class NewCreateDefinitionForm extends React.Component{
 		State.upgradeDialog = false;
 		var postParams = {
 			deviceId :State.itemDetail.deviceId,
-			type :values.value,
+			value :values.value,
 		}
 		Http.request('upgradeEquipment',{},postParams).then(function(response) {
 			State.freshPageReturn();

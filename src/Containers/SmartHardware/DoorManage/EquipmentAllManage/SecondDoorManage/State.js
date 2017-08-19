@@ -52,7 +52,8 @@ let State = observable({
 	openManagePsd :false,
 	managePsd :{},
 	resetEquipmentDialog : false,
-	openFreshHTMLDialog :false
+	openFreshHTMLDialog :false,
+	openConfirmDeleteBatch : false
 
 });
 
@@ -99,7 +100,7 @@ State.deleteEquipmentBatch= action(function() {
 State.deleteEquipmentSingle= action(function() {
 	
 	
-	Http.request('deleteEquipmentSingleURL',{},{id:State.selectedDeleteIds}).then(function(response) {
+	Http.request('deleteEquipmentSingleURL',{id:State.selectedDeleteIds}).then(function(response) {
 		
 		State.freshPageReturn();	
 		Message.success("删除成功");
@@ -126,7 +127,8 @@ State.getDicList = action(function() {
 					}
 			arrNewDoorType[i] = {
 						label:response.DoorType[i].desc,
-						value:response.DoorType[i].value
+						value:response.DoorType[i].value,
+						code : response.DoorType[i].code
 					}
 		}
 		
@@ -165,7 +167,7 @@ State.getUpgradeTypeOptions = action(function() {
 //新增
 State.newCreateSecondDoor = action(function(values){
 	
-	Http.request('addOrEditEquipment',{},values ).then(function(response) {
+	Http.request('addOrEditEquipment',values ).then(function(response) {
 		
 		State.equipmentSecondParams = {
 			page:1,
@@ -190,7 +192,7 @@ State.newCreateSecondDoor = action(function(values){
 //编辑
 State.editSecondDoor = action(function(values){
 	
-	Http.request('addOrEditEquipment',{},values ).then(function(response) {
+	Http.request('addOrEditEquipment',values ).then(function(response) {
 		
 		State.freshPageReturn();
 		State.openEditDialog =false;
@@ -292,7 +294,7 @@ State.disConnectAction= action(function(){
 State.getPassword= action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('getPasswordURL',urlParams).then(function(response) {
-		State.EquipmentPassword =response;
+		State.EquipmentPassword =response.token;
 		State.passwordDialog = true;
 	}).catch(function(err) {
 		Message.error(err.message);
@@ -310,25 +312,25 @@ State.openDoorOnlineAction = action(function(){
 	});
 })
 
-
+//查看设备缓存
 State.getEquipmentCache = action(function(){
 	if(State.cachedeviceId !==State.itemDetail.deviceId){
 		State.cachedeviceId = State.itemDetail.deviceId;
 		var urlParams = {
 						deviceId:State.itemDetail.deviceId,
 						lastCardNo:'',
-						limit:100,
+						limit:50,
 					}
 	}else{
 
 		var urlParams = {
 						deviceId:State.itemDetail.deviceId,
 						lastCardNo:State.equipmentCacheitems[length-1].cardNo,
-						limit:100,
+						limit:50,
 					}
 	}
 	
-	Http.request('getEquipmentCacheURL',{},urlParams).then(function(response) {
+	Http.request('getEquipmentCacheURL',urlParams).then(function(response) {
 		var oldItems = State.equipmentCacheitems;
 		if(!urlParams.lastCardNo){
 			State.equipmentCacheitems = oldItems.concat(response.list);
@@ -365,7 +367,7 @@ State.changeSwitchStatusAction = action(function(params){
 //确认重启设备系统
 State.confirmOpenRestartSystemsAction = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('restartSystemsUrl',{},urlParams).then(function(response) {
+	Http.request('restartSystemsUrl',urlParams).then(function(response) {
 		Message.success("设备接收到重启命令");
 	}).catch(function(err) {
 		Message.error(err.message);
@@ -375,7 +377,7 @@ State.confirmOpenRestartSystemsAction = action(function(){
 //确认重启APP
 State.confirmOpenRestartAPPAction = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('restartAPPUrl',{},urlParams).then(function(response) {
+	Http.request('restartAPPUrl',urlParams).then(function(response) {
 		Message.success("设备接收到重启APP命令");
 	}).catch(function(err) {
 		Message.error(err.message);
@@ -400,7 +402,7 @@ State.getManagerPsdFun = action(function(){
 //确认恢复出厂设置
 State.confirmResetEquipmentAction  = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('resetEquipmentUrl',{},urlParams).then(function(response) {
+	Http.request('resetEquipmentUrl',urlParams).then(function(response) {
 		console.log("response",response);
 		Message.success("设备已收到恢复出厂设置的消息");
 	}).catch(function(err) {
@@ -411,7 +413,7 @@ State.confirmResetEquipmentAction  = action(function(){
 //确认刷新H5
 State.confirmFreshHTMLAction = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('freshHTMLUrl',{},urlParams).then(function(response) {
+	Http.request('freshHTMLUrl',urlParams).then(function(response) {
 		
 		Message.success("设备已经收到刷新H5页面的消息");
 	}).catch(function(err) {

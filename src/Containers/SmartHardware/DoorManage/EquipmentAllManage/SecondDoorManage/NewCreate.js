@@ -73,7 +73,7 @@ class NewCreateDefinitionForm extends React.Component{
   	
   	//选择属性(会议室／大门)
 	onchooseProperty=(doorType)=>{
-
+		console.log("doorType",doorType);
 		let _this = this;
 		if(doorType == null){
 			_this.setState({
@@ -81,13 +81,19 @@ class NewCreateDefinitionForm extends React.Component{
   			})
 			return;
 		}
-  		if(doorType.value == 2){
+  		if(doorType.value == 'GATE'){
+  			Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
+  			_this.setState({
+  				locationOpen : false
+  			})
+  		}else{
+
   			_this.setState({
   				locationOpen : true
   			})
   			let SearchLocationParams = {communityId:_this.state.communityId,
   										whereFloor:_this.state.floorNum,
-  										type:doorType.value}
+  										type:doorType.code}
   			
   			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
 				var locationArr = []
@@ -97,13 +103,7 @@ class NewCreateDefinitionForm extends React.Component{
 	    		_this.setState({
 	    			locationOptions : locationArr
 	    		})
-			});	
-  		}else{
-
-  			Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
-  			_this.setState({
-  				locationOpen : false
-  			})
+			});
   		}
   		
   		Store.dispatch(change('NewCreateDefinitionForm','doorType',doorType.value));

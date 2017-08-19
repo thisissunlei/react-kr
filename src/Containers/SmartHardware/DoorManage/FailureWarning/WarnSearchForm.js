@@ -32,13 +32,29 @@ class DoorWarnForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			
+			logTypeOptions : [],
 			searchParams:{
 
 			},
 		}
 	}
 	componentDidMount(){
+		let _this = this;
+		Http.request('getWarningType', {}).then(function(response) {
+			var arrNew = []
+			for (var i=0;i<response.LogType.length;i++){
+				arrNew[i] = {
+							label:response.LogType[i].desc,
+							value:response.LogType[i].value
+						}
+			}
+			_this.setState({
+				logTypeOptions : arrNew
+			})
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		
 	}
 	onSubmit=(values)=>{
@@ -118,9 +134,11 @@ class DoorWarnForm extends React.Component{
 	}
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
+		let {logTypeOptions} = this.state;
+		console.log("logTypeOptions-----page",logTypeOptions);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="door-warn-search">
-				<ListGroup>
+				<ListGroup className="fir-list">
 					<ListGroupItem>
 						
 							<KrField label="开门时间：" ref="stime" name="stime" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange}/>
@@ -140,14 +158,13 @@ class DoorWarnForm extends React.Component{
 						/>
 					</ListGroupItem>
 					
-					<ListGroupItem>
+					<ListGroupItem >
 						
 						<KrField name="logType" 
 							component="select" 
 							label="报警类型：" 
-							options = {State.LogTypeOptions}
-							style={{width:'252px'}}
-							onChange = {this.getFloor}
+							options = {logTypeOptions}
+							style={{width:'280px'}}
 							inline={true}
 						/>
 					</ListGroupItem>
@@ -155,13 +172,11 @@ class DoorWarnForm extends React.Component{
 				</ListGroup>
 				<ListGroup className="sec-list">
 					
-					
-
-					<ListGroupItem style={{float:"right",margin:"10px 20px 10px 0"}}>
-						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />
-					</ListGroupItem>
-					<ListGroupItem style={{float:"right",margin:10}}>
+					<ListGroupItem style={{margin:10}}>
 						<Button  label="搜索" type="submit"/>
+					</ListGroupItem>
+					<ListGroupItem style={{margin:"10px 0"}}>
+						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />
 					</ListGroupItem>
 					
 				</ListGroup>

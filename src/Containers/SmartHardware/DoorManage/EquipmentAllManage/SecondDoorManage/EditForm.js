@@ -23,11 +23,14 @@ class EditForm extends React.Component{
 		super(props,context);
 		this.detail = this.props.detail;
 		this.state={
+			//是否显示位置下拉框
 			locationOpen:false,
 			floorsOptions:[],
 			locationOptions:[],
 			communityId :'',
-			propertyOption :[{label:"",value:""}],
+			floorNum :'',
+			propertyOption :[{label:"",value:"",code:''}],
+
 		}
 	}
 	//首次加载，只执行一次
@@ -43,20 +46,34 @@ class EditForm extends React.Component{
 		}
 	}
 	getBasicData=(detail)=>{
-
-
+		console.log("detail",detail);
+		var propertyOptionS = State.propertyOption;
+		var paramType =''
 		let _this = this;
-		let SearchLocationParams = {communityId:detail.communityId,whereFloor:detail.floor,type:detail.doorType}
-		Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
-			var locationArr = []
-    		for (var i=0;i<response.length;i++){
-    			locationArr[i] = {label:response[i].name,value:response[i].id}
-    		}
-    		_this.setState({
-    			locationOptions : locationArr
-    		})
-		});
-		Http.request('getFloorByComunity',{communityId:detail.communityId}).then(function(response){
+		if(detail.communityId && detail.floor){
+			for(var i=0;i<propertyOptionS.length;i++){
+				if(propertyOptionS[i].value == detail.doorType){
+					paramType = propertyOptionS[i].code;
+				}
+			}
+			let SearchLocationParams = {
+									communityId:detail.communityId,
+									whereFloor:detail.floor,
+									type:paramType
+								}
+			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
+				var locationArr = []
+	    		for (var i=0;i<response.length;i++){
+	    			locationArr[i] = {label:response[i].name,value:response[i].id}
+	    		}
+	    		_this.setState({
+	    			locationOptions : locationArr
+	    		})
+			});
+		}
+		
+		if(detail.communityId){
+			Http.request('getFloorByComunity',{communityId:detail.communityId}).then(function(response){
 	    		var arrNew = []
 	    		for (var i=0;i<response.floors.length;i++){
 	    			arrNew[i] = {label:response.floors[i],value:response.floors[i]}
@@ -67,15 +84,17 @@ class EditForm extends React.Component{
 	    			communityId : detail.communityId,
 	    			propertyOption :State.propertyOption
 	    		})
-	    }).catch(function(err){
+		    }).catch(function(err){
 
-    	})
+	    	})
+		}
 
 		_this.setState({
 			id : detail.id,
+			floorNum : detail.floor
 		})
 
-		if(detail.doorType && detail.doorType!==1  ){
+		if(detail.doorType && detail.doorType!=="GATE"  ){
 			_this.setState({
 				locationOpen : !_this.state.locationOpen
 			})
@@ -122,8 +141,9 @@ class EditForm extends React.Component{
     	})
   	}
   	
-  	//选择属性(会议室／大门)
+  	//选择属性(会议室／大门/路演厅)
 	onchooseProperty=(doorType)=>{
+		console.log("doorType",doorType);
 		let _this = this;
 		if(doorType == null){
 			_this.setState({
@@ -131,13 +151,19 @@ class EditForm extends React.Component{
   			})
 			return;
 		}
-  		if(doorType.value == 2){
+  		if(doorType.value == "GATE"){
+  			Store.dispatch(change('EditForm','roomId',''));
+  			_this.setState({
+  				locationOpen : false
+  			})
+  			
+  		}else{
   			_this.setState({
   				locationOpen : true
   			})
   			let SearchLocationParams = {communityId:_this.state.communityId,
   										whereFloor:_this.state.floorNum,
-  										type:doorType.value}
+  										type:doorType.code}
   			
   			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
 				var locationArr = []
@@ -148,12 +174,7 @@ class EditForm extends React.Component{
 	    			locationOptions : locationArr
 	    		})
 			});	
-  		}else{
-
-  			Store.dispatch(change('EditForm','roomId',''));
-  			_this.setState({
-  				locationOpen : false
-  			})
+  			
   		}
   		
   		Store.dispatch(change('EditForm','doorType',doorType.value));
@@ -179,8 +200,9 @@ class EditForm extends React.Component{
 			_this.setState({
 				floorNum : floor.value
 			},function(){
+				console.log("State.propertyOption",State.propertyOption);
 				_this.setState({
-					propertyOption :[{label: '大门',value: '1'},{label: '会议室',value: '2'}]
+					propertyOption :State.propertyOption
 				})
 			})
 		}
@@ -210,6 +232,7 @@ class EditForm extends React.Component{
 
 	// 编辑设备定义
 	onSubmit=(values)=>{
+		console.log("values",values);
 		let {detail} = this.props;
 		let _this = this;
 		let hardwareIdparams = {
@@ -229,13 +252,13 @@ class EditForm extends React.Component{
 		
 	}
 	render(){
-		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked} =this.state;
+		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked,locationOpen} =this.state;
 		
 		const { error, handleSubmit, reset ,detail} = this.props;
 		return(
 			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					<div><span>智能硬件ID</span><span>{detail.deviceId}</span></div>
+					<div style={{margin:"0 0 20px 10px",fontSize: 14,color:'black'}}><span>智能硬件ID：</span><span>{detail.deviceId}</span></div>
 					
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
@@ -297,7 +320,7 @@ class EditForm extends React.Component{
 						style={{width:'252px'}}
 					/>
 					{
-						detail.doorType == 2 && <KrField name="roomId" grid={1/2}
+						locationOpen && <KrField name="roomId" grid={1/2}
 							component="select" 
 							options={locationOptions}
 							label="对应位置"

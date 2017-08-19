@@ -16,7 +16,7 @@ module.exports = {
    },
    //新增编辑设备
    'addOrEditEquipment':{
-      url: '/api/iot-platform/door-device/edit',
+      url: '/api/iot-platform/door-device/edit?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&maker={maker}&memo={memo}&roomId={roomId}&title={title}&id={id}',
       method: 'put'
    },
    //批量删除设备
@@ -27,7 +27,7 @@ module.exports = {
 
    //单个删除
    'deleteEquipmentSingleURL':{
-      url: '/api/iot-platform/door-device/delete',
+      url: '/api/iot-platform/door-device/delete?id={id}',
       method: 'delete'
    },
     
@@ -62,7 +62,7 @@ module.exports = {
 
    //升级设备
    'upgradeEquipment':{
-      url: '/api/iot-platformb/door-device/admin/upgrade',
+      url: '/api/iot-platform/door-device/admin/upgrade',
       method: 'post'
    },
 
@@ -91,7 +91,7 @@ module.exports = {
       method: 'post'
    },
 
-   //获取设备缓存
+   //查看设备缓存
    'getEquipmentCacheURL':{
       url: '/api/iot-platform/door-device/admin/card-rule/list?deviceId={deviceId}&lastCardNo={lastCardNo}&limit={limit}',
       method: 'get'
@@ -112,13 +112,13 @@ module.exports = {
 
    //设置重启设备系统
    'restartSystemsUrl':{
-      url: '/api/iot-platform/door-device/admin/actions/reboot-os',
+      url: '/api/iot-platform/door-device/admin/actions/reboot-os?deviceId={deviceId}',
       method: 'put'
    },
 
     //设置APP
    'restartAPPUrl':{
-      url: '/api/iot-platform/door-device/admin/actions/reboot-app',
+      url: '/api/iot-platform/door-device/admin/actions/reboot-app?deviceId={deviceId}',
       method: 'put'
    },
 
@@ -131,13 +131,13 @@ module.exports = {
 
    //恢复出厂设置
    'resetEquipmentUrl':{
-      url: '/api/iot-platform/door-device/admin/actions/reset-config',
+      url: '/api/iot-platform/door-device/admin/actions/reset-config?deviceId={deviceId}',
       method: 'put'
    },
 
    //刷新H5
    'freshHTMLUrl':{
-      url: '/api/iot-platform/door-device/admin/actions/refresh-screen',
+      url: '/api/iot-platform/door-device/admin/actions/refresh-screen?deviceId={deviceId}',
       method: 'put'
    },
 
@@ -163,7 +163,7 @@ module.exports = {
 
    //确认删除升级信息
    'deleteUpgradeInfo':{
-      url: '/api/iot-platform/device-upgrade/actions/delete',
+      url: '/api/iot-platform/device-upgrade/actions/delete?id={id}',
       method: 'delete'
    },
 
