@@ -292,8 +292,7 @@ State.disConnectAction= action(function(){
 State.getPassword= action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('getPasswordURL',urlParams).then(function(response) {
-
-		State.EquipmentPassword =response.token;
+		State.EquipmentPassword =response;
 		State.passwordDialog = true;
 	}).catch(function(err) {
 		Message.error(err.message);

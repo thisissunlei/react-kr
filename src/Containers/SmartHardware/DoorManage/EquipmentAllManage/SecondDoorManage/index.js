@@ -430,7 +430,8 @@ export default class SecondDoorManage  extends React.Component{
 					            <TableRowColumn name="logined"
 					              component={(value,oldValue)=>{
 					                var spanColor = "";
-					                if(value  == true){
+
+					                if(value  == "true"){
 					                	value="已连接";
 					                }else{
 					                	value="未连接";
