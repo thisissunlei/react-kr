@@ -26,19 +26,18 @@ export default class EquipmentDetail extends React.Component{
 
 	componentDidMount(){
 		let _this =this;
-		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.report));
+		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.reported));
 		$("#json-str-desired").html(_this.syntaxHighlight(State.deviceVO.desired));
+		console.log("_this.syntaxHighlight(State.deviceVO.reported)",_this.syntaxHighlight(State.deviceVO.reported));
 	}
 	closeDialog=()=>{
 		State.openHardwareDetail= false;
 	}
 
 	freshEquipmentReporter=()=>{
-		console.log("刷新设备上报信息");
 		let _this = this;
 		State.freshEquipmentReporterAction();
-		console.log("State.deviceVO.report",State.deviceVO.report);
-		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.report));
+		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.reported));
 
 	}
 	
@@ -72,7 +71,7 @@ export default class EquipmentDetail extends React.Component{
 
 	render(){
 		var params = Object.assign({},State.deviceVO);
-
+		console.log("State.deviceVO",State.deviceVO);
 		return (
 			<div className="seconde-dialog">
 				<Button label="刷新设备上报信息" onTouchTap={this.freshEquipmentReporter} style={{width:150,marginLeft:20}}/>

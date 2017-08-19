@@ -62,7 +62,7 @@ module.exports = {
 
    //升级设备
    'upgradeEquipment':{
-      url: '/api/iot-platform/door-device/upgrade',
+      url: '/api/iot-platformb/door-device/admin/upgrade',
       method: 'post'
    },
 
@@ -72,22 +72,22 @@ module.exports = {
       method: 'post'
    },
 
-   //清空设备缓存
+   //断开重连
    'disconnnetEquipmentURL':{
-      url: '/api/iot-platform/door-device/disconnect',
+      url: '/api/iot-platform/door-device/admin/disconnect',
       method: 'post'
    },
 
    //获取口令
    'getPasswordURL':{
-      url: '/api/iot-platform/door-device/totpkey',
+      url: '/api/iot-platform/door-device/admin/totp-code?deviceId={deviceId}',
       method: 'get'
    },
 
 
    //远程开门
    'openDoorOnlineURL':{
-      url: '/api/iot-platform/door-device/open-door',
+      url: '/api/iot-platform/door-device/admin/open-door',
       method: 'post'
    },
 

@@ -288,6 +288,7 @@ State.disConnectAction= action(function(){
 })
 
 
+//获取口令码
 State.getPassword= action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('getPasswordURL',urlParams).then(function(response) {
@@ -299,6 +300,7 @@ State.getPassword= action(function(){
 	});
 })
 
+//远程开门
 State.openDoorOnlineAction = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('openDoorOnlineURL',{},urlParams).then(function(response) {
@@ -423,7 +425,7 @@ State.confirmFreshHTMLAction = action(function(){
 State.freshEquipmentReporterAction = action(function(){
 	var urlParams = {deviceId:State.deviceVO.deviceId}
 	Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
-		State.deviceVO.report = response.reported;
+		State.deviceVO.reported = response.reported;
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
