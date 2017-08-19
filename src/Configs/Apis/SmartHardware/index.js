@@ -151,19 +151,19 @@ module.exports = {
 
    //获取升级包管理地址
    'upgradeInfoListUrl':{
-      url: '/mockjsdata/53/iot-platform/device-upgrade/list?page={page}&pageSize={pageSize}',
+      url: '/api/iot-platform/device-upgrade/list?page={page}&pageSize={pageSize}',
       method: 'get'
    },
 
    //添加升级版本信息
    'newCreateUpgradeUrl':{
-      url: '/mockjsdata/53/iot-platform/device-upgrade/actions/add',
+      url: '/api/iot-platform/device-upgrade/actions/add',
       method: 'post'
    },
 
    //确认删除升级信息
    'deleteUpgradeInfo':{
-      url: '/mockjsdata/53/iot-platform/device-upgrade/actions/delete',
+      url: '/api/iot-platform/device-upgrade/actions/delete',
       method: 'delete'
    },
    
