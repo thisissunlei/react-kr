@@ -28,7 +28,7 @@ export default class EquipmentDetail extends React.Component{
 		let _this =this;
 		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.reported));
 		$("#json-str-desired").html(_this.syntaxHighlight(State.deviceVO.desired));
-		console.log("_this.syntaxHighlight(State.deviceVO.reported)",_this.syntaxHighlight(State.deviceVO.reported));
+		// console.log("_this.syntaxHighlight(State.deviceVO.reported)",_this.syntaxHighlight(State.deviceVO.reported));
 	}
 	closeDialog=()=>{
 		State.openHardwareDetail= false;
@@ -36,9 +36,9 @@ export default class EquipmentDetail extends React.Component{
 
 	freshEquipmentReporter=()=>{
 		let _this = this;
+		State.freshPageReturn();
 		State.freshEquipmentReporterAction();
 		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.reported));
-
 	}
 	
 	syntaxHighlight=(json)=>{

@@ -3,34 +3,119 @@ import {
 	reduxForm,
 	formValueSelector
 } from 'redux-form';
-import {Button} from 'kr-ui';
+import {Button,Message} from 'kr-ui';
 import './index.less';
+
+import {DateFormat,Http} from 'kr/Utils';
 import State from './State';
 import {
 	observer
 } from 'mobx-react';
-import {DateFormat } from 'kr/Utils';
 @ observer
 
 export default class EquipmentSearch extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			
+			loading :false,
+			itemDetail:{},
+			cachedeviceId : '',
+			equipmentCacheitems : [],
+			isAll : false
 		}
 	}
 
 	componentDidMount(){
-		State.getEquipmentCache();
+		console.log("State.itemDetail",State.itemDetail);
+		this.setState({
+			itemDetail:State.itemDetail
+		},function(){
+			this.getEquipmentCache();
+			this.scrollTable();
+		})
+		
+	}
+
+	scrollTable = ()=>{
+		let _this =this;
+		var DomOuter = document.getElementsByClassName("table-body")[0];
+		DomOuter.onscroll = function(){
+			console.log("this.scrollTop",this.scrollTop,"this.offsetHeight",this.offsetHeight,"this.scrollHeight",this.scrollHeight);
+			if(this.scrollTop+this.offsetHeight+10>=this.scrollHeight){
+				
+				_this.getEquipmentCache();
+			}
+		}
 	}
 	closeDialog=()=>{
 		State.openEquipmentCache= false;
 	}
 
+	//获取设备缓存列表
+	getEquipmentCache=()=>{
+		let _this = this;
+		if(!_this.state.loading && !_this.state.isAll){
+			_this.setState({
+				loading : true
+			})
+			console.log("_this.state.itemDetail",_this.state.itemDetail);
+			//首次请求 cachedeviceId=""
+			if(_this.state.cachedeviceId !==_this.state.itemDetail.deviceId){
+				_this.setState({
+					cachedeviceId : _this.state.itemDetail.deviceId
+				})
+				var urlParams = {
+								deviceId:_this.state.itemDetail.deviceId,
+								lastCardNo:'',
+								limit:50,
+							}
+			}else{
+				var lastCardNoParams=null;
+				if(_this.state.equipmentCacheitems.length>0){
+					lastCardNoParams = _this.state.equipmentCacheitems[length-1].cardNo 
+				}else{
+					lastCardNoParams = null
+				}
+				
+				var urlParams = {
+								deviceId:_this.state.itemDetail.deviceId,
+								lastCardNo:lastCardNoParams,
+								limit:50,
+							}
+			}
+			Http.request('getEquipmentCacheURL',urlParams).then(function(response) {
+				var oldItems = _this.state.equipmentCacheitems;
+				if(response.list.length <50){
+					this.setState({
+						isAll : true
+					})
+				}
+				if(!urlParams.lastCardNo){
+					_this.setState({
+						equipmentCacheitems : oldItems.concat(response.list)
+					})
+				}else{
+					_this.setState({
+						equipmentCacheitems : response.list
+					})
+				}
+				_this.setState({
+					loading : false
+				})
+			}).catch(function(err) {
+				Message.error(err.message);
+				_this.setState({
+					loading : false
+				})
+			});
+		}
+	}
+
+
 	renderTableBody=()=>{
 		let _this = this;
-		console.log("State.equipmentCacheitems",State.equipmentCacheitems);
-		var equipment_cach_list = State.equipmentCacheitems;
+
+		var equipment_cach_list = _this.state.equipmentCacheitems;
 		var DOM_list = equipment_cach_list.map(function(item,index){
 			return(
 				<div className="table-item" key={index}>
@@ -38,6 +123,7 @@ export default class EquipmentSearch extends React.Component{
 					<div  className="table-item-index-cache">{item.holder}</div>
 					<div  className="table-item-index-cache">{DateFormat(item.startAt,"yyyy-mm-dd HH:MM:ss")}</div>
 					<div  className="table-item-index-cache">{DateFormat(item.expireAt,"yyyy-mm-dd HH:MM:ss")}</div>
+					<div  className="table-item-index-cache">1111111</div>
 				</div>
 			)
 		});
@@ -45,7 +131,7 @@ export default class EquipmentSearch extends React.Component{
 	}
 	
 	render(){
-		
+		let {isAll} = this.state;
 		return (
 			<div className="seconde-dialog">
 
@@ -60,11 +146,16 @@ export default class EquipmentSearch extends React.Component{
 			        		<div className="header-item-cache">持卡人</div>
 			        		<div className="header-item-cache">开始时间</div>
 			        		<div className="header-item-cache">结束时间</div>
+			        		<div className="header-item-cache">结束时间</div>
 			        	</div>
 			        	<div className="table-body">
-			        		{
-			        			this.renderTableBody()
-			        		}
+			        		<div className="table-body-box">
+			        			
+				        		{
+				        			this.renderTableBody()
+				        		}
+			        		</div>
+			        		{isAll && <div>以上是全部数据</div>}
 			        	</div>
 			        </div>
 				</div>

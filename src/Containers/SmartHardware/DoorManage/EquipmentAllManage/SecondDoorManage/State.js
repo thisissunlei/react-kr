@@ -43,7 +43,6 @@ let State = observable({
 	},
 	searchEquipmentList :[],
 	//第一次请求设备缓存时的设备Id
-	cachedeviceId: '',
 	equipmentCacheitems :[],
 	switch : false,
 	showOpretion : false,
@@ -53,7 +52,8 @@ let State = observable({
 	managePsd :{},
 	resetEquipmentDialog : false,
 	openFreshHTMLDialog :false,
-	openConfirmDeleteBatch : false
+	openConfirmDeleteBatch : false,
+	loading :false
 
 });
 
@@ -312,35 +312,7 @@ State.openDoorOnlineAction = action(function(){
 	});
 })
 
-//查看设备缓存
-State.getEquipmentCache = action(function(){
-	if(State.cachedeviceId !==State.itemDetail.deviceId){
-		State.cachedeviceId = State.itemDetail.deviceId;
-		var urlParams = {
-						deviceId:State.itemDetail.deviceId,
-						lastCardNo:'',
-						limit:50,
-					}
-	}else{
 
-		var urlParams = {
-						deviceId:State.itemDetail.deviceId,
-						lastCardNo:State.equipmentCacheitems[length-1].cardNo,
-						limit:50,
-					}
-	}
-	
-	Http.request('getEquipmentCacheURL',urlParams).then(function(response) {
-		var oldItems = State.equipmentCacheitems;
-		if(!urlParams.lastCardNo){
-			State.equipmentCacheitems = oldItems.concat(response.list);
-		}else{
-			State.equipmentCacheitems = response.list;
-		}
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
 
 State.getWitchFind = action(function(){
 	Http.request('getSwitchStatusUrl',{}).then(function(response) {
