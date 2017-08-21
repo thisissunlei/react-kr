@@ -72,7 +72,7 @@ class PaymentTable  extends React.Component{
 										</div>
 									</td>
 									<td >{DateFormat(item.installmentReminddate,'yyyy-mm-dd')}</td>
-									<td >{Money(item.installmentAmount+'')}</td>
+									<td >{Money(item.installmentAmount)}</td>
 									<td >
 										<div style={{height:40}}>
 											<span className="tableOver">{DateFormat(item.installmentBegindate,'yyyy-mm-dd')}至{DateFormat(item.installmentEnddate,'yyyy-mm-dd')}</span>
