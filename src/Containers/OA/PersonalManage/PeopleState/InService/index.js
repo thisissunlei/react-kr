@@ -331,6 +331,7 @@ export default class InService  extends React.Component{
    goDetail = (data) =>{
 	    let personId=data.id;
 		window.open(`./#/oa/${personId}/peopleDetail`,'_blank');
+
    }
 	render(){
 		const {transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen,isEdit} = this.state;

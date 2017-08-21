@@ -27,15 +27,21 @@ export default class Home extends React.Component {
 	constructor(props,context){
 		super(props, context);
         this.state={
-            infoList:{},
+            infoList:{
+				resourceList:[],
+			},
         }
 	}
 
   componentDidMount() {
     const { NavModel } = this.props;
 	NavModel.setSidebar(false);
+	var _this = this;
+	Http.request('home-index', {},{}).then(function(response) {
+			_this.setState({infoList: response})
+		}).catch(function(err) {});
 	var width = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.056;
-	console.log(document.getElementsByClassName('g-home-bottom')[0].clientWidth);
+	_this.swiperWidth = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.12;
 	window.setTimeout(function() {
 		var swiper = new Swiper('.swiper-container', {
 			slidesPerView: 6,
@@ -57,12 +63,74 @@ export default class Home extends React.Component {
 			autoplay : 2000,
 			autoplayDisableOnInteraction:false,
 		});
-	}, 100);
+	}, 400);
 	
 		
 	
   }
-  
+  renderSwiper = (item,index) =>{
+      if(!item){
+        return ;
+      }
+	  var height = this.swiperWidth;
+      var styles = {};
+      		styles.backgroundImage = `url(${item.avatar})`;
+			//styles.backgroundSize = `${page.width}px 520px`;
+			styles.backgroundSize = 'cover';
+			styles.backgroundPosition = 'center center';
+			styles.backgroundRepeat = 'no-repeat';
+			styles.height = `${height}px`;
+
+      return (
+			<div key={index} className="swiper-slide">
+				<div className="swiper-pic" style={styles}>
+
+				</div>
+				<div className="name">
+					{item.name}
+				</div>
+				<div className="job">
+					{item.job}
+				</div>
+		</div>
+      );
+  }
+  renderSwiperOne = (item,index) =>{
+      if(!item){
+        return ;
+      }
+	  
+      var styles = {};
+      		styles.backgroundImage = `url(${item.photoUrl})`;
+			//styles.backgroundSize = `${page.width}px 520px`;
+			styles.backgroundSize = 'cover';
+			styles.backgroundPosition = 'center center';
+			styles.backgroundRepeat = 'no-repeat';
+      return (
+			<div key={index} style={styles} className="swiper-slide">
+				
+				<div className="swiper-text">
+					{item.name}
+				</div>
+				
+		</div>
+      );
+  }
+  renderDynamicList = (item,index) =>{
+      if(!item){
+        return ;
+      }
+      return (
+			<div key={index} className="item">
+				<span className={`circle ${item.isRead==1?'readcircle':''}`}>
+
+				</span>
+				<span className="item-text">
+					{item.title}
+				</span>
+			</div>
+      );
+  }
   render() {
     return (
       <div className="g-home">
@@ -134,12 +202,9 @@ export default class Home extends React.Component {
 						<div className="g-home-middle-item">
 							<div className="swiper-container-one">
 								<div className="swiper-wrapper">
-									<div className="swiper-slide swiper-slide1">Slide 1
-										
-									</div>
-									<div className="swiper-slide swiper-slide2">Slide 2</div>
-									<div className="swiper-slide swiper-slide3">Slide 3</div>
-									<div className="swiper-slide swiper-slide4">Slide 4</div>
+									{this.state.infoList.sliderList && this.state.infoList.sliderList.map((item,index)=>{
+										return this.renderSwiperOne(item,index)
+									})}
 								</div>
 								<div className="swiper-scrollbar"></div>
 								<div className="oa-one-swiper-prev"></div>
@@ -162,14 +227,9 @@ export default class Home extends React.Component {
 								</div>
 							</div>
 							<div className="main">
-								<div className="item">
-									<span className="circle">
-
-									</span>
-									<span className="item-text">
-										ddd
-									</span>
-								</div>
+								{this.state.infoList.dynamicList && this.state.infoList.dynamicList.map((item,index)=>{
+										return this.renderDynamicList(item,index)
+								})}
 							</div>
 						</div>
 						<div className="g-home-middle-item">
@@ -178,9 +238,44 @@ export default class Home extends React.Component {
 									
 								</div>
 								<div className="left">
-									最近动态
+									相关应用
 								</div>
 								
+							</div>
+							
+							<div className="apply">
+								<div className="apply-item">
+									<div className="pic">
+
+									</div>
+									<div className="text">
+										云快报
+									</div>
+								</div>
+								<div className="apply-item">
+									<div className="pic">
+
+									</div>
+									<div className="text">
+										云快报
+									</div>
+								</div>
+								<div className="apply-item">
+									<div className="pic">
+
+									</div>
+									<div className="text">
+										云快报
+									</div>
+								</div>
+								<div className="apply-item">
+									<div className="pic">
+
+									</div>
+									<div className="text">
+										云快报
+									</div>
+								</div>
 							</div>
 						</div>
 				</div>
@@ -196,16 +291,9 @@ export default class Home extends React.Component {
 					<div className="home-swiper">
 						<div className="swiper-container">
 							<div className="swiper-wrapper">
-								<div className="swiper-slide1 swiper-slide">Slide 1</div>
-								<div className="swiper-slide2 swiper-slide">Slide 2</div>
-								<div className="swiper-slide3 swiper-slide">Slide 3</div>
-								<div className="swiper-slide1 swiper-slide">Slide 1</div>
-								<div className="swiper-slide2 swiper-slide">Slide 2</div>
-								<div className="swiper-slide3 swiper-slide">Slide 3</div>
-								<div className="swiper-slide1 swiper-slide">Slide 1</div>
-								<div className="swiper-slide2 swiper-slide">Slide 2</div>
-								<div className="swiper-slide3 swiper-slide">Slide 3</div>
-								<div className="swiper-slide1 swiper-slide">Slide 1</div>
+								{this.state.infoList.resourceList && this.state.infoList.resourceList.map((item,index)=>{
+									return this.renderSwiper(item,index)
+								})}
 							</div>
 							
 						</div>

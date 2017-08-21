@@ -553,6 +553,11 @@ var OAApi = {
       method: 'get'
   },
 
+  //首页
+  'home-index':{
+      url:'/api/krspace-erp-web/sys/base/data',
+      method: 'get'
+  },
   //首页管理
   //首页-轮播列表
   'home-swper-list':{
@@ -565,13 +570,13 @@ var OAApi = {
       method: 'post'
   },
   //首页-轮播编辑
-  'home-swper-add':{
+  'home-swper-edit':{
       url:'/api/krspace-erp-web/sys/slider/edit',
       method: 'post'
   },
   //首页-轮播详情
   'home-swper-detail':{
-      url:' /api/krspace-erp-web/sys/slider/detail?id={id}',
+      url:'/api/krspace-erp-web/sys/slider/detail?id={id}',
       method: 'get'
   },
   //首页-轮播删除
@@ -580,7 +585,32 @@ var OAApi = {
       method: 'post'
   },
   //首页最新动态
-  
+  //首页-最新动态-列表
+  'dynamics-list':{
+      url:'/api/krspace-erp-web/sys/dynamic/list?page={page}&pageSize={pageSize}&title={title}',
+      method: 'get'
+  },
+  //首页-最新动态-删除
+  'dynamics-delete':{
+      url:'/api/krspace-erp-web/sys/dynamic/delete',
+      method: 'post'
+  },
+   //首页-最新动态-添加
+  'dynamics-add':{
+      url:'/api/krspace-erp-web/sys/dynamic/add',
+      method: 'post'
+  },
+  //首页-最新动态-编辑
+  'dynamics-edit':{
+      url:'/api/krspace-erp-web/sys/dynamic/edit',
+      method: 'post'
+  },
+  //首页-最新动态-详情
+  'dynamics-detail':{
+      url:'/api/krspace-erp-web/sys/dynamic/detail?id={id}',
+      method: 'get'
+  },
+
 
 }
 

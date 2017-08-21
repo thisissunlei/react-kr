@@ -19,7 +19,7 @@ class EditSwper extends React.Component{
         this.state = {
             jobTypes:[],
             isType :false,
-            photoUrl:''
+            photoUrl:props.photoUrl || ''
         }
 	}
 
@@ -30,14 +30,19 @@ class EditSwper extends React.Component{
        Store.dispatch(change('AddRankList','typeId',''));
        this.dataReady(data); 
     }
-    // componentWillReceiveProps(nextProps){
-    //     if(nextProps.photoUrl && nextProps.photoUrl != this.state.photoUrl){
-    //         this.setState({
-    //             photoUrl:nextProps.photoUrl
-    //         })
-    //     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.photoUrl && nextProps.photoUrl != this.state.photoUrl){
+            this.setState({
+                photoUrl:nextProps.photoUrl
+            })
+        }
 
-    // }
+    }
+    deletePhoto = () =>{
+        this.setState({
+            photoUrl:''
+        })
+    }
 
     //类型
 	dataReady=(data)=>{
@@ -70,7 +75,7 @@ class EditSwper extends React.Component{
 	render(){
 
         let {handleSubmit,subCompany}=this.props;
-        let {jobTypes,isType} = this.state;
+        let {jobTypes,isType,photoUrl} = this.state;
         let host = "http://"+window.location.host;
 
 		return(
@@ -86,19 +91,21 @@ class EditSwper extends React.Component{
 					<KrField grid={1/2} label="名称" name="name" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="链接地址" name="linkUrl" style={{width:262,marginLeft:30}} component="input" requireLabel={true} inline={false}/>
                     <KrField grid={1/2} label="是否已上线" name="enable" style={{width:262,marginLeft:15,marginRight:13}} component="group">
-                        <KrField name="enable" label="是" type="radio" value="YES" style={{marginTop:5,display:'inline-block',width:84}}/>
-                        <KrField name="enable" label="否" type="radio" value="NO" style={{marginTop:5,display:'inline-block',width:53}}/>
+                        <KrField name="enable" label="是" type="radio" value="1" style={{marginTop:5,display:'inline-block',width:84}}/>
+                        <KrField name="enable" label="否" type="radio" value="0" style={{marginTop:5,display:'inline-block',width:53}}/>
                     </KrField>
                     <div style = {{marginLeft:15}}>
                         <KrField
                             name="photoUrl"
                             component="newuploadImage"
-                            innerstyle={{width:500,height:300,padding:10,marginLeft:-80}}
-                            photoSize={'500*300'}
+                            innerstyle={{width:500,height:344,padding:10,marginLeft:-80}}
+                            photoSize={'500*334'}
                             pictureFormat={'JPG,PNG,GIF'}
                             pictureMemory={'200'}
                             requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
                             deviation = {"50*50"}
+                            defaultValue={photoUrl}
+							onDeleteImg ={this.deletePhoto}
                             label="上传图片"
                             inline={false}
                             requireLabel={true}

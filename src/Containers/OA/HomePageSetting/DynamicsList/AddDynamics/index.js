@@ -25,31 +25,9 @@ class AddDynamics extends React.Component{
 	}
 
     componentDidMount(){
-        Store.dispatch(change('AddRankList','enabled','true'))
-    }
-    onChange = (data) =>{
-       Store.dispatch(change('AddRankList','typeId',''));
-       this.dataReady(data); 
+        Store.dispatch(change('AddDynamics','articleType','INSIDE'))
     }
 
-    //类型
-	dataReady=(data)=>{
-       var _this=this;
-	   Http.request('rank-type-info',{
-		   orgType:'SUBCOMPANY',
-		   orgId:data.value
-	   }).then(function(response) {
-
-		   _this.setState({
-			    jobTypes:response.jobTypes,
-                isType:true,
-		  })
-
-     }).catch(function(err) {
-          Message.error(err.message);
-     });	
-	}
-   
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -62,7 +40,7 @@ class AddDynamics extends React.Component{
     typeChange = (detail) =>{
         
         var isCite = false;
-        if(detail.value == "yes"){
+        if(detail.value == "OUTSIDE"){
             
             isCite = true
            
@@ -79,7 +57,8 @@ class AddDynamics extends React.Component{
 
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType,isCite} = this.state;
-        let host = "http://"+window.location.host;
+        // let host = "http://"+window.location.host;
+        let host = "http://optest02.krspace.cn/";
 
 		return(
 
@@ -91,21 +70,21 @@ class AddDynamics extends React.Component{
 				</div>
 
 				<div className="kk" style={{marginTop:30}}>
-					<KrField grid={1/2} label="标题" name="sourceId" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>
-                    <KrField grid={1/2} label="文章类型" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
-                        options={[{label:"是",value:"yes"},{label:"否",value:"no"}]}
+					<KrField grid={1/2} label="标题" name="title" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="文章类型" name="articleType" component="select" style={{width:262,marginLeft:28}}
+                        options={[{label:"站内发表",value:"INSIDE"},{label:"外部链接",value:"OUTSIDE"}]}
                         requireLabel={false}
                         onChange = {this.typeChange}
                     />
-                    {isCite && <KrField grid={1/2} label="地址链接" name="sourceId" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>}
+                    {isCite && <KrField grid={1/2} label="地址链接" name="linkUrl" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>}
 
                   
                     <div style = {{marginLeft:15}}>
                         <KrField
-                            name="cachetUrl"
+                            name="titleUrl"
                             component="newuploadImage"
-                            innerstyle={{width:222,height:170,padding:10,marginLeft:-80}}
-                            photoSize={'500*300'}
+                            innerstyle={{width:202,height:150,padding:10,marginLeft:-80}}
+                            photoSize={'202*150'}
                             pictureFormat={'JPG,PNG,GIF'}
                             pictureMemory={'200'}
                             requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
@@ -116,7 +95,7 @@ class AddDynamics extends React.Component{
                         />
                     </div>
                     {!isCite && <div style = {{marginTop:10}}>
-                        <KrField component="editor" name="summary" label="内容" defaultValue=''/>
+                        <KrField component="editor" name="content" label="内容" defaultValue=''/>
                     </div>}
                     
 				</div>
@@ -143,23 +122,23 @@ class AddDynamics extends React.Component{
 const validate = values =>{
 	const errors = {};
 
-    if(!values.name){
-       errors.name='请填写职级名称';  
-    }else if(values.name.length>10){
-       errors.name='职级名称不能超过10个字符';   
-    }
+//     if(!values.name){
+//        errors.name='请填写职级名称';  
+//     }else if(values.name.length>10){
+//        errors.name='职级名称不能超过10个字符';   
+//     }
    
-   if(!values.typeId){
-       errors.typeId='请选择职务类型';
-   }
+//    if(!values.typeId){
+//        errors.typeId='请选择职务类型';
+//    }
 
-   if(!values.level){
-       errors.level='请填写等级';
-   }else if(isNaN(values.level)){
-       errors.level='等级必须是数字'
-   }else if(values.level>30){
-       errors.level='等级最大不超过30'
-   }
+//    if(!values.level){
+//        errors.level='请填写等级';
+//    }else if(isNaN(values.level)){
+//        errors.level='等级必须是数字'
+//    }else if(values.level>30){
+//        errors.level='等级最大不超过30'
+//    }
    
     
 	return errors

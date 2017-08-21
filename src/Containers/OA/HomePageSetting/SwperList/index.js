@@ -89,10 +89,12 @@ export default class SwperList extends Component{
    getDetail = (id) =>{
 	   var _this = this;
 	   Http.request("home-swper-detail",{id:id}).then(function (response) {
+		   	response.enable=''+response.enable;
 			Store.dispatch(initialize('EditSwper',response));
 			_this.setState({
-				photoUrl:photoUrl,
+				photoUrl:response.photoUrl
 			})
+			
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -113,6 +115,7 @@ export default class SwperList extends Component{
 		Http.request("home-swper-add",{},params).then(function (response) {
 			Message.success("新建成功");
 			_this.switchOpenAdd()
+			_this.refresh();
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -125,6 +128,7 @@ export default class SwperList extends Component{
 		Http.request("home-swper-edit",{},params).then(function (response) {
 			Message.success("编辑成功");
 			_this.switchOpenEdit()
+			_this.refresh();
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -136,6 +140,7 @@ export default class SwperList extends Component{
 	   Http.request("home-swper-delete",{},{id:nowId}).then(function (response) {
 			Message.success("删除成功");
 			_this.switchOpenDelete()
+			_this.refresh();
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -144,6 +149,9 @@ export default class SwperList extends Component{
    onSearchSubmit = (values) =>{
 	   var searchParams = Object.assign({},this.state.searchParams);
 	   searchParams.name = values.content;
+	   this.setState({
+		   searchParams
+	   })
 
 
    }
@@ -161,6 +169,16 @@ export default class SwperList extends Component{
 			nowId:itemDetail.id
 		})
 
+    }
+	jump = (src) =>{
+		window.location.href = src;
+	}
+	refresh = () =>{
+		let searchParams = Object.assign({},this.state.searchParams);
+		searchParams.other  = new Date();
+		this.setState({
+			searchParams
+		})
     }
 
 	render(){
@@ -189,7 +207,7 @@ export default class SwperList extends Component{
 				</Col>
 				<Col style={{marginTop:0,float:"right",marginRight:-10}}>
 					<ListGroup>
-						<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入角色名称' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
+						<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入内容' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
 					</ListGroup>
 				</Col>
 
@@ -222,13 +240,16 @@ export default class SwperList extends Component{
 						<TableRowColumn
 							name="photoUrl"
 							component={(value,oldValue)=>{
-								return (<img src = {value}/>)
+								return (<img className = "swper-img" src = {value}/>)
 							}}
 						></TableRowColumn>
 						<TableRowColumn
 							name="linkUrl"
 							component={(value,oldValue)=>{
-								return (<a src = {value}>{value}</a>)
+								return (<a src = {value} 
+									onClick = {()=>{
+										this.jump(value);
+									}}>{value}</a>)
 							}}
 						></TableRowColumn>
 						<TableRowColumn name="orderNum"></TableRowColumn>
@@ -267,9 +288,9 @@ export default class SwperList extends Component{
 			{/*删除*/}
 			<Dialog
 				open={isDelete}
-				width={750}
 				openSecondary={true}
 				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+				contentStyle ={{ width: '444px',overflow:'inherit'}}
 				onClose={this.allClose}
 			>
 				<div className = "oa-swper-delete">
