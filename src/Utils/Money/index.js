@@ -7,7 +7,7 @@ function Money(props,minus){
 
     let str = props;
     if(!!!str){
-        return false;
+        return '-';
     }
     if(typeof str == 'number'){
         str +='';
