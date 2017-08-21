@@ -2,7 +2,8 @@ import React from 'react';
 import {
 	TabC,
 	TabCs,
-	Dictionary
+	Dictionary,
+	Dialog
 } from 'kr-ui';
 import { observer,inject } from 'mobx-react';
 import {Actions,Store} from 'kr/Redux';
@@ -22,6 +23,7 @@ export default class PeopleDetail  extends React.Component{
 		this.state={
 			personId:this.props.params.personId,
 			detail:'',
+			openImg:false
 		}
 	}
 
@@ -56,6 +58,13 @@ export default class PeopleDetail  extends React.Component{
 	}
 
 
+	hoverClick=()=>{
+		this.setState({
+			 openImg:!this.state.openImg
+		})
+	}
+
+
 	render(){
 
 		let {personId,detail}=this.state;
@@ -65,10 +74,15 @@ export default class PeopleDetail  extends React.Component{
 			<div className='people-detail'>
 			  <div className='detail-left'>
 				<div className='left-pic'>
-				   <UserImage />
-					 {/*<div className='now-change-pic'>
+					 <div className='now-change-pic' ref={
+						  (ref)=>{
+								this.changePic=ref;
+							}
+					 }>
+					 </div>
+					 <div className='now-hover-pic' onClick={this.hoverClick}>
 
-					 </div>*/}
+					 </div>
 				</div>
 				<div className='left-text'>
 
@@ -108,6 +122,19 @@ export default class PeopleDetail  extends React.Component{
 			  </TabCs>
 
 			  </div>
+
+
+				{/*上传图片*/}
+				<Dialog
+				  title="修改头像"
+					onClose={this.openUploadImg}
+					open={this.state.openImg}
+				  contentStyle ={{ width: '688px',height:'auto'}}
+				>
+				 <UserImage />
+			</Dialog>
+
+
 			</div>
 		);
 	}
