@@ -1,6 +1,7 @@
 import React from 'react';
 import TabTitle from './TabTitle';
 import TabFirst from './TabFirst';
+import TabProcess from './TabProcess';
 import './index.less'
 export default class TabCs extends React.Component {
     constructor(props,context){
@@ -48,6 +49,11 @@ export default class TabCs extends React.Component {
                 />}
 
                  {isDetail=='detail'&&<TabFirst
+                    labels = {this.getLabels()} 
+                    onSubmit = {this.titleClick} 
+                />}
+
+                {isDetail=='process'&&<TabProcess
                     labels = {this.getLabels()} 
                     onSubmit = {this.titleClick} 
                 />}

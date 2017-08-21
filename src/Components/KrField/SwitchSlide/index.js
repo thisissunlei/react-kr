@@ -9,7 +9,7 @@ import './index.less';
 import Dialog from '../../Dialog'
 
 import SwitchDialog from './SwitchDialog/index';
-
+import MultiSwitchDialog from './MultiSwitchDialog/index';
 export default class SwitchSlide extends React.Component{
 
 	static propTypes = {
@@ -18,6 +18,7 @@ export default class SwitchSlide extends React.Component{
 		heightStyle:React.PropTypes.object,
 		maxLength:React.PropTypes.number,
 		autoFocus:React.PropTypes.bool,
+		multiSwitch:React.PropTypes.bool,
 	}
 
 	constructor(props,context){
@@ -29,7 +30,8 @@ export default class SwitchSlide extends React.Component{
 			data:{
 				label:"请选择"
 			},
-			valueText:props.valueText,
+			valueText:'',
+			rightData:this.props.rightData
 		}
 
 	}
@@ -38,19 +40,42 @@ export default class SwitchSlide extends React.Component{
 
     componentWillReceiveProps(nextProps){
 		let {oneOpen}=this.state;
-		let {label} = this.props;
-
-        if(nextProps.valueText!==this.state.valueText){
-			
-		    this.setState({
-				valueText:nextProps.valueText
-			})
-	    }
+		let {label,multiSwitch} = this.props;
+		
+		if(multiSwitch){
+			// console.log(this.state.valueText);
+			// this.setState({
+			// 		valueText:this.state.valueText
+			// 	})
+		}else{
+			if(nextProps.valueText!==this.state.valueText){
+				// console.log("进入next");
+				this.setState({
+					valueText:nextProps.valueText
+				})
+	    	}
+		}
+        
 	}
 
 	componentDidMount(){
-
-
+		const {multiSwitch,rightData} = this.props;
+		if(multiSwitch){
+			var valueText = [];
+			if(rightData && rightData.length){
+				rightData.map((item,index)=>{
+					valueText.push(item.label)
+				})
+			}
+			valueText = valueText.join(",");
+			this.setState({
+				valueText:valueText || '请选择'
+			})
+		}else{
+			this.setState({
+				valueText:this.props.valueText
+			})
+		}
 	}
 
 	onChange = (value)=>{
@@ -79,17 +104,43 @@ export default class SwitchSlide extends React.Component{
 		this.dlogSwidch();
 	}
 	onSubmit = (data) =>{
-		
-		if( !data || !data.label ){
-			return ;
+		const multiSwitch = this.props.multiSwitch;
+		// console.log("submit",data);
+		if(multiSwitch){
+			if( !data || !data[0].label ){
+				return ;
+			}
+			
+			let {input} = this.props;
+			input.onChange(data);
+			
+			var valueText = [];
+			if(data.length){
+				data.map((item,index)=>{
+					valueText.push(item.label)
+				})
+			}
+			valueText = valueText.join(",");
+			
+			this.setState({
+				data,
+				valueText:valueText,
+				rightData:data
+			})
+			// console.log("valueText",valueText);			
+		}else{
+			if( !data || !data.label ){
+				return ;
+			}
+			
+			let {input} = this.props;
+			input.onChange(data);
+			this.setState({
+				data,
+				valueText:data.label
+			})
 		}
 		
-		let {input} = this.props;
-		input.onChange(data);
-		this.setState({
-			data,
-			valueText:data.label
-		})
 		this.dlogSwidch();
 	}
 
@@ -109,8 +160,10 @@ export default class SwitchSlide extends React.Component{
         } = this.state;
 
 		const {
-            letfData,
+            leftData,
             control,
+			multiSwitch,
+			rightData,
         } = this.props;
 
 		let {
@@ -135,7 +188,6 @@ export default class SwitchSlide extends React.Component{
 			isClear,
             ...other
         } = this.props;
-
 			if(type === 'hidden'){
 				return (
 					<div>
@@ -175,34 +227,62 @@ export default class SwitchSlide extends React.Component{
 			 autoFocus,
 		 }
 
-
+		 var inputStyle = {
+				overflow: "hidden",
+				textOverflow:"ellipsis",
+				whiteSpace: "nowrap",
+			}
         var dialogTitle = label || '组件';
         dialogTitle = "选择" + dialogTitle;
+		var multiDialogTitle = label || '组件';
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 
 				 <Input value = { data && data.orgName} onClick = {this.onFocus} {...inputProps} style = {{display:"none"}}/>
-					<div className = "oa-imulation-input "  onClick = {this.onFocus}>{valueText}</div>
+					<div className = "oa-imulation-input " style={inputStyle}  onClick = {this.onFocus}>{valueText}</div>
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-				 <div className = "select-tree">
-
-				 
-				 <Dialog
-					title={dialogTitle}
-					onClose={this.dlogSwidch}
-					open={isDialog}
-					noMaxHeight = {true}
-					contentStyle ={{ width: '510px',height:'590px'}}
-				 >
-					<SwitchDialog  
-                        letfData = {letfData}
-						control={control}
-                        onSelect = {this.onSelect} 
-                        onSubmit = {this.onSubmit} 
-                        onCancel = {this.onCancel}
-                    />
-				</Dialog>
-				</div>
+				 	{
+						 multiSwitch
+						 ? 
+						 <div className = "select-multi-tree">
+							<Dialog
+								title={multiDialogTitle}
+								onClose={this.dlogSwidch}
+								open={isDialog}
+								noMaxHeight = {true}
+								contentStyle ={{ width: '510px',height:'590px'}}
+							>
+								<MultiSwitchDialog  
+									leftData = {leftData}
+									rightData={this.state.rightData}
+									control={control}
+									onSelect = {this.onSelect} 
+									onSubmit = {this.onSubmit} 
+									onCancel = {this.onCancel}
+								/>
+								</Dialog>
+						</div>
+						:
+						<div className = "select-tree">
+							<Dialog
+								title={dialogTitle}
+								onClose={this.dlogSwidch}
+								open={isDialog}
+								noMaxHeight = {true}
+								contentStyle ={{ width: '510px',height:'590px'}}
+							>
+								<SwitchDialog  
+									leftData = {leftData}
+									control={control}
+									onSelect = {this.onSelect} 
+									onSubmit = {this.onSubmit} 
+									onCancel = {this.onCancel}
+								/>
+							</Dialog>
+						</div>		
+					 }
+					
+				
 			 </WrapComponent>
 		 );
 	 }
