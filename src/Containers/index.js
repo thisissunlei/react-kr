@@ -12,6 +12,7 @@ import Member from './Member';
 import Community from './Community';
 import Retail from './Retail';
 import OA from './OA';
+import Office from './Office';
 import Statistical from './Statistical';
 import WebBackstage from './WebBackstage';
 import UpdateLog from './UpdateLog';
@@ -31,6 +32,7 @@ module.exports = {
 	Community,
 	Retail,
 	OA,
+	Office,
 	Statistical,
 	WebBackstage,
 	UpdateLog,
