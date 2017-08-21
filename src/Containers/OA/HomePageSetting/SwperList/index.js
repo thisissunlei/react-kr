@@ -89,6 +89,7 @@ export default class SwperList extends Component{
    getDetail = (id) =>{
 	   var _this = this;
 	   Http.request("home-swper-detail",{id:id}).then(function (response) {
+		   	response.enable=''+response.enable;
 			Store.dispatch(initialize('EditSwper',response));
 			_this.setState({
 				photoUrl:response.photoUrl

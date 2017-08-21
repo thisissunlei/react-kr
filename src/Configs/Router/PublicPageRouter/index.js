@@ -37,7 +37,7 @@ module.exports =()=>{
         <Route path="publicPage" getComponent={Basic}>
             {/*oa后台*/}
         
-            <Route path="dynamicsDetail" getComponent={PublicPage_DynamicsDetail}/>
+            <Route path=":id/dynamicsDetail" getComponent={PublicPage_DynamicsDetail}/>
             <Route path="dynamicsProfile" getComponent={PublicPage_DynamicsProfile}/>
             
         </Route>

@@ -27,28 +27,7 @@ class EditDynamics extends React.Component{
     componentDidMount(){
         Store.dispatch(change('AddRankList','enabled','true'))
     }
-    onChange = (data) =>{
-       Store.dispatch(change('AddRankList','typeId',''));
-       this.dataReady(data); 
-    }
-
-    //类型
-	dataReady=(data)=>{
-       var _this=this;
-	   Http.request('rank-type-info',{
-		   orgType:'SUBCOMPANY',
-		   orgId:data.value
-	   }).then(function(response) {
-
-		   _this.setState({
-			    jobTypes:response.jobTypes,
-                isType:true,
-		  })
-
-     }).catch(function(err) {
-          Message.error(err.message);
-     });	
-	}
+    
    
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -60,7 +39,6 @@ class EditDynamics extends React.Component{
         onCancel && onCancel();
     }
     typeChange = (detail) =>{
-        console.log(detail,">>>")
         var isCite = false;
         if(detail.value == "yes"){
             
@@ -78,7 +56,8 @@ class EditDynamics extends React.Component{
 
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType,isCite} = this.state;
-        let host = "http://"+window.location.host;
+        // let host = "http://"+window.location.host;
+        let host = "http://optest02.krspace.cn/";
 
 		return(
 

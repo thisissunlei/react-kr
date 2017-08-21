@@ -2,6 +2,9 @@ import React,{Component} from 'react';
 import {Http} from 'kr/Utils';
 import {Store} from 'kr/Redux';
 import {
+  initialize
+} from 'redux-form';
+import {
 	KrField,
 	Table,
 	TableBody,
@@ -43,7 +46,8 @@ export default class DynamicsList extends Component{
 			searchParams : {
 				page: 1,
 				pageSize: 15,
-				title:""
+				title:'',
+				other:'',
 			},
 			nowId:'',
 		}
@@ -138,11 +142,11 @@ export default class DynamicsList extends Component{
 	addSubmit = (data) =>{
 	   let {nowId} = this.state;
 	   let params = Object.assign({},data);
-	   
 	   let _this = this;
 	   Http.request("dynamics-add",{},params).then(function (response) {
 			Message.success("新建成功");
 			_this.switchOpenAdd()
+			_this.refresh();
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -161,6 +165,15 @@ export default class DynamicsList extends Component{
 		});
 
 	}
+	//刷新
+	refresh = () =>{
+		let searchParams = Object.assign({},this.state.searchParams);
+		searchParams.other  = new Date();
+		this.setState({
+			searchParams
+		})
+    }
+
 
 	render(){
 
@@ -213,7 +226,7 @@ export default class DynamicsList extends Component{
             <TableRowColumn name="identifier" ></TableRowColumn>
 						<TableRowColumn name="titleUrl"
               				component={(value,oldValue)=>{
-								return (<img src = {titleUrl} />)
+								return (<img className = "dynamics-img" src = {value} />)
 		 					}}
            				></TableRowColumn>
 						<TableRowColumn name="title"
@@ -236,7 +249,7 @@ export default class DynamicsList extends Component{
 								return (<a src = {value}>{value}</a>)
 							}}
 						></TableRowColumn>
-						<TableRowColumn name="time" ></TableRowColumn>
+						
 						<TableRowColumn type="operation">
                             <Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_role_edit"/>
 			                <Button label="删除"  type="operation"  operation="delete" />
@@ -253,7 +266,7 @@ export default class DynamicsList extends Component{
 				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 				onClose={this.allClose}
 			>
-				<AddDynamics onCancel = {this.switchOpenAdd} />
+				<AddDynamics onCancel = {this.switchOpenAdd} onSubmit = {this.addSubmit}/>
 			</Drawer>
 			{/*编辑*/}
 			<Drawer
@@ -263,7 +276,7 @@ export default class DynamicsList extends Component{
 				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 				onClose={this.allClose}
 			>
-				<EditDynamics onCancel = {this.switchOpenEdit}/>
+				<EditDynamics onCancel = {this.switchOpenEdit} onSubmit = {this.editSubmit}/>
 			</Drawer>
 			{/*删除*/}
 			<Dialog

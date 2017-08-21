@@ -33,6 +33,10 @@ export default class ArticleList extends React.Component {
     profileRender = () =>{
 
     }
+    onClick = (data) =>{
+        let {onClick} = this.props;
+        onClick && onClick(data);
+    }
 	
 	render() {
         const {detail} = this.props;
@@ -44,7 +48,10 @@ export default class ArticleList extends React.Component {
             }
         }
 		return (
-			<div className="ui-article_list">
+			<div className="ui-article_list" 
+                onClick = {()=>{
+                    this.onClick(detail);
+                }}>
                     
                     <img className = "ui-article-img" src={detail.url||''} alt=""/> 
                     
