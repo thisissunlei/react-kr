@@ -59,6 +59,11 @@ export default class DialogComponent extends React.Component {
 			this.initializeStyles();
 		}.bind(this));
 	}
+	componentWillReceiveProps(nextProps)  {
+		if(nextProps.open!=this.props.open && !nextProps.open){
+			document.body.style.overflow="auto";
+		}
+	}
 
 	componentDidUpdate() {
 
@@ -128,6 +133,7 @@ export default class DialogComponent extends React.Component {
 
 
 	onClose = () => {
+		document.body.style.overflow="auto";
 		const { onClose } = this.props;
 		onClose && onClose();
 	}
@@ -159,6 +165,8 @@ export default class DialogComponent extends React.Component {
 			  styles.zIndex='1200';	
 			}
 			styles.display = 'block';
+			document.body.style.overflow="hidden";
+
 		} else {
 			styles.display = 'none';
 		}

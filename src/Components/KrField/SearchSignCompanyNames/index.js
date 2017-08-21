@@ -1,8 +1,8 @@
 import React from 'react';
+
 import {
 	Http
 } from "kr/Utils";
-
 import ReactSelectAsync from '../../Select/Async';
 
 import {Actions,Store} from 'kr/Redux';
@@ -10,7 +10,7 @@ import {Actions,Store} from 'kr/Redux';
 
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchPersonelComponent extends React.Component {
+export default class  SearchSignCompanyName extends React.Component {
 
 	static defaultProps = {
 		placeholder:'请输入...'
@@ -44,14 +44,14 @@ export default class  SearchPersonelComponent extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(phoneOrEmail){
+	getOptions(company){
 		return new Promise((resolve, reject) => {
-			Http.request('web-user-select',{ phoneOrEmail:phoneOrEmail }).then(function(response){
-				response.forEach(function(item,index){
+			Http.request('get-company-name',{company:company }).then(function(response){
+				response.items.forEach(function(item,index){
 					item.value = item.id;
-					item.label = item.lastname;
+					item.label = item.company;
 				});
-				resolve({options:response});
+				resolve({options:response.items});
 			}).catch(function(err){
 				reject(err);
 			});
@@ -60,12 +60,10 @@ export default class  SearchPersonelComponent extends React.Component {
 
 	render(){
 
-		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
-
+		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,inline,requireLabel,...other} = this.props;
 		return (
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 					<ReactSelectAsync
-					filterOptions={false}
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}

@@ -9,9 +9,13 @@ module.exports = [
 				primaryText: "运营主页",
 				iconName: 'icon-user',
 				iconColor: '#79859a',
-				router: '',
+				router: 'index',
 				menuItems: [
-					
+					{
+						primaryText: '运营主页',
+						router: '/operation/index',
+						menuCode: 'oper_csr_base',
+					},
 				]
 			},
 			{

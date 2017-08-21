@@ -18,6 +18,7 @@ import SearchListComponent from './SearchListComponent';
 import SearchLeaderComponent from './SearchLeaderComponent';
 import SearchIntendCommunity from './SearchIntendCommunity';
 import SearchSignCommunity from './SearchSignCommunity';
+import SearchSignCompanyNames from './SearchSignCompanyNames';
 import SearchBelongCityComponent from './SearchBelongCityComponent';
 import SearchCustomerSourceComponent from './SearchCustomerSourceComponent';
 import SearchSourceAddComponent from './SearchSourceAddComponent';
@@ -161,7 +162,6 @@ class FieldRevert extends React.Component {
 				lengthClass,
 				...other
 			} = this.props;
-
 
 			let WrapStyles = Object.assign({}, {
 				width: (grid * 100) + '%',
@@ -349,6 +349,12 @@ class FieldRevert extends React.Component {
 			return (
 
 				<Field {...this.props} component={SearchSignCompanyName}  style={WrapStyles} {...other}/>
+			);
+		}
+		if (component === 'searchSignCompanyName') {
+			return (
+
+				<Field {...this.props} component={SearchSignCompanyNames}  style={WrapStyles} {...other}/>
 			);
 		}
 

@@ -81,9 +81,12 @@ class Merchants extends Component{
 
 	openEditCustomerList=()=>{
 		let listId=State.listId;
+		let {CommunityDetailModel} = this.props;
 
 		Http.request('get-edit-info',{id:listId}).then(function(response) {
+
 			Store.dispatch(initialize('EditCustomerList',response));
+			CommunityDetailModel.recommendName = response.recommendName;
 			if(!response.countyName){
 				State.editCity=`${response.provinceName}/${response.cityName}`
 			}else if(!response.countyName&&!response.cityName&&!response.countyName){
