@@ -22,7 +22,8 @@ class EditDynamics extends React.Component{
             //是否为引用
             isCite:false,
             titleUrl:props.titleUrl || '',
-            content:props.content||'',
+            isType:true,
+
 
         }
 	}
@@ -38,32 +39,35 @@ class EditDynamics extends React.Component{
             })
         }
         if(nextProps.content && nextProps.content != this.state.content){
-            console.log("ooo")
+
             this.setState({
-                content:nextProps.content
+                content:nextProps.content,
             })
         }
-        // console.log(nextProps.type,"PPPPP")
-        // if(nextProps.type){
 
-        //     if(nextProps.type == "OUTSIDE" && !this.state.isCite){
+        if(nextProps.type && this.state.isType){
 
-        //         this.setState({
-        //             isCite:true
-        //         })
+            if(nextProps.type == "OUTSIDE" && this.state.isCite){
 
-        //     }
-        //     if(nextProps.type == "INSIDE" && this.state.isCite){
-        //         this.setState({
-        //             isCite:false
-        //         })
-        //     }
+                this.setState({
+                    isCite:false,
+                    isType:false
+                })
 
-        // }
+            }
+            if(nextProps.type == "INSIDE" && !this.state.isCite){
+                this.setState({
+                    isCite:true,
+                    isType:false
+                })
+            }
+
+        }
 
     }
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
+        console.log(values)
         onSubmit && onSubmit(values);
     }
 
@@ -72,17 +76,16 @@ class EditDynamics extends React.Component{
         onCancel && onCancel();
     }
     typeChange = (detail) =>{
-
         var isCite = false;
         let {content} = this.props;
         var contentText = ""
         if(detail.value == "OUTSIDE"){
 
-            isCite = true
+            isCite = false;
             contentText = '';
 
         }else{
-            isCite = false
+            isCite = true;
             contentText = content
 
         }
@@ -102,26 +105,34 @@ class EditDynamics extends React.Component{
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType,isCite,titleUrl,content} = this.state;
         // let host = "http://"+window.location.host;
+
+        var editorLabel = "";
+        if(isCite){
+            editorLabel = "内容";
+        }else{
+            editorLabel = "简介"
+        }
         let host = "http://optest02.krspace.cn/";
 		return(
 
 			<div className='m-edit-swper'>
 				 <form  onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
 				<div className="title">
-						<div><span className="order-new-icon"></span><label className="title-text">新建</label></div>
+						<div><span className="order-new-icon"></span><label className="title-text">编辑动态</label></div>
 						<div className="order-close" onClick={this.onCancel}></div>
 				</div>
 
 				<div className="kk" style={{marginTop:30}}>
-					<KrField grid={1/2} label="标题" name="title" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>
-                    <KrField grid={1/2} label="文章类型" name="articleType" component="select" style={{width:262,marginLeft:28}}
+					<KrField grid={1/2} label="标题" name="title" style={{width:262,marginLeft:15,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="文章类型" name="articleType" component="select" style={{width:262,marginLeft:28,marginTop:14}}
                         options={[{label:"站内发表",value:"INSIDE"},{label:"外部链接",value:"OUTSIDE"}]}
-                        requireLabel={false}
+                        requireLabel={true}
                         onChange = {this.typeChange}
-                    />
-					{isCite && <KrField grid={1/2} label="地址链接" name="linkUrl" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>}
 
-                    <div style = {{marginLeft:15}}>
+                    />
+					{!isCite && <KrField grid={1/2} label="地址链接" name="linkUrl" style={{width:262,marginLeft:15,marginTop:14}} component="input" requireLabel={true} inline={false}/>}
+
+                    <div style = {{marginLeft:15,marginTop:14}}>
                         <KrField
                             name="titleUrl"
                             component="newuploadImage"
@@ -140,8 +151,8 @@ class EditDynamics extends React.Component{
                     </div>
 
 				</div>
-                <div style = {{marginTop:10}}>
-                         {!isCite &&<KrField component="editor" name="content" label="内容" defaultValue={content||''}/>}
+                <div style = {{marginTop:14}}>
+                         <KrField component="editor" name="content" label = {editorLabel} defaultValue={content||''}/>
                 </div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 

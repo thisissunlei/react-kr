@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	KrField,
     Grid,
     Col,
@@ -28,7 +28,7 @@ class EditSwper extends React.Component{
     }
     onChange = (data) =>{
        Store.dispatch(change('AddRankList','typeId',''));
-       this.dataReady(data); 
+       this.dataReady(data);
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.photoUrl && nextProps.photoUrl != this.state.photoUrl){
@@ -59,9 +59,9 @@ class EditSwper extends React.Component{
 
      }).catch(function(err) {
           Message.error(err.message);
-     });	
+     });
 	}
-   
+
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -83,18 +83,27 @@ class EditSwper extends React.Component{
 			<div className='m-edit-swper'>
 				 <form  onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
 				<div className="title">
-						<div><span className="order-new-icon"></span><label className="title-text">新建</label></div>
+						<div><span className="order-new-icon"></span><label className="title-text">编辑轮播图</label></div>
 						<div className="order-close" onClick={this.onCancel}></div>
 				</div>
 
 				<div className="kk" style={{marginTop:30}}>
-					<KrField grid={1/2} label="名称" name="name" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>
-					<KrField grid={1/2} label="链接地址" name="linkUrl" style={{width:262,marginLeft:30}} component="input" requireLabel={true} inline={false}/>
-                    <KrField grid={1/2} label="是否已上线" name="enable" style={{width:262,marginLeft:15,marginRight:13}} component="group">
+					<KrField grid={1/2} label="名称" name="name" style={{width:262,marginLeft:15,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+					<KrField grid={1/2} label="链接地址" name="linkUrl" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+					<KrField grid={1/2} label="排序号" name="orderNum" style={{width:262,marginLeft:15,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+
+
+                    <KrField grid={1/2}
+											label="是否已上线"
+											name="enable"
+											style={{width:262,marginLeft:30,marginRight:13,marginTop:14}}
+											component="group"
+											requireLabel={true}
+										>
                         <KrField name="enable" label="是" type="radio" value="1" style={{marginTop:5,display:'inline-block',width:84}}/>
                         <KrField name="enable" label="否" type="radio" value="0" style={{marginTop:5,display:'inline-block',width:53}}/>
                     </KrField>
-                    <div style = {{marginLeft:15}}>
+                    <div style = {{marginLeft:15,marginTop:14}}>
                         <KrField
                             name="photoUrl"
                             component="newuploadImage"
@@ -111,7 +120,7 @@ class EditSwper extends React.Component{
                             requireLabel={true}
                         />
                     </div>
-                    
+
 				</div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 					<Row>
@@ -137,11 +146,11 @@ const validate = values =>{
 	const errors = {};
 
     if(!values.name){
-       errors.name='请填写职级名称';  
+       errors.name='请填写职级名称';
     }else if(values.name.length>10){
-       errors.name='职级名称不能超过10个字符';   
+       errors.name='职级名称不能超过10个字符';
     }
-   
+
    if(!values.typeId){
        errors.typeId='请选择职务类型';
    }
@@ -153,8 +162,8 @@ const validate = values =>{
    }else if(values.level>30){
        errors.level='等级最大不超过30'
    }
-   
-    
+
+
 	return errors
 }
 

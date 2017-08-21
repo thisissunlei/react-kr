@@ -49,7 +49,8 @@ export default class SwperList extends Component{
 				page: 1,
 				pageSize: 15,
 				name:""
-			}
+			},
+			name:''
 		}
 	}
    componentDidMount(){
@@ -81,7 +82,7 @@ export default class SwperList extends Component{
    pageChange=(page)=>{
 	   var searchParams={
          page:page
-       }
+       };
 	  this.setState({
 		 searchParams:Object.assign({},this.state.searchParams,searchParams)
 	  })
@@ -166,7 +167,8 @@ export default class SwperList extends Component{
 			
 		}
 		this.setState({
-			nowId:itemDetail.id
+			nowId:itemDetail.id,
+			name:itemDetail.name
 		})
 
     }
@@ -189,7 +191,8 @@ export default class SwperList extends Component{
 			isOpenAdd,
 			isOpenEdit,
 			isDelete,
-			photoUrl
+			photoUrl,
+			name
 			}=this.state;
 
 		return(
@@ -290,11 +293,11 @@ export default class SwperList extends Component{
 				open={isDelete}
 				openSecondary={true}
 				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
-				contentStyle ={{ width: '444px',overflow:'inherit'}}
+				contentStyle ={{ width: '444px',height:236,overflow:'inherit'}}
 				onClose={this.allClose}
 			>
 				<div className = "oa-swper-delete">
-					<div className = "oa-swper-content">确定要删除****?</div>
+					<div className = "oa-swper-content">{`确定要删除${name}?`}</div>
 					<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" onTouchTap={this.deleteSubmit} /></div>
 
 					<Button  label="取消" type="button" cancle={true} onTouchTap={this.switchOpenDelete} />

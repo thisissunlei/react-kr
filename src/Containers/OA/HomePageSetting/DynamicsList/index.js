@@ -52,7 +52,8 @@ export default class DynamicsList extends Component{
 			nowId:'',
 			titleUrl:'',
 			content:'',
-			type:''
+			type:'',
+			title:''
 		}
 	}
 
@@ -82,7 +83,8 @@ export default class DynamicsList extends Component{
    switchOpenEdit = () =>{
 	   var {isOpenEdit} = this.state;
 	   this.setState({
-		  isOpenEdit: !isOpenEdit
+		  isOpenEdit: !isOpenEdit,
+		  type:''
 	   })
    }
    //删除开关
@@ -119,6 +121,7 @@ export default class DynamicsList extends Component{
 	   Http.request("dynamics-delete",{},{id:nowId}).then(function (response) {
 			Message.success("删除成功");
 			_this.switchOpenDelete()
+			_this.refresh();
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -137,12 +140,14 @@ export default class DynamicsList extends Component{
 			this.switchOpenDelete();
 		}
 		if(type == "edit"){
-			this.getDetail(itemDetail.id);
 			this.switchOpenEdit();
+			this.getDetail(itemDetail.id);
+			
 		}
 
 		this.setState({
 			nowId:itemDetail.id,
+			title:itemDetail.title
 		})
 
     }
@@ -162,12 +167,13 @@ export default class DynamicsList extends Component{
 	//编辑确定
 	editSubmit = (data) => {
 		const {nowId} = this.state;
-		var params = this.state;
+		var params = Object.assign({},data);
 		params.id = nowId;
 		let _this = this;
 	   	Http.request("dynamics-edit",{},params).then(function (response) {
 			Message.success("编辑成功");
 			_this.switchOpenEdit()
+			_this.refresh();
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -185,7 +191,7 @@ export default class DynamicsList extends Component{
 
 	render(){
 
-		let {detail,code,isOpenAdd,isOpenEdit,isDelete,titleUrl,content,type}=this.state;
+		let {detail,code,isOpenAdd,isOpenEdit,isDelete,titleUrl,content,type,title}=this.state;
 
 		return(
       	<div className="dynamics-list">
@@ -299,13 +305,13 @@ export default class DynamicsList extends Component{
 			{/*删除*/}
 			<Dialog
 				open={isDelete}
-				width={750}
 				openSecondary={true}
 				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+				contentStyle ={{ width: '444px',height:236,overflow:'inherit'}}
 				onClose={this.allClose}
 			>
 				<div className = "oa-swper-delete">
-					<div className = "oa-swper-content">确定要删除****?</div>
+					<div className = "oa-swper-content">{`确定要删除${title}?`}</div>
 					<div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" onTouchTap={this.deleteSubmit} /></div>
 
 					<Button  label="取消" type="button" cancle={true} onTouchTap={this.switchOpenDelete} />
