@@ -1,75 +1,71 @@
-import React from 'react';
+import React, {
+	PropTypes
+} from 'react';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
+import $ from 'jquery';
 import {
 	reduxForm,
+	change,
 } from 'redux-form';
-import {
-	Http
-} from "kr/Utils";
+
 import {
 	KrField,
 	Grid,
 	Row,
 	Col,
 	Button,
-	SearchForms,
 	ButtonGroup,
 	ListGroup,
-	ListGroupItem,
+	SearchForm,
+	ListGroupItem
 } from 'kr-ui';
 import './index.less';
-
-class HighSearchForm extends React.Component {
+class SearchUpperForm extends React.Component {
 
 	static propTypes = {
-		onSubmit: React.PropTypes.func,
-		onCancel: React.PropTypes.func,
+
 	}
 
 	constructor(props) {
-		super(props);
-		this.state={
-			dateBoxDevelop:false,
-			dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"},
-   }
+		super(props)
+        this.state={
+					dateBoxDevelop:false,
+					dateBoxStyle:{marginTop:35,marginLeft:26 ,height:"auto"},
+		}
 	}
 
-	onSubmit = (form) => {
-		var form = Object.assign({},form);
-		const {
-			detail,
-			onSubmit
+
+	onSubmit=(values)=> {
+	  const {
+		   onSubmit
 		} = this.props;
-		form.orgId=detail.orgId;
-		form.dimId=detail.dimId;
-		form.orgType=detail.orgType;
-		onSubmit && onSubmit(form);
-	}
-	openSearch = () => {
-		const {
-			openSearch
-		} = this.props;
-		openSearch && openSearch();
+	  onSubmit && onSubmit(values);
 	}
 
-	onCancel = () => {
-		const {
+	onCancel=()=> {
+	   const {
 			onCancel
 		} = this.props;
 		onCancel && onCancel();
 	}
 
+
+
+
+
 	render() {
 
-		const {
-			handleSubmit,
-		} = this.props;
-
-   let {dateBoxStyle,dateBoxDevelop}=this.state;
+	   let {handleSubmit}=this.props;
+	   let {dateBoxStyle,dateBoxDevelop}=this.state;
 
 
-		return (
-			<div>
-			    <form style={dateBoxStyle} onSubmit={handleSubmit(this.onSubmit)} className='customer-searchUpper list-community-supper'>
+		return(
+			<div style={dateBoxStyle} className='customer-searchUpper list-community-supper'>
+			    <form onSubmit={handleSubmit(this.onSubmit)}>
+
 					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="opened" type="input"  label="姓名/编号"
 					/>
 
@@ -115,7 +111,7 @@ class HighSearchForm extends React.Component {
 							component="selecTemployees"
 							label="员工类别"
 							otherType="resourceType"
-		 />
+     />
 
 
 					<KrField grid={1/2}
@@ -139,44 +135,33 @@ class HighSearchForm extends React.Component {
 						label="员工属性"
 						requireLabel={true}
 						otherType="resourceProperty"
-				 />
+         />
 
 				<KrField grid={1/1}  component="group" label="入职时间" style={{marginTop:3}}>
-					 <div className='list-listDate'>
+				   <div className='list-listDate'>
 							<ListGroup>
 								<ListGroupItem><div className='communityList-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="openDateBegin" component="date" /></div></ListGroupItem>
 									<div className='communityList-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
 								<ListGroupItem><div className='communityList-date-end'><KrField name="openDateEnd" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
-					 </div>
+           </div>
 				</KrField>
 
-				<Grid style={{marginTop:15,marginBottom:5,marginLeft:-40}}>
+				<Grid style={{marginTop:7,marginBottom:5,marginLeft:-24}}>
 					<Row>
 						<Col md={12} align="center">
-
 							<ButtonGroup>
-									<Button  label="确定" type="submit" />
-									<span style={{display:'inline-block',width:40,height:20}}></span>
-								<Button
-										label="取消"
-										type="button"
-										cancle={true}
-										onTouchTap={this.onCancel}
-								/>
+								<div  className='list-btn-center'><Button  label="确定" type="submit"/></div>
+								<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
 							</ButtonGroup>
 						</Col>
 					</Row>
 				</Grid>
 				</form>
 			</div>
-
-
 		);
 	}
 }
 
 
-export default reduxForm({
-	form: 'highSearchForm'
-})(HighSearchForm);
+export default reduxForm({form:'searchUpperForm'})(SearchUpperForm);

@@ -23,6 +23,8 @@ import {
 	Message,
 	CheckPermission
 } from 'kr-ui';
+import './index.less';
+import SearchUpperForm from './SearchUpperForm';
 
 export default class Leave extends Component{
 
@@ -34,11 +36,24 @@ export default class Leave extends Component{
 				pageSize:15,
 				searchKey:'',
 			},
+			isName:false,
+			openSearchUpper:false
 		}
 	}
 
 
-	
+	scrollListener=()=>{
+ 	 if(this.scrollData.scrollLeft>102){
+ 			this.setState({
+ 				 isName:true
+ 			})
+ 	 }else{
+ 		 this.setState({
+ 				isName:false
+ 		 })
+ 	 }
+  }
+
 
 	//搜索确定
 	onSearchSubmit = (data)=>{
@@ -47,23 +62,74 @@ export default class Leave extends Component{
 		this.setState({
 			searchParams
 		})
-		
-	}	
-	
-	
-	//关闭所有侧滑
-	allClose = () =>{
-			
+
 	}
 
+ componentDidMount(){
+	  this.scrollData.addEventListener("scroll",this.scrollListener,false)
+ }
+
+
+ //高级查询
+ openSearchUpperDialog=()=>{
+	 this.setState({
+		 openSearchUpper:!this.state.openSearchUpper
+	 })
+
+ }
+
+
+ //导出
+ onExport=(values)=> {
+	 let {searchParams} = this.state;
+	 let defaultParams = {
+		 searchKey:'',
+		 opened:'',
+		 openDateEnd:'',
+		 openDateBegin:'',
+		 businessAreaId:'',
+		 portalShow:'',
+		 cityId:'',
+		 countyId:'',
+		 searchType:''
+	 }
+	 searchParams = Object.assign({},defaultParams,searchParams);
+
+		let ids = [];
+		if (values.length != 0) {
+			values.map((item, value) => {
+				ids.push(item.id)
+			});
+		}
+		 var where=[];
+		 for(var item in searchParams){
+			 if(searchParams.hasOwnProperty(item)){
+					where.push(`${item}=${searchParams[item]}`);
+			 }
+		 }
+		 where.push(`ids=${ids}`);
+		var url = `/api/krspace-finance-web/cmt/community/export?${where.join('&')}`
+		window.location.href = url;
+ }
+
+
+ //高级查询提交
+ onSearchUpperSubmit=(param)=>{
+
+ }
+
 	render(){
+
+   let {isName}=this.state;
+
+
 		return(
       	<div className="oa-leave-position" style={{paddingTop:25}}>
-		
-	        <Row style={{marginBottom:21}}>
-			        
+
+	        <Row style={{marginBottom:11}}>
+
 				<Col
-					align="right" 
+					align="right"
 					style={{
 							marginTop:0,
 							float:"right",
@@ -72,51 +138,78 @@ export default class Leave extends Component{
 				>
 					<ListGroup>
 						<ListGroupItem>
-							<SearchForms 
-								placeholder='请输入姓名' 
+							<SearchForms
+								placeholder='请输入姓名/编号'
 								inputName='search'
 								onSubmit={this.onSearchSubmit}
 							/>
 						</ListGroupItem>
+						<ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 					</ListGroup>
 				</Col>
 	        </Row>
 
 
+
+					<div className='list-scroll-leave' ref = {
+							(ref) =>{
+									this.scrollData = ref;
+							}
+					} >
             <Table
-			    style={{marginTop:8}}
-                ajax={true}
-                onOperation={this.onOperation}
-	            displayCheckbox={false}
+			        style={{marginTop:8,width:3800}}
+              ajax={true}
+	            displayCheckbox={true}
 	            ajaxParams={this.state.searchParams}
 	            ajaxUrlName='getLeaveList'
 	            ajaxFieldListName="items"
-				onPageChange = {this.pageChange}
+							exportSwitch={true}
+							onExport={this.onExport}
 			>
 				<TableHeader>
+					{isName&&<TableHeaderColumn className='table-header-name'>姓名</TableHeaderColumn>}
+					{!isName&&<TableHeaderColumn >姓名</TableHeaderColumn>}
+					<TableHeaderColumn>编号</TableHeaderColumn>
+					<TableHeaderColumn>分部</TableHeaderColumn>
 					<TableHeaderColumn>部门</TableHeaderColumn>
-					<TableHeaderColumn>姓名</TableHeaderColumn>
-					<TableHeaderColumn>人员编码</TableHeaderColumn>
-					<TableHeaderColumn>职位</TableHeaderColumn>
+					<TableHeaderColumn>直接上级</TableHeaderColumn>
+					<TableHeaderColumn>职务</TableHeaderColumn>
+					<TableHeaderColumn>职级</TableHeaderColumn>
+					<TableHeaderColumn>员工属性</TableHeaderColumn>
+					<TableHeaderColumn>员工类别</TableHeaderColumn>
+					<TableHeaderColumn>员工状态</TableHeaderColumn>
+					<TableHeaderColumn style={{width:100}}>是否开通账号</TableHeaderColumn>
+					<TableHeaderColumn>手机号</TableHeaderColumn>
+					<TableHeaderColumn>公司邮箱</TableHeaderColumn>
 					<TableHeaderColumn>入职时间</TableHeaderColumn>
-					<TableHeaderColumn>状态</TableHeaderColumn>
+					<TableHeaderColumn>离职类型</TableHeaderColumn>
+					<TableHeaderColumn>离职原因</TableHeaderColumn>
+					<TableHeaderColumn>离职时间</TableHeaderColumn>
+					<TableHeaderColumn>操作人</TableHeaderColumn>
+					<TableHeaderColumn>操作时间</TableHeaderColumn>
 
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn 
-							name="depName" 
-						></TableRowColumn>
+						{isName&&<TableRowColumn name='name' className='table-single-name'></TableRowColumn>}
+						{!isName&&<TableRowColumn name='name'></TableRowColumn>}
 						<TableRowColumn name="name"></TableRowColumn>
 						<TableRowColumn name="code"></TableRowColumn>
-						<TableRowColumn name="jobName" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }}  ></TableRowColumn>
-						<TableRowColumn 
+						<TableRowColumn name="jobName"></TableRowColumn>
+						<TableRowColumn name="depName"></TableRowColumn>
+						<TableRowColumn name="name"></TableRowColumn>
+						<TableRowColumn name="code"></TableRowColumn>
+						<TableRowColumn name="jobName"></TableRowColumn>
+						<TableRowColumn name="depName"></TableRowColumn>
+						<TableRowColumn name="name"></TableRowColumn>
+						<TableRowColumn name="code" style={{width:100}}></TableRowColumn>
+						<TableRowColumn name="jobName"></TableRowColumn>
+						<TableRowColumn name="jobName"></TableRowColumn>
+						<TableRowColumn name="depName"></TableRowColumn>
+						<TableRowColumn name="name"></TableRowColumn>
+						<TableRowColumn name="code"></TableRowColumn>
+						<TableRowColumn name="jobName"></TableRowColumn>
+						<TableRowColumn
 							name="entryDate"
 							component={(value,oldValue)=>{
 								return (<KrDate value={value} format="yyyy-mm-dd"/>)
@@ -142,15 +235,29 @@ export default class Leave extends Component{
 								}
 								return (<span>{status}</span>)
 							}}
-						
-						></TableRowColumn>
-					</TableRow>
-				</TableBody>
-				<TableFooter></TableFooter>
+
+								></TableRowColumn>
+							</TableRow>
+						</TableBody>
+						<TableFooter></TableFooter>
            </Table>
+         </div>
+
+				 {/*高级查询*/}
+				 <Dialog
+				 title="高级查询"
+				 onClose={this.openSearchUpperDialog}
+				 open={this.state.openSearchUpper}
+				 contentStyle ={{ width: '666px',height:'auto'}}
+				 >
+					 <SearchUpperForm
+							 onCancel={this.openSearchUpperDialog}
+							 onSubmit={this.onSearchUpperSubmit}
+					 />
+			 </Dialog>
+
         </div>
 		);
 	}
-
 }
 ;

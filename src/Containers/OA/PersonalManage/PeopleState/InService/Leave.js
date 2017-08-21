@@ -44,18 +44,27 @@ import {reduxForm}  from 'redux-form';
                         otherType="leaveType"
 				/>
 
-               <KrField 
-                   grid={1} 
-                   label="离职原因" 
-                   name="leaveReason" 
-                   heightStyle={{height:"78px",width:'500px'}}  
+        <KrField grid={1/2}
+                  style={{width:262,marginLeft:28}}
+                  name="leaveType"
+                  component="date"
+                  label="离职时间"
+                  requireLabel={true}
+         />
+
+
+               <KrField
+                   grid={1}
+                   label="离职原因"
+                   name="leaveReason"
+                   heightStyle={{height:"78px",width:'543px'}}
                    component="textarea"
-                   maxSize={30} 
+                   maxSize={30}
                    requireLabel={true}
-                   placeholder="请输入描述" 
-                   style={{width:510,marginLeft:'28px'}} 
+                   placeholder="请输入描述"
+                   style={{width:553,marginLeft:'28px'}}
                    lengthClass='leave-len-textarea'/>
-                   
+
 			   <Grid style={{marginTop:-12,marginBottom:5}}>
                     <Row>
                         <Col md={12} align="center">
@@ -82,7 +91,11 @@ const validate = values =>{
      if(!values.leaveReason){
        errors.leaveReason='请填写离职原因'
     }
-    
+
+    /*if(!values.leaveReason){
+      errors.leaveReason='请填写离职时间'
+    }*/
+
 	return errors
 }
 

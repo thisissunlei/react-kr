@@ -25,6 +25,7 @@ import {
 	Dialog,
 	KrDate,
 	Message,
+	Dictionary,
 	SliderTree,
 } from 'kr-ui';
 
@@ -117,7 +118,9 @@ export default class Labour extends React.Component {
 			isRemove:false,
 			istranfer:false,
 			isCard:false,
-			isOpen:false
+			isOpen:false,
+
+			isName:false
 		}
 	}
 	checkTab = (item) => {
@@ -139,7 +142,30 @@ export default class Labour extends React.Component {
 		return arr;
 	}
 
+	scrollListener=()=>{
+    if(this.scrollData.scrollLeft>102){
+       this.setState({
+          isName:true
+       })
+    }else{
+      this.setState({
+         isName:false
+      })
+    }
+  }
+
+ componentDidUpdate(){
+	 if(this.scrollData){
+		 this.scrollData.addEventListener("scroll",this.scrollListener,false);
+	 }
+ }
+
+ componentWillUnmount(){
+	 this.scrollData.removeEventListener('scroll',this.scrollListener,false);
+ }
+
 	componentDidMount() {
+
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
 
@@ -761,7 +787,7 @@ export default class Labour extends React.Component {
 		this.cancelSure();
    }
 	render() {
-		let { itemDetail, data, dimId, styleBool,dataName,transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;
+		let { itemDetail,isName, data, dimId, styleBool,dataName,transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;
 		var logFlag = '';
 		var orgtype = this.state.searchParams.orgType;
 		var style = {};
@@ -959,8 +985,15 @@ export default class Labour extends React.Component {
 									</Col>
 								</Row>
 							</Grid>
+
+        <div className='m-orga-right'>
+							<div className='list-scroll-data' ref = {
+									(ref) =>{
+											this.scrollData = ref;
+									}
+							} >
 							<Table
-								style={{ marginTop: 10 }}
+								style={{ marginTop:0,width:3300}}
 								displayCheckbox={true}
 								onLoaded={this.onLoaded}
 								ajax={true}
@@ -972,70 +1005,68 @@ export default class Labour extends React.Component {
 								exportSwitch={true}
 							>
 								<TableHeader>
-									<TableHeaderColumn>编号</TableHeaderColumn>
-									<TableHeaderColumn>部门名称</TableHeaderColumn>
+									{isName&&<TableHeaderColumn className='table-header-name'>姓名</TableHeaderColumn>}
+									{!isName&&<TableHeaderColumn >姓名</TableHeaderColumn>}
+									<TableHeaderColumn >编号</TableHeaderColumn>
+									<TableHeaderColumn>分部</TableHeaderColumn>
+									<TableHeaderColumn>部门</TableHeaderColumn>
+									<TableHeaderColumn>直接上级</TableHeaderColumn>
+									<TableHeaderColumn>职务</TableHeaderColumn>
+									<TableHeaderColumn>职级</TableHeaderColumn>
+									<TableHeaderColumn>员工属性</TableHeaderColumn>
 									<TableHeaderColumn>员工类别</TableHeaderColumn>
-									<TableHeaderColumn>人员名称</TableHeaderColumn>
 									<TableHeaderColumn>员工状态</TableHeaderColumn>
-									<TableHeaderColumn>邮箱</TableHeaderColumn>
-									<TableHeaderColumn>入职日期</TableHeaderColumn>
-									<TableHeaderColumn>账号是否开通</TableHeaderColumn>
-									<TableHeaderColumn>操作</TableHeaderColumn>
+									<TableHeaderColumn  style={{width:100}}>是否开通账号</TableHeaderColumn>
+									<TableHeaderColumn>手机号</TableHeaderColumn>
+									<TableHeaderColumn>公司邮箱</TableHeaderColumn>
+									<TableHeaderColumn>入职时间</TableHeaderColumn>
+									<TableHeaderColumn>创建人</TableHeaderColumn>
+									<TableHeaderColumn>创建时间</TableHeaderColumn>
+									<TableHeaderColumn style={{width:'300px'}}>操作</TableHeaderColumn>
 								</TableHeader>
 
 								<TableBody>
 									<TableRow>
-										<TableRowColumn name="identifier"></TableRowColumn>
-										<TableRowColumn name="departName"></TableRowColumn>
-										<TableRowColumn name="hrmResourceType"></TableRowColumn>
-										<TableRowColumn name="userName"
-											component={(value,oldValue,detail)=>{
-												return (<div onClick = {() =>{
-														this.goDetail(detail)
-														}} style={{color:'#499df1',cursor:'pointer'}}>{value}</div>)
-											}}
-										></TableRowColumn>
-										<TableRowColumn name="hrmResourceAttributes"></TableRowColumn>
-										<TableRowColumn name="email"
-											component={(value,oldValue)=>{
-		 										var maxWidth=6;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,6)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
-										<TableRowColumn type="date" name="entryTime" component={(value) => {
-											return (
-												<KrDate value={value} format="yyyy-mm-dd" />
-											)
-										}}> </TableRowColumn>
-										<TableRowColumn name="status"
-											component={(value, oldValue) => {
-												if (value == '未开通') {
-													style = { 'color': '#FF5B52' }
-												}else{
-													style = {}
-												}
-												return (
-													<div style={style}>{value}</div>
-												)
-											}}
-										></TableRowColumn>
-										<TableRowColumn type="operation" style={{width:'240px'}} component={(value,oldValue,detail)=>{
-										return <span>
-											    <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
-												{isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
-												{istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
-												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
-												{isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												{isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
-											</span>
-										}}>
-										</TableRowColumn>
+									{isName&&<TableRowColumn name='userName' className='table-single-name'></TableRowColumn>}
+									{!isName&&<TableRowColumn name='userName'></TableRowColumn>}
+									<TableRowColumn name='code'></TableRowColumn>
+									<TableRowColumn name='name'></TableRowColumn>
+									<TableRowColumn name='depName'></TableRowColumn>
+									<TableRowColumn name='leader'></TableRowColumn>
+									<TableRowColumn name='jobName'></TableRowColumn>
+									<TableRowColumn name='name'></TableRowColumn>
+									<TableRowColumn name='property' component={(value,oldValue,detail)=>{
+										 return <Dictionary type='ERP_ResourceProperty' value={value}/>
+									}}></TableRowColumn>
+									<TableRowColumn name='type' component={(value,oldValue,detail)=>{
+										 return <Dictionary type='ERP_ResourceType' value={value}/>
+									}}></TableRowColumn>
+									<TableRowColumn name='status' component={(value,oldValue,detail)=>{
+										 return <Dictionary type='ERP_ResourceStatus' value={value}/>
+									}}></TableRowColumn>
+									<TableRowColumn style={{width:100}} name='name'></TableRowColumn>
+									<TableRowColumn name='name'></TableRowColumn>
+									<TableRowColumn name='name'></TableRowColumn>
+									<TableRowColumn name='name'></TableRowColumn>
+									<TableRowColumn name='name'></TableRowColumn>
+									<TableRowColumn name='name'></TableRowColumn>
+									<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
+										 return <span>
+												 <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>
+												 {isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
+												 {istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
+												 {isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+												 {isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
+												 {isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
+											 </span>
+									}}>
+								 </TableRowColumn>
 									</TableRow>
 								</TableBody>
 								<TableFooter></TableFooter>
 							</Table>
+						 </div>
+						</div>
 						</div>
 					}
 				</div>
@@ -1121,7 +1152,7 @@ export default class Labour extends React.Component {
 						title="离职"
 						onClose={this.cancelLeave}
 						open={this.state.openLeave}
-						contentStyle ={{ width: '630px',height:'auto'}}
+						contentStyle ={{ width: '666px',height:'auto'}}
 					>
 					<Leave
 					   onCancel={this.cancelLeave}
