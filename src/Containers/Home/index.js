@@ -42,6 +42,7 @@ export default class Home extends React.Component {
 		}).catch(function(err) {});
 	var width = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.056;
 	_this.swiperWidth = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.12;
+	console.log("margin",width,"swiperHei",_this.swiperWidth);
 	window.setTimeout(function() {
 		var swiper = new Swiper('.swiper-container', {
 			slidesPerView: 6,
@@ -121,8 +122,8 @@ export default class Home extends React.Component {
         return ;
       }
       return (
-			<div key={index} className="item">
-				<span className={`circle ${item.isRead==1?'readcircle':''}`}>
+			<div onClick={this.goDetail.bind(this,item)} key={index} className="item">
+				<span className={`circle ${item.isRead=="READ"?'readcircle':''}`}>
 
 				</span>
 				<span className="item-text">
@@ -131,6 +132,10 @@ export default class Home extends React.Component {
 			</div>
       );
   }
+   goDetail = (data) =>{
+        let id=data.id;
+		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');	
+	}
   render() {
     return (
       <div className="g-home">
@@ -151,7 +156,7 @@ export default class Home extends React.Component {
 							</div>
 							<div className="right">
 								<span className="top">
-										8
+										0
 								</span>
 								<span className="bottom">
 									待办事宜
@@ -164,7 +169,7 @@ export default class Home extends React.Component {
 							</div>
 							<div className="right">
 								<span className="top">
-									2
+									0
 								</span>
 								<span className="bottom">
 									已办事宜
@@ -177,26 +182,26 @@ export default class Home extends React.Component {
 							</div>
 							<div className="right">
 								<span className="top">
-									7
+									0
 								</span>
 								<span className="bottom">
 									我的请求
 								</span>
 							</div>
 						</div>
-						<div className="home-common">
+						<a className="home-common" href='/#/office/officeBackground/newOffice'>
 							<div className="left itemFourth">
 								
 							</div>
 							<div className="right">
 								<span className="top">
-											3
+										0
 								</span>	
 								<span className="bottom">
 									发起流程
 								</span>
 							</div>
-						</div>
+						</a>
         </div>
 				<div className="g-home-middle">
 						<div className="g-home-middle-item">
@@ -227,7 +232,7 @@ export default class Home extends React.Component {
 								</div>
 							</div>
 							<div className="main">
-								{this.state.infoList.dynamicList && this.state.infoList.dynamicList.map((item,index)=>{
+								{this.state.infoList.dynamicList && this.state.infoList.dynamicList.slice(0,10).map((item,index)=>{
 										return this.renderDynamicList(item,index)
 								})}
 							</div>
