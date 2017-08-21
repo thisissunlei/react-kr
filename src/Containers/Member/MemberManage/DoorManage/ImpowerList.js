@@ -59,10 +59,9 @@ export default class FinishUploadImgForm extends React.Component{
 	      		for(var j =0;j<responseP[i].deviceList.length;j++){
 	      			totleNum++;
 	      			if(responseP[i].deviceList[j].checked){
-
 	      				devicesT.push({
 	      					deviceId: responseP[i].deviceList[j].id,
-	      					isIotDevice: responseP[i].deviceList[j].isIotDevice
+	      					isIotDevice: responseP[i].deviceList[j].iotDevice
 	      				})
 
 	      			}
@@ -95,7 +94,7 @@ export default class FinishUploadImgForm extends React.Component{
 		let _this =this;
 		var newSelecetId = {
 			deviceId:item.id,
-			isIotDevice : item.isIotDevice
+			isIotDevice : item.iotDevice
 		}
 
 		let newArr = _this.state.devices;
@@ -124,7 +123,6 @@ export default class FinishUploadImgForm extends React.Component{
 				}
 			}
 		}
-
 		_this.setState({
 			devices : newArr
 		})
@@ -163,7 +161,7 @@ export default class FinishUploadImgForm extends React.Component{
 				newArrEmpty.push({
 
 							deviceId:item.deviceList[i].id,
-							isIotDevice : item.deviceList[i].isIotDevice
+							isIotDevice : item.deviceList[i].iotDevice
 						
 						});
 			}
@@ -362,10 +360,7 @@ export default class FinishUploadImgForm extends React.Component{
 		}else{
 			var n =[];
 		}
-		
-
-		let ids = {deviceIds:n,id:this.detail.id}
-		Http.request('doorCustomerGrant',{},ids).then(function(response){
+		Http.request('doorCustomerGrant',{},devicesT).then(function(response){
 		      	_this.closeImpoerList();
 		      	Message.success("操作成功");
 
