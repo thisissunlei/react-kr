@@ -85,12 +85,14 @@ export default class CommonItem extends Component {
 							<p>1、本协议的效力、解释及履行适用中国法律。</p>
 							<p>2、本协议各方当事人之间因本协议产生的争议，均应友好协商解决，协商不成应提交甲方所在地有管辖权的人民法院提起诉讼。</p>
 							<p style={{marginBottom:'200px'}}>八、其他</p>
-							<p >1、与协议履行有关的通知，均应以协议附表中的联络方式送达。以邮件方式发出的通知，发出的次日视为送达。双方变更联络方式的，应提前通知对方，否则以原联络方式发出的通知仍为有效。</p>
+							<p style={{paddingTop:'40px'}}>1、与协议履行有关的通知，均应以协议附表中的联络方式送达。以邮件方式发出的通知，发出的次日视为送达。双方变更联络方式的，应提前通知对方，否则以原联络方式发出的通知仍为有效。</p>
 							<p>2、本协议自甲乙双方签字、盖章后成立并生效。一式三份，甲方执二份，乙方执一份，具有同等法律效力。</p>
 							<div className='company-cachet'>
-								<div className='left'  style={{width:'48%'}}>
+								<div className='left'  style={{width:'48%',position:'relative'}}>
 									<p>甲方（签章）：</p>
 									<p>代表：</p>
+									{baseInfo.withCachet && <img src={baseInfo.cachetUrl} className="logo-pic"></img>}
+
 								</div>
 								<div className='right' style={{width:'48%'}}>
 									<p>乙方（签章）：</p>
@@ -100,7 +102,6 @@ export default class CommonItem extends Component {
 							<p>注：服务期限及工位/办公室数量、费用支付信息见附表</p>
 						</div>
 					</div>
-					{baseInfo.withCachet && <img src={baseInfo.cachetUrl} className="logo-pic"></img>}
 				</div>
 				
 				
