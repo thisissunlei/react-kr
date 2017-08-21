@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	KrField,
     Grid,
     Col,
@@ -21,14 +21,47 @@ class EditDynamics extends React.Component{
             isType :false,
             //是否为引用
             isCite:false,
+            titleUrl:props.titleUrl || '',
+            content:props.content||'',
+            
         }
 	}
 
     componentDidMount(){
-        Store.dispatch(change('AddRankList','enabled','true'))
+        // Store.dispatch(change('AddRankList','enabled','true'))
     }
-    
-   
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.titleUrl && nextProps.titleUrl != this.state.titleUrl){
+            this.setState({
+                titleUrl:nextProps.titleUrl
+            })
+        }
+        if(nextProps.content && nextProps.content != this.state.content){
+            console.log("ooo")
+            this.setState({
+                content:nextProps.content
+            })
+        }
+        // console.log(nextProps.type,"PPPPP")
+        // if(nextProps.type){
+           
+        //     if(nextProps.type == "OUTSIDE" && !this.state.isCite){
+                
+        //         this.setState({
+        //             isCite:true
+        //         })
+            
+        //     }
+        //     if(nextProps.type == "INSIDE" && this.state.isCite){
+        //         this.setState({
+        //             isCite:false
+        //         })
+        //     }
+            
+        // }
+
+    }
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -39,26 +72,38 @@ class EditDynamics extends React.Component{
         onCancel && onCancel();
     }
     typeChange = (detail) =>{
+       
         var isCite = false;
-        if(detail.value == "yes"){
+        let {content} = this.props;
+        var contentText = ""
+        if(detail.value == "OUTSIDE"){
             
             isCite = true
+            contentText = '';
            
         }else{
             isCite = false
+            contentText = content
+
         }
         this.setState({
             isCite,
+            content:contentText,
         })
 
+    }
+    deletePhoto = () =>{
+        this.setState({
+            titleUrl:''
+        })
     }
 	render(){
 
         let {handleSubmit,subCompany}=this.props;
-        let {jobTypes,isType,isCite} = this.state;
+        let {jobTypes,isType,isCite,titleUrl,content} = this.state;
         // let host = "http://"+window.location.host;
         let host = "http://optest02.krspace.cn/";
-
+        console.log(content,'ppppp')
 		return(
 
 			<div className='m-edit-swper'>
@@ -69,17 +114,17 @@ class EditDynamics extends React.Component{
 				</div>
 
 				<div className="kk" style={{marginTop:30}}>
-					<KrField grid={1/2} label="标题" name="sourceId" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>
-                    <KrField grid={1/2} label="文章类型" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
-                        options={[{label:"是",value:"yes"},{label:"否",value:"no"}]}
+					<KrField grid={1/2} label="标题" name="title" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="文章类型" name="articleType" component="select" style={{width:262,marginLeft:28}}
+                        options={[{label:"站内发表",value:"INSIDE"},{label:"外部链接",value:"OUTSIDE"}]}
                         requireLabel={false}
                         onChange = {this.typeChange}
                     />
-					{isCite && <KrField grid={1/2} label="地址链接" name="sourceId" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>}
-                    
+					{isCite && <KrField grid={1/2} label="地址链接" name="linkUrl" style={{width:262,marginLeft:15}} component="input" requireLabel={true} inline={false}/>}
+
                     <div style = {{marginLeft:15}}>
                         <KrField
-                            name="cachetUrl"
+                            name="titleUrl"
                             component="newuploadImage"
                             innerstyle={{width:222,height:179,padding:10,marginLeft:-80}}
                             photoSize={'500*300'}
@@ -87,16 +132,18 @@ class EditDynamics extends React.Component{
                             pictureMemory={'200'}
                             requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
                             deviation = {"50*50"}
+                            defaultValue={titleUrl}
+							onDeleteImg ={this.deletePhoto}
                             label="上传标题图片"
                             inline={false}
                             requireLabel={true}
                         />
                     </div>
-                    
+
 				</div>
-               {!isCite && <div style = {{marginTop:10}}>
-                <KrField component="editor" name="summary" label="内容" defaultValue=''/>
-                </div>}
+                <div style = {{marginTop:10}}>
+                         {!isCite &&<KrField component="editor" name="content" label="内容" defaultValue={content||''}/>}
+                </div>
 				<Grid style={{marginTop:0,marginRight:40}}>
 
 					<Row>
@@ -122,11 +169,11 @@ const validate = values =>{
 	const errors = {};
 
     if(!values.name){
-       errors.name='请填写职级名称';  
+       errors.name='请填写职级名称';
     }else if(values.name.length>10){
-       errors.name='职级名称不能超过10个字符';   
+       errors.name='职级名称不能超过10个字符';
     }
-   
+
    if(!values.typeId){
        errors.typeId='请选择职务类型';
    }
@@ -138,8 +185,8 @@ const validate = values =>{
    }else if(values.level>30){
        errors.level='等级最大不超过30'
    }
-   
-    
+
+
 	return errors
 }
 

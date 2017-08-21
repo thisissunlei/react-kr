@@ -50,6 +50,9 @@ export default class DynamicsList extends Component{
 				other:'',
 			},
 			nowId:'',
+			titleUrl:'',
+			content:'',
+			type:''
 		}
 	}
 
@@ -64,9 +67,11 @@ export default class DynamicsList extends Component{
    getDetail = (id) =>{
 		var _this = this;
 		Http.request("dynamics-detail",{id:id}).then(function (response) {
-			Store.dispatch(initialize('EditSwper',response));
+			Store.dispatch(initialize('EditDynamics',response));
 			_this.setState({
-				photoUrl:photoUrl,
+				titleUrl:response.titleUrl,
+				content:response.content,
+				type:response.articleType
 			})
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -122,6 +127,9 @@ export default class DynamicsList extends Component{
    onSearchSubmit = (values) =>{
 	   var searchParams = Object.assign({},this.state.searchParams);
 	   searchParams.title = values.content;
+	   this.setState({
+		 searchParams,  
+	   })
    }
    //相关事件
     onOperation = (type, itemDetail) =>{
@@ -177,11 +185,11 @@ export default class DynamicsList extends Component{
 
 	render(){
 
-		let {detail,code,isOpenAdd,isOpenEdit,isDelete}=this.state;
+		let {detail,code,isOpenAdd,isOpenEdit,isDelete,titleUrl,content,type}=this.state;
 
 		return(
       	<div className="dynamics-list">
-		    <Section title="最近活动列表" description="" style={{marginBottom:-5,minHeight:910}}>
+		    <Section title="最近动态列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 				<Col
 					style={{float:'left'}}
@@ -231,10 +239,14 @@ export default class DynamicsList extends Component{
            				></TableRowColumn>
 						<TableRowColumn name="title"
 							component={(value,oldValue)=>{
-								return (<img src = {value}/>)
+								var maxWidth=10;
+								if(value.length>maxWidth){
+									value = value.substring(0,10)+"...";
+								}
+								return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 							}}
 						></TableRowColumn>
-						<TableRowColumn name="content" 
+						<TableRowColumn name="content"
 							component={(value,oldValue)=>{
 								var maxWidth=10;
 								if(value.length>maxWidth){
@@ -249,7 +261,7 @@ export default class DynamicsList extends Component{
 								return (<a src = {value}>{value}</a>)
 							}}
 						></TableRowColumn>
-						
+
 						<TableRowColumn type="operation">
                             <Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_role_edit"/>
 			                <Button label="删除"  type="operation"  operation="delete" />
@@ -276,7 +288,13 @@ export default class DynamicsList extends Component{
 				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 				onClose={this.allClose}
 			>
-				<EditDynamics onCancel = {this.switchOpenEdit} onSubmit = {this.editSubmit}/>
+				<EditDynamics
+					type = {type}
+					titleUrl = {titleUrl}
+					content = {content}
+					onCancel = {this.switchOpenEdit}
+					onSubmit = {this.editSubmit}
+				/>
 			</Drawer>
 			{/*删除*/}
 			<Dialog

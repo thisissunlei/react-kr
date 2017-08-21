@@ -611,6 +611,12 @@ var OAApi = {
       method: 'get'
   },
 
+ //首页-最近动态列表
+ 'get-home-dynamics-list':{
+      url:'/api/krspace-erp-web/sys/base/dynamic/list?page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+
 
 }
 
