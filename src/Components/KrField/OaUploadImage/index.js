@@ -183,7 +183,7 @@ export default class OaUploadImage extends Component {
 						 <div className='img-watch' style={{backgroundImage:`url(${this.state.imgSrc})`}}></div>
 						}
 						<div className='ui-uploadimg-inner' >
-               {/*<span>更换图像</span>*/}
+               <span>更换图像</span>
 							 <input type='file' onChange={this.onChange} ref="inputImg" style={{marginTop:'-20px'}}/>
 						</div>
 						<div className="ui-uploadimg-fresh-delete" style={{display:(this.state.operateImg&&this.state.imgSrc)?"block":"none"}}>

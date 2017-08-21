@@ -74,15 +74,14 @@ export default class PeopleDetail  extends React.Component{
 			<div className='people-detail'>
 			  <div className='detail-left'>
 				<div className='left-pic'>
-					 <div className='now-change-pic' ref={
+					 {/*}<div className='now-change-pic' ref={
 						  (ref)=>{
 								this.changePic=ref;
 							}
 					 }>
-					 </div>
-					 <div className='now-hover-pic' onClick={this.hoverClick}>
+					 </div>*/}
 
-					 </div>
+					 <UserImage />
 				</div>
 				<div className='left-text'>
 
