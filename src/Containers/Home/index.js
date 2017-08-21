@@ -38,19 +38,50 @@ export default class Home extends React.Component {
 	NavModel.setSidebar(false);
 	var _this = this;
 	Http.request('home-index', {},{}).then(function(response) {
-			_this.setState({infoList: response})
+			_this.setState({infoList: response},function(){
+				_this.toLoadSwiper();
+			})
 		}).catch(function(err) {});
-	var width = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.056;
-	_this.swiperWidth = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.12;
-	console.log("margin",width,"swiperHei",_this.swiperWidth);
-	window.setTimeout(function() {
-		var swiper = new Swiper('.swiper-container', {
+	// var width = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.056;
+	_this.swiperWidth = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.15*0.7;
+	// window.setTimeout(function() {
+	// 	var swiper = new Swiper('.swiper-container', {
+	// 		slidesPerView: 6,
+	// 		paginationClickable: true,
+	// 		loop:false,
+	// 		prevButton:'.oa-swiper-prev',
+	// 		nextButton:'.oa-swiper-next',
+	// 		spaceBetween: width,
+	// 	});
+	// 	var swiperone = new Swiper('.swiper-container-one', {
+	// 		// loop:true,
+	// 		effect : 'fade',
+	// 		prevButton:'.oa-one-swiper-prev',
+	// 		nextButton:'.oa-one-swiper-next',
+	// 		scrollbar: '.swiper-scrollbar',
+	// 		scrollbarHide: false,
+	// 		// slidesPerView: 'auto',
+	// 		// centeredSlides: true,
+	// 		autoplay : 2000,
+	// 		autoplayDisableOnInteraction:false,
+	// 	});
+	// }, 400);
+  }
+  toLoadSwiper=()=>{
+	console.log(document.getElementsByClassName('g-home-bottom')[0].clientWidth);
+	// var width = (document.getElementsByClassName('g-home-bottom')[0].clientWidth)*0.84*0.056;
+	// this.swiperWidth = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.12;
+	var swiper = new Swiper('.swiper-container', {
 			slidesPerView: 6,
 			paginationClickable: true,
 			loop:false,
 			prevButton:'.oa-swiper-prev',
 			nextButton:'.oa-swiper-next',
-			spaceBetween: width,
+			// spaceBetween: width,
+			onSlideChangeEnd: function(swiper){
+				//alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
+			}
+			
 		});
 		var swiperone = new Swiper('.swiper-container-one', {
 			// loop:true,
@@ -63,12 +94,9 @@ export default class Home extends React.Component {
 			// centeredSlides: true,
 			autoplay : 2000,
 			autoplayDisableOnInteraction:false,
-		});
-	}, 400);
-	
-		
-	
+			});
   }
+
   renderSwiper = (item,index) =>{
       if(!item){
         return ;
