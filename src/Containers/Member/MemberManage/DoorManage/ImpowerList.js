@@ -360,7 +360,13 @@ export default class FinishUploadImgForm extends React.Component{
 		}else{
 			var n =[];
 		}
-		Http.request('doorCustomerGrant',{},devicesT).then(function(response){
+		
+		var params = {
+			id:_this.detail.id,
+			deviceIds:JSON.stringify(devicesT)
+		}
+ 
+		Http.request('doorCustomerGrant',{},params).then(function(response){
 		      	_this.closeImpoerList();
 		      	Message.success("操作成功");
 
