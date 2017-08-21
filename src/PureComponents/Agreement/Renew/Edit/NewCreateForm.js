@@ -25,6 +25,7 @@ import {
 	arrayInsert,
 	FieldArray
 } from 'redux-form';
+import UnitPriceForm from './UnitPriceForm';
 
 import {
 	Actions,
@@ -150,6 +151,7 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		});
+			this.setAllRent(stationVos);
 
 		this.setState({
 			stationVos
@@ -207,6 +209,14 @@ class NewCreateForm extends React.Component {
 
 		let _this = this;
 		let {initialValues} = this.props;
+		let stationList = list.map((item)=>{
+		if(!item.unitprice){
+				item.unitprice = 0;
+			}else{
+				item.unitprice = (item.unitprice+'').replace(/\s/g,'');
+			}
+			return item;
+		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			Store.dispatch(change('renewEditForm', 'totalrent', response));
 			_this.setState({
@@ -218,6 +228,13 @@ class NewCreateForm extends React.Component {
 				type: 'danger',
 			}]);
 		});
+	}
+
+	onBlur=(item)=>{
+		let {stationVos} = this.state;
+		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
+		this.setAllRent(stationVos);
+
 	}
 
 
@@ -423,6 +440,19 @@ class NewCreateForm extends React.Component {
 		}
 		return name;
 	}
+	openPreStationUnitPriceDialog=()=> {
+		let {
+			selectedStation
+		} = this.state;
+		if (!selectedStation.length) {
+			Notify.show([{
+				message: '请先选择要录入单价的工位',
+				type: 'danger',
+			}]);
+			return;
+		}
+		this.openStationUnitPriceDialog();
+	}
 
 	render() {
 
@@ -473,6 +503,7 @@ class NewCreateForm extends React.Component {
 								<Col align="right">
 									<ButtonGroup>
 										<Button label="删除"  onTouchTap={this.onStationDelete} />
+									    <Button label="批量录入单价" width={100} onTouchTap={this.openPreStationUnitPriceDialog} />
 										<Button label="续租"  onTouchTap={this.openStationDialog} />
 								  </ButtonGroup>
 								</Col>
@@ -489,12 +520,16 @@ class NewCreateForm extends React.Component {
 						</TableHeader>
 						<TableBody>
 						{stationVos.map((item,index)=>{
+							var typeLink = {
+									value: this.state.stationVos[index].unitprice,
+									requestChange: this.onStationVosChange.bind(null, index)
+								}
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
-											{item.unitprice}
+										<input type="text" name="age"  valueLink={typeLink}  onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
 									</TableRowColumn>
 									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
@@ -586,6 +621,16 @@ class NewCreateForm extends React.Component {
 						autoScrollBodyContent={true}
 						autoDetectWindowHeight={true} onClose={this.onStationCancel}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} changeValues={this.props.changeValues} params={{mainBillid:initialValues.mainbillid,contractId:initialValues.id}}/>
+					  </Dialog>
+					<Dialog
+						title="录入单价"
+						autoScrollBodyContent={true}
+						onCancel={this.openStationUnitPriceDialog}
+						open={this.state.openStationUnitPrice}
+						 contentStyle={{width:436}}
+						 onClose={this.openStationUnitPriceDialog}
+						>
+								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
 
