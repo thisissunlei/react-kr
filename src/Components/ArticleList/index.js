@@ -56,7 +56,7 @@ export default class ArticleList extends React.Component {
                     <img className = "ui-article-img" src={detail.url||''} alt=""/> 
                     
                     <div className = "ui-article-content" style = {style}>
-                        <h2 className = "ui-article-title">{detail.title||''}</h2>
+                        <div className = "ui-article-title">{detail.title||''}</div>
                         <div 
                             className = "ui-article-text"
                             ref = {

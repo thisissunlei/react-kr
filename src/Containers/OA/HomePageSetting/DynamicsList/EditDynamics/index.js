@@ -23,7 +23,7 @@ class EditDynamics extends React.Component{
             isCite:false,
             titleUrl:props.titleUrl || '',
             content:props.content||'',
-            
+
         }
 	}
 
@@ -45,20 +45,20 @@ class EditDynamics extends React.Component{
         }
         // console.log(nextProps.type,"PPPPP")
         // if(nextProps.type){
-           
+
         //     if(nextProps.type == "OUTSIDE" && !this.state.isCite){
-                
+
         //         this.setState({
         //             isCite:true
         //         })
-            
+
         //     }
         //     if(nextProps.type == "INSIDE" && this.state.isCite){
         //         this.setState({
         //             isCite:false
         //         })
         //     }
-            
+
         // }
 
     }
@@ -72,15 +72,15 @@ class EditDynamics extends React.Component{
         onCancel && onCancel();
     }
     typeChange = (detail) =>{
-       
+
         var isCite = false;
         let {content} = this.props;
         var contentText = ""
         if(detail.value == "OUTSIDE"){
-            
+
             isCite = true
             contentText = '';
-           
+
         }else{
             isCite = false
             contentText = content
@@ -103,7 +103,6 @@ class EditDynamics extends React.Component{
         let {jobTypes,isType,isCite,titleUrl,content} = this.state;
         // let host = "http://"+window.location.host;
         let host = "http://optest02.krspace.cn/";
-        console.log(content,'ppppp')
 		return(
 
 			<div className='m-edit-swper'>

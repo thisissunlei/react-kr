@@ -98,7 +98,7 @@ export default class DynamicsProfile extends React.Component {
 		return (
 			<div className="dynamics_profile">
                 <img src={banner} alt=""/>
-				<div className="dynamics_list" >
+				<div className="dynamics_list" style = {{marginBottom:btnShow?0:50}} >
                     {this.profileRender()}
                    {btnShow && <div className="browse_more" 
                         onClick = {this.click}
