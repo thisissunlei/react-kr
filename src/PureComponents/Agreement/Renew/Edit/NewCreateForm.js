@@ -502,9 +502,9 @@ class NewCreateForm extends React.Component {
 							<Row>
 								<Col align="right">
 									<ButtonGroup>
-										<Button label="删除"  onTouchTap={this.onStationDelete} />
-									    <Button label="批量录入单价" width={100} onTouchTap={this.openPreStationUnitPriceDialog} />
 										<Button label="续租"  onTouchTap={this.openStationDialog} />
+									    <Button label="批量录入单价" width={100} onTouchTap={this.openPreStationUnitPriceDialog} />
+										<Button label="删除" cancle={true} type="button"  onTouchTap={this.onStationDelete} />
 								  </ButtonGroup>
 								</Col>
 							</Row>
