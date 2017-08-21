@@ -16,15 +16,14 @@ class UserImageChange  extends React.Component{
 		super(props, context);
 	}
 
-    onSubmit=(values)=>{
-        const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);
-    }
+	onSubmit=(param)=>{
 
-    onCancel=()=>{
-        const {onCancel}=this.props;
-        onCancel && onCancel();
-    }
+	}
+
+	clamp=(param)=>{
+		const {clamp}=this.props;
+    clamp && clamp(param);
+	}
 
 	render(){
 
@@ -39,9 +38,9 @@ class UserImageChange  extends React.Component{
                             name="area"
                             component="oaUploadImage"
                             requireLabel={false}
-														requestUrl='http://optest02.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+														clamp={this.clamp}
 						/>
-                 </form>
+         </form>
 			</div>
 		);
 	}
