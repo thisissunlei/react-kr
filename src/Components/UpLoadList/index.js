@@ -140,11 +140,13 @@ export default class UpLoadList extends React.Component {
 
 	delete(id){
 		let _this = this;
+		let {onChange} = this.props;
 		Http.request('deleteFileList', {
 			detailId: _this.props.detail.id,
 			fileId:id.id
 		}).then(function(response) {
 			_this.getFileList(_this.props.detail.id);
+			onChange && onChange();
 		}).catch(function(err) {
 			Notify.show([{
 				message: err.message,
