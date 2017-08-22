@@ -39,14 +39,15 @@ export default class DynamicsProfile extends React.Component {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
         this.getDetail();
-
 	}
     getDetail = () =>{
         var params = Object.assign({},this.state.searchParams);
         
         var _this = this;
         let {listData} = this.state;
+         console.log({listData},'listdata');
         Http.request("get-home-dynamics-list",params).then(function (response) {
+           
             _this.setState({
                 listData:listData.concat(response.items),
                 searchParams:{
@@ -55,6 +56,7 @@ export default class DynamicsProfile extends React.Component {
                 },
                 totalPages:response.totalPages,
             })
+            
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -67,16 +69,21 @@ export default class DynamicsProfile extends React.Component {
 		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
     }
     profileRender = () =>{
+<<<<<<< HEAD
+        let {listData} = this.state; 
+        
+=======
         let {listData} = this.state;
+>>>>>>> 5127107ed0514ddb3973cfa9402ac3327fa7a93c
         var items = this.dataFilter(listData);
         var articleList = items.map((item,indx)=>{
-            return <ArticleList detail = {item} onClick = {this.goDetail}/>
+            return <ArticleList detail = {item} onClick= {this.goDetail}/>
         })
         
         return articleList;
     }
     dataFilter = (data) =>{
-       var arr =  data.map((item,index)=>{
+       var arr=data.map((item,index)=>{
             if(item.photoUrl){
                 item.url = item.photoUrl;
                 item.content = delHtmlTag(item.content||item.desc);
@@ -84,9 +91,11 @@ export default class DynamicsProfile extends React.Component {
             return item;
         })
         return arr;
+     
     }
 	click = () =>{
         let {totalPages,searchParams} = this.state;
+        console.log({totalPages,searchParams},'click');
         if(searchParams.page+1 === totalPages){
             this.setState({
                 btnShow:false
@@ -96,7 +105,7 @@ export default class DynamicsProfile extends React.Component {
     }
 	render() {
         const {btnShow} = this.state;
-		
+		console.log(this.state.listData,"render");
 		return (
 			<div className="dynamics_profile">
                 <img className = "title-img" src={banner} alt=""/>
