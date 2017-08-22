@@ -66,8 +66,15 @@ class EditDynamics extends React.Component{
 
     }
     onSubmit=(values)=>{
-        const {onSubmit}=this.props;
-        console.log(values)
+        const {onSubmit} = this.props;
+        const {isCite} = this.state;
+        values = Object.assign({},values);
+        if(isCite){
+            values.desc = '';
+        }else{
+            values.content = '';
+        }
+        
         onSubmit && onSubmit(values);
     }
 
@@ -124,7 +131,7 @@ class EditDynamics extends React.Component{
 
 				<div className="kk" style={{marginTop:30}}>
 					<KrField grid={1/2} label="标题" name="title" style={{width:262,marginLeft:15,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-                    <KrField grid={1/2} label="文章类型" name="articleType" component="select" style={{width:262,marginLeft:28,marginTop:14}}
+                    <KrField grid={1/2} equireLabel={true} label="文章类型" name="articleType" component="select" style={{width:262,marginLeft:28,marginTop:14}}
                         options={[{label:"站内发表",value:"INSIDE"},{label:"外部链接",value:"OUTSIDE"}]}
                         requireLabel={true}
                         onChange = {this.typeChange}
@@ -146,14 +153,17 @@ class EditDynamics extends React.Component{
 							onDeleteImg ={this.deletePhoto}
                             label="上传标题图片"
                             inline={false}
-                            requireLabel={true}
+                            requireLabel={false}
                         />
                     </div>
 
 				</div>
-                <div style = {{marginTop:14}}>
-                         <KrField component="editor" name="content" label = {editorLabel} defaultValue={content||''}/>
-                </div>
+                {isCite && <div style = {{marginTop:14}}>
+                         <KrField component="editor" equireLabel={true} name="content" label = "内容" defaultValue={content||''}/>
+                </div>}
+                {!isCite && <div style = {{marginTop:14}}>
+                        <KrField component="textarea" equireLabel={true} name="desc" onChange = {this.editorChange} label="简介" />
+                </div>}
 				<Grid style={{marginTop:30,marginRight:40}}>
 
 					<Row>
@@ -178,23 +188,21 @@ class EditDynamics extends React.Component{
 const validate = values =>{
 	const errors = {};
 
-    if(!values.name){
-       errors.name='请填写职级名称';
+    if(!values.title){
+       errors.title='标题为必填项';
     }else if(values.name.length>10){
-       errors.name='职级名称不能超过10个字符';
+       errors.title='职级名称不能超过10个字符';
+    }
+    if(!values.articleType){
+        errors.articleType='文章类型为必填项';
+    }
+    if(!values.content){
+        errors.content = '内容为必填项'
     }
 
-   if(!values.typeId){
-       errors.typeId='请选择职务类型';
-   }
-
-   if(!values.level){
-       errors.level='请填写等级';
-   }else if(isNaN(values.level)){
-       errors.level='等级必须是数字'
-   }else if(values.level>30){
-       errors.level='等级最大不超过30'
-   }
+    if(!values.desc){
+        errors.desc = '简介为必填项'
+    }
 
 
 	return errors

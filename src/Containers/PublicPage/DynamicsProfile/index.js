@@ -79,7 +79,7 @@ export default class DynamicsProfile extends React.Component {
        var arr =  data.map((item,index)=>{
             if(item.photoUrl){
                 item.url = item.photoUrl;
-                item.content = delHtmlTag(item.content);
+                item.content = delHtmlTag(item.content||item.desc);
             }
             return item;
         })
