@@ -64,8 +64,9 @@ export default class ShearDialog  extends React.Component{
  }
 
  clamp=(data)=>{
+	 let {file}=this.state;
    const {clamp}=this.props;
-   clamp && clamp(data);
+   clamp && clamp(data,file);
  }
 
 

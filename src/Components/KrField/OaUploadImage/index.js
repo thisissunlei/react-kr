@@ -47,11 +47,11 @@ export default class OaUploadImage extends Component {
     for (var i = 0; i < bytes.length; i++) {
         ia[i] = bytes.charCodeAt(i);
     }
-    return new Blob( [ab] );
+    return new Blob( [ab] , {type : 'image/png'});
 }
 
 
-	clamp=(param)=>{
+	clamp=(param,files)=>{
 		let {requestUrl,personId}=this.props;
 
 	 //获取文本大小
@@ -72,6 +72,7 @@ export default class OaUploadImage extends Component {
 
     var _this=this;
 
+    console.log('bbbb',files);
     var form = new FormData();
 		form.append('userId', personId);
 		form.append('avatarFile',this.convertBase64UrlToBlob(param));
