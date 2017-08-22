@@ -204,8 +204,21 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	deviceCache=()=>{
-		State.showOpretion=false
-		this.openEquipmentCacheFun();
+		State.showOpretion=false;
+		let _this =this;
+		var urlParamsT = {
+							deviceId:State.itemDetail.deviceId,
+							lastCardNo:'',
+							limit:50,
+						}
+		Http.request('getEquipmentCacheURL',urlParamsT).then(function(response) {
+				
+			_this.openEquipmentCacheFun();
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		
 
 	}
 

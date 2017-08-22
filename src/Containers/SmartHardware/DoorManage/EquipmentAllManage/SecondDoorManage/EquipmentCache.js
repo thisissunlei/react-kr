@@ -3,7 +3,7 @@ import {
 	reduxForm,
 	formValueSelector
 } from 'redux-form';
-import {Button,Message} from 'kr-ui';
+import {Button,Message,Loading} from 'kr-ui';
 import './index.less';
 
 import {DateFormat,Http} from 'kr/Utils';
@@ -21,7 +21,8 @@ export default class EquipmentSearch extends React.Component{
 			itemDetail:{},
 			cachedeviceId : '',
 			equipmentCacheitems : [],
-			isAll : false
+			isAll : false,
+			itemsZero : false
 		}
 	}
 
@@ -86,23 +87,36 @@ export default class EquipmentSearch extends React.Component{
 			Http.request('getEquipmentCacheURL',urlParams).then(function(response) {
 				var oldItems = _this.state.equipmentCacheitems;
 				if(response.list.length <50){
-					this.setState({
+					_this.setState({
 						isAll : true
 					})
 				}
 				if(!urlParams.lastCardNo){
 					_this.setState({
 						equipmentCacheitems : oldItems.concat(response.list)
+					},function(){
+						if(_this.state.equipmentCacheitems.length==0){
+							_this.setState({
+								itemsZero : true
+							})
+						}
 					})
 				}else{
 					_this.setState({
 						equipmentCacheitems : response.list
+					},function(){
+						if(_this.state.equipmentCacheitems.length==0){
+							_this.setState({
+								itemsZero : true
+							})
+						}
 					})
 				}
 				_this.setState({
 					loading : false
 				})
 			}).catch(function(err) {
+				State.openEquipmentCache = false;
 				Message.error(err.message);
 				_this.setState({
 					loading : false
@@ -131,7 +145,7 @@ export default class EquipmentSearch extends React.Component{
 	}
 	
 	render(){
-		let {isAll} = this.state;
+		let {isAll,itemsZero,loading} = this.state;
 		return (
 			<div className="seconde-dialog">
 
@@ -155,7 +169,12 @@ export default class EquipmentSearch extends React.Component{
 				        			this.renderTableBody()
 				        		}
 			        		</div>
-			        		{isAll && <div>以上是全部数据</div>}
+			        		{isAll && !itemsZero&& <div>以上是全部数据</div>}
+			        		{loading && <Loading/>}
+			        		{itemsZero &&  <div style={{marginTop:100}}>
+				        						<img src={require("../images/nothings.png")} style={{display:"block",margin:"0 auto"}}/>
+				        						<div style={{width:"100%",textAlign:"center",marginTop:10}}>暂时没有数据</div>
+			        						</div>}
 			        	</div>
 			        </div>
 				</div>

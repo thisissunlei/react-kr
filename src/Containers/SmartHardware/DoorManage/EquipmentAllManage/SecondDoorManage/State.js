@@ -118,13 +118,13 @@ State.getDicList = action(function() {
 		var arrNewMaker = []
 		var arrNewDoorType = []
 		for (var i=0;i<response.Maker.length;i++){
-			// console.log("response",response);
-			// console.log("response.Maker[i]",response.Maker[i]);
-			// console.log("response.DoorType[i]",response.DoorType[i]);
+			
 			arrNewMaker[i] = {
 						label:response.Maker[i].desc,
 						value:response.Maker[i].value
 					}
+		}
+		for(var i=0;i<response.DoorType.length;i++){
 			arrNewDoorType[i] = {
 						label:response.DoorType[i].desc,
 						value:response.DoorType[i].value,

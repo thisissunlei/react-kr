@@ -365,14 +365,14 @@ const validate = values=>{
 	if(!values.title || /^\s+$/.test(values.title)){
 		errors.title = '展示标题为必填项';
 	}
-	if(values.title && values.title.length>13){
-		errors.title = '展示标题最多13个字符';
+	if(values.title && values.title.length>11){
+		errors.title = '展示标题最多11个字符';
 	}
 	if(!values.doorCode || /^\s+$/.test(values.doorCode)){
 		errors.doorCode = '门编号为必填项';
 	}
-	if(values.doorCode  && values.doorCode.length>50){
-		errors.doorCode = '门编号最多50个字符';
+	if(values.doorCode  && values.doorCode.length>9){
+		errors.doorCode = '门编号最多9个字符';
 	}
 	if(!values.deviceId || /^\s+$/.test(values.deviceId)){
 		errors.deviceId = '智能硬件ID为必填项';
