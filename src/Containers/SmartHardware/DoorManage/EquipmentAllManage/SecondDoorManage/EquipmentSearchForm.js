@@ -163,15 +163,6 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		      label:"硬件编号",
 		      value:"deviceId"
 		    }]
-	   
-		// 属性待选项
-		let propertyOption=[{
-			label: '大门',
-			value: 1
-		},{
-			label: '会议室',
-			value: 2
-		}]
 		
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{float:"left",marginTop:20}} className="second-equipment-search">
@@ -199,7 +190,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						component="select"
 						label="属性: "
 						onChange = {this.onchangeDoorType}
-						options={propertyOption}
+						options={State.propertyOption}
 						style={{width:'190px'}}
 						inline={true}
 					/>

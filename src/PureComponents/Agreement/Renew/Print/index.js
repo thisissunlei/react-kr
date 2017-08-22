@@ -122,13 +122,13 @@ export default class RenewPrint extends React.Component {
 		return (
 		<div>
 			<div className="print-section no-print-section"  style={{minHeight:'293mm'}}>
-				<Title value={`${State.baseInfo.leaseName}-入驻服务协议补充协议(延续)`}/>
+				<Title value={`${State.baseInfo.leaseName}-入驻办公室/工位补充附表(延续)`}/>
 				{State.baseInfo.withCachet && State.cachet.map((item,index)=>{
 					return item
 				})}
 				<Print.Header
 					 	baseInfo={State.baseInfo}
-						orderInfo="入驻服务协议补充协议(延续)"
+						orderInfo="入驻办公室/工位补充附表(延续)"
 				/>
 				<Print.BaseInfo baseInfo={State.baseInfo}/>
 

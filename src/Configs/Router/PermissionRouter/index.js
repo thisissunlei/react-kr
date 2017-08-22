@@ -92,6 +92,19 @@ const Permission_MenuSetting = (location, callback) => {
     callback(null, require('kr/Containers/Permission/MenuSetting').default)
   }, 'Permission_MenuSetting')
 }
+
+const Permission_ProcessManage_ProcessSetting= (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/ProcessManage/ProcessSetting').default)
+  }, 'Permission_ProcessManage_ProcessSetting')
+}
+
+const Permission_ProcessManage_BasicSetting= (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/ProcessManage/BasicSetting').default)
+  }, 'Permission_ProcessManage_BasicSetting')
+}
+
 module.exports =()=>{
 
 	return (
@@ -117,6 +130,11 @@ module.exports =()=>{
      <Route path="appLoginLogs" getComponent={Permission_SystemManage_AppLoginLogs}/>
       <Route path="messageList" getComponent={Permission_SystemManage_MessageList}/>
           <Route path="update-log" getComponent={Permission_SystemManage_UpdateLog}/>
+    </Route>
+    {/*流程管理*/}
+    <Route path="processManage" getComponent={Basic}>
+      <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
+      <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
     </Route>
 	  </Route>
 

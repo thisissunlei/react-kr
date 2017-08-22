@@ -134,7 +134,6 @@ State.getDicList = action(function() {
 		
 		State.makerOptions = arrNewMaker;
 		State.propertyOption = arrNewDoorType;
-		// State.propertyOption = [{label:"大门",value:"GATA"},{label:"会议室",value:"MEET"}]
 
 	}).catch(function(err) {
 		Message.error(err.message);

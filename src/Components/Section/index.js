@@ -16,7 +16,10 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 
 export default class Section extends Component {
-
+	static defaultProps = {
+		borderBool:true,
+	}
+	
 	static propTypes = {
 		filterChildren:React.PropTypes.node,
 		children: React.PropTypes.node,
@@ -28,9 +31,10 @@ export default class Section extends Component {
 		style:React.PropTypes.object,
 		headerStyle:React.PropTypes.object,
 		hide:React.PropTypes.bool,
-		bodyPadding:React.PropTypes.string
+		bodyPadding:React.PropTypes.string,
+		borderBool:React.PropTypes.bool,
 	};
-
+	
 	constructor(props){
 		super(props);
 
@@ -100,9 +104,9 @@ export default class Section extends Component {
 		if(!this.props.title){
 			return null;
 		}
-
+		const border = this.props.borderBool;
 		return (
-				<div className="section-title">
+				<div className={`section-title ${border?'blue-border':''}`}>
 
 					{this.renderHeaderLeftIcon()}
 

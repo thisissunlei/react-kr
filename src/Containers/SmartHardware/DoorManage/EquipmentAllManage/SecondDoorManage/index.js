@@ -731,7 +731,7 @@ export default class SecondDoorManage  extends React.Component{
 			        >
 			          <div style={{marginTop:45}}>
 			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>主密码：{State.managePsd.main}</p>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>备用密码：{State.managePsd.backup}</p>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>备用密码：{State.managePsd.backup || "无"}</p>
 			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
 			                  <Row>
 			                    <ListGroup>
