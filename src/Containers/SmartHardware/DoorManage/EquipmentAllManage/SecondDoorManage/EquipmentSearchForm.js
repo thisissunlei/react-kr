@@ -29,15 +29,43 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		this.state={
 			searchForm: false,
 			floorsOptions:[{label:"",value:""}],
+			propertyOption:[]
 		}
 	}
 	componentWillReceiveProps(){
 	}
 	componentDidMount(){
+
 		let _this = this;
+		_this.getDicList();
 		Store.dispatch(change('EquipmentAdvancedQueryForm','type',this.props.filter));
 		Store.dispatch(change('EquipmentAdvancedQueryForm','value',this.props.content));
 	}
+
+	// 获取通用字典
+	getDicList =()=>{
+		let _this =this;
+		Http.request('getWarningType', {}).then(function(response) {
+		
+			var arrNewDoorType = []
+			for(var i=0;i<response.DoorType.length;i++){
+			arrNewDoorType[i] = {
+						label:response.DoorType[i].desc,
+						value:response.DoorType[i].value,
+						code : response.DoorType[i].code
+					}
+			}
+			_this.setState({
+				propertyOption :arrNewDoorType
+			})
+			
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+	
+
 	// 提交
 	onSubmit=(values)=>{
 		console.log("values",values);
@@ -154,7 +182,8 @@ class EquipmentAdvancedQueryForm extends React.Component{
 	}
 
 	render(){
-		let {floorsOptions}=this.state;
+		let {floorsOptions,propertyOption}=this.state;
+		console.log("propertyOption",propertyOption);
 		const { error, handleSubmit,content,filter} = this.props;
 		let options=[{
 		      label:"门编号",
@@ -190,7 +219,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						component="select"
 						label="属性: "
 						onChange = {this.onchangeDoorType}
-						options={State.propertyOption}
+						options={propertyOption}
 						style={{width:'190px'}}
 						inline={true}
 					/>
