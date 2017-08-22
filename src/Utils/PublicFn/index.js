@@ -84,10 +84,14 @@ function numberToSign(code){
 
     return strValue;
 }
+function delHtmlTag(str){
+  return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+}
 
 
 
 
 module.exports = {
-  numberToSign
+  numberToSign,
+  delHtmlTag
 }

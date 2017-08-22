@@ -10,9 +10,11 @@ import {
     Message
 } from 'kr-ui';
 import React, { PropTypes } from 'react';
+
 import { observer, inject } from 'mobx-react';
 import './index.less';
-import {Http} from 'kr/Utils';
+import {Http,delHtmlTag} from 'kr/Utils';
+
 import banner from './images/banner.png'
 @inject("NavModel")
 @observer
@@ -40,7 +42,7 @@ export default class DynamicsProfile extends React.Component {
 	}
     getDetail = () =>{
         var params = Object.assign({},this.state.searchParams);
-       console.log(params,'getDetail');
+        
         var _this = this;
         let {listData} = this.state;
          console.log({listData},'listdata');
@@ -61,15 +63,19 @@ export default class DynamicsProfile extends React.Component {
 
         
     }
+   
     goDetail = (data) =>{
         let id=data.id;
 		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
     }
     profileRender = () =>{
+<<<<<<< HEAD
         let {listData} = this.state; 
         
+=======
+        let {listData} = this.state;
+>>>>>>> 5127107ed0514ddb3973cfa9402ac3327fa7a93c
         var items = this.dataFilter(listData);
-        console.log(items,"PPPP")
         var articleList = items.map((item,indx)=>{
             return <ArticleList detail = {item} onClick= {this.goDetail}/>
         })
@@ -80,6 +86,7 @@ export default class DynamicsProfile extends React.Component {
        var arr=data.map((item,index)=>{
             if(item.photoUrl){
                 item.url = item.photoUrl;
+                item.content = delHtmlTag(item.content||item.desc);
             }
             return item;
         })
@@ -101,7 +108,7 @@ export default class DynamicsProfile extends React.Component {
 		console.log(this.state.listData,"render");
 		return (
 			<div className="dynamics_profile">
-                <img src={banner} alt=""/>
+                <img className = "title-img" src={banner} alt=""/>
 				<div className="dynamics_list" style = {{marginBottom:btnShow?0:50}} >
                     {this.profileRender()}
                    {btnShow && <div className="browse_more" 

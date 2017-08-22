@@ -150,11 +150,11 @@ export default class Home extends React.Component {
         return ;
       }
       return (
-			<div onClick={this.goDetail.bind(this,item)} key={index} className="item">
+			<div key={index} className="item">
 				<span className={`circle ${item.isRead=="READ"?'readcircle':''}`}>
 
 				</span>
-				<span className="item-text">
+				<span onClick={this.goDetail.bind(this,item)} className="item-text">
 					{item.title}
 				</span>
 			</div>
@@ -162,7 +162,10 @@ export default class Home extends React.Component {
   }
    goDetail = (data) =>{
         let id=data.id;
-		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');	
+		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
+	}
+	toDynamicsList=()=>{
+		window.open(`./#/publicPage/dynamicsProfile`,'_blank');
 	}
   render() {
     return (
@@ -171,10 +174,10 @@ export default class Home extends React.Component {
             <div className="home-date">
 							<div className="date">
 								<div className="left-date">
-								8月2日
+									{this.state.infoList.nowDate}
 								</div>
 								<div className="right-date">
-									周三
+									{this.state.infoList.week}
 								</div>
 							</div>
 						</div>
@@ -255,7 +258,7 @@ export default class Home extends React.Component {
 								<div className="left">
 									最近动态
 								</div>
-								<div className="right">
+								<div onClick={this.toDynamicsList} className="right">
 									更多
 								</div>
 							</div>
@@ -318,7 +321,7 @@ export default class Home extends React.Component {
 							
 						</div>
 						<div className="left">
-							最近动态
+							最近入职同事
 						</div>
 					</div>
 					<div className="home-swiper">
