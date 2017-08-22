@@ -370,7 +370,22 @@ export default class InService  extends React.Component{
 
  //高级查询提交
  onSearchUpperSubmit=(param)=>{
-
+   let defaultParams = {
+     searchKey:'',
+     opened:'',
+     openDateEnd:'',
+     openDateBegin:'',
+     businessAreaId:'',
+     portalShow:'',
+     cityId:'',
+     countyId:'',
+     searchType:''
+   }
+   var searchParams = Object.assign({},defaultParams,param);
+   this.setState({
+     searchParams,
+     openSearchUpper:!this.state.openSearchUpper
+   })
  }
 
   //高级查询
@@ -383,11 +398,30 @@ export default class InService  extends React.Component{
     }).catch(function(err) {
        Message.error(err.message);
     });*/
-	  this.setState({
-      openSearchUpper:!this.state.openSearchUpper
+    let {searchParams}=this.state;
+    let defaultParams = {
+      searchKey:'',
+      opened:'',
+      openDateEnd:'',
+      openDateBegin:'',
+      businessAreaId:'',
+      portalShow:'',
+      cityId:'',
+      countyId:'',
+      searchType:''
+    }
+    searchParams = Object.assign({},searchParams,defaultParams);
+    this.setState({
+      openSearchUpper:!this.state.openSearchUpper,
+      searchParams
     })
-
 	}
+
+  cancelSearchUpperDialog=()=>{
+    this.setState({
+      openSearchUpper:!this.state.openSearchUpper,
+    })
+  }
 
   //导出
   onExport=(values)=> {
@@ -631,7 +665,7 @@ export default class InService  extends React.Component{
           contentStyle ={{ width: '666px',height:'auto'}}
           >
             <SearchUpperForm
-                onCancel={this.openSearchUpperDialog}
+                onCancel={this.cancelSearchUpperDialog}
                 onSubmit={this.onSearchUpperSubmit}
                 positionList={positionList}
             />

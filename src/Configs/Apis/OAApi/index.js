@@ -558,6 +558,12 @@ var OAApi = {
       url:'/api/krspace-erp-web/hrm/resource/info/type/person-card?userId={userId}',
       method: 'get'
   },
+
+  //我的同事
+  'myColleague':{
+      url:'http://local.krspace.cn:8080/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&dimId={dimId}&page={page}&pageSize={pageSize}&hrmResourceAttributes={hrmResourceAttributes}&hrmResourceType={hrmResourceType}&startTime={startTime}&endTime={endTime}',
+      method: 'get'
+  },
 }
 
 module.exports=OAApi;

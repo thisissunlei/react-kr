@@ -21,8 +21,10 @@ import {
 	Grid,
 	Row,
 	Col,
+	KrDate,
 	Message,
 	SliderTree,
+	Dictionary
 } from 'kr-ui';
 
 import SearchForm from './SearchForm';
@@ -261,9 +263,8 @@ export default class MyColleague extends React.Component {
 							<Table
 								style={{marginTop:10,position:'inherit'}}
 								displayCheckbox={false}
-								onLoaded={this.onLoaded}
-								//ajax={true}
-								ajaxUrlName='next-org-list'
+								ajax={true}
+								ajaxUrlName='myColleague'
 								ajaxFieldListName="items"
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
@@ -285,15 +286,37 @@ export default class MyColleague extends React.Component {
 								<TableBody>
 									<TableRow className='detail-row'>
 										{/*我的同事的表格*/}
-										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
-										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}}>1</TableRowColumn>
+										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
+										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='depName' component={(value,oldValue)=>{
+						 										var maxWidth=10;
+						 										if(value.length>maxWidth){
+						 										 value = value.substring(0,10)+"...";
+						 										}
+						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+						 								 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leader'></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobName' component={(value,oldValue)=>{
+						 										var maxWidth=10;
+						 										if(value.length>maxWidth){
+						 										 value = value.substring(0,10)+"...";
+						 										}
+						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+						 								 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email' component={(value,oldValue)=>{
+						 										var maxWidth=10;
+						 										if(value.length>maxWidth){
+						 										 value = value.substring(0,10)+"...";
+						 										}
+						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+						 								 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='mobilePhone'></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='entryDate' component={(value,oldValue)=>{
+													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
+												 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
+											 return <Dictionary type='ERP_ResourceStatus' value={value}/>
+										}}></TableRowColumn>
 									</TableRow>
 								</TableBody>
 								<TableFooter></TableFooter>
@@ -319,7 +342,6 @@ export default class MyColleague extends React.Component {
 							<Table
 								style={{ marginTop: 10 }}
 								displayCheckbox={false}
-								onLoaded={this.onLoaded}
 								//ajax={true}
 								ajaxUrlName='hrm-list'
 								ajaxFieldListName="items"
