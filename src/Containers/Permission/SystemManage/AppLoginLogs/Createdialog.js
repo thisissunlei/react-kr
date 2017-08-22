@@ -121,6 +121,16 @@ class Createdialog extends Component {
               component="date"
               />
               <KrField
+                  grid={1/2}
+                  right={69}
+                  requireLabel={true}
+                  left={4}
+                  name="appSize"
+                  type="input"
+                  style={{marginTop:4,marginLeft:20}}
+                  label="安装包大小"
+              />
+              <KrField
                   grid={1}
                   left={42}
                   right={18}
@@ -180,9 +190,12 @@ const validate = values => {
     if (!values.appType) {
 		errors.appType = '请选择app类型';
 	}
-    if (!values.enable) {
+  if (!values.enable) {
 		errors.enable = '请选择启用类型';
 	}
+  if (!values.appSize) {
+    errors.appSize = '请填写安装包大小';
+  }
 
 	return errors
 }

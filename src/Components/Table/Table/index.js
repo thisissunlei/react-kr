@@ -112,6 +112,7 @@ export default class Table extends React.Component {
 				isLoaded: false
 			});
 			var page = nextProps.ajaxParams.page || 1;
+			
 			this.onLoadData(page, nextProps.ajaxParams);
 		}
 
@@ -125,11 +126,13 @@ export default class Table extends React.Component {
 			this.setState({
 				loading: nextProps.loading
 			});
+			
 			this.onLoadData(1, nextProps.ajaxParams);
 		}
 
 
 		if (!ShallowEqual(this.props.initialValues, nextProps.initialValues)) {
+			
 			this.onInitial(nextProps.initialValues);
 		}
 
@@ -267,7 +270,6 @@ export default class Table extends React.Component {
 
 
 	onLoadData = (page = 1, ajaxParams = this.props.ajaxParams)=> {
-
 		ajaxParams = Object.assign({}, ajaxParams);
 
 		if (!this.props.ajax) {
@@ -301,7 +303,7 @@ export default class Table extends React.Component {
 			});
 
 		}).catch(function(err) {
-
+		console.log("请求失败一次",err);
 			_this.onInitial({
 				isLoaded: true,
 				loading: false,
@@ -617,7 +619,7 @@ export default class Table extends React.Component {
 				<tbody>
 					<tr style={{backgroundColor:'#fff'}}>
 						<TableRowColumn colSpan={100} >
-							<div style={{textAlign:'center',paddingTop:100,paddingBottom:100}}>
+							<div style={{textAlign:'center',paddingTop:90,paddingBottom:90}}>
 								<div className="ui-nothing">
 									<div className="icon"></div>
 									<p className="tip">暂时还没有数据呦~</p>

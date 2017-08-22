@@ -25,6 +25,7 @@ let State = observable({
 	presentShow:false,
 	isEditCustomer:false,
 	screening:["内部推荐","外部推荐","推介人计划","中介客源"],
+	recommendName:''
 
 });
 

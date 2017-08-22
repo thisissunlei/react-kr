@@ -4,6 +4,7 @@ import {
   change,
   arrayPush,
   initialize,
+  reset,
   formValueSelector
 } from 'redux-form';
 
@@ -36,7 +37,10 @@ class ChangeCommunity  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-		this.cityId = '';
+		this.state = {
+			communitys:[]
+		}
+		Store.dispatch(reset('ChangeCommunity'));
 	}
 
 	componentDidMount(){
@@ -46,6 +50,10 @@ class ChangeCommunity  extends React.Component{
 		onCancel && onCancel();
 	}
 	onSubmit=(value)=>{
+		if(!value.communityId){
+			return;
+		}
+		localStorage.setItem('OP_HOME_COMMUNITY',value.communityId);
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(value);
 	}
@@ -54,22 +62,25 @@ class ChangeCommunity  extends React.Component{
 
 	}
 	changeCity=(value)=>{
-		this.cityId = value.id;
-		console.log('======',value,this.cityId)
+		Store.dispatch(reset('ChangeCommunity'));
+		Store.dispatch(change('ChangeCommunity', 'cityId', value.id));
+		
+		let list = [];
+		list = State.cityList.filter((item)=>{
+			if(item.id === value.id){
+				return item;
+			}
+		})
+		this.setState({
+			communitys:list[0].communitys
+		})
 
 		
 	}
 
 	render(){
 		let {handleSubmit} = this.props;
-		let _this = this;
-		let communityList = []
-		communityList = State.cityList.filter(function(item){
-			if(item.id == _this.cityId){
-				return item.communitys;
-			}
-		})
-		console.log('render====>',this.cityId,communityList)
+		let {communitys} = this.state;
 		return(
 			<div style={{padding:'30px 0 10px 0'}}>
 				<form  onSubmit={handleSubmit(this.onSubmit)}>
@@ -78,7 +89,8 @@ class ChangeCommunity  extends React.Component{
 						label="城市" 
 						name="cityId" 
 						component="select" 
-						right={20} 
+						right={15} 
+						left={30}
 						options={State.cityList} 
 						inline={false}
 						onChange={this.changeCity}
@@ -88,8 +100,9 @@ class ChangeCommunity  extends React.Component{
 						label="社区" 
 						name="communityId" 
 						component="select" 
-						left={20} 
-						options={communityList}  
+						left={15} 
+						right={40}
+						options={communitys}  
 						inline={false} 
 						onChange={this.ChangeCommunity}
 					/>

@@ -16,11 +16,15 @@ export default class EditorComponent extends React.Component {
 
 	constructor(props) {
 		super(props)
+		this.state={
+			changeValue:''
+		}
 
 	}
 
 	onChange = (value) =>{
 		const {onChange,input} = this.props;
+		
 		input.onChange(value);
 		onChange && onChange(value);
 	}

@@ -700,7 +700,11 @@ class Merchants extends Component{
        this.props.CommunityAgreementList.ajaxListData(searchParams);
 	   this.props.CommunityAgreementList.openSearchUpper=!this.props.CommunityAgreementList.openSearchUpper; 
 	}
-
+	onChange=()=>{
+		let {searchParams}=this.state;
+		searchParams.time = +new Date(); 
+		this.props.CommunityAgreementList.ajaxListData(searchParams);
+	}
 
 	render(){
 
@@ -809,7 +813,7 @@ class Merchants extends Component{
 
             <Table
 			    style={rowLineStyle}
-	            displayCheckbox={true}
+	            displayCheckbox={false}
 					  >
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
@@ -817,13 +821,13 @@ class Merchants extends Component{
 		              <TableHeaderColumn>合同类型</TableHeaderColumn>
 		              <TableHeaderColumn>起始时间</TableHeaderColumn>
 		              <TableHeaderColumn>结束时间</TableHeaderColumn>
-		              <TableHeaderColumn>工位数</TableHeaderColumn>
-		              <TableHeaderColumn>独立空间</TableHeaderColumn>
-		              <TableHeaderColumn>服务费</TableHeaderColumn>
+		              <TableHeaderColumn style={{width:88}}>工位数/独立空间</TableHeaderColumn>
+		              <TableHeaderColumn style={{width:70}}>服务费</TableHeaderColumn>
 		              <TableHeaderColumn>销售员</TableHeaderColumn>
 		              <TableHeaderColumn>录入人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
 					  <TableHeaderColumn>其他约定</TableHeaderColumn>
+					  <TableHeaderColumn>附件</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 
 		          	</TableHeader>
@@ -867,13 +871,13 @@ class Merchants extends Component{
 					                <TableRowColumn><span className="tableOver">{type}</span>{this.everyTd(type)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseBegindate}/></span>{this.everyTd(<KrDate value={item.leaseBegindate}/>)}</TableRowColumn>
 					                <TableRowColumn><span className="tableOver"><KrDate value={item.leaseEnddate}/></span>{this.everyTd(<KrDate value={item.leaseEnddate}/>)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.stationnum}</span>{this.everyTd(item.stationnum)}</TableRowColumn>
-					                <TableRowColumn><span className="tableOver">{item.boardroomnum}</span>{this.everyTd(item.boardroomnum)}</TableRowColumn>
+					                <TableRowColumn><span className="tableOver">{item.stationnum}/{item.boardroomnum}</span></TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.totalrent}</span>{this.everyTd(item.totalrent)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.saler}</span>{this.everyTd(item.saler)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.inputUser}</span>{this.everyTd(item.inputUser)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver"><KrDate value={item.createdate}/></span>{this.everyTd(<KrDate value={item.createdate}/>)}</TableRowColumn>
 									<TableRowColumn><span className="tableOver">{item.hasAgreement}</span>{this.everyTd(item.hasAgreement)}</TableRowColumn>
+									<TableRowColumn><span className="tableOver">{item.contractfile?'有':'无'}</span></TableRowColumn>
 					                <TableRowColumn>
 					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,item)}/>
 

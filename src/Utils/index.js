@@ -12,6 +12,7 @@ import Map from './Map';
 import  Mouse from './Mouse';
 import Baidu from './Baidu';
 import PublicFn from './PublicFn';
+import Money from './Money';
 
 module.exports = {
 	...ClassNames,
@@ -19,6 +20,7 @@ module.exports = {
 	ShallowEqual,
 	Http,
 	Debug,
+	Money,
 	Map,
 	ReactHtmlParser,
 	MobxForm,

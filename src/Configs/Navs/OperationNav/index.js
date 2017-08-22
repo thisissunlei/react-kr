@@ -5,15 +5,19 @@ module.exports = [
 		router: 'operation',
 		originUrl: '#/operation/customerManage/customerList',
 		menuItems: [
-			{
-				primaryText: "运营主页",
-				iconName: 'icon-user',
-				iconColor: '#79859a',
-				router: '',
-				menuItems: [
-					
-				]
-			},
+			// {
+			// 	primaryText: "运营主页",
+			// 	iconName: 'icon-user',
+			// 	iconColor: '#79859a',
+			// 	router: 'index',
+			// 	menuItems: [
+			// 		{
+			// 			primaryText: '运营主页',
+			// 			router: '/operation/index',
+			// 			menuCode: 'operation_home',
+			// 		},
+			// 	]
+			// },
 			{
 				primaryText: "客户管理",
 				iconName: 'icon-user',
@@ -138,7 +142,7 @@ module.exports = [
 						router: '/operation/communityAllocation/myaddress'
 					},
 					{
-						primaryText: '群组帖子',
+						primaryText: '社群管理',
 						menuCode: 'oper_cluster_base',
 						router: '/operation/communityAllocation/appmanage'
 					},

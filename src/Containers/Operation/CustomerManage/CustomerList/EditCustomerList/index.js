@@ -185,6 +185,11 @@ import {
 	corpNameChange = (value) =>{
 		State.corpNameCheck(value);
 	}
+	changePerson=(value)=>{
+		 	Store.dispatch(change('EditCustomerList','recommendName',value.lastname));
+		 	Store.dispatch(change('EditCustomerList','recommendTel',value.mobile));
+
+	    }
 
 	render(){
 
@@ -194,6 +199,7 @@ import {
 		let introduceName = "";
 		let introduceTel = '';
 		let isShow = false;
+		let {CommunityDetailModel} = this.props;
 		
 		dataReady.customerSourceList && dataReady.customerSourceList.map(function(item,index){
 
@@ -207,6 +213,7 @@ import {
 		if(!isShow){
 			sourceIdLabel = allData.sourceName;
 		}
+		
 
 		return (
 
@@ -224,7 +231,7 @@ import {
 											onChange={this.sourceCustomer}
 									/> :
 									<KrField grid={1/2} label="客户来源" name="sourceId" style={{width:262,marginLeft:15}} component="labelText" value={sourceIdLabel} inline={false}/>}
-									{State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
+									{State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendNames" style={{width:262,marginLeft:28}} component="searchPersonel" requireLabel={true} onChange={this.changePerson} placeholder={CommunityDetailModel.recommendName}/>}
 				   					{State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
 									<div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}>
 
