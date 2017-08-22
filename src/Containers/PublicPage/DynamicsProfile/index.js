@@ -10,9 +10,11 @@ import {
     Message
 } from 'kr-ui';
 import React, { PropTypes } from 'react';
+
 import { observer, inject } from 'mobx-react';
 import './index.less';
-import {Http} from 'kr/Utils';
+import {Http,delHtmlTag} from 'kr/Utils';
+
 import banner from './images/banner.png'
 @inject("NavModel")
 @observer
@@ -59,9 +61,7 @@ export default class DynamicsProfile extends React.Component {
 
         
     }
-    delHtmlTag = (str) =>{
-        return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
-    }
+   
     goDetail = (data) =>{
         let id=data.id;
 		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
@@ -79,7 +79,7 @@ export default class DynamicsProfile extends React.Component {
        var arr =  data.map((item,index)=>{
             if(item.photoUrl){
                 item.url = item.photoUrl;
-                item.content = this.delHtmlTag(item.content);
+                item.content = delHtmlTag(item.content);
             }
             return item;
         })
