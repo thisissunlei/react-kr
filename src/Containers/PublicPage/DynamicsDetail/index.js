@@ -9,9 +9,11 @@ import {
 } from 'kr-ui';
 import React, { PropTypes } from 'react';
 import { observer, inject } from 'mobx-react';
+
 import {
 	Http,
-	DateFormat
+	DateFormat,
+	ReactHtmlParser,
 } from "kr/Utils";
 import './index.less';
 
@@ -65,7 +67,7 @@ export default class DynamicsDetail extends React.Component {
                         {infoList.photoUrl && <li style={styles} className='g-dynamics-detail-img'></li>}
                     </div>
                     <div className='g-dynamics-detail-content'>
-						{this.state.infoList.photoUrl}
+						{ReactHtmlParser(this.state.infoList.content)}
 					</div>
                 </div>
 			</div>
