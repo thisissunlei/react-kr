@@ -124,7 +124,7 @@ var OAApi = {
   },
   //职务类型－下拉数据
   'post-type-info': {
-    url: '/api/krspace-erp-web/hrm/job-type/info/type/edit-data',
+    url: 'http://local.krspace.cn:8080/krspace-erp-web/hrm/job-type/info/type/edit-data',
     method: 'get'
   },
   //职务类型新增
