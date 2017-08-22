@@ -167,8 +167,6 @@ class NewCreateForm extends React.Component {
 
 	// station list
 	onStationCancel() {
-		console.log('===cancle===>2')
-
 		this.setState({
 			openStation: false
 		});
@@ -178,8 +176,9 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let allRent = 0;
 		let {initialValues} = this.props;
-		let oldStationsVos = this.state.stationVos;
-		let delStationVos = Object.assign([],oldStationsVos,this.state.delStationVos)
+		let oldStationsVos = this.state.oldBasicStationVos;
+		let delStationVos = this.state.oldBasicStationVos;
+		// let delStationVos = Object.assign([],oldStationsVos,this.state.delStationVos)
 		stationVos.map(item=>{
 			oldStationsVos.map((values,index)=>{
 				if(item.stationId == values.stationId){
@@ -187,6 +186,7 @@ class NewCreateForm extends React.Component {
 				}
 			})
 		})
+		delStationVos = delStationVos.concat(_this.state.delStationVos);
 
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
 		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
@@ -262,7 +262,6 @@ class NewCreateForm extends React.Component {
 		this.setAllRent(stationVos);
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
 		Store.dispatch(change('renewEditForm', 'delStationVos', delStationVos));
-		console.log('delete',oldBasicStationVos,stationVos,delStationVos)
 		let openAdd = stationVos.length>5?true:false;
 
 		this.setState({
@@ -271,6 +270,10 @@ class NewCreateForm extends React.Component {
 			openAdd,
 			oldBasicStationVos:stationVos,
 			allRent
+		},function(){
+			if(openAdd){
+				this.minusClick()
+			}
 		});
 
 
@@ -369,8 +372,6 @@ class NewCreateForm extends React.Component {
 
 		form.stationVos = JSON.stringify(oldBasicStationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
-		console.log('------->',form.delStationVos,'======',form.stationVos);
-		// return;
 
 		if(!!!form.agreement){
 			form.agreement = '无';

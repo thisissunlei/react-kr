@@ -18,6 +18,7 @@ import SearchListComponent from './SearchListComponent';
 import SearchLeaderComponent from './SearchLeaderComponent';
 import SearchIntendCommunity from './SearchIntendCommunity';
 import SearchSignCommunity from './SearchSignCommunity';
+import SearchSignCompanyNames from './SearchSignCompanyNames';
 import SearchBelongCityComponent from './SearchBelongCityComponent';
 import SearchCustomerSourceComponent from './SearchCustomerSourceComponent';
 import SearchSourceAddComponent from './SearchSourceAddComponent';
@@ -79,7 +80,7 @@ import OaTreeDivision from './OaTreeDivision'
 //高级查询客户来源
 import UpMerchantsSource from './UpMerchantsSource';
 import UpSignedClientSource from './UpSignedClientSource';
-
+import SearchProcessType from './SearchProcessType';
 
 
 
@@ -161,7 +162,6 @@ class FieldRevert extends React.Component {
 				lengthClass,
 				...other
 			} = this.props;
-
 
 			let WrapStyles = Object.assign({}, {
 				width: (grid * 100) + '%',
@@ -351,6 +351,12 @@ class FieldRevert extends React.Component {
 				<Field {...this.props} component={SearchSignCompanyName}  style={WrapStyles} {...other}/>
 			);
 		}
+		if (component === 'searchSignCompanyName') {
+			return (
+
+				<Field {...this.props} component={SearchSignCompanyNames}  style={WrapStyles} {...other}/>
+			);
+		}
 
 			if (component === 'searchOrder') {
 			 return (
@@ -471,6 +477,11 @@ class FieldRevert extends React.Component {
 			if (component === 'searchOaPersonal') {
 				return (
 					<FieldRevert {...this.props} component={SearchOaPersonal}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'SearchProcessType') {
+				return (
+					<FieldRevert {...this.props} component={SearchProcessType}  style={WrapStyles} {...other}/>
 				)
 			}
 			if (component === 'oaUploadImage') {
