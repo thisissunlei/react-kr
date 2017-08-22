@@ -86,6 +86,7 @@ export default class EquipmentSearch extends React.Component{
 			}
 			Http.request('getEquipmentCacheURL',urlParams).then(function(response) {
 				var oldItems = _this.state.equipmentCacheitems;
+				console.log("response.list",response);
 				if(response.list.length <50){
 					_this.setState({
 						isAll : true
@@ -169,7 +170,7 @@ export default class EquipmentSearch extends React.Component{
 				        			this.renderTableBody()
 				        		}
 			        		</div>
-			        		{isAll && !itemsZero&& <div>以上是全部数据</div>}
+			        		{isAll && !itemsZero&& <div style={{textAlign:'center',margin:"10px 0"}}>以上是全部数据</div>}
 			        		{loading && <Loading/>}
 			        		{itemsZero &&  <div style={{marginTop:100}}>
 				        						<img src={require("../images/nothings.png")} style={{display:"block",margin:"0 auto"}}/>

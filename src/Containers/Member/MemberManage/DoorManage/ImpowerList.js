@@ -149,8 +149,10 @@ export default class FinishUploadImgForm extends React.Component{
 	}
 
 	selectAll=(item,e)=>{
-
+		console.log("item",item);
+		console.log("e.target.checked",e.target.checked);
 		if(e.target.checked){
+
 			let newArrEmpty = [];
 			// 将每个IDpush进devices
 
@@ -201,7 +203,7 @@ export default class FinishUploadImgForm extends React.Component{
 				// 需要去除的
 				newArrEmpty.push({
 							deviceId:item.deviceList[i].id,
-							isIotDevice : item.deviceList[i].isIotDevice
+							isIotDevice : item.deviceList[i].iotDevice
 						});
 			}
 
@@ -209,20 +211,22 @@ export default class FinishUploadImgForm extends React.Component{
 			var EmptyArr = [];
 			for(var i =0;i<OriginArr.length;i++){
 				for(var j=0;j<newArrEmpty.length;j++){
+					console.log(OriginArr[i],)
 					if(ShallowEqual(OriginArr[i],newArrEmpty[j])){
 
-						EmptyArr.push(i);
+						OriginArr.splice(i,1);
 					}
 
 				}
 			}
+			console.log("OriginArr",OriginArr);
 
-			EmptyArr.sort(function(a,b){
-				return b-a
-			});
-			for(var p=0;p<EmptyArr.length;p++){
-				OriginArr.splice(EmptyArr[p],1);
-			}
+			// EmptyArr.sort(function(a,b){
+			// 	return b-a
+			// });
+			// for(var p=0;p<EmptyArr.length;p++){
+			// 	OriginArr.splice(EmptyArr[p],1);
+			// }
 			this.setState({
 				devices:OriginArr
 			})
