@@ -34,6 +34,7 @@ class AddDynamics extends React.Component{
         const {onSubmit} = this.props;
         const {isCite} = this.state;
         values = Object.assign({},values);
+        console.log(values,">>>>>>")
         if(isCite){
             values.desc = '';
         }else{
@@ -156,12 +157,12 @@ const validate = values =>{
     var reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
     if(!values.linkUrl){
         errors.linkUrl='链接地址为必填字段';
-    }else if(!reg.test(url)){
+    }else if(!reg.test(values.linkUrl)){
         errors.linkUrl='链接地址格式有误';
     }
     if(!values.title){
        errors.title='标题为必填项';
-    }else if(values.name.length>20){
+    }else if(values.title.length>20){
        errors.title='标题不能超过20个字符';
     }
     if(!values.articleType){
