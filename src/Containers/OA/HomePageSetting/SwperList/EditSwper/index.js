@@ -145,26 +145,24 @@ class EditSwper extends React.Component{
 const validate = values =>{
 	const errors = {};
 
+    var reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
+    
     if(!values.name){
        errors.name='请填写职级名称';
-    }else if(values.name.length>10){
-       errors.name='职级名称不能超过10个字符';
+    }else if(values.name.length>20){
+       errors.name='名称不能超过20个字符';
     }
 
-   if(!values.typeId){
-       errors.typeId='请选择职务类型';
+   if(!values.linkUrl){
+       errors.linkUrl='链接地址为必填字段';
+   }else if(!reg.test(values.linkUrl)){
+       errors.linkUrl='链接地址格式有误';
    }
 
-   if(!values.level){
-       errors.level='请填写等级';
-   }else if(isNaN(values.level)){
-       errors.level='等级必须是数字'
-   }else if(values.level>30){
-       errors.level='等级最大不超过30'
+   if(!values.photoUrl){
+       errors.photoUrl='请上传图片';
    }
-
-
-	return errors
+   return errors
 }
 
 export default reduxForm({ form: 'EditSwper',validate})(EditSwper);

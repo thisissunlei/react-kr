@@ -187,11 +187,16 @@ class EditDynamics extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-
+    var reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
+    if(!values.linkUrl){
+        errors.linkUrl='链接地址为必填字段';
+    }else if(!reg.test(url)){
+        errors.linkUrl='链接地址格式有误';
+    }
     if(!values.title){
        errors.title='标题为必填项';
-    }else if(values.name.length>10){
-       errors.title='职级名称不能超过10个字符';
+    }else if(values.name.length>20){
+       errors.title='标题不能超过20个字符';
     }
     if(!values.articleType){
         errors.articleType='文章类型为必填项';
@@ -203,8 +208,6 @@ const validate = values =>{
     if(!values.desc){
         errors.desc = '简介为必填项'
     }
-
-
 	return errors
 }
 

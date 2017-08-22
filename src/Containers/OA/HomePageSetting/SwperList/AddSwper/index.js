@@ -58,7 +58,7 @@ class AddSwper extends React.Component{
 				<div className="kk" style={{marginTop:30}}>
 					<KrField grid={1/2} label="名称" name="name" style={{width:262,marginLeft:15,marginTop:14}} component="input" requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="链接地址" name="linkUrl" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-                    <KrField grid={1/2} label="是否上线" name="enable" style={{width:262,marginLeft:15,marginRight:13,marginTop:14}} component="group">
+                    <KrField grid={1/2} label="是否上线" name="enable" style={{width:262,marginLeft:15,marginRight:13,marginTop:14}} component="group" requireLabel={true} >
                         <KrField name="enable" label="是" type="radio" value="1" style={{marginTop:5,display:'inline-block',width:84}}/>
                         <KrField name="enable" label="否" type="radio" value="0" style={{marginTop:5,display:'inline-block',width:53}}/>
                     </KrField>
@@ -75,6 +75,7 @@ class AddSwper extends React.Component{
                             label="上传图片"
                             inline={false}
                             requireLabel={true}
+
                         />
                     </div>
 
@@ -102,22 +103,22 @@ class AddSwper extends React.Component{
 const validate = values =>{
 	const errors = {};
 
+    var reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
+    
     if(!values.name){
-       errors.name='请填写职级名称';
-    }else if(values.name.length>10){
-       errors.name='职级名称不能超过10个字符';
+       errors.name='请填写名称';
+    }else if(values.name.length>20){
+       errors.name='名称不能超过20个字符';
     }
 
-   if(!values.typeId){
-       errors.typeId='请选择职务类型';
+   if(!values.linkUrl){
+       errors.linkUrl='链接地址为必填字段';
+   }else if(!reg.test(values.linkUrl)){
+       errors.linkUrl='链接地址格式有误';
    }
 
-   if(!values.level){
-       errors.level='请填写等级';
-   }else if(isNaN(values.level)){
-       errors.level='等级必须是数字'
-   }else if(values.level>30){
-       errors.level='等级最大不超过30'
+   if(!values.photoUrl){
+       errors.photoUrl='请上传图片';
    }
 
 
