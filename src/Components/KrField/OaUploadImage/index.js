@@ -72,10 +72,9 @@ export default class OaUploadImage extends Component {
 
     var _this=this;
 
-    console.log('bbbb',files);
     var form = new FormData();
 		form.append('userId', personId);
-		form.append('avatarFile',this.convertBase64UrlToBlob(param));
+		form.append('avatarFile',this.convertBase64UrlToBlob(param),files.name);
 		var xhrfile = new XMLHttpRequest();
 		xhrfile.onreadystatechange = function() {
 			if (xhrfile.readyState === 4) {
