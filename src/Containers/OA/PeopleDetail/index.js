@@ -56,16 +56,6 @@ export default class PeopleDetail  extends React.Component{
 		});
 	}
 
-	clamp=(data)=>{
-		let {personId}=this.state;
-    console.log('data',data,personId);
-		Http.request('people-basic-watch',{id:id}).then(function(response) {
-				console.log('ggggg',response);
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
-
 
 
 	render(){
@@ -78,7 +68,7 @@ export default class PeopleDetail  extends React.Component{
 			  <div className='detail-left'>
 				<div className='left-pic'>
 					 <UserImage
-					  clamp={this.clamp}
+					  personId={personId}
 					 />
 				</div>
 				<div className='left-text'>

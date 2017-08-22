@@ -34,9 +34,51 @@ export default class OaUploadImage extends Component {
 
 
 	clamp=(param)=>{
-		const {clamp}=this.props;
-		clamp && clamp(param);
-		this.dialogClick();
+		let {requestUrl,personId}=this.props;
+		//this.dialogClick();
+
+	 //获取文本大小
+		var str=param.substring(22);
+		var equalIndex= str.indexOf('=');
+		if(str.indexOf('=')>0)
+		{
+		  str=str.substring(0, equalIndex);
+		}
+		var strLength=str.length;
+		var fileLength=parseInt(strLength-(strLength/8)*2);
+		if(fileLength>(1048576*2)){
+			Message.error('大小不能超过1M');
+			return ;
+		}
+		//获取文本大小结束
+
+
+    var form = new FormData();
+		form.append('userId', personId);
+		form.append('avatarFile', param);
+		var xhrfile = new XMLHttpRequest();
+		xhrfile.onreadystatechange = function() {
+			if (xhrfile.readyState === 4) {
+				var fileResponse = xhrfile.response;
+				if (xhrfile.status === 200) {
+					if (fileResponse && fileResponse.code > 0) {
+						 console.log('respon',fileResponse);
+					} else {
+						Message.error(fileResponse && fileResponse.msg);
+						return;
+					}
+				} else if (xhrfile.status == 413) {
+					Message.error('您上传的文件过大！');
+				} else {
+					Message.error('后台报错请联系管理员！');
+				}
+			}
+		};
+		xhrfile.open('POST',requestUrl, true);
+		xhrfile.withCredentials = true;
+		xhrfile.responseType = 'json';
+		xhrfile.send(form);
+
 	}
 
 	dialogClick=()=>{

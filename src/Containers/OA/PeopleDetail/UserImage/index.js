@@ -27,7 +27,7 @@ class UserImageChange  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,personId}=this.props;
 
 		return(
 
@@ -38,7 +38,8 @@ class UserImageChange  extends React.Component{
                             name="area"
                             component="oaUploadImage"
                             requireLabel={false}
-														clamp={this.clamp}
+														personId={personId}
+														requestUrl='http://optest02.krspace.cn/api/krspace-erp-web/hrm/resource/upload-photo/type/avatar'
 						/>
          </form>
 			</div>
