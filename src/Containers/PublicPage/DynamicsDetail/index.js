@@ -9,6 +9,12 @@ import {
 } from 'kr-ui';
 import React, { PropTypes } from 'react';
 import { observer, inject } from 'mobx-react';
+
+import {
+	Http,
+	DateFormat,
+	ReactHtmlParser,
+} from "kr/Utils";
 import './index.less';
 
 @inject("NavModel")
@@ -21,20 +27,34 @@ export default class DynamicsDetail extends React.Component {
 		super(props, context);
 
 		this.state = {
-			searchParams:{
-				name:'ddsdfs'
-			},
-		
+			infoList:{},
+			searchParams:{},
 		}
 
 	}
 	componentDidMount(){
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
-
+		const id = this.props.params.id;
+		var _this = this;
+		Http.request('base-dynamics-detail', {
+                id: id,
+		},{}).then(function(response) {
+			console.log(response,"response");
+			_this.setState({infoList: response})
+		}).catch(function(err) {});
 	}
 	
 	render() {
+		let {infoList,searchParams} = this.state;
+		
+		if(infoList.photoUrl){
+			var styles={};
+			styles.backgroundImage = `url(${infoList.photoUrl})`;
+			styles.backgroundSize = 'cover';
+			styles.backgroundPosition = 'center center';
+			styles.backgroundRepeat = 'no-repeat';
+		}
 		
 		return (
 			<div title="demo">
@@ -42,11 +62,13 @@ export default class DynamicsDetail extends React.Component {
                     <div className='g-dynamics-detail-left'></div>
                     <div className='g-dynamics-detail-right'></div>
                     <div className='g-dynamics-detail-container'>
-                        <li className='g-dynamics-detail-title'>浅谈用户体验数据化</li>
-                        <li className='g-dynamics-detail-time'>2017/08/03</li>
-                        <li className='g-dynamics-detail-img'></li>
+                        <li className='g-dynamics-detail-title'>{infoList.title}</li>
+                        <li className='g-dynamics-detail-time'>{infoList.time}</li>
+                        {infoList.photoUrl && <li style={styles} className='g-dynamics-detail-img'></li>}
                     </div>
-                    <div className='g-dynamics-detail-content'></div>
+                    <div className='g-dynamics-detail-content'>
+						{ReactHtmlParser(this.state.infoList.content)}
+					</div>
                 </div>
 			</div>
 

@@ -616,7 +616,11 @@ var OAApi = {
       url:'/api/krspace-erp-web/sys/base/dynamic/list?page={page}&pageSize={pageSize}',
       method: 'get'
   },
-
+  //动态详情页面
+  'base-dynamics-detail':{
+      url:'/api/krspace-erp-web/sys/base/dynamic/detail?id={id}',
+      method: 'get'
+  },
 
 }
 
