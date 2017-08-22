@@ -156,6 +156,11 @@ module.exports = [
 						menuCode: 'oper_integration_base',
 						router: '/operation/communityAllocation/integration'
 					},
+					{
+						primaryText: '活动管理',
+						menuCode: 'oper_activity_base',
+						router: '/operation/communityAllocation/activity'
+					},
 				]
 			},
 			{
