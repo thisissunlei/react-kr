@@ -555,7 +555,7 @@ var OAApi = {
 
   //人员优化图片下方信息
   'new-pic-next':{
-      url:'http://local.krspace.cn:8080/krspace-erp-web/hrm/resource/info/type/person-card?userId={userId}',
+      url:'/api/krspace-erp-web/hrm/resource/info/type/person-card?userId={userId}',
       method: 'get'
   },
 }
