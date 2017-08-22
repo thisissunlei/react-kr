@@ -368,5 +368,18 @@ module.exports = {
         url: '/api/krspace-finance-web/finaVerify/data/get-payment-account',
         method: 'get'
     },
-
+    //同步中心创建基本数据
+    'get-tongbu-basic-data': {
+        url: 'http://st.krspace.cn/api/krspace-op-web/sync/sync-cmt-ctrl-create',
+        method: 'get'
+    },
+    'get-tongbu-basic-list': {
+        url: 'http://st.krspace.cn/api/krspace-op-web/sync/sync-cmt-ctrl-list?page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //同步中心创建提交
+    'get-tongbu-submit': {
+        url: 'http://st.krspace.cn/api/krspace-op-web/sync/sync-cmt-ctrl',
+        method: 'post'
+    },
 }
