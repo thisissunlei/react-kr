@@ -399,6 +399,7 @@ State.freshEquipmentReporterAction = action(function(){
 	var urlParams = {deviceId:State.deviceVO.deviceId}
 	Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
 		State.deviceVO.reported = response.reported;
+		Message.success("刷新成功");
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
