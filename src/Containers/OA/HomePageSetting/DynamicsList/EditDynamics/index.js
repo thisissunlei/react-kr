@@ -154,7 +154,7 @@ class EditDynamics extends React.Component{
                 <div style = {{marginTop:14}}>
                          <KrField component="editor" name="content" label = {editorLabel} defaultValue={content||''}/>
                 </div>
-				<Grid style={{marginTop:0,marginRight:40}}>
+				<Grid style={{marginTop:30,marginRight:40}}>
 
 					<Row>
 						<Col md={12} align="center">

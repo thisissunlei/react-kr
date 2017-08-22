@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Http} from 'kr/Utils';
+import {Http,delHtmlTag} from 'kr/Utils';
 import {Store} from 'kr/Redux';
 import {
   initialize
@@ -254,11 +254,14 @@ export default class DynamicsList extends Component{
 						></TableRowColumn>
 						<TableRowColumn name="content"
 							component={(value,oldValue)=>{
-								var maxWidth=10;
+								
+								var maxWidth=20;
+								value = delHtmlTag(value);
+								oldValue = delHtmlTag(oldValue);
 								if(value.length>maxWidth){
-									value = value.substring(0,10)+"...";
+									value = value.substring(0,20)+"...";
 								}
-								return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+								return (<div  className='tooltipParent'><div className='tableOver' ><span>{value}</span></div><Tooltip offsetTop={8} place='top' ><div style = {{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div></Tooltip></div>)
 							}}
 						></TableRowColumn>
 						<TableRowColumn name="articleType"></TableRowColumn>

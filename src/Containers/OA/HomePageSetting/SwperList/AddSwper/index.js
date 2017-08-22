@@ -79,7 +79,7 @@ class AddSwper extends React.Component{
                     </div>
 
 				</div>
-				<Grid style={{marginTop:0,marginRight:40}}>
+				<Grid style={{marginTop:15,marginRight:40}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
