@@ -58,7 +58,7 @@ class SearchUpperForm extends React.Component {
 
 	render() {
 
-	   let {handleSubmit}=this.props;
+	   let {handleSubmit,positionList}=this.props;
 	   let {dateBoxStyle,dateBoxDevelop}=this.state;
 
 
@@ -88,7 +88,7 @@ class SearchUpperForm extends React.Component {
 							grid={1/2}
 							style={{marginRight:29,width:262}}
 							name="jobId"
-							//leftData={positionList}
+							leftData={positionList}
 							component="switchSlide"
 							label="职务"
 							control='single'

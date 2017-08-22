@@ -83,7 +83,8 @@ export default class InService  extends React.Component{
       isEdit:false,
 
       //控制定位显示隐藏
-      isName:false
+      isName:false,
+      positionList:[]
 		}
 	}
 
@@ -374,6 +375,14 @@ export default class InService  extends React.Component{
 
   //高级查询
 	openSearchUpperDialog=()=>{
+
+    /*Http.request('get-position-list',{typeId:param.value}).then(function(response) {
+         _this.setState({
+             positionList:response,
+         })
+    }).catch(function(err) {
+       Message.error(err.message);
+    });*/
 	  this.setState({
       openSearchUpper:!this.state.openSearchUpper
     })
@@ -416,7 +425,7 @@ export default class InService  extends React.Component{
 
 
 	render(){
-		const {transferDetail,isName,searchParams,employees,isLeave,isRemove,istranfer,isCard,isOpen,isEdit} = this.state;
+		const {transferDetail,positionList,isName,searchParams,employees,isLeave,isRemove,istranfer,isCard,isOpen,isEdit} = this.state;
 
 
 		return(
@@ -504,7 +513,7 @@ export default class InService  extends React.Component{
            								 }}></TableRowColumn>
            								 <TableRowColumn style={{width:100}} name='name'></TableRowColumn>
            								 <TableRowColumn name='name'></TableRowColumn>
-           								 <TableRowColumn name='name'></TableRowColumn>
+           								 <TableRowColumn name='email'></TableRowColumn>
            								 <TableRowColumn name='name'></TableRowColumn>
            								 <TableRowColumn name='name'></TableRowColumn>
            								 <TableRowColumn name='name'></TableRowColumn>
@@ -624,6 +633,7 @@ export default class InService  extends React.Component{
             <SearchUpperForm
                 onCancel={this.openSearchUpperDialog}
                 onSubmit={this.onSearchUpperSubmit}
+                positionList={positionList}
             />
         </Dialog>
 
