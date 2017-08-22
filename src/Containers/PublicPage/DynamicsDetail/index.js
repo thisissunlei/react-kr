@@ -28,7 +28,7 @@ export default class DynamicsDetail extends React.Component {
 
 		this.state = {
 			infoList:{},
-		
+			searchParams:{},
 		}
 
 	}
@@ -46,7 +46,7 @@ export default class DynamicsDetail extends React.Component {
 	}
 	
 	render() {
-		let {infoList} = this.state;
+		let {infoList,searchParams} = this.state;
 		
 		if(infoList.photoUrl){
 			var styles={};
@@ -62,8 +62,8 @@ export default class DynamicsDetail extends React.Component {
                     <div className='g-dynamics-detail-left'></div>
                     <div className='g-dynamics-detail-right'></div>
                     <div className='g-dynamics-detail-container'>
-                        <li className='g-dynamics-detail-title'>浅谈用户体验数据化</li>
-                        <li className='g-dynamics-detail-time'>2017/08/03</li>
+                        <li className='g-dynamics-detail-title'>{infoList.title}</li>
+                        <li className='g-dynamics-detail-time'>{infoList.time}</li>
                         {infoList.photoUrl && <li style={styles} className='g-dynamics-detail-img'></li>}
                     </div>
                     <div className='g-dynamics-detail-content'>
