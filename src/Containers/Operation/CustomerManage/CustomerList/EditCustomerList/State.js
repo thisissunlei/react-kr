@@ -23,6 +23,7 @@ let State = observable({
 		treeAll:'',
 		isPermissions:false,
 		noEditIntroduce:false,
+		selecting:false
 
 
 });
