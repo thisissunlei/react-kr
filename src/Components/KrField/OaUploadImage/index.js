@@ -25,17 +25,34 @@ export default class OaUploadImage extends Component {
 		super(props,context);
 		this.state={
 			//图像弹窗
-			openImg:false
+			openImg:false,
+			url:''
 		}
 	}
-	componentWillUnmount() {
-
+	componentWillReceiveProps(nextProps){
+     if(nextProps.url!=this.props.url){
+			  this.setState({
+					 url:nextProps.url
+				})
+		 }
 	}
+
+  convertBase64UrlToBlob=(urlData)=>{
+
+    var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
+
+    //处理异常,将ascii码小于0的转换为大于0
+    var ab = new ArrayBuffer(bytes.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < bytes.length; i++) {
+        ia[i] = bytes.charCodeAt(i);
+    }
+    return new Blob( [ab] );
+}
 
 
 	clamp=(param)=>{
 		let {requestUrl,personId}=this.props;
-		//this.dialogClick();
 
 	 //获取文本大小
 		var str=param.substring(22);
@@ -53,16 +70,22 @@ export default class OaUploadImage extends Component {
 		//获取文本大小结束
 
 
+    var _this=this;
+
     var form = new FormData();
 		form.append('userId', personId);
-		form.append('avatarFile', param);
+		form.append('avatarFile',this.convertBase64UrlToBlob(param));
 		var xhrfile = new XMLHttpRequest();
 		xhrfile.onreadystatechange = function() {
 			if (xhrfile.readyState === 4) {
 				var fileResponse = xhrfile.response;
 				if (xhrfile.status === 200) {
 					if (fileResponse && fileResponse.code > 0) {
-						 console.log('respon',fileResponse);
+						  _this.setState({
+								url:param
+							})
+							_this.dialogClick();
+							Message.success('头像修改成功');
 					} else {
 						Message.error(fileResponse && fileResponse.msg);
 						return;
@@ -93,7 +116,8 @@ export default class OaUploadImage extends Component {
 
 	render() {
 		let {children,className,style,meta: { touched, error },type,label,inline,requireLabel,name,...other} = this.props;
-		let {operateImg} = this.state;
+		let {operateImg,url} = this.state;
+
 		return(
 			<div className = "ui-oa-upload-image">
 		 	<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
@@ -104,6 +128,7 @@ export default class OaUploadImage extends Component {
 						<div className='ui-uploadimg-inner' onClick={this.dialogClick}>
                <span>更换图像</span>
 						</div>
+						<img src={url} width='100%' height='100%' className='pic-watch'/>
 
 
 					</div>
@@ -123,7 +148,7 @@ export default class OaUploadImage extends Component {
 			  onCancel={this.onCancel}
 				clamp={this.clamp}
 				onChange={this.onChange}
-				imgSrc={this.state.imgSrc}
+				imgSrc={url}
 			 />
 		</Dialog>
 

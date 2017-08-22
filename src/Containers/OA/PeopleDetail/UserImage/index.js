@@ -20,14 +20,11 @@ class UserImageChange  extends React.Component{
 
 	}
 
-	clamp=(param)=>{
-		const {clamp}=this.props;
-    clamp && clamp(param);
-	}
+
 
 	render(){
 
-        let {handleSubmit,personId}=this.props;
+        let {handleSubmit,personId,url}=this.props;
 
 		return(
 
@@ -39,7 +36,8 @@ class UserImageChange  extends React.Component{
                             component="oaUploadImage"
                             requireLabel={false}
 														personId={personId}
-														requestUrl='http://optest02.krspace.cn/api/krspace-erp-web/hrm/resource/upload-photo/type/avatar'
+														url={url}
+														requestUrl='http://local.krspace.cn:8080/krspace-erp-web/hrm/resource/upload-photo/type/avatar'
 						/>
          </form>
 			</div>

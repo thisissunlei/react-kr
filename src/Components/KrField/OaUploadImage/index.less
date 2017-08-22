@@ -50,29 +50,38 @@
 				 height:120px;
 			}
 
+			.pic-watch{
+				position:absolute;
+				display:inline-block;
+				text-align: center;
+				cursor: pointer;
+        left:0px;
+			}
+
 			.ui-uploadimg-inner{
 				position:absolute;
 				width: 100%;
         height: 100%;
 				display:inline-block;
 				text-align: center;
+				z-index:10;
 				cursor: pointer;
-                left:0px;
-                // background: url()
-                transition: all .3s;
-                background: rgba(54,70,93,0);
-                span{
-                    position: relative;
-                    display: block;
-                    width: 100%;
-                    height: 40px;
-                    line-height: 45px;
-                    text-align: center;
-                    top: 50%;
-                    margin-top: -20px;
-                    opacity: 0;
-                    transition: all 0.3s;
-                }
+        left:0px;
+        // background: url()
+        transition: all .3s;
+        background: rgba(54,70,93,0);
+        span{
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 40px;
+            line-height: 45px;
+            text-align: center;
+            top: 50%;
+            margin-top: -20px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
 				input {
 					display: block;
                     opacity: 0;

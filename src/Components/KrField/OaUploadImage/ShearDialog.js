@@ -1,16 +1,16 @@
 import React from 'react';
 import Button from '../../Button';
 import ImageShear from '../../ImageShear';
-import imgData from './images/title.png';
+import Message from '../../Message';
 export default class ShearDialog  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
     this.state={
-      imgSrc:imgData
+      imgSrc:'',
+			file:{}
     }
 	}
-
 
  onChange=(event)=>{
 
@@ -21,6 +21,13 @@ export default class ShearDialog  extends React.Component{
          fileSize=file.size, //文件大小
          modifiedDate=file.lastModifiedDate, //上次修改时间
          html='';
+				 if(fileType!='image/png'&&fileType!='image/gif'&&fileType!='image/jpeg'){
+ 				    Message.error('只支持：JPG、PNG、GIF');
+						return ;
+				 }
+				 this.setState({
+					 file:file
+				 })
          this.getImageSize(file,function (imgWidth,imgHeight) {
              html='文件名称：'+fileName+'<br/>'
              +'文件类型：'+fileType+'<br/>'

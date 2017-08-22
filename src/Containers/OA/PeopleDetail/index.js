@@ -28,7 +28,7 @@ export default class PeopleDetail  extends React.Component{
 
   componentWillMount(){
 		let {personId}=this.state;
-	    this.basicData(personId);
+		this.leftData(personId);
 	}
 
 	componentDidMount(){
@@ -40,21 +40,22 @@ export default class PeopleDetail  extends React.Component{
 	}
 
 	chengLeft=(id)=>{
-     this.basicData(id);
+     this.leftData(id);
 	}
 
 
-	//获取基本信息
-	basicData=(id)=>{
-	  var _this=this;
-		Http.request('people-basic-watch',{id:id}).then(function(response) {
+	//获取图片下方信息
+	leftData=(personId)=>{
+		var _this=this;
+		Http.request('new-pic-next',{userId:personId}).then(function(response) {
 				_this.setState({
-					detail:response
+					 detail:response
 				})
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 	}
+
 
 
 
@@ -69,13 +70,14 @@ export default class PeopleDetail  extends React.Component{
 				<div className='left-pic'>
 					 <UserImage
 					  personId={personId}
+						url={detail.avatarUrl}
 					 />
 				</div>
 				<div className='left-text'>
 
 					<div className = "left-intro">
 						<div style={{fontSize:'16px',color:'#333',marginBottom:'3px',marginTop:'3px'}}>{detail.name}</div>
-						<div style={{width:'120px'}}><Dictionary type='ERP_ResourceStatus' value={detail.status} style={{display:'inline-block',marginRight:'5px'}}/>
+						<div style={{width:'120px'}}><span style={{display:'inline-block',marginRight:'5px'}}>{detail.statusStr}</span>
 						<span style={{display:'inline-block',marginRight:'5px'}}> | </span>
 						<span style={{display:'inline-block'}}>{detail.jobName}</span></div>
 						<div style={{color:'#333',fontSize:'12px',marginTop:"5px",width:'120px'}}>

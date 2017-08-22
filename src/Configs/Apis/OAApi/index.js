@@ -204,7 +204,7 @@ var OAApi = {
       url: '/api/krspace-erp-web/hrm/job/info/type/edit?id={id}',
       method: 'get'
   },
-  
+
   /*人员详情*/
   //基本信息显示
   'people-basic-watch': {
@@ -249,7 +249,7 @@ var OAApi = {
       url: '/api/krspace-erp-web/hrm/resource/info/type/family?id={id}',
       method: 'get'
   },
-  
+
   //个人信息里面的家庭新增
   'people-family-add': {
       url: '/api/krspace-erp-web/hrm/resource/add/type/family',
@@ -274,13 +274,13 @@ var OAApi = {
       url: '/api/krspace-erp-web/hrm/resource/list/type/work-record?resourceId={resourceId}',
       method: 'get'
   },
-  
+
   //个人信息里面的工作记录获取编辑
   'people-job-get': {
       url: '/api/krspace-erp-web/hrm/resource/info/type/work-record?id={id}',
       method: 'get'
   },
-  
+
   //个人信息里面的工作记录新增
   'people-job-add': {
       url: '/api/krspace-erp-web/hrm/resource/add/type/work-record',
@@ -431,7 +431,7 @@ var OAApi = {
       method: 'get'
   },
 
-  
+
 
 
   //流程--权限--列表
@@ -550,6 +550,12 @@ var OAApi = {
   //机构分权－新的人员树
   'role-new-tree':{
       url:'/api/krspace-erp-web/tree/org-auth-resource',
+      method: 'get'
+  },
+
+  //人员优化图片下方信息
+  'new-pic-next':{
+      url:'http://local.krspace.cn:8080/krspace-erp-web/hrm/resource/info/type/person-card?userId={userId}',
       method: 'get'
   },
 }
