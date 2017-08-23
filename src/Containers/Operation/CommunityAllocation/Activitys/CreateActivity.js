@@ -20,7 +20,7 @@ import {
 import './index.less';
 
 
-class CreateNotice extends React.Component {
+class CreateActivityList extends React.Component {
 
 
 	constructor(props, context) {
@@ -177,7 +177,7 @@ class CreateNotice extends React.Component {
 		return (
 			<div className="g-create-notice">
 				<div className="u-create-title">
-						<div className="title-text">新建公告</div>
+						<div className="title-text">新建活动</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
@@ -228,9 +228,7 @@ class CreateNotice extends React.Component {
 								/>
 
 
-						 <div  className="u-view" >
-						 	<Button  label="点击预览" type="submit" onClick={this.viewRichText}/>
-						 </div>
+						 
 							
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
@@ -280,7 +278,7 @@ const validate = values => {
 }
 
 export default reduxForm({
-		form: 'createNotice',
+		form: 'createActivityList',
 		 validate,
 		
-	})(CreateNotice);
+	})(CreateActivityList);

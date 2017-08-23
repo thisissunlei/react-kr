@@ -17,11 +17,11 @@ import {
 	KrDate,
 	Message
 } from 'kr-ui';
-import CreateNotice from './CreateNotice';
+import CreateActivity from './CreateActivity';
 import ViewNotice from './ViewNotice';
 import EditNotice from './EditNotice';
 import './index.less';
-export default class NoticeManage extends React.Component {
+export default class ActivityList extends React.Component {
 
 
 	constructor(props, context) {
@@ -254,7 +254,7 @@ export default class NoticeManage extends React.Component {
 	             openSecondary={true}
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
-	             	<CreateNotice 
+	             	<CreateActivity 
 	             			onCancel={this.openNewCreat} 
 	             			onSubmit={this.createSubmit} 
 	             			viewRichText={this.viewRichText}
