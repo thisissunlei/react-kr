@@ -136,10 +136,10 @@ export default class Home extends React.Component {
 			styles.backgroundPosition = 'center center';
 			styles.backgroundRepeat = 'no-repeat';
       return (
-			<div key={index} style={styles} className="swiper-slide">
+			<div key={index} style={styles} className="swiper-slide" onClick={this.toSlider.bind(this,item)}>
 				
 				<div className="swiper-text">
-					{item.name}
+					<span className="word-break">{item.name}</span>
 				</div>
 				
 		</div>
@@ -164,75 +164,81 @@ export default class Home extends React.Component {
         let id=data.id;
 		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
 	}
-	toDynamicsList=()=>{
+   toDynamicsList=()=>{
 		window.open(`./#/publicPage/dynamicsProfile`,'_blank');
-	}
+   }
+   toSlider=(item)=>{
+	   window.open(`${item.linkUrl}`,'_blank');
+   }
   render() {
     return (
       <div className="g-home">
         <div className="g-home-header">
             <div className="home-date">
-							<div className="date">
-								<div className="left-date">
-									{this.state.infoList.nowDate}
-								</div>
-								<div className="right-date">
-									{this.state.infoList.week}
-								</div>
-							</div>
+					<div className="date">
+						<div className="left-date">
+							{this.state.infoList.nowDate}
 						</div>
-            <div className="home-common">
-							<div className="left itemOne">
+						<div className="right-date">
+							{this.state.infoList.week}
+						</div>
+					</div>
+				</div>
+			{/*<div className="home-right-pic">
 
-							</div>
-							<div className="right">
-								<span className="top">
-										0
-								</span>
-								<span className="bottom">
-									待办事宜
-								</span>
-							</div>
-						</div>
+			</div>*/}
             <div className="home-common">
-							<div className="left itemTwo">
+				<div className="left itemOne">
 
-							</div>
-							<div className="right">
-								<span className="top">
-									0
-								</span>
-								<span className="bottom">
-									已办事宜
-								</span>
-							</div>
-						</div>
+				</div>
+				<div className="right">
+					<span className="top">
+							0
+					</span>
+					<span className="bottom">
+						待办事宜
+					</span>
+				</div>
+			</div>
             <div className="home-common">
-							<div className="left itemThird">
+				<div className="left itemTwo">
 
-							</div>
-							<div className="right">
-								<span className="top">
-									0
-								</span>
-								<span className="bottom">
-									我的请求
-								</span>
-							</div>
-						</div>
-						<a className="home-common" href='/#/office/officeBackground/newOffice'>
-							<div className="left itemFourth">
-								
-							</div>
-							<div className="right">
-								<span className="top">
-										0
-								</span>	
-								<span className="bottom">
-									发起流程
-								</span>
-							</div>
-						</a>
+				</div>
+				<div className="right">
+					<span className="top">
+						0
+					</span>
+					<span className="bottom">
+						已办事宜
+					</span>
+				</div>
+			</div>
+            <div className="home-common">
+				<div className="left itemThird">
+
+				</div>
+				<div className="right">
+					<span className="top">
+						0
+					</span>
+					<span className="bottom">
+						我的请求
+					</span>
+				</div>
+			</div>
+			<a className="home-common" href='/#/office/officeBackground/newOffice'>
+				<div className="left itemFourth">
+					
+				</div>
+				<div className="right">
+					<span className="top">
+							0
+					</span>	
+					<span className="bottom">
+						发起流程
+					</span>
+				</div>
+			</a>
         </div>
 				<div className="g-home-middle">
 						<div className="g-home-middle-item">
@@ -280,36 +286,36 @@ export default class Home extends React.Component {
 							</div>
 							
 							<div className="apply">
-								<div className="apply-item">
+								<a className="apply-item" href="https://baoxiao.corp.36kr.com/" target="_blank">
 									<div className="pic">
 
 									</div>
 									<div className="text">
 										云快报
 									</div>
-								</div>
+								</a>
+								<a className="apply-item" href="http://bbs.corp.36kr.com" target="_blank">
+									<div className="pic">
+
+									</div>
+									<div className="text">
+										氪星小镇
+									</div>
+								</a>
+								<a className="apply-item" href="http://krspace.cn" target="_blank">
+									<div className="pic">
+
+									</div>
+									<div className="text">
+										氪空间官网
+									</div>
+								</a>
 								<div className="apply-item">
 									<div className="pic">
 
 									</div>
 									<div className="text">
-										云快报
-									</div>
-								</div>
-								<div className="apply-item">
-									<div className="pic">
-
-									</div>
-									<div className="text">
-										云快报
-									</div>
-								</div>
-								<div className="apply-item">
-									<div className="pic">
-
-									</div>
-									<div className="text">
-										云快报
+										敬请期待
 									</div>
 								</div>
 							</div>
