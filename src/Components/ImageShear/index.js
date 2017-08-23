@@ -53,7 +53,9 @@ export default class ImageShear extends React.Component {
       this.img.onload = function(event){
 
         that.imgDataSet(0,0,that.img.width,that.img.height);
+        
         that.proportion = that.floort(that.img.height/that.img.width);
+        that.setImgInit();
         that.trget.addEventListener('mousedown',that.imgMousedown);
         that.trget.addEventListener('mouseup',that.imgMouseup);
         that.trget.addEventListener('mousemove',that.imgMouseMove);
@@ -67,6 +69,33 @@ export default class ImageShear extends React.Component {
         that.canRander();
       }
     }
+    setImgInit = () =>{
+      var imgData = Object.assign({},this.imgData);
+      var moveBox = this.moveBox.getBoundingClientRect();
+      var maxLeng = Math.max(imgData.w,imgData.h);
+      var w = 0,h = 0,movex = 0,movey = 0;
+      console.log(imgData.w >= imgData.h,">>>>>>")
+      if(imgData.w >= imgData.h){
+        w = moveBox.width;
+        h = w * this.proportion;
+        movey = this.floort((moveBox.height - h)/2);
+
+      }else{
+        h = moveBox.height;
+        w =  this.floort(h / this.proportion);
+        movex = this.floort((moveBox.width - w)/2);
+      }
+      this.imgData = {
+        x:imgData.x + movex,
+        y:imgData.y + movey,
+        w:w,
+        h:h
+      }
+      this.imgRender();
+      this.canImgSet();
+      this.canRander();
+    }
+
     componentDidMount(){
       const {url,width,height,shearHeight, shearWidth} = this.props;
       this.canvasImgRender(url,width,height,shearHeight,shearWidth);
