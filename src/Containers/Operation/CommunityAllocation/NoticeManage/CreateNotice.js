@@ -26,100 +26,75 @@ class CreateNotice extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			groupList:[],
 			ifCity:false,
-			requestURI :'/api/krspace-finance-web/activity/upload-pic',
-			groupType:[],
+			groupType:[
+				
+			],
+			richTextValue:'',
+			cmtName:'',
+			title:'',
+			type:'',
+			publishTime:'',
+			flag:0
 		}
 		this.getType();
 	}
 	
-	componentDidMount() {
-        
+	componentWillReceiveProps(nextProps) {
+        this.setState({
+        	flag:nextProps.flag
+        })
     }
-
+	
    	getType=()=>{
    		var _this=this;
-		Http.request('get-findRight').then(function(response) {
+		Http.request('get-findCmtRight').then(function(response) {
 			if(response.hasRight==1){
 				_this.setState({
 					groupType:[
-						{label:'全国群组',value:'COUNTRYWIDE'},
-						{label:'社区群组',value:'COMMUNITY'}
+						{label:'全国公告',value:"1"},
+						{label:'社区公告',value:"0"}
 					]
 				})
 			}else if(response.hasRight==0){
 				_this.setState({
 					groupType:[
-						{label:'社区群组',value:'COMMUNITY'}
+						{label:'社区公告',value:"0"}
 					]
 				})
 			}
 			
 		}).catch(function(err) {
 			Message.error(err.message);
-		});	
+		});	                                                                                                                      
 
    	}
 	selectType=(item)=>{
-		Store.dispatch(change('createNotice', 'clusterId', ''));
-		Store.dispatch(change('createNotice', 'cmtName', ''));
-		if(item.value=="COMMUNITY"){
+		Store.dispatch(change('createNotice', 'cmtId', ''));
+		if(item.value=="0"){
 			this.setState({
 				ifCity:true
-			})
+			})                                                                                                   
 		}else{
 			this.setState({
 				ifCity:false
 			})
-			this.getGrouo();
+			
 		}
+		this.setState({
+			type:item.value
+		})
 	}
-	getGrouo=()=>{
-		var _this=this;
-		Http.request('country-cluster-list').then(function(response) {
-			response.clusterList.map((item)=>{
-				item.label=item.clusterName;
-				item.value=item.id;
-				return item;
-			})
-			_this.setState({
-				groupList:response.clusterList
-			})
-			
-			
-		}).catch(function(err) {
-			Message.error(err.message);
-		});	
-	}
-
-	selectGroup=(item)=>{
-		var _this=this;
-		Http.request('topic-cluster-list',{cmtId:item.id}).then(function(response) {
-			response.clusterList.map((item)=>{
-				item.label=item.clusterName;
-				item.value=item.id;
-				return item;
-			})
-			_this.setState({
-				groupList:response.clusterList
-			})
-			
-			
-		}).catch(function(err) {
-			Message.error(err.message);
-		});	
-	}
-
+	
+	
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
-		var params={
-			clusterId:form.clusterId,
-			content:form.content,
-			imgUrl:form.imgUrl  || ''
+		
+		if(this.state.flag==1){
+			return
 		}
-		Http.request('create-cmt-topic',{},params).then(function(response) {
+		Http.request('create-notice',{},form).then(function(response) {
 			Message.success('新建成功')
 			onSubmit && onSubmit();
 		}).catch(function(err) {
@@ -131,7 +106,59 @@ class CreateNotice extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+
+	viewChange=(item)=>{
+		this.setState({
+			richTextValue:item
+		})
+	}
+	viewRichText=()=>{
+		let {richTextValue,ifCity,cmtName,title,type,publishTime}=this.state;
+		let {viewRichText} = this.props;
+		let  typetxt=type==1?'全国公告':'社区公告';
+		let  time=new Date(publishTime);
+		let  year=time.getFullYear();
+		let  Month=time.getMonth()+1;
+		let  date=time.getDate();
+		let form={
+			  richTextValue:richTextValue,
+			  title,
+			  typetxt,
+			  time:`${year}年${Month}月${date}日`,
+			  type
+			}
+		if(ifCity){
+			form.cmtName=cmtName;
+		}
+		if(form.richTextValue &&form.title &&form.typetxt && form.time){
+			this.setState({
+				flag:1
+			})
+			viewRichText && viewRichText(form)
+			return
+		}
+		
+		
+		
+		
+	}
 	
+	selectCommunity=(item)=>{
+		this.setState({
+			cmtName:item.label
+		})
+	}
+	changeTitle=(item)=>{
+		this.setState({
+			title:item
+		})
+	}
+	selectTime=(item)=>{
+		let time=Date.parse(item)
+		this.setState({
+			publishTime:time
+		})
+	}
 	
 	render() {
 			const {
@@ -141,7 +168,7 @@ class CreateNotice extends React.Component {
 				reset
 			} = this.props;
 			let {
-				groupList,
+				
 				ifCity,
 				groupType,
 			}=this.state;
@@ -153,58 +180,63 @@ class CreateNotice extends React.Component {
 						<div className="title-text">新建公告</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
-				<form onSubmit={handleSubmit(this.onSubmit)} >
+				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
+							<KrField
+								style={{width:548}}
+								name="title"
+								type="text"
+								component="input"
+								label="公告标题"
+								requireLabel={true}
+								onChange={this.changeTitle}
+						 	/>
 							<KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								component="select"
-								name="groupType"
+								name="type"
 								options={groupType}
-								label="群组类型"
+								label="公告类型"
 								requireLabel={true}
 								onChange={this.selectType}
 						 	/>
 						 	{ifCity?<KrField  
 					 			style={{width:262}} 
-					 			name="cmtName"
+					 			name="cmtId"
 					 			component='searchCommunityAll'  
 					 			label="所属社区" 
 					 			inline={false}  
 					 			placeholder='请输入社区名称' 
 						 		requireLabel={true}
-						 		onChange={this.selectGroup}
+						 		onChange={this.selectCommunity}
 						 	/>:''}
 						 	<KrField
-								style={{width:260,margintop:20}}
-								component="select"
-								name="clusterId"
-								options={groupList}
-								label="所属群组"
+								style={{width:260,marginRight:25,margintop:20}}
+								name="publishTime"
+								component="date"
+								label="发布时间"
 								requireLabel={true}
-								
+								onChange={this.selectTime}
 						 	/>
-						 	<KrField
-								style={{width:548}}
-								name="content"
-								component="textarea"
-								label="公告内容"
-								maxSize={500}
+						 	<KrField 
+								component="editor" 
+								name="richText" 
+								label="公告内容" 
+								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
-							/>
-							<KrField 
-								name="imgUrl"
-								label="公告图片"
-								component="uploadImg"
-								innerBoxStyle={{width:200,height:160}}
-								imagesStyle={{width:160}}
-                    			innerStyle={{left:0,top:60}}
-								requestURI = {this.state.requestURI}
-								inline={false}
+								defaultValue=''
+								onChange={this.viewChange}
 								/>
+
+
+						 <div  className="u-view" >
+						 	<Button  label="点击预览" type="submit" onClick={this.viewRichText}/>
+						 </div>
+							
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit"  />
+								<Button  label="确定" type="submit" />
 								<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
 							</ButtonGroup>
 						  </Col>
@@ -220,20 +252,26 @@ const validate = values => {
 
 		const errors = {};
 
-
-		if (!values.groupType) {
-			errors.groupType = '请选择群组类型';
+		if (!values.title) {
+			errors.title = '请填写公告标题';
+		}
+		if (values.title && values.title.length>50) {
+			errors.title = '公告标题不能超过50个字符';
 		}
 
-		if (!values.cmtName) {
-			errors.cmtName = '请选择所属社区';
+		if (!values.type) {
+			errors.type = '请选择公告类型';
 		}
 
-		if (!values.clusterId) {
-			errors.clusterId = '请选择所属群组';
+		if (!values.cmtId) {
+			errors.cmtId = '请选择所属社区';
 		}
-		if (!values.content) {
-			errors.content = '请输入帖子内容';
+		if (!values.publishTime) {
+			errors.publishTime = '请输入发布时间';
+		}
+		
+		if (!values.richText) {
+			errors.richText = '请输入公告内容';
 		}
 		
 		

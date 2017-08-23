@@ -60,7 +60,13 @@ export default class EquipmentDefinition extends React.Component {
         page : 1,
         pageSize: 15
       },
-      onlineOfflineParams:{}
+      onlineOfflineParams:{},
+      //是否打开重置确认窗口
+      tipReset: false,
+      operateHardwareId:'',
+      tipEdit : false,
+      tipDelete: false,
+      operateId :''
     }
   }
   componentDidMount(){
@@ -324,7 +330,7 @@ export default class EquipmentDefinition extends React.Component {
               pageSize: 15,
               timer : new Date(),
               //上线成功后要将原来的查询条件带上
-              communityId: _this.state.equipmentParams.communityId,
+              communityId: _this.state.equipmentParams.communityId || '',
               deviceCode :_this.state.equipmentParams.deviceCode || '',
               hardwareId :_this.state.equipmentParams.hardwareId || '',
               floor :_this.state.equipmentParams.floor||'',
@@ -400,6 +406,121 @@ export default class EquipmentDefinition extends React.Component {
       }
     })
   }
+
+  onResetSomething=(itemData)=>{
+    this.setState({
+      operateHardwareId :itemData.hardwareId
+    })
+    this.tipResetDialog();
+  }
+
+  //重置
+  tipResetDialog=()=>{
+    //console.log("itemData",itemData,itemData.hardwareId);
+    this.setState({
+      tipReset : !this.state.tipReset
+    })
+  }
+
+  //确认重置
+  confirmReset=()=>{
+    this.tipResetDialog();
+    var params = {
+      hardwareId: this.state.operateHardwareId
+    }
+    let _this = this;
+    Http.request('resetEquipmentInfo', {},params).then(function(response) {
+    
+      Message.success('重置成功');
+      _this.setState({
+        equipmentParams:{
+          page : _this.state.realPage,
+          pageSize: 15,
+          timer : new Date(),
+          //上线成功后要将原来的查询条件带上
+          communityId: _this.state.equipmentParams.communityId || '',
+          deviceCode :_this.state.equipmentParams.deviceCode || '',
+          hardwareId :_this.state.equipmentParams.hardwareId || '',
+          floor :_this.state.equipmentParams.floor||'',
+          functionId :_this.state.equipmentParams.functionId||'',
+          propertyId :_this.state.equipmentParams.propertyId||'',
+          typeId :_this.state.equipmentParams.typeId||''
+        }
+      })
+
+    }).catch(function(err) {
+      Message.error(err.message);
+    });
+  }
+
+//点击编辑按钮
+  openEditTipDialog=(itemData)=>{
+    
+    this.tipEditDialog();
+    this.setState({
+      itemDetail:itemData
+    })
+  }
+  //确认编辑
+  confirmEdit=()=>{
+    this.tipEditDialog();
+    this.openEditEquipmentDialog(this.state.itemDetail);
+  }
+
+  //编辑
+  tipEditDialog=()=>{
+    //console.log("itemData",itemData,itemData.hardwareId);
+    this.setState({
+      tipEdit : !this.state.tipEdit
+    })
+  }
+  //删除
+  onDeleteList=(itemData)=>{
+    this.setState({
+      operateId : itemData.id
+    })
+    this.tipDeleteDialog();
+  }
+
+  //删除
+  tipDeleteDialog=()=>{
+    this.setState({
+      tipDelete : !this.state.tipDelete
+    })
+  }
+
+  confirmDelete=()=>{
+    this.tipDeleteDialog();
+    var params = {
+      id: this.state.operateId
+    }
+    let _this = this;
+    Http.request('deleteEquipmentInfo', {},params).then(function(response) {
+    
+      Message.success('删除成功');
+      _this.setState({
+        equipmentParams:{
+          page : _this.state.realPage,
+          pageSize: 15,
+          timer : new Date(),
+          //上线成功后要将原来的查询条件带上
+          communityId: _this.state.equipmentParams.communityId || '',
+          deviceCode :_this.state.equipmentParams.deviceCode || '',
+          hardwareId :_this.state.equipmentParams.hardwareId || '',
+          floor :_this.state.equipmentParams.floor||'',
+          functionId :_this.state.equipmentParams.functionId||'',
+          propertyId :_this.state.equipmentParams.propertyId||'',
+          typeId :_this.state.equipmentParams.typeId||''
+        }
+      })
+
+    }).catch(function(err) {
+      Message.error(err.message);
+    });
+  }
+
+
+
   // 最终确定确定上线
   confirmOnline=()=>{
     let _this = this;
@@ -417,7 +538,7 @@ export default class EquipmentDefinition extends React.Component {
             pageSize: 15,
             timer : new Date(),
             //上线成功后要将原来的查询条件带上
-            communityId: _this.state.equipmentParams.communityId,
+            communityId: _this.state.equipmentParams.communityId || '',
             deviceCode :_this.state.equipmentParams.deviceCode || '',
             hardwareId :_this.state.equipmentParams.hardwareId || '',
             floor :_this.state.equipmentParams.floor||'',
@@ -581,7 +702,7 @@ export default class EquipmentDefinition extends React.Component {
               <TableHeaderColumn>类型</TableHeaderColumn>
               <TableHeaderColumn>厂商</TableHeaderColumn>
               <TableHeaderColumn>属性</TableHeaderColumn>
-              <TableHeaderColumn>对应功能</TableHeaderColumn>
+              {/*<TableHeaderColumn>对应功能</TableHeaderColumn>*/}
               <TableHeaderColumn>是否上线</TableHeaderColumn>
               <TableHeaderColumn>连接状态</TableHeaderColumn>
               <TableHeaderColumn>操作</TableHeaderColumn>
@@ -599,7 +720,7 @@ export default class EquipmentDefinition extends React.Component {
 
 
 
-              <TableRowColumn style={{width:160,overflow:"visible"}} name="showTitle" component={(value,oldValue)=>{
+              <TableRowColumn style={{width:100,overflow:"visible"}} name="showTitle" component={(value,oldValue)=>{
                             var TooltipStyle=""
                             if(value.length==""){
                               TooltipStyle="none"
@@ -611,9 +732,6 @@ export default class EquipmentDefinition extends React.Component {
                               <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
               }} ></TableRowColumn>
 
-
-
-
               <TableRowColumn name="deviceCode" style={{overflow:"hidden"}}
               component={(value,oldValue)=>{
                 if(value==""){
@@ -623,32 +741,13 @@ export default class EquipmentDefinition extends React.Component {
               ></TableRowColumn>
 
 
-
-
-
-              {/*<TableRowColumn style={{width:160,overflow:"visible"}} name="hardwareId" component={(value,oldValue)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                              TooltipStyle="none"
-
-                            }else{
-                              TooltipStyle="block";
-                            }
-                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-              }} ></TableRowColumn>*/}
-
-
-              <TableRowColumn name="hardwareId" style={{width:310}}
+              <TableRowColumn name="hardwareId" style={{width:300}}
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-
-
-
 
 
               <TableRowColumn name="typeName"
@@ -672,13 +771,13 @@ export default class EquipmentDefinition extends React.Component {
                 }
                 return (<span>{value}</span>)}}
               ></TableRowColumn>
-              <TableRowColumn name="functionName"
+              {/*<TableRowColumn name="functionName"
               component={(value,oldValue)=>{
                 if(value==""){
                   value="-"
                 }
                 return (<span>{value}</span>)}}
-              ></TableRowColumn>
+              ></TableRowColumn>*/}
               <TableRowColumn name="enable"
               component={(value,oldValue)=>{
                 var spanColorOnline="";
@@ -699,28 +798,23 @@ export default class EquipmentDefinition extends React.Component {
                   value="已连接";
                 }
                 return (<span style={{color:spanColor}}>{value}</span>)}}></TableRowColumn>
-              <TableRowColumn type="operation" name="enable" options={[{label:'已上线',value:'ONLINE'},{label:'未上线',value:'OFFLINE'}]}
+              <TableRowColumn type="operation" style={{width:200}} name="enable" 
 
               component={(value,oldValue,itemData)=>{
-                  if(value=="未上线"){
-                    return (
-                      <span>
-                      <Button label="上线"  type="operation" operation="online" onClick={this.onlineOrOffline.bind(this,itemData)}/>
+                  
+                return (
+                  <span>
+                    <Button label="上线"  type="operation" operation="online" onClick={this.onlineOrOffline.bind(this,itemData)}/>
+                    <Button label="下线"  type="operation" operation="offline" onClick={this.offlineOrOnline.bind(this,itemData)}/>
+                    <Button label="重置"  type="operation" operation="resetlist" onClick={this.onResetSomething.bind(this,itemData)}/>
 
-                        <Button label="编辑"  type="operation" operation="edit" onClick={this.openEditEquipmentDialog.bind(this,itemData)} operateCode="SysDeviceDefinition"/>
+                    <Button label="删除"  type="operation" operation="deletelist" onClick={this.onDeleteList.bind(this,itemData)}/>
 
-                      <Button label="上传图片"  type="operation" operation="singleUpload" onClick={this.openSingleUploadDialog.bind(this,itemData)}/>
-                      </span>
-                    )
-                  }
-                  if(value=="已上线"){
-                    return (
-                      <span>
-                      <Button label="下线"  type="operation" operation="offline" onClick={this.offlineOrOnline.bind(this,itemData)}/>
-                      <Button label="上传图片"  type="operation" operation="singleUpload" onClick={this.openSingleUploadDialog.bind(this,itemData)}/>
-                      </span>
-                    )
-                  }
+                    <Button label="编辑"  type="operation" operation="edit" onClick={this.openEditTipDialog.bind(this,itemData)} operateCode="SysDeviceDefinition"/>
+                    <Button label="上传图片"  type="operation" operation="singleUpload" onClick={this.openSingleUploadDialog.bind(this,itemData)}/>
+                  </span>
+                )
+                  
               }}>
               </TableRowColumn>
              </TableRow>
@@ -859,6 +953,72 @@ export default class EquipmentDefinition extends React.Component {
             onCancel = {this.openSingleUploadDialog}
             openSingleUploadDialog ={this.openSingleUploadDialog}
           />
+        </Dialog>
+         <Dialog
+          title="重置提示"
+          open={this.state.tipReset}
+          onClose={this.tipResetDialog}
+          contentStyle={{width:443,height:236}}
+        >
+          <div style={{marginTop:45}}>
+            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>重置可能导致设备暂时掉线，确认重置？</p>
+            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+                  <Row>
+                    <ListGroup>
+                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+                        <Button  label="确定" type="submit" onClick={this.confirmReset} />
+                      </ListGroupItem>
+                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.tipResetDialog} />
+                      </ListGroupItem>
+                    </ListGroup>
+                  </Row>
+                </Grid>
+          </div>
+        </Dialog>
+        <Dialog
+          title="编辑提示"
+          open={this.state.tipEdit}
+          onClose={this.tipEditDialog}
+          contentStyle={{width:443,height:236}}
+        >
+          <div style={{marginTop:45}}>
+            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>编辑会清空缓存数据，断网时无法开门，确认编辑？</p>
+            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+                  <Row>
+                    <ListGroup>
+                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+                        <Button  label="确定" type="submit" onClick={this.confirmEdit} />
+                      </ListGroupItem>
+                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.tipEditDialog} />
+                      </ListGroupItem>
+                    </ListGroup>
+                  </Row>
+                </Grid>
+          </div>
+        </Dialog>
+        <Dialog
+          title="删除提示"
+          open={this.state.tipDelete}
+          onClose={this.tipDeleteDialog}
+          contentStyle={{width:443,height:236}}
+        >
+          <div style={{marginTop:45}}>
+            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>删除会清除该设备权限及相关数据，确认删除？</p>
+            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+                  <Row>
+                    <ListGroup>
+                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+                        <Button  label="确定" type="submit" onClick={this.confirmDelete} />
+                      </ListGroupItem>
+                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.tipDeleteDialog} />
+                      </ListGroupItem>
+                    </ListGroup>
+                  </Row>
+                </Grid>
+          </div>
         </Dialog>
       </div>
     );
