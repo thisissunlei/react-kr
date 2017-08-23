@@ -107,8 +107,8 @@ const validate = values=>{
 	}
 	if(!values.version || /^\s+$/.test(values.version)){
 		errors.version = '版本信息为必填项';
-	}else if(!numberNotZero.test(values.version)){
-		errors.version = '版本信息必须为正整数';
+	}else if(values.version.length>20){
+		errors.version = '版本信息最多20个字符';
 	}
 	
 	if(!values.versionCode || /^\s+$/.test(values.versionCode)){

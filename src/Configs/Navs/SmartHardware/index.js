@@ -17,17 +17,17 @@ module.exports = [
 							router: '/smarthardware/doorManage/equipmentmanage',
 						},{
 							primaryText: '开门记录',
-							menuCode: 'main_news',
+							menuCode: 'iot_door_open_log',
 							router: '/smarthardware/doorManage/openlog',
 						},
 						{
 							primaryText: '故障报警',
-							menuCode: 'krspace_cmt',
+							menuCode: 'iot_device_alarm',
 							router: '/smarthardware/doorManage/warning',
 						},
 						{
 							primaryText: '升级包管理',
-							menuCode: 'krspace_cmt',
+							menuCode: 'iot_upgrade_package',
 							router: '/smarthardware/doorManage/upgrademanage',
 						}
 					]

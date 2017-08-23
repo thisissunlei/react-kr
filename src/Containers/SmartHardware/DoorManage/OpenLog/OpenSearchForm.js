@@ -61,6 +61,7 @@ class OpenLogForm extends React.Component{
 			deviceId: values.deviceId || '',
 			memberName:  values.memberName || '',
 			phone :  values.phone || '',
+			date : new Date()
 		}
 	}
 
