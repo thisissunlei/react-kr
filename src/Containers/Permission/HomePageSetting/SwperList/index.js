@@ -205,6 +205,7 @@ export default class SwperList extends Component{
 					<Button
 						label="新建"
 						type='button'
+						operateCode="sys_slider_add"
 						onTouchTap={this.switchOpenAdd}
 					/>
 				</Col>
@@ -269,8 +270,8 @@ export default class SwperList extends Component{
 						></TableRowColumn>
 						<TableRowColumn name="orderNum"></TableRowColumn>
 						<TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_role_edit"/>
-			                <Button label="删除"  type="operation"  operation="delete" />
+                            <Button label="编辑" operateCode="sys_slider_edit"  type="operation"  operation="edit" operateCode="hrm_role_edit"/>
+			                <Button label="删除" operateCode="sys_slider_delete" type="operation"  operation="delete" />
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>

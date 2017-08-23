@@ -149,12 +149,12 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '轮播图列表',
-						menuCode: 'hrm_dim_list',
+						menuCode: 'sys_dynamic_list',
 						router: '/permission/homePageSetting/swperList',
 					},
 					{
 						primaryText: '最新动态列表',
-						menuCode: 'hrm_dim_list',
+						menuCode: 'sys_slider_list',
 						router: '/permission/homePageSetting/dynamicsList',
 					},
 					

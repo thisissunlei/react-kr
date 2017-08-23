@@ -204,6 +204,7 @@ export default class DynamicsList extends Component{
 						label="新建"
 						type='button'
 						onTouchTap={this.switchOpenAdd}
+						operateCode="sys_dynamic_add"
 					/>
 				</Col>
 				<Col style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -271,8 +272,8 @@ export default class DynamicsList extends Component{
 						></TableRowColumn>
 
 						<TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_role_edit"/>
-			                <Button label="删除"  type="operation"  operation="delete" />
+                            <Button label="编辑"  type="operation" operateCode="sys_dynamic_edit" operation="edit" operateCode="hrm_role_edit"/>
+			                <Button label="删除"  type="operation" operateCode="sys_dynamic_delete" operation="delete" />
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>
