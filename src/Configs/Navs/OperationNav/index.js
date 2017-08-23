@@ -161,6 +161,12 @@ module.exports = [
 						menuCode: 'oper_activity_base',
 						router: '/operation/communityAllocation/activity'
 					},
+					{
+						primaryText: '广告管理',
+						menuCode: 'oper_advert_base',
+						router: '/operation/communityAllocation/advert'
+					},
+					
 				]
 			},
 			{

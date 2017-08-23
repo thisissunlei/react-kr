@@ -21,7 +21,7 @@ import {
 import './index.less';
 
 
-export default class ActivityManage extends React.Component{
+export default class AdvertManage extends React.Component{
 
 	constructor(props, context) {
 		super(props, context);
