@@ -156,10 +156,10 @@ class EditDynamics extends React.Component{
 
 				</div>
                 {isCite && <div style = {{marginTop:14}}>
-                         <KrField component="editor" equireLabel={true} name="content" label = "内容" defaultValue={content||''}/>
+                         <KrField component="editor" requireLabel={true} name="content" label = "内容" defaultValue={content||''}/>
                 </div>}
                 {!isCite && <div style = {{marginTop:14}}>
-                        <KrField component="textarea" equireLabel={true} name="desc" onChange = {this.editorChange} label="简介" />
+                        <KrField component="textarea" requireLabel={true} name="desc" onChange = {this.editorChange} label="简介" />
                 </div>}
 				<Grid style={{marginTop:30,marginRight:40}}>
 
