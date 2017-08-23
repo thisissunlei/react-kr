@@ -31,6 +31,12 @@
                 }
             }
         }
+        .home-right-pic{
+            display: flex;
+            flex: 4.3125;
+            height: 90px;
+            background: #fff;
+        }
         .home-common{
             display: flex;
             flex: 1.3125;
@@ -158,13 +164,18 @@
                     display: flex;
                     padding: 20px 0;
                     justify-content: space-around;
+                    a{
+                        display: inline-block;
+                        cursor: pointer;
+                    }
                     .apply-item{
-                        width:75px;
+                        width:80px;
                         height: 100px;
                         position: relative;
                         div{
                             display: inline-block;
                         }
+                        
                         &:nth-child(1){
                                 .pic{
                                     background: url('./images/cloud.png') no-repeat center center;
@@ -177,7 +188,7 @@
                         }
                         &:nth-child(3){
                                 .pic{
-                                    background: url('./images/more-apply.png') no-repeat center center;
+                                    background: url('./images/main.png') no-repeat center center;
                                 }
                         }
                         &:nth-child(4){
@@ -187,11 +198,13 @@
                         }
                         .pic{
                             position: absolute;
-                            width: 75px;
-                            height: 75px;
+                            width: 80px;
+                            height: 80px;
                             left: 0;
                             top: 0;
-                            background-size: cover;
+                            background-size: 90% !important;
+                            // border: 1px solid #E1E6EB;
+                            border-radius: 8px;
                         }
                         .text{
                             position: absolute;
@@ -199,6 +212,8 @@
                             left: 0;
                             bottom: 0;
                             text-align: center;
+                            font-size: 14px;
+                            color: #666666;
                         }
                     }
                 }
@@ -208,7 +223,6 @@
                         position: relative;
                         line-height: 30px;
                         height: 30px;
-                        cursor:pointer;
                         .circle{
                             display: inline-block;
                             width: 6px;
@@ -235,6 +249,7 @@
                             display: inline-block;
                             font-size: 14px;
                             color: #666666;
+                            cursor:pointer;
                         }
                     }
                 }
@@ -262,11 +277,18 @@
                             display:inline-block;
                             width: 100%;
                             height: 60px;
-                            line-height: 60px;
                             background: rgba(0,0,0,0.60);
                             text-align: center;
                             font-size: 16px;
                             color: #FFFFFF;
+                            .word-break{
+                                display: inline-block;
+                                position: absolute;
+                                top: 50%;
+                                width: 100%;
+                                left: 0;
+                                transform: translateY(-50%);
+                            }
                         }
                     }
                     .swiper-slide1{
