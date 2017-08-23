@@ -6,6 +6,7 @@ import {
 import {KrField,Grid,Row,Button,ListGroup,ListGroupItem,Loading} from 'kr-ui';
 import './index.less';
 import $ from 'jquery';
+import {Http} from 'kr/Utils';
 import State from './State';
 import {
 	observer
@@ -22,9 +23,11 @@ export default class EquipmentDetail extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps){
+
 	}
 
 	componentDidMount(){
+		
 		let _this =this;
 		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.reported));
 		$("#json-str-desired").html(_this.syntaxHighlight(State.deviceVO.desired));
@@ -35,10 +38,17 @@ export default class EquipmentDetail extends React.Component{
 	}
 
 	freshEquipmentReporter=()=>{
+		console.log("freshEquipmentReporter====>");
 		let _this = this;
 		State.freshPageReturn();
-		State.freshEquipmentReporterAction();
-		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.reported));
+		var urlParams = {deviceId:State.deviceVO.deviceId}
+		Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
+			
+			$("#json-str-report").html(_this.syntaxHighlight(response.reported));
+			Message.success("刷新成功");
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	
 	syntaxHighlight=(json)=>{
@@ -52,7 +62,7 @@ export default class EquipmentDetail extends React.Component{
 	    json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
 	    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
 	        var cls = 'number';
-	        console.log("match",match);
+	        //console.log("match",match);
 	        if (/^"/.test(match)) {
 	            if (/:$/.test(match)) {
 	                cls = 'key';

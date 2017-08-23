@@ -360,7 +360,7 @@ export default class SecondDoorManage  extends React.Component{
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
-		
+		// console.log("itemDetail",itemDetail);
 		return(
 			<div >
 				<div style={{padding:"20px 0 0 0"}}>
