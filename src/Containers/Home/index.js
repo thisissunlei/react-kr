@@ -262,7 +262,7 @@ export default class Home extends React.Component {
 									
 								</div>
 								<div className="left">
-									最近动态
+									最新动态
 								</div>
 								<div onClick={this.toDynamicsList} className="right">
 									更多
