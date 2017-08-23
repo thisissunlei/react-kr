@@ -54,6 +54,7 @@ class ChangeCommunity  extends React.Component{
 			return;
 		}
 		localStorage.setItem('OP_HOME_COMMUNITY',value.communityId);
+		localStorage.setItem('OP_HOME_COMMUNITY_NAME',value.communityName);
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(value);
 	}
