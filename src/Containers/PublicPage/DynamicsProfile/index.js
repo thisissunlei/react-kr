@@ -69,12 +69,7 @@ export default class DynamicsProfile extends React.Component {
 		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
     }
     profileRender = () =>{
-<<<<<<< HEAD
-        let {listData} = this.state; 
-        
-=======
         let {listData} = this.state;
->>>>>>> 5127107ed0514ddb3973cfa9402ac3327fa7a93c
         var items = this.dataFilter(listData);
         var articleList = items.map((item,indx)=>{
             return <ArticleList detail = {item} onClick= {this.goDetail}/>
