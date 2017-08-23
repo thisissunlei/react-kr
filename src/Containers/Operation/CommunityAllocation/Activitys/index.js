@@ -21,7 +21,7 @@ import CreateNotice from './CreateNotice';
 import ViewNotice from './ViewNotice';
 import EditNotice from './EditNotice';
 import './index.less';
-export default class Activitys extends React.Component {
+export default class NoticeManage extends React.Component {
 
 
 	constructor(props, context) {
@@ -118,7 +118,14 @@ export default class Activitys extends React.Component {
 			openPublish:!this.state.openPublish
 		})
 	}
-	
+	//预览
+	viewRichText=(item)=>{
+		this.setState({
+			viewRichText:!this.state.viewRichText,
+			viewItem:item,
+			flag:0
+		})
+	}
 
 	createSubmit=()=>{
 		this.setState({
@@ -140,7 +147,22 @@ export default class Activitys extends React.Component {
 		this.openEdit();
 	}
 	
-	
+	renderViewRichText=()=>{
+		let {viewItem}=this.state;
+		return(
+			<div className="u-view-rich-text">
+				<div className="u-view-rich-context">
+					<div className="u-view-rich-title">{viewItem.title}</div>
+					<div className="u-view-rich-detail clearFix">
+						<div className="u-view-rich-time">{viewItem.type==1?'氪空间团队':`${viewItem.cmtName}团队`} <span className="u-point">.</span> {viewItem.time}</div>
+						<div className="u-view-rich-com">{viewItem.typetxt}</div>
+					</div>
+					{viewItem && ReactHtmlParser(viewItem.richTextValue)}
+				</div>
+				<span className="u-view-close" onTouchTap={this.viewRichText}></span>
+			</div>
+			) 
+	}
 
 	render() {
 		let {itemDetail,viewRichText,flag}=this.state;
@@ -188,24 +210,8 @@ export default class Activitys extends React.Component {
 				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
-					                <TableRowColumn name="title" 
-										component={(value,oldValue)=>{
-				                            var TooltipStyle=""
-				                            if(value.length==""){
-				                              TooltipStyle="none";
-
-				                            }else{
-				                              TooltipStyle="block";
-				                            }
-				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
-				                      }}></TableRowColumn>
-					                <TableRowColumn 
-					                	name="cmtName" 
-					                	component={(value) => {
-					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
-					                    }}
-					                ></TableRowColumn>
+					                <TableRowColumn name="typeName"></TableRowColumn>
+					                <TableRowColumn name="cmtName" ></TableRowColumn>
 					                <TableRowColumn 
 					                	name="publishTime" 
 					                	component={(value) => {
@@ -253,6 +259,7 @@ export default class Activitys extends React.Component {
 					        </TableBody>
 			        		<TableFooter></TableFooter>
             		</Table>
+            		{viewRichText && this.renderViewRichText()}
 				</Section>
 				<Drawer
 	             modal={true}
