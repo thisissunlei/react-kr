@@ -183,12 +183,13 @@ export default class DynamicsList extends Component{
 	refresh = () =>{
 		let searchParams = Object.assign({},this.state.searchParams);
 		searchParams.other  = new Date();
+		searchParams.page = 1;
 		this.setState({
 			searchParams
 		})
     }
 	goDetail = (detail) =>{
-		console.log(detail,"KKKK")
+		
 		if(detail.linkUrl){
             window.open(detail.linkUrl);
             return ;
