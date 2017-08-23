@@ -30,7 +30,7 @@ import {default as MyAddress} from './MyAddress';
 import { default as AppManage } from './AppManage';
 import { default as NoticeManage } from './NoticeManage';
 import {default as IntegrationManage} from './IntegrationManage';
-import {default as ActivityManage} from './ActivityManage';
+import {default as Activitys} from './Activitys';
 import {default as AdvertManage} from './AdvertManage';
 
 module.exports = {
@@ -47,6 +47,6 @@ module.exports = {
 	AppManage,
 	NoticeManage,
 	IntegrationManage,
-	ActivityManage,
+	Activitys,
 	AdvertManage,
 }
