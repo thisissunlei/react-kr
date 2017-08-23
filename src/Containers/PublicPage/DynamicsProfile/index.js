@@ -52,7 +52,7 @@ export default class DynamicsProfile extends React.Component {
                 listData:listData.concat(response.items),
                 searchParams:{
                     page:response.page+1,
-                    pageSize:3,
+                    pageSize:15,
                 },
                 totalPages:response.totalPages,
             })
@@ -92,7 +92,7 @@ export default class DynamicsProfile extends React.Component {
 	click = () =>{
         let {totalPages,searchParams} = this.state;
         console.log({totalPages,searchParams},'click');
-        if(searchParams.page+1 === totalPages){
+        if(searchParams.page+1 >= totalPages){
             this.setState({
                 btnShow:false
             })
