@@ -70,7 +70,7 @@ class VisitTable  extends React.Component{
 										{item.visitor}
 									</td>
 									<td >{item.phone}</td>
-									<td >{DateFormat(item.date,'yyyy-mm-dd')}</td>
+									<td >{DateFormat(item.date,'yyyy-mm-dd HH:MM:ss')}</td>
 									<td >
 										{item.number}
 									</td>
