@@ -64,7 +64,7 @@ export default class DynamicsDetail extends React.Component {
                     <div className='g-dynamics-detail-container'>
                         <li className='g-dynamics-detail-title'>{infoList.title}</li>
                         <li className='g-dynamics-detail-time'>{infoList.time}</li>
-                        {/*{infoList.photoUrl && <li style={styles} className='g-dynamics-detail-img'></li>}*/}
+                        {infoList.photoUrl && <li style={styles} className='g-dynamics-detail-img'></li>}
                     </div>
                     <div className='g-dynamics-detail-content'>
 						{ReactHtmlParser(this.state.infoList.content)}
