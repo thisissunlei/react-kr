@@ -67,7 +67,9 @@ export default class FirstMenu extends React.Component {
 		)
 	}
 	toHz=(item)=>{
-		window.open(`${item.hzUrl}`);
+		if(item.click){
+			//window.open(`${item.hzUrl}`);
+		}
 	}
 	onAddThings=(item)=>{
 		const {

@@ -26,7 +26,7 @@ export default class DynamicsProfile extends React.Component {
 		this.state = {
 			searchParams:{
 				page:1,
-                pageSize:3,
+                pageSize:15,
 			},
             listData:[],
             totalPages:0,
@@ -52,7 +52,7 @@ export default class DynamicsProfile extends React.Component {
                 listData:listData.concat(response.items),
                 searchParams:{
                     page:response.page+1,
-                    pageSize:3,
+                    pageSize:15,
                 },
                 totalPages:response.totalPages,
             })
@@ -65,11 +65,16 @@ export default class DynamicsProfile extends React.Component {
     }
    
     goDetail = (data) =>{
+        if(data.linkUrl){
+            window.open(data.linkUrl);
+            return ;
+        }
         let id=data.id;
 		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
     }
     profileRender = () =>{
-        let {listData} = this.state;
+        let {listData} = this.state; 
+
         var items = this.dataFilter(listData);
         var articleList = items.map((item,indx)=>{
             return <ArticleList detail = {item} onClick= {this.goDetail}/>
@@ -91,7 +96,7 @@ export default class DynamicsProfile extends React.Component {
 	click = () =>{
         let {totalPages,searchParams} = this.state;
         console.log({totalPages,searchParams},'click');
-        if(searchParams.page+1 === totalPages){
+        if(searchParams.page+1 >= totalPages){
             this.setState({
                 btnShow:false
             })

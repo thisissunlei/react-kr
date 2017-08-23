@@ -42,8 +42,8 @@ const Master = (location, callback) => {
 
 const Welcome = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/Welcome').default)
-  }, 'Welcome')
+    callback(null, require('kr/Containers/Home').default)
+  }, 'Home')
 }
 
 const Help = (location, callback) => {

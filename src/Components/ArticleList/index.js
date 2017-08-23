@@ -2,7 +2,8 @@
 import React, { PropTypes } from 'react';
 import './index.less';
 import {
-    clamp
+    clamp,
+    delHtmlTag
 } from 'kr/Utils'
 
 export default class ArticleList extends React.Component {
@@ -41,11 +42,19 @@ export default class ArticleList extends React.Component {
 	render() {
         const {detail} = this.props;
         let style = {};
+        let imgStyle = {display:"inline-block"}
 		if(!detail.url){
             style = {
-                left:30,
-                right:42
-            }
+                left:0,
+                right:0,
+                top:0,
+                position:"relative",
+                boxSizing: "border-box",
+                padding:" 0px 42px 0px 30px",
+            };
+            imgStyle = {
+                display:"none"
+            };
         }
 		return (
 			<div className="ui-article_list" 
@@ -53,7 +62,7 @@ export default class ArticleList extends React.Component {
                     this.onClick(detail);
                 }}>
                     
-                    <img className = "ui-article-img" src={detail.url||''} alt=""/> 
+                    <img className = "ui-article-img" src={detail.url||''} style = {imgStyle} alt=""/> 
                     
                     <div className = "ui-article-content" style = {style}>
                         <div className = "ui-article-title">{detail.title||''}</div>
@@ -64,8 +73,7 @@ export default class ArticleList extends React.Component {
                                     this.clamp = ref;
                                 }
                             }
-                        
-                        >{detail.content||''}</div>
+                        >{delHtmlTag(detail.content||'')}</div>
                     </div>
 
 			</div>

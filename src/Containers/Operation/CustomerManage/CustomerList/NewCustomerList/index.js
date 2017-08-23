@@ -36,7 +36,8 @@ import {
 	constructor(props){
 		super(props);
 		State.treeAllData();
-		this.screening = ["内部推荐","外部推荐","推介人计划","中介客源"];
+		this.screening = ["外部推荐","推介人计划","中介客源"];
+		this.selecting = ["内部推荐"];
 	}
 	onSubmit = (values) => {
 		if(values.projectCategoryId&& typeof values.projectCategoryId!='number'){
@@ -103,8 +104,15 @@ import {
 			break;
 		  }
 	  }
+	  if(param == '内部推荐'){
+	  	State.selecting = true;
+      Store.dispatch(change('NewCustomerList','recommendName',''));
+      Store.dispatch(change('NewCustomerList','recommendTel',''));
+
+	  }
       if(isTrue){
          State.sourceCustomer=true;
+         State.selecting = false;
       }else{
       	 State.sourceCustomer=false;
       }
@@ -133,6 +141,11 @@ import {
     closemm=()=>{
     	State.isCloseProject=true;
     }
+    changePerson=(value)=>{
+	 	Store.dispatch(change('NewCustomerList','recommendName',value.lastname));
+	 	Store.dispatch(change('NewCustomerList','recommendTel',value.mobile));
+
+    }
 
 	render(){
 		const { error, handleSubmit, pristine, reset,dataReady,open} = this.props;
@@ -152,8 +165,10 @@ import {
 											onChange={this.sourceCustomer}
 									/>
 
+                    {State.selecting&&<KrField grid={1/2} label="介绍人姓名" name="userId" style={{width:262,marginLeft:28}} component="searchPersonel" requireLabel={true} onChange={this.changePerson}/>}
+				   	{State.selecting&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
                     {State.sourceCustomer&&<KrField grid={1/2} label="介绍人姓名" name="recommendName" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>}
-				   					{State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
+				   	{State.sourceCustomer&&<KrField grid={1/2} label="介绍人电话" name="recommendTel" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>}
 
 			            <div className="krFlied-box"><KrField grid={1/2} label="意向工位个数" name="stationNum" style={{width:239,marginLeft:28}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
 

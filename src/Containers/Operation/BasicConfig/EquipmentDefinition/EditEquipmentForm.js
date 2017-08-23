@@ -301,21 +301,13 @@ class EditEquipmentForm extends React.Component{
 	}
 	// 编辑设备定义
 	onSubmit=(values)=>{
+		let {detail} = this.props;
 		values.id = this.state.id;
 		let _this = this;
 		values.enable = this.state.isOnlines?"ONLINE":"OFFLINE";
-		// if(this.state.doorNumHasStatus){
-		// 	let {isDoorNumHas} =this.props;
-		// 	isDoorNumHas && isDoorNumHas();
-		// 	return;
-		// }
-		// if(this.state.hardwareidHasStatus){
-		// 	let {hardwareIdHas} =this.props;
-		// 	hardwareIdHas && hardwareIdHas();
-		// 	return;
-		// }
+		
 		let EditParams = {
-				communityId : values.communityId,
+				communityId : values.communityId ,
 				deviceCode : values.deviceCode,
 				enable : values.enable,
 				floor : values.floor,
@@ -384,6 +376,14 @@ class EditEquipmentForm extends React.Component{
 		return(
 			<div style={{padding:'35px 0 0 35px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
+					<div style={{margin:"0 0 20px 10px"}}>
+						<div style={{display:"inline-block",width:100}}>
+							智能硬件ID :
+						</div>
+						<div style={{display:"inline-block",width:200}}>
+							{detail.hardwareId}
+						</div>
+					</div>
 					<KrField name="communityId"
 						component="searchCommunityAll"
 						onChange = {this.onChangeSearchCommunity}
@@ -417,21 +417,21 @@ class EditEquipmentForm extends React.Component{
 						style={{width:'252px'}}
 						onBlur = {this.doorNumHasFun}
 					/>
-					<KrField grid={1/2} name="hardwareId"
+					{/*<KrField grid={1/2} name="hardwareId"
 						component = "input"
 						type="text"
 						label="智能硬件ID"
 						requireLabel={true}
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onBlur = {this.hardwareIdHasFun}
-					/>
+					/>*/}
 					<KrField name="typeId"
 						component="select"
 						label="类型"
 						onChange = {this.onchooseType}
 						options={typeOptions}
 						requireLabel={true}
-						style={{width:'252px'}}
+						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
 					<KrField name="propertyId"
 						component="select"
@@ -439,7 +439,7 @@ class EditEquipmentForm extends React.Component{
 						onChange = {this.onchooseProperty}
 						options={propertyOption}
 						requireLabel={true}
-						style={{width:'252px',margin:'0 35px 5px 0'}}
+						style={{width:'252px'}}
 					/>
 					<KrField name="functionId"
 						component="select"
@@ -447,7 +447,7 @@ class EditEquipmentForm extends React.Component{
 						label="对应功能"
 						onChange = {this.onchooseCorrespondingFunction}
 						requireLabel={true}
-						style={{width:'252px'}}
+						style={{width:'252px',margin:'0 35px 5px 0'}}
 						ref= "loacationKrfield"
 					/>
 					<KrField name="locationId"
@@ -508,9 +508,9 @@ const validate = values=>{
 	if(values.deviceCode  && values.deviceCode.length>50){
 		errors.deviceCode = '门编号最多50个字符';
 	}
-	if(!values.hardwareId || /^\s+$/.test(values.hardwareId)){
-		errors.hardwareId = '智能硬件ID为必填项';
-	}
+	// if(!values.hardwareId || /^\s+$/.test(values.hardwareId)){
+	// 	errors.hardwareId = '智能硬件ID为必填项';
+	// }
 	if(values.hardwareId && values.hardwareId.length>50){
 		errors.hardwareId = '智能硬件ID最多50个字符';
 	}
