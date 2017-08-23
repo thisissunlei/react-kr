@@ -138,7 +138,6 @@ export default class EquipmentSearch extends React.Component{
 					<div  className="table-item-index-cache">{item.holder}</div>
 					<div  className="table-item-index-cache">{DateFormat(item.startAt,"yyyy-mm-dd HH:MM:ss")}</div>
 					<div  className="table-item-index-cache">{DateFormat(item.expireAt,"yyyy-mm-dd HH:MM:ss")}</div>
-					<div  className="table-item-index-cache">1111111</div>
 				</div>
 			)
 		});
@@ -160,7 +159,6 @@ export default class EquipmentSearch extends React.Component{
 			        		<div className="header-item-cache">卡号</div>
 			        		<div className="header-item-cache">持卡人</div>
 			        		<div className="header-item-cache">开始时间</div>
-			        		<div className="header-item-cache">结束时间</div>
 			        		<div className="header-item-cache">结束时间</div>
 			        	</div>
 			        	<div className="table-body">
