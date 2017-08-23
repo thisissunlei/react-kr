@@ -46,7 +46,7 @@ import {reduxForm}  from 'redux-form';
 
        <KrField grid={1/2}
                  style={{width:262,marginLeft:28}}
-                 name="leaveType"
+                 name="leaveDate"
                  component="date"
                  label="离职时间"
                  requireLabel={true}

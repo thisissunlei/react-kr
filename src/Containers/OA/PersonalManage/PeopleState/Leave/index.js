@@ -75,7 +75,6 @@ export default class Leave extends Component{
 	 this.setState({
 		 openSearchUpper:!this.state.openSearchUpper
 	 })
-
  }
 
 
@@ -83,15 +82,18 @@ export default class Leave extends Component{
  onExport=(values)=> {
 	 let {searchParams} = this.state;
 	 let defaultParams = {
-		 searchKey:'',
-		 opened:'',
-		 openDateEnd:'',
-		 openDateBegin:'',
-		 businessAreaId:'',
-		 portalShow:'',
-		 cityId:'',
-		 countyId:'',
-		 searchType:''
+		  searchKey:'',
+			mobilePhone:'',
+			email:'',
+			orgId:'',
+			orgType:'',
+			leader:'',
+			type:'',
+			status:'',
+			leaveType:'',
+			leaveReason:'',
+			leaveDateStart:'',
+			leaveDateEnd:'',
 	 }
 	 searchParams = Object.assign({},defaultParams,searchParams);
 
@@ -115,7 +117,34 @@ export default class Leave extends Component{
 
  //高级查询提交
  onSearchUpperSubmit=(param)=>{
-
+	 if(param.orgId){
+     var id=param.orgId[0].orgId;
+     var type=param.orgId[0].treeType;
+     param.orgId=id;
+     param.orgType=type;
+   }
+	 if(param.leader){
+		 param.leader=param.leader[0].orgId;
+	 }
+	 let defaultParams = {
+		 searchKey:'',
+		 mobilePhone:'',
+		 email:'',
+		 orgId:'',
+		 orgType:'',
+		 leader:'',
+		 type:'',
+		 status:'',
+		 leaveType:'',
+		 leaveReason:'',
+		 leaveDateStart:'',
+		 leaveDateEnd:'',
+	 }
+	 var searchParams = Object.assign({},defaultParams,param);
+	 this.setState({
+		 searchParams,
+		 openSearchUpper:!this.state.openSearchUpper
+	 })
  }
 
 	render(){
@@ -157,7 +186,7 @@ export default class Leave extends Component{
 							}
 					} >
             <Table
-			        style={{marginTop:8,width:3800}}
+			        style={{marginTop:8,width:3600}}
               ajax={true}
 	            displayCheckbox={true}
 	            ajaxParams={this.state.searchParams}
@@ -174,7 +203,6 @@ export default class Leave extends Component{
 					<TableHeaderColumn>部门</TableHeaderColumn>
 					<TableHeaderColumn>直接上级</TableHeaderColumn>
 					<TableHeaderColumn>职务</TableHeaderColumn>
-					<TableHeaderColumn>职级</TableHeaderColumn>
 					<TableHeaderColumn>员工属性</TableHeaderColumn>
 					<TableHeaderColumn>员工类别</TableHeaderColumn>
 					<TableHeaderColumn>员工状态</TableHeaderColumn>
@@ -193,50 +221,25 @@ export default class Leave extends Component{
 					<TableRow>
 						{isName&&<TableRowColumn name='name' className='table-single-name'></TableRowColumn>}
 						{!isName&&<TableRowColumn name='name'></TableRowColumn>}
-						<TableRowColumn name="name"></TableRowColumn>
 						<TableRowColumn name="code"></TableRowColumn>
-						<TableRowColumn name="jobName"></TableRowColumn>
+						<TableRowColumn name="subName"></TableRowColumn>
 						<TableRowColumn name="depName"></TableRowColumn>
-						<TableRowColumn name="name"></TableRowColumn>
-						<TableRowColumn name="code"></TableRowColumn>
+						<TableRowColumn name="leaderName"></TableRowColumn>
 						<TableRowColumn name="jobName"></TableRowColumn>
-						<TableRowColumn name="depName"></TableRowColumn>
-						<TableRowColumn name="name"></TableRowColumn>
-						<TableRowColumn name="code" style={{width:100}}></TableRowColumn>
-						<TableRowColumn name="jobName"></TableRowColumn>
-						<TableRowColumn name="jobName"></TableRowColumn>
-						<TableRowColumn name="depName"></TableRowColumn>
-						<TableRowColumn name="name"></TableRowColumn>
-						<TableRowColumn name="code"></TableRowColumn>
-						<TableRowColumn name="jobName"></TableRowColumn>
-						<TableRowColumn
-							name="entryDate"
-							component={(value,oldValue)=>{
-								return (<KrDate value={value} format="yyyy-mm-dd"/>)
-							}}
-						></TableRowColumn>
-						<TableRowColumn name="status"
-							component={(value,oldValue)=>{
-								let status = ""
-								if(value == "UNENTRY"){
-									status = "待入职"
-								}
-								if(value == "PROBATION"){
-									status = "试用"
-								}
-								if(value == "REGULAR"){
-									status = "正式"
-								}
-								if(value == "UNDIMISSION"){
-									status = "待离职"
-								}
-								if(value == "DIMISSION"){
-									status = "离职"
-								}
-								return (<span>{status}</span>)
-							}}
-
-								></TableRowColumn>
+						<TableRowColumn name="propertyStr"></TableRowColumn>
+						<TableRowColumn name="typeStr"></TableRowColumn>
+						<TableRowColumn name="statusStr"></TableRowColumn>
+						<TableRowColumn name="hasAccountStr" style={{width:100}}></TableRowColumn>
+						<TableRowColumn name="mobilePhone"></TableRowColumn>
+						<TableRowColumn name="email"></TableRowColumn>
+						<TableRowColumn name="entryDate" component={(value,oldValue)=>{
+									return (<KrDate value={value} format="yyyy-mm-dd"/>)
+								}}></TableRowColumn>
+						<TableRowColumn name="leaveReason"></TableRowColumn>
+						<TableRowColumn name="updator"></TableRowColumn>
+						<TableRowColumn name="uTime" component={(value,oldValue)=>{
+									return (<KrDate value={value} format="yyyy-mm-dd"/>)
+								}}></TableRowColumn>
 							</TableRow>
 						</TableBody>
 						<TableFooter></TableFooter>

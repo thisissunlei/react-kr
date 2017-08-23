@@ -370,16 +370,28 @@ export default class InService  extends React.Component{
 
  //高级查询提交
  onSearchUpperSubmit=(param)=>{
+   if(param.orgId){
+     var id=param.orgId[0].orgId;
+     var type=param.orgId[0].treeType;
+     param.orgId=id;
+     param.orgType=type;
+   }
+   if(param.leader){
+     param.leader=param.leader[0].orgId;
+   }
    let defaultParams = {
-     searchKey:'',
-     opened:'',
-     openDateEnd:'',
-     openDateBegin:'',
-     businessAreaId:'',
-     portalShow:'',
-     cityId:'',
-     countyId:'',
-     searchType:''
+      searchKey:'',
+      mobilePhone:'',
+      email:'',
+      orgId:'',
+      orgType:'',
+      leader:'',
+      type:'',
+      status:'',
+      hasAccount:'',
+      property:'',
+      entryDateStart:'',
+      entryDateEnd:''
    }
    var searchParams = Object.assign({},defaultParams,param);
    this.setState({
@@ -390,30 +402,8 @@ export default class InService  extends React.Component{
 
   //高级查询
 	openSearchUpperDialog=()=>{
-
-    /*Http.request('get-position-list',{typeId:param.value}).then(function(response) {
-         _this.setState({
-             positionList:response,
-         })
-    }).catch(function(err) {
-       Message.error(err.message);
-    });*/
-    let {searchParams}=this.state;
-    let defaultParams = {
-      searchKey:'',
-      opened:'',
-      openDateEnd:'',
-      openDateBegin:'',
-      businessAreaId:'',
-      portalShow:'',
-      cityId:'',
-      countyId:'',
-      searchType:''
-    }
-    searchParams = Object.assign({},searchParams,defaultParams);
     this.setState({
       openSearchUpper:!this.state.openSearchUpper,
-      searchParams
     })
 	}
 
@@ -428,14 +418,17 @@ export default class InService  extends React.Component{
     let {searchParams} = this.state;
     let defaultParams = {
       searchKey:'',
-      opened:'',
-      openDateEnd:'',
-      openDateBegin:'',
-      businessAreaId:'',
-      portalShow:'',
-      cityId:'',
-      countyId:'',
-      searchType:''
+      mobilePhone:'',
+      email:'',
+      orgId:'',
+      orgType:'',
+      leader:'',
+      type:'',
+      status:'',
+      hasAccount:'',
+      property:'',
+      entryDateStart:'',
+      entryDateEnd:''
     }
     searchParams = Object.assign({},defaultParams,searchParams);
 
@@ -495,7 +488,7 @@ export default class InService  extends React.Component{
                   }
               } >
     					<Table
-    						style={{marginTop:8,width:3300}}
+    						style={{marginTop:8,width:3100}}
                 ajax={true}
                 ajaxParams={searchParams}
                 onPageChange={this.onPageChange}
@@ -513,7 +506,6 @@ export default class InService  extends React.Component{
     								<TableHeaderColumn>部门</TableHeaderColumn>
     								<TableHeaderColumn>直接上级</TableHeaderColumn>
     								<TableHeaderColumn>职务</TableHeaderColumn>
-    								<TableHeaderColumn>职级</TableHeaderColumn>
     								<TableHeaderColumn>员工属性</TableHeaderColumn>
     								<TableHeaderColumn>员工类别</TableHeaderColumn>
     								<TableHeaderColumn>员工状态</TableHeaderColumn>
@@ -531,26 +523,23 @@ export default class InService  extends React.Component{
                            {isName&&<TableRowColumn name='name' className='table-single-name'></TableRowColumn>}
                            {!isName&&<TableRowColumn name='name'></TableRowColumn>}
            								 <TableRowColumn name='code'></TableRowColumn>
-                           <TableRowColumn name='name'></TableRowColumn>
+                           <TableRowColumn name='subName'></TableRowColumn>
                            <TableRowColumn name='depName'></TableRowColumn>
                            <TableRowColumn name='leader'></TableRowColumn>
                            <TableRowColumn name='jobName'></TableRowColumn>
-                           <TableRowColumn name='name'></TableRowColumn>
-                           <TableRowColumn name='property' component={(value,oldValue,detail)=>{
-           										return <Dictionary type='ERP_ResourceProperty' value={value}/>
-           								 }}></TableRowColumn>
-                           <TableRowColumn name='type' component={(value,oldValue,detail)=>{
-           										return <Dictionary type='ERP_ResourceType' value={value}/>
-           								 }}></TableRowColumn>
-                           <TableRowColumn name='status' component={(value,oldValue,detail)=>{
-           										return <Dictionary type='ERP_ResourceStatus' value={value}/>
-           								 }}></TableRowColumn>
-           								 <TableRowColumn style={{width:100}} name='name'></TableRowColumn>
-           								 <TableRowColumn name='name'></TableRowColumn>
+                           <TableRowColumn name='propertyStr'></TableRowColumn>
+                           <TableRowColumn name='typeStr'></TableRowColumn>
+                           <TableRowColumn name='statusStr'></TableRowColumn>
+           								 <TableRowColumn style={{width:100}} name='hasAccountStr'></TableRowColumn>
+           								 <TableRowColumn name='mobilePhone'></TableRowColumn>
            								 <TableRowColumn name='email'></TableRowColumn>
-           								 <TableRowColumn name='name'></TableRowColumn>
-           								 <TableRowColumn name='name'></TableRowColumn>
-           								 <TableRowColumn name='name'></TableRowColumn>
+           								 <TableRowColumn name='entryDate' component={(value,oldValue)=>{
+       													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
+       												 }}></TableRowColumn>
+           								 <TableRowColumn name='creatorName'></TableRowColumn>
+           								 <TableRowColumn name='cTime' component={(value,oldValue)=>{
+       													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
+       												 }}></TableRowColumn>
            								 <TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
            										return <span>
            											  {isEdit&&<span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>}

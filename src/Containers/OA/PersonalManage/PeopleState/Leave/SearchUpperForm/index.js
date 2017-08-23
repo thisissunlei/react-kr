@@ -66,19 +66,19 @@ class SearchUpperForm extends React.Component {
 			<div style={dateBoxStyle} className='customer-searchUpper list-community-supper'>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 
-					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="opened" type="input"  label="姓名/编号"
+					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="searchKey" type="input"  label="姓名/编号"
 					/>
 
-					<KrField  grid={1/2}  style={{width:262}}  name="opened" type="input"  label="手机号"
+					<KrField  grid={1/2}  style={{width:262}}  name="mobilePhone" type="input"  label="手机号"
 					/>
 
-					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="opened" type="input"  label="邮箱"
+					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="email" type="input"  label="邮箱"
 					/>
 
 					<KrField
 							grid={1/2}
 							style={{width:262}}
-							name="depId"
+							name="orgId"
 							component="treeDepartment"
 							label="部门"
 							ajaxUrlName = "get-department-tree"
@@ -136,9 +136,9 @@ class SearchUpperForm extends React.Component {
 				<KrField grid={1/1}  component="group" label="离职时间" style={{marginTop:3}}>
 				   <div className='list-listDate'>
 							<ListGroup>
-								<ListGroupItem><div className='communityList-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="openDateBegin" component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='communityList-date-start' style={{width:260}} ><KrField  style={{width:260,marginLeft:-10,marginTop:2}} name="leaveDateStart" component="date" /></div></ListGroupItem>
 									<div className='communityList-line-down'><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='communityList-date-end'><KrField name="openDateEnd" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='communityList-date-end'><KrField name="leaveDateEnd" style={{width:260,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
            </div>
 				</KrField>

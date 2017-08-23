@@ -407,7 +407,7 @@ export default class Labour extends React.Component {
     }
 	onSearchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.nameAndEmail = form.content;
+		searchParams.searchKey = form.content;
 		this.setState({
 			searchParams
 		})
@@ -556,31 +556,76 @@ export default class Labour extends React.Component {
 	}
 
 	onExportHrm=(values)=>{
-		let ids = [];
-		var type = this.state.searchParams.orgType;
-		var id = this.state.searchParams.orgId;
-		var dimId = this.state.searchParams.dimId;
-		if (values.length != 0) {
-			values.map((item, value) => {
-				ids.push(item.hrmId)
-			});
-		}
-		var url = `/api/krspace-erp-web/dim/export-hrm-resource-excel?hrmResourceIds=${ids}&dimId=${dimId}&orgId=${id}&orgType=${type}`
-		window.location.href = url;
+		let {searchParams} = this.state;
+    let defaultParams = {
+      searchKey:'',
+      mobilePhone:'',
+      email:'',
+      orgId:'',
+      orgType:'',
+      leader:'',
+      type:'',
+      status:'',
+      hasAccount:'',
+      property:'',
+      entryDateStart:'',
+      entryDateEnd:''
+    }
+    searchParams = Object.assign({},defaultParams,searchParams);
+
+     let ids = [];
+     if (values.length != 0) {
+       values.map((item, value) => {
+         ids.push(item.id)
+       });
+     }
+      var where=[];
+      for(var item in searchParams){
+        if(searchParams.hasOwnProperty(item)){
+           where.push(`${item}=${searchParams[item]}`);
+        }
+      }
+      where.push(`ids=${ids}`);
+     var url = `/api/krspace-finance-web/cmt/community/export?${where.join('&')}`
+     window.location.href = url;
 	}
 	//高级查询
 	openHighSearch = () => {
 		this.setState({
-		openHighSearch: !this.state.openHighSearch
+		  openHighSearch: !this.state.openHighSearch
 		})
 	}
 
-	onHighSearchSubmit = (form) => {
+	onHighSearchSubmit = (param) => {
 
-		this.setState({
-			searchParams:form
-		})
-		this.openHighSearch();
+		if(param.orgId){
+      var id=param.orgId[0].orgId;
+      var type=param.orgId[0].treeType;
+      param.orgId=id;
+      param.orgType=type;
+    }
+    if(param.leader){
+      param.leader=param.leader[0].orgId;
+    }
+    let defaultParams = {
+       searchKey:'',
+       mobilePhone:'',
+       email:'',
+       orgId:'',
+       orgType:'',
+       leader:'',
+       type:'',
+       status:'',
+       hasAccount:'',
+       property:'',
+       entryDateStart:'',
+       entryDateEnd:''
+    }
+    var searchParams = Object.assign({},defaultParams,param);
+    this.setState({
+      searchParams,
+      openHighSearch:!this.state.openHighSearch
+    })
 	}
 
 
@@ -588,7 +633,7 @@ export default class Labour extends React.Component {
 
    //跳转详情页
    goDetail = (data) =>{
-	    let personId=data.hrmId;
+	    let personId=data.id;
 		  window.open(`./#/oa/${personId}/peopleDetail`,'_blank');
    }
 
@@ -601,14 +646,14 @@ export default class Labour extends React.Component {
    operationLeave=(itemDetail)=>{
        this.setState({
 			openLeave:true,
-			leaveId:itemDetail.hrmId
+			leaveId:itemDetail.id
 		})
    }
    //解除账号打开
    operationRemove=(itemDetail)=>{
 	    this.setState({
 			  openRemove:true,
-			  resourceId:itemDetail.hrmId
+			  resourceId:itemDetail.id
 		})
    }
 
@@ -632,7 +677,7 @@ export default class Labour extends React.Component {
    operationAccount=(itemDetail)=>{
        this.setState({
 			  openAccount:true,
-			  resourceId:itemDetail.hrmId
+			  resourceId:itemDetail.id
 		})
    }
 
@@ -993,7 +1038,7 @@ export default class Labour extends React.Component {
 									}
 							} >
 							<Table
-								style={{ marginTop:0,width:3300}}
+								style={{ marginTop:0,width:3100}}
 								displayCheckbox={true}
 								onLoaded={this.onLoaded}
 								ajax={true}
@@ -1012,7 +1057,6 @@ export default class Labour extends React.Component {
 									<TableHeaderColumn>部门</TableHeaderColumn>
 									<TableHeaderColumn>直接上级</TableHeaderColumn>
 									<TableHeaderColumn>职务</TableHeaderColumn>
-									<TableHeaderColumn>职级</TableHeaderColumn>
 									<TableHeaderColumn>员工属性</TableHeaderColumn>
 									<TableHeaderColumn>员工类别</TableHeaderColumn>
 									<TableHeaderColumn>员工状态</TableHeaderColumn>
@@ -1027,29 +1071,26 @@ export default class Labour extends React.Component {
 
 								<TableBody>
 									<TableRow>
-									{isName&&<TableRowColumn name='userName' className='table-single-name'></TableRowColumn>}
-									{!isName&&<TableRowColumn name='userName'></TableRowColumn>}
+									{isName&&<TableRowColumn name='name' className='table-single-name'></TableRowColumn>}
+									{!isName&&<TableRowColumn name='name'></TableRowColumn>}
 									<TableRowColumn name='code'></TableRowColumn>
-									<TableRowColumn name='name'></TableRowColumn>
+									<TableRowColumn name='subName'></TableRowColumn>
 									<TableRowColumn name='depName'></TableRowColumn>
 									<TableRowColumn name='leader'></TableRowColumn>
 									<TableRowColumn name='jobName'></TableRowColumn>
-									<TableRowColumn name='name'></TableRowColumn>
-									<TableRowColumn name='property' component={(value,oldValue,detail)=>{
-										 return <Dictionary type='ERP_ResourceProperty' value={value}/>
-									}}></TableRowColumn>
-									<TableRowColumn name='type' component={(value,oldValue,detail)=>{
-										 return <Dictionary type='ERP_ResourceType' value={value}/>
-									}}></TableRowColumn>
-									<TableRowColumn name='status' component={(value,oldValue,detail)=>{
-										 return <Dictionary type='ERP_ResourceStatus' value={value}/>
-									}}></TableRowColumn>
-									<TableRowColumn style={{width:100}} name='name'></TableRowColumn>
-									<TableRowColumn name='name'></TableRowColumn>
-									<TableRowColumn name='name'></TableRowColumn>
-									<TableRowColumn name='name'></TableRowColumn>
-									<TableRowColumn name='name'></TableRowColumn>
-									<TableRowColumn name='name'></TableRowColumn>
+									<TableRowColumn name='propertyStr'></TableRowColumn>
+									<TableRowColumn name='typeStr'></TableRowColumn>
+									<TableRowColumn name='statusStr'></TableRowColumn>
+									<TableRowColumn style={{width:100}} name='hasAccountStr'></TableRowColumn>
+									<TableRowColumn name='mobilePhone'></TableRowColumn>
+									<TableRowColumn name='email'></TableRowColumn>
+									<TableRowColumn name='entryDate' component={(value,oldValue)=>{
+												return (<KrDate value={value} format="yyyy-mm-dd"/>)
+											}}></TableRowColumn>
+									<TableRowColumn name='creatorName'></TableRowColumn>
+									<TableRowColumn name='cTime' component={(value,oldValue)=>{
+												return (<KrDate value={value} format="yyyy-mm-dd"/>)
+											}}></TableRowColumn>
 									<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
 										 return <span>
 												 <span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>

@@ -46,7 +46,7 @@ import {reduxForm}  from 'redux-form';
 
         <KrField grid={1/2}
                   style={{width:262,marginLeft:28}}
-                  name="leaveType"
+                  name="leaveDate"
                   component="date"
                   label="离职时间"
                   requireLabel={true}
@@ -92,9 +92,9 @@ const validate = values =>{
        errors.leaveReason='请填写离职原因'
     }
 
-    /*if(!values.leaveReason){
-      errors.leaveReason='请填写离职时间'
-    }*/
+    if(!values.leaveDate){
+      errors.leaveDate='请填写离职时间'
+    }
 
 	return errors
 }

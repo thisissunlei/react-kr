@@ -152,33 +152,8 @@ export default class MyColleague extends React.Component {
 			Message.error(err.message);
 		});
 	}
-	// 导出Excle表格
-	onExport=(values)=>{
-		let ids = [];
-		var type = this.state.searchParams.orgType;
-		var id = this.state.searchParams.orgId;
-		if (values.length != 0) {
-			values.map((item, value) => {
-				ids.push(item.juniorId)
-			});
-		}
-		// var url = `/api/krspace-erp-web/dim/export-hrm-org-excel?orgIds=${ids}&dimId=${dimId}&superOrgId=${id}&orgType=${type}`
-		// window.location.href = url;
-	}
-//导出第二个表单
-	onExportHrm=(values)=>{
-		let ids = [];
-		var type = this.state.searchParams.orgType;
-		var id = this.state.searchParams.orgId;
 
-		if (values.length != 0) {
-			values.map((item, value) => {
-				ids.push(item.hrmId)
-			});
-		}
-		// var url = `/api/krspace-erp-web/dim/export-hrm-resource-excel?hrmResourceIds=${ids}&dimId=${dimId}&orgId=${id}&orgType=${type}`
-		// window.location.href = url;
-	}
+
 	render() {
 		let {data,styleBool,clickTreeData} = this.state;
 		var logFlag = '';
@@ -268,8 +243,6 @@ export default class MyColleague extends React.Component {
 								ajaxFieldListName="items"
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
-								onExport={this.onExport}
-								exportSwitch={true}
 							>
 								<TableHeader className='detail-header'>
 									<TableHeaderColumn className='header-row'>姓名</TableHeaderColumn>
@@ -295,7 +268,7 @@ export default class MyColleague extends React.Component {
 						 										}
 						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 						 								 }}></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leader'></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaderName'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobName' component={(value,oldValue)=>{
 						 										var maxWidth=10;
 						 										if(value.length>maxWidth){
@@ -347,8 +320,6 @@ export default class MyColleague extends React.Component {
 								ajaxFieldListName="items"
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
-								onExport={this.onExportHrm}
-								exportSwitch={true}
 							>
 								<TableHeader className='detail-header'>
 									<TableHeaderColumn className='header-row'>姓名</TableHeaderColumn>
