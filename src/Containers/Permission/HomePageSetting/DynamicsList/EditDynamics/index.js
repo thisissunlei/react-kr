@@ -73,6 +73,7 @@ class EditDynamics extends React.Component{
             values.desc = '';
         }else{
             values.content = '';
+            
         }
         
         onSubmit && onSubmit(values);
@@ -85,20 +86,16 @@ class EditDynamics extends React.Component{
     typeChange = (detail) =>{
         var isCite = false;
         let {content} = this.props;
-        var contentText = ""
         if(detail.value == "OUTSIDE"){
 
             isCite = false;
-            contentText = '';
 
         }else{
             isCite = true;
-            contentText = content
 
         }
         this.setState({
             isCite,
-            content:contentText,
         })
 
     }
