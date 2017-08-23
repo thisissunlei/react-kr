@@ -24,6 +24,7 @@ module.exports = [
 				},
 				]
 			},
+			
 			{
 				primaryText: "权限管理",
 				iconName: 'icon-wendang',
@@ -140,7 +141,25 @@ module.exports = [
 
 				]
 			},
-
+			{
+				primaryText: '首页配置',
+				iconName: 'icon-basis',
+				menuCode: 'hrmbasedataadmin',
+				iconColor: '#79859a',
+				menuItems: [
+					{
+						primaryText: '轮播图列表',
+						menuCode: 'sys_dynamic_list',
+						router: '/permission/homePageSetting/swperList',
+					},
+					{
+						primaryText: '最新动态列表',
+						menuCode: 'sys_slider_list',
+						router: '/permission/homePageSetting/dynamicsList',
+					},
+					
+				]
+			},
 
 		]
 	}
