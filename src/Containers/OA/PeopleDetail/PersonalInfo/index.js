@@ -70,13 +70,18 @@ export default class PersonalInfo  extends React.Component{
 	}
 	componentDidMount() {
 		var {checkOperate} = this.props.NavModel;
+		let {personId}=this.props;
+		var editUser='';
+		if(personId==0){
+			editUser=true;
+		}else{
+			editUser=checkOperate("hrm_resource_edit");
+		}
 		var _this = this;
 		setTimeout(function() {
 			_this.setState({
-				isEditUser : checkOperate("hrm_resource_edit")
-
+				isEditUser : editUser
 			})
-
 		},500);
 
 	}

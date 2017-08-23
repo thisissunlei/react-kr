@@ -37,7 +37,7 @@ var OAApi = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: 'http://local.krspace.cn:8080/krspace-erp-web/hrm/resource/list/type/org-resource?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&type={type}&status={status}&hasAccount={hasAccount}&property={property}&entryDateStart={entryDateStart}&entryDateEnd={entryDateEnd}',
+      url: '/api/krspace-erp-web/hrm/resource/list/type/org-resource?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&type={type}&status={status}&hasAccount={hasAccount}&property={property}&entryDateStart={entryDateStart}&entryDateEnd={entryDateEnd}',
       method: 'get'
   },
   //根据机构ID获取下级机构
@@ -73,7 +73,7 @@ var OAApi = {
   /*====离职列表接口*/
   //离职列表-列表接口
   'getLeaveList': {
-      url: 'http://local.krspace.cn:8080/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&type={type}&status={status}&leaveType={leaveType}&leaveReason={leaveReason}&leaveDateStart={leaveDateStart}&leaveDateEnd={leaveDateEnd}',
+      url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&type={type}&status={status}&leaveType={leaveType}&leaveReason={leaveReason}&leaveDateStart={leaveDateStart}&leaveDateEnd={leaveDateEnd}',
       method: 'get'
   },
    /*====在职列表接口*/
@@ -124,7 +124,7 @@ var OAApi = {
   },
   //职务类型－下拉数据
   'post-type-info': {
-    url: 'http://local.krspace.cn:8080/krspace-erp-web/hrm/job-type/info/type/edit-data',
+    url: '/api/krspace-erp-web/hrm/job-type/info/type/edit-data',
     method: 'get'
   },
   //职务类型新增
@@ -509,7 +509,7 @@ var OAApi = {
   },
    //机构分权－分配角色列表
   'role-power-list':{
-      url:'http://local.krspace.cn:8080/krspace-erp-web/hrm/org/allot-role-list?id={id}',
+      url:'/api/krspace-erp-web/hrm/org/allot-role-list?id={id}',
       method: 'get'
   },
    //机构分权－分配角色列表删除
@@ -561,7 +561,18 @@ var OAApi = {
 
   //我的同事
   'myColleague':{
-      url:'http://local.krspace.cn:8080/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&page={page}&pageSize={pageSize}',
+      url:'/api/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+  //我的下级
+  'myLower':{
+      url:'/api/krspace-erp-web/hrm/resource/list/type/junior?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+
+  //人员权限tab
+  'permissionTab':{
+      url:'/api/krspace-erp-web/hrm/resource/check/right/has-tab?userId={userId}',
       method: 'get'
   },
 }

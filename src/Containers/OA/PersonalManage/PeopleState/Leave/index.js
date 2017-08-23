@@ -110,7 +110,7 @@ export default class Leave extends Component{
 			 }
 		 }
 		 where.push(`ids=${ids}`);
-		var url = `/api/krspace-finance-web/cmt/community/export?${where.join('&')}`
+		var url = `/api/krspace-erp-web/hrm/resource/export/type/dimission?${where.join('&')}`
 		window.location.href = url;
  }
 

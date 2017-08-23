@@ -23,12 +23,30 @@ export default class PeopleDetail  extends React.Component{
 		this.state={
 			personId:this.props.params.personId,
 			detail:'',
+			showInfoEdit:false,
+			showInfoPerson:false,
+			showInfoWorkInfo:false
 		}
+	}
+
+	//我的权限
+	myPermission=(personId)=>{
+		var _this=this;
+		Http.request('permissionTab',{userId:personId}).then(function(response) {
+				_this.setState({
+					 showInfoEdit:response.showInfoEdit,
+					 showInfoPerson:response.showInfoPerson,
+					 showInfoWorkInfo:response.showInfoWorkInfo
+				})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 
   componentWillMount(){
 		let {personId}=this.state;
 		this.leftData(personId);
+		this.myPermission(personId);
 	}
 
 	componentDidMount(){
@@ -61,7 +79,7 @@ export default class PeopleDetail  extends React.Component{
 
 	render(){
 
-		let {personId,detail}=this.state;
+		let {personId,detail,showInfoEdit,showInfoPerson,showInfoWorkInfo}=this.state;
 
 		return(
 
@@ -90,24 +108,24 @@ export default class PeopleDetail  extends React.Component{
 				  <TabCs
 					  isDetail='detail'
 			      >
-				  <TabC label='基本信息'>
+				  {showInfoEdit&&<TabC label='基本信息'>
 					  <BasicInfo
 					    personId={personId}
 							chengLeft={this.chengLeft}
 					  />
-				  </TabC>
+				  </TabC>}
 
-				  <TabC label='个人信息'>
+				  {showInfoPerson&&<TabC label='个人信息'>
 					  <PersonalInfo
 					    personId={personId}
 					  />
-				  </TabC>
+				  </TabC>}
 
-				  <TabC label='工作信息'>
+				  {showInfoWorkInfo&&<TabC label='工作信息'>
 					  <WorkInfo
 					   personId={personId}
 					  />
-				  </TabC>
+				  </TabC>}
 			  </TabCs>
 
 			  </div>

@@ -80,7 +80,9 @@ export default class InService  extends React.Component{
 			istranfer:false,
 			isCard:false,
 			isOpen:false,
-      isEdit:false,
+      isBase:false,
+      isPerson:false,
+      isWork:false,
 
       //控制定位显示隐藏
       isName:false,
@@ -104,6 +106,8 @@ export default class InService  extends React.Component{
 
 	componentDidMount() {
 
+    var {checkOperate} = this.props.NavModel;
+
     this.scrollData.addEventListener("scroll",this.scrollListener,false)
 
 		var {checkOperate} = this.props.NavModel;
@@ -115,7 +119,9 @@ export default class InService  extends React.Component{
 		     istranfer : checkOperate("hrm_resource_move"),
 			   isCard : checkOperate("hrm_resource_card"),
 		     isOpen : checkOperate("hrm_resource_account"),
-         isEdit : checkOperate("hrm_resource_edit"),
+         isBase:checkOperate("hrm_resource_base_edit"),
+         isPerson:checkOperate("hrm_resource_edit"),
+         isWork:checkOperate("hrm_resource_workinfo_edit")
 		   })
 		},500);
 
@@ -445,14 +451,14 @@ export default class InService  extends React.Component{
         }
       }
       where.push(`ids=${ids}`);
-     var url = `/api/krspace-finance-web/cmt/community/export?${where.join('&')}`
+     var url = `/api/krspace-erp-web/hrm/resource/export/type/incumbency?${where.join('&')}`
      window.location.href = url;
   }
 
 
 
 	render(){
-		const {transferDetail,positionList,isName,searchParams,employees,isLeave,isRemove,istranfer,isCard,isOpen,isEdit} = this.state;
+		const {transferDetail,positionList,isName,searchParams,employees,isLeave,isRemove,istranfer,isCard,isOpen,isBase,isPerson,isWork} = this.state;
 
 
 		return(
@@ -525,7 +531,7 @@ export default class InService  extends React.Component{
            								 <TableRowColumn name='code'></TableRowColumn>
                            <TableRowColumn name='subName'></TableRowColumn>
                            <TableRowColumn name='depName'></TableRowColumn>
-                           <TableRowColumn name='leader'></TableRowColumn>
+                           <TableRowColumn name='leaderName'></TableRowColumn>
                            <TableRowColumn name='jobName'></TableRowColumn>
                            <TableRowColumn name='propertyStr'></TableRowColumn>
                            <TableRowColumn name='typeStr'></TableRowColumn>
@@ -542,7 +548,7 @@ export default class InService  extends React.Component{
        												 }}></TableRowColumn>
            								 <TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
            										return <span>
-           											  {isEdit&&<span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>}
+           											  {(isBase||isPerson||isWork)&&<span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>}
            												{isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
            												{istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
            												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
@@ -556,6 +562,7 @@ export default class InService  extends React.Component{
                    <TableFooter></TableFooter>
     					</Table>
             </div>
+
 
 					{/*新建用户*/}
 					<AddPostPeople
