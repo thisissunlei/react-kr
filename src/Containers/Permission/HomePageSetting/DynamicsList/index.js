@@ -187,7 +187,10 @@ export default class DynamicsList extends Component{
 			searchParams
 		})
     }
-
+	goDetail = (detail) =>{
+		let id=detail.id;
+		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
+	}
 
 	render(){
 
@@ -245,12 +248,21 @@ export default class DynamicsList extends Component{
 		 					}}
            				></TableRowColumn>
 						<TableRowColumn name="title"
-							component={(value,oldValue)=>{
+							component={(value,oldValue,detail)=>{
 								var maxWidth=10;
 								if(value.length>maxWidth){
 									value = value.substring(0,10)+"...";
 								}
-								return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+								return (
+									<div  className='tooltipParent'>
+										<a className='tableOver' 
+											onClick = {() =>{
+												this.goDetail(detail)
+											}}
+											src = {detail.linkUrl}>{value}</a>
+										<Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip>
+									</div>
+								)
 							}}
 						></TableRowColumn>
 						<TableRowColumn name="desc"
@@ -296,7 +308,16 @@ export default class DynamicsList extends Component{
 						<TableRowColumn name="articleType"></TableRowColumn>
 						<TableRowColumn name="linkUrl"
 							component={(value,oldValue)=>{
-								return (<a src = {value}>{value}</a>)
+								return (
+									<a 
+										src = {value}
+										onClick = {() =>{
+											this.goDetail(detail)
+										}}
+									>
+										{value}
+									</a>
+									)
 							}}
 						></TableRowColumn>
 
