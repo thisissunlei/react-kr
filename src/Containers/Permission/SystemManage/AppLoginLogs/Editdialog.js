@@ -134,6 +134,7 @@ class Editdialog extends React.Component {
                   style={{marginTop:4}}
                   label="下载地址"
               />
+
             <KrField
               grid={1/2}
               style={{width:325,marginLeft:-10,marginTop:2,paddingLeft:53}}
@@ -141,6 +142,16 @@ class Editdialog extends React.Component {
               label="发布时间"
               requireLabel={true}
               component="date"
+              />
+              <KrField
+                  grid={1/2}
+                  right={69}
+                  requireLabel={true}
+                  left={4}
+                  name="appSize"
+                  type="input"
+                  style={{marginTop:4,marginLeft:20}}
+                  label="安装包大小"
               />
               <KrField
                   grid={1}
@@ -205,6 +216,9 @@ const validate = values => {
     if (!values.enable) {
 		errors.enable = '请选择启用类型';
 	}
+  if (!values.appSize) {
+    errors.appSize = '请填写安装包大小';
+  }
 
 	return errors
 }

@@ -49,7 +49,17 @@ class AddMoney extends React.Component {
 			}, {
 				label: 'POS机支付',
 				value: 'POS'
-			}],
+			},
+			{
+				label: "转移",
+				value: "TRANSFER"
+			},
+			{
+				label: "无",
+				value: "NO"
+			}
+
+			],
 			accountList: [],
 			mainbillInfo: {},
 			showName: false,

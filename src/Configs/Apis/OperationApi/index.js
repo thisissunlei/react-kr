@@ -572,46 +572,7 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/community/select/use/type/city',
          method: 'get'
       },
-      //公告管理-公告列表
-       'notice-list':{
-         url: '/api/krspace-finance-web/topic/manage/find-page?page={page}&pageSize={pageSize}',
-         method: 'get'
-      },
-      //公告管理-获取帖子详情
-       'get-findDetail':{
-         url: '/api/krspace-finance-web/topic/manage/find-detail?topicId={topicId}',
-         method: 'get'
-      },
-      //公告管理-删除帖子
-       'del-notice':{
-         url: '/api/krspace-finance-web/topic/manage/del',
-         method: 'post'
-      },
-      //公告管理-获取是否有全国发帖权限
-       'get-findRight':{
-         url: '/api/krspace-finance-web/topic/manage/find-right',
-         method: 'get'
-      },
-      //公告管理-新建帖子-全国
-       'create-country-topic':{
-         url: '/api/krspace-finance-web/topic/manage/create-country-topic',
-         method: 'post'
-      },
-      //公告管理-新建帖子-社区
-       'create-cmt-topic':{
-         url: '/api/krspace-finance-web/topic/manage/create-cmt-topic',
-         method: 'post'
-      },
-      //公告管理-新建帖子-社区群组
-       'topic-cluster-list':{
-         url: '/api/krspace-finance-web/topic/manage/cluster-list?cmtId={cmtId}',
-         method: 'get'
-      },
-      //公告管理-新建帖子-全国群组
-       'country-cluster-list':{
-         url: '/api/krspace-finance-web/topic/manage/country-cluster-list',
-         method: 'get'
-      },
+      
       // 获取枚举字典接口
       'getListDic': {
             url: '/api/krspace-finance-web/dict/common',
@@ -678,6 +639,127 @@ module.exports = {
         url: '/api/krspace-finance-web/csr/source/info/type/edit?id={id}',
         method: 'get'
     },
+
+    //运营平台-基本配置-设备定义（一代门禁）--重置设备
+    'resetEquipmentInfo': {
+        url: '/api/krspace-finance-web/community/sysDeviceDefinition/device-definition/actions/reset',
+        method: 'post'
+    },
+    //运营平台-基本配置-设备定义（一代门禁）--删除设备
+    'deleteEquipmentInfo': {
+        url: '/api/krspace-finance-web/community/sysDeviceDefinition/device-definition/actions/delete',
+        method: 'post'
+    },
+    //APP管理-公告管理-公告分页
+    'get-notice-page': {
+        url: '/api/krspace-finance-web/notice/management/page?page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //APP管理-公告管理-创建公告
+    'create-notice': {
+        url: '/api/krspace-finance-web/notice/management/create',
+        method: 'post'
+    },
+    //APP管理-公告管理-删除公告
+    'delete-notice': {
+        url: '/api/krspace-finance-web/notice/management/delete',
+        method: 'post'
+    },
+    //APP管理-公告管理-发布公告
+    'publish-notice': {
+        url: '/api/krspace-finance-web/notice/management/publish',
+        method: 'post'
+    },
+    //APP管理-公告管理-编辑公告
+    'edit-notice': {
+        url: '/api/krspace-finance-web/notice/management/edit',
+        method: 'post'
+    },
+    //APP管理-公告管理-获取公告详情
+    'get-notice-detail': {
+        url: '/api/krspace-finance-web/notice/management/detail?id={id}',
+        method: 'get'
+    },
+    //APP管理-公告管理-获取是否有全国 公告的权限
+    'get-findCmtRight': {
+        url: '/api/krspace-finance-web/notice/management/findCmtRight',
+            method: 'get'
+    },
+
+    //运营主页--本月回款
+    'get-month-payment': {
+        url: '/api/krspace-finance-web/operation/month-payment?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--累积回款
+    'get-total-payment': {
+        url: '/api/krspace-finance-web/operation/total-payment?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--社区欠款
+    'get-cmt-arrearages': {
+        url: '/api/krspace-finance-web/operation/cmt-arrearages?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--现入住
+    'get-settled-customer': {
+        url: '/api/krspace-finance-web/operation/settled-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--未入住
+    'get-signed-customer': {
+        url: '/api/krspace-finance-web/operation/signed-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--客户总数
+    'get-total-customer': {
+        url: '/api/krspace-finance-web/operation/total-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--跟进中
+    'get-following-customer': {
+        url: '/api/krspace-finance-web/operation/following-customer?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--新增线索
+    'get-new-clue': {
+        url: '/api/krspace-finance-web/operation/new-clue?customerId={customerId}&cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--数据
+    'get-home-data': {
+        url: '/api/krspace-finance-web/operation/home?cmtId={cmtId}',
+        method: 'get'
+    },
+    //运营主页--应收账款
+    'get-accounts-receivable': {
+        url: '/api/krspace-finance-web/operation/accounts-receivable?cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--到期合同
+    'get-expire-contract': {
+        url: '/api/krspace-finance-web/operation/expire-contract?cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--带入驻合同
+    'get-settled-contract': {
+        url: '/api/krspace-finance-web/operation/settled-contract?cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营主页--带入驻合同
+    'get-appointment': {
+        url: '/api/krspace-finance-web/operation/appointment?cmtId={cmtId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    'get-community-list': {
+        url: '/api/krspace-finance-web/operation/city-cmt-list',
+        method: 'get'
+    },
+    'get-company-name': {
+        url: '/api/krspace-finance-web/customer/all-customers?company={company}',
+        method: 'get'
+    },
+
 }
 
 

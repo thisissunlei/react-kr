@@ -231,7 +231,8 @@ export default class Editor extends React.Component{
   render() {
     let {label} = this.props;
     return (
-      <div id={this.containerId} > </div>
+
+      <div id={this.containerId} className="u-editor-parent" name="content"> </div>
     );
   }
 }
