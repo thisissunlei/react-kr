@@ -146,7 +146,7 @@ const validate = values =>{
 	const errors = {};
 
     var reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
-    
+    var ord = /^[1-9]\d*$/;
     if(!values.name){
        errors.name='请填写职级名称';
     }else if(values.name.length>20){
@@ -157,6 +157,9 @@ const validate = values =>{
        errors.linkUrl='链接地址为必填字段';
    }else if(!reg.test(values.linkUrl)){
        errors.linkUrl='链接地址格式有误';
+   }
+   if(!ord.test(values.orderNum)){
+       errors.orderNum = "排序号只能为正整数"
    }
 
    if(!values.photoUrl){

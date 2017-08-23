@@ -188,6 +188,11 @@ export default class DynamicsList extends Component{
 		})
     }
 	goDetail = (detail) =>{
+		console.log(detail,"KKKK")
+		if(detail.linkUrl){
+            window.open(detail.linkUrl);
+            return ;
+        }
 		let id=detail.id;
 		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
 	}
@@ -307,7 +312,7 @@ export default class DynamicsList extends Component{
 						></TableRowColumn>
 						<TableRowColumn name="articleType"></TableRowColumn>
 						<TableRowColumn name="linkUrl"
-							component={(value,oldValue)=>{
+							component={(value,oldValue,detail)=>{
 								return (
 									<a 
 										src = {value}

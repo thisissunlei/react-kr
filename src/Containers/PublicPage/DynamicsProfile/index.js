@@ -65,6 +65,10 @@ export default class DynamicsProfile extends React.Component {
     }
    
     goDetail = (data) =>{
+        if(data.linkUrl){
+            window.open(data.linkUrl);
+            return ;
+        }
         let id=data.id;
 		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
     }
