@@ -67,7 +67,9 @@ export default class DynamicsDetail extends React.Component {
                         {infoList.photoUrl && <li style={styles} className='g-dynamics-detail-img'></li>}
                     </div>
                     <div className='g-dynamics-detail-content'>
-						{ReactHtmlParser(this.state.infoList.content)}
+						{/* {ReactHtmlParser(this.state.infoList.content)} */}
+						bfskjdfbskjdbfskjdfbksfdsdfsjdfvsjhfvdsfvsuDFVISDGF;SIFHWI;FUHISFJHSGFLSDUGFISDFGSIDUF，successful到底啥科技时代
+						qdsadfsfsifgsjhdfbsjhdlbfksdjbfskljdfbsjhdfbhjsadfbajlhsbfa;ksjbfafbi;fbskdjbfksdbsjlfbkjsdbfksjdfbjsknfskjbfskjdbfjksd
 					</div>
                 </div>
 			</div>
