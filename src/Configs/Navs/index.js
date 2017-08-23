@@ -21,6 +21,9 @@ import OtherNav from './OtherNav';
 //行政管理
 import AdministrationNav from './AdministrationNav';
 
+//智能硬件
+import SmartHardware from './SmartHardware';
+
 // import StatisticalNav from './StatisticalNav';
 // import CommunityNav from './CommunityNav';
 // import MemberNav from './MemberNav';
@@ -29,7 +32,7 @@ import AdministrationNav from './AdministrationNav';
 // import PowerNav from './PowerNav';
 // import WebBackstageNav from './WebBackstageNav';
 
-const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav);
+const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware);
 
 module.exports = {
     current_parent: '',
