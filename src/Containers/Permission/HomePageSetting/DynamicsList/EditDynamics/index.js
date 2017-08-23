@@ -141,7 +141,7 @@ class EditDynamics extends React.Component{
                             name="titleUrl"
                             component="newuploadImage"
                             innerstyle={{width:222,height:179,padding:10,marginLeft:-80}}
-                            photoSize={'500*300'}
+                            photoSize={'202*150'}
                             pictureFormat={'JPG,PNG,GIF'}
                             pictureMemory={'200'}
                             requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
@@ -150,7 +150,7 @@ class EditDynamics extends React.Component{
 							onDeleteImg ={this.deletePhoto}
                             label="上传标题图片"
                             inline={false}
-                            requireLabel={false}
+                            requireLabel={true}
                         />
                     </div>
 

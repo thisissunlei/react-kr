@@ -26,7 +26,7 @@ export default class DynamicsProfile extends React.Component {
 		this.state = {
 			searchParams:{
 				page:1,
-                pageSize:3,
+                pageSize:15,
 			},
             listData:[],
             totalPages:0,

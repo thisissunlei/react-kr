@@ -230,6 +230,7 @@ export default class DynamicsList extends Component{
 					<TableHeaderColumn>编号</TableHeaderColumn>
 					<TableHeaderColumn>标题图</TableHeaderColumn>
 					<TableHeaderColumn>标题</TableHeaderColumn>
+					<TableHeaderColumn>简介</TableHeaderColumn>
 					<TableHeaderColumn>内容</TableHeaderColumn>
 					<TableHeaderColumn>文章类型</TableHeaderColumn>
 					<TableHeaderColumn>链接地址</TableHeaderColumn>
@@ -252,16 +253,44 @@ export default class DynamicsList extends Component{
 								return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 							}}
 						></TableRowColumn>
+						<TableRowColumn name="desc"
+							component={(value,oldValue)=>{
+								
+								var maxWidth=10;
+								value = delHtmlTag(value);
+								oldValue = delHtmlTag(oldValue);
+								var tooltip  = '';
+								if(value.length>maxWidth){
+									value = value.substring(0,maxWidth)+"...";
+								}
+								if(!value){
+									value = "-";
+									oldValue = "-";
+								}else{
+								 	tooltip = <Tooltip offsetTop={8} place='top' ><div style = {{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div></Tooltip>
+								}
+								
+								return (<div  className='tooltipParent'><div className='tableOver' ><span>{value}</span></div>{tooltip}</div>)
+							}}
+						></TableRowColumn>
 						<TableRowColumn name="content"
 							component={(value,oldValue)=>{
 								
-								var maxWidth=20;
+								var maxWidth=10;
 								value = delHtmlTag(value);
 								oldValue = delHtmlTag(oldValue);
+								var tooltip  = '';
 								if(value.length>maxWidth){
-									value = value.substring(0,20)+"...";
+									value = value.substring(0,maxWidth)+"...";
 								}
-								return (<div  className='tooltipParent'><div className='tableOver' ><span>{value}</span></div><Tooltip offsetTop={8} place='top' ><div style = {{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div></Tooltip></div>)
+								if(!value){
+									value = "-";
+									oldValue = "-";
+								}else{
+								 	tooltip = <Tooltip offsetTop={8} place='top' ><div style = {{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div></Tooltip>
+								}
+								
+								return (<div  className='tooltipParent'><div className='tableOver' ><span>{value}</span></div>{tooltip}</div>)
 							}}
 						></TableRowColumn>
 						<TableRowColumn name="articleType"></TableRowColumn>
