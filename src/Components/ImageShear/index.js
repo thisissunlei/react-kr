@@ -44,7 +44,7 @@ export default class ImageShear extends React.Component {
       this.ctx = this.myCanvas.getContext("2d");
       this.img = new Image();
       this.img.src = url;
-      this.canvasSize(shearWidth||100,shearHeight||100);
+      this.canvasSize(shearWidth||150,shearHeight||150);
 
 
       this.moveBox.width = width;
@@ -53,7 +53,7 @@ export default class ImageShear extends React.Component {
       this.img.onload = function(event){
 
         that.imgDataSet(0,0,that.img.width,that.img.height);
-        
+
         that.proportion = that.floort(that.img.height/that.img.width);
         that.setImgInit();
         that.trget.addEventListener('mousedown',that.imgMousedown);

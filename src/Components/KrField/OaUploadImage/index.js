@@ -140,7 +140,7 @@ export default class OaUploadImage extends Component {
 		{/*上传图片*/}
 			<Dialog
 				title="修改头像"
-				onClose={this.openUploadImg}
+				onClose={this.onCancel}
 				open={this.state.openImg}
 				contentStyle ={{ width: '688px',height:'auto'}}
 			>
@@ -148,7 +148,6 @@ export default class OaUploadImage extends Component {
 			  onCancel={this.onCancel}
 				clamp={this.clamp}
 				onChange={this.onChange}
-				imgSrc={url}
 			 />
 		</Dialog>
 
