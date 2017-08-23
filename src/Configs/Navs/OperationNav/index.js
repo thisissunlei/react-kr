@@ -14,7 +14,8 @@ module.exports = [
 					{
 						primaryText: '运营主页',
 						router: '/operation/index',
-						menuCode: 'operation_home',
+						menuCode: 'oper_csr_base',
+						// menuCode: 'operation_home',
 					},
 				]
 			},
