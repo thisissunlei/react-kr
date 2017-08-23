@@ -147,22 +147,7 @@ export default class NoticeManage extends React.Component {
 		this.openEdit();
 	}
 	
-	renderViewRichText=()=>{
-		let {viewItem}=this.state;
-		return(
-			<div className="u-view-rich-text">
-				<div className="u-view-rich-context">
-					<div className="u-view-rich-title">{viewItem.title}</div>
-					<div className="u-view-rich-detail clearFix">
-						<div className="u-view-rich-time">{viewItem.type==1?'氪空间团队':`${viewItem.cmtName}团队`} <span className="u-point">.</span> {viewItem.time}</div>
-						<div className="u-view-rich-com">{viewItem.typetxt}</div>
-					</div>
-					{viewItem && ReactHtmlParser(viewItem.richTextValue)}
-				</div>
-				<span className="u-view-close" onTouchTap={this.viewRichText}></span>
-			</div>
-			) 
-	}
+	
 
 	render() {
 		let {itemDetail,viewRichText,flag}=this.state;
@@ -259,7 +244,7 @@ export default class NoticeManage extends React.Component {
 					        </TableBody>
 			        		<TableFooter></TableFooter>
             		</Table>
-            		{viewRichText && this.renderViewRichText()}
+            		
 				</Section>
 				<Drawer
 	             modal={true}
