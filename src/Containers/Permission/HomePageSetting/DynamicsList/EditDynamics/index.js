@@ -150,7 +150,7 @@ class EditDynamics extends React.Component{
 							onDeleteImg ={this.deletePhoto}
                             label="上传标题图片"
                             inline={false}
-                            requireLabel={true}
+                            requireLabel={false}
                         />
                     </div>
 
