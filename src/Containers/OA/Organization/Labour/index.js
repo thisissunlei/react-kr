@@ -564,10 +564,10 @@ export default class Labour extends React.Component {
       orgId:'',
       orgType:'',
       leader:'',
-      type:'',
-      status:'',
+      searchType:'',
+      searchStatus:'',
       hasAccount:'',
-      property:'',
+      searchProperty:'',
       entryDateStart:'',
       entryDateEnd:''
     }
@@ -597,10 +597,9 @@ export default class Labour extends React.Component {
 	}
 
 	onHighSearchSubmit = (param) => {
-
 		if(param.orgId){
-      var id=param.orgId[0].orgId?param.orgId[0].orgId:'';
-      var type=param.orgId[0].treeType?param.orgId[0].treeType:'';
+      var id=param.orgId?param.orgId:'';
+      var type=param.orgType?param.orgType:'';
       param.orgId=id;
       param.orgType=type;
     }
@@ -614,10 +613,10 @@ export default class Labour extends React.Component {
        orgId:'',
        orgType:'',
        leader:'',
-       type:'',
-       status:'',
+       searchType:'',
+       searchStatus:'',
        hasAccount:'',
-       property:'',
+       searchProperty:'',
        entryDateStart:'',
        entryDateEnd:''
     }
@@ -1076,7 +1075,7 @@ export default class Labour extends React.Component {
 									<TableRowColumn name='code'></TableRowColumn>
 									<TableRowColumn name='subName'></TableRowColumn>
 									<TableRowColumn name='depName'></TableRowColumn>
-									<TableRowColumn name='leader'></TableRowColumn>
+									<TableRowColumn name='leaderName'></TableRowColumn>
 									<TableRowColumn name='jobName'></TableRowColumn>
 									<TableRowColumn name='propertyStr'></TableRowColumn>
 									<TableRowColumn name='typeStr'></TableRowColumn>
