@@ -25,7 +25,7 @@ import {
 import './index.less';
 
 
-class EditNotice extends React.Component {
+class EditActivity extends React.Component {
 
 
 	constructor(props, context) {
@@ -317,7 +317,7 @@ const validate = values => {
 }
 
 export default reduxForm({
-		form: 'editNotice',
+		form: 'editActivity',
 		 validate,
 		
-	})(EditNotice);
+	})(EditActivity);

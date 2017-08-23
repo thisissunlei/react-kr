@@ -18,8 +18,9 @@ import {
 	Message
 } from 'kr-ui';
 import CreateActivity from './CreateActivity';
-import ViewNotice from './ViewNotice';
-import EditNotice from './EditNotice';
+import ViewActivity from './ViewActivity';
+import EditActivity from './EditActivity';
+import DetailList from './DetailList';
 import './index.less';
 export default class ActivityList extends React.Component {
 
@@ -37,6 +38,8 @@ export default class ActivityList extends React.Component {
 			openEdit:false,
 			openPublish:false,
 			viewRichText:false,
+			openTop:false,
+			openDetail:false,
 			viewItem:{},
 			page:1,
 			flag:0,
@@ -93,6 +96,13 @@ export default class ActivityList extends React.Component {
 		})
 
 	}
+	openDetail=(itemDetail)=>{
+		console.log('1111')
+		this.setState({
+			itemDetail,
+			openDetail:!this.state.openDetail,
+		})
+	}
 	openView=(itemDetail)=>{
 		
 		this.setState({
@@ -118,15 +128,13 @@ export default class ActivityList extends React.Component {
 			openPublish:!this.state.openPublish
 		})
 	}
-	//预览
-	viewRichText=(item)=>{
+	openTop=(itemDetail)=>{
 		this.setState({
-			viewRichText:!this.state.viewRichText,
-			viewItem:item,
-			flag:0
+			itemDetail,
+			openTop:!this.state.openTop
 		})
 	}
-
+	
 	createSubmit=()=>{
 		this.setState({
 			searchParams:{
@@ -215,10 +223,10 @@ export default class ActivityList extends React.Component {
 												return(
 													<div style={{display:'inline'}}>
 													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
-												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
 												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-												  	<Button label="置顶" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-												  	<Button label="查看报名列表" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
+												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
+												  	<Button label="置顶" type="operation" onClick={this.openTop.bind(this,itemDetail)} />
+												  	<Button label="查看报名列表" type="operation" onClick={this.openDetail.bind(this,itemDetail)} />
 													</div>
 													)
 					                         
@@ -227,11 +235,11 @@ export default class ActivityList extends React.Component {
 												return(
 													<div style={{display:'inline'}}> 
 													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
-												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
 												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-												  	<Button label="置顶" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
+												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
+												  	<Button label="置顶" type="operation" onClick={this.openTop.bind(this,itemDetail)} />
 												  	<Button label="发布" type="operation" onClick={this.openPublish.bind(this,itemDetail)} />
-												  	<Button label="查看报名列表" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
+												  	<Button label="查看报名列表" type="operation" onClick={this.openDetail.bind(this,itemDetail)} />
 													</div>
 													)
 											}
@@ -269,7 +277,7 @@ export default class ActivityList extends React.Component {
 	             openSecondary={true}
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
-	             	<EditNotice 
+	             	<EditActivity 
 	             			onCancel={this.openEdit}
 	             			detail={itemDetail} 
 	             			onSubmit={this.editSubmit}
@@ -285,8 +293,21 @@ export default class ActivityList extends React.Component {
 	             openSecondary={true}
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
-	             	<ViewNotice 
+	             	<ViewActivity 
 	             			onCancel={this.openView} 
+	             			detail={itemDetail}
+	             	 />
+	           </Drawer>
+	           <Drawer
+	             modal={true}
+	             width={750}
+	             open={this.state.openDetail}
+	             onClose={this.openDetail}
+	             openSecondary={true}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+	           >
+	             	<DetailList
+	             			onCancel={this.openDetail} 
 	             			detail={itemDetail}
 	             	 />
 	           </Drawer>
@@ -298,7 +319,7 @@ export default class ActivityList extends React.Component {
 	              onClose={this.openDelete}
 	            >
 	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要删除公告吗？</p>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要删除该活动吗？</p>
 					<div style={{textAlign:'center',marginBottom:10}}>
 	                      <div  className='ui-btn-center'>
 		                      <Button  label="确定" onClick={this.onDeleteData}/></div>
@@ -314,11 +335,27 @@ export default class ActivityList extends React.Component {
 	              onClose={this.openPublish}
 	            >
 	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要发布公告吗？</p>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要发布该活动吗？</p>
 					<div style={{textAlign:'center',marginBottom:10}}>
 	                      <div  className='ui-btn-center'>
 		                      <Button  label="确定" onClick={this.openPublishDel}/></div>
 		                      <Button  label="取消" type="button" cancle={true} onClick={this.openPublish} />
+	                      </div>
+	            	</div>
+	            </Dialog>
+	            <Dialog
+	              title="置顶"
+	              modal={true}
+	              contentStyle ={{ width: '444',overflow:'visible'}}
+	              open={this.state.openTop}
+	              onClose={this.openTop}
+	            >
+	            <div className='u-list-delete'>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要置顶该活动吗？</p>
+					<div style={{textAlign:'center',marginBottom:10}}>
+	                      <div  className='ui-btn-center'>
+		                      <Button  label="确定" onClick={this.openPublishDel}/></div>
+		                      <Button  label="取消" type="button" cancle={true} onClick={this.openTop} />
 	                      </div>
 	            	</div>
 	            </Dialog>
