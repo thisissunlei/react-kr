@@ -82,7 +82,7 @@ export default class List extends React.Component {
 						>
 							<TableHeader>
 								<TableHeaderColumn>报警时间</TableHeaderColumn>
-								<TableHeaderColumn>硬件编号</TableHeaderColumn>
+								<TableHeaderColumn>智能硬件ID</TableHeaderColumn>
 								<TableHeaderColumn>描述</TableHeaderColumn>
 								<TableHeaderColumn>报警类型</TableHeaderColumn>
 								

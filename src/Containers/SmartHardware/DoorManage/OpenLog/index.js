@@ -44,10 +44,14 @@ export default class List extends React.Component {
 				cityId:'',
 				type:'COMP_NAME',
 				value:'',
-			}
+			},
+			openType:[]
 		}
 	}
 
+	componentDidMount(){
+		this.getDicList();
+	}
 	
 	onLoaded=(response)=>{
 		let list = response;
@@ -62,11 +66,33 @@ export default class List extends React.Component {
 			realPage : page 
 		})
 	}
+
+	// 获取通用字典
+	getDicList =()=>{
+		var _this = this;
+		Http.request('getWarningType', {}).then(function(response) {
+			var arrNew = []
+			for (var i=0;i<response.OpenType.length;i++){
+				
+				arrNew[i] = {
+							label:response.OpenType[i].desc,
+							value:response.OpenType[i].value
+						}
+			}
+			_this.setState({
+				openType : arrNew
+			})
+			
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+
 	render() {
-		let {
-			list,seleced
-		} = this.state;
-		
+		let {list,seleced,openType} = this.state;
+		console.log("openType",openType);
 		return (
 			    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
 					<Title value="开门记录"/>
@@ -148,10 +174,10 @@ export default class List extends React.Component {
 								></TableRowColumn>
 								<TableRowColumn name="openType"
 								component={(value,oldValue)=>{
-									if(value=="1"){
-										value="刷卡开门"
-									}else if(value=="2"){
-										value = "微信开门"
+									for(var i=0;i<openType.length;i++){
+										if(value==openType[i].value){
+											value = openType[i].label
+										}
 									}
 								return (<span>{value}</span>)}}></TableRowColumn>
 									<TableRowColumn name="success"

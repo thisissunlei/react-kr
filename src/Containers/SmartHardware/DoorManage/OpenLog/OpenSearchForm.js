@@ -141,8 +141,8 @@ class OpenLogForm extends React.Component{
 					<ListGroupItem>
 						<KrField grid={1/2} name="deviceId" 
 							type="text" 
-							label="门禁ID：" 
-							style={{width:245}}
+							label="智能硬件ID" 
+							style={{width:252}}
 							inline={true}
 						/>
 					</ListGroupItem>

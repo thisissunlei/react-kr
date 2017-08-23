@@ -189,7 +189,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		      label:"门编号",
 		      value:"doorCode"
 		    },{
-		      label:"硬件编号",
+		      label:"智能硬件ID",
 		      value:"deviceId"
 		    }]
 		

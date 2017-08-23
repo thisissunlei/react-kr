@@ -360,13 +360,7 @@ export default class SecondDoorManage  extends React.Component{
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
-		let options=[{
-		      label:"门编号",
-		      value:"doorCode"
-		    },{
-		      label:"硬件编号",
-		      value:"deviceId"
-		    }]
+		
 		return(
 			<div >
 				<div style={{padding:"20px 0 0 0"}}>
@@ -404,6 +398,7 @@ export default class SecondDoorManage  extends React.Component{
 				            <TableHeaderColumn>厂商</TableHeaderColumn>
 				            <TableHeaderColumn>属性</TableHeaderColumn>
 			                <TableHeaderColumn>连接状态</TableHeaderColumn>
+			                <TableHeaderColumn>最后一次链接时间</TableHeaderColumn>
 			                <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 			          	<TableBody >
@@ -459,6 +454,9 @@ export default class SecondDoorManage  extends React.Component{
 					                }
 					                return (<span style={{color:spanColor}}>{value}</span>)}}>
 					            </TableRowColumn>
+					            
+								<TableRowColumn name="loginedUtime" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
+
 					            <TableRowColumn type="operation"
 									component={
 										(value,oldValue,itemData)=>{

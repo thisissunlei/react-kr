@@ -141,7 +141,7 @@ class DoorWarnForm extends React.Component{
 				<ListGroup className="fir-list">
 					<ListGroupItem>
 						
-							<KrField label="开门时间：" ref="stime" name="stime" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange}/>
+							<KrField label="报警时间：" ref="stime" name="stime" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange}/>
 						
 					</ListGroupItem>
 
@@ -152,8 +152,8 @@ class DoorWarnForm extends React.Component{
 					<ListGroupItem>
 						<KrField grid={1/2} name="deviceId" 
 							type="text" 
-							label="硬件ID：" 
-							style={{width:245}}
+							label="智能硬件ID" 
+							style={{width:252}}
 							inline={true}
 						/>
 					</ListGroupItem>
