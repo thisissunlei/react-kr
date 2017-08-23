@@ -1,136 +1,110 @@
-import React from 'react';
-import {Http,ReactHtmlParser} from 'kr/Utils';
+import React, { PropTypes } from 'react';
+import {Http} from 'kr/Utils';
 import {
+	Tabs,
+	Tab,
 	Title,
-	Section,
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
-	Button,
-	Drawer,
-	Dialog,
-	Tooltip,
-	KrDate,
-	Message
 } from 'kr-ui';
-
 import './index.less';
+import Start from './Start';
+import BannerConfig from './BannerConfig';
 
+export default class AdvertManage extends React.Component {
 
-export default class AdvertManage extends React.Component{
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			searchParams:{
-				page:1,
-				pageSize:15
-			},
-			openCreat:false,
-			openView:false,
-			openDelete:false,
-			openEdit:false,
-			openPublish:false,
-			
-			
+			tab: 'table',
+			communityId: '',
+			initSearch:'',
+			Ifpost:false,
+			Ifdark:false,
+			timer:0
 		}
+
 	}
 
+	componentDidMount() {
+		
+	}
 
+	
 
+	personal = () => {
+		let {
+			tab,
+			initSearch
+		} = this.state;
+		var timer = new Date();
+		tab = 'personal';
+		initSearch='p';
+		this.setState({
+			tab,
+			initSearch,
+			timer:timer,
+		});
+	}
+	home = () => {
+		let {
+			tab,
+			initSearch
+		} = this.state;
+		var timer = new Date();
+		tab = 'home';
+		initSearch='h';
+		this.setState({
+			tab,
+			initSearch,
+			timer:timer,
+		});
+	}
 	render() {
+		let {
+			tab,
+			initSearch,
+			Ifpost,
+			Ifdark
+		} = this.state;
 
-		return(
-			<div className="g-activity">
-				<Title value="广告管理"/>
-				<Section title="广告列表" description="" style={{marginBottom:-5,minHeight:910}}>
-					<div className="m-btn">
-						<Button
-								label="新建"
-								type='button'
-								onTouchTap={this.openCreat}
-							/>
-					</div>
-					<Table
-						  style={{marginTop:10}}
-		                  ajax={true}
-		                  ajaxUrlName='get-notice-page'
-		                  ajaxParams={this.state.searchParams}
-		                  onOperation={this.onOperation}
-		                  onPageChange = {this.pageChange}
-					  >
-				            <TableHeader>
-				              <TableHeaderColumn>标题</TableHeaderColumn>
-				              <TableHeaderColumn>链接地址</TableHeaderColumn>
-				              <TableHeaderColumn>开始时间</TableHeaderColumn>
-				              <TableHeaderColumn>结束时间</TableHeaderColumn>
-				              <TableHeaderColumn>操作</TableHeaderColumn>
-				          	</TableHeader>
 
-					        <TableBody >
-					              <TableRow>
-					                <TableRowColumn name="title" 
-										component={(value,oldValue)=>{
-				                            var TooltipStyle=""
-				                            if(value.length==""){
-				                              TooltipStyle="none";
+		const activeTab = {
+			color: '#2b8dcd',
+			borderBottom: "1px solid #eee",
+			fontSize:'16px'
+		}
+		const commenTab = {
+			color: '#666',
+			borderBottom: "1px solid #eee",
+            fontSize:'16px'
+		}
 
-				                            }else{
-				                              TooltipStyle="block";
-				                            }
-				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
-				                      }}></TableRowColumn>
-					                <TableRowColumn name="typeName"></TableRowColumn>
-					                <TableRowColumn 
-					                	name="publishTime" 
-					                	component={(value) => {
-					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
-					                    }}
-					                ></TableRowColumn>
-					                <TableRowColumn name="creater" ></TableRowColumn>
-					                <TableRowColumn 
-					                	name="published"
-										component={(value,oldValue,itemDetail) => {
-											if(value==1){
-												return(
-													<div style={{display:'inline'}}>
-													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
-												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
-												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-													</div>
-													)
-					                         
-											}
-											if(value==0){
-												return(
-													<div style={{display:'inline'}}> 
-													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
-												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
-												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-												  	<Button label="发布" type="operation" onClick={this.openPublish.bind(this,itemDetail)} />
-													</div>
-													)
-											}
-					                    }}
-					                >
-					                	
-									  	
-					              	</TableRowColumn>
-					               </TableRow>
-					        </TableBody>
-			        		<TableFooter></TableFooter>
-            		</Table>
-            		
-				</Section>
-			</div>
-			)
+		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
+		let homeStyle = (tab == 'home') ? activeTab : commenTab;
 
+		const inkBarStyle = {
+			background: '＃499df1',
+			position: 'absolute',
+			top: 0,
+		}
+
+		return (
+
+			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
+			<Title value="广告管理"/>
+
+			<Tabs className="tabs">
+				<Tab label="启动页配置" onActive={this.personal}  style={personalStyle}>
+					<Start timer={this.state.timer}/>
+				</Tab>
+	
+				<Tab label="社区banner配置" onActive={this.home} style={homeStyle}>
+					<BannerConfig timer={this.state.timer}/>
+				</Tab>	
+			</Tabs>
+
+
+		</div>
+		);
 	}
-
-
 }

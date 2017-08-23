@@ -175,7 +175,7 @@ class CreateActivityList extends React.Component {
 			
 		
 		return (
-			<div className="g-create-notice">
+			<div className="g-create-activity">
 				<div className="u-create-title">
 						<div className="title-text">新建活动</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
