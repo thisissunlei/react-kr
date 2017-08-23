@@ -37,7 +37,7 @@ var OAApi = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: '/api/krspace-erp-web/dim/hrm-list?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&dimId={dimId}&page={page}&pageSize={pageSize}&hrmResourceAttributes={hrmResourceAttributes}&hrmResourceType={hrmResourceType}&startTime={startTime}&endTime={endTime}',
+      url: '/api/krspace-erp-web/hrm/resource/list/type/org-resource?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&type={type}&status={status}&hasAccount={hasAccount}&property={property}&entryDateStart={entryDateStart}&entryDateEnd={entryDateEnd}',
       method: 'get'
   },
   //根据机构ID获取下级机构
@@ -73,13 +73,13 @@ var OAApi = {
   /*====离职列表接口*/
   //离职列表-列表接口
   'getLeaveList': {
-      url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize={pageSize}&searchKey={searchKey}',
+      url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&type={type}&status={status}&leaveType={leaveType}&leaveReason={leaveReason}&leaveDateStart={leaveDateStart}&leaveDateEnd={leaveDateEnd}',
       method: 'get'
   },
    /*====在职列表接口*/
    //在职列表-列表接口
   'getInServiceList': {
-    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&searchKey={searchKey}',
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&type={type}&status={status}&hasAccount={hasAccount}&property={property}&entryDateStart={entryDateStart}&entryDateEnd={entryDateEnd}',
   },
   //在职列表-获取离职类型   ------
   'getDepartureType': {
@@ -204,7 +204,7 @@ var OAApi = {
       url: '/api/krspace-erp-web/hrm/job/info/type/edit?id={id}',
       method: 'get'
   },
-  
+
   /*人员详情*/
   //基本信息显示
   'people-basic-watch': {
@@ -249,7 +249,7 @@ var OAApi = {
       url: '/api/krspace-erp-web/hrm/resource/info/type/family?id={id}',
       method: 'get'
   },
-  
+
   //个人信息里面的家庭新增
   'people-family-add': {
       url: '/api/krspace-erp-web/hrm/resource/add/type/family',
@@ -274,13 +274,13 @@ var OAApi = {
       url: '/api/krspace-erp-web/hrm/resource/list/type/work-record?resourceId={resourceId}',
       method: 'get'
   },
-  
+
   //个人信息里面的工作记录获取编辑
   'people-job-get': {
       url: '/api/krspace-erp-web/hrm/resource/info/type/work-record?id={id}',
       method: 'get'
   },
-  
+
   //个人信息里面的工作记录新增
   'people-job-add': {
       url: '/api/krspace-erp-web/hrm/resource/add/type/work-record',
@@ -431,7 +431,7 @@ var OAApi = {
       method: 'get'
   },
 
-  
+
 
 
   //流程--权限--列表
@@ -624,6 +624,29 @@ var OAApi = {
   //动态详情页面
   'base-dynamics-detail':{
       url:'/api/krspace-erp-web/sys/base/dynamic/detail?id={id}',
+      method: 'get'
+  },
+
+  //人员优化图片下方信息
+  'new-pic-next':{
+      url:'/api/krspace-erp-web/hrm/resource/info/type/person-card?userId={userId}',
+      method: 'get'
+  },
+
+  //我的同事
+  'myColleague':{
+      url:'/api/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+  //我的下级
+  'myLower':{
+      url:'/api/krspace-erp-web/hrm/resource/list/type/junior?orgId={orgId}&orgType={orgType}&nameAndEmail={nameAndEmail}&page={page}&pageSize={pageSize}',
+      method: 'get'
+  },
+
+  //人员权限tab
+  'permissionTab':{
+      url:'/api/krspace-erp-web/hrm/resource/check/right/has-tab?userId={userId}',
       method: 'get'
   },
 

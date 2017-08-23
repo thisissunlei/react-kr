@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	Drawer,
 	KrDate,
 	Message,
@@ -36,14 +36,13 @@ export default class WorkInfo  extends React.Component{
 		   _this.setState({
 			 isEdit :checkOperate("hrm_resource_workinfo_edit"),
 		   })
-		},500);	
+		},500);
 	}
 
 
 	componentWillMount(){
 		let {personId}=this.props;
-		//获取工作信息
-        this.workData(personId);
+	    this.workData(personId);
 	}
 
 	//获取工作信息
@@ -57,7 +56,7 @@ export default class WorkInfo  extends React.Component{
           Message.error(err.message);
         });
 	}
-   
+
     //编辑打开
 	basicEdit=()=>{
 	   let {workInfo}=this.state;
@@ -66,7 +65,7 @@ export default class WorkInfo  extends React.Component{
 		 openEdit:!this.state.openEdit
 	   })
 	}
-    
+
 	//编辑提交
 	editSubmit=(params)=>{
 	   let {personId}=this.props;
@@ -86,16 +85,16 @@ export default class WorkInfo  extends React.Component{
 	basicCancel=()=>{
 		this.setState({
 		  openEdit:!this.state.openEdit
-	   })	
+	   })
 	}
-    
+
 	//关闭所有
 	allClose=()=>{
       this.setState({
 		 openEdit:false
 	   })
 	}
-    
+
 
 	render(){
 
@@ -134,8 +133,8 @@ export default class WorkInfo  extends React.Component{
 								{item.isSwitch?<Dictionary type={item.type} value={item.detail}/>:item.detail}
 							</span>
 					   </li>)
-					  })	
-					}		
+					  })
+					}
 				  </ul>
 
 				   {/*编辑工作信息*/}
@@ -148,11 +147,10 @@ export default class WorkInfo  extends React.Component{
 					 >
 						<EditWork
 			               onCancel={this.basicCancel}
-						   onSubmit={this.editSubmit}   
+						   onSubmit={this.editSubmit}
 						/>
 					</Drawer>
 			</div>
 		);
 	}
-
 }
