@@ -101,6 +101,12 @@ class Merchants extends Component{
 			}else{
 			 	editsourceCustomer.sourceCustomer=false;
 			}
+			if(response.sourceName == '内部推荐'){
+				editsourceCustomer.sourceCustomer = false;
+				editsourceCustomer.selecting = true;
+			}else{
+				editsourceCustomer.selecting = false;
+			}
 			if(!response){
 				return;
 			}
