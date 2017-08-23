@@ -229,11 +229,11 @@ export default class SwperList extends Component{
 				onPageChange = {this.pageChange}
 			>
 				<TableHeader>
-					<TableHeaderColumn>编号</TableHeaderColumn>
+					<TableHeaderColumn>序号</TableHeaderColumn>
 					<TableHeaderColumn>名称</TableHeaderColumn>
 					<TableHeaderColumn>轮播图</TableHeaderColumn>
 					<TableHeaderColumn>链接地址</TableHeaderColumn>
-					<TableHeaderColumn>排序</TableHeaderColumn>
+					<TableHeaderColumn>排序号</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >

@@ -230,7 +230,7 @@ export default class DynamicsList extends Component{
 				onPageChange = {this.pageChange}
 			>
 				<TableHeader>
-					<TableHeaderColumn>编号</TableHeaderColumn>
+					<TableHeaderColumn>序号</TableHeaderColumn>
 					<TableHeaderColumn>标题图</TableHeaderColumn>
 					<TableHeaderColumn>标题</TableHeaderColumn>
 					<TableHeaderColumn>简介</TableHeaderColumn>
