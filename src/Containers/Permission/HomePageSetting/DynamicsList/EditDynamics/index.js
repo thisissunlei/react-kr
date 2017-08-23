@@ -71,6 +71,8 @@ class EditDynamics extends React.Component{
         values = Object.assign({},values);
         if(isCite){
             values.desc = '';
+            values.linkUrl='';
+
         }else{
             values.content = '';
             
@@ -155,11 +157,11 @@ class EditDynamics extends React.Component{
                     </div>
 
 				</div>
-                {isCite && <div style = {{marginTop:14}}>
-                         <KrField component="editor" equireLabel={true} name="content" label = "内容" defaultValue={content||''}/>
-                </div>}
+                  <div  style = {{marginTop:14,display:isCite? 'block':'none'}}>
+                         <KrField component="editor" requireLabel={true} name="content" label = "内容" defaultValue={content||''}/>
+                </div>
                 {!isCite && <div style = {{marginTop:14}}>
-                        <KrField component="textarea" equireLabel={true} name="desc" onChange = {this.editorChange} label="简介" />
+                        <KrField component="textarea" requireLabel={true} name="desc" onChange = {this.editorChange} label="简介" />
                 </div>}
 				<Grid style={{marginTop:30,marginRight:40}}>
 

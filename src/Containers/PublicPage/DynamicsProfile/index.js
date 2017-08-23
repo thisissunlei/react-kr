@@ -30,7 +30,7 @@ export default class DynamicsProfile extends React.Component {
 			},
             listData:[],
             totalPages:0,
-            btnShow:true,
+            totalCount:0
 		
 		}
 
@@ -55,6 +55,7 @@ export default class DynamicsProfile extends React.Component {
                     pageSize:15,
                 },
                 totalPages:response.totalPages,
+                totalCount:response.totalCount
             })
             
 		}).catch(function (err) {
@@ -93,26 +94,20 @@ export default class DynamicsProfile extends React.Component {
         return arr;
      
     }
-	click = () =>{
-        let {totalPages,searchParams} = this.state;
-        console.log({totalPages,searchParams},'click');
-        if(searchParams.page+1 >= totalPages){
-            this.setState({
-                btnShow:false
-            })
-        }
-        this.getDetail();
-    }
+	
 	render() {
-        const {btnShow} = this.state;
-		console.log(this.state.listData,"render");
+        const {totalCount,searchParams} = this.state;
+        var btnShow = false;
+        if(searchParams.page*searchParams.pageSize <= totalCount){
+            btnShow = true;
+        }
 		return (
 			<div className="dynamics_profile">
                 <img className = "title-img" src={banner} alt=""/>
 				<div className="dynamics_list" style = {{marginBottom:btnShow?0:50}} >
                     {this.profileRender()}
-                   {btnShow && <div className="browse_more" 
-                        onClick = {this.click}
+                   {  btnShow && <div className="browse_more" 
+                        onClick = {this.getDetail}
                     >
                         浏览更多
                     </div>}

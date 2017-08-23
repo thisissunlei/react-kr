@@ -37,6 +37,7 @@ class AddDynamics extends React.Component{
         console.log(values,">>>>>>")
         if(isCite){
             values.desc = '';
+            values.linkUrl='';
         }else{
             values.content = '';
         }
@@ -124,11 +125,11 @@ class AddDynamics extends React.Component{
                             requireLabel={false}
                         />
                     </div>
-                    {isCite && <div style = {{marginTop:14}}>
-                        <KrField component="editor" equireLabel={true} name="content" onChange = {this.editorChange} label="内容" defaultValue={inData||''}/>
-                    </div>}
+                     <div style = {{marginTop:14,display:isCite? 'block':'none'}}>
+                        <KrField component="editor" requireLabel={true} name="content" onChange = {this.editorChange} label="内容" defaultValue={inData||''}/>
+                    </div>
                     {!isCite && <div style = {{marginTop:14}}>
-                        <KrField component="textarea" equireLabel={true} name="desc" onChange = {this.editorChange} label="简介" />
+                        <KrField component="textarea" requireLabel={true} name="desc" onChange = {this.editorChange} label="简介" />
                     </div>}
                      
 				</div>
