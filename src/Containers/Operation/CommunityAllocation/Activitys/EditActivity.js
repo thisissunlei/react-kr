@@ -212,7 +212,7 @@ class EditActivity extends React.Component {
 			
 		
 		return (
-			<div className="g-create-notice">
+			<div className="g-create-activity">
 				<div className="u-create-title">
 						<div className="title-text">编辑公告</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
