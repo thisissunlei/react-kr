@@ -88,8 +88,8 @@ export default class Leave extends Component{
 			orgId:'',
 			orgType:'',
 			leader:'',
-			type:'',
-			status:'',
+			searchType:'',
+			searchProperty:'',
 			leaveType:'',
 			leaveReason:'',
 			leaveDateStart:'',
@@ -118,8 +118,8 @@ export default class Leave extends Component{
  //高级查询提交
  onSearchUpperSubmit=(param)=>{
 	 if(param.orgId){
-     var id=param.orgId[0].orgId;
-     var type=param.orgId[0].treeType;
+     var id=param.orgId[0].orgId?param.orgId[0].orgId:'';
+     var type=param.orgId[0].treeType?param.orgId[0].treeType:'';
      param.orgId=id;
      param.orgType=type;
    }
@@ -133,8 +133,8 @@ export default class Leave extends Component{
 		 orgId:'',
 		 orgType:'',
 		 leader:'',
-		 type:'',
-		 status:'',
+		 searchType:'',
+		 searchProperty:'',
 		 leaveType:'',
 		 leaveReason:'',
 		 leaveDateStart:'',

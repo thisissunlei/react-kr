@@ -377,8 +377,8 @@ export default class InService  extends React.Component{
  //高级查询提交
  onSearchUpperSubmit=(param)=>{
    if(param.orgId){
-     var id=param.orgId[0].orgId;
-     var type=param.orgId[0].treeType;
+     var id=param.orgId[0].orgId?param.orgId[0].orgId:'';
+     var type=param.orgId[0].treeType?param.orgId[0].treeType:'';
      param.orgId=id;
      param.orgType=type;
    }
@@ -392,10 +392,10 @@ export default class InService  extends React.Component{
       orgId:'',
       orgType:'',
       leader:'',
-      type:'',
-      status:'',
+      searchType:'',
+      searchStatus:'',
       hasAccount:'',
-      property:'',
+      searchProperty:'',
       entryDateStart:'',
       entryDateEnd:''
    }
@@ -429,10 +429,10 @@ export default class InService  extends React.Component{
       orgId:'',
       orgType:'',
       leader:'',
-      type:'',
-      status:'',
+      searchType:'',
+      searchStatus:'',
       hasAccount:'',
-      property:'',
+      searchProperty:'',
       entryDateStart:'',
       entryDateEnd:''
     }

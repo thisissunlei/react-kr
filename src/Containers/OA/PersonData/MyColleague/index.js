@@ -260,7 +260,7 @@ export default class MyColleague extends React.Component {
 									<TableRow className='detail-row'>
 										{/*我的同事的表格*/}
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
-										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
+										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='subName'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='depName' component={(value,oldValue)=>{
 						 										var maxWidth=10;
 						 										if(value.length>maxWidth){
@@ -337,7 +337,7 @@ export default class MyColleague extends React.Component {
 									<TableRow className='detail-row'>
 										{/*我的下属的表格*/}
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
-										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
+										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='subName'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='depName' component={(value,oldValue)=>{
 						 										var maxWidth=10;
 						 										if(value.length>maxWidth){

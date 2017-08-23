@@ -128,7 +128,6 @@ class HighSearchForm extends React.Component {
 						name="property"
 						component="selecTemployees"
 						label="员工属性"
-						requireLabel={true}
 						otherType="resourceProperty"
 				 />
 

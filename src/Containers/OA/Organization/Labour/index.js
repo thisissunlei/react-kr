@@ -599,8 +599,8 @@ export default class Labour extends React.Component {
 	onHighSearchSubmit = (param) => {
 
 		if(param.orgId){
-      var id=param.orgId[0].orgId;
-      var type=param.orgId[0].treeType;
+      var id=param.orgId[0].orgId?param.orgId[0].orgId:'';
+      var type=param.orgId[0].treeType?param.orgId[0].treeType:'';
       param.orgId=id;
       param.orgType=type;
     }

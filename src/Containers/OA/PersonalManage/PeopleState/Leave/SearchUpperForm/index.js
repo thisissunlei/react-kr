@@ -97,20 +97,20 @@ class SearchUpperForm extends React.Component {
 
 					<KrField grid={1/2}
 							style={{width:262}}
-							name="type"
+							name="searchType"
 							component="selecTemployees"
 							label="员工类别"
 							otherType="resourceType"
      />
 
 
-					<KrField grid={1/2}
-							style={{width:262,marginRight:29}}
-							name="status"
-							component="selecTemployees"
-							label="员工状态"
-							otherType="resourceStatus"
-/>
+		 <KrField grid={1/2}
+				 style={{width:262,marginRight:29}}
+				 name="searchProperty"
+				 component="selecTemployees"
+				 label="员工属性"
+				 otherType="resourceProperty"
+			/>
 
 
 
