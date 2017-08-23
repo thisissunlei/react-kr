@@ -82,7 +82,7 @@ class HomeLeft  extends React.Component{
 							<span className="tab-list" style={{color:State.stationType == 'all'?'#394457':'#999'}}
 							onTouchTap={this.onChangeTab.bind(this,'all')}>总工位数</span>
 						</div>
-						{State.stationType == 'rent' && <div className="stations-num" ><span style={{fontSize:'30px'}}>{State.InfoData.letStation || '0'} </span><span style={{fontSize:'16px'}}>个</span></div>}
+						{State.stationType == 'rent' && <div className="stations-num" >{State.InfoData.letStation || '0'} <span style={{fontSize:'16px'}}>个</span></div>}
 						{State.stationType == 'free' && <div className="stations-num"><span style={{fontSize:'30px'}}>{State.InfoData.vacantStation || '0'}</span> <span style={{fontSize:'16px'}}>个</span></div>}
 						{State.stationType == 'all' && <div className="stations-num"><span style={{fontSize:'30px'}}>{State.InfoData.totalStation || '0'} </span><span style={{fontSize:'16px'}}>个</span></div>}
 					</span>
