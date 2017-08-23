@@ -46,8 +46,8 @@ export default class AdvertManage extends React.Component{
 
 		return(
 			<div className="g-activity">
-				<Title value="活动管理"/>
-				<Section title="活动列表" description="" style={{marginBottom:-5,minHeight:910}}>
+				<Title value="广告管理"/>
+				<Section title="广告列表" description="" style={{marginBottom:-5,minHeight:910}}>
 					<div className="m-btn">
 						<Button
 								label="新建"
@@ -65,11 +65,9 @@ export default class AdvertManage extends React.Component{
 					  >
 				            <TableHeader>
 				              <TableHeaderColumn>标题</TableHeaderColumn>
-				              <TableHeaderColumn>地点</TableHeaderColumn>
-				              <TableHeaderColumn>时间</TableHeaderColumn>
-				              <TableHeaderColumn>费用</TableHeaderColumn>
-				              <TableHeaderColumn>创建人</TableHeaderColumn>
-				              <TableHeaderColumn>主办方</TableHeaderColumn>
+				              <TableHeaderColumn>链接地址</TableHeaderColumn>
+				              <TableHeaderColumn>开始时间</TableHeaderColumn>
+				              <TableHeaderColumn>结束时间</TableHeaderColumn>
 				              <TableHeaderColumn>操作</TableHeaderColumn>
 				          	</TableHeader>
 
@@ -88,7 +86,6 @@ export default class AdvertManage extends React.Component{
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
 					                <TableRowColumn name="typeName"></TableRowColumn>
-					                <TableRowColumn name="cmtName" ></TableRowColumn>
 					                <TableRowColumn 
 					                	name="publishTime" 
 					                	component={(value) => {
@@ -96,10 +93,6 @@ export default class AdvertManage extends React.Component{
 					                    }}
 					                ></TableRowColumn>
 					                <TableRowColumn name="creater" ></TableRowColumn>
-					                <TableRowColumn 
-					                	name="published" 
-										options={[{label:'已发布',value:'1'},{label:'未发布',value:'0'}]}
-					                ></TableRowColumn>
 					                <TableRowColumn 
 					                	name="published"
 										component={(value,oldValue,itemDetail) => {
@@ -109,7 +102,6 @@ export default class AdvertManage extends React.Component{
 													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
 												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
 												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-												  	<Button label="查看报名列表" type="operation" onClick={this.openView.bind(this,itemDetail)} />
 													</div>
 													)
 					                         
@@ -120,7 +112,6 @@ export default class AdvertManage extends React.Component{
 													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
 												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
 												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-												  	<Button label="查看报名列表" type="operation" onClick={this.openView.bind(this,itemDetail)} />
 												  	<Button label="发布" type="operation" onClick={this.openPublish.bind(this,itemDetail)} />
 													</div>
 													)
