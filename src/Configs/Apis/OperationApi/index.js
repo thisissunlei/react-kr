@@ -759,7 +759,46 @@ module.exports = {
         url: '/api/krspace-finance-web/customer/all-customers?company={company}',
         method: 'get'
     },
-
+    //App管理-活动管理-新建活动
+    'create-activity': {
+        url: '/api/krspace-finance-web/activity/management/create',
+        method: 'post'
+    },
+    //App管理-活动管理-删除活动
+    'delete-activity': {
+        url: '/api/krspace-finance-web/activity/management/delete',
+        method: 'post'
+    },
+    //App管理-活动管理-发布活动
+    'publish-activity': {
+        url: '/api/krspace-finance-web/activity/management/publish',
+        method: 'post'
+    },
+    //App管理-活动管理-活动分页
+    'activity-page': {
+        url: '/api/krspace-finance-web/activity/management/activity-page?page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //App管理-活动管理-查看活动详情
+    'activity-detail': {
+        url: '/api/krspace-finance-web/activity/management/detail?id={id}',
+        method: 'get'
+    },
+    //App管理-活动管理-报名列表
+    'actor-page': {
+        url: '/api/krspace-finance-web/activity/management/actor-page?id={id}',
+        method: 'get'
+    },
+    //App管理-活动管理-编辑活动
+    'edit-activity': {
+        url: '/api/krspace-finance-web/activity/management/edit',
+        method: 'post'
+    },
+    //App管理-活动管理-获取是否有全国活动的权限
+    'activity-findCmtRight': {
+        url: '/api/krspace-finance-web/activity/management/findCmtRight',
+        method: 'get'
+    },
 }
 
 
