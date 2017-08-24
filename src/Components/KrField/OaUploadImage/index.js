@@ -26,7 +26,7 @@ export default class OaUploadImage extends Component {
 		this.state={
 			//图像弹窗
 			openImg:false,
-			url:''
+			url:'',
 		}
 	}
 	componentWillReceiveProps(nextProps){
@@ -37,8 +37,7 @@ export default class OaUploadImage extends Component {
 		 }
 	}
 
-  convertBase64UrlToBlob=(urlData)=>{
-
+  convertBase64UrlToBlob=(urlData,type)=>{
     var bytes=window.atob(urlData.split(',')[1]);        //去掉url的头，并转换为byte
 
     //处理异常,将ascii码小于0的转换为大于0
@@ -47,7 +46,7 @@ export default class OaUploadImage extends Component {
     for (var i = 0; i < bytes.length; i++) {
         ia[i] = bytes.charCodeAt(i);
     }
-    return new Blob( [ab] , {type : 'image/png'});
+    return new Blob( [ab] , {type : type});
 }
 
 
@@ -74,7 +73,7 @@ export default class OaUploadImage extends Component {
 
     var form = new FormData();
 		form.append('userId', personId);
-		form.append('avatarFile',this.convertBase64UrlToBlob(param),files.name);
+		form.append('avatarFile',this.convertBase64UrlToBlob(param,files.type),files.name);
 		var xhrfile = new XMLHttpRequest();
 		xhrfile.onreadystatechange = function() {
 			if (xhrfile.readyState === 4) {
