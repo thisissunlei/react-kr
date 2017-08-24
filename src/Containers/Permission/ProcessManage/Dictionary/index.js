@@ -32,8 +32,8 @@ import {
 
 // import EditDialog from './Editdialog';
 // import Viewdialog from './Viewdialog';
-// import CancelDialog from './CancelDialog';
-// import UnCancelDialog from './UnCancelDialog';
+import Create from './Create';
+import State from './State';
 
 import './detail.less';
 
@@ -49,13 +49,21 @@ export default class ProcessSetting extends React.Component {
 	componentDidMount() {
 	}
 
+	closeAll=()=>{
+		State.openCreate = false;
+	}
+
+	openNewCreate=()=>{
+		State.openCreate = true;
+	}
+
   
 	render() {
 		return (
 			<div className="g-process-setting">
 				<Section title="公共字典" >
 				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-					<Button label="新建活动" operateCode="main_activity_add" onTouchTap={this.openNewCreateDialog} />
+					<Button label="新建" operateCode="main_activity_add" onTouchTap={this.openNewCreate} />
 					<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach"/>
 				</form>
 				<div  className='detail-table'>
@@ -137,6 +145,12 @@ export default class ProcessSetting extends React.Component {
 				        <TableFooter></TableFooter>
 	            </Table>
 				</div>
+				<Drawer open={State.openCreate} 
+					width={700} openSecondary={true} 
+					onClose={this.closeAll}
+					containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
+					<Create />
+				</Drawer>
 				</Section>
 			</div>
 		);
