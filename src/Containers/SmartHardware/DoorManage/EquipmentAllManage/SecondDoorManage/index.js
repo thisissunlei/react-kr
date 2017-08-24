@@ -33,6 +33,7 @@ import EquipmentSearchForm from './EquipmentSearchForm';
 import UpgradeForm from './UpgradeForm';
 import EquipmentCache from './EquipmentCache';
 import PsdList from './PsdList';
+import PasswordCode from './PasswordCode';
 
 @inject("NavModel")
 @observer
@@ -716,19 +717,7 @@ export default class SecondDoorManage  extends React.Component{
 			          onClose={this.passwordDialogFun}
 			          contentStyle={{width:443,height:236}}
 			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>口令码：{State.EquipmentPassword}</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                    
-			                      <ListGroupItem style={{width:400,textAlign:'center',padding:0}}>
-			                        <Button  label="确定" type="button"  cancle={true} onTouchTap={this.passwordDialogFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
+			         	<PasswordCode passwordDialogFun={this.passwordDialogFun}/>
 			        </Dialog>
 			        <Dialog
 			          title="管理员密码"
