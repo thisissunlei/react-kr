@@ -26,20 +26,13 @@ import './index.less';
 
 class EditActivity extends React.Component {
 
-
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
 			ifCity:false,
 			groupType:[
 				
-			],
-			richTextValue:'',
-			cmtName:'',
-			title:'',
-			type:'',
-			publishTime:'',
-			flag:0
+			]
 		}
 		this.getType();
 	}
@@ -74,7 +67,7 @@ class EditActivity extends React.Component {
 
    	}
 	selectType=(item)=>{
-		Store.dispatch(change('createNotice', 'cmtId', ''));
+		Store.dispatch(change('editActivity', 'cmtId', ''));
 		if(item.value=="0"){
 			this.setState({
 				ifCity:true
@@ -85,9 +78,14 @@ class EditActivity extends React.Component {
 			})
 			
 		}
-		this.setState({
-			type:item.value
-		})
+	}
+	selectCommunity=(item)=>{
+		Http.request('activity-findCmtAddres',{cmtId:item.id}).then(function(response) {
+			Store.dispatch(change('editActivity', 'address', response.address));
+		}).catch(function(err) {
+			Message.error(err.message);
+		});	                                                                                                                      
+
 	}
 	
 	
@@ -95,15 +93,13 @@ class EditActivity extends React.Component {
 		let {onSubmit} = this.props;
 		var _this=this;
 		
-		if(this.state.flag==1){
-			return
-		}
-		Http.request('create-notice',{},form).then(function(response) {
-			Message.success('新建成功')
-			onSubmit && onSubmit();
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		console.log('form=====>>>>',form)
+		// Http.request('create-activity',{},form).then(function(response) {
+		// 	Message.success('新建成功')
+		// 	onSubmit && onSubmit();
+		// }).catch(function(err) {
+		// 	Message.error(err.message);
+		// });
 		
 	}
 	onCancel=()=>{
@@ -111,58 +107,8 @@ class EditActivity extends React.Component {
 		onCancel && onCancel();
 	}
 
-	viewChange=(item)=>{
-		this.setState({
-			richTextValue:item
-		})
-	}
-	viewRichText=()=>{
-		let {richTextValue,ifCity,cmtName,title,type,publishTime}=this.state;
-		let {viewRichText} = this.props;
-		let  typetxt=type==1?'全国公告':'社区公告';
-		let  time=new Date(publishTime);
-		let  year=time.getFullYear();
-		let  Month=time.getMonth()+1;
-		let  date=time.getDate();
-		let form={
-			  richTextValue:richTextValue,
-			  title,
-			  typetxt,
-			  time:`${year}年${Month}月${date}日`,
-			  type
-			}
-		if(ifCity){
-			form.cmtName=cmtName;
-		}
-		if(form.richTextValue &&form.title &&form.typetxt && form.time){
-			this.setState({
-				flag:1
-			})
-			viewRichText && viewRichText(form)
-			return
-		}
-		
-		
-		
-		
-	}
 	
-	selectCommunity=(item)=>{
-		this.setState({
-			cmtName:item.label
-		})
-	}
-	changeTitle=(item)=>{
-		this.setState({
-			title:item
-		})
-	}
-	selectTime=(item)=>{
-		let time=Date.parse(item)
-		this.setState({
-			publishTime:time
-		})
-	}
+	
 	
 	render() {
 			const {
@@ -181,7 +127,7 @@ class EditActivity extends React.Component {
 		return (
 			<div className="g-create-activity">
 				<div className="u-create-title">
-						<div className="title-text">新建活动</div>
+						<div className="title-text">编辑活动</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
@@ -204,7 +150,6 @@ class EditActivity extends React.Component {
 								style={{width:260,marginRight:25}}
 								component="select"
 								name="type"
-								ref="type"
 								options={groupType}
 								label="活动类型"
 								requireLabel={true}
@@ -293,7 +238,6 @@ class EditActivity extends React.Component {
 								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
 								defaultValue=''
-								onChange={this.viewChange}
 								/>
 
 						<Grid style={{marginTop:50,width:'81%'}}>
