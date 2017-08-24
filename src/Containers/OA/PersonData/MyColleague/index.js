@@ -42,7 +42,9 @@ export default class MyColleague extends React.Component {
 				pageSize: 15,
 				orgId: '1',
 				orgType: "ROOT",
-				searchKey:'',
+				mobilePhoneKey:'',
+				emailKey:'',
+				nameKey:''
 			},
 			clickTreeData:{
 				orgId:'1',
@@ -65,7 +67,9 @@ export default class MyColleague extends React.Component {
 	checkTab = (item) => {
 		var searchParams = Object.assign({},this.state.searchParams);
 		searchParams.page=1;
-		searchParams.searchKey = "";
+		searchParams.mobilePhoneKey = "";
+		searchParams.emailKey = "";
+		searchParams.nameKey = "";
 		this.setState({
 			  searchParams,
 				tabSelect:item
@@ -110,7 +114,9 @@ export default class MyColleague extends React.Component {
 	//搜索设置
 	onSearchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.searchKey = form.content;
+		searchParams.mobilePhoneKey = form.content;
+		searchParams.emailKey = form.content;
+		searchParams.nameKey = form.content;
 		this.setState({
 			searchParams
 		})

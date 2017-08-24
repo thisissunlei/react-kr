@@ -61,7 +61,8 @@ export default class InService  extends React.Component{
 				page:1,
 				pageSize:15,
         totalCount:'',
-				searchKey:''
+        nameKey:'',
+        codeKey:''
 			},
 			employees:{
 				name:'',
@@ -352,7 +353,8 @@ export default class InService  extends React.Component{
    }
    onSearchSubmit = (data) =>{
 	var searchParams = Object.assign({},this.state.searchParams);
-	searchParams.searchKey = data.content;
+	searchParams.nameKey = data.content;
+  searchParams.codeKey = data.content;
   	this.setState({
   		searchParams
   	})
@@ -377,6 +379,7 @@ export default class InService  extends React.Component{
 
  //高级查询提交
  onSearchUpperSubmit=(param)=>{
+   param.codeKey=param.nameKey?param.nameKey:'';
    if(param.orgId){
      var id=param.orgId[0].orgId?param.orgId[0].orgId:'';
      var type=param.orgId[0].treeType?param.orgId[0].treeType:'';
@@ -387,7 +390,8 @@ export default class InService  extends React.Component{
      param.leader=param.leader[0].orgId;
    }
    let defaultParams = {
-      searchKey:'',
+      codeKey:'',
+      nameKey:'',
       mobilePhone:'',
       email:'',
       orgId:'',
@@ -424,7 +428,8 @@ export default class InService  extends React.Component{
   onExport=(values)=> {
     let {searchParams} = this.state;
     let defaultParams = {
-      searchKey:'',
+      codeKey:'',
+      nameKey:'',
       mobilePhone:'',
       email:'',
       orgId:'',

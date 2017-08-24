@@ -23,12 +23,12 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '我的卡片',
-						menuCode: 'hrm_resourcesList_incumbency',
+						menuCode: 'myCard',
 						router: '/oa/personData/0/myCard',
 					},
 					{
 						primaryText: '我的同事',
-						menuCode: 'hrm_resourcesList_incumbency',
+						menuCode: 'myColleague',
 						router: '/oa/personData/myColleague',
 					},
 				]
@@ -86,7 +86,7 @@ module.exports = [
 					},
 				]
 			},
-			
+
 			]
 	}
 ]

@@ -66,7 +66,7 @@ class SearchUpperForm extends React.Component {
 			<div style={dateBoxStyle} className='customer-searchUpper list-community-supper'>
 			    <form onSubmit={handleSubmit(this.onSubmit)}>
 
-					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="searchKey" type="input"  label="姓名/编号"
+					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="nameKey" type="input"  label="姓名/编号"
 					/>
 
 					<KrField  grid={1/2}  style={{width:262}}  name="mobilePhone" type="input"  label="手机号"
