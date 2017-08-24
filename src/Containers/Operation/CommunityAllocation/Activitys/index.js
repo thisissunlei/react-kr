@@ -174,7 +174,7 @@ export default class ActivityList extends React.Component {
 					<Table
 						  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='get-notice-page'
+		                  ajaxUrlName='activity-page'
 		                  ajaxParams={this.state.searchParams}
 		                  onOperation={this.onOperation}
 		                  onPageChange = {this.pageChange}
@@ -203,19 +203,29 @@ export default class ActivityList extends React.Component {
 				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
-					                <TableRowColumn name="typeName"></TableRowColumn>
-					                <TableRowColumn name="cmtName" ></TableRowColumn>
 					                <TableRowColumn 
-					                	name="publishTime" 
+					                		name="address"
+					                		component={(value,oldValue)=>{
+				                            var TooltipStyle=""
+				                            if(value.length==""){
+				                              TooltipStyle="none";
+
+				                            }else{
+				                              TooltipStyle="block";
+				                            }
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+				                      }} ></TableRowColumn>
+					                <TableRowColumn name="during" ></TableRowColumn>
+					                <TableRowColumn 
+					                	name="cost" 
 					                	component={(value) => {
-					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+					                		let cost=value==0?'免费':value;
+					                        return cost;
 					                    }}
 					                ></TableRowColumn>
-					                <TableRowColumn name="creater" ></TableRowColumn>
-					                <TableRowColumn 
-					                	name="published" 
-										options={[{label:'已发布',value:'1'},{label:'未发布',value:'0'}]}
-					                ></TableRowColumn>
+					                <TableRowColumn name="createrName" ></TableRowColumn>
+					                <TableRowColumn name="sponsor" ></TableRowColumn>
 					                <TableRowColumn 
 					                	name="published"
 										component={(value,oldValue,itemDetail) => {
