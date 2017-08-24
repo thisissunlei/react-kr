@@ -32,6 +32,7 @@ import EquipmentFind from './EquipmentFind';
 import EquipmentSearchForm from './EquipmentSearchForm';
 import UpgradeForm from './UpgradeForm';
 import EquipmentCache from './EquipmentCache';
+import PsdList from './PsdList';
 
 @inject("NavModel")
 @observer
@@ -44,7 +45,7 @@ export default class SecondDoorManage  extends React.Component{
 		this.state = {
 			selectIds : [],
 			openMenu :false,
-			
+			itemDetail : {}
 		}
 	}
 
@@ -77,9 +78,10 @@ export default class SecondDoorManage  extends React.Component{
 		
 	}
 	seeDetailInfoFun=(value,itemData)=>{
-		State.deviceVO = value.deviceVO;
+		// State.deviceVO = value.deviceVO;
+		State.deviceVO = State.itemDetail.deviceVO;
 		State.openHardwareDetail = true;
-		
+		this.showOpretionFun();
 	}
 
 	closeAll=()=>{
@@ -146,6 +148,9 @@ export default class SecondDoorManage  extends React.Component{
 		
 		State.showOpretion = !State.showOpretion;
 		State.itemDetail = thisP;
+		this.setState({
+			itemDetail :thisP
+		})
 	}
 
 	showOpretionFun=()=>{
@@ -286,15 +291,17 @@ export default class SecondDoorManage  extends React.Component{
 
 	//获取管理员密码
 	getManagerPsd=()=>{
+		console.log("dkdkdk");
 		State.showOpretion=false;
 		this.openManagePsdFun();
-		State.getManagerPsdFun();
 	}
 
 	//管理员密码出口
 	openManagePsdFun=()=>{
 		State.openManagePsd = !State.openManagePsd;
 	}
+
+	
 
 	//重启APP
 	restartAPP=()=>{
@@ -360,7 +367,8 @@ export default class SecondDoorManage  extends React.Component{
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
-		// console.log("itemDetail",itemDetail);
+		console.log("itemDetail",itemDetail);
+		
 		return(
 			<div >
 				<div style={{padding:"20px 0 0 0"}}>
@@ -398,7 +406,7 @@ export default class SecondDoorManage  extends React.Component{
 				            <TableHeaderColumn>厂商</TableHeaderColumn>
 				            <TableHeaderColumn>属性</TableHeaderColumn>
 			                <TableHeaderColumn>连接状态</TableHeaderColumn>
-			                <TableHeaderColumn>最后一次链接时间</TableHeaderColumn>
+			                <TableHeaderColumn>最后一次连接时间</TableHeaderColumn>
 			                <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 			          	<TableBody >
@@ -421,14 +429,13 @@ export default class SecondDoorManage  extends React.Component{
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="deviceId"  style={{width:310}} type="operation"
-									component={(value,oldValue,itemData)=>{
+								
+								<TableRowColumn name="deviceId" style={{width:170}}  component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
-									return (<Button  label={value}  type="operation" operation="seeDatailInfo" onTouchTap={this.seeDetailInfoFun.bind(value,itemData)}/>)}}
+									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								
 								<TableRowColumn name="makerName" component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -727,25 +734,13 @@ export default class SecondDoorManage  extends React.Component{
 			          onClose={this.openManagePsdFun}
 			          contentStyle={{width:443,height:260}}
 			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>主密码：{State.managePsd.main}</p>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>备用密码：{State.managePsd.backup || "无"}</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:400,textAlign:'center',padding:0}}>
-			                        <Button  label="确定" type="button"  cancle={true} onTouchTap={this.openManagePsdFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
+			          	<PsdList/>
 			        </Dialog>
 			        <Dialog
 			          title="重启APP提示"
 			          open={State.openRestartAPPDialog}
 			          onClose={this.openRestartAPPDialogFun}
-			          contentStyle={{width:443,height:236}}
+			          contentStyle={{width:443,height:260}}
 			        >
 			          <div style={{marginTop:45}}>
 			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>重启APP可能会导致失败，确定重启？</p>
@@ -824,6 +819,9 @@ export default class SecondDoorManage  extends React.Component{
 				                      	</ListGroupItem>
 				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
 				                        	<Button  label="重启设备系统" type="button"  cancle={true} onTouchTap={this.restartSystems} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
+				                        	<Button  label="查看详情" type="button"  cancle={true} onTouchTap={this.seeDetailInfoFun} style={{width:115}}/>
 				                      	</ListGroupItem>
 				                    </ListGroup>
 			                  	</Row>

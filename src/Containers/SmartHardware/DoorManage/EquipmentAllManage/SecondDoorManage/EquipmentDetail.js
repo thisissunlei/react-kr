@@ -3,7 +3,7 @@ import {
 	reduxForm,
 	formValueSelector
 } from 'redux-form';
-import {KrField,Grid,Row,Button,ListGroup,ListGroupItem,Loading} from 'kr-ui';
+import {KrField,Grid,Row,Button,ListGroup,ListGroupItem,Loading,Message} from 'kr-ui';
 import './index.less';
 import $ from 'jquery';
 import {Http} from 'kr/Utils';

@@ -49,7 +49,6 @@ let State = observable({
 	openRestartSystemsDialog : false,
 	openRestartAPPDialog :false,
 	openManagePsd :false,
-	managePsd :{},
 	resetEquipmentDialog : false,
 	openFreshHTMLDialog :false,
 	openConfirmDeleteBatch : false,
@@ -355,19 +354,7 @@ State.confirmOpenRestartAPPAction = action(function(){
 	});
 })
 
-//获取管理员密码
-State.getManagerPsdFun = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('getManagerPsdUrl',urlParams).then(function(response) {
-		console.log("response",response);
-		State.managePsd = {
-			main : response.main,
-			backup :response.backup
-		}
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
+
 
 
 //确认恢复出厂设置
