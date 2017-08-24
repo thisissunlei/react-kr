@@ -799,6 +799,11 @@ module.exports = {
         url: '/api/krspace-finance-web/activity/management/findCmtRight',
         method: 'get'
     },
+    //App管理-活动管理-通过社区id 查询社区地址
+    'activity-findCmtAddres': {
+        url: '/api/krspace-finance-web/activity/management/findCmtAddres?cmtId={cmtId}',
+        method: 'get'
+    },
 }
 
 
