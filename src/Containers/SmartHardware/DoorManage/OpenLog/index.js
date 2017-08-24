@@ -13,7 +13,8 @@ import {
 	Dialog,
 	Message,
 	Notify,
-	CheckPermission
+	CheckPermission,
+	Tooltip
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
@@ -151,13 +152,20 @@ export default class List extends React.Component {
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="memberName"
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								
+								<TableRowColumn style={{width:160,overflow:"visible"}} name="memberName" component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            
+		                            
+		                            if(value.length==""){
+		                            	value="-"
+		                              	TooltipStyle="block"
+		                            }else{
+		                            	TooltipStyle="block";
+		                            }
+		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{itemData.doorCode}</Tooltip></div>)
+		              			}} ></TableRowColumn>
 								<TableRowColumn name="company"
 								component={(value,oldValue)=>{
 									if(value==""){
@@ -172,26 +180,29 @@ export default class List extends React.Component {
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="openType"
-								component={(value,oldValue)=>{
-									for(var i=0;i<openType.length;i++){
-										if(value==openType[i].value){
-											value = openType[i].label
-										}
-									}
-								return (<span>{value}</span>)}}></TableRowColumn>
-									<TableRowColumn name="success"
-								component={(value,oldValue)=>{
-									var spanColor
-									if(value=="true"){
-										value="成功"
-									}else{
-										value = "失败"
-										spanColor = "#ff6868";
-									}
-								return (<span style={{color:spanColor}}>{value}</span>)}}></TableRowColumn>
-								
+								<TableRowColumn name="openType" options={openType}></TableRowColumn>
+								<TableRowColumn style={{width:160,overflow:"visible"}} name="success" component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            var msg = JSON.parse(itemData.msg);
+		                            var spanColor=''
+		                            if(value.length==""){
+		                              TooltipStyle="none"
+
+		                            }else{
+		                              TooltipStyle="block";
+		                              msg = msg.message;
+		                              if(value=='true'){
+		                              	value = "成功"
+		                              }else{
+		                              	value = "失败"
+		                              	spanColor = "#ff6868";
+		                              }
+		                            }
+		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",color:spanColor}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{msg}</Tooltip></div>)
+		              			}} ></TableRowColumn>
 							 </TableRow>
+							 
 						</TableBody>
 						<TableFooter></TableFooter>
 						</Table>
