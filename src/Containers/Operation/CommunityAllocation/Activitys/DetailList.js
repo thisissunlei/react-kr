@@ -42,14 +42,9 @@ export default class DetailList extends React.Component {
 				page:1,
 				pageSize:15,
 			}
-			
-			
 		}
 		
 	}
-	
-	
-   
 	
 	onCancel=()=>{
 		let {onCancel} = this.props;
@@ -71,7 +66,7 @@ export default class DetailList extends React.Component {
 					<Table
 							  style={{marginTop:10}}
 			                  ajax={true}
-			                  ajaxUrlName='get-notice-page'
+			                  ajaxUrlName='actor-page'
 			                  ajaxParams={this.state.searchParams}
 			                  
 						  >
@@ -84,7 +79,9 @@ export default class DetailList extends React.Component {
 
 						        <TableBody >
 						              <TableRow>
-						                <TableRowColumn name="title" 
+						              <TableRowColumn name="userName"></TableRowColumn>
+						              <TableRowColumn name="phone" ></TableRowColumn>
+						                <TableRowColumn name="company" 
 											component={(value,oldValue)=>{
 					                            var TooltipStyle=""
 					                            if(value.length==""){
@@ -96,10 +93,8 @@ export default class DetailList extends React.Component {
 					                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 					                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 					                      }}></TableRowColumn>
-						                <TableRowColumn name="typeName"></TableRowColumn>
-						                <TableRowColumn name="cmtName" ></TableRowColumn>
 						                <TableRowColumn 
-						                	name="publishTime" 
+						                	name="ctime" 
 						                	component={(value) => {
 						                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
 						                    }}
