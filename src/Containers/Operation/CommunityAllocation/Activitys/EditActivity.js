@@ -94,7 +94,7 @@ class EditActivity extends React.Component {
 		var _this=this;
 		
 		console.log('form=====>>>>',form)
-		// Http.request('create-activity',{},form).then(function(response) {
+		// Http.request('edit-activity',{},form).then(function(response) {
 		// 	Message.success('新建成功')
 		// 	onSubmit && onSubmit();
 		// }).catch(function(err) {
