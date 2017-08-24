@@ -15,6 +15,7 @@ import MemberApi from './MemberApi';
 import NotifyApi from './NotifyApi';
 import StatisticalApi from './StatisticalApi';
 import CommonApi from './CommonApi';
+import SynchronizationApi from './SynchronizationApi';
 import OAApi from './OAApi';
 
 
@@ -37,5 +38,6 @@ module.exports = {
   ...StatisticalApi,
   ...WebBackstageApi,
   ...CommonApi,
+  ...SynchronizationApi,
   ...OAApi
 }

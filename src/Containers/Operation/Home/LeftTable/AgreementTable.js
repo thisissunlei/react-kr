@@ -54,7 +54,7 @@ class AgreementTable  extends React.Component{
 	render(){
 		
 		return(
-			<div className="payment-table">
+			<div className="payment-table point-table">
 				{!!State.agreementList.items.length && 
 				<table>
 					<thead>

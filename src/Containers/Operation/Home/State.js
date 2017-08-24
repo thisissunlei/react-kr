@@ -19,7 +19,7 @@ import {Http} from "kr/Utils"
 let State = observable({
 	openChangeCommunity:false,
 	info:{
-		communityName:'酒仙桥社区',
+		communityName:'--',
 		communityId:'',
 		cityId:''
 	},
