@@ -8,18 +8,17 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
-	Button,
 	Section,
 	Dialog,
 	Message,
-	Notify,
-	CheckPermission,
-	Tooltip
+	Tooltip,
+	Drawer 
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
 import WarnSearchForm from './WarnSearchForm';
+import WarnContent from './WarnContent';
 import './index.less';
 import State from './State';
 import {
@@ -34,6 +33,7 @@ export default class List extends React.Component {
 		super(props, context);
 		this.state = {
 			realPage : 1,
+			itemDetail:{}
 		}
 	}
 
@@ -53,9 +53,25 @@ export default class List extends React.Component {
 			realPage : page 
 		})
 	}
+
+
+
+	seeContent=(param,params)=>{
+		// console.log("param",param,params,params);
+		this.setState({
+			itemDetail : param
+		})
+		this.openContentFun();
+	}
+
+	openContentFun=()=>{
+		State.openContent =!State.openContent
+	}
+
+
 	render() {
 		let {
-			list,seleced
+			list,seleced,itemDetail
 		} = this.state;
 		
 		return (
@@ -79,16 +95,24 @@ export default class List extends React.Component {
 							ajaxParams={State.warnSearchParams}
 							onPageChange={this.onPageChange}
 							displayCheckbox={false}
+							onOperation={this.onOperation}
 						>
 							<TableHeader>
+								<TableHeaderColumn>报警类型</TableHeaderColumn>
 								<TableHeaderColumn>报警时间</TableHeaderColumn>
 								<TableHeaderColumn>智能硬件ID</TableHeaderColumn>
 								<TableHeaderColumn>描述</TableHeaderColumn>
-								<TableHeaderColumn>报警类型</TableHeaderColumn>
 								
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>
 								<TableRow>
+								<TableRowColumn name="typeName"
+								component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								 ></TableRowColumn>
 								<TableRowColumn name="time" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
 								<TableRowColumn name="deviceId"
 								component={(value,oldValue)=>{
@@ -97,32 +121,37 @@ export default class List extends React.Component {
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn style={{width:400,overflow:"visible"}} name="content" component={(value,oldValue)=>{
-		                            var TooltipStyle=""
-		                            if(value.length==""){
-		                              TooltipStyle="none"
+								
 
-		                            }else{
-		                              TooltipStyle="block";
-		                            }
-		                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span  style={{maxWidth:400,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-		              			}} ></TableRowColumn>
-								<TableRowColumn name="typeName"
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
+								<TableRowColumn type ='operation' name="content" style={{width:400,overflow:"hidden"}}
+									component={
+										(value,oldValue,itemData)=>{
+											if(value==""){
+												value="-"
+											}
+											return (
+													<div onClick={this.seeContent.bind(this,itemData)} style={{width:400,color:"#499df1",cursor:"pointer",whiteSpace:"nowrap",textOverflow:"ellipsis",overflow:"hidden"}}>
+														{itemData.content}
+													</div>
+												)
+										}
 									}
-									return (<span>{value}</span>)}}
-								 ></TableRowColumn>
-								
-								
+								> 
+								</TableRowColumn>
 								
 							 </TableRow>
 						</TableBody>
 						<TableFooter></TableFooter>
 						</Table>
 					</Section>
+					<Drawer 
+			          title="报警描述"
+			          open={State.openContent}
+			          onClose={this.openContentFun}
+			          width={"70%"}
+			        >
+			          	<WarnContent detail={itemDetail} onCancle={this.openContentFun}/>
+			        </Drawer>
 				</div>
 		);
 
