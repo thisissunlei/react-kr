@@ -85,9 +85,12 @@ class AddDynamics extends React.Component{
         // let host = "http://"+window.location.host;
         let host = "http://optest02.krspace.cn/";
         var editorLabel = "";
+        var contentName ="content"; 
         if(isCite){
+            contentName ="content"; 
             editorLabel = "内容";
         }else{
+            contentName = "notContent"
             editorLabel = "简介"
         }
 
@@ -126,7 +129,7 @@ class AddDynamics extends React.Component{
                         />
                     </div>
                      <div style = {{marginTop:14,display:isCite? 'block':'none'}}>
-                        <KrField component="editor" requireLabel={true} name="content" onChange = {this.editorChange} label="内容" defaultValue={inData||''}/>
+                        <KrField component="editor" requireLabel={true} name={contentName} onChange = {this.editorChange} label="内容" defaultValue={inData||''}/>
                     </div>
                     {!isCite && <div style = {{marginTop:14}}>
                         <KrField component="textarea" requireLabel={true} name="desc" onChange = {this.editorChange} label="简介" />

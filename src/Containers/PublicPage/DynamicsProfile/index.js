@@ -26,7 +26,7 @@ export default class DynamicsProfile extends React.Component {
 		this.state = {
 			searchParams:{
 				page:1,
-                pageSize:15,
+                pageSize:10,
 			},
             newPage:1,
             listData:[],
@@ -52,7 +52,7 @@ export default class DynamicsProfile extends React.Component {
                 listData:listData.concat(response.items),
                 searchParams:{
                     page:response.page+1,
-                    pageSize:15,
+                    pageSize:10,
                 },
                 newPage:response.page,
                 totalPages:response.totalPages,
