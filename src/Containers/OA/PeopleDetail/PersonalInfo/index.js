@@ -354,8 +354,6 @@ export default class PersonalInfo  extends React.Component{
 			  detail:personInfo.idCard},
 			 {name:'出生日期',
 			  detail:<KrDate value={personInfo.birthday} format="yyyy-mm-dd"/>},
-			  /*{name:'职级',
- 			  detail:personInfo.levelName},*/
 			  {name:'星座',
 			  type:'ERP_Constellation',
 			  isSwitch:true,

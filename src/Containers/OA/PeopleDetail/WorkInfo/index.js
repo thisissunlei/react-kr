@@ -103,6 +103,8 @@ export default class WorkInfo  extends React.Component{
 		let infoName=[
 			 {name:'工资卡号',
 			  detail:workInfo.wageCard},
+				{name:'职级',
+				detail:workInfo.levelName},
 			 {name:'核算单位',
 			  detail:workInfo.calculateCompany},
 			 {name:'试用期到期时间',

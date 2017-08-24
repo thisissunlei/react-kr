@@ -34,7 +34,8 @@ export default class Leave extends Component{
 			searchParams : {
 				page:1,
 				pageSize:15,
-				searchKey:'',
+				codeKey:'',
+	      nameKey:'',
 			},
 			isName:false,
 			openSearchUpper:false
@@ -58,7 +59,8 @@ export default class Leave extends Component{
 	//搜索确定
 	onSearchSubmit = (data)=>{
 		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.searchKey = data.content;
+		searchParams.nameKey = data.content;
+		searchParams.codeKey=data.content;
 		this.setState({
 			searchParams
 		})
@@ -82,7 +84,8 @@ export default class Leave extends Component{
  onExport=(values)=> {
 	 let {searchParams} = this.state;
 	 let defaultParams = {
-		  searchKey:'',
+			 codeKey:'',
+			 nameKey:'',
 			mobilePhone:'',
 			email:'',
 			orgId:'',
@@ -117,6 +120,7 @@ export default class Leave extends Component{
 
  //高级查询提交
  onSearchUpperSubmit=(param)=>{
+	 param.codeKey=param.nameKey?param.nameKey:'';
 	 if(param.orgId){
      var id=param.orgId[0].orgId?param.orgId[0].orgId:'';
      var type=param.orgId[0].treeType?param.orgId[0].treeType:'';
@@ -127,7 +131,8 @@ export default class Leave extends Component{
 		 param.leader=param.leader[0].orgId;
 	 }
 	 let defaultParams = {
-		 searchKey:'',
+		 codeKey:'',
+		 nameKey:'',
 		 mobilePhone:'',
 		 email:'',
 		 orgId:'',

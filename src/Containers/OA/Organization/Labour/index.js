@@ -407,7 +407,8 @@ export default class Labour extends React.Component {
     }
 	onSearchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.searchKey = form.content;
+		searchParams.nameKey = form.content;
+		searchParams.codeKey=form.content;
 		this.setState({
 			searchParams
 		})
@@ -558,7 +559,8 @@ export default class Labour extends React.Component {
 	onExportHrm=(values)=>{
 		let {searchParams} = this.state;
     let defaultParams = {
-      searchKey:'',
+			codeKey:'',
+			nameKey:'',
       mobilePhone:'',
       email:'',
       orgId:'',
@@ -597,6 +599,7 @@ export default class Labour extends React.Component {
 	}
 
 	onHighSearchSubmit = (param) => {
+		param.codeKey=param.nameKey?param.nameKey:'';
 		if(param.orgId){
       var id=param.orgId?param.orgId:'';
       var type=param.orgType?param.orgType:'';
@@ -607,7 +610,8 @@ export default class Labour extends React.Component {
       param.leader=param.leader[0].orgId;
     }
     let defaultParams = {
-       searchKey:'',
+				codeKey:'',
+				nameKey:'',
        mobilePhone:'',
        email:'',
        orgId:'',

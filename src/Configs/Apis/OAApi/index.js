@@ -37,7 +37,7 @@ var OAApi = {
   },
   //根据机构ID获取人员信息
   'hrm-list': {
-      url: '/api/krspace-erp-web/hrm/resource/list/type/org-resource?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&searchType={searchType}&searchStatus={searchStatus}&hasAccount={hasAccount}&searchProperty={searchProperty}&entryDateStart={entryDateStart}&entryDateEnd={entryDateEnd}',
+      url: '/api/krspace-erp-web/hrm/resource/list/type/org-resource?page={page}&pageSize={pageSize}&nameKey={nameKey}&codeKey={codeKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&searchType={searchType}&searchStatus={searchStatus}&hasAccount={hasAccount}&searchProperty={searchProperty}&entryDateStart={entryDateStart}&entryDateEnd={entryDateEnd}',
       method: 'get'
   },
   //根据机构ID获取下级机构
@@ -73,13 +73,13 @@ var OAApi = {
   /*====离职列表接口*/
   //离职列表-列表接口
   'getLeaveList': {
-      url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&searchType={searchType}&searchProperty={searchProperty}&leaveType={leaveType}&leaveReason={leaveReason}&leaveDateStart={leaveDateStart}&leaveDateEnd={leaveDateEnd}',
+      url: '/api/krspace-erp-web/hrm/resource/list/type/dimission?page={page}&pageSize={pageSize}&nameKey={nameKey}&codeKey={codeKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&searchType={searchType}&searchProperty={searchProperty}&leaveType={leaveType}&leaveReason={leaveReason}&leaveDateStart={leaveDateStart}&leaveDateEnd={leaveDateEnd}',
       method: 'get'
   },
    /*====在职列表接口*/
    //在职列表-列表接口
   'getInServiceList': {
-    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&searchKey={searchKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&searchType={searchType}&searchStatus={searchStatus}&hasAccount={hasAccount}&searchProperty={searchProperty}&entryDateStart={entryDateStart}&entryDateEnd={entryDateEnd}',
+    url: '/api/krspace-erp-web/hrm/resource/list/type/incumbency?page={page}&pageSize={pageSize}&nameKey={nameKey}&codeKey={codeKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&searchType={searchType}&searchStatus={searchStatus}&hasAccount={hasAccount}&searchProperty={searchProperty}&entryDateStart={entryDateStart}&entryDateEnd={entryDateEnd}',
   },
   //在职列表-获取离职类型   ------
   'getDepartureType': {
@@ -635,12 +635,12 @@ var OAApi = {
 
   //我的同事
   'myColleague':{
-      url:'/api/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&searchKey={searchKey}&page={page}&pageSize={pageSize}',
+      url:'/api/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&mobilePhoneKey={mobilePhoneKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
   //我的下级
   'myLower':{
-      url:'/api/krspace-erp-web/hrm/resource/list/type/junior?orgId={orgId}&orgType={orgType}&searchKey={searchKey}&page={page}&pageSize={pageSize}',
+      url:'/api/krspace-erp-web/hrm/resource/list/type/junior?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&mobilePhoneKey={mobilePhoneKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
 
