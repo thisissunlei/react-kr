@@ -285,12 +285,21 @@ export default class ImageShear extends React.Component {
         clamp && clamp(this.state.data);
       })
     }
-
+    //
+    isSub = (can,img) =>{
+      var maxLeng = Math.max(img.width,img.height);
+      console.log(maxLeng<=can.width,">>>>")
+      if(maxLeng<=can.width){
+        return false;
+      }
+      return true;
+    }
     addZoom = () =>{
       var myCanvas = this.myCanvas.getBoundingClientRect();
       var previewImg = this.previewImg.getBoundingClientRect();
       var centerx = this.floort(myCanvas.left+myCanvas.width / 2 - previewImg.left);
       var centery = this.floort(myCanvas.top+myCanvas.height / 2 - previewImg.top);
+     
       this.setZoom(parseInt(this.props.addZoom),{x:centerx,y:centery})
 
       this.imgRender();
@@ -304,7 +313,9 @@ export default class ImageShear extends React.Component {
       var previewImg = this.previewImg.getBoundingClientRect();
       var centerx = this.floort(myCanvas.left+myCanvas.width / 2 - previewImg.left);
       var centery = this.floort(myCanvas.top+myCanvas.height / 2 - previewImg.top);
-
+      if(!this.isSub(myCanvas,previewImg)){
+          return;
+      }
       this.setZoom(parseInt(this.props.minusZoom),{x:centerx,y:centery})
       this.imgRender();
       this.canImgSet();
