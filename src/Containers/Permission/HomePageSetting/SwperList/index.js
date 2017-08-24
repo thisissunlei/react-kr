@@ -141,7 +141,7 @@ export default class SwperList extends Component{
 	   Http.request("home-swper-delete",{},{id:nowId}).then(function (response) {
 			Message.success("删除成功");
 			_this.switchOpenDelete()
-			_this.refresh();
+			_this.refresh("delete");
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -175,9 +175,12 @@ export default class SwperList extends Component{
 	jump = (src) =>{
 		window.location.href = src;
 	}
-	refresh = () =>{
+	refresh = (type) =>{
 		let searchParams = Object.assign({},this.state.searchParams);
 		searchParams.other  = new Date();
+		if(type == "delete"){
+			searchParams.page = 1;
+		}
 		this.setState({
 			searchParams
 		})

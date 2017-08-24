@@ -45,35 +45,11 @@ export default class Home extends React.Component {
 				_this.toLoadSwiper();
 			})
 		}).catch(function(err) {});
-	// var width = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.056;
 	_this.swiperWidth = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.15*0.7;
-	// window.setTimeout(function() {
-	// 	var swiper = new Swiper('.swiper-container', {
-	// 		slidesPerView: 6,
-	// 		paginationClickable: true,
-	// 		loop:false,
-	// 		prevButton:'.oa-swiper-prev',
-	// 		nextButton:'.oa-swiper-next',
-	// 		spaceBetween: width,
-	// 	});
-	// 	var swiperone = new Swiper('.swiper-container-one', {
-	// 		// loop:true,
-	// 		effect : 'fade',
-	// 		prevButton:'.oa-one-swiper-prev',
-	// 		nextButton:'.oa-one-swiper-next',
-	// 		scrollbar: '.swiper-scrollbar',
-	// 		scrollbarHide: false,
-	// 		// slidesPerView: 'auto',
-	// 		// centeredSlides: true,
-	// 		autoplay : 2000,
-	// 		autoplayDisableOnInteraction:false,
-	// 	});
-	// }, 400);
+	_this.applyItemWidth = (document.getElementsByClassName('g-home-middle-item')[2].clientWidth+60)*0.175;
+	// document.getElementsByClassName('g-home-middle-item')[2].getElementsByClassName('pic').style.height = _this.applyItemWidth+'px';
   }
   toLoadSwiper=()=>{
-	console.log(document.getElementsByClassName('g-home-bottom')[0].clientWidth);
-	// var width = (document.getElementsByClassName('g-home-bottom')[0].clientWidth)*0.84*0.056;
-	// this.swiperWidth = (document.getElementsByClassName('g-home-bottom')[0].clientWidth+180)*0.84*0.12;
 	var swiper = new Swiper('.swiper-container', {
 			slidesPerView: 6,
 			paginationClickable: true,
@@ -303,32 +279,33 @@ export default class Home extends React.Component {
 							</div>
 							
 							<div className="apply">
-								<a className="apply-item" href="https://baoxiao.corp.36kr.com/" target="_blank">
-									<div className="pic">
-
-									</div>
-									<div className="text">
-										云快报
-									</div>
-								</a>
-								<a className="apply-item" href="http://bbs.corp.36kr.com" target="_blank">
-									<div className="pic">
-
-									</div>
-									<div className="text">
-										氪星小镇
-									</div>
-								</a>
 								<a className="apply-item" href="http://krspace.cn" target="_blank">
-									<div className="pic">
+									<div className="pic" style={{height:this.applyItemWidth}}>
 
 									</div>
 									<div className="text">
 										氪空间官网
 									</div>
 								</a>
+								<a className="apply-item" href="https://baoxiao.corp.36kr.com/" target="_blank">
+									<div className="pic" style={{height:this.applyItemWidth}}>
+
+									</div>
+									<div className="text">
+										氪星小镇
+									</div>
+								</a>
+								<a className="apply-item" href="http://bbs.corp.36kr.com" target="_blank">
+									<div className="pic" style={{height:this.applyItemWidth}}>
+
+									</div>
+									<div className="text">
+										云快报
+									</div>
+								</a>
+								
 								<div className="apply-item">
-									<div className="pic">
+									<div className="pic" style={{height:this.applyItemWidth}}>
 
 									</div>
 									<div className="text">
