@@ -235,8 +235,12 @@ export default class Leave extends Component{
 						<TableRowColumn name="entryDate" component={(value,oldValue)=>{
 									return (<KrDate value={value} format="yyyy-mm-dd"/>)
 								}}></TableRowColumn>
+						<TableRowColumn name="leaveTypeStr"></TableRowColumn>
 						<TableRowColumn name="leaveReason"></TableRowColumn>
-						<TableRowColumn name="updator"></TableRowColumn>
+						<TableRowColumn name="leaveDate" component={(value,oldValue)=>{
+									return (<KrDate value={value} format="yyyy-mm-dd"/>)
+								}}></TableRowColumn>
+						<TableRowColumn name="updatorName"></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
 									return (<KrDate value={value} format="yyyy-mm-dd"/>)
 								}}></TableRowColumn>
