@@ -558,6 +558,11 @@ var OAApi = {
       url:'/api/krspace-erp-web/sys/base/data',
       method: 'get'
   },
+  //点击动态
+  'home-click-dynamic':{
+      url:'/api/krspace-erp-web/sys/base/dynamic/log',
+      method: 'post'
+  },
   //首页管理
   //首页-轮播列表
   'home-swper-list':{

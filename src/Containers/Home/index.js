@@ -38,7 +38,10 @@ export default class Home extends React.Component {
 	NavModel.setSidebar(false);
 	var _this = this;
 	Http.request('home-index', {},{}).then(function(response) {
-			_this.setState({infoList: response},function(){
+			_this.setState({
+				infoList: response,
+				dynamicList: response.dynamicList,
+			},function(){
 				_this.toLoadSwiper();
 			})
 		}).catch(function(err) {});
@@ -149,6 +152,7 @@ export default class Home extends React.Component {
       if(!item){
         return ;
       }
+	  console.log("进入renderDyamic");
       return (
 			<div key={index} className="item">
 				<span className={`circle ${item.isRead=="READ"?'readcircle':''}`}>
@@ -161,8 +165,21 @@ export default class Home extends React.Component {
       );
   }
    goDetail = (data) =>{
-        let id=data.id;
-		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
+	   let id=data.id;
+	   var _this = this;
+	   	if(data.isRead=='NOREAD'){
+			Http.request('home-click-dynamic', {},{
+				id:data.id
+			}).then(function(response) {
+				_this.setState({dynamicList: response.items})
+			}).catch(function(err) {});
+			
+		}
+        if(!data.linkUrl){
+					window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
+			}else{
+				window.open(`${data.linkUrl}`,'_blank');
+		}
 	}
    toDynamicsList=()=>{
 		window.open(`./#/publicPage/dynamicsProfile`,'_blank');
@@ -269,7 +286,7 @@ export default class Home extends React.Component {
 								</div>
 							</div>
 							<div className="main">
-								{this.state.infoList.dynamicList && this.state.infoList.dynamicList.slice(0,10).map((item,index)=>{
+								{this.state.dynamicList && this.state.dynamicList.slice(0,10).map((item,index)=>{
 										return this.renderDynamicList(item,index)
 								})}
 							</div>
