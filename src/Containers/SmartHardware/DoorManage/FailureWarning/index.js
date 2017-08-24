@@ -20,7 +20,7 @@ import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
 import WarnSearchForm from './WarnSearchForm';
-
+import './index.less';
 import State from './State';
 import {
 	observer,
@@ -66,7 +66,7 @@ export default class List extends React.Component {
 							<WarnSearchForm/>
 						</div>
 						<Table
-							className="member-list-table"
+							className="door-warning-table"
 							style={{marginTop:10,position:'inherit'}}
 							onLoaded={this.onLoaded}
 							ajax={true}
@@ -97,7 +97,7 @@ export default class List extends React.Component {
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn style={{width:200,overflow:"visible"}} name="content" component={(value,oldValue)=>{
+								<TableRowColumn style={{width:400,overflow:"visible"}} name="content" component={(value,oldValue)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
 		                              TooltipStyle="none"
@@ -105,7 +105,7 @@ export default class List extends React.Component {
 		                            }else{
 		                              TooltipStyle="block";
 		                            }
-		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span  style={{maxWidth:400,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 								<TableRowColumn name="typeName"

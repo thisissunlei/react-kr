@@ -414,7 +414,7 @@ export default class SecondDoorManage  extends React.Component{
 			          	<TableBody >
 				            <TableRow>
 				            	<TableRowColumn name="communityName"></TableRowColumn>
-								<TableRowColumn style={{width:160,overflow:"visible"}} name="title" component={(value,oldValue)=>{
+								<TableRowColumn style={{width:100,overflow:"visible"}} name="title" component={(value,oldValue)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
 		                              TooltipStyle="none"
@@ -422,7 +422,7 @@ export default class SecondDoorManage  extends React.Component{
 		                            }else{
 		                              TooltipStyle="block";
 		                            }
-		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 								<TableRowColumn name="doorCode" component={(value,oldValue)=>{
@@ -464,7 +464,7 @@ export default class SecondDoorManage  extends React.Component{
 					                return (<span style={{color:spanColor}}>{value}</span>)}}>
 					            </TableRowColumn>
 					            
-								<TableRowColumn name="loginedUtime" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
+								<TableRowColumn name="loginedUtime" type="date" format="yyyy-mm-dd HH:MM:ss" style={{width:160}}></TableRowColumn>
 
 					            <TableRowColumn type="operation"
 									component={
