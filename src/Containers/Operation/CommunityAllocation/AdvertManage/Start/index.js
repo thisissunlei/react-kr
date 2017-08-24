@@ -19,7 +19,8 @@ import {
 } from 'kr-ui';
 
 import './../index.less';
-
+import CreateStart from './CreateStart';
+import EditStart from './EditStart';
 
 export default class Start extends React.Component{
 
@@ -190,6 +191,35 @@ export default class Start extends React.Component{
 					        </TableBody>
 			        		<TableFooter></TableFooter>
             		</Table>
+            	<Drawer
+	             modal={true}
+	             width={750}
+	             open={this.state.openEdit}
+	             onClose={this.openEdit}
+	             openSecondary={true}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+	           >
+	             	<CreateStart 
+	             			onCancel={this.openEdit} 
+	             			onSubmit={this.createSubmit} 
+	             			
+	             	 />
+	           </Drawer>
+	           <Drawer
+	             modal={true}
+	             width={750}
+	             open={this.state.openCreat}
+	             onClose={this.openCreat}
+	             openSecondary={true}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+	           >
+	             	<EditStart 
+	             			onCancel={this.openCreat} 
+	             			onSubmit={this.editSubmit} 
+	             			
+	             	 />
+	           </Drawer>
+	           
             	<Dialog
 	              title="删除"
 	              modal={true}

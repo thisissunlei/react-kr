@@ -20,6 +20,8 @@ import {
 
 import './../index.less';
 
+import CreateBanner from './CreateBanner';
+import EditBanner from './EditBanner';
 
 export default class Banner extends React.Component{
 
@@ -195,6 +197,34 @@ export default class Banner extends React.Component{
 					        </TableBody>
 			        		<TableFooter></TableFooter>
             		</Table>
+            	<Drawer
+	             modal={true}
+	             width={750}
+	             open={this.state.openEdit}
+	             onClose={this.openEdit}
+	             openSecondary={true}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+	           >
+	             	<CreateBanner 
+	             			onCancel={this.openEdit} 
+	             			onSubmit={this.createSubmit} 
+	             			
+	             	 />
+	           </Drawer>
+	           <Drawer
+	             modal={true}
+	             width={750}
+	             open={this.state.openCreat}
+	             onClose={this.openCreat}
+	             openSecondary={true}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+	           >
+	             	<EditBanner
+	             			onCancel={this.openCreat} 
+	             			onSubmit={this.editSubmit} 
+	             			
+	             	 />
+	           </Drawer>
 				<Dialog
 	              title="删除"
 	              modal={true}
