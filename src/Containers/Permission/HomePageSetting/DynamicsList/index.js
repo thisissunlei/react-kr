@@ -250,7 +250,7 @@ export default class DynamicsList extends Component{
             <TableRowColumn name="identifier" ></TableRowColumn>
 						<TableRowColumn name="titleUrl"
               				component={(value,oldValue)=>{
-								return (<img className = "dynamics-img" src = {value} />)
+								return (<img className = "dynamics-img" src = {value} style = {{display:value ? "inline-block" : "none"}} />)
 		 					}}
            				></TableRowColumn>
 						<TableRowColumn name="title"
