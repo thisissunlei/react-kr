@@ -37,7 +37,7 @@ module.exports = [
 					{
 						primaryText: "同步中心",
 						router: '/finance/manage/sync/list',
-						menuCode: 'fina_category_1stPage'
+						menuCode: 'sync_cmt_ctrl'
 					}, 
 					
 				]
