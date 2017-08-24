@@ -11,7 +11,7 @@ import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils'
 import './index.less';
-
+var pubilcIsCite = false;
 class AddDynamics extends React.Component{
 
 	constructor(props,context){
@@ -34,7 +34,6 @@ class AddDynamics extends React.Component{
         const {onSubmit} = this.props;
         const {isCite} = this.state;
         values = Object.assign({},values);
-        console.log(values,">>>>>>")
         if(isCite){
             values.desc = '';
             values.linkUrl='';
@@ -52,10 +51,11 @@ class AddDynamics extends React.Component{
 
         var isCite = false;
         if(detail.value == "OUTSIDE"){
-
+            pubilcIsCite = false;
             isCite = false;
 
         }else{
+             pubilcIsCite = true;
             isCite = true;
         }
         this.setState({

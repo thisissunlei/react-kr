@@ -11,7 +11,7 @@ import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils'
 import './index.less';
-
+var pubilcIsCite = false;
 class EditDynamics extends React.Component{
 
 	constructor(props,context){
@@ -48,7 +48,7 @@ class EditDynamics extends React.Component{
         if(nextProps.type && this.state.isType){
 
             if(nextProps.type == "OUTSIDE" && this.state.isCite){
-
+                pubilcIsCite = false;
                 this.setState({
                     isCite:false,
                     isType:false
@@ -56,6 +56,7 @@ class EditDynamics extends React.Component{
 
             }
             if(nextProps.type == "INSIDE" && !this.state.isCite){
+                pubilcIsCite = true;
                 this.setState({
                     isCite:true,
                     isType:false
@@ -89,10 +90,11 @@ class EditDynamics extends React.Component{
         var isCite = false;
         let {content} = this.props;
         if(detail.value == "OUTSIDE"){
-
+            pubilcIsCite = false;
             isCite = false;
 
         }else{
+            pubilcIsCite = true;
             isCite = true;
 
         }
@@ -114,10 +116,13 @@ class EditDynamics extends React.Component{
 
         var editorLabel = "";
         if(isCite){
+            
             editorLabel = "内容";
         }else{
+            
             editorLabel = "简介"
         }
+        
         let host = "http://optest02.krspace.cn/";
 		return(
 
@@ -200,9 +205,12 @@ const validate = values =>{
     if(!values.articleType){
         errors.articleType='文章类型为必填项';
     }
-    if(!values.content){
-        errors.content = '内容为必填项'
+    if(pubilcIsCite){
+        if(!values.content){
+            errors.content = '内容为必填项'
+        }
     }
+    
 
     if(!values.desc){
         errors.desc = '简介为必填项'
