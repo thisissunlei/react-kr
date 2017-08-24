@@ -44,7 +44,7 @@ class ViewNotice extends React.Component {
 	getInfo=()=>{
 		var _this=this;
 		const {detail}=this.props;
-		Http.request('get-notice-detail',{id:detail.id}).then(function(response) {
+		Http.request('activity-detail',{id:detail.id}).then(function(response) {
 			
 			if(response.type==0){
 				_this.setState({
@@ -88,48 +88,108 @@ class ViewNotice extends React.Component {
 
 							<KrField
 								style={{width:548}}
-								label="公告标题"
+								label="活动标题"
 								inline={false} 
 								component="labelText"
 								value={infoList.title}
 								
 						 	/>
 						 	<KrField
-								style={{width:260,margintop:20}}
-								label="公告类型"
+								style={{width:260}}
+								label="费用"
 								inline={false} 
 								component="labelText"
-								value={infoList.type=='1'?'全国公告':'社区公告'}
+								value={infoList.cost=='0'?'免费':infoList.cost}
+								
+						 	/>
+						 	<KrField
+								style={{width:260}}
+								label="活动类型"
+								inline={false} 
+								component="labelText"
+								value={infoList.type=='1'?'全国活动':'社区活动'}
 								
 						 	/>
 						 	{ifCity?<KrField  
 					 			grid={1/2}
-					 			style={{width:260,margintop:20}} 
+					 			style={{width:260}} 
 					 			label="所属社区" 
 					 			inline={false} 
 								component="labelText"
 								value={infoList.cmtName}
 						 		
 						 	/>:''}
+						 	<KrField  
+					 			grid={1/2}
+					 			style={{width:260}} 
+					 			label="地点" 
+					 			inline={false} 
+								component="labelText"
+								value={infoList.address}
+						 	/>
+						 	<KrField  
+					 			grid={1/2}
+					 			style={{width:260}} 
+					 			label="主办方" 
+					 			inline={false} 
+								component="labelText"
+								value={infoList.sponsor}
+						 	/>
+						 	<KrField  
+					 			grid={1/2}
+					 			style={{width:260}} 
+					 			label="是否置顶" 
+					 			inline={false} 
+								component="labelText"
+								value={infoList.stick==1?'置顶':'不置顶'}
+						 	/>
+						 	<KrField  
+					 			grid={1/2}
+					 			style={{width:260}} 
+					 			label="最大人数限制" 
+					 			inline={false} 
+								component="labelText"
+								value={infoList.maxPerson==0?'无限制':infoList.maxPerson}
+						 	/>
 						 	
 						 	<KrField
-								style={{width:260,margintop:20}}
-								label="发布时间"
-								maxSize={500}
+								style={{width:260}}
+								label="开始时间"
 								inline={false} 
 								component="labelText"
 								value={
 									< KrDate 
 										style = {{marginTop:5}} 
 										value = {
-						                    infoList.publishTime
+						                    infoList.begin_time
 						                }
                							format = "yyyy-mm-dd hh:MM:ss" />
 								}
 
 							/>
+							<KrField
+								style={{width:260}}
+								label="结束时间"
+								inline={false} 
+								component="labelText"
+								value={
+									< KrDate 
+										style = {{marginTop:5}} 
+										value = {
+						                    infoList.end_time
+						                }
+               							format = "yyyy-mm-dd hh:MM:ss" />
+								}
+
+							/>
+							<div className="u-photo-box">
+								<span className="u-photo-title">活动封面</span>
+								<div className="u-photo-img-box" style={{width:390,height:161,marginLeft:15}}>
+									<img src={infoList.imgUrl} style={{width:'100%',height:'100%'}}/>
+								</div>
+							</div>
 							<div className="u-notice-con">
-								<div>公告内容</div>
+								<div>活动内容</div>
 								{infoList.richText && ReactHtmlParser(infoList.richText)}
 							</div>
 						<Grid style={{marginTop:50,width:'81%'}}>
@@ -150,6 +210,5 @@ class ViewNotice extends React.Component {
 
 
 export default reduxForm({
-		form: 'viewNotice',
-		
+		form: 'viewNotice'
 	})(ViewNotice);
