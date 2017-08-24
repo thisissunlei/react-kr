@@ -28,6 +28,7 @@ export default class DynamicsProfile extends React.Component {
 				page:1,
                 pageSize:15,
 			},
+            newPage:1,
             listData:[],
             totalPages:0,
             totalCount:0
@@ -45,7 +46,6 @@ export default class DynamicsProfile extends React.Component {
         
         var _this = this;
         let {listData} = this.state;
-         console.log({listData},'listdata');
         Http.request("get-home-dynamics-list",params).then(function (response) {
            
             _this.setState({
@@ -54,6 +54,7 @@ export default class DynamicsProfile extends React.Component {
                     page:response.page+1,
                     pageSize:15,
                 },
+                newPage:response.page,
                 totalPages:response.totalPages,
                 totalCount:response.totalCount
             })
@@ -96,9 +97,9 @@ export default class DynamicsProfile extends React.Component {
     }
 	
 	render() {
-        const {totalCount,searchParams} = this.state;
+        const {totalCount,searchParams,newPage} = this.state;
         var btnShow = false;
-        if(searchParams.page*searchParams.pageSize <= totalCount){
+        if(newPage*searchParams.pageSize <= totalCount){
             btnShow = true;
         }
 		return (
