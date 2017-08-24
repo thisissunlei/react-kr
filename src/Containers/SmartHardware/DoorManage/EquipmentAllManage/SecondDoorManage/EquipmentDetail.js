@@ -16,7 +16,7 @@ export default class EquipmentDetail extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			
+			itemDetail:{}
 		}
 	}
 	componentWillMount() {
@@ -26,12 +26,19 @@ export default class EquipmentDetail extends React.Component{
 
 	}
 
+
 	componentDidMount(){
-		
+		console.log("this.props===》componentDidMount",this.props);
+		let {detail} = this.props;
+		console.log("detail==》componentDidMount",detail);
 		let _this =this;
-		$("#json-str-report").html(_this.syntaxHighlight(State.deviceVO.reported));
-		$("#json-str-desired").html(_this.syntaxHighlight(State.deviceVO.desired));
-		// console.log("_this.syntaxHighlight(State.deviceVO.reported)",_this.syntaxHighlight(State.deviceVO.reported));
+		_this.setState({
+			itemDetail :detail
+		},function(){
+			$("#json-str-report").html(_this.syntaxHighlight(detail.deviceVO.reported));
+			$("#json-str-desired").html(_this.syntaxHighlight(detail.deviceVO.desired));
+		})
+		
 	}
 	closeDialog=()=>{
 		State.openHardwareDetail= false;
@@ -39,9 +46,10 @@ export default class EquipmentDetail extends React.Component{
 
 	freshEquipmentReporter=()=>{
 		console.log("freshEquipmentReporter====>");
+		let {detail} = this.props;
 		let _this = this;
 		State.freshPageReturn();
-		var urlParams = {deviceId:State.deviceVO.deviceId}
+		var urlParams = {deviceId:detail.deviceVO.deviceId}
 		Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
 			
 			$("#json-str-report").html(_this.syntaxHighlight(response.reported));
@@ -80,8 +88,8 @@ export default class EquipmentDetail extends React.Component{
 
 
 	render(){
-		var params = Object.assign({},State.deviceVO);
-		console.log("State.deviceVO",State.deviceVO);
+		let {detail} = this.props;
+		var params = detail.deviceVO;
 		return (
 			<div className="seconde-dialog">
 				<Button label="刷新设备上报信息" onTouchTap={this.freshEquipmentReporter} style={{width:150,marginLeft:20}}/>

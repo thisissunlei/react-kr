@@ -62,7 +62,7 @@ export default class SecondDoorManage  extends React.Component{
 
 	//操作相关
 	onOperation=(type, itemDetail)=>{
-		console.log("itemDetail",itemDetail);
+		console.log("itemDetail===>operation",itemDetail);
 		this.setState({
 			itemDetail
 		});
@@ -79,9 +79,12 @@ export default class SecondDoorManage  extends React.Component{
 	}
 	seeDetailInfoFun=(value,itemData)=>{
 		// State.deviceVO = value.deviceVO;
+		this.setState({
+			itemDetail : value
+		})
+		console.log("itemDetail===>operation",itemData);
 		State.deviceVO = State.itemDetail.deviceVO;
 		State.openHardwareDetail = true;
-		this.showOpretionFun();
 	}
 
 	closeAll=()=>{
@@ -368,7 +371,6 @@ export default class SecondDoorManage  extends React.Component{
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
 		console.log("itemDetail",itemDetail);
-		
 		return(
 			<div >
 				<div style={{padding:"20px 0 0 0"}}>
@@ -474,9 +476,9 @@ export default class SecondDoorManage  extends React.Component{
 													<div>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
-														<div style={{display:"inline-block",height:40,verticalAlign:"middle"}}>
-															<Button type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,value,itemData)} linkTrue/>
-														</div>
+				                        				<Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
+														<Button  label="更多"  type="operation" operation="more" onTouchTap={this.showMoreOpretion.bind(this,value,itemData)} linkTrue/>
+														
 													</div>
 												)
 										}
@@ -493,7 +495,7 @@ export default class SecondDoorManage  extends React.Component{
 					    width={"90%"} 
 					    openSecondary={true} 
 					>
-						<EquipmentDetail onCancel={this.openSeeDetail}/>
+						<EquipmentDetail onCancel={this.openSeeDetail} detail={itemDetail}/>
 					</Drawer>
 					 <Drawer 
 			        	open={State.openSearchEquipment}
@@ -501,7 +503,7 @@ export default class SecondDoorManage  extends React.Component{
 					    width={"90%"} 
 					    openSecondary={true} 
 					>
-						<EquipmentFind onCancel={this.openSearchEquipmentFun}/>
+						<EquipmentFind onCancel={this.openSearchEquipmentFun} />
 					</Drawer>
 					
 					<Dialog
@@ -820,9 +822,7 @@ export default class SecondDoorManage  extends React.Component{
 				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
 				                        	<Button  label="重启设备系统" type="button"  cancle={true} onTouchTap={this.restartSystems} style={{width:115}}/>
 				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
-				                        	<Button  label="查看详情" type="button"  cancle={true} onTouchTap={this.seeDetailInfoFun} style={{width:115}}/>
-				                      	</ListGroupItem>
+				                      	
 				                    </ListGroup>
 			                  	</Row>
 			                  	<Row>

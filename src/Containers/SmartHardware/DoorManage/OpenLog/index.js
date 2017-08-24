@@ -129,9 +129,9 @@ export default class List extends React.Component {
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>
 								<TableRow>
-								<TableRowColumn name="time" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
+								<TableRowColumn name="time" type="date" format="yyyy-mm-dd HH:MM:ss" style={{width:150}}></TableRowColumn>
 								
-								<TableRowColumn name="communityName"
+								<TableRowColumn name="communityName" 
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -145,7 +145,7 @@ export default class List extends React.Component {
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="deviceId" style={{overflow:"hidden"}}
+								<TableRowColumn name="deviceId" style={{width:170}}
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -163,6 +163,7 @@ export default class List extends React.Component {
 		                            }else{
 		                            	TooltipStyle="block";
 		                            }
+
 		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{itemData.card}</Tooltip></div>)
 		              			}} ></TableRowColumn>
@@ -182,20 +183,21 @@ export default class List extends React.Component {
 								></TableRowColumn>
 								<TableRowColumn name="openType" options={openType}></TableRowColumn>
 								<TableRowColumn style={{width:160,overflow:"visible"}} name="success" component={(value,oldValue,itemData)=>{
-		                            var TooltipStyle=""
-		                            var msg = JSON.parse(itemData.msg);
-		                            var spanColor=''
+		                            var TooltipStyle="";
+		                            var spanColor='';
+		                            var msg = itemData.msg;
 		                            if(value.length==""){
 		                              TooltipStyle="none"
 
 		                            }else{
 		                              TooltipStyle="block";
-		                              msg = msg.message;
 		                              if(value=='true'){
 		                              	value = "成功"
+		                              	msg='成功'
 		                              }else{
 		                              	value = "失败"
 		                              	spanColor = "#ff6868";
+		                              	msg = JSON.parse(msg).message;
 		                              }
 		                            }
 		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",color:spanColor}}>{value}</span>
