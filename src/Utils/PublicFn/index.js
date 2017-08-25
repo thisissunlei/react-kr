@@ -84,6 +84,7 @@ function numberToSign(code){
 
     return strValue;
 }
+//去掉标签
 function delHtmlTag(str){
   return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
 }
@@ -96,10 +97,19 @@ function urltoFile(url, filename, mimeType){
       .then(function(buf){return new File([buf], filename, {type:mimeType});})
   );
 }
+//判断对象是否为空    true，为空对象
+function isEmptyObject(obj) {   
+
+　　for (var name in obj){
+　　　　return false;//返回false，不为空对象
+　　}　　
+　　return true;//返回true，为空对象
+}
 
 
 module.exports = {
   numberToSign,
   delHtmlTag,
-  urltoFile
+  urltoFile,
+  isEmptyObject
 }

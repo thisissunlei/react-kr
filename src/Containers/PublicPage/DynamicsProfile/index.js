@@ -67,11 +67,15 @@ export default class DynamicsProfile extends React.Component {
     }
    
     goDetail = (data) =>{
+        let id=data.id;
+        Http.request('home-click-dynamic',{},{id:id}).then(function (response) {  
+		}).catch(function (err) {
+		});
         if(data.linkUrl){
             window.open(data.linkUrl);
             return ;
         }
-        let id=data.id;
+       
 		window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
     }
     profileRender = () =>{
@@ -99,7 +103,7 @@ export default class DynamicsProfile extends React.Component {
 	render() {
         const {totalCount,searchParams,newPage} = this.state;
         var btnShow = false;
-        if(newPage*searchParams.pageSize <= totalCount){
+        if(newPage*searchParams.pageSize < totalCount){
             btnShow = true;
         }
 		return (

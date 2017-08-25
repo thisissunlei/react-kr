@@ -3,7 +3,8 @@ import {
 	reduxForm,
 } from 'redux-form';
 import {
-	Http
+	Http,
+	isEmptyObject
 } from "kr/Utils";
 import {
 	KrField,
@@ -34,15 +35,18 @@ class HighSearchForm extends React.Component {
 	}
 
 	onSubmit = (form) => {
-		var form = Object.assign({},form);
+		var params = Object.assign({},form);
 		const {
 			detail,
 			onSubmit
 		} = this.props;
-		form.orgId=detail.orgId;
-		form.dimId=detail.dimId;
-		form.orgType=detail.orgType;
-		onSubmit && onSubmit(form);
+		
+		params.orgId= isEmptyObject(form)? '':form.orgId[0].orgId;
+		params.dimId=detail.dimId;
+		params.orgType=isEmptyObject(form)? '':form.orgId[0].treeType;
+		console.log("LLLL",isEmptyObject(form))
+		
+		onSubmit && onSubmit(params);
 	}
 	openSearch = () => {
 		const {
