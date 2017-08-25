@@ -42,14 +42,18 @@ class HighSearchForm extends React.Component {
 			onSubmit
 		} = this.props;
 		if(!isEmptyObject(form)){
+			
 			params.orgId = !form.orgId ? '':form.orgId[0].orgId;
 			params.dimId = detail.dimId;
 			params.orgType = !form.orgId ? '':form.orgId[0].treeType;
 		}else{
+			
 			params.orgId=  '';
 			params.dimId=detail.dimId;
 			params.orgType= '';
 		}
+		
+		
 		
 		
 		
@@ -93,17 +97,6 @@ class HighSearchForm extends React.Component {
 					<KrField
 							grid={1/2}
 							style={{width:262}}
-							name="orgId"
-							component="treeDepartment"
-							label="部门"
-							ajaxUrlName = "get-department-tree"
-					/>
-
-
-
-					<KrField
-							grid={1/2}
-							style={{width:262,marginRight:29}}
 							name="leader"
 							component="treePersonnel"
 							label="直接上级"
@@ -112,7 +105,7 @@ class HighSearchForm extends React.Component {
 
 
 					<KrField grid={1/2}
-							style={{width:262}}
+							style={{width:262,marginRight:29}}
 							name="searchType"
 							component="selecTemployees"
 							label="员工类别"
@@ -121,7 +114,7 @@ class HighSearchForm extends React.Component {
 
 
 					<KrField grid={1/2}
-							style={{width:262,marginRight:29}}
+							style={{width:262}}
 							name="searchStatus"
 							component="selecTemployees"
 							label="员工状态"
@@ -130,7 +123,7 @@ class HighSearchForm extends React.Component {
 
 
 
-				<KrField  grid={1/2}  style={{width:262}}  name="hasAccount" type="select"  label="是否开通账户"
+				<KrField  grid={1/2}  style={{width:262,marginRight:29}}  name="hasAccount" type="select"  label="是否开通账户"
 				 options={[{label:'已开通',value:'true'},{label:'未开通',value:'false'}]}
 				/>
 
