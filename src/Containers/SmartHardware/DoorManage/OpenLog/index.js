@@ -185,7 +185,7 @@ export default class List extends React.Component {
 								<TableRowColumn style={{width:160,overflow:"visible"}} name="success" component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle="";
 		                            var spanColor='';
-		                            var msg = itemData.msg;
+		                            var msg = itemData.msg || "失败";
 		                            if(value.length==""){
 		                              TooltipStyle="none"
 
@@ -197,7 +197,12 @@ export default class List extends React.Component {
 		                              }else{
 		                              	value = "失败"
 		                              	spanColor = "#ff6868";
-		                              	msg = JSON.parse(msg).message;
+		                              	try{
+		                              		msg = JSON.parse(msg).message;
+		                              	}catch(e){
+		                              		msg = msg 
+		                              	}
+		                              	
 		                              }
 		                            }
 		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",color:spanColor}}>{value}</span>
