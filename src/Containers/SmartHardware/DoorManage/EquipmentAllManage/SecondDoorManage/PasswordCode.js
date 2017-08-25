@@ -31,8 +31,8 @@ class NewCreateDefinitionForm extends React.Component{
 	
 
 	passwordDialogFun=()=>{
-		let {passwordDialogFun} = this.props;
-		passwordDialogFun && passwordDialogFun();
+		let {onCancle} = this.props;
+		onCancle && onCancle();
 	}
 
 	

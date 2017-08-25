@@ -148,7 +148,7 @@ export default class List extends React.Component {
 			          title="报警描述"
 			          open={State.openContent}
 			          onClose={this.openContentFun}
-			          width={"70%"}
+			          width={"90%"}
 			        >
 			          	<WarnContent detail={itemDetail} onCancle={this.openContentFun}/>
 			        </Drawer>

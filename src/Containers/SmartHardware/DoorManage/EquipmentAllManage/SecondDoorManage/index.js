@@ -34,6 +34,7 @@ import UpgradeForm from './UpgradeForm';
 import EquipmentCache from './EquipmentCache';
 import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
+import BtnBox from './BtnBox';
 
 @inject("NavModel")
 @observer
@@ -137,6 +138,12 @@ export default class SecondDoorManage  extends React.Component{
 
 	}
 
+	//确认清空缓存
+	confirmClearCache=()=>{
+		State.clearCacheAction();
+		State.openClearCached =false;
+	}
+
 	onPageChangeFun=(page)=>{
 
 		State.realPage =page;
@@ -147,10 +154,15 @@ export default class SecondDoorManage  extends React.Component{
 		State.openSearchDialog = !State.openSearchDialog;
 	}
 
+	//断开重连提示窗口
+	openConnectAgianFun=()=>{
+		State.openConnectAgian = !State.openConnectAgian;
+	}
+
 
 	showMoreOpretion=(thisP,value,itemData)=>{
 		
-		State.showOpretion = !State.showOpretion;
+		this.showOpretionFun();
 		State.itemDetail = thisP;
 		this.setState({
 			itemDetail :thisP
@@ -160,6 +172,31 @@ export default class SecondDoorManage  extends React.Component{
 	showOpretionFun=()=>{
 		State.showOpretion = !State.showOpretion;
 	}
+
+
+
+
+	passwordDialogFun=()=>{
+		State.passwordDialog = !State.passwordDialog;
+	}
+
+
+	confirmConnnetAgain=()=>{
+		State.disConnectAction();
+		State.openConnectAgian =false;
+	}
+
+	//确认刷新h5页面
+	confirmFreshHTML=()=>{
+		State.confirmFreshHTMLAction();
+		this.openFreshHTMLDialogFun();
+	}
+
+		//刷新H5页面窗口
+	openFreshHTMLDialogFun=()=>{
+		State.openFreshHTMLDialog = !State.openFreshHTMLDialog;
+	}
+
 
 	editList=(thisP,value,itemData)=>{
 		console.log("thisP",thisP,'value',value,'itemData',itemData);
@@ -176,112 +213,6 @@ export default class SecondDoorManage  extends React.Component{
 		this.closeConfirmDeleteFun();
 	}
 
-	//升级
-	upgrade=(thisP,value,itemData)=>{
-		State.showOpretion=false
-		this.upgradeDialogFun();
-	}
-
-	//控制升级窗口是否显示
-	upgradeDialogFun=()=>{
-		State.upgradeDialog = !State.upgradeDialog;
-	}
-	//点击清空缓存
-	clearCache=()=>{
-		
-		State.showOpretion=false
-		this.openClearCachedFun();
-	}
-	//控制确认清空缓存窗口是否显示
-	openClearCachedFun=()=>{
-		State.openClearCached = !State.openClearCached;
-	}
-
-	//点击断开重连
-	connectAgain=()=>{
-		State.showOpretion=false
-		this.openConnectAgianFun();
-	}
-
-	openConnectAgianFun=()=>{
-		State.openConnectAgian = !State.openConnectAgian;
-	}
-
-	openDoorInline=()=>{
-		State.showOpretion=false
-		State.openDoorOnlineAction();
-	}
-
-	deviceCache=()=>{
-		State.showOpretion=false;
-		let _this =this;
-		var urlParamsT = {
-							deviceId:State.itemDetail.deviceId,
-							lastCardNo:'',
-							limit:50,
-						}
-		Http.request('getEquipmentCacheURL',urlParamsT).then(function(response) {
-				
-			_this.openEquipmentCacheFun();
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-		
-
-	}
-
-	openEquipmentCacheFun=()=>{
-		State.openEquipmentCache = !State.openEquipmentCache;
-	}
-	
-		
-
-	getDoorPassWord=()=>{
-		State.showOpretion=false
-		State.getPassword();
-	}
-
-
-	confirmClearCache=()=>{
-		State.clearCacheAction();
-		State.openClearCached =false;
-	}
-
-	confirmConnnetAgain=()=>{
-		State.disConnectAction();
-		State.openConnectAgian =false;
-	}
-
-	passwordDialogFun=()=>{
-		State.passwordDialog = !State.passwordDialog;
-	}
-
-	//刷新H5页面
-	freshH5=()=>{
-		State.showOpretion=false;
-		this.openFreshHTMLDialogFun();
-	}
-
-
-	//刷新H5页面窗口
-	openFreshHTMLDialogFun=()=>{
-		State.openFreshHTMLDialog = !State.openFreshHTMLDialog;
-	}
-
-	//确认刷新h5页面
-	confirmFreshHTML=()=>{
-		State.confirmFreshHTMLAction();
-		this.openFreshHTMLDialogFun();
-	}
-
-
-	//恢复设备出厂设置
-	resetEquipmentOrigin=()=>{
-		State.showOpretion=false;
-		this.resetEquipmentDialogFun();
-	}
-
 	//恢复出厂设置提示窗口
 	resetEquipmentDialogFun=()=>{
 		State.resetEquipmentDialog = !State.resetEquipmentDialog;
@@ -293,26 +224,6 @@ export default class SecondDoorManage  extends React.Component{
 		this.resetEquipmentDialogFun();
 	}
 
-	//获取管理员密码
-	getManagerPsd=()=>{
-		console.log("dkdkdk");
-		State.showOpretion=false;
-		this.openManagePsdFun();
-	}
-
-	//管理员密码出口
-	openManagePsdFun=()=>{
-		State.openManagePsd = !State.openManagePsd;
-	}
-
-	
-
-	//重启APP
-	restartAPP=()=>{
-		console.log("重启APP");
-		State.showOpretion=false
-		this.openRestartAPPDialogFun()
-	}
 	//重启APP提示
 	openRestartAPPDialogFun=()=>{
 		State.openRestartAPPDialog = !State.openRestartAPPDialog;
@@ -324,12 +235,10 @@ export default class SecondDoorManage  extends React.Component{
 		this.openRestartAPPDialogFun();
 	}
 
-	//重启设备系统
-	restartSystems=()=>{
-		console.log("重启设备系统");
+	//确认重启设备系统
+	confirmOpenRestartSystems=()=>{
+		State.confirmOpenRestartSystemsAction();
 		this.openRestartSystemsDialogFun();
-		State.showOpretion=false
-
 	}
 
 	//重启设备系统提示
@@ -337,12 +246,7 @@ export default class SecondDoorManage  extends React.Component{
 		State.openRestartSystemsDialog=!State.openRestartSystemsDialog;
 	}
 
-	//确认重启设备系统
-	confirmOpenRestartSystems=()=>{
-		State.confirmOpenRestartSystemsAction();
-		this.openRestartSystemsDialogFun();
-	}
-
+	
 	//点击批量删除
 	deleteSelectEquipment = ()=>{
 		if(this.state.selectIds.length == 0){
@@ -365,6 +269,12 @@ export default class SecondDoorManage  extends React.Component{
 		State.selectedDeleteIds = selectedIdsArr.join(",");
 		State.deleteEquipmentBatch();
 		this.deleteSelectEquipmentFun();
+	}
+
+
+	//控制确认清空缓存窗口是否显示
+	openClearCachedFun=()=>{
+		State.openClearCached = !State.openClearCached;
 	}
 
 
@@ -712,12 +622,12 @@ export default class SecondDoorManage  extends React.Component{
 			          </div>
 			        </Dialog>
 			        <Dialog
-			          title="口令"
+			          title="口令码"
 			          open={State.passwordDialog}
 			          onClose={this.passwordDialogFun}
 			          contentStyle={{width:443,height:236}}
 			        >
-			         	<PasswordCode passwordDialogFun={this.passwordDialogFun}/>
+			         	<PasswordCode onCancle={this.passwordDialogFun}/>
 			        </Dialog>
 			        <Dialog
 			          title="管理员密码"
@@ -763,66 +673,9 @@ export default class SecondDoorManage  extends React.Component{
 			          title="按钮库"
 			          open={State.showOpretion}
 			          onClose={this.showOpretionFun}
-			          contentStyle={{width:590,height:320}}
+			          contentStyle={{width:700,height:355}}
 			        >
-			          <div style={{paddingTop:30}}>
-			            	<Grid style={{marginBottom:'4px'}}>
-			            		<Row style={{marginBottom:10,paddingLeft:10}}>
-				                    <ListGroup>
-				                    	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
-				                        	<Button  label="升级" type="button"  cancle={true} onTouchTap={this.upgrade} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
-				                        	<Button  label="清空设备缓存" type="button" onClick={this.clearCache} cancle={true}  style={{width:115}}/>
-				                        
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
-				                        	<Button  label="断开重连" type="button"  cancle={true} onTouchTap={this.connectAgain} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0}}>
-				                        	<Button  label="获取口令" type="button"  cancle={true} onTouchTap={this.getDoorPassWord} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                    </ListGroup>
-			                  	</Row>
-			                  	<Row style={{marginBottom:10,paddingLeft:10}}>
-				                    <ListGroup>
-				                      	<ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
-				                        	<Button  label="远程开门" type="button" onClick={this.openDoorInline} cancle={true} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
-				                        	<Button  label="查看设备缓存" type="button"  cancle={true} onTouchTap={this.deviceCache} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
-				                        	<Button  label="刷新H5" type="button"  cancle={true} onTouchTap={this.freshH5} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0}}>
-				                        	<Button  label="恢复设备出厂设置" type="button"  cancle={true} onTouchTap={this.resetEquipmentOrigin} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                    </ListGroup>
-			                  	</Row>
-			                  	<Row style={{marginBottom:10,paddingLeft:10}}>
-				                    <ListGroup>
-				                      	<ListGroupItem style={{textAlign:'right',padding:0,paddingRight:15}}>
-				                        	<Button  label="获取管理员密码" type="button" onClick={this.getManagerPsd} cancle={true} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
-				                        	<Button  label="重启设备APP" type="button"  cancle={true} onTouchTap={this.restartAPP} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:15}}>
-				                        	<Button  label="重启设备系统" type="button"  cancle={true} onTouchTap={this.restartSystems} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	
-				                    </ListGroup>
-			                  	</Row>
-			                  	<Row>
-				                    <ListGroup>
-				                      <ListGroupItem style={{width:580,textAlign:'center',padding:0,marginTop:10}}>
-				                        <Button  label="关闭" type="button"   onTouchTap={this.showOpretionFun} style={{width:115}}/>
-				                      </ListGroupItem>
-				                    </ListGroup>
-				                </Row>
-			                </Grid>
-			          </div>
+			          <BtnBox onCancle={this.showOpretionFun}/>
 			        </Dialog>
 				</div>
 				
