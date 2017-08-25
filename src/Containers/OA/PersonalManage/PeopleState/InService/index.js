@@ -60,9 +60,9 @@ export default class InService  extends React.Component{
 			searchParams : {
 				page:1,
 				pageSize:15,
-        totalCount:'',
-        nameKey:'',
-        codeKey:''
+				totalCount:'',
+				nameKey:'',
+				codeKey:''
 			},
 			employees:{
 				name:'',
@@ -368,12 +368,15 @@ export default class InService  extends React.Component{
 
   //翻页
    onPageChange=(page)=>{
-    let {searchParams}=this.state;
-    searchParams.page=page;
-    searchParams.pageSize=15;
-    this.setState({
-      searchParams
-    })
+	
+		let {searchParams}=this.state;
+		searchParams.page=page;
+		searchParams.pageSize=15;
+		this.oaInserviceTab.onPageChange(page);
+		this.setState({
+		searchParams
+		})
+
    }
 
 
@@ -425,7 +428,11 @@ export default class InService  extends React.Component{
   }
 
   //导出
-  onExport=(values)=> {
+  onExport=()=> {
+	console.log("oooo----")
+	var tab =  this.oaInserviceTab;
+	tab.onExport();
+	var values = tab.exportData;
     let {searchParams} = this.state;
     let defaultParams = {
       codeKey:'',
@@ -460,12 +467,22 @@ export default class InService  extends React.Component{
      var url = `/api/krspace-erp-web/hrm/resource/export/type/incumbency?${where.join('&')}`
      window.location.href = url;
   }
+  onLoaded = (data) =>{
+	  var searchParams = Object.assign({},this.state.searchParams);
+	  searchParams.page = data.page;
+	  searchParams.pageSize = data.pageSize;
+	  searchParams.totalCount = data.totalCount;
+
+	  this.setState({
+		  searchParams,
+	  })
+  }
 
 
 
 	render(){
 		const {transferDetail,positionList,isName,searchParams,employees,isLeave,isRemove,istranfer,isCard,isOpen,isBase,isPerson,isWork} = this.state;
-
+		
 
 		return(
 
@@ -503,12 +520,14 @@ export default class InService  extends React.Component{
     						style={{marginTop:8,width:3100}}
                 ajax={true}
                 ajaxParams={searchParams}
-                onPageChange={this.onPageChange}
                 ajaxUrlName='getInServiceList'
                 ajaxFieldListName="items"
-    						displayCheckbox={true}
+    			displayCheckbox={true}
                 exportSwitch={true}
-                onExport={this.onExport}
+				onLoaded = {this.onLoaded}
+				ref = {(ref) =>{
+					this.oaInserviceTab = ref;
+				}}
     					  >
     						<TableHeader>
                     {isName&&<TableHeaderColumn className='table-header-name'>姓名</TableHeaderColumn>}
@@ -545,7 +564,7 @@ export default class InService  extends React.Component{
            								 <TableRowColumn style={{width:100}} name='hasAccountStr'></TableRowColumn>
            								 <TableRowColumn name='mobilePhone'></TableRowColumn>
            								 <TableRowColumn name='email'></TableRowColumn>
-           								 <TableRowColumn name='entryDate' component={(value,oldValue)=>{
+           								 <TableRowColumn name='entryDate' component={(value,oldValue,detail)=>{
        													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
        												 }}></TableRowColumn>
            								 <TableRowColumn name='creatorName'></TableRowColumn>
@@ -565,9 +584,29 @@ export default class InService  extends React.Component{
            								</TableRowColumn>
            							</TableRow>
     						   </TableBody>
-                   <TableFooter></TableFooter>
+                  
     					</Table>
             </div>
+			{searchParams.totalCount !=0 && <div className='footPage'>
+
+				<Col
+					style={{float:'left'}}
+				>
+					<Button
+						label="导出"
+						type='button'
+						onTouchTap={this.onExport}
+						
+					/>
+				</Col>
+			   <Pagination  
+					totalCount={searchParams.totalCount} 
+					page={searchParams.page} 
+					pageSize={searchParams.pageSize} 
+					onPageChange={this.onPageChange}
+				/>
+
+			</div>}
 
 
 					{/*新建用户*/}

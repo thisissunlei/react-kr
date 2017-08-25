@@ -86,7 +86,8 @@ export default class OaUploadImage extends Component {
 							_this.dialogClick();
 							Message.success('头像修改成功');
 					} else {
-						Message.error(fileResponse && fileResponse.msg);
+						
+						Message.error(fileResponse && fileResponse.message);
 						return;
 					}
 				} else if (xhrfile.status == 413) {

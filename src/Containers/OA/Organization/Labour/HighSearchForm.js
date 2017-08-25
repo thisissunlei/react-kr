@@ -35,16 +35,23 @@ class HighSearchForm extends React.Component {
 	}
 
 	onSubmit = (form) => {
+		console.log(isEmptyObject(form))
 		var params = Object.assign({},form);
 		const {
 			detail,
 			onSubmit
 		} = this.props;
+		if(!isEmptyObject(form)){
+			params.orgId = !form.orgId ? '':form.orgId[0].orgId;
+			params.dimId = detail.dimId;
+			params.orgType = !form.orgId ? '':form.orgId[0].treeType;
+		}else{
+			params.orgId=  '';
+			params.dimId=detail.dimId;
+			params.orgType= '';
+		}
 		
-		params.orgId= isEmptyObject(form)? '':form.orgId[0].orgId;
-		params.dimId=detail.dimId;
-		params.orgType=isEmptyObject(form)? '':form.orgId[0].treeType;
-		console.log("LLLL",isEmptyObject(form))
+		
 		
 		onSubmit && onSubmit(params);
 	}
