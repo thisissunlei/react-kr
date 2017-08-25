@@ -804,6 +804,21 @@ module.exports = {
         url: '/api/krspace-finance-web/activity/management/findCmtAddres?cmtId={cmtId}',
         method: 'get'
     },
+    //App管理-App意见反馈-分页
+    'opinion-page': {
+        url: '/api/krspace-finance-web/app/question/page?page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //App管理-App意见反馈-查看详情
+    'opinion-detail': {
+        url: '/api/krspace-finance-web/app/question/detail?id={id}',
+        method: 'get'
+    },
+    //App管理-App意见反馈-处理
+    'opinion-handle': {
+        url: '/api/krspace-finance-web/app/question/handle',
+        method: 'post'
+    },
 }
 
 
