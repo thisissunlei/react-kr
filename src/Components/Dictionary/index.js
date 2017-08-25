@@ -50,7 +50,7 @@ export default class Dictionary extends React.Component {
 		} = this.props;
 
 		return (
-			<span style={style}>{this.getDictionary(type,value)}</span>
+			<span style={style}>{this.getDictionary(type,value)?this.getDictionary(type,value):'-'}</span>
 		);
 
 	}

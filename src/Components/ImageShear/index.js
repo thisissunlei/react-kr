@@ -299,7 +299,7 @@ export default class ImageShear extends React.Component {
       var previewImg = this.previewImg.getBoundingClientRect();
       var centerx = this.floort(myCanvas.left+myCanvas.width / 2 - previewImg.left);
       var centery = this.floort(myCanvas.top+myCanvas.height / 2 - previewImg.top);
-     
+
       this.setZoom(parseInt(this.props.addZoom),{x:centerx,y:centery})
 
       this.imgRender();
@@ -348,6 +348,13 @@ export default class ImageShear extends React.Component {
     } = this.props;
     const {data} = this.state;
 
+    var imgStyle={};
+    if(data){
+      imgStyle={
+        background:'url('+data+') no-repeat center'
+      }
+    }
+
 		return (
 
          <div className='shear-pic-wrap'>
@@ -393,7 +400,7 @@ export default class ImageShear extends React.Component {
                 {/*<button onClick = {this.clamp } style = {{position:"absolute"}}>dainji</button>*/}
               </div>
 
-                <div className='circle-shear-pic' style={{background:'url('+data+') no-repeat center'}}>
+                <div className='circle-shear-pic' style={imgStyle}>
 
                 </div>
 
