@@ -1140,7 +1140,7 @@ export default class Labour extends React.Component {
 							</Table>
 							
 						 </div>
-						 {(searchParams.totalCount && searchParams.totalCount !=0)  && <div className='footPage'>
+						 {(!!searchParams.totalCount && searchParams.totalCount !=0)  && <div className='footPage'>
 
 								<Col
 									style={{float:'left'}}
