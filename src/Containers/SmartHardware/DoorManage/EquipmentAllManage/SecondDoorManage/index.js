@@ -60,7 +60,7 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	freshPageThis=()=>{
-		State.freshPage();
+		State.freshPageReturn();
 	}
 
 	//操作相关

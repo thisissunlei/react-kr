@@ -10,6 +10,7 @@ import {Message} from 'kr-ui';
 
 let State = observable({
 	openNewCreateUpgrade : false,
+	openUpgradeAdd : false,
 	upgradeListParams:{
 		page:1,
 		pageSize:15,

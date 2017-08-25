@@ -21,6 +21,10 @@ import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
 import NewCreateUpgrade from './NewCreateUpgrade';
+import UpgradeAdd from './UpgradeAdd';
+
+
+
 import State from './State';
 import {
 	observer,
@@ -33,7 +37,7 @@ export default class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			
+			itemDetail:{}
 		}
 	}
 
@@ -51,16 +55,28 @@ export default class List extends React.Component {
 	//操作相关
 	onOperation=(type, itemDetail)=>{
 		State.itemDetail = itemDetail;
+		this.setState({
+			itemDetail
+		})
 		let _this = this;
 		if (type == 'delete') {
 			_this.closeConfirmDeleteFun();
 		}
+		if(type == 'detail') {
+			_this.openUpgradeAddFun();
+		}
+	}
+
+	//升级包地址详情
+	openUpgradeAddFun=()=>{
+		State.openUpgradeAdd = !State.openUpgradeAdd ;
 	}
 
 	//确认删除提示窗口是否打开
 	closeConfirmDeleteFun =()=>{
 		State.closeConfirmDelete = !State.closeConfirmDelete
 	}
+
 
 	//确认删除
 	confirmDelete = ()=>{
@@ -76,12 +92,14 @@ export default class List extends React.Component {
 	}
 
 
+
+
 	openNewCreateUpgradeDialog=()=>{
 		State.openNewCreateUpgrade = !State.openNewCreateUpgrade;
 	}
 	render() {
 		let {
-			list,seleced
+			list,seleced,itemDetail
 		} = this.state;
 		
 		return (
@@ -130,14 +148,13 @@ export default class List extends React.Component {
 								return (<span>{value}</span>)}}
 							></TableRowColumn>
 
-							<TableRowColumn name="url"
-							component={(value,oldValue)=>{
-								if(value==""){
-									value="-"
-								}
-								return (<span>{value}</span>)}}
-							></TableRowColumn>
 							
+							<TableRowColumn style={{width:400,overflow:"visible"}} name="url" component={(value,oldValue)=>{
+		                           
+		                        return (<div style={{paddingTop:5}} className='financeDetail-hover'>
+		                        			<span className='tableOver' style={{maxWidth:400,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                        		</div>)
+		              			}} ></TableRowColumn>
 							<TableRowColumn name="version"
 							component={(value,oldValue)=>{
 								if(value==""){
@@ -156,6 +173,7 @@ export default class List extends React.Component {
 
 							<TableRowColumn type="operation">
 								<Button  label="删除"  type="operation" operation="delete"/>
+								<Button  label="升级包地址"  type="operation" operation="detail"/>
 							</TableRowColumn>
 
 						</TableRow>
@@ -180,7 +198,7 @@ export default class List extends React.Component {
 			          onClose={this.closeConfirmDeleteFun}
 			          contentStyle={{width:443,height:236}}
 			        >
-			          <div style={{marginTop:45}}>
+			          <div style={{marginTop:20}}>
 			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除升级版本吗？</p>
 			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
 			                <Row>
@@ -196,6 +214,14 @@ export default class List extends React.Component {
 			            </Grid>
 			          </div>
 		        	</Dialog>
+		        	<Dialog
+			          title="升级包地址详情"
+			          open={State.openUpgradeAdd}
+			          onClose={this.openUpgradeAddFun}
+			          contentStyle={{width:687,height:300}}
+			        >
+			          <UpgradeAdd onCancle={this.openUpgradeAddFun} detail={itemDetail}/>
+			        </Dialog>
 				</Section>
 			</div>
 		);

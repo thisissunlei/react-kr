@@ -204,14 +204,7 @@ State.editSecondDoor = action(function(values){
 
 })
 
-//刷新
-State.freshPage = action(function(){
-	State.equipmentSecondParams = {
-        date:new Date(),
-        page : 1,
-        pageSize: 15
-    }	
-})
+
 
 //刷新并保持原查询条件
 State.freshPageReturn =  action(function(){
