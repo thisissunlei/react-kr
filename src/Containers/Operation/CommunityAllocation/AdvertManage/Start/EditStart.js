@@ -123,7 +123,7 @@ const validate = values => {
 			errors.imgUrl = '启动图片不能为空';
 		}
 		if (!values.remark) {
-			errors.remark = '活动标题不能超过50个字符';
+			errors.remark = '图片描述不能为空';
 		}
 
 

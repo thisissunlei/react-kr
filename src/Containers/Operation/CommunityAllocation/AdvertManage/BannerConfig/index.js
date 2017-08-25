@@ -45,7 +45,7 @@ export default class Banner extends React.Component{
 	onDeleteData=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('delete-notice',{},{id:itemDetail.id}).then(function (response) {
+		Http.request('delete-banner',{},{id:itemDetail.id}).then(function (response) {
 			_this.openDelete();
 			Message.success('删除成功！');
 			_this.setState({
@@ -63,7 +63,7 @@ export default class Banner extends React.Component{
 	openPublishDel=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('publish-notice',{},{id:itemDetail.id}).then(function (response) {
+		Http.request('publish-banner',{},{id:itemDetail.id}).then(function (response) {
 			_this.openPublish();
 			Message.success('发布成功！');
 			_this.setState({
@@ -126,7 +126,7 @@ export default class Banner extends React.Component{
 					<Table
 						  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='get-notice-page'
+		                  ajaxUrlName='banner-page'
 		                  ajaxParams={this.state.searchParams}
 		                  onOperation={this.onOperation}
 		                  onPageChange = {this.pageChange}

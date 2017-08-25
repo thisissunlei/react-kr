@@ -26,10 +26,7 @@ class CreateBanner extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.state = {
-			ifCity:false,
-			
-		}
+		
 		
 	}
 	
@@ -39,7 +36,7 @@ class CreateBanner extends React.Component {
 		var _this=this;
 		
 		console.log('form=====>>>>',form)
-		// Http.request('create-activity',{},form).then(function(response) {
+		// Http.request('create-banner,{},form).then(function(response) {
 		// 	Message.success('新建成功')
 		// 	onSubmit && onSubmit();
 		// }).catch(function(err) {
@@ -62,11 +59,7 @@ class CreateBanner extends React.Component {
 				pristine,
 				reset
 			} = this.props;
-			let {
-				
-				ifCity,
-				groupType,
-			}=this.state;
+			
 			
 		
 		return (
@@ -78,12 +71,18 @@ class CreateBanner extends React.Component {
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField
 								style={{width:548}}
-								name="title"
+								name="targetUrl"
 								type="text"
 								component="input"
 								label="跳转地址"
 						 	/>
-						 	
+						 	<KrField
+								style={{width:260}}
+								name="orderNum"
+								type="text"
+								component="input"
+								label="排序号"
+						 	/>
 							<KrField
  								label="启动图片"
  								name="imgUrl"
@@ -101,7 +100,7 @@ class CreateBanner extends React.Component {
 						 	<KrField 
 						 		grid={1} 
 						 		label="图片描述" 
-						 		name="facility" 
+						 		name="remark" 
 						 		heightStyle={{height:"78px",width:'538px'}}  
 						 		component="textarea"  
 						 		maxSize={100} 
@@ -130,12 +129,13 @@ const validate = values => {
 
 		const errors = {};
 
-		if (!values.title) {
-			errors.title = '请填写活动标题';
+		if (!values.imgUrl) {
+			errors.imgUrl = '启动图片不能为空';
 		}
-		if (values.title && values.title.length>50) {
-			errors.title = '活动标题不能超过50个字符';
+		if (!values.remark) {
+			errors.remark = '图片描述不能为空';
 		}
+		
 
 		return errors
 }

@@ -124,7 +124,7 @@ export default class Start extends React.Component{
 					<Table
 						  style={{marginTop:10}}
 		                  ajax={true}
-		                  ajaxUrlName='get-notice-page'
+		                  ajaxUrlName='advert-page'
 		                  ajaxParams={this.state.searchParams}
 		                  onOperation={this.onOperation}
 		                  onPageChange = {this.pageChange}
