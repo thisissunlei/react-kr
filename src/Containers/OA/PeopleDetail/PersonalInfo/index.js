@@ -425,6 +425,7 @@ export default class PersonalInfo  extends React.Component{
 			  isSwitch:true,
 			  detail:personInfo.emergencyRelation},
 			];
+			const {personId} = this.props;
 
 		return(
 			<div className='info-wrap-p'>
@@ -482,10 +483,14 @@ export default class PersonalInfo  extends React.Component{
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='position'></TableRowColumn>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='address'></TableRowColumn>
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contractPhone'></TableRowColumn>
-			                <TableRowColumn type="operation">
-                                  <Button label="编辑" operateCode="hrm_resource_edit" type="operation"  operation="edit"/>
+			                {personId !=0 &&<TableRowColumn type="operation">
+                                 <Button label="编辑" operateCode="hrm_resource_edit" type="operation"  operation="edit"/>
 			                      <Button label="删除" operateCode="hrm_resource_edit"  type="operation"  operation="delete" />
-			                </TableRowColumn>
+			                </TableRowColumn>}
+							{personId == 0 &&<TableRowColumn type="operation">
+                                 <Button label="编辑"  type="operation"  operation="edit"/>
+			                      <Button label="删除"  type="operation"  operation="delete" />
+			                </TableRowColumn>}
 			               </TableRow>
 			        </TableBody>
               </Table>
@@ -530,10 +535,14 @@ export default class PersonalInfo  extends React.Component{
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactName'></TableRowColumn>
 			                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactPhone'></TableRowColumn>
 							<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contactEmail'></TableRowColumn>
-			                <TableRowColumn type="operation">
+			               {personId !=0 && <TableRowColumn type="operation">
                                   <Button label="编辑" operateCode="hrm_resource_editt"  type="operation"  operation="edit"/>
 			                      <Button label="删除" operateCode="hrm_resource_edit"  type="operation"  operation="delete" />
-			                </TableRowColumn>
+			                </TableRowColumn>}
+							{personId ==0 && <TableRowColumn type="operation">
+									<Button label="编辑" type="operation"  operation="edit"/>
+									<Button label="删除" type="operation"  operation="delete" />
+							</TableRowColumn>}
 			               </TableRow>
 			        </TableBody>
               </Table>
