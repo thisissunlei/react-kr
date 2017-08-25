@@ -141,10 +141,15 @@ class BtnBox extends React.Component{
 
 	//重启设备系统
 	restartSystems=()=>{
-		console.log("重启设备系统");
+		// console.log("重启设备系统");
 		State.openRestartSystemsDialog=!State.openRestartSystemsDialog;
 		State.showOpretion=false
 
+	}
+
+	synchronizingPsw=()=>{
+		State.showOpretion=false;
+		State.synchronizingPswDialog = true;
 	}
 
 
@@ -163,24 +168,9 @@ class BtnBox extends React.Component{
 			            	<Grid style={{marginBottom:'4px'}}>
 			            		<Row style={{marginBottom:30,paddingLeft:10}}>
 				                    <ListGroup>
-				                    	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:50}}>
-				                        	<Button  label="升级" type="button"  cancle={true} onTouchTap={this.upgrade} style={{width:115}}/>
-				                      	</ListGroupItem>
+				                    	
 				                      	<ListGroupItem style={{textAlign:'right',padding:0,paddingRight:50}}>
 				                        	<Button  label="清空设备缓存" type="button" onClick={this.clearCache} cancle={true}  style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:50}}>
-				                        	<Button  label="断开重连" type="button"  cancle={true} onTouchTap={this.connectAgain} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                      	<ListGroupItem style={{textAlign:'left',padding:0}}>
-				                        	<Button  label="获取口令" type="button"  cancle={true} onTouchTap={this.getDoorPassWord} style={{width:115}}/>
-				                      	</ListGroupItem>
-				                    </ListGroup>
-			                  	</Row>
-			                  	<Row style={{marginBottom:30,paddingLeft:10}}>
-				                    <ListGroup>
-				                      	<ListGroupItem style={{textAlign:'right',padding:0,paddingRight:50}}>
-				                        	<Button  label="远程开门" type="button" onClick={this.openDoorInline} cancle={true} style={{width:115}}/>
 				                      	</ListGroupItem>
 				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:50}}>
 				                        	<Button  label="查看设备缓存" type="button"  cancle={true} onTouchTap={this.deviceCache} style={{width:115}}/>
@@ -189,20 +179,41 @@ class BtnBox extends React.Component{
 				                        	<Button  label="刷新H5" type="button"  cancle={true} onTouchTap={this.freshH5} style={{width:115}}/>
 				                      	</ListGroupItem>
 				                      	<ListGroupItem style={{textAlign:'left',padding:0}}>
-				                        	<Button  label="恢复设备出厂设置" type="button"  cancle={true} onTouchTap={this.resetEquipmentOrigin} style={{width:115}}/>
+				                        	<Button  label="同步口令" type="button"  cancle={true} onTouchTap={this.synchronizingPsw} style={{width:115}}/>
 				                      	</ListGroupItem>
 				                    </ListGroup>
 			                  	</Row>
 			                  	<Row style={{marginBottom:30,paddingLeft:10}}>
 				                    <ListGroup>
+				                    	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:50}}>
+				                        	<Button  label="断开重连" type="button"  cancle={true} onTouchTap={this.connectAgain} style={{width:115}}/>
+				                      	</ListGroupItem>
 				                      	<ListGroupItem style={{textAlign:'right',padding:0,paddingRight:50}}>
+				                        	<Button  label="远程开门" type="button" onClick={this.openDoorInline} cancle={true} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:50}}>
+				                        	<Button  label="获取口令" type="button"  cancle={true} onTouchTap={this.getDoorPassWord} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'right',padding:0}}>
 				                        	<Button  label="获取管理员密码" type="button" onClick={this.getManagerPsd} cancle={true} style={{width:115}}/>
 				                      	</ListGroupItem>
+				                      	
+				                    </ListGroup>
+			                  	</Row>
+			                  	<Row style={{marginBottom:30,paddingLeft:10}}>
+				                    <ListGroup>
+				                      	
 				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:50}}>
 				                        	<Button  label="重启设备APP" type="button"  cancle={true} onTouchTap={this.restartAPP} style={{width:115}}/>
 				                      	</ListGroupItem>
 				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:50}}>
 				                        	<Button  label="重启设备系统" type="button"  cancle={true} onTouchTap={this.restartSystems} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0,paddingRight:50}}>
+				                        	<Button  label="恢复设备出厂设置" type="button"  cancle={true} onTouchTap={this.resetEquipmentOrigin} style={{width:115}}/>
+				                      	</ListGroupItem>
+				                      	<ListGroupItem style={{textAlign:'left',padding:0}}>
+				                        	<Button  label="升级" type="button"  cancle={true} onTouchTap={this.upgrade} style={{width:115}}/>
 				                      	</ListGroupItem>
 				                      	
 				                    </ListGroup>

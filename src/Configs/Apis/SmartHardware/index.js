@@ -173,6 +173,15 @@ module.exports = {
       method: 'get'
    },
 
+   //获取升级信息下拉列表
+   'SynchronizingUrl':{
+      url: '/api/iot-platform/door-device/admin/actions/refresh-totpkey',
+      method: 'post'
+   },
+
+
+    
+
    
    
 }

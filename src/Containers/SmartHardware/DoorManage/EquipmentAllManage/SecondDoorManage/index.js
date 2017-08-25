@@ -248,6 +248,7 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	
+	
 	//点击批量删除
 	deleteSelectEquipment = ()=>{
 		if(this.state.selectIds.length == 0){
@@ -278,11 +279,21 @@ export default class SecondDoorManage  extends React.Component{
 		State.openClearCached = !State.openClearCached;
 	}
 
+	//确认同步口令
+	confirmSynchronizingPsw=()=>{
+		State.confirmSynchronizingAction();
+		this.synchronizingPswDialogFun();
+	}
+
+	//口令提示
+	synchronizingPswDialogFun=()=>{
+		State.synchronizingPswDialog = !State.synchronizingPswDialog;
+	}
 
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
-		console.log("itemDetail",itemDetail);
+		// console.log("itemDetail",itemDetail);
 		return(
 			<div >
 				<div style={{padding:"20px 0 0 0"}}>
@@ -678,6 +689,29 @@ export default class SecondDoorManage  extends React.Component{
 			        >
 			          <BtnBox onCancle={this.showOpretionFun}/>
 			        </Dialog>
+			        <Dialog
+			          title="重启APP提示"
+			          open={State.synchronizingPswDialog}
+			          onClose={this.synchronizingPswDialogFun}
+			          contentStyle={{width:443,height:260}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>同步口令后有可能造成口令码无法开门，确认同步？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmSynchronizingPsw} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.synchronizingPswDialogFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+
 				</div>
 				
 			</div>

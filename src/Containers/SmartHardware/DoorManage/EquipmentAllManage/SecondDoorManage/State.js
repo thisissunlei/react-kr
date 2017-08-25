@@ -22,6 +22,7 @@ let State = observable({
 	openConnectAgian :false,
 	passwordDialog : false,
 	openEquipmentCache:false,
+	synchronizingPswDialog :false,
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
 	makerOptions :[],
@@ -379,6 +380,16 @@ State.freshEquipmentReporterAction = action(function(){
 	Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
 		State.deviceVO.reported = response.reported;
 		Message.success("刷新成功");
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
+State.confirmSynchronizingAction = action(function(){
+	var urlParams = {deviceId:State.deviceVO.deviceId}
+	Http.request('SynchronizingUrl',{},urlParams).then(function(response) {
+		
+		Message.success("同步成功");
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
