@@ -50,7 +50,7 @@ module.exports = [
 			},
 			{
 				primaryText: "日志管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-theLog',
 				iconColor: '#79859a',
 				router: 'permission/systemManage',
 				menuItems: [
@@ -71,7 +71,7 @@ module.exports = [
 			},
 			{
 				primaryText: "系统管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-systems',
 				iconColor: '#79859a',
 				router: 'permission/systemManage',
 				menuItems: [
@@ -116,7 +116,7 @@ module.exports = [
 				]
 			},{
 				primaryText: "流程管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-process',
 				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',
 				menuItems: [
