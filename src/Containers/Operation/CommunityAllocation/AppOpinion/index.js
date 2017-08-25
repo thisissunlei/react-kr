@@ -139,8 +139,12 @@ export default class AppOpinion extends React.Component {
 						                <TableRowColumn 
 						                	name="handled" 
 						                	component={(value) => {
-						                		let status=value==1?'已处理':'未处理';
-						                        return status;
+						                		if(value==1){
+						                			return <span className="u-font-green">已处理</span>
+						                		}else{
+						                			return  <span className="u-font-red">未处理</span>
+						                		}
+						                        
 						                    }}
 						                ></TableRowColumn>
 						                <TableRowColumn>
