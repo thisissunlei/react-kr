@@ -829,6 +829,36 @@ module.exports = {
         url: '/api/krspace-finance-web/op/community/question/handle',
         method: 'post'
     },
+    //App管理-广告管理-启动页-创建广告
+    'create-advert': {
+        url: '/api/krspace-finance-web/advertising/boot/create',
+        method: 'post'
+    },
+    //App管理-广告管理-启动页-删除广告
+    'delete-advert': {
+        url: '/api/krspace-finance-web/advertising/boot/delete',
+        method: 'post'
+    },
+    //App管理-广告管理-启动页-发布广告
+    'publish-advert': {
+        url: '/api/krspace-finance-web/advertising/boot/publish',
+        method: 'post'
+    },
+    //App管理-广告管理-启动页-分页
+    'advert-page': {
+        url: '/api/krspace-finance-web/advertising/boot/page?page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //App管理-广告管理-启动页-查看详情
+    'advert-detail': {
+        url: '/api/krspace-finance-web/advertising/boot/detail?id={id}',
+        method: 'get'
+    },
+    //App管理-广告管理-启动页-编辑广告
+    'advert-edit': {
+        url: '/api/krspace-finance-web/advertising/boot/edit',
+        method: 'post'
+    },
 }
 
 
