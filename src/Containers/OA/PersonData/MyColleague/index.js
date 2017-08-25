@@ -93,8 +93,8 @@ export default class MyColleague extends React.Component {
 
 	componentDidMount() {
 		//侧栏默认关闭
-		const { NavModel } = this.props;
-		NavModel.setSidebar();
+		// const { NavModel } = this.props;
+		// NavModel.setSidebar();
 
 		//获取树的数据
 		this.getTreeData();
@@ -149,7 +149,7 @@ export default class MyColleague extends React.Component {
 	//获取树的数据
 	getTreeData = () => {
 		const _this = this;
-
+		// Http.request("org-list",{id:0}).then(function (response) {
 		Http.request("role-dep-tree").then(function (response) {
 			_this.setState({
 				treeData: _this.fnTree(response.items),

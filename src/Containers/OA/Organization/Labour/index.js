@@ -601,34 +601,35 @@ export default class Labour extends React.Component {
 	onHighSearchSubmit = (param) => {
 		param.codeKey=param.nameKey?param.nameKey:'';
 		if(param.orgId){
-      var id=param.orgId?param.orgId:'';
-      var type=param.orgType?param.orgType:'';
-      param.orgId=id;
-      param.orgType=type;
-    }
-    if(param.leader){
-      param.leader=param.leader[0].orgId;
-    }
-    let defaultParams = {
-				codeKey:'',
-				nameKey:'',
-       mobilePhone:'',
-       email:'',
-       orgId:'',
-       orgType:'',
-       leader:'',
-       searchType:'',
-       searchStatus:'',
-       hasAccount:'',
-       searchProperty:'',
-       entryDateStart:'',
-       entryDateEnd:''
-    }
-    var searchParams = Object.assign({},defaultParams,param);
-    this.setState({
-      searchParams,
-      openHighSearch:!this.state.openHighSearch
-    })
+			var id=param.orgId?param.orgId:'';
+			var type=param.orgType?param.orgType:'';
+			param.orgId=id;
+			param.orgType=type;
+		}
+		console.log(param,">>>>>")
+		if(param.leader){
+		param.leader=param.leader[0].orgId;
+		}
+		let defaultParams = {
+					codeKey:'',
+					nameKey:'',
+		mobilePhone:'',
+		email:'',
+		orgId:'',
+		orgType:'',
+		leader:'',
+		searchType:'',
+		searchStatus:'',
+		hasAccount:'',
+		searchProperty:'',
+		entryDateStart:'',
+		entryDateEnd:''
+		}
+		var searchParams = Object.assign({},defaultParams,param);
+		this.setState({
+		searchParams,
+		openHighSearch:!this.state.openHighSearch
+		})
 	}
 
 
