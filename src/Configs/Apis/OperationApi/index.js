@@ -819,12 +819,12 @@ module.exports = {
         url: '/api/krspace-finance-web/app/question/handle',
         method: 'post'
     },
-    //App管理-意见反馈-查看详情
+    //社区经营-意见反馈-查看详情
     'question-detail': {
         url: '/api/krspace-finance-web/op/community/question/detail?id={id}',
         method: 'get'
     },
-    //App管理-意见反馈-处理
+    //社区经营-意见反馈-处理
     'question-handle': {
         url: '/api/krspace-finance-web/op/community/question/handle',
         method: 'post'
@@ -857,6 +857,36 @@ module.exports = {
     //App管理-广告管理-启动页-编辑广告
     'advert-edit': {
         url: '/api/krspace-finance-web/advertising/boot/edit',
+        method: 'post'
+    },
+    //App管理-广告管理-banner-创建广告
+    'create-banner': {
+        url: '/api/krspace-finance-web/advertising/banner/create',
+        method: 'post'
+    },
+    //App管理-广告管理-banner-删除广告
+    'delete-banner': {
+        url: '/api/krspace-finance-web/advertising/banner/delete',
+        method: 'post'
+    },
+    //App管理-广告管理-banner-发布广告
+    'publish-banner': {
+        url: '/api/krspace-finance-web/advertising/banner/publish',
+        method: 'post'
+    },
+    //App管理-广告管理-banner-分页
+    'banner-page': {
+        url: '/api/krspace-finance-web/advertising/banner/page?page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //App管理-广告管理-banner-查看详情
+    'banner-detail': {
+        url: '/api/krspace-finance-web/advertising/banner/detail?id={id}',
+        method: 'get'
+    },
+    //App管理-广告管理-banner-编辑广告
+    'edit-banner': {
+        url: '/api/krspace-finance-web/advertising/banner/edit',
         method: 'post'
     },
 }
