@@ -130,7 +130,7 @@ export default class List extends React.Component {
 												value="-"
 											}
 											return (
-													<div onClick={this.seeContent.bind(this,itemData)} style={{width:400,color:"#499df1",cursor:"pointer",whiteSpace:"nowrap",textOverflow:"ellipsis",overflow:"hidden"}}>
+													<div onClick={this.seeContent.bind(this,itemData)} style={{width:400,color:"#499df1",cursor:"pointer",whiteSpace:"nowrap",textOverflow:"ellipsis",overflow:"hidden",cursor:"pointer"}}>
 														{itemData.content}
 													</div>
 												)
