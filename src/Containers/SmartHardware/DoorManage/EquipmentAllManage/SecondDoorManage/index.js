@@ -162,7 +162,7 @@ export default class SecondDoorManage  extends React.Component{
 
 
 	showMoreOpretion=(thisP,value,itemData)=>{
-		
+		State.deviceVO = thisP.deviceVO
 		this.showOpretionFun();
 		State.itemDetail = thisP;
 		this.setState({
