@@ -250,7 +250,19 @@ export default class DynamicsList extends Component{
             <TableRowColumn name="identifier" ></TableRowColumn>
 						<TableRowColumn name="titleUrl"
               				component={(value,oldValue)=>{
-								return (<img className = "dynamics-img" src = {value} style = {{display:value ? "inline-block" : "none"}} />)
+								  var height = "auto";
+								  var isShow = true;
+								  if(!value){
+									  height = 80;
+									  isShow = false;
+								  }
+								return (
+									<div style = {{height:height}}>
+										{!isShow && <span>{value}</span>}
+										<img className = "dynamics-img" src = {value} style = {{display:isShow ? "inline-block" : "none"}} />
+									</div>
+									)
+									
 		 					}}
            				></TableRowColumn>
 						<TableRowColumn name="title"
@@ -258,6 +270,10 @@ export default class DynamicsList extends Component{
 								var maxWidth=10;
 								if(value.length>maxWidth){
 									value = value.substring(0,10)+"...";
+								}
+								if(!value){
+									value = "-";
+									oldValue = "-";
 								}
 								return (
 									<div  className='tooltipParent'>
@@ -314,11 +330,17 @@ export default class DynamicsList extends Component{
 						<TableRowColumn name="articleType"></TableRowColumn>
 						<TableRowColumn name="linkUrl"
 							component={(value,oldValue,detail)=>{
+								var isShow = true;
+								if(!value){
+									value = "-";
+									oldValue = "-";
+									isShow = false;
+								}
 								return (
 									<a 
 										src = {value}
 										onClick = {() =>{
-											this.goDetail(detail)
+											isShow && this.goDetail(detail)
 										}}
 									>
 										{value}
