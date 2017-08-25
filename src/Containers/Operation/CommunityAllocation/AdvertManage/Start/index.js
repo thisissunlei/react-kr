@@ -44,7 +44,7 @@ export default class Start extends React.Component{
 	onDeleteData=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('delete-notice',{},{id:itemDetail.id}).then(function (response) {
+		Http.request('delete-advert',{},{id:itemDetail.id}).then(function (response) {
 			_this.openDelete();
 			Message.success('删除成功！');
 			_this.setState({
@@ -62,7 +62,7 @@ export default class Start extends React.Component{
 	openPublishDel=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('publish-notice',{},{id:itemDetail.id}).then(function (response) {
+		Http.request('publish-advert',{},{id:itemDetail.id}).then(function (response) {
 			_this.openPublish();
 			Message.success('发布成功！');
 			_this.setState({

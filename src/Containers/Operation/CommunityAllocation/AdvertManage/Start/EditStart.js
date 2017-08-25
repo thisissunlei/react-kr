@@ -26,18 +26,12 @@ class EditStart extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.state = {
-			ifCity:false,
-			
-		}
 		
 	}
 	
 	
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
-		var _this=this;
-		
 		console.log('form=====>>>>',form)
 		// Http.request('create-activity',{},form).then(function(response) {
 		// 	Message.success('新建成功')
@@ -62,12 +56,6 @@ class EditStart extends React.Component {
 				pristine,
 				reset
 			} = this.props;
-			let {
-				
-				ifCity,
-				groupType,
-			}=this.state;
-			
 		
 		return (
 			<div className="g-create-advert">
@@ -78,7 +66,7 @@ class EditStart extends React.Component {
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField
 								style={{width:548}}
-								name="title"
+								name="targetUrl"
 								type="text"
 								component="input"
 								label="跳转地址"
@@ -101,7 +89,7 @@ class EditStart extends React.Component {
 						 	<KrField 
 						 		grid={1} 
 						 		label="图片描述" 
-						 		name="facility" 
+						 		name="remark" 
 						 		heightStyle={{height:"78px",width:'538px'}}  
 						 		component="textarea"  
 						 		maxSize={100} 
@@ -130,11 +118,12 @@ const validate = values => {
 
 		const errors = {};
 
-		if (!values.title) {
-			errors.title = '请填写活动标题';
+		
+		if (!values.imgUrl) {
+			errors.imgUrl = '启动图片不能为空';
 		}
-		if (values.title && values.title.length>50) {
-			errors.title = '活动标题不能超过50个字符';
+		if (!values.remark) {
+			errors.remark = '活动标题不能超过50个字符';
 		}
 
 
