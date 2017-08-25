@@ -56,6 +56,7 @@ export default class SecondDoorManage  extends React.Component{
 		State.getDicList();
 		//获取升级信息列表
 		State.getUpgradeTypeOptions();
+
 	}
 
 	freshPageThis=()=>{

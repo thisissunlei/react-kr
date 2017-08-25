@@ -85,7 +85,7 @@ export default class List extends React.Component {
 		} = this.state;
 		
 		return (
-		    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
+		    <div className="second-door-upgrade" style={{minHeight:'910',backgroundColor:"#fff"}} >
 				<Title value="升级包管理"/>
 				<Section title={`升级包管理`} description="" >
 					<div>

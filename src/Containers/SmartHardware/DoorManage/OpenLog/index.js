@@ -95,7 +95,7 @@ export default class List extends React.Component {
 		let {list,seleced,openType} = this.state;
 		console.log("openType",openType);
 		return (
-			    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
+			    <div className="second-door-open-log" style={{minHeight:'910',backgroundColor:"#fff"}} >
 					<Title value="开门记录"/>
 					<Section title={`开门记录`} description="" >
 						<div>
