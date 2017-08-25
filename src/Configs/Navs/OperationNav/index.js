@@ -110,7 +110,7 @@ module.exports = [
 			},
 			{
 				primaryText: '数据统计',
-				iconName: 'icon-com',
+				iconName: 'icon-statistics',
 				iconColor: '#79859a',
 				router: 'statistical',
 				menuItems: [
@@ -133,7 +133,7 @@ module.exports = [
 			},
 			{
 				primaryText: 'APP管理',
-				iconName: 'icon-com',
+				iconName: 'icon-app',
 				iconColor: '#79859a',
 				menuItems: [
 					{
@@ -160,7 +160,7 @@ module.exports = [
 			},
 			{
 				primaryText: '官网管理',
-				iconName: 'icon-com',
+				iconName: 'icon-website',
 				iconColor: '#79859a',
 				router: 'activity',
 				menuItems: [
@@ -220,7 +220,7 @@ module.exports = [
 			},
 			{
 				primaryText: '硬件平台',
-				iconName: 'icon-com',
+				iconName: 'icon-hardware',
 				iconColor: '#79859a',
 				menuItems: [
 					{

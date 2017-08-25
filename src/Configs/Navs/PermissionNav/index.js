@@ -14,7 +14,7 @@ module.exports = [
 			},
 			{
 				primaryText: "账户管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-accountAdmin',
 				iconColor: '#79859a',
 				router: 'accountManage',
 				menuItems: [{
@@ -26,7 +26,7 @@ module.exports = [
 			},
 			{
 				primaryText: "权限管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-permissions',
 				iconColor: '#79859a',
 				router: 'permission/user',
 				menuItems: [{
@@ -136,7 +136,7 @@ module.exports = [
 
 			{
 				primaryText: "知识中心",
-				iconName: 'icon-wendang',
+				iconName: 'icon-knowledge',
 				iconColor: '#79859a',
 				router: '',
 				menuItems: [
