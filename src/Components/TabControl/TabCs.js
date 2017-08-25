@@ -1,7 +1,10 @@
 import React from 'react';
-import TabTitle from './TabTitle';
-import TabFirst from './TabFirst';
-import TabProcess from './TabProcess';
+import {
+    TabTitle,
+    TabFirst,
+    TabProcess,
+    TabIcon
+} from './Title'
 import './index.less'
 export default class TabCs extends React.Component {
     constructor(props,context){
@@ -38,7 +41,7 @@ export default class TabCs extends React.Component {
     }
 
 	render() {
-        const {children,isDetail} = this.props;
+        const {children,isDetail,label} = this.props;
         const {labels} = this.state;
         
 		return (
@@ -59,6 +62,7 @@ export default class TabCs extends React.Component {
                 />}
                 {isDetail=='iconTab'&&<TabIcon
                     labels = {this.getLabels()} 
+                    label = {label}
                     onSubmit = {this.titleClick} 
                 />}
                 

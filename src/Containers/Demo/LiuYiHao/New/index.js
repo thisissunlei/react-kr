@@ -28,9 +28,10 @@ class New extends React.Component {
 	render() {
 
 		return (
-			<div style = {{height:2000}}>
+			<div style = {{height:2000,background:"#fff"}}>
 			<TabCs
-					  isDetail='detail'
+					  isDetail='iconTab'
+					  label = "全部数据"
 			      >
 				  <TabC label='基本信息'> 
 					  <h1>3344</h1>

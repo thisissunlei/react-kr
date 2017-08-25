@@ -9,7 +9,6 @@ import Calendar from './Calendar';
 import ReactDOM from 'react-dom';
 
 import './index.less';
-import './animate.less';
 
 window.calendars = [];
 

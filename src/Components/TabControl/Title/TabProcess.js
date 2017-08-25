@@ -1,13 +1,12 @@
 import React from 'react';
-import './index.less';
-export default class TabTitle extends React.Component {
+export default class TabProcess extends React.Component {
     constructor(props,context){
 		super(props, context);
         this.state = {
            active:0
         }
-        this.init ='ui-init-class ui-tab-control';
-        this.active ='ui-active-class ui-tab-control';
+        this.init ='ui-init-process ui-tab-control';
+        this.active ='ui-active-process ui-tab-control';
 	}
   
     titleClick = (label,index) =>{
@@ -42,7 +41,7 @@ export default class TabTitle extends React.Component {
 	render() {
         const {children,justify} = this.props;
 		return (
-            <div
+            <div className="u-oa-process-setting"
             >
                  {this.titleRender()}   
             </div>
