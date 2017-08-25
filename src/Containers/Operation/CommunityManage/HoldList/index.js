@@ -33,11 +33,15 @@ import {
 	Dialog,
 	SearchForms,
 	KrDate,
-	Message
+	Message,
+	Drawer,
+	Title
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
 import HighSearchForm from './HighSearchForm';
+import Handle from './Handle';
+import ViewOpinion from './ViewOpinion';
 export default class HoldList extends React.Component {
 
 	constructor(props, context) {
@@ -49,8 +53,42 @@ export default class HoldList extends React.Component {
 			},
 			itemDetail: '',
 			openHighSearch: false,
+			openHandle:false,
+			openView:false,
+
 		}
 	}
+
+//操作相关
+	onOperation = (type, itemDetail) => {
+		this.setState({
+			itemDetail
+		});
+		if (type == 'handle') {
+			this.openHandle();
+		}else if (type == 'view') {
+			this.openView()
+		}
+	}
+	openHandle=()=>{
+		this.setState({
+			openHandle:!this.state.openHandle
+		})
+	}
+	openView=()=>{
+		this.setState({
+			openView:!this.state.openView
+		})
+	}
+
+	handleSubmit=()=>{
+		this.setState({
+			searchParams:{
+				time:new Date(),
+			}
+		});
+	}
+
 //高级查询
 openHighSearch = () => {
     this.setState({
@@ -89,9 +127,10 @@ openHighSearch = () => {
 
 	render() {
 
-
+		let {itemDetail}=this.state;
 		return (
 			<div className="g-hold-list">
+				<Title value="意见反馈"/>
 				<Section title="支持列表" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
@@ -113,19 +152,19 @@ openHighSearch = () => {
           onOperation={this.onOperation}
             >
         <TableHeader>
-        <TableHeaderColumn>社区名称</TableHeaderColumn>
-				<TableHeaderColumn>客户名称</TableHeaderColumn>
-        <TableHeaderColumn>问题类型</TableHeaderColumn>
-				<TableHeaderColumn>内容</TableHeaderColumn>
-				<TableHeaderColumn>联系人</TableHeaderColumn>
-				<TableHeaderColumn>联系电话</TableHeaderColumn>
-				<TableHeaderColumn>创建时间</TableHeaderColumn>
+        	<TableHeaderColumn>社区名称</TableHeaderColumn>
+        	<TableHeaderColumn>内容</TableHeaderColumn>
+			<TableHeaderColumn>姓名</TableHeaderColumn>
+			<TableHeaderColumn>联系电话</TableHeaderColumn>
+			<TableHeaderColumn>创建时间</TableHeaderColumn>
+			<TableHeaderColumn>状态</TableHeaderColumn>
+			<TableHeaderColumn>操作</TableHeaderColumn>
       </TableHeader>
 
       <TableBody>
         <TableRow>
-          <TableRowColumn name="communityName" ></TableRowColumn>
- 					<TableRowColumn name="company" component={(value)=>{
+          <TableRowColumn name="cmtName" ></TableRowColumn>
+ 		  <TableRowColumn name="content" component={(value)=>{
                   var styles = {
                     display:'block',
                     paddingTop:5
@@ -136,37 +175,37 @@ openHighSearch = () => {
                   }else{
                     styles.display="block";
                   }
-                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:200,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
-                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                 }}>></TableRowColumn>
-          <TableRowColumn name="typeName"></TableRowColumn>
-					<TableRowColumn name="content" component={(value)=>{
-                  var styles = {
-                    display:'block',
-                    paddingTop:5
-                  };
-                  if(value.length==""){
-                    styles.display="none"
-
-                  }else{
-                    styles.display="block";
-                  }
-                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:260,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                     <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                  }}>
-        </TableRowColumn>
-				<TableRowColumn name="mbrName"></TableRowColumn>
-				<TableRowColumn name="phone"></TableRowColumn>
-				<TableRowColumn type="date" name="time" component={(value)=>{
-					return (
-						<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
-					)
-				}}> </TableRowColumn>
+          </TableRowColumn>
+          <TableRowColumn name="mbrName"></TableRowColumn>
+          <TableRowColumn name="phone"></TableRowColumn>
+		  <TableRowColumn type="date" name="ctime" component={(value)=>{
+			return (
+				<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
+			)
+		  }}> </TableRowColumn>
+		  <TableRowColumn 
+            	name="handled" 
+            	component={(value) => {
+            		if(value==1){
+            			return <span className="u-font-green">已处理</span>
+            		}else{
+            			return  <span className="u-font-red">未处理</span>
+            		}
+                    
+                }}
+            ></TableRowColumn>
+            <TableRowColumn>
+            	<Button label="查看" type="operation" operation="view" />
+            	<Button label="处理" type="operation" operation="handle" />
+            </TableRowColumn>
          </TableRow>
       </TableBody>
       <TableFooter></TableFooter>
       </Table>
-				</Section>
+	</Section>
 
 				<Dialog
 					title="高级查询"
@@ -180,6 +219,31 @@ openHighSearch = () => {
 								onCancel={this.openHighSearch}
 					/>
 				</Dialog>
+				<Dialog
+		              title="处理"
+		              modal={true}
+		              contentStyle ={{ width: '662',overflow:'visible'}}
+		              open={this.state.openHandle}
+		              onClose={this.openHandle}
+		            >
+		              <Handle 
+						  onCancel={this.openHandle}
+						  onSubmit={this.handleSubmit}
+		              />
+		            </Dialog>
+		            <Drawer
+		             modal={true}
+		             width={750}
+		             open={this.state.openView}
+		             onClose={this.openView}
+		             openSecondary={true}
+		             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+		           >
+	             	<ViewOpinion
+	             			onCancel={this.openView} 
+	             			detail={itemDetail}
+	             	 />
+	           </Drawer>
 
 			</div>
 		);

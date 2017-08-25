@@ -819,6 +819,16 @@ module.exports = {
         url: '/api/krspace-finance-web/app/question/handle',
         method: 'post'
     },
+    //App管理-意见反馈-查看详情
+    'question-detail': {
+        url: '/api/krspace-finance-web/op/community/question/detail?id={id}',
+        method: 'get'
+    },
+    //App管理-意见反馈-处理
+    'question-handle': {
+        url: '/api/krspace-finance-web/op/community/question/handle',
+        method: 'post'
+    },
 }
 
 
