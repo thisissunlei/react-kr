@@ -32,6 +32,7 @@ import { default as NoticeManage } from './NoticeManage';
 import {default as IntegrationManage} from './IntegrationManage';
 import {default as Activitys} from './Activitys';
 import {default as AdvertManage} from './AdvertManage';
+import {default as AppOpinion} from './AppOpinion';
 
 module.exports = {
 	CommunityList,
@@ -49,4 +50,5 @@ module.exports = {
 	IntegrationManage,
 	Activitys,
 	AdvertManage,
+	AppOpinion
 }

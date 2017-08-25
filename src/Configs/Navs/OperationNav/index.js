@@ -166,7 +166,11 @@ module.exports = [
 						menuCode: 'oper_advert_base',
 						router: '/operation/communityAllocation/advert'
 					},
-					
+					{
+						primaryText: 'App意见反馈',
+						menuCode: 'oper_opinion_base',
+						router: '/operation/communityAllocation/opinion'
+					},
 				]
 			},
 			{

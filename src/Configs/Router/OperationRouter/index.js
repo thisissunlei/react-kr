@@ -344,7 +344,11 @@ const Operation_CommunityAllocation_AdvertManage=(location, callback)=>{
     callback(null, require('kr/Containers/Operation/CommunityAllocation/AdvertManage').default)
   }, 'Operation_CommunityAllocation_AdvertManage')
 }
-
+const Operation_CommunityAllocation_AppOpinion=(location, callback)=>{
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Operation/CommunityAllocation/AppOpinion').default)
+  }, 'Operation_CommunityAllocation_AppOpinion')
+}
 module.exports =()=>{
 	return (
 
@@ -380,6 +384,7 @@ module.exports =()=>{
 		<Route path="integration" getComponent={Operation_CommunityAllocation_Integration}/>
 		<Route path="activity" getComponent={Operation_CommunityAllocation_Activitys}/>
 		<Route path="advert" getComponent={Operation_CommunityAllocation_AdvertManage}/>
+		<Route path="opinion" getComponent={Operation_CommunityAllocation_AppOpinion}/>
 		
 	</Route>
     {/*基础配置*/}
