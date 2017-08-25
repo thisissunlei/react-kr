@@ -128,7 +128,6 @@ export default class Home extends React.Component {
       if(!item){
         return ;
       }
-	  console.log("进入renderDyamic");
       return (
 			<div key={index} className="item">
 				<span className={`circle ${item.isRead=="READ"?'readcircle':''}`}>
@@ -219,7 +218,7 @@ export default class Home extends React.Component {
 					</span>
 				</div>
 			</div>
-			<a className="home-common" href='/#/office/officeBackground/newOffice'>
+			<div className="home-common">
 				<div className="left itemFourth">
 					
 				</div>
@@ -231,7 +230,7 @@ export default class Home extends React.Component {
 						发起流程
 					</span>
 				</div>
-			</a>
+			</div>
         </div>
 				<div className="g-home-middle">
 						<div className="g-home-middle-item">
