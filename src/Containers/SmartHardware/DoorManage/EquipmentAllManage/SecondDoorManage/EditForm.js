@@ -44,10 +44,16 @@ class EditForm extends React.Component{
 			})
 		}
 	}
+	componentDidMount(){
+		Store.dispatch(initialize('EditForm', this.detail));
+		// Store.dispatch(change('EditForm',"roomId",this.detail.roomId));
+
+	}
 	getBasicData=(detail)=>{
 		
 		
 		let _this = this;
+		//获取房间下拉列表
 		if(detail.communityId && detail.floor){
 			
 			let SearchLocationParams = {
@@ -64,7 +70,7 @@ class EditForm extends React.Component{
 	    		})
 			});
 		}
-		
+		//获取楼层下拉列表
 		if(detail.communityId){
 			Http.request('getFloorByComunity',{communityId:detail.communityId}).then(function(response){
 	    		var arrNew = []
@@ -86,8 +92,9 @@ class EditForm extends React.Component{
 			floorNum : detail.floor
 		})
 
+		// console.log("locationOptions",_this.state.locationOptions)
 		
-		Store.dispatch(initialize('EditForm', detail));
+		// console.log("detail",detail);
 	}
 	onCancel=()=>{
 		State.openEditDialog = false;
@@ -95,7 +102,7 @@ class EditForm extends React.Component{
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
   		
-  		console.log("community",community);
+  		// console.log("community",community);
   		let _this = this;
   		if(!community){
   			_this.setState({
@@ -144,10 +151,11 @@ class EditForm extends React.Component{
 	// 选择房间
 	onchooseCorrespondingLocation=(roomId)=>{
 
-		if(roomId){
+		if(!roomId){
 			Store.dispatch(change('EditForm','roomId',''));
 			return;
 		}
+		// console.log("roomId",roomId);
 		Store.dispatch(change('EditForm','roomId',roomId.value));
 		
 	}
@@ -190,7 +198,7 @@ class EditForm extends React.Component{
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
 		let {detail} = this.props;
-		console.log("detail",detail);
+		// console.log("detail",detail);
 		if(!hardwareId || /^\s+$/.test(hardwareId)){
 			return;
 		}
@@ -209,7 +217,7 @@ class EditForm extends React.Component{
 
 	// 编辑设备定义
 	onSubmit=(values)=>{
-		console.log("values",values);
+		// console.log("values",values);
 		let {detail} = this.props;
 		let _this = this;
 		let hardwareIdparams = {

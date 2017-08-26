@@ -9,6 +9,7 @@ import {
 	Toggle
 }from 'material-ui';
 import './index.less';
+
 import State from './State';
 import {
 	observer
@@ -21,10 +22,11 @@ export default class EquipmentSearch extends React.Component{
 			
 		}
 	}
-	componentWillMount() {
-	}
+	
 
 	changeSearchEquipment=(event,isInputChecked)=>{
+		console.log("State.switch",State.switch);
+		console.log("isInputChecked",isInputChecked);
 		State.changeSwitchStatusAction({onOff:isInputChecked})
 	}
 
@@ -70,15 +72,20 @@ export default class EquipmentSearch extends React.Component{
 				<div style={{paddingLeft:20}}>
 					<Toggle 
 						defaultToggled={State.switch} 
-						label="发现设备开关" 
+						label="是否自动发现设备" 
 						labelPosition="right"
-						labelStyle={{fontSize:14,width:100,marginTop:5}} 
+						labelStyle={{fontSize:14,width:120,marginTop:5}} 
 						onToggle={this.changeSearchEquipment}
 						trackStyle={{height:25,lineHeight:25}}
 						thumbStyle={{marginTop:5}}
 						thumbSwitchedStyle={{marginTop:5,backgroundColor:'#499df1'}}
 						trackSwitchedStyle={{backgroundColor:"red"}}
+
+						className="toggle"
+						checkedClassName = "toggle-checked"
 					/>
+					
+					
 					
 				</div>
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
