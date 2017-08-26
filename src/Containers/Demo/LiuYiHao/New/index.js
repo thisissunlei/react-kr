@@ -34,11 +34,11 @@ class New extends React.Component {
 					  label = "全部数据"
 			      >
 				  <TabC label='基本信息'> 
-					  <h1>3344</h1>
+					  <h1>344</h1>
 				  </TabC> 
 				  
 				  <TabC label='个人信息'> 
-					 <h1>3344</h1>
+					 <h1>asda</h1>
 				  </TabC> 
 
 				  <TabC label='工作信息'> 
