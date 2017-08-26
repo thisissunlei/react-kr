@@ -130,7 +130,7 @@ export default class List extends React.Component {
 							<TableHeaderColumn>升级类型</TableHeaderColumn>
 							<TableHeaderColumn>升级包地址</TableHeaderColumn>
 							<TableHeaderColumn>版本信息</TableHeaderColumn>
-							<TableHeaderColumn>版本编号</TableHeaderColumn>
+							<TableHeaderColumn>版本编码</TableHeaderColumn>
 							<TableHeaderColumn>操作</TableHeaderColumn>
 							
 						</TableHeader>

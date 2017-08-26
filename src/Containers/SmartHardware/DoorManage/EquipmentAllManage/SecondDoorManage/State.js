@@ -16,7 +16,6 @@ let State = observable({
 	openEditDialog:false,
 	openConfirmDelete:false,
 	openSearchEquipment:false,
-	openSearchDialog :false,
 	upgradeDialog:false,
 	openClearCached : false,
 	openConnectAgian :false,

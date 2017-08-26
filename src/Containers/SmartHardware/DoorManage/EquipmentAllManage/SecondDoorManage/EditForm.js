@@ -23,13 +23,12 @@ class EditForm extends React.Component{
 		super(props,context);
 		this.detail = this.props.detail;
 		this.state={
-			//是否显示位置下拉框
-			locationOpen:false,
+			
 			floorsOptions:[],
 			locationOptions:[],
 			communityId :'',
 			floorNum :'',
-			propertyOption :[{label:"",value:"",code:''}],
+			propertyOption :State.propertyOption,
 
 		}
 	}
@@ -46,20 +45,14 @@ class EditForm extends React.Component{
 		}
 	}
 	getBasicData=(detail)=>{
-		console.log("detail",detail);
-		var propertyOptionS = State.propertyOption;
-		var paramType =''
+		
+		
 		let _this = this;
 		if(detail.communityId && detail.floor){
-			for(var i=0;i<propertyOptionS.length;i++){
-				if(propertyOptionS[i].value == detail.doorType){
-					paramType = propertyOptionS[i].code;
-				}
-			}
+			
 			let SearchLocationParams = {
 									communityId:detail.communityId,
 									whereFloor:detail.floor,
-									type:paramType
 								}
 			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
 				var locationArr = []
@@ -82,7 +75,6 @@ class EditForm extends React.Component{
 	    			floorsOptions : arrNew,
 	    			floor : detail.floor,
 	    			communityId : detail.communityId,
-	    			propertyOption :State.propertyOption
 	    		})
 		    }).catch(function(err){
 
@@ -94,11 +86,7 @@ class EditForm extends React.Component{
 			floorNum : detail.floor
 		})
 
-		if(detail.doorType && detail.doorType!=="GATE"  ){
-			_this.setState({
-				locationOpen : !_this.state.locationOpen
-			})
-		}
+		
 		Store.dispatch(initialize('EditForm', detail));
 	}
 	onCancel=()=>{
@@ -107,28 +95,33 @@ class EditForm extends React.Component{
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
   		
-
-  		Store.dispatch(change('EditForm', 'floor', ""))
+  		console.log("community",community);
   		let _this = this;
-  		if(community == null){
+  		if(!community){
   			_this.setState({
-  				locationOpen : false,
-  				floorsOptions : []
+  				floorsOptions : [],
+  				locationOptions :[]
   			})
+  			Store.dispatch(change('EditForm', 'floor', ""))
+  			Store.dispatch(change('EditForm','roomId',''));
 			return;
 		}
-		let CommunityId = {
-			communityId : community.id
-		}
+		
 		this.setState({
 			communityId :community.id,
-			locationOpen :false
 		})
-    	Store.dispatch(change('EditForm', 'communityId', community.communityId));
+    	Store.dispatch(change('EditForm', 'communityId', community.id));
 		Store.dispatch(change('EditForm','roomId',''));
-  		Store.dispatch(change('EditForm','doorType',''));
+  		Store.dispatch(change('EditForm', 'floor', ""))
 
-    	Http.request('getFloorByComunity',CommunityId).then(function(response){
+  		let communityIdParam = {communityId : community.id}
+    	this.getFloorOption(communityIdParam);
+  	}
+
+
+  	getFloorOption = (communityIdParam)=>{
+  		let _this =this;
+  		Http.request('getFloorByComunity',communityIdParam).then(function(response){
     		var arrNew = []
     		for (var i=0;i<response.floors.length;i++){
     			arrNew[i] = {label:response.floors[i],value:response.floors[i]}
@@ -137,76 +130,60 @@ class EditForm extends React.Component{
     			floorsOptions : arrNew
     		})
     	}).catch(function(err){
-    		
+    		Message.error(err.message);
     	})
   	}
   	
-  	//选择属性(会议室／大门/路演厅)
+  	//选择门类型
 	onchooseProperty=(doorType)=>{
-		console.log("doorType",doorType);
-		let _this = this;
-		if(doorType == null){
-			_this.setState({
-  				locationOpen : false
-  			})
-			return;
-		}
-  		if(doorType.value == "GATE"){
-  			Store.dispatch(change('EditForm','roomId',''));
-  			_this.setState({
-  				locationOpen : false
-  			})
-  			
-  		}else{
-  			_this.setState({
-  				locationOpen : true
-  			})
-  			let SearchLocationParams = {communityId:_this.state.communityId,
-  										whereFloor:_this.state.floorNum,
-  										type:doorType.code}
-  			
-  			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
-				var locationArr = []
-	    		for (var i=0;i<response.length;i++){
-	    			locationArr[i] = {label:response[i].name,value:response[i].id}
-	    		}
-	    		_this.setState({
-	    			locationOptions : locationArr
-	    		})
-			});	
-  			
-  		}
-  		
+
   		Store.dispatch(change('EditForm','doorType',doorType.value));
+
   	}
 	
-	// 选择对应位置
+	// 选择房间
 	onchooseCorrespondingLocation=(roomId)=>{
-		if(roomId == null){
+
+		if(roomId){
+			Store.dispatch(change('EditForm','roomId',''));
 			return;
 		}
 		Store.dispatch(change('EditForm','roomId',roomId.value));
+		
 	}
 	// 选择楼层
 	getFloor=(floor)=>{
 		let _this = this;
 		if(!floor){
-			_this.setState({
-				propertyOption :[{label: '',value: ''}],
-				locationOpen :false,
-			})
+			
 			Store.dispatch(change('EditForm', 'doorType', ""));
 		}else{
 			_this.setState({
 				floorNum : floor.value
 			},function(){
-				console.log("State.propertyOption",State.propertyOption);
-				_this.setState({
-					propertyOption :State.propertyOption
-				})
+				_this.getRoomOption();
 			})
 		}
 		
+	}
+
+	getRoomOption=()=>{
+		let _this =this;
+		let SearchLocationParams = 
+				{
+					communityId:_this.state.communityId,
+  					whereFloor:_this.state.floorNum
+  				}
+  			
+		Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
+			var locationArr = []
+    		for (var i=0;i<response.length;i++){
+    			locationArr[i] = {label:response[i].name,value:response[i].id}
+    		}
+    		_this.setState({
+    			locationOptions : locationArr
+    		})
+		});
 	}
 	
 	
@@ -252,13 +229,13 @@ class EditForm extends React.Component{
 		
 	}
 	render(){
-		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked,locationOpen} =this.state;
+		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked} =this.state;
 		
 		const { error, handleSubmit, reset ,detail} = this.props;
 		return(
 			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					<div style={{margin:"0 0 20px 10px",fontSize: 14,color:'black'}}><span>智能硬件ID：</span><span>{detail.deviceId}</span></div>
+					<div style={{margin:"0 0 20px 10px",fontSize: 16,color:'black'}}><span>智能硬件ID：</span><span style={{color:"#ff6868"}}>{detail.deviceId}</span></div>
 					
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
@@ -280,34 +257,23 @@ class EditForm extends React.Component{
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
-					<KrField grid={1/2} name="title" 
-						type="text" 
-						label="展示标题" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'展示标题为必填项'}} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						onBlur = {this.onChangeTitle}
+
+					<KrField name="roomId" grid={1/2}
+						component="select" 
+						options={locationOptions}
+						label="房间"
+						onChange = {this.onchooseCorrespondingLocation}  
+						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
 					/>
-					<KrField grid={1/2} name="doorCode" 
-						type="text" 
-						label="门编号" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'门编号为必填项'}} 
-						style={{width:'252px'}}
-						onBlur = {this.doorNumHasFun}
-					/>
-					
-					
+
 					<KrField name="doorType" 
 						component="select" 
-						label="属性"
+						label="门类型"
 						onChange = {this.onchooseProperty}
 						options={propertyOption}  
 						requireLabel={true} 
 						requiredValue={true} 
-						errors={{requiredValue:'属性为必填项'}} 
+						errors={{requiredValue:'门类型为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
 					<KrField name="maker" grid={1/2}
@@ -319,15 +285,26 @@ class EditForm extends React.Component{
 						errors={{requiredValue:'厂家为必填项'}} 
 						style={{width:'252px'}}
 					/>
-					{
-						locationOpen && <KrField name="roomId" grid={1/2}
-							component="select" 
-							options={locationOptions}
-							label="对应位置"
-							onChange = {this.onchooseCorrespondingLocation}  
-							style={{width:'252px',margin:'0 35px 5px 0',display:this.state.locationOpen?'block':'none'}}
-						/>
-					}
+
+					<KrField grid={1/2} name="title" 
+						type="text" 
+						label="屏幕显示标题" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'屏幕显示标题为必填项'}} 
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+						onBlur = {this.onChangeTitle}
+					/>
+					<KrField grid={1/2} name="doorCode" 
+						type="text" 
+						label="屏幕显示编号" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'屏幕显示编号为必填项'}} 
+						style={{width:'252px'}}
+						onBlur = {this.doorNumHasFun}
+					/>
+					
 					
 					<KrField
 						label="备注"
@@ -363,16 +340,16 @@ const validate = values=>{
 		errors.floor = '楼层为必填项';
 	}
 	if(!values.title || /^\s+$/.test(values.title)){
-		errors.title = '展示标题为必填项';
+		errors.title = '屏幕显示标题为必填项';
 	}
 	if(values.title && values.title.length>11){
-		errors.title = '展示标题最多11个字符';
+		errors.title = '屏幕显示标题最多11个字符';
 	}
 	if(!values.doorCode || /^\s+$/.test(values.doorCode)){
-		errors.doorCode = '门编号为必填项';
+		errors.doorCode = '屏幕显示编号为必填项';
 	}
 	if(values.doorCode  && values.doorCode.length>9){
-		errors.doorCode = '门编号最多9个字符';
+		errors.doorCode = '屏幕显示编号最多9个字符';
 	}
 	if(!values.deviceId || /^\s+$/.test(values.deviceId)){
 		errors.deviceId = '智能硬件ID为必填项';
@@ -381,7 +358,7 @@ const validate = values=>{
 		errors.deviceId = '智能硬件ID最多50个字符';
 	}
 	if(!values.doorType){
-		errors.doorType = '属性为必填项';
+		errors.doorType = '门类型为必填项';
 	}
 	if(!values.maker){
 		errors.maker = '厂家为必填项';

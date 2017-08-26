@@ -119,12 +119,12 @@ export default class List extends React.Component {
 							<TableHeader>
 								<TableHeaderColumn>时间</TableHeaderColumn>
 								<TableHeaderColumn>社区</TableHeaderColumn>
-								<TableHeaderColumn>门编号</TableHeaderColumn>
+								<TableHeaderColumn>设备展示编号</TableHeaderColumn>
 								<TableHeaderColumn>智能硬件ID</TableHeaderColumn>
 								<TableHeaderColumn>姓名</TableHeaderColumn>
 								<TableHeaderColumn>公司</TableHeaderColumn>
 								<TableHeaderColumn>手机号</TableHeaderColumn>
-								<TableHeaderColumn>验证方式</TableHeaderColumn>
+								<TableHeaderColumn>开门方式</TableHeaderColumn>
 								<TableHeaderColumn>结果</TableHeaderColumn>
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>

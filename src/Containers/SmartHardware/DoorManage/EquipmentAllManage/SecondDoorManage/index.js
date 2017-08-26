@@ -300,7 +300,7 @@ export default class SecondDoorManage  extends React.Component{
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
-					<Button label="设备发现"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
+					<Button label="发现设备"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
 					
 				</div>
 				<div>
@@ -325,11 +325,11 @@ export default class SecondDoorManage  extends React.Component{
 			          >
 			            <TableHeader>
 			              	<TableHeaderColumn>社区名称</TableHeaderColumn>
-			              	<TableHeaderColumn>展示标题</TableHeaderColumn>
-				            <TableHeaderColumn>门编号</TableHeaderColumn>
+			              	<TableHeaderColumn>屏幕显示标题</TableHeaderColumn>
+				            <TableHeaderColumn>屏幕显示编号</TableHeaderColumn>
 				            <TableHeaderColumn>智能硬件ID</TableHeaderColumn>
 				            <TableHeaderColumn>厂商</TableHeaderColumn>
-				            <TableHeaderColumn>属性</TableHeaderColumn>
+				            <TableHeaderColumn>门类型</TableHeaderColumn>
 			                <TableHeaderColumn>连接状态</TableHeaderColumn>
 			                <TableHeaderColumn>最后一次连接时间</TableHeaderColumn>
 			                <TableHeaderColumn>操作</TableHeaderColumn>
@@ -430,7 +430,7 @@ export default class SecondDoorManage  extends React.Component{
 					</Drawer>
 					
 					<Dialog
-			          title="新增设备定义"
+			          title="新增门禁设备"
 			          open={State.openNewCreate}
 			          onClose={this.openNewCreateDialog}
 			          contentStyle={{width:687}}
@@ -443,7 +443,7 @@ export default class SecondDoorManage  extends React.Component{
 			          />
 			        </Dialog>
 			        <Dialog
-			          title="编辑设备"
+			          title="编辑门禁设备"
 			          open={State.openEditDialog}
 			          onClose={this.openEditDialogFun}
 			          contentStyle={{width:687}}
@@ -454,20 +454,7 @@ export default class SecondDoorManage  extends React.Component{
 			            closeEditEquipment = {this.openEditDialogFun}
 			          />
 			        </Dialog>
-			        <Dialog
-			          title="高级查询"
-			          open={State.openSearchDialog}
-			          onClose={this.openEquipmentsearchDialogFun}
-			          contentStyle={{width:687}}
-			        >
-			          	<EquipmentSearchForm
-			            	detail={itemDetail}
-			            	onSubmit = {this.onSubmitNewCreateEquipment}
-			            	closeEditEquipment = {this.openEquipmentsearchDialogFun}
-			            	content={this.state.content}
-            				filter={this.state.filter}
-			          	/>
-			        </Dialog>
+			        
 			        <Dialog
 			          title="升级"
 			          open={State.upgradeDialog}

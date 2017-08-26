@@ -74,8 +74,8 @@ class NewCreateUpgradeForm extends React.Component{
 						grid={1/2} 
 						name="versionCode" 
 						type="text" 
-						label="升级信息ID" 
-						requireLabel={true} 
+						label="版本编码" 
+						requireLabel={false} 
 						style={{width:'252px'}}
 					/>
 					
@@ -111,9 +111,7 @@ const validate = values=>{
 		errors.version = '版本信息最多20个字符';
 	}
 	
-	if(!values.versionCode || /^\s+$/.test(values.versionCode)){
-		errors.versionCode = '升级信息ID为必填项';
-	}else if(!numberNotZero.test(values.versionCode)){
+	if(values.versionCode &&!numberNotZero.test(values.versionCode)){
 		errors.versionCode = '升级信息ID必须为正整数';
 	}
 	

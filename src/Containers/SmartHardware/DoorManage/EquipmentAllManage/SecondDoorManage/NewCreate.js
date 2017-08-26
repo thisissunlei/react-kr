@@ -21,13 +21,15 @@ class NewCreateDefinitionForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.state={
-			locationOpen:false,
+			
 			floorsOptions:[],
 			locationOptions:[],
 			communityId :'',
-			propertyOption :[{label:"",value:""}],
+			propertyOption :State.propertyOption,
 		}
 	}
+
+	
 	onCancel=()=>{
 		const {onCancel}=this.props;
 		onCancel && onCancel();
@@ -41,8 +43,9 @@ class NewCreateDefinitionForm extends React.Component{
   		let _this = this;
   		if(!community){
   			_this.setState({
-  				locationOpen : false,
-  				floorsOptions : []
+  				
+  				floorsOptions : [],
+  				locationOptions:[]
   			})
 			return;
 		}
@@ -51,7 +54,6 @@ class NewCreateDefinitionForm extends React.Component{
 		}
 		this.setState({
 			communityId :community.id,
-			locationOpen :false
 		})
     	Store.dispatch(change('NewCreateDefinitionForm', 'communityId', community.communityId));
   		Store.dispatch(change('NewCreateDefinitionForm','doorType',''));
@@ -77,33 +79,21 @@ class NewCreateDefinitionForm extends React.Component{
 		let _this = this;
 		if(doorType == null){
 			_this.setState({
-  				locationOpen : false
+  				
   			})
 			return;
 		}
   		if(doorType.value == 'GATE'){
   			Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
   			_this.setState({
-  				locationOpen : false
+  				
   			})
   		}else{
 
   			_this.setState({
-  				locationOpen : true
+  				
   			})
-  			let SearchLocationParams = {communityId:_this.state.communityId,
-  										whereFloor:_this.state.floorNum,
-  										type:doorType.code}
-  			
-  			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
-				var locationArr = []
-	    		for (var i=0;i<response.length;i++){
-	    			locationArr[i] = {label:response[i].name,value:response[i].id}
-	    		}
-	    		_this.setState({
-	    			locationOptions : locationArr
-	    		})
-			});
+
   		}
   		
   		Store.dispatch(change('NewCreateDefinitionForm','doorType',doorType.value));
@@ -120,21 +110,35 @@ class NewCreateDefinitionForm extends React.Component{
 	getFloor=(floor)=>{
 		let _this = this;
 		if(!floor){
-			_this.setState({
-				propertyOption :[{label: '',value: ''}],
-				locationOpen :false,
-			})
 			Store.dispatch(change('NewCreateDefinitionForm', 'doorType', ""));
 		}else{
 			_this.setState({
 				floorNum : floor.value
 			},function(){
-				_this.setState({
-					propertyOption :State.propertyOption
-				})
+				_this.getRoom();
 			})
+			
 		}
 		
+	}
+
+	getRoom =()=>{
+		let _this =this;
+		let SearchLocationParams = 
+			{
+	  			communityId:_this.state.communityId,
+	  			whereFloor:_this.state.floorNum
+  			}
+  			
+  			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
+				var locationArr = []
+	    		for (var i=0;i<response.length;i++){
+	    			locationArr[i] = {label:response[i].name,value:response[i].id}
+	    		}
+	    		_this.setState({
+	    			locationOptions : locationArr
+	    		})
+			});
 	}
 	
 	
@@ -201,24 +205,14 @@ class NewCreateDefinitionForm extends React.Component{
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
-					<KrField grid={1/2} name="title" 
-						type="text" 
-						label="展示标题" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'展示标题为必填项'}} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						onBlur = {this.onChangeTitle}
+					<KrField name="roomId" grid={2}
+						component="select" 
+						options={locationOptions}
+						label="房间"
+						onChange = {this.onchooseCorrespondingLocation}  
+						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
 					/>
-					<KrField grid={1/2} name="doorCode" 
-						type="text" 
-						label="门编号" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'门编号为必填项'}} 
-						style={{width:'252px'}}
-						onBlur = {this.doorNumHasFun}
-					/>
+					
 					<KrField grid={1/2} name="deviceId" 
 						type="text" 
 						label="智能硬件ID" 
@@ -231,12 +225,12 @@ class NewCreateDefinitionForm extends React.Component{
 					
 					<KrField name="doorType" 
 						component="select" 
-						label="属性"
+						label="门类型"
 						onChange = {this.onchooseProperty}
 						options={propertyOption}  
 						requireLabel={true} 
 						requiredValue={true} 
-						errors={{requiredValue:'属性为必填项'}} 
+						errors={{requiredValue:'门类型为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
 					<KrField name="maker" grid={1/2}
@@ -246,15 +240,28 @@ class NewCreateDefinitionForm extends React.Component{
 						requireLabel={true} 
 						requiredValue={true} 
 						errors={{requiredValue:'厂家为必填项'}} 
+						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
+					/>
+					<KrField grid={1/2} name="title" 
+						type="text" 
+						label="屏幕显示标题" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'展示标题为必填项'}} 
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+						onBlur = {this.onChangeTitle}
+					/>
+					<KrField grid={1/2} name="doorCode" 
+						type="text" 
+						label="屏幕显示编号" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'门编号为必填项'}} 
 						style={{width:'252px'}}
+						onBlur = {this.doorNumHasFun}
 					/>
-					<KrField name="roomId" grid={1/2}
-						component="select" 
-						options={locationOptions}
-						label="对应位置"
-						onChange = {this.onchooseCorrespondingLocation}  
-						style={{width:'252px',margin:'0 35px 5px 0',display:this.state.locationOpen?'block':'none'}}
-					/>
+					
+					
 					<KrField
 						label="备注"
 						name ="memo"
@@ -289,17 +296,17 @@ const validate = values=>{
 		errors.floor = '楼层为必填项';
 	}
 	if(!values.title || /^\s+$/.test(values.title)){
-		errors.title = '展示标题为必填项';
+		errors.title = '屏幕显示标题为必填项';
 	}
 	if(values.title && values.title.length>11){
 
-		errors.title = '展示标题最多11个字符';
+		errors.title = '屏幕显示标题最多11个字符';
 	}
 	if(!values.doorCode || /^\s+$/.test(values.doorCode)){
-		errors.doorCode = '门编号为必填项';
+		errors.doorCode = '屏幕显示编号为必填项';
 	}
 	if(values.doorCode  && values.doorCode.length>9){
-		errors.doorCode = '门编号最多9个字符';
+		errors.doorCode = '屏幕显示编号最多9个字符';
 	}
 	if(!values.deviceId || /^\s+$/.test(values.deviceId)){
 		errors.deviceId = '智能硬件ID为必填项';
@@ -308,7 +315,7 @@ const validate = values=>{
 		errors.deviceId = '智能硬件ID最多50个字符';
 	}
 	if(!values.doorType){
-		errors.doorType = '属性为必填项';
+		errors.doorType = '门类型为必填项';
 	}
 	if(!values.maker){
 		errors.maker = '厂家为必填项';
