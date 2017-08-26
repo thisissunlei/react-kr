@@ -32,6 +32,8 @@ import OfficeRouter from './OfficeRouter';
 import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
 import SmartHardware from './SmartHardware';
+import SynchronizationRouter from './SynchronizationRouter';
+
 
 const Master = (location, callback) => {
   require.ensure([], require => {
@@ -121,6 +123,8 @@ export default (
         
         {/*智能硬件*/}
         {SmartHardware()}
+
+        {SynchronizationRouter()}
 
 		{/*帮助*/}
 		<Route path="help" getComponent={Help}/>

@@ -15,6 +15,7 @@ import MemberApi from './MemberApi';
 import NotifyApi from './NotifyApi';
 import StatisticalApi from './StatisticalApi';
 import CommonApi from './CommonApi';
+import SynchronizationApi from './SynchronizationApi';
 import OAApi from './OAApi';
 import SmartHardware from './SmartHardware';
 
@@ -38,5 +39,7 @@ module.exports = {
   ...WebBackstageApi,
   ...CommonApi,
   ...OAApi,
-  ...SmartHardware
+  ...SmartHardware,
+  ...SynchronizationApi,
+
 }

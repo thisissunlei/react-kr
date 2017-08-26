@@ -34,6 +34,11 @@ module.exports = [
 			            router: '/finance/voucherManage/voucherList',
 			            menuCode: 'upload_evidence_base',
 					},
+					{
+						primaryText: "同步中心",
+						router: '/finance/manage/sync/list',
+						menuCode: 'sync_cmt_ctrl'
+					}, 
 					
 				]
 			},
@@ -48,6 +53,7 @@ module.exports = [
 						router: '/finance/manage/fundSetting/totalFund',
 						menuCode: 'fina_category_1stPage'
 					}, 
+					
 				]
 			},
 		]
