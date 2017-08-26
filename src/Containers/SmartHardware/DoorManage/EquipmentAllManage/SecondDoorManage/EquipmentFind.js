@@ -19,7 +19,7 @@ export default class EquipmentSearch extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			
+			switch :false
 		}
 	}
 	
@@ -27,6 +27,9 @@ export default class EquipmentSearch extends React.Component{
 	changeSearchEquipment=(event,isInputChecked)=>{
 		console.log("State.switch",State.switch);
 		console.log("isInputChecked",isInputChecked);
+		this.setState({
+			switch : isInputChecked
+		})
 		State.changeSwitchStatusAction({onOff:isInputChecked})
 	}
 
@@ -35,6 +38,9 @@ export default class EquipmentSearch extends React.Component{
 
 	componentDidMount(){
 		State.getWitchFind();
+		this.setState({
+			switch : State.switch
+		})
 	}
 	closeDialog=()=>{
 		State.openSearchEquipment= false;
@@ -71,7 +77,7 @@ export default class EquipmentSearch extends React.Component{
 			<div className="seconde-dialog">
 				<div style={{paddingLeft:20}}>
 					<Toggle 
-						defaultToggled={State.switch} 
+						toggled={this.state.switch} 
 						label="是否自动发现设备" 
 						labelPosition="right"
 						labelStyle={{fontSize:14,width:120,marginTop:5}} 
@@ -80,7 +86,6 @@ export default class EquipmentSearch extends React.Component{
 						thumbStyle={{marginTop:5}}
 						thumbSwitchedStyle={{marginTop:5,backgroundColor:'#499df1'}}
 						trackSwitchedStyle={{backgroundColor:"red"}}
-
 						className="toggle"
 						checkedClassName = "toggle-checked"
 					/>
