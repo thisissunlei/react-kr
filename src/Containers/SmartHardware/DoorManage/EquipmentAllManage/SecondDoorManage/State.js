@@ -305,14 +305,6 @@ State.openDoorOnlineAction = action(function(){
 
 
 
-State.getWitchFind = action(function(){
-	Http.request('getSwitchStatusUrl',{}).then(function(response) {
-		State.switch = response.onOff;
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
 State.changeSwitchStatusAction = action(function(params){
 	Http.request('changeSwitchStatusUrl',{},params).then(function(response) {
 		if(params.onOff){

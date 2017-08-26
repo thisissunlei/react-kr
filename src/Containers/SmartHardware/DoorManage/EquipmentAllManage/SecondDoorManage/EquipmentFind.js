@@ -9,6 +9,7 @@ import {
 	Toggle
 }from 'material-ui';
 import './index.less';
+import {Http} from 'kr/Utils';
 
 import State from './State';
 import {
@@ -37,11 +38,25 @@ export default class EquipmentSearch extends React.Component{
 	}
 
 	componentDidMount(){
-		State.getWitchFind();
-		this.setState({
-			switch : State.switch
-		})
+		console.log("componentDidMount");
+		this.getWitchFind()
 	}
+
+
+
+	getWitchFind =(callBack)=>{
+		let _this = this;
+		Http.request('getSwitchStatusUrl',{}).then(function(response) {
+			_this.setState({
+				switch:response.onOff
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+
+	}
+
+
 	closeDialog=()=>{
 		State.openSearchEquipment= false;
 	}
@@ -82,12 +97,11 @@ export default class EquipmentSearch extends React.Component{
 						labelPosition="right"
 						labelStyle={{fontSize:14,width:120,marginTop:5}} 
 						onToggle={this.changeSearchEquipment}
-						trackStyle={{height:25,lineHeight:25}}
-						thumbStyle={{marginTop:5}}
-						thumbSwitchedStyle={{marginTop:5,backgroundColor:'#499df1'}}
-						trackSwitchedStyle={{backgroundColor:"red"}}
+						trackStyle={{height:25,lineHeight:25,backgroundColor:"#ccc"}}
+						thumbStyle={{marginTop:5,backgroundColor:"#eee"}}
+						thumbSwitchedStyle={{marginTop:5,backgroundColor:"red"}}
+						trackSwitchedStyle={{backgroundColor:"#ccc"}}
 						className="toggle"
-						checkedClassName = "toggle-checked"
 					/>
 					
 					
