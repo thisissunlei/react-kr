@@ -8,7 +8,7 @@ import {
 	numberToSign
 } from 'kr/Utils'
 import {reduxForm} from 'redux-form';
-
+import EditTable from './EditTable';
 class New extends React.Component {
 
 
@@ -34,7 +34,7 @@ class New extends React.Component {
 					  label = "全部数据"
 			      >
 				  <TabC label='基本信息'> 
-					  <h1>344</h1>
+					  <EditTable />
 				  </TabC> 
 				  
 				  <TabC label='个人信息'> 

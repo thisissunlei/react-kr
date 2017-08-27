@@ -81,6 +81,8 @@ import OaTreeDivision from './OaTreeDivision'
 import UpMerchantsSource from './UpMerchantsSource';
 import UpSignedClientSource from './UpSignedClientSource';
 import SearchProcessType from './SearchProcessType';
+//可编辑的表格
+// import TableComponent from './TableComponent';a
 
 
 
@@ -531,6 +533,11 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={UpSignedClientSource}  style={WrapStyles} {...other}/>
 				)
 			}
+			// if (component === 'table') {
+			// 	return (
+			// 		<FieldRevert {...this.props} component={TableComponent}  style={WrapStyles} {...other}/>
+			// 	)
+			// }
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);

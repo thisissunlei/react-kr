@@ -85,9 +85,58 @@ function numberToSign(code){
     return strValue;
 }
 
+//数组元素位置移动
+function moveArr(arr,index1,index2){
+   arr = [].concat(arr);
+
+   arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+   
+     console.log(arr,">>>")
+ 
+   return arr;
+}
+
+//上移
+function arrUpMove(arr,index){
+    var arr = [].concat(arr);
+    if(Object.prototype.toString.call(arr) != '[object Array]'){
+       return ;
+    }
+    if(!arr.length || !numScope(index,arr.length,0) || index==0){
+      return;
+    }
+    var arr = moveArr(arr,index,index-1);
+    return arr;
+}
+
+//下移
+function arrDownMove(arr,index){
+    var arr = [].concat(arr);
+    if(Object.prototype.toString.call(arr) != '[object Array]'){
+       return ;
+    }
+    
+    if(!arr.length || !numScope(index,arr.length,0) || index == arr.length-1) {
+          return;
+    }
+    arr = moveArr(arr, index, index + 1);
+    return arr;
+}
+function numScope(num,upLine,downLine){
+  if(isNaN(num) || isNaN(upLine) || isNaN(downLine)){
+    new Error("numScope函数的参数存在非数字");
+  }
+  if(num>=downLine && num <= upLine){
+    return true;
+  }else{
+    return false;
+  }
+}
 
 
 
 module.exports = {
-  numberToSign
+  numberToSign,
+  arrUpMove,
+  arrDownMove
 }

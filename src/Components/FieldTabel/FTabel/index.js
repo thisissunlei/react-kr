@@ -1,0 +1,312 @@
+import React from 'react';
+
+// var	tableData = [];
+import FContent from '../FContent';
+import './index.less';
+import {
+  arrUpMove,
+  arrDownMove,
+} from 'kr/Utils';
+
+export default class Table extends React.Component {
+  // isFold = {true} 是否有展开的按钮
+	// initFoldNum = "1" 默认展示几个
+	// checkbox ={true} 是否有 checkbox
+  constructor(props) {
+    super(props);
+    this.state = {
+      //表格的数据
+      tableData:[],
+      //表头的数据
+      headers:[],
+      foldLabel :"展开",
+      fold:false,
+      handerChecked:false,
+      checkedArr:[],
+      
+      
+    }
+  }
+  componentDidMount() {
+    this.setHeaders();
+  }
+  setHeaders = () =>{
+    var headers = [];
+    const {children} = this.props;
+    headers = children.map((item,index)=>{
+        return item.props;
+    })
+    this.setState({
+      headers
+    })
+  }
+  //表单头多选事件
+  handerCheck = (event,item,index) =>{
+    let data = [].concat(this.props.data);
+    item = Object.assign({},item);
+    item.checked = event.target.checked;
+    data[index] = item;
+    var headers = [].concat(data);
+    this.setState({
+      headers,
+    })
+  }
+
+
+  //table的多选按钮点击
+  tableHanerCheck = (event) =>{
+    this.dataFilter(-1,event.target.checked)
+  }
+
+
+  componentWillReceiveProps (nextProps) {
+   
+    this.setState({
+      tableData:nextProps.input.value
+    })
+  
+  }
+
+  
+
+  //每一行多选按钮被点击
+  contentCheck = (num,checked) =>{
+   
+    this.dataFilter(num,checked);
+  }
+
+
+  
+
+  //上移下移函数
+  moveClick = (type) =>{
+    var isMove = true;
+    const {tableData,checkedArr} = this.state;
+    var newData = [].concat(tableData);
+    for(let i=0;i<checkedArr.length;i++){
+      if(type == "down" && checkedArr[i] == newData.length-1){
+        isMove = false;
+        break;
+      }
+      if(type == "up" && checkedArr[i] == 0){
+        isMove = false;
+        break;
+      }
+    }
+    if(!isMove || checkedArr.length==0){
+      return;
+    }
+    // checkedArr = [].concat(checkedArr);
+    var sortArr = [].concat(checkedArr);
+    if(type == "up"){
+       sortArr.sort(function(a,b){
+          return a-b;
+       })
+    }else{
+      sortArr.sort(function(a,b){
+          return b-a;
+      })
+    }
+    sortArr.map((item,index)=>{
+        if(type == "down"){
+          newData = arrDownMove(newData,item);
+          
+        }else{
+          
+          newData = arrUpMove(newData,item);
+        }
+        
+    })
+    
+    this.setCheckedArr(newData);
+    this.setState({
+      tableData:newData,
+    })
+  }
+
+ 
+  setCheckedArr = (tableData) =>{
+     
+     var checkedArr = [];
+     tableData.map((item,index)=>{
+        if(item.checked){
+          checkedArr.push(index);
+        }
+     })
+     
+     this.setState({
+        checkedArr,
+     })
+  }
+
+  //数据处理
+  dataFilter = (num,checked) =>{
+    var {tableData}  = this.state;
+    var checkedNum = 0;
+    var handerChecked = false;
+    var checkedArr = [];
+    var newData = tableData.map((item,index)=>{
+      if(num==-1){
+        item.checked = checked;
+        if(item.checked){
+          checkedArr.push(index)
+          checkedNum++;
+        }
+        return item;
+      }else{
+          if(index == num){
+            item.checked = checked;
+          }
+          if(item.checked){
+            checkedArr.push(index)
+            checkedNum++;
+          }
+          return item;
+      }
+    })
+    if(checkedNum == newData.length){
+      handerChecked = true;
+      checkedArr = [];
+
+    }else{
+      handerChecked = false;
+    }
+    
+    this.setState({
+      handerChecked,
+      checkedArr,
+      tableData:newData
+    })
+
+  }
+
+
+  //展开按钮被点击
+  foldClick = () =>{
+    const {foldLabel} = this.state;
+    var text = "";
+    var fold = false;
+    if(foldLabel == "展开"){
+      text = "合上";
+      fold = true;
+    }else{
+      text = "展开"
+      fold = false;
+    }
+    this.setState({
+      fold,
+      foldLabel:text
+    })
+
+  }
+  //生成表单头
+   headReander = () =>{
+      const {headers,handerChecked} = this.state;
+      const {checkbox} = this.props;
+
+      if(!headers){
+          return;
+      }
+      
+      var doms = headers.map((item,index)=>{
+        return(
+            <td key = {index}>
+                {item.checkbox && <input 
+                    type="checkbox" 
+                    onChange={(event) =>{
+                        this.handerCheck(event,item,index)
+                    }} 
+                    checked = {item.checked ? "checked":""}
+                />}
+                {item.label}
+            </td>
+        ) 
+      })
+      return (
+        <tr>
+          {checkbox && 
+            <td>
+              <input 
+                    type="checkbox" 
+                    onChange={(event) =>{
+                        this.tableHanerCheck(event)
+                    }} 
+                    checked = {handerChecked ? "checked":""}
+                />
+            </td>
+          }
+          {doms}
+        </tr>
+      );
+  }
+
+  
+
+  tbodyRender = () =>{
+    const {tableData,headers,fold} = this.state;
+    const {initFoldNum,checkbox} = this.props;
+    var showData = [].concat(tableData);
+    if(!fold){
+      showData = tableData.slice(0,initFoldNum); 
+    }
+    
+    let doms = showData.map((item,index)=>{
+       return <FContent 
+          key = {index}
+          data = {item} 
+          detail = {headers} 
+          checkbox = {checkbox} 
+          onCheck = {this.contentCheck} 
+          index = {index}
+        />
+    })
+    return doms;
+
+  }
+
+  render(){
+    const {
+      headers,
+      tableData,
+      foldLabel
+    } = this.state;
+    const {
+      checkbox,
+      children,
+      isFold
+    } = this.props;
+
+
+    return (
+       <div className = "ui-field-tabel">
+         <div className = "ui-field-tabel-toolbar">
+            <div className="move">
+                <span 
+                  className ="move-up" 
+                  onClick = {()=>{
+                    this.moveClick("up");
+                  }}
+                >上移</span>
+                <span 
+                  className = "move-down"
+                  onClick = {()=>{
+                    this.moveClick("down");
+                  }}
+                >下移</span>
+            </div>
+         </div>
+        <table>
+          {this.headReander()}
+          {this.tbodyRender()}
+        </table>
+        {isFold && <div className = "ui-field-tabel-fold">
+            <span onClick = {this.foldClick}>
+            {foldLabel}
+            </span>
+            
+          </div>}
+      </div>
+    )
+  }
+}
+
