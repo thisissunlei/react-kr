@@ -15,11 +15,13 @@ export default class Form  extends React.Component{
 	constructor(props,context){
 		super(props, context);
     this.state={
-      styleBool: false,
-      selectStyle: {
-				'display': 'none'
-			},
       searchParams: {
+				page: 1,
+				pageSize: 15,
+				orgId: '1',
+				orgType: "ROOT",
+			},
+      data: {
 				page: 1,
 				pageSize: 15,
 				orgId: '1',
@@ -46,7 +48,6 @@ export default class Form  extends React.Component{
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 
-		this.initSelect();
 		this.getTreeData();
 		/*setTimeout(function() {
 		   _this.setState({
@@ -60,18 +61,10 @@ export default class Form  extends React.Component{
 	}
 
 
-  componentWillUnmount() {
-		window.removeEventListener("click", this.controlSelect, false);
-	}
-
-	initSelect = (e) => {
-		window.addEventListener("click", this.controlSelect);
-	}
-
   //获取树数据
   getTreeData = () => {
 		const _this = this;
-		Http.request("org-list",{dimId: 1}).then(function (response) {
+		Http.request("org-list",{id:1}).then(function (response) {
 			_this.setState({
 				treeData: _this.fnTree([response]),
 			});
@@ -95,13 +88,51 @@ export default class Form  extends React.Component{
 		return arr;
 	}
 
-  controlSelect = () => {
+
+  //搜索
+  change = (event) => {
 		this.setState({
-			selectStyle: {
-				'display': 'none'
-			},
-			styleBool: false,
+			searchKey: event.target.value || ' ',
+		},function(){
 		})
+	}
+
+  //树选择
+  onSelect = (data) => {
+		var _this = this;
+		this.setState({
+			data:{
+				orgId: data[0].orgId,
+				orgType: data[0].treeType,
+			},
+			searchParams: {
+				page: 1,
+				pageSize: 15,
+				orgId: data[0].orgId,
+				orgType: data[0].treeType,
+			}
+		},function(){
+			_this.getOrganizationDetail();
+		});
+
+	}
+
+  getOrganizationDetail = ()=>{
+
+		/*var searchParams = Object.assign({},this.state.searchParams);
+		const that = this;
+		Http.request('org-detail', searchParams).then(function (response) {
+			const dataName = {};
+			dataName.orgName = response.orgName;
+			dataName.status = response.status || '0';
+			dataName.orgId = response.orgId || '1';
+			dataName.treeType = response.orgType || 'ROOT';
+			that.setState({
+				dataName,
+			});
+		}).catch(function (err) {
+
+		});*/
 	}
 
 
@@ -119,27 +150,8 @@ export default class Form  extends React.Component{
 
       <div className="g-oa-labour">
 				<div className="left">
-					<div className="header">
-						<span className="title" style={{ 'backgroundColor': `${styleBool?'#fff':''}` }} onClick={(event) => {
-							event.stopPropagation();
-							this.clickSelect();
-						}}>
-							<span className="title-text">{this.state.dimName}</span>
-							<span className="title-list" style={this.state.selectStyle}>
-								{this.state.dimData.map((item, index) => { return this.renderDimList(item, index) })}
-							</span>
-							{this.state.dimData.length>0
-								&&
-								<span className="square">
-
-								</span>
-							}
-
-						</span>
-
-					</div>
 					<div className="search">
-						<input type="text" onChange={this.change} placeholder="输入机构名称" ref="searchKey"/>
+						<input type="text" onChange={this.change} placeholder="输入表单名称" ref="searchKey"/>
 						<span className="searching">
 
 						</span>
