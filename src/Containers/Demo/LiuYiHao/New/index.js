@@ -8,7 +8,6 @@ import {
 	numberToSign
 } from 'kr/Utils'
 import {reduxForm} from 'redux-form';
-import EditTable from './EditTable';
 class New extends React.Component {
 
 

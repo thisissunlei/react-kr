@@ -88,7 +88,6 @@ export default class UserList extends Component {
 			_this.openDeleteDialog();
 			Message.success('删除成功');
 			_this.changeP();
-			_this.openDeleteDialog();
 		}).catch(function(err) {
 			_this.openDeleteDialog();
 			Message.error(err.message);

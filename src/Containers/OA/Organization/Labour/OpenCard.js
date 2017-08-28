@@ -24,7 +24,7 @@ class OpenCard extends React.Component{
     componentDidMount(){
         const {employees}=this.props;
         var _this = this;
-        Http.request("cardInfo",{resourceId:employees.hrmId}).then(function (response) {
+        Http.request("cardInfo",{resourceId:employees.id}).then(function (response) {
            _this.setState({
                cardInfo:response
            })
@@ -62,28 +62,28 @@ class OpenCard extends React.Component{
                 employees:nextProps.employees,
             })
         }
-       
+
     }
 
 	render(){
-       
+
         let {handleSubmit,employees}=this.props;
-        
+
 		return(
 
 			<div>
               <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20}}>
-               
+
                 <KrField grid={1}
                             style={{width:262,marginLeft:28}}
                             name="name"
                             component="labelText"
-                            value = {employees.userName} 
+                            value = {employees.userName}
                             label="姓名"
 						/>
                  <KrField grid={1}
                             style={{width:262,marginLeft:28}}
-                            value = {employees.mobilePhone} 
+                            value = {employees.mobilePhone}
                             component="labelText"
                             label="手机号"
                             name="mobilePhone"
@@ -118,9 +118,9 @@ const validate = values =>{
 	const errors = {};
 
     if(!values.cardNo){
-      errors.cardNo='请填写会员卡号'; 
+      errors.cardNo='请填写会员卡号';
     }
-    
+
 	return errors
 }
 

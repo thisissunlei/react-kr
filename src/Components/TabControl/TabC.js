@@ -3,7 +3,7 @@ import React from 'react';
 export default class TabC extends React.Component {
 
     componentDidMount(){
-       
+
     }
 
 
