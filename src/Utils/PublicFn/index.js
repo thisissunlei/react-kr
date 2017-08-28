@@ -151,6 +151,12 @@ function isEmptyObject(obj) {
 　　}　　
 　　return true;//返回true，为空对象
 }
+//删除数组的某一个元素
+function arrDelEle (arr,index){
+  var arr = [].concat(arr);
+  arr.splice(index,1)
+  return arr;
+}
 
 
 module.exports = {
@@ -159,5 +165,6 @@ module.exports = {
   arrDownMove,
   delHtmlTag,
   urltoFile,
-  isEmptyObject
+  isEmptyObject,
+  arrDelEle
 }

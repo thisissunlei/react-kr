@@ -6,6 +6,7 @@ import './index.less';
 import {
   arrUpMove,
   arrDownMove,
+  arrDelEle,
 } from 'kr/Utils';
 
 export default class Table extends React.Component {
@@ -123,6 +124,27 @@ export default class Table extends React.Component {
       tableData:newData,
     })
   }
+  //批量删除
+  batchdelete = () =>{
+    var newData = [].concat(this.state.tableData);
+    let {checkedArr} = this.state;
+    if(!newData.length){
+      return ;
+    }
+    var sortArr = [].concat(checkedArr)
+    sortArr.sort(function(a,b){
+      return b-a;
+    })
+  
+    sortArr.map((item,index)=>{
+      newData = arrDelEle(newData,item);
+    })
+     this.setCheckedArr(newData);
+    this.setState({
+      tableData:newData
+    })
+  }
+
 
  
   setCheckedArr = (tableData) =>{
@@ -164,10 +186,8 @@ export default class Table extends React.Component {
           return item;
       }
     })
-    if(checkedNum == newData.length){
+    if(checkedNum == newData.length && newData.length){
       handerChecked = true;
-      checkedArr = [];
-
     }else{
       handerChecked = false;
     }
@@ -201,7 +221,7 @@ export default class Table extends React.Component {
   }
   //生成表单头
    headReander = () =>{
-      const {headers,handerChecked} = this.state;
+      const {headers,handerChecked,tableData} = this.state;
       const {checkbox} = this.props;
 
       if(!headers){
@@ -226,13 +246,17 @@ export default class Table extends React.Component {
         <tr>
           {checkbox && 
             <td>
-              <input 
+              {tableData.length && <input 
                     type="checkbox" 
                     onChange={(event) =>{
                         this.tableHanerCheck(event)
                     }} 
                     checked = {handerChecked ? "checked":""}
-                />
+              />}
+              {tableData.length && <input 
+                  type="checkbox" 
+                  
+              />}
             </td>
           }
           {doms}
@@ -273,7 +297,8 @@ export default class Table extends React.Component {
     const {
       checkbox,
       children,
-      isFold
+      isFold,
+      batchDel
     } = this.props;
 
 
@@ -294,6 +319,7 @@ export default class Table extends React.Component {
                   }}
                 >下移</span>
             </div>
+            {batchDel && <span onClick = {this.batchdelete}>批量删除</span>}
          </div>
         <table>
           {this.headReander()}
