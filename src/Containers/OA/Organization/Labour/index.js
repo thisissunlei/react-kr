@@ -840,7 +840,7 @@ export default class Labour extends React.Component {
    onLoaded = (data) =>{
 	  var searchParams = Object.assign({},this.state.searchParams);
 	  searchParams.page = data.page;
-	  searchParams.pageSize = data.pageSize;
+	  searchParams.pageSize = 15;
 	  searchParams.totalCount = data.totalCount;
 
 	  this.setState({
@@ -971,7 +971,6 @@ export default class Labour extends React.Component {
 							<Table
 								style={{marginTop:10,position:'inherit'}}
 								displayCheckbox={true}
-								onLoaded={this.onLoaded}
 								ajax={true}
 								ajaxUrlName='next-org-list'
 								ajaxParams={this.state.searchParams}
@@ -1076,7 +1075,6 @@ export default class Labour extends React.Component {
 								ref = {(ref) =>{
 									this.oaInserviceTab = ref;
 								}}
-								onLoaded = {this.onLoaded}
 							>
 								<TableHeader>
 									{isName&&<TableHeaderColumn className='table-header-name'>姓名</TableHeaderColumn>}
