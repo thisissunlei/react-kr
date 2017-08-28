@@ -86,7 +86,9 @@ function numberToSign(code){
 }
 //去掉标签
 function delHtmlTag(str){
-  return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+  str = str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+  str = str.replace(/&nbsp;/ig, "")
+  return str;
 }
 
 
