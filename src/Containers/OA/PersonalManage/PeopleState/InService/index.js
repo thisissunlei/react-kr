@@ -368,7 +368,7 @@ export default class InService  extends React.Component{
 
   //翻页
    onPageChange=(page)=>{
-	
+
 		let {searchParams}=this.state;
 		searchParams.page=page;
 		searchParams.pageSize=15;
@@ -482,7 +482,7 @@ export default class InService  extends React.Component{
 
 	render(){
 		const {transferDetail,positionList,isName,searchParams,employees,isLeave,isRemove,istranfer,isCard,isOpen,isBase,isPerson,isWork} = this.state;
-		
+
 
 		return(
 
@@ -584,7 +584,7 @@ export default class InService  extends React.Component{
            								</TableRowColumn>
            							</TableRow>
     						   </TableBody>
-                  
+
     					</Table>
             </div>
 			{searchParams.totalCount !=0 && <div className='footPage'>
@@ -596,13 +596,13 @@ export default class InService  extends React.Component{
 						label="导出"
 						type='button'
 						onTouchTap={this.onExport}
-						
+
 					/>
 				</Col>
-			   <Pagination  
-					totalCount={searchParams.totalCount} 
-					page={searchParams.page} 
-					pageSize={searchParams.pageSize} 
+			   <Pagination
+					totalCount={searchParams.totalCount}
+					page={searchParams.page}
+					pageSize={searchParams.pageSize}
 					onPageChange={this.onPageChange}
 				/>
 
