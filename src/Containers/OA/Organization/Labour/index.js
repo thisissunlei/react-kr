@@ -27,6 +27,7 @@ import {
 	Message,
 	Dictionary,
 	SliderTree,
+	Pagination
 } from 'kr-ui';
 
 import {AddPostPeople} from 'kr/PureComponents';
@@ -556,8 +557,11 @@ export default class Labour extends React.Component {
 		window.location.href = url;
 	}
 
-	onExportHrm=(values)=>{
+	onExportHrm=()=>{
 		let {searchParams} = this.state;
+		var tab =  this.oaInserviceTab;
+	tab.onExport();
+	var values = tab.exportData;
     let defaultParams = {
 			codeKey:'',
 			nameKey:'',
@@ -599,6 +603,7 @@ export default class Labour extends React.Component {
 	}
 
 	onHighSearchSubmit = (param) => {
+
 		param.codeKey=param.nameKey?param.nameKey:'';
 		if(param.orgId){
 			var id=param.orgId?param.orgId:'';
@@ -606,7 +611,7 @@ export default class Labour extends React.Component {
 			param.orgId=id;
 			param.orgType=type;
 		}
-		console.log(param,">>>>>")
+		
 		if(param.leader){
 		param.leader=param.leader[0].orgId;
 		}
@@ -835,8 +840,27 @@ export default class Labour extends React.Component {
 		});
 		this.cancelSure();
    }
+   onLoaded = (data) =>{
+	  var searchParams = Object.assign({},this.state.searchParams);
+	  searchParams.page = data.page;
+	  searchParams.pageSize = data.pageSize;
+	  searchParams.totalCount = data.totalCount;
+
+	  this.setState({
+		  searchParams,
+	  })
+  }
+  onPageChangePerson = (page) =>{
+	  	var searchParams = Object.assign({},this.state.searchParams);
+		searchParams.page=page;
+		this.oaInserviceTab.onPageChange(page);
+		this.setState({
+			searchParams:searchParams,
+		})
+  }
+  
 	render() {
-		let { itemDetail,isName, data, dimId, styleBool,dataName,transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;
+		let { itemDetail,searchParams,isName, data, dimId, styleBool,dataName,transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;
 		var logFlag = '';
 		var orgtype = this.state.searchParams.orgType;
 		var style = {};
@@ -1050,8 +1074,12 @@ export default class Labour extends React.Component {
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
-								onExport={this.onExportHrm}
+							
 								exportSwitch={true}
+								ref = {(ref) =>{
+									this.oaInserviceTab = ref;
+								}}
+								onLoaded = {this.onLoaded}
 							>
 								<TableHeader>
 									{isName&&<TableHeaderColumn className='table-header-name'>姓名</TableHeaderColumn>}
@@ -1108,9 +1136,30 @@ export default class Labour extends React.Component {
 								 </TableRowColumn>
 									</TableRow>
 								</TableBody>
-								<TableFooter></TableFooter>
+								{/*<TableFooter></TableFooter>*/}
 							</Table>
+							
 						 </div>
+						 {(!!searchParams.totalCount && searchParams.totalCount !=0)  && <div className='footPage'>
+
+								<Col
+									style={{float:'left'}}
+								>
+									<Button
+										label="导出"
+										type='button'
+										onTouchTap={this.onExportHrm}
+										
+									/>
+								</Col>
+								<Pagination  
+									totalCount={searchParams.totalCount} 
+									page={searchParams.page} 
+									pageSize={searchParams.pageSize} 
+									onPageChange={this.onPageChangePerson}
+								/>
+
+						</div>}
 						</div>
 						</div>
 					}
