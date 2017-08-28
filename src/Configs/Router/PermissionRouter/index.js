@@ -105,6 +105,12 @@ const Permission_ProcessManage_BasicSetting= (location, callback) => {
   }, 'Permission_ProcessManage_BasicSetting')
 }
 
+
+const Permission_ProcessManage_Form= (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/ProcessManage/Form').default)
+  }, 'Permission_ProcessManage_Form')
+}
 /*首页配置-轮播列表*/
 const Permission_HomePageSetting_SwperList = (location, callback) => {
   require.ensure([], require => {
@@ -117,6 +123,7 @@ const Permission_HomePageSetting_DynamicsList = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Permission/HomePageSetting/DynamicsList').default)
   }, 'Permission_HomePageSetting_SwperList')
+
 }
 
 module.exports =()=>{
@@ -134,7 +141,7 @@ module.exports =()=>{
           <Route path="operationSource" getComponent={Permission_AccountManage_OperationSource}/>
       </Route>
       {/*首页配置*/}
-         
+
        <Route path="homePageSetting" getComponent={Basic}>
           <Route path="swperList" getComponent={Permission_HomePageSetting_SwperList}/>
           <Route path="dynamicsList" getComponent={Permission_HomePageSetting_DynamicsList}/>
@@ -152,10 +159,12 @@ module.exports =()=>{
             <Route path="update-log" getComponent={Permission_SystemManage_UpdateLog}/>
       </Route>
     {/*流程管理*/}
-      <Route path="processManage" getComponent={Basic}>
-        <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
-        <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
-      </Route>
+    <Route path="processManage" getComponent={Basic}>
+      <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
+      <Route path="form" getComponent={Permission_ProcessManage_Form}/>
+      <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
+    </Route>
+
 	  </Route>
 
 

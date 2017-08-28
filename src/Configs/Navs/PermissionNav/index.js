@@ -122,6 +122,11 @@ module.exports = [
 				iconColor: '#79859a',
 				menuItems: [
 					{
+						primaryText: '表单列表',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/permission/processManage/form',
+					},
+					{
 						primaryText: '流程列表',
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/permission/processManage/processSetting',
