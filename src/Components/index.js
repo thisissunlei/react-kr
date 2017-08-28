@@ -62,6 +62,8 @@ import TabControl from './TabControl/index';
 import UpImages from './UpImages';
 import SwitchSlide from './SwitchSlide';
 import Chip from './Chip';
+import ArticleList from './ArticleList';
+
 import {
 	Grid,
 	Row,
@@ -166,5 +168,6 @@ module.exports = {
 	UpImages,
 	SwitchSlide,
 	Chip,
-	...FieldTabel
+	...FieldTabel,
+	ArticleList
 }

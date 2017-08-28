@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	KrField,
     Grid,
     Col,
@@ -21,15 +21,15 @@ class EditRole  extends React.Component{
           detail:[]
         }
 	}
-    
-  
+
+
 
     componentWillReceiveProps(nextProps){
         console.log(nextProps);
         if(nextProps.depType!=this.props.depType){
             if(nextProps.depType=='DEPARTMENT'){
                     this.setState({
-                    isSure:true  
+                    isSure:true
                 })
             }else{
                 this.setState({
@@ -39,7 +39,7 @@ class EditRole  extends React.Component{
         }
         if(nextProps.detail!=this.props.detail){
              this.setState({
-                detail:nextProps.detail 
+                detail:nextProps.detail
             })
         }
 
@@ -60,7 +60,7 @@ class EditRole  extends React.Component{
        if(param.value=='DEPARTMENT'){
            this.setState({
              isSure:true,
-             detail:[]  
+             detail:[]
            })
        }else{
           this.setState({
@@ -72,7 +72,7 @@ class EditRole  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,roleArr}=this.props;
+        let {handleSubmit}=this.props;
         let {isSure,detail}=this.state;
 
 		return(
@@ -84,10 +84,9 @@ class EditRole  extends React.Component{
                             grid={1}
                             style={{width:262,marginBottom:5}}
                             name="roleId"
-                            component="select"
+                            component="searchRole"
                             label="角色"
                             requireLabel={true}
-                            options={roleArr}
 						/>
 
 
@@ -150,18 +149,18 @@ const validate = values =>{
 	const errors = {};
 
     if(!values.roleId){
-       errors.roleId='请选择角色';  
+       errors.roleId='请选择角色';
     }
 
     if(!values.orgType){
-      errors.orgType='请选择机构类型'  
+      errors.orgType='请选择机构类型'
     }
 
 
     if(values.orgList&&values.orgList.length==0){
-       errors.orgId='请选择机构'   
+       errors.orgId='请选择机构'
     }
-    
+
 	return errors
 }
 

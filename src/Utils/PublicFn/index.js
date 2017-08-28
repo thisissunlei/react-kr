@@ -84,14 +84,17 @@ function numberToSign(code){
 
     return strValue;
 }
+//去掉标签
+function delHtmlTag(str){
+  return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+}
+
 
 //数组元素位置移动
 function moveArr(arr,index1,index2){
    arr = [].concat(arr);
 
    arr[index1] = arr.splice(index2, 1, arr[index1])[0];
-   
-     console.log(arr,">>>")
  
    return arr;
 }
@@ -122,6 +125,7 @@ function arrDownMove(arr,index){
     arr = moveArr(arr, index, index + 1);
     return arr;
 }
+
 function numScope(num,upLine,downLine){
   if(isNaN(num) || isNaN(upLine) || isNaN(downLine)){
     new Error("numScope函数的参数存在非数字");
@@ -132,11 +136,28 @@ function numScope(num,upLine,downLine){
     return false;
   }
 }
+//base64转file
+function urltoFile(url, filename, mimeType){
+  return (fetch(url)
+      .then(function(res){return res.arrayBuffer();})
+      .then(function(buf){return new File([buf], filename, {type:mimeType});})
+  );
+}
+//判断对象是否为空    true，为空对象
+function isEmptyObject(obj) {   
 
+　　for (var name in obj){
+　　　　return false;//返回false，不为空对象
+　　}　　
+　　return true;//返回true，为空对象
+}
 
 
 module.exports = {
   numberToSign,
   arrUpMove,
-  arrDownMove
+  arrDownMove,
+  delHtmlTag,
+  urltoFile,
+  isEmptyObject
 }

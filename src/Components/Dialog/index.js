@@ -176,7 +176,7 @@ export default class DialogComponent extends React.Component {
 
 		return (
 			<div className="ui-dialog" ref="dialog" style={styles}>
-				<div className="dialog-modal"></div>
+				<div className="dialog-modal" ></div>
 				<div id="dialog-content" ref="dialogContent" className="dialog-content" style={contentStyle}>
 					<div className="dialog-header" style={dialogHeaderStyle}>
 						<div className="dialog-header-title"> {title} </div>

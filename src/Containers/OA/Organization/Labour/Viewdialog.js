@@ -81,7 +81,7 @@ export default class Viewdialog extends React.Component {
                     inline={false}
                     component="labelText"
                 />
-                
+
                 <KrField
                     style={{width:262,marginRight:28,marginTop:6}}
                     component="labelText"

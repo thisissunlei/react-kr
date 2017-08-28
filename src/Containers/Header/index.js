@@ -111,7 +111,7 @@ export default class Header extends React.Component {
 		NavModel.toggleSidebar();
 	}
 	clickLogo=()=> {
-		window.open('http://krspace.cn') 
+		window.location.href = '/#/home';
 	}
 
 	personShow=()=>{

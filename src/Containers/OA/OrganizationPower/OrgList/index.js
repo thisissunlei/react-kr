@@ -47,11 +47,11 @@ export default class OrgList extends Component{
 			id:'',
 		}
 	}
-    
+
 	componentWillMount(){
 	  this.dataReady();
 	}
-    
+
 	//所属纬度数据准备
 	dataReady=()=>{
 		var _this=this;
@@ -61,11 +61,11 @@ export default class OrgList extends Component{
 				})
      }).catch(function(err) {
           Message.error(err.message);
-     });	
+     });
 	}
-    
 
-    
+
+
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
 			this.setState({
@@ -75,7 +75,7 @@ export default class OrgList extends Component{
 		}
 	}
 
-	
+
 
 	//搜索确定
 	onSearchSubmit = (params)=>{
@@ -84,10 +84,10 @@ export default class OrgList extends Component{
             pageSize:15
 		  }
 			this.setState({
-				searchParams:obj	
+				searchParams:obj
 			})
 	}
-	
+
 	//新建开关
 	openAddPost=()=>{
       this.setState({
@@ -104,14 +104,14 @@ export default class OrgList extends Component{
 							time:+new Date(),
 							page:1,
 							pageSize:15
-						}  
+						}
 					})
 					_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
 	}
-	
+
 	//编辑关闭
 	openEditPost=()=>{
        this.setState({
@@ -129,12 +129,12 @@ export default class OrgList extends Component{
 							page:_this.state.searchParams.page,
 							pageSize:15,
 							name:_this.state.searchParams.name?_this.state.searchParams.name:""
-						}  
+						}
 					})
 					_this.openEditPost();
         }).catch(function(err) {
           Message.error(err.message);
-        });	
+        });
 	}
 
    //分页
@@ -146,12 +146,12 @@ export default class OrgList extends Component{
 		 searchParams:Object.assign({},this.state.searchParams,searchParams)
 	  })
    }
-   
+
    //全部关闭
    allClose=()=>{
       this.setState({
 		 openPostType:false,
-		 openEditType:false, 
+		 openEditType:false,
 	  })
    }
 
@@ -175,7 +175,7 @@ export default class OrgList extends Component{
 							operateCode="hrm_org_auth_add"
 					/>
 				</Col>
-			        
+
 					<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 								<ListGroup>
 									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入机构分权名称' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
@@ -208,20 +208,8 @@ export default class OrgList extends Component{
 				</TableHeader>
 				<TableBody>
 					<TableRow>
-						<TableRowColumn name="name" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
-						<TableRowColumn name="code" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }}></TableRowColumn>
+						<TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="code" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="dimName"></TableRowColumn>
 						<TableRowColumn name="desc" component={(value,oldValue)=>{
 		 										var maxWidth=10;
@@ -230,11 +218,11 @@ export default class OrgList extends Component{
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
-						<TableRowColumn name="enable"></TableRowColumn>
-						<TableRowColumn name="operator"></TableRowColumn>
+						<TableRowColumn name="enable" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="operator" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="time" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-						}}></TableRowColumn>
+						}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn type="operation">
                             <Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_org_auth_edit"/>
 			            </TableRowColumn>
@@ -252,7 +240,7 @@ export default class OrgList extends Component{
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					onClose={this.allClose}
 				>
-			  <AddOrganization 
+			  <AddOrganization
 			      onSubmit={this.addPostSubmit}
 				  onCancel={this.openAddPost}
 				  latitude={latitude}
@@ -267,7 +255,7 @@ export default class OrgList extends Component{
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					onClose={this.allClose}
 				>
-			  <EditOrganization 
+			  <EditOrganization
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
 				id={id}

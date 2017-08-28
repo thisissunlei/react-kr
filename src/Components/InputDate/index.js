@@ -222,6 +222,30 @@ export default class InputDate extends React.Component {
 		});
 
 	}
+	componentDidUpdate (){
+		const {openCalendar} = this.state;
+		if(openCalendar){
+			var calendar = this.calendar.calendar;
+			
+			var calendarData = this.calendar.calendarData;
+			var dateInput = this.dateInput.getBoundingClientRect();
+			
+			var mask = {
+				height: window.innerHeight
+			}
+			var calendarChange = (calendarData.bottom - mask.height) > 0
+			
+			
+			if(calendarChange){
+
+				// console.log(calendarData.height + dateInput.height,"PPP");
+				calendar.style.top = -(calendarData.height-10) + 'px';
+			}
+
+			
+
+		}
+	}
 
 
 	render() {
@@ -231,11 +255,23 @@ export default class InputDate extends React.Component {
 		} = this.state;
 		return (
 			<div className="ui-calendar" ref="calendar">
-				<div className="calendar-content"  onClick={this.openCalendarDialog} >
+				<div className="calendar-content" 
+					 onClick={this.openCalendarDialog} 
+					 ref = {(ref) =>{
+						this.dateInput = ref;
+					 }}
+				>
 					<div className="calendar-value">{(this.state.value && <KrDate value={this.state.value} />) || this.props.placeholder} </div>
 					<span className="icon"></span>
 				</div>
-				{openCalendar && <Calendar onChange={this.onChange} value={this.state.value}/>}
+				{openCalendar && 
+					<Calendar 
+						onChange={this.onChange} 
+						value={this.state.value}
+						ref = {(ref) =>{
+							this.calendar = ref;
+						}}
+					/>}
 			</div>
 		);
 

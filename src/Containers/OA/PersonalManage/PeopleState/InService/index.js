@@ -21,8 +21,10 @@ import {
 	ListGroupItem,
 	Message,
 	Dictionary,
-	Tooltip
+	Tooltip,
+  Pagination,
 } from 'kr-ui';
+import $ from 'jquery';
 import {
 	AddPostPeople
 } from 'kr/PureComponents';
@@ -33,6 +35,7 @@ import Transfer from './Transfer';
 import OpenCard from './OpenCard';
 import OpenAccount from './OpenAccount';
 import IsSure from './IsSure';
+import SearchUpperForm from './SearchUpperForm';
 import './index.less';
 import {
 	observer,
@@ -53,10 +56,13 @@ export default class InService  extends React.Component{
 			openCard:false,
 			openAccount:false,
 			openSure:false,
+      openSearchUpper:false,
 			searchParams : {
 				page:1,
 				pageSize:15,
-				searchKey:''
+				totalCount:'',
+				nameKey:'',
+				codeKey:''
 			},
 			employees:{
 				name:'',
@@ -75,13 +81,36 @@ export default class InService  extends React.Component{
 			istranfer:false,
 			isCard:false,
 			isOpen:false,
-      isEdit:false,
+      isBase:false,
+      isPerson:false,
+      isWork:false,
+
+      //控制定位显示隐藏
+      isName:false,
+      positionList:[]
 		}
 	}
 
 
+  scrollListener=()=>{
+    if(this.scrollData.scrollLeft>102){
+       this.setState({
+          isName:true
+       })
+    }else{
+      this.setState({
+         isName:false
+      })
+    }
+  }
+
 
 	componentDidMount() {
+
+    var {checkOperate} = this.props.NavModel;
+
+    this.scrollData.addEventListener("scroll",this.scrollListener,false)
+
 		var {checkOperate} = this.props.NavModel;
 		var _this=this;
 		setTimeout(function() {
@@ -91,7 +120,9 @@ export default class InService  extends React.Component{
 		     istranfer : checkOperate("hrm_resource_move"),
 			   isCard : checkOperate("hrm_resource_card"),
 		     isOpen : checkOperate("hrm_resource_account"),
-         isEdit : checkOperate("hrm_resource_edit"),
+         isBase:checkOperate("hrm_resource_base_edit"),
+         isPerson:checkOperate("hrm_resource_edit"),
+         isWork:checkOperate("hrm_resource_workinfo_edit")
 		   })
 		},500);
 
@@ -322,23 +353,142 @@ export default class InService  extends React.Component{
    }
    onSearchSubmit = (data) =>{
 	var searchParams = Object.assign({},this.state.searchParams);
-	searchParams.searchKey = data.content;
-	this.setState({
-		searchParams
-	})
+	searchParams.nameKey = data.content;
+  searchParams.codeKey = data.content;
+  	this.setState({
+  		searchParams
+  	})
    }
    //跳转详情页
    goDetail = (data) =>{
 	    let personId=data.id;
 		window.open(`./#/oa/${personId}/peopleDetail`,'_blank');
+
    }
+
+  //翻页
+   onPageChange=(page)=>{
+	
+		let {searchParams}=this.state;
+		searchParams.page=page;
+		searchParams.pageSize=15;
+		this.oaInserviceTab.onPageChange(page);
+		this.setState({
+		searchParams
+		})
+
+   }
+
+
+ //高级查询提交
+ onSearchUpperSubmit=(param)=>{
+   param.codeKey=param.nameKey?param.nameKey:'';
+   if(param.orgId){
+     var id=param.orgId[0].orgId?param.orgId[0].orgId:'';
+     var type=param.orgId[0].treeType?param.orgId[0].treeType:'';
+     param.orgId=id;
+     param.orgType=type;
+   }
+   if(param.leader){
+     param.leader=param.leader[0].orgId;
+   }
+   let defaultParams = {
+      codeKey:'',
+      nameKey:'',
+      mobilePhone:'',
+      email:'',
+      orgId:'',
+      orgType:'',
+      leader:'',
+      searchType:'',
+      searchStatus:'',
+      hasAccount:'',
+      searchProperty:'',
+      entryDateStart:'',
+      entryDateEnd:''
+   }
+   var searchParams = Object.assign({},defaultParams,param);
+   this.setState({
+     searchParams,
+     openSearchUpper:!this.state.openSearchUpper
+   })
+ }
+
+  //高级查询
+	openSearchUpperDialog=()=>{
+    this.setState({
+      openSearchUpper:!this.state.openSearchUpper,
+    })
+	}
+
+  cancelSearchUpperDialog=()=>{
+    this.setState({
+      openSearchUpper:!this.state.openSearchUpper,
+    })
+  }
+
+  //导出
+  onExport=()=> {
+	console.log("oooo----")
+	var tab =  this.oaInserviceTab;
+	tab.onExport();
+	var values = tab.exportData;
+    let {searchParams} = this.state;
+    let defaultParams = {
+      codeKey:'',
+      nameKey:'',
+      mobilePhone:'',
+      email:'',
+      orgId:'',
+      orgType:'',
+      leader:'',
+      searchType:'',
+      searchStatus:'',
+      hasAccount:'',
+      searchProperty:'',
+      entryDateStart:'',
+      entryDateEnd:''
+    }
+    searchParams = Object.assign({},defaultParams,searchParams);
+
+     let ids = [];
+     if (values.length != 0) {
+       values.map((item, value) => {
+         ids.push(item.id)
+       });
+     }
+      var where=[];
+      for(var item in searchParams){
+        if(searchParams.hasOwnProperty(item)){
+           where.push(`${item}=${searchParams[item]}`);
+        }
+      }
+      where.push(`ids=${ids}`);
+     var url = `/api/krspace-erp-web/hrm/resource/export/type/incumbency?${where.join('&')}`
+     window.location.href = url;
+  }
+  onLoaded = (data) =>{
+	  var searchParams = Object.assign({},this.state.searchParams);
+	  searchParams.page = data.page;
+	  searchParams.pageSize = data.pageSize;
+	  searchParams.totalCount = data.totalCount;
+
+	  this.setState({
+		  searchParams,
+	  })
+  }
+
+
+
 	render(){
-		const {transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen,isEdit} = this.state;
+		const {transferDetail,positionList,isName,searchParams,employees,isLeave,isRemove,istranfer,isCard,isOpen,isBase,isPerson,isWork} = this.state;
+		
+
 		return(
 
 			<div className='m-inservice-list'>
 					<Title value="在职列表"/>
-						<Row style={{marginBottom:21,position:'relative',zIndex:5,marginTop:20}}>
+						<Row style={{marginBottom:11,position:'relative',zIndex:5,marginTop:20}}>
 
 							<Col
 								style={{float:'left'}}
@@ -353,81 +503,111 @@ export default class InService  extends React.Component{
 
 							<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 								<ListGroup>
-									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入姓名' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
+									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入姓名/编号' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
+                  <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 								</ListGroup>
 							</Col>
 
 					</Row>
 
-					<Table
-						style={{marginTop:8}}
-						ajax={true}
-						onOperation={this.onOperation}
-						displayCheckbox={false}
-						ajaxParams={this.state.searchParams}
-						onPageChange={this.onPageChange}
-						ajaxUrlName='getInServiceList'
-						ajaxFieldListName="items"
-					  >
 
-						<TableHeader>
-								<TableHeaderColumn>部门</TableHeaderColumn>
-								<TableHeaderColumn>姓名</TableHeaderColumn>
-								<TableHeaderColumn>人员编码</TableHeaderColumn>
-								<TableHeaderColumn>职位</TableHeaderColumn>
-								<TableHeaderColumn>入职时间</TableHeaderColumn>
-								<TableHeaderColumn>状态</TableHeaderColumn>
-								<TableHeaderColumn>是否开通账号</TableHeaderColumn>
-								<TableHeaderColumn>操作</TableHeaderColumn>
-						</TableHeader>
+              <div className='list-scroll-data' ref = {
+                  (ref) =>{
+                      this.scrollData = ref;
+                  }
+              } >
+    					<Table
+    						style={{marginTop:8,width:3100}}
+                ajax={true}
+                ajaxParams={searchParams}
+                ajaxUrlName='getInServiceList'
+                ajaxFieldListName="items"
+    			displayCheckbox={true}
+                exportSwitch={true}
+				onLoaded = {this.onLoaded}
+				ref = {(ref) =>{
+					this.oaInserviceTab = ref;
+				}}
+    					  >
+    						<TableHeader>
+                    {isName&&<TableHeaderColumn className='table-header-name'>姓名</TableHeaderColumn>}
+                    {!isName&&<TableHeaderColumn >姓名</TableHeaderColumn>}
+                    <TableHeaderColumn >编号</TableHeaderColumn>
+                    <TableHeaderColumn>分部</TableHeaderColumn>
+    								<TableHeaderColumn>部门</TableHeaderColumn>
+    								<TableHeaderColumn>直接上级</TableHeaderColumn>
+    								<TableHeaderColumn>职务</TableHeaderColumn>
+    								<TableHeaderColumn>员工属性</TableHeaderColumn>
+    								<TableHeaderColumn>员工类别</TableHeaderColumn>
+    								<TableHeaderColumn>员工状态</TableHeaderColumn>
+    								<TableHeaderColumn  style={{width:100}}>是否开通账号</TableHeaderColumn>
+                    <TableHeaderColumn>手机号</TableHeaderColumn>
+    								<TableHeaderColumn>公司邮箱</TableHeaderColumn>
+                    <TableHeaderColumn>入职时间</TableHeaderColumn>
+    								<TableHeaderColumn>创建人</TableHeaderColumn>
+                    <TableHeaderColumn>创建时间</TableHeaderColumn>
+    								<TableHeaderColumn style={{width:'300px'}}>操作</TableHeaderColumn>
+    						</TableHeader>
 
-						<TableBody >
-							<TableRow>
-								<TableRowColumn name ="depName" ></TableRowColumn>
-								<TableRowColumn
-									name ="name"
-									component={(value,oldValue,detail)=>{
-										return (<div onClick = {() =>{
-												this.goDetail(detail)
-												}} style={{color:'#499df1',cursor:'pointer'}}>{value}</div>)
-									}}
-								 ></TableRowColumn>
-								<TableRowColumn name="code"></TableRowColumn>
-								<TableRowColumn name ="jobName" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
-								<TableRowColumn
-									name ="entryDate"
-									component={(value,oldValue)=>{
-										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-									}}
+    						<TableBody >
+                         <TableRow>
+                           {isName&&<TableRowColumn name='name' className='table-single-name'></TableRowColumn>}
+                           {!isName&&<TableRowColumn name='name'></TableRowColumn>}
+           								 <TableRowColumn name='code'></TableRowColumn>
+                           <TableRowColumn name='subName'></TableRowColumn>
+                           <TableRowColumn name='depName'></TableRowColumn>
+                           <TableRowColumn name='leaderName'></TableRowColumn>
+                           <TableRowColumn name='jobName'></TableRowColumn>
+                           <TableRowColumn name='propertyStr'></TableRowColumn>
+                           <TableRowColumn name='typeStr'></TableRowColumn>
+                           <TableRowColumn name='statusStr'></TableRowColumn>
+           								 <TableRowColumn style={{width:100}} name='hasAccountStr'></TableRowColumn>
+           								 <TableRowColumn name='mobilePhone'></TableRowColumn>
+           								 <TableRowColumn name='email'></TableRowColumn>
+           								 <TableRowColumn name='entryDate' component={(value,oldValue,detail)=>{
+       													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
+       												 }}></TableRowColumn>
+           								 <TableRowColumn name='creatorName'></TableRowColumn>
+           								 <TableRowColumn name='cTime' component={(value,oldValue)=>{
+       													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
+       												 }}></TableRowColumn>
+           								 <TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
+           										return <span>
+           											  {(isBase||isPerson||isWork)&&<span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>}
+           												{isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
+           												{istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
+           												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
+           												{isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
+           												{isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
+           											</span>
+           								 }}>
+           								</TableRowColumn>
+           							</TableRow>
+    						   </TableBody>
+                  
+    					</Table>
+            </div>
+			{searchParams.totalCount !=0 && <div className='footPage'>
 
-								></TableRowColumn>
-								<TableRowColumn name ="status"
-									component={(value,oldValue)=>{
-										return (<Dictionary type='ERP_ResourceStatus' value={value}/>)
-									}}
-								></TableRowColumn>
-								<TableRowColumn name ="hasAccountStr"></TableRowColumn>
-								<TableRowColumn type="operation" style={{width:'300px'}} component={(value,oldValue,detail)=>{
-										return <span>
-											    {isEdit&&<span onClick={this.operationEdit.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>编辑</span>}
-												{isLeave&&<span onClick={this.operationLeave.bind(this,value)}style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>离职</span>}
-												{istranfer&&<span onClick={this.operationTransfer.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>调动</span>}
-												{isRemove&&value.hasAccount&&<span onClick={this.operationRemove.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>解除账号</span>}
-												{isOpen&&!value.hasAccount&&<span onClick={this.operationAccount.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>开通账号</span>}
-												{isCard&&value.hasAccount&&<span onClick={this.operationCard.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>绑定门禁卡</span>}
-											</span>
-								 }}>
-								</TableRowColumn>
-							</TableRow>
-						</TableBody>
-						<TableFooter></TableFooter>
-					</Table>
+				<Col
+					style={{float:'left'}}
+				>
+					<Button
+						label="导出"
+						type='button'
+						onTouchTap={this.onExport}
+						
+					/>
+				</Col>
+			   <Pagination  
+					totalCount={searchParams.totalCount} 
+					page={searchParams.page} 
+					pageSize={searchParams.pageSize} 
+					onPageChange={this.onPageChange}
+				/>
+
+			</div>}
+
 
 					{/*新建用户*/}
 					<AddPostPeople
@@ -442,7 +622,7 @@ export default class InService  extends React.Component{
 						title="离职"
 						onClose={this.cancelLeave}
 						open={this.state.openLeave}
-						contentStyle ={{ width: '630px',height:'auto'}}
+						contentStyle ={{ width: '666px',height:'auto'}}
 					>
 					<Leave
 					   onCancel={this.cancelLeave}
@@ -517,6 +697,21 @@ export default class InService  extends React.Component{
 						employees = {employees}
 					/>
 					</Dialog>
+
+          {/*高级查询*/}
+          <Dialog
+          title="高级查询"
+          onClose={this.openSearchUpperDialog}
+          open={this.state.openSearchUpper}
+          contentStyle ={{ width: '666px',height:'auto'}}
+          >
+            <SearchUpperForm
+                onCancel={this.cancelSearchUpperDialog}
+                onSubmit={this.onSearchUpperSubmit}
+                positionList={positionList}
+            />
+        </Dialog>
+
 			</div>
 		);
 	}
