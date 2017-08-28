@@ -10,77 +10,7 @@
     display: inline-block;
     vertical-align: top;
     padding-top: 6px;
-    flex: 1.1;
-    .header{
-        position: relative;
-          .title{
-            line-height: 40px;
-            height: 40px;
-            border-radius: 4px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-            display: inline-block;
-            padding: 0 8px;
-            cursor:pointer;
-            .title-text{
-              margin-right: 10px;
-            }
-            .title-list{
-              position: absolute;
-              top: 40px;
-              left: 0;
-              display: none;
-              width: 100%;
-              height: auto;
-              border-radius: 4px;
-              background: #fff;
-              z-index: 2;
-              border-top-left-radius: 0;
-              border-right-left-radius: 0;
-              overflow: auto;
-              .top-square{
-                position: absolute;
-                background: #fff;
-                width: 7px;
-                height: 7px;
-                top: -2px;
-                left: 50%;
-                box-shadow: -2px -2px 2px -1px #dfdfdf;
-                transform: translateX(-50%) rotate(45deg);
-                z-index: -1;
-              }
-              .item{
-                box-sizing: border-box;
-                text-align: left;
-                line-height: 30px;
-                height: 30px;
-                display: block;
-                width: 100%;
-                border-radius: 4px;
-                padding-left: 10px;
-                cursor:pointer;
-                &:hover{
-                  background: #F5F6FA;
-                }
-              }
-            }
-            &:hover{
-              .title-list{
-                display: inline-block;
-              }
-            }
-            .square{
-              display: inline-block;
-              width: 7px;
-              height: 7px;
-              border: 1px solid #666;
-              border-top: none;
-              border-left: none;
-              transform:rotate(45deg);
-              margin-bottom: 3px;
-          }
-          }
-      }
+    flex: 1;
     .oa-tree{
       margin-left: 1px;
       margin-top: 9px;
@@ -94,6 +24,7 @@
       border-radius: 4px;
       position: relative;
       margin-left: 2%;
+      margin-top: 8px;
       input{
         height: 38px;
         width: 86%;

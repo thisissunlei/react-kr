@@ -611,7 +611,7 @@ export default class Labour extends React.Component {
 			param.orgId=id;
 			param.orgType=type;
 		}
-		
+
 		if(param.leader){
 		param.leader=param.leader[0].orgId;
 		}
@@ -858,7 +858,7 @@ export default class Labour extends React.Component {
 			searchParams:searchParams,
 		})
   }
-  
+
 	render() {
 		let { itemDetail,searchParams,isName, data, dimId, styleBool,dataName,transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;
 		var logFlag = '';
@@ -1074,7 +1074,7 @@ export default class Labour extends React.Component {
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
-							
+
 								exportSwitch={true}
 								ref = {(ref) =>{
 									this.oaInserviceTab = ref;
@@ -1138,7 +1138,7 @@ export default class Labour extends React.Component {
 								</TableBody>
 								{/*<TableFooter></TableFooter>*/}
 							</Table>
-							
+
 						 </div>
 						 {(!!searchParams.totalCount && searchParams.totalCount !=0)  && <div className='footPage'>
 
@@ -1149,13 +1149,13 @@ export default class Labour extends React.Component {
 										label="导出"
 										type='button'
 										onTouchTap={this.onExportHrm}
-										
+
 									/>
 								</Col>
-								<Pagination  
-									totalCount={searchParams.totalCount} 
-									page={searchParams.page} 
-									pageSize={searchParams.pageSize} 
+								<Pagination
+									totalCount={searchParams.totalCount}
+									page={searchParams.page}
+									pageSize={searchParams.pageSize}
 									onPageChange={this.onPageChangePerson}
 								/>
 
