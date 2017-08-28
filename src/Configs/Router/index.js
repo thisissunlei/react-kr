@@ -121,15 +121,11 @@ export default (
 
         {/*文档管理*/}
         {DocumentRouter()}
-
-<<<<<<< HEAD
         {/*OA主页*/}
         {HomeRouter()}
         
         {PublicPageRouter()}
-=======
         {SynchronizationRouter()}
->>>>>>> master
 
 		{/*帮助*/}
 		<Route path="help" getComponent={Help}/>
