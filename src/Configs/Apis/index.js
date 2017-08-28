@@ -41,6 +41,5 @@ module.exports = {
   ...OAApi,
   ...SmartHardware,
   ...SynchronizationApi,
-  ...OAApi,
-
+  ...OAApi
 }
