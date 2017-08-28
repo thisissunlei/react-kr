@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	KrField,
     Grid,
     Col,
@@ -39,7 +39,7 @@ class AddRole  extends React.Component{
     typeOnChange=(param)=>{
        if(param.value=='DEPARTMENT'){
            this.setState({
-             isSure:true  
+             isSure:true
            })
        }else{
           this.setState({
@@ -50,22 +50,21 @@ class AddRole  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,roleArr}=this.props;
+        let {handleSubmit}=this.props;
         let {isSure}=this.state;
 
 		return(
 
 			<div className='m-add-role'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-                     
+
                         <KrField
                             grid={1}
                             style={{width:262,marginBottom:5}}
                             name="roleId"
-                            component="select"
+                            component="searchRole"
                             label="角色"
                             requireLabel={true}
-                            options={roleArr}
 						/>
 
 
@@ -125,18 +124,18 @@ const validate = values =>{
 	const errors = {};
 
     if(!values.roleId){
-       errors.roleId='请选择角色';  
+       errors.roleId='请选择角色';
     }
 
     if(!values.orgType){
-      errors.orgType='请选择机构类型'  
+      errors.orgType='请选择机构类型'
     }
 
     if(!values.orgId){
-      errors.orgId='请选择机构'  
+      errors.orgId='请选择机构'
     }
 
-    
+
 	return errors
 }
 

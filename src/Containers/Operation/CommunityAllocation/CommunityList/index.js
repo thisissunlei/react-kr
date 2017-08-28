@@ -75,7 +75,7 @@ class CommunityList  extends React.Component{
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
    	    value = Object.assign({},value);
-        
+
         //楼层开始
    	    value.wherefloorsStr=JSON.stringify(value.wherefloors);
         //楼层结束
@@ -128,7 +128,7 @@ class CommunityList  extends React.Component{
 
           Store.dispatch(change('editCommunityList','local',response.longitude+','+response.latitude));
 
-        
+
 
           _this.setState({
             timeStart:response.businessBegin,
@@ -137,7 +137,7 @@ class CommunityList  extends React.Component{
 						cityId:response.cityId,
             cityData:`${response.provinceName}/${response.cityName}/${response.countyName}`
           })
-      
+
           if(response.opened==true){
             Store.dispatch(change('editCommunityList','opened','1'));
           }
@@ -183,7 +183,7 @@ class CommunityList  extends React.Component{
      onSearchUpperSubmit=(searchParams)=>{
      	searchParams = Object.assign({},State.searchParams, searchParams);
      	searchParams.time=+new Date();
-       
+
 		if(searchParams.openDateBegin&&searchParams.openDateEnd&&searchParams.openDateEnd<searchParams.openDateBegin){
 			 Message.error('开始时间不能大于结束时间');
 	         return ;
@@ -194,8 +194,8 @@ class CommunityList  extends React.Component{
 		if(searchParams.openDateBegin && !searchParams.openDateEnd){
 			searchParams.openDateEnd = searchParams.openDateBegin
 		}
-        
-        
+
+
       	State.setSearchParams(searchParams);
       	State.searchUpperCustomer();
      }

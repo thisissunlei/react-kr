@@ -81,9 +81,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         this.state={
           isCover:'',
           isInit:false,
-          detailTip:false,         
+          detailTip:false,
           chargeName:'社区负责人',
-          isChargeName:false      
+          isChargeName:false
         }
 	}
 
@@ -102,7 +102,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           isCover:nextProps.isCover,
           isInit:true
         })
-       
+
      }
      if(!isChargeName && nextProps.chargeName ){
        this.setState({
@@ -110,8 +110,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           isChargeName:true
         })
      }
-     
-    
+
+
   }
 
 	onSubmit = (values) => {
@@ -138,13 +138,13 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            if(num==1){
                 Message.error('请将工位类型选全');
                 return ;
-           } 
+           }
            if(deNum==2||openNum==2||inNum==2){
                 Message.error('工位类型不能重复');
                 return ;
            }
         }
-      
+
    if(values.detailImageId.length<1){
        this.setState({
          detailTip:true
@@ -166,7 +166,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 	}
 
    hasOfficeClick=(param)=>{
-     
+
       if(param.value=='true'){
           this.setState({
               isCover:'true'
@@ -174,7 +174,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       }else{
          this.setState({
               isCover:'false'
-        }) 
+        })
       }
    }
 
@@ -199,30 +199,30 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
    }
 
 
-  
+
     render(){
-       
+
         let {isCover,chargeName,detailTip}=this.state;
- 
+
         const {handleSubmit,communityName,opend,openDate,firstValue,listValue,stationValue,detailValue} = this.props;
 
         var sortStyle={};
         var chartStyle={};
         if(isCover=='false'||isCover==false){
            sortStyle={
-             width:262,marginLeft:15  
+             width:262,marginLeft:15
            }
            chartStyle={
              width:262,marginLeft:30
            }
         }else if(isCover=='true'||isCover==true){
            sortStyle={
-             width:262,marginLeft:25  
+             width:262,marginLeft:25
            }
            chartStyle={
              width:262,marginLeft:15
-           }  
-        }  
+           }
+        }
 
         return (
             <div>
@@ -240,7 +240,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
                             <KrField grid={1/2} label="开业状态" inline={false} value={(opend?opend:'无')+(openDate?'('+openDate+')':'无')} style={{width:262,marginLeft:28}} component="labelText"/>
 
-                        
+
                     </div>
                         <div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">移动工位</label></div>
                         <div className="small-cheek">
@@ -266,7 +266,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 center='center'
                             />
 
-                        
+
                     </div>
 
 
@@ -291,21 +291,20 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                             </KrField>
 
                             {(isCover=='true'||isCover==true)&&<KrField grid={1/2} label="覆盖标签内容" name="coverName" component="input" style={{width:262,marginLeft:15}}  requireLabel={true}/>}
-                        
+
                             <KrField grid={1/2} label="排序" name="sort" component="input" style={sortStyle}/>
 
 
                             <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" onChange = {this.changeCharge} placeholder={chargeName}/>
-                            
+
                             <FieldArray name="porType" component={renderStation} />
 
                             <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'538px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
-                                <KrField grid={1} label="基础设施" name="facility" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础设施' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>                                        
+                                <KrField grid={1} label="基础设施" name="facility" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础设施' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="基础服务" name="service"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="特色服务" name="specialServcie" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入特色服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="交通" name="traffic"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="周边" name="arround" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
-    
                                
                                    <div className='web-page-box'> <KrField 
                                          name="pageImageId"
@@ -317,10 +316,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                          label='上传首页图片'
                                          requireLabel={true}
                                     /></div>
-                                
 
-                                
-                                    <div className='web-page-box'> <KrField 
+
+
+                                    <div className='web-page-box'> <KrField
                                        name="listImageId"
                                        component="uploadImage"
                                        requestUrl='/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
@@ -330,9 +329,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                        label='上传列表页图片'
                                        requireLabel={true}
                                     /></div>
-                               
 
-                                
+
+
                                     <div className='web-detail-img'><KrField name="detailImageId"
                                         component="uploadImageList"
                                         boxStyle={{marginLeft:-35,textAlign:'left'}}
@@ -347,7 +346,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     />
                                     {detailTip&&<div style={{color:'red',display:'block'}}>请上传详情图片</div>}
                                     </div>
-                               
+
 
                             </div>
                             <div className="end-round"></div>
@@ -377,9 +376,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             let stationNP=/^([0-9][0-9]{0,4})$/;
 			//正整数
 			let numberNotZero=/^[0-9]*[1-9][0-9]*$/;
-		  
-			
-            
+
+
+
 
 	        //工位校验
 	        if (!values.porType || !values.porType.length) {
@@ -432,6 +431,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
               errors.discountPrice='最多输入5个字符'
             }
 
+
             if(!values.pageImageId){
               errors.pageImageId='请上传首页图片'
             }
@@ -442,11 +442,11 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             if(!values.coverName){
               errors.coverName='请填写覆盖标签内容'
             }
-            
+
             if(values.coverName&&values.coverName.length>5){
               errors.coverName='最多输入5个字符'
             }
-	    
+
             //排序
             if(values.sort&&isNaN(values.sort)){
             errors.sort='请输入数字';
