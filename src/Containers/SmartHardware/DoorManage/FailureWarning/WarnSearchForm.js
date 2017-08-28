@@ -77,6 +77,7 @@ class DoorWarnForm extends React.Component{
 			etime:  values.etime || '',
 			deviceId: values.deviceId || '',
 			logType:  values.logType || '',
+			date : new Date()
 		}
 	}
 
