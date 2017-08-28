@@ -38,7 +38,6 @@ module.exports = {
   ...StatisticalApi,
   ...WebBackstageApi,
   ...CommonApi,
-  ...OAApi,
   ...SmartHardware,
   ...SynchronizationApi,
   ...OAApi
