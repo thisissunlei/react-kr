@@ -253,7 +253,7 @@ export default class Table extends React.Component {
                     }} 
                     checked = {handerChecked ? "checked":""}
               />}
-              {tableData.length && <input 
+              {!tableData.length && <input 
                   type="checkbox" 
                   
               />}
