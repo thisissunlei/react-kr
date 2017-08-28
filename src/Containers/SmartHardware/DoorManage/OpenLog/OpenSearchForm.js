@@ -138,12 +138,12 @@ class OpenLogForm extends React.Component{
 						</span>
 					</ListGroupItem>
 				</ListGroup>
-				<ListGroup>
+				<ListGroup style={{marginBottom:10}}>
 					<ListGroupItem>
 						<KrField grid={1/2} name="deviceId" 
 							type="text" 
-							label="智能硬件ID" 
-							style={{width:252}}
+							label="智能硬件ID：" 
+							style={{width:265}}
 							inline={true}
 						/>
 					</ListGroupItem>
@@ -166,10 +166,10 @@ class OpenLogForm extends React.Component{
 						/>
 					</ListGroupItem>
 
-					<ListGroupItem style={{float:"right",margin:"10px 20px 10px 0"}}>
+					<ListGroupItem style={{float:"right",margin:"0px 20px 10px 0"}}>
 						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />
 					</ListGroupItem>
-					<ListGroupItem style={{float:"right",margin:10}}>
+					<ListGroupItem style={{float:"right",margin:"2px 10px 0 0"}}>
 						<Button  label="搜索" type="submit"/>
 					</ListGroupItem>
 					

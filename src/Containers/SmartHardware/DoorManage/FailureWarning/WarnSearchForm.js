@@ -150,10 +150,10 @@ class DoorWarnForm extends React.Component{
 					
 					</ListGroupItem>
 					<ListGroupItem>
-						<KrField grid={1/2} name="deviceId" 
+						<KrField  name="deviceId" 
 							type="text" 
-							label="智能硬件ID" 
-							style={{width:252}}
+							label="智能硬件ID：" 
+							style={{width:265}}
 							inline={true}
 						/>
 					</ListGroupItem>
@@ -164,7 +164,7 @@ class DoorWarnForm extends React.Component{
 							component="select" 
 							label="报警类型：" 
 							options = {logTypeOptions}
-							style={{width:'280px'}}
+							style={{width:265}}
 							inline={true}
 						/>
 					</ListGroupItem>
