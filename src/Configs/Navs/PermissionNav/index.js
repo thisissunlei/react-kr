@@ -89,7 +89,34 @@ module.exports = [
 				]
 			},
 			{
-				primaryText: '流程管理',
+				primaryText: "同步中心",
+				iconName: 'icon-wendang',
+				iconColor: '#79859a',
+				router: 'permission/Synchronization',
+				menuItems: [
+					{
+						primaryText: '同步主体',
+						router: '/permission/Synchronization/main',
+						menuCode: 'sync_main_part',
+					},
+					{
+						primaryText: '同步系统',
+						router: '/permission/Synchronization/system',
+						menuCode: 'sync_system',
+					},
+					{
+						primaryText: '系统订阅',
+						router: '/permission/Synchronization/content',
+						menuCode: 'sync_main_system',
+					},
+					{
+						primaryText: '日志列表',
+						router: '/permission/Synchronization/journal/main/system',
+						menuCode: 'sync_log',
+					},
+				]
+			},{
+				primaryText: "流程管理",
 				iconName: 'icon-wendang',
 				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',

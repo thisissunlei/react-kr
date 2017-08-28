@@ -55,7 +55,7 @@ class OrderTable  extends React.Component{
 	render(){
 		
 		return(
-			<div className="payment-table">
+			<div className="payment-table point-table">
 				{!! State.orderList.items.length && 
 				<table>
 					<thead>
