@@ -252,12 +252,18 @@ export default class DynamicsList extends Component{
               				component={(value,oldValue)=>{
 								  var height = "auto";
 								  var isShow = true;
+								  var imgStyle = {};
 								  if(!value){
-									  height = 80;
+									 
 									  isShow = false;
+									  value = "-";
+									  imgStyle={
+										  height:80,
+										  lineHeight:"80px"
+									  }
 								  }
 								return (
-									<div style = {{height:height}}>
+									<div style = {imgStyle}>
 										{!isShow && <span>{value}</span>}
 										<img className = "dynamics-img" src = {value} style = {{display:isShow ? "inline-block" : "none"}} />
 									</div>

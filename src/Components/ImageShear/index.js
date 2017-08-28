@@ -401,7 +401,7 @@ export default class ImageShear extends React.Component {
               </div>
 
                 <div className='circle-shear-pic' style={imgStyle}>
-
+                    <div className = 'circle-shear-pic-title'>头像预览</div>
                 </div>
 
                 <div className='btn-shear'><div  className='ui-btn-center' style={{display:'inline-block',marginRight:'30px'}}><Button  label="确定"  onTouchTap={this.clamp}/></div>
