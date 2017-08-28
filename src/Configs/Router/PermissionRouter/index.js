@@ -105,6 +105,12 @@ const Permission_ProcessManage_BasicSetting= (location, callback) => {
   }, 'Permission_ProcessManage_BasicSetting')
 }
 
+const Permission_ProcessManage_Form= (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/ProcessManage/Form').default)
+  }, 'Permission_ProcessManage_Form')
+}
+
 module.exports =()=>{
 
 	return (
@@ -134,6 +140,7 @@ module.exports =()=>{
     {/*流程管理*/}
     <Route path="processManage" getComponent={Basic}>
       <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
+      <Route path="form" getComponent={Permission_ProcessManage_Form}/>
       <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
     </Route>
 	  </Route>

@@ -16,7 +16,7 @@ class New extends React.Component {
 		super(props, context);
 
 		this.state = {
-            
+
 		}
 	}
 
@@ -33,17 +33,17 @@ class New extends React.Component {
 					  isDetail='iconTab'
 					  label = "全部数据"
 			      >
-				  <TabC label='基本信息'> 
+				  <TabC label='基本信息'>
 					  <EditTable />
-				  </TabC> 
-				  
-				  <TabC label='个人信息'> 
-					 <h1>asda</h1>
-				  </TabC> 
+				  </TabC>
 
-				  <TabC label='工作信息'> 
+				  <TabC label='个人信息'>
+					 <h1>asda</h1>
+				  </TabC>
+
+				  <TabC label='工作信息'>
 					 <h1>3344</h1>
-				  </TabC> 
+				  </TabC>
 			  </TabCs>
 			</div>
 
