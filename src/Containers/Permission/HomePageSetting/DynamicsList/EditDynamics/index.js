@@ -112,7 +112,7 @@ class EditDynamics extends React.Component{
 
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType,isCite,titleUrl,content} = this.state;
-        // let host = "http://"+window.location.host;
+        let host = "http://"+window.location.host;
 
         var editorLabel = "";
         if(isCite){
@@ -123,7 +123,7 @@ class EditDynamics extends React.Component{
             editorLabel = "简介"
         }
         
-        let host = "http://optest02.krspace.cn/";
+        // let host = "http://optest02.krspace.cn/";
 		return(
 
 			<div className='m-edit-swper'>

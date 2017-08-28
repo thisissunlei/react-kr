@@ -33,6 +33,7 @@ import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
 import HomeRouter from './HomeRouter';
 import PublicPageRouter from './PublicPageRouter';
+import SynchronizationRouter from './SynchronizationRouter';
 
 const Master = (location, callback) => {
   require.ensure([], require => {
@@ -117,11 +118,11 @@ export default (
 
         {/*文档管理*/}
         {DocumentRouter()}
-
         {/*OA主页*/}
         {HomeRouter()}
         
         {PublicPageRouter()}
+        {SynchronizationRouter()}
 
 		{/*帮助*/}
 		<Route path="help" getComponent={Help}/>

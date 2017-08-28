@@ -82,8 +82,8 @@ class AddDynamics extends React.Component{
 
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType,isCite,inData,outData} = this.state;
-        // let host = "http://"+window.location.host;
-        let host = "http://optest02.krspace.cn/";
+        let host = "http://"+window.location.host;
+        // let host = "http://optest02.krspace.cn/";
         var editorLabel = "";
         if(isCite){
             editorLabel = "内容";

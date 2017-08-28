@@ -106,6 +106,7 @@ export default class DynamicsProfile extends React.Component {
         if(newPage*searchParams.pageSize < totalCount){
             btnShow = true;
         }
+        // return null;
 		return (
 			<div className="dynamics_profile">
                 <img className = "title-img" src={banner} alt=""/>

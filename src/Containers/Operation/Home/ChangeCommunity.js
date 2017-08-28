@@ -41,7 +41,6 @@ class ChangeCommunity  extends React.Component{
 			communitys:[]
 		}
 		Store.dispatch(reset('ChangeCommunity'));
-
 	}
 
 	componentDidMount(){
@@ -51,11 +50,11 @@ class ChangeCommunity  extends React.Component{
 		onCancel && onCancel();
 	}
 	onSubmit=(value)=>{
-		console.log('=======',value)
 		if(!value.communityId){
 			return;
 		}
 		localStorage.setItem('OP_HOME_COMMUNITY',value.communityId);
+		localStorage.setItem('OP_HOME_COMMUNITY_NAME',value.communityName);
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(value);
 	}

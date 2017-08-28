@@ -16,7 +16,11 @@ import Office from './Office';
 import Statistical from './Statistical';
 import WebBackstage from './WebBackstage';
 import UpdateLog from './UpdateLog';
+<<<<<<< HEAD
 import Home from './Home';
+=======
+import Synchronization from './Synchronization';
+>>>>>>> master
 
 module.exports = {
 	Welcome,
@@ -37,4 +41,5 @@ module.exports = {
 	Statistical,
 	WebBackstage,
 	UpdateLog,
+	Synchronization
 }
