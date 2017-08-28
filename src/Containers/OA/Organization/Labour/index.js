@@ -604,37 +604,34 @@ export default class Labour extends React.Component {
 
 	onHighSearchSubmit = (param) => {
 
-		param.codeKey=param.nameKey?param.nameKey:'';
-		if(param.orgId){
-			var id=param.orgId?param.orgId:'';
-			var type=param.orgType?param.orgType:'';
+		  param.codeKey=param.nameKey?param.nameKey:'';
+			var id=param.orgId?param.orgId:this.state.searchParams.orgId;
+			var type=param.orgType?param.orgType:this.state.searchParams.orgType;
 			param.orgId=id;
 			param.orgType=type;
-		}
-		
-		if(param.leader){
-		param.leader=param.leader[0].orgId;
-		}
-		let defaultParams = {
+			if(param.leader){
+			param.leader=param.leader[0].orgId;
+			}
+		 let defaultParams = {
 					codeKey:'',
 					nameKey:'',
-		mobilePhone:'',
-		email:'',
-		orgId:'',
-		orgType:'',
-		leader:'',
-		searchType:'',
-		searchStatus:'',
-		hasAccount:'',
-		searchProperty:'',
-		entryDateStart:'',
-		entryDateEnd:''
+					mobilePhone:'',
+					email:'',
+					leader:'',
+					orgId:'',
+					orgType:'',
+					searchType:'',
+					searchStatus:'',
+					hasAccount:'',
+					searchProperty:'',
+					entryDateStart:'',
+					entryDateEnd:''
 		}
 		var searchParams = Object.assign({},defaultParams,param);
 		this.setState({
 		searchParams,
 		openHighSearch:!this.state.openHighSearch
-		})
+	})
 	}
 
 
@@ -858,7 +855,7 @@ export default class Labour extends React.Component {
 			searchParams:searchParams,
 		})
   }
-  
+
 	render() {
 		let { itemDetail,searchParams,isName, data, dimId, styleBool,dataName,transferDetail,employees,isLeave,isRemove,istranfer,isCard,isOpen} = this.state;
 		var logFlag = '';
@@ -1074,7 +1071,7 @@ export default class Labour extends React.Component {
 								ajaxParams={this.state.searchParams}
 								onOperation={this.onOperation}
 								onPageChange={this.onPageChange}
-							
+
 								exportSwitch={true}
 								ref = {(ref) =>{
 									this.oaInserviceTab = ref;
@@ -1138,7 +1135,7 @@ export default class Labour extends React.Component {
 								</TableBody>
 								{/*<TableFooter></TableFooter>*/}
 							</Table>
-							
+
 						 </div>
 						 {(!!searchParams.totalCount && searchParams.totalCount !=0)  && <div className='footPage'>
 
@@ -1149,13 +1146,13 @@ export default class Labour extends React.Component {
 										label="导出"
 										type='button'
 										onTouchTap={this.onExportHrm}
-										
+
 									/>
 								</Col>
-								<Pagination  
-									totalCount={searchParams.totalCount} 
-									page={searchParams.page} 
-									pageSize={searchParams.pageSize} 
+								<Pagination
+									totalCount={searchParams.totalCount}
+									page={searchParams.page}
+									pageSize={searchParams.pageSize}
 									onPageChange={this.onPageChangePerson}
 								/>
 
