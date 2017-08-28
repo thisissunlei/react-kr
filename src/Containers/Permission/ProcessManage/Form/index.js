@@ -22,6 +22,7 @@ export default class Form  extends React.Component{
 				orgId: '1',
 				orgType: "ROOT",
 			},
+      orgName:'',
       dimData: [],
       treeData: [],
       searchKey: '',
@@ -99,7 +100,8 @@ export default class Form  extends React.Component{
 				pageSize: 15,
 				orgId: data[0].orgId,
 				orgType: data[0].treeType,
-			}
+			},
+      orgName:data[0].orgName
 		},function(){
 			_this.getOrganizationDetail();
 		});
@@ -132,7 +134,8 @@ export default class Form  extends React.Component{
         searchParams,
         dimData,
         treeData,
-        searchKey
+        searchKey,
+        orgName
     }=this.state;
 
 		return(
@@ -159,7 +162,7 @@ export default class Form  extends React.Component{
           <div className='right-center'>
             <TabCs
                  isDetail='iconTab'
-                 label = "全部数据"
+                 label = {orgName}
                  >
                <TabC label='基本信息'>
                  <span>11</span>
