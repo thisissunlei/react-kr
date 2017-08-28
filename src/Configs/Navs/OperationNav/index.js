@@ -7,7 +7,7 @@ module.exports = [
 		menuItems: [
 			{
 				primaryText: "运营主页",
-				iconName: 'icon-user',
+				iconName: 'icon-operation-home',
 				iconColor: '#79859a',
 				router: 'index',
 				menuItems: [
