@@ -54,6 +54,21 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           onClick={() => fields.remove(index)}/>
       </li>
     )}
+    <KrField
+          style={{width:262,marginLeft:15}}
+          grid={1/2}
+          name="discount"
+          component="input"
+          label="活动内容"/>
+    <div className="krFlied-box"><KrField
+          style={{width:153,marginLeft:30,marginRight:3}}
+          grid={1/2}
+          name="discountPrice"
+          type="text"
+          component={renderField}
+          label="活动价"/>
+          <span className="unit">元/工位/月</span>
+    </div>
   </ul>
 
  )
