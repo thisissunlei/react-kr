@@ -424,6 +424,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
               errors.traffic='请填写交通'
             }
             
+            if(values.discount&&values.discount.length>10){
+              errors.discount='最多输入10个字符'
+            }
 
             if(!values.pageImageId){
               errors.pageImageId='请上传首页图片'
