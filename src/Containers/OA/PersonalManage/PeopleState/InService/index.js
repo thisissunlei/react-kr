@@ -551,8 +551,23 @@ export default class InService  extends React.Component{
 
     						<TableBody >
                          <TableRow>
-                           {isName&&<TableRowColumn name='name' className='table-single-name'></TableRowColumn>}
-                           {!isName&&<TableRowColumn name='name'></TableRowColumn>}
+                           {isName&&<TableRowColumn name='name' className='table-single-name' component={(value,oldValue,detail)=>{
+       												
+															return <span style = {{cursor:"pointer",color:"#499dfe"}}
+																onClick = {()=>{
+																this.goDetail(detail)
+															}}
+															>{value}</span>;
+       												 }}></TableRowColumn>}
+                           {!isName&&<TableRowColumn name='name' component={(value,oldValue,detail)=>{
+       													  
+
+														return <span style = {{cursor:"pointer",color:"#499dfe"}} 
+															onClick = {()=>{
+																this.goDetail(detail)
+															}}
+														>{value}</span>;
+       												 }}></TableRowColumn>}
            								 <TableRowColumn name='code'></TableRowColumn>
                            <TableRowColumn name='subName'></TableRowColumn>
                            <TableRowColumn name='depName'></TableRowColumn>
