@@ -19,13 +19,6 @@ export default class EquipmentDetail extends React.Component{
 			itemDetail:{}
 		}
 	}
-	componentWillMount() {
-	}
-
-	componentWillReceiveProps(nextProps){
-
-	}
-
 
 	componentDidMount(){
 		console.log("this.props===》componentDidMount",this.props);

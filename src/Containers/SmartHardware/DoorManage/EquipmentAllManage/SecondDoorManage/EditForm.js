@@ -92,9 +92,6 @@ class EditForm extends React.Component{
 			floorNum : detail.floor
 		})
 
-		// console.log("locationOptions",_this.state.locationOptions)
-		
-		// console.log("detail",detail);
 	}
 	onCancel=()=>{
 		State.openEditDialog = false;
@@ -102,7 +99,6 @@ class EditForm extends React.Component{
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
   		
-  		// console.log("community",community);
   		let _this = this;
   		if(!community){
   			_this.setState({

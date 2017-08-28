@@ -23,7 +23,6 @@ export default class EquipmentSearch extends React.Component{
 			switch :false
 		}
 	}
-	
 
 	changeSearchEquipment=(event,isInputChecked)=>{
 		console.log("State.switch",State.switch);

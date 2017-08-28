@@ -23,11 +23,6 @@ let State = observable({
 });
 
 
-
-
-
-
-
 module.exports = State;
 
 
