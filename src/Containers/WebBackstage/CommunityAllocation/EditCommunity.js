@@ -428,6 +428,10 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
               errors.discount='最多输入10个字符'
             }
 
+            if(values.discountPrice&&values.discountPrice.length>5){
+              errors.discountPrice='最多输入5个字符'
+            }
+
             if(!values.pageImageId){
               errors.pageImageId='请上传首页图片'
             }
