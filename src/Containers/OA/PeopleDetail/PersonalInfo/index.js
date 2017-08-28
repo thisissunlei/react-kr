@@ -159,10 +159,10 @@ export default class PersonalInfo  extends React.Component{
    editSubmit=(params)=>{
 	   let {personId}=this.props;
 	   delete params.uTime;
-	   params.birthday = DateFormat(params.birthday,"yyyy-mm-dd hh:MM:ss");
-	   params.workDate = DateFormat(params.workDate,"yyyy-mm-dd hh:MM:ss");
-	   params.partyDate = DateFormat(params.partyDate,"yyyy-mm-dd hh:MM:ss");
-	   params.leagueDate = DateFormat(params.leagueDate,"yyyy-mm-dd hh:MM:ss");
+	   params.birthday = params.birthday?DateFormat(params.birthday,"yyyy-mm-dd hh:MM:ss"):'';
+	   params.workDate = params.workDate?DateFormat(params.workDate,"yyyy-mm-dd hh:MM:ss"):'';
+	   params.partyDate = params.partyDate?DateFormat(params.partyDate,"yyyy-mm-dd hh:MM:ss"):'';
+	   params.leagueDate = params.leagueDate?DateFormat(params.leagueDate,"yyyy-mm-dd hh:MM:ss"):'';
 	   params.resourceId=personId;
        var _this=this;
        Http.request('people-person-edit',{},params).then(function(response) {
