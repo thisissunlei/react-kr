@@ -26,6 +26,8 @@ var tableData = [
 	{name:'1liu',age:12,other:'1什么鬼'},
 	{name:'2liu',age:13,other:'2什么鬼'},
 	{name:'3liu',age:14,other:'3什么鬼'},
+	{name:'4liu',age:15,other:'4什么鬼'},
+	{name:'5liu',age:16,other:'5什么鬼'},
 	]
 class EditTable extends React.Component {
 
@@ -62,7 +64,8 @@ class EditTable extends React.Component {
 			<form onSubmit={handleSubmit(this.onSubmit)} >
 				<FdTabel 
 					name = "tableData"
-					checkbox ={true}
+					checkbox = {true}
+					batchDel = {true}
 				>
 					<FRow name = "age" label = "年龄" />
 					<FRow name = "name" label = "姓名" />
