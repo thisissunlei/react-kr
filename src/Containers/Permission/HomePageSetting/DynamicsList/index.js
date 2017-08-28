@@ -274,21 +274,22 @@ export default class DynamicsList extends Component{
 						<TableRowColumn name="title"
 							component={(value,oldValue,detail)=>{
 								var maxWidth=10;
-								if(value.length>maxWidth){
+								{/*if(value.length>maxWidth){
 									value = value.substring(0,10)+"...";
-								}
+								}*/}
 								if(!value){
 									value = "-";
 									oldValue = "-";
 								}
 								return (
 									<div  className='tooltipParent'>
-										<a className='tableOver' 
+										<a 
 											onClick = {() =>{
 												this.goDetail(detail)
 											}}
-											src = {detail.linkUrl}>{value}</a>
-										<Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip>
+											src = {detail.linkUrl}>{value}
+										</a>
+										
 									</div>
 								)
 							}}
@@ -300,9 +301,9 @@ export default class DynamicsList extends Component{
 								value = delHtmlTag(value);
 								oldValue = delHtmlTag(oldValue);
 								var tooltip  = '';
-								if(value.length>maxWidth){
+								{/*if(value.length>maxWidth){
 									value = value.substring(0,maxWidth)+"...";
-								}
+								}*/}
 								if(!value){
 									value = "-";
 									oldValue = "-";
@@ -320,9 +321,9 @@ export default class DynamicsList extends Component{
 								value = delHtmlTag(value);
 								oldValue = delHtmlTag(oldValue);
 								var tooltip  = '';
-								if(value.length>maxWidth){
+								{/*if(value.length>maxWidth){
 									value = value.substring(0,maxWidth)+"...";
-								}
+								}*/}
 								if(!value){
 									value = "-";
 									oldValue = "-";
