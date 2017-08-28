@@ -199,8 +199,8 @@ const validate = values =>{
     }
     if(!values.title){
        errors.title='标题为必填项';
-    }else if(values.title.length>20){
-       errors.title='标题不能超过20个字符';
+    }else if(values.title.length>50){
+       errors.title='标题不能超过50个字符';
     }
     if(!values.articleType){
         errors.articleType='文章类型为必填项';
