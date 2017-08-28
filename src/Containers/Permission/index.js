@@ -40,6 +40,9 @@ import {
 import {
 	default as ProcessManage
 } from './ProcessManage';
+import {
+	default as HomePageSetting
+} from './HomePageSetting';
 module.exports = {
 	Home,
 	Basic,
@@ -55,4 +58,5 @@ module.exports = {
 	OpCode,
 	MenuSetting,
 	ProcessManage,
+	...HomePageSetting
 }

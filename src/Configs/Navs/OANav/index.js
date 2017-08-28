@@ -12,27 +12,27 @@ module.exports = [
 				iconColor: '#79859a',
 				menuCode: '',
 				menuItems: [
-					
-				]	
-			}, 
+
+				]
+			},
 			{
 				primaryText: '人事资料',
 				iconName: 'icon-schema',
 				iconColor: '#79859a',
-				menuCode: '',
+				menuCode: 'hrmresourceadmin',
 				menuItems: [
 					{
 						primaryText: '我的卡片',
-						menuCode: '',
-						router: '',
+						menuCode: 'myCard',
+						router: '/oa/personData/0/myCard',
 					},
 					{
 						primaryText: '我的同事',
-						menuCode: '',
-						router: '',
+						menuCode: 'myColleague',
+						router: '/oa/personData/myColleague',
 					},
-				]	
-			}, 
+				]
+			},
 			{
 				primaryText: '人员管理',
 				iconName: 'icon-administrator',
@@ -43,11 +43,11 @@ module.exports = [
 						primaryText: '人员列表',
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/oa/personalManage/peopleState',
-						
+
 					}
 				]
-			}, 
-			
+			},
+
 			{
 				primaryText: '基础配置',
 				iconName: 'icon-basis',
@@ -86,6 +86,7 @@ module.exports = [
 					},
 				]
 			},
+
 			]
 	}
 ]

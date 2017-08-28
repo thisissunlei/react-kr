@@ -20,7 +20,7 @@ import {
 @observer
 
 export default class PaymentRemindTable extends React.Component {
-	
+
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -31,17 +31,17 @@ export default class PaymentRemindTable extends React.Component {
 	}
 
 	componentWillMount(){
-		
 
-		
 
-		
-		
-		
+
+
+
+
+
 	}
 
 	componentWillReceiveProps(nextProps){
-		
+
 		if(!nextProps.sidebarShow){
 			this.setState({
 				tebleWidth : $(window).width()-80
@@ -75,33 +75,33 @@ export default class PaymentRemindTable extends React.Component {
 		}
 
 		// scroll Table表格滚动
-		
+
 		$(".table-box").eq(0).scroll(function(){
-			
+
 			_this.refs.tableHeader.style.left = -$(this).scrollLeft()+1+"px";
 			_this.refs.leftTitleItems.style.marginTop = 41-$(this).scrollTop()+"px";
-			
+
 			// 下拉加载更多……
 			var scrollTopParams = $(this).scrollTop();
 			_this.dropMore(scrollTopParams);
-			
+
 
 		})
 
 	}
 
 	dropMore=(scrollTopParams)=>{
-		
+
 		var documentH = $(".table-items").eq(0).height();
 		var scrollTop = scrollTopParams;
 		var windowH = $(".table-box").eq(0).height()-10;
-		
+
 		if(windowH + scrollTop + 50 >= documentH ){
-			
+
 			if(!State.loading && State.searchParams.page < State.totalPages){
 				State.searchParams.page++;
 				State.getList();
-				
+
 			}else{
 				if(windowH + scrollTop-30  == documentH && !State.loading){
 					this.setState({
@@ -120,9 +120,9 @@ export default class PaymentRemindTable extends React.Component {
 	renderBalance=(item)=>{
 		let _this = this;
 		var timeToday = new Date().getTime();
-		
+
 		if(item.installmentReminddate>timeToday ){
-			
+
 			if(item.installmentBegindate <= timeToday){
 			 	if(item.balance == 0 ){
 					return <span>-</span>
@@ -130,7 +130,7 @@ export default class PaymentRemindTable extends React.Component {
 					return <span>{this.thousands(item.balance)}</span>
 				}
 			}
-			
+
 		}else{
 			if(item.balance == 0 ){
 				return <span>-</span>
@@ -141,7 +141,7 @@ export default class PaymentRemindTable extends React.Component {
 	}
 
 	renderItems=()=>{
-		
+
 		let _this =this;
 		let Items = State.items.map(function(item,index){
 			return (<div className="table-item" key={index}>
@@ -151,7 +151,7 @@ export default class PaymentRemindTable extends React.Component {
 						<div className="contract-list-box">
 							{
 								item.contracts.map((item,index)=>{
-									
+
 									return (
 
 										<div key={index} className="contract-detail-box">
@@ -165,7 +165,7 @@ export default class PaymentRemindTable extends React.Component {
 											<div className="remind-detail-box">
 												{
 													item.plan.map((item,index)=>{
-														
+
 														return(
 															<div key={index} className="remind-detial">
 																<div>{DateFormat(item.installmentReminddate,"yyyy-mm-dd")}</div>
@@ -179,17 +179,17 @@ export default class PaymentRemindTable extends React.Component {
 																		_this.renderBalance(item)
 																	}
 																</div>
-																
+
 															</div>
 														)
-													})	
+													})
 												}
 											</div>
 										</div>
-										
+
 
 									)
-								}) 
+								})
 							}
 						</div>
 					</div>)
@@ -198,10 +198,10 @@ export default class PaymentRemindTable extends React.Component {
 	}
 
 	renderLeftTitle=()=>{
-		
+
 		let leftTitle = State.items.map((item,index)=>{
 			var lengthNum = 0
-			
+
 			for(var i=0;i<item.contracts.length;i++){
 
 				lengthNum = lengthNum+item.contracts[i].plan.length
@@ -233,34 +233,34 @@ export default class PaymentRemindTable extends React.Component {
 
 	thousands=(num)=>{
 
-	    num = num.toString();   
+	    num = num.toString();
 
-	    if(/^-?\d+\.?\d+$/.test(num)){  
-	        if(/^-?\d+$/.test(num)){   
-	            num =num + ",00";   
+	    if(/^-?\d+\.?\d+$/.test(num)){
+	        if(/^-?\d+$/.test(num)){
+	            num =num + ",00";
 	        }else{
-	            num = num.replace(/\./,',');    
+	            num = num.replace(/\./,',');
 	        }
 
-	        while(/\d{4}/.test(num)){ 
-	            
+	        while(/\d{4}/.test(num)){
+
 	            num = num.replace(/(\d+)(\d{3}\,)/,'$1,$2');
 	        }
 
-	        num = num.replace(/\,(\d*)$/,'.$1');   
+	        num = num.replace(/\,(\d*)$/,'.$1');
 	    }
 	    return num;
 	}
-	
 
 
-	
+
+
 	render() {
 		let {tebleWidth,tableHeight,showTotle,isWin}= this.state;
 		return (
 			    <div className="table-index" style={{paddingBottom:20,width:"100%",}}>
 				    <div className="table-index-box">
-				    	
+
 				    	<div  className="table-box" style={{width:tebleWidth,height:tableHeight,border:"solid 1px #eee",overflow:"scroll",boxSizing: "border-box"}} >
 				    		<div className="table-left-title"  ref="tableLeftTitle">
 				    			<div className="table-left-title-header">客户名称</div>
@@ -294,11 +294,11 @@ export default class PaymentRemindTable extends React.Component {
 
 				    		<div className="table-items">
 				    			<div className="table-item-box">
-				    				
+
 			    					{
 			    						this.renderItems()
 			    					}
-				    				
+
 				    			</div>
 				    		</div>
 				    	</div>
@@ -312,4 +312,3 @@ export default class PaymentRemindTable extends React.Component {
 	}
 
 }
-
