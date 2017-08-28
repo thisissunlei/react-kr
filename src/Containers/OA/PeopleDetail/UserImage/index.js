@@ -37,7 +37,7 @@ class UserImageChange  extends React.Component{
                             requireLabel={false}
 														personId={personId}
 														url={url}
-														requestUrl='http://optest02.krspace.cn/api/krspace-erp-web/hrm/resource/upload-photo/type/avatar'
+														requestUrl='http://op.krspace.cn/api/krspace-erp-web/hrm/resource/upload-photo/type/avatar'
 						/>
          </form>
 			</div>
