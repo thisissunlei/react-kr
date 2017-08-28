@@ -10,6 +10,7 @@ import {
 	DateFormat,
 } from "kr/Utils";
 import './index.less';
+import tree from './tree.json';
 export default class Form  extends React.Component{
 
 	constructor(props,context){
@@ -21,15 +22,10 @@ export default class Form  extends React.Component{
 				orgId: '1',
 				orgType: "ROOT",
 			},
-      data: {
-				page: 1,
-				pageSize: 15,
-				orgId: '1',
-				orgType: "ROOT",
-			},
       dimData: [],
       treeData: [],
       searchKey: '',
+      tree:tree
     }
 	}
 
@@ -63,14 +59,10 @@ export default class Form  extends React.Component{
 
   //获取树数据
   getTreeData = () => {
-		const _this = this;
-		Http.request("org-list",{id:1}).then(function (response) {
-			_this.setState({
-				treeData: _this.fnTree([response]),
+      let {tree}=this.state;
+			this.setState({
+				treeData: this.fnTree(tree),
 			});
-		}).catch(function (err) {
-			Message.error(err.message);
-		});
 	}
 
   //递归
@@ -99,12 +91,9 @@ export default class Form  extends React.Component{
 
   //树选择
   onSelect = (data) => {
+    console.log('rrrr',data);
 		var _this = this;
 		this.setState({
-			data:{
-				orgId: data[0].orgId,
-				orgType: data[0].treeType,
-			},
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -176,11 +165,7 @@ export default class Form  extends React.Component{
                  <span>11</span>
                </TabC>
 
-               <TabC label='个人信息'>
-                <h1>asda</h1>
-               </TabC>
-
-               <TabC label='工作信息'>
+               <TabC label='表单列表'>
                 <h1>3344</h1>
                </TabC>
              </TabCs>
