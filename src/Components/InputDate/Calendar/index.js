@@ -77,6 +77,8 @@ export default class Calendar extends React.Component {
 		var ele = ReactDOM.findDOMNode(this);
 		var position = {};
 		var winWidth = window.innerWidth;
+		this.calendarData = this.calendar.getBoundingClientRect();
+		
 		if(ele.getClientRects().length){
 				position = ele.getBoundingClientRect();
 		}
@@ -226,7 +228,13 @@ export default class Calendar extends React.Component {
 		let {year,month,date,openYearSelector,openMonthSelector} = this.state;
 
 		return (
-				<div className="calendar-wrap">
+				<div 
+					className="calendar-wrap"
+					ref = {(ref)=>{
+						this.calendar = ref;
+					}}
+					
+				>
 				<div className="calendar  animated slideInDown" style={{'animationDuration':'0.2s'}}>
 
 					<CalendarInput year={year} month={month} date={date} />

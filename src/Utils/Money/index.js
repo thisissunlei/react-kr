@@ -25,7 +25,7 @@ function Money(props,minus){
     if(canStr){
     	isOk = '-'+isOk;
     }
-    if(minus){
+    if(minus && str[0] === '-' ){
         isOk = isOk.substr(1);
     }
    

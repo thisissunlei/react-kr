@@ -46,21 +46,21 @@ export default class Role extends Component{
 			deleteId:'',
 			//编辑detail
 			detail:[],
-			code:''     
+			code:''
 		}
 	}
-    
 
-    
+
+
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
 			this.getEditData(itemDetail.id);
 			this.setState({
-			  openEditType:true	
+			  openEditType:true
 			})
 		}else if(type=='delete'){
 			this.setState({
-			  openDelete:true,	
+			  openDelete:true,
 			  deleteId:itemDetail.id
 			})
 		}
@@ -89,10 +89,10 @@ export default class Role extends Component{
             pageSize:15
 		  }
 			this.setState({
-				searchParams:obj	
+				searchParams:obj
 			})
 	}
-	
+
 	//新建开关
 	openAddPost=()=>{
       this.setState({
@@ -115,14 +115,14 @@ export default class Role extends Component{
 							time:+new Date(),
 							page:1,
 							pageSize:15
-						}  
+						}
 					})
 					_this.openAddPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
 	}
-	
+
 	//编辑关闭
 	openEditPost=()=>{
        this.setState({
@@ -137,11 +137,11 @@ export default class Role extends Component{
 	   if(params.allotUserId){
 		  params.allotUserId.map((item,index)=>{
 		    id.push(item.orgId);
-	     })  
+	     })
 	   }else{
 		 params.allotUser.map((item,index)=>{
 		    id.push(item.orgId);
-	     })  
+	     })
 	   }
 	   params.allotUserId=id;
        Http.request('role-edit',{},params).then(function(response) {
@@ -151,13 +151,13 @@ export default class Role extends Component{
 							page:_this.state.searchParams.page,
 							pageSize:15,
 							name:_this.state.searchParams.name?_this.state.searchParams.name:""
-						}  
+						}
 					})
 					_this.openEditPost();
         }).catch(function(err) {
           Message.error(err.message);
         });
-		
+
 	}
 
 
@@ -178,14 +178,14 @@ export default class Role extends Component{
 							time:+new Date(),
 							page:1,
 							pageSize:15
-						}  
+						}
 					})
 			_this.cancelDelete();
         }).catch(function(err) {
           Message.error(err.message);
         });
    }
-   
+
    //分页
    pageChange=(page)=>{
 	   var searchParams={
@@ -197,7 +197,7 @@ export default class Role extends Component{
    }
 
 	render(){
-        
+
 		let {detail,code}=this.state;
 
 		return(
@@ -215,7 +215,7 @@ export default class Role extends Component{
 							operateCode="hrm_role_add"
 					/>
 				</Col>
-			        
+
 					<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 								<ListGroup>
 									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入角色名称' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
@@ -246,27 +246,9 @@ export default class Role extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-						<TableRowColumn name="name" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
-						<TableRowColumn name="code" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }}></TableRowColumn>
-						<TableRowColumn name="allotUser" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
+						<TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="code" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="allotUser" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="desc" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
@@ -274,10 +256,10 @@ export default class Role extends Component{
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
-						<TableRowColumn name="operator"></TableRowColumn>
+						<TableRowColumn name="operator" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="time" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-						}}></TableRowColumn>
+						}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn type="operation">
                             <Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_role_edit"/>
 			                {/*<Button label="删除"  type="operation"  operation="delete" />*/}
@@ -295,7 +277,7 @@ export default class Role extends Component{
 					open={this.state.openPostType}
 					contentStyle ={{ width: '685px',height:'auto'}}
 				>
-			  <AddRole 
+			  <AddRole
 			      onSubmit={this.addPostSubmit}
 				  onCancel={this.openAddPost}
 			  />
@@ -308,7 +290,7 @@ export default class Role extends Component{
 					open={this.state.openEditType}
 					contentStyle ={{ width: '685px',height:'auto'}}
 				>
-			  <EditRole 
+			  <EditRole
 			    onSubmit={this.editPostSubmit}
 				onCancel={this.openEditPost}
 				detail={detail}
@@ -325,7 +307,7 @@ export default class Role extends Component{
 			>
 			<DeleteRole
 				onCancel={this.cancelDelete}
-				onSubmit={this.deleteSubmit}  	
+				onSubmit={this.deleteSubmit}
 			/>
 			</Dialog>
         </div>

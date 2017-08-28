@@ -27,13 +27,18 @@ let State = observable({
 
 
 const ForEachMenuItemPermission = function (childItem, parentItem, topItem, menusCode) {
-
 	if (childItem.hasOwnProperty('menuCode') && menusCode.indexOf(childItem.menuCode) !== -1) {
 		childItem.isPermission = true;
 		parentItem.isPermission = true;
 		topItem.isPermission = true;
 	} else if (childItem.hasOwnProperty('menuCode') && menusCode.indexOf(childItem.menuCode) == -1) {
-		childItem.isPermission = false;
+		if(childItem.menuCode=='myCard'||childItem.menuCode=='myColleague'){
+			childItem.isPermission = true;
+			parentItem.isPermission = true;
+			topItem.isPermission = true;
+		}else{
+			childItem.isPermission = false;
+		}
 	}
 
 	if (typeof childItem === 'object' && childItem.hasOwnProperty('menuItems')) {

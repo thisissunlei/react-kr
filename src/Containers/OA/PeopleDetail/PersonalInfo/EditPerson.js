@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	KrField,
     Grid,
     Col,
@@ -66,7 +66,7 @@ class EditPerson  extends React.Component{
                             label="出生日期"
                             requireLabel={true}
 						/>
-                        
+
                         <KrField grid={1/2}
                             style={{width:262}}
                             name="constellation"
@@ -74,7 +74,7 @@ class EditPerson  extends React.Component{
                             label="星座"
                             otherType="temployees"
 						/>
-                        
+
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="bloodType"
@@ -90,7 +90,7 @@ class EditPerson  extends React.Component{
                             requireLabel={true}
                             otherType="nation"
 						/>
-                        
+
 
                         <KrField grid={1/2}
 								style={{width:262,marginLeft:28}}
@@ -194,7 +194,7 @@ class EditPerson  extends React.Component{
                             component="input"
                             label="微信号"
 						/>
-                        
+
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="personPhone"
@@ -209,7 +209,7 @@ class EditPerson  extends React.Component{
                             component="input"
                             label="身高(cm)"
 						/>
-                        
+
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="weight"
@@ -224,7 +224,7 @@ class EditPerson  extends React.Component{
                             label="健康状况"
                             otherType="healthyStatus"
 						/>
- 
+
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:28}}
                             name="maritalStatus"
@@ -256,7 +256,7 @@ class EditPerson  extends React.Component{
                             label="紧急联系人关系"
                             otherType="resourceRelation"
 						/>
- 
+
 
 
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
@@ -282,52 +282,52 @@ const validate = values =>{
     let ph=/^\d{3}-\d{7,8}|\d{4}-\d{7,8}$/;
 
     if(!values.idCard){
-      errors.idCard='请填写身份证号';  
+      errors.idCard='请填写身份证号';
     }
 
     if(!values.birthday){
-      errors.birthday='请填写出生日期';  
+      errors.birthday='请填写出生日期';
     }
 
     if(!values.nation){
-      errors.nation='请填写名族';  
+      errors.nation='请填写名族';
     }else if(values.nation.length>10){
-        errors.nation='名族最多十个字符';  
+        errors.nation='名族最多十个字符';
     }
 
     if(!values.nativePlace){
-      errors.nativePlace='请填写籍贯';  
+      errors.nativePlace='请填写籍贯';
     }else if(values.nativePlace.length>10){
-        errors.nativePlace='籍贯最多十个字符';  
+        errors.nativePlace='籍贯最多十个字符';
     }
 
     if(!values.personPhone){
-      errors.personPhone='请填写联系电话';  
+      errors.personPhone='请填写联系电话';
     }else if(!phone.test(values.personPhone.toString().trim())&&!ph.test(values.personPhone.toString().trim())){
-       errors.personPhone='请填写正确联系人电话';   
+       errors.personPhone='请填写正确联系人电话';
     }
 
     if(!values.emergencyContact){
-      errors.emergencyContact='请填写紧急联系人姓名';  
+      errors.emergencyContact='请填写紧急联系人姓名';
     }else if(values.emergencyContact.length>10){
-        errors.emergencyContact='紧急联系人姓名最多十个字符';  
+        errors.emergencyContact='紧急联系人姓名最多十个字符';
     }
 
     if(!values.emergencyPhone){
-      errors.emergencyPhone='请填写紧急联系人电话';  
+      errors.emergencyPhone='请填写紧急联系人电话';
     }else if(!phone.test(values.emergencyPhone.toString().trim())&&!ph.test(values.emergencyPhone.toString().trim())){
-       errors.emergencyPhone='请填写正确紧急联系人电话';   
+       errors.emergencyPhone='请填写正确紧急联系人电话';
     }
 
     if(values.height&&isNaN(values.height)){
-       errors.height='请输入数字'  
+       errors.height='请输入数字'
     }
 
     if(values.weight&&isNaN(values.weight)){
-       errors.weight='请输入数字'  
+       errors.weight='请输入数字'
     }
 
-    
+
 	return errors
 }
 

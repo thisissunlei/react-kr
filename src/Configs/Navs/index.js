@@ -32,6 +32,7 @@ import SmartHardware from './SmartHardware';
 // import PowerNav from './PowerNav';
 // import WebBackstageNav from './WebBackstageNav';
 
+
 const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware);
 
 module.exports = {

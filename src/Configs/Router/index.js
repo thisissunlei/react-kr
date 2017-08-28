@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
     Router,
@@ -32,6 +33,8 @@ import OfficeRouter from './OfficeRouter';
 import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
 import SmartHardware from './SmartHardware';
+import HomeRouter from './HomeRouter';
+import PublicPageRouter from './PublicPageRouter';
 import SynchronizationRouter from './SynchronizationRouter';
 
 
@@ -43,8 +46,8 @@ const Master = (location, callback) => {
 
 const Welcome = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/Welcome').default)
-  }, 'Welcome')
+    callback(null, require('kr/Containers/Home').default)
+  }, 'Home')
 }
 
 const Help = (location, callback) => {
@@ -65,8 +68,6 @@ const Undefined = (location, callback) => {
     callback(null, require('kr/Containers/Undefined').default)
   }, 'Undefined')
 }
-
-
 
 export default (
 
@@ -123,6 +124,11 @@ export default (
         
         {/*智能硬件*/}
         {SmartHardware()}
+
+        {/*OA主页*/}
+        {HomeRouter()}
+        
+        {PublicPageRouter()}
 
         {SynchronizationRouter()}
 
