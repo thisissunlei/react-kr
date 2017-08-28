@@ -54,6 +54,21 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           onClick={() => fields.remove(index)}/>
       </li>
     )}
+    <KrField
+          style={{width:262,marginLeft:15}}
+          grid={1/2}
+          name="discount"
+          component="input"
+          label="活动名称"/>
+    <div className="krFlied-box"><KrField
+          style={{width:153,marginLeft:30,marginRight:3}}
+          grid={1/2}
+          name="discountPrice"
+          type="text"
+          component={renderField}
+          label="活动优惠价格"/>
+          <span className="unit">元/工位/月</span>
+    </div>
   </ul>
 
  )
@@ -290,9 +305,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 <KrField grid={1} label="特色服务" name="specialServcie" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入特色服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="交通" name="traffic"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="周边" name="arround" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
-
-
-                                   <div className='web-page-box'> <KrField
+                               
+                                   <div className='web-page-box'> <KrField 
                                          name="pageImageId"
                                          component="uploadImage"
                                          requestUrl='/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
@@ -407,6 +421,14 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             }
             if(!values.traffic){
               errors.traffic='请填写交通'
+            }
+            
+            if(values.discount&&values.discount.length>10){
+              errors.discount='最多输入10个字符'
+            }
+
+            if(values.discountPrice&&values.discountPrice.length>5){
+              errors.discountPrice='最多输入5个字符'
             }
 
 
