@@ -286,7 +286,7 @@ export default class Home extends React.Component {
 										氪空间官网
 									</div>
 								</a>
-								<a className="apply-item" href="https://baoxiao.corp.36kr.com/" target="_blank">
+								<a className="apply-item" href="http://bbs.corp.36kr.com" target="_blank">
 									<div className="pic" style={{height:this.applyItemWidth}}>
 
 									</div>
@@ -294,7 +294,7 @@ export default class Home extends React.Component {
 										氪星小镇
 									</div>
 								</a>
-								<a className="apply-item" href="http://bbs.corp.36kr.com" target="_blank">
+								<a className="apply-item" href="https://baoxiao.corp.36kr.com/" target="_blank">
 									<div className="pic" style={{height:this.applyItemWidth}}>
 
 									</div>
