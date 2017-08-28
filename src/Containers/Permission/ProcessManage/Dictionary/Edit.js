@@ -21,7 +21,7 @@ import State from './State';
 import './index.less';
 
 @observer
-class NewCreateForm extends React.Component{
+class EditForm extends React.Component{
 	constructor(props){
 		super(props);
 
@@ -33,7 +33,8 @@ class NewCreateForm extends React.Component{
 		}
 	}
 	componentWillMount() {
-		Store.dispatch(change('NewCreateForm','type','1'));
+		Store.dispatch(initialize('EditForm',State.data));
+
 
 		
 	}
@@ -41,7 +42,7 @@ class NewCreateForm extends React.Component{
 		console.log('value',value)
 	}
 	onCancel=()=>{
-		State.openCreate = false;
+		State.closeAll();
 	}
 
 	render(){
@@ -52,7 +53,7 @@ class NewCreateForm extends React.Component{
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div className="title-box">
 						<img src={require('./images/activity.svg')} className="title-img"/>
-						<span className="title-text">新建公共字典</span>
+						<span className="title-text">编辑公共字典</span>
 						<span className="close-page" onClick={this.onCancel}>
 							<img src={require('./images/closeIMG.svg')} className="close-page-img" />
 						</span>
@@ -99,7 +100,7 @@ const validate = values => {
 	return errors
 }
 
-export default NewCreateForm = reduxForm({
-	form: 'NewCreateForm',
+export default EditForm = reduxForm({
+	form: 'EditForm',
 	validate,
-})(NewCreateForm);
+})(EditForm);

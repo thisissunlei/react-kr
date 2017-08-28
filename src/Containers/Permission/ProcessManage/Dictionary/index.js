@@ -30,11 +30,11 @@ import {
 } from 'kr-ui'; 
 
 
-// import EditDialog from './Editdialog';
+import Edit from './Edit';
 // import Viewdialog from './Viewdialog';
 import Create from './Create';
+import View from './View';
 import State from './State';
-
 import './detail.less';
 
 // @inject("NavModel")
@@ -50,18 +50,22 @@ export default class ProcessSetting extends React.Component {
 	}
 
 	closeAll=()=>{
-		State.openCreate = false;
+		State.closeAll()
 	}
 
 	openNewCreate=()=>{
 		State.openCreate = true;
+	}
+	lookClick=(item)=>{
+		console.log(item)
+		State.showView(item);
 	}
 
   
 	render() {
 		return (
 			<div className="g-process-setting">
-				<Section title="公共字典" >
+				<Section title="公共字典列表" >
 				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 					<Button label="新建" operateCode="main_activity_add" onTouchTap={this.openNewCreate} />
 					<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach"/>
@@ -137,9 +141,12 @@ export default class ProcessSetting extends React.Component {
 			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='phone' component={(value,oldValue)=>{
 			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
 			 					}}></TableRowColumn>
-			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='phone' component={(value,oldValue)=>{
-			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
-			 					}}></TableRowColumn>
+			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='phone' component={(value,oldValue,itemData)=>{
+			 							return (
+					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,itemData)}/>
+			 							)
+			 					}}>
+			 					</TableRowColumn>
 				               </TableRow>
 				        </TableBody>
 				        <TableFooter></TableFooter>
@@ -150,6 +157,18 @@ export default class ProcessSetting extends React.Component {
 					onClose={this.closeAll}
 					containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
 					<Create />
+				</Drawer>
+				<Drawer open={State.openView} 
+					width={700} openSecondary={true} 
+					onClose={this.closeAll}
+					containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
+					<View />
+				</Drawer>
+				<Drawer open={State.openEdit} 
+					width={700} openSecondary={true} 
+					onClose={this.closeAll}
+					containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
+					<Edit />
 				</Drawer>
 				</Section>
 			</div>
