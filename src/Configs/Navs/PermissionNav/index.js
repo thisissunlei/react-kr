@@ -14,7 +14,7 @@ module.exports = [
 			},
 			{
 				primaryText: "账户管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-accountAdmin',
 				iconColor: '#79859a',
 				router: 'accountManage',
 				menuItems: [{
@@ -27,7 +27,7 @@ module.exports = [
 			
 			{
 				primaryText: "权限管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-permissions',
 				iconColor: '#79859a',
 				router: 'permission/user',
 				menuItems: [{
@@ -51,7 +51,7 @@ module.exports = [
 			},
 			{
 				primaryText: "日志管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-theLog',
 				iconColor: '#79859a',
 				router: 'permission/systemManage',
 				menuItems: [
@@ -72,7 +72,7 @@ module.exports = [
 			},
 			{
 				primaryText: "系统管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-systems',
 				iconColor: '#79859a',
 				router: 'permission/systemManage',
 				menuItems: [
@@ -117,7 +117,7 @@ module.exports = [
 				]
 			},{
 				primaryText: "流程管理",
-				iconName: 'icon-wendang',
+				iconName: 'icon-process',
 				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',
 				menuItems: [
@@ -137,7 +137,7 @@ module.exports = [
 
 			{
 				primaryText: "知识中心",
-				iconName: 'icon-wendang',
+				iconName: 'icon-knowledge',
 				iconColor: '#79859a',
 				router: '',
 				menuItems: [
@@ -170,7 +170,7 @@ module.exports = [
 			},
 			{
 				primaryText: '首页配置',
-				iconName: 'icon-basis',
+				iconName: 'icon-home-setting',
 				menuCode: 'hrmbasedataadmin',
 				iconColor: '#79859a',
 				menuItems: [
