@@ -18,6 +18,7 @@ import {
 	Http
 } from "kr/Utils";
 import './index.less';
+import UpdateLog from '../UpdateLog';
 import { observer, inject } from 'mobx-react';
 
 @inject("NavModel")
@@ -339,6 +340,7 @@ export default class Home extends React.Component {
 					
 					
 				</div>
+				<UpdateLog />
       </div>
     );
   }
