@@ -1,31 +1,15 @@
 [
-  {
-  "children":[
     {
-      "children":[],
       "orgId":1,
-      "orgName":"人事类",
-      "pId":0,
-      "treeType":"SUBCOMPANY"
+      "orgName":"人事类"
     },
     {
-      "children":[],
       "orgId":2,
-      "orgName":"财务类",
-      "pId":0,
-      "treeType":"SUBCOMPANY"
+      "orgName":"财务类"
     },
     {
-      "children":[],
       "orgId":3,
-      "orgName":"行政类",
-      "pId":0,
-      "treeType":"SUBCOMPANY"
+      "orgName":"行政类"
     }
-  ],
-  "orgId":1,
-  "orgName":"全部类型",
-  "pId":0,
-  "treeType":"ROOT"
-}
+    
 ]
