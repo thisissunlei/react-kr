@@ -95,6 +95,25 @@ export default class FailList extends React.Component {
 		searchList.status = '0';
 		State.getJournalList(this.props.searchList);
 	}
+	getRole=(roleId)=>{
+		let roleName ;
+		let role = {CUSTOMER:'客户',
+					MEMBER:'会员',
+					FINANCE:'合同',
+					RECEIVABLES:'应收账款',
+					DEPOSIT_RECEIVED:'预收账款',
+					DEPARTMENT:'部门',
+					SUBCOMPANY:'分部',
+					RESOURCE:'人员',
+					HRM_ROLE:'人员角色',
+					HRM_ROLE_RESOURCE:'人员角色关系'};
+		if(role.hasOwnProperty(roleId)){
+			roleName = role[roleId]
+		}
+		console.log(roleId,role.hasOwnProperty(roleId),role[roleId])
+		return roleName;
+	
+	}
 	
 
 	render() {
@@ -123,7 +142,7 @@ export default class FailList extends React.Component {
 		              		return (
 								<TableRow key={index}>
 				              		 <TableRowColumn style={{width:100}}>
-				              		 	{item.mainName}
+				              		 	{this.getRole(item.mainId)}
 				              		 </TableRowColumn >
 				              		 <TableRowColumn style={{width:100}}>
 				              		 	{DateFormat(item.syncTime,'yyyy/mm/dd')}
