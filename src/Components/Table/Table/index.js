@@ -93,7 +93,8 @@ export default class Table extends React.Component {
 		}
 
 		this.maxRows = 1000;
-
+		this.exportRows = [];
+		this.exportData = [];
 
 		let {
 			initialValues
@@ -107,26 +108,30 @@ export default class Table extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+		
 		if (!ShallowEqual(this.props.ajaxParams, nextProps.ajaxParams)) {
 			this.setState({
 				isLoaded: false
 			});
+		
 			var page = nextProps.ajaxParams.page || 1;
-			
+
 			this.onLoadData(page, nextProps.ajaxParams);
 		}
 
 		if (nextProps.page != this.props.page) {
+			
 			this.setState({
 				page: nextProps.page
 			});
 		}
 
 		if (nextProps.loading != this.props.loading) {
+			
 			this.setState({
 				loading: nextProps.loading
 			});
-			
+
 			this.onLoadData(1, nextProps.ajaxParams);
 		}
 
@@ -171,7 +176,7 @@ export default class Table extends React.Component {
 		if (onProcessData) {
 			state = onProcessData(state);
 		}
-		
+
 		return state;
 	}
 
@@ -187,7 +192,7 @@ export default class Table extends React.Component {
 				state.response.items[i].identifier=i+1;
 			}
 		}
-		
+
 		state.selectedRows = defaultSelectedRows;
 
 		state = this.onProcessData(state);
@@ -215,6 +220,7 @@ export default class Table extends React.Component {
 	}
 
 	onPageChange=(page)=> {
+		
 
 		const {
 			onPageChange
@@ -263,7 +269,9 @@ export default class Table extends React.Component {
 				exportData.push(listData[item]);
 			}
 		});
-
+		this.exportRows = exportRows;
+		this.exportData = exportData;
+		console.log("--------ppppp")
 		onExport && onExport(exportData, exportRows);
 
 	}
@@ -291,6 +299,7 @@ export default class Table extends React.Component {
 
 
 		Http.request(ajaxUrlName, ajaxParams).then(function(response) {
+			
 			_this.onInitial({
 				response: response,
 				listData: response[_this.props.ajaxFieldListName],
@@ -358,6 +367,7 @@ export default class Table extends React.Component {
 			fold,
 			foldSize
 		} = this.props;
+		
 
 		var visibilityRows = new Array(this.maxRows + 1).join(1);
 

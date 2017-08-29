@@ -15,14 +15,14 @@ import WrapComponent from '../WrapComponent';
 import PropTypes from 'prop-types'
 export default class UploadImageComponent extends Component {
 	static defaultProps = {
-			
+
 	}
 
 
 	static propTypes = {
 		className : PropTypes.string,
 		onDeleteImg : PropTypes.func,
-		
+
 	}
 	constructor(props,context){
 		super(props,context);

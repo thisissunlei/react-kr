@@ -16,6 +16,7 @@ import Office from './Office';
 import Statistical from './Statistical';
 import WebBackstage from './WebBackstage';
 import UpdateLog from './UpdateLog';
+import Home from './Home';
 import Synchronization from './Synchronization';
 
 module.exports = {

@@ -12,6 +12,7 @@ import Map from './Map';
 import  Mouse from './Mouse';
 import Baidu from './Baidu';
 import PublicFn from './PublicFn';
+import clamp from './Clamp';
 import Money from './Money';
 
 module.exports = {
@@ -28,6 +29,7 @@ module.exports = {
 	DateFormat,
 	Mouse,
 	Baidu,
-	...PublicFn
+	...PublicFn,
+	clamp
 
 }
