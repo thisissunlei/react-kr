@@ -82,6 +82,8 @@ import UpMerchantsSource from './UpMerchantsSource';
 import UpSignedClientSource from './UpSignedClientSource';
 import SearchProcessType from './SearchProcessType';
 import SearchRole from './SearchRole';
+import TableComponent from './TableComponent';
+
 
 
 
@@ -538,6 +540,12 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchRole}  style={WrapStyles} {...other}/>
 				);
 			}
+			if (component === 'table') {
+				return (
+					<TableComponent {...this.props} style={WrapStyles}/>
+				);
+			}
+			
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);

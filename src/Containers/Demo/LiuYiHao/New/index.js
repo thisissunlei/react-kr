@@ -9,6 +9,7 @@ import {
 } from 'kr/Utils'
 import {reduxForm} from 'redux-form';
 import EditTable from './EditTable';
+import EditFiled from './EditFiled'
 class New extends React.Component {
 
 
@@ -38,7 +39,7 @@ class New extends React.Component {
 				  </TabC> 
 
 				  <TabC label='个人信息'>
-					 <h1>asda</h1>
+				  	  <EditFiled />
 				  </TabC>
 
 				  <TabC label='工作信息'>

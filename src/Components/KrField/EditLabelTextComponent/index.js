@@ -60,6 +60,99 @@ export default class InputComponent extends React.Component {
 	componentDidMount() {
 
 	}
+	initRender = () =>{
+
+		let {
+			input,
+			label,
+			type,
+			requireLabel,
+			disabled,
+			placeholder,
+			style,
+			inline,
+			alignRight,
+			simple,
+			heightStyle,
+			tooltip,
+			editType,
+			...other
+		} = this.props;
+		let className = '';
+		return (
+			<div>
+				{!this.state.editOpen && 
+					<span 
+						className="edit" 
+						onTouchTap={this.onEdit}
+					></span>
+				}
+				{this.state.editOpen 
+					&& 
+					<input 
+						id="focus" 
+						onBlur={this.onSave} 
+						className={className}  
+						defaultValue={this.state.oldtext}  
+					/>}
+				<span className="editContent">
+				<span  className="ui-label-text" data-tip data-for={`${tooltip}`}>
+					<ReactTooltip id={`${tooltip}`}>
+						<p style={{margin:0}}>{this.state.oldtext}</p>
+					</ReactTooltip>
+					<span className="contract">{this.state.oldtext}</span>
+				</span>
+				</span>
+						
+			</div>
+		)
+	}
+	tableReader = () =>{
+		let {
+			input,
+			label,
+			type,
+			requireLabel,
+			disabled,
+			placeholder,
+			style,
+			inline,
+			alignRight,
+			simple,
+			heightStyle,
+			tooltip,
+			editType,
+			...other
+		} = this.props;
+		let className = '';
+		return (
+			<div className = "tabel-edit">
+				{!this.state.editOpen && 
+					<span 
+						className="edit" 
+						onTouchTap={this.onEdit}
+					></span>
+				}
+				{this.state.editOpen 
+					&& 
+					<input 
+						id="focus" 
+						
+						className={`left-to-right-show ${className}`}  
+						defaultValue={this.state.oldtext}  
+					/>}
+				<span className="editContent">
+				<span  className="ui-label-text" data-tip data-for={`${tooltip}`}>
+					<ReactTooltip id={`${tooltip}`}>
+						<p style={{margin:0}}>{this.state.oldtext}</p>
+					</ReactTooltip>
+					<span className="contract">{this.state.oldtext}</span>
+				</span>
+				</span>
+						
+			</div>
+		)
+	}
 
 	render() {
 		let {
@@ -75,6 +168,7 @@ export default class InputComponent extends React.Component {
 			simple,
 			heightStyle,
 			tooltip,
+			editType,
 			...other
 		} = this.props;
 		let className = '';
@@ -83,18 +177,8 @@ export default class InputComponent extends React.Component {
 		return (
 			<WrapComponent  label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
 					
-						{!this.state.editOpen && <span className="edit" onTouchTap={this.onEdit}></span>}
-						{this.state.editOpen && <input id="focus" onBlur={this.onSave} className={className}  defaultValue={this.state.oldtext}  />}
-						<span className="editContent">
-						<span  className="ui-label-text" data-tip data-for={`${tooltip}`}>
-							<ReactTooltip id={`${tooltip}`}>
-								<p style={{margin:0}}>{this.state.oldtext}</p>
-							</ReactTooltip>
-							<span className="contract">{this.state.oldtext}</span>
-						</span>
-						</span>
 						
-
+				{editType == "tableEdit" ? this.tableReader() : this.initRender()}
 
 
 				</WrapComponent>

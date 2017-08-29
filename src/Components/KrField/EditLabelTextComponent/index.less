@@ -4,6 +4,7 @@
   display: inline-block;;
   width: 18px;
   height: 18px;
+  
   vertical-align: middle;
   margin-right: 10px;
   positoion:relative;
@@ -45,4 +46,56 @@
   .__react_component_tooltip{
       padding:4px 21px !important;
     }
+}
+.tabel-edit{
+  .edit{
+    background:url(images/tabel-edit.svg) no-repeat left;
+    background-size: 18px 18px;
+    display: inline-block;;
+    width: 18px;
+    height: 18px;
+    
+    vertical-align: middle;
+    margin-right: 10px;
+    positoion:relative;
+  }
+  #focus{
+    background:url(images/edit.svg) no-repeat left center;
+    background-size: 18px 18px;
+    background-position: 0px 5px;
+    width: 100%;
+    height: 19px;
+    border: none;
+    padding: 0;
+    padding-bottom: 1px;
+    font-size: 14px;
+    outline: none;
+    border-bottom: 1px solid #cccccc;
+    overflow: hidden;
+    padding-left: 30px;
+   
+    
+  }
+  .left-to-right-show{
+      -webkit-animation: leftToRight 3s both;
+    animation: leftToRight 3s both;
+  }
+  .editContent{
+    display: block;
+    .ui-label-text{
+      height: 30px;
+      line-height: 30px;
+      padding-left: 5px;
+      .contract{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 0px;
+        line-height: 20px;
+        height: 20px;
+        vertical-align: middle;
+        display: inline-block;
+      }
+    }
+  }
 }
