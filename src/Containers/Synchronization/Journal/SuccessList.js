@@ -113,7 +113,7 @@ export default class FailList extends React.Component {
 										TooltipStyle="block";
 									}
 									console.log(this.getRole(oldValue));
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{this.getRole(oldValue)}</span>
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{this.getRole(oldValue)}</span>
 									 	<Tooltip offsetTop={5} place='top' >{this.getRole(oldValue)}</Tooltip></div>)
 								 }}
 		              		 ></TableRowColumn>
