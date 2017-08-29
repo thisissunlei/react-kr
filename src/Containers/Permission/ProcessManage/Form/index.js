@@ -11,6 +11,7 @@ import {
 } from "kr/Utils";
 import './index.less';
 import TypeList from './TypeList';
+import FormList from './FormList';
 import tree from './tree.json';
 export default class Form  extends React.Component{
 
@@ -173,14 +174,16 @@ export default class Form  extends React.Component{
                  children.map((item,index)=>{
                    return <TabC label={item.orgName}>
                             <TypeList
-                              item={item}
+                              id={item.orgId}
                             />
                           </TabC>
                  })
                 }
 
                  <TabC label='表单列表'>
-                   <h1>3344</h1>
+                   <FormList
+                     
+                   />
                  </TabC>
 
              </TabCs>

@@ -37,8 +37,7 @@ export default class TypeList extends Component{
 		super(props, context);
 		this.state={
 			searchParams : {
-        orgId:this.props.item.orgId,
-        orgType:this.props.item.treeType
+        orgId:this.props.orgId,
       },
 			other:"",
 		}
