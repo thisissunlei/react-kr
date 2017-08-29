@@ -60,6 +60,25 @@ export default class FailList extends React.Component {
 			})
 		}
 	}
+	getRole=(roleId)=>{
+		let roleName ;
+		let role = {CUSTOMER:'客户',
+					MEMBER:'会员',
+					FINANCE:'合同',
+					RECEIVABLES:'应收账款',
+					DEPOSIT_RECEIVED:'预收账款',
+					DEPARTMENT:'部门',
+					SUBCOMPANY:'分部',
+					RESOURCE:'人员',
+					HRM_ROLE:'人员角色',
+					HRM_ROLE_RESOURCE:'人员角色关系'};
+		if(role.hasOwnProperty(roleId)){
+			roleName = role[roleId]
+		}
+		console.log(roleId,role.hasOwnProperty(roleId),role[roleId])
+		return roleName;
+	
+	}
 	
 
 	render() {
@@ -85,7 +104,7 @@ export default class FailList extends React.Component {
 		              <TableBody>
 		              	<TableRow>
 		              		 <TableRowColumn 
-		              		 	name="mainName"
+		              		 	name="mainId"
 		              		 	component={(value,oldValue)=>{
 									var TooltipStyle=""
 									if(value.length==""){
@@ -93,8 +112,9 @@ export default class FailList extends React.Component {
 									}else{
 										TooltipStyle="block";
 									}
-									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-									 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
+									console.log(this.getRole(oldValue));
+									 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{this.getRole(oldValue)}</span>
+									 	<Tooltip offsetTop={5} place='top' >{this.getRole(oldValue)}</Tooltip></div>)
 								 }}
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
