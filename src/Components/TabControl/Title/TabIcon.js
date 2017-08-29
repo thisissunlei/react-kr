@@ -9,28 +9,38 @@ export default class TabIcon extends React.Component {
         this.init ='tabs-icon-init';
         this.active ='tabs-icon-active';
 	}
-  
+
     titleClick = (label,index) =>{
         this.setState({
             active:index
         })
         const {onSubmit} = this.props;
         onSubmit && onSubmit(label,index)
-        
+
     }
     titleRender = () =>{
         const {labels} = this.props;
+        var label=[];
+        labels.map((item,index)=>{
+          if(typeof item == 'object'){
+            for(var index in item){
+              label.push(item[index]);
+            }
+          }else{
+             label.push(item);
+          }
+        })
         const {active} = this.state;
         const _this=this;
-        let titles = labels.map((item,index)=>{
+        let titles = label.map((item,index)=>{
             let defaultStyel = index==active ?_this.active:_this.init;
-            return (<span 
-                   
-                        key = {index} 
+            return (<span
+
+                        key = {index}
                         onClick = {()=>{
                             this.titleClick(item,index);
                         }}
-                    
+
                         className={defaultStyel}
                         style = {{
                             marginLeft:index==0 ? 0 : 7
@@ -39,7 +49,7 @@ export default class TabIcon extends React.Component {
                         {item}
                     </span>)
         })
-        
+
         return titles;
     }
 	render() {
@@ -48,11 +58,11 @@ export default class TabIcon extends React.Component {
             <div
                 className = "tabs-title-icon"
             >
-                 <div className = "icon">{label && label.substring(0,2)}</div> 
+                 <div className = "icon">{label && label.substring(0,2)}</div>
                  <div className = "content">
                      <div className = "title-text">{label}</div>
                      <div className = "title-content">
-                         {this.titleRender()}   
+                         {this.titleRender()}
                      </div>
 
                  </div>

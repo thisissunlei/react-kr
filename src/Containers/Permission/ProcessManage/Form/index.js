@@ -10,6 +10,7 @@ import {
 	DateFormat,
 } from "kr/Utils";
 import './index.less';
+import TypeList from './TypeList';
 import tree from './tree.json';
 export default class Form  extends React.Component{
 
@@ -22,7 +23,14 @@ export default class Form  extends React.Component{
 				orgId: '1',
 				orgType: "ROOT",
 			},
-      orgName:'',
+      //tab
+      data:{
+        children:[],
+        orgId:1,
+        orgName:"全部类型",
+        pId:0,
+        treeType:"ROOT"
+      },
       dimData: [],
       treeData: [],
       searchKey: '',
@@ -30,6 +38,9 @@ export default class Form  extends React.Component{
     }
 	}
 
+  componentWillMount(){
+    this.getTreeData();
+  }
 
   componentDidMount() {
 		/*const { NavModel } = this.props;
@@ -45,7 +56,6 @@ export default class Form  extends React.Component{
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 
-		this.getTreeData();
 		/*setTimeout(function() {
 		   _this.setState({
 			 isLeave :checkOperate("hrm_resource_dimission"),
@@ -63,6 +73,7 @@ export default class Form  extends React.Component{
       let {tree}=this.state;
 			this.setState({
 				treeData: this.fnTree(tree),
+        data:this.fnTree(tree)[0]
 			});
 	}
 
@@ -92,7 +103,6 @@ export default class Form  extends React.Component{
 
   //树选择
   onSelect = (data) => {
-    console.log('rrrr',data);
 		var _this = this;
 		this.setState({
 			searchParams: {
@@ -101,7 +111,7 @@ export default class Form  extends React.Component{
 				orgId: data[0].orgId,
 				orgType: data[0].treeType,
 			},
-      orgName:data[0].orgName
+      data:data[0]
 		},function(){
 			_this.getOrganizationDetail();
 		});
@@ -127,6 +137,7 @@ export default class Form  extends React.Component{
 	}
 
 
+
 	render(){
 
     let {styleBool,
@@ -135,8 +146,18 @@ export default class Form  extends React.Component{
         dimData,
         treeData,
         searchKey,
-        orgName
+        data
     }=this.state;
+
+    var children=[];
+    if(data.children.length==0){
+      children=[data];
+    }else{
+      for(var index in data.children){
+          children.push(data.children[index])
+      }
+    }
+
 
 		return(
 
@@ -162,15 +183,22 @@ export default class Form  extends React.Component{
           <div className='right-center'>
             <TabCs
                  isDetail='iconTab'
-                 label = {orgName}
+                 label = {data.orgName}
                  >
-               <TabC label='基本信息'>
-                 <span>11</span>
-               </TabC>
+                 {
+                 children.map((item,index)=>{
+                   return <TabC label={item.orgName}>
+                            <TypeList
+                              item={item}
+                            />
+                          </TabC>
+                 })
+                }
 
-               <TabC label='表单列表'>
-                <h1>3344</h1>
-               </TabC>
+                 <TabC label='表单列表'>
+                   <h1>3344</h1>
+                 </TabC>
+
              </TabCs>
           </div>
 				</div>
