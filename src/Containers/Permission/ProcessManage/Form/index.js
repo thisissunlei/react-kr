@@ -10,6 +10,8 @@ import {
 	DateFormat,
 } from "kr/Utils";
 import './index.less';
+import TypeList from './TypeList';
+import FormList from './FormList';
 import tree from './tree.json';
 export default class Form  extends React.Component{
 
@@ -20,9 +22,14 @@ export default class Form  extends React.Component{
 				page: 1,
 				pageSize: 15,
 				orgId: '1',
-				orgType: "ROOT",
 			},
-      orgName:'',
+      //tab
+      data:[{
+        children:[],
+        orgId:0,
+        orgName:"全部类型",
+        treeType:"top"
+      }],
       dimData: [],
       treeData: [],
       searchKey: '',
@@ -30,6 +37,9 @@ export default class Form  extends React.Component{
     }
 	}
 
+  componentWillMount(){
+    this.getTreeData();
+  }
 
   componentDidMount() {
 		/*const { NavModel } = this.props;
@@ -45,7 +55,6 @@ export default class Form  extends React.Component{
 			_this.setState({ dimData: response.items })
 		}).catch(function (err) { });
 
-		this.getTreeData();
 		/*setTimeout(function() {
 		   _this.setState({
 			 isLeave :checkOperate("hrm_resource_dimission"),
@@ -60,10 +69,14 @@ export default class Form  extends React.Component{
 
   //获取树数据
   getTreeData = () => {
-      let {tree}=this.state;
+      let {tree,data}=this.state;
+      data[0].children=tree;
 			this.setState({
-				treeData: this.fnTree(tree),
-			});
+				treeData: this.fnTree(data),
+        data:this.fnTree(data)[0]
+			},function(){
+        console.log('treeData',this.state.treeData);
+      });
 	}
 
   //递归
@@ -71,7 +84,11 @@ export default class Form  extends React.Component{
 		let key = 0;
 		var arr = data.map((item,index)=>{
 			var obj = Object.assign({},item);
-			if(obj.children.length!=0){
+      if(!obj.children){
+        obj.children=[];
+        obj.treeType='single';
+      }
+      if(obj.children.length!=0){
 				obj.children = this.fnTree(obj.children);
 			}
 			obj.isClick = true;
@@ -92,39 +109,18 @@ export default class Form  extends React.Component{
 
   //树选择
   onSelect = (data) => {
-    console.log('rrrr',data);
 		var _this = this;
 		this.setState({
 			searchParams: {
 				page: 1,
 				pageSize: 15,
 				orgId: data[0].orgId,
-				orgType: data[0].treeType,
 			},
-      orgName:data[0].orgName
-		},function(){
-			_this.getOrganizationDetail();
+      data:data[0]
 		});
 
 	}
 
-  getOrganizationDetail = ()=>{
-
-		/*var searchParams = Object.assign({},this.state.searchParams);
-		const that = this;
-		Http.request('org-detail', searchParams).then(function (response) {
-			const dataName = {};
-			dataName.orgName = response.orgName;
-			dataName.status = response.status || '0';
-			dataName.orgId = response.orgId || '1';
-			dataName.treeType = response.orgType || 'ROOT';
-			that.setState({
-				dataName,
-			});
-		}).catch(function (err) {
-
-		});*/
-	}
 
 
 	render(){
@@ -135,12 +131,22 @@ export default class Form  extends React.Component{
         dimData,
         treeData,
         searchKey,
-        orgName
+        data
     }=this.state;
+
+    var children=[];
+    if(data.children.length==0){
+      children=[data];
+    }else{
+      for(var index in data.children){
+          children.push(data.children[index])
+      }
+    }
+
 
 		return(
 
-      <div className="g-oa-labour">
+      <div className="g-oa-labour pessi-form-type">
 				<div className="left">
 					<div className="search">
 						<input type="text" onChange={this.change} placeholder="输入表单名称" ref="searchKey"/>
@@ -162,15 +168,24 @@ export default class Form  extends React.Component{
           <div className='right-center'>
             <TabCs
                  isDetail='iconTab'
-                 label = {orgName}
+                 label = {data.orgName}
                  >
-               <TabC label='基本信息'>
-                 <span>11</span>
-               </TabC>
+                 {
+                 children.map((item,index)=>{
+                   return <TabC label={item.orgName}>
+                            <TypeList
+                              id={item.orgId}
+                            />
+                          </TabC>
+                 })
+                }
 
-               <TabC label='表单列表'>
-                <h1>3344</h1>
-               </TabC>
+                 <TabC label='表单列表'>
+                   <FormList
+                     
+                   />
+                 </TabC>
+
              </TabCs>
           </div>
 				</div>

@@ -20,10 +20,15 @@ export default class TabCs extends React.Component {
     getLabels = () =>{
         const {children} = this.props;
         let labels = children.map((item,index)=>{
-            if(item){
-              return item.props.label;
+            if(item && item.props){
+                return item.props.label;
+            }else if(item && item[0]){
+                var labels=item.map((item,index)=>{
+                   return item.props.label
+                })
+                return labels
             }else{
-              return false
+                return false
             }
         })
         return labels;
@@ -37,8 +42,12 @@ export default class TabCs extends React.Component {
         const {children} = this.props;
         var child=[];
         children.map((item,index)=>{
-          if(item){
+          if(item && item.props){
             child.push(item)
+          }else if(item && item[0]){
+            item.map((item,index)=>{
+              child.push(item)
+            })
           }
         })
         const {showIndex} = this.state;
@@ -71,9 +80,9 @@ export default class TabCs extends React.Component {
                     onSubmit = {this.titleClick}
                 />}
                 {isDetail=='iconTab'&&<TabIcon
-                    labels = {this.getLabels()} 
+                    labels = {this.getLabels()}
                     label = {label}
-                    onSubmit = {this.titleClick} 
+                    onSubmit = {this.titleClick}
                 />}
                 {this.tabRender()}
             </div>
