@@ -16,14 +16,13 @@ export default class EquipmentDetail extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			itemDetail:{}
+			itemDetail:{},
+			showReported : true
 		}
 	}
 
 	componentDidMount(){
-		console.log("this.props===》componentDidMount",this.props);
 		let {detail} = this.props;
-		console.log("detail==》componentDidMount",detail);
 		let _this =this;
 		_this.setState({
 			itemDetail :detail
@@ -31,6 +30,11 @@ export default class EquipmentDetail extends React.Component{
 			$("#json-str-report").html(_this.syntaxHighlight(detail.deviceVO.reported));
 			$("#json-str-desired").html(_this.syntaxHighlight(detail.deviceVO.desired));
 		})
+		if(!detail.deviceVO.reported||JSON.stringify(detail.deviceVO.reported).length<1){
+			_this.setState({
+				showReported : false
+			})
+		}	
 		
 	}
 	closeDialog=()=>{
@@ -38,7 +42,6 @@ export default class EquipmentDetail extends React.Component{
 	}
 
 	freshEquipmentReporter=()=>{
-		console.log("freshEquipmentReporter====>");
 		let {detail} = this.props;
 		let _this = this;
 		State.freshPageReturn();
@@ -47,6 +50,11 @@ export default class EquipmentDetail extends React.Component{
 			
 			$("#json-str-report").html(_this.syntaxHighlight(response.reported));
 			Message.success("刷新成功");
+			if(!response.reported||JSON.stringify(response.reported).length<1){
+				_this.setState({
+					showReported : false
+				})
+			}
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -63,7 +71,6 @@ export default class EquipmentDetail extends React.Component{
 	    json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
 	    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
 	        var cls = 'number';
-	        //console.log("match",match);
 	        if (/^"/.test(match)) {
 	            if (/:$/.test(match)) {
 	                cls = 'key';
@@ -82,6 +89,7 @@ export default class EquipmentDetail extends React.Component{
 
 	render(){
 		let {detail} = this.props;
+		let {showReported} = this.state;
 		var params = detail.deviceVO;
 		return (
 			<div className="seconde-dialog">
@@ -95,10 +103,10 @@ export default class EquipmentDetail extends React.Component{
 						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{params.ip}</div></div>
 						<div className="tr-line"><div className="td-left">标记:</div><div className="td-right">{params.name}</div></div>
 						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{params.v}</div></div>
-						<div></div>
-						<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right"><pre id="json-str-report"></pre></div></div>
-						<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right"><pre id="json-str-desired"></pre></div></div>
-						
+						<div>
+							<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="json-str-report"></pre></div></div>
+							<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right"><pre id="json-str-desired"></pre></div></div>
+						</div>
 					</div>
 				</div>
 				<div className="btn-div">

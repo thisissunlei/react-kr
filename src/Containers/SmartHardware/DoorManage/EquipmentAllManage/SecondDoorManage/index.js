@@ -65,7 +65,6 @@ export default class SecondDoorManage  extends React.Component{
 
 	//操作相关
 	onOperation=(type, itemDetail)=>{
-		console.log("itemDetail===>operation",itemDetail);
 		this.setState({
 			itemDetail
 		});
@@ -85,7 +84,6 @@ export default class SecondDoorManage  extends React.Component{
 		this.setState({
 			itemDetail : value
 		})
-		console.log("itemDetail===>operation",itemData);
 		State.deviceVO = State.itemDetail.deviceVO;
 		State.openHardwareDetail = true;
 	}
@@ -200,7 +198,6 @@ export default class SecondDoorManage  extends React.Component{
 
 
 	editList=(thisP,value,itemData)=>{
-		console.log("thisP",thisP,'value',value,'itemData',itemData);
 		this.setState({
 			itemDetail:thisP
 		});
@@ -252,7 +249,6 @@ export default class SecondDoorManage  extends React.Component{
 	//点击批量删除
 	deleteSelectEquipment = ()=>{
 		if(this.state.selectIds.length == 0){
-			console.log("this.state.selectIds.length ");
 			Message.error("请选择您要删除的设备");
 			return;
 		}
@@ -293,7 +289,6 @@ export default class SecondDoorManage  extends React.Component{
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
-		// console.log("itemDetail",itemDetail);
 		return(
 			<div >
 				<div style={{padding:"20px 0 0 0"}}>
