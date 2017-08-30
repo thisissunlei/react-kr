@@ -64,8 +64,8 @@ class EditTable extends React.Component {
 			<form onSubmit={handleSubmit(this.onSubmit)} >
 				<FdTabel 
 					name = "tableData"
-					checkbox = {true}
-					batchDel = {true}
+					isFold = {true} 
+	 				initFoldNum = "3"
 				>
 					<FRow name = "age" label = "年龄" />
 					<FRow name = "name" label = "姓名" />

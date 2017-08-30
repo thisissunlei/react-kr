@@ -3404,7 +3404,7 @@
     // transform: translate3d(100%, 0, 0);
   }
 }
-@-webkit-keyframes leftToRight {
+@-webkit-keyframes leftToRightOpen {
   from {
     width: 0%;
     
@@ -3417,13 +3417,35 @@
   }
 }
 
-@keyframes leftToRight {
+@keyframes leftToRightOpen {
   from {
     width: 0%;
   }
 
   to {
     width: 100%;
+  }
+}
+@-webkit-keyframes rightToLeftClose {
+  from {
+    width: 100%;
+    
+  }
+
+  to {
+    
+    width: 0%;
+   
+  }
+}
+
+@keyframes rightToLeftClose {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0%;
   }
 }
 

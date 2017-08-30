@@ -20,15 +20,19 @@ import {
 	KrField,
 	FdTabel,
 	FContent,
-	FRow
+	FRow,
+	TabelEdit,
+	Button
 } from 'kr-ui';
-var tableData = [
-	{name:'1liu',age:12,other:'1什么鬼'},
-	{name:'2liu',age:13,other:'2什么鬼'},
-	{name:'3liu',age:14,other:'3什么鬼'},
-	{name:'4liu',age:15,other:'4什么鬼'},
-	{name:'5liu',age:16,other:'5什么鬼'},
+var tableData =[
+	
+	{name:'1liu',age:12,other:'1什么鬼',checked:false},
+	{name:'2liu',age:13,other:'2什么鬼',checked:true},
+	{name:'3liu',age:14,other:'3什么鬼',checked:false},
+	{name:'4liu',age:15,other:'4什么鬼',checked:false},
+	{name:'5liu',age:16,other:'5什么鬼',checked:false},
 	]
+
 class EditFiled extends React.Component {
 
 
@@ -43,14 +47,15 @@ class EditFiled extends React.Component {
 		onCancel && onCancel(); 
 	 }
 
-    onSubmit=()=>{
+    onSubmit=(values)=>{
 		const {
 			onSubmit
 		} = this.props;
+		console.log(values,"PPPPPP")
 		onSubmit && onSubmit(); 
 	}
 	componentDidMount() {
-		Store.dispatch(change('EditTable','tableData',tableData));
+		Store.dispatch(change('EditFiled','data',tableData));
 	}
 	
 
@@ -63,9 +68,13 @@ class EditFiled extends React.Component {
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} >
 				
-				 <KrField name="value" component="table" >
-				     <KrField name="name" editType = "tableEdit" component="editLabelText" />
-                 </KrField>
+				 <TabelEdit name = "data" />
+				 <Button
+					label="提交"
+					type="submit"
+					height={34}
+					width={90}
+				/>
 			</form>
 
 		);

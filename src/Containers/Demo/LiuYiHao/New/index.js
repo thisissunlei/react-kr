@@ -35,11 +35,13 @@ class New extends React.Component {
 					  label = "全部数据"
 			      >
 				  <TabC label='基本信息'>
-					  <EditTable />
+					  
+					    <EditFiled />
 				  </TabC> 
 
 				  <TabC label='个人信息'>
-				  	  <EditFiled />
+					  <EditTable />
+				  	
 				  </TabC>
 
 				  <TabC label='工作信息'>
