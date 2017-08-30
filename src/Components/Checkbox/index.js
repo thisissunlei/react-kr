@@ -3,8 +3,6 @@ import React, {
 } from 'react';
 
 import './index.less';
-
-
 export default class KrCheckbox extends Component {
 
 	static displayName = 'KrCheckbox';

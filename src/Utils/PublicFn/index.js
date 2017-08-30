@@ -153,9 +153,17 @@ function isEmptyObject(obj) {
 }
 //删除数组的某一个元素
 function arrDelEle (arr,index){
-  var arr = [].concat(arr);
+  arr = [].concat(arr);
   arr.splice(index,1)
   return arr;
+}
+function arrReverse (arr){
+  arr  = [].concat(arr);
+  arr.sort(function(a,b){
+    return b-a;
+  })
+  return arr;
+
 }
 
 
@@ -166,5 +174,6 @@ module.exports = {
   delHtmlTag,
   urltoFile,
   isEmptyObject,
-  arrDelEle
+  arrDelEle,
+  arrReverse
 }

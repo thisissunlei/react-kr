@@ -4,6 +4,8 @@ import { Field } from 'redux-form';
 import FTabel from './FTabel';
 import FContent from './FContent';
 import FRow from './FRow';
+import TabelEdit from './TabelEdit';
+
 
 class FdTabel extends React.Component {
 
@@ -43,5 +45,6 @@ class FdTabel extends React.Component {
 module.exports = {
 	FdTabel,
   FContent,
-  FRow
+  FRow,
+  TabelEdit
 }

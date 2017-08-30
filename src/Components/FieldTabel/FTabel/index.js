@@ -13,6 +13,8 @@ export default class Table extends React.Component {
   // isFold = {true} 是否有展开的按钮
 	// initFoldNum = "1" 默认展示几个
 	// checkbox ={true} 是否有 checkbox
+  	// checkbox = {true}
+		// 			batchDel = {true}
   constructor(props) {
     super(props);
     this.state = {
@@ -207,7 +209,7 @@ export default class Table extends React.Component {
     var text = "";
     var fold = false;
     if(foldLabel == "展开"){
-      text = "合上";
+      text = "收起";
       fold = true;
     }else{
       text = "展开"
@@ -243,7 +245,7 @@ export default class Table extends React.Component {
         ) 
       })
       return (
-        <tr>
+        <tr className="hander">
           {checkbox && 
             <td>
               {tableData.length && <input 
@@ -253,7 +255,7 @@ export default class Table extends React.Component {
                     }} 
                     checked = {handerChecked ? "checked":""}
               />}
-              {tableData.length && <input 
+              {!tableData.length && <input 
                   type="checkbox" 
                   
               />}
@@ -271,7 +273,7 @@ export default class Table extends React.Component {
     const {initFoldNum,checkbox} = this.props;
     var showData = [].concat(tableData);
     if(!fold){
-      showData = tableData.slice(0,initFoldNum); 
+      showData = tableData.slice(0,initFoldNum||5); 
     }
     
     let doms = showData.map((item,index)=>{
@@ -292,19 +294,21 @@ export default class Table extends React.Component {
     const {
       headers,
       tableData,
-      foldLabel
+      foldLabel,
+      fold
     } = this.state;
     const {
       checkbox,
       children,
       isFold,
-      batchDel
+      batchDel,
+      toolbar
     } = this.props;
-
+    var iconName = fold? "icon-up":"icon-down"
 
     return (
        <div className = "ui-field-tabel">
-         <div className = "ui-field-tabel-toolbar">
+        {toolbar && <div className = "ui-field-tabel-toolbar">
             <div className="move">
                 <span 
                   className ="move-up" 
@@ -320,14 +324,16 @@ export default class Table extends React.Component {
                 >下移</span>
             </div>
             {batchDel && <span onClick = {this.batchdelete}>批量删除</span>}
-         </div>
+         </div>}
         <table>
           {this.headReander()}
           {this.tbodyRender()}
         </table>
         {isFold && <div className = "ui-field-tabel-fold">
-            <span onClick = {this.foldClick}>
-            {foldLabel}
+            <span className="fold" onClick = {this.foldClick}>
+              <span >
+              {foldLabel}
+              </span><span className={iconName}></span>
             </span>
             
           </div>}
