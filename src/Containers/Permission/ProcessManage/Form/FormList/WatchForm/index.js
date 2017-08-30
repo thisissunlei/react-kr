@@ -13,15 +13,15 @@ export default class WatchForm  extends React.Component{
 		super(props, context);
 	}
 
-	 onCancel=()=>{
-        const {onCancel}=this.props;
-        onCancel && onCancel();
-    }
+	editOpen=()=>{
+    const {editOpen}=this.props;
+    editOpen && editOpen();
+  }
 
-	onSubmit=(values)=>{
-	   const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);
-	}
+  allClose=()=>{
+    const {allClose}=this.props;
+    allClose && allClose();
+  }
 
 	render(){
 
@@ -41,7 +41,8 @@ export default class WatchForm  extends React.Component{
 			        >
 						<TabC label='基本信息'>
 							<BasicInfo
-
+								 editOpen={this.editOpen}
+								 allClose={this.allClose}
 							/>
 						</TabC>
 

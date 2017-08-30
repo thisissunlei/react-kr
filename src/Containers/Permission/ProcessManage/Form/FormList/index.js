@@ -31,6 +31,7 @@ import {
 import AddForm from './AddForm';
 import WatchForm from './WatchForm';
 import AddTable from './AddTable';
+import EditForm from './EditForm';
 import SearchUpperForm from './SearchUpperForm';
 import './index.less';
 export default class FormList extends Component{
@@ -47,6 +48,7 @@ export default class FormList extends Component{
 			openNew : false,
       openTable:false,
       openWatch:false,
+      openEdit:false,
       openSearch:false
 		}
 	}
@@ -78,6 +80,13 @@ export default class FormList extends Component{
   cancelTable=()=>{
     let {openTable} = this.allConfig;
 		this.allConfig.openTable = !openTable;
+		this.isRender();
+  }
+
+ //编辑页开关
+  editOpen=()=>{
+    let {openEdit} = this.allConfig;
+		this.allConfig.openEdit = !openEdit;
 		this.isRender();
   }
 
@@ -170,6 +179,7 @@ export default class FormList extends Component{
      let {openWatch,openNew} = this.allConfig;
  		 this.allConfig.openWatch =false;
      this.allConfig.openNew =false;
+     this.allConfig.openEdit =false;
  		 this.isRender();
    }
 
@@ -265,7 +275,7 @@ export default class FormList extends Component{
 		   {/*新建表单*/}
       <Drawer
 					open={this.allConfig.openNew}
-					width={700}
+					width={750}
 					openSecondary={true}
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 					onClose={this.allClose}
@@ -276,17 +286,31 @@ export default class FormList extends Component{
 				/>
 			</Drawer>
 
+      {/*编辑表单*/}
+     <Drawer
+         open={this.allConfig.openEdit}
+         width={750}
+         openSecondary={true}
+         drawerStyle={{zIndex:110}}
+         onClose={this.allClose}
+       >
+       <EditForm
+         onCancel={this.newSwidth}
+         onSubmit={this.addSubmit}
+       />
+     </Drawer>
+
       {/*查看表单*/}
      <Drawer
          open={this.allConfig.openWatch}
          width={750}
          openSecondary={true}
-         containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+         drawerStyle={{zIndex:100}}
          onClose={this.allClose}
        >
        <WatchForm
-         onCancel={this.newSwidth}
-         onSubmit={this.addSubmit}
+         editOpen={this.editOpen}
+         allClose={this.allClose}
        />
      </Drawer>
 

@@ -8,8 +8,18 @@ export default class BasicInfo  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+
 	}
 
+  editOpen=()=>{
+    const {editOpen}=this.props;
+    editOpen && editOpen();
+  }
+
+  allClose=()=>{
+    const {allClose}=this.props;
+    allClose && allClose();
+  }
 
 	render(){
 
@@ -29,9 +39,17 @@ export default class BasicInfo  extends React.Component{
           <Button
               label="编辑"
               type='button'
-              onTouchTap={this.newSwidth}
+              onTouchTap={this.editOpen}
           />
         </div>
+
+        <div className='pic-mask'>
+          <span className='pic-mask-first'></span>
+          <span>引用记录</span>
+          <span className='pic-mask-last'></span>
+        </div>
+
+
 
       </div>
 		);

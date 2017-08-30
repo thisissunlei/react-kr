@@ -40,19 +40,19 @@ class EditTable extends React.Component {
 		 const {
 			onCancel
 		} = this.props;
-		onCancel && onCancel(); 
+		onCancel && onCancel();
 	 }
 
     onSubmit=()=>{
 		const {
 			onSubmit
 		} = this.props;
-		onSubmit && onSubmit(); 
+		onSubmit && onSubmit();
 	}
 	componentDidMount() {
 		Store.dispatch(change('EditTable','tableData',tableData));
 	}
-	
+
 
 
 	render() {
@@ -62,16 +62,16 @@ class EditTable extends React.Component {
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} >
-				<FdTabel 
+				<FdTabel
 					name = "tableData"
-					isFold = {true} 
+					isFold = {true}
 	 				initFoldNum = "3"
 				>
 					<FRow name = "age" label = "年龄" />
 					<FRow name = "name" label = "姓名" />
 					<FRow name = "other" label = "其他" />
 				</FdTabel>
-				
+
 			</form>
 
 		);
