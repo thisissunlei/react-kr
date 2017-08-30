@@ -58,7 +58,14 @@ export default class SearchMethodComponent extends React.Component {
 
 				response.methodList.forEach((item, index) => {
 					item.value = item.methodId;
-					item.label = `${item.controllerName} ${item.methodName}`;
+					
+					var comKrspaceStart = /^com.krspace./.test(item.controllerName);
+					var str = item.controllerName+"";
+					if(comKrspaceStart){
+						str = str.replace(/com.krspace./,"")
+					}
+
+					item.label = `${str}#${item.methodName}`;
 				});
 				resolve({
 					options: response.methodList
