@@ -91,11 +91,7 @@ export default class AppOpinion extends React.Component {
 			<div className="g-create-opinion">
 				<Title value="App意见反馈"/>
 				<Section title="意见反馈列表" description="" style={{marginBottom:-5,minHeight:910}}>
-					<Button
-								label="新建"
-								type='button'
-								onTouchTap={this.openView}
-							/>
+					
 					<Table
 							  style={{marginTop:10}}
 			                  ajax={true}
