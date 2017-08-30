@@ -12,12 +12,16 @@ export default class TabCs extends React.Component {
         }
 	}
     componentDidMount(){
-       
+
     }
     getLabels = () =>{
         const {children} = this.props;
         let labels = children.map((item,index)=>{
-            return item.props.label;
+            if(item){
+              return item.props.label;
+            }else{
+              return false
+            }
         })
         return labels;
     }
@@ -28,8 +32,14 @@ export default class TabCs extends React.Component {
     }
     tabRender = () =>{
         const {children} = this.props;
+        var child=[];
+        children.map((item,index)=>{
+          if(item){
+            child.push(item)
+          }
+        })
         const {showIndex} = this.state;
-        let tab = children.map((item,index)=>{
+        let tab = child.map((item,index)=>{
             if(index == showIndex){
                 return item;
             }
@@ -40,24 +50,24 @@ export default class TabCs extends React.Component {
 	render() {
         const {children,isDetail} = this.props;
         const {labels} = this.state;
-        
+
 		return (
             <div class = "ui-oa-tabs">
                 {isDetail=='role'&&<TabTitle
-                    labels = {this.getLabels()} 
-                    onSubmit = {this.titleClick} 
+                    labels = {this.getLabels()}
+                    onSubmit = {this.titleClick}
                 />}
 
                  {isDetail=='detail'&&<TabFirst
-                    labels = {this.getLabels()} 
-                    onSubmit = {this.titleClick} 
+                    labels = {this.getLabels()}
+                    onSubmit = {this.titleClick}
                 />}
 
                 {isDetail=='process'&&<TabProcess
-                    labels = {this.getLabels()} 
-                    onSubmit = {this.titleClick} 
+                    labels = {this.getLabels()}
+                    onSubmit = {this.titleClick}
                 />}
-                
+
                 {this.tabRender()}
             </div>
 		);

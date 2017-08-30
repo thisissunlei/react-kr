@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?4yr6ux');
-  src:  url('fonts/icomoon.eot?4yr6ux#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?4yr6ux') format('truetype'),
-    url('fonts/icomoon.woff?4yr6ux') format('woff'),
-    url('fonts/icomoon.svg?4yr6ux#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?ljmndx');
+  src:  url('fonts/icomoon.eot?ljmndx#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ljmndx') format('truetype'),
+    url('fonts/icomoon.woff?ljmndx') format('woff'),
+    url('fonts/icomoon.svg?ljmndx#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,54 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-home-setting:before {
+  content: "\e92d";
+  color: #798599;
+}
+.icon-operation-home:before {
+  content: "\e92e";
+  color: #798599;
+}
+.icon-theLog:before {
+  content: "\e91b";
+  color: #798599;
+}
+.icon-process:before {
+  content: "\e91c";
+  color: #798599;
+}
+.icon-website:before {
+  content: "\e925";
+  color: #798599;
+}
+.icon-permissions:before {
+  content: "\e926";
+  color: #798599;
+}
+.icon-statistics:before {
+  content: "\e927";
+  color: #798599;
+}
+.icon-systems:before {
+  content: "\e928";
+  color: #798599;
+}
+.icon-hardware:before {
+  content: "\e929";
+  color: #798599;
+}
+.icon-accountAdmin:before {
+  content: "\e92a";
+  color: #798599;
+}
+.icon-knowledge:before {
+  content: "\e92b";
+  color: #798599;
+}
+.icon-app:before {
+  content: "\e92c";
+  color: #798599;
+}
 .icon-day .path1:before {
   content: "\e91d";
   color: rgb(153, 153, 153);
@@ -41,7 +89,7 @@
 .icon-day .path4:before {
   content: "\e920";
   margin-left: -1em;
-  color: rgb(45, 141, 205);
+  color: rgb(73, 157, 241);
 }
 .icon-month .path1:before {
   content: "\e921";
@@ -86,47 +134,47 @@
 }
 .icon-basis:before {
   content: "\e901";
-
+  color: #798599;
 }
 .icon-money:before {
   content: "\e902";
-
+  color: #798599;
 }
 .icon-com:before {
   content: "\e903";
-
+  color: #798599;
 }
 .icon-community:before {
   content: "\e904";
-
+  color: #798599;
 }
 .icon-dandian_nor:before {
   content: "\e905";
-
+  color: #798599;
 }
 .icon-orderForm:before {
   content: "\e906";
-
+  color: #798599;
 }
 .icon-administrator:before {
   content: "\e907";
-
+  color: #798599;
 }
 .icon-schema:before {
   content: "\e908";
-
+  color: #798599;
 }
 .icon-control:before {
   content: "\e909";
-
+  color: #798599;
 }
 .icon-look:before {
   content: "\e90c";
-
+  color: #798599;
 }
 .icon-user:before {
   content: "\e90d";
-
+  color: #798599;
 }
 .icon-return:before {
   content: "\e90e";
@@ -134,27 +182,27 @@
 }
 .icon-commodityManage:before {
   content: "\e90f";
-
+  color: #798599;
 }
 .icon-vip:before {
   content: "\e910";
-
+  color: #798599;
 }
 .icon-file:before {
   content: "\e911";
-
+  color: #798599;
 }
 .icon-wendang:before {
   content: "\e912";
-
+  color: #798599;
 }
 .icon-system:before {
   content: "\e913";
-
+  color: #798599;
 }
 .icon-account:before {
   content: "\e914";
-
+  color: #798599;
 }
 .icon-icon_return_01:before {
   content: "\e90a";

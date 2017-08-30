@@ -105,37 +105,57 @@ const Permission_ProcessManage_BasicSetting= (location, callback) => {
   }, 'Permission_ProcessManage_BasicSetting')
 }
 
+/*首页配置-轮播列表*/
+const Permission_HomePageSetting_SwperList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/HomePageSetting/SwperList').default)
+  }, 'Permission_HomePageSetting_SwperList')
+}
+
+/*首页配置-动态列表*/
+const Permission_HomePageSetting_DynamicsList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/HomePageSetting/DynamicsList').default)
+  }, 'Permission_HomePageSetting_SwperList')
+}
+
 module.exports =()=>{
 
 	return (
 		<Route path="permission" getComponent={Basic}>
       <IndexRedirect to="accountManage/accountList"/>
       <Route path="user" getComponent={Permission_User}/>
-		<Route path="user/:page" getComponent={Permission_User}/>
-		<Route path="operations" getComponent={Permission_Operations}/>
-    <Route path="loginlog" getComponent={Permission_LoginLog}/>
-    <Route path="accountManage" getComponent={Basic}>
-  			<Route path="accountList" getComponent={Permission_AccountManage_AccountList}/>
-        <Route path="operationsLogs" getComponent={Permission_AccountManage_OperationsLogs}/>
-        <Route path="operationSource" getComponent={Permission_AccountManage_OperationSource}/>
-    </Route>
-		<Route path="userlist/:userId/:page" getComponent={Permission_UserList}>
-			<Redirect from="permission" to="permission/userlist"/>
-		</Route>
-    <Route path="opCode" getComponent={Permission_OpCode}/>
-    <Route path="menuSetting" getComponent={Permission_MenuSetting}/>
-		<Route path="personalCenter" getComponent={Permission_PersonalCenter}/>
-	  <Redirect from="permission" to="permission/personalCenter" />
-    <Route path="systemManage" getComponent={Basic}>
-     <Route path="appLoginLogs" getComponent={Permission_SystemManage_AppLoginLogs}/>
-      <Route path="messageList" getComponent={Permission_SystemManage_MessageList}/>
-          <Route path="update-log" getComponent={Permission_SystemManage_UpdateLog}/>
-    </Route>
+		  <Route path="user/:page" getComponent={Permission_User}/>
+		  <Route path="operations" getComponent={Permission_Operations}/>
+      <Route path="loginlog" getComponent={Permission_LoginLog}/>
+      <Route path="accountManage" getComponent={Basic}>
+          <Route path="accountList" getComponent={Permission_AccountManage_AccountList}/>
+          <Route path="operationsLogs" getComponent={Permission_AccountManage_OperationsLogs}/>
+          <Route path="operationSource" getComponent={Permission_AccountManage_OperationSource}/>
+      </Route>
+      {/*首页配置*/}
+         
+       <Route path="homePageSetting" getComponent={Basic}>
+          <Route path="swperList" getComponent={Permission_HomePageSetting_SwperList}/>
+          <Route path="dynamicsList" getComponent={Permission_HomePageSetting_DynamicsList}/>
+      </Route>
+      <Route path="userlist/:userId/:page" getComponent={Permission_UserList}>
+        <Redirect from="permission" to="permission/userlist"/>
+      </Route>
+      <Route path="opCode" getComponent={Permission_OpCode}/>
+      <Route path="menuSetting" getComponent={Permission_MenuSetting}/>
+      <Route path="personalCenter" getComponent={Permission_PersonalCenter}/>
+      <Redirect from="permission" to="permission/personalCenter" />
+      <Route path="systemManage" getComponent={Basic}>
+      <Route path="appLoginLogs" getComponent={Permission_SystemManage_AppLoginLogs}/>
+        <Route path="messageList" getComponent={Permission_SystemManage_MessageList}/>
+            <Route path="update-log" getComponent={Permission_SystemManage_UpdateLog}/>
+      </Route>
     {/*流程管理*/}
-    <Route path="processManage" getComponent={Basic}>
-      <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
-      <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
-    </Route>
+      <Route path="processManage" getComponent={Basic}>
+        <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
+        <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
+      </Route>
 	  </Route>
 
 

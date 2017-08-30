@@ -49,8 +49,10 @@ class Home  extends React.Component{
 		const {NavModel} = this.props;
 		// NavModel.setSidebar(false);
 		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
+		let communityName = localStorage.getItem('OP_HOME_COMMUNITY_NAME');
 		if(communityId){
-			State.getHomeData({cmtId:communityId})
+			State.getHomeData({cmtId:communityId});
+			State.info.communityName = communityName || '';
 		}else{
 			State.getHomeData({cmtId:''})
 		}
@@ -97,9 +99,9 @@ class Home  extends React.Component{
 		State.openAgreementDetail = false
 	}
 	componentWillUnmount(){
-		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
-		console.log('----componentWillUnmount----',communityId);
-		localStorage.removeItem('OP_HOME_COMMUNITY');
+		// let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
+		// console.log('----componentWillUnmount----',communityId);
+		// localStorage.removeItem('OP_HOME_COMMUNITY');
 
 	}
 	render(){
