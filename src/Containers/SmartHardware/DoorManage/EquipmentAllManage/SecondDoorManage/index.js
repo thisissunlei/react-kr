@@ -415,7 +415,7 @@ export default class SecondDoorManage  extends React.Component{
 			        <Drawer 
 			        	open={State.openHardwareDetail}
 			        	onClose = {this.openSeeDetail}
-					    width={"90%"} 
+					    width={1000} 
 					    openSecondary={true} 
 					>
 						<EquipmentDetail onCancel={this.openSeeDetail} detail={itemDetail}/>

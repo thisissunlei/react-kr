@@ -46,67 +46,39 @@
 	margin-right: 50px;
 }
 .detail-list-equipment{
-	border-left: dashed 1px #499DF1;
-	margin:-25px 0 0 35px;
-	padding: 10px 0;
+	// border-left: dashed 1px #499DF1;
+	// margin:-25px 0 0 35px;
+	// padding: 10px 0;
 
-	dt,dd{
-		display:inline-block;
-		margin:5px 0;
-	}
-	dl{
-		font-size: 14px;
-		width:100%;
-		margin-left: 20px;
-	}
-	dt{
-		width:50%;
-		vertical-align: middle;
-
-	}
-	dd{
-		width:46%;
-		text-align:right;
-		padding-right:20px;
-		box-sizing: border-box;
-		vertical-align: middle;
-	}
-	dd:nth-of-type(odd){
-		background-color: #eee;
-	}
-	dt:nth-of-type(odd){
-		background-color: #eee;
-	}
 	.string { color: green; }
     .number { color: darkorange; }
     .boolean { color: blue; }
     .null { color: magenta; }
     .key { color: red; }
     .tr-line{
-    	font-size:14px;
-    	display: flex;
-    	margin: 0 30px;
+    	font-size: 16px;
+	    display: inline-block;
+	    width: 47%;
+	    box-sizing: border-box;
+	    padding-left: 30px;
     	.td-left{
-    		width: 40%;
-		    text-align: right;
-		    padding-right: 10px;
-		    display: flex;
-		    align-items: center;
-		    justify-content: flex-end;
+    		width:115px;
+		    float:left;
 		    padding:5px; 
+		    font-weight: 500;
     	}
     	.td-right{
+		    float:left;
     		padding:5px; 
     	}
     }
-    .tr-line:hover{
-    	background :#deeeff;
-    }
-    .tr-line:nth-child(odd){
-    	background-color: #f2f2f2;
-    }
-    .tr-line:nth-child(odd):hover{
-    	background :#deeeff;
+    .tr-line-bottom{
+    	font-size: 16px;
+    	padding-left:30px;
+    	.td-left{
+			padding:5px;
+			font-weight: 500;
+    	}
     }
 }
 .end-img{

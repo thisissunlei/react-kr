@@ -85,23 +85,22 @@ export default class EquipmentDetail extends React.Component{
 		var params = detail.deviceVO;
 		return (
 			<div className="seconde-dialog">
-				<Button label="刷新设备上报信息" onTouchTap={this.freshEquipmentReporter} style={{width:150,marginLeft:20}}/>
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
-				<h1>设备信息</h1>
+				<h1 style={{marginTop:"-10px"}}>设备信息</h1>
 				<div className="detail-list-equipment">
+					<Button label="刷新设备上报信息" onTouchTap={this.freshEquipmentReporter} style={{width:130,margin:"0 0 20px 30px"}}/>
 					<div>
-						
 						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{params.deviceId}</div></div>
 						<div className="tr-line"><div className="td-left">底层固件版本:</div><div className="td-right">{params.driverV}</div></div>
 						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{params.ip}</div></div>
 						<div className="tr-line"><div className="td-left">标记:</div><div className="td-right">{params.name}</div></div>
 						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{params.v}</div></div>
-						<div className="tr-line"><div className="td-left">设备上报信息:</div><div className="td-right"><pre id="json-str-report"></pre></div></div>
-						<div className="tr-line"><div className="td-left">设备影子信息:</div><div className="td-right"><pre id="json-str-desired"></pre></div></div>
+						<div></div>
+						<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right"><pre id="json-str-report"></pre></div></div>
+						<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right"><pre id="json-str-desired"></pre></div></div>
 						
 					</div>
 				</div>
-				<img src={require("./images/selectOne.svg")} className="end-img"/>
 				<div className="btn-div">
 					<Button label="关闭" onTouchTap={this.closeDialog}/>
 				</div>
