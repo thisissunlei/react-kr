@@ -29,8 +29,8 @@ import {
 	CheckPermission
 } from 'kr-ui';
 import AddForm from './AddForm';
+import WatchForm from './WatchForm';
 import AddTable from './AddTable';
-import EditForm from './EditForm';
 import SearchUpperForm from './SearchUpperForm';
 import './index.less';
 export default class FormList extends Component{
@@ -45,8 +45,8 @@ export default class FormList extends Component{
 		}
 		this.allConfig = {
 			openNew : false,
-			openEdit : false,
       openTable:false,
+      openWatch:false,
       openSearch:false
 		}
 	}
@@ -81,6 +81,13 @@ export default class FormList extends Component{
 		this.isRender();
   }
 
+  //查看表的开关
+  watchTable=()=>{
+    let {openWatch} = this.allConfig;
+		this.allConfig.openWatch = !openWatch;
+		this.isRender();
+  }
+
   //高级查询开关
   cancelSearchUpperDialog=()=>{
     let {openSearch} = this.allConfig;
@@ -90,12 +97,7 @@ export default class FormList extends Component{
   openSearchUpperDialog=()=>{
     this.cancelSearchUpperDialog();
   }
-	//编辑页开关
-	editSwidth = () =>{
-		let {openEdit} = this.allConfig;
-		this.allConfig.openEdit = !openEdit;
-		this.isRender();
-	}
+
 
 	//新建确定
 	addSubmit = (values) =>{
@@ -139,7 +141,7 @@ export default class FormList extends Component{
 	//相关操作
 	onOperation = (type, itemDetail) =>{
 		if(type == "watch"){
-
+      this.watchTable();
 		}else{
       this.cancelTable();
     }
@@ -165,12 +167,15 @@ export default class FormList extends Component{
    }
 
    allClose=()=>{
-     this.newSwidth();
+     let {openWatch,openNew} = this.allConfig;
+ 		 this.allConfig.openWatch =false;
+     this.allConfig.openNew =false;
+ 		 this.isRender();
    }
 
 	render(){
 
-		const {openNew,openEdit,openTable,openSearch} = this.allConfig;
+		const {openNew,openTable,openSearch} = this.allConfig;
 		return(
       	<div className="basic-post-list">
 	        <Row style={{marginBottom:21,marginTop:22}}>
@@ -215,17 +220,18 @@ export default class FormList extends Component{
 	            ajaxUrlName="postJobList"
 	            ajaxFieldListName="items"
 				      onPageChange = {this.pageChange}
+              hasBorder={true}
 			>
 				<TableHeader>
-					<TableHeaderColumn>职务名称</TableHeaderColumn>
-					<TableHeaderColumn>职务编码</TableHeaderColumn>
-          <TableHeaderColumn>所属分部</TableHeaderColumn>
-          <TableHeaderColumn>职务类型</TableHeaderColumn>
-					<TableHeaderColumn>状态</TableHeaderColumn>
-					<TableHeaderColumn>排序号</TableHeaderColumn>
-					<TableHeaderColumn>描述</TableHeaderColumn>
+					<TableHeaderColumn>表单名称</TableHeaderColumn>
+					<TableHeaderColumn>表单类型</TableHeaderColumn>
+          <TableHeaderColumn>表单表名</TableHeaderColumn>
+          <TableHeaderColumn>表单分类</TableHeaderColumn>
+					<TableHeaderColumn>是否启用</TableHeaderColumn>
 					<TableHeaderColumn>操作人</TableHeaderColumn>
 					<TableHeaderColumn>操作时间</TableHeaderColumn>
+					<TableHeaderColumn>是否已创建表</TableHeaderColumn>
+					<TableHeaderColumn>创建时间</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >
@@ -270,18 +276,20 @@ export default class FormList extends Component{
 				/>
 			</Drawer>
 
-			{/*编辑表单*/}
-			<Dialog
-				title="编辑表单类型"
-				onClose={this.editSwidth}
-				open={openEdit}
-				contentStyle ={{ width: '666px',height:'auto'}}
-			>
-				<EditForm
-					onCancel={this.editSwidth}
-					onSubmit={this.editSubmit}
-				/>
-			</Dialog>
+      {/*查看表单*/}
+     <Drawer
+         open={this.allConfig.openWatch}
+         width={750}
+         openSecondary={true}
+         containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+         onClose={this.allClose}
+       >
+       <WatchForm
+         onCancel={this.newSwidth}
+         onSubmit={this.addSubmit}
+       />
+     </Drawer>
+
 
       {/*创建表*/}
       <Dialog

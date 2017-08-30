@@ -110,17 +110,25 @@ export default class TableRowColumn extends React.Component {
 			...other,
 		} = this.props;
 
+
 		const handlers = {
 			onClick: this.onClick,
 			onMouseEnter: this.onMouseEnter,
 			onMouseLeave: this.onMouseLeave,
 		};
 
+		var claName='';
+		if(this.props.hasBorder){
+			claName=className+' tdBorder'
+		}else{
+			claName=className
+		}
+
 		if (name) {
 
 			if (type == 'date' && typeof component === 'function') {
 				return (
-					<td className={className} style={style} {...handlers} {...other}>
+					<td className={claName} style={style} {...handlers} {...other}>
 						{this.renderValue()}
 					</td>
 				);
@@ -128,14 +136,14 @@ export default class TableRowColumn extends React.Component {
 
 			if (type == 'date') {
 				return (
-					<td className={className} style={style} {...handlers} {...other}>
+					<td className={claName} style={style} {...handlers} {...other}>
 						<KrDate value={this.renderValue()} format={format} />
 					</td>
 				);
 			}
 
 			return (
-				<td className={className} style={style} {...handlers} {...other}>
+				<td className={claName} style={style} {...handlers} {...other}>
 						{this.renderValue()}
 					</td>
 			);
@@ -164,7 +172,7 @@ export default class TableRowColumn extends React.Component {
 			});
 
 			return (
-				<td className={className} style={style} {...handlers} {...other}>
+				<td className={claName} style={style} {...handlers} {...other}>
 					{operationElement}
 				</td>
 			);
@@ -172,7 +180,7 @@ export default class TableRowColumn extends React.Component {
 		}else if (type === 'operation' && typeof component === 'function'){
 
 			return (
-				<td className={className} style={style} {...handlers} {...other}>
+				<td className={claName} style={style} {...handlers} {...other}>
 						{component(itemData)}
 				</td>
 			);
@@ -181,7 +189,7 @@ export default class TableRowColumn extends React.Component {
 
 
 		return (
-			<td className={className} style={style} {...handlers} {...other}>
+			<td className={claName} style={style} {...handlers} {...other}>
 				{children}
 			</td>
 		);

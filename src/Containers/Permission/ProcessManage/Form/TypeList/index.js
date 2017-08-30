@@ -183,16 +183,13 @@ export default class TypeList extends Component{
 	            ajaxUrlName="postJobList"
 	            ajaxFieldListName="items"
 				      onPageChange = {this.pageChange}
+              hasBorder={true}
 			>
 				<TableHeader>
-					<TableHeaderColumn>职务名称</TableHeaderColumn>
-					<TableHeaderColumn>职务编码</TableHeaderColumn>
-          <TableHeaderColumn>所属分部</TableHeaderColumn>
-          <TableHeaderColumn>职务类型</TableHeaderColumn>
-					<TableHeaderColumn>状态</TableHeaderColumn>
+					<TableHeaderColumn>表单类型</TableHeaderColumn>
 					<TableHeaderColumn>排序号</TableHeaderColumn>
-					<TableHeaderColumn>描述</TableHeaderColumn>
-					<TableHeaderColumn>操作人</TableHeaderColumn>
+          <TableHeaderColumn>描述</TableHeaderColumn>
+          <TableHeaderColumn>操作人</TableHeaderColumn>
 					<TableHeaderColumn>操作时间</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
@@ -201,9 +198,6 @@ export default class TypeList extends Component{
             <TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
             <TableRowColumn name="code" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="subName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="jobTypeName" style={{wordWrap:'break-word',whiteSpace:'normal',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="enabledStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="orderNum" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="descr" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
@@ -211,7 +205,6 @@ export default class TypeList extends Component{
 		 										}
 		 										return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-						<TableRowColumn name="updatorName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}} style={{width:150}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
