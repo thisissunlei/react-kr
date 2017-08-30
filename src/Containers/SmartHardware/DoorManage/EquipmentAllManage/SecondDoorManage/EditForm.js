@@ -160,7 +160,7 @@ class EditForm extends React.Component{
 		let _this = this;
 		if(!floor){
 			
-			Store.dispatch(change('EditForm', 'doorType', ""));
+			// Store.dispatch(change('EditForm', 'doorType', ""));
 		}else{
 			_this.setState({
 				floorNum : floor.value
@@ -363,6 +363,9 @@ const validate = values=>{
 	}
 	if(!values.doorType){
 		errors.doorType = '门类型为必填项';
+	}
+	if(values.doorType && (values.doorType=='MEETING' ||values.doorType=='OFFICE')&& !values.roomId){
+		errors.roomId ='门类型为会议室或独立办公室，必须选择房间'
 	}
 	if(!values.maker){
 		errors.maker = '厂家为必填项';
