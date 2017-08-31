@@ -52,7 +52,7 @@ export default class EditComponent extends React.Component {
 		})
 	}
 	componentDidMount() {
-
+		this.editInput.setAttribute('autocomplete','of')
 	}
 	render() {
 		let {
@@ -102,7 +102,7 @@ export default class EditComponent extends React.Component {
 						</span>
                         <span 
                             className={`edit ${icon}`} 
-                            onTouchTap={this.onEdit}
+                            
                         ></span>
                     </div>
                     

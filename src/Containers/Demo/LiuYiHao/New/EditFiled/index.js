@@ -66,7 +66,7 @@ class EditFiled extends React.Component {
 		let {handleSubmit}=this.props;
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} >
+			<form autocomplete="off" onSubmit={handleSubmit(this.onSubmit)} >
 				
 				 <TabelEdit name = "data" />
 				 <Button
