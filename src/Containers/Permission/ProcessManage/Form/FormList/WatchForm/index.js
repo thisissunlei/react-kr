@@ -32,7 +32,7 @@ export default class WatchForm  extends React.Component{
 				 <div className='m-or-role'>
 				    <div className="title">
               <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">查看表单</label></div>
-              <div className="person-close" onClick={this.onCancel}></div>
+              <div className="person-close" onClick={this.allClose}></div>
             </div>
 			    </div>
 				<div className='role-tab'>

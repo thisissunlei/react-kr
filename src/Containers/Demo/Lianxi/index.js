@@ -71,10 +71,8 @@ class EditTable  extends React.Component{
 						<FRow name = "name" label = "姓名" />
 						<FRow name = "other" label = "其他" />
 						<FRow type='date' name='date' label='日期' format="yyyy-mm-dd" />
-						<FRow label = "其他" type='operation' component={()=>{
-							  tableData.map((item,index)=>{
-									return <div>{item.name}</div>
-								})
+						<FRow label = "其他" type='operation' component={(item)=>{
+							
 						}}/>
 					</FdTabel>
 

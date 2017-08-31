@@ -29,7 +29,7 @@ export default class FContent extends React.Component {
          return (
           <td>
               {
-                item.component()
+                item.component(data[item.name])
               }
           </td>
         );
