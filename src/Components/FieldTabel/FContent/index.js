@@ -7,6 +7,40 @@ export default class FContent extends React.Component {
     super(props);
   }
 
+  //格式处理
+  onFormatData = (value)=>{
+
+		const {onFormatData} = this.props;
+
+		if(typeof onFormatData === 'function'){
+				value = onFormatData(value);
+		}
+		return value;
+	}
+
+
+  renderValue = (value,itemData,options,defaultValue)=>{
+
+		let oldValue = value;
+
+    //数据格式处理
+    value = this.onFormatData(value);
+
+		if (options && options.length) {
+			options.map(function(item, index) {
+				if (item.value == value) {
+					value = item.label;
+				}
+			});
+		}
+
+		if(typeof component === 'function'){
+		 	return component(value,oldValue,itemData);
+		}
+
+		return value ||defaultValue;
+
+	}
 
   rowCheck = (event) =>{
     const {index,onCheck} = this.props;
@@ -25,11 +59,10 @@ export default class FContent extends React.Component {
 			}
 
       if (item.type === 'operation' && typeof (item.component) === 'function'){
-
          return (
           <td>
               {
-                item.component(data[item.name])
+                item.component(data)
               }
           </td>
         );
@@ -44,7 +77,7 @@ export default class FContent extends React.Component {
               }}
               checked = {item.checked ? "checked":""}
           />}
-          {data[item.name]}
+          {this.renderValue(data[item.name],data,item.options,item.defaultValue)}
         </td>
       )
     })
