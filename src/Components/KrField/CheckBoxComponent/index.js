@@ -54,9 +54,6 @@ export default class CheckBoxComponent extends React.Component{
 				wrapStyle:style,
 			};
 
-			
-		 console.log(other,">>>>>>")
-
 		 return (
 			 <div className = "checkBox-componet">
 			 <WrapComponent {...wrapProps}>

@@ -100,7 +100,7 @@ export default class  TabelEdit extends React.Component {
 		const {rowDetail} = this.state;
 		const {checkbox} = this.props;
 		var titleText = rowDetail.map((item,index)=>{
-			return<td key = {index}>{item.label}</td> 
+			return<td key = {index}><div><span>{item.label}</span></div></td> 
 		})
 		return(
 			<tr className="hander">
