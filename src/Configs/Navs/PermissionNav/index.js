@@ -137,6 +137,11 @@ module.exports = [
 						originUrl:'/hz7rest/horizon/module/flash/flow/designer.wf',
 						target:'_blank'
 					},
+					{
+						primaryText: '公共字典',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router:'/permission/processManage/dictionary',
+					},
 				]
 			},
 
