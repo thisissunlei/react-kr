@@ -52,7 +52,7 @@ export default class FContent extends React.Component {
     var doms = detail.map((item,index)=>{
 			if (item.type == 'date' && !(item.component)) {
 				return (
-					<td>
+					<td key = {index}>
 						<KrDate value={data[item.name]} format={item.format} />
 					</td>
 				);

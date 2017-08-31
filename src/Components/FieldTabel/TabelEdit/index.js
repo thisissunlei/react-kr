@@ -83,10 +83,11 @@ export default class  TabelEdit extends React.Component {
 			}
 		}else{
 			if(key!==-1){
-				checkedArr.splice(index,1);
+				checkedArr.splice(key,1);
+				
 			}
 		}
-		console.log(checkedArr,"llll",tabelLength,">>>>>",index,"key",key)
+		
 		if(checkedArr.length === tabelLength){
 			this.titleCheckbox.checked = true;
 		}else{

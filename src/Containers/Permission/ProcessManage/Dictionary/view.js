@@ -12,6 +12,8 @@ import {
 	ListGroupItem,
 	TabelEdit,
 	FRow,
+	FdTabel,
+	FContent
 } from 'kr-ui';
 
 import {
@@ -34,6 +36,7 @@ class ViewForm extends React.Component{
 		console.log('===will==',State.data)
 		Store.dispatch(initialize('ViewForm',State.data));
 		Store.dispatch(change('ViewForm','datadetail',State.list));
+		Store.dispatch(change('ViewForm','tableData',State.list));
 
 		
 	}
@@ -90,15 +93,16 @@ class ViewForm extends React.Component{
 						<div style={{textAlign:'center',marginBottom:20}}>
 							<span className="list-title">引用记录</span>
 						</div>
-						<div>
-							<TabelEdit 
-							 	name = "datadetail" 	
-							 >
-								 <FRow name = "age"  type = "label"  label = "选项文字" />
-								 <FRow name = "name" type = "label" label = "选项值" />
-								 <FRow name = "other" type = "label" label = "排序号" />
-								 <FRow name = "checked" type = "checkBox" disabled = "disabled" label = "是否默认" />
-							 </TabelEdit>
+						<div style={{width:544}}>
+							<FdTabel
+								name = "tableData"
+								isFold = {true}
+				 				initFoldNum = "3"
+							>
+								<FRow name = "age" label = "年龄" />
+								<FRow name = "name" label = "姓名" />
+								<FRow name = "other" label = "其他" />
+							</FdTabel>
 						</div>
 					</div>
 
