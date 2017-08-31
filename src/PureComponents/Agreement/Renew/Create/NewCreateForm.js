@@ -345,6 +345,7 @@ class NewCreateForm extends Component {
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
 
 		form.stationVos = JSON.stringify(oldBasicStationVos);
+		form.delStationVos = [];
 		form.contractVersionType = 'NEW';
 		form.totalrent = (this.state.allRent).toFixed(2);
 		if(!!!form.agreement){
