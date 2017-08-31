@@ -141,7 +141,8 @@ class NewCreateForm extends React.Component {
 		var value = form.price;
 		let {
 			stationVos,
-			selectedStation
+			selectedStation,
+			oldBasicStationVos
 		} = this.state;
 		let {initialValues} = this.props;
 
@@ -151,10 +152,17 @@ class NewCreateForm extends React.Component {
 			}
 			return item;
 		});
-			this.setAllRent(stationVos);
+		oldBasicStationVos = oldBasicStationVos.map(function(item, index) {
+			if (selectedStation.indexOf(index) != -1) {
+				item.unitprice = value;
+			}
+			return item;
+		});
+			this.setAllRent(oldBasicStationVos);
 
 		this.setState({
-			stationVos
+			stationVos,
+			oldBasicStationVos
 		});
 
 		this.openStationUnitPriceDialog();
@@ -445,6 +453,7 @@ class NewCreateForm extends React.Component {
 		let {
 			selectedStation
 		} = this.state;
+		console.log('======>',selectedStation.length)
 		if (!selectedStation.length) {
 			Notify.show([{
 				message: '请先选择要录入单价的工位',

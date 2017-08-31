@@ -440,7 +440,8 @@ class NewCreateForm extends Component {
 		var value = form.price;
 		let {
 			stationVos,
-			selectedStation
+			selectedStation,
+			oldBasicStationVos
 		} = this.state;
 		let _this = this;
 
@@ -450,13 +451,20 @@ class NewCreateForm extends Component {
 			}
 			return item;
 		});
+		oldBasicStationVos = oldBasicStationVos.map(function(item, index) {
+			if (selectedStation.indexOf(index) != -1) {
+				item.unitprice = value;
+			}
+			return item;
+		});
 		Store.dispatch(change('renewCreateForm', 'stationVos', stationVos));
 
 
-		this.setAllRent(stationVos);
+		this.setAllRent(oldBasicStationVos);
 		this.setState({
 			stationVos,
-			openStationUnitPrice:false
+			openStationUnitPrice:false,
+			oldBasicStationVos
 		});
 
 	}
