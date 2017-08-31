@@ -24,10 +24,10 @@ export default class CheckBoxComponent extends React.Component{
 		}
 	}
 
-	onCheck = (event) =>{
+	onCheck = (checked) =>{
 		let {input,onCheck} = this.props;
-		input.onChange(event.target.checked);
-		onCheck && onCheck(event.target.checked)
+		input.onChange(checked);
+		onCheck && onCheck(checked)
 	}
 
 	render(){
@@ -60,8 +60,7 @@ export default class CheckBoxComponent extends React.Component{
 		 return (
 			 <div className = "checkBox-componet">
 			 <WrapComponent {...wrapProps}>
-				
-				 <input type="checkbox" onChange={this.onCheck} checked={input.value} {...other}/>
+				 <Checkbox checked = {input.value}  onCheck = {this.onCheck} {...other}/>
 				
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 

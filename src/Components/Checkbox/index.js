@@ -66,11 +66,20 @@ export default class KrCheckbox extends Component {
 			heightStyle,
 			...other
 		} = this.props;
-
+		var checkboxClass = ".input-checkbox-init"
+		if(checked && !other.disabled){
+			checkboxClass = "input-checkbox-active"
+		}
+		if(checked && other.disabled){
+			checkboxClass = "input-checkbox-disabled-active"
+		}
+		if(!checked && other.disabled){
+			checkboxClass = "input-checkbox-disabled-init"
+		}
 
 		return (
 			<span style={style} className="ui-checkbox">
-					<input type="checkbox" onChange={this.onCheck} checked={checked} {...other}/>
+					 <input type="checkbox" onChange={this.onCheck} checked={checked} {...other}/>
 					{label && <span style={heightStyle} className="label">{label}</span>}
 			</span>
 
