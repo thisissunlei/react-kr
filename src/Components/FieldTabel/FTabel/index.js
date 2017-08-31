@@ -26,8 +26,8 @@ export default class Table extends React.Component {
       fold:false,
       handerChecked:false,
       checkedArr:[],
-      
-      
+
+
     }
   }
   componentDidMount() {
@@ -63,23 +63,23 @@ export default class Table extends React.Component {
 
 
   componentWillReceiveProps (nextProps) {
-   
+
     this.setState({
       tableData:nextProps.input.value
     })
-  
+
   }
 
-  
+
 
   //每一行多选按钮被点击
   contentCheck = (num,checked) =>{
-   
+
     this.dataFilter(num,checked);
   }
 
 
-  
+
 
   //上移下移函数
   moveClick = (type) =>{
@@ -113,14 +113,14 @@ export default class Table extends React.Component {
     sortArr.map((item,index)=>{
         if(type == "down"){
           newData = arrDownMove(newData,item);
-          
+
         }else{
-          
+
           newData = arrUpMove(newData,item);
         }
-        
+
     })
-    
+
     this.setCheckedArr(newData);
     this.setState({
       tableData:newData,
@@ -137,7 +137,7 @@ export default class Table extends React.Component {
     sortArr.sort(function(a,b){
       return b-a;
     })
-  
+
     sortArr.map((item,index)=>{
       newData = arrDelEle(newData,item);
     })
@@ -148,16 +148,16 @@ export default class Table extends React.Component {
   }
 
 
- 
+
   setCheckedArr = (tableData) =>{
-     
+
      var checkedArr = [];
      tableData.map((item,index)=>{
         if(item.checked){
           checkedArr.push(index);
         }
      })
-     
+
      this.setState({
         checkedArr,
      })
@@ -193,7 +193,7 @@ export default class Table extends React.Component {
     }else{
       handerChecked = false;
     }
-    
+
     this.setState({
       handerChecked,
       checkedArr,
@@ -229,60 +229,61 @@ export default class Table extends React.Component {
       if(!headers){
           return;
       }
-      
+
       var doms = headers.map((item,index)=>{
         return(
-            <td key = {index}>
-                {item.checkbox && <input 
-                    type="checkbox" 
+            <th key = {index}>
+                {item.checkbox && <input
+                    key={index}
+                    type="checkbox"
                     onChange={(event) =>{
                         this.handerCheck(event,item,index)
-                    }} 
+                    }}
                     checked = {item.checked ? "checked":""}
                 />}
                 {item.label}
-            </td>
-        ) 
+            </th>
+        )
       })
       return (
         <tr className="hander">
-          {checkbox && 
-            <td>
-              {tableData.length && <input 
-                    type="checkbox" 
+          {checkbox &&
+            <th>
+              {tableData.length && <input
+                    type="checkbox"
                     onChange={(event) =>{
                         this.tableHanerCheck(event)
-                    }} 
+                    }}
                     checked = {handerChecked ? "checked":""}
               />}
-              {!tableData.length && <input 
-                  type="checkbox" 
-                  
+              {!tableData.length && <input
+                  type="checkbox"
+
               />}
-            </td>
+            </th>
           }
           {doms}
         </tr>
       );
   }
 
-  
+
 
   tbodyRender = () =>{
     const {tableData,headers,fold} = this.state;
     const {initFoldNum,checkbox} = this.props;
     var showData = [].concat(tableData);
     if(!fold){
-      showData = tableData.slice(0,initFoldNum||5); 
+      showData = tableData.slice(0,initFoldNum||5);
     }
-    
+
     let doms = showData.map((item,index)=>{
-       return <FContent 
+       return <FContent
           key = {index}
-          data = {item} 
-          detail = {headers} 
-          checkbox = {checkbox} 
-          onCheck = {this.contentCheck} 
+          data = {item}
+          detail = {headers}
+          checkbox = {checkbox}
+          onCheck = {this.contentCheck}
           index = {index}
         />
     })
@@ -310,13 +311,13 @@ export default class Table extends React.Component {
        <div className = "ui-field-tabel">
         {toolbar && <div className = "ui-field-tabel-toolbar">
             <div className="move">
-                <span 
-                  className ="move-up" 
+                <span
+                  className ="move-up"
                   onClick = {()=>{
                     this.moveClick("up");
                   }}
                 >上移</span>
-                <span 
+                <span
                   className = "move-down"
                   onClick = {()=>{
                     this.moveClick("down");
@@ -326,8 +327,12 @@ export default class Table extends React.Component {
             {batchDel && <span onClick = {this.batchdelete}>批量删除</span>}
          </div>}
         <table>
-          {this.headReander()}
-          {this.tbodyRender()}
+           <thead>
+            {this.headReander()}
+           </thead>
+           <tbody>
+            {this.tbodyRender()}
+           </tbody>
         </table>
         {isFold && <div className = "ui-field-tabel-fold">
             <span className="fold" onClick = {this.foldClick}>
@@ -335,10 +340,9 @@ export default class Table extends React.Component {
               {foldLabel}
               </span><span className={iconName}></span>
             </span>
-            
+
           </div>}
       </div>
     )
   }
 }
-
