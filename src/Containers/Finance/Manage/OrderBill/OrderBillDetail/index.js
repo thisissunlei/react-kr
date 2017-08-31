@@ -671,11 +671,11 @@ export default class AttributeSetting extends React.Component {
 
         var _this = this;
         Http.request('returnMoneyNew', {}, params).then(function(response) {
-            _this.refresh();
             _this.setState({
                 openRight: !_this.state.openRight,
                 isLoading: true
             });
+            _this.refresh();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -686,12 +686,13 @@ export default class AttributeSetting extends React.Component {
         params = Object.assign({}, params);
         params.operatedate = DateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
         Http.request('payBack', {}, params).then(function(response) {
-            _this.refresh();
+            
             _this.setState({
                 openQuitBtn: !_this.state.openQuitBtn,
                 isLoading: true,
                 listValues: ''
             });
+            _this.refresh();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -700,12 +701,13 @@ export default class AttributeSetting extends React.Component {
     onSwitchSubmit(params) {
         var _this = this;
         Http.request('transToDeposit', {}, params).then(function(response) {
-            _this.refresh();
+            
             _this.setState({
                 openSwitchBtn: !_this.state.openSwitchBtn,
                 isLoading: true,
                 listValues: ''
             });
+            _this.refresh();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -714,12 +716,13 @@ export default class AttributeSetting extends React.Component {
     onBusinessSubmit(params) {
         var _this = this;
         Http.request('transToOperateIncome', {}, params).then(function(response) {
-            _this.refresh();
+            
             _this.setState({
                 openBusinessBtn: !_this.state.openBusinessBtn,
                 isLoading: true,
                 listValues: ''
             });
+            _this.refresh();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -749,11 +752,12 @@ export default class AttributeSetting extends React.Component {
         var _this = this;
         params.operatedate = DateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
         Http.request('onNewAccountg', {}, params).then(function() {
-            _this.refresh();
+            
             _this.setState({
                 openAddaccountBtn: !_this.state.openAddaccountBtn,
                 isLoading: true
             })
+            _this.refresh();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -762,11 +766,12 @@ export default class AttributeSetting extends React.Component {
     onSupplementSubmit() {
         var _this = this;
         Http.request('addIncome', {mainbillid: _this.props.params.orderId}).then(function(response) {
-            _this.refresh();
+            
             _this.setState({
                 openSupplementBtn: !_this.state.openSupplementBtn,
                 isLoading: true
             })
+            _this.refresh();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -799,12 +804,13 @@ export default class AttributeSetting extends React.Component {
         var _this = this;
         params.operatedate = DateFormat(params.operatedate, "yyyy-mm-dd hh:MM:ss");
         Http.request('transferPayment', {}, params).then(function() {
-            _this.refresh();
+           
             _this.setState({
                 openShift: !_this.state.openShift,
                 isLoading: true,
                 listValues: ''
             })
+             _this.refresh();
         }).catch(function(err) {
             Message.error(err.message);
         });
@@ -890,9 +896,9 @@ export default class AttributeSetting extends React.Component {
         let {params} = this.props;
         Http.request('removeRunningTag', {}, {mainbillId: params.orderId}).then(function(response) {
             //_this.refresh();
-            window.location.reload();
+            
             _this.setState({isRunningIncome: 0, colorClassName: 'historyIncome'});
-
+            window.location.reload();
         }).catch(function(err) {
             Message.error(err.message);
         });
