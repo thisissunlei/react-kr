@@ -283,13 +283,7 @@ export default class MyColleague extends React.Component {
 						 										}
 						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 						 								 }}></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='mobilePhone'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='entryDate' component={(value,oldValue)=>{
 													 return (<KrDate value={value} format="yyyy-mm-dd"/>)

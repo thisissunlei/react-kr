@@ -604,37 +604,34 @@ export default class Labour extends React.Component {
 
 	onHighSearchSubmit = (param) => {
 
-		param.codeKey=param.nameKey?param.nameKey:'';
-		if(param.orgId){
-			var id=param.orgId?param.orgId:'';
-			var type=param.orgType?param.orgType:'';
+		  param.codeKey=param.nameKey?param.nameKey:'';
+			var id=param.orgId?param.orgId:this.state.searchParams.orgId;
+			var type=param.orgType?param.orgType:this.state.searchParams.orgType;
 			param.orgId=id;
 			param.orgType=type;
-		}
-
-		if(param.leader){
-		param.leader=param.leader[0].orgId;
-		}
-		let defaultParams = {
+			if(param.leader){
+			param.leader=param.leader[0].orgId;
+			}
+		 let defaultParams = {
 					codeKey:'',
 					nameKey:'',
-		mobilePhone:'',
-		email:'',
-		orgId:'',
-		orgType:'',
-		leader:'',
-		searchType:'',
-		searchStatus:'',
-		hasAccount:'',
-		searchProperty:'',
-		entryDateStart:'',
-		entryDateEnd:''
+					mobilePhone:'',
+					email:'',
+					leader:'',
+					orgId:'',
+					orgType:'',
+					searchType:'',
+					searchStatus:'',
+					hasAccount:'',
+					searchProperty:'',
+					entryDateStart:'',
+					entryDateEnd:''
 		}
 		var searchParams = Object.assign({},defaultParams,param);
 		this.setState({
 		searchParams,
 		openHighSearch:!this.state.openHighSearch
-		})
+	})
 	}
 
 
@@ -843,7 +840,7 @@ export default class Labour extends React.Component {
    onLoaded = (data) =>{
 	  var searchParams = Object.assign({},this.state.searchParams);
 	  searchParams.page = data.page;
-	  searchParams.pageSize = data.pageSize;
+	  searchParams.pageSize = 15;
 	  searchParams.totalCount = data.totalCount;
 
 	  this.setState({
@@ -974,7 +971,6 @@ export default class Labour extends React.Component {
 							<Table
 								style={{marginTop:10,position:'inherit'}}
 								displayCheckbox={true}
-								onLoaded={this.onLoaded}
 								ajax={true}
 								ajaxUrlName='next-org-list'
 								ajaxParams={this.state.searchParams}
@@ -1079,7 +1075,6 @@ export default class Labour extends React.Component {
 								ref = {(ref) =>{
 									this.oaInserviceTab = ref;
 								}}
-								onLoaded = {this.onLoaded}
 							>
 								<TableHeader>
 									{isName&&<TableHeaderColumn className='table-header-name'>姓名</TableHeaderColumn>}

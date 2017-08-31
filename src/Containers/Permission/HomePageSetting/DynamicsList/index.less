@@ -8,6 +8,12 @@
        border-left: solid 1px #E1E6EB; 
        border-top: solid 1px #E1E6EB; 
        border-right: solid 1px #E1E6EB;
+        // display: -webkit-box;
+        // -webkit-box-orient: vertical;
+        // -webkit-line-clamp: 4;
+        // overflow: hidden;
+        word-wrap:break-word;
+        white-space:normal;
    }
    .ui-table tfoot tr td{
        border: solid 0px #E1E6EB; 
@@ -42,5 +48,20 @@
     }
     a{
         cursor: pointer;
+         display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+        padding: 5px;
+    }
+    .tooltipParent{
+        padding: 5px;
+        .tableOver{
+        
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        }
     }
 }

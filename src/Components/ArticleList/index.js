@@ -2,7 +2,6 @@
 import React, { PropTypes } from 'react';
 import './index.less';
 import {
-    clamp,
     delHtmlTag
 } from 'kr/Utils'
 
@@ -20,15 +19,7 @@ export default class ArticleList extends React.Component {
 
 	}
 	componentDidMount(){
-        
-        clamp(
-            this.clamp,
-            {
-                clamp : 5,
-                useNativeClamp : false,
-                truncationChar :  "...",
-                animate :  false,  
-            })
+    
 
 	}
     profileRender = () =>{

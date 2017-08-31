@@ -37,7 +37,7 @@ module.exports = [
 					{
 						primaryText: "同步中心",
 						router: '/finance/manage/sync/list',
-						menuCode: 'fina_category_1stPage'
+						menuCode: 'sync_cmt_ctrl'
 					}, 
 					
 				]
@@ -45,7 +45,7 @@ module.exports = [
 			{
 				primaryText: "基础配置",
 				router: 'manage',
-				iconName: 'icon-money',
+				iconName: 'icon-basis',
 				iconColor: '#79859a',
 				menuItems: [
 					{

@@ -82,8 +82,8 @@ class AddDynamics extends React.Component{
 
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType,isCite,inData,outData} = this.state;
-        // let host = "http://"+window.location.host;
-        let host = "http://optest02.krspace.cn/";
+        let host = "http://"+window.location.host;
+        // let host = "http://optest02.krspace.cn/";
         var editorLabel = "";
         if(isCite){
             editorLabel = "内容";
@@ -163,8 +163,8 @@ const validate = values =>{
     }
     if(!values.title){
        errors.title='标题为必填项';
-    }else if(values.title.length>20){
-       errors.title='标题不能超过20个字符';
+    }else if(values.title.length>50){
+       errors.title='标题不能超过50个字符';
     }
     if(!values.articleType){
         errors.articleType='文章类型为必填项';

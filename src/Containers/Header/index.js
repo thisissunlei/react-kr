@@ -173,6 +173,7 @@ export default class Header extends React.Component {
 
 		var  navs = NavModel.items;
 		var	 person=NavModel.getUser();
+	
 		
 		return (
 			<div className="no-print">

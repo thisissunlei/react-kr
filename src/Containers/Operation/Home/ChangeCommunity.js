@@ -64,6 +64,7 @@ class ChangeCommunity  extends React.Component{
 	}
 	changeCity=(value)=>{
 		Store.dispatch(reset('ChangeCommunity'));
+
 		Store.dispatch(change('ChangeCommunity', 'cityId', value.id));
 		
 		let list = [];
@@ -72,6 +73,9 @@ class ChangeCommunity  extends React.Component{
 				return item;
 			}
 		})
+		if(!list.length){
+			list=[{communitys:[]}]
+		}
 		this.setState({
 			communitys:list[0].communitys
 		})
