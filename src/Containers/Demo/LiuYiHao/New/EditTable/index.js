@@ -22,13 +22,14 @@ import {
 	FContent,
 	FRow
 } from 'kr-ui';
-var tableData = [
-	{name:'1liu',age:12,other:'1什么鬼'},
-	{name:'2liu',age:13,other:'2什么鬼'},
-	{name:'3liu',age:14,other:'3什么鬼'},
-	{name:'4liu',age:15,other:'4什么鬼'},
-	{name:'5liu',age:16,other:'5什么鬼'},
-	]
+var tableData = [{name:'1',time:+new Date()},
+			{name:'2',time:+new Date()},
+			{name:'3',time:+new Date()},
+			{name:'4',time:+new Date()},
+			{name:'5',time:+new Date()},
+			{name:'6',time:+new Date()},
+			{name:'7',time:+new Date()}
+		];
 class EditTable extends React.Component {
 
 
@@ -67,9 +68,9 @@ class EditTable extends React.Component {
 					isFold = {true}
 	 				initFoldNum = "3"
 				>
-					<FRow name = "age" label = "年龄" />
-					<FRow name = "name" label = "姓名" />
-					<FRow name = "other" label = "其他" />
+					<FRow name = "name" label = "年龄" />
+					<FRow name = "time" label = "姓名" />
+					
 				</FdTabel>
 
 			</form>

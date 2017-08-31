@@ -72,6 +72,7 @@ export default class  TabelEdit extends React.Component {
 		})
 	}
 	rowCheck = (event,index) =>{
+
 		
 		var checkedArr = [].concat(this.state.checkedArr);
 		var key = checkedArr.indexOf(index);
@@ -85,6 +86,7 @@ export default class  TabelEdit extends React.Component {
 				checkedArr.splice(index,1);
 			}
 		}
+		console.log(checkedArr,"llll",tabelLength,">>>>>",index,"key",key)
 		if(checkedArr.length === tabelLength){
 			this.titleCheckbox.checked = true;
 		}else{
@@ -250,7 +252,7 @@ export default class  TabelEdit extends React.Component {
 
 	
 	render(){
-		console.log("render")
+		
 		let {requireLabel,requireBlue,label,children,style,inline,name} = this.props;
 		
         return (
