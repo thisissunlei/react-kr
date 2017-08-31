@@ -10,6 +10,8 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem,
+	TabelEdit,
+	FRow,
 } from 'kr-ui';
 
 import {
@@ -67,6 +69,19 @@ class NewCreateForm extends React.Component{
 								 type="textarea" component="textarea"maxSize={100}
 								label="描述"/>
 								
+					</div>
+					<div style={{marginLeft:28,marginBottom:40}}>
+					 <TabelEdit 
+					 	name = "data" 
+						toolbar = {true}
+						checkbox = {true}
+						
+					 >
+						 <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
+						 <FRow name = "name" type = "tableEdit" label = "选项值" />
+						 <FRow name = "other" type = "tableEdit" label = "排序号" />
+						 <FRow name = "checked" type = "checkBox" label = "是否默认" />
+					 </TabelEdit>
 					</div>
 					<Grid style={{paddingBottom:50}}>
 						<Row>

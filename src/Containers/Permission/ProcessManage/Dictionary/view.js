@@ -10,6 +10,8 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem,
+	TabelEdit,
+	FRow,
 } from 'kr-ui';
 
 import {
@@ -31,6 +33,7 @@ class ViewForm extends React.Component{
 	componentDidMount() {
 		console.log('===will==',State.data)
 		Store.dispatch(initialize('ViewForm',State.data));
+		Store.dispatch(change('ViewForm','datadetail',State.list));
 
 		
 	}
@@ -49,7 +52,7 @@ class ViewForm extends React.Component{
 		let heightAuto = true;
 		// 对应功能选项
 		return (
-			<div className="new-create-activity">
+			<div className="new-create-activity edit-dictionary">
 				<form>
 					<div className="title-box">
 						<img src={require('./images/activity.svg')} className="title-img"/>
@@ -67,52 +70,36 @@ class ViewForm extends React.Component{
 								value={State.data.type} requireLabel={true} inline={false}/>
 								<KrField grid={1} name="remark" type="labelText" 
 								value={State.data.remark} label="描述" inline={false}/>
-						<Grid style={{paddingBottom:20,textAlign:'center'}}>
+								<div>
+									<TabelEdit 
+									 	name = "datadetail" 	
+									 >
+										 <FRow name = "age"  type = "label"  label = "选项文字" />
+										 <FRow name = "name" type = "label" label = "选项值" />
+										 <FRow name = "other" type = "label" label = "排序号" />
+										 <FRow name = "checked" type = "checkBox" disabled = "disabled" label = "是否默认" />
+									 </TabelEdit>
+								</div>
+						<Grid style={{paddingBottom:20,textAlign:'center',paddingTop:30}}>
 						<Row>
 							<Button label="编辑"  type="button"  onTouchTap={this.edit} />
 						</Row>
 						</Grid> 
 					</div>
-					<div className="log-table">
+					<div>
 						<div style={{textAlign:'center',marginBottom:20}}>
 							<span className="list-title">引用记录</span>
 						</div>
-						<div style={{height:State.heightAuto?253:'auto'}}  className="list-table">
-						<table>
-							<thead>
-								<tr>
-									<td ><div>引用表单</div></td>
-									<td ><div>最后一次使用时间</div></td>
-								</tr>
-							</thead>
-							<tbody>
-								{!State.list.length && State.list.map((item,index)=>{
-									return (
-										<tr key={index} >
-											<td>{item.name}</td>
-											<td >{DateFormat(item.time,'yyyy-mm-dd HH:MM:ss')}</td>
-										</tr>
-
-									)
-								})}
-								{!!State.list.length && 
-										<tr style={{border:'none'}} className="noHover">
-											<td colSpan={2}>
-												<div style={{textAlign:'center'}}>
-													<img src={nothings} style={{height:133,width:95,marginTop:30}}/>
-													<p style={{fontSize:'12px',color:'#666',marginTop:15}}>亲，暂时还没有数据哦！</p>
-												</div>
-											</td>
-										</tr>
-								}
-							</tbody>
-						</table>
+						<div>
+							<TabelEdit 
+							 	name = "datadetail" 	
+							 >
+								 <FRow name = "age"  type = "label"  label = "选项文字" />
+								 <FRow name = "name" type = "label" label = "选项值" />
+								 <FRow name = "other" type = "label" label = "排序号" />
+								 <FRow name = "checked" type = "checkBox" disabled = "disabled" label = "是否默认" />
+							 </TabelEdit>
 						</div>
-						{State.list.length>6?<p style={{textAlign:'center',fontSize:'12px',color:'#666',marginTop:16}}><span style={{ cursor: 'pointer'}} onTouchTap={this.showAll}>{State.heightAuto?'展开':'收起'}</span><span className='bottomRow'></span></p>:''}
-						{/*<div style={{textAlign:'center'}}>
-							<img src={nothings} style={{height:133,width:95}}/>
-							<p style={{fontSize:'12px',color:'#666',marginTop:15}}>亲，暂时还没有数据哦！</p>
-						</div>*/}
 					</div>
 
 				</form>
