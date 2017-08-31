@@ -108,6 +108,17 @@ export default class EquipmentDetail extends React.Component{
 							<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right"><pre id="json-str-desired"></pre></div></div>
 						</div>
 					</div>
+					<div>
+						<div className="tr-line"><div className="td-left">社区名称:</div><div className="td-right">{detail.communityName}</div></div>
+						<div className="tr-line"><div className="td-left">楼层:</div><div className="td-right">{detail.floor}</div></div>
+						<div className="tr-line"><div className="td-left">房间:</div><div className="td-right">{detail.roomName}</div></div>
+						<div className="tr-line"><div className="td-left">门类型:</div><div className="td-right">{detail.doorTypeName}</div></div>
+						<div className="tr-line"><div className="td-left">厂家:</div><div className="td-right">{detail.makerName}</div></div>
+						<div className="tr-line"><div className="td-left">屏幕展示标题:</div><div className="td-right">{detail.title}</div></div>
+						<div className="tr-line"><div className="td-left">屏幕展示编号:</div><div className="td-right">{detail.doorCode}</div></div>
+						<div className="tr-line-last"><div className="td-left">备注:</div><div className="td-right">{detail.memo}</div></div>
+
+					</div>
 				</div>
 				<div className="btn-div">
 					<Button label="关闭" onTouchTap={this.closeDialog}/>
