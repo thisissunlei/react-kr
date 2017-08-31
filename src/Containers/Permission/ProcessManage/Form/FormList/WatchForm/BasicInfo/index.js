@@ -1,15 +1,40 @@
 import React from 'react';
 import {
   KrField,
-  Button
+  Button,
+  FdTabel,
+	FContent,
+	FRow,
 } from 'kr-ui';
+import {
+	Store
+} from 'kr/Redux';
+import {
+	reduxForm,
+	change
+} from 'redux-form';
 import './index.less';
-export default class BasicInfo  extends React.Component{
+var tableData = [
+	{name:'1liu',age:12,date:1504160863},
+	{name:'2liu',age:13,date:1504160863},
+	{name:'3liu',age:14,date:1504160863},
+	{name:'4liu',age:15,date:1504160863},
+	{name:'5liu',age:16,date:1504160863},
+	]
+class BasicInfo  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 
 	}
+
+  componentDidMount(){
+    Store.dispatch(change('BasicInfo','tableData',tableData));
+  }
+
+  onSubmit=()=>{
+
+  }
 
   editOpen=()=>{
     const {editOpen}=this.props;
@@ -22,6 +47,8 @@ export default class BasicInfo  extends React.Component{
   }
 
 	render(){
+
+    let {handleSubmit}=this.props;
 
 		return(
 
@@ -49,6 +76,19 @@ export default class BasicInfo  extends React.Component{
           <span className='pic-mask-last'></span>
         </div>
 
+        <form onSubmit={handleSubmit(this.onSubmit)} style={{width:544,marginTop:16,marginLeft:-20}}>
+					<FdTabel
+						name = "tableData"
+						isFold = {true}
+		 				initFoldNum = "10"
+					>
+						<FRow name = "age" label = "引用表单" />
+						<FRow name = "name" label = "引用位置" />
+						<FRow type='date' name='date' label='最近一次使用时间' format="yyyy-mm-dd hh:MM:ss" />
+
+					</FdTabel>
+
+				</form>
 
 
       </div>
@@ -56,3 +96,7 @@ export default class BasicInfo  extends React.Component{
 	}
 
 }
+
+export default reduxForm({
+	form: 'BasicInfo'
+})(BasicInfo);

@@ -6,7 +6,8 @@ import {
     Row,
     ButtonGroup,
     Button,
-		Tooltip
+		Tooltip,
+		IconTip
 } from 'kr-ui';
 import {reduxForm}  from 'redux-form';
 import './index.less';
@@ -52,10 +53,17 @@ class EditForm  extends React.Component{
 													<KrField
 	                             grid={1/2}
 	                             style={{width:262,marginBottom:5,marginLeft:30}}
-	                             name="name"
-	                             component="input"
+	                             value='123'
+	                             component="labelText"
 	                             label="表单表明 "
+															 inline={false}
 	 						            />
+													<div className='mask-icon'>
+														<IconTip>
+														  <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+															<div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+														</IconTip>
+													</div>
 												</div>
 
 												<KrField

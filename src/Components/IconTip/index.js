@@ -26,7 +26,7 @@ export default class IconTip  extends React.Component{
   componentDidMount(){
     var height=this.icon.getBoundingClientRect().height;
 		this.tip.style.top=height+8+'px';
-		//this.renderHover();
+		this.renderHover();
 	}
 
 	renderHover=()=>{

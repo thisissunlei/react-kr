@@ -18,11 +18,11 @@ import {
 } from 'redux-form';
 import './index.less';
 var tableData = [
-	{name:'1liu',age:12,other:'1什么鬼'},
-	{name:'2liu',age:13,other:'2什么鬼'},
-	{name:'3liu',age:14,other:'3什么鬼'},
-	{name:'4liu',age:15,other:'4什么鬼'},
-	{name:'5liu',age:16,other:'5什么鬼'},
+	{name:'1liu',age:12,other:'1什么鬼',date:1504108800},
+	{name:'2liu',age:13,other:'2什么鬼',date:1504108800},
+	{name:'3liu',age:14,other:'3什么鬼',date:1504108800},
+	{name:'4liu',age:15,other:'4什么鬼',date:1504108800},
+	{name:'5liu',age:16,other:'5什么鬼',date:1504108800},
 	]
 class EditTable  extends React.Component{
 
@@ -70,6 +70,10 @@ class EditTable  extends React.Component{
 						<FRow name = "age" label = "年龄" />
 						<FRow name = "name" label = "姓名" />
 						<FRow name = "other" label = "其他" />
+						<FRow type='date' name='date' label='日期' format="yyyy-mm-dd" />
+						<FRow label = "其他" type='operation' component={(item)=>{
+							
+						}}/>
 					</FdTabel>
 
 				</form>
