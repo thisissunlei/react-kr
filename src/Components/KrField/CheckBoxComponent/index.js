@@ -62,8 +62,7 @@ export default class CheckBoxComponent extends React.Component{
 			 <WrapComponent {...wrapProps}>
 				
 				 <input type="checkbox" onChange={this.onCheck} checked={input.value} {...other}/>
-				 {other.disabled && !input.value && <span className="disabled"></span>}
-				 {other.disabled && input.value && <span className="disabled-true"></span>}
+				
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 
 			 </WrapComponent>
