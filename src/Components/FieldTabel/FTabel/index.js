@@ -13,8 +13,9 @@ export default class Table extends React.Component {
   // isFold = {true} 是否有展开的按钮
 	// initFoldNum = "1" 默认展示几个
 	// checkbox ={true} 是否有 checkbox
-  	// checkbox = {true}
-		// 			batchDel = {true}
+  // checkbox = {true}
+	// 			batchDel = {true}
+  //toolbar = {true} 是否有工具条
   constructor(props) {
     super(props);
     this.state = {
