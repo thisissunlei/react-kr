@@ -219,8 +219,13 @@ export default class  TabelEdit extends React.Component {
 				<div>
 					{toolbar && this.toolbarRender(fields)}
 					<table>
-						{this.titleRender()}
-						{brights}
+						<thead>
+							{this.titleRender()}
+						</thead>
+						<tbody>
+							{brights}
+						</tbody>
+						
 					</table>
 				</div>	
 			) 
