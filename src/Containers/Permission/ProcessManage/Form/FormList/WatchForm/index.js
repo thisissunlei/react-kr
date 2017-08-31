@@ -4,7 +4,7 @@ import {
 	TabC
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
-//import RoleOrgList from './RoleOrgList';
+import TextInfo from './TextInfo';
 import './index.less';
 
 export default class WatchForm  extends React.Component{
@@ -47,9 +47,10 @@ export default class WatchForm  extends React.Component{
 						</TabC>
 
 						<TabC label='字段信息'>
-
+						  <TextInfo />
 						</TabC>
 				  </TabCs>
+
 			  </div>
 			</div>
 		);
