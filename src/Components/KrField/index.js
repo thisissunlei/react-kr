@@ -85,6 +85,8 @@ import SearchRole from './SearchRole';
 import TableComponent from './TableComponent';
 import EditComponent from './EditComponent';
 import CheckBoxComponent from './CheckBoxComponent';
+import LabelComponent from './LabelComponent';
+
 
 
 
@@ -555,6 +557,11 @@ class FieldRevert extends React.Component {
 			if(type == "checkBox" || component === "checkBox"){
 				return (
 					<FieldRevert {...this.props} component={CheckBoxComponent}  style={WrapStyles} {...other} />
+				)
+			}
+			if(type == "label" || component === "label"){
+				return (
+					<FieldRevert {...this.props} component={LabelComponent}  style={WrapStyles} {...other} />
 				)
 			}
 			

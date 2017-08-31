@@ -21,8 +21,17 @@ export default class  TabelEdit extends React.Component {
 		this.state = {
 			checkedArr:[],
 			other:0,
+			rowDetail:this.rowDetail()
 		}
 		
+	}
+	rowDetail = () =>{
+		let {children} = this.props;
+		var rowDetail = [];
+		children.map((item,index)=>{
+			rowDetail.push(item.props);
+		})
+		return rowDetail;
 	}
 	clearCheckBox = (type) =>{
 		for(let i = 0;i<tabelLength;i++){
@@ -39,16 +48,28 @@ export default class  TabelEdit extends React.Component {
 	}
 	handeOnCheck = (event) =>{
 		var handeCheck=event.target.checked;
+		var checkedArr = [];
 		if(handeCheck){
 			this.clearCheckBox(false);
+			this.allChecked();
 		}else{
 			this.clearCheckBox(true);
+			
 		}
-		console.log("pppp",handeCheck);
+		
 		titleChecked = handeCheck;
+	
 		
 		
-		
+	}
+	allChecked = () =>{
+		var checkedArr = [];
+		for(let i=0;i<tabelLength;i++){
+			checkedArr.push(i);
+		}
+		this.setState({
+			checkedArr,
+		})
 	}
 	rowCheck = (event,index) =>{
 		
@@ -76,10 +97,14 @@ export default class  TabelEdit extends React.Component {
 
 	}
 	titleRender = () =>{
-		
+		const {rowDetail} = this.state;
+		const {checkbox} = this.props;
+		var titleText = rowDetail.map((item,index)=>{
+			return<td key = {index}>{item.label}</td> 
+		})
 		return(
 			<tr className="hander">
-				<td>
+				{checkbox && <td>
 					<input onChange ={this.handeOnCheck} 
 						ref = {(ref)=>{
 							this.titleCheckbox = ref;
@@ -87,37 +112,26 @@ export default class  TabelEdit extends React.Component {
 						name="mm"
 						type="checkbox" 
 					/>
-
-
-				</td>
-				<td>选项文字</td>
-				<td>选项值</td>
-				<td>排序号</td>
-				<td>是否默认</td>
+				</td>}
+				{
+					titleText
+				}
 			</tr>
 		)
 	}
 	addRow = (fields) =>{
 		fields.push();
-		console.log(titleChecked,">>>>")
+		
 		setTimeout(()=>{
 
 			if(titleChecked){
+				this.allChecked();
 				this.clearCheckBox(false);
 			}
 		},50)
-		
-		
-		
-		
-		
-
 	}
 	subRow = (fields) =>{
-		console.log("PPPP")
-
 		let {checkedArr} = this.state;
-
 		var newArr = arrReverse(checkedArr);
 		if(newArr.length){
 			this.clearCheckBox(true);
@@ -125,7 +139,10 @@ export default class  TabelEdit extends React.Component {
 		newArr.map((item,index)=>{
 			fields.remove(item);
 		})
-
+		if(tabelLength == newArr.length){
+			this.titleCheckbox.checked = false;
+			titleChecked = false;
+		}
 		this.setState({
 			checkedArr:[]
 		})
@@ -146,15 +163,41 @@ export default class  TabelEdit extends React.Component {
 
 	renderBrights = ({ fields, meta: { touched, error }}) => {
 		const self = this;
+		const {rowDetail} = this.state;
+		const {toolbar,checkbox} = this.props;
 	
 		tabelLength = fields.length;
 		
 	 
 	   var brights = fields.map(function(brightsStr, index){
-				// var key = checkedArr.indexOf(index);
+		
+		   var rowDoms =[];
+		    for(let i=0;i<rowDetail.length;i++){
+				const {
+					name,
+					type,
+					label,
+					...other
+				} = rowDetail[i];
+				
+				var detail =  (
+					 <td>
+						<KrField
+							style={{marginRight:3,}}
+							name={brightsStr+'.'+name}
+							component={type}
+							{...other}
+						/>
+					</td>
+				);
+				rowDoms.push(detail);
+			}
+				
+		   
+				
 				return (<tr key={index} >
 						
-						<td>
+						{checkbox && <td>
 							<input 
 							   type="checkbox"
 								onChange = {(event)=>{
@@ -167,48 +210,14 @@ export default class  TabelEdit extends React.Component {
 							
 							/>
 						
-						</td>
-						<td>
-							<KrField
-								style={{marginRight:3,}}
-								name={`${brightsStr}.name`}
-								type="tableEdit"
-								component={self.renderField}
-								placeholder='子项名称'
-							/>
-						</td>
-						<td>
-							<KrField
-								style={{marginRight:3,}}
-								name={`${brightsStr}.code`}
-								type="tableEdit"
-								component={self.renderField}
-								
-							/>
-						</td>
-						<td>
-							<KrField
-								style={{marginRight:3,}}
-								name={`${brightsStr}.checked`}
-								type="tableEdit"
-								component={self.renderField}
-								
-							/>
-						</td>
-						<td>
-							<KrField
-								style={{marginRight:3,}}
-								name={`${brightsStr}.checked`}
-								type="checkBox"
-								component={self.renderField}
-								placeholder='子项名称'
-							/>
-						</td>
+						</td>}
+						
+						{rowDoms}
 					</tr>)
 	   		})
 			return(
 				<div>
-					{this.toolbarRender(fields)}
+					{toolbar && this.toolbarRender(fields)}
 					<table>
 						{this.titleRender()}
 						{brights}

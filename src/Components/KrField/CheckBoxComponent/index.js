@@ -24,23 +24,17 @@ export default class CheckBoxComponent extends React.Component{
 		}
 	}
 
-	onCheck = (checked) =>{
+	onCheck = (event) =>{
 		let {input,onCheck} = this.props;
-		input.onChange(checked);
-		onCheck && onCheck(checked)
+		input.onChange(event.target.checked);
+		onCheck && onCheck(event.target.checked)
 	}
 
 	render(){
 
-		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
+		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
 
-			if(type === 'hidden'){
-				return (
-					<div>
-						<Input {...input} type="hidden"/>
-					</div>
-				);
-			}
+			
 			let placeholderText=placeholder||label;
 			let className = '';
 
@@ -60,24 +54,15 @@ export default class CheckBoxComponent extends React.Component{
 				wrapStyle:style,
 			};
 
-			var inputProps = {
-				 ...input,
-				 type,
-				placeholder:placeholderText,
-				disabled,
-			 className,
-			 style:heightStyle,
-			 onChange:this.onChange,
-			 onBlur:this.onBlur,
-			 onFocus:this.onFocus,
-			 ...other,
-			 autoFocus,
-		 }
+			
+		 console.log(other,">>>>>>")
 
 		 return (
 			 <div className = "checkBox-componet">
 			 <WrapComponent {...wrapProps}>
-				 <Checkbox checked = {input.value} onCheck = {this.onCheck} />
+				
+				 <input type="checkbox" onChange={this.onCheck} checked={input.value} {...other}/>
+				
 				 {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
 				 
 			 </WrapComponent>

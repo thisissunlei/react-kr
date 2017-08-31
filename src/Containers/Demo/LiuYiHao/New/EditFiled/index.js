@@ -51,11 +51,12 @@ class EditFiled extends React.Component {
 		const {
 			onSubmit
 		} = this.props;
-		console.log(values,"PPPPPP")
 		onSubmit && onSubmit(); 
 	}
 	componentDidMount() {
 		Store.dispatch(change('EditFiled','data',tableData));
+		Store.dispatch(change('EditFiled','datadetail',tableData));
+		
 	}
 	
 
@@ -68,13 +69,31 @@ class EditFiled extends React.Component {
 		return (
 			<form autocomplete="off" onSubmit={handleSubmit(this.onSubmit)} >
 				
-				 <TabelEdit name = "data" />
+				 <TabelEdit 
+				 	name = "data" 
+					toolbar = {true}
+					checkbox = {true}
+					
+				 >
+					 <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
+					 <FRow name = "name" type = "tableEdit" label = "选项值" />
+					 <FRow name = "other" type = "tableEdit" label = "排序号" />
+					 <FRow name = "checked" type = "checkBox" label = "是否默认" />
+				 </TabelEdit>
 				 <Button
 					label="提交"
 					type="submit"
 					height={34}
 					width={90}
 				/>
+				 <TabelEdit 
+				 	name = "datadetail" 	
+				 >
+					 <FRow name = "age"  type = "label"  label = "选项文字" />
+					 <FRow name = "name" type = "label" label = "选项值" />
+					 <FRow name = "other" type = "label" label = "排序号" />
+					 <FRow name = "checked" type = "checkBox" disabled = "disabled" label = "是否默认" />
+				 </TabelEdit>
 			</form>
 
 		);
