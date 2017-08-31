@@ -822,13 +822,11 @@ export default class OrderDetail extends React.Component {
 						 item.contracttype !=  'QUITRENT' &&
 						 <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 
-						{item.contracttype == 'ENTER' && 
-						item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+						{
+						item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> 
+						</span>}
 					</div>
 
-						{/*
-							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
-						*/}
 
 
 					</TableRowColumn>
