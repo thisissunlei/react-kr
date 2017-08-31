@@ -62,7 +62,11 @@ export default class EquipmentSearch extends React.Component{
 
 
 	addEquipmentFun=(thisParams,item)=>{
-		State.equipmentAddLocation(thisParams.deviceId);
+		// State.equipmentAddLocation(thisParams.deviceId);
+		console.log("addEquipmentFun");
+		let {registEquipment} = this.props;
+		console.log("registEquipment");
+		registEquipment && registEquipment(thisParams.deviceId);
 	}
 	renderTableBody=()=>{
 		let _this = this;
@@ -72,13 +76,13 @@ export default class EquipmentSearch extends React.Component{
 				<div className="table-item" key={index}>
 					<div  className="table-item-index">{item.deviceId}</div>
 					<div  className="table-item-index">{item.driverV}</div>
-					<div  className="table-item-index">{item.ip}</div>
-					<div  className="table-item-index">{item.mem}</div>
-					<div  className="table-item-index">{item.name}</div>
-					<div  className="table-item-index">{item.rom}</div>
-					<div  className="table-item-index">{item.sd}</div>
 					<div  className="table-item-index">{item.v}</div>
-					<div  className="table-item-index table-item-last" onClick={_this.addEquipmentFun.bind(this,item)}>添加</div>
+					<div  className="table-item-index">{item.ip}</div>
+					<div  className="table-item-index">{item.name}</div>
+					<div className="table-item-index"> 
+						<div  className="table-item-last" onClick={_this.addEquipmentFun.bind(this,item)}>注册设备</div>
+						<div  className="table-item-last" onClick={_this.addEquipmentFun.bind(this,item)}>强制删除</div>
+					</div>
 				</div>
 			)
 		});
@@ -116,12 +120,9 @@ export default class EquipmentSearch extends React.Component{
 			        	<div className="table-header">
 			        		<div className="header-item">硬件ID</div>
 			        		<div className="header-item">固件版本</div>
+			        		<div className="header-item">APP版本</div>
 			        		<div className="header-item">IP地址</div>
-			        		<div className="header-item">内存</div>
 			        		<div className="header-item">标记</div>
-			        		<div className="header-item">存储容量</div>
-			        		<div className="header-item">sd容量</div>
-			        		<div className="header-item">app版本</div>
 			        		<div className="header-item">操作</div>
 			        	</div>
 			        	<div className="table-body">

@@ -286,6 +286,28 @@ export default class SecondDoorManage  extends React.Component{
 		State.synchronizingPswDialog = !State.synchronizingPswDialog;
 	}
 
+
+	//注册设备
+	registEquipmentFun=(deviceId)=>{
+		let _this =this;
+		var urlParams = {deviceId:deviceId}
+		Http.request('changeUnusedToList',{},urlParams).then(function(response) {
+			console.log("response",response);
+
+			Message.success("注册设备成功");
+			State.getUnusedEquipmentFun();
+			State.freshPageReturn();
+			_this.setState({
+				itemDetail : response
+			},function(){
+				State.openEditDialog = true;
+			})
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
@@ -417,10 +439,10 @@ export default class SecondDoorManage  extends React.Component{
 					 <Drawer 
 			        	open={State.openSearchEquipment}
 			        	onClose = {this.openSearchEquipmentFun}
-					    width={"90%"} 
+					    width={1100} 
 					    openSecondary={true} 
 					>
-						<EquipmentFind onCancel={this.openSearchEquipmentFun} />
+						<EquipmentFind onCancel={this.openSearchEquipmentFun} registEquipment = {this.registEquipmentFun}/>
 					</Drawer>
 					
 					<Dialog
