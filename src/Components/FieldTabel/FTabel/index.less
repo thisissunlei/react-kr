@@ -1,0 +1,91 @@
+.ui-field-tabel{
+    //工具条
+    .ui-field-tabel-toolbar{
+
+    }
+    //展开条
+    .ui-field-tabel-fold{
+        text-align: center;
+
+        .fold{
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #666666;
+             cursor: pointer;
+
+        }
+        .icon-down{
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+            margin-left: 5px;
+            background:url(images/down.svg) no-repeat;
+            background-size: 12px 12px;
+            background-position: 0px 1px;
+        }
+        .icon-up{
+            display: inline-block;
+            height: 14px;
+            width: 14px;
+            margin-left: 5px;
+            background:url(images/up.svg) no-repeat;
+            background-size: 12px 12px;
+            background-position: 0px 1px;
+
+        }
+        .icon-down::before{
+            content: "1";
+            color: transparent;
+        }
+        .icon-up::before{
+            content: "1";
+            color: transparent;
+        }
+        .fold:hover{
+            color: #4A90E2;
+        }
+        .fold:hover .icon-down{
+            background:url(images/downActive.svg) no-repeat;
+            background-size: 14px 14px;
+            background-position: 0px 1px;
+        }
+        .fold:hover .icon-up{
+            background:url(images/upActive.svg) no-repeat;
+            background-size: 14px 14px;
+            background-position: 0px 1px;
+        }
+    }
+     table{
+        border:1px solid #E1E6EB;
+        border-bottom: 0px;
+        border-right: 0px;
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+        .hander{
+            th{
+                background: #F5F6FA;
+                font-weight: 100;
+                width: auto;
+                border-bottom:1px solid #E1E6EB;
+                border-right:1px solid #E1E6EB;
+                padding: 8px 10px;
+                font-size: 14px;
+                color:#333;
+            }
+        }
+        tr{
+            width: auto;
+            th,td{
+                width: auto;
+                border-bottom:1px solid #E1E6EB;
+                border-right:1px solid #E1E6EB;
+                padding: 5px 10px;
+                font-size: 12px;
+                color:#666;
+            }
+        }
+     }
+
+}

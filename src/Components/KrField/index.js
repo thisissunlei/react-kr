@@ -76,11 +76,18 @@ import OaTreeDepartment from './OaTreeDepartment';
 //人员树
 import OaTreePersonnel from './OaTreePersonnel';
 //分部树
-import OaTreeDivision from './OaTreeDivision' 
+import OaTreeDivision from './OaTreeDivision'
 //高级查询客户来源
 import UpMerchantsSource from './UpMerchantsSource';
 import UpSignedClientSource from './UpSignedClientSource';
 import SearchProcessType from './SearchProcessType';
+import SearchRole from './SearchRole';
+import TableComponent from './TableComponent';
+import EditComponent from './EditComponent';
+import CheckBoxComponent from './CheckBoxComponent';
+import LabelComponent from './LabelComponent';
+
+
 
 
 
@@ -227,8 +234,8 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={NewUploadImageComponent}  style={WrapStyles} {...other}/>
 				);
 			}
-			
-			
+
+
 			if (component === 'uploadImg') {
 				return (
 					<FieldRevert {...this.props} component={ChangeUploadImageComponent}  style={WrapStyles} {...other}/>
@@ -239,7 +246,7 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={UploadImageListComponent}  style={WrapStyles} {...other}/>
 				);
 			}
-			
+
 			if (component === 'searchCityCommunity') {
 				return (
 					<FieldRevert {...this.props} component={SearchCityCommunity}  style={WrapStyles} {...other}/>
@@ -531,6 +538,33 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={UpSignedClientSource}  style={WrapStyles} {...other}/>
 				)
 			}
+
+			if (component === 'searchRole') {
+				return (
+					<FieldRevert {...this.props} component={SearchRole}  style={WrapStyles} {...other}/>
+				);
+			}
+			if (component === 'table') {
+				return (
+					<TableComponent {...this.props} style={WrapStyles} />
+				);
+			}
+			if(type === "tableEdit" || component === "tableEdit") {
+				return (
+					<FieldRevert {...this.props} component={EditComponent}  style={WrapStyles} {...other} />
+				)
+			}
+			if(type == "checkBox" || component === "checkBox"){
+				return (
+					<FieldRevert {...this.props} component={CheckBoxComponent}  style={WrapStyles} {...other} />
+				)
+			}
+			if(type == "label" || component === "label"){
+				return (
+					<FieldRevert {...this.props} component={LabelComponent}  style={WrapStyles} {...other} />
+				)
+			}
+			
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);

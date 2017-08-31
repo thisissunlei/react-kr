@@ -14,7 +14,7 @@ export default class TableHeader extends React.Component {
 		defaultValue:React.PropTypes.object,
 		onSort:React.PropTypes.func,
 		allRowsSelected:React.PropTypes.bool,
-
+		hasBorder:React.PropTypes.bool
 	}
 
 
@@ -40,14 +40,14 @@ export default class TableHeader extends React.Component {
 
 	renderCheckbox(){
 
-		let {onSelectAll,displayCheckbox,onCellClick,allRowsSelected} = this.props;
+		let {onSelectAll,displayCheckbox,onCellClick,allRowsSelected,hasBorder} = this.props;
 
 		if(!displayCheckbox){
 			return null;
 		}
 
 		//return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}></TableHeaderColumn>);
-		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth}> <Checkbox onCheck={onSelectAll} checked={allRowsSelected} /></TableHeaderColumn>);
+		return ( <TableHeaderColumn width={this.props.defaultValue.checkboxWidth} hasBorder={hasBorder}> <Checkbox onCheck={onSelectAll} checked={allRowsSelected} /></TableHeaderColumn>);
 
 	}
 
@@ -57,14 +57,15 @@ export default class TableHeader extends React.Component {
 			base,
 			{
 				key:index,
-				onSort:this.onSort
+				onSort:this.onSort,
+				hasBorder:this.props.hasBorder
 			}
 		);
 	}
 
 	render() {
 
-		let {className,children} = this.props;
+		let {className,children,hasBorder} = this.props;
 
 		let tHeader = [];
 		React.Children.forEach(children, (child,index) => {
@@ -76,8 +77,16 @@ export default class TableHeader extends React.Component {
 			}
 		});
 
+
+		var claName='';
+		if(hasBorder){
+			claName=className+' theadBorder'
+		}else{
+			claName=className
+		}
+
 		return (
-			<thead className={className} >
+			<thead className={claName}>
 				<tr>
                   {this.renderCheckbox()}
 			      {tHeader}

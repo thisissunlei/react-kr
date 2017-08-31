@@ -1,7 +1,10 @@
 import React from 'react';
-import TabTitle from './TabTitle';
-import TabFirst from './TabFirst';
-import TabProcess from './TabProcess';
+import {
+    TabTitle,
+    TabFirst,
+    TabProcess,
+    TabIcon
+} from './Title'
 import './index.less'
 export default class TabCs extends React.Component {
     constructor(props,context){
@@ -12,12 +15,21 @@ export default class TabCs extends React.Component {
         }
 	}
     componentDidMount(){
-       
+
     }
     getLabels = () =>{
         const {children} = this.props;
         let labels = children.map((item,index)=>{
-            return item.props.label;
+            if(item && item.props){
+                return item.props.label;
+            }else if(item && item[0]){
+                var labels=item.map((item,index)=>{
+                   return item.props.label
+                })
+                return labels
+            }else{
+                return false
+            }
         })
         return labels;
     }
@@ -28,8 +40,18 @@ export default class TabCs extends React.Component {
     }
     tabRender = () =>{
         const {children} = this.props;
+        var child=[];
+        children.map((item,index)=>{
+          if(item && item.props){
+            child.push(item)
+          }else if(item && item[0]){
+            item.map((item,index)=>{
+              child.push(item)
+            })
+          }
+        })
         const {showIndex} = this.state;
-        let tab = children.map((item,index)=>{
+        let tab = child.map((item,index)=>{
             if(index == showIndex){
                 return item;
             }
@@ -38,26 +60,30 @@ export default class TabCs extends React.Component {
     }
 
 	render() {
-        const {children,isDetail} = this.props;
+        const {children,isDetail,label} = this.props;
         const {labels} = this.state;
-        
+
 		return (
             <div class = "ui-oa-tabs">
                 {isDetail=='role'&&<TabTitle
-                    labels = {this.getLabels()} 
-                    onSubmit = {this.titleClick} 
+                    labels = {this.getLabels()}
+                    onSubmit = {this.titleClick}
                 />}
 
                  {isDetail=='detail'&&<TabFirst
-                    labels = {this.getLabels()} 
-                    onSubmit = {this.titleClick} 
+                    labels = {this.getLabels()}
+                    onSubmit = {this.titleClick}
                 />}
 
                 {isDetail=='process'&&<TabProcess
-                    labels = {this.getLabels()} 
-                    onSubmit = {this.titleClick} 
+                    labels = {this.getLabels()}
+                    onSubmit = {this.titleClick}
                 />}
-                
+                {isDetail=='iconTab'&&<TabIcon
+                    labels = {this.getLabels()}
+                    label = {label}
+                    onSubmit = {this.titleClick}
+                />}
                 {this.tabRender()}
             </div>
 		);

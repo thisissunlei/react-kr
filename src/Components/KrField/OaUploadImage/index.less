@@ -27,10 +27,10 @@
 	.ui-uploadimg-outbox{
 		 width: 100%;
         height: 100%;
-		
-	
-		
-		
+
+
+
+
 		display:block;
 		.ui-uploadimg-innerbox{
 			position:relative;
@@ -39,31 +39,49 @@
             display: block;
              width: 100%;
             height: 100%;
-			
-			
-			
+
+      .img-watch{
+				 position:absolute;
+				 z-index:10;
+				 background-repeat:no-repeat;
+				 background-position:center;
+				 background-size:contain;
+				 width:120px;
+				 height:120px;
+			}
+
+			.pic-watch{
+				position:absolute;
+				display:inline-block;
+				text-align: center;
+				cursor: pointer;
+        left:0px;
+			}
+
 			.ui-uploadimg-inner{
 				position:absolute;
 				width: 100%;
-                height: 100%;
+        height: 100%;
 				display:inline-block;
 				text-align: center;
-                left:0px;
-                // background: url()
-                transition: all .3s;
-                background: rgba(54,70,93,0);
-                span{
-                    position: relative;
-                    display: block;
-                    width: 100%;
-                    height: 40px;
-                    line-height: 45px;
-                    text-align: center;
-                    top: 50%;
-                    margin-top: -20px;
-                    opacity: 0;
-                    transition: all 0.3s;
-                }
+				z-index:10;
+				cursor: pointer;
+        left:0px;
+        // background: url()
+        transition: all .3s;
+        background: rgba(54,70,93,0);
+        span{
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 40px;
+            line-height: 45px;
+            text-align: center;
+            top: 50%;
+            margin-top: -20px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
 				input {
 					display: block;
                     opacity: 0;
@@ -84,14 +102,16 @@
                 color: #fff;
                 opacity: 1;
             }
-           
+
 			.ui-uploadimg-fresh-delete{
 				position:absolute;
 				top:0;
 				left:0;
-				width:214px;
-				height:138px;
-				line-height:138px;
+				z-index:11;
+				width:120px;
+				height:120px;
+				text-align:center;
+				line-height:120px;
 				background-color:rgba(0,0,0,0.4);
 				.ui-uploadimg-operateimg{
 					position: relative;
@@ -123,7 +143,7 @@
 					left:6px;
 					top:6px;
 				}
-				
+
 			}
 		}
 	}
@@ -140,5 +160,36 @@
 		margin:0;
 		color: #ff6868;
 		margin-top:7px;
+	}
+}
+
+.shear-upload{
+	 width:100px;
+	 height:30px;
+	 border:solid 1px #E7E7E7;
+	 background: #FCFCFC;
+	 border-radius: 4px;
+	 margin-top: 16px;
+	 line-height:30px;
+	 text-align: center;
+	 position: relative;
+	 cursor: pointer;
+}
+.shear-font{
+	font-family: PingFangSC-Regular;
+  font-size: 14px;
+	color: #666666;
+	line-height: 14px;
+	text-align: left;
+}
+.shear-pic-img{
+	 margin-top:16px;
+	 text-align: left;
+	 display:inline-block;
+}
+
+.ui-oa-upload-image{
+	.dialog-header-title{
+		 text-align: left;
 	}
 }

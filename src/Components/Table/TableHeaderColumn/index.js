@@ -10,6 +10,7 @@ export default class TableHeaderColumn extends React.Component {
 		name:React.PropTypes.string,
 		onSort:React.PropTypes.func,
 		onCellClick:React.PropTypes.func,
+		hasBorder:React.PropTypes.bool
 	}
 
 	constructor(props){
@@ -38,11 +39,17 @@ export default class TableHeaderColumn extends React.Component {
 
 	render() {
 
-		let {className,children,...other} = this.props;
+		let {className,children,hasBorder,...other} = this.props;
 
+	  var claName='';
+		if(hasBorder){
+			claName=className+' thBorder'
+		}else{
+			claName=className
+		}
 
 		return (
-			<th  className={className} onClick={this.onCellClick} {...other}>
+			<th  className={claName} onClick={this.onCellClick} {...other}>
 				{children}
 			</th>
 		);

@@ -217,11 +217,21 @@ export default class Editor extends React.Component{
   componentWillUnmount(){
     this.init = false;
     UE.delEditor(this.containerId);
+
+    try{
+        var ele = document.getElementById(this.containerId);
+        ele.parentElement.removeChild(ele);
+        // ele.style.display = "none";
+    }catch(err){
+
+    }
+
   }
 
   render() {
     let {label} = this.props;
     return (
+
       <div id={this.containerId} className="u-editor-parent" name="content"> </div>
     );
   }
