@@ -894,7 +894,7 @@ class Merchants extends Component{
 												
 													{State.isPrint && item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 												
-													{State.isDel && item.editFlag && item.contracttype=='ENTER' && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+													{State.isDel && item.editFlag && item.contracttype!='QUITRENT' && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 
 											</div>
 										</div>}
