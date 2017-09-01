@@ -67,6 +67,8 @@ export default class FContent extends React.Component {
           </td>
         );
       }
+
+
       return (
         <td>
           {item.checkbox && <input

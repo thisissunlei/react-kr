@@ -1,4 +1,9 @@
 .watch-text{
+  .ui-field-tabel{
+    table{
+      margin-top:5px;
+    }
+  }
   .main-form{
     .main-name{
       font-weight: 600;
@@ -8,14 +13,48 @@
         font-size: 14px;
         color:#333;
         display:inline-block;
-        margin-right:14px;
+        position:absolute;
+        cursor:pointer;
         .add-form{
           display:inline-block;
           width:20px;
           height:20px;
-          background: url(./images/add.svg) no-repeat center;
-          background-size: 100%;
+          background: url(./images/add1.svg) no-repeat center;
+          background-size:20px 20px;
+          margin-right: 6px;
         }
      }
+    .edit-wrap{
+      .add-form{
+        background: url(./images/edit.svg) no-repeat center;
+        background-size:20px 20px;
+      }
+    }
+    .del-wrap{
+      margin-left:68px;
+      .add-form{
+        background: url(./images/del.png) no-repeat center;
+        background-size:20px 20px;
+      }
+    }
+  }
+
+  .detail-form{
+    .add-two-wrap{
+      margin-left:178px;
+    }
+    .ui-field-tabel-toolbar{
+       margin-left: 274px;
+    }
+  }
+}
+
+.form-mask{
+  display:inline-block;
+  position:relative;
+  .mask-icon{
+    position: absolute;
+    top: -2px;
+    left: 107px;
   }
 }
