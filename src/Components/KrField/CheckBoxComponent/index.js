@@ -9,13 +9,6 @@ import './index.less';
 
 export default class CheckBoxComponent extends React.Component{
 
-	static propTypes = {
-		inline:React.PropTypes.bool,
-		simple:React.PropTypes.bool,
-		heightStyle:React.PropTypes.object,
-		maxLength:React.PropTypes.number,
-		autoFocus:React.PropTypes.bool,
-	}
 
 	constructor(props,context){
 		super(props,context)

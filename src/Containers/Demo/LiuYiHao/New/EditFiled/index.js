@@ -54,7 +54,7 @@ class EditFiled extends React.Component {
 		onSubmit && onSubmit(); 
 	}
 	componentDidMount() {
-		Store.dispatch(change('EditFiled','data',tableData));
+		Store.dispatch(change('EditFiled','data',[]));
 		Store.dispatch(change('EditFiled','datadetail',tableData));
 		
 	}
@@ -92,7 +92,7 @@ class EditFiled extends React.Component {
 					 <FRow name = "age"  type = "label"  label = "选项文字" />
 					 <FRow name = "name" type = "label" label = "选项值" />
 					 <FRow name = "sother" type = "label" label = "排序号" />
-					 <FRow name = "checked" type = "checkBox" disabled = "disabled" label = "是否默认" />
+					 <FRow name = "checked" type = "checkBox" disabled = {true} label = "是否默认" />
 				 </TabelEdit>
 			</form>
 

@@ -7,15 +7,12 @@ import {
 	arrReverse
 } from 'kr/Utils';
 import './index.less'
+import Nothing from '../../Nothing';
 var tabelLength = 0;
 var titleChecked = false;
 export default class  TabelEdit extends React.Component {
 
-	static PropTypes = {
-		inline:React.PropTypes.bool,
-		requireBlue:React.PropTypes.bool,
-	}
-
+	
 	constructor(props){
 		super(props)
 		this.state = {
@@ -180,16 +177,25 @@ export default class  TabelEdit extends React.Component {
 					name,
 					type,
 					label,
+					disabled,
 					...other
 				} = rowDetail[i];
+			
+			var surplus = {...other};
+			if(disabled && (disabled===true||disabled==="disabled")){
+				surplus = {
+					disabled,
+					...other
+				}
+			}
 				
 				var detail =  (
-					 <td>
+					 <td key = {i}>
 						<KrField
 							style={{marginRight:3,}}
 							name={brightsStr+'.'+name}
 							component={type}
-							{...other}
+							{...surplus}
 						/>
 					</td>
 				);
@@ -230,6 +236,7 @@ export default class  TabelEdit extends React.Component {
 						</tbody>
 						
 					</table>
+					{!tabelLength && <Nothing/>}
 				</div>	
 			) 
 	}
@@ -254,7 +261,8 @@ export default class  TabelEdit extends React.Component {
 	
 	render(){
 		
-		let {requireLabel,requireBlue,label,children,style,inline,name} = this.props;
+		let {name} = this.props;
+		console.log(tabelLength,"LLLLL");
 		
         return (
             <div className = "ui-tabel-edit"> 
@@ -262,7 +270,7 @@ export default class  TabelEdit extends React.Component {
 				
 				<FieldArray name={name} component={this.renderBrights}/>
 				
-                
+                 
             </div>
         );
 	}

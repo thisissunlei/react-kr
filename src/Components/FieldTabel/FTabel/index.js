@@ -3,6 +3,7 @@ import React from 'react';
 // var	tableData = [];
 import FContent from '../FContent';
 import './index.less';
+import Nothing from '../../Nothing';
 import {
   arrUpMove,
   arrDownMove,
@@ -66,9 +67,10 @@ export default class Table extends React.Component {
 
 
   componentWillReceiveProps (nextProps) {
-
+    var tableData = nextProps.input.value;
+    if(tableData && tableData.length)
     this.setState({
-      tableData:nextProps.input.value
+      tableData,
     })
 
   }
@@ -233,6 +235,7 @@ export default class Table extends React.Component {
    headReander = () =>{
       const {headers,handerChecked,tableData} = this.state;
       const {checkbox} = this.props;
+    
 
       if(!headers){
           return;
@@ -313,9 +316,12 @@ export default class Table extends React.Component {
       children,
       isFold,
       batchDel,
-      toolbar
+      toolbar,
+      initFoldNum
     } = this.props;
-    var iconName = fold? "icon-up":"icon-down"
+    var iconName = fold? "icon-up":"icon-down";
+    var nothing = tableData.length ? true : false;
+    var downFoldNum = tableData.length < initFoldNum ? false : true;
 
     return (
        <div className = "ui-field-tabel">
@@ -353,7 +359,8 @@ export default class Table extends React.Component {
             {this.tbodyRender()}
            </tbody>
         </table>
-        {isFold && <div className = "ui-field-tabel-fold">
+          {!nothing && <Nothing/>}
+        {isFold && downFoldNum && <div className = "ui-field-tabel-fold">
             <span className="fold" onClick = {this.foldClick}>
               <span >
               {foldLabel}

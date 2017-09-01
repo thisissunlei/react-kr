@@ -66,10 +66,15 @@ class EditTable extends React.Component {
 				<FdTabel
 					name = "tableData"
 					isFold = {true}
-	 				initFoldNum = "3"
+	 				initFoldNum = "10"
 				>
 					<FRow name = "name" label = "年龄" />
-					<FRow name = "time" label = "姓名" />
+					<FRow 
+						type='date'
+						name='time' 
+						label='日期' 
+						format="yyyy-mm-dd" 
+					/>
 					
 				</FdTabel>
 
