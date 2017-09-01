@@ -99,9 +99,8 @@ class ViewForm extends React.Component{
 								isFold = {true}
 				 				initFoldNum = "3"
 							>
-								<FRow name = "age" label = "年龄" />
-								<FRow name = "name" label = "姓名" />
-								<FRow name = "other" label = "其他" />
+								<FRow name = "name" label = "引用表单" />
+								<FRow name = "time" label = "最近一次使用时间" />
 							</FdTabel>
 						</div>
 					</div>
