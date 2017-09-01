@@ -126,7 +126,6 @@ export default class SecondDoorManage  extends React.Component{
 
 	openSearchEquipmentList=()=>{
 		this.openSearchEquipmentFun();
-		State.getUnusedEquipmentFun();
 	}
 	//确认删除
 	confirmDelete=()=>{
@@ -287,26 +286,9 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 
-	//注册设备
-	registEquipmentFun=(deviceId)=>{
-		let _this =this;
-		var urlParams = {deviceId:deviceId}
-		Http.request('changeUnusedToList',{},urlParams).then(function(response) {
-			console.log("response",response);
 
-			Message.success("注册设备成功");
-			State.getUnusedEquipmentFun();
-			State.freshPageReturn();
-			_this.setState({
-				itemDetail : response
-			},function(){
-				State.openEditDialog = true;
-			})
 
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
+
 
 	render(){
 		let {itemDetail}=this.state;
@@ -442,7 +424,7 @@ export default class SecondDoorManage  extends React.Component{
 					    width={1100} 
 					    openSecondary={true} 
 					>
-						<EquipmentFind onCancel={this.openSearchEquipmentFun} registEquipment = {this.registEquipmentFun}/>
+						<EquipmentFind onCancel={this.openSearchEquipmentFun} />
 					</Drawer>
 					
 					<Dialog
