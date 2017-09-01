@@ -36,6 +36,7 @@ export default class SelectComponent extends React.Component {
 	}
 
 	componentDidMount() {
+
 		this.setInitValue(this.props.input.value);
 	}
 
@@ -80,10 +81,14 @@ export default class SelectComponent extends React.Component {
 
 
 		onChange && onChange(item);
-}
+	}
+
+	onChangeOne=(value)=>{
+		let {onChangeOne}= this.props;
+		onChangeOne && onChangeOne(value);
+	}
 
 render() {
-
 		let {
 			input,
 			label,
@@ -125,6 +130,7 @@ render() {
 									onChange={this.handleChange}
 									placeholder="请选择..."
 									noResultsText=""
+									onChangeOne={this.onChangeOne}
 								/>
 					</div>
 

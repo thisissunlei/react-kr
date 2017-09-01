@@ -30,7 +30,8 @@ import {
 	Dialog,
 	Tooltip,
 	SearchForms,
-	ButtonGroup
+	ButtonGroup,
+	Notify,
 } from 'kr-ui';
 import './index.less';
 
@@ -58,6 +59,11 @@ class Createdialog extends React.Component {
 		this.getModuleList();
 		//this.getAllController();
 	}
+
+	componentDidMount(){
+		this.getAllController();
+	}
+
 	onCancel = () => {
 		let {
 			onCancel
@@ -81,6 +87,7 @@ class Createdialog extends React.Component {
 				onSubmit
 			} = this.props;
 			
+			console.log("params",params);
 			if (ControllerId.length > 0) {
 				
 				onSubmit && onSubmit(params);
@@ -102,21 +109,29 @@ class Createdialog extends React.Component {
 			idlist:item.methodId
 		})
 	}
-	// getAllController = () => {
-	// 	var _this = this;
-	// 	Http.request('getAllController', {}, {}).then(function(response) {
-	// 		var ControllerList = response.controllerList.map((item, index) => {
-	// 			item.value = item.id;
-	// 			item.label = item.name;
-	// 			return item;
-	// 		})
-	// 		_this.setState({
-	// 			ControllerList: ControllerList
-	// 		})
-	// 	}).catch(function(err) {
-	//
-	// 	});
-	// }
+	getAllController = () => {
+		let {detail} = this.props;
+		let _this = this;
+		Http.request('getMethodByName', {name:''}).then(function(response) {
+			
+			response.methodList.forEach((item, index) => {
+				item.value = item.methodId;
+				var comKrspaceStart = /^com.krspace./.test(item.controllerName);
+				var str = item.controllerName+"";
+				if(comKrspaceStart){
+					str = str.replace(/com.krspace./,"")
+				}
+
+				item.label = `${str}#${item.methodName}`;
+			});
+			console.log("response.methodList",response.methodList);
+			_this.setState({
+				ControllerList: response.methodList
+			})
+		}).catch(function(err) {
+			Message.error(err.message)
+		});
+	}
 	getModuleList = () => {
 		let {
 			Params
@@ -296,16 +311,16 @@ class Createdialog extends React.Component {
 		var list;
 		if (ControllerRender.length > 0) {
 				list = ControllerRender.map((item, index) => {
-					if (item.controller.length>67) {
-						return (
+					// if (item.controller.length>67) {
+					// 	return (
 
-							<div className="u-add-list" key={index}>{`...${item.controller.slice(-66)}`}<Tooltip offsetTop={5} place='top'>{item.controller}</Tooltip><span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
-						)
-					}else {
+					// 		<div className="u-add-list" key={index}>{`...${item.controller.slice(-66)}`}<Tooltip offsetTop={5} place='top'>{item.controller}</Tooltip><span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
+					// 	)
+					// }else {
 						return (
-							<div className="u-add-list" key={index}>{item.controller}<Tooltip offsetTop={5} place='top'>{item.controller}</Tooltip><span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
+							<div className="u-add-list" key={index}>{item.controller}<span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
 						)
-					}
+					// }
 				})
 		}
 		return list;
@@ -327,6 +342,21 @@ class Createdialog extends React.Component {
 
 
 	}
+
+
+	onMethodValueClick=(value)=>{
+		let _this = this;
+		this.setState({
+			ControllerItem: value,
+			idlist:value.methodId
+		},function(){
+			_this.controllerAdd();
+			Notify.show([{
+				message: '添加成功',
+				type: 'success',
+			}]);
+		})
+	}
 	render() {
 		let {
 			error,
@@ -342,10 +372,10 @@ class Createdialog extends React.Component {
 			ModuleList,
 			ControllerList,
 		} = this.state;
-
+		console.log("ControllerList",ControllerList);
 		return (
 			<div className="g-operations-create">
-				<form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
+				<form onSubmit={handleSubmit(this.onSubmit)} style={{width:1000,marginTop:30,paddingLeft:40,paddingRight:40,boxSizing:"border-box"}}  >
 					<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 					<div className="u-operations-edit-title">
 						<span>新建操作项</span>
@@ -386,7 +416,7 @@ class Createdialog extends React.Component {
 					<div className="u-operations">
 						<KrField
 								name="module"
-								style={{width:310,marginLeft:14}}
+								style={{width:310,marginLeft:40}}
 								component="select"
 								label="所属菜单"
 								options={ModuleList}
@@ -400,21 +430,9 @@ class Createdialog extends React.Component {
 					<div className="u-method">
 						<div className="u-method-title"><span className="require-label-method">*</span>方法</div>
 						<div className="u-method-content u-method-contentE">
-							<KrField
-									name="controller"
-									style={{width:600,marginLeft:70}}
-									component="searchMethod"
-									label=""
-									options={ControllerList}
-									inline={true}
-									onChange={this.onSelectController}
-							/>
-							<Button
-									label="Add"
-									className="u-method-add"
-									height={34}
-									onTouchTap={this.controllerAdd}
-							/>
+							
+							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOne={this.onMethodValueClick}/>
+
 						</div>
 						<div className="u-method-content-list">
 							{this.renderController()}
@@ -451,7 +469,7 @@ class Createdialog extends React.Component {
 
 }
 const validate = values => {
-
+	console.log("values",values);
 	const errors = {}
 	if (!values.name) {
 		errors.name = '请输入名称';
