@@ -160,7 +160,7 @@ class EditForm extends React.Component{
 		let _this = this;
 		if(!floor){
 			
-			Store.dispatch(change('EditForm', 'doorType', ""));
+			// Store.dispatch(change('EditForm', 'doorType', ""));
 		}else{
 			_this.setState({
 				floorNum : floor.value
@@ -228,7 +228,7 @@ class EditForm extends React.Component{
 		}).catch(function(err){
 
 	 		Message.error(err.message);
-
+ 
 		});
 		
 	}
@@ -239,7 +239,10 @@ class EditForm extends React.Component{
 		return(
 			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					<div style={{margin:"0 0 20px 10px",fontSize: 16,color:'black'}}><span>智能硬件ID：</span><span style={{color:"#ff6868"}}>{detail.deviceId}</span></div>
+					<div style={{margin:"0 0 20px 10px",fontSize: 14,color:'black'}}>
+						<div><span>智能硬件ID：</span><span style={{color:"#ff6868"}}>{detail.deviceId}</span></div>
+						<div style={{marginTop:15}}><span>标记：</span><span style={{color:"#ff6868"}}>{detail.name}</span></div>
+					</div>
 					
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
@@ -363,6 +366,9 @@ const validate = values=>{
 	}
 	if(!values.doorType){
 		errors.doorType = '门类型为必填项';
+	}
+	if(values.doorType && (values.doorType=='MEETING' ||values.doorType=='OFFICE')&& !values.roomId){
+		errors.roomId ='门类型为会议室或独立办公室，必须选择房间'
 	}
 	if(!values.maker){
 		errors.maker = '厂家为必填项';

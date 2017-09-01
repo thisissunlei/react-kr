@@ -244,8 +244,8 @@ State.getUnusedEquipmentFun = action(function(){
 State.equipmentAddLocation = action(function(param){
 	var urlParams = {deviceId:param}
 	Http.request('changeUnusedToList',{},urlParams).then(function(response) {
-
-		Message.success("添加成功");
+		console.log("response",response);
+		Message.success("注册设备成功");
 		State.getUnusedEquipmentFun();
 		State.freshPageReturn();
 

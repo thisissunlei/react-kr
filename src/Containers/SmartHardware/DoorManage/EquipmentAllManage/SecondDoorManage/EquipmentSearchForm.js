@@ -68,7 +68,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 
 	// 提交
 	onSubmit=(values)=>{
-		console.log("values",values);
+		//console.log("values",values);
 	}
 	// 关闭窗口
 	onCancle=()=>{
@@ -113,8 +113,10 @@ class EquipmentAdvancedQueryForm extends React.Component{
 
 		var newObj = {
 			communityId: communityIdReal,
-			floor : floorReal
+			floor : floorReal,
+			page:1
 		}
+		State.realPage =1;
 		State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newObj);
 
 	}
@@ -130,7 +132,9 @@ class EquipmentAdvancedQueryForm extends React.Component{
 
 		var newObj = {
 			floor : floorReal,
+			page :1
 		}
+		State.realPage = 1;
 		State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newObj);
 	}
 
@@ -142,14 +146,14 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		}else{
 			doorTypeReal = '';
 		}
-		
+		State.realPage =1;
 		State.equipmentSecondParams =  {
 			communityId: State.equipmentSecondParams.communityId,
 	        deviceId : State.equipmentSecondParams.deviceId || '',
 	        doorCode : State.equipmentSecondParams.doorCode || '',
 	        doorType : doorTypeReal,
 	        floor : State.equipmentSecondParams.floor,
-	        page : State.realPage,
+	        page : 1,
 	        pageSize: 15,
 	        date: new Date()
 		}
@@ -164,7 +168,8 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			
 		    newObj ={
 				    	doorCode: value.content,
-				    	deviceId: ''
+				    	deviceId: '',
+				    	page:1
 				    }
 
 		}else{
@@ -172,11 +177,13 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		    
 		    newObj ={
 				    	deviceId: value.content,
-				    	doorCode: ''
+				    	doorCode: '',
+				    	page:1
 				    }
 	    }
 
 	    var objNewT = Object.assign({},State.equipmentSecondParams);
+	    State.realPage =1;
 	    State.equipmentSecondParams = Object.assign({},objNewT,newObj);
 
 	}

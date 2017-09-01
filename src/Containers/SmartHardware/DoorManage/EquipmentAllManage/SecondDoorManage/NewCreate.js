@@ -56,7 +56,7 @@ class NewCreateDefinitionForm extends React.Component{
 			communityId :community.id,
 		})
     	Store.dispatch(change('NewCreateDefinitionForm', 'communityId', community.communityId));
-  		Store.dispatch(change('NewCreateDefinitionForm','doorType',''));
+  		// Store.dispatch(change('NewCreateDefinitionForm','doorType',''));
 		Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
 
 
@@ -75,26 +75,12 @@ class NewCreateDefinitionForm extends React.Component{
   	
   	//选择属性(会议室／大门)
 	onchooseProperty=(doorType)=>{
-		console.log("doorType",doorType);
+		//console.log("doorType",doorType);
 		let _this = this;
 		if(doorType == null){
-			_this.setState({
-  				
-  			})
+  			Store.dispatch(change('NewCreateDefinitionForm','doorType',''));
 			return;
 		}
-  		if(doorType.value == 'GATE'){
-  			Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
-  			_this.setState({
-  				
-  			})
-  		}else{
-
-  			_this.setState({
-  				
-  			})
-
-  		}
   		
   		Store.dispatch(change('NewCreateDefinitionForm','doorType',doorType.value));
   	}
@@ -110,7 +96,7 @@ class NewCreateDefinitionForm extends React.Component{
 	getFloor=(floor)=>{
 		let _this = this;
 		if(!floor){
-			Store.dispatch(change('NewCreateDefinitionForm', 'doorType', ""));
+			// Store.dispatch(change('NewCreateDefinitionForm', 'doorType', ""));
 		}else{
 			_this.setState({
 				floorNum : floor.value
@@ -316,6 +302,9 @@ const validate = values=>{
 	}
 	if(!values.doorType){
 		errors.doorType = '门类型为必填项';
+	}
+	if(values.doorType && (values.doorType=='MEETING' ||values.doorType=='OFFICE')&& !values.roomId){
+		errors.roomId ='门类型为会议室或独立办公室，房间必须填写'
 	}
 	if(!values.maker){
 		errors.maker = '厂家为必填项';
