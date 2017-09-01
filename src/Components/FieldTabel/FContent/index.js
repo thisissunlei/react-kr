@@ -60,7 +60,7 @@ export default class FContent extends React.Component {
 
       if (item.type === 'operation' && typeof (item.component) === 'function'){
          return (
-          <td>
+          <td key={index}>
               {
                 item.component(data)
               }
@@ -83,7 +83,7 @@ export default class FContent extends React.Component {
     })
     if(checkbox){
       doms.unshift(
-         <td>
+         <td key={index}>
               <input
                     type="checkbox"
                     onChange={(event) =>{

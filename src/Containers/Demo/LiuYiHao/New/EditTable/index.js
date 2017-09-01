@@ -66,7 +66,7 @@ class EditTable extends React.Component {
 				<FdTabel
 					name = "tableData"
 					isFold = {true}
-	 				initFoldNum = "3"
+	 				initFoldNum = "10"
 				>
 					<FRow name = "name" label = "年龄" />
 					<FRow 
