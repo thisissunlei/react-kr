@@ -112,7 +112,7 @@ class EditDynamics extends React.Component{
 
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType,isCite,titleUrl,content} = this.state;
-        // let host = "http://"+window.location.host;
+        let host = "http://"+window.location.host;
 
         var editorLabel = "";
         if(isCite){
@@ -123,7 +123,7 @@ class EditDynamics extends React.Component{
             editorLabel = "简介"
         }
         
-        let host = "http://optest02.krspace.cn/";
+        // let host = "http://optest02.krspace.cn/";
 		return(
 
 			<div className='m-edit-swper'>
@@ -199,8 +199,8 @@ const validate = values =>{
     }
     if(!values.title){
        errors.title='标题为必填项';
-    }else if(values.title.length>20){
-       errors.title='标题不能超过20个字符';
+    }else if(values.title.length>50){
+       errors.title='标题不能超过50个字符';
     }
     if(!values.articleType){
         errors.articleType='文章类型为必填项';

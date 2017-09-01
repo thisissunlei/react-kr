@@ -177,6 +177,7 @@
     "react-qr-code": "0.1.1",
     "react-select": "1.0.0-rc.2",
     "react-tap-event-plugin": "0.2.2",
+    "react-toggle": "^4.0.1",
     "react-tooltip": "3.2.1",
     "redux-form": "6.0.2"
   }

@@ -21,8 +21,11 @@ import OtherNav from './OtherNav';
 //行政管理
 import AdministrationNav from './AdministrationNav';
 
+//智能硬件
+import SmartHardware from './SmartHardware';
 
-const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav);
+
+const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware);
 
 module.exports = {
     current_parent: '',

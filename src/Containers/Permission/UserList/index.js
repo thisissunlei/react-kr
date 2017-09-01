@@ -105,12 +105,12 @@ export default class UserList extends Component {
 	}
 	//改变页码
     changeP=()=>{
+		var params = Object.assign({},this.state.searchParams);
         var timer = new Date();
+		params.timer = timer;
+		params.page = this.state.newPage;
         this.setState({
-            searchParams: {
-                    page: this.state.newPage,
-                    timer: timer,
-            }
+            searchParams: params,
         })
     }
     onPageChange=(page)=>{

@@ -70,8 +70,8 @@ export default class WorkInfo  extends React.Component{
 	editSubmit=(params)=>{
 	   let {personId}=this.props;
 	   delete params.uTime;
-	   params.probationEndDate = DateFormat(params.probationEndDate,"yyyy-mm-dd hh:MM:ss");
-	   params.contractEndDate = DateFormat(params.contractEndDate,"yyyy-mm-dd hh:MM:ss");
+	   params.probationEndDate = params.probationEndDate?DateFormat(params.probationEndDate,"yyyy-mm-dd hh:MM:ss"):'';
+	   params.contractEndDate = params.contractEndDate?DateFormat(params.contractEndDate,"yyyy-mm-dd hh:MM:ss"):'';
 	   params.resourceId=personId;
        var _this=this;
 	   Http.request('people-workinfo-edit',{},params).then(function(response) {

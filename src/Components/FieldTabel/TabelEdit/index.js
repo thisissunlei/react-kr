@@ -72,6 +72,7 @@ export default class  TabelEdit extends React.Component {
 		})
 	}
 	rowCheck = (event,index) =>{
+
 		
 		var checkedArr = [].concat(this.state.checkedArr);
 		var key = checkedArr.indexOf(index);
@@ -82,9 +83,11 @@ export default class  TabelEdit extends React.Component {
 			}
 		}else{
 			if(key!==-1){
-				checkedArr.splice(index,1);
+				checkedArr.splice(key,1);
+				
 			}
 		}
+		
 		if(checkedArr.length === tabelLength){
 			this.titleCheckbox.checked = true;
 		}else{
@@ -100,7 +103,7 @@ export default class  TabelEdit extends React.Component {
 		const {rowDetail} = this.state;
 		const {checkbox} = this.props;
 		var titleText = rowDetail.map((item,index)=>{
-			return<td key = {index}>{item.label}</td> 
+			return<td key = {index}><div><span>{item.label}</span></div></td> 
 		})
 		return(
 			<tr className="hander">
@@ -219,8 +222,13 @@ export default class  TabelEdit extends React.Component {
 				<div>
 					{toolbar && this.toolbarRender(fields)}
 					<table>
-						{this.titleRender()}
-						{brights}
+						<thead>
+							{this.titleRender()}
+						</thead>
+						<tbody>
+							{brights}
+						</tbody>
+						
 					</table>
 				</div>	
 			) 
@@ -245,7 +253,7 @@ export default class  TabelEdit extends React.Component {
 
 	
 	render(){
-		console.log("render")
+		
 		let {requireLabel,requireBlue,label,children,style,inline,name} = this.props;
 		
         return (

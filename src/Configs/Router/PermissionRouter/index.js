@@ -99,6 +99,12 @@ const Permission_ProcessManage_ProcessSetting= (location, callback) => {
   }, 'Permission_ProcessManage_ProcessSetting')
 }
 
+const Permission_ProcessManage_Dictionary= (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/ProcessManage/Dictionary').default)
+  }, 'Permission_ProcessManage_Dictionary')
+}
+
 const Permission_ProcessManage_BasicSetting= (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Permission/ProcessManage/BasicSetting').default)
@@ -161,6 +167,7 @@ module.exports =()=>{
     {/*流程管理*/}
     <Route path="processManage" getComponent={Basic}>
       <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
+      <Route path="dictionary" getComponent={Permission_ProcessManage_Dictionary}/>
       <Route path="form" getComponent={Permission_ProcessManage_Form}/>
       <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
     </Route>

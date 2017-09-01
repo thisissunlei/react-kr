@@ -21,8 +21,8 @@ export default class ShearDialog  extends React.Component{
          fileSize=file.size, //文件大小
          modifiedDate=file.lastModifiedDate, //上次修改时间
          html='';
-				 if(fileType!='image/png'&&fileType!='image/gif'&&fileType!='image/jpeg'){
- 				    Message.error('只支持：JPG、PNG、GIF');
+				 if(fileType!='image/png'&&fileType!='image/jpeg'){
+ 				    Message.error('只支持：JPG、PNG');
 						return ;
 				 }
 				 this.setState({
@@ -79,7 +79,7 @@ export default class ShearDialog  extends React.Component{
 			<div style={{paddingLeft:94,paddingTop:18}}>
 
 					<div className='shear-font' style={{marginBottom:10}}>从电脑里挑选一张萌萌哒的照片</div>
-          <div className='shear-font'>图片格式只支持：JPG、PNG、GIF，大小不超过2M</div>
+          <div className='shear-font'>图片格式只支持：JPG、PNG，大小不超过2M</div>
 
           <div className='shear-upload'>
             选择图片

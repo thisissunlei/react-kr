@@ -25,6 +25,7 @@ class UserImageChange  extends React.Component{
 	render(){
 
         let {handleSubmit,personId,url}=this.props;
+		let host = "http://"+window.location.host;
 
 		return(
 
@@ -35,9 +36,9 @@ class UserImageChange  extends React.Component{
                             name="area"
                             component="oaUploadImage"
                             requireLabel={false}
-														personId={personId}
-														url={url}
-														requestUrl='http://optest02.krspace.cn/api/krspace-erp-web/hrm/resource/upload-photo/type/avatar'
+							personId={personId}
+							url={url}
+							requestUrl={`${host}/api/krspace-erp-web/hrm/resource/upload-photo/type/avatar`}
 						/>
          </form>
 			</div>

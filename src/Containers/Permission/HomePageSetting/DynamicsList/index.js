@@ -252,12 +252,18 @@ export default class DynamicsList extends Component{
               				component={(value,oldValue)=>{
 								  var height = "auto";
 								  var isShow = true;
+								  var imgStyle = {};
 								  if(!value){
-									  height = 80;
+									 
 									  isShow = false;
+									  value = "-";
+									  imgStyle={
+										  height:80,
+										  lineHeight:"80px"
+									  }
 								  }
 								return (
-									<div style = {{height:height}}>
+									<div style = {imgStyle}>
 										{!isShow && <span>{value}</span>}
 										<img className = "dynamics-img" src = {value} style = {{display:isShow ? "inline-block" : "none"}} />
 									</div>
@@ -268,21 +274,22 @@ export default class DynamicsList extends Component{
 						<TableRowColumn name="title"
 							component={(value,oldValue,detail)=>{
 								var maxWidth=10;
-								if(value.length>maxWidth){
+								{/*if(value.length>maxWidth){
 									value = value.substring(0,10)+"...";
-								}
+								}*/}
 								if(!value){
 									value = "-";
 									oldValue = "-";
 								}
 								return (
 									<div  className='tooltipParent'>
-										<a className='tableOver' 
+										<a 
 											onClick = {() =>{
 												this.goDetail(detail)
 											}}
-											src = {detail.linkUrl}>{value}</a>
-										<Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip>
+											src = {detail.linkUrl}>{value}
+										</a>
+										
 									</div>
 								)
 							}}
@@ -294,9 +301,9 @@ export default class DynamicsList extends Component{
 								value = delHtmlTag(value);
 								oldValue = delHtmlTag(oldValue);
 								var tooltip  = '';
-								if(value.length>maxWidth){
+								{/*if(value.length>maxWidth){
 									value = value.substring(0,maxWidth)+"...";
-								}
+								}*/}
 								if(!value){
 									value = "-";
 									oldValue = "-";
@@ -314,9 +321,9 @@ export default class DynamicsList extends Component{
 								value = delHtmlTag(value);
 								oldValue = delHtmlTag(oldValue);
 								var tooltip  = '';
-								if(value.length>maxWidth){
+								{/*if(value.length>maxWidth){
 									value = value.substring(0,maxWidth)+"...";
-								}
+								}*/}
 								if(!value){
 									value = "-";
 									oldValue = "-";

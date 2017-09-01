@@ -274,9 +274,11 @@ export default class Table extends React.Component {
     const {tableData,headers,fold} = this.state;
     const {initFoldNum,checkbox} = this.props;
     var showData = [].concat(tableData);
+   
     if(!fold){
       showData = tableData.slice(0,initFoldNum||5);
     }
+     console.log(showData,">>>>",initFoldNum)
 
     let doms = showData.map((item,index)=>{
        return <FContent
