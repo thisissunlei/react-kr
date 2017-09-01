@@ -11,11 +11,7 @@ var tabelLength = 0;
 var titleChecked = false;
 export default class  TabelEdit extends React.Component {
 
-	static PropTypes = {
-		inline:React.PropTypes.bool,
-		requireBlue:React.PropTypes.bool,
-	}
-
+	
 	constructor(props){
 		super(props)
 		this.state = {
@@ -180,16 +176,25 @@ export default class  TabelEdit extends React.Component {
 					name,
 					type,
 					label,
+					disabled,
 					...other
 				} = rowDetail[i];
+			
+			var surplus = {...other};
+			if(disabled && (disabled===true||disabled==="disabled")){
+				surplus = {
+					disabled,
+					...other
+				}
+			}
 				
 				var detail =  (
-					 <td>
+					 <td key = {i}>
 						<KrField
 							style={{marginRight:3,}}
 							name={brightsStr+'.'+name}
 							component={type}
-							{...other}
+							{...surplus}
 						/>
 					</td>
 				);
