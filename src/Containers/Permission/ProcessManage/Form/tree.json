@@ -1,15 +1,15 @@
 [
     {
-      "orgId":1,
-      "orgName":"人事类"
+      "id":1,
+      "name":"人事类"
     },
     {
-      "orgId":2,
-      "orgName":"财务类"
+      "id":2,
+      "name":"财务类"
     },
     {
-      "orgId":3,
-      "orgName":"行政类"
+      "id":3,
+      "name":"行政类"
     }
     
 ]

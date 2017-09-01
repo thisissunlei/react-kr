@@ -18,70 +18,51 @@ export default class Form  extends React.Component{
 	constructor(props,context){
 		super(props, context);
     this.state={
-      searchParams: {
-				page: 1,
-				pageSize: 15,
-				orgId: '1',
-			},
-      //tab
-      data:[{
+      nameKey: '',
+      data:{
         children:[],
-        orgId:0,
-        orgName:"全部类型",
+        id:0,
+        name:"全部类型",
         treeType:"top"
-      }],
+      },
       dimData: [],
       treeData: [],
-      searchKey: '',
-      tree:tree
+      searchKey: ''
     }
 	}
 
   componentWillMount(){
-    this.getTreeData();
+    
   }
 
   componentDidMount() {
-		/*const { NavModel } = this.props;
-		NavModel.setSidebar(false);
-
-    var {checkOperate} = this.props.NavModel;
-    */
-
-		var _this = this;
-		Http.request('extra-list', {
-			dimId:1
-		}).then(function (response) {
-			_this.setState({ dimData: response.items })
-		}).catch(function (err) { });
-
-		/*setTimeout(function() {
-		   _this.setState({
-			 isLeave :checkOperate("hrm_resource_dimission"),
-		     isRemove : checkOperate("hrm_resource_account"),
-		     istranfer : checkOperate("hrm_resource_move"),
-			 isCard : checkOperate("hrm_resource_card"),
-		     isOpen : checkOperate("hrm_resource_account")
-		   })
-		},500);*/
+	  this.getTreeData();
 	}
 
 
   //获取树数据
   getTreeData = () => {
-      let {tree,data}=this.state;
-      data[0].children=tree;
-			this.setState({
-				treeData: this.fnTree(data),
-        data:this.fnTree(data)[0]
-			},function(){
-        console.log('treeData',this.state.treeData);
+    let {nameKey,data} = this.state; 
+    var _this = this;
+		Http.request('get-from-navigation', {
+      nameKey:nameKey
+		}).then(function (response) {
+      let treeData = Object.assign({},data);
+      treeData.children = response.items;
+      _this.setState({
+        treeData : _this.fnTree([treeData]),
       });
+		}).catch(function (err) {
+      
+    });
+
 	}
 
   //递归
   fnTree = (data) =>{
+    
 		let key = 0;
+    
 		var arr = data.map((item,index)=>{
 			var obj = Object.assign({},item);
       if(!obj.children){
@@ -92,6 +73,8 @@ export default class Form  extends React.Component{
 				obj.children = this.fnTree(obj.children);
 			}
 			obj.isClick = true;
+      obj.orgName = obj.name;
+      obj.orgId = obj.id;
 			obj.key = key++;
 			return obj;
 		})
@@ -103,22 +86,14 @@ export default class Form  extends React.Component{
   change = (event) => {
 		this.setState({
 			searchKey: event.target.value || ' ',
-		},function(){
 		})
 	}
 
   //树选择
   onSelect = (data) => {
-		var _this = this;
 		this.setState({
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				orgId: data[0].orgId,
-			},
       data:data[0]
 		});
-
 	}
 
 
@@ -127,23 +102,11 @@ export default class Form  extends React.Component{
 
     let {styleBool,
         selectStyle,
-        searchParams,
-        dimData,
         treeData,
         searchKey,
         data
     }=this.state;
-
-    var children=[];
-    if(data.children.length==0){
-      children=[data];
-    }else{
-      for(var index in data.children){
-          children.push(data.children[index])
-      }
-    }
-
-
+   
 		return(
 
       <div className="g-oa-labour pessi-form-type">
@@ -168,23 +131,22 @@ export default class Form  extends React.Component{
           <div className='right-center'>
             <TabCs
                  isDetail='iconTab'
-                 label = {data.orgName}
+                 label = {data.name}
                  >
-                 {
-                 children.map((item,index)=>{
-                   return <TabC label={item.orgName}>
-                            <TypeList
-                              id={item.orgId}
-                            />
-                          </TabC>
-                 })
-                }
+                { data.id === 0 &&
+                    <TabC label='类型列表'>
+                      <TypeList 
+                          id={data.id}
+                      />
+                    </TabC>
+                 }
 
                  <TabC label='表单列表'>
-                   <FormList
-                     
+                   <FormList 
+                      id={data.id}
                    />
                  </TabC>
+               
 
              </TabCs>
           </div>
