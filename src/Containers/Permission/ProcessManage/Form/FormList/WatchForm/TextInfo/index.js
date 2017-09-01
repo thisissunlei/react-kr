@@ -6,6 +6,8 @@ import {
   FdTabel,
 	FContent,
 	FRow,
+	Toolbar,
+	Dialog
 } from 'kr-ui';
 import {
 	Store,
@@ -14,6 +16,9 @@ import {
 	reduxForm,
 	change
 } from 'redux-form';
+import AddDetail from './AddDetail';
+import EditDetail from './EditDetail';
+import DeleForm from './DeleForm';
 import './index.less';
 var tableData = [
 	{name:'1liu',age:12,other:'1什么鬼',date:1504108800,select:'true'},
@@ -26,6 +31,11 @@ class TextInfo  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.state={
+			openAddDetail:false,
+			openEditDetail:false,
+			openDelForm:false
+		}
 	}
 
   componentDidMount() {
@@ -33,6 +43,32 @@ class TextInfo  extends React.Component{
   }
 
  onSubmit=()=>{
+
+ }
+
+//新增明细
+ openAddDetail=()=>{
+    this.setState({
+			openAddDetail:!this.state.openAddDetail
+		})
+ }
+
+ //编辑明细
+ openEditDetail=()=>{
+	 this.setState({
+		openEditDetail:!this.state.openEditDetail
+	})
+ }
+
+//删除明细表
+ deleForm=()=>{
+  this.setState({
+		openDelForm:!this.state.openDelForm
+	})
+ }
+
+
+ addText=()=>{
 
  }
 
@@ -46,18 +82,20 @@ class TextInfo  extends React.Component{
           <Row style={{marginBottom:11,position:'relative',zIndex:5,marginTop:20}}>
 
             <Col
-              style={{float:'left',marginBottom:20}}
+              style={{float:'left'}}
             >
               <Button
                 label="新建明细表"
                 type='button'
-                onTouchTap={this.openAddPersonal}
+                onTouchTap={this.openAddDetail}
               />
             </Col>
 
-            <form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}>
+					</Row>
 
-              <div className='main-form'>
+            <form onSubmit={handleSubmit(this.onSubmit)}>
+
+              <div className='main-form' style={{marginTop:20}}>
 
                   <div className='main-name'>
                    <span>主表-</span>
@@ -70,27 +108,104 @@ class TextInfo  extends React.Component{
                     <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>新增字段</span>
                   </div>
 
-        					<FdTabel
-        						name = "tableData"
-        						isFold = {false}
-                    toolbar={true}
-                    batchDel={true}
-                    checkbox={true}
-        					>
-        						<FRow name = "age" label = "字段名称"/>
-        						<FRow name = "name" label = "字段显示名"/>
-        						<FRow name = "other" label = "表现形式"/>
-        						<FRow name = "select" label = "字段类型"/>
-        						<FRow label = "操作" type='operation' component={(item)=>{
-        							 return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
-        						}}/>
-        					</FdTabel>
-              </div>
+											<FdTabel
+		        						name = "tableData"
+		        						isFold = {false}
+		                    toolbar={true}
+		                    batchDel={true}
+		                    checkbox={true}
+		        					>
+		        						<FRow name = "age" label = "字段名称"/>
+		        						<FRow name = "name" label = "字段显示名"/>
+		        						<FRow name = "other" label = "表现形式"/>
+		        						<FRow name = "select" label = "字段类型"/>
+		        						<FRow label = "操作" type='operation' component={(item)=>{
+		        							 return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
+		        						}}/>
+		        					</FdTabel>
+                </div>
+
+
+								<div className='main-form detail-form' style={{marginTop:20}}>
+
+	                  <div className='main-name'>
+	                   <span>明细表-</span>
+	                   <span>123</span>
+	                   <span>(456)</span>
+	                  </div>
+
+										<div className='add-wrap edit-wrap' onClick={this.openEditDetail}>
+	                    <span className='add-form'></span>
+	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>编辑</span>
+	                  </div>
+
+										<div className='add-wrap del-wrap' onClick={this.deleForm}>
+	                    <span className='add-form'></span>
+	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>删除明细表</span>
+	                  </div>
+
+	                  <div className='add-wrap add-two-wrap' onClick={this.addText}>
+	                    <span className='add-form'></span>
+	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>新增字段</span>
+	                  </div>
+
+												<FdTabel
+			        						name = "tableData"
+			        						isFold = {false}
+			                    toolbar={true}
+			                    batchDel={true}
+			                    checkbox={true}
+			        					>
+			        						<FRow name = "age" label = "字段名称"/>
+			        						<FRow name = "name" label = "字段显示名"/>
+			        						<FRow name = "other" label = "表现形式"/>
+			        						<FRow name = "select" label = "字段类型"/>
+			        						<FRow label = "操作" type='operation' component={(item)=>{
+			        							 return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
+			        						}}/>
+			        					</FdTabel>
+	                </div>
 
     				</form>
 
-        </Row>
+						   {/*新建明细表*/}
+			          <Dialog
+			          title="新建明细表单"
+			          onClose={this.openAddDetail}
+			          open={this.state.openAddDetail}
+			          contentStyle ={{ width: '666px',height:'auto'}}
+			          >
+			            <AddDetail
+			                onCancel={this.openAddDetail}
+			                onSubmit={this.onSearchUpperSubmit}
+			            />
+			        </Dialog>
 
+							{/*编辑明细表*/}
+							 <Dialog
+							 title="编辑明细表单"
+							 onClose={this.openEditDetail}
+							 open={this.state.openEditDetail}
+							 contentStyle ={{ width: '666px',height:'auto'}}
+							 >
+								 <EditDetail
+										 onCancel={this.openEditDetail}
+										 onSubmit={this.onSearchUpperSubmit}
+								 />
+						 </Dialog>
+
+						 {/*删除明细表*/}
+							<Dialog
+							title="提示"
+							onClose={this.deleForm}
+							open={this.state.openDelForm}
+							contentStyle ={{ width: '446px',height:'auto'}}
+							>
+								<DeleForm
+										onCancel={this.deleForm}
+										onSubmit={this.onSearchUpperSubmit}
+								/>
+						</Dialog>
 
 			</div>
 		);

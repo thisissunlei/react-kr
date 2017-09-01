@@ -30,6 +30,8 @@ export default class Table extends React.Component {
       checkedArr:[],
 
 
+
+
     }
   }
   componentDidMount() {
@@ -133,6 +135,7 @@ export default class Table extends React.Component {
   batchdelete = () =>{
     var newData = [].concat(this.state.tableData);
     let {checkedArr} = this.state;
+    var deleteData = [];
     if(!newData.length){
       return ;
     }
@@ -143,8 +146,12 @@ export default class Table extends React.Component {
 
     sortArr.map((item,index)=>{
       newData = arrDelEle(newData,item);
+      deleteData.push(newData[item])
     })
-     this.setCheckedArr(newData);
+    const {batchdelete}=this.props;
+    batchdelete && batchdelete();
+
+    this.setCheckedArr(newData);
     this.setState({
       tableData:newData
     })
@@ -272,12 +279,11 @@ export default class Table extends React.Component {
   }
 
 
-
   tbodyRender = () =>{
     const {tableData,headers,fold} = this.state;
     const {initFoldNum,checkbox} = this.props;
     var showData = [].concat(tableData);
-   
+
     if(!fold){
       showData = tableData.slice(0,initFoldNum||5);
     }
@@ -295,6 +301,8 @@ export default class Table extends React.Component {
     return doms;
 
   }
+
+
 
   render(){
     const {
@@ -318,21 +326,30 @@ export default class Table extends React.Component {
     return (
        <div className = "ui-field-tabel">
         {toolbar && <div className = "ui-field-tabel-toolbar">
+           {batchDel &&
+             <div className='ui-dele-all' onClick = {this.batchdelete}>
+               <span className='ui-del-pic'></span>
+               <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>批量删除字段</span>
+             </div>
+            }
             <div className="move">
+               <div className='ui-move-up' style={{marginRight:'6px'}}>
+                  <span
+                    className ="move-up ui-move-pic"
+                    onClick = {()=>{
+                      this.moveClick("up");
+                    }}
+                  ></span>
+              </div>
+              <div className='ui-move-up'>
                 <span
-                  className ="move-up"
-                  onClick = {()=>{
-                    this.moveClick("up");
-                  }}
-                >上移</span>
-                <span
-                  className = "move-down"
+                  className = "move-down ui-down-pic"
                   onClick = {()=>{
                     this.moveClick("down");
                   }}
-                >下移</span>
+                ></span>
+             </div>
             </div>
-            {batchDel && <span onClick = {this.batchdelete}>批量删除</span>}
          </div>}
         <table>
            <thead>
