@@ -36,7 +36,6 @@ export default class EquipmentSearch extends React.Component{
 	}
 
 	componentDidMount(){
-		console.log("componentDidMount");
 		this.getWitchFind()
 		this.getUnusedEquipmentFun();
 	}
@@ -101,7 +100,6 @@ export default class EquipmentSearch extends React.Component{
 		let _this =this;
 		var urlParams = {deviceId:thisP.deviceId}
 		Http.request('changeUnusedToList',{},urlParams).then(function(response) {
-			console.log("response",response);
 
 			Message.success("注册设备成功");
 			_this.getUnusedEquipmentFun();
@@ -141,7 +139,6 @@ export default class EquipmentSearch extends React.Component{
 	
 	render(){
 		let {searchEquipmentList} = this.state;
-		console.log("searchEquipmentList",searchEquipmentList);
 		return (
 			<div className="seconde-dialog">
 				<div style={{paddingLeft:20}}>
