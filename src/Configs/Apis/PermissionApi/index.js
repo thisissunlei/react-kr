@@ -388,4 +388,24 @@ module.exports = {
             url: '/api/krspace-sso-web/sso/module/sub-level-info?firstLevelId={firstLevelId}',
             method: 'get'
     },
+    //公共字典列表
+    'get-dict-list':{
+            url: '/api/krspace-erp-web/sys/public-dict/list/type/search?codeKey={codeKey}&nameKey={nameKey}&page={page}&pageSize={pageSize}',
+            method: 'get'
+    },
+    //公共字典新建
+    'new-dict-submit':{
+            url: '/api/krspace-erp-web/sys/public-dict/add',
+            method: 'post'
+    },
+    //字典编辑提交
+    'edit-dict-submit':{
+            url: '/api/krspace-erp-web/sys/public-dict/edit',
+            method: 'post'
+    },
+    //字典编辑信息
+    'get-dict-edit-data':{
+            url: '/api/krspace-erp-web/sys/public-dict/info/type/edit?id={id}',
+            method: 'get'
+    },
 }

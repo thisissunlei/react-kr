@@ -10,6 +10,8 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem,
+	TabelEdit,
+	FRow,
 } from 'kr-ui';
 
 import {
@@ -34,12 +36,15 @@ class EditForm extends React.Component{
 	}
 	componentWillMount() {
 		Store.dispatch(initialize('EditForm',State.data));
+		Store.dispatch(change('EditForm','itemListStr',State.data.items));
+
 
 
 		
 	}
 	onSubmit=(value)=>{
-		console.log('value',value)
+		console.log('value',value);
+		State.editDict(value)
 	}
 	onCancel=()=>{
 		State.closeAll();
@@ -59,15 +64,28 @@ class EditForm extends React.Component{
 						</span>
 					</div>
 					<div className="detail-info">
-								<KrField grid={1/2} name="name" type="text" label="字典名称" requireLabel={true} style={{width:252,zIndex:11}} />
-								<KrField grid={1/2} name="code" type="text" left={50} label="字典编码" requireLabel={true} style={{width:252}}/>
-								<KrField grid={1} name="type" component="group" label="字典类型"  requireLabel={true}>
-									<KrField name="type" grid={1/2} label="静态" type="radio" value='1' style={{marginTop:10,display:"inline-block"}} onClick={this.chooseStick}/>
+								<KrField grid={1/2} name="dictName" type="text" label="字典名称" requireLabel={true} style={{width:252,zIndex:11}} />
+								<KrField grid={1/2} name="dictCode" type="text" left={50} label="字典编码" requireLabel={true} style={{width:252}}/>
+								<KrField grid={1} name="dataType" component="group" label="字典类型"  requireLabel={true}>
+									<KrField name="dataType" grid={1/2} label="静态" type="radio" value='STATIC' style={{marginTop:10,display:"inline-block"}} onClick={this.chooseStick}/>
 				              	</KrField>
-								<KrField grid={1} name="remark" 
+								<KrField grid={1} name="descr" 
 								 type="textarea" component="textarea"maxSize={100}
 								label="描述"/>
 								
+					</div>
+					<div style={{marginLeft:28,marginBottom:40}}>
+					 <TabelEdit 
+					 	name = "itemListStr" 
+						toolbar = {true}
+						checkbox = {true}
+						
+					 >
+						 <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
+						 <FRow name = "value" type = "tableEdit" label = "选项值" />
+						 <FRow name = "orderNum" type = "tableEdit" label = "排序号" />
+						 <FRow name = "isDefault" type = "checkBox" label = "是否默认" />
+					 </TabelEdit>
 					</div>
 					<Grid style={{paddingBottom:50}}>
 						<Row>
