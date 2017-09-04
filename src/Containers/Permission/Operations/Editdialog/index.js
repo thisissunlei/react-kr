@@ -45,6 +45,7 @@ class Editdialog extends React.Component {
 			idlist:[],
 
 		}
+		this.timeOut = 0;
 		this.getModuleList();
 		this.getResourcesData();
 	}
@@ -350,10 +351,18 @@ class Editdialog extends React.Component {
 			})
 				if(arr1.indexOf(controller)==-1){
 					arr.push(item);
+					Notify.show([{
+						message: '添加成功',
+						type: 'success',
+					}]);
 				}
 
 		}else {
 			arr.push(item);
+			Notify.show([{
+						message: '添加成功',
+						type: 'success',
+					}]);
 		}
 		this.setState({
 			ControllerRender: arr,
@@ -397,17 +406,21 @@ class Editdialog extends React.Component {
 	}
 
 	onMethodValueClick=(value)=>{
+		
 		let _this = this;
-		this.setState({
-			ControllerItem: value,
-			idlist:value.methodId
-		},function(){
-			_this.controllerAdd();
-			Notify.show([{
-				message: '添加成功',
-				type: 'success',
-			}]);
-		})
+		this.timeOut = this.timeOut+1;
+		setTimeout(function(){
+			_this.timeOut = 0;
+		},500)
+		if(this.timeOut==2){
+			this.setState({
+				ControllerItem: value,
+				idlist:value.methodId
+			},function(){
+				_this.controllerAdd();
+			})
+		}
+		
 	}
 
 
@@ -498,7 +511,8 @@ class Editdialog extends React.Component {
 						<div className="u-method-contentE">
 							
 							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick}/>
-
+							<span style={{display:"inline-block",margin: "20px 0 0 40px",fontSize:12,color:"#ff6868"}}>双击选择方法</span>
+							
 							
 						</div>
 						<div className="u-method-content-list">
