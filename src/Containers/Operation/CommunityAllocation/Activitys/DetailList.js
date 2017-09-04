@@ -39,6 +39,7 @@ export default class DetailList extends React.Component {
 		super(props, context);
 		this.state = {
 			searchParams:{
+				id:this.props.detail.id,
 				page:1,
 				pageSize:15,
 			}

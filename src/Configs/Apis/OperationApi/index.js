@@ -786,7 +786,7 @@ module.exports = {
     },
     //App管理-活动管理-报名列表
     'actor-page': {
-        url: '/api/krspace-finance-web/activity/management/actor-page?id={id}',
+        url: '/api/krspace-finance-web/activity/management/actor-page?id={id}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //App管理-活动管理-编辑活动

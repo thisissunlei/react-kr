@@ -236,7 +236,7 @@ export default class ActivityList extends React.Component {
 												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
 												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
 												  	<Button label="置顶" type="operation" onClick={this.openTop.bind(this,itemDetail)} />
-												  	<Button label="查看报名列表" type="operation" onClick={this.openDetail.bind(this,itemDetail)} />
+												  	<Button label="报名列表" type="operation" onClick={this.openDetail.bind(this,itemDetail)} />
 													</div>
 													)
 					                         
@@ -249,7 +249,7 @@ export default class ActivityList extends React.Component {
 												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
 												  	<Button label="置顶" type="operation" onClick={this.openTop.bind(this,itemDetail)} />
 												  	<Button label="发布" type="operation" onClick={this.openPublish.bind(this,itemDetail)} />
-												  	<Button label="查看报名列表" type="operation" onClick={this.openDetail.bind(this,itemDetail)} />
+												  	<Button label="报名列表" type="operation" onClick={this.openDetail.bind(this,itemDetail)} />
 													</div>
 													)
 											}
