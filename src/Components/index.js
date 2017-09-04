@@ -64,6 +64,8 @@ import SwitchSlide from './SwitchSlide';
 import Chip from './Chip';
 import ArticleList from './ArticleList';
 import IconTip from './IconTip';
+import Toolbar from './Toolbar';
+import Toolbars from './Toolbars';
 
 import {
 	Grid,
@@ -171,5 +173,7 @@ module.exports = {
 	Chip,
 	...FieldTabel,
 	ArticleList,
-	IconTip
+	IconTip,
+	Toolbar,
+	Toolbars
 }

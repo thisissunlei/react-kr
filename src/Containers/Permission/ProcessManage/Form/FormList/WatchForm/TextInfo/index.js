@@ -7,6 +7,7 @@ import {
 	FContent,
 	FRow,
 	Toolbar,
+	Toolbars,
 	Dialog
 } from 'kr-ui';
 import {
@@ -148,6 +149,13 @@ class TextInfo  extends React.Component{
 	                    <span className='add-form'></span>
 	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>新增字段</span>
 	                  </div>
+
+
+												<Toolbars>
+
+													<Toolbar label='编辑' iconClass='edit-wrap' propsClick={this.openEditDetail} />
+
+												</Toolbars>
 
 												<FdTabel
 			        						name = "tableData"
