@@ -91,14 +91,17 @@ class CreateActivityList extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
+		var stime=form.startTime.substring(0,10);
+		var etime=form.endTime.substring(0,10);
+		form.begin_time=`${stime} ${form.StartTimeStr}:00`;
+		form.end_time=`${etime} ${form.EndTimeStr}:00`;
 		
-		console.log('form=====>>>>',form)
-		// Http.request('create-activity',{},form).then(function(response) {
-		// 	Message.success('新建成功')
-		// 	onSubmit && onSubmit();
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
+		Http.request('create-activity',{},form).then(function(response) {
+			Message.success('新建成功')
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		
 	}
 	onCancel=()=>{
