@@ -42,53 +42,18 @@ class NewCreateForm extends React.Component{
 		
 	}
 	onSubmit=(value)=>{
-		let sameName = false;
-		let sameNum = false;
-		let sameValue = false;
-		
-		
-		let arr = value.itemListStr;
-		let tmp = []
-		for(var i in arr){
-			if(!!arr[i].label && tmp.indexOf(arr[i].label)==-1){
-				console.log('label-for',arr[i].label,tmp.indexOf(arr[i].label))
-				tmp.push(arr[i])
+		let labelArr = [];
+		console.log("onsubmit")
+		let labelNone = false;
+		let tableVlaue = value.itemListStr;
+		labelArr = tableVlaue.map(item=>{
+			console.log('map',item.label);
+			if(!item.label){
+				labelNone = true;
 			}
-		}
-				console.log('mane.for',arr,tmp);
-
-		if(tmp.length && tmp.length<arr.length){
-				console.log('label',tmp.length,arr.length)
-				sameName = true;
-			}
-		tmp = [];
-		for(var i in arr){
-			let tmp = []
-			if(!!arr[i].value && tmp.indexOf(arr[i].value)==-1){
-				tmp.push(arr[i])
-			}
-			
-
-		}
-		if(tmp.length && tmp.length<arr.length){
-				console.log('name',tmp.length,arr.length)
-
-				sameValue = true;
-			}
-		tmp = [];
-		for(var i in arr){
-			let tmp = []
-			if(!!arr[i].orderNum && tmp.indexOf(arr[i].orderNum)==-1){
-				tmp.push(arr[i])
-			}
-			
-
-		}
-		if(tmp.length && tmp.length<arr.length){
-				sameNum = true;
-			}
-		console.log('submit',sameNum,sameName,sameValue)
-
+			return item.label;
+		})
+		console.log("onsubmit2",labelArr,labelNone)
 		return;
 		State.newCreateDict(value);
 	}
@@ -152,16 +117,12 @@ class NewCreateForm extends React.Component{
 	}
 }
 const validate = values => {
-	console.log("values",values);
-	let sameName = false;
-	let sameValue = false;
-	let sameNum = false;
 
 	let errors = {};
-	if(values.dictName){
+	if(!values.dictName){
 		errors.dictName = '请填写字典名称'
 	}
-	if(values.dictCode){
+	if(!values.dictCode){
 		errors.dictCode = '请填写字典编码'
 	}
 	
