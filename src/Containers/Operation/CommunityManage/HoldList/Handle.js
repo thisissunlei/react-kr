@@ -65,9 +65,12 @@ class Handle extends React.Component {
   
   
 	render() {
-    const {
-      handleSubmit,
-    } = this.props;
+    		const {
+				error,
+				handleSubmit,
+				pristine,
+				reset
+			} = this.props;
 
 		return (
       <div className='list-audit'>
@@ -78,10 +81,11 @@ class Handle extends React.Component {
                     component="textarea"
                     label="备注"
                     maxSize={100}
+                    requireLabel={true}
                 />
               <div style={{textAlign:'center',marginBottom:10}}>
                 <div  className='ui-btn-center'>
-                  <Button  label="确定"  type="submit"/>
+                  <Button  label="确定" type="submit" />
                   <Button  label="取消" type="button" cancle={true} onClick={this.onCancel} />
                 </div>
               </div>
@@ -93,5 +97,5 @@ class Handle extends React.Component {
 }
 
 export default reduxForm({
-	form: 'Handle',
+	form: 'handle',
 })(Handle);

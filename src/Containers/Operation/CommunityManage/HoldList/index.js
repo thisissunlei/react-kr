@@ -87,6 +87,7 @@ export default class HoldList extends React.Component {
 				time:new Date(),
 			}
 		});
+		this.openHandle();
 	}
 
 //高级查询
@@ -137,7 +138,7 @@ openHighSearch = () => {
 						<Col md={4} align="left" > </Col>
 						<Col md={8} align="right">
 							<div className="u-search">
-										<SearchForm onSubmit={this.searchParams} openSearch={this.openHighSearch} />
+										{/*<SearchForm onSubmit={this.searchParams} openSearch={this.openHighSearch} />*/}
 							</div>
 						</Col>
 					  </Row>
@@ -229,6 +230,7 @@ openHighSearch = () => {
 		              <Handle 
 						  onCancel={this.openHandle}
 						  onSubmit={this.handleSubmit}
+						  detail={itemDetail}
 		              />
 		            </Dialog>
 		            <Drawer
