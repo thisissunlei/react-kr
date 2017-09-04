@@ -28,7 +28,7 @@ export default class Toolbar extends React.Component{
 		return (
 			
                 <div className='ui-toolbar' onClick = {this.iconClick} style = {toolbarStyle||{}}>
-                    <span className={iconClass}></span>
+                    <span className={`icon $(iconClass)`}></span>
                     <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>{label}</span>
                 </div>
 			
