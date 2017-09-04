@@ -82,7 +82,7 @@ class EditStart extends React.Component {
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField
 								style={{width:548}}
-								name="target_url"
+								name="targetUrl"
 								type="text"
 								component="input"
 								label="跳转地址"
