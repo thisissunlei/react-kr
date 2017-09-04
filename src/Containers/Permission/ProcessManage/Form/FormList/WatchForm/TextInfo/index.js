@@ -35,12 +35,15 @@ class TextInfo  extends React.Component{
 		this.state={
 			openAddDetail:false,
 			openEditDetail:false,
-			openDelForm:false
+			openDelForm:false,
+
+			
 		}
+
 	}
 
   componentDidMount() {
- 	 Store.dispatch(change('TextInfo','tableData',tableData));
+		Store.dispatch(change('TextInfo','tableData',tableData));
   }
 
  onSubmit=()=>{
@@ -75,7 +78,7 @@ class TextInfo  extends React.Component{
 
 	render(){
 
-    let {handleSubmit}=this.props;
+		let {handleSubmit}=this.props;
 
 		return(
 

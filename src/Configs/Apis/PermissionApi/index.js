@@ -428,6 +428,16 @@ module.exports = {
       url: '/mockjsdata/55/krspace-erp-web/sys/form/list/type/create-table',
       method: 'post'
     },
+    //表单管理--表单类型下拉列表
+    'form-type-select':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-type/select/type/list',
+      method: 'get'
+    },
+    //表单管理--获取表单编辑信息
+    'form-get-edit':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form/info/type/edit?id={id}',
+      method: 'get'
+    },
        
 }
 

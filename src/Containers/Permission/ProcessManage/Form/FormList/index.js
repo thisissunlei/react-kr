@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Http} from 'kr/Utils';
 import {Store} from 'kr/Redux';
+import DictionaryConfigs from 'kr/Configs/dictionary';
 import {
   initialize
 } from 'redux-form';
@@ -46,7 +47,13 @@ export default class FormList extends Component{
       },
 			other:"",
 			//创建表id
-			creatId:''
+			creatId:'',
+			//字典
+			purposeType:[],
+			//表单类型
+			typeList:[],
+			//基本信息
+			basicInfo:{}
 		}
 		this.allConfig = {
 			openNew : false,
@@ -55,6 +62,21 @@ export default class FormList extends Component{
       openEdit:false,
       openSearch:false
 		}
+	}
+
+
+	componentDidMount(){
+		  let _this=this;
+			Http.request('form-type-select').then(function(response) {
+				 _this.setState({
+					typeList:response.items
+				 })
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
+		this.setState({
+			purposeType:DictionaryConfigs.ERP_PurposeType
+		})
 	}
 
 
@@ -166,13 +188,27 @@ export default class FormList extends Component{
 	//相关操作
 	onOperation = (type, itemDetail) =>{
 		if(type == "watch"){
-      this.watchTable();
+			this.watchTable();
+			this.getBasicInfo(itemDetail.id);
 		}else{
 			this.cancelTable();
+			this.setState({
+				creatId:itemDetail.id
+			})
 		}
-		this.setState({
-			creatId:itemDetail.id
-		})
+	}
+
+
+	//获取表单查看基本信息
+	getBasicInfo=(id)=>{
+		var _this=this;
+		Http.request('form-get-edit',{id:id}).then(function(response) {
+		   _this.setState({
+				basicInfo:response
+			 })
+		 }).catch(function(err) {
+			 Message.error(err.message);
+		 });
 	}
 
     //获取编辑信息
@@ -205,6 +241,9 @@ export default class FormList extends Component{
 	render(){
 
 		const {openNew,openTable,openSearch} = this.allConfig;
+		 
+		let {purposeType,typeList,basicInfo}=this.state;
+
 		return(
       	<div className="basic-post-list">
 	        <Row style={{marginBottom:21,marginTop:22}}>
@@ -299,6 +338,8 @@ export default class FormList extends Component{
         <AddForm
 					onCancel={this.newSwidth}
 					onSubmit={this.addSubmit}
+					purposeType={purposeType}
+					typeList={typeList}
 				/>
 			</Drawer>
 
@@ -313,6 +354,8 @@ export default class FormList extends Component{
        <EditForm
          onCancel={this.editOpen}
          onSubmit={this.addSubmit}
+				 purposeType={purposeType}
+				 typeList={typeList}
        />
      </Drawer>
 
@@ -327,6 +370,7 @@ export default class FormList extends Component{
        <WatchForm
          editOpen={this.editOpen}
          allClose={this.watchTable}
+				 basicInfo={basicInfo}
        />
      </Drawer>
 

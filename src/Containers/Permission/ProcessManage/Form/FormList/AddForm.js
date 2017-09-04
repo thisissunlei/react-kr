@@ -1,22 +1,29 @@
 import React from 'react';
 import {
-	  KrField,
+	KrField,
     Grid,
     Col,
     Row,
     ButtonGroup,
     Button,
-		Tooltip,
-		IconTip
+    Tooltip,
+	IconTip
 } from 'kr-ui';
-import {reduxForm}  from 'redux-form';
+import {reduxForm,change}  from 'redux-form';
+import {
+	Store
+} from 'kr/Redux';
 import './index.less';
 
 class AddForm  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
-	}
+    }
+    
+    componentDidMount(){
+        Store.dispatch(change('BasicInfo','enabled','1'));
+    }
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -30,7 +37,15 @@ class AddForm  extends React.Component{
 
 	render(){
 
-    let {handleSubmit}=this.props;
+    let {handleSubmit,purposeType,typeList}=this.props;
+    
+    var purposetype=[];
+    purposeType.map((item,index)=>{
+        var list={};
+        list.label=item.desc;
+        list.value=item.value;
+        purposetype.push(list);
+    })
 
 		return(
 
@@ -72,6 +87,7 @@ class AddForm  extends React.Component{
                             name="typeId"
                             component="select"
                             label="表单类型"
+                            options={typeList}
                             requireLabel={true}
                         />
 
@@ -79,10 +95,10 @@ class AddForm  extends React.Component{
                             grid={1/2}
                             style={{width:262,marginBottom:5,marginLeft:30}}
                             name="purpose"
-                            component="selecTemployees"
+                            component="select"
                             label="表单分类"
                             requireLabel={true}
-                            otherType="purposeType"
+                            options={purposetype}
                         />
 
                         <div className='m-form-radio'><KrField grid={1/2} style={{width:262}} name="enabled" component="group" label="是否启用" requireLabel={true}>
