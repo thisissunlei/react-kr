@@ -106,9 +106,10 @@ render() {
 			options,
 			multi,
 			isPlace,
+			onChangeOneOperation,
 			...other
 		} = this.props;
-        
+		var onChangeOneOperationT = onChangeOneOperation?true:false;
 		var placeholder='';
 		if(isPlace){
 		 	placeholder=this.props.placeholder
@@ -122,7 +123,7 @@ render() {
 					<div className="ui-select">
 						<ReactSelect
 									multi
-									onChangeOneOperation
+									onChangeOneOperation={onChangeOneOperationT}
 									simpleValue
 									name={input.name}
 									value={this.state.value}

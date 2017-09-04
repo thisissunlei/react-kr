@@ -114,6 +114,8 @@ const Select = React.createClass({
 		valueKey: React.PropTypes.string,           // path of the label value in option objects
 		valueRenderer: React.PropTypes.func,        // valueRenderer: function (option) {}
 		wrapperStyle: React.PropTypes.object,       // optional style to apply to the component wrapper
+        onChangeOneOperation :React.PropTypes.bool,  
+
 	},
 
 	statics: { Async, AsyncCreatable, Creatable },
@@ -159,6 +161,7 @@ const Select = React.createClass({
 			valueComponent: Value,
 			valueKey: 'value',
 			resetValue:'',
+			onChangeOneOperation:false
 		};
 	},
 
@@ -624,9 +627,7 @@ const Select = React.createClass({
 		//NOTE: update value in the callback to make sure the input value is empty so that there are no styling issues (Chrome had issue otherwise)
 		this.hasScrolledToOption = false;
 		if (this.props.multi) {
-			
 			if(this.props.onChangeOneOperation){
-				console.log("dkdkd");
 				let {onChangeOne} = this.props;
 				onChangeOne(value);
 			}else{
