@@ -68,15 +68,9 @@ export default class UploadImageComponent extends Component {
 		if (!isInit) {
 			return;
 		}
-		if(sizePhoto && merthd=='Url' ){
-			this.setState({
-				isInit: false,
-				imgUpload:true,
-				imgSrc:defaultValue
-		  	});
-			return;
-		}
+		
 		if(sizePhoto){
+
 			this.setState({
 				isInit: false,
 				imgUpload:true,
@@ -85,6 +79,15 @@ export default class UploadImageComponent extends Component {
 			if(defaultValue.picId){
                 input.onChange(defaultValue.picId);
 			}
+			if(merthd=='Url'){
+				this.setState({
+					isInit: false,
+					imgUpload:true,
+					imgSrc:defaultValue
+			  	});
+			  	return;
+			}
+
 		}else{
 			this.setState({
 				isInit: false,
@@ -92,6 +95,7 @@ export default class UploadImageComponent extends Component {
 				imgSrc:defaultValue
 		  });
 		}
+		
 
 	}
 

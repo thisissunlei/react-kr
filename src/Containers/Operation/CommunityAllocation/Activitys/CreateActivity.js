@@ -75,6 +75,7 @@ class CreateActivityList extends React.Component {
 			this.setState({
 				ifCity:false
 			})
+			Store.dispatch(change('createActivityList', 'address', ''));
 			
 		}
 	}
