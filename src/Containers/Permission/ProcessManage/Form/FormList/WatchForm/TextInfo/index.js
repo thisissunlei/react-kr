@@ -114,7 +114,7 @@ class TextInfo  extends React.Component{
 		        					>
 
 											<Toolbars>
-														<Toolbar label='新增字段' iconClass='add-text' iconClick={this.addText} />	
+														<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText} />	
 											</Toolbars>
 
 		        						<FRow name = "age" label = "字段名称"/>
@@ -145,9 +145,9 @@ class TextInfo  extends React.Component{
 			                    checkbox={true}
 			        					>	
 													<Toolbars>
-														<Toolbar label='编辑' iconClass='edit-form' iconClick={this.openEditDetail} />
-														<Toolbar label='删除明细表' iconClass='del-form' iconClick={this.deleForm} />
-														<Toolbar label='新增字段' iconClass='add-text' iconClick={this.addText} />	
+														<Toolbar label='编辑' rightSpac='14px' iconClass='edit-form' iconClick={this.openEditDetail} />
+														<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm} />
+														<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText} />	
 													</Toolbars>
 													
 			        						<FRow name = "age" label = "字段名称"/>
