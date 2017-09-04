@@ -516,7 +516,7 @@ class Editdialog extends React.Component {
 						<div className="u-method-contentE">
 							
 							<KrField  name="controller" style={{width:700,marginLeft:70}} component="selectOperation" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick} onInputValue={this.inputValue}/>
-							<span style={{display:"inline-block",marginLeft: 100,fontSize:12,color:"#ff6868"}}>双击下拉框选项选择方法</span>
+							<span style={{display:"inline-block",marginLeft: 100,fontSize:12,color:"#ff6868"}}>双击下拉选项添加</span>
 							
 							
 						</div>
