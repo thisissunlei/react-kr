@@ -75,11 +75,11 @@ class ViewOpinion extends React.Component {
 						<div className="title-text">反馈详情</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
+				{infoList.handled == 1?
 				<div className="u-table-list">
                     <table className="u-table">
                       <thead>
                         <tr>
-                            <th>序号</th>
                             <th width={100}>处理时间</th>
                             <th width={100}>处理人</th>
                             <th width={100}>处理状态</th>
@@ -87,22 +87,18 @@ class ViewOpinion extends React.Component {
                         </tr>
                       </thead>
                         <tbody>
-                            {infoList && infoList.map((item, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td><KrDate value={item.handleTime}/></td>
-                                        <td>{item.handler}</td>
-                                        <td>{item.handled == 1
-                                                ? <span className="u-font-green">已处理</span>
-                                                : <span className="u-font-red">未处理	</span>}</td>
-                                        <td>{item.resultDesc}</td>
-                                    </tr>
-                                )
-                            })}
+                            <tr>
+                                <td><KrDate value={infoList.handleTime}/></td>
+                                <td>{infoList.handler}</td>
+                                <td>{infoList.handled == 1
+                                        ? <span className="u-font-green">已处理</span>
+                                        : <span className="u-font-red">未处理	</span>}</td>
+                                <td>{infoList.resultDesc}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
+            	:''}
 				<form style={{paddingLeft:90}}>
 
 							<KrField
@@ -152,7 +148,7 @@ class ViewOpinion extends React.Component {
 					 			label="内容" 
 					 			inline={false} 
 								component="labelText"
-								value={infoList.address}
+								value={infoList.address?infoList.address:"无"}
 						 	/>
 						 	
 							<div className="u-photo-box">

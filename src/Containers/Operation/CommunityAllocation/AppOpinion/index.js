@@ -82,6 +82,7 @@ export default class AppOpinion extends React.Component {
 				time:new Date(),
 			}
 		});
+		this.openHandle();
 	}
 
 
@@ -162,6 +163,7 @@ export default class AppOpinion extends React.Component {
 		              <Handle 
 						  onCancel={this.openHandle}
 						  onSubmit={this.handleSubmit}
+						  detail={itemDetail}
 		              />
 		            </Dialog>
 		            <Drawer

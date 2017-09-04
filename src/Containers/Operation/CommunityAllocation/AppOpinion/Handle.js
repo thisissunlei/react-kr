@@ -78,6 +78,7 @@ class Handle extends React.Component {
                     component="textarea"
                     label="备注"
                     maxSize={100}
+                    requireLabel={true}
                 />
               <div style={{textAlign:'center',marginBottom:10}}>
                 <div  className='ui-btn-center'>
@@ -93,5 +94,5 @@ class Handle extends React.Component {
 }
 
 export default reduxForm({
-	form: 'Handle',
+	form: 'handle',
 })(Handle);
