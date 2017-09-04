@@ -66,6 +66,7 @@ import ArticleList from './ArticleList';
 import IconTip from './IconTip';
 import Toolbar from './Toolbar';
 import Toolbars from './Toolbars';
+import TextDic from './TextDic';
 
 import {
 	Grid,
@@ -175,5 +176,6 @@ module.exports = {
 	ArticleList,
 	IconTip,
 	Toolbar,
-	Toolbars
+	Toolbars,
+	TextDic
 }

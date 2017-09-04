@@ -43,7 +43,10 @@ export default class FormList extends Component{
 			searchParams : {
 				 page:1,
 				 pageSize:15,
-				 nameKey:''		 
+				 tableName:'',
+				 typeId:'',
+				 nameKey:'',
+				 enabled:''		 
       },
 			other:"",
 			//创建表id
@@ -131,7 +134,15 @@ export default class FormList extends Component{
   }
   openSearchUpperDialog=()=>{
     this.cancelSearchUpperDialog();
-  }
+	}
+	
+	//高级查询提交
+	onSearchUpperSubmit=(params)=>{
+		this.setState({
+			searchParams:Object.assign({},this.state.searchParams,params)
+		})
+		this.cancelSearchUpperDialog();
+	}
 
 
 	//新建确定
@@ -398,6 +409,7 @@ export default class FormList extends Component{
             <SearchUpperForm
                 onCancel={this.cancelSearchUpperDialog}
                 onSubmit={this.onSearchUpperSubmit}
+								purposeType={purposeType}
             />
         </Dialog>
         </div>

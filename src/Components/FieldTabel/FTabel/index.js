@@ -5,6 +5,8 @@ import FContent from '../FContent';
 import './index.less';
 import Nothing from '../../Nothing';
 import Toolbar from '../../Toolbar';
+import DeleForm from './DeleForm';
+import Dialog from '../../Dialog';
 import {
   arrUpMove,
   arrDownMove,
@@ -29,7 +31,10 @@ export default class Table extends React.Component {
       fold:false,
       handerChecked:false,
       checkedArr:[],
+      
 
+      //批量删除
+      openDelForm:false
 
 
 
@@ -63,6 +68,14 @@ export default class Table extends React.Component {
       headers,
     })
   }
+  
+  //批量删除
+  deleForm=()=>{
+    this.setState({
+      openDelForm:!this.state.openDelForm
+    })
+  }
+ 
 
 
   //table的多选按钮点击
@@ -152,7 +165,8 @@ export default class Table extends React.Component {
       deleteData.push(newData[item])
     })
     const {batchdelete}=this.props;
-    batchdelete && batchdelete();
+    batchdelete && batchdelete(deleteData);
+    //this.deleForm();
 
     this.setCheckedArr(newData);
     this.setState({
@@ -351,7 +365,7 @@ export default class Table extends React.Component {
         {toolbar && <div className = "ui-field-tabel-toolbar">
            {this.toolbarRender()}
            {batchDel &&
-             <div className='ui-dele-all' onClick = {this.batchdelete}>
+             <div className='ui-dele-all' onClick = {this.deleForm}>
                <span className='ui-del-pic'></span>
                <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>批量删除字段</span>
              </div>
@@ -392,6 +406,20 @@ export default class Table extends React.Component {
             </span>
 
           </div>}
+
+
+           {/*批量删除*/}
+							<Dialog
+							title="提示"
+							onClose={this.deleForm}
+							open={this.state.openDelForm}
+							contentStyle ={{ width: '446px',height:'auto'}}
+							>
+								<DeleForm
+										onCancel={this.deleForm}
+										onSubmit={this.batchdelete}
+								/>
+						</Dialog>
       </div>
     )
   }

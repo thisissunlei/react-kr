@@ -57,9 +57,16 @@ class SearchUpperForm extends React.Component {
 
 
 	render() {
-
-	   let {handleSubmit,positionList}=this.props;
+	   let {handleSubmit,purposeType}=this.props;
 	   let {dateBoxStyle,dateBoxDevelop}=this.state;
+
+	   var purposetype=[];
+	   purposeType.map((item,index)=>{
+		   var list={};
+		   list.label=item.desc;
+		   list.value=item.value;
+		   purposetype.push(list);
+	   })
 
 
 		return(
@@ -69,13 +76,15 @@ class SearchUpperForm extends React.Component {
 					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="nameKey" type="input"  label="表单名称"
 					/>
 
-					<KrField  grid={1/2}  style={{width:262}}  name="mobilePhone" type="input"  label="表单表明"
+					<KrField  grid={1/2}  style={{width:262}}  name="tableName" type="input"  label="表单表明"
 					/>
 
-					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="nameKey" type="select"  label="表单分类"
+					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="typeId" type="select"  label="表单分类"
+					options={purposetype}
 					/>
 
-					<KrField  grid={1/2}  style={{width:262}}  name="mobilePhone" type="select"  label="是否启用"
+					<KrField  grid={1/2}  style={{width:262}}  name="enabled" type="select"  label="是否启用"
+					options={[{label:'123',value:'1'},{label:'456',value:'0'}]}
 					/>
 
 				<Grid style={{marginTop:18,marginBottom:5,marginLeft:-24}}>
