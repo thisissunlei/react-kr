@@ -104,10 +104,6 @@ class TextInfo  extends React.Component{
                    <span>(456)</span>
                   </div>
 
-                  <div className='add-wrap'>
-                    <span className='add-form'></span>
-                    {/*<span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>新增字段</span>*/}
-                  </div>
 
 											<FdTabel
 		        						name = "tableData"
@@ -116,6 +112,11 @@ class TextInfo  extends React.Component{
 		                    batchDel={true}
 		                    checkbox={true}
 		        					>
+
+											<Toolbars>
+														<Toolbar label='新增字段' iconClass='add-text' iconClick={this.addText} />	
+											</Toolbars>
+
 		        						<FRow name = "age" label = "字段名称"/>
 		        						<FRow name = "name" label = "字段显示名"/>
 		        						<FRow name = "other" label = "表现形式"/>
@@ -135,24 +136,7 @@ class TextInfo  extends React.Component{
 	                   <span>(456)</span>
 	                  </div>
 
-										{/*<div className='add-wrap edit-wrap' onClick={this.openEditDetail}>
-	                    <span className='add-form'></span>
-	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>编辑</span>
-	                  </div>
-
-										<div className='add-wrap del-wrap' onClick={this.deleForm}>
-	                    <span className='add-form'></span>
-	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>删除明细表</span>
-	                  </div>
-
-	                  <div className='add-wrap add-two-wrap' onClick={this.addText}>
-	                    <span className='add-form'></span>
-	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>新增字段</span>
-	                  </div>*/}
-
-
 												
-
 												<FdTabel
 			        						name = "tableData"
 			        						isFold = {false}
@@ -161,7 +145,9 @@ class TextInfo  extends React.Component{
 			                    checkbox={true}
 			        					>	
 													<Toolbars>
-														<Toolbar label='编辑' iconClass='edit-wrap' iconClick={this.openEditDetail} />	
+														<Toolbar label='编辑' iconClass='edit-form' iconClick={this.openEditDetail} />
+														<Toolbar label='删除明细表' iconClass='del-form' iconClick={this.deleForm} />
+														<Toolbar label='新增字段' iconClass='add-text' iconClick={this.addText} />	
 													</Toolbars>
 													
 			        						<FRow name = "age" label = "字段名称"/>
