@@ -116,7 +116,7 @@ class EditBanner extends React.Component {
  								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
- 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
+ 								requestURI = '/api/krspace-finance-web/activity/upload-pic'
  								merthd="Url"
  								inline={false}
  								defaultValue={imgUrl}

@@ -97,7 +97,7 @@ class ViewOpinion extends React.Component {
                         </tbody>
                     </table>
                 </div>:''}
-				<form style={{paddingLeft:90}}>
+				<form style={{paddingLeft:75}}>
 
 							<KrField
 								style={{width:260}}
