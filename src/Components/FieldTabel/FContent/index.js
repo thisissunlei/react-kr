@@ -68,9 +68,8 @@ export default class FContent extends React.Component {
         );
       }
 
-
       return (
-        <td>
+        <td key = {index}>
           {item.checkbox && <input
               key={index}
               type="checkbox"
@@ -82,10 +81,12 @@ export default class FContent extends React.Component {
           {this.renderValue(data[item.name],data,item.options,item.defaultValue)}
         </td>
       )
+
+
     })
     if(checkbox){
       doms.unshift(
-         <td key={index}>
+         <td>
               <input
                     type="checkbox"
                     onChange={(event) =>{

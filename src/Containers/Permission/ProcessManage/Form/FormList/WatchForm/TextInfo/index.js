@@ -106,7 +106,7 @@ class TextInfo  extends React.Component{
 
                   <div className='add-wrap'>
                     <span className='add-form'></span>
-                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>新增字段</span>
+                    {/*<span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>新增字段</span>*/}
                   </div>
 
 											<FdTabel
@@ -135,7 +135,7 @@ class TextInfo  extends React.Component{
 	                   <span>(456)</span>
 	                  </div>
 
-										<div className='add-wrap edit-wrap' onClick={this.openEditDetail}>
+										{/*<div className='add-wrap edit-wrap' onClick={this.openEditDetail}>
 	                    <span className='add-form'></span>
 	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>编辑</span>
 	                  </div>
@@ -148,12 +148,10 @@ class TextInfo  extends React.Component{
 	                  <div className='add-wrap add-two-wrap' onClick={this.addText}>
 	                    <span className='add-form'></span>
 	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>新增字段</span>
-	                  </div>
+	                  </div>*/}
 
 
-												<Toolbars>
-													<Toolbar label='编辑' iconClass='edit-wrap' propsClick={this.openEditDetail} />
-												</Toolbars>
+												
 
 												<FdTabel
 			        						name = "tableData"
@@ -161,7 +159,11 @@ class TextInfo  extends React.Component{
 			                    toolbar={true}
 			                    batchDel={true}
 			                    checkbox={true}
-			        					>
+			        					>	
+													<Toolbars>
+														<Toolbar label='编辑' iconClass='edit-wrap' iconClick={this.openEditDetail} />	
+													</Toolbars>
+													
 			        						<FRow name = "age" label = "字段名称"/>
 			        						<FRow name = "name" label = "字段显示名"/>
 			        						<FRow name = "other" label = "表现形式"/>

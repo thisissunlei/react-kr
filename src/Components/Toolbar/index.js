@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.less'
 export default class Toolbar extends React.Component{
 
 	static displayName = 'Toolbar';
@@ -7,10 +8,10 @@ export default class Toolbar extends React.Component{
 		
     }
     
-    propsClick=()=>{
-        const {propsClick}=this.props;
+    iconClick=()=>{
+        const {iconClick}=this.props;
 
-        propsClick && propsClick();
+        iconClick && iconClick();
     }
 
 	constructor(props){
@@ -19,15 +20,15 @@ export default class Toolbar extends React.Component{
 
 	render(){
 
-        let {label,iconClass} = this.props;
+        let {label,iconClass,style} = this.props;
         
 		return (
-			<div>
-                <div className='ui-dele-all' onClick = {this.propsClick}>
+			
+                <div className='ui-toolbar' onClick = {this.iconClick} style = {style||{}}>
                     <span className={iconClass}></span>
                     <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>{label}</span>
                 </div>
-			</div>
+			
 		);
 	}
 }
