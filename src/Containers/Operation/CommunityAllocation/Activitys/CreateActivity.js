@@ -43,8 +43,8 @@ class CreateActivityList extends React.Component {
 	
    	getType=()=>{
    		var _this=this;
-   		//activity-findCmtRight
-		Http.request('get-findCmtRight').then(function(response) {
+   		
+		Http.request('activity-findCmtRight').then(function(response) {
 			if(response.hasRight==1){
 				_this.setState({
 					groupType:[
@@ -228,9 +228,9 @@ class CreateActivityList extends React.Component {
  								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
- 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/cmt/space/upload-photo/type/single'
+ 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
  								inline={false}
- 								formfile=' '
+ 								merthd="Url"
 								requireLabel={true}
  							/>
 						 	<KrField 

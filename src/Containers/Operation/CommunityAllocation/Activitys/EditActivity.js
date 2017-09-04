@@ -32,31 +32,67 @@ class EditActivity extends React.Component {
 			ifCity:false,
 			groupType:[
 				
-			]
+			],
+			timeEnd:'',
+			timeStart:'',
+			richText:'',
+			imgUrl:''
 		}
+		
+		
 		this.getType();
 	}
 	
 	componentWillMount() {
-		
+		this.getInfo();
 	}
 	
-	
+	getInfo=()=>{
+		var _this=this;
+		const {detail}=this.props;
+		Http.request('activity-detail',{id:detail.id}).then(function(response) {
+			
+			if(response.type==0){
+				_this.setState({
+					ifCity:true
+				})
+			}else{
+				_this.setState({
+					ifCity:false
+				})
+			}
+			response.stick=String(response.stick);
+			response.type=String(response.type);
+			response.startTime=DateFormat(response.begin_time, 'yyyy-mm-dd HH:MM:ss')
+			response.endTime=DateFormat(response.end_time, 'yyyy-mm-dd HH:MM:ss')
+			response.StartTimeStr=DateFormat(response.begin_time, 'yyyy-mm-dd HH:MM:ss').substring(11,16)
+			response.EndTimeStr=DateFormat(response.end_time, 'yyyy-mm-dd HH:MM:ss').substring(11,16)
+			_this.setState({
+					timeStart:response.StartTimeStr,
+					timeEnd:response.EndTimeStr,
+					richText:response.richText,
+					imgUrl:response.imgUrl
+				})
+			Store.dispatch(initialize('editActivity', response));
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});	
+	}
    	getType=()=>{
    		var _this=this;
-   		//activity-findCmtRight
-		Http.request('get-findCmtRight').then(function(response) {
+		Http.request('activity-findCmtRight').then(function(response) {
 			if(response.hasRight==1){
 				_this.setState({
 					groupType:[
-						{label:'全国活动',value:"1"},
-						{label:'社区活动',value:"0"}
+						{label:'全国活动',value:'1'},
+						{label:'社区活动',value:'0'}
 					]
 				})
 			}else if(response.hasRight==0){
 				_this.setState({
 					groupType:[
-						{label:'社区活动',value:"0"}
+						{label:'社区活动',value:'0'}
 					]
 				})
 			}
@@ -76,6 +112,7 @@ class EditActivity extends React.Component {
 			this.setState({
 				ifCity:false
 			})
+			Store.dispatch(change('editActivity', 'address', ''));
 			
 		}
 	}
@@ -92,14 +129,17 @@ class EditActivity extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
+		var stime=form.startTime.substring(0,10);
+		var etime=form.endTime.substring(0,10);
+		form.begin_time=`${stime} ${form.StartTimeStr}:00`;
+		form.end_time=`${etime} ${form.EndTimeStr}:00`;
 		
-		console.log('form=====>>>>',form)
-		// Http.request('edit-activity',{},form).then(function(response) {
-		// 	Message.success('新建成功')
-		// 	onSubmit && onSubmit();
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
+		Http.request('edit-activity',{},form).then(function(response) {
+			Message.success('修改成功')
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		
 	}
 	onCancel=()=>{
@@ -121,8 +161,11 @@ class EditActivity extends React.Component {
 				
 				ifCity,
 				groupType,
+				timeStart,
+				timeEnd,
+				richText,
+				imgUrl
 			}=this.state;
-			
 		
 		return (
 			<div className="g-create-activity">
@@ -201,6 +244,7 @@ class EditActivity extends React.Component {
 													component="timeSelect"
 													style={{width:108,marginLeft:40}} 
 													name='StartTimeStr'
+													timeNum={timeStart}
 											/>
 									</KrField>
 									<KrField name="endTimes" component="group" label="结束时间" requireLabel={true}  style={{width:280,marginRight:20}}>
@@ -213,6 +257,7 @@ class EditActivity extends React.Component {
 													component="timeSelect"  
 													style={{width:108,marginLeft:40}} 
 													name='EndTimeStr'
+													timeNum={timeEnd}
 											/>
 									</KrField>
 									</div>
@@ -223,12 +268,13 @@ class EditActivity extends React.Component {
  								component="newuploadImage"
  								innerstyle={{width:370,height:223,padding:16}}
  								sizePhoto
+ 								merthd='Url'
  								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
- 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/cmt/space/upload-photo/type/single'
+ 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
  								inline={false}
- 								formfile=' '
+ 								defaultValue={imgUrl}
 								requireLabel={true}
  							/>
 						 	<KrField 
@@ -237,7 +283,7 @@ class EditActivity extends React.Component {
 								label="活动内容"
 								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
-								defaultValue=''
+								defaultValue={richText}
 								/>
 
 						<Grid style={{marginTop:50,width:'81%'}}>
@@ -284,6 +330,7 @@ const validate = values => {
 		if (!values.sponsor) {
 			errors.sponsor = '请填写主办方';
 		}
+
 		if (!(values.startTime && values.StartTimeStr)) {
 			errors.startTime = '请填写开始时间';
 		}
