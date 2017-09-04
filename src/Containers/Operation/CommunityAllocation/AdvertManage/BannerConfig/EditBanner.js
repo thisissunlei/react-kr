@@ -27,23 +27,34 @@ class EditBanner extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			ifCity:false,
+			imgUrl:''
 		}
 		
 	}
 	
+	componentDidMount() {
+		this.getInfo();
+	}
+	
+	
+	getInfo=()=>{
+		var _this=this;
+		const {detail}=this.props;
+		this.setState({
+			imgUrl:detail.imgUrl
+		})
+		Store.dispatch(initialize('editBanner', detail));
+	}
 	
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
-		
-		console.log('form=====>>>>',form)
-		// Http.request('edit-banner',{},form).then(function(response) {
-		// 	Message.success('新建成功')
-		// 	onSubmit && onSubmit();
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
+		Http.request('edit-banner',{},form).then(function(response) {
+			Message.success('编辑成功')
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		
 	}
 	onCancel=()=>{
@@ -62,19 +73,25 @@ class EditBanner extends React.Component {
 				reset
 			} = this.props;
 			let {
-				
-				ifCity,
-				
+				imgUrl
 			}=this.state;
 			
 		
 		return (
 			<div className="g-create-advert">
 				<div className="u-create-title">
-						<div className="title-text">新建广告图</div>
+						<div className="title-text">编辑广告图</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
+							<KrField
+								style={{width:548}}
+								name="title"
+								type="text"
+								component="input"
+								label="标题"
+								requireLabel={true}
+						 	/>
 							<KrField
 								style={{width:548}}
 								name="targetUrl"
@@ -99,9 +116,10 @@ class EditBanner extends React.Component {
  								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
- 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/cmt/space/upload-photo/type/single'
+ 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
+ 								merthd="Url"
  								inline={false}
- 								formfile=' '
+ 								defaultValue={imgUrl}
 								requireLabel={true}
  							/>
 						 	<KrField 
@@ -135,7 +153,10 @@ class EditBanner extends React.Component {
 const validate = values => {
 
 		const errors = {};
-
+		
+		if (!values.title) {
+			errors.title = '标题不能为空';
+		}
 		if (!values.imgUrl) {
 			errors.imgUrl = '启动图片不能为空';
 		}

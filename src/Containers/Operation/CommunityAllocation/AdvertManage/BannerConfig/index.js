@@ -108,10 +108,29 @@ export default class Banner extends React.Component{
 			openPublish:!this.state.openPublish
 		})
 	}
+	editSubmit=()=>{
+		this.setState({
+			searchParams:{
+					date:new Date(),
+					pageSize:15
+				},
+			openEdit:!this.state.openEdit
+		})
+		
+	}
+	createSubmit=()=>{
+		this.setState({
+			searchParams:{
+					date:new Date(),
+					pageSize:15
+				}
+		})
+		this.openCreat();
+	}
 	
 
 	render() {
-
+		let {itemDetail}=this.state;
 		return(
 			<div className="g-activity">
 				
@@ -180,7 +199,7 @@ export default class Banner extends React.Component{
 				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
-				                      <TableRowColumn name="target_url" 
+				                      <TableRowColumn name="targetUrl" 
 										component={(value,oldValue)=>{
 				                            var TooltipStyle=""
 				                            if(value.length==""){
@@ -239,10 +258,10 @@ export default class Banner extends React.Component{
 	             openSecondary={true}
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
-	             	<CreateBanner 
+	             	<EditBanner 
 	             			onCancel={this.openEdit} 
-	             			onSubmit={this.createSubmit} 
-	             			
+	             			onSubmit={this.editSubmit} 
+	             			detail={itemDetail}
 	             	 />
 	           </Drawer>
 	           <Drawer
@@ -253,9 +272,9 @@ export default class Banner extends React.Component{
 	             openSecondary={true}
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
-	             	<EditBanner
+	             	<CreateBanner
 	             			onCancel={this.openCreat} 
-	             			onSubmit={this.editSubmit} 
+	             			onSubmit={this.createSubmit} 
 	             			
 	             	 />
 	           </Drawer>

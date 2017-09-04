@@ -34,14 +34,12 @@ class CreateBanner extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
-		
-		console.log('form=====>>>>',form)
-		// Http.request('create-banner,{},form).then(function(response) {
-		// 	Message.success('新建成功')
-		// 	onSubmit && onSubmit();
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
+		Http.request('create-banner',{},form).then(function(response) {
+			Message.success('新建成功')
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		
 	}
 	onCancel=()=>{
@@ -71,6 +69,14 @@ class CreateBanner extends React.Component {
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField
 								style={{width:548}}
+								name="title"
+								type="text"
+								component="input"
+								label="标题"
+								requireLabel={true}
+						 	/>
+							<KrField
+								style={{width:548}}
 								name="targetUrl"
 								type="text"
 								component="input"
@@ -84,7 +90,7 @@ class CreateBanner extends React.Component {
 								label="排序号"
 						 	/>
 							<KrField
- 								label="启动图片"
+ 								label="广告图片"
  								name="imgUrl"
  								component="newuploadImage"
  								innerstyle={{width:370,height:223,padding:16}}
@@ -92,9 +98,9 @@ class CreateBanner extends React.Component {
  								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
- 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/cmt/space/upload-photo/type/single'
+ 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
  								inline={false}
- 								formfile=' '
+ 								merthd="Url"
 								requireLabel={true}
  							/>
 						 	<KrField 
@@ -128,7 +134,9 @@ class CreateBanner extends React.Component {
 const validate = values => {
 
 		const errors = {};
-
+		if (!values.title) {
+			errors.title = '标题不能为空';
+		}
 		if (!values.imgUrl) {
 			errors.imgUrl = '启动图片不能为空';
 		}
