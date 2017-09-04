@@ -156,12 +156,46 @@ export default class Banner extends React.Component{
 				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
-					                <TableRowColumn name="typeName"></TableRowColumn>
-					                 <TableRowColumn name="typeName"></TableRowColumn>
-					                  <TableRowColumn name="typeName"></TableRowColumn>
-					                   <TableRowColumn name="typeName"></TableRowColumn>
+				                      <TableRowColumn name="remark" 
+										component={(value,oldValue)=>{
+				                            var TooltipStyle=""
+				                            if(value.length==""){
+				                              TooltipStyle="none";
+
+				                            }else{
+				                              TooltipStyle="block";
+				                            }
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+				                      }}></TableRowColumn>
+					               <TableRowColumn name="imgUrl" 
+										component={(value,oldValue)=>{
+				                            var TooltipStyle=""
+				                            if(value.length==""){
+				                              TooltipStyle="none";
+
+				                            }else{
+				                              TooltipStyle="block";
+				                            }
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+				                      }}></TableRowColumn>
+				                      <TableRowColumn name="target_url" 
+										component={(value,oldValue)=>{
+				                            var TooltipStyle=""
+				                            if(value.length==""){
+				                              TooltipStyle="none";
+
+				                            }else{
+				                              TooltipStyle="block";
+				                            }
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+				                      }}></TableRowColumn>
+					                
+					                  <TableRowColumn name="orderNum"></TableRowColumn>
 					                <TableRowColumn 
-					                	name="publishTime" 
+					                	name="ctime" 
 					                	component={(value) => {
 					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
 					                    }}
