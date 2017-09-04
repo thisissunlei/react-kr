@@ -36,6 +36,7 @@ export default class SelectComponent extends React.Component {
 	}
 
 	componentDidMount() {
+
 		this.setInitValue(this.props.input.value);
 	}
 
@@ -80,10 +81,14 @@ export default class SelectComponent extends React.Component {
 
 
 		onChange && onChange(item);
-}
+	}
+
+	onChangeOne=(value)=>{
+		let {onChangeOne}= this.props;
+		onChangeOne && onChangeOne(value);
+	}
 
 render() {
-
 		let {
 			input,
 			label,
@@ -101,9 +106,10 @@ render() {
 			options,
 			multi,
 			isPlace,
+			onChangeOneOperation,
 			...other
 		} = this.props;
-        
+		var onChangeOneOperationT = onChangeOneOperation?true:false;
 		var placeholder='';
 		if(isPlace){
 		 	placeholder=this.props.placeholder
@@ -117,6 +123,7 @@ render() {
 					<div className="ui-select">
 						<ReactSelect
 									multi
+									onChangeOneOperation={onChangeOneOperationT}
 									simpleValue
 									name={input.name}
 									value={this.state.value}
@@ -125,6 +132,7 @@ render() {
 									onChange={this.handleChange}
 									placeholder="请选择..."
 									noResultsText=""
+									onChangeOne={this.onChangeOne}
 								/>
 					</div>
 

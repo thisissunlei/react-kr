@@ -1,5 +1,5 @@
 import React from 'react';
-import {	
+import {
 	KrField,
     Grid,
     Col,
@@ -16,32 +16,31 @@ class UserImageChange  extends React.Component{
 		super(props, context);
 	}
 
-    onSubmit=(values)=>{
-        const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);
-    }
+	onSubmit=(param)=>{
 
-    onCancel=()=>{
-        const {onCancel}=this.props;
-        onCancel && onCancel();
-    }
+	}
+
+
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,personId,url}=this.props;
+		let host = "http://"+window.location.host;
 
 		return(
 
 			<div className='detail-user-image'>
 				 <form  onSubmit={handleSubmit(this.onSubmit)}>
-                      
-                       <KrField 
+
+                       <KrField
                             name="area"
                             component="oaUploadImage"
-                            
                             requireLabel={false}
-						/>     
-                 </form>
+							personId={personId}
+							url={url}
+							requestUrl={`${host}/api/krspace-erp-web/hrm/resource/upload-photo/type/avatar`}
+						/>
+         </form>
 			</div>
 		);
 	}
@@ -49,7 +48,7 @@ class UserImageChange  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-    
+
 	return errors
 }
 

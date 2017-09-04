@@ -21,15 +21,11 @@ import OtherNav from './OtherNav';
 //行政管理
 import AdministrationNav from './AdministrationNav';
 
-// import StatisticalNav from './StatisticalNav';
-// import CommunityNav from './CommunityNav';
-// import MemberNav from './MemberNav';
-// import RetailNav from './RetailNav';
-// import KnowledgeNav from './KnowledgeNav';
-// import PowerNav from './PowerNav';
-// import WebBackstageNav from './WebBackstageNav';
+//智能硬件
+import SmartHardware from './SmartHardware';
 
-const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav);
+
+const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware);
 
 module.exports = {
     current_parent: '',

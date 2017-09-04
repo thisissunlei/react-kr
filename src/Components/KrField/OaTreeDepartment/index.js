@@ -47,12 +47,10 @@ export default class OaTreeDepartment extends React.Component{
 	onSubmit = (data) =>{
 		let {treeType} = this.props;
 		if( data[0].orgName == "" ){
-		
-				Message.error("请选择部门");
-			
-			
+			Message.error("请选择部门");
 			return ;
 		}
+		console.log(data,"LLLLL")
 		let {input,onChange} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();

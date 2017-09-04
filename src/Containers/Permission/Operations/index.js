@@ -317,7 +317,7 @@ class Operations extends Component {
 					 </Dialog>
 					 <Drawer
 						modal={true}
-						width={750}
+						width={1000}
 						openSecondary={true}
 						onClose={this.openCreateDialog}
 						open={this.state.openCreateDialog}
@@ -327,7 +327,7 @@ class Operations extends Component {
 					 </Drawer>
 					 <Drawer
 						modal={true}
-						width={750}
+						width={1000}
 						open={this.state.openEditDialog}
 						onClose={this.openEditDialog}
 						openSecondary={true}
