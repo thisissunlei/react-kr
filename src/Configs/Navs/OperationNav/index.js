@@ -272,6 +272,24 @@ module.exports = [
 					
 				]
 			},
+
+			{
+				primaryText: "红木馆活动",
+				iconName: 'icon-basis',
+				iconColor: '#79859a',
+				router: 'BaseManage',
+				menuCode: 'basic_config',
+				menuItems: [
+					{
+						primaryText: "后台审核",
+						menuCode: 'oper_csr_sourceList_base',
+						router: '/operation/redHoodActive/barrageAudit',
+					},
+					
+				]
+			},
+
+			
 			
 		]
 	}
