@@ -625,7 +625,8 @@ const Select = React.createClass({
 		this.hasScrolledToOption = false;
 		if (this.props.multi) {
 			
-			if(this.props.onChangeOne){
+			if(this.props.onChangeOneOperation){
+				console.log("dkdkd");
 				let {onChangeOne} = this.props;
 				onChangeOne(value);
 			}else{

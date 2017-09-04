@@ -431,7 +431,7 @@ class Createdialog extends React.Component {
 						<div className="u-method-title"><span className="require-label-method">*</span>方法</div>
 						<div className="u-method-content u-method-contentE">
 							
-							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOne={this.onMethodValueClick}/>
+							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick}/>
 
 						</div>
 						<div className="u-method-content-list">

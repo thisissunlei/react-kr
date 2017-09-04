@@ -497,7 +497,7 @@ class Editdialog extends React.Component {
 						</div>
 						<div className="u-method-contentE">
 							
-							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOne={this.onMethodValueClick}/>
+							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick}/>
 
 							
 						</div>

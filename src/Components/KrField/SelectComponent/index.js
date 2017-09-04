@@ -122,6 +122,7 @@ render() {
 					<div className="ui-select">
 						<ReactSelect
 									multi
+									onChangeOneOperation
 									simpleValue
 									name={input.name}
 									value={this.state.value}

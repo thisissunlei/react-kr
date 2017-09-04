@@ -58,7 +58,6 @@ class WarnContent extends React.Component{
 
 	            
 	            var str = JSON.parse(str);
-	            console.log("-------->");
 	            if(typeof str =='object'){
 	            	return true;
 	            }else{
