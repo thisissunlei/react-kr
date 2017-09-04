@@ -1,4 +1,5 @@
 import React from 'react';
+import DictionaryConfigs from 'kr/Configs/dictionary';
 import {
 	KrField,
     Grid,
@@ -7,7 +8,8 @@ import {
     ButtonGroup,
     Button,
     Tooltip,
-	IconTip
+    IconTip,
+    TextDic
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
 import {
@@ -18,11 +20,20 @@ import './index.less';
 class AddText  extends React.Component{
 
 	constructor(props,context){
-		super(props, context);
+        super(props, context);
+        this.state={
+            inputType:[],
+            componentType:[],
+            label:{}
+        }
     }
     
     componentDidMount(){
         Store.dispatch(change('BasicInfo','enabled','1'));
+        this.setState({
+			inputType:DictionaryConfigs.ERP_InputType,
+			componentType:DictionaryConfigs.ERP_ComponentType
+		})
     }
 
     onSubmit=(values)=>{
@@ -35,10 +46,23 @@ class AddText  extends React.Component{
         onCancel && onCancel();
     }
 
+    typeChange=(param)=>{
+        this.setState({
+			label:param
+		})
+    }
+
 	render(){
 
     let {handleSubmit}=this.props;
-    
+    let {inputType,componentType,label}=this.state;
+    var seleInt=[];
+    inputType.map((item,index)=>{
+       var list={};
+       list.label=item.desc;
+       list.value=item.value;
+       seleInt.push(list);
+    })
 
 		return(
 
@@ -73,12 +97,14 @@ class AddText  extends React.Component{
                             name="typeId"
                             component="select"
                             label="表现形式"
+                            options={seleInt}
+                            onChange={this.typeChange}
                             requireLabel={true}
                         />
 
-                       
+				        <TextDic  label={label} next={componentType} />
 
-                        <Grid style={{marginBottom:5,marginLeft:-25,marginTop:-12}}>
+                        <Grid style={{marginBottom:5,marginLeft:-20,marginTop:12}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

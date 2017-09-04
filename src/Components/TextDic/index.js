@@ -14,9 +14,9 @@ export default class TextDic extends React.Component{
     }
     
     dicRender=()=>{
-        let {name,next}=this.props;
-        if(name&&name.value){
-          return <Text name={name.value} next={next}/>            
+        let {label,next}=this.props;
+        if(label&&label.value){
+          return <Text label={label.value} next={next}/>            
         }   
     }
 
@@ -25,7 +25,7 @@ export default class TextDic extends React.Component{
 	
 		return (
 			
-                <div>
+                <div style={{display:'inline-block'}}>
                    {this.dicRender()}
                 </div>
 			

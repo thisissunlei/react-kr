@@ -36,13 +36,13 @@ export default class Text  extends React.Component{
    }
 
     componentDidMount(){
-      let {name,next}=this.props;
-      this.nextArrRender(name,next);
+      let {label,next}=this.props;
+      this.nextArrRender(label,next);
     }
 
     componentWillReceiveProps(nextProps){
-       if(nextProps.name!=this.props.name){
-        this.nextArrRender(nextProps.name,nextProps.next);
+       if(nextProps.label!=this.props.label){
+        this.nextArrRender(nextProps.label,nextProps.next);
         this.setState({
             component:null
         })
@@ -224,19 +224,18 @@ export default class Text  extends React.Component{
                
 		return(
 
-			<div>
+			<div style={{display:'inline-block'}}>
                <KrField
                     grid={1/2}
-                    style={{width:262,marginBottom:5}}
-                    name="name"
+                    style={{width:262,marginBottom:5,marginLeft:'30px'}}
+                    name="namerrr"
                     component="select"
                     label="类型"
                     options={nexts}
                     onChange={this.typeChange}
                     requireLabel={true}
 				 />
-
-                 {component}
+                {component}
 			</div>
 		);
 	}
