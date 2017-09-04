@@ -51,7 +51,7 @@ class Editdialog extends React.Component {
 	}
 
 	componentDidMount(){
-		this.getAllController('');
+		//this.getAllController('');
 	}
 
 	getResourcesData = () => {

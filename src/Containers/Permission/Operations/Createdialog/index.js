@@ -62,7 +62,7 @@ class Createdialog extends React.Component {
 	}
 
 	componentDidMount(){
-		this.getAllController('');
+		//this.getAllController('');
 	}
 
 	onCancel = () => {
