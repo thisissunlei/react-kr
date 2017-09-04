@@ -152,9 +152,7 @@ class TextInfo  extends React.Component{
 
 
 												<Toolbars>
-
 													<Toolbar label='编辑' iconClass='edit-wrap' propsClick={this.openEditDetail} />
-
 												</Toolbars>
 
 												<FdTabel
