@@ -69,7 +69,7 @@ export default class FContent extends React.Component {
       }
 
       return (
-        <td>
+        <td key = {index}>
           {item.checkbox && <input
               key={index}
               type="checkbox"

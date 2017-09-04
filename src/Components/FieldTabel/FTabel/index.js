@@ -37,12 +37,16 @@ export default class Table extends React.Component {
   }
   componentDidMount() {
     this.setHeaders();
+    this.toolbarRender();
   }
   setHeaders = () =>{
     var headers = [];
     const {children} = this.props;
-    headers = children.map((item,index)=>{
-        return item.props;
+    children.map((item,index)=>{
+        if(item.type.name === "FRow"){
+          headers.push(item.props);
+        }
+        
     })
     this.setState({
       headers
@@ -69,10 +73,12 @@ export default class Table extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     var tableData = nextProps.input.value;
-    if(tableData && tableData.length)
-    this.setState({
-      tableData,
-    })
+    if(tableData && tableData.length){
+       this.setState({
+          tableData,
+       })
+    }
+   
 
   }
 
@@ -80,12 +86,8 @@ export default class Table extends React.Component {
 
   //每一行多选按钮被点击
   contentCheck = (num,checked) =>{
-
     this.dataFilter(num,checked);
   }
-
-
-
 
   //上移下移函数
   moveClick = (type) =>{
@@ -159,8 +161,19 @@ export default class Table extends React.Component {
   }
   //生成工具条
   toolbarRender = () =>{
-    console.log(this.props.children,"???????????")
+    let {children} = this.props;
+    var doms = children.map((item,index)=>{
+      if(item.type.name === "Toolbars"){
+        let {children} = item.props;
+       
+        return children;
+      
+      }
+    })
+    return doms;
   }
+ 
+  
   //设置勾选的数据  
   setCheckedArr = (tableData) =>{
 
@@ -336,6 +349,7 @@ export default class Table extends React.Component {
     return (
        <div className = "ui-field-tabel">
         {toolbar && <div className = "ui-field-tabel-toolbar">
+           {this.toolbarRender()}
            {batchDel &&
              <div className='ui-dele-all' onClick = {this.batchdelete}>
                <span className='ui-del-pic'></span>
