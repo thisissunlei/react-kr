@@ -108,9 +108,29 @@ export default class Start extends React.Component{
 			openPublish:!this.state.openPublish
 		})
 	}
+	editSubmit=()=>{
+		this.setState({
+			searchParams:{
+					date:new Date(),
+					pageSize:15
+				},
+			openEdit:!this.state.openEdit
+		})
+		
+	}
+	createSubmit=()=>{
+		this.setState({
+			searchParams:{
+					date:new Date(),
+					pageSize:15
+				}
+		})
+		this.openCreat();
+	}
 	
 
 	render() {
+		let {itemDetail}=this.state;
 
 		return(
 			<div className="g-activity">
@@ -221,10 +241,10 @@ export default class Start extends React.Component{
 	             openSecondary={true}
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
-	             	<CreateStart 
+	             	<EditStart  
 	             			onCancel={this.openEdit} 
-	             			onSubmit={this.createSubmit} 
-	             			
+	             			onSubmit={this.editSubmit} 
+	             			detail={itemDetail} 
 	             	 />
 	           </Drawer>
 	           <Drawer
@@ -235,9 +255,9 @@ export default class Start extends React.Component{
 	             openSecondary={true}
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
-	             	<EditStart 
+	             	<CreateStart
 	             			onCancel={this.openCreat} 
-	             			onSubmit={this.editSubmit} 
+	             			onSubmit={this.createSubmit} 
 	             			
 	             	 />
 	           </Drawer>

@@ -26,19 +26,34 @@ class EditStart extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
+		this.state={
+			imgUrl:''
+		}
 		
+
+	}
+	
+	componentDidMount() {
+		this.getInfo();
 	}
 	
 	
+	getInfo=()=>{
+		var _this=this;
+		const {detail}=this.props;
+		this.setState({
+			imgUrl:detail.imgUrl
+		})
+		Store.dispatch(initialize('editStart', detail));
+	}
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
-		console.log('form=====>>>>',form)
-		// Http.request('create-activity',{},form).then(function(response) {
-		// 	Message.success('新建成功')
-		// 	onSubmit && onSubmit();
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
+		Http.request('advert-edit',{},form).then(function(response) {
+			Message.success('编辑成功')
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		
 	}
 	onCancel=()=>{
@@ -56,17 +71,18 @@ class EditStart extends React.Component {
 				pristine,
 				reset
 			} = this.props;
+			let {imgUrl}=this.state;
 		
 		return (
 			<div className="g-create-advert">
 				<div className="u-create-title">
-						<div className="title-text">新建广告图</div>
+						<div className="title-text">编辑广告图</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField
 								style={{width:548}}
-								name="targetUrl"
+								name="target_url"
 								type="text"
 								component="input"
 								label="跳转地址"
@@ -81,9 +97,10 @@ class EditStart extends React.Component {
  								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
- 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/cmt/space/upload-photo/type/single'
+ 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
  								inline={false}
- 								formfile=' '
+ 								merthd="Url"
+ 								defaultValue={imgUrl}
 								requireLabel={true}
  							/>
 						 	<KrField 

@@ -229,7 +229,7 @@ class CreateActivityList extends React.Component {
  								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
- 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
+ 								requestURI = '/api/krspace-finance-web/activity/upload-pic'
  								inline={false}
  								merthd="Url"
 								requireLabel={true}

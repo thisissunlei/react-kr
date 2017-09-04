@@ -31,13 +31,12 @@ class CreateStart extends React.Component {
 	
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
-		console.log('form=====>>>>',form)
-		// Http.request('create-advert',{},form).then(function(response) {
-		// 	Message.success('新建成功')
-		// 	onSubmit && onSubmit();
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
+		Http.request('create-advert',{},form).then(function(response) {
+			Message.success('新建成功')
+			onSubmit && onSubmit();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		
 	}
 	onCancel=()=>{
@@ -75,12 +74,12 @@ class CreateStart extends React.Component {
  								component="newuploadImage"
  								innerstyle={{width:370,height:223,padding:16}}
  								sizePhoto
+ 								merthd="Url"
  								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
- 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/cmt/space/upload-photo/type/single'
+ 								requestURI = 'http://optest01.krspace.cn/api/krspace-finance-web/activity/upload-pic'
  								inline={false}
- 								formfile=' '
 								requireLabel={true}
  							/>
 						 	<KrField 
