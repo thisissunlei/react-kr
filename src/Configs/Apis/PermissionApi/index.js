@@ -399,11 +399,35 @@ module.exports = {
           method: 'get'
     },
     //表单管理--表单类型编辑信息
-    'get-from-list':{
-      url: '/mockjsdata/55/krspace-erp-web/sys/form-type/list/type/search?page={page}&pageSize={pageSize}&nameKey={nameKey}',
+    'get-form-data':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-type/info/type/edit?id={id}',
       method: 'get'
     },
-
-
-     
+    //表单管理--表单类型新增
+    'add-form-type':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-type/add',
+      method: 'post'
+    },
+    //表单管理--表单类型编辑
+    'edit-form-type':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-type/edit',
+      method: 'post'
+    },
+    //表单管理--查询表单列表
+    'form-list-search':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form/list/type/search?enabled={enabled}&nameKey={nameKey}&page={page}&pageSize={pageSize}&tableName={tableName}&typeId={typeId}',
+      method: 'get'
+    },
+    //表单管理--新增表单
+    'form-add-list':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form/list/type/create-table',
+      method: 'post'
+    },
+    //表单管理--生成表
+    'form-create-table':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form/list/type/create-table',
+      method: 'post'
+    },
+       
 }
+

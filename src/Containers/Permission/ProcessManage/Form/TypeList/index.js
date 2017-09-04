@@ -84,7 +84,7 @@ export default class TypeList extends Component{
 	//新建确定
 	addSubmit = (values) =>{
 		var _this=this;
-		Http.request('postListAdd',{},values).then(function(response) {
+		Http.request('add-form-type',{},values).then(function(response) {
 			_this.setState({
 				searchParams:{
 					time:+new Date(),
@@ -100,13 +100,13 @@ export default class TypeList extends Component{
 	//编辑确定
 	editSubmit = (params) =>{
          var _this=this;
-			Http.request('post-list-edit',{},params).then(function(response) {
+			Http.request('edit-form-type',{},params).then(function(response) {
 				_this.setState({
 					searchParams:{
 						time:+new Date(),
 						page:_this.state.searchParams.page,
 						pageSize:15,
-						name:_this.state.searchParams.name?_this.state.searchParams.name:""
+						nameKey:_this.state.searchParams.nameKey?_this.state.searchParams.nameKey:""
 					}
 				 })
 				 _this.editSwidth();
@@ -126,7 +126,7 @@ export default class TypeList extends Component{
     //获取编辑信息
 	getEditData=(id)=>{
 		var _this=this;
-       Http.request('post-list-watch',{id:id}).then(function(response) {
+       Http.request('get-form-data',{id:id}).then(function(response) {
          Store.dispatch(initialize('EditType',response));
         }).catch(function(err) {
           Message.error(err.message);

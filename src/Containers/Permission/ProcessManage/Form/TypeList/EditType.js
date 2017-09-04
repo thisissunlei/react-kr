@@ -72,8 +72,7 @@ class EditType  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-
-    let orderNum =  values.orderNum.replace(/(^\s*)|(\s*$)/g, "");
+    let orderNum =(values.orderNum && (""+values.orderNum).replace(/(^\s*)|(\s*$)/g, ""))||"",
     orderNumReg =  /^[0-9]*[1-9][0-9]*$/;
     if(!values.name){
        errors.name='请填写表单类型名称';
