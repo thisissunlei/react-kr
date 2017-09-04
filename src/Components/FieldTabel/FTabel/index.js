@@ -4,6 +4,7 @@ import React from 'react';
 import FContent from '../FContent';
 import './index.less';
 import Nothing from '../../Nothing';
+import Toolbar from '../../Toolbar';
 import {
   arrUpMove,
   arrDownMove,
@@ -156,9 +157,11 @@ export default class Table extends React.Component {
       tableData:newData
     })
   }
-
-
-
+  //生成工具条
+  toolbarRender = () =>{
+    console.log(this.props.children,"???????????")
+  }
+  //设置勾选的数据  
   setCheckedArr = (tableData) =>{
 
      var checkedArr = [];
@@ -231,6 +234,7 @@ export default class Table extends React.Component {
     })
 
   }
+
   //生成表单头
    headReander = () =>{
       const {headers,handerChecked,tableData} = this.state;
@@ -242,10 +246,11 @@ export default class Table extends React.Component {
       }
 
       var doms = headers.map((item,index)=>{
+        //是否生成多选框
         return(
             <th key = {index}>
                 {item.checkbox && <input
-                    key={index}
+                   
                     type="checkbox"
                     onChange={(event) =>{
                         this.handerCheck(event,item,index)
@@ -256,8 +261,13 @@ export default class Table extends React.Component {
             </th>
         )
       })
+
+
       return (
         <tr className="hander">
+          {/*
+          在有数据时要显示功能
+          */}
           {checkbox &&
             <th>
               {tableData.length && <input
@@ -267,10 +277,10 @@ export default class Table extends React.Component {
                     }}
                     checked = {handerChecked ? "checked":""}
               />}
-              {!tableData.length && <input
-                  type="checkbox"
-
-              />}
+            {/*
+              在有数据时要显示功能
+            */}
+              {!tableData.length && <input type="checkbox" />}
             </th>
           }
           {doms}

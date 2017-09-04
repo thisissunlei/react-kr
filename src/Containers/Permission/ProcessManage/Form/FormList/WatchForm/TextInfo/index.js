@@ -135,7 +135,7 @@ class TextInfo  extends React.Component{
 	                   <span>(456)</span>
 	                  </div>
 
-										<div className='add-wrap edit-wrap' onClick={this.openEditDetail}>
+										{/*<div className='add-wrap edit-wrap' onClick={this.openEditDetail}>
 	                    <span className='add-form'></span>
 	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>编辑</span>
 	                  </div>
@@ -148,7 +148,7 @@ class TextInfo  extends React.Component{
 	                  <div className='add-wrap add-two-wrap' onClick={this.addText}>
 	                    <span className='add-form'></span>
 	                    <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>新增字段</span>
-	                  </div>
+	                  </div>*/}
 
 
 												<Toolbars>
