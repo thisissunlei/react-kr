@@ -4,7 +4,7 @@ import {
 	formValueSelector
 } from 'redux-form';
 import {KrField,Grid,Row,Button,ListGroup,ListGroupItem,Loading,Table,TableHeader,TableHeaderColumn,TableBody
-	,TableRow,TableRowColumn,TableFooter,Tooltip} from 'kr-ui';
+	,TableRow,TableRowColumn,TableFooter,Tooltip,Message} from 'kr-ui';
 import {
 	Toggle
 }from 'material-ui';
@@ -20,13 +20,12 @@ export default class EquipmentSearch extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			switch :false
+			switch :false,
+			searchEquipmentList:[]
 		}
 	}
 
 	changeSearchEquipment=(event,isInputChecked)=>{
-		console.log("State.switch",State.switch);
-		console.log("isInputChecked",isInputChecked);
 		this.setState({
 			switch : isInputChecked
 		})
@@ -37,9 +36,22 @@ export default class EquipmentSearch extends React.Component{
 	}
 
 	componentDidMount(){
-		console.log("componentDidMount");
 		this.getWitchFind()
+		this.getUnusedEquipmentFun();
 	}
+
+	getUnusedEquipmentFun =()=>{
+		let _this = this;
+		Http.request('getUnusedEquipment', {}).then(function(response) {
+			_this.setState({
+				searchEquipmentList : response.items
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+	
+
 
 
 
@@ -62,15 +74,51 @@ export default class EquipmentSearch extends React.Component{
 
 
 	addEquipmentFun=(thisParams,item)=>{
-		// State.equipmentAddLocation(thisParams.deviceId);
-		console.log("addEquipmentFun");
 		let {registEquipment} = this.props;
-		console.log("registEquipment");
 		registEquipment && registEquipment(thisParams.deviceId);
 	}
-	renderTableBody=()=>{
+
+
+	//发现设备列表强制删除
+	deleteEquipmentFun=(thisP)=>{
+		let _this =this;
+		var urlParams = {deviceId:thisP.deviceId}
+		Http.request('deleteFindEquipmentUrl',{},urlParams).then(function(response) {
+			
+			Message.success("强制删除设备成功");
+			_this.getUnusedEquipmentFun();
+			
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+
+	//注册设备
+	registEquipmentFun=(thisP)=>{
+		let _this =this;
+		var urlParams = {deviceId:thisP.deviceId}
+		Http.request('changeUnusedToList',{},urlParams).then(function(response) {
+
+			Message.success("注册设备成功");
+			_this.getUnusedEquipmentFun();
+			State.freshPageReturn();
+			_this.setState({
+				itemDetail : response
+			},function(){
+				State.openEditDialog = true;
+			})
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+
+	renderTableBody=(searchEquipmentList)=>{
 		let _this = this;
-		var search_equipment_list = State.searchEquipmentList;
+		var search_equipment_list = searchEquipmentList;
 		var DOM_list = search_equipment_list.map(function(item,index){
 			return(
 				<div className="table-item" key={index}>
@@ -80,8 +128,8 @@ export default class EquipmentSearch extends React.Component{
 					<div  className="table-item-index">{item.ip}</div>
 					<div  className="table-item-index">{item.name}</div>
 					<div className="table-item-index"> 
-						<div  className="table-item-last" onClick={_this.addEquipmentFun.bind(this,item)}>注册设备</div>
-						<div  className="table-item-last" onClick={_this.addEquipmentFun.bind(this,item)}>强制删除</div>
+						<div  className="table-item-last" onClick={_this.registEquipmentFun.bind(this,item)}>注册设备</div>
+						<div  className="table-item-last" onClick={_this.deleteEquipmentFun.bind(this,item)}>强制删除</div>
 					</div>
 				</div>
 			)
@@ -90,7 +138,7 @@ export default class EquipmentSearch extends React.Component{
 	}
 	
 	render(){
-		
+		let {searchEquipmentList} = this.state;
 		return (
 			<div className="seconde-dialog">
 				<div style={{paddingLeft:20}}>
@@ -100,11 +148,8 @@ export default class EquipmentSearch extends React.Component{
 						labelPosition="right"
 						labelStyle={{fontSize:14,width:120,marginTop:5}} 
 						onToggle={this.changeSearchEquipment}
-						trackStyle={{height:25,lineHeight:25,backgroundColor:"#ccc"}}
-						thumbStyle={{marginTop:5,backgroundColor:"#eee"}}
-						thumbSwitchedStyle={{marginTop:5,backgroundColor:"red"}}
-						trackSwitchedStyle={{backgroundColor:"#ccc"}}
-						className="toggle"
+						trackStyle={{height:25,lineHeight:25}}
+						thumbStyle={{marginTop:5}}
 					/>
 					
 					
@@ -127,7 +172,7 @@ export default class EquipmentSearch extends React.Component{
 			        	</div>
 			        	<div className="table-body">
 			        		{
-			        			this.renderTableBody()
+			        			this.renderTableBody(searchEquipmentList)
 			        		}
 			        	</div>
 			        </div>

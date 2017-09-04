@@ -17,7 +17,8 @@ import {
 	Col,
 	Tooltip,
 	ButtonGroup,
-	Message
+	Message,
+	Notify,
 } from 'kr-ui';
 import './index.less';
 
@@ -170,9 +171,9 @@ class Editdialog extends React.Component {
 	getAllController = () => {
 		let {detail} = this.props;
 		let _this = this;
-		Http.request('getResourcesData', {id: detail.id}, {}).then(function(response) {
+		Http.request('getMethodByName', {name:''}).then(function(response) {
 			
-			response.methods.forEach((item, index) => {
+			response.methodList.forEach((item, index) => {
 				item.value = item.methodId;
 				var comKrspaceStart = /^com.krspace./.test(item.controllerName);
 				var str = item.controllerName+"";
@@ -182,9 +183,9 @@ class Editdialog extends React.Component {
 
 				item.label = `${str}#${item.methodName}`;
 			});
-
+			console.log("")
 			_this.setState({
-				ControllerList: response.methods
+				ControllerList: response.methodList
 			})
 		}).catch(function(err) {
 			Message.error(err.message)
@@ -195,7 +196,7 @@ class Editdialog extends React.Component {
 			Params
 		} = this.state;
 		var _this = this;
-		Http.request('getModule', Params, {}).then(function(response) {
+		Http.request('getMethodByName', Params, {}).then(function(response) {
 			var ModuleList = response.ssoModuleList.map((item, index) => {
 				item.value = item.id;
 				item.label = item.name;
@@ -371,20 +372,11 @@ class Editdialog extends React.Component {
 		var list;
 		if (ControllerRender.length > 0) {
 				list = ControllerRender.map((item, index) => {
-					// if (item.controller.length>67) {
-					// 	return (
-
-					// 		<div className="u-add-list" key={index}>{`...${item.controller.slice(-66)}`}<Tooltip offsetTop={5} place='top'>{item.controller}</Tooltip><span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
-					// 	)
-					// }else {
-						// return (
-						// 	<div className="u-add-list" key={index}>{item.controller}<Tooltip offsetTop={5} place='top'>{item.controller}</Tooltip><span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
-						// )
-						console.log("item.controller===>",item.controller);
-						return (
-							<div className="u-edit-list" key={index}>{item.controller}<span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
-						)
-					// }
+					
+					return (
+						<div className="u-edit-list" key={index}>{item.controller}<span className="u-add-delete" onTouchTap={this.controllerDelete.bind(this,index)}>移除</span></div>
+					)
+					
 				})
 		}
 		return list;
@@ -403,6 +395,22 @@ class Editdialog extends React.Component {
 			ControllerId: id
 		});
 	}
+
+	onMethodValueClick=(value)=>{
+		let _this = this;
+		this.setState({
+			ControllerItem: value,
+			idlist:value.methodId
+		},function(){
+			_this.controllerAdd();
+			Notify.show([{
+				message: '添加成功',
+				type: 'success',
+			}]);
+		})
+	}
+
+
 	render() {
 		let {
 			error,
@@ -421,8 +429,8 @@ class Editdialog extends React.Component {
 			childModuleList
 		} = this.state;
 		return (
-			<div className="g-operations-create">
-				<form onSubmit={handleSubmit(this.onSubmit)} style={{width:1000,marginTop:30,paddingLeft:40,paddingRight:40}}  >
+			<div className="g-operations-create g-operations-edit">
+				<form onSubmit={handleSubmit(this.onSubmit)} style={{width:1000,marginTop:30,paddingLeft:40,paddingRight:40,boxSizing:"border-box"}} className="edit-operation-form" >
 					<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 					<div className="u-operations-edit-title">
 						<span>操作项编辑</span>
@@ -469,7 +477,7 @@ class Editdialog extends React.Component {
 
 	               		/>
 	              	</KrField>
-					<div className="u-operations u-operations-menu">
+					<div className="u-operations-menu">
 						<KrField
 								name="module"
 								style={{width:310,marginLeft:14}}
@@ -488,23 +496,10 @@ class Editdialog extends React.Component {
 							<span className="require-label-method">*</span>方法
 						</div>
 						<div className="u-method-contentE">
-							<KrField
-									name="controller"
-									style={{width:700,marginLeft:70}}
-									component="searchMethod"
-									label=""
-									options={ControllerList}
-									inline={true}
-									onChange={this.onSelectController}
-							/>
-							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList} multi={true} requireLabel={true} />
+							
+							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick}/>
 
-							<Button
-									label="Add"
-									className="u-method-add"
-									height={34}
-									onTouchTap={this.controllerAdd}
-							/>
+							
 						</div>
 						<div className="u-method-content-list">
 							{this.renderController()}
