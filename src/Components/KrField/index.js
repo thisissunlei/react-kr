@@ -82,6 +82,8 @@ import UpMerchantsSource from './UpMerchantsSource';
 import UpSignedClientSource from './UpSignedClientSource';
 import SearchProcessType from './SearchProcessType';
 import SearchRole from './SearchRole';
+import SelectOperationComponent from './SelectOperationComponent';
+
 
 
 
@@ -431,6 +433,14 @@ class FieldRevert extends React.Component {
 			if (component === 'select' || type == 'select') {
 				return (
 					<FieldRevert {...this.props} component={SelectComponent} style={WrapStyles}>
+						{children}
+					</FieldRevert>
+				);
+			}
+
+			if (component === 'selectOperation' ) {
+				return (
+					<FieldRevert {...this.props} component={SelectOperationComponent} style={WrapStyles}>
 						{children}
 					</FieldRevert>
 				);

@@ -51,7 +51,7 @@ class Editdialog extends React.Component {
 	}
 
 	componentDidMount(){
-		this.getAllController();
+		this.getAllController('');
 	}
 
 	getResourcesData = () => {
@@ -169,10 +169,10 @@ class Editdialog extends React.Component {
 			idlist:item.methodId
 		})
 	}
-	getAllController = () => {
+	getAllController = (value) => {
 		let {detail} = this.props;
 		let _this = this;
-		Http.request('getMethodByName', {name:''}).then(function(response) {
+		Http.request('getMethodByName', {name:value}).then(function(response) {
 			
 			response.methodList.forEach((item, index) => {
 				item.value = item.methodId;
@@ -423,6 +423,11 @@ class Editdialog extends React.Component {
 		
 	}
 
+	inputValue=(value)=>{
+		// console.log("value======><======",value);
+		this.getAllController(value);
+	}
+
 
 	render() {
 		let {
@@ -460,7 +465,7 @@ class Editdialog extends React.Component {
 					<KrField
 							style={{width:260,marginLeft:40,marginBottom:16}}
 							name="code" type="text"
-							component="labelText" label="编号"
+							component="labelText" label="编码"
 							requireLabel={true}
 							requiredValue={true}
 							inline={true}
@@ -510,8 +515,8 @@ class Editdialog extends React.Component {
 						</div>
 						<div className="u-method-contentE">
 							
-							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick}/>
-							<span style={{display:"inline-block",margin: "20px 0 0 40px",fontSize:12,color:"#ff6868"}}>双击选择方法</span>
+							<KrField  name="controller" style={{width:700,marginLeft:70}} component="selectOperation" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick} onInputValue={this.inputValue}/>
+							<span style={{display:"inline-block",marginLeft: 100,fontSize:12,color:"#ff6868"}}>双击下拉框选项选择方法</span>
 							
 							
 						</div>
