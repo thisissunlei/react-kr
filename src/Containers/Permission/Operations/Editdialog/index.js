@@ -429,7 +429,7 @@ class Editdialog extends React.Component {
 			childModuleList
 		} = this.state;
 		return (
-			<div className="g-operations-create">
+			<div className="g-operations-create g-operations-edit">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{width:1000,marginTop:30,paddingLeft:40,paddingRight:40,boxSizing:"border-box"}} className="edit-operation-form" >
 					<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 					<div className="u-operations-edit-title">
@@ -477,7 +477,7 @@ class Editdialog extends React.Component {
 
 	               		/>
 	              	</KrField>
-					<div className="u-operations u-operations-menu">
+					<div className="u-operations-menu">
 						<KrField
 								name="module"
 								style={{width:310,marginLeft:14}}

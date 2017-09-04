@@ -87,7 +87,6 @@ class Createdialog extends React.Component {
 				onSubmit
 			} = this.props;
 			
-			console.log("params",params);
 			if (ControllerId.length > 0) {
 				
 				onSubmit && onSubmit(params);
@@ -124,7 +123,6 @@ class Createdialog extends React.Component {
 
 				item.label = `${str}#${item.methodName}`;
 			});
-			console.log("response.methodList",response.methodList);
 			_this.setState({
 				ControllerList: response.methodList
 			})
@@ -272,7 +270,15 @@ class Createdialog extends React.Component {
 		if(!ControllerItem.controllerName){
 			return;
 		}
-		var controller = `${ControllerItem.controllerName} ${ControllerItem.methodName}`;
+
+		var comKrspaceStart = /^com.krspace./.test(ControllerItem.controllerName);
+		var strTime = ControllerItem.controllerName+"";
+		if(comKrspaceStart){
+			strTime = strTime.replace(/com.krspace./,"")
+		}
+		var strTimes= `${strTime}#${ControllerItem.methodName}`;
+		var controller = strTimes;
+
 		var item = {
 			controller: controller
 		}
@@ -372,7 +378,6 @@ class Createdialog extends React.Component {
 			ModuleList,
 			ControllerList,
 		} = this.state;
-		console.log("ControllerList",ControllerList);
 		return (
 			<div className="g-operations-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{width:1000,marginTop:30,paddingLeft:40,paddingRight:40,boxSizing:"border-box"}}  >
@@ -469,7 +474,6 @@ class Createdialog extends React.Component {
 
 }
 const validate = values => {
-	console.log("values",values);
 	const errors = {}
 	if (!values.name) {
 		errors.name = '请输入名称';
