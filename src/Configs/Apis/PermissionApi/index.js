@@ -398,6 +398,7 @@ module.exports = {
           url: '/mockjsdata/55/krspace-erp-web/sys/form-type/list/type/search?page={page}&pageSize={pageSize}&nameKey={nameKey}',
           method: 'get'
     },
+    //
 
 
      
