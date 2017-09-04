@@ -91,7 +91,7 @@ export default class AppOpinion extends React.Component {
 		return (
 			<div className="g-create-opinion">
 				<Title value="App意见反馈"/>
-				<Section title="意见反馈列表" description="" style={{marginBottom:-5,minHeight:910}}>
+				<Section title="App意见反馈列表" description="" style={{marginBottom:-5,minHeight:910}}>
 					
 					<Table
 							  style={{marginTop:10}}
