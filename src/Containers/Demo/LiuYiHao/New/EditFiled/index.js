@@ -51,6 +51,7 @@ class EditFiled extends React.Component {
 		const {
 			onSubmit
 		} = this.props;
+		console.log("kkkkkk,mmmm")
 		onSubmit && onSubmit(); 
 	}
 	componentDidMount() {

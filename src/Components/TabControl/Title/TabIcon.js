@@ -9,6 +9,23 @@ export default class TabIcon extends React.Component {
         this.init ='tabs-icon-init';
         this.active ='tabs-icon-active';
 	}
+    componentDidMount() {
+        
+        
+    }
+    componentWillReceiveProps(nextProps) {
+        const {active} = this.state;
+
+        if(nextProps.active != active){
+             this.setState({
+                active:nextProps.active
+            })
+       
+        }
+       
+       
+    }
+ 
 
     titleClick = (label,index) =>{
         this.setState({
@@ -35,7 +52,6 @@ export default class TabIcon extends React.Component {
         let titles = label.map((item,index)=>{
             let defaultStyel = index==active ?_this.active:_this.init;
             return (<span
-
                         key = {index}
                         onClick = {()=>{
                             this.titleClick(item,index);

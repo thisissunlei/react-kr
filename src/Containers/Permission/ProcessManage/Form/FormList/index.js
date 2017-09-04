@@ -273,6 +273,7 @@ export default class FormList extends Component{
       </Table>
 
 		   {/*新建表单*/}
+			{console.log(this.allConfig.openNew,"OOOOO")}
       <Drawer
 					open={this.allConfig.openNew}
 					width={750}
@@ -295,7 +296,7 @@ export default class FormList extends Component{
          onClose={this.allClose}
        >
        <EditForm
-         onCancel={this.newSwidth}
+         onCancel={this.editOpen}
          onSubmit={this.addSubmit}
        />
      </Drawer>
@@ -310,7 +311,7 @@ export default class FormList extends Component{
        >
        <WatchForm
          editOpen={this.editOpen}
-         allClose={this.allClose}
+         allClose={this.watchTable}
        />
      </Drawer>
 

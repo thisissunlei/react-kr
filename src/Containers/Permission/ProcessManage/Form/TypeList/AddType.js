@@ -41,9 +41,9 @@ class AddType  extends React.Component{
                             component="input"
                             label="表单类型名称 "
                             requireLabel={true}
-						            />
+						/>
 
-                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'550px'}}  component="textarea"  maxSize={30} style={{width:560}} placeholder='请输入描述' lengthClass='type-list-textarea'/>
+                        <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'550px'}}  component="textarea"  maxSize={100} style={{width:560}} placeholder='请输入描述' lengthClass='type-list-textarea'/>
 
                         <Grid style={{marginBottom:5,marginLeft:-25,marginTop:-12}}>
                             <Row>

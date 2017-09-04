@@ -388,4 +388,17 @@ module.exports = {
             url: '/api/krspace-sso-web/sso/module/sub-level-info?firstLevelId={firstLevelId}',
             method: 'get'
     },
+    //表单管理--表单类型导航
+      'get-from-navigation':{
+            url: '/mockjsdata/55/krspace-erp-web/sys/form-type/list/type/navigation?nameKey={nameKey}',
+            method: 'get'
+    },
+    //表单管理--表单类型列表
+     'get-from-list':{
+          url: '/mockjsdata/55/krspace-erp-web/sys/form-type/list/type/search?page={page}&pageSize={pageSize}&nameKey={nameKey}',
+          method: 'get'
+    },
+
+
+     
 }
