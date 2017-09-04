@@ -40,9 +40,13 @@ export default class FormList extends Component{
 		super(props, context);
 		this.state={
 			searchParams : {
-
+				 page:1,
+				 pageSize:15,
+				 nameKey:''		 
       },
 			other:"",
+			//创建表id
+			creatId:''
 		}
 		this.allConfig = {
 			openNew : false,
@@ -63,7 +67,7 @@ export default class FormList extends Component{
 	//搜索确定
 	onSearchSubmit = (params)=>{
 		 let obj = {
-			name: params.content,
+			nameKey: params.content,
       pageSize:15
 		}
 		this.setState({
@@ -111,7 +115,7 @@ export default class FormList extends Component{
 	//新建确定
 	addSubmit = (values) =>{
 		var _this=this;
-		Http.request('postListAdd',{},values).then(function(response) {
+		Http.request('form-add-list',{},values).then(function(response) {
             _this.setState({
         			searchParams:{
         				time:+new Date(),
@@ -133,10 +137,9 @@ export default class FormList extends Component{
 						time:+new Date(),
 						page:_this.state.searchParams.page,
 						pageSize:15,
-						name:_this.state.searchParams.name?_this.state.searchParams.name:""
 					}
 				 })
-				 _this.editSwidth();
+				 _this.editOpen();
 				}).catch(function(err) {
 				Message.error(err.message);
 			});
@@ -144,7 +147,20 @@ export default class FormList extends Component{
 
  //创建表提交
   addRemoveSubmit=(params)=>{
-    this.cancelTable();
+    let {creatId}=this.state;
+		let _this=this;
+		Http.request('form-create-table',{},{formId:creatId}).then(function(response) {
+			_this.setState({
+				searchParams:{
+					time:+new Date(),
+					page:_this.state.searchParams.page,
+					pageSize:15
+				}
+			 })
+			 _this.cancelTable();
+			}).catch(function(err) {
+			Message.error(err.message);
+		});   
   }
 
 	//相关操作
@@ -152,8 +168,11 @@ export default class FormList extends Component{
 		if(type == "watch"){
       this.watchTable();
 		}else{
-      this.cancelTable();
-    }
+			this.cancelTable();
+		}
+		this.setState({
+			creatId:itemDetail.id
+		})
 	}
 
     //获取编辑信息
@@ -227,7 +246,7 @@ export default class FormList extends Component{
               onOperation={this.onOperation}
 	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName="postJobList"
+	            ajaxUrlName="form-list-search"
 	            ajaxFieldListName="items"
 				      onPageChange = {this.pageChange}
               hasBorder={true}
@@ -247,22 +266,18 @@ export default class FormList extends Component{
 				<TableBody >
 					<TableRow>
             <TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-            <TableRowColumn name="code" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="subName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="jobTypeName" style={{wordWrap:'break-word',whiteSpace:'normal',whiteSpace:'normal'}}></TableRowColumn>
+            <TableRowColumn name="typeName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="tableName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="purposeStr" style={{wordWrap:'break-word',whiteSpace:'normal',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="enabledStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="orderNum" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="descr" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
 						<TableRowColumn name="updatorName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-						}} style={{width:150}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						}}></TableRowColumn>
+						<TableRowColumn name="createdStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="cTTime" component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+						}}  style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn type="operation">
 							<Button label="查看"  type="operation"  operation="watch" operateCode="hrm_job_edit"/>
               <Button label="创建表"  type="operation"  operation="add" operateCode="hrm_job_edit"/>

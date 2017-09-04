@@ -17,7 +17,8 @@ import politicsStatus from './politicsStatus.json';
 import resourceRelation from './resourceRelation.json';
 import resourceStatus from './resourceStatus.json';
 import resourceType from './resourceType.json';
-import resourceProperty from './resourceProperty.json'
+import resourceProperty from './resourceProperty.json';
+import purposeType from './purposeType.json';
 export default class SelecTemployees extends React.Component {
 
 render() {
@@ -89,6 +90,10 @@ render() {
 			//员工属性
 			case "resourceProperty":
 				data=resourceProperty;
+				break;
+			//表单分类
+			case "purposeType":
+				data=purposeType;
 				break;
 
 			default:
