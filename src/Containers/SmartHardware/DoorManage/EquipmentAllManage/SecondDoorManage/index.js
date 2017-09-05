@@ -285,6 +285,12 @@ export default class SecondDoorManage  extends React.Component{
 		State.synchronizingPswDialog = !State.synchronizingPswDialog;
 	}
 
+	registeEquipmentFun=(value)=>{
+		this.setState({
+			itemDetail : value
+		})
+	}
+
 
 
 
@@ -424,7 +430,7 @@ export default class SecondDoorManage  extends React.Component{
 					    width={1100} 
 					    openSecondary={true} 
 					>
-						<EquipmentFind onCancel={this.openSearchEquipmentFun} />
+						<EquipmentFind onCancel={this.openSearchEquipmentFun} registeEquipment={this.registeEquipmentFun}/>
 					</Drawer>
 					
 					<Dialog

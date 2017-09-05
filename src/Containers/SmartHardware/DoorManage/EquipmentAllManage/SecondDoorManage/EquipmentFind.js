@@ -108,6 +108,8 @@ export default class EquipmentSearch extends React.Component{
 				itemDetail : response
 			},function(){
 				State.openEditDialog = true;
+				let {registeEquipment} = _this.props;
+				registeEquipment && registeEquipment(response);
 			})
 
 		}).catch(function(err) {
