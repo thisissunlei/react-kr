@@ -65,7 +65,6 @@ export default class SecondDoorManage  extends React.Component{
 
 	//操作相关
 	onOperation=(type, itemDetail)=>{
-		console.log("itemDetail===>operation",itemDetail);
 		this.setState({
 			itemDetail
 		});
@@ -85,7 +84,6 @@ export default class SecondDoorManage  extends React.Component{
 		this.setState({
 			itemDetail : value
 		})
-		console.log("itemDetail===>operation",itemData);
 		State.deviceVO = State.itemDetail.deviceVO;
 		State.openHardwareDetail = true;
 	}
@@ -128,7 +126,6 @@ export default class SecondDoorManage  extends React.Component{
 
 	openSearchEquipmentList=()=>{
 		this.openSearchEquipmentFun();
-		State.getUnusedEquipmentFun();
 	}
 	//确认删除
 	confirmDelete=()=>{
@@ -200,7 +197,6 @@ export default class SecondDoorManage  extends React.Component{
 
 
 	editList=(thisP,value,itemData)=>{
-		console.log("thisP",thisP,'value',value,'itemData',itemData);
 		this.setState({
 			itemDetail:thisP
 		});
@@ -252,7 +248,6 @@ export default class SecondDoorManage  extends React.Component{
 	//点击批量删除
 	deleteSelectEquipment = ()=>{
 		if(this.state.selectIds.length == 0){
-			console.log("this.state.selectIds.length ");
 			Message.error("请选择您要删除的设备");
 			return;
 		}
@@ -290,10 +285,14 @@ export default class SecondDoorManage  extends React.Component{
 		State.synchronizingPswDialog = !State.synchronizingPswDialog;
 	}
 
+
+
+
+
+
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
-		// console.log("itemDetail",itemDetail);
 		return(
 			<div >
 				<div style={{padding:"20px 0 0 0"}}>
@@ -397,11 +396,10 @@ export default class SecondDoorManage  extends React.Component{
 											}
 											return (
 													<div>
+				                        				<Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
-				                        				<Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
 														<Button  label="更多"  type="operation" operation="more" onTouchTap={this.showMoreOpretion.bind(this,value,itemData)} linkTrue/>
-														
 													</div>
 												)
 										}
@@ -415,7 +413,7 @@ export default class SecondDoorManage  extends React.Component{
 			        <Drawer 
 			        	open={State.openHardwareDetail}
 			        	onClose = {this.openSeeDetail}
-					    width={"90%"} 
+					    width={1000} 
 					    openSecondary={true} 
 					>
 						<EquipmentDetail onCancel={this.openSeeDetail} detail={itemDetail}/>
@@ -423,7 +421,7 @@ export default class SecondDoorManage  extends React.Component{
 					 <Drawer 
 			        	open={State.openSearchEquipment}
 			        	onClose = {this.openSearchEquipmentFun}
-					    width={"90%"} 
+					    width={1100} 
 					    openSecondary={true} 
 					>
 						<EquipmentFind onCancel={this.openSearchEquipmentFun} />

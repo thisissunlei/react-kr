@@ -35,10 +35,8 @@ class WarnContent extends React.Component{
 	componentDidMount(){
 		let {detail} = this.props;
 		let _this = this;
-		console.log("detail",detail);
 		var isJsonStr = _this.isJSON(detail.content);
 		if(isJsonStr){
-			console.log("_this.syntaxHighlight(detail.content)",_this.syntaxHighlight(detail.content));
 			$("#warn-content").html(_this.syntaxHighlight(detail.content));
 		}else{
 			$("#warn-content-p").html(detail.content);
@@ -58,11 +56,15 @@ class WarnContent extends React.Component{
 
 	        try {
 
-	            JSON.parse(str);
-	            return true;
+	            
+	            var str = JSON.parse(str);
+	            if(typeof str =='object'){
+	            	return true;
+	            }else{
+	            	return false;
+	            }
 
 	        } catch(e) {
-
 	            return false;
 
 	        }
@@ -80,7 +82,6 @@ class WarnContent extends React.Component{
 	    json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
 	    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
 	        var cls = 'number';
-	        //console.log("match",match);
 	        if (/^"/.test(match)) {
 	            if (/:$/.test(match)) {
 	                cls = 'key';

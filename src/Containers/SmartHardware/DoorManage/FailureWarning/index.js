@@ -57,7 +57,6 @@ export default class List extends React.Component {
 
 
 	seeContent=(param,params)=>{
-		// console.log("param",param,params,params);
 		this.setState({
 			itemDetail : param
 		})

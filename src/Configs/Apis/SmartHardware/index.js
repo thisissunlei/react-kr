@@ -179,6 +179,12 @@ module.exports = {
       method: 'post'
    },
 
+   //发现设备强制删除
+   'deleteFindEquipmentUrl':{
+      url: '/api/iot-platform/door-device/unused/actions/delete',
+      method: 'post'
+   },
+
 
     
 
