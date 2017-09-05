@@ -84,7 +84,8 @@ export default class JoinCreate extends Component {
 			formValues
 		} = this.state;
 		let {
-			params,onSubmit
+			params,
+			onSubmit
 		} = this.props;
 		let _this = this;
 
@@ -94,6 +95,7 @@ export default class JoinCreate extends Component {
 				type: 'success',
 			}]);
 			_this.removeLocalStorages();
+			_this.openConfirmCreateDialog();
 			onSubmit && onSubmit()
 			_this.props.CommunityAgreementList.openTowAgreement=false;
 			_this.props.CommunityAgreementList.openOneAgreement=false;
@@ -147,6 +149,11 @@ export default class JoinCreate extends Component {
 	openConfirmCreateDialog() {
 		this.setState({
 			openConfirmCreate: !this.state.openConfirmCreate
+		});
+	}
+	closeConfirmCreateDialog() {
+		this.setState({
+			openConfirmCreate: false
 		});
 	}
 
