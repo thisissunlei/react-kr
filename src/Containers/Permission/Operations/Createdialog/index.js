@@ -55,13 +55,14 @@ class Createdialog extends React.Component {
 			ControllerRender: [],
 			methodId: [],
 			idlist:[],
-		}
+		},
+		this.timeOut = 0,
 		this.getModuleList();
 		//this.getAllController();
 	}
 
 	componentDidMount(){
-		this.getAllController();
+		//this.getAllController('');
 	}
 
 	onCancel = () => {
@@ -108,10 +109,10 @@ class Createdialog extends React.Component {
 			idlist:item.methodId
 		})
 	}
-	getAllController = () => {
+	getAllController = (value) => {
 		let {detail} = this.props;
 		let _this = this;
-		Http.request('getMethodByName', {name:''}).then(function(response) {
+		Http.request('getMethodByName', {name:value}).then(function(response) {
 			
 			response.methodList.forEach((item, index) => {
 				item.value = item.methodId;
@@ -295,10 +296,18 @@ class Createdialog extends React.Component {
 			})
 				if(arr1.indexOf(controller)==-1){
 					arr.push(item);
+					Notify.show([{
+						message: '添加成功',
+						type: 'success',
+					}]);
 				}
 
 		}else {
 			arr.push(item);
+			Notify.show([{
+						message: '添加成功',
+						type: 'success',
+					}]);
 		}
 		this.setState({
 			ControllerRender: arr,
@@ -351,18 +360,32 @@ class Createdialog extends React.Component {
 
 
 	onMethodValueClick=(value)=>{
+
 		let _this = this;
-		this.setState({
-			ControllerItem: value,
-			idlist:value.methodId
-		},function(){
-			_this.controllerAdd();
-			Notify.show([{
-				message: '添加成功',
-				type: 'success',
-			}]);
-		})
+		this.timeOut = this.timeOut+1;
+
+		setTimeout(function(){
+			_this.timeOut = 0;
+		},500)
+		
+			
+		if(_this.timeOut==2){
+			_this.setState({
+				ControllerItem: value,
+				idlist:value.methodId
+			},function(){
+				_this.controllerAdd();
+				
+			})
+		}
+		
 	}
+	inputValue=(value)=>{
+		console.log("value",value);
+		this.getAllController(value);
+	}
+
+
 	render() {
 		let {
 			error,
@@ -397,7 +420,7 @@ class Createdialog extends React.Component {
 					<KrField
 							style={{width:260,marginLeft:40,marginBottom:16}}
 							name="code" type="text"
-							component="input" label="编号"
+							component="input" label="编码"
 							requireLabel={true}
 							requiredValue={true}
 							errors={{requiredValue:'编码为必填项'}}
@@ -436,7 +459,8 @@ class Createdialog extends React.Component {
 						<div className="u-method-title"><span className="require-label-method">*</span>方法</div>
 						<div className="u-method-content u-method-contentE">
 							
-							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick}/>
+							<KrField  name="controller" style={{width:700,marginLeft:70}} component="selectOperation" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick} onInputValue={this.inputValue}/>
+							<span style={{display:"inline-block",margin: "50px  0 0 104px",fontSize:12,color:"#ff6868"}}>双击下拉选项添加</span>
 
 						</div>
 						<div className="u-method-content-list">
