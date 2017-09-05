@@ -172,7 +172,7 @@ export default class Start extends React.Component{
 				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
-				                       <TableRowColumn name="target_url" 
+				                       <TableRowColumn name="targetUrl" 
 										component={(value,oldValue)=>{
 				                            var TooltipStyle=""
 				                            if(value.length==""){
