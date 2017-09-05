@@ -310,17 +310,20 @@ class Merchants extends Component{
 		let {CommunityAgreementList} = this.props;
 
 		let {
-			delAgreementId
+			delAgreementId,searchParams
 		} = this.state;
+
 		if(delAgreementId.contracttype == 'RENEW'){
 			//续租
 			Http.request('delete-renew-contract', {
 				contractId: delAgreementId.id
 			}).then(function(response) {
 				 Message.success('删除成功');
-				window.setTimeout(function() {
-					window.location.reload();
-				}, 100)
+				CommunityAgreementList.ajaxListData(searchParams);
+
+				// window.setTimeout(function() {
+				// 	window.location.reload();
+				// }, 100)
 			}).catch(function(err) {
 	            Message.error(err.message);
 			});
@@ -330,9 +333,11 @@ class Merchants extends Component{
 				contractId: delAgreementId.id
 			}).then(function(response) {
 				 Message.success('删除成功');
-				window.setTimeout(function() {
-					window.location.reload();
-				}, 100)
+				CommunityAgreementList.ajaxListData(searchParams);
+
+				// window.setTimeout(function() {
+				// 	window.location.reload();
+				// }, 100)
 			}).catch(function(err) {
 	            Message.error(err.message);
 			});
@@ -342,9 +347,8 @@ class Merchants extends Component{
 				contractId: delAgreementId.id
 			}).then(function(response) {
 				 Message.success('删除成功');
-				window.setTimeout(function() {
-					window.location.reload();
-				}, 100)
+				CommunityAgreementList.ajaxListData(searchParams);
+
 			}).catch(function(err) {
 	            Message.error(err.message);
 			});
@@ -353,15 +357,13 @@ class Merchants extends Component{
 				contractId: delAgreementId.id
 			}).then(function(response) {
 				 Message.success('删除成功');
-				window.setTimeout(function() {
-					window.location.reload();
-				}, 100)
+				CommunityAgreementList.ajaxListData(searchParams);
+
 			}).catch(function(err) {
 	            Message.error(err.message);
 			});
 		}
 		
-		CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
 
 	}
 
