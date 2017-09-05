@@ -80,12 +80,19 @@ export default class SecondDoorManage  extends React.Component{
 		
 	}
 	seeDetailInfoFun=(value,itemData)=>{
-		// State.deviceVO = value.deviceVO;
-		this.setState({
-			itemDetail : value
-		})
+		let _this = this;
+		Http.request('getSecEquipmentDetailUrl',{id:value.id}).then(function(response) {
+			
+			_this.setState({
+				itemDetail:response
+			},function(){
+				State.openHardwareDetail = true;
+			});
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 		State.deviceVO = State.itemDetail.deviceVO;
-		State.openHardwareDetail = true;
 	}
 
 	closeAll=()=>{
@@ -197,10 +204,19 @@ export default class SecondDoorManage  extends React.Component{
 
 
 	editList=(thisP,value,itemData)=>{
-		this.setState({
-			itemDetail:thisP
+		let _this = this;
+		Http.request('getSecEquipmentDetailUrl',{id:thisP.id}).then(function(response) {
+			
+			_this.setState({
+				itemDetail:response
+			},function(){
+				_this.openEditDialogFun();
+			});
+
+		}).catch(function(err) {
+			Message.error(err.message);
 		});
-		this.openEditDialogFun();
+		
 	}
 
 	deleteList=(thisP,value,itemData)=>{
