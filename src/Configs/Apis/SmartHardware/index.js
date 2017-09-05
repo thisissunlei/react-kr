@@ -186,6 +186,13 @@ module.exports = {
    },
 
 
+   //获取设备详情
+   'getSecEquipmentDetailUrl':{
+      url: '/api/iot-platform/door-device/detail?id={id}',
+      method: 'get'
+   },
+
+
     
 
    

@@ -45,12 +45,13 @@ class Editdialog extends React.Component {
 			idlist:[],
 
 		}
+		this.timeOut = 0;
 		this.getModuleList();
 		this.getResourcesData();
 	}
 
 	componentDidMount(){
-		this.getAllController();
+		//this.getAllController('');
 	}
 
 	getResourcesData = () => {
@@ -168,10 +169,10 @@ class Editdialog extends React.Component {
 			idlist:item.methodId
 		})
 	}
-	getAllController = () => {
+	getAllController = (value) => {
 		let {detail} = this.props;
 		let _this = this;
-		Http.request('getMethodByName', {name:''}).then(function(response) {
+		Http.request('getMethodByName', {name:value}).then(function(response) {
 			
 			response.methodList.forEach((item, index) => {
 				item.value = item.methodId;
@@ -350,10 +351,18 @@ class Editdialog extends React.Component {
 			})
 				if(arr1.indexOf(controller)==-1){
 					arr.push(item);
+					Notify.show([{
+						message: '添加成功',
+						type: 'success',
+					}]);
 				}
 
 		}else {
 			arr.push(item);
+			Notify.show([{
+						message: '添加成功',
+						type: 'success',
+					}]);
 		}
 		this.setState({
 			ControllerRender: arr,
@@ -397,17 +406,26 @@ class Editdialog extends React.Component {
 	}
 
 	onMethodValueClick=(value)=>{
+		
 		let _this = this;
-		this.setState({
-			ControllerItem: value,
-			idlist:value.methodId
-		},function(){
-			_this.controllerAdd();
-			Notify.show([{
-				message: '添加成功',
-				type: 'success',
-			}]);
-		})
+		this.timeOut = this.timeOut+1;
+		setTimeout(function(){
+			_this.timeOut = 0;
+		},500)
+		if(this.timeOut==2){
+			this.setState({
+				ControllerItem: value,
+				idlist:value.methodId
+			},function(){
+				_this.controllerAdd();
+			})
+		}
+		
+	}
+
+	inputValue=(value)=>{
+		// console.log("value======><======",value);
+		this.getAllController(value);
 	}
 
 
@@ -447,7 +465,7 @@ class Editdialog extends React.Component {
 					<KrField
 							style={{width:260,marginLeft:40,marginBottom:16}}
 							name="code" type="text"
-							component="labelText" label="编号"
+							component="labelText" label="编码"
 							requireLabel={true}
 							requiredValue={true}
 							inline={true}
@@ -497,8 +515,9 @@ class Editdialog extends React.Component {
 						</div>
 						<div className="u-method-contentE">
 							
-							<KrField  name="controller" style={{width:700,marginLeft:70}} component="select" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick}/>
-
+							<KrField  name="controller" style={{width:700,marginLeft:70}} component="selectOperation" label="" options={ControllerList}  multi={true} onChangeOneOperation={true} onChangeOne={this.onMethodValueClick} onInputValue={this.inputValue}/>
+							<span style={{display:"inline-block",marginLeft: 100,fontSize:12,color:"#ff6868"}}>双击下拉选项添加</span>
+							
 							
 						</div>
 						<div className="u-method-content-list">

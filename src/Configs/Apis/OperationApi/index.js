@@ -759,6 +759,19 @@ module.exports = {
         url: '/api/krspace-finance-web/customer/all-customers?company={company}',
         method: 'get'
     },
+
+    'delete-reduce-contract': {
+        url: '/api/krspace-finance-web/fnaContractRentController/deleteFnaContractRent?contractId={contractId}',
+        method: 'delete'
+    },
+    'delete-increase-contract': {
+        url: '/api/krspace-finance-web/checkinagreement/delete-increase-contract?contractId={contractId}',
+        method: 'delete'
+    },
+    'delete-renew-contract': {
+        url: '/api/krspace-finance-web/checkinagreement/delete-continue-contract?contractId={contractId}',
+        method: 'delete'
+    },
     //App管理-活动管理-新建活动
     'create-activity': {
         url: '/api/krspace-finance-web/activity/management/create',
@@ -889,6 +902,7 @@ module.exports = {
         url: '/api/krspace-finance-web/advertising/banner/edit',
         method: 'post'
     },
+
 }
 
 
