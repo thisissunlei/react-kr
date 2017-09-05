@@ -195,7 +195,7 @@ export default class ActivityList extends React.Component {
 				                            }else{
 				                              TooltipStyle="block";
 				                            }
-				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
 					                <TableRowColumn 
@@ -208,7 +208,7 @@ export default class ActivityList extends React.Component {
 				                            }else{
 				                              TooltipStyle="block";
 				                            }
-				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }} ></TableRowColumn>
 					                <TableRowColumn name="during" ></TableRowColumn>
@@ -220,7 +220,21 @@ export default class ActivityList extends React.Component {
 					                    }}
 					                ></TableRowColumn>
 					                <TableRowColumn name="createrName" ></TableRowColumn>
-					                <TableRowColumn name="sponsor" ></TableRowColumn>
+					                <TableRowColumn 
+					                	name="sponsor"
+					                	component={(value,oldValue)=>{
+				                            var TooltipStyle=""
+				                            if(value.length==""){
+				                              TooltipStyle="none";
+
+				                            }else{
+				                              TooltipStyle="block";
+				                            }
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+				                      }} ></TableRowColumn> 
+
+					                	
 					                <TableRowColumn 
 					                	name="published"
 										component={(value,oldValue,itemDetail) => {

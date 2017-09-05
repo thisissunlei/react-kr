@@ -163,7 +163,7 @@ class ViewNotice extends React.Component {
 										value = {
 						                    infoList.begin_time
 						                }
-               							format = "yyyy-mm-dd hh:MM:ss" />
+               							format = "yyyy-mm-dd HH:MM:ss" />
 								}
 
 							/>
@@ -178,7 +178,7 @@ class ViewNotice extends React.Component {
 										value = {
 						                    infoList.end_time
 						                }
-               							format = "yyyy-mm-dd hh:MM:ss" />
+               							format = "yyyy-mm-dd HH:MM:ss" />
 								}
 
 							/>
