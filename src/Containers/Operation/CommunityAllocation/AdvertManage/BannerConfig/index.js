@@ -132,7 +132,7 @@ export default class Banner extends React.Component{
 	render() {
 		let {itemDetail}=this.state;
 		return(
-			<div className="g-activity">
+			<div className="g-activity g-banner">
 				
 				
 					<div className="m-btn">
@@ -172,7 +172,7 @@ export default class Banner extends React.Component{
 				                            }else{
 				                              TooltipStyle="block";
 				                            }
-				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
 				                      <TableRowColumn name="remark" 
@@ -184,7 +184,7 @@ export default class Banner extends React.Component{
 				                            }else{
 				                              TooltipStyle="block";
 				                            }
-				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
 					               <TableRowColumn name="imgUrl" 
@@ -196,7 +196,7 @@ export default class Banner extends React.Component{
 				                            }else{
 				                              TooltipStyle="block";
 				                            }
-				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
 				                      <TableRowColumn name="targetUrl" 
@@ -208,7 +208,7 @@ export default class Banner extends React.Component{
 				                            }else{
 				                              TooltipStyle="block";
 				                            }
-				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
 					                

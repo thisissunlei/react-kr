@@ -157,6 +157,9 @@ const validate = values => {
 		if (!values.title) {
 			errors.title = '标题不能为空';
 		}
+		if (values.title && values.title.length>50) {
+			errors.title = '标题不能超过50字';
+		}
 		if (!values.imgUrl) {
 			errors.imgUrl = '启动图片不能为空';
 		}
