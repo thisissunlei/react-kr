@@ -41,20 +41,82 @@ class NewCreateForm extends React.Component{
 
 		
 	}
+	arrDel=(arr)=>{
+      	let tmp = [];
+	    for(var i in arr){
+			if(tmp.indexOf(arr[i])==-1){
+				tmp.push(arr[i])
+			}
+		}
+		if(tmp.length<arr.length){
+			return true;
+		}
+		return false;
+	}
 	onSubmit=(value)=>{
 		let labelArr = [];
-		console.log("onsubmit")
+		let valueArr = [];
+		let orderNumArr = [];
 		let labelNone = false;
+		let valueNone = false;
+		let orderNumNone = false;
 		let tableVlaue = value.itemListStr;
+		console.log('---->',value.itemListStr,tableVlaue[tableVlaue.length-1])
 		labelArr = tableVlaue.map(item=>{
-			console.log('map',item.label);
+			console.log(item)
 			if(!item.label){
 				labelNone = true;
+				return ''
 			}
 			return item.label;
 		})
-		console.log("onsubmit2",labelArr,labelNone)
-		return;
+		valueArr = tableVlaue.map(item=>{
+			if(!item.value){
+				valueNone = true;
+				return ''
+			}
+			return item.value;
+		})
+		orderNumArr = tableVlaue.map(item=>{
+			if(!item.orderNum){
+				orderNumNone = true;
+				return ''
+			}
+			return item.orderNum;
+		})
+		let labelSame = this.arrDel(labelArr);
+		let valueSame = this.arrDel(valueArr);
+		let orderNumSame = this.arrDel(orderNumArr);
+		if(labelSame || valueSame || orderNumSame){
+			let str = '';
+			if(labelSame){
+				str = '选项文字';
+			}else if(valueSame){
+				str = '选项值';
+			}else if(orderNumSame){
+				str = '排序号';
+			}
+			Notify.show([{
+				message: str+'不能有相同的值',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(valueNone || valueNone || orderNumNone){
+			let str = '';
+			if(labelNone){
+				str = '选项文字';
+			}else if(valueNone){
+				str = '选项值';
+			}else if(orderNumNone){
+				str = '排序号';
+			}
+			Notify.show([{
+				message: str+'不能为空',
+				type: 'danger',
+			}]);
+			return;
+		}
 		State.newCreateDict(value);
 	}
 	onCancel=()=>{
