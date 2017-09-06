@@ -92,6 +92,7 @@ class CreateActivityList extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
+		form.cost=0;
 		var stime=form.startTime.substring(0,10);
 		var etime=form.endTime.substring(0,10);
 		form.begin_time=`${stime} ${form.StartTimeStr}:00`;
@@ -144,10 +145,11 @@ class CreateActivityList extends React.Component {
 						 	/>
 							<KrField
 								style={{width:260,marginRight:25}}
-								component="input"
+								component="labelText"
 								name="cost"
+								inline={false} 
 								label="费用"
-								requireLabel={true}
+								value="免费"
 						 	/>
 						 	<KrField
 								style={{width:260,marginRight:25}}
@@ -270,10 +272,10 @@ const validate = values => {
 			errors.title = '活动标题不能超过50个字符';
 		}
 
-		if (!values.cost) {
-			errors.cost = '请输入费用';
-		}
-
+		// if (!values.cost) {
+		// 	errors.cost = '请输入费用';
+		// }
+		
 		if (!values.type) {
 			errors.type = '请选择活动类型';
 		}

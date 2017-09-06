@@ -129,6 +129,7 @@ class EditActivity extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
+		form.cost=0;
 		var stime=form.startTime.substring(0,10);
 		var etime=form.endTime.substring(0,10);
 		form.begin_time=`${stime} ${form.StartTimeStr}:00`;
@@ -184,10 +185,11 @@ class EditActivity extends React.Component {
 						 	/>
 							<KrField
 								style={{width:260,marginRight:25}}
-								component="input"
+								component="labelText"
 								name="cost"
 								label="费用"
-								requireLabel={true}
+								inline={false} 
+								value="免费"
 						 	/>
 						 	<KrField
 								style={{width:260,marginRight:25}}
