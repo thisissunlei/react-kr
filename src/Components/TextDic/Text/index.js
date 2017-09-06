@@ -7,46 +7,12 @@ export default class Text  extends React.Component{
         super(props, context);
         this.state={
             component:null,
-            nexts:[]
         }
     }
     
-   nextArrRender=(name,next)=>{
-    var nexts=[];
-    next.map((item,index)=>{
-        var list={};
-        if(item.value.slice(0,name.length)==name){
-            if(name=='TEXT'&& item.value!=='TEXT_AREA_TEXT'&&item.value!=='TEXT_AREA_RICH'){
-                list.value=item.value;
-                list.label=item.desc;
-            }else if(name!='TEXT'){
-                list.value=item.value;
-                list.label=item.desc;
-            }else{
-                return null
-            }
-        }else{
-          return null  
-        }
-        nexts.push(list); 
-    })
-    this.setState({
-        nexts
-    })
-   }
-
+   
     componentDidMount(){
-      let {label,next}=this.props;
-      this.nextArrRender(label,next);
-    }
-
-    componentWillReceiveProps(nextProps){
-       if(nextProps.label!=this.props.label){
-        this.nextArrRender(nextProps.label,nextProps.next);
-        this.setState({
-            component:null
-        })
-       }
+     
     }
 
 
@@ -202,40 +168,20 @@ export default class Text  extends React.Component{
               component = null;
           }
         }
-        this.setState({
-            component
-        })
+       return component
     }
 
-    
-    typeChange=(param)=>{
-      if(!param){
-          return ;
-      }
-      this.typeRender(param.value);
-    }
     
 
 
 	render(){
          
-        let {component,nexts}=this.state;
-       
-               
+        let {label}=this.props;
+                 
 		return(
 
 			<div style={{display:'inline-block'}}>
-               <KrField
-                    grid={1/2}
-                    style={{width:262,marginBottom:5,marginLeft:'30px'}}
-                    name="namerrr"
-                    component="select"
-                    label="类型"
-                    options={nexts}
-                    onChange={this.typeChange}
-                    requireLabel={true}
-				 />
-                {component}
+                {this.typeRender(label)}
 			</div>
 		);
 	}

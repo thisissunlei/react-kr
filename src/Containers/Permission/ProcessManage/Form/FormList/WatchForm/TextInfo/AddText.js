@@ -22,18 +22,13 @@ class AddText  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-            inputType:[],
-            componentType:[],
-            label:{}
+           
         }
     }
     
     componentDidMount(){
         Store.dispatch(change('BasicInfo','enabled','1'));
-        this.setState({
-			inputType:DictionaryConfigs.ERP_InputType,
-			componentType:DictionaryConfigs.ERP_ComponentType
-		})
+        
     }
 
     onSubmit=(values)=>{
@@ -46,23 +41,11 @@ class AddText  extends React.Component{
         onCancel && onCancel();
     }
 
-    typeChange=(param)=>{
-        this.setState({
-			label:param
-		})
-    }
-
+   
 	render(){
 
     let {handleSubmit}=this.props;
-    let {inputType,componentType,label}=this.state;
-    var seleInt=[];
-    inputType.map((item,index)=>{
-       var list={};
-       list.label=item.desc;
-       list.value=item.value;
-       seleInt.push(list);
-    })
+   
 
 		return(
 
@@ -85,24 +68,13 @@ class AddText  extends React.Component{
                         <KrField
                             grid={1/2}
                             style={{width:262,marginBottom:5,marginLeft:30}}
-                            name="tableName"
+                            name="label"
                             component="input"
                             label="字段显示名"
                             />
 
 
-                        <KrField
-                            grid={1/2}
-                            style={{width:262,marginBottom:5}}
-                            name="typeId"
-                            component="select"
-                            label="表现形式"
-                            options={seleInt}
-                            onChange={this.typeChange}
-                            requireLabel={true}
-                        />
-
-				        <TextDic  label={label} next={componentType} />
+				        <TextDic/>
 
                         <Grid style={{marginBottom:5,marginLeft:-32,marginTop:12}}>
                             <Row>
@@ -130,9 +102,12 @@ const validate = values =>{
        errors.name='表单类型名称不能超过20个字符';
     }
     
-   
-    if(!values.typeId){
-        errors.typeId='请填写表单类型';
+    if(!values.label){
+        errors.label='请填写字段显示名';
+    }
+
+    if(!values.inputType){
+        errors.inputType='请填写表现形式';
     }
    
 
