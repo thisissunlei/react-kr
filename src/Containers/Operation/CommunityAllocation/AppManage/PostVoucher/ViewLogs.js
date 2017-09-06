@@ -157,7 +157,7 @@ class ViewLogs extends React.Component {
 							inline={true}
 							type="text"
 							component="labelText"
-							label="发帖人"
+							label="发表人"
 							value={infoList.author}
 					/>
 				<KrField
@@ -176,20 +176,28 @@ class ViewLogs extends React.Component {
 
 				/>
 				<KrField
+						style={{width:520}}
+						component="labelText"
+						inline={true}
+						label="违规内容类型"
+						value={infoList.warnTareget}
+
+				/>0
+				<KrField
 						style={{width:520,height:30}}
 						component="labelText"
 						inline={false}
-						label="帖子内容"
+						label="被举报内容"
 				/>
 				<div className="post-content">
 					<div className="head-title">
 						<span className="user-head" style={{backgroundImage:`url(${infoList.avatar})`}}></span>
 						<span className="user-name">{infoList.author}</span>
-						<span className="timer"><KrDate value={infoList.topicDate} format="yyyy-mm-dd HH:MM:ss" /></span>
+						<span className="timer"><KrDate value={infoList.ctime} format="yyyy-mm-dd HH:MM:ss" /></span>
 					</div>
 					<div className="content">
 						
-						{infoList.topicContent}
+						{infoList.content}
 						{this.renderContentImg()}
 						{/*{infoList.imgUrl.length && infoList.imgUrl.map((item,index) => {
 						return (
@@ -235,7 +243,7 @@ class ViewLogs extends React.Component {
 							ref="status"
 							checked={ownFlag?true:false}
 							onChange={this.changeCheck}
-					/>删除帖子
+					/>删除违规内容
 				</div>
 				
 						<Grid style={{marginTop:50}}>
