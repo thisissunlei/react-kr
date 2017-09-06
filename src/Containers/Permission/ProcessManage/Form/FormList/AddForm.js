@@ -22,7 +22,7 @@ class AddForm  extends React.Component{
     }
     
     componentDidMount(){
-        Store.dispatch(change('BasicInfo','enabled','1'));
+        Store.dispatch(change('AddForm','enabled','true'));
     }
 
     onSubmit=(values)=>{
@@ -102,8 +102,8 @@ class AddForm  extends React.Component{
                         />
 
                         <div className='m-form-radio'><KrField grid={1/2} style={{width:262}} name="enabled" component="group" label="是否启用" requireLabel={true}>
-                                <KrField name="enabled" label="启用" type="radio" value='1' />
-                                <KrField name="enabled" label="停用" type="radio" value='0' />
+                                <KrField name="enabled" label="启用" type="radio" value='true' />
+                                <KrField name="enabled" label="停用" type="radio" value='false' />
                         </KrField></div>
 
                          <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'544px'}}  component="textarea"  maxSize={100} style={{width:554}} placeholder='请输入描述' lengthClass='type-list-textarea'/>
@@ -127,7 +127,7 @@ class AddForm  extends React.Component{
 const validate = values =>{
     const errors = {};
     
-    let org=/^(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+    let org=/^(?!.*?_$)[a-zA-Z][a-zA-Z0-9_]*$/;
 
     if(!values.name){
        errors.name='请填写表单类型名称';
@@ -135,16 +135,12 @@ const validate = values =>{
        errors.name='表单类型名称不能超过20个字符';
     }
     
-    if(values.tableName){
-      
+    if(values.tableName&&(!org.test(values.tableName)||values.tableName.length>30)){
+        errors.tableName='最多30字符，必须以字母开头,限定为字母、数字、下划线,不能以下划线结尾'
     }
-
 
     if(!values.typeId){
         errors.typeId='请填写表单类型';
-    }
-    if(!values.enabled){
-        errors.enabled='请选择是否启用';
     }
     if(!values.purpose){
         errors.purpose='请填写表单分类';

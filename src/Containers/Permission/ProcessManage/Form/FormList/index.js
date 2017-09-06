@@ -44,9 +44,10 @@ export default class FormList extends Component{
 				 page:1,
 				 pageSize:15,
 				 tableName:'',
-				 typeId:'',
+				 typeId:this.props.id,
 				 nameKey:'',
-				 enabled:''		 
+				 enabled:'',
+				 purpose:''		 
       },
 			other:"",
 			//创建表id
@@ -56,7 +57,11 @@ export default class FormList extends Component{
 			//表单类型
 			typeList:[],
 			//基本信息
-			basicInfo:{}
+			basicInfo:{},
+			//字段信息
+			textInfo:[],
+			//是否已创建表
+			isCreate:false
 		}
 		this.allConfig = {
 			openNew : false,
@@ -93,10 +98,10 @@ export default class FormList extends Component{
 	onSearchSubmit = (params)=>{
 		 let obj = {
 			nameKey: params.content,
-      pageSize:15
 		}
+		var search=Object.assign({},this.state.searchParams,obj);
 		this.setState({
-		  searchParams:obj
+		  searchParams:search
 		})
 	}
 	//新建页开关
@@ -138,8 +143,17 @@ export default class FormList extends Component{
 	
 	//高级查询提交
 	onSearchUpperSubmit=(params)=>{
+		params.typeId=this.props.id;
+		params.pageSize=15;
+		params.page=1;
+		var search={
+			tableName:'',
+			nameKey:'',
+			enabled:'',
+			purpose:''	
+		}
 		this.setState({
-			searchParams:Object.assign({},this.state.searchParams,params)
+			searchParams:Object.assign({},search,params)
 		})
 		this.cancelSearchUpperDialog();
 	}
@@ -163,8 +177,9 @@ export default class FormList extends Component{
 	}
 	//编辑确定
 	editSubmit = (params) =>{
-         var _this=this;
-			Http.request('post-list-edit',{},params).then(function(response) {
+		  delete params.records;
+      var _this=this;
+			Http.request('form-add-list',{},params).then(function(response) {
 				_this.setState({
 					searchParams:{
 						time:+new Date(),
@@ -172,6 +187,7 @@ export default class FormList extends Component{
 						pageSize:15,
 					}
 				 })
+				 _this.getBasicInfo(params.id);
 				 _this.editOpen();
 				}).catch(function(err) {
 				Message.error(err.message);
@@ -196,19 +212,36 @@ export default class FormList extends Component{
 		});   
   }
 
-	//相关操作
-	onOperation = (type, itemDetail) =>{
-		if(type == "watch"){
-			this.watchTable();
-			this.getBasicInfo(itemDetail.id);
-		}else{
-			this.cancelTable();
-			this.setState({
-				creatId:itemDetail.id
-			})
-		}
+	
+	//创建表打开
+	openTableStart=(itemDetail)=>{
+		this.cancelTable();
+		this.setState({
+			creatId:itemDetail.id
+		})
 	}
 
+	//打开查看
+	warchFormStart=(itemDetail)=>{
+		this.watchTable();
+    this.getBasicInfo(itemDetail.id);
+		this.getTextInfo(itemDetail.id);
+		this.setState({
+			isCreate:itemDetail.created
+		})		
+	}
+ 
+	//获取表单字段信息
+	getTextInfo=(id)=>{
+		var _this=this;
+		Http.request('form-group-table',{id:id}).then(function(response) {
+			 _this.setState({
+				textInfo:response.items
+			 })
+		 }).catch(function(err) {
+			 Message.error(err.message);
+		 });
+	}
 
 	//获取表单查看基本信息
 	getBasicInfo=(id)=>{
@@ -217,6 +250,12 @@ export default class FormList extends Component{
 		   _this.setState({
 				basicInfo:response
 			 })
+			 if(response.enabled){
+				 response.enabled='true'
+			 }else{
+				 response.enabled='false'
+			 }
+			 Store.dispatch(initialize('EditForm',response));
 		 }).catch(function(err) {
 			 Message.error(err.message);
 		 });
@@ -253,7 +292,7 @@ export default class FormList extends Component{
 
 		const {openNew,openTable,openSearch} = this.allConfig;
 		 
-		let {purposeType,typeList,basicInfo}=this.state;
+		let {purposeType,typeList,basicInfo,textInfo,isCreate}=this.state;
 
 		return(
       	<div className="basic-post-list">
@@ -328,9 +367,13 @@ export default class FormList extends Component{
 						<TableRowColumn name="cTTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}}  style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn type="operation">
-							<Button label="查看"  type="operation"  operation="watch" operateCode="hrm_job_edit"/>
-              <Button label="创建表"  type="operation"  operation="add" operateCode="hrm_job_edit"/>
+						<TableRowColumn type="operation" component={(value,oldValue,detail)=>{
+							return <div>
+												<span onClick={this.warchFormStart.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>查看</span>
+												{!value.created&&<span onClick={this.openTableStart.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>创建表</span>}
+										 </div>
+							}}>
+							
 						</TableRowColumn>
 					</TableRow>
 				 </TableBody>
@@ -364,9 +407,11 @@ export default class FormList extends Component{
        >
        <EditForm
          onCancel={this.editOpen}
-         onSubmit={this.addSubmit}
+         onSubmit={this.editSubmit}
 				 purposeType={purposeType}
 				 typeList={typeList}
+				 isCreate={isCreate}
+				 basicInfo={basicInfo}
        />
      </Drawer>
 
@@ -382,6 +427,8 @@ export default class FormList extends Component{
          editOpen={this.editOpen}
          allClose={this.watchTable}
 				 basicInfo={basicInfo}
+				 textInfo={textInfo}
+				 isCreate={isCreate}
        />
      </Drawer>
 

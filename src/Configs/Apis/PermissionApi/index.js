@@ -415,12 +415,12 @@ module.exports = {
     },
     //表单管理--查询表单列表
     'form-list-search':{
-      url: '/mockjsdata/55/krspace-erp-web/sys/form/list/type/search?enabled={enabled}&nameKey={nameKey}&page={page}&pageSize={pageSize}&tableName={tableName}&typeId={typeId}',
+      url: '/mockjsdata/55/krspace-erp-web/sys/form/list/type/search?enabled={enabled}&nameKey={nameKey}&page={page}&pageSize={pageSize}&tableName={tableName}&typeId={typeId}&purpose={purpose}',
       method: 'get'
     },
     //表单管理--新增表单
     'form-add-list':{
-      url: '/mockjsdata/55/krspace-erp-web/sys/form/list/type/create-table',
+      url: '/mockjsdata/55/krspace-erp-web/sys/form/add',
       method: 'post'
     },
     //表单管理--生成表
@@ -438,6 +438,41 @@ module.exports = {
       url: '/mockjsdata/55/krspace-erp-web/sys/form/info/type/edit?id={id}',
       method: 'get'
     },
-       
+    //表单管理--批量删除表单字段
+    'form-all-batch':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-field/delete/type/batch',
+      method: 'post'
+    },
+    //表单管理--表单字段列表接口
+    'form-group-table':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-field/list/type/group-by-table?formId={formId}',
+      method: 'get'
+    },   
+    //表单管理--新增表单字段
+    'form-field-add':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-field/add',
+      method: 'post'
+    },
+    //表单管理--编辑表单字段
+    'form-field-edit':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-field/edit',
+      method: 'post'
+    },   
+
+    //表单管理--新增明细表
+    'form-table-add':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-table/add',
+      method: 'post'
+    },
+    //表单管理--编辑明细表
+    'form-table-edit':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-table/edit',
+      method: 'post'
+    }, 
+    //表单管理--删除明细表
+    'form-table-delete':{
+      url: '/mockjsdata/55/krspace-erp-web/sys/form-table/delete?id={id}',
+      method: 'delete'
+    },     
 }
 

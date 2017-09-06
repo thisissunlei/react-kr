@@ -7,6 +7,7 @@ import Nothing from '../../Nothing';
 import Toolbar from '../../Toolbar';
 import DeleForm from './DeleForm';
 import Dialog from '../../Dialog';
+import Message from '../../Message';
 import {
   arrUpMove,
   arrDownMove,
@@ -162,11 +163,12 @@ export default class Table extends React.Component {
 
     sortArr.map((item,index)=>{
       newData = arrDelEle(newData,item);
-      deleteData.push(newData[item])
+      deleteData.push(this.state.tableData[item])
     })
+    
     const {batchdelete}=this.props;
     batchdelete && batchdelete(deleteData);
-    //this.deleForm();
+    this.deleForm();
 
     this.setCheckedArr(newData);
     this.setState({

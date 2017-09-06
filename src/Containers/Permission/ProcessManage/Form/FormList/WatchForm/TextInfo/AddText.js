@@ -104,7 +104,7 @@ class AddText  extends React.Component{
 
 				        <TextDic  label={label} next={componentType} />
 
-                        <Grid style={{marginBottom:5,marginLeft:-20,marginTop:12}}>
+                        <Grid style={{marginBottom:5,marginLeft:-32,marginTop:12}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
