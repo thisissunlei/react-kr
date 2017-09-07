@@ -6,7 +6,7 @@ import {
 import {KrField,Grid,Row,Button,ListGroup,ListGroupItem,Loading,Message} from 'kr-ui';
 import './index.less';
 import $ from 'jquery';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import State from './State';
 import {
 	observer
@@ -129,6 +129,9 @@ export default class EquipmentDetail extends React.Component{
 						<div className="tr-line"><div className="td-left">厂家:</div><div className="td-right">{detail.makerName || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">屏幕展示标题:</div><div className="td-right">{detail.title || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">屏幕展示编号:</div><div className="td-right">{detail.doorCode || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">二维码有效期:</div><div className="td-right">{DateFormat(detail.qrExpireAt, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">二维码:</div><div className="td-right" style={{paddingLeft:5}}>{detail.qrImgUrl?<img src={detail.qrImgUrl} style={{width:100,height:100}}/>:<span>无</span>}</div></div>
+						<div className="tr-line"><div className="td-left">二维码地址:</div><div className="td-right">{detail.qrImgUrl || "无"}</div></div>
 						<div className="tr-line-last" style={{display:"block"}}><div className="td-left">备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
 
 					</div>
