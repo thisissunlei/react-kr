@@ -759,6 +759,21 @@ module.exports = {
         url: '/api/krspace-finance-web/customer/all-customers?company={company}',
         method: 'get'
     },
+    //红木馆-待审核列表
+    'get-wait-audit': {
+        url: 'http://adminlocal.krspace.cn/api/top-audit/activity/admin/list?page={page}&pageSize={pageSize}&status={status}',
+        method: 'get'
+    },
+    //红木馆-待审核列表
+    'get-wait-audit-edit': {
+        url: 'http://adminlocal.krspace.cn/api/top-audit/activity/admin/edit',
+        method: 'post'
+    },
+     //红木馆-待审核列表
+    'get-wait-audit-delete': {
+        url: 'http://adminlocal.krspace.cn/api/top-audit/activity/admin/delete',
+        method: 'post'
+    },
 
 }
 

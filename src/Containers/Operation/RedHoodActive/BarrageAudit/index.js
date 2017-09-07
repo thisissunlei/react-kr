@@ -41,6 +41,7 @@ class BarrageAudit extends React.Component {
 			communityId: '',
 			initSearch:''
 		}
+		this.num = 0;
 	}
 
 	componentDidMount() {
@@ -56,7 +57,8 @@ class BarrageAudit extends React.Component {
 		});
 	}
 
-	merchants = () => {
+	merchants = (event,num) => {
+		this.num = num;
 		let {
 			tab,
 			initSearch
@@ -131,16 +133,40 @@ class BarrageAudit extends React.Component {
 			<Title value="后台审核"/>
 
 			<Tabs className="tabs">
-					<Tab label="待审核" onActive={this.merchants} style={merchantsStyle}>
+					<Tab 
+					label="待审核" 
+					onActive={
+						(event)=>{
+							this.merchants(event,0)
+						}
+					} 
+					style={merchantsStyle}
+					>
 
-							<WaitAudit />
+						{this.num==0 && <WaitAudit />}
 					</Tab>
-					<Tab label="审核已通过"  onActive={this.personal} style={personalStyle}>
+					<Tab 
+						label="审核已通过"  
+						onActive={
+							(event)=>{
+								this.merchants(event,1)
+							}
+						}  
+						style={personalStyle}
+					>
 
-							<AllowAudit />
+							{this.num==1 &&<AllowAudit />}
 					</Tab>
-					<Tab label="审核不通过"  onActive={this.signedClient} style={signedClientStyle}>
-							<NoAllowAudit />
+					<Tab 
+						label="审核不通过"  
+						onActive={
+							(event)=>{
+								this.merchants(event,2)
+							}
+						} 
+						style={signedClientStyle}
+					>
+							{this.num==2 &&<NoAllowAudit />}
 
 					</Tab>
 			</Tabs>

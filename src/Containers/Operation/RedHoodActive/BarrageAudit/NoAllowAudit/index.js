@@ -52,7 +52,7 @@ class NoAllowAudit extends React.Component {
 			searchParams:{
 				page:1,
 				pageSize:15,
-				name:""
+				status:"reject"
 
 			},
 			nowId:'',
@@ -83,6 +83,7 @@ class NoAllowAudit extends React.Component {
 			this.auditSwitch();
 
 		}
+		console.log(itemDetail,">>>>")
 		this.setState({
 			nowId:itemDetail.id,
 		})
@@ -97,18 +98,28 @@ class NoAllowAudit extends React.Component {
 		const {nowId} = this.state;
 		params.id = nowId;
 		
-	   	Http.request('rank-type-info',params).then(function(response) {
+	   	Http.request('get-wait-audit-edit',{},params).then(function(response) {
 			_this.auditSwitch();
+			_this.refresh();
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 		
 	}
+	refresh = () =>{
+		let searchParams = Object.assign({},this.state.searchParams);
+		searchParams.other = new Date();
+		this.setState({
+			searchParams,
+		})
+	}
 	deleteSubmit = () =>{
 		var _this=this;
 		const {nowId} = this.state;
-	   	Http.request('rank-type-info',{id:nowId}).then(function(response) {
+		
+	   	Http.request('get-wait-audit-delete',{},{id:nowId}).then(function(response) {
 			_this.delSwitch();
+			_this.refresh();
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -136,7 +147,7 @@ class NoAllowAudit extends React.Component {
 					onOperation={this.onOperation}
 					displayCheckbox={false}
 					ajaxParams={this.state.searchParams}
-					ajaxUrlName='home-swper-list'
+					ajaxUrlName='get-wait-audit'
 					ajaxFieldListName="items"
 					onPageChange = {this.pageChange}
 				>
@@ -153,27 +164,18 @@ class NoAllowAudit extends React.Component {
 						<TableRow>
 
 							<TableRowColumn name="identifier"  ></TableRowColumn>
-							<TableRowColumn 
-								name="name"
+							{/*<TableRowColumn 
+								name="unionId"
 								style = {{whiteSpace:"inherit",breakWord:"break-all"}}
 							>
 							</TableRowColumn>
 							
 							<TableRowColumn 
-								name="photoUrl" 
+								name="headUrl" 
 								style = {{whiteSpace:"inherit"}}
 								component={(value,oldValue)=>{
-									var height = "auto";
-									var isShow = true;
-									var imgStyle = {};
-									if(!value){
-										isShow = false;
-										value = "-";
-										imgStyle={
-											height:80,
-											lineHeight:"80px"
-										}
-									}
+									console.log(value,"LLLLLL")
+									return<span>xccxcxcxc</span>
 									return (
 										<div style = {imgStyle}>
 											{!isShow && <span>{value}</span>}
@@ -183,23 +185,23 @@ class NoAllowAudit extends React.Component {
 										
 								}}
 							>
-							</TableRowColumn>
+							</TableRowColumn>*/}
 
 							<TableRowColumn
-								name="linkUrl"
+								name="content"
 								style = {{whiteSpace:"inherit",breakWord:"break-all"}}	
 							>
 							</TableRowColumn>
 
 							<TableRowColumn 
-								name="orderNum"
+								name="likeNum"
 								component={(value,oldValue)=>{
 									return value||"-"
 								}}
 							>
 							</TableRowColumn>
 
-							<TableRowColumn name="orderNum"></TableRowColumn>
+							<TableRowColumn name="status"></TableRowColumn>
 
 
 							<TableRowColumn type="operation">
@@ -227,7 +229,7 @@ class NoAllowAudit extends React.Component {
 				</Dialog>
 
 				<Dialog
-					title = "审核"
+					title = "编辑"
 					open={isOpenAudit}
 					openSecondary={true}
 					containerStyle={{top:60,paddingBottom:228,zIndex:20}}
