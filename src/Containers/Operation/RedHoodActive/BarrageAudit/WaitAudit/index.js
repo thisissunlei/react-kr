@@ -166,16 +166,16 @@ class WaitAudit extends React.Component {
 							<TableRowColumn name="identifier"  ></TableRowColumn>
 							<TableRowColumn
 								name="unionId"
-								style = {{whiteSpace:"inherit",breakWord:"break-all"}}
+								style = {{wordWrap:'break-word',whiteSpace:'normal'}}
 							>
 							</TableRowColumn>
 
 							<TableRowColumn
 								name="headUrl"
-								style = {{whiteSpace:"inherit"}}
+								style = {{wordWrap:'break-word',whiteSpace:'normal'}}
 								component={(value,oldValue)=>{
 
-									return<span>xccxcxcxc</span>
+
 									var isShow = true;
 									if(!value){
 										value = "-";
@@ -194,7 +194,7 @@ class WaitAudit extends React.Component {
 
 							<TableRowColumn
 								name="content"
-								style = {{whiteSpace:"inherit",breakWord:"break-all"}}
+								style = {{wordWrap:'break-word',whiteSpace:'normal'}}
 							>
 							</TableRowColumn>
 

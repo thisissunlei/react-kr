@@ -166,13 +166,13 @@ class AllowAudit extends React.Component {
 							<TableRowColumn name="identifier"  ></TableRowColumn>
 							<TableRowColumn
 								name="unionId"
-								style = {{whiteSpace:"inherit",breakWord:"break-all"}}
+								style = {{wordWrap:'break-word',whiteSpace:'normal'}}
 							>
 							</TableRowColumn>
 
 							<TableRowColumn
 								name="headUrl"
-								style = {{whiteSpace:"inherit"}}
+								style = {{wordWrap:'break-word',whiteSpace:'normal'}}
 								component={(value,oldValue)=>{
 									var isShow = true;
 									if(!value){
@@ -192,7 +192,7 @@ class AllowAudit extends React.Component {
 
 							<TableRowColumn
 								name="content"
-								style = {{whiteSpace:"inherit",breakWord:"break-all"}}
+								style = {{wordWrap:'break-word',whiteSpace:'normal'}}
 							>
 							</TableRowColumn>
 
