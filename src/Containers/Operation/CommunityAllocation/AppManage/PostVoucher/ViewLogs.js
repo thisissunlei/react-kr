@@ -146,6 +146,7 @@ class ViewLogs extends React.Component {
 			punish,
 			timeFlag,
 		} = this.state;
+		
 		return (
 			<div className="g-post">
 				<div className="u-create-title">
@@ -198,7 +199,7 @@ class ViewLogs extends React.Component {
 					<div className="content">
 						
 						{infoList.content}
-						{this.renderContentImg()}
+						
 						{/*{infoList.imgUrl.length && infoList.imgUrl.map((item,index) => {
 						return (
 						<div className="content-img"  style={{backgroundImage:`url(${item})`}}>
