@@ -181,9 +181,9 @@ class ViewLogs extends React.Component {
 						component="labelText"
 						inline={true}
 						label="违规内容类型"
-						value={infoList.warnTareget}
+						value={infoList.warnTarget}
 
-				/>0
+				/>
 				<KrField
 						style={{width:520,height:30}}
 						component="labelText"
@@ -199,7 +199,7 @@ class ViewLogs extends React.Component {
 					<div className="content">
 						
 						{infoList.content}
-						
+						{infoList.imgUrl && this.renderContentImg()}
 						{/*{infoList.imgUrl.length && infoList.imgUrl.map((item,index) => {
 						return (
 						<div className="content-img"  style={{backgroundImage:`url(${item})`}}>
