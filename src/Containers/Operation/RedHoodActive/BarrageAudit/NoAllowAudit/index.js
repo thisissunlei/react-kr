@@ -175,6 +175,7 @@ class NoAllowAudit extends React.Component {
 								style = {{wordWrap:'break-word',whiteSpace:'normal'}}
 								component={(value,oldValue)=>{
 									var isShow = true;
+									var imgStyle = {};
 									if(!value){
 										value = "-";
 										isShow  = false;

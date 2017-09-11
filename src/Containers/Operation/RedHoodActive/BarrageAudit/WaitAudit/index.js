@@ -83,7 +83,7 @@ class WaitAudit extends React.Component {
 			this.auditSwitch();
 
 		}
-		console.log(itemDetail,">>>>")
+
 		this.setState({
 			nowId:itemDetail.id,
 		})
@@ -177,6 +177,7 @@ class WaitAudit extends React.Component {
 
 
 									var isShow = true;
+									var imgStyle = {}
 									if(!value){
 										value = "-";
 										isShow  = false;
@@ -201,7 +202,7 @@ class WaitAudit extends React.Component {
 							<TableRowColumn
 								name="likeNum"
 								component={(value,oldValue)=>{
-									return value||"-"
+									return <span>{value||"-"}</span>
 								}}
 							>
 							</TableRowColumn>
