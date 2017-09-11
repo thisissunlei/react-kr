@@ -155,12 +155,10 @@ class ViewOpinion extends React.Component {
 								<span className="u-photo-title">图片</span>
 								<div className="u-photo-img-box">
 								  {
-									infoList.imgUrl && infoList.imgUrl.map((item,index)=>{
-										<img src={item} key={index} />
+									infoList.imgUrl?infoList.imgUrl.map((item,index)=>{
+										return <img src={item} key={index} />
 									}):'无'
 								  }
-									
-									
 								</div>
 							</div>
 						<Grid style={{marginTop:50,width:'81%'}}>
