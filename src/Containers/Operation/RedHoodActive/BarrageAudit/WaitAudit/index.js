@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'; 
+import React, { PropTypes } from 'react';
 import { connect } from 'kr/Redux';
 
 import {
@@ -44,7 +44,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 class WaitAudit extends React.Component {
-	
+
 
 	constructor(props, context) {
 		super(props, context);
@@ -59,7 +59,7 @@ class WaitAudit extends React.Component {
 			isOpenAudit:false,
 			isOpenDelete:false,
 		}
-		
+
 	}
 	auditSwitch = () =>{
 		let {isOpenAudit} = this.state;
@@ -87,7 +87,7 @@ class WaitAudit extends React.Component {
 		this.setState({
 			nowId:itemDetail.id,
 		})
-	
+
     }
 	pageChange = () =>{
 
@@ -97,14 +97,14 @@ class WaitAudit extends React.Component {
 		var params = Object.assign({},values);
 		const {nowId} = this.state;
 		params.id = nowId;
-		
+
 	   	Http.request('get-wait-audit-edit',{},params).then(function(response) {
 			_this.auditSwitch();
 			_this.refresh();
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
-		
+
 	}
 	refresh = () =>{
 		let searchParams = Object.assign({},this.state.searchParams);
@@ -116,7 +116,7 @@ class WaitAudit extends React.Component {
 	deleteSubmit = () =>{
 		var _this=this;
 		const {nowId} = this.state;
-		
+
 	   	Http.request('get-wait-audit-delete',{},{id:nowId}).then(function(response) {
 			_this.delSwitch();
 			_this.refresh();
@@ -124,7 +124,7 @@ class WaitAudit extends React.Component {
 			Message.error(err.message);
 		});
 	}
-	
+
 	allClose = () =>{
 		this.setState({
 			isOpenAudit:false,
@@ -138,8 +138,8 @@ class WaitAudit extends React.Component {
 		return (
 
 			<div className="wait-audit" style={{minHeight:910,background:'#fff',marginTop:60}}>
-			
-	       
+
+
 
 				<Table
 					style={{marginTop:8}}
@@ -164,36 +164,41 @@ class WaitAudit extends React.Component {
 						<TableRow>
 
 							<TableRowColumn name="identifier"  ></TableRowColumn>
-							{/*<TableRowColumn 
+							<TableRowColumn
 								name="unionId"
 								style = {{whiteSpace:"inherit",breakWord:"break-all"}}
 							>
 							</TableRowColumn>
-							
-							<TableRowColumn 
-								name="headUrl" 
+
+							<TableRowColumn
+								name="headUrl"
 								style = {{whiteSpace:"inherit"}}
 								component={(value,oldValue)=>{
-									console.log(value,"LLLLLL")
+
 									return<span>xccxcxcxc</span>
+									var isShow = true;
+									if(!value){
+										value = "-";
+										isShow  = false;
+									}
 									return (
 										<div style = {imgStyle}>
 											{!isShow && <span>{value}</span>}
 											<img className = "dynamics-img" src = {value} style = {{display:isShow ? "inline-block" : "none"}} />
 										</div>
 										)
-										
-								}}
-							>
-							</TableRowColumn>*/}
 
-							<TableRowColumn
-								name="content"
-								style = {{whiteSpace:"inherit",breakWord:"break-all"}}	
+								}}
 							>
 							</TableRowColumn>
 
-							<TableRowColumn 
+							<TableRowColumn
+								name="content"
+								style = {{whiteSpace:"inherit",breakWord:"break-all"}}
+							>
+							</TableRowColumn>
+
+							<TableRowColumn
 								name="likeNum"
 								component={(value,oldValue)=>{
 									return value||"-"
@@ -240,7 +245,7 @@ class WaitAudit extends React.Component {
 				</Dialog>
 
 
-				
+
 			</div>
 		);
 	}
