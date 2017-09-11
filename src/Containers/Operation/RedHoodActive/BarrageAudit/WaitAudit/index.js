@@ -172,12 +172,12 @@ class WaitAudit extends React.Component {
 
 							<TableRowColumn
 								name="headUrl"
-								style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+								
 								component={(value,oldValue)=>{
 
 
 									var isShow = true;
-									var imgStyle = {}
+									var imgStyle = {width:35}
 									if(!value){
 										value = "-";
 										isShow  = false;
@@ -207,7 +207,19 @@ class WaitAudit extends React.Component {
 							>
 							</TableRowColumn>
 
-							<TableRowColumn name="status"></TableRowColumn>
+							<TableRowColumn name="status"
+								component={(value,oldValue)=>{
+									if(value == "audit"){
+										value = "待审核"
+									}else if(value == "right"){
+										value = "已审核"
+									}else {
+										value = "审核不通过"
+									}
+									return <span>{value}</span>
+								}}
+
+							></TableRowColumn>
 
 
 							<TableRowColumn type="operation">
