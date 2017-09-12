@@ -172,12 +172,12 @@ class WaitAudit extends React.Component {
 
 							<TableRowColumn
 								name="headUrl"
-								
+
 								component={(value,oldValue)=>{
 
 
 									var isShow = true;
-									var imgStyle = {width:35}
+									var imgStyle = {};
 									if(!value){
 										value = "-";
 										isShow  = false;

@@ -174,7 +174,7 @@ class NoAllowAudit extends React.Component {
 								name="headUrl"
 								component={(value,oldValue)=>{
 									var isShow = true;
-									var imgStyle = {width:35}
+									var imgStyle = {}
 									if(!value){
 										value = "-";
 										isShow  = false;
