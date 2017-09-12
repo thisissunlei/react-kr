@@ -773,6 +773,7 @@ module.exports = {
     'get-wait-audit-delete': {
         url: '/api/top-audit/activity/admin/delete',
         method: 'post'
+    },
     'delete-reduce-contract': {
         url: '/api/krspace-finance-web/fnaContractRentController/deleteFnaContractRent?contractId={contractId}',
         method: 'delete'
