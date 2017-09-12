@@ -252,9 +252,9 @@ const validate = values => {
   if (values.phone && !phone.test(values.phone) ) {
       errors.phone = '请输入正确电话号';
   }
-  if (values.foreignCode && !code.test(values.foreignCode) ) {
-      errors.foreignCode = '会员卡号为10位纯数字';
-  }
+  // if (values.foreignCode && !code.test(values.foreignCode) ) {
+  //     errors.foreignCode = '会员卡号为10位纯数字';
+  // }
   if (!values.sendMsg ) {
       errors.sendMsg = '请选择是否发送验证短信';
   }

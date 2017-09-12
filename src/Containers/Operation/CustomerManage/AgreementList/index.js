@@ -64,7 +64,7 @@ class Merchants extends Component{
 		this.state = {
 			open: false,
 			loading: true,
-			delAgreementId: 0,
+			delAgreementId: {id:0},
 			openCreateAgreement: false,
 			openDelAgreement: false,
 			isShow: false,
@@ -310,19 +310,60 @@ class Merchants extends Component{
 		let {CommunityAgreementList} = this.props;
 
 		let {
-			delAgreementId
+			delAgreementId,searchParams
 		} = this.state;
-		Http.request('delete-enter-contract', {
-			contractId: delAgreementId
-		}).then(function(response) {
-			 Message.success('删除成功');
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 100)
-		}).catch(function(err) {
-            Message.error(err.message);
-		});
-		CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
+
+		if(delAgreementId.contracttype == 'RENEW'){
+			//续租
+			Http.request('delete-renew-contract', {
+				contractId: delAgreementId.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				CommunityAgreementList.ajaxListData(searchParams);
+
+				// window.setTimeout(function() {
+				// 	window.location.reload();
+				// }, 100)
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}else if(delAgreementId.contracttype == 'ADDRENT'){
+			// 增租
+			Http.request('delete-increase-contract', {
+				contractId: delAgreementId.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				CommunityAgreementList.ajaxListData(searchParams);
+
+				// window.setTimeout(function() {
+				// 	window.location.reload();
+				// }, 100)
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}else if(delAgreementId.contracttype == 'LESSRENT'){
+			// 减租
+			Http.request('delete-reduce-contract', {
+				contractId: delAgreementId.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				CommunityAgreementList.ajaxListData(searchParams);
+
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}else{
+			Http.request('delete-enter-contract', {
+				contractId: delAgreementId.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				CommunityAgreementList.ajaxListData(searchParams);
+
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}
+		
 
 	}
 
@@ -894,7 +935,7 @@ class Merchants extends Component{
 												
 													{State.isPrint && item.contracttype != 'QUITRENT' && <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 												
-													{State.isDel && item.editFlag && item.contracttype=='ENTER' && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+													{State.isDel && item.editFlag && item.contracttype!='QUITRENT' && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 
 											</div>
 										</div>}

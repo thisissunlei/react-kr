@@ -264,18 +264,66 @@ export default class OrderDetail extends React.Component {
 		let {
 			delAgreementId
 		} = this.state;
-		Http.request('delete-enter-contract', {
-			contractId: delAgreementId
-		}).then(function(response) {
-			Notify.show([{
-				message: '删除成功!',
-				type: 'success',
-			}]);
-			window.setTimeout(function() {
-				window.location.reload();
-			}, 100)
-		}).catch(function(err) {
-		});
+		// Http.request('delete-enter-contract', {
+		// 	contractId: delAgreementId.id
+		// }).then(function(response) {
+		// 	Notify.show([{
+		// 		message: '删除成功!',
+		// 		type: 'success',
+		// 	}]);
+		// 	window.setTimeout(function() {
+		// 		window.location.reload();
+		// 	}, 100)
+		// }).catch(function(err) {
+		// });
+		if(delAgreementId.contracttype == 'RENEW'){
+			//续租
+			Http.request('delete-renew-contract', {
+				contractId: delAgreementId.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				window.setTimeout(function() {
+					window.location.reload();
+				}, 100)
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}else if(delAgreementId.contracttype == 'ADDRENT'){
+			// 增租
+			Http.request('delete-increase-contract', {
+				contractId: delAgreementId.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				window.setTimeout(function() {
+					window.location.reload();
+				}, 100)
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}else if(delAgreementId.contracttype == 'LESSRENT'){
+			// 减租
+			Http.request('delete-reduce-contract', {
+				contractId: delAgreementId.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				window.setTimeout(function() {
+					window.location.reload();
+				}, 100)
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}else{
+			Http.request('delete-enter-contract', {
+				contractId: delAgreementId.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				window.setTimeout(function() {
+					window.location.reload();
+				}, 100)
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}
 
 
 	}
@@ -822,13 +870,11 @@ export default class OrderDetail extends React.Component {
 						 item.contracttype !=  'QUITRENT' &&
 						 <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
 
-						{item.contracttype == 'ENTER' && 
-						item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
+						{
+						item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item)} disabled={item.contractstate == 'EXECUTE'}>删除</a> 
+						</span>}
 					</div>
 
-						{/*
-							{item.contractstate != 'EXECUTE' && item.editFlag  && <Button  type="link" label="删除" onTouchTap={this.delArgument.bind(this,item.id)} disabled={item.contractstate == 'EXECUTE'}/> }
-						*/}
 
 
 					</TableRowColumn>

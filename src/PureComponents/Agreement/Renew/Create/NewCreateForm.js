@@ -33,6 +33,7 @@ import {
 } from 'kr/Redux';
 
 import AllStation from './AllStation';
+import UnitPriceForm from './UnitPriceForm';
 
 import {
 	Menu,
@@ -203,8 +204,10 @@ class NewCreateForm extends Component {
 	setAllRent=(list)=>{
 		let _this = this;
 		let stationList = list.map((item)=>{
-			if(!item.unitprice){
+		if(!item.unitprice){
 				item.unitprice = 0;
+			}else{
+				item.unitprice = (item.unitprice+'').replace(/\s/g,'');
 			}
 			return item;
 		})
@@ -342,6 +345,7 @@ class NewCreateForm extends Component {
 		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
 
 		form.stationVos = JSON.stringify(oldBasicStationVos);
+		form.delStationVos = [];
 		form.contractVersionType = 'NEW';
 		form.totalrent = (this.state.allRent).toFixed(2);
 		if(!!!form.agreement){
@@ -412,6 +416,59 @@ class NewCreateForm extends Component {
              minus=(<div onClick={_this.minusClick} className='arrow-wrap'><span className='arrow-open'>收起</span><span className='arrow-pic-do'></span></div>)
             return minus
     }
+    onBlur=(item)=>{
+		let {stationVos} = this.state;
+		Store.dispatch(change('renewCreateForm', 'stationVos', stationVos));
+		this.setAllRent(stationVos);
+
+	}
+	openPreStationUnitPriceDialog=()=> {
+		let {
+			selectedStation
+		} = this.state;
+		if (!selectedStation.length) {
+			Notify.show([{
+				message: '请先选择要录入单价的工位',
+				type: 'danger',
+			}]);
+			return;
+		}
+		this.openStationUnitPriceDialog();
+	}
+	//录入单价
+	onStationUnitPrice=(form)=> {
+
+		var value = form.price;
+		let {
+			stationVos,
+			selectedStation,
+			oldBasicStationVos
+		} = this.state;
+		let _this = this;
+
+		stationVos = stationVos.map(function(item, index) {
+			if (selectedStation.indexOf(index) != -1) {
+				item.unitprice = value;
+			}
+			return item;
+		});
+		oldBasicStationVos = oldBasicStationVos.map(function(item, index) {
+			if (selectedStation.indexOf(index) != -1) {
+				item.unitprice = value;
+			}
+			return item;
+		});
+		Store.dispatch(change('renewCreateForm', 'stationVos', stationVos));
+
+
+		this.setAllRent(oldBasicStationVos);
+		this.setState({
+			stationVos,
+			openStationUnitPrice:false,
+			oldBasicStationVos
+		});
+
+	}
 
 	render() {
 
@@ -463,6 +520,7 @@ class NewCreateForm extends Component {
 								<Col align="right">
 									<ButtonGroup>
 										<Button label="续租"  onTouchTap={this.openStationDialog} />
+									    <Button label="批量录入单价" width={100} onTouchTap={this.openPreStationUnitPriceDialog} />
 										<Button label="删除" cancle={true} type="button" height={27} onTouchTap={this.onStationDelete} />
 
 								  </ButtonGroup>
@@ -481,12 +539,16 @@ class NewCreateForm extends Component {
 						</TableHeader>
 						<TableBody>
 						{stationVos.map((item,index)=>{
+							var typeLink = {
+									value: this.state.stationVos[index].unitprice,
+									requestChange: this.onStationVosChange.bind(null, index)
+								}
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
-											{item.unitprice}
+												<input type="text" name="age"  valueLink={typeLink}  onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
 									</TableRowColumn>
 									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
@@ -588,6 +650,16 @@ class NewCreateForm extends Component {
 						bodyStyle={{overflowY:'scroll'}}
 						onClose={this.onCloseStation}>
 								<AllStation onSubmit={this.onStationSubmit} onCancel={this.onStationCancel} selectedStationVos={this.state.stationVos}/>
+					  </Dialog>
+					<Dialog
+						title="录入单价"
+						autoScrollBodyContent={true}
+						onCancel={this.openStationUnitPriceDialog}
+						open={this.state.openStationUnitPrice}
+						 contentStyle={{width:436}}
+						 onClose={this.openStationUnitPriceDialog}
+						>
+								<UnitPriceForm  onSubmit={this.onStationUnitPrice} onCancel={this.openStationUnitPriceDialog}/>
 					  </Dialog>
 
 

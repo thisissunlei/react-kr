@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
     Router,
@@ -31,9 +32,11 @@ import OARouter from './OARouter';
 import OfficeRouter from './OfficeRouter';
 import RetailRouter from './RetailRouter';
 import OperationRouter from './OperationRouter';
+import SmartHardware from './SmartHardware';
 import HomeRouter from './HomeRouter';
 import PublicPageRouter from './PublicPageRouter';
 import SynchronizationRouter from './SynchronizationRouter';
+
 
 const Master = (location, callback) => {
   require.ensure([], require => {
@@ -118,10 +121,15 @@ export default (
 
         {/*文档管理*/}
         {DocumentRouter()}
+        
+        {/*智能硬件*/}
+        {SmartHardware()}
+
         {/*OA主页*/}
         {HomeRouter()}
         
         {PublicPageRouter()}
+
         {SynchronizationRouter()}
 
 		{/*帮助*/}
