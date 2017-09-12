@@ -92,7 +92,7 @@ class EditStart extends React.Component {
  								label="启动图片"
  								name="imgUrl"
  								component="newuploadImage"
- 								innerstyle={{width:370,height:223,padding:16}}
+ 								innerstyle={{width:375,height:667,padding:16}}
  								sizePhoto
  								photoSize={'375:667'}
  								pictureFormat={'JPG,PNG,GIF'}
