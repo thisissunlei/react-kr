@@ -318,14 +318,14 @@ class Merchants extends Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
-									
+
 									<Button
 											label="新建客户"
 											type='button'
 											onTouchTap={this.opNewMerchants}
 											operateCode="oper_csr_add"
 									/>
-								
+
 					  </Col>
 
 			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
@@ -356,7 +356,8 @@ class Merchants extends Component{
 		              <TableHeaderColumn>意向工位数</TableHeaderColumn>
 		              <TableHeaderColumn>来源</TableHeaderColumn>
 		              <TableHeaderColumn>联系人</TableHeaderColumn>
-		              <TableHeaderColumn>联系人手机号</TableHeaderColumn>
+									<TableHeaderColumn>联系人手机号</TableHeaderColumn>
+		              <TableHeaderColumn>身份证号</TableHeaderColumn>
 		              <TableHeaderColumn>领取人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
@@ -365,7 +366,7 @@ class Merchants extends Component{
 
 			        <TableBody >
 			              <TableRow>
-			                <TableRowColumn name="company" 
+			                <TableRowColumn name="company"
 								component={(value,oldValue)=>{
 								var TooltipStyle=""
 								if(value.length==""){
@@ -379,8 +380,8 @@ class Merchants extends Component{
 								}} >
 							</TableRowColumn>
 			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
-			                <TableRowColumn 
-								name="intentionCommunityName" 
+			                <TableRowColumn
+								name="intentionCommunityName"
 								component={(value,oldValue)=>{
 								var TooltipStyle=""
 								if(value.length==""){
@@ -394,7 +395,7 @@ class Merchants extends Component{
 								}} >
 							</TableRowColumn>
 			                <TableRowColumn name="stationNum"></TableRowColumn>
-			                <TableRowColumn name="sourceName" 
+			                <TableRowColumn name="sourceName"
 								component={(value,oldValue)=>{
 									var TooltipStyle=""
 									if(value.length==""){
@@ -431,6 +432,10 @@ class Merchants extends Component{
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
+											<TableRowColumn
+												name="idCard"
+												style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+											></TableRowColumn>
 			                <TableRowColumn name="receiveName"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
 						                				let show="inline-block";
