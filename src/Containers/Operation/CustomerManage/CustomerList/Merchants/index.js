@@ -362,6 +362,7 @@ class Merchants extends Component{
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 
+
 		          	</TableHeader>
 
 			        <TableBody >
