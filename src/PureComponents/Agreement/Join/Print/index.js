@@ -112,6 +112,7 @@ export default class JoinPrint extends React.Component {
 					baseType="入驻信息"
 					baseInfo={State.baseInfo}
 				/>
+			{/*<div style={style}></div>*/}
 
 				<Print.Payment
 					baseInfo={State.baseInfo}

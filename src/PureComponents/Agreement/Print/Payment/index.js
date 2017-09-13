@@ -36,7 +36,8 @@ export default class Payment extends Component {
 		let height = top+tableTop.clientHeight +55;
 		let tableBottomHeight = top+tableTop.clientHeight - 35;
 		//分期下面内容换页
-		if(height>1080 && height<1140){
+		if(height>1110 && height<1140){
+			console.log('分期下面内容换页=====>')
 			tableTop.style.marginBottom = (1140-height)+'px';
 		}
 		//分期内容换页
@@ -72,12 +73,11 @@ export default class Payment extends Component {
 			installmentReminddate:'',
 			installmentAmount:''
 		}
-		if(!this.inits && installmentPlans.length){
+		if(installmentPlans.length && !!num){
 			
 			installmentPlans.splice(num,0,obj);
 			installmentPlans.splice(num,0,obj);
 			this.inits = true;
-			console.log('componentWillReceiveProps',installmentPlans.length)
 			
 		}
 		return (
@@ -117,7 +117,7 @@ export default class Payment extends Component {
 	Twotable = (installmentPlans) => {
 		let num = this.checkPosition();
 		var plansOne, plansTwo;
-		if (installmentPlans.length > 15) {
+		if (installmentPlans.length > 15 ) {
 			plansOne = installmentPlans.slice(0, installmentPlans.length/2);
 			plansTwo = installmentPlans.slice(installmentPlans.length/2 +1, installmentPlans.length);
 		}
