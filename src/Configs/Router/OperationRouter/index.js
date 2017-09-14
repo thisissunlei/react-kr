@@ -352,7 +352,7 @@ module.exports =()=>{
 		{/*社区配置*/}
 		<Route path="communityAllocation" getComponent={Basic}>
 
-			<Route path="myaddress" getComponent={Operation_CommunityAllocation_MyAddress}/>  
+			<Route path="myaddress" getComponent={Operation_CommunityAllocation_MyAddress}/>
 			<Route path="communityList" getComponent={Operation_CommunityAllocation_CommunityList}/>
 			{/*设备列表*/}
 			<Route path="equipmentList" getComponent={Operation_CommunityAllocation_EquipmentList}/>
@@ -373,7 +373,7 @@ module.exports =()=>{
 			{/*App管理后台*/}
 			<Route path="appmanage" getComponent={Operation_CommunityAllocation_AppManage}/>
 			<Route path="noticemanage" getComponent={Operation_CommunityAllocation_NoticeManage}/>
-				
+			<Route path="integration" getComponent={Operation_CommunityAllocation_Integration}/>
 		</Route>
 		{/*基础配置*/}
 		<Route path="basicConfig" getComponent={Basic}>
@@ -474,11 +474,11 @@ module.exports =()=>{
 				</Route>
 			</Route>
 		</Route>
-		
+
 		{/*弹幕后台*/}
 		<Route path="redHoodActive" getComponent={Basic}>
 			<Route path="barrageAudit" getComponent={Operation_RedHoodActive_BarrageAudit}/>
-		</Route>		
+		</Route>
 	</Route>
 	);
 };
