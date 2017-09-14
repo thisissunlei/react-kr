@@ -59,9 +59,8 @@ export default class Master extends React.Component {
 				</div>
 				<Footer/>
 				<div id="nowtify-wrapper"></div>
-		
+
 			</div>
 		);
 	}
 }
-
