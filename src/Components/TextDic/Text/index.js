@@ -1,5 +1,7 @@
 import React from 'react';
 import KrField from '../../KrField';
+import TabelEdit from '../../FieldTabel/TabelEdit';
+import FRow from '../../FieldTabel/FRow';
 
 export default class Text  extends React.Component{
 
@@ -7,14 +9,38 @@ export default class Text  extends React.Component{
         super(props, context);
         this.state={
             component:null,
+						model:null
         }
     }
-    
-   
+
+
     componentDidMount(){
-     
+
     }
 
+    sourceChange=(param)=>{
+			if(param.value=='12'){
+				 this.setState({
+					 model:this.sourceRender()
+				 })
+			 }else{
+				 this.setState({
+					 model:null
+				 })
+			 }
+			 const {onChange}=this.props;
+			 onChange && onChange(param);
+		}
+
+		sourceRender=()=>{
+ 			 return <KrField grid={1/2}
+ 									 style={{width:262,marginLeft:30}}
+ 									 name="data"
+ 									 component="select"
+ 									 label="数据来源"
+ 									 options={[{'label':'性格','value':'123'}]}
+ 							 />
+ 	  }
 
     inputTextRender=()=>{
         return <KrField
@@ -26,7 +52,7 @@ export default class Text  extends React.Component{
                 requireLabel={true}
             />
     }
-    
+
     floatTextRender=()=>{
         return <KrField
                 grid={1/2}
@@ -36,7 +62,7 @@ export default class Text  extends React.Component{
                 label="小数位数"
                 options={[{label:'1',value:'1'},{label:'2',value:'2'},{label:'3',value:'3'},{label:'4',value:'4'}]}
                 requireLabel={true}
-            />  
+            />
     }
 
     heightRender=()=>{
@@ -82,22 +108,27 @@ export default class Text  extends React.Component{
                         <KrField name="enabled" label="允许" type="radio" value='1' />
                         <KrField name="enabled" label="禁止" type="radio" value='0' />
                     </KrField>
-                    <KrField
-                        grid={1/2}
-                        style={{width:262,marginBottom:5}}
-                        name="name"
-                        component="input"
-                        label="图片宽度(单位:px)"
-                    />
-                    <KrField
-                        grid={1/2}
-                        style={{width:262,marginBottom:5}}
-                        name="name"
-                        component="input"
-                        label="图片高度(单位:px)"
-                    />
              </div>
     }
+
+		picRender=()=>{
+			return <div>
+									<KrField
+											grid={1/2}
+											style={{width:262,marginBottom:5}}
+											name="name"
+											component="input"
+											label="图片宽度(单位:px)"
+									/>
+									<KrField
+											grid={1/2}
+											style={{width:262,marginBottom:5,marginLeft:30}}
+											name="name"
+											component="input"
+											label="图片高度(单位:px)"
+									/>
+					 </div>
+		}
 
     dateRender=()=>{
         return <KrField grid={1/2}
@@ -107,7 +138,20 @@ export default class Text  extends React.Component{
                     label="日期"
                 />
     }
-    
+
+
+
+		sourceType=()=>{
+			return <KrField grid={1/2}
+									style={{width:262}}
+									name="data"
+									component="select"
+									label="来源类型"
+									onChange={this.sourceChange}
+									options={[{'label':'公共字典','value':'12'},{'label':'自定义','value':'34'}]}
+			       />
+		}
+
     typeRender=(value)=>{
         var component={};
         let _this=this;
@@ -115,11 +159,11 @@ export default class Text  extends React.Component{
           case 'TEXT_TEXT':{
               component = _this.inputTextRender()
               break;
-          }      
+          }
           case 'TEXT_INTEGER':{
               component = _this.inputTextRender()
               break;
-          }   
+          }
           case 'TEXT_FLOAT':{
               component = _this.floatTextRender()
               break;
@@ -149,7 +193,7 @@ export default class Text  extends React.Component{
                 break;
           }
           case 'FILE_PHOTO':{
-                component = _this.fileRender()
+                component = _this.picRender()
                 break;
           }
           case 'TIME_DATE':{
@@ -164,6 +208,22 @@ export default class Text  extends React.Component{
                 component = _this.dateRender()
                 break;
           }
+					case 'SELECT_SELECT':{
+							 component = _this.sourceType()
+							 break;
+				  }
+					case 'SELECT_SEARCH':{
+							 component = _this.sourceType()
+							 break;
+				  }
+					case 'CHECK_RADIO':{
+							 component = _this.sourceType()
+							 break;
+				  }
+					case 'CHECK_CHECK':{
+							 component = _this.sourceType()
+							 break;
+				  }
           default:{
               component = null;
           }
@@ -171,18 +231,20 @@ export default class Text  extends React.Component{
        return component
     }
 
-    
+
 
 
 	render(){
-         
-        let {label}=this.props;
-                 
-		return(
 
-			<div style={{display:'inline-block'}}>
-                {this.typeRender(label)}
-			</div>
+        let {label}=this.props;
+				let {model}=this.state;
+
+				return(
+
+					<div style={{display:'inline-block'}}>
+		                {this.typeRender(label)}
+										{model}
+					</div>
 		);
 	}
 

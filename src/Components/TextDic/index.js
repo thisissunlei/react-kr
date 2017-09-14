@@ -28,11 +28,11 @@ export default class TextDic extends React.Component{
 
     componentDidMount(){
         this.setState({
-			inputType:DictionaryConfigs.ERP_InputType,
+			      inputType:DictionaryConfigs.ERP_InputType,
             nexts:DictionaryConfigs.ERP_ComponentType,
         })
     }
-   
+
     typeChange=(param)=>{
         let {nexts}=this.state;
         var _this=this;
@@ -40,12 +40,12 @@ export default class TextDic extends React.Component{
            isTrue:true,
            isThree:false
 		},function(){
-            _this.nextArrRender(param.value,nexts); 
+            _this.nextArrRender(param.value,nexts);
         })
     }
 
     nextArrRender=(name,selectName)=>{
-        let {next}=this.state;  
+        let {next}=this.state;
         var nextRender=[];
         selectName.map((item,index)=>{
             var list={};
@@ -60,15 +60,15 @@ export default class TextDic extends React.Component{
                     return null
                 }
             }else{
-              return null  
+              return null
             }
-            nextRender.push(list); 
+            nextRender.push(list);
         })
         this.setState({
             next:nextRender
         })
        }
-    
+
     classChange=(param)=>{
         if(!param){
             return ;
@@ -76,12 +76,19 @@ export default class TextDic extends React.Component{
         this.setState({
             isThree:true,
             label:param.value
-        })   
+        })
     }
-   
+
+		onChange=(param)=>{
+
+			const {onChange}=this.props;
+			onChange && onChange(param);
+
+		}
+
 
 	render(){
-       
+
         let {inputType,isTrue,next,label,isThree}=this.state;
 
         var seleInt=[];
@@ -92,9 +99,9 @@ export default class TextDic extends React.Component{
            seleInt.push(list);
         })
 
-	
+
 		return (
-			
+
                 <div style={{display:'inline-block'}}>
                    <KrField
                             grid={1/2}
@@ -116,9 +123,9 @@ export default class TextDic extends React.Component{
                         onChange={this.classChange}
                         requireLabel={true}
                     />}
-                    {isThree&&<Text label={label}/>}
+                    {isThree&&<Text label={label} onChange={this.onChange}/>}
                 </div>
-			
+
 		);
 	}
 }

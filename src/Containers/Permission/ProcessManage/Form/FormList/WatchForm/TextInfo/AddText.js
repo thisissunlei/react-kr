@@ -9,7 +9,9 @@ import {
     Button,
     Tooltip,
     IconTip,
-    TextDic
+    TextDic,
+		TabelEdit,
+		FRow
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
 import {
@@ -22,13 +24,13 @@ class AddText  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-           
+					model:null
         }
     }
-    
+
     componentDidMount(){
         Store.dispatch(change('BasicInfo','enabled','1'));
-        
+				Store.dispatch(change('BasicInfo','tabledata',[]));
     }
 
     onSubmit=(values)=>{
@@ -41,11 +43,38 @@ class AddText  extends React.Component{
         onCancel && onCancel();
     }
 
-   
+
+		dynamicRender=()=>{
+        return  <div style={{marginLeft:12}}><TabelEdit
+								 	name = "tabledata"
+									toolbar = {true}
+									checkbox = {true}
+
+								 >
+									 <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
+									 <FRow name = "name" type = "tableEdit" label = "选项值" />
+									 <FRow name = "other" type = "tableEdit" label = "排序号" />
+									 <FRow name = "checked" type = "checkBox" label = "是否默认" />
+								 </TabelEdit></div>
+    }
+
+	 onChange=(param)=>{
+		 if(param.value=='34'){
+			this.setState({
+				model:this.dynamicRender()
+			})
+		}else{
+			this.setState({
+				model:null
+			})
+		}
+	 }
+
 	render(){
 
     let {handleSubmit}=this.props;
-   
+
+		let {model}=this.state;
 
 		return(
 
@@ -64,7 +93,7 @@ class AddText  extends React.Component{
                             requireLabel={true}
 						/>
 
-            
+
                         <KrField
                             grid={1/2}
                             style={{width:262,marginBottom:5,marginLeft:30}}
@@ -74,7 +103,11 @@ class AddText  extends React.Component{
                             />
 
 
-				        <TextDic/>
+				                <TextDic
+												  onChange={this.onChange}
+												/>
+
+												{model}
 
                         <Grid style={{marginBottom:5,marginLeft:-32,marginTop:12}}>
                             <Row>
@@ -94,14 +127,14 @@ class AddText  extends React.Component{
 
 const validate = values =>{
     const errors = {};
-    
+
 
     if(!values.name){
        errors.name='请填写表单类型名称';
     }else if(values.name.length>20){
        errors.name='表单类型名称不能超过20个字符';
     }
-    
+
     if(!values.label){
         errors.label='请填写字段显示名';
     }
@@ -109,7 +142,7 @@ const validate = values =>{
     if(!values.inputType){
         errors.inputType='请填写表现形式';
     }
-   
+
 
 	return errors
 }

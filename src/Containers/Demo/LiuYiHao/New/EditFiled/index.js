@@ -25,7 +25,7 @@ import {
 	Button
 } from 'kr-ui';
 var tableData =[
-	
+
 	{name:'1liu',age:12,other:'1什么鬼',checked:false},
 	{name:'2liu',age:13,other:'2什么鬼',checked:true},
 	{name:'3liu',age:14,other:'3什么鬼',checked:false},
@@ -44,7 +44,7 @@ class EditFiled extends React.Component {
 		 const {
 			onCancel
 		} = this.props;
-		onCancel && onCancel(); 
+		onCancel && onCancel();
 	 }
 
     onSubmit=(values)=>{
@@ -52,14 +52,14 @@ class EditFiled extends React.Component {
 			onSubmit
 		} = this.props;
 		console.log("kkkkkk,mmmm")
-		onSubmit && onSubmit(); 
+		onSubmit && onSubmit();
 	}
 	componentDidMount() {
-		Store.dispatch(change('EditFiled','data',[]));
+		Store.dispatch(change('EditFiled','data',tableData));
 		Store.dispatch(change('EditFiled','datadetail',tableData));
-		
+
 	}
-	
+
 
 
 	render() {
@@ -69,12 +69,12 @@ class EditFiled extends React.Component {
 
 		return (
 			<form autocomplete="off" onSubmit={handleSubmit(this.onSubmit)} >
-				
-				 <TabelEdit 
-				 	name = "data" 
+
+				 <TabelEdit
+				 	name = "data"
 					toolbar = {true}
 					checkbox = {true}
-					
+
 				 >
 					 <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
 					 <FRow name = "name" type = "tableEdit" label = "选项值" />
@@ -87,8 +87,8 @@ class EditFiled extends React.Component {
 					height={34}
 					width={90}
 				/>
-				 <TabelEdit 
-				 	name = "datadetail" 	
+				 <TabelEdit
+				 	name = "datadetail"
 				 >
 					 <FRow name = "age"  type = "label"  label = "选项文字" />
 					 <FRow name = "name" type = "label" label = "选项值" />
