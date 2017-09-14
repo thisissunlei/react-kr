@@ -434,6 +434,13 @@ class Merchants extends Component{
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>
 											<TableRowColumn
+												component={(value,oldValue)=>{
+													if(!value){
+														value = "-"
+													}
+													
+													return value;
+											 }}
 												name="idCard"
 												style = {{wordWrap:'break-word',whiteSpace:'normal'}}
 											></TableRowColumn>
