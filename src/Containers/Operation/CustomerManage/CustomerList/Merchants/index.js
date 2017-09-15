@@ -355,8 +355,8 @@ class Merchants extends Component{
 		              <TableHeaderColumn>意向社区</TableHeaderColumn>
 		              <TableHeaderColumn>意向工位数</TableHeaderColumn>
 		              <TableHeaderColumn>来源</TableHeaderColumn>
-		              <TableHeaderColumn>联系人</TableHeaderColumn>
-									<TableHeaderColumn>联系人手机号</TableHeaderColumn>
+		              {/*<TableHeaderColumn>联系人</TableHeaderColumn>*/}
+									{/*<TableHeaderColumn>联系人手机号</TableHeaderColumn>*/}
 		              <TableHeaderColumn>身份证号</TableHeaderColumn>
 		              <TableHeaderColumn>领取人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
@@ -409,7 +409,7 @@ class Merchants extends Component{
 										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 									}}>
 							</TableRowColumn>
-							{/*联系人*/}
+							{/*联系人
 			                <TableRowColumn name="name" component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
@@ -420,8 +420,8 @@ class Merchants extends Component{
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }}></TableRowColumn>
-							{/*联系人电话*/}
+													 }}></TableRowColumn>*/}
+							{/*联系人电话
 							<TableRowColumn name="tel" component={(value,oldValue)=>{
 														var TooltipStyle=""
 														if(value.length==""){
@@ -432,13 +432,13 @@ class Merchants extends Component{
 														}
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }}></TableRowColumn>
+													 }}></TableRowColumn>*/}
 											<TableRowColumn
 												component={(value,oldValue)=>{
 													if(!value){
 														value = "-"
 													}
-													
+
 													return value;
 											 }}
 												name="idCard"

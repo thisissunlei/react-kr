@@ -17,7 +17,7 @@ module.exports = [
 			},
 			{
 				primaryText: '人事资料',
-				iconName: 'icon-schema',
+				iconName: 'icon-personnel-information',
 				iconColor: '#79859a',
 				menuCode: 'hrmresourceadmin',
 				menuItems: [
