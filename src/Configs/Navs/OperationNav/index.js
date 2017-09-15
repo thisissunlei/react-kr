@@ -156,6 +156,21 @@ module.exports = [
 						menuCode: 'oper_integration_base',
 						router: '/operation/communityAllocation/integration'
 					},
+					{
+						primaryText: '活动管理',
+						menuCode: 'oper_activity_base',
+						router: '/operation/communityAllocation/activity'
+					},
+					{
+						primaryText: '广告管理',
+						menuCode: 'oper_advert_base',
+						router: '/operation/communityAllocation/advert'
+					},
+					{
+						primaryText: 'App意见反馈',
+						menuCode: 'oper_opinion_base',
+						router: '/operation/communityAllocation/opinion'
+					},
 				]
 			},
 			{
