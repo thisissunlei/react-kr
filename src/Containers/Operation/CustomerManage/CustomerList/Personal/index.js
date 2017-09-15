@@ -86,10 +86,15 @@ class Personal extends Component{
 	componentDidMount(){
 		let {NavModel} = this.props;
 		var {checkOperate} = this.props.NavModel;
-	  var isExport=checkOperate("oper_csr_edit_include_source");
-		this.setState({
-			isExport,
-		})
+		setTimeout(()=>{
+			var isExport = checkOperate("oper_csr_edit_include_source");
+
+			this.setState({
+				isExport,
+			})
+		},800)
+
+
 	}
 	openEditCustomerList=()=>{
 		let listId=State.listId;
@@ -358,7 +363,7 @@ class Personal extends Component{
         	display:'none'
         }
       }
-
+			console.log(isExport,"PPPPPPP")
 		return(
 
       <div className="m-personal" style={{paddingTop:25}}>
