@@ -340,7 +340,21 @@ const Operation_RedHoodActive_BarrageAudit=(location, callback)=>{
     callback(null, require('kr/Containers/Operation/RedHoodActive/BarrageAudit').default)
   }, 'Operation_RedHoodActive_BarrageAudit')
 }
-
+const Operation_CommunityAllocation_Activitys=(location, callback)=>{
+	require.ensure([], require => {
+	  callback(null, require('kr/Containers/Operation/CommunityAllocation/Activitys').default)
+	}, 'Operation_CommunityAllocation_Activitys')
+  }
+  const Operation_CommunityAllocation_AdvertManage=(location, callback)=>{
+	require.ensure([], require => {
+	  callback(null, require('kr/Containers/Operation/CommunityAllocation/AdvertManage').default)
+	}, 'Operation_CommunityAllocation_AdvertManage')
+  }
+  const Operation_CommunityAllocation_AppOpinion=(location, callback)=>{
+	require.ensure([], require => {
+	  callback(null, require('kr/Containers/Operation/CommunityAllocation/AppOpinion').default)
+	}, 'Operation_CommunityAllocation_AppOpinion')
+  }
 module.exports =()=>{
 	return (
 
@@ -374,6 +388,9 @@ module.exports =()=>{
 			<Route path="appmanage" getComponent={Operation_CommunityAllocation_AppManage}/>
 			<Route path="noticemanage" getComponent={Operation_CommunityAllocation_NoticeManage}/>
 			<Route path="integration" getComponent={Operation_CommunityAllocation_Integration}/>
+			<Route path="activity" getComponent={Operation_CommunityAllocation_Activitys}/>
+			<Route path="advert" getComponent={Operation_CommunityAllocation_AdvertManage}/>
+			<Route path="opinion" getComponent={Operation_CommunityAllocation_AppOpinion}/>
 		</Route>
 		{/*基础配置*/}
 		<Route path="basicConfig" getComponent={Basic}>
