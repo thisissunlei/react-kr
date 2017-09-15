@@ -572,7 +572,7 @@ module.exports = {
          url: '/api/krspace-finance-web/cmt/community/select/use/type/city',
          method: 'get'
       },
-      
+
       // 获取枚举字典接口
       'getListDic': {
             url: '/api/krspace-finance-web/dict/common',
@@ -759,7 +759,21 @@ module.exports = {
         url: '/api/krspace-finance-web/customer/all-customers?company={company}',
         method: 'get'
     },
-
+    //红木馆-待审核列表
+    'get-wait-audit': {
+        url: '/api/top-audit/activity/admin/list?page={page}&pageSize={pageSize}&status={status}',
+        method: 'get'
+    },
+    //红木馆-待审核列表
+    'get-wait-audit-edit': {
+        url: '/api/top-audit/activity/admin/edit',
+        method: 'post'
+    },
+     //红木馆-待审核列表
+    'get-wait-audit-delete': {
+        url: '/api/top-audit/activity/admin/delete',
+        method: 'post'
+    },
     'delete-reduce-contract': {
         url: '/api/krspace-finance-web/fnaContractRentController/deleteFnaContractRent?contractId={contractId}',
         method: 'delete'
@@ -904,5 +918,3 @@ module.exports = {
     },
 
 }
-
-

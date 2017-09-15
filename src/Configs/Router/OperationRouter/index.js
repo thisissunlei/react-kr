@@ -334,21 +334,27 @@ const Operation_CommunityAllocation_Integration=(location, callback)=>{
     callback(null, require('kr/Containers/Operation/CommunityAllocation/IntegrationManage').default)
   }, 'Operation_CommunityAllocation_Integration')
 }
+
+const Operation_RedHoodActive_BarrageAudit=(location, callback)=>{
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Operation/RedHoodActive/BarrageAudit').default)
+  }, 'Operation_RedHoodActive_BarrageAudit')
+}
 const Operation_CommunityAllocation_Activitys=(location, callback)=>{
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Operation/CommunityAllocation/Activitys').default)
-  }, 'Operation_CommunityAllocation_Activitys')
-}
-const Operation_CommunityAllocation_AdvertManage=(location, callback)=>{
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Operation/CommunityAllocation/AdvertManage').default)
-  }, 'Operation_CommunityAllocation_AdvertManage')
-}
-const Operation_CommunityAllocation_AppOpinion=(location, callback)=>{
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Operation/CommunityAllocation/AppOpinion').default)
-  }, 'Operation_CommunityAllocation_AppOpinion')
-}
+	require.ensure([], require => {
+	  callback(null, require('kr/Containers/Operation/CommunityAllocation/Activitys').default)
+	}, 'Operation_CommunityAllocation_Activitys')
+  }
+  const Operation_CommunityAllocation_AdvertManage=(location, callback)=>{
+	require.ensure([], require => {
+	  callback(null, require('kr/Containers/Operation/CommunityAllocation/AdvertManage').default)
+	}, 'Operation_CommunityAllocation_AdvertManage')
+  }
+  const Operation_CommunityAllocation_AppOpinion=(location, callback)=>{
+	require.ensure([], require => {
+	  callback(null, require('kr/Containers/Operation/CommunityAllocation/AppOpinion').default)
+	}, 'Operation_CommunityAllocation_AppOpinion')
+  }
 module.exports =()=>{
 	return (
 
@@ -360,44 +366,38 @@ module.exports =()=>{
 		{/*社区配置*/}
 		<Route path="communityAllocation" getComponent={Basic}>
 
-    	<Route path="myaddress" getComponent={Operation_CommunityAllocation_MyAddress}/>  
-		<Route path="communityList" getComponent={Operation_CommunityAllocation_CommunityList}/>
-		{/*设备列表*/}
-		<Route path="equipmentList" getComponent={Operation_CommunityAllocation_EquipmentList}/>
-		{/*工位列表选择社区*/}
-		<Route path="communityStation" getComponent={Operation_CommunityAllocation_CommunityStation}/>
-		{/*工位列表*/}
-		<Route path=":communityId/communityStationDetail" getComponent={Operation_CommunityAllocation_CommunityStationDetail}/>
-		{/*会议室列表选择社区*/}
-		<Route path="communityMeetingRoom" getComponent={Operation_CommunityAllocation_CommunityMeetingRoom}/>
-		{/*会议室列表*/}
-		<Route path=":communityId/communityMeetingRoomDetail" getComponent={Operation_CommunityAllocation_CommunityMeetingRoomDetail}/>
-		{/*代码分类*/}
-		<Route path="codeClassification" getComponent={Operation_CommunityAllocation_CodeClassification}/>
-		{/*平面图配置选择社区*/}
-		<Route path="communityPlanList" getComponent={Operation_CommunityAllocation_CommunityPlanList}/>
-		{/*平面图配置*/}
-		<Route path=":communityId/communityPlanMap" getComponent={Operation_CommunityAllocation_CommunityPlanMap}/>
-		{/*App管理后台*/}
-		<Route path="appmanage" getComponent={Operation_CommunityAllocation_AppManage}/>
-		<Route path="noticemanage" getComponent={Operation_CommunityAllocation_NoticeManage}/>
-		<Route path="integration" getComponent={Operation_CommunityAllocation_Integration}/>
-		<Route path="activity" getComponent={Operation_CommunityAllocation_Activitys}/>
-		<Route path="advert" getComponent={Operation_CommunityAllocation_AdvertManage}/>
-		<Route path="opinion" getComponent={Operation_CommunityAllocation_AppOpinion}/>
-		
-	</Route>
-    {/*基础配置*/}
-    
-
-	  <Route path="basicConfig" getComponent={Basic}>
-		<Route path="EquipmentDefinition" getComponent={Operation_BasicConfig_EquipmentDefinition} name="EquipmentDefinition"/>
-		{/*商圈列表*/}
-		<Route path="businessList" getComponent={Operation_BasicConfig_BusinessList} />
-	  </Route>
-
-		
-
+			<Route path="myaddress" getComponent={Operation_CommunityAllocation_MyAddress}/>
+			<Route path="communityList" getComponent={Operation_CommunityAllocation_CommunityList}/>
+			{/*设备列表*/}
+			<Route path="equipmentList" getComponent={Operation_CommunityAllocation_EquipmentList}/>
+			{/*工位列表选择社区*/}
+			<Route path="communityStation" getComponent={Operation_CommunityAllocation_CommunityStation}/>
+			{/*工位列表*/}
+			<Route path=":communityId/communityStationDetail" getComponent={Operation_CommunityAllocation_CommunityStationDetail}/>
+			{/*会议室列表选择社区*/}
+			<Route path="communityMeetingRoom" getComponent={Operation_CommunityAllocation_CommunityMeetingRoom}/>
+			{/*会议室列表*/}
+			<Route path=":communityId/communityMeetingRoomDetail" getComponent={Operation_CommunityAllocation_CommunityMeetingRoomDetail}/>
+			{/*代码分类*/}
+			<Route path="codeClassification" getComponent={Operation_CommunityAllocation_CodeClassification}/>
+			{/*平面图配置选择社区*/}
+			<Route path="communityPlanList" getComponent={Operation_CommunityAllocation_CommunityPlanList}/>
+			{/*平面图配置*/}
+			<Route path=":communityId/communityPlanMap" getComponent={Operation_CommunityAllocation_CommunityPlanMap}/>
+			{/*App管理后台*/}
+			<Route path="appmanage" getComponent={Operation_CommunityAllocation_AppManage}/>
+			<Route path="noticemanage" getComponent={Operation_CommunityAllocation_NoticeManage}/>
+			<Route path="integration" getComponent={Operation_CommunityAllocation_Integration}/>
+			<Route path="activity" getComponent={Operation_CommunityAllocation_Activitys}/>
+			<Route path="advert" getComponent={Operation_CommunityAllocation_AdvertManage}/>
+			<Route path="opinion" getComponent={Operation_CommunityAllocation_AppOpinion}/>
+		</Route>
+		{/*基础配置*/}
+		<Route path="basicConfig" getComponent={Basic}>
+			<Route path="EquipmentDefinition" getComponent={Operation_BasicConfig_EquipmentDefinition} name="EquipmentDefinition"/>
+			{/*商圈列表*/}
+			<Route path="businessList" getComponent={Operation_BasicConfig_BusinessList} />
+		</Route>
 		{/*客户管理*/}
 		<Route path="customerManage" getComponent={Basic}>
 			<Route path="customerList" getComponent={Operation_CustomerManage_CustomerList} />
@@ -407,98 +407,95 @@ module.exports =()=>{
 			<Route path="list" getComponent={Operation_CustomerManage_List} />
 			{/*客户来源配置*/}
 			<Route path="customerSource" getComponent={Operation_CustomerManage_CustomerSource} />
+			<Route path=":customerId/" getComponent={Basic} >
+				{/*订单*/}
+				<Route path="order" getComponent={Basic}>
+					<Route path="create" getComponent = {Operation_CustomerManage_Order_Create} name="customerManage_order_create"/>
+					<Route path=":orderId/detail" getComponent = {Operation_CustomerManage_Order_Detail} name="customerManage_order_detail"/>
+					<Route path=":orderId/Edit" getComponent = {Operation_CustomerManage_Order_Edit} name="customerManage_order_edit"/>
+					{/*合同信息*/}
+					<Route path=":orderId/agreement" getComponent={Basic}>
 
-		<Route path=":customerId/" getComponent={Basic} >
+						{/*入驻协议书*/}
+						<Route path="join" getComponent={Basic}>
+							{/*<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Join_Edit}/>*/}
+							<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Join_Detail}/>
+							<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Join_Print}/>
+						</Route>
 
-		{/*订单*/}
-		<Route path="order" getComponent={Basic}>
-			<Route path="create" getComponent = {Operation_CustomerManage_Order_Create} name="customerManage_order_create"/>
-			<Route path=":orderId/detail" getComponent = {Operation_CustomerManage_Order_Detail} name="customerManage_order_detail"/>
-			<Route path=":orderId/Edit" getComponent = {Operation_CustomerManage_Order_Edit} name="customerManage_order_edit"/>
+						{/*承租意向书*/}
+						<Route path="admit" getComponent={Basic}>
+							{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Admit_Create}/>
+							<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Admit_Edit}/>*/}
+							<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Admit_Detail}/>
+							<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Admit_Print}/>
+						</Route>
 
+						{/*增租协议书*/}
+						<Route path="increase" getComponent={Basic}>
+							{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Increase_Create}/>
+							<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Increase_Edit}/>*/}
+							<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Increase_Detail}/>
+							<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Increase_Print}/>
+						</Route>
 
-		{/*合同信息*/}
-		<Route path=":orderId/agreement" getComponent={Basic}>
+						{/*续租协议书*/}
+						<Route path="renew" getComponent={Basic}>
+							{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Renew_Create}/>
+							<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Renew_Edit}/>*/}
+							<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Renew_Detail}/>
+							<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Renew_Print}/>
+						</Route>
 
-			{/*入驻协议书*/}
-			<Route path="join" getComponent={Basic}>
-				{/*<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Join_Edit}/>*/}
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Join_Detail}/>
-				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Join_Print}/>
+						{/*减租协议书*/}
+						<Route path="reduce" getComponent={Basic}>
+							{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Reduce_Create}/>
+							<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Reduce_Edit}/>*/}
+							<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Reduce_Detail}/>
+							<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Reduce_Print}/>
+
+						</Route>
+
+						{/*退租协议书*/}
+						<Route path="exit" getComponent={Basic}>
+							{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Exit_Create}/>
+							<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Exit_Edit}/>*/}
+							<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Exit_Detail}/>
+						</Route>
+
+					</Route>
+
+				</Route>
 			</Route>
+			{/*合同配置*/}
+			<Route path="agreement" getComponent={Basic} >
 
-			{/*承租意向书*/}
-			<Route path="admit" getComponent={Basic}>
-				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Admit_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Admit_Edit}/>*/}
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Admit_Detail}/>
-				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Admit_Print}/>
-			</Route>
+				{/*出租方管理*/}
+					<Route path="lessorManage" getComponent={Basic}>
+						<Route path="list" getComponent={Operation_CustomerManage_Agreement_LessorManage_List}/>
+					</Route>
 
-			{/*增租协议书*/}
-			<Route path="increase" getComponent={Basic}>
-				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Increase_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Increase_Edit}/>*/}
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Increase_Detail}/>
-				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Increase_Print}/>
-			</Route>
-
-			{/*续租协议书*/}
-			<Route path="renew" getComponent={Basic}>
-				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Renew_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Renew_Edit}/>*/}
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Renew_Detail}/>
-				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Renew_Print}/>
-			</Route>
-
-			{/*减租协议书*/}
-			<Route path="reduce" getComponent={Basic}>
-				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Reduce_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Reduce_Edit}/>*/}
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Reduce_Detail}/>
-				<Route path=":id/print" getComponent={Operation_CustomerManage_Agreement_Reduce_Print}/>
-
-			</Route>
-
-			{/*退租协议书*/}
-			<Route path="exit" getComponent={Basic}>
-				{/*<Route path="create" getComponent={Operation_CustomerManage_Agreement_Exit_Create}/>
-				<Route path=":id/edit" getComponent={Operation_CustomerManage_Agreement_Exit_Edit}/>*/}
-				<Route path=":id/detail" getComponent={Operation_CustomerManage_Agreement_Exit_Detail}/>
-			</Route>
-
-	</Route>
-
-	</Route>
+				{/*基础配置*/}
+					<Route path="setting" getComponent={Basic}>
+						<Route path="list" getComponent={Operation_CustomerManage_Agreement_Setting_List}/>
+					</Route>
+				</Route>
 
 
-
-
-	</Route>
-	{/*合同配置*/}
-		<Route path="agreement" getComponent={Basic} >
-
-		{/*出租方管理*/}
-			<Route path="lessorManage" getComponent={Basic}>
-				<Route path="list" getComponent={Operation_CustomerManage_Agreement_LessorManage_List}/>
-			</Route>
-
-		{/*基础配置*/}
-			<Route path="setting" getComponent={Basic}>
-				<Route path="list" getComponent={Operation_CustomerManage_Agreement_Setting_List}/>
+				{/*入驻订单*/}
+				<Route path="joinOrder" getComponent={Basic}>
+					<Route path="list" getComponent={Operation_JoinOrder_List}/>
+					<Route path="customer" getComponent={Basic}>
+					<Route path="edit" getComponent = {Operation_JoinOrder_Customer_Edit}/>
+					<Route path="detail" getComponent = {Operation_JoinOrder_Customer_Detail}/>
+				</Route>
 			</Route>
 		</Route>
 
-
-	{/*入驻订单*/}
-		<Route path="joinOrder" getComponent={Basic}>
-			<Route path="list" getComponent={Operation_JoinOrder_List}/>
-			<Route path="customer" getComponent={Basic}>
-			<Route path="edit" getComponent = {Operation_JoinOrder_Customer_Edit}/>
-			<Route path="detail" getComponent = {Operation_JoinOrder_Customer_Detail}/>
-      </Route>
+		{/*弹幕后台*/}
+		<Route path="redHoodActive" getComponent={Basic}>
+			<Route path="barrageAudit" getComponent={Operation_RedHoodActive_BarrageAudit}/>
 		</Route>
-	</Route>
 	</Route>
 	);
 };

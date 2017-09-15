@@ -51,12 +51,12 @@ module.exports = [
 						primaryText: "会员列表",
 						router: '/member/memberManage/list',
 						menuCode: 'mbr_list_base',
-					}, 
+					},
 					{
 						primaryText: "会员卡管理",
 						router: '/member/memberManage/card',
 						menuCode: 'mbr_card_base',
-					}, 
+					},
 					{
 						primaryText: "会员配置",
 						router: '/member/memberManage/setting',
@@ -94,7 +94,7 @@ module.exports = [
 						primaryText: '访客登记',
 						menuCode: 'visitRecord',
 						router: '/community/visitor/list'
-						
+
 					},
 					{
 						primaryText: '支持列表',
@@ -224,13 +224,13 @@ module.exports = [
 						menuCode: 'oper_cmt_stationList_base',
 						router: '/operation/communityAllocation/communityStation'
 					},
-					
+
 					{
 						primaryText: '平面图配置',
 						menuCode: 'oper_cmt_graph_base',
 						router: '/operation/communityAllocation/communityPlanList'
 					},
-					
+
 				]
 			},
 			{
@@ -248,7 +248,7 @@ module.exports = [
 						menuCode: 'sysDeviceDefinitionList',
 						router: '/operation/basicconfig/equipmentdefinition'
 					},
-					
+
 				]
 			},
 
@@ -284,10 +284,28 @@ module.exports = [
 						menuCode: 'lessor_management_base',
 						router: '/operation/customerManage/agreement/lessorManage/list',
 					},
-					
+
 				]
 			},
-			
+
+			// {
+			// 	primaryText: "红木馆活动",
+			// 	iconName: 'icon-basis',
+			// 	iconColor: '#79859a',
+			// 	router: 'BaseManage',
+			// 	menuCode: 'basic_config',
+			// 	menuItems: [
+			// 		{
+			// 			primaryText: "后台审核",
+			// 			menuCode: 'oper_csr_sourceList_base',
+			// 			router: '/operation/redHoodActive/barrageAudit',
+			// 		},
+			//
+			// 	]
+			// },
+
+
+
 		]
 	}
 
