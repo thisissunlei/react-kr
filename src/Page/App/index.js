@@ -38,8 +38,6 @@ window.Debug = Debug;
 if(module.hot) {
 	module.hot.accept();
 }
-  var load = document.getElementById("loadding")
-	load.style.display = "none";
 
 ReactDOM.render((
 	<MuiThemeProvider>
