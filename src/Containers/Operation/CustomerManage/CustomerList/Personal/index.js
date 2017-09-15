@@ -51,8 +51,7 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
-@inject("CommunityDetailModel")
-@inject("NewIndentModel")
+@inject("NewIndentModel","NavModel","CommunityDetailModel")
 @observer
 class Personal extends Component{
 
@@ -65,6 +64,7 @@ class Personal extends Component{
 			loadData:[],
 			//选中的值
 			arrItem:[],
+			isExport:false
 		}
 	}
 	//新建页面的开关
@@ -82,6 +82,14 @@ class Personal extends Component{
 	//查看页面开关
 	switchLookCustomerList=() => {
       	State.switchLookCustomerList();
+	}
+	componentDidMount(){
+		let {NavModel} = this.props;
+		var {checkOperate} = this.props.NavModel;
+	  var isExport=checkOperate("oper_csr_edit_include_source");
+		this.setState({
+			isExport,
+		})
 	}
 	openEditCustomerList=()=>{
 		let listId=State.listId;
@@ -338,6 +346,7 @@ class Personal extends Component{
 	 }
 	render(){
 		let {dataReady,searchParams,orderReady}=this.props;
+		let {isExport} = this.state;
 		let deleteId = this.props.CommunityDetailModel.deleteIndentId;
        var blockStyle={};
       if(this.props.NewIndentModel.openPersonDialog==true){
@@ -388,7 +397,7 @@ class Personal extends Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
-	            exportSwitch={true}
+	            exportSwitch={isExport}
 	            onSelect={this.onSelect}
 	            onLoaded={this.onLoaded}
 	            onExport={this.onExport}
