@@ -76,7 +76,7 @@ import './index.less';
 		const { handleSubmit,select} = this.props;
 		return (
 
-			<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}}  >
+			<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}} className='m-ser-visit' >
         
 
           <SearchForm placeholder='请输入关键字' 
@@ -90,7 +90,7 @@ import './index.less';
             options={select.type}
           />
 
-					<KrField style={{width:262,marginLeft:-1,display:"inline-block",marginBottom:15,marginRight:25}}  label="是否已到访" name="visitStatus"   component="select"  requireLabel={false}
+					<KrField style={{width:262,marginLeft:-1,display:"inline-block",marginRight:25}}  label="是否已到访" name="visitStatus"   component="select"  requireLabel={false}
             options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访未签约',value:"VISIT_UNSIGN"},{label:'已到访已签约',value:"VISIT_SIGN"}]}
           />
 
