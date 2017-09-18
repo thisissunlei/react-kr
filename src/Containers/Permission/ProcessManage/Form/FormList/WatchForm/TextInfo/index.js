@@ -25,6 +25,7 @@ import AddDetail from './AddDetail';
 import EditDetail from './EditDetail';
 import DeleForm from './DeleForm';
 import AddText from './AddText';
+import EditText from './EditText';
 import './index.less';
 class TextInfo  extends React.Component{
 
@@ -34,7 +35,8 @@ class TextInfo  extends React.Component{
 			openAddDetail:false,
 			openEditDetail:false,
 			openDelForm:false,
-			
+			openEditText:false,
+
 			//新增字段
 			openAddText:false,
 
@@ -42,7 +44,7 @@ class TextInfo  extends React.Component{
 			mainInfo:[],
 			//明细表信息
 			detailInfo:[]
-			
+
 		}
 
 	}
@@ -87,7 +89,7 @@ class TextInfo  extends React.Component{
 			 Message.error(err.message);
 		 });
 	}
-  
+
 
   onSubmit=()=>{
 
@@ -99,7 +101,7 @@ class TextInfo  extends React.Component{
 		openAddDetail:!this.state.openAddDetail
 	})
  }
- 
+
  //新增提交
  onAddSubmit=(params)=>{
 	let {basicInfo}=this.props;
@@ -155,12 +157,12 @@ class TextInfo  extends React.Component{
 		ids.push(item.id);
 	})
 	var _this=this;
-	Http.request('form-all-batch',{},{ids:ids}).then(function(response) {		 
+	Http.request('form-all-batch',{},{ids:ids}).then(function(response) {
 		}).catch(function(err) {
 		Message.error(err.message);
 	});
  }
-  
+
  //删除明细表提交
  onDelSubmit=()=>{
 	let {basicInfo}=this.props;
@@ -173,7 +175,7 @@ class TextInfo  extends React.Component{
 	});
  }
 
- 
+
  //字段关闭
  cancelAddText=()=>{
 	 this.setState({
@@ -183,17 +185,23 @@ class TextInfo  extends React.Component{
  allClose=()=>{
 	this.setState({
 		openAddText:false
-	 }) 
+	 })
  }
  //打开新增字段
  addText=()=>{
 	this.setState({
 		openAddText:!this.state.openAddText
-	 }) 
+	 })
  }
  //新增字段提交
  onAddTextSub=()=>{
-   
+
+ }
+
+ editText=()=>{
+   this.setState({
+		 openEditText:!this.state.openEditText
+	 })
  }
 
 	render(){
@@ -219,10 +227,10 @@ class TextInfo  extends React.Component{
 			</Row>
 
             <form onSubmit={handleSubmit(this.onSubmit)}>
-			
+
 			{
 				mainInfo.map((item,index)=>{
-					
+
 					return <div className='main-form' style={{marginTop:20}}>
 
 						<div className='main-name'>
@@ -242,7 +250,7 @@ class TextInfo  extends React.Component{
 							>
 
 									<Toolbars>
-									  <Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText} />	
+									  <Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText} />
 									</Toolbars>
 
 									<FRow name = "name" label = "字段名称"/>
@@ -259,7 +267,7 @@ class TextInfo  extends React.Component{
 
 			{
 				detailInfo.map((item,index)=>{
-			
+
 				  return <div className='main-form detail-form' style={{marginTop:20}}>
 
 								<div className='main-name'>
@@ -268,7 +276,7 @@ class TextInfo  extends React.Component{
 								<span>({item.tableName})</span>
 								</div>
 
-															
+
 								<FdTabel
 									name = {`detailData${index}`}
 									isFold = {false}
@@ -276,19 +284,19 @@ class TextInfo  extends React.Component{
 									batchDel={true}
 									checkbox={true}
 									batchdelete={this.batchdelete}
-								>	
+								>
 									<Toolbars>
 										<Toolbar label='编辑' rightSpac='14px' iconClass='edit-form' iconClick={this.openEditDetail.bind(this,item.id)} />
 										<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm} />
-										<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText} />	
+										<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText} />
 									</Toolbars>
-																	
+
 									<FRow name = "name" label = "字段名称"/>
 									<FRow name = "label" label = "字段显示名"/>
 									<FRow name = "inputTypeStr" label = "表现形式"/>
 									<FRow name = "compTypeStr" label = "字段类型"/>
 									<FRow label = "操作" type='operation' component={(item)=>{
-											return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
+											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText}>编辑</div>
 									}}/>
 							</FdTabel>
 						</div>
@@ -348,9 +356,37 @@ class TextInfo  extends React.Component{
 							<AddText
 								onCancel={this.cancelAddText}
 								onSubmit={this.onAddTextSub}
-							    
+
 							/>
-			           </Drawer>
+			      </Drawer>
+
+						{/*编辑字段*/}
+						{!isCreate&&<Drawer
+								open={this.state.openEditText}
+								width={750}
+								openSecondary={true}
+								containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+								onClose={this.allClose}
+							>
+							<EditText
+								onCancel={this.cancelEditText}
+								onSubmit={this.onEditTextSub}
+
+							/>
+			      </Drawer>}
+
+						{/*编辑字段*/}
+						{isCreate&&<Dialog
+						title="编辑字段－已创建表"
+						onClose={this.cancelEditText}
+						open={this.state.openEditText}
+						contentStyle ={{ width: '374px',height:'auto'}}
+						>
+							<EditCreate
+								onCancel={this.cancelEditText}
+								onSubmit={this.onEditTextSub}
+							/>
+						</Dialog>}
 
 			</div>
 		);

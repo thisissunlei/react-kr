@@ -19,7 +19,7 @@ import {
 } from 'kr/Redux';
 import './index.less';
 
-class AddText  extends React.Component{
+class EditText  extends React.Component{
 
 	constructor(props,context){
         super(props, context);
@@ -29,7 +29,7 @@ class AddText  extends React.Component{
     }
 
     componentDidMount(){
-				Store.dispatch(change('AddText','tabledata',[]));
+				Store.dispatch(change('EditText','tabledata',[]));
     }
 
     onSubmit=(values)=>{
@@ -80,7 +80,7 @@ class AddText  extends React.Component{
 			<div className='add-text-form'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 					 <div className="title" style={{marginBottom:"30px"}}>
-							<div><span className="new-icon"></span><label className="title-text">新增字段</label></div>
+							<div><span className="new-icon"></span><label className="title-text">编辑字段</label></div>
 							<div className="customer-close" onClick={this.onCancel}></div>
 					 </div>
                        <KrField

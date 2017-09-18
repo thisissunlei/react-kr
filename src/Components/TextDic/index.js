@@ -80,7 +80,6 @@ export default class TextDic extends React.Component{
     }
 
 		onChange=(param)=>{
-
 			const {onChange}=this.props;
 			onChange && onChange(param);
 
