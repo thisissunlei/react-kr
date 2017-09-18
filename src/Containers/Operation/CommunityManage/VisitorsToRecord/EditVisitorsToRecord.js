@@ -144,7 +144,7 @@ import State from './State';
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="num" style={{width:262,marginLeft:28}} component='input'  label="拜访人数" inline={false}  placeholder='请输入拜访人数' requireLabel={true}/>}
-            			<KrField grid={1/2}  name="email" style={{width:262,marginLeft:28}} component='input'  label="邮箱" inline={false}  placeholder='请输入邮箱' requireLabel={true}/>
+            			<KrField grid={1/2}  name="email" style={{width:262,marginLeft:28}} component='input'  label="邮箱" inline={false}  placeholder='请输入邮箱' requireLabel={false}/>
 
             			{/*参观*/}
   						{typeValue ==52 &&<KrField grid={1/2}  name="purposeId" style={{width:262,marginLeft:28}} component='select'  label="参观目的" inline={false}
@@ -271,9 +271,7 @@ const validate = values =>{
 	}
 
 
-	if(!values.email){
-		errors.email = "邮箱不能为空"
-	}else if(!email.test(values.email)){
+	if(values.email && !email.test(values.email)){
 		errors.email = "邮箱的格式不正确"
 	}
 
