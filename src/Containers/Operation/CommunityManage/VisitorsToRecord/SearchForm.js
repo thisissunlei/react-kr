@@ -76,7 +76,7 @@ import './index.less';
 		const { handleSubmit,select} = this.props;
 		return (
 
-			<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}}  >
+			<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}} className='m-ser-visit' >
         
 
           <SearchForm placeholder='请输入关键字' 
