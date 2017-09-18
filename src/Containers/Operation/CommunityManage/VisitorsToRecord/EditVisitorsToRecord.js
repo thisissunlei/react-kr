@@ -13,7 +13,9 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-	Message
+	Message,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import {mobxForm}  from 'kr/Utils/MobxForm';
 import './index.less';
@@ -32,6 +34,10 @@ import State from './State';
 		super(props);
 		this.state={
 			typeValue:this.props.typeValue,
+			isFirst:true,
+			detail:{},
+			date:"",
+			time:'',
 		}
 
 	}
@@ -54,15 +60,28 @@ import State from './State';
 			typeValue : values.value
 		})
 	}
+	componentWillReceiveProps (nextProps) {
+		let {isFirst} = this.state;
+		if(nextProps.editDetail && isFirst){
+			var detail = Object.assign({},nextProps.editDetail);
+			this.setState({
+				detail,
+				time:detail.time,
+				date:detail.date,
+				isFirst:false
+			})
+		}
+	}
 
   //确定按钮
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
+	let {date,time} = this.state;
 	if(!time==true || !date == true){
 		Message.error("时间选择有误!");
 		return;
 	}
-	values.vtime = date+" "+time;
+	values.vtime = date+" "+time+':00';
   	onSubmit && onSubmit(values);
   }
 	//将区县id绑定到from上
@@ -72,7 +91,7 @@ import State from './State';
 	}
 
 	dataChange = (values) =>{
-		console.log(values);
+		
 		values = values.split(" ")[0];
 		this.setState({
 			date:values
@@ -85,7 +104,7 @@ import State from './State';
 	}
 	render(){
 		const { handleSubmit,select} = this.props;
-		const {typeValue} = this.state;
+		const {typeValue,detail,time} = this.state;
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
@@ -138,23 +157,24 @@ import State from './State';
 							requireLabel={true}
 							options={select.round}
 						/>}
-						<Grid style = {{marginLeft:25}}>
+						<Grid style = {{marginLeft:25,width:265,display:"inline-block"}}>
 							<Row>	
 								<ListGroup>
-									<ListGroupItem style={{width:262,padding:0}}>
+									<ListGroupItem style={{width:265,padding:0}}>
 										<KrField
-											name="startDate"
+											name="date"
 											component="date"
-											style={{width:190}}
+											style={{width:185}}
 											requireLabel={true}
 											label='活动时间'
 											onChange = {this.dataChange}
 										/>
 										<KrField
-											name="startTime"
+											name="time"
 											component="selectTime"
 											style={{width:80,marginTop:14,zIndex:10}}
 											onChange = {this.timeChange}
+											timeNum = {time}
 											/>
 									</ListGroupItem>
 								</ListGroup>
@@ -163,10 +183,10 @@ import State from './State';
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}
-						<KrField  label="是否已有办公室" name="hasOffice" style={{marginLeft:15,marginRight:13}} component="group" requireLabel={true} >
-							<KrField name="hasOffice" label="未到访" type="radio" value="YES"  style={{marginTop:5}}/>
-							<KrField name="hasOffice" label="已到访未签约" type="radio" value="NO"  style={{marginTop:5}}/>
-							<KrField name="hasOffice" label="已到访已签约" type="radio" value="1NO"  style={{marginTop:5}}/>
+						<KrField  label="是否已有办公室" name="visitStatus" style={{marginLeft:15,marginRight:13}} component="group" requireLabel={true} >
+							<KrField name="visitStatus" label="未到访" type="radio" value="UNVISIT"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访未签约" type="radio" value="VISIT_UNSIGN"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访已签约" type="radio" value="VISIT_SIGN"  style={{marginTop:5}}/>
 						</KrField>
 
 						<Grid style={{marginTop:30}}>
