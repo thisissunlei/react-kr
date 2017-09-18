@@ -266,9 +266,8 @@ const validate = values =>{
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
 	}
-	if(!values.idCard){
-		errors.idCard = "请填写身份证号";
-	}else if(!idCordReg.test(values.idCard)){
+
+	if(values.idCard&&!idCordReg.test(values.idCard)){
 		errors.idCard = "身份证号格式不正确";
 	}
 
