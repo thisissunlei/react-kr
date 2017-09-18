@@ -170,7 +170,8 @@ class NewCreateForm extends Component {
 	onChangeLeaseBeginDate(value) {
 
 		value = dateFormat(value, "yyyy-mm-dd");
-
+		let {array } = this.props;
+		array.removeAll('saleList')
 		let {
 			stationVos
 		} = this.state;
@@ -191,6 +192,8 @@ class NewCreateForm extends Component {
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
 		value = dateFormat(value, "yyyy-mm-dd");
+		let {array } = this.props;
+		array.removeAll('saleList')
 		let {
 			stationVos
 		} = this.state;
@@ -659,13 +662,15 @@ class NewCreateForm extends Component {
 		},50)
 	}
 	removeRow=(fields)=>{
-		let {checkedArr} = this.state;
+		let {checkedArr,biaodan} = this.state;
 		var newArr = arrReverse(checkedArr);
 		if(newArr.length){
 			this.clearCheckBox(true);
 		}
 		newArr.map((item,index)=>{
 			fields.remove(item);
+			biaodan.splice(item,0)
+
 		})
 		if(tabelLength == newArr.length){
 			this.titleCheckbox.checked = false;
@@ -767,7 +772,6 @@ class NewCreateForm extends Component {
 		)
 	}
 	renderTr=(fields)=>{
-		let keyList = [{label:'免前',value:'1111'},{label:'折扣',value:'222'},{label:'免后',value:'3'}]
 		let self = this;
 		let {
 			changeValues
@@ -779,10 +783,10 @@ class NewCreateForm extends Component {
 			leaseEnddate
 		} = changeValues;
 		let {biaodan}= this.state;
-		// let keyList = this.props.optionValues.saleList;
+		let keyList = this.props.optionValues.saleList;
 		return(
 		fields.map((member, index) =>{
-					if(biaodan[index] == '222'){
+					if(biaodan[index] == 1){
 					return(<tr key={index} className="hander">
 					     <td style={{verticalAlign:'middle'}}>
 
@@ -827,7 +831,7 @@ class NewCreateForm extends Component {
 					          component='text'/>
 				        </td>
 				      </tr>
-				    )}else if(biaodan[index] == '1111'){
+				    )}else if(biaodan[index] == 2){
 				    	return(
 				    	<tr key={index} className="hander">
 					     <td style={{verticalAlign:'middle'}}>
@@ -873,7 +877,7 @@ class NewCreateForm extends Component {
 				        </td>
 				      </tr>
 				    )
-				    }else if(biaodan[index] == '3') {
+				    }else if(biaodan[index] == 3) {
 				    	return(
 				    	<tr key={index} className="hander">
 					     <td style={{verticalAlign:'middle'}}>
@@ -989,23 +993,22 @@ class NewCreateForm extends Component {
 		console.log('changeValues',biaodan,biaodan.length);
 		biaodan.map((item)=>{
 			console.log(same,sameFree)
-			if(item == '222' && !same){
+			if(item == 2 && !same){
 				same = true;
-			}else if(item == '222' && same){
+			}else if(item == 2 && same){
 				Notify.show([{
 					message: '只可以选择一次折扣',
 					type: 'danger',
 				}]);
 				biaodan.splice(index,1)
 				fields.remove(index);
-			}else if(item == '1111' && !sameFree){
+			}else if(item == 1 && !sameFree){
 				sameFree = true
-			}else if(item == '3' && !sameFree){
+			}else if(item == 3 && !sameFree){
 				sameFree = true;
 			}else if(sameFree){
-				console.log('==sameFree======',sameFree)
 				Notify.show([{
-					message: '折前和折后只可以选择一个',
+					message: '只可以选择一个免期活动',
 					type: 'danger',
 				}]);
 				biaodan.splice(index,1)
@@ -1030,7 +1033,7 @@ class NewCreateForm extends Component {
 		let {changeValues} = this.props;
 		fields.remove(index);
 		fields.insert(index,{type:'222',num:'1234'})
-		console.log('zhekou',e,fields,changeValues.members);
+		console.log('zhekou',e,fields,changeValues.saleList);
 	}
 
 	render() {
@@ -1137,7 +1140,7 @@ class NewCreateForm extends Component {
 
                         </DotTitle>
                     <DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
-						<FieldArray name='members' component={this.renderBrights}/>
+						<FieldArray name='saleList' component={this.renderBrights}/>
 
 				    </DotTitle>
                      <div className="all-rent" style={{marginTop:'0px',marginBottom:25,fontSize:14}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent|| '0'}</span><span>{allRentName}</span></div>
@@ -1345,23 +1348,23 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
-	if (!values.members || !values.members.length) {
-    	errors.members = { _error: 'At least one member must be entered' }
+	if (!values.saleList || !values.saleList.length) {
+    	errors.saleList = { _error: 'At least one member must be entered' }
 	 } else {
-	    const membersArrayErrors = []
-	    values.members.forEach((member, memberIndex) => {
+	    const saleListArrayErrors = []
+	    values.saleList.forEach((member, memberIndex) => {
 	      const memberErrors = {}
 	      if (!member || !member.type) {
 	        memberErrors.type = 'Required'
-	        membersArrayErrors[memberIndex] = memberErrors
+	        saleListArrayErrors[memberIndex] = memberErrors
 	      }
 	      if (!member || !member.num) {
 	        memberErrors.num = 'Requirsssed'
-	        membersArrayErrors[memberIndex] = memberErrors
+	        saleListArrayErrors[memberIndex] = memberErrors
 	      }
 	    })
-	    if(membersArrayErrors.length) {
-	      errors.members = membersArrayErrors
+	    if(saleListArrayErrors.length) {
+	      errors.saleList = saleListArrayErrors
 	    }
 	  }
 
@@ -1389,7 +1392,7 @@ export default connect((state) => {
 	changeValues.leaseBegindate = selector(state, 'leaseBegindate');
 	changeValues.leaseEnddate = selector(state, 'leaseEnddate');
 	changeValues.wherefloor = selector(state, 'wherefloor') || 0;
-	changeValues.members = selector(state, 'members') || [];
+	changeValues.saleList = selector(state, 'saleList') || [];
 
 	return {
 		changeValues

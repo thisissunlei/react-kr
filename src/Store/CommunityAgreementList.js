@@ -56,6 +56,16 @@ State.getSaleList=action(function(){
 	    var _this = this;
 		Http.request('sale-tactics', {communityId:_this.communityId}).then(function(response) {
 			console.log('getSaleList===>',response)
+			let saleList = response.map((item)=>{
+					let obj = {};
+					obj.label = item.tacticsName;
+					obj.value = item.tacticsType;
+					obj.id = item.tacticsId;
+					obj.discount = item.discount;
+
+					return obj;
+				})
+				_this.saleList = saleList;
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
