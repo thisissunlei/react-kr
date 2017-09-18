@@ -80,7 +80,7 @@ import './index.less';
         
 
           <SearchForm placeholder='请输入关键字' 
-            searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} 
+            searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"},{label:"访客身份证号",value:"ID_CARD"}]} 
             style={{width:262,marginTop:29,marginLeft:-1,display:"inline-block",marginBottom:15,marginRight:25}} 
             defaultFilter='NAME'
             onChange = {this.onSearchSubmit}
@@ -88,6 +88,10 @@ import './index.less';
           <KrField grid={1/2} right={34} label="访客类型" name="visitType"  style={{marginTop:4}} component="select"  requireLabel={false}
             onSubmit={this.cityValue}
             options={select.type}
+          />
+
+					<KrField style={{width:262,marginLeft:-1,display:"inline-block",marginBottom:15,marginRight:25}}  label="是否已到访" name="visitStatus"   component="select"  requireLabel={false}
+            options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访未签约',value:"VISIT_UNSIGN"},{label:'已到访已签约',value:"VISIT_SIGN"}]}
           />
 
           <Grid style={{marginTop:17,marginBottom:5,marginLeft:-24}}>
