@@ -256,10 +256,9 @@ const validate = values =>{
 	}else if(!email.test(values.email)){
 		errors.email = "邮箱的格式不正确"
 	}
-
-	console.log('ffrrr',values.vtime);
-    if(!values.vtime){
-		errors.vtime = "拜访日期不能为空"
+	
+    if(!values.date||!values.time){
+		errors.date = "拜访日期不能为空"
 	}
    if(typeValue == 741){
 		if(values.idCard&&!idCordReg.test(values.idCard)){
