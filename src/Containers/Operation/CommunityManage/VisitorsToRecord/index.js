@@ -216,7 +216,7 @@ class VisitorsToRecord  extends React.Component{
    		openUpperForm:true,
    	})
     FormModel.getForm("VisitorsSearchForm")
-             .changeValues({visitType:''})
+             .changeValues({visitType:'',visitStatus:''})
   }
    //关闭高级查询
    closeUpperForm = () =>{
@@ -250,13 +250,14 @@ class VisitorsToRecord  extends React.Component{
  	  let date = new Date();
        
     	 this.setState({
-         searchParams:{
- 				searchKey:values.searchKey,
- 				page: searchParams.page,
+          searchParams:{
+ 				  searchKey:values.searchKey,
+ 				  page: searchParams.page,
       		pageSize: searchParams.pageSize,
       		searchType:values.searchType,
       		visitType:values.visitType,
-      		date:date
+          date:date,
+          visitStatus:values.visitStatus
  			},
     })
     this.closeUpperForm();
@@ -424,7 +425,7 @@ class VisitorsToRecord  extends React.Component{
 
                         <ListGroupItem>
 
-                          <SearchForms placeholder='请输入关键字' searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} onChange ={this.searchChange}  onSubmit={this.onSearchSubmit} onFilter = {this.ToObtainType} />
+                          <SearchForms placeholder='请输入关键字' searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"},{label:"访客身份证号",value:"ID_CARD"}]} onChange ={this.searchChange}  onSubmit={this.onSearchSubmit} onFilter = {this.ToObtainType} />
                         </ListGroupItem>
                         <ListGroupItem><Button searchClick={this.openUpperForm}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 					          </ListGroup>
@@ -562,7 +563,7 @@ class VisitorsToRecord  extends React.Component{
                 modal={true}
                 onClose={this.closeUpperForm}
                 open={openUpperForm}
-                contentStyle ={{ width: '666',height:240,overflow:'visible'}}
+                contentStyle ={{ width: '666',height:'auto',overflow:'visible'}}
               >
                <VisitorsSearchForm
                   select = {select}
