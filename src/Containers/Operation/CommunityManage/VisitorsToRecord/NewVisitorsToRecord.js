@@ -120,7 +120,11 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 						/>}
 
             			<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="姓名" inline={false}  placeholder='请输入姓名' requireLabel={true}/>
+<<<<<<< HEAD
             			{typeValue ==77 &&<KrField grid={1/2}  name="idCord" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>}
+=======
+            			<KrField grid={1/2}  name="idCard" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>
+>>>>>>> 0eb9a30df8ab7e3a66f1868d40332cc4f362eda3
 						<KrField grid={1/2}  name="tel" style={{width:262,marginLeft:28}} component='input'  label="联系方式" inline={false}  placeholder='请输入联系方式' requireLabel={true}/>
 
 						{/*参观*/}
@@ -141,9 +145,14 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 							requireLabel={true}
 							options={select.round}
 						/>}
+<<<<<<< HEAD
 						
+=======
+
+						<KrField grid={1/2}  name="vtime" style={{width:262,marginLeft:28}} component='date'  label="拜访日期" inline={false}  placeholder='请选择拜访时间' requireLabel={true}/>
+>>>>>>> 0eb9a30df8ab7e3a66f1868d40332cc4f362eda3
 						<Grid style = {{marginLeft:25}}>
-							<Row>	
+							<Row>
 								<ListGroup>
 									<ListGroupItem style={{width:262,padding:0}}>
 										<KrField
@@ -167,10 +176,10 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}
-						<KrField  label="是否已有办公室" name="hasOffice" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
-							<KrField name="hasOffice" label="未到访" type="radio" value="YES"  style={{marginTop:5}}/>
-							<KrField name="hasOffice" label="已到访未签约" type="radio" value="NO"  style={{marginTop:5}}/>
-							<KrField name="hasOffice" label="已到访已签约" type="radio" value="1NO"  style={{marginTop:5}}/>
+						<KrField  label="是否" name="visitStatus" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
+							<KrField name="visitStatus" label="未到访" type="radio" value="YES"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访未签约" type="radio" value="NO"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访已签约" type="radio" value="1NO"  style={{marginTop:5}}/>
 						</KrField>
 						<Grid style={{marginTop:30}}>
 							<Row>
@@ -265,10 +274,10 @@ const validate = values =>{
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
 	}
-	if(!values.idCord){
-		errors.idCord = "请填写身份证号";
-	}else if(!idCordReg.test(values.idCord)){
-		errors.idCord = "身份证号格式不正确";
+	if(!values.idCard){
+		errors.idCard = "请填写身份证号";
+	}else if(!idCordReg.test(values.idCard)){
+		errors.idCard = "身份证号格式不正确";
 	}
 
 
