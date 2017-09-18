@@ -43,7 +43,6 @@ export default class Discounts extends React.Component {
 			baseInfo,
 			baseType,
 		} = this.props;
-		console.log('baseInfo-====>>>',baseInfo)
 		return (
 
 
