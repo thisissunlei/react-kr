@@ -151,7 +151,7 @@ export default class MyColleague extends React.Component {
 		const _this = this;
 		Http.request("org-list",{id:0}).then(function (response) {
 		//Http.request("role-dep-tree").then(function (response) {
-			
+
 			_this.setState({
 				treeData: _this.fnTree([response]),
 			});
@@ -258,8 +258,8 @@ export default class MyColleague extends React.Component {
 									<TableHeaderColumn className='header-row'>直接上级</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>职务</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>邮箱</TableHeaderColumn>
-									<TableHeaderColumn className='header-row'>手机号</TableHeaderColumn>
-									<TableHeaderColumn className='header-row'>入职时间</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>座机</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>职务描述</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>员工状态</TableHeaderColumn>
 								</TableHeader>
 
@@ -286,8 +286,12 @@ export default class MyColleague extends React.Component {
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='mobilePhone'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='entryDate' component={(value,oldValue)=>{
-													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
-												 }}></TableRowColumn>
+						 										var maxWidth=10;
+						 										if(value.length>maxWidth){
+						 										 value = value.substring(0,10)+"...";
+						 										}
+						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+						 								 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
 											 return <Dictionary type='ERP_ResourceStatus' value={value}/>
 										}}></TableRowColumn>
@@ -329,8 +333,8 @@ export default class MyColleague extends React.Component {
 									<TableHeaderColumn className='header-row'>直接上级</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>职务</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>邮箱</TableHeaderColumn>
-									<TableHeaderColumn className='header-row'>手机号</TableHeaderColumn>
-									<TableHeaderColumn className='header-row'>入职时间</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>座机</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>职务描述</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>员工状态</TableHeaderColumn>
 								</TableHeader>
 
@@ -363,8 +367,12 @@ export default class MyColleague extends React.Component {
 						 								 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='mobilePhone'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='entryDate' component={(value,oldValue)=>{
-													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
-												 }}></TableRowColumn>
+						 										var maxWidth=10;
+						 										if(value.length>maxWidth){
+						 										 value = value.substring(0,10)+"...";
+						 										}
+						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+						 								 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
 											 return <Dictionary type='ERP_ResourceStatus' value={value}/>
 										}}></TableRowColumn>
