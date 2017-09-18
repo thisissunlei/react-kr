@@ -1,6 +1,7 @@
 
 import React, {Component, PropTypes} from 'react';
 import {Actions,Store,connect} from 'kr/Redux';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
 	observer
 } from 'mobx-react';
@@ -13,7 +14,9 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-	Message
+	Message,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import './index.less';
 import State from './State';
@@ -32,14 +35,16 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 		super(props);
 		this.state={
 			typeValue:'',
+			date:'',
+			time:'',
 		}
 
 	}
 
 	componentDidMount(){
 
-		// const {$form} = this.props;
-		// $form.change('enable',"ENABLE");
+		const {$form} = this.props;
+		$form.change('hasOffice',"NO");
 
 
 	}
@@ -54,7 +59,15 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 			typeValue : values.value
 		})
 	}
+	dataChange = (values) =>{
+		console.log(values);
+		// this.setState({
+		// 	date:
+		// })
+	}
+	timeChange = (values) =>{
 
+	}
   //确定按钮
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
@@ -98,6 +111,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 						/>}
 
             			<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="姓名" inline={false}  placeholder='请输入姓名' requireLabel={true}/>
+            			<KrField grid={1/2}  name="idCord" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>
 						<KrField grid={1/2}  name="tel" style={{width:262,marginLeft:28}} component='input'  label="联系方式" inline={false}  placeholder='请输入联系方式' requireLabel={true}/>
 
 						{/*参观*/}
@@ -118,13 +132,38 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 							requireLabel={true}
 							options={select.round}
 						/>}
+						
 						<KrField grid={1/2}  name="vtime" style={{width:262,marginLeft:28}} component='date'  label="拜访日期" inline={false}  placeholder='请选择拜访时间' requireLabel={true}/>
-
+						<Grid style = {{marginLeft:25}}>
+							<Row>	
+								<ListGroup>
+									<ListGroupItem style={{width:262,padding:0}}>
+										<KrField
+											name="startDate"
+											component="date"
+											style={{width:170}}
+											requireLabel={true}
+											label='活动时间'
+											onChange = {this.dataChange}
+										/>
+										<KrField
+											name="startTime"
+											component="selectTime"
+											style={{width:80,marginTop:14,zIndex:10}}
+											onChange = {this.timeChange}
+											/>
+									</ListGroupItem>
+								</ListGroup>
+							</Row>
+						</Grid>
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}
-
-
+						<KrField  label="是否已有办公室" name="hasOffice" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
+							<KrField name="hasOffice" label="未到访" type="radio" value="YES"  style={{marginTop:5}}/>
+							<KrField name="hasOffice" label="已到访未签约" type="radio" value="NO"  style={{marginTop:5}}/>
+							<KrField name="hasOffice" label="已到访已签约" type="radio" value="1NO"  style={{marginTop:5}}/>
+						</KrField>
 						<Grid style={{marginTop:30}}>
 							<Row>
 								<Col md={12} align="center" style={{marginLeft:"-27px"}}>
@@ -140,11 +179,13 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 	}
 }
 const validate = values =>{
-
+	console.log(values,"LLLLLLL")
 	const errors = {};
 	const phone=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
 
 	const email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+	const idCordReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+
 	// console.log(State.typeValue,">>>>>>>>");
 	const typeValue = State.typeValue;
 	if(!values.communityId){
@@ -216,7 +257,11 @@ const validate = values =>{
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
 	}
-
+	if(!values.idCord){
+		errors.idCord = "请填写身份证号";
+	}else if(!idCordReg.test(values.idCord)){
+		errors.idCord = "身份证号格式不正确";
+	}
 
 
 

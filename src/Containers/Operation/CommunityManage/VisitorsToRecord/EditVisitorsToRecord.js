@@ -33,7 +33,6 @@ import State from './State';
 		this.state={
 			typeValue:this.props.typeValue,
 		}
-		console.log(this.props.typeValue,">>>>>>>")
 
 	}
 
@@ -100,6 +99,7 @@ import State from './State';
 						/>}
 
             			<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="姓名" inline={false}  placeholder='请输入姓名' requireLabel={true}/>
+						<KrField grid={1/2}  name="idCord" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>
 						<KrField grid={1/2}  name="tel" style={{width:262,marginLeft:28}} component='input'  label="联系方式" inline={false}  placeholder='请输入联系方式' requireLabel={true}/>
 
 						{/*参观*/}
@@ -125,7 +125,11 @@ import State from './State';
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}
-
+						<KrField  label="是否已有办公室" name="hasOffice" style={{marginLeft:15,marginRight:13}} component="group" requireLabel={true} >
+							<KrField name="hasOffice" label="未到访" type="radio" value="YES"  style={{marginTop:5}}/>
+							<KrField name="hasOffice" label="已到访未签约" type="radio" value="NO"  style={{marginTop:5}}/>
+							<KrField name="hasOffice" label="已到访已签约" type="radio" value="1NO"  style={{marginTop:5}}/>
+						</KrField>
 
 						<Grid style={{marginTop:30}}>
 							<Row>
@@ -147,6 +151,7 @@ const validate = values =>{
 	const phone=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
 
 	const email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+	const idCordReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
 	// console.log(State.typeValue,">>>>>>>>");
 	const typeValue = State.typeValue;
 	if(!values.communityId){
@@ -217,6 +222,11 @@ const validate = values =>{
 
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
+	}
+	if(!values.idCord){
+		errors.idCord = "请填写身份证号";
+	}else if(!idCordReg.test(values.idCord)){
+		errors.idCord = "身份证号格式不正确";
 	}
 
 
