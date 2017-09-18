@@ -232,7 +232,7 @@ export default class JoinDetail extends Component {
 
 
 					</DotTitle>
-					<DotTitle title='优惠明细'>
+					{basic.saleList &&(<DotTitle title='优惠明细'>
 						<Table displayCheckbox={false}>
 							<TableHeader>
 									<TableHeaderColumn>优惠类型</TableHeaderColumn>
@@ -242,21 +242,18 @@ export default class JoinDetail extends Component {
 									<TableHeaderColumn>优惠金额</TableHeaderColumn>
 							</TableHeader>
 							<TableBody>
-
-							{
-								newBasicStationVos && newBasicStationVos.map((item,index)=>{
-
+							{basic.saleList.map((item,index)=>{
 								return (
 									<TableRow key={index}>
-										<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
+										<TableRowColumn>{item.tacticsName}</TableRowColumn>
 										<TableRowColumn>
-											<KrDate value={item.leaseBeginDate}/>
+											<KrDate value={item.validStart}/>
 										</TableRowColumn>
 										<TableRowColumn>
-											<KrDate value={item.leaseEndDate}/>
+											<KrDate value={item.validEnd}/>
 										</TableRowColumn>
-										<TableRowColumn><KrDate value={item.leaseBeginDate}/></TableRowColumn>
-										<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
+										<TableRowColumn>{item.discount}</TableRowColumn>
+										<TableRowColumn>{item.discountAmount}</TableRowColumn>
 									</TableRow>
 								);
 								})
@@ -264,7 +261,7 @@ export default class JoinDetail extends Component {
 
 							</TableBody>
 						</Table>
-					</DotTitle>
+					</DotTitle>)}
 				 <div className="content-info" style={info} >
                    <div className='detail-first'>
 					<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} defaultValue="无" requireBlue={true} toolTrue='true'/>
