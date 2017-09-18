@@ -35,6 +35,8 @@ import './index.less';
 		this.state = {
 			detail:{},
 			loading:true,
+			date:'',
+			time:'',
 		}
 
 		this.getDetail(this.props.detailData.id);
@@ -105,6 +107,7 @@ import './index.less';
         {typeValue ==50 &&<KrField component="labelText" grid={1/2} label="面试类型：" value={detail.interviewTypeName} defaultValue="无" requireBlue={true} />}
         {typeValue ==51 &&<KrField component="labelText" grid={1/2} label="活动类型：" value={detail.activityTypeName} defaultValue="无" requireBlue={true} />}
         <KrField component="labelText" grid={1/2} label="姓名：" value={detail.name} defaultValue="无" requireBlue={true} />
+        <KrField component="labelText" grid={1/2} label="身份证号：" value={detail.idCard} defaultValue="无" requireBlue={true} />
         <KrField component="labelText" grid={1/2} label="联系方式：" value={detail.tel} defaultValue="无" requireBlue={true} />
         {typeValue ==52 &&<KrField component="labelText" grid={1/2} label="微信：" value={detail.wechat} defaultValue="无" requireBlue={true} />}
         {(typeValue == 49 || typeValue == 732) &&<KrField component="labelText" grid={1/2} label="拜访人数：" value={detail.num} defaultValue="无" requireBlue={true} />}

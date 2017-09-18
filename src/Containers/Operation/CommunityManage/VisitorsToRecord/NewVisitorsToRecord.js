@@ -61,16 +61,25 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 	}
 	dataChange = (values) =>{
 		console.log(values);
-		// this.setState({
-		// 	date:
-		// })
+		values = values.split(" ")[0];
+		this.setState({
+			date:values
+		})
 	}
 	timeChange = (values) =>{
-
+		this.setState({
+			time:values
+		})
 	}
   //确定按钮
   onSubmit = (values) =>{
+	let {time,value} = this.state;
   	let {onSubmit} = this.props;
+	if(!time==true || !date == true){
+		Message.error("时间选择有误!");
+		return;
+	}
+	values.vtime = date+" "+time;
   	onSubmit && onSubmit(values);
   }
 	//将区县id绑定到from上
@@ -111,7 +120,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 						/>}
 
             			<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="姓名" inline={false}  placeholder='请输入姓名' requireLabel={true}/>
-            			<KrField grid={1/2}  name="idCord" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>
+            			{typeValue ==77 &&<KrField grid={1/2}  name="idCord" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>}
 						<KrField grid={1/2}  name="tel" style={{width:262,marginLeft:28}} component='input'  label="联系方式" inline={false}  placeholder='请输入联系方式' requireLabel={true}/>
 
 						{/*参观*/}
@@ -122,7 +131,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
             			<KrField grid={1/2}  name="email" style={{width:262,marginLeft:28}} component='input'  label="邮箱" inline={false}  placeholder='请输入邮箱' requireLabel={true}/>
 
             			{/*参观*/}
-  						{typeValue ==52 &&<KrField grid={1/2}  name="purposeId" style={{width:262,marginLeft:28}} component='select'  label="参观目的" inline={false}
+  						{typeValue == 52 &&<KrField grid={1/2}  name="purposeId" style={{width:262,marginLeft:28}} component='select'  label="参观目的" inline={false}
 							requireLabel={true}
 							options={select.purpose}
 						/>}
@@ -133,21 +142,20 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 							options={select.round}
 						/>}
 						
-						<KrField grid={1/2}  name="vtime" style={{width:262,marginLeft:28}} component='date'  label="拜访日期" inline={false}  placeholder='请选择拜访时间' requireLabel={true}/>
 						<Grid style = {{marginLeft:25}}>
 							<Row>	
 								<ListGroup>
 									<ListGroupItem style={{width:262,padding:0}}>
 										<KrField
-											name="startDate"
+											name="date"
 											component="date"
-											style={{width:170}}
+											style={{width:185}}
 											requireLabel={true}
 											label='活动时间'
 											onChange = {this.dataChange}
 										/>
 										<KrField
-											name="startTime"
+											name="time"
 											component="selectTime"
 											style={{width:80,marginTop:14,zIndex:10}}
 											onChange = {this.timeChange}
