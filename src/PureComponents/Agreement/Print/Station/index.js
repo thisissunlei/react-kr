@@ -198,7 +198,8 @@ export default class Station extends Component {
 										baseType="优惠信息"
 										baseInfo={baseInfo}
 									/>:''}
-				<p className="u-annotation">注：不足一月的，按照月服务费*12月/365天计算日服务费</p>
+				<p className="u-annotation">注：1.不足一月的，按照月服务费*12月/365天计算日服务费</p>
+				<p className="u-annotation u-annotation-two">2.甲乙双方系<span className="discheck"></span> 自行成交 <span className="discheck"></span>通过居间成交 （居间成交的，应在补充条款中注明居间方的信息）</p>
 			</div>
 
 

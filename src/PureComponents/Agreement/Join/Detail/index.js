@@ -96,8 +96,6 @@ export default class JoinDetail extends Component {
 	}
 
 	componentDidMount() {
-		console.log('----',this.props.params)
-
 		var _this = this;
 		Http.request('show-checkin-agreement', {
 				id: this.props.params.id
