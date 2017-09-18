@@ -79,7 +79,7 @@ export default class Discounts extends React.Component {
 							<span>{baseInfo.tacticsTotal}</span>
 							<span>{baseInfo.tacticsTotalCN}</span>
 						</p>
-						<p className="discounts-bottom">{`优惠后服务费总额：${baseInfo.finalAmount} ${baseInfo.finalAmountCN}`}</p>
+						<p className="discounts-bottom">{`优惠后服务费总额：${baseInfo.finalAmount}`} <span style={{paddingLeft:40}}>{baseInfo.finalAmountCN}</span></p>
 					</div>
 				
 			</div>
