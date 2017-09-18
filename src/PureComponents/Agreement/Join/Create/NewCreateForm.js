@@ -11,8 +11,9 @@ import {
 import Param from 'jquery-param';
 import nzh from 'nzh';
 import {
-	Fields
-} from 'redux-form';
+	arrReverse
+} from 'kr/Utils';
+
 
 import {
 	Binder
@@ -28,8 +29,11 @@ import {
 	initialize,
 	arrayPush,
 	arrayInsert,
-	FieldArray
+	FieldArray,
+	Field,
+	Fields
 } from 'redux-form';
+
 
 import {DateFormat,Http} from 'kr/Utils'
 import PlanMapContent from 'kr/PureComponents/PlanMapContent';
@@ -72,6 +76,8 @@ import {
 	CircleStyle,
 	Tooltip
 } from 'kr-ui';
+var tabelLength = 0;
+var titleChecked = false;
 
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends Component {
@@ -88,6 +94,7 @@ class NewCreateForm extends Component {
 			payTypeList: [],
 			paymentList: [],
 			fnaCorporationList: [],
+
 		}
 	}
 
@@ -132,6 +139,8 @@ class NewCreateForm extends Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:0,
+			checkedArr:[],
+			biaodan:[]
 
 		}
 	}
@@ -160,7 +169,7 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
+		value = dateFormat(value, "yyyy-mm-dd");
 
 		let {
 			stationVos
@@ -181,7 +190,7 @@ class NewCreateForm extends Component {
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
+		value = dateFormat(value, "yyyy-mm-dd");
 		let {
 			stationVos
 		} = this.state;
@@ -406,7 +415,6 @@ class NewCreateForm extends Component {
 		var _this = this;
 
 		form.stationVos = stationVos;
-		console.log("OOOOOO",form)
 		const {
 			onSubmit
 		} = this.props;
@@ -566,6 +574,464 @@ class NewCreateForm extends Component {
 		return name;
 	}
 
+
+	rowCheck = (event,index) =>{
+
+		
+		var checkedArr = [].concat(this.state.checkedArr);
+		var key = checkedArr.indexOf(index);
+		
+		if(event.target.checked){
+			if(key===-1){
+				checkedArr.push(index);
+			}
+		}else{
+			if(key!==-1){
+				checkedArr.splice(key,1);
+				
+			}
+		}
+		
+		if(checkedArr.length === tabelLength){
+			this.titleCheckbox.checked = true;
+		}else{
+			titleChecked = true;
+			this.titleCheckbox.checked = false;
+		}
+		console.log('checkedArr',checkedArr)
+		this.setState({
+			checkedArr,
+		})
+
+	}
+	addRow = (fields) =>{
+
+		let {
+			changeValues
+		} = this.props;
+
+		let {
+			wherefloor,
+			leaseBegindate,
+			leaseEnddate
+		} = changeValues;
+
+		if (!wherefloor) {
+			Notify.show([{
+				message: '请先选择楼层',
+				type: 'danger',
+			}]);
+			return;
+		}
+
+		if (!leaseBegindate) {
+			Notify.show([{
+				message: '请选择租赁开始时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+
+		if (!leaseEnddate) {
+			Notify.show([{
+				message: '请选择租赁结束时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+
+		if(new Date(leaseEnddate)<new Date(leaseBegindate)){
+			Notify.show([{
+				message: '结束时间不能小于开始时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+
+		fields.push();
+		
+		setTimeout(()=>{
+
+			if(titleChecked){
+				this.allChecked();
+				this.clearCheckBox(false);
+			}
+		},50)
+	}
+	removeRow=(fields)=>{
+		let {checkedArr} = this.state;
+		var newArr = arrReverse(checkedArr);
+		if(newArr.length){
+			this.clearCheckBox(true);
+		}
+		newArr.map((item,index)=>{
+			fields.remove(item);
+		})
+		if(tabelLength == newArr.length){
+			this.titleCheckbox.checked = false;
+			titleChecked = false;
+		}
+		this.setState({
+			checkedArr:[],
+			biaodan:[]
+		})
+	}
+	clearCheckBox = (type) =>{
+		for(let i = 0;i<tabelLength;i++){
+			if(type){
+				if(this["checkbox"+i]){
+					this["checkbox"+i].checked = false;
+				} 
+			}else{
+				this["checkbox"+i].checked = true;
+			}
+			
+			
+		}
+	}
+	allChecked = () =>{
+		var checkedArr = [];
+		for(let i=0;i<tabelLength;i++){
+			checkedArr.push(i);
+		}
+		this.setState({
+			checkedArr,
+		})
+	}
+	handeOnCheck = (event) =>{
+		var handeCheck=event.target.checked;
+		console.log('handeOnCheck',handeCheck)
+		var checkedArr = [];
+		if(handeCheck){
+			this.clearCheckBox(false);
+			this.allChecked();
+		}else{
+			this.clearCheckBox(true);
+			this.setState({
+				checkedArr:[]
+			})
+			
+		}
+		
+		titleChecked = handeCheck;
+	
+		
+		
+	}
+	renderBrights=({fields})=>{
+		console.log('fields',fields);
+		const self = this;
+		tabelLength = fields.length;
+		return (
+			<div className="ui-tables">
+				 <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
+					<Row>
+						<Col align="right">
+							<ButtonGroup>
+								<Button label="添加优惠"  onTouchTap={() => {this.addRow(fields)}}  />
+								<Button label="删除"  onTouchTap={() => {this.removeRow(fields)}}  />
+						  </ButtonGroup>
+						</Col>
+					</Row>
+				</Grid>
+			<table>
+				<thead>
+				<tr className="hander">
+					<td>
+						<input onChange ={this.handeOnCheck} 
+						ref = {(ref)=>{
+							self.titleCheckbox = ref;
+						}}
+						name="mm"
+						type="checkbox" 
+					/></td>
+					<td style={{width:100}}>优惠类型</td>
+					<td>开始时间</td>
+					<td style={{width:130}}>结束时间</td>
+					<td style={{width:80}}>折扣</td>
+					<td style={{width:100}}>优惠金额</td>
+				</tr>
+				</thead>
+				<tbody>
+				{
+					this.renderTr(fields)
+				}
+				</tbody>
+
+			</table>
+			</div>
+
+
+
+
+		)
+	}
+	renderTr=(fields)=>{
+		let keyList = [{label:'免前',value:'1111'},{label:'折扣',value:'222'},{label:'免后',value:'3'}]
+		let self = this;
+		let {
+			changeValues
+		} = this.props;
+
+		let {
+			wherefloor,
+			leaseBegindate,
+			leaseEnddate
+		} = changeValues;
+		let {biaodan}= this.state;
+		return(
+		fields.map((member, index) =>{
+					if(biaodan[index] == '222'){
+					return(<tr key={index} className="hander">
+					     <td style={{verticalAlign:'middle'}}>
+
+					     <input type="checkbox"
+						onChange = {(event)=>{
+							self.rowCheck(event,index)
+						}}
+						ref = {(ref)=>{
+							self["checkbox"+index] = ref;
+						}}/></td>
+				        <td >
+					        <KrField
+					          name={`${member}.type`}
+					          type="text"
+					          component='select'
+					          options={keyList}
+					          onChange={(event)=>{
+							self.changeType(event,index,fields)
+							}}/>
+				        </td>
+				        <td style={{textAlign:'center'}}>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
+				        </td>
+				        <td style={{textAlign:'center'}}>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
+
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.money`}
+					          type="text"
+					          component='text'
+					          value={member.type}
+					          onBlur={(event)=>{
+								self.zhekou(event,fields,index)
+								}}/>
+				        </td>
+				        <td  style={{textAlign:'center'}}>
+				        	<KrField
+					          name={`${member}.num`}
+					          type="text"
+					          component='text'/>
+				        </td>
+				      </tr>
+				    )}else if(biaodan[index] == '1111'){
+				    	return(
+				    	<tr key={index} className="hander">
+					     <td style={{verticalAlign:'middle'}}>
+					     <input type="checkbox"
+						onChange = {(event)=>{
+							self.rowCheck(event,index)
+						}}
+						ref = {(ref)=>{
+							self["checkbox"+index] = ref;
+						}}/></td>
+				        <td style={{verticalAlign:'top'}}>
+					        <KrField
+					          name={`${member}.type`}
+					          type="text"
+					          component='select'
+					          options={keyList}
+					          onChange={(event)=>{
+							self.changeType(event,index,fields)
+							}}/>
+				        </td>
+				       	<td style={{textAlign:'center'}}>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.end`}
+					          type="text"
+					          style={{width:120}}
+					          component='date'/>
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.money`}
+					          type="text"
+					          component='text'
+					          value={member.type}/>
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.num`}
+					          type="text"
+					          component='text'/>
+				        </td>
+				      </tr>
+				    )
+				    }else if(biaodan[index] == '3') {
+				    	return(
+				    	<tr key={index} className="hander">
+					     <td style={{verticalAlign:'middle'}}>
+					     <input type="checkbox"
+						onChange = {(event)=>{
+							self.rowCheck(event,index)
+						}}
+						ref = {(ref)=>{
+							self["checkbox"+index] = ref;
+						}}/></td>
+				        <td style={{verticalAlign:'top'}}>
+					        <KrField
+					          name={`${member}.type`}
+					          type="text"
+					          component='select'
+					          options={keyList}
+					          onChange={(event)=>{
+							self.changeType(event,index,fields)
+							}}/>
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.begin`}
+					          type="text"
+					          style={{width:120}}
+					          component='date'
+					          />
+				        </td>
+				        <td style={{textAlign:'center'}}>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.money`}
+					          type="text"
+					          component='text'
+					          value={member.type}/>
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.num`}
+					          type="text"
+					          component='text'/>
+				        </td>
+				      </tr>
+				    )
+				    }else {
+				    	return(
+				    	<tr key={index} className="hander">
+					     <td style={{verticalAlign:'middle'}}>
+					     <input type="checkbox"
+						onChange = {(event)=>{
+							self.rowCheck(event,index)
+						}}
+						ref = {(ref)=>{
+							self["checkbox"+index] = ref;
+						}}/></td>
+				        <td style={{verticalAlign:'top'}}>
+					        <KrField
+					          name={`${member}.type`}
+					          type="text"
+					          component='select'
+					          options={keyList}
+					          onChange={(event)=>{
+							self.changeType(event,index,fields)
+							}}/>
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.begin`}
+					          type="text"
+					          style={{width:120}}
+					          component='date'
+					          />
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.end`}
+					          type="text"
+					          style={{width:120}}
+					          component='date'/>
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.money`}
+					          type="text"
+					          component='text'
+					          value={member.type}/>
+				        </td>
+				        <td>
+					        <KrField
+					          name={`${member}.num`}
+					          type="text"
+					          component='text'/>
+				        </td>
+				      </tr>
+				    )
+				    }
+
+
+				})
+		)
+
+
+	}
+	changeType=(e,index,fields)=>{
+		console.log('changeType',e,index,fields)
+		let {biaodan} = this.state;
+		let {changeValues} = this.props;
+		let same = false;
+		let sameFree = false;
+		biaodan[index] = e.value;
+		console.log('changeValues',biaodan,biaodan.length);
+		biaodan.map((item)=>{
+			console.log(same,sameFree)
+			if(item == '222' && !same){
+				same = true;
+			}else if(item == '222' && same){
+				Notify.show([{
+					message: '只可以选择一次折扣',
+					type: 'danger',
+				}]);
+				biaodan.splice(index,1)
+				fields.remove(index);
+			}else if(item == '1111' && !sameFree){
+				sameFree = true
+			}else if(item == '3' && !sameFree){
+				sameFree = true;
+			}else if(sameFree){
+				console.log('==sameFree======',sameFree)
+				Notify.show([{
+					message: '折前和折后只可以选择一个',
+					type: 'danger',
+				}]);
+				biaodan.splice(index,1)
+				fields.remove(index);
+			}
+		})
+		this.setState({
+			biaodan
+		},()=>{
+			this.renderBrights({fields})
+		})
+		setTimeout(()=>{
+			this.addRow(fields);
+			fields.remove(tabelLength-1)
+
+		},50)
+
+		
+		
+	}
+	zhekou=(e,fields,index)=>{
+		let {changeValues} = this.props;
+		fields.remove(index);
+		fields.insert(index,{type:'222',num:'1234'})
+		console.log('zhekou',e,fields,changeValues.members);
+	}
+
 	render() {
 		var _this = this;
 		let {
@@ -669,6 +1135,10 @@ class NewCreateForm extends Component {
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 
                         </DotTitle>
+                    <DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
+						<FieldArray name='members' component={this.renderBrights}/>
+
+				    </DotTitle>
                      <div className="all-rent" style={{marginTop:'0px',marginBottom:25,fontSize:14}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent|| '0'}</span><span>{allRentName}</span></div>
 
 					</div>
@@ -874,6 +1344,26 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
+	if (!values.members || !values.members.length) {
+    	errors.members = { _error: 'At least one member must be entered' }
+	 } else {
+	    const membersArrayErrors = []
+	    values.members.forEach((member, memberIndex) => {
+	      const memberErrors = {}
+	      if (!member || !member.type) {
+	        memberErrors.type = 'Required'
+	        membersArrayErrors[memberIndex] = memberErrors
+	      }
+	      if (!member || !member.num) {
+	        memberErrors.num = 'Requirsssed'
+	        membersArrayErrors[memberIndex] = memberErrors
+	      }
+	    })
+	    if(membersArrayErrors.length) {
+	      errors.members = membersArrayErrors
+	    }
+	  }
+
 
 	return errors
 }
@@ -898,6 +1388,7 @@ export default connect((state) => {
 	changeValues.leaseBegindate = selector(state, 'leaseBegindate');
 	changeValues.leaseEnddate = selector(state, 'leaseEnddate');
 	changeValues.wherefloor = selector(state, 'wherefloor') || 0;
+	changeValues.members = selector(state, 'members') || [];
 
 	return {
 		changeValues
