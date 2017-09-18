@@ -117,7 +117,7 @@ import State from './State';
 						/>}
 
             			<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="姓名" inline={false}  placeholder='请输入姓名' requireLabel={true}/>
-						<KrField grid={1/2}  name="idCord" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>
+						{typeValue==741 && <KrField grid={1/2}  name="idCard" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>}
 						<KrField grid={1/2}  name="tel" style={{width:262,marginLeft:28}} component='input'  label="联系方式" inline={false}  placeholder='请输入联系方式' requireLabel={true}/>
 
 						{/*参观*/}
@@ -261,10 +261,10 @@ const validate = values =>{
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
 	}
-	if(!values.idCord){
-		errors.idCord = "请填写身份证号";
-	}else if(!idCordReg.test(values.idCord)){
-		errors.idCord = "身份证号格式不正确";
+	if(!values.idCard){
+		errors.idCard = "请填写身份证号";
+	}else if(!idCordReg.test(values.idCard)){
+		errors.idCard = "身份证号格式不正确";
 	}
 
 
