@@ -234,7 +234,39 @@ export default class JoinDetail extends Component {
 
 
 					</DotTitle>
+					<DotTitle title='优惠明细'>
+						<Table displayCheckbox={false}>
+							<TableHeader>
+									<TableHeaderColumn>优惠类型</TableHeaderColumn>
+									<TableHeaderColumn>开始时间</TableHeaderColumn>
+									<TableHeaderColumn>结束时间</TableHeaderColumn>
+									<TableHeaderColumn>折扣</TableHeaderColumn>
+									<TableHeaderColumn>优惠金额</TableHeaderColumn>
+							</TableHeader>
+							<TableBody>
 
+							{
+								newBasicStationVos && newBasicStationVos.map((item,index)=>{
+
+								return (
+									<TableRow key={index}>
+										<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
+										<TableRowColumn>
+											<KrDate value={item.leaseBeginDate}/>
+										</TableRowColumn>
+										<TableRowColumn>
+											<KrDate value={item.leaseEndDate}/>
+										</TableRowColumn>
+										<TableRowColumn><KrDate value={item.leaseBeginDate}/></TableRowColumn>
+										<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
+									</TableRow>
+								);
+								})
+							}
+
+							</TableBody>
+						</Table>
+					</DotTitle>
 				 <div className="content-info" style={info} >
                    <div className='detail-first'>
 					<KrField component="labelText" grid={1/2} label="出租方：" value={basic.lessorName} defaultValue="无" requireBlue={true} toolTrue='true'/>

@@ -1,7 +1,7 @@
 import React, {
 	Component
 } from 'react';
-
+import Discounts from 'kr/PureComponents/Agreement/Print/Discounts';
 import './index.less';
 
 export default class Station extends Component {
@@ -11,6 +11,7 @@ export default class Station extends Component {
 		info: '服务费总计',
 		reduceTh: '服务期限',
 		method: false,
+		
 	}
 
 	static propTypes = {
@@ -27,6 +28,7 @@ export default class Station extends Component {
 		super(props, context);
 		this.state={
 			stationVOs:this.props.stationVOs,
+			hasTactics:false,
 		}
 		this.init = false;
 
@@ -38,10 +40,12 @@ export default class Station extends Component {
 			stationVOs.splice(32,0,{stationTypeName:'',stationName:'',unitPrice:'',num:'',leaseDate:'',lineTotal:''})
 		}
 		this.setState({
-			stationVOs:stationVOs
+			stationVOs:stationVOs,
+			hasTactics:this.props.baseInfo.hasTactics
 		})
 	}
 	componentWillReceiveProps(nextProp){
+
 		let {stationVOs} = nextProp;
 		if(!this.init){
 			this.init = true;
@@ -54,8 +58,9 @@ export default class Station extends Component {
 			})
 		}
 		
-		
-
+		this.setState({
+			hasTactics:nextProp.baseInfo.hasTactics
+		})
 		
 	}
 
@@ -107,6 +112,7 @@ export default class Station extends Component {
 			info,
 			reduceTh,
 			method,
+			stationVOs
 		} = this.props;
 
 		let {
@@ -115,11 +121,11 @@ export default class Station extends Component {
 			payModel,
 			payModelList
 		} = this.props.baseInfo;
-		let {stationVOs} = this.props;
+
+		let {hasTactics} = this.state;
 
 		this.method();
 		
-
 		return (
 
 
@@ -187,12 +193,12 @@ export default class Station extends Component {
 							<span>{baseInfo.rentTotalCN}</span>
 							{this.props.orderTime && <span>(签署意向书后5个工作日内支付)</span>}
 						</p>
-
 					</div>
-
-
-					<p>注：不足一月的，按照月服务费*12月/365天计算日服务费</p>
-
+					{hasTactics? <Discounts
+										baseType="优惠信息"
+										baseInfo={baseInfo}
+									/>:''}
+				<p className="u-annotation">注：不足一月的，按照月服务费*12月/365天计算日服务费</p>
 			</div>
 
 
