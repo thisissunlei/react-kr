@@ -27,7 +27,9 @@ let State = observable({
 	detailValue:'',
 
 	//高级查询
-	openSearchUpper:false
+	openSearchUpper:false,
+	communityId:'',
+	saleList:[]
 
 });
 
@@ -45,6 +47,15 @@ State.ajaxListData=action(function(ajaxData){
 			setTimeout(function() {
 					loading: false
 			}, 0);
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		//Store.dispatch(Actions.switchSidebarNav(false));
+})
+State.getSaleList=action(function(){
+	    var _this = this;
+		Http.request('sale-tactics', {communityId:_this.communityId}).then(function(response) {
+			console.log('getSaleList===>',response)
 		}).catch(function(err) {
 			Message.error(err.message);
 		});

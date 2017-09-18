@@ -779,6 +779,7 @@ class NewCreateForm extends Component {
 			leaseEnddate
 		} = changeValues;
 		let {biaodan}= this.state;
+		// let keyList = this.props.optionValues.saleList;
 		return(
 		fields.map((member, index) =>{
 					if(biaodan[index] == '222'){

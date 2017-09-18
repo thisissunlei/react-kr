@@ -183,6 +183,8 @@ export default class JoinCreate extends Component {
 		let optionValues = {};
 		let initialValue = {};
 		let optionValue = {fnaCorporationList:[]};
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.getSaleList();
 
 
 		let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
@@ -281,6 +283,7 @@ export default class JoinCreate extends Component {
 		} = this.state;
 
 		let {CommunityAgreementList} = this.props;
+		optionValues.saleList = CommunityAgreementList.saleList;
 
 		return (
 

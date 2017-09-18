@@ -364,7 +364,7 @@ export default class OrderDetail extends React.Component {
 			Store.dispatch(Actions.switchSidebarNav(false));
 			Store.dispatch(Actions.switchHeaderNav(false));
 		}
-		const {NavModel} = this.props;
+		const {NavModel,CommunityAgreementList} = this.props;
 		NavModel.setSidebar(false);
 		this.getLocalStorageDate()
 
@@ -376,6 +376,7 @@ export default class OrderDetail extends React.Component {
 			_this.setState({
 				response: response
 			});
+			CommunityAgreementList.communityId = response.orderBaseInfo.communityid;
 
 
 			setTimeout(function() {
