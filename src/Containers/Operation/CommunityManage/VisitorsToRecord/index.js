@@ -488,19 +488,13 @@ class VisitorsToRecord  extends React.Component{
                         }}
 
                       ></TableRowColumn>
-                       <TableRowColumn name="vtime"
-                        component={(value,oldValue)=>{
-                           return (<KrDate value={value} format="yyyy-mm-dd"/>)
-                        }}
-
+                       <TableRowColumn name="idCard"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
                       ></TableRowColumn>
                       <TableRowColumn 
-                        name="vtime"
+                        name="visitStatus"
                         style = {{wordWrap:'break-word',whiteSpace:'normal'}}
-                        component={(value,oldValue)=>{
-                           return (<KrDate value={value} format="yyyy-mm-dd"/>)
-                        }}
-
+                       
                       ></TableRowColumn>
 
 			                <TableRowColumn type="operation">
