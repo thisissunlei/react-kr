@@ -146,4 +146,4 @@ const validate = values =>{
 	return errors
 }
 
-export default reduxForm({ form: 'AddText',validate})(AddText);
+export default reduxForm({ form: 'EditText',validate})(EditText);

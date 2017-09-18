@@ -26,6 +26,7 @@ import EditDetail from './EditDetail';
 import DeleForm from './DeleForm';
 import AddText from './AddText';
 import EditText from './EditText';
+import EditCreate from './EditCreate';
 import './index.less';
 class TextInfo  extends React.Component{
 
@@ -187,6 +188,7 @@ class TextInfo  extends React.Component{
 		openAddText:false
 	 })
  }
+
  //打开新增字段
  addText=()=>{
 	this.setState({
@@ -198,8 +200,15 @@ class TextInfo  extends React.Component{
 
  }
 
+//打开编辑字段
  editText=()=>{
    this.setState({
+		 openEditText:!this.state.openEditText
+	 })
+ }
+
+ cancelEditText=()=>{
+	 this.setState({
 		 openEditText:!this.state.openEditText
 	 })
  }
@@ -378,12 +387,12 @@ class TextInfo  extends React.Component{
 						{/*编辑字段*/}
 						{isCreate&&<Dialog
 						title="编辑字段－已创建表"
-						onClose={this.cancelEditText}
+						onClose={this.editText}
 						open={this.state.openEditText}
 						contentStyle ={{ width: '374px',height:'auto'}}
 						>
 							<EditCreate
-								onCancel={this.cancelEditText}
+								onCancel={this.editText}
 								onSubmit={this.onEditTextSub}
 							/>
 						</Dialog>}
