@@ -1030,10 +1030,63 @@ class NewCreateForm extends Component {
 		
 	}
 	zhekou=(e,fields,index)=>{
-		let {changeValues} = this.props;
+		let {changeValues,initialValues,optionValues} = this.props;
+		let {saleList}  = optionValues;
+		let {stationVos} = this.state;
+		let tacticsId = '';
+		if(!e ||isNaN(e)){
+			Notify.show([{
+				message: '折扣只能为数字',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(e>9.9){
+			Notify.show([{
+				message: '折扣不能大于9.9',
+				type: 'danger',
+			}]);
+			return;
+		}
+		saleList.map((item)=>{
+			if(item.value == changeValues.saleList[index].type && item.discount>e){
+				let message = '折扣不能小于'+item.discount;
+				Notify.show([{
+					message: message,
+					type: 'danger',
+				}]);
+				return;
+			}
+			if(item.value == changeValues.saleList[index].type){
+			   	tacticsId = item.id;
+			}
+		})
+		let time = {
+			validStart :changeValues.leaseBegindate,
+			validEnd:changeValues.leaseEnddate,
+			tacticsType:changeValues.saleList[index].type,
+			tacticsId:tacticsId,
+			discount:e
+		}
+		changeValues.saleList[index] = Object.assign({},time)
+		
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(changeValues.saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:changeValues.leaseBegindate,
+			leaseEnddate:changeValues.leaseEnddate
+		};
+		Http.request('count-sale', '',params).then(function(response){
+			console.log('=====',response)
+		}).catch(function(err){
+			console.log('=====',err)
+
+		})
+		return;
+
 		fields.remove(index);
-		fields.insert(index,{type:'222',num:'1234'})
-		console.log('zhekou',e,fields,changeValues.saleList);
+		fields.insert(index,{type:'1',num:'1234',money:e})
 	}
 
 	render() {
