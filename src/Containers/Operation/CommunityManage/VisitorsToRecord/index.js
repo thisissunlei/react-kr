@@ -54,6 +54,7 @@ class VisitorsToRecord  extends React.Component{
 		super(props, context);
 		let date = new Date();
 		this.state={
+      editDetail:'',
 			searchParams:{
 				searchType:'',
         id:"",
@@ -133,13 +134,20 @@ class VisitorsToRecord  extends React.Component{
       })
 
     Http.request("visit-record-edit-deatil",{id:id}).then(function(editData){
-      editData.vtime = DateFormat(editData.vtime,"yyyy-mm-dd hh:MM:ss");
+      var vtime = DateFormat(editData.vtime,"yyyy-mm-dd hh:MM");
+      editData.date = vtime.split(" ")[0];
+      editData.time = vtime.split(" ")[1];
+      if(!editData.visitStatus || editData.visitStatus == "NONE"){
+        editData.visitStatus = "UNVISIT"
+      }
+      
       FormModel.getForm("EditVisitorsToRecord")
   		         .changeValues(editData);
       _this.setState({
         typeValue:editData.typeId,
         openEditVisitors:true,
-        id:itemDetail.id
+        id:itemDetail.id,
+        editDetail:editData
       })
     }).catch(function(err) {
       Message.error(err.message);
@@ -298,8 +306,15 @@ class VisitorsToRecord  extends React.Component{
       })
     }
     if(type == "visit"){
-      FormModel.getForm("VisitToState")
-             .changeValues({visitType:''})
+        if(!itemDetail.visitStatus || itemDetail.visitStatus=="NONE"){
+          itemDetail.visitStatus = "UNVISIT"
+        }
+        var params = {
+          id:itemDetail.id,
+          visitStatus:itemDetail.visitStatus
+        }
+        FormModel.getForm("VisitToState")
+  		         .changeValues(params);
       this.switchVisitToState()
     }
 	}
@@ -353,9 +368,9 @@ class VisitorsToRecord  extends React.Component{
   VisitToStateSubmit = (values) =>{
     var params = Object.assign({},values); 
     var that = this;
-    Http.request("visit-record-edit",params).then(function(select){
+    Http.request("change-visit-state",{},params).then(function(select){
       that.switchVisitToState();
-
+      that.refreshList();
     }).catch(function(err) {
 
       Message.error(err.message);
@@ -390,7 +405,8 @@ class VisitorsToRecord  extends React.Component{
           openUpperForm,
           searchContent,
           typeValue,
-          allVisitNum
+          allVisitNum,
+          editDetail
         } = this.state;
 
 		return(
@@ -542,7 +558,8 @@ class VisitorsToRecord  extends React.Component{
                     onCancel= {this.closeEditVisitors}
                     onSubmit = {this.onSubmit}
                     typeValue = {typeValue}
-                    />
+                    editDetail = {editDetail}
+                  />
              </Drawer>
 
              {/*查看详情*/}

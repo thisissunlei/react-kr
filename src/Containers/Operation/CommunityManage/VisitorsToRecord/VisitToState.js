@@ -47,7 +47,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
   //确定按钮
   onSubmit = (values) =>{
     
-    
+    console.log(values,"PPPPPPPP")
     
   	let {onSubmit} = this.props;
   	onSubmit && onSubmit(values);
@@ -66,11 +66,12 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 		return (
 
 		<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}}  >
-            <KrField  label="是否已有办公室" name="hasOffice" style={{marginLeft:15,marginRight:13}} component="group" requireLabel={true} >
-                <KrField name="hasOffice" label="未到访" type="radio" value="YES"  style={{marginTop:5}}/>
-                <KrField name="hasOffice" label="已到访未签约" type="radio" value="NO"  style={{marginTop:5}}/>
-                <KrField name="hasOffice" label="已到访已签约" type="radio" value="1NO"  style={{marginTop:5}}/>
-            </KrField>
+            <KrField  label="是否到访" name="visitStatus" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
+							<KrField name="visitStatus" label="未到访" type="radio" value="UNVISIT"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访未签约" type="radio" value="VISIT_UNSIGN"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访已签约" type="radio" value="VISIT_SIGN"  style={{marginTop:5}}/>
+						</KrField>
+						<KrField name="id" style={{display:"none"}}/>
 
           <Grid style={{marginTop:17,marginBottom:5,marginLeft:-24}}>
             <Row>
