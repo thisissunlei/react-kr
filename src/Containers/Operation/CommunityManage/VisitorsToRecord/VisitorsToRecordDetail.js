@@ -96,6 +96,20 @@ import './index.less';
 			return <Loading />
 		}
 
+		var isOk='';
+		if(detail.visitStatus=='NONE'){
+			isOk='无';
+		}
+		if(detail.visitStatus=='UNVISIT'){
+			isOk='未到访';
+		}
+		if(detail.visitStatus=='VISIT_UNSIGN'){
+			isOk='已到访未签约';
+		}
+		if(detail.visitStatus=='VISIT_SIGN'){
+			isOk='已到访已签约';
+		}
+
 		return (
       <div className = "m-newMerchants m-visitors-to-record-detail">
         <div className="title" style={{marginBottom:"30px"}}>
@@ -116,7 +130,7 @@ import './index.less';
         {typeValue ==50 &&<KrField component="labelText" grid={1/2} label="面试轮次：" value={detail.interviewRoundName} defaultValue="无" requireBlue={true} />}
         <KrField component="labelText" grid={1/2} label="拜访日期：" value={DateFormat(detail.vtime,"yyyy-mm-dd")} defaultValue="无" requireBlue={true} />
         {(typeValue == 49 || typeValue == 732) &&<KrField component="labelText" grid={1/2} label="被拜访人：" value={detail.meetedMan} defaultValue="无" requireBlue={true} />}
-		<KrField component="labelText" grid={1/2} label="是否已到访：" value={detail.visitStatus} defaultValue="无" requireBlue={true} />
+		<KrField component="labelText" grid={1/2} label="是否已到访：" value={isOk} defaultValue="无" requireBlue={true} />
       </div>
 
 		);

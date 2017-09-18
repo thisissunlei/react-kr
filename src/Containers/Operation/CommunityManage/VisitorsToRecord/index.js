@@ -272,7 +272,7 @@ class VisitorsToRecord  extends React.Component{
     if(!id){
       page=1;
     }
-    Http.request("visit-record-edit",params).then(function(select){
+    Http.request("visit-record-edit",{},params).then(function(select){
       _this.refreshList(page);
       _this.closeNewVisitors();
       _this.closeEditVisitors();
@@ -490,6 +490,15 @@ class VisitorsToRecord  extends React.Component{
                       ></TableRowColumn>
                        <TableRowColumn name="idCard"
                         style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                        component={(value,oldValue)=>{
+                          var detail='';
+                          if(!value){
+                            detail='-';
+                          }else{
+                            detail=value;
+                          }
+                           return <span>{detail}</span>;
+                        }}
                       ></TableRowColumn>
                       <TableRowColumn 
                         name="visitStatus"
