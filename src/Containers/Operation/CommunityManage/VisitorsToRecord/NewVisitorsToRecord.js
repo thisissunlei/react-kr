@@ -111,7 +111,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 						/>}
 
             			<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="姓名" inline={false}  placeholder='请输入姓名' requireLabel={true}/>
-            			<KrField grid={1/2}  name="idCard" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>
+            			<KrField grid={1/2}  name="idCard" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号'/>
 						<KrField grid={1/2}  name="tel" style={{width:262,marginLeft:28}} component='input'  label="联系方式" inline={false}  placeholder='请输入联系方式' requireLabel={true}/>
 
 						{/*参观*/}
@@ -257,9 +257,8 @@ const validate = values =>{
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
 	}
-	if(!values.idCard){
-		errors.idCard = "请填写身份证号";
-	}else if(!idCordReg.test(values.idCard)){
+
+	if(values.idCard&&!idCordReg.test(values.idCard)){
 		errors.idCard = "身份证号格式不正确";
 	}
 
