@@ -74,20 +74,16 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 	}
   //确定按钮
   onSubmit = (values) =>{
-	let {time,value} = this.state;
+	let {time,date} = this.state;
   	let {onSubmit} = this.props;
 	if(!time==true || !date == true){
 		Message.error("时间选择有误!");
 		return;
 	}
-	values.vtime = date+" "+time;
-  	onSubmit && onSubmit(values);
+	values.vtime = date+" "+time+':00';
+	onSubmit && onSubmit(values);
   }
-	//将区县id绑定到from上
-	cityValue=(value)=>{
-			const {$form} = this.props;
-			$form.change('distinctId',value);
-	}
+	
 	render(){
 		const { handleSubmit,select} = this.props;
 		const {typeValue} = this.state;
@@ -101,7 +97,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 
 
 
-						<KrField grid={1/2} name="communityId" style={{width:262,marginLeft:28}} component='searchCommunityAll' label="社区" inline={false}/>
+						<KrField grid={1/2} name="communityId" style={{width:262,marginLeft:28}} component='searchCommunityAll' label="社区" inline={false} requireLabel={true}/>
 						<KrField grid={1/2}  name="typeId" style={{width:262,marginLeft:28}} component='select'  label="类型" inline={false}
 							requireLabel={true}
 							options={select.type}
@@ -122,7 +118,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 
             			<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="姓名" inline={false}  placeholder='请输入姓名' requireLabel={true}/>
 
-            			{typeValue == 741 &&<KrField grid={1/2}  name="idCard" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>}
+            			{typeValue == 741 &&<KrField grid={1/2}  name="idCard" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' />}
 						<KrField grid={1/2}  name="tel" style={{width:262,marginLeft:28}} component='input'  label="联系方式" inline={false}  placeholder='请输入联系方式' requireLabel={true}/>
 
 						{/*参观*/}
@@ -195,7 +191,6 @@ const validate = values =>{
 	const email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 	const idCordReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
 
-	// console.log(State.typeValue,">>>>>>>>");
 	const typeValue = State.typeValue;
 	if(!values.communityId){
 		errors.communityId = "社区不能为空"
@@ -261,15 +256,15 @@ const validate = values =>{
 	}else if(!email.test(values.email)){
 		errors.email = "邮箱的格式不正确"
 	}
-
-
-	if(!values.vtime){
-		errors.vtime = "拜访日期不能为空"
+	
+    if(!values.date||!values.time){
+		errors.date = "拜访日期不能为空"
 	}
-
-	if(values.idCard&&!idCordReg.test(values.idCard)){
-		errors.idCard = "身份证号格式不正确";
-	}
+   if(typeValue == 741){
+		if(values.idCard&&!idCordReg.test(values.idCard)){
+			errors.idCard = "身份证号格式不正确";
+		}
+   }
 
 
 
