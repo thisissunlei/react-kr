@@ -43,7 +43,7 @@ export default class Discounts extends React.Component {
 			baseInfo,
 			baseType,
 		} = this.props;
-
+		console.log('baseInfo-====>>>',baseInfo)
 		return (
 
 
@@ -69,15 +69,17 @@ export default class Discounts extends React.Component {
 												<td>{item.zhekou!='-'?`${item.zhekou}折`:item.zhekou}</td>
 												<td>{`￥${item.amount}`}</td>
 											</tr>
-
 										)
 									})
 							}
-
-
 							</tbody>
 						</table>
-						
+						<p className="discounts-table-bottom">
+							<span>优惠总计</span>
+							<span>{baseInfo.rentTotal}</span>
+							<span>{baseInfo.amountCN}</span>
+						</p>
+						<p className="discounts-bottom">{`优惠后服务费总额：￥${baseInfo.finalAmount} ${baseInfo.finalAmountCN}`}</p>
 					</div>
 				
 			</div>
