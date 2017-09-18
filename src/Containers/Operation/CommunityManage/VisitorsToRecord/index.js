@@ -411,20 +411,11 @@ class VisitorsToRecord  extends React.Component{
 
 		return(
 			<div className="m-equipment-list m-visitors-to-record" style={{minHeight:'910'}}>
-				<Title value="预约参观" style = {{}}/>
-      		<Section title="预约参观"  style={{marginBottom:-5,minHeight:910}}>
+				<Title value="预约参观" />
+      		<Section title={"预约参观("+allVisitNum+")"}   style={{marginBottom:-5,minHeight:910}}>
 
 		        <Row style={{marginBottom:21,zIndex:3,position:"relative"}}>
-              <Col md={12} style={{marginTop: -20}}>
-                  <ListGroup >
-                    <div className="list-name">
-                    <span className='ui-incomeMoney'>
-                    </span>
-                    <span className="font-width">访客总数:</span>
-                    <span className="font-width font-num">{allVisitNum}</span>
-                    </div>
-                  </ListGroup>
-                </Col>
+              
 				      <Col
 						     align="left"
 						     style={{float:'left'}}
@@ -501,7 +492,7 @@ class VisitorsToRecord  extends React.Component{
 			                <TableRowColumn name="communityName"></TableRowColumn>
 			                <TableRowColumn name="vtime"
                         component={(value,oldValue)=>{
-                           return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                           return (<KrDate value={value} format="yyyy-mm-dd hh:MM"/>)
                         }}
 
                       ></TableRowColumn>
