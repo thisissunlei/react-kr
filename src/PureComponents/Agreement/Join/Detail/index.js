@@ -200,6 +200,7 @@ export default class JoinDetail extends Component {
 									<TableHeaderColumn>类别</TableHeaderColumn>
 									<TableHeaderColumn>编号／名称</TableHeaderColumn>
 									<TableHeaderColumn>单价（元／月）</TableHeaderColumn>
+									<TableHeaderColumn>优惠后单价（元／月）</TableHeaderColumn>
 									<TableHeaderColumn>起始日期</TableHeaderColumn>
 									<TableHeaderColumn>结束日期</TableHeaderColumn>
 							</TableHeader>
@@ -213,6 +214,9 @@ export default class JoinDetail extends Component {
 										<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 										<TableRowColumn>
 										{item.stationName}
+										</TableRowColumn>
+										<TableRowColumn>
+											{item.originalUnitprice}
 										</TableRowColumn>
 										<TableRowColumn>
 											{item.unitprice}
