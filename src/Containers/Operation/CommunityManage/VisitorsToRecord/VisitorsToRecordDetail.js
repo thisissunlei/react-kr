@@ -105,6 +105,7 @@ import './index.less';
         {typeValue ==50 &&<KrField component="labelText" grid={1/2} label="面试类型：" value={detail.interviewTypeName} defaultValue="无" requireBlue={true} />}
         {typeValue ==51 &&<KrField component="labelText" grid={1/2} label="活动类型：" value={detail.activityTypeName} defaultValue="无" requireBlue={true} />}
         <KrField component="labelText" grid={1/2} label="姓名：" value={detail.name} defaultValue="无" requireBlue={true} />
+		{typeValue ==741 &&<KrField component="labelText" grid={1/2} label="访客身份证号：" value={detail.idCard} defaultValue="无" requireBlue={true} />}
         <KrField component="labelText" grid={1/2} label="联系方式：" value={detail.tel} defaultValue="无" requireBlue={true} />
         {typeValue ==52 &&<KrField component="labelText" grid={1/2} label="微信：" value={detail.wechat} defaultValue="无" requireBlue={true} />}
         {(typeValue == 49 || typeValue == 732) &&<KrField component="labelText" grid={1/2} label="拜访人数：" value={detail.num} defaultValue="无" requireBlue={true} />}
@@ -113,6 +114,7 @@ import './index.less';
         {typeValue ==50 &&<KrField component="labelText" grid={1/2} label="面试轮次：" value={detail.interviewRoundName} defaultValue="无" requireBlue={true} />}
         <KrField component="labelText" grid={1/2} label="拜访日期：" value={DateFormat(detail.vtime,"yyyy-mm-dd")} defaultValue="无" requireBlue={true} />
         {(typeValue == 49 || typeValue == 732) &&<KrField component="labelText" grid={1/2} label="被拜访人：" value={detail.meetedMan} defaultValue="无" requireBlue={true} />}
+		<KrField component="labelText" grid={1/2} label="是否已到访：" value={detail.visitStatus} defaultValue="无" requireBlue={true} />
       </div>
 
 		);
