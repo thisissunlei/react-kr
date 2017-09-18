@@ -92,6 +92,52 @@ function delHtmlTag(str){
 }
 
 
+//数组元素位置移动
+function moveArr(arr,index1,index2){
+   arr = [].concat(arr);
+
+   arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+ 
+   return arr;
+}
+
+//上移
+function arrUpMove(arr,index){
+    var arr = [].concat(arr);
+    if(Object.prototype.toString.call(arr) != '[object Array]'){
+       return ;
+    }
+    if(!arr.length || !numScope(index,arr.length,0) || index==0){
+      return;
+    }
+    var arr = moveArr(arr,index,index-1);
+    return arr;
+}
+
+//下移
+function arrDownMove(arr,index){
+    var arr = [].concat(arr);
+    if(Object.prototype.toString.call(arr) != '[object Array]'){
+       return ;
+    }
+    
+    if(!arr.length || !numScope(index,arr.length,0) || index == arr.length-1) {
+          return;
+    }
+    arr = moveArr(arr, index, index + 1);
+    return arr;
+}
+
+function numScope(num,upLine,downLine){
+  if(isNaN(num) || isNaN(upLine) || isNaN(downLine)){
+    new Error("numScope函数的参数存在非数字");
+  }
+  if(num>=downLine && num <= upLine){
+    return true;
+  }else{
+    return false;
+  }
+}
 //base64转file
 function urltoFile(url, filename, mimeType){
   return (fetch(url)
@@ -107,11 +153,29 @@ function isEmptyObject(obj) {
 　　}　　
 　　return true;//返回true，为空对象
 }
+//删除数组的某一个元素
+function arrDelEle (arr,index){
+  arr = [].concat(arr);
+  arr.splice(index,1)
+  return arr;
+}
+function arrReverse (arr){
+  arr  = [].concat(arr);
+  arr.sort(function(a,b){
+    return b-a;
+  })
+  return arr;
+
+}
 
 
 module.exports = {
   numberToSign,
+  arrUpMove,
+  arrDownMove,
   delHtmlTag,
   urltoFile,
-  isEmptyObject
+  isEmptyObject,
+  arrDelEle,
+  arrReverse
 }
