@@ -35,6 +35,8 @@ import './index.less';
 		this.state = {
 			detail:{},
 			loading:true,
+			date:'',
+			time:'',
 		}
 
 		this.getDetail(this.props.detailData.id);

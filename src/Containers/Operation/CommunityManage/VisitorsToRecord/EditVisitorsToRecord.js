@@ -58,12 +58,30 @@ import State from './State';
   //确定按钮
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
+	if(!time==true || !date == true){
+		Message.error("时间选择有误!");
+		return;
+	}
+	values.vtime = date+" "+time;
   	onSubmit && onSubmit(values);
   }
 	//将区县id绑定到from上
 	cityValue=(value)=>{
 			const {$form} = this.props;
 			$form.change('distinctId',value);
+	}
+
+	dataChange = (values) =>{
+		console.log(values);
+		values = values.split(" ")[0];
+		this.setState({
+			date:values
+		})
+	}
+	timeChange = (values) =>{
+		this.setState({
+			time:values
+		})
 	}
 	render(){
 		const { handleSubmit,select} = this.props;
@@ -99,7 +117,7 @@ import State from './State';
 						/>}
 
             			<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="姓名" inline={false}  placeholder='请输入姓名' requireLabel={true}/>
-						<KrField grid={1/2}  name="idCord" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>
+						{typeValue==741 && <KrField grid={1/2}  name="idCard" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>}
 						<KrField grid={1/2}  name="tel" style={{width:262,marginLeft:28}} component='input'  label="联系方式" inline={false}  placeholder='请输入联系方式' requireLabel={true}/>
 
 						{/*参观*/}
@@ -120,8 +138,28 @@ import State from './State';
 							requireLabel={true}
 							options={select.round}
 						/>}
-						<KrField grid={1/2}  name="vtime" style={{width:262,marginLeft:28}} component='date'  label="拜访日期" inline={false}  placeholder='请选择拜访时间' requireLabel={true}/>
-
+						<Grid style = {{marginLeft:25}}>
+							<Row>	
+								<ListGroup>
+									<ListGroupItem style={{width:262,padding:0}}>
+										<KrField
+											name="startDate"
+											component="date"
+											style={{width:190}}
+											requireLabel={true}
+											label='活动时间'
+											onChange = {this.dataChange}
+										/>
+										<KrField
+											name="startTime"
+											component="selectTime"
+											style={{width:80,marginTop:14,zIndex:10}}
+											onChange = {this.timeChange}
+											/>
+									</ListGroupItem>
+								</ListGroup>
+							</Row>
+						</Grid>
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}
@@ -223,10 +261,10 @@ const validate = values =>{
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
 	}
-	if(!values.idCord){
-		errors.idCord = "请填写身份证号";
-	}else if(!idCordReg.test(values.idCord)){
-		errors.idCord = "身份证号格式不正确";
+	if(!values.idCard){
+		errors.idCard = "请填写身份证号";
+	}else if(!idCordReg.test(values.idCard)){
+		errors.idCard = "身份证号格式不正确";
 	}
 
 
