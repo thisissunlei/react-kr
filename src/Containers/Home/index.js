@@ -304,7 +304,7 @@ export default class Home extends React.Component {
 									</div>
 								</a>
 
-								<a className="apply-item" href="https://baoxiao.corp.36kr.com/" target="_blank">
+								<a className="apply-item" href="https://elearnplus.com" target="_blank">
 									<div className="pic" style={{height:this.applyItemWidth}}>
 
 									</div>
