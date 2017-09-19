@@ -18,6 +18,9 @@ import {
 	ListGroupItem
 } from 'kr-ui';
 import {mobxForm}  from 'kr/Utils/MobxForm';
+
+
+
 import './index.less';
 import State from './State';
 
@@ -159,7 +162,7 @@ import State from './State';
 							requireLabel={true}
 							options={select.round}
 						/>}
-						<Grid style = {{marginLeft:25,width:265,display:"inline-block"}}>
+						{/*<Grid style = {{marginLeft:25,width:265,display:"inline-block"}}>
 							<Row>	
 								<ListGroup>
 									<ListGroupItem style={{width:265,padding:0}}>
@@ -181,7 +184,7 @@ import State from './State';
 									</ListGroupItem>
 								</ListGroup>
 							</Row>
-						</Grid>
+						</Grid>*/}
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}
