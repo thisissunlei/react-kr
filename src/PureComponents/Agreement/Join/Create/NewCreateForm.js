@@ -1012,31 +1012,41 @@ class NewCreateForm extends Component {
 		let {changeValues} = this.props;
 		let same = false;
 		let sameFree = false;
+		let showWarn = false;
 		biaodan[index] = e.value;
 		biaodan.map((item)=>{
-			if(item == 2 && !same){
+			if(item == 1 && !same){
 				same = true;
-			}else if(item == 2 && same){
+			}else if(item == 1 && same){
 				Notify.show([{
 					message: '只可以选择一次折扣',
 					type: 'danger',
 				}]);
 				biaodan.splice(index,1)
 				fields.remove(index);
-			}else if(item == 1 && !sameFree){
-				sameFree = true
-			}else if(item == 3 && !sameFree){
-				sameFree = true;
-			}else if(sameFree){
+			}else if(item == 3 && sameFree){
+				showWarn = true;
 				Notify.show([{
-					message: '只可以选择一个免期活动',
+					message: '免期只能选择一种',
 					type: 'danger',
 				}]);
 				biaodan.splice(index,1)
 				fields.remove(index);
-				sameFree= false;
+			}else if(item == 2 && sameFree){
+				showWarn = true;
+				Notify.show([{
+					message: '免期只能选择一种',
+					type: 'danger',
+				}]);
+				biaodan.splice(index,1)
+				fields.remove(index);
+			}else if(item == 2 && !sameFree){
+				sameFree = true
+			}else if(item == 3 && !sameFree){
+				sameFree = true;
 			}
 		})
+
 		this.setState({
 			biaodan
 		},()=>{

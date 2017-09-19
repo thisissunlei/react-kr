@@ -377,7 +377,8 @@ export default class OrderDetail extends React.Component {
 				response: response
 			});
 			CommunityAgreementList.communityId = response.orderBaseInfo.communityid;
-
+			CommunityAgreementList.getSaleList();
+			
 
 			setTimeout(function() {
 				_this.setState({

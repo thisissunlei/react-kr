@@ -240,6 +240,17 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseBegindate =  DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 
+				if(initialValues.saleList){
+					initialValues.biaodan = initialValues.saleList.map(item=>{
+						if(item){
+							return item.tacticsType
+						}else{
+							return ''
+						}
+					})
+				}else{
+					initialValues.biaodan=[]
+				}
 
 				initialValues.stationVos = response.stationVos;
 				initialValues.delStationVos =  [];
@@ -347,6 +358,18 @@ export default class JoinCreate extends React.Component {
 					initialValues.oldNum = localStorageData.oldNum;
 				}
 
+				if(initialValues.saleList){
+					initialValues.biaodan = initialValues.saleList.map(item=>{
+						if(item){
+							return item.tacticsType
+						}else{
+							return ''
+						}
+					})
+				}else{
+					initialValues.biaodan=[]
+				}
+
 				//处理stationvos
 				stationVos = initialValues.stationVos || [];
 				delStationVos = initialValues.delStationVos || [];
@@ -423,6 +446,9 @@ export default class JoinCreate extends React.Component {
 			stationVos,
 			delStationVos
 		} = this.state;
+		let {CommunityAgreementList} = this.props;
+		console.log('==edit==',CommunityAgreementList.saleList);
+		optionValues.saleList = CommunityAgreementList.saleList;
 
 		return (
 
