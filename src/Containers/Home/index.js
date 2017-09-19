@@ -308,7 +308,7 @@ export default class Home extends React.Component {
 									<div className="pic" style={{height:this.applyItemWidth}}>
 
 									</div>
-									<div className="text">
+									<div className="text" style={{paddingTop:3}}>
 										E-learning
 									</div>
 								</a>
