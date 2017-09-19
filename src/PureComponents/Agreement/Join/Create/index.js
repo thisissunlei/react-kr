@@ -256,6 +256,18 @@ export default class JoinCreate extends Component {
 			}else{
 				initialValue.oldNum = localStorageData.oldNum;
 			}
+			if(initialValue.saleList){
+				initialValue.biaodan = initialValue.saleList.map(item=>{
+					console.log(item)
+					if(item.tacticsType){
+						return item.tacticsType
+					}else{
+						return ''
+					}
+				})
+			}else{
+				initialValue.biaodan=[]
+			}
 
 			_this.setState({
 				initialValues,
@@ -265,6 +277,7 @@ export default class JoinCreate extends Component {
 			});
 
 		}).catch(function(err) {
+			console.log(err)
 			Notify.show([{
 				message: '后台出错请联系管理员4',
 				type: 'danger',

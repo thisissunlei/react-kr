@@ -371,7 +371,8 @@ class NewCreateForm extends Component {
 		} = this.props;
 		Store.dispatch(initialize('joinCreateForm', initialValues));
 		this.setState({
-			allRent:initialValues.totalrent
+			allRent:initialValues.totalrent,
+			biaodan:initialValues.biaodan
 		})
 	}
 
@@ -384,7 +385,8 @@ class NewCreateForm extends Component {
 		if(this.props.initialValues.stationVos!=nextProps.initialValues.stationVos){
 			this.setState({
 				stationVos:nextProps.initialValues.stationVos || [],
-				allRent:nextProps.initialValues.totalrent || '0'
+				allRent:nextProps.initialValues.totalrent || '0',
+				biaodan:nextProps.initialValues.biaodan || []
 			})
 		}
 
