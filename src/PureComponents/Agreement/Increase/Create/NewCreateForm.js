@@ -262,6 +262,8 @@ class NewCreateForm extends Component {
 			selectedStation,
 			stationVos
 		} = this.state;
+		let {array} = this.props;
+		array.removeAll('saleList');
 		stationVos = stationVos.filter(function(item, index) {
 
 			if (selectedStation.indexOf(index) != -1) {
@@ -275,6 +277,7 @@ class NewCreateForm extends Component {
 
 		this.setState({
 			stationVos,
+			biaodan:[]
 		}, function() {
 			this.calcStationNum();
 		});
@@ -661,7 +664,7 @@ class NewCreateForm extends Component {
 				}
 				newArr.map((item,index)=>{
 					fields.remove(item);
-					biaodan.splice(item,0)
+					biaodan.splice(item,1)
 		
 				})
 				if(tabelLength == newArr.length){
@@ -1070,6 +1073,53 @@ class NewCreateForm extends Component {
 				this.getSaleMoney(params,fields,index);
 		
 			}
+			changeBeginDate=(e,fields,index)=>{
+				console.log('changeEndDate',e,fields,index);
+				let {changeValues,initialValues,optionValues} = this.props;
+				let {saleList}  = optionValues;
+				let {stationVos} = this.state;
+				let beginTime = +new Date(e);
+				let validStart = +new Date(changeValues.leaseBegindate);
+				let tacticsId = '';
+				
+		
+				//校验时间选择的时间不得大于租赁结束时间
+				if(beginTime<=validStart){
+					Notify.show([{
+						message: '选择的时间不得小于于租赁开始时间',
+						type: 'danger',
+					}]);
+					return;
+				}
+				saleList.map((item)=>{
+					if(item.value == changeValues.saleList[index].tacticsType){
+						   tacticsId = item.id;
+					}
+				})
+		
+		
+				let time = {
+					validStart :e,
+					validEnd:changeValues.leaseEnddate,
+					tacticsType:changeValues.saleList[index].tacticsType,
+					tacticsId:tacticsId,
+					discount:0
+				}
+				fields.remove(index);
+				fields.insert(index,time)
+		
+				changeValues.saleList[index] = Object.assign({},time)
+				
+				let params = {
+					stationVos:JSON.stringify(stationVos),
+					saleList:JSON.stringify(changeValues.saleList),
+					communityId:optionValues.mainbillCommunityId,
+					leaseBegindate:changeValues.leaseBegindate,
+					leaseEnddate:changeValues.leaseEnddate
+				};
+				this.getSaleMoney(params,fields,index);
+		
+			}
 			zhekou=(e,fields,index)=>{
 				let {changeValues,initialValues,optionValues} = this.props;
 				let {saleList}  = optionValues;
@@ -1132,14 +1182,20 @@ class NewCreateForm extends Component {
 				params.saleList=JSON.stringify(sale);
 				let _this = this;
 				Http.request('count-sale', '',params).then(function(response){
-					fields.remove(index);
-					let saleContent = response.saleList[index];
-					fields.insert(index,{
-						tacticsType:saleContent.tacticsType,
-						discountAmount:saleContent.discountAmount,
-						discount:saleContent.discount,
-						validEnd:saleContent.validEnd,
-						validStart:saleContent.validStart
+					fields.removeAll();
+					let biaodan = []
+					response.saleList.map((item,i)=>{
+						fields.insert(i,{
+							tacticsType:item.tacticsType,
+							discountAmount:item.discountAmount,
+							discount:item.discount,
+							validEnd:item.validEnd,
+							validStart:item.validStart,
+							tacticsId:item.tacticsId
+		
+						})
+						biaodan.push(item.tacticsType)
+		
 					})
 					Store.dispatch(change('joinCreateForm', 'totalrent', response.totalrent));
 		
