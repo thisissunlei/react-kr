@@ -67,7 +67,7 @@ State.getSaleList=action(function(){
 				})
 				_this.saleList = saleList;
 		}).catch(function(err) {
-			Message.error(err.message);
+			// Message.error(err.message);
 		});
 		//Store.dispatch(Actions.switchSidebarNav(false));
 })
