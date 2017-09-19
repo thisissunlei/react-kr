@@ -256,18 +256,20 @@ export default class JoinCreate extends Component {
 			}else{
 				initialValue.oldNum = localStorageData.oldNum;
 			}
-			if(initialValue.saleList){
-				initialValue.biaodan = initialValue.saleList.map(item=>{
-					console.log(item)
-					if(item.tacticsType){
-						return item.tacticsType
-					}else{
-						return ''
-					}
-				})
-			}else{
-				initialValue.biaodan=[]
-			}
+			//优惠缓存
+			// console.log(initialValue.saleList)
+			// if(initialValue.saleList){
+			// 	initialValue.biaodan = initialValue.saleList.map(item=>{
+			// 		console.log(item)
+			// 		// if(item.tacticsType){
+			// 		// 	return item.tacticsType
+			// 		// }else{
+			// 		// 	return ''
+			// 		// }
+			// 	})
+			// }else{
+			// 	initialValue.biaodan=[]
+			// }
 
 			_this.setState({
 				initialValues,

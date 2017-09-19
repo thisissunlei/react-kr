@@ -372,7 +372,7 @@ class NewCreateForm extends Component {
 		Store.dispatch(initialize('joinCreateForm', initialValues));
 		this.setState({
 			allRent:initialValues.totalrent,
-			biaodan:initialValues.biaodan
+			biaodan:initialValues.biaodan || []
 		})
 	}
 
