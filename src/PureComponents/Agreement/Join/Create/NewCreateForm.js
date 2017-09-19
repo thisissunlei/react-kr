@@ -169,7 +169,7 @@ class NewCreateForm extends Component {
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
 
-		value = dateFormat(value, "yyyy-mm-dd");
+		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
 		let {array } = this.props;
 		array.removeAll('saleList')
 		let {
@@ -191,7 +191,7 @@ class NewCreateForm extends Component {
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
-		value = dateFormat(value, "yyyy-mm-dd");
+		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
 		let {array } = this.props;
 		array.removeAll('saleList')
 		let {

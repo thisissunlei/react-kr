@@ -68,13 +68,14 @@ export default class JoinCreate extends React.Component {
 		let {
 			params,onSubmit
 		} = this.props;
+		formValues.saleList = JSON.stringify(formValues.saleList);
 
 		var _this = this;
 		// console.log('jin-->',formValues)
 		// return;
 		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
 			_this.removeAllLocalStorage();
-			_this.isConfirmSubmiting = false;
+			_this.isConfirmSubmiting = true;
 			Notify.show([{
 				message: '更新成功',
 				type: 'success',
@@ -239,9 +240,9 @@ export default class JoinCreate extends React.Component {
 				initialValues.signdate =  DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.leaseBegindate =  DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-
-				if(initialValues.saleList){
-					initialValues.biaodan = initialValues.saleList.map(item=>{
+				initialValues.saleList = response.saleList;
+				if(response.saleList){
+					initialValues.biaodan = response.saleList.map(item=>{
 						if(item){
 							return item.tacticsType
 						}else{
@@ -267,6 +268,7 @@ export default class JoinCreate extends React.Component {
 				});
 
 			}).catch(function(err) {
+				console.log('err',err)
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -275,6 +277,7 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
+			console.log('err',err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -357,9 +360,11 @@ export default class JoinCreate extends React.Component {
 				}else{
 					initialValues.oldNum = localStorageData.oldNum;
 				}
+				initialValues.saleList = response.saleList;
 
-				if(initialValues.saleList){
-					initialValues.biaodan = initialValues.saleList.map(item=>{
+
+				if(response.saleList){
+					initialValues.biaodan = response.saleList.map(item=>{
 						if(item){
 							return item.tacticsType
 						}else{

@@ -120,7 +120,7 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:'-1',
-			biaodan:[]
+			biaodan:this.props.initialValues.biaodan
 
 		}
 	}
@@ -133,6 +133,12 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
+		console.log('will',nextProps.initialValues.biaodan)
+		if(nextProps.initialValues.biaodan != this.props.initialValues.biaodan){
+			this.setState({
+				biaodan:nextProps.initialValues.biaodan
+			})
+		}
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
 			this.setState({
@@ -154,6 +160,8 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 		let {initialValues} = this.props;
 		let {delStationVos} = this.state;
+		let {array} = this.props;
+		array.removeAll('saleList')
 		
 
 		if (!stationVos.length) {
@@ -168,7 +176,8 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			stationVos: [],
 			delStationVos,
-			allRent:0
+			allRent:0,
+			biaodan:[]
 		}, function() {
 			this.getStationUrl();
 			this.calcStationNum();
@@ -182,7 +191,8 @@ class NewCreateForm extends React.Component {
 			stationVos
 		} = this.state;
 		let {delStationVos} = this.state;
-		console.log(delStationVos,stationVos)
+		let {array} = this.props;
+		array.removeAll('saleList')
 
 		let {initialValues} = this.props;
 		delStationVos = delStationVos.concat(stationVos);
@@ -192,7 +202,8 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			stationVos:[],
 			delStationVos,
-			allRent:0
+			allRent:0,
+			biaodan:[]
 		}, function() {
 			this.getStationUrl();
 			this.calcStationNum();
@@ -253,12 +264,15 @@ class NewCreateForm extends React.Component {
 			selectedStation
 		} = this.state;
 		let {initialValues} = this.props;
+		let {array} = this.props;
+		array.removeAll('saleList');
 		let allRent = 0;
 		let _this = this;
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				item.unitprice = value;
+				item.originalUnitprice = value;
 			}
 			return item;
 		});
@@ -472,6 +486,7 @@ class NewCreateForm extends React.Component {
 			changeValues,
 			initialValues
 		} = this.props;
+		let {array} = this.props;
 		var stationVos = [];
 		console.log('billList',billList,data,delStationVos);
 
@@ -504,9 +519,12 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			stationVos,
 			delStationVos,
-			allRent:0
+			allRent:0,
+			biaodan:[]
 		}, function() {
 			this.calcStationNum();
+			array.removeAll('saleList')
+
 		});
 	}
 
@@ -541,7 +559,9 @@ class NewCreateForm extends React.Component {
 		let stationList = list.map((item)=>{
 			if(!item.unitprice){
 				item.unitprice = 0;
+				item.originalUnitprice = 0;
 			}else{
+				item.originalUnitprice = (''+item.unitprice).replace(/\s/g,'');
 				item.unitprice = (''+item.unitprice).replace(/\s/g,'');
 			}
 			return item;
@@ -552,6 +572,7 @@ class NewCreateForm extends React.Component {
 				allRent:response
 			})
 		}).catch(function(err) {
+			console.log('-----',err)
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -561,6 +582,9 @@ class NewCreateForm extends React.Component {
 	onBlur=(item)=>{
 		let {stationVos} = this.state;
 		let allMoney = 0;
+		let {array} = this.props;
+		array.removeAll('saleList')
+
 		this.setAllRent(stationVos);
 
 	}
@@ -731,7 +755,6 @@ class NewCreateForm extends React.Component {
 		
 	}
 	renderBrights=({fields})=>{
-		console.log('fields',fields);
 		const self = this;
 		tabelLength = fields.length;
 		return (
@@ -781,7 +804,8 @@ class NewCreateForm extends React.Component {
 	renderTr=(fields)=>{
 		let self = this;
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 
 		let {
@@ -791,6 +815,9 @@ class NewCreateForm extends React.Component {
 		} = changeValues;
 		let {biaodan}= this.state;
 		let keyList = this.props.optionValues.saleList;
+		console.log('renderTr---->',biaodan);
+		let leaseBeginDate =  leaseBegindate || initialValues.leaseBegindate;
+		let leaseEndDate =  leaseEnddate || initialValues.leaseEnddate;
 		return(
 		fields.map((member, index) =>{
 					if(biaodan[index] == 1){
@@ -817,12 +844,12 @@ class NewCreateForm extends React.Component {
 				        <td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validBegin`} type="hidden" component="input" />
 
-					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBeginDate.substring(0,10)}</span>
 				        </td>
 				        <td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validEnd`} type="hidden" component="input" />
 
-					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEndDate.substring(0,10)}</span>
 
 				        </td>
 				        <td>
@@ -866,7 +893,7 @@ class NewCreateForm extends React.Component {
 				        </td>
 				       	<td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validBegin`} type="hidden" component="input" />
-					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBeginDate.substring(0,10)}</span>
 				        </td>
 				        <td>
 					        <KrField
@@ -927,7 +954,7 @@ class NewCreateForm extends React.Component {
 				        <td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validEnd`} type="hidden" component="input" />
 
-					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEndDate.substring(0,10)}</span>
 				        </td>
 				         <td style={{textAlign:'center'}}>
 					        <span style={{display:'inline-block',marginTop:'10px'}}>-</span>
