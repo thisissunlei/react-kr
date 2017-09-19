@@ -916,5 +916,9 @@ module.exports = {
         url: '/api/krspace-finance-web/advertising/banner/edit',
         method: 'post'
     },
-
+    'change-visit-state': {
+        url: '/api/krspace-finance-web/sys/visit-record/actions/edit/type/visit-status',
+        method: 'post'
+    },
+   
 }
