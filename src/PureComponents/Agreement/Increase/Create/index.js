@@ -30,7 +30,6 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
-
 @inject("CommunityAgreementList")
 @observer
 export default class JoinCreate extends Component {
@@ -92,6 +91,9 @@ export default class JoinCreate extends Component {
 
 		if (typeof formValues.stationVos != 'string') {
 			formValues.stationVos = JSON.stringify(formValues.stationVos);
+		}
+		if(typeof formValues.saleList != 'string'){
+			formValues.saleList = JSON.stringify(formValues.saleList);
 		}
 
 		var _this = this;
@@ -172,6 +174,9 @@ export default class JoinCreate extends Component {
 		let initialValue = {};
 		let optionValue = {fnaCorporationList:[]};
 
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.getSaleList();
+
 		let keyWord = params.orderId+''+ params.customerId+'ADDRENTcreate';
 		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
 
@@ -244,6 +249,17 @@ export default class JoinCreate extends Component {
 			}else{
 				initialValue.oldNum = localStorageData.oldNum;
 			}
+			if(initialValue.saleList){
+				initialValue.biaodan = initialValue.saleList.map(item=>{
+					if(item){
+						return item.tacticsType
+					}else{
+						return ''
+					}
+				})
+			}else{
+				initialValue.biaodan=[]
+			}
 			
 			_this.setState({
 				initialValues,
@@ -272,6 +288,8 @@ export default class JoinCreate extends Component {
 		} = this.state;
 
 		let {CommunityAgreementList} = this.props;
+		optionValues.saleList = CommunityAgreementList.saleList;
+
 		return (
 
 			<div>

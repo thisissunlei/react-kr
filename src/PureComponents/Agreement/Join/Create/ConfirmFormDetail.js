@@ -192,7 +192,7 @@ export default class ConfirmFormDetail extends Component {
 
 
                </DotTitle>
-               <DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
+               {detail.saleList?<DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
 					<Table  displayCheckbox={false}>
 									<TableHeader>
 											<TableHeaderColumn>优惠类型</TableHeaderColumn>
@@ -219,7 +219,7 @@ export default class ConfirmFormDetail extends Component {
 										})}
 								   </TableBody>
 							 </Table>
-			   </DotTitle>
+			   </DotTitle>:''}
 				<Grid>
 					<Row style={{marginTop:30}}>
 						<Col md={4}></Col>

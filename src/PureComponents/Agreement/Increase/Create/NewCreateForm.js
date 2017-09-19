@@ -17,8 +17,7 @@ import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import dateFormat from 'dateformat';
 import nzh from 'nzh';
 import PlanMapContent from 'kr/PureComponents/PlanMapContent';
-import {Http,DateFormat} from 'kr/Utils'
-
+import {Http,DateFormat,arrReverse} from 'kr/Utils'
 import {
 	reduxForm,
 	formValueSelector,
@@ -68,6 +67,8 @@ import {
 } from 'kr-ui';
 import './index.less';
 
+var tabelLength = 0;
+var titleChecked = false;
 @ReactMixin.decorate(LinkedStateMixin)
 class NewCreateForm extends Component {
 
@@ -126,6 +127,7 @@ class NewCreateForm extends Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:this.props.initialValues.totalrent || '0',
+			biaodan:[],
 		}
 	}
 
@@ -340,7 +342,8 @@ class NewCreateForm extends Component {
 		} = this.props;
 		Store.dispatch(initialize('increaseCreateForm', initialValues));
 		this.setState({
-			allRent:initialValues.totalrent
+			allRent:initialValues.totalrent,
+			biaodan:initialValues.biaodan || []
 		})
 	}
 
@@ -353,7 +356,8 @@ class NewCreateForm extends Component {
 		if(this.props.initialValues.stationVos!=nextProps.initialValues.stationVos){
 			this.setState({
 				stationVos:nextProps.initialValues.stationVos || [],
-				allRent:nextProps.initialValues.totalrent || '0'
+				allRent:nextProps.initialValues.totalrent || '0',
+				biaodan:nextProps.initialValues.biaodan || []
 			})
 		}
 
@@ -525,8 +529,10 @@ class NewCreateForm extends Component {
 		let _this = this;
 		let stationList = list.map((item)=>{
 		if(!item.unitprice){
+				item.originalUnitprice = 0;
 				item.unitprice = 0;
 			}else{
+				item.originalUnitprice = (item.unitprice+'').replace(/\s/g,'');
 				item.unitprice = (item.unitprice+'').replace(/\s/g,'');
 			}
 			return item;
@@ -1494,6 +1500,7 @@ export default connect((state) => {
 	changeValues.leaseBegindate = selector(state, 'leaseBegindate') || 0;
 	changeValues.leaseEnddate = selector(state, 'leaseEnddate') || 0;
 	changeValues.wherefloor = selector(state, 'wherefloor') || 0;
+	changeValues.saleList = selector(state, 'saleList') || [];
 
 	return {
 		changeValues
