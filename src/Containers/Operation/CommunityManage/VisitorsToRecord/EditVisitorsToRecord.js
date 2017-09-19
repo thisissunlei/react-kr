@@ -80,12 +80,12 @@ import State from './State';
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
 	let {date,time} = this.state;
-	alert("刚进来")
+
 	if(!time==true || !date == true){
 		Message.error("时间选择有误!");
 		return;
 	}
-	alert("想出去")
+	
 	values.vtime = date+" "+time+':00';
   	onSubmit && onSubmit(values);
   }
@@ -162,7 +162,7 @@ import State from './State';
 							requireLabel={true}
 							options={select.round}
 						/>}
-						{/*<Grid style = {{marginLeft:25,width:265,display:"inline-block"}}>
+						<Grid style = {{marginLeft:25,width:265,display:"inline-block"}}>
 							<Row>	
 								<ListGroup>
 									<ListGroupItem style={{width:265,padding:0}}>
@@ -174,6 +174,7 @@ import State from './State';
 											label='活动时间'
 											onChange = {this.dataChange}
 										/>
+										{/*
 										<KrField
 											name="time"
 											component="selectTime"
@@ -181,10 +182,11 @@ import State from './State';
 											onChange = {this.timeChange}
 											timeNum = {time}
 											/>
+										*/}
 									</ListGroupItem>
 								</ListGroup>
 							</Row>
-						</Grid>*/}
+						</Grid>
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}

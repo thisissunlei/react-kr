@@ -273,7 +273,7 @@ class VisitorsToRecord  extends React.Component{
    }
    //提交新建
 	onSubmit = (params) =>{
-   alert("出来了")
+   
     let {id} = this.state;
     let _this = this;
     var page='';
@@ -281,7 +281,7 @@ class VisitorsToRecord  extends React.Component{
     if(!id){
       page=1;
     }
-    alert("发送")
+    
     Http.request("visit-record-edit",{},params).then(function(select){
       _this.refreshList(page);
       _this.closeNewVisitors();
