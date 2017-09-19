@@ -88,7 +88,9 @@ export default class JoinCreate extends Component {
 			onSubmit
 		} = this.props;
 		let _this = this;
-
+		if(typeof formValues.saleList != 'string'){
+			formValues.saleList = JSON.stringify(formValues.saleList);
+		}
 		Http.request('addOrEditContinueContract','',formValues).then(function(response) {
 			Notify.show([{
 				message: '创建成功',
@@ -167,7 +169,8 @@ export default class JoinCreate extends Component {
 		let optionValues = {};
 		let initialValue = {};
 		let optionValue = {fnaCorporationList:[]};
-
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.getSaleList();
 		let keyWord = params.orderId+''+ params.customerId+'RENEWcreate';
 		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
 
@@ -236,6 +239,20 @@ export default class JoinCreate extends Component {
 			}else{
 				initialValue.oldNum = localStorageData.oldNum;
 			}
+			//优惠缓存
+			
+			if(initialValue.saleList){
+				initialValue.biaodan = initialValue.saleList.map(item=>{
+					if(item){
+						return item.tacticsType
+					}else{
+						return ''
+					}
+				})
+			}else{
+				initialValue.biaodan=[]
+			}
+
 			_this.setState({
 				initialValues,
 				optionValues,
@@ -263,7 +280,7 @@ export default class JoinCreate extends Component {
 		} = this.state;
 
 		let {CommunityAgreementList} = this.props;
-
+		optionValues.saleList = CommunityAgreementList.saleList;
 		return (
 
 			<div>
