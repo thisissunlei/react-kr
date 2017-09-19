@@ -262,6 +262,8 @@ class NewCreateForm extends Component {
 			selectedStation,
 			stationVos
 		} = this.state;
+		let {array} = this.props;
+		array.removeAll('saleList');
 		stationVos = stationVos.filter(function(item, index) {
 
 			if (selectedStation.indexOf(index) != -1) {
@@ -275,6 +277,7 @@ class NewCreateForm extends Component {
 
 		this.setState({
 			stationVos,
+			biaodan:[]
 		}, function() {
 			this.calcStationNum();
 		});
