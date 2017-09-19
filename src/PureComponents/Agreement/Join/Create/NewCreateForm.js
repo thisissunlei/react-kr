@@ -264,6 +264,7 @@ class NewCreateForm extends Component {
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				item.unitprice = value;
+				item.onStationUnitPrice = value;
 			}
 			return item;
 		});
@@ -478,8 +479,10 @@ class NewCreateForm extends Component {
 		let _this = this;
 		let stationList = list.map((item)=>{
 		if(!item.unitprice){
+				item.originalUnitprice = 0;
 				item.unitprice = 0;
 			}else{
+				item.originalUnitprice = (item.unitprice+'').replace(/\s/g,'');
 				item.unitprice = (item.unitprice+'').replace(/\s/g,'');
 			}
 			return item;
@@ -500,6 +503,7 @@ class NewCreateForm extends Component {
 	}
 
 	onIframeClose(billList) {
+		let {array} = this.props;
 
 
 		billList = [].concat(billList);
@@ -544,6 +548,7 @@ class NewCreateForm extends Component {
 			allRent:0
 		}, function() {
 			this.calcStationNum();
+			array.removeAll('saleList')
 		});
 	}
 
@@ -828,7 +833,8 @@ class NewCreateForm extends Component {
 				        	<KrField
 					          name={`${member}.num`}
 					          type="text"
-					          component='text'/>
+					          component='text'
+					          disabled={false}/>
 				        </td>
 				      </tr>
 				    )}else if(biaodan[index] == 2){
@@ -860,20 +866,20 @@ class NewCreateForm extends Component {
 					          name={`${member}.end`}
 					          type="text"
 					          style={{width:120}}
-					          component='date'/>
+					          component='date'
+					          onChange={(event)=>{
+								self.changeEndDate(event,fields,index)
+								}}/>
 				        </td>
-				        <td>
-					        <KrField
-					          name={`${member}.money`}
-					          type="text"
-					          component='text'
-					          value={member.type}/>
+					    <td style={{textAlign:'center'}}>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>-</span>
 				        </td>
 				        <td>
 					        <KrField
 					          name={`${member}.num`}
 					          type="text"
-					          component='text'/>
+					          component='text'
+					          display={true}/>
 				        </td>
 				      </tr>
 				    )
@@ -909,12 +915,8 @@ class NewCreateForm extends Component {
 				        <td style={{textAlign:'center'}}>
 					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
 				        </td>
-				        <td>
-					        <KrField
-					          name={`${member}.money`}
-					          type="text"
-					          component='text'
-					          value={member.type}/>
+				         <td style={{textAlign:'center'}}>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>-</span>
 				        </td>
 				        <td>
 					        <KrField
@@ -992,7 +994,6 @@ class NewCreateForm extends Component {
 		biaodan[index] = e.value;
 		console.log('changeValues',biaodan,biaodan.length);
 		biaodan.map((item)=>{
-			console.log(same,sameFree)
 			if(item == 2 && !same){
 				same = true;
 			}else if(item == 2 && same){
@@ -1025,15 +1026,58 @@ class NewCreateForm extends Component {
 			fields.remove(tabelLength-1)
 
 		},50)
+	}
+	changeEndDate=(e,fields,index)=>{
+		console.log('changeEndDate',e,fields,index);
+		let {changeValues,initialValues,optionValues} = this.props;
+		let {saleList}  = optionValues;
+		let {stationVos} = this.state;
+		let endTime = +new Date(e);
+		let validEnd = +new Date(changeValues.leaseEnddate);
+		let tacticsId = '';
+		
 
+		//校验时间选择的时间不得大于租赁结束时间
+		if(endTime>=validEnd){
+			Notify.show([{
+				message: '选择的时间不得大于租赁结束时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+		saleList.map((item)=>{
+			if(item.value == changeValues.saleList[index].type){
+			   	tacticsId = item.id;
+			}
+		})
+
+
+		let time = {
+			validStart :changeValues.leaseBegindate,
+			validEnd:e,
+			tacticsType:changeValues.saleList[index].type,
+			tacticsId:tacticsId,
+			discount:0
+		}
+
+		changeValues.saleList[index] = Object.assign({},time)
 		
-		
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(changeValues.saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:changeValues.leaseBegindate,
+			leaseEnddate:changeValues.leaseEnddate
+		};
+		this.getSaleMoney(params,fields,index);
+
 	}
 	zhekou=(e,fields,index)=>{
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {saleList}  = optionValues;
 		let {stationVos} = this.state;
 		let tacticsId = '';
+		let _this = this;
 		if(!e ||isNaN(e)){
 			Notify.show([{
 				message: '折扣只能为数字',
@@ -1077,8 +1121,20 @@ class NewCreateForm extends Component {
 			leaseBegindate:changeValues.leaseBegindate,
 			leaseEnddate:changeValues.leaseEnddate
 		};
+		this.getSaleMoney(params,fields,index);
+	}
+	getSaleMoney=(params,fields,index)=>{
+		console.log('===getSaleMoney',params);
+		let _this = this;
 		Http.request('count-sale', '',params).then(function(response){
 			console.log('=====',response)
+			fields.remove(index);
+			let saleContent = response.saleList[index];
+			fields.insert(index,{type:saleContent.tacticsType,num:saleContent.discountAmount,money:saleContent.discount})
+			_this.setState({
+				totalrent:response.totalrent,
+				allRent:response.totalrent
+			})
 		}).catch(function(err){
 			console.log('=====',err)
 			Notify.show([{
@@ -1087,10 +1143,6 @@ class NewCreateForm extends Component {
 			}]);
 
 		})
-		return;
-
-		fields.remove(index);
-		fields.insert(index,{type:'1',num:'1234',money:e})
 	}
 
 	render() {
@@ -1412,13 +1464,17 @@ const validate = values => {
 	    values.saleList.forEach((member, memberIndex) => {
 	      const memberErrors = {}
 	      if (!member || !member.type) {
-	        memberErrors.type = 'Required'
+	        memberErrors.type = '请选择优惠项'
 	        saleListArrayErrors[memberIndex] = memberErrors
 	      }
-	      if (!member || !member.num) {
-	        memberErrors.num = 'Requirsssed'
-	        saleListArrayErrors[memberIndex] = memberErrors
-	      }
+	      // if (member && member.type==1 && !member.money) {
+	      //   memberErrors.money = '请填写折扣'
+	      //   saleListArrayErrors[memberIndex] = memberErrors
+	      // }
+	      // if (member.type==2 || !member.money) {
+	      //   // memberErrors.money = '请填写折扣'
+	      //   saleListArrayErrors[memberIndex] = memberErrors
+	      // }
 	    })
 	    if(saleListArrayErrors.length) {
 	      errors.saleList = saleListArrayErrors
