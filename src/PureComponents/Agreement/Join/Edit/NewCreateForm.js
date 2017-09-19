@@ -133,7 +133,7 @@ class NewCreateForm extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('will',nextProps.initialValues.biaodan)
+		
 		if(nextProps.initialValues.biaodan != this.props.initialValues.biaodan){
 			this.setState({
 				biaodan:nextProps.initialValues.biaodan

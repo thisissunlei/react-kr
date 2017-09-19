@@ -1591,6 +1591,7 @@ export default connect((state) => {
 	changeValues.leaseBegindate = selector(state, 'leaseBegindate') || 0;
 	changeValues.leaseEnddate = selector(state, 'leaseEnddate') || 0;
 	changeValues.wherefloor = selector(state, 'wherefloor') || 0;
+	changeValues.saleList = selector(state, 'saleList') || 0;
 
 
 	return {

@@ -106,6 +106,8 @@ export default class JoinCreate extends Component {
 			}]);
 			_this.removeLocalStorages();
 			onSubmit && onSubmit();
+			formValues.saleList = JSON.parse(formValues.saleList);
+
 			_this.props.CommunityAgreementList.openTowAgreement=false;
 			_this.props.CommunityAgreementList.openOneAgreement=false;
 			_this.props.CommunityAgreementList.openLocalStorage = false;

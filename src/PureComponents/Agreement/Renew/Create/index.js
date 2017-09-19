@@ -97,6 +97,8 @@ export default class JoinCreate extends Component {
 				type: 'success',
 			}]);
 			_this.removeLocalStorages();
+			formValues.saleList = JSON.parse(formValues.saleList);
+
 			_this.openConfirmCreateDialog();
 			onSubmit && onSubmit()
 			_this.props.CommunityAgreementList.openTowAgreement=false;

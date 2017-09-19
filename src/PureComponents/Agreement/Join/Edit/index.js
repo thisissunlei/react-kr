@@ -374,6 +374,7 @@ export default class JoinCreate extends React.Component {
 				}else{
 					initialValues.biaodan=[]
 				}
+				
 
 				//处理stationvos
 				stationVos = initialValues.stationVos || [];

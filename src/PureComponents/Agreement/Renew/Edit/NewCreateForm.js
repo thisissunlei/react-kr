@@ -1401,7 +1401,8 @@ export default connect((state) => {
 	changeValues.boardroomnum = selector(state, 'boardroomnum') || 0;
 	changeValues.leaseBegindate = selector(state, 'leaseBegindate') || 0;
 	changeValues.leaseEnddate = selector(state, 'leaseEnddate') || 0;
-
+	changeValues.saleList = selector(state, 'saleList') || 0;
+	
 
 	return {
 		changeValues

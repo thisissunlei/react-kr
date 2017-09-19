@@ -211,6 +211,8 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let {array} = this.props;
+		array.removeAll('saleList')
 		let stationList = list.map((item)=>{
 		if(!item.unitprice){
 				item.originalUnitprice = 0;
@@ -223,7 +225,8 @@ class NewCreateForm extends Component {
 		})
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
-				allRent:response
+				allRent:response,
+				biaodan:[]
 			})
 		Store.dispatch(change('renewCreateForm', 'totalrent', response));
 

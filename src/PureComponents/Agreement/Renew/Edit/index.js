@@ -239,6 +239,18 @@ static contextTypes = {
         }else{
           initialValues.agreement = response.agreement;
         }
+        initialValues.saleList = response.saleList;
+        if(response.saleList){
+          initialValues.biaodan = response.saleList.map(item=>{
+            if(item){
+              return item.tacticsType
+            }else{
+              return ''
+            }
+          })
+        }else{
+          initialValues.biaodan=[]
+        }
         initialValues.lessorContacttel = response.lessorContacttel;
 
         //时间
@@ -351,6 +363,18 @@ static contextTypes = {
         }else{
           initialValues.oldNum = localStorageData.oldNum;
         }
+        initialValues.saleList = response.saleList;
+        if(response.saleList){
+          initialValues.biaodan = response.saleList.map(item=>{
+            if(item){
+              return item.tacticsType
+            }else{
+              return ''
+            }
+          })
+        }else{
+          initialValues.biaodan=[]
+        }
 
         //处理stationvos
         stationVos = initialValues.stationVos || [];
@@ -426,6 +450,8 @@ static contextTypes = {
       stationVos,
       delStationVos
     } = this.state;
+    let {CommunityAgreementList} = this.props;
+    optionValues.saleList = CommunityAgreementList.saleList;
     return (
 
       <div>

@@ -138,6 +138,8 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
+			formValues.saleList = JSON.parse(formValues.saleList);
+
 			_this.removeLocalStorages();
 			onSubmit && onSubmit()
 			_this.props.CommunityAgreementList.openTowAgreement=false;
