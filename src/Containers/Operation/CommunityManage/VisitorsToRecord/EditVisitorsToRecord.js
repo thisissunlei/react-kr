@@ -103,8 +103,6 @@ import State from './State';
 		})
 	}
 	timeChange = (values) =>{
-
-		window.alert('values:',values);
 		this.setState({
 			time:values
 		})
