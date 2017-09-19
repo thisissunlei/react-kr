@@ -661,7 +661,7 @@ class NewCreateForm extends Component {
 				}
 				newArr.map((item,index)=>{
 					fields.remove(item);
-					biaodan.splice(item,0)
+					biaodan.splice(item,1)
 		
 				})
 				if(tabelLength == newArr.length){
@@ -1132,14 +1132,20 @@ class NewCreateForm extends Component {
 				params.saleList=JSON.stringify(sale);
 				let _this = this;
 				Http.request('count-sale', '',params).then(function(response){
-					fields.remove(index);
-					let saleContent = response.saleList[index];
-					fields.insert(index,{
-						tacticsType:saleContent.tacticsType,
-						discountAmount:saleContent.discountAmount,
-						discount:saleContent.discount,
-						validEnd:saleContent.validEnd,
-						validStart:saleContent.validStart
+					fields.removeAll();
+					let biaodan = []
+					response.saleList.map((item,i)=>{
+						fields.insert(i,{
+							tacticsType:item.tacticsType,
+							discountAmount:item.discountAmount,
+							discount:item.discount,
+							validEnd:item.validEnd,
+							validStart:item.validStart,
+							tacticsId:item.tacticsId
+		
+						})
+						biaodan.push(item.tacticsType)
+		
 					})
 					Store.dispatch(change('joinCreateForm', 'totalrent', response.totalrent));
 		
