@@ -4,6 +4,7 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
+	inject,
 	observer
 } from 'mobx-react';
 import {
@@ -21,6 +22,7 @@ import oneState from '../OneNewAgreement/State';
 import OneNewAgreement from '../OneNewAgreement';
 import './index.less';
 import {Http} from "kr/Utils"
+@inject("CommunityAgreementList")
 @observer
  class NewIndent extends React.Component{
 
@@ -50,6 +52,7 @@ import {Http} from "kr/Utils"
 	onSubmit = (values) => {
 		delete values.cityid;
 		let listId=this.props.listId;
+		let {CommunityAgreementList} = this.props;
 		let _this=this;
 		if(!values.mainbilldesc){
 			values.mainbilldesc="";
@@ -63,6 +66,8 @@ import {Http} from "kr/Utils"
          	setTimeout(function(){
          		State.ChangeCanSubmitState();
          	},1000)
+         	CommunityAgreementList.communityId = values.communityid;
+          	CommunityAgreementList.getSaleList();
          	allState.mainBillId=response.mainBillId;
 			oneState.ordersListData({customerId:allState.listId},response.mainBillId);
 			Store.dispatch(change('OneNewAgreement','staionTypeId',response.mainBillId));
