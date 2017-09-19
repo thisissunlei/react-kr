@@ -106,7 +106,10 @@ export default class ConfirmFormDetail extends Component {
 		detail.leaseEnddate = dateFormat(detail.leaseEnddate, "yyyy-mm-dd ");
 		detail.firstpaydate = dateFormat(detail.firstpaydate, "yyyy-mm-dd ");
 		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
-		console.log('con--------->',detail.saleList)
+		if(typeof detail.saleList == 'string'){
+			detail.saleList = JSON.parse(detail.saleList)
+		}
+
 
 
 		return (

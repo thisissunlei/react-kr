@@ -683,7 +683,7 @@ class NewCreateForm extends Component {
 		}
 		newArr.map((item,index)=>{
 			fields.remove(item);
-			biaodan.splice(item,0)
+			biaodan.splice(item,1)
 
 		})
 		if(tabelLength == newArr.length){
@@ -926,6 +926,9 @@ class NewCreateForm extends Component {
 					          type="text"
 					          style={{width:120}}
 					          component='date'
+					          onChange={(event)=>{
+								self.changeBeginDate(event,fields,index)
+								}}
 					          />
 				        </td>
 				        <td style={{textAlign:'center'}}>
@@ -1010,7 +1013,6 @@ class NewCreateForm extends Component {
 		let same = false;
 		let sameFree = false;
 		biaodan[index] = e.value;
-		console.log('changeValues',biaodan,biaodan.length);
 		biaodan.map((item)=>{
 			if(item == 2 && !same){
 				same = true;
@@ -1032,6 +1034,7 @@ class NewCreateForm extends Component {
 				}]);
 				biaodan.splice(index,1)
 				fields.remove(index);
+				sameFree= false;
 			}
 		})
 		this.setState({
@@ -1073,6 +1076,53 @@ class NewCreateForm extends Component {
 		let time = {
 			validStart :changeValues.leaseBegindate,
 			validEnd:e,
+			tacticsType:changeValues.saleList[index].tacticsType,
+			tacticsId:tacticsId,
+			discount:0
+		}
+		fields.remove(index);
+		fields.insert(index,time)
+
+		changeValues.saleList[index] = Object.assign({},time)
+		
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(changeValues.saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:changeValues.leaseBegindate,
+			leaseEnddate:changeValues.leaseEnddate
+		};
+		this.getSaleMoney(params,fields,index);
+
+	}
+	changeBeginDate=(e,fields,index)=>{
+		console.log('changeEndDate',e,fields,index);
+		let {changeValues,initialValues,optionValues} = this.props;
+		let {saleList}  = optionValues;
+		let {stationVos} = this.state;
+		let beginTime = +new Date(e);
+		let validStart = +new Date(changeValues.leaseBegindate);
+		let tacticsId = '';
+		
+
+		//校验时间选择的时间不得大于租赁结束时间
+		if(beginTime<=validStart){
+			Notify.show([{
+				message: '选择的时间不得小于于租赁开始时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+		saleList.map((item)=>{
+			if(item.value == changeValues.saleList[index].tacticsType){
+			   	tacticsId = item.id;
+			}
+		})
+
+
+		let time = {
+			validStart :e,
+			validEnd:changeValues.leaseEnddate,
 			tacticsType:changeValues.saleList[index].tacticsType,
 			tacticsId:tacticsId,
 			discount:0
@@ -1154,22 +1204,38 @@ class NewCreateForm extends Component {
 		params.saleList=JSON.stringify(sale);
 		let _this = this;
 		Http.request('count-sale', '',params).then(function(response){
-			fields.remove(index);
-			let saleContent = response.saleList[index];
-			fields.insert(index,{
-				tacticsType:saleContent.tacticsType,
-				discountAmount:saleContent.discountAmount,
-				discount:saleContent.discount,
-				validEnd:saleContent.validEnd,
-				validStart:saleContent.validStart
+			fields.removeAll();
+			let biaodan = []
+			response.saleList.map((item,i)=>{
+				fields.insert(i,{
+					tacticsType:item.tacticsType,
+					discountAmount:item.discountAmount,
+					discount:item.discount,
+					validEnd:item.validEnd,
+					validStart:item.validStart,
+					tacticsId:item.tacticsId
+
+				})
+				biaodan.push(item.tacticsType)
+
 			})
+
 			Store.dispatch(change('joinCreateForm', 'totalrent', response.totalrent));
 
 			_this.setState({
 				totalrent:response.totalrent,
-				allRent:response.totalrent
+				allRent:response.totalrent,
+				biaodan
+			},()=>{
+				_this.renderBrights({fields})
 			})
+		setTimeout(()=>{
+			_this.addRow(fields);
+			fields.remove(tabelLength-1)
+
+		},50)
 		}).catch(function(err){
+			console.log('----->',err)
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
