@@ -241,6 +241,7 @@ export default class JoinCreate extends React.Component {
 				initialValues.leaseBegindate =  DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.saleList = response.saleList;
+			
 				if(response.saleList){
 					initialValues.biaodan = response.saleList.map(item=>{
 						if(item){
@@ -374,7 +375,7 @@ export default class JoinCreate extends React.Component {
 				}else{
 					initialValues.biaodan=[]
 				}
-				
+
 
 				//处理stationvos
 				stationVos = initialValues.stationVos || [];
