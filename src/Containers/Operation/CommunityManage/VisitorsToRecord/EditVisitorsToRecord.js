@@ -103,6 +103,8 @@ import State from './State';
 		})
 	}
 	timeChange = (values) =>{
+
+		window.alert('values:',values);
 		this.setState({
 			time:values
 		})
@@ -174,15 +176,15 @@ import State from './State';
 											label='活动时间'
 											onChange = {this.dataChange}
 										/>
-										{/*
+										
 										<KrField
 											name="time"
 											component="selectTime"
 											style={{width:80,marginTop:14,zIndex:10}}
 											onChange = {this.timeChange}
-											timeNum = {time}
+											timeNum = {time||''}
 											/>
-										*/}
+										
 									</ListGroupItem>
 								</ListGroup>
 							</Row>
