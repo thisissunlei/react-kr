@@ -124,8 +124,9 @@ export default class JoinCreate extends Component {
 			params,onSubmit
 		} = this.props;
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
-		formValues.saleList = JSON.stringify(formValues.saleList);
-
+		if(typeof formValues.saleList != 'string'){
+			formValues.saleList = JSON.stringify(formValues.saleList);
+		}
 		var _this = this;
 		Http.request('addOrEditEnterContract','',formValues).then(function(response) {
 
@@ -257,19 +258,18 @@ export default class JoinCreate extends Component {
 				initialValue.oldNum = localStorageData.oldNum;
 			}
 			//优惠缓存
-			// console.log(initialValue.saleList)
-			// if(initialValue.saleList){
-			// 	initialValue.biaodan = initialValue.saleList.map(item=>{
-			// 		console.log(item)
-			// 		// if(item.tacticsType){
-			// 		// 	return item.tacticsType
-			// 		// }else{
-			// 		// 	return ''
-			// 		// }
-			// 	})
-			// }else{
-			// 	initialValue.biaodan=[]
-			// }
+			console.log('优惠缓存',initialValue.saleList)
+			if(initialValue.saleList){
+				initialValue.biaodan = initialValue.saleList.map(item=>{
+					if(item){
+						return item.tacticsType
+					}else{
+						return ''
+					}
+				})
+			}else{
+				initialValue.biaodan=[]
+			}
 
 			_this.setState({
 				initialValues,
