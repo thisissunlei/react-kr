@@ -256,7 +256,7 @@ export default class JoinDetail extends Component {
 										<TableRowColumn>
 											<KrDate value={item.validEnd}/>
 										</TableRowColumn>
-										<TableRowColumn>{item.discountName}</TableRowColumn>
+										<TableRowColumn>{item.discount==0?'-':`${item.discount}折`}</TableRowColumn>
 										<TableRowColumn>{item.discountAmount}</TableRowColumn>
 									</TableRow>
 								);
