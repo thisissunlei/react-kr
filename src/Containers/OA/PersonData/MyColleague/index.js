@@ -42,9 +42,10 @@ export default class MyColleague extends React.Component {
 				pageSize: 15,
 				orgId: '1',
 				orgType: "ROOT",
-				mobilePhoneKey:'',
+				telephoneKey:'',
 				emailKey:'',
-				nameKey:''
+				nameKey:'',
+				jobDescrKey:''
 			},
 			clickTreeData:{
 				orgId:'1',
@@ -67,9 +68,10 @@ export default class MyColleague extends React.Component {
 	checkTab = (item) => {
 		var searchParams = Object.assign({},this.state.searchParams);
 		searchParams.page=1;
-		searchParams.mobilePhoneKey = "";
+		searchParams.telephoneKey = "";
 		searchParams.emailKey = "";
 		searchParams.nameKey = "";
+		searchParams.jobDescrKey = "";
 		this.setState({
 			  searchParams,
 				tabSelect:item
@@ -114,9 +116,10 @@ export default class MyColleague extends React.Component {
 	//搜索设置
 	onSearchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.mobilePhoneKey = form.content;
+		searchParams.telephoneKey = form.content;
 		searchParams.emailKey = form.content;
 		searchParams.nameKey = form.content;
+		searchParams.jobDescrKey=form.content;
 		this.setState({
 			searchParams
 		})
@@ -153,7 +156,8 @@ export default class MyColleague extends React.Component {
 		//Http.request("role-dep-tree").then(function (response) {
 
 			_this.setState({
-				treeData: _this.fnTree([response]),
+				//treeData: _this.fnTree([response]),
+				treeData:_this.fnTree([response.items[0]])
 			});
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -281,15 +285,21 @@ export default class MyColleague extends React.Component {
 						 										if(value.length>maxWidth){
 						 										 value = value.substring(0,10)+"...";
 						 										}
+																if(!value){
+																	value='无'
+																}
 						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 						 								 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='mobilePhone'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='entryDate' component={(value,oldValue)=>{
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='telephone'></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobDescr' component={(value,oldValue)=>{
 						 										var maxWidth=10;
 						 										if(value.length>maxWidth){
 						 										 value = value.substring(0,10)+"...";
 						 										}
+																if(!value){
+																	value='无'
+																}
 						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 						 								 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
@@ -365,12 +375,15 @@ export default class MyColleague extends React.Component {
 						 										}
 						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 						 								 }}></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='mobilePhone'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='entryDate' component={(value,oldValue)=>{
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='telephone'></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobDescr' component={(value,oldValue)=>{
 						 										var maxWidth=10;
 						 										if(value.length>maxWidth){
 						 										 value = value.substring(0,10)+"...";
 						 										}
+																if(!value){
+																	value='无'
+																}
 						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 						 								 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{

@@ -32,7 +32,7 @@ var OAApi = {
   },
   //根据维度ID获取下面的机构
   'org-list': {
-      url: '/api/krspace-erp-web/dim/org-list?id={id}',
+      url: '/api/krspace-erp-web/tree/dep?id={id}',
       method: 'get'
   },
   //根据机构ID获取人员信息
@@ -635,12 +635,12 @@ var OAApi = {
 
   //我的同事
   'myColleague':{
-      url:'/api/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&mobilePhoneKey={mobilePhoneKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
+      url:'/api/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&telephoneKey={telephoneKey}&jobDescrKey={jobDescrKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
   //我的下级
   'myLower':{
-      url:'/api/krspace-erp-web/hrm/resource/list/type/junior?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&mobilePhoneKey={mobilePhoneKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
+      url:'/api/krspace-erp-web/hrm/resource/list/type/junior?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&telephoneKey={telephoneKey}&jobDescrKey={jobDescrKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
 
