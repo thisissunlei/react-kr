@@ -77,12 +77,12 @@ import State from './State';
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
 	let {date,time} = this.state;
-	console.log("刚进来")
+	alert("刚进来")
 	if(!time==true || !date == true){
 		Message.error("时间选择有误!");
 		return;
 	}
-	console.log("想出去")
+	alert("想出去")
 	values.vtime = date+" "+time+':00';
   	onSubmit && onSubmit(values);
   }
