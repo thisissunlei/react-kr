@@ -1142,7 +1142,14 @@ class NewCreateForm extends Component {
 		this.getSaleMoney(params,fields,index);
 	}
 	getSaleMoney=(params,fields,index)=>{
-		console.log('===getSaleMoney',params);
+		let sale = JSON.parse(params.saleList);
+		let length = sale.length;
+		for(let i = length-1;i>=0;i--){
+			if(!sale[i]){
+				sale.splice(i,1);
+			}
+		}
+		params.saleList=JSON.stringify(sale);
 		let _this = this;
 		Http.request('count-sale', '',params).then(function(response){
 			fields.remove(index);
