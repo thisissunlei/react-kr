@@ -206,7 +206,7 @@ export default class ConfirmFormDetail extends Component {
 													<TableRowColumn>{dateFormat(item.validStart, "yyyy-mm-dd ")}</TableRowColumn>
 													<TableRowColumn>{dateFormat(item.validEnd, "yyyy-mm-dd ")}</TableRowColumn>
 													<TableRowColumn>
-														{item.discount || '0'}
+														{item.discount || '-'}
 													</TableRowColumn>
 													<TableRowColumn>
 														{item.discountAmount || '0'}

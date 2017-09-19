@@ -564,7 +564,591 @@ class NewCreateForm extends Component {
 		}
 		return name;
 	}
-
+	rowCheck = (event,index) =>{
+		
+				
+				var checkedArr = [].concat(this.state.checkedArr);
+				var key = checkedArr.indexOf(index);
+				
+				if(event.target.checked){
+					if(key===-1){
+						checkedArr.push(index);
+					}
+				}else{
+					if(key!==-1){
+						checkedArr.splice(key,1);
+						
+					}
+				}
+				
+				if(checkedArr.length === tabelLength){
+					this.titleCheckbox.checked = true;
+				}else{
+					titleChecked = true;
+					this.titleCheckbox.checked = false;
+				}
+				console.log('checkedArr',checkedArr)
+				this.setState({
+					checkedArr,
+				})
+		
+			}
+			addRow = (fields) =>{
+		
+				let {
+					changeValues
+				} = this.props;
+		
+				let {
+					wherefloor,
+					leaseBegindate,
+					leaseEnddate
+				} = changeValues;
+		
+				if (!wherefloor) {
+					Notify.show([{
+						message: '请先选择楼层',
+						type: 'danger',
+					}]);
+					return;
+				}
+		
+				if (!leaseBegindate) {
+					Notify.show([{
+						message: '请选择租赁开始时间',
+						type: 'danger',
+					}]);
+					return;
+				}
+		
+				if (!leaseEnddate) {
+					Notify.show([{
+						message: '请选择租赁结束时间',
+						type: 'danger',
+					}]);
+					return;
+				}
+		
+				if(new Date(leaseEnddate)<new Date(leaseBegindate)){
+					Notify.show([{
+						message: '结束时间不能小于开始时间',
+						type: 'danger',
+					}]);
+					return;
+				}
+		
+				fields.push();
+				
+				setTimeout(()=>{
+		
+					if(titleChecked){
+						this.allChecked();
+						this.clearCheckBox(false);
+					}
+				},50)
+			}
+			removeRow=(fields)=>{
+				let {checkedArr,biaodan} = this.state;
+				var newArr = arrReverse(checkedArr);
+				if(newArr.length){
+					this.clearCheckBox(true);
+				}
+				newArr.map((item,index)=>{
+					fields.remove(item);
+					biaodan.splice(item,0)
+		
+				})
+				if(tabelLength == newArr.length){
+					this.titleCheckbox.checked = false;
+					titleChecked = false;
+				}
+				this.setState({
+					checkedArr:[],
+					biaodan:biaodan
+				})
+			}
+			clearCheckBox = (type) =>{
+				for(let i = 0;i<tabelLength;i++){
+					if(type){
+						if(this["checkbox"+i]){
+							this["checkbox"+i].checked = false;
+						} 
+					}else{
+						this["checkbox"+i].checked = true;
+					}
+					
+					
+				}
+			}
+			allChecked = () =>{
+				var checkedArr = [];
+				for(let i=0;i<tabelLength;i++){
+					checkedArr.push(i);
+				}
+				this.setState({
+					checkedArr,
+				})
+			}
+			handeOnCheck = (event) =>{
+				var handeCheck=event.target.checked;
+				console.log('handeOnCheck',handeCheck)
+				var checkedArr = [];
+				if(handeCheck){
+					this.clearCheckBox(false);
+					this.allChecked();
+				}else{
+					this.clearCheckBox(true);
+					this.setState({
+						checkedArr:[]
+					})
+					
+				}
+				
+				titleChecked = handeCheck;
+			
+				
+				
+			}
+			renderBrights=({fields})=>{
+				console.log('fields',fields);
+				const self = this;
+				tabelLength = fields.length;
+				return (
+					<div className="ui-tables">
+						 <Grid style={{marginTop:"-28px",marginBottom:"10px"}}>
+							<Row>
+								<Col align="right">
+									<ButtonGroup>
+										<Button label="添加优惠"  onTouchTap={() => {this.addRow(fields)}}  />
+										<Button label="删除"  onTouchTap={() => {this.removeRow(fields)}}  />
+								  </ButtonGroup>
+								</Col>
+							</Row>
+						</Grid>
+					<table>
+						<thead>
+						<tr className="hander">
+							<td>
+								<input onChange ={this.handeOnCheck} 
+								ref = {(ref)=>{
+									self.titleCheckbox = ref;
+								}}
+								name="mm"
+								type="checkbox" 
+							/></td>
+							<td style={{width:100}}>优惠类型</td>
+							<td>开始时间</td>
+							<td style={{width:130}}>结束时间</td>
+							<td style={{width:80}}>折扣</td>
+							<td style={{width:100}}>优惠金额</td>
+						</tr>
+						</thead>
+						<tbody>
+						{
+							this.renderTr(fields)
+						}
+						</tbody>
+		
+					</table>
+					</div>
+		
+		
+		
+		
+				)
+			}
+			renderTr=(fields)=>{
+				let self = this;
+				let {
+					changeValues
+				} = this.props;
+		
+				let {
+					wherefloor,
+					leaseBegindate,
+					leaseEnddate
+				} = changeValues;
+				let {biaodan}= this.state;
+				let keyList = this.props.optionValues.saleList;
+				return(
+				fields.map((member, index) =>{
+							if(biaodan[index] == 1){
+							return(<tr key={index} className="hander">
+								 <td style={{verticalAlign:'middle'}}>
+		
+								 <input type="checkbox"
+								onChange = {(event)=>{
+									self.rowCheck(event,index)
+								}}
+								ref = {(ref)=>{
+									self["checkbox"+index] = ref;
+								}}/></td>
+								<td >
+									<KrField
+									  name={`${member}.tacticsType`}
+									  type="text"
+									  component='select'
+									  options={keyList}
+									  onChange={(event)=>{
+									self.changeType(event,index,fields)
+									}}/>
+								</td>
+								<td style={{textAlign:'center'}}>
+									<KrField  name={`${member}.validBegin`} type="hidden" component="input" />
+		
+									<span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
+								</td>
+								<td style={{textAlign:'center'}}>
+									<KrField  name={`${member}.validEnd`} type="hidden" component="input" />
+		
+									<span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
+		
+								</td>
+								<td>
+									<KrField
+									  name={`${member}.discount`}
+									  type="text"
+									  component='text'
+									  value={member.type}
+									  onBlur={(event)=>{
+										self.zhekou(event,fields,index)
+										}}/>
+								</td>
+								<td  style={{textAlign:'center'}}>
+									<KrField
+									  name={`${member}.discountAmount`}
+									  type="text"
+									  component='text'
+									  disabled={false}/>
+								</td>
+							  </tr>
+							)}else if(biaodan[index] == 2){
+								return(
+								<tr key={index} className="hander">
+								 <td style={{verticalAlign:'middle'}}>
+								 <input type="checkbox"
+								onChange = {(event)=>{
+									self.rowCheck(event,index)
+								}}
+								ref = {(ref)=>{
+									self["checkbox"+index] = ref;
+								}}/></td>
+								<td style={{verticalAlign:'top'}}>
+									<KrField
+									  name={`${member}.tacticsType`}
+									  type="text"
+									  component='select'
+									  options={keyList}
+									  onChange={(event)=>{
+									self.changeType(event,index,fields)
+									}}/>
+								</td>
+								   <td style={{textAlign:'center'}}>
+									<KrField  name={`${member}.validBegin`} type="hidden" component="input" />
+									<span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
+								</td>
+								<td>
+									<KrField
+									  name={`${member}.validEnd`}
+									  type="text"
+									  style={{width:120}}
+									  component='date'
+									  onChange={(event)=>{
+										self.changeEndDate(event,fields,index)
+										}}/>
+								</td>
+								<td style={{textAlign:'center'}}>
+		
+									<span style={{display:'inline-block',marginTop:'10px'}}>-</span>
+								</td>
+								<td>
+									<KrField
+									  name={`${member}.discountAmount`}
+									  type="text"
+									  component='text'
+									  display={true}/>
+		
+								</td>
+							  </tr>
+							)
+							}else if(biaodan[index] == 3) {
+								return(
+								<tr key={index} className="hander">
+								 <td style={{verticalAlign:'middle'}}>
+								 <input type="checkbox"
+								onChange = {(event)=>{
+									self.rowCheck(event,index)
+								}}
+								ref = {(ref)=>{
+									self["checkbox"+index] = ref;
+								}}/></td>
+								<td style={{verticalAlign:'top'}}>
+									<KrField
+									  name={`${member}.tacticsType`}
+									  type="text"
+									  component='select'
+									  options={keyList}
+									  onChange={(event)=>{
+									self.changeType(event,index,fields)
+									}}/>
+								</td>
+								<td>
+									<KrField
+									  name={`${member}.validStart`}
+									  type="text"
+									  style={{width:120}}
+									  component='date'
+									  />
+								</td>
+								<td style={{textAlign:'center'}}>
+									<KrField  name={`${member}.validEnd`} type="hidden" component="input" />
+		
+									<span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
+								</td>
+								 <td style={{textAlign:'center'}}>
+									<span style={{display:'inline-block',marginTop:'10px'}}>-</span>
+								</td>
+								<td>
+									<KrField
+									  name={`${member}.discountAmount`}
+									  type="text"
+									  component='text'/>
+								</td>
+							  </tr>
+							)
+							}else {
+								return(
+								<tr key={index} className="hander">
+								 <td style={{verticalAlign:'middle'}}>
+								 <input type="checkbox"
+								onChange = {(event)=>{
+									self.rowCheck(event,index)
+								}}
+								ref = {(ref)=>{
+									self["checkbox"+index] = ref;
+								}}/></td>
+								<td style={{verticalAlign:'top'}}>
+									<KrField
+									  name={`${member}.tacticsType`}
+									  type="text"
+									  component='select'
+									  options={keyList}
+									  onChange={(event)=>{
+									self.changeType(event,index,fields)
+									}}/>
+								</td>
+								<td>
+									<KrField
+									  name={`${member}.validStart`}
+									  type="text"
+									  style={{width:120}}
+									  component='date'
+									  />
+								</td>
+								<td>
+									<KrField
+									  name={`${member}.validEnd`}
+									  type="text"
+									  style={{width:120}}
+									  component='date'/>
+								</td>
+								<td>
+									<KrField
+									  name={`${member}.discount`}
+									  type="text"
+									  component='text'
+									  value={member.type}/>
+								</td>
+								<td>
+									<KrField
+									  name={`${member}.discountAmount`}
+									  type="text"
+									  component='text'/>
+								</td>
+							  </tr>
+							)
+							}
+		
+		
+						})
+				)
+		
+		
+			}
+			changeType=(e,index,fields)=>{
+				console.log('changeType',e,index,fields)
+				let {biaodan} = this.state;
+				let {changeValues} = this.props;
+				let same = false;
+				let sameFree = false;
+				biaodan[index] = e.value;
+				console.log('changeValues',biaodan,biaodan.length);
+				biaodan.map((item)=>{
+					if(item == 2 && !same){
+						same = true;
+					}else if(item == 2 && same){
+						Notify.show([{
+							message: '只可以选择一次折扣',
+							type: 'danger',
+						}]);
+						biaodan.splice(index,1)
+						fields.remove(index);
+					}else if(item == 1 && !sameFree){
+						sameFree = true
+					}else if(item == 3 && !sameFree){
+						sameFree = true;
+					}else if(sameFree){
+						Notify.show([{
+							message: '只可以选择一个免期活动',
+							type: 'danger',
+						}]);
+						biaodan.splice(index,1)
+						fields.remove(index);
+					}
+				})
+				this.setState({
+					biaodan
+				},()=>{
+					this.renderBrights({fields})
+				})
+				setTimeout(()=>{
+					this.addRow(fields);
+					fields.remove(tabelLength-1)
+		
+				},50)
+			}
+			changeEndDate=(e,fields,index)=>{
+				console.log('changeEndDate',e,fields,index);
+				let {changeValues,initialValues,optionValues} = this.props;
+				let {saleList}  = optionValues;
+				let {stationVos} = this.state;
+				let endTime = +new Date(e);
+				let validEnd = +new Date(changeValues.leaseEnddate);
+				let tacticsId = '';
+				
+		
+				//校验时间选择的时间不得大于租赁结束时间
+				if(endTime>=validEnd){
+					Notify.show([{
+						message: '选择的时间不得大于租赁结束时间',
+						type: 'danger',
+					}]);
+					return;
+				}
+				saleList.map((item)=>{
+					if(item.value == changeValues.saleList[index].tacticsType){
+						   tacticsId = item.id;
+					}
+				})
+		
+		
+				let time = {
+					validStart :changeValues.leaseBegindate,
+					validEnd:e,
+					tacticsType:changeValues.saleList[index].tacticsType,
+					tacticsId:tacticsId,
+					discount:0
+				}
+				fields.remove(index);
+				fields.insert(index,time)
+		
+				changeValues.saleList[index] = Object.assign({},time)
+				
+				let params = {
+					stationVos:JSON.stringify(stationVos),
+					saleList:JSON.stringify(changeValues.saleList),
+					communityId:optionValues.mainbillCommunityId,
+					leaseBegindate:changeValues.leaseBegindate,
+					leaseEnddate:changeValues.leaseEnddate
+				};
+				this.getSaleMoney(params,fields,index);
+		
+			}
+			zhekou=(e,fields,index)=>{
+				let {changeValues,initialValues,optionValues} = this.props;
+				let {saleList}  = optionValues;
+				let {stationVos} = this.state;
+				let tacticsId = '';
+				let _this = this;
+				if(!e ||isNaN(e)){
+					Notify.show([{
+						message: '折扣只能为数字',
+						type: 'danger',
+					}]);
+					return;
+				}
+				if(e>9.9){
+					Notify.show([{
+						message: '折扣不能大于9.9',
+						type: 'danger',
+					}]);
+					return;
+				}
+				saleList.map((item)=>{
+					if(item.value == changeValues.saleList[index].tacticsType && item.discount>e){
+						let message = '折扣不能小于'+item.discount;
+						Notify.show([{
+							message: message,
+							type: 'danger',
+						}]);
+						return;
+					}
+					if(item.value == changeValues.saleList[index].tacticsType){
+						   tacticsId = item.id;
+					}
+				})
+				let time = {
+					validStart :changeValues.leaseBegindate,
+					validEnd:changeValues.leaseEnddate,
+					tacticsType:changeValues.saleList[index].tacticsType,
+					tacticsId:tacticsId,
+					discount:e
+				}
+				changeValues.saleList[index] = Object.assign({},time)
+				
+				let params = {
+					stationVos:JSON.stringify(stationVos),
+					saleList:JSON.stringify(changeValues.saleList),
+					communityId:optionValues.mainbillCommunityId,
+					leaseBegindate:changeValues.leaseBegindate,
+					leaseEnddate:changeValues.leaseEnddate
+				};
+				this.getSaleMoney(params,fields,index);
+			}
+			getSaleMoney=(params,fields,index)=>{
+				let sale = JSON.parse(params.saleList);
+				let length = sale.length;
+				for(let i = length-1;i>=0;i--){
+					if(!sale[i]){
+						sale.splice(i,1);
+					}
+				}
+				params.saleList=JSON.stringify(sale);
+				let _this = this;
+				Http.request('count-sale', '',params).then(function(response){
+					fields.remove(index);
+					let saleContent = response.saleList[index];
+					fields.insert(index,{
+						tacticsType:saleContent.tacticsType,
+						discountAmount:saleContent.discountAmount,
+						discount:saleContent.discount,
+						validEnd:saleContent.validEnd,
+						validStart:saleContent.validStart
+					})
+					Store.dispatch(change('joinCreateForm', 'totalrent', response.totalrent));
+		
+					_this.setState({
+						totalrent:response.totalrent,
+						allRent:response.totalrent
+					})
+				}).catch(function(err){
+					Notify.show([{
+						message: err.message,
+						type: 'danger',
+					}]);
+		
+				})
+			}
 
 
 	render() {
@@ -665,6 +1249,10 @@ class NewCreateForm extends Component {
 						</div>
 						{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
                    </DotTitle>
+				   {optionValues.saleList && <DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
+						<FieldArray name='saleList' component={this.renderBrights}/>
+
+				    </DotTitle>}
                      <div className="all-rent" style={{marginTop:'0px',marginBottom:25}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent || '0'}</span><span>{allRentName}</span></div>
 
                    </div>
