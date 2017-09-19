@@ -452,7 +452,6 @@ export default class JoinCreate extends React.Component {
 			delStationVos
 		} = this.state;
 		let {CommunityAgreementList} = this.props;
-		console.log('==edit==',CommunityAgreementList.saleList);
 		optionValues.saleList = CommunityAgreementList.saleList;
 
 		return (

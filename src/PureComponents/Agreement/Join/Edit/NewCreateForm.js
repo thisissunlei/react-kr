@@ -292,7 +292,8 @@ class NewCreateForm extends React.Component {
 			stationVos,
 			delStationVos
 		} = this.state;
-		let {initialValues} = this.props;
+		let {initialValues,array} = this.props;
+		array.removeAll('saleList');
 
 		stationVos = stationVos.filter(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -311,7 +312,8 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			stationVos,
 			delStationVos,
-			allRent
+			allRent,
+			biaodan:[]
 		}, function() {
 			this.calcStationNum();
 		});
@@ -569,7 +571,8 @@ class NewCreateForm extends React.Component {
 		Http.request('getAllRent',{},{stationList:JSON.stringify(list)}).then(function(response) {
 			Store.dispatch(change('joinEditForm', 'totalrent', response));
 			_this.setState({
-				allRent:response
+				allRent:response,
+				biaodan:[]
 			})
 		}).catch(function(err) {
 			console.log('-----',err)
@@ -1549,6 +1552,30 @@ const validate = values => {
 	if (!values.firstpaydate) {
 		errors.firstpaydate = '请输入首付款时间';
 	}
+
+	if (!values.saleList || !values.saleList.length) {
+    	errors.saleList = { _error: 'At least one member must be entered' }
+	 } else {
+	    const saleListArrayErrors = []
+	    values.saleList.forEach((member, memberIndex) => {
+	      const memberErrors = {}
+	      if (!member || !member.tacticsType) {
+	        memberErrors.tacticsType = '请选择优惠项'
+	        saleListArrayErrors[memberIndex] = memberErrors
+	      }
+	      if (member && member.tacticsType==1 && !member.discount) {
+	        memberErrors.discount = '请填写折扣'
+	        saleListArrayErrors[memberIndex] = memberErrors
+	      }
+	      if (member && member.tacticsType==2 && !member.validEnd) {
+	        memberErrors.validEnd = '请选择时间'
+	        saleListArrayErrors[memberIndex] = memberErrors
+	      }
+	    })
+	    if(saleListArrayErrors.length) {
+	      errors.saleList = saleListArrayErrors
+	    }
+	  }
 
 
 
