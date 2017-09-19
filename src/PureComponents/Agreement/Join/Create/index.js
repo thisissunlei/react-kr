@@ -124,6 +124,7 @@ export default class JoinCreate extends Component {
 			params,onSubmit
 		} = this.props;
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
+		formValues.saleList = JSON.stringify(formValues.saleList);
 
 		var _this = this;
 		Http.request('addOrEditEnterContract','',formValues).then(function(response) {

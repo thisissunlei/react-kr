@@ -260,6 +260,8 @@ class NewCreateForm extends Component {
 			selectedStation
 		} = this.state;
 		let _this = this;
+		let {array} = this.props;
+		array.removeAll('saleList');
 
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
@@ -274,7 +276,8 @@ class NewCreateForm extends Component {
 		this.setAllRent(stationVos);
 		this.setState({
 			stationVos,
-			openStationUnitPrice:false
+			openStationUnitPrice:false,
+			biaodan:[]
 		});
 
 	}
@@ -477,6 +480,8 @@ class NewCreateForm extends Component {
 	}
 	setAllRent=(list)=>{
 		let _this = this;
+		let {array} = this.props;
+		array.removeAll('saleList')
 		let stationList = list.map((item)=>{
 		if(!item.unitprice){
 				item.originalUnitprice = 0;
@@ -489,7 +494,8 @@ class NewCreateForm extends Component {
 		})
 		Http.request('getAllRent','',{stationList:JSON.stringify(list)}).then(function(response) {
 			_this.setState({
-				allRent:response
+				allRent:response,
+				biaodan:[]
 			})
 			Store.dispatch(change('joinCreateForm', 'totalrent', response.toFixed(2)));
 
@@ -545,7 +551,8 @@ class NewCreateForm extends Component {
 
 		this.setState({
 			stationVos: billList,
-			allRent:0
+			allRent:0,
+			biaodan:[]
 		}, function() {
 			this.calcStationNum();
 			array.removeAll('saleList')
@@ -683,7 +690,7 @@ class NewCreateForm extends Component {
 		}
 		this.setState({
 			checkedArr:[],
-			biaodan:[]
+			biaodan:biaodan
 		})
 	}
 	clearCheckBox = (type) =>{
@@ -804,7 +811,7 @@ class NewCreateForm extends Component {
 						}}/></td>
 				        <td >
 					        <KrField
-					          name={`${member}.type`}
+					          name={`${member}.tacticsType`}
 					          type="text"
 					          component='select'
 					          options={keyList}
@@ -813,15 +820,19 @@ class NewCreateForm extends Component {
 							}}/>
 				        </td>
 				        <td style={{textAlign:'center'}}>
+					        <KrField  name={`${member}.validBegin`} type="hidden" component="input" />
+
 					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
 				        </td>
 				        <td style={{textAlign:'center'}}>
+					        <KrField  name={`${member}.validEnd`} type="hidden" component="input" />
+
 					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
 
 				        </td>
 				        <td>
 					        <KrField
-					          name={`${member}.money`}
+					          name={`${member}.discount`}
 					          type="text"
 					          component='text'
 					          value={member.type}
@@ -831,7 +842,7 @@ class NewCreateForm extends Component {
 				        </td>
 				        <td  style={{textAlign:'center'}}>
 				        	<KrField
-					          name={`${member}.num`}
+					          name={`${member}.discountAmount`}
 					          type="text"
 					          component='text'
 					          disabled={false}/>
@@ -850,7 +861,7 @@ class NewCreateForm extends Component {
 						}}/></td>
 				        <td style={{verticalAlign:'top'}}>
 					        <KrField
-					          name={`${member}.type`}
+					          name={`${member}.tacticsType`}
 					          type="text"
 					          component='select'
 					          options={keyList}
@@ -859,11 +870,12 @@ class NewCreateForm extends Component {
 							}}/>
 				        </td>
 				       	<td style={{textAlign:'center'}}>
+					        <KrField  name={`${member}.validBegin`} type="hidden" component="input" />
 					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
 				        </td>
 				        <td>
 					        <KrField
-					          name={`${member}.end`}
+					          name={`${member}.validEnd`}
 					          type="text"
 					          style={{width:120}}
 					          component='date'
@@ -872,14 +884,16 @@ class NewCreateForm extends Component {
 								}}/>
 				        </td>
 					    <td style={{textAlign:'center'}}>
+
 					        <span style={{display:'inline-block',marginTop:'10px'}}>-</span>
 				        </td>
 				        <td>
 					        <KrField
-					          name={`${member}.num`}
+					          name={`${member}.discountAmount`}
 					          type="text"
 					          component='text'
 					          display={true}/>
+
 				        </td>
 				      </tr>
 				    )
@@ -896,7 +910,7 @@ class NewCreateForm extends Component {
 						}}/></td>
 				        <td style={{verticalAlign:'top'}}>
 					        <KrField
-					          name={`${member}.type`}
+					          name={`${member}.tacticsType`}
 					          type="text"
 					          component='select'
 					          options={keyList}
@@ -906,13 +920,15 @@ class NewCreateForm extends Component {
 				        </td>
 				        <td>
 					        <KrField
-					          name={`${member}.begin`}
+					          name={`${member}.validStart`}
 					          type="text"
 					          style={{width:120}}
 					          component='date'
 					          />
 				        </td>
 				        <td style={{textAlign:'center'}}>
+					        <KrField  name={`${member}.validEnd`} type="hidden" component="input" />
+
 					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
 				        </td>
 				         <td style={{textAlign:'center'}}>
@@ -920,7 +936,7 @@ class NewCreateForm extends Component {
 				        </td>
 				        <td>
 					        <KrField
-					          name={`${member}.num`}
+					          name={`${member}.discountAmount`}
 					          type="text"
 					          component='text'/>
 				        </td>
@@ -939,7 +955,7 @@ class NewCreateForm extends Component {
 						}}/></td>
 				        <td style={{verticalAlign:'top'}}>
 					        <KrField
-					          name={`${member}.type`}
+					          name={`${member}.tacticsType`}
 					          type="text"
 					          component='select'
 					          options={keyList}
@@ -949,7 +965,7 @@ class NewCreateForm extends Component {
 				        </td>
 				        <td>
 					        <KrField
-					          name={`${member}.begin`}
+					          name={`${member}.validStart`}
 					          type="text"
 					          style={{width:120}}
 					          component='date'
@@ -957,21 +973,21 @@ class NewCreateForm extends Component {
 				        </td>
 				        <td>
 					        <KrField
-					          name={`${member}.end`}
+					          name={`${member}.validEnd`}
 					          type="text"
 					          style={{width:120}}
 					          component='date'/>
 				        </td>
 				        <td>
 					        <KrField
-					          name={`${member}.money`}
+					          name={`${member}.discount`}
 					          type="text"
 					          component='text'
 					          value={member.type}/>
 				        </td>
 				        <td>
 					        <KrField
-					          name={`${member}.num`}
+					          name={`${member}.discountAmount`}
 					          type="text"
 					          component='text'/>
 				        </td>
@@ -1046,7 +1062,7 @@ class NewCreateForm extends Component {
 			return;
 		}
 		saleList.map((item)=>{
-			if(item.value == changeValues.saleList[index].type){
+			if(item.value == changeValues.saleList[index].tacticsType){
 			   	tacticsId = item.id;
 			}
 		})
@@ -1055,10 +1071,12 @@ class NewCreateForm extends Component {
 		let time = {
 			validStart :changeValues.leaseBegindate,
 			validEnd:e,
-			tacticsType:changeValues.saleList[index].type,
+			tacticsType:changeValues.saleList[index].tacticsType,
 			tacticsId:tacticsId,
 			discount:0
 		}
+		fields.remove(index);
+		fields.insert(index,time)
 
 		changeValues.saleList[index] = Object.assign({},time)
 		
@@ -1093,7 +1111,7 @@ class NewCreateForm extends Component {
 			return;
 		}
 		saleList.map((item)=>{
-			if(item.value == changeValues.saleList[index].type && item.discount>e){
+			if(item.value == changeValues.saleList[index].tacticsType && item.discount>e){
 				let message = '折扣不能小于'+item.discount;
 				Notify.show([{
 					message: message,
@@ -1101,14 +1119,14 @@ class NewCreateForm extends Component {
 				}]);
 				return;
 			}
-			if(item.value == changeValues.saleList[index].type){
+			if(item.value == changeValues.saleList[index].tacticsType){
 			   	tacticsId = item.id;
 			}
 		})
 		let time = {
 			validStart :changeValues.leaseBegindate,
 			validEnd:changeValues.leaseEnddate,
-			tacticsType:changeValues.saleList[index].type,
+			tacticsType:changeValues.saleList[index].tacticsType,
 			tacticsId:tacticsId,
 			discount:e
 		}
@@ -1127,16 +1145,22 @@ class NewCreateForm extends Component {
 		console.log('===getSaleMoney',params);
 		let _this = this;
 		Http.request('count-sale', '',params).then(function(response){
-			console.log('=====',response)
 			fields.remove(index);
 			let saleContent = response.saleList[index];
-			fields.insert(index,{type:saleContent.tacticsType,num:saleContent.discountAmount,money:saleContent.discount})
+			fields.insert(index,{
+				tacticsType:saleContent.tacticsType,
+				discountAmount:saleContent.discountAmount,
+				discount:saleContent.discount,
+				validEnd:saleContent.validEnd,
+				validStart:saleContent.validStart
+			})
+			Store.dispatch(change('joinCreateForm', 'totalrent', response.totalrent));
+
 			_this.setState({
 				totalrent:response.totalrent,
 				allRent:response.totalrent
 			})
 		}).catch(function(err){
-			console.log('=====',err)
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -1248,10 +1272,10 @@ class NewCreateForm extends Component {
 						{stationVos.length>5?<div className="bottom-tip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'toprow':'bottomrow'}></span></p></div>:''}
 
                         </DotTitle>
-                    <DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
+                    {optionValues.saleList && <DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
 						<FieldArray name='saleList' component={this.renderBrights}/>
 
-				    </DotTitle>
+				    </DotTitle>}
                      <div className="all-rent" style={{marginTop:'0px',marginBottom:25,fontSize:14}}>服务费总计：<span style={{marginRight:50,color:'red'}}>￥{allRent|| '0'}</span><span>{allRentName}</span></div>
 
 					</div>
@@ -1463,18 +1487,18 @@ const validate = values => {
 	    const saleListArrayErrors = []
 	    values.saleList.forEach((member, memberIndex) => {
 	      const memberErrors = {}
-	      if (!member || !member.type) {
-	        memberErrors.type = '请选择优惠项'
+	      if (!member || !member.tacticsType) {
+	        memberErrors.tacticsType = '请选择优惠项'
 	        saleListArrayErrors[memberIndex] = memberErrors
 	      }
-	      // if (member && member.type==1 && !member.money) {
-	      //   memberErrors.money = '请填写折扣'
-	      //   saleListArrayErrors[memberIndex] = memberErrors
-	      // }
-	      // if (member.type==2 || !member.money) {
-	      //   // memberErrors.money = '请填写折扣'
-	      //   saleListArrayErrors[memberIndex] = memberErrors
-	      // }
+	      if (member && member.tacticsType==1 && !member.discount) {
+	        memberErrors.discount = '请填写折扣'
+	        saleListArrayErrors[memberIndex] = memberErrors
+	      }
+	      if (member && member.tacticsType==2 && !member.validEnd) {
+	        memberErrors.validEnd = '请选择时间'
+	        saleListArrayErrors[memberIndex] = memberErrors
+	      }
 	    })
 	    if(saleListArrayErrors.length) {
 	      errors.saleList = saleListArrayErrors
