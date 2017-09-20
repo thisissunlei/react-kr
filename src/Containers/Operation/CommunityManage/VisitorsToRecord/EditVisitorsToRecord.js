@@ -190,7 +190,7 @@ import State from './State';
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}
-						<KrField  label="是否到访" name="visitStatus" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
+						<KrField  label="是否已到访" name="visitStatus" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
 							<KrField name="visitStatus" label="未到访" type="radio" value="UNVISIT"  style={{marginTop:5}}/>
 							<KrField name="visitStatus" label="已到访未签约" type="radio" value="VISIT_UNSIGN"  style={{marginTop:5}}/>
 							<KrField name="visitStatus" label="已到访已签约" type="radio" value="VISIT_SIGN"  style={{marginTop:5}}/>
