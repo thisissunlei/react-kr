@@ -273,32 +273,38 @@ export default class MyColleague extends React.Component {
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='subName'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='depName' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaderName'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobName' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
-						 								 }}></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email'></TableRowColumn>
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email' component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='telephone'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobDescr' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-																if(!value){
-																	value='无'
-																}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
-						 								 }}></TableRowColumn>
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											if(!value){
+												value='无'
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
 											 return <Dictionary type='ERP_ResourceStatus' value={value}/>
 										}}></TableRowColumn>
@@ -350,39 +356,39 @@ export default class MyColleague extends React.Component {
 										{/*我的下属的表格*/}
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='subName'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='depName' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='depName'  component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaderName'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobName' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobName'  component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email'  component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='telephone'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobDescr' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-																if(!value){
-																	value='无'
-																}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
-						 								 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobDescr'  component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											if(!value){
+												value='无'
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
 											 return <Dictionary type='ERP_ResourceStatus' value={value}/>
 										}}></TableRowColumn>
