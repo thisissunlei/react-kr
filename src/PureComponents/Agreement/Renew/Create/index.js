@@ -109,6 +109,9 @@ export default class JoinCreate extends Component {
 			_this.props.CommunityAgreementList.openOneAgreement=false;
 			_this.props.CommunityAgreementList.openLocalStorage = false;
 		}).catch(function(err) {
+			if(formValues.saleList){
+				formValues.saleList = JSON.parse(formValues.saleList);
+			}
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
