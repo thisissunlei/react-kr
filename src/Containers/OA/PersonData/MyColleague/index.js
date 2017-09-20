@@ -42,9 +42,10 @@ export default class MyColleague extends React.Component {
 				pageSize: 15,
 				orgId: '1',
 				orgType: "ROOT",
-				mobilePhoneKey:'',
+				telephoneKey:'',
 				emailKey:'',
-				nameKey:''
+				nameKey:'',
+				jobDescrKey:''
 			},
 			clickTreeData:{
 				orgId:'1',
@@ -67,9 +68,10 @@ export default class MyColleague extends React.Component {
 	checkTab = (item) => {
 		var searchParams = Object.assign({},this.state.searchParams);
 		searchParams.page=1;
-		searchParams.mobilePhoneKey = "";
+		searchParams.telephoneKey = "";
 		searchParams.emailKey = "";
 		searchParams.nameKey = "";
+		searchParams.jobDescrKey = "";
 		this.setState({
 			  searchParams,
 				tabSelect:item
@@ -114,9 +116,10 @@ export default class MyColleague extends React.Component {
 	//搜索设置
 	onSearchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.mobilePhoneKey = form.content;
+		searchParams.telephoneKey = form.content;
 		searchParams.emailKey = form.content;
 		searchParams.nameKey = form.content;
+		searchParams.jobDescrKey=form.content;
 		this.setState({
 			searchParams
 		})
@@ -149,11 +152,12 @@ export default class MyColleague extends React.Component {
 	//获取树的数据
 	getTreeData = () => {
 		const _this = this;
-		Http.request("org-list",{id:0}).then(function (response) {
+		Http.request("colla-list").then(function (response) {
 		//Http.request("role-dep-tree").then(function (response) {
-			
+
 			_this.setState({
-				treeData: _this.fnTree([response]),
+				//treeData: _this.fnTree([response]),
+				treeData:_this.fnTree([response.items])
 			});
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -258,8 +262,8 @@ export default class MyColleague extends React.Component {
 									<TableHeaderColumn className='header-row'>直接上级</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>职务</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>邮箱</TableHeaderColumn>
-									<TableHeaderColumn className='header-row'>手机号</TableHeaderColumn>
-									<TableHeaderColumn className='header-row'>入职时间</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>座机</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>职务描述</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>员工状态</TableHeaderColumn>
 								</TableHeader>
 
@@ -269,25 +273,38 @@ export default class MyColleague extends React.Component {
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='subName'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='depName' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaderName'></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobName' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='mobilePhone'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='entryDate' component={(value,oldValue)=>{
-													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
-												 }}></TableRowColumn>
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email' component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='telephone'></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobDescr' component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											if(!value){
+												value='无'
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
 											 return <Dictionary type='ERP_ResourceStatus' value={value}/>
 										}}></TableRowColumn>
@@ -329,8 +346,8 @@ export default class MyColleague extends React.Component {
 									<TableHeaderColumn className='header-row'>直接上级</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>职务</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>邮箱</TableHeaderColumn>
-									<TableHeaderColumn className='header-row'>手机号</TableHeaderColumn>
-									<TableHeaderColumn className='header-row'>入职时间</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>座机</TableHeaderColumn>
+									<TableHeaderColumn className='header-row'>职务描述</TableHeaderColumn>
 									<TableHeaderColumn className='header-row'>员工状态</TableHeaderColumn>
 								</TableHeader>
 
@@ -339,32 +356,39 @@ export default class MyColleague extends React.Component {
 										{/*我的下属的表格*/}
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='name'></TableRowColumn>
 										<TableRowColumn  style={{borderRight:'solid 1px #E1E6EB'}} name='subName'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='depName' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='depName'  component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='leaderName'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobName' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email' component={(value,oldValue)=>{
-						 										var maxWidth=10;
-						 										if(value.length>maxWidth){
-						 										 value = value.substring(0,10)+"...";
-						 										}
-						 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-						 								 }}></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='mobilePhone'></TableRowColumn>
-										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='entryDate' component={(value,oldValue)=>{
-													 return (<KrDate value={value} format="yyyy-mm-dd"/>)
-												 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobName'  component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='email'  component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+									 }}></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='telephone'></TableRowColumn>
+										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='jobDescr'  component={(value,oldValue)=>{
+											var maxWidth=10;
+											if(value.length>maxWidth){
+											 value = value.substring(0,10)+"...";
+											}
+											if(!value){
+												value='无'
+											}
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
 											 return <Dictionary type='ERP_ResourceStatus' value={value}/>
 										}}></TableRowColumn>
