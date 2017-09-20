@@ -13,9 +13,14 @@ import {
 	Button,
 	Notify,
 	ButtonGroup,
-	Message
+	Message,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import {mobxForm}  from 'kr/Utils/MobxForm';
+
+
+
 import './index.less';
 import State from './State';
 
@@ -32,8 +37,11 @@ import State from './State';
 		super(props);
 		this.state={
 			typeValue:this.props.typeValue,
+			isFirst:true,
+			detail:{},
+			date:"",
+			time:'',
 		}
-		console.log(this.props.typeValue,">>>>>>>")
 
 	}
 
@@ -55,10 +63,30 @@ import State from './State';
 			typeValue : values.value
 		})
 	}
+	componentWillReceiveProps (nextProps) {
+		let {isFirst} = this.state;
+		if(nextProps.editDetail && isFirst){
+			var detail = Object.assign({},nextProps.editDetail);
+			this.setState({
+				detail,
+				time:detail.time,
+				date:detail.date,
+				isFirst:false
+			})
+		}
+	}
 
   //确定按钮
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
+	let {date,time} = this.state;
+
+	if(!time==true || !date == true){
+		Message.error("时间选择有误!");
+		return;
+	}
+	
+	values.vtime = date+" "+time+':00';
   	onSubmit && onSubmit(values);
   }
 	//将区县id绑定到from上
@@ -66,9 +94,22 @@ import State from './State';
 			const {$form} = this.props;
 			$form.change('distinctId',value);
 	}
+
+	dataChange = (values) =>{
+		
+		values = values.split(" ")[0];
+		this.setState({
+			date:values
+		})
+	}
+	timeChange = (values) =>{
+		this.setState({
+			time:values
+		})
+	}
 	render(){
 		const { handleSubmit,select} = this.props;
-		const {typeValue} = this.state;
+		const {typeValue,detail,time} = this.state;
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
@@ -100,6 +141,7 @@ import State from './State';
 						/>}
 
             			<KrField grid={1/2}  name="name" style={{width:262,marginLeft:28}} component='input'  label="姓名" inline={false}  placeholder='请输入姓名' requireLabel={true}/>
+						{typeValue==741 && <KrField grid={1/2}  name="idCard" style={{width:262,marginLeft:28}} component='input'  label="身份证号" inline={false}  placeholder='请输入身份证号' requireLabel={true}/>}
 						<KrField grid={1/2}  name="tel" style={{width:262,marginLeft:28}} component='input'  label="联系方式" inline={false}  placeholder='请输入联系方式' requireLabel={true}/>
 
 						{/*参观*/}
@@ -107,7 +149,7 @@ import State from './State';
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="num" style={{width:262,marginLeft:28}} component='input'  label="拜访人数" inline={false}  placeholder='请输入拜访人数' requireLabel={true}/>}
-            			<KrField grid={1/2}  name="email" style={{width:262,marginLeft:28}} component='input'  label="邮箱" inline={false}  placeholder='请输入邮箱' requireLabel={true}/>
+            			<KrField grid={1/2}  name="email" style={{width:262,marginLeft:28}} component='input'  label="邮箱" inline={false}  placeholder='请输入邮箱' requireLabel={false}/>
 
             			{/*参观*/}
   						{typeValue ==52 &&<KrField grid={1/2}  name="purposeId" style={{width:262,marginLeft:28}} component='select'  label="参观目的" inline={false}
@@ -120,12 +162,39 @@ import State from './State';
 							requireLabel={true}
 							options={select.round}
 						/>}
-						<KrField grid={1/2}  name="vtime" style={{width:262,marginLeft:28}} component='date'  label="拜访日期" inline={false}  placeholder='请选择拜访时间' requireLabel={true}/>
-
+						<Grid style = {{marginLeft:25,width:265,display:"inline-block"}}>
+							<Row>	
+								<ListGroup>
+									<ListGroupItem style={{width:265,padding:0}}>
+										<KrField
+											name="date"
+											component="date"
+											style={{width:185}}
+											requireLabel={true}
+											label='活动时间'
+											onChange = {this.dataChange}
+										/>
+										
+										<KrField
+											name="time"
+											component="selectTime"
+											style={{width:80,marginTop:14,zIndex:10}}
+											onChange = {this.timeChange}
+											timeNum = {time||''}
+											/>
+										
+									</ListGroupItem>
+								</ListGroup>
+							</Row>
+						</Grid>
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}
-
+						<KrField  label="是否已有办公室" name="visitStatus" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
+							<KrField name="visitStatus" label="未到访" type="radio" value="UNVISIT"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访未签约" type="radio" value="VISIT_UNSIGN"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访已签约" type="radio" value="VISIT_SIGN"  style={{marginTop:5}}/>
+						</KrField>
 
 						<Grid style={{marginTop:30}}>
 							<Row>
@@ -147,6 +216,7 @@ const validate = values =>{
 	const phone=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
 
 	const email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+	const idCordReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
 	// console.log(State.typeValue,">>>>>>>>");
 	const typeValue = State.typeValue;
 	if(!values.communityId){
@@ -208,15 +278,18 @@ const validate = values =>{
 	}
 
 
-	if(!values.email){
-		errors.email = "邮箱不能为空"
-	}else if(!email.test(values.email)){
+	if(values.email && !email.test(values.email)){
 		errors.email = "邮箱的格式不正确"
 	}
 
 
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
+	}
+	if(!values.idCard){
+		errors.idCard = "请填写身份证号";
+	}else if(!idCordReg.test(values.idCard)){
+		errors.idCard = "身份证号格式不正确";
 	}
 
 

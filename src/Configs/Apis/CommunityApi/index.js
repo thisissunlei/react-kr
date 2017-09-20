@@ -32,7 +32,7 @@ module.exports = {
 
 	 //社区管理－访客记录-列表
  'visit-record-list':{
-		url: '/api/krspace-finance-web/sys/visit-record/list?page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}&visitType={visitType}',
+		url: '/api/krspace-finance-web/sys/visit-record/list?page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}&visitType={visitType}&visitStatus={visitStatus}',
 		method: 'get'
  },
  //社区管理－访客记录-准备数据
@@ -47,7 +47,7 @@ module.exports = {
   },
   //社区管理－访客记录-新增访客
   'visit-record-edit':{
-    url: '/api/krspace-finance-web/sys/visit-record/actions/edit?activityTypeId={activityTypeId}&communityId={communityId}&company={company}&email={email}&id={id}&interviewRoundId={interviewRoundId}&interviewTypeId={interviewTypeId}&meetedMan={meetedMan}&name={name}&num={num}&purposeId={purposeId}&tel={tel}&typeId={typeId}&vtime={vtime}&wechat={wechat}',
+    url: '/api/krspace-finance-web/sys/visit-record/actions/edit',
     method: 'post'
   },
   //社区管理－访客记录-编辑页数据

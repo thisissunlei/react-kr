@@ -35,6 +35,8 @@ import './index.less';
 		this.state = {
 			detail:{},
 			loading:true,
+			date:'',
+			time:'',
 		}
 
 		this.getDetail(this.props.detailData.id);
@@ -94,6 +96,20 @@ import './index.less';
 			return <Loading />
 		}
 
+		var isOk='';
+		if(detail.visitStatus=='NONE'){
+			isOk='无';
+		}
+		if(detail.visitStatus=='UNVISIT'){
+			isOk='未到访';
+		}
+		if(detail.visitStatus=='VISIT_UNSIGN'){
+			isOk='已到访未签约';
+		}
+		if(detail.visitStatus=='VISIT_SIGN'){
+			isOk='已到访已签约';
+		}
+
 		return (
       <div className = "m-newMerchants m-visitors-to-record-detail">
         <div className="title" style={{marginBottom:"30px"}}>
@@ -105,14 +121,16 @@ import './index.less';
         {typeValue ==50 &&<KrField component="labelText" grid={1/2} label="面试类型：" value={detail.interviewTypeName} defaultValue="无" requireBlue={true} />}
         {typeValue ==51 &&<KrField component="labelText" grid={1/2} label="活动类型：" value={detail.activityTypeName} defaultValue="无" requireBlue={true} />}
         <KrField component="labelText" grid={1/2} label="姓名：" value={detail.name} defaultValue="无" requireBlue={true} />
+		{typeValue ==741 &&<KrField component="labelText" grid={1/2} label="访客身份证号：" value={detail.idCard} defaultValue="无" requireBlue={true} />}
         <KrField component="labelText" grid={1/2} label="联系方式：" value={detail.tel} defaultValue="无" requireBlue={true} />
         {typeValue ==52 &&<KrField component="labelText" grid={1/2} label="微信：" value={detail.wechat} defaultValue="无" requireBlue={true} />}
         {(typeValue == 49 || typeValue == 732) &&<KrField component="labelText" grid={1/2} label="拜访人数：" value={detail.num} defaultValue="无" requireBlue={true} />}
         <KrField component="labelText" grid={1/2} label="邮箱：" value={detail.email} defaultValue="无" requireBlue={true} />
         {typeValue ==52 &&<KrField component="labelText" grid={1/2} label="参观目的：" value={detail.purposeName} defaultValue="无" requireBlue={true} />}
         {typeValue ==50 &&<KrField component="labelText" grid={1/2} label="面试轮次：" value={detail.interviewRoundName} defaultValue="无" requireBlue={true} />}
-        <KrField component="labelText" grid={1/2} label="拜访日期：" value={DateFormat(detail.vtime,"yyyy-mm-dd")} defaultValue="无" requireBlue={true} />
+        <KrField component="labelText" grid={1/2} label="拜访日期：" value={DateFormat(detail.vtime,"yyyy-mm-dd hh:MM")} defaultValue="无" requireBlue={true} />
         {(typeValue == 49 || typeValue == 732) &&<KrField component="labelText" grid={1/2} label="被拜访人：" value={detail.meetedMan} defaultValue="无" requireBlue={true} />}
+		<KrField component="labelText" grid={1/2} label="是否已到访：" value={isOk} defaultValue="无" requireBlue={true} />
       </div>
 
 		);

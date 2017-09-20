@@ -357,7 +357,7 @@ class Merchants extends Component{
 		              <TableHeaderColumn>来源</TableHeaderColumn>
 		              {/*<TableHeaderColumn>联系人</TableHeaderColumn>*/}
 									{/*<TableHeaderColumn>联系人手机号</TableHeaderColumn>*/}
-		              <TableHeaderColumn>身份证号</TableHeaderColumn>
+		              {/*<TableHeaderColumn>身份证号</TableHeaderColumn>*/}
 		              <TableHeaderColumn>领取人</TableHeaderColumn>
 		              <TableHeaderColumn>创建时间</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
@@ -433,7 +433,7 @@ class Merchants extends Component{
 														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 													 }}></TableRowColumn>*/}
-											<TableRowColumn
+											{/*<TableRowColumn
 												component={(value,oldValue)=>{
 													if(!value){
 														value = "-"
@@ -443,7 +443,7 @@ class Merchants extends Component{
 											 }}
 												name="idCard"
 												style = {{wordWrap:'break-word',whiteSpace:'normal'}}
-											></TableRowColumn>
+											></TableRowColumn>*/}
 			                <TableRowColumn name="receiveName"></TableRowColumn>
 			                <TableRowColumn name="createDate" type='date' component={(value,oldValue)=>{
 						                				let show="inline-block";
