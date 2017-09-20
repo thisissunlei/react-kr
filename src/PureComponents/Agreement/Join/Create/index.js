@@ -156,6 +156,10 @@ export default class JoinCreate extends Component {
 
 		}).catch(function(err) {
 			_this.isConfirmSubmiting = false;
+			if(formValues.saleList){
+				formValues.saleList = JSON.parse(formValues.saleList);
+
+			}
 			console.log(err)
 			Notify.show([{
 				message: err.message,
