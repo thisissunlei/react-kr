@@ -77,8 +77,8 @@ class HomeLeft  extends React.Component{
 						<div className="tab-lists">
 							<span className="tab-list" style={{color:State.stationType == 'rent'?'#394457':'#999'}} 
 							onTouchTap={this.onChangeTab.bind(this,'rent')}>已租工位</span>
-							<span className="tab-list" style={{color:State.stationType == 'free'?'#394457':'#999'}}
-							onTouchTap={this.onChangeTab.bind(this,'free')}>空置工位</span>
+							{/* <span className="tab-list" style={{color:State.stationType == 'free'?'#394457':'#999'}}
+							onTouchTap={this.onChangeTab.bind(this,'free')}>空置工位</span> */}
 							<span className="tab-list" style={{color:State.stationType == 'all'?'#394457':'#999'}}
 							onTouchTap={this.onChangeTab.bind(this,'all')}>总工位数</span>
 						</div>
@@ -89,11 +89,11 @@ class HomeLeft  extends React.Component{
 					<span className='item-tow item'>
 						<div className="tab-lists">
 							<span className="tab-list" style={{color:State.roomType == 'rent'?'#394457':'#999'}} 
-							onTouchTap={this.onChangeRoom.bind(this,'rent')}>已租房间</span>
+							onTouchTap={this.onChangeRoom.bind(this,'rent')}>签约率</span>
 							<span className="tab-list" style={{color:State.roomType == 'free'?'#394457':'#999'}}
-							onTouchTap={this.onChangeRoom.bind(this,'free')}>空置房间</span>
-							<span className="tab-list" style={{color:State.roomType == 'all'?'#394457':'#999'}}
-							onTouchTap={this.onChangeRoom.bind(this,'all')}>总房间数</span>
+							onTouchTap={this.onChangeRoom.bind(this,'free')}>下月出租率</span>
+							{/* <span className="tab-list" style={{color:State.roomType == 'all'?'#394457':'#999'}}
+							onTouchTap={this.onChangeRoom.bind(this,'all')}>总房间数</span> */}
 						</div>
 						{State.roomType == 'rent' && <div className="room-num"><span style={{fontSize:'30px'}}>{State.InfoData.letRoom || '0'} </span><span style={{fontSize:'16px'}}>间</span></div>}
 						{State.roomType == 'free' && <div className="room-num"><span style={{fontSize:'30px'}}>{State.InfoData.vacantRoom || '0'}</span> <span style={{fontSize:'16px'}}>间</span></div>}
