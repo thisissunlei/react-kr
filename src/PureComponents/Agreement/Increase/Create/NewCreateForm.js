@@ -63,6 +63,7 @@ import {
 	ListGroupItem,
 	Paper,
 	KrDate,
+	Tooltip,
 	CircleStyle
 } from 'kr-ui';
 import './index.less';

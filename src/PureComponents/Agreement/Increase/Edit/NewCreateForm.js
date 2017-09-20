@@ -53,6 +53,7 @@ import {
 	DotTitle,
 	ButtonGroup,
 	ListGroup,
+	Tooltip,
 	ListGroupItem,
 } from 'kr-ui';
 

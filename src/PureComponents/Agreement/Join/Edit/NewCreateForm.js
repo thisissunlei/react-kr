@@ -52,7 +52,9 @@ import {
 	DotTitle,
 	ButtonGroup,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Tooltip
+
 } from 'kr-ui';
 
 var tabelLength = 0;

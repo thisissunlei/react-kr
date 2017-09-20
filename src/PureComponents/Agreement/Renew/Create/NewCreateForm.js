@@ -49,6 +49,7 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
+	Tooltip,
 	Section,
 	KrField,
 	Grid,

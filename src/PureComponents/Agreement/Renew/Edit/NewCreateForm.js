@@ -44,6 +44,7 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
+	Tooltip,
 	KrField,
 	Grid,
 	Row,
