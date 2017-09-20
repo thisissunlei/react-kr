@@ -68,7 +68,12 @@ export default class JoinCreate extends React.Component {
 		let {
 			params,onSubmit
 		} = this.props;
-		formValues.saleList = JSON.stringify(formValues.saleList);
+		if(formValues.saleList){
+			formValues.saleList = JSON.stringify(formValues.saleList);
+
+		}else{
+			formValues.saleList = '[]'
+		}
 
 		var _this = this;
 		// console.log('jin-->',formValues)

@@ -124,8 +124,10 @@ export default class JoinCreate extends Component {
 			params,onSubmit
 		} = this.props;
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
-		if(typeof formValues.saleList != 'string'){
+		if(formValues.saleList &&  typeof formValues.saleList != 'string'){
 			formValues.saleList = JSON.stringify(formValues.saleList);
+		}else{
+			formValues.saleList = '[]'
 		}
 		var _this = this;
 		Http.request('addOrEditEnterContract','',formValues).then(function(response) {
@@ -138,7 +140,10 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
-			formValues.saleList = JSON.parse(formValues.saleList);
+			if(formValues.saleList){
+				formValues.saleList = JSON.parse(formValues.saleList);
+
+			}
 
 			_this.removeLocalStorages();
 			onSubmit && onSubmit()

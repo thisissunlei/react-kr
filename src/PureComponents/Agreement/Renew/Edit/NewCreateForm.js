@@ -1042,13 +1042,13 @@ class NewCreateForm extends React.Component {
 		let tacticsId = '';
 		let _this = this;
 		e = e.replace(/\s/g,'');
-		// if(!(/^\d+\.\d$/.test(e))){
-		// 	Notify.show([{
-		// 		message: '折扣只能为一位小数',
-		// 		type: 'danger',
-		// 	}]);
-		// 	return;
-		// }
+		if(!(/^(\d|[0-9])(\.\d)?$/.test(e))){
+			Notify.show([{
+				message: '折扣只能为一位小数',
+				type: 'danger',
+			}]);
+			return;
+		}
 		if(!e ||isNaN(e)){
 			Notify.show([{
 				message: '折扣只能为数字',

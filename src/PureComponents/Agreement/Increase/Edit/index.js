@@ -66,7 +66,12 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 
 		let _this = this;
-		formValues.saleList = JSON.stringify(formValues.saleList);
+		if(formValues.saleList){
+			formValues.saleList = JSON.stringify(formValues.saleList);
+
+		}else{
+			formValues.saleList = '[]'
+		}
 		
 
 		let {CommunityAgreementList} = this.props;

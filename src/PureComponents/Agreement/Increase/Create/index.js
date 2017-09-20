@@ -92,8 +92,10 @@ export default class JoinCreate extends Component {
 		if (typeof formValues.stationVos != 'string') {
 			formValues.stationVos = JSON.stringify(formValues.stationVos);
 		}
-		if(typeof formValues.saleList != 'string'){
+		if(formValues.saleList && typeof formValues.saleList != 'string'){
 			formValues.saleList = JSON.stringify(formValues.saleList);
+		}else{
+			formValues.saleList = '[]'
 		}
 
 		var _this = this;
@@ -106,8 +108,9 @@ export default class JoinCreate extends Component {
 			}]);
 			_this.removeLocalStorages();
 			onSubmit && onSubmit();
-			formValues.saleList = JSON.parse(formValues.saleList);
-
+			if(formValues.saleList){
+				formValues.saleList = JSON.parse(formValues.saleList);
+			}
 			_this.props.CommunityAgreementList.openTowAgreement=false;
 			_this.props.CommunityAgreementList.openOneAgreement=false;
 			_this.props.CommunityAgreementList.openLocalStorage = false;
