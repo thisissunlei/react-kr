@@ -91,7 +91,7 @@ import './index.less';
           />
 
 					<KrField style={{width:262,marginLeft:-1,display:"inline-block",marginRight:25}}  label="是否已到访" name="visitStatus"   component="select"  requireLabel={false}
-            options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访未签约',value:"VISIT_UNSIGN"},{label:'已到访已签约',value:"VISIT_SIGN"}]}
+            options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访',value:"VISIT"}]}
           />
 
           <Grid style={{marginTop:17,marginBottom:5,marginLeft:-24}}>
