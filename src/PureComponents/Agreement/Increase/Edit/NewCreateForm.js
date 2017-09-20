@@ -884,9 +884,10 @@ class NewCreateForm extends React.Component {
 				        <td  style={{textAlign:'center'}}>
 				        	<KrField
 					          name={`${member}.discountAmount`}
-					          type="text"
+					          type="text" 
 					          component='text'
-					          disabled={false}/>
+					          disabled={true}
+					          placeholder="-"/>
 				        </td>
 				      </tr>
 				    )}else if(biaodan[index] == 2){
@@ -933,7 +934,8 @@ class NewCreateForm extends React.Component {
 					          name={`${member}.discountAmount`}
 					          type="text"
 					          component='text'
-					          display={true}/>
+					          disabled={true}
+					          placeholder="-"/>
 
 				        </td>
 				      </tr>
@@ -982,7 +984,9 @@ class NewCreateForm extends React.Component {
 					        <KrField
 					          name={`${member}.discountAmount`}
 					          type="text"
-					          component='text'/>
+					          component='text'
+					          disabled={true}
+					          placeholder="-"/>
 				        </td>
 				      </tr>
 				    )

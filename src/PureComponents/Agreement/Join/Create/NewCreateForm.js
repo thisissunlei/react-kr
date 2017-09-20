@@ -865,7 +865,8 @@ class NewCreateForm extends Component {
 					          name={`${member}.discountAmount`}
 					          type="text"
 					          component='text'
-					          disabled={false}/>
+					          disabled={true}
+					          placeholder="-"/>
 				        </td>
 				      </tr>
 				    )}else if(biaodan[index] == 2){
@@ -912,7 +913,9 @@ class NewCreateForm extends Component {
 					          name={`${member}.discountAmount`}
 					          type="text"
 					          component='text'
-					          display={true}/>
+					          display={true}
+					          disabled={true}
+					          placeholder='-'/>
 
 				        </td>
 				      </tr>
@@ -961,7 +964,9 @@ class NewCreateForm extends Component {
 					        <KrField
 					          name={`${member}.discountAmount`}
 					          type="text"
-					          component='text'/>
+					          component='text'
+					          disabled={true}
+					          placeholder="-"/>
 				        </td>
 				      </tr>
 				    )
