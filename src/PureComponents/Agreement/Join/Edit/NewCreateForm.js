@@ -718,7 +718,13 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			checkedArr:[],
 			biaodan:biaodan
+		},function(){
+			_this.showFields()
 		})
+	}
+	showFields=()=>{
+		let {changeValues} = this.props;
+		console.log('showFields',changeValues.saleList)
 	}
 	clearCheckBox = (type) =>{
 		for(let i = 0;i<tabelLength;i++){
@@ -1558,9 +1564,7 @@ const validate = values => {
 		errors.firstpaydate = '请输入首付款时间';
 	}
 
-	if (!values.saleList || !values.saleList.length) {
-    	errors.saleList = { _error: 'At least one member must be entered' }
-	 } else {
+	if (values.saleList && values.saleList.length){
 	    const saleListArrayErrors = []
 	    values.saleList.forEach((member, memberIndex) => {
 	      const memberErrors = {}

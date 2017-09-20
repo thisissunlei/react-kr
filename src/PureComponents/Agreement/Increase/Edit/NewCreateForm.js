@@ -1543,9 +1543,7 @@ const validate = values => {
 		errors.wherefloor = '请填写所属楼层';
 	}
 
-	if (!values.saleList || !values.saleList.length) {
-    	errors.saleList = { _error: 'At least one member must be entered' }
-	 } else {
+	if(values.saleList && values.saleList.length){
 	    const saleListArrayErrors = []
 	    values.saleList.forEach((member, memberIndex) => {
 	      const memberErrors = {}
@@ -1566,7 +1564,6 @@ const validate = values => {
 	      errors.saleList = saleListArrayErrors
 	    }
 	  }
-
 
 
 

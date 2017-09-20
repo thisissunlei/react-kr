@@ -1386,6 +1386,27 @@ const validate = values => {
 	if (!String(values.totaldeposit)) {
 		errors.totaldeposit = '请填写押金总额';
 	}
+	if (values.saleList && values.saleList.length){
+	    const saleListArrayErrors = []
+	    values.saleList.forEach((member, memberIndex) => {
+	      const memberErrors = {}
+	      if (!member || !member.tacticsType) {
+	        memberErrors.tacticsType = '请选择优惠项'
+	        saleListArrayErrors[memberIndex] = memberErrors
+	      }
+	      if (member && member.tacticsType==1 && !member.discount) {
+	        memberErrors.discount = '请填写折扣'
+	        saleListArrayErrors[memberIndex] = memberErrors
+	      }
+	      if (member && member.tacticsType==2 && !member.validEnd) {
+	        memberErrors.validEnd = '请选择时间'
+	        saleListArrayErrors[memberIndex] = memberErrors
+	      }
+	    })
+	    if(saleListArrayErrors.length) {
+	      errors.saleList = saleListArrayErrors
+	    }
+	  }
 
 	
 

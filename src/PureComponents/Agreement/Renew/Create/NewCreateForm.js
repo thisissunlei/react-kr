@@ -1404,9 +1404,7 @@ const validate = values => {
 	if (!values.stationnum && !values.boardroomnum) {
 		errors.stationnum = '租赁项目必须填写一项';
 	}
-	if (!values.saleList || !values.saleList.length) {
-    	errors.saleList = { _error: 'At least one member must be entered' }
-	 } else {
+	if (values.saleList && values.saleList.length){
 	    const saleListArrayErrors = []
 	    values.saleList.forEach((member, memberIndex) => {
 	      const memberErrors = {}

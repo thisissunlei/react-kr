@@ -140,7 +140,7 @@ class NewCreateForm extends Component {
 			HeightAuto: false,
 			allRent:0,
 			checkedArr:[],
-			biaodan:[]
+			biaodan:this.props.initialValues.biaodan || []
 
 		}
 	}
@@ -677,6 +677,7 @@ class NewCreateForm extends Component {
 	}
 	removeRow=(fields)=>{
 		let {checkedArr,biaodan} = this.state;
+		let _this = this;
 		var newArr = arrReverse(checkedArr);
 		if(newArr.length){
 			this.clearCheckBox(true);
@@ -693,7 +694,21 @@ class NewCreateForm extends Component {
 		this.setState({
 			checkedArr:[],
 			biaodan:biaodan
+		},function(){
+			_this.showFields(fields)
 		})
+	}
+	showFields=(fields)=>{
+		let {changeValues,optionValues} = this.props;
+		let {stationVos} = this.state;
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(changeValues.saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:changeValues.leaseBegindate,
+			leaseEnddate:changeValues.leaseEnddate
+		};
+		this.getSaleMoney(params,fields);
 	}
 	clearCheckBox = (type) =>{
 		for(let i = 0;i<tabelLength;i++){
@@ -788,7 +803,8 @@ class NewCreateForm extends Component {
 	renderTr=(fields)=>{
 		let self = this;
 		let {
-			changeValues
+			changeValues,
+			initialValues
 		} = this.props;
 
 		let {
@@ -798,6 +814,8 @@ class NewCreateForm extends Component {
 		} = changeValues;
 		let {biaodan}= this.state;
 		let keyList = this.props.optionValues.saleList;
+		let leaseBeginDate =  leaseBegindate || initialValues.leaseBegindate;
+		let leaseEndDate =  leaseEnddate || initialValues.leaseEnddate;
 		return(
 		fields.map((member, index) =>{
 					if(biaodan[index] == 1){
@@ -824,12 +842,12 @@ class NewCreateForm extends Component {
 				        <td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validBegin`} type="hidden" component="input" />
 
-					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBeginDate.substring(0,10)}</span>
 				        </td>
 				        <td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validEnd`} type="hidden" component="input" />
 
-					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEndDate.substring(0,10)}</span>
 
 				        </td>
 				        <td>
@@ -873,7 +891,7 @@ class NewCreateForm extends Component {
 				        </td>
 				       	<td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validBegin`} type="hidden" component="input" />
-					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBegindate.substring(0,10)}</span>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseBeginDate.substring(0,10)}</span>
 				        </td>
 				        <td>
 					        <KrField
@@ -934,7 +952,7 @@ class NewCreateForm extends Component {
 				        <td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validEnd`} type="hidden" component="input" />
 
-					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEnddate.substring(0,10)}</span>
+					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEndDate.substring(0,10)}</span>
 				        </td>
 				         <td style={{textAlign:'center'}}>
 					        <span style={{display:'inline-block',marginTop:'10px'}}>-</span>
@@ -1009,7 +1027,8 @@ class NewCreateForm extends Component {
 	changeType=(e,index,fields)=>{
 		console.log('changeType',e,index,fields)
 		let {biaodan} = this.state;
-		let {changeValues} = this.props;
+		let {changeValues,optionValues} = this.props;
+		let {saleList} = optionValues;
 		let same = false;
 		let sameFree = false;
 		let showWarn = false;
@@ -1046,7 +1065,45 @@ class NewCreateForm extends Component {
 				sameFree = true;
 			}
 		})
+		let tacticsId = '';
+		saleList.map((item)=>{
+			if(item.value == e.value){
+			   	tacticsId = item.id;
+			}
+		})
+		let time = {}
+		if(e.value == 1){
+			time = {
+				validStart :changeValues.leaseBegindate,
+				validEnd:changeValues.leaseEnddate,
+				tacticsType:1,
+				tacticsId:tacticsId,
+				// discount:7
 
+			}
+		}
+		if(e.value == 2){
+			time = {
+				validStart :changeValues.leaseBegindate,
+				// validEnd:changeValues.leaseEnddate,
+				tacticsType:2,
+				tacticsId:tacticsId,
+				// discount:7
+
+			}
+		}
+		if(e.value == 3){
+			time = {
+				// validStart :changeValues.leaseBegindate,
+				validEnd:changeValues.leaseEnddate,
+				tacticsType:3,
+				tacticsId:tacticsId,
+
+			}
+		}
+		console.log('time',time)
+		fields.remove(index);
+		fields.insert(index,time);
 		this.setState({
 			biaodan
 		},()=>{
@@ -1172,19 +1229,23 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
+		let xiaoyu = false;
 		saleList.map((item)=>{
 			if(item.value == changeValues.saleList[index].tacticsType && item.discount>e){
 				let message = '折扣不能小于'+item.discount;
+				xiaoyu = true;
 				Notify.show([{
 					message: message,
 					type: 'danger',
 				}]);
-				return;
 			}
 			if(item.value == changeValues.saleList[index].tacticsType){
 			   	tacticsId = item.id;
 			}
 		})
+		if(xiaoyu){
+			return;
+		}
 		let time = {
 			validStart :changeValues.leaseBegindate,
 			validEnd:changeValues.leaseEnddate,
@@ -1566,9 +1627,7 @@ const validate = values => {
 		errors.leaseEnddate = '请输入租赁结束时间';
 	}
 
-	if (!values.saleList || !values.saleList.length) {
-    	errors.saleList = { _error: 'At least one member must be entered' }
-	 } else {
+	if (values.saleList && values.saleList.length){
 	    const saleListArrayErrors = []
 	    values.saleList.forEach((member, memberIndex) => {
 	      const memberErrors = {}
