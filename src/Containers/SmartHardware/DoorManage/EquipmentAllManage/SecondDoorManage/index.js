@@ -422,6 +422,7 @@ export default class SecondDoorManage  extends React.Component{
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
 														<Button  label="更多"  type="operation" operation="more" onTouchTap={this.showMoreOpretion.bind(this,value,itemData)} linkTrue/>
+
 													</div>
 												)
 										}
