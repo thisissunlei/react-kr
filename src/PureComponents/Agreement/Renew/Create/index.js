@@ -90,7 +90,8 @@ export default class JoinCreate extends Component {
 		let _this = this;
 		if(formValues.saleList && typeof formValues.saleList != 'string'){
 			formValues.saleList = JSON.stringify(formValues.saleList);
-		}else{
+		}
+		if(!formValues.saleList ){
 			formValues.saleList ='[]'
 		}
 		Http.request('addOrEditContinueContract','',formValues).then(function(response) {
