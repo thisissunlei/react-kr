@@ -511,7 +511,7 @@ class VisitorsToRecord  extends React.Component{
                       ></TableRowColumn>
                       <TableRowColumn 
                         name="visitStatus"
-                        options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访未签约',value:"VISIT_UNSIGN"},{label:'已到访已签约',value:"VISIT_SIGN"}]}
+                        options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"}]}
                         style = {{wordWrap:'break-word',whiteSpace:'normal'}}
                        
                       ></TableRowColumn>
