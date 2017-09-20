@@ -72,7 +72,12 @@ static contextTypes = {
    let {CommunityAgreementList} = this.props;
    // console.log('formValues',formValues);
    // return;
+   if(formValues.saleList){
+      formValues.saleList = JSON.stringify(formValues.saleList);
 
+    }else{
+      formValues.saleList = '[]'
+    }
     Http.request('addOrEditContinueContract', {}, formValues).then(function(response) {
       _this.removeAllLocalStorage();
       Notify.show([{
@@ -80,6 +85,11 @@ static contextTypes = {
         type: 'success',
       }]);
       onSubmit && onSubmit()
+      if(formValues.saleList){
+        
+   formValues.saleList = JSON.parse(formValues.saleList);
+      }
+
       // CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
       CommunityAgreementList.openEditAgreement=false;
 

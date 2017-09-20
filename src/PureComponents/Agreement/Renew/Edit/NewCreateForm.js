@@ -44,6 +44,7 @@ import {
 	TableRow,
 	TableRowColumn,
 	TableFooter,
+	Tooltip,
 	KrField,
 	Grid,
 	Row,
@@ -567,6 +568,7 @@ class NewCreateForm extends React.Component {
 	removeRow=(fields)=>{
 		let {checkedArr,biaodan} = this.state;
 		var newArr = arrReverse(checkedArr);
+		let _this = this;
 		if(newArr.length){
 			this.clearCheckBox(true);
 		}
@@ -582,7 +584,21 @@ class NewCreateForm extends React.Component {
 		this.setState({
 			checkedArr:[],
 			biaodan:biaodan
+		},function(){
+			_this.showFields(fields)
 		})
+	}
+	showFields=(fields)=>{
+		let {changeValues,optionValues} = this.props;
+		let {stationVos} = this.state;
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(changeValues.saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:changeValues.leaseBegindate,
+			leaseEnddate:changeValues.leaseEnddate
+		};
+		this.getSaleMoney(params,fields);
 	}
 	clearCheckBox = (type) =>{
 		for(let i = 0;i<tabelLength;i++){
@@ -899,36 +915,84 @@ class NewCreateForm extends React.Component {
 
 	}
 	changeType=(e,index,fields)=>{
-		console.log('changeType',e,index,fields)
 		let {biaodan} = this.state;
-		let {changeValues} = this.props;
+		let {changeValues,optionValues} = this.props;
+		let {saleList} = optionValues;
 		let same = false;
 		let sameFree = false;
+		let showWarn = false;
 		biaodan[index] = e.value;
+	
+
+		let tacticsId = '';
+		saleList.map((item)=>{
+			if(item.value == e.value){
+			   	tacticsId = item.id;
+			}
+		})
+		let time = {}
+		if(e.value == 1){
+			time = {
+				validStart :changeValues.leaseBegindate,
+				validEnd:changeValues.leaseEnddate,
+				tacticsType:1,
+				tacticsId:tacticsId,
+			}
+		}
+		if(e.value == 2){
+			time = {
+				validStart :changeValues.leaseBegindate,
+				tacticsType:2,
+				tacticsId:tacticsId,
+			}
+		}
+		if(e.value == 3){
+			time = {
+				validEnd:changeValues.leaseEnddate,
+				tacticsType:3,
+				tacticsId:tacticsId,
+			}
+		}
+		fields.remove(index);
+		fields.insert(index,time);
+
+
+
 		biaodan.map((item)=>{
-			if(item == 2 && !same){
+			if(item == 1 && !same){
 				same = true;
-			}else if(item == 2 && same){
+			}else if(item == 1 && same){
 				Notify.show([{
 					message: '只可以选择一次折扣',
 					type: 'danger',
 				}]);
 				biaodan.splice(index,1)
 				fields.remove(index);
-			}else if(item == 1 && !sameFree){
-				sameFree = true
-			}else if(item == 3 && !sameFree){
-				sameFree = true;
-			}else if(sameFree){
+			}else if(item == 3 && sameFree){
+				showWarn = true;
 				Notify.show([{
-					message: '只可以选择一个免期活动',
+					message: '免期只能选择一种',
 					type: 'danger',
 				}]);
 				biaodan.splice(index,1)
 				fields.remove(index);
-				sameFree= false;
+			}else if(item == 2 && sameFree){
+				showWarn = true;
+				Notify.show([{
+					message: '免期只能选择一种',
+					type: 'danger',
+				}]);
+				biaodan.splice(index,1)
+				fields.remove(index);
+			}else if(item == 2 && !sameFree){
+				sameFree = true
+			}else if(item == 3 && !sameFree){
+				sameFree = true;
 			}
 		})
+
+
+
 		this.setState({
 			biaodan
 		},()=>{
@@ -947,13 +1011,22 @@ class NewCreateForm extends React.Component {
 		let {stationVos} = this.state;
 		let endTime = +new Date(e);
 		let validEnd = +new Date(changeValues.leaseEnddate);
+		let validStart = +new Date(changeValues.leaseBegindate);
+
 		let tacticsId = '';
 		
 
 		//校验时间选择的时间不得大于租赁结束时间
-		if(endTime>=validEnd){
+		if(endTime>validEnd){
 			Notify.show([{
 				message: '选择的时间不得大于租赁结束时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(endTime<=validStart){
+			Notify.show([{
+				message: '选择的时间不得小于等于于租赁开始时间',
 				type: 'danger',
 			}]);
 			return;
@@ -993,14 +1066,24 @@ class NewCreateForm extends React.Component {
 		let {saleList}  = optionValues;
 		let {stationVos} = this.state;
 		let beginTime = +new Date(e);
+		let validEnd = +new Date(changeValues.leaseEnddate);
+
 		let validStart = +new Date(changeValues.leaseBegindate);
 		let tacticsId = '';
 		
 
 		//校验时间选择的时间不得大于租赁结束时间
-		if(beginTime<=validStart){
+		//校验时间选择的时间不得大于租赁结束时间
+		if(beginTime<validStart){
 			Notify.show([{
 				message: '选择的时间不得小于于租赁开始时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(beginTime>=validEnd){
+			Notify.show([{
+				message: '选择的时间不得大于等于于租赁结束时间',
 				type: 'danger',
 			}]);
 			return;
@@ -1040,6 +1123,14 @@ class NewCreateForm extends React.Component {
 		let {stationVos} = this.state;
 		let tacticsId = '';
 		let _this = this;
+		e = e.replace(/\s/g,'');
+		if(!(/^(\d|[0-9])(\.\d)?$/.test(e))){
+			Notify.show([{
+				message: '折扣只能为一位小数',
+				type: 'danger',
+			}]);
+			return;
+		}
 		if(!e ||isNaN(e)){
 			Notify.show([{
 				message: '折扣只能为数字',
@@ -1209,7 +1300,12 @@ class NewCreateForm extends React.Component {
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
-									<TableRowColumn>{item.stationName}</TableRowColumn>
+									<TableRowColumn>
+											{item.stationName.length>6 && 
+												<span>{item.stationName.substring(0,6)+'...'}<Tooltip offsetTop={15}  place="top">{item.stationName}</Tooltip></span>}
+											{item.stationName.length<=6 && 
+												<span>{item.stationName}</span>}
+									</TableRowColumn>
 									<TableRowColumn>
 										<input type="text" name="age"  valueLink={typeLink}  onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
 									</TableRowColumn>

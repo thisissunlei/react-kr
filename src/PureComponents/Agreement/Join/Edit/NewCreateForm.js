@@ -52,7 +52,9 @@ import {
 	DotTitle,
 	ButtonGroup,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Tooltip
+
 } from 'kr-ui';
 
 var tabelLength = 0;
@@ -1254,6 +1256,14 @@ class NewCreateForm extends React.Component {
 		let {stationVos} = this.state;
 		let tacticsId = '';
 		let _this = this;
+		e = e.replace(/\s/g,'');
+		if(!(/^(\d|[0-9])(\.\d)?$/.test(e))){
+			Notify.show([{
+				message: '折扣只能为一位小数',
+				type: 'danger',
+			}]);
+			return;
+		}
 		if(!e ||isNaN(e)){
 			Notify.show([{
 				message: '折扣只能为数字',
@@ -1433,7 +1443,12 @@ class NewCreateForm extends React.Component {
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
-									<TableRowColumn>{item.stationName}</TableRowColumn>
+									<TableRowColumn>
+											{item.stationName.length>6 && 
+												<span>{item.stationName.substring(0,6)+'...'}<Tooltip offsetTop={15}  place="top">{item.stationName}</Tooltip></span>}
+											{item.stationName.length<=6 && 
+												<span>{item.stationName}</span>}
+									</TableRowColumn>
 									<TableRowColumn>
 											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
 									</TableRowColumn>
