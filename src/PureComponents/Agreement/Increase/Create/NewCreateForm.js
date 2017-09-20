@@ -925,6 +925,9 @@ class NewCreateForm extends Component {
 									  type="text"
 									  style={{width:120}}
 									  component='date'
+									   onChange={(event)=>{
+								self.changeBeginDate(event,fields,index)
+								}}
 									  />
 								</td>
 								<td style={{textAlign:'center'}}>
@@ -1010,38 +1013,7 @@ class NewCreateForm extends Component {
 		let sameFree = false;
 		let showWarn = false;
 		biaodan[index] = e.value;
-		biaodan.map((item)=>{
-			if(item == 1 && !same){
-				same = true;
-			}else if(item == 1 && same){
-				Notify.show([{
-					message: '只可以选择一次折扣',
-					type: 'danger',
-				}]);
-				biaodan.splice(index,1)
-				fields.remove(index);
-			}else if(item == 3 && sameFree){
-				showWarn = true;
-				Notify.show([{
-					message: '免期只能选择一种',
-					type: 'danger',
-				}]);
-				biaodan.splice(index,1)
-				fields.remove(index);
-			}else if(item == 2 && sameFree){
-				showWarn = true;
-				Notify.show([{
-					message: '免期只能选择一种',
-					type: 'danger',
-				}]);
-				biaodan.splice(index,1)
-				fields.remove(index);
-			}else if(item == 2 && !sameFree){
-				sameFree = true
-			}else if(item == 3 && !sameFree){
-				sameFree = true;
-			}
-		})
+
 		let tacticsId = '';
 		saleList.map((item)=>{
 			if(item.value == e.value){
@@ -1078,9 +1050,49 @@ class NewCreateForm extends Component {
 
 			}
 		}
-		console.log('time',time)
+
+
 		fields.remove(index);
 		fields.insert(index,time);
+
+		biaodan.map((item)=>{
+			if(item == 1 && !same){
+				same = true;
+			}else if(item == 1 && same){
+				Notify.show([{
+					message: '只可以选择一次折扣',
+					type: 'danger',
+				}]);
+				biaodan.splice(index,1)
+				fields.remove(index);
+				return;
+			}else if(item == 3 && sameFree){
+				showWarn = true;
+				Notify.show([{
+					message: '免期只能选择一种',
+					type: 'danger',
+				}]);
+				biaodan.splice(index,1)
+				fields.remove(index);
+				return;
+			}else if(item == 2 && sameFree){
+				showWarn = true;
+				Notify.show([{
+					message: '免期只能选择一种',
+					type: 'danger',
+				}]);
+				biaodan.splice(index,1)
+				fields.remove(index);
+				return
+
+			}else if(item == 2 && !sameFree){
+				sameFree = true
+			}else if(item == 3 && !sameFree){
+				sameFree = true;
+			}
+		})
+
+		
 
 				this.setState({
 					biaodan
@@ -1093,6 +1105,9 @@ class NewCreateForm extends Component {
 		
 				},50)
 			}
+
+
+
 			changeEndDate=(e,fields,index)=>{
 				console.log('changeEndDate',e,fields,index);
 				let {changeValues,initialValues,optionValues} = this.props;
@@ -1100,6 +1115,7 @@ class NewCreateForm extends Component {
 				let {stationVos} = this.state;
 				let endTime = +new Date(e);
 				let validEnd = +new Date(changeValues.leaseEnddate);
+				let validStart = +new Date(changeValues.leaseBegindate);
 				let tacticsId = '';
 				
 		
@@ -1107,6 +1123,13 @@ class NewCreateForm extends Component {
 				if(endTime>=validEnd){
 					Notify.show([{
 						message: '选择的时间不得大于租赁结束时间',
+						type: 'danger',
+					}]);
+					return;
+				}
+				if(endTime<validStart){
+					Notify.show([{
+						message: '选择的时间不得小于租赁开始时间',
 						type: 'danger',
 					}]);
 					return;
@@ -1147,6 +1170,7 @@ class NewCreateForm extends Component {
 				let {stationVos} = this.state;
 				let beginTime = +new Date(e);
 				let validStart = +new Date(changeValues.leaseBegindate);
+				let validEnd = +new Date(changeValues.leaseEnddate);
 				let tacticsId = '';
 				
 		
@@ -1154,6 +1178,13 @@ class NewCreateForm extends Component {
 				if(beginTime<=validStart){
 					Notify.show([{
 						message: '选择的时间不得小于于租赁开始时间',
+						type: 'danger',
+					}]);
+					return;
+				}
+				if(beginTime>validEnd){
+					Notify.show([{
+						message: '选择的时间不得大于于租赁结束时间',
 						type: 'danger',
 					}]);
 					return;
@@ -1224,7 +1255,7 @@ class NewCreateForm extends Component {
 				})
 				if(xiaoyu){
 					return;
-				}q
+				}
 				let time = {
 					validStart :changeValues.leaseBegindate,
 					validEnd:changeValues.leaseEnddate,

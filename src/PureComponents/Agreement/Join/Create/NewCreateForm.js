@@ -1017,12 +1017,8 @@ class NewCreateForm extends Component {
 				      </tr>
 				    )
 				    }
-
-
 				})
 		)
-
-
 	}
 	changeType=(e,index,fields)=>{
 		console.log('changeType',e,index,fields)
@@ -1033,6 +1029,40 @@ class NewCreateForm extends Component {
 		let sameFree = false;
 		let showWarn = false;
 		biaodan[index] = e.value;
+		
+		let tacticsId = '';
+		saleList.map((item)=>{
+			if(item.value == e.value){
+			   	tacticsId = item.id;
+			}
+		})
+		let time = {}
+		if(e.value == 1){
+			time = {
+				validStart :changeValues.leaseBegindate,
+				validEnd:changeValues.leaseEnddate,
+				tacticsType:1,
+				tacticsId:tacticsId,
+			}
+		}
+		if(e.value == 2){
+			time = {
+				validStart :changeValues.leaseBegindate,
+				tacticsType:2,
+				tacticsId:tacticsId,
+			}
+		}
+		if(e.value == 3){
+			time = {
+				validEnd:changeValues.leaseEnddate,
+				tacticsType:3,
+				tacticsId:tacticsId,
+			}
+		}
+		fields.remove(index);
+		fields.insert(index,time);
+
+
 		biaodan.map((item)=>{
 			if(item == 1 && !same){
 				same = true;
@@ -1065,45 +1095,8 @@ class NewCreateForm extends Component {
 				sameFree = true;
 			}
 		})
-		let tacticsId = '';
-		saleList.map((item)=>{
-			if(item.value == e.value){
-			   	tacticsId = item.id;
-			}
-		})
-		let time = {}
-		if(e.value == 1){
-			time = {
-				validStart :changeValues.leaseBegindate,
-				validEnd:changeValues.leaseEnddate,
-				tacticsType:1,
-				tacticsId:tacticsId,
-				// discount:7
 
-			}
-		}
-		if(e.value == 2){
-			time = {
-				validStart :changeValues.leaseBegindate,
-				// validEnd:changeValues.leaseEnddate,
-				tacticsType:2,
-				tacticsId:tacticsId,
-				// discount:7
 
-			}
-		}
-		if(e.value == 3){
-			time = {
-				// validStart :changeValues.leaseBegindate,
-				validEnd:changeValues.leaseEnddate,
-				tacticsType:3,
-				tacticsId:tacticsId,
-
-			}
-		}
-		console.log('time',time)
-		fields.remove(index);
-		fields.insert(index,time);
 		this.setState({
 			biaodan
 		},()=>{
@@ -1122,13 +1115,21 @@ class NewCreateForm extends Component {
 		let {stationVos} = this.state;
 		let endTime = +new Date(e);
 		let validEnd = +new Date(changeValues.leaseEnddate);
+		let validStart = +new Date(changeValues.leaseBegindate);
 		let tacticsId = '';
 		
 
 		//校验时间选择的时间不得大于租赁结束时间
-		if(endTime>=validEnd){
+		if(endTime>validEnd){
 			Notify.show([{
 				message: '选择的时间不得大于租赁结束时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(endTime<validStart){
+			Notify.show([{
+				message: '选择的时间不得小于租赁开始时间',
 				type: 'danger',
 			}]);
 			return;
@@ -1169,13 +1170,21 @@ class NewCreateForm extends Component {
 		let {stationVos} = this.state;
 		let beginTime = +new Date(e);
 		let validStart = +new Date(changeValues.leaseBegindate);
+		let validEnd = +new Date(changeValues.leaseEnddate);
 		let tacticsId = '';
 		
 
 		//校验时间选择的时间不得大于租赁结束时间
-		if(beginTime<=validStart){
+		if(beginTime<validStart){
 			Notify.show([{
 				message: '选择的时间不得小于于租赁开始时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(beginTime>=validEnd){
+			Notify.show([{
+				message: '选择的时间不得大于于租赁结束时间',
 				type: 'danger',
 			}]);
 			return;
