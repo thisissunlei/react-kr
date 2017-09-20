@@ -152,12 +152,12 @@ export default class MyColleague extends React.Component {
 	//获取树的数据
 	getTreeData = () => {
 		const _this = this;
-		Http.request("org-list",{id:0}).then(function (response) {
+		Http.request("org-list").then(function (response) {
 		//Http.request("role-dep-tree").then(function (response) {
 
 			_this.setState({
 				//treeData: _this.fnTree([response]),
-				treeData:_this.fnTree([response.items[0]])
+				treeData:_this.fnTree([response.items])
 			});
 		}).catch(function (err) {
 			Message.error(err.message);

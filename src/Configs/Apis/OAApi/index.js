@@ -32,7 +32,7 @@ var OAApi = {
   },
   //根据维度ID获取下面的机构
   'org-list': {
-      url: '/api/krspace-erp-web/tree/dep?id={id}',
+      url: '/api/krspace-erp-web/tree/dep-tree/type/auth-sub',
       method: 'get'
   },
   //根据机构ID获取人员信息
