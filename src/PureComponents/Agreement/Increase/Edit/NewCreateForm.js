@@ -1359,7 +1359,12 @@ class NewCreateForm extends React.Component {
 							return (
 								<TableRow key={index}>
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
-									<TableRowColumn>{item.stationName}</TableRowColumn>
+									<TableRowColumn>
+											{item.stationName.length>6 && 
+												<span>{item.stationName.substring(0,6)+'...'}<Tooltip offsetTop={15}  place="top">{item.stationName}</Tooltip></span>}
+											{item.stationName.length<=6 && 
+												<span>{item.stationName}</span>}
+									</TableRowColumn>
 									<TableRowColumn>
 											<input type="text" name="age"  valueLink={typeLink} onBlur={this.onBlur.bind(this,item)} style={{maxWidth:'128px'}}/>
 									</TableRowColumn>

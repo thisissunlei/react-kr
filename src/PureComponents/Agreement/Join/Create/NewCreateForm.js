@@ -1225,7 +1225,7 @@ class NewCreateForm extends Component {
 		let tacticsId = '';
 		let _this = this;
 		e = e.replace(/\s/g,'');
-		// if(!(/^\d+\.\d$/.test(e)) || ){
+		// if(!(/[0-9.9]+([.][0-9]{1}){0,1}$/.test(e)) ){
 		// 	Notify.show([{
 		// 		message: '折扣只能为一位小数或证书',
 		// 		type: 'danger',
