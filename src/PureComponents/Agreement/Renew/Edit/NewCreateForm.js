@@ -124,8 +124,10 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 		if(!value ||isNaN(value)){
 			stationVos[index].unitprice = "";
+			stationVos[index].originalUnitprice = "";
 		}else{
 			stationVos[index].unitprice = value;
+			stationVos[index].originalUnitprice = value;
 		}
 		this.setState({
 			stationVos
@@ -154,12 +156,15 @@ class NewCreateForm extends React.Component {
 		stationVos = stationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				item.unitprice = value;
+				item.originalUnitprice = value;
+
 			}
 			return item;
 		});
 		oldBasicStationVos = oldBasicStationVos.map(function(item, index) {
 			if (selectedStation.indexOf(index) != -1) {
 				item.unitprice = value;
+				item.originalUnitprice = value;
 			}
 			return item;
 		});
@@ -229,10 +234,12 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		let {initialValues} = this.props;
 		let stationList = list.map((item)=>{
-		if(!item.unitprice){
+		if(!item.originalUnitprice){
 				item.unitprice = 0;
+				item.originalUnitprice = 0;
 			}else{
-				item.unitprice = (item.unitprice+'').replace(/\s/g,'');
+				item.unitprice = (item.originalUnitprice+'').replace(/\s/g,'');
+				item.originalUnitprice = (item.originalUnitprice+'').replace(/\s/g,'');
 			}
 			return item;
 		})
@@ -378,6 +385,9 @@ class NewCreateForm extends React.Component {
 		for(var i=0 ;i<stationVos.length;i++){
 			if(!isNaN(stationVos[i].unitprice)){
 				unitpriceAdd+=Number(stationVos[i].unitprice);
+			}
+			if(!isNaN(stationVos[i].originalUnitprice)){
+				unitpriceAdd+=Number(stationVos[i].originalUnitprice);
 			}
 		}
 		if(!unitpriceAdd){
@@ -1193,7 +1203,7 @@ class NewCreateForm extends React.Component {
 						<TableBody>
 						{stationVos.map((item,index)=>{
 							var typeLink = {
-									value: this.state.stationVos[index].unitprice,
+									value: this.state.stationVos[index].originalUnitprice,
 									requestChange: this.onStationVosChange.bind(null, index)
 								}
 							return (
