@@ -153,6 +153,8 @@ class NewCreateForm extends Component {
 
 	//修改租赁期限－开始时间
 	onChangeLeaseBeginDate(value) {
+		let {array} = this.props;
+		array.removeAll('saleList')
 
 		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
 
@@ -167,13 +169,16 @@ class NewCreateForm extends Component {
 		Store.dispatch(change('increaseCreateForm', 'stationVos', []));
 
 		this.setState({
-			stationVos: []
+			stationVos: [],
+			biaodan:[]
 		});
 		this.setAllRent([]);
 	}
 
 	//修改租赁期限-结束时间
 	onChangeLeaseEndDate(value) {
+		let {array} = this.props;
+		array.removeAll('saleList')
 		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
 		let {
 			stationVos
@@ -187,7 +192,8 @@ class NewCreateForm extends Component {
 		this.setAllRent([]);
 
 		this.setState({
-			stationVos: []
+			stationVos: [],
+			biaodan:[]
 		});
 
 	}
