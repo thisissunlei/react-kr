@@ -80,11 +80,12 @@ import State from './State';
   onSubmit = (values) =>{
   	let {onSubmit} = this.props;
 	let {date,time} = this.state;
-
+	console.log("99999999")
 	if(!time==true || !date == true){
 		Message.error("时间选择有误!");
 		return;
 	}
+	console.log("88888888")
 	
 	values.vtime = date+" "+time+':00';
   	onSubmit && onSubmit(values);
@@ -110,6 +111,7 @@ import State from './State';
 	render(){
 		const { handleSubmit,select} = this.props;
 		const {typeValue,detail,time} = this.state;
+		console.log("ccccccc",select.interviewtype)
 		return (
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
@@ -194,6 +196,10 @@ import State from './State';
 							<KrField name="visitStatus" label="未到访" type="radio" value="UNVISIT"  style={{marginTop:5}}/>
 							<KrField name="visitStatus" label="已到访" type="radio" value="VISIT"  style={{marginTop:5}}/>
 						</KrField>
+						
+						<div className='remaskInfo'>
+							<KrField grid={1} label="备注" name="descr" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' />
+						</div>
 
 						<Grid style={{marginTop:30}}>
 							<Row>
@@ -210,13 +216,12 @@ import State from './State';
 	}
 }
 const validate = values =>{
-
+	
 	const errors = {};
 	const phone=/(^(\d{3,4}-)?\d{3,4}-?\d{3,4}$)|(^(\+86)?(1[35847]\d{9})$)/;
 
 	const email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 	const idCordReg =  /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
-	// console.log(State.typeValue,">>>>>>>>");
 	const typeValue = State.typeValue;
 	if(!values.communityId){
 		errors.communityId = "社区不能为空"
@@ -238,6 +243,7 @@ const validate = values =>{
 	//参加活动
 	if(typeValue == 51){
 		if(!values.activityTypeId){
+			
 			errors.activityTypeId = "活动类型不能为空"
 		}
 	}
@@ -285,15 +291,18 @@ const validate = values =>{
 	if(!values.vtime){
 		errors.vtime = "拜访日期不能为空"
 	}
-	if(!values.idCard){
-		errors.idCard = "请填写身份证号";
-	}else if(!idCordReg.test(values.idCard)){
-		errors.idCard = "身份证号格式不正确";
+	if(typeValue==741){
+		if(!values.idCard){
+			errors.idCard = "请填写身份证号";
+		}else if(!idCordReg.test(values.idCard)){
+			errors.idCard = "身份证号格式不正确";
+		}
 	}
+	
 
 
 
-
+	console.log(errors,"ooooooo")
 	return errors;
 }
 export default mobxForm({ form: 'EditVisitorsToRecord',validate})(EditVisitorsToRecord);

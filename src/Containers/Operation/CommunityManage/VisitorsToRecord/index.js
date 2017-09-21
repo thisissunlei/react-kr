@@ -468,6 +468,7 @@ class VisitorsToRecord  extends React.Component{
 			              <TableHeaderColumn>访客时间</TableHeaderColumn>
 			              <TableHeaderColumn>访客身份证号</TableHeaderColumn>
 			              <TableHeaderColumn>是否已到访</TableHeaderColumn>
+			              <TableHeaderColumn>备注</TableHeaderColumn>
 			              <TableHeaderColumn>操作</TableHeaderColumn>
 
 			          	</TableHeader>
@@ -475,7 +476,9 @@ class VisitorsToRecord  extends React.Component{
 				        <TableBody >
 				          <TableRow>
 			                <TableRowColumn name="name"></TableRowColumn>
-			                <TableRowColumn name="tel"></TableRowColumn>
+			                <TableRowColumn name="tel"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                      ></TableRowColumn>
 			                <TableRowColumn name="typeId"
                         component={(value,oldValue)=>{
 
@@ -490,8 +493,11 @@ class VisitorsToRecord  extends React.Component{
                            return <span>{detail}</span>;
                         }}
                       ></TableRowColumn>
-			                <TableRowColumn name="communityName"></TableRowColumn>
+			                <TableRowColumn name="communityName"
+                      style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                      ></TableRowColumn>
 			                <TableRowColumn name="vtime"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
                         component={(value,oldValue)=>{
                            return (<KrDate value={value} format="yyyy-mm-dd hh:MM"/>)
                         }}
@@ -514,6 +520,18 @@ class VisitorsToRecord  extends React.Component{
                         options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访',value:"VISIT"}]}
                         style = {{wordWrap:'break-word',whiteSpace:'normal'}}
                        
+                      ></TableRowColumn>
+                       <TableRowColumn name="descr"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                        component={(value,oldValue)=>{
+                          var detail='';
+                          if(!value){
+                            detail='-';
+                          }else{
+                            detail=value;
+                          }
+                           return <span>{detail}</span>;
+                        }}
                       ></TableRowColumn>
 
 			                <TableRowColumn type="operation">
