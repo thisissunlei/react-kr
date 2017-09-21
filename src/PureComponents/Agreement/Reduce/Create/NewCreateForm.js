@@ -394,7 +394,7 @@ class NewCreateForm extends Component {
 																	<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 																	<TableRowColumn>{item.stationName}</TableRowColumn>
 																	<TableRowColumn>
-																			{item.originalUnitprice}
+																			{item.unitprice}
 																	</TableRowColumn>
 																	<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 																	<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>
