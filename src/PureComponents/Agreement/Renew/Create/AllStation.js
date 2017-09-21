@@ -208,6 +208,7 @@ class SelectStationForm extends Component {
 			obj.stationName = item.stationName;
 			obj.whereFloor = item.whereFloor;
 			obj.unitprice = item.unitprice;
+			obj.originalUnitprice = item.originalUnitprice;
 			obj.leaseBeginDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
 			obj.leaseEndDate = item.rentBeginDate;
 			resultStationVos.push(obj);

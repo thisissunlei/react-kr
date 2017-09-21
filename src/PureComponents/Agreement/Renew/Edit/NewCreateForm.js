@@ -1319,7 +1319,7 @@ class NewCreateForm extends React.Component {
 						<TableBody>
 						{stationVos.map((item,index)=>{
 							var typeLink = {
-									value: this.state.stationVos[index].originalUnitprice,
+									value: this.state.stationVos[index].unitprice,
 									requestChange: this.onStationVosChange.bind(null, index)
 								}
 							return (
