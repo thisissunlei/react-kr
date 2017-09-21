@@ -401,7 +401,9 @@ class NewCreateForm extends Component {
 		} = this.state;
 
 		let {
-			changeValues
+			changeValues,
+			optionValues,
+			onSubmit
 		} = this.props;
 		if (!stationVos.length) {
 			Notify.show([{
@@ -410,24 +412,41 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		};
-		form.lessorAddress = changeValues.lessorAddress;
 
-		form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
-		form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd 00:00:00");
-		form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd 00:00:00");
-		form.contractVersionType = 'NEW';
-		// form.totalrent = (this.state.allRent).toFixed(2);
-		if(!!!form.agreement){
-			form.agreement = '无';
-		}
-		var _this = this;
+		let saleList = form.saleList || [];
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:form.leaseBegindate,
+			leaseEnddate:form.leaseEnddate
+		};
+		Http.request('count-sale', '',params).then(function(response){
+			form.lessorAddress = changeValues.lessorAddress;
 
-		form.stationVos = stationVos;
-		const {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(form);
+			form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
+			form.signdate = dateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
+			form.leaseBegindate = dateFormat(form.leaseBegindate, "yyyy-mm-dd 00:00:00");
+			form.leaseEnddate = dateFormat(form.leaseEnddate, "yyyy-mm-dd 00:00:00");
+			form.contractVersionType = 'NEW';
+			// form.totalrent = (this.state.allRent).toFixed(2);
+			if(!!!form.agreement){
+				form.agreement = '无';
+			}
+			var _this = this;
+
+			form.stationVos = stationVos;
+			
+			onSubmit && onSubmit(form);
+		}).catch(function(err){
+			console.log('err',err)
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		})
+		
 	}
 
 	onCancel() {
@@ -1232,7 +1251,7 @@ class NewCreateForm extends Component {
 		e = e.replace(/\s/g,'');
 		if(!(/^(\d|[0-9])(\.\d)?$/.test(e)) ){
 			Notify.show([{
-				message: '折扣只能为一位小数或证书',
+				message: '折扣只能为一位小数或整数',
 				type: 'danger',
 			}]);
 			return;

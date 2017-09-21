@@ -337,7 +337,9 @@ class NewCreateForm extends Component {
 		form = Object.assign({}, form);
 
 		let {
-			changeValues
+			changeValues,
+			onSubmit,
+			optionValues
 		} = this.props;
 		let {
 			stationVos,
@@ -368,10 +370,24 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
-		const {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(form);
+		let saleList = form.saleList || [];
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:form.leaseBegindate,
+			leaseEnddate:form.leaseEnddate
+		};
+		Http.request('count-sale', '',params).then(function(response){
+			onSubmit && onSubmit(form);		
+		}).catch(function(err){
+			console.log('err',err)
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		})
 	}
 
 	onCancel() {

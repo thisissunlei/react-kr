@@ -394,7 +394,9 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 		let {
 			changeValues,
-			initialValues
+			initialValues,
+			onSubmit,
+			optionValues,
 		} = this.props;
 		let unitpriceAdd = 0; 
 		console.log('===>',delStationVos)
@@ -414,27 +416,48 @@ class NewCreateForm extends React.Component {
 			}]);
 			return ;
 		}
-
-		form.lessorAddress = changeValues.lessorAddress;
-
 		var _this = this;
+		form.totalrent = (_this.state.allRent!='-1')?_this.state.allRent:initialValues.totalrent;
 
-		form.delStationVos = JSON.stringify(delStationVos);
-		form.stationVos = JSON.stringify(stationVos);
+		let saleList = form.saleList || [];
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:form.leaseBegindate,
+			leaseEnddate:form.leaseEnddate
+		};
+		Http.request('count-sale', '',params).then(function(response){
+			form.lessorAddress = changeValues.lessorAddress;
 
-		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
-		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
-		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd 00:00:00");
-		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd 00:00:00");
-		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
-		form.totalrent = form.totalrent;
-		if(!!!form.agreement){
-			form.agreement = '无';
-		}
-		const {
-			onSubmit
-		} = this.props;
-		onSubmit && onSubmit(form);
+			
+
+			form.delStationVos = JSON.stringify(delStationVos);
+			form.stationVos = JSON.stringify(stationVos);
+
+			form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
+			form.signdate = DateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
+			form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd 00:00:00");
+			form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd 00:00:00");
+			form.totalrent = form.totalrent;
+			if(!!!form.agreement){
+				form.agreement = '无';
+			}
+			onSubmit && onSubmit(form);		
+		}).catch(function(err){
+			console.log('err',err)
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		})
+
+
+
+
+
+		
 	}
 
 	onCancel() {

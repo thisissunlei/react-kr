@@ -450,9 +450,29 @@ class NewCreateForm extends React.Component {
 		}
 		form.totalrent = form.totalrent;
 		const {
-			onSubmit
+			onSubmit,
+			optionValues
 		} = this.props;
-		onSubmit && onSubmit(form);
+
+		let saleList = form.saleList || [];
+
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:form.leaseBegindate,
+			leaseEnddate:form.leaseEnddate
+		};
+		Http.request('count-sale', '',params).then(function(response){
+			onSubmit && onSubmit(form);		
+		}).catch(function(err){
+			console.log('err',err)
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		})
 	}
 
 	onCancel() {
@@ -1266,10 +1286,12 @@ class NewCreateForm extends React.Component {
 		let _this = this;
 		e = e.replace(/\s/g,'');
 		if(!(/^(\d|[0-9])(\.\d)?$/.test(e))){
+			e = 0;
 			Notify.show([{
 				message: '折扣只能为一位小数',
 				type: 'danger',
 			}]);
+
 			return;
 		}
 		if(!e ||isNaN(e)){
