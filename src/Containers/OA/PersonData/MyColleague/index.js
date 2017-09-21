@@ -300,10 +300,11 @@ export default class MyColleague extends React.Component {
 											if(value.length>maxWidth){
 											 value = value.substring(0,10)+"...";
 											}
-											if(!value){
-												value='无'
+											if(!oldValue){
+												oldValue='无';
+												value='无';
 											}
-											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
 											 return <Dictionary type='ERP_ResourceStatus' value={value}/>
@@ -384,10 +385,11 @@ export default class MyColleague extends React.Component {
 											if(value.length>maxWidth){
 											 value = value.substring(0,10)+"...";
 											}
-											if(!value){
-												value='无'
+											if(!oldValue){
+												oldValue='无';
+												value='无';
 											}
-											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+											return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 									 }}></TableRowColumn>
 										<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='status' component={(value,oldValue,detail)=>{
 											 return <Dictionary type='ERP_ResourceStatus' value={value}/>
