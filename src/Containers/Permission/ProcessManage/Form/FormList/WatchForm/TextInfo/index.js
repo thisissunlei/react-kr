@@ -37,14 +37,16 @@ class TextInfo  extends React.Component{
 			openEditDetail:false,
 			openDelForm:false,
 			openEditText:false,
-
 			//新增字段
 			openAddText:false,
 
 			//主表信息
 			mainInfo:[],
 			//明细表信息
-			detailInfo:[]
+			detailInfo:[],
+
+			//deleteId
+			deleteId:''
 
 		}
 
@@ -53,6 +55,20 @@ class TextInfo  extends React.Component{
 
 
   componentDidMount() {
+    this.textDetailForm();
+  }
+
+  componentWillMount(){
+	let {basicInfo}=this.props;
+	this.getTextInfo(basicInfo.id);
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.getTextInfo(nextProps.basicInfo.id);
+  }
+
+  //字段
+  textDetailForm=()=>{
     let {mainInfo,detailInfo}=this.state;
 	mainInfo.map((item,index)=>{
 		Store.dispatch(change('TextInfo',`tableData${index}`,item.fields));
@@ -62,9 +78,9 @@ class TextInfo  extends React.Component{
 	})
   }
 
-  componentWillMount(){
-    let {textInfo}=this.props;
-	var mainForm=[];
+  //主表和明细表
+  mainDetailForm=(textInfo)=>{
+    var mainForm=[];
 	var detailForm=[];
 	textInfo.map((item,index)=>{
 		if(item.isMain){
@@ -85,6 +101,8 @@ class TextInfo  extends React.Component{
 		Http.request('form-group-table',{formId:id}).then(function(response) {
 			 _this.setState({
 				textInfo:response.items
+			 },function(){
+				_this.mainDetailForm(_this.state.textInfo);	
 			 })
 		 }).catch(function(err) {
 			 Message.error(err.message);
@@ -145,9 +163,10 @@ class TextInfo  extends React.Component{
  }
 
 //删除明细表
- deleForm=()=>{
+ deleForm=(id)=>{
   this.setState({
-		openDelForm:!this.state.openDelForm
+		openDelForm:!this.state.openDelForm,
+		deleteId:id
 	})
  }
 
@@ -167,8 +186,9 @@ class TextInfo  extends React.Component{
  //删除明细表提交
  onDelSubmit=()=>{
 	let {basicInfo}=this.props;
+	let {deleteId}=this.state;
     var _this=this;
-	Http.request('form-table-delete',{id:basicInfo.id}).then(function(response) {
+	Http.request('form-table-delete',{id:deleteId}).then(function(response) {
 		 _this.getTextInfo(basicInfo.id);
 		 _this.deleForm();
 		}).catch(function(err) {
@@ -296,7 +316,7 @@ class TextInfo  extends React.Component{
 								>
 									<Toolbars>
 										<Toolbar label='编辑' rightSpac='14px' iconClass='edit-form' iconClick={this.openEditDetail.bind(this,item.id)} />
-										<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm} />
+										<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />
 										<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText} />
 									</Toolbars>
 

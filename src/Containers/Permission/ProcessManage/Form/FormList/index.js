@@ -192,7 +192,7 @@ export default class FormList extends Component{
 			delete params.purposeStr;
 			delete params.enabledStr;
       var _this=this;
-			Http.request('form-add-list',{},params).then(function(response) {
+			Http.request('form-edit-list',{},params).then(function(response) {
 				var searchParams={};
 				searchParams.time=+new Date();
 				_this.setState({

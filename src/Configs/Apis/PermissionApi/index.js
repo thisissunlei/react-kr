@@ -423,9 +423,14 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/form/add',
       method: 'post'
     },
+    //表单管理--编辑表单
+    'form-edit-list':{
+      url: '/api/krspace-erp-web/sys/form/edit',
+      method: 'post'
+    },
     //表单管理--生成表
     'form-create-table':{
-      url: '/api/krspace-erp-web/sys/form/list/type/create-table',
+      url: '/api/krspace-erp-web/sys/form/create-table',
       method: 'post'
     },
     //表单管理--表单类型下拉列表

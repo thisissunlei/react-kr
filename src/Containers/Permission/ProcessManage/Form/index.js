@@ -38,7 +38,14 @@ export default class Form  extends React.Component{
   componentDidMount() {
 	  this.getTreeData();
 	}
+  
+  addSubmit=()=>{
+    this.getTreeData();
+  }
 
+  editSubmit=()=>{
+    this.getTreeData();
+  }
 
   //获取树数据
   getTreeData = () => {
@@ -138,6 +145,8 @@ export default class Form  extends React.Component{
                     <TabC label='类型列表'>
                       <TypeList 
                           id={data.id}
+                          addSubmit={this.addSubmit}
+                          editSubmit={this.editSubmit}
                       />
                     </TabC>
                  }

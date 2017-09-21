@@ -92,6 +92,8 @@ export default class TypeList extends Component{
 					pageSize:15
 				}
 			})
+			const {addSubmit}=_this.props;
+			addSubmit && addSubmit();
 			_this.newSwidth();
         }).catch(function(err) {
           Message.error(err.message);
@@ -109,6 +111,8 @@ export default class TypeList extends Component{
 						nameKey:_this.state.searchParams.nameKey?_this.state.searchParams.nameKey:""
 					}
 				 })
+				 const {editSubmit}=_this.props;
+				 editSubmit && editSubmit();
 				 _this.editSwidth();
 				}).catch(function(err) {
 				Message.error(err.message);
