@@ -8,7 +8,6 @@ export default class Tooltip extends React.Component {
 	static defaultProps = {
 		
 	}
-
 	static PropTypes = {
 		// className: React.PropTypes.string,
 		// children: React.PropTypes.node,
@@ -25,33 +24,36 @@ export default class Tooltip extends React.Component {
 		//  * 与box-shadow的阴影色相同
 		//  */
 
-
 	}
-
 	constructor(props){
 		super(props);
-
 		this.state={
-			
+			showList: false
 		}
-
 	}
 
 	componentDidMount() {
 
 	}
 
+	showList=()=>{
+		this.setState({
+			showList : true
+		})
+	}
+
 
 	render() {
 		
 		let {textTitle,className,wrapStyle} = this.props;
+		let {showList} = this.state;
 		return(
-			<div className={className} ref={div=>{this.tooltip = div}} style={wrapStyle}>
+			<div className={className}  style={wrapStyle} onMouseOver={this.showList}>
 				<div>
 					<span>{textTitle}</span>
 					
 				</div>
-				<ul>
+				<ul style={{display:showList?"block":"none"}}>
 					<li>111</li>
 					<li>222</li>
 					<li>333</li>
