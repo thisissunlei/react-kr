@@ -200,7 +200,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		      label:"智能硬件ID",
 		      value:"deviceId"
 		    }]
-		
+		var itemsDrop=["重启APP","重启系统","断开重连","刷新屏幕"]
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{float:"left",marginTop:20}} className="second-equipment-search">
 				<span className="fir-span">
@@ -237,7 +237,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
                     content={this.state.content}
                     searchFilter={options}
               	/>
-              	<Dropdown style={{fontSize:16}} textTitle="下拉菜单"/>
+              	<Dropdown style={{fontSize:16}} textTitle="下拉菜单" dropItmes={itemsDrop} liWidth={100}/>
 				
 				
 		  </form>

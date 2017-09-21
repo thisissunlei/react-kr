@@ -36,28 +36,59 @@ export default class Tooltip extends React.Component {
 
 	}
 
+	renderItemLi=()=>{
+		let {dropItmes,liWidth} = this.props;
+		var itemsList = dropItmes.map(function(item,index){
+			return <li style={{width:liWidth}} className="ui-dropdown-li">{item}</li>
+		})
+		return itemsList;
+	}
+
 	showList=()=>{
 		this.setState({
 			showList : true
 		})
 	}
+	hideList=()=>{
+		console.log("djdjdj");
+		this.setState({
+			showList : false
+		})
+	}
+
 
 
 	render() {
 		
-		let {textTitle,className,wrapStyle} = this.props;
+		let {textTitle,className,wrapStyle,dropItmes,liWidth} = this.props;
 		let {showList} = this.state;
+		let styleOuter={
+			display: "inline-block",
+			position:"relative",
+		}
+		if(!wrapStyle){
+			var wrapStyleAll = styleOuter;
+		}else{
+			var wrapStyleAll = Object.assign(wrapStyle,styleOuter);
+		}
+		var leftP = "-"+"liWidth"+"px"
 		return(
-			<div className={className}  style={wrapStyle} onMouseOver={this.showList}>
+			<div className={className}  
+				style={wrapStyleAll} 
+				onMouseEnter={this.showList} 
+				onMouseLeave={this.hideList}
+			>
 				<div>
 					<span>{textTitle}</span>
-					
 				</div>
-				<ul style={{display:showList?"block":"none"}}>
-					<li>111</li>
-					<li>222</li>
-					<li>333</li>
-					<li>444</li>
+				<ul 
+					style={{display:showList?"block":"none",position:"absolute",left:-liWidth,top:"-100%"}}
+					className = "ui-dropdown-ul"
+				>
+					
+					{
+						this.renderItemLi()
+					}
 				</ul>
 			</div>
 		);
