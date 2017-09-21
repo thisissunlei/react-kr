@@ -119,7 +119,6 @@ class BtnBox extends React.Component{
 
 	//获取管理员密码
 	getManagerPsd=()=>{
-		console.log("dkdkdk");
 		State.showOpretion=false;
 		this.openManagePsdFun();
 	}

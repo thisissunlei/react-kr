@@ -343,6 +343,65 @@ export default class SecondDoorManage  extends React.Component{
 		State.openEquipmentCache = !State.openEquipmentCache;
 	}
 
+
+	//刷新H5页面
+	freshH5=()=>{
+
+		State.openFreshHTMLDialog = !State.openFreshHTMLDialog;
+
+	}
+
+	//同步口令
+	synchronizingPsw=()=>{
+		
+		State.synchronizingPswDialog = true;
+	}
+
+	//点击断开重连
+	connectAgain=()=>{
+		State.openConnectAgian = !State.openConnectAgian;
+	}
+
+
+	openDoorInline=()=>{
+		State.openDoorOnlineAction();
+	}
+
+
+
+	getDoorPassWord=()=>{
+		State.getPassword();
+	}
+
+
+
+	//获取管理员密码
+	getManagerPsd=()=>{
+		State.openManagePsd = !State.openManagePsd;
+	}
+
+
+	//重启APP
+	restartAPP=()=>{
+		State.openRestartAPPDialog = !State.openRestartAPPDialog;
+	}
+
+
+	//重启设备系统
+	restartSystems=()=>{
+		State.openRestartSystemsDialog=!State.openRestartSystemsDialog;
+	}
+
+	//恢复设备出厂设置
+	resetEquipmentOrigin=()=>{
+		State.resetEquipmentDialog = !State.resetEquipmentDialog;
+	}
+
+	//升级
+	upgrade=(thisP,value,itemData)=>{
+		State.upgradeDialog = !State.upgradeDialog;
+	}
+
 	onMouseOn=(thisP)=>{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
@@ -352,35 +411,32 @@ export default class SecondDoorManage  extends React.Component{
 
 		let _this = this;
 		if(thisP.maker=="KRSPACE"){
-			console.log("thisP.maker",thisP.maker);
 
 			State.DropItems=[
 				{title:"清空设备缓存",onClickFun:_this.clearCache},
-				{title:"查看设备缓存",onClickFun:_this.printA},
-				{title:"刷新屏幕",onClickFun:_this.printA},
-				{title:"同步口令",onClickFun:_this.printA},
+				{title:"查看设备缓存",onClickFun:_this.deviceCache},
+				{title:"刷新屏幕",onClickFun:_this.freshH5},
+				{title:"同步口令",onClickFun:_this.synchronizingPsw},
 
-				{title:"断开重连",onClickFun:_this.printA},
-				{title:"远程开门",onClickFun:_this.printA},
-				{title:"获取口令",onClickFun:_this.printA},
-				{title:"获取管理员密码",onClickFun:_this.printA},
+				{title:"断开重连",onClickFun:_this.connectAgain},
+				{title:"远程开门",onClickFun:_this.openDoorInline},
+				{title:"获取口令",onClickFun:_this.getDoorPassWord},
+				{title:"获取管理员密码",onClickFun:_this.getManagerPsd},
 
-				{title:"重启设备APP",onClickFun:_this.printA},
-				{title:"重启设备系统",onClickFun:_this.printA},
-				{title:"恢复出厂设置",onClickFun:_this.printA},
-				{title:"升级",onClickFun:_this.printA}
+				{title:"重启设备APP",onClickFun:_this.restartAPP},
+				{title:"重启设备系统",onClickFun:_this.restartSystems},
+				{title:"恢复出厂设置",onClickFun:_this.resetEquipmentOrigin},
+				{title:"升级",onClickFun:_this.upgrade}
 				
 			]
 		}else{
 
 			State.DropItems=[
-				{title:"清空设备缓存",onClickFun:_this.printA},
-				{title:"刷新屏幕",onClickFun:_this.printA},
-				{title:"断开重连",onClickFun:_this.printA},
-				{title:"远程开门",onClickFun:_this.printA},
+				{title:"清空设备缓存",onClickFun:_this.clearCache},
+				{title:"刷新屏幕",onClickFun:_this.freshH5},
 				
+				{title:"远程开门",onClickFun:_this.openDoorInline},
 				{title:"重置",onClickFun:_this.printA},
-				{title:"断开重连",onClickFun:_this.printA},
 				{title:"生成二维码",onClickFun:_this.printA}
 				
 			]
