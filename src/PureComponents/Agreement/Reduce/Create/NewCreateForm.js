@@ -289,13 +289,13 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
-		if(form.rentamount == 0){
-			Notify.show([{
-				message: '服务费不能为零',
-				type: 'danger',
-			}]);
-			return;
-		}
+		// if(form.rentamount == 0){
+		// 	Notify.show([{
+		// 		message: '服务费不能为零',
+		// 		type: 'danger',
+		// 	}]);
+		// 	return;
+		// }
 
 		const {
 			onSubmit
