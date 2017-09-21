@@ -12,7 +12,8 @@ import {
 import {
 	Message,Dialog,Button,Table,TableHeader,TableHeaderColumn,TableBody
 	,TableRow,TableRowColumn,TableFooter,Tooltip,Drawer,Grid,Row,
-	ListGroup,ListGroupItem,SearchForms,FontIcon
+	ListGroup,ListGroupItem,SearchForms,FontIcon,
+	Dropdown,
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import $ from 'jquery';
@@ -307,6 +308,86 @@ export default class SecondDoorManage  extends React.Component{
 		})
 	}
 
+	printA=()=>{
+		console.log("printA------>")
+	}
+
+	//点击清空缓存
+	clearCache=()=>{
+		
+		State.openClearCached = !State.openClearCached;
+
+	}
+
+	//查看设备缓存
+	deviceCache=()=>{
+		State.showOpretion=false;
+		let _this =this;
+		var urlParamsT = {
+							deviceId:State.itemDetail.deviceId,
+							lastCardNo:'',
+							limit:50,
+						}
+		Http.request('getEquipmentCacheURL',urlParamsT).then(function(response) {
+				
+			_this.openEquipmentCacheFun();
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		
+
+	}
+
+	openEquipmentCacheFun=()=>{
+		State.openEquipmentCache = !State.openEquipmentCache;
+	}
+
+	onMouseOn=(thisP)=>{
+		State.deviceVO = thisP.deviceVO
+		State.itemDetail = thisP;
+		this.setState({
+			itemDetail :thisP
+		})
+
+		let _this = this;
+		if(thisP.maker=="KRSPACE"){
+			console.log("thisP.maker",thisP.maker);
+
+			State.DropItems=[
+				{title:"清空设备缓存",onClickFun:_this.clearCache},
+				{title:"查看设备缓存",onClickFun:_this.printA},
+				{title:"刷新屏幕",onClickFun:_this.printA},
+				{title:"同步口令",onClickFun:_this.printA},
+
+				{title:"断开重连",onClickFun:_this.printA},
+				{title:"远程开门",onClickFun:_this.printA},
+				{title:"获取口令",onClickFun:_this.printA},
+				{title:"获取管理员密码",onClickFun:_this.printA},
+
+				{title:"重启设备APP",onClickFun:_this.printA},
+				{title:"重启设备系统",onClickFun:_this.printA},
+				{title:"恢复出厂设置",onClickFun:_this.printA},
+				{title:"升级",onClickFun:_this.printA}
+				
+			]
+		}else{
+
+			State.DropItems=[
+				{title:"清空设备缓存",onClickFun:_this.printA},
+				{title:"刷新屏幕",onClickFun:_this.printA},
+				{title:"断开重连",onClickFun:_this.printA},
+				{title:"远程开门",onClickFun:_this.printA},
+				
+				{title:"重置",onClickFun:_this.printA},
+				{title:"断开重连",onClickFun:_this.printA},
+				{title:"生成二维码",onClickFun:_this.printA}
+				
+			]
+		}
+
+	}
+
 
 
 
@@ -315,6 +396,7 @@ export default class SecondDoorManage  extends React.Component{
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
+		console.log("State.DropItems",State.DropItems);
 		return(
 			<div >
 				<div style={{padding:"20px 0 0 0"}}>
@@ -422,6 +504,7 @@ export default class SecondDoorManage  extends React.Component{
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
 														<Button  label="更多"  type="operation" operation="more" onTouchTap={this.showMoreOpretion.bind(this,value,itemData)} linkTrue/>
+              											<Dropdown style={{fontSize:16}} textTitle="下拉菜单" dropItmes={State.DropItems} liWidth={100} onMouseOn={this.onMouseOn.bind(this,value,itemData)}/>
 
 													</div>
 												)

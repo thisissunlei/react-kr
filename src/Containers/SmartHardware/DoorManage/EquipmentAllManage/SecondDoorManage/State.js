@@ -52,7 +52,8 @@ let State = observable({
 	resetEquipmentDialog : false,
 	openFreshHTMLDialog :false,
 	openConfirmDeleteBatch : false,
-	loading :false
+	loading :false,
+	DropItems : [],
 
 });
 

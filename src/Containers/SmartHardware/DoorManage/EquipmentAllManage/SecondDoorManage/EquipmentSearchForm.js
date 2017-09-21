@@ -14,7 +14,6 @@ import {
 	ListGroupItem,
 	SearchForm,
 	SearchForms,
-	Dropdown,
 } from 'kr-ui';
 
 import State from './State';
@@ -237,7 +236,6 @@ class EquipmentAdvancedQueryForm extends React.Component{
                     content={this.state.content}
                     searchFilter={options}
               	/>
-              	<Dropdown style={{fontSize:16}} textTitle="下拉菜单" dropItmes={itemsDrop} liWidth={100}/>
 				
 				
 		  </form>

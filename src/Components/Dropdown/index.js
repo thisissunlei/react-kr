@@ -38,22 +38,30 @@ export default class Tooltip extends React.Component {
 
 	renderItemLi=()=>{
 		let {dropItmes,liWidth} = this.props;
+
 		var itemsList = dropItmes.map(function(item,index){
-			return <li style={{width:liWidth}} className="ui-dropdown-li">{item}</li>
+			console.log("item",item)
+			return <li style={{width:liWidth}} className="ui-dropdown-li" onClick={item.onClickFun}>{item.title}</li>
 		})
+		console.log("itemsList",itemsList);
 		return itemsList;
+
 	}
 
 	showList=()=>{
 		this.setState({
 			showList : true
 		})
+
+		let {onMouseOn} = this.props;
+		onMouseOn && onMouseOn();
 	}
 	hideList=()=>{
-		console.log("djdjdj");
+
 		this.setState({
 			showList : false
 		})
+
 	}
 
 
