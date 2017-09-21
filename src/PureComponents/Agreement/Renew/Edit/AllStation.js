@@ -191,7 +191,7 @@ class SelectStationForm extends Component {
 			obj.stationType = item.stationType;
 			obj.stationName = item.stationName;
 			obj.whereFloor = item.whereFloor;
-			obj.unitprice = item.unitprice;
+			obj.unitprice = item.originalUnitprice;
 			obj.originalUnitprice = item.originalUnitprice;
 			obj.leaseBeginDate = DateFormat(item.leaseEndDate, 'yyyy-mm-dd');
 			obj.leaseEndDate = item.rentBeginDate;
@@ -275,7 +275,7 @@ class SelectStationForm extends Component {
           <TableRow key={index}>
           <TableRowColumn >{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
           <TableRowColumn >{item.stationName}</TableRowColumn>
-          <TableRowColumn >{item.unitprice}</TableRowColumn>
+          <TableRowColumn >{item.originalUnitprice}</TableRowColumn>
           <TableRowColumn ><KrDate value={item.leaseBeginDate}/></TableRowColumn>
           <TableRowColumn ><KrDate value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn >
