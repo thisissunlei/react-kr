@@ -206,6 +206,10 @@ class NewCreateForm extends React.Component {
 				}
 			})
 		})
+		stationVos = stationVos.map((item)=>{
+			item.originalUnitprice = item.unitprice;
+			return item;
+		})
 		delStationVos = delStationVos.concat(_this.state.delStationVos);
 
 		Store.dispatch(change('renewEditForm', 'stationVos', stationVos));
