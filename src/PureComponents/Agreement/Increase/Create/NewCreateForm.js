@@ -1203,14 +1203,14 @@ class NewCreateForm extends Component {
 				//校验时间选择的时间不得大于租赁结束时间
 				if(beginTime<=validStart){
 					Notify.show([{
-						message: '选择的时间不得小于于租赁开始时间',
+						message: '选择的时间不得小于租赁开始时间',
 						type: 'danger',
 					}]);
 					return;
 				}
 				if(beginTime>validEnd){
 					Notify.show([{
-						message: '选择的时间不得大于于租赁结束时间',
+						message: '选择的时间不得大于等于租赁结束时间',
 						type: 'danger',
 					}]);
 					return;
