@@ -72,6 +72,15 @@ export default class FormList extends Component{
 		}
 	}
 
+	componentWillReceiveProps(nextProps){
+     if(this.props.id!=nextProps.id){
+				var searchParams={};
+				searchParams.typeId=nextProps.id;
+				this.setState({
+					searchParams:Object.assign({},this.state.searchParams,searchParams)
+				})
+		 }
+	}
 
 	componentDidMount(){
 		  let _this=this;
@@ -119,9 +128,13 @@ export default class FormList extends Component{
 
  //编辑页开关
   editOpen=()=>{
+		let {creatId}=this.state;
     let {openEdit} = this.allConfig;
 		this.allConfig.openEdit = !openEdit;
 		this.isRender();
+		if(this.allConfig.openEdit){
+			this.getBasicInfo(creatId);
+		}
   }
 
   //查看表的开关
@@ -163,13 +176,11 @@ export default class FormList extends Component{
 	addSubmit = (values) =>{
 		var _this=this;
 		Http.request('form-add-list',{},values).then(function(response) {
-            _this.setState({
-        			searchParams:{
-        				time:+new Date(),
-        				page:1,
-        				pageSize:15
-        			 }
-        			})
+					var searchParams={};
+					searchParams.time=+new Date();
+					_this.setState({
+						searchParams:Object.assign({},_this.state.searchParams,searchParams)
+					})
 			    _this.newSwidth();
         }).catch(function(err) {
           Message.error(err.message);
@@ -177,16 +188,16 @@ export default class FormList extends Component{
 	}
 	//编辑确定
 	editSubmit = (params) =>{
-		  delete params.records;
+			delete params.records;
+			delete params.purposeStr;
+			delete params.enabledStr;
       var _this=this;
 			Http.request('form-add-list',{},params).then(function(response) {
+				var searchParams={};
+				searchParams.time=+new Date();
 				_this.setState({
-					searchParams:{
-						time:+new Date(),
-						page:_this.state.searchParams.page,
-						pageSize:15,
-					}
-				 })
+					searchParams:Object.assign({},_this.state.searchParams,searchParams)
+				})
 				 _this.getBasicInfo(params.id);
 				 _this.editOpen();
 				}).catch(function(err) {
@@ -199,13 +210,11 @@ export default class FormList extends Component{
     let {creatId}=this.state;
 		let _this=this;
 		Http.request('form-create-table',{},{formId:creatId}).then(function(response) {
+			var searchParams={};
+			searchParams.time=+new Date();
 			_this.setState({
-				searchParams:{
-					time:+new Date(),
-					page:_this.state.searchParams.page,
-					pageSize:15
-				}
-			 })
+				searchParams:Object.assign({},_this.state.searchParams,searchParams)
+			})
 			 _this.cancelTable();
 			}).catch(function(err) {
 			Message.error(err.message);
@@ -227,14 +236,15 @@ export default class FormList extends Component{
     this.getBasicInfo(itemDetail.id);
 		this.getTextInfo(itemDetail.id);
 		this.setState({
-			isCreate:itemDetail.created
+			isCreate:itemDetail.created,
+			creatId:itemDetail.id
 		})		
 	}
  
 	//获取表单字段信息
 	getTextInfo=(id)=>{
 		var _this=this;
-		Http.request('form-group-table',{id:id}).then(function(response) {
+		Http.request('form-group-table',{formId:id}).then(function(response) {
 			 _this.setState({
 				textInfo:response.items
 			 })
