@@ -44,7 +44,8 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 	componentDidMount(){
 
 		const {$form} = this.props;
-		$form.change('visitStatus',"UNVISIT");
+		$form.change('visitStatus','UNVISIT');
+		$form.change('descr','')
 
 
 	}
