@@ -1016,13 +1016,21 @@ class NewCreateForm extends Component {
 				let {stationVos} = this.state;
 				let endTime = +new Date(e);
 				let validEnd = +new Date(changeValues.leaseEnddate);
+				let validStart = +new Date(changeValues.leaseBegindate);
 				let tacticsId = '';
 				
 		
 				//校验时间选择的时间不得大于租赁结束时间
-				if(endTime>=validEnd){
+				if(endTime>validEnd){
 					Notify.show([{
 						message: '选择的时间不得大于租赁结束时间',
+						type: 'danger',
+					}]);
+					return;
+				}
+				if(endTime<validStart){
+					Notify.show([{
+						message: '选择的时间不得小于租赁开始时间',
 						type: 'danger',
 					}]);
 					return;
