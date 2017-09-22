@@ -313,6 +313,7 @@ export default class NodeFormwork extends Component{
 				
 						});
 						var flag6=true;
+						
 						$(Otd).children('p').on('click',function () {
 				
 							$('.span-list-fields').attr({
