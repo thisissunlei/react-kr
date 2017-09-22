@@ -480,7 +480,8 @@ export default class NodeFormwork extends Component{
         </div>
         <div className="kr-list">
             <span className="span-list-1 psan-list-tag span-list-all">请假人</span>
-            <span className="span-list-2 span-list-fields span-list-all">李四</span>     
+            <span className="span-list-2 span-list-fields span-list-all">李四</span>
+	     
         </div>
         <div className="kr-list">
             <span className="span-list-3 psan-list-tag span-list-all">请假部门</span>
