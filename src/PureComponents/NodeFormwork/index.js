@@ -316,7 +316,7 @@ export default class NodeFormwork extends Component{
 						
 						$(Otd).children('p').on('click',function () {
 				
-							
+
 							$('.span-list-fields').attr({
 								'show':'none'
 							});
