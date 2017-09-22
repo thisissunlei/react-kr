@@ -206,7 +206,7 @@ export default class SecondDoorManage  extends React.Component{
 
 	editList=(thisP,value,itemData)=>{
 		let _this = this;
-		Http.request('getSecEquipmentDetailUrl',{id:thisP.id}).then(function(response) {
+		Http.request('getEditEquipmentUrl',{id:thisP.id}).then(function(response) {
 			
 			_this.setState({
 				itemDetail:response

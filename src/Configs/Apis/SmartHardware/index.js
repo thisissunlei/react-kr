@@ -188,7 +188,14 @@ module.exports = {
 
    //获取设备详情
    'getSecEquipmentDetailUrl':{
-      // url: '/api/iot-platform/door-device/detail?id={id}',
+      url: '/api/iot-platform/door-device/detail?id={id}',
+      // url: '/mockjsdata/53/iot-platform/door-device/view?id={id}',
+      method: 'get'
+   },
+
+   //获取编辑准备数据
+   'getEditEquipmentUrl':{
+      
       url: '/mockjsdata/53/iot-platform/door-device/view?id={id}',
       method: 'get'
    },
