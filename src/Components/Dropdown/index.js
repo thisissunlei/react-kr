@@ -93,7 +93,7 @@ export default class Tooltip extends React.Component {
 				</div>
 				<span className="ui-small-square" style={{display:showList?"block":"none"}}></span>
 				<ul 
-					style={{display:showList?"block":"none",position:"absolute",left:-liWidth-30,top:ulTop}}
+					style={{display:showList?"block":"none",position:"absolute",left:-liWidth-25,top:ulTop}}
 					className = "ui-dropdown-ul"
 				>
 					
