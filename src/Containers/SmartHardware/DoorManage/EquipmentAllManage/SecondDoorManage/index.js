@@ -432,10 +432,11 @@ export default class SecondDoorManage  extends React.Component{
 		}else{
 
 			State.DropItems=[
+
 				{title:"清空设备缓存",onClickFun:_this.clearCache},
 				{title:"刷新屏幕",onClickFun:_this.freshH5},
-				
 				{title:"远程开门",onClickFun:_this.openDoorInline},
+
 				{title:"重置",onClickFun:_this.printA},
 				{title:"生成二维码",onClickFun:_this.printA}
 				
@@ -559,8 +560,14 @@ export default class SecondDoorManage  extends React.Component{
 				                        				<Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
-														<Button  label="更多"  type="operation" operation="more" onTouchTap={this.showMoreOpretion.bind(this,value,itemData)} linkTrue/>
-              											<Dropdown style={{fontSize:16}} textTitle="下拉菜单" dropItmes={State.DropItems} liWidth={100} onMouseOn={this.onMouseOn.bind(this,value,itemData)}/>
+              											<Dropdown 
+              												wrapStyle={{marginLeft:5}} 
+              												textTitle="更多" 
+              												dropItmes={State.DropItems} 
+              												liWidth={100} 
+              												onMouseOn={this.onMouseOn.bind(this,value,itemData)} 
+              												titleStyle={{color:"#499df1",fontSize:14}}
+              											/>
 
 													</div>
 												)

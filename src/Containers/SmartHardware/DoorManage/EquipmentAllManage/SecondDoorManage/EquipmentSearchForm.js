@@ -14,6 +14,7 @@ import {
 	ListGroupItem,
 	SearchForm,
 	SearchForms,
+	Message,
 } from 'kr-ui';
 
 import State from './State';
@@ -29,7 +30,8 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		this.state={
 			searchForm: false,
 			floorsOptions:[{label:"",value:""}],
-			propertyOption:[]
+			propertyOption:[],
+			makerOptions : []
 		}
 	}
 	componentWillReceiveProps(){
@@ -46,17 +48,28 @@ class EquipmentAdvancedQueryForm extends React.Component{
 	getDicList =()=>{
 		let _this =this;
 		Http.request('getWarningType', {}).then(function(response) {
-		
-			var arrNewDoorType = []
+				
+			var arrNewDoorType = [],arrMakerOptions=[]
 			for(var i=0;i<response.DoorType.length;i++){
-			arrNewDoorType[i] = {
-						label:response.DoorType[i].desc,
-						value:response.DoorType[i].value,
-						code : response.DoorType[i].code
-					}
+				arrNewDoorType[i] = {
+					label:response.DoorType[i].desc,
+					value:response.DoorType[i].value,
+					code : response.DoorType[i].code
+				}
+				
 			}
+			for(var i=0;i<response.Maker.length;i++){
+				
+				arrMakerOptions[i]={
+					label:response.Maker[i].desc,
+					value:response.Maker[i].value,
+					code : response.Maker[i].code
+				}
+			}
+
 			_this.setState({
-				propertyOption :arrNewDoorType
+				propertyOption :arrNewDoorType,
+				makerOptions : arrMakerOptions
 			})
 			
 
@@ -78,7 +91,6 @@ class EquipmentAdvancedQueryForm extends React.Component{
 	// 查询楼层
 	onChangeCommunity=(community)=>{
 
-		console.log("comunity",community);
 		let _this = this;
 		var communityIdReal,floorReal;
 		if(!community){
@@ -122,7 +134,6 @@ class EquipmentAdvancedQueryForm extends React.Component{
 	}
 
 	onchangeFloor=(floor)=>{
-		console.log("floor",floor);
 		var floorReal
 		if(floor){
 			floorReal = floor.label;
@@ -139,7 +150,6 @@ class EquipmentAdvancedQueryForm extends React.Component{
 	}
 
 	onchangeDoorType=(doorType)=>{
-		console.log("doorType",doorType);
 		var doorTypeReal
 		if(doorType){
 			doorTypeReal = doorType.value;
@@ -159,6 +169,30 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		}
 		
 	}
+
+	onchangeMaker=(makerItem)=>{
+		console.log("makerItem",makerItem);
+		var makerItemReal
+		if(makerItem){
+			makerItemReal = makerItem.value;
+		}else{
+			makerItemReal = '';
+		}
+		State.realPage =1;
+		State.equipmentSecondParams =  {
+			communityId: State.equipmentSecondParams.communityId,
+	        deviceId : State.equipmentSecondParams.deviceId || '',
+	        doorCode : State.equipmentSecondParams.doorCode || '',
+	        doorType : State.equipmentSecondParams.doorType || '',
+	        floor : State.equipmentSecondParams.floor,
+	        maker : makerItemReal,
+	        page : 1,
+	        pageSize: 15,
+	        date: new Date()
+		}
+		
+	}
+
 
 	onSearchSubmit=(value)=>{
 		
@@ -189,11 +223,10 @@ class EquipmentAdvancedQueryForm extends React.Component{
 	}
 
 	render(){
-		let {floorsOptions,propertyOption}=this.state;
-		console.log("propertyOption",propertyOption);
+		let {floorsOptions,propertyOption,makerOptions}=this.state;
 		const { error, handleSubmit,content,filter} = this.props;
 		let options=[{
-		      label:"门编号",
+		      label:"屏幕显示编号",
 		      value:"doorCode"
 		    },{
 		      label:"智能硬件ID",
@@ -216,7 +249,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						component="select"
 						label="楼层: "
 						options = {floorsOptions}
-						style={{width:190}}
+						style={{width:110}}
 						inline={true}
 						onChange = {this.onchangeFloor}
 					/>
@@ -224,10 +257,20 @@ class EquipmentAdvancedQueryForm extends React.Component{
 				<span className="thir-span">
 					<KrField name="propertyId"
 						component="select"
-						label="属性: "
+						label="类型: "
 						onChange = {this.onchangeDoorType}
 						options={propertyOption}
-						style={{width:'190px'}}
+						style={{width:'150px'}}
+						inline={true}
+					/>
+				</span>
+				<span className="fouth-span">
+					<KrField name="maker"
+						component="select"
+						label="厂商: "
+						onChange = {this.onchangeMaker}
+						options={makerOptions}
+						style={{width:'150px'}}
 						inline={true}
 					/>
 				</span>

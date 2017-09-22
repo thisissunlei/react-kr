@@ -40,10 +40,9 @@ export default class Tooltip extends React.Component {
 		let {dropItmes,liWidth} = this.props;
 
 		var itemsList = dropItmes.map(function(item,index){
-			console.log("item",item)
+			
 			return <li style={{width:liWidth}} className="ui-dropdown-li" onClick={item.onClickFun}>{item.title}</li>
 		})
-		console.log("itemsList",itemsList);
 		return itemsList;
 
 	}
@@ -68,8 +67,11 @@ export default class Tooltip extends React.Component {
 
 	render() {
 		
-		let {textTitle,className,wrapStyle,dropItmes,liWidth} = this.props;
+		let {textTitle,className,wrapStyle,dropItmes,liWidth,titleStyle} = this.props;
+		console.log("titleStyle",titleStyle);
 		let {showList} = this.state;
+		var ulTop = -(dropItmes.length)*30/2;
+
 		let styleOuter={
 			display: "inline-block",
 			position:"relative",
@@ -87,10 +89,11 @@ export default class Tooltip extends React.Component {
 				onMouseLeave={this.hideList}
 			>
 				<div>
-					<span>{textTitle}</span>
+					<span className="ui-title-text" style={titleStyle}>{textTitle}</span>
 				</div>
+				<span className="ui-small-square" style={{display:showList?"block":"none"}}></span>
 				<ul 
-					style={{display:showList?"block":"none",position:"absolute",left:-liWidth,top:"-100%"}}
+					style={{display:showList?"block":"none",position:"absolute",left:-liWidth-30,top:ulTop}}
 					className = "ui-dropdown-ul"
 				>
 					
