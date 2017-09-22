@@ -68,7 +68,6 @@ export default class Tooltip extends React.Component {
 	render() {
 		
 		let {textTitle,className,wrapStyle,dropItmes,liWidth,titleStyle} = this.props;
-		console.log("titleStyle",titleStyle);
 		let {showList} = this.state;
 		var ulTop = -(dropItmes.length)*30/2;
 

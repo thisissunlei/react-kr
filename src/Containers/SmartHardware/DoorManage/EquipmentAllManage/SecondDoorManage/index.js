@@ -93,7 +93,6 @@ export default class SecondDoorManage  extends React.Component{
 
 	firstEquipment=(value)=>{
 		let _this = this;
-		console.log("value",value);
 		Http.request('getFirstEquipmentDetailUrl',{id:value.id}).then(function(response) {
 				
 			_this.setState({
@@ -105,7 +104,6 @@ export default class SecondDoorManage  extends React.Component{
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
-		State.deviceVO = State.itemDetail.deviceVO;
 	}
 
 	secondEquipment=(value)=>{
@@ -496,16 +494,27 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 
+	prodoctQRCodeFun=()=>{
+		this.productQRCodeXHR();
+	}
 
+	productQRCodeXHR = ()=>{
+		let _this = this;
+		let {itemDetail} = this.state;
+		Http.request('productQRCodeUrl',{deviceId:itemDetail.deviceId}).then(function(response) {
+		
+			_this.firstEquipment(itemDetail)
 
-
-
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+	
 
 
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
-		console.log("State.DropItems",State.DropItems);
 		return(
 			<div >
 				<div style={{padding:"20px 0 0 0"}}>
@@ -646,7 +655,7 @@ export default class SecondDoorManage  extends React.Component{
 					    width={1000} 
 					    openSecondary={true} 
 					>
-						<EquipmentFirstDetail onCancel={this.openFirstHardwareDetailFun} detail={itemDetail}/>
+						<EquipmentFirstDetail onCancel={this.openFirstHardwareDetailFun} detail={itemDetail} prodoctQRCodeFun={this.prodoctQRCodeFun}/>
 					</Drawer>
 
 					 <Drawer 

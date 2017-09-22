@@ -16,23 +16,41 @@ export default class EquipmentDetail extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
+			detail:{}
 		}
 	}
 
 	componentDidMount(){
 		let {detail} = this.props;
-		let _this =this;
-		
+
+		this.setState({
+			detail : detail
+		})		
+	}
+
+	componentWillReceiveProps(nextProps){
+
+		if (nextProps.detail.qrImgUrl !== this.props.detail.qrImgUrl) {
+	      	this.setState({
+	        	detail : nextProps.detail
+	      	});
+	    }
+
 	}
 
 	closeDialog=()=>{
 		State.openFirstHardwareDetail= false;
 	}
 
+	productQRCode=()=>{
+		let {prodoctQRCodeFun} = this.props;
+		prodoctQRCodeFun && prodoctQRCodeFun();
+	}
+
 
 
 	render(){
-		let {detail} = this.props;
+		let {detail} = this.state;
 		let {showReported,showDesired} = this.state;
 		return (
 			<div className="seconde-dialog">
@@ -63,7 +81,10 @@ export default class EquipmentDetail extends React.Component{
 					</div>
 				</div>
 				<div className="btn-div">
-					<Button label="关闭" onTouchTap={this.closeDialog}/>
+
+					<div style={{display:"inline-block",marginRight:20}}><Button label="生成二维码" onTouchTap={this.productQRCode}/></div>
+					<div style={{display:"inline-block"}}><Button label="关闭" onTouchTap={this.closeDialog}/></div>
+
 				</div>
 				
 		  	</div>

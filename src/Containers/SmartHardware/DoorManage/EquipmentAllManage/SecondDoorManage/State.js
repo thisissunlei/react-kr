@@ -370,6 +370,7 @@ State.freshEquipmentReporterAction = action(function(){
 	});
 })
 
+
 State.confirmSynchronizingAction = action(function(){
 	var urlParams = {deviceId:State.deviceVO.deviceId}
 	Http.request('SynchronizingUrl',{},urlParams).then(function(response) {
@@ -381,6 +382,7 @@ State.confirmSynchronizingAction = action(function(){
 })
 
 
+//一代门禁重置
 State.confirmResetFirstEquipmentState = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('resetFirstEquipmentUrl',urlParams).then(function(response) {
@@ -389,6 +391,9 @@ State.confirmResetFirstEquipmentState = action(function(){
 		Message.error(err.message);
 	});
 })
+
+
+
 
 
 

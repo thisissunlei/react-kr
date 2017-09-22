@@ -213,6 +213,13 @@ module.exports = {
       method: 'get'
    },
 
+   //一代门禁生成二维码
+   'productQRCodeUrl':{
+      url: '/mockjsdata/53/iot-platform/door-device/actions/generate-qr-code?deviceId={deviceId}',
+      method: 'put'
+   },
+
+
 
    
 
