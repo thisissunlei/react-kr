@@ -200,6 +200,21 @@ module.exports = {
       method: 'get'
    },
 
+   //一代门禁获取设备详情
+   'getFirstEquipmentDetailUrl':{
+      url: '/mockjsdata/53/iot-platform/door-device/v1/detail?id={id}',
+      method: 'get'
+   },
+
+
+   //一代门禁获取设备详情
+   'resetFirstEquipmentUrl':{
+      url: '/mockjsdata/53/iot-platform/door-device/v1/admin/actions/reset-to-php?deviceId={deviceId}',
+      method: 'get'
+   },
+
+
+   
 
     
 

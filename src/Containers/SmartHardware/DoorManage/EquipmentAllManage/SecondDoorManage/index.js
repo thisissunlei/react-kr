@@ -36,6 +36,7 @@ import EquipmentCache from './EquipmentCache';
 import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
 import BtnBox from './BtnBox';
+import EquipmentFirstDetail from './EquipmentFirstDetail';
 
 @inject("NavModel")
 @observer
@@ -81,6 +82,33 @@ export default class SecondDoorManage  extends React.Component{
 		
 	}
 	seeDetailInfoFun=(value,itemData)=>{
+
+		if(value.maker == "KRSPACE"){
+			this.secondEquipment(value);
+		}else{
+			this.firstEquipment(value);
+		}
+		
+	}
+
+	firstEquipment=(value)=>{
+		let _this = this;
+		console.log("value",value);
+		Http.request('getFirstEquipmentDetailUrl',{id:value.id}).then(function(response) {
+				
+			_this.setState({
+				itemDetail:response
+			},function(){
+				State.openFirstHardwareDetail = true;
+			});
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		State.deviceVO = State.itemDetail.deviceVO;
+	}
+
+	secondEquipment=(value)=>{
 		let _this = this;
 		Http.request('getSecEquipmentDetailUrl',{id:value.id}).then(function(response) {
 			
@@ -95,6 +123,8 @@ export default class SecondDoorManage  extends React.Component{
 		});
 		State.deviceVO = State.itemDetail.deviceVO;
 	}
+
+
 
 	closeAll=()=>{
 		State.openHardwareDetail = false;
@@ -121,6 +151,10 @@ export default class SecondDoorManage  extends React.Component{
 	//打开查看详情
 	openSeeDetail=()=>{
 		State.openHardwareDetail = !State.openHardwareDetail;
+	}
+	//打开一代查看详情
+	openSeeDetail=()=>{
+		State.openFirstHardwareDetail = !State.openFirstHardwareDetail;
 	}
 	//打开编辑
 	openEditDialogFun=()=>{
@@ -374,6 +408,9 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 
+	openFirstHardwareDetailFun=()=>{
+		State.openFirstHardwareDetail = !State.openFirstHardwareDetailFun;
+	}
 
 	//获取管理员密码
 	getManagerPsd=()=>{
@@ -436,14 +473,29 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"清空设备缓存",onClickFun:_this.clearCache},
 				{title:"刷新屏幕",onClickFun:_this.freshH5},
 				{title:"远程开门",onClickFun:_this.openDoorInline},
-
-				{title:"重置",onClickFun:_this.printA},
-				{title:"生成二维码",onClickFun:_this.printA}
+				{title:"重置",onClickFun:_this.resetFirstEquipmentFun}
 				
 			]
 		}
 
 	}
+
+	resetFirstEquipmentFun=()=>{
+		this.resetFirstEquipmentDialogFun();
+	}
+
+	resetFirstEquipmentDialogFun=()=>{
+		State.resetFirstEquipmentDialog = !State.resetFirstEquipmentDialog ;
+	}
+
+	confirmResetFirstEquipment=()=>{
+
+		State.confirmResetFirstEquipmentState();
+		this.resetFirstEquipmentDialogFun();
+		
+	}
+
+
 
 
 
@@ -587,6 +639,16 @@ export default class SecondDoorManage  extends React.Component{
 					>
 						<EquipmentDetail onCancel={this.openSeeDetail} detail={itemDetail}/>
 					</Drawer>
+
+					<Drawer 
+			        	open={State.openFirstHardwareDetail}
+			        	onClose = {this.openFirstHardwareDetailFun}
+					    width={1000} 
+					    openSecondary={true} 
+					>
+						<EquipmentFirstDetail onCancel={this.openFirstHardwareDetailFun} detail={itemDetail}/>
+					</Drawer>
+
 					 <Drawer 
 			        	open={State.openSearchEquipment}
 			        	onClose = {this.openSearchEquipmentFun}
@@ -859,6 +921,28 @@ export default class SecondDoorManage  extends React.Component{
 			                      </ListGroupItem>
 			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
 			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.synchronizingPswDialogFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+			        <Dialog
+			          title="一代门禁重置警告"
+			          open={State.resetFirstEquipmentDialog}
+			          onClose={this.resetFirstEquipmentDialogFun}
+			          contentStyle={{width:443,height:260}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>重置可能导致设备暂时掉线，确认重置？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmResetFirstEquipment} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.resetFirstEquipmentDialogFun} />
 			                      </ListGroupItem>
 			                    </ListGroup>
 			                  </Row>

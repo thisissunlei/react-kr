@@ -54,7 +54,8 @@ let State = observable({
 	openConfirmDeleteBatch : false,
 	loading :false,
 	DropItems : [],
-
+	openFirstHardwareDetail: false,
+	resetFirstEquipmentDialog : false,
 });
 
 
@@ -374,6 +375,16 @@ State.confirmSynchronizingAction = action(function(){
 	Http.request('SynchronizingUrl',{},urlParams).then(function(response) {
 		
 		Message.success("同步成功");
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
+
+State.confirmResetFirstEquipmentState = action(function(){
+	var urlParams = {deviceId:State.itemDetail.deviceId}
+	Http.request('resetFirstEquipmentUrl',urlParams).then(function(response) {
+		Message.success("重置设备成功");
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
