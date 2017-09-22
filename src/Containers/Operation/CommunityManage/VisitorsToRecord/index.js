@@ -59,10 +59,11 @@ class VisitorsToRecord  extends React.Component{
 				searchType:'',
         id:"",
 				page: 1,
-     			pageSize: 15,
-     			visitType:'',
-     			searchKey:'',
-     			date:date
+        pageSize: 15,
+        visitType:'',
+        searchKey:'',
+        communityId:'',
+     		date:date
 			},
       openNewVisitors:false,
       openEditVisitors:false,
@@ -165,6 +166,7 @@ class VisitorsToRecord  extends React.Component{
      		pageSize: searchParams.pageSize,
      		searchType:value.filter,
      		visitType:searchParams.visitType,
+        communityId:searchParams.communityId,
      		date:date
 			},
 
@@ -256,6 +258,7 @@ class VisitorsToRecord  extends React.Component{
    upperFormSubmit = (values) =>{
      let {searchParams} = this.state;
  	  let date = new Date();
+     
        
     	 this.setState({
           searchParams:{
@@ -264,6 +267,7 @@ class VisitorsToRecord  extends React.Component{
       		pageSize: searchParams.pageSize,
       		searchType:values.searchType,
       		visitType:values.visitType,
+          communityId:values.communityId||"",
           date:date,
           visitStatus:values.visitStatus
  			},
@@ -341,6 +345,7 @@ class VisitorsToRecord  extends React.Component{
         pageSize: searchParams.pageSize,
         searchType:searchParams.searchType,
         visitType:searchParams.visitType,
+        communityId:searchParams.communityId||'',
         date:date
 			}
    	})
