@@ -1181,7 +1181,7 @@ class NewCreateForm extends React.Component {
 		
 
 		//校验时间选择的时间不得大于租赁结束时间
-				if(endTime>=validEnd){
+				if(endTime>validEnd){
 					Notify.show([{
 						message: '选择的时间不得大于租赁结束时间',
 						type: 'danger',

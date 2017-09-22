@@ -1030,7 +1030,6 @@ class NewCreateForm extends React.Component {
 		},50)
 	}
 	changeEndDate=(e,fields,index)=>{
-		console.log('changeEndDate',e,fields,index);
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {saleList}  = optionValues;
 		let {stationVos} = this.state;
