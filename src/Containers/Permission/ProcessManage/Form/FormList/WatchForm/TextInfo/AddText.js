@@ -24,12 +24,12 @@ class AddText  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-					model:null
+			model:null
         }
     }
 
     componentDidMount(){
-				Store.dispatch(change('AddText','tabledata',[]));
+		Store.dispatch(change('AddText','itemListStr',[]));
     }
 
     onSubmit=(values)=>{
@@ -43,22 +43,22 @@ class AddText  extends React.Component{
     }
 
 
-		dynamicRender=()=>{
-        return  <div style={{marginLeft:12}}><TabelEdit
-								 	name = "tabledata"
-									toolbar = {true}
-									checkbox = {true}
+    dynamicRender=()=>{
+            return  <div style={{marginLeft:12}}><TabelEdit
+                        name = "itemListStr"
+                        toolbar = {true}
+                        checkbox = {true}
 
-								 >
-									 <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
-									 <FRow name = "name" type = "tableEdit" label = "选项值" />
-									 <FRow name = "other" type = "tableEdit" label = "排序号" />
-									 <FRow name = "checked" type = "checkBox" label = "是否默认" />
-								 </TabelEdit></div>
-    }
+                        >
+                            <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
+                            <FRow name = "name" type = "tableEdit" label = "选项值" />
+                            <FRow name = "other" type = "tableEdit" label = "排序号" />
+                            <FRow name = "checked" type = "checkBox" label = "是否默认" />
+                        </TabelEdit></div>
+            }
 
 	 onChange=(param)=>{
-		 if(param.value=='34'){
+		 if(param.value=='CUSTOM'){
 			this.setState({
 				model:this.dynamicRender()
 			})
@@ -103,10 +103,10 @@ class AddText  extends React.Component{
 
 
 				                <TextDic
-												  onChange={this.onChange}
-												/>
+                                    onChange={this.onChange}
+                                />
 
-												{model}
+								{model}
 
                         <Grid style={{marginBottom:5,marginLeft:-32,marginTop:12}}>
                             <Row>

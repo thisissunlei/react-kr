@@ -28,7 +28,7 @@ export default class TextDic extends React.Component{
 
     componentDidMount(){
         this.setState({
-			      inputType:DictionaryConfigs.ERP_InputType,
+			inputType:DictionaryConfigs.ERP_InputType,
             nexts:DictionaryConfigs.ERP_ComponentType,
         })
     }
@@ -115,7 +115,7 @@ export default class TextDic extends React.Component{
                     {isTrue&&<KrField
                         grid={1/2}
                         style={{width:262,marginBottom:5,marginLeft:'30px'}}
-                        name="namerrr"
+                        name="compType"
                         component="select"
                         label="类型"
                         options={next}

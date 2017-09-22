@@ -37,7 +37,6 @@ class TextInfo  extends React.Component{
 			openEditDetail:false,
 			openDelForm:false,
 			openEditText:false,
-			//新增字段
 			openAddText:false,
 
 			//主表信息
@@ -46,7 +45,9 @@ class TextInfo  extends React.Component{
 			detailInfo:[],
 
 			//deleteId
-			deleteId:''
+			deleteId:'',
+			//主表明细表id
+			detailId:'',
 
 		}
 
@@ -59,8 +60,8 @@ class TextInfo  extends React.Component{
   }
 
   componentWillMount(){
-	let {basicInfo}=this.props;
-	this.getTextInfo(basicInfo.id);
+	let {textInfo}=this.props;
+	this.mainDetailForm(textInfo);
   }
 
   componentWillReceiveProps(nextProps){
@@ -69,17 +70,17 @@ class TextInfo  extends React.Component{
 
   //字段
   textDetailForm=()=>{
-    let {mainInfo,detailInfo}=this.state;
+	let {mainInfo,detailInfo}=this.state;
 	mainInfo.map((item,index)=>{
-		Store.dispatch(change('TextInfo',`tableData${index}`,item.fields));
+		Store.dispatch(change('TextInfo',`fields${index}`,item.fields));
 	})
 	detailInfo.map((item,index)=>{
-		Store.dispatch(change('TextInfo',`detailData${index}`,item.fields));
+		Store.dispatch(change('TextInfo',`fields${index}`,item.fields));
 	})
   }
 
   //主表和明细表
-  mainDetailForm=(textInfo)=>{
+  mainDetailForm=(textInfo,callback)=>{
     var mainForm=[];
 	var detailForm=[];
 	textInfo.map((item,index)=>{
@@ -92,6 +93,8 @@ class TextInfo  extends React.Component{
 	this.setState({
 		mainInfo:mainForm,
 		detailInfo:detailForm
+	},function(){
+		callback && callback();
 	})
   }
 
@@ -102,7 +105,9 @@ class TextInfo  extends React.Component{
 			 _this.setState({
 				textInfo:response.items
 			 },function(){
-				_this.mainDetailForm(_this.state.textInfo);	
+				_this.mainDetailForm(_this.state.textInfo,function(){
+					_this.textDetailForm();
+				});	
 			 })
 		 }).catch(function(err) {
 			 Message.error(err.message);
@@ -172,12 +177,14 @@ class TextInfo  extends React.Component{
 
  //批量删除
  batchdelete=(params)=>{
+	let {basicInfo}=this.props;
 	var ids=[];
 	params.map((item,index)=>{
 		ids.push(item.id);
 	})
 	var _this=this;
 	Http.request('form-all-batch',{},{ids:ids}).then(function(response) {
+		_this.getTextInfo(basicInfo.id);
 		}).catch(function(err) {
 		Message.error(err.message);
 	});
@@ -210,14 +217,35 @@ class TextInfo  extends React.Component{
  }
 
  //打开新增字段
- addText=()=>{
+ addText=(id)=>{
 	this.setState({
-		openAddText:!this.state.openAddText
+		openAddText:!this.state.openAddText,
+		detailId:id
 	 })
  }
  //新增字段提交
- onAddTextSub=()=>{
-
+ onAddTextSub=(values)=>{
+	var littleText=[];
+	for (var item in values){
+		if(item.indexOf("ws")!=-1){
+			var list={};
+			list[item]=values[item];
+			littleText.push(list);
+		}
+	}
+	let {basicInfo}=this.props;
+	let {detailId}=this.state;
+	values.detailId=detailId;
+	values.formId=basicInfo.id;
+	values.setting=JSON.stringify(littleText);
+	delete values.itemListStr;
+	var _this=this;
+	Http.request('form-field-add',{},values).then(function(response) {
+		 _this.getTextInfo(basicInfo.id);
+		 _this.cancelAddText();
+		}).catch(function(err) {
+		Message.error(err.message);
+	});
  }
 
 //打开编辑字段
@@ -236,6 +264,7 @@ class TextInfo  extends React.Component{
 	render(){
 
 		let {handleSubmit,textInfo,isCreate,basicInfo}=this.props;
+		console.log('log',isCreate);
 		let {detailInfo,mainInfo}=this.state;
 
 		return(
@@ -270,16 +299,17 @@ class TextInfo  extends React.Component{
 
 
 						<FdTabel
-								name = {`tableData${index}`}
+								name = {`fields${index}`}
 								isFold = {false}
 								toolbar={true}
 								batchDel={true}
 								checkbox={true}
 								batchdelete={this.batchdelete}
+								initFoldNum={100}
 							>
 
 									<Toolbars>
-									  <Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText} />
+									  <Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText.bind(this,item.id)} />
 									</Toolbars>
 
 									<FRow name = "name" label = "字段名称"/>
@@ -287,7 +317,7 @@ class TextInfo  extends React.Component{
 									<FRow name = "inputTypeStr" label = "表现形式"/>
 									<FRow name = "compTypeStr" label = "字段类型"/>
 									<FRow label = "操作" type='operation' component={(item)=>{
-											return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
+											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText}>编辑</div>
 									}}/>
 						</FdTabel>
 					</div>
@@ -307,17 +337,18 @@ class TextInfo  extends React.Component{
 
 
 								<FdTabel
-									name = {`detailData${index}`}
+									name = {`fields${index}`}
 									isFold = {false}
 									toolbar={true}
 									batchDel={true}
 									checkbox={true}
 									batchdelete={this.batchdelete}
+									initFoldNum={100}
 								>
 									<Toolbars>
 										<Toolbar label='编辑' rightSpac='14px' iconClass='edit-form' iconClick={this.openEditDetail.bind(this,item.id)} />
 										<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />
-										<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText} />
+										<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText.bind(this,item.id)} />
 									</Toolbars>
 
 									<FRow name = "name" label = "字段名称"/>

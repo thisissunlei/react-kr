@@ -1,5 +1,6 @@
 import React from 'react';
 import KrField from '../../KrField';
+import DictionaryConfigs from 'kr/Configs/dictionary';
 import TabelEdit from '../../FieldTabel/TabelEdit';
 import FRow from '../../FieldTabel/FRow';
 
@@ -9,7 +10,7 @@ export default class Text  extends React.Component{
         super(props, context);
         this.state={
             component:null,
-						model:null
+			model:null
         }
     }
 
@@ -19,7 +20,7 @@ export default class Text  extends React.Component{
     }
 
     sourceChange=(param)=>{
-			if(param.value=='12'){
+			if(param.value=="PUBLIC_DICT"){
 				 this.setState({
 					 model:this.sourceRender()
 				 })
@@ -32,21 +33,21 @@ export default class Text  extends React.Component{
 			 onChange && onChange(param);
 		}
 
-		sourceRender=()=>{
- 			 return <KrField grid={1/2}
- 									 style={{width:262,marginLeft:30}}
- 									 name="data"
- 									 component="select"
- 									 label="数据来源"
- 									 options={[{'label':'性格','value':'123'}]}
- 							 />
+    sourceRender=()=>{
+            return <KrField grid={1/2}
+                        style={{width:262,marginLeft:30}}
+                        name="sourceOrgin"
+                        component="select"
+                        label="数据来源"
+                        options={[{'label':'性格','value':'123'}]}
+                    />
  	  }
 
     inputTextRender=()=>{
         return <KrField
                 grid={1/2}
                 style={{width:262,marginBottom:5}}
-                name="name"
+                name="wstext"
                 component="input"
                 label="文本长度"
                 requireLabel={true}
@@ -57,7 +58,7 @@ export default class Text  extends React.Component{
         return <KrField
                 grid={1/2}
                 style={{width:262,marginBottom:5}}
-                name="name"
+                name="wsfloat"
                 component="select"
                 label="小数位数"
                 options={[{label:'1',value:'1'},{label:'2',value:'2'},{label:'3',value:'3'},{label:'4',value:'4'}]}
@@ -69,7 +70,7 @@ export default class Text  extends React.Component{
         return <KrField
                 grid={1/2}
                 style={{width:262,marginBottom:5}}
-                name="namwww"
+                name="wsheight"
                 component="input"
                 label="高度"
             />
@@ -80,15 +81,15 @@ export default class Text  extends React.Component{
                 <KrField
                     grid={1/2}
                     style={{width:262,marginBottom:5}}
-                    name="name"
+                    name="wsradio"
                     component="select"
                     label="按钮类型"
                     options={[{label:'1',value:'1'},{label:'2',value:'2'},{label:'3',value:'3'},{label:'4',value:'4'}]}
                     requireLabel={true}
                 />
-                <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="enabled" component="group" label="是否多选" requireLabel={true}>
-                    <KrField name="enabled" label="是" type="radio" value='1' />
-                    <KrField name="enabled" label="否" type="radio" value='0' />
+                <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="是否多选" requireLabel={true}>
+                    <KrField name="wsenabled" label="是" type="radio" value='true' />
+                    <KrField name="wsenabled" label="否" type="radio" value='false' />
                 </KrField>
             </div>
     }
@@ -99,41 +100,41 @@ export default class Text  extends React.Component{
                     <KrField
                     grid={1/2}
                     style={{width:262,marginBottom:5}}
-                    name="name"
+                    name="wsfile"
                     component="input"
                     label="文件大小(单位:k)"
                     requireLabel={true}
                 />
-                    <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="enabled" component="group" label="多文件上传 " requireLabel={true}>
-                        <KrField name="enabled" label="允许" type="radio" value='1' />
-                        <KrField name="enabled" label="禁止" type="radio" value='0' />
+                    <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
+                        <KrField name="wsenabled" label="允许" type="radio" value='true' />
+                        <KrField name="wsenabled" label="禁止" type="radio" value='false' />
                     </KrField>
              </div>
     }
 
 		picRender=()=>{
 			return <div>
-									<KrField
-											grid={1/2}
-											style={{width:262,marginBottom:5}}
-											name="name"
-											component="input"
-											label="图片宽度(单位:px)"
-									/>
-									<KrField
-											grid={1/2}
-											style={{width:262,marginBottom:5,marginLeft:30}}
-											name="name"
-											component="input"
-											label="图片高度(单位:px)"
-									/>
-					 </div>
+                    <KrField
+                            grid={1/2}
+                            style={{width:262,marginBottom:5}}
+                            name="wspicWidth"
+                            component="input"
+                            label="图片宽度(单位:px)"
+                    />
+                    <KrField
+                            grid={1/2}
+                            style={{width:262,marginBottom:5,marginLeft:30}}
+                            name="wspicHeight"
+                            component="input"
+                            label="图片高度(单位:px)"
+                    />
+				 </div>
 		}
 
     dateRender=()=>{
         return <KrField grid={1/2}
                     style={{width:262,marginLeft:30}}
-                    name="entryDate"
+                    name="wsdate"
                     component="date"
                     label="日期"
                 />
@@ -141,16 +142,24 @@ export default class Text  extends React.Component{
 
 
 
-		sourceType=()=>{
-			return <KrField grid={1/2}
-									style={{width:262}}
-									name="data"
-									component="select"
-									label="来源类型"
-									onChange={this.sourceChange}
-									options={[{'label':'公共字典','value':'12'},{'label':'自定义','value':'34'}]}
-			       />
-		}
+    sourceType=()=>{
+        var source=DictionaryConfigs.ERP_SourceType;
+        var seleInt=[];
+        source.map((item,index)=>{
+           var list={};
+           list.label=item.desc;
+           list.value=item.value;
+           seleInt.push(list);
+        })
+        return <KrField grid={1/2}
+                                style={{width:262}}
+                                name="sourceType"
+                                component="select"
+                                label="来源类型"
+                                onChange={this.sourceChange}
+                                options={seleInt}
+                />
+    }
 
     typeRender=(value)=>{
         var component={};
