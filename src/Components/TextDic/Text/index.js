@@ -4,7 +4,7 @@ import DictionaryConfigs from 'kr/Configs/dictionary';
 import TabelEdit from '../../FieldTabel/TabelEdit';
 import FRow from '../../FieldTabel/FRow';
 import Message from '../../Message';
-import {Http} from 'kr/Utils';
+
 
 export default class Text  extends React.Component{
 
@@ -12,46 +12,59 @@ export default class Text  extends React.Component{
         super(props, context);
         this.state={
             component:null,
-            model:null,
-            //公共字典数据来源
-            sourceCome:[]
+            models:null,
+        }
+    }
+
+    componentDidMount(){
+        let {getEdit}=this.props;
+        if(getEdit.sourceType=='PUBLIC_DICT'){
+            this.setState({
+                models:this.sourceRender(getEdit.sourceOrgin),
+            })
         }
     }
 
 
-    componentDidMount(){
-        var _this=this;
-        Http.request('get-common-dic').then(function(response) {
-           _this.setState({
-            sourceCome:response.items
-           })
-        }).catch(function(err) {
-            Message.error(err.message);
-        });
+    componentWillReceiveProps(nextProps){
+       if(nextProps.getEdit.sourceType=='PUBLIC_DICT'){
+            this.setState({
+                models:this.sourceRender(nextProps.getEdit.sourceOrgin),
+            }) 
+       }else{
+            this.setState({
+                models:null,
+            })  
+       }
     }
 
     sourceChange=(param)=>{
 			if(param.value=="PUBLIC_DICT"){
 				 this.setState({
-					 model:this.sourceRender()
+                    models:this.sourceRender()
 				 })
 			 }else{
 				 this.setState({
-					 model:null
+                    models:null
 				 })
 			 }
 			 const {onChange}=this.props;
 			 onChange && onChange(param);
 		}
 
-    sourceRender=()=>{
-        let {sourceCome}=this.state;
+    sourceRender=(publicValue)=>{
+        let {sourceCome}=this.props;
+        sourceCome.map((item,index)=>{
+            item.value=''+item.value;
+        })
             return <KrField grid={1/2}
                         style={{width:262,marginLeft:30}}
                         name="sourceOrgin"
                         component="select"
                         label="数据来源"
+                        value={publicValue}
                         options={sourceCome}
+                        requireLabel={true}
                     />
  	  }
 
@@ -170,6 +183,7 @@ export default class Text  extends React.Component{
                     label="来源类型"
                     onChange={this.sourceChange}
                     options={seleInt}
+                    requireLabel={true}
                 />
     }
 
@@ -258,14 +272,14 @@ export default class Text  extends React.Component{
 	render(){
 
                 let {label}=this.props;
-                let {model}=this.state;
+                let {models}=this.state;
                 
 
 				return(
 
 					<div style={{display:'inline-block'}}>
 		                {this.typeRender(label)}
-						{model}
+						{models}
 					</div>
 		);
 	}

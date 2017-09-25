@@ -3,6 +3,7 @@ import './index.less';
 import KrField from '../KrField';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import Text from './Text';
+
 export default class TextDic extends React.Component{
 
 	static displayName = 'TextDic';
@@ -23,9 +24,13 @@ export default class TextDic extends React.Component{
             //三级值
             label:'',
 
+            //为了四级
+            getEdit:{}
+
         }
     }
 
+  
     componentDidMount(){
         let {isEdit,getEdit}=this.props;
         var _this=this;
@@ -33,12 +38,13 @@ export default class TextDic extends React.Component{
 			inputType:DictionaryConfigs.ERP_InputType,
             nexts:DictionaryConfigs.ERP_ComponentType,
         },function(){
-            if(isEdit){
+            if(isEdit&&getEdit.inputType){
                 _this.nextArrRender(getEdit.inputType,_this.state.nexts,function(){
                     _this.setState({
                         label:getEdit.compType,
                         isTrue:true, 
                         isThree:true,
+                        getEdit
                     },function(){
                         const {callBack}=_this.props;
                         callBack && callBack();
@@ -48,22 +54,24 @@ export default class TextDic extends React.Component{
         })     
     }
 
-    componentReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps){
         var _this=this;
-        if(nextProps.isEdit){
-                 this.nextArrRender(nextProps.getEdit.inputType,this.state.nexts,function(){
-                 this.setState({
+        if(nextProps.isEdit&&nextProps.getEdit.inputType){
+                _this.nextArrRender(nextProps.getEdit.inputType,_this.state.nexts,function(){
+                _this.setState({
                     label:nextProps.getEdit.compType,
                     isTrue:true, 
                     isThree:true,
+                    getEdit:nextProps.getEdit
                 },function(){
                     const {callBack}=_this.props;
                     callBack && callBack();
                 })
             });
-         } 
+         }
     }
 
+   
     typeChange=(param)=>{
         let {nexts}=this.state;
         var _this=this;
@@ -103,7 +111,6 @@ export default class TextDic extends React.Component{
        }
 
     classChange=(param)=>{
-        console.log('parm',param);
         if(!param){
             return ;
         }
@@ -122,7 +129,8 @@ export default class TextDic extends React.Component{
 
 	render(){
 
-        let {inputType,isTrue,next,label,isThree}=this.state;
+        let {inputType,isTrue,next,label,isThree,getEdit}=this.state;
+        let {sourceCome}=this.props;
 
         var seleInt=[];
         inputType.map((item,index)=>{
@@ -131,7 +139,7 @@ export default class TextDic extends React.Component{
            list.value=item.value;
            seleInt.push(list);
         })
-
+        
 
 		return (
 
@@ -157,7 +165,12 @@ export default class TextDic extends React.Component{
                         requireLabel={true}
                         value={label}
                     />}
-                    {isThree&&<Text label={label} onChange={this.onChange}/>}
+                    {isThree&&<Text 
+                    label={label} 
+                    sourceCome={sourceCome} 
+                    onChange={this.onChange}
+                    getEdit={getEdit}
+                    />}
                 </div>
 
 		);
