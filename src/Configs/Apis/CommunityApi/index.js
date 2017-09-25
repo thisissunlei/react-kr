@@ -32,7 +32,7 @@ module.exports = {
 
 	 //社区管理－访客记录-列表
  'visit-record-list':{
-		url: '/api/krspace-finance-web/sys/visit-record/list?page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}&visitType={visitType}&visitStatus={visitStatus}&communityId={communityId}',
+		url: '/api/krspace-finance-web/sys/visit-record/list?page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}&visitType={visitType}&visitStatus={visitStatus}&communityId={communityId}&vtime={vtime}',
 		method: 'get'
  },
  //社区管理－访客记录-准备数据

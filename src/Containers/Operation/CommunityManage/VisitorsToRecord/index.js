@@ -63,7 +63,8 @@ class VisitorsToRecord  extends React.Component{
         visitType:'',
         searchKey:'',
         communityId:'',
-     		date:date
+         date:date,
+         vtime:''
 			},
       openNewVisitors:false,
       openEditVisitors:false,
@@ -269,7 +270,8 @@ class VisitorsToRecord  extends React.Component{
       		visitType:values.visitType,
           communityId:values.communityId||"",
           date:date,
-          visitStatus:values.visitStatus
+          visitStatus:values.visitStatus,
+          vtime:values.vtime,
  			},
     })
     this.closeUpperForm();
