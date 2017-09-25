@@ -102,11 +102,11 @@ class EditText  extends React.Component{
                             />
 
 
-				                <TextDic
-												  onChange={this.onChange}
-												/>
+                            <TextDic
+                                onChange={this.onChange}
+                            />
 
-												{model}
+                            {model}
 
                         <Grid style={{marginBottom:5,marginLeft:-32,marginTop:12}}>
                             <Row>

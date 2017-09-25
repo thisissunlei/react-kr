@@ -147,6 +147,11 @@ export default class Table extends React.Component {
     this.setState({
       tableData:newData,
     })
+    
+    const {moveClick}=this.props;
+    moveClick && moveClick(newData);
+
+
   }
   //批量删除
   batchdelete = () =>{
