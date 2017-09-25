@@ -196,26 +196,26 @@ module.exports = {
    //获取编辑准备数据
    'getEditEquipmentUrl':{
       
-      url: '/mockjsdata/53/iot-platform/door-device/view?id={id}',
+      url: '/api/iot-platform/door-device/view?id={id}',
       method: 'get'
    },
 
    //一代门禁获取设备详情
    'getFirstEquipmentDetailUrl':{
-      url: '/mockjsdata/53/iot-platform/door-device/v1/detail?id={id}',
+      url: '/api/iot-platform/door-device/v1/detail?id={id}',
       method: 'get'
    },
 
 
    //一代门禁获取设备详情
    'resetFirstEquipmentUrl':{
-      url: '/mockjsdata/53/iot-platform/door-device/v1/admin/actions/reset-to-php?deviceId={deviceId}',
+      url: '/api/iot-platform/door-device/v1/admin/actions/reset-to-php?deviceId={deviceId}',
       method: 'get'
    },
 
    //一代门禁生成二维码
    'productQRCodeUrl':{
-      url: '/mockjsdata/53/iot-platform/door-device/actions/generate-qr-code?deviceId={deviceId}',
+      url: '/api/iot-platform/door-device/actions/generate-qr-code?deviceId={deviceId}',
       method: 'put'
    },
 
