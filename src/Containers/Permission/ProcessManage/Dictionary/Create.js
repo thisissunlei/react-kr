@@ -12,6 +12,7 @@ import {
 	ListGroupItem,
 	TabelEdit,
 	FRow,
+	Notify,
 } from 'kr-ui';
 
 import {
@@ -21,6 +22,7 @@ import {
 import State from './State';
 
 import './index.less';
+import DictionaryConfigs from 'kr/Configs/dictionary';
 
 @observer
 class NewCreateForm extends React.Component{
@@ -35,15 +37,159 @@ class NewCreateForm extends React.Component{
 		}
 	}
 	componentWillMount() {
-		Store.dispatch(change('NewCreateForm','type','1'));
+		Store.dispatch(change('NewCreateForm','dataType',"STATIC"));
 
 		
 	}
+	arrDel=(arr)=>{
+      	let tmp = [];
+	    for(var i in arr){
+			if(tmp.indexOf(arr[i])==-1){
+				tmp.push(arr[i])
+			}
+		}
+		if(tmp.length<arr.length){
+			return true;
+		}
+		return false;
+	}
 	onSubmit=(value)=>{
-		console.log('value',value)
+		let labelArr = [];
+		let valueArr = [];
+		let orderNumArr = [];
+		let labelNone = false;
+		let valueNone = false;
+		let orderNumNone = false;
+		let tableNone = false;
+		let tableVlaue = value.itemListStr;
+		value.itemListStr.map((item)=>{
+			if(!item){
+				tableNone = true;
+			}
+		})
+		if(tableNone){
+			Notify.show([{
+				message: '字典选项内容请填写完整',
+				type: 'danger',
+			}]);
+			return;
+		}
+
+		let labelArray = value.itemListStr.map((item)=>{
+			if(item.label){
+				return item.label
+			}else{
+				labelNone = true;
+				return false;
+			}
+		})
+		let valueArray = value.itemListStr.map((item)=>{
+			if(item.value){
+				return item.value
+			}else{
+				valueNone = true;
+				return false;
+			}
+		})
+		let orderNumArray = value.itemListStr.map((item)=>{
+			if(item.orderNum){
+				return item.orderNum
+			}else{
+				orderNumNone = true;
+				return false;
+			}
+		})
+		if(orderNumNone){
+			Notify.show([{
+				message: '请填写排序号',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(valueNone){
+			Notify.show([{
+				message: '请填写选项值',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(labelNone){
+			Notify.show([{
+				message: '请填写选项文字',
+				type: 'danger',
+			}]);
+			return;
+		}
+		let tmp = [];
+		let tmp1 = [];
+		let tmp2 = [];
+		let orderNumCop=false;
+		let valueCop=false;
+		let labelCop=false;
+		for(var i in orderNumArray){
+			if(tmp.indexOf(orderNumArray[i])!=-1){
+				orderNumCop = true;
+			}
+			if(tmp.indexOf(orderNumArray[i])==-1){
+				tmp.push(orderNumArray[i])
+			}
+			
+		}
+		for(var i in valueArray){
+			if(tmp1.indexOf(valueArray[i])!=-1){
+				valueCop = true;
+			}
+			if(tmp1.indexOf(valueArray[i])==-1){
+				tmp1.push(valueArray[i])
+			}
+			
+		}
+		for(var i in labelArray){
+			if(tmp2.indexOf(labelArray[i])!=-1){
+				labelCop = true;
+			}
+			if(tmp2.indexOf(labelArray[i])==-1){
+				tmp2.push(labelArray[i])
+			}
+		}
+		if(orderNumCop){
+			Notify.show([{
+				message: '排序号不可重复',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(valueCop){
+			Notify.show([{
+				message: '选项值不可重复',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(labelCop){
+			Notify.show([{
+				message: '选项文字不可重复',
+				type: 'danger',
+			}]);
+			return;
+		}
+
+		console.log('是否有空值',orderNumNone,valueNone,labelNone)
+		console.log('table数组',orderNumArray,valueArray,labelArray)
+		console.log('是否有重复的值',orderNumCop,valueCop,labelCop)
+		State.newCreateDict(value);
 	}
 	onCancel=()=>{
 		State.openCreate = false;
+	}
+	changeName=(e)=>{
+		State.checkName(e);
+		console.log('---changeName----',e)
+	}
+	changeCode=(e)=>{
+		State.checkCode(e);
+
+		console.log('---changeCode----',e)
 	}
 
 	render(){
@@ -60,27 +206,27 @@ class NewCreateForm extends React.Component{
 						</span>
 					</div>
 					<div className="detail-info">
-								<KrField grid={1/2} name="name" type="text" label="字典名称" requireLabel={true} style={{width:252,zIndex:11}} />
-								<KrField grid={1/2} name="code" type="text" left={50} label="字典编码" requireLabel={true} style={{width:252}}/>
-								<KrField grid={1} name="type" component="group" label="字典类型"  requireLabel={true}>
-									<KrField name="type" grid={1/2} label="静态" type="radio" value='1' style={{marginTop:10,display:"inline-block"}} onClick={this.chooseStick}/>
+								<KrField grid={1/2} name="dictName" type="text" label="字典名称" requireLabel={true} style={{width:252,zIndex:11}} onBlur={this.changeName}/>
+								<KrField grid={1/2} name="dictCode" type="text" left={50} label="字典编码" requireLabel={true} style={{width:252}} onBlur={this.changeCode}/>
+								<KrField grid={1} name="dataType" component="group" label="字典类型"  requireLabel={true}>
+									<KrField name="dataType" grid={1/2} label="静态" type="radio" value='STATIC' style={{marginTop:10,display:"inline-block"}} onClick={this.chooseStick}/>
 				              	</KrField>
-								<KrField grid={1} name="remark" 
+								<KrField grid={1} name="descr" 
 								 type="textarea" component="textarea"maxSize={100}
 								label="描述"/>
 								
 					</div>
 					<div style={{marginLeft:28,marginBottom:40}}>
 					 <TabelEdit 
-					 	name = "data" 
+					 	name = "itemListStr" 
 						toolbar = {true}
 						checkbox = {true}
 						
 					 >
-						 <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
-						 <FRow name = "name" type = "tableEdit" label = "选项值" />
-						 <FRow name = "other" type = "tableEdit" label = "排序号" />
-						 <FRow name = "checked" type = "checkBox" label = "是否默认" />
+						 <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
+						 <FRow name = "value" type = "tableEdit" label = "选项值" />
+						 <FRow name = "orderNum" type = "tableEdit" label = "排序号" />
+						 <FRow name = "isDefault" type = "checkBox" label = "是否默认" />
 					 </TabelEdit>
 					</div>
 					<Grid style={{paddingBottom:50}}>
@@ -102,15 +248,16 @@ class NewCreateForm extends React.Component{
 	}
 }
 const validate = values => {
-	console.log("values",values);
 
 	let errors = {};
-	if(values.name){
-		errors.name = '请填写字典名称'
+	if(!values.dictName){
+		errors.dictName = '请填写字典名称'
 	}
-	if(values.code){
-		errors.code = '请填写字典编码'
+	if(!values.dictCode){
+		errors.dictCode = '请填写字典编码'
 	}
+	
+
 	return errors
 }
 

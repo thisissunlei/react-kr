@@ -19,6 +19,9 @@ import {
 import {
 	observer
 } from 'mobx-react';
+import {
+	toJS
+} from 'mobx';
 
 import State from './State';
 import nothings from './images/nothings';
@@ -33,10 +36,9 @@ class ViewForm extends React.Component{
 		super(props);
 	}
 	componentDidMount() {
-		console.log('===will==',State.data)
 		Store.dispatch(initialize('ViewForm',State.data));
-		Store.dispatch(change('ViewForm','datadetail',State.list));
-		Store.dispatch(change('ViewForm','tableData',State.list));
+		Store.dispatch(change('ViewForm','datadetail',State.data.items));
+		Store.dispatch(change('ViewForm','tableData',toJS(State.list)));
 
 		
 	}
@@ -65,22 +67,22 @@ class ViewForm extends React.Component{
 						</span>
 					</div>
 					<div className="detail-info">
-								<KrField grid={1/2} name="name" type="labelText" label="字典名称" requireLabel={true}
-								value={State.data.name} style={{width:252,zIndex:11}} inline={false}/>
+								<KrField grid={1/2} name="dictName" type="labelText" label="字典名称" requireLabel={true}
+								value={State.data.dictName} style={{width:252,zIndex:11}} inline={false}/>
 								<KrField grid={1/2} name="code" type="labelText" left={50} inline={false}
-								value={State.data.code} label="字典编码" requireLabel={true} style={{width:252}}/>
-								<KrField grid={1} name="type" type="labelText" label="字典类型" 
-								value={State.data.type} requireLabel={true} inline={false}/>
-								<KrField grid={1} name="remark" type="labelText" 
-								value={State.data.remark} label="描述" inline={false}/>
+								value={State.data.dictCode} label="字典编码" requireLabel={true} style={{width:252}}/>
+								<KrField grid={1} name="dictCode" type="labelText" label="字典类型" 
+								value={State.data.dataTypeStr} requireLabel={true} inline={false}/>
+								<KrField grid={1} name="descr" type="labelText" 
+								value={State.data.descr} label="描述" inline={false}/>
 								<div>
 									<TabelEdit 
 									 	name = "datadetail" 	
 									 >
-										 <FRow name = "age"  type = "label"  label = "选项文字" />
-										 <FRow name = "name" type = "label" label = "选项值" />
-										 <FRow name = "other" type = "label" label = "排序号" />
-										 <FRow name = "checked" type = "checkBox" disabled = "disabled" label = "是否默认" />
+										 <FRow name = "label"  type = "label"  label = "选项文字" />
+										 <FRow name = "value" type = "label" label = "选项值" />
+										 <FRow name = "orderNum" type = "label" label = "排序号" />
+										 <FRow name = "isDefault" type = "checkBox" disabled = "disabled" label = "是否默认" />
 									 </TabelEdit>
 								</div>
 						<Grid style={{paddingBottom:20,textAlign:'center',paddingTop:30}}>
@@ -93,15 +95,14 @@ class ViewForm extends React.Component{
 						<div style={{textAlign:'center',marginBottom:20}}>
 							<span className="list-title">引用记录</span>
 						</div>
-						<div style={{width:544}}>
+						<div style={{width:544,marginLeft:25}}>
 							<FdTabel
 								name = "tableData"
 								isFold = {true}
 				 				initFoldNum = "3"
 							>
-								<FRow name = "age" label = "年龄" />
-								<FRow name = "name" label = "姓名" />
-								<FRow name = "other" label = "其他" />
+								<FRow name = "formName" label = "引用表单" />
+								<FRow name = "lastUseTime" type='date' label = "最近一次使用时间" />
 							</FdTabel>
 						</div>
 					</div>

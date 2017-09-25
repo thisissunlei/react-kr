@@ -57,18 +57,29 @@ export default class ProcessSetting extends React.Component {
 		State.openCreate = true;
 	}
 	lookClick=(item)=>{
-		console.log(item)
 		State.showView(item);
+	}
+	onSearchSubmit=(value)=>{
+		let nameKey  = '';
+		let codeKey = "";
+		if(value.filter == 'code'){
+			codeKey= value.content;
+		}else if(value.filter == 'name'){
+			nameKey = value.content;
+		}
+		let params = Object.assign({},State.searchParams,{nameKey,page:1,codeKey});
+		State.searchParams = params;
 	}
 
   
 	render() {
+		let options = [{label:'字典名称',value:'name'},{label:'字典编码',value:'code'}]
 		return (
 			<div className="g-process-setting">
 				<Section title="公共字典列表" >
 				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 					<Button label="新建" operateCode="main_activity_add" onTouchTap={this.openNewCreate} />
-					<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach"/>
+					<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach" placeholder='输入查询的内容' searchFilter={options}/>
 				</form>
 				<div  className='detail-table'>
 					<Table
@@ -76,11 +87,8 @@ export default class ProcessSetting extends React.Component {
 	                    onOperation={this.onOperation}
 	                    displayCheckbox={false}
 	                    exportSwitch={false}
-	                    ajaxParams={{
-							page:1,
-							pageSize:10,
-						}}
-	                    ajaxUrlName='activityList'
+	                    ajaxParams={State.searchParams}
+	                    ajaxUrlName='get-dict-list'
 	                    ajaxFieldListName="items"
 						  >
 			            <TableHeader className='detail-header'>
@@ -96,52 +104,54 @@ export default class ProcessSetting extends React.Component {
 
 				        <TableBody >
 				              <TableRow className='detail-row'>
-				                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='community' component={(value,oldValue)=>{
-			 						var maxWidth=6;
-			 						if(value.length>maxWidth){
-			 						 value = value.substring(0,6)+"...";
-			 						}
-			 						return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+				                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='dictName' component={(value,oldValue)=>{
+			 						return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
 			 					}} ></TableRowColumn>
-	                            <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='customer' component={(value,oldValue)=>{
+	                            <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='dictCode' component={(value,oldValue)=>{
+			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
+			 					}}></TableRowColumn>
+				                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='dataTypeStr' component={(value,oldValue)=>{
 			 							var maxWidth=6;
 			 							if(value.length>maxWidth){
 			 							 value = value.substring(0,6)+"...";
 			 							}
 			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 			 					}}></TableRowColumn>
-				                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='customerClass' component={(value,oldValue)=>{
+			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='dictItems' component={(value,oldValue)=>{
 			 							var maxWidth=6;
 			 							if(value.length>maxWidth){
 			 							 value = value.substring(0,6)+"...";
 			 							}
 			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 			 					}}></TableRowColumn>
-			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='intentStaions' component={(value,oldValue)=>{
+			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='descr' component={(value,oldValue)=>{
 			 							var maxWidth=6;
+			 							if(!value.length){
+			 								return (<div>--</div>)
+			 							}
+			 							if(value.length>maxWidth){
+			 							 value = value.substring(0,6)+"...";
+			 							}
+			 								return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+			 					}}></TableRowColumn>
+			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='updatorName' component={(value,oldValue)=>{
+			 							var maxWidth=6;
+			 							if(!value.length){
+			 								return (<div>--</div>)
+			 							}
 			 							if(value.length>maxWidth){
 			 							 value = value.substring(0,6)+"...";
 			 							}
 			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
 			 					}}></TableRowColumn>
-			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='source' component={(value,oldValue)=>{
-			 							var maxWidth=6;
-			 							if(value.length>maxWidth){
-			 							 value = value.substring(0,6)+"...";
-			 							}
-			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
+			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='uTime' component={(value,oldValue,itemData)=>{
+			 						if(!itemData.uTime){
+			 							return (<div>-</div>)
+			 						}else{
+			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.uTime,'yyyy-mm-dd')}</span></div>)
+			 						}
 			 					}}></TableRowColumn>
-			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='contact' component={(value,oldValue)=>{
-			 							var maxWidth=6;
-			 							if(value.length>maxWidth){
-			 							 value = value.substring(0,6)+"...";
-			 							}
-			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
-			 					}}></TableRowColumn>
-			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='phone' component={(value,oldValue)=>{
-			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
-			 					}}></TableRowColumn>
-			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='phone' component={(value,oldValue,itemData)=>{
+			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='uTime' component={(value,oldValue,itemData)=>{
 			 							return (
 					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,itemData)}/>
 			 							)

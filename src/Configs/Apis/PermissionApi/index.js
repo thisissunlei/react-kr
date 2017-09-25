@@ -494,4 +494,34 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/public-dict/select/type/enabled',
       method: 'get'
     },
+    //公共字典列表
+    'get-dict-list':{
+            url: '/api/krspace-erp-web/sys/public-dict/list/type/search?codeKey={codeKey}&nameKey={nameKey}&page={page}&pageSize={pageSize}',
+            method: 'get'
+    },
+    //公共字典新建
+    'new-dict-submit':{
+            url: '/api/krspace-erp-web/sys/public-dict/add',
+            method: 'post'
+    },
+    //字典编辑提交
+    'edit-dict-submit':{
+            url: '/api/krspace-erp-web/sys/public-dict/edit',
+            method: 'post'
+    },
+    //字典编辑信息
+    'get-dict-edit-data':{
+            url: '/api/krspace-erp-web/sys/public-dict/info/type/edit?id={id}',
+            method: 'get'
+    },
+    //校验字典名称
+    'check-dict-name':{
+      url: '/api/krspace-erp-web/sys/public-dict/check/name?dictName={dictName}&id={id}',
+      method: 'get'
+    },
+    //校验字典编码
+    'check-dict-code':{
+      url: '/api/krspace-erp-web/sys/public-dict/check/code?dictCode={dictCode}&id={id}',
+      method: 'get'
+    },
 }
