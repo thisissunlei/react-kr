@@ -56,7 +56,7 @@ import './index.less';
     let {searchType,searchKey} = this.state;
     values.searchType=searchType;
     values.searchKey=searchKey;
-    
+		values.vtime = values.vtime.substring(0,11)+'23:59:59';
   	let {onSubmit} = this.props;
   	onSubmit && onSubmit(values);
   }
