@@ -515,7 +515,7 @@ export default class SecondDoorManage  extends React.Component{
 		let {showOpretion} = State;
 		return(
 			<div >
-				<div style={{padding:"20px 0 0 0"}}>
+				<div>
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
