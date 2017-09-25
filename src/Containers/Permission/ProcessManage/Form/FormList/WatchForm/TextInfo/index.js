@@ -49,6 +49,9 @@ class TextInfo  extends React.Component{
 			//主表明细表id
 			detailId:'',
 
+			//编辑字段id
+			editId:''
+
 		}
 
 	}
@@ -72,10 +75,16 @@ class TextInfo  extends React.Component{
   textDetailForm=()=>{
 	let {mainInfo,detailInfo}=this.state;
 	mainInfo.map((item,index)=>{
+		if(!item.fields){
+			item.fields=[];
+		}
 		Store.dispatch(change('TextInfo',`fields${index}`,item.fields));
 	})
 	detailInfo.map((item,index)=>{
-		Store.dispatch(change('TextInfo',`fields${index}`,item.fields));
+		if(!item.fields){
+			item.fields=[];
+		}
+		Store.dispatch(change('TextInfo',`detailFields${index}`,item.fields));
 	})
   }
 
@@ -225,20 +234,26 @@ class TextInfo  extends React.Component{
  }
  //新增字段提交
  onAddTextSub=(values)=>{
-	var littleText=[];
-	for (var item in values){
-		if(item.indexOf("ws")!=-1){
-			var list={};
-			list[item]=values[item];
-			littleText.push(list);
+	if(values.inputType=='SELECT'||values.inputType=='CHECK'){
+      if(values.sourceType=='PUBLIC_DICT'){
+		delete values.itemListStr;
+	  } 
+	}else{
+		var littleText=[];
+		for (var item in values){
+			if(item.indexOf("ws")!=-1){
+				var list={};
+				list[item]=values[item];
+				littleText.push(list);
+			}
 		}
-	}
+		values.setting=JSON.stringify(littleText);
+		delete values.itemListStr;
+	}	
 	let {basicInfo}=this.props;
 	let {detailId}=this.state;
 	values.detailId=detailId;
 	values.formId=basicInfo.id;
-	values.setting=JSON.stringify(littleText);
-	delete values.itemListStr;
 	var _this=this;
 	Http.request('form-field-add',{},values).then(function(response) {
 		 _this.getTextInfo(basicInfo.id);
@@ -249,10 +264,33 @@ class TextInfo  extends React.Component{
  }
 
 //打开编辑字段
- editText=()=>{
+ editText=(item,detailId)=>{
    this.setState({
-		 openEditText:!this.state.openEditText
+		 openEditText:!this.state.openEditText,
+		 editId:item.id,
+		 detailId:detailId
 	 })
+	 let {isCreate}=this.props;
+	 if(isCreate){
+	    Store.dispatch(initialize('EditCreate',item));	 
+	 }else{
+		Store.dispatch(initialize('EditText',item));	  
+	 }
+ }
+
+ onEditTextSub=(params)=>{
+	let {editId,detailId}=this.state;
+	let {basicInfo}=this.props;
+	params.id=editId;
+	params.detailId=detailId;
+	params.formId=basicInfo.id;
+	var _this=this;
+	Http.request('form-field-edit',{},params).then(function(response) {
+		 _this.getTextInfo(basicInfo.id);
+		 _this.cancelEditText();
+		}).catch(function(err) {
+		Message.error(err.message);
+	});
  }
 
  cancelEditText=()=>{
@@ -261,10 +299,29 @@ class TextInfo  extends React.Component{
 	 })
  }
 
+ moveClick=(params)=>{
+  let {basicInfo}=this.props;
+  var param={};
+  var ids=[];
+  var detailId='';
+  params.map((item,index)=>{
+	ids.push(item.id);
+	detailId=item.detailId;
+  })
+  param.ids=ids;
+  param.detailId=detailId;
+  var _this=this;
+  Http.request('form-field-order',{},param).then(function(response) {
+	   _this.getTextInfo(basicInfo.id);
+	  }).catch(function(err) {
+	  Message.error(err.message);
+  });
+ }
+
+
 	render(){
 
 		let {handleSubmit,textInfo,isCreate,basicInfo}=this.props;
-		console.log('log',isCreate);
 		let {detailInfo,mainInfo}=this.state;
 
 		return(
@@ -306,6 +363,7 @@ class TextInfo  extends React.Component{
 								checkbox={true}
 								batchdelete={this.batchdelete}
 								initFoldNum={100}
+								moveClick={this.moveClick}
 							>
 
 									<Toolbars>
@@ -316,8 +374,8 @@ class TextInfo  extends React.Component{
 									<FRow name = "label" label = "字段显示名"/>
 									<FRow name = "inputTypeStr" label = "表现形式"/>
 									<FRow name = "compTypeStr" label = "字段类型"/>
-									<FRow label = "操作" type='operation' component={(item)=>{
-											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText}>编辑</div>
+									<FRow label = "操作" type='operation' component={(items)=>{
+											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText.bind(this,items,item.id)}>编辑</div>
 									}}/>
 						</FdTabel>
 					</div>
@@ -337,12 +395,13 @@ class TextInfo  extends React.Component{
 
 
 								<FdTabel
-									name = {`fields${index}`}
+									name = {`detailFields${index}`}
 									isFold = {false}
 									toolbar={true}
 									batchDel={true}
 									checkbox={true}
 									batchdelete={this.batchdelete}
+									moveClick={this.moveClick}
 									initFoldNum={100}
 								>
 									<Toolbars>
@@ -355,8 +414,8 @@ class TextInfo  extends React.Component{
 									<FRow name = "label" label = "字段显示名"/>
 									<FRow name = "inputTypeStr" label = "表现形式"/>
 									<FRow name = "compTypeStr" label = "字段类型"/>
-									<FRow label = "操作" type='operation' component={(item)=>{
-											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText}>编辑</div>
+									<FRow label = "操作" type='operation' component={(items)=>{
+											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText.bind(this,items,item.id)}>编辑</div>
 									}}/>
 							</FdTabel>
 						</div>
@@ -443,7 +502,7 @@ class TextInfo  extends React.Component{
 						contentStyle ={{ width: '374px',height:'auto'}}
 						>
 							<EditCreate
-								onCancel={this.editText}
+								onCancel={this.cancelEditText}
 								onSubmit={this.onEditTextSub}
 							/>
 						</Dialog>}
@@ -451,7 +510,6 @@ class TextInfo  extends React.Component{
 			</div>
 		);
 	}
-
 }
 
 export default reduxForm({

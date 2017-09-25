@@ -16,7 +16,7 @@ export default class Text  extends React.Component{
 
 
     componentDidMount(){
-
+      console.log('dic',DictionaryConfigs);
     }
 
     sourceChange=(param)=>{
@@ -152,12 +152,12 @@ export default class Text  extends React.Component{
            seleInt.push(list);
         })
         return <KrField grid={1/2}
-                                style={{width:262}}
-                                name="sourceType"
-                                component="select"
-                                label="来源类型"
-                                onChange={this.sourceChange}
-                                options={seleInt}
+                    style={{width:262}}
+                    name="sourceType"
+                    component="select"
+                    label="来源类型"
+                    onChange={this.sourceChange}
+                    options={seleInt}
                 />
     }
 
@@ -217,22 +217,22 @@ export default class Text  extends React.Component{
                 component = _this.dateRender()
                 break;
           }
-					case 'SELECT_SELECT':{
-							 component = _this.sourceType()
-							 break;
-				  }
-					case 'SELECT_SEARCH':{
-							 component = _this.sourceType()
-							 break;
-				  }
-					case 'CHECK_RADIO':{
-							 component = _this.sourceType()
-							 break;
-				  }
-					case 'CHECK_CHECK':{
-							 component = _this.sourceType()
-							 break;
-				  }
+        case 'SELECT_SELECT':{
+                    component = _this.sourceType()
+                    break;
+        }
+        case 'SELECT_SEARCH':{
+                    component = _this.sourceType()
+                    break;
+        }
+        case 'CHECK_RADIO':{
+                    component = _this.sourceType()
+                    break;
+        }
+        case 'CHECK_CHECK':{
+                    component = _this.sourceType()
+                    break;
+        }
           default:{
               component = null;
           }
