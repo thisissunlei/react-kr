@@ -58,6 +58,13 @@ class EditForm extends React.Component{
 		let tableNone = false;
 		value.itemListStr = value.items;
 		let tableVlaue = value.itemListStr;
+		if(!value.items){
+			Notify.show([{
+				message: '请添加字典项',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		tableVlaue.map(item=>{
 			if(!item){
