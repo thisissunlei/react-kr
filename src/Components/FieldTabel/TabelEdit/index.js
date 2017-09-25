@@ -22,6 +22,10 @@ export default class  TabelEdit extends React.Component {
 		}
 		
 	}
+	componentWillReceiveProps(nextProps) {
+		console.log('will----------array',nextProps)
+		// Store.dispatch(initialize('EditForm',State.data));
+	}
 	rowDetail = () =>{
 		let {children} = this.props;
 		var rowDetail = [];
@@ -167,6 +171,7 @@ export default class  TabelEdit extends React.Component {
 		const {toolbar,checkbox} = this.props;
 	
 		tabelLength = fields.length;
+		console.log('renderBrights========>',fields)
 		
 	 
 	   var brights = fields.map(function(brightsStr, index){

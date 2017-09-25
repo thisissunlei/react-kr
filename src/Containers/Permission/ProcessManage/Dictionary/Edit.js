@@ -3,6 +3,9 @@ import {reduxForm,change,initialize,reset} from 'redux-form';
 import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import {
+	toJS
+} from 'mobx';
+import {
 	KrField,
 	Grid,
 	Row,
@@ -35,13 +38,15 @@ class EditForm extends React.Component{
 			endTime:''
 		}
 	}
-	componentWillMount() {
+	componentDidMount() {
+		console.log('did----------');
 		Store.dispatch(initialize('EditForm',State.data));
-		// Store.dispatch(change('EditForm','itemListStr',State.data.items));
+		Store.dispatch(change('EditForm','items',toJS(State.data.items)));
 
-
-
-		
+	}
+	componentWillReceiveProps(nextProps) {
+		console.log('will----------',nextProps.array)
+		// Store.dispatch(initialize('EditForm',State.data));
 	}
 	onSubmit=(value)=>{
 		let labelArr = [];

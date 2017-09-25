@@ -60,7 +60,6 @@ export default class ProcessSetting extends React.Component {
 		State.showView(item);
 	}
 	onSearchSubmit=(value)=>{
-		console.log('--onSearchSubmit--',value);
 		let nameKey  = '';
 		let codeKey = "";
 		if(value.filter == 'code'){
@@ -70,7 +69,6 @@ export default class ProcessSetting extends React.Component {
 		}
 		let params = Object.assign({},State.searchParams,{nameKey,page:1,codeKey});
 		State.searchParams = params;
-		console.log('=====',params);
 	}
 
   
