@@ -4,6 +4,10 @@ import React from 'react';
 import FContent from '../FContent';
 import './index.less';
 import Nothing from '../../Nothing';
+import Toolbar from '../../Toolbar';
+import DeleForm from './DeleForm';
+import Dialog from '../../Dialog';
+import Message from '../../Message';
 import {
   arrUpMove,
   arrDownMove,
@@ -28,18 +32,27 @@ export default class Table extends React.Component {
       fold:false,
       handerChecked:false,
       checkedArr:[],
+      
+
+      //批量删除
+      openDelForm:false
+
 
 
     }
   }
   componentDidMount() {
     this.setHeaders();
+    this.toolbarRender();
   }
   setHeaders = () =>{
     var headers = [];
     const {children} = this.props;
-    headers = children.map((item,index)=>{
-        return item.props;
+    children.map((item,index)=>{
+        if(item.type.name === "FRow"){
+          headers.push(item.props);
+        }
+        
     })
     this.setState({
       headers
@@ -56,6 +69,14 @@ export default class Table extends React.Component {
       headers,
     })
   }
+  
+  //批量删除
+  deleForm=()=>{
+    this.setState({
+      openDelForm:!this.state.openDelForm
+    })
+  }
+ 
 
 
   //table的多选按钮点击
@@ -66,10 +87,12 @@ export default class Table extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     var tableData = nextProps.input.value;
-    if(tableData && tableData.length)
-    this.setState({
-      tableData,
-    })
+    if(tableData && tableData.length){
+       this.setState({
+          tableData,
+       })
+    }
+   
 
   }
 
@@ -77,12 +100,8 @@ export default class Table extends React.Component {
 
   //每一行多选按钮被点击
   contentCheck = (num,checked) =>{
-
     this.dataFilter(num,checked);
   }
-
-
-
 
   //上移下移函数
   moveClick = (type) =>{
@@ -133,6 +152,7 @@ export default class Table extends React.Component {
   batchdelete = () =>{
     var newData = [].concat(this.state.tableData);
     let {checkedArr} = this.state;
+    var deleteData = [];
     if(!newData.length){
       return ;
     }
@@ -143,15 +163,34 @@ export default class Table extends React.Component {
 
     sortArr.map((item,index)=>{
       newData = arrDelEle(newData,item);
+      deleteData.push(this.state.tableData[item])
     })
-     this.setCheckedArr(newData);
+    
+    const {batchdelete}=this.props;
+    batchdelete && batchdelete(deleteData);
+    this.deleForm();
+
+    this.setCheckedArr(newData);
     this.setState({
       tableData:newData
     })
   }
-
-
-
+  //生成工具条
+  toolbarRender = () =>{
+    let {children} = this.props;
+    var doms = children.map((item,index)=>{
+      if(item.type.name === "Toolbars"){
+        let {children} = item.props;
+       
+        return children;
+      
+      }
+    })
+    return doms;
+  }
+ 
+  
+  //设置勾选的数据  
   setCheckedArr = (tableData) =>{
 
      var checkedArr = [];
@@ -224,6 +263,7 @@ export default class Table extends React.Component {
     })
 
   }
+
   //生成表单头
    headReander = () =>{
       const {headers,handerChecked,tableData} = this.state;
@@ -235,10 +275,11 @@ export default class Table extends React.Component {
       }
 
       var doms = headers.map((item,index)=>{
+        //是否生成多选框
         return(
             <th key = {index}>
                 {item.checkbox && <input
-                    key={index}
+                   
                     type="checkbox"
                     onChange={(event) =>{
                         this.handerCheck(event,item,index)
@@ -249,8 +290,13 @@ export default class Table extends React.Component {
             </th>
         )
       })
+
+
       return (
         <tr className="hander">
+          {/*
+          在有数据时要显示功能
+          */}
           {checkbox &&
             <th>
               {tableData.length && <input
@@ -260,10 +306,10 @@ export default class Table extends React.Component {
                     }}
                     checked = {handerChecked ? "checked":""}
               />}
-              {!tableData.length && <input
-                  type="checkbox"
-
-              />}
+            {/*
+              在有数据时要显示功能
+            */}
+              {!tableData.length && <input type="checkbox" />}
             </th>
           }
           {doms}
@@ -272,12 +318,11 @@ export default class Table extends React.Component {
   }
 
 
-
   tbodyRender = () =>{
     const {tableData,headers,fold} = this.state;
     const {initFoldNum,checkbox} = this.props;
     var showData = [].concat(tableData);
-   
+
     if(!fold){
       showData = tableData.slice(0,initFoldNum||5);
     }
@@ -295,6 +340,8 @@ export default class Table extends React.Component {
     return doms;
 
   }
+
+
 
   render(){
     const {
@@ -318,21 +365,31 @@ export default class Table extends React.Component {
     return (
        <div className = "ui-field-tabel">
         {toolbar && <div className = "ui-field-tabel-toolbar">
+           {this.toolbarRender()}
+           {batchDel &&
+             <div className='ui-dele-all' onClick = {this.deleForm}>
+               <span className='ui-del-pic'></span>
+               <span style={{marginTop:-12,display:'inline-block',verticalAlign:'middle'}}>批量删除字段</span>
+             </div>
+            }
             <div className="move">
+               <div className='ui-move-up' style={{marginRight:'6px'}}>
+                  <span
+                    className ="move-up ui-move-pic"
+                    onClick = {()=>{
+                      this.moveClick("up");
+                    }}
+                  ></span>
+              </div>
+              <div className='ui-move-up'>
                 <span
-                  className ="move-up"
-                  onClick = {()=>{
-                    this.moveClick("up");
-                  }}
-                >上移</span>
-                <span
-                  className = "move-down"
+                  className = "move-down ui-down-pic"
                   onClick = {()=>{
                     this.moveClick("down");
                   }}
-                >下移</span>
+                ></span>
+             </div>
             </div>
-            {batchDel && <span onClick = {this.batchdelete}>批量删除</span>}
          </div>}
         <table>
            <thead>
@@ -351,6 +408,20 @@ export default class Table extends React.Component {
             </span>
 
           </div>}
+
+
+           {/*批量删除*/}
+							<Dialog
+							title="提示"
+							onClose={this.deleForm}
+							open={this.state.openDelForm}
+							contentStyle ={{ width: '446px',height:'auto'}}
+							>
+								<DeleForm
+										onCancel={this.deleForm}
+										onSubmit={this.batchdelete}
+								/>
+						</Dialog>
       </div>
     )
   }

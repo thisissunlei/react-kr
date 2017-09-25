@@ -37,8 +37,10 @@ export default class TypeList extends Component{
 		super(props, context);
 		this.state={
 			searchParams : {
-        orgId:this.props.orgId,
-      },
+				page:1,
+				pageSize:15,
+				nameKey:"",
+			},
 			other:"",
 		}
 		this.allConfig = {
@@ -57,8 +59,9 @@ export default class TypeList extends Component{
 	//搜索确定
 	onSearchSubmit = (params)=>{
 		 let obj = {
-			name: params.content,
-      pageSize:15
+			nameKey: params.content,
+      		pageSize:15,
+			page:1,
 		}
 		this.setState({
 		  searchParams:obj
@@ -81,15 +84,17 @@ export default class TypeList extends Component{
 	//新建确定
 	addSubmit = (values) =>{
 		var _this=this;
-		Http.request('postListAdd',{},values).then(function(response) {
-            _this.setState({
-        			searchParams:{
-        				time:+new Date(),
-        				page:1,
-        				pageSize:15
-        			 }
-        			})
-			    _this.newSwidth();
+		Http.request('add-form-type',{},values).then(function(response) {
+			_this.setState({
+				searchParams:{
+					time:+new Date(),
+					page:1,
+					pageSize:15
+				}
+			})
+			const {addSubmit}=_this.props;
+			addSubmit && addSubmit();
+			_this.newSwidth();
         }).catch(function(err) {
           Message.error(err.message);
         });
@@ -97,15 +102,17 @@ export default class TypeList extends Component{
 	//编辑确定
 	editSubmit = (params) =>{
          var _this=this;
-			Http.request('post-list-edit',{},params).then(function(response) {
+			Http.request('edit-form-type',{},params).then(function(response) {
 				_this.setState({
 					searchParams:{
 						time:+new Date(),
 						page:_this.state.searchParams.page,
 						pageSize:15,
-						name:_this.state.searchParams.name?_this.state.searchParams.name:""
+						nameKey:_this.state.searchParams.nameKey?_this.state.searchParams.nameKey:""
 					}
 				 })
+				 const {editSubmit}=_this.props;
+				 editSubmit && editSubmit();
 				 _this.editSwidth();
 				}).catch(function(err) {
 				Message.error(err.message);
@@ -123,7 +130,7 @@ export default class TypeList extends Component{
     //获取编辑信息
 	getEditData=(id)=>{
 		var _this=this;
-       Http.request('post-list-watch',{id:id}).then(function(response) {
+       Http.request('get-form-data',{id:id}).then(function(response) {
          Store.dispatch(initialize('EditType',response));
         }).catch(function(err) {
           Message.error(err.message);
@@ -162,49 +169,51 @@ export default class TypeList extends Component{
 							marginRight:-10
 						}}
 				>
-					<ListGroup>
-						<ListGroupItem>
-							<SearchForms
-								placeholder='请输入表单类型名称'
-								onSubmit={this.onSearchSubmit}
-							/>
-						</ListGroupItem>
-					</ListGroup>
+				<ListGroup>
+					<ListGroupItem>
+						<SearchForms
+							placeholder='请输入表单类型名称'
+							onSubmit={this.onSearchSubmit}
+						/>
+					</ListGroupItem>
+				</ListGroup>
 				</Col>
 	        </Row>
 
 
             <Table
-			        style={{marginTop:8}}
-              ajax={true}
-              onOperation={this.onOperation}
+				style={{marginTop:8}}
+				ajax={true}
+              	onOperation={this.onOperation}
 	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName="postJobList"
+	            ajaxUrlName="get-from-list"
 	            ajaxFieldListName="items"
-				      onPageChange = {this.pageChange}
-              hasBorder={true}
+			    onPageChange = {this.pageChange}
+              	hasBorder={true}
 			>
 				<TableHeader>
 					<TableHeaderColumn>表单类型</TableHeaderColumn>
 					<TableHeaderColumn>排序号</TableHeaderColumn>
-          <TableHeaderColumn>描述</TableHeaderColumn>
-          <TableHeaderColumn>操作人</TableHeaderColumn>
+					<TableHeaderColumn>描述</TableHeaderColumn>
+					<TableHeaderColumn>操作人</TableHeaderColumn>
 					<TableHeaderColumn>操作时间</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >
 					<TableRow>
-            <TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-            <TableRowColumn name="code" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="subName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="descr" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
+						<TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="orderNum" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="descr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="updatorName" 
+							component={(value,oldValue)=>{
+								var maxWidth=10;
+								if(value.length>maxWidth){
+									value = value.substring(0,10)+"...";
+								}
+								return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+							}} 
+						></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
 						}} style={{width:150}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>

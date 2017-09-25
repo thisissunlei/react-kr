@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Http} from 'kr/Utils';
 import {Store} from 'kr/Redux';
+import DictionaryConfigs from 'kr/Configs/dictionary';
 import {
   initialize
 } from 'redux-form';
@@ -40,9 +41,27 @@ export default class FormList extends Component{
 		super(props, context);
 		this.state={
 			searchParams : {
-
+				 page:1,
+				 pageSize:15,
+				 tableName:'',
+				 typeId:this.props.id,
+				 nameKey:'',
+				 enabled:'',
+				 purpose:''		 
       },
 			other:"",
+			//创建表id
+			creatId:'',
+			//字典
+			purposeType:[],
+			//表单类型
+			typeList:[],
+			//基本信息
+			basicInfo:{},
+			//字段信息
+			textInfo:[],
+			//是否已创建表
+			isCreate:false
 		}
 		this.allConfig = {
 			openNew : false,
@@ -51,6 +70,30 @@ export default class FormList extends Component{
       openEdit:false,
       openSearch:false
 		}
+	}
+
+	componentWillReceiveProps(nextProps){
+     if(this.props.id!=nextProps.id){
+				var searchParams={};
+				searchParams.typeId=nextProps.id;
+				this.setState({
+					searchParams:Object.assign({},this.state.searchParams,searchParams)
+				})
+		 }
+	}
+
+	componentDidMount(){
+		  let _this=this;
+			Http.request('form-type-select').then(function(response) {
+				 _this.setState({
+					typeList:response.items
+				 })
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
+		this.setState({
+			purposeType:DictionaryConfigs.ERP_PurposeType
+		})
 	}
 
 
@@ -63,11 +106,11 @@ export default class FormList extends Component{
 	//搜索确定
 	onSearchSubmit = (params)=>{
 		 let obj = {
-			name: params.content,
-      pageSize:15
+			nameKey: params.content,
 		}
+		var search=Object.assign({},this.state.searchParams,obj);
 		this.setState({
-		  searchParams:obj
+		  searchParams:search
 		})
 	}
 	//新建页开关
@@ -85,9 +128,13 @@ export default class FormList extends Component{
 
  //编辑页开关
   editOpen=()=>{
+		let {creatId}=this.state;
     let {openEdit} = this.allConfig;
 		this.allConfig.openEdit = !openEdit;
 		this.isRender();
+		if(this.allConfig.openEdit){
+			this.getBasicInfo(creatId);
+		}
   }
 
   //查看表的开关
@@ -105,20 +152,35 @@ export default class FormList extends Component{
   }
   openSearchUpperDialog=()=>{
     this.cancelSearchUpperDialog();
-  }
+	}
+	
+	//高级查询提交
+	onSearchUpperSubmit=(params)=>{
+		params.typeId=this.props.id;
+		params.pageSize=15;
+		params.page=1;
+		var search={
+			tableName:'',
+			nameKey:'',
+			enabled:'',
+			purpose:''	
+		}
+		this.setState({
+			searchParams:Object.assign({},search,params)
+		})
+		this.cancelSearchUpperDialog();
+	}
 
 
 	//新建确定
 	addSubmit = (values) =>{
 		var _this=this;
-		Http.request('postListAdd',{},values).then(function(response) {
-            _this.setState({
-        			searchParams:{
-        				time:+new Date(),
-        				page:1,
-        				pageSize:15
-        			 }
-        			})
+		Http.request('form-add-list',{},values).then(function(response) {
+					var searchParams={};
+					searchParams.time=+new Date();
+					_this.setState({
+						searchParams:Object.assign({},_this.state.searchParams,searchParams)
+					})
 			    _this.newSwidth();
         }).catch(function(err) {
           Message.error(err.message);
@@ -126,17 +188,18 @@ export default class FormList extends Component{
 	}
 	//编辑确定
 	editSubmit = (params) =>{
-         var _this=this;
-			Http.request('post-list-edit',{},params).then(function(response) {
+			delete params.records;
+			delete params.purposeStr;
+			delete params.enabledStr;
+      var _this=this;
+			Http.request('form-edit-list',{},params).then(function(response) {
+				var searchParams={};
+				searchParams.time=+new Date();
 				_this.setState({
-					searchParams:{
-						time:+new Date(),
-						page:_this.state.searchParams.page,
-						pageSize:15,
-						name:_this.state.searchParams.name?_this.state.searchParams.name:""
-					}
-				 })
-				 _this.editSwidth();
+					searchParams:Object.assign({},_this.state.searchParams,searchParams)
+				})
+				 _this.getBasicInfo(params.id);
+				 _this.editOpen();
 				}).catch(function(err) {
 				Message.error(err.message);
 			});
@@ -144,16 +207,68 @@ export default class FormList extends Component{
 
  //创建表提交
   addRemoveSubmit=(params)=>{
-    this.cancelTable();
+    let {creatId}=this.state;
+		let _this=this;
+		Http.request('form-create-table',{},{formId:creatId}).then(function(response) {
+			var searchParams={};
+			searchParams.time=+new Date();
+			_this.setState({
+				searchParams:Object.assign({},_this.state.searchParams,searchParams)
+			})
+			 _this.cancelTable();
+			}).catch(function(err) {
+			Message.error(err.message);
+		});   
   }
 
-	//相关操作
-	onOperation = (type, itemDetail) =>{
-		if(type == "watch"){
-      this.watchTable();
-		}else{
-      this.cancelTable();
-    }
+	
+	//创建表打开
+	openTableStart=(itemDetail)=>{
+		this.cancelTable();
+		this.setState({
+			creatId:itemDetail.id
+		})
+	}
+
+	//打开查看
+	warchFormStart=(itemDetail)=>{
+		this.watchTable();
+    this.getBasicInfo(itemDetail.id);
+		this.getTextInfo(itemDetail.id);
+		this.setState({
+			isCreate:itemDetail.created,
+			creatId:itemDetail.id
+		})		
+	}
+ 
+	//获取表单字段信息
+	getTextInfo=(id)=>{
+		var _this=this;
+		Http.request('form-group-table',{formId:id}).then(function(response) {
+			 _this.setState({
+				textInfo:response.items
+			 })
+		 }).catch(function(err) {
+			 Message.error(err.message);
+		 });
+	}
+
+	//获取表单查看基本信息
+	getBasicInfo=(id)=>{
+		var _this=this;
+		Http.request('form-get-edit',{id:id}).then(function(response) {
+		   _this.setState({
+				basicInfo:response
+			 })
+			 if(response.enabled){
+				 response.enabled='true'
+			 }else{
+				 response.enabled='false'
+			 }
+			 Store.dispatch(initialize('EditForm',response));
+		 }).catch(function(err) {
+			 Message.error(err.message);
+		 });
 	}
 
     //获取编辑信息
@@ -186,6 +301,9 @@ export default class FormList extends Component{
 	render(){
 
 		const {openNew,openTable,openSearch} = this.allConfig;
+		 
+		let {purposeType,typeList,basicInfo,textInfo,isCreate}=this.state;
+
 		return(
       	<div className="basic-post-list">
 	        <Row style={{marginBottom:21,marginTop:22}}>
@@ -227,7 +345,7 @@ export default class FormList extends Component{
               onOperation={this.onOperation}
 	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName="postJobList"
+	            ajaxUrlName="form-list-search"
 	            ajaxFieldListName="items"
 				      onPageChange = {this.pageChange}
               hasBorder={true}
@@ -247,25 +365,25 @@ export default class FormList extends Component{
 				<TableBody >
 					<TableRow>
             <TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-            <TableRowColumn name="code" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="subName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="jobTypeName" style={{wordWrap:'break-word',whiteSpace:'normal',whiteSpace:'normal'}}></TableRowColumn>
+            <TableRowColumn name="typeName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="tableName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="purposeStr" style={{wordWrap:'break-word',whiteSpace:'normal',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="enabledStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="orderNum" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="descr" component={(value,oldValue)=>{
-		 										var maxWidth=10;
-		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
-		 										}
-		 										return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-		 								 }} ></TableRowColumn>
 						<TableRowColumn name="updatorName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
-						}} style={{width:150}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn type="operation">
-							<Button label="查看"  type="operation"  operation="watch" operateCode="hrm_job_edit"/>
-              <Button label="创建表"  type="operation"  operation="add" operateCode="hrm_job_edit"/>
+						}}></TableRowColumn>
+						<TableRowColumn name="createdStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="cTTime" component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+						}}  style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn type="operation" component={(value,oldValue,detail)=>{
+							return <div>
+												<span onClick={this.warchFormStart.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>查看</span>
+												{!value.created&&<span onClick={this.openTableStart.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>创建表</span>}
+										 </div>
+							}}>
+							
 						</TableRowColumn>
 					</TableRow>
 				 </TableBody>
@@ -273,6 +391,7 @@ export default class FormList extends Component{
       </Table>
 
 		   {/*新建表单*/}
+			{console.log(this.allConfig.openNew,"OOOOO")}
       <Drawer
 					open={this.allConfig.openNew}
 					width={750}
@@ -283,6 +402,8 @@ export default class FormList extends Component{
         <AddForm
 					onCancel={this.newSwidth}
 					onSubmit={this.addSubmit}
+					purposeType={purposeType}
+					typeList={typeList}
 				/>
 			</Drawer>
 
@@ -295,8 +416,12 @@ export default class FormList extends Component{
          onClose={this.allClose}
        >
        <EditForm
-         onCancel={this.newSwidth}
-         onSubmit={this.addSubmit}
+         onCancel={this.editOpen}
+         onSubmit={this.editSubmit}
+				 purposeType={purposeType}
+				 typeList={typeList}
+				 isCreate={isCreate}
+				 basicInfo={basicInfo}
        />
      </Drawer>
 
@@ -310,7 +435,10 @@ export default class FormList extends Component{
        >
        <WatchForm
          editOpen={this.editOpen}
-         allClose={this.allClose}
+         allClose={this.watchTable}
+				 basicInfo={basicInfo}
+				 textInfo={textInfo}
+				 isCreate={isCreate}
        />
      </Drawer>
 
@@ -338,6 +466,7 @@ export default class FormList extends Component{
             <SearchUpperForm
                 onCancel={this.cancelSearchUpperDialog}
                 onSubmit={this.onSearchUpperSubmit}
+								purposeType={purposeType}
             />
         </Dialog>
         </div>

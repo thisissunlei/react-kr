@@ -1,21 +1,97 @@
 .watch-text{
+  .ui-field-tabel{
+    table{
+      margin-top:5px;
+    }
+  }
   .main-form{
     .main-name{
       font-weight: 600;
       margin-bottom: 10px;
     }
-    .add-wrap{
-        font-size: 14px;
-        color:#333;
-        display:inline-block;
-        margin-right:14px;
-        .add-form{
+    .ui-toolbar{
+      .add-text{
           display:inline-block;
           width:20px;
           height:20px;
-          background: url(./images/add.svg) no-repeat center;
-          background-size: 100%;
+          background: url(./images/add1.svg) no-repeat center;
+          background-size:20px 20px;
         }
-     }
+      .edit-form{
+        display:inline-block;
+        width:20px;
+        height:20px;
+        background: url(./images/edit.svg) no-repeat center;
+        background-size:20px 20px;
+      }
+      .del-form{
+        display:inline-block;
+        width:20px;
+        height:20px;
+        background: url(./images/del.png) no-repeat center;
+        background-size:20px 20px;
+      }
+    }
+  }
+
+  .detail-form{
+    .add-two-wrap{
+      margin-left:178px;
+    }
+  }
+}
+
+.form-mask{
+  display:inline-block;
+  position:relative;
+  .mask-icon{
+    position: absolute;
+    top: -2px;
+    left: 107px;
+  }
+}
+
+.add-text-form{
+    margin-left: 42px;
+    padding: 38px 45px 48px 62px;
+    .customer-close{
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      right: 0px;
+      top:0px;
+      cursor: pointer;
+      background: url(../../images/close1.png) no-repeat;
+      background-position: center center;
+    }
+    .title{
+    position: relative;
+    font-size: 18px;
+    margin-left: -42px;
+    .new-icon{
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+    vertical-align:middle;
+    background: url(../../images/meeting.svg) no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    }
+
+    label{
+    vertical-align:middle;
+    display: inline-block;
+    margin-left: 10px;
+    }
+  }
+}
+
+.m-has-create{
+  .has-done{
+    font-size: 14px;
+    color: #666666;
+    width:252px;
+    margin-left: 10px;
   }
 }

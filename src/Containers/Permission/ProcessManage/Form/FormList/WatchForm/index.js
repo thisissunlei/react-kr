@@ -26,6 +26,9 @@ export default class WatchForm  extends React.Component{
 	render(){
 
 
+		let {basicInfo,textInfo,isCreate}=this.props;
+
+
 		return(
 
 			<div>
@@ -43,11 +46,16 @@ export default class WatchForm  extends React.Component{
 							<BasicInfo
 								 editOpen={this.editOpen}
 								 allClose={this.allClose}
+								 basicInfo={basicInfo}
 							/>
 						</TabC>
 
 						<TabC label='字段信息'>
-						  <TextInfo />
+						  <TextInfo 
+							  textInfo={textInfo}
+								isCreate={isCreate}
+								basicInfo={basicInfo}
+							/>
 						</TabC>
 				  </TabCs>
 

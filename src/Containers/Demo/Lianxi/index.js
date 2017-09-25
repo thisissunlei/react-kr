@@ -1,11 +1,13 @@
 import React from 'react';
+import DictionaryConfigs from 'kr/Configs/dictionary';
 import {
 	KrField,
 	FdTabel,
 	FContent,
 	FRow,
 	Section,
-	IconTip
+	IconTip,
+	TextDic
 } from 'kr-ui';
 import {
 	Actions,
@@ -28,6 +30,11 @@ class EditTable  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.state={
+		   inputType:[],
+		   componentType:[],
+		   name:{}
+		}
 	}
 
 	onCancel=()=>{
@@ -43,14 +50,31 @@ class EditTable  extends React.Component{
 	 } = this.props;
 	 onSubmit && onSubmit();
  }
- componentDidMount() {
-	 Store.dispatch(change('EditTable','tableData',tableData));
- }
+	componentDidMount() {
+		//Store.dispatch(change('EditTable','tableData',tableData));
+		this.setState({
+			inputType:DictionaryConfigs.ERP_InputType,
+			componentType:DictionaryConfigs.ERP_ComponentType
+		})
+	}
 
-
+	inputChange=(param)=>{
+	  	this.setState({
+			name:param
+		})
+	}
 	render(){
 
 	 let {handleSubmit}=this.props;
+	 let {inputType,componentType,name}=this.state;
+	 
+	 var seleInt=[];
+	 inputType.map((item,index)=>{
+		var list={};
+		list.label=item.desc;
+		list.value=item.value;
+		seleInt.push(list);
+	 })
 
 		return(
 
@@ -61,7 +85,7 @@ class EditTable  extends React.Component{
 				</IconTip>*/}
 
 
-				<form onSubmit={handleSubmit(this.onSubmit)} >
+				{/*<form onSubmit={handleSubmit(this.onSubmit)} >
 					<FdTabel
 						name = "tableData"
 						isFold = {true}
@@ -77,7 +101,24 @@ class EditTable  extends React.Component{
 						}}/>
 					</FdTabel>
 
-				</form>
+				</form>*/}
+
+				<KrField
+                    grid={1/2}
+                    style={{width:262,marginBottom:5}}
+                    name="name"
+                    component="select"
+                    label="输入类型"
+                    options={seleInt}
+                    onChange={this.inputChange}
+                    requireLabel={true}
+				 />
+
+				<TextDic  name={name} next={componentType}>
+					
+				</TextDic>
+
+
 
 			</div>
 		);

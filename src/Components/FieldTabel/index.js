@@ -27,15 +27,15 @@ class FdTabel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+
     }
   }
 
   render() {
-    
+
 
     return (
-			<Field {...this.props} component={FTabel} />     
+			<Field {...this.props} component={FTabel} />
     );
   }
 }

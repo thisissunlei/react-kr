@@ -1,7 +1,50 @@
 .ui-field-tabel{
+    .ftable-dele{
+        text-align: center;
+        margin-bottom: 5px;
+        margin-top: 52px;
+    }
     //工具条
     .ui-field-tabel-toolbar{
-
+      display: inline-block;
+     
+      .ui-dele-all{
+        display:inline-block;
+        font-size: 14px;
+        color:#333;
+        cursor:pointer;
+        margin-right: 12px;
+        .ui-del-pic{
+           width:20px;
+           height:20px;
+           display:inline-block;
+           background:url(./images/delall.png) no-repeat center;
+           background-size: 100%;
+           margin-right: 6px;
+        }
+      }
+      .move{
+        display:inline-block;
+        .ui-move-up{
+          display:inline-block;
+          .ui-move-pic{
+            width:20px;
+            height:20px;
+            cursor:pointer;
+            display:inline-block;
+            background:url(./images/up.png) no-repeat center;
+            background-size: 100%;
+          }
+          .ui-down-pic{
+            width:20px;
+            height:20px;
+            cursor:pointer;
+            display:inline-block;
+            background:url(./images/down.png) no-repeat center;
+            background-size: 100%;
+          }
+        }
+      }
     }
     //展开条
     .ui-field-tabel-fold{
