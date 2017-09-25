@@ -21,16 +21,47 @@ export default class TextDic extends React.Component{
             //是否显示三级
             isThree:false,
             //三级值
-            label:''
+            label:'',
 
         }
     }
 
     componentDidMount(){
+        let {isEdit,getEdit}=this.props;
+        var _this=this;
         this.setState({
 			inputType:DictionaryConfigs.ERP_InputType,
             nexts:DictionaryConfigs.ERP_ComponentType,
-        })
+        },function(){
+            if(isEdit){
+                _this.nextArrRender(getEdit.inputType,_this.state.nexts,function(){
+                    _this.setState({
+                        label:getEdit.compType,
+                        isTrue:true, 
+                        isThree:true,
+                    },function(){
+                        const {callBack}=_this.props;
+                        callBack && callBack();
+                    })
+                });
+             }
+        })     
+    }
+
+    componentReceiveProps(nextProps){
+        var _this=this;
+        if(nextProps.isEdit){
+                 this.nextArrRender(nextProps.getEdit.inputType,this.state.nexts,function(){
+                 this.setState({
+                    label:nextProps.getEdit.compType,
+                    isTrue:true, 
+                    isThree:true,
+                },function(){
+                    const {callBack}=_this.props;
+                    callBack && callBack();
+                })
+            });
+         } 
     }
 
     typeChange=(param)=>{
@@ -44,7 +75,7 @@ export default class TextDic extends React.Component{
         })
     }
 
-    nextArrRender=(name,selectName)=>{
+    nextArrRender=(name,selectName,callBack)=>{
         let {next}=this.state;
         var nextRender=[];
         selectName.map((item,index)=>{
@@ -66,10 +97,13 @@ export default class TextDic extends React.Component{
         })
         this.setState({
             next:nextRender
+        },function(){
+            callBack && callBack();
         })
        }
 
     classChange=(param)=>{
+        console.log('parm',param);
         if(!param){
             return ;
         }
@@ -121,6 +155,7 @@ export default class TextDic extends React.Component{
                         options={next}
                         onChange={this.classChange}
                         requireLabel={true}
+                        value={label}
                     />}
                     {isThree&&<Text label={label} onChange={this.onChange}/>}
                 </div>

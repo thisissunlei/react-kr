@@ -468,6 +468,11 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/form-field/order/type/table',
       method: 'post'
     },
+     //表单管理--获取表单字段编辑信息
+     'get-field-edit':{
+      url: '/api/krspace-erp-web/sys/form-field/info/type/edit?id={id}',
+      method: 'get'
+    },
 
     //表单管理--新增明细表
     'form-table-add':{
@@ -483,5 +488,10 @@ module.exports = {
     'form-table-delete':{
       url: '/api/krspace-erp-web/sys/form-table/delete?id={id}',
       method: 'delete'
+    },
+     //表单管理--获取公共字典下拉列表
+     'get-common-dic':{
+      url: '/api/krspace-erp-web/sys/public-dict/select/type/enabled',
+      method: 'get'
     },
 }

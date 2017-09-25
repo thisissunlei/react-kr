@@ -10,8 +10,8 @@ import {
     Tooltip,
     IconTip,
     TextDic,
-		TabelEdit,
-		FRow
+    TabelEdit,
+    FRow
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
 import {
@@ -24,12 +24,12 @@ class EditText  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-					model:null
+			model:null
         }
     }
 
     componentDidMount(){
-				Store.dispatch(change('EditText','tabledata',[]));
+		Store.dispatch(change('EditText','tabledata',[]));
     }
 
     onSubmit=(values)=>{
@@ -43,18 +43,18 @@ class EditText  extends React.Component{
     }
 
 
-		dynamicRender=()=>{
-        return  <div style={{marginLeft:12}}><TabelEdit
-								 	name = "tabledata"
-									toolbar = {true}
-									checkbox = {true}
+    dynamicRender=()=>{
+    return  <div style={{marginLeft:12}}><TabelEdit
+                name = "tabledata"
+                toolbar = {true}
+                checkbox = {true}
 
-								 >
-									 <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
-									 <FRow name = "name" type = "tableEdit" label = "选项值" />
-									 <FRow name = "other" type = "tableEdit" label = "排序号" />
-									 <FRow name = "checked" type = "checkBox" label = "是否默认" />
-								 </TabelEdit></div>
+                >
+                    <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
+                    <FRow name = "name" type = "tableEdit" label = "选项值" />
+                    <FRow name = "other" type = "tableEdit" label = "排序号" />
+                    <FRow name = "checked" type = "checkBox" label = "是否默认" />
+                </TabelEdit></div>
     }
 
 	 onChange=(param)=>{
@@ -67,11 +67,22 @@ class EditText  extends React.Component{
 				model:null
 			})
 		}
-	 }
+     }
+     
+     callBack=()=>{
+        let {getEdit}=this.props;
+        var setting=JSON.parse(getEdit.setting);
+        setting.map((item,index)=>{
+           for(var index in item){
+            Store.dispatch(change('EditText',index,item[index])); 
+           }
+        })
+
+     }
 
 	render(){
 
-    let {handleSubmit}=this.props;
+    let {handleSubmit,getEdit}=this.props;
 
 		let {model}=this.state;
 
@@ -102,9 +113,12 @@ class EditText  extends React.Component{
                             />
 
 
-                            <TextDic
+                            {getEdit.inputType&&<TextDic
                                 onChange={this.onChange}
-                            />
+                                isEdit={true}
+                                getEdit={getEdit}
+                                callBack={this.callBack}
+                            />}
 
                             {model}
 

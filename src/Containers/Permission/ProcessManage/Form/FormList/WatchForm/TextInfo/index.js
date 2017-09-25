@@ -50,7 +50,9 @@ class TextInfo  extends React.Component{
 			detailId:'',
 
 			//编辑字段id
-			editId:''
+			editId:'',
+			//编辑表单字段回血信息
+			getEdit:{}
 
 		}
 
@@ -263,19 +265,27 @@ class TextInfo  extends React.Component{
 	});
  }
 
-//打开编辑字段
+//获取编辑字段信息
  editText=(item,detailId)=>{
-   this.setState({
+    this.setState({
 		 openEditText:!this.state.openEditText,
 		 editId:item.id,
 		 detailId:detailId
 	 })
 	 let {isCreate}=this.props;
-	 if(isCreate){
-	    Store.dispatch(initialize('EditCreate',item));	 
-	 }else{
-		Store.dispatch(initialize('EditText',item));	  
-	 }
+     var _this=this;
+	 Http.request('get-field-edit',{id:item.id}).then(function(response) {
+		if(isCreate){
+			Store.dispatch(initialize('EditCreate',response));	 
+		 }else{
+			Store.dispatch(initialize('EditText',response));	  
+		 }
+		 _this.setState({
+			getEdit:response
+		 })
+		 }).catch(function(err) {
+		 Message.error(err.message);
+	 });
  }
 
  onEditTextSub=(params)=>{
@@ -322,7 +332,7 @@ class TextInfo  extends React.Component{
 	render(){
 
 		let {handleSubmit,textInfo,isCreate,basicInfo}=this.props;
-		let {detailInfo,mainInfo}=this.state;
+		let {detailInfo,mainInfo,getEdit}=this.state;
 
 		return(
 
@@ -490,7 +500,7 @@ class TextInfo  extends React.Component{
 							<EditText
 								onCancel={this.cancelEditText}
 								onSubmit={this.onEditTextSub}
-
+							    getEdit={getEdit}
 							/>
 			      </Drawer>}
 

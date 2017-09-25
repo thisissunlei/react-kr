@@ -3,6 +3,8 @@ import KrField from '../../KrField';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import TabelEdit from '../../FieldTabel/TabelEdit';
 import FRow from '../../FieldTabel/FRow';
+import Message from '../../Message';
+import {Http} from 'kr/Utils';
 
 export default class Text  extends React.Component{
 
@@ -10,13 +12,22 @@ export default class Text  extends React.Component{
         super(props, context);
         this.state={
             component:null,
-			model:null
+            model:null,
+            //公共字典数据来源
+            sourceCome:[]
         }
     }
 
 
     componentDidMount(){
-      console.log('dic',DictionaryConfigs);
+        var _this=this;
+        Http.request('get-common-dic').then(function(response) {
+           _this.setState({
+            sourceCome:response.items
+           })
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
     }
 
     sourceChange=(param)=>{
@@ -34,12 +45,13 @@ export default class Text  extends React.Component{
 		}
 
     sourceRender=()=>{
+        let {sourceCome}=this.state;
             return <KrField grid={1/2}
                         style={{width:262,marginLeft:30}}
                         name="sourceOrgin"
                         component="select"
                         label="数据来源"
-                        options={[{'label':'性格','value':'123'}]}
+                        options={sourceCome}
                     />
  	  }
 
@@ -245,16 +257,16 @@ export default class Text  extends React.Component{
 
 	render(){
 
-        let {label}=this.props;
-				let {model}=this.state;
+                let {label}=this.props;
+                let {model}=this.state;
+                
 
 				return(
 
 					<div style={{display:'inline-block'}}>
 		                {this.typeRender(label)}
-										{model}
+						{model}
 					</div>
 		);
 	}
-
 }
