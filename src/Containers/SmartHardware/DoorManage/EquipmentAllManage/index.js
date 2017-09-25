@@ -9,6 +9,7 @@ import SecondDoorManage from "./SecondDoorManage";
 import{
   Tabs,
   Tab,
+  Section,
 }from 'kr-ui';
 import {
 	observer,
@@ -21,7 +22,7 @@ export default class AgingAccount  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state = {
-			TabNum:1
+			
 		}
 	}
 
@@ -29,32 +30,18 @@ export default class AgingAccount  extends React.Component{
 		Baidu.trackEvent('门禁','访问');
 	}
 
-	onActiveFir=()=>{
-		
-		this.setState({
-			TabNum : 1
-		})
-	}
-	onActiveSec=()=>{
-
-		this.setState({
-			TabNum : 2
-		})
-	}
+	
 
 	render(){
 		let {TabNum} = this.state;
 		return(
 
 			<div className="equipment-all">
-				<Tabs>
-					<Tab label="一代门禁" onActive={this.onActiveFir}>
-			            {TabNum==1 &&<FirstEquipment/>}
-			        </Tab>
-			        <Tab label="二代门禁" onActive={this.onActiveSec}>
-			            {TabNum==2 &&<SecondDoorManage />}
-			        </Tab>
-				</Tabs>
+				
+				<Section title={`门禁管理`} description="" >
+					<SecondDoorManage />
+				</Section>
+				
 			</div>
 
 		);
