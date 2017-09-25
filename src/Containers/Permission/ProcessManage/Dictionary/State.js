@@ -2,6 +2,8 @@ import mobx, {
 	observable,
 	action,
 } from 'mobx';
+import {reduxForm,change,initialize,reset} from 'redux-form';
+import {Store} from 'kr/Redux';
 
 import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
@@ -85,5 +87,35 @@ State.editDict = action(function(value) {
 	});
 });
 
+State.checkName = action(function(value) {
+	let _this = this;
+	let values = {
+		id:_this.data.id || '',
+		dictName:value
+	}
+
+	Http.request('check-dict-name',values).then(function(response) {
+		console.log('check-dict-name',response)
+	}).catch(function(err) {
+		Message.error(err.message);
+		Store.dispatch(change('EditForm', 'dictName', ''));
+		Store.dispatch(change('NewCreateForm', 'dictName', ''));
+	});
+});
+State.checkCode = action(function(value) {
+	let _this = this;
+	let values = {
+		id:_this.data.id || '',
+		dictName:value
+	}
+
+	Http.request('check-dict-code',values).then(function(response) {
+		console.log('check-dict-code',response)
+	}).catch(function(err) {
+		Message.error(err.message);
+		Store.dispatch(change('NewCreateForm', 'dictCode', ''));
+		Store.dispatch(change('EditForm', 'dictCode', ''));
+	});
+});
 
 module.exports = State;

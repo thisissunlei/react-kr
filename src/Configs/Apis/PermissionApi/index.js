@@ -499,4 +499,14 @@ module.exports = {
             url: '/api/krspace-erp-web/sys/public-dict/info/type/edit?id={id}',
             method: 'get'
     },
+    //校验字典名称
+    'check-dict-name':{
+      url: '/api/krspace-erp-web/sys/public-dict/check/name?dictName={dictName}&id={id}',
+      method: 'get'
+    },
+    //校验字典编码
+    'check-dict-code':{
+      url: '/api/krspace-erp-web/sys/public-dict/check/code?dictCode={dictCode}&id={id}',
+      method: 'get'
+    },
 }
