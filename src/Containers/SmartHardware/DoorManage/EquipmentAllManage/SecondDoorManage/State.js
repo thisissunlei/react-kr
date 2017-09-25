@@ -238,7 +238,7 @@ State.freshSearchEquipmentPage = action(function(){
 State.equipmentAddLocation = action(function(param){
 	var urlParams = {deviceId:param}
 	Http.request('changeUnusedToList',{},urlParams).then(function(response) {
-		console.log("response",response);
+		
 		Message.success("注册设备成功");
 		State.getUnusedEquipmentFun();
 		State.freshPageReturn();
@@ -340,7 +340,6 @@ State.confirmOpenRestartAPPAction = action(function(){
 State.confirmResetEquipmentAction  = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('resetEquipmentUrl',urlParams).then(function(response) {
-		console.log("response",response);
 		Message.success("设备已收到恢复出厂设置的消息");
 	}).catch(function(err) {
 		Message.error(err.message);
@@ -361,9 +360,9 @@ State.confirmFreshHTMLAction = action(function(){
 
 //刷新设备上报信息
 State.freshEquipmentReporterAction = action(function(){
-	var urlParams = {deviceId:State.deviceVO.deviceId}
+	var urlParams = {deviceId:State.iitemDetail.deviceId}
 	Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
-		State.deviceVO.reported = response.reported;
+		State.iitemDetail.reported = response.reported;
 		Message.success("刷新成功");
 	}).catch(function(err) {
 		Message.error(err.message);
@@ -372,7 +371,7 @@ State.freshEquipmentReporterAction = action(function(){
 
 
 State.confirmSynchronizingAction = action(function(){
-	var urlParams = {deviceId:State.deviceVO.deviceId}
+	var urlParams = {deviceId:State.iitemDetail.deviceId}
 	Http.request('SynchronizingUrl',{},urlParams).then(function(response) {
 		
 		Message.success("同步成功");

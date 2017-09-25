@@ -340,9 +340,7 @@ export default class SecondDoorManage  extends React.Component{
 		})
 	}
 
-	printA=()=>{
-		console.log("printA------>")
-	}
+	
 
 	//点击清空缓存
 	clearCache=()=>{
@@ -815,13 +813,13 @@ export default class SecondDoorManage  extends React.Component{
 			        </Dialog>
 
 			        <Dialog
-			          title="刷新H5页面提示"
+			          title="刷新屏幕提示"
 			          open={State.openFreshHTMLDialog}
 			          onClose={this.openFreshHTMLDialogFun}
 			          contentStyle={{width:443,height:236}}
 			        >
 			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>刷新H5页面可能导致页面显示不正常，确定刷新？</p>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>刷新屏幕可能导致屏幕显示不正常，确定刷新？</p>
 			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
 			                  <Row>
 			                    <ListGroup>
@@ -915,7 +913,7 @@ export default class SecondDoorManage  extends React.Component{
 			          <BtnBox onCancle={this.showOpretionFun}/>
 			        </Dialog>
 			        <Dialog
-			          title="重启APP提示"
+			          title="同步口令提示"
 			          open={State.synchronizingPswDialog}
 			          onClose={this.synchronizingPswDialogFun}
 			          contentStyle={{width:443,height:260}}

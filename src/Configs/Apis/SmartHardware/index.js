@@ -188,8 +188,8 @@ module.exports = {
 
    //获取设备详情
    'getSecEquipmentDetailUrl':{
-      url: '/api/iot-platform/door-device/detail?id={id}',
-      // url: '/mockjsdata/53/iot-platform/door-device/view?id={id}',
+      // url: '/api/iot-platform/door-device/detail?id={id}',
+      url: '/api/iot-platform/door-device/view?id={id}',
       method: 'get'
    },
 
