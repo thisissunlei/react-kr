@@ -61,63 +61,9 @@ class NewCreateForm extends React.Component{
 		let valueNone = false;
 		let orderNumNone = false;
 		let tableVlaue = value.itemListStr;
-		console.log('---->',value.itemListStr,tableVlaue[tableVlaue.length-1])
-		labelArr = tableVlaue.map(item=>{
-			console.log(item)
-			if(!item.label){
-				labelNone = true;
-				return ''
-			}
-			return item.label;
-		})
-		valueArr = tableVlaue.map(item=>{
-			if(!item.value){
-				valueNone = true;
-				return ''
-			}
-			return item.value;
-		})
-		orderNumArr = tableVlaue.map(item=>{
-			if(!item.orderNum){
-				orderNumNone = true;
-				return ''
-			}
-			return item.orderNum;
-		})
-		let labelSame = this.arrDel(labelArr);
-		let valueSame = this.arrDel(valueArr);
-		let orderNumSame = this.arrDel(orderNumArr);
-		if(labelSame || valueSame || orderNumSame){
-			let str = '';
-			if(labelSame){
-				str = '选项文字';
-			}else if(valueSame){
-				str = '选项值';
-			}else if(orderNumSame){
-				str = '排序号';
-			}
-			Notify.show([{
-				message: str+'不能有相同的值',
-				type: 'danger',
-			}]);
-			return;
-		}
-		if(valueNone || valueNone || orderNumNone){
-			let str = '';
-			if(labelNone){
-				str = '选项文字';
-			}else if(valueNone){
-				str = '选项值';
-			}else if(orderNumNone){
-				str = '排序号';
-			}
-			Notify.show([{
-				message: str+'不能为空',
-				type: 'danger',
-			}]);
-			return;
-		}
-		State.newCreateDict(value);
+		console.log('---->',value.itemListStr)
+		return;
+		// State.newCreateDict(value);
 	}
 	onCancel=()=>{
 		State.openCreate = false;
