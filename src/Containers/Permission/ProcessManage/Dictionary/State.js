@@ -22,7 +22,9 @@ let State = observable({
 	heightAuto:true,
 	searchParams:{
 		page:1,
+		nameKey:'',
 		pageSize:10,
+		codeKey:'',
 		time:+new Date(),
 
 	},
