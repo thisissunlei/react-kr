@@ -58,7 +58,8 @@ class EditForm extends React.Component{
 		let tableNone = false;
 		value.itemListStr = value.items;
 		let tableVlaue = value.itemListStr;
-		if(!value.items){
+		console.log('---------->',value.items)
+		if(!value.items.length){
 			Notify.show([{
 				message: '请添加字典项',
 				type: 'danger',
