@@ -207,10 +207,10 @@ module.exports = {
    },
 
 
-   //一代门禁获取设备详情
+   //一代门禁重置
    'resetFirstEquipmentUrl':{
       url: '/api/iot-platform/door-device/v1/admin/actions/reset-to-php?deviceId={deviceId}',
-      method: 'get'
+      method: 'put'
    },
 
    //一代门禁生成二维码
