@@ -31,6 +31,7 @@ export default class TextDic extends React.Component{
             isCommon:false
         }
         this.isCommon=false;
+        this.num=0;
     }
 
   
@@ -42,6 +43,14 @@ export default class TextDic extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
+        var oldEdit={};
+        if(nextProps.getEdit.setting){
+            this.num=this.num+1;
+            if(this.num==1){
+                oldEdit=nextProps.getEdit; 
+            }
+        }
+        
         if(this.isCommon){
             return;
         }
@@ -54,9 +63,8 @@ export default class TextDic extends React.Component{
                     isThree:true,
                     getEdit:nextProps.getEdit
                 },function(){
-                    console.log('call',nextProps.getEdit,this.props.getEdit);
                     const {callBack}=_this.props;
-                    callBack && callBack(nextProps.getEdit);
+                    callBack && callBack(nextProps.getEdit,oldEdit);
                 })
             });
         }   

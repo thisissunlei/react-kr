@@ -55,6 +55,7 @@ export default class Table extends React.Component {
   }
   //表单头多选事件
   handerCheck = (event,item,index) =>{
+    var {tableData}  = this.state;
     let data = [].concat(this.props.data);
     item = Object.assign({},item);
     item.checked = event.target.checked;
@@ -114,7 +115,6 @@ export default class Table extends React.Component {
     if(!isMove || checkedArr.length==0){
       return;
     }
-    // checkedArr = [].concat(checkedArr);
     var sortArr = [].concat(checkedArr);
     if(type == "up"){
        sortArr.sort(function(a,b){
@@ -233,6 +233,7 @@ export default class Table extends React.Component {
     }else{
       handerChecked = false;
     }
+   
 
     this.setState({
       handerChecked,
@@ -273,17 +274,18 @@ export default class Table extends React.Component {
       }
 
       var doms = headers.map((item,index)=>{
+       
         //是否生成多选框
         return(
             <th key = {index}>
                 {item.checkbox && <input
-                   
                     type="checkbox"
                     onChange={(event) =>{
                         this.handerCheck(event,item,index)
                     }}
                     checked = {item.checked ? "checked":""}
                 />}
+
                 {item.label}
             </th>
         )
@@ -298,6 +300,7 @@ export default class Table extends React.Component {
           {checkbox &&
             <th>
               {!!tableData.length && <input
+                    
                     type="checkbox"
                     onChange={(event) =>{
                         this.tableHanerCheck(event)

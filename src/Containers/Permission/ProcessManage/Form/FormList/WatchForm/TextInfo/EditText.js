@@ -47,10 +47,19 @@ class EditText  extends React.Component{
     }
 
      
-     callBack=(param)=>{
+     callBack=(param,oldParam)=>{
         var seArr=[];
         var _this=this;
-        if(param.setting){
+        if(oldParam.setting){
+            var setting=JSON.parse(oldParam.setting);
+            setting.map((item,index)=>{
+                 for(var index in item){
+                 seArr.push(index);   
+                 Store.dispatch(change('EditText',index,'')); 
+                 }
+             })
+        }  
+        if(param.setting!=oldParam.setting){
             var setting=JSON.parse(param.setting);
             setting.map((item,index)=>{
                for(var index in item){
