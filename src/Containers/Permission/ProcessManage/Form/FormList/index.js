@@ -118,9 +118,9 @@ export default class FormList extends Component{
 	newSwidth = () =>{
 		let {openNew} = this.allConfig;
 		this.allConfig.openNew = !openNew;
-		/*if(this.allConfig.openNew){
-	  	Store.dispatch(change('AddForm','typeId',nextProps.data.id));		
-		}*/
+		if(this.allConfig.openNew){
+	  	Store.dispatch(change('AddForm','typeId',this.state.searchParams.typeId));		
+		}
 		this.isRender();
 	}
   //创建表的开关
