@@ -11,18 +11,13 @@ let State = observable({
 	openCreate:false,
 	openView:false,
 	openEdit:false,
-	list :[{formName:'1',lastUseTime:+new Date()},
-			{formName:'2',lastUseTime:+new Date()},
-			{formName:'3',lastUseTime:+new Date()},
-			{formName:'4',lastUseTime:+new Date()},
-			{formName:'5',lastUseTime:+new Date()},
-			{formName:'6',lastUseTime:+new Date()},
-			{formName:'7',lastUseTime:+new Date()}
-		],
+	list :[],
 	heightAuto:true,
 	searchParams:{
 		page:1,
+		nameKey:'',
 		pageSize:10,
+		codeKey:'',
 		time:+new Date(),
 
 	},
@@ -39,6 +34,7 @@ State.showView = action(function(item) {
 	console.log('----',item)
 	Http.request('get-dict-edit-data',{id:item.id}).then(function(response) {
 		_this.data = response;
+		_this.list = response.records;
 		_this.openView = true;
 	}).catch(function(err) {
 		Message.error(err.message);

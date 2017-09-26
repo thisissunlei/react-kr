@@ -3,6 +3,9 @@ import {reduxForm,change,initialize,reset} from 'redux-form';
 import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import {
+	toJS
+} from 'mobx';
+import {
 	KrField,
 	Grid,
 	Row,
@@ -35,13 +38,15 @@ class EditForm extends React.Component{
 			endTime:''
 		}
 	}
-	componentWillMount() {
+	componentDidMount() {
+		console.log('did----------');
 		Store.dispatch(initialize('EditForm',State.data));
-		// Store.dispatch(change('EditForm','itemListStr',State.data.items));
+		Store.dispatch(change('EditForm','items',toJS(State.data.items)));
 
-
-
-		
+	}
+	componentWillReceiveProps(nextProps) {
+		console.log('will----------',nextProps.array)
+		// Store.dispatch(initialize('EditForm',State.data));
 	}
 	onSubmit=(value)=>{
 		let labelArr = [];
@@ -53,6 +58,14 @@ class EditForm extends React.Component{
 		let tableNone = false;
 		value.itemListStr = value.items;
 		let tableVlaue = value.itemListStr;
+		console.log('---------->',value.items)
+		if(!value.items.length){
+			Notify.show([{
+				message: '请添加字典项',
+				type: 'danger',
+			}]);
+			return;
+		}
 
 		tableVlaue.map(item=>{
 			if(!item){

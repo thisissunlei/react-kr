@@ -59,15 +59,27 @@ export default class ProcessSetting extends React.Component {
 	lookClick=(item)=>{
 		State.showView(item);
 	}
+	onSearchSubmit=(value)=>{
+		let nameKey  = '';
+		let codeKey = "";
+		if(value.filter == 'code'){
+			codeKey= value.content;
+		}else if(value.filter == 'name'){
+			nameKey = value.content;
+		}
+		let params = Object.assign({},State.searchParams,{nameKey,page:1,codeKey});
+		State.searchParams = params;
+	}
 
   
 	render() {
+		let options = [{label:'字典名称',value:'name'},{label:'字典编码',value:'code'}]
 		return (
 			<div className="g-process-setting">
 				<Section title="公共字典列表" >
 				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 					<Button label="新建" operateCode="main_activity_add" onTouchTap={this.openNewCreate} />
-					<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach" placeholder='输入查询的字典名称'/>
+					<SearchForms onSubmit={this.onSearchSubmit} style={{marginTop:5,zIndex:10000}} className="activity-serach" placeholder='输入查询的内容' searchFilter={options}/>
 				</form>
 				<div  className='detail-table'>
 					<Table

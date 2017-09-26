@@ -55,6 +55,7 @@ export default class WatchForm  extends React.Component{
 							  textInfo={textInfo}
 								isCreate={isCreate}
 								basicInfo={basicInfo}
+								onClose={this.allClose}
 							/>
 						</TabC>
 				  </TabCs>

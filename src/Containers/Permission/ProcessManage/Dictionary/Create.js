@@ -61,6 +61,14 @@ class NewCreateForm extends React.Component{
 		let valueNone = false;
 		let orderNumNone = false;
 		let tableNone = false;
+		if(!value.itemListStr){
+			Notify.show([{
+				message: '请添加字典项',
+				type: 'danger',
+			}]);
+			return;
+		}
+
 		let tableVlaue = value.itemListStr;
 		value.itemListStr.map((item)=>{
 			if(!item){

@@ -3,6 +3,8 @@ import KrField from '../../KrField';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import TabelEdit from '../../FieldTabel/TabelEdit';
 import FRow from '../../FieldTabel/FRow';
+import Message from '../../Message';
+
 
 export default class Text  extends React.Component{
 
@@ -10,36 +12,55 @@ export default class Text  extends React.Component{
         super(props, context);
         this.state={
             component:null,
-			model:null
+            models:null,
+        }
+    }
+
+    componentDidMount(){
+        let {getEdit}=this.props;
+        if(getEdit.sourceType=='PUBLIC_DICT'){
+            this.setState({
+                models:this.sourceRender(getEdit.sourceOrgin),
+            })
         }
     }
 
 
-    componentDidMount(){
-      console.log('dic',DictionaryConfigs);
+    componentWillReceiveProps(nextProps){
+        if(nextProps.getEdit.sourceType=='PUBLIC_DICT'){
+                this.setState({
+                    models:this.sourceRender(nextProps.getEdit.sourceOrgin),
+                }) 
+        }
     }
 
     sourceChange=(param)=>{
 			if(param.value=="PUBLIC_DICT"){
 				 this.setState({
-					 model:this.sourceRender()
+                    models:this.sourceRender(),
 				 })
 			 }else{
 				 this.setState({
-					 model:null
+                    models:null,
 				 })
 			 }
 			 const {onChange}=this.props;
 			 onChange && onChange(param);
 		}
 
-    sourceRender=()=>{
+    sourceRender=(publicValue)=>{
+        let {sourceCome}=this.props;
+        sourceCome.map((item,index)=>{
+            item.value=''+item.value;
+        })
             return <KrField grid={1/2}
                         style={{width:262,marginLeft:30}}
                         name="sourceOrgin"
                         component="select"
                         label="数据来源"
-                        options={[{'label':'性格','value':'123'}]}
+                        value={publicValue}
+                        options={sourceCome}
+                        requireLabel={true}
                     />
  	  }
 
@@ -133,11 +154,58 @@ export default class Text  extends React.Component{
 
     dateRender=()=>{
         return <KrField grid={1/2}
-                    style={{width:262,marginLeft:30}}
+                    style={{width:262}}
                     name="wsdate"
                     component="date"
                     label="日期"
                 />
+    }
+
+    timeRender=()=>{
+        let {getEdit}=this.props;
+        var time='';
+        if(getEdit.setting){
+            var setting=JSON.parse(getEdit.setting);
+            setting.map((item,index)=>{
+               for(var index in item){
+                time=item[index];
+               }
+            })
+        }
+        return <KrField 
+          component="selectTime" 
+          label='时间'
+          timeNum={time}  
+          style={{width:262}} 
+          name='wsdate'/>
+    }
+
+    dateTimeRender=()=>{
+        let {getEdit}=this.props;
+        var time='';
+        if(getEdit.setting){
+            var setting=JSON.parse(getEdit.setting);
+            setting.map((item,index)=>{
+               for(var index in item){
+                time=item['wstime'];
+               }
+            })
+        }
+        return <div style={{width:262,padding:0}}>
+                        <KrField
+                            name="wsdate"
+                            component="date"
+                            style={{width:170}}
+                            requireLabel={true}
+                            label='日期时间'
+                        />
+                        <KrField
+                            name="wstime"
+                            component="selectTime"
+                            timeNum={time}
+                            style={{width:80,marginTop:14,zIndex:10}}
+                         />
+				</div>
     }
 
 
@@ -158,6 +226,7 @@ export default class Text  extends React.Component{
                     label="来源类型"
                     onChange={this.sourceChange}
                     options={seleInt}
+                    requireLabel={true}
                 />
     }
 
@@ -210,11 +279,11 @@ export default class Text  extends React.Component{
                 break;
           }
           case 'TIME_TIME':{
-                component = _this.dateRender()
+                component = _this.timeRender()
                 break;
           }
-           case 'TIME_DATETIME':{
-                component = _this.dateRender()
+          case 'TIME_DATETIME':{
+                component = _this.dateTimeRender()
                 break;
           }
         case 'SELECT_SELECT':{
@@ -245,16 +314,16 @@ export default class Text  extends React.Component{
 
 	render(){
 
-        let {label}=this.props;
-				let {model}=this.state;
+                let {label}=this.props;
+                let {models}=this.state;
+                
 
 				return(
 
 					<div style={{display:'inline-block'}}>
 		                {this.typeRender(label)}
-										{model}
+						{models}
 					</div>
 		);
 	}
-
 }

@@ -50,7 +50,11 @@ class TextInfo  extends React.Component{
 			detailId:'',
 
 			//编辑字段id
-			editId:''
+			editId:'',
+			//编辑表单字段回血信息
+		    getEdit:{},
+			//公共字典数据来源
+            sourceCome:[]
 
 		}
 
@@ -59,6 +63,7 @@ class TextInfo  extends React.Component{
 
 
   componentDidMount() {
+	this.getList();
     this.textDetailForm();
   }
 
@@ -78,6 +83,7 @@ class TextInfo  extends React.Component{
 		if(!item.fields){
 			item.fields=[];
 		}
+		console.log('info',index,item.fields);
 		Store.dispatch(change('TextInfo',`fields${index}`,item.fields));
 	})
 	detailInfo.map((item,index)=>{
@@ -220,8 +226,11 @@ class TextInfo  extends React.Component{
 	 })
  }
  allClose=()=>{
+	const {onClose}=this.props;
+	onClose && onClose();
 	this.setState({
-		openAddText:false
+		openAddText:false,
+		openEditText:false
 	 })
  }
 
@@ -235,6 +244,7 @@ class TextInfo  extends React.Component{
  //新增字段提交
  onAddTextSub=(values)=>{
 	if(values.inputType=='SELECT'||values.inputType=='CHECK'){
+	  values.itemListStr=JSON.stringify(values.itemListStr);
       if(values.sourceType=='PUBLIC_DICT'){
 		delete values.itemListStr;
 	  } 
@@ -263,22 +273,51 @@ class TextInfo  extends React.Component{
 	});
  }
 
-//打开编辑字段
+//获取编辑字段信息
  editText=(item,detailId)=>{
-   this.setState({
+    this.setState({
 		 openEditText:!this.state.openEditText,
 		 editId:item.id,
 		 detailId:detailId
 	 })
 	 let {isCreate}=this.props;
-	 if(isCreate){
-	    Store.dispatch(initialize('EditCreate',item));	 
-	 }else{
-		Store.dispatch(initialize('EditText',item));	  
-	 }
+     var _this=this;
+	 Http.request('get-field-edit',{id:item.id}).then(function(response) {
+		if(isCreate){
+			Store.dispatch(initialize('EditCreate',response));	 
+		 }else{
+			Store.dispatch(initialize('EditText',response));
+			Store.dispatch(change('EditText','itemListStr',response.items&&response.items.length>0?response.items:[]));	  
+		 }
+		 _this.setState({
+			getEdit:response
+		 })
+		 }).catch(function(err) {
+		 Message.error(err.message);
+	 });
  }
 
  onEditTextSub=(params)=>{
+	 console.log('params',params);
+	if(params.inputType=='SELECT'||params.inputType=='CHECK'){
+		params.itemListStr=JSON.stringify(params.itemListStr);
+		delete params.items;
+		if(params.sourceType=='PUBLIC_DICT'){
+		  delete params.itemListStr;
+		} 
+	  }else{
+		  var littleText=[];
+		  for (var item in params){
+			  if(item.indexOf("ws")!=-1){
+				  var list={};
+				  list[item]=params[item];
+				  littleText.push(list);
+			  }
+		  }
+		  params.setting=JSON.stringify(littleText);
+		  delete params.itemListStr;
+	  }	
+
 	let {editId,detailId}=this.state;
 	let {basicInfo}=this.props;
 	params.id=editId;
@@ -299,6 +338,7 @@ class TextInfo  extends React.Component{
 	 })
  }
 
+ //排序
  moveClick=(params)=>{
   let {basicInfo}=this.props;
   var param={};
@@ -318,11 +358,23 @@ class TextInfo  extends React.Component{
   });
  }
 
+//数据来源
+ getList=()=>{ 
+	var _this=this;
+	Http.request('get-common-dic').then(function(response) {
+	   _this.setState({
+		sourceCome:response.items
+	   })
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+  }
+
 
 	render(){
 
 		let {handleSubmit,textInfo,isCreate,basicInfo}=this.props;
-		let {detailInfo,mainInfo}=this.state;
+		let {detailInfo,mainInfo,getEdit,sourceCome}=this.state;
 
 		return(
 
@@ -475,7 +527,7 @@ class TextInfo  extends React.Component{
 							<AddText
 								onCancel={this.cancelAddText}
 								onSubmit={this.onAddTextSub}
-
+								sourceCome={sourceCome}
 							/>
 			      </Drawer>
 
@@ -490,7 +542,8 @@ class TextInfo  extends React.Component{
 							<EditText
 								onCancel={this.cancelEditText}
 								onSubmit={this.onEditTextSub}
-
+							    getEdit={getEdit}
+								sourceCome={sourceCome}
 							/>
 			      </Drawer>}
 

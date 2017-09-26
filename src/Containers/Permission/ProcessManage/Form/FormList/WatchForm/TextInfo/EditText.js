@@ -10,9 +10,10 @@ import {
     Tooltip,
     IconTip,
     TextDic,
-		TabelEdit,
-		FRow
+    TabelEdit,
+    FRow
 } from 'kr-ui';
+import {Http} from 'kr/Utils';
 import {reduxForm,change}  from 'redux-form';
 import {
 	Store
@@ -24,12 +25,26 @@ class EditText  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-					model:null
+            model:null,
         }
     }
 
+    
+    
     componentDidMount(){
-				Store.dispatch(change('EditText','tabledata',[]));
+      
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.getEdit.sourceType=='CUSTOM'){
+            this.setState({
+                model:this.dynamicRender()
+            })
+        }else{
+            this.setState({
+                model:null
+            })  
+        }
     }
 
     onSubmit=(values)=>{
@@ -43,22 +58,21 @@ class EditText  extends React.Component{
     }
 
 
-		dynamicRender=()=>{
-        return  <div style={{marginLeft:12}}><TabelEdit
-								 	name = "tabledata"
-									toolbar = {true}
-									checkbox = {true}
-
-								 >
-									 <FRow name = "age"  type = "tableEdit"  label = "选项文字" />
-									 <FRow name = "name" type = "tableEdit" label = "选项值" />
-									 <FRow name = "other" type = "tableEdit" label = "排序号" />
-									 <FRow name = "checked" type = "checkBox" label = "是否默认" />
-								 </TabelEdit></div>
+    dynamicRender=()=>{
+    return  <div style={{marginLeft:12}}><TabelEdit
+                name = "itemListStr"
+                toolbar = {true}
+                checkbox = {true}
+                >
+                    <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
+                    <FRow name = "value" type = "tableEdit" label = "选项值" />
+                    <FRow name = "orderNum" type = "tableEdit" label = "排序号" />
+                    <FRow name = "isDefault" type = "checkBox" label = "是否默认" />
+                </TabelEdit></div>
     }
 
 	 onChange=(param)=>{
-		 if(param.value=='34'){
+		 if(param.value=='CUSTOM'){
 			this.setState({
 				model:this.dynamicRender()
 			})
@@ -67,13 +81,26 @@ class EditText  extends React.Component{
 				model:null
 			})
 		}
-	 }
+     }
+     
+     callBack=()=>{
+        let {getEdit}=this.props;
+        if(getEdit.setting){
+            var setting=JSON.parse(getEdit.setting);
+            setting.map((item,index)=>{
+               for(var index in item){
+                Store.dispatch(change('EditText',index,item[index])); 
+               }
+            })
+        }
+     }
 
 	render(){
 
-    let {handleSubmit}=this.props;
+    let {handleSubmit,getEdit,sourceCome}=this.props;
 
-		let {model}=this.state;
+
+	let {model}=this.state;
 
 		return(
 
@@ -104,6 +131,10 @@ class EditText  extends React.Component{
 
                             <TextDic
                                 onChange={this.onChange}
+                                isEdit={true}
+                                getEdit={getEdit}
+                                sourceCome={sourceCome}
+                                callBack={this.callBack}
                             />
 
                             {model}
@@ -129,18 +160,85 @@ const validate = values =>{
 
 
     if(!values.name){
-       errors.name='请填写表单类型名称';
-    }else if(values.name.length>20){
-       errors.name='表单类型名称不能超过20个字符';
-    }
-
-    if(!values.label){
-        errors.label='请填写字段显示名';
-    }
-
-    if(!values.inputType){
-        errors.inputType='请填写表现形式';
-    }
+        errors.name='请填写表单类型名称';
+     }else if(values.name.length>20){
+        errors.name='表单类型名称不能超过20个字符';
+     }
+ 
+     if(!values.label){
+         errors.label='请填写字段显示名';
+     }
+ 
+     if(!values.inputType){
+         errors.inputType='请填写表现形式';
+     }
+ 
+     if(!values.compType){
+         errors.compType='请填写类型';
+     }
+ 
+     if(values.inputType=='TEXT'){
+         if(values.compType=='TEXT_TEXT'||values.compType=='TEXT_INTEGER'){
+             if(!values.wstext){
+                 errors.wstext='请填写文本长度';      
+             }else if(values.wstext&&isNaN(values.wstext)){
+                errors.wstext='文本长度是数字';    
+             }  
+         }else{
+             if(!values.wsfloat){
+                 errors.wsfloat='请选择小数位数';        
+             }    
+         }
+     }
+ 
+     if(values.inputType=='TEXT_AREA'){
+         if(values.wsheight&&isNaN(values.wsheight)){
+             errors.wsheight='请选择数字格式';
+         }else if(values.wsheight&&values.wsheight>=100){
+             errors.wsheight='请填写三位以下数字';
+         }
+     }
+ 
+     if(values.compType=='TEXT_TEXT'){
+         if(!values.wsradio){
+             errors.wsradio='请选择按钮类型';
+         }
+         if(!values.wsenabled){
+             errors.wsenabled='请填写是否多选';
+         }
+     }
+     
+     if(values.inputType=='SELECT'||values.inputType=='CHECK'){
+         if(!values.sourceType){
+             errors.sourceType='请选择来源类型';
+         }
+         if(values.sourceType&&values.sourceType=='PUBLIC_DICT'){
+             if(!values.sourceOrgin){
+                 errors.sourceOrgin='请选择数据来源';
+             }
+         }
+     }
+ 
+     if(values.compType=='FILE_FILE'){
+         if(!values.wsfile){
+             errors.wsfile='请填写文件大小';
+         }else if(values.wsfile&&isNaN(values.wsfile)){
+             errors.wsfile='文件大小为数字'; 
+         }
+         if(!values.wsenabled){
+             errors.wsenabled='请选择是否多文件上传';
+         }
+     }
+ 
+     if(values.compType=='FILE_PHOTO'){
+         if(values.wspicWidth&&isNaN(values.wspicWidth)){
+             errors.wspicWidth='图片宽度为数字'; 
+         }
+         if(values.wspicHeight&&isNaN(values.wspicHeight)){
+             errors.wspicHeight='图片高度为数字'; 
+         }
+     }
+   
 
 
 	return errors
