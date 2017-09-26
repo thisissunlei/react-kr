@@ -59,13 +59,7 @@ class NewCreateForm extends React.Component{
 		let valueNone = false;
 		let orderNumNone = false;
 		let tableNone = false;
-		value.itemListStr = value.itemListStr.map((item)=>{
-			if(!item.isDefault){
-				item.isDefault = false;
-			}
-			return item;
 
-		})
 		if(!value.itemListStr){
 			Notify.show([{
 				message: '请添加字典项',
@@ -200,6 +194,13 @@ class NewCreateForm extends React.Component{
 			}]);
 			return;
 		}
+		value.itemListStr = value.itemListStr.map((item)=>{
+			if(!item.isDefault){
+				item.isDefault = false;
+			}
+			return item;
+
+		});
 
 		console.log('是否有空值',orderNumNone,valueNone,labelNone)
 		console.log('table数组',orderNumArray,valueArray,labelArray)
