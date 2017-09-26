@@ -171,7 +171,7 @@ export default class  TabelEdit extends React.Component {
 		const {toolbar,checkbox} = this.props;
 	
 		tabelLength = fields.length;
-		console.log('renderBrights========>',fields)
+		
 		
 	 
 	   var brights = fields.map(function(brightsStr, index){
@@ -267,7 +267,7 @@ export default class  TabelEdit extends React.Component {
 	render(){
 		
 		let {name} = this.props;
-		console.log(tabelLength,"LLLLL");
+	
 		
         return (
             <div className = "ui-tabel-edit"> 

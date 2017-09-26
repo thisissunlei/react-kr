@@ -79,18 +79,21 @@ class TextInfo  extends React.Component{
   //字段
   textDetailForm=()=>{
 	let {mainInfo,detailInfo}=this.state;
+	
 	mainInfo.map((item,index)=>{
 		if(!item.fields){
 			item.fields=[];
 		}
 		Store.dispatch(change('TextInfo',`fields${index}`,item.fields));
 	})
+	
 	detailInfo.map((item,index)=>{
 		if(!item.fields){
 			item.fields=[];
 		}
 		Store.dispatch(change('TextInfo',`detailFields${index}`,item.fields));
 	})
+	
   }
 
   //主表和明细表
@@ -242,6 +245,7 @@ class TextInfo  extends React.Component{
  }
  //新增字段提交
  onAddTextSub=(values)=>{
+	 values = Object.assign({},values);
 	if(values.inputType=='SELECT'||values.inputType=='CHECK'){
 	  values.itemListStr=JSON.stringify(values.itemListStr);
       if(values.sourceType=='PUBLIC_DICT'){
@@ -264,9 +268,12 @@ class TextInfo  extends React.Component{
 	values.detailId=detailId;
 	values.formId=basicInfo.id;
 	var _this=this;
+	console.log("-----------0")
 	Http.request('form-field-add',{},values).then(function(response) {
+		 console.log("-----------1")
 		 _this.getTextInfo(basicInfo.id);
 		 _this.cancelAddText();
+		 console.log("-----------2")
 		}).catch(function(err) {
 		Message.error(err.message);
 	});
@@ -276,7 +283,7 @@ class TextInfo  extends React.Component{
  editText=(item,detailId)=>{
     this.setState({
 		 openEditText:!this.state.openEditText,
-		 editId:item.id,
+		 editId:item.id||'',
 		 detailId:detailId
 	 })
 	 let {isCreate}=this.props;
@@ -320,7 +327,7 @@ class TextInfo  extends React.Component{
 	let {basicInfo}=this.props;
 	params.id=editId;
 	params.detailId=detailId;
-	params.formId=basicInfo.id;
+	params.formId=basicInfo.id||'';
 	var _this=this;
 	Http.request('form-field-edit',{},params).then(function(response) {
 		 _this.getTextInfo(basicInfo.id);
@@ -548,7 +555,7 @@ class TextInfo  extends React.Component{
 						{/*编辑字段*/}
 						{isCreate&&<Dialog
 						title="编辑字段－已创建表"
-						onClose={this.editText}
+						onClose={this.cancelEditText}
 						open={this.state.openEditText}
 						contentStyle ={{ width: '374px',height:'auto'}}
 						>

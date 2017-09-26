@@ -34,6 +34,7 @@ class AddText  extends React.Component{
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
+       
         onSubmit && onSubmit(values);
     }
 
@@ -45,9 +46,9 @@ class AddText  extends React.Component{
 
     dynamicRender=()=>{
             return  <div style={{marginLeft:12}}><TabelEdit
-                name = "itemListStr"
-                toolbar = {true}
-                checkbox = {true}
+                    name = "itemListStr"
+                    toolbar = {true}
+                    checkbox = {true}
                 >
                     <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
                     <FRow name = "value" type = "tableEdit" label = "选项值" />

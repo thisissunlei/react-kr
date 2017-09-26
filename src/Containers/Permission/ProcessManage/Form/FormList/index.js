@@ -265,6 +265,7 @@ export default class FormList extends Component{
 			 }else{
 				 response.enabled='false'
 			 }
+		
 			 Store.dispatch(initialize('EditForm',response));
 		 }).catch(function(err) {
 			 Message.error(err.message);
