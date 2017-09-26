@@ -53,8 +53,6 @@ class TextInfo  extends React.Component{
 			editId:'',
 			//编辑表单字段回血信息
 		    getEdit:{},
-			//公共字典数据来源
-            sourceCome:[]
 
 		}
 		this.checkedData = [];
@@ -63,7 +61,6 @@ class TextInfo  extends React.Component{
 
 
   componentDidMount() {
-	this.getList();
     this.textDetailForm();
   }
 
@@ -382,23 +379,13 @@ getCheckedData = (arr) =>{
 	this.checkedData = [].concat(checkedData);
 
 }
-//数据来源
- getList=()=>{ 
-	var _this=this;
-	Http.request('get-common-dic').then(function(response) {
-	   _this.setState({
-		sourceCome:response.items
-	   })
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-  }
+
 
 
 	render(){
 
 		let {handleSubmit,textInfo,isCreate,basicInfo}=this.props;
-		let {detailInfo,mainInfo,getEdit,sourceCome}=this.state;
+		let {detailInfo,mainInfo,getEdit}=this.state;
 
 		return(
 
@@ -551,7 +538,6 @@ getCheckedData = (arr) =>{
 							<AddText
 								onCancel={this.cancelAddText}
 								onSubmit={this.onAddTextSub}
-								sourceCome={sourceCome}
 							/>
 			      </Drawer>
 
@@ -567,7 +553,6 @@ getCheckedData = (arr) =>{
 								onCancel={this.cancelEditText}
 								onSubmit={this.onEditTextSub}
 							    getEdit={getEdit}
-								sourceCome={sourceCome}
 							/>
 			      </Drawer>}
 

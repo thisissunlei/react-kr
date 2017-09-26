@@ -86,6 +86,7 @@ import TableComponent from './TableComponent';
 import EditComponent from './EditComponent';
 import CheckBoxComponent from './CheckBoxComponent';
 import LabelComponent from './LabelComponent';
+import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
 
 
@@ -288,6 +289,12 @@ class FieldRevert extends React.Component {
 			if (component === 'searchPersonel') {
 				return (
 					<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'SearchSourceOrigin') {
+				return (
+					<FieldRevert {...this.props} component={SearchSourceOrigin}  style={WrapStyles} {...other}/>
 				);
 			}
 
