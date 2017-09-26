@@ -40,8 +40,7 @@ export default class TextDic extends React.Component{
 
     componentWillReceiveProps(nextProps){
         var _this=this;
-        if(nextProps.isEdit&&!this.props.getEdit.inputType){
-            if(nextProps.isEdit&&nextProps.getEdit.inputType){
+        if(nextProps.isEdit&&(this.props.getEdit.inputType!=nextProps.getEdit.inputType)){
                 _this.nextArrRender(nextProps.getEdit.inputType,_this.state.nexts,function(){
                 _this.setState({
                     label:nextProps.getEdit.compType,
@@ -53,7 +52,6 @@ export default class TextDic extends React.Component{
                     callBack && callBack();
                 })
             });
-          } 
         }   
     }
 
