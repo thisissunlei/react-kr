@@ -55,13 +55,7 @@ class EditForm extends React.Component{
 		let tableNone = false;
 		value.itemListStr = value.items;
 		
-		value.itemListStr = value.itemListStr.map((item)=>{
-			if(!item.isDefault){
-				item.isDefault = false;
-			}
-			return item;
-
-		});
+		
 		let tableVlaue = value.itemListStr;
 		if(!value.items.length){
 			Notify.show([{
@@ -70,7 +64,6 @@ class EditForm extends React.Component{
 			}]);
 			return;
 		}
-
 		tableVlaue.map(item=>{
 			if(!item){
 				tableNone=true;
@@ -196,6 +189,13 @@ class EditForm extends React.Component{
 			}]);
 			return;
 		}
+		value.itemListStr = value.itemListStr.map((item)=>{
+			if(!item.isDefault){
+				item.isDefault = false;
+			}
+			return item;
+
+		});
 
 		console.log('是否有空值',orderNumNone,valueNone,labelNone)
 		console.log('table数组',orderNumArray,valueArray,labelArray)
