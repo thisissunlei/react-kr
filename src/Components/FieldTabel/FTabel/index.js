@@ -177,7 +177,7 @@ export default class Table extends React.Component {
   toolbarRender = () =>{
     let {children} = this.props;
     var doms = children.map((item,index)=>{
-      if(item.type.name === "Toolbars"){
+      if(item.type.displayName === "Toolbars"){
         let {children} = item.props;
        
         return children;
