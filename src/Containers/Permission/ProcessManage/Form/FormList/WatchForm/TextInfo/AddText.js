@@ -30,7 +30,7 @@ class AddText  extends React.Component{
     }
 
     componentDidMount(){
-        // Store.dispatch(change('AddText',{}));
+        Store.dispatch(change('AddText','wsenabled','true'));
     }
 
     onSubmit=(values)=>{
@@ -50,11 +50,12 @@ class AddText  extends React.Component{
             orderNum = true,
             isDefault = true;
       
+            
        if(itemListStr && !itemListStr.length){
             Notify.show([{
 				message: '请添加自定义',
 				type: 'danger',
-			}]);
+            }]);
 			return;
        }
        if(itemListStr != null){

@@ -8,6 +8,7 @@ import {reduxForm,change,initialize}  from 'redux-form';
 import {
 	Store
 } from 'kr/Redux';
+import '../index.less';
 
 export default class Text  extends React.Component{
 
@@ -144,10 +145,10 @@ export default class Text  extends React.Component{
                     options={[{label:'分部',value:'wsfen'},{label:'部门',value:'wsbu'},{label:'职务',value:'wszhi'},{label:'职级',value:'wsji'},{label:'人员',value:'wsren'}]}
                     requireLabel={true}
                 />
-                <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="是否多选" requireLabel={true}>
+                <div className='m-form-radio'><KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="是否多选" requireLabel={true}>
                     <KrField name="wsenabled" label="是" type="radio" value='true' />
                     <KrField name="wsenabled" label="否" type="radio" value='false' />
-                </KrField>
+                </KrField></div>
             </div>
         )
     }
@@ -164,10 +165,10 @@ export default class Text  extends React.Component{
                     requireLabel={true}
                     marking={true}
                 />
-                    <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
+                <div className='m-form-radio'> <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
                         <KrField marking = "text" name="wsenabled" label="允许" type="radio" value='true' />
                         <KrField marking = "text" name="wsenabled" label="禁止" type="radio" value='false' />
-                    </KrField>
+                    </KrField></div>
              </div>
     }
 
@@ -183,10 +184,10 @@ export default class Text  extends React.Component{
                             requireLabel={true}
                             marking={true}
                         />
-                            <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
+                        <div className='m-form-radio'> <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
                                 <KrField name="wsenabled" label="允许" type="radio" value='true' />
                                 <KrField name="wsenabled" label="禁止" type="radio" value='false' />
-                    </KrField>
+                    </KrField></div>
                     <KrField
                             grid={1/2}
                             style={{width:262,marginBottom:5}}
