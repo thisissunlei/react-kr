@@ -50,7 +50,7 @@ class EditDetail  extends React.Component{
                                     style={{width:262,marginBottom:5,marginLeft:30}}
                                     value={basicInfo.tableName}
                                     component="labelText"
-                                    label="表单表明 "
+                                    label="表单表名"
                                     name="tableName"
                                     inline={false}
                                  />}

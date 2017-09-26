@@ -11,7 +11,8 @@ import {
 	Toolbars,
 	Dialog,
 	Drawer,
-	Message
+	Message,
+	IconTip
 } from 'kr-ui';
 import {
 	Store,
@@ -307,6 +308,7 @@ class TextInfo  extends React.Component{
  }
 
  onEditTextSub=(params)=>{
+	  let {isCreate}=this.props;
 	  params = Object.assign({},params);
 	if(params.inputType=='SELECT'||params.inputType=='CHECK'){
 		params.itemListStr=JSON.stringify(params.itemListStr);
@@ -326,7 +328,13 @@ class TextInfo  extends React.Component{
 		  params.setting=JSON.stringify(littleText);
 		  delete params.itemListStr;
 	  }	
-
+    if(isCreate){
+		delete params.itemListStr;
+		delete params.sourceOrgin;
+		delete params.inputType;
+		delete params.sourceType;
+		delete params.compType;
+	}
 	let {editId,detailId}=this.state;
 	let {basicInfo}=this.props;
 	params.id=editId;
@@ -469,7 +477,12 @@ getCheckedData = (arr) =>{
 								>
 									<Toolbars>
 										<Toolbar label='编辑' rightSpac='14px' iconClass='edit-form' iconClick={this.openEditDetail.bind(this,item.id)} />
-										<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />
+										{!isCreate&&!item.fields&&<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />}
+										{(isCreate||(item.fields&&item.fields.length>0))&&<div className='not-del-form'>  
+													<IconTip iconClass='del-tip' label='删除明细表' className='up-tip'>
+												       <div style={{textAlign:'left'}}>亲，该明细表已经创建过表，或者下面有字段存在哦！</div>
+											        </IconTip>
+											</div>}
 										<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText.bind(this,item.id)} />
 									</Toolbars>
 

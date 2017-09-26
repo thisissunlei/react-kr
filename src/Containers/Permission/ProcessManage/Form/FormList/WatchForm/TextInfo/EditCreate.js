@@ -65,7 +65,12 @@ class EditCreate  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-
+	if(!values.name){
+		errors.name='请填写字段显示名';
+	 }else if(values.name.length>10){
+		errors.name='字段显示名不能超过10个字符';
+	 }
+ 
 	return errors
 }
 
