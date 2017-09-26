@@ -394,10 +394,10 @@ class NewCreateForm extends React.Component {
 		form.delStationVos = JSON.stringify(delStationVos);
 		form.stationVos = JSON.stringify(stationVos);
 
-		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd hh:MM:ss");
-		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+		form.firstpaydate = DateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd 00:00:00");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd 00:00:00");
 		form.totalrent = (this.state.allRent!='-1')?this.state.allRent:initialValues.totalrent;
 		form.totalrent = form.totalrent;
 		if(!!!form.agreement){
@@ -445,8 +445,8 @@ class NewCreateForm extends React.Component {
 			//独立空间
 			goalBoardroomNum: changeValues.boardroomnum,
 			selectedObjs: stationVos,
-			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd hh:MM:ss"),
-			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd hh:MM:ss"),
+			startDate: DateFormat(changeValues.leaseBegindate, "yyyy-mm-dd 00:00:00"),
+			endDate: DateFormat(changeValues.leaseEnddate, "yyyy-mm-dd 00:00:00"),
 			unitprice:0
 
 		};

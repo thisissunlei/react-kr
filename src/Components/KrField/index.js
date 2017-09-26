@@ -86,7 +86,7 @@ import TableComponent from './TableComponent';
 import EditComponent from './EditComponent';
 import CheckBoxComponent from './CheckBoxComponent';
 import LabelComponent from './LabelComponent';
-
+import SelectOperationComponent from './SelectOperationComponent';
 
 
 
@@ -437,6 +437,14 @@ class FieldRevert extends React.Component {
 			if (component === 'select' || type == 'select') {
 				return (
 					<FieldRevert {...this.props} component={SelectComponent} style={WrapStyles}>
+						{children}
+					</FieldRevert>
+				);
+			}
+
+			if (component === 'selectOperation' ) {
+				return (
+					<FieldRevert {...this.props} component={SelectOperationComponent} style={WrapStyles}>
 						{children}
 					</FieldRevert>
 				);
