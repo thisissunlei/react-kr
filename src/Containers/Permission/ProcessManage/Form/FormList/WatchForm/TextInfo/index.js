@@ -281,7 +281,7 @@ class TextInfo  extends React.Component{
     this.setState({
 		 openEditText:!this.state.openEditText,
 		 editId:item.id||'',
-		 detailId:detailId
+		 detailId:detailId,
 	 })
 	 let {isCreate}=this.props;
      var _this=this;
