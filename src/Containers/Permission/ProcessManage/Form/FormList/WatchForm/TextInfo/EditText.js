@@ -14,7 +14,7 @@ import {
     FRow
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
-import {reduxForm,change}  from 'redux-form';
+import {reduxForm,change,initialize}  from 'redux-form';
 import {
 	Store
 } from 'kr/Redux';
@@ -25,26 +25,15 @@ class EditText  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-            model:null,
+           
         }
+        this.ws=[];
     }
 
     
     
     componentDidMount(){
       
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.getEdit.sourceType=='CUSTOM'){
-            this.setState({
-                model:this.dynamicRender()
-            })
-        }else{
-            this.setState({
-                model:null
-            })  
-        }
     }
 
     onSubmit=(values)=>{
@@ -57,40 +46,22 @@ class EditText  extends React.Component{
         onCancel && onCancel();
     }
 
-
-    dynamicRender=()=>{
-    return  <div style={{marginLeft:12}}><TabelEdit
-                name = "itemListStr"
-                toolbar = {true}
-                checkbox = {true}
-                >
-                    <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
-                    <FRow name = "value" type = "tableEdit" label = "选项值" />
-                    <FRow name = "orderNum" type = "tableEdit" label = "排序号" />
-                    <FRow name = "isDefault" type = "checkBox" label = "是否默认" />
-                </TabelEdit></div>
-    }
-
-	 onChange=(param)=>{
-		 if(param.value=='CUSTOM'){
-			this.setState({
-				model:this.dynamicRender()
-			})
-		}else{
-			this.setState({
-				model:null
-			})
-		}
-     }
      
-     callBack=()=>{
-        let {getEdit}=this.props;
-        if(getEdit.setting){
-            var setting=JSON.parse(getEdit.setting);
+     callBack=(param)=>{
+        var seArr=[];
+        var _this=this;
+        if(param.setting){
+            var setting=JSON.parse(param.setting);
             setting.map((item,index)=>{
                for(var index in item){
+                seArr.push(index);   
                 Store.dispatch(change('EditText',index,item[index])); 
                }
+            })
+            this.ws=seArr;
+        }else{
+            this.ws.map((item,index)=>{
+                Store.dispatch(change('EditText',item,'')); 
             })
         }
      }
@@ -99,8 +70,6 @@ class EditText  extends React.Component{
 
     let {handleSubmit,getEdit,sourceCome}=this.props;
 
-
-	let {model}=this.state;
 
 		return(
 
@@ -130,14 +99,11 @@ class EditText  extends React.Component{
 
 
                             <TextDic
-                                onChange={this.onChange}
                                 isEdit={true}
                                 getEdit={getEdit}
                                 sourceCome={sourceCome}
                                 callBack={this.callBack}
                             />
-
-                            {model}
 
                         <Grid style={{marginBottom:5,marginLeft:-32,marginTop:12}}>
                             <Row>

@@ -25,9 +25,12 @@ export default class TextDic extends React.Component{
             label:'',
 
             //为了四级
-            getEdit:{}
+            getEdit:{},
 
+            //isCommon
+            isCommon:false
         }
+        this.isCommon=false;
     }
 
   
@@ -39,8 +42,11 @@ export default class TextDic extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
+        if(this.isCommon){
+            return;
+        }
         var _this=this;
-        if(nextProps.isEdit&&(this.props.getEdit.inputType!=nextProps.getEdit.inputType)){
+        if(nextProps.isEdit&&nextProps.getEdit.inputType){
                 _this.nextArrRender(nextProps.getEdit.inputType,_this.state.nexts,function(){
                 _this.setState({
                     label:nextProps.getEdit.compType,
@@ -48,8 +54,9 @@ export default class TextDic extends React.Component{
                     isThree:true,
                     getEdit:nextProps.getEdit
                 },function(){
+                    console.log('call',nextProps.getEdit,this.props.getEdit);
                     const {callBack}=_this.props;
-                    callBack && callBack();
+                    callBack && callBack(nextProps.getEdit);
                 })
             });
         }   
@@ -57,6 +64,8 @@ export default class TextDic extends React.Component{
 
    
     typeChange=(param)=>{
+        this.isCommon=true;
+
         let {nexts}=this.state;
         var _this=this;
         this.setState({
@@ -100,7 +109,8 @@ export default class TextDic extends React.Component{
         }
         this.setState({
             isThree:true,
-            label:param.value
+            label:param.value,
+            isCommon:true
         })
     }
 
@@ -113,7 +123,7 @@ export default class TextDic extends React.Component{
 
 	render(){
 
-        let {inputType,isTrue,next,label,isThree,getEdit}=this.state;
+        let {inputType,isTrue,next,label,isThree,getEdit,isCommon}=this.state;
         let {sourceCome}=this.props;
 
         var seleInt=[];
@@ -154,6 +164,7 @@ export default class TextDic extends React.Component{
                     sourceCome={sourceCome} 
                     onChange={this.onChange}
                     getEdit={getEdit}
+                    isCommon={isCommon}
                     />}
                 </div>
 
