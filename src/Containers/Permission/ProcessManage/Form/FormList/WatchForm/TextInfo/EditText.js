@@ -33,7 +33,7 @@ class EditText  extends React.Component{
     
     
     componentDidMount(){
-      
+       
     }
 
     onSubmit=(values)=>{
