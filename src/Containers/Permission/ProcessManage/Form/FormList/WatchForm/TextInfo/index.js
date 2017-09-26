@@ -73,7 +73,8 @@ class TextInfo  extends React.Component{
   }
 
   componentWillReceiveProps(nextProps){
-    this.getTextInfo(nextProps.basicInfo.id);
+	console.log('red');
+    //this.getTextInfo(nextProps.basicInfo.id);
   }
 
   //字段
@@ -83,7 +84,7 @@ class TextInfo  extends React.Component{
 		if(!item.fields){
 			item.fields=[];
 		}
-		console.log('info',index,item.fields);
+		console.log('info-----------',index,typeof item.fields,item.fields);
 		Store.dispatch(change('TextInfo',`fields${index}`,item.fields));
 	})
 	detailInfo.map((item,index)=>{
@@ -244,6 +245,7 @@ class TextInfo  extends React.Component{
  //新增字段提交
  onAddTextSub=(values)=>{
 	if(values.inputType=='SELECT'||values.inputType=='CHECK'){
+	  console.log('eeee',values.itemListStr);
 	  values.itemListStr=JSON.stringify(values.itemListStr);
       if(values.sourceType=='PUBLIC_DICT'){
 		delete values.itemListStr;
@@ -298,7 +300,6 @@ class TextInfo  extends React.Component{
  }
 
  onEditTextSub=(params)=>{
-	 console.log('params',params);
 	if(params.inputType=='SELECT'||params.inputType=='CHECK'){
 		params.itemListStr=JSON.stringify(params.itemListStr);
 		delete params.items;
@@ -375,6 +376,8 @@ class TextInfo  extends React.Component{
 
 		let {handleSubmit,textInfo,isCreate,basicInfo}=this.props;
 		let {detailInfo,mainInfo,getEdit,sourceCome}=this.state;
+
+		console.log('rrrr4444');
 
 		return(
 
