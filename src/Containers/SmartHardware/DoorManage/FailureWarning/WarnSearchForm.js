@@ -136,7 +136,6 @@ class DoorWarnForm extends React.Component{
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let {logTypeOptions} = this.state;
-		console.log("logTypeOptions-----page",logTypeOptions);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="door-warn-search">
 				<ListGroup className="fir-list">

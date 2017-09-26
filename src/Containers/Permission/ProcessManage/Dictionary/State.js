@@ -16,7 +16,7 @@ let State = observable({
 	searchParams:{
 		page:1,
 		nameKey:'',
-		pageSize:10,
+		pageSize:15,
 		codeKey:'',
 		time:+new Date(),
 
@@ -102,7 +102,7 @@ State.checkCode = action(function(value) {
 	let _this = this;
 	let values = {
 		id:_this.data.id || '',
-		dictName:value
+		dictCode:value
 	}
 
 	Http.request('check-dict-code',values).then(function(response) {

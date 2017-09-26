@@ -39,7 +39,6 @@ if(module.hot) {
 	module.hot.accept();
 }
 
-
 ReactDOM.render((
 	<MuiThemeProvider>
 		<Provider store={store} key="provider">

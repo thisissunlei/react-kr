@@ -303,9 +303,9 @@ const validate = values => {
 	// if (!values.foreignCode) {
 	//     errors.foreignCode = '请输入会员卡号';
 	// }
-	if(values.foreignCode && !code.test(values.foreignCode)){
-		errors.foreignCode = '请填写10位纯数字会员卡号';
-	}
+	// if(values.foreignCode && !code.test(values.foreignCode)){
+	// 	errors.foreignCode = '请填写10位纯数字会员卡号';
+	// }
 	return errors
 }
 export default NewCreateForm = reduxForm({

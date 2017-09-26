@@ -231,21 +231,13 @@ State.freshSearchEquipmentPage = action(function(){
 })
 
 
-//
-State.getUnusedEquipmentFun = action(function(){
-	
-	Http.request('getUnusedEquipment', {}).then(function(response) {
-		State.searchEquipmentList = response.items;
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-//分配设备所在位置（添加）
+
+//添加
 State.equipmentAddLocation = action(function(param){
 	var urlParams = {deviceId:param}
 	Http.request('changeUnusedToList',{},urlParams).then(function(response) {
-
-		Message.success("添加成功");
+		console.log("response",response);
+		Message.success("注册设备成功");
 		State.getUnusedEquipmentFun();
 		State.freshPageReturn();
 

@@ -4,7 +4,10 @@ import DictionaryConfigs from 'kr/Configs/dictionary';
 import TabelEdit from '../../FieldTabel/TabelEdit';
 import FRow from '../../FieldTabel/FRow';
 import Message from '../../Message';
-
+import {reduxForm,change,initialize}  from 'redux-form';
+import {
+	Store
+} from 'kr/Redux';
 
 export default class Text  extends React.Component{
 
@@ -14,38 +17,82 @@ export default class Text  extends React.Component{
             component:null,
             models:null,
         }
+        this.isCommon=false;
     }
 
     componentDidMount(){
-        let {getEdit}=this.props;
+        let {getEdit,isCommon}=this.props;
+        if(isCommon){
+            return;
+        }
         if(getEdit.sourceType=='PUBLIC_DICT'){
             this.setState({
                 models:this.sourceRender(getEdit.sourceOrgin),
             })
+        }else if(getEdit.sourceType=="CUSTOM"){
+            this.setState({
+               models:this.selfRender(),
+            })
+        }else{
+           this.setState({
+               models:null,
+            }) 
         }
     }
 
-
     componentWillReceiveProps(nextProps){
+        if(nextProps.isCommon&&!this.isCommon){
+           Store.dispatch(change('EditText','sourceType',''));
+           this.setState({
+              models:null,
+           }) 
+        }
+        if(this.isCommon||nextProps.isCommon){
+            return;
+        }
         if(nextProps.getEdit.sourceType=='PUBLIC_DICT'){
                 this.setState({
                     models:this.sourceRender(nextProps.getEdit.sourceOrgin),
                 }) 
+        }else if(nextProps.getEdit.sourceType=="CUSTOM"){
+            this.setState({
+               models:this.selfRender(),
+            })
+        }else{
+           this.setState({
+               models:null,
+            }) 
         }
     }
 
+    selfRender=()=>{
+        return  <div style={{marginLeft:12}}><TabelEdit
+                name = "itemListStr"
+                toolbar = {true}
+                checkbox = {true}
+            >
+                <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
+                <FRow name = "value" type = "tableEdit" label = "选项值" />
+                <FRow name = "orderNum" type = "tableEdit" label = "排序号" />
+                <FRow name = "isDefault" type = "checkBox" label = "是否默认" />
+            </TabelEdit></div>
+        }
+
     sourceChange=(param)=>{
+            this.isCommon=true;
 			if(param.value=="PUBLIC_DICT"){
 				 this.setState({
                     models:this.sourceRender(),
 				 })
-			 }else{
+			 }else if(param.value=="CUSTOM"){
 				 this.setState({
-                    models:null,
+                    models:this.selfRender(),
 				 })
-			 }
-			 const {onChange}=this.props;
-			 onChange && onChange(param);
+			 }else{
+                this.setState({
+                    models:null,
+				 }) 
+             }
 		}
 
     sourceRender=(publicValue)=>{

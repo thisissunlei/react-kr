@@ -193,8 +193,7 @@ module.exports = [
 						primaryText: '最新动态列表',
 						menuCode: 'sys_slider_list',
 						router: '/permission/homePageSetting/dynamicsList',
-					},
-					
+					}
 				]
 			},
 

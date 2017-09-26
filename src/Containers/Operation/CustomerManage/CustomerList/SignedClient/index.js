@@ -49,8 +49,7 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
-@inject("CommunityDetailModel")
-@inject("NewIndentModel")
+@inject("NewIndentModel","NavModel","CommunityDetailModel")
 @observer
 class SignedClient extends React.Component{
 
@@ -62,12 +61,21 @@ class SignedClient extends React.Component{
 			//加载后的数据
 			loadData:[],
 			//选中的值
-			arrItem:[]
+			arrItem:[],
+			isExport:false
 		}
 	}
 	//查看页面开关
 	switchLookCustomerList=() => {
       	State.switchLookCustomerList();
+	}
+	componentDidMount(){
+		let {NavModel} = this.props;
+		var {checkOperate} = this.props.NavModel;
+	  var isExport = checkOperate("oper_csr_edit_include_source");
+		this.setState({
+			isExport,
+		})
 	}
 
     //查看相关操作
@@ -349,7 +357,8 @@ class SignedClient extends React.Component{
 
 
        let {searchSignParams,dataReady,orderReady}=this.props;
-       let deleteId = this.props.CommunityDetailModel.deleteIndentId
+       let deleteId = this.props.CommunityDetailModel.deleteIndentId;
+			 let {isExport} = this.state;
        var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
@@ -376,7 +385,7 @@ class SignedClient extends React.Component{
 					     align="left"
 					     style={{float:'left'}}
 					   >
-					   
+
 							<Button
 									label="新建订单"
 									type='button'
@@ -398,7 +407,7 @@ class SignedClient extends React.Component{
                 ajax={true}
                 onOperation={this.onOperation}
 	            displayCheckbox={true}
-	            exportSwitch={true}
+	            exportSwitch={isExport}
 	            onSelect={this.onSelect}
 	            onLoaded={this.onLoaded}
 	            onExport={this.onExport}
@@ -422,8 +431,8 @@ class SignedClient extends React.Component{
 
 			        <TableBody >
 			              <TableRow >
-			                <TableRowColumn 
-								name="signCityName" 
+			                <TableRowColumn
+								name="signCityName"
 								component={(value,oldValue)=>{
 									var TooltipStyle=""
 									if(value.length==""){
@@ -436,7 +445,7 @@ class SignedClient extends React.Component{
 										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 									}}>
 							</TableRowColumn>
-			                <TableRowColumn name="company" 
+			                <TableRowColumn name="company"
 								component={(value,oldValue)=>{
 											var TooltipStyle=""
 											if(value.length==""){

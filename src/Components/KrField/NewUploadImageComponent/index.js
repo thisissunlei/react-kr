@@ -37,7 +37,6 @@ export default class UploadImageComponent extends Component {
 			files :{},
 			imageStatus : true,
 
-
 			isInit:true
 		}
 	}
@@ -50,17 +49,15 @@ export default class UploadImageComponent extends Component {
 	componentWillMount(){
 	}
 	componentDidMount() {
+		
 	}
 	componentWillReceiveProps(nextProps,nextState){
-		if(nextProps.defaultValue&&nextProps.sizePhoto&&nextProps.defaultValue.hasOwnProperty('picUrl')&&nextProps.defaultValue.picUrl!=''){
-			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
-		}else if(nextProps.defaultValue&&!nextProps.sizePhoto){
-			this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
-		}
+		this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
 
 	}
 
 	setInitValue(defaultValue,sizePhoto) {
+		let {merthd}=this.props;
 		if(!defaultValue){
            return ;
 		}
@@ -71,7 +68,9 @@ export default class UploadImageComponent extends Component {
 		if (!isInit) {
 			return;
 		}
+		
 		if(sizePhoto){
+
 			this.setState({
 				isInit: false,
 				imgUpload:true,
@@ -80,6 +79,15 @@ export default class UploadImageComponent extends Component {
 			if(defaultValue.picId){
                 input.onChange(defaultValue.picId);
 			}
+			if(merthd=='Url'){
+				this.setState({
+					isInit: false,
+					imgUpload:true,
+					imgSrc:defaultValue
+			  	});
+			  	return;
+			}
+
 		}else{
 			this.setState({
 				isInit: false,
@@ -87,6 +95,7 @@ export default class UploadImageComponent extends Component {
 				imgSrc:defaultValue
 		  });
 		}
+		
 
 	}
 
