@@ -20,16 +20,12 @@ export default class Text  extends React.Component{
         this.isCommon=false;
     }
 
-    componentDidMount(){
-        let {getEdit,isCommon}=this.props;
-        if(isCommon){
-            return;
-        }
-        if(getEdit.sourceType=='PUBLIC_DICT'){
+    commonPublic=(param)=>{
+        if(param.sourceType=='PUBLIC_DICT'){
             this.setState({
-                models:this.sourceRender(getEdit.sourceOrgin),
+                models:this.sourceRender(param.sourceOrgin),
             })
-        }else if(getEdit.sourceType=="CUSTOM"){
+        }else if(param.sourceType=="CUSTOM"){
             this.setState({
                models:this.selfRender(),
             })
@@ -38,6 +34,14 @@ export default class Text  extends React.Component{
                models:null,
             }) 
         }
+    }
+
+    componentDidMount(){
+        let {getEdit,isCommon}=this.props;
+        if(isCommon){
+            return;
+        }
+        this.commonPublic(getEdit);
     }
 
     componentWillReceiveProps(nextProps){
@@ -50,20 +54,7 @@ export default class Text  extends React.Component{
         if(this.isCommon||nextProps.isCommon){
             return;
         }
-        if(nextProps.getEdit.sourceType=='PUBLIC_DICT'){
-                this.setState({
-                    models:this.sourceRender(nextProps.getEdit.sourceOrgin),
-                }) 
-        }else if(nextProps.getEdit.sourceType=="CUSTOM"){
-            this.setState({
-               models:this.selfRender(),
-            })
-        }else{
-
-           this.setState({
-               models:null,
-            }) 
-        }
+        this.commonPublic(nextProps.getEdit);
     }
 
     selfRender=()=>{
@@ -93,7 +84,7 @@ export default class Text  extends React.Component{
 				 })
 			 }else{
                  Store.dispatch(change('EditText','itemListStr',[]));
-                this.setState({
+                 this.setState({
                     models:null,
 				 }) 
              }
