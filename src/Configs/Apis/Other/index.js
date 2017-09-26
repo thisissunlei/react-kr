@@ -648,11 +648,7 @@ const APIS = {
         method: 'get'
     },
 
-    //运营平台-会员管理-会员配置-会员卡激活-会卡列表
-    'CardActivationList': {
-        url: '/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
-        method: 'get'
-    },
+    
     //运营平台-会员管理-会员配置-列表
     'memberCardList': {
         url: '/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
