@@ -102,6 +102,7 @@ export default class EquipmentDetail extends React.Component{
 		let {detail} = this.props;
 		let {showReported,showDesired} = this.state;
 		var params = detail.deviceVO;
+		console.log("params",params);
 		return (
 			<div className="seconde-dialog">
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>

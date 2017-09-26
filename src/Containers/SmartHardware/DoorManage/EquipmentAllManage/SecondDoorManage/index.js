@@ -82,7 +82,7 @@ export default class SecondDoorManage  extends React.Component{
 		
 	}
 	seeDetailInfoFun=(value,itemData)=>{
-
+		console.log("value",value);
 		if(value.maker == "KRSPACE"){
 			this.secondEquipment(value);
 		}else{
