@@ -57,7 +57,7 @@ class TextInfo  extends React.Component{
             sourceCome:[]
 
 		}
-		this.moveData = [];
+		this.checkedData = [];
 	}
 
 
@@ -84,16 +84,28 @@ class TextInfo  extends React.Component{
 		if(!item.fields){
 			item.fields=[];
 		}
-		Store.dispatch(change('TextInfo',`fields${index}`,item.fields));
+		Store.dispatch(change('TextInfo',`fields${index}`,this.tabelFilter(item.fields)));
 	})
 	
 	detailInfo.map((item,index)=>{
 		if(!item.fields){
 			item.fields=[];
 		}
-		Store.dispatch(change('TextInfo',`detailFields${index}`,item.fields));
+		Store.dispatch(change('TextInfo',`detailFields${index}`,this.tabelFilter(item.fields)));
 	})
 	
+  }
+  tabelFilter = (arr) =>{
+	var data = arr.map((item,index)=>{
+		for(let i=0;i<this.checkedData.length;i++){
+			if(item.id === this.checkedData[i].id){
+				item.checked = true;
+				break;
+			}
+		}
+		return item;
+	})
+	return data;
   }
 
   //主表和明细表
@@ -342,11 +354,14 @@ class TextInfo  extends React.Component{
  }
 
  //排序
- moveClick=(params)=>{
+ moveClick=(params)=>{ 
+  
   let {basicInfo}=this.props;
+
   var param={};
   var ids=[];
   var detailId='';
+  this.getCheckedData(params);
   params.map((item,index)=>{
 	ids.push(item.id);
 	detailId=item.detailId;
@@ -355,12 +370,21 @@ class TextInfo  extends React.Component{
   param.detailId=detailId;
   var _this=this;
   Http.request('form-field-order',{},param).then(function(response) {
-	   _this.getTextInfo(basicInfo.id);
+	   //_this.getTextInfo(basicInfo.id);
 	  }).catch(function(err) {
 	  Message.error(err.message);
   });
  }
+getCheckedData = (arr) =>{
+	var checkedData = [];
+	arr.map((item,index)=>{
+		if(item.checked){
+			checkedData.push(item);
+		}
+	})
+	this.checkedData = [].concat(checkedData);
 
+}
 //数据来源
  getList=()=>{ 
 	var _this=this;

@@ -16,6 +16,13 @@ export default class CheckBoxComponent extends React.Component{
 			checked:props.checked||false,
 		}
 	}
+	componentDidMount() {
+		let {input,onCheck,marking} = this.props;
+		if(marking === "tab-field"){
+			input.onChange(false);
+		}
+		
+	}
 
 	onCheck = (checked) =>{
 		let {input,onCheck} = this.props;
