@@ -243,11 +243,11 @@ module.exports = [
 						router: '/member/memberManage/doormanage',
 						menuCode: 'door_base',
 					},
-					{
-						primaryText: '设备定义',
-						menuCode: 'sysDeviceDefinitionList',
-						router: '/operation/basicconfig/equipmentdefinition'
-					},
+					// {
+					// 	primaryText: '设备定义',
+					// 	menuCode: 'sysDeviceDefinitionList',
+					// 	router: '/operation/basicconfig/equipmentdefinition'
+					// },
 
 				]
 			},
