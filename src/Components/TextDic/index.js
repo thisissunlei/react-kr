@@ -3,6 +3,10 @@ import './index.less';
 import KrField from '../KrField';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import Text from './Text';
+import {reduxForm,change,initialize}  from 'redux-form';
+import {
+	Store
+} from 'kr/Redux';
 
 export default class TextDic extends React.Component{
 
@@ -28,7 +32,7 @@ export default class TextDic extends React.Component{
             getEdit:{},
 
             //isCommon
-            isCommon:false
+            isCommon:0
         }
         this.isCommon=false;
     }
@@ -114,15 +118,18 @@ export default class TextDic extends React.Component{
         this.setState({
             isThree:true,
             label:param.value,
-            isCommon:true
+            isCommon:new Date().getTime()
         })
+        Store.dispatch(change('EditText','sourceType',''));
+        Store.dispatch(change('AddText','sourceType',''));
+        Store.dispatch(change('AddText','sourceOrgin',''));
+        Store.dispatch(change('EditText','sourceOrgin',''));
     }
 
-		onChange=(param)=>{
-			const {onChange}=this.props;
-			onChange && onChange(param);
-
-		}
+      onChange=(param)=>{
+            const {onChange}=this.props;
+            onChange && onChange(param);
+       }
 
 
 	render(){
@@ -163,10 +170,10 @@ export default class TextDic extends React.Component{
                         value={label}
                     />}
                     {isThree&&<Text 
-                    label={label} 
-                    onChange={this.onChange}
-                    getEdit={getEdit}
-                    isCommon={isCommon}
+                        label={label} 
+                        onChange={this.onChange}
+                        getEdit={getEdit}
+                        isCommon={isCommon}
                     />}
                 </div>
 

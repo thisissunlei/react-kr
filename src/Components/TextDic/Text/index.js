@@ -23,7 +23,7 @@ export default class Text  extends React.Component{
     commonPublic=(param,sourceOrgin)=>{
         if(param=='PUBLIC_DICT'){
             this.setState({
-                models:this.sourceRender(sourceOrgin),
+              models:this.sourceRender(sourceOrgin),
             })
         }else if(param=="CUSTOM"){
             this.setState({
@@ -40,21 +40,20 @@ export default class Text  extends React.Component{
 
     componentDidMount(){
         let {getEdit,isCommon}=this.props;
-        if(isCommon){
+        if(isCommon!=0){
             return;
         }
         this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin);
     }
 
     componentWillReceiveProps(nextProps){
-       
-        if(nextProps.isCommon&&!this.isCommon){
+        if(nextProps.isCommon!=this.props.isCommon){
            Store.dispatch(change('EditText','sourceType',''));
            this.setState({
               models:null,
            }) 
         }
-        if(this.isCommon||nextProps.isCommon){
+        if(this.isCommon||nextProps.isCommon!=0){
             return;
         }
         this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin);
@@ -81,9 +80,8 @@ export default class Text  extends React.Component{
 
     sourceChange=(param)=>{
             this.isCommon=true;
-
-            this.commonPublic(param.value,'',);
-		}
+            this.commonPublic(param.value,'');
+	}
 
     sourceRender=(publicValue)=>{
             return <KrField grid={1/2}
