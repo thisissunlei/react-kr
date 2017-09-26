@@ -144,11 +144,11 @@ class ViewOpinion extends React.Component {
 							/>
 						 	<KrField  
 					 			grid={1/2}
-					 			style={{width:260}} 
+					 			style={{width:548}}
 					 			label="内容" 
 					 			inline={false} 
 								component="labelText"
-								value={infoList.address?infoList.address:"无"}
+								value={infoList.content?infoList.content:"无"}
 						 	/>
 						 	
 							<div className="u-photo-box">
