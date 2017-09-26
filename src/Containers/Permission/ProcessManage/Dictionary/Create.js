@@ -38,8 +38,6 @@ class NewCreateForm extends React.Component{
 	}
 	componentWillMount() {
 		Store.dispatch(change('NewCreateForm','dataType',"STATIC"));
-
-		
 	}
 	arrDel=(arr)=>{
       	let tmp = [];
@@ -61,6 +59,13 @@ class NewCreateForm extends React.Component{
 		let valueNone = false;
 		let orderNumNone = false;
 		let tableNone = false;
+		value.itemListStr = value.itemListStr.map((item)=>{
+			if(!item.isDefault){
+				item.isDefault = false;
+			}
+			return item;
+
+		})
 		if(!value.itemListStr){
 			Notify.show([{
 				message: '请添加字典项',
@@ -134,6 +139,7 @@ class NewCreateForm extends React.Component{
 		let orderNumCop=false;
 		let valueCop=false;
 		let labelCop=false;
+		
 		for(var i in orderNumArray){
 			if(tmp.indexOf(orderNumArray[i])!=-1){
 				orderNumCop = true;
@@ -177,6 +183,19 @@ class NewCreateForm extends React.Component{
 		if(labelCop){
 			Notify.show([{
 				message: '选项文字不可重复',
+				type: 'danger',
+			}]);
+			return;
+		}
+		let orderNumType=false;
+		orderNumArray.map(item=>{
+			if(!item || isNaN(item)){
+				orderNumType=true;
+			}
+		})
+		if(orderNumType){
+			Notify.show([{
+				message: '排序号只能为数字',
 				type: 'danger',
 			}]);
 			return;
@@ -229,6 +248,7 @@ class NewCreateForm extends React.Component{
 					 	name = "itemListStr" 
 						toolbar = {true}
 						checkbox = {true}
+
 						
 					 >
 						 <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
