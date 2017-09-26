@@ -156,6 +156,7 @@ export default class FormList extends Component{
 	
 	//高级查询提交
 	onSearchUpperSubmit=(params)=>{
+		params = Object.assign({},params)
 		params.typeId=this.props.id;
 		params.pageSize=15;
 		params.page=1;
@@ -174,6 +175,7 @@ export default class FormList extends Component{
 
 	//新建确定
 	addSubmit = (values) =>{
+		values = Object.assign({},values)
 		var _this=this;
 		Http.request('form-add-list',{},values).then(function(response) {
 					var searchParams={};
@@ -188,6 +190,7 @@ export default class FormList extends Component{
 	}
 	//编辑确定
 	editSubmit = (params) =>{
+			params = Object.assign({},params)
 			delete params.records;
 			delete params.purposeStr;
 			delete params.enabledStr;
@@ -207,6 +210,7 @@ export default class FormList extends Component{
 
  //创建表提交
   addRemoveSubmit=(params)=>{
+		params = Object.assign({},params);
     let {creatId}=this.state;
 		let _this=this;
 		Http.request('form-create-table',{},{formId:creatId}).then(function(response) {

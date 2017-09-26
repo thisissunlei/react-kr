@@ -268,12 +268,9 @@ class TextInfo  extends React.Component{
 	values.detailId=detailId;
 	values.formId=basicInfo.id;
 	var _this=this;
-	console.log("-----------0")
 	Http.request('form-field-add',{},values).then(function(response) {
-		 console.log("-----------1")
 		 _this.getTextInfo(basicInfo.id);
 		 _this.cancelAddText();
-		 console.log("-----------2")
 		}).catch(function(err) {
 		Message.error(err.message);
 	});
@@ -304,6 +301,7 @@ class TextInfo  extends React.Component{
  }
 
  onEditTextSub=(params)=>{
+	  params = Object.assign({},params);
 	if(params.inputType=='SELECT'||params.inputType=='CHECK'){
 		params.itemListStr=JSON.stringify(params.itemListStr);
 		delete params.items;
