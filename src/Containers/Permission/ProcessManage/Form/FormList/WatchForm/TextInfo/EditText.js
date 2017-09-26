@@ -47,19 +47,10 @@ class EditText  extends React.Component{
     }
 
      
-     callBack=(param,oldParam)=>{
+     callBack=(param)=>{
         var seArr=[];
         var _this=this;
-        if(oldParam.setting){
-            var setting=JSON.parse(oldParam.setting);
-            setting.map((item,index)=>{
-                 for(var index in item){
-                 seArr.push(index);   
-                 Store.dispatch(change('EditText',index,'')); 
-                 }
-             })
-        }  
-        if(param.setting!=oldParam.setting){
+        if(param.setting){
             var setting=JSON.parse(param.setting);
             setting.map((item,index)=>{
                for(var index in item){
@@ -95,6 +86,7 @@ class EditText  extends React.Component{
                             component="input"
                             label="字段名称 "
                             requireLabel={true}
+                            marking={true}
 						/>
 
 
@@ -104,6 +96,7 @@ class EditText  extends React.Component{
                             name="label"
                             component="input"
                             label="字段显示名"
+                            marking={true}
                             />
 
 

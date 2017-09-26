@@ -43,6 +43,12 @@ export default class InputComponent extends React.Component{
 		onFocus && onFocus(value)
 	}
 
+	componentWillUnmount(){
+		let {input,marking} = this.props;
+		if(marking){
+			input.onChange('');
+		}
+	}
 
 	render(){
 

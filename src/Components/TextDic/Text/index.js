@@ -119,6 +119,7 @@ export default class Text  extends React.Component{
                 component="input"
                 label="文本长度"
                 requireLabel={true}
+                marking={true}
             />
     }
 
@@ -141,6 +142,7 @@ export default class Text  extends React.Component{
                 name="wsheight"
                 component="input"
                 label="高度"
+                marking={true}
             />
     }
 
@@ -172,6 +174,7 @@ export default class Text  extends React.Component{
                     component="input"
                     label="文件大小(单位:k)"
                     requireLabel={true}
+                    marking={true}
                 />
                     <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
                         <KrField name="wsenabled" label="允许" type="radio" value='true' />
@@ -188,6 +191,7 @@ export default class Text  extends React.Component{
                             name="wspicWidth"
                             component="input"
                             label="图片宽度(单位:px)"
+                            marking={true}
                     />
                     <KrField
                             grid={1/2}
@@ -195,6 +199,7 @@ export default class Text  extends React.Component{
                             name="wspicHeight"
                             component="input"
                             label="图片高度(单位:px)"
+                            marking={true}
                     />
 				 </div>
 		}
