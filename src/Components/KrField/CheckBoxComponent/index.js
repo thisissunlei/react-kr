@@ -16,6 +16,7 @@ export default class CheckBoxComponent extends React.Component{
 			checked:props.checked||false,
 		}
 	}
+	
 
 	onCheck = (checked) =>{
 		let {input,onCheck} = this.props;

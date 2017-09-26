@@ -26,13 +26,16 @@ let State = observable({
 State.getDicOptions= action(function() {
 	Http.request('getWarningType',{}).then(function(response) {
 		var arrNew = []
-		for (var i=0;i<response.UpgradeType.length;i++){
+		if(response.UpgradePkgType){
+			for (var i=0;i<response.UpgradePkgType.length;i++){
 
 			arrNew[i] = {
-						label:response.UpgradeType[i].desc,
-						value:response.UpgradeType[i].value
+						label:response.UpgradePkgType[i].desc,
+						value:response.UpgradePkgType[i].value
 					}
+			}
 		}
+
 		State.upgradeTypeOptions = arrNew;
 	}).catch(function(err) {
 		Message.error(err.message);

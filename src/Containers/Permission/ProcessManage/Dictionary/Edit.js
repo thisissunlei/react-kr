@@ -39,14 +39,11 @@ class EditForm extends React.Component{
 		}
 	}
 	componentDidMount() {
-		console.log('did----------');
 		Store.dispatch(initialize('EditForm',State.data));
 		Store.dispatch(change('EditForm','items',toJS(State.data.items)));
 
 	}
 	componentWillReceiveProps(nextProps) {
-		console.log('will----------',nextProps.array)
-		// Store.dispatch(initialize('EditForm',State.data));
 	}
 	onSubmit=(value)=>{
 		let labelArr = [];
@@ -57,8 +54,15 @@ class EditForm extends React.Component{
 		let orderNumNone = false;
 		let tableNone = false;
 		value.itemListStr = value.items;
+		
+		value.itemListStr = value.itemListStr.map((item)=>{
+			if(!item.isDefault){
+				item.isDefault = false;
+			}
+			return item;
+
+		});
 		let tableVlaue = value.itemListStr;
-		console.log('---------->',value.items)
 		if(!value.items.length){
 			Notify.show([{
 				message: '请添加字典项',
@@ -175,6 +179,19 @@ class EditForm extends React.Component{
 		if(labelCop){
 			Notify.show([{
 				message: '选项文字不可重复',
+				type: 'danger',
+			}]);
+			return;
+		}
+		let orderNumType=false;
+		orderNumArray.map(item=>{
+			if(!item || isNaN(item)){
+				orderNumType=true;
+			}
+		})
+		if(orderNumType){
+			Notify.show([{
+				message: '排序号只能为数字',
 				type: 'danger',
 			}]);
 			return;

@@ -32,13 +32,8 @@ export default class Table extends React.Component {
       fold:false,
       handerChecked:false,
       checkedArr:[],
-      
-
       //批量删除
       openDelForm:false
-
-
-
     }
   }
   componentDidMount() {

@@ -44,6 +44,7 @@ import NewVisitorsToRecord from "./NewVisitorsToRecord";
 import EditVisitorsToRecord from "./EditVisitorsToRecord";
 import VisitorsToRecordDetail from "./VisitorsToRecordDetail";
 import VisitorsSearchForm from "./SearchForm";
+import VisitToState from './VisitToState';
 @inject("FormModel")
 @observer
 
@@ -53,19 +54,23 @@ class VisitorsToRecord  extends React.Component{
 		super(props, context);
 		let date = new Date();
 		this.state={
+      editDetail:'',
 			searchParams:{
 				searchType:'',
         id:"",
 				page: 1,
-     			pageSize: 15,
-     			visitType:'',
-     			searchKey:'',
-     			date:date
+        pageSize: 15,
+        visitType:'',
+        searchKey:'',
+        communityId:'',
+         date:date,
+         vtime:''
 			},
       openNewVisitors:false,
       openEditVisitors:false,
       openVisitorsDetail:false,
       openUpperForm:false,
+      openVisitToState:false,
 
       select : {
         //活动类型
@@ -89,6 +94,7 @@ class VisitorsToRecord  extends React.Component{
         searchType:'NAME',
       },
       typeValue:"",
+      allVisitNum:0,
 
 		}
     this.readyData();
@@ -130,13 +136,20 @@ class VisitorsToRecord  extends React.Component{
       })
 
     Http.request("visit-record-edit-deatil",{id:id}).then(function(editData){
-      editData.vtime = DateFormat(editData.vtime,"yyyy-mm-dd hh:MM:ss");
+      var vtime = DateFormat(editData.vtime,"yyyy-mm-dd hh:MM");
+      editData.date = vtime.split(" ")[0];
+      editData.time = vtime.split(" ")[1];
+      if(!editData.visitStatus || editData.visitStatus == "NONE"){
+        editData.visitStatus = "UNVISIT"
+      }
+      
       FormModel.getForm("EditVisitorsToRecord")
   		         .changeValues(editData);
       _this.setState({
         typeValue:editData.typeId,
         openEditVisitors:true,
-        id:itemDetail.id
+        id:itemDetail.id,
+        editDetail:editData
       })
     }).catch(function(err) {
       Message.error(err.message);
@@ -154,6 +167,7 @@ class VisitorsToRecord  extends React.Component{
      		pageSize: searchParams.pageSize,
      		searchType:value.filter,
      		visitType:searchParams.visitType,
+        communityId:searchParams.communityId,
      		date:date
 			},
 
@@ -182,6 +196,7 @@ class VisitorsToRecord  extends React.Component{
         purposeId:'',
         interviewRoundId:'',
         vtime:'',
+        
       })
 
    }
@@ -212,7 +227,7 @@ class VisitorsToRecord  extends React.Component{
    		openUpperForm:true,
    	})
     FormModel.getForm("VisitorsSearchForm")
-             .changeValues({visitType:''})
+             .changeValues({visitType:'',visitStatus:''})
   }
    //关闭高级查询
    closeUpperForm = () =>{
@@ -232,20 +247,31 @@ class VisitorsToRecord  extends React.Component{
        openVisitorsDetail:false,
      })
    }
+   //状态到访状态
+   switchVisitToState = () =>{
+     const {openVisitToState} = this.state;  
+     this.setState({
+       openVisitToState:!openVisitToState
+     })
+   }
 
    //高级查询确定
    upperFormSubmit = (values) =>{
      let {searchParams} = this.state;
  	  let date = new Date();
+     
        
     	 this.setState({
-         searchParams:{
- 				searchKey:values.searchKey,
- 				page: searchParams.page,
+          searchParams:{
+ 				  searchKey:values.searchKey,
+ 				  page: searchParams.page,
       		pageSize: searchParams.pageSize,
       		searchType:values.searchType,
       		visitType:values.visitType,
-      		date:date
+          communityId:values.communityId||"",
+          date:date,
+          visitStatus:values.visitStatus,
+          vtime:values.vtime,
  			},
     })
     this.closeUpperForm();
@@ -253,7 +279,7 @@ class VisitorsToRecord  extends React.Component{
    }
    //提交新建
 	onSubmit = (params) =>{
-
+   
     let {id} = this.state;
     let _this = this;
     var page='';
@@ -261,7 +287,8 @@ class VisitorsToRecord  extends React.Component{
     if(!id){
       page=1;
     }
-    Http.request("visit-record-edit",params).then(function(select){
+    
+    Http.request("visit-record-edit",{},params).then(function(select){
       _this.refreshList(page);
       _this.closeNewVisitors();
       _this.closeEditVisitors();
@@ -275,6 +302,7 @@ class VisitorsToRecord  extends React.Component{
 	}
 	//相关操作
 	onOperation = (type, itemDetail) =>{
+    let {FormModel} = this.props;
 		if(type === "edit"){
         this.getEidtData(itemDetail.id,itemDetail);
 		}
@@ -283,6 +311,18 @@ class VisitorsToRecord  extends React.Component{
          openVisitorsDetail:true,
          detailData:itemDetail
       })
+    }
+    if(type == "visit"){
+        if(!itemDetail.visitStatus || itemDetail.visitStatus=="NONE"){
+          itemDetail.visitStatus = "UNVISIT"
+        }
+        var params = {
+          id:itemDetail.id,
+          visitStatus:itemDetail.visitStatus
+        }
+        FormModel.getForm("VisitToState")
+  		         .changeValues(params);
+      this.switchVisitToState()
     }
 	}
   //全部关闭
@@ -307,6 +347,7 @@ class VisitorsToRecord  extends React.Component{
         pageSize: searchParams.pageSize,
         searchType:searchParams.searchType,
         visitType:searchParams.visitType,
+        communityId:searchParams.communityId||'',
         date:date
 			}
    	})
@@ -331,6 +372,18 @@ class VisitorsToRecord  extends React.Component{
     })
 
   }
+  //到访状态提交
+  VisitToStateSubmit = (values) =>{
+    var params = Object.assign({},values); 
+    var that = this;
+    Http.request("change-visit-state",{},params).then(function(select){
+      that.switchVisitToState();
+      that.refreshList();
+    }).catch(function(err) {
+
+      Message.error(err.message);
+    });
+  }
 
 
   onPageChange=(page)=>{
@@ -341,6 +394,11 @@ class VisitorsToRecord  extends React.Component{
        searchParams:Object.assign({},this.state.searchParams,searchParams)
     })
   }
+  tableLoaded = (values) =>{
+    this.setState({
+      allVisitNum:values.totalCount
+    })
+  }
 
 
 	render(){
@@ -349,20 +407,24 @@ class VisitorsToRecord  extends React.Component{
           openNewVisitors,
           openEditVisitors,
           openVisitorsDetail,
+          openVisitToState,     
           select,
           detailData,
           openUpperForm,
           searchContent,
-          typeValue
+          typeValue,
+          allVisitNum,
+          editDetail
         } = this.state;
 
 		return(
 			<div className="m-equipment-list m-visitors-to-record" style={{minHeight:'910'}}>
-				<Title value="预约参观" style = {{}}/>
-      		<Section title="预约参观"  style={{marginBottom:-5,minHeight:910}}>
+				<Title value="预约参观" />
+      		<Section title={"预约参观("+allVisitNum+")"}   style={{marginBottom:-5,minHeight:910}}>
 
 		        <Row style={{marginBottom:21,zIndex:3,position:"relative"}}>
-				          <Col
+              
+				      <Col
 						     align="left"
 						     style={{float:'left'}}
 						   >
@@ -378,37 +440,42 @@ class VisitorsToRecord  extends React.Component{
 
                         <ListGroupItem>
 
-                          <SearchForms placeholder='请输入关键字' searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} onChange ={this.searchChange}  onSubmit={this.onSearchSubmit} onFilter = {this.ToObtainType} />
+                          <SearchForms placeholder='请输入关键字' searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"},{label:"访客身份证号",value:"ID_CARD"}]} onChange ={this.searchChange}  onSubmit={this.onSearchSubmit} onFilter = {this.ToObtainType} />
                         </ListGroupItem>
                         <ListGroupItem><Button searchClick={this.openUpperForm}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 					          </ListGroup>
 				          </Col>
+                  
 		        </Row>
 
 
 	            <Table
-				    style={{marginTop:8}}
-	                ajax={true}
-	                onProcessData={
-							(state)=>{
-								return state;
-							}
-						}
-					onOperation={this.onOperation}
-		            displayCheckbox={false}
-		            ajaxParams={searchParams}
-		            ajaxUrlName='visit-record-list'
-		            ajaxFieldListName="items"
+                  style={{marginTop:8}}
+                        ajax={true}
+                        onProcessData={
+                    (state)=>{
+                      return state;
+                    }
+                  }
+                  onOperation={this.onOperation}
+                  displayCheckbox={false}
+                  ajaxParams={searchParams}
+                  ajaxUrlName='visit-record-list'
+                  ajaxFieldListName="items"
 	                onExport={this.onExport}
                   onPageChange={this.onPageChange}
 	                exportSwitch={false}
-				>
+                  onLoaded = {this.tableLoaded}
+				      >
 			            <TableHeader>
 			              <TableHeaderColumn>访客姓名</TableHeaderColumn>
 			              <TableHeaderColumn>访客电话</TableHeaderColumn>
 			              <TableHeaderColumn>访客类型</TableHeaderColumn>
 			              <TableHeaderColumn>所属社区</TableHeaderColumn>
 			              <TableHeaderColumn>访客时间</TableHeaderColumn>
+			              <TableHeaderColumn>访客身份证号</TableHeaderColumn>
+			              <TableHeaderColumn>是否已到访</TableHeaderColumn>
+			              <TableHeaderColumn>备注</TableHeaderColumn>
 			              <TableHeaderColumn>操作</TableHeaderColumn>
 
 			          	</TableHeader>
@@ -416,7 +483,9 @@ class VisitorsToRecord  extends React.Component{
 				        <TableBody >
 				          <TableRow>
 			                <TableRowColumn name="name"></TableRowColumn>
-			                <TableRowColumn name="tel"></TableRowColumn>
+			                <TableRowColumn name="tel"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                      ></TableRowColumn>
 			                <TableRowColumn name="typeId"
                         component={(value,oldValue)=>{
 
@@ -431,18 +500,51 @@ class VisitorsToRecord  extends React.Component{
                            return <span>{detail}</span>;
                         }}
                       ></TableRowColumn>
-			                <TableRowColumn name="communityName"></TableRowColumn>
+			                <TableRowColumn name="communityName"
+                      style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                      ></TableRowColumn>
 			                <TableRowColumn name="vtime"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
                         component={(value,oldValue)=>{
-                           return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                           return (<KrDate value={value} format="yyyy-mm-dd hh:MM"/>)
                         }}
 
                       ></TableRowColumn>
-
+                       <TableRowColumn name="idCard"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                        component={(value,oldValue)=>{
+                          var detail='';
+                          if(!value){
+                            detail='-';
+                          }else{
+                            detail=value;
+                          }
+                           return <span>{detail}</span>;
+                        }}
+                      ></TableRowColumn>
+                      <TableRowColumn 
+                        name="visitStatus"
+                        options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访',value:"VISIT"}]}
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                       
+                      ></TableRowColumn>
+                       <TableRowColumn name="descr"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                        component={(value,oldValue)=>{
+                          var detail='';
+                          if(!value){
+                            detail='-';
+                          }else{
+                            detail=value;
+                          }
+                           return <span>{detail}</span>;
+                        }}
+                      ></TableRowColumn>
 
 			                <TableRowColumn type="operation">
                           <Button label="查看"  type="operation"  operation="detail" />
 			                    <Button label="编辑" operateCode="com_sys_visit_edit" type="operation"  operation="edit" />
+			                    <Button label="标记" operateCode="com_sys_visit_edit" type="operation"  operation="visit" />
 			                </TableRowColumn>
 				          </TableRow>
 				        </TableBody>
@@ -473,7 +575,8 @@ class VisitorsToRecord  extends React.Component{
                     onCancel= {this.closeEditVisitors}
                     onSubmit = {this.onSubmit}
                     typeValue = {typeValue}
-                    />
+                    editDetail = {editDetail}
+                  />
              </Drawer>
 
              {/*查看详情*/}
@@ -494,7 +597,7 @@ class VisitorsToRecord  extends React.Component{
                 modal={true}
                 onClose={this.closeUpperForm}
                 open={openUpperForm}
-                contentStyle ={{ width: '666',height:240,overflow:'visible'}}
+                contentStyle ={{ width: '666',height:'auto',overflow:'visible'}}
               >
                <VisitorsSearchForm
                   select = {select}
@@ -503,7 +606,17 @@ class VisitorsToRecord  extends React.Component{
 
               />
               </Dialog>
-
+              {/*到访状态*/}
+              <Dialog
+                title="到访状态"
+               
+                modal={true}
+                onClose={this.switchVisitToState}
+                open={openVisitToState}
+                contentStyle ={{ width: '666',height:240,overflow:'visible'}}
+              >
+                 <VisitToState onCancel={this.switchVisitToState} onSubmit={this.VisitToStateSubmit}  />
+              </Dialog>
 
 
 	     </div>

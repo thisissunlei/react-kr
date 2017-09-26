@@ -98,6 +98,7 @@ export default class JoinCreate extends Component {
 		var _this = this;
 		Http.request('getFnaContractRentController','' ,formValues).then(function(response) {
 			_this.isConfirmSubmiting = false;
+			_this.openConfirmCreateDialog()
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
@@ -107,7 +108,7 @@ export default class JoinCreate extends Component {
 			_this.props.CommunityAgreementList.openTowAgreement=false;
 			_this.props.CommunityAgreementList.openOneAgreement=false;
 			_this.props.CommunityAgreementList.openLocalStorage = false;
-			// location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/reduce/" + response.contractId + "/detail";
+
 		}).catch(function(err) {
 			_this.isConfirmSubmiting = false;
 			Notify.show([{
