@@ -297,6 +297,7 @@ export default class JoinCreate extends Component {
 
 		let {CommunityAgreementList} = this.props;
 		optionValues.saleList = CommunityAgreementList.saleList;
+		console.log('======>',optionValues.saleList)
 
 		return (
 

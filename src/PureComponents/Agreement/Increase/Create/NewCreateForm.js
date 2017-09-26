@@ -1453,7 +1453,7 @@ class NewCreateForm extends Component {
 						</div>
 						{stationVos.length>5?<div className="Btip"  onTouchTap={this.showMore}> <p><span>{HeightAuto?'收起':'展开'}</span><span className={HeightAuto?'Toprow':'Bottomrow'}></span></p></div>:''}
                    </DotTitle>
-				   {optionValues.saleList && <DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
+				   {optionValues.saleList && !!optionValues.saleList.length && <DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
 						<FieldArray name='saleList' component={this.renderBrights}/>
 
 				    </DotTitle>}
