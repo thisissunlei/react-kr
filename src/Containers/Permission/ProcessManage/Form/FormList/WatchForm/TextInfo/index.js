@@ -83,6 +83,7 @@ class TextInfo  extends React.Component{
 		if(!item.fields){
 			item.fields=[];
 		}
+		console.log('info',index,item.fields);
 		Store.dispatch(change('TextInfo',`fields${index}`,item.fields));
 	})
 	detailInfo.map((item,index)=>{
@@ -225,8 +226,11 @@ class TextInfo  extends React.Component{
 	 })
  }
  allClose=()=>{
+	const {onClose}=this.props;
+	onClose && onClose();
 	this.setState({
-		openAddText:false
+		openAddText:false,
+		openEditText:false
 	 })
  }
 
