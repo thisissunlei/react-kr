@@ -32,31 +32,16 @@ export default class TextDic extends React.Component{
 
   
     componentDidMount(){
-        let {isEdit,getEdit}=this.props;
-        var _this=this;
         this.setState({
 			inputType:DictionaryConfigs.ERP_InputType,
             nexts:DictionaryConfigs.ERP_ComponentType,
-        },function(){
-            if(isEdit&&getEdit.inputType){
-                _this.nextArrRender(getEdit.inputType,_this.state.nexts,function(){
-                    _this.setState({
-                        label:getEdit.compType,
-                        isTrue:true, 
-                        isThree:true,
-                        getEdit
-                    },function(){
-                        const {callBack}=_this.props;
-                        callBack && callBack();
-                    })
-                });
-             }
         })     
     }
 
     componentWillReceiveProps(nextProps){
         var _this=this;
-        if(nextProps.isEdit&&nextProps.getEdit.inputType){
+        if(nextProps.isEdit&&!this.props.getEdit.inputType){
+            if(nextProps.isEdit&&nextProps.getEdit.inputType){
                 _this.nextArrRender(nextProps.getEdit.inputType,_this.state.nexts,function(){
                 _this.setState({
                     label:nextProps.getEdit.compType,
@@ -68,7 +53,8 @@ export default class TextDic extends React.Component{
                     callBack && callBack();
                 })
             });
-         }
+          } 
+        }   
     }
 
    

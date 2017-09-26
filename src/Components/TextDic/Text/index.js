@@ -27,25 +27,21 @@ export default class Text  extends React.Component{
 
 
     componentWillReceiveProps(nextProps){
-       if(nextProps.getEdit.sourceType=='PUBLIC_DICT'){
-            this.setState({
-                models:this.sourceRender(nextProps.getEdit.sourceOrgin),
-            }) 
-       }else{
-            this.setState({
-                models:null,
-            })  
-       }
+        if(nextProps.getEdit.sourceType=='PUBLIC_DICT'){
+                this.setState({
+                    models:this.sourceRender(nextProps.getEdit.sourceOrgin),
+                }) 
+        }
     }
 
     sourceChange=(param)=>{
 			if(param.value=="PUBLIC_DICT"){
 				 this.setState({
-                    models:this.sourceRender()
+                    models:this.sourceRender(),
 				 })
 			 }else{
 				 this.setState({
-                    models:null
+                    models:null,
 				 })
 			 }
 			 const {onChange}=this.props;
@@ -158,11 +154,58 @@ export default class Text  extends React.Component{
 
     dateRender=()=>{
         return <KrField grid={1/2}
-                    style={{width:262,marginLeft:30}}
+                    style={{width:262}}
                     name="wsdate"
                     component="date"
                     label="日期"
                 />
+    }
+
+    timeRender=()=>{
+        let {getEdit}=this.props;
+        var time='';
+        if(getEdit.setting){
+            var setting=JSON.parse(getEdit.setting);
+            setting.map((item,index)=>{
+               for(var index in item){
+                time=item[index];
+               }
+            })
+        }
+        return <KrField 
+          component="selectTime" 
+          label='时间'
+          timeNum={time}  
+          style={{width:262}} 
+          name='wsdate'/>
+    }
+
+    dateTimeRender=()=>{
+        let {getEdit}=this.props;
+        var time='';
+        if(getEdit.setting){
+            var setting=JSON.parse(getEdit.setting);
+            setting.map((item,index)=>{
+               for(var index in item){
+                time=item['wstime'];
+               }
+            })
+        }
+        return <div style={{width:262,padding:0}}>
+                        <KrField
+                            name="wsdate"
+                            component="date"
+                            style={{width:170}}
+                            requireLabel={true}
+                            label='日期时间'
+                        />
+                        <KrField
+                            name="wstime"
+                            component="selectTime"
+                            timeNum={time}
+                            style={{width:80,marginTop:14,zIndex:10}}
+                         />
+				</div>
     }
 
 
@@ -236,11 +279,11 @@ export default class Text  extends React.Component{
                 break;
           }
           case 'TIME_TIME':{
-                component = _this.dateRender()
+                component = _this.timeRender()
                 break;
           }
-           case 'TIME_DATETIME':{
-                component = _this.dateRender()
+          case 'TIME_DATETIME':{
+                component = _this.dateTimeRender()
                 break;
           }
         case 'SELECT_SELECT':{

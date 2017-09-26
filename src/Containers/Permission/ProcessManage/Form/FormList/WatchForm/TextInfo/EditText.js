@@ -32,12 +32,7 @@ class EditText  extends React.Component{
     
     
     componentDidMount(){
-      let {getEdit}=this.props;
-      if(getEdit.sourceType=='CUSTOM'){
-        this.setState({
-            model:this.dynamicRender()
-        })
-      }
+      
     }
 
     componentWillReceiveProps(nextProps){
@@ -45,7 +40,11 @@ class EditText  extends React.Component{
             this.setState({
                 model:this.dynamicRender()
             })
-          }
+        }else{
+            this.setState({
+                model:null
+            })  
+        }
     }
 
     onSubmit=(values)=>{
