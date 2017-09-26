@@ -144,7 +144,6 @@ export default class Form  extends React.Component{
                 { data.id === 0 &&
                     <TabC label='类型列表'>
                       <TypeList 
-                          id={data.id}
                           addSubmit={this.addSubmit}
                           editSubmit={this.editSubmit}
                       />
@@ -153,7 +152,7 @@ export default class Form  extends React.Component{
 
                  <TabC label='表单列表'>
                    <FormList 
-                      id={data.id}
+                     data={data}
                    />
                  </TabC>
                

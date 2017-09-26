@@ -48,7 +48,7 @@ export default class  SearchSourceOrigin extends React.Component {
 		return new Promise((resolve, reject) => {
 			Http.request('get-common-dic',{searchKey:searchKey }).then(function(response){
 				response.items.forEach(function(item, index) {
-					item.value = ''+item.id;
+					item.value = `'${item.id}'`;
 					item.label = item.name;
 					return item;
 				});
