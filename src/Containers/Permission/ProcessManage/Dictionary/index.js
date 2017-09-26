@@ -33,7 +33,7 @@ import {
 import Edit from './Edit';
 // import Viewdialog from './Viewdialog';
 import Create from './Create';
-import View from './View';
+import View from './ViewForm';
 import State from './State';
 import './detail.less';
 
