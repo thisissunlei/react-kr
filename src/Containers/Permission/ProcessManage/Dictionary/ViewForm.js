@@ -37,7 +37,7 @@ class ViewForm extends React.Component{
 	}
 	componentDidMount() {
 		Store.dispatch(initialize('ViewForm',State.data));
-		Store.dispatch(change('ViewForm','datadetail',State.data.items));
+		Store.dispatch(change('ViewForm','datadetail',toJS(State.data.items)));
 		Store.dispatch(change('ViewForm','tableData',toJS(State.list)));
 
 		

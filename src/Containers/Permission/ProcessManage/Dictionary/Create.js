@@ -38,6 +38,7 @@ class NewCreateForm extends React.Component{
 	}
 	componentWillMount() {
 		Store.dispatch(change('NewCreateForm','dataType',"STATIC"));
+		Store.dispatch(change('NewCreateForm','itemListStr',[]));
 	}
 	arrDel=(arr)=>{
       	let tmp = [];
@@ -60,7 +61,7 @@ class NewCreateForm extends React.Component{
 		let orderNumNone = false;
 		let tableNone = false;
 
-		if(!value.itemListStr){
+		if(!value.itemListStr || !value.itemListStr.length){
 			Notify.show([{
 				message: '请添加字典项',
 				type: 'danger',
