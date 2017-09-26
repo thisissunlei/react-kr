@@ -57,7 +57,7 @@ class TextInfo  extends React.Component{
             sourceCome:[]
 
 		}
-
+		this.moveData = [];
 	}
 
 
