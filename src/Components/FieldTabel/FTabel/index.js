@@ -87,11 +87,9 @@ export default class Table extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     var tableData = nextProps.input.value;
-    if(tableData && tableData.length){
-       this.setState({
-          tableData,
-       })
-    }
+    this.setState({
+      tableData,
+    })
    
 
   }
@@ -176,6 +174,7 @@ export default class Table extends React.Component {
     this.deleForm();
 
     this.setCheckedArr(newData);
+    console.log(newData,"PPPPPPP")
     this.setState({
       tableData:newData
     })
@@ -304,7 +303,7 @@ export default class Table extends React.Component {
           */}
           {checkbox &&
             <th>
-              {tableData.length && <input
+              {!!tableData.length && <input
                     type="checkbox"
                     onChange={(event) =>{
                         this.tableHanerCheck(event)
@@ -327,11 +326,11 @@ export default class Table extends React.Component {
     const {tableData,headers,fold} = this.state;
     const {initFoldNum,checkbox} = this.props;
     var showData = [].concat(tableData);
-
+     console.log(tableData,">>>>>>>>>")
     if(!fold){
       showData = tableData.slice(0,initFoldNum||5);
     }
-
+   
     let doms = showData.map((item,index)=>{
        return <FContent
           key = {index}
