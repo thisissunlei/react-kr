@@ -33,9 +33,9 @@ import {
 	Dialog,
 	Drawer,
 } from 'kr-ui';
-import './index.less';
 import Handle from './Handle';
 import ViewOpinion from './ViewOpinion';
+import './index.less';
 
 export default class AppOpinion extends React.Component {
 
