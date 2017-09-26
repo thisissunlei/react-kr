@@ -373,7 +373,7 @@ export default class UploadImageComponent extends Component {
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
-
+		console.log(photoSize,sizePhoto);
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
@@ -401,7 +401,7 @@ export default class UploadImageComponent extends Component {
 					</div>
 
 				<p className="ui-uploadimg-notice">
-					{sizePhoto?<span>提示：图片比例为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>:<span>提示：图片尺寸为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>}
+					{sizePhoto?<span>提示：图片比例为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>:<span>提示：{photoSize?'图片尺寸为${photoSize}，':''}图片小于{pictureMemory}k,格式为{pictureFormat}</span>}
 				</p>
 				<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
 					{this.state.errorTip}
