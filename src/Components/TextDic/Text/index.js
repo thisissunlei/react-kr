@@ -59,6 +59,7 @@ export default class Text  extends React.Component{
                models:this.selfRender(),
             })
         }else{
+
            this.setState({
                models:null,
             }) 
@@ -66,6 +67,8 @@ export default class Text  extends React.Component{
     }
 
     selfRender=()=>{
+
+
         return  <div style={{marginLeft:12}}><TabelEdit
                 name = "itemListStr"
                 toolbar = {true}
@@ -89,6 +92,7 @@ export default class Text  extends React.Component{
                     models:this.selfRender(),
 				 })
 			 }else{
+                 Store.dispatch(change('EditText','itemListStr',[]));
                 this.setState({
                     models:null,
 				 }) 

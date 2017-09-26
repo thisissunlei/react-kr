@@ -11,7 +11,8 @@ import {
     IconTip,
     TextDic,
 		TabelEdit,
-		FRow
+		FRow,
+        Notify
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
 import {
@@ -33,7 +34,112 @@ class AddText  extends React.Component{
     }
 
     onSubmit=(values)=>{
+        // itemListStr
         const {onSubmit}=this.props;
+        let itemListStr = [].concat(values.itemListStr);
+        var valueReg = /^[1-9]\d{0,2}$/;
+        var orderNumReg = /^[1-9]\d{0,1}$/;
+        var label = true,
+            value = true,
+            orderNum = true,
+            isDefault = true;
+        console.log(values,"---------")
+       if(itemListStr && !itemListStr.length){
+            Notify.show([{
+				message: '请添加自定义',
+				type: 'danger',
+			}]);
+			return;
+       }
+ 
+        for(let i = 0; i<itemListStr.length;i++){
+            let item = itemListStr[i];
+            if(!item.label){
+				Notify.show([{
+                    message: '请添选项文字',
+                    type: 'danger',
+                }]);
+                
+                return;
+			}else{
+                 if(item.label.length>20){
+                     Notify.show([{
+                    message: '选项文字最多输入20字',
+                    type: 'danger',
+                }]);
+                return;
+                 }
+
+            }
+            if(!item.value){
+                Notify.show([{
+                    message: '请添选项值',
+                    type: 'danger',
+                }]);
+                return;
+            }else{
+                if(!valueReg.test(item.value)){
+                    Notify.show([{
+                        message: '选项值必须为数值且最大为3位数',
+                        type: 'danger',
+                    }]);
+                }
+            }
+            if(!item.orderNum){
+                Notify.show([{
+                    message: '请添写排序号',
+                    type: 'danger',
+                }]);
+                return;
+            }else{
+                if(!orderNumReg.test(item.orderNum)){
+                    Notify.show([{
+                        message: '排序号必须为数值且最大为3位数',
+                        type: 'danger',
+                    }]);
+                    return;
+                }
+            }
+
+        }
+
+        /*if(!value.items.length){
+			Notify.show([{
+				message: '请添加字典项',
+				type: 'danger',
+			}]);
+			return;
+		}
+		itemListStr.map(item=>{
+			if(!item){
+				tableNone=true;
+			}
+		})
+
+		if(tableNone){
+			Notify.show([{
+				message: '字典选项内容请填写完整',
+				type: 'danger',
+			}]);
+			return;
+		}
+
+		let labelArray = value.itemListStr.map((item)=>{
+			if(item.label){
+				return item.label
+			}else{
+				labelNone = true;
+				return false;
+			}
+		})
+		let valueArray = value.itemListStr.map((item)=>{
+			if(item.value){
+				return item.value
+			}else{
+				valueNone = true;
+				return false;
+			}
+		})*/
        
         onSubmit && onSubmit(values);
     }
