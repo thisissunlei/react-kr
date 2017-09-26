@@ -19,6 +19,7 @@ export default class Text  extends React.Component{
         }
         this.isCommon=false;
     }
+    
 
     commonPublic=(param,sourceOrgin)=>{
         if(param=='PUBLIC_DICT'){
@@ -44,6 +45,7 @@ export default class Text  extends React.Component{
             return;
         }
         this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin);
+        
     }
 
     componentWillReceiveProps(nextProps){
@@ -165,8 +167,8 @@ export default class Text  extends React.Component{
                     marking={true}
                 />
                     <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
-                        <KrField name="wsenabled" label="允许" type="radio" value='true' />
-                        <KrField name="wsenabled" label="禁止" type="radio" value='false' />
+                        <KrField marking = "text" name="wsenabled" label="允许" type="radio" value='true' />
+                        <KrField marking = "text" name="wsenabled" label="禁止" type="radio" value='false' />
                     </KrField>
              </div>
     }

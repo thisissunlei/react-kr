@@ -9,6 +9,7 @@ export default class RadioComponent  extends React.Component{
 
 	onClick = (event)=>{
 		let {input}=this.props;
+		
 		let {onClick} = this.props;
 		onClick && onClick(input);
 	}
