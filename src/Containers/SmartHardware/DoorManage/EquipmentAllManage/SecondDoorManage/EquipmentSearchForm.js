@@ -206,6 +206,15 @@ class EquipmentAdvancedQueryForm extends React.Component{
 				    	page:1
 				    }
 
+		}else if(value.filter == "title"){
+
+			
+		    newObj ={
+				    	title: value.content,
+				    	deviceId: '',
+				    	page:1
+				    }
+
 		}else{
 		    
 		    
@@ -228,6 +237,9 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		let options=[{
 		      label:"屏幕显示编号",
 		      value:"doorCode"
+		    },{
+		      label:"屏幕显示标题",
+		      value:"title"
 		    },{
 		      label:"智能硬件ID",
 		      value:"deviceId"

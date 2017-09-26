@@ -6,7 +6,7 @@ module.exports = {
 
 	//二代们近列表
    'getDecondeEquipmentList':{
-      url: '/api/iot-platform/door-device/list?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&page={page}&pageSize={pageSize}&maker={maker}',
+      url: '/api/iot-platform/door-device/list?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&page={page}&pageSize={pageSize}&maker={maker}&title={title}',
       method: 'get'
    },
    //新增编辑设备实时校验编号

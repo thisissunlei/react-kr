@@ -574,12 +574,22 @@ export default class SecondDoorManage  extends React.Component{
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 								
-								<TableRowColumn name="deviceId" style={{width:170}}  component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								
+								<TableRowColumn name="deviceId"
+									component={(value,oldValue)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="inline-block";
+										}
+										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:170,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+										)
+									}} 
+								>
+								</TableRowColumn>
 								<TableRowColumn name="makerName" component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
