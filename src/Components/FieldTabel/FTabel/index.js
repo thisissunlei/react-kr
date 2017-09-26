@@ -44,7 +44,7 @@ export default class Table extends React.Component {
     var headers = [];
     const {children} = this.props;
     children.map((item,index)=>{
-        if(item.type.name === "FRow"){
+        if(item.type.displayName === "FRow"){
           headers.push(item.props);
         }
         
