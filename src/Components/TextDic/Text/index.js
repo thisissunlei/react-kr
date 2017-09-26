@@ -45,6 +45,7 @@ export default class Text  extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
+       
         if(nextProps.isCommon&&!this.isCommon){
            Store.dispatch(change('EditText','sourceType',''));
            this.setState({
@@ -87,7 +88,9 @@ export default class Text  extends React.Component{
                     models:this.selfRender(),
 				 })
 			 }else{
-                 Store.dispatch(change('EditText','itemListStr',[]));
+                 Store.dispatch(change('EditText','itemListStr',null));
+                 Store.dispatch(change('AddText','itemListStr',null));
+                 
                  this.setState({
                     models:null,
 				 }) 

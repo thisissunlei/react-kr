@@ -11,7 +11,8 @@ import {
     IconTip,
     TextDic,
     TabelEdit,
-    FRow
+    FRow,
+    Notify
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import {reduxForm,change,initialize}  from 'redux-form';
@@ -38,7 +39,87 @@ class EditText  extends React.Component{
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);
+        values = Object.assign({},values);
+        let itemListStr = [];
+        if(values.itemListStr){
+            itemListStr= [].concat(values.itemListStr);
+        }else{
+            itemListStr = null;
+        }
+        var valueReg = /^[1-9]\d{0,2}$/;
+        var orderNumReg = /^[1-9]\d{0,1}$/;
+        var label = true,
+            value = true,
+            orderNum = true,
+            isDefault = true;
+      
+       if(itemListStr && !itemListStr.length){
+            Notify.show([{
+				message: '请添加自定义',
+				type: 'danger',
+			}]);
+			return;
+       }
+       
+       if(itemListStr != null){
+
+       
+            for(let i = 0; i<itemListStr.length;i++){
+                let item = itemListStr[i];
+                if(!item.label){
+                    Notify.show([{
+                        message: '请添选项文字',
+                        type: 'danger',
+                    }]);
+                    
+                    return;
+                }else{
+                    if(item.label.length>20){
+                        Notify.show([{
+                        message: '选项文字最多输入20字',
+                        type: 'danger',
+                    }]);
+                    return;
+                    }
+
+                }
+                if(!item.value){
+                    Notify.show([{
+                        message: '请添选项值',
+                        type: 'danger',
+                    }]);
+                    return;
+                }else{
+                    if(!valueReg.test(item.value)){
+                        Notify.show([{
+                            message: '选项值必须为数值且最大为3位数',
+                            type: 'danger',
+                        }]);
+                    }
+                }
+                if(!item.orderNum){
+                    Notify.show([{
+                        message: '请添写排序号',
+                        type: 'danger',
+                    }]);
+                    return;
+                }else{
+                    if(!orderNumReg.test(item.orderNum)){
+                        Notify.show([{
+                            message: '排序号必须为数值且最大为3位数',
+                            type: 'danger',
+                        }]);
+                        return;
+                    }
+                }
+
+            }
+        }
+  
+       if(itemListStr==null){
+           values.itemListStr = []
+       }
+       onSubmit && onSubmit(values);
     }
 
     onCancel=()=>{
