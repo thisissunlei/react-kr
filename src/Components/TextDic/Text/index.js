@@ -20,16 +20,12 @@ export default class Text  extends React.Component{
         this.isCommon=false;
     }
 
-    componentDidMount(){
-        let {getEdit,isCommon}=this.props;
-        if(isCommon){
-            return;
-        }
-        if(getEdit.sourceType=='PUBLIC_DICT'){
+    commonPublic=(param)=>{
+        if(param.sourceType=='PUBLIC_DICT'){
             this.setState({
-                models:this.sourceRender(getEdit.sourceOrgin),
+                models:this.sourceRender(param.sourceOrgin),
             })
-        }else if(getEdit.sourceType=="CUSTOM"){
+        }else if(param.sourceType=="CUSTOM"){
             this.setState({
                models:this.selfRender(),
             })
@@ -38,6 +34,14 @@ export default class Text  extends React.Component{
                models:null,
             }) 
         }
+    }
+
+    componentDidMount(){
+        let {getEdit,isCommon}=this.props;
+        if(isCommon){
+            return;
+        }
+        this.commonPublic(getEdit);
     }
 
     componentWillReceiveProps(nextProps){
@@ -50,20 +54,7 @@ export default class Text  extends React.Component{
         if(this.isCommon||nextProps.isCommon){
             return;
         }
-        if(nextProps.getEdit.sourceType=='PUBLIC_DICT'){
-                this.setState({
-                    models:this.sourceRender(nextProps.getEdit.sourceOrgin),
-                }) 
-        }else if(nextProps.getEdit.sourceType=="CUSTOM"){
-            this.setState({
-               models:this.selfRender(),
-            })
-        }else{
-
-           this.setState({
-               models:null,
-            }) 
-        }
+        this.commonPublic(nextProps.getEdit);
     }
 
     selfRender=()=>{
@@ -97,24 +88,19 @@ export default class Text  extends React.Component{
 				 })
 			 }else{
                  Store.dispatch(change('EditText','itemListStr',[]));
-                this.setState({
+                 this.setState({
                     models:null,
 				 }) 
              }
 		}
 
     sourceRender=(publicValue)=>{
-        let {sourceCome}=this.props;
-        sourceCome.map((item,index)=>{
-            item.value=''+item.value;
-        })
             return <KrField grid={1/2}
                         style={{width:262,marginLeft:30}}
                         name="sourceOrgin"
-                        component="select"
+                        component="SearchSourceOrigin"
                         label="数据来源"
                         value={publicValue}
-                        options={sourceCome}
                         requireLabel={true}
                     />
  	  }
@@ -195,85 +181,39 @@ export default class Text  extends React.Component{
     }
 
 		picRender=()=>{
-			return (
-            <div>
-                <KrField
-                        grid={1/2}
-                        style={{width:262,marginBottom:5}}
-                        name="wspicWidth"
-                        component="input"
-                        label="图片宽度(单位:px)"
-                        marking={true}
-                />
-                <KrField
-                        grid={1/2}
-                        style={{width:262,marginBottom:5,marginLeft:30}}
-                        name="wspicHeight"
-                        component="input"
-                        label="图片高度(单位:px)"
-                        marking={true}
-                />
-            </div>
-            )
-		}
 
-    dateRender=()=>{
-        return <KrField grid={1/2}
-                    style={{width:262}}
-                    name="wsdate"
-                    component="date"
-                    label="日期"
-                />
-    }
-
-    timeRender=()=>{
-        let {getEdit}=this.props;
-        var time='';
-        if(getEdit.setting){
-            var setting=JSON.parse(getEdit.setting);
-            setting.map((item,index)=>{
-               for(var index in item){
-                time=item[index];
-               }
-            })
-        }
-        return <KrField 
-          component="selectTime" 
-          label='时间'
-          timeNum={time}  
-          style={{width:262}} 
-          name='wsdate'/>
-    }
-
-    dateTimeRender=()=>{
-        let {getEdit}=this.props;
-        var time='';
-        if(getEdit.setting){
-            var setting=JSON.parse(getEdit.setting);
-            setting.map((item,index)=>{
-               for(var index in item){
-                time=item['wstime'];
-               }
-            })
-        }
-        return <div style={{width:262,padding:0}}>
-                        <KrField
-                            name="wsdate"
-                            component="date"
-                            style={{width:170}}
+			return <div>
+                    <KrField
+                            grid={1/2}
+                            style={{width:262,marginBottom:5}}
+                            name="wsfile"
+                            component="input"
+                            label="文件大小(单位:k)"
                             requireLabel={true}
-                            label='日期时间'
+                            marking={true}
                         />
-                        <KrField
-                            name="wstime"
-                            component="selectTime"
-                            timeNum={time}
-                            style={{width:80,marginTop:14,zIndex:10}}
-                         />
-				</div>
-    }
-
-
+                            <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
+                                <KrField name="wsenabled" label="允许" type="radio" value='true' />
+                                <KrField name="wsenabled" label="禁止" type="radio" value='false' />
+                    </KrField>
+                    <KrField
+                            grid={1/2}
+                            style={{width:262,marginBottom:5}}
+                            name="wspicWidth"
+                            component="input"
+                            label="图片宽度(单位:px)"
+                            marking={true}
+                    />
+                    <KrField
+                            grid={1/2}
+                            style={{width:262,marginBottom:5,marginLeft:30}}
+                            name="wspicHeight"
+                            component="input"
+                            label="图片高度(单位:px)"
+                            marking={true}
+                    />
+				 </div>
+		}
 
     sourceType=()=>{
         var source=DictionaryConfigs.ERP_SourceType;
@@ -337,18 +277,6 @@ export default class Text  extends React.Component{
           }
           case 'FILE_PHOTO':{
                 component = _this.picRender()
-                break;
-          }
-          case 'TIME_DATE':{
-                component = _this.dateRender()
-                break;
-          }
-          case 'TIME_TIME':{
-                component = _this.timeRender()
-                break;
-          }
-          case 'TIME_DATETIME':{
-                component = _this.dateTimeRender()
                 break;
           }
         case 'SELECT_SELECT':{

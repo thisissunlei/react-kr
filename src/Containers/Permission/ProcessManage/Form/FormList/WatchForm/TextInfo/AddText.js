@@ -151,7 +151,7 @@ class AddText  extends React.Component{
 
 	render(){
 
-    let {handleSubmit,sourceCome}=this.props;
+    let {handleSubmit}=this.props;
 
 
 		return(
@@ -183,7 +183,7 @@ class AddText  extends React.Component{
 
 
 				                <TextDic
-                                    sourceCome={sourceCome}
+                                   
                                 />
 
 					

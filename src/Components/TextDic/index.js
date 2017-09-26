@@ -128,7 +128,6 @@ export default class TextDic extends React.Component{
 	render(){
 
         let {inputType,isTrue,next,label,isThree,getEdit,isCommon}=this.state;
-        let {sourceCome}=this.props;
 
         var seleInt=[];
         inputType.map((item,index)=>{
@@ -165,7 +164,6 @@ export default class TextDic extends React.Component{
                     />}
                     {isThree&&<Text 
                     label={label} 
-                    sourceCome={sourceCome} 
                     onChange={this.onChange}
                     getEdit={getEdit}
                     isCommon={isCommon}

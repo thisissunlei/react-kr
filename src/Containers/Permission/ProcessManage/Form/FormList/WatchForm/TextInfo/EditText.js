@@ -68,7 +68,7 @@ class EditText  extends React.Component{
 
 	render(){
 
-    let {handleSubmit,getEdit,sourceCome}=this.props;
+    let {handleSubmit,getEdit}=this.props;
 
 
 		return(
@@ -103,7 +103,6 @@ class EditText  extends React.Component{
                             <TextDic
                                 isEdit={true}
                                 getEdit={getEdit}
-                                sourceCome={sourceCome}
                                 callBack={this.callBack}
                             />
 
