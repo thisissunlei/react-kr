@@ -70,7 +70,7 @@ class AddForm  extends React.Component{
                                 style={{width:262,marginBottom:5,marginLeft:30}}
                                 name="tableName"
                                 component="input"
-                                label="表单表明 "
+                                label="表单表名"
                              />
 
                             <div className='mask-icon'>

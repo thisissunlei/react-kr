@@ -20,12 +20,12 @@ export default class Text  extends React.Component{
         this.isCommon=false;
     }
 
-    commonPublic=(param)=>{
-        if(param.sourceType=='PUBLIC_DICT'){
+    commonPublic=(param,sourceOrgin)=>{
+        if(param=='PUBLIC_DICT'){
             this.setState({
-                models:this.sourceRender(param.sourceOrgin),
+                models:this.sourceRender(sourceOrgin),
             })
-        }else if(param.sourceType=="CUSTOM"){
+        }else if(param=="CUSTOM"){
             this.setState({
                models:this.selfRender(),
             })
@@ -41,7 +41,7 @@ export default class Text  extends React.Component{
         if(isCommon){
             return;
         }
-        this.commonPublic(getEdit);
+        this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin);
     }
 
     componentWillReceiveProps(nextProps){
@@ -54,7 +54,7 @@ export default class Text  extends React.Component{
         if(this.isCommon||nextProps.isCommon){
             return;
         }
-        this.commonPublic(nextProps.getEdit);
+        this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin);
     }
 
     selfRender=()=>{
@@ -74,20 +74,7 @@ export default class Text  extends React.Component{
 
     sourceChange=(param)=>{
             this.isCommon=true;
-			if(param.value=="PUBLIC_DICT"){
-				 this.setState({
-                    models:this.sourceRender(),
-				 })
-			 }else if(param.value=="CUSTOM"){
-				 this.setState({
-                    models:this.selfRender(),
-				 })
-			 }else{
-                 Store.dispatch(change('EditText','itemListStr',[]));
-                 this.setState({
-                    models:null,
-				 }) 
-             }
+            this.commonPublic(param.value,'');
 		}
 
     sourceRender=(publicValue)=>{
