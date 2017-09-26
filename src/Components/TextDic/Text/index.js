@@ -69,17 +69,21 @@ export default class Text  extends React.Component{
     selfRender=()=>{
 
 
-        return  <div style={{marginLeft:12}}><TabelEdit
-                name = "itemListStr"
-                toolbar = {true}
-                checkbox = {true}
-            >
-                <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
-                <FRow name = "value" type = "tableEdit" label = "选项值" />
-                <FRow name = "orderNum" type = "tableEdit" label = "排序号" />
-                <FRow name = "isDefault" type = "checkBox" label = "是否默认" />
-            </TabelEdit></div>
-        }
+        return  (
+            <div style={{marginLeft:12}}>
+                <TabelEdit
+                    name = "itemListStr"
+                    toolbar = {true}
+                    checkbox = {true}
+                >
+                    <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
+                    <FRow name = "value" type = "tableEdit" label = "选项值" />
+                    <FRow name = "orderNum" type = "tableEdit" label = "排序号" />
+                    <FRow name = "isDefault" type = "checkBox" label = "是否默认" />
+                </TabelEdit>
+            </div>
+        )
+    }
 
     sourceChange=(param)=>{
             this.isCommon=true;
@@ -116,42 +120,44 @@ export default class Text  extends React.Component{
  	  }
 
     inputTextRender=()=>{
+
         return <KrField
-                grid={1/2}
-                style={{width:262,marginBottom:5}}
-                name="wstext"
-                component="input"
-                label="文本长度"
-                requireLabel={true}
-                marking={true}
-            />
+                    grid={1/2}
+                    style={{width:262,marginBottom:5}}
+                    name="wstext"
+                    component="input"
+                    label="文本长度"
+                    requireLabel={true}
+                    marking={true}
+                />
     }
 
     floatTextRender=()=>{
         return <KrField
-                grid={1/2}
-                style={{width:262,marginBottom:5}}
-                name="wsfloat"
-                component="select"
-                label="小数位数"
-                options={[{label:'1',value:'1'},{label:'2',value:'2'},{label:'3',value:'3'},{label:'4',value:'4'}]}
-                requireLabel={true}
-            />
+                    grid={1/2}
+                    style={{width:262,marginBottom:5}}
+                    name="wsfloat"
+                    component="select"
+                    label="小数位数"
+                    options={[{label:'1',value:'1'},{label:'2',value:'2'},{label:'3',value:'3'},{label:'4',value:'4'}]}
+                    requireLabel={true}
+                />
     }
 
     heightRender=()=>{
         return <KrField
-                grid={1/2}
-                style={{width:262,marginBottom:5}}
-                name="wsheight"
-                component="input"
-                label="高度"
-                marking={true}
-            />
+                    grid={1/2}
+                    style={{width:262,marginBottom:5}}
+                    name="wsheight"
+                    component="input"
+                    label="高度"
+                    marking={true}
+                />
     }
 
     buttonRender=()=>{
-        return <div>
+        return (
+            <div>
                 <KrField
                     grid={1/2}
                     style={{width:262,marginBottom:5}}
@@ -166,6 +172,7 @@ export default class Text  extends React.Component{
                     <KrField name="wsenabled" label="否" type="radio" value='false' />
                 </KrField>
             </div>
+        )
     }
 
 
@@ -188,24 +195,26 @@ export default class Text  extends React.Component{
     }
 
 		picRender=()=>{
-			return <div>
-                    <KrField
-                            grid={1/2}
-                            style={{width:262,marginBottom:5}}
-                            name="wspicWidth"
-                            component="input"
-                            label="图片宽度(单位:px)"
-                            marking={true}
-                    />
-                    <KrField
-                            grid={1/2}
-                            style={{width:262,marginBottom:5,marginLeft:30}}
-                            name="wspicHeight"
-                            component="input"
-                            label="图片高度(单位:px)"
-                            marking={true}
-                    />
-				 </div>
+			return (
+            <div>
+                <KrField
+                        grid={1/2}
+                        style={{width:262,marginBottom:5}}
+                        name="wspicWidth"
+                        component="input"
+                        label="图片宽度(单位:px)"
+                        marking={true}
+                />
+                <KrField
+                        grid={1/2}
+                        style={{width:262,marginBottom:5,marginLeft:30}}
+                        name="wspicHeight"
+                        component="input"
+                        label="图片高度(单位:px)"
+                        marking={true}
+                />
+            </div>
+            )
 		}
 
     dateRender=()=>{
