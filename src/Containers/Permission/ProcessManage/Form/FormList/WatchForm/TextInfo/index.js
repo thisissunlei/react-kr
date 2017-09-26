@@ -72,9 +72,6 @@ class TextInfo  extends React.Component{
 	this.mainDetailForm(textInfo);
   }
 
-  componentWillReceiveProps(nextProps){
-    //this.getTextInfo(nextProps.basicInfo.id);
-  }
 
   //字段
   textDetailForm=()=>{

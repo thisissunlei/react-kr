@@ -29,7 +29,7 @@ class AddText  extends React.Component{
     }
 
     componentDidMount(){
-		Store.dispatch(change('AddText','itemListStr',[]));
+        Store.dispatch(change('AddText','itemListStr',[]));
     }
 
     onSubmit=(values)=>{
