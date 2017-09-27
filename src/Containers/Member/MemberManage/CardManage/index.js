@@ -401,6 +401,11 @@ export default class List extends React.Component {
     }
 
 
+    seeMemberDetail=(thisP,itemData)=>{
+
+    	window.open(`./#/member/MemberManage/${thisP.holder}/detail/${thisP.customer}`);
+    
+    }
 
 
 	render(){
@@ -444,7 +449,27 @@ export default class List extends React.Component {
 									<TableRowColumn name="outerCode" ></TableRowColumn>
 									<TableRowColumn name="communityName" ></TableRowColumn>
 									<TableRowColumn name="active" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
-									<TableRowColumn name="memberName"></TableRowColumn>
+									<TableRowColumn name="holderName" type="operation"
+										component={
+											(value,oldValue,itemData)=>{
+												if(value==""){
+													return (
+														<div>
+															{itemData.holderName}
+														</div>
+													)
+												}else{
+													return (
+														<div onClick={this.seeMemberDetail.bind(this,itemData)} style={{color:"#499df1",cursor:"pointer"}}>
+															{itemData.holderName}
+														</div>
+													)
+												}
+												
+											}
+										}
+
+									></TableRowColumn>
 									<TableRowColumn name="customerName"></TableRowColumn>
 									<TableRowColumn type="operation" component={this.renderOperation}></TableRowColumn>
 								 </TableRow>
