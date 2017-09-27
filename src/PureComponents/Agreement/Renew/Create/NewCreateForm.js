@@ -353,7 +353,13 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		};
-
+		if(optionValues.saleList){
+			optionValues.saleList.map(item=>{
+				if(item.label == '折扣'){
+				form.minDiscount = item.discount;
+				}
+			})
+		}
 
 		form.stationVosList = oldBasicStationVos;
 		form.lessorAddress = changeValues.lessorAddress;

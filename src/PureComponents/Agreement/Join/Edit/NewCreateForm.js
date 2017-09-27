@@ -416,6 +416,19 @@ class NewCreateForm extends React.Component {
 			}]);
 			return ;
 		}
+		if(optionValues.saleList){
+				console.log('====折扣-------===')
+
+			optionValues.saleList.map(item=>{
+				console.log('=111111===折扣===',item)
+
+				if(item.label == '折扣'){
+				form.minDiscount = item.discount;
+				console.log('====折扣===')
+					
+				}
+			})
+		}
 		var _this = this;
 		form.totalrent = (_this.state.allRent!='-1')?_this.state.allRent:initialValues.totalrent;
 

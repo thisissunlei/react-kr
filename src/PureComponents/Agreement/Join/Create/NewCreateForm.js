@@ -403,7 +403,7 @@ class NewCreateForm extends Component {
 		let {
 			changeValues,
 			optionValues,
-			onSubmit
+			onSubmit,
 		} = this.props;
 		if (!stationVos.length) {
 			Notify.show([{
@@ -421,6 +421,14 @@ class NewCreateForm extends Component {
 			leaseBegindate:form.leaseBegindate,
 			leaseEnddate:form.leaseEnddate
 		};
+		console.log('submit',optionValues.saleList)
+		if(optionValues.saleList){
+			optionValues.saleList.map(item=>{
+				if(item.label == '折扣'){
+				form.minDiscount = item.discount;
+				}
+			})
+		}
 		Http.request('count-sale', '',params).then(function(response){
 			form.lessorAddress = changeValues.lessorAddress;
 

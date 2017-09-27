@@ -408,7 +408,8 @@ class NewCreateForm extends Component {
 		} = this.state;
 
 		let {
-			changeValues
+			changeValues,
+			optionValues
 		} = this.props;
 
 		form.lessorAddress = changeValues.lessorAddress;
@@ -420,12 +421,18 @@ class NewCreateForm extends Component {
 		form.contractVersionType = 'NEW';
 		form.totalrent = allRent;
 		form.stationVos = stationVos;
+		if(optionValues.saleList){
+			optionValues.saleList.map(item=>{
+				if(item.label == '折扣'){
+				form.minDiscount = item.discount;
+				}
+			})
+		}
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
 		const {
 			onSubmit,
-			optionValues
 		} = this.props;
 		let saleList = form.saleList || [];
 

@@ -375,7 +375,8 @@ class NewCreateForm extends React.Component {
 
 		let {
 			changeValues,
-			initialValues
+			initialValues,
+			optionValues
 		} = this.props;
 		let {
 			stationVos,
@@ -384,6 +385,13 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 		if(typeof form.contractmark == 'undefined'){
 			form.contractmark = '';
+		}
+		if(optionValues.saleList){
+			optionValues.saleList.map(item=>{
+				if(item.label == '折扣'){
+				form.minDiscount = item.discount;
+				}
+			})
 		}
 
 		let unitpriceAdd = 0; 
@@ -420,7 +428,6 @@ class NewCreateForm extends React.Component {
 
 		const {
 			onSubmit,
-			optionValues
 		} = this.props;
 
 		let saleList = form.saleList || [];

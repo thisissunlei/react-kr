@@ -414,7 +414,8 @@ class NewCreateForm extends React.Component {
 		} = this.state;
 		let {
 			changeValues,
-			initialValues
+			initialValues,
+			optionValues
 		} = this.props;
 		let unitpriceAdd = 0; 
 		for(var i=0 ;i<stationVos.length;i++){
@@ -437,6 +438,13 @@ class NewCreateForm extends React.Component {
 		form.lessorAddress = changeValues.lessorAddress;
 
 		var _this = this;
+		if(optionValues.saleList){
+			optionValues.saleList.map(item=>{
+				if(item.label == '折扣'){
+				form.minDiscount = item.discount;
+				}
+			})
+		}
 
 		form.stationVos = JSON.stringify(stationVos);
 		form.delStationVos = JSON.stringify(delStationVos);
@@ -451,7 +459,6 @@ class NewCreateForm extends React.Component {
 		form.totalrent = form.totalrent;
 		const {
 			onSubmit,
-			optionValues
 		} = this.props;
 
 		let saleList = form.saleList || [];
