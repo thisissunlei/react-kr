@@ -419,7 +419,7 @@ var OAApi = {
 
   //流程--分页获取流程列表
   'process-list':{
-      url:'/api/krspace-erp-web/wf/base/page?allowRequest={allowRequest}&newRequestShow={newRequestShow}&wfName={wfName}&page={page}&pageSize={pageSize}&typeId={typeId}&wfCode={wfCode}',
+      url:'/api/krspace-erp-web/wf/base/page?allowRequest={allowRequest}&newRequestShow={newRequestShow}&name={name}&page={page}&pageSize={pageSize}&typeId={typeId}&code={code}',
       method: 'get'
   },
   //流程--新建流程
