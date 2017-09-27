@@ -107,7 +107,7 @@ class Basic extends Component {
                     component="formTypeTree"
                     label="表单名称"
                     valueText={infoList.formName ? [{orgName:infoList.formName}]:[{orgName:''}]}
-                    ajaxUrlName = "get-department-tree"
+                    ajaxUrlName = "form-type-tree"
                     requireLabel={true}
                 />
                
