@@ -17,6 +17,8 @@ export default class Text  extends React.Component{
         this.state={
             component:null,
             models:null,
+            //二级变化值
+            changeData:''
         }
         this.isCommon=false;
         this.oldEdit={};
@@ -24,13 +26,12 @@ export default class Text  extends React.Component{
     
 
     commonPublic=(param,sourceOrgin,type,old)=>{
-        if(type=='mount'){
-            //this.oldEdit=old;
-            console.log('mount',old);
+        let {changeData}=this.state;
+        if(type=='mount'||type=='props'){
+            this.oldEdit=old;
         }
-        if(type=='props'){
-            console.log('props',old);
-        }
+        console.log('pop',this.oldEdit,param,this.props.label,this.props.twoData);
+        
         if(param=='PUBLIC_DICT'){
             Store.dispatch(change('EditText','itemListStr',null));
             Store.dispatch(change('AddText','itemListStr',null));
@@ -38,10 +39,22 @@ export default class Text  extends React.Component{
               models:this.sourceRender(sourceOrgin),
             })
         }else if(param=="CUSTOM"){
-            if(sourceOrgin==''){
+            
+            if(this.props.twoData&&(this.props.twoData!=this.oldEdit.inputType)){
                 Store.dispatch(change('EditText','itemListStr',[]));
                 Store.dispatch(change('AddText','itemListStr',[]));
+            }else if(!this.props.twoData){
+                if(changeData&&changeData!=this.oldEdit.compType){
+                    Store.dispatch(change('EditText','itemListStr',[]));
+                    Store.dispatch(change('AddText','itemListStr',[])); 
+                }
+            }else{
+                  Store.dispatch(change('EditText','itemListStr',[]));  
             }
+            /*if(sourceOrgin==''){
+                Store.dispatch(change('EditText','itemListStr',[]));
+                Store.dispatch(change('AddText','itemListStr',[]));
+            }*/
             this.setState({
                models:this.selfRender(),
             })
@@ -68,6 +81,7 @@ export default class Text  extends React.Component{
            Store.dispatch(change('EditText','sourceType',''));
            this.setState({
               models:null,
+              changeData:nextProps.label
            }) 
         }
         if(this.isCommon||nextProps.isCommon!=0){

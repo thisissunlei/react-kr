@@ -23,6 +23,9 @@ export default class TextDic extends React.Component{
             //二级的数据处理
             next:[],
 
+            //二级值 
+            twoData:'',
+
             //是否显示三级
             isThree:false,
             //三级值
@@ -78,7 +81,8 @@ export default class TextDic extends React.Component{
         var _this=this;
         this.setState({
            isTrue:true,
-           isThree:false
+           isThree:false,
+           twoData:param.value
 		},function(){
             _this.nextArrRender(param.value,nexts);
         })
@@ -134,7 +138,7 @@ export default class TextDic extends React.Component{
 
 	render(){
 
-        let {inputType,isTrue,next,label,isThree,getEdit,isCommon}=this.state;
+        let {inputType,isTrue,next,label,isThree,getEdit,isCommon,twoData}=this.state;
 
         var seleInt=[];
         inputType.map((item,index)=>{
@@ -174,6 +178,7 @@ export default class TextDic extends React.Component{
                         onChange={this.onChange}
                         getEdit={getEdit}
                         isCommon={isCommon}
+                        twoData={twoData}
                     />}
                 </div>
 
