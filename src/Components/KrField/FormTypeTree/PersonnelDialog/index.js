@@ -55,7 +55,7 @@ export default class PersonnelDialog extends React.Component{
 		const _this = this;
 		Http.request(ajaxUrlName).then(function (response) {
 			_this.setState({
-				treeData:_this.fnTree(response.items)
+				treeData:_this.fnTree([response.items])
 			})
 		}).catch(function (err) {
 			Message.error(err.message);

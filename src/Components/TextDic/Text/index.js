@@ -27,6 +27,7 @@ export default class Text  extends React.Component{
 
 
     commonPublic=(param,sourceOrgin,type,old)=>{
+        
         let {changeData,oldEdit}=this.state;
         if(old&&this.oldEdit!=old){
             this.oldEdit=old;
@@ -127,6 +128,31 @@ export default class Text  extends React.Component{
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
            Store.dispatch(change('EditText','sourceType',''));
+           if(nextProps.label!=nextProps.getEdit.compType){
+                let wsObject=[
+                    'wstext',
+                    'wsheight',
+                    'wsfloat',
+                    'wsradio',
+                    'wsenabled',
+                    'wsfile',
+                    'wspicWidth',
+                    'wspicHeight'
+                ];
+                wsObject.map((item,index)=>{          
+                 Store.dispatch(change('EditText',item,'')); 
+                })
+           }else{
+             if(nextProps.getEdit.setting){
+                var setting=JSON.parse(nextProps.getEdit.setting);
+                setting.map((item,index)=>{
+                   for(var index in item){
+                    Store.dispatch(change('EditText',index,item[index])); 
+                   }
+                })
+              }
+           }
+           
            this.setState({
               models:null,
               changeData:nextProps.label

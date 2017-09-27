@@ -40,6 +40,7 @@ class EditText  extends React.Component{
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         values = Object.assign({},values);
+      
         let itemListStr = [];
         if(values.itemListStr){
             itemListStr= [].concat(values.itemListStr);
@@ -52,6 +53,7 @@ class EditText  extends React.Component{
             value = true,
             orderNum = true,
             isDefault = true;
+
       
        if(itemListStr && !itemListStr.length){
             Notify.show([{

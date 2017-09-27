@@ -657,6 +657,12 @@ var OAApi = {
       method: 'get'
   },
 
+  //表单类型树
+  'form-type-tree':{
+    url:'/api/krspace-erp-web/tree/form-tree/type/select',
+    method: 'get'
+},
+
 }
 
 module.exports=OAApi;

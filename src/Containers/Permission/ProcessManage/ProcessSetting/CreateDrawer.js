@@ -134,7 +134,7 @@ class CreateDrawer extends React.Component {
                             name="formId"
                             component="formTypeTree"
                             label="表单名称"
-                            ajaxUrlName = "get-department-tree"
+                            ajaxUrlName = "form-type-tree"
                             requireLabel={true}
                         />
 					
