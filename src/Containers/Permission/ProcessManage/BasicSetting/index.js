@@ -78,8 +78,7 @@ export default class BasicSetting extends React.Component {
 	onSaveSubmit = (params) => {
 		var _this = this;
 		var form = Object.assign({},params);
-		form.wfId=this.props.params.processId;
-		form.hrmResourceId = form.hrmResourceId[0].orgId;
+		
 		Http.request('process-edit', {}, form).then(function (response) {
 			Message.success('保存成功');
 			// _this.changeP();
