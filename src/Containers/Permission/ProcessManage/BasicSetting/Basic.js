@@ -99,16 +99,20 @@ class Basic extends Component {
                     requireLabel={true}
                     placeholder="排序号"
                 />
+               
+
                 <KrField
-                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
-                    inline={false}
                     grid={1/2}
-                    label="慧正流程唯一标识"
-                    component="input"
+                    style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     name="hzCode"
+                    component="formTypeTree"
+                    label="表单名称"
+                    valueText={'123'}
+                    ajaxUrlName = "get-department-tree"
                     requireLabel={true}
-                    placeholder="请输入流程类型名称"
                 />
+                
+
                 <KrField
                     style={{width:262,marginTop:6}}
                     inline={false}
