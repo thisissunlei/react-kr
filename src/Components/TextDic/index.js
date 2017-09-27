@@ -38,6 +38,8 @@ export default class TextDic extends React.Component{
             isCommon:0
         }
         this.isCommon=false;
+        //
+        this.twoData=false;
     }
 
 
@@ -53,10 +55,12 @@ export default class TextDic extends React.Component{
         })     
     }
 
-    componentWillReceiveProps(nextProps){    
-        if(this.isCommon){
+    componentWillReceiveProps(nextProps){ 
+        let {isCommon}=this.state;   
+        if(this.isCommon||this.twoData){
             return;
         }
+        
         var _this=this;
         if(nextProps.isEdit&&nextProps.getEdit.inputType){
                 _this.nextArrRender(nextProps.getEdit.inputType,_this.state.nexts,function(){
@@ -124,6 +128,7 @@ export default class TextDic extends React.Component{
             label:param.value,
             isCommon:new Date().getTime()
         })
+        this.twoData=true;
         Store.dispatch(change('EditText','sourceType',''));
         Store.dispatch(change('AddText','sourceType',''));
         Store.dispatch(change('AddText','sourceOrgin',''));

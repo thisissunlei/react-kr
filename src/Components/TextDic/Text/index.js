@@ -406,8 +406,8 @@ export default class Text  extends React.Component{
                 let {label}=this.props;
                 let {models}=this.state;
                 
-                console.log('gggg',label);
-                
+        
+
 				return(
 
 					<div style={{display:'inline-block'}}>
