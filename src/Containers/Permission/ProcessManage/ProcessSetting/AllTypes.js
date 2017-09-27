@@ -101,7 +101,7 @@ export default class AllTypes extends React.Component {
 		})
 	}
     openSetDialog = () => {
-        var processId =  this.state.itemDetail.wfId;
+        var processId =  this.state.itemDetail.id;
 		window.location.href = `./#/permission/processManage/${processId}/basicSetting`;
 	}
 	openEditDialog = () => {

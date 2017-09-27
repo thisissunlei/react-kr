@@ -94,6 +94,7 @@ export default class SingleType extends React.Component {
 	}
     //操作相关
 	onOperation = (type, itemDetail) => {
+		console.log(itemDetail,">>>>>>")
 		this.setState({
 			itemDetail
 		},function(){
@@ -104,7 +105,7 @@ export default class SingleType extends React.Component {
 		
 	}
 	openSetDialog = () => {
-		var processId =  this.state.itemDetail.wfId;
+		var processId =  this.state.itemDetail.id;
 		window.open(`./#/permission/processManage/${processId}/basicSetting`);
 	}
 	openEditDialog = () => {

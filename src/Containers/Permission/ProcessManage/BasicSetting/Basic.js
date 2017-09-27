@@ -47,6 +47,7 @@ class Basic extends Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
+        console.log(form,"LLLLLLL")
         // console.log("basic",form);
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
@@ -164,7 +165,7 @@ class Basic extends Component {
 const validate = values => {
 
 	const errors = {}
-	
+        console.log(values,"PPPPPPPPPP");
 		if (!values.name) {
 			errors.name = '请输入流程名称';
 		}else if (values.name.length>20) {
