@@ -353,6 +353,8 @@ class TextInfo  extends React.Component{
  }
 
  cancelEditText=()=>{
+	let {basicInfo}=this.props;
+	this.getTextInfo(basicInfo.id);
 	 this.setState({
 		 openEditText:!this.state.openEditText
 	 })
