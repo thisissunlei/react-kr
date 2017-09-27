@@ -18,21 +18,52 @@ export default class Text  extends React.Component{
             component:null,
             models:null,
             //二级变化值
-            changeData:''
+            changeData:'',
         }
         this.isCommon=false;
         this.oldEdit={};
     }
     
 
+
     commonPublic=(param,sourceOrgin,type,old)=>{
-        let {changeData}=this.state;
-        if(type=='mount'||type=='props'){
+        let {changeData,oldEdit}=this.state;
+        if(old&&this.oldEdit!=old){
             this.oldEdit=old;
         }
-        console.log('pop',this.oldEdit,param,this.props.label,this.props.twoData);
         
         if(param=='PUBLIC_DICT'){
+            if(this.props.twoData&&(this.props.twoData!=this.oldEdit.inputType)){
+                
+                Store.dispatch(change('EditText','sourceOrgin',''));
+                Store.dispatch(change('AddText','sourceOrgin',''));
+            }else if(!this.props.twoData){
+                if(changeData&&changeData!=this.oldEdit.compType){
+                    
+                    Store.dispatch(change('EditText','sourceOrgin',''));
+                    Store.dispatch(change('AddText','sourceOrgin','')); 
+                }else if(!changeData){
+                   
+                    Store.dispatch(change('EditText','sourceOrgin',this.oldEdit.sourceOrgin?this.oldEdit.sourceOrgin:'')); 
+                }else if(changeData&&changeData==this.oldEdit.compType){
+                    
+                    Store.dispatch(change('EditText','sourceOrgin',this.oldEdit.sourceOrgin?this.oldEdit.sourceOrgin:'')); 
+                }
+            }else if(this.props.twoData&&(this.props.twoData==this.oldEdit.inputType)){
+                
+                if(changeData&&changeData!=this.oldEdit.compType){
+                    
+                    Store.dispatch(change('EditText','sourceOrgin',''));
+                    Store.dispatch(change('AddText','sourceOrgin','')); 
+                }else if(!changeData){
+                    
+                    Store.dispatch(change('EditText','sourceOrgin',this.oldEdit.sourceOrgin?this.oldEdit.sourceOrgin:'')); 
+                }else if(changeData&&changeData==this.oldEdit.compType){
+                    
+                    Store.dispatch(change('EditText','sourceOrgin',this.oldEdit.sourceOrgin?this.oldEdit.sourceOrgin:'')); 
+                }
+            }
+
             Store.dispatch(change('EditText','itemListStr',null));
             Store.dispatch(change('AddText','itemListStr',null));
             this.setState({
@@ -41,20 +72,35 @@ export default class Text  extends React.Component{
         }else if(param=="CUSTOM"){
             
             if(this.props.twoData&&(this.props.twoData!=this.oldEdit.inputType)){
+                
                 Store.dispatch(change('EditText','itemListStr',[]));
                 Store.dispatch(change('AddText','itemListStr',[]));
             }else if(!this.props.twoData){
                 if(changeData&&changeData!=this.oldEdit.compType){
+                    
                     Store.dispatch(change('EditText','itemListStr',[]));
                     Store.dispatch(change('AddText','itemListStr',[])); 
+                }else if(!changeData){
+                   
+                    Store.dispatch(change('EditText','itemListStr',this.oldEdit.items?this.oldEdit.items:[])); 
+                }else if(changeData&&changeData==this.oldEdit.compType){
+                    
+                    Store.dispatch(change('EditText','itemListStr',this.oldEdit.items?this.oldEdit.items:[])); 
                 }
-            }else{
-                  Store.dispatch(change('EditText','itemListStr',[]));  
+            }else if(this.props.twoData&&(this.props.twoData==this.oldEdit.inputType)){
+               
+                if(changeData&&changeData!=this.oldEdit.compType){
+                    
+                    Store.dispatch(change('EditText','itemListStr',[]));
+                    Store.dispatch(change('AddText','itemListStr',[])); 
+                }else if(!changeData){
+                    
+                    Store.dispatch(change('EditText','itemListStr',this.oldEdit.items?this.oldEdit.items:[])); 
+                }else if(changeData&&changeData==this.oldEdit.compType){
+                    
+                    Store.dispatch(change('EditText','itemListStr',this.oldEdit.items?this.oldEdit.items:[])); 
+                }
             }
-            /*if(sourceOrgin==''){
-                Store.dispatch(change('EditText','itemListStr',[]));
-                Store.dispatch(change('AddText','itemListStr',[]));
-            }*/
             this.setState({
                models:this.selfRender(),
             })
@@ -69,6 +115,7 @@ export default class Text  extends React.Component{
 
     componentDidMount(){
         let {getEdit,isCommon}=this.props;
+        this.oldEdit=getEdit;
         if(isCommon!=0){
             return;
         }
@@ -77,6 +124,7 @@ export default class Text  extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
+        this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
            Store.dispatch(change('EditText','sourceType',''));
            this.setState({
