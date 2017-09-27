@@ -448,7 +448,27 @@ export default class List extends React.Component {
 								<TableRow >
 									<TableRowColumn name="outerCode" ></TableRowColumn>
 									<TableRowColumn name="communityName" ></TableRowColumn>
-									<TableRowColumn name="active" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
+									<TableRowColumn name="active"
+										component={
+											(value,oldValue,itemData)=>{
+												if(value=="true"){
+													return (
+														<div>
+															已激活
+														</div>
+													)
+												}else{
+													return (
+														<div  style={{color:"#ff6868"}}>
+															未激活
+														</div>
+													)
+												}
+												
+											}
+										}
+
+									></TableRowColumn>
 									<TableRowColumn name="holderName" type="operation"
 										component={
 											(value,oldValue,itemData)=>{
@@ -491,7 +511,7 @@ export default class List extends React.Component {
 				    </Dialog>
 
 					<Dialog
-						title="批量激活"
+						title="批量激活(填写卡外码)"
 						modal={true}
 						open={this.state.openHeavilyActivation}
 						onClose={this.openHeavilyActivationDialog}
@@ -540,7 +560,7 @@ export default class List extends React.Component {
 				    </Dialog>
 
 					<Dialog
-						title="批量激活"
+						title="批量激活（填写卡内码）"
 						modal={true}
 						open={this.state.openStartCardActivation}
 						onClose={this.openStartCardActivationDialog}
