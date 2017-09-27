@@ -33,9 +33,9 @@ import {
 	Dialog,
 	Drawer,
 } from 'kr-ui';
-import './index.less';
 import Handle from './Handle';
 import ViewOpinion from './ViewOpinion';
+import './index.less';
 
 export default class AppOpinion extends React.Component {
 
@@ -89,7 +89,7 @@ export default class AppOpinion extends React.Component {
 	render() {
 		let {itemDetail}=this.state;
 		return (
-			<div className="g-create-opinion">
+			<div className="g-create-opinion g-create-app-opinion">
 				<Title value="App意见反馈"/>
 				<Section title="App意见反馈列表" description="" style={{marginBottom:-5,minHeight:910}}>
 					
