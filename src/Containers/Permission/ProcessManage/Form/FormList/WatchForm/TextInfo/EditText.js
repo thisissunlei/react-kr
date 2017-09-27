@@ -95,6 +95,7 @@ class EditText  extends React.Component{
                             message: '选项值必须为数值且最大为3位数',
                             type: 'danger',
                         }]);
+                        return;
                     }
                 }
                 if(!item.orderNum){
