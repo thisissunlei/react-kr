@@ -99,7 +99,16 @@ class Basic extends Component {
                     requireLabel={true}
                     placeholder="排序号"
                 />
-               
+                <KrField
+                    grid={1/2}
+                    style={{width:262,marginTop:6}}
+                    name="hzCode"
+                    component="formTypeTree"
+                    label="表单名称"
+                    valueText={'123'}
+                    ajaxUrlName = "get-department-tree"
+                    requireLabel={true}
+                />
 
                 <KrField
                     grid={1/2}
@@ -111,7 +120,7 @@ class Basic extends Component {
                     ajaxUrlName = "get-department-tree"
                     requireLabel={true}
                 />
-                
+               
 
                 <KrField
                     style={{width:262,marginTop:6}}
