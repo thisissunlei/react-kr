@@ -72,6 +72,7 @@ class CreateDrawer extends React.Component {
 			toBasicSetting
 		} = this.props;
 		if(this.submitType==1){
+			console.log('bbbbbb',form);
 			onSubmit && onSubmit(form);
 		}else{
 			toBasicSetting && toBasicSetting(form);
@@ -192,7 +193,7 @@ class CreateDrawer extends React.Component {
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit"onTouchTap={this.commonSubmit}/>
+								<Button  label="确定" type="submit" onTouchTap={this.commonSubmit}/>
 								<Button  label="保存并进入流程配置" width={178} cancle={true} type="submit" onTouchTap={this.basicSubmit}/>
 							</ButtonGroup>
 						  </Col>

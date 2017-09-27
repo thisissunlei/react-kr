@@ -133,7 +133,8 @@ export default class AllTypes extends React.Component {
 		});
 	}
     onCreatDrawerSubmit = (params) => {
-        const {onSubmit} = this.props;
+        console.log('params',params);
+        /*const {onSubmit} = this.props;
         var params = Object.assign({},params);
         params.hrmResourceId = params.hrmResourceId[0].orgId;
 		var _this = this;
@@ -144,7 +145,7 @@ export default class AllTypes extends React.Component {
             onSubmit();
 		}).catch(function (err) {
 			Message.error(err.message)
-		});
+		});*/
 	}
     toBasicSetting=(form)=>{
         const {onSubmit} = this.props;
