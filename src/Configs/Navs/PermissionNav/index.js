@@ -123,7 +123,7 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '表单列表',
-						menuCode: 'hrm_resourcesList_incumbency',
+						menuCode: 'sys_form_list',
 						router: '/permission/processManage/form',
 					},
 					{
