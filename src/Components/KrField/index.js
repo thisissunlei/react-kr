@@ -77,6 +77,8 @@ import OaTreeDepartment from './OaTreeDepartment';
 import OaTreePersonnel from './OaTreePersonnel';
 //分部树
 import OaTreeDivision from './OaTreeDivision'
+//类型树
+import FormTypeTree from './FormTypeTree';
 //高级查询客户来源
 import UpMerchantsSource from './UpMerchantsSource';
 import UpSignedClientSource from './UpSignedClientSource';
@@ -530,6 +532,11 @@ class FieldRevert extends React.Component {
 			if (component === 'treePersonnel') {
 				return (
 					<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'formTypeTree') {
+				return (
+					<FieldRevert {...this.props} component={FormTypeTree}  style={WrapStyles} {...other}/>
 				)
 			}
 			if (component === 'treeDivision') {

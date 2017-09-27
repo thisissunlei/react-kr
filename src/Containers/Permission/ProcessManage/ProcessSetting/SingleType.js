@@ -276,7 +276,7 @@ export default class SingleType extends React.Component {
 									<TableHeaderColumn>顺序</TableHeaderColumn>
 									<TableHeaderColumn>发起流程请求</TableHeaderColumn>
 									<TableHeaderColumn>新办是否显示</TableHeaderColumn>
-                                    <TableHeaderColumn>慧正流程唯一标识</TableHeaderColumn>
+                                    <TableHeaderColumn>表单名称</TableHeaderColumn>
 									<TableHeaderColumn>描述</TableHeaderColumn>
                                     <TableHeaderColumn>操作人</TableHeaderColumn>
 									<TableHeaderColumn>操作时间</TableHeaderColumn>

@@ -78,6 +78,8 @@ class CreateDrawer extends React.Component {
 		}
 		
 	}
+	
+
 		render() {
 
 			const {
@@ -125,14 +127,16 @@ class CreateDrawer extends React.Component {
 								label="排序号"
 								requireLabel={true}
 						/>
+						
 						<KrField
-								style={{width:260,marginTop:4}}
-								name="hzCode"
-								type="text"
-								component="input"
-								label="慧正流程唯一标识"
-								requireLabel={true}
-						/>
+                            grid={1/2}
+                            style={{width:262,marginTop:6}}
+                            name="hzCode"
+                            component="formTypeTree"
+                            label="表单名称"
+                            ajaxUrlName = "get-department-tree"
+                            requireLabel={true}
+                        />
 					
 						<KrField
                             grid={1/2}
