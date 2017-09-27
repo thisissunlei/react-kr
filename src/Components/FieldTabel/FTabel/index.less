@@ -18,13 +18,14 @@
            width:20px;
            height:20px;
            display:inline-block;
-           background:url(./images/delall1.png) no-repeat center;
-           background-size: 100%;
+           background:url(./images/delall.svg) no-repeat center;
+           background-size: 84%;
            margin-right: 6px;
+           transition: all .3s;
         }
         .ui-del-pic:hover{
-            background:url(./images/all.svg) no-repeat center; 
-            background-size: 100%;
+            background:url(./images/delallActive.svg) no-repeat center; 
+            background-size: 20px 20px;
         }
       }
       .move{
@@ -36,28 +37,35 @@
             height:20px;
             cursor:pointer;
             display:inline-block;
-            background:url(./images/up.png) no-repeat center;
-            background-size: 100%;
+            background:url(./images/up.svg) no-repeat center;
+            background-size: 84%;
+             transition: all .3s;
           }
           .ui-move-pic:hover{
-            background:url(./images/up-b.svg) no-repeat center;
-            background-size: 100%;   
+            background:url(./images/upActive.svg) no-repeat center;
+            background-size: 20px 20px;   
           }
           .ui-down-pic{
             width:20px;
             height:20px;
             cursor:pointer;
             display:inline-block;
-            background:url(./images/down.png) no-repeat center;
-            background-size: 100%;
+            background:url(./images/down.svg) no-repeat center;
+            background-size:84%;
+            transition: all .3s;
           }
           .ui-down-pic:hover{
-            background:url(./images/down-b.svg) no-repeat center;
-            background-size: 100%;   
+            background:url(./images/downActive.svg) no-repeat center;
+            background-size: 20px 20px;   
           }
         }
       }
     }
+
+
+
+
+
     //展开条
     .ui-field-tabel-fold{
         text-align: center;
@@ -75,7 +83,7 @@
             height: 12px;
             width: 12px;
             margin-left: 5px;
-            background:url(images/down.svg) no-repeat;
+            background:url(images/unfurled.svg) no-repeat;
             background-size: 12px 12px;
             background-position: 0px 1px;
         }
@@ -84,7 +92,7 @@
             height: 12px;
             width: 12px;
             margin-left: 5px;
-            background:url(images/up.svg) no-repeat;
+            background:url(images/packUp.svg) no-repeat;
             background-size: 12px 12px;
             background-position: 0px 1px;
 
@@ -101,12 +109,12 @@
             color: #4A90E2;
         }
         .fold:hover .icon-down{
-            background:url(images/downActive.svg) no-repeat;
+            background:url(./images/unfurledActive.svg) no-repeat;
             background-size: 12px 12px;
             background-position: 0px 1px;
         }
         .fold:hover .icon-up{
-            background:url(images/upActive.svg) no-repeat;
+            background:url(./images/packUpActive.svg) no-repeat;
             background-size: 12px 12px;
             background-position: 0px 1px;
         }
