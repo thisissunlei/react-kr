@@ -555,8 +555,8 @@ export default class SecondDoorManage  extends React.Component{
 			          	</TableHeader>
 			          	<TableBody >
 				            <TableRow>
-				            	<TableRowColumn name="communityName"></TableRowColumn>
-								<TableRowColumn style={{width:100,overflow:"visible"}} name="title" component={(value,oldValue)=>{
+				            	<TableRowColumn name="communityName" style={{width:"12%"}}></TableRowColumn>
+								<TableRowColumn style={{width:"12%",overflow:"visible"}} name="title" component={(value,oldValue)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
 		                              TooltipStyle="none"
@@ -567,7 +567,9 @@ export default class SecondDoorManage  extends React.Component{
 		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
-								<TableRowColumn name="doorCode" component={(value,oldValue)=>{
+								<TableRowColumn name="doorCode"
+									style={{width:"10%"}} 
+									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
@@ -576,6 +578,7 @@ export default class SecondDoorManage  extends React.Component{
 								
 								
 								<TableRowColumn name="deviceId"
+									style={{width:"16%"}}
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -584,19 +587,23 @@ export default class SecondDoorManage  extends React.Component{
 										}else{
 											TooltipStyle="inline-block";
 										}
-										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:170,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
 										)
 									}} 
 								>
 								</TableRowColumn>
-								<TableRowColumn name="makerName" component={(value,oldValue)=>{
+								<TableRowColumn name="makerName" 
+									style={{width:"5%"}}
+									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="doorTypeName" component={(value,oldValue)=>{
+								<TableRowColumn name="doorTypeName" 
+									style={{width:"5%"}}
+									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
@@ -604,21 +611,31 @@ export default class SecondDoorManage  extends React.Component{
 								></TableRowColumn>
 							
 					            <TableRowColumn name="logined"
-					              component={(value,oldValue)=>{
-					                var spanColor = "";
+									style={{width:"7%"}}
 
-					                if(value  == "true"){
-					                	value="已连接";
-					                }else{
-					                	value="未连接";
-					                	spanColor = "#ff6868";
-					                }
-					                return (<span style={{color:spanColor}}>{value}</span>)}}>
+					              	component={(value,oldValue)=>{
+						                var spanColor = "";
+
+						                if(value  == "true"){
+						                	value="已连接";
+						                }else{
+						                	value="未连接";
+						                	spanColor = "#ff6868";
+						                }
+						                return (<span style={{color:spanColor}}>{value}</span>)}}
+						        >
 					            </TableRowColumn>
 					            
-								<TableRowColumn name="loginedUtime" type="date" format="yyyy-mm-dd HH:MM:ss" style={{width:160}}></TableRowColumn>
+								<TableRowColumn 
+									style={{width:"15%"}}
+									name="loginedUtime" 
+									type="date" 
+									format="yyyy-mm-dd HH:MM:ss" 
+								>
+								</TableRowColumn>
 
 					            <TableRowColumn type="operation"
+					            	style={{width:"15%"}}
 									component={
 										(value,oldValue,itemData)=>{
 											if(value==""){
