@@ -118,11 +118,11 @@ export default class BasicSetting extends React.Component {
                     <div className="department">
                         <div className="department-logo">
                             <span>
-                                {this.state.infoList.wfName?this.state.infoList.wfName.substring(0,2):''}
+                                {this.state.infoList.name?this.state.infoList.name.substring(0,2):''}
                             </span>
                         </div>
                         <div className="department-name">
-                            {this.state.infoList.wfName}
+                            {this.state.infoList.name}
                         </div>
                         <div className="department-tab-list">
                             <div className="department-tab department-tab-active" style={{cursor:"default"}}>
