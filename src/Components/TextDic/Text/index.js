@@ -260,10 +260,12 @@ export default class Text  extends React.Component{
                             requireLabel={true}
                             marking={true}
                         />
-                        <div className='m-form-radio'> <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
+                        <div className='m-form-radio'> 
+                            <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
                                 <KrField name="wsenabled" label="允许" type="radio" value='true' />
                                 <KrField name="wsenabled" label="禁止" type="radio" value='false' />
-                    </KrField></div>
+                            </KrField>
+                    </div>
                     <KrField
                             grid={1/2}
                             style={{width:262,marginBottom:5}}
