@@ -48,8 +48,8 @@ class CreateDrawer extends React.Component {
 		}
 	}
 	componentDidMount(){
-		Store.dispatch(change('CreateDrawer','newRequestShow',"1"));
-		Store.dispatch(change('CreateDrawer','allowRequest',"1"));
+		Store.dispatch(change('CreateDrawer','newRequestShow',"true"));
+		Store.dispatch(change('CreateDrawer','allowRequest',"true"));
 		if(this.props.detail.typeId!='0'){
 			Store.dispatch(change('CreateDrawer','wfTypeId',this.props.detail.typeId))
 		}
