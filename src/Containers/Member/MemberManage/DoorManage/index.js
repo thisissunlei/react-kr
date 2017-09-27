@@ -332,7 +332,7 @@ export default class List extends React.Component {
 										modal={true}
 										open={this.state.openImpoverList}
 										onClose={this.openImpoverList}
-										width={1000}
+										width={1100}
 									>
 									<ImpowerList onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openImpoverList} detail={itemDetail} fresh={this.fresh} />
 								</Drawer>
