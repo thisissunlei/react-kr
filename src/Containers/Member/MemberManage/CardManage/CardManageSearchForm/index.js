@@ -60,6 +60,12 @@ class CardManageSearchForm extends React.Component{
 
 	}
 
+
+	openHeavilyActivationDialog=()=>{
+		let {openHeavilyActivationDialog} = this.props;
+		openHeavilyActivationDialog && openHeavilyActivationDialog();
+	}
+
 	render(){
 		let {floorsOptions,propertyOption,makerOptions}=this.state;
 		const { error, handleSubmit,content,filter} = this.props;

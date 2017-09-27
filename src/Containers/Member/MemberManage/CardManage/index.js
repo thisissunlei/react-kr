@@ -77,7 +77,9 @@ export default class List extends React.Component {
 			},
 			detail:{
 				startNum:"",
-				endNum:''
+				endNum:'',
+				comminityId :'',
+				memo : '',
 			},
 			isHeavilyClose:true,
 			goHeavilyActivation:"index"
@@ -136,28 +138,7 @@ export default class List extends React.Component {
 		this.openHeavilyActivationDialog();
 
 	}
-	//新建激活的确定操作
-	onNewActivation=(values)=> {
-		var _this=this;
-		const params={};
-		params.foreignCode=values.foreignCode;
-		params.interCode=values.interCode;
-		Http.request('CardActivation', {}, params).then(function(response) {
-			_this.openNewActivationDialog();
-			_this.onFlush();
-			Message.success("激活成功！")
-		}).catch(function(err) {
-			
-			if (err.message=="该会员卡已被录入") {
-		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
-		 	}else if(err.message=="该卡已被激活,请重刷"){
-		 		err.message="会员卡"+values.foreignCode+"已被激活，请换卡重刷！"
-		 	}else if(err.message=="Failed to fetch"){
-		 		err.message="连接不到服务器!";
-		 	}
-		 	Message.error(err.message);
-		});
-	}
+	
 
 	//输入卡号的确定操作
 	onHeavilyActivation=(detail)=> {
@@ -259,10 +240,17 @@ export default class List extends React.Component {
 	 //关闭弹跳
 	 closeMessageBar=()=>{
 	 	let detail = Object.assign({},this.state.closeMessageBar);
-		 	detail.open=false;
-		 this.setState({
-			 closeMessageBar:detail
-		 })
+		detail.open=false;
+		State.cardManageSearchParams = {
+						page:State.realPage,
+						pageSize: 15,
+						type:'',
+						value:'',
+						date: new Date()
+					}
+		this.setState({
+			closeMessageBar:detail
+	    })
 	 }
 
 	onSearchCancel=()=> {
@@ -301,9 +289,27 @@ export default class List extends React.Component {
 		})
 	}
 	onPageChange=(page)=>{
-		this.setState({
-			realPage: page
-		})
+		State.realPage = page;
+		
+	}
+
+	renderOperation=(itemData)=>{
+		if(itemData.memberName){
+			return(
+					<div>
+						<Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" />
+						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="edit" />
+						<Button  operateCode="mbr_define_add" label="删除"  type="operation"  operation="edit" />
+					</div>
+				)
+		}else{
+			return(
+					<div>
+						<Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" />
+						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="edit" />
+					</div>
+				)
+		}
 	}
 		render(){
 			
@@ -313,7 +319,7 @@ export default class List extends React.Component {
 
 						<Section title="会员卡管理" description="" style={{minHeight:"900px"}}>
 
-								<CardManageSearchForm/>
+								<CardManageSearchForm openHeavilyActivationDialog={this.openHeavilyActivationDialog}/>
 
 								<Table  style={{marginTop:8}}
 										ajax={true}
@@ -329,26 +335,25 @@ export default class List extends React.Component {
 									ajaxFieldListName="items"
 									ajaxUrlName='MemberCardManageList'>
 									<TableHeader>
-										<TableHeaderColumn style={{width:"20%"}}>卡号</TableHeaderColumn>
-										<TableHeaderColumn style={{width:"20%"}}>内码</TableHeaderColumn>
-										<TableHeaderColumn style={{width:"20%"}}>状态</TableHeaderColumn>
-										<TableHeaderColumn style={{width:"20%"}}>激活时间</TableHeaderColumn>
-										<TableHeaderColumn style={{width:"20%"}}>操作</TableHeaderColumn>
+										<TableHeaderColumn style={{width:"15%"}}>卡号</TableHeaderColumn>
+										<TableHeaderColumn style={{width:"15%"}}>社区</TableHeaderColumn>
+										<TableHeaderColumn style={{width:"15%"}}>是否激活</TableHeaderColumn>
+										<TableHeaderColumn style={{width:"15%"}}>持卡人</TableHeaderColumn>
+										<TableHeaderColumn style={{width:"25%"}}>客户</TableHeaderColumn>
+										<TableHeaderColumn style={{width:"15%"}}>操作</TableHeaderColumn>
 
 								</TableHeader>
 
 								<TableBody >
-										<TableRow >
-											<TableRowColumn name="foreignCode" ></TableRowColumn>
-											<TableRowColumn name="interCode" ></TableRowColumn>
-											<TableRowColumn name="enable" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
-											<TableRowColumn name="activeTime" type='date' format="yyyy-mm-dd HH:MM:ss" ></TableRowColumn>
-											<TableRowColumn type="operation">
-												
-												  <Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" />
-											
-											</TableRowColumn>
-										 </TableRow>
+									<TableRow >
+										<TableRowColumn name="foreignCode" ></TableRowColumn>
+										<TableRowColumn name="communityName" ></TableRowColumn>
+										<TableRowColumn name="active" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
+										<TableRowColumn name="memberName"></TableRowColumn>
+										<TableRowColumn name="customerName"></TableRowColumn>
+
+										<TableRowColumn type="operation" component={this.renderOperation}></TableRowColumn>
+									 </TableRow>
 								</TableBody>
 
 								<TableFooter ></TableFooter>
@@ -373,7 +378,7 @@ export default class List extends React.Component {
 							open={this.state.openHeavilyActivation}
 							onClose={this.openHeavilyActivationDialog}
 							bodyStyle={{paddingTop:45}}
-							contentStyle={{width:500}}
+							contentStyle={{width:687}}
 						>
 							<HeavilyActivation path={this.state.goHeavilyActivation} detail={this.state.detail}  onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog} isHeavilyCloseNone={this.isHeavilyCloseNone} isHeavilyCloseOk={this.isHeavilyCloseOk}/>
 					  </Dialog>
