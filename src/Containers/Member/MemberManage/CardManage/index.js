@@ -337,7 +337,7 @@ export default class List extends React.Component {
 
 	renderOperation=(itemData)=>{
 		let _this =this;
-		if(itemData.memberName){
+		if(itemData.holderName){
 			return(
 					<div>
 						<Button  operateCode="mbr_define_add" label="编辑"  type="operation" operation="edit" onTouchTap={_this.openEditDialog.bind(this,itemData)}/>
