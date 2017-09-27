@@ -398,6 +398,8 @@ getCheckedData = (arr) =>{
 		let {handleSubmit,textInfo,isCreate,basicInfo}=this.props;
 		let {detailInfo,mainInfo,getEdit}=this.state;
 
+	
+
 		return(
 
 			<div className='watch-text'>
@@ -459,6 +461,9 @@ getCheckedData = (arr) =>{
 			{
 				detailInfo.map((item,index)=>{
 
+					
+
+
 				  return <div className='main-form detail-form' style={{marginTop:20}}>
 
 								<div className='main-name'>
@@ -480,7 +485,7 @@ getCheckedData = (arr) =>{
 								>
 									<Toolbars>
 										<Toolbar label='编辑' rightSpac='14px' iconClass='edit-form' iconClick={this.openEditDetail.bind(this,item.id)} />
-										{!isCreate&&!item.fields&&<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />}
+										{!isCreate&&(!item.fields||(item.fields&&item.fields.length==0))&&<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />}
 										{(isCreate||(item.fields&&item.fields.length>0))&&<div className='not-del-form'>  
 													<IconTip iconClass='del-tip' label='删除明细表' className='up-tip'>
 												       <div style={{textAlign:'left'}}>亲，该明细表已经创建过表，或者下面有字段存在哦！</div>
