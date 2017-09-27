@@ -47,7 +47,6 @@ class CardManageSearchForm extends React.Component{
 	}
 	
 	onSearchSubmit=(value)=>{
-		console.log("value",value);
 		var newObj ={
 				    	type: value.filter || '',
 				    	value: value.content || '',
@@ -83,6 +82,9 @@ class CardManageSearchForm extends React.Component{
 		      value:"INNER_CODE"
 		    },{
 		      label:"客户名称",
+		      value:"CUSTOMER"
+		    },{
+		      label:"持卡人",
 		      value:"HOLDER"
 		    },{
 		      label:"社区名称",
