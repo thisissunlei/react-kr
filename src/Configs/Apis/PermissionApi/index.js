@@ -463,6 +463,11 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/form-field/edit',
       method: 'post'
     },
+     //表单管理--编辑表单字段-已创建
+     'create-field-edit':{
+      url: '/api/krspace-erp-web/sys/form-field/edit/type/label',
+      method: 'post'
+    },
      //表单管理--表单字段排序
      'form-field-order':{
       url: '/api/krspace-erp-web/sys/form-field/order/type/table',
