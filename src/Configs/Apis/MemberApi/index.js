@@ -41,7 +41,7 @@ module.exports = {
    },
    //会员卡批量入库
    'memberCardImport': {
-      url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
+      url: '/api/krspace-finance-web/member/card/actions/storage?startOuterCode={startOuterCode}&endOuterCode={endOuterCode}',
       method: 'put'
    },
    //会员卡领用

@@ -66,6 +66,12 @@ class CardManageSearchForm extends React.Component{
 		openHeavilyActivationDialog && openHeavilyActivationDialog();
 	}
 
+	openImportCardDialog=()=>{
+		let {openImportCardDialog} = this.props;
+		openImportCardDialog && openImportCardDialog();
+	}
+
+
 	render(){
 		let {floorsOptions,propertyOption,makerOptions}=this.state;
 		const { error, handleSubmit,content,filter} = this.props;
@@ -89,7 +95,7 @@ class CardManageSearchForm extends React.Component{
 					<Row >
 
 						<Col  align="left" style={{marginLeft:0,float:'left'}}> 
-								<Button operateCode="mbr_card_storage" label="入库" type='button' onTouchTap={this.openNewActivationDialog}  /> 
+								<Button label="入库" type='button' onTouchTap={this.openImportCardDialog}  /> 
 						</Col>
 						<Col  align="left" style={{marginLeft:20,float:'left'}}>
 

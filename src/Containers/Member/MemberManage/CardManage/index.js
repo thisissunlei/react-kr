@@ -31,9 +31,11 @@ import {
 
 import EditDetail from "./EditDetail";
 import HeavilyActivation from "./HeavilyActivation";
-import NewActivation from "./NewActivation";
 import StartCardActivation from "./StartCardActivation";
 import CardManageSearchForm from "./CardManageSearchForm";
+import ImportCard from "./ImportCard";
+import ViewCard from "./ViewCard";
+import DeleteCard from "./DeleteCard";
 
 import './index.less';
 
@@ -50,14 +52,19 @@ export default class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			//新建激活页面的开启状态
-			openNewActivation: false,
 			//编辑页面的开启状态
 			openEditDetail: false,
 			//批量激活输入卡号的开启状态
 			openHeavilyActivation: false,
 			//批量激活开始激活
 			openStartCardActivation:false,
+
+			openImportCard: false,
+
+			openView: false,
+
+			openDelete : false,
+
 			itemDetail: {},
 			item: {},
 			list: {},
@@ -89,6 +96,7 @@ export default class List extends React.Component {
 	}
 	//操作相关
 	onOperation=(type, itemDetail)=> {
+		console.log("djdjdjjdjd");
 		var _this=this;
 		this.setState({
 			itemDetail
@@ -116,12 +124,7 @@ export default class List extends React.Component {
 			openHeavilyActivation: !this.state.openHeavilyActivation,
 		});
 	}
-	//新建激活页面开关
-	openNewActivationDialog=()=> {
-		this.setState({
-			openNewActivation: !this.state.openNewActivation,
-		});
-	}
+	
 	//批量激活开始激活页面的开关
 	openStartCardActivationDialog=()=>{
 		this.setState({
@@ -162,36 +165,32 @@ export default class List extends React.Component {
 	}
 	//编辑页面的确定操作
 	onEditDetail=(values)=>{
+		
 		var _this=this;
-		const params={};
-		if(values.interCode==this.state.itemDetail.interCode){
-			
-			this.openEditDetailDialog();
-			Message.success("编辑成功");
-			return;
+		
+		const params={
+			id:values.id,
+			outerCode:values.outerCode,
+			innerCode:values.innerCode,
+			communityId :values.communityId,
+			memo : values.memo
 		}
-		params.id=values.id;
-		params.foreignCode=values.foreignCode;
-		params.interCode=values.interCode;
 		Http.request('CardEdit', {}, params).then(function(response) {
 			_this.openEditDetailDialog();
-			_this.setState({
-				searchParams: {
-					foreignCode:_this.state.searchParams.foreignCode,
-					page: _this.state.realPage,
-					pageSize: 15,
-					other:!_this.state.searchParams.other
-				}
-			})
+			State.cardManageSearchParams = {
+				page:State.realPage,
+				pageSize: 15,
+				type:'',
+				value:'',
+				date: new Date()
+			}
 			Message.success("编辑成功");
 			
 		}).catch(function(err) {
 			if (err.message=="该会员卡已被录入") {
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
 		 	}else if(err.message=="该卡已被激活,请重刷"){
-		 		err.message="会员卡"+values.foreignCode+"已被激活，请换卡重刷！"
-		 	}else if(err.message=="Failed to fetch"){
-		 		err.message="连接不到服务器!";
+		 		err.message="会员卡"+values.outerCode+"已被激活，请换卡重刷！"
 		 	}else if(err.message=="卡号错误"){
 		 		err.message="卡号不可更改!";
 		 	}
@@ -201,17 +200,7 @@ export default class List extends React.Component {
 	}
 
 
-	//搜索被点击
-	onSearchSubmit=(searchParams)=> {
-		let obj = {
-			foreignCode: searchParams.content,
-			pageSize:15,
-			page:1,
-		}
-		this.setState({
-			searchParams: obj
-		});
-	}
+	
 	 //打开弹条
 	 openMessageBar=(text,type)=>{
 	 	var style={};
@@ -267,16 +256,16 @@ export default class List extends React.Component {
 			list
 		})
 	}
-//数据刷新
+	//数据刷新
 	onFlush=()=>{
-		this.setState({
-			searchParams: {
-				foreignCode:'',
-				page: 1,
-				pageSize: 15,
-				other:!this.state.searchParams.other
-			}
-		})
+		
+		State.cardManageSearchParams = {
+			page:1,
+			pageSize: 15,
+			type:'',
+			value:'',
+			date : new Date()
+		}
 	}
 	isHeavilyCloseOk=()=>{
 		setState({
@@ -293,122 +282,253 @@ export default class List extends React.Component {
 		
 	}
 
+
+	//设置单条数据信息
+	setItemDetail=(value)=>{
+		this.setState({
+			itemDetail:value
+		});
+	}
+
+	//点击编辑按钮
+	openEditDialog=(thisP,itemData)=>{
+		let _this = this;
+
+		Http.request('MemberCardEditShow',{id:thisP.id}).then(function(response) {
+			
+			_this.setItemDetail(response);
+			_this.openEditDetailDialog();
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		
+	}
+
+
+	seeCardDetail=(thisP,itemData)=>{
+
+
+		let _this = this;
+		Http.request('MemberCardSeeDetail',{id:thisP.id}).then(function(response) {
+			
+			_this.setItemDetail(response);
+			_this.openViewDialog();			
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+	//查看详情
+	openViewDialog=()=>{
+    	this.setState({
+    		openView:!this.state.openView
+    	})
+    }
+
+    //删除会员卡
+    deleteCard=(thisP,itemData)=>{
+    	this.setItemDetail(thisP);
+    	this.openDeleteDialog();
+    }
+
+
+
 	renderOperation=(itemData)=>{
+		let _this =this;
 		if(itemData.memberName){
 			return(
 					<div>
-						<Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" />
-						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="edit" />
-						<Button  operateCode="mbr_define_add" label="删除"  type="operation"  operation="edit" />
+						<Button  operateCode="mbr_define_add" label="编辑"  type="operation" operation="edit" onTouchTap={_this.openEditDialog.bind(this,itemData)}/>
+						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="edit" onTouchTap={_this.seeCardDetail.bind(this,itemData)}/>
 					</div>
 				)
 		}else{
 			return(
 					<div>
-						<Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" />
-						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="edit" />
+						<Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" onTouchTap={_this.openEditDialog.bind(this,itemData)}/>
+						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="edit" onTouchTap={_this.seeCardDetail.bind(this,itemData)}/>
+						<Button  operateCode="mbr_define_add" label="删除"  type="operation"  operation="edit" onTouchTap={_this.deleteCard.bind(this,itemData)}/>
+						
 					</div>
 				)
 		}
 	}
-		render(){
-			
-			return(
-				<div className="switchhover">
-				<Title value="会员卡管理"/>
 
-						<Section title="会员卡管理" description="" style={{minHeight:"900px"}}>
+	openImportCardDialog=()=>{
+		this.changeImportCardDilogOpen();
+	}
 
-								<CardManageSearchForm openHeavilyActivationDialog={this.openHeavilyActivationDialog}/>
+	changeImportCardDilogOpen=()=>{
+		this.setState({
+			openImportCard : !this.state.openImportCard
+		})
+	}
 
-								<Table  style={{marginTop:8}}
-										ajax={true}
-										onOperation={this.onOperation}
-										onProcessData={(state)=>{
-											return state;
-										}
-									}
-									displayCheckbox={false}
-									onExport={this.onExport}
-									ajaxParams={State.cardManageSearchParams}
-									onPageChange={this.onPageChange}
-									ajaxFieldListName="items"
-									ajaxUrlName='MemberCardManageList'>
-									<TableHeader>
-										<TableHeaderColumn style={{width:"15%"}}>卡号</TableHeaderColumn>
-										<TableHeaderColumn style={{width:"15%"}}>社区</TableHeaderColumn>
-										<TableHeaderColumn style={{width:"15%"}}>是否激活</TableHeaderColumn>
-										<TableHeaderColumn style={{width:"15%"}}>持卡人</TableHeaderColumn>
-										<TableHeaderColumn style={{width:"25%"}}>客户</TableHeaderColumn>
-										<TableHeaderColumn style={{width:"15%"}}>操作</TableHeaderColumn>
 
-								</TableHeader>
 
-								<TableBody >
-									<TableRow >
-										<TableRowColumn name="foreignCode" ></TableRowColumn>
-										<TableRowColumn name="communityName" ></TableRowColumn>
-										<TableRowColumn name="active" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
-										<TableRowColumn name="memberName"></TableRowColumn>
-										<TableRowColumn name="customerName"></TableRowColumn>
 
-										<TableRowColumn type="operation" component={this.renderOperation}></TableRowColumn>
-									 </TableRow>
-								</TableBody>
+	onCardSubmit=()=>{
+    	
+	    Message.success("操作成功");
+	    this.setState({
+	    	openImportCard:!this.state.openImportCard
+	    })
+	    this.onFlush();
+    }
 
-								<TableFooter ></TableFooter>
+    openDeleteDialog=()=>{
+    	this.setState({
+    		openDelete : !this.state.openDelete
+    	})
+    }
 
-								</Table>
-						</Section>
-						<Dialog
-							title="新建激活"
-							modal={true}
-							open={this.state.openNewActivation}
-							onClose={this.openNewActivationDialog}
-							bodyStyle={{paddingTop:45}}
-							contentStyle={{width:442}}
-						>
-							<NewActivation  onSubmit={this.onNewActivation} onCancel={this.openNewActivationDialog}/>
 
-					  </Dialog>
-
-						<Dialog
-							title="批量激活"
-							modal={true}
-							open={this.state.openHeavilyActivation}
-							onClose={this.openHeavilyActivationDialog}
-							bodyStyle={{paddingTop:45}}
-							contentStyle={{width:687}}
-						>
-							<HeavilyActivation path={this.state.goHeavilyActivation} detail={this.state.detail}  onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog} isHeavilyCloseNone={this.isHeavilyCloseNone} isHeavilyCloseOk={this.isHeavilyCloseOk}/>
-					  </Dialog>
-
-						<Dialog
-							title="编辑"
-							modal={true}
-							open={this.state.openEditDetail}
-							onClose={this.openEditDetailDialog}
-							bodyStyle={{paddingTop:45}}
-							contentStyle={{width:442}}
-						>
-						<EditDetail detail={this.state.itemDetail} onSubmit={this.onEditDetail} onCancel={this.openEditDetailDialog}/>
-					  </Dialog>
-
-						<Dialog
-							title="批量激活"
-							modal={true}
-							open={this.state.openStartCardActivation}
-							onClose={this.openStartCardActivationDialog}
-							bodyStyle={{paddingTop:45}}
-							contentStyle={{width:500}}
-						>
-							<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack} openMessageBar={this.openMessageBar} closeMessageBar={this.closeMessageBar}/>
-					  </Dialog>
-					  <SnackTip zIndex={20000}  style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={this.state.closeMessageBar.barStyle}><span className={this.state.closeMessageBar.className} ></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
-
-				</div>
-			);
+    submitDeleteDialog=()=>{
+    	
+    	State.cardManageSearchParams = {
+			page:State.realPage,
+			pageSize: 15,
+			type:'',
+			value:'',
+			date: new Date()
 		}
+	    Message.success("操作成功");
+	    this.setState({
+	    	openDelete:!this.state.openDelete
+	    })
+    }
+
+
+
+
+	render(){
+		
+		return(
+			<div className="switchhover">
+			<Title value="会员卡管理"/>
+
+					<Section title="会员卡管理" description="" style={{minHeight:"900px"}}>
+
+							<CardManageSearchForm 
+								openHeavilyActivationDialog={this.openHeavilyActivationDialog}
+								openImportCardDialog = {this.openImportCardDialog}
+							/>
+
+							<Table  style={{marginTop:8}}
+									ajax={true}
+									onOperation={this.onOperation}
+									onProcessData={(state)=>{
+										return state;
+									}
+								}
+								displayCheckbox={false}
+								onExport={this.onExport}
+								ajaxParams={State.cardManageSearchParams}
+								onPageChange={this.onPageChange}
+								ajaxFieldListName="items"
+								ajaxUrlName='MemberCardManageList'>
+								<TableHeader>
+									<TableHeaderColumn style={{width:"15%"}}>卡号</TableHeaderColumn>
+									<TableHeaderColumn style={{width:"15%"}}>社区</TableHeaderColumn>
+									<TableHeaderColumn style={{width:"15%"}}>是否激活</TableHeaderColumn>
+									<TableHeaderColumn style={{width:"15%"}}>持卡人</TableHeaderColumn>
+									<TableHeaderColumn style={{width:"25%"}}>客户</TableHeaderColumn>
+									<TableHeaderColumn style={{width:"15%"}}>操作</TableHeaderColumn>
+
+							</TableHeader>
+
+							<TableBody >
+								<TableRow >
+									<TableRowColumn name="outerCode" ></TableRowColumn>
+									<TableRowColumn name="communityName" ></TableRowColumn>
+									<TableRowColumn name="active" options={[{label:'已激活',value:'true'},{label:'未激活',value:'false'}]}></TableRowColumn>
+									<TableRowColumn name="memberName"></TableRowColumn>
+									<TableRowColumn name="customerName"></TableRowColumn>
+									<TableRowColumn type="operation" component={this.renderOperation}></TableRowColumn>
+								 </TableRow>
+							</TableBody>
+
+							<TableFooter ></TableFooter>
+
+							</Table>
+					</Section>
+					
+				  	<Dialog
+						title="会员卡入库"
+						modal={true}
+						open={this.state.openImportCard}
+						onClose={this.openImportCardDialog}
+						contentStyle={{width:480}}
+					>
+						<ImportCard onSubmit={this.onCardSubmit} onCancel={this.openImportCardDialog} />
+				    </Dialog>
+
+					<Dialog
+						title="批量激活"
+						modal={true}
+						open={this.state.openHeavilyActivation}
+						onClose={this.openHeavilyActivationDialog}
+						bodyStyle={{paddingTop:45}}
+						contentStyle={{width:687}}
+					>
+						<HeavilyActivation path={this.state.goHeavilyActivation} detail={this.state.detail}  onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog} isHeavilyCloseNone={this.isHeavilyCloseNone} isHeavilyCloseOk={this.isHeavilyCloseOk}/>
+				  </Dialog>
+
+					<Dialog
+						title="编辑"
+						modal={true}
+						open={this.state.openEditDetail}
+						onClose={this.openEditDetailDialog}
+						bodyStyle={{padding:40}}
+						contentStyle={{width:687}}
+					>
+						<EditDetail 
+							detail={this.state.itemDetail} 
+							onSubmit={this.onEditDetail} 
+							onCancel={this.openEditDetailDialog}
+						/>
+				  	</Dialog>
+				  	<Dialog
+						title="查看"
+						modal={true}
+						open={this.state.openView}
+						onClose={this.openViewDialog}
+						contentStyle={{width:680}}
+					>
+						<ViewCard onSubmit={this.openViewDialog} onCancel={this.openViewDialog} detail={this.state.itemDetail}/>
+				    </Dialog>
+
+				     <Dialog
+						title="删除"
+						modal={true}
+						open={this.state.openDelete}
+						onClose={this.openDeleteDialog}
+						contentStyle={{width:400}}
+					>
+						<DeleteCard 
+							onSubmit={this.submitDeleteDialog} 
+							onCancel={this.openDeleteDialog} 
+							detail={this.state.itemDetail}
+						/>
+				    </Dialog>
+
+					<Dialog
+						title="批量激活"
+						modal={true}
+						open={this.state.openStartCardActivation}
+						onClose={this.openStartCardActivationDialog}
+						bodyStyle={{paddingTop:45}}
+						contentStyle={{width:500}}
+					>
+						<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack} openMessageBar={this.openMessageBar} closeMessageBar={this.closeMessageBar}/>
+				  </Dialog>
+				  <SnackTip zIndex={20000}  style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={this.state.closeMessageBar.barStyle}><span className={this.state.closeMessageBar.className} ></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
+
+			</div>
+		);
+	}
 
 
 }

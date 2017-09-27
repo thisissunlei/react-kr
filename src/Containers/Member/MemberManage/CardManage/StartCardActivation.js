@@ -60,7 +60,7 @@ import {
 	    }
 	}
 	 onSubmit=(values)=>{
-	 	console.log("values",values);
+
 		var _this = this;
 	 	if (navigator.onLine) 
 		{ //正常工作
@@ -72,10 +72,10 @@ import {
 
 		 var isErr=false;
 		 const params={};
-		 params.foreignCode=this.state.detail.startNum;
+		 params.outerCode=this.state.detail.startNum;
 		 params.communityId=this.state.detail.communityId;
 		 params.memo=this.state.detail.memo;
-		 params.interCode=values.interCode;
+		 params.innerCode=values.interCode;
 
 		 if(!values.interCode){
 

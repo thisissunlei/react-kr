@@ -942,11 +942,11 @@ const APIS = {
       url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
       method: 'get'
    },
-   //会员卡批量入库
-   'memberCardImport': {
-      url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
-      method: 'put'
-   },
+   // //会员卡批量入库
+   // 'memberCardImport': {
+   //    url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
+   //    method: 'put'
+   // },
    //会员卡领用
    'memberCardUse': {
       url: '/api/krspace-finance-web/member/card/actions/receive',
