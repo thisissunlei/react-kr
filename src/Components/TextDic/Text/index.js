@@ -19,15 +19,29 @@ export default class Text  extends React.Component{
             models:null,
         }
         this.isCommon=false;
+        this.oldEdit={};
     }
     
 
-    commonPublic=(param,sourceOrgin)=>{
+    commonPublic=(param,sourceOrgin,type,old)=>{
+        if(type=='mount'){
+            //this.oldEdit=old;
+            console.log('mount',old);
+        }
+        if(type=='props'){
+            console.log('props',old);
+        }
         if(param=='PUBLIC_DICT'){
+            Store.dispatch(change('EditText','itemListStr',null));
+            Store.dispatch(change('AddText','itemListStr',null));
             this.setState({
               models:this.sourceRender(sourceOrgin),
             })
         }else if(param=="CUSTOM"){
+            if(sourceOrgin==''){
+                Store.dispatch(change('EditText','itemListStr',[]));
+                Store.dispatch(change('AddText','itemListStr',[]));
+            }
             this.setState({
                models:this.selfRender(),
             })
@@ -45,7 +59,7 @@ export default class Text  extends React.Component{
         if(isCommon!=0){
             return;
         }
-        this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin);
+        this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);
         
     }
 
@@ -59,7 +73,7 @@ export default class Text  extends React.Component{
         if(this.isCommon||nextProps.isCommon!=0){
             return;
         }
-        this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin);
+        this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);
     }
 
     selfRender=()=>{
@@ -83,7 +97,7 @@ export default class Text  extends React.Component{
 
     sourceChange=(param)=>{
             this.isCommon=true;
-            this.commonPublic(param.value,'');
+            this.commonPublic(param.value,'','');
 	}
 
     sourceRender=(publicValue)=>{

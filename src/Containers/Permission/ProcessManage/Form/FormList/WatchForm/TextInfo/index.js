@@ -62,12 +62,12 @@ class TextInfo  extends React.Component{
 
 
   componentDidMount() {
-    this.textDetailForm();
+    
   }
 
   componentWillMount(){
-	let {textInfo}=this.props;
-	this.mainDetailForm(textInfo);
+	let {basicInfo}=this.props;
+	this.getTextInfo(basicInfo.id);
   }
 
 
@@ -308,45 +308,48 @@ class TextInfo  extends React.Component{
  }
 
  onEditTextSub=(params)=>{
-	  let {isCreate}=this.props;
+	  let {editId,detailId}=this.state;
+	  let {basicInfo,isCreate}=this.props;
+	  params.id=editId;
+	  params.detailId=detailId;
+	  params.formId=basicInfo.id||'';
 	  params = Object.assign({},params);
-	if(params.inputType=='SELECT'||params.inputType=='CHECK'){
-		params.itemListStr=JSON.stringify(params.itemListStr);
-		delete params.items;
-		if(params.sourceType=='PUBLIC_DICT'){
-		  delete params.itemListStr;
-		} 
+	  if(isCreate){
+		var _this=this;
+		Http.request('create-field-edit',{},params).then(function(response) {
+			 _this.getTextInfo(basicInfo.id);
+			 _this.cancelEditText();
+			}).catch(function(err) {
+			Message.error(err.message);
+		});
 	  }else{
-		  var littleText=[];
-		  for (var item in params){
-			  if(item.indexOf("ws")!=-1){
-				  var list={};
-				  list[item]=params[item];
-				  littleText.push(list);
+		if(params.inputType=='SELECT'||params.inputType=='CHECK'){
+			params.itemListStr=JSON.stringify(params.itemListStr);
+			delete params.items;
+			if(params.sourceType=='PUBLIC_DICT'){
+			  delete params.itemListStr;
+			} 
+		  }else{
+			  var littleText=[];
+			  for (var item in params){
+				  if(item.indexOf("ws")!=-1){
+					  var list={};
+					  list[item]=params[item];
+					  littleText.push(list);
+				  }
 			  }
-		  }
-		  params.setting=JSON.stringify(littleText);
-		  delete params.itemListStr;
-	  }	
-    if(isCreate){
-		delete params.itemListStr;
-		delete params.sourceOrgin;
-		delete params.inputType;
-		delete params.sourceType;
-		delete params.compType;
-	}
-	let {editId,detailId}=this.state;
-	let {basicInfo}=this.props;
-	params.id=editId;
-	params.detailId=detailId;
-	params.formId=basicInfo.id||'';
-	var _this=this;
-	Http.request('form-field-edit',{},params).then(function(response) {
-		 _this.getTextInfo(basicInfo.id);
-		 _this.cancelEditText();
-		}).catch(function(err) {
-		Message.error(err.message);
-	});
+			  params.setting=JSON.stringify(littleText);
+			  delete params.itemListStr;
+		  }	
+		var _this=this;
+		Http.request('form-field-edit',{},params).then(function(response) {
+			 _this.getTextInfo(basicInfo.id);
+			 _this.cancelEditText();
+			}).catch(function(err) {
+			Message.error(err.message);
+		});
+	  }
+	
  }
 
  cancelEditText=()=>{

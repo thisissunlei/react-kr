@@ -39,7 +39,7 @@ class EditCreate  extends React.Component{
 										<KrField
 												 grid={1/2}
 												 style={{width:262,marginBottom:5}}
-												 name="name"
+												 name="label"
 												 component="input"
 												 label="字段显示名"
 												 requireLabel={true}
@@ -65,10 +65,10 @@ class EditCreate  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-	if(!values.name){
-		errors.name='请填写字段显示名';
-	 }else if(values.name.length>10){
-		errors.name='字段显示名不能超过10个字符';
+	if(!values.label){
+		errors.label='请填写字段显示名';
+	 }else if(values.label.length>10){
+		errors.label='字段显示名不能超过10个字符';
 	 }
  
 	return errors
