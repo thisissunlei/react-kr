@@ -274,7 +274,7 @@ export default class UploadImageComponent extends Component {
                          var width = image.width;
                          var height = image.height;
 
-						 if(sizePhoto){
+						 if(sizePhoto && photoSize){
 							 var realWidth = photoSize.substr(0,photoSize.indexOf(":"));
 							 var realHeight = photoSize.substr(photoSize.indexOf(":")+1);
 							 var standard = realWidth/realHeight;
