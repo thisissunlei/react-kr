@@ -77,7 +77,7 @@ export default class PersonnelDialog extends React.Component{
 			}else{
 				obj.isClick = false;
 			}
-			obj.treeType='';
+			obj.treeType='noIcon';
 			obj.noCheck = true;
 		
 			obj.key = key++;
