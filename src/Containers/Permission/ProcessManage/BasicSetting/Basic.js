@@ -35,8 +35,8 @@ class Basic extends Component {
         Http.request('process-detail', {
                 wfId: wfId,
             },{}).then(function(response) {
-                  response.newRequestShow = response.newRequestShow.toString();
-                  response.allowRequest = response.allowRequest.toString();
+                //   response.newRequestShow = response.newRequestShow.toString();
+                //   response.allowRequest = response.allowRequest.toString();
                 _this.setState({infoList: response},function(){
                   Store.dispatch(initialize('Basic', _this.state.infoList));
                 })
@@ -67,7 +67,7 @@ class Basic extends Component {
                     grid={1/2}
                     label="流程名称"
                     component="input"
-                    name="wfName"
+                    name="name"
                     requireLabel={true}
                     placeholder="请输入流程类型名称"
                 />
@@ -77,9 +77,9 @@ class Basic extends Component {
                     label="流程编码"
                     grid={1/2}
                     component="labelText"
-                    name="wfCode"
+                    name="code"
                     requireLabel={true}
-                    value={infoList.wfCode}
+                    value={infoList.code}
                 />
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
@@ -95,7 +95,7 @@ class Basic extends Component {
                     label="排序号"
                     grid={1/2}
                     component="input"
-                    name="wfOrderNum"
+                    name="orderNum"
                     requireLabel={true}
                     placeholder="排序号"
                 />
@@ -113,10 +113,10 @@ class Basic extends Component {
                 <KrField
                     grid={1/2}
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
-                    name="hzCode"
+                    name="formId"
                     component="formTypeTree"
                     label="表单名称"
-                    valueText={'123'}
+                    valueText={infoList.hzCode ? [{orgName:infoList.hzCode}]:[{orgName:''}]}
                     ajaxUrlName = "get-department-tree"
                     requireLabel={true}
                 />
@@ -131,7 +131,7 @@ class Basic extends Component {
                     label="对接人"
                     requireLabel={true}
                     ajaxUrlName = "get-personnel-tree"
-                    valueText={(infoList.hrmResourceId && infoList.hrmResourceId[0] && infoList.hrmResourceId[0].orgName)?infoList.hrmResourceId:[{orgName:''}]}
+                    valueText={(infoList.hrmResourceName)?[{orgName:infoList.hrmResourceName}]:[{orgName:''}]}
                 />
                 
                 <KrField style={{width:262,marginTop:14,marginLeft:28}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={true}>
@@ -145,7 +145,7 @@ class Basic extends Component {
                <KrField
                   grid={1}
                   left={30}
-                  name="descr"
+                  name="baseDesc"
                   component="textarea"
                   maxSize={200}
                   style={{marginTop:12,height:56,width:590}}
@@ -175,23 +175,23 @@ const validate = values => {
 
 	const errors = {}
 	
-		if (!values.wfName) {
-			errors.wfName = '请输入流程名称';
-		}else if (values.wfName.length>20) {
-			errors.wfName = '流程名称最多20个字符！';
+		if (!values.name) {
+			errors.name = '请输入流程名称';
+		}else if (values.name.length>20) {
+			errors.name = '流程名称最多20个字符！';
 		}   
 
-		if (!values.wfOrderNum) {
-			errors.wfOrderNum = '请输入排序号';
+		if (!values.orderNum) {
+			errors.orderNum = '请输入排序号';
 		}
 
 		if (!values.hrmResourceId) {
 			errors.hrmResourceId = '请选择对接人';
 		}
-		if (!values.hzCode) {
-			errors.hzCode = '请输入慧正流程唯一标识';
-		}else if (values.hzCode.length>50) {
-			errors.hzCode = '慧正流程唯一标识最多50个字符！';
+		if (!values.formId) {
+			errors.formId = '请输入表单名称';
+		}else if (values.formId.length>50) {
+			errors.formId = '表单名称最多50个字符！';
 		} 
 
 	return errors

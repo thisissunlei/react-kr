@@ -86,6 +86,7 @@ export default class OaTreePersonnel extends React.Component{
 		const {isDialog,data,oneOpen} = this.state;
 
 		const {ajaxUrlName,valueText} = this.props;
+		console.log(">>>>>>>>>>>>>><<<<<",valueText)
 
 		let {
             input,
