@@ -31,11 +31,11 @@ const Member_MemberManage_Detail = (location, callback) => {
   }, 'Member_MemberManage_Detail')
 }
 
-const Member_MemberManage_Setting = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Member/MemberManage/Setting').default)
-  }, 'Member_MemberManage_Setting')
-}
+// const Member_MemberManage_Setting = (location, callback) => {
+//   require.ensure([], require => {
+//     callback(null, require('kr/Containers/Member/MemberManage/Setting').default)
+//   }, 'Member_MemberManage_Setting')
+// }
 
 const Member_MemberManage_Card = (location, callback) => {
   require.ensure([], require => {
@@ -63,7 +63,7 @@ module.exports =()=>{
         <Route path="memberManage" getComponent={Basic}>
             <Route path="list"  getComponent={Member_MemberManage_List}/>
             <Route path=":memberId/detail/:companyId"  getComponent={Member_MemberManage_Detail}/>
-            <Route path="setting"  getComponent={Member_MemberManage_CardManage}/>
+            <Route path="cardmanage"  getComponent={Member_MemberManage_CardManage}/>
             <Route path="card"  getComponent={Member_MemberManage_Card}/>
 						<Route path="doormanage"  getComponent={Member_MemberManage_DoorManage}/>
         </Route>
