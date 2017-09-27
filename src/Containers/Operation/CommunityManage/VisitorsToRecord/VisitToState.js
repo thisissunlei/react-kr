@@ -68,8 +68,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 		<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}}  >
             <KrField  label="是否到访" name="visitStatus" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
 							<KrField name="visitStatus" label="未到访" type="radio" value="UNVISIT"  style={{marginTop:5}}/>
-							<KrField name="visitStatus" label="已到访未签约" type="radio" value="VISIT_UNSIGN"  style={{marginTop:5}}/>
-							<KrField name="visitStatus" label="已到访已签约" type="radio" value="VISIT_SIGN"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访" type="radio" value="VISIT"  style={{marginTop:5}}/>
 						</KrField>
 						<KrField name="id" style={{display:"none"}}/>
 

@@ -119,9 +119,9 @@ export default class FailList extends React.Component {
 		              		 ></TableRowColumn>
 		              		 <TableRowColumn 
 		              		 	name='syncTime'
-		              		 	component={(value,oldValue)=>{
+		              		 	component={(value,oldValue,itemData)=>{
 									 return (<div className='financeDetail-hover'>
-									 	{DateFormat(oldValue.syncTime,'yyyy/mm/dd')}
+									 	{DateFormat(itemData.syncTime,'yyyy/mm/dd')}
 
 									 	</div>)
 								 }}

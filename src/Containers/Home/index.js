@@ -61,7 +61,7 @@ export default class Home extends React.Component {
 			onSlideChangeEnd: function(swiper){
 				//alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
 			}
-			
+
 		});
 		var swiperone = new Swiper('.swiper-container-one', {
 			// loop:true,
@@ -108,7 +108,7 @@ export default class Home extends React.Component {
       if(!item){
         return ;
       }
-	  
+
       var styles = {};
       		styles.backgroundImage = `url(${item.photoUrl})`;
 			//styles.backgroundSize = `${page.width}px 520px`;
@@ -117,11 +117,11 @@ export default class Home extends React.Component {
 			styles.backgroundRepeat = 'no-repeat';
       return (
 			<div key={index} style={styles} className="swiper-slide" onClick={this.toSlider.bind(this,item)}>
-				
+
 				<div className="swiper-text">
 					<span className="word-break">{item.name}</span>
 				</div>
-				
+
 		</div>
       );
   }
@@ -149,7 +149,7 @@ export default class Home extends React.Component {
 			}).then(function(response) {
 				_this.setState({dynamicList: response.items})
 			}).catch(function(err) {});
-			
+
 		}
         if(!data.linkUrl){
 					window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
@@ -221,12 +221,12 @@ export default class Home extends React.Component {
 			</div>
 			<div className="home-common">
 				<div className="left itemFourth">
-					
+
 				</div>
 				<div className="right">
 					<span className="top">
 							0
-					</span>	
+					</span>
 					<span className="bottom">
 						发起流程
 					</span>
@@ -244,7 +244,7 @@ export default class Home extends React.Component {
 								<div className="swiper-scrollbar"></div>
 								<div className="oa-one-swiper-prev"></div>
     							<div className="oa-one-swiper-next"></div>
-								
+
 							</div>
 
 
@@ -252,7 +252,7 @@ export default class Home extends React.Component {
 						<div className="g-home-middle-item">
 							<div className="title">
 								<div className="circle">
-									
+
 								</div>
 								<div className="left">
 									最新动态
@@ -270,14 +270,14 @@ export default class Home extends React.Component {
 						<div className="g-home-middle-item">
 							<div className="title">
 								<div className="circle">
-									
+
 								</div>
 								<div className="left">
 									相关应用
 								</div>
-								
+
 							</div>
-							
+
 							<div className="apply">
 								<a className="apply-item" href="http://krspace.cn" target="_blank">
 									<div className="pic" style={{height:this.applyItemWidth}}>
@@ -303,7 +303,16 @@ export default class Home extends React.Component {
 										云快报
 									</div>
 								</a>
-								
+
+								<a className="apply-item" href="https://elearnplus.com" target="_blank">
+									<div className="pic" style={{height:this.applyItemWidth}}>
+
+									</div>
+									<div className="text" style={{paddingTop:3}}>
+										E-learning
+									</div>
+								</a>
+
 								<div className="apply-item">
 									<div className="pic" style={{height:this.applyItemWidth}}>
 
@@ -318,7 +327,7 @@ export default class Home extends React.Component {
 				<div className="g-home-bottom">
 					<div className="title">
 						<div className="circle">
-							
+
 						</div>
 						<div className="left">
 							最近入职同事
@@ -331,14 +340,14 @@ export default class Home extends React.Component {
 									return this.renderSwiper(item,index)
 								})}
 							</div>
-							
+
 						</div>
 						<div className="oa-swiper-prev"></div>
     					<div className="oa-swiper-next"></div>
-						
+
 					</div>
-					
-					
+
+
 				</div>
 				<UpdateLog />
       </div>

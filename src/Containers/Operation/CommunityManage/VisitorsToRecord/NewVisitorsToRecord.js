@@ -44,7 +44,8 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 	componentDidMount(){
 
 		const {$form} = this.props;
-		$form.change('visitStatus',"UNVISIT");
+		$form.change('visitStatus','UNVISIT');
+		$form.change('descr','')
 
 
 	}
@@ -164,11 +165,12 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 
 						{/*预约访客，官网预约*/}
 						{(typeValue == 49 || typeValue == 732) &&<KrField grid={1/2}  name="meetedMan" style={{width:262,marginLeft:28}} component='input'  label="被拜访人" inline={false}  placeholder='请输入被拜访人' requireLabel={true}/>}
-						<KrField  label="是否到访" name="visitStatus" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
+						<KrField  label="是否已到访" name="visitStatus" style={{marginLeft:25,marginRight:13}} component="group" requireLabel={true} >
 							<KrField name="visitStatus" label="未到访" type="radio" value="UNVISIT"  style={{marginTop:5}}/>
-							<KrField name="visitStatus" label="已到访未签约" type="radio" value="VISIT_UNSIGN"  style={{marginTop:5}}/>
-							<KrField name="visitStatus" label="已到访已签约" type="radio" value="VISIT_SIGN"  style={{marginTop:5}}/>
+							<KrField name="visitStatus" label="已到访" type="radio" value="VISIT"  style={{marginTop:5}}/>
 						</KrField>
+						<div className='remaskInfo'><KrField grid={1} label="备注" name="descr" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
+
 						<Grid style={{marginTop:30}}>
 							<Row>
 								<Col md={12} align="center" style={{marginLeft:"-27px"}}>

@@ -59,10 +59,12 @@ class VisitorsToRecord  extends React.Component{
 				searchType:'',
         id:"",
 				page: 1,
-     			pageSize: 15,
-     			visitType:'',
-     			searchKey:'',
-     			date:date
+        pageSize: 15,
+        visitType:'',
+        searchKey:'',
+        communityId:'',
+         date:date,
+         vtime:''
 			},
       openNewVisitors:false,
       openEditVisitors:false,
@@ -165,6 +167,7 @@ class VisitorsToRecord  extends React.Component{
      		pageSize: searchParams.pageSize,
      		searchType:value.filter,
      		visitType:searchParams.visitType,
+        communityId:searchParams.communityId,
      		date:date
 			},
 
@@ -256,6 +259,7 @@ class VisitorsToRecord  extends React.Component{
    upperFormSubmit = (values) =>{
      let {searchParams} = this.state;
  	  let date = new Date();
+     
        
     	 this.setState({
           searchParams:{
@@ -264,8 +268,10 @@ class VisitorsToRecord  extends React.Component{
       		pageSize: searchParams.pageSize,
       		searchType:values.searchType,
       		visitType:values.visitType,
+          communityId:values.communityId||"",
           date:date,
-          visitStatus:values.visitStatus
+          visitStatus:values.visitStatus,
+          vtime:values.vtime,
  			},
     })
     this.closeUpperForm();
@@ -341,6 +347,7 @@ class VisitorsToRecord  extends React.Component{
         pageSize: searchParams.pageSize,
         searchType:searchParams.searchType,
         visitType:searchParams.visitType,
+        communityId:searchParams.communityId||'',
         date:date
 			}
    	})
@@ -468,6 +475,7 @@ class VisitorsToRecord  extends React.Component{
 			              <TableHeaderColumn>访客时间</TableHeaderColumn>
 			              <TableHeaderColumn>访客身份证号</TableHeaderColumn>
 			              <TableHeaderColumn>是否已到访</TableHeaderColumn>
+			              <TableHeaderColumn>备注</TableHeaderColumn>
 			              <TableHeaderColumn>操作</TableHeaderColumn>
 
 			          	</TableHeader>
@@ -475,7 +483,9 @@ class VisitorsToRecord  extends React.Component{
 				        <TableBody >
 				          <TableRow>
 			                <TableRowColumn name="name"></TableRowColumn>
-			                <TableRowColumn name="tel"></TableRowColumn>
+			                <TableRowColumn name="tel"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                      ></TableRowColumn>
 			                <TableRowColumn name="typeId"
                         component={(value,oldValue)=>{
 
@@ -490,8 +500,11 @@ class VisitorsToRecord  extends React.Component{
                            return <span>{detail}</span>;
                         }}
                       ></TableRowColumn>
-			                <TableRowColumn name="communityName"></TableRowColumn>
+			                <TableRowColumn name="communityName"
+                      style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                      ></TableRowColumn>
 			                <TableRowColumn name="vtime"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
                         component={(value,oldValue)=>{
                            return (<KrDate value={value} format="yyyy-mm-dd hh:MM"/>)
                         }}
@@ -511,9 +524,21 @@ class VisitorsToRecord  extends React.Component{
                       ></TableRowColumn>
                       <TableRowColumn 
                         name="visitStatus"
-                        options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访未签约',value:"VISIT_UNSIGN"},{label:'已到访已签约',value:"VISIT_SIGN"}]}
+                        options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访',value:"VISIT"}]}
                         style = {{wordWrap:'break-word',whiteSpace:'normal'}}
                        
+                      ></TableRowColumn>
+                       <TableRowColumn name="descr"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                        component={(value,oldValue)=>{
+                          var detail='';
+                          if(!value){
+                            detail='-';
+                          }else{
+                            detail=value;
+                          }
+                           return <span>{detail}</span>;
+                        }}
                       ></TableRowColumn>
 
 			                <TableRowColumn type="operation">
