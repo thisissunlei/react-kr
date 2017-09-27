@@ -35,8 +35,8 @@ class Basic extends Component {
         Http.request('process-detail', {
                 wfId: wfId,
             },{}).then(function(response) {
-                //   response.newRequestShow = response.newRequestShow.toString();
-                //   response.allowRequest = response.allowRequest.toString();
+                response.newRequestShow = response.newRequestShow.toString();
+                response.allowRequest = response.allowRequest.toString();
                 _this.setState({infoList: response},function(){
                   Store.dispatch(initialize('Basic', _this.state.infoList));
                 })
@@ -99,16 +99,6 @@ class Basic extends Component {
                     requireLabel={true}
                     placeholder="排序号"
                 />
-                <KrField
-                    grid={1/2}
-                    style={{width:262,marginTop:6}}
-                    name="hzCode"
-                    component="formTypeTree"
-                    label="表单名称"
-                    valueText={'123'}
-                    ajaxUrlName = "get-department-tree"
-                    requireLabel={true}
-                />
 
                 <KrField
                     grid={1/2}
@@ -116,7 +106,7 @@ class Basic extends Component {
                     name="formId"
                     component="formTypeTree"
                     label="表单名称"
-                    valueText={infoList.hzCode ? [{orgName:infoList.hzCode}]:[{orgName:''}]}
+                    valueText={infoList.formName ? [{orgName:infoList.formName}]:[{orgName:''}]}
                     ajaxUrlName = "get-department-tree"
                     requireLabel={true}
                 />
@@ -134,13 +124,13 @@ class Basic extends Component {
                     valueText={(infoList.hrmResourceName)?[{orgName:infoList.hrmResourceName}]:[{orgName:''}]}
                 />
                 
-                <KrField style={{width:262,marginTop:14,marginLeft:28}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={true}>
-                    <KrField style={{marginTop:10}} name="allowRequest" label="允许" type="radio" value="1" />
-                    <KrField style={{marginTop:10}} name="allowRequest" label="不允许" type="radio" value="0" />
+                <KrField style={{width:262,marginTop:14,marginLeft:34}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={true}>
+                    <KrField style={{marginTop:10}} name="allowRequest" label="允许" type="radio" value="true" />
+                    <KrField style={{marginTop:10}} name="allowRequest" label="不允许" type="radio" value="false" />
  				</KrField>
-                 <KrField style={{width:262,marginTop:14,marginLeft:34}} name="newRequestShow" component="group" label="新办是否显示" grid={1} requireLabel={true}>
-                    <KrField style={{marginTop:10}} name="newRequestShow" label="显示" type="radio" value="1" />
-                    <KrField style={{marginTop:10}} name="newRequestShow" label="不显示" type="radio" value="0" />
+                 <KrField style={{width:262,marginTop:14,marginLeft:32}} name="newRequestShow" component="group" label="新办是否显示" grid={1} requireLabel={true}>
+                    <KrField style={{marginTop:10}} name="newRequestShow" label="显示" type="radio" value="true" />
+                    <KrField style={{marginTop:10}} name="newRequestShow" label="不显示" type="radio" value="false" />
  				</KrField>
                <KrField
                   grid={1}

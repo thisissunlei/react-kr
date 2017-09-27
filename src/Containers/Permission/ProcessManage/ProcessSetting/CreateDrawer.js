@@ -48,8 +48,8 @@ class CreateDrawer extends React.Component {
 		}
 	}
 	componentDidMount(){
-		Store.dispatch(change('CreateDrawer','newRequestShow',"1"));
-		Store.dispatch(change('CreateDrawer','allowRequest',"1"));
+		Store.dispatch(change('CreateDrawer','newRequestShow',"true"));
+		Store.dispatch(change('CreateDrawer','allowRequest',"true"));
 		if(this.props.detail.typeId!='0'){
 			Store.dispatch(change('CreateDrawer','wfTypeId',this.props.detail.typeId))
 		}
@@ -164,14 +164,14 @@ class CreateDrawer extends React.Component {
 										name="allowRequest"
 										label="允许"
 										type="radio"
-										value="1"
+										value="true"
 										style={{marginRight:24,marginLeft:4}}
 								/>
 								<KrField
 										name="allowRequest"
 										label="不允许"
 										type="radio"
-										value="0"
+										value="false"
 								/>
 							</KrField>
 							<KrField style={{width:220,marginLeft:66,marginBottom:16}}  name="newRequestShow" component="group" label="新办是否显示" inline={false} requireLabel={true}>
@@ -179,14 +179,14 @@ class CreateDrawer extends React.Component {
 										name="newRequestShow"
 										label="显示"
 										type="radio"
-										value="1"
+										value="true"
 										style={{marginRight:24,marginLeft:4}}
 								/>
 								<KrField
 										name="newRequestShow"
 										label="不显示"
 										type="radio"
-										value="0"
+										value="false"
 								/>
 							</KrField>
 						<Row >
