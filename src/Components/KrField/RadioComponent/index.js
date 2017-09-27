@@ -11,8 +11,6 @@ export default class RadioComponent  extends React.Component{
 		event.stopPropagation();
 		let {input}=this.props;
 		let {onClick} = this.props;
-	
-		console.log(">>>>>>>>>>>",input)
 		onClick && onClick(input);
 	}
 
