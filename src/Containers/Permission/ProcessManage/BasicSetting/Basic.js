@@ -47,10 +47,17 @@ class Basic extends Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
-        console.log(form,"LLLLLLL")
+        
         // console.log("basic",form);
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
+        if(!isNaN(params.formId)){
+            params.formId = [{orgId:params.formId}] 
+        }
+        if(!isNaN(params.hrmResourceId)){
+            params.hrmResourceId = [{orgId:params.hrmResourceId}] 
+        }
+        
         onSubmit && onSubmit(params);
     }
 
