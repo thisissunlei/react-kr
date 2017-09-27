@@ -17,7 +17,8 @@ import {
 	Grid,
 	Row,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Drawer
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 
@@ -326,15 +327,15 @@ export default class List extends React.Component {
 								</Dialog>
 
 
-								<Dialog
+								<Drawer
 										title="门禁授权"
 										modal={true}
 										open={this.state.openImpoverList}
 										onClose={this.openImpoverList}
-										contentStyle={{width:687}}
+										width={1100}
 									>
-									<ImpowerList onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openImpoverList} detail={itemDetail} fresh={this.fresh}/>
-								</Dialog>
+									<ImpowerList onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openImpoverList} detail={itemDetail} fresh={this.fresh} />
+								</Drawer>
 
 
 								<Dialog

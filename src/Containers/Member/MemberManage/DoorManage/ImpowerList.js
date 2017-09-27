@@ -149,8 +149,6 @@ export default class FinishUploadImgForm extends React.Component{
 	}
 
 	selectAll=(item,e)=>{
-		console.log("item",item);
-		console.log("e.target.checked",e.target.checked);
 		if(e.target.checked){
 
 			let newArrEmpty = [];
@@ -252,8 +250,8 @@ export default class FinishUploadImgForm extends React.Component{
 
 				return(
 				<Tab className="upload-img-tab" label={`${item.floorNum}楼(${item.deviceCount})`} key={index} value="a" style={{fontSize:14,fontWeight: "normal",color:"#333333",background:"#fff"}} >
-						<div style={{height:328,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
-						            <div  style={{height:328,overflow:"scroll",}} className="impower-list">
+						<div style={{height:528,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
+						            <div  style={{height:528,overflow:"scroll",}} className="impower-list">
 							            <Table
 							            	onProcessData={(state)=>{
 		              							return state;
@@ -386,10 +384,10 @@ export default class FinishUploadImgForm extends React.Component{
 
 		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor,totleNum}=this.state;
 		return (
-			<div className="upload-img-outer-box">
+			<div className="upload-img-outer-box" style={{padding:30}}>
 				<div className="upload-img-box">
 
-					<div className="upload-img-body" style={{width:"100%",height: 387}}>
+					<div className="upload-img-body" style={{width:"100%",height: 587}}>
 
 						<Tabs
 					        failed={this.state.failed}
