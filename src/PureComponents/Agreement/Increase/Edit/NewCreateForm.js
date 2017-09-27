@@ -906,8 +906,9 @@ class NewCreateForm extends React.Component {
 					          name={`${member}.discountAmount`}
 					          type="text" 
 					          component='text'
-					          disabled={true}
-					          placeholder="-"/>
+					          onBlur={(event)=>{
+								self.changeAmount(event,fields,index)
+								}}/>
 				        </td>
 				      </tr>
 				    )}else if(biaodan[index] == 2){
@@ -1278,6 +1279,43 @@ class NewCreateForm extends React.Component {
 		this.getSaleMoney(params,fields,index);
 
 	}
+	changeAmount=(e,fields,index)=>{
+		let {changeValues,initialValues,optionValues} = this.props;
+		let {saleList}  = optionValues;
+		let {stationVos} = this.state;
+		let endTime = +new Date(e);
+		let validEnd = +new Date(changeValues.leaseEnddate);
+		let validStart = +new Date(changeValues.leaseBegindate);
+		let tacticsId = '';
+		saleList.map((item)=>{
+			if(item.value == changeValues.saleList[index].tacticsType){
+			   	tacticsId = item.id;
+			}
+		})
+
+
+		let time = {
+			validStart :changeValues.leaseBegindate,
+			validEnd:changeValues.leaseEnddate,
+			tacticsType:changeValues.saleList[index].tacticsType,
+			tacticsId:tacticsId,
+			discount:0,
+			discountAmount:e
+		}
+		fields.remove(index);
+		fields.insert(index,time)
+
+		changeValues.saleList[index] = Object.assign({},time)
+		
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(changeValues.saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:changeValues.leaseBegindate,
+			leaseEnddate:changeValues.leaseEnddate
+		};
+		this.getSaleMoney(params,fields,index);
+	}
 	zhekou=(e,fields,index)=>{
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {saleList}  = optionValues;
@@ -1309,14 +1347,14 @@ class NewCreateForm extends React.Component {
 			return;
 		}
 		saleList.map((item)=>{
-			if(item.value == changeValues.saleList[index].tacticsType && item.discount>e){
-				let message = '折扣不能小于'+item.discount;
-				Notify.show([{
-					message: message,
-					type: 'danger',
-				}]);
-				return;
-			}
+			// if(item.value == changeValues.saleList[index].tacticsType && item.discount>e){
+			// 	let message = '折扣不能小于'+item.discount;
+			// 	Notify.show([{
+			// 		message: message,
+			// 		type: 'danger',
+			// 	}]);
+			// 	return;
+			// }
 			if(item.value == changeValues.saleList[index].tacticsType){
 			   	tacticsId = item.id;
 			}

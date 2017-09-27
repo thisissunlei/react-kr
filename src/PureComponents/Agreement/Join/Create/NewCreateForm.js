@@ -884,8 +884,10 @@ class NewCreateForm extends Component {
 					          name={`${member}.discountAmount`}
 					          type="text"
 					          component='text'
-					          disabled={true}
-					          placeholder="-"/>
+					          onBlur={(event)=>{
+								self.changeAmount(event,fields,index)
+								}}
+					          />
 				        </td>
 				      </tr>
 				    )}else if(biaodan[index] == 2){
@@ -932,9 +934,10 @@ class NewCreateForm extends Component {
 					          name={`${member}.discountAmount`}
 					          type="text"
 					          component='text'
-					          display={true}
 					          disabled={true}
-					          placeholder='-'/>
+
+					          placeholder="-"
+					          />
 
 				        </td>
 				      </tr>
@@ -1132,6 +1135,43 @@ class NewCreateForm extends Component {
 
 		},50)
 	}
+	changeAmount=(e,fields,index)=>{
+		let {changeValues,initialValues,optionValues} = this.props;
+		let {saleList}  = optionValues;
+		let {stationVos} = this.state;
+		let endTime = +new Date(e);
+		let validEnd = +new Date(changeValues.leaseEnddate);
+		let validStart = +new Date(changeValues.leaseBegindate);
+		let tacticsId = '';
+		saleList.map((item)=>{
+			if(item.value == changeValues.saleList[index].tacticsType){
+			   	tacticsId = item.id;
+			}
+		})
+
+
+		let time = {
+			validStart :changeValues.leaseBegindate,
+			validEnd:changeValues.leaseEnddate,
+			tacticsType:changeValues.saleList[index].tacticsType,
+			tacticsId:tacticsId,
+			discount:0,
+			discountAmount:e
+		}
+		fields.remove(index);
+		fields.insert(index,time)
+
+		changeValues.saleList[index] = Object.assign({},time)
+		
+		let params = {
+			stationVos:JSON.stringify(stationVos),
+			saleList:JSON.stringify(changeValues.saleList),
+			communityId:optionValues.mainbillCommunityId,
+			leaseBegindate:changeValues.leaseBegindate,
+			leaseEnddate:changeValues.leaseEnddate
+		};
+		this.getSaleMoney(params,fields,index);
+	}
 	changeEndDate=(e,fields,index)=>{
 		console.log('changeEndDate',e,fields,index);
 		let {changeValues,initialValues,optionValues} = this.props;
@@ -1272,27 +1312,17 @@ class NewCreateForm extends Component {
 		}
 		let xiaoyu = false;
 		saleList.map((item)=>{
-			if(item.value == changeValues.saleList[index].tacticsType && item.discount>e){
-				let message = '折扣不能小于'+item.discount;
-				xiaoyu = true;
-				Notify.show([{
-					message: message,
-					type: 'danger',
-				}]);
-			}
 			if(item.value == changeValues.saleList[index].tacticsType){
 			   	tacticsId = item.id;
 			}
 		})
-		if(xiaoyu){
-			return;
-		}
 		let time = {
 			validStart :changeValues.leaseBegindate,
 			validEnd:changeValues.leaseEnddate,
 			tacticsType:changeValues.saleList[index].tacticsType,
 			tacticsId:tacticsId,
-			discount:e
+			discount:e,
+			discountAmount:0
 		}
 		changeValues.saleList[index] = Object.assign({},time)
 		
