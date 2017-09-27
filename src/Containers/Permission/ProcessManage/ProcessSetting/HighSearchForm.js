@@ -67,7 +67,7 @@ class HighSearchForm extends React.Component {
 						right={27}
  						left={42}
 						component="input"
-			    		name="wfName"
+			    		name="name"
 			    		style={{marginTop:4}}
 			    		label="流程名称"
 					/>
@@ -75,7 +75,7 @@ class HighSearchForm extends React.Component {
 			    		grid={1/2}
 						right={63}
  						left={4}
-			    		name="wfCode"
+			    		name="code"
 			    		component="input"
 			    		style={{marginTop:4}}
 			    		label="流程编码"

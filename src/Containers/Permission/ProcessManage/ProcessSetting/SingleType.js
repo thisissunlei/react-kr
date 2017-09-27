@@ -188,7 +188,7 @@ export default class SingleType extends React.Component {
     }
 	onSearchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.wfName = form.content;
+		searchParams.name = form.content;
 		this.setState({
 			searchParams
 		})
