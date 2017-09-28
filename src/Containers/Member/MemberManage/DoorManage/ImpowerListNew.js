@@ -190,8 +190,8 @@ export default class FinishUploadImgForm extends React.Component{
 	selectAll=(item)=>{
 		let  deviceList = this.state.responseItems;
 		let OriginArr = this.state.initDevices;
-		let newArrEmpty = [];
 		var newItemsData = this.state.responseItems;
+		let newArrEmpty = [];
 		// 将每个IDpush进devices
 		for(var i=0;i<deviceList.length;i++){
 			// 需要去除的
@@ -283,7 +283,7 @@ export default class FinishUploadImgForm extends React.Component{
 						<TableRowColumn>
 
 							{
-								!item.doorCode?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:100,overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.doorCode}</span><Tooltip offsetTop={5} place='top'>{item.doorCode}</Tooltip></div>
+								!item.doorCode?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.doorCode}</span><Tooltip offsetTop={5} place='top'>{item.doorCode}</Tooltip></div>
 							}
 
 						</TableRowColumn>
@@ -297,6 +297,12 @@ export default class FinishUploadImgForm extends React.Component{
 
 							{
 								!item.roomName?<span>-</span>:<span>{item.roomName}</span>
+							}
+						</TableRowColumn>
+						<TableRowColumn style={{overflow:"hidden"}}>
+
+							{
+								!item.floor?<span>-</span>:<span>{item.floor}</span>
 							}
 						</TableRowColumn>
 						<TableRowColumn >
@@ -399,18 +405,18 @@ export default class FinishUploadImgForm extends React.Component{
 		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor}=this.state;
 
 		return (
-			<div className="upload-img-outer-box" style={{padding:30}}>
+			<div className="upload-img-outer-box" style={{padding:30,height:"100%",boxSizing:"border-box"}}>
 				<SearchImpowerListForm 
 					detail={this.detail} 
 					onChangeFloor={this.onChangeFloor}
 					onSearchDoorCode={this.onSearchDoorCode}
 				/>
-				<div className="upload-img-box">
+				<div className="upload-img-box" style={{padding:"0 30px",height:"90%"}}>
 
-					<div className="upload-img-body" style={{width:"100%",height: 587}}>
+					<div className="upload-img-body" style={{width:"100%",height:"90%"}}>
 
-					    <div style={{height:528,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
-				            <div  style={{height:528,overflow:"scroll",}} className="impower-list">
+					    <div style={{height:"100%",marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
+				            <div  style={{height:"100%",overflow:"scroll",}} className="impower-list">
 					            <Table
 					            	onProcessData={(state)=>{
               							return state;
@@ -425,14 +431,15 @@ export default class FinishUploadImgForm extends React.Component{
 									<TableHeader style={{borderTop:"none"}}>
 
 
-										<TableHeaderColumn style={{fontSize:14}}>
+										<TableHeaderColumn style={{fontSize:14,width:"5%"}}>
 											<input type='checkbox' onChange={this.selectAll.bind(this)} />
 
 										</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14}}>类型</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14}}>平面图位置</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14,width:"20%"}}>门编号</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14,width:"15%"}}>类型</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14,width:"18%"}}>平面图位置</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14,width:"9%"}}>楼层</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14,width:"32%"}}>智能硬件ID</TableHeaderColumn>
 									</TableHeader>
 									<TableBody style={{position:'inherit'}}>
 										{
