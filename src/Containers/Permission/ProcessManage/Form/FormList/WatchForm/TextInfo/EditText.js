@@ -42,6 +42,7 @@ class EditText  extends React.Component{
         values = Object.assign({},values);
       
         console.log('frrrr',values);
+
         let itemListStr = [];
         if(values.itemListStr){
             itemListStr= [].concat(values.itemListStr);

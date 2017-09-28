@@ -196,7 +196,7 @@ export default class Text  extends React.Component{
                     <FRow name = "label"  type = "tableEdit"  label = "选项文字" />
                     <FRow name = "value" type = "tableEdit" label = "选项值" />
                     <FRow name = "orderNum" type = "tableEdit" label = "排序号" />
-                    <FRow name = "isDefault" type = "checkBox" label = "是否默认" />
+                    <FRow name = "isDefault" marking = "tab-field" type = "checkBox" label = "是否默认" />
                 </TabelEdit>
             </div>
         )

@@ -156,7 +156,6 @@ class NoAllowAudit extends React.Component {
 						<TableHeaderColumn>微信id</TableHeaderColumn>
 						<TableHeaderColumn>用户头像</TableHeaderColumn>
 						<TableHeaderColumn>弹幕内容</TableHeaderColumn>
-						<TableHeaderColumn>点赞数</TableHeaderColumn>
 						<TableHeaderColumn>状态</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
@@ -193,14 +192,6 @@ class NoAllowAudit extends React.Component {
 							<TableRowColumn
 								name="content"
 								style = {{wordWrap:'break-word',whiteSpace:'normal'}}
-							>
-							</TableRowColumn>
-
-							<TableRowColumn
-								name="likeNum"
-								component={(value,oldValue)=>{
-									return value||"-"
-								}}
 							>
 							</TableRowColumn>
 

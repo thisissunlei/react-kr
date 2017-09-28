@@ -90,9 +90,10 @@ export default class  TabelEdit extends React.Component {
 		}
 		
 		if(checkedArr.length === tabelLength){
+			titleChecked = true;
 			this.titleCheckbox.checked = true;
 		}else{
-			titleChecked = true;
+			
 			this.titleCheckbox.checked = false;
 		}
 		this.setState({
@@ -129,6 +130,7 @@ export default class  TabelEdit extends React.Component {
 		setTimeout(()=>{
 
 			if(titleChecked){
+				console.log("99999999")
 				this.allChecked();
 				this.clearCheckBox(false);
 			}
@@ -190,7 +192,7 @@ export default class  TabelEdit extends React.Component {
 							style={{marginRight:3,}}
 							name={brightsStr+'.'+name}
 							component={type}
-							marking = "tab-field"
+					
 							{...surplus}
 						/>
 					</td>
