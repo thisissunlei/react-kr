@@ -96,7 +96,7 @@ class EditForm extends React.Component{
 		})
 		let orderNumArray = value.itemListStr.map((item)=>{
 			if(item.orderNum){
-				return item.orderNum
+				return item.orderNum+''
 			}else{
 				orderNumNone = true;
 				return false;
