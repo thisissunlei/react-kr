@@ -43,7 +43,8 @@ export default class FinishUploadImgForm extends React.Component{
 	      devices : [],
 	      floor : '',
 	      doorCode:'',
-	      initDevices:[]
+	      initDevices:[],
+	      roomName:''
 	    };
 	}
 	componentDidMount(){
@@ -283,12 +284,11 @@ export default class FinishUploadImgForm extends React.Component{
 
 						</TableRowColumn>
 
-						<TableRowColumn>
+						<TableRowColumn style={{overflow:"hidden"}}>
 
 							{
-								!item.doorCode?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.doorCode}</span><Tooltip offsetTop={5} place='top'>{item.doorCode}</Tooltip></div>
+								!item.roomName?<span>-</span>:<span>{item.roomName}</span>
 							}
-
 						</TableRowColumn>
 						<TableRowColumn style={{overflow:"hidden"}}>
 
@@ -296,11 +296,13 @@ export default class FinishUploadImgForm extends React.Component{
 								!item.doorType?<span>-</span>:<span>{item.doorType}</span>
 							}
 						</TableRowColumn>
-						<TableRowColumn style={{overflow:"hidden"}}>
+						
+						<TableRowColumn>
 
 							{
-								!item.roomName?<span>-</span>:<span>{item.roomName}</span>
+								!item.doorCode?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.doorCode}</span><Tooltip offsetTop={5} place='top'>{item.doorCode}</Tooltip></div>
 							}
+
 						</TableRowColumn>
 						<TableRowColumn style={{overflow:"hidden"}}>
 
@@ -385,23 +387,46 @@ export default class FinishUploadImgForm extends React.Component{
 			id : _this.detail.id,
 			communityId : _this.detail.communityId,
 			floor : floorParam,
-			doorCode: _this.state.doorCode
+			doorCode: _this.state.doorCode,
+			roomName : _this.state.roomName,
 		}
 		this.getListSearch(params);
 	}
 
-	onSearchDoorCode=(doorCodeParams)=>{
+	onSearchSubmit=(searchParams)=>{
+
 		this.setState({
-			doorCode: doorCodeParams,
 			devices : this.state.initDevices
 		})
 		let _this = this;
-		let params={
-			id : _this.detail.id,
-			communityId : _this.detail.communityId,
-			floor : _this.state.floor,
-			doorCode:   doorCodeParams
+
+		if(searchParams.filter=="roomName"){
+			var params={
+				id : _this.detail.id,
+				communityId : _this.detail.communityId,
+				floor : _this.state.floor,
+				roomName:   searchParams.content,
+				doorCode:   "",
+			}
+			this.setState({
+				doorCode: "",
+				roomName : searchParams.content
+			})
+
+		}else{
+			var params={
+				id : _this.detail.id,
+				communityId : _this.detail.communityId,
+				floor : _this.state.floor,
+				doorCode:   searchParams.content,
+				roomName :""
+			}
+			this.setState({
+				doorCode: searchParams.content,
+				roomName : ""
+			})
 		}
+		
 		this.getListSearch(params);
 
 	}
@@ -415,7 +440,7 @@ export default class FinishUploadImgForm extends React.Component{
 				<SearchImpowerListForm 
 					detail={this.detail} 
 					onChangeFloor={this.onChangeFloor}
-					onSearchDoorCode={this.onSearchDoorCode}
+					onSearchSubmit={this.onSearchSubmit}
 				/>
 				<div className="upload-img-box" style={{padding:"0 30px",height:"90%"}}>
 
@@ -441,9 +466,11 @@ export default class FinishUploadImgForm extends React.Component{
 											<input type='checkbox' onChange={this.selectAll.bind(this)} />
 
 										</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14,width:"20%"}}>屏幕展示标题</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14,width:"15%"}}>类型</TableHeaderColumn>
 										<TableHeaderColumn style={{fontSize:14,width:"18%"}}>平面图位置</TableHeaderColumn>
+
+										<TableHeaderColumn style={{fontSize:14,width:"15%"}}>类型</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14,width:"20%"}}>屏幕展示标题</TableHeaderColumn>
+										
 										<TableHeaderColumn style={{fontSize:14,width:"9%"}}>楼层</TableHeaderColumn>
 										<TableHeaderColumn style={{fontSize:14,width:"32%"}}>智能硬件ID</TableHeaderColumn>
 									</TableHeader>

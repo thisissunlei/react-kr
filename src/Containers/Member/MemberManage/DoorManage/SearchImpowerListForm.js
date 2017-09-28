@@ -66,10 +66,10 @@ export default class SearchDetailForm extends React.Component {
 		onChangeFloor && onChangeFloor(floorValue.value||"");
 	}
 
-	onSearchDoorCode=(searchValue)=>{
-		console.log("searchValue",searchValue);
-		let {onSearchDoorCode} = this.props;
-		onSearchDoorCode && onSearchDoorCode(searchValue.content||"");
+	onSearchSubmit=(searchValue)=>{
+
+		let {onSearchSubmit} = this.props;
+		onSearchSubmit && onSearchSubmit(searchValue);
 	}
 
 	render() {
@@ -78,6 +78,9 @@ export default class SearchDetailForm extends React.Component {
 		let options=[{
 		      label:"门标题",
 		      value:"doorCode"
+		    },{
+		      label:"平面图位置",
+		      value:"roomName"
 		    }]
 		
 		return (
@@ -93,7 +96,7 @@ export default class SearchDetailForm extends React.Component {
 						onChange = {this.onChangeFloor}
 					/>
 					<SearchForms 
-						onSubmit={this.onSearchDoorCode}  
+						onSubmit={this.onSearchSubmit}  
 						ref = "inputFilter"
 	                    style={{marginTop:3,zIndex:10000,marginLeft:10}}
 	                    content={this.state.content}
