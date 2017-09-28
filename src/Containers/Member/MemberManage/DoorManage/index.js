@@ -334,11 +334,8 @@ export default class List extends React.Component {
 										onClose={this.openImpoverList}
 										width={1100}
 									>
-<<<<<<< HEAD
-									<ImpowerList onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openImpoverList} detail={itemDetail} fresh={this.fresh} />
-=======
+
 									<ImpowerListNew onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openImpoverList} detail={itemDetail} fresh={this.fresh} />
->>>>>>> master
 								</Drawer>
 
 
