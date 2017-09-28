@@ -129,11 +129,11 @@ export default class Text  extends React.Component{
 
     componentWillReceiveProps(nextProps){
 
-        console.log('nextProps1',this.isCommon,'1',this.props.isCommon,'2',nextProps.isCommon);
+        console.log('nextProps2');
 
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
-            console.log('tgt');
+           
            Store.dispatch(change('EditText','sourceType',''));
            if(nextProps.label!=nextProps.getEdit.compType){
                 let wsObject=[
@@ -171,7 +171,7 @@ export default class Text  extends React.Component{
         if(this.isCommon||nextProps.isCommon!=0){
             return;
         }
-        console.log('nextProps2');
+        
         if(!nextProps.getEdit.setting){
           this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
         }
@@ -345,7 +345,7 @@ export default class Text  extends React.Component{
     }
 
     typeRender=(value)=>{
-        console.log('type');
+        
         var component={};
         let _this=this;
         switch (value){
@@ -416,7 +416,7 @@ export default class Text  extends React.Component{
 
 
 	render(){
-                console.log("---------------")
+                
                 let {label}=this.props;
                 let {models}=this.state;
                 
