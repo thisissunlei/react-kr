@@ -314,6 +314,7 @@ class TextInfo  extends React.Component{
 	params.id=editId;
 	params.detailId=detailId;
 	params.formId=basicInfo.id||'';
+	console.log('parma',params);
 	var _this=this;
 	for(let key in params){
 		
@@ -332,7 +333,8 @@ class TextInfo  extends React.Component{
 		 	});
 	}else{
 		    if(params.itemListStr&&params.itemListStr.length!=0){
-				params.itemListStr=JSON.stringify(params.itemListStr);				
+				params.itemListStr=JSON.stringify(params.itemListStr);	
+				delete 	params.items;	
 			}else{
 				var littleText=[];
 				for (var item in params){
@@ -343,6 +345,7 @@ class TextInfo  extends React.Component{
 					 }
 				 }
 				params.setting=JSON.stringify(littleText);
+				
 			}
 		    
 			Http.request('form-field-edit',{},params).then(function(response) {
@@ -480,7 +483,7 @@ getCheckedData = (arr) =>{
 									name = {`detailFields${index}`}
 									isFold = {false}
 									toolbar={true}
-									batchDel={true}
+									batchDel={isCreate?false:true}
 									checkbox={true}
 									batchdelete={this.batchdelete}
 									moveClick={this.moveClick}
@@ -488,10 +491,10 @@ getCheckedData = (arr) =>{
 								>
 									<Toolbars>
 										<Toolbar label='编辑' rightSpac='14px' iconClass='edit-form' iconClick={this.openEditDetail.bind(this,item.id)} />
-										{!isCreate&&(!item.fields||(item.fields&&item.fields.length==0))&&<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />}
-										{(isCreate||(item.fields&&item.fields.length>0))&&<div className='not-del-form'>  
+										{!isCreate&&<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />}
+										{isCreate&&<div className='not-del-form'>  
 													<IconTip iconClass='del-tip' label='删除明细表' className='up-tip'>
-												       <div style={{textAlign:'left'}}>亲，该明细表已经创建过表，或者下面有字段存在哦！</div>
+												       <div style={{textAlign:'left'}}>亲，该明细表已经创建过表！</div>
 											        </IconTip>
 											</div>}
 										<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText.bind(this,item.id)} />

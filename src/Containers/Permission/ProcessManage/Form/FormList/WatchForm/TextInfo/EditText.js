@@ -34,7 +34,7 @@ class EditText  extends React.Component{
     
     
     componentDidMount(){
-        
+        Store.dispatch(change('EditText','wsenabled','true'));
     }
 
     onSubmit=(values)=>{
@@ -249,7 +249,7 @@ const validate = values =>{
          }
      }
  
-     if(values.compType=='TEXT_TEXT'){
+     if(values.inputType=='BUTTON'){
          if(!values.wsradio){
              errors.wsradio='请选择按钮类型';
          }
@@ -287,6 +287,14 @@ const validate = values =>{
          if(values.wspicHeight&&isNaN(values.wspicHeight)){
              errors.wspicHeight='图片高度为数字'; 
          }
+           if(!values.wsfile){
+            errors.wsfile='请填写文件大小';
+            }else if(values.wsfile&&isNaN(values.wsfile)){
+                errors.wsfile='文件大小为数字'; 
+            }
+            if(!values.wsenabled){
+                errors.wsenabled='请选择是否多文件上传';
+            }
      }
    
 

@@ -27,7 +27,7 @@ export default class Text  extends React.Component{
 
 
     commonPublic=(param,sourceOrgin,type,old)=>{
-        console.log("commonPublic-----------1");
+       
         
         let {changeData,oldEdit}=this.state;
         if(old&&this.oldEdit!=old){
@@ -122,21 +122,24 @@ export default class Text  extends React.Component{
         if(isCommon!=0){
             return;
         }
+        console.log('fffff');
        
-        if(!getEdit.setting){
-          this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
-        }else{
-            Store.dispatch(change('EditText','itemListStr',null));
-        }
+        this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
+       
     }
 
     componentWillReceiveProps(nextProps){
 
+
+        console.log('nextProps1',nextProps.label,'23',nextProps.getEdit);
+
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
+            console.log('nextProps2');
 
            Store.dispatch(change('EditText','sourceType',''));
            if(nextProps.label!=nextProps.getEdit.compType){
+
                 let wsObject=[
                     'wstext',
                     'wsheight',
@@ -152,6 +155,7 @@ export default class Text  extends React.Component{
                 })
            }else{
              if(nextProps.getEdit.setting){
+                console.log('nextProps4');
                 Store.dispatch(change('EditText','itemListStr',null));
                 var setting=JSON.parse(nextProps.getEdit.setting);
                
@@ -173,11 +177,9 @@ export default class Text  extends React.Component{
             return;
         }
 
-        if(!nextProps.getEdit.setting){
-           this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
-        }else{
-            Store.dispatch(change('EditText','itemListStr',null));
-        }
+       
+        this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
+      
     }
 
     selfRender=()=>{
@@ -216,7 +218,7 @@ export default class Text  extends React.Component{
  	  }
 
     inputTextRender=()=>{
-        console.log("inputTextRender-----------文本长度");
+       
         return <KrField
                     grid={1/2}
                     style={{width:262,marginBottom:5}}
@@ -422,6 +424,7 @@ export default class Text  extends React.Component{
 	render(){
                 let {label}=this.props;
                 let {models}=this.state;
+
 				return(
 					<div style={{display:'inline-block'}}>
 		                {this.typeRender(label)}
