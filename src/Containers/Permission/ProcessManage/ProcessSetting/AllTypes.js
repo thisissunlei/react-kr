@@ -101,7 +101,7 @@ export default class AllTypes extends React.Component {
 		})
 	}
     openSetDialog = () => {
-        var processId =  this.state.itemDetail.wfId;
+        var processId =  this.state.itemDetail.id;
 		window.location.href = `./#/permission/processManage/${processId}/basicSetting`;
 	}
 	openEditDialog = () => {
@@ -135,6 +135,7 @@ export default class AllTypes extends React.Component {
     onCreatDrawerSubmit = (params) => {
         const {onSubmit} = this.props;
         var params = Object.assign({},params);
+        params.formId=params.formId[0].orgId;
         params.hrmResourceId = params.hrmResourceId[0].orgId;
 		var _this = this;
 		Http.request('process-add', {}, params).then(function (response) {
@@ -148,7 +149,8 @@ export default class AllTypes extends React.Component {
 	}
     toBasicSetting=(form)=>{
         const {onSubmit} = this.props;
-		var params = Object.assign({},form);
+        var params = Object.assign({},form);
+        params.formId=params.formId[0].orgId;
         params.hrmResourceId = params.hrmResourceId[0].orgId;
         var _this = this;
         Http.request('process-add', {}, params).then(function (response) {
@@ -204,7 +206,7 @@ export default class AllTypes extends React.Component {
 	}
     onSearchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);
-		searchParams.wfName = form.content;
+		searchParams.name = form.content;
 		this.setState({
 			searchParams
 		})
@@ -295,7 +297,8 @@ export default class AllTypes extends React.Component {
                                                         value = value.substring(0,10)+"...";
                                                     }
                                                 }else{
-                                                    value="无"
+                                                    value="无";
+                                                    oldValue='无';
                                                 }
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
@@ -347,7 +350,7 @@ export default class AllTypes extends React.Component {
                                 <TableHeaderColumn>顺序</TableHeaderColumn>
                                 <TableHeaderColumn>发起流程请求</TableHeaderColumn>
                                 <TableHeaderColumn>新办是否显示</TableHeaderColumn>
-                                <TableHeaderColumn>慧正流程唯一标识</TableHeaderColumn>
+                                <TableHeaderColumn>表单名称</TableHeaderColumn>
                                 <TableHeaderColumn>描述</TableHeaderColumn>
                                 <TableHeaderColumn>操作人</TableHeaderColumn>
                                 <TableHeaderColumn>操作时间</TableHeaderColumn>
@@ -356,44 +359,47 @@ export default class AllTypes extends React.Component {
 
                             <TableBody>
                                 <TableRow>
-                                    <TableRowColumn name="wfName" style={{width:80}}
+                                <TableRowColumn name="name" 
 										component={(value,oldValue)=>{
-                                                        var maxWidth=4;
+                                                        var maxWidth=10;
                                                         if(value){
                                                             if(value.length>maxWidth){
-                                                                value = value.substring(0,4)+"...";
+                                                                value = value.substring(0,10)+"...";
                                                             }
                                                         }else{
-                                                            value="无"
+                                                            value="无";
+                                                            oldValue='无';
                                                         }
                                                         return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
                                                 }} ></TableRowColumn>
-                                    <TableRowColumn name="wfCode"
+                                    <TableRowColumn name="code" 
                                         component={(value,oldValue)=>{
-		 										var maxWidth=4;
+		 										var maxWidth=10;
 		 										if(value){
                                                     if(value.length>maxWidth){
-                                                        value = value.substring(0,4)+"...";
+                                                        value = value.substring(0,10)+"...";
                                                     }
                                                 }else{
-                                                    value="无"
+                                                    value="无";
+                                                    oldValue='无';
                                                 }
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-                                    <TableRowColumn style={{width:80}} name="wfTypeName"
-                                        component={(value,oldValue)=>{
-                                                        var maxWidth=4;
+                                    <TableRowColumn name="wfTypeName" 
+										component={(value,oldValue)=>{
+                                                        var maxWidth=10;
                                                         if(value){
                                                             if(value.length>maxWidth){
-                                                                value = value.substring(0,4)+"...";
+                                                                value = value.substring(0,10)+"...";
                                                             }
                                                         }else{
-                                                            value="无"
+                                                            value="无";
+                                                            oldValue='无';
                                                         }
                                                         return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
                                                 }} ></TableRowColumn>
-                                    <TableRowColumn name="wfOrderNum"></TableRowColumn>
-                                    <TableRowColumn name="allowRequest"  style={{width:'100px'}}
+                                    <TableRowColumn name="orderNum"></TableRowColumn>
+                                    <TableRowColumn name="allowRequestStr"  
                                         component={(value, oldValue) => {
 											var style = {};
                                             if (value == '不允许') {
@@ -404,7 +410,7 @@ export default class AllTypes extends React.Component {
                                             )
                                         }}
                                     ></TableRowColumn>
-                                    <TableRowColumn name="newRequestShow" style={{width:'100px'}}
+                                    <TableRowColumn name="newRequestShowStr" 
                                         component={(value, oldValue) => {
 											var styleTwo = {};
                                             if (value == '不显示') {
@@ -415,31 +421,32 @@ export default class AllTypes extends React.Component {
                                             )
                                         }}
                                     ></TableRowColumn>
-                                    <TableRowColumn name="hzCode"
-									  style={{width:'130px'}}
+                                    <TableRowColumn name="formName"
+									  
 									component={(value,oldValue)=>{
-		 										var maxWidth=8;
+		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,8)+"...";
+		 										 value = value.substring(0,10)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-                                    <TableRowColumn name="descr"
+                                    <TableRowColumn name="baseDesc"
 									component={(value,oldValue)=>{
-		 										var maxWidth=5;
+		 										var maxWidth=10;
 		 										if(value){
                                                     if(value.length>maxWidth){
-                                                        value = value.substring(0,5)+"...";
+                                                        value = value.substring(0,10)+"...";
                                                     }
                                                 }else{
-                                                    value="无"
+                                                    value="无";
+                                                    oldValue='无';
                                                 }
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-                                    <TableRowColumn name="operator"></TableRowColumn>
-                                    <TableRowColumn type="date" name="operatorTime" component={(value) => {
+                                    <TableRowColumn name="updatorName"></TableRowColumn>
+                                    <TableRowColumn type="uTime" name="operatorTime" component={(value) => {
                                         return (
-                                           <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
+                                            <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
                                         )
                                     }}> </TableRowColumn>
                                     <TableRowColumn>

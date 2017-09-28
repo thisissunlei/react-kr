@@ -152,8 +152,14 @@ export default class Table extends React.Component {
     let {checkedArr} = this.state;
     var deleteData = [];
     if(!newData.length){
+      this.setState({
+        openDelForm:false
+      })
+      Message.error('请选择至少一个字段');
       return ;
     }
+
+    
     var sortArr = [].concat(checkedArr)
     sortArr.sort(function(a,b){
       return b-a;
@@ -177,7 +183,7 @@ export default class Table extends React.Component {
   toolbarRender = () =>{
     let {children} = this.props;
     var doms = children.map((item,index)=>{
-      if(item.type.name === "Toolbars"){
+      if(item.type.displayName === "Toolbars"){
         let {children} = item.props;
        
         return children;

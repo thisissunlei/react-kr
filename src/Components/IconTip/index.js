@@ -44,7 +44,7 @@ export default class IconTip  extends React.Component{
 
 	render(){
 
-		let {className,children,arrowClass,iconClass}=this.props;
+		let {className,children,arrowClass,iconClass,label}=this.props;
 
 		var  claName=className+' ui-iconTip';
 		var arrowCla=arrowClass+' ui-iconArrow';
@@ -53,7 +53,7 @@ export default class IconTip  extends React.Component{
 		return(
 
 			<div className='ui-icon-wrap'>
-				<span className={iconCla} ref={div=>{this.icon = div}}></span>
+				<span className={iconCla} ref={div=>{this.icon = div}}>{label}</span>
 				<div className={claName} ref={div=>{this.tip = div}}>
 				  <span className={arrowCla}></span>
 				  {children}

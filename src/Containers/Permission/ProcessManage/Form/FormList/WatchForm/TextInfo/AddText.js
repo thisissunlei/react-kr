@@ -11,7 +11,8 @@ import {
     IconTip,
     TextDic,
 		TabelEdit,
-		FRow
+		FRow,
+        Notify
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
 import {
@@ -29,13 +30,93 @@ class AddText  extends React.Component{
     }
 
     componentDidMount(){
-		Store.dispatch(change('AddText','itemListStr',[]));
+        Store.dispatch(change('AddText','wsenabled','true'));
     }
 
     onSubmit=(values)=>{
+        // itemListStr
         const {onSubmit}=this.props;
+        values = Object.assign({},values);
+        let itemListStr = [];
+        if(values.itemListStr){
+            itemListStr= [].concat(values.itemListStr);
+        }else{
+            itemListStr = null;
+        }
+        var valueReg = /^[1-9]\d{0,2}$/;
+        var orderNumReg = /^[1-9]\d{0,1}$/;
+        var label = true,
+            value = true,
+            orderNum = true,
+            isDefault = true;
+      
+            
+       if(itemListStr && !itemListStr.length){
+            Notify.show([{
+				message: '请添加自定义',
+				type: 'danger',
+            }]);
+			return;
+       }
+       if(itemListStr != null){
+
        
-        onSubmit && onSubmit(values);
+            for(let i = 0; i<itemListStr.length;i++){
+                let item = itemListStr[i];
+                if(!item.label){
+                    Notify.show([{
+                        message: '请添选项文字',
+                        type: 'danger',
+                    }]);
+                    
+                    return;
+                }else{
+                    if(item.label.length>20){
+                        Notify.show([{
+                        message: '选项文字最多输入20字',
+                        type: 'danger',
+                    }]);
+                    return;
+                    }
+
+                }
+                if(!item.value){
+                    Notify.show([{
+                        message: '请添选项值',
+                        type: 'danger',
+                    }]);
+                    return;
+                }else{
+                    if(!valueReg.test(item.value)){
+                        Notify.show([{
+                            message: '选项值必须为数值且最大为3位数',
+                            type: 'danger',
+                        }]);
+                        return;
+                    }
+                }
+                if(!item.orderNum){
+                    Notify.show([{
+                        message: '请添写排序号',
+                        type: 'danger',
+                    }]);
+                    return;
+                }else{
+                    if(!orderNumReg.test(item.orderNum)){
+                        Notify.show([{
+                            message: '排序号必须为数值且最大为3位数',
+                            type: 'danger',
+                        }]);
+                        return;
+                    }
+                }
+
+            }
+        }
+       if(itemListStr==null){
+           values.itemListStr = []
+       }
+       onSubmit && onSubmit(values);
     }
 
     onCancel=()=>{
@@ -45,7 +126,7 @@ class AddText  extends React.Component{
 
 	render(){
 
-    let {handleSubmit,sourceCome}=this.props;
+    let {handleSubmit}=this.props;
 
 
 		return(
@@ -77,7 +158,7 @@ class AddText  extends React.Component{
 
 
 				                <TextDic
-                                    sourceCome={sourceCome}
+                                   
                                 />
 
 					
@@ -141,7 +222,7 @@ const validate = values =>{
         }
     }
 
-    if(values.compType=='TEXT_TEXT'){
+    if(values.inputType=='BUTTON'){
         if(!values.wsradio){
             errors.wsradio='请选择按钮类型';
         }
@@ -160,8 +241,10 @@ const validate = values =>{
             }
         }
     }
-
+    
+   
     if(values.compType=='FILE_FILE'){
+      
         if(!values.wsfile){
             errors.wsfile='请填写文件大小';
         }else if(values.wsfile&&isNaN(values.wsfile)){
@@ -178,6 +261,14 @@ const validate = values =>{
         }
         if(values.wspicHeight&&isNaN(values.wspicHeight)){
             errors.wspicHeight='图片高度为数字'; 
+        }
+        if(!values.wsfile){
+            errors.wsfile='请填写文件大小';
+        }else if(values.wsfile&&isNaN(values.wsfile)){
+            errors.wsfile='文件大小为数字'; 
+        }
+        if(!values.wsenabled){
+            errors.wsenabled='请选择是否多文件上传';
         }
     }
   

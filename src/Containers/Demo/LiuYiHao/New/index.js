@@ -10,6 +10,7 @@ import {
 import {reduxForm} from 'redux-form';
 import EditTable from './EditTable';
 import EditFiled from './EditFiled'
+import RadioBug from './RadioBug';
 class New extends React.Component {
 
 
@@ -45,7 +46,7 @@ class New extends React.Component {
 				  </TabC>
 
 				  <TabC label='工作信息'>
-					 <h1>3344</h1>
+					 <RadioBug/>
 				  </TabC>
 			  </TabCs>
 			</div>

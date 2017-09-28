@@ -11,7 +11,8 @@ import {
     IconTip,
     TextDic,
     TabelEdit,
-    FRow
+    FRow,
+    Notify
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import {reduxForm,change,initialize}  from 'redux-form';
@@ -33,12 +34,96 @@ class EditText  extends React.Component{
     
     
     componentDidMount(){
-      
+        Store.dispatch(change('EditText','wsenabled','true'));
     }
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);
+        values = Object.assign({},values);
+      
+        console.log('frrrr',values.itemListStr);
+        let itemListStr = [];
+        if(values.itemListStr){
+            itemListStr= [].concat(values.itemListStr);
+        }else{
+            itemListStr = null;
+        }
+        var valueReg = /^[1-9]\d{0,2}$/;
+        var orderNumReg = /^[1-9]\d{0,1}$/;
+        var label = true,
+            value = true,
+            orderNum = true,
+            isDefault = true;
+
+
+       if(itemListStr && !itemListStr.length){
+            Notify.show([{
+				message: '请添加自定义',
+				type: 'danger',
+			}]);
+			return;
+       }
+       
+       if(itemListStr != null){
+
+       
+            for(let i = 0; i<itemListStr.length;i++){
+                let item = itemListStr[i];
+                if(!item.label){
+                    Notify.show([{
+                        message: '请添选项文字',
+                        type: 'danger',
+                    }]);
+                    
+                    return;
+                }else{
+                    if(item.label.length>20){
+                        Notify.show([{
+                        message: '选项文字最多输入20字',
+                        type: 'danger',
+                    }]);
+                    return;
+                    }
+
+                }
+                if(!item.value){
+                    Notify.show([{
+                        message: '请添选项值',
+                        type: 'danger',
+                    }]);
+                    return;
+                }else{
+                    if(!valueReg.test(item.value)){
+                        Notify.show([{
+                            message: '选项值必须为数值且最大为3位数',
+                            type: 'danger',
+                        }]);
+                        return;
+                    }
+                }
+                if(!item.orderNum){
+                    Notify.show([{
+                        message: '请添写排序号',
+                        type: 'danger',
+                    }]);
+                    return;
+                }else{
+                    if(!orderNumReg.test(item.orderNum)){
+                        Notify.show([{
+                            message: '排序号必须为数值且最大为3位数',
+                            type: 'danger',
+                        }]);
+                        return;
+                    }
+                }
+
+            }
+        }
+  
+       if(itemListStr==null){
+           values.itemListStr = []
+       }
+       onSubmit && onSubmit(values);
     }
 
     onCancel=()=>{
@@ -47,19 +132,10 @@ class EditText  extends React.Component{
     }
 
      
-     callBack=(param,oldParam)=>{
+     callBack=(param)=>{
         var seArr=[];
         var _this=this;
-        if(oldParam.setting){
-            var setting=JSON.parse(oldParam.setting);
-            setting.map((item,index)=>{
-                 for(var index in item){
-                 seArr.push(index);   
-                 Store.dispatch(change('EditText',index,'')); 
-                 }
-             })
-        }  
-        if(param.setting!=oldParam.setting){
+        if(param.setting){
             var setting=JSON.parse(param.setting);
             setting.map((item,index)=>{
                for(var index in item){
@@ -77,7 +153,7 @@ class EditText  extends React.Component{
 
 	render(){
 
-    let {handleSubmit,getEdit,sourceCome}=this.props;
+    let {handleSubmit,getEdit}=this.props;
 
 
 		return(
@@ -95,6 +171,7 @@ class EditText  extends React.Component{
                             component="input"
                             label="字段名称 "
                             requireLabel={true}
+                            marking={true}
 						/>
 
 
@@ -104,13 +181,13 @@ class EditText  extends React.Component{
                             name="label"
                             component="input"
                             label="字段显示名"
+                            marking={true}
                             />
 
 
                             <TextDic
                                 isEdit={true}
                                 getEdit={getEdit}
-                                sourceCome={sourceCome}
                                 callBack={this.callBack}
                             />
 
@@ -174,7 +251,7 @@ const validate = values =>{
          }
      }
  
-     if(values.compType=='TEXT_TEXT'){
+     if(values.inputType=='BUTTON'){
          if(!values.wsradio){
              errors.wsradio='请选择按钮类型';
          }
@@ -212,6 +289,14 @@ const validate = values =>{
          if(values.wspicHeight&&isNaN(values.wspicHeight)){
              errors.wspicHeight='图片高度为数字'; 
          }
+           if(!values.wsfile){
+            errors.wsfile='请填写文件大小';
+            }else if(values.wsfile&&isNaN(values.wsfile)){
+                errors.wsfile='文件大小为数字'; 
+            }
+            if(!values.wsenabled){
+                errors.wsenabled='请选择是否多文件上传';
+            }
      }
    
 

@@ -50,7 +50,7 @@ class EditDetail  extends React.Component{
                                     style={{width:262,marginBottom:5,marginLeft:30}}
                                     value={basicInfo.tableName}
                                     component="labelText"
-                                    label="表单表明 "
+                                    label="表单表名"
                                     name="tableName"
                                     inline={false}
                                  />}
@@ -101,6 +101,7 @@ const validate = values =>{
 	const errors = {};
 
         let org=/^(?!.*?_$)[a-zA-Z][a-zA-Z0-9_]*$/;
+        let nameoRG=/(^[A-Za-z][A-Za-z0-9_]{0,28}[A-Za-z0-9]$)|(^[A-za-z]$)/;
     
         if(!values.name){
            errors.name='请填写表单类型名称';
@@ -108,7 +109,7 @@ const validate = values =>{
            errors.name='表单类型名称不能超过20个字符';
         }
         
-        if(values.tableName&&(!org.test(values.tableName)||values.tableName.length>30)){
+        if(values.tableName&&(!nameoRG.test(values.tableName))){
             errors.tableName='最多30字符，必须以字母开头,限定为字母、数字、下划线,不能以下划线结尾'
         }
 

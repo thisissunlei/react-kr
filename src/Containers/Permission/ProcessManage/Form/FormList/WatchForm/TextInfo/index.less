@@ -14,26 +14,42 @@
           display:inline-block;
           width:20px;
           height:20px;
-          background: url(./images/add1.svg) no-repeat center;
-          background-size:20px 20px;
+          background: url(./images/add.svg) no-repeat center;
+          background-size:84%;
+          transition: all 0.1s;
+          
+        }
+        .add-text:hover{
+          background: url(./images/addActive.svg) no-repeat center;
+          background-size:100%;
         }
       .edit-form{
         display:inline-block;
         width:20px;
         height:20px;
         background: url(./images/edit.svg) no-repeat center;
-        background-size:20px 20px;
+        background-size:84%;
+        transition: all 0.1s;
+        
+      }
+      .edit-form:hover{
+        background: url(./images/editActive.svg) no-repeat center;
+        background-size:100%;
       }
       .del-form{
         display:inline-block;
         width:20px;
         height:20px;
-        background: url(./images/del.png) no-repeat center;
-        background-size:20px 20px;
+        background: url(./images/del.svg) no-repeat center;
+        transition: all 0.1s;
+       background-size:84%;
+      }
+      .del-form:hover{
+        background: url(./images/delActive.svg) no-repeat center;
+        background-size:100%;
       }
     }
   }
-
   .detail-form{
     .add-two-wrap{
       margin-left:178px;
@@ -48,6 +64,25 @@
     position: absolute;
     top: -2px;
     left: 107px;
+  }
+}
+
+.not-del-form{
+  display: inline-block;
+  color: #D6DFE8;
+  margin-right: 14px;
+  vertical-align: top;
+  line-height: 22px;
+  .del-tip{
+    background: url(./images/no.svg) no-repeat left center;
+    background-size: 17px 17px;
+    width: 100px;
+    height: 20px;
+    text-align: right;
+    display: inline-block;
+  }
+  .up-tip{
+    width:290px;
   }
 }
 
@@ -74,7 +109,7 @@
     width: 42px;
     height: 42px;
     vertical-align:middle;
-    background: url(../../images/meeting.svg) no-repeat;
+    background: url(../../images/text.svg) no-repeat;
     background-position: center center;
     background-size: 100% 100%;
     }

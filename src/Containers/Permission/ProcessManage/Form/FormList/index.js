@@ -3,7 +3,8 @@ import {Http} from 'kr/Utils';
 import {Store} from 'kr/Redux';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import {
-  initialize
+	initialize,
+	change
 } from 'redux-form';
 import {
 	KrField,
@@ -44,7 +45,7 @@ export default class FormList extends Component{
 				 page:1,
 				 pageSize:15,
 				 tableName:'',
-				 typeId:this.props.id,
+				 typeId:this.props.data.id,
 				 nameKey:'',
 				 enabled:'',
 				 purpose:''		 
@@ -61,7 +62,7 @@ export default class FormList extends Component{
 			//字段信息
 			textInfo:[],
 			//是否已创建表
-			isCreate:false
+			isCreate:false,
 		}
 		this.allConfig = {
 			openNew : false,
@@ -73,9 +74,9 @@ export default class FormList extends Component{
 	}
 
 	componentWillReceiveProps(nextProps){
-     if(this.props.id!=nextProps.id){
+     if(this.props.data.id!=nextProps.data.id){
 				var searchParams={};
-				searchParams.typeId=nextProps.id;
+				searchParams.typeId=nextProps.data.id;
 				this.setState({
 					searchParams:Object.assign({},this.state.searchParams,searchParams)
 				})
@@ -117,6 +118,9 @@ export default class FormList extends Component{
 	newSwidth = () =>{
 		let {openNew} = this.allConfig;
 		this.allConfig.openNew = !openNew;
+		if(this.allConfig.openNew){
+	  	Store.dispatch(change('AddForm','typeId',this.state.searchParams.typeId));		
+		}
 		this.isRender();
 	}
   //创建表的开关

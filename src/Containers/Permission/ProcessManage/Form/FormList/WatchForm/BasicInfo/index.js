@@ -19,11 +19,16 @@ class BasicInfo  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 
-	}
+  }
+  
 
   componentDidMount(){
     let {basicInfo}=this.props;
-    Store.dispatch(change('BasicInfo','tableData',basicInfo.records));
+    Store.dispatch(change('BasicInfo','tableDataf',basicInfo.records));
+  }
+
+  componentWillReceiveProps(nextProps){
+    Store.dispatch(change('BasicInfo','tableDataf',nextProps.basicInfo.records));
   }
 
   onSubmit=()=>{
@@ -72,7 +77,7 @@ class BasicInfo  extends React.Component{
 
         <form onSubmit={handleSubmit(this.onSubmit)} style={{width:544,marginTop:16,marginLeft:-20}}>
 					<FdTabel
-						name = "tableData"
+						name = "tableDataf"
 						isFold = {true}
 		 				initFoldNum = "10"
 					>

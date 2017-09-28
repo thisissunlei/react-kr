@@ -77,6 +77,8 @@ import OaTreeDepartment from './OaTreeDepartment';
 import OaTreePersonnel from './OaTreePersonnel';
 //分部树
 import OaTreeDivision from './OaTreeDivision'
+//类型树
+import FormTypeTree from './FormTypeTree';
 //高级查询客户来源
 import UpMerchantsSource from './UpMerchantsSource';
 import UpSignedClientSource from './UpSignedClientSource';
@@ -86,6 +88,7 @@ import TableComponent from './TableComponent';
 import EditComponent from './EditComponent';
 import CheckBoxComponent from './CheckBoxComponent';
 import LabelComponent from './LabelComponent';
+import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
 
 
@@ -288,6 +291,12 @@ class FieldRevert extends React.Component {
 			if (component === 'searchPersonel') {
 				return (
 					<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'SearchSourceOrigin') {
+				return (
+					<FieldRevert {...this.props} component={SearchSourceOrigin}  style={WrapStyles} {...other}/>
 				);
 			}
 
@@ -523,6 +532,11 @@ class FieldRevert extends React.Component {
 			if (component === 'treePersonnel') {
 				return (
 					<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'formTypeTree') {
+				return (
+					<FieldRevert {...this.props} component={FormTypeTree}  style={WrapStyles} {...other}/>
 				)
 			}
 			if (component === 'treeDivision') {

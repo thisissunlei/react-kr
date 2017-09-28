@@ -11,7 +11,8 @@ import {
 	Toolbars,
 	Dialog,
 	Drawer,
-	Message
+	Message,
+	IconTip
 } from 'kr-ui';
 import {
 	Store,
@@ -53,8 +54,6 @@ class TextInfo  extends React.Component{
 			editId:'',
 			//编辑表单字段回血信息
 		    getEdit:{},
-			//公共字典数据来源
-            sourceCome:[]
 
 		}
 		this.checkedData = [];
@@ -63,18 +62,14 @@ class TextInfo  extends React.Component{
 
 
   componentDidMount() {
-	this.getList();
-    this.textDetailForm();
+    
   }
 
   componentWillMount(){
-	let {textInfo}=this.props;
-	this.mainDetailForm(textInfo);
+	let {basicInfo}=this.props;
+	this.getTextInfo(basicInfo.id);
   }
 
-  componentWillReceiveProps(nextProps){
-    //this.getTextInfo(nextProps.basicInfo.id);
-  }
 
   //字段
   textDetailForm=()=>{
@@ -312,42 +307,55 @@ class TextInfo  extends React.Component{
 	 });
  }
 
- onEditTextSub=(params)=>{
-	  params = Object.assign({},params);
-	if(params.inputType=='SELECT'||params.inputType=='CHECK'){
-		params.itemListStr=JSON.stringify(params.itemListStr);
-		delete params.items;
-		if(params.sourceType=='PUBLIC_DICT'){
-		  delete params.itemListStr;
-		} 
-	  }else{
-		  var littleText=[];
-		  for (var item in params){
-			  if(item.indexOf("ws")!=-1){
-				  var list={};
-				  list[item]=params[item];
-				  littleText.push(list);
-			  }
-		  }
-		  params.setting=JSON.stringify(littleText);
-		  delete params.itemListStr;
-	  }	
-
+ onEditTextSub=(data)=>{
 	let {editId,detailId}=this.state;
-	let {basicInfo}=this.props;
+	let {basicInfo,isCreate}=this.props;
+	var params = Object.assign({},data);
 	params.id=editId;
 	params.detailId=detailId;
 	params.formId=basicInfo.id||'';
 	var _this=this;
-	Http.request('form-field-edit',{},params).then(function(response) {
-		 _this.getTextInfo(basicInfo.id);
-		 _this.cancelEditText();
-		}).catch(function(err) {
-		Message.error(err.message);
-	});
+	for(let key in params){
+		
+		if(!params[key] || (Object.prototype.toString.call(params[key]) === '[object Array]' && !params[key].length)){
+			delete params[key];
+
+		}
+	}
+
+    if(isCreate){
+		
+		 	Http.request('create-field-edit',{},params).then(function(response) {
+		 		 _this.cancelEditText();
+				}).catch(function(err) {
+		 		Message.error(err.message);
+		 	});
+	}else{
+		    if(params.itemListStr&&params.itemListStr.length!=0){
+				params.itemListStr=JSON.stringify(params.itemListStr);				
+			}else{
+				var littleText=[];
+				for (var item in params){
+					 if(item.indexOf("ws")!=-1){
+						var list={};
+						list[item]=params[item];
+						littleText.push(list);
+					 }
+				 }
+				params.setting=JSON.stringify(littleText);
+			}
+		    
+			Http.request('form-field-edit',{},params).then(function(response) {
+				_this.cancelEditText();
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
+		}
  }
 
  cancelEditText=()=>{
+	let {basicInfo}=this.props;
+	this.getTextInfo(basicInfo.id);
 	 this.setState({
 		 openEditText:!this.state.openEditText
 	 })
@@ -385,23 +393,15 @@ getCheckedData = (arr) =>{
 	this.checkedData = [].concat(checkedData);
 
 }
-//数据来源
- getList=()=>{ 
-	var _this=this;
-	Http.request('get-common-dic').then(function(response) {
-	   _this.setState({
-		sourceCome:response.items
-	   })
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-  }
+
 
 
 	render(){
 
 		let {handleSubmit,textInfo,isCreate,basicInfo}=this.props;
-		let {detailInfo,mainInfo,getEdit,sourceCome}=this.state;
+		let {detailInfo,mainInfo,getEdit}=this.state;
+
+	
 
 		return(
 
@@ -464,6 +464,9 @@ getCheckedData = (arr) =>{
 			{
 				detailInfo.map((item,index)=>{
 
+					
+
+
 				  return <div className='main-form detail-form' style={{marginTop:20}}>
 
 								<div className='main-name'>
@@ -477,7 +480,7 @@ getCheckedData = (arr) =>{
 									name = {`detailFields${index}`}
 									isFold = {false}
 									toolbar={true}
-									batchDel={true}
+									batchDel={isCreate?false:true}
 									checkbox={true}
 									batchdelete={this.batchdelete}
 									moveClick={this.moveClick}
@@ -485,7 +488,12 @@ getCheckedData = (arr) =>{
 								>
 									<Toolbars>
 										<Toolbar label='编辑' rightSpac='14px' iconClass='edit-form' iconClick={this.openEditDetail.bind(this,item.id)} />
-										<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />
+										{!isCreate&&<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />}
+										{isCreate&&<div className='not-del-form'>  
+													<IconTip iconClass='del-tip' label='删除明细表' className='up-tip'>
+												       <div style={{textAlign:'left'}}>亲，该明细表已经创建过表！</div>
+											        </IconTip>
+											</div>}
 										<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText.bind(this,item.id)} />
 									</Toolbars>
 
@@ -554,7 +562,6 @@ getCheckedData = (arr) =>{
 							<AddText
 								onCancel={this.cancelAddText}
 								onSubmit={this.onAddTextSub}
-								sourceCome={sourceCome}
 							/>
 			      </Drawer>
 
@@ -570,7 +577,6 @@ getCheckedData = (arr) =>{
 								onCancel={this.cancelEditText}
 								onSubmit={this.onEditTextSub}
 							    getEdit={getEdit}
-								sourceCome={sourceCome}
 							/>
 			      </Drawer>}
 

@@ -3,6 +3,10 @@ import './index.less';
 import KrField from '../KrField';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import Text from './Text';
+import {reduxForm,change,initialize}  from 'redux-form';
+import {
+	Store
+} from 'kr/Redux';
 
 export default class TextDic extends React.Component{
 
@@ -19,6 +23,9 @@ export default class TextDic extends React.Component{
             //二级的数据处理
             next:[],
 
+            //二级值 
+            twoData:'',
+
             //是否显示三级
             isThree:false,
             //三级值
@@ -28,10 +35,16 @@ export default class TextDic extends React.Component{
             getEdit:{},
 
             //isCommon
-            isCommon:false
+            isCommon:0
         }
         this.isCommon=false;
-        this.num=0;
+        //
+        this.twoData=false;
+    }
+
+
+    componentWillUnmount(){
+        
     }
 
   
@@ -42,18 +55,12 @@ export default class TextDic extends React.Component{
         })     
     }
 
-    componentWillReceiveProps(nextProps){
-        var oldEdit={};
-        if(nextProps.getEdit.setting){
-            this.num=this.num+1;
-            if(this.num==1){
-                oldEdit=nextProps.getEdit; 
-            }
-        }
-        
-        if(this.isCommon){
+    componentWillReceiveProps(nextProps){ 
+        let {isCommon}=this.state;   
+        if(this.isCommon||this.twoData){
             return;
         }
+        
         var _this=this;
         if(nextProps.isEdit&&nextProps.getEdit.inputType){
                 _this.nextArrRender(nextProps.getEdit.inputType,_this.state.nexts,function(){
@@ -64,7 +71,7 @@ export default class TextDic extends React.Component{
                     getEdit:nextProps.getEdit
                 },function(){
                     const {callBack}=_this.props;
-                    callBack && callBack(nextProps.getEdit,oldEdit);
+                    callBack && callBack(nextProps.getEdit);
                 })
             });
         }   
@@ -78,7 +85,8 @@ export default class TextDic extends React.Component{
         var _this=this;
         this.setState({
            isTrue:true,
-           isThree:false
+           isThree:false,
+           twoData:param.value
 		},function(){
             _this.nextArrRender(param.value,nexts);
         })
@@ -118,21 +126,24 @@ export default class TextDic extends React.Component{
         this.setState({
             isThree:true,
             label:param.value,
-            isCommon:true
+            isCommon:new Date().getTime()
         })
+        this.twoData=true;
+        Store.dispatch(change('EditText','sourceType',''));
+        Store.dispatch(change('AddText','sourceType',''));
+        Store.dispatch(change('AddText','sourceOrgin',''));
+        Store.dispatch(change('EditText','sourceOrgin',''));
     }
 
-		onChange=(param)=>{
-			const {onChange}=this.props;
-			onChange && onChange(param);
-
-		}
+      onChange=(param)=>{
+            const {onChange}=this.props;
+            onChange && onChange(param);
+       }
 
 
 	render(){
 
-        let {inputType,isTrue,next,label,isThree,getEdit,isCommon}=this.state;
-        let {sourceCome}=this.props;
+        let {inputType,isTrue,next,label,isThree,getEdit,isCommon,twoData}=this.state;
 
         var seleInt=[];
         inputType.map((item,index)=>{
@@ -168,11 +179,11 @@ export default class TextDic extends React.Component{
                         value={label}
                     />}
                     {isThree&&<Text 
-                    label={label} 
-                    sourceCome={sourceCome} 
-                    onChange={this.onChange}
-                    getEdit={getEdit}
-                    isCommon={isCommon}
+                        label={label} 
+                        onChange={this.onChange}
+                        getEdit={getEdit}
+                        isCommon={isCommon}
+                        twoData={twoData}
                     />}
                 </div>
 

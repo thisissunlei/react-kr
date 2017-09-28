@@ -8,6 +8,7 @@ export default class RadioComponent  extends React.Component{
 	}
 
 	onClick = (event)=>{
+		event.stopPropagation();
 		let {input}=this.props;
 		let {onClick} = this.props;
 		onClick && onClick(input);
@@ -27,10 +28,11 @@ export default class RadioComponent  extends React.Component{
 				disabled,
 				onClick:this.onClick,
 		}
+		
 
 		return (
 			<span style={Styles}>
-					<input {...inputProps}/>
+					<input {...inputProps} />
 					<span style={{paddingLeft:5}}>{label}</span>
 			</span>
 		)
