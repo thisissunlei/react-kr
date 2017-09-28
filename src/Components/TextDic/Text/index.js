@@ -125,6 +125,7 @@ export default class Text  extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
+      
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
            Store.dispatch(change('EditText','sourceType',''));
@@ -134,7 +135,6 @@ export default class Text  extends React.Component{
                     'wsheight',
                     'wsfloat',
                     'wsradio',
-                    'wsenabled',
                     'wsfile',
                     'wspicWidth',
                     'wspicHeight'
