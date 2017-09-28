@@ -1151,9 +1151,11 @@ class NewCreateForm extends Component {
 		let validEnd = +new Date(changeValues.leaseEnddate);
 		let validStart = +new Date(changeValues.leaseBegindate);
 		let tacticsId = '';
+		let minDiscount;
 		saleList.map((item)=>{
 			if(item.value == changeValues.saleList[index].tacticsType){
 			   	tacticsId = item.id;
+			   	minDiscount = item.discount;
 			}
 		})
 
@@ -1164,7 +1166,8 @@ class NewCreateForm extends Component {
 			tacticsType:changeValues.saleList[index].tacticsType,
 			tacticsId:tacticsId,
 			discount:0,
-			discountAmount:e
+			discountAmount:e,
+			minDiscount
 		}
 		fields.remove(index);
 		fields.insert(index,time)
@@ -1319,9 +1322,12 @@ class NewCreateForm extends Component {
 			return;
 		}
 		let xiaoyu = false;
+		let minDiscount = '';
 		saleList.map((item)=>{
+			
 			if(item.value == changeValues.saleList[index].tacticsType){
 			   	tacticsId = item.id;
+			   	minDiscount = item.discount;
 			}
 		})
 		let time = {
@@ -1330,7 +1336,8 @@ class NewCreateForm extends Component {
 			tacticsType:changeValues.saleList[index].tacticsType,
 			tacticsId:tacticsId,
 			discount:e,
-			discountAmount:0
+			discountAmount:0,
+			minDiscount:minDiscount
 		}
 		changeValues.saleList[index] = Object.assign({},time)
 		
