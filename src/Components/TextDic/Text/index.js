@@ -122,6 +122,7 @@ export default class Text  extends React.Component{
         if(isCommon!=0){
             return;
         }
+        console.log('fffff');
        
         this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
        
@@ -130,7 +131,7 @@ export default class Text  extends React.Component{
     componentWillReceiveProps(nextProps){
 
 
-        console.log('nextProps1');
+        console.log('nextProps1',nextProps.label,'23',nextProps.getEdit);
 
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
@@ -138,7 +139,7 @@ export default class Text  extends React.Component{
 
            Store.dispatch(change('EditText','sourceType',''));
            if(nextProps.label!=nextProps.getEdit.compType){
-            console.log('nextProps3');
+
                 let wsObject=[
                     'wstext',
                     'wsheight',
