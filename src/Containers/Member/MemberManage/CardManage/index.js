@@ -411,7 +411,7 @@ export default class List extends React.Component {
 	render(){
 		
 		return(
-			<div className="switchhover">
+			<div className="switchhover card-manage-table">
 			<Title value="会员卡管理"/>
 
 					<Section title="会员卡管理" description="" style={{minHeight:"900px"}}>
@@ -447,7 +447,25 @@ export default class List extends React.Component {
 							<TableBody >
 								<TableRow >
 									<TableRowColumn name="outerCode" ></TableRowColumn>
-									<TableRowColumn name="communityName" ></TableRowColumn>
+									<TableRowColumn name="communityName" 
+										component={
+											(value,oldValue,itemData)=>{
+												if(value==""){
+													return (
+														<div>
+															-
+														</div>
+													)
+												}else{
+													return (
+														<div>
+															{itemData.communityName}
+														</div>
+													)
+												}
+												
+											}
+										}></TableRowColumn>
 									<TableRowColumn name="active"
 										component={
 											(value,oldValue,itemData)=>{
@@ -475,7 +493,7 @@ export default class List extends React.Component {
 												if(value==""){
 													return (
 														<div>
-															{itemData.holderName}
+															-
 														</div>
 													)
 												}else{
@@ -490,7 +508,26 @@ export default class List extends React.Component {
 										}
 
 									></TableRowColumn>
-									<TableRowColumn name="customerName"></TableRowColumn>
+									<TableRowColumn name="customerName"
+										component={
+											(value,oldValue,itemData)=>{
+												if(value==""){
+													return (
+														<div>
+															-
+														</div>
+													)
+												}else{
+													return (
+														<div>
+															{itemData.customerName}
+														</div>
+													)
+												}
+												
+											}
+										}
+									></TableRowColumn>
 									<TableRowColumn type="operation" component={this.renderOperation}></TableRowColumn>
 								 </TableRow>
 							</TableBody>
