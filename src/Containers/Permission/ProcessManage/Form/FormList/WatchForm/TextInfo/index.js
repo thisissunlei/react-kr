@@ -491,7 +491,7 @@ getCheckedData = (arr) =>{
 										{!isCreate&&<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />}
 										{isCreate&&<div className='not-del-form'>  
 													<IconTip iconClass='del-tip' label='删除明细表' className='up-tip'>
-												       <div style={{textAlign:'left'}}>亲，该明细表已经创建过表，或者下面有字段存在哦！</div>
+												       <div style={{textAlign:'left'}}>亲，该明细表已经创建过表！</div>
 											        </IconTip>
 											</div>}
 										<Toolbar label='新增字段' rightSpac='14px' iconClass='add-text' iconClick={this.addText.bind(this,item.id)} />

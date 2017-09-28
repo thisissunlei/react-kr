@@ -27,7 +27,7 @@ export default class Text  extends React.Component{
 
 
     commonPublic=(param,sourceOrgin,type,old)=>{
-        console.log("commonPublic-----------1");
+       
         
         let {changeData,oldEdit}=this.state;
         if(old&&this.oldEdit!=old){
@@ -123,11 +123,8 @@ export default class Text  extends React.Component{
             return;
         }
        
-        if(!getEdit.setting){
-          this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
-        }else{
-            Store.dispatch(change('EditText','itemListStr',null));
-        }
+        this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
+       
     }
 
     componentWillReceiveProps(nextProps){
@@ -179,11 +176,9 @@ export default class Text  extends React.Component{
             return;
         }
 
-        if(!nextProps.getEdit.setting){
-           this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
-        }else{
-            Store.dispatch(change('EditText','itemListStr',null));
-        }
+       
+        this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
+      
     }
 
     selfRender=()=>{
@@ -222,7 +217,7 @@ export default class Text  extends React.Component{
  	  }
 
     inputTextRender=()=>{
-        console.log("inputTextRender-----------文本长度");
+       
         return <KrField
                     grid={1/2}
                     style={{width:262,marginBottom:5}}
@@ -428,7 +423,7 @@ export default class Text  extends React.Component{
 	render(){
                 let {label}=this.props;
                 let {models}=this.state;
-                
+
 				return(
 					<div style={{display:'inline-block'}}>
 		                {this.typeRender(label)}
