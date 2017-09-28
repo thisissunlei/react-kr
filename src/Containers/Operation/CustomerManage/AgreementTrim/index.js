@@ -56,6 +56,9 @@ class AgreementTrim extends React.Component {
 	onSearchSubmit=(value)=>{
 		console.log(value)
 	}
+	openNewCreateDialog=()=>{
+		console.log('=========>')
+	}
 	
 
 
