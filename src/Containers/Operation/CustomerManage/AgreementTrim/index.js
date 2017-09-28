@@ -69,7 +69,7 @@ class AgreementTrim extends React.Component {
 			<Title value="合同调整"/>
 			<Section title="合同调整" description="" bodyPadding={'20px 20px 50px 20px'}>
 				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-					<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
+					<Button operateCode="mbr_list_add"  label="新建"  onTouchTap={this.openNewCreateDialog} />
 					<SearchForms onSubmit={this.onSearchSubmit}  style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
 				</form>
 				<Table
@@ -90,6 +90,7 @@ class AgreementTrim extends React.Component {
 						<TableHeaderColumn>操作时间</TableHeaderColumn>
 					</TableHeader>
 					<TableBody style={{position:'inherit'}}>
+						<TableRow>
 						<TableRowColumn name="phone"
 						component={(value,oldValue)=>{
 							if(value==""){
@@ -132,6 +133,7 @@ class AgreementTrim extends React.Component {
 							}
 							return (<span>{value}</span>)}}
 						></TableRowColumn>
+						</TableRow>
 				</TableBody>
 				<TableFooter></TableFooter>
 				</Table>					
