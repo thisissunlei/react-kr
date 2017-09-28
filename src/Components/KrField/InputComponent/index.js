@@ -22,7 +22,7 @@ export default class InputComponent extends React.Component{
 	}
 
 	onChange = (value)=>{
-		console.log("88888888",value)
+		
 		let {input} = this.props;
 		input.onChange(value);
 		const {onChange} = this.props;
@@ -30,9 +30,12 @@ export default class InputComponent extends React.Component{
 	}
 
 	onBlur=(value)=>{
-		console.log("99999999",value)
-		let {input} = this.props;
-		input.onBlur(value);
+		
+		let {input,marking} = this.props;
+		if(!marking){
+			input.onBlur(value);
+		}
+		
 		const {onBlur} = this.props;
 		onBlur && onBlur(value)
 	}
