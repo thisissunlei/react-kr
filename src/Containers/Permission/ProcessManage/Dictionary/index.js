@@ -75,7 +75,7 @@ export default class ProcessSetting extends React.Component {
 	render() {
 		let options = [{label:'字典名称',value:'name'},{label:'字典编码',value:'code'}]
 		return (
-			<div className="g-process-setting">
+			<div className="g-process-setting-dict">
 				<Section title="公共字典列表" >
 				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 					<Button label="新建" operateCode="main_activity_add" onTouchTap={this.openNewCreate} />
