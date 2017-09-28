@@ -70,6 +70,12 @@ const Operation_CustomerManage_AgreementList = (location, callback) => {
 	}, 'Operation_CustomerManage_AgreementList')
 }
 
+const Operation_CustomerManage_AgreementTrim = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/AgreementTrim').default)
+	}, 'Operation_CustomerManage_AgreementTrim')
+}
+
 const Operation_CustomerManage_CustomerHighSea = (location, callback) => {
 	require.ensure([], require => {
 		callback(null, require('kr/Containers/Operation/CustomerManage/CustomerHighSea').default)
@@ -402,6 +408,7 @@ module.exports =()=>{
 		<Route path="customerManage" getComponent={Basic}>
 			<Route path="customerList" getComponent={Operation_CustomerManage_CustomerList} />
 			<Route path="agreementList" getComponent={Operation_CustomerManage_AgreementList} />
+			<Route path="agreementtrim" getComponent={Operation_CustomerManage_AgreementTrim} />
 			{/*客户公海*/}
 			<Route path="customerHighSea" getComponent={Operation_CustomerManage_CustomerHighSea}/>
 			<Route path="list" getComponent={Operation_CustomerManage_List} />

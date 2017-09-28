@@ -39,6 +39,11 @@ module.exports = [
 						router: '/operation/customerManage/customerHighSea',
 						menuCode: 'oper_csr_marketList_base',
 					},
+					{
+						primaryText: '合同调整',
+						router: '/operation/customerManage/agreementtrim',
+						menuCode: 'oper_csr_marketList_base',
+					},
 				]
 			},
 			{
