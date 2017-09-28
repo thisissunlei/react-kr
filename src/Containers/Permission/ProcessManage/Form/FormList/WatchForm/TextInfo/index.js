@@ -307,48 +307,58 @@ class TextInfo  extends React.Component{
 	 });
  }
 
- onEditTextSub=(params)=>{
+ onEditTextSub=(data)=>{
 	  let {editId,detailId}=this.state;
 	  let {basicInfo,isCreate}=this.props;
+	  var params = Object.assign({},data);
 	  params.id=editId;
 	  params.detailId=detailId;
 	  params.formId=basicInfo.id||'';
-	  params = Object.assign({},params);
-	  if(isCreate){
+	 for(let key in params){
+		 
+		 if(!params[key] || (Object.prototype.toString.call(params[key]) === '[object Array]' && !params[key].length)){
+			 delete params[key];
+
+		 }
+	 }
+	  console.log("ppppppppp",params)
+	
+	//   if(isCreate){
+	// 	var _this=this;
+	// 	Http.request('create-field-edit',{},params).then(function(response) {
+	// 		 _this.getTextInfo(basicInfo.id);
+	// 		 _this.cancelEditText();
+	// 		}).catch(function(err) {
+	// 		Message.error(err.message);
+	// 	});
+	//   }else{
+	// 	if(params.inputType=='SELECT'||params.inputType=='CHECK'){
+	// 		params.itemListStr=JSON.stringify(params.itemListStr);
+	// 		delete params.items;
+	// 		if(params.sourceType=='PUBLIC_DICT'){
+	// 		  delete params.itemListStr;
+	// 		} 
+	// 	  }else{
+	// 		  var littleText=[];
+	// 		  for (var item in params){
+	// 			  if(item.indexOf("ws")!=-1){
+	// 				  var list={};
+	// 				  list[item]=params[item];
+	// 				  littleText.push(list);
+	// 			  }
+	// 		  }
+	// 		  params.setting=JSON.stringify(littleText);
+	// 		  delete params.itemListStr;
+	// 	  }	
+		var paraData = Object.assign({},params)
 		var _this=this;
-		Http.request('create-field-edit',{},params).then(function(response) {
+		Http.request('form-field-edit',{},paraData).then(function(response) {
 			 _this.getTextInfo(basicInfo.id);
 			 _this.cancelEditText();
 			}).catch(function(err) {
 			Message.error(err.message);
 		});
-	  }else{
-		if(params.inputType=='SELECT'||params.inputType=='CHECK'){
-			params.itemListStr=JSON.stringify(params.itemListStr);
-			delete params.items;
-			if(params.sourceType=='PUBLIC_DICT'){
-			  delete params.itemListStr;
-			} 
-		  }else{
-			  var littleText=[];
-			  for (var item in params){
-				  if(item.indexOf("ws")!=-1){
-					  var list={};
-					  list[item]=params[item];
-					  littleText.push(list);
-				  }
-			  }
-			  params.setting=JSON.stringify(littleText);
-			  delete params.itemListStr;
-		  }	
-		var _this=this;
-		Http.request('form-field-edit',{},params).then(function(response) {
-			 _this.getTextInfo(basicInfo.id);
-			 _this.cancelEditText();
-			}).catch(function(err) {
-			Message.error(err.message);
-		});
-	  }
+	//   }
 	
  }
 

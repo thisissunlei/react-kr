@@ -125,7 +125,7 @@ export default class Text  extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
-      
+        
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
            Store.dispatch(change('EditText','sourceType',''));
@@ -139,6 +139,7 @@ export default class Text  extends React.Component{
                     'wspicWidth',
                     'wspicHeight'
                 ];
+               
                 wsObject.map((item,index)=>{          
                  Store.dispatch(change('EditText',item,'')); 
                 })
@@ -146,6 +147,7 @@ export default class Text  extends React.Component{
              if(nextProps.getEdit.setting){
                 Store.dispatch(change('EditText','itemListStr',null));
                 var setting=JSON.parse(nextProps.getEdit.setting);
+               
                 setting.map((item,index)=>{
                    for(var index in item){
                     Store.dispatch(change('EditText',index,item[index])); 
@@ -403,7 +405,7 @@ export default class Text  extends React.Component{
 
 
 	render(){
-
+                console.log("---------------")
                 let {label}=this.props;
                 let {models}=this.state;
                 
