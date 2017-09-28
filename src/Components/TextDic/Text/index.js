@@ -124,6 +124,8 @@ export default class Text  extends React.Component{
        
         if(!getEdit.setting){
           this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
+        }else{
+            Store.dispatch(change('EditText','itemListStr',null));
         }
     }
 
@@ -173,7 +175,9 @@ export default class Text  extends React.Component{
         }
         
         if(!nextProps.getEdit.setting){
-          this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
+           this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
+        }else{
+            Store.dispatch(change('EditText','itemListStr',null));
         }
     }
 
