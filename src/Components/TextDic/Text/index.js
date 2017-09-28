@@ -115,19 +115,23 @@ export default class Text  extends React.Component{
     }
 
     componentDidMount(){
+       
         let {getEdit,isCommon}=this.props;
         this.oldEdit=getEdit;
         if(isCommon!=0){
             return;
         }
-        this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);
-        
+       
+        if(!getEdit.setting){
+          this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
+        }
     }
 
     componentWillReceiveProps(nextProps){
-      
+        console.log('nextProps1',this.isCommon,'1',this.props.isCommon,'2',nextProps.isCommon);
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
+            console.log('tgt');
            Store.dispatch(change('EditText','sourceType',''));
            if(nextProps.label!=nextProps.getEdit.compType){
                 let wsObject=[
@@ -140,7 +144,7 @@ export default class Text  extends React.Component{
                     'wspicHeight'
                 ];
                 wsObject.map((item,index)=>{          
-                 Store.dispatch(change('EditText',item,'')); 
+                  Store.dispatch(change('EditText',item,'')); 
                 })
            }else{
              if(nextProps.getEdit.setting){
@@ -159,10 +163,14 @@ export default class Text  extends React.Component{
               changeData:nextProps.label
            }) 
         }
+
         if(this.isCommon||nextProps.isCommon!=0){
             return;
         }
-        this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);
+        console.log('nextProps2');
+        if(!nextProps.getEdit.setting){
+          this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
+        }
     }
 
     selfRender=()=>{
@@ -209,7 +217,7 @@ export default class Text  extends React.Component{
                     component="input"
                     label="文本长度"
                     requireLabel={true}
-                    marking={true}
+                   
                 />
     }
 
@@ -333,6 +341,7 @@ export default class Text  extends React.Component{
     }
 
     typeRender=(value)=>{
+        console.log('type');
         var component={};
         let _this=this;
         switch (value){
@@ -407,7 +416,7 @@ export default class Text  extends React.Component{
                 let {label}=this.props;
                 let {models}=this.state;
                 
-        
+                console.log('tgtg',label,models);
 
 				return(
 
