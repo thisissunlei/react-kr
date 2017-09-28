@@ -1017,10 +1017,10 @@ const APIS = {
    },
 
    // 授权该客户在指定社区下的设备列表
-   'doorCustomerDevice':{
-      url: '/api/krspace-finance-web/permission/door-customer-device?id={id}&communityId={communityId}',
-      method: 'get'
-   },
+   // 'doorCustomerDevice':{
+   //    url: '/api/krspace-finance-web/permission/door-customer-device?id={id}&communityId={communityId}',
+   //    method: 'get'
+   // },
 
    // 授权为客户授权
    'doorCustomerGrant':{
