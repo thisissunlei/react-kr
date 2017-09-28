@@ -39,11 +39,11 @@ export default class FinishUploadImgForm extends React.Component{
 	      failed : '',
 	      rightfontColor : false,
 	      leftfontColor : true,
-	      optionsFloor:[],
-	      totleNum : 0,
+	      responseItems:[],
 	      devices : [],
 	      floor : '',
-	      doorCode:''
+	      doorCode:'',
+	      initDevices:[]
 	    };
 	}
 	componentDidMount(){
@@ -60,26 +60,27 @@ export default class FinishUploadImgForm extends React.Component{
 		let _this = this;
 		Http.request('doorCustomerDevice',params).then(function(response){
 			var responseP = response;
-			console.log("response",response);
-	      	var totleNum =0;
+	      	
 	      	var devicesT = []
 	      	for(var i=0;i<responseP.length;i++){
 
-	      		for(var j =0;j<responseP[i].length;j++){
-	      			totleNum++;
-	      			if(responseP[i].checked){
-	      				devicesT.push({
-	      					deviceId: responseP[i].id,
-	      					isIotDevice: responseP[i].iotDevice
-	      				})
+	      		
+	      			
+      			if(responseP[i].checked){
+      				devicesT.push({
+      					deviceId: responseP[i].id,
+      					isIotDevice: responseP[i].iotDevice
+      				})
 
-	      			}
-	      		}
+      			}
+	      		
 	      	}
 	      	_this.setState({
-	      		optionsFloor : response,
-	      		totleNum: totleNum,
-	      		devices : devicesT
+
+	      		responseItems : response,
+	      		devices : devicesT,
+	      		initDevices : devicesT
+
 	      	})
 	      }).catch(function(err){
 	        Notify.show([{
@@ -88,6 +89,20 @@ export default class FinishUploadImgForm extends React.Component{
 	        }])
 	     });
 
+	}
+
+	getListSearch=(params)=>{
+		let _this = this;
+		Http.request('doorCustomerDevice',params).then(function(response){
+	      	_this.setState({
+	      		responseItems : response,
+	      	})
+	      }).catch(function(err){
+	        Notify.show([{
+	          message: err.message,
+	          type: 'danger',
+	        }])
+	     });
 	}
 
 	onActive=()=>{
@@ -107,7 +122,8 @@ export default class FinishUploadImgForm extends React.Component{
 			isIotDevice : item.iotDevice
 		}
 
-		let newArr = _this.state.devices;
+		let newArr = _this.state.initDevices;
+		console.log("newArr",newArr);
 		// 被选中
 		if(item.checked){
 			if(newArr.length==0){
@@ -176,7 +192,7 @@ export default class FinishUploadImgForm extends React.Component{
 						});
 			}
 
-			let OriginArr = this.state.devices;
+			let OriginArr = this.state.initDevices;
 			var newArr = OriginArr.concat(newArrEmpty);
 
 			// 去重
@@ -215,7 +231,7 @@ export default class FinishUploadImgForm extends React.Component{
 						});
 			}
 
-			let OriginArr = this.state.devices;
+			let OriginArr = this.state.initDevices;
 			var EmptyArr = [];
 			for(var i =0;i<OriginArr.length;i++){
 				for(var j=0;j<newArrEmpty.length;j++){
@@ -254,94 +270,51 @@ export default class FinishUploadImgForm extends React.Component{
 		    fontWeight: 400,
 		  },
 		};
-		let {optionsFloor} = this.state;
-		console.log("optionsFloor",optionsFloor);
-		let a = optionsFloor.map(function(item,index){
+		let {responseItems} = this.state;
+		let dom = responseItems.map(function(item,index){
 
-				return(
-				<Tab className="upload-img-tab" label={`${item.floorNum}楼(${item.deviceCount})`} key={index} value="a" style={{fontSize:14,fontWeight: "normal",color:"#333333",background:"#fff"}} >
-						<div style={{height:528,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
-						            <div  style={{height:528,overflow:"scroll",}} className="impower-list">
-							            <Table
-							            	onProcessData={(state)=>{
-		              							return state;
-		              						}}
+												
+			return(
+				<TableRow displayCheckbox={false} key={index}>
+						<TableRowColumn>
+						{
 
-							            	pagination = {false}
-							            	displayCheckbox={false}
-							            	style={{margin:0}}
-							            	displayCheckbox={false}
-
-							            >
-											<TableHeader style={{borderTop:"none"}}>
+							_this.renderInputs(item)
+						}
 
 
-												<TableHeaderColumn style={{fontSize:14}}>
-													<input type='checkbox' onChange={_this.selectAll.bind(_this,item)} />
+						</TableRowColumn>
 
-												</TableHeaderColumn>
-												<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
-												<TableHeaderColumn style={{fontSize:14}}>类型</TableHeaderColumn>
-												<TableHeaderColumn style={{fontSize:14}}>平面图位置</TableHeaderColumn>
-												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
-											</TableHeader>
-											<TableBody style={{position:'inherit'}}
-							            	>
-												{
-													item.deviceList && item.deviceList.map((item,index)=>{
-														return(
-															<TableRow displayCheckbox={false} key={index}>
-																	<TableRowColumn>
-																	{
+						<TableRowColumn>
 
-																		_this.renderInputs(item)
-																	}
+							{
+								!item.doorCode?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:100,overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.doorCode}</span><Tooltip offsetTop={5} place='top'>{item.doorCode}</Tooltip></div>
+							}
 
+						</TableRowColumn>
+						<TableRowColumn style={{overflow:"hidden"}}>
 
-																	</TableRowColumn>
+							{
+								!item.doorType?<span>-</span>:<span>{item.doorType}</span>
+							}
+						</TableRowColumn>
+						<TableRowColumn style={{overflow:"hidden"}}>
 
-																	<TableRowColumn>
+							{
+								!item.roomName?<span>-</span>:<span>{item.roomName}</span>
+							}
+						</TableRowColumn>
+						<TableRowColumn >
+							{
+								!item.hardwareId?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.hardwareId}</span><Tooltip offsetTop={5} place='top'>{item.hardwareId}</Tooltip></div>
 
-																		{
-																			!item.doorCode?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:100,overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.doorCode}</span><Tooltip offsetTop={5} place='top'>{item.doorCode}</Tooltip></div>
-																		}
+							}
+						</TableRowColumn>
+				</TableRow>
+			)
+		})
 
-																	</TableRowColumn>
-																	<TableRowColumn style={{overflow:"hidden"}}>
-
-																		{
-																			!item.doorType?<span>-</span>:<span>{item.doorType}</span>
-																		}
-																	</TableRowColumn>
-																	<TableRowColumn style={{overflow:"hidden"}}>
-
-																		{
-																			!item.roomName?<span>-</span>:<span>{item.roomName}</span>
-																		}
-																	</TableRowColumn>
-																	<TableRowColumn >
-																		{
-																			!item.hardwareId?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.hardwareId}</span><Tooltip offsetTop={5} place='top'>{item.hardwareId}</Tooltip></div>
-
-																		}
-																	</TableRowColumn>
-
-															</TableRow>
-															)
-													})
-												}
-											</TableBody>
-											<TableFooter></TableFooter>
-										</Table>
-
-						          	</div>
-
-								</div>
-				</Tab>
-				)
-			})
-
-			return a;
+		return dom;
 
 	}
 
@@ -377,6 +350,12 @@ export default class FinishUploadImgForm extends React.Component{
 			id:_this.detail.id,
 			deviceIds:JSON.stringify(devicesT)
 		}
+
+		this.setState({
+			initDevices:params.deviceIds,
+			devices : params.deviceIds
+		})
+
  
 		Http.request('doorCustomerGrant',{},params).then(function(response){
 		      	_this.closeImpoerList();
@@ -402,7 +381,7 @@ export default class FinishUploadImgForm extends React.Component{
 			floor : floorParam,
 			doorCode: _this.state.doorCode
 		}
-		this.getList(params);
+		this.getListSearch(params);
 	}
 
 	onSearchDoorCode=(doorCodeParams)=>{
@@ -416,13 +395,13 @@ export default class FinishUploadImgForm extends React.Component{
 			floor : _this.state.floor,
 			doorCode:   doorCodeParams
 		}
-		this.getList(params);
+		this.getListSearch(params);
 
 	}
 
 	render(){
 
-		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor,totleNum}=this.state;
+		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor}=this.state;
 
 		return (
 			<div className="upload-img-outer-box" style={{padding:30}}>
@@ -435,16 +414,42 @@ export default class FinishUploadImgForm extends React.Component{
 
 					<div className="upload-img-body" style={{width:"100%",height: 587}}>
 
-						<Tabs
-					        failed={this.state.failed}
+					    <div style={{height:528,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
+				            <div  style={{height:528,overflow:"scroll",}} className="impower-list">
+					            <Table
+					            	onProcessData={(state)=>{
+              							return state;
+              						}}
 
-					        inkBarStyle = {{background:"#499ef1"}}
-					    >
-						    {
-								this.renderTab()
-							}
+					            	pagination = {false}
+					            	displayCheckbox={false}
+					            	style={{margin:0}}
+					            	displayCheckbox={false}
 
-					    </Tabs>
+					            >
+									<TableHeader style={{borderTop:"none"}}>
+
+
+										<TableHeaderColumn style={{fontSize:14}}>
+											<input type='checkbox' onChange={this.selectAll.bind(this)} />
+
+										</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14}}>类型</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14}}>平面图位置</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
+									</TableHeader>
+									<TableBody style={{position:'inherit'}}>
+										{
+											this.renderTab()
+										}
+									</TableBody>
+									<TableFooter></TableFooter>
+								</Table>
+
+				          	</div>
+
+						</div>
 
 					</div>
 					<div className="upload-img-footer">
@@ -453,10 +458,10 @@ export default class FinishUploadImgForm extends React.Component{
 									<Row>
 										<ListGroup>
 											<ListGroupItem style={{width:"50%",textAlign:'right',padding:0,paddingRight:15}}>
-												{
-													this.state.totleNum==0?<div className="button-myself">授权</div>:<Button  label="授权" type="submit" onClick={this.impowerToCustomer}/>
+												
+												<Button  label="授权" type="submit" onClick={this.impowerToCustomer}/>
 
-												}
+												
 											</ListGroupItem>
 											<ListGroupItem style={{width:171,textAlign:'left',padding:0,paddingLeft:15}}>
 												<Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeImpoerList} />
