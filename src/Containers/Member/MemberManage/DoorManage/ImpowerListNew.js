@@ -435,7 +435,7 @@ export default class FinishUploadImgForm extends React.Component{
 											<input type='checkbox' onChange={this.selectAll.bind(this)} />
 
 										</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14,width:"20%"}}>门编号</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14,width:"20%"}}>屏幕展示标题</TableHeaderColumn>
 										<TableHeaderColumn style={{fontSize:14,width:"15%"}}>类型</TableHeaderColumn>
 										<TableHeaderColumn style={{fontSize:14,width:"18%"}}>平面图位置</TableHeaderColumn>
 										<TableHeaderColumn style={{fontSize:14,width:"9%"}}>楼层</TableHeaderColumn>

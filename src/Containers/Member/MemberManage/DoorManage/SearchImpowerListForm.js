@@ -76,7 +76,7 @@ export default class SearchDetailForm extends React.Component {
 		let {detail,handleSubmit} = this.props;
 		let {floorsOptions} = this.state;
 		let options=[{
-		      label:"门编号",
+		      label:"门标题",
 		      value:"doorCode"
 		    }]
 		
