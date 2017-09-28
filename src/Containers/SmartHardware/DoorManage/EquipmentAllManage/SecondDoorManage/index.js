@@ -555,7 +555,7 @@ export default class SecondDoorManage  extends React.Component{
 			          	</TableHeader>
 			          	<TableBody >
 				            <TableRow>
-				            	<TableRowColumn name="communityName" style={{width:"12%"}}></TableRowColumn>
+				            	<TableRowColumn name="communityName" style={{width:"11%"}}></TableRowColumn>
 								<TableRowColumn style={{width:"12%",overflow:"visible"}} name="title" component={(value,oldValue)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
@@ -568,7 +568,7 @@ export default class SecondDoorManage  extends React.Component{
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 								<TableRowColumn name="doorCode"
-									style={{width:"10%"}} 
+									style={{width:"8%"}} 
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -578,7 +578,7 @@ export default class SecondDoorManage  extends React.Component{
 								
 								
 								<TableRowColumn name="deviceId"
-									style={{width:"16%"}}
+									style={{width:"19%"}}
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
 										if(value.length==""){
