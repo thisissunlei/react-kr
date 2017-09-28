@@ -34,7 +34,7 @@ class EditText  extends React.Component{
     
     
     componentDidMount(){
-        
+        Store.dispatch(change('EditText','wsenabled','true'));
     }
 
     onSubmit=(values)=>{
