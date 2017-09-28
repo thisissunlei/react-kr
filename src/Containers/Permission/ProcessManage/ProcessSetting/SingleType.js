@@ -94,7 +94,7 @@ export default class SingleType extends React.Component {
 	}
     //操作相关
 	onOperation = (type, itemDetail) => {
-		console.log(itemDetail,">>>>>>")
+	
 		this.setState({
 			itemDetail
 		},function(){
