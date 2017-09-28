@@ -314,6 +314,7 @@ class TextInfo  extends React.Component{
 	params.id=editId;
 	params.detailId=detailId;
 	params.formId=basicInfo.id||'';
+	var _this=this;
 	for(let key in params){
 		
 		if(!params[key] || (Object.prototype.toString.call(params[key]) === '[object Array]' && !params[key].length)){
@@ -321,14 +322,35 @@ class TextInfo  extends React.Component{
 
 		}
 	}
-	var paraData = Object.assign({},params)
-	var _this=this;
-	Http.request('form-field-edit',{},paraData).then(function(response) {
-		_this.cancelEditText();
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
 
+    if(isCreate){
+		
+		 	Http.request('create-field-edit',{},params).then(function(response) {
+		 		 _this.cancelEditText();
+				}).catch(function(err) {
+		 		Message.error(err.message);
+		 	});
+	}else{
+		    if(params.itemListStr&&params.itemListStr.length!=0){
+				params.itemListStr=JSON.stringify(params.itemListStr);				
+			}else{
+				var littleText=[];
+				for (var item in params){
+					 if(item.indexOf("ws")!=-1){
+						var list={};
+						list[item]=params[item];
+						littleText.push(list);
+					 }
+				 }
+				params.setting=JSON.stringify(littleText);
+			}
+		    
+			Http.request('form-field-edit',{},params).then(function(response) {
+				_this.cancelEditText();
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
+		}
  }
 
  cancelEditText=()=>{
