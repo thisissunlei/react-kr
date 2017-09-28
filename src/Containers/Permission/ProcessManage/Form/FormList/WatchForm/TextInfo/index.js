@@ -345,7 +345,7 @@ class TextInfo  extends React.Component{
 					 }
 				 }
 				params.setting=JSON.stringify(littleText);
-				
+				delete 	params.items;	
 			}
 		    
 			Http.request('form-field-edit',{},params).then(function(response) {

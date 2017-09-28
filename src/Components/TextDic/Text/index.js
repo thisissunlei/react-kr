@@ -122,7 +122,7 @@ export default class Text  extends React.Component{
         if(isCommon!=0){
             return;
         }
-        console.log('fffff');
+       
        
         this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
        
@@ -131,11 +131,11 @@ export default class Text  extends React.Component{
     componentWillReceiveProps(nextProps){
 
 
-        console.log('nextProps1',nextProps.label,'23',nextProps.getEdit);
+        
 
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
-            console.log('nextProps2');
+           
 
            Store.dispatch(change('EditText','sourceType',''));
            if(nextProps.label!=nextProps.getEdit.compType){
@@ -155,7 +155,7 @@ export default class Text  extends React.Component{
                 })
            }else{
              if(nextProps.getEdit.setting){
-                console.log('nextProps4');
+               
                 Store.dispatch(change('EditText','itemListStr',null));
                 var setting=JSON.parse(nextProps.getEdit.setting);
                
@@ -178,6 +178,7 @@ export default class Text  extends React.Component{
         }
 
        
+        
         this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
       
     }

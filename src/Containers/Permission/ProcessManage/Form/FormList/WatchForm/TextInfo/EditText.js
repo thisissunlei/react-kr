@@ -41,7 +41,7 @@ class EditText  extends React.Component{
         const {onSubmit}=this.props;
         values = Object.assign({},values);
       
-        console.log('frrrr',values.itemListStr);
+        console.log('frrrr',values);
         let itemListStr = [];
         if(values.itemListStr){
             itemListStr= [].concat(values.itemListStr);
