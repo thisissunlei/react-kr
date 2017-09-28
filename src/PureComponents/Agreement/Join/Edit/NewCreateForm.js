@@ -1372,6 +1372,7 @@ class NewCreateForm extends React.Component {
 			tacticsType:changeValues.saleList[index].tacticsType,
 			tacticsId:tacticsId,
 			discount:e,
+			discountAmount:0,
 			minDiscount 
 		}
 		changeValues.saleList[index] = Object.assign({},time)

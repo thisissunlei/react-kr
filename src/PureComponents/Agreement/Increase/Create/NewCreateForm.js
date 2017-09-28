@@ -1338,6 +1338,7 @@ class NewCreateForm extends Component {
 					tacticsType:changeValues.saleList[index].tacticsType,
 					tacticsId:tacticsId,
 					discount:e,
+					discountAmount:0,
 					minDiscount
 				}
 				changeValues.saleList[index] = Object.assign({},time)
