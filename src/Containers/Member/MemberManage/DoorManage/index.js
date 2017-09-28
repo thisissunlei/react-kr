@@ -25,7 +25,7 @@ import {Http} from 'kr/Utils';
 import {Actions,Store} from 'kr/Redux';
 import NewCreateForm from './NewCreateForm';
 import ImpowerEditMemberForm from './ImpowerEditMemberForm';
-import ImpowerList from './ImpowerList';
+import ImpowerListNew from './ImpowerListNew';
 import SearchDetailForm from './SearchDetailForm';
 
 import './index.less';
@@ -334,7 +334,7 @@ export default class List extends React.Component {
 										onClose={this.openImpoverList}
 										width={1100}
 									>
-									<ImpowerList onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openImpoverList} detail={itemDetail} fresh={this.fresh} />
+									<ImpowerListNew onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openImpoverList} detail={itemDetail} fresh={this.fresh} />
 								</Drawer>
 
 
