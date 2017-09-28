@@ -190,7 +190,7 @@ export default class  TabelEdit extends React.Component {
 							style={{marginRight:3,}}
 							name={brightsStr+'.'+name}
 							component={type}
-							marking = "tab-field"
+							
 							{...surplus}
 						/>
 					</td>

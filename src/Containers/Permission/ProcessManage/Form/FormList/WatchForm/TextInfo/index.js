@@ -314,6 +314,7 @@ class TextInfo  extends React.Component{
 	params.id=editId;
 	params.detailId=detailId;
 	params.formId=basicInfo.id||'';
+	console.log('parma',params);
 	var _this=this;
 	for(let key in params){
 		
@@ -332,7 +333,8 @@ class TextInfo  extends React.Component{
 		 	});
 	}else{
 		    if(params.itemListStr&&params.itemListStr.length!=0){
-				params.itemListStr=JSON.stringify(params.itemListStr);				
+				params.itemListStr=JSON.stringify(params.itemListStr);	
+				delete 	params.items;	
 			}else{
 				var littleText=[];
 				for (var item in params){
@@ -343,6 +345,7 @@ class TextInfo  extends React.Component{
 					 }
 				 }
 				params.setting=JSON.stringify(littleText);
+				
 			}
 		    
 			Http.request('form-field-edit',{},params).then(function(response) {
