@@ -144,6 +144,7 @@ export default class Text  extends React.Component{
                 })
            }else{
              if(nextProps.getEdit.setting){
+                Store.dispatch(change('EditText','itemListStr',null));
                 var setting=JSON.parse(nextProps.getEdit.setting);
                 setting.map((item,index)=>{
                    for(var index in item){

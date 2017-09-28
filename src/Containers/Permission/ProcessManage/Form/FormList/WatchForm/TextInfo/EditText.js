@@ -41,6 +41,7 @@ class EditText  extends React.Component{
         const {onSubmit}=this.props;
         values = Object.assign({},values);
       
+        console.log('frrrr',values.itemListStr);
         let itemListStr = [];
         if(values.itemListStr){
             itemListStr= [].concat(values.itemListStr);
@@ -54,7 +55,7 @@ class EditText  extends React.Component{
             orderNum = true,
             isDefault = true;
 
-      
+
        if(itemListStr && !itemListStr.length){
             Notify.show([{
 				message: '请添加自定义',
