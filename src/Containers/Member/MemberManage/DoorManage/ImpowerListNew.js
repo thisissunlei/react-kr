@@ -135,7 +135,10 @@ export default class FinishUploadImgForm extends React.Component{
 			isIotDevice : item.iotDevice
 		}
 
-		let newArr = _this.state.initDevices;
+		let newArr = [];
+		for(var i=0;i<_this.state.devices.length;i++){
+			newArr[i] = _this.state.devices[i]
+		}
 		console.log("newArr",newArr);
 		// 被选中
 		if(item.checked){
@@ -328,6 +331,7 @@ export default class FinishUploadImgForm extends React.Component{
 	// 确认授权
 	impowerToCustomer=()=>{
 		let _this =this;
+		console.log("dkdkd","ldldldl");
 		var devicesT =this.state.devices;
 		if(devicesT.length>1){
 			// 数组去重
@@ -373,7 +377,8 @@ export default class FinishUploadImgForm extends React.Component{
 
 	onChangeFloor=(floorParam)=>{
 		this.setState({
-			floor: floorParam
+			floor: floorParam,
+			devices : this.state.initDevices
 		})
 		let _this = this;
 		let params={
@@ -387,7 +392,8 @@ export default class FinishUploadImgForm extends React.Component{
 
 	onSearchDoorCode=(doorCodeParams)=>{
 		this.setState({
-			doorCode: doorCodeParams
+			doorCode: doorCodeParams,
+			devices : this.state.initDevices
 		})
 		let _this = this;
 		let params={
