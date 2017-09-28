@@ -113,9 +113,7 @@ class AddText  extends React.Component{
 
             }
         }
-       if(itemListStr==null){
-           values.itemListStr = []
-       }
+      
        onSubmit && onSubmit(values);
     }
 

@@ -53,7 +53,7 @@ class EditText  extends React.Component{
             orderNum = true,
             isDefault = true;
 
-
+       console.log(values.itemListStr,">>>>>>>>")
        if(itemListStr && !itemListStr.length){
             Notify.show([{
 				message: '请添加自定义',
@@ -118,9 +118,6 @@ class EditText  extends React.Component{
             }
         }
   
-       if(itemListStr==null){
-           values.itemListStr = []
-       }
        onSubmit && onSubmit(values);
     }
 

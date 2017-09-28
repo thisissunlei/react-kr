@@ -28,6 +28,7 @@ export default class Text  extends React.Component{
 
     commonPublic=(param,sourceOrgin,type,old)=>{
        
+       
         
         let {changeData,oldEdit}=this.state;
         if(old&&this.oldEdit!=old){
@@ -68,11 +69,11 @@ export default class Text  extends React.Component{
 
             Store.dispatch(change('EditText','itemListStr',null));
             Store.dispatch(change('AddText','itemListStr',null));
-            this.setState({
-              models:this.sourceRender(sourceOrgin),
-            })
+            // this.setState({
+            //   models:this.sourceRender(sourceOrgin),
+            // })
         }else if(param=="CUSTOM"){
-            
+             console.log("commonPublic=========")
             if(this.props.twoData&&(this.props.twoData!=this.oldEdit.inputType)){
                 
                 Store.dispatch(change('EditText','itemListStr',[]));
@@ -103,10 +104,11 @@ export default class Text  extends React.Component{
                     Store.dispatch(change('EditText','itemListStr',this.oldEdit.items?this.oldEdit.items:[])); 
                 }
             }
-            this.setState({
-               models:this.selfRender(),
-            })
+            // this.setState({
+            //    models:this.selfRender(),
+            // })
         }else{
+            
            Store.dispatch(change('EditText','itemListStr',null));
            Store.dispatch(change('AddText','itemListStr',null));
            this.setState({
@@ -116,13 +118,12 @@ export default class Text  extends React.Component{
     }
 
     componentDidMount(){
-       
+        console.log("componentDidMount=========")
         let {getEdit,isCommon}=this.props;
         this.oldEdit=getEdit;
         if(isCommon!=0){
             return;
         }
-        console.log('fffff');
        
         this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
        
@@ -130,60 +131,21 @@ export default class Text  extends React.Component{
 
     componentWillReceiveProps(nextProps){
 
-
-        console.log('nextProps1',nextProps.label,'23',nextProps.getEdit);
-
+        
+      
         this.oldEdit=nextProps.getEdit;
-        if(nextProps.isCommon!=this.props.isCommon){
-            console.log('nextProps2');
 
-           Store.dispatch(change('EditText','sourceType',''));
-           if(nextProps.label!=nextProps.getEdit.compType){
-
-                let wsObject=[
-                    'wstext',
-                    'wsheight',
-                    'wsfloat',
-                    'wsradio',
-                    'wsfile',
-                    'wspicWidth',
-                    'wspicHeight'
-                ];
-               
-                wsObject.map((item,index)=>{          
-                  Store.dispatch(change('EditText',item,'')); 
-                })
-           }else{
-             if(nextProps.getEdit.setting){
-                console.log('nextProps4');
-                Store.dispatch(change('EditText','itemListStr',null));
-                var setting=JSON.parse(nextProps.getEdit.setting);
-               
-                setting.map((item,index)=>{
-                   for(var index in item){
-                    Store.dispatch(change('EditText',index,item[index])); 
-                   }
-                })
-              }
-           }
-           
-           this.setState({
-              models:null,
-              changeData:nextProps.label
-           }) 
-        }
-
-        if(this.isCommon||nextProps.isCommon!=0){
-            return;
-        }
-
+        //  if(nextProps.isCommon!=0){
+        //     return;
+        // }
+      
        
-        this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
+        // this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
       
     }
 
     selfRender=()=>{
-
+        console.log("selfRender======>")
 
         return  (
             <div style={{marginLeft:12}}>
@@ -202,6 +164,7 @@ export default class Text  extends React.Component{
     }
 
     sourceChange=(param)=>{
+         console.log("sourceChange======>")
             this.isCommon=true;
             this.commonPublic(param.value,'','');
 	}
@@ -250,7 +213,7 @@ export default class Text  extends React.Component{
                     name="wsheight"
                     component="input"
                     label="高度"
-                    marking={true}
+                    
                 />
     }
 
@@ -293,51 +256,51 @@ export default class Text  extends React.Component{
              </div>
     }
 
-		picRender=()=>{
+    picRender=()=>{
 
-			return <div>
-                    <KrField
-                        grid={1/2}
-                        style={{width:262,marginBottom:5}}
-                        name="wsfile"
-                        component="input"
-                        label="文件大小(单位:k)"
-                        requireLabel={true}
-                        marking={true}
-                    />
-                    <div className='m-form-radio'> 
-                        <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
-                            <KrField name="wsenabled" label="允许" type="radio" value='true' />
-                            <KrField name="wsenabled" label="禁止" type="radio" value='false' />
-                        </KrField>
-                    </div>
-                    <KrField
-                        grid={1/2}
-                        style={{width:262,marginBottom:5}}
-                        name="wspicWidth"
-                        component="input"
-                        label="图片宽度(单位:px)"
-                        marking={true}
-                    />
-                    <KrField
-                        grid={1/2}
-                        style={{width:262,marginBottom:5,marginLeft:30}}
-                        name="wspicHeight"
-                        component="input"
-                        label="图片高度(单位:px)"
-                        marking={true}
-                    />
-				 </div>
-		}
+        return <div>
+                <KrField
+                    grid={1/2}
+                    style={{width:262,marginBottom:5}}
+                    name="wsfile"
+                    component="input"
+                    label="文件大小(单位:k)"
+                    requireLabel={true}
+                    marking={true}
+                />
+                <div className='m-form-radio'> 
+                    <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
+                        <KrField name="wsenabled" label="允许" type="radio" value='true' />
+                        <KrField name="wsenabled" label="禁止" type="radio" value='false' />
+                    </KrField>
+                </div>
+                <KrField
+                    grid={1/2}
+                    style={{width:262,marginBottom:5}}
+                    name="wspicWidth"
+                    component="input"
+                    label="图片宽度(单位:px)"
+                    marking={true}
+                />
+                <KrField
+                    grid={1/2}
+                    style={{width:262,marginBottom:5,marginLeft:30}}
+                    name="wspicHeight"
+                    component="input"
+                    label="图片高度(单位:px)"
+                    marking={true}
+                />
+                </div>
+    }
 
     sourceType=()=>{
         var source=DictionaryConfigs.ERP_SourceType;
         var seleInt=[];
         source.map((item,index)=>{
-           var list={};
-           list.label=item.desc;
-           list.value=item.value;
-           seleInt.push(list);
+            var list={};
+            list.label=item.desc;
+            list.value=item.value;
+            seleInt.push(list);
         })
         return <KrField grid={1/2}
                     style={{width:262}}
@@ -424,6 +387,7 @@ export default class Text  extends React.Component{
 	render(){
                 let {label}=this.props;
                 let {models}=this.state;
+                
 
 				return(
 					<div style={{display:'inline-block'}}>

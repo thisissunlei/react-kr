@@ -77,6 +77,48 @@ export default class TextDic extends React.Component{
         }   
     }
 
+
+
+    clear = () =>{
+
+         let {label,getEdit} = this.state;
+       
+         if(getEdit.setting){
+             Store.dispatch(change('EditText','itemListStr',null));
+         }
+
+
+           Store.dispatch(change('EditText','sourceType',''));
+           if(label!=getEdit.compType){
+
+                let wsObject=[
+                    'wstext',
+                    'wsheight',
+                    'wsfloat',
+                    'wsradio',
+                    'wsfile',
+                    'wspicWidth',
+                    'wspicHeight'
+                ];
+               
+                wsObject.map((item,index)=>{          
+                  Store.dispatch(change('EditText',item,'')); 
+                })
+           }else{
+             if(getEdit.setting){
+               
+                Store.dispatch(change('EditText','itemListStr',null));
+                var setting=JSON.parse(getEdit.setting);
+               
+                setting.map((item,index)=>{
+                   for(var index in item){
+                    Store.dispatch(change('EditText',index,item[index])); 
+                   }
+                })
+              }
+           }
+
+    }
    
     typeChange=(param)=>{
         this.isCommon=true;
@@ -89,6 +131,7 @@ export default class TextDic extends React.Component{
            twoData:param.value
 		},function(){
             _this.nextArrRender(param.value,nexts);
+            _this.clear();
         })
     }
 
@@ -120,6 +163,7 @@ export default class TextDic extends React.Component{
        }
 
     classChange=(param)=>{
+        var _this = this;
         if(!param){
             return ;
         }
@@ -127,6 +171,8 @@ export default class TextDic extends React.Component{
             isThree:true,
             label:param.value,
             isCommon:new Date().getTime()
+        },function(){
+            _this.clear();
         })
         this.twoData=true;
         Store.dispatch(change('EditText','sourceType',''));
