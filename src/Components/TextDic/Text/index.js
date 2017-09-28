@@ -27,6 +27,7 @@ export default class Text  extends React.Component{
 
 
     commonPublic=(param,sourceOrgin,type,old)=>{
+        console.log("commonPublic-----------1");
         
         let {changeData,oldEdit}=this.state;
         if(old&&this.oldEdit!=old){
@@ -129,11 +130,9 @@ export default class Text  extends React.Component{
 
     componentWillReceiveProps(nextProps){
 
-        console.log('nextProps1',this.isCommon,'1',this.props.isCommon,'2',nextProps.isCommon);
 
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
-            console.log('tgt');
            Store.dispatch(change('EditText','sourceType',''));
            if(nextProps.label!=nextProps.getEdit.compType){
                 let wsObject=[
@@ -171,7 +170,6 @@ export default class Text  extends React.Component{
         if(this.isCommon||nextProps.isCommon!=0){
             return;
         }
-        console.log('nextProps2');
         if(!nextProps.getEdit.setting){
           this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
         }
@@ -213,7 +211,7 @@ export default class Text  extends React.Component{
  	  }
 
     inputTextRender=()=>{
-
+        console.log("inputTextRender-----------文本长度");
         return <KrField
                     grid={1/2}
                     style={{width:262,marginBottom:5}}
@@ -221,6 +219,7 @@ export default class Text  extends React.Component{
                     component="input"
                     label="文本长度"
                     requireLabel={true}
+                    marking={true}
                    
                 />
     }
@@ -291,35 +290,35 @@ export default class Text  extends React.Component{
 
 			return <div>
                     <KrField
-                            grid={1/2}
-                            style={{width:262,marginBottom:5}}
-                            name="wsfile"
-                            component="input"
-                            label="文件大小(单位:k)"
-                            requireLabel={true}
-                            marking={true}
-                        />
-                        <div className='m-form-radio'> 
-                            <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
-                                <KrField name="wsenabled" label="允许" type="radio" value='true' />
-                                <KrField name="wsenabled" label="禁止" type="radio" value='false' />
-                            </KrField>
+                        grid={1/2}
+                        style={{width:262,marginBottom:5}}
+                        name="wsfile"
+                        component="input"
+                        label="文件大小(单位:k)"
+                        requireLabel={true}
+                        marking={true}
+                    />
+                    <div className='m-form-radio'> 
+                        <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
+                            <KrField name="wsenabled" label="允许" type="radio" value='true' />
+                            <KrField name="wsenabled" label="禁止" type="radio" value='false' />
+                        </KrField>
                     </div>
                     <KrField
-                            grid={1/2}
-                            style={{width:262,marginBottom:5}}
-                            name="wspicWidth"
-                            component="input"
-                            label="图片宽度(单位:px)"
-                            marking={true}
+                        grid={1/2}
+                        style={{width:262,marginBottom:5}}
+                        name="wspicWidth"
+                        component="input"
+                        label="图片宽度(单位:px)"
+                        marking={true}
                     />
                     <KrField
-                            grid={1/2}
-                            style={{width:262,marginBottom:5,marginLeft:30}}
-                            name="wspicHeight"
-                            component="input"
-                            label="图片高度(单位:px)"
-                            marking={true}
+                        grid={1/2}
+                        style={{width:262,marginBottom:5,marginLeft:30}}
+                        name="wspicHeight"
+                        component="input"
+                        label="图片高度(单位:px)"
+                        marking={true}
                     />
 				 </div>
 		}
@@ -345,7 +344,8 @@ export default class Text  extends React.Component{
     }
 
     typeRender=(value)=>{
-        console.log('type');
+        
+        
         var component={};
         let _this=this;
         switch (value){
@@ -416,14 +416,9 @@ export default class Text  extends React.Component{
 
 
 	render(){
-                console.log("---------------")
                 let {label}=this.props;
                 let {models}=this.state;
-                
-                console.log('tgtg',label,models);
-
 				return(
-
 					<div style={{display:'inline-block'}}>
 		                {this.typeRender(label)}
 						{models}
