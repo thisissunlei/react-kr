@@ -34,10 +34,12 @@ import {
 	TableHeaderColumn,
 	TableRowColumn,
 	Button,
-	SearchForms
+	SearchForms,
+	Drawer
 } from 'kr-ui';
-// import './index.less'
-// import State from './State';
+import './index.less'
+import AgreementList from './AgreementList';
+import State from './State';
 
 @observer
 class AgreementTrim extends React.Component {
@@ -57,6 +59,7 @@ class AgreementTrim extends React.Component {
 		console.log(value)
 	}
 	openNewCreateDialog=()=>{
+		State.openAgreementList = true;
 		console.log('=========>')
 	}
 	
@@ -141,6 +144,16 @@ class AgreementTrim extends React.Component {
 				<TableFooter></TableFooter>
 				</Table>					
 			</Section>
+			   <Drawer
+				    open={State.openAgreementList}
+				    width={750}
+				    onClose={this.detailOpenAgreement}
+				    openSecondary={true}
+				    containerStyle={{top:60,paddingBottom:48,zIndex:8}}
+			    >
+                    <AgreementList />
+
+		           </Drawer>
 
 
 			
