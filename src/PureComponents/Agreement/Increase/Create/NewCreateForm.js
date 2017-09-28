@@ -860,7 +860,7 @@ class NewCreateForm extends Component {
 								</td>
 								<td style={{textAlign:'center'}}>
 									<KrField  name={`${member}.validEnd`} type="hidden" component="input" />
-		
+									<KrField  name={`${member}.minDiscount`} type="hidden" component="input" />
 									<span style={{display:'inline-block',marginTop:'10px'}}>{leaseEndDate.substring(0,10)}</span>
 		
 								</td>
@@ -1324,15 +1324,6 @@ class NewCreateForm extends Component {
 				let xiaoyu = false;
 				let minDiscount = '';
 				saleList.map((item)=>{
-					// if(item.value == changeValues.saleList[index].tacticsType && item.discount>e){
-					// 	let message = '折扣不能小于'+item.discount;
-					// 	xiaoyu = true;
-					// 	Notify.show([{
-					// 		message: message,
-					// 		type: 'danger',
-					// 	}]);
-					// 	return;
-					// }
 					if(item.value == changeValues.saleList[index].tacticsType){
 						   tacticsId = item.id;
 						   minDiscount = item.discount;
@@ -1380,7 +1371,8 @@ class NewCreateForm extends Component {
 							discount:item.discount,
 							validEnd:item.validEnd,
 							validStart:item.validStart,
-							tacticsId:item.tacticsId
+							tacticsId:item.tacticsId,
+							minDiscount:item.minDiscount || '0'
 		
 						})
 						biaodan.push(item.tacticsType)

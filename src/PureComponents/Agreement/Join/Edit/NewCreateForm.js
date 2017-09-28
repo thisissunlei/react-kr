@@ -902,6 +902,7 @@ class NewCreateForm extends React.Component {
 				        </td>
 				        <td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validEnd`} type="hidden" component="input" />
+					        <KrField  name={`${member}.minDiscount`} type="hidden" component="input" />
 
 					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEndDate.substring(0,10)}</span>
 
@@ -1404,7 +1405,8 @@ class NewCreateForm extends React.Component {
 					discount:item.discount,
 					validEnd:item.validEnd,
 					validStart:item.validStart,
-					tacticsId:item.tacticsId
+					tacticsId:item.tacticsId,
+					minDiscount:item.minDiscount || '0'
 
 				})
 				biaodan.push(item.tacticsType)

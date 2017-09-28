@@ -421,16 +421,16 @@ class NewCreateForm extends Component {
 			leaseBegindate:form.leaseBegindate,
 			leaseEnddate:form.leaseEnddate
 		};
-		console.log('submit',optionValues.saleList)
-		if(optionValues.saleList){
-			optionValues.saleList.map(item=>{
-				if(item.label == '折扣'){
-				form.minDiscount = item.discount;
-				}
-			})
-		}
-		Http.request('count-sale', '',params).then(function(response){
-			form.lessorAddress = changeValues.lessorAddress;
+		// console.log('submit',optionValues.saleList)
+		// if(optionValues.saleList){
+		// 	optionValues.saleList.map(item=>{
+		// 		if(item.label == '折扣'){
+		// 		form.minDiscount = item.discount;
+		// 		}
+		// 	})
+		// }
+		var _this = this;
+		form.lessorAddress = changeValues.lessorAddress;
 
 			form.firstpaydate = dateFormat(form.firstpaydate, "yyyy-mm-dd 00:00:00");
 			form.signdate = dateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
@@ -441,10 +441,10 @@ class NewCreateForm extends Component {
 			if(!!!form.agreement){
 				form.agreement = '无';
 			}
-			var _this = this;
+			
 
 			form.stationVos = stationVos;
-			
+		Http.request('count-sale', '',params).then(function(response){
 			onSubmit && onSubmit(form);
 		}).catch(function(err){
 			console.log('err',err)
@@ -873,6 +873,7 @@ class NewCreateForm extends Component {
 				        </td>
 				        <td style={{textAlign:'center'}}>
 					        <KrField  name={`${member}.validEnd`} type="hidden" component="input" />
+					        <KrField  name={`${member}.minDiscount`} type="hidden" component="input" />
 
 					        <span style={{display:'inline-block',marginTop:'10px'}}>{leaseEndDate.substring(0,10)}</span>
 
@@ -1370,7 +1371,8 @@ class NewCreateForm extends Component {
 					discount:item.discount,
 					validEnd:item.validEnd,
 					validStart:item.validStart,
-					tacticsId:item.tacticsId
+					tacticsId:item.tacticsId,
+					minDiscount:item.minDiscount || '0'
 
 				})
 				biaodan.push(item.tacticsType)
