@@ -131,13 +131,14 @@ export default class Text  extends React.Component{
 
     componentWillReceiveProps(nextProps){
 
-        console.log('nextProps2');
+        console.log('nextProps1');
 
         this.oldEdit=nextProps.getEdit;
         if(nextProps.isCommon!=this.props.isCommon){
-           
+            console.log('nextProps2');
            Store.dispatch(change('EditText','sourceType',''));
            if(nextProps.label!=nextProps.getEdit.compType){
+            console.log('nextProps3');
                 let wsObject=[
                     'wstext',
                     'wsheight',
@@ -153,6 +154,7 @@ export default class Text  extends React.Component{
                 })
            }else{
              if(nextProps.getEdit.setting){
+                console.log('nextProps4');
                 Store.dispatch(change('EditText','itemListStr',null));
                 var setting=JSON.parse(nextProps.getEdit.setting);
                
@@ -424,7 +426,6 @@ export default class Text  extends React.Component{
                 let {label}=this.props;
                 let {models}=this.state;
                 
-                console.log('tgtg',label,models);
 
 				return(
 
