@@ -364,7 +364,7 @@ export default class OrderDetail extends React.Component {
 			Store.dispatch(Actions.switchSidebarNav(false));
 			Store.dispatch(Actions.switchHeaderNav(false));
 		}
-		const {NavModel,CommunityAgreementList} = this.props;
+		let {NavModel,CommunityAgreementList} = this.props;
 		NavModel.setSidebar(false);
 		this.getLocalStorageDate()
 
@@ -387,6 +387,7 @@ export default class OrderDetail extends React.Component {
 			}, 0);
 
 		}).catch(function(err) {
+			console.log('err',err)
 			Notify.show([{
 				message: err.message,
 				type: 'danger',

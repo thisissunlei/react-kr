@@ -550,8 +550,15 @@ class NewCreateForm extends Component {
 					leaseBegindate,
 					leaseEnddate,
 				} = changeValues;
-		
+				
 				if (!stationVos) {
+					Notify.show([{
+						message: '请先选择工位',
+						type: 'danger',
+					}]);
+					return;
+				}
+				if (stationVos && !stationVos.length) {
 					Notify.show([{
 						message: '请先选择工位',
 						type: 'danger',
@@ -1127,7 +1134,14 @@ class NewCreateForm extends Component {
 				this.getSaleMoney(params,fields,index);
 		
 			}
-			changeAmount=(e,fields,index)=>{
+	changeAmount=(e,fields,index)=>{
+		if(!e){
+			Notify.show([{
+						message: '请填写折扣金额',
+						type: 'danger',
+					}]);
+					return;
+		}
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {saleList}  = optionValues;
 		let {stationVos} = this.state;
@@ -1198,15 +1212,15 @@ class NewCreateForm extends Component {
 				let xiaoyu = false;
 				let minDiscount;
 				saleList.map((item)=>{
-					// if(item.value == changeValues.saleList[index].tacticsType && item.discount>e){
-					// 	let message = '折扣不能小于'+item.discount;
-					// 	xiaoyu = true;
-					// 	Notify.show([{
-					// 		message: message,
-					// 		type: 'danger',
-					// 	}]);
-					// 	return;
-					// }
+					if(item.value == changeValues.saleList[index].tacticsType && item.discount>e){
+						let message = '折扣不能小于'+item.discount;
+						xiaoyu = true;
+						Notify.show([{
+							message: message,
+							type: 'danger',
+						}]);
+						return;
+					}
 					if(item.value == changeValues.saleList[index].tacticsType){
 						   tacticsId = item.id;
 						   minDiscount = item.discount;

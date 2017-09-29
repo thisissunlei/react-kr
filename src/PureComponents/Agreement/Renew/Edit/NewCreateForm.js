@@ -1151,6 +1151,13 @@ class NewCreateForm extends React.Component {
 
 	}
 	changeAmount=(e,fields,index)=>{
+		if(!e){
+			Notify.show([{
+						message: '请填写折扣金额',
+						type: 'danger',
+					}]);
+					return;
+		}
 		let {changeValues,initialValues,optionValues} = this.props;
 		let {saleList}  = optionValues;
 		let {stationVos} = this.state;
