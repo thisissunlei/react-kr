@@ -134,8 +134,14 @@ class NewCreateForm extends React.Component{
 		let orderNumCop=false;
 		let valueCop=false;
 		let labelCop=false;
+		let labelLegth = false;
+		let valueLegth = false;
+		let orderLegth = false;
 		
 		for(var i in orderNumArray){
+			if(orderNumArray[i].length>2){
+				orderLegth = true
+			}
 			if(tmp.indexOf(orderNumArray[i])!=-1){
 				orderNumCop = true;
 			}
@@ -145,6 +151,9 @@ class NewCreateForm extends React.Component{
 			
 		}
 		for(var i in valueArray){
+			if(valueArray[i].length>3){
+				valueLegth = true
+			}
 			if(tmp1.indexOf(valueArray[i])!=-1){
 				valueCop = true;
 			}
@@ -154,12 +163,36 @@ class NewCreateForm extends React.Component{
 			
 		}
 		for(var i in labelArray){
+			if(labelArray[i].length>20){
+				labelLegth = true;
+			}
 			if(tmp2.indexOf(labelArray[i])!=-1){
 				labelCop = true;
 			}
 			if(tmp2.indexOf(labelArray[i])==-1){
 				tmp2.push(labelArray[i])
 			}
+		}
+		if(orderLegth){
+			Notify.show([{
+				message: '排序号不可超过两位',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(labelLegth){
+			Notify.show([{
+				message: '选项文字不可超过20',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(valueLegth){
+			Notify.show([{
+				message: '选项值不可超过三位',
+				type: 'danger',
+			}]);
+			return;
 		}
 		if(orderNumCop){
 			Notify.show([{
@@ -183,14 +216,25 @@ class NewCreateForm extends React.Component{
 			return;
 		}
 		let orderNumType=false;
+		let orderNumRang=false;
 		orderNumArray.map(item=>{
 			if(!item || isNaN(item)){
 				orderNumType=true;
+			}
+			if(item && item>99){
+				orderNumRang = true
 			}
 		})
 		if(orderNumType){
 			Notify.show([{
 				message: '排序号只能为数字',
+				type: 'danger',
+			}]);
+			return;
+		}
+		if(orderNumRang){
+			Notify.show([{
+				message: '排序号只能为两位数字',
 				type: 'danger',
 			}]);
 			return;
