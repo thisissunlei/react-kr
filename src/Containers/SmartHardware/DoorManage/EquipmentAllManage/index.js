@@ -10,6 +10,7 @@ import{
   Tabs,
   Tab,
   Section,
+  Title,
 }from 'kr-ui';
 import {
 	observer,
@@ -37,7 +38,7 @@ export default class AgingAccount  extends React.Component{
 		return(
 
 			<div className="equipment-all">
-				
+				<Title value="门禁设备管理"/>
 				<Section title={`门禁管理`} description="" >
 					<SecondDoorManage />
 				</Section>
