@@ -76,11 +76,11 @@ export default class SearchDetailForm extends React.Component {
 		let {detail,handleSubmit} = this.props;
 		let {floorsOptions} = this.state;
 		let options=[{
-		      label:"门标题",
-		      value:"doorCode"
-		    },{
 		      label:"平面图位置",
 		      value:"roomName"
+		    },{
+		      label:"门标题",
+		      value:"doorCode"
 		    }]
 		
 		return (

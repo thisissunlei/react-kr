@@ -283,20 +283,6 @@ export default class FinishUploadImgForm extends React.Component{
 
 
 						</TableRowColumn>
-
-						<TableRowColumn style={{overflow:"hidden"}}>
-
-							{
-								!item.roomName?<span>-</span>:<span>{item.roomName}</span>
-							}
-						</TableRowColumn>
-						<TableRowColumn style={{overflow:"hidden"}}>
-
-							{
-								!item.doorType?<span>-</span>:<span>{item.doorType}</span>
-							}
-						</TableRowColumn>
-						
 						<TableRowColumn>
 
 							{
@@ -304,6 +290,21 @@ export default class FinishUploadImgForm extends React.Component{
 							}
 
 						</TableRowColumn>
+
+						
+						<TableRowColumn style={{overflow:"hidden"}}>
+
+							{
+								!item.doorType?<span>-</span>:<span>{item.doorType}</span>
+							}
+						</TableRowColumn>
+						<TableRowColumn style={{overflow:"hidden"}}>
+
+							{
+								!item.roomName?<span>-</span>:<span>{item.roomName}</span>
+							}
+						</TableRowColumn>
+						
 						<TableRowColumn style={{overflow:"hidden"}}>
 
 							{
@@ -466,10 +467,12 @@ export default class FinishUploadImgForm extends React.Component{
 											<input type='checkbox' onChange={this.selectAll.bind(this)} />
 
 										</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14,width:"18%"}}>平面图位置</TableHeaderColumn>
+
+										<TableHeaderColumn style={{fontSize:14,width:"20%"}}>屏幕展示标题</TableHeaderColumn>
+
 
 										<TableHeaderColumn style={{fontSize:14,width:"15%"}}>类型</TableHeaderColumn>
-										<TableHeaderColumn style={{fontSize:14,width:"20%"}}>屏幕展示标题</TableHeaderColumn>
+										<TableHeaderColumn style={{fontSize:14,width:"18%"}}>平面图位置</TableHeaderColumn>
 										
 										<TableHeaderColumn style={{fontSize:14,width:"9%"}}>楼层</TableHeaderColumn>
 										<TableHeaderColumn style={{fontSize:14,width:"32%"}}>智能硬件ID</TableHeaderColumn>
