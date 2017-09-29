@@ -157,40 +157,32 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			doorTypeReal = '';
 		}
 		State.realPage =1;
-		State.equipmentSecondParams =  {
-			communityId: State.equipmentSecondParams.communityId,
-	        deviceId : State.equipmentSecondParams.deviceId || '',
-	        doorCode : State.equipmentSecondParams.doorCode || '',
-	        doorType : doorTypeReal,
-	        floor : State.equipmentSecondParams.floor,
-	        page : 1,
-	        pageSize: 15,
-	        date: new Date()
+		var newData = {
+			doorType : doorTypeReal,
+			date: new Date(),
+			page : 1
 		}
+		State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newData);
 		
 	}
 
 	onchangeMaker=(makerItem)=>{
-		console.log("makerItem",makerItem);
+		
 		var makerItemReal
 		if(makerItem){
 			makerItemReal = makerItem.value;
 		}else{
 			makerItemReal = '';
 		}
-		State.realPage =1;
-		State.equipmentSecondParams =  {
-			communityId: State.equipmentSecondParams.communityId,
-	        deviceId : State.equipmentSecondParams.deviceId || '',
-	        doorCode : State.equipmentSecondParams.doorCode || '',
-	        doorType : State.equipmentSecondParams.doorType || '',
-	        floor : State.equipmentSecondParams.floor,
-	        maker : makerItemReal,
-	        page : 1,
-	        pageSize: 15,
-	        date: new Date()
-		}
 		
+		State.realPage =1;
+		var newData={
+			maker : makerItemReal,
+			page : 1,
+			date: new Date()
+		}
+		State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newData);
+
 	}
 
 
@@ -203,6 +195,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		    newObj ={
 				    	doorCode: value.content,
 				    	deviceId: '',
+				    	title : '',
 				    	page:1
 				    }
 
@@ -212,6 +205,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		    newObj ={
 				    	title: value.content,
 				    	deviceId: '',
+				    	doorCode: '',
 				    	page:1
 				    }
 
@@ -221,6 +215,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		    newObj ={
 				    	deviceId: value.content,
 				    	doorCode: '',
+				    	title :'',
 				    	page:1
 				    }
 	    }

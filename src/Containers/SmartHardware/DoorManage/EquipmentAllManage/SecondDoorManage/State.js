@@ -32,9 +32,11 @@ let State = observable({
 		        deviceId :'',
 		        doorCode :'',
 		        doorType : '',
+		        title :'',
 		        floor : '',
 		        page : 1,
 		        pageSize: 15,
+
 
 		      },
 	searchEquipmentParam:{
@@ -219,6 +221,8 @@ State.freshPageReturn =  action(function(){
         doorCode : State.equipmentSecondParams.doorCode ||'',
         doorType :  State.equipmentSecondParams.doorType ||'',
         floor :  State.equipmentSecondParams.floor ||'',
+        maker :  State.equipmentSecondParams.maker ||'',
+        title : State.equipmentSecondParams.title ||'',
 
     }	
 })
@@ -371,7 +375,7 @@ State.freshEquipmentReporterAction = action(function(){
 
 
 State.confirmSynchronizingAction = action(function(){
-	var urlParams = {deviceId:State.iitemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('SynchronizingUrl',{},urlParams).then(function(response) {
 		
 		Message.success("同步成功");
