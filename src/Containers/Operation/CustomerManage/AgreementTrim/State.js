@@ -1,18 +1,22 @@
-import mobx, {
-	observable,
-	action,
-} from 'mobx';
+
 import {reduxForm,initialize} from 'redux-form';
 import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
-import {Message} from 'kr-ui';
+import {Message,Notify} from 'kr-ui';
+import mobx, {
+	observable,
+	action,
+	asMap,
+	computed,
+	extendObservable,
+	toJS
+} from 'mobx';
 let State = observable({
 	// 上传图片地址
 	requestURI :'/api/krspace-finance-web/activity/upload-pic',
 	detailContent:'',
 	openNewCreate:false,
 	openView:false,
-	openEdit:false,
 	openSearch:false,
 	newsDate:{},
 	searchParams: {
@@ -30,9 +34,46 @@ let State = observable({
 
 
 	openAgreementList:false,
-	orderList:[]
+	orderList:[],
+	contractList:[],
+	openEdit:false,
+	itemDetail:{}
 
 });
+
+//获取订单名称
+State.getOrderList = action(function(value) {
+	console.log('customerId',value)
+		var _this = this;
+		Http.request('orders-names', {customerId:value}).then(function(response) {
+			let label='',value='';
+			let orderList=[];
+			for(let i=0;i<response.orderList.length;i++){
+			    let order={};
+				order.value=response.orderList[i].id;
+				order.label=response.orderList[i].mainbillname;
+				orderList.push(order);
+			}
+			// var noContract = {
+			// 	'value': '-1',
+			// 	'label': '新建订单'
+			// }
+			// orderList.unshift(noContract);
+			extendObservable(_this,{orderList});
+
+
+
+		}).catch(function(err) {
+
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		});
+
+});
+
 //新建编辑保存
 State.saveNews = action(function(params) {
 	var _this = this;
@@ -60,17 +101,21 @@ State.saveEditNews = action(function(params) {
 	});
 
 });
-//编辑查看获取地址
-State.getNewsDate = action(function(id) {
-	var _this = this;
-	Http.request('get-news-detail', {id:id}).then(function(response) {
-		_this.newsDate=response;
-		_this.newsDetail = response.newsContent;
-		Store.dispatch(initialize('editNewList',response));
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
 
+State.getAgreementList = action(function(id) {
+	let _this = this;
+	Http.request('get-order-detail', {
+			mainBillId: id
+		}).then(function(response) {
+			_this.contractList = response.contractList;
+			console.log('=====>',response.contractList)
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		});
 });
 
 State.openNewCreateDialog = action(function(params) {

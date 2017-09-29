@@ -153,7 +153,17 @@ class AgreementTrim extends React.Component {
 			    >
                     <AgreementList />
 
-		           </Drawer>
+		        </Drawer>
+		        <Drawer
+				    open={State.openEdit}
+				    width={750}
+				    onClose={this.detailOpenAgreement}
+				    openSecondary={true}
+				    containerStyle={{top:60,paddingBottom:48,zIndex:8}}
+			    >
+                    <AgreementList />
+
+		        </Drawer>
 
 
 			
