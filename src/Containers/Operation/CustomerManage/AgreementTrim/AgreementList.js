@@ -154,7 +154,7 @@ class CreateNewList extends React.Component {
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="合同列表" circle="bottom">
 						<div className={State.HeightAuto?'auto':'stationList'}  style={{overflow:'initial'}}>
-							<Table displayCheckbox={false} style={{margin:"58px 0 0 38px",width:547}}>
+							<Table displayCheckbox={false} style={{margin:"20px 0 0 38px",width:547}}>
 								<TableHeader>
 									<TableHeaderColumn>合同ID</TableHeaderColumn>
 									<TableHeaderColumn>合同类型</TableHeaderColumn>
