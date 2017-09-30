@@ -62,13 +62,8 @@ class EditModel  extends React.Component{
                  options={[{value:'TABLE_CREATE',label:'创建表'},{value:'TABLE_DELETE',label:'删除表'},{value:'TABLE_EDIT_DESCR',label:'修改表注释'},
                           {value:'FIELD_ADD',label:'新增字段'},{value:'FIELD_DELETE',label:'删除字段'},{value:'FIELD_RENAME',label:'修改字段名'},{value:'FIELD_MODIFY',label:'修改字段属性'}]}
              />
-             <KrField grid={1/2}
-                 style={{width:262,marginLeft:27,marginBottom:5}}
-                 name="sqlTemplate"
-                 component="input"
-                 label="SQL模版"
-                 requireLabel={true}
-             />
+
+             <div className='sql-add-des'><KrField grid={1} label="SQL模版" name="sqlTemplate" heightStyle={{height:"195px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={500} placeholder='请输入SQL模版'  lengthClass='sql-len-textarea' requireLabel={true}/></div>
 
                         
                        <Grid style={{marginBottom:5,marginLeft:-39,marginTop:5}}>

@@ -129,7 +129,7 @@ export default class SqlModel extends Component{
 	//编辑关闭
 	openEditModel=()=>{
        this.setState({
-         openDelete:!this.state.openEditModel
+        openEditModel:!this.state.openEditModel
 	  })
 	}
 
@@ -186,7 +186,7 @@ export default class SqlModel extends Component{
 
 					<Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 								<ListGroup>
-									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入角色名称' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
+									<ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入模版名称' onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
 								</ListGroup>
 					</Col>
 
@@ -205,7 +205,7 @@ export default class SqlModel extends Component{
 			>
 				<TableHeader>
 					<TableHeaderColumn>名称</TableHeaderColumn>
-					<TableHeaderColumn>数据类型</TableHeaderColumn>
+					<TableHeaderColumn>数据库类型</TableHeaderColumn>
 					<TableHeaderColumn>操作类型</TableHeaderColumn>
 					<TableHeaderColumn>SQL模版</TableHeaderColumn>
 					<TableHeaderColumn>操作人</TableHeaderColumn>
