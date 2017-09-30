@@ -213,9 +213,9 @@ const validate = values =>{
 
 
     if(!values.name){
-        errors.name='请填写表单类型名称';
+        errors.name='请填写字段名称';
      }else if(values.name.length>20){
-        errors.name='表单类型名称不能超过20个字符';
+        errors.name='字段名称不能超过20个字符';
      }
  
      if(!values.label){
