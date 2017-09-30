@@ -228,7 +228,7 @@ export default class SqlModel extends Component{
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8}  place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
-						<TableRowColumn name="updator" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="updatorName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
 						}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
