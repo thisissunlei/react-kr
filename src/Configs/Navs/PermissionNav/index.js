@@ -132,6 +132,11 @@ module.exports = [
 						originUrl:'/hz7rest/horizon/module/flash/flow/designer.wf',
 						target:'_blank'
 					},
+					{
+						primaryText: 'SQL模版',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/permission/processManage/sqlModel',
+					},
 				]
 			},
 

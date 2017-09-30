@@ -388,4 +388,24 @@ module.exports = {
             url: '/api/krspace-sso-web/sso/module/sub-level-info?firstLevelId={firstLevelId}',
             method: 'get'
     },
+    //sql模版列表
+    'sql-list':{
+      url: '/api/krspace-erp-web/sys/sql-template/search?page={page}&pageSize={pageSize}&name={name}',
+      method: 'get'
+   },
+     //sql模版新增
+     'sql-add':{
+      url: '/api/krspace-erp-web/sys/sql-template/insert',
+      method: 'post'
+   },
+     //sql模版编辑
+     'sql-edit':{
+      url: '/api/krspace-erp-web/sys/sql-template/update',
+      method: 'post'
+   },
+    //sql模版删除
+    'sql-delete':{
+      url: '/api/krspace-erp-web/sys/sql-template/delete',
+      method: 'post'
+   },
 }

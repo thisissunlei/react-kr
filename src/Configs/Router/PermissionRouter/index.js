@@ -119,6 +119,13 @@ const Permission_HomePageSetting_DynamicsList = (location, callback) => {
   }, 'Permission_HomePageSetting_SwperList')
 }
 
+const Permission_ProcessManage_SqlModel= (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/ProcessManage/SqlModel').default)
+  }, 'Permission_ProcessManage_SqlModel')
+}
+
+
 module.exports =()=>{
 
 	return (
@@ -155,6 +162,7 @@ module.exports =()=>{
       <Route path="processManage" getComponent={Basic}>
         <Route path="processSetting" getComponent={Permission_ProcessManage_ProcessSetting}/>
         <Route path=":processId/basicSetting" getComponent={Permission_ProcessManage_BasicSetting}/>
+        <Route path="sqlModel" getComponent={Permission_ProcessManage_SqlModel}/>
       </Route>
 	  </Route>
 
