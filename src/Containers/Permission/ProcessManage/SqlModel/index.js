@@ -226,7 +226,7 @@ export default class SqlModel extends Component{
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
 		 										}
-		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8}  place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
 						<TableRowColumn name="updator" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
