@@ -336,7 +336,7 @@ class SelectStationForm extends Component {
           <TableRow key={index}>
           <TableRowColumn >{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
           <TableRowColumn >{item.stationName}</TableRowColumn>
-          <TableRowColumn >{item.unitprice}</TableRowColumn>
+          <TableRowColumn >{item.originalUnitprice}</TableRowColumn>
           <TableRowColumn ><KrDate value={item.leaseBeginDate}/></TableRowColumn>
           <TableRowColumn ><KrDate value={item.leaseEndDate}/></TableRowColumn>
           <TableRowColumn>
