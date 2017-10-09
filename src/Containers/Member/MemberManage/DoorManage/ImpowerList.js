@@ -270,9 +270,9 @@ export default class FinishUploadImgForm extends React.Component{
 													<input type='checkbox' onChange={_this.selectAll.bind(_this,item)} />
 
 												</TableHeaderColumn>
+												<TableHeaderColumn style={{fontSize:14}}>平面图位置</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>类型</TableHeaderColumn>
-												<TableHeaderColumn style={{fontSize:14}}>平面图位置</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
 											</TableHeader>
 											<TableBody style={{position:'inherit'}}
@@ -289,6 +289,12 @@ export default class FinishUploadImgForm extends React.Component{
 
 
 																	</TableRowColumn>
+																	<TableRowColumn style={{overflow:"hidden"}}>
+
+																		{
+																			!item.roomName?<span>-</span>:<span>{item.roomName}</span>
+																		}
+																	</TableRowColumn>
 
 																	<TableRowColumn>
 
@@ -303,12 +309,7 @@ export default class FinishUploadImgForm extends React.Component{
 																			!item.doorType?<span>-</span>:<span>{item.doorType}</span>
 																		}
 																	</TableRowColumn>
-																	<TableRowColumn style={{overflow:"hidden"}}>
-
-																		{
-																			!item.roomName?<span>-</span>:<span>{item.roomName}</span>
-																		}
-																	</TableRowColumn>
+																	
 																	<TableRowColumn >
 																		{
 																			!item.hardwareId?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.hardwareId}</span><Tooltip offsetTop={5} place='top'>{item.hardwareId}</Tooltip></div>
