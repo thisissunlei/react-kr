@@ -6,6 +6,7 @@ import { default as WuShuLin } from './WuShuLin';
 import { default as LiuYiHao } from './LiuYiHao';
 import { default as ZhangChi} from './ZhangChi';
 import { default as Lianxi} from './Lianxi';
+import { default as AnBo} from './AnBo';
 
 module.exports = {
 	ZhangQu,
@@ -15,5 +16,6 @@ module.exports = {
 	LiuYiHao,
 	WuShuLin,
 	TanLinLin,
-	Lianxi
+	Lianxi,
+	AnBo
 }

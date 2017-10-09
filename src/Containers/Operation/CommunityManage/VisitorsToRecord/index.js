@@ -45,6 +45,7 @@ import EditVisitorsToRecord from "./EditVisitorsToRecord";
 import VisitorsToRecordDetail from "./VisitorsToRecordDetail";
 import VisitorsSearchForm from "./SearchForm";
 import VisitToState from './VisitToState';
+import DeleteRecord from './DeleteRecord';
 @inject("FormModel")
 @observer
 
@@ -71,6 +72,7 @@ class VisitorsToRecord  extends React.Component{
       openVisitorsDetail:false,
       openUpperForm:false,
       openVisitToState:false,
+      openDelete:false,
 
       select : {
         //活动类型
@@ -95,6 +97,9 @@ class VisitorsToRecord  extends React.Component{
       },
       typeValue:"",
       allVisitNum:0,
+
+      //删除id
+      deleteId:''
 
 		}
     this.readyData();
@@ -142,7 +147,7 @@ class VisitorsToRecord  extends React.Component{
       if(!editData.visitStatus || editData.visitStatus == "NONE"){
         editData.visitStatus = "UNVISIT"
       }
-      
+
       FormModel.getForm("EditVisitorsToRecord")
   		         .changeValues(editData);
       _this.setState({
@@ -196,7 +201,7 @@ class VisitorsToRecord  extends React.Component{
         purposeId:'',
         interviewRoundId:'',
         vtime:'',
-        
+
       })
 
    }
@@ -249,18 +254,24 @@ class VisitorsToRecord  extends React.Component{
    }
    //状态到访状态
    switchVisitToState = () =>{
-     const {openVisitToState} = this.state;  
+     const {openVisitToState} = this.state;
      this.setState({
        openVisitToState:!openVisitToState
      })
+   }
+
+   cancelClose=()=>{
+    this.setState({
+      openDelete:!this.state.openDelete
+    })
    }
 
    //高级查询确定
    upperFormSubmit = (values) =>{
      let {searchParams} = this.state;
  	  let date = new Date();
-     
-       
+
+
     	 this.setState({
           searchParams:{
  				  searchKey:values.searchKey,
@@ -279,7 +290,7 @@ class VisitorsToRecord  extends React.Component{
    }
    //提交新建
 	onSubmit = (params) =>{
-   
+
     let {id} = this.state;
     let _this = this;
     var page='';
@@ -287,7 +298,7 @@ class VisitorsToRecord  extends React.Component{
     if(!id){
       page=1;
     }
-    
+
     Http.request("visit-record-edit",{},params).then(function(select){
       _this.refreshList(page);
       _this.closeNewVisitors();
@@ -323,6 +334,12 @@ class VisitorsToRecord  extends React.Component{
         FormModel.getForm("VisitToState")
   		         .changeValues(params);
       this.switchVisitToState()
+    }
+      if(type=="delete"){
+        this.setState({
+          openDelete:true,
+          deleteId:itemDetail.id
+        })
     }
 	}
   //全部关闭
@@ -374,7 +391,7 @@ class VisitorsToRecord  extends React.Component{
   }
   //到访状态提交
   VisitToStateSubmit = (values) =>{
-    var params = Object.assign({},values); 
+    var params = Object.assign({},values);
     var that = this;
     Http.request("change-visit-state",{},params).then(function(select){
       that.switchVisitToState();
@@ -400,6 +417,20 @@ class VisitorsToRecord  extends React.Component{
     })
   }
 
+  //删除提交
+  deleteSubmit=()=>{
+    let {deleteId}=this.state;
+    var that = this;
+    Http.request("delete-record",{
+      id:deleteId
+    }).then(function(select){
+      that.cancelClose();
+      that.refreshList();
+    }).catch(function(err) {
+      Message.error(err.message);
+    });
+  }
+
 
 	render(){
 		let {
@@ -407,7 +438,7 @@ class VisitorsToRecord  extends React.Component{
           openNewVisitors,
           openEditVisitors,
           openVisitorsDetail,
-          openVisitToState,     
+          openVisitToState,
           select,
           detailData,
           openUpperForm,
@@ -423,7 +454,7 @@ class VisitorsToRecord  extends React.Component{
       		<Section title={"预约参观("+allVisitNum+")"}   style={{marginBottom:-5,minHeight:910}}>
 
 		        <Row style={{marginBottom:21,zIndex:3,position:"relative"}}>
-              
+
 				      <Col
 						     align="left"
 						     style={{float:'left'}}
@@ -445,7 +476,7 @@ class VisitorsToRecord  extends React.Component{
                         <ListGroupItem><Button searchClick={this.openUpperForm}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
 					          </ListGroup>
 				          </Col>
-                  
+
 		        </Row>
 
 
@@ -522,11 +553,11 @@ class VisitorsToRecord  extends React.Component{
                            return <span>{detail}</span>;
                         }}
                       ></TableRowColumn>
-                      <TableRowColumn 
+                      <TableRowColumn
                         name="visitStatus"
                         options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访',value:"VISIT"}]}
                         style = {{wordWrap:'break-word',whiteSpace:'normal'}}
-                       
+
                       ></TableRowColumn>
                        <TableRowColumn name="descr"
                         style = {{wordWrap:'break-word',whiteSpace:'normal'}}
@@ -545,6 +576,7 @@ class VisitorsToRecord  extends React.Component{
                           <Button label="查看"  type="operation"  operation="detail" />
 			                    <Button label="编辑" operateCode="com_sys_visit_edit" type="operation"  operation="edit" />
 			                    <Button label="标记" operateCode="com_sys_visit_edit" type="operation"  operation="visit" />
+                          <Button label='删除'  type='operation'  operation="delete"/>
 			                </TableRowColumn>
 				          </TableRow>
 				        </TableBody>
@@ -606,14 +638,30 @@ class VisitorsToRecord  extends React.Component{
 
               />
               </Dialog>
+
+              {/*删除*/}
+              <Dialog
+                title="提示"
+                onClose={this.cancelClose}
+                open={this.state.openDelete}
+                contentStyle ={{ width: '400',height:'auto',overflow:'visible'}}
+              >
+               <DeleteRecord
+                  onCancel={this.cancelClose}
+                  onSubmit={this.deleteSubmit}
+
+              />
+              </Dialog>
+
+
               {/*到访状态*/}
               <Dialog
                 title="到访状态"
-               
+
                 modal={true}
                 onClose={this.switchVisitToState}
                 open={openVisitToState}
-                contentStyle ={{ width: '666',height:240,overflow:'visible'}}
+                contentStyle ={{ width: '400',height:240,overflow:'visible'}}
               >
                  <VisitToState onCancel={this.switchVisitToState} onSubmit={this.VisitToStateSubmit}  />
               </Dialog>
