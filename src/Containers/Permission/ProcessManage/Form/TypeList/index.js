@@ -150,7 +150,7 @@ export default class TypeList extends Component{
 
 		const {openNew,openEdit} = this.allConfig;
 		return(
-      	<div className="basic-post-list">
+      	<div className="basic-type-list">
 	        <Row style={{marginBottom:21,marginTop:22}}>
 			    <Col
 					style={{float:'left'}}

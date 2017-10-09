@@ -314,7 +314,7 @@ export default class FormList extends Component{
 		let {purposeType,typeList,basicInfo,textInfo,isCreate}=this.state;
 
 		return(
-      	<div className="basic-post-list">
+      	<div className="basic-type-list">
 	        <Row style={{marginBottom:21,marginTop:22}}>
 			    <Col
 					style={{float:'left'}}
