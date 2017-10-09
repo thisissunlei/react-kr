@@ -124,6 +124,26 @@ class EditText  extends React.Component{
        if(itemListStr==null){
            values.itemListStr = []
        }
+       if(values.wstext){
+        values.wstext=values.wstext.replace(/^0+\./g,'0.'); 
+        values.wstext=values.wstext.match(/^0+[1-9]+/)?values.wstext=values.wstext.replace(/^0+/g,''):values.wstext;
+       }
+       if(values.wsheight){
+        values.wsheight=values.wsheight.replace(/^0+\./g,'0.'); 
+        values.wsheight=values.wsheight.match(/^0+[1-9]+/)?values.wsheight=values.wsheight.replace(/^0+/g,''):values.wsheight;
+       }
+       if(values.wsfile){
+        values.wsfile=values.wsfile.replace(/^0+\./g,'0.'); 
+        values.wsfile=values.wsfile.match(/^0+[1-9]+/)?values.wsfile=values.wsfile.replace(/^0+/g,''):values.wsfile;
+       }
+       if(values.wspicWidth){
+        values.wspicWidth=values.wspicWidth.replace(/^0+\./g,'0.'); 
+        values.wspicWidth=values.wspicWidth.match(/^0+[1-9]+/)?values.wspicWidth=values.wspicWidth.replace(/^0+/g,''):values.wspicWidth;
+       }
+       if(values.wspicHeight){
+        values.wspicHeight=values.wspicHeight.replace(/^0+\./g,'0.'); 
+        values.wspicHeight=values.wspicHeight.match(/^0+[1-9]+/)?values.wspicHeight=values.wspicHeight.replace(/^0+/g,''):values.wspicHeight;
+       }
        onSubmit && onSubmit(values);
     }
 
