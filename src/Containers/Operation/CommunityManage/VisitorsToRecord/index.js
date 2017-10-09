@@ -644,7 +644,7 @@ class VisitorsToRecord  extends React.Component{
                 title="提示"
                 onClose={this.cancelClose}
                 open={this.state.openDelete}
-                contentStyle ={{ width: '666',height:'auto',overflow:'visible'}}
+                contentStyle ={{ width: '400',height:'auto',overflow:'visible'}}
               >
                <DeleteRecord
                   onCancel={this.cancelClose}
@@ -661,7 +661,7 @@ class VisitorsToRecord  extends React.Component{
                 modal={true}
                 onClose={this.switchVisitToState}
                 open={openVisitToState}
-                contentStyle ={{ width: '666',height:240,overflow:'visible'}}
+                contentStyle ={{ width: '400',height:240,overflow:'visible'}}
               >
                  <VisitToState onCancel={this.switchVisitToState} onSubmit={this.VisitToStateSubmit}  />
               </Dialog>
