@@ -32,7 +32,7 @@ module.exports = {
 
 	 //社区管理－访客记录-列表
  'visit-record-list':{
-		url: '/api/krspace-finance-web/sys/visit-record/list?page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}&visitType={visitType}&visitStatus={visitStatus}',
+		url: '/api/krspace-finance-web/sys/visit-record/list?page={page}&pageSize={pageSize}&searchKey={searchKey}&searchType={searchType}&visitType={visitType}&visitStatus={visitStatus}&communityId={communityId}&vtime={vtime}',
 		method: 'get'
  },
  //社区管理－访客记录-准备数据
@@ -80,5 +80,11 @@ module.exports = {
       url: '/api/krspace-finance-web/finance/payment-reminder?endDate={endDate}&companyName={companyName}&beginDate={beginDate}&communityId={communityId}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
+
+   //预约参观删除
+   'delete-record':{
+    url: '/api/krspace-finance-web/sys/visit-record/delete?id={id}',
+    method: 'get'
+  },
 
 }

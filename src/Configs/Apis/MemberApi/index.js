@@ -25,7 +25,7 @@ module.exports = {
 
    // 授权该客户在指定社区下的设备列表
    'doorCustomerDevice':{
-      url: '/api/krspace-finance-web/permission/door-customer-device?id={id}&communityId={communityId}',
+      url: '/api/krspace-finance-web/permission/door-customer-device?id={id}&communityId={communityId}&floor={floor}&doorCode={doorCode}&roomName={roomName}',
       method: 'get'
    },
 

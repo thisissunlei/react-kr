@@ -131,6 +131,10 @@ import './index.less';
         <KrField component="labelText" grid={1/2} label="拜访日期：" value={DateFormat(detail.vtime,"yyyy-mm-dd hh:MM")} defaultValue="无" requireBlue={true} />
         {(typeValue == 49 || typeValue == 732) &&<KrField component="labelText" grid={1/2} label="被拜访人：" value={detail.meetedMan} defaultValue="无" requireBlue={true} />}
 		<KrField component="labelText" grid={1/2} label="是否已到访：" value={isOk} defaultValue="无" requireBlue={true} />
+		<div className = "bei-zhu">
+			<KrField  component="labelText" grid={1} label="备注：" value={detail.descr} defaultValue="无" requireBlue={true} />
+			
+		</div>
       </div>
 
 		);

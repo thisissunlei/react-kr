@@ -75,12 +75,18 @@ class Login extends Component {
 			//重置成功
 			edited:false,
 			timeToLogin:3,
+			LoginHeight:0,
     }
 	}
 	componentDidMount() {
 		Store.dispatch(Actions.switchSidebarNav(false));
-    this.getCanvas();
+		var docuW = document.documentElement.clientHeight;
+		this.setState({
+			LoginHeight:docuW
+		})
+    //this.getCanvas();
 		this.HandleEnterKey();
+
 	}
 		//屏蔽tab
 	HandleEnterKey=(evt)=>{
@@ -542,10 +548,10 @@ class Login extends Component {
 	}
 	render() {
 		const {handleSubmit} = this.props;
-		let {imgCode} = this.state;
+		let {imgCode,LoginHeight} = this.state;
 		var time = this.time;
 		return (
-          <div className="g-permission-login">
+          <div className="g-permission-login" style={{height:`${LoginHeight}`}}>
             <canvas id="canvas"></canvas>
           {<div className="content">
             <div className="content-wrap">

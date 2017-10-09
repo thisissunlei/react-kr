@@ -44,7 +44,8 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 	componentDidMount(){
 
 		const {$form} = this.props;
-		$form.change('visitStatus',"UNVISIT");
+		$form.change('visitStatus','UNVISIT');
+		$form.change('descr','')
 
 
 	}
@@ -168,6 +169,8 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 							<KrField name="visitStatus" label="未到访" type="radio" value="UNVISIT"  style={{marginTop:5}}/>
 							<KrField name="visitStatus" label="已到访" type="radio" value="VISIT"  style={{marginTop:5}}/>
 						</KrField>
+						<div className='remaskInfo'><KrField grid={1} label="备注" name="descr" style={{marginLeft:15,marginTop:-15}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
+
 						<Grid style={{marginTop:30}}>
 							<Row>
 								<Col md={12} align="center" style={{marginLeft:"-27px"}}>

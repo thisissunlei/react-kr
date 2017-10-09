@@ -130,7 +130,7 @@ import {Http} from "kr/Utils";
 		// if(!isOpenIndent){
 		// 	city="无"
 		// }
-		let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
+		let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},{value:'SALES_MARKET',label:'市场部'}]
 
 		return (
 

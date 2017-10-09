@@ -45,6 +45,7 @@ import EditVisitorsToRecord from "./EditVisitorsToRecord";
 import VisitorsToRecordDetail from "./VisitorsToRecordDetail";
 import VisitorsSearchForm from "./SearchForm";
 import VisitToState from './VisitToState';
+import DeleteRecord from './DeleteRecord';
 @inject("FormModel")
 @observer
 
@@ -59,16 +60,19 @@ class VisitorsToRecord  extends React.Component{
 				searchType:'',
         id:"",
 				page: 1,
-     			pageSize: 15,
-     			visitType:'',
-     			searchKey:'',
-     			date:date
+        pageSize: 15,
+        visitType:'',
+        searchKey:'',
+        communityId:'',
+         date:date,
+         vtime:''
 			},
       openNewVisitors:false,
       openEditVisitors:false,
       openVisitorsDetail:false,
       openUpperForm:false,
       openVisitToState:false,
+      openDelete:false,
 
       select : {
         //活动类型
@@ -93,6 +97,9 @@ class VisitorsToRecord  extends React.Component{
       },
       typeValue:"",
       allVisitNum:0,
+
+      //删除id
+      deleteId:''
 
 		}
     this.readyData();
@@ -165,6 +172,7 @@ class VisitorsToRecord  extends React.Component{
      		pageSize: searchParams.pageSize,
      		searchType:value.filter,
      		visitType:searchParams.visitType,
+        communityId:searchParams.communityId,
      		date:date
 			},
 
@@ -252,10 +260,17 @@ class VisitorsToRecord  extends React.Component{
      })
    }
 
+   cancelClose=()=>{
+    this.setState({
+      openDelete:!this.state.openDelete
+    })
+   }
+
    //高级查询确定
    upperFormSubmit = (values) =>{
      let {searchParams} = this.state;
  	  let date = new Date();
+     
        
     	 this.setState({
           searchParams:{
@@ -264,8 +279,10 @@ class VisitorsToRecord  extends React.Component{
       		pageSize: searchParams.pageSize,
       		searchType:values.searchType,
       		visitType:values.visitType,
+          communityId:values.communityId||"",
           date:date,
-          visitStatus:values.visitStatus
+          visitStatus:values.visitStatus,
+          vtime:values.vtime,
  			},
     })
     this.closeUpperForm();
@@ -318,6 +335,12 @@ class VisitorsToRecord  extends React.Component{
   		         .changeValues(params);
       this.switchVisitToState()
     }
+      if(type=="delete"){
+        this.setState({
+          openDelete:true,
+          deleteId:itemDetail.id
+        })
+    }
 	}
   //全部关闭
 	closeAll = () =>{
@@ -341,6 +364,7 @@ class VisitorsToRecord  extends React.Component{
         pageSize: searchParams.pageSize,
         searchType:searchParams.searchType,
         visitType:searchParams.visitType,
+        communityId:searchParams.communityId||'',
         date:date
 			}
    	})
@@ -391,6 +415,20 @@ class VisitorsToRecord  extends React.Component{
     this.setState({
       allVisitNum:values.totalCount
     })
+  }
+
+  //删除提交
+  deleteSubmit=()=>{
+    let {deleteId}=this.state;
+    var that = this;
+    Http.request("delete-record",{
+      id:deleteId
+    }).then(function(select){
+      that.cancelClose();
+      that.refreshList();
+    }).catch(function(err) {
+      Message.error(err.message);
+    });
   }
 
 
@@ -468,6 +506,7 @@ class VisitorsToRecord  extends React.Component{
 			              <TableHeaderColumn>访客时间</TableHeaderColumn>
 			              <TableHeaderColumn>访客身份证号</TableHeaderColumn>
 			              <TableHeaderColumn>是否已到访</TableHeaderColumn>
+			              <TableHeaderColumn>备注</TableHeaderColumn>
 			              <TableHeaderColumn>操作</TableHeaderColumn>
 
 			          	</TableHeader>
@@ -475,7 +514,9 @@ class VisitorsToRecord  extends React.Component{
 				        <TableBody >
 				          <TableRow>
 			                <TableRowColumn name="name"></TableRowColumn>
-			                <TableRowColumn name="tel"></TableRowColumn>
+			                <TableRowColumn name="tel"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                      ></TableRowColumn>
 			                <TableRowColumn name="typeId"
                         component={(value,oldValue)=>{
 
@@ -490,8 +531,11 @@ class VisitorsToRecord  extends React.Component{
                            return <span>{detail}</span>;
                         }}
                       ></TableRowColumn>
-			                <TableRowColumn name="communityName"></TableRowColumn>
+			                <TableRowColumn name="communityName"
+                      style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                      ></TableRowColumn>
 			                <TableRowColumn name="vtime"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
                         component={(value,oldValue)=>{
                            return (<KrDate value={value} format="yyyy-mm-dd hh:MM"/>)
                         }}
@@ -515,11 +559,24 @@ class VisitorsToRecord  extends React.Component{
                         style = {{wordWrap:'break-word',whiteSpace:'normal'}}
                        
                       ></TableRowColumn>
+                       <TableRowColumn name="descr"
+                        style = {{wordWrap:'break-word',whiteSpace:'normal'}}
+                        component={(value,oldValue)=>{
+                          var detail='';
+                          if(!value){
+                            detail='-';
+                          }else{
+                            detail=value;
+                          }
+                           return <span>{detail}</span>;
+                        }}
+                      ></TableRowColumn>
 
 			                <TableRowColumn type="operation">
                           <Button label="查看"  type="operation"  operation="detail" />
 			                    <Button label="编辑" operateCode="com_sys_visit_edit" type="operation"  operation="edit" />
 			                    <Button label="标记" operateCode="com_sys_visit_edit" type="operation"  operation="visit" />
+                          <Button label='删除' operateCode="com_sys_visit_edit" type='operation'  operation="delete"/>
 			                </TableRowColumn>
 				          </TableRow>
 				        </TableBody>
@@ -581,6 +638,22 @@ class VisitorsToRecord  extends React.Component{
 
               />
               </Dialog>
+
+              {/*删除*/}
+              <Dialog
+                title="提示"
+                onClose={this.cancelClose}
+                open={this.state.openDelete}
+                contentStyle ={{ width: '666',height:'auto',overflow:'visible'}}
+              >
+               <DeleteRecord
+                  onCancel={this.cancelClose}
+                  onSubmit={this.deleteSubmit}
+
+              />
+              </Dialog>
+
+
               {/*到访状态*/}
               <Dialog
                 title="到访状态"

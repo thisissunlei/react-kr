@@ -19155,7 +19155,9 @@ UE.plugins['video'] = function (){
     };
     UE.commands['insertcaption'] = {
         queryCommandState: function () {
+            console.log('flag5是'+flag5)
             if(flag5==true){
+                
                 var table = getTableItemsByRange(this).table;
                 if (table) {
                     return table.getElementsByTagName('caption').length == 0 ? 1 : -1;

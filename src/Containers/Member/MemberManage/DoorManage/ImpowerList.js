@@ -149,8 +149,6 @@ export default class FinishUploadImgForm extends React.Component{
 	}
 
 	selectAll=(item,e)=>{
-		console.log("item",item);
-		console.log("e.target.checked",e.target.checked);
 		if(e.target.checked){
 
 			let newArrEmpty = [];
@@ -252,8 +250,8 @@ export default class FinishUploadImgForm extends React.Component{
 
 				return(
 				<Tab className="upload-img-tab" label={`${item.floorNum}楼(${item.deviceCount})`} key={index} value="a" style={{fontSize:14,fontWeight: "normal",color:"#333333",background:"#fff"}} >
-						<div style={{height:328,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
-						            <div  style={{height:328,overflow:"scroll",}} className="impower-list">
+						<div style={{height:528,marginTop:20,border:" solid 1px #dfdfdf"}} className="upload-img-victory">
+						            <div  style={{height:528,overflow:"scroll",}} className="impower-list">
 							            <Table
 							            	onProcessData={(state)=>{
 		              							return state;
@@ -272,9 +270,9 @@ export default class FinishUploadImgForm extends React.Component{
 													<input type='checkbox' onChange={_this.selectAll.bind(_this,item)} />
 
 												</TableHeaderColumn>
+												<TableHeaderColumn style={{fontSize:14}}>平面图位置</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>门编号</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>类型</TableHeaderColumn>
-												<TableHeaderColumn style={{fontSize:14}}>平面图位置</TableHeaderColumn>
 												<TableHeaderColumn style={{fontSize:14}}>智能硬件ID</TableHeaderColumn>
 											</TableHeader>
 											<TableBody style={{position:'inherit'}}
@@ -291,6 +289,12 @@ export default class FinishUploadImgForm extends React.Component{
 
 
 																	</TableRowColumn>
+																	<TableRowColumn style={{overflow:"hidden"}}>
+
+																		{
+																			!item.roomName?<span>-</span>:<span>{item.roomName}</span>
+																		}
+																	</TableRowColumn>
 
 																	<TableRowColumn>
 
@@ -305,12 +309,7 @@ export default class FinishUploadImgForm extends React.Component{
 																			!item.doorType?<span>-</span>:<span>{item.doorType}</span>
 																		}
 																	</TableRowColumn>
-																	<TableRowColumn style={{overflow:"hidden"}}>
-
-																		{
-																			!item.roomName?<span>-</span>:<span>{item.roomName}</span>
-																		}
-																	</TableRowColumn>
+																	
 																	<TableRowColumn >
 																		{
 																			!item.hardwareId?<span>-</span>:<div style={{paddingTop:5}} className='financeDetail-hover'><span style={{display:"inline-block",width:"100%",overflow:"hidden",textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.hardwareId}</span><Tooltip offsetTop={5} place='top'>{item.hardwareId}</Tooltip></div>
@@ -386,10 +385,10 @@ export default class FinishUploadImgForm extends React.Component{
 
 		let {sucNum,errNum,success,failed,rightfontColor,leftfontColor,totleNum}=this.state;
 		return (
-			<div className="upload-img-outer-box">
+			<div className="upload-img-outer-box" style={{padding:30}}>
 				<div className="upload-img-box">
 
-					<div className="upload-img-body" style={{width:"100%",height: 387}}>
+					<div className="upload-img-body" style={{width:"100%",height: 587}}>
 
 						<Tabs
 					        failed={this.state.failed}
