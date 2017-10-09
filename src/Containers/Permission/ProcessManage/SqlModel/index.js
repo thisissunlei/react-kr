@@ -204,7 +204,7 @@ export default class SqlModel extends Component{
 				    onPageChange = {this.pageChange}
 			>
 				<TableHeader>
-					<TableHeaderColumn>名称</TableHeaderColumn>
+					<TableHeaderColumn>模版名称</TableHeaderColumn>
 					<TableHeaderColumn>数据库类型</TableHeaderColumn>
 					<TableHeaderColumn>操作类型</TableHeaderColumn>
 					<TableHeaderColumn>SQL模版</TableHeaderColumn>
@@ -221,10 +221,10 @@ export default class SqlModel extends Component{
                         </TableRowColumn>
 						<TableRowColumn name="operType" style={{wordWrap:'break-word',whiteSpace:'normal'}} options={[{value:'TABLE_CREATE',label:'创建表'},{value:'TABLE_DELETE',label:'删除表'},{value:'TABLE_EDIT_DESCR',label:'修改表注释'},
                           {value:'FIELD_ADD',label:'新增字段'},{value:'FIELD_DELETE',label:'删除字段'},{value:'FIELD_RENAME',label:'修改字段名'},{value:'FIELD_MODIFY',label:'修改字段属性'}]} ></TableRowColumn>
-						<TableRowColumn name="sqlTemplate" component={(value,oldValue)=>{
-		 										var maxWidth=10;
+						<TableRowColumn name="sqlTemplate"  component={(value,oldValue)=>{
+		 										var maxWidth=20;
 		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
+		 										 value = value.substring(0,20)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8}  place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>

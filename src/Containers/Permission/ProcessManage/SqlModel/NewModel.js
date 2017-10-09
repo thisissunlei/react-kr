@@ -40,7 +40,7 @@ class  NewModel  extends React.Component{
                             style={{width:262,marginBottom:5}}
                             name="name"
                             component="input"
-                            label="名称"
+                            label="模版名称"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
