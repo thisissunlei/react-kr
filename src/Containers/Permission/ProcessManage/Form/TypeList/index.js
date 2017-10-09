@@ -204,15 +204,15 @@ export default class TypeList extends Component{
 					<TableRow>
 						<TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="orderNum" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="descr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="updatorName" 
-							component={(value,oldValue)=>{
+						<TableRowColumn name="descr" component={(value,oldValue)=>{
 								var maxWidth=10;
 								if(value.length>maxWidth){
 									value = value.substring(0,10)+"...";
 								}
 								return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
-							}} 
+							}}></TableRowColumn>
+						<TableRowColumn name="updatorName" 
+						  style={{wordWrap:'break-word',whiteSpace:'normal'}}
 						></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd"/>)
