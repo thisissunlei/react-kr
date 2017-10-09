@@ -220,6 +220,8 @@ const validate = values =>{
  
      if(!values.label){
          errors.label='请填写字段显示名';
+     }else if(values.label.length>30){
+        errors.label='字段显示名不能超过30个字符';
      }
  
      if(!values.inputType){
