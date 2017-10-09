@@ -14,7 +14,9 @@ import {
 	Notify,
 	ButtonGroup,
 	Message,
-  SearchForm
+	SearchForm,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import {mobxForm}  from 'kr/Utils/MobxForm';
 import './index.less';
@@ -53,8 +55,10 @@ import './index.less';
   onSubmit = (values) =>{
     let {searchType,searchKey} = this.state;
     values.searchType=searchType;
-    values.searchKey=searchKey;
-    
+		values.searchKey=searchKey;
+		if(values.vtime){
+			values.vtime=values.vtime.substring(0,11)+'23:59:59';
+		}
   	let {onSubmit} = this.props;
   	onSubmit && onSubmit(values);
   }
@@ -76,11 +80,11 @@ import './index.less';
 		const { handleSubmit,select} = this.props;
 		return (
 
-			<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}}  >
+			<form  onSubmit={handleSubmit(this.onSubmit)} style={{marginLeft:25,marginTop:30}} className='m-ser-visit' >
         
 
           <SearchForm placeholder='请输入关键字' 
-            searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"}]} 
+            searchFilter={[{label:"访客姓名",value:"NAME"},{label:"访客电话",value:"TEL"},{label:"访客身份证号",value:"ID_CARD"}]} 
             style={{width:262,marginTop:29,marginLeft:-1,display:"inline-block",marginBottom:15,marginRight:25}} 
             defaultFilter='NAME'
             onChange = {this.onSearchSubmit}
@@ -90,6 +94,11 @@ import './index.less';
             options={select.type}
           />
 
+					<KrField style={{width:262,marginLeft:-1,display:"inline-block",marginRight:25}}  label="是否已到访" name="visitStatus"   component="select"  requireLabel={false}
+            options={[{label:'无',value:"NONE"},{label:'未到访',value:"UNVISIT"},{label:'已到访',value:"VISIT"}]}
+          />
+					<KrField grid={1/2} name="communityId" style={{width:262}} component='searchCommunityAll'  label="社区" inline={false}/>
+					<KrField label="访客时间" style={{width:262,marginLeft:-1}} name="vtime" component="date" />
           <Grid style={{marginTop:17,marginBottom:5,marginLeft:-24}}>
             <Row>
               <Col md={12} align="center">

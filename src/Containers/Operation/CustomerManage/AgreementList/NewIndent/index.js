@@ -142,7 +142,7 @@ import {Http} from "kr/Utils"
 		const { error, handleSubmit, pristine, reset,companyName,customerName,orderCount} = this.props;
 		let city=State.cityLable;
 			city=!city?"无":city;
-		let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
+		let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},{value:'SALES_MARKET',label:'市场部'}]
 			
 		// if(!isOpenIndent){
 		// 	city="无"

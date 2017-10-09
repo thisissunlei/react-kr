@@ -916,6 +916,10 @@ module.exports = {
         url: '/api/krspace-finance-web/advertising/banner/edit',
         method: 'post'
     },
+    'change-visit-state': {
+        url: '/api/krspace-finance-web/sys/visit-record/actions/edit/type/visit-status',
+        method: 'post'
+    },
     //优惠选项
     'sale-tactics': {
         url: '/api/krspace-finance-web/sale-tactics?communityId={communityId}',
@@ -926,6 +930,6 @@ module.exports = {
         url: '/api/krspace-finance-web/count-sale',
         method: 'post'
     },
-
+    
 
 }

@@ -30,11 +30,18 @@ var OAApi = {
       url: '/api/krspace-erp-web/dim/org-update',
       method: 'post'
   },
-  //根据维度ID获取下面的机构
-  'org-list': {
-      url: '/api/krspace-erp-web/dim/org-list?id={id}',
+  //我的同事
+  'colla-list': {
+      url: '/api/krspace-erp-web/tree/dep-tree/type/auth-sub',
       method: 'get'
   },
+
+  //根据维度ID获取下面的机构
+  'org-list': {
+    url: '/api/krspace-erp-web/dim/org-list?id={id}',
+    method: 'get'
+},
+
   //根据机构ID获取人员信息
   'hrm-list': {
       url: '/api/krspace-erp-web/hrm/resource/list/type/org-resource?page={page}&pageSize={pageSize}&nameKey={nameKey}&codeKey={codeKey}&mobilePhone={mobilePhone}&email={email}&orgId={orgId}&orgType={orgType}&leader={leader}&searchType={searchType}&searchStatus={searchStatus}&hasAccount={hasAccount}&searchProperty={searchProperty}&entryDateStart={entryDateStart}&entryDateEnd={entryDateEnd}',
@@ -635,12 +642,12 @@ var OAApi = {
 
   //我的同事
   'myColleague':{
-      url:'/api/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&mobilePhoneKey={mobilePhoneKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
+      url:'/api/krspace-erp-web/hrm/resource/list/type/colleague?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&telephoneKey={telephoneKey}&jobDescrKey={jobDescrKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
   //我的下级
   'myLower':{
-      url:'/api/krspace-erp-web/hrm/resource/list/type/junior?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&mobilePhoneKey={mobilePhoneKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
+      url:'/api/krspace-erp-web/hrm/resource/list/type/junior?orgId={orgId}&orgType={orgType}&nameKey={nameKey}&telephoneKey={telephoneKey}&jobDescrKey={jobDescrKey}&emailKey={emailKey}&page={page}&pageSize={pageSize}',
       method: 'get'
   },
 
