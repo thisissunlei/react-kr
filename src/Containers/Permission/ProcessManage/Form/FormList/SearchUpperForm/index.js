@@ -79,11 +79,11 @@ class SearchUpperForm extends React.Component {
 					<KrField  grid={1/2}  style={{width:262}}  name="tableName" type="input"  label="表单表名"
 					/>
 
-					<KrField  grid={1/2}  style={{marginRight:29,width:262}}  name="purpose" type="select"  label="表单分类"
+					<KrField  grid={1/2}  style={{marginRight:29,width:262,marginTop:5}}  name="purpose" type="select"  label="表单分类"
 					options={purposetype}
 					/>
 
-					<KrField  grid={1/2}  style={{width:262}}  name="enabled" type="select"  label="是否启用"
+					<KrField  grid={1/2}  style={{width:262,marginTop:5}}  name="enabled" type="select"  label="是否启用"
 					options={[{label:'启用',value:'true'},{label:'禁用',value:'false'}]}
 					/>
 
