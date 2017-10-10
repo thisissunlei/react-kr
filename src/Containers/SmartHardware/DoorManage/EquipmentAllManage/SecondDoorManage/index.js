@@ -469,7 +469,8 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"清空设备缓存",onClickFun:_this.clearCache},
 				{title:"刷新屏幕",onClickFun:_this.freshH5},
 				{title:"远程开门",onClickFun:_this.openDoorInline},
-				{title:"重置",onClickFun:_this.resetFirstEquipmentFun}
+				{title:"重置",onClickFun:_this.resetFirstEquipmentFun},
+				{title:"断开重连",onClickFun:_this.connectAgain}
 				
 			]
 		}
