@@ -31,6 +31,9 @@ class AddText  extends React.Component{
 
     componentDidMount(){
         Store.dispatch(change('AddText','wsenabled','true'));
+        Store.dispatch(change('AddText','wsPicEnabled','true'));
+        Store.dispatch(change('AddText','wsbtnEnabled','true'));
+        Store.dispatch(change('AddText','itemListStr',[]));
     }
 
     onSubmit=(values)=>{

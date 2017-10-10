@@ -1,6 +1,9 @@
 import React from 'react';
 import {Http} from 'kr/Utils';
 import {
+	toJS
+} from 'mobx';
+import {
 	Button,
 	Row,
 	Col,
@@ -29,6 +32,13 @@ import AddText from './AddText';
 import EditText from './EditText';
 import EditCreate from './EditCreate';
 import './index.less';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("TextDicModel")
+@observer
 class TextInfo  extends React.Component{
 
 	constructor(props,context){
@@ -296,7 +306,16 @@ class TextInfo  extends React.Component{
 		if(isCreate){
 			Store.dispatch(initialize('EditCreate',response));	 
 		 }else{
+			_this.props.TextDicModel.oldDetail=response;
 			Store.dispatch(initialize('EditText',response));
+			if(response.setting){
+                var setting=JSON.parse(response.setting);
+                 setting.map((item,index)=>{
+                    for(var index in item){ 
+                     Store.dispatch(change('EditText',index,item[index])); 
+                    }
+                 })
+             }
 			Store.dispatch(change('EditText','itemListStr',response.items&&response.items.length>0?response.items:[]));	  
 		 }
 		 _this.setState({

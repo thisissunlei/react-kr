@@ -1,5 +1,8 @@
 import React from 'react';
 import KrField from '../../KrField';
+import {
+	toJS
+} from 'mobx';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import TabelEdit from '../../FieldTabel/TabelEdit';
 import FRow from '../../FieldTabel/FRow';
@@ -10,182 +13,56 @@ import {
 } from 'kr/Redux';
 import '../index.less';
 
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("TextDicModel")
+@observer
 export default class Text  extends React.Component{
 
 	constructor(props,context){
         super(props, context);
         this.state={
             component:null,
-            models:null,
-            //二级变化值
-            changeData:'',
+            other:''
         }
-        this.isCommon=false;
-        this.oldEdit={};
+        this.models=null;
     }
     
+    
+    componentDidMount(){
+        let {TextDicModel}=this.props;
+        this.commonPublic(toJS(TextDicModel.oldDetail).sourceType);
+    }
 
+    clearModel=()=>{
+        this.models=null;
+    }
 
-    commonPublic=(param,sourceOrgin,type,old)=>{
-       
-        
-        let {changeData,oldEdit}=this.state;
-        if(old&&this.oldEdit!=old){
-            this.oldEdit=old;
-        }
-        
-        if(param=='PUBLIC_DICT'){
-            if(this.props.twoData&&(this.props.twoData!=this.oldEdit.inputType)){
-                
-                Store.dispatch(change('EditText','sourceOrgin',''));
-                Store.dispatch(change('AddText','sourceOrgin',''));
-            }else if(!this.props.twoData){
-                if(changeData&&changeData!=this.oldEdit.compType){
-                    
-                    Store.dispatch(change('EditText','sourceOrgin',''));
-                    Store.dispatch(change('AddText','sourceOrgin','')); 
-                }else if(!changeData){
-                   
-                    Store.dispatch(change('EditText','sourceOrgin',this.oldEdit.sourceOrgin?this.oldEdit.sourceOrgin:'')); 
-                }else if(changeData&&changeData==this.oldEdit.compType){
-                    
-                    Store.dispatch(change('EditText','sourceOrgin',this.oldEdit.sourceOrgin?this.oldEdit.sourceOrgin:'')); 
-                }
-            }else if(this.props.twoData&&(this.props.twoData==this.oldEdit.inputType)){
-                
-                if(changeData&&changeData!=this.oldEdit.compType){
-                    
-                    Store.dispatch(change('EditText','sourceOrgin',''));
-                    Store.dispatch(change('AddText','sourceOrgin','')); 
-                }else if(!changeData){
-                    
-                    Store.dispatch(change('EditText','sourceOrgin',this.oldEdit.sourceOrgin?this.oldEdit.sourceOrgin:'')); 
-                }else if(changeData&&changeData==this.oldEdit.compType){
-                    
-                    Store.dispatch(change('EditText','sourceOrgin',this.oldEdit.sourceOrgin?this.oldEdit.sourceOrgin:'')); 
-                }
-            }
-
+   
+    commonPublic=(param)=>{         
+        if(param=='PUBLIC_DICT'){     
             Store.dispatch(change('EditText','itemListStr',null));
             Store.dispatch(change('AddText','itemListStr',null));
-            this.setState({
-              models:this.sourceRender(sourceOrgin),
-            })
-        }else if(param=="CUSTOM"){
             
-            if(this.props.twoData&&(this.props.twoData!=this.oldEdit.inputType)){
-                
-                Store.dispatch(change('EditText','itemListStr',[]));
-                Store.dispatch(change('AddText','itemListStr',[]));
-            }else if(!this.props.twoData){
-                if(changeData&&changeData!=this.oldEdit.compType){
-                    
-                    Store.dispatch(change('EditText','itemListStr',[]));
-                    Store.dispatch(change('AddText','itemListStr',[])); 
-                }else if(!changeData){
-                   
-                    Store.dispatch(change('EditText','itemListStr',this.oldEdit.items?this.oldEdit.items:[])); 
-                }else if(changeData&&changeData==this.oldEdit.compType){
-                    
-                    Store.dispatch(change('EditText','itemListStr',this.oldEdit.items?this.oldEdit.items:[])); 
-                }
-            }else if(this.props.twoData&&(this.props.twoData==this.oldEdit.inputType)){
-               
-                if(changeData&&changeData!=this.oldEdit.compType){
-                    
-                    Store.dispatch(change('EditText','itemListStr',[]));
-                    Store.dispatch(change('AddText','itemListStr',[])); 
-                }else if(!changeData){
-                    
-                    Store.dispatch(change('EditText','itemListStr',this.oldEdit.items?this.oldEdit.items:[])); 
-                }else if(changeData&&changeData==this.oldEdit.compType){
-                    
-                    Store.dispatch(change('EditText','itemListStr',this.oldEdit.items?this.oldEdit.items:[])); 
-                }
-            }
-            this.setState({
-               models:this.selfRender(),
-            })
+            this.models=this.sourceRender();
+        }else if(param=="CUSTOM"){     
+            this.models=this.selfRender();
         }else{
-           Store.dispatch(change('EditText','itemListStr',null));
-           Store.dispatch(change('AddText','itemListStr',null));
-           this.setState({
-               models:null,
-            }) 
+            this.models=null;
+            Store.dispatch(change('EditText','itemListStr',null));
+            Store.dispatch(change('AddText','itemListStr',null));
         }
+        this.setState({
+            other:+new Date()
+        })
     }
 
-    componentDidMount(){
-       
-        let {getEdit,isCommon}=this.props;
-        this.oldEdit=getEdit;
-        if(isCommon!=0){
-            return;
-        }
-       
-       
-        this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
-       
-    }
-
-    componentWillReceiveProps(nextProps){
-
-
-        
-
-        this.oldEdit=nextProps.getEdit;
-        if(nextProps.isCommon!=this.props.isCommon){
-           
-
-           Store.dispatch(change('EditText','sourceType',''));
-           if(nextProps.label!=nextProps.getEdit.compType){
-
-                let wsObject=[
-                    'wstext',
-                    'wsheight',
-                    'wsfloat',
-                    'wsradio',
-                    'wsfile',
-                    'wspicWidth',
-                    'wspicHeight'
-                ];
-               
-                wsObject.map((item,index)=>{          
-                  Store.dispatch(change('EditText',item,'')); 
-                })
-           }else{
-             if(nextProps.getEdit.setting){
-               
-                Store.dispatch(change('EditText','itemListStr',null));
-                var setting=JSON.parse(nextProps.getEdit.setting);
-               
-                setting.map((item,index)=>{
-                   for(var index in item){
-                    Store.dispatch(change('EditText',index,item[index])); 
-                   }
-                })
-              }
-           }
-           
-           this.setState({
-              models:null,
-              changeData:nextProps.label
-           }) 
-        }
-
-        if(this.isCommon||nextProps.isCommon!=0){
-            return;
-        }
-
-       
-        
-        this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
-      
-    }
+    
 
     selfRender=()=>{
-
-
         return  (
             <div style={{marginLeft:12}}>
                 <TabelEdit
@@ -203,8 +80,7 @@ export default class Text  extends React.Component{
     }
 
     sourceChange=(param)=>{
-            this.isCommon=true;
-            this.commonPublic(param.value,'','');
+        this.commonPublic(param.value);
 	}
 
     sourceRender=(publicValue)=>{
@@ -219,7 +95,7 @@ export default class Text  extends React.Component{
  	  }
 
     inputTextRender=()=>{
-       
+        this.clearModel();
         return <KrField
                     grid={1/2}
                     style={{width:262,marginBottom:5}}
@@ -233,6 +109,7 @@ export default class Text  extends React.Component{
     }
 
     floatTextRender=()=>{
+        this.clearModel();
         return <KrField
                     grid={1/2}
                     style={{width:262,marginBottom:5}}
@@ -245,6 +122,7 @@ export default class Text  extends React.Component{
     }
 
     heightRender=()=>{
+        this.clearModel();
         return <KrField
                     grid={1/2}
                     style={{width:262,marginBottom:5}}
@@ -256,6 +134,7 @@ export default class Text  extends React.Component{
     }
 
     buttonRender=()=>{
+        this.clearModel();
         return (
             <div>
                 <KrField
@@ -268,8 +147,8 @@ export default class Text  extends React.Component{
                     requireLabel={true}
                 />
                 <div className='m-form-radio'><KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="是否多选" requireLabel={true}>
-                    <KrField name="wsenabled" label="是" type="radio" value='true' />
-                    <KrField name="wsenabled" label="否" type="radio" value='false' />
+                    <KrField name="wsbtnEnabled" label="是" type="radio" value='true' />
+                    <KrField name="wsbtnEnabled" label="否" type="radio" value='false' />
                 </KrField></div>
             </div>
         )
@@ -277,6 +156,7 @@ export default class Text  extends React.Component{
 
 
     fileRender=()=>{
+        this.clearModel();
         return <div>
                     <KrField
                     grid={1/2}
@@ -295,12 +175,12 @@ export default class Text  extends React.Component{
     }
 
 		picRender=()=>{
-
+            this.clearModel();
 			return <div>
                     <KrField
                         grid={1/2}
                         style={{width:262,marginBottom:5}}
-                        name="wsfile"
+                        name="wspicFile"
                         component="input"
                         label="文件大小(单位:k)"
                         requireLabel={true}
@@ -308,8 +188,8 @@ export default class Text  extends React.Component{
                     />
                     <div className='m-form-radio'> 
                         <KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="多文件上传 " requireLabel={true}>
-                            <KrField name="wsenabled" label="允许" type="radio" value='true' />
-                            <KrField name="wsenabled" label="禁止" type="radio" value='false' />
+                            <KrField name="wsPicEnabled" label="允许" type="radio" value='true' />
+                            <KrField name="wsPicEnabled" label="禁止" type="radio" value='false' />
                         </KrField>
                     </div>
                     <KrField
@@ -424,12 +304,12 @@ export default class Text  extends React.Component{
 
 	render(){
                 let {label}=this.props;
-                let {models}=this.state;
+               
 
 				return(
 					<div style={{display:'inline-block'}}>
 		                {this.typeRender(label)}
-						{models}
+						{this.models}
 					</div>
 		);
 	}

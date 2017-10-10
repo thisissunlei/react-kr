@@ -1,5 +1,7 @@
 import React from 'react';
-import DictionaryConfigs from 'kr/Configs/dictionary';
+import {
+	toJS
+} from 'mobx';
 import {
 	KrField,
     Grid,
@@ -21,6 +23,13 @@ import {
 } from 'kr/Redux';
 import './index.less';
 
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("TextDicModel")
+@observer
 class EditText  extends React.Component{
 
 	constructor(props,context){
@@ -28,14 +37,12 @@ class EditText  extends React.Component{
         this.state={
            
         }
-        this.ws=[];
     }
 
-    
-    
-    componentDidMount(){
-        Store.dispatch(change('EditText','wsenabled','true'));
+    componentWillUnmount(){
+        this.props.TextDicModel.oldDetail={};
     }
+    
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
@@ -67,7 +74,7 @@ class EditText  extends React.Component{
        
        if(itemListStr != null){
 
-       
+     
             for(let i = 0; i<itemListStr.length;i++){
                 let item = itemListStr[i];
                 if(!item.label){
@@ -152,30 +159,11 @@ class EditText  extends React.Component{
         onCancel && onCancel();
     }
 
-     
-     callBack=(param)=>{
-        var seArr=[];
-        var _this=this;
-        if(param.setting){
-            var setting=JSON.parse(param.setting);
-            setting.map((item,index)=>{
-               for(var index in item){
-                seArr.push(index);   
-                Store.dispatch(change('EditText',index,item[index])); 
-               }
-            })
-            this.ws=seArr;
-        }else{
-            this.ws.map((item,index)=>{
-                Store.dispatch(change('EditText',item,'')); 
-            })
-        }
-     }
 
 	render(){
 
     let {handleSubmit,getEdit}=this.props;
-
+    
 
 		return(
 
@@ -206,11 +194,9 @@ class EditText  extends React.Component{
                             />
 
 
-                            <TextDic
+                            {(toJS(this.props.TextDicModel.oldDetail).inputType)&&<TextDic
                                 isEdit={true}
-                                getEdit={getEdit}
-                                callBack={this.callBack}
-                            />
+                            />}
 
                         <Grid style={{marginBottom:5,marginLeft:-32,marginTop:12}}>
                             <Row>
