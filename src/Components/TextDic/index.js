@@ -1,5 +1,8 @@
 import React from 'react';
 import './index.less';
+import {
+	toJS
+} from 'mobx';
 import KrField from '../KrField';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import Text from './Text';
@@ -7,7 +10,13 @@ import {reduxForm,change,initialize}  from 'redux-form';
 import {
 	Store
 } from 'kr/Redux';
+import {
+	observer,
+	inject
+} from 'mobx-react';
 
+@inject("TextDicModel")
+@observer
 export default class TextDic extends React.Component{
 
 	static displayName = 'TextDic';
@@ -15,184 +24,78 @@ export default class TextDic extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-            //初始的数据
-            inputType:[],
-            nexts:[],
-            //控制组件类型显示隐藏
-            isTrue:false,
-            //二级的数据处理
-            next:[],
-
-            //二级值 
-            twoData:'',
-
-            //是否显示三级
-            isThree:false,
-            //三级值
-            label:'',
-
-            //为了四级
-            getEdit:{},
-
-            //isCommon
-            isCommon:0
+            watchSecond:false,
+            watchThree:false 
         }
-        this.isCommon=false;
-        //
-        this.twoData=false;
+        this.inputType=[];
+        this.componentType=[];
+        this.componentItem=[];
+        this.threeLabel='';
+        this.control=false;
     }
 
-
-    componentWillUnmount(){
-        
-    }
 
   
+    componentWillMount(){
+        this.inputType=DictionaryConfigs.ERP_InputType;
+        this.componentType=DictionaryConfigs.ERP_ComponentType;
+    }
+    
     componentDidMount(){
-        this.setState({
-			inputType:DictionaryConfigs.ERP_InputType,
-            nexts:DictionaryConfigs.ERP_ComponentType,
-        })     
-    }
-
-    componentWillReceiveProps(nextProps){ 
-        let {isCommon}=this.state;   
-        if(this.isCommon||this.twoData){
-            return;
+        let {isEdit,TextDicModel}=this.props;
+        if(isEdit){
+            this.setState({
+                watchSecond:true,
+                watchThree:true
+             })
+             this.nextArrRender(toJS(TextDicModel.oldDetail).inputType,this.componentType);
+             this.threeLabel=toJS(TextDicModel.oldDetail).compType;
         }
-        
-        var _this=this;
-        if(nextProps.isEdit&&nextProps.getEdit.inputType){
-                _this.nextArrRender(nextProps.getEdit.inputType,_this.state.nexts,function(){
-                _this.setState({
-                    label:nextProps.getEdit.compType,
-                    isTrue:true, 
-                    isThree:true,
-                    getEdit:nextProps.getEdit
-                },function(){
-                    const {callBack}=_this.props;
-                    callBack && callBack(nextProps.getEdit);
-                })
-            });
-        }   
     }
 
 
-
-    clear = () =>{
-
-         let {label,getEdit} = this.state;
-       
-         if(getEdit.setting){
-             Store.dispatch(change('EditText','itemListStr',null));
-         }
-
-
-           Store.dispatch(change('EditText','sourceType',''));
-           if(label!=getEdit.compType){
-
-                let wsObject=[
-                    'wstext',
-                    'wsheight',
-                    'wsfloat',
-                    'wsradio',
-                    'wsfile',
-                    'wspicWidth',
-                    'wspicHeight'
-                ];
-               
-                wsObject.map((item,index)=>{          
-                  Store.dispatch(change('EditText',item,'')); 
-                })
-           }else{
-             if(getEdit.setting){
-               
-                Store.dispatch(change('EditText','itemListStr',null));
-                var setting=JSON.parse(getEdit.setting);
-               
-                setting.map((item,index)=>{
-                   for(var index in item){
-                    Store.dispatch(change('EditText',index,item[index])); 
-                   }
-                })
-              }
-           }
+    typeChange=(param)=>{  
+      this.setState({
+        watchSecond:true,
+        watchThree:false
+      })
+      Store.dispatch(change('EditText','compType',''));
+      Store.dispatch(change('AddText','compType',''));
+      this.nextArrRender(param.value,this.componentType);
 
     }
-   
-    typeChange=(param)=>{
-        this.isCommon=true;
 
-        let {nexts}=this.state;
-        var _this=this;
-        this.setState({
-           isTrue:true,
-           isThree:false,
-           twoData:param.value
-		},function(){
-            _this.nextArrRender(param.value,nexts);
-            _this.clear();
-        })
-    }
-
-    nextArrRender=(name,selectName,callBack)=>{
-        let {next}=this.state;
+    nextArrRender=(name,selectName)=>{
         var nextRender=[];
         selectName.map((item,index)=>{
             var list={};
             if(item.value.slice(0,name.length)==name){
-                if(name=='TEXT'&& item.value!=='TEXT_AREA_TEXT'&&item.value!=='TEXT_AREA_RICH'){
-                    list.value=item.value;
-                    list.label=item.desc;
-                }else if(name!='TEXT'){
-                    list.value=item.value;
-                    list.label=item.desc;
-                }else{
-                    return null
-                }
+                list.value=item.value;
+                list.label=item.desc;
             }else{
-              return null
+                return null
             }
             nextRender.push(list);
         })
-        this.setState({
-            next:nextRender
-        },function(){
-            callBack && callBack();
-        })
+        this.componentItem=nextRender;
        }
 
     classChange=(param)=>{
-        var _this = this;
-        if(!param){
-            return ;
-        }
-        this.setState({
-            isThree:true,
-            label:param.value,
-            isCommon:new Date().getTime()
-        },function(){
-            _this.clear();
-        })
-        this.twoData=true;
-        Store.dispatch(change('EditText','sourceType',''));
-        Store.dispatch(change('AddText','sourceType',''));
-        Store.dispatch(change('AddText','sourceOrgin',''));
-        Store.dispatch(change('EditText','sourceOrgin',''));
-    }
 
-      onChange=(param)=>{
-            const {onChange}=this.props;
-            onChange && onChange(param);
-       }
+       this.setState({
+         watchThree:true
+       })
+       this.threeLabel=param.value;
+
+    }
 
 
 	render(){
 
-        let {inputType,isTrue,next,label,isThree,getEdit,isCommon,twoData}=this.state;
+       let {watchSecond,watchThree}=this.state;
 
         var seleInt=[];
-        inputType.map((item,index)=>{
+        this.inputType.map((item,index)=>{
            var list={};
            list.label=item.desc;
            list.value=item.value;
@@ -213,23 +116,18 @@ export default class TextDic extends React.Component{
                             onChange={this.typeChange}
                             requireLabel={true}
                     />
-                    {isTrue&&<KrField
+                    {watchSecond&&<KrField
                         grid={1/2}
                         style={{width:262,marginBottom:5,marginLeft:'30px'}}
                         name="compType"
                         component="select"
                         label="类型"
-                        options={next}
+                        options={this.componentItem}
                         onChange={this.classChange}
                         requireLabel={true}
-                        value={label}
                     />}
-                    {isThree&&<Text 
-                        label={label} 
-                        onChange={this.onChange}
-                        getEdit={getEdit}
-                        isCommon={isCommon}
-                        twoData={twoData}
+                    {watchThree&&<Text 
+                       label={this.threeLabel}
                     />}
                 </div>
 
