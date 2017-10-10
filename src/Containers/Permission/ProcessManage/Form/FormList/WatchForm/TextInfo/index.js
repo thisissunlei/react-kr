@@ -333,7 +333,7 @@ class TextInfo  extends React.Component{
 	params.id=editId;
 	params.detailId=detailId;
 	params.formId=basicInfo.id||'';
-	console.log('parma',params);
+	
 	var _this=this;
 	for(let key in params){
 		
@@ -342,7 +342,6 @@ class TextInfo  extends React.Component{
 
 		}
 	}
-
     if(isCreate){
 		
 		 	Http.request('create-field-edit',{},params).then(function(response) {
@@ -351,22 +350,24 @@ class TextInfo  extends React.Component{
 		 		Message.error(err.message);
 		 	});
 	}else{
+				
 		    if(params.itemListStr&&params.itemListStr.length!=0){
 				params.itemListStr=JSON.stringify(params.itemListStr);	
-				delete 	params.items;	
-			}else{
-				var littleText=[];
-				for (var item in params){
-					 if(item.indexOf("ws")!=-1){
+			}
+			
+			var littleText=[];
+			for (var item in params){
+					if(item.indexOf("ws")!=-1){
 						var list={};
 						list[item]=params[item];
 						littleText.push(list);
-					 }
-				 }
-				params.setting=JSON.stringify(littleText);
-				delete 	params.items;	
+					}
 			}
-		    
+			params.setting=JSON.stringify(littleText);
+			if(params.items){
+				delete params.items;	
+			 }	
+			  
 			Http.request('form-field-edit',{},params).then(function(response) {
 				_this.cancelEditText();
 			}).catch(function(err) {

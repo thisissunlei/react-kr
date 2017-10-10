@@ -34,26 +34,23 @@ export default class Text  extends React.Component{
     
     componentDidMount(){
         let {TextDicModel}=this.props;
-        this.commonPublic(toJS(TextDicModel.oldDetail).sourceType);
+        if(toJS(TextDicModel.oldDetail).sourceType&&(toJS(TextDicModel.oldDetail).inputType=='SELECT'||toJS(TextDicModel.oldDetail).inputType=='CHECK')){
+          this.commonPublic(toJS(TextDicModel.oldDetail).sourceType);        
+        }
     }
 
     clearModel=()=>{
-        this.models=null;
+        this.models=null;	  
     }
-
+    
    
     commonPublic=(param)=>{         
         if(param=='PUBLIC_DICT'){     
-            Store.dispatch(change('EditText','itemListStr',null));
-            Store.dispatch(change('AddText','itemListStr',null));
-            
             this.models=this.sourceRender();
         }else if(param=="CUSTOM"){     
             this.models=this.selfRender();
         }else{
             this.models=null;
-            Store.dispatch(change('EditText','itemListStr',null));
-            Store.dispatch(change('AddText','itemListStr',null));
         }
         this.setState({
             other:+new Date()
