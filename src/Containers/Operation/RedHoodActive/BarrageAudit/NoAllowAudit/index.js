@@ -187,7 +187,7 @@ class NoAllowAudit extends React.Component {
 
 								}}
 							>
-							</TableRowColumn>*/}
+							</TableRowColumn>
 
 							<TableRowColumn
 								name="content"
