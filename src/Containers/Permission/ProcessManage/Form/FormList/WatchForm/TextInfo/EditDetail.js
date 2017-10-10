@@ -62,7 +62,7 @@ class EditDetail  extends React.Component{
                                     label="表单表明 "
                                  />}
                                 <div className='mask-icon'>
-                                        <IconTip>
+                                        <IconTip tipStyle = {{width:330}}>
                                             <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
                                             <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
                                         </IconTip>

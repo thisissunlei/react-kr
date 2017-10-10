@@ -380,7 +380,7 @@ export default class Table extends React.Component {
              </div>
             }
             <div className="move">
-               <div className='ui-move-up' style={{marginRight:'6px'}}>
+               <div className='ui-move-up' style={{marginRight:'4px'}}>
                   <span
                     className ="move-up ui-move-pic"
                     onClick = {()=>{

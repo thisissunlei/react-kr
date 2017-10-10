@@ -39,6 +39,7 @@ class EditCreate  extends React.Component{
 										<KrField
 												 grid={1/2}
 												 style={{width:262,marginBottom:5}}
+												 heightStyle = {{color:"#666"}}
 												 name="label"
 												 component="input"
 												 label="字段显示名"
