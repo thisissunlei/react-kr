@@ -307,6 +307,8 @@ class TextInfo  extends React.Component{
 			Store.dispatch(initialize('EditCreate',response));	 
 		 }else{
 			_this.props.TextDicModel.oldDetail=response;
+			_this.props.TextDicModel.inputType=response.inputType;
+			_this.props.TextDicModel.comType=response.compType;
 			Store.dispatch(initialize('EditText',response));
 			if(response.setting){
                 var setting=JSON.parse(response.setting);

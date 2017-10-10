@@ -32,6 +32,20 @@ export default class TextDic extends React.Component{
         this.componentItem=[];
         this.threeLabel='';
         this.control=false;
+        this.clearText={
+            sourceType:'',
+            wspicHeight:'',
+            wspicWidth:"",
+            wsenabled:"true",
+            wsfile:'',
+            wstext:'',
+            wsfloat:'',
+            wsheight:'',
+            wsbtnEnabled:'true',
+            wspicFile:"",
+            wsPicEnabled:"true",
+            wsradio:"",
+        }
     }
 
 
@@ -41,6 +55,7 @@ export default class TextDic extends React.Component{
         this.componentType=DictionaryConfigs.ERP_ComponentType;
     }
     
+
     componentDidMount(){
         let {isEdit,TextDicModel}=this.props;
         if(isEdit){
@@ -53,8 +68,9 @@ export default class TextDic extends React.Component{
         }
     }
 
-
+    
     typeChange=(param)=>{  
+      let {TextDicModel}=this.props;
       this.setState({
         watchSecond:true,
         watchThree:false
@@ -62,16 +78,25 @@ export default class TextDic extends React.Component{
       Store.dispatch(change('EditText','compType',''));
       Store.dispatch(change('AddText','compType',''));
       this.nextArrRender(param.value,this.componentType);
-
+      TextDicModel.inputType=param.value;
     }
+
+
 
     nextArrRender=(name,selectName)=>{
         var nextRender=[];
         selectName.map((item,index)=>{
             var list={};
             if(item.value.slice(0,name.length)==name){
-                list.value=item.value;
-                list.label=item.desc;
+                if(name=='TEXT'&& item.value!=='TEXT_AREA_TEXT'&&item.value!=='TEXT_AREA_RICH'){           
+                    list.value=item.value;
+                    list.label=item.desc;
+              }else if(name!='TEXT'){
+                    list.value=item.value;
+                    list.label=item.desc;
+              }else{
+                    return null
+                }
             }else{
                 return null
             }
@@ -79,15 +104,45 @@ export default class TextDic extends React.Component{
         })
         this.componentItem=nextRender;
        }
+    
+
+    
+    clearWs=()=>{
+        for(var item in this.clearText){
+            Store.dispatch(change('EditText',item,this.clearText[item])); 
+        }
+    }
+
+
+    giveWs=()=>{
+        let {TextDicModel}=this.props;
+        var params=toJS(TextDicModel.oldDetail);
+        for(var item in this.clearText){
+            Store.dispatch(change('EditText',item,params[item]?params[item]:this.clearText[item])); 
+        }
+    }
+    
 
     classChange=(param)=>{
-
+        
+       let {TextDicModel}=this.props;
        this.setState({
          watchThree:true
        })
        this.threeLabel=param.value;
-
+       TextDicModel.comType=param.value;
+       if(toJS(TextDicModel.oldDetail).inputType!=toJS(TextDicModel.inputType)||toJS(TextDicModel.oldDetail).compType!=param.value){
+           this.clearWs();
+       }else{
+           if(toJS(TextDicModel.oldDetail).inputType=='SELECT'||toJS(TextDicModel.oldDetail).inputType=='CHECK'){
+             this.clearWs();
+           }else{
+             this.giveWs(); 
+           }
+       }
+       TextDicModel.itemStr=1;
     }
+    
 
 
 	render(){

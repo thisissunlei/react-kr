@@ -12,7 +12,13 @@ import {Http} from "kr/Utils";
 import {Actions,Store} from 'kr/Redux';
 //全局store
 let State = observable({
-    oldDetail:{}
+	oldDetail:{},
+	//inputType
+	inputType:'',
+	//comType
+	comType:'',
+	//判断itemStr
+	itemStr:''
 });
 
 
