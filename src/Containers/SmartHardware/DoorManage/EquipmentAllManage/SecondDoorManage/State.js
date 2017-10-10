@@ -355,7 +355,7 @@ State.confirmFreshHTMLAction = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('freshHTMLUrl',urlParams).then(function(response) {
 		
-		Message.success("设备已经收到刷新H5页面的消息");
+		Message.success("提交刷新请求成功");
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
