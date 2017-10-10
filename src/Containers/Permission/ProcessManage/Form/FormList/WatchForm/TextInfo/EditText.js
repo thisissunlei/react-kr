@@ -1,5 +1,7 @@
 import React from 'react';
-import DictionaryConfigs from 'kr/Configs/dictionary';
+import {
+	toJS
+} from 'mobx';
 import {
 	KrField,
     Grid,
@@ -21,6 +23,13 @@ import {
 } from 'kr/Redux';
 import './index.less';
 
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("TextDicModel")
+@observer
 class EditText  extends React.Component{
 
 	constructor(props,context){
@@ -28,33 +37,36 @@ class EditText  extends React.Component{
         this.state={
            
         }
-        this.ws=[];
     }
 
-    
-    
-    componentDidMount(){
-        Store.dispatch(change('EditText','wsenabled','true'));
+    componentWillUnmount(){
+        this.props.TextDicModel.oldDetail={};
     }
+    
 
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         values = Object.assign({},values);
       
         console.log('frrrr',values);
-
+         
         let itemListStr = [];
-        if(values.itemListStr){
-            itemListStr= [].concat(values.itemListStr);
+        if(values.inputType!='SELECT'||values.inputType!='CHECK'){
+            itemListStr=null;
         }else{
-            itemListStr = null;
+            if(values.itemListStr){
+                itemListStr= [].concat(values.itemListStr);
+            }
         }
+
+        
         var valueReg = /^[1-9]\d{0,2}$/;
         var orderNumReg = /^[1-9]\d{0,1}$/;
         var label = true,
             value = true,
             orderNum = true,
             isDefault = true;
+
 
        if(itemListStr && !itemListStr.length){
             Notify.show([{
@@ -66,7 +78,7 @@ class EditText  extends React.Component{
        
        if(itemListStr != null){
 
-       
+     
             for(let i = 0; i<itemListStr.length;i++){
                 let item = itemListStr[i];
                 if(!item.label){
@@ -120,29 +132,14 @@ class EditText  extends React.Component{
             }
         }
   
-       if(itemListStr==null){
-           values.itemListStr = []
-       }
-       if(values.wstext){
-        values.wstext=values.wstext.replace(/^0+\./g,'0.'); 
-        values.wstext=values.wstext.match(/^0+[1-9]+/)?values.wstext=values.wstext.replace(/^0+/g,''):values.wstext;
-       }
-       if(values.wsheight){
-        values.wsheight=values.wsheight.replace(/^0+\./g,'0.'); 
-        values.wsheight=values.wsheight.match(/^0+[1-9]+/)?values.wsheight=values.wsheight.replace(/^0+/g,''):values.wsheight;
-       }
-       if(values.wsfile){
-        values.wsfile=values.wsfile.replace(/^0+\./g,'0.'); 
-        values.wsfile=values.wsfile.match(/^0+[1-9]+/)?values.wsfile=values.wsfile.replace(/^0+/g,''):values.wsfile;
-       }
-       if(values.wspicWidth){
-        values.wspicWidth=values.wspicWidth.replace(/^0+\./g,'0.'); 
-        values.wspicWidth=values.wspicWidth.match(/^0+[1-9]+/)?values.wspicWidth=values.wspicWidth.replace(/^0+/g,''):values.wspicWidth;
-       }
-       if(values.wspicHeight){
-        values.wspicHeight=values.wspicHeight.replace(/^0+\./g,'0.'); 
-        values.wspicHeight=values.wspicHeight.match(/^0+[1-9]+/)?values.wspicHeight=values.wspicHeight.replace(/^0+/g,''):values.wspicHeight;
-       }
+      
+        for (var item in values){
+            if(item=='wstext'||item=='wsheight'||item=='wsfile'||item=='wspicWidth'||item=='wspicHeight'||item=='wspicFile'){
+                values[item]=values[item].replace(/^0+\./g,'0.'); 
+                values[item]=values[item].match(/^0+[1-9]+/)?values[item]=values[item].replace(/^0+/g,''):values[item];
+            }
+        }
+        
        onSubmit && onSubmit(values);
     }
 
@@ -151,30 +148,11 @@ class EditText  extends React.Component{
         onCancel && onCancel();
     }
 
-     
-     callBack=(param)=>{
-        var seArr=[];
-        var _this=this;
-        if(param.setting){
-            var setting=JSON.parse(param.setting);
-            setting.map((item,index)=>{
-               for(var index in item){
-                seArr.push(index);   
-                Store.dispatch(change('EditText',index,item[index])); 
-               }
-            })
-            this.ws=seArr;
-        }else{
-            this.ws.map((item,index)=>{
-                Store.dispatch(change('EditText',item,'')); 
-            })
-        }
-     }
 
 	render(){
 
     let {handleSubmit,getEdit}=this.props;
-
+    
 
 		return(
 
@@ -205,11 +183,9 @@ class EditText  extends React.Component{
                         />
 
 
-                            <TextDic
+                            {(toJS(this.props.TextDicModel.oldDetail).inputType)&&<TextDic
                                 isEdit={true}
-                                getEdit={getEdit}
-                                callBack={this.callBack}
-                            />
+                            />}
 
                         <Grid style={{marginBottom:5,marginLeft:-32,marginTop:12}}>
                             <Row>
@@ -240,7 +216,7 @@ const validate = values =>{
      if(!values.label){
          errors.label='请填写字段显示名';
      }else if(values.label.length>30){
-        errors.label='字段显示名不能超过30个字符';
+         errors.label='字段显示名不能超过30个字符';
      }
  
      if(!values.inputType){
@@ -256,8 +232,8 @@ const validate = values =>{
              if(!values.wstext){
                  errors.wstext='请填写文本长度';      
              }else if(values.wstext&&isNaN(values.wstext)){
-                errors.wstext='文本长度是数字';    
-             }  
+                 errors.wstext='文本长度是数字';    
+             }
          }else{
              if(!values.wsfloat){
                  errors.wsfloat='请选择小数位数';        
@@ -277,8 +253,8 @@ const validate = values =>{
          if(!values.wsradio){
              errors.wsradio='请选择按钮类型';
          }
-         if(!values.wsenabled){
-             errors.wsenabled='请填写是否多选';
+         if(!values.wsbtnEnabled){
+             errors.wsbtnEnabled='请填写是否多选';
          }
      }
      
@@ -292,8 +268,10 @@ const validate = values =>{
              }
          }
      }
- 
+     
+    
      if(values.compType=='FILE_FILE'){
+       
          if(!values.wsfile){
              errors.wsfile='请填写文件大小';
          }else if(values.wsfile&&isNaN(values.wsfile)){
@@ -311,14 +289,14 @@ const validate = values =>{
          if(values.wspicHeight&&isNaN(values.wspicHeight)){
              errors.wspicHeight='图片高度为数字'; 
          }
-           if(!values.wsfile){
-            errors.wsfile='请填写文件大小';
-            }else if(values.wsfile&&isNaN(values.wsfile)){
-                errors.wsfile='文件大小为数字'; 
-            }
-            if(!values.wsenabled){
-                errors.wsenabled='请选择是否多文件上传';
-            }
+         if(!values.wspicFile){
+             errors.wspicFile='请填写文件大小';
+         }else if(values.wspicFile&&isNaN(values.wspicFile)){
+             errors.wspicFile='文件大小为数字'; 
+         }
+         if(!values.wsPicEnabled){
+             errors.wsPicEnabled='请选择是否多文件上传';
+         }
      }
    
 

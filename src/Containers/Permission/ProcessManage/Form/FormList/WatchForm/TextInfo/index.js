@@ -1,6 +1,9 @@
 import React from 'react';
 import {Http} from 'kr/Utils';
 import {
+	toJS
+} from 'mobx';
+import {
 	Button,
 	Row,
 	Col,
@@ -29,6 +32,13 @@ import AddText from './AddText';
 import EditText from './EditText';
 import EditCreate from './EditCreate';
 import './index.less';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+
+@inject("TextDicModel")
+@observer
 class TextInfo  extends React.Component{
 
 	constructor(props,context){
@@ -296,7 +306,16 @@ class TextInfo  extends React.Component{
 		if(isCreate){
 			Store.dispatch(initialize('EditCreate',response));	 
 		 }else{
+			_this.props.TextDicModel.oldDetail=response;
 			Store.dispatch(initialize('EditText',response));
+			if(response.setting){
+                var setting=JSON.parse(response.setting);
+                 setting.map((item,index)=>{
+                    for(var index in item){ 
+                     Store.dispatch(change('EditText',index,item[index])); 
+                    }
+                 })
+             }
 			Store.dispatch(change('EditText','itemListStr',response.items&&response.items.length>0?response.items:[]));	  
 		 }
 		 _this.setState({
@@ -314,7 +333,7 @@ class TextInfo  extends React.Component{
 	params.id=editId;
 	params.detailId=detailId;
 	params.formId=basicInfo.id||'';
-	console.log('parma',params);
+	
 	var _this=this;
 	for(let key in params){
 		
@@ -323,7 +342,6 @@ class TextInfo  extends React.Component{
 
 		}
 	}
-
     if(isCreate){
 		
 		 	Http.request('create-field-edit',{},params).then(function(response) {
@@ -332,22 +350,24 @@ class TextInfo  extends React.Component{
 		 		Message.error(err.message);
 		 	});
 	}else{
+				
 		    if(params.itemListStr&&params.itemListStr.length!=0){
 				params.itemListStr=JSON.stringify(params.itemListStr);	
-				delete 	params.items;	
-			}else{
-				var littleText=[];
-				for (var item in params){
-					 if(item.indexOf("ws")!=-1){
+			}
+			
+			var littleText=[];
+			for (var item in params){
+					if(item.indexOf("ws")!=-1){
 						var list={};
 						list[item]=params[item];
 						littleText.push(list);
-					 }
-				 }
-				params.setting=JSON.stringify(littleText);
-				delete 	params.items;	
+					}
 			}
-		    
+			params.setting=JSON.stringify(littleText);
+			if(params.items){
+				delete params.items;	
+			 }	
+			  
 			Http.request('form-field-edit',{},params).then(function(response) {
 				_this.cancelEditText();
 			}).catch(function(err) {

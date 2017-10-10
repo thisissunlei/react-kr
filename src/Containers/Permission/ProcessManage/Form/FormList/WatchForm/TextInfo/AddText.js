@@ -31,18 +31,25 @@ class AddText  extends React.Component{
 
     componentDidMount(){
         Store.dispatch(change('AddText','wsenabled','true'));
+        Store.dispatch(change('AddText','wsPicEnabled','true'));
+        Store.dispatch(change('AddText','wsbtnEnabled','true'));
+        Store.dispatch(change('AddText','itemListStr',[]));
     }
 
     onSubmit=(values)=>{
         // itemListStr
         const {onSubmit}=this.props;
         values = Object.assign({},values);
+
         let itemListStr = [];
-        if(values.itemListStr){
-            itemListStr= [].concat(values.itemListStr);
+        if(values.inputType!='SELECT'||values.inputType!='CHECK'){
+            itemListStr=null;
         }else{
-            itemListStr = null;
+            if(values.itemListStr){
+                itemListStr= [].concat(values.itemListStr);
+            }
         }
+
         var valueReg = /^[1-9]\d{0,2}$/;
         var orderNumReg = /^[1-9]\d{0,1}$/;
         var label = true,
@@ -113,30 +120,16 @@ class AddText  extends React.Component{
 
             }
         }
-       if(itemListStr==null){
-           values.itemListStr = []
-       }
 
-       if(values.wstext){
-        values.wstext=values.wstext.replace(/^0+\./g,'0.'); 
-        values.wstext=values.wstext.match(/^0+[1-9]+/)?values.wstext=values.wstext.replace(/^0+/g,''):values.wstext;
-       }
-       if(values.wsheight){
-        values.wsheight=values.wsheight.replace(/^0+\./g,'0.'); 
-        values.wsheight=values.wsheight.match(/^0+[1-9]+/)?values.wsheight=values.wsheight.replace(/^0+/g,''):values.wsheight;
-       }
-       if(values.wsfile){
-        values.wsfile=values.wsfile.replace(/^0+\./g,'0.'); 
-        values.wsfile=values.wsfile.match(/^0+[1-9]+/)?values.wsfile=values.wsfile.replace(/^0+/g,''):values.wsfile;
-       }
-       if(values.wspicWidth){
-        values.wspicWidth=values.wspicWidth.replace(/^0+\./g,'0.'); 
-        values.wspicWidth=values.wspicWidth.match(/^0+[1-9]+/)?values.wspicWidth=values.wspicWidth.replace(/^0+/g,''):values.wspicWidth;
-       }
-       if(values.wspicHeight){
-        values.wspicHeight=values.wspicHeight.replace(/^0+\./g,'0.'); 
-        values.wspicHeight=values.wspicHeight.match(/^0+[1-9]+/)?values.wspicHeight=values.wspicHeight.replace(/^0+/g,''):values.wspicHeight;
-       }
+      
+        for (var item in values){
+            if(item=='wstext'||item=='wsheight'||item=='wsfile'||item=='wspicWidth'||item=='wspicHeight'||item=='wspicFile'){
+                values[item]=values[item].replace(/^0+\./g,'0.'); 
+                values[item]=values[item].match(/^0+[1-9]+/)?values[item]=values[item].replace(/^0+/g,''):values[item];
+            }
+        }
+      
+
        onSubmit && onSubmit(values);
     }
 
@@ -249,8 +242,8 @@ const validate = values =>{
         if(!values.wsradio){
             errors.wsradio='请选择按钮类型';
         }
-        if(!values.wsenabled){
-            errors.wsenabled='请填写是否多选';
+        if(!values.wsbtnEnabled){
+            errors.wsbtnEnabled='请填写是否多选';
         }
     }
     
@@ -285,13 +278,13 @@ const validate = values =>{
         if(values.wspicHeight&&isNaN(values.wspicHeight)){
             errors.wspicHeight='图片高度为数字'; 
         }
-        if(!values.wsfile){
-            errors.wsfile='请填写文件大小';
-        }else if(values.wsfile&&isNaN(values.wsfile)){
-            errors.wsfile='文件大小为数字'; 
+        if(!values.wspicFile){
+            errors.wspicFile='请填写文件大小';
+        }else if(values.wspicFile&&isNaN(values.wspicFile)){
+            errors.wspicFile='文件大小为数字'; 
         }
-        if(!values.wsenabled){
-            errors.wsenabled='请选择是否多文件上传';
+        if(!values.wsPicEnabled){
+            errors.wsPicEnabled='请选择是否多文件上传';
         }
     }
   
