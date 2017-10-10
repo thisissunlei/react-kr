@@ -130,6 +130,7 @@ export default class Form  extends React.Component{
 							onSelectTree={this.onSelect}
               treeData={this.state.treeData}
 							searchKey={this.state.searchKey}
+              expandedKeys = {['0-全部类型0']}
 							type="department-radio"
 							TreeTheme = "institutionsTheme"
 						/>
