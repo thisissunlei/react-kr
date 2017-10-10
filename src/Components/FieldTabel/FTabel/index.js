@@ -406,7 +406,7 @@ export default class Table extends React.Component {
             {this.tbodyRender()}
            </tbody>
         </table>
-          {!nothing && <Nothing/>}
+          {!nothing && <Nothing iconStyle = {{height:150}}/>}
         {isFold && downFoldNum && <div className = "ui-field-tabel-fold">
             <span className="fold" onClick = {this.foldClick}>
               <span >
