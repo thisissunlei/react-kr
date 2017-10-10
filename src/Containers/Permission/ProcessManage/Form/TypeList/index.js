@@ -215,7 +215,7 @@ export default class TypeList extends Component{
 						  style={{wordWrap:'break-word',whiteSpace:'normal'}}
 						></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
-										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+										return (<KrDate value={value} format="yyyy-mm-dd  HH:MM:ss"/>)
 						}} style={{width:150}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn type="operation">
 							<Button label="编辑"  type="operation"  operation="edit" operateCode="hrm_job_edit"/>
