@@ -6,7 +6,7 @@ module.exports = {
 
 	//二代们近列表
    'getDecondeEquipmentList':{
-      url: '/api/iot-platform/door-device/list?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&page={page}&pageSize={pageSize}',
+      url: '/api/iot-platform/door-device/list?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&page={page}&pageSize={pageSize}&maker={maker}&title={title}',
       method: 'get'
    },
    //新增编辑设备实时校验编号
@@ -192,6 +192,35 @@ module.exports = {
       method: 'get'
    },
 
+   //获取编辑准备数据
+   'getEditEquipmentUrl':{
+      
+      url: '/api/iot-platform/door-device/view?id={id}',
+      method: 'get'
+   },
+
+   //一代门禁获取设备详情
+   'getFirstEquipmentDetailUrl':{
+      url: '/api/iot-platform/door-device/v1/detail?id={id}',
+      method: 'get'
+   },
+
+
+   //一代门禁重置
+   'resetFirstEquipmentUrl':{
+      url: '/api/iot-platform/door-device/v1/admin/actions/reset-to-php?deviceId={deviceId}',
+      method: 'put'
+   },
+
+   //一代门禁生成二维码
+   'productQRCodeUrl':{
+      url: '/api/iot-platform/door-device/actions/generate-qr-code?deviceId={deviceId}',
+      method: 'put'
+   },
+
+
+
+   
 
     
 

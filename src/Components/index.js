@@ -63,6 +63,7 @@ import UpImages from './UpImages';
 import SwitchSlide from './SwitchSlide';
 import Chip from './Chip';
 import ArticleList from './ArticleList';
+import Dropdown from './Dropdown';
 
 import {
 	Grid,
@@ -168,5 +169,6 @@ module.exports = {
 	UpImages,
 	SwitchSlide,
 	Chip,
-	ArticleList
+	ArticleList,
+	Dropdown,
 }

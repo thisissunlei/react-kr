@@ -52,14 +52,14 @@ module.exports = [
 						router: '/member/memberManage/list',
 						menuCode: 'mbr_list_base',
 					},
+					// {
+					// 	primaryText: "会员卡管理",
+					// 	router: '/member/memberManage/card',
+					// 	menuCode: 'mbr_card_base',
+					// },
 					{
 						primaryText: "会员卡管理",
-						router: '/member/memberManage/card',
-						menuCode: 'mbr_card_base',
-					},
-					{
-						primaryText: "会员配置",
-						router: '/member/memberManage/setting',
+						router: '/member/membermanage/cardmanage',
 						menuCode: 'mbr_define',
 					},
 				]
@@ -243,11 +243,11 @@ module.exports = [
 						router: '/member/memberManage/doormanage',
 						menuCode: 'door_base',
 					},
-					{
-						primaryText: '设备定义',
-						menuCode: 'sysDeviceDefinitionList',
-						router: '/operation/basicconfig/equipmentdefinition'
-					},
+					// {
+					// 	primaryText: '设备定义',
+					// 	menuCode: 'sysDeviceDefinitionList',
+					// 	router: '/operation/basicconfig/equipmentdefinition'
+					// },
 
 				]
 			},

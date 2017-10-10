@@ -27,9 +27,13 @@ class ImportCard extends React.Component{
 	}
 		
 	onSubmit = (values) => {
+		console.log("params",params);
+		let {detail} = this.props;
 	    let params = {
-	        id: this.props.detail.id
+	        id: detail.id
 	    }
+		console.log("params",params);
+
 	    let _this = this;
 	    Http.request('memberCardDelete', params).then(function(response) {
 	        const {onSubmit} = _this.props;

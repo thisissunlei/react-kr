@@ -15,6 +15,12 @@ import {
 } from 'kr-ui';
 import './index.less';
 
+import State from './State';
+import {
+	observer
+} from 'mobx-react';
+@observer
+
  class StartCardActivation extends React.Component{
 
 	 static defaultProps = {
@@ -35,6 +41,7 @@ import './index.less';
 	//数据的初始化设定
 	constructor(props){
 		super(props);
+		
 	    this.state={
 					detail:props.detail,
 					accomplish:false,
@@ -53,6 +60,7 @@ import './index.less';
 	    }
 	}
 	 onSubmit=(values)=>{
+
 		var _this = this;
 	 	if (navigator.onLine) 
 		{ //正常工作
@@ -64,8 +72,10 @@ import './index.less';
 
 		 var isErr=false;
 		 const params={};
-		 params.foreignCode=this.state.detail.startNum;
-		 params.interCode=values.interCode;
+		 params.outerCode=this.state.detail.startNum;
+		 params.communityId=this.state.detail.communityId;
+		 params.memo=this.state.detail.memo;
+		 params.innerCode=values.interCode;
 
 		 if(!values.interCode){
 
@@ -85,24 +95,26 @@ import './index.less';
 		}
 
 		Http.request('CardActivation', {}, params).then(function(response) {
-					//  Message.success("成功");
-					 const detail={};
-					 detail.interCode="";
-					 Store.dispatch(initialize('StartCardActivation',detail));
-					 _this.props.onFlush();
-					 var title="会员卡"+values.interCode+"激活成功";
-					_this.props.openMessageBar(title,"ok");
-					
 
-					 if (_this.state.detail.startNum<=_this.state.detail.endNum) {
+			const detail={};
+			detail.interCode="";
+			Store.dispatch(initialize('StartCardActivation',detail));
+			_this.props.onFlush();
+			var title="会员卡"+values.interCode+"激活成功";
 
-							 _this.cardNumAdd(4);
-					 }
-					 setTimeout(function(){
-						_this.props.closeMessageBar();
-					 },1000)
+			_this.props.openMessageBar(title,"ok");
+			
 
-		 }).catch(function(err) {
+			if (_this.state.detail.startNum<=_this.state.detail.endNum) {
+
+				_this.cardNumAdd(4);
+			}
+
+			setTimeout(function(){
+				_this.props.closeMessageBar();
+			},1000)
+			
+		}).catch(function(err) {
 		 	if (err.message=="该会员卡已被录入") {
 		 		err.message="卡号"+_this.state.detail.startNum+"已存在请跳过！"
 		 	}else if(err.message=="该卡已被激活,请重刷"){
@@ -118,7 +130,7 @@ import './index.less';
 		 	setTimeout(function(){
 				_this.props.closeMessageBar();
 			},3000)
-		 })
+		})
 	 }
 
 	 //数字处理
@@ -142,15 +154,13 @@ import './index.less';
 				 if (this.state.detail.startNum==this.state.detail.endNum) {
 				 	
 				 	var oldNum=this.state.oldNum+1;
-				 	if(this.state.startNum==this.state.num){
-				 		oldNum=0;
-				 	}
+				 	// if(this.state.startNum==this.state.num){
+				 	// 	oldNum=0;
+				 	// }
 					this.setState({
 	 				 	accomplish:true
 	 			 	})
-	 			 	// if(oldNum==0){
-	 			 	// 	oldNum = 1;
-	 			 	// }
+	 			 	
 	 			 	Message.success(oldNum+"张会员卡激活成功！")
 	 			 	this.onCancel();
 					detail.startNum=detail.endNum="0000000000"
@@ -199,10 +209,10 @@ import './index.less';
 		detail.interCode="";
 		Store.dispatch(initialize('StartCardActivation',detail));
 		this.setState({
-				clearInterCodeStyle:{
-					display:'none'
-				}
-			})
+			clearInterCodeStyle:{
+				display:'none'
+			}
+		})
 	}
 	cardChange=(value)=>{
 
