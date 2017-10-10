@@ -13,7 +13,7 @@ import deleteImg from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
 import WrapComponent from '../WrapComponent';
 import PropTypes from 'prop-types'
-export default class UploadImageComponent extends Component {
+export default class MainNewsUploadImageComponent extends Component {
 	static defaultProps = {
 
 	}
