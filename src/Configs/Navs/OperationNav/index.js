@@ -60,7 +60,7 @@ module.exports = [
 					{
 						primaryText: "会员卡管理",
 						router: '/member/membermanage/cardmanage',
-						menuCode: 'mbr_define',
+						menuCode: 'mbr_card_base',
 					},
 				]
 			},
