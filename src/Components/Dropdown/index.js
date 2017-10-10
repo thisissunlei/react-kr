@@ -33,8 +33,34 @@ export default class Tooltip extends React.Component {
 	}
 
 	componentDidMount() {
-
+		document.body.addEventListener("click",this.onClickOther.bind(this));
 	}
+
+	componentWillUnmount(){
+		
+		document.body.removeEventListener("click",this.onClickOther.bind(this)); 	
+	}
+
+	onClickOther = (event)=>{
+
+	  	event = event || window.event;
+		var target = event.target;
+		
+		while (target) {
+			if (target && target.className && target.className.indexOf('ui-title-text') !== -1) {
+				if(!this.state.showList){
+					return;
+				}
+			}
+			target = target.parentNode;
+		}
+        this.setState({
+          	showList:false
+        });
+        
+    }
+
+
 
 	renderItemLi=()=>{
 		let _this = this;
@@ -54,13 +80,18 @@ export default class Tooltip extends React.Component {
 		thisP.onClickFun();
 	}
 
-	showList=()=>{
+	showListFun=()=>{
+		let _this =this;
 		this.setState({
-			showList : true
+			showList : !this.state.showList
+		},function(){
+			if(_this.state.showList){
+				let {onMouseOn} = _this.props;
+				onMouseOn && onMouseOn();
+			}
 		})
+		console.log("dkdkkdkdk");
 
-		let {onMouseOn} = this.props;
-		onMouseOn && onMouseOn();
 	}
 	hideList=()=>{
 
@@ -91,11 +122,9 @@ export default class Tooltip extends React.Component {
 		return(
 			<div className={className}  
 				style={wrapStyleAll} 
-				onMouseEnter={this.showList} 
-				onMouseLeave={this.hideList}
 			>
 				<div>
-					<span className="ui-title-text" style={titleStyle}>{textTitle}</span>
+					<span className="ui-title-text" style={titleStyle} onClick={this.showListFun} id={'drop-down-'+(+new Date())}>{textTitle}</span>
 				</div>
 				<span className="ui-small-square" style={{display:showList?"block":"none"}}></span>
 				<ul 
