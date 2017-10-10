@@ -131,12 +131,12 @@ module.exports = [
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/permission/processManage/processSetting',
 					},
-					{
-						primaryText: '慧正流程',
-						menuCode: 'hrm_resourcesList_incumbency',
-						originUrl:'/hz7rest/horizon/module/flash/flow/designer.wf',
-						target:'_blank'
-					},
+					// {
+					// 	primaryText: '慧正流程',
+					// 	menuCode: 'hrm_resourcesList_incumbency',
+					// 	originUrl:'/hz7rest/horizon/module/flash/flow/designer.wf',
+					// 	target:'_blank'
+					// },
 					{
 						primaryText: '公共字典',
 						menuCode: 'hrm_resourcesList_incumbency',
