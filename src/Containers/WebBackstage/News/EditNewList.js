@@ -159,7 +159,6 @@ class EditNewList extends React.Component {
 								name="photoUrl"
 								component="newuploadImage"
 								innerstyle={{width:392,height:161,padding:10}}
-								photoSize={'570*212'}
 								pictureFormat={'JPG,PNG,GIF'}
 								pictureMemory={'500'}
 								requestURI = {State.requestURI}
