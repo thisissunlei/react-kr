@@ -35,6 +35,10 @@ export default class Text  extends React.Component{
     
     componentDidMount(){
         let {TextDicModel}=this.props;
+        console.log('TextDicModel',TextDicModel);
+        let clearText={
+            
+        }
         if(toJS(TextDicModel.oldDetail).sourceType&&(toJS(TextDicModel.oldDetail).inputType=='SELECT'||toJS(TextDicModel.oldDetail).inputType=='CHECK')){
           this.commonPublic(toJS(TextDicModel.oldDetail).sourceType);        
         }
@@ -44,7 +48,7 @@ export default class Text  extends React.Component{
         this.models=null;	  
     }
     
-   
+    
     commonPublic=(param)=>{         
         if(param=='PUBLIC_DICT'){     
             this.models=this.sourceRender();
