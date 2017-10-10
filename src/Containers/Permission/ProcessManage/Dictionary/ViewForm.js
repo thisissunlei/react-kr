@@ -99,7 +99,7 @@ class ViewForm extends React.Component{
 							<FdTabel
 								name = "tableData"
 								isFold = {true}
-				 				initFoldNum = "3"
+				 				initFoldNum = "10"
 							>
 								<FRow name = "formName" label = "引用表单" />
 								<FRow name = "lastUseTime" type='date' label = "最近一次使用时间" />
