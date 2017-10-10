@@ -52,11 +52,7 @@ module.exports = [
 						router: '/member/memberManage/list',
 						menuCode: 'mbr_list_base',
 					},
-					// {
-					// 	primaryText: "会员卡管理",
-					// 	router: '/member/memberManage/card',
-					// 	menuCode: 'mbr_card_base',
-					// },
+					
 					{
 						primaryText: "会员卡管理",
 						router: '/member/membermanage/cardmanage',
