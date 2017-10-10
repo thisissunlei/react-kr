@@ -113,7 +113,30 @@ class AddText  extends React.Component{
 
             }
         }
-      
+       if(itemListStr==null){
+           values.itemListStr = []
+       }
+
+       if(values.wstext){
+        values.wstext=values.wstext.replace(/^0+\./g,'0.'); 
+        values.wstext=values.wstext.match(/^0+[1-9]+/)?values.wstext=values.wstext.replace(/^0+/g,''):values.wstext;
+       }
+       if(values.wsheight){
+        values.wsheight=values.wsheight.replace(/^0+\./g,'0.'); 
+        values.wsheight=values.wsheight.match(/^0+[1-9]+/)?values.wsheight=values.wsheight.replace(/^0+/g,''):values.wsheight;
+       }
+       if(values.wsfile){
+        values.wsfile=values.wsfile.replace(/^0+\./g,'0.'); 
+        values.wsfile=values.wsfile.match(/^0+[1-9]+/)?values.wsfile=values.wsfile.replace(/^0+/g,''):values.wsfile;
+       }
+       if(values.wspicWidth){
+        values.wspicWidth=values.wspicWidth.replace(/^0+\./g,'0.'); 
+        values.wspicWidth=values.wspicWidth.match(/^0+[1-9]+/)?values.wspicWidth=values.wspicWidth.replace(/^0+/g,''):values.wspicWidth;
+       }
+       if(values.wspicHeight){
+        values.wspicHeight=values.wspicHeight.replace(/^0+\./g,'0.'); 
+        values.wspicHeight=values.wspicHeight.match(/^0+[1-9]+/)?values.wspicHeight=values.wspicHeight.replace(/^0+/g,''):values.wspicHeight;
+       }
        onSubmit && onSubmit(values);
     }
 
@@ -181,13 +204,15 @@ const validate = values =>{
 
 
     if(!values.name){
-       errors.name='请填写表单类型名称';
+       errors.name='请填写字段名称';
     }else if(values.name.length>20){
-       errors.name='表单类型名称不能超过20个字符';
+       errors.name='字段名称不能超过20个字符';
     }
 
     if(!values.label){
         errors.label='请填写字段显示名';
+    }else if(values.label.length>30){
+        errors.label='字段显示名不能超过30个字符';
     }
 
     if(!values.inputType){

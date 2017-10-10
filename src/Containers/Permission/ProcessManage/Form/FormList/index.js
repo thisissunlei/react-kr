@@ -161,7 +161,7 @@ export default class FormList extends Component{
 	//高级查询提交
 	onSearchUpperSubmit=(params)=>{
 		params = Object.assign({},params)
-		params.typeId=this.props.id;
+		params.typeId=this.props.data.id;
 		params.pageSize=15;
 		params.page=1;
 		var search={
@@ -314,7 +314,7 @@ export default class FormList extends Component{
 		let {purposeType,typeList,basicInfo,textInfo,isCreate}=this.state;
 
 		return(
-      	<div className="basic-post-list">
+      	<div className="basic-type-list">
 	        <Row style={{marginBottom:21,marginTop:22}}>
 			    <Col
 					style={{float:'left'}}
@@ -380,11 +380,11 @@ export default class FormList extends Component{
 						<TableRowColumn name="enabledStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="updatorName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="uTime" component={(value,oldValue)=>{
-										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+										return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
 						}}></TableRowColumn>
 						<TableRowColumn name="createdStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="cTTime" component={(value,oldValue)=>{
-										return (<KrDate value={value} format="yyyy-mm-dd"/>)
+										return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
 						}}  style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn type="operation" component={(value,oldValue,detail)=>{
 							return <div>

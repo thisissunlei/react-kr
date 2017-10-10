@@ -69,11 +69,7 @@ export default class Text  extends React.Component{
 
             Store.dispatch(change('EditText','itemListStr',null));
             Store.dispatch(change('AddText','itemListStr',null));
-            // this.setState({
-            //   models:this.sourceRender(sourceOrgin),
-            // })
         }else if(param=="CUSTOM"){
-             console.log("commonPublic=========")
             if(this.props.twoData&&(this.props.twoData!=this.oldEdit.inputType)){
                 
                 Store.dispatch(change('EditText','itemListStr',[]));
@@ -124,23 +120,62 @@ export default class Text  extends React.Component{
         if(isCommon!=0){
             return;
         }
+
        
         this.commonPublic(getEdit.sourceType,getEdit.sourceOrgin,'mount',getEdit);        
        
     }
 
     componentWillReceiveProps(nextProps){
-
-        
-      
         this.oldEdit=nextProps.getEdit;
+        if(nextProps.isCommon!=this.props.isCommon){
+           
+
+           Store.dispatch(change('EditText','sourceType',''));
+           if(nextProps.label!=nextProps.getEdit.compType){
+
+                let wsObject=[
+                    'wstext',
+                    'wsheight',
+                    'wsfloat',
+                    'wsradio',
+                    'wsfile',
+                    'wspicWidth',
+                    'wspicHeight'
+                ];
+               
+                wsObject.map((item,index)=>{          
+                  Store.dispatch(change('EditText',item,'')); 
+                })
+           }else{
+             if(nextProps.getEdit.setting){
+               
+                Store.dispatch(change('EditText','itemListStr',null));
+                var setting=JSON.parse(nextProps.getEdit.setting);
+               
+                setting.map((item,index)=>{
+                   for(var index in item){
+                    Store.dispatch(change('EditText',index,item[index])); 
+                   }
+                })
+              }
+           }
+           
+           this.setState({
+              models:null,
+              changeData:nextProps.label
+           }) 
+        }
+
+        if(this.isCommon||nextProps.isCommon!=0){
+            return;
+        }
 
         //  if(nextProps.isCommon!=0){
         //     return;
         // }
       
-       
-        // this.commonPublic(nextProps.getEdit.sourceType,nextProps.getEdit.sourceOrgin,'props',nextProps.getEdit);    
+
       
     }
 
