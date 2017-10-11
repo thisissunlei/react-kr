@@ -50,7 +50,7 @@ class EditList extends React.Component {
 	}
 
 	onCancel=()=>{
-		State.openAgreementList = false;
+		State.openEdit = false;
 	}
 	onSubmit=(form)=>{
 		let {onSubmit}=this.props;

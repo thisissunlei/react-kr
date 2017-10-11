@@ -63,6 +63,9 @@ class AgreementTrim extends React.Component {
 		State.openAgreementList = true;
 		console.log('=========>')
 	}
+	detailOpenEdit=()=>{
+		State.openEdit = false;
+	}
 	
 
 
@@ -158,7 +161,7 @@ class AgreementTrim extends React.Component {
 		        <Drawer
 				    open={State.openEdit}
 				    width={750}
-				    onClose={this.detailOpenAgreement}
+				    onClose={this.detailOpenEdit}
 				    openSecondary={true}
 				    containerStyle={{top:60,paddingBottom:48,zIndex:8}}
 			    >
