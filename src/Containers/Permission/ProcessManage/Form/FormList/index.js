@@ -379,11 +379,11 @@ export default class FormList extends Component{
 						<TableRowColumn name="purposeStr" style={{wordWrap:'break-word',whiteSpace:'normal',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="enabledStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="updatorName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="uTime" component={(value,oldValue)=>{
+						<TableRowColumn name="uTime" style={{wordWrap:'break-word',whiteSpace:'normal'}} component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
 						}}></TableRowColumn>
 						<TableRowColumn name="createdStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="cTTime" component={(value,oldValue)=>{
+						<TableRowColumn name="cTTime" style={{wordWrap:'break-word',whiteSpace:'normal'}} component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
 						}}  style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn type="operation" component={(value,oldValue,detail)=>{
