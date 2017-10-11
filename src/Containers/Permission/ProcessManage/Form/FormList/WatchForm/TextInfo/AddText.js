@@ -194,7 +194,7 @@ class AddText  extends React.Component{
 
 const validate = values =>{
     const errors = {};
-
+    let dataRg=/^[1-9]*[1-9][0-9]*$/;
 
     if(!values.name){
        errors.name='请填写字段名称';
@@ -222,6 +222,8 @@ const validate = values =>{
                 errors.wstext='请填写文本长度';      
             }else if(values.wstext&&isNaN(values.wstext)){
                 errors.wstext='文本长度是数字';    
+            }else if(values.wstext&&(values.wstext.length>3||!dataRg.test(values.wstext))){
+                errors.wstext='请填写三位以下正整数';
             }
         }else{
             if(!values.wsfloat){
@@ -233,8 +235,8 @@ const validate = values =>{
     if(values.inputType=='TEXT_AREA'){
         if(values.wsheight&&isNaN(values.wsheight)){
             errors.wsheight='请选择数字格式';
-        }else if(values.wsheight&&values.wsheight>=100){
-            errors.wsheight='请填写三位以下数字';
+        }else if(values.wsheight&&(values.wsheight.length>3||!dataRg.test(values.wsheight))){
+            errors.wsheight='请填写三位以下正整数';
         }
     }
 
@@ -265,7 +267,10 @@ const validate = values =>{
             errors.wsfile='请填写文件大小';
         }else if(values.wsfile&&isNaN(values.wsfile)){
             errors.wsfile='文件大小为数字'; 
+        }else if(values.wsfile&&(values.wsfile.length>3||!dataRg.test(values.wsfile))){
+            errors.wsfile='请填写三位以下正整数';
         }
+
         if(!values.wsenabled){
             errors.wsenabled='请选择是否多文件上传';
         }
@@ -274,15 +279,24 @@ const validate = values =>{
     if(values.compType=='FILE_PHOTO'){
         if(values.wspicWidth&&isNaN(values.wspicWidth)){
             errors.wspicWidth='图片宽度为数字'; 
+        }else if(values.wspicWidth&&(values.wspicWidth.length>3||!dataRg.test(values.wspicWidth))){
+            errors.wspicWidth='请填写三位以下正整数';
         }
+
         if(values.wspicHeight&&isNaN(values.wspicHeight)){
             errors.wspicHeight='图片高度为数字'; 
+        }else if(values.wspicHeight&&(values.wspicHeight.length>3||!dataRg.test(values.wspicHeight))){
+            errors.wspicHeight='请填写三位以下正整数';
         }
+
         if(!values.wspicFile){
             errors.wspicFile='请填写文件大小';
         }else if(values.wspicFile&&isNaN(values.wspicFile)){
             errors.wspicFile='文件大小为数字'; 
+        }else if(values.wspicFile&&(values.wspicFile.length>3||!dataRg.test(values.wspicFile))){
+            errors.wspicFile='请填写三位以下正整数';
         }
+
         if(!values.wsPicEnabled){
             errors.wsPicEnabled='请选择是否多文件上传';
         }

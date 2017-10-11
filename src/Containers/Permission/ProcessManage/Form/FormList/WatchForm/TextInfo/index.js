@@ -60,7 +60,7 @@ class TextInfo  extends React.Component{
 			//主表明细表id
 			detailId:'',
 
-			//编辑字段id
+			//编辑字段一行信息
 			editId:'',
 			//编辑表单字段回血信息
 		    getEdit:{},
@@ -297,16 +297,17 @@ class TextInfo  extends React.Component{
  editText=(item,detailId)=>{
     this.setState({
 		 openEditText:!this.state.openEditText,
-		 editId:item.id||'',
+		 editId:item,
 		 detailId:detailId,
 	 })
-	 let {isCreate}=this.props;
      var _this=this;
 	 Http.request('get-field-edit',{id:item.id}).then(function(response) {
-		if(isCreate){
+		if(item.created){
 			Store.dispatch(initialize('EditCreate',response));	 
 		 }else{
 			_this.props.TextDicModel.oldDetail=response;
+			_this.props.TextDicModel.inputType=response.inputType;
+			_this.props.TextDicModel.comType=response.compType;
 			Store.dispatch(initialize('EditText',response));
 			if(response.setting){
                 var setting=JSON.parse(response.setting);
@@ -328,9 +329,9 @@ class TextInfo  extends React.Component{
 
  onEditTextSub=(data)=>{
 	let {editId,detailId}=this.state;
-	let {basicInfo,isCreate}=this.props;
+	let {basicInfo}=this.props;
 	var params = Object.assign({},data);
-	params.id=editId;
+	params.id=editId.id?editId.id:'';
 	params.detailId=detailId;
 	params.formId=basicInfo.id||'';
 	
@@ -342,7 +343,7 @@ class TextInfo  extends React.Component{
 
 		}
 	}
-    if(isCreate){
+    if(editId.created){
 		
 		 	Http.request('create-field-edit',{},params).then(function(response) {
 		 		 _this.cancelEditText();
@@ -421,8 +422,8 @@ getCheckedData = (arr) =>{
 
 	render(){
 
-		let {handleSubmit,textInfo,isCreate,basicInfo}=this.props;
-		let {detailInfo,mainInfo,getEdit}=this.state;
+		let {handleSubmit,textInfo,basicInfo}=this.props;
+		let {detailInfo,mainInfo,getEdit,editId}=this.state;
 
 	
 
@@ -461,7 +462,7 @@ getCheckedData = (arr) =>{
 								name = {`fields${index}`}
 								isFold = {false}
 								toolbar={true}
-								batchDel={true}
+								batchDel={item.created?false:true}
 								checkbox={true}
 								batchdelete={this.batchdelete}
 								initFoldNum={100}
@@ -503,7 +504,7 @@ getCheckedData = (arr) =>{
 									name = {`detailFields${index}`}
 									isFold = {false}
 									toolbar={true}
-									batchDel={isCreate?false:true}
+									batchDel={item.created?false:true}
 									checkbox={true}
 									batchdelete={this.batchdelete}
 									moveClick={this.moveClick}
@@ -511,8 +512,8 @@ getCheckedData = (arr) =>{
 								>
 									<Toolbars>
 										<Toolbar label='编辑' rightSpac='14px' iconClass='edit-form' iconClick={this.openEditDetail.bind(this,item.id)} />
-										{!isCreate&&<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />}
-										{isCreate&&<div className='not-del-form'>  
+										{!item.created&&<Toolbar label='删除明细表' rightSpac='14px' iconClass='del-form' iconClick={this.deleForm.bind(this,item.id)} />}
+										{item.created&&<div className='not-del-form'>  
 													<IconTip iconClass='del-tip' label='删除明细表' className='up-tip'>
 												       <div style={{textAlign:'left'}}>亲，该明细表已经创建过表！</div>
 											        </IconTip>
@@ -556,7 +557,7 @@ getCheckedData = (arr) =>{
 								 <EditDetail
 										 onCancel={this.openEditDetail}
 										 onSubmit={this.onEditSubmit}
-										 isCreate={isCreate}
+										 isCreate={editId.created}
 										 basicInfo={basicInfo}
 								 />
 						 </Dialog>
@@ -589,7 +590,7 @@ getCheckedData = (arr) =>{
 			      </Drawer>
 
 						{/*编辑字段*/}
-						{!isCreate&&<Drawer
+						{!editId.created&&<Drawer
 								open={this.state.openEditText}
 								width={750}
 								openSecondary={true}
@@ -604,7 +605,7 @@ getCheckedData = (arr) =>{
 			      </Drawer>}
 
 						{/*编辑字段*/}
-						{isCreate&&<Dialog
+						{editId.created&&<Dialog
 						title="编辑字段－已创建表"
 						onClose={this.cancelEditText}
 						open={this.state.openEditText}

@@ -29,20 +29,21 @@ export default class Text  extends React.Component{
             other:''
         }
         this.models=null;
+        this.clearText={
+            sourceOrgin:'',
+            itemListStr:[]
+        }
     }
     
 
     
     componentDidMount(){
-        let {TextDicModel}=this.props;
-        console.log('TextDicModel',TextDicModel);
-        let clearText={
-            
-        }
+        let {TextDicModel}=this.props;     
         if(toJS(TextDicModel.oldDetail).sourceType&&(toJS(TextDicModel.oldDetail).inputType=='SELECT'||toJS(TextDicModel.oldDetail).inputType=='CHECK')){
           this.commonPublic(toJS(TextDicModel.oldDetail).sourceType);        
         }
     }
+
 
     clearModel=()=>{
         this.models=null;	  
@@ -82,10 +83,26 @@ export default class Text  extends React.Component{
     }
 
     sourceChange=(param)=>{
-
+        let {TextDicModel}=this.props;   
+        TextDicModel.itemStr=0;
         this.commonPublic(param.value);
-
+        if(toJS(TextDicModel.oldDetail).inputType!=toJS(TextDicModel.inputType)||toJS(TextDicModel.oldDetail).compType!=toJS(TextDicModel.comType)||toJS(TextDicModel.oldDetail).sourceType!=param.value){
+            for(var item in this.clearText){
+                Store.dispatch(change('EditText',item,this.clearText[item])); 
+            }
+        }else{
+            var params=toJS(TextDicModel.oldDetail);
+            for(var item in this.clearText){
+                if(params.items){
+                    Store.dispatch(change('EditText','itemListStr',params.items)); 
+                }
+                if(params.sourceOrgin){
+                    Store.dispatch(change('EditText','sourceOrgin',params.sourceOrgin));
+                } 
+            }
+        }
 	}
+    
 
     sourceRender=(publicValue)=>{
             return <KrField grid={1/2}
@@ -309,8 +326,10 @@ export default class Text  extends React.Component{
 
 
 	render(){
-                let {label}=this.props;
-
+                let {label,TextDicModel}=this.props;
+                if(TextDicModel.itemStr==1){
+                    this.models=null;
+                }
 
 				return(
 					<div style={{display:'inline-block'}}>

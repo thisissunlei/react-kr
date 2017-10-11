@@ -447,7 +447,6 @@ export default class FormList extends Component{
          allClose={this.watchTable}
 				 basicInfo={basicInfo}
 				 textInfo={textInfo}
-				 isCreate={isCreate}
        />
      </Drawer>
 

@@ -205,101 +205,114 @@ class EditText  extends React.Component{
 
 const validate = values =>{
     const errors = {};
-
+    let dataRg=/^[1-9]*[1-9][0-9]*$/;
 
     if(!values.name){
-        errors.name='请填写字段名称';
-     }else if(values.name.length>20){
-        errors.name='字段名称不能超过20个字符';
-     }
- 
-     if(!values.label){
-         errors.label='请填写字段显示名';
-     }else if(values.label.length>30){
-         errors.label='字段显示名不能超过30个字符';
-     }
- 
-     if(!values.inputType){
-         errors.inputType='请填写表现形式';
-     }
- 
-     if(!values.compType){
-         errors.compType='请填写类型';
-     }
- 
-     if(values.inputType=='TEXT'){
-         if(values.compType=='TEXT_TEXT'||values.compType=='TEXT_INTEGER'){
-             if(!values.wstext){
-                 errors.wstext='请填写文本长度';      
-             }else if(values.wstext&&isNaN(values.wstext)){
-                 errors.wstext='文本长度是数字';    
-             }
-         }else{
-             if(!values.wsfloat){
-                 errors.wsfloat='请选择小数位数';        
-             }    
-         }
-     }
- 
-     if(values.inputType=='TEXT_AREA'){
-         if(values.wsheight&&isNaN(values.wsheight)){
-             errors.wsheight='请选择数字格式';
-         }else if(values.wsheight&&values.wsheight>=100){
-             errors.wsheight='请填写三位以下数字';
-         }
-     }
- 
-     if(values.inputType=='BUTTON'){
-         if(!values.wsradio){
-             errors.wsradio='请选择按钮类型';
-         }
-         if(!values.wsbtnEnabled){
-             errors.wsbtnEnabled='请填写是否多选';
-         }
-     }
-     
-     if(values.inputType=='SELECT'||values.inputType=='CHECK'){
-         if(!values.sourceType){
-             errors.sourceType='请选择来源类型';
-         }
-         if(values.sourceType&&values.sourceType=='PUBLIC_DICT'){
-             if(!values.sourceOrgin){
-                 errors.sourceOrgin='请选择数据来源';
-             }
-         }
-     }
-     
-    
-     if(values.compType=='FILE_FILE'){
-       
-         if(!values.wsfile){
-             errors.wsfile='请填写文件大小';
-         }else if(values.wsfile&&isNaN(values.wsfile)){
-             errors.wsfile='文件大小为数字'; 
-         }
-         if(!values.wsenabled){
-             errors.wsenabled='请选择是否多文件上传';
-         }
-     }
- 
-     if(values.compType=='FILE_PHOTO'){
-         if(values.wspicWidth&&isNaN(values.wspicWidth)){
-             errors.wspicWidth='图片宽度为数字'; 
-         }
-         if(values.wspicHeight&&isNaN(values.wspicHeight)){
-             errors.wspicHeight='图片高度为数字'; 
-         }
-         if(!values.wspicFile){
-             errors.wspicFile='请填写文件大小';
-         }else if(values.wspicFile&&isNaN(values.wspicFile)){
-             errors.wspicFile='文件大小为数字'; 
-         }
-         if(!values.wsPicEnabled){
-             errors.wsPicEnabled='请选择是否多文件上传';
-         }
-     }
-   
+       errors.name='请填写字段名称';
+    }else if(values.name.length>20){
+       errors.name='字段名称不能超过20个字符';
+    }
 
+    if(!values.label){
+        errors.label='请填写字段显示名';
+    }else if(values.label.length>30){
+        errors.label='字段显示名不能超过30个字符';
+    }
+
+    if(!values.inputType){
+        errors.inputType='请填写表现形式';
+    }
+
+    if(!values.compType){
+        errors.compType='请填写类型';
+    }
+
+    if(values.inputType=='TEXT'){
+        if(values.compType=='TEXT_TEXT'||values.compType=='TEXT_INTEGER'){
+            if(!values.wstext){
+                errors.wstext='请填写文本长度';      
+            }else if(values.wstext&&isNaN(values.wstext)){
+                errors.wstext='文本长度是数字';    
+            }else if(values.wstext&&(values.wstext.length>3||!dataRg.test(values.wstext))){
+                errors.wstext='请填写三位以下正整数';
+            }
+        }else{
+            if(!values.wsfloat){
+                errors.wsfloat='请选择小数位数';        
+            }    
+        }
+    }
+
+    if(values.inputType=='TEXT_AREA'){
+        if(values.wsheight&&isNaN(values.wsheight)){
+            errors.wsheight='请选择数字格式';
+        }else if(values.wsheight&&(values.wsheight.length>3||!dataRg.test(values.wsheight))){
+            errors.wsheight='请填写三位以下正整数';
+        }
+    }
+
+    if(values.inputType=='BUTTON'){
+        if(!values.wsradio){
+            errors.wsradio='请选择按钮类型';
+        }
+        if(!values.wsbtnEnabled){
+            errors.wsbtnEnabled='请填写是否多选';
+        }
+    }
+    
+    if(values.inputType=='SELECT'||values.inputType=='CHECK'){
+        if(!values.sourceType){
+            errors.sourceType='请选择来源类型';
+        }
+        if(values.sourceType&&values.sourceType=='PUBLIC_DICT'){
+            if(!values.sourceOrgin){
+                errors.sourceOrgin='请选择数据来源';
+            }
+        }
+    }
+    
+   
+    if(values.compType=='FILE_FILE'){
+      
+        if(!values.wsfile){
+            errors.wsfile='请填写文件大小';
+        }else if(values.wsfile&&isNaN(values.wsfile)){
+            errors.wsfile='文件大小为数字'; 
+        }else if(values.wsfile&&(values.wsfile.length>3||!dataRg.test(values.wsfile))){
+            errors.wsfile='请填写三位以下正整数';
+        }
+
+        if(!values.wsenabled){
+            errors.wsenabled='请选择是否多文件上传';
+        }
+    }
+
+    if(values.compType=='FILE_PHOTO'){
+        if(values.wspicWidth&&isNaN(values.wspicWidth)){
+            errors.wspicWidth='图片宽度为数字'; 
+        }else if(values.wspicWidth&&(values.wspicWidth.length>3||!dataRg.test(values.wspicWidth))){
+            errors.wspicWidth='请填写三位以下正整数';
+        }
+
+        if(values.wspicHeight&&isNaN(values.wspicHeight)){
+            errors.wspicHeight='图片高度为数字'; 
+        }else if(values.wspicHeight&&(values.wspicHeight.length>3||!dataRg.test(values.wspicHeight))){
+            errors.wspicHeight='请填写三位以下正整数';
+        }
+
+        if(!values.wspicFile){
+            errors.wspicFile='请填写文件大小';
+        }else if(values.wspicFile&&isNaN(values.wspicFile)){
+            errors.wspicFile='文件大小为数字'; 
+        }else if(values.wspicFile&&(values.wspicFile.length>3||!dataRg.test(values.wspicFile))){
+            errors.wspicFile='请填写三位以下正整数';
+        }
+
+        if(!values.wsPicEnabled){
+            errors.wsPicEnabled='请选择是否多文件上传';
+        }
+    }
+  
 
 	return errors
 }
