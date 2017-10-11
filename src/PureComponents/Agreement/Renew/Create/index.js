@@ -293,7 +293,6 @@ export default class JoinCreate extends Component {
 		return (
 
 			<div>
-					<Title value="创建续租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','创建续租协议书']}/>
 			{CommunityAgreementList.openLocalStorage && <div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValues}/>

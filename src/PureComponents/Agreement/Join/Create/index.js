@@ -314,7 +314,6 @@ export default class JoinCreate extends Component {
 
 			<div>
 
-				<Title value="创建入驻协议书_财务管理"/>
 			{CommunityAgreementList.openLocalStorage && <div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValues}/>
 			</div>}
