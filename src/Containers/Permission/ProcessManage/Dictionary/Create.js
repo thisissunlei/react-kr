@@ -60,7 +60,7 @@ class NewCreateForm extends React.Component{
 		let valueNone = false;
 		let orderNumNone = false;
 		let tableNone = false;
-
+		let orderNumMessage = '';
 		if(!value.itemListStr || !value.itemListStr.length){
 			Notify.show([{
 				message: '请添加字典项',
@@ -100,16 +100,22 @@ class NewCreateForm extends React.Component{
 			}
 		})
 		let orderNumArray = value.itemListStr.map((item)=>{
-			if(item.orderNum){
-				return item.orderNum
-			}else{
+			var reg = /^[1-9]\d*|0$/;
+			 if(item.orderNum!=0 && !item.orderNum){
+				orderNumNone = true;
+				orderNumMessage = '请填写排序号';
+				return false;
+			} else if(!reg.test(item.orderNum) && item.orderNum!=''){
+				orderNumMessage = "排序号为非负整数";
 				orderNumNone = true;
 				return false;
+			}else {
+				return item.orderNum+''
 			}
 		})
 		if(orderNumNone){
 			Notify.show([{
-				message: '请填写排序号',
+				message: orderNumMessage,
 				type: 'danger',
 			}]);
 			return;

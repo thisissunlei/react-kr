@@ -96,13 +96,13 @@ class EditForm extends React.Component{
 			}
 		})
 		let orderNumArray = value.itemListStr.map((item)=>{
-			var reg = /^[1-9]\d*$/;
+			var reg = /^[1-9]\d*|0$/;
 			 if(item.orderNum!=0 && !item.orderNum){
 				orderNumNone = true;
 				orderNumMessage = '请填写排序号';
 				return false;
 			} else if(!reg.test(item.orderNum) && item.orderNum!=''){
-				orderNumMessage = "排序号为正整数";
+				orderNumMessage = "排序号为非负整数";
 				orderNumNone = true;
 				return false;
 			}else {
