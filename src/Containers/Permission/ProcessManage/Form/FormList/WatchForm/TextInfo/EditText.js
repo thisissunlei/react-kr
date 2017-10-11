@@ -123,7 +123,7 @@ class EditText  extends React.Component{
                 }else{
                     if(!orderNumReg.test(item.orderNum)){
                         Notify.show([{
-                            message: '排序号必须为数值且最大为3位数',
+                            message: '排序号必须为数值且最大为2位数',
                             type: 'danger',
                         }]);
                         return;
