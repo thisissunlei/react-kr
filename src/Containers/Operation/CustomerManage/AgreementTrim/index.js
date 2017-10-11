@@ -39,6 +39,7 @@ import {
 } from 'kr-ui';
 import './index.less'
 import AgreementList from './AgreementList';
+import Edit from './Edit';
 import State from './State';
 
 @observer
@@ -161,7 +162,7 @@ class AgreementTrim extends React.Component {
 				    openSecondary={true}
 				    containerStyle={{top:60,paddingBottom:48,zIndex:8}}
 			    >
-                    <AgreementList />
+                    <Edit />
 
 		        </Drawer>
 
