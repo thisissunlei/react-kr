@@ -51,11 +51,13 @@ class EditText  extends React.Component{
         console.log('frrrr',values);
          
         let itemListStr = [];
-        if(values.inputType!='SELECT'||values.inputType!='CHECK'){
+        if(values.inputType!='SELECT'&&values.inputType!='CHECK'){
             itemListStr=null;
         }else{
-            if(values.itemListStr){
+            if(values.itemListStr&&values.sourceType=='CUSTOM'){
                 itemListStr= [].concat(values.itemListStr);
+            }else{
+                itemListStr=null;
             }
         }
 
@@ -67,7 +69,7 @@ class EditText  extends React.Component{
             orderNum = true,
             isDefault = true;
 
-
+        
        if(itemListStr && !itemListStr.length){
             Notify.show([{
 				message: '请添加自定义',
@@ -78,9 +80,8 @@ class EditText  extends React.Component{
        
        if(itemListStr != null){
 
-     
             for(let i = 0; i<itemListStr.length;i++){
-                let item = itemListStr[i];
+                let item = itemListStr[i];        
                 if(!item.label){
                     Notify.show([{
                         message: '请添选项文字',
@@ -234,7 +235,7 @@ const validate = values =>{
             }else if(values.wstext&&isNaN(values.wstext)){
                 errors.wstext='文本长度是数字';    
             }else if(values.wstext&&(values.wstext.length>3||!dataRg.test(values.wstext))){
-                errors.wstext='请填写三位以下正整数';
+                errors.wstext='请填写三位以下不能以0开头的正整数';
             }
         }else{
             if(!values.wsfloat){
@@ -247,7 +248,7 @@ const validate = values =>{
         if(values.wsheight&&isNaN(values.wsheight)){
             errors.wsheight='请选择数字格式';
         }else if(values.wsheight&&(values.wsheight.length>3||!dataRg.test(values.wsheight))){
-            errors.wsheight='请填写三位以下正整数';
+            errors.wsheight='请填写三位以下不能以0开头的正整数';
         }
     }
 
@@ -279,7 +280,7 @@ const validate = values =>{
         }else if(values.wsfile&&isNaN(values.wsfile)){
             errors.wsfile='文件大小为数字'; 
         }else if(values.wsfile&&(values.wsfile.length>3||!dataRg.test(values.wsfile))){
-            errors.wsfile='请填写三位以下正整数';
+            errors.wsfile='请填写三位以下不能以0开头的正整数';
         }
 
         if(!values.wsenabled){
@@ -291,13 +292,13 @@ const validate = values =>{
         if(values.wspicWidth&&isNaN(values.wspicWidth)){
             errors.wspicWidth='图片宽度为数字'; 
         }else if(values.wspicWidth&&(values.wspicWidth.length>3||!dataRg.test(values.wspicWidth))){
-            errors.wspicWidth='请填写三位以下正整数';
+            errors.wspicWidth='请填写三位以下不能以0开头的正整数';
         }
 
         if(values.wspicHeight&&isNaN(values.wspicHeight)){
             errors.wspicHeight='图片高度为数字'; 
         }else if(values.wspicHeight&&(values.wspicHeight.length>3||!dataRg.test(values.wspicHeight))){
-            errors.wspicHeight='请填写三位以下正整数';
+            errors.wspicHeight='请填写三位以下不能以0开头的正整数';
         }
 
         if(!values.wspicFile){
@@ -305,7 +306,7 @@ const validate = values =>{
         }else if(values.wspicFile&&isNaN(values.wspicFile)){
             errors.wspicFile='文件大小为数字'; 
         }else if(values.wspicFile&&(values.wspicFile.length>3||!dataRg.test(values.wspicFile))){
-            errors.wspicFile='请填写三位以下正整数';
+            errors.wspicFile='请填写三位以下不能以0开头的正整数';
         }
 
         if(!values.wsPicEnabled){
