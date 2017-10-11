@@ -109,12 +109,51 @@ class EditDetail extends React.Component {
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}} className="card-setting-edit-form">
-				<KrField  right={27}  left={42} right={42} name="foreignCode" component="labelText" label="会员卡号" value={this.state.detail.foreignCode} inline={false} />
+				<KrField 
+					style={{width:290}}
+					name="outerCode" 
+					component="labelText" 
+					label="会员卡号 : " 
+					value={this.state.detail.outerCode} 
+					inline={true} 
+				/>
+				<span className="edit-card-community-box">
+				<KrField 
+					name="communityId"
+					component="searchCommunityAll"
+					label="社区名称: "
+					style={{width:290}}
+					onChange = {this.onChangeCommunity}
+					inline={true} 
+					requireLabel={true}
+				/>
+				</span>
 				<div className="clearInterCode">
-					<KrField  right={27}  left={42} right={42} style={{marginTop:5}} name="interCode" component="input" type="text" label="会员卡内码" onFocus={this.InterCodeFocus} onChange={this.cardChange} />
+					<KrField  
+						requireLabel={true}
+						right={42} 
+						style={{width:640,marginTop:5}} 
+						name="innerCode" 
+						component="input" 
+						type="text" 
+						label="会员卡内码" 
+						onFocus={this.InterCodeFocus} 
+						onChange={this.cardChange} 
+					/>
 					<div className="x" style={this.state.clearInterCodeStyle} onClick={this.clearInterCode}></div>
 				</div>
-				<Grid style={{marginTop:19,marginBottom:5}}>
+				
+				<span className="edit-card-memo">
+					<KrField
+						label="备注"
+						name ="memo"
+						component = 'textarea'
+						style={{width:600}}
+						maxSize={50}
+					/>
+				</span>
+
+				<Grid>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
@@ -130,26 +169,29 @@ class EditDetail extends React.Component {
 }
 
 const validate = values =>{
-	var foreignCode=values.foreignCode;
+	var outerCode=values.outerCode;
 	var reg=/^[0-9a-fA-F]{8}$/;
 	const errors = {}
 
-	if(!values.foreignCode){
-		errors.foreignCode = '请输入会员卡号';
+	if(!values.outerCode){
+		errors.outerCode = '请输入会员卡号';
 	}
-	if(foreignCode&&foreignCode.length!=10){
-		errors.foreignCode = '请输入10位会员卡号';
+	if(outerCode&&outerCode.length!=10){
+		errors.outerCode = '请输入10位会员卡号';
 	}
-	if (isNaN(+foreignCode) ) {
-		errors.foreignCode = '卡号由十位数字的卡号组成';
+	if (isNaN(+outerCode) ) {
+		errors.outerCode = '卡号由十位数字的卡号组成';
 
 	}
-	if(!values.interCode){
-		errors.interCode = '请输入会员卡内码';
+	if(!values.innerCode){
+		errors.innerCode = '请输入会员卡内码';
 
-	}else if (!reg.test(values.interCode)) {
+	}else if (!reg.test(values.innerCode)) {
 
-		errors.interCode = '内码为8位16进制数';
+		errors.innerCode = '内码为8位16进制数';
+	}
+	if(!values.communityId || values.communityId==0){
+		errors.communityId = '请选择社区';
 	}
 	return errors
 

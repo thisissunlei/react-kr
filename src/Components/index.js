@@ -67,6 +67,7 @@ import IconTip from './IconTip';
 import Toolbar from './Toolbar';
 import Toolbars from './Toolbars';
 import TextDic from './TextDic';
+import Dropdown from './Dropdown';
 
 import {
 	Grid,
@@ -177,5 +178,6 @@ module.exports = {
 	IconTip,
 	Toolbar,
 	Toolbars,
-	TextDic
+	TextDic,
+	Dropdown,
 }

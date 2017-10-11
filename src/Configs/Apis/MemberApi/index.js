@@ -41,39 +41,23 @@ module.exports = {
    },
    //会员卡批量入库
    'memberCardImport': {
-      url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
+      url: '/api/krspace-finance-web/member/card/actions/storage?startOuterCode={startOuterCode}&endOuterCode={endOuterCode}',
       method: 'put'
    },
-   //会员卡领用
-   'memberCardUse': {
-      url: '/api/krspace-finance-web/member/card/actions/receive',
-      method: 'post'
-   },
+   
    //会员卡删除
    'memberCardDelete': {
       url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
       method: 'delete'
    },
-   //会员卡查看
-   'memberCardView': {
-      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
-      method: 'get'
-   },
+   
    // 会员卡原领用人列表
    'memberRecvList':{
       url: '/api/krspace-finance-web/member/card/recv-list',
       method: 'get'
    },
-   //查询领用人的会员卡数
-   'memberCardNum':{
-      url: '/api/krspace-finance-web/member/card/actions/count-recvcard?receiveId={receiveId}',
-      method: 'get'
-   },
-   //会员卡转移
-   'transferMemberCard':{
-      url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
-      method: 'put'
-   },
+   
+  
    //会员中心-会员详细信息－个人资料
     'getMemberDetailData': {
         url: '/api/krspace-finance-web/member/member?id={id}',

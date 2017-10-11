@@ -8,7 +8,8 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
-	Message
+	Message,
+
 } from 'kr-ui';
 import './index.less';
 
@@ -147,10 +148,31 @@ import './index.less';
 		return (
 			<form className="HeavilyActivation" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="stageImg" ></div>
-				<KrField style={{marginTop:20}} left={71} right={71} name="startNum" component="input" type="text" label="起始号码" onChange={this.handleStartBlur} />
-				<KrField style={{marginTop:5}} left={71} right={71} name="endNum" component="input" type="text" label="终止号码" onChange={this.handleEndBlur} />
-				<KrField style={{height:36,marginTop:-5}} left={71} right={71} component="labelText" label="会员卡数量:" value={cardNum+"张"}/>
-				<Grid style={{marginTop:15,marginBottom:5}}>
+				<span className="community-span">
+					<span>
+						<KrField style={{marginTop:20,width:290}} inline={true} name="startNum" component="input" type="text" label="起始号码: " onChange={this.handleStartBlur} />
+						<KrField style={{marginTop:20,width:290,marginLeft:30}} inline={true} name="endNum" component="input" type="text" label="终止号码: " onChange={this.handleEndBlur} />
+					</span>
+					<span style={{display:"inline-block",marginTop:15}}>
+						<KrField 
+							name="communityId"
+							component="searchCommunityAll"
+							label="社区名称: "
+							style={{width:290}}
+							onChange = {this.onChangeCommunity}
+							inline={true}
+							requireLabel={true}
+						/>
+						<KrField style={{height:36,marginTop:-5,width:290,marginLeft:30}} inline={true} component="labelText" label="会员卡数量:" value={cardNum+"张"}/>
+					</span>
+				</span>
+				<KrField
+					label="备注"
+					name ="memo"
+					component = 'textarea'
+					style={{width:600}}
+				/>
+				<Grid style={{marginBottom:5}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
@@ -185,6 +207,9 @@ const validate = values =>{
 		}
 		if(values.endNum&&isNaN(+values.endNum)){
 			errors.endNum = '卡号由十位数字的卡号组成';
+		}
+		if(!values.communityId){
+			errors.communityId = '请选择社区';
 		}
 		return errors
 	}

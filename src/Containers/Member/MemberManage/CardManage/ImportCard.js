@@ -37,8 +37,8 @@ class ImportCard extends React.Component{
 	}
 	 onSubmit=(values)=>{
 	 	let params = {
-	 		startForeignCode:values.begin,
-	 		endForeignCode:values.end
+	 		startOuterCode:values.begin,
+	 		endOuterCode:values.end
 	 	};
 	 	const {onSubmit} = this.props;
 	 	Http.request('memberCardImport' , params).then(function(response) {
