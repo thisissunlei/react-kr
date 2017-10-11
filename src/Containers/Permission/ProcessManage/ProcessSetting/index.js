@@ -69,7 +69,7 @@ export default class ProcessSetting extends React.Component {
 
 	componentDidMount() {
 		const { NavModel } = this.props;
-		NavModel.setSidebar(false);
+		// NavModel.setSidebar(false);
 		var _this = this;
 		this.state.typeTree.map((item,index)=>{
             item.active=false;

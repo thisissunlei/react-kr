@@ -23,7 +23,7 @@ export default class SliderTree extends React.Component {
 
 		this.state = {
 			inputValue: '',
-			expandedKeys: ['0-36kr0'],
+			expandedKeys:props.expandedKeys || ['0-36kr0'],
 			treeData : props.treeData,
 		}
 
