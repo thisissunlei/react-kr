@@ -1265,9 +1265,9 @@ class NewCreateForm extends Component {
 			}]);
 			return;
 		}
-		if(beginTime>=validEnd){
+		if(beginTime>validEnd){
 			Notify.show([{
-				message: '选择的时间不得大于等于租赁结束时间',
+				message: '选择的时间不得大于租赁结束时间',
 				type: 'danger',
 			}]);
 			return;
