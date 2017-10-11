@@ -148,7 +148,7 @@ export default class ProcessSetting extends React.Component {
 			 						if(!itemData.uTime){
 			 							return (<div>-</div>)
 			 						}else{
-			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.uTime,'yyyy-mm-dd')}</span></div>)
+			 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.uTime,'yyyy-mm-dd HH:MM:ss')}</span></div>)
 			 						}
 			 					}}></TableRowColumn>
 			 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='uTime' component={(value,oldValue,itemData)=>{
