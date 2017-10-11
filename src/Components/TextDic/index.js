@@ -75,10 +75,14 @@ export default class TextDic extends React.Component{
         watchSecond:true,
         watchThree:false
       })
-      Store.dispatch(change('EditText','compType',''));
       Store.dispatch(change('AddText','compType',''));
       this.nextArrRender(param.value,this.componentType);
       TextDicModel.inputType=param.value;
+      if(toJS(TextDicModel.oldDetail).inputType=='TIME'&&toJS(TextDicModel.oldDetail).inputType==toJS(param.value)){
+        Store.dispatch(change('EditText','compType',toJS(TextDicModel.oldDetail).compType)); 
+      }else{
+        Store.dispatch(change('EditText','compType',''));
+      }
     }
 
 
@@ -116,9 +120,18 @@ export default class TextDic extends React.Component{
 
     giveWs=()=>{
         let {TextDicModel}=this.props;
+        var paraSetting={};
         var params=toJS(TextDicModel.oldDetail);
+        if(params.setting){
+            var setting=JSON.parse(params.setting);
+             setting.map((item,index)=>{
+                for(var index in item){ 
+                    paraSetting[index]=item[index];
+                }
+             })
+         }
         for(var item in this.clearText){
-            Store.dispatch(change('EditText',item,params[item]?params[item]:this.clearText[item])); 
+            Store.dispatch(change('EditText',item,paraSetting[item]?paraSetting[item]:this.clearText[item])); 
         }
     }
     
