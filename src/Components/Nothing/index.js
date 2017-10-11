@@ -13,12 +13,17 @@ export default class TableHeaderColumn extends React.Component {
 	
 
 	render() {
-        const {style,iconStyle} = this.props;
+        const {style,iconStyle,fontSize} = this.props;
+		let textStyle = {};
+		if(fontSize){
+			textStyle.fontSize = fontSize;
+		}
+		
 
 		return (
 			<div  className="ui-nothing" style = {style||{}}>
 				<img className="img-icon" src={imgSrc} style = {iconStyle||{}} alt=""/>
-				<p className="tip">暂时还没有数据呦~</p>
+				<p className="tip" style = {textStyle}>暂时还没有数据呦~</p>
 			</div>
 		);
 

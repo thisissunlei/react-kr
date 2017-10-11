@@ -234,7 +234,7 @@ export default class  TabelEdit extends React.Component {
 						</tbody>
 						
 					</table>
-					{!tabelLength && <Nothing/>}
+					{!tabelLength && <Nothing style={{textAlign:"center"}} iconStyle = {{height:150,marginLeft:-20}} fontSize="14px"/>}
 				</div>	
 			) 
 	}
