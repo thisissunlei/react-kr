@@ -60,8 +60,10 @@ class TextInfo  extends React.Component{
 			//主表明细表id
 			detailId:'',
 
-			//编辑字段一行信息
+			//编辑id
 			editId:'',
+			//编辑一行
+			editparam:{},
 			//编辑表单字段回血信息
 		    getEdit:{},
 
@@ -294,15 +296,16 @@ class TextInfo  extends React.Component{
  }
 
 //获取编辑字段信息
- editText=(item,detailId)=>{
+ editText=(item,detailId,items)=>{
     this.setState({
 		 openEditText:!this.state.openEditText,
-		 editId:item,
+		 editId:item.id,
+		 editparam:items,
 		 detailId:detailId,
 	 })
      var _this=this;
 	 Http.request('get-field-edit',{id:item.id}).then(function(response) {
-		if(item.created){
+		if(items.created){
 			Store.dispatch(initialize('EditCreate',response));	 
 		 }else{
 			_this.props.TextDicModel.oldDetail=response;
@@ -328,10 +331,10 @@ class TextInfo  extends React.Component{
  }
 
  onEditTextSub=(data)=>{
-	let {editId,detailId}=this.state;
+	let {editId,detailId,editparam}=this.state;
 	let {basicInfo}=this.props;
 	var params = Object.assign({},data);
-	params.id=editId.id?editId.id:'';
+	params.id=editId?editId:'';
 	params.detailId=detailId;
 	params.formId=basicInfo.id||'';
 	
@@ -343,7 +346,7 @@ class TextInfo  extends React.Component{
 
 		}
 	}
-    if(editId.created){
+    if(editparam.created){
 		
 		 	Http.request('create-field-edit',{},params).then(function(response) {
 		 		 _this.cancelEditText();
@@ -423,7 +426,7 @@ getCheckedData = (arr) =>{
 	render(){
 
 		let {handleSubmit,textInfo,basicInfo}=this.props;
-		let {detailInfo,mainInfo,getEdit,editId}=this.state;
+		let {detailInfo,mainInfo,getEdit,editparam}=this.state;
 
 	
 
@@ -478,7 +481,7 @@ getCheckedData = (arr) =>{
 									<FRow name = "inputTypeStr" label = "表现形式"/>
 									<FRow name = "compTypeStr" label = "字段类型"/>
 									<FRow label = "操作" type='operation' component={(items)=>{
-											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText.bind(this,items,item.id)}>编辑</div>
+											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText.bind(this,items,item.id,item)}>编辑</div>
 									}}/>
 						</FdTabel>
 					</div>
@@ -526,7 +529,7 @@ getCheckedData = (arr) =>{
 									<FRow name = "inputTypeStr" label = "表现形式"/>
 									<FRow name = "compTypeStr" label = "字段类型"/>
 									<FRow label = "操作" type='operation' component={(items)=>{
-											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText.bind(this,items,item.id)}>编辑</div>
+											return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editText.bind(this,items,item.id,item)}>编辑</div>
 									}}/>
 							</FdTabel>
 						</div>
@@ -557,7 +560,7 @@ getCheckedData = (arr) =>{
 								 <EditDetail
 										 onCancel={this.openEditDetail}
 										 onSubmit={this.onEditSubmit}
-										 isCreate={editId.created}
+										 isCreate={editparam.created}
 										 basicInfo={basicInfo}
 								 />
 						 </Dialog>
@@ -590,7 +593,7 @@ getCheckedData = (arr) =>{
 			      </Drawer>
 
 						{/*编辑字段*/}
-						{!editId.created&&<Drawer
+						{!editparam.created&&<Drawer
 								open={this.state.openEditText}
 								width={750}
 								openSecondary={true}
@@ -605,7 +608,7 @@ getCheckedData = (arr) =>{
 			      </Drawer>}
 
 						{/*编辑字段*/}
-						{editId.created&&<Dialog
+						{editparam.created&&<Dialog
 						title="编辑字段－已创建表"
 						onClose={this.cancelEditText}
 						open={this.state.openEditText}
