@@ -42,11 +42,13 @@ class AddText  extends React.Component{
         values = Object.assign({},values);
 
         let itemListStr = [];
-        if(values.inputType!='SELECT'||values.inputType!='CHECK'){
+        if(values.inputType!='SELECT'&&values.inputType!='CHECK'){
             itemListStr=null;
         }else{
-            if(values.itemListStr){
+            if(values.itemListStr&&values.sourceType=='CUSTOM'){
                 itemListStr= [].concat(values.itemListStr);
+            }else{
+                itemListStr=null;
             }
         }
 

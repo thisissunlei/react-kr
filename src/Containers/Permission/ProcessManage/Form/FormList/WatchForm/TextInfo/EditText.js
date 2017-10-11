@@ -51,11 +51,13 @@ class EditText  extends React.Component{
         console.log('frrrr',values);
          
         let itemListStr = [];
-        if(values.inputType!='SELECT'||values.inputType!='CHECK'){
+        if(values.inputType!='SELECT'&&values.inputType!='CHECK'){
             itemListStr=null;
         }else{
-            if(values.itemListStr){
+            if(values.itemListStr&&values.sourceType=='CUSTOM'){
                 itemListStr= [].concat(values.itemListStr);
+            }else{
+                itemListStr=null;
             }
         }
 
@@ -67,7 +69,7 @@ class EditText  extends React.Component{
             orderNum = true,
             isDefault = true;
 
-
+        
        if(itemListStr && !itemListStr.length){
             Notify.show([{
 				message: '请添加自定义',
@@ -78,9 +80,8 @@ class EditText  extends React.Component{
        
        if(itemListStr != null){
 
-     
             for(let i = 0; i<itemListStr.length;i++){
-                let item = itemListStr[i];
+                let item = itemListStr[i];        
                 if(!item.label){
                     Notify.show([{
                         message: '请添选项文字',
