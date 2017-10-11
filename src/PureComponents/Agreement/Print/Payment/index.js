@@ -35,7 +35,7 @@ export default class Payment extends Component {
 			return;
 		}
 		let youhui = 0;
-		let top = baseInfo.hasTactics?tableTop.offsetTop:tableTop.offsetTop+172;
+		let top = baseInfo.hasTactics?tableTop.offsetTop+172:tableTop.offsetTop;
 		let height = top+tableTop.clientHeight +45;
 		let tableBottomHeight = top+tableTop.clientHeight - 35;
 		//分期下面内容换页
