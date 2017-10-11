@@ -48,7 +48,7 @@ class ImportCard extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{padding:25}} className="see-detail-form">
 				
 				<KrField name="active"  grid={1/2} component="labelText" label="是否激活：" value={detail.active?"已激活":"未激活"}/>
-				<KrField name="memberName"  grid={1/2} component="labelText" label="持卡人：" value={detail.memberName}/>
+				<KrField name="memberName"  grid={1/2} component="labelText" label="持卡人：" value={detail.holderName}/>
 				
 
 				<KrField name="communityName"  grid={1/2} component="labelText" label="社区名称：" value={detail.communityName}/>
