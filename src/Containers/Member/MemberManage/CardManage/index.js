@@ -408,6 +408,18 @@ export default class List extends React.Component {
     }
 
 
+    componentWillUnmount(){
+    	State.realPage=1;
+    	State.cardManageSearchParams = {
+			page:1,
+			pageSize: 15,
+			type:'',
+			value:'',
+			date: new Date()
+		}
+    }
+
+
 	render(){
 		
 		return(
