@@ -444,7 +444,7 @@ export default class AllTypes extends React.Component {
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
                                     <TableRowColumn name="updatorName"></TableRowColumn>
-                                    <TableRowColumn type="uTime" name="operatorTime" component={(value) => {
+                                    <TableRowColumn name="uTime" component={(value) => {
                                         return (
                                             <KrDate value={value} format="yyyy-mm-dd HH:MM:ss" />
                                         )
