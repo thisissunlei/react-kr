@@ -40,7 +40,6 @@ export default class SwperList extends Component{
 			isOpenAdd:false,
 			isOpenEdit:false,
 			isDelete:false,
-
 			//删除的id
 			nowId:'',
 			detail:[],
@@ -64,17 +63,21 @@ export default class SwperList extends Component{
 	   })
    }
    //编辑开关
-   switchOpenEdit = () =>{
+   switchOpenEdit = (value) =>{
 	   var {isOpenEdit} = this.state;
 	   this.setState({
-		  isOpenEdit: !isOpenEdit
+		  isOpenEdit: !isOpenEdit,
+          detail:value,
 	   })
    }
+   
    //删除开关
-   switchOpenDelete = () =>{
+   switchOpenDelete = (value) =>{
+	   
 	   var {isDelete} = this.state;
 	   this.setState({
-		  isDelete: !isDelete
+		  isDelete: !isDelete,
+		  detail:value
 	   })
    }
 
@@ -87,20 +90,7 @@ export default class SwperList extends Component{
 		 searchParams:Object.assign({},this.state.searchParams,searchParams)
 	  })
    }
-   getDetail = (id) =>{
-	   var _this = this;
-	   Http.request("home-swper-detail",{id:id}).then(function (response) {
-		   	response.enable=''+response.enable;
-			Store.dispatch(initialize('EditPic',response));
-			_this.setState({
-				photoUrl:response.photoUrl
-			})
-			
-		}).catch(function (err) {
-			Message.error(err.message);
-		});
 
-   }
    allClose = () =>{
 	   this.setState({
 		    isOpenAdd:false,
@@ -110,10 +100,8 @@ export default class SwperList extends Component{
    }
    addSubmit = (data) =>{
 	   	var _this = this;
-	   	const {nowId} = this.state;
 		var params = Object.assign({},data)
-		params.id = nowId;
-		Http.request("home-swper-add",{},params).then(function (response) {
+		Http.request("web-pclist-listadd-editor",{},params).then(function (response) {
 			Message.success("新建成功");
 			_this.switchOpenAdd()
 			_this.refresh();
@@ -126,7 +114,9 @@ export default class SwperList extends Component{
 		var _this = this;
 		var params = Object.assign({},data)
 		params.id = nowId;
-		Http.request("home-swper-edit",{},params).then(function (response) {
+	
+		
+		Http.request("web-pclist-listadd-editor",{},data).then(function (response) {
 			Message.success("编辑成功");
 			_this.switchOpenEdit()
 			_this.refresh();
@@ -134,44 +124,66 @@ export default class SwperList extends Component{
 			Message.error(err.message);
 		});
    }
+     upPublish= (value)=>{
+		 var _this=this;
+		 var pub = 0;
+       if(value.published=='0') {
+          pub=1;
+	   }
+	   
+	   Http.request("web-pclist-listadd-up-down",{},{id:value.id,published:pub}).then(function (response) {
+		if(pub){
+			Message.success("上线成功");
+		}else{
+			Message.success("下线成功");
+		}
+		
+		_this.refresh();
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
 
+	 }
    deleteSubmit = () =>{
-	   let {nowId} = this.state;
 	   let _this = this;
-	   Http.request("home-swper-delete",{},{id:nowId}).then(function (response) {
+	   let value = this.state.detail;
+	   Http.request("web-pclist-listadd-delete",{},{id:value.id}).then(function (response) {
 			Message.success("删除成功");
 			_this.switchOpenDelete()
 			_this.refresh("delete");
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
-
    }
-   onSearchSubmit = (values) =>{
-	   var searchParams = Object.assign({},this.state.searchParams);
-	   searchParams.name = values.content;
-	   this.setState({
-		   searchParams
-	   })
+//    deletePic=(value)=>{
+     
+//    }
+//    onSearchSubmit = (values) =>{
+// 	   console.log('这个事什么事件');
+// 	   var searchParams = Object.assign({},this.state.searchParams);
+// 	   searchParams.name = values.content;
+// 	   this.setState({
+// 		   searchParams
+// 	   })
 
 
-   }
-    onOperation = (type, itemDetail) =>{
-        if(type == "delete"){
-			this.switchOpenDelete();
+//    }
+    // onOperation = (type, itemDetail) =>{
+    //     if(type == "delete"){
+	// 		this.switchOpenDelete();
 
-		}
-		if(type == "edit"){
-			this.getDetail(itemDetail.id)
-			this.switchOpenEdit();
+	// 	}
+	// 	if(type == "edit"){
+	// 		this.getDetail(itemDetail.id)
+	// 		this.switchOpenEdit();
 			
-		}
-		this.setState({
-			nowId:itemDetail.id,
-			name:itemDetail.name
-		})
+	// 	}
+	// 	this.setState({
+	// 		nowId:itemDetail.id,
+	// 		name:itemDetail.name
+	// 	})
 
-    }
+    // }
 	jump = (src) =>{
 		window.location.href = src;
 	}
@@ -199,7 +211,7 @@ export default class SwperList extends Component{
 			}=this.state;
 
 		return(
-      	<div className="swper-list">
+      	<div className="pic-list">
 		    <Section title="轮播图列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 				<Col
@@ -208,7 +220,7 @@ export default class SwperList extends Component{
 					<Button
 						label="新建"
 						type='button'
-						operateCode="sys_slider_add"
+						operateCode="por_mobilepic_editsave"
 						onTouchTap={this.switchOpenAdd}
 					/>
 				</Col>
@@ -227,24 +239,31 @@ export default class SwperList extends Component{
 				onOperation={this.onOperation}
 				displayCheckbox={false}
 				ajaxParams={this.state.searchParams}
-				ajaxUrlName='home-swper-list'
+				ajaxUrlName='web-piclist-listshow'
 				ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
 			>
 				<TableHeader>
-					<TableHeaderColumn>序号</TableHeaderColumn>
-					<TableHeaderColumn>名称</TableHeaderColumn>
+					<TableHeaderColumn>编号</TableHeaderColumn>
 					<TableHeaderColumn>轮播图</TableHeaderColumn>
-					<TableHeaderColumn>链接地址</TableHeaderColumn>
+					<TableHeaderColumn>标题</TableHeaderColumn>	
+					<TableHeaderColumn>简介</TableHeaderColumn>
 					<TableHeaderColumn>排序号</TableHeaderColumn>
+					<TableHeaderColumn>状态</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
 				</TableHeader>
 				<TableBody >
 					<TableRow>
 
 						<TableRowColumn name="identifier" ></TableRowColumn>
+						<TableRowColumn
+							name="logo"
+							component={(value,oldValue)=>{
+								return (<img className = "swper-img" src = {value}/>)
+							}}
+						></TableRowColumn>
 						<TableRowColumn 
-							name="name"
+							name="title"
 							component={(value,oldValue)=>{
 								
 								var maxWidth=10;
@@ -256,25 +275,66 @@ export default class SwperList extends Component{
 							}}
 						
 						></TableRowColumn>
-						<TableRowColumn
-							name="photoUrl"
-							component={(value,oldValue)=>{
-								return (<img className = "swper-img" src = {value}/>)
+						<TableRowColumn 
+							name="desrc"
+							component={(value,oldValue)=>{	
+								var maxWidth=10;
+								
+								if(value.length>maxWidth){
+									value = value.substring(0,10)+"...";
+								}
+								return (<div  className='tooltipParent'><div className='tableOver' ><span>{value}</span></div><Tooltip offsetTop={8} place='top' ><div style = {{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div></Tooltip></div>)
+							}}
+						
+						></TableRowColumn>
+						<TableRowColumn 
+							name="orderNum"
+							component={(value,oldValue)=>{	
+								var maxWidth=10;
+								
+								if(value.length>maxWidth){
+									value = value.substring(0,10)+"...";
+								}
+								return (<div  className='tooltipParent'><div className='tableOver' ><span>{value}</span></div><Tooltip offsetTop={8} place='top' ><div style = {{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div></Tooltip></div>)
+							}}
+						
+						></TableRowColumn>
+						<TableRowColumn name="published"
+						component={(value,oldValue)=>{
+							if(value=='0'){
+								return (<div>下线</div>)
+							}else{
+								return (<div>上线</div>)
+							}
+								
 							}}
 						></TableRowColumn>
-						<TableRowColumn
-							name="linkUrl"
-							component={(value,oldValue)=>{
-								return (<a src = {value} 
-									onClick = {()=>{
-										this.jump(value);
-									}}>{value}</a>)
-							}}
-						></TableRowColumn>
-						<TableRowColumn name="orderNum"></TableRowColumn>
-						<TableRowColumn type="operation">
-                            <Button label="编辑" operateCode="sys_slider_edit"  type="operation"  operation="edit" operateCode="hrm_role_edit"/>
-			                <Button label="删除" operateCode="sys_slider_delete" type="operation"  operation="delete" />
+						<TableRowColumn type="operation"
+						name='published'
+						component={(value,oldValue,itemData)=>{	      
+												//上线状态
+												if(itemData.published=='1'){
+													return (
+															<span>
+															<Button label="下线" operateCode="por_mobilepic_publish" type="operation"  operation="offLine" onTouchTap={this.upPublish.bind(this,itemData)} />
+															<Button label="编辑" operateCode="por_mobilepic_editsave"  type="operation"  operation="edit" onTouchTap={this.switchOpenEdit.bind(this,itemData)}/>
+															<Button label="删除" operateCode="por_mobilepic_delete" type="operation"  operation="delete" onTouchTap={this.switchOpenDelete.bind(this,itemData)}/>
+															</span>
+														)
+												}else{
+													//下线状态
+													return (
+														<span>
+														<Button label="上线" operateCode="por_mobilepic_publish" type="operation"  operation="offLine"onTouchTap={this.upPublish.bind(this,itemData)} />
+														<Button label="编辑" operateCode="por_mobilepic_editsave"  type="operation"  operation="edit"  onTouchTap={this.switchOpenEdit.bind(this,itemData)}/>
+														<Button label="删除" operateCode="por_mobilepic_delete" type="operation"  operation="delete" onTouchTap={this.switchOpenDelete.bind(this,itemData)}/>
+														</span>
+													)
+
+
+												}
+											}}
+						    >  
 			            </TableRowColumn>
 					</TableRow>
 				</TableBody>
@@ -298,7 +358,8 @@ export default class SwperList extends Component{
 				containerStyle={{top:60,paddingBottom:228,zIndex:20}}
 				onClose={this.allClose}
 			>
-				<EditPic
+				<EditPic 
+					detail = {detail}
 					photoUrl = {photoUrl}
 					onSubmit = {this.editSubmit}
 					onCancel = {this.switchOpenEdit}
