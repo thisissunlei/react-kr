@@ -36,6 +36,7 @@ import CardManageSearchForm from "./CardManageSearchForm";
 import ImportCard from "./ImportCard";
 import ViewCard from "./ViewCard";
 import DeleteCard from "./DeleteCard";
+import InputCardForm from "./InputCardForm";
 
 import './index.less';
 
@@ -420,6 +421,11 @@ export default class List extends React.Component {
     }
 
 
+    switchOpenInputCardDialog=()=>{
+    	State.openInputCardDialog = !State.openInputCardDialog;
+    }
+
+
 	render(){
 		
 		return(
@@ -608,7 +614,7 @@ export default class List extends React.Component {
 						/>
 				    </Dialog>
 
-					<Dialog
+					{/*<Dialog
 						title="批量激活（填写卡内码）"
 						modal={true}
 						open={this.state.openStartCardActivation}
@@ -619,7 +625,18 @@ export default class List extends React.Component {
 						<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack} openMessageBar={this.openMessageBar} closeMessageBar={this.closeMessageBar}/>
 				  </Dialog>
 				  <SnackTip zIndex={20000}  style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={this.state.closeMessageBar.barStyle}><span className={this.state.closeMessageBar.className} ></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
+					*/}
 
+
+				  	<Dialog
+						title="录入会员卡"
+						modal={true}
+						open={State.openInputCardDialog}
+						onClose={this.switchOpenInputCardDialog}
+						contentStyle={{width:680}}
+					>
+						<InputCardForm  onCancel={this.switchOpenInputCardDialog} />
+				    </Dialog>
 			</div>
 		);
 	}

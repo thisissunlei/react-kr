@@ -86,6 +86,11 @@ module.exports = {
     'meeting-reservation-delete':{
         url:'/api/krspace-finance-web/cmt-appointment/actions/cancel?id={id}',
         method:'post'
-    }
+    },
+    //录入会员卡
+    'inputCardUrl':{
+        url:'/api/krspace-finance-web/member/card/mbr-card',
+        method:'post'
+    },
 
 }
