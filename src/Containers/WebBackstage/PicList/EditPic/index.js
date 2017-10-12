@@ -99,7 +99,7 @@ class EditPic extends React.Component{
                     <div style = {{marginLeft:30,marginTop:14}}>
                         <KrField
                             name="logo"
-                            component="newuploadImage"
+                            component="mainNewsUploadImage"
                             innerstyle={{width:500,height:344,padding:10,marginLeft:-80}}
                             photoSize={'199*300'}
                             pictureFormat={'JPG,PNG,GIF'}
