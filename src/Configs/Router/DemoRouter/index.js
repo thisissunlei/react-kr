@@ -61,6 +61,13 @@ const Demo_Lianxi = (location, callback) => {
   }, 'Demo_Lianxi')
 }
 
+const Demo_AnBo = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Demo/AnBo').default)
+  }, 'Demo_AnBo')
+}
+
+
 
 module.exports =()=>{
 	return (
@@ -75,6 +82,7 @@ module.exports =()=>{
 				<Route path="tanlinlin" getComponent={Demo_TanLinLin}/>
 				<Route path="wushulin" getComponent={Demo_WuShuLin}/>
 				<Route path="lianxi" getComponent={Demo_Lianxi}/>
+				<Route path="anbo" getComponent={Demo_AnBo}/>
 		</Route>
 	);
 };

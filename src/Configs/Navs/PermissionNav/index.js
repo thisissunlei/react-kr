@@ -122,15 +122,25 @@ module.exports = [
 				iconColor: '#79859a',
 				menuItems: [
 					{
+						primaryText: '表单列表',
+						menuCode: 'sys_form_list',
+						router: '/permission/processManage/form',
+					},
+					{
 						primaryText: '流程列表',
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/permission/processManage/processSetting',
 					},
+					// {
+					// 	primaryText: '慧正流程',
+					// 	menuCode: 'hrm_resourcesList_incumbency',
+					// 	originUrl:'/hz7rest/horizon/module/flash/flow/designer.wf',
+					// 	target:'_blank'
+					// },
 					{
-						primaryText: '慧正流程',
+						primaryText: '公共字典',
 						menuCode: 'hrm_resourcesList_incumbency',
-						originUrl:'/hz7rest/horizon/module/flash/flow/designer.wf',
-						target:'_blank'
+						router:'/permission/processManage/dictionary',
 					},
 				]
 			},

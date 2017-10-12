@@ -9,6 +9,7 @@ import SelectCity from './SelectCity';
 import TheBell from './TheBell';
 import PlanMapContent from './PlanMapContent';
 import AddPostPeople from './AddPostPeople';
+import NodeFormwork from './NodeFormwork';
 
 module.exports = {
 	Agreement,
@@ -21,6 +22,7 @@ module.exports = {
 	NewIndent,
 	TheBell,
 	PlanMapContent,
-	AddPostPeople
+	AddPostPeople,
+	NodeFormwork
 }
 

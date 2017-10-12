@@ -48,8 +48,8 @@ class CreateDrawer extends React.Component {
 		}
 	}
 	componentDidMount(){
-		Store.dispatch(change('CreateDrawer','newRequestShow',"1"));
-		Store.dispatch(change('CreateDrawer','allowRequest',"1"));
+		Store.dispatch(change('CreateDrawer','newRequestShow',"true"));
+		Store.dispatch(change('CreateDrawer','allowRequest',"true"));
 		if(this.props.detail.typeId!='0'){
 			Store.dispatch(change('CreateDrawer','wfTypeId',this.props.detail.typeId))
 		}
@@ -78,6 +78,8 @@ class CreateDrawer extends React.Component {
 		}
 		
 	}
+	
+
 		render() {
 
 			const {
@@ -97,14 +99,14 @@ class CreateDrawer extends React.Component {
 					<CircleStyleTwo num="1" info="基本信息">
 						<KrField
 								style={{width:260}}
-								name="wfName"
+								name="name"
 								label="流程名称"
 								component="input"
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginLeft:25}}
-								name="wfCode"
+								name="code"
 								component="input"
 								label="流程编码"
 								requireLabel={true}
@@ -119,20 +121,22 @@ class CreateDrawer extends React.Component {
 						/>
 						<KrField
 								style={{width:260,marginLeft:25,marginTop:4}}
-								name="wfOrderNum"
+								name="orderNum"
 								type="text"
 								component="input"
 								label="排序号"
 								requireLabel={true}
 						/>
+						
 						<KrField
-								style={{width:260,marginTop:4}}
-								name="hzCode"
-								type="text"
-								component="input"
-								label="慧正流程唯一标识"
-								requireLabel={true}
-						/>
+                            grid={1/2}
+                            style={{width:262,marginTop:6}}
+                            name="formId"
+                            component="formTypeTree"
+                            label="表单名称"
+                            ajaxUrlName = "form-type-tree"
+                            requireLabel={true}
+                        />
 					
 						<KrField
                             grid={1/2}
@@ -146,7 +150,7 @@ class CreateDrawer extends React.Component {
 						
 						<KrField
 								style={{width:548,marginTop:4}}
-								name="descr"
+								name="baseDesc"
 								component="textarea"
 								label="描述"
 								maxSize={200}
@@ -160,14 +164,14 @@ class CreateDrawer extends React.Component {
 										name="allowRequest"
 										label="允许"
 										type="radio"
-										value="1"
+										value="true"
 										style={{marginRight:24,marginLeft:4}}
 								/>
 								<KrField
 										name="allowRequest"
 										label="不允许"
 										type="radio"
-										value="0"
+										value="false"
 								/>
 							</KrField>
 							<KrField style={{width:220,marginLeft:66,marginBottom:16}}  name="newRequestShow" component="group" label="新办是否显示" inline={false} requireLabel={true}>
@@ -175,20 +179,20 @@ class CreateDrawer extends React.Component {
 										name="newRequestShow"
 										label="显示"
 										type="radio"
-										value="1"
+										value="true"
 										style={{marginRight:24,marginLeft:4}}
 								/>
 								<KrField
 										name="newRequestShow"
 										label="不显示"
 										type="radio"
-										value="0"
+										value="false"
 								/>
 							</KrField>
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="确定" type="submit"onTouchTap={this.commonSubmit}/>
+								<Button  label="确定" type="submit" onTouchTap={this.commonSubmit}/>
 								<Button  label="保存并进入流程配置" width={178} cancle={true} type="submit" onTouchTap={this.basicSubmit}/>
 							</ButtonGroup>
 						  </Col>
@@ -206,28 +210,28 @@ class CreateDrawer extends React.Component {
 
 		const errors = {};
 
-		if (!values.wfName) {
-			errors.wfName = '请输入流程名称';
-		}else if (values.wfName.length>20) {
-			errors.wfName = '流程名称最多20个字符！';
+		if (!values.name) {
+			errors.name = '请输入流程名称';
+		}else if (values.name.length>20) {
+			errors.name = '流程名称最多20个字符！';
 		}   
-		if (!values.wfCode) {
-			errors.wfCode = '请输入流程编码';
+		if (!values.code) {
+			errors.code = '请输入流程编码';
 		}
 		if (!values.wfTypeId) {
 			errors.wfTypeId = '请选择流程类型';
 		}
-		if (!values.wfOrderNum) {
-			errors.wfOrderNum = '请输入排序号';
+		if (!values.orderNum) {
+			errors.orderNum = '请输入排序号';
 		}
 
 		if (!values.hrmResourceId) {
 			errors.hrmResourceId = '请选择对接人';
 		}
-		if (!values.hzCode) {
-			errors.hzCode = '请输入慧正流程唯一标识';
-		}else if (values.hzCode.length>50) {
-			errors.hzCode = '慧正流程唯一标识最多50个字符！';
+		if (!values.formId) {
+			errors.formId = '请输入表单名称';
+		}else if (values.formId.length>50) {
+			errors.formId = '表单名称最多50个字符！';
 		} 
 
 

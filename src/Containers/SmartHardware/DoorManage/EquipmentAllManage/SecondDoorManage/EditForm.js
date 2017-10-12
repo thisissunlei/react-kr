@@ -45,9 +45,8 @@ class EditForm extends React.Component{
 		}
 	}
 	componentDidMount(){
+		console.log("this.detail",this.detail);
 		Store.dispatch(initialize('EditForm', this.detail));
-		// Store.dispatch(change('EditForm',"roomId",this.detail.roomId));
-
 	}
 	getBasicData=(detail)=>{
 		
@@ -194,7 +193,6 @@ class EditForm extends React.Component{
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
 		let {detail} = this.props;
-		// console.log("detail",detail);
 		if(!hardwareId || /^\s+$/.test(hardwareId)){
 			return;
 		}
