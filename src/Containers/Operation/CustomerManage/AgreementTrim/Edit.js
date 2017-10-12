@@ -117,7 +117,7 @@ class EditList extends React.Component {
 		const { handleSubmit} = this.props;
 		
 		return (
-			<div className="g-agreement-trim-list">
+			<div className="g-agreement-trim-edit">
 				<div className="u-title-box">
 						<img className="u-title-img" src={require('./images/activity.svg')} />
 						<span className="u-title-text">合同调整-明细</span>
@@ -128,9 +128,9 @@ class EditList extends React.Component {
 							 />
 						</span>
 					</div>
-			   <form onSubmit={handleSubmit(this.onSubmit)}>
-				<div className={State.HeightAuto?'auto':'stationList'}  style={{overflow:'initial'}}>
-							<Table displayCheckbox={false} style={{margin:"20px 0 0 38px",width:547}}>
+			   <form onSubmit={handleSubmit(this.onSubmit)} style={{width:650,margin:'0 auto'}}>
+				<div >
+							<Table displayCheckbox={false}>
 								<TableHeader>
 									<TableHeaderColumn>字段</TableHeaderColumn>
 									<TableHeaderColumn>旧值</TableHeaderColumn>
@@ -144,7 +144,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >sss</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="time" component="input" style={{width:130}}/>
+												<KrField name="time" component="date" style={{width:130}}/>
 											</TableRowColumn>
 									   	</TableRow>
 
@@ -155,7 +155,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >34</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="begin" component="input" style={{width:130}}/>
+												<KrField name="begin" component="date" style={{width:130}}/>
 											</TableRowColumn>
 									   	</TableRow>
 
@@ -167,7 +167,7 @@ class EditList extends React.Component {
 											<TableRowColumn >erew</TableRowColumn>
 											<TableRowColumn>
 
-												<KrField name="end" component="input" style={{width:130}}/>
+												<KrField name="end" component="date" style={{width:130}}/>
 											</TableRowColumn>
 									   	</TableRow>
 									   	<TableRow >
@@ -177,7 +177,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >rr</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="firsttime" component="input" style={{width:130}}/>
+												<KrField name="firsttime" component="date" style={{width:130}}/>
 											</TableRowColumn>
 									   	</TableRow>
 									   	<TableRow>
@@ -187,7 +187,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >rr</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="payment" component="input" style={{width:130}}/>
+												<KrField name="payment" component="input" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 									   	<TableRow>
@@ -197,7 +197,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >rr</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="money" component="input" style={{width:130}}/>
+												<KrField name="money" component="input" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 									   	<TableRow >
@@ -210,14 +210,14 @@ class EditList extends React.Component {
 												<KrField name="status" component="input" style={{width:130}}/>
 											</TableRowColumn>
 									   	</TableRow>
-									   	<TableRow >
+									   	<TableRow style={{height:'100px'}}>
 											<TableRowColumn>
 											其他约定内定
 
 											</TableRowColumn>
 											<TableRowColumn >rr</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="other" component="input" style={{width:130}}/>
+												<KrField name="other" component="textarea" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 								</TableBody>
