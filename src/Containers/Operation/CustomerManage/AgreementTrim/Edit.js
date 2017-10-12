@@ -53,6 +53,8 @@ class EditList extends React.Component {
 		State.openEdit = false;
 	}
 	onSubmit=(form)=>{
+		console.log('===>',form);
+		return;
 		let {onSubmit}=this.props;
 		onSubmit && onSubmit(form);
 	}
@@ -144,7 +146,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >sss</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="time" component="date" style={{width:130}}/>
+												<KrField name="time" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 
@@ -155,7 +157,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >34</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="begin" component="date" style={{width:130}}/>
+												<KrField name="begin" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 
@@ -167,7 +169,7 @@ class EditList extends React.Component {
 											<TableRowColumn >erew</TableRowColumn>
 											<TableRowColumn>
 
-												<KrField name="end" component="date" style={{width:130}}/>
+												<KrField name="end" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 									   	<TableRow >
@@ -177,7 +179,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >rr</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="firsttime" component="date" style={{width:130}}/>
+												<KrField name="firsttime" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 									   	<TableRow>
@@ -205,9 +207,19 @@ class EditList extends React.Component {
 											合同状态
 
 											</TableRowColumn>
-											<TableRowColumn >rr</TableRowColumn>
+											<TableRowColumn >已执行</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="status" component="input" style={{width:130}}/>
+												<KrField name="status" component="input" style={{width:160}}/>
+											</TableRowColumn>
+									   	</TableRow>
+									   	<TableRow >
+											<TableRowColumn>
+											合同状态
+
+											</TableRowColumn>
+											<TableRowColumn >未执行</TableRowColumn>
+											<TableRowColumn>
+												<KrField name="status" component="input" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 									   	<TableRow style={{height:'100px'}}>
@@ -222,6 +234,14 @@ class EditList extends React.Component {
 									   	</TableRow>
 								</TableBody>
 							</Table>
+							<Grid>
+						<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'45%',textAlign:'right'}}><Button  label="提交"  type="submit"  /></ListGroupItem>
+							<ListGroupItem style={{width:'45%',textAlign:'left'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel} /></ListGroupItem>
+						</ListGroup>
+						</Row>
+						</Grid>
 						</div>
 				</form> 
 			</div>
