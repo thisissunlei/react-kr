@@ -14,13 +14,16 @@ import {
 	Dialog,
 	Message,
 	Notify,
-	CheckPermission
+	CheckPermission,
+	ListGroup,
+	ListGroupItem
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import NewCreateForm from './NewCreateForm';
 import MemeberEditMemberForm from './MemeberEditMemberForm';
 import AdvancedQueryForm from './AdvancedQueryForm';
+import ImportData from './ImportData';
 import './index.less';
 
 export default class List extends React.Component {
@@ -47,6 +50,8 @@ export default class List extends React.Component {
 			content:'',
 			filter:'COMP_NAME',
 			realPage : 1,
+			importdata:false,
+			openDelete:false,
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -61,6 +66,12 @@ export default class List extends React.Component {
 				status:false,
 			}
 		}
+	}
+
+	importData=()=>{
+		this.setState({
+			importdata:!this.state.importdata
+		})
 	}
 	openNewCreateDialog=()=> {
 		this.setState({
@@ -91,6 +102,11 @@ export default class List extends React.Component {
 			list
 		})
 	}
+	openDelete=()=>{
+		this.setState({
+			openDelete:!this.state.openDelete
+		})
+	}
 	//操作相关
 	onOperation(type, itemDetail) {
 		this.setState({
@@ -100,6 +116,8 @@ export default class List extends React.Component {
 			window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
+		}else if(type=='delete'){
+			this.openDelete();
 		}
 	}
 	// 导出Excle表格
@@ -224,6 +242,24 @@ export default class List extends React.Component {
 			realPage : page 
 		})
 	}
+	 //删除
+	 onDeleteData=()=>{
+		var _this=this;
+		const {itemDetail}=this.state;
+		// Http.request('delete-activity',{},{id:itemDetail.id}).then(function (response) {
+		// 	_this.openDelete();
+		// 	Message.success('删除成功！');
+		// 	_this.setState({
+		// 		searchParams:{
+		// 			date:new Date()
+		// 		}
+		// 	})
+
+		// }).catch(function (err) { 
+		// 	Message.error(err.message)
+		// });
+
+	}
 	render() {
 		let {
 			list,itemDetail,seleced
@@ -249,9 +285,14 @@ export default class List extends React.Component {
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-										
+									<ListGroup>
+										<ListGroupItem style={{marginRight:10}}>
 											<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
-									
+										</ListGroupItem>
+										<ListGroupItem >
+											<Button  operateCode="mbr_list_import" label="批量导入" type="button" onTouchTap={this.importData} width={80} height={30} />
+										</ListGroupItem>
+									</ListGroup>
 										{/*高级查询*/}
 										{/* <Button type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/> */}
 										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
@@ -347,12 +388,13 @@ export default class List extends React.Component {
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
 												
-														<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
+													<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
+													<Button operateCode="mbr_list_edit" label="删除"  type="operation" operation="delete"/>
 												
 											 </TableRowColumn>
 										 </TableRow>
 									</TableBody>
-									<TableFooter></TableFooter>
+									<TableFooter onImport={this.importData}></TableFooter>
 									</Table>
 								</Section>
 								<Dialog
@@ -364,6 +406,14 @@ export default class List extends React.Component {
 								>
 										<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Dialog>
+							  <Dialog
+								title="批量导入"
+								modal={true}
+								open={this.state.importdata}
+								onClose={this.importData}
+								contentStyle={{width:444}}>
+									<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>
+								</Dialog>
 								<Dialog
 									title="编辑会员"
 									modal={true}
@@ -373,6 +423,22 @@ export default class List extends React.Component {
 								>
 										<MemeberEditMemberForm onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openEditDetailDialog} detail={itemDetail}/>
 							  </Dialog>
+							  <Dialog
+								title="删除"
+								modal={true}
+								contentStyle ={{ width: '444',overflow:'visible'}}
+								open={this.state.openDelete}
+								onClose={this.openDelete}
+								>
+								<div className='u-list-delete'>
+									<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要删除该会员吗？</p>
+									<div style={{textAlign:'center',marginBottom:10}}>
+										<div  className='ui-btn-center'>
+											<Button  label="确定" onClick={this.onDeleteData}/></div>
+											<Button  label="取消" type="button" cancle={true} onClick={this.openDelete} />
+										</div>
+									</div>
+								</Dialog>
 								<Dialog
 									title="高级查询"
 									modal={true}

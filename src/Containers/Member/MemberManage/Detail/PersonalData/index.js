@@ -32,9 +32,9 @@ export default class BasicInfo extends React.Component {
 			params,detail
 		} = this.props;
 		let baseInfo = detail;
-			if(baseInfo.gender=="WOMAN"){
+			if(baseInfo.gender==0){
 	     		baseInfo.gender  = "女";
-			}else if(baseInfo.gender=="MAN"){
+			}else if(baseInfo.gender==1){
 				 baseInfo.gender  = "男";
 			}else{
 				baseInfo.gender  = "保密";

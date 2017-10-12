@@ -54,9 +54,11 @@ export default class memberListDetail extends React.Component{
 			id: params.memberId,
 		}).then(function(response) {
       _this.setState({
-        workInfo:response.workInfo,
-        companyInfo:response.companyInfo,
-        baseInfo:response.baseInfo,
+       // workInfo:response.workInfo,
+       // companyInfo:response.companyInfo,
+       // baseInfo:response.baseInfo,
+        workInfo:response,
+        baseInfo:response,
         isLeader:response.isLeader
       })
 		}).catch(function(err) {
@@ -78,8 +80,8 @@ export default class memberListDetail extends React.Component{
                 <PersonalData  detail={this.state.baseInfo}/>
               <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
                 <PersonalCompanyInfo  detail={this.state.workInfo}/>
-              <DotTitle title='公司信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                  <PersonalCompanyInfo  detail={this.state.companyInfo}/>
+              {/* <DotTitle title='公司信息' style={{marginTop:'40',marginBottom:'40'}}/>
+                  <PersonalCompanyInfo  detail={this.state.companyInfo}/> */}
             </div>
 
         </Tab>
@@ -110,8 +112,8 @@ export default class memberListDetail extends React.Component{
                 <PersonalData  detail={this.state.baseInfo}/>
               <DotTitle title='工作信息' style={{marginTop:'40',marginBottom:'40'}}/>
                 <PersonalJob  detail={this.state.workInfo}/>
-              <DotTitle title='公司信息' style={{marginTop:'40',marginBottom:'40'}}/>
-                  <PersonalCompanyInfo  detail={this.state.companyInfo}/>
+              {/* <DotTitle title='公司信息' style={{marginTop:'40',marginBottom:'40'}}/>
+                  <PersonalCompanyInfo  detail={this.state.companyInfo}/> */}
             </div>
 
         </Tab>
