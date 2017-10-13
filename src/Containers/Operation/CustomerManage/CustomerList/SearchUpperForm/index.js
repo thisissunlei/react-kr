@@ -99,6 +99,7 @@ class SearchUpperForm extends React.Component {
 
 
 		      var selectData='';
+			  console.log(flag,"flog-----hhhhh")
               if(flag=='签约'){
 			     selectData=(<div><KrField grid={1/2} right={34}  name="company" type="text" label="公司名称"/>
 				<KrField right={34} grid={1/2}  style={{marginLeft:-5}} name="cityId" type="select" label="签约城市"
@@ -131,6 +132,7 @@ class SearchUpperForm extends React.Component {
 				<KrField  grid={1/2} right={34} name="sourceId" component="upMerchantsSource"  style={{marginTop:4}} label="客户来源"
 				 
 				></KrField>
+				{flag == "个人" && <KrField grid={1/2}  right={34} name="receiveId" style={{marginTop:4}} component="searchLeader" inline={false} label="领取人" placeholder='请输入领取人'/> }
 				<KrField grid={1/1}  component="group" label="创建时间" style={{marginTop:3}}>
 				<div className='ui-listDate'>
 					<ListGroup>

@@ -291,7 +291,7 @@ class Personal extends Component{
     }
 	//高级查询
 	openSearchUpperDialog=()=>{
-	    this.props.NewIndentModel.searchParams.company='';
+	  this.props.NewIndentModel.searchParams.company='';
       this.props.NewIndentModel.searchParams.createEndDate='';
       this.props.NewIndentModel.searchParams.createStartDate='';
       this.props.NewIndentModel.searchParams.intentionCityId='';
