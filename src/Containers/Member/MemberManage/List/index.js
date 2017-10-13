@@ -136,7 +136,7 @@ export default class List extends React.Component {
     //提交编辑
 	onEditSubmit=(values)=>{
 		var _this = this;
-		Http.request('membersChange',{},values).then(function(response){
+		Http.request('edit-members',{},values).then(function(response){
 			_this.openEditDetailDialog();
 			Message.success("操作成功");
 			_this.setState({
@@ -249,18 +249,18 @@ export default class List extends React.Component {
 	 onDeleteData=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		// Http.request('delete-activity',{},{id:itemDetail.id}).then(function (response) {
-		// 	_this.openDelete();
-		// 	Message.success('删除成功！');
-		// 	_this.setState({
-		// 		searchParams:{
-		// 			date:new Date()
-		// 		}
-		// 	})
+		Http.request('delete-members',{id:itemDetail.id}).then(function (response) {
+			_this.openDelete();
+			Message.success('删除成功！');
+			_this.setState({
+				searchParams:{
+					date:new Date()
+				}
+			})
 
-		// }).catch(function (err) { 
-		// 	Message.error(err.message)
-		// });
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
 
 	}
 	render() {
@@ -276,9 +276,6 @@ export default class List extends React.Component {
 		}, {
 			label: '手机号',
 			value: 'PHONE'
-		}, {
-			label: '微信',
-			value: 'WECHAT'
 		}, {
 			label: '姓名',
 			value: 'NAME'
