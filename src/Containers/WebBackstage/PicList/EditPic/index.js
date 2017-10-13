@@ -103,7 +103,7 @@ class EditPic extends React.Component{
                             innerstyle={{width:500,height:344,padding:10,marginLeft:-80}}
                             photoSize={'199*300'}
                             pictureFormat={'JPG,PNG,GIF'}
-                            pictureMemory={'200'}
+                            pictureMemoryM={'1'}
                             requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
                             deviation = {"50*50"}
                             defaultValue={photoUrl}

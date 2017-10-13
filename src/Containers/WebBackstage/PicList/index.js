@@ -32,7 +32,7 @@ import AddPic from './AddPic';
 import EditPic from './EditPic';
 // import DeleteRole from './DeleteRole';
 
-export default class SwperList extends Component{
+export default class PicList extends Component{
 
 	constructor(props,context){
 		super(props, context);

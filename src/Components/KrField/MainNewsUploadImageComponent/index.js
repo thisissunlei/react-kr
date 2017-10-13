@@ -154,7 +154,7 @@ export default class MainNewsUploadImageComponent extends Component {
 		})
 		let _this = this;
 		let file = event.target.files[0];
-		var {pictureMemory}=this.props;
+		var {pictureMemory,pictureMemoryM}=this.props;
 
 		var {pictureFormat}=this.props;
 		if (!file) {
@@ -195,18 +195,32 @@ export default class MainNewsUploadImageComponent extends Component {
 	  			return;
 			}
 		}
-
-		if(imgSize>pictureMemory){
-			this.refs.inputImg.value ="";
-			this.refs.inputImgNew.value ="";
-			// this.refs.uploadImage.backgroundImage=`url('')`;
-			_this.setState({
-				errorHide: false,
-				errorTip:"图片大小不符合要求",
-				imgSrc:''
-			})
-			return;
+		if(pictureMemory){
+			if(imgSize>pictureMemory){
+				this.refs.inputImg.value ="";
+				this.refs.inputImgNew.value ="";
+				// this.refs.uploadImage.backgroundImage=`url('')`;
+				_this.setState({
+					errorHide: false,
+					errorTip:"图片大小不符合要求",
+					imgSrc:''
+				})
+				return;
+			}
+		}else if(pictureMemoryM){
+			if(imgSize>(pictureMemoryM*1024)){
+				this.refs.inputImg.value ="";
+				this.refs.inputImgNew.value ="";
+				// this.refs.uploadImage.backgroundImage=`url('')`;
+				_this.setState({
+					errorHide: false,
+					errorTip:"图片大小不符合要求",
+					imgSrc:''
+				})
+				return;
+			}
 		}
+		
 		var form = new FormData();
 
 		form.append(formfile, file);
@@ -311,7 +325,7 @@ export default class MainNewsUploadImageComponent extends Component {
 	}
 
 	render() {
-		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
+		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,pictureMemoryM,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
 		console.log(this.state.imgSrc);
 		return(
@@ -345,7 +359,7 @@ export default class MainNewsUploadImageComponent extends Component {
 					</div>
 
 				<p className="ui-uploadimg-notice">
-					{<span>提示：图片小于{pictureMemory}k,格式为{pictureFormat}</span>}
+					{pictureMemory?<span>提示：图片小于{pictureMemory}k,格式为{pictureFormat}</span>:<span>提示：图片小于{pictureMemoryM}M,格式为{pictureFormat}</span>}
 				</p>
 				<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
 					{this.state.errorTip}
