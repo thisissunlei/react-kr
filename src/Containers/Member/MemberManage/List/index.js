@@ -58,7 +58,7 @@ export default class List extends React.Component {
 				startTime:'',
 				endTime:'',
 				registerSourceId:'',
-				jobId:'',
+				job:'',
 				companyId:0,
 				cityId:'',
 				type:'COMP_NAME',
@@ -129,7 +129,8 @@ export default class List extends React.Component {
 			});
 		}
 		ids = String(ids);
-		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		//var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		var url = `http://optest01.krspace.cn/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
 		window.location.href = url;
 	}
     //提交编辑
@@ -150,7 +151,7 @@ export default class List extends React.Component {
 					startTime:_this.state.searchParams.startTime,
 					endTime:_this.state.searchParams.endTime,
 					registerSourceId:_this.state.searchParams.registerSourceId,
-					jobId:_this.state.searchParams.jobId,
+					job:_this.state.searchParams.job,
 					cityId:_this.state.searchParams.cityId,
 				}
 			})
@@ -165,12 +166,14 @@ export default class List extends React.Component {
 			email:values.email
 		}
 		let cardSearchParams ={
-			foreignCode:values.cardId
+			foreignCode:values.foreignCode
 		}
 		let _this = this;
-		Http.request('membersChange',{},values).then(function(response){
+		Http.request('add-members',{},values).then(function(response){
 							_this.openNewCreateDialog();
 							Message.success("操作成功");
+
+							
 							_this.setState({
 								status:!_this.state.status,
 								searchParams:{
@@ -230,7 +233,7 @@ export default class List extends React.Component {
 				cityId :values.city || '',
 				endTime :values.endTime || '',
 				startTime :values.startTime || '',
-				jobId :values.jobId || '',
+				job :values.job || '',
 				page :1,
 				pageSize:15,
 				companyId:0,
@@ -316,14 +319,12 @@ export default class List extends React.Component {
 										<TableHeader>
 											<TableHeaderColumn>联系电话</TableHeaderColumn>
 											<TableHeaderColumn>姓名</TableHeaderColumn>
-											<TableHeaderColumn>微信</TableHeaderColumn>
 											<TableHeaderColumn>邮箱</TableHeaderColumn>
 											<TableHeaderColumn>职位</TableHeaderColumn>
-											<TableHeaderColumn>工作地点</TableHeaderColumn>
+											<TableHeaderColumn>所在社区</TableHeaderColumn>
 											<TableHeaderColumn>公司</TableHeaderColumn>
 											// 由于页面效果不好暂时不添加会员等级这一项
 											{/*<TableHeaderColumn>会员等级</TableHeaderColumn>*/}
-											<TableHeaderColumn>注册来源</TableHeaderColumn>
 											<TableHeaderColumn>注册日期</TableHeaderColumn>
 											<TableHeaderColumn>操作</TableHeaderColumn>
 									</TableHeader>
@@ -343,13 +344,6 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											 ></TableRowColumn>
-											<TableRowColumn name="wechatNick"
-											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}
-											></TableRowColumn>
 											<TableRowColumn name="email" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
@@ -357,14 +351,14 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="jobName"
+											<TableRowColumn name="job"
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="cityName"
+											<TableRowColumn name="communityName"
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
@@ -378,12 +372,7 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="registerName"
-											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}></TableRowColumn>
+											
 											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
