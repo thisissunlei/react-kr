@@ -48,12 +48,17 @@ class InputCardForm extends React.Component {
 	}
 	onSubmit=(values)=>{
 
-		console.log("values",values);
 		let _this =this;
 		var submitValues = Object.assign({},values);
 		Http.request('inputCardUrl',{},values).then(function(response) {
 			
-			if(_this.continueOrClose=="continue"){
+			if(_this.continueOrClose=="close"){
+				
+				State.openInputCardDialog = false;
+				Message.success(response.message);
+
+			}else{
+				
 
 				Store.dispatch(change('InputCardForm','communityId',submitValues.communityId));
 				Store.dispatch(change('InputCardForm','memo',submitValues.memo));
@@ -66,11 +71,8 @@ class InputCardForm extends React.Component {
 					submitSuc : true,
 					autoFocuseState : true
 				})
-
-			}else{
-				State.openInputCardDialog = false;
-				Message.success(response.message);
 			}
+
 			State.cardManageSearchParams={
 				page:1,
 				pageSize: 15,
@@ -135,7 +137,7 @@ class InputCardForm extends React.Component {
 					name="communityId"
 					component="searchCommunityAll"
 					label="社区名称: "
-					style={{width:290}}
+					style={{width:290,marginTop:20}}
 					onChange = {this.onChangeCommunity}
 					inline={false}
 					requireLabel={true}
