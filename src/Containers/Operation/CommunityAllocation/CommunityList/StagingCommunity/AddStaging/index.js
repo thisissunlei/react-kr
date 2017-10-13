@@ -19,7 +19,9 @@ class AddStaging  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-            isOk:''
+            isOk:'',
+            //工位数组
+            stationData:[]
         }
     }
     

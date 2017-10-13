@@ -19,7 +19,9 @@ class EditStaging  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-            isOk:''
+            isOk:'',
+            //工位数组
+            stationData:[]
         }
 	}
     
@@ -61,7 +63,7 @@ class EditStaging  extends React.Component{
 			<div className='m-stage-add'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
-                            <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">分期配置新增</label></div>
+                            <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">分期配置编辑</label></div>
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 

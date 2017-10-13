@@ -1,4 +1,5 @@
 import React from 'react';
+import {DateFormat,Http} from 'kr/Utils';
 import {	
     Col,
     Row,
@@ -27,6 +28,9 @@ class StagingCommunity  extends React.Component{
         this.state={
             openAddCommunity:false,
             openEditCommunity:false,
+            searchParams:{
+                
+            }
         }
 	}
 
@@ -43,6 +47,36 @@ class StagingCommunity  extends React.Component{
         this.setState({
             openAddCommunity:!this.state.openAddCommunity
         })
+    }
+
+    openAddSubmit=(params)=>{
+        var _this=this;
+        Http.request('communityGetEdit',{},{id:params}).then(function(response) {
+            var search={
+                time:+new Date()
+            }
+            _this.setState({
+                searchParams:Object.assign({},_this.state.searchParams,search) 
+            })
+            _this.openAddCommunity();
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+    }
+
+    openEditSubmit=(params)=>{
+        var _this=this;
+        Http.request('communityGetEdit',{},params).then(function(response) {
+            var search={
+                time:+new Date()
+            }
+            _this.setState({
+                searchParams:Object.assign({},_this.state.searchParams,search) 
+            })
+            _this.editCancel();
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
     }
 
     onOperation=(type,itemDetail)=>{
@@ -95,7 +129,7 @@ class StagingCommunity  extends React.Component{
                         ajax={false}
                         onOperation={this.onOperation}
                         displayCheckbox={false}
-                        //ajaxParams={State.searchParams}
+                        //ajaxParams={this.state.searchParams}
                         onPageChange={this.onPageChange}
                         ajaxUrlName='communitySearch'
                         ajaxFieldListName="items"
@@ -152,6 +186,7 @@ class StagingCommunity  extends React.Component{
                 >
                     <AddStaging
                         onCancel={this.openAddCommunity}
+                        onSubmit={this.openAddSubmit}
                     />
 
                 </Drawer>
@@ -167,6 +202,7 @@ class StagingCommunity  extends React.Component{
                 >
                     <EditStaging
                         onCancel={this.editCancel}
+                        onSubmit={this.openEditSubmit}
                     />
 
                 </Drawer>
