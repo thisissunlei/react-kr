@@ -19,6 +19,7 @@ import {
 	Button,
 	Message,
 	ButtonGroup,
+	IconTip
 
 } from 'kr-ui';
 import monthSvg from './images/month.svg';
@@ -104,15 +105,36 @@ class HomeRight  extends React.Component{
 							<div className='item-head'>账户信息</div>
 							<div className="lists-info">
 								<div className='list-info' onClick={this.clickSpan.bind(this,'monthPayment')}>
-									<div className="item-title">本月回款(元)</div>
+									<div className="item-title">本月回款(元)
+										<div className='mask-icon'>
+	                                        <IconTip tipStyle = {{width:330}}>
+	                                            <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                            <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                        </IconTip>
+	                                	</div>
+									</div>
 									<div className="item-content"  style={{color:'#FF7876'}}>{Money(State.InfoData.backMoney,true)|| '0' }</div>
 								</div>
 								<div className='list-info' onClick={this.clickSpan.bind(this,'allPayment')}>
-									<div className="item-title">累计回款(元)</div>
+									<div className="item-title">累计回款(元)
+										<div className='mask-icon'>
+	                                        <IconTip tipStyle = {{width:330}}>
+	                                            <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                            <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                        </IconTip>
+	                                	</div>
+	                                </div>
 									<div className="item-content"  style={{color:'#FF7876'}}>{Money(State.InfoData.totalBackMoney,true) || '0'}</div>
 								</div>
 								<div className='list-info' onClick={this.clickSpan.bind(this,'arrearages')}>
-									<div className="item-title">社区欠款(元)</div>
+									<div className="item-title">社区欠款(元)
+										<div className='mask-icon'>
+	                                        <IconTip tipStyle = {{width:330}}>
+	                                            <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                            <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                        </IconTip>
+	                                	</div>
+									</div>
 									<div className="item-content"  style={{color:'#FF7876'}}>{Money(State.InfoData.arrearages) || '0'}</div>
 								</div>
 								<div className='list-info' style={{cursor:'auto'}}>
@@ -130,23 +152,58 @@ class HomeRight  extends React.Component{
 							<div className='item-head'>客户信息</div>
 							<div className="lists-info">
 								<div className='list-info'  onClick={this.clickSpan.bind(this,'settledCustomer')}>
-									<div className="item-title">现入驻客户</div>
+									<div className="item-title">现入驻客户
+										<div className='mask-icon'>
+	                                        <IconTip tipStyle = {{width:330}}>
+	                                            <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                            <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                        </IconTip>
+	                                	</div>
+									</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>{State.InfoData.settledCustomer || '0'}人</div>
 								</div>
 								<div className='list-info' onClick={this.clickSpan.bind(this,'signedCustomer')}>
-									<div className="item-title">已约未入驻</div>
+									<div className="item-title">已约未入驻
+										<div className='mask-icon'>
+	                                        <IconTip tipStyle = {{width:330}}>
+	                                            <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                            <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                        </IconTip>
+	                                	</div>
+									</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>{State.InfoData.signedCustomer || '0'}人</div>
 								</div>
 								<div className='list-info' onClick={this.clickSpan.bind(this,'allCustomer')}>
-									<div className="item-title">客户总数</div>
+									<div className="item-title">客户总数
+										<div className='mask-icon'>
+	                                        <IconTip tipStyle = {{width:330}}>
+	                                            <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                            <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                        </IconTip>
+	                                	</div>
+									</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>{State.InfoData.totalCustomer || '0'}人</div>
 								</div>
 								<div className='list-info' onClick={this.clickSpan.bind(this,'fCustomer')}>
-									<div className="item-title">跟进中客户</div>
+									<div className="item-title">跟进中客户
+										<div className='mask-icon'>
+	                                        <IconTip tipStyle = {{width:330}}>
+	                                            <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                            <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                        </IconTip>
+	                                	</div>
+									</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>{State.InfoData.followingCustomer || '0'}人</div>
 								</div>
 								<div className='list-info' onClick={this.clickSpan.bind(this,'newClue')}>
-									<div className="item-title">新增线索</div>
+									<div className="item-title">新增线索
+										<div className='mask-icon'>
+	                                        <IconTip tipStyle = {{width:330}}>
+	                                            <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                            <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                        </IconTip>
+	                                	</div>
+									</div>
 									<div className="item-content"  style={{color:'#FFB846'}}>{State.InfoData.newClue || '0'}人</div>
 								</div>
 							</div>

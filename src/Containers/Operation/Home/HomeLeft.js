@@ -18,6 +18,7 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
+	IconTip
 
 } from 'kr-ui';
 import home from './images/home-community.svg';
@@ -60,11 +61,11 @@ class HomeLeft  extends React.Component{
 		if(State.tableType === 'payment'){
 			left = 20
 		}else if(State.tableType === 'order'){
-			left = 90
+			left = 105
 		}else if(State.tableType === 'agreement'){
-			left = 168
+			left = 203
 		}else if(State.tableType === 'visit'){
-			left = 245
+			left = 295
 		}else{
 			left = 20
 		}
@@ -107,13 +108,41 @@ class HomeLeft  extends React.Component{
 						<span style={{fontSize:'16px',color:'#666',paddingLeft:'20px'}}>日常运营</span>
 						<div className="tab-lists">
 							<span className={State.tableType=='payment'?'tab-list active':'tab-list'} 
-							onTouchTap={this.onChangeTable.bind(this,'payment')}>应收账款</span>
+							onTouchTap={this.onChangeTable.bind(this,'payment')}>应收账款
+								<div className='mask-icon'>
+	                                <IconTip tipStyle = {{width:330}}>
+	                                    <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                    <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                </IconTip>
+	                            </div>
+							</span>
 							<span className={State.tableType=='order'?'tab-list active':'tab-list'} 
-							onTouchTap={this.onChangeTable.bind(this,'order')}>到期订单</span>
+							onTouchTap={this.onChangeTable.bind(this,'order')}>到期订单
+								<div className='mask-icon'>
+	                                <IconTip tipStyle = {{width:330}}>
+	                                    <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                    <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                </IconTip>
+	                            </div>
+							</span>
 							<span className={State.tableType=='agreement'?'tab-list active':'tab-list'}
-							onTouchTap={this.onChangeTable.bind(this,'agreement')}>待入驻合同</span>
+							onTouchTap={this.onChangeTable.bind(this,'agreement')}>待入驻合同
+								<div className='mask-icon'>
+	                                <IconTip tipStyle = {{width:330}}>
+	                                    <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                    <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                </IconTip>
+	                            </div>
+							</span>
 							<span className={State.tableType=='visit'?'tab-list active':'tab-list'} 
-							onTouchTap={this.onChangeTable.bind(this,'visit')}>预约参观</span>
+							onTouchTap={this.onChangeTable.bind(this,'visit')}>预约参观
+								<div className='mask-icon'>
+	                                <IconTip tipStyle = {{width:330}}>
+	                                    <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
+	                                    <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                </IconTip>
+	                            </div>
+							</span>
 							<span className="active-line" style={{left:left}}></span>
 						</div>
 					</div>
