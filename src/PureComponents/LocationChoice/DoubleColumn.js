@@ -33,19 +33,36 @@ export default class DoubleColumn extends Component {
         this.delLeft = [];
         this.delRight = [];
         this.keyCode = '';
+        this.isMac = false;
+        this.window
     }
 
     componentDidMount () {
         let {left} = this.state;
-
-
+        document.addEventListener("keydown",this.onKeyDown);
+        document.addEventListener("keyup",this.onKeyUp);
+        this.isMac = function() {
+            return /macintosh|mac os x/i.test(navigator.userAgent);
+        }();
+        
+        /** * 是否为windows系统 * */
+        this.isWindows = function() {
+            return /windows|win32/i.test(navigator.userAgent);
+        }(); 
         this.setState({
             leftData:this.allData,
         })
     }
+    componentWillUnmount() {
+      document.removeEventListener("keydown", this.onKeyDown);
+      document.removeEventListener("keyup", this.onKeyUp);
+    }    
     
     eveyNumClick = (event,data,index,type) =>{
         let {leftData,rightData} = this.state;
+        if(this.isMac){
+            
+        }
         if(!data.isActive){
             data.isActive = true;
         }else{
@@ -137,7 +154,15 @@ export default class DoubleColumn extends Component {
 
     render(){
         return(
-            <div className='double-column clear' onKeyDown = {this.onKeyDown} onKeyUp = {this.onKeyUp}>	
+            <div className='double-column clear' 
+                 onKeyDown = {this.onKeyDown} 
+                 onKeyUp = {this.onKeyUp}
+                 ref = {
+                     (ref)=>{
+                        this.column = ref;
+                     }
+                 }
+            >	
                 <div className = "text-num">
                     {0}个
                 </div> 
