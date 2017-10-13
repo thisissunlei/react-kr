@@ -133,7 +133,7 @@ const APIS = {
         url: '/api/krspace-finance-web/member/detail?id={id}',
         method: 'get'
     },
-
+    
     //指定公司下的会员数据导出－－－－－－－－－－－>这个接口居然没有用到
     'companyMemberExcel': {
         url: '/api/krspace-finance-web/member/member-company-excel?ids={ids}&companyId={companyId}',

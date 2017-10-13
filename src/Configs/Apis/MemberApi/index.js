@@ -60,7 +60,7 @@ module.exports = {
   
    //会员中心-会员详细信息－个人资料
     'getMemberDetailData': {
-        url: '/api/krspace-finance-web/member/member?id={id}',
+        url: '/api/krspace-finance-web/member/detail?id={id}',
         method: 'get'
     },
     // 会员中心-会员详细信息－个人行为
