@@ -920,7 +920,6 @@ module.exports = {
         url: '/api/krspace-finance-web/sys/visit-record/actions/edit/type/visit-status',
         method: 'post'
     },
-<<<<<<< HEAD
     //优惠选项
     'sale-tactics': {
         url: '/api/krspace-finance-web/sale-tactics?communityId={communityId}',
