@@ -1,13 +1,15 @@
+
+
 import React, {
 	PropTypes
 } from 'react';
-
 
 import './index.less';
 import {
 	Store
 } from 'kr/Redux';
-import {reduxForm,formValueSelector,initialize} from 'redux-form';
+import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
+import {Http} from 'kr/Utils';
 
 import {
 	KrField,
@@ -18,6 +20,12 @@ import {
 	ButtonGroup,
 	Message
 } from 'kr-ui';
+
+import State from '../State';
+import {
+	observer
+} from 'mobx-react';
+@observer
 
 
 class InputCardForm extends React.Component {
@@ -31,18 +39,53 @@ class InputCardForm extends React.Component {
 		super(props);
 		this.continueOrClose = '';
 		this.state = {
-			
+			tipContent : '',
+			showTip : false,
+			submitSuc : false,
+			autoFocuseState : false
 		}
 
 	}
 	onSubmit=(values)=>{
-		
+
+		console.log("values",values);
+		let _this =this;
+		var submitValues = Object.assign({},values);
 		Http.request('inputCardUrl',{},values).then(function(response) {
 			
-			
-			// Message.success();
+			if(_this.continueOrClose=="continue"){
+
+				Store.dispatch(change('InputCardForm','communityId',submitValues.communityId));
+				Store.dispatch(change('InputCardForm','memo',submitValues.memo));
+				Store.dispatch(change('InputCardForm','innerCode',''));
+				Store.dispatch(change('InputCardForm','outerCode',response.suggestedOuterCode));
+				
+				_this.setState({
+					showTip : true,
+					tipContent : response.message,
+					submitSuc : true,
+					autoFocuseState : true
+				})
+
+			}else{
+				State.openInputCardDialog = false;
+				Message.success(response.message);
+			}
+			State.cardManageSearchParams={
+				page:1,
+				pageSize: 15,
+				type:'',
+				value:'',
+				date : new Date(),
+			}
+
 		}).catch(function(err) {
-			Message.error(err.message);
+			
+			_this.setState({
+				showTip : true,
+				tipContent : err.message,
+				submitSuc : false
+			})
 		});
 	}
 
@@ -81,10 +124,13 @@ class InputCardForm extends React.Component {
 			pristine,
 			reset
 		} = this.props;
-
+		let {tipContent,showTip,submitSuc,autoFocuseState} = this.state;
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}} className="input-card-form">
+				<div className={submitSuc?"submit-suc-style":"submit-fail-style"} style={{display:showTip?"block":"none"}}>
+					<span className="tip-img tip-img-same"></span><span>{tipContent}</span>
+				</div>
 				<KrField 
 					name="communityId"
 					component="searchCommunityAll"
@@ -109,28 +155,45 @@ class InputCardForm extends React.Component {
 					requireLabel={true}
 				/>
 				
-				<KrField 
-					style={{width:290,float:"right"}} 
-					name="innerCode" 
-					component="input" 
-					type="text" 
-					label="会员卡内码" 
-					onChange={this.cardChange} 
-					requireLabel={true}
-				/>
+				{
+					!autoFocuseState && <KrField 
+						style={{width:290,float:"right"}} 
+						name="innerCode" 
+						component="input" 
+						type="text" 
+						label="会员卡内码" 
+						onChange={this.cardChange} 
+						requireLabel={true}
+					/>
+				}
+				{
+					autoFocuseState && <KrField 
+						style={{width:291,float:"right"}} 
+						name="innerCode" 
+						component="input" 
+						type="text" 
+						label="会员卡内码" 
+						onChange={this.cardChange} 
+						requireLabel={true}
+						autoFocus = {true}
+					/>
+				}
+
 				<div style={{width:"100%",height:0,clear:"both"}}></div>
 				<div className="tip-box">
 					<p>温馨提示：</p>
-					<p>1.若要批量录入会员卡，建议从会员卡外码最小的开始</p>
-					<p>1.用读卡器读卡内码前，请确保光标在卡内码的输入框内</p>
+					<p>1、若批量录入，建议从卡外码最小的开始，系统会自动预测下一卡外码</p>
+					<p>2、用读卡器读卡内码前，<span className="yellow">请确保光标在卡内码的输入框内</span></p>
 					
 				</div>
 				<Grid style={{}}>
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<div  className='ui-btn-center'><Button  label="提交并关闭" type="submit" onTouchTap={this.submitClose} /></div>
-								<Button  label="提交并继续" type="submit" cancle={true} onTouchTap={this.submitContinue} />
+								<div  className='ui-btn-center'>
+									<Button  label="提交并关闭" type="submit" onTouchTap={this.submitClose} cancle={true}/>
+								</div>
+								<Button  label="提交并继续" type="submit" onTouchTap={this.submitContinue} />
 							</ButtonGroup>
 						</Col>
 					</Row>

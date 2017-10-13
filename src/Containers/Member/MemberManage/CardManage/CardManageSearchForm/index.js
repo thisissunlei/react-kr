@@ -110,7 +110,7 @@ class CardManageSearchForm extends React.Component{
 						</Col>*/}
 						<Col  align="left" style={{marginLeft:20,float:'left'}}>
 
-							<Button label="会员卡入库" type='button'  onTouchTap={this.openInputCardDialog}  />
+							<Button label="录入会员卡" type='button'  onTouchTap={this.openInputCardDialog}  />
 
 						</Col>
 						<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
