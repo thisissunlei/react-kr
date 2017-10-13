@@ -17,7 +17,10 @@ import '../index.less';
 class EditStaging  extends React.Component{
 
 	constructor(props,context){
-		super(props, context);
+        super(props, context);
+        this.state={
+            isOk:''
+        }
 	}
     
     componentDidMount(){
@@ -34,9 +37,23 @@ class EditStaging  extends React.Component{
         onCancel && onCancel();
     }
 
+    typeChange=(param)=>{
+        if(param.value=='false'){
+            this.setState({
+              isOk:'ok'
+            })
+        }else{
+            this.setState({
+              isOk:'noOk'
+           }) 
+        }
+     }
+
 	render(){
 
         let {handleSubmit}=this.props;
+
+        let {isOk}=this.state;
 
        
 		return(
@@ -60,7 +77,9 @@ class EditStaging  extends React.Component{
                             name="code"
                             component="select"
                             label="分期方式"
+                            onChange={this.typeChange}
                             requireLabel={true}
+                            options={[{value:'true',label:'楼层'},{value:'false',label:'工位/房间'}]}
 						/>
 
                         <KrField grid={1/2}
@@ -79,23 +98,36 @@ class EditStaging  extends React.Component{
                             requireLabel={true}
 						/>
 
-                        <div className='m-add-field'>
-                            <FdTabel
-                                    name ='detailData'
-                                    isFold = {false}
-                                    initFoldNum={1000}
-                                >
-                                    <FRow name = "label" label = "楼层"/>
-                                    <FRow name = "inputTypeStr" label = "类型"/>
-                                    <FRow name = "compTypeStr" label = "编号"/>
-                                    <FRow label = "操作" type='operation' component={(item)=>{
-                                            return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
-                                    }}/>
-                            </FdTabel>
-                        </div>
+                        {isOk=='ok'&&<div className='m-add-field'>
+                          <div style={{float:'right',marginBottom:'20px'}}><Button
+                                label="添加"
+                                type='button'
+                                onTouchTap={this.openAddCommunity}
+                          /></div>
+                        <FdTabel
+                                name ='detailData'
+                                isFold = {false}
+                                initFoldNum={1000}
+                            >
+                                <FRow name = "label" label = "楼层"/>
+                                <FRow name = "inputTypeStr" label = "类型"/>
+                                <FRow name = "compTypeStr" label = "编号"/>
+                                <FRow label = "操作" type='operation' component={(item)=>{
+                                        return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
+                                        }}/>
+                                </FdTabel>
+                            </div>}
+
+                            {isOk=='noOk'&&<div className='m-floor'><KrField grid={1/2}
+                                style={{width:262}}
+                                name="code"
+                                component="checkBox"
+                                label="楼层"
+                                requireLabel={true}
+                            /></div>}
 
                         
-                       <Grid style={{marginBottom:5,marginLeft:-42,marginTop:-12}}>
+                       <Grid style={{marginBottom:5,marginLeft:-42,marginTop:15}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

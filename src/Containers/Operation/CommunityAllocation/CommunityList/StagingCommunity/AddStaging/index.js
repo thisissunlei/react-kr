@@ -19,7 +19,7 @@ class AddStaging  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-            isOk:false
+            isOk:''
         }
     }
     
@@ -39,17 +39,21 @@ class AddStaging  extends React.Component{
     }
 
     typeChange=(param)=>{
-       if(param.value){
+       if(param.value=='false'){
            this.setState({
-               
+             isOk:'ok'
            })
+       }else{
+           this.setState({
+             isOk:'noOk'
+          }) 
        }
     }
 
 	render(){
 
         let {handleSubmit}=this.props;
-
+        let {isOk}=this.state;
        
 		return(
 
@@ -60,7 +64,7 @@ class AddStaging  extends React.Component{
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 
-                       <KrField grid={1/2}
+                      <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
                             component="input"
@@ -93,7 +97,12 @@ class AddStaging  extends React.Component{
                             requireLabel={true}
 						/>
 
-                        <div className='m-add-field'>
+                        {isOk=='ok'&&<div className='m-add-field'>
+                            <div style={{float:'right',marginBottom:'20px'}}><Button
+                                label="添加"
+                                type='button'
+                                onTouchTap={this.openAddCommunity}
+                             /></div>
                             <FdTabel
                                     name ='detailData'
                                     isFold = {false}
@@ -106,9 +115,17 @@ class AddStaging  extends React.Component{
                                             return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
                                     }}/>
                             </FdTabel>
-                        </div>
+                        </div>}
+
+                        {isOk=='noOk'&&<div className='m-floor'><KrField grid={1/2}
+                            style={{width:262}}
+                            name="code"
+                            component="checkBox"
+                            label="楼层"
+                            requireLabel={true}
+						/></div>}
                         
-                       <Grid style={{marginBottom:5,marginLeft:-42,marginTop:-12}}>
+                       <Grid style={{marginBottom:5,marginLeft:-42,marginTop:15}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
