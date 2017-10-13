@@ -1080,18 +1080,18 @@ class NewCreateForm extends React.Component {
 
 
 		let tacticsId = '';
-		saleList.map((item)=>{
-			if(item.value == e.value){
-			   	tacticsId = item.id;
-			}
-		})
+		// saleList.map((item)=>{
+		// 	if(item.value == e.value){
+		// 	   	tacticsId = item.id;
+		// 	}
+		// })
 		let time = {}
 		if(e.value == 1){
 			time = {
 				validStart :changeValues.leaseBegindate,
 				validEnd:changeValues.leaseEnddate,
 				tacticsType:1,
-				tacticsId:tacticsId,
+				tacticsId:e.id,
 				// discount:7
 
 			}
@@ -1101,7 +1101,7 @@ class NewCreateForm extends React.Component {
 				validStart :changeValues.leaseBegindate,
 				// validEnd:changeValues.leaseEnddate,
 				tacticsType:2,
-				tacticsId:tacticsId,
+				tacticsId:e.id,
 				// discount:7
 
 			}
@@ -1111,7 +1111,7 @@ class NewCreateForm extends React.Component {
 				// validStart :changeValues.leaseBegindate,
 				validEnd:changeValues.leaseEnddate,
 				tacticsType:3,
-				tacticsId:tacticsId,
+				tacticsId:e.id,
 
 			}
 		}
@@ -1197,7 +1197,7 @@ class NewCreateForm extends React.Component {
 					return;
 				}
 		saleList.map((item)=>{
-			if(item.value == changeValues.saleList[index].tacticsType){
+			if(item.id == changeValues.saleList[index].tacticsId){
 			   	tacticsId = item.id;
 			}
 		})
@@ -1251,7 +1251,7 @@ class NewCreateForm extends React.Component {
 					return;
 				}
 		saleList.map((item)=>{
-			if(item.value == changeValues.saleList[index].tacticsType){
+			if(item.id == changeValues.saleList[index].tacticsId){
 			   	tacticsId = item.id;
 			}
 		})
@@ -1296,7 +1296,7 @@ class NewCreateForm extends React.Component {
 		let tacticsId = '';
 		let minDiscount;
 		saleList.map((item)=>{
-			if(item.value == changeValues.saleList[index].tacticsType){
+			if(item.id == changeValues.saleList[index].tacticsId){
 			   	tacticsId = item.id;
 			   	minDiscount = item.discount;
 			}
