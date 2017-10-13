@@ -42,7 +42,6 @@ class InputCardForm extends React.Component {
 			tipContent : '',
 			showTip : false,
 			submitSuc : false,
-			autoFocuseState : false
 		}
 
 	}
@@ -65,12 +64,19 @@ class InputCardForm extends React.Component {
 				Store.dispatch(change('InputCardForm','innerCode',''));
 				Store.dispatch(change('InputCardForm','outerCode',response.suggestedOuterCode||''));
 				
+
+				var inputCardForm = document.getElementsByClassName("input-card-form")[0];
+				inputCardForm.getElementsByClassName("ui-form-item")[1].getElementsByTagName("input")[0].blur();
+				inputCardForm.getElementsByClassName("ui-form-item")[2].getElementsByTagName("input")[0].blur();
+				inputCardForm.getElementsByClassName("ui-form-item")[3].getElementsByTagName("input")[0].focus();
+
 				_this.setState({
 					showTip : true,
 					tipContent : response.message,
-					submitSuc : true,
-					autoFocuseState : true
+					submitSuc : true
 				})
+
+
 			}
 
 			State.cardManageSearchParams={
@@ -126,7 +132,7 @@ class InputCardForm extends React.Component {
 			pristine,
 			reset
 		} = this.props;
-		let {tipContent,showTip,submitSuc,autoFocuseState} = this.state;
+		let {tipContent,showTip,submitSuc} = this.state;
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}} className="input-card-form">
@@ -157,29 +163,17 @@ class InputCardForm extends React.Component {
 					requireLabel={true}
 				/>
 				
-				{
-					!autoFocuseState && <KrField 
-						style={{width:290,float:"right"}} 
-						name="innerCode" 
-						component="input" 
-						type="text" 
-						label="会员卡内码" 
-						onChange={this.cardChange} 
-						requireLabel={true}
-					/>
-				}
-				{
-					autoFocuseState && <KrField 
-						style={{width:291,float:"right"}} 
-						name="innerCode" 
-						component="input" 
-						type="text" 
-						label="会员卡内码" 
-						onChange={this.cardChange} 
-						requireLabel={true}
-						autoFocus = {true}
-					/>
-				}
+				
+				<KrField 
+					style={{width:290,float:"right"}} 
+					name="innerCode" 
+					component="input" 
+					type="text" 
+					label="会员卡内码" 
+					onChange={this.cardChange} 
+					requireLabel={true}
+				/>
+				
 
 				<div style={{width:"100%",height:0,clear:"both"}}></div>
 				<div className="tip-box">
