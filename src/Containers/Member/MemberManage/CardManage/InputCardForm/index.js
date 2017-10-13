@@ -114,6 +114,7 @@ class InputCardForm extends React.Component {
 			Message.error('卡内码内含有中文请切换英文输入法！');
 			return;
 		}
+		this.submitContinue();
 		
 	}
 
@@ -124,6 +125,10 @@ class InputCardForm extends React.Component {
 
 	submitContinue=()=>{
 		this.continueOrClose = "continue"
+	}
+
+	inputData=()=>{
+		this.submitContinue();
 	}
 	render() {
 		const {
@@ -144,7 +149,7 @@ class InputCardForm extends React.Component {
 					component="searchCommunityAll"
 					label="社区名称: "
 					style={{width:290,marginTop:20}}
-					onChange = {this.onChangeCommunity}
+					onChange = {this.inputData}
 					inline={false}
 					requireLabel={true}
 				/>
@@ -152,7 +157,7 @@ class InputCardForm extends React.Component {
 					name="memo" 
 					type="text" 
 					label="备注" 
-					
+					onCahnge={this.inputData}
 				/>
 				<KrField  
 					style={{width:290,float:"left"}} 
@@ -161,6 +166,7 @@ class InputCardForm extends React.Component {
 					label="会员卡外号" 
 					onBlur={this.foreignCodeBlur}
 					requireLabel={true}
+					onChange={this.inputData}
 				/>
 				
 				
