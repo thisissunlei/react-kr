@@ -22,7 +22,7 @@ export default class Dictionary extends React.Component {
 
     var result = '';
 
-    var dics = DictionaryConfigs[type];
+		var dics = DictionaryConfigs[type];
 
     if(Object.prototype.toString.call(dics) !== '[object Array]'){
       return result;
@@ -48,6 +48,7 @@ export default class Dictionary extends React.Component {
 			value,
 			style
 		} = this.props;
+
 
 		return (
 			<span style={style}>{this.getDictionary(type,value)?this.getDictionary(type,value):'-'}</span>

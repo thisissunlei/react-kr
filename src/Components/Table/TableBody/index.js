@@ -130,7 +130,8 @@ export default class TableBody extends React.Component {
 
 		let {
 			listData,
-			displayCheckbox
+			displayCheckbox,
+			hasBorder
 		} = this.props;
 
 		const handlers = {
@@ -159,6 +160,7 @@ export default class TableBody extends React.Component {
 			selected: this.isRowSelected(rowNumber),
 			visibility: this.isRowVisibility(rowNumber),
 			itemData,
+			hasBorder:hasBorder
 		};
 
 		let children = [
@@ -172,7 +174,7 @@ export default class TableBody extends React.Component {
 			return React.cloneElement(child, {
 				...child.props,
 				...props,
-				...handlers
+				...handlers,
 			}, children);
 		}
 
@@ -254,7 +256,8 @@ export default class TableBody extends React.Component {
 
 		let {
 			className,
-			borderBodyStyle
+			borderBodyStyle,
+			hasBorder
 		} = this.props;
         let styleBody={};
 		if(borderBodyStyle){
@@ -267,8 +270,15 @@ export default class TableBody extends React.Component {
 			}
 		}
 
+		var claName='';
+		if(hasBorder){
+			claName=className+' tBodyder'
+		}else{
+			claName=className
+		}
+
 		return (
-			<tbody  className={className} style={styleBody}>
+			<tbody  className={claName} style={styleBody}>
 			{this.renderRows()}
 			{/*this.renderInsertElement()*/}
 			</tbody>

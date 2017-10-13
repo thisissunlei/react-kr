@@ -45,6 +45,7 @@ State.ordersListData=action(function(customerId,id){
 			    let order={};
 				order.value=response.orderList[i].id;
 				order.label=response.orderList[i].mainbillname;
+				order.communityid=response.orderList[i].communityid;
 				orderList.push(order);
 			}
 			var noContract = {

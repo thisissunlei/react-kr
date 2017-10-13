@@ -22,7 +22,7 @@ export default class InputComponent extends React.Component{
 	}
 
 	onChange = (value)=>{
-
+		
 		let {input} = this.props;
 		input.onChange(value);
 		const {onChange} = this.props;
@@ -30,8 +30,12 @@ export default class InputComponent extends React.Component{
 	}
 
 	onBlur=(value)=>{
-		let {input} = this.props;
-		input.onBlur(value);
+		
+		let {input,marking} = this.props;
+		if(!marking){
+			input.onBlur(value);
+		}
+		
 		const {onBlur} = this.props;
 		onBlur && onBlur(value)
 	}
@@ -43,10 +47,34 @@ export default class InputComponent extends React.Component{
 		onFocus && onFocus(value)
 	}
 
+	componentWillUnmount(){
+		let {input,marking} = this.props;
+		if(marking){
+			input.onChange('');
+		}
+	}
 
 	render(){
 
-		let {input,prompt, label,notifys, type, meta: { touched, error } ,requireLabel,onChange,onBlur,onFocus,disabled,placeholder,style,inline,simple,heightStyle,autoFocus,...other} = this.props;
+		let {
+			input,
+			prompt, 
+			label,
+			notifys, 
+			type, 
+			meta: {touched, error } ,
+			requireLabel,
+			onChange,
+			onBlur,
+			onFocus,
+			disabled,
+			placeholder,
+			style,inline,
+			simple,
+			heightStyle,
+			autoFocus,
+			...other
+		} = this.props;
 
 			if(type === 'hidden'){
 				return (

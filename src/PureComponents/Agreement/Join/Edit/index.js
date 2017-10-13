@@ -68,13 +68,19 @@ export default class JoinCreate extends React.Component {
 		let {
 			params,onSubmit
 		} = this.props;
+		if(formValues.saleList){
+			formValues.saleList = JSON.stringify(formValues.saleList);
+
+		}else{
+			formValues.saleList = '[]'
+		}
 
 		var _this = this;
 		// console.log('jin-->',formValues)
 		// return;
 		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
 			_this.removeAllLocalStorage();
-			_this.isConfirmSubmiting = false;
+			_this.isConfirmSubmiting = true;
 			Notify.show([{
 				message: '更新成功',
 				type: 'success',
@@ -239,7 +245,19 @@ export default class JoinCreate extends React.Component {
 				initialValues.signdate =  DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.leaseBegindate =  DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
 				initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-
+				initialValues.saleList = response.saleList;
+			
+				if(response.saleList){
+					initialValues.biaodan = response.saleList.map(item=>{
+						if(item){
+							return item.tacticsType
+						}else{
+							return ''
+						}
+					})
+				}else{
+					initialValues.biaodan=[]
+				}
 
 				initialValues.stationVos = response.stationVos;
 				initialValues.delStationVos =  [];
@@ -256,6 +274,7 @@ export default class JoinCreate extends React.Component {
 				});
 
 			}).catch(function(err) {
+				console.log('err',err)
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -264,6 +283,7 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
+			console.log('err',err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -346,6 +366,21 @@ export default class JoinCreate extends React.Component {
 				}else{
 					initialValues.oldNum = localStorageData.oldNum;
 				}
+				initialValues.saleList = response.saleList;
+
+
+				if(response.saleList){
+					initialValues.biaodan = response.saleList.map(item=>{
+						if(item){
+							return item.tacticsType
+						}else{
+							return ''
+						}
+					})
+				}else{
+					initialValues.biaodan=[]
+				}
+
 
 				//处理stationvos
 				stationVos = initialValues.stationVos || [];
@@ -423,6 +458,8 @@ export default class JoinCreate extends React.Component {
 			stationVos,
 			delStationVos
 		} = this.state;
+		let {CommunityAgreementList} = this.props;
+		optionValues.saleList = CommunityAgreementList.saleList;
 
 		return (
 

@@ -15,6 +15,9 @@ export default class PlanMapComponent extends React.Component {
 
 	constructor(props){
 		super(props)
+
+
+
 		this.state = {
 			data:"",
 			imgW:"",
@@ -30,6 +33,7 @@ export default class PlanMapComponent extends React.Component {
 			selectedObjs:this.props.data.selectedObjs||[],
 			deleteArr:[],
 			isOperation:true,
+			originData:[],
 		}
 		this.getData();
 	}
@@ -56,6 +60,7 @@ export default class PlanMapComponent extends React.Component {
 			let name = "";
 			let arr = [];
 			var allDataObj = {};
+			var originData = [];
 			
 			arr = response.map(function(item,index){
 				var allData = [];
@@ -81,10 +86,12 @@ export default class PlanMapComponent extends React.Component {
 						}
 						if(selectedObjs.length == 0 && eveItem.status && eveItem.status == 3){
 							var obj = {};
+							
 								obj.name = eveItem.cellName;
 								obj.whereFloor = eveItem.floor;
 								obj.belongType = eveItem.belongType;
 								obj.belongId = Number(eveItem.belongId);
+								originData.push(obj);
 								allData.push(obj);
 						}
 				})
@@ -100,7 +107,8 @@ export default class PlanMapComponent extends React.Component {
 					name:name
 				},
 				newfloor:floors[0].value,
-				submitData:allDataObj
+				submitData:allDataObj,
+				originData:originData
 			},function(){
 				 _this.canvasEles();
 			})
@@ -120,6 +128,8 @@ export default class PlanMapComponent extends React.Component {
 		//  
 	}
 	dataChange = (data,allData) =>{
+
+		console.log('dataChange',data,allData)
 
 		const {selectedObjs,newfloor,submitData,deleteArr} = this.state;
 		let del = [].concat(selectedObjs);
@@ -234,7 +244,7 @@ export default class PlanMapComponent extends React.Component {
 
 
 	allOnSubmit = () =>{
-		let {submitData,deleteArr} =this.state;
+		let {submitData,deleteArr,originData} =this.state;
 		let {data} = this.props;
 		let allData = [];
 		let delData = [];
@@ -249,9 +259,14 @@ export default class PlanMapComponent extends React.Component {
 		for(let i in submitData){
 			submitDataAll = submitDataAll.concat(submitData[i]);
 		}
+		for(let i in originData){
+			submitDataAll = submitDataAll.concat(originData[i]);
+		}
 		for(let i in deleteArr){
 			deleteDataArr = deleteDataArr.concat(deleteArr[i]);
 		}
+
+		console.log('--->',submitDataAll)
 
 
 		 

@@ -50,6 +50,7 @@ export default class JoinPrint extends React.Component {
 			return;
 		}
 		var printHeight = printList.offsetHeight;
+		
 		if(printHeight>1120  &&  !this.init){
 			this.init = true;
 			this.pages = Math.ceil(printHeight/1120) + 1;
@@ -93,6 +94,7 @@ export default class JoinPrint extends React.Component {
 			width:'100%',
 			height:1
 		}
+		
 		return (
 		<div style={{background:'#fff'}}>
 			<div className="print-section no-print-section" style={{minHeight:'293mm'}}>
@@ -112,6 +114,8 @@ export default class JoinPrint extends React.Component {
 					baseType="入驻信息"
 					baseInfo={State.baseInfo}
 				/>
+				
+			{/*<div style={style}></div>*/}
 
 				<Print.Payment
 					baseInfo={State.baseInfo}
