@@ -1,0 +1,217 @@
+import React from 'react';
+import {DateFormat,Http} from 'kr/Utils';
+import {	
+    Col,
+    Row,
+    Button,
+    Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+    TableFooter,
+    Tooltip,
+    KrDate,
+    Drawer
+} from 'kr-ui';
+import {change}  from 'redux-form';
+import {Store} from 'kr/Redux';
+import AddStaging from './AddStaging';
+import EditStaging from './EditStaging';
+import './index.less';
+
+class StagingCommunity  extends React.Component{
+
+	constructor(props,context){
+        super(props, context);
+        this.state={
+            openAddCommunity:false,
+            openEditCommunity:false,
+            searchParams:{
+                
+            }
+        }
+	}
+
+    componentDidMount(){
+        
+    }
+
+    onCancel=()=>{
+        let {onCancel}=this.props;
+        onCancel && onCancel();
+    }
+
+    openAddCommunity=()=>{
+        this.setState({
+            openAddCommunity:!this.state.openAddCommunity
+        })
+    }
+
+    openAddSubmit=(params)=>{
+        var _this=this;
+        Http.request('communityGetEdit',{},{id:params}).then(function(response) {
+            var search={
+                time:+new Date()
+            }
+            _this.setState({
+                searchParams:Object.assign({},_this.state.searchParams,search) 
+            })
+            _this.openAddCommunity();
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+    }
+
+    openEditSubmit=(params)=>{
+        var _this=this;
+        Http.request('communityGetEdit',{},params).then(function(response) {
+            var search={
+                time:+new Date()
+            }
+            _this.setState({
+                searchParams:Object.assign({},_this.state.searchParams,search) 
+            })
+            _this.editCancel();
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+    }
+
+    onOperation=(type,itemDetail)=>{
+        if(type=='edit'){
+            this.editCancel();
+        }
+    }
+
+    editCancel=()=>{
+        this.setState({
+            openEditCommunity:!this.state.openEditCommunity,
+        })  
+    }
+   
+    whiteClose=()=>{
+        let {whiteClose}=this.props;
+        whiteClose && whiteClose();
+        this.setState({
+            openAddCommunity:false,
+            openEditCommunity:false,
+        })
+    }
+
+	render(){
+
+		return(
+
+			<div className='m-stage-list'>
+                      <div className="title" style={{marginBottom:"30px"}}>
+                            <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">分期配置</label></div>
+                            <div className="person-close" onClick={this.onCancel}></div>
+                      </div>
+                      
+                      <Row style={{marginBottom:21,position:'relative',zIndex:5}}>
+
+                            <Col
+                                style={{float:'left'}}
+                            >
+                                    <Button
+                                        label="新建"
+                                        type='button'
+                                        onTouchTap={this.openAddCommunity}
+                                    />
+                            </Col>
+
+	                 </Row>
+
+                    <Table
+                        style={{marginTop:8}}
+                        ajax={false}
+                        onOperation={this.onOperation}
+                        displayCheckbox={false}
+                        //ajaxParams={this.state.searchParams}
+                        onPageChange={this.onPageChange}
+                        ajaxUrlName='communitySearch'
+                        ajaxFieldListName="items"
+                        >
+                        <TableHeader>
+                        <TableHeaderColumn>社区编码</TableHeaderColumn>
+                        <TableHeaderColumn>社区名称</TableHeaderColumn>
+                        <TableHeaderColumn>所属城市</TableHeaderColumn>
+                        <TableHeaderColumn>是否分期</TableHeaderColumn>
+                        <TableHeaderColumn>操作</TableHeaderColumn>
+                        </TableHeader>
+
+                        <TableBody >
+                            <TableRow>
+                                <TableRowColumn name="name" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }}></TableRowColumn>
+                                <TableRowColumn name="cityName" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }}></TableRowColumn>
+                                 <TableRowColumn name="openDate" component={(value,oldValue)=>{
+                                        return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                                }}></TableRowColumn>
+                                <TableRowColumn name="area" component={(value,oldValue)=>{
+		 										var maxWidth=10;
+		 										if(value.length>maxWidth){
+		 										 value = value.substring(0,10)+"...";
+		 										}
+		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+		 								 }}></TableRowColumn>
+                                <TableRowColumn type="operation">
+                                    <Button label="编辑"  type="operation"  operation="edit"/>
+                                </TableRowColumn>
+                            </TableRow>
+                        </TableBody>
+                </Table>
+
+
+                {/*新增*/}
+                <Drawer
+                    open={this.state.openAddCommunity}
+                    width={750}
+                    onClose={this.whiteClose}
+                    openSecondary={true}
+                    containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+                >
+                    <AddStaging
+                        onCancel={this.openAddCommunity}
+                        onSubmit={this.openAddSubmit}
+                    />
+
+                </Drawer>
+
+
+                {/*编辑*/}
+                <Drawer
+                    open={this.state.openEditCommunity}
+                    width={750}
+                    onClose={this.whiteClose}
+                    openSecondary={true}
+                    containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+                >
+                    <EditStaging
+                        onCancel={this.editCancel}
+                        onSubmit={this.openEditSubmit}
+                    />
+
+                </Drawer>
+
+                       
+			</div>
+		);
+	}
+}
+
+
+export default StagingCommunity

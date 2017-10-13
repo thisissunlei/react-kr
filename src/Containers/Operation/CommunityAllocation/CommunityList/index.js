@@ -40,6 +40,7 @@ import NewCommunityList from './NewCommunityList';
 import EditCommunityList from './EditCommunityList';
 import SearchUpperForm from './SearchUpperForm';
 import WatchCommunityList from './WatchCommunityList';
+import StagingCommunity from './StagingCommunity';
 //todo:城市组件值不清空，后期补上
 import cityDataState from "../../../../Components/KrField/CityComponent/State";
 @observer
@@ -58,7 +59,6 @@ class CommunityList  extends React.Component{
 
 	componentDidMount(){
 		State.searchDataHere();
-
 	}
 
    //新建社区开关
@@ -103,16 +103,20 @@ class CommunityList  extends React.Component{
    //查看
    onOperation=(type,itemDetail)=>{
       if(type=='watch'){
-      	 State.getEditList(itemDetail.id)
-      	 State.switchWatchList();
-         return ;
-      }
-       if(type=='edit'){
+					State.getEditList(itemDetail.id)
+					State.switchWatchList();
+      }else if(type=='edit'){
 				  State.isCorpRank=false;
       	  State.searchDataHere();
           this.ajaxSendData(itemDetail.id);
-      }
-   }
+			}else if(type=='select'){
+				  State.openStagingFun(); 
+			}
+	 }
+	 
+	 stagingCancel=()=>{
+	 	State.openStagingFun(); 
+	 }
 
     //发送ajax请求函数
       ajaxSendData=(id)=>{
@@ -236,7 +240,7 @@ class CommunityList  extends React.Component{
 
 
     whiteClose=()=>{
-    	State.closeAllDialog();
+			State.closeAllDialog();
     }
 
     onPageChange=(page)=>{
@@ -310,6 +314,7 @@ class CommunityList  extends React.Component{
 		              <TableHeaderColumn>社区排序</TableHeaderColumn>
 		              <TableHeaderColumn>开业时间</TableHeaderColumn>
 		              <TableHeaderColumn>开业状态</TableHeaderColumn>
+									<TableHeaderColumn>是否分期</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
 
@@ -326,6 +331,10 @@ class CommunityList  extends React.Component{
 														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
+											<TableRowColumn name="opened" component={(value,oldValue)=>{
+												      var label=(value=='true')?'是':'否';
+                              return <div style={value=='true'?{color:'red'}:{}}>{label}</div>
+                           }}></TableRowColumn>
 			                <TableRowColumn type="operation">
                             <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_community_edit"/>
 			                      <Button label="查看"  type="operation"  operation="watch" />
@@ -396,6 +405,22 @@ class CommunityList  extends React.Component{
 													>
 												<WatchCommunityList
 														onCancel={this.onSwitchCancelWatchList}
+												/>
+
+											</Drawer>
+
+
+											{/*分期*/}
+											<Drawer
+														open={State.openStaging}
+														width={750}
+														onClose={this.whiteClose}
+														openSecondary={true}
+														containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+													>
+												<StagingCommunity
+														onCancel={this.stagingCancel}
+														whiteClose={this.whiteClose}
 												/>
 
 											</Drawer>
