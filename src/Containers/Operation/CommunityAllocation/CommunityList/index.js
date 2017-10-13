@@ -329,6 +329,7 @@ class CommunityList  extends React.Component{
 			                <TableRowColumn type="operation">
                             <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_community_edit"/>
 			                      <Button label="查看"  type="operation"  operation="watch" />
+														<Button label="分期"  type="operation"  operation="select" />
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
