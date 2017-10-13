@@ -227,8 +227,6 @@ const validate = values =>{
 	}
 const selector = formValueSelector('InputCardForm');
 
-
-
 export default reduxForm({
 	form: 'InputCardForm',validate
 })(InputCardForm);
