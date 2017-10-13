@@ -63,7 +63,7 @@ class InputCardForm extends React.Component {
 				Store.dispatch(change('InputCardForm','communityId',submitValues.communityId));
 				Store.dispatch(change('InputCardForm','memo',submitValues.memo));
 				Store.dispatch(change('InputCardForm','innerCode',''));
-				Store.dispatch(change('InputCardForm','outerCode',response.suggestedOuterCode));
+				Store.dispatch(change('InputCardForm','outerCode',response.suggestedOuterCode||''));
 				
 				_this.setState({
 					showTip : true,
