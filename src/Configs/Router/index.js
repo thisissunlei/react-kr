@@ -121,6 +121,7 @@ export default (
 
         {/*文档管理*/}
         {DocumentRouter()}
+        {SynchronizationRouter()}
         
         {/*智能硬件*/}
         {SmartHardware()}
@@ -130,7 +131,6 @@ export default (
         
         {PublicPageRouter()}
 
-        {SynchronizationRouter()}
 
 		{/*帮助*/}
 		<Route path="help" getComponent={Help}/>

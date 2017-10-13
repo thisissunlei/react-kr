@@ -648,20 +648,11 @@ const APIS = {
         method: 'get'
     },
 
-    //运营平台-会员管理-会员配置-会员卡激活-会卡列表
-    'CardActivationList': {
-        url: '/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
-        method: 'get'
-    },
+    
     //运营平台-会员管理-会员配置-列表
     'memberCardList': {
         url: '/api/krspace-finance-web/member/card/mbr-card?foreignCode={foreignCode}&page={page}&pageSize={pageSize}',
         method: 'get'
-    },
-    //运营平台-会员管理-会员配置-会员卡激活-会卡批量激活&&运营平台-会员管理-会员配置-会员卡激活-会卡新建激活
-    'CardActivation': {
-        url: '/api/krspace-finance-web/member/card/mbr-card',
-        method: 'post'
     },
     //运营平台-会员管理-会员配置-会员卡激活-会卡编辑
     'CardEdit': {
@@ -946,41 +937,13 @@ const APIS = {
       url: '/api/krspace-finance-web/member/card/card-list?page={page}&pageSize={pageSize}&type={type}&value={value}',
       method: 'get'
    },
-   //会员卡批量入库
-   'memberCardImport': {
-      url: '/api/krspace-finance-web/member/card/actions/storage?startForeignCode={startForeignCode}&endForeignCode={endForeignCode}',
-      method: 'put'
-   },
-   //会员卡领用
-   'memberCardUse': {
-      url: '/api/krspace-finance-web/member/card/actions/receive',
-      method: 'post'
-   },
-   //会员卡删除
-   'memberCardDelete': {
-      url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
-      method: 'delete'
-   },
-   //会员卡查看
-   'memberCardView': {
-      url: '/api/krspace-finance-web/member/card/bound-detail?id={id}',
-      method: 'get'
-   },
+  
    // 会员卡原领用人列表
    'memberRecvList':{
       url: '/api/krspace-finance-web/member/card/recv-list',
       method: 'get'
    },
-   //查询领用人的会员卡数
-   'memberCardNum':{
-      url: '/api/krspace-finance-web/member/card/actions/count-recvcard?receiveId={receiveId}',
-      method: 'get'
-   },
-   //会员卡转移
-   'transferMemberCard':{
-      url: '/api/krspace-finance-web/member/card/actions/transfer?fromId={fromId}&toId={toId}',
-      method: 'put'
-   },
+  
    //消息提醒-客户转移列表
    'messageRemindCustomerSwitching':{
       url: '/api/krspace-finance-web/msg/customer-transfer/list?createDateEnd={createDateEnd}&createDateStart={createDateStart}&page={page}&pageSize={pageSize}',

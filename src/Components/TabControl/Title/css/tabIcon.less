@@ -1,0 +1,79 @@
+.tabs-title-icon{
+    position: relative;
+    background: #fff;
+    border-bottom: 1px solid #DFDFDF;
+    .icon{
+        width: 40px;
+        height: 40px;
+        background: #FF6C60;
+        border-radius: 4px;
+        line-height: 40px;
+        color: #fff;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom:15px;
+    }
+    .content{
+        position: absolute;
+        left: 50px;
+        right: 0px;
+        top: 0px;
+        height: 55px;
+        .title-text{
+            height: 24px;
+            font-size: 14px;
+            color: #333333;
+        }
+        .title-content{
+            height: 35px;
+        }
+        .tabs-icon-init{
+            position: relative;
+            font-size: 14px;
+            color: #666666;
+            margin: 0px 7px;
+            cursor: pointer;
+            display: inline-block;
+            height: 31px;
+
+            box-sizing: border-box;
+
+        }
+        .tabs-icon-init:after{
+            position: absolute;
+            content: "";
+            width: 0px;
+            left: 0px;
+            bottom: -1px;
+            height: 2px;
+            background: #499DF1;
+            // -webkit-animation: zoomSmall .3s both;
+            // animation: zoomSmall .3s both;
+        }
+        .tabs-icon-active{
+            position: relative;
+            font-size: 14px;
+            margin: 0px 7px;
+            cursor: pointer;
+            display: inline-block;
+            height: 31px;
+
+            box-sizing: border-box;
+            color:#499DF1;
+
+        }
+        .tabs-icon-active:after{
+            position: absolute;
+            content: "";
+            width: 100%;
+            left: 0px;
+            bottom: -1px;
+            height: 2px;
+            background: #499DF1;
+            // -webkit-animation: zoomBig .3s both;
+            // animation: zoomBig .3s both;
+        }
+
+
+    }
+}

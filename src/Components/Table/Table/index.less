@@ -35,10 +35,10 @@
     .recordClose{
     	background: url(images/close.svg) no-repeat;
       	background-position: 80% center;
-		
+
     }
 
-	
+
 }
 //默认样式
 .ui-table{
@@ -48,6 +48,34 @@
 	//table-layout:fixed;
 	position:relative;
 	margin-top:20px;
+
+ //有边框开始
+	.thBorder{
+		border-right:solid 1px #E1E6EB;
+		height:46px;
+	}
+	.trBorder{
+		border-top:solid 1px #E1E6EB;
+	}
+	tbody .trBorder:nth-child(2n+1){
+		background:#fff;
+	}
+	tbody .trBorder:hover{
+		background: #F6F6F6;
+	}
+	.theadBorder{
+		border:solid 1px #E1E6EB;
+		background:#F5F6FA
+	}
+	.tBodyder{
+		border:solid 1px #E1E6EB;
+		background:#fff;
+	}
+	.tdBorder{
+		border-right:solid 1px #E1E6EB;
+		height:39px;
+	}
+	//有边框结束
 
 	th{
 		height:45px;

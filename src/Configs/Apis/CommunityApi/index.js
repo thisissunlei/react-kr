@@ -81,4 +81,10 @@ module.exports = {
       method: 'get'
    },
 
+   //预约参观删除
+   'delete-record':{
+    url: '/api/krspace-finance-web/sys/visit-record/delete?id={id}',
+    method: 'get'
+  },
+
 }

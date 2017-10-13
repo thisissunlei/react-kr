@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.less';
+import imgSrc from './images/nothings.png';
 export default class TableHeaderColumn extends React.Component {
 
 
@@ -12,11 +13,17 @@ export default class TableHeaderColumn extends React.Component {
 	
 
 	render() {
-        const {style} = this.props;
+        const {style,iconStyle,fontSize} = this.props;
+		let textStyle = {};
+		if(fontSize){
+			textStyle.fontSize = fontSize;
+		}
+		
+
 		return (
 			<div  className="ui-nothing" style = {style||{}}>
-				<div className="icon"></div>
-				<p className="tip">暂时还没有数据呦~</p>
+				<img className="img-icon" src={imgSrc} style = {iconStyle||{}} alt=""/>
+				<p className="tip" style = {textStyle}>暂时还没有数据呦~</p>
 			</div>
 		);
 

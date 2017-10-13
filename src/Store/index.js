@@ -7,6 +7,7 @@ import NotifyModel from './NotifyModel';
 import NavModel from './NavModel';
 import OperationCommunity from './OperationCommunity';
 import LeftIconClick from './LeftIconClick';
+import TextDicModel from './TextDicModel';
 
 module.exports = {
 	CommonModel,
@@ -17,5 +18,6 @@ module.exports = {
 	NavModel,
 	...OperationCommunity,
 	NewIndentModel,
-	LeftIconClick
+	LeftIconClick,
+	TextDicModel
 }

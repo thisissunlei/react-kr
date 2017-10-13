@@ -159,13 +159,21 @@ function arrDelEle (arr,index){
   arr.splice(index,1)
   return arr;
 }
+//倒叙排列
 function arrReverse (arr){
   arr  = [].concat(arr);
   arr.sort(function(a,b){
     return b-a;
   })
   return arr;
-
+}
+//是否是数组
+function isArray(arr){
+  return Object.prototype.toString.call(arr)=='[object Array]';
+}
+//判断是否是对象
+function isObject(object){
+  return Object.prototype.toString.call(object)=='[object Object]';
 }
 
 
@@ -177,5 +185,7 @@ module.exports = {
   urltoFile,
   isEmptyObject,
   arrDelEle,
-  arrReverse
+  arrReverse,
+  isArray,
+  isObject
 }

@@ -388,4 +388,145 @@ module.exports = {
             url: '/api/krspace-sso-web/sso/module/sub-level-info?firstLevelId={firstLevelId}',
             method: 'get'
     },
+    //表单管理--表单类型导航
+      'get-from-navigation':{
+            url: '/api/krspace-erp-web/sys/form-type/list/type/navigation?nameKey={nameKey}',
+            method: 'get'
+    },
+    //表单管理--表单类型列表
+     'get-from-list':{
+          url: '/api/krspace-erp-web/sys/form-type/list/type/search?page={page}&pageSize={pageSize}&nameKey={nameKey}',
+          method: 'get'
+    },
+    //表单管理--表单类型编辑信息
+    'get-form-data':{
+      url: '/api/krspace-erp-web/sys/form-type/info/type/edit?id={id}',
+      method: 'get'
+    },
+    //表单管理--表单类型新增
+    'add-form-type':{
+      url: '/api/krspace-erp-web/sys/form-type/add',
+      method: 'post'
+    },
+    //表单管理--表单类型编辑
+    'edit-form-type':{
+      url: '/api/krspace-erp-web/sys/form-type/edit',
+      method: 'post'
+    },
+    //表单管理--查询表单列表
+    'form-list-search':{
+      url: '/api/krspace-erp-web/sys/form/list/type/search?enabled={enabled}&nameKey={nameKey}&page={page}&pageSize={pageSize}&tableName={tableName}&typeId={typeId}&purpose={purpose}',
+      method: 'get'
+    },
+    //表单管理--新增表单
+    'form-add-list':{
+      url: '/api/krspace-erp-web/sys/form/add',
+      method: 'post'
+    },
+    //表单管理--编辑表单
+    'form-edit-list':{
+      url: '/api/krspace-erp-web/sys/form/edit',
+      method: 'post'
+    },
+    //表单管理--生成表
+    'form-create-table':{
+      url: '/api/krspace-erp-web/sys/form/create-table',
+      method: 'post'
+    },
+    //表单管理--表单类型下拉列表
+    'form-type-select':{
+      url: '/api/krspace-erp-web/sys/form-type/select/type/list',
+      method: 'get'
+    },
+    //表单管理--获取表单编辑信息
+    'form-get-edit':{
+      url: '/api/krspace-erp-web/sys/form/info/type/edit?id={id}',
+      method: 'get'
+    },
+    //表单管理--批量删除表单字段
+    'form-all-batch':{
+      url: '/api/krspace-erp-web/sys/form-field/delete/type/batch',
+      method: 'post'
+    },
+    //表单管理--表单字段列表接口
+    'form-group-table':{
+      url: '/api/krspace-erp-web/sys/form-field/list/type/group-by-table?formId={formId}',
+      method: 'get'
+    },
+    //表单管理--新增表单字段
+    'form-field-add':{
+      url: '/api/krspace-erp-web/sys/form-field/add',
+      method: 'post'
+    },
+    //表单管理--编辑表单字段
+    'form-field-edit':{
+      url: '/api/krspace-erp-web/sys/form-field/edit',
+      method: 'post'
+    },
+     //表单管理--编辑表单字段-已创建
+     'create-field-edit':{
+      url: '/api/krspace-erp-web/sys/form-field/edit/type/label',
+      method: 'post'
+    },
+     //表单管理--表单字段排序
+     'form-field-order':{
+      url: '/api/krspace-erp-web/sys/form-field/order/type/table',
+      method: 'post'
+    },
+     //表单管理--获取表单字段编辑信息
+     'get-field-edit':{
+      url: '/api/krspace-erp-web/sys/form-field/info/type/edit?id={id}',
+      method: 'get'
+    },
+
+    //表单管理--新增明细表
+    'form-table-add':{
+      url: '/api/krspace-erp-web/sys/form-table/add',
+      method: 'post'
+    },
+    //表单管理--编辑明细表
+    'form-table-edit':{
+      url: '/api/krspace-erp-web/sys/form-table/edit',
+      method: 'post'
+    },
+    //表单管理--删除明细表
+    'form-table-delete':{
+      url: '/api/krspace-erp-web/sys/form-table/delete?id={id}',
+      method: 'delete'
+    },
+     //表单管理--获取公共字典下拉列表
+     'get-common-dic':{
+      url: '/api/krspace-erp-web/sys/public-dict/select/type/enabled',
+      method: 'get'
+    },
+    //公共字典列表
+    'get-dict-list':{
+            url: '/api/krspace-erp-web/sys/public-dict/list/type/search?codeKey={codeKey}&nameKey={nameKey}&page={page}&pageSize={pageSize}',
+            method: 'get'
+    },
+    //公共字典新建
+    'new-dict-submit':{
+            url: '/api/krspace-erp-web/sys/public-dict/add',
+            method: 'post'
+    },
+    //字典编辑提交
+    'edit-dict-submit':{
+            url: '/api/krspace-erp-web/sys/public-dict/edit',
+            method: 'post'
+    },
+    //字典编辑信息
+    'get-dict-edit-data':{
+            url: '/api/krspace-erp-web/sys/public-dict/info/type/edit?id={id}',
+            method: 'get'
+    },
+    //校验字典名称
+    'check-dict-name':{
+      url: '/api/krspace-erp-web/sys/public-dict/check/name?dictName={dictName}&id={id}',
+      method: 'get'
+    },
+    //校验字典编码
+    'check-dict-code':{
+      url: '/api/krspace-erp-web/sys/public-dict/check/code?dictCode={dictCode}&id={id}',
+      method: 'get'
+    },
 }
