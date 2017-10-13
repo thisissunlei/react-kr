@@ -920,5 +920,37 @@ module.exports = {
         url: '/api/krspace-finance-web/sys/visit-record/actions/edit/type/visit-status',
         method: 'post'
     },
+    //优惠选项
+    'sale-tactics': {
+        url: '/api/krspace-finance-web/sale-tactics?communityId={communityId}',
+        method: 'get'
+    },
+    //计算优惠
+    'count-sale': {
+        url: '/api/krspace-finance-web/count-sale',
+        method: 'post'
+    },
+    
+
+
+    //运营平台-会员管理-会员卡管理
+    'MemberCardManageList': {
+        url: '/api/krspace-finance-web/member/card/card-list?type={type}&value={value}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //运营平台-会员管理-会员卡片编辑回显
+    'MemberCardEditShow': {
+        url: '/api/krspace-finance-web/member/card/edit-info?id={id}',
+        method: 'get'
+    },
+
+    //运营平台-会员管理-会员卡片查看回显
+    'MemberCardSeeDetail': {
+        url: '/api/krspace-finance-web/member/card/detail?id={id}',
+        method: 'get'
+    },
+
+
+    
    
 }

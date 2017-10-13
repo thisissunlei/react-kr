@@ -63,12 +63,18 @@ import UpImages from './UpImages';
 import SwitchSlide from './SwitchSlide';
 import Chip from './Chip';
 import ArticleList from './ArticleList';
+import IconTip from './IconTip';
+import Toolbar from './Toolbar';
+import Toolbars from './Toolbars';
+import TextDic from './TextDic';
+import Dropdown from './Dropdown';
 
 import {
 	Grid,
 	Row,
 	Col
 } from './Grid';
+import FieldTabel from './FieldTabel';
 
 
 //materal-ui
@@ -78,7 +84,6 @@ import  DropDownMenu  from 'material-ui/DropDownMenu';
 import  IconMenu  from 'material-ui/IconMenu';
 import  Avatar  from 'material-ui/Avatar';
 import Snackbar from 'material-ui/Snackbar';
-
 import {
 	Tab
 } from 'material-ui/Tabs';
@@ -168,5 +173,11 @@ module.exports = {
 	UpImages,
 	SwitchSlide,
 	Chip,
-	ArticleList
+	...FieldTabel,
+	ArticleList,
+	IconTip,
+	Toolbar,
+	Toolbars,
+	TextDic,
+	Dropdown,
 }

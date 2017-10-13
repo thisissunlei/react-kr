@@ -132,12 +132,16 @@ import newIndentState from "../NewIndent/State";
 	}
 	//
     orderListChange = (data) =>{
+    	console.log('orderListChange',data)
+    	let {CommunityAgreementList} = this.props;
     	if(data.label=="新建订单"){
     		allState.openNewIndent=true;
     		this.openNewIndent();
 
     	}else{
           allState.mainBillId=data.value;
+          CommunityAgreementList.communityId = data.communityid;
+          CommunityAgreementList.getSaleList();
 
     	}
     }

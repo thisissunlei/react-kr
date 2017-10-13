@@ -1,13 +1,16 @@
 import React from 'react';
 import {
-	TabCs,
+	KrField,
+    TabCs,
     TabC
 } from 'kr-ui';
 import {
 	numberToSign
 } from 'kr/Utils'
 import {reduxForm} from 'redux-form';
-
+import EditTable from './EditTable';
+import EditFiled from './EditFiled'
+import RadioBug from './RadioBug';
 class New extends React.Component {
 
 
@@ -15,7 +18,7 @@ class New extends React.Component {
 		super(props, context);
 
 		this.state = {
-            
+
 		}
 	}
 
@@ -27,21 +30,24 @@ class New extends React.Component {
 	render() {
 
 		return (
-			<div style = {{height:2000}}>
+			<div style = {{height:2000,background:"#fff"}}>
 			<TabCs
-					  isDetail='detail'
+					  isDetail='iconTab'
+					  label = "全部数据"
 			      >
-				  <TabC label='基本信息'> 
-					  <h1>sadf</h1>
-				  </TabC> 
-				  
-				  <TabC label='个人信息'> 
-					  <h1>sadf</h1>
+				  <TabC label='基本信息'>
+					  
+					    <EditFiled />
 				  </TabC> 
 
-				  <TabC label='工作信息'> 
-					  <h1>sadf</h1>
-				  </TabC> 
+				  <TabC label='个人信息'>
+					  <EditTable />
+				  	
+				  </TabC>
+
+				  <TabC label='工作信息'>
+					 <RadioBug/>
+				  </TabC>
 			  </TabCs>
 			</div>
 

@@ -32,9 +32,11 @@ let State = observable({
 		        deviceId :'',
 		        doorCode :'',
 		        doorType : '',
+		        title :'',
 		        floor : '',
 		        page : 1,
 		        pageSize: 15,
+
 
 		      },
 	searchEquipmentParam:{
@@ -52,8 +54,10 @@ let State = observable({
 	resetEquipmentDialog : false,
 	openFreshHTMLDialog :false,
 	openConfirmDeleteBatch : false,
-	loading :false
-
+	loading :false,
+	DropItems : [],
+	openFirstHardwareDetail: false,
+	resetFirstEquipmentDialog : false,
 });
 
 
@@ -217,6 +221,8 @@ State.freshPageReturn =  action(function(){
         doorCode : State.equipmentSecondParams.doorCode ||'',
         doorType :  State.equipmentSecondParams.doorType ||'',
         floor :  State.equipmentSecondParams.floor ||'',
+        maker :  State.equipmentSecondParams.maker ||'',
+        title : State.equipmentSecondParams.title ||'',
 
     }	
 })
@@ -236,7 +242,7 @@ State.freshSearchEquipmentPage = action(function(){
 State.equipmentAddLocation = action(function(param){
 	var urlParams = {deviceId:param}
 	Http.request('changeUnusedToList',{},urlParams).then(function(response) {
-		console.log("response",response);
+		
 		Message.success("注册设备成功");
 		State.getUnusedEquipmentFun();
 		State.freshPageReturn();
@@ -338,7 +344,6 @@ State.confirmOpenRestartAPPAction = action(function(){
 State.confirmResetEquipmentAction  = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('resetEquipmentUrl',urlParams).then(function(response) {
-		console.log("response",response);
 		Message.success("设备已收到恢复出厂设置的消息");
 	}).catch(function(err) {
 		Message.error(err.message);
@@ -350,7 +355,7 @@ State.confirmFreshHTMLAction = action(function(){
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('freshHTMLUrl',urlParams).then(function(response) {
 		
-		Message.success("设备已经收到刷新H5页面的消息");
+		Message.success("提交刷新请求成功");
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
@@ -359,17 +364,18 @@ State.confirmFreshHTMLAction = action(function(){
 
 //刷新设备上报信息
 State.freshEquipmentReporterAction = action(function(){
-	var urlParams = {deviceId:State.deviceVO.deviceId}
+	var urlParams = {deviceId:State.iitemDetail.deviceId}
 	Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
-		State.deviceVO.reported = response.reported;
+		State.iitemDetail.reported = response.reported;
 		Message.success("刷新成功");
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
 })
 
+
 State.confirmSynchronizingAction = action(function(){
-	var urlParams = {deviceId:State.deviceVO.deviceId}
+	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('SynchronizingUrl',{},urlParams).then(function(response) {
 		
 		Message.success("同步成功");
@@ -377,6 +383,20 @@ State.confirmSynchronizingAction = action(function(){
 		Message.error(err.message);
 	});
 })
+
+
+//一代门禁重置
+State.confirmResetFirstEquipmentState = action(function(){
+	var urlParams = {deviceId:State.itemDetail.deviceId}
+	Http.request('resetFirstEquipmentUrl',urlParams).then(function(response) {
+		Message.success("重置设备成功");
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
+
+
 
 
 

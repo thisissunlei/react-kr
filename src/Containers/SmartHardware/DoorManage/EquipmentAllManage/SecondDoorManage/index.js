@@ -12,7 +12,8 @@ import {
 import {
 	Message,Dialog,Button,Table,TableHeader,TableHeaderColumn,TableBody
 	,TableRow,TableRowColumn,TableFooter,Tooltip,Drawer,Grid,Row,
-	ListGroup,ListGroupItem,SearchForms,FontIcon
+	ListGroup,ListGroupItem,SearchForms,FontIcon,
+	Dropdown,
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import $ from 'jquery';
@@ -35,6 +36,7 @@ import EquipmentCache from './EquipmentCache';
 import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
 import BtnBox from './BtnBox';
+import EquipmentFirstDetail from './EquipmentFirstDetail';
 
 @inject("NavModel")
 @observer
@@ -80,6 +82,31 @@ export default class SecondDoorManage  extends React.Component{
 		
 	}
 	seeDetailInfoFun=(value,itemData)=>{
+		console.log("value",value);
+		if(value.maker == "KRSPACE"){
+			this.secondEquipment(value);
+		}else{
+			this.firstEquipment(value);
+		}
+		
+	}
+
+	firstEquipment=(value)=>{
+		let _this = this;
+		Http.request('getFirstEquipmentDetailUrl',{id:value.id}).then(function(response) {
+				
+			_this.setState({
+				itemDetail:response
+			},function(){
+				State.openFirstHardwareDetail = true;
+			});
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+	secondEquipment=(value)=>{
 		let _this = this;
 		Http.request('getSecEquipmentDetailUrl',{id:value.id}).then(function(response) {
 			
@@ -94,6 +121,8 @@ export default class SecondDoorManage  extends React.Component{
 		});
 		State.deviceVO = State.itemDetail.deviceVO;
 	}
+
+
 
 	closeAll=()=>{
 		State.openHardwareDetail = false;
@@ -120,6 +149,10 @@ export default class SecondDoorManage  extends React.Component{
 	//打开查看详情
 	openSeeDetail=()=>{
 		State.openHardwareDetail = !State.openHardwareDetail;
+	}
+	//打开一代查看详情
+	openSeeDetail=()=>{
+		State.openFirstHardwareDetail = !State.openFirstHardwareDetail;
 	}
 	//打开编辑
 	openEditDialogFun=()=>{
@@ -205,7 +238,7 @@ export default class SecondDoorManage  extends React.Component{
 
 	editList=(thisP,value,itemData)=>{
 		let _this = this;
-		Http.request('getSecEquipmentDetailUrl',{id:thisP.id}).then(function(response) {
+		Http.request('getEditEquipmentUrl',{id:thisP.id}).then(function(response) {
 			
 			_this.setState({
 				itemDetail:response
@@ -307,9 +340,175 @@ export default class SecondDoorManage  extends React.Component{
 		})
 	}
 
+	
+
+	//点击清空缓存
+	clearCache=()=>{
+		
+		State.openClearCached = !State.openClearCached;
+
+	}
+
+	//查看设备缓存
+	deviceCache=()=>{
+		State.showOpretion=false;
+		let _this =this;
+		var urlParamsT = {
+							deviceId:State.itemDetail.deviceId,
+							lastCardNo:'',
+							limit:50,
+						}
+		Http.request('getEquipmentCacheURL',urlParamsT).then(function(response) {
+				
+			_this.openEquipmentCacheFun();
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		
+
+	}
+
+	openEquipmentCacheFun=()=>{
+		State.openEquipmentCache = !State.openEquipmentCache;
+	}
+
+
+	//刷新H5页面
+	freshH5=()=>{
+
+		State.openFreshHTMLDialog = !State.openFreshHTMLDialog;
+
+	}
+
+	//同步口令
+	synchronizingPsw=()=>{
+		
+		State.synchronizingPswDialog = true;
+	}
+
+	//点击断开重连
+	connectAgain=()=>{
+		State.openConnectAgian = !State.openConnectAgian;
+	}
+
+
+	openDoorInline=()=>{
+		State.openDoorOnlineAction();
+	}
 
 
 
+	getDoorPassWord=()=>{
+		State.getPassword();
+	}
+
+
+	openFirstHardwareDetailFun=()=>{
+		State.openFirstHardwareDetail = !State.openFirstHardwareDetailFun;
+	}
+
+	//获取管理员密码
+	getManagerPsd=()=>{
+		State.openManagePsd = !State.openManagePsd;
+	}
+
+
+	//重启APP
+	restartAPP=()=>{
+		State.openRestartAPPDialog = !State.openRestartAPPDialog;
+	}
+
+
+	//重启设备系统
+	restartSystems=()=>{
+		State.openRestartSystemsDialog=!State.openRestartSystemsDialog;
+	}
+
+	//恢复设备出厂设置
+	resetEquipmentOrigin=()=>{
+		State.resetEquipmentDialog = !State.resetEquipmentDialog;
+	}
+
+	//升级
+	upgrade=(thisP,value,itemData)=>{
+		State.upgradeDialog = !State.upgradeDialog;
+	}
+
+	onMouseOn=(thisP)=>{
+		State.deviceVO = thisP.deviceVO
+		State.itemDetail = thisP;
+		this.setState({
+			itemDetail :thisP
+		})
+
+		let _this = this;
+		if(thisP.maker=="KRSPACE"){
+
+			State.DropItems=[
+				{title:"清空设备缓存",onClickFun:_this.clearCache},
+				{title:"查看设备缓存",onClickFun:_this.deviceCache},
+				{title:"刷新屏幕",onClickFun:_this.freshH5},
+				{title:"同步口令",onClickFun:_this.synchronizingPsw},
+
+				{title:"断开重连",onClickFun:_this.connectAgain},
+				{title:"远程开门",onClickFun:_this.openDoorInline},
+				{title:"获取口令",onClickFun:_this.getDoorPassWord},
+				{title:"获取管理员密码",onClickFun:_this.getManagerPsd},
+
+				{title:"重启设备APP",onClickFun:_this.restartAPP},
+				{title:"重启设备系统",onClickFun:_this.restartSystems},
+				{title:"恢复出厂设置",onClickFun:_this.resetEquipmentOrigin},
+				{title:"升级",onClickFun:_this.upgrade}
+				
+			]
+		}else{
+
+			State.DropItems=[
+
+				{title:"清空设备缓存",onClickFun:_this.clearCache},
+				{title:"刷新屏幕",onClickFun:_this.freshH5},
+				{title:"远程开门",onClickFun:_this.openDoorInline},
+				{title:"重置",onClickFun:_this.resetFirstEquipmentFun},
+				{title:"断开重连",onClickFun:_this.connectAgain}
+				
+			]
+		}
+
+	}
+
+	resetFirstEquipmentFun=()=>{
+		this.resetFirstEquipmentDialogFun();
+	}
+
+	resetFirstEquipmentDialogFun=()=>{
+		State.resetFirstEquipmentDialog = !State.resetFirstEquipmentDialog ;
+	}
+
+	confirmResetFirstEquipment=()=>{
+
+		State.confirmResetFirstEquipmentState();
+		this.resetFirstEquipmentDialogFun();
+		
+	}
+
+
+	prodoctQRCodeFun=()=>{
+		this.productQRCodeXHR();
+	}
+
+	productQRCodeXHR = ()=>{
+		let _this = this;
+		let {itemDetail} = this.state;
+		Http.request('productQRCodeUrl',{deviceId:itemDetail.deviceId}).then(function(response) {
+		
+			_this.firstEquipment(itemDetail)
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+	
 
 
 	render(){
@@ -317,7 +516,7 @@ export default class SecondDoorManage  extends React.Component{
 		let {showOpretion} = State;
 		return(
 			<div >
-				<div style={{padding:"20px 0 0 0"}}>
+				<div>
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
@@ -357,8 +556,8 @@ export default class SecondDoorManage  extends React.Component{
 			          	</TableHeader>
 			          	<TableBody >
 				            <TableRow>
-				            	<TableRowColumn name="communityName"></TableRowColumn>
-								<TableRowColumn style={{width:100,overflow:"visible"}} name="title" component={(value,oldValue)=>{
+				            	<TableRowColumn name="communityName" style={{width:"11%"}}></TableRowColumn>
+								<TableRowColumn style={{width:"12%",overflow:"visible"}} name="title" component={(value,oldValue)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
 		                              TooltipStyle="none"
@@ -369,26 +568,43 @@ export default class SecondDoorManage  extends React.Component{
 		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
-								<TableRowColumn name="doorCode" component={(value,oldValue)=>{
+								<TableRowColumn name="doorCode"
+									style={{width:"8%"}} 
+									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 								
-								<TableRowColumn name="deviceId" style={{width:170}}  component={(value,oldValue)=>{
+								
+								<TableRowColumn name="deviceId"
+									style={{width:"19%"}}
+									component={(value,oldValue)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="inline-block";
+										}
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+										)
+									}} 
+								>
+								</TableRowColumn>
+								<TableRowColumn name="makerName" 
+									style={{width:"5%"}}
+									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="makerName" component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								<TableRowColumn name="doorTypeName" component={(value,oldValue)=>{
+								<TableRowColumn name="doorTypeName" 
+									style={{width:"5%"}}
+									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
@@ -396,21 +612,31 @@ export default class SecondDoorManage  extends React.Component{
 								></TableRowColumn>
 							
 					            <TableRowColumn name="logined"
-					              component={(value,oldValue)=>{
-					                var spanColor = "";
+									style={{width:"7%"}}
 
-					                if(value  == "true"){
-					                	value="已连接";
-					                }else{
-					                	value="未连接";
-					                	spanColor = "#ff6868";
-					                }
-					                return (<span style={{color:spanColor}}>{value}</span>)}}>
+					              	component={(value,oldValue)=>{
+						                var spanColor = "";
+
+						                if(value  == "true"){
+						                	value="已连接";
+						                }else{
+						                	value="未连接";
+						                	spanColor = "#ff6868";
+						                }
+						                return (<span style={{color:spanColor}}>{value}</span>)}}
+						        >
 					            </TableRowColumn>
 					            
-								<TableRowColumn name="loginedUtime" type="date" format="yyyy-mm-dd HH:MM:ss" style={{width:160}}></TableRowColumn>
+								<TableRowColumn 
+									style={{width:"15%"}}
+									name="loginedUtime" 
+									type="date" 
+									format="yyyy-mm-dd HH:MM:ss" 
+								>
+								</TableRowColumn>
 
 					            <TableRowColumn type="operation"
+					            	style={{width:"15%"}}
 									component={
 										(value,oldValue,itemData)=>{
 											if(value==""){
@@ -421,7 +647,15 @@ export default class SecondDoorManage  extends React.Component{
 				                        				<Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
-														<Button  label="更多"  type="operation" operation="more" onTouchTap={this.showMoreOpretion.bind(this,value,itemData)} linkTrue/>
+              											<Dropdown 
+              												wrapStyle={{marginLeft:5}} 
+              												textTitle="更多" 
+              												dropItmes={State.DropItems} 
+              												liWidth={100} 
+              												onMouseOn={this.onMouseOn.bind(this,value,itemData)} 
+              												titleStyle={{color:"#499df1",fontSize:14}}
+              											/>
+
 													</div>
 												)
 										}
@@ -440,6 +674,16 @@ export default class SecondDoorManage  extends React.Component{
 					>
 						<EquipmentDetail onCancel={this.openSeeDetail} detail={itemDetail}/>
 					</Drawer>
+
+					<Drawer 
+			        	open={State.openFirstHardwareDetail}
+			        	onClose = {this.openFirstHardwareDetailFun}
+					    width={1000} 
+					    openSecondary={true} 
+					>
+						<EquipmentFirstDetail onCancel={this.openFirstHardwareDetailFun} detail={itemDetail} prodoctQRCodeFun={this.prodoctQRCodeFun}/>
+					</Drawer>
+
 					 <Drawer 
 			        	open={State.openSearchEquipment}
 			        	onClose = {this.openSearchEquipmentFun}
@@ -597,13 +841,13 @@ export default class SecondDoorManage  extends React.Component{
 			        </Dialog>
 
 			        <Dialog
-			          title="刷新H5页面提示"
+			          title="刷新屏幕提示"
 			          open={State.openFreshHTMLDialog}
 			          onClose={this.openFreshHTMLDialogFun}
 			          contentStyle={{width:443,height:236}}
 			        >
 			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>刷新H5页面可能导致页面显示不正常，确定刷新？</p>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>刷新屏幕可能导致屏幕显示不正常，确定刷新？</p>
 			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
 			                  <Row>
 			                    <ListGroup>
@@ -697,7 +941,7 @@ export default class SecondDoorManage  extends React.Component{
 			          <BtnBox onCancle={this.showOpretionFun}/>
 			        </Dialog>
 			        <Dialog
-			          title="重启APP提示"
+			          title="同步口令提示"
 			          open={State.synchronizingPswDialog}
 			          onClose={this.synchronizingPswDialogFun}
 			          contentStyle={{width:443,height:260}}
@@ -712,6 +956,28 @@ export default class SecondDoorManage  extends React.Component{
 			                      </ListGroupItem>
 			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
 			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.synchronizingPswDialogFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
+			        <Dialog
+			          title="一代门禁重置警告"
+			          open={State.resetFirstEquipmentDialog}
+			          onClose={this.resetFirstEquipmentDialogFun}
+			          contentStyle={{width:443,height:260}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>重置可能导致设备暂时掉线，确认重置？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.confirmResetFirstEquipment} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.resetFirstEquipmentDialogFun} />
 			                      </ListGroupItem>
 			                    </ListGroup>
 			                  </Row>

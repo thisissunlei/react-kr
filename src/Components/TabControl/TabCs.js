@@ -1,8 +1,15 @@
 import React from 'react';
-import TabTitle from './TabTitle';
-import TabFirst from './TabFirst';
-import TabProcess from './TabProcess';
+import {
+    TabTitle,
+    TabFirst,
+    TabProcess,
+    TabIcon
+} from './Title'
 import './index.less'
+import {
+    isArray,
+    isObject
+} from 'kr/Utils'
 export default class TabCs extends React.Component {
     constructor(props,context){
 		super(props, context);
@@ -11,31 +18,60 @@ export default class TabCs extends React.Component {
             showIndex:0,
         }
 	}
-    componentDidMount(){
-
-    }
+   
     getLabels = () =>{
         const {children} = this.props;
-        let labels = children.map((item,index)=>{
-            if(item){
-              return item.props.label;
-            }else{
-              return false
-            }
+        var newChildren = this.toArray(children);
+        let labels = newChildren.map((item,index)=>{
+            
+            return item.props.label;
         })
         return labels;
+       
+       
+       
+    }
+    toArray = (children) =>{
+        let newChildren = [];
+        if(isObject(children)){
+            newChildren.push(children);
+        }else if(isArray(children)){
+            children.map((item,index)=>{
+                if(item){
+                    if(isArray(item)){
+                        newChildren.push(...item);
+                    }else{
+                        newChildren.push(item);
+                    }
+                }
+            })
+        }
+        return newChildren;
     }
     titleClick = (label,index) =>{
        this.setState({
            showIndex:index,
        })
     }
+    
+    componentWillReceiveProps (nextProps) {
+        this.setState({
+            showIndex:0,
+        })
+    }
+    
     tabRender = () =>{
         const {children} = this.props;
         var child=[];
-        children.map((item,index)=>{
-          if(item){
+        
+        var newChildren = this.toArray(children);
+        newChildren.map((item,index)=>{
+          if(item && item.props){
             child.push(item)
+          }else if(item && item[0]){
+            item.map((item,index)=>{
+              child.push(item)
+            })
           }
         })
         const {showIndex} = this.state;
@@ -48,8 +84,8 @@ export default class TabCs extends React.Component {
     }
 
 	render() {
-        const {children,isDetail} = this.props;
-        const {labels} = this.state;
+        const {children,isDetail,label} = this.props;
+        const {labels,showIndex} = this.state;
 
 		return (
             <div class = "ui-oa-tabs">
@@ -67,7 +103,12 @@ export default class TabCs extends React.Component {
                     labels = {this.getLabels()}
                     onSubmit = {this.titleClick}
                 />}
-
+                {isDetail=='iconTab'&&<TabIcon
+                    labels = {this.getLabels()}
+                    label = {label}
+                    onSubmit = {this.titleClick}
+                    active = {showIndex}
+                />}
                 {this.tabRender()}
             </div>
 		);

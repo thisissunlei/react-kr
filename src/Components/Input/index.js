@@ -136,7 +136,6 @@ export default  class Input extends React.Component {
 		let {value} = this.state;
 
 		let  classNames = ClassNames('ui-input',className);
-
 		if(disabled){
 		  	classNames = ClassNames('ui-input',className,'input-disabled');
 		}

@@ -77,11 +77,18 @@ import OaTreeDepartment from './OaTreeDepartment';
 import OaTreePersonnel from './OaTreePersonnel';
 //分部树
 import OaTreeDivision from './OaTreeDivision'
+//类型树
+import FormTypeTree from './FormTypeTree';
 //高级查询客户来源
 import UpMerchantsSource from './UpMerchantsSource';
 import UpSignedClientSource from './UpSignedClientSource';
 import SearchProcessType from './SearchProcessType';
 import SearchRole from './SearchRole';
+import TableComponent from './TableComponent';
+import EditComponent from './EditComponent';
+import CheckBoxComponent from './CheckBoxComponent';
+import LabelComponent from './LabelComponent';
+import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
 import MainNewsUploadImage from './MainNewsUploadImageComponent';
 
@@ -284,6 +291,12 @@ class FieldRevert extends React.Component {
 			if (component === 'searchPersonel') {
 				return (
 					<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'SearchSourceOrigin') {
+				return (
+					<FieldRevert {...this.props} component={SearchSourceOrigin}  style={WrapStyles} {...other}/>
 				);
 			}
 
@@ -521,6 +534,11 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={OaTreePersonnel}  style={WrapStyles} {...other}/>
 				)
 			}
+			if (component === 'formTypeTree') {
+				return (
+					<FieldRevert {...this.props} component={FormTypeTree}  style={WrapStyles} {...other}/>
+				)
+			}
 			if (component === 'treeDivision') {
 				return (
 					<FieldRevert {...this.props} component={OaTreeDivision}  style={WrapStyles} {...other}/>
@@ -542,6 +560,7 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={UpSignedClientSource}  style={WrapStyles} {...other}/>
 				)
 			}
+
 			if (component === 'searchRole') {
 				return (
 					<FieldRevert {...this.props} component={SearchRole}  style={WrapStyles} {...other}/>
@@ -552,6 +571,27 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={MainNewsUploadImage}  style={WrapStyles} {...other}/>
 				);
 			}
+			if (component === 'table') {
+				return (
+					<TableComponent {...this.props} style={WrapStyles} />
+				);
+			}
+			if(type === "tableEdit" || component === "tableEdit") {
+				return (
+					<FieldRevert {...this.props} component={EditComponent}  style={WrapStyles} {...other} />
+				)
+			}
+			if(type == "checkBox" || component === "checkBox"){
+				return (
+					<FieldRevert {...this.props} component={CheckBoxComponent}  style={WrapStyles} {...other} />
+				)
+			}
+			if(type == "label" || component === "label"){
+				return (
+					<FieldRevert {...this.props} component={LabelComponent}  style={WrapStyles} {...other} />
+				)
+			}
+			
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
 			);

@@ -78,7 +78,7 @@ export default class BasicSetting extends React.Component {
 	onSaveSubmit = (params) => {
 		var _this = this;
 		var form = Object.assign({},params);
-		form.wfId=this.props.params.processId;
+		form.formId = form.formId[0].orgId;
 		form.hrmResourceId = form.hrmResourceId[0].orgId;
 		Http.request('process-edit', {}, form).then(function (response) {
 			Message.success('保存成功');
@@ -118,11 +118,11 @@ export default class BasicSetting extends React.Component {
                     <div className="department">
                         <div className="department-logo">
                             <span>
-                                {this.state.infoList.wfName?this.state.infoList.wfName.substring(0,2):''}
+                                {this.state.infoList.name?this.state.infoList.name.substring(0,2):''}
                             </span>
                         </div>
                         <div className="department-name">
-                            {this.state.infoList.wfName}
+                            {this.state.infoList.name}
                         </div>
                         <div className="department-tab-list">
                             <div className="department-tab department-tab-active" style={{cursor:"default"}}>

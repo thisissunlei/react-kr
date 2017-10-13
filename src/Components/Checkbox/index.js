@@ -3,8 +3,6 @@ import React, {
 } from 'react';
 
 import './index.less';
-
-
 export default class KrCheckbox extends Component {
 
 	static displayName = 'KrCheckbox';
@@ -65,13 +63,23 @@ export default class KrCheckbox extends Component {
 			checked,
 			label,
 			style,
-			heightStyle
+			heightStyle,
+			...other
 		} = this.props;
-
+		var checkboxClass = ".input-checkbox-init"
+		if(checked && !other.disabled){
+			checkboxClass = "input-checkbox-active"
+		}
+		if(checked && other.disabled){
+			checkboxClass = "input-checkbox-disabled-active"
+		}
+		if(!checked && other.disabled){
+			checkboxClass = "input-checkbox-disabled-init"
+		}
 
 		return (
 			<span style={style} className="ui-checkbox">
-					<input type="checkbox" onChange={this.onCheck} checked={checked}/>
+					 <input type="checkbox" onChange={this.onCheck} checked={checked} {...other}/>
 					{label && <span style={heightStyle} className="label">{label}</span>}
 			</span>
 
