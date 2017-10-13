@@ -72,7 +72,12 @@ static contextTypes = {
    let {CommunityAgreementList} = this.props;
    // console.log('formValues',formValues);
    // return;
+   if(formValues.saleList){
+      formValues.saleList = JSON.stringify(formValues.saleList);
 
+    }else{
+      formValues.saleList = '[]'
+    }
     Http.request('addOrEditContinueContract', {}, formValues).then(function(response) {
       _this.removeAllLocalStorage();
       Notify.show([{
@@ -80,6 +85,11 @@ static contextTypes = {
         type: 'success',
       }]);
       onSubmit && onSubmit()
+      if(formValues.saleList){
+        
+   formValues.saleList = JSON.parse(formValues.saleList);
+      }
+
       // CommunityAgreementList.ajaxListData({cityName:'',communityName:'',createDateBegin:'',createDateEnd:'',createrName:'',customerName:'',page:'',pageSize:'',salerName:''})
       CommunityAgreementList.openEditAgreement=false;
 
@@ -239,6 +249,18 @@ static contextTypes = {
         }else{
           initialValues.agreement = response.agreement;
         }
+        initialValues.saleList = response.saleList;
+        if(response.saleList){
+          initialValues.biaodan = response.saleList.map(item=>{
+            if(item){
+              return item.tacticsType
+            }else{
+              return ''
+            }
+          })
+        }else{
+          initialValues.biaodan=[]
+        }
         initialValues.lessorContacttel = response.lessorContacttel;
 
         //时间
@@ -351,6 +373,18 @@ static contextTypes = {
         }else{
           initialValues.oldNum = localStorageData.oldNum;
         }
+        initialValues.saleList = response.saleList;
+        if(response.saleList){
+          initialValues.biaodan = response.saleList.map(item=>{
+            if(item){
+              return item.tacticsType
+            }else{
+              return ''
+            }
+          })
+        }else{
+          initialValues.biaodan=[]
+        }
 
         //处理stationvos
         stationVos = initialValues.stationVos || [];
@@ -426,6 +460,8 @@ static contextTypes = {
       stationVos,
       delStationVos
     } = this.state;
+    let {CommunityAgreementList} = this.props;
+    optionValues.saleList = CommunityAgreementList.saleList;
     return (
 
       <div>

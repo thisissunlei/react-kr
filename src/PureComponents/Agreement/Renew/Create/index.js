@@ -88,19 +88,30 @@ export default class JoinCreate extends Component {
 			onSubmit
 		} = this.props;
 		let _this = this;
-
+		if(formValues.saleList && typeof formValues.saleList != 'string'){
+			formValues.saleList = JSON.stringify(formValues.saleList);
+		}
+		if(!formValues.saleList ){
+			formValues.saleList ='[]'
+		}
 		Http.request('addOrEditContinueContract','',formValues).then(function(response) {
 			Notify.show([{
 				message: '创建成功',
 				type: 'success',
 			}]);
 			_this.removeLocalStorages();
+			if(formValues.saleList){
+				formValues.saleList = JSON.parse(formValues.saleList);
+			}
 			_this.openConfirmCreateDialog();
 			onSubmit && onSubmit()
 			_this.props.CommunityAgreementList.openTowAgreement=false;
 			_this.props.CommunityAgreementList.openOneAgreement=false;
 			_this.props.CommunityAgreementList.openLocalStorage = false;
 		}).catch(function(err) {
+			if(formValues.saleList){
+				formValues.saleList = JSON.parse(formValues.saleList);
+			}
 			Notify.show([{
 				message: err.message,
 				type: 'danger',
@@ -167,7 +178,8 @@ export default class JoinCreate extends Component {
 		let optionValues = {};
 		let initialValue = {};
 		let optionValue = {fnaCorporationList:[]};
-
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.getSaleList();
 		let keyWord = params.orderId+''+ params.customerId+'RENEWcreate';
 		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
 
@@ -236,6 +248,20 @@ export default class JoinCreate extends Component {
 			}else{
 				initialValue.oldNum = localStorageData.oldNum;
 			}
+			//优惠缓存
+			
+			if(initialValue.saleList){
+				initialValue.biaodan = initialValue.saleList.map(item=>{
+					if(item){
+						return item.tacticsType
+					}else{
+						return ''
+					}
+				})
+			}else{
+				initialValue.biaodan=[]
+			}
+
 			_this.setState({
 				initialValues,
 				optionValues,
@@ -263,11 +289,10 @@ export default class JoinCreate extends Component {
 		} = this.state;
 
 		let {CommunityAgreementList} = this.props;
-
+		optionValues.saleList = CommunityAgreementList.saleList;
 		return (
 
 			<div>
-					<Title value="创建续租协议书_财务管理"/>
 		 	<BreadCrumbs children={['系统运营','客户管理','创建续租协议书']}/>
 			{CommunityAgreementList.openLocalStorage && <div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValues}/>
