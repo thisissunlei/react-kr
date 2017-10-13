@@ -35,6 +35,7 @@ class AddPic extends React.Component{
 
     onCancel=()=>{
         const {onCancel}=this.props;
+        
         onCancel && onCancel();
     }
 

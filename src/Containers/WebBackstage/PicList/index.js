@@ -61,6 +61,7 @@ export default class SwperList extends Component{
 	   this.setState({
 		  isOpenAdd: !isOpenAdd
 	   })
+	   
    }
    //编辑开关
    switchOpenEdit = (value) =>{
@@ -290,11 +291,7 @@ export default class SwperList extends Component{
 						<TableRowColumn 
 							name="orderNum"
 							component={(value,oldValue)=>{	
-								var maxWidth=10;
-								
-								if(value.length>maxWidth){
-									value = value.substring(0,10)+"...";
-								}
+							
 								return (<div  className='tooltipParent'><div className='tableOver' ><span>{value}</span></div><Tooltip offsetTop={8} place='top' ><div style = {{width:"260px",whiteSpace:"normal",lineHeight:"22px"}}>{oldValue}</div></Tooltip></div>)
 							}}
 						
@@ -314,7 +311,7 @@ export default class SwperList extends Component{
 						component={(value,oldValue,itemData)=>{	      
 												//上线状态
 												if(itemData.published=='1'){
-													return (
+												  return (
 															<span>
 															<Button label="下线" operateCode="por_mobilepic_publish" type="operation"  operation="offLine" onTouchTap={this.upPublish.bind(this,itemData)} />
 															<Button label="编辑" operateCode="por_mobilepic_editsave"  type="operation"  operation="edit" onTouchTap={this.switchOpenEdit.bind(this,itemData)}/>

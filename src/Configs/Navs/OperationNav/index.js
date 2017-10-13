@@ -195,7 +195,7 @@ module.exports = [
 					},
 					{
 						primaryText: '轮播图列表',
-						menuCode: 'krspace_cmt',
+						menuCode: 'por_mobilepic_list',
 						router: '/WebBackstage/picList',
 					}
 				]
