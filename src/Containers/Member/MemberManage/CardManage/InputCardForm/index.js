@@ -212,6 +212,9 @@ const validate = values =>{
 		if(!values.communityId){
 			errors.communityId = '请选择社区';
 		}
+		if(values.memo&&values.memo.length>50){
+			errors.memo = '备注内容必须在50位以内';
+		}
 		if(!values.outerCode){
 			errors.outerCode = '请输入会员卡外码';
 		}
