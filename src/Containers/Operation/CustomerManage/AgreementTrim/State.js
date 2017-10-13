@@ -37,7 +37,8 @@ let State = observable({
 	orderList:[],
 	contractList:[],
 	openEdit:false,
-	itemDetail:{}
+	itemDetail:{},
+	openDeleteContent:false
 
 });
 

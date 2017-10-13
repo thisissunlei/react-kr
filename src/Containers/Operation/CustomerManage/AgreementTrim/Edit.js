@@ -234,7 +234,7 @@ class EditList extends React.Component {
 									   	</TableRow>
 								</TableBody>
 							</Table>
-							<Grid>
+						<Grid  style={{marginTop:'50px'}}>
 						<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'45%',textAlign:'right'}}><Button  label="提交"  type="submit"  /></ListGroupItem>

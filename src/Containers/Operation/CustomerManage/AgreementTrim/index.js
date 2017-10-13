@@ -83,6 +83,7 @@ class AgreementTrim extends React.Component {
 					<SearchForms onSubmit={this.onSearchSubmit}  style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
 				</form>
 				<Table
+					displayCheckbox={false}
 					className="member-list-table"
 					style={{marginTop:10,position:'inherit'}}
 					ajax={true}

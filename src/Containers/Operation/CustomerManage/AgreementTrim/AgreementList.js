@@ -21,7 +21,8 @@ import {
 	TableRow,
 	TableHeaderColumn,
 	TableRowColumn,
-	Tooltip
+	Tooltip,
+	Dialog,
 } from 'kr-ui';
 import mobx, {
 	observable,
@@ -36,6 +37,9 @@ import {
 } from 'mobx-react';
 import './index.less';
 import State from './State';
+import Delete from './Delete';
+
+import nothing from './images/nothings.png';
 @observer
 class CreateNewList extends React.Component {
 
@@ -51,6 +55,7 @@ class CreateNewList extends React.Component {
 
 	onCancel=()=>{
 		State.openAgreementList = false;
+		State.contractList = [];
 	}
 	onSubmit=(form)=>{
 		let {onSubmit}=this.props;
@@ -104,12 +109,16 @@ class CreateNewList extends React.Component {
 		return typeName;
     }
     delete=(item)=>{
+    	State.openDeleteContent = true;
     	console.log('=====',item)
     }
     edit=(item)=>{
     	console.log('---edit---',item);
     	State.openEdit = true;
     	State.itemDetail = item;
+    }
+    onCloseDialog=()=>{
+    	State.openDeleteContent = false;
     }
 
 
@@ -187,8 +196,15 @@ class CreateNewList extends React.Component {
 								})}
 								</TableBody>
 							</Table>
+							{
+									!State.contractList.length &&
+										<div style={{margin:"20px 0 0 38px",width:547}}>
+											<img src={nothing} style={{margin:'10px auto',display:'block'}}/>
+											<span  style={{textAlign:'center',display:'block'}}>暂无数据</span>
+										</div>
+								}
 						</div>
-						<Grid>
+						<Grid style={{marginTop:'50px'}}>
 						<Row>
 						<ListGroup>
 							<ListGroupItem style={{width:'100%',textAlign:'center'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel} /></ListGroupItem>
@@ -197,6 +213,15 @@ class CreateNewList extends React.Component {
 						</Grid>
 					</CircleStyleTwo>
 				</form> 
+
+				<Dialog
+						title="删除合同"
+						autoScrollBodyContent={true}
+						open={State.openDeleteContent}
+						onClose={this.onCloseDialog}
+						 >
+						<Delete />
+					  </Dialog>
 			</div>
 
 
