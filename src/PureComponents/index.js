@@ -10,6 +10,7 @@ import TheBell from './TheBell';
 import PlanMapContent from './PlanMapContent';
 import AddPostPeople from './AddPostPeople';
 import NodeFormwork from './NodeFormwork';
+import LocationChoice from './LocationChoice';
 
 module.exports = {
 	Agreement,
@@ -23,6 +24,7 @@ module.exports = {
 	TheBell,
 	PlanMapContent,
 	AddPostPeople,
-	NodeFormwork
+	NodeFormwork,
+	LocationChoice
 }
 
