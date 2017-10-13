@@ -141,9 +141,7 @@ class InputCardForm extends React.Component {
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}} className="input-card-form">
-				<div className={submitSuc?"submit-suc-style":"submit-fail-style"} style={{display:showTip?"block":"none"}}>
-					<span className="tip-img tip-img-same"></span><span>{tipContent}</span>
-				</div>
+				
 				<KrField 
 					name="communityId"
 					component="searchCommunityAll"
@@ -179,9 +177,11 @@ class InputCardForm extends React.Component {
 					onChange={this.cardChange} 
 					requireLabel={true}
 				/>
-				
 
 				<div style={{width:"100%",height:0,clear:"both"}}></div>
+				<div className={submitSuc?"submit-suc-style":"submit-fail-style"} style={{display:showTip?"block":"none"}}>
+					<span className="tip-img tip-img-same"></span><span>{tipContent}</span>
+				</div>
 				<div className="tip-box">
 					<p>温馨提示：</p>
 					<p>1、若批量录入，建议从卡外码最小的开始，系统会自动预测下一卡外码</p>
