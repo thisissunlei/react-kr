@@ -161,7 +161,7 @@ class InputCardForm extends React.Component {
 					style={{width:290,float:"left"}} 
 					name="outerCode" 
 					type="text" 
-					label="会员卡外号" 
+					label="会员卡外码" 
 					onBlur={this.foreignCodeBlur}
 					requireLabel={true}
 					onChange={this.inputData}
