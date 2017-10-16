@@ -166,15 +166,13 @@ export default class List extends React.Component {
 	// }
 	//编辑页面的确定操作
 	onEditDetail=(values)=>{
-		
 		var _this=this;
-		
 		const params={
 			id:values.id,
 			outerCode:values.outerCode,
 			innerCode:values.innerCode,
 			communityId :values.communityId,
-			memo : values.memo
+			memo : values.memo ||""
 		}
 		Http.request('CardEdit', {}, params).then(function(response) {
 			_this.openEditDetailDialog();
