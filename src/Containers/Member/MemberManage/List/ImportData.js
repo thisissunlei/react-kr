@@ -61,13 +61,13 @@ class ImportData extends React.Component {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-					console.log('xhr.response====>>>',xhr.response)
 					if(xhr.response.code=='-1'){
 						Message.error(xhr.response.message);
 					}else{
 						Message.success("上传文件成功");
-            			_this.onCancel(); 
-            			_this.onSubmit();
+						_this.onCancel();
+						_this.onSubmit();
+						
 					}
 
 				
@@ -83,6 +83,7 @@ class ImportData extends React.Component {
 		xhr.open('POST', 'http://optest01.krspace.cn/api/krspace-finance-web/member/member-excel', true);
 		xhr.responseType = 'json';
 		xhr.send(form);
+
 
   }
 

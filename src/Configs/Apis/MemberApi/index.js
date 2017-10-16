@@ -91,6 +91,21 @@ module.exports = {
     'member-leave':{
         url:'/api/krspace-finance-web/member/leave?id={id}',
         method:'get'
+    },
+    //会员列表-获取会员卡信息
+    'get-member-code':{
+        url:'/api/krspace-finance-web/member/card?id={id}',
+        method:'get'
+    },
+    //会员列表-解绑会员卡
+    'unbind-member-code':{
+        url:'/api/krspace-finance-web/member/unbindCard?memberId={memberId}&cardId={cardId}',
+        method:'get'
+    },
+    //会员列表-绑定会员卡
+    'bind-member-code':{
+        url:'/api/krspace-finance-web/member/bindCard',
+        method:'post'
     }
 
 }

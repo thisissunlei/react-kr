@@ -26,6 +26,7 @@ import MemeberEditMemberForm from './MemeberEditMemberForm';
 import AdvancedQueryForm from './AdvancedQueryForm';
 import ViewMember from './ViewMember';
 import ImportData from './ImportData';
+import CodeManage from './CodeManage';
 import './index.less';
 
 export default class List extends React.Component {
@@ -56,6 +57,7 @@ export default class List extends React.Component {
 			openDelete:false,
 			openView:false,
 			openLeave:false,
+			openBindCode:false,
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -122,6 +124,11 @@ export default class List extends React.Component {
 			openDelete:!this.state.openDelete
 		})
 	}
+	openBindCode=()=>{
+		this.setState({
+			openBindCode:!this.state.openBindCode
+		})
+	}
 	//操作相关
 	onOperation(type, itemDetail) {
 		
@@ -137,6 +144,8 @@ export default class List extends React.Component {
 			this.openDelete();
 		}else if(type=='leave'){
 			this.openLeave();
+		}else if(type=="bindcode"){
+			this.openBindCode();
 		}
 	}
 	// 导出Excle表格
@@ -305,6 +314,13 @@ export default class List extends React.Component {
 		});
 
 	}
+	importDataPost=()=>{
+		this.setState({
+			searchParams:{
+				date:new Date()
+			}
+		})
+	}
 	render() {
 		let {
 			list,
@@ -357,7 +373,6 @@ export default class List extends React.Component {
 											<TableHeaderColumn>联系电话</TableHeaderColumn>
 											<TableHeaderColumn>姓名</TableHeaderColumn>
 											<TableHeaderColumn>邮箱</TableHeaderColumn>
-											<TableHeaderColumn>职位</TableHeaderColumn>
 											<TableHeaderColumn>所在社区</TableHeaderColumn>
 											<TableHeaderColumn>公司</TableHeaderColumn>
 											// 由于页面效果不好暂时不添加会员等级这一项
@@ -389,13 +404,7 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="job"
-											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}
-											></TableRowColumn>
+											
 											<TableRowColumn name="communityName"
 											component={(value,oldValue)=>{
 												if(value==""){
@@ -425,10 +434,11 @@ export default class List extends React.Component {
 													return (<span className={Style}>{status}</span>)
 												}}
 											></TableRowColumn>
-											<TableRowColumn type="operation">
+											<TableRowColumn type="operation" style={{width:200}}>
 													<Button label="详情"  type="operation" operation="view"/>
 													<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
 													<Button operateCode="mbr_list_edit" label="离职"  type="operation" operation="leave"/>
+													<Button operateCode="mbr_list_edit" label="绑卡"  type="operation" operation="bindcode"/>
 													<Button operateCode="mbr_list_delete" label="删除"  type="operation" operation="delete"/>
 												
 											 </TableRowColumn>
@@ -520,6 +530,20 @@ export default class List extends React.Component {
 							> 
 							<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>							
 							</Dialog>
+							<Drawer
+							  modal={true}
+							  width={750}
+							  open={this.state.openBindCode}
+							  onClose={this.openBindCode}
+							  openSecondary={true}
+							  containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+							>
+								  <CodeManage 
+								  		  detail={itemDetail}
+										  onCancel={this.openBindCode} 
+										 
+								   />
+							</Drawer>
 				</div>
 		);
 
