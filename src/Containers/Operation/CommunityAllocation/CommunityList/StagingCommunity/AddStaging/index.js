@@ -20,8 +20,6 @@ class AddStaging  extends React.Component{
         super(props, context);
         this.state={
             isOk:'',
-            //工位数组
-            stationData:[]
         }
     }
     
@@ -52,10 +50,12 @@ class AddStaging  extends React.Component{
        }
     }
 
+   
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,floor}=this.props;
         let {isOk}=this.state;
+       
        
 		return(
 
@@ -119,13 +119,17 @@ class AddStaging  extends React.Component{
                             </FdTabel>
                         </div>}
 
-                        {isOk=='noOk'&&<div className='m-floor'><KrField grid={1/2}
+                        {isOk=='noOk'&&<div className='m-floor'><KrField
+                            grid={1/2}
                             style={{width:262}}
-                            name="floor"
-                            component="checkBox"
                             label="楼层"
+                            name='floor'
+                            component="groupCheckbox"
+                            defaultValue={floor}
                             requireLabel={true}
-						/></div>}
+                         />
+                         </div>}
+                               
                         
                        <Grid style={{marginBottom:5,marginLeft:-42,marginTop:15}}>
                             <Row>
@@ -144,22 +148,32 @@ class AddStaging  extends React.Component{
 }
 
 const validate = values =>{
-	const errors = {};
+    const errors = {};
+    
+    let dataRag=/^[1-9]\d{0,4}$/;
 
-     if(!values.zoneName){
-       errors.zoneName='请填写机构分权名称'; 
+    if(!values.zoneName){
+       errors.zoneName='请填写分期名称'; 
     }else if(values.zoneName.length>10){
-       errors.zoneName='机构分权名称不能超过30个字符';   
+       errors.zoneName='分期名称不能超过10个字符';   
     }
 
-    if(!values.code){
-      errors.code='请填写编码'  
-    }else if(values.code.length>30){
-       errors.code='编码不能超过30个字符';   
+    if(!values.stationNum){
+        errors.stationNum='请填写工位数'   
+    }else if(!dataRag.test(values.stationNum)){
+        errors.stationNum='工位数必须不以0开头的正整数，最大5位 '   
     }
 
-    if(!values.dimId){
-       errors.dimId='请选择纬度'   
+    if(!values.zoneType){
+       errors.zoneType='请选择分期方式'   
+    }
+
+    if(!values.openDate){
+        errors.openDate='请选择开业时间'   
+    }
+   
+    if(!values.floor){
+        errors.floor='请选择楼层' 
     }
     
 	return errors

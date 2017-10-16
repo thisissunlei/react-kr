@@ -940,30 +940,30 @@ module.exports = {
     
     //运营平台-社区分期列表
     'community-stage-list': {
-        url: ' /mockjsdata/31/krspace-finance-web/cmt/community/list/stage/search?communityId={communityId}',
+        url: '/mockjsdata/31/krspace-finance-web/cmt/community/zone/list/search?communityId={communityId}',
         method: 'get'
     },
     
     //运营平台-社区分期列表-新增
     'community-stage-add': {
-        url: ' /mockjsdata/31/krspace-finance-web/cmt/community/zone/save',
+        url: '/mockjsdata/31/krspace-finance-web/cmt/community/zone/save',
         method: 'post'
     },
 
      //运营平台-社区分期列表-编辑
      'community-stage-edit': {
-        url: ' /mockjsdata/31/krspace-finance-web/cmt/community/zone/update',
+        url: '/mockjsdata/31/krspace-finance-web/cmt/community/zone/update',
         method: 'post'
     },
 
     //运营平台-社区分期-可配置明细查询
     'stage-detail-search': {
-        url: ' /mockjsdata/31/krspace-finance-web/cmt/community/zone/config/search?communityId={communityId}&detailType={detailType}&floor={floor}&numberMax={numberMax}&numberMin={numberMin}',
+        url: '/mockjsdata/31/krspace-finance-web/cmt/community/zone/config/search?communityId={communityId}&detailType={detailType}&floor={floor}&numberMax={numberMax}&numberMin={numberMin}',
         method: 'get'
     },
     //运营平台-社区分期-已存在配置查询
     'stage-down-search': {
-        url: ' /mockjsdata/31/krspace-finance-web/cmt/community/zone/configed/search?zoneId={zoneId}',
+        url: '/mockjsdata/31/krspace-finance-web/cmt/community/zone/configed/search?zoneId={zoneId}',
         method: 'get'
     },
     

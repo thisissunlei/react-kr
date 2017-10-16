@@ -201,6 +201,7 @@ export default class GroupCheckboxComponent extends React.Component {
               <div style = {indentStyle}>
                 {this.renderOptions()}
               </div>
+              {touched && error && <div className="error-wrap" style={{padding:'25px 0 10px 0'}}> <span>{error}</span> </div> }
 					</div>
 				</WrapComponent>
     );

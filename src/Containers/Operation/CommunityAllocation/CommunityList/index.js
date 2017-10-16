@@ -53,7 +53,8 @@ class CommunityList  extends React.Component{
       timeStart:'',
       timeEnd:'',
       communityId:'',
-			cityId:''
+			cityId:'',
+			floor:[]
     }
 	}
 
@@ -110,9 +111,25 @@ class CommunityList  extends React.Component{
       	  State.searchDataHere();
           this.ajaxSendData(itemDetail.id);
 			}else if(type=='select'){
-				  State.openStagingFun(); 
+					State.openStagingFun();
+					this.getFloor(itemDetail.id);
+					this.setState({
+						communityId:itemDetail.id
+					}) 
 			}
 	 }
+
+
+	 getFloor=(id)=>{
+		var _this=this;
+		Http.request('getCommunityFloors',{communityId:id}).then(function(response) {
+				_this.setState({
+						floor:response.floors
+				})
+		}).catch(function(err) {
+				Message.error(err.message);
+		});   
+}
 	 
 	 stagingCancel=()=>{
 	 	State.openStagingFun(); 
@@ -265,7 +282,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,communityId,cityId}=this.state;
+    let {cityData,timeStart,timeEnd,communityId,cityId,floor}=this.state;
 
 		return(
 
@@ -421,6 +438,8 @@ class CommunityList  extends React.Component{
 												<StagingCommunity
 														onCancel={this.stagingCancel}
 														whiteClose={this.whiteClose}
+														communityId={communityId}
+														floor={floor}
 												/>
 
 											</Drawer>
