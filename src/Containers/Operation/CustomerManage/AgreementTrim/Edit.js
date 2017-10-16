@@ -112,18 +112,6 @@ class EditList extends React.Component {
 												<KrField name="begin" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
-
-									   	<TableRow>
-											<TableRowColumn>
-											租赁期限止
-
-											</TableRowColumn>
-											<TableRowColumn >{DateFormat(State.itemDetail.leaseEnddate,'yyyy/mm/dd')}</TableRowColumn>
-											<TableRowColumn>
-
-												<KrField name="end" component="date" style={{width:160}}/>
-											</TableRowColumn>
-									   	</TableRow>
 									   	<TableRow >
 											<TableRowColumn>
 											首付款时间
@@ -136,35 +124,25 @@ class EditList extends React.Component {
 									   	</TableRow>
 									   	<TableRow>
 											<TableRowColumn>
-											支付方式
-
-											</TableRowColumn>
-											<TableRowColumn >rr</TableRowColumn>
-											<TableRowColumn>
-												<KrField name="payment" component="input" style={{width:160}}/>
-											</TableRowColumn>
-									   	</TableRow>
-									   	<TableRow>
-											<TableRowColumn>
 											押金总额
 
 											</TableRowColumn>
-											<TableRowColumn >rr</TableRowColumn>
+											<TableRowColumn >{State.itemDetail.totalrent}</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="money" component="input" style={{width:160}}/>
+												<KrField name="money" component="input" style={{width:160}} />
 											</TableRowColumn>
 									   	</TableRow>
-									   	<TableRow >
+									   	{State.itemDetail.editFlag && <TableRow >
 											<TableRowColumn>
 											合同状态
 
 											</TableRowColumn>
 											<TableRowColumn >已执行</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="status" component="input" style={{width:160}}/>
+												<KrField name="status" component="checkBox" style={{width:160}} label="未执行"/>
 											</TableRowColumn>
-									   	</TableRow>
-									   	<TableRow >
+									   	</TableRow>}
+									   	{!State.itemDetail.editFlag && <TableRow >
 											<TableRowColumn>
 											合同状态
 
@@ -173,13 +151,13 @@ class EditList extends React.Component {
 											<TableRowColumn>
 												<KrField name="status" component="input" style={{width:160}}/>
 											</TableRowColumn>
-									   	</TableRow>
+									   	</TableRow>}
 									   	<TableRow style={{height:'100px'}}>
 											<TableRowColumn>
 											其他约定内定
 
 											</TableRowColumn>
-											<TableRowColumn >rr</TableRowColumn>
+											<TableRowColumn >{State.itemDetail.agreement}</TableRowColumn>
 											<TableRowColumn>
 												<KrField name="other" component="textarea" style={{width:160}}/>
 											</TableRowColumn>

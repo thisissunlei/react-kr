@@ -1,5 +1,5 @@
 import React from 'react';
-import {reduxForm,initialize} from 'redux-form';
+import {reduxForm,initialize,reset} from 'redux-form';
 import {Store} from 'kr/Redux';
 import {DateFormat} from 'kr/Utils';
 import {
@@ -64,6 +64,9 @@ class CreateNewList extends React.Component {
 	onChangeSign=(person)=>{
 		console.log('onChangeSign',person)
 		if(!person.id){
+		Store.dispatch(reset('createNewList', {}));
+		State.contractList = [];
+
 			return;
 		}
 		State.getOrderList(person.id)
@@ -81,6 +84,10 @@ class CreateNewList extends React.Component {
 
     }
     orderListChange=(person)=>{
+    	if(!person){
+    		State.contractList = [];
+    		return;
+    	}
     	console.log('orderListChange',person)
     	State.getAgreementList(person.value)
     }
