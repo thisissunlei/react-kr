@@ -16,7 +16,8 @@ import {
 	Notify,
 	CheckPermission,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Drawer,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
@@ -24,6 +25,7 @@ import NewCreateForm from './NewCreateForm';
 import MemeberEditMemberForm from './MemeberEditMemberForm';
 import AdvancedQueryForm from './AdvancedQueryForm';
 import ImportData from './ImportData';
+import ViewMember from './ViewMember';
 import './index.less';
 
 export default class List extends React.Component {
@@ -52,6 +54,7 @@ export default class List extends React.Component {
 			realPage : 1,
 			importdata:false,
 			openDelete:false,
+			openView:false,
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -77,6 +80,12 @@ export default class List extends React.Component {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
 		});
+	}
+	openView=()=>{
+		
+		this.setState({
+			openView:!this.state.openView
+		})
 	}
 	// 编辑详情的Dialog
 	openEditDetailDialog=()=>{
@@ -109,11 +118,13 @@ export default class List extends React.Component {
 	}
 	//操作相关
 	onOperation(type, itemDetail) {
+		
 		this.setState({
 			itemDetail
 		});
 		if (type == 'view') {
-			window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
+			this.openView();
+			//window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}else if(type=='delete'){
@@ -265,7 +276,9 @@ export default class List extends React.Component {
 	}
 	render() {
 		let {
-			list,itemDetail,seleced
+			list,
+			itemDetail,
+			seleced
 		} = this.state;
 		if (!list.totalCount) {
 			list.totalCount = 0;
@@ -373,7 +386,6 @@ export default class List extends React.Component {
 											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
-												
 													<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
 													<Button operateCode="mbr_list_edit" label="删除"  type="operation" operation="delete"/>
 												
@@ -433,7 +445,21 @@ export default class List extends React.Component {
 									contentStyle={{width:687}}
 								>
 									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail} style={{marginTop:37}} content={this.state.content} filter={this.state.filter} />
-							  </Dialog>
+							  </Dialog> 
+							  <Drawer
+							  modal={true}
+							  width={750}
+							  open={this.state.openView}
+							  onClose={this.openView}
+							  openSecondary={true}
+							  containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+							>
+								  <ViewMember 
+								  		  detail={itemDetail}
+										  onCancel={this.openView} 
+										 
+								   />
+							</Drawer>
 				</div>
 		);
 

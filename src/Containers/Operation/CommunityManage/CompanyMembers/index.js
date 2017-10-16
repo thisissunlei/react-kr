@@ -39,7 +39,6 @@ import {
 
 import $ from 'jquery';
 import CreateMemberForm from './CreateMemberForm';
-import ValidateMember from './ValidateMember';
 import CancleLeader from './CancleLeader';
 import SetLeader from './SetLeader';
 import EditMember from './EditMember';
@@ -62,7 +61,6 @@ export default class CompanyMembers extends React.Component {
 			page: 1,
 			companyId:this.companyId,
 			pageSize: 15,
-			validateMember:false,
 			createMember:false,
 			cancleLeader:false,
 			setLeader:false,
@@ -135,44 +133,7 @@ export default class CompanyMembers extends React.Component {
 			batchDelet:!this.state.batchDelet
 		})
 	}
-	validateMemberSubmit=()=>{
-		let {seleced} = this.state;
-		let _this = this;
-		let selecedList =[];
-		seleced.map(item=>{
-			selecedList.push(item.id);
-		})
-		Http.request('validMember',{memberIds:String(selecedList),companyId:_this.companyId} ).then(function(response) {
-			_this.validateMember();
-			// Message.show([{
-			// 	message: '设置成功',
-			// 	type: 'success',
-			// }]);
-			Message.success('设置成功');
-			_this.setState({
-				leader:!_this.state.leader,
-				searchParams:{
-					value:'',
-					page:_this.state.page,
-					pageSize:15,
-					companyId:_this.state.companyId,
-					leader:!_this.state.leader
-				},
-				seleced:[]
-			})
-
-			// window.setTimeout(function() {
-			// 	window.location.href = "./#/operation/customerManage/" + params.customerId + "/order/" + params.orderId + "/agreement/admit/" + response.contractId + "/detail";
-			// }, 0);
-
-		}).catch(function(err) {
-			// Notify.show([{
-			// 	message: err.message,
-			// 	type: 'danger',
-			// }]);
-			Message.error(err.message);
-		});
-	}
+	
 	editMember(itemDetail){
 		this.setState({
 			editMember: !this.state.editMember,
@@ -184,28 +145,7 @@ export default class CompanyMembers extends React.Component {
 			editMember: !this.state.editMember,
 		});
 	}
-	validateMember=()=>{
-		let {seleced} = this.state;
-		let list = [];
-		seleced.map((item)=>{
-			if(!item.checkStatus){
-				list.push(item);
-			}
-		})
-		this.setState({
-			seleced:list,
-			name:'未验证'
-		})
-		if(!list.length && !this.state.validateMember){
-			this.onSubmits();
-			return;
-		}
-
-		this.setState({
-			validateMember: !this.state.validateMember,
-		});
-
-	}
+	
 	createMember=(itemData)=>{
 		this.setState({
 			createMember: !this.state.createMember,
@@ -466,11 +406,7 @@ export default class CompanyMembers extends React.Component {
 								<Button  label="新建员工" type="button" onTouchTap={this.createMember} width={80} height={30}/>
 								</CheckPermission>
 							</ListGroupItem>
-							<ListGroupItem>
-								<CheckPermission  operateCode="mbr_list_validate" >
-								<Button  label="验证员工" type="button" onTouchTap={this.validateMember} width={80} height={30}/>
-								</CheckPermission>
-								</ListGroupItem>
+							
 							<ListGroupItem>
 								<CheckPermission  operateCode="mbr_list_import" >
 								<Button  label="批量导入" type="button" onTouchTap={this.importData} width={80} height={30}/>
@@ -584,15 +520,7 @@ export default class CompanyMembers extends React.Component {
 			contentStyle={{width:444}}>
 				<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>
 			</Dialog>
-			<Dialog
-			title="验证员工"
-			modal={true}
-			open={this.state.validateMember}
-			onClose={this.validateMember}
-			contentStyle={{width:687}}
-			bodyStyle={{padding:'10px 0'}}>
-				<ValidateMember onSubmit={this.validateMemberSubmit} onCancel={this.validateMember} seleced={seleced}/>
-			</Dialog>
+			
 			<Dialog
 			title="编辑员工"
 			modal={true}
