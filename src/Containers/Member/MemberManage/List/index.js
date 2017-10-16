@@ -134,8 +134,8 @@ export default class List extends React.Component {
 			});
 		}
 		ids = String(ids);
-		//var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
-		var url = `http://optest01.krspace.cn/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		//var url = `http://optest01.krspace.cn/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
 		window.location.href = url;
 	}
     //提交编辑
