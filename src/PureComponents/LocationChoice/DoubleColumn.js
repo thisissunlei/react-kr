@@ -52,11 +52,12 @@ export default class DoubleColumn extends Component {
                 detailId:7
             }
         ]
-        this.delLeft = [];
         this.delRight = [];
+        this.delleft = [];
         this.isMac = false;
         this.keyCode = "";
         this.isWindows = false;
+        this.isLeft='';
     }
 
     componentDidMount () {
@@ -86,32 +87,48 @@ export default class DoubleColumn extends Component {
     componentWillUnmount() {
       document.removeEventListener("keydown", this.onKeyDown);
       document.removeEventListener("keyup", this.onKeyUp);
-    }    
+    } 
+
+    clearActive=(data,type)=>{
+      let {rightData,leftData}=this.state;
+      var dataRender=[];
+      var dataClear=[];
+      var indexData=[];
+      if(type=='left'){
+        dataRender=leftData;
+        dataClear=rightData;
+        this.isLeft='ok';
+      }else{
+        dataRender=rightData;
+        dataClear=leftData;
+        this.isLeft='noOk';
+      }  
+
+          for(var j=0;j<dataRender.length;j++){
+              dataRender[j].isActive=false;
+              for(var i=0;i<data.length;i++){
+                if(data[i].detailId==dataRender[j].detailId){
+                    indexData.push(j);
+                }
+          }
+      }
+      
+      indexData.map((item,index)=>{
+         dataRender[item].isActive=true;
+      })
+      
+    
+      dataClear.map((item,index)=>{
+         item.isActive=false;
+      })
+      this.setState({
+          leftData:this.isLeft=='ok'?dataRender:dataClear,
+          rightData:this.isLeft=='noOk'?dataRender:dataClear
+      })
+    }   
     
     eveyNumClick = (event,data,index,type) =>{
         let {leftData,rightData} = this.state;
-        for(let i=0;i<this.allData.length;i++){
-            if(this.allData[i].detailId==data.detailId){
-                if(!this.allData[i].isActive){
-                    this.allData[i].isActive = true;
-                }else{
-                    this.allData[i].isActive = false;
-                }
-                if(this.allData[i].isActive && type == "left"){
-                    this.allData[i].isLeft = false;
-                    this.allData[i].isRight = true;
-
-                }
-                if(this.allData[i].isActive && type == "right"){
-                    this.allData[i].isLeft = true;
-                    this.allData[i].isRight = false;
-                }
-            }
-        }
-        this.setState({
-            other:new Date()
-        })
-        // console.log(this.isWindows,this.keyCode,this.isMac,data,">>>>>>>>>")
         if(!data.isActive){
             data.isActive = true;
         }else{
@@ -121,47 +138,35 @@ export default class DoubleColumn extends Component {
           
             if(type == "left"){
                 this.delLeft.push(data);
+                console.log('left',this.delLeft);
+                this.delRight = [];
+                this.clearActive(this.delLeft,'left');
             }
             if(type == "right"){
                 this.delRight.push(data);
+                this.delLeft = [];
+                this.clearActive(this.delRight,'right');
             }
-            this.setState({
-                other:new Date()
-            })
+           
         }else{
             if(type == "right"){
                 this.delRight=[].concat([data]);
-                var newRightData = rightData.map((item,num)=>{
-                    if(index == num){
-                        item.isActive = true
-                    }else{
-                        item.isActive = false;
-                    }
-                    return item;
-                })  
-                this.setState({
-                    rightData:newRightData, 
-                })
+                this.delLeft = [];
+                this.clearActive(this.delRight,'right'); 
             }
-            if(type == "left"){
-            
+            if(type == "left"){           
                 this.delLeft=[].concat([data]);
-                var newLeftData = leftData.map((item,num)=>{
-                    if(index == num){
-                        item.isActive = true
-                    }else{
-                        item.isActive = false;
-                    }
-                    return item;
-                })  
-                this.setState({
-                    leftData:newLeftData,
-                })
+                console.log('left1',this.delLeft);
+                this.delRight = [];
+                this.clearActive(this.delLeft,'left');
             }
            
         }
 
     }
+
+ 
+
     //全选点击
     allSelect = (type) =>{
         let {leftData,rightData} = this.state;
@@ -173,16 +178,10 @@ export default class DoubleColumn extends Component {
             })
         }else if(type == "right"){
             this.setState({
-                leftData:this.allData,
                 rightData:[],
+                leftData:this.allData,     
             }) 
         }
-            //  return item;
-        // })
-        // this.allData = allData;
-        // this.setState({
-        //     other:new Date()
-        // })
     }
     
     everyNum = (data,index,type)=>{
@@ -229,8 +228,8 @@ export default class DoubleColumn extends Component {
         return elems; 
     }
     onKeyDown = (event) =>{
-        
         this.keyCode = event.keyCode;
+        console.log('event',this.keyCode);
     }
     onKeyUp = (event) =>{
         this.keyCode = '';
@@ -258,7 +257,6 @@ export default class DoubleColumn extends Component {
     selectSame = (arr,data,type) =>{
         console.log(arr,data)
         let {leftData,rightData} = this.state;
-        let allData = [].concat(arr);
         let theData = []
         if(type == "left"){
             theData = data.concat(rightData);
@@ -267,7 +265,8 @@ export default class DoubleColumn extends Component {
         }
          
         let haveData = [];
-        let otherData = []
+        let otherData = [];
+        let allData=[].concat(this.allData);
         let object = {
             haveData:[],
             otherData:[],
