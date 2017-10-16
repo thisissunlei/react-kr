@@ -47,17 +47,18 @@ class AgreementTrim extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.state = {
-			searchParams:{
-				companyId:0,
-			}
-		}
+	}
+
+	componentDidMount() {
+		console.log('did')
 	}
 	onPageChange=(page)=>{
 		console.log(page)
 	}
 	onSearchSubmit=(value)=>{
 		console.log(value)
+		// let content = value.content;
+		State.searchParams = Object.assign({},State.searchParams,value)
 	}
 	openNewCreateDialog=()=>{
 		State.openAgreementList = true;
@@ -80,7 +81,7 @@ class AgreementTrim extends React.Component {
 			<Section title="合同调整" description="" bodyPadding={'20px 20px 50px 20px'}>
 				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 					<Button operateCode="mbr_list_add"  label="新建"  onTouchTap={this.openNewCreateDialog} />
-					<SearchForms onSubmit={this.onSearchSubmit}  style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
+					<SearchForms onSubmit={this.onSearchSubmit}  style={{marginTop:5,zIndex:10000}} />
 				</form>
 				<Table
 					displayCheckbox={false}
@@ -89,7 +90,7 @@ class AgreementTrim extends React.Component {
 					ajax={true}
 					ajaxFieldListName='items'
 					ajaxUrlName='membersList'
-					ajaxParams={this.state.searchParams}
+					ajaxParams={State.searchParams}
 					onPageChange={this.onPageChange}
 				>
 					<TableHeader>

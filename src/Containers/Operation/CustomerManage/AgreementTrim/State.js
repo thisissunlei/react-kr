@@ -38,13 +38,26 @@ let State = observable({
 	contractList:[],
 	openEdit:false,
 	itemDetail:{},
-	openDeleteContent:false
+	openDeleteContent:false,
+	searchParams:{
+		companyId:0,
+	}
 
 });
 
 State.editAgreement = action(function(item){
 	this.openEdit = true;
     this.itemDetail = item;
+})
+
+
+State.submitEdit = action(function(form){
+	let time = +new Date();
+	let search = Object.assign({},State.searchParams,{time})
+	this.searchParams = search;
+	this.openEdit = false;
+	this.openAgreementList = false;
+	console.log('====>',form)
 })
 
 //获取订单名称
