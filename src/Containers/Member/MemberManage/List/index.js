@@ -286,9 +286,6 @@ export default class List extends React.Component {
 		}, {
 			label: '姓名',
 			value: 'NAME'
-		},{
-			label: '社区',
-			value: 'NAME'
 		}];
 		return (
 			    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
