@@ -1,11 +1,12 @@
 import React, {
 	PropTypes
 } from 'react';
-
 import {
 	reduxForm,
+	change,
+	initialize,
+	reset
 } from 'redux-form';
-
 
 import {
 	Grid,
@@ -13,10 +14,11 @@ import {
 	Message,
 	Button,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	KrField
 } from 'kr-ui';
 
-export default class CancleLeader extends React.Component {
+class ImportData extends React.Component {
 	static propTypes = {
 		initialValues:React.PropTypes.object,
 		communityOptions:React.PropTypes.array,
@@ -129,8 +131,8 @@ export default class CancleLeader extends React.Component {
 			<form  name='import' style={{textAlign:'center'}}>
 				<div>
 					<span className='import-logo icon-excel' onClick={this.importFile}><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
+					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} requireLabel={true}/>
 					
-					<input type="hidden" name="companyId" />
 
 					<span className='import-font'><span className="chooce">请选择上传文件</span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
 					{fileName?<span className='file-name'>{fileName}</span>:''}
@@ -148,3 +150,15 @@ export default class CancleLeader extends React.Component {
 )
 	}
 }
+
+const validate = values => {
+	const errors = {}
+	if (!values.companyId) {
+		errors.companyId = '请输入公司';
+	}
+	return errors;
+}
+export default ImportData = reduxForm({
+	form: 'importData',
+	validate,
+})(ImportData);

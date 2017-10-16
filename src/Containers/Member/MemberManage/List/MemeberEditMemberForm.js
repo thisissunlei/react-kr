@@ -69,12 +69,10 @@ export default class MemeberEditMemberForm extends React.Component {
 	getBasicData=()=>{
 		const {detail}=this.props;
 		let url = this.props.params;
-		console.log('====>>>',detail)
 		
 		let _this = this;
 		Http.request('members-basic-date', {id:detail.id}).then(function(response) {
-			
-			
+			response.leader=String(response.leader);
 			Store.dispatch(initialize('memeberEditMemberForm', response));
 
 			_this.setState({
@@ -183,8 +181,11 @@ export default class MemeberEditMemberForm extends React.Component {
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} />
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" right={30}  onBlur={this.communityChange} />
 					<KrField name="job" grid={1/2} label="职位" right={30}  />
-					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号"  />
-					
+					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
+					<KrField name="leader" component="group" label="是否是leader"  style={{width:252}} >
+						<KrField name="leader" label="是" type="radio" value="1" />
+						<KrField name="leader" label="否" type="radio" value='0' />
+					</KrField>
 					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
 						<Row>
 							<ListGroup>
@@ -193,7 +194,7 @@ export default class MemeberEditMemberForm extends React.Component {
 							</ListGroup>
 						  </Row>
 					</Grid>
-							 </form>
+				</form>
 			</div>
 )
 	}

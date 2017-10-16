@@ -35,7 +35,7 @@ class NewCreateForm extends React.Component{
 
 		this.params = this.props.params;
 	}
-
+	
 	componentDidMount(){
 		this.getBasicData();
 	}
@@ -50,7 +50,8 @@ class NewCreateForm extends React.Component{
 			job:'',
 			name:'',
 			foreignCode:'',
-			identityCard:''
+			identityCard:'',
+			leader:'0'
 		}
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
@@ -241,9 +242,13 @@ class NewCreateForm extends React.Component{
 					<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true}  style={{width:'252px',marginRight:'30'}}/>
 					<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30'}}/>
 					<KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur} style={{width:'252px',marginRight:'30'}} />
-					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px',marginLeft:'-20px'}}/>
+					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px',marginRight:'30'}}/>
 					<KrField name="job"  grid={1/2}  label="职位"  style={{width:'252px'}}/>
-					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px'}} />
+					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
+					<KrField name="leader" component="group" label="是否是leader"  style={{width:252}} >
+						<KrField name="leader" label="是" type="radio" value="1" />
+						<KrField name="leader" label="否" type="radio" value='0' />
+					</KrField>
 					<Grid style={{marginTop:18,marginBottom:'4px'}}>
 						<Row>
 							<ListGroup>

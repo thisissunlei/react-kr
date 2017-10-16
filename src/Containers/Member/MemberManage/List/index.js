@@ -55,6 +55,7 @@ export default class List extends React.Component {
 			importdata:false,
 			openDelete:false,
 			openView:false,
+			openLeave:false,
 			searchParams: {
 				page: 1,
 				pageSize: 15,
@@ -74,6 +75,11 @@ export default class List extends React.Component {
 		this.setState({
 			importdata:!this.state.importdata
 		}) 
+	}
+	openLeave=()=>{
+		this.setState({
+			openLeave: !this.state.openLeave,
+		});
 	}
 	
 	openNewCreateDialog=()=> {
@@ -128,6 +134,8 @@ export default class List extends React.Component {
 			this.openEditDetailDialog();
 		}else if(type=='delete'){
 			this.openDelete();
+		}else if(type=='leave'){
+			this.openLeave();
 		}
 	}
 	// 导出Excle表格
@@ -254,6 +262,24 @@ export default class List extends React.Component {
 		this.setState({
 			realPage : page 
 		})
+	}
+	//离职
+	onLeave=()=>{
+		var _this=this;
+		const {itemDetail}=this.state;
+		Http.request('member-leave',{id:itemDetail.id}).then(function (response) {
+			_this.openLeave();
+			Message.success('修改成功！');
+			_this.setState({
+				searchParams:{
+					date:new Date()
+				}
+			})
+
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+		
 	}
 	 //删除
 	 onDeleteData=()=>{
@@ -400,6 +426,7 @@ export default class List extends React.Component {
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
 													<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
+													<Button operateCode="mbr_list_edit" label="离职"  type="operation" operation="leave"/>
 													<Button operateCode="mbr_list_edit" label="删除"  type="operation" operation="delete"/>
 												
 											 </TableRowColumn>
@@ -440,6 +467,22 @@ export default class List extends React.Component {
 										<div  className='ui-btn-center'>
 											<Button  label="确定" onClick={this.onDeleteData}/></div>
 											<Button  label="取消" type="button" cancle={true} onClick={this.openDelete} />
+										</div>
+									</div>
+								</Dialog>
+								<Dialog
+								title="离职"
+								modal={true}
+								contentStyle ={{ width: '444',overflow:'visible'}}
+								open={this.state.openLeave}
+								onClose={this.openLeave}
+								>
+								<div className='u-list-delete'>
+									<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认此会员已离职吗？</p>
+									<div style={{textAlign:'center',marginBottom:10}}>
+										<div  className='ui-btn-center'>
+											<Button  label="确定" onClick={this.onLeave}/></div>
+											<Button  label="取消" type="button" cancle={true} onClick={this.openLeave} />
 										</div>
 									</div>
 								</Dialog>
