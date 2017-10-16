@@ -77,9 +77,21 @@ class HomeLeft  extends React.Component{
 					<span className='item-one item'>
 						<div className="tab-lists">
 							<span className="tab-list" style={{color:State.stationType == 'rent'?'#394457':'#999'}} 
-							onTouchTap={this.onChangeTab.bind(this,'rent')}>已租工位</span>
+							onTouchTap={this.onChangeTab.bind(this,'rent')}>已租工位
+								<div className='mask-icon'>
+	                                <IconTip tipStyle = {{width:100}}>
+	                                    <div style={{textAlign:'left'}}>截止到当前时间，本社区已租工位</div>
+	                                </IconTip>
+	                            </div>
+							</span>
 							<span className="tab-list" style={{color:State.stationType == 'all'?'#394457':'#999'}}
-							onTouchTap={this.onChangeTab.bind(this,'all')}>总工位数</span>
+							onTouchTap={this.onChangeTab.bind(this,'all')}>总工位数
+								<div className='mask-icon'>
+	                                <IconTip tipStyle = {{width:100}}>
+	                                    <div style={{textAlign:'left'}}>社区可出租工位数</div>
+	                                </IconTip>
+	                            </div>
+							</span>
 						</div>
 						{State.stationType == 'rent' && <div className="stations-num" >{State.InfoData.letStation || '0'} <span style={{fontSize:'16px'}}>个</span></div>}
 						{State.stationType == 'all' && <div className="stations-num"><span style={{fontSize:'30px'}}>{State.InfoData.totalStation || '0'} </span><span style={{fontSize:'16px'}}>个</span></div>}
@@ -87,9 +99,21 @@ class HomeLeft  extends React.Component{
 					<span className='item-tow item'>
 						<div className="tab-lists">
 							<span className="tab-list" style={{color:State.roomType == 'rent'?'#394457':'#999'}} 
-							onTouchTap={this.onChangeRoom.bind(this,'rent')}>签约率</span>
+							onTouchTap={this.onChangeRoom.bind(this,'rent')}>签约率
+								<div className='mask-icon'>
+	                                <IconTip tipStyle = {{width:200}}>
+	                                    <div style={{textAlign:'left'}}>（占用工位数+已签约未入住工位个数）／可出租工位数；其中已签约未入住工位统计未来90天内的工位。</div>
+	                                </IconTip>
+	                            </div>
+							</span>
 							<span className="tab-list" style={{color:State.roomType == 'free'?'#394457':'#999'}}
-							onTouchTap={this.onChangeRoom.bind(this,'free')}>下月出租率</span>
+							onTouchTap={this.onChangeRoom.bind(this,'free')}>下月出租率
+								<div className='mask-icon'>
+	                                <IconTip tipStyle = {{width:120}}>
+	                                    <div style={{textAlign:'left'}}>截止到下月占用工位数/社区可出租工位数</div>
+	                                </IconTip>
+	                            </div>
+							</span>
 							
 						</div>
 						{State.roomType == 'rent' && <div className="room-num"><span style={{fontSize:'30px'}}>{State.InfoData.signRate || '0%'} </span><span style={{fontSize:'16px'}}></span></div>}
@@ -98,7 +122,13 @@ class HomeLeft  extends React.Component{
 					</span>
 					<span className='item-three item'>
 						<div className="tab-lists">
-							<span className="tab-list">平均工位月均价</span>
+							<span className="tab-list">平均工位月均价
+								<div className='mask-icon'>
+	                                <IconTip tipStyle = {{width:140}}>
+	                                    <div style={{textAlign:'left'}}>工位价格总和/工位数量</div>
+	                                </IconTip>
+	                            </div>
+							</span>
 						</div>
 						<span className="price-num"><span style={{fontSize:'30px'}}>{State.InfoData.averagePrice || '0'}</span><span style={{fontSize:'16px'}}>/月</span></span>
 					</span>
@@ -110,39 +140,29 @@ class HomeLeft  extends React.Component{
 							<span className={State.tableType=='payment'?'tab-list active':'tab-list'} 
 							onTouchTap={this.onChangeTable.bind(this,'payment')}>应收账款
 								<div className='mask-icon'>
-	                                <IconTip tipStyle = {{width:330}}>
-	                                    <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
-	                                    <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                <IconTip tipStyle = {{width:230}}>
+	                                    <div style={{textAlign:'left'}}>截止到当前日期的应催缴客户及已欠费客户</div>
 	                                </IconTip>
 	                            </div>
 							</span>
 							<span className={State.tableType=='order'?'tab-list active':'tab-list'} 
 							onTouchTap={this.onChangeTable.bind(this,'order')}>到期订单
 								<div className='mask-icon'>
-	                                <IconTip tipStyle = {{width:330}}>
-	                                    <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
-	                                    <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                <IconTip tipStyle = {{width:150}}>
+	                                    <div style={{textAlign:'left'}}>未来15自然日到期订单数据</div>
 	                                </IconTip>
 	                            </div>
 							</span>
 							<span className={State.tableType=='agreement'?'tab-list active':'tab-list'}
 							onTouchTap={this.onChangeTable.bind(this,'agreement')}>待入驻合同
 								<div className='mask-icon'>
-	                                <IconTip tipStyle = {{width:330}}>
-	                                    <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
-	                                    <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
+	                                <IconTip tipStyle = {{width:240}}>
+	                                    <div style={{textAlign:'left'}}>现在签署，但开始时间在未来的入驻协议客户</div>
 	                                </IconTip>
 	                            </div>
 							</span>
 							<span className={State.tableType=='visit'?'tab-list active':'tab-list'} 
-							onTouchTap={this.onChangeTable.bind(this,'visit')}>预约参观
-								<div className='mask-icon'>
-	                                <IconTip tipStyle = {{width:330}}>
-	                                    <div style={{textAlign:'left'}}>1、表单表名最长30个字，限定为字母、数字、下划线、必须以字母开头，不能以下划线结尾；</div>
-	                                    <div style={{textAlign:'left'}}>2、表单表名可以不填，不填的话保存时候自动生成表名，规则为：wf_ft_主键。</div>
-	                                </IconTip>
-	                            </div>
-							</span>
+							onTouchTap={this.onChangeTable.bind(this,'visit')}>预约参观</span>
 							<span className="active-line" style={{left:left}}></span>
 						</div>
 					</div>
