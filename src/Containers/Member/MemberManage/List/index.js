@@ -25,6 +25,7 @@ import NewCreateForm from './NewCreateForm';
 import MemeberEditMemberForm from './MemeberEditMemberForm';
 import AdvancedQueryForm from './AdvancedQueryForm';
 import ViewMember from './ViewMember';
+import ImportData from './ImportData';
 import './index.less';
 
 export default class List extends React.Component {
@@ -51,7 +52,7 @@ export default class List extends React.Component {
 			content:'',
 			filter:'COMP_NAME',
 			realPage : 1,
-			
+			importdata:false,
 			openDelete:false,
 			openView:false,
 			searchParams: {
@@ -69,7 +70,11 @@ export default class List extends React.Component {
 			}
 		}
 	}
-
+	importData=()=>{
+		this.setState({
+			importdata:!this.state.importdata
+		}) 
+	}
 	
 	openNewCreateDialog=()=> {
 		this.setState({
@@ -292,7 +297,14 @@ export default class List extends React.Component {
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-									<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
+									<ListGroup>
+										<ListGroupItem style={{marginRight:10}}>
+											<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
+										</ListGroupItem>
+										<ListGroupItem >
+											<Button  operateCode="mbr_list_import" label="批量导入" type="button" onTouchTap={this.importData} width={80} height={30} />
+										</ListGroupItem>
+									</ListGroup>	
 										{/*高级查询*/}
 										{/* <Button type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/> */}
 										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
@@ -454,6 +466,15 @@ export default class List extends React.Component {
 										 
 								   />
 							</Drawer>
+							<Dialog
+								title="批量导入"							
+								modal={true} 
+								open={this.state.importdata} 
+								onClose={this.importData} 
+								contentStyle={{width:444}}
+							> 
+							<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>							
+							</Dialog>
 				</div>
 		);
 
