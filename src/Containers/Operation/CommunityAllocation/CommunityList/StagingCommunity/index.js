@@ -15,7 +15,7 @@ import {
     KrDate,
     Drawer
 } from 'kr-ui';
-import {change}  from 'redux-form';
+import {change,initialize}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import AddStaging from './AddStaging';
 import EditStaging from './EditStaging';
@@ -51,7 +51,7 @@ class StagingCommunity  extends React.Component{
 
     openAddSubmit=(params)=>{
         var _this=this;
-        Http.request('communityGetEdit',{},{id:params}).then(function(response) {
+        Http.request('community-stage-add',{},params).then(function(response) {
             var search={
                 time:+new Date()
             }
@@ -66,7 +66,7 @@ class StagingCommunity  extends React.Component{
 
     openEditSubmit=(params)=>{
         var _this=this;
-        Http.request('communityGetEdit',{},params).then(function(response) {
+        Http.request('community-stage-edit',{},params).then(function(response) {
             var search={
                 time:+new Date()
             }
@@ -79,9 +79,20 @@ class StagingCommunity  extends React.Component{
         });
     }
 
+
+    getAjaxData=(id)=>{
+        var _this=this;
+        Http.request('stage-down-search',{zoneId:id}).then(function(response) {
+            Store.dispatch(initialize('EditStaging',response.items));
+        }).catch(function(err) {
+            Message.error(err.message);
+        });  
+    }
+
     onOperation=(type,itemDetail)=>{
         if(type=='edit'){
             this.editCancel();
+            this.getAjaxData(itemDetail.id);
         }
     }
 
@@ -129,29 +140,29 @@ class StagingCommunity  extends React.Component{
                         ajax={false}
                         onOperation={this.onOperation}
                         displayCheckbox={false}
-                        //ajaxParams={this.state.searchParams}
+                        ajaxParams={this.state.searchParams}
                         onPageChange={this.onPageChange}
-                        ajaxUrlName='communitySearch'
+                        ajaxUrlName='community-stage-list'
                         ajaxFieldListName="items"
                         >
                         <TableHeader>
-                        <TableHeaderColumn>社区编码</TableHeaderColumn>
-                        <TableHeaderColumn>社区名称</TableHeaderColumn>
-                        <TableHeaderColumn>所属城市</TableHeaderColumn>
-                        <TableHeaderColumn>是否分期</TableHeaderColumn>
+                        <TableHeaderColumn>分期名称</TableHeaderColumn>
+                        <TableHeaderColumn>分期方式</TableHeaderColumn>
+                        <TableHeaderColumn>开业时间</TableHeaderColumn>
+                        <TableHeaderColumn>工位数</TableHeaderColumn>
                         <TableHeaderColumn>操作</TableHeaderColumn>
                         </TableHeader>
 
                         <TableBody >
                             <TableRow>
-                                <TableRowColumn name="name" component={(value,oldValue)=>{
+                                <TableRowColumn name="zoneName" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
-                                <TableRowColumn name="cityName" component={(value,oldValue)=>{
+                                <TableRowColumn name="zoneTypeName" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";
@@ -161,7 +172,7 @@ class StagingCommunity  extends React.Component{
                                  <TableRowColumn name="openDate" component={(value,oldValue)=>{
                                         return (<KrDate value={value} format="yyyy-mm-dd"/>)
                                 }}></TableRowColumn>
-                                <TableRowColumn name="area" component={(value,oldValue)=>{
+                                <TableRowColumn name="stationNum" component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value.length>maxWidth){
 		 										 value = value.substring(0,10)+"...";

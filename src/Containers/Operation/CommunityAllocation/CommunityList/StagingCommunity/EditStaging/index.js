@@ -26,7 +26,7 @@ class EditStaging  extends React.Component{
 	}
     
     componentDidMount(){
-        Store.dispatch(change('EditStaging','detailData',[]));
+        Store.dispatch(change('EditStaging','config',[]));
     }
 
     onSubmit=(values)=>{
@@ -40,7 +40,7 @@ class EditStaging  extends React.Component{
     }
 
     typeChange=(param)=>{
-        if(param.value=='false'){
+        if(param.value=='SPACE'){
             this.setState({
               isOk:'ok'
             })
@@ -69,24 +69,24 @@ class EditStaging  extends React.Component{
 
                        <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
-                            name="name"
+                            name="zoneName"
                             component="input"
                             label="分期名称"
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:29,marginBottom:5}}
-                            name="code"
+                            name="zoneType"
                             component="select"
                             label="分期方式"
                             onChange={this.typeChange}
                             requireLabel={true}
-                            options={[{value:'true',label:'楼层'},{value:'false',label:'工位/房间'}]}
+                            options={[{value:'FLOOR',label:'楼层'},{value:'SPACE',label:'工位/房间'}]}
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
-                            name="dimId"
+                            name="openDate"
                             component="date"
                             label="开业时间"
                             requireLabel={true}
@@ -94,7 +94,7 @@ class EditStaging  extends React.Component{
 
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:29,marginBottom:5}}
-                            name="code"
+                            name="stationNum"
                             component="input"
                             label="工位数"
                             requireLabel={true}
@@ -107,13 +107,13 @@ class EditStaging  extends React.Component{
                                 onTouchTap={this.openAddCommunity}
                           /></div>
                         <FdTabel
-                                name ='detailData'
+                                name ='config'
                                 isFold = {false}
                                 initFoldNum={1000}
                             >
-                                <FRow name = "label" label = "楼层"/>
-                                <FRow name = "inputTypeStr" label = "类型"/>
-                                <FRow name = "compTypeStr" label = "编号"/>
+                                <FRow name = "floor" label = "楼层"/>
+                                <FRow name = "detailType" label = "类型"/>
+                                <FRow name = "code" label = "编号"/>
                                 <FRow label = "操作" type='operation' component={(item)=>{
                                         return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
                                         }}/>
@@ -122,7 +122,7 @@ class EditStaging  extends React.Component{
 
                             {isOk=='noOk'&&<div className='m-floor'><KrField grid={1/2}
                                 style={{width:262}}
-                                name="code"
+                                name="floor"
                                 component="checkBox"
                                 label="楼层"
                                 requireLabel={true}
