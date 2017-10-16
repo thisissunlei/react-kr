@@ -149,7 +149,7 @@ class HomeLeft  extends React.Component{
 							onTouchTap={this.onChangeTable.bind(this,'order')}>到期订单
 								<div className='mask-icon'>
 	                                <IconTip tipStyle = {{width:150}}>
-	                                    <div style={{textAlign:'left'}}>未来15自然日到期订单数据</div>
+	                                    <div style={{textAlign:'left'}}>未来30自然日到期订单数据</div>
 	                                </IconTip>
 	                            </div>
 							</span>
