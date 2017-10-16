@@ -60,7 +60,7 @@ export default class CodeManage extends React.Component {
             Message.success('解绑成功！')
             _this.getCodeList()
             _this.setState({
-                openUncode:!this.state.openUncode
+                openUncode:!_this.state.openUncode
             })
 		}).catch(function (err) { 
 			Message.error(err.message)
