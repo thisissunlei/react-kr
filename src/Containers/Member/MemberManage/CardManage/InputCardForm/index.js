@@ -130,6 +130,12 @@ class InputCardForm extends React.Component {
 	inputData=()=>{
 		this.submitContinue();
 	}
+
+	closeInputDialog=()=>{
+		State.openInputCardDialog = false;
+	}
+
+
 	render() {
 		const {
 			error,
@@ -184,8 +190,8 @@ class InputCardForm extends React.Component {
 				</div>
 				<div className="tip-box">
 					<p>温馨提示：</p>
-					<p>1、若批量录入，建议从卡外码最小的开始，系统会自动预测下一卡外码</p>
-					<p>2、用读卡器读卡内码前，<span className="yellow">请确保光标在卡内码的输入框内</span></p>
+					<p>1、若批量录入，建议从外码最小的开始，系统会猜测并输入下一外码</p>
+					<p>2、用读卡器读内码前，<span className="yellow">请确保光标在卡内码的输入框内，</span>刷卡后会自动提交</p>
 					
 				</div>
 				<Grid style={{}}>
@@ -193,9 +199,12 @@ class InputCardForm extends React.Component {
 						<Col md={12} align="center">
 							<ButtonGroup>
 								<div  className='ui-btn-center'>
-									<Button  label="提交并关闭" type="submit" onTouchTap={this.submitClose} cancle={true}/>
+									<Button  label="关闭" type="submit" onTouchTap={this.closeInputDialog} cancle={true}/>
 								</div>
-								<Button  label="提交并继续" type="submit" onTouchTap={this.submitContinue} />
+								<div  className='ui-btn-center'>
+									<Button  label="提交" type="submit" onTouchTap={this.submitClose} cancle={true}/>
+								</div>
+								<Button  label="提交并录入下一张" type="submit" onTouchTap={this.submitContinue} width={120}/>
 							</ButtonGroup>
 						</Col>
 					</Row>
