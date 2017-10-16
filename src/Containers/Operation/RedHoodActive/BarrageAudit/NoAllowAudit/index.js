@@ -195,7 +195,6 @@ class NoAllowAudit extends React.Component {
 							>
 							</TableRowColumn>
 
-							
 							<TableRowColumn name="status"
 								component={(value,oldValue)=>{
 									if(value == "audit"){

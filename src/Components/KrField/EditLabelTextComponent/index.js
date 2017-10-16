@@ -47,6 +47,7 @@ export default class InputComponent extends React.Component {
 	}
 	onSave = () => {
 		var _this = this;
+		let {save} = this.props;
 		this.setState({
 			editOpen: false,
 			oldtext: document.getElementById('focus').value
@@ -54,12 +55,13 @@ export default class InputComponent extends React.Component {
 
 			document.getElementsByClassName('contract')[0].style.display = "inline-block";
 
-			_this.props.save(_this.state.oldtext);
+			save && save(_this.state.oldtext);
 		})
 	}
 	componentDidMount() {
 
 	}
+	
 
 	render() {
 		let {
@@ -75,29 +77,42 @@ export default class InputComponent extends React.Component {
 			simple,
 			heightStyle,
 			tooltip,
+			editType,
 			...other
 		} = this.props;
 		let className = '';
+		
 
 
 		return (
-			<WrapComponent  label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
-					
-						{!this.state.editOpen && <span className="edit" onTouchTap={this.onEdit}></span>}
-						{this.state.editOpen && <input id="focus" onBlur={this.onSave} className={className}  defaultValue={this.state.oldtext}  />}
-						<span className="editContent">
-						<span  className="ui-label-text" data-tip data-for={`${tooltip}`}>
-							<ReactTooltip id={`${tooltip}`}>
-								<p style={{margin:0}}>{this.state.oldtext}</p>
-							</ReactTooltip>
-							<span className="contract">{this.state.oldtext}</span>
-						</span>
-						</span>
+			<WrapComponent  label={label} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
 						
-
-
-
-				</WrapComponent>
+				<div style={{display:'inline'}}>
+					{!this.state.editOpen && 
+						<span 
+							className="edit" 
+							onTouchTap={this.onEdit}
+						></span>
+					}
+					{this.state.editOpen 
+						&& 
+						<input 
+							id="focus" 
+							onBlur={this.onSave} 
+							className={className}  
+							defaultValue={this.state.oldtext}  
+						/>}
+					<span className="editContent">
+					<span  className="ui-label-text" data-tip data-for={`${tooltip}`}>
+						<ReactTooltip id={`${tooltip}`}>
+							<p style={{margin:0}}>{this.state.oldtext}</p>
+						</ReactTooltip>
+						<span className="contract">{this.state.oldtext}</span>
+					</span>
+					</span>
+							
+				</div>
+			</WrapComponent>
 
 		);
 	}

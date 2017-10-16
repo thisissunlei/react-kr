@@ -50,7 +50,6 @@ export default class OaTreeDepartment extends React.Component{
 			Message.error("请选择部门");
 			return ;
 		}
-		console.log(data,"LLLLL")
 		let {input,onChange} = this.props;
 		input.onChange(data);
 		this.dlogSwidch();

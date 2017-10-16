@@ -109,6 +109,9 @@ State.ChangeCommunity = action(function(value) {
 // 获取应收账款的数据
 State.getPaymentList=action(function(params){
 		let _this = this;
+		if(!this.info.communityId){
+			return;
+		}
 		params = Object.assign({},params,{cmtId:_this.info.communityId})
 		Http.request('get-accounts-receivable', params).then(function(response) {
 			_this.paymentList = response;

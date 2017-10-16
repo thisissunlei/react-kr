@@ -87,6 +87,11 @@ module.exports = {
         url:'/api/krspace-finance-web/cmt-appointment/actions/cancel?id={id}',
         method:'post'
     },
+    //录入会员卡
+    'inputCardUrl':{
+        url:'/api/krspace-finance-web/member/card/mbr-card',
+        method:'post'
+    },
     //会员列表-离职
     'member-leave':{
         url:'/api/krspace-finance-web/member/leave?id={id}',
@@ -107,5 +112,6 @@ module.exports = {
         url:'/api/krspace-finance-web/member/bindCard',
         method:'post'
     }
+
 
 }

@@ -185,6 +185,7 @@ export default class JoinDetail extends Component {
 									<TableHeaderColumn>类别</TableHeaderColumn>
 									<TableHeaderColumn>编号／名称</TableHeaderColumn>
 									<TableHeaderColumn>单价（元／月）</TableHeaderColumn>
+									<TableHeaderColumn>优惠后单价（元／月）</TableHeaderColumn>
 									<TableHeaderColumn>起始日期</TableHeaderColumn>
 									<TableHeaderColumn>结束日期</TableHeaderColumn>
 							</TableHeader>
@@ -198,6 +199,9 @@ export default class JoinDetail extends Component {
 										<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 										<TableRowColumn>
 										{item.stationName}
+										</TableRowColumn>
+										<TableRowColumn>
+											{item.originalUnitprice}
 										</TableRowColumn>
 										<TableRowColumn>
 											{item.unitprice}
@@ -216,6 +220,36 @@ export default class JoinDetail extends Component {
 			            {openMinus&&_this.minusRender()}
 
 					</DotTitle>
+					{basic.saleList &&(<DotTitle title='优惠明细'>
+						<Table displayCheckbox={false}>
+							<TableHeader>
+									<TableHeaderColumn>优惠类型</TableHeaderColumn>
+									<TableHeaderColumn>开始时间</TableHeaderColumn>
+									<TableHeaderColumn>结束时间</TableHeaderColumn>
+									<TableHeaderColumn>折扣</TableHeaderColumn>
+									<TableHeaderColumn>优惠金额</TableHeaderColumn>
+							</TableHeader>
+							<TableBody>
+							{basic.saleList.map((item,index)=>{
+								return (
+									<TableRow key={index}>
+										<TableRowColumn>{item.tacticsName}</TableRowColumn>
+										<TableRowColumn>
+											<KrDate value={item.validStart}/>
+										</TableRowColumn>
+										<TableRowColumn>
+											<KrDate value={item.validEnd}/>
+										</TableRowColumn>
+										<TableRowColumn>{item.discount==0?'-':`${item.discount}折`}</TableRowColumn>
+										<TableRowColumn>{item.discountAmount}</TableRowColumn>
+									</TableRow>
+								);
+								})
+							}
+
+							</TableBody>
+						</Table>
+					</DotTitle>)}
 
 				 <div className="content-info" style={info} >
 

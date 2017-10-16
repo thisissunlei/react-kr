@@ -237,7 +237,7 @@ export default class ReduceDetail extends Component {
 																		{item.stationName}
 																	</TableRowColumn>
 																	<TableRowColumn>
-																		{item.unitprice}
+																		{item.originalUnitprice}
 																	</TableRowColumn>
 																	<TableRowColumn><KrDate value={basic.leaseBegindate}/></TableRowColumn>
 																	<TableRowColumn><KrDate value={basic.leaseEnddate}/></TableRowColumn>

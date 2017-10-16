@@ -1,5 +1,4 @@
 import React from 'react';
-import './index.less';
 export default class TabProcess extends React.Component {
     constructor(props,context){
 		super(props, context);

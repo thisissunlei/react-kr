@@ -289,13 +289,13 @@ class NewCreateForm extends Component {
 		if(!!!form.agreement){
 			form.agreement = '无';
 		}
-		if(form.rentamount == 0){
-			Notify.show([{
-				message: '服务费不能为零',
-				type: 'danger',
-			}]);
-			return;
-		}
+		// if(form.rentamount == 0){
+		// 	Notify.show([{
+		// 		message: '服务费不能为零',
+		// 		type: 'danger',
+		// 	}]);
+		// 	return;
+		// }
 
 		const {
 			onSubmit
@@ -394,7 +394,7 @@ class NewCreateForm extends Component {
 																	<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 																	<TableRowColumn>{item.stationName}</TableRowColumn>
 																	<TableRowColumn>
-																			{item.unitprice}
+																			{item.originalUnitprice}
 																	</TableRowColumn>
 																	<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 																	<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>

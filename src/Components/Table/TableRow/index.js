@@ -73,7 +73,7 @@ export default class TableRow extends React.Component {
 
 	createRowColumn = (basic,columnNumber,rowNumber)=>{
 
-		const {itemData} = this.props;
+		const {itemData,hasBorder} = this.props;
 		let {name,actions} = basic.props;
 		let value = '';
 
@@ -89,10 +89,11 @@ export default class TableRow extends React.Component {
 					return React.cloneElement(child,{
 						onClick:_this.onOperation,
 						'data-operation':operation,
-						'data-row':rowNumber
+						'data-row':rowNumber,
+						 hasBorder
 					});
 				}
-				
+
 				return React.cloneElement(child);
 			}else{
 				return child;
@@ -108,6 +109,7 @@ export default class TableRow extends React.Component {
 			onHoverExit: this.onCellHoverExit,
 			value,
 			itemData,
+			hasBorder
 		},children);
 	}
 
@@ -149,9 +151,17 @@ export default class TableRow extends React.Component {
 			...other,
 		} = this.props;
 
+
+	 var claName='';
+ 	 if(this.props.hasBorder){
+ 		 claName=className+' trBorder'
+ 	 }else{
+ 		 claName=className
+ 	 }
+
 		if(visibility){
 			return (
-			<tr className={className} {...other}>
+			<tr className={claName} {...other}>
 					{this.renderRow()}
 				</tr>
 			);
