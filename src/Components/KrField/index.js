@@ -91,6 +91,8 @@ import LabelComponent from './LabelComponent';
 import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
 
+import RangeComponent from './RangeComponent';
+
 
 
 
@@ -584,6 +586,11 @@ class FieldRevert extends React.Component {
 			if(type == "label" || component === "label"){
 				return (
 					<FieldRevert {...this.props} component={LabelComponent}  style={WrapStyles} {...other} />
+				)
+			}
+			if(type == "range" || component === "range"){
+				return (
+					<FieldRevert {...this.props} component={RangeComponent}  style={WrapStyles} {...other} />
 				)
 			}
 			
