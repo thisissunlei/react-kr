@@ -114,8 +114,7 @@ class CreateNewList extends React.Component {
     }
     edit=(item)=>{
     	console.log('---edit---',item);
-    	State.openEdit = true;
-    	State.itemDetail = item;
+    	State.editAgreement(item);
     }
     onCloseDialog=()=>{
     	State.openDeleteContent = false;

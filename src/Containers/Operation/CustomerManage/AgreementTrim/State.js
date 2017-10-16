@@ -42,9 +42,13 @@ let State = observable({
 
 });
 
+State.editAgreement = action(function(item){
+	this.openEdit = true;
+    this.itemDetail = item;
+})
+
 //获取订单名称
 State.getOrderList = action(function(value) {
-	console.log('customerId',value)
 		var _this = this;
 		Http.request('orders-names', {customerId:value}).then(function(response) {
 			let label='',value='';
@@ -87,6 +91,7 @@ State.saveNews = action(function(params) {
 	});
 
 });
+
 //编辑保存
 State.saveEditNews = action(function(params) {
 	var _this = this;

@@ -46,6 +46,12 @@ class EditList extends React.Component {
 		}
 		
 	}
+
+	componentDidMount() {
+		// Store.dispatch(initialize('EditList', State.itemDetail));
+
+
+	}
 	componentWillMount() {
 	}
 
@@ -58,61 +64,7 @@ class EditList extends React.Component {
 		let {onSubmit}=this.props;
 		onSubmit && onSubmit(form);
 	}
-	onChangeSign=(person)=>{
-		console.log('onChangeSign',person)
-		if(!person.id){
-			return;
-		}
-		State.getOrderList(person.id)
-
-	 	// if(!person || person.length == 0) {
-			// State.haveOrder = false;
-	 	// 	return ;
-	 	// }
-		// State.haveOrder = true;
-
-		// this.fetchCustomer({customerId:person.id});
-		// allState.companyName=person.company;
-		// allState.listId=person.id;
-		// this.orderNameInit(person.id);
-
-    }
-    orderListChange=(person)=>{
-    	console.log('orderListChange',person)
-    	State.getAgreementList(person.value)
-    }
-    contracttype=(type)=>{
-    	let typeName = '';
-    	switch (type){
-			case 'ENTER' :
-				typeName = '入驻协议书'; 
-				break;
-			case 'ADDRENT' :
-				typeName = '增租协议书';
-				break;
-			case 'RENEW' :
-				typeName = '续租协议书'
-				break;
-			case 'LESSRENT' :
-				typeName = '减租协议书'
-				break;
-			case 'QUITRENT' :
-				typeName = '退租协议书'
-				break;
-			case 'INTENTION' :
-				typeName = '承租意向书'
-				break;
-		}
-		return typeName;
-    }
-    delete=(item)=>{
-    	console.log('=====',item)
-    }
-    edit=(item)=>{
-    	console.log('---edit---',item);
-    	State.openEdit = true;
-    	State.itemDetail = item;
-    }
+  
 
 
 	render() {
@@ -144,9 +96,9 @@ class EditList extends React.Component {
 												签署时间
 
 											</TableRowColumn>
-											<TableRowColumn >sss</TableRowColumn>
+											<TableRowColumn >{DateFormat(State.itemDetail.signdate,'yyyy/mm/dd')}</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="time" component="date" style={{width:160}}/>
+												<KrField name="signdate" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 
@@ -155,7 +107,7 @@ class EditList extends React.Component {
 											租赁期限起
 
 											</TableRowColumn>
-											<TableRowColumn >34</TableRowColumn>
+											<TableRowColumn >{DateFormat(State.itemDetail.leaseBegindate,'yyyy/mm/dd')}</TableRowColumn>
 											<TableRowColumn>
 												<KrField name="begin" component="date" style={{width:160}}/>
 											</TableRowColumn>
@@ -166,7 +118,7 @@ class EditList extends React.Component {
 											租赁期限止
 
 											</TableRowColumn>
-											<TableRowColumn >erew</TableRowColumn>
+											<TableRowColumn >{DateFormat(State.itemDetail.leaseEnddate,'yyyy/mm/dd')}</TableRowColumn>
 											<TableRowColumn>
 
 												<KrField name="end" component="date" style={{width:160}}/>
@@ -177,7 +129,7 @@ class EditList extends React.Component {
 											首付款时间
 
 											</TableRowColumn>
-											<TableRowColumn >rr</TableRowColumn>
+											<TableRowColumn >{DateFormat(State.itemDetail.leaseEnddate,'yyyy/mm/dd')}</TableRowColumn>
 											<TableRowColumn>
 												<KrField name="firsttime" component="date" style={{width:160}}/>
 											</TableRowColumn>
