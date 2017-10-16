@@ -936,7 +936,7 @@ module.exports = {
     //运营平台-会员管理-会员卡管理
     'MemberCardManageList': {
         url: '/api/krspace-finance-web/member/card/card-list?type={type}&value={value}&page={page}&pageSize={pageSize}',
-        method: 'get'
+        method: 'post'
     },
     //运营平台-会员管理-会员卡片编辑回显
     'MemberCardEditShow': {

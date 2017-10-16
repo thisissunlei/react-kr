@@ -129,37 +129,51 @@ export default class List extends React.Component {
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>
 								<TableRow>
-								<TableRowColumn name="time" type="date" format="yyyy-mm-dd HH:MM:ss" style={{width:150}}></TableRowColumn>
+								<TableRowColumn name="time" type="date" format="yyyy-mm-dd HH:MM:ss" style={{width:"14%"}}></TableRowColumn>
 								
 								
-								 <TableRowColumn style={{width:120,overflow:"visible"}} name="communityName" component={(value,oldValue,itemData)=>{
+								 <TableRowColumn style={{width:"9%",overflow:"visible"}} name="communityName" 
+								 component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
 		                            	value="-"
-		                              	TooltipStyle="block"
+		                              	TooltipStyle="none"
 		                            }else{
 		                            	TooltipStyle="block";
 		                            }
 
-		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:120,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 								<TableRowColumn name="doorCode"
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								<TableRowColumn name="deviceId" style={{width:170}}
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								style={{width:"10%"}}
+								component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            if(value.length==""){
+		                            	value="-"
+		                              	TooltipStyle="none"
+		                            }else{
+		                            	TooltipStyle="block";
+		                            }
+
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+		              			}}></TableRowColumn>
+								<TableRowColumn name="deviceId" style={{width:"27%"}}
+								component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            if(value.length==""){
+		                            	value="-"
+		                              	TooltipStyle="none"
+		                            }else{
+		                            	TooltipStyle="block";
+		                            }
+
+		                             return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+		              			}}></TableRowColumn>
 								
-								<TableRowColumn style={{width:100,overflow:"visible"}} name="memberName" component={(value,oldValue,itemData)=>{
+								<TableRowColumn style={{width:"10%",overflow:"visible"}} name="memberName" component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle=""
 		                            
 		                            
@@ -170,10 +184,10 @@ export default class List extends React.Component {
 		                            	TooltipStyle="block";
 		                            }
 
-		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{itemData.card}</Tooltip></div>)
 		              			}} ></TableRowColumn>
-		              			<TableRowColumn style={{width:120,overflow:"visible"}} name="company" component={(value,oldValue,itemData)=>{
+		              			<TableRowColumn style={{width:"13%",overflow:"visible"}} name="company" component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
 		                            	value="-"
@@ -182,19 +196,23 @@ export default class List extends React.Component {
 		                            	TooltipStyle="block";
 		                            }
 
-		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:120,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                             return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 								
-								<TableRowColumn name="phone" style={{overflow:"hidden"}}
+								<TableRowColumn name="phone" style={{overflow:"hidden",width:"8%"}}
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="openType" options={openType}></TableRowColumn>
-								<TableRowColumn style={{width:90,overflow:"visible"}} name="success" component={(value,oldValue,itemData)=>{
+								<TableRowColumn 
+									name="openType" 
+									options={openType} 
+									style={{width:"5%"}}
+								></TableRowColumn>
+								<TableRowColumn style={{width:"4%",overflow:"visible"}} name="success" component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle="";
 		                            var spanColor='';
 		                            var msg = itemData.msg || "失败";
