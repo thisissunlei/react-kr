@@ -163,7 +163,7 @@ export default class List extends React.Component {
 	}
 	//下载模板
 	onLoadDemo=()=>{
-		let url = 'http://optest01.krspace.cn/api/krspace-finance-web/member/member-templet-excel';
+		let url = '/api/krspace-finance-web/member/member-templet-excel';
 		window.location.href = url;
 	}
     //提交编辑
