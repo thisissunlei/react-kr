@@ -115,24 +115,32 @@ class ViewMember extends React.Component {
 							value={baseInfo.email}
 							defaultValue="无"
 						 />
-						 <KrField
-							style={{width:300,marginRight:20}}
-							label="微信:"
-							inline={true} 
-							component="labelText"
-							value={baseInfo.wechatNick}
-							defaultValue="无"
-						 />
 						 <KrField 
-							 style={{width:300}} 
+							 style={{width:300,marginRight:20}} 
 							 label="性别:" 
 							 inline={true} 
 							component="labelText"
 							value={baseInfo.gender}
 							defaultValue="无"
 						 />
+						 <KrField
+							style={{width:300}}
+							label="微信昵称:"
+							inline={true} 
+							component="labelText"
+							value={baseInfo.wechatNick}
+							defaultValue="无"
+						 />
 						 <KrField  
 							 style={{width:300,marginRight:20}} 
+							 label="App昵称:" 
+							 inline={true} 
+							component="labelText"
+							value={baseInfo.nick}
+							defaultValue="无"
+						 />
+						 <KrField  
+							 style={{width:300}} 
 							 label="生日:" 
 							 inline={true} 
 							component="labelText"
@@ -140,7 +148,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField
-							style={{width:300}}
+							style={{width:300,marginRight:20}}
 							label="婚姻状况:"
 							inline={true} 
 							component="labelText"
@@ -148,7 +156,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField
-							style={{width:300,marginRight:20}}
+							style={{width:300}}
 							label="注册时间:"
 							inline={true} 
 							component="labelText"

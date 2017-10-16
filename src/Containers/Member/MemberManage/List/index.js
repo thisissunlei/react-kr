@@ -286,6 +286,9 @@ export default class List extends React.Component {
 		}, {
 			label: '姓名',
 			value: 'NAME'
+		},{
+			label: '社区',
+			value: 'NAME'
 		}];
 		return (
 			    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
@@ -306,8 +309,8 @@ export default class List extends React.Component {
 												return state;
 												}}
 											onOperation={this.onOperation}
-											exportSwitch={true}
-											onExport={this.onExport}
+											//exportSwitch={true}
+										 	//onExport={this.onExport}
 											ajaxFieldListName='items'
 											ajaxUrlName='membersList'
 											ajaxParams={this.state.searchParams}
