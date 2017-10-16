@@ -60,8 +60,8 @@ class AddPic extends React.Component{
 					<KrField grid={1/2} label="名称" name="title" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
                     <KrField grid={1/2} label="简介" name="desrc" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="跳转url" name="targetUrl" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-                    <KrField grid={1/2} label="排序号" name="orderNum" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-                    <KrField grid={1/2} label="是否上线" name="published" style={{width:262,marginLeft:30,marginRight:13,marginTop:14}} component="group" requireLabel={true} >
+                   
+                    <KrField grid={1/2} label="是否上线" name="published" style={{width:262,marginLeft:30,marginTop:14}} component="group" requireLabel={true} >
                         <KrField name="published" label="是" type="radio" value="1" style={{marginTop:5,display:'inline-block',width:84}}/>
                         <KrField name="published" label="否" type="radio" value="0" style={{marginTop:5,display:'inline-block',width:53}}/>
                     </KrField>
