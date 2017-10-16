@@ -177,10 +177,17 @@ export default class Home extends React.Component {
 						</div>
 					</div>
 				</div>
-			{/*<div className="home-right-pic">
-
-			</div>*/}
-            <div className="home-common">
+			<div className="home-right-pic">
+            <span className='symbol-left'></span>
+			<span className='symbol-right'></span>
+			<span className='trumpet-tour'>
+				<span className='trumpet'></span>
+				<span className='tour'>
+					一场说走就走的旅行，回来之后等着你的就是加不完的班和补不完的作业。
+                </span>
+			</span>
+			</div>
+            {/* <div className="home-common">
 				<div className="left itemOne">
 
 				</div>
@@ -192,8 +199,8 @@ export default class Home extends React.Component {
 						待办事宜
 					</span>
 				</div>
-			</div>
-            <div className="home-common">
+			</div> */}
+            {/* <div className="home-common">
 				<div className="left itemTwo">
 
 				</div>
@@ -205,8 +212,8 @@ export default class Home extends React.Component {
 						已办事宜
 					</span>
 				</div>
-			</div>
-            <div className="home-common">
+			</div> */}
+            {/* <div className="home-common">
 				<div className="left itemThird">
 
 				</div>
@@ -218,8 +225,8 @@ export default class Home extends React.Component {
 						我的请求
 					</span>
 				</div>
-			</div>
-			<div className="home-common">
+			</div> */}
+			{/* <div className="home-common">
 				<div className="left itemFourth">
 
 				</div>
@@ -231,7 +238,7 @@ export default class Home extends React.Component {
 						发起流程
 					</span>
 				</div>
-			</div>
+			</div> */}
         </div>
 				<div className="g-home-middle">
 						<div className="g-home-middle-item">

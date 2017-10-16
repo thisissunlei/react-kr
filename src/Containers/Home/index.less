@@ -32,10 +32,56 @@
             }
         }
         .home-right-pic{
+            background: #FFFFFF;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,0.10);
+            position: relative;
             display: flex;
             flex: 4.3125;
             height: 90px;
-            background: #fff;
+            .symbol-left{
+                position: absolute;
+                left: 2.6%;
+                top: 22%;
+                width: 23px;
+                height: 20px;
+                background-image:  url('./images/item-right.svg'); 
+                background-repeat: no-repeat;
+                background-position:center center;
+                transform: rotate(-180deg);
+            }
+            .trumpet-tour{
+                position: absolute;
+                 left: 50%;
+                 margin-left: -345px;
+                top:50%;  
+                transform:translateY(-50%);
+                .trumpet{
+                    position: absolute;
+                    width:36px;
+                    height:29.9px;
+                    background-image:  url('./images/trumpet.svg'); 
+                    background-repeat: no-repeat;
+                    background-position:center center;
+                }
+              .tour{
+                margin-left: 43px; 
+                ont-family: PingFangSC-Regular;
+                font-size: 20px;
+               color: #666666;
+              }
+            }
+           
+            .symbol-right{
+                position: absolute;
+                right: 2.6%;
+                bottom: 22%;
+                width: 23px;
+                height: 20px;
+                background-image:  url('./images/item-right.svg'); 
+                background-repeat: no-repeat;
+                background-position:center center;
+                
+            }
         }
         .home-common{
             display: flex;
