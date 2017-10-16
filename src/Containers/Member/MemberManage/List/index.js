@@ -323,6 +323,7 @@ export default class List extends React.Component {
 											// 由于页面效果不好暂时不添加会员等级这一项
 											{/*<TableHeaderColumn>会员等级</TableHeaderColumn>*/}
 											<TableHeaderColumn>注册日期</TableHeaderColumn>
+											<TableHeaderColumn>状态</TableHeaderColumn>
 											<TableHeaderColumn>操作</TableHeaderColumn>
 									</TableHeader>
 									<TableBody style={{position:'inherit'}}>
@@ -371,6 +372,19 @@ export default class List extends React.Component {
 											></TableRowColumn>
 											
 											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
+											<TableRowColumn name="status" 
+												component={(value)=>{
+													let Style,status;
+													if(value==1){
+														Style="u-txt-red";
+														status='离职';
+													}else if(value==0){
+														Style="u-txt-green";
+														status='正常';
+													}
+													return (<span className={Style}>{status}</span>)
+												}}
+											></TableRowColumn>
 											<TableRowColumn type="operation">
 													<Button label="详情"  type="operation" operation="view"/>
 													<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
