@@ -30,8 +30,7 @@ class ImportData extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.companyId = this.context.router.params.companyId
-		this.communityId = this.context.router.params.communityId
+		
 		this.state = {
 			isInit: true,
 			form: {},
@@ -39,15 +38,20 @@ class ImportData extends React.Component {
 			isUploading: false,
 			progress: 0,
 			file:{},
-			fileName:''
+			fileName:'',
+			companyId:''
 		}
 	}
-	test=()=>{
+	testDate=()=>{
 		let _this = this;
-    	var form = new FormData();
-		form.append('file', this.state.file);
-		form.append('companyId', this.companyId);
-		form.append('communityId', this.communityId);
+		let {
+			companyId,
+			file
+		}=this.state;
+		var form = new FormData();
+		form.append('file', file);
+		form.append('companyId', companyId);
+
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
 			return false;
@@ -57,6 +61,7 @@ class ImportData extends React.Component {
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
+					console.log('xhr.response====>>>',xhr.response)
 					if(xhr.response.code=='-1'){
 						Message.error(xhr.response.message);
 					}else{
@@ -119,21 +124,24 @@ class ImportData extends React.Component {
 
 	}
 
+	onCompanyChange=(value)=>{
+		this.setState({
+			companyId:value.id
+		});
+	}
 
 
 
 
 	render() {
 		let {fileName} = this.state;
-
+		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
-			<form  name='import' style={{textAlign:'center'}}>
+			<form onSubmit={handleSubmit(this.testDate)} name='import' style={{textAlign:'center'}}>
+				<KrField name="companyId" style={{width:252,marginLeft:'auto',marginRight:'auto'}}   label="公司" component="searchCompany" requireLabel={true} onChange={this.onCompanyChange}/>
 				<div>
 					<span className='import-logo icon-excel' onClick={this.importFile}><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
-					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} requireLabel={true}/>
-					
-
 					<span className='import-font'><span className="chooce">请选择上传文件</span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
 					{fileName?<span className='file-name'>{fileName}</span>:''}
 					<span className='load-demo icon-template' onClick={this.onLoadDemo}>下载excel模板</span>
@@ -141,7 +149,7 @@ class ImportData extends React.Component {
 				<Grid style={{marginTop:10,marginBottom:6}}>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'180px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="button" width={90} height={34} onClick={this.test}/></ListGroupItem>
+							<ListGroupItem style={{width:'180px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定导入" type="submit" width={90} height={34} /></ListGroupItem>
 							<ListGroupItem style={{width:'150px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} width={90} height={34}/> </ListGroupItem>
 						</ListGroup>
 					  </Row>
@@ -154,7 +162,7 @@ class ImportData extends React.Component {
 const validate = values => {
 	const errors = {}
 	if (!values.companyId) {
-		errors.companyId = '请输入公司';
+		errors.companyId = '请输入公司名称';
 	}
 	return errors;
 }

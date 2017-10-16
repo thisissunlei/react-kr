@@ -68,7 +68,8 @@ export default class List extends React.Component {
 				type:'COMP_NAME',
 				value:'',
 				status:false,
-			}
+			},
+			
 		}
 	}
 	importData=()=>{
@@ -149,6 +150,11 @@ export default class List extends React.Component {
 		ids = String(ids);
 		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
 		//var url = `http://optest01.krspace.cn/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		window.location.href = url;
+	}
+	//下载模板
+	onLoadDemo=()=>{
+		let url = 'http://optest01.krspace.cn/api/krspace-finance-web/member/member-templet-excel';
 		window.location.href = url;
 	}
     //提交编辑
@@ -323,17 +329,13 @@ export default class List extends React.Component {
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-									<ListGroup>
-										<ListGroupItem style={{marginRight:10}}>
-											<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
-										</ListGroupItem>
-										<ListGroupItem >
-											<Button  operateCode="mbr_list_import" label="批量导入" type="button" onTouchTap={this.importData} width={80} height={30} />
-										</ListGroupItem>
-									</ListGroup>	
+									<div className="u-member-btn-list">
+										<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
+										<Button  operateCode="mbr_list_import" label="批量导入" type="button" onTouchTap={this.importData} width={80} height={30} />
+									</div>	
 										{/*高级查询*/}
 										{/* <Button type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/> */}
-										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
+										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:'5px',zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
 									</form>
 									<Table
 										className="member-list-table"
@@ -427,7 +429,7 @@ export default class List extends React.Component {
 													<Button label="详情"  type="operation" operation="view"/>
 													<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
 													<Button operateCode="mbr_list_edit" label="离职"  type="operation" operation="leave"/>
-													<Button operateCode="mbr_list_edit" label="删除"  type="operation" operation="delete"/>
+													<Button operateCode="mbr_list_delete" label="删除"  type="operation" operation="delete"/>
 												
 											 </TableRowColumn>
 										 </TableRow>
