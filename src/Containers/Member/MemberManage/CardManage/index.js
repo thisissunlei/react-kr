@@ -1,6 +1,5 @@
 
 import React from 'react';
-import {initialize} from 'redux-form';
 
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
@@ -15,25 +14,13 @@ import {
 	TableFooter,
 	Button,
 	Section,
-	Grid,
-	Row,
-	Col,
 	Dialog,
-	SearchForms,
-	ListGroup,
-	ListGroupItem,
 	Message,
 	Title,
-	SnackTip,
-	
-
 } from 'kr-ui';
 
 import EditDetail from "./EditDetail";
-import HeavilyActivation from "./HeavilyActivation";
-import StartCardActivation from "./StartCardActivation";
 import CardManageSearchForm from "./CardManageSearchForm";
-import ImportCard from "./ImportCard";
 import ViewCard from "./ViewCard";
 import DeleteCard from "./DeleteCard";
 import InputCardForm from "./InputCardForm";
@@ -53,15 +40,9 @@ export default class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			//编辑页面的开启状态
+			
 			openEditDetail: false,
-			//批量激活输入卡号的开启状态
-			// openHeavilyActivation: false,
-			//批量激活开始激活
-			// openStartCardActivation:false,
-
-			// openImportCard: false,
-
+			
 			openView: false,
 
 			openDelete : false,
@@ -70,29 +51,14 @@ export default class List extends React.Component {
 			item: {},
 			list: {},
 			realPage:0,
-			// searchParams: {
-			// 	type:'',
-			// 	value:'',
-			// 	page: 1,
-			// 	pageSize: 15,
-			// },
-			// closeMessageBar:{
-			// 	title:'',
-			// 	open:false,
-			// 	style:{},
-			// 	className:'',
-			// 	barStyle:{}
-			// },
+			
 			detail:{
 				startNum:"",
 				endNum:'',
 				comminityId :'',
 				memo : '',
 			},
-			// isHeavilyClose:true,
-			// goHeavilyActivation:"index"
-
-
+			
 		}
 	}
 	//操作相关
@@ -114,56 +80,7 @@ export default class List extends React.Component {
 			openEditDetail: !this.state.openEditDetail
 		});
 	}
-	//批量激活输入卡号页面开关
-	// openHeavilyActivationDialog=()=> {
-	// 	if(this.state.goHeavilyActivation=="StartCardActivation"){
-	// 		this.setState({
-	// 			goHeavilyActivation:"index"
-	// 		})
-	// 	}
-	// 	this.setState({
-	// 		openHeavilyActivation: !this.state.openHeavilyActivation,
-	// 	});
-	// }
 	
-	//批量激活开始激活页面的开关
-	// openStartCardActivationDialog=()=>{
-	// 	this.setState({
-	// 		openStartCardActivation: !this.state.openStartCardActivation,
-	// 	});
-	// }
-	//批量激活开始激活页面返回按钮
-	// throwBack=()=>{
-	// 	this.setState({
-	// 		goHeavilyActivation:"StartCardActivation"
-	// 	})
-	// 	Store.dispatch(initialize('HeavilyActivation',this.state.detail));
-	// 	this.openStartCardActivationDialog();
-	// 	this.openHeavilyActivationDialog();
-
-	// }
-	
-
-	//输入卡号的确定操作
-	// onHeavilyActivation=(detail)=> {
-	// 	if(!detail.startNum||!detail.endNum){
-	// 		return ;
-	// 	}else if(detail.endNum-detail.startNum<0){
-	// 		Message.error('起始号码不能大于终止号码！')
-	// 		return ;
-	// 	}
-	// 	this.setState({detail:detail},function(){
-
-	// 			this.openHeavilyActivationDialog();
-	// 			this.onStartCardActivation()
-
-	// 		}
-	// 	)
-	// }
-	//开始激活的确定操作
-	// onStartCardActivation=(values)=>{
-	// 	this.openStartCardActivationDialog();
-	// }
 	//编辑页面的确定操作
 	onEditDetail=(values)=>{
 		var _this=this;
@@ -179,8 +96,8 @@ export default class List extends React.Component {
 			State.cardManageSearchParams = {
 				page:State.realPage,
 				pageSize: 15,
-				type:'',
-				value:'',
+				type:State.cardManageSearchParams.type,
+				value:State.cardManageSearchParams.value,
 				date: new Date()
 			}
 			Message.success("编辑成功");
@@ -199,56 +116,6 @@ export default class List extends React.Component {
 	}
 
 
-	
-	 //打开弹条
-	 // openMessageBar=(text,type)=>{
-	 // 	var style={};
-	 // 	var className="";
-	 // 	var barStyle={};
-	 // 	if(type=="ok"){
-	 // 		style={position:'fixed',right:0,height:40,color:"#000",top:20};
-	 // 		barStyle={display:"inline-block",backgroundColor:"#edffe2",borderRadius:3,padding:'0px 8px',border:"1px solid #cce6a0"};
-	 // 		className="messagesBarIconOk"
-	 // 	}else{
-	 // 		style={position:'fixed',right:0,height:40,color:"#000",top:20};
-	 // 		barStyle={display:"inline-block",backgroundColor:"#ffe9e9",borderRadius:3,padding:'0px 8px',border:"1px solid #ffb8b8"};
-	 // 		className="messagesBarIconError";
-	 // 	}
-
-	 // 	this.setState({
-	 // 		closeMessageBar:{
-		// 			title:text,
-		// 			open:true,
-		// 			style:style,
-		// 			className:className,
-		// 			barStyle:barStyle
-		// 		}
-	 // 	})
-	 // }
-	 //关闭弹跳
-	 // closeMessageBar=()=>{
-	 // 	let detail = Object.assign({},this.state.closeMessageBar);
-		// detail.open=false;
-		// State.cardManageSearchParams = {
-		// 				page:State.realPage,
-		// 				pageSize: 15,
-		// 				type:'',
-		// 				value:'',
-		// 				date: new Date()
-		// 			}
-		// this.setState({
-		// 	closeMessageBar:detail
-	 //    })
-	 // }
-
-	// onSearchCancel=()=> {
-
-	// }
-
-	// onNewCreateCancel=()=> {
-	// 	this.openNewCreateDialog();
-	// }
-
 	onLoaded=(response)=> {
 		let list = response;
 		this.setState({
@@ -266,16 +133,7 @@ export default class List extends React.Component {
 			date : new Date()
 		}
 	}
-	// isHeavilyCloseOk=()=>{
-	// 	setState({
-	// 		isHeavilyClose:true,
-	// 	})
-	// }
-	// isHeavilyCloseNone=()=>{
-	// 	setState({
-	// 		isHeavilyClose:false,
-	// 	})
-	// }
+	
 	onPageChange=(page)=>{
 		State.realPage = page;
 		
@@ -355,28 +213,6 @@ export default class List extends React.Component {
 		}
 	}
 
-	// openImportCardDialog=()=>{
-	// 	this.changeImportCardDilogOpen();
-	// }
-
-	// changeImportCardDilogOpen=()=>{
-	// 	this.setState({
-	// 		openImportCard : !this.state.openImportCard
-	// 	})
-	// }
-
-
-
-
-	// onCardSubmit=()=>{
-    	
-	//     Message.success("操作成功");
-	//     this.setState({
-	//     	openImportCard:!this.state.openImportCard
-	//     })
-	//     this.onFlush();
- //    }
-
     openDeleteDialog=()=>{
     	this.setState({
     		openDelete : !this.state.openDelete
@@ -389,8 +225,8 @@ export default class List extends React.Component {
     	State.cardManageSearchParams = {
 			page:State.realPage,
 			pageSize: 15,
-			type:'',
-			value:'',
+			type:State.cardManageSearchParams.type,
+			value:State.cardManageSearchParams.value,
 			date: new Date()
 		}
 	    Message.success("操作成功");
@@ -550,26 +386,6 @@ export default class List extends React.Component {
 							</Table>
 					</Section>
 					
-				  	{/*<Dialog
-						title="会员卡入库"
-						modal={true}
-						open={this.state.openImportCard}
-						onClose={this.openImportCardDialog}
-						contentStyle={{width:480}}
-					>
-						<ImportCard onSubmit={this.onCardSubmit} onCancel={this.openImportCardDialog} />
-				    </Dialog>
-
-					<Dialog
-						title="批量激活(填写卡外码)"
-						modal={true}
-						open={this.state.openHeavilyActivation}
-						onClose={this.openHeavilyActivationDialog}
-						bodyStyle={{paddingTop:45}}
-						contentStyle={{width:687}}
-					>
-						<HeavilyActivation path={this.state.goHeavilyActivation} detail={this.state.detail}  onSubmit={this.onHeavilyActivation} onCancel={this.openHeavilyActivationDialog} isHeavilyCloseNone={this.isHeavilyCloseNone} isHeavilyCloseOk={this.isHeavilyCloseOk}/>
-				  </Dialog>*/}
 
 					<Dialog
 						title="编辑"
@@ -608,19 +424,6 @@ export default class List extends React.Component {
 							detail={this.state.itemDetail}
 						/>
 				    </Dialog>
-
-					{/*<Dialog
-						title="批量激活（填写卡内码）"
-						modal={true}
-						open={this.state.openStartCardActivation}
-						onClose={this.openStartCardActivationDialog}
-						bodyStyle={{paddingTop:45}}
-						contentStyle={{width:500}}
-					>
-						<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack} openMessageBar={this.openMessageBar} closeMessageBar={this.closeMessageBar}/>
-				  </Dialog>
-				  <SnackTip zIndex={20000}  style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={this.state.closeMessageBar.barStyle}><span className={this.state.closeMessageBar.className} ></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
-					*/}
 
 
 				  	<Dialog

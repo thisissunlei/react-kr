@@ -9,16 +9,7 @@ class ImportCard extends React.Component{
 		super(props);
 
 		this.state={
-			beginCard:0,
-			endCard:0,
-			count:'0',
-			communityText:'',
-			companyText:'',
-			selectSourceOption:[],
-			searchForm:false,
-			searchParams:{
-
-			},
+			
 		}
 	}
 	onCancel=()=>{
@@ -27,12 +18,11 @@ class ImportCard extends React.Component{
 	}
 		
 	onSubmit = (values) => {
-		console.log("params",params);
+		
 		let {detail} = this.props;
 	    let params = {
 	        id: detail.id
 	    }
-		console.log("params",params);
 
 	    let _this = this;
 	    Http.request('memberCardDelete', params).then(function(response) {
@@ -47,8 +37,7 @@ class ImportCard extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let communityText = '';
-		let {count} =this.state;
+		
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:'37px'}}>
 				<p style={{textAlign:'center',fontSize:'14px',color:"#000",marginBottom:40}}>确认删除该会员卡？</p>
