@@ -245,7 +245,7 @@ class NewCreateForm extends React.Component{
 					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px',marginRight:'30'}}/>
 					<KrField name="job"  grid={1/2}  label="职位"  style={{width:'252px'}}/>
 					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
-					<KrField name="leader" component="group" label="是否是leader"  style={{width:252}} >
+					<KrField name="leader" component="group" label="Leader"  style={{width:252}} >
 						<KrField name="leader" label="是" type="radio" value="1" />
 						<KrField name="leader" label="否" type="radio" value='0' />
 					</KrField>
