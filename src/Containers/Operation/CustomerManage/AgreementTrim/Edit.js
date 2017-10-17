@@ -59,6 +59,8 @@ class EditList extends React.Component {
 		State.openEdit = false;
 	}
 	onSubmit=(form)=>{
+
+		form.detailId = State.itemDetail.id;
 		
 		
 		State.submitEdit(form)
@@ -104,7 +106,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >{DateFormat(State.itemDetail.signdate,'yyyy/mm/dd')}</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="signdate" component="date" style={{width:160}}/>
+												<KrField name="signDate" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 
@@ -115,7 +117,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >{DateFormat(State.itemDetail.leaseBegindate,'yyyy/mm/dd')}</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="begin" component="date" style={{width:160}}/>
+												<KrField name="leaseBeginDate" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 									   	<TableRow >
@@ -125,7 +127,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >{DateFormat(State.itemDetail.leaseEnddate,'yyyy/mm/dd')}</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="firsttime" component="date" style={{width:160}}/>
+												<KrField name="firstPayDate" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 									   	<TableRow>
@@ -135,7 +137,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >{State.itemDetail.totalrent}</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="money" component="input" style={{width:160}} />
+												<KrField name="depTotal" component="input" style={{width:160}} />
 											</TableRowColumn>
 									   	</TableRow>
 									   	{State.itemDetail.editFlag && <TableRow >
@@ -145,7 +147,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >已执行</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="status" grid={1/2} label="未执行" type="radio" value='false' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>
+												<KrField name="contractStatus" grid={1/2} label="未执行" type="radio" value='false' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>
 												{/*<KrField name="status" component="checkBox" label="未执行"/>*/}
 											</TableRowColumn>
 									   	</TableRow>}
@@ -156,7 +158,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >未执行</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="status" grid={1/2} label="执行" type="radio" value='true' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>												
+												<KrField name="contractStatus" grid={1/2} label="执行" type="radio" value='true' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>												
 											</TableRowColumn>
 									   	</TableRow>}
 									   	<TableRow style={{height:'100px'}}>
@@ -166,7 +168,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >{State.itemDetail.agreement}</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="other" component="textarea" style={{width:160}}/>
+												<KrField name="agreement" component="textarea" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
 								</TableBody>

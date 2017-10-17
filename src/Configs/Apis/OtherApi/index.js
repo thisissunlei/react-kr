@@ -198,6 +198,7 @@ const APIS = {
          url: '/api/krspace-finance-web/cmt/community/select-list',
          method: 'get'
       },
+    
 
     
 

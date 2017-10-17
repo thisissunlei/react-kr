@@ -113,8 +113,9 @@ class CreateNewList extends React.Component {
 		return typeName;
     }
     delete=(item)=>{
-    	State.openDeleteContent = true;
-    	console.log('=====',item)
+    	State.deleteAgreementButton(item);
+    	// State.openDeleteContent = true;
+    	// console.log('=====',item)
     }
     edit=(item)=>{
     	console.log('---edit---',item);
@@ -191,7 +192,7 @@ class CreateNewList extends React.Component {
 												{item.inputUser}
 											</TableRowColumn>
 											<TableRowColumn>
-												<span className="ui-buttons" onTouchTap={this.delete.bind(this,item)}> 删除</span>
+												{item.contracttype!='QUITRENT' && <span className="ui-buttons" onTouchTap={this.delete.bind(this,item)}> 删除</span>}
 												<span className="ui-buttons" onTouchTap={this.edit.bind(this,item)}> 编辑</span>
 											</TableRowColumn>
 									   	</TableRow>

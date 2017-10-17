@@ -17,7 +17,7 @@ import {
 
 import Baidu from 'kr/Utils/Baidu';
 
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 
 import {
 	Tabs,
@@ -89,7 +89,7 @@ class AgreementTrim extends React.Component {
 					style={{marginTop:10,position:'inherit'}}
 					ajax={true}
 					ajaxFieldListName='items'
-					ajaxUrlName='membersList'
+					ajaxUrlName='agreementTrimList'
 					ajaxParams={State.searchParams}
 					onPageChange={this.onPageChange}
 				>
@@ -103,47 +103,47 @@ class AgreementTrim extends React.Component {
 					</TableHeader>
 					<TableBody style={{position:'inherit'}}>
 						<TableRow>
-						<TableRowColumn name="phone"
+						<TableRowColumn name="customerName"
 						component={(value,oldValue)=>{
 							if(value==""){
 								value="-"
 							}
 							return (<span>{value}</span>)}}
 						></TableRowColumn>
-						<TableRowColumn name="phone"
+						<TableRowColumn name="billName"
 						component={(value,oldValue)=>{
 							if(value==""){
 								value="-"
 							}
 							return (<span>{value}</span>)}}
 						></TableRowColumn>
-						<TableRowColumn name="phone"
+						<TableRowColumn name="contractType"
 						component={(value,oldValue)=>{
 							if(value==""){
 								value="-"
 							}
 							return (<span>{value}</span>)}}
 						></TableRowColumn>
-						<TableRowColumn name="phone"
+						<TableRowColumn name="changeContent"
 						component={(value,oldValue)=>{
 							if(value==""){
 								value="-"
 							}
 							return (<span>{value}</span>)}}
 						></TableRowColumn>
-						<TableRowColumn name="phone"
+						<TableRowColumn name="operateName"
 						component={(value,oldValue)=>{
 							if(value==""){
 								value="-"
 							}
 							return (<span>{value}</span>)}}
 						></TableRowColumn>
-						<TableRowColumn name="phone"
-						component={(value,oldValue)=>{
+						<TableRowColumn name="operatedate"
+						component={(value,oldValue,itemData)=>{
 							if(value==""){
 								value="-"
 							}
-							return (<span>{value}</span>)}}
+							return (<span>{DateFormat(itemData.operatedate,'yyyy/mm/dd HH:MM:ss')}</span>)}}
 						></TableRowColumn>
 						</TableRow>
 				</TableBody>

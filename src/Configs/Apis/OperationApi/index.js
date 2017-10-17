@@ -950,6 +950,17 @@ module.exports = {
         method: 'get'
     },
 
+    // 合同调整列表
+    'agreementTrimList': {
+        url: '/apis/krspace-op-web/fina-contract-change-list?page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    // 合同调整保存
+    'agreementTrimSave': {
+        url: '/apis/krspace-op-web/fina-contract-detail-save',
+        method: 'post'
+    },
+
 
     
    

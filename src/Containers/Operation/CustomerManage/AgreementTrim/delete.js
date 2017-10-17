@@ -1,7 +1,7 @@
 import React from 'react';
 import {reduxForm,initialize} from 'redux-form';
 import {Store} from 'kr/Redux';
-import {DateFormat} from 'kr/Utils';
+import {DateFormat,Http} from 'kr/Utils';
 import {
 	KrField,
 	Grid,
@@ -45,8 +45,52 @@ export default class Delete extends React.Component {
 	componentWillMount() {
 	}
 	onDelete=()=>{
+		let delAgreement = State.itemDetail;
+		console.log('delete',delAgreement,delAgreement.contracttype)
+
+		if(delAgreement.contracttype == 'RENEW'){
+			//续租
+			Http.request('delete-renew-contract', {
+				contractId: delAgreement.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				State.deleteAgreement();
+
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}else if(delAgreement.contracttype == 'ADDRENT'){
+			// 增租
+			Http.request('delete-increase-contract', {
+				contractId: delAgreement.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				State.deleteAgreement();
+
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}else if(delAgreement.contracttype == 'LESSRENT'){
+			// 减租
+			Http.request('delete-reduce-contract', {
+				contractId: delAgreement.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				 State.deleteAgreement();
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}else{
+			Http.request('delete-enter-contract', {
+				contractId: delAgreement.id
+			}).then(function(response) {
+				 Message.success('删除成功');
+				 State.deleteAgreement();
+			}).catch(function(err) {
+	            Message.error(err.message);
+			});
+		}
 		
-		State.deleteAgreement();
 		console.log('onDelete')
 	}
 	onCancel=()=>{

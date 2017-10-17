@@ -50,14 +50,27 @@ State.editAgreement = action(function(item){
     this.itemDetail = item;
 })
 
+State.deleteAgreementButton = action(function(item){
+	this.openDeleteContent = true;
+    this.itemDetail = item;
+})
+
 
 State.submitEdit = action(function(form){
 	let time = +new Date();
-	let search = Object.assign({},State.searchParams,{time})
-	this.searchParams = search;
-	this.openEdit = false;
-	this.openAgreementList = false;
-	this.contractList = []
+	let _this = this;
+	
+	Http.request('save-news', {},form).then(function(response) {
+		Message.success("新建成功");
+		let search = Object.assign({},State.searchParams,{time})
+		_this.searchParams = search;
+		_this.openEdit = false;
+		_this.openAgreementList = false;
+		_this.contractList = []
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+	//agreementTrimSave
 	console.log('====>',form)
 })
 State.deleteAgreement = action(function(){
