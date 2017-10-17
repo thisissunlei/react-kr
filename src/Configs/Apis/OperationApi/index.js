@@ -950,7 +950,11 @@ module.exports = {
         method: 'get'
     },
 
-
+     //运营平台-APP管理-积分管理-充值记录
+     'charge-list': {
+        url: '/api/krspace-finance-web/point/manage/charge-list?companyId={companyId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
     
    
 }

@@ -44,7 +44,6 @@ class MemberPersonInfo extends React.Component {
     getBasicData=()=>{
 		const {detail}=this.props;
 		let url = this.props.params;
-		console.log('detail----===>>>',detail)
 		let _this = this;
 		Http.request('members-basic-date', {id:detail.holder}).then(function(response) {
 			if(response.gender==0){
