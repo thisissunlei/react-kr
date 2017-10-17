@@ -61,6 +61,7 @@ class EditList extends React.Component {
 	onSubmit=(form)=>{
 
 		form.detailId = State.itemDetail.id;
+		// form.leaseBeginDate = form.leaseBeginDate || State.itemDetail.leaseBegindate;
 		
 		
 		State.submitEdit(form)
@@ -140,25 +141,25 @@ class EditList extends React.Component {
 												<KrField name="depTotal" component="input" style={{width:160}} />
 											</TableRowColumn>
 									   	</TableRow>
-									   	{State.itemDetail.editFlag && <TableRow >
+									   	{State.itemDetail.contractstate == 'EXECUTE' && <TableRow >
 											<TableRowColumn>
 											合同状态
 
 											</TableRowColumn>
 											<TableRowColumn >已执行</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="contractStatus" grid={1/2} label="未执行" type="radio" value='false' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>
+												<KrField name="status" grid={1/2} label="未执行" type="radio" value='false' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>
 												{/*<KrField name="status" component="checkBox" label="未执行"/>*/}
 											</TableRowColumn>
 									   	</TableRow>}
-									   	{!State.itemDetail.editFlag && <TableRow >
+									   	{State.itemDetail.contractstate != 'EXECUTE'&& <TableRow >
 											<TableRowColumn>
 											合同状态
 
 											</TableRowColumn>
 											<TableRowColumn >未执行</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="contractStatus" grid={1/2} label="执行" type="radio" value='true' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>												
+												<KrField name="status" grid={1/2} label="未执行" type="radio" value='false' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>												
 											</TableRowColumn>
 									   	</TableRow>}
 									   	<TableRow style={{height:'100px'}}>

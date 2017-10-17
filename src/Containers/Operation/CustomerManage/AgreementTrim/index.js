@@ -34,8 +34,12 @@ import {
 	TableHeaderColumn,
 	TableRowColumn,
 	Button,
+	Tooltip,
 	SearchForms,
-	Drawer
+	Drawer,
+	KrField,
+	Row,
+	Col
 } from 'kr-ui';
 import './index.less'
 import AgreementList from './AgreementList';
@@ -56,9 +60,15 @@ class AgreementTrim extends React.Component {
 		console.log(page)
 	}
 	onSearchSubmit=(value)=>{
+		let customerId = value.id;
 		console.log(value)
+		let params = {
+			customerId,
+			page:1
+		}
 		// let content = value.content;
-		State.searchParams = Object.assign({},State.searchParams,value)
+		State.searchParams = Object.assign({},State.searchParams,params);
+		console.log('onSearchSubmit',State.searchParams)
 	}
 	openNewCreateDialog=()=>{
 		State.openAgreementList = true;
@@ -67,6 +77,31 @@ class AgreementTrim extends React.Component {
 	detailOpenEdit=()=>{
 		State.openEdit = false;
 	}
+
+	contracttype=(type)=>{
+    	let typeName = '';
+    	switch (type){
+			case 'ENTER' :
+				typeName = '入驻协议书'; 
+				break;
+			case 'ADDRENT' :
+				typeName = '增租协议书';
+				break;
+			case 'RENEW' :
+				typeName = '续租协议书'
+				break;
+			case 'LESSRENT' :
+				typeName = '减租协议书'
+				break;
+			case 'QUITRENT' :
+				typeName = '退租协议书'
+				break;
+			case 'INTENTION' :
+				typeName = '承租意向书'
+				break;
+		}
+		return typeName;
+    }
 	
 
 
@@ -75,14 +110,27 @@ class AgreementTrim extends React.Component {
 
 		return (
 
-			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
+			<div className="tab-container-trim" style={{minHeight:910,background:'#fff'}}>
 
 			<Title value="合同调整"/>
 			<Section title="合同调整" description="" bodyPadding={'20px 20px 50px 20px'}>
-				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-					<Button operateCode="mbr_list_add"  label="新建"  onTouchTap={this.openNewCreateDialog} />
-					<SearchForms onSubmit={this.onSearchSubmit}  style={{marginTop:5,zIndex:10000}} />
-				</form>
+				
+				<Row>
+			          <Col
+					     align="left"
+					     style={{float:'left',marginTop:3}}
+					   >
+						<Button operateCode="mbr_list_add"  label="新建"  onTouchTap={this.openNewCreateDialog} />
+							
+					  </Col>
+
+			          <Col style={{marginTop:-15,float:'right'}}>
+				        <form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45,lineHeight:'45px'}}>
+							<span className='source-customer'>客户名称:</span>
+                 			<KrField  grid={1} name="sourceId" style={{marginTop:4,width:150}} component='companyName'  onChange={this.onSearchSubmit} placeholder='请选择' />
+						</form>
+			          </Col>
+	         </Row>
 				<Table
 					displayCheckbox={false}
 					className="member-list-table"
@@ -94,10 +142,10 @@ class AgreementTrim extends React.Component {
 					onPageChange={this.onPageChange}
 				>
 					<TableHeader>
-						<TableHeaderColumn>客户名称</TableHeaderColumn>
-						<TableHeaderColumn>订单名称</TableHeaderColumn>
+						<TableHeaderColumn style={{width:150}}>客户名称</TableHeaderColumn>
+						<TableHeaderColumn  style={{width:150}}>订单名称</TableHeaderColumn>
 						<TableHeaderColumn>合同类型</TableHeaderColumn>
-						<TableHeaderColumn>调整内容</TableHeaderColumn>
+						<TableHeaderColumn style={{width:250}}>调整内容</TableHeaderColumn>
 						<TableHeaderColumn>操作人</TableHeaderColumn>
 						<TableHeaderColumn>操作时间</TableHeaderColumn>
 					</TableHeader>
@@ -105,31 +153,54 @@ class AgreementTrim extends React.Component {
 						<TableRow>
 						<TableRowColumn name="customerName"
 						component={(value,oldValue)=>{
-							if(value==""){
-								value="-"
+								var TooltipStyle=""
+							if(value.length==""){
+								TooltipStyle="none"
+							}else{
+								TooltipStyle="block";
 							}
-							return (<span>{value}</span>)}}
+							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:150,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+							 	<Tooltip offsetTop={5} place='top' >
+									<div style={{width:"150px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
+							 	</Tooltip></div>)
+						}}
 						></TableRowColumn>
 						<TableRowColumn name="billName"
 						component={(value,oldValue)=>{
-							if(value==""){
-								value="-"
+							var TooltipStyle=""
+							if(value.length==""){
+								TooltipStyle="none"
+							}else{
+								TooltipStyle="block";
 							}
-							return (<span>{value}</span>)}}
+							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:150,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+							 	<Tooltip offsetTop={5} place='top' >
+									<div style={{width:"150px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
+							 	</Tooltip></div>)
+						}}
 						></TableRowColumn>
 						<TableRowColumn name="contractType"
 						component={(value,oldValue)=>{
 							if(value==""){
 								value="-"
 							}
-							return (<span>{value}</span>)}}
+							return (<span>{this.contracttype(value)}</span>)}}
 						></TableRowColumn>
 						<TableRowColumn name="changeContent"
 						component={(value,oldValue)=>{
-							if(value==""){
-								value="-"
+
+							var TooltipStyle=""
+							if(value.length==""){
+								TooltipStyle="none"
+							}else{
+								TooltipStyle="block";
 							}
-							return (<span>{value}</span>)}}
+							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:250,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+							 	<Tooltip offsetTop={5} place='top' >
+									<div style={{width:"250px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
+							 	</Tooltip></div>)
+						}}
+
 						></TableRowColumn>
 						<TableRowColumn name="operateName"
 						component={(value,oldValue)=>{
@@ -181,4 +252,6 @@ class AgreementTrim extends React.Component {
 		);
 	}
 }
-export default AgreementTrim;
+export default AgreementTrim = reduxForm({
+	form: 'SearchList',
+})(AgreementTrim);
