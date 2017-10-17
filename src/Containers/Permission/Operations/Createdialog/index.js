@@ -177,6 +177,9 @@ class Createdialog extends React.Component {
 	onSelect = (item) => {
 		var _this = this;
 		var ModuleList;
+		Store.dispatch(change('createdialog', 'moduleChild', ''));
+		Store.dispatch(change('createdialog', 'moduleChildList', ''));
+		
 		this.setState({
 			Params: {
 				parentId: item.id
@@ -212,7 +215,8 @@ class Createdialog extends React.Component {
 	onSelectChild = (item) => {
 		var _this = this;
 		var ModuleList;
-		console.log('item====>>>',item)
+		Store.dispatch(change('createdialog', 'moduleChildList', ''));
+		
 		this.setState({
 			Params: {
 				parentId: item.id
