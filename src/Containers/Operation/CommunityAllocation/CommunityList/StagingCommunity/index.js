@@ -134,7 +134,7 @@ class StagingCommunity  extends React.Component{
 
 	render(){
 
-        let {floor}=this.props;
+        let {floor,communityId}=this.props;
         var floors=[];
         floor.map((index,item)=>{
             var list={};
@@ -232,6 +232,7 @@ class StagingCommunity  extends React.Component{
                         onCancel={this.openAddCommunity}
                         onSubmit={this.openAddSubmit}
                         floor={floors}
+                        communityId={communityId}
                     />
 
                 </Drawer>
@@ -249,6 +250,7 @@ class StagingCommunity  extends React.Component{
                         onCancel={this.editCancel}
                         onSubmit={this.openEditSubmit}
                         floor={floors}
+                        communityId={communityId}
                     />
 
                 </Drawer>

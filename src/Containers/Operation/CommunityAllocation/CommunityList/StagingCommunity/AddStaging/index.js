@@ -53,7 +53,7 @@ class AddStaging  extends React.Component{
    
 	render(){
 
-        let {handleSubmit,floor}=this.props;
+        let {handleSubmit,floor,communityId}=this.props;
         let {isOk}=this.state;
        
        
