@@ -136,8 +136,12 @@ export default class List extends React.Component {
 			itemDetail
 		});
 		if (type == 'view') {
+<<<<<<< HEAD
 			this.openView();
 			//window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
+=======
+			window.open(`./#/operation/member/memberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
+>>>>>>> master
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}else if(type=='delete'){

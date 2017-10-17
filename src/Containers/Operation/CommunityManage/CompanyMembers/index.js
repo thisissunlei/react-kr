@@ -352,7 +352,7 @@ export default class CompanyMembers extends React.Component {
 	detailView(itemData){
 		let orderId = itemData.id;
 		let companyId=this.state.companyId;
-		window.open(`./#/member/MemberManage/${orderId}/detail/${companyId}`, orderId);
+		window.open(`./#/operation/member/memberManage/${orderId}/detail/${companyId}`, orderId);
 
 	}
 	onSearchSubmit=()=>{
