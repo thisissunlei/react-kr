@@ -37,7 +37,7 @@ import {
 } from 'mobx-react';
 import './index.less';
 import State from './State';
-import Delete from './Delete';
+// import Delete from './Delete';
 
 import nothing from './images/nothings.png';
 @observer
@@ -218,14 +218,6 @@ class CreateNewList extends React.Component {
 					</CircleStyleTwo>
 				</form> 
 
-				<Dialog
-						title="删除合同"
-						autoScrollBodyContent={true}
-						open={State.openDeleteContent}
-						onClose={this.onCloseDialog}
-						contentStyle={{width:'400px'}}>
-						<Delete />
-					  </Dialog>
 			</div>
 
 
