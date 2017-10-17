@@ -70,7 +70,7 @@ class New extends React.Component {
 
 				*/}
 				<botton onClick = {this.onClick}>点击</botton>
-			 	<LocationChoice open = {isOpen} onClose = {this.onOpen} onSubmit = {this.onSubmit} />
+			 	<LocationChoice communityId = {4}  open = {isOpen} onClose = {this.onOpen} onSubmit = {this.onSubmit} />
 			 </div>
 			 
 		);

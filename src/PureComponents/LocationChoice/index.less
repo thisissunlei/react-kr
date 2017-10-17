@@ -1,10 +1,10 @@
 .m-location-choice{
     .double-column{
-        width: 100%;
-       
-        box-sizing: border-box;
-        padding: 20px;
-        padding-top:0px; 
+            width: 100%;
+            box-sizing: border-box;
+            padding: 30px;
+            padding-top: 0px;
+            margin-left: 10px;
         .text-num{
             width: 100%;
            
@@ -13,27 +13,82 @@
             margin-bottom: 15px;
         }
         .column-bar{
-            width: 68px;
-            height: 400px;
+            width: 50px;
+            height: 245px;
             float: left;
             text-align: center;
+            box-sizing: border-box;
+            padding: 0px 5px;
+        }
+        .text-bar{
+            height: 37px;
+            line-height: 37px;
+            padding: 0 10px;
+            border-bottom: 1px solid #DFDFDF;
+            border-radius: 4px 4px 0px 0;
+            position: absolute;
+            width: 100%;
+            box-sizing: border-box;
+            top: 0px;
         }
         .column-left,.column-right{
-            width: 255px;
-            height: 300px;
+            width: 250px;
+            height: 245px;
             float: left;
-           
+            position: relative;
             border-radius: 4px;
-            border: solid 1px #666;
+            border: 1px solid #DFDFDF;
             box-sizing: border-box;
+            padding-top: 37px;
+            background-color: white;
+            overflow: hidden;
+            .content{
+                
+                height: 208px;
+                overflow: auto;
+            }
+        }
+        .top,.down{
+            height: 124px;
+            line-height: 124px;
+            div{
+                display: inline-block;
+                line-height: 16px;
+                vertical-align: middle;
+                .rightAllSelect{
+                    cursor: pointer;
+                    background: url(./images/left.svg) no-repeat;
+                    background-position: center center;
+                    background-size: 14px;
+
+                }
+                .leftAllSelect{
+                    cursor: pointer;
+                    background: url(./images/right.svg) no-repeat;
+                    background-position: center center;
+                     background-size: 14px;
+                }
+                span{
+                    display: inline-block;
+                    width: 20px;
+                    line-height: 20px;
+                    height: 20px;
+                    border: 1px solid #499DF1;
+                    border-radius: 3px;
+                    margin: 7px 0px;
+                    color: #499DF1;
+                    vertical-align: middle;
+                    cursor: pointer;
+                }
+            }
         }
         .every-num{
-            height: 20px;
-            line-height: 20px;
+            height: 36px;
+            line-height: 36px;
             padding: 0px 10px;
             box-sizing: border-box;
             cursor: pointer;
-
+            font-size: 14px;
         }
         
     }
