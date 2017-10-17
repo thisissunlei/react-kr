@@ -25,7 +25,7 @@ import {
 	Message,
 	Title,
 	SnackTip,
-	
+	Drawer,
 
 } from 'kr-ui';
 
@@ -37,7 +37,7 @@ import ImportCard from "./ImportCard";
 import ViewCard from "./ViewCard";
 import DeleteCard from "./DeleteCard";
 import InputCardForm from "./InputCardForm";
-
+import MemberPersonInfo from "./MemberPersonInfo";
 import './index.less';
 
 
@@ -91,7 +91,7 @@ export default class List extends React.Component {
 			},
 			// isHeavilyClose:true,
 			// goHeavilyActivation:"index"
-
+			openPerson:false,
 
 		}
 	}
@@ -401,11 +401,18 @@ export default class List extends React.Component {
 
 
     seeMemberDetail=(thisP,itemData)=>{
-
-    	window.open(`./#/member/MemberManage/${thisP.holder}/detail/${thisP.customer}`);
+		this.setState({
+			itemDetail:itemData,
+			openPerson:!this.state.openPerson
+		})
+    	//window.open(`./#/member/MemberManage/${thisP.holder}/detail/${thisP.customer}`);
     
     }
-
+	openPerson=()=>{
+		this.setState({
+			openPerson:!this.state.openPerson
+		})
+	}
 
     componentWillUnmount(){
     	State.realPage=1;
@@ -608,7 +615,7 @@ export default class List extends React.Component {
 							detail={this.state.itemDetail}
 						/>
 				    </Dialog>
-
+					
 					{/*<Dialog
 						title="批量激活（填写卡内码）"
 						modal={true}
@@ -632,6 +639,20 @@ export default class List extends React.Component {
 					>
 						<InputCardForm  onCancel={this.switchOpenInputCardDialog} />
 				    </Dialog>
+					<Drawer
+						modal={true}
+						width={750}
+						open={this.state.openPerson}
+						onClose={this.openPerson}
+						openSecondary={true}
+						containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+						>
+							<MemberPersonInfo
+									detail={this.state.itemDetail}
+									onCancel={this.openPerson} 
+									
+							/>
+					</Drawer>
 			</div>
 		);
 	}

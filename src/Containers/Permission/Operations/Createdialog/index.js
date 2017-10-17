@@ -212,6 +212,7 @@ class Createdialog extends React.Component {
 	onSelectChild = (item) => {
 		var _this = this;
 		var ModuleList;
+		console.log('item====>>>',item)
 		this.setState({
 			Params: {
 				parentId: item.id
