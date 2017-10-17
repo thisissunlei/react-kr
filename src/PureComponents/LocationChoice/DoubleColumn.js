@@ -58,6 +58,7 @@ export default class DoubleColumn extends Component {
         this.keyCode = "";
         this.isWindows = false;
         this.isLeft='';
+        this.selectNum = 0;
     }
 
     componentDidMount () {
@@ -74,6 +75,9 @@ export default class DoubleColumn extends Component {
         this.setState({
             leftData:this.allDataInit(this.allData),
         })
+    }
+    getData = () =>{
+        
     }
 
     allDataInit = (data) =>{
@@ -186,8 +190,19 @@ export default class DoubleColumn extends Component {
     
     everyNum = (data,index,type)=>{
         let bgColor = "#fff";
+        let fontColor = "#666666"
+        let activeStyle = {
+            background:"#fff",
+            color:"#666666",
+        };
         if(data.isActive){
-            bgColor="red";
+            bgColor="#F6F6F6";
+            fontColor = "#499DF1"
+            activeStyle = {
+                background:"#F6F6F6",
+                color:"#499DF1",
+                border:"1px solid #DFDFDF"
+            };
         }
         return (
             <div 
@@ -198,7 +213,7 @@ export default class DoubleColumn extends Component {
                     }
                     
                 }
-                style = {{background:bgColor}}>
+                style = {activeStyle}>
                 {data.code}
             </div>
         )
@@ -206,12 +221,7 @@ export default class DoubleColumn extends Component {
     renderLeft = () =>{
        let {leftData,rightData} = this.state;
         var elems = leftData.map((item,index)=>{
-            // if(item.isLeft){
               return this.everyNum(item,index,"left");
-            // }else{
-            //     return null;
-            // }
-            
         })
         return elems; 
     }
@@ -302,40 +312,62 @@ export default class DoubleColumn extends Component {
                      }
                  }
             >	
-                <div className = "text-num">
-                    {0}个
-                </div> 
                 <div className = "column-left">
-                    {this.renderLeft()}
+                    <div className = "text-bar">待选列表</div> 
+                    <div className="content">
+                        {this.renderLeft()}
+                    </div>
                 </div>
                 <div className = "column-bar">
-                    <div 
-                        onClick = {
-                            ()=>{
-                                this.allSelect("left")
-                            }
-                        }
-                    >{">>"}</div>
-                    <div 
-                        onClick = {()=>{
-                            this.move("left")
-                        }}
-                    >{">"}</div>
-                    <div
-                        onClick = {()=>{
-                            this.move("right")
-                        }}
-                    >{"<"}</div>
-                    <div
-                        onClick = {
-                            ()=>{
-                                this.allSelect("right")
-                            }
-                        }
-                    >{"<<"}</div>
+                    <div className = "top">
+                        <div>
+                            <span 
+                                className="leftAllSelect"
+                                onClick = {
+                                    ()=>{
+                                        this.allSelect("left")
+                                    }
+                                }
+                            >
+                          
+                            </span>
+                            <span 
+                                onClick = {()=>{
+                                    this.move("left")
+                                }}
+                            >{">"}</span>
+                        </div>
+                        
+                    </div>
+                    <div className = "down">
+                        <div>
+                            <span
+                                onClick = {()=>{
+                                    this.move("right")
+                                }}
+                            >
+                                {"<"}
+                            </span>
+
+                            <span
+                                className="rightAllSelect"
+                                onClick = {
+                                    ()=>{
+                                        this.allSelect("right")
+                                    }
+                                }
+                            ></span>
+                        </div>
+                        
+                    </div>
+                    
                 </div>
-                <div className = "column-right">    
-                    {this.renderRight()}
+                <div className = "column-right">   
+                    <div className = "text-bar">已选列表<span style = {{color:"#999999"}}>{`（已选 ${this.selectNum} 个）`}</span></div> 
+                    <div className="content">
+                        {this.renderRight()}
+                    </div>
+                    
                 </div>
 			</div>
         )

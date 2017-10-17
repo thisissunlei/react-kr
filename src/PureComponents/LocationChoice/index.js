@@ -17,9 +17,11 @@ export default class LocationChoice extends Component {
     constructor(props, context) {
         super(props, context);
     }
-
+    select = (values) =>{
+        
+    }
     render(){
-        let {title,onClose,open} = this.props;
+        let {title,onClose,open,communityId} = this.props;
         return(
             <div className = "m-location-choice">
                 <Dialog
@@ -28,7 +30,7 @@ export default class LocationChoice extends Component {
                     open={open}
                     contentStyle ={{ width: '666px',height:'auto'}}
                 >
-                    <LocationChoiceSearch/>
+                    <LocationChoiceSearch communityId = {communityId} onSubmit = {this.select}/>
                     <DoubleColumn/>
                 </Dialog>
             </div>
