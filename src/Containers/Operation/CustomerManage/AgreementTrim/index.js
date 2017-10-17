@@ -60,7 +60,14 @@ class AgreementTrim extends React.Component {
 		console.log(page)
 	}
 	onSearchSubmit=(value)=>{
-		let customerId = value.id;
+		let customerId ;
+
+		if(!value.id){
+			customerId ='';
+		}else{
+			customerId = value.id;
+
+		}
 		console.log(value)
 		let params = {
 			customerId,
@@ -72,7 +79,6 @@ class AgreementTrim extends React.Component {
 	}
 	openNewCreateDialog=()=>{
 		State.openAgreementList = true;
-		console.log('=========>')
 	}
 	detailOpenEdit=()=>{
 		State.openEdit = false;

@@ -952,12 +952,12 @@ module.exports = {
 
     // 合同调整列表
     'agreementTrimList': {
-        url: '/apis/krspace-op-web/fina-contract-change-list?page={page}&pageSize={pageSize}&customerId={customerId}',
+        url: '/api/krspace-op-web/fina-contract-change-list?page={page}&pageSize={pageSize}&customerId={customerId}',
         method: 'get'
     },
     // 合同调整保存
     'agreementTrimSave': {
-        url: '/apis/krspace-op-web/fina-contract-detail-save',
+        url: '/api/krspace-op-web/fina-contract-detail-save',
         method: 'post'
     },
 

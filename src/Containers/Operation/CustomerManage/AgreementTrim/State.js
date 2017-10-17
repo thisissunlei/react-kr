@@ -40,6 +40,7 @@ let State = observable({
 	itemDetail:{},
 	openDeleteContent:false,
 	searchParams:{
+		// pageSize:5
 	}
 
 });
