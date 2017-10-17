@@ -132,7 +132,7 @@ class SearchUpperForm extends React.Component {
 				<KrField  grid={1/2} right={34} name="sourceId" component="upMerchantsSource"  style={{marginTop:4}} label="客户来源"
 				 
 				></KrField>
-				{flag == "个人" && <KrField grid={1/2}  right={34} name="receiveId" style={{marginTop:4}} component="searchLeader" inline={false} label="领取人" placeholder='请输入领取人'/> }
+				{flag == "个人" && <KrField grid={1/2}  right={34} name="receiveId" style={{marginTop:4,marginLeft:-5}} component="searchLeader" inline={false} label="领取人" placeholder='请输入领取人'/> }
 				<KrField grid={1/1}  component="group" label="创建时间" style={{marginTop:3}}>
 				<div className='ui-listDate'>
 					<ListGroup>

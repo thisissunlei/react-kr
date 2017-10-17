@@ -102,6 +102,7 @@ export default class PicList extends Component{
    addSubmit = (data) =>{
 	   	var _this = this;
 		var params = Object.assign({},data)
+		console.log(params);
 		Http.request("web-pclist-listadd-editor",{},params).then(function (response) {
 			Message.success("新建成功");
 			_this.switchOpenAdd()
