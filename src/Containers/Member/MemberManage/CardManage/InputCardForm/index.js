@@ -86,6 +86,7 @@ class InputCardForm extends React.Component {
 				value:'',
 				date : new Date(),
 			}
+			
 
 		}).catch(function(err) {
 			
