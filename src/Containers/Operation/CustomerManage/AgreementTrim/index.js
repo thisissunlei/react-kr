@@ -126,7 +126,7 @@ class AgreementTrim extends React.Component {
 					     align="left"
 					     style={{float:'left',marginTop:3}}
 					   >
-						<Button operateCode="mbr_list_add"  label="新建"  onTouchTap={this.openNewCreateDialog} />
+						<Button  label="新建"  onTouchTap={this.openNewCreateDialog} />
 							
 					  </Col>
 

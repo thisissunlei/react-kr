@@ -42,7 +42,7 @@ module.exports = [
 					{
 						primaryText: '合同调整',
 						router: '/operation/customerManage/agreementtrim',
-						menuCode: 'oper_csr_marketList_base',
+						menuCode: 'contract_edit',
 					},
 				]
 			},
