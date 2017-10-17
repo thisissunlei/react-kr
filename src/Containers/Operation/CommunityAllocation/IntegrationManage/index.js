@@ -198,7 +198,7 @@ export default class Integration extends React.Component {
 					                <TableRowColumn name="remainPoint" ></TableRowColumn>
 					                <TableRowColumn>
 					                	<Button label="消费记录"  type="operation"  operation="view"/>
-										<Button label="充值记录"  type="operation"  operation="list"/>
+										<Button operateCode="csr_point_charge" label="充值记录"  type="operation"  operation="list"/>
 									  	<Button label="充值"  type="operation"  operation="give"/>
 					                </TableRowColumn>
 					               </TableRow>

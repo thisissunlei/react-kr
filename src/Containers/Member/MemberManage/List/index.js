@@ -136,12 +136,8 @@ export default class List extends React.Component {
 			itemDetail
 		});
 		if (type == 'view') {
-<<<<<<< HEAD
 			this.openView();
 			//window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
-=======
-			window.open(`./#/operation/member/memberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
->>>>>>> master
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}else if(type=='delete'){
@@ -441,8 +437,8 @@ export default class List extends React.Component {
 											<TableRowColumn type="operation" style={{width:200}}>
 													<Button label="详情"  type="operation" operation="view"/>
 													<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
-													<Button operateCode="mbr_list_edit" label="离职"  type="operation" operation="leave"/>
-													<Button operateCode="mbr_list_edit" label="绑卡"  type="operation" operation="bindcode"/>
+													<Button operateCode="mbr_list_leave" label="离职"  type="operation" operation="leave"/>
+													<Button operateCode="mbr_list_bind" label="绑卡"  type="operation" operation="bindcode"/>
 													<Button operateCode="mbr_list_delete" label="删除"  type="operation" operation="delete"/>
 												
 											 </TableRowColumn>
