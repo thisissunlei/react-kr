@@ -49,6 +49,7 @@ class LocationChoiceSearch extends Component {
 						/>
                          <KrField grid={1/2}
                             style={{width:262,marginLeft:34,marginBottom:5}}
+                            inputStyle = {{width:160}}
                             name="all"
                             component="range"
                             label="职务类型名称"

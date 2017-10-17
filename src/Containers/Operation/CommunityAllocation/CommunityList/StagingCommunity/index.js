@@ -13,7 +13,8 @@ import {
     TableFooter,
     Tooltip,
     KrDate,
-    Drawer
+    Drawer,
+    Message
 } from 'kr-ui';
 import {change,initialize}  from 'redux-form';
 import {Store} from 'kr/Redux';
@@ -29,13 +30,13 @@ class StagingCommunity  extends React.Component{
             openAddCommunity:false,
             openEditCommunity:false,
             searchParams:{
-                
-            }
+               communityId:this.props.communityId
+            },
         }
 	}
 
     componentDidMount(){
-        
+          
     }
 
     onCancel=()=>{
@@ -50,6 +51,16 @@ class StagingCommunity  extends React.Component{
     }
 
     openAddSubmit=(params)=>{
+        params.communityId=this.props.communityId;
+        if(params.zoneType=='FLOOR'){
+            var zoneArr=[];
+           for(var index in params.floor){
+               if(params.floor[index]!=','){
+                 zoneArr.push({detailType:'FLOOR',floor:params.floor[index]})                                        
+               }
+             }
+            params.config=JSON.stringify(zoneArr);
+        }
         var _this=this;
         Http.request('community-stage-add',{},params).then(function(response) {
             var search={
@@ -65,6 +76,15 @@ class StagingCommunity  extends React.Component{
     }
 
     openEditSubmit=(params)=>{
+        if(params.zoneType=='FLOOR'){
+            var zoneArr=[];
+           for(var index in params.floor){
+               if(params.floor[index]!=','){
+                 zoneArr.push({detailType:'FLOOR',floor:params.floor[index]})                                        
+               }
+             }
+            params.config=JSON.stringify(zoneArr);
+        }
         var _this=this;
         Http.request('community-stage-edit',{},params).then(function(response) {
             var search={
@@ -78,12 +98,13 @@ class StagingCommunity  extends React.Component{
             Message.error(err.message);
         });
     }
-
+   
+   
 
     getAjaxData=(id)=>{
         var _this=this;
         Http.request('stage-down-search',{zoneId:id}).then(function(response) {
-            Store.dispatch(initialize('EditStaging',response.items));
+            Store.dispatch(initialize('EditStaging',response));
         }).catch(function(err) {
             Message.error(err.message);
         });  
@@ -101,7 +122,7 @@ class StagingCommunity  extends React.Component{
             openEditCommunity:!this.state.openEditCommunity,
         })  
     }
-   
+    
     whiteClose=()=>{
         let {whiteClose}=this.props;
         whiteClose && whiteClose();
@@ -112,6 +133,17 @@ class StagingCommunity  extends React.Component{
     }
 
 	render(){
+
+        let {floor}=this.props;
+        var floors=[];
+        floor.map((index,item)=>{
+            var list={};
+            list.value=''+item;
+            list.label=''+item;
+            floors.push(list);
+        })
+        
+        
 
 		return(
 
@@ -137,7 +169,7 @@ class StagingCommunity  extends React.Component{
 
                     <Table
                         style={{marginTop:8}}
-                        ajax={false}
+                        ajax={true}
                         onOperation={this.onOperation}
                         displayCheckbox={false}
                         ajaxParams={this.state.searchParams}
@@ -170,7 +202,8 @@ class StagingCommunity  extends React.Component{
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
                                  <TableRowColumn name="openDate" component={(value,oldValue)=>{
-                                        return (<KrDate value={value} format="yyyy-mm-dd"/>)
+                                        {/*return (<KrDate value={value} format="yyyy-mm-dd"/>)*/}
+                                        return <div>{value}</div>
                                 }}></TableRowColumn>
                                 <TableRowColumn name="stationNum" component={(value,oldValue)=>{
 		 										var maxWidth=10;
@@ -198,6 +231,7 @@ class StagingCommunity  extends React.Component{
                     <AddStaging
                         onCancel={this.openAddCommunity}
                         onSubmit={this.openAddSubmit}
+                        floor={floors}
                     />
 
                 </Drawer>
@@ -214,6 +248,7 @@ class StagingCommunity  extends React.Component{
                     <EditStaging
                         onCancel={this.editCancel}
                         onSubmit={this.openEditSubmit}
+                        floor={floors}
                     />
 
                 </Drawer>

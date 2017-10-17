@@ -7,7 +7,7 @@ import {
   change
 } from 'redux-form';
 import {
-	observer
+	observer,inject
 } from 'mobx-react';
 
 import {
@@ -43,6 +43,8 @@ import WatchCommunityList from './WatchCommunityList';
 import StagingCommunity from './StagingCommunity';
 //todo:城市组件值不清空，后期补上
 import cityDataState from "../../../../Components/KrField/CityComponent/State";
+
+@inject("NavModel")
 @observer
 class CommunityList  extends React.Component{
 
@@ -53,12 +55,24 @@ class CommunityList  extends React.Component{
       timeStart:'',
       timeEnd:'',
       communityId:'',
-			cityId:''
+			cityId:'',
+			floor:[],
+			//权限
+			isEdit:false
     }
 	}
 
 	componentDidMount(){
+		const { NavModel } = this.props;
+		var {checkOperate} = this.props.NavModel;
+		
 		State.searchDataHere();
+		var _this=this;
+		setTimeout(function() {
+			_this.setState({
+			  isEdit:checkOperate("oper_cmt_community_edit"),
+			})
+	 },500);
 	}
 
    //新建社区开关
@@ -100,19 +114,38 @@ class CommunityList  extends React.Component{
 		State.setSearchParams(obj);
    }
 
-   //查看
-   onOperation=(type,itemDetail)=>{
-      if(type=='watch'){
-					State.getEditList(itemDetail.id)
-					State.switchWatchList();
-      }else if(type=='edit'){
-				  State.isCorpRank=false;
-      	  State.searchDataHere();
-          this.ajaxSendData(itemDetail.id);
-			}else if(type=='select'){
-				  State.openStagingFun(); 
-			}
+
+	 //打开编辑
+	 openEditFn=(itemDetail)=>{
+			State.isCorpRank=false;
+			State.searchDataHere();
+			this.ajaxSendData(itemDetail.id);
 	 }
+	  //打开查看
+   openWatchFn=(itemDetail)=>{
+			State.getEditList(itemDetail.id)
+			State.switchWatchList();
+	 }
+		//打开分期
+	 openSelectFn=(itemDetail)=>{
+			State.openStagingFun();
+			this.getFloor(itemDetail.id);
+			this.setState({
+				communityId:itemDetail.id
+			}) 
+	 }
+
+
+	 getFloor=(id)=>{
+		var _this=this;
+		Http.request('getCommunityFloors',{communityId:id}).then(function(response) {
+				_this.setState({
+						floor:response.floors
+				})
+		}).catch(function(err) {
+				Message.error(err.message);
+		});   
+}
 	 
 	 stagingCancel=()=>{
 	 	State.openStagingFun(); 
@@ -265,7 +298,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,communityId,cityId}=this.state;
+    let {cityData,timeStart,timeEnd,communityId,cityId,floor,isEdit}=this.state;
 
 		return(
 
@@ -335,10 +368,13 @@ class CommunityList  extends React.Component{
 												      var label=(value=='true')?'是':'否';
                               return <div style={value=='true'?{color:'red'}:{}}>{label}</div>
                            }}></TableRowColumn>
-			                <TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_community_edit"/>
-			                      <Button label="查看"  type="operation"  operation="watch" />
-														<Button label="分期"  type="operation"  operation="select" />
+			                <TableRowColumn type="operation" component={(value,oldValue)=>{
+                            return <div>
+																  {isEdit&&<span style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}} onClick={this.openEditFn.bind(this,value)}>编辑</span>}
+																	<span  onClick={this.openWatchFn.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>查看</span>
+																	{value.opened&&<span  onClick={this.openSelectFn.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>分期</span>}
+															</div>
+                           }}>
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
@@ -421,6 +457,8 @@ class CommunityList  extends React.Component{
 												<StagingCommunity
 														onCancel={this.stagingCancel}
 														whiteClose={this.whiteClose}
+														communityId={communityId}
+														floor={floor}
 												/>
 
 											</Drawer>
