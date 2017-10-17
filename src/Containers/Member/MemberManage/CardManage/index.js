@@ -238,7 +238,7 @@ export default class List extends React.Component {
 
     seeMemberDetail=(thisP,itemData)=>{
 
-    	window.open(`./#/member/MemberManage/${thisP.holder}/detail/${thisP.customer}`);
+    	window.open(`./#/operation/member/memberManage/${thisP.holder}/detail/${thisP.customer}`);
     
     }
 
