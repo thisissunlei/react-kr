@@ -624,6 +624,10 @@ class Merchants extends Component{
 
 	editClick=(values)=>{
 		let {CommunityAgreementList} = this.props;
+		console.log('editClick======>',values);
+		CommunityAgreementList.communityId = values.communityid;
+		CommunityAgreementList.getSaleList();
+
 
 		State.argumentType=values.contracttype;
 		State.listId=values.customerid;

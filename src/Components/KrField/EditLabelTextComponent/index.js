@@ -87,7 +87,7 @@ export default class InputComponent extends React.Component {
 		return (
 			<WrapComponent  label={label} requireLabel={requireLabel} inline={inline} wrapStyle={style} alignRight={alignRight}>
 						
-				<div>
+				<div style={{display:'inline'}}>
 					{!this.state.editOpen && 
 						<span 
 							className="edit" 

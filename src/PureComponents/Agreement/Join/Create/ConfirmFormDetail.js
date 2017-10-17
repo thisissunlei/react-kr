@@ -62,6 +62,16 @@ export default class ConfirmFormDetail extends Component {
 		} = this.props;
 		onCancel && onCancel();
 	}
+	type=(type)=>{
+		let {optionValues} = this.props;
+		let typeName = '';
+		optionValues.saleList.map(item=>{
+			if(item.value == type){
+				typeName = item.label;
+			}
+		})
+		return typeName;
+	}
 
 	render() {
 
@@ -96,6 +106,10 @@ export default class ConfirmFormDetail extends Component {
 		detail.leaseEnddate = dateFormat(detail.leaseEnddate, "yyyy-mm-dd ");
 		detail.firstpaydate = dateFormat(detail.firstpaydate, "yyyy-mm-dd ");
 		detail.signdate = dateFormat(detail.signdate, "yyyy-mm-dd ");
+		if(typeof detail.saleList == 'string'){
+			detail.saleList = JSON.parse(detail.saleList)
+		}
+
 
 
 		return (
@@ -178,6 +192,34 @@ export default class ConfirmFormDetail extends Component {
 
 
                </DotTitle>
+               {detail.saleList?<DotTitle title='优惠明细' style={{marginTop:53,marginBottom:25,paddingLeft:0,paddingRight:0}}>
+					<Table  displayCheckbox={false}>
+									<TableHeader>
+											<TableHeaderColumn>优惠类型</TableHeaderColumn>
+											<TableHeaderColumn>开始时间</TableHeaderColumn>
+											<TableHeaderColumn>结束日期</TableHeaderColumn>
+											<TableHeaderColumn>折扣</TableHeaderColumn>
+											<TableHeaderColumn>优惠金额</TableHeaderColumn>
+									</TableHeader>
+									<TableBody>
+										{detail && detail.saleList && detail.saleList.map((item,index)=>{
+											return (
+												<TableRow key={index}>
+													<TableRowColumn>{this.type(item.tacticsType)}</TableRowColumn>
+													<TableRowColumn>{dateFormat(item.validStart, "yyyy-mm-dd ")}</TableRowColumn>
+													<TableRowColumn>{dateFormat(item.validEnd, "yyyy-mm-dd ")}</TableRowColumn>
+													<TableRowColumn>
+														{item.discount || '-'}
+													</TableRowColumn>
+													<TableRowColumn>
+														{item.discountAmount || '0'}
+													</TableRowColumn>
+												</TableRow>
+											);
+										})}
+								   </TableBody>
+							 </Table>
+			   </DotTitle>:''}
 				<Grid>
 					<Row style={{marginTop:30}}>
 						<Col md={4}></Col>

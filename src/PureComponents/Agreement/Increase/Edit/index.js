@@ -33,6 +33,7 @@ import {
 	inject
 } from 'mobx-react';
 
+
 @inject("CommunityAgreementList")
 @observer
 
@@ -65,6 +66,13 @@ export default class JoinCreate extends React.Component {
 		} = this.props;
 
 		let _this = this;
+		if(formValues.saleList){
+			formValues.saleList = JSON.stringify(formValues.saleList);
+
+		}else{
+			formValues.saleList = '[]'
+		}
+		
 
 		let {CommunityAgreementList} = this.props;
 		Http.request('addOrEditIncreaseContract', {}, formValues).then(function(response) {
@@ -247,6 +255,18 @@ export default class JoinCreate extends React.Component {
 				initialValues.delStationVos = [];
 				stationVos = initialValues.stationVos;
 				delStationVos = initialValues.delStationVos;
+				initialValues.saleList = response.saleList;
+				if(response.saleList){
+					initialValues.biaodan = response.saleList.map(item=>{
+						if(item){
+							return item.tacticsType
+						}else{
+							return ''
+						}
+					})
+				}else{
+					initialValues.biaodan=[]
+				}
 
 				//处理stationvos
 
@@ -258,6 +278,8 @@ export default class JoinCreate extends React.Component {
 				});
 
 			}).catch(function(err) {
+			console.log(err)
+
 				Notify.show([{
 					message: '后台出错请联系管理员',
 					type: 'danger',
@@ -266,6 +288,7 @@ export default class JoinCreate extends React.Component {
 
 
 		}).catch(function(err) {
+			console.log(err)
 			Notify.show([{
 				message: '后台出错请联系管理员',
 				type: 'danger',
@@ -378,6 +401,18 @@ export default class JoinCreate extends React.Component {
 				}else{
 					initialValues.agreement = response.agreement;
 				}
+				initialValues.saleList = response.saleList;
+				if(response.saleList){
+					initialValues.biaodan = response.saleList.map(item=>{
+						if(item){
+							return item.tacticsType
+						}else{
+							return ''
+						}
+					})
+				}else{
+					initialValues.biaodan=[]
+				}
 
 				//时间
 				initialValues.leaseBegindate =  DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
@@ -472,6 +507,8 @@ export default class JoinCreate extends React.Component {
 			stationVos,
 			delStationVos
 		} = this.state;
+		let {CommunityAgreementList} = this.props;
+		optionValues.saleList = CommunityAgreementList.saleList;
 
 		return (
 

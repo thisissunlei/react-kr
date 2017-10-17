@@ -108,7 +108,7 @@ class StationForm  extends Component{
 									<TableRowColumn>{(item.type == 1) ?'工位':'独立空间'}</TableRowColumn>
 									<TableRowColumn>{item.name}</TableRowColumn>
 									<TableRowColumn>
-										<input type="text" name="hah" value={item.unitprice}  onChange={(event)=>{this.onStationInputChange.bind(this,event,index)}}/>
+										<input type="text" name="hah" value={item.originalUnitprice}  onChange={(event)=>{this.onStationInputChange.bind(this,event,index)}}/>
 									</TableRowColumn>
 									<TableRowColumn> <KrDate value={initialValues.leaseBegindate}/></TableRowColumn>
 									<TableRowColumn><KrDate value={initialValues.leaseEnddate}/></TableRowColumn>

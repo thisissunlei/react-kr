@@ -491,7 +491,7 @@ class NewCreateForm extends React.Component {
 									<TableRowColumn>{(item.stationType == 1) ?'工位':'独立空间'}</TableRowColumn>
 									<TableRowColumn>{item.stationName}</TableRowColumn>
 									<TableRowColumn>
-											{item.unitprice}
+											{item.originalUnitprice}
 									</TableRowColumn>
 									<TableRowColumn> <KrDate value={item.leaseBeginDate}/></TableRowColumn>
 									<TableRowColumn><KrDate value={item.leaseEndDate}/></TableRowColumn>

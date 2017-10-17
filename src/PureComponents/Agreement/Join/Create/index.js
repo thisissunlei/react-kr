@@ -124,7 +124,9 @@ export default class JoinCreate extends Component {
 			params,onSubmit
 		} = this.props;
 		formValues.stationVos = JSON.stringify(formValues.stationVos);
-
+		if(formValues.saleList &&  typeof formValues.saleList != 'string'){
+			formValues.saleList = JSON.stringify(formValues.saleList);
+		}
 		var _this = this;
 		Http.request('addOrEditEnterContract','',formValues).then(function(response) {
 
@@ -136,6 +138,11 @@ export default class JoinCreate extends Component {
 				message: '创建成功',
 				type: 'success',
 			}]);
+			if(formValues.saleList){
+				formValues.saleList = JSON.parse(formValues.saleList);
+
+			}
+
 			_this.removeLocalStorages();
 			onSubmit && onSubmit()
 			_this.props.CommunityAgreementList.openTowAgreement=false;
@@ -149,6 +156,10 @@ export default class JoinCreate extends Component {
 
 		}).catch(function(err) {
 			_this.isConfirmSubmiting = false;
+			if(formValues.saleList){
+				formValues.saleList = JSON.parse(formValues.saleList);
+
+			}
 			console.log(err)
 			Notify.show([{
 				message: err.message,
@@ -183,6 +194,8 @@ export default class JoinCreate extends Component {
 		let optionValues = {};
 		let initialValue = {};
 		let optionValue = {fnaCorporationList:[]};
+		let {CommunityAgreementList} = this.props;
+		CommunityAgreementList.getSaleList();
 
 
 		let keyWord = params.orderId+''+ params.customerId+'ENTERcreate';
@@ -253,6 +266,19 @@ export default class JoinCreate extends Component {
 			}else{
 				initialValue.oldNum = localStorageData.oldNum;
 			}
+			//优惠缓存
+			console.log('优惠缓存',initialValue.saleList)
+			if(initialValue.saleList){
+				initialValue.biaodan = initialValue.saleList.map(item=>{
+					if(item){
+						return item.tacticsType
+					}else{
+						return ''
+					}
+				})
+			}else{
+				initialValue.biaodan=[]
+			}
 
 			_this.setState({
 				initialValues,
@@ -262,6 +288,7 @@ export default class JoinCreate extends Component {
 			});
 
 		}).catch(function(err) {
+			console.log(err)
 			Notify.show([{
 				message: '后台出错请联系管理员4',
 				type: 'danger',
@@ -281,12 +308,12 @@ export default class JoinCreate extends Component {
 		} = this.state;
 
 		let {CommunityAgreementList} = this.props;
+		optionValues.saleList = CommunityAgreementList.saleList;
 
 		return (
 
 			<div>
 
-				<Title value="创建入驻协议书_财务管理"/>
 			{CommunityAgreementList.openLocalStorage && <div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValue} onCancel={this.onCancel} optionValues={optionValues}/>
 			</div>}
