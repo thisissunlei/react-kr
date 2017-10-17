@@ -30,35 +30,57 @@ class MemberPersonInfo extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		
-		
+		this.state={
+            baseInfo:{},
+        }
+		this.getBasicData();
 	}
 	
 	onCancel=()=>{
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	
+    
+    getBasicData=()=>{
+		const {detail}=this.props;
+		let url = this.props.params;
+		console.log('detail----===>>>',detail)
+		let _this = this;
+		Http.request('members-basic-date', {id:detail.holder}).then(function(response) {
+			if(response.gender==0){
+                response.gender  = "女";
+           }else if(response.gender==1){
+                response.gender  = "男";
+           }else{
+                response.gender  = "保密";
+           }
+           if(response.maritalStatus=="MARRIED"){
+                response.maritalStatus = "已婚";
+           }else if(response.maritalStatus=="UNMARRIED"){
+                response.maritalStatus = "未婚";
+           }else{
+                response.maritalStatus = "保密";
+           }	
+			
+			_this.setState({
+				baseInfo:response
+			})
+
+
+		}).catch(function(err) {
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+		});
+	}
 	
 	render() {
 		let {
-			detail
-		} = this.props;
-		let baseInfo = detail;
-			if(baseInfo.gender==0){
-	     		baseInfo.gender  = "女";
-			}else if(baseInfo.gender==1){
-				 baseInfo.gender  = "男";
-			}else{
-				baseInfo.gender  = "保密";
-			}
-			if(baseInfo.maritalStatus=="MARRIED"){
-				baseInfo.maritalStatus = "已婚";
-			}else if(baseInfo.maritalStatus=="UNMARRIED"){
-				baseInfo.maritalStatus = "未婚";
-			}else{
-				baseInfo.maritalStatus = "保密";
-			}	
+			baseInfo
+		} = this.state;
+		
+			
 			
 			
 		return (

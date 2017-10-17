@@ -92,13 +92,14 @@ export default class List extends React.Component {
 			// isHeavilyClose:true,
 			// goHeavilyActivation:"index"
 			openPerson:false,
+			personInfo:{},
 
 		}
 	}
 	//操作相关
 	onOperation=(type, itemDetail)=> {
-		console.log("djdjdjjdjd");
 		var _this=this;
+		
 		this.setState({
 			itemDetail
 		});
@@ -398,16 +399,13 @@ export default class List extends React.Component {
 	    	openDelete:!this.state.openDelete
 	    })
     }
-
-
-    seeMemberDetail=(thisP,itemData)=>{
+	openPersonDeatil=(value)=>{
 		this.setState({
-			itemDetail:itemData,
+			personInfo:value,
 			openPerson:!this.state.openPerson
 		})
-    	//window.open(`./#/member/MemberManage/${thisP.holder}/detail/${thisP.customer}`);
-    
-    }
+	}
+
 	openPerson=()=>{
 		this.setState({
 			openPerson:!this.state.openPerson
@@ -432,7 +430,7 @@ export default class List extends React.Component {
 
 
 	render(){
-		
+		let {personInfo}=this.state;
 		return(
 			<div className="switchhover card-manage-table">
 			<Title value="会员卡管理"/>
@@ -441,10 +439,11 @@ export default class List extends React.Component {
 
 							<CardManageSearchForm />
 
-							<Table  style={{marginTop:8}}
-									ajax={true}
-									onOperation={this.onOperation}
-									onProcessData={(state)=>{
+							<Table  
+								style={{marginTop:8}}
+								ajax={true}
+								onOperation={this.onOperation}
+								onProcessData={(state)=>{
 										return state;
 									}
 								}
@@ -507,7 +506,7 @@ export default class List extends React.Component {
 										}
 
 									></TableRowColumn>
-									<TableRowColumn name="holderName" type="operation"
+									<TableRowColumn type="operation" name="holderName" 
 										component={
 											(value,oldValue,itemData)=>{
 												if(value==""){
@@ -518,9 +517,7 @@ export default class List extends React.Component {
 													)
 												}else{
 													return (
-														<div onClick={this.seeMemberDetail.bind(this,itemData)} style={{color:"#499df1",cursor:"pointer"}}>
-															{itemData.holderName}
-														</div>
+														<Button type="operation"  onClick={this.openPersonDeatil.bind(this,itemData)} label={itemData.holderName}    />
 													)
 												}
 												
@@ -648,7 +645,7 @@ export default class List extends React.Component {
 						containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 						>
 							<MemberPersonInfo
-									detail={this.state.itemDetail}
+									detail={personInfo}
 									onCancel={this.openPerson} 
 									
 							/>
