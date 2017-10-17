@@ -139,8 +139,16 @@ class ImportData extends React.Component {
 		const { error, handleSubmit, pristine, reset} = this.props;
 
 		return (
-			<form onSubmit={handleSubmit(this.testDate)} name='import' style={{textAlign:'center'}}>
-				<KrField name="companyId" style={{width:252,marginLeft:'auto',marginRight:'auto'}}   label="公司" component="searchCompany" requireLabel={true} onChange={this.onCompanyChange}/>
+			<form className="u-import-date" onSubmit={handleSubmit(this.testDate)} name='import' style={{textAlign:'center'}}>
+				<KrField 
+					name="companyId"
+					label="公司" 
+					grid={1/2}
+					inline={false}
+					component="searchCompany" 
+					requireLabel={true}
+					onChange={this.onCompanyChange}
+				/>
 				<div>
 					<span className='import-logo icon-excel' onClick={this.importFile}><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
 					<span className='import-font'><span className="chooce">请选择上传文件</span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
