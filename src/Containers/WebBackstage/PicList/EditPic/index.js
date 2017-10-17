@@ -16,7 +16,7 @@ import './index.less';
 class EditPic extends React.Component{
 
 	constructor(props,context){
-		super(props, context);
+        super(props, context);
         this.state = {
             jobTypes:[],
             isType :false,
@@ -75,8 +75,8 @@ class EditPic extends React.Component{
 
         let {handleSubmit,subCompany,detail}=this.props;
         let {jobTypes,isType,photoUrl} = this.state;
-        // let host = "http://"+window.location.host;
-        let host = "http://optest02.krspace.cn/"
+        let host = "http://"+window.location.host;
+        // let host = "http://optest02.krspace.cn/"
         console.log("detail",this.state.photoUrl);
 		return(
 
