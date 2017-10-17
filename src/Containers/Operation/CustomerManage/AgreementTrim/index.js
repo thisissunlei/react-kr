@@ -155,6 +155,7 @@ class AgreementTrim extends React.Component {
 				    width={750}
 				    onClose={this.detailOpenAgreement}
 				    openSecondary={true}
+				    modal={true}
 				    containerStyle={{top:60,paddingBottom:48,zIndex:8}}
 			    >
                     <AgreementList />
@@ -163,6 +164,7 @@ class AgreementTrim extends React.Component {
 		        <Drawer
 				    open={State.openEdit}
 				    width={750}
+				    modal={true}
 				    onClose={this.detailOpenEdit}
 				    openSecondary={true}
 				    containerStyle={{top:60,paddingBottom:48,zIndex:8}}

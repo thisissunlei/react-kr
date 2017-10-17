@@ -57,7 +57,18 @@ State.submitEdit = action(function(form){
 	this.searchParams = search;
 	this.openEdit = false;
 	this.openAgreementList = false;
+	this.contractList = []
 	console.log('====>',form)
+})
+State.deleteAgreement = action(function(){
+	let time = +new Date();
+	let search = Object.assign({},State.searchParams,{time})
+	this.searchParams = search;
+	this.openDeleteContent = false;
+	this.openEdit = false;
+	this.openAgreementList = false;
+	this.contractList = []
+	console.log('====>')
 })
 
 //获取订单名称

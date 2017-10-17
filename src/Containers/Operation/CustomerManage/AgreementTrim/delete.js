@@ -44,15 +44,25 @@ export default class Delete extends React.Component {
 	}
 	componentWillMount() {
 	}
+	onDelete=()=>{
+		
+		State.deleteAgreement();
+		console.log('onDelete')
+	}
+	onCancel=()=>{
+		State.openDeleteContent = false;
+		console.log('onCancel')
+	}
 	render() {
 		
 		return (
-			<div className="g-agreement-trim-delete">
-				<p>确认要删除此合同？</p>
+			<div className="g-agreement-trim-delete" >
+				<div style={{color:'#000',fontSize:'16px',textAlign:'center',marginTop:50}}>确认要删除此合同？</div>
 				<Grid style={{marginTop:'50px'}}>
 					<Row>
 						<ListGroup>
-							<ListGroupItem style={{width:'100%',textAlign:'center'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel} /></ListGroupItem>
+							<ListGroupItem style={{width:'166',textAlign:'right',marginRight:30}}><Button  label="确定"  type="button"  onTouchTap={this.onDelete} /></ListGroupItem>
+							<ListGroupItem style={{width:'136',textAlign:'left'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel} /></ListGroupItem>
 						</ListGroup>
 					</Row>
 				</Grid>
