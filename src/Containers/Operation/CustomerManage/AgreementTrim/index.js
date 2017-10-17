@@ -108,6 +108,15 @@ class AgreementTrim extends React.Component {
 		}
 		return typeName;
     }
+	detailOpenAgreement=()=>{
+		console.log('detailOpenAgreement')
+		State.openAgreementList=false;
+	}
+	detailOpenEdit=()=>{
+		State.openAgreementList=false;
+		State.openEdit = false;
+	}
+
 	
 
 
