@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import {
 	Field,
-	reduxForm
+	reduxForm,
+     initialize,
 } from 'redux-form';
+
 import {Http} from "kr/Utils";
 import {Actions,Store} from 'kr/Redux';
 import {
