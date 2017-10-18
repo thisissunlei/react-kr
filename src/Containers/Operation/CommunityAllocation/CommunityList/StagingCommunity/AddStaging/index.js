@@ -69,7 +69,7 @@ class AddStaging  extends React.Component{
     }
 
     onStationSubmit=(params)=>{
-       
+       console.log('params',params);
        this.openAddCommunity();
     }
 
