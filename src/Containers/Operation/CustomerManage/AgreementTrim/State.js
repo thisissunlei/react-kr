@@ -53,7 +53,6 @@ State.editAgreement = action(function(item){
 
 State.deleteDemo = action(function() {
 	var _this = this;
-	return;
 	Http.request('delete-demo', {},'').then(function(response) {
 		Message.success("删除成功");
 		window.location.reload();
