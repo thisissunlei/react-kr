@@ -24,9 +24,10 @@ class AddStaging  extends React.Component{
         this.state={
             isOk:'',
             openStation:false,
-            openEditStation:false
+            openEditStation:false,
         }
         this.configArr=[];
+        this.getData={};
     }
     
     componentDidMount(){
@@ -63,12 +64,6 @@ class AddStaging  extends React.Component{
         })
     }
 
-    openEditCommunity=()=>{
-        this.setState({
-            openEditStation:!this.state.openEditStation
-        })
-    }
-
     onStationSubmit=(params)=>{
         this.configArr.push(params);
         Store.dispatch(change('AddStaging','config',this.configArr));
@@ -76,8 +71,10 @@ class AddStaging  extends React.Component{
     }
 
     openEditCommunity=(item)=>{
-       
-       this.openEditCommunity();
+        this.getData=item;
+        this.setState({
+            openEditStation:!this.state.openEditStation
+        }) 
     }
 
    
@@ -184,6 +181,8 @@ class AddStaging  extends React.Component{
                  <LocationChoice 
                  title = "选择工位" 
                  communityId = {4} 
+                 data={this.getData}
+                 type='edit'
                  url='stage-detail-search' 
                  open = {openEditStation} 
                  onClose = {this.openEditCommunity} 
