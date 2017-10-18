@@ -37,7 +37,7 @@ class NewCreateForm extends React.Component{
 	}
 	
 	componentDidMount(){
-		this.getBasicData();
+		//this.getBasicData();
 	}
 
 	componentWillMount() {
