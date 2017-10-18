@@ -34,6 +34,7 @@ class LocationChoice extends Component {
        
     }
     onClick = (values) =>{
+        
         let {onSubmit} = this.props;
        
         onSubmit && onSubmit(values)

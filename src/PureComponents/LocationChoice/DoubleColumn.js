@@ -49,16 +49,14 @@ export default class DoubleColumn extends Component {
         }
         
     }
-    getData = (url,params) =>{
-       
+    getData = (url,obj) =>{
+        let params = Object.assign({},obj);
         let that = this;
         Http.request(url,params).then(function(response) {
             that.allData = [].concat(response.items);
             that.setState({
                 leftData:that.allDataInit(response.items),
-                titleData:Object.assign({},params)
-            },function(){
-                console.log(that.state.leftData,">>>>>>")
+                titleData:Object.assign({},obj)
             })
 
 		}).catch(function(err) {
@@ -295,8 +293,8 @@ export default class DoubleColumn extends Component {
     onSubmit = () =>{
         let {onSubmit} = this.props;
         let {rightData,titleData} = this.state;
-
-        let object = Object.assign(titleData,{codeList:[].concat(rightData)});
+       
+        let object = Object.assign(titleData,{config:[].concat(rightData)});
         onSubmit && onSubmit(object)
 
     }
