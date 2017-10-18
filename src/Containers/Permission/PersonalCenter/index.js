@@ -499,7 +499,7 @@ export default class PersonalCenter extends React.Component {
 		}).then(function (response) {
 			Message.success("修改成功")
 			window.setTimeout(function () {
-				window.location.href = "/login/login"
+				window.location.href = "/"
 			}
 				, 1000)
 		}).catch(function (err) {
