@@ -29,8 +29,8 @@ class LocationChoice extends Component {
         }
     }
     onSubmit = (values) =>{
-        let {url,communityId} = this.props;
-        var object = Object.assign({communityId:communityId,numberMax:values.all.startValue,numberMin:values.all.endValue},values)
+        let {url,communityId,data} = this.props;
+        var object = Object.assign({communityId:communityId,numberMin:values.all.startValue,numberMax:values.all.endValue},values)
         this.box.getData(url,object);
         
        
@@ -67,9 +67,11 @@ class LocationChoice extends Component {
         this.getFloor();
         console.log("box",this.box)
         if(type == "edit"){
+           
             this.box.getData(url,data);
+            Store.dispatch(initialize('LocationChoice',data));
+            
         }
-        Store.dispatch(initialize('LocationChoice',{floor:'',detailType:'',all:''}));
         
     }
     componentWillUnmount(){
@@ -81,12 +83,7 @@ class LocationChoice extends Component {
         return(
             <div className = "m-location-choice">
                 <form onSubmit={handleSubmit(this.onSubmit)}>
-                    <Dialog
-                        title={title}
-                        onClose={onClose}
-                        open={open}
-                        contentStyle ={{ width: '666px',height:'auto'}}
-                    >
+                   
                         <div className='m-type-post'>
                             <KrField grid={1/2}
                                 style={{width:262,marginLeft:34,marginBottom:5}}
@@ -128,7 +125,7 @@ class LocationChoice extends Component {
                             data = {data||{}}
                         />
                     
-                    </Dialog>
+                    
                 </form>
             </div>
         )

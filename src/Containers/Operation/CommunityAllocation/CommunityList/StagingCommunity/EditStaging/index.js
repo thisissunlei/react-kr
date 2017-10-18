@@ -145,15 +145,7 @@ class EditStaging  extends React.Component{
                         </Grid>
                  </form>
 
-                 <LocationChoice 
-                    title = "选择工位" 
-                    communityId = {4} 
-                    url='stage-detail-search' 
-                    open = {openStation} 
-                
-                    onClose = {this.openAddCommunity} 
-                    onSubmit = {this.onStationSubmit} 
-                />
+                  
 			</div>
 		);
 	}

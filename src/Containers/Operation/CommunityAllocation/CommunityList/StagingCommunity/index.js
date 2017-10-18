@@ -14,7 +14,8 @@ import {
     Tooltip,
     KrDate,
     Drawer,
-    Message
+    Message,
+    Dialog
 } from 'kr-ui';
 import {change,initialize}  from 'redux-form';
 import {Store} from 'kr/Redux';

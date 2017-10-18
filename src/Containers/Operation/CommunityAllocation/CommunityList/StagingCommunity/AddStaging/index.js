@@ -9,6 +9,7 @@ import {
     FdTabel,
     FContent,
 	FRow,
+    Dialog
 } from 'kr-ui';
 import {
 	LocationChoice
@@ -69,10 +70,15 @@ class AddStaging  extends React.Component{
         Store.dispatch(change('AddStaging','config',this.configArr));
         this.openAddCommunity();
     }
-
-    openEditCommunity=(item)=>{
-        console.log('item',item);
-        this.getData=item;
+    editButtonClck=(item)=>{
+        this.getData=Object.assign({all:{startValue:item.numberMin,endValue:item.numberMax}},item);
+        this.openEditCommunity();
+    }
+    onEditStationSubmit = () =>{
+        this.openEditCommunity();
+    }
+    openEditCommunity=()=>{
+        
         this.setState({
             openEditStation:!this.state.openEditStation
         }) 
@@ -144,7 +150,7 @@ class AddStaging  extends React.Component{
                                     <FRow name = "detailType" label = "类型"/>
                                     <FRow name = "code" label = "编号"/>
                                     <FRow label = "操作" type='operation' component={(item)=>{
-                                            return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.openEditCommunity.bind(this,item)}>编辑</div>
+                                            return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
                                     }}/>
                             </FdTabel>
                         </div>}
@@ -172,24 +178,36 @@ class AddStaging  extends React.Component{
                             </Row>
                         </Grid>
                  </form>
-
-                 <LocationChoice 
-                 title = "选择工位" 
-                 communityId = {4} 
-                 url='stage-detail-search' 
-                 open = {openStation} 
-                 onClose = {this.openAddCommunity} 
-                 onSubmit = {this.onStationSubmit} />
-
-                 <LocationChoice 
-                 title = "选择工位" 
-                 communityId = {4} 
-                 data={this.getData}
-                 type='edit'
-                 url='stage-detail-search' 
-                 open = {openEditStation} 
-                 onClose = {this.openEditCommunity} 
-                 onSubmit = {this.onEditSubmit} />
+                  <Dialog
+                        title = "选择工位" 
+                        onClose={this.openAddCommunity}
+                        open={openStation}
+                        contentStyle ={{ width: '666px',height:'auto'}}
+                    >
+                        <LocationChoice 
+                        
+                            communityId = {4} 
+                            url='stage-detail-search' 
+                            
+                            onClose = {this.openAddCommunity} 
+                            onSubmit = {this.onStationSubmit} />
+                 </Dialog>
+                 <Dialog
+                        title = "选择工位" 
+                        onClose={this.openEditCommunity}
+                        open={openEditStation}
+                        contentStyle ={{ width: '666px',height:'auto'}}
+                    >
+                        <LocationChoice 
+                        
+                            communityId = {4} 
+                            url='stage-detail-search' 
+                            type = "edit"
+                            data = {this.getData}
+                            onClose = {this.openEditCommunity} 
+                            onSubmit = {this.onEditStationSubmit} />
+                 </Dialog>
+                 
 			</div>
 		);
 	}

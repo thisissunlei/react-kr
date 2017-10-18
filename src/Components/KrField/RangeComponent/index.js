@@ -87,7 +87,7 @@ export default class RangeComponent extends React.Component{
              <div className = "ui-range-field">
                 <WrapComponent {...wrapProps}>
 
-                    <input onChange = {this.startChange} style = {inputStyle} /> -- <input onChange = {this.endChange} style = {inputStyle} />
+                    <input onChange = {this.startChange} value = {input.value.startValue||''} style = {inputStyle} /> -- <input onChange = {this.endChange} value = {input.value.endValue||''} style = {inputStyle} />
 
                     {touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
                     
