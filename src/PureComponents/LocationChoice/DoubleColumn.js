@@ -19,7 +19,7 @@ export default class DoubleColumn extends Component {
         super(props, context);
         this.state = {
             leftData:[],
-            rightData:[],
+            rightData:props.config || [],
             other:'',
             titleData:{},
         }
@@ -44,9 +44,7 @@ export default class DoubleColumn extends Component {
         this.isWindows = function() {
             return /windows|win32/i.test(navigator.userAgent);
         }(); 
-        // this.setState({
-        //     leftData:this.allDataInit(this.allData),
-        // })
+        
     }
     getData = (url,params) =>{
        
@@ -65,9 +63,22 @@ export default class DoubleColumn extends Component {
     }
 
     allDataInit = (data) =>{
-       let newData = data.map((item,index)=>{
-            return item
-        })
+        let {rightData} = this.state;
+        let arr = [];
+        for(let i=0;i<data.length;i++){
+            let isPush = true;
+            for(let j=0;j<rightData.length;j++){
+                if(data[i].detailId == rightData[j].detailId){
+                    isPush = false;
+                    break;
+                }
+            }
+            if(isPush){
+                arr.push(data[i]);
+            }
+        }
+            
+        
         return newData;
     }
     componentWillUnmount() {

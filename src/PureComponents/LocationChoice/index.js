@@ -7,53 +7,116 @@ import {Http} from "kr/Utils";
 import {Actions,Store} from 'kr/Redux';
 import {
     Dialog,
-    Button
-
+    Button,
+    KrField
 } from 'kr-ui';
 import LocationChoiceSearch from './LocationChoiceSearch';
 import DoubleColumn from'./DoubleColumn';
+var type = [
+    {value:"FLOOR",label:'楼层'},
+    {value:"STATION",label:'工位'},
+    {value:"SPACE",label:'独立空间'}
+]
 
-
-export default class LocationChoice extends Component {
+class LocationChoice extends Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            subCompany:[],
+            floors: [],
+        }
     }
-    select = (values) =>{
+    onSubmit = (values) =>{
         let {url,communityId} = this.props;
         var object = Object.assign({communityId:communityId,numberMax:values.all.startValue,numberMin:values.all.endValue},values)
         this.box.getData(url,object);
-        console.log(url,"select")
+        
        
     }
-    onSubmit = (values) =>{
+    onClick = (values) =>{
         let {onSubmit} = this.props;
        
         onSubmit && onSubmit(values)
 
     }
+    
+    getFloor = () =>{
+        let {communityId} = this.props;
+        let that = this;
+        Http.request("getFloorByComunity",{communityId:communityId}).then(function(response) {
+			that.setState({
+                floors:that.changeFloor([].concat(response.floors))
+            })
+
+		}).catch(function(err) {
+
+		});
+    }
+    changeFloor = (arr) =>{
+        let floors = arr.map((item,index)=>{
+            return {value:item,label:item};
+        })
+        return floors;
+
+    }
+    componentDidMount() {
+        this.getFloor();
+    }
     render(){
-        let {title,onClose,open,communityId,url} = this.props;
+        let {title,onClose,open,communityId,url,handleSubmit,config} = this.props;
+        let {subCompany,floors} = this.state;
         return(
             <div className = "m-location-choice">
-                <Dialog
-                    title={title}
-                    onClose={onClose}
-                    open={open}
-                    contentStyle ={{ width: '666px',height:'auto'}}
-                >
-                    <LocationChoiceSearch communityId = {communityId} onSubmit = {this.select}/>
-                    <DoubleColumn 
-                        ref ={
-                            (ref)=>{
-                                this.box = ref;
+                <form onSubmit={handleSubmit(this.onSubmit)}>
+                    <Dialog
+                        title={title}
+                        onClose={onClose}
+                        open={open}
+                        contentStyle ={{ width: '666px',height:'auto'}}
+                    >
+                        <div className='m-type-post'>
+                            <KrField grid={1/2}
+                                style={{width:262,marginLeft:34,marginBottom:5}}
+                                name="floor"
+                                component="select"
+                                label="楼层"
+                                requireLabel={true}
+                                options={floors}
+                            />
+                            <KrField grid={1/2}
+                                style={{width:262,marginLeft:34,marginBottom:5}}
+                                name="detailType"
+                                component="select"
+                                label="类型"
+                                requireLabel={true}
+                                options={type}
+                            />
+                            <KrField grid={1/2}
+                                style={{width:360,marginLeft:34,marginBottom:5}}
+                                inputStyle = {{width:160}}
+                                name="all"
+                                component="range"
+                                label="编号范围"
+                                requireLabel={false}
+                            />
+                            <div style = {{display:"inline-block",top:36,left:45,position:"relative"}}>
+                                <Button  label="查询" type="submit"/>
+                            </div>
+                        </div>
+                        <DoubleColumn 
+                            ref ={
+                                (ref)=>{
+                                    this.box = ref;
+                                }
                             }
-                        }
-                        url = {url}
-                        onSubmit = {this.onSubmit}
-                        onClose = {onClose}
-                    />
-                   
-                </Dialog>
+                            url = {url}
+                            onSubmit = {this.onClick}
+                            onClose = {onClose}
+                            config = {config||[]}
+                        />
+                    
+                    </Dialog>
+                </form>
             </div>
         )
         
@@ -63,3 +126,16 @@ export default class LocationChoice extends Component {
 
 
 }
+const validate = values =>{
+	const errors = {};
+    if(!values.floor && values.floor != 0){
+        errors.floor = "楼层为必选项";
+    }
+    if(!values.detailType){
+        errors.detailType = "类型为必选项";
+    }
+
+	return errors
+}
+
+export default reduxForm({ form: 'LocationChoice',validate})(LocationChoice);
