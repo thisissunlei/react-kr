@@ -44,9 +44,7 @@ export default class DoubleColumn extends Component {
         this.isWindows = function() {
             return /windows|win32/i.test(navigator.userAgent);
         }(); 
-        if(type == "edit"){
-            this.getData(url,data);
-        }
+        
         
     }
     getData = (url,obj) =>{
