@@ -149,7 +149,7 @@ export default class PlanMapComponent extends React.Component {
 				}	
 			}
 		}
-		allDataObj["a"+newfloor] = [].concat(allData);
+		allDataObj["a"+newfloor] = [].concat(allData,allDataObj["a"+newfloor]);
 		delDataObj["a"+newfloor] = [].concat(del);
 		
 		this.setState({
@@ -259,9 +259,9 @@ export default class PlanMapComponent extends React.Component {
 		for(let i in submitData){
 			submitDataAll = submitDataAll.concat(submitData[i]);
 		}
-		for(let i in originData){
-			submitDataAll = submitDataAll.concat(originData[i]);
-		}
+		// for(let i in originData){
+		// 	submitDataAll = submitDataAll.concat(originData[i]);
+		// }
 		for(let i in deleteArr){
 			deleteDataArr = deleteDataArr.concat(deleteArr[i]);
 		}
