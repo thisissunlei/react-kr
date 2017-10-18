@@ -152,7 +152,7 @@ class AgreementTrim extends React.Component {
 					   >
 						<Button  label="新建"  onTouchTap={this.openNewCreateDialog} />
 						<span style={{display:'inline-block',width:30}}></span>
-						<Button  label="清除测试数据"  onTouchTap={this.deleteDemos} />
+						<Button  label="清除测试数据" width={110} onTouchTap={this.deleteDemos} />
 							
 					  </Col>
 
