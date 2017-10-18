@@ -22,12 +22,12 @@ export default class LocationChoice extends Component {
         let {url} = this.props;
         var object = Object.assign({numberMax:values.all.startValue,numberMin:values.all.endValue},values)
         this.box.getData(url,object);
-        console.log(object.all,"select")
+        console.log(url,"select")
         // this.box.getData(url,object);
     }
     onSubmit = (values) =>{
         let {onSubmit} = this.props;
-        console.log(values,">>>>")
+       
         onSubmit && onSubmit(values)
 
     }
