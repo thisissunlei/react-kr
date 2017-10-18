@@ -35,7 +35,7 @@ class NewCreateForm extends React.Component{
 
 		this.params = this.props.params;
 	}
-
+	
 	componentDidMount(){
 		this.getBasicData();
 	}
@@ -47,18 +47,18 @@ class NewCreateForm extends React.Component{
 			communityId:'',
 			companyId:'',
 			email:'',
-			jobId:'',
+			job:'',
 			name:'',
 			foreignCode:'',
-			sendMsg:'1',
-			foreignCode:''
+			identityCard:'',
+			leader:'0'
 		}
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
 	onSubmit=(values)=>{
-		this.EmailonBlur(values.email);
-		this.foreignCodeBlur(values.foreignCode);
+		//this.EmailonBlur(values.email);
+		//this.foreignCodeBlur(values.foreignCode);
 		let {onsubmit,onSubmitCode} = this.state;
 		if(onsubmit && onSubmitCode){
 			const {onSubmit} = this.props;
@@ -109,7 +109,6 @@ class NewCreateForm extends React.Component{
 		Http.request('isPhoneRegistered',params).then(function(response){
 			//  检验response是不是空对象
 			if(!$.isEmptyObject(response)){
-				response.sendMsg = '1';
 				Store.dispatch(initialize('NewCreateForm',response));
 				// 此处要有提示
 				Message.warntimeout('该手机号码已被注册！','error');
@@ -125,7 +124,6 @@ class NewCreateForm extends React.Component{
 				phone:phone,
 				communityId:'',
 				companyId:'',
-				sendMsg:'1'
 			}
 			if(phoneSame){
 				Store.dispatch(initialize('NewCreateForm',response));
@@ -136,72 +134,72 @@ class NewCreateForm extends React.Component{
 			}
 		});
 	}
-	EmailonBlur=(phone)=>{
-		let params = {
-			email :phone
-		}
-		let {email,phoneSame} = this.state;
-		this.setState({
-			open:true
-		})
-		let _this = this;
-		if(phoneSame && email == params.email){
-			_this.setState({
-				onsubmit:true
-			})
-			return;
-		}else{
-			Http.request('isEmailRegistered',params).then(function(response){
-				//邮箱已注册
-				Message.warntimeout('该邮箱已被绑定','error');
-				_this.setState({
-					onsubmit:false
-				})
-			}).catch(function(err){
-				//邮箱未注册
-				_this.setState({
-					onsubmit:true
-				})
-			});
-		}
-	}
-	foreignCodeBlur=(codes)=>{
-		let params = {
-			code :codes
-		}
-		let {code,phoneSame,phone} = this.state;
-		let _this = this;
-		this.setState({
-			open:true
-		})
-		if(phoneSame && code == params.code){
-			_this.setState({
-				onSubmitCode:true
-			})
-			return;
-		}
+	// EmailonBlur=(phone)=>{
+	// 	let params = {
+	// 		email :phone
+	// 	}
+	// 	let {email,phoneSame} = this.state;
+	// 	this.setState({
+	// 		open:true
+	// 	})
+	// 	let _this = this;
+	// 	if(phoneSame && email == params.email){
+	// 		_this.setState({
+	// 			onsubmit:true
+	// 		})
+	// 		return;
+	// 	}else{
+	// 		Http.request('isEmailRegistered',params).then(function(response){
+	// 			//邮箱已注册
+	// 			Message.warntimeout('该邮箱已被绑定','error');
+	// 			_this.setState({
+	// 				onsubmit:false
+	// 			})
+	// 		}).catch(function(err){
+	// 			//邮箱未注册
+	// 			_this.setState({
+	// 				onsubmit:true
+	// 			})
+	// 		});
+	// 	}
+	// }
+	// foreignCodeBlur=(codes)=>{
+	// 	let params = {
+	// 		code :codes
+	// 	}
+	// 	let {code,phoneSame,phone} = this.state;
+	// 	let _this = this;
+	// 	this.setState({
+	// 		open:true
+	// 	})
+	// 	if(phoneSame && code == params.code){
+	// 		_this.setState({
+	// 			onSubmitCode:true
+	// 		})
+	// 		return;
+	// 	}
 
-		if(params.code !== undefined){
-			Http.request('membersByForeignCode',params).then(function(response){
-				//会员卡号已注册
-				if(response.phone !='-1' && response.id){
-					Message.warntimeout('该会员卡号已被绑定','error');
-				}else{
-					Message.warntimeout(response.name,'error');
+	// 	if(params.code !== undefined){
+	// 		Http.request('membersByForeignCode',params).then(function(response){
+	// 			//会员卡号已注册
+	// 			if(response.phone !='-1' && response.id){
+	// 				Message.warntimeout('该会员卡号已被绑定','error');
+	// 			}else{
+	// 				Message.warntimeout(response.name,'error');
 
-				}
-				_this.setState({
-					onSubmitCode:false
-				})
-			}).catch(function(err){
-				//会员卡号未注册
-				_this.setState({
-					onSubmitCode:true
-				})
-			});
-		}
+	// 			}
+	// 			_this.setState({
+	// 				onSubmitCode:false
+	// 			})
+	// 		}).catch(function(err){
+	// 			//会员卡号未注册
+	// 			_this.setState({
+	// 				onSubmitCode:true
+	// 			})
+	// 		});
+	// 	}
 
-	}
+	// }
 	onChangeSearchCommunity(community) {
 		let communityId="";
 		if(community!==null){
@@ -240,18 +238,17 @@ class NewCreateForm extends React.Component{
 					<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8,marginLeft:'-30px'}}>
 						<img src={imgLine}/>
 					</div>
-					<KrField grid={1/2} name="communityId" component="searchCommunityAll" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true} errors={{requiredValue:'社区为必填项'}} inline={false} style={{width:'252px',marginRight:'30'}}/>
-					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px'}}/>
-					<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true} errors={{requiredValue:'公司为必填项'}} style={{width:'252px',marginRight:'30'}}/>
-					<KrField name="jobId"  grid={1/2} component="select" label="职位" options={selectOption} style={{width:'252px'}}/>
+					<KrField grid={1/2} name="communityId" component="searchCommunityAll" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true}  inline={false} style={{width:'252px',marginRight:'30'}}/>
+					<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true}  style={{width:'252px',marginRight:'30'}}/>
 					<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30'}}/>
-					<KrField grid={1/2} name="sendMsg" component="group" label="发送验证短信"  style={{width:'252px'}} requireLabel={true} >
-						<KrField name="sendMsg" grid={1/2} label="是" type="radio" value="1" style={{marginRight:'50'}}/>
-						<KrField name="sendMsg" grid={1/2} label="否" type="radio" value="0" />
-					</KrField>
 					<KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur} style={{width:'252px',marginRight:'30'}} />
-					<KrField grid={1/2} name="idCardNo" type="text" label="身份证号" style={{width:'252px'}} />
-
+					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px',marginRight:'30'}}/>
+					<KrField name="job"  grid={1/2}  label="职位"  style={{width:'252px'}}/>
+					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
+					<KrField name="leader" component="group" label="Leader"  style={{width:252}} >
+						<KrField name="leader" label="是" type="radio" value="1" />
+						<KrField name="leader" label="否" type="radio" value='0' />
+					</KrField>
 					<Grid style={{marginTop:18,marginBottom:'4px'}}>
 						<Row>
 							<ListGroup>
@@ -297,9 +294,7 @@ const validate = values => {
 	// if (!code.test(values.foreignCode) ) {
 	//     errors.foreignCode = '会员卡号为10位纯数字';
 	// }
-	if (!values.sendMsg ) {
-		errors.sendMsg = '请选择是否发送验证短信';
-	}
+	
 	// if (!values.foreignCode) {
 	//     errors.foreignCode = '请输入会员卡号';
 	// }

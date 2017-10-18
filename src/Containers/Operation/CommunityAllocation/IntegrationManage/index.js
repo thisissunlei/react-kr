@@ -21,6 +21,7 @@ import SearchForm from './SearchForm';
 import Recharge from './Recharge';
 import CheckForm from './CheckForm';
 import ViewIntegration from './ViewIntegration';
+import GiveList from "./GiveList";
 import './index.less';
 export default class Integration extends React.Component {
 
@@ -39,6 +40,8 @@ export default class Integration extends React.Component {
 			rechargeDetail:{},
 			customerName:'',
 			cmtId:'',
+			openList:false,
+
 		}
 
 	}
@@ -54,11 +57,14 @@ export default class Integration extends React.Component {
          this.openView();
           break;
         }
-        
         case  'give':{
          this.openGive(itemDetail);
           break;
-        }
+		}
+		case 'list':{
+			this.openList();
+			break;
+		}
       }
     }
    
@@ -99,10 +105,15 @@ export default class Integration extends React.Component {
 			submitGive:!this.state.submitGive,
 		})
 	}
+	openList=()=>{
+		this.setState({
+			openList:!this.state.openList,
+			
+		})
+	}
 	openGivetwo=()=>{
 		this.setState({
-			openGive:!this.state.openGive,
-			
+			openGive:!this.state.openGive
 		})
 	}
 	openView=()=>{
@@ -176,7 +187,6 @@ export default class Integration extends React.Component {
 				            <TableHeader>
 				              <TableHeaderColumn>客户名称</TableHeaderColumn>
 				              <TableHeaderColumn>所在社区</TableHeaderColumn>
-				              <TableHeaderColumn>会员数</TableHeaderColumn>
 				              <TableHeaderColumn>积分总数</TableHeaderColumn>
 				              <TableHeaderColumn>操作</TableHeaderColumn>
 				          	</TableHeader>
@@ -185,10 +195,10 @@ export default class Integration extends React.Component {
 					              <TableRow>
 					                <TableRowColumn name="customerName" ></TableRowColumn>
 					                <TableRowColumn name="cmtName"></TableRowColumn>
-					                <TableRowColumn name="memberQuantity" ></TableRowColumn>
 					                <TableRowColumn name="remainPoint" ></TableRowColumn>
 					                <TableRowColumn>
 					                	<Button label="消费记录"  type="operation"  operation="view"/>
+										<Button operateCode="csr_point_charge" label="充值记录"  type="operation"  operation="list"/>
 									  	<Button label="充值"  type="operation"  operation="give"/>
 					                </TableRowColumn>
 					               </TableRow>
@@ -236,7 +246,19 @@ export default class Integration extends React.Component {
 	           			onSubmit={this.checkSubmit}
 	           		/>
 	            </Dialog>
-	            
+	            <Drawer
+	             modal={true}
+	             width={750}
+	             open={this.state.openList}
+	             onClose={this.openList}
+	             openSecondary={true}
+	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:28,paddingBottom:48,zIndex:20}}
+	           >
+	             	<GiveList
+	             			onCancel={this.openList} 
+	             			detail={itemDetail}
+	             	 />
+	           </Drawer>
 			</div>
 		);
 	}
