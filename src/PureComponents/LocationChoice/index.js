@@ -65,6 +65,7 @@ class LocationChoice extends Component {
     componentDidMount() {
         let {url,data,type} = this.props;
         this.getFloor();
+        console.log("box",this.box)
         if(type == "edit"){
             this.box.getData(url,data);
         }

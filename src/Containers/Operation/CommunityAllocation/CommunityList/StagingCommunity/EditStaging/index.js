@@ -24,6 +24,7 @@ class EditStaging  extends React.Component{
         this.state={
             isOk:'',
         }
+        this.data = {};
 	}
     
     componentDidMount(){
@@ -145,12 +146,14 @@ class EditStaging  extends React.Component{
                  </form>
 
                  <LocationChoice 
-                 title = "选择工位" 
-                 communityId = {4} 
-                 url='stage-detail-search' 
-                 open = {openStation} 
-                 onClose = {this.openAddCommunity} 
-                 onSubmit = {this.onStationSubmit} />
+                    title = "选择工位" 
+                    communityId = {4} 
+                    url='stage-detail-search' 
+                    open = {openStation} 
+                
+                    onClose = {this.openAddCommunity} 
+                    onSubmit = {this.onStationSubmit} 
+                />
 			</div>
 		);
 	}
