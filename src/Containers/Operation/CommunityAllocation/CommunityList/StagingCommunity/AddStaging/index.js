@@ -26,6 +26,7 @@ class AddStaging  extends React.Component{
             openStation:false,
             openEditStation:false
         }
+        this.configArr=[];
     }
     
     componentDidMount(){
@@ -69,8 +70,9 @@ class AddStaging  extends React.Component{
     }
 
     onStationSubmit=(params)=>{
-       console.log('params',params);
-       this.openAddCommunity();
+        this.configArr.push(params);
+        Store.dispatch(change('AddStaging','config',this.configArr));
+        this.openAddCommunity();
     }
 
     openEditCommunity=(item)=>{
