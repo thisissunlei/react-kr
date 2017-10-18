@@ -23,7 +23,8 @@ class AddStaging  extends React.Component{
         super(props, context);
         this.state={
             isOk:'',
-            openStation:false
+            openStation:false,
+            openEditStation:false
         }
     }
     
@@ -61,16 +62,27 @@ class AddStaging  extends React.Component{
         })
     }
 
+    openEditCommunity=()=>{
+        this.setState({
+            openEditStation:!this.state.openEditStation
+        })
+    }
+
     onStationSubmit=(params)=>{
        
        this.openAddCommunity();
+    }
+
+    openEditCommunity=(item)=>{
+       
+       this.openEditCommunity();
     }
 
    
 	render(){
 
         let {handleSubmit,floor,communityId}=this.props;
-        let {isOk,openStation}=this.state;
+        let {isOk,openStation,openEditStation}=this.state;
        
        
 		return(
@@ -130,7 +142,7 @@ class AddStaging  extends React.Component{
                                     <FRow name = "detailType" label = "类型"/>
                                     <FRow name = "code" label = "编号"/>
                                     <FRow label = "操作" type='operation' component={(item)=>{
-                                            return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
+                                            return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.openEditCommunity.bind(this,item)}>编辑</div>
                                     }}/>
                             </FdTabel>
                         </div>}
@@ -159,7 +171,21 @@ class AddStaging  extends React.Component{
                         </Grid>
                  </form>
 
-                 <LocationChoice title = "选择工位" communityId = {4} url='stage-detail-search' open = {openStation} onClose = {this.openAddCommunity} onSubmit = {this.onStationSubmit} />
+                 <LocationChoice 
+                 title = "选择工位" 
+                 communityId = {4} 
+                 url='stage-detail-search' 
+                 open = {openStation} 
+                 onClose = {this.openAddCommunity} 
+                 onSubmit = {this.onStationSubmit} />
+
+                 <LocationChoice 
+                 title = "选择工位" 
+                 communityId = {4} 
+                 url='stage-detail-search' 
+                 open = {openEditStation} 
+                 onClose = {this.openEditCommunity} 
+                 onSubmit = {this.onEditSubmit} />
 			</div>
 		);
 	}

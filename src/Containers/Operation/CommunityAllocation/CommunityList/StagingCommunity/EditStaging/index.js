@@ -10,6 +10,9 @@ import {
     FContent,
 	FRow,
 } from 'kr-ui';
+import {
+	LocationChoice
+} from 'kr/PureComponents';
 import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import '../index.less';
@@ -140,6 +143,14 @@ class EditStaging  extends React.Component{
                             </Row>
                         </Grid>
                  </form>
+
+                 <LocationChoice 
+                 title = "选择工位" 
+                 communityId = {4} 
+                 url='stage-detail-search' 
+                 open = {openStation} 
+                 onClose = {this.openAddCommunity} 
+                 onSubmit = {this.onStationSubmit} />
 			</div>
 		);
 	}
