@@ -14,13 +14,19 @@ import {
 	Dialog,
 	Message,
 	Notify,
-	CheckPermission
+	CheckPermission,
+	ListGroup,
+	ListGroupItem,
+	Drawer,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import NewCreateForm from './NewCreateForm';
 import MemeberEditMemberForm from './MemeberEditMemberForm';
 import AdvancedQueryForm from './AdvancedQueryForm';
+import ViewMember from './ViewMember';
+import ImportData from './ImportData';
+import CodeManage from './CodeManage';
 import './index.less';
 
 export default class List extends React.Component {
@@ -47,25 +53,47 @@ export default class List extends React.Component {
 			content:'',
 			filter:'COMP_NAME',
 			realPage : 1,
+			importdata:false,
+			openDelete:false,
+			openView:false,
+			openLeave:false,
+			openBindCode:false,
 			searchParams: {
 				page: 1,
 				pageSize: 15,
 				startTime:'',
 				endTime:'',
 				registerSourceId:'',
-				jobId:'',
+				job:'',
 				companyId:0,
 				cityId:'',
 				type:'COMP_NAME',
 				value:'',
 				status:false,
-			}
+			},
+			
 		}
 	}
+	importData=()=>{
+		this.setState({
+			importdata:!this.state.importdata
+		}) 
+	}
+	openLeave=()=>{
+		this.setState({
+			openLeave: !this.state.openLeave,
+		});
+	}
+	
 	openNewCreateDialog=()=> {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
 		});
+	}
+	openView=()=>{
+		this.setState({
+			openView:!this.state.openView
+		})
 	}
 	// 编辑详情的Dialog
 	openEditDetailDialog=()=>{
@@ -91,15 +119,33 @@ export default class List extends React.Component {
 			list
 		})
 	}
+	openDelete=()=>{
+		this.setState({
+			openDelete:!this.state.openDelete
+		})
+	}
+	openBindCode=()=>{
+		this.setState({
+			openBindCode:!this.state.openBindCode
+		})
+	}
 	//操作相关
 	onOperation(type, itemDetail) {
+		
 		this.setState({
 			itemDetail
 		});
 		if (type == 'view') {
-			window.open(`./#/operation/member/memberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
+			this.openView();
+			//window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
+		}else if(type=='delete'){
+			this.openDelete();
+		}else if(type=='leave'){
+			this.openLeave();
+		}else if(type=="bindcode"){
+			this.openBindCode();
 		}
 	}
 	// 导出Excle表格
@@ -112,12 +158,18 @@ export default class List extends React.Component {
 		}
 		ids = String(ids);
 		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		//var url = `http://optest01.krspace.cn/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		window.location.href = url;
+	}
+	//下载模板
+	onLoadDemo=()=>{
+		let url = '/api/krspace-finance-web/member/member-templet-excel';
 		window.location.href = url;
 	}
     //提交编辑
 	onEditSubmit=(values)=>{
 		var _this = this;
-		Http.request('membersChange',{},values).then(function(response){
+		Http.request('edit-members',{},values).then(function(response){
 			_this.openEditDetailDialog();
 			Message.success("操作成功");
 			_this.setState({
@@ -132,7 +184,7 @@ export default class List extends React.Component {
 					startTime:_this.state.searchParams.startTime,
 					endTime:_this.state.searchParams.endTime,
 					registerSourceId:_this.state.searchParams.registerSourceId,
-					jobId:_this.state.searchParams.jobId,
+					job:_this.state.searchParams.job,
 					cityId:_this.state.searchParams.cityId,
 				}
 			})
@@ -147,12 +199,14 @@ export default class List extends React.Component {
 			email:values.email
 		}
 		let cardSearchParams ={
-			foreignCode:values.cardId
+			foreignCode:values.foreignCode
 		}
 		let _this = this;
-		Http.request('membersChange',{},values).then(function(response){
+		Http.request('add-members',{},values).then(function(response){
 							_this.openNewCreateDialog();
 							Message.success("操作成功");
+
+							
 							_this.setState({
 								status:!_this.state.status,
 								searchParams:{
@@ -212,7 +266,7 @@ export default class List extends React.Component {
 				cityId :values.city || '',
 				endTime :values.endTime || '',
 				startTime :values.startTime || '',
-				jobId :values.jobId || '',
+				job :values.job || '',
 				page :1,
 				pageSize:15,
 				companyId:0,
@@ -224,9 +278,54 @@ export default class List extends React.Component {
 			realPage : page 
 		})
 	}
+	//离职
+	onLeave=()=>{
+		var _this=this;
+		const {itemDetail}=this.state;
+		Http.request('member-leave',{id:itemDetail.id}).then(function (response) {
+			_this.openLeave();
+			Message.success('修改成功！');
+			_this.setState({
+				searchParams:{
+					date:new Date()
+				}
+			})
+
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+		
+	}
+	 //删除
+	 onDeleteData=()=>{
+		var _this=this;
+		const {itemDetail}=this.state;
+		Http.request('delete-members',{id:itemDetail.id}).then(function (response) {
+			_this.openDelete();
+			Message.success('删除成功！');
+			_this.setState({
+				searchParams:{
+					date:new Date()
+				}
+			})
+
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+
+	}
+	importDataPost=()=>{
+		this.setState({
+			searchParams:{
+				date:new Date()
+			}
+		})
+	}
 	render() {
 		let {
-			list,itemDetail,seleced
+			list,
+			itemDetail,
+			seleced
 		} = this.state;
 		if (!list.totalCount) {
 			list.totalCount = 0;
@@ -238,9 +337,6 @@ export default class List extends React.Component {
 			label: '手机号',
 			value: 'PHONE'
 		}, {
-			label: '微信',
-			value: 'WECHAT'
-		}, {
 			label: '姓名',
 			value: 'NAME'
 		}];
@@ -249,12 +345,13 @@ export default class List extends React.Component {
 								<Title value="全部会员 "/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
-										
-											<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
-									
+									<div className="u-member-btn-list">
+										<Button operateCode="mbr_list_add"  label="新建会员"  onTouchTap={this.openNewCreateDialog} />
+										<Button  operateCode="mbr_list_import" label="批量导入" type="button" onTouchTap={this.importData} width={80} height={30} />
+									</div>	
 										{/*高级查询*/}
-										<Button type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:5,zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
+										{/* <Button type='search'  searchClick={this.openAdvancedQueryDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/> */}
+										<SearchForms onSubmit={this.onSearchSubmit} searchFilter={options} style={{marginTop:'5px',zIndex:10000}} content={this.state.content} filter={this.state.filter}/>
 									</form>
 									<Table
 										className="member-list-table"
@@ -265,8 +362,8 @@ export default class List extends React.Component {
 												return state;
 												}}
 											onOperation={this.onOperation}
-											exportSwitch={true}
-											onExport={this.onExport}
+											//exportSwitch={true}
+										 	//onExport={this.onExport}
 											ajaxFieldListName='items'
 											ajaxUrlName='membersList'
 											ajaxParams={this.state.searchParams}
@@ -275,15 +372,13 @@ export default class List extends React.Component {
 										<TableHeader>
 											<TableHeaderColumn>联系电话</TableHeaderColumn>
 											<TableHeaderColumn>姓名</TableHeaderColumn>
-											<TableHeaderColumn>微信</TableHeaderColumn>
 											<TableHeaderColumn>邮箱</TableHeaderColumn>
-											<TableHeaderColumn>职位</TableHeaderColumn>
-											<TableHeaderColumn>工作地点</TableHeaderColumn>
+											<TableHeaderColumn>所在社区</TableHeaderColumn>
 											<TableHeaderColumn>公司</TableHeaderColumn>
 											// 由于页面效果不好暂时不添加会员等级这一项
 											{/*<TableHeaderColumn>会员等级</TableHeaderColumn>*/}
-											<TableHeaderColumn>注册来源</TableHeaderColumn>
 											<TableHeaderColumn>注册日期</TableHeaderColumn>
+											<TableHeaderColumn>状态</TableHeaderColumn>
 											<TableHeaderColumn>操作</TableHeaderColumn>
 									</TableHeader>
 									<TableBody style={{position:'inherit'}}>
@@ -302,13 +397,6 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											 ></TableRowColumn>
-											<TableRowColumn name="wechatNick"
-											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}
-											></TableRowColumn>
 											<TableRowColumn name="email" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
@@ -316,14 +404,8 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="jobName"
-											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}
-											></TableRowColumn>
-											<TableRowColumn name="cityName"
+											
+											<TableRowColumn name="communityName"
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
@@ -337,17 +419,27 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											<TableRowColumn name="registerName"
-											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}></TableRowColumn>
+											
 											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
-											<TableRowColumn type="operation">
+											<TableRowColumn name="status" 
+												component={(value)=>{
+													let Style,status;
+													if(value==1){
+														Style="u-txt-red";
+														status='离职';
+													}else if(value==0){
+														Style="u-txt-green";
+														status='正常';
+													}
+													return (<span className={Style}>{status}</span>)
+												}}
+											></TableRowColumn>
+											<TableRowColumn type="operation" style={{width:200}}>
 													<Button label="详情"  type="operation" operation="view"/>
-												
-														<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
+													<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
+													<Button operateCode="mbr_list_leave" label="离职"  type="operation" operation="leave"/>
+													<Button operateCode="mbr_list_bind" label="绑卡"  type="operation" operation="bindcode"/>
+													<Button operateCode="mbr_list_delete" label="删除"  type="operation" operation="delete"/>
 												
 											 </TableRowColumn>
 										 </TableRow>
@@ -364,6 +456,7 @@ export default class List extends React.Component {
 								>
 										<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Dialog>
+							 
 								<Dialog
 									title="编辑会员"
 									modal={true}
@@ -373,6 +466,38 @@ export default class List extends React.Component {
 								>
 										<MemeberEditMemberForm onSubmit={this.onEditSubmit} params={this.params} onCancel={this.openEditDetailDialog} detail={itemDetail}/>
 							  </Dialog>
+							  <Dialog
+								title="删除"
+								modal={true}
+								contentStyle ={{ width: '444',overflow:'visible'}}
+								open={this.state.openDelete}
+								onClose={this.openDelete}
+								>
+								<div className='u-list-delete'>
+									<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要删除该会员吗？</p>
+									<div style={{textAlign:'center',marginBottom:10}}>
+										<div  className='ui-btn-center'>
+											<Button  label="确定" onClick={this.onDeleteData}/></div>
+											<Button  label="取消" type="button" cancle={true} onClick={this.openDelete} />
+										</div>
+									</div>
+								</Dialog>
+								<Dialog
+								title="离职"
+								modal={true}
+								contentStyle ={{ width: '444',overflow:'visible'}}
+								open={this.state.openLeave}
+								onClose={this.openLeave}
+								>
+								<div className='u-list-delete'>
+									<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认此会员已离职吗？</p>
+									<div style={{textAlign:'center',marginBottom:10}}>
+										<div  className='ui-btn-center'>
+											<Button  label="确定" onClick={this.onLeave}/></div>
+											<Button  label="取消" type="button" cancle={true} onClick={this.openLeave} />
+										</div>
+									</div>
+								</Dialog>
 								<Dialog
 									title="高级查询"
 									modal={true}
@@ -381,7 +506,44 @@ export default class List extends React.Component {
 									contentStyle={{width:687}}
 								>
 									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail} style={{marginTop:37}} content={this.state.content} filter={this.state.filter} />
-							  </Dialog>
+							  </Dialog> 
+							  <Drawer
+							  modal={true}
+							  width={750}
+							  open={this.state.openView}
+							  onClose={this.openView}
+							  openSecondary={true}
+							  containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+							>
+								  <ViewMember 
+								  		  detail={itemDetail}
+										  onCancel={this.openView} 
+										 
+								   />
+							</Drawer>
+							<Dialog
+								title="批量导入"							
+								modal={true} 
+								open={this.state.importdata} 
+								onClose={this.importData} 
+								contentStyle={{width:444}}
+							> 
+							<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>							
+							</Dialog>
+							<Drawer
+							  modal={true}
+							  width={750}
+							  open={this.state.openBindCode}
+							  onClose={this.openBindCode}
+							  openSecondary={true}
+							  containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+							>
+								  <CodeManage 
+								  		  detail={itemDetail}
+										  onCancel={this.openBindCode} 
+										 
+								   />
+							</Drawer>
 				</div>
 		);
 

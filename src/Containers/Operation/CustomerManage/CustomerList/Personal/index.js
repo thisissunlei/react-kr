@@ -298,11 +298,13 @@ class Personal extends Component{
       this.props.NewIndentModel.searchParams.intentionCommunityId='';
       this.props.NewIndentModel.searchParams.levelId='';
       this.props.NewIndentModel.searchParams.sourceId='';
+      this.props.NewIndentModel.searchParams.receiveId='';
+	  
       State.searchUpperCustomer();
 	}
 	//高级查询提交
      onSearchUpperSubmit=(searchParams)=>{
-		 console.log(searchParams,">>>>>>>>")
+		 
      	searchParams = Object.assign({}, this.props.NewIndentModel.searchParams, searchParams);
       	searchParams.time=+new Date();
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate!=''&&searchParams.createEndDate<searchParams.createStartDate){
@@ -364,7 +366,7 @@ class Personal extends Component{
         	display:'none'
         }
       }
-			console.log(isExport,"PPPPPPP")
+			
 		return(
 
       <div className="m-personal" style={{paddingTop:25}}>
