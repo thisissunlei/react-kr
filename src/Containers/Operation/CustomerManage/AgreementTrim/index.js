@@ -39,7 +39,13 @@ import {
 	Drawer,
 	KrField,
 	Row,
-	Col
+	Col,
+	Dialog,
+	Grid,
+	ListGroup,
+	ListGroupItem
+
+
 } from 'kr-ui';
 import './index.less'
 import AgreementList from './AgreementList';
@@ -116,6 +122,15 @@ class AgreementTrim extends React.Component {
 		State.openAgreementList=false;
 		State.openEdit = false;
 	}
+	deleteDemos=()=>{
+		State.openDelete = true;
+	}
+	deleteDialogClose=()=>{
+		State.openDelete = false;
+	}
+	deleteDemoFun=()=>{
+		State.deleteDemo();
+	}
 
 	
 
@@ -136,6 +151,7 @@ class AgreementTrim extends React.Component {
 					     style={{float:'left',marginTop:3}}
 					   >
 						<Button  label="新建"  onTouchTap={this.openNewCreateDialog} />
+						<Button  label="清除测试数据"  onTouchTap={this.deleteDemos} />
 							
 					  </Col>
 
@@ -258,6 +274,27 @@ class AgreementTrim extends React.Component {
                     <Edit />
 
 		        </Drawer>
+		    <Dialog
+				title="提示"
+				modal={true}
+				autoScrollBodyContent={true}
+				autoDetectWindowHeight={true}
+				onClose={this.deleteDialogClose}
+				open={State.openDelete} 
+				contentStyle={{width:'400px'}}>
+					<div>
+						<p style={{textAlign:'center',margin:'30px'}}>仅限（内部）氪空间下的测试数据</p>
+						<Grid>
+						<Row>
+						<ListGroup>
+							<ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.deleteDemoFun}  width={100} height={40} fontSize={16}/></ListGroupItem>
+							<ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.deleteDialogClose}  width={100} height={40} fontSize={16}/></ListGroupItem>
+						</ListGroup>
+						</Row>
+						</Grid>
+					</div>
+
+			  </Dialog>
 
 
 			

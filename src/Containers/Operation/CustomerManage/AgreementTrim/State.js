@@ -39,6 +39,7 @@ let State = observable({
 	openEdit:false,
 	itemDetail:{},
 	openDeleteContent:false,
+	openDelete:false,
 	searchParams:{
 		// pageSize:5
 	}
@@ -49,6 +50,18 @@ State.editAgreement = action(function(item){
 	this.openEdit = true;
     this.itemDetail = item;
 })
+
+State.deleteDemo = action(function() {
+	var _this = this;
+	return;
+	Http.request('delete-demo', {},'').then(function(response) {
+		Message.success("删除成功");
+		window.location.reload();
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+
+});
 
 State.deleteAgreementButton = action(function(item){
 	this.openDeleteContent = true;
