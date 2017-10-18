@@ -145,8 +145,7 @@ class AddStaging  extends React.Component{
                             requireLabel={true}
                          />
                          </div>}
-                               
-                       <LocationChoice title = "选择工位" communityId = {4} url='stage-detail-search' open = {openStation} onClose = {this.openAddCommunity} onSubmit = {this.onStationSubmit} />
+                
 
                        <Grid style={{marginBottom:5,marginLeft:-42,marginTop:15}}>
                             <Row>
@@ -159,6 +158,8 @@ class AddStaging  extends React.Component{
                             </Row>
                         </Grid>
                  </form>
+
+                 <LocationChoice title = "选择工位" communityId = {4} url='stage-detail-search' open = {openStation} onClose = {this.openAddCommunity} onSubmit = {this.onStationSubmit} />
 			</div>
 		);
 	}
