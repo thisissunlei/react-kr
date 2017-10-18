@@ -291,7 +291,7 @@ class Personal extends Component{
     }
 	//高级查询
 	openSearchUpperDialog=()=>{
-	    this.props.NewIndentModel.searchParams.company='';
+	  this.props.NewIndentModel.searchParams.company='';
       this.props.NewIndentModel.searchParams.createEndDate='';
       this.props.NewIndentModel.searchParams.createStartDate='';
       this.props.NewIndentModel.searchParams.intentionCityId='';
@@ -302,6 +302,7 @@ class Personal extends Component{
 	}
 	//高级查询提交
      onSearchUpperSubmit=(searchParams)=>{
+		 console.log(searchParams,">>>>>>>>")
      	searchParams = Object.assign({}, this.props.NewIndentModel.searchParams, searchParams);
       	searchParams.time=+new Date();
 		if(searchParams.createStartDate!=''&&searchParams.createEndDate!=''&&searchParams.createEndDate<searchParams.createStartDate){

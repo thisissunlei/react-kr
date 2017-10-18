@@ -87,4 +87,30 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/ssoUser/select?phoneOrEmail={phoneOrEmail}',
       method: 'get'
    },
+    
+   //轮播列表显示
+   'web-piclist-listshow':{
+    url: '/api/krspace-finance-web/por-mobile-pic/list?page={page}&pageSize={pageSize}',
+    method: 'get'
+   },
+   //轮播列表根据id查看详情
+   'web-pclist-listdetall':{
+    url: '/api/krspace-finance-web/por-mobile-pic/show?id={id}',
+    method: 'get'
+ },
+ //轮播列表增加与修改
+ 'web-pclist-listadd-editor':{
+    url: '/api/krspace-finance-web/por-mobile-pic/saveOrUpdate',
+    method: 'post'
+ },
+ //轮播列表删除
+ 'web-pclist-listadd-delete':{
+    url: '/api/krspace-finance-web/por-mobile-pic/delete',
+    method: 'post'
+ },
+ //轮播列表上线下线
+ 'web-pclist-listadd-up-down':{
+    url: '/api/krspace-finance-web/por-mobile-pic/publish',
+    method: 'post'
+ },
 }
