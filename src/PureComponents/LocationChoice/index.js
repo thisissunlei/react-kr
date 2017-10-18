@@ -63,6 +63,9 @@ class LocationChoice extends Component {
     componentDidMount() {
         this.getFloor();
     }
+    componentWillUnmount(){
+         Store.dispatch(initialize('LocationChoice',{floor:'',detailType:'',all:''}));
+    }
     render(){
         let {title,onClose,open,communityId,url,handleSubmit,data} = this.props;
         let {subCompany,floors} = this.state;
