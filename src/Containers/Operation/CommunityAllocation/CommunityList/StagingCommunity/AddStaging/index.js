@@ -71,6 +71,7 @@ class AddStaging  extends React.Component{
     }
 
     openEditCommunity=(item)=>{
+        console.log('item',item);
         this.getData=item;
         this.setState({
             openEditStation:!this.state.openEditStation
@@ -82,6 +83,8 @@ class AddStaging  extends React.Component{
 
         let {handleSubmit,floor,communityId}=this.props;
         let {isOk,openStation,openEditStation}=this.state;
+
+        console.log('this',this.getData);
        
        
 		return(
