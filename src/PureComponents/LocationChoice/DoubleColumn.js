@@ -19,7 +19,7 @@ export default class DoubleColumn extends Component {
         super(props, context);
         this.state = {
             leftData:[],
-            rightData:props.config || [],
+            rightData:(props.data && props.data.config)|| [],
             other:'',
             titleData:{},
         }
@@ -34,7 +34,7 @@ export default class DoubleColumn extends Component {
     }
     
     componentDidMount () {
-        let {left} = this.state;
+        let {type,data} = this.props;
         document.addEventListener("keydown",this.onKeyDown);
         document.addEventListener("keyup",this.onKeyUp);
         this.isMac = function() {
@@ -44,16 +44,21 @@ export default class DoubleColumn extends Component {
         this.isWindows = function() {
             return /windows|win32/i.test(navigator.userAgent);
         }(); 
+        if(type == "deit"){
+            this.getData(url,data);
+        }
         
     }
     getData = (url,params) =>{
        
         let that = this;
         Http.request(url,params).then(function(response) {
-            
-            this.setState({
-                leftData:this.allDataInit(this.allData),
+            that.allData = [].concat(response.items);
+            that.setState({
+                leftData:that.allDataInit(response.items),
                 titleData:Object.assign({},params)
+            },function(){
+                console.log(that.state.leftData,">>>>>>")
             })
 
 		}).catch(function(err) {
@@ -79,7 +84,7 @@ export default class DoubleColumn extends Component {
         }
             
         
-        return newData;
+        return arr;
     }
     componentWillUnmount() {
       document.removeEventListener("keydown", this.onKeyDown);

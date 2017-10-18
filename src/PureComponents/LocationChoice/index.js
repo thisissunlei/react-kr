@@ -63,7 +63,7 @@ class LocationChoice extends Component {
         this.getFloor();
     }
     render(){
-        let {title,onClose,open,communityId,url,handleSubmit,config} = this.props;
+        let {title,onClose,open,communityId,url,handleSubmit,data} = this.props;
         let {subCompany,floors} = this.state;
         return(
             <div className = "m-location-choice">
@@ -112,7 +112,7 @@ class LocationChoice extends Component {
                             url = {url}
                             onSubmit = {this.onClick}
                             onClose = {onClose}
-                            config = {config||[]}
+                            data = {data||{}}
                         />
                     
                     </Dialog>
