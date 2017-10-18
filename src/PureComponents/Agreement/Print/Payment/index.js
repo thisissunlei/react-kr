@@ -39,7 +39,7 @@ export default class Payment extends Component {
 		let height = top+tableTop.clientHeight +45;
 		let tableBottomHeight = top+tableTop.clientHeight - 35;
 		//分期下面内容换页
-		if(height>1045 && height<1160){
+		if(height>1105 && height<1160){
 			console.log('分期下面内容换页=====>',height,1160-height)
 			tableTop.style.marginBottom = (1160-height)+'px';
 			this.init = true;
