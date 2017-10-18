@@ -10,6 +10,9 @@ import {
     FContent,
 	FRow,
 } from 'kr-ui';
+import {
+	LocationChoice
+} from 'kr/PureComponents';
 import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import '../index.less';
@@ -20,6 +23,7 @@ class AddStaging  extends React.Component{
         super(props, context);
         this.state={
             isOk:'',
+            openStation:false
         }
     }
     
@@ -50,11 +54,18 @@ class AddStaging  extends React.Component{
        }
     }
 
+
+    openAddCommunity=()=>{
+        this.setState({
+            openStation:!this.state.openStation
+        })
+    }
+
    
 	render(){
 
         let {handleSubmit,floor,communityId}=this.props;
-        let {isOk}=this.state;
+        let {isOk,openStation}=this.state;
        
        
 		return(
@@ -130,7 +141,8 @@ class AddStaging  extends React.Component{
                          />
                          </div>}
                                
-                        
+                       <LocationChoice title = "选择工位" communityId = {4}  open = {openStation} onClose = {this.openAddCommunity} onSubmit = {this.onStationSubmit} />
+
                        <Grid style={{marginBottom:5,marginLeft:-42,marginTop:15}}>
                             <Row>
                                 <Col md={12} align="center">
