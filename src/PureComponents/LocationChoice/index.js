@@ -61,7 +61,13 @@ class LocationChoice extends Component {
 
     }
     componentDidMount() {
+        let {url,data,type} = this.props;
         this.getFloor();
+        if(type == "edit"){
+            this.box.getData(url,data);
+        }
+        Store.dispatch(initialize('LocationChoice',{floor:'',detailType:'',all:''}));
+        
     }
     componentWillUnmount(){
          Store.dispatch(initialize('LocationChoice',{floor:'',detailType:'',all:''}));
@@ -113,7 +119,7 @@ class LocationChoice extends Component {
                                     this.box = ref;
                                 }
                             }
-                            url = {url}
+                            
                             onSubmit = {this.onClick}
                             onClose = {onClose}
                             data = {data||{}}
