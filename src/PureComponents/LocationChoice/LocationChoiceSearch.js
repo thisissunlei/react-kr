@@ -100,6 +100,12 @@ class LocationChoiceSearch extends Component {
 }
 const validate = values =>{
 	const errors = {};
+    if(!values.floor && values.floor != 0){
+        errors.floor = "楼层为必选项";
+    }
+    if(!values.detailType){
+        errors.detailType = "类型为必选项";
+    }
     
 	return errors
 }

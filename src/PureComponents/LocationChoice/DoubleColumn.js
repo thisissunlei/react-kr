@@ -23,36 +23,7 @@ export default class DoubleColumn extends Component {
             other:'',
             titleData:{},
         }
-        this.allData = [
-            {
-                code:1,
-                detailId:1
-            },
-            {
-                code:2,
-                detailId:2
-            },
-            {
-                code:3,
-                detailId:3
-            },
-            {
-                code:4,
-                detailId:4
-            },
-            {
-                code:5,
-                detailId:5
-            },
-            {
-                code:6,
-                detailId:6
-            },
-            {
-                code:7,
-                detailId:7
-            }
-        ]
+        this.allData = [],
         this.delRight = [];
         this.delleft = [];
         this.isMac = false;
@@ -73,9 +44,9 @@ export default class DoubleColumn extends Component {
         this.isWindows = function() {
             return /windows|win32/i.test(navigator.userAgent);
         }(); 
-        this.setState({
-            leftData:this.allDataInit(this.allData),
-        })
+        // this.setState({
+        //     leftData:this.allDataInit(this.allData),
+        // })
     }
     getData = (url,params) =>{
        
@@ -95,8 +66,6 @@ export default class DoubleColumn extends Component {
 
     allDataInit = (data) =>{
        let newData = data.map((item,index)=>{
-            item.isLeft = true;
-            item.isRight = false;
             return item
         })
         return newData;
@@ -241,12 +210,7 @@ export default class DoubleColumn extends Component {
     renderRight = () =>{
         let {leftData,rightData} = this.state;
         var elems = rightData.map((item,index)=>{
-            // if(item.isRight){
             return this.everyNum(item,index,"right");
-            // }else{
-            //     return null;
-            // }
-            
         })
         return elems; 
     }
