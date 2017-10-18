@@ -19,11 +19,11 @@ export default class LocationChoice extends Component {
         super(props, context);
     }
     select = (values) =>{
-        let {url} = this.props;
-        var object = Object.assign({numberMax:values.all.startValue,numberMin:values.all.endValue},values)
+        let {url,communityId} = this.props;
+        var object = Object.assign({communityId:communityId,numberMax:values.all.startValue,numberMin:values.all.endValue},values)
         this.box.getData(url,object);
         console.log(url,"select")
-        // this.box.getData(url,object);
+       
     }
     onSubmit = (values) =>{
         let {onSubmit} = this.props;
