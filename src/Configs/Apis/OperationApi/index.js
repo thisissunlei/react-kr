@@ -960,7 +960,11 @@ module.exports = {
         url: '/api/krspace-op-web/fina-contract-detail-save',
         method: 'post'
     },
-
+    //清除测试数据
+    'delete-demo': {
+        url: '/api/krspace-op-web/fina-contract-detail-delete-test',
+        method: 'post'
+    },
 
     
    
