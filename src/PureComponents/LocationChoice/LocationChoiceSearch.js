@@ -34,7 +34,6 @@ class LocationChoiceSearch extends Component {
         let {communityId} = this.props;
         let that = this;
         Http.request("getFloorByComunity",{communityId:communityId}).then(function(response) {
-            console.log(response,"LLLL")
 			that.setState({
                 floors:that.changeFloor([].concat(response.floors))
             })
@@ -56,7 +55,6 @@ class LocationChoiceSearch extends Component {
     render(){
         let {handleSubmit} = this.props;
         let {subCompany,floors} = this.state;
-        console.log(floors,"PP");
         return(
             
             <div className='m-type-post'>
@@ -82,11 +80,11 @@ class LocationChoiceSearch extends Component {
                             inputStyle = {{width:160}}
                             name="all"
                             component="range"
-                            label="职务类型名称"
+                            label="编号范围"
                             requireLabel={false}
 						/>
                         <div style = {{display:"inline-block",top:36,left:45,position:"relative"}}>
-                            <Button  label="确定" type="submit"/>
+                            <Button  label="查询" type="submit"/>
                         </div>
                         
                        

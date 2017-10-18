@@ -20,7 +20,8 @@ export default class DoubleColumn extends Component {
         this.state = {
             leftData:[],
             rightData:[],
-            other:''
+            other:'',
+            titleData:{},
         }
         this.allData = [
             {
@@ -58,9 +59,9 @@ export default class DoubleColumn extends Component {
         this.keyCode = "";
         this.isWindows = false;
         this.isLeft='';
-        this.selectNum = 0;
+        
     }
-
+    
     componentDidMount () {
         let {left} = this.state;
         document.addEventListener("keydown",this.onKeyDown);
@@ -76,7 +77,19 @@ export default class DoubleColumn extends Component {
             leftData:this.allDataInit(this.allData),
         })
     }
-    getData = () =>{
+    getData = (url,params) =>{
+       
+        let that = this;
+        Http.request(url,params).then(function(response) {
+            
+            this.setState({
+                leftData:this.allDataInit(this.allData),
+                titleData:Object.assign({},params)
+            })
+
+		}).catch(function(err) {
+
+		});
         
     }
 
@@ -160,7 +173,7 @@ export default class DoubleColumn extends Component {
             }
             if(type == "left"){           
                 this.delLeft=[].concat([data]);
-                console.log('left1',this.delLeft);
+                
                 this.delRight = [];
                 this.clearActive(this.delLeft,'left');
             }
@@ -239,7 +252,6 @@ export default class DoubleColumn extends Component {
     }
     onKeyDown = (event) =>{
         this.keyCode = event.keyCode;
-        console.log('event',this.keyCode);
     }
     onKeyUp = (event) =>{
         this.keyCode = '';
@@ -300,8 +312,18 @@ export default class DoubleColumn extends Component {
         object.otherData = otherData; 
         return object;
     }
+    onSubmit = () =>{
+        let {onSubmit} = this.props;
+        let {rightData,titleData} = this.state;
+
+        let object = Object.assign(titleData,{codeList:[].concat(rightData)});
+        onSubmit && onSubmit(object)
+
+    }
 
     render(){
+        let {rightData} = this.state;
+        let {onClose} = this.props;
         return(
             <div className='double-column clear' 
                  onKeyDown = {this.onKeyDown} 
@@ -363,12 +385,19 @@ export default class DoubleColumn extends Component {
                     
                 </div>
                 <div className = "column-right">   
-                    <div className = "text-bar">已选列表<span style = {{color:"#999999"}}>{`（已选 ${this.selectNum} 个）`}</span></div> 
+                    <div className = "text-bar">已选列表<span style = {{color:"#999999"}}>{`（已选 ${rightData.length} 个）`}</span></div> 
                     <div className="content">
                         {this.renderRight()}
                     </div>
                     
                 </div>
+                <div className="bottom">
+
+                    <div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" onTouchTap={this.onSubmit}  /></div>
+                    <Button  label="取消" type="button" cancle={true} onTouchTap={onClose} />
+                    
+                </div>
+                    	
 			</div>
         )
         

@@ -38,8 +38,8 @@ class New extends React.Component {
 		this.onOpen();
 		
 	}
-	onSubmit = () =>{
-
+	onSubmit = (values) =>{
+		this.onOpen();
 	}
 	render() {
 		let {isOpen} = this.state;
@@ -70,7 +70,7 @@ class New extends React.Component {
 
 				*/}
 				<botton onClick = {this.onClick}>点击</botton>
-			 	<LocationChoice communityId = {4}  open = {isOpen} onClose = {this.onOpen} onSubmit = {this.onSubmit} />
+			 	<LocationChoice title = "选择工位" communityId = {4}  open = {isOpen} onClose = {this.onOpen} onSubmit = {this.onSubmit} />
 			 </div>
 			 
 		);
