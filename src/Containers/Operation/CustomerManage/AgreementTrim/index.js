@@ -211,7 +211,7 @@ class AgreementTrim extends React.Component {
 								TooltipStyle="block";
 							}
 							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:250,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-							 	<Tooltip offsetTop={5} place='top' >
+							 	<Tooltip offsetTop={0} place='bottom' >
 									<div style={{width:"250px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
 							 	</Tooltip></div>)
 						}}

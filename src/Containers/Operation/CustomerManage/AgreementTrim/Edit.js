@@ -121,7 +121,7 @@ class EditList extends React.Component {
 												<KrField name="leaseBeginDate" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>
-									   	<TableRow >
+									   	{/*<TableRow >
 											<TableRowColumn>
 											首付款时间
 
@@ -130,7 +130,7 @@ class EditList extends React.Component {
 											<TableRowColumn>
 												<KrField name="firstPayDate" component="date" style={{width:160}}/>
 											</TableRowColumn>
-									   	</TableRow>
+									   	</TableRow>*/}
 									   	<TableRow>
 											<TableRowColumn>
 											押金总额
@@ -148,7 +148,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >已执行</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="status" grid={1/2} label="未执行" type="radio" value='false' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>
+												<KrField name="status" grid={1/2} label="未执行" type="radio" value='false' style={{marginTop:6,display:"inline-block",width:160}} onClick={this.chooseStick}/>
 												{/*<KrField name="status" component="checkBox" label="未执行"/>*/}
 											</TableRowColumn>
 									   	</TableRow>}
@@ -159,7 +159,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >未执行</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="status" grid={1/2} label="未执行" type="radio" value='false' style={{marginTop:10,display:"inline-block",width:160}} onClick={this.chooseStick}/>												
+												<KrField name="status" grid={1/2} label="未执行" type="radio" value='false' style={{marginTop:6,display:"inline-block",width:160}} onClick={this.chooseStick}/>												
 											</TableRowColumn>
 									   	</TableRow>}
 									   	<TableRow style={{height:'100px'}}>
