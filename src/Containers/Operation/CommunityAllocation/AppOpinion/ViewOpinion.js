@@ -173,8 +173,7 @@ class ViewOpinion extends React.Component {
 						 	
 							<div className="u-photo-box">
 								<span className="u-photo-title">图片</span>
-								<div className="u-photo-img-box">
-									
+								<div style={{marginLeft:15}}>
 								  {
 									infoList.imgUrl?<PhotoSwipeGallery items={items}  options={{index:detail.id,Share:false}} thumbnailContent={this.getThumbnailContent}/>:'无'
 								  }
