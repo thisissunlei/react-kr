@@ -932,8 +932,6 @@ module.exports = {
         method: 'post'
     },
     
-
-
     //运营平台-会员管理-会员卡管理
     'MemberCardManageList': {
         url: '/api/krspace-finance-web/member/card/card-list?type={type}&value={value}&page={page}&pageSize={pageSize}',
@@ -956,6 +954,9 @@ module.exports = {
         url: '/api/krspace-finance-web/point/manage/charge-list?companyId={companyId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
-    
-   
+    //运营平台-APP管理-我的地点-查找姓名
+    'find-by-name': {
+            url: '/api/krspace-finance-web/member/find-by-name?mbrNameStr={mbrNameStr}',
+            method: 'get'
+    },
 }

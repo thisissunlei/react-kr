@@ -40,7 +40,11 @@ import HeaderUpload from './HeaderUpload';
 			openDown:true,
 	      	openUp:false,
 	      	communityName:'',
-	      	codeName:''
+			codeName:'',
+			managerName:'',
+			managerPhone:'',
+			managerEmail:'',
+			managerIcon:''
 		}
 	}
   	componentDidMount(){
@@ -217,23 +221,44 @@ import HeaderUpload from './HeaderUpload';
 	reduceArr=(index)=>{
 		State.stationVos.splice(index,1);
 	}
+	selectManagerName=(form)=>{
+		console.log('form=====',form)
+		this.setState({
+			managerName:form.managerName,
+			managerPhone:form.managerPhone,
+			managerEmail:form.managerEmail,
+			managerIcon:form.managerIcon
+		})
+		
+		
+	}
 
+	selectName=()=>{
+
+	}
 
 
 	render(){
 		let {handleSubmit} = this.props;
 		let list = State.stationVos;
-		let _this = this;
+		var _this=this;
+		let {
+			managerName,
+			managerPhone,
+			managerEmail,
+			managerIcon
+		}=this.state;
+		
 		let typeLinkLeaderNameList = {
-			value: State.Leader.managerName,
+			value:managerName,
 			requestChange: _this.onLeaderChange.bind(null,'managerName')
 		}
 		let typeLinkLeaderPhoneList = {
-			value: State.Leader.managerPhone,
+			value: managerPhone,
 			requestChange: _this.onLeaderChange.bind(null,'managerPhone')
 		}
 		let typeLinkLeaderEmailList = {
-			value: State.Leader.managerEmail,
+			value:managerEmail,
 			requestChange: _this.onLeaderChange.bind(null,'managerEmail')
 		}
 		return (
@@ -262,13 +287,20 @@ import HeaderUpload from './HeaderUpload';
 			<div style={{marginBottom:5,paddingBottom:32,textAlign:'center'}}>
 
 				<div className="info-box">
-					 <HeaderUpload defaultUrl={State.Leader.headerUrl} onChange={this.addHeaderLeaderUrl} index={0}/>
+					 <HeaderUpload defaultUrl={managerIcon} onChange={this.addHeaderLeaderUrl} index={0}/>
 					 	
 					<div className="info-list">
 						<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
-					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList} maxLength={10} placeholder='请输入姓名' onBlur={this.onBlur.bind(this,State.Leader,'managerName')}/>
-					 	<input type="text" name="leadertelephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'  onBlur={this.onBlur.bind(this,State.Leader,'managerPhone')}/>
-					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,State.Leader,'managerEmail')}/>
+						<KrField  
+							name="memberId"  
+							component="searchPersonName" 
+							inline={false} 
+							onChange={this.selectManagerName} 
+							style={{width:261}}
+						 />
+						<input type="text" ref="managerName" name="name" className="info-input" valueLink={typeLinkLeaderNameList} maxLength={10} placeholder='请输入昵称' onBlur={this.onBlur.bind(this,State.Leader,'managerName')}/>
+					 	<input type="text" ref="managerPhone" name="leadertelephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'  onBlur={this.onBlur.bind(this,State.Leader,'managerPhone')}/>
+					 	<input type="text" ref="managerEmail" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,State.Leader,'managerEmail')}/>
 					</div> 
 				</div>
 
@@ -291,6 +323,13 @@ import HeaderUpload from './HeaderUpload';
 					    		
 								<div className="info-list">
 									<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区管家</span>
+									<KrField  
+										name={`memberId${index}`}
+										component="searchPersonName" 
+										inline={false} 
+										onChange={this.selectName} 
+										style={{width:261}}
+									/>
 					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList} maxLength={10}  placeholder='请输入姓名' onBlur={this.onBlur.bind(this,item,'managerName')}/>
 					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder='请输入电话号码' onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
 					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,item,'managerEmail')}/>

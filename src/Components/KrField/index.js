@@ -92,7 +92,7 @@ import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
 import MainNewsUploadImage from './MainNewsUploadImageComponent';
 
-
+import SearchPersonName from './SearchPersonName';
 
 
 class FieldRevert extends React.Component {
@@ -293,7 +293,12 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 				);
 			}
-
+			if (component === 'searchPersonName') {
+				return (
+					<FieldRevert {...this.props} component={SearchPersonName}  style={WrapStyles} {...other}/>
+				);
+			}
+			
 			if (component === 'SearchSourceOrigin') {
 				return (
 					<FieldRevert {...this.props} component={SearchSourceOrigin}  style={WrapStyles} {...other}/>
