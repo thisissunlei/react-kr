@@ -86,9 +86,7 @@ class AgreementTrim extends React.Component {
 	openNewCreateDialog=()=>{
 		State.openAgreementList = true;
 	}
-	detailOpenEdit=()=>{
-		State.openEdit = false;
-	}
+
 
 	contracttype=(type)=>{
     	let typeName = '';
@@ -116,10 +114,12 @@ class AgreementTrim extends React.Component {
     }
 	detailOpenAgreement=()=>{
 		console.log('detailOpenAgreement')
+		State.contractList = []
 		State.openAgreementList=false;
 	}
 	detailOpenEdit=()=>{
 		State.openAgreementList=false;
+		State.contractList = []
 		State.openEdit = false;
 	}
 	deleteDemos=()=>{

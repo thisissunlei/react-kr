@@ -12,27 +12,6 @@ import mobx, {
 	toJS
 } from 'mobx';
 let State = observable({
-	// 上传图片地址
-	requestURI :'/api/krspace-finance-web/activity/upload-pic',
-	detailContent:'',
-	openNewCreate:false,
-	openView:false,
-	openSearch:false,
-	newsDate:{},
-	searchParams: {
-		beginDate:'',
-		cityId:'',
-		countyId: '',
-		endDate:'',
-		name:'',
-		page: 1,
-		pageSize: 15,
-		type:'',
-		time:''
-	},
-	newsDetail:'',
-
-
 	openAgreementList:false,
 	orderList:[],
 	contractList:[],
