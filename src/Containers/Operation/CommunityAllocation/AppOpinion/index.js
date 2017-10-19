@@ -89,7 +89,7 @@ export default class AppOpinion extends React.Component {
 	render() {
 		let {itemDetail}=this.state;
 		return (
-			<div className="g-create-opinion g-create-app-opinion">
+			<div className="g-create-app-opinion">
 				<Title value="App意见反馈"/>
 				<Section title="App意见反馈列表" description="" style={{marginBottom:-5,minHeight:910}}>
 					

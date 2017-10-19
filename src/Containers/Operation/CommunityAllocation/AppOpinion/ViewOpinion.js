@@ -21,8 +21,8 @@ import {
 	Message,
 	KrDate,
 } from 'kr-ui';
-import 'react-photoswipe/lib/photoswipe.css';
 import {PhotoSwipeGallery} from 'react-photoswipe';
+import 'react-photoswipe/lib/photoswipe.css';
 import './index.less';
 
 

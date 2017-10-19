@@ -21,8 +21,8 @@ import {
 	Message,
 	KrDate,
 } from 'kr-ui';
-import 'react-photoswipe/lib/photoswipe.css';
 import {PhotoSwipeGallery} from 'react-photoswipe';
+import 'react-photoswipe/lib/photoswipe.css';
 import './index.less';
 
 
@@ -76,7 +76,6 @@ class ViewOpinion extends React.Component {
 			}=this.state;
 			let {detail}=this.props;
 			let items = [];
-			console.log('detail=====',detail)
 			if(infoList.imgUrl){
 				items = infoList.imgUrl.map((item,value) => {
 					return(
