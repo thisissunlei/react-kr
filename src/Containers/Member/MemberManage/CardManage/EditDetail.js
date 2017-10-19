@@ -144,12 +144,10 @@ class EditDetail extends React.Component {
 				</div>
 				
 				<span className="edit-card-memo">
-					<KrField
-						label="备注"
-						name ="memo"
-						component = 'textarea'
-						style={{width:600}}
-						maxSize={50}
+					<KrField  
+						name="memo" 
+						type="text" 
+						label="备注" 
 					/>
 				</span>
 
@@ -173,6 +171,9 @@ const validate = values =>{
 	var reg=/^[0-9a-fA-F]{8}$/;
 	const errors = {}
 
+	if(values.memo&&values.memo.length>50){
+		errors.memo = '备注内容必须在50位以内';
+	}
 	if(!values.outerCode){
 		errors.outerCode = '请输入会员卡号';
 	}

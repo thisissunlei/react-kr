@@ -60,7 +60,7 @@ module.exports = {
   
    //会员中心-会员详细信息－个人资料
     'getMemberDetailData': {
-        url: '/api/krspace-finance-web/member/member?id={id}',
+        url: '/api/krspace-finance-web/member/detail?id={id}',
         method: 'get'
     },
     // 会员中心-会员详细信息－个人行为
@@ -86,6 +86,32 @@ module.exports = {
     'meeting-reservation-delete':{
         url:'/api/krspace-finance-web/cmt-appointment/actions/cancel?id={id}',
         method:'post'
+    },
+    //录入会员卡
+    'inputCardUrl':{
+        url:'/api/krspace-finance-web/member/card/mbr-card',
+        method:'post'
+    },
+    //会员列表-离职
+    'member-leave':{
+        url:'/api/krspace-finance-web/member/leave?id={id}',
+        method:'get'
+    },
+    //会员列表-获取会员卡信息
+    'get-member-code':{
+        url:'/api/krspace-finance-web/member/card?id={id}',
+        method:'get'
+    },
+    //会员列表-解绑会员卡
+    'unbind-member-code':{
+        url:'/api/krspace-finance-web/member/unbindCard?memberId={memberId}&cardId={cardId}',
+        method:'get'
+    },
+    //会员列表-绑定会员卡
+    'bind-member-code':{
+        url:'/api/krspace-finance-web/member/bindCard',
+        method:'post'
     }
+
 
 }

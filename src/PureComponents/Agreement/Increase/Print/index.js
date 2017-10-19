@@ -47,7 +47,8 @@ export default class IncreasePrint extends React.Component {
 		var printHeight = printList.offsetHeight;
 		if(printHeight>1120 && !this.init){
 			this.init = true;
-			printList.style.height = Math.ceil(printHeight/1120)*297-4 + 'mm';
+			printList.style.height = Math.ceil(printHeight/1120)*297-6 + 'mm';
+			console.log('------',Math.ceil(printHeight/1120)*297-4 )
 		}
 		this.pages = Math.ceil(printHeight/1120);
 		let str=[] ;
@@ -74,6 +75,7 @@ export default class IncreasePrint extends React.Component {
 
 		}
 		State.cachet = str;
+		console.log('increase',this.pages,'height',printHeight)
 	}
 	renderContent=()=>{
 		if(State.baseInfo.hasOwnProperty('agreement')){

@@ -14,7 +14,8 @@ let State = observable({
 		pageSize: 15,
 		type:'',
 		value:''
-	}
+	},
+	openInputCardDialog : false
 	
 });
 

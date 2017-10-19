@@ -90,8 +90,8 @@ import CheckBoxComponent from './CheckBoxComponent';
 import LabelComponent from './LabelComponent';
 import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
-
 import RangeComponent from './RangeComponent';
+import MainNewsUploadImage from './MainNewsUploadImageComponent';
 
 
 
@@ -566,6 +566,11 @@ class FieldRevert extends React.Component {
 			if (component === 'searchRole') {
 				return (
 					<FieldRevert {...this.props} component={SearchRole}  style={WrapStyles} {...other}/>
+				);
+			}
+			if (component === 'mainNewsUploadImage') {
+				return (
+					<FieldRevert {...this.props} component={MainNewsUploadImage}  style={WrapStyles} {...other}/>
 				);
 			}
 			if (component === 'table') {

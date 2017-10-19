@@ -32,6 +32,11 @@ const WebBackstage_CommunityAllocation = (location, callback) => {
   }, 'WebBackstage_CommunityAllocation')
 }
 
+const WebBackstage_PicList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/WebBackstage/PicList').default)
+  }, 'WebBackstage_PicList')
+}
 module.exports =()=>{
 
 
@@ -46,6 +51,7 @@ module.exports =()=>{
 			</Route>
       {/*官网社区配置*/}
 			<Route path="communityAllocation" getComponent={WebBackstage_CommunityAllocation}/>
+			<Route path="picList" getComponent={WebBackstage_PicList}/>
 		</Route>
 	);
 };

@@ -26,18 +26,23 @@ export default class Payment extends Component {
 	checkPosition=()=>{
  		let {installmentPlans} = this.props;
  		let pageItem =null;
+ 		let {baseInfo} = this.props;
+
 		let tableTop = document.getElementsByClassName('ui-print-payment')[0];
 		let tableBottom = document.getElementsByClassName('reminders')[0];
 		this.init = false;
 		if(!tableTop){
 			return;
 		}
-		let top = tableTop.offsetTop;
-		let height = top+tableTop.clientHeight +55;
+		let youhui = 0;
+		let top = baseInfo.hasTactics?tableTop.offsetTop+172:tableTop.offsetTop;
+		let height = top+tableTop.clientHeight +45;
 		let tableBottomHeight = top+tableTop.clientHeight - 35;
 		//分期下面内容换页
-		if(height>1080 && height<1140){
-			tableTop.style.marginBottom = (1140-height)+'px';
+		if(height>1105 && height<1160){
+			console.log('分期下面内容换页=====>',height,1160-height)
+			tableTop.style.marginBottom = (1160-height)+'px';
+			this.init = true;
 		}
 		//分期内容换页
 		// if(top<1060 && top>720){
@@ -72,12 +77,11 @@ export default class Payment extends Component {
 			installmentReminddate:'',
 			installmentAmount:''
 		}
-		if(!this.inits && installmentPlans.length){
+		if(installmentPlans.length && !!num){
 			
 			installmentPlans.splice(num,0,obj);
 			installmentPlans.splice(num,0,obj);
 			this.inits = true;
-			console.log('componentWillReceiveProps',installmentPlans.length)
 			
 		}
 		return (
@@ -117,7 +121,7 @@ export default class Payment extends Component {
 	Twotable = (installmentPlans) => {
 		let num = this.checkPosition();
 		var plansOne, plansTwo;
-		if (installmentPlans.length > 15) {
+		if (installmentPlans.length > 15 ) {
 			plansOne = installmentPlans.slice(0, installmentPlans.length/2);
 			plansTwo = installmentPlans.slice(installmentPlans.length/2 +1, installmentPlans.length);
 		}

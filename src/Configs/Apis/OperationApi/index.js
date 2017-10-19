@@ -175,6 +175,7 @@ module.exports = {
       method:'get'
     },
     //运营平台－合同列表-客户订单下拉接口
+
    'orders-names':{
        url:'/api/krspace-finance-web/customer/orders-names?customerId={customerId}',
        method:'get'
@@ -186,7 +187,7 @@ module.exports = {
     },
     //运营平台－客户管理－个人客户列表
     'personalCustomers': {
-        url: '/api/krspace-finance-web/customer/personal-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}',
+        url: '/api/krspace-finance-web/customer/personal-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}&receiveId={receiveId}',
         method: 'get'
     },
     //运营平台－客户管理－个人客户列表－导出
@@ -920,11 +921,23 @@ module.exports = {
         url: '/api/krspace-finance-web/sys/visit-record/actions/edit/type/visit-status',
         method: 'post'
     },
+    //优惠选项
+    'sale-tactics': {
+        url: '/api/krspace-finance-web/sale-tactics?communityId={communityId}',
+        method: 'get'
+    },
+    //计算优惠
+    'count-sale': {
+        url: '/api/krspace-finance-web/count-sale',
+        method: 'post'
+    },
+    
+
 
     //运营平台-会员管理-会员卡管理
     'MemberCardManageList': {
         url: '/api/krspace-finance-web/member/card/card-list?type={type}&value={value}&page={page}&pageSize={pageSize}',
-        method: 'get'
+        method: 'post'
     },
     //运营平台-会员管理-会员卡片编辑回显
     'MemberCardEditShow': {
@@ -949,7 +962,6 @@ module.exports = {
         url: '/mockjsdata/31/krspace-finance-web/cmt/community/zone/save',
         method: 'post'
     },
-
      //运营平台-社区分期列表-编辑
      'community-stage-edit': {
         url: '/mockjsdata/31/krspace-finance-web/cmt/community/zone/update',
@@ -965,7 +977,13 @@ module.exports = {
     'stage-down-search': {
         url: '/mockjsdata/31/krspace-finance-web/cmt/community/zone/configed/search?zoneId={zoneId}',
         method: 'get'
-    },
+     },
+
+     //运营平台-APP管理-积分管理-充值记录
+     'charge-list': {
+        url: '/api/krspace-finance-web/point/manage/charge-list?companyId={companyId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+     },
     
    
 }

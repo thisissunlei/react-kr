@@ -50,7 +50,9 @@ export default class News extends React.Component {
         this.openViewDialog();
       } else if (type == 'edit') {
         this.openEditDialog();
-      }
+      }else if(type == 'toMain'){
+				window.open(`http://krspace.cn/news/${itemDetail.id}/detail`);
+			}
     }
     openNewCreateDialog=()=>{
     	State.openNewCreateDialog()
@@ -179,6 +181,7 @@ export default class News extends React.Component {
 		              		 <TableRowColumn name="createUser"></TableRowColumn>
 		              		 <TableRowColumn>
 								<Button label="查看"  type="operation"  operation="view"/>
+								<Button label="预览"  type="operation"  operation="toMain"/>
 									<Button label="编辑" operateCode="main_news_add"  type="operation"  operation="edit"/>
 		              		 </TableRowColumn>
 		              	</TableRow>

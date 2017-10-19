@@ -24,15 +24,6 @@ const Member_MemberManage_List = (location, callback) => {
     callback(null, require('kr/Containers/Member/MemberManage/List').default)
   }, 'Member_MemberManage_List')
 }
-
-const Member_MemberManage_Detail = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Member/MemberManage/Detail').default)
-  }, 'Member_MemberManage_Detail')
-}
-
-
-
 const Member_MemberManage_DoorManage = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Member/MemberManage/DoorManage').default)
@@ -52,7 +43,6 @@ module.exports =()=>{
          <IndexRedirect to="memberManage/list" />
         <Route path="memberManage" getComponent={Basic}>
             <Route path="list"  getComponent={Member_MemberManage_List}/>
-            <Route path=":memberId/detail/:companyId"  getComponent={Member_MemberManage_Detail}/>
             <Route path="cardmanage"  getComponent={Member_MemberManage_CardManage}/>
 						<Route path="doormanage"  getComponent={Member_MemberManage_DoorManage}/>
         </Route>

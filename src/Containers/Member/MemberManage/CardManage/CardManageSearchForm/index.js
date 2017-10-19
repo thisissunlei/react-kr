@@ -70,6 +70,10 @@ class CardManageSearchForm extends React.Component{
 		openImportCardDialog && openImportCardDialog();
 	}
 
+	openInputCardDialog=()=>{
+		State.openInputCardDialog = true;
+	}
+
 
 	render(){
 		let {floorsOptions,propertyOption,makerOptions}=this.state;
@@ -96,12 +100,10 @@ class CardManageSearchForm extends React.Component{
 				<Grid style={{marginBottom:22,marginTop:2}}>
 					<Row >
 
-						<Col  align="left" style={{marginLeft:0,float:'left'}}> 
-								<Button label="入库" type='button' onTouchTap={this.openImportCardDialog}  /> 
-						</Col>
+						
 						<Col  align="left" style={{marginLeft:20,float:'left'}}>
 
-							<Button label="批量激活" type='button' joinEditForm onTouchTap={this.openHeavilyActivationDialog}  />
+							<Button label="录入会员卡" type='button'  onTouchTap={this.openInputCardDialog}  />
 
 						</Col>
 						<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
