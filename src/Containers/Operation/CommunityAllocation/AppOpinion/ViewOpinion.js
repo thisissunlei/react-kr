@@ -21,6 +21,8 @@ import {
 	Message,
 	KrDate,
 } from 'kr-ui';
+import 'react-photoswipe/lib/photoswipe.css';
+import {PhotoSwipeGallery} from 'react-photoswipe';
 import './index.less';
 
 
@@ -60,6 +62,11 @@ class ViewOpinion extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	getThumbnailContent = (item) => {
+		return (
+		  <img src={item.src} width={90} height={90}/>
+		);
+	  }
 	
 	
 	render() {
@@ -68,6 +75,19 @@ class ViewOpinion extends React.Component {
 				infoList,
 				ifCity,
 			}=this.state;
+			let {detail}=this.props;
+			let items = [];
+			if(infoList.imgUrl){
+				items = infoList.imgUrl.map((item,value) => {
+					return(
+						{
+							src: item,
+							w: 900,
+							h: 900,
+						}
+					)
+				});
+			}
 			
 		return (
 			<div className="g-create-opinoin">
@@ -154,10 +174,9 @@ class ViewOpinion extends React.Component {
 							<div className="u-photo-box">
 								<span className="u-photo-title">图片</span>
 								<div className="u-photo-img-box">
+									
 								  {
-									infoList.imgUrl?infoList.imgUrl.map((item,index)=>{
-										return <img src={item} key={index} />
-									}):'无'
+									infoList.imgUrl?<PhotoSwipeGallery items={items}  options={{index:detail.id,Share:false}} thumbnailContent={this.getThumbnailContent}/>:'无'
 								  }
 								</div>
 							</div>
