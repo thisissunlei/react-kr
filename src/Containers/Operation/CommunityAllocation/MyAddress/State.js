@@ -38,14 +38,16 @@ let State = observable({
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
-				managerType:'COMMUNITY_MANAGER'
+				managerType:'COMMUNITY_MANAGER',
+				memberId:''
 			}],
 		Leader:{
 			managerName:'',
 			managerPhone:'',
 			managerEmail:'',
 			managerIcon:'',
-			managerType:'COMMUNITY_LEADER'
+			managerType:'COMMUNITY_LEADER',
+			memberId:''
 		},
 		editStationVos:[],
 		editLeader:{},

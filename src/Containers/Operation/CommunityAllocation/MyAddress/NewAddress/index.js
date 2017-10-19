@@ -41,10 +41,6 @@ import HeaderUpload from './HeaderUpload';
 	      	openUp:false,
 	      	communityName:'',
 			codeName:'',
-			managerName:'',
-			managerPhone:'',
-			managerEmail:'',
-			managerIcon:''
 		}
 	}
   	componentDidMount(){
@@ -69,15 +65,18 @@ import HeaderUpload from './HeaderUpload';
  	}
 
 	onSubmit = (values) => {
+		var form={};
 		let managerInfo = {
 				managerName:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
-				managerType:'COMMUNITY_MANAGER'
+				managerType:'COMMUNITY_MANAGER',
+				memberId:''
 			};
 		let manager = [];
 		managerInfo = JSON.stringify(managerInfo);
+		
 		State.stationVos.map(item=>{
 			if(JSON.stringify(item) !== managerInfo){
 				manager.push(item)
@@ -87,7 +86,6 @@ import HeaderUpload from './HeaderUpload';
 		manager.push(State.Leader);
 		values.cmtManagerList = JSON.stringify(manager);
 		values.cmtGuideList = JSON.stringify(State.addGuideList)
-		console.log('values',values);
 		State.onNewAddressSubmit(values)
 
   	}
@@ -222,13 +220,11 @@ import HeaderUpload from './HeaderUpload';
 		State.stationVos.splice(index,1);
 	}
 	selectManagerName=(form)=>{
-		this.setState({
-			managerName:form.managerName,
-			managerPhone:form.managerPhone,
-			managerEmail:form.managerEmail,
-			managerIcon:form.managerIcon
-		})
-		
+		State.Leader.managerName=form.managerName;
+		State.Leader.managerPhone=form.managerPhone;
+		State.Leader.managerEmail=form.managerEmail;
+		State.Leader.headerUrl=form.managerIcon;
+		State.Leader.memberId=form.memberId;
 		
 	}
 
@@ -237,6 +233,7 @@ import HeaderUpload from './HeaderUpload';
 		State.stationVos[index].managerPhone=form.managerPhone;
 		State.stationVos[index].managerEmail=form.managerEmail;
 		State.stationVos[index].headerUrl=form.managerIcon;
+		State.stationVos[index].memberId=form.memberId;
 
 	}
 
@@ -245,23 +242,18 @@ import HeaderUpload from './HeaderUpload';
 		let {handleSubmit} = this.props;
 		let list = State.stationVos;
 		var _this=this;
-		let {
-			managerName,
-			managerPhone,
-			managerEmail,
-			managerIcon
-		}=this.state;
+		
 		
 		let typeLinkLeaderNameList = {
-			value:managerName,
+			value:State.Leader.managerName,
 			requestChange: _this.onLeaderChange.bind(null,'managerName')
 		}
 		let typeLinkLeaderPhoneList = {
-			value: managerPhone,
+			value: State.Leader.managerPhone,
 			requestChange: _this.onLeaderChange.bind(null,'managerPhone')
 		}
 		let typeLinkLeaderEmailList = {
-			value:managerEmail,
+			value:State.Leader.managerEmail,
 			requestChange: _this.onLeaderChange.bind(null,'managerEmail')
 		}
 		return (
@@ -290,7 +282,7 @@ import HeaderUpload from './HeaderUpload';
 			<div style={{marginBottom:5,paddingBottom:32,textAlign:'center'}}>
 
 				<div className="info-box">
-					 <HeaderUpload defaultUrl={managerIcon} onChange={this.addHeaderLeaderUrl} index={0}/>
+					 <HeaderUpload defaultUrl={State.Leader.headerUrl} onChange={this.addHeaderLeaderUrl} index={0}/>
 					 	
 					<div className="info-list">
 						<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
