@@ -222,7 +222,6 @@ import HeaderUpload from './HeaderUpload';
 		State.stationVos.splice(index,1);
 	}
 	selectManagerName=(form)=>{
-		console.log('form=====',form)
 		this.setState({
 			managerName:form.managerName,
 			managerPhone:form.managerPhone,
@@ -233,7 +232,11 @@ import HeaderUpload from './HeaderUpload';
 		
 	}
 
-	selectName=()=>{
+	selectName=(index,form)=>{
+		State.stationVos[index].managerName=form.managerName;
+		State.stationVos[index].managerPhone=form.managerPhone;
+		State.stationVos[index].managerEmail=form.managerEmail;
+		State.stationVos[index].headerUrl=form.managerIcon;
 
 	}
 
@@ -327,7 +330,7 @@ import HeaderUpload from './HeaderUpload';
 										name={`memberId${index}`}
 										component="searchPersonName" 
 										inline={false} 
-										onChange={this.selectName} 
+										onChange={this.selectName.bind(_this,index)} 
 										style={{width:261}}
 									/>
 					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList} maxLength={10}  placeholder='请输入姓名' onBlur={this.onBlur.bind(this,item,'managerName')}/>
