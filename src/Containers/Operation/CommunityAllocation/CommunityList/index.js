@@ -364,15 +364,14 @@ class CommunityList  extends React.Component{
 														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
-											<TableRowColumn name="opened" component={(value,oldValue)=>{
-												      var label=(value=='true')?'是':'否';
-                              return <div style={value=='true'?{color:'red'}:{}}>{label}</div>
+											<TableRowColumn name="hasZoneStr" component={(value,oldValue)=>{
+                              return <div style={value=='是'?{color:'red'}:{}}>{value}</div>
                            }}></TableRowColumn>
 			                <TableRowColumn type="operation" component={(value,oldValue)=>{
                             return <div>
 																  {isEdit&&<span style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}} onClick={this.openEditFn.bind(this,value)}>编辑</span>}
 																	<span  onClick={this.openWatchFn.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>查看</span>
-																	{value.opened&&<span  onClick={this.openSelectFn.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>分期</span>}
+																	{value.hasZoneStr=='是'&&<span  onClick={this.openSelectFn.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>分期</span>}
 															</div>
                            }}>
 			                </TableRowColumn>

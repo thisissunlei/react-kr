@@ -31,6 +31,20 @@ class EditStaging  extends React.Component{
         Store.dispatch(change('EditStaging','config',[]));
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.getData.zoneType){
+            if(nextProps.getData.zoneType=='FLOOR'){
+                this.setState({
+                  isOk:'noOk'
+                })
+            }else{
+                this.setState({
+                  isOk:'ok'
+               }) 
+            }
+        }
+    }
+
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -55,9 +69,18 @@ class EditStaging  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,floor,communityId}=this.props;
+        let {handleSubmit,floor,communityId,getData}=this.props;
 
         let {isOk}=this.state;
+        
+        if(getData.zoneConfigSearchVO&&getData.zoneConfigSearchVO.length!=0){
+            getData.zoneConfigSearchVO.map((item,index)=>{
+                if(item.detailType=='FLOOR'){
+                    floor[item.floor].checked=true;
+                }
+            })        
+        }
+    
 
        
 		return(
@@ -130,7 +153,7 @@ class EditStaging  extends React.Component{
                                 component="groupCheckbox"
                                 defaultValue={floor}
                                 requireLabel={true}
-                         /></div>}
+                             /></div>}
 
                         
                        <Grid style={{marginBottom:5,marginLeft:-42,marginTop:15}}>
@@ -175,7 +198,7 @@ const validate = values =>{
     if(!values.openDate){
         errors.openDate='请选择开业时间'   
     }
-
+  
     if(!values.floor){
         errors.floor='请选择楼层'   
     }

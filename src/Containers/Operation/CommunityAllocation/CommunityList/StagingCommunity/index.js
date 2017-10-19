@@ -30,6 +30,7 @@ class StagingCommunity  extends React.Component{
         this.state={
             openAddCommunity:false,
             openEditCommunity:false,
+            getData:{},
             searchParams:{
                communityId:this.props.communityId
             },
@@ -86,6 +87,8 @@ class StagingCommunity  extends React.Component{
              }
             params.config=JSON.stringify(zoneArr);
         }
+        params.openDate=DateFormat(params.openDate,"yyyy-mm-dd hh:MM:ss");
+        delete params.zoneConfigSearchVO;
         var _this=this;
         Http.request('community-stage-edit',{},params).then(function(response) {
             var search={
@@ -106,6 +109,9 @@ class StagingCommunity  extends React.Component{
         var _this=this;
         Http.request('stage-down-search',{zoneId:id}).then(function(response) {
             Store.dispatch(initialize('EditStaging',response));
+            _this.setState({
+                getData:response
+            })
         }).catch(function(err) {
             Message.error(err.message);
         });  
@@ -136,6 +142,7 @@ class StagingCommunity  extends React.Component{
 	render(){
 
         let {floor,communityId}=this.props;
+        let {getData}=this.state;
         var floors=[];
         floor.map((index,item)=>{
             var list={};
@@ -203,8 +210,7 @@ class StagingCommunity  extends React.Component{
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }}></TableRowColumn>
                                  <TableRowColumn name="openDate" component={(value,oldValue)=>{
-                                        {/*return (<KrDate value={value} format="yyyy-mm-dd"/>)*/}
-                                        return <div>{value}</div>
+                                        return (<KrDate value={value} format="yyyy-mm-dd"/>)
                                 }}></TableRowColumn>
                                 <TableRowColumn name="stationNum" component={(value,oldValue)=>{
 		 										var maxWidth=10;
@@ -252,6 +258,7 @@ class StagingCommunity  extends React.Component{
                         onSubmit={this.openEditSubmit}
                         floor={floors}
                         communityId={communityId}
+                        getData={getData}
                     />
 
                 </Drawer>
