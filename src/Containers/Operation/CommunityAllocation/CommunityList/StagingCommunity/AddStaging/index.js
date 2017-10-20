@@ -88,6 +88,9 @@ class AddStaging  extends React.Component{
         this.getData=Object.assign({all:{startValue:item.numberMin,endValue:item.numberMax}},item);
         this.openEditCommunity();
     }
+    deleteButtonClck = (item,index) =>{
+        this.configArr.splice(index,1);
+    }   
 
     onEditStationSubmit = () =>{
         this.openEditCommunity();
@@ -165,7 +168,12 @@ class AddStaging  extends React.Component{
                                     <FRow name = "detailTypeStr" label = "类型"/>
                                     <FRow name = "codeStr" label = "编号" rowStyle={{width:'400px'}}/>
                                     <FRow label = "操作" type='operation' component={(item)=>{
-                                            return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
+                                            return (
+                                                <div>
+                                                    <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingRight:'10px'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
+                                                    <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingLeft:'10px'}} onClick={this.deleteButtonClck.bind(this,item,index)}>删除</div>
+                                                </div>
+                                            )
                                     }}/>
                             </FdTabel>
                         </div>}

@@ -65,7 +65,7 @@ export default class FContent extends React.Component {
          return (
           <td key={index}>
               {
-                item.component(data)
+                item.component(data,index)
               }
           </td>
         );
