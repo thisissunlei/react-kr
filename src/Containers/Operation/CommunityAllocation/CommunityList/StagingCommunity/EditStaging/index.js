@@ -34,11 +34,11 @@ class EditStaging  extends React.Component{
         this.state={
             openStation:false,
             openEditStation:false,
-            isOk:''
+            isOk:'',
+            other:''
         }
         this.configArr=[];
         this.getData={};
-        this.isRender=false;
     }
     
     componentDidMount(){      
@@ -65,7 +65,6 @@ class EditStaging  extends React.Component{
     
 
     onSubmit=(values)=>{
-        console.log('values',values);
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
     }
@@ -76,11 +75,15 @@ class EditStaging  extends React.Component{
     }
 
     typeChange=(param)=>{
+        var isOk='';
         if(param.value=='SPACE'){
-            State.isOk='ok';
+            isOk='ok'; 
         }else{
-            State.isOk='noOk'; 
+            isOk='noOk'; 
         }
+        this.setState({
+            isOk 
+        })
      }
 
 
@@ -120,8 +123,12 @@ class EditStaging  extends React.Component{
         this.openEditCommunity();
     }
 
-    deleteButtonClck=(item)=>{
-        console.log('item',item);
+    deleteButtonClck=(event,item,index)=>{ 
+        this.configArr.splice(index,1);
+        Store.dispatch(change('EditStaging','config',this.configArr)); 
+        this.setState({
+            other:+new Date()
+        })
     }
 
     onEditStationSubmit = (params) =>{
@@ -214,10 +221,14 @@ class EditStaging  extends React.Component{
                                 <FRow name = "floor" label = "楼层"/>
                                 <FRow name = "detailTypeStr" label = "类型"/>
                                 <FRow name = "codeStr" label = "编号" rowStyle={{width:'400px'}}/>
-                                <FRow label = "操作" type='operation' component={(item)=>{
+                                <FRow label = "操作" type='operation' component={(item,index)=>{
                                         return <div>
                                                  <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingRight:'10px'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
-                                                 <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingLeft:'10px'}} onClick={this.deleteButtonClck.bind(this,item)}>删除</div>
+                                                 <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingLeft:'10px'}} 
+                                                    onClick={(event)=>{
+                                                        this.deleteButtonClck(event,item,index)
+                                                    }}
+                                                 >删除</div>
                                              </div>
                                         }}/>
                                 </FdTabel>

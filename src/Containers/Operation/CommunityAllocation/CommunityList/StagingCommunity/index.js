@@ -170,6 +170,7 @@ class StagingCommunity  extends React.Component{
                 console.log('_',_this.editRef.wrappedInstance,'44');
                 _this.editRef.wrappedInstance.getSelectConfig(res); 
            }, 500);
+           State.stageData=res;
         }).catch(function(err) {
             Message.error(err.message);
         });  

@@ -50,12 +50,11 @@ export default class FContent extends React.Component {
 
   }
   contentRender = () =>{
-    const {data,detail,checkbox} = this.props;
-
-    var doms = detail.map((item,index)=>{
+    const {data,detail,checkbox,index} = this.props;
+    var doms = detail.map((item,i)=>{
 			if (item.type == 'date' && !(item.component)) {
 				return (
-					<td key = {index}>
+					<td key = {i}>
 						<KrDate value={data[item.name]} format={item.format} />
 					</td>
 				);
@@ -63,22 +62,22 @@ export default class FContent extends React.Component {
 
       if (item.type === 'operation' && typeof (item.component) === 'function'){
          return (
-          <td key={index}>
-              {
-                item.component(data)
-              }
+          <td key={i}>
+             {  
+               item.component(data,index)  
+             }
           </td>
         );
       }
 
       return (
-        <td key = {index}>
+        <td key = {i}>
             <div className='fd-row' style={item.rowStyle?item.rowStyle:{}}>
               {item.checkbox && <input
-                  key={index}
+                  key={i}
                   type="checkbox"
                   onChange={(event) =>{
-                      this.onCheck(event,item,index)
+                      this.onCheck(event,item,i)
                   }}
                   checked = {item.checked ? "checked":""}
               />}

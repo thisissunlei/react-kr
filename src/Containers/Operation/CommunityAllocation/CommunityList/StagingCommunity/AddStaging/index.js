@@ -26,6 +26,7 @@ class AddStaging  extends React.Component{
             isOk:'',
             openStation:false,
             openEditStation:false,
+            other:''
         }
         this.configArr=[];
         this.getData={};
@@ -47,16 +48,16 @@ class AddStaging  extends React.Component{
     }
 
     typeChange=(param)=>{
-       if(param.value=='SPACE'){
-           this.setState({
-             isOk:'ok'
-           })
-       }else{
-           this.setState({
-             isOk:'noOk'
-          }) 
-       }
-    }
+        var isOk='';
+        if(param.value=='SPACE'){
+            isOk='ok'; 
+        }else{
+            isOk='noOk'; 
+        }
+        this.setState({
+            isOk 
+        })
+     }
 
 
     openAddCommunity=()=>{
@@ -65,11 +66,12 @@ class AddStaging  extends React.Component{
         })
     }
 
-    onStationSubmit=(params)=>{
-        params=Object.assign({},params);
-        if(params.config.length!=0){
-            var codeList=[];
-            params.config.map((item,index)=>{
+    commonStation=(params,type)=>{
+        var codeList=[];
+        var config=[];
+        config=params.codeList;
+        if(config.length!=0){
+            config.map((item,index)=>{
                 codeList.push(item.code);
             })
         }
@@ -78,20 +80,36 @@ class AddStaging  extends React.Component{
         }else if(params.detailType=='SPACE'){
             params.detailTypeStr='独立空间'
         }
-        params.codeStr=codeList.join(',');
+        params.codeStr=(codeList.length!=0)?codeList.join(','):'';
         this.configArr.push(params);
-        Store.dispatch(change('AddStaging','config',this.configArr));
+        Store.dispatch(change('AddStaging','config',this.configArr.length!=0?this.configArr:[])); 
+    }
+
+    onStationSubmit=(params)=>{
+        params=Object.assign({},params);
+        this.commonStation(params,'');
         this.openAddCommunity();
     }
 
     editButtonClck=(item)=>{
-        this.getData=Object.assign({all:{startValue:item.numberMin,endValue:item.numberMax}},item);
+        this.getData=Object.assign({all:{startValue:item.numberMin||'',endValue:item.numberMax||''}},item);
         this.openEditCommunity();
     }
 
-    onEditStationSubmit = () =>{
+    deleteButtonClck=(event,item,index)=>{ 
+        this.configArr.splice(index,1);
+        Store.dispatch(change('AddStaging','config',this.configArr)); 
+        this.setState({
+            other:+new Date()
+        })
+    }
+
+    onEditStationSubmit = (params) =>{
+        params=Object.assign({},params);
+        this.commonStation(params,'');
         this.openEditCommunity();
     }
+
 
     openEditCommunity=()=>{     
         this.setState({
@@ -105,7 +123,6 @@ class AddStaging  extends React.Component{
         let {handleSubmit,floor,communityId}=this.props;
         let {isOk,openStation,openEditStation}=this.state;
 
-        console.log('this',this.getData);
        
        
 		return(
@@ -164,9 +181,16 @@ class AddStaging  extends React.Component{
                                     <FRow name = "floor" label = "楼层"/>
                                     <FRow name = "detailTypeStr" label = "类型"/>
                                     <FRow name = "codeStr" label = "编号" rowStyle={{width:'400px'}}/>
-                                    <FRow label = "操作" type='operation' component={(item)=>{
-                                            return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
-                                    }}/>
+                                    <FRow label = "操作" type='operation' component={(item,index)=>{
+                                        return <div>
+                                                 <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingRight:'10px'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
+                                                 <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingLeft:'10px'}} 
+                                                    onClick={(event)=>{
+                                                        this.deleteButtonClck(event,item,index)
+                                                    }}
+                                                 >删除</div>
+                                             </div>
+                                        }}/>
                             </FdTabel>
                         </div>}
 

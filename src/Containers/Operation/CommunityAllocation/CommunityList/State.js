@@ -41,8 +41,6 @@ let State = observable({
 
 		//分期回血数据
 		stageData:'',
-		//回血ok
-		isOk:''
 });
 //参数修改
 State.setSearchParams = action(function(params) {
