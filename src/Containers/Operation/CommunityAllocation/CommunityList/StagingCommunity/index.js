@@ -74,16 +74,26 @@ class StagingCommunity  extends React.Component{
                     }
                 }
              }
-             configNew=params.config;
-             configNew.map((item,index)=>{
-                item.config.map((items,indexs)=>{
-                   items.detailType=item.detailType
-                })
+             params.config.map((item,index)=>{
+                var detailIdArr=[];
+                 item.config.map((items,indexs)=>{
+                    detailIdArr.push(items.detailId)
+                 })
+                 item.detailId=detailIdArr;
+                 delete item.all;
+                 delete item.config;
+                 delete item.numberMax;
+                 delete item.numberMin;
+                 delete item.communityId;
+                 delete item.codeStr;
+                 delete item.detailTypeStr;    
              })
+             configNew=[].concat(params.config);
            } 
            //params.config=JSON.stringify(configNew); 
+            params.config = configNew;
         }
-        console.log('params.config',params.config,params);
+        console.log('params.config2',params.config,params);
         var _this=this;
         Http.request('community-stage-add',{},params).then(function(response) {
             var search={
@@ -131,26 +141,28 @@ class StagingCommunity  extends React.Component{
         Http.request('stage-down-search',{zoneId:id}).then(function(response) {
             Store.dispatch(initialize('EditStaging',response));
             if(response.zoneConfigSearchVO&&response.zoneConfigSearchVO.length!=0){
-                var configArr=[];
-                response.zoneConfigSearchVO.map((item,index)=>{
-                    var list={};
-                    var configs='';
-                    if(item.zoneConfigedCodeListVos.length!=0){
-                        var codeArr=[];
-                        item.zoneConfigedCodeListVos.map((item,index)=>{
-                            codeArr.push(item.code);
-                        })
-                        configs=codeArra.join(",");
-                    }
-                    list.detailType=item.detailTypeName;
-                    list.floor=item.floor;
-                    list.code=configs;
-                })
+                    var configArr=[];
+                    response.zoneConfigSearchVO.map((item,index)=>{
+                        var configs='';
+                        if(item.zoneConfigedCodeListVos&&item.zoneConfigedCodeListVos.length!=0){
+                            var codeArr=[];
+                            item.zoneConfigedCodeListVos.map((item,index)=>{
+                                codeArr.push(item.code);
+                            })
+                            configs=codeArra.join(",");
+                            item.codeStr=configs;
+                            item.detailTypeStr=item.detailTypeName;
+                            Store.dispatch(change('EditStaging','config',item.zoneConfigedCodeListVos));
+                        }else{
+                            Store.dispatch(change('EditStaging','config',[]));
+                        }
+                    })
+            }else{
+                Store.dispatch(change('EditStaging','config',[]));
             }
             _this.setState({
                 getData:response
             })
-            Store.dispatch(change('EditStaging','config',response.zoneConfigSearchVO?response.zoneConfigSearchVO:[]));
         }).catch(function(err) {
             Message.error(err.message);
         });  
@@ -181,9 +193,10 @@ class StagingCommunity  extends React.Component{
 	render(){
 
         let {floor,communityId}=this.props;
+        
         let {getData}=this.state;
         var floors=[];
-        floor.map((index,item)=>{
+        floor.map((item,index)=>{
             var list={};
             list.value=''+item;
             list.label=''+item;

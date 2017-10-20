@@ -93,8 +93,7 @@ class AddStaging  extends React.Component{
         this.openEditCommunity();
     }
 
-    openEditCommunity=()=>{
-        
+    openEditCommunity=()=>{     
         this.setState({
             openEditStation:!this.state.openEditStation
         }) 
@@ -164,7 +163,7 @@ class AddStaging  extends React.Component{
                                 >
                                     <FRow name = "floor" label = "楼层"/>
                                     <FRow name = "detailTypeStr" label = "类型"/>
-                                    <FRow name = "codeStr" label = "编号"/>
+                                    <FRow name = "codeStr" label = "编号" rowStyle={{width:'400px'}}/>
                                     <FRow label = "操作" type='operation' component={(item)=>{
                                             return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
                                     }}/>

@@ -8,7 +8,8 @@ import {
     Button,
     FdTabel,
     FContent,
-	FRow,
+    FRow,
+    Dialog
 } from 'kr-ui';
 import {
 	LocationChoice
@@ -23,8 +24,11 @@ class EditStaging  extends React.Component{
         super(props, context);
         this.state={
             isOk:'',
+            openStation:false,
+            openEditStation:false,
         }
-        this.data = {};
+        this.configArr=[];
+        this.getData={};
 	}
     
     componentDidMount(){
@@ -67,21 +71,68 @@ class EditStaging  extends React.Component{
         }
      }
 
+
+     openAddCommunity=()=>{
+        this.setState({
+            openStation:!this.state.openStation
+        })
+    }
+
+    onStationSubmit=(params)=>{
+        params=Object.assign({},params);
+        if(params.config.length!=0){
+            var codeList=[];
+            params.config.map((item,index)=>{
+                codeList.push(item.code);
+            })
+        }
+        if(params.detailType=='STATION'){
+            params.detailTypeStr='工位'
+        }else if(params.detailType=='SPACE'){
+            params.detailTypeStr='独立空间'
+        }
+        params.codeStr=codeList.join(',');
+        this.configArr.push(params);
+        Store.dispatch(change('EditStaging','config',this.configArr));
+        this.openAddCommunity();
+    }
+
+    editButtonClck=(item)=>{
+        this.getData=Object.assign({all:{startValue:item.numberMin,endValue:item.numberMax}},item);
+        this.openEditCommunity();
+    }
+
+    onEditStationSubmit = () =>{
+        this.openEditCommunity();
+    }
+
+    openEditCommunity=()=>{     
+        this.setState({
+            openEditStation:!this.state.openEditStation
+        }) 
+    }
+
 	render(){
 
         let {handleSubmit,floor,communityId,getData}=this.props;
 
-        let {isOk}=this.state;
+    
+
+        let {isOk,openStation,openEditStation}=this.state;
         
         if(getData.zoneConfigSearchVO&&getData.zoneConfigSearchVO.length!=0){
             getData.zoneConfigSearchVO.map((item,index)=>{
                 if(item.detailType=='FLOOR'){
-                    floor[item.floor].checked=true;
+                    floor.map((items,indexs)=>{
+                        if(items.value==item.floor){
+                            items.checked=true; 
+                        }
+                    })
                 }
             })        
         }
-    
-     
+      
+        
        
 		return(
 
@@ -137,10 +188,10 @@ class EditStaging  extends React.Component{
                                 initFoldNum={1000}
                             >
                                 <FRow name = "floor" label = "楼层"/>
-                                <FRow name = "detailType" label = "类型"/>
-                                <FRow name = "code" label = "编号"/>
+                                <FRow name = "detailTypeStr" label = "类型"/>
+                                <FRow name = "codeStr" label = "编号" rowStyle={{width:'400px'}}/>
                                 <FRow label = "操作" type='operation' component={(item)=>{
-                                        return <div style={{color:'#499df1',cursor:'pointer'}}>编辑</div>
+                                        return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
                                         }}/>
                                 </FdTabel>
                             </div>}
@@ -168,6 +219,32 @@ class EditStaging  extends React.Component{
                         </Grid>
                  </form>
 
+                  <Dialog
+                        title = "选择工位" 
+                        onClose={this.openAddCommunity}
+                        open={openStation}
+                        contentStyle ={{ width: '666px',height:'auto'}}
+                        >
+                        <LocationChoice 
+                            communityId = {communityId} 
+                            url='stage-detail-search'      
+                            onClose = {this.openAddCommunity} 
+                            onSubmit = {this.onStationSubmit} />
+                        </Dialog>
+                    <Dialog
+                            title = "选择工位" 
+                            onClose={this.openEditCommunity}
+                            open={openEditStation}
+                            contentStyle ={{ width: '666px',height:'auto'}}
+                        >
+                        <LocationChoice  
+                            communityId = {communityId} 
+                            url='stage-detail-search' 
+                            type = "edit"
+                            data = {this.getData}
+                            onClose = {this.openEditCommunity} 
+                            onSubmit = {this.onEditStationSubmit} />
+                    </Dialog>                              
                   
 			</div>
 		);
@@ -198,7 +275,6 @@ const validate = values =>{
     if(!values.openDate){
         errors.openDate='请选择开业时间'   
     }
-    
     
     if(!values.floor){
         errors.floor='请选择楼层'   

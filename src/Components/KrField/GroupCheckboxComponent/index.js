@@ -25,7 +25,6 @@ export default class GroupCheckboxComponent extends React.Component {
   }
 
   componentDidMount() {
-    
     this.setInit(this.props.defaultValue);
   }
 
