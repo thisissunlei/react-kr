@@ -57,7 +57,7 @@ class EditStaging  extends React.Component{
         this.setState({
             isOk 
         },function(){
-            obj.zoneConfigSearchVO&&obj.zoneConfigSearchVO.map((item,index)=>{
+            obj.zoneConfigSearchVO&&(obj.zoneType=='SPACE')&&obj.zoneConfigSearchVO.map((item,index)=>{
                 _this.commonStation(item,'props');
             })
         })
@@ -150,8 +150,7 @@ class EditStaging  extends React.Component{
 
         let {handleSubmit,floor,communityId}=this.props;
 
-        console.log('id',communityId);
-
+        
         let {openStation,openEditStation,isOk}=this.state;
         
         if(toJS(State.stageData).zoneConfigSearchVO&&toJS(State.stageData).zoneConfigSearchVO.length!=0){
