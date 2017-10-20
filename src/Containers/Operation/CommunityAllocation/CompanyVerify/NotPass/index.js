@@ -84,7 +84,7 @@ export default class NotPass extends React.Component {
                               }else{
                                 TooltipStyle="block";
                               }
-                                return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+                                return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
                               <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
                         }}></TableRowColumn>
                         <TableRowColumn 
@@ -97,7 +97,7 @@ export default class NotPass extends React.Component {
                               }else{
                                 TooltipStyle="block";
                               }
-                                return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+                                return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
                               <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
                         }} ></TableRowColumn>
                         <TableRowColumn 
