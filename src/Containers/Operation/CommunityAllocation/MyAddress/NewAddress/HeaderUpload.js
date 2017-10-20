@@ -47,9 +47,11 @@ export default class HeaderUpload extends Component {
 
 	}
 	componentWillReceiveProps(nextProps){
-		this.setState({
-			imgSrc:nextProps.defaultUrl
-		})
+		if(this.props.defaultUrl != nextProps.defaultUrl){
+			this.setState({
+				imgSrc:nextProps.defaultUrl
+			})
+		}
 		
 	}
 	onTokenError() {
