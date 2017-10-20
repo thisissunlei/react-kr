@@ -43,6 +43,7 @@ class LocationChoice extends Component {
     
     getFloor = () =>{
         let {communityId} = this.props;
+        console.log('communityId',communityId);
         let that = this;
         Http.request("getFloorByComunity",{communityId:communityId}).then(function(response) {
 			that.setState({
@@ -65,7 +66,7 @@ class LocationChoice extends Component {
         this.getFloor();
         console.log("box",this.box)
         if(type == "edit"){
-           
+            
             this.box.getData(url,data);
             Store.dispatch(initialize('LocationChoice',data));
             

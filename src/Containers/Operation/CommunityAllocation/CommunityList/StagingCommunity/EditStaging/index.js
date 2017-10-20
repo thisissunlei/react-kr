@@ -84,6 +84,7 @@ class EditStaging  extends React.Component{
         this.setState({
             isOk 
         })
+        this.configArr=[];
      }
 
 
@@ -96,6 +97,7 @@ class EditStaging  extends React.Component{
     commonStation=(params,type)=>{
         var codeList=[];
         var config=[];
+
         config=params.codeList;
         if(config.length!=0){
             config.map((item,index)=>{
@@ -119,7 +121,8 @@ class EditStaging  extends React.Component{
     }
 
     editButtonClck=(item)=>{
-        this.getData=Object.assign({all:{startValue:item.numberMin||'',endValue:item.numberMax||''}},item);
+        let {communityId}=this.props;
+        this.getData=Object.assign({communityId:communityId,all:{startValue:item.numberMin||'',endValue:item.numberMax||''}},item);
         this.openEditCommunity();
     }
 
@@ -147,7 +150,7 @@ class EditStaging  extends React.Component{
 
         let {handleSubmit,floor,communityId}=this.props;
 
-    
+        console.log('id',communityId);
 
         let {openStation,openEditStation,isOk}=this.state;
         
