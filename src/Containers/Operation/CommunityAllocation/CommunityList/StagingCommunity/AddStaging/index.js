@@ -66,17 +66,33 @@ class AddStaging  extends React.Component{
     }
 
     onStationSubmit=(params)=>{
+        params=Object.assign({},params);
+        if(params.config.length!=0){
+            var codeList=[];
+            params.config.map((item,index)=>{
+                codeList.push(item.code);
+            })
+        }
+        if(params.detailType=='STATION'){
+            params.detailTypeStr='工位'
+        }else if(params.detailType=='SPACE'){
+            params.detailTypeStr='独立空间'
+        }
+        params.codeStr=codeList.join(',');
         this.configArr.push(params);
         Store.dispatch(change('AddStaging','config',this.configArr));
         this.openAddCommunity();
     }
+
     editButtonClck=(item)=>{
         this.getData=Object.assign({all:{startValue:item.numberMin,endValue:item.numberMax}},item);
         this.openEditCommunity();
     }
+
     onEditStationSubmit = () =>{
         this.openEditCommunity();
     }
+
     openEditCommunity=()=>{
         
         this.setState({
@@ -147,8 +163,8 @@ class AddStaging  extends React.Component{
                                     initFoldNum={1000}
                                 >
                                     <FRow name = "floor" label = "楼层"/>
-                                    <FRow name = "detailType" label = "类型"/>
-                                    <FRow name = "code" label = "编号"/>
+                                    <FRow name = "detailTypeStr" label = "类型"/>
+                                    <FRow name = "codeStr" label = "编号"/>
                                     <FRow label = "操作" type='operation' component={(item)=>{
                                             return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
                                     }}/>
@@ -178,35 +194,32 @@ class AddStaging  extends React.Component{
                             </Row>
                         </Grid>
                  </form>
-                  <Dialog
-                        title = "选择工位" 
-                        onClose={this.openAddCommunity}
-                        open={openStation}
-                        contentStyle ={{ width: '666px',height:'auto'}}
-                    >
-                        <LocationChoice 
-                        
-                            communityId = {4} 
-                            url='stage-detail-search' 
-                            
-                            onClose = {this.openAddCommunity} 
-                            onSubmit = {this.onStationSubmit} />
-                 </Dialog>
-                 <Dialog
-                        title = "选择工位" 
-                        onClose={this.openEditCommunity}
-                        open={openEditStation}
-                        contentStyle ={{ width: '666px',height:'auto'}}
-                    >
-                        <LocationChoice 
-                        
-                            communityId = {4} 
-                            url='stage-detail-search' 
-                            type = "edit"
-                            data = {this.getData}
-                            onClose = {this.openEditCommunity} 
-                            onSubmit = {this.onEditStationSubmit} />
-                 </Dialog>
+                       <Dialog
+                            title = "选择工位" 
+                            onClose={this.openAddCommunity}
+                            open={openStation}
+                            contentStyle ={{ width: '666px',height:'auto'}}
+                         >
+                            <LocationChoice 
+                                communityId = {communityId} 
+                                url='stage-detail-search'      
+                                onClose = {this.openAddCommunity} 
+                                onSubmit = {this.onStationSubmit} />
+                        </Dialog>
+                        <Dialog
+                                title = "选择工位" 
+                                onClose={this.openEditCommunity}
+                                open={openEditStation}
+                                contentStyle ={{ width: '666px',height:'auto'}}
+                            >
+                            <LocationChoice  
+                                communityId = {communityId} 
+                                url='stage-detail-search' 
+                                type = "edit"
+                                data = {this.getData}
+                                onClose = {this.openEditCommunity} 
+                                onSubmit = {this.onEditStationSubmit} />
+                         </Dialog>
                  
 			</div>
 		);

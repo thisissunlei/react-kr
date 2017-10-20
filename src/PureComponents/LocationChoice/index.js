@@ -15,7 +15,6 @@ import {
 import LocationChoiceSearch from './LocationChoiceSearch';
 import DoubleColumn from'./DoubleColumn';
 var type = [
-    {value:"FLOOR",label:'楼层'},
     {value:"STATION",label:'工位'},
     {value:"SPACE",label:'独立空间'}
 ]

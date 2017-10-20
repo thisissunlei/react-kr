@@ -44,7 +44,6 @@ import StagingCommunity from './StagingCommunity';
 //todo:城市组件值不清空，后期补上
 import cityDataState from "../../../../Components/KrField/CityComponent/State";
 
-@inject("NavModel")
 @observer
 class CommunityList  extends React.Component{
 
@@ -57,22 +56,11 @@ class CommunityList  extends React.Component{
       communityId:'',
 			cityId:'',
 			floor:[],
-			//权限
-			isEdit:false
     }
 	}
 
 	componentDidMount(){
-		const { NavModel } = this.props;
-		var {checkOperate} = this.props.NavModel;
-		
 		State.searchDataHere();
-		var _this=this;
-		setTimeout(function() {
-			_this.setState({
-			  isEdit:checkOperate("oper_cmt_community_edit"),
-			})
-	 },500);
 	}
 
    //新建社区开关
@@ -113,28 +101,25 @@ class CommunityList  extends React.Component{
     }
 		State.setSearchParams(obj);
    }
-
-
-	 //打开编辑
-	 openEditFn=(itemDetail)=>{
-			State.isCorpRank=false;
-			State.searchDataHere();
-			this.ajaxSendData(itemDetail.id);
-	 }
-	  //打开查看
-   openWatchFn=(itemDetail)=>{
-			State.getEditList(itemDetail.id)
-			State.switchWatchList();
-	 }
-		//打开分期
-	 openSelectFn=(itemDetail)=>{
-			State.openStagingFun();
-			this.getFloor(itemDetail.id);
-			this.setState({
-				communityId:itemDetail.id
-			}) 
+	
+	 onOperation=(type,itemDetail)=>{
+     if(type=='edit'){
+				State.isCorpRank=false;
+				State.searchDataHere();
+				this.ajaxSendData(itemDetail.id);
+		 }else if(type=='watch'){
+			  State.getEditList(itemDetail.id)
+		   	State.switchWatchList();
+		 }else if(type=='select'){
+				State.openStagingFun();
+				this.getFloor(itemDetail.id);
+				this.setState({
+					communityId:itemDetail.id
+				}) 
+		 }
 	 }
 
+	
 
 	 getFloor=(id)=>{
 		var _this=this;
@@ -148,7 +133,7 @@ class CommunityList  extends React.Component{
 }
 	 
 	 stagingCancel=()=>{
-	 	State.openStagingFun(); 
+	 	 State.openStagingFun(); 
 	 }
 
     //发送ajax请求函数
@@ -298,7 +283,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,communityId,cityId,floor,isEdit}=this.state;
+    let {cityData,timeStart,timeEnd,communityId,cityId,floor}=this.state;
 
 		return(
 
@@ -367,13 +352,10 @@ class CommunityList  extends React.Component{
 											<TableRowColumn name="hasZoneStr" component={(value,oldValue)=>{
                               return <div style={value=='是'?{color:'red'}:{}}>{value}</div>
                            }}></TableRowColumn>
-			                <TableRowColumn type="operation" component={(value,oldValue)=>{
-                            return <div>
-																  {isEdit&&<span style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}} onClick={this.openEditFn.bind(this,value)}>编辑</span>}
-																	<span  onClick={this.openWatchFn.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>查看</span>
-																	{value.hasZoneStr=='是'&&<span  onClick={this.openSelectFn.bind(this,value)} style={{color:'#499df1',marginLeft:'5px',cursor:'pointer'}}>分期</span>}
-															</div>
-                           }}>
+			                <TableRowColumn type="operation">
+													     <Button label="编辑"  type="operation"  operation="edit" operateCode='oper_cmt_community_edit'/>
+															 <Button label="查看"  type="operation"  operation="watch"/>
+															 <Button label="分期"  type="operation"  operation="select"/>
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>

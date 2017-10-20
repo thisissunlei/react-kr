@@ -53,6 +53,7 @@ class StagingCommunity  extends React.Component{
     }
 
     openAddSubmit=(params)=>{
+        params=Object.assign({},params);
         params.communityId=this.props.communityId;
         if(params.zoneType=='FLOOR'){
             var zoneArr=[];
@@ -62,7 +63,27 @@ class StagingCommunity  extends React.Component{
                }
              }
             params.config=JSON.stringify(zoneArr);
+        }else{
+           var configNew=[];
+           if(params.config.length!=0){
+             for(var i=0;i<params.config.length;i++){
+                for(var j=0;j<params.config.length;j++){
+                    if((params.config[i].floor==params.config[j].floor)&&(params.config[i].detailType==params.config[j].detailType)&&(i!=j)){   
+                        params.config[i].config=params.config[i].config.concat(params.config[j].config)
+                        params.config.splice(j,1);
+                    }
+                }
+             }
+             configNew=params.config;
+             configNew.map((item,index)=>{
+                item.config.map((items,indexs)=>{
+                   items.detailType=item.detailType
+                })
+             })
+           }
+           //params.config=JSON.stringify(configNew); 
         }
+        console.log('params.config',params.config,params);
         var _this=this;
         Http.request('community-stage-add',{},params).then(function(response) {
             var search={
@@ -109,9 +130,27 @@ class StagingCommunity  extends React.Component{
         var _this=this;
         Http.request('stage-down-search',{zoneId:id}).then(function(response) {
             Store.dispatch(initialize('EditStaging',response));
+            if(response.zoneConfigSearchVO&&response.zoneConfigSearchVO.length!=0){
+                var configArr=[];
+                response.zoneConfigSearchVO.map((item,index)=>{
+                    var list={};
+                    var configs='';
+                    if(item.zoneConfigedCodeListVos.length!=0){
+                        var codeArr=[];
+                        item.zoneConfigedCodeListVos.map((item,index)=>{
+                            codeArr.push(item.code);
+                        })
+                        configs=codeArra.join(",");
+                    }
+                    list.detailType=item.detailTypeName;
+                    list.floor=item.floor;
+                    list.code=configs;
+                })
+            }
             _this.setState({
                 getData:response
             })
+            Store.dispatch(change('EditStaging','config',response.zoneConfigSearchVO?response.zoneConfigSearchVO:[]));
         }).catch(function(err) {
             Message.error(err.message);
         });  

@@ -28,7 +28,7 @@ class EditStaging  extends React.Component{
 	}
     
     componentDidMount(){
-        Store.dispatch(change('EditStaging','config',[]));
+        
     }
 
     componentWillReceiveProps(nextProps){
@@ -81,7 +81,7 @@ class EditStaging  extends React.Component{
             })        
         }
     
-
+     
        
 		return(
 
@@ -198,7 +198,8 @@ const validate = values =>{
     if(!values.openDate){
         errors.openDate='请选择开业时间'   
     }
-  
+    
+    
     if(!values.floor){
         errors.floor='请选择楼层'   
     }

@@ -22,15 +22,15 @@ export default class GroupCheckboxComponent extends React.Component {
       options: [],
       checkedAll: false,
     }
-    this.isInit = false;
   }
 
   componentDidMount() {
+    
     this.setInit(this.props.defaultValue);
   }
 
   componentWillReceiveProps(nextProps) {
-
+   
     if (!ShallowEqual(this.props.defaultValue, nextProps.defaultValue)) {
         this.setInit(nextProps.defaultValue);
     }
@@ -42,17 +42,12 @@ export default class GroupCheckboxComponent extends React.Component {
         return ;
       }
 
-      if(this.isInit){
-        return ;
-      }
-
       this.setState({
         options: [].concat(defaultValue)
       }, function() {
         this.valuationInputValue()
       });
 
-      this.isInit = true;
   }
 
   onChange = (checked, index) => {
@@ -134,7 +129,9 @@ export default class GroupCheckboxComponent extends React.Component {
     let className = childrenInline ? 'inline-children-style':'';
     var _this = this;
 
+
     children = options.map(function(item, index) {
+     
       return <div className = {className} key={index} style = {{display:inline}}>
          <Checkbox  label={item.label} value={item.value} checked={item.checked} onCheck={(checked)=>{
             _this.onChange(checked,index);
