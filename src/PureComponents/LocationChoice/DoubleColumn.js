@@ -25,7 +25,7 @@ export default class DoubleColumn extends Component {
         }
         this.allData = [],
         this.delRight = [];
-        this.delleft = [];
+        this.delLeft = [];
         this.isMac = false;
         this.keyCode = "";
         this.isWindows = false;
@@ -101,7 +101,6 @@ export default class DoubleColumn extends Component {
         dataClear=leftData;
         this.isLeft='noOk';
       }  
-
           for(var j=0;j<dataRender.length;j++){
               dataRender[j].isActive=false;
               for(var i=0;i<data.length;i++){
@@ -133,15 +132,14 @@ export default class DoubleColumn extends Component {
             data.isActive = false;
         }
         if((this.isWindows && this.keyCode == 17)||(this.isMac && this.keyCode == 91)){
-          
+            
             if(type == "left"){
-                this.delLeft.push(data);
-                console.log('left',this.delLeft);
+                this.delLeft = this.multipleChoice(this.delLeft,data);
                 this.delRight = [];
                 this.clearActive(this.delLeft,'left');
             }
             if(type == "right"){
-                this.delRight.push(data);
+                this.delRight = this.multipleChoice(this.delRight,data);
                 this.delLeft = [];
                 this.clearActive(this.delRight,'right');
             }
@@ -163,6 +161,28 @@ export default class DoubleColumn extends Component {
 
     }
 
+    //多选
+    multipleChoice = (arr,data) =>{
+        let isDel = false;
+        let newArr = [].concat(arr);
+        let num = 0;
+          
+        for(let i=0;i<newArr.length;i++){
+            isDel = false;
+            if(data.detailId == newArr[i].detailId){
+                isDel = true;
+                num = i;
+                break;
+            }
+        }
+        if(isDel){
+            newArr.splice(num,1);
+           
+        }else{
+             newArr.push(data);
+        }
+        return newArr;
+    }   
  
 
     //全选点击
@@ -190,8 +210,7 @@ export default class DoubleColumn extends Component {
             color:"#666666",
         };
         if(data.isActive){
-            bgColor="#F6F6F6";
-            fontColor = "#499DF1"
+            
             activeStyle = {
                 background:"#F6F6F6",
                 color:"#499DF1",
