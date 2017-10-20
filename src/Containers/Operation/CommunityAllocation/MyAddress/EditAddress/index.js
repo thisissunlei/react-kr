@@ -42,14 +42,14 @@ import HeaderUpload from './HeaderUpload';
   		this.getEditInfo()
   		State.editStationVos=[
 				{
-					managerName:'',
+					managerNick:'',
 					managerPhone:'',
 					managerEmail:'',
 					managerIcon:'',
 					managerType:'COMMUNITY_MANAGER'
 				}];
 			State.editLeader={
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -60,7 +60,7 @@ import HeaderUpload from './HeaderUpload';
   	getEditInfo = ()=>{
   		 var _this=this;
 		 let item = {
-					managerName:'',
+					managerNick:'',
 					managerPhone:'',
 					managerEmail:'',
 					managerIcon:'',
@@ -74,7 +74,6 @@ import HeaderUpload from './HeaderUpload';
 
 			Store.dispatch(change('EditAddress', 'memberId',response.cmtManagerList[0].memberId));
 			response.cmtManagerList.map((item,index)=>{
-				console.log('item=======>>>>>',item)
 				if(item.managerType=='COMMUNITY_LEADER'){
 					State.editLeader = item;
 				}else{
@@ -102,7 +101,7 @@ import HeaderUpload from './HeaderUpload';
 	
 		let manager = [];
 		State.editStationVos.map(item=>{
-			if(item.managerEmail || item.managerIcon || item.managerName ||item.managerPhone ){
+			if(item.managerEmail || item.managerIcon || item.managerNick ||item.managerPhone ){
 				manager.push(item)
 			}
 			
@@ -176,7 +175,7 @@ import HeaderUpload from './HeaderUpload';
 	}
 	addArr=()=>{
 		let item = {
-				managerName:'',
+			    managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -203,7 +202,7 @@ import HeaderUpload from './HeaderUpload';
 
 	}
 	selectCommunity=(item)=>{
-		console.log('edit----item',item)
+		
 	}
 
 
@@ -212,21 +211,22 @@ import HeaderUpload from './HeaderUpload';
 		State.addGuideList=[];
 	}
 	selectManagerName=(form)=>{
-		State.Leader.managerName=form.managerName;
-		State.Leader.managerPhone=form.managerPhone;
-		State.Leader.managerEmail=form.managerEmail;
-		State.Leader.headerUrl=form.managerIcon;
-		State.Leader.memberId=form.memberId;
+		State.editLeader.managerNick=form.managerNick;
+		State.editLeader.managerPhone=form.managerPhone;
+		State.editLeader.managerEmail=form.managerEmail;
+		State.editLeader.headerUrl=form.managerIcon;
+		State.editLeader.memberId=form.memberId;
+		State.editLeader.managerIcon=form.managerIcon;
 		
 	}
 
 	selectName=(index,form)=>{
-		State.stationVos[index].managerName=form.managerName;
-		State.stationVos[index].managerPhone=form.managerPhone;
-		State.stationVos[index].managerEmail=form.managerEmail;
-		State.stationVos[index].headerUrl=form.managerIcon;
-		State.stationVos[index].memberId=form.memberId;
-
+		State.editStationVos[index].managerNick=form.managerNick;
+		State.editStationVos[index].managerPhone=form.managerPhone;
+		State.editStationVos[index].managerEmail=form.managerEmail;
+		State.editStationVos[index].headerUrl=form.managerIcon;
+		State.editStationVos[index].memberId=form.memberId;
+		State.editStationVos[index].managerIcon=form.managerIcon
 	}
 
 
@@ -235,8 +235,8 @@ import HeaderUpload from './HeaderUpload';
 		let list = State.stationVos;
 		let _this = this;
 		let typeLinkLeaderNameList = {
-			value: State.editLeader.managerName,
-			requestChange: _this.onLeaderChange.bind(null,'managerName')
+			value: State.editLeader.managerNick,
+			requestChange: _this.onLeaderChange.bind(null,'managerNick')
 		}
 		let typeLinkLeaderPhoneList = {
 			value: State.editLeader.managerPhone,
@@ -283,7 +283,7 @@ import HeaderUpload from './HeaderUpload';
 							onChange={this.selectManagerName} 
 							style={{width:261}}
 						 />
-					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder={State.editLeader.managerName||'请输入姓名'}maxLength={10} onBlur={this.onBlur.bind(this,State.editLeader,'managerName')}/>
+					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder={State.editLeader.managerNick||'请输入姓名'}maxLength={10} onBlur={this.onBlur.bind(this,State.editLeader,'managerNick')}/>
 					 	<input type="text" name="telephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder={State.editLeader.managerPhone||'请输入电话号码'} onBlur={this.onBlur.bind(this,State.editLeader,'managerPhone')}/>
 					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder={State.editLeader.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,State.editLeader,'managerEmail')}/>
 					</div> 
@@ -291,8 +291,8 @@ import HeaderUpload from './HeaderUpload';
 
 				{State.editStationVos && State.editStationVos.map((item,index)=>{	
 			    		let typeLinkNameList = {
-							value: State.editStationVos[index].managerName,
-							requestChange: _this.onStationVosChange.bind(null,'managerName',index)
+							value: State.editStationVos[index].managerNick,
+							requestChange: _this.onStationVosChange.bind(null,'managerNick',index)
 						}
 						let typeLinkPhoneList = {
 							value: State.editStationVos[index].managerPhone,
@@ -315,7 +315,7 @@ import HeaderUpload from './HeaderUpload';
 										onChange={this.selectName.bind(_this,index)} 
 										style={{width:261}}
 									/>
-					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder={item.managerName||'请输入姓名'} maxLength={10} onBlur={this.onBlur.bind(this,item,'managerName')}/>
+					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder={item.managerNick||'请输入姓名'} maxLength={10} onBlur={this.onBlur.bind(this,item,'managerNick')}/>
 					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder={item.managerPhone||'请输入电话号码'}onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
 					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder={item.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,item,'managerEmail')}/>
 								</div> 

@@ -325,7 +325,7 @@ import HeaderUpload from './HeaderUpload';
 										onChange={this.selectName.bind(_this,index)} 
 										style={{width:261}}
 									/>
-					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList} maxLength={10}  placeholder='请输入姓名' onBlur={this.onBlur.bind(this,item,'managerName')}/>
+					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList} maxLength={10}  placeholder='请输入姓名' onBlur={this.onBlur.bind(this,item,'managerNick')}/>
 					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder='请输入电话号码' onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
 					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,item,'managerEmail')}/>
 								</div> 
