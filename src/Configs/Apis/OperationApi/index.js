@@ -959,4 +959,9 @@ module.exports = {
             url: '/api/krspace-finance-web/member/find-by-name?mbrNameStr={mbrNameStr}',
             method: 'get'
     },
+    //运营平台-APP管理-企业认证-分页
+    'verification-page': {
+        url: '/api/krspace-finance-web/company/verification/page?verifyStatus={verifyStatus}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },  
 }

@@ -11,12 +11,9 @@ import {
 import {
     Http,
 } from "kr/Utils";
-
-
-
- import WaitAudit from './WaitAudit';
- import Audited from './Audited';
- import NotPass from './NotPass';
+import WaitAudit from './WaitAudit';
+import Audited from './Audited';
+import NotPass from './NotPass';
 
 export default class CompanyVerify extends React.Component {
 
@@ -85,7 +82,7 @@ export default class CompanyVerify extends React.Component {
     return (
 
         <div>
-          <Title value="审核列表"/>
+          <Title value="企业认证"/>
           <Tabs className="tabs">
             <Tab label="待审核" onActive={this.merchants} style={merchantsStyle}>
                 <WaitAudit />
