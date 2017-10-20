@@ -963,5 +963,25 @@ module.exports = {
     'verification-page': {
         url: '/api/krspace-finance-web/company/verification/page?verifyStatus={verifyStatus}&page={page}&pageSize={pageSize}',
         method: 'get'
+    }, 
+    //运营平台-APP管理-企业认证-审核详情信息
+    'verification-detail': {
+        url: '/api/krspace-finance-web/company/verification/detail?companyId={companyId}',
+        method: 'get'
+    }, 
+     //运营平台-APP管理-企业认证-审核通过
+     'verification-pass': {
+        url: '/api/krspace-finance-web/company/verification/pass',
+        method: 'post'
+    },  
+    //运营平台-APP管理-企业认证-审核不通过
+    'verification-failed': {
+        url: '/api/krspace-finance-web/company/verification/failed',
+        method: 'post'
+    }, 
+    //运营平台-APP管理-企业认证-编辑提交
+    'verification-edit': {
+        url: '/api/krspace-finance-web/company/verification/edit',
+        method: 'post'
     },  
 }

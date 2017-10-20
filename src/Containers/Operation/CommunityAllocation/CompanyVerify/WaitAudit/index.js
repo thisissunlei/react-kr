@@ -18,7 +18,11 @@ import {
   CheckPermission
 } from 'kr-ui';
 
+import EidtAudit from './EidtAudit';
+import AuditDrawer from './AuditDrawer';
+import AuditDialog from './AuditDialog';
 import './index.less';
+
 export default class WaitAudit extends React.Component {
 
   constructor(props, context) {
@@ -29,10 +33,80 @@ export default class WaitAudit extends React.Component {
         verifyStatus:'UNDERWAY',
         page:1,
         pageSize:15,
-      }
+      },
+      openAudit:false,
+      openAuditDialog:false,
+      openDialog:false,
+      companyId:''
     }
   }
- 
+
+    //操作相关
+    onOperation = (type, itemDetail) => {
+      this.setState({
+        itemDetail
+      });
+      if (type == 'edit') {
+        this.openEdit();
+      } else if (type == 'audit') {
+        this.openAudit();
+      } 
+  }
+  openAudit=()=>{
+    this.setState({
+      openAudit:!this.state.openAudit
+    })
+  }
+  openAuditDialog=()=>{
+    this.setState({
+      openAuditDialog:!this.state.openAuditDialog
+    })
+  }
+  openDialog=()=>{
+    this.setState({
+      openDialog:!this.state.openDialog
+    })
+  }
+  auditSubmit=(companyId)=>{
+    this.openAuditDialog();
+    this.setState({
+      companyId
+    })
+  }
+  onAuditSubmitData=()=>{
+    var _this=this;
+		const {companyId}=this.state;
+		Http.request('verification-pass',{},{companyId:companyId}).then(function (response) {
+      _this.openAuditDialog();
+      Message.success('审核成功！');
+      _this.openAudit();
+			_this.setState({
+				searchParams:{
+					date:new Date(),
+				}
+			})
+
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+  }
+  openUnAudit=(companyId,type)=>{
+    if(type=='1'){
+      this.openDialog();
+    }else{
+      this.openAudit();
+    }
+    
+  }
+  unAudit=()=>{
+    this.openDialog();
+    this.openAudit();
+    this.setState({
+      searchParams:{
+        date:new Date(),
+      }
+    })
+  }
 
   render() {
     let {
@@ -69,7 +143,7 @@ export default class WaitAudit extends React.Component {
                              }else{
                                TooltipStyle="block";
                              }
-                              return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+                              return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:200,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
                              <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
                        }}></TableRowColumn>
                       <TableRowColumn 
@@ -82,7 +156,7 @@ export default class WaitAudit extends React.Component {
                              }else{
                                TooltipStyle="block";
                              }
-                              return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:140,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+                              return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:180,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
                              <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
                        }} ></TableRowColumn>
                        <TableRowColumn 
@@ -90,7 +164,7 @@ export default class WaitAudit extends React.Component {
                             component={(value)=>{
                               return (
                                 <div style={{paddingTop:5}} >
-                                  <img src={value}/>
+                                  <img width={40}  src={value}/>
                                 </div>
                              )
                        }} ></TableRowColumn>
@@ -109,7 +183,62 @@ export default class WaitAudit extends React.Component {
            </TableBody>
            <TableFooter></TableFooter>
          </Table>
-
+         <Drawer
+              modal={true}
+              width={750}
+              open={this.state.openView}
+              onClose={this.openView}
+              openSecondary={true}
+              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+            >
+	             	<EidtAudit
+	             			onCancel={this.openView} 
+	             			detail={itemDetail}
+	             	 />
+	      </Drawer>
+        <Drawer
+              modal={true}
+              width={750}
+              open={this.state.openAudit}
+              onClose={this.openAudit}
+              openSecondary={true}
+              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+            >
+	             	<AuditDrawer
+	             			onCancel={this.openUnAudit} 
+	             			detail={itemDetail}
+                    onSubmit={this.auditSubmit}
+	             	 />
+	      </Drawer>
+        <Dialog
+              title="退回"
+              modal={true}
+              contentStyle ={{ width: '662',overflow:'visible'}}
+              open={this.state.openDialog}
+              onClose={this.openDialog}
+            >
+              <AuditDialog  
+                  detail={itemDetail} 
+                  onSubmit={this.unAudit} 
+                  onCancel={this.openDialog} 
+              />
+        </Dialog>
+        <Dialog
+	              title="审核"
+	              modal={true}
+	              contentStyle ={{ width: '444',overflow:'visible'}}
+	              open={this.state.openAuditDialog}
+	              onClose={this.openAuditDialog}
+	            >
+	            <div className='u-list-delete'>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认同意该审核吗？</p>
+	                <div style={{textAlign:'center',marginBottom:10}}>
+	                      <div  className='ui-btn-center'>
+		                      <Button  label="确定" onClick={this.onAuditSubmitData}/></div>
+		                      <Button  label="取消" type="button" cancle={true} onClick={this.openAuditDialog} />
+	                      </div>
+	            	  </div>
+	            </Dialog>
 
       </div>
     );
