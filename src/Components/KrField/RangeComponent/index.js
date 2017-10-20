@@ -45,7 +45,10 @@ export default class RangeComponent extends React.Component{
         onChange && onChange({startValue:this.startValue,endValue:this.endValue});
     }
 	
-
+	componentDidMount() {
+		let {input} = this.props;
+		input.onChange({startValue:"",endValue:""});
+	}
 	
 	render(){
 
