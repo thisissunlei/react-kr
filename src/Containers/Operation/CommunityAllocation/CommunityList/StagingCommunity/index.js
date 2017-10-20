@@ -80,7 +80,7 @@ class StagingCommunity  extends React.Component{
                    items.detailType=item.detailType
                 })
              })
-           }
+           } 
            //params.config=JSON.stringify(configNew); 
         }
         console.log('params.config',params.config,params);
