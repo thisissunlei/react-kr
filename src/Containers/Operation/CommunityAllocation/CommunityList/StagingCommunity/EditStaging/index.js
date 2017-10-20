@@ -39,6 +39,7 @@ class EditStaging  extends React.Component{
         }
         this.configArr=[];
         this.getData={};
+        this.floor=[];
     }
     
     componentDidMount(){      
@@ -47,6 +48,7 @@ class EditStaging  extends React.Component{
     
     
     getSelectConfig=(obj)=>{
+        let {floor}=this.props;
         var isOk='';
         var _this=this;
         if(obj.zoneType=="SPACE"){
@@ -57,8 +59,21 @@ class EditStaging  extends React.Component{
         this.setState({
             isOk 
         },function(){
-            obj.zoneConfigSearchVO&&(obj.zoneType=='SPACE')&&obj.zoneConfigSearchVO.map((item,index)=>{
-                _this.commonStation(item,'props');
+           
+            obj.zoneConfigSearchVO&&obj.zoneConfigSearchVO.map((item,index)=>{
+                if(obj.zoneType=='SPACE'){
+                   _this.commonStation(item,'props');                
+                }else{
+                    floor.map((items,indexs)=>{
+                        if(items.value==item.floor){
+                            items.checked=true; 
+                        }
+                    }) 
+                    _this.floor=floor;
+                    _this.setState({
+                        other:+new Date()
+                    })
+                }
             })
         })
    }
@@ -75,10 +90,15 @@ class EditStaging  extends React.Component{
     }
 
     typeChange=(param)=>{
+        let {floor}=this.props;
         var isOk='';
         if(param.value=='SPACE'){
             isOk='ok'; 
         }else{
+            floor.map((item,index)=>{
+                item.checked=false;
+            })
+            this.floor=floor;
             isOk='noOk'; 
         }
         this.setState({
@@ -153,18 +173,8 @@ class EditStaging  extends React.Component{
         
         let {openStation,openEditStation,isOk}=this.state;
         
-        if(toJS(State.stageData).zoneConfigSearchVO&&toJS(State.stageData).zoneConfigSearchVO.length!=0){
-            toJS(State.stageData).zoneConfigSearchVO.map((item,index)=>{
-                if(item.detailType=='FLOOR'){
-                    floor.map((items,indexs)=>{
-                        if(items.value==item.floor){
-                            items.checked=true; 
-                        }
-                    })
-                }
-            })        
-        }
-      
+       
+          
         
        
 		return(
@@ -242,7 +252,7 @@ class EditStaging  extends React.Component{
                                 label="楼层"
                                 name='floor'
                                 component="groupCheckbox"
-                                defaultValue={floor}
+                                defaultValue={this.floor}
                                 requireLabel={true}
                              /></div>}
 
