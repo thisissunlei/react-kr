@@ -32,7 +32,19 @@ export default class Audited extends React.Component {
       }
     }
   }
- 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.tab != this.props.tab) {
+      this.setState({
+        searchParams:{
+          verifyStatus:'VERIFIED',
+          page:1,
+          pageSize:15,
+          date:new Date(),
+        },
+      })
+    }
+
+  }
 
   render() {
     let {
@@ -92,7 +104,7 @@ export default class Audited extends React.Component {
                               component={(value)=>{
                                 return (
                                   <div style={{paddingTop:5}} >
-                                    <img src={value}/>
+                                    <img width={40} src={value}/>
                                   </div>
                               )
                         }} ></TableRowColumn>

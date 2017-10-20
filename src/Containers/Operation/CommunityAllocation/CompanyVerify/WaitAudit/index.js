@@ -37,8 +37,22 @@ export default class WaitAudit extends React.Component {
       openAudit:false,
       openAuditDialog:false,
       openDialog:false,
-      companyId:''
+      companyId:'',
+      openEdit:false,
     }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.tab != this.props.tab) {
+      this.setState({
+        searchParams:{
+          verifyStatus:'UNDERWAY',
+          page:1,
+          pageSize:15,
+          date:new Date(),
+        },
+      })
+    }
+
   }
 
     //操作相关
@@ -51,6 +65,12 @@ export default class WaitAudit extends React.Component {
       } else if (type == 'audit') {
         this.openAudit();
       } 
+  }
+  
+  openEdit=()=>{
+    this.setState({
+      openEdit:!this.state.openEdit
+    })
   }
   openAudit=()=>{
     this.setState({
@@ -186,13 +206,13 @@ export default class WaitAudit extends React.Component {
          <Drawer
               modal={true}
               width={750}
-              open={this.state.openView}
-              onClose={this.openView}
+              open={this.state.openEdit}
+              onClose={this.openEdit}
               openSecondary={true}
               containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
             >
 	             	<EidtAudit
-	             			onCancel={this.openView} 
+	             			onCancel={this.openEdit} 
 	             			detail={itemDetail}
 	             	 />
 	      </Drawer>

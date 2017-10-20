@@ -76,7 +76,7 @@ class EditAudit extends React.Component {
 			}=this.state;
 		
 		return (
-			<div className="g-create-activity">
+			<div className="g-audit-drawer">
 				<div className="u-create-title">
 						<div className="title-text">编辑审核信息</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>

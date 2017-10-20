@@ -32,7 +32,19 @@ export default class NotPass extends React.Component {
       }
     }
   }
- 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.tab != this.props.tab) {
+      this.setState({
+        searchParams:{
+          verifyStatus:'FAILED',
+          page:1,
+          pageSize:15,
+          date:new Date(),
+        },
+      })
+    }
+
+  }
 
   render() {
     let {
@@ -93,7 +105,7 @@ export default class NotPass extends React.Component {
                               component={(value)=>{
                                 return (
                                   <div style={{paddingTop:5}} >
-                                    <img src={value}/>
+                                    <img width={40} src={value}/>
                                   </div>
                               )
                         }} ></TableRowColumn>

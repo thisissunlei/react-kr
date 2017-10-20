@@ -21,6 +21,7 @@ export default class CompanyVerify extends React.Component {
     super(props, context);
     this.state = {
       tab: 'table',
+      initSearch:'m'
     }
   }
   merchants = () => {
@@ -85,13 +86,13 @@ export default class CompanyVerify extends React.Component {
           <Title value="企业认证"/>
           <Tabs className="tabs">
             <Tab label="待审核" onActive={this.merchants} style={merchantsStyle}>
-                <WaitAudit />
+                <WaitAudit  tab={initSearch} />
             </Tab>
             <Tab label="已审核"  onActive={this.personal} style={personalStyle}>
-               <Audited />
+               <Audited  tab={initSearch} />
             </Tab>
             <Tab label="未通过" onActive={this.signedClient} style={signedClientStyle}>
-                <NotPass />
+                <NotPass  tab={initSearch} />
             </Tab>
         </Tabs>
       </div>
