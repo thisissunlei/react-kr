@@ -147,11 +147,11 @@ class StagingCommunity  extends React.Component{
     getAjaxData=(id)=>{
         var _this=this;
         Http.request('stage-down-search',{zoneId:id}).then(function(response) {
-            response=Object.assign({},response);
-            Store.dispatch(initialize('EditStaging',response));
-            if(response.zoneConfigSearchVO&&response.zoneConfigSearchVO.length!=0){
+            var res=Object.assign({},response);
+            Store.dispatch(initialize('EditStaging',res));
+            if(res.zoneConfigSearchVO&&res.zoneConfigSearchVO.length!=0){
                     var configArr=[];
-                    response.zoneConfigSearchVO.map((item,index)=>{
+                    res.zoneConfigSearchVO.map((item,index)=>{
                         var configs='';
                         if(item.codeList&&item.codeList.length!=0){
                             var codeArr=[];
@@ -162,11 +162,14 @@ class StagingCommunity  extends React.Component{
                         }
                             item.codeStr=configs;
                             item.detailTypeStr=item.detailTypeName;
-                    })
-                    State.stageData=response;       
+                    })           
             }else{  
                 Store.dispatch(change('EditStaging','config',[]));
             }
+            setTimeout(function() {
+                console.log('_',_this.editRef.wrappedInstance,'44');
+                _this.editRef.wrappedInstance.getSelectConfig(res); 
+           }, 500);
         }).catch(function(err) {
             Message.error(err.message);
         });  
@@ -313,6 +316,9 @@ class StagingCommunity  extends React.Component{
                     containerStyle={{top:60,paddingBottom:48,zIndex:20}}
                 >
                     <EditStaging
+                        ref={(ref)=>{
+                            this.editRef=ref
+                        }}
                         onCancel={this.editCancel}
                         onSubmit={this.openEditSubmit}
                         floor={floors}

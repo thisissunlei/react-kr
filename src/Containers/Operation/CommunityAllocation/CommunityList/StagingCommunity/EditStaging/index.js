@@ -32,34 +32,36 @@ class EditStaging  extends React.Component{
 	constructor(props,context){
         super(props, context);
         this.state={
-            isOk:'',
             openStation:false,
             openEditStation:false,
+            isOk:''
         }
         this.configArr=[];
         this.getData={};
         this.isRender=false;
     }
     
-    componentDidMount(){
-        var _this=this;
-        Store.dispatch(change('EditStaging','config',[]));
-        if(toJS(State.stageData.zoneType)=='FLOOR'){
-            this.setState({
-                isOk:'noOk'
-              })
-        }else{
-            this.setState({
-                isOk:'ok'
-             },function(){
-                connsole.log('stage',toJS(State.stageData.zoneConfigSearchVO));
-                toJS(State.stageData.zoneConfigSearchVO).map((item,index)=>{
-                    _this.commonStation(item,'props');
-                })
-             })
-        }
+    componentDidMount(){      
+       
     }
-   
+    
+    
+    getSelectConfig=(obj)=>{
+        var isOk='';
+        var _this=this;
+        if(obj.zoneType=="SPACE"){
+            isOk='ok'; 
+        }else{
+            isOk='noOk'; 
+        } 
+        this.setState({
+            isOk 
+        },function(){
+            obj.zoneConfigSearchVO&&obj.zoneConfigSearchVO.map((item,index)=>{
+                _this.commonStation(item,'props');
+            })
+        })
+   }
     
 
     onSubmit=(values)=>{
@@ -75,13 +77,9 @@ class EditStaging  extends React.Component{
 
     typeChange=(param)=>{
         if(param.value=='SPACE'){
-            this.setState({
-              isOk:'ok'
-            })
+            State.isOk='ok';
         }else{
-            this.setState({
-              isOk:'noOk'
-           }) 
+            State.isOk='noOk'; 
         }
      }
 
@@ -144,10 +142,10 @@ class EditStaging  extends React.Component{
 
     
 
-        let {isOk,openStation,openEditStation}=this.state;
+        let {openStation,openEditStation,isOk}=this.state;
         
-        if(toJS(State.getData.zoneConfigSearchVO)&&toJS(State.getData.zoneConfigSearchVO).length!=0){
-            toJS(State.getData.zoneConfigSearchVO).map((item,index)=>{
+        if(toJS(State.stageData).zoneConfigSearchVO&&toJS(State.stageData).zoneConfigSearchVO.length!=0){
+            toJS(State.stageData).zoneConfigSearchVO.map((item,index)=>{
                 if(item.detailType=='FLOOR'){
                     floor.map((items,indexs)=>{
                         if(items.value==item.floor){

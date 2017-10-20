@@ -40,8 +40,9 @@ let State = observable({
 		isCorpRank:false,
 
 		//分期回血数据
-		stageData:''
-
+		stageData:'',
+		//回血ok
+		isOk:''
 });
 //参数修改
 State.setSearchParams = action(function(params) {
