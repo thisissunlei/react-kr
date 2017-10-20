@@ -12,7 +12,6 @@ import {
     Button,
     KrField
 } from 'kr-ui';
-import LocationChoiceSearch from './LocationChoiceSearch';
 import DoubleColumn from'./DoubleColumn';
 var type = [
     {value:"STATION",label:'工位'},
