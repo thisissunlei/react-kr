@@ -34,7 +34,7 @@ let State = observable({
 		guideItem:{},
 		stationVos:[
 			{
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -42,7 +42,7 @@ let State = observable({
 				memberId:''
 			}],
 		Leader:{
-			managerName:'',
+			managerNick:'',
 			managerPhone:'',
 			managerEmail:'',
 			managerIcon:'',
@@ -203,7 +203,7 @@ State.onNewAddressSubmit= action(function(data) {
 State.getEditInfo= action(function() {	
 	 var _this=this;
 	 let item = {
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',

@@ -47,14 +47,14 @@ import HeaderUpload from './HeaderUpload';
   		State.address = '';
   		State.stationVos=[
 				{
-					managerName:'',
+					managerNick:'',
 					managerPhone:'',
 					managerEmail:'',
 					managerIcon:'',
 					managerType:'COMMUNITY_MANAGER'
 				}];
 			State.Leader={
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -67,7 +67,7 @@ import HeaderUpload from './HeaderUpload';
 	onSubmit = (values) => {
 		var form={};
 		let managerInfo = {
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -93,14 +93,14 @@ import HeaderUpload from './HeaderUpload';
 	onCancel = () => {
 		State.stationVos=[
 				{
-					managerName:'',
+					managerNick:'',
 					managerPhone:'',
 					managerEmail:'',
 					managerIcon:'',
 					managerType:'COMMUNITY_MANAGER'
 				}];
 			State.Leader={
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -207,7 +207,7 @@ import HeaderUpload from './HeaderUpload';
 	}
 	addArr=()=>{
 		let item = {
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -220,7 +220,7 @@ import HeaderUpload from './HeaderUpload';
 		State.stationVos.splice(index,1);
 	}
 	selectManagerName=(form)=>{
-		State.Leader.managerName=form.managerName;
+		State.Leader.managerNick=form.managerNick;
 		State.Leader.managerPhone=form.managerPhone;
 		State.Leader.managerEmail=form.managerEmail;
 		State.Leader.headerUrl=form.managerIcon;
@@ -229,7 +229,7 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 	selectName=(index,form)=>{
-		State.stationVos[index].managerName=form.managerName;
+		State.stationVos[index].managerNick=form.managerNick;
 		State.stationVos[index].managerPhone=form.managerPhone;
 		State.stationVos[index].managerEmail=form.managerEmail;
 		State.stationVos[index].headerUrl=form.managerIcon;
@@ -245,8 +245,8 @@ import HeaderUpload from './HeaderUpload';
 		
 		
 		let typeLinkLeaderNameList = {
-			value:State.Leader.managerName,
-			requestChange: _this.onLeaderChange.bind(null,'managerName')
+			value:State.Leader.managerNick,
+			requestChange: _this.onLeaderChange.bind(null,'managerNick')
 		}
 		let typeLinkLeaderPhoneList = {
 			value: State.Leader.managerPhone,
@@ -293,16 +293,16 @@ import HeaderUpload from './HeaderUpload';
 							onChange={this.selectManagerName} 
 							style={{width:261}}
 						 />
-						<input type="text" ref="managerName" name="name" className="info-input" valueLink={typeLinkLeaderNameList} maxLength={10} placeholder='请输入昵称' onBlur={this.onBlur.bind(this,State.Leader,'managerName')}/>
-					 	<input type="text" ref="managerPhone" name="leadertelephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'  onBlur={this.onBlur.bind(this,State.Leader,'managerPhone')}/>
-					 	<input type="text" ref="managerEmail" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,State.Leader,'managerEmail')}/>
+						<input type="text"  name="name" className="info-input" valueLink={typeLinkLeaderNameList} maxLength={10} placeholder='请输入昵称' onBlur={this.onBlur.bind(this,State.Leader,'managerNick')}/>
+					 	<input type="text"  name="leadertelephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'  onBlur={this.onBlur.bind(this,State.Leader,'managerPhone')}/>
+					 	<input type="text"  name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,State.Leader,'managerEmail')}/>
 					</div> 
 				</div>
 
 				{list && list.map((item,index)=>{	
 			    		let typeLinkNameList = {
-							value: State.stationVos[index].managerName,
-							requestChange: _this.onStationVosChange.bind(null,'managerName',index)
+							value: State.stationVos[index].managerNick,
+							requestChange: _this.onStationVosChange.bind(null,'managerNick',index)
 						}
 						let typeLinkPhoneList = {
 							value: State.stationVos[index].managerPhone,

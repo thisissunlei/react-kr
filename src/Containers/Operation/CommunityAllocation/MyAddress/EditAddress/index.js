@@ -68,18 +68,24 @@ import HeaderUpload from './HeaderUpload';
 				};
 		 Http.request('getEditInfo',{id:State.editId}).then(function(response) {
 		 	let manager = [];
-		 	State.detailData = response;
+			 State.detailData = response;
+			 
 			Store.dispatch(initialize('EditAddress', State.detailData));
-			response.cmtManagerList.map((item)=>{
+
+			Store.dispatch(change('EditAddress', 'memberId',response.cmtManagerList[0].memberId));
+			response.cmtManagerList.map((item,index)=>{
+				console.log('item=======>>>>>',item)
 				if(item.managerType=='COMMUNITY_LEADER'){
 					State.editLeader = item;
 				}else{
+					Store.dispatch(change('EditAddress', `memberId${index-1}`,item.memberId));
 					manager.push(item)
 				}
 			})
 			if(!manager.length){
 				manager.push(item)
 			}
+			
 			State.editStationVos = manager;
 			State.addGuideList = response.cmtGuideList;
 		}).catch(function(err) {
@@ -205,7 +211,23 @@ import HeaderUpload from './HeaderUpload';
 		console.log('componentWillUnMount')
 		State.addGuideList=[];
 	}
+	selectManagerName=(form)=>{
+		State.Leader.managerName=form.managerName;
+		State.Leader.managerPhone=form.managerPhone;
+		State.Leader.managerEmail=form.managerEmail;
+		State.Leader.headerUrl=form.managerIcon;
+		State.Leader.memberId=form.memberId;
+		
+	}
 
+	selectName=(index,form)=>{
+		State.stationVos[index].managerName=form.managerName;
+		State.stationVos[index].managerPhone=form.managerPhone;
+		State.stationVos[index].managerEmail=form.managerEmail;
+		State.stationVos[index].headerUrl=form.managerIcon;
+		State.stationVos[index].memberId=form.memberId;
+
+	}
 
 
 	render(){
@@ -254,6 +276,13 @@ import HeaderUpload from './HeaderUpload';
 					 	
 					<div className="info-list">
 						<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
+						<KrField  
+							name="memberId"  
+							component="searchPersonName" 
+							inline={false} 
+							onChange={this.selectManagerName} 
+							style={{width:261}}
+						 />
 					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder={State.editLeader.managerName||'请输入姓名'}maxLength={10} onBlur={this.onBlur.bind(this,State.editLeader,'managerName')}/>
 					 	<input type="text" name="telephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder={State.editLeader.managerPhone||'请输入电话号码'} onBlur={this.onBlur.bind(this,State.editLeader,'managerPhone')}/>
 					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder={State.editLeader.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,State.editLeader,'managerEmail')}/>
@@ -279,6 +308,13 @@ import HeaderUpload from './HeaderUpload';
 					    		
 								<div className="info-list">
 									<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区管家</span>
+									<KrField  
+										name={`memberId${index}`}
+										component="searchPersonName" 
+										inline={false} 
+										onChange={this.selectName.bind(_this,index)} 
+										style={{width:261}}
+									/>
 					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder={item.managerName||'请输入姓名'} maxLength={10} onBlur={this.onBlur.bind(this,item,'managerName')}/>
 					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder={item.managerPhone||'请输入电话号码'}onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
 					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder={item.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,item,'managerEmail')}/>
