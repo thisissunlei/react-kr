@@ -21,8 +21,14 @@ import {change,initialize}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import AddStaging from './AddStaging';
 import EditStaging from './EditStaging';
+import {
+	observer,
+	mobx
+} from 'mobx-react';
+import State from '../State';
 import './index.less';
 
+@observer
 class StagingCommunity  extends React.Component{
 
 	constructor(props,context){
@@ -30,10 +36,11 @@ class StagingCommunity  extends React.Component{
         this.state={
             openAddCommunity:false,
             openEditCommunity:false,
-            getData:{},
             searchParams:{
                communityId:this.props.communityId
             },
+            //分区id
+            id:''
         }
 	}
 
@@ -52,9 +59,7 @@ class StagingCommunity  extends React.Component{
         })
     }
 
-    openAddSubmit=(params)=>{
-        params=Object.assign({},params);
-        params.communityId=this.props.communityId;
+    styleChook=(params)=>{
         if(params.zoneType=='FLOOR'){
             var zoneArr=[];
            for(var index in params.floor){
@@ -65,35 +70,40 @@ class StagingCommunity  extends React.Component{
             params.config=JSON.stringify(zoneArr);
         }else{
            var configNew=[];
-           if(params.config.length!=0){
-             for(var i=0;i<params.config.length;i++){
-                for(var j=0;j<params.config.length;j++){
-                    if((params.config[i].floor==params.config[j].floor)&&(params.config[i].detailType==params.config[j].detailType)&&(i!=j)){   
-                        params.config[i].config=params.config[i].config.concat(params.config[j].config)
-                        params.config.splice(j,1);
+           var configs=[];
+           if(params.config){
+             configs=params.config;
+           }else{
+             configs=params.zoneConfigSearchVO;
+           }
+
+           if(configs.length!=0){
+               configs.map((item,index)=>{
+                    if(item.config){
+                        var detailIdArr=[];
+                        item.config.map((items,indexs)=>{
+                            detailIdArr.push(items.detailId)
+                        })
+                    }else if(item.codeList){
+                        var detailIdArr=[];
+                        item.codeList.map((items,indexs)=>{
+                            detailIdArr.push(items.detailId)
+                        })
                     }
-                }
-             }
-             params.config.map((item,index)=>{
-                var detailIdArr=[];
-                 item.config.map((items,indexs)=>{
-                    detailIdArr.push(items.detailId)
-                 })
-                 item.detailId=detailIdArr;
-                 delete item.all;
-                 delete item.config;
-                 delete item.numberMax;
-                 delete item.numberMin;
-                 delete item.communityId;
-                 delete item.codeStr;
-                 delete item.detailTypeStr;    
-             })
-             configNew=[].concat(params.config);
-           } 
-           //params.config=JSON.stringify(configNew); 
-            params.config = configNew;
+                    item.detailId=detailIdArr;  
+                })
+                configNew=[].concat(configs);
+            } 
+           params.config=JSON.stringify(configNew); 
         }
-        console.log('params.config2',params.config,params);
+      }
+
+    openAddSubmit=(params)=>{
+        params=Object.assign({},params);
+        params.communityId=this.props.communityId;
+
+        this.styleChook(params);
+        
         var _this=this;
         Http.request('community-stage-add',{},params).then(function(response) {
             var search={
@@ -109,17 +119,15 @@ class StagingCommunity  extends React.Component{
     }
 
     openEditSubmit=(params)=>{
-        if(params.zoneType=='FLOOR'){
-            var zoneArr=[];
-           for(var index in params.floor){
-               if(params.floor[index]!=','){
-                 zoneArr.push({detailType:'FLOOR',floor:params.floor[index]})                                        
-               }
-             }
-            params.config=JSON.stringify(zoneArr);
-        }
+
+        console.log('parma',params);
+        let {id}=this.state;
+        params=Object.assign({},params);
+        params.id=id;
+
+        this.styleChook(params);
+
         params.openDate=DateFormat(params.openDate,"yyyy-mm-dd hh:MM:ss");
-        delete params.zoneConfigSearchVO;
         var _this=this;
         Http.request('community-stage-edit',{},params).then(function(response) {
             var search={
@@ -133,36 +141,32 @@ class StagingCommunity  extends React.Component{
             Message.error(err.message);
         });
     }
-   
+    
    
 
     getAjaxData=(id)=>{
         var _this=this;
         Http.request('stage-down-search',{zoneId:id}).then(function(response) {
+            response=Object.assign({},response);
             Store.dispatch(initialize('EditStaging',response));
             if(response.zoneConfigSearchVO&&response.zoneConfigSearchVO.length!=0){
                     var configArr=[];
                     response.zoneConfigSearchVO.map((item,index)=>{
                         var configs='';
-                        if(item.zoneConfigedCodeListVos&&item.zoneConfigedCodeListVos.length!=0){
+                        if(item.codeList&&item.codeList.length!=0){
                             var codeArr=[];
-                            item.zoneConfigedCodeListVos.map((item,index)=>{
-                                codeArr.push(item.code);
+                            item.codeList.map((items,indexs)=>{
+                                codeArr.push(items.code);
                             })
-                            configs=codeArra.join(",");
+                            configs=codeArr.join(",");
+                        }
                             item.codeStr=configs;
                             item.detailTypeStr=item.detailTypeName;
-                            Store.dispatch(change('EditStaging','config',item.zoneConfigedCodeListVos));
-                        }else{
-                            Store.dispatch(change('EditStaging','config',[]));
-                        }
                     })
-            }else{
+                    State.stageData=response;       
+            }else{  
                 Store.dispatch(change('EditStaging','config',[]));
             }
-            _this.setState({
-                getData:response
-            })
         }).catch(function(err) {
             Message.error(err.message);
         });  
@@ -172,6 +176,9 @@ class StagingCommunity  extends React.Component{
         if(type=='edit'){
             this.editCancel();
             this.getAjaxData(itemDetail.id);
+            this.setState({
+                id:itemDetail.id
+            })
         }
     }
 
@@ -194,7 +201,7 @@ class StagingCommunity  extends React.Component{
 
         let {floor,communityId}=this.props;
         
-        let {getData}=this.state;
+       
         var floors=[];
         floor.map((item,index)=>{
             var list={};
@@ -310,7 +317,6 @@ class StagingCommunity  extends React.Component{
                         onSubmit={this.openEditSubmit}
                         floor={floors}
                         communityId={communityId}
-                        getData={getData}
                     />
 
                 </Drawer>

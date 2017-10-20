@@ -37,7 +37,10 @@ let State = observable({
 		cityData:'',
 		isCorpName:false,
 		isCorpCode:false,
-		isCorpRank:false
+		isCorpRank:false,
+
+		//分期回血数据
+		stageData:''
 
 });
 //参数修改

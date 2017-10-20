@@ -16,8 +16,17 @@ import {
 } from 'kr/PureComponents';
 import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
+import {
+	toJS
+} from 'mobx';
+import {
+	observer,
+	mobx
+} from 'mobx-react';
 import '../index.less';
+import State from '../../State';
 
+@observer
 class EditStaging  extends React.Component{
 
 	constructor(props,context){
@@ -29,27 +38,32 @@ class EditStaging  extends React.Component{
         }
         this.configArr=[];
         this.getData={};
-	}
+        this.isRender=false;
+    }
     
     componentDidMount(){
-        
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.getData.zoneType){
-            if(nextProps.getData.zoneType=='FLOOR'){
-                this.setState({
-                  isOk:'noOk'
+        var _this=this;
+        Store.dispatch(change('EditStaging','config',[]));
+        if(toJS(State.stageData.zoneType)=='FLOOR'){
+            this.setState({
+                isOk:'noOk'
+              })
+        }else{
+            this.setState({
+                isOk:'ok'
+             },function(){
+                connsole.log('stage',toJS(State.stageData.zoneConfigSearchVO));
+                toJS(State.stageData.zoneConfigSearchVO).map((item,index)=>{
+                    _this.commonStation(item,'props');
                 })
-            }else{
-                this.setState({
-                  isOk:'ok'
-               }) 
-            }
+             })
         }
     }
+   
+    
 
     onSubmit=(values)=>{
+        console.log('values',values);
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
     }
@@ -78,11 +92,12 @@ class EditStaging  extends React.Component{
         })
     }
 
-    onStationSubmit=(params)=>{
-        params=Object.assign({},params);
-        if(params.config.length!=0){
-            var codeList=[];
-            params.config.map((item,index)=>{
+    commonStation=(params,type)=>{
+        var codeList=[];
+        var config=[];
+        config=params.codeList;
+        if(config.length!=0){
+            config.map((item,index)=>{
                 codeList.push(item.code);
             })
         }
@@ -91,18 +106,29 @@ class EditStaging  extends React.Component{
         }else if(params.detailType=='SPACE'){
             params.detailTypeStr='独立空间'
         }
-        params.codeStr=codeList.join(',');
+        params.codeStr=(codeList.length!=0)?codeList.join(','):'';
         this.configArr.push(params);
-        Store.dispatch(change('EditStaging','config',this.configArr));
+        Store.dispatch(change('EditStaging','config',this.configArr.length!=0?this.configArr:[])); 
+    }
+
+    onStationSubmit=(params)=>{
+        params=Object.assign({},params);
+        this.commonStation(params,'');
         this.openAddCommunity();
     }
 
     editButtonClck=(item)=>{
-        this.getData=Object.assign({all:{startValue:item.numberMin,endValue:item.numberMax}},item);
+        this.getData=Object.assign({all:{startValue:item.numberMin||'',endValue:item.numberMax||''}},item);
         this.openEditCommunity();
     }
 
-    onEditStationSubmit = () =>{
+    deleteButtonClck=(item)=>{
+        console.log('item',item);
+    }
+
+    onEditStationSubmit = (params) =>{
+        params=Object.assign({},params);
+        this.commonStation(params,'');
         this.openEditCommunity();
     }
 
@@ -114,14 +140,14 @@ class EditStaging  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,floor,communityId,getData}=this.props;
+        let {handleSubmit,floor,communityId}=this.props;
 
     
 
         let {isOk,openStation,openEditStation}=this.state;
         
-        if(getData.zoneConfigSearchVO&&getData.zoneConfigSearchVO.length!=0){
-            getData.zoneConfigSearchVO.map((item,index)=>{
+        if(toJS(State.getData.zoneConfigSearchVO)&&toJS(State.getData.zoneConfigSearchVO).length!=0){
+            toJS(State.getData.zoneConfigSearchVO).map((item,index)=>{
                 if(item.detailType=='FLOOR'){
                     floor.map((items,indexs)=>{
                         if(items.value==item.floor){
@@ -182,7 +208,7 @@ class EditStaging  extends React.Component{
                                 type='button'
                                 onTouchTap={this.openAddCommunity}
                           /></div>
-                        <FdTabel
+                           <FdTabel
                                 name ='config'
                                 isFold = {false}
                                 initFoldNum={1000}
@@ -191,7 +217,10 @@ class EditStaging  extends React.Component{
                                 <FRow name = "detailTypeStr" label = "类型"/>
                                 <FRow name = "codeStr" label = "编号" rowStyle={{width:'400px'}}/>
                                 <FRow label = "操作" type='operation' component={(item)=>{
-                                        return <div style={{color:'#499df1',cursor:'pointer'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
+                                        return <div>
+                                                 <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingRight:'10px'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
+                                                 <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingLeft:'10px'}} onClick={this.deleteButtonClck.bind(this,item)}>删除</div>
+                                             </div>
                                         }}/>
                                 </FdTabel>
                             </div>}
@@ -207,7 +236,7 @@ class EditStaging  extends React.Component{
                              /></div>}
 
                         
-                       <Grid style={{marginBottom:5,marginLeft:-42,marginTop:15}}>
+                       <Grid style={{marginBottom:5,marginLeft:-42}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

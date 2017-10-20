@@ -182,7 +182,7 @@ class AddStaging  extends React.Component{
                          </div>}
                 
 
-                       <Grid style={{marginBottom:5,marginLeft:-42,marginTop:15}}>
+                       <Grid style={{marginBottom:5,marginLeft:-42}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>
