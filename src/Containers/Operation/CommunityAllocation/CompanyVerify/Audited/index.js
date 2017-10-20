@@ -18,6 +18,7 @@ import {
   CheckPermission
 } from 'kr-ui';
 
+import EidtAudit from './EidtAudit';
 import './index.less';
 export default class Audited extends React.Component {
 
@@ -29,7 +30,9 @@ export default class Audited extends React.Component {
         verifyStatus:'VERIFIED',
         page:1,
         pageSize:15,
-      }
+      },
+      openEdit:false,
+
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -44,6 +47,20 @@ export default class Audited extends React.Component {
       })
     }
 
+  }
+   //操作相关
+   onOperation = (type, itemDetail) => {
+    this.setState({
+      itemDetail
+    });
+    if (type == 'edit') {
+      this.openEdit();
+    } 
+}
+  openEdit=()=>{
+    this.setState({
+      openEdit:!this.state.openEdit
+    })
   }
 
   render() {
@@ -154,6 +171,19 @@ export default class Audited extends React.Component {
             </TableBody>
             <TableFooter></TableFooter>
           </Table>
+          <Drawer
+              modal={true}
+              width={750}
+              open={this.state.openEdit}
+              onClose={this.openEdit}
+              openSecondary={true}
+              containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+            >
+	             	<EidtAudit
+	             			onCancel={this.openEdit} 
+	             			detail={itemDetail}
+	             	 />
+	      </Drawer>
       </div>
     );
 
