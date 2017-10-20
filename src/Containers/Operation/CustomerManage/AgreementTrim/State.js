@@ -27,7 +27,36 @@ let State = observable({
 
 State.editAgreement = action(function(item){
 	this.openEdit = true;
-    this.itemDetail = item;
+    let _this = this;
+    let url = '';
+    switch (item.contracttype){
+			case 'ENTER' :
+				url = 'show-checkin-agreement'; 
+				break;
+			case 'ADDRENT' :
+				url = 'show-checkin-agreement';
+				break;
+			case 'RENEW' :
+				url = 'show-checkin-agreement'
+				break;
+			case 'LESSRENT' :
+				url = 'showFnaContractRentController'
+				break;
+			case 'INTENTION' :
+				url = 'showFinaContractIntentletter'
+				break;
+		}
+	Http.request(url, {
+		id: item.id
+	}).then(function(response) {
+		_this.itemDetail = response;
+	}).catch(function(err) {
+		Notify.show([{
+			message: err.message,
+			type: 'danger',
+		}]);
+	});
+
 })
 
 State.deleteDemo = action(function() {

@@ -131,16 +131,16 @@ class EditList extends React.Component {
 												<KrField name="firstPayDate" component="date" style={{width:160}}/>
 											</TableRowColumn>
 									   	</TableRow>*/}
-									   	<TableRow>
+									   	{State.itemDetail.contracttype!='INTENTION' &&  State.itemDetail.contracttype!='LESSRENT'  && <TableRow>
 											<TableRowColumn>
 											押金总额
 
 											</TableRowColumn>
-											<TableRowColumn >{State.itemDetail.totalrent}</TableRowColumn>
+											<TableRowColumn >{State.itemDetail.totaldeposit}</TableRowColumn>
 											<TableRowColumn>
 												<KrField name="depTotal" component="input" style={{width:160}} />
 											</TableRowColumn>
-									   	</TableRow>
+									   	</TableRow>}
 									   	{/*State.itemDetail.contractstate == 'EXECUTE' && <TableRow >
 											<TableRowColumn>
 											合同状态
