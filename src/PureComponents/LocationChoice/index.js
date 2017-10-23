@@ -28,8 +28,8 @@ class LocationChoice extends Component {
         }
         this.submitData = {
             communityId:props.communityId,
-            floor:props.data.floor,
-            detailType:props.data.detailType,
+            floor:props.data && props.data.floor || '',
+            detailType:props.data && props.data.detailType || '',
         };
     }
     onSubmit = (values) =>{
