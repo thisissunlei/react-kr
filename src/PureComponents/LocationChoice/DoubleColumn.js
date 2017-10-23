@@ -388,7 +388,7 @@ export default class DoubleColumn extends Component {
                 </div>
                 <div className="bottom">
 
-                    <div style = {{display:"inline-block",marginRight:30}}><Button  label="确定" onTouchTap={this.onSubmit}  /></div>
+                    <div style = {{display:"inline-block",marginRight:30}}><Button  label="确定"  onTouchTap={this.onSubmit}  /></div>
                     <Button  label="取消" type="button" cancle={true} onTouchTap={onClose} />
                     
                 </div>

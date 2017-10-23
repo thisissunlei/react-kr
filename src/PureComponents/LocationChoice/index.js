@@ -10,7 +10,8 @@ import {Actions,Store} from 'kr/Redux';
 import {
     Dialog,
     Button,
-    KrField
+    KrField,
+    Message
 } from 'kr-ui';
 import DoubleColumn from'./DoubleColumn';
 var type = [
@@ -49,6 +50,14 @@ class LocationChoice extends Component {
     onClick = (values) =>{
         
         let {onSubmit} = this.props;
+        if(!this.submitData.floor){
+            Message.error('楼层不能为空！');
+            return ;
+        }
+        if(!this.submitData.detailType){
+            Message.error('类型不能为空！');
+            return ;
+        }
        
         values = Object.assign(this.submitData,values);
        
