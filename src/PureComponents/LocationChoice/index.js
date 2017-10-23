@@ -25,10 +25,12 @@ class LocationChoice extends Component {
             subCompany:[],
             floors: [],
         }
+        this.submitData = {};
     }
     onSubmit = (values) =>{
         let {url,communityId,data} = this.props;
         var object = Object.assign({communityId:communityId,numberMin:values.all.startValue,numberMax:values.all.endValue},values)
+        this.submitData  = Object.assign({},object);
         this.box.getData(url,object);
         
        
@@ -36,6 +38,7 @@ class LocationChoice extends Component {
     onClick = (values) =>{
         
         let {onSubmit} = this.props;
+        values = Object.assign(this.submitData,values);
        
         onSubmit && onSubmit(values)
 

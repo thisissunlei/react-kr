@@ -311,7 +311,7 @@ export default class DoubleColumn extends Component {
         let {onSubmit} = this.props;
         let {rightData,titleData} = this.state;
        
-        let object = Object.assign(titleData,{codeList:[].concat(rightData)});
+        let object = Object.assign({},{codeList:[].concat(rightData)});
         onSubmit && onSubmit(object)
 
     }
