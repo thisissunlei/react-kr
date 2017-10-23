@@ -162,7 +162,8 @@ class LocationChoice extends Component {
 
 }
 const validate = values =>{
-	const errors = {};
+    const errors = {};
+    
     if(!values.floor && values.floor !== 0){
         errors.floor = "楼层为必选项";
     }
