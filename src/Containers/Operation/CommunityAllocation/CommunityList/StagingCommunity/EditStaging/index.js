@@ -40,6 +40,7 @@ class EditStaging  extends React.Component{
         this.configArr=[];
         this.getData={};
         this.floor=[];
+        this.index='';
     }
     
     componentDidMount(){      
@@ -130,7 +131,9 @@ class EditStaging  extends React.Component{
             params.detailTypeStr='独立空间'
         }
         params.codeStr=(codeList.length!=0)?codeList.join(','):'';
-        this.configArr.push(params);
+        if(type!='edit'){
+            this.configArr.push(params);        
+        }
         Store.dispatch(change('EditStaging','config',this.configArr.length!=0?this.configArr:[])); 
     }
 
@@ -140,10 +143,11 @@ class EditStaging  extends React.Component{
         this.openAddCommunity();
     }
     
-    editButtonClck=(item)=>{
+    editButtonClck=(event,item,index)=>{
         let {communityId}=this.props;
         this.getData=Object.assign({communityId:communityId,all:{startValue:item.numberMin||'',endValue:item.numberMax||''}},item);
         this.openEditCommunity();
+        this.index=index;
     }
 
     deleteButtonClck=(event,item,index)=>{ 
@@ -156,8 +160,12 @@ class EditStaging  extends React.Component{
 
     onEditStationSubmit = (params) =>{
         params=Object.assign({},params);
-        this.commonStation(params,'');
+        this.configArr[this.index]=params;
+        this.commonStation(params,'edit');
         this.openEditCommunity();
+        this.setState({
+            other:+new Date()
+        })
     }
 
     openEditCommunity=()=>{     
@@ -235,7 +243,11 @@ class EditStaging  extends React.Component{
                                 <FRow name = "codeStr" label = "编号" rowStyle={{width:'400px'}}/>
                                 <FRow label = "操作" type='operation' component={(item,index)=>{
                                         return <div>
-                                                 <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingRight:'10px'}} onClick={this.editButtonClck.bind(this,item)}>编辑</div>
+                                                 <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingRight:'10px'}} 
+                                                 onClick={(event)=>{
+                                                        this.editButtonClck(event,item,index)
+                                                    }}
+                                                 >编辑</div>
                                                  <div style={{color:'#499df1',cursor:'pointer',display:'inline-block',paddingLeft:'10px'}} 
                                                     onClick={(event)=>{
                                                         this.deleteButtonClck(event,item,index)

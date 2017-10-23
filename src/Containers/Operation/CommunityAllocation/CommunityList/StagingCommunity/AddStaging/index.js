@@ -84,7 +84,9 @@ class AddStaging  extends React.Component{
             params.detailTypeStr='独立空间'
         }
         params.codeStr=(codeList.length!=0)?codeList.join(','):'';
-        this.configArr.push(params);
+        if(type!='edit'){
+          this.configArr.push(params);        
+        }
         Store.dispatch(change('AddStaging','config',this.configArr.length!=0?this.configArr:[])); 
     }
 
@@ -112,7 +114,7 @@ class AddStaging  extends React.Component{
     onEditStationSubmit = (params) =>{
         params=Object.assign({},params);
         this.configArr[this.index]=params;
-        Store.dispatch(change('AddStaging','config', this.configArr)); 
+        this.commonStation(params,'edit');
         this.openEditCommunity();
         this.setState({
             other:+new Date()
