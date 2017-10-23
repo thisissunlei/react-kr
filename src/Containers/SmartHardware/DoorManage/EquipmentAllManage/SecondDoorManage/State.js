@@ -58,6 +58,8 @@ let State = observable({
 	DropItems : [],
 	openFirstHardwareDetail: false,
 	resetFirstEquipmentDialog : false,
+	EquipmentHttpToken:'',
+	httpTokenDialog :false
 });
 
 
@@ -289,6 +291,20 @@ State.getPassword= action(function(){
 		Message.error(err.message);
 	});
 })
+
+
+//获取httpToken
+State.showHttpToken= action(function(){
+	console.log("ddldldldldld");
+	var urlParams = {deviceId:State.itemDetail.deviceId}
+	Http.request('getHttpTokenURL',urlParams).then(function(response) {
+		State.EquipmentHttpToken =response.httpToken;
+		State.httpTokenDialog = true;
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
+
 
 //远程开门
 State.openDoorOnlineAction = action(function(){
