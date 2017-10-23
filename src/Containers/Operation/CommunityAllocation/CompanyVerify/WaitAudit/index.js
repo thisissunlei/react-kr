@@ -102,6 +102,7 @@ export default class WaitAudit extends React.Component {
       _this.openAudit();
 			_this.setState({
 				searchParams:{
+          verifyStatus:'UNDERWAY',
 					date:new Date(),
 				}
 			})
@@ -123,6 +124,7 @@ export default class WaitAudit extends React.Component {
     this.openAudit();
     this.setState({
       searchParams:{
+        verifyStatus:'UNDERWAY',
         date:new Date(),
       }
     })
@@ -131,6 +133,7 @@ export default class WaitAudit extends React.Component {
     this.openEdit();
     this.setState({
       searchParams:{
+        verifyStatus:'UNDERWAY',
         date:new Date(),
       }
     })

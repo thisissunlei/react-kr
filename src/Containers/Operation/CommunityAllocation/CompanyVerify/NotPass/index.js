@@ -60,6 +60,15 @@ export default class NotPass extends React.Component {
       openEdit:!this.state.openEdit
     })
   }
+  editSubmit=()=>{
+    this.openEdit();
+    this.setState({
+      searchParams:{
+        verifyStatus:'FAILED',
+        date:new Date(),
+      }
+    })
+  }
 
   render() {
     let {
@@ -181,6 +190,7 @@ export default class NotPass extends React.Component {
 	             	<EidtAudit
 	             			onCancel={this.openEdit} 
 	             			detail={itemDetail}
+                    onSubmit={this.editSubmit}
 	             	 />
 	      </Drawer>
       </div>

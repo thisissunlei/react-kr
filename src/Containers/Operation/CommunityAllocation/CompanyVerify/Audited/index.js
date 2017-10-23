@@ -62,6 +62,16 @@ export default class Audited extends React.Component {
       openEdit:!this.state.openEdit
     })
   }
+  editSubmit=()=>{
+    this.openEdit();
+    this.setState({
+      searchParams:{
+        verifyStatus:'VERIFIED',
+        date:new Date(),
+      }
+    })
+  }
+
 
   render() {
     let {
@@ -182,6 +192,7 @@ export default class Audited extends React.Component {
 	             	<EidtAudit
 	             			onCancel={this.openEdit} 
 	             			detail={itemDetail}
+                    onSubmit={this.editSubmit}
 	             	 />
 	      </Drawer>
       </div>
