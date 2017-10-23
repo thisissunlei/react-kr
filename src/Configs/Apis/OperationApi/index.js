@@ -950,12 +950,25 @@ module.exports = {
         url: '/api/krspace-finance-web/member/card/detail?id={id}',
         method: 'get'
     },
-
      //运营平台-APP管理-积分管理-充值记录
      'charge-list': {
         url: '/api/krspace-finance-web/point/manage/charge-list?companyId={companyId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
-    
+    // 合同调整列表
+    'agreementTrimList': {
+        url: '/api/krspace-op-web/fina-contract-change-list?page={page}&pageSize={pageSize}&customerId={customerId}',
+        method: 'get'
+    },
+    // 合同调整保存
+    'agreementTrimSave': {
+        url: '/api/krspace-op-web/fina-contract-detail-save',
+        method: 'post'
+    },
+    //清除测试数据
+    'delete-demo': {
+        url: '/api/krspace-op-web/fina-contract-detail-delete-test',
+        method: 'post'
+    },
    
 }
