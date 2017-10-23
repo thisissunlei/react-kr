@@ -27,7 +27,9 @@ class LocationChoice extends Component {
             floors: [],
         }
         this.submitData = {
-            communityId:props.communityId
+            communityId:props.communityId,
+            floor:props.data.floor,
+            detailType:props.data.detailType,
         };
     }
     onSubmit = (values) =>{
@@ -56,6 +58,10 @@ class LocationChoice extends Component {
         }
         if(!this.submitData.detailType){
             Message.error('类型不能为空！');
+            return ;
+        }
+        if(!values.codeList.length){
+            Message.error('已选列表不能为空！');
             return ;
         }
        
