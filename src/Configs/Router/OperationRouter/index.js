@@ -356,11 +356,11 @@ const Operation_CommunityAllocation_Activitys=(location, callback)=>{
 	}, 'Operation_CommunityAllocation_AppOpinion')
   }
 
-  const Member_MemberManage_Detail = (location, callback) => {
-	  require.ensure([], require => {
-	    callback(null, require('kr/Containers/Member/MemberManage/Detail').default)
-	  }, 'Member_MemberManage_Detail')
-	}
+//   const Member_MemberManage_Detail = (location, callback) => {
+// 	  require.ensure([], require => {
+// 	    callback(null, require('kr/Containers/Member/MemberManage/Detail').default)
+// 	  }, 'Member_MemberManage_Detail')
+// 	}
 module.exports =()=>{
 	return (
 
@@ -505,7 +505,8 @@ module.exports =()=>{
 
 		<Route path="member" getComponent={Basic}>
 	        <Route path="memberManage" getComponent={Basic}>
-	            <Route path=":memberId/detail/:companyId"  getComponent={Member_MemberManage_Detail}/>	        </Route>
+	            {/* <Route path=":memberId/detail/:companyId"  getComponent={Member_MemberManage_Detail}/>	        */}
+			 </Route>
 	    </Route>
 	</Route>
 	);

@@ -237,6 +237,8 @@ class Editdialog extends React.Component {
 	}
 	onSelect = (item) => {
 		var _this = this;
+		Store.dispatch(change('editdialog', 'moduleChild', ''));
+		Store.dispatch(change('editdialog', 'moduleChildList', ''));
 		this.setState({
 			Params: {
 				parentId: item.id
@@ -268,6 +270,8 @@ class Editdialog extends React.Component {
 	}
 	onSelectChild = (item) => {
 		var _this = this;
+		Store.dispatch(change('editdialog', 'moduleChildList', ''));
+		
 		this.setState({
 			Params: {
 				parentId: item.id

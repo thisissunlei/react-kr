@@ -82,7 +82,7 @@ export default class SecondDoorManage  extends React.Component{
 		
 	}
 	seeDetailInfoFun=(value,itemData)=>{
-		console.log("value",value);
+		
 		if(value.maker == "KRSPACE"){
 			this.secondEquipment(value);
 		}else{
@@ -146,14 +146,16 @@ export default class SecondDoorManage  extends React.Component{
 	closeConfirmDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
 	}
-	//打开查看详情
-	openSeeDetail=()=>{
+	//打开查看二代详情
+	openSeeDetailSecond=()=>{
 		State.openHardwareDetail = !State.openHardwareDetail;
 	}
-	//打开一代查看详情
-	openSeeDetail=()=>{
+
+	//打开查看一代详情
+	openFirstHardwareDetailFun=()=>{
 		State.openFirstHardwareDetail = !State.openFirstHardwareDetail;
 	}
+	
 	//打开编辑
 	openEditDialogFun=()=>{
 		State.openEditDialog = !State.openEditDialog;
@@ -403,10 +405,6 @@ export default class SecondDoorManage  extends React.Component{
 		State.getPassword();
 	}
 
-
-	openFirstHardwareDetailFun=()=>{
-		State.openFirstHardwareDetail = !State.openFirstHardwareDetailFun;
-	}
 
 	//获取管理员密码
 	getManagerPsd=()=>{
@@ -668,11 +666,11 @@ export default class SecondDoorManage  extends React.Component{
 			        </Table>
 			        <Drawer 
 			        	open={State.openHardwareDetail}
-			        	onClose = {this.openSeeDetail}
+			        	onClose = {this.openSeeDetailSecond}
 					    width={1000} 
 					    openSecondary={true} 
 					>
-						<EquipmentDetail onCancel={this.openSeeDetail} detail={itemDetail}/>
+						<EquipmentDetail onCancel={this.openSeeDetailSecond} detail={itemDetail}/>
 					</Drawer>
 
 					<Drawer 

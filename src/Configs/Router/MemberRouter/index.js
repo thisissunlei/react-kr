@@ -24,11 +24,6 @@ const Member_MemberManage_List = (location, callback) => {
     callback(null, require('kr/Containers/Member/MemberManage/List').default)
   }, 'Member_MemberManage_List')
 }
-
-
-
-
-
 const Member_MemberManage_DoorManage = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Member/MemberManage/DoorManage').default)

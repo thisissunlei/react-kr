@@ -17,6 +17,9 @@ import {
 	Dialog,
 	Message,
 	Title,
+	SnackTip,
+	Drawer,
+
 } from 'kr-ui';
 
 import EditDetail from "./EditDetail";
@@ -24,7 +27,7 @@ import CardManageSearchForm from "./CardManageSearchForm";
 import ViewCard from "./ViewCard";
 import DeleteCard from "./DeleteCard";
 import InputCardForm from "./InputCardForm";
-
+import MemberPersonInfo from "./MemberPersonInfo";
 import './index.less';
 
 
@@ -58,13 +61,18 @@ export default class List extends React.Component {
 				comminityId :'',
 				memo : '',
 			},
-			
+			// isHeavilyClose:true,
+			// goHeavilyActivation:"index"
+			openPerson:false,
+			personInfo:{},
+
+
 		}
 	}
 	//操作相关
 	onOperation=(type, itemDetail)=> {
-		console.log("djdjdjjdjd");
 		var _this=this;
+		
 		this.setState({
 			itemDetail
 		});
@@ -234,13 +242,19 @@ export default class List extends React.Component {
 	    	openDelete:!this.state.openDelete
 	    })
     }
+	openPersonDeatil=(value)=>{
+		this.setState({
+			personInfo:value,
+			openPerson:!this.state.openPerson
+		})
+	}
 
 
-    seeMemberDetail=(thisP,itemData)=>{
-
-    	window.open(`./#/operation/member/memberManage/${thisP.holder}/detail/${thisP.customer}`);
-    
-    }
+	openPerson=()=>{
+		this.setState({
+			openPerson:!this.state.openPerson
+		})
+	}
 
 
     componentWillUnmount(){
@@ -261,7 +275,7 @@ export default class List extends React.Component {
 
 
 	render(){
-		
+		let {personInfo}=this.state;
 		return(
 			<div className="switchhover card-manage-table">
 			<Title value="会员卡管理"/>
@@ -270,10 +284,11 @@ export default class List extends React.Component {
 
 							<CardManageSearchForm />
 
-							<Table  style={{marginTop:8}}
-									ajax={true}
-									onOperation={this.onOperation}
-									onProcessData={(state)=>{
+							<Table  
+								style={{marginTop:8}}
+								ajax={true}
+								onOperation={this.onOperation}
+								onProcessData={(state)=>{
 										return state;
 									}
 								}
@@ -336,7 +351,7 @@ export default class List extends React.Component {
 										}
 
 									></TableRowColumn>
-									<TableRowColumn name="holderName" type="operation"
+									<TableRowColumn type="operation" name="holderName" 
 										component={
 											(value,oldValue,itemData)=>{
 												if(value==""){
@@ -347,9 +362,7 @@ export default class List extends React.Component {
 													)
 												}else{
 													return (
-														<div onClick={this.seeMemberDetail.bind(this,itemData)} style={{color:"#499df1",cursor:"pointer"}}>
-															{itemData.holderName}
-														</div>
+														<Button type="operation"  onClick={this.openPersonDeatil.bind(this,itemData)} label={itemData.holderName}    />
 													)
 												}
 												
@@ -425,6 +438,21 @@ export default class List extends React.Component {
 						/>
 				    </Dialog>
 
+					
+					{/*<Dialog
+						title="批量激活（填写卡内码）"
+						modal={true}
+						open={this.state.openStartCardActivation}
+						onClose={this.openStartCardActivationDialog}
+						bodyStyle={{paddingTop:45}}
+						contentStyle={{width:500}}
+					>
+						<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack} openMessageBar={this.openMessageBar} closeMessageBar={this.closeMessageBar}/>
+				  </Dialog>
+				  <SnackTip zIndex={20000}  style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={this.state.closeMessageBar.barStyle}><span className={this.state.closeMessageBar.className} ></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
+					*/}
+
+
 
 				  	<Dialog
 						title="录入会员卡"
@@ -435,6 +463,20 @@ export default class List extends React.Component {
 					>
 						<InputCardForm  onCancel={this.switchOpenInputCardDialog} />
 				    </Dialog>
+					<Drawer
+						modal={true}
+						width={750}
+						open={this.state.openPerson}
+						onClose={this.openPerson}
+						openSecondary={true}
+						containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
+						>
+							<MemberPersonInfo
+									detail={personInfo}
+									onCancel={this.openPerson} 
+									
+							/>
+					</Drawer>
 			</div>
 		);
 	}

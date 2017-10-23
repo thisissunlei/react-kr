@@ -31,12 +31,9 @@ export default class MemeberEditMemberForm extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
-		this.detail = this.props.detail;
 
 		this.state={
 			status:true,
-			jobList:[],
-			itemData:{},
 			initializeValues:{},
 			open:'false',
 			onsubmit:true,
@@ -46,9 +43,10 @@ export default class MemeberEditMemberForm extends React.Component {
 			email:'',
 		}
 	}
+
 	//首次加载，只执行一次
 	componentWillMount() {
-		this.getBasicData(this.detail);
+		this.getBasicData();
 	}
 	componentWillReceiveProps(nextProps){
 		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
@@ -59,41 +57,26 @@ export default class MemeberEditMemberForm extends React.Component {
 	}
 
 	onSubmit=(values)=>{
-		this.communityChange(values.email);
-		if(values.foreignCode){
-			this.membersByForeignCode(values.foreignCode);
-		}
-	 	let {onsubmit,onsubmitCode} = this.state;
-	 	if(onsubmit && onsubmitCode){
-	 		const {onSubmit} = this.props;
-		 	onSubmit && onSubmit(values);
-		}
+		//this.communityChange(values.email);
+		const {onSubmit} = this.props;
+		onSubmit && onSubmit(values);
+		
 	}
 	onCancel=()=>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	getBasicData=(memberId)=>{
+	getBasicData=()=>{
+		const {detail}=this.props;
 		let url = this.props.params;
-		let params = {
-			communityId:'',
-			companyId:'',
-			memberId:memberId.id || ''
-		}
+		
 		let _this = this;
-		Http.request('getMemberBasicData', params).then(function(response) {
-			// response.memberInfoVO.jobId= 11411;
-			response.jobList.forEach((item)=>{
-				item.value = item.id;
-				item.label = item.jobName;
-			})
-			Store.dispatch(initialize('memeberEditMemberForm', response.memberInfoVO));
+		Http.request('members-basic-date', {id:detail.id}).then(function(response) {
+			response.leader=String(response.leader);
+			Store.dispatch(initialize('memeberEditMemberForm', response));
 
 			_this.setState({
-				jobList:response.jobList,
-				itemData:response.memberInfoVO,
-				phone:response.memberInfoVO.phone,
-				code:response.memberInfoVO.foreignCode,
+				phone:response.phone
 			})
 
 
@@ -104,39 +87,39 @@ export default class MemeberEditMemberForm extends React.Component {
 			}]);
 		});
 	}
-	communityChange=(mail)=>{
-		let params = {
-			email :mail
-		}
-		this.setState({
-		 open:true
-	 })
-		let {detail} = this.props;
-		let _this = this;
+	// communityChange=(mail)=>{
+	// 	let params = {
+	// 		email :mail
+	// 	}
+	// 	this.setState({
+	// 	 open:true
+	//  })
+	// 	let {detail} = this.props;
+	// 	let _this = this;
 
-		Http.request('isEmailRegistered',params).then(function(response){
-			 //邮箱已注册
-			 if(detail.phone == response.phone){
-				 _this.setState({
-						 onsubmit:true
-					 })
-				 return;
-			 }else{
-				 Message.warntimeout('该邮箱已被绑定','error');
+	// 	Http.request('isEmailRegistered',params).then(function(response){
+	// 		 //邮箱已注册
+	// 		 if(detail.phone == response.phone){
+	// 			 _this.setState({
+	// 					 onsubmit:true
+	// 				 })
+	// 			 return;
+	// 		 }else{
+	// 			 Message.warntimeout('该邮箱已被绑定','error');
 
-					 _this.setState({
-						 onsubmit:false
-					 })
-			 }
+	// 				 _this.setState({
+	// 					 onsubmit:false
+	// 				 })
+	// 		 }
 
 
-		}).catch(function(err){
-		 //邮箱未注册
-		 _this.setState({
-			 onsubmit:true
-		 })
-		});
-	}
+	// 	}).catch(function(err){
+	// 	 //邮箱未注册
+	// 	 _this.setState({
+	// 		 onsubmit:true
+	// 	 })
+	// 	});
+	// }
 	membersByForeignCode=(codes)=>{
 		let params = {
 			code :codes
@@ -181,34 +164,28 @@ export default class MemeberEditMemberForm extends React.Component {
 
 	render() {
 		let {detail,handleSubmit} = this.props;
-		let {itemData,jobList} = this.state;
 		let images = `./images/all.png`;
 		// itemData.phone = '13314619606';
 		return (
 			<div className="edit-form" style={{paddingBottom:"3"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 					<div className="person-info">
-						<span className="person-name">{detail.name}</span>
-						{detail.checkStatus?<span className="person-status-not">已验证</span>:<span className="person-status">未验证</span>}
-						<span className="person-id">（员工UserID：{detail.id}）</span>
+						{/* <span className="person-name">{detail.name}</span>
+						{detail.checkStatus?<span className="person-status-not">已验证</span>:<span className="person-status">未验证</span>} */}
+						<span className="person-id">员工UserID：{detail.id}</span>
 					</div>
-
-					<KrField name="phone" grid={1/2} label="手机号" inline={false} component="labelText" value={detail.phone} />
 					<div className="split-lines"></div>
-
-
-					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunityAll" right={30} requiredValue={true}  errors={{requiredValue:'请选择社区'}} requireLabel={true} inline={false}/>
-
-					<KrField name="foreignCode" grid={1/2} label="会员卡号"   type="text" left={30} onBlur={this.membersByForeignCode}/>
-
-					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} errors={{requiredValue:'请填选择公司'}} requireLabel={true}/>
-					<KrField name="email" grid={1/2} label="邮箱:" type="text" left={30}  onBlur={this.communityChange} />
-
-					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} errors={{requiredValue:'请填写会员卡号'}}/>
-
-					<KrField name="jobId" grid={1/2} label="职位" component="select" left={30} options={jobList} style={{width:'252px'}}/>
-					<KrField grid={1/2} name="idCardNo" type="text" label="身份证号" style={{width:'252px'}} />
-					
+					<KrField name="phone" grid={1/2} label="手机号" inline={false} right={30}   requireLabel={true}/>
+					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunityAll" right={30}   requireLabel={true} inline={false}/>
+					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} requireLabel={true}/>
+					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} />
+					<KrField name="email" grid={1/2} label="邮箱:" type="text" right={30}  onBlur={this.communityChange} />
+					<KrField name="job" grid={1/2} label="职位" right={30}  />
+					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
+					<KrField name="leader" component="group" label="Leader"  style={{width:252}} >
+						<KrField name="leader" label="是" type="radio" value="1" />
+						<KrField name="leader" label="否" type="radio" value='0' />
+					</KrField>
 					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
 						<Row>
 							<ListGroup>
@@ -217,7 +194,7 @@ export default class MemeberEditMemberForm extends React.Component {
 							</ListGroup>
 						  </Row>
 					</Grid>
-							 </form>
+				</form>
 			</div>
 )
 	}
@@ -232,13 +209,16 @@ const validate = values => {
 		errors.communityId = '请输入社区名称';
 	}
 	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
-    if( values.idCardNo && !reg.test(values.idCardNo)){   
-         errors.idCardNo = '身份证输入不合法';   
+    if( values.identityCard && !reg.test(values.identityCard)){   
+         errors.identityCard = '身份证输入不合法';   
     }
 
-	// if (!values.email) {
-	// 	errors.email = '请输入邮箱';
-	// }
+	if (!values.phone) {
+		errors.phone = '请输入电话号码';
+	}
+	if (values.phone && !phone.test(values.phone) ) {
+		errors.phone = '请输入正确电话号';
+	}
 	if (!values.companyId) {
 		errors.companyId = '请输入公司名称';
 	}
@@ -255,9 +235,7 @@ const validate = values => {
   // if (values.foreignCode && !code.test(values.foreignCode) ) {
   //     errors.foreignCode = '会员卡号为10位纯数字';
   // }
-  if (!values.sendMsg ) {
-      errors.sendMsg = '请选择是否发送验证短信';
-  }
+  
     // if (!values.foreignCode) {
     //     errors.foreignCode = '请输入会员卡号';
     // }
