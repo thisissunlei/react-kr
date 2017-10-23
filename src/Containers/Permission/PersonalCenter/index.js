@@ -500,6 +500,7 @@ export default class PersonalCenter extends React.Component {
 			Message.success("修改成功")
 			window.setTimeout(function () {
 				window.location.href = "/"
+				_this.logout();
 			}
 				, 1000)
 		}).catch(function (err) {
@@ -507,6 +508,16 @@ export default class PersonalCenter extends React.Component {
 				Message.error(err.message)
 			}
 		});
+	}
+
+	logout =()=>{
+
+		Http.request('user-logout').then(function(response) {
+			window.location.href = "/new/login.html";
+		}).catch(function(err) {
+		
+		});
+
 	}
 	closePwdRevise = () => {
 		this.setState({
