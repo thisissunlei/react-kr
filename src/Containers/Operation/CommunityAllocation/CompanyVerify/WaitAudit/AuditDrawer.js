@@ -88,7 +88,7 @@ class AuditDrawer extends React.Component {
 						<div className="title-text">企业详情</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
-				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
+				<form ref="form" >
                             <div className="u-photo-box">
 								<span className="u-photo-title">公司Logo：</span>
 								<div style={{marginLeft:15}}>
@@ -124,7 +124,7 @@ class AuditDrawer extends React.Component {
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="审核通过" type="submit" />
+								<Button  label="审核通过" onTouchTap={this.onSubmit} />
 								<Button  label="退回" cancle={true} type="button"  onTouchTap={this.onCancel.bind(this,'1')}/>
 							</ButtonGroup>
 						  </Col>
