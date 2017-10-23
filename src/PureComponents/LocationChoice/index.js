@@ -25,19 +25,31 @@ class LocationChoice extends Component {
             subCompany:[],
             floors: [],
         }
-        this.submitData = {};
+        this.submitData = {
+            communityId:props.communityId
+        };
     }
     onSubmit = (values) =>{
         let {url,communityId,data} = this.props;
         var object = Object.assign({communityId:communityId,numberMin:values.all.startValue,numberMax:values.all.endValue},values)
-        this.submitData  = Object.assign({},object);
+        
+        
         this.box.getData(url,object);
         
        
     }
+    floorChange = (values) =>{
+        
+        this.submitData.floor = values.value;
+    }
+    typeChange = (values) =>{
+       
+        this.submitData.detailType = values.value;
+    }
     onClick = (values) =>{
         
         let {onSubmit} = this.props;
+       
         values = Object.assign(this.submitData,values);
        
         onSubmit && onSubmit(values)
@@ -93,6 +105,7 @@ class LocationChoice extends Component {
                                 component="select"
                                 label="楼层"
                                 requireLabel={true}
+                                onChange = {this.floorChange}
                                 options={floors}
                             />
                             <KrField grid={1/2}
@@ -100,6 +113,7 @@ class LocationChoice extends Component {
                                 name="detailType"
                                 component="select"
                                 label="类型"
+                                onChange = {this.typeChange}
                                 requireLabel={true}
                                 options={type}
                             />
