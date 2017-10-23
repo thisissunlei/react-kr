@@ -127,6 +127,14 @@ export default class WaitAudit extends React.Component {
       }
     })
   }
+  editSubmit=()=>{
+    this.openEdit();
+    this.setState({
+      searchParams:{
+        date:new Date(),
+      }
+    })
+  }
 
   render() {
     let {
@@ -214,6 +222,7 @@ export default class WaitAudit extends React.Component {
 	             	<EidtAudit
 	             			onCancel={this.openEdit} 
 	             			detail={itemDetail}
+                    onSubmit={this.editSubmit}
 	             	 />
 	      </Drawer>
         <Drawer
