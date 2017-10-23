@@ -93,7 +93,7 @@ class ViewOpinion extends React.Component {
 			<div className="g-create-opinoin">
 				<div className="u-create-title">
 						<div className="title-text">反馈详情</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+						<div className="u-create-close" onTouchTap={this.onCancel}></div>
 				</div>
 				{infoList.handled == 1?
 				<div className="u-table-list">
