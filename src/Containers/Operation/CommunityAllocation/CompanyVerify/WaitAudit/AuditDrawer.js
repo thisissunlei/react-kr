@@ -86,7 +86,7 @@ class AuditDrawer extends React.Component {
 			<div className="g-audit-drawer">
 				<div className="u-create-title">
 						<div className="title-text">企业详情</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+						<div className="u-create-close" onTouchTap={this.onCancel}></div>
 				</div>
 				<form ref="form" >
                             <div className="u-photo-box">
