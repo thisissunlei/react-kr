@@ -119,7 +119,7 @@ class StagingCommunity  extends React.Component{
     }
 
     openEditSubmit=(params)=>{
-
+        
         console.log('parma',params);
         let {id}=this.state;
         params=Object.assign({},params);
@@ -149,7 +149,7 @@ class StagingCommunity  extends React.Component{
         Http.request('stage-down-search',{zoneId:id}).then(function(response) {
             var res=Object.assign({},response);
             Store.dispatch(initialize('EditStaging',res));
-            if(res.zoneConfigSearchVO&&res.zoneConfigSearchVO.length!=0){
+            if(res.zoneConfigSearchVO&&res.zoneConfigSearchVO.length!=0&&res.zoneConfigSearchVO[0].detailType=='SPACE'){
                     var configArr=[];
                     res.zoneConfigSearchVO.map((item,index)=>{
                         var configs='';
@@ -167,7 +167,6 @@ class StagingCommunity  extends React.Component{
                 Store.dispatch(change('EditStaging','config',[]));
             }
             setTimeout(function() {
-                console.log('_',_this.editRef.wrappedInstance,'44');
                 _this.editRef.wrappedInstance.getSelectConfig(res); 
            }, 500);
            State.stageData=res;

@@ -89,7 +89,9 @@ class AddStaging  extends React.Component{
 
     onStationSubmit=(params)=>{
         params=Object.assign({},params);
-        this.commonStation(params,'');
+        if(params.codeList.length!=0){
+            this.commonStation(params,'');
+        }
         this.openAddCommunity();
     }
 
@@ -109,7 +111,9 @@ class AddStaging  extends React.Component{
 
     onEditStationSubmit = (params) =>{
         params=Object.assign({},params);
-        this.commonStation(params,'');
+        if(params.codeList.length!=0){
+            this.commonStation(params,'');
+        }
         this.openEditCommunity();
     }
 
