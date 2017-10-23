@@ -83,15 +83,15 @@ class AddStaging  extends React.Component{
             params.detailTypeStr='独立空间'
         }
         params.codeStr=(codeList.length!=0)?codeList.join(','):'';
+        console.log('code',params);
         this.configArr.push(params);
         Store.dispatch(change('AddStaging','config',this.configArr.length!=0?this.configArr:[])); 
     }
 
     onStationSubmit=(params)=>{
         params=Object.assign({},params);
-        if(params.codeList.length!=0){
-            this.commonStation(params,'');
-        }
+        console.log('par',params);
+        this.commonStation(params,'');
         this.openAddCommunity();
     }
 
@@ -111,9 +111,7 @@ class AddStaging  extends React.Component{
 
     onEditStationSubmit = (params) =>{
         params=Object.assign({},params);
-        if(params.codeList.length!=0){
-            this.commonStation(params,'');
-        }
+        this.commonStation(params,'');
         this.openEditCommunity();
     }
 

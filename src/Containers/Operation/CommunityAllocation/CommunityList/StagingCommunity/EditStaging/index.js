@@ -136,12 +136,10 @@ class EditStaging  extends React.Component{
 
     onStationSubmit=(params)=>{
         params=Object.assign({},params);
-        if(params.codeList.length!=0){
-            this.commonStation(params,'');
-        }
+        this.commonStation(params,'');
         this.openAddCommunity();
     }
-
+    
     editButtonClck=(item)=>{
         let {communityId}=this.props;
         this.getData=Object.assign({communityId:communityId,all:{startValue:item.numberMin||'',endValue:item.numberMax||''}},item);
@@ -158,9 +156,7 @@ class EditStaging  extends React.Component{
 
     onEditStationSubmit = (params) =>{
         params=Object.assign({},params);
-        if(params.codeList.length!=0){
-            this.commonStation(params,'');
-        }
+        this.commonStation(params,'');
         this.openEditCommunity();
     }
 
