@@ -126,6 +126,8 @@ class StagingCommunity  extends React.Component{
         obj.communityId=this.props.communityId;
 
         var params = this.styleChook(obj);
+       
+       
 
         params.openDate=DateFormat(params.openDate,"yyyy-mm-dd hh:MM:ss");
         var _this=this;
