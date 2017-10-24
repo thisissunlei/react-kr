@@ -1,16 +1,10 @@
 import React from 'react';
 import {
-	Http,
-	ReactHtmlParser
+	Http
 } from 'kr/Utils';
 import {
-	reduxForm,
-	change
+	reduxForm
 } from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
@@ -26,33 +20,30 @@ import 'react-photoswipe/lib/photoswipe.css';
 import './index.less';
 
 
-export default class ViewOpinion extends React.Component {
-
+export default  class ViewDetail extends React.Component {
+	static PropTypes = {
+		onCancel: React.PropTypes.func,
+	}
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			ifCity:false,
-			infoList:[],
-			
+			infoList:{},
 		}
-		this.getInfo();
+		
 	}
 	
 	componentDidMount() {
-        
+        this.getInfo();
     }
    
 	getInfo=()=>{
 		var _this=this;
 		const {detail}=this.props;
-		Http.request('opinion-detail',{id:detail.id}).then(function(response) {
-			
+		Http.request('question-detail',{id:detail.id}).then(function(response) {
 			_this.setState({
 				infoList:response
 			})
-			
-			
 		}).catch(function(err) {
 			Message.error(err.message);
 		});	
@@ -73,7 +64,6 @@ export default class ViewOpinion extends React.Component {
 			
 			let {
 				infoList,
-				ifCity,
 			}=this.state;
 			let {detail}=this.props;
 			let items = [];
@@ -82,13 +72,12 @@ export default class ViewOpinion extends React.Component {
 					return(
 						{
 							src: item,
-							w: 900,
-							h: 900,
+							w: 600,
+							h: 600,
 						}
 					)
 				});
 			}
-			
 		return (
 			<div className="g-create-opinoin">
 				<div className="u-create-title">
@@ -107,19 +96,18 @@ export default class ViewOpinion extends React.Component {
                         </tr>
                       </thead>
                         <tbody>
-                            <tr>
-                                <td><KrDate value={infoList.handleTime}/></td>
-                                <td>{infoList.handler}</td>
-                                <td>{infoList.handled == 1
-                                        ? <span className="u-font-green">已处理</span>
-                                        : <span className="u-font-red">未处理	</span>}</td>
-                                <td>{infoList.resultDesc}</td>
-                            </tr>
+	                        <tr>
+	                            <td><KrDate value={infoList.handleTime}/></td>
+	                            <td>{infoList.handler}</td>
+	                            <td>{infoList.handled == 1
+	                                    ? <span className="u-font-green">已处理</span>
+	                                    : <span className="u-font-red">未处理	</span>}</td>
+	                            <td>{infoList.resultDesc}</td>
+	                        </tr>
                         </tbody>
                     </table>
-                </div>
-            	:''}
-				<form>
+                </div>:''}
+				<div style={{paddingLeft:75}}>
 
 							<KrField
 								style={{width:260}}
@@ -164,19 +152,18 @@ export default class ViewOpinion extends React.Component {
 							/>
 						 	<KrField  
 					 			grid={1/2}
-					 			style={{width:548}}
+					 			style={{width:548}} 
 					 			label="内容" 
 					 			inline={false} 
 								component="labelText"
-								value={infoList.content?infoList.content:"无"}
+								value={infoList.content}
 						 	/>
-						 	
-							<div className="u-photo-box">
+							 <div className="u-photo-box">
 								<span className="u-photo-title">图片</span>
 								<div style={{marginLeft:15}}>
-								  
-									<PhotoSwipeGallery items={items}  options={{index:0,Share:false}} thumbnailContent={this.getThumbnailContent}/>
-								  
+								  {
+									infoList.imgUrl?<PhotoSwipeGallery items={items}  options={{index:detail.id,Share:false,Close:false}} thumbnailContent={this.getThumbnailContent}/>:'无'
+								  }
 								</div>
 							</div>
 						<Grid style={{marginTop:50,width:'81%'}}>
@@ -189,13 +176,11 @@ export default class ViewOpinion extends React.Component {
 						</Row>
 						</Grid>
 						
-				</form>
+				</div>
 			</div>
 		);
 	}
 }
 
 
-// export default reduxForm({
-// 		form: 'viewOpinion'
-// 	})(ViewOpinion);
+
