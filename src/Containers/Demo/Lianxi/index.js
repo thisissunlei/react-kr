@@ -7,7 +7,8 @@ import {
 	FRow,
 	Section,
 	IconTip,
-	TextDic
+	TextDic,
+	Checkbox
 } from 'kr-ui';
 import {
 	Actions,
@@ -24,7 +25,7 @@ class EditTable  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-		  
+			checked:false
 		}
 	}
 
@@ -33,7 +34,15 @@ class EditTable  extends React.Component{
 		
 	}
 
+	onCheck=()=>{
+	   this.setState({
+		checked:!this.state.checked
+	   })
+	}
+
 	render(){
+
+		let {checked}=this.state;
 		
 		let config=[
 			'2-201','2-202','2-203','2-204','2-205','2-206','2-207'
@@ -46,7 +55,11 @@ class EditTable  extends React.Component{
 			  <div>反选</div>	
 			  {
 				config.map((item,index)=>{
-					
+					return <Checkbox label={item} checked={checked} 
+					{(event,item,index)=>{
+						
+					}}
+				  />
 				})  
 			  }
 
