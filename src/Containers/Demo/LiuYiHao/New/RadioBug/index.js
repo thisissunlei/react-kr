@@ -51,11 +51,14 @@ class RadioBug extends React.Component {
 		const {
 			onSubmit
 		} = this.props;
-		console.log("KKKKKK",values)
+		console.log("KKKKKK",this.typeJudgment(values.summary))
 		onSubmit && onSubmit();
 	}
 	componentDidMount() {
 		Store.dispatch(change('RadioBug','wsenabled',false));
+	}
+	typeJudgment = (data) =>{
+		return Object.prototype.toString.call(data);
 	}
 	attachTemplateToData = (template, data) => {
         var i = 0,
