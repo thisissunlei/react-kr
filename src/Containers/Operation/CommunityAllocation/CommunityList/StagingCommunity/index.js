@@ -97,9 +97,7 @@ class StagingCommunity  extends React.Component{
                 configNew=[].concat(configs);
             } 
            params.config=JSON.stringify(configNew); 
-          
         }
-        console.log("----",params);
         return params;
       }
 
