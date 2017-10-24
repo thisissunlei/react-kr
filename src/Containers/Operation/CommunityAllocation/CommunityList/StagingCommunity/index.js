@@ -98,15 +98,15 @@ class StagingCommunity  extends React.Component{
             } 
            params.config=JSON.stringify(configNew); 
         }
-        return params;
+       
+        return Object.assign({},params);
       }
 
-    openAddSubmit=(params)=>{
-        params=Object.assign({},params);
-        params.communityId=this.props.communityId;
+    openAddSubmit=(data)=>{
+        var obj=Object.assign({},data);
+        obj.communityId=this.props.communityId;
 
-        params = this.styleChook(params);
-        
+        var params = this.styleChook(obj);
         var _this=this;
         Http.request('community-stage-add',{},params).then(function(response) {
             var search={
@@ -121,14 +121,11 @@ class StagingCommunity  extends React.Component{
         });
     }
 
-    openEditSubmit=(params)=>{
-        
-        console.log('parma',params);
-        let {id}=this.state;
-        params=Object.assign({},params);
-        params.id=id;
+    openEditSubmit=(data)=>{
+        var obj=Object.assign({},data);
+        obj.communityId=this.props.communityId;
 
-        this.styleChook(params);
+        var params = this.styleChook(obj);
 
         params.openDate=DateFormat(params.openDate,"yyyy-mm-dd hh:MM:ss");
         var _this=this;
