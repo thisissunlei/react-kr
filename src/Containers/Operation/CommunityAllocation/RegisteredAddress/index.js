@@ -1,5 +1,5 @@
 import React from 'react';
-import {Http,ReactHtmlParser} from 'kr/Utils';
+import {Http} from 'kr/Utils';
 import {
 	Title,
 	Section,
@@ -19,6 +19,9 @@ import {
 } from 'kr-ui';
 
 import './index.less';
+import AddReg from './AddReg';
+import EditReg from './EditReg';
+import DeleteReg from './DeleteReg';
 export default class RegisteredAddress extends React.Component {
 
 
@@ -27,12 +30,49 @@ export default class RegisteredAddress extends React.Component {
 		this.state = {
             searchParams:{
 
-            },
-            isOpenNew:false,
-            isOpenEdit:false,
-            isOpenDel:false
+			},
+			openAdd:false,
+			openEdit:false,
+			openDelete:false
 		}
 
+	}
+   
+    openNewCreat=()=>{
+		this.cancelAddReg();
+	}
+
+	onOperation=(type,itemDetail)=>{
+		if(type=='edit'){
+			this.cancelEditReg();
+		}else if(type=='delete'){
+			this.cancelDelete();
+		}
+	}
+	
+	allClose=()=>{
+		this.setState({
+			openAdd:false,
+			openEdit:false
+		})
+	}
+
+	cancelAddReg=()=>{
+		this.setState({
+			openAdd:!this.state.openAdd
+		})
+	}
+
+	cancelEditReg=()=>{
+		this.setState({
+			openEdit:!this.state.openEdit
+		})
+	}
+
+	cancelDelete=()=>{
+		this.setState({
+			openDelete:!this.state.openDelete
+		})
 	}
 
 	render() {
@@ -76,29 +116,59 @@ export default class RegisteredAddress extends React.Component {
 					                	name="published" 
 										options={[{label:'已发布',value:'1'},{label:'未发布',value:'0'}]}
 					                ></TableRowColumn>
+									<TableRowColumn type="operation">
+										<Button label="编辑"  type="operation"  operation="edit"/>
+										<Button label="删除"  type="operation"  operation="delete"/>
+									</TableRowColumn>
 					               </TableRow>
 					        </TableBody>
 			        		<TableFooter></TableFooter>
             		</Table>
             		
 				</Section>
+
+				{/*新建*/}
+				<Drawer
+						open={this.state.openAdd}
+						width={750}
+						openSecondary={true}
+						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+						onClose={this.allClose}
+					>
+				<AddReg
+					onSubmit={this.addRegSubmit}
+					onCancel={this.cancelAddReg}
+				/>
+				</Drawer>
+
+				{/*编辑*/}
+				<Drawer
+						open={this.state.openEdit}
+						width={750}
+						openSecondary={true}
+						containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+						onClose={this.allClose}
+					>
+				<EditReg
+					onSubmit={this.editRegSubmit}
+					onCancel={this.cancelEditReg}
+				/>
+				</Drawer>
+
+				{/*删除*/}
+				<Dialog
+					title="提示"
+					onClose={this.cancelDelete}
+					open={this.state.openDelete}
+					contentStyle ={{ width: '446px',height:'236px'}}
+				>
+				<DeleteReg
+					onCancel={this.cancelDelete}
+					onSubmit={this.deleteSubmit}
+				/>
+				</Dialog>
 			
-	            <Dialog
-	              title="发布"
-	              modal={true}
-	              contentStyle ={{ width: '444',overflow:'visible'}}
-	              open={false}
-	              onClose={this.isOpenNew}
-	            >
-	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要发布公告吗？</p>
-					<div style={{textAlign:'center',marginBottom:10}}>
-	                      <div  className='ui-btn-center'>
-		                      <Button  label="确定" /></div>
-		                      <Button  label="取消" type="button" cancle={true} />
-	                      </div>
-	            	</div>
-	            </Dialog>
+	           
 			</div>
 		);
 	}
