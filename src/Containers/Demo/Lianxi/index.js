@@ -20,12 +20,15 @@ import {
 	change
 } from 'redux-form';
 import './index.less';
+var config=[
+	'2-201','2-202','2-203','2-204','2-205','2-206','2-207'
+   ,'2-208'];
 class EditTable  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			checked:false
+			
 		}
 	}
 
@@ -34,19 +37,14 @@ class EditTable  extends React.Component{
 		
 	}
 
-	onCheck=()=>{
-	   this.setState({
-		checked:!this.state.checked
-	   })
+	onCheck=(event,item,index)=>{
+	  console.log('event',event,item);
 	}
-
+    
 	render(){
 
-		let {checked}=this.state;
+	
 		
-		let config=[
-			'2-201','2-202','2-203','2-204','2-205','2-206','2-207'
-	       ,'2-208'];
 
 		return(
 
@@ -55,10 +53,10 @@ class EditTable  extends React.Component{
 			  <div>反选</div>	
 			  {
 				config.map((item,index)=>{
-					return <Checkbox label={item} checked={checked} 
-					{(event,item,index)=>{
-						
-					}}
+					return <Checkbox label={item}
+					 onCheck={(event)=>{
+                       this.onCheck(event,item,index)
+                     }}
 				  />
 				})  
 			  }
