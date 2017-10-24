@@ -20,9 +20,18 @@
     .pswp__button--share,.pswp__button--fs,.pswp__button--close,.pswp__button--zoom{
       display:none;
     }
-    .pswp__top-bar{
-      background: url("./images/default-skin.svg") top right no-repeat;
-      background-position: 121% -44px;
+    @media screen and (max-width: 1280px) {
+      .pswp__top-bar{
+        background: url("./images/default-skin.svg") top right no-repeat;
+        background-position: 121% -44px;
+      }
+    }
+    @media screen and (min-width: 1281px) {
+      .pswp__top-bar{
+        background: url("./images/default-skin.svg") top right no-repeat;
+        background-position: 113% -44px;
+        
+      }
     }
   }
   .pswp-thumbnail{
