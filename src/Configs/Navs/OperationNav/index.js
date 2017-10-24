@@ -230,7 +230,11 @@ module.exports = [
 						menuCode: 'oper_cmt_stationList_base',
 						router: '/operation/communityAllocation/communityStation'
 					},
-
+					{
+						primaryText: '注册地址列表',
+						menuCode: 'oper_cmt_stationList_base',
+						router: '/operation/communityAllocation/registeredAddress'
+					},
 					{
 						primaryText: '平面图配置',
 						menuCode: 'oper_cmt_graph_base',
