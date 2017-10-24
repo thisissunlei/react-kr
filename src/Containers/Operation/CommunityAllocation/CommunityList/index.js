@@ -133,7 +133,13 @@ class CommunityList  extends React.Component{
 }
 	 
 	 stagingCancel=()=>{
-	 	 State.openStagingFun(); 
+			var searchParams={
+				other:new Date()
+			}
+
+		State.searchParams=Object.assign({},State.searchParams,searchParams);
+			State.openStagingFun(); 
+			
 	 }
 
     //发送ajax请求函数
@@ -258,6 +264,11 @@ class CommunityList  extends React.Component{
 
 
     whiteClose=()=>{
+			var searchParams={
+        other:new Date()
+      }
+
+      State.searchParams=Object.assign({},State.searchParams,searchParams);
 			State.closeAllDialog();
     }
 

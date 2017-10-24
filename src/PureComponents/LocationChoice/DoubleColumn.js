@@ -190,11 +190,13 @@ export default class DoubleColumn extends Component {
         let {leftData,rightData} = this.state;
         // let allData = this.allData.map((item,index)=>{
         if(type=="left"){
+            this.delLeft = [];
             this.setState({
                 leftData:[],
                 rightData:this.allData,
             })
         }else if(type == "right"){
+            this.delRight = [];
             this.setState({
                 rightData:[],
                 leftData:this.allData,     

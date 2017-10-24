@@ -15,6 +15,7 @@ let State = observable({
 		searchParams:{
 			page:1,
 			pageSize:15,
+			other:'',
 		},
 		//新建社区
 		openNewCommunity:false,
@@ -101,7 +102,11 @@ State.switchWatchList = action(function() {
 
 //分期页面的开关
 State.openStagingFun = action(function() {
+	
 	this.openStaging=!this.openStaging;
+	if(!this.openStaging){
+		
+	}
 })
 
 
