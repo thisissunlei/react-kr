@@ -59,14 +59,16 @@ class StagingCommunity  extends React.Component{
         })
     }
 
-    styleChook=(params)=>{
+    styleChook=(data)=>{
+        let params = Object.assign({},data);
         if(params.zoneType=='FLOOR'){
-            var zoneArr=[];
-           for(var index in params.floor){
-               if(params.floor[index]!=','){
-                 zoneArr.push({detailType:'FLOOR',floor:params.floor[index]})                                        
-               }
-             }
+            let floorArr = params.floor.split(",");
+            var zoneArr=floorArr.map((item,index)=>{
+                let obj = {};
+                obj.detailType = 'FLOOR';
+                obj.floor = item;
+                return obj;
+            });
             params.config=JSON.stringify(zoneArr);
         }else{
            var configNew=[];
@@ -95,14 +97,17 @@ class StagingCommunity  extends React.Component{
                 configNew=[].concat(configs);
             } 
            params.config=JSON.stringify(configNew); 
+          
         }
+        console.log("----",params);
+        return params;
       }
 
     openAddSubmit=(params)=>{
         params=Object.assign({},params);
         params.communityId=this.props.communityId;
 
-        this.styleChook(params);
+        params = this.styleChook(params);
         
         var _this=this;
         Http.request('community-stage-add',{},params).then(function(response) {

@@ -39,6 +39,7 @@ class AddStaging  extends React.Component{
 
 
     onSubmit=(values)=>{
+        
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
     }
