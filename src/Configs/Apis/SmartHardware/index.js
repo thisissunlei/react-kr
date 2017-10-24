@@ -218,9 +218,14 @@ module.exports = {
       method: 'put'
    },
 
+   //getHttpTokenURL
+   'getHttpTokenURL':{
+
+      url: '/api/iot-platform/door-device/admin/http-token?deviceId={deviceId}',
+      method: 'get'
+   },
 
 
-   
 
     
 
