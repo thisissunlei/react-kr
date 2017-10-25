@@ -11,6 +11,11 @@ import {
 } from 'redux-form';
 
 import {
+	
+	dataToTemplate,
+	ReactHtmlParser
+}from 'kr/Utils'
+import {
 	Actions,
 	Store,
 	connect
@@ -21,7 +26,7 @@ import {
     ButtonGroup,
     Button
 } from 'kr-ui';
-var data = {
+var allkkdata = {
 	name:"yihao",
 	age:18,
 	sex:"男",
@@ -38,6 +43,9 @@ class RadioBug extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			child:""
+		}
 	}
 
 	 onCancel=()=>{
@@ -51,54 +59,46 @@ class RadioBug extends React.Component {
 		const {
 			onSubmit
 		} = this.props;
-		console.log("KKKKKK",this.typeJudgment(values.summary))
-		onSubmit && onSubmit();
+		
+		
+		this.box.innerHTML = values.summary;
+		var htmlData =this.box.innerHTML;
+		
+		// console.log('lLLLLLL',this.typeJudgment(values.summary))
+		// onSubmit && onSubmit();
+		this.setState({
+			child:dataToTemplate(values.summary,[allkkdata])
+		})
 	}
 	componentDidMount() {
 		Store.dispatch(change('RadioBug','wsenabled',false));
 	}
-	typeJudgment = (data) =>{
-		return Object.prototype.toString.call(data);
-	}
-	attachTemplateToData = (template, data) => {
-        var i = 0,
-            len = data.length,
-            fragment = '';
- 
-        // 遍历数据集合里的每一个项，做相应的替换
-        function replace(obj) {
-            var t, key, reg;
- 　　　　　　
-　　　　　　　//遍历该数据项下所有的属性，将该属性作为key值来查找标签，然后替换
-            for (key in obj) {
-                reg = new RegExp('{{' + key + '}}', 'ig');
-                t = (t || template).replace(reg, obj[key]);
-            }
- 
-            return t;
-        }
- 
-        for (; i < len; i++) {
-            fragment += replace(data[i]);
-        }
- 
-        return fragment;
-    };
+
+	
 
 
 	render() {
 
 
 		let {handleSubmit}=this.props;
+		let {child} = this.state;
 
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} >
+				<div
+					ref = {
+						(ref)=>{
+							this.box = ref; 
+						}
+					}
+				></div>
 				
 				<KrField component="editor" name="summary" label="活动介绍" defaultValue=''/>
                  <ButtonGroup>
                     <Button  label="确定" type="submit"/>
                     <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
                 </ButtonGroup>
+				{ReactHtmlParser(child)}
 			</form>
 
 		);
