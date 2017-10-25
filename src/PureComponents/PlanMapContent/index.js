@@ -34,6 +34,7 @@ export default class PlanMapComponent extends React.Component {
 			deleteArr:[],
 			isOperation:true,
 			originData:[],
+			scaleNumber:50
 		}
 		this.getData();
 	}
@@ -118,6 +119,7 @@ export default class PlanMapComponent extends React.Component {
 
 		});
 	}
+
 
 	componentDidMount(){
 
@@ -228,23 +230,26 @@ export default class PlanMapComponent extends React.Component {
 
 		}
 		this.Map =  Map("plan-map-content",dainitializeConfigs);
-		// let data1 = {name:'-----'}
-		// this.Map.onHoverInStation(function(data1){
-  //           _this.setState({
-  //               hoverData:data1
-  //           })
-  //       })
-  //       this.Map.onHoverOutStation(function(data1){
-  //          _this.setState({
-  //             hoverData:data1
-  //         })
-  //       })
+	}
+	//放大比例
+	rangeSelect = (event) => {
+        // let {destroyData}=this.state;
+		var scaleSize = Number(event.target.value);
+		var scaleNumber = parseInt(event.target.value * 100);
+		console.log('rangeSelect',event,scaleSize,scaleNumber)
+		this.setState({
+			scaleNumber
+		});
+        // destroyData.map((item,index)=>{
+           this.Map.setScale(scaleSize);
+        // })
 	}
     floorsChange = (value) =>{
 		let _this = this;
 		this.Map.destory();
         this.setState({
             newfloor:value,
+            scaleNumber:50
         },function(){
 			_this.canvasEles();
 		})
@@ -325,7 +330,7 @@ export default class PlanMapComponent extends React.Component {
 	}
 
 	render() {
-		const {data,otherData} = this.state;
+		const {data,otherData,scaleNumber} = this.state;
 		
 
 		return (
@@ -337,7 +342,14 @@ export default class PlanMapComponent extends React.Component {
                         floorsChange = {this.floorsChange}
 						onSubmit = {this.onSubmit}
 						allOnSubmit = {this.allOnSubmit}
+						scaleNumber={scaleNumber}
+						rangeSelect={this.rangeSelect}
                     />
+                   {/* <div className="num-type">
+                        <span className="til">当前比例：</span>
+                        <input type="range" value={this.state.scaleNumber/100} min="0.1" max="2" step="0.1" onChange={this.rangeSelect} style={{verticalAlign:'middle'}}/>
+                        <output>{this.state.scaleNumber}</output>%
+                    </div>*/}
 
 				</div>
 				<div id = "plan-map-content"  style = {{width:"100%",overflow:'scroll',height:500}}>
