@@ -201,7 +201,6 @@ export default class List extends React.Component {
     }
 
     bindMember=(thisP,itemData)=>{
-    	console.log("thisP",thisP);
     	this.openBindMemberDialogFun();
     	this.setState({
     		itemDetail : thisP

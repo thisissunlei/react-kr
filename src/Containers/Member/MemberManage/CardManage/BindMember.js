@@ -47,7 +47,6 @@ class EditDetail extends React.Component {
 	}
 
 	onSubmit=(values)=>{
-		console.log("values",values);
 		
 		let _this = this;
 		let httpParam={
@@ -81,7 +80,6 @@ class EditDetail extends React.Component {
 	
 
 	changeMember=(values)=>{
-		console.log("value==》",values);
 		this.setState({
 			memberId : values.id
 		})
