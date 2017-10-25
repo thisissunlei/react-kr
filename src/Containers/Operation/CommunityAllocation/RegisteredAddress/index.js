@@ -93,7 +93,8 @@ export default class RegisteredAddress extends React.Component {
 		                  ajaxUrlName='get-notice-page'
 		                  ajaxParams={this.state.searchParams}
 		                  onOperation={this.onOperation}
-		                  onPageChange = {this.pageChange}
+						  onPageChange = {this.pageChange}
+						  displayCheckbox={false}
 					  >
 				            <TableHeader>
 				              <TableHeaderColumn>公告标题</TableHeaderColumn>
