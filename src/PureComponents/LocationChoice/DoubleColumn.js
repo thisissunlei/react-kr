@@ -351,21 +351,23 @@ export default class DoubleColumn extends Component {
                           
                             </span>
                             <span 
+                                className="leftSelect"
                                 onClick = {()=>{
                                     this.move("left")
                                 }}
-                            >{">"}</span>
+                            ></span>
                         </div>
                         
                     </div>
                     <div className = "down">
                         <div>
                             <span
+                                className="rightSelect"
                                 onClick = {()=>{
                                     this.move("right")
                                 }}
                             >
-                                {"<"}
+                                
                             </span>
 
                             <span
