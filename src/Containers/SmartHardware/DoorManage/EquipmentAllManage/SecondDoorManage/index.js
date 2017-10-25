@@ -37,6 +37,7 @@ import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
 import BtnBox from './BtnBox';
 import EquipmentFirstDetail from './EquipmentFirstDetail';
+import HttpTokenDialog from './HttpTokenDialog';
 
 @inject("NavModel")
 @observer
@@ -433,6 +434,11 @@ export default class SecondDoorManage  extends React.Component{
 		State.upgradeDialog = !State.upgradeDialog;
 	}
 
+
+	getHttpToken=()=>{
+		State.showHttpToken();
+	}
+
 	onMouseOn=(thisP)=>{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
@@ -457,7 +463,10 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"重启设备APP",onClickFun:_this.restartAPP},
 				{title:"重启设备系统",onClickFun:_this.restartSystems},
 				{title:"恢复出厂设置",onClickFun:_this.resetEquipmentOrigin},
-				{title:"升级",onClickFun:_this.upgrade}
+				{title:"升级",onClickFun:_this.upgrade},
+
+				{title:"获取httpToken",onClickFun:_this.getHttpToken}
+
 				
 			]
 		}else{
@@ -505,6 +514,10 @@ export default class SecondDoorManage  extends React.Component{
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+	}
+
+	openHttpTokenDialogFun=()=>{
+		State.httpTokenDialog = !State.httpTokenDialog;
 	}
 	
 
@@ -898,6 +911,18 @@ export default class SecondDoorManage  extends React.Component{
 			        >
 			          	<PsdList/>
 			        </Dialog>
+
+
+			        <Dialog
+			          title="HttpToken"
+			          open={State.httpTokenDialog}
+			          onClose={this.openHttpTokenDialogFun}
+			          contentStyle={{width:443,height:260}}
+			        >
+			          	<HttpTokenDialog onCancle={this.openHttpTokenDialogFun}/>
+			        </Dialog>
+
+
 			        <Dialog
 			          title="重启APP提示"
 			          open={State.openRestartAPPDialog}
