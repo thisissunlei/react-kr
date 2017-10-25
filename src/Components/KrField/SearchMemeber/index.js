@@ -13,7 +13,7 @@ import {
 
 import WrapComponent from '../WrapComponent';
 
-export default class SearchCommunity extends React.Component {
+export default class SearchMember extends React.Component {
 
 	static defaultProps = {
 		placeholder: '请输入会员名搜索',
