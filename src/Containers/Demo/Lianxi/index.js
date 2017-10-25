@@ -8,7 +8,8 @@ import {
 	Section,
 	IconTip,
 	TextDic,
-	Checkbox
+	Checkbox,
+	AllCheck
 } from 'kr-ui';
 import {
 	Actions,
@@ -20,9 +21,7 @@ import {
 	change
 } from 'redux-form';
 import './index.less';
-var config=[
-	'2-201','2-202','2-203','2-204','2-205','2-206','2-207'
-   ,'2-208'];
+
 class EditTable  extends React.Component{
 
 	constructor(props,context){
@@ -30,41 +29,51 @@ class EditTable  extends React.Component{
 		this.state={
 			
 		}
+		this.config=[
+			{label:'2-102',checked:false},
+			{label:'2-103',checked:false},
+			{label:'2-104',checked:true},
+			{label:'2-105',checked:false},
+			{label:'2-106',checked:true},
+			{label:'2-107',checked:false},
+		];
 	}
-
+  
 	
 	componentDidMount() {
 		
 	}
-
-	onCheck=(event,item,index)=>{
-	  console.log('event',event,item);
+	 
+	onChange=(params)=>{
+    console.log('onChange',params);
 	}
+
+	allCheck=(params)=>{
+    console.log('allCheck',params);
+	}
+
+	noSameCheck=(params)=>{
+    console.log('noSameCheck',params);
+	}
+	
     
 	render(){
-
+		
 	
 		
-
+    
 		return(
 
 			<div>
-			  <div>全选</div>
-			  <div>反选</div>	
-			  {
-				config.map((item,index)=>{
-					return <Checkbox label={item}
-					 onCheck={(event)=>{
-                       this.onCheck(event,item,index)
-                     }}
-				  />
-				})  
-			  }
-
+			  <AllCheck  
+				 config={this.config} 
+				 onChange={this.onChange}
+				 allCheck={this.allCheck}
+				 noSameCheck={this.noSameCheck}
+				/>
 			</div>
 		);
 	}
-
 }
 
 export default reduxForm({

@@ -5,31 +5,119 @@ import {
     Col,
     Row,
     ButtonGroup,
-    Button
+    Button,
+    AllCheck,
+    Dialog
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import './index.less';
+import AddCode from './AddCode';
 
 class EditReg  extends React.Component{
 
 	constructor(props,context){
-		super(props, context);
+        super(props, context);
+        this.state={
+            openCode:false,
+            other:''
+        }
+        this.config=[
+			'2-102',
+			'2-103',
+			'2-104',
+			'2-105',
+			'2-106',
+			'2-107',
+        ];
+        this.checkData=[];
+        this.configList=[];
 	}
-
-    componentDidMount(){
-        
+    
+    componentWillMount(){
+       this.config.map((item,index)=>{
+          var list={};
+          list.label=item;
+          list.checked=false;
+          this.configList.push(list);
+       })
     }
-
+    
     onSubmit=(values)=>{
+        values.checkNum=this.checkData;
+        console.log('values',values);
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
     }
-
+    
     onCancel=()=>{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
+
+    cancelCode=()=>{
+        this.setState({
+            openCode:!this.state.openCode 
+        })
+    }
+
+    codeSubmit=(values)=>{
+        if(values.desc){
+            var codeList=[];
+            (values.desc.split(',')).map((item,index)=>{
+                var list={};
+                list.label=item;
+                list.checked=false;
+                codeList.push(list);
+            })
+            for(var i=0;i<codeList.length;i++){
+                for(var j=0;j<this.configList.length;j++){
+                    if(codeList[i].label==this.configList[j].label){
+                        codeList.splice(i,1); 
+                    }
+                }
+            }
+            this.configList=this.configList.concat(codeList);
+        }
+        this.setState({
+            other:+new Date()
+        })
+        this.cancelCode();
+    }
+    
+    
+
+    //以下是复选框事件
+    onChange=(params)=>{
+      this.checkData=params;
+	}
+
+	allCheck=(params)=>{
+     this.checkData=params;
+	}
+    
+	noSameCheck=(params)=>{
+     this.checkData=params;
+    }
+    
+    deleteFn=()=>{
+        for(var i=0;i<this.checkData.length;i++){
+            for(var j=0;j<this.configList.length;j++){
+                if(this.checkData[i].label==this.configList[j].label){
+                    this.configList.splice(j,1);
+                }
+            }
+        }
+        this.checkData=[];
+        this.setState({
+            other:+new Date()
+        })
+    }
+    
+    addFn=()=>{
+      this.cancelCode();
+    }
+    
 
 	render(){
 
@@ -83,6 +171,15 @@ class EditReg  extends React.Component{
                         <KrField grid={1} label="地址模版" name="desc" heightStyle={{height:"78px",width:'544px'}} style={{width:552}} component="textarea"  maxSize={100} placeholder='请输入地址模版'  lengthClass='reg-len-textarea'/>
 
                         
+                        <AllCheck  
+                            config={this.configList} 
+                            onChange={this.onChange}
+                            allCheck={this.allCheck}
+                            noSameCheck={this.noSameCheck}
+                            deleteFn={this.deleteFn}
+                            addFn={this.addFn}
+                        />
+
                        <Grid style={{marginBottom:5,marginLeft:-42}}>
                             <Row>
                                 <Col md={12} align="center">
@@ -94,6 +191,20 @@ class EditReg  extends React.Component{
                             </Row>
                         </Grid>
                  </form>
+
+                 {/*添加*/}
+				<Dialog
+					title="添加编号"
+					onClose={this.cancelCode}
+					open={this.state.openCode}
+					contentStyle ={{ width: '600px',height:'auto'}}
+				>
+				<AddCode
+					onCancel={this.cancelCode}
+					onSubmit={this.codeSubmit}
+				/>
+				</Dialog>
+
 			</div>
 		);
 	}
