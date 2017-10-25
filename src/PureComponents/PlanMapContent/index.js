@@ -210,17 +210,35 @@ export default class PlanMapComponent extends React.Component {
 				})
 				dainitializeConfigs = {
 					stations:arr,
-					scale:1,
+					
 					isMode:'select',
 					plugin:{
 						onCheckedStationCallback:_this.dataChange
 					},
+					map:{
+                        translateX:0,
+                        translateY:0,
+                        scaleEnable:false,
+                        scale:0.5,
+                        contextMenuEnable:true
+                    },
 					backgroundImageUrl:"http://"+window.location.host + data[i].graphFilePath
 				}
 			}
 
 		}
 		this.Map =  Map("plan-map-content",dainitializeConfigs);
+		// let data1 = {name:'-----'}
+		// this.Map.onHoverInStation(function(data1){
+  //           _this.setState({
+  //               hoverData:data1
+  //           })
+  //       })
+  //       this.Map.onHoverOutStation(function(data1){
+  //          _this.setState({
+  //             hoverData:data1
+  //         })
+  //       })
 	}
     floorsChange = (value) =>{
 		let _this = this;
