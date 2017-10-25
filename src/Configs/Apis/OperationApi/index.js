@@ -950,8 +950,6 @@ module.exports = {
         url: '/api/krspace-finance-web/member/card/detail?id={id}',
         method: 'get'
     },
-<<<<<<< HEAD
-    
     //运营平台-社区分期列表
     'community-stage-list': {
         url: '/api/krspace-finance-web/cmt/community/zone/list/search?communityId={communityId}',
