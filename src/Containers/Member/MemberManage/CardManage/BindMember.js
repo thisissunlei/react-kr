@@ -51,7 +51,7 @@ class EditDetail extends React.Component {
 		
 		let _this = this;
 		let httpParam={
-			memeberId : _this.state.memberId ,
+			memberId : _this.state.memberId ,
 			outerCard : _this.state.detail.outerCode
 		};
 		Http.request('bind-member-code',{},httpParam).then(function(response) {
