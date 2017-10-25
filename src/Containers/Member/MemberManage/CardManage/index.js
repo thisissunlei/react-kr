@@ -28,6 +28,8 @@ import ViewCard from "./ViewCard";
 import DeleteCard from "./DeleteCard";
 import InputCardForm from "./InputCardForm";
 import MemberPersonInfo from "./MemberPersonInfo";
+import BindMember from "./BindMember";
+
 import './index.less';
 
 
@@ -198,6 +200,18 @@ export default class List extends React.Component {
     	this.openDeleteDialog();
     }
 
+    bindMember=(thisP,itemData)=>{
+    	console.log("thisP",thisP);
+    	this.openBindMemberDialogFun();
+    	this.setState({
+    		itemDetail : thisP
+    	})
+    }
+
+    openBindMemberDialogFun=()=>{
+		State.openBindMemberDialog = !State.openBindMemberDialog;
+	}
+
 
 
 	renderOperation=(itemData)=>{
@@ -215,6 +229,7 @@ export default class List extends React.Component {
 						<Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" onTouchTap={_this.openEditDialog.bind(this,itemData)}/>
 						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="edit" onTouchTap={_this.seeCardDetail.bind(this,itemData)}/>
 						<Button  operateCode="mbr_define_add" label="删除"  type="operation"  operation="edit" onTouchTap={_this.deleteCard.bind(this,itemData)}/>
+						<Button                               label="绑会员"  type="operation" onTouchTap={_this.bindMember.bind(this,itemData)}/>
 						
 					</div>
 				)
@@ -255,6 +270,7 @@ export default class List extends React.Component {
 			openPerson:!this.state.openPerson
 		})
 	}
+	
 
 
     componentWillUnmount(){
@@ -438,20 +454,6 @@ export default class List extends React.Component {
 						/>
 				    </Dialog>
 
-					
-					{/*<Dialog
-						title="批量激活（填写卡内码）"
-						modal={true}
-						open={this.state.openStartCardActivation}
-						onClose={this.openStartCardActivationDialog}
-						bodyStyle={{paddingTop:45}}
-						contentStyle={{width:500}}
-					>
-						<StartCardActivation onFlush={this.onFlush} detail={this.state.detail}  onCancel={this.openStartCardActivationDialog} throwBack={this.throwBack} openMessageBar={this.openMessageBar} closeMessageBar={this.closeMessageBar}/>
-				  </Dialog>
-				  <SnackTip zIndex={20000}  style={this.state.closeMessageBar.style} open={this.state.closeMessageBar.open} title={<span style={this.state.closeMessageBar.barStyle}><span className={this.state.closeMessageBar.className} ></span><span style={{float:"left",color:"#000"}}>{this.state.closeMessageBar.title}</span></span>}  />
-					*/}
-
 
 
 				  	<Dialog
@@ -477,6 +479,15 @@ export default class List extends React.Component {
 									
 							/>
 					</Drawer>
+					<Dialog
+						title="绑定会员"
+						modal={true}
+						open={State.openBindMemberDialog}
+						onClose={this.openBindMemberDialogFun}
+						contentStyle={{width:680}}
+					>
+						<BindMember  onCancel={this.openBindMemberDialogFun} detail={this.state.itemDetail} />
+				    </Dialog>
 			</div>
 		);
 	}
