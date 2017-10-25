@@ -29,7 +29,8 @@ export default class RegisteredAddress extends React.Component {
 		super(props, context);
 		this.state = {
             searchParams:{
-
+				page:1,
+				pageSize:15
 			},
 			openAdd:false,
 			openEdit:false,
@@ -73,6 +74,42 @@ export default class RegisteredAddress extends React.Component {
 		this.setState({
 			openDelete:!this.state.openDelete
 		})
+	}
+
+	addRegSubmit=(params)=>{
+		var _this=this;
+		Http.request('form-field-add',{},values).then(function(response) {
+			_this.setState({
+				searchParams:Object.assign({},_this.state.searchParams,{time:+new Date()})
+			})
+			 _this.cancelAddReg();
+			}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+	editRegSubmit=(params)=>{
+		var _this=this;
+		Http.request('form-field-add',{},values).then(function(response) {
+			_this.setState({
+				searchParams:Object.assign({},_this.state.searchParams,{time:+new Date()})
+			})
+			 _this.cancelEditReg();
+			}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+	deleteSubmit=(params)=>{
+		var _this=this;
+		Http.request('form-field-add',{},values).then(function(response) {
+			_this.setState({
+				searchParams:Object.assign({},_this.state.searchParams,{time:+new Date()})
+			})
+			 _this.cancelDelete();
+			}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 
 	render() {
