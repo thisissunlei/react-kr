@@ -60,65 +60,6 @@ import {
 } from 'mobx-react';
 
 
-class NewCreatForm extends React.Component {
-	static PropTypes = {
-		contractStatusCount: React.PropTypes.object,
-		params: React.PropTypes.object,
-
-	}
-	constructor(props, context) {
-		super(props, context);
-	}
-
-	render() {
-		let {
-			contractStatusCount,
-			params
-		} = this.props;
-
-		return (
-			<Grid style={{paddingBottom:20}}>
-				<Row>
-				<Col md={4} align="center">
-					{
-					contractStatusCount.enterTotoal>0?<span className="createButton disabled">承租意向书</span>:<a className="createButton" href={"./#/operation/customerManage/"+params.customerId+"/order/"+this.props.params.orderId+"/agreement/admit/create"}>承租意向书</a>
-					}
-				</Col>
-				<Col md={4} align="center">
-				  {
-					contractStatusCount.enterTotoal>0 ?<span className="createButton disabled">入驻协议书</span>:<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/join/create"}>入驻协议书</a>
-				  }
-				</Col>
-				<Col md={4} align="center">
-				{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/increase/create"}>增租协议书</a>:<span className="createButton disabled">增租协议书</span>}
-
-				</Col>
-				</Row>
-
-				<Row style={{marginTop:10}}>
-				<Col md={4} align="center" >
-				  	{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag ?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/renew/create"}>续租协议书</a>:<span className="createButton disabled">续租协议书</span>}
-
-				</Col>
-				<Col md={4} align="center">
-					{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag ?<a className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/reduce/create"} >减租协议书</a>:<span className="createButton disabled">减租协议书</span>}
-
-				</Col>
-				<Col md={4} align="center">
-					{contractStatusCount.enterTotoal>0 && contractStatusCount.enterFlag?<a  className="createButton" href={"./#/operation/customerManage/"+this.props.params.customerId+"/order/"+this.props.params.orderId+"/agreement/exit/create"} >退租协议书</a>:<span className="createButton disabled">退租协议书</span>}
-
-				</Col>
-				</Row>
-
-				</Grid>
-
-
-
-		)
-	}
-
-}
-
 
 class StaionInfo extends React.Component{
 	static PropTypes = {
@@ -796,9 +737,7 @@ export default class OrderDetail extends React.Component {
 			earnest,
 			contractList,
 			installmentPlan,
-			contractStatusCount,
-
-		} = this.state.response;
+		} = this.state.response; 
 		let {
 			isShow
 		} = this.state
@@ -1040,14 +979,14 @@ export default class OrderDetail extends React.Component {
 		    
 
 
-			<Dialog
+			{/*<Dialog
 			title="新建合同"
 			modal={true}
 			onClose={this.openCreateAgreementDialog}
 			open={this.state.openCreateAgreement}
 			contentStyle={{width:687}}>
 				<NewCreatForm contractStatusCount={contractStatusCount} params={this.props.params}/>
-			</Dialog>
+			</Dialog>*/}
 
 
 			<Dialog

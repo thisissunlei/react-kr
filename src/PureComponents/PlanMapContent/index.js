@@ -14,13 +14,7 @@ export default class PlanMapComponent extends React.Component {
 
 
 	constructor(props){
-		super(props)
-
-
-
-
-
-
+		super(props);
 		this.state = {
 			data:"",
 			imgW:"",
@@ -103,7 +97,8 @@ export default class PlanMapComponent extends React.Component {
 				allDataObj["a"+item.floor] = [].concat(allData);
 				
 			})
-			console.log()
+			console.log('map',allDataObj,'selectedObjs',selectedObjs);
+			// selectedObjs = [].concat(selectedObjs,allDataObj)
 
 			_this.setState({
 				data:response,
@@ -113,7 +108,8 @@ export default class PlanMapComponent extends React.Component {
 				},
 				newfloor:floors[0].value,
 				submitData:allDataObj,
-				originData:originData
+				originData:originData,
+				// selectedObjs:allDataObj
 			},function(){
 				 _this.canvasEles();
 				 console.log('----->',allDataObj)
@@ -137,11 +133,17 @@ export default class PlanMapComponent extends React.Component {
 	dataChange = (data,allData) =>{
 
 
-		const {selectedObjs,newfloor,submitData,deleteArr} = this.state;
+		const {selectedObjs,newfloor,submitData,deleteArr,originData} = this.state;
 		let del = [].concat(selectedObjs);
 		var allDataObj = Object.assign({},submitData);
 		var delDataObj = Object.assign({},deleteArr);
-		console.log('dataChange',data,allData,submitData,allDataObj)
+		console.log('------dataChange')
+		console.log(data);
+		console.log('------allData');
+		console.log(allData);
+		console.log('-------originData');
+		console.log(originData)
+
 
 		for(let i=0;i<allData.length;i++){
 
