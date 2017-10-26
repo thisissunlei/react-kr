@@ -81,6 +81,7 @@ class EditReg  extends React.Component{
     codeSubmit=(values)=>{
         if(values.code){
             var codeList=[];
+            var num=[];
             (values.code.split(',')).map((item,index)=>{
                 var list={};
                 list.label=item;
@@ -90,9 +91,14 @@ class EditReg  extends React.Component{
             for(var i=0;i<codeList.length;i++){
                 for(var j=0;j<this.configList.length;j++){
                     if(codeList[i].label==this.configList[j].label){
-                        codeList.splice(i,1); 
+                        num.push(i); 
                     }
                 }
+            }
+            if(num.length!=0){
+                num.map((item,index)=>{
+                    codeList.splice(item,1); 
+                })
             }
             this.configList=this.configList.concat(codeList);
         }
