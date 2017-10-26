@@ -32,15 +32,17 @@ class AddReg  extends React.Component{
         
     }
     
-    onSubmit=(values)=>{
+    onSubmit=(value)=>{
+        var values=Object.assign({},value);
         var codeArray=this.configList||'';
         var code=[];
         if(codeArray&&codeArray.length!=0){
             codeArray.map((item,index)=>{
                 code.push(item.label);
             })
-            var codes=code.join(',');
-            values.codeArray=codes;
+            values.codes=code.join(',');
+        }else{
+            values.codes=''; 
         }
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -130,7 +132,7 @@ class AddReg  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,floor}=this.props;
+        let {handleSubmit}=this.props;
 
      
 		return(
@@ -145,12 +147,12 @@ class AddReg  extends React.Component{
                        <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="communityId"
-                            component="select"
+                            component="searchRegCommunity"
                             label="社区名称"
                             requireLabel={true}
-                            options={floor}
+                            inline={false}
 						/>
-
+            
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:29,marginBottom:5}}
                             name="count"

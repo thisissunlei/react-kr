@@ -15,16 +15,18 @@ export default class AllCheck  extends React.Component{
 			other:''
 		}
         this.getData=[];
-        this.config=this.props.config
+        this.config=props.config
 	}
     
 	componentDidMount() {
-		
+
 	}
 
 	componentWillReceiveProps(nextProps){
 		if(nextProps.config!=this.props.config){
 			this.config=nextProps.config;
+		}else{
+			this.config=this.props.config;
 		}
 	}
     

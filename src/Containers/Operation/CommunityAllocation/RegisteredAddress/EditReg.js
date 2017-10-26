@@ -9,11 +9,16 @@ import {
     AllCheck,
     Dialog
 } from 'kr-ui';
+import {
+	observer
+} from 'mobx-react';
 import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import './index.less';
 import AddCode from './AddCode';
 import DeleteCode from './DeleteCode';
+
+
 
 class EditReg  extends React.Component{
 
@@ -26,24 +31,27 @@ class EditReg  extends React.Component{
         }
         this.checkData=[];
         this.configList=[];
+        this.id='';
 	}
     
    
     componentWillReceiveProps(nextProps){  
-        if(nextProps.codeList!=this.props.codeList){
+        if(nextProps.codeList){
             this.configList=nextProps.codeList;
         }
     }
     
-    onSubmit=(values)=>{
+    onSubmit=(value)=>{
+        var values=Object.assign({},value);
         var codeArray=this.configList||'';
         var code=[];
         if(codeArray&&codeArray.length!=0){
             codeArray.map((item,index)=>{
                 code.push(item.label);
             })
-            var codes=code.join(',');
-            values.codeArray=codes;
+            values.codes=code.join(',');
+        }else{
+            values.codes=''; 
         }
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -134,10 +142,10 @@ class EditReg  extends React.Component{
 
 	render(){
 
-        let {handleSubmit,floor}=this.props;
+        let {handleSubmit}=this.props;
 
-     
-     
+      
+        
 		return(
 
 			<div className='m-reg-add'>
@@ -150,10 +158,11 @@ class EditReg  extends React.Component{
                        <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="communityId"
-                            component="select"
+                            component="searchRegCommunity"
                             label="社区名称"
                             requireLabel={true}
-                            options={floor}
+                            inline={false}
+                            
 						/>
 
                         <KrField grid={1/2}

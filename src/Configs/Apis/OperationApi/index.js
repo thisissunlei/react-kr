@@ -995,6 +995,10 @@ module.exports = {
      'register-address-edit': {
         url: '/api/krspace-finance-web/cmt/register-address/edit',
         method: 'post'
+    },  
+     //注册地址－获取社区
+     'register-get-community': {
+        url: '/api/krspace-finance-web/cmt/register-address/select/type/community?communityId={communityId}',
+        method: 'get'
     },
-    
 }

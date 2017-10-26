@@ -23,11 +23,18 @@ import {
 	KrDate,
 	Message
 } from 'kr-ui';
+import {
+	observer
+} from 'mobx-react';
 
 import './index.less';
 import AddReg from './AddReg';
 import EditReg from './EditReg';
 import DeleteReg from './DeleteReg';
+
+
+
+
 export default class RegisteredAddress extends React.Component {
 
 
@@ -39,17 +46,16 @@ export default class RegisteredAddress extends React.Component {
 				pageSize:15
 			},
 			deleteId:'',
-			floor:[],
 			codeList:[],
 			openAdd:false,
 			openEdit:false,
-			openDelete:false
+			openDelete:false,
 		}
 
 	}
 
 	componentDidMount(){
-		this.getFloorData();
+		
 	}
    
     openNewCreat=()=>{
@@ -93,24 +99,15 @@ export default class RegisteredAddress extends React.Component {
 		})
 	}
 
-	getFloorData=()=>{
-		var _this=this;
-		Http.request('getTheCommunity').then(function(response) {
-			 _this.setState({
-				floor:response.items
-			 })
-			}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
 
 	getAjaxData=(id)=>{
 		var _this=this;
 		Http.request('register-address-get',{id:id}).then(function(response) {
 			Store.dispatch(initialize('EditReg',response));
 			_this.setState({
-				codeList:response.codes
+				codeList:response.codes,
 			})
+			
 			}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -166,15 +163,7 @@ export default class RegisteredAddress extends React.Component {
      
 
 	render() {
-		let {floor,codeList}=this.state;
-		
-		var floors=[];
-		floor.map((item,index)=>{
-			var list={};
-			list.label=item.name;
-			list.value=item.id;
-			floors.push(list);
-		})
+		let {codeList}=this.state;
 		
 		var codes=[];
 		codeList.map((item,index)=>{
@@ -219,17 +208,17 @@ export default class RegisteredAddress extends React.Component {
 
 					        <TableBody >
 					              <TableRow>
-					                <TableRowColumn name="communityName"></TableRowColumn>
-					                <TableRowColumn name="count"></TableRowColumn>
-					                <TableRowColumn name="statusStr" ></TableRowColumn>
-					                <TableRowColumn name="codeTypeStr" ></TableRowColumn>
-					                <TableRowColumn name="addressTemp" ></TableRowColumn>
+					                <TableRowColumn name="communityName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+					                <TableRowColumn name="count" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+					                <TableRowColumn name="statusStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+					                <TableRowColumn name="codeTypeStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+					                <TableRowColumn name="addressTemp" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 					                <TableRowColumn 
 									   name="updatorName"
 					                ></TableRowColumn>
 									<TableRowColumn name="uTime" component={(value,oldValue)=>{
 										 return (<KrDate value={value} format="yyyy-mm-dd"/>)
-									}}></TableRowColumn>
+									}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 									<TableRowColumn type="operation">
 										<Button label="编辑"  type="operation"  operation="edit"/>
 										<Button label="删除"  type="operation"  operation="delete"/>
@@ -252,7 +241,6 @@ export default class RegisteredAddress extends React.Component {
 				<AddReg
 					onSubmit={this.addRegSubmit}
 					onCancel={this.cancelAddReg}
-					floor={floors}
 				/>
 				</Drawer>
 
@@ -265,9 +253,13 @@ export default class RegisteredAddress extends React.Component {
 						onClose={this.allClose}
 					>
 				<EditReg
+				    ref={
+						(ref)=>{
+							this.editRef=ref
+						}
+					}
 					onSubmit={this.editRegSubmit}
 					onCancel={this.cancelEditReg}
-					floor={floors}
 					codeList={codes}
 				/>
 				</Drawer>
