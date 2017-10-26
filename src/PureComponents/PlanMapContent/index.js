@@ -143,6 +143,7 @@ export default class PlanMapComponent extends React.Component {
 		console.log(allData);
 		console.log('-------originData');
 		console.log(originData)
+		allData = [].concat(allData,originData);
 
 
 		for(let i=0;i<allData.length;i++){
