@@ -13,6 +13,7 @@ import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
 import './index.less';
 import AddCode from './AddCode';
+import DeleteCode from './DeleteCode';
 
 class AddReg  extends React.Component{
 
@@ -20,6 +21,7 @@ class AddReg  extends React.Component{
         super(props, context);
         this.state={
             openCode:false,
+            openDelete:false,
             other:''
         }
         this.checkData=[];
@@ -95,6 +97,18 @@ class AddReg  extends React.Component{
     }
     
     deleteFn=()=>{
+        if(this.checkData.length!=0){
+           this.cancelDelete();        
+        }
+    }
+
+    cancelDelete=()=>{
+        this.setState({
+            openDelete:!this.state.openDelete
+        })
+    }
+    
+    deleteSubmit=()=>{
         for(var i=0;i<this.checkData.length;i++){
             for(var j=0;j<this.configList.length;j++){
                 if(this.checkData[i].label==this.configList[j].label){
@@ -103,6 +117,7 @@ class AddReg  extends React.Component{
             }
         }
         this.checkData=[];
+        this.cancelDelete();
         this.setState({
             other:+new Date()
         })
@@ -199,6 +214,19 @@ class AddReg  extends React.Component{
 					onSubmit={this.codeSubmit}
 				/>
 				</Dialog>
+
+                {/*删除*/}
+                <Dialog
+                    title="提示"
+                    onClose={this.cancelDelete}
+                    open={this.state.openDelete}
+                    contentStyle ={{ width: '446px',height:'236px'}}
+                    >
+                    <DeleteCode
+                        onCancel={this.cancelDelete}
+                        onSubmit={this.deleteSubmit}
+                    />
+                </Dialog>
 
 			</div>
 		);
