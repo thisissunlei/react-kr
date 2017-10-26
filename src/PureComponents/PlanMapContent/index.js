@@ -181,7 +181,6 @@ export default class PlanMapComponent extends React.Component {
 		var dainitializeConfigs = {};
 		let start = Number(inputStart);
 		let end = Number(inputEnd);
-		console.log('canvas',selectedObjs)
 		
 		for(let i=0; i<data.length;i++){
 			if(data[i].floor == newfloor){
@@ -248,7 +247,7 @@ export default class PlanMapComponent extends React.Component {
         // let {destroyData}=this.state;
 		var scaleSize = Number(event.target.value);
 		var scaleNumber = parseInt(event.target.value * 100);
-		console.log('rangeSelect',event,scaleSize,scaleNumber)
+		console.log('rangeSelect',this.state.newfloor)
 		this.setState({
 			scaleNumber
 		});
@@ -263,6 +262,7 @@ export default class PlanMapComponent extends React.Component {
             newfloor:value,
             scaleNumber:50
         },function(){
+        	console.log('floorsChange',value)
 			_this.canvasEles();
 		})
     }
@@ -300,10 +300,6 @@ export default class PlanMapComponent extends React.Component {
 		for(let i in deleteArr){
 			deleteDataArr = deleteDataArr.concat(deleteArr[i]);
 		}
-
-		console.log('--->',submitDataAll)
-
-
 		 
 		submitDataAll.map(function(item,index){
 			var obj1 = {};
@@ -364,7 +360,7 @@ export default class PlanMapComponent extends React.Component {
                     </div>*/}
 
 				</div>
-				<div id = "plan-map-content"  style = {{width:"100%",overflow:'scroll',height:500}}>
+				<div id = "plan-map-content"  style = {{width:"100%",height:500}}>
 
 				</div>
 			</div>
