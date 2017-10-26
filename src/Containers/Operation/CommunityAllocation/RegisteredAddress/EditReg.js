@@ -82,7 +82,9 @@ class EditReg  extends React.Component{
         if(values.code){
             var codeList=[];
             var num=[];
-            (values.code.split(',')).map((item,index)=>{
+            var code=values.code.replace(/\s+/g,"");
+            var codeEnd=code.replace('，',',');
+            (codeEnd.split(',')).map((item,index)=>{
                 var list={};
                 list.label=item;
                 list.checked=false;
@@ -275,9 +277,10 @@ const validate = values =>{
     
         if(!values.count){
             errors.count='请输入数量';
-        }else if(!regNum.test(values.count)){
-            errors.count='数量为非负整数';
+        }else if((!regNum.test(values.count))&&values.count!=-1){
+            errors.count='数量为大于-1的整数';
         }
+        
     
         if(!values.status){
             errors.status='请输入状态';
