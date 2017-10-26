@@ -59,9 +59,11 @@ class EditTable  extends React.Component{
     
 	render(){
 		
-	
-		
-    
+		var codes='444      ,    455555     ,898989889，        ';
+	    var code=codes.replace(/\s+/g,"");
+		var codeEnd=code.replace('，',',');
+		console.log('codeEnd',codeEnd);
+        
 		return(
 
 			<div>

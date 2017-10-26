@@ -231,7 +231,7 @@ module.exports = [
 						router: '/operation/communityAllocation/communityStation'
 					},
 					{
-						primaryText: '注册地址列表',
+						primaryText: '注册地址',
 						menuCode: 'oper_cmt_stationList_base',
 						router: '/operation/communityAllocation/registeredAddress'
 					},
