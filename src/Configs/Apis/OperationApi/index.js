@@ -175,6 +175,7 @@ module.exports = {
       method:'get'
     },
     //运营平台－合同列表-客户订单下拉接口
+
    'orders-names':{
        url:'/api/krspace-finance-web/customer/orders-names?customerId={customerId}',
        method:'get'
@@ -186,7 +187,7 @@ module.exports = {
     },
     //运营平台－客户管理－个人客户列表
     'personalCustomers': {
-        url: '/api/krspace-finance-web/customer/personal-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}',
+        url: '/api/krspace-finance-web/customer/personal-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}&receiveId={receiveId}',
         method: 'get'
     },
     //运营平台－客户管理－个人客户列表－导出
@@ -949,8 +950,25 @@ module.exports = {
         url: '/api/krspace-finance-web/member/card/detail?id={id}',
         method: 'get'
     },
-
-
-    
+     //运营平台-APP管理-积分管理-充值记录
+     'charge-list': {
+        url: '/api/krspace-finance-web/point/manage/charge-list?companyId={companyId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    // 合同调整列表
+    'agreementTrimList': {
+        url: '/api/krspace-op-web/fina-contract-change-list?page={page}&pageSize={pageSize}&customerId={customerId}',
+        method: 'get'
+    },
+    // 合同调整保存
+    'agreementTrimSave': {
+        url: '/api/krspace-op-web/fina-contract-detail-save',
+        method: 'post'
+    },
+    //清除测试数据
+    'delete-demo': {
+        url: '/api/krspace-op-web/fina-contract-detail-delete-test',
+        method: 'post'
+    },
    
 }

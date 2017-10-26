@@ -70,6 +70,12 @@ const Operation_CustomerManage_AgreementList = (location, callback) => {
 	}, 'Operation_CustomerManage_AgreementList')
 }
 
+const Operation_CustomerManage_AgreementTrim = (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CustomerManage/AgreementTrim').default)
+	}, 'Operation_CustomerManage_AgreementTrim')
+}
+
 const Operation_CustomerManage_CustomerHighSea = (location, callback) => {
 	require.ensure([], require => {
 		callback(null, require('kr/Containers/Operation/CustomerManage/CustomerHighSea').default)
@@ -356,11 +362,11 @@ const Operation_CommunityAllocation_Activitys=(location, callback)=>{
 	}, 'Operation_CommunityAllocation_AppOpinion')
   }
 
-  const Member_MemberManage_Detail = (location, callback) => {
-	  require.ensure([], require => {
-	    callback(null, require('kr/Containers/Member/MemberManage/Detail').default)
-	  }, 'Member_MemberManage_Detail')
-	}
+//   const Member_MemberManage_Detail = (location, callback) => {
+// 	  require.ensure([], require => {
+// 	    callback(null, require('kr/Containers/Member/MemberManage/Detail').default)
+// 	  }, 'Member_MemberManage_Detail')
+// 	}
 module.exports =()=>{
 	return (
 
@@ -408,6 +414,7 @@ module.exports =()=>{
 		<Route path="customerManage" getComponent={Basic}>
 			<Route path="customerList" getComponent={Operation_CustomerManage_CustomerList} />
 			<Route path="agreementList" getComponent={Operation_CustomerManage_AgreementList} />
+			<Route path="agreementtrim" getComponent={Operation_CustomerManage_AgreementTrim} />
 			{/*客户公海*/}
 			<Route path="customerHighSea" getComponent={Operation_CustomerManage_CustomerHighSea}/>
 			<Route path="list" getComponent={Operation_CustomerManage_List} />
@@ -505,7 +512,8 @@ module.exports =()=>{
 
 		<Route path="member" getComponent={Basic}>
 	        <Route path="memberManage" getComponent={Basic}>
-	            <Route path=":memberId/detail/:companyId"  getComponent={Member_MemberManage_Detail}/>	        </Route>
+	            {/* <Route path=":memberId/detail/:companyId"  getComponent={Member_MemberManage_Detail}/>	        */}
+			 </Route>
 	    </Route>
 	</Route>
 	);

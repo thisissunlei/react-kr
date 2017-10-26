@@ -95,7 +95,7 @@ const APIS = {
     },
     // 会员中心-会员-获取-(查询)高级搜索---------->Operation和Memeber共用
     'membersList': {
-        url: '/api/krspace-finance-web/member/member-list?value={value}&type={type}&startTime={startTime}&endTime={endTime}&registerSourceId={registerSourceId}&jobId={jobId}&pageSize={pageSize}&page={page}&companyId={companyId}&cityId={cityId}',
+        url: '/api/krspace-finance-web/member/member-list?value={value}&type={type}&pageSize={pageSize}&page={page}',
         method: 'get'
     },
     //获取指定公司会员列表－－－－－－－－－－－>这个接口居然没有用到
@@ -113,17 +113,27 @@ const APIS = {
         url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
         method: 'get'
     },
-    //新建编辑会员---------->Operation和Memeber共用
-    'membersChange': {
-        url: '/api/krspace-finance-web/member/member',
+    //新建会员
+    'add-members': {
+        url: '/api/krspace-finance-web/member/add',
         method: 'post'
     },
-    // －－－－－－－－－－－>这个接口居然没有用到
-    'editMembersChange': {
-        url: '/api/krspace-finance-web/member/member?companyId={companyId}&email={email}&communityId={communityId}&foreignCode={foreignCode}&jobId={jobId}&name={name}&phone={phone}&sendMsg={sendMsg}',
-        method: 'put'
+    //编辑会员 
+    'edit-members': {
+        url: '/api/krspace-finance-web/member/edit',
+        method: 'post'
     },
-
+    //删除会员 
+    'delete-members': {
+        url: '/api/krspace-finance-web/member/delete?id={id}',
+        method: 'get'
+    },
+    //编辑会员前的数据 
+    'members-basic-date': {
+        url: '/api/krspace-finance-web/member/detail?id={id}',
+        method: 'get'
+    },
+    
     //指定公司下的会员数据导出－－－－－－－－－－－>这个接口居然没有用到
     'companyMemberExcel': {
         url: '/api/krspace-finance-web/member/member-company-excel?ids={ids}&companyId={companyId}',
@@ -198,6 +208,7 @@ const APIS = {
          url: '/api/krspace-finance-web/cmt/community/select-list',
          method: 'get'
       },
+    
 
     
 

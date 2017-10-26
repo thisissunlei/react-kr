@@ -193,13 +193,13 @@ export default class ItemTable extends React.Component {
                     </div>
                      </CheckPermission>
                         
-                    <CheckPermission  operateCode="cmt_mbr_list" >
+                    {/* <CheckPermission  operateCode="cmt_mbr_list" >
         						<div className="Preson"  onTouchTap={this.onhref}>
                       <div className="tip hide  hover">
                             查看员工 <span className = "bArrow"></span>
                       </div>
                     </div>
-                     </CheckPermission>
+                     </CheckPermission> */}
 
                   </div>
 						</td>

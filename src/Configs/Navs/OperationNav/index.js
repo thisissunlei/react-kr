@@ -39,6 +39,11 @@ module.exports = [
 						router: '/operation/customerManage/customerHighSea',
 						menuCode: 'oper_csr_marketList_base',
 					},
+					{
+						primaryText: '合同调整',
+						router: '/operation/customerManage/agreementtrim',
+						menuCode: 'contract_edit',
+					},
 				]
 			},
 			{
@@ -188,6 +193,11 @@ module.exports = [
 						primaryText: '社区配置',
 						menuCode: 'krspace_cmt',
 						router: '/WebBackstage/communityAllocation',
+					},
+					{
+						primaryText: '轮播图列表',
+						menuCode: 'por_mobilepic_list',
+						router: '/WebBackstage/picList',
 					}
 				]
 			},

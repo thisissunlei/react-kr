@@ -260,22 +260,22 @@ export default class EmployessTable extends React.Component {
 			itemDetail
 		});
 
-		if (type == 'Distribution') {
-			this.setState({
-				stationId: itemDetail.stationId
-			}, function() {
-				this.openDistributionStation(itemDetail)
-			})
+		// if (type == 'Distribution') {
+		// 	this.setState({
+		// 		stationId: itemDetail.stationId
+		// 	}, function() {
+		// 		this.openDistributionStation(itemDetail)
+		// 	})
 
-		} else if (type == 'ChangeStation') {
-			this.setState({
-				stationId: itemDetail.stationId
-			}, function() {
+		// } else if (type == 'ChangeStation') {
+		// 	this.setState({
+		// 		stationId: itemDetail.stationId
+		// 	}, function() {
 
-				this.openChangeStation(itemDetail)
-			})
+		// 		this.openChangeStation(itemDetail)
+		// 	})
 
-		}
+		// }
 	}
 	onNewCreateSubmit=(values)=>{
 		var _this = this;
