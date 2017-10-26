@@ -197,7 +197,7 @@ export default class RegisteredAddress extends React.Component {
 							/>
 					</div>
 					<Table
-						  style={{marginTop:10}}
+						  style={{marginTop:20}}
 		                  ajax={true}
 		                  ajaxUrlName='register-address-list'
 						  ajaxFieldListName="items"

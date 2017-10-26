@@ -28,18 +28,17 @@ class EditReg  extends React.Component{
     
    
     componentWillReceiveProps(nextProps){  
-        console.log('rece',nextProps.codeList,this.props.codeList);
         if(nextProps.codeList!=this.props.codeList){
             this.configList=nextProps.codeList;
         }
     }
     
     onSubmit=(values)=>{
-        var codeArray=this.checkData||'';
+        var codeArray=this.configList||'';
         var code=[];
         if(codeArray&&codeArray.length!=0){
             codeArray.map((item,index)=>{
-                code.push(parseInt(item.label));
+                code.push(item.label);
             })
             var codes=code.join(',');
             values.codeArray=codes;
@@ -58,11 +57,11 @@ class EditReg  extends React.Component{
             openCode:!this.state.openCode 
         })
     }
-
+    
     codeSubmit=(values)=>{
-        if(values.desc){
+        if(values.code){
             var codeList=[];
-            (values.desc.split(',')).map((item,index)=>{
+            (values.code.split(',')).map((item,index)=>{
                 var list={};
                 list.label=item;
                 list.checked=false;
@@ -128,7 +127,7 @@ class EditReg  extends React.Component{
 			<div className='m-reg-add'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
-                            <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">新建注册地址</label></div>
+                            <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">编辑注册地址</label></div>
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 

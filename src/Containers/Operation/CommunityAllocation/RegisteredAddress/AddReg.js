@@ -31,7 +31,7 @@ class AddReg  extends React.Component{
     }
     
     onSubmit=(values)=>{
-        var codeArray=this.checkData||'';
+        var codeArray=this.configList||'';
         var code=[];
         if(codeArray&&codeArray.length!=0){
             codeArray.map((item,index)=>{
