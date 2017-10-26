@@ -50,6 +50,7 @@ export default class RegisteredAddress extends React.Component {
 			openAdd:false,
 			openEdit:false,
 			openDelete:false,
+			communityId:''
 		}
 
 	}
@@ -64,7 +65,10 @@ export default class RegisteredAddress extends React.Component {
 
 	onOperation=(type,itemDetail)=>{
 		if(type=='edit'){
-			this.cancelEditReg();
+			this.cancelEditReg(); 
+			this.setState({
+				communityId:itemDetail.communityId
+			})
 			this.getAjaxData(itemDetail.id);
 		}else if(type=='delete'){
 			this.cancelDelete();
@@ -98,7 +102,7 @@ export default class RegisteredAddress extends React.Component {
 			openDelete:!this.state.openDelete
 		})
 	}
-
+	
 
 	getAjaxData=(id)=>{
 		var _this=this;
@@ -106,8 +110,7 @@ export default class RegisteredAddress extends React.Component {
 			Store.dispatch(initialize('EditReg',response));
 			_this.setState({
 				codeList:response.codes,
-			})
-			
+			})	
 			}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -163,7 +166,7 @@ export default class RegisteredAddress extends React.Component {
      
 
 	render() {
-		let {codeList}=this.state;
+		let {codeList,communityId}=this.state;
 		
 		var codes=[];
 		codeList.map((item,index)=>{
@@ -261,6 +264,7 @@ export default class RegisteredAddress extends React.Component {
 					onSubmit={this.editRegSubmit}
 					onCancel={this.cancelEditReg}
 					codeList={codes}
+					communityId={communityId}
 				/>
 				</Drawer>
 

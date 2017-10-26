@@ -32,13 +32,23 @@ class EditReg  extends React.Component{
         this.checkData=[];
         this.configList=[];
         this.id='';
-	}
+    }
+    
+    componentDidMount(){
+        
+    }
     
    
     componentWillReceiveProps(nextProps){  
         if(nextProps.codeList){
             this.configList=nextProps.codeList;
         }
+    }
+
+    
+    
+    componentWillUnmount(){
+        
     }
     
     onSubmit=(value)=>{
@@ -92,7 +102,7 @@ class EditReg  extends React.Component{
         this.cancelCode();
     }
     
-    
+
 
     //以下是复选框事件
     onChange=(params)=>{
@@ -142,7 +152,7 @@ class EditReg  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,communityId}=this.props;
 
       
         
@@ -155,14 +165,14 @@ class EditReg  extends React.Component{
                             <div className="person-close" onClick={this.onCancel}></div>
                       </div>
 
-                       <KrField grid={1/2}
+                      <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="communityId"
                             component="searchRegCommunity"
                             label="社区名称"
                             requireLabel={true}
                             inline={false}
-                            
+                            id={communityId}
 						/>
 
                         <KrField grid={1/2}

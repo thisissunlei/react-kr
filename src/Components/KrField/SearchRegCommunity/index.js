@@ -56,7 +56,6 @@ export default class SearchRegCommunity extends React.Component {
 
 	getOptions(lastname) {
 		let {id}=this.props;
-		console.log('id',id);
 		return new Promise((resolve, reject) => {
 			Http.request('register-get-community', {
 				lastname:lastname,
