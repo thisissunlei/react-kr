@@ -37,7 +37,7 @@ class AddCode  extends React.Component{
 			<div style={{marginTop:20,marginLeft:25}} className='m-has-create'>
 			  <form onSubmit={handleSubmit(this.onSubmit)}>
 
-                <KrField grid={1} label="编号" name="code" heightStyle={{height:"130px",width:'500px'}} style={{width:510}} maxSize={300} component="textarea"  placeholder='请输入地址模版'  lengthClass='reg-len-textarea'  requireLabel={true}/>
+                <KrField grid={1} label="编号" name="code" heightStyle={{height:"130px",width:'500px'}} style={{width:510}} maxSize={1000} component="textarea"  placeholder='请输入编号'  lengthClass='reg-len-textarea'  requireLabel={true}/>
 
                 <Grid style={{marginBottom:5,marginLeft:-20,marginTop:0}}>
                         <Row>
@@ -57,12 +57,9 @@ class AddCode  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-	if(!values.label){
-		errors.label='请填写字段显示名';
-	 }else if(values.label.length>10){
-		errors.label='字段显示名不能超过10个字符';
+	if(!values.code){
+		errors.code='请填写编号';
 	 }
- 
 	return errors
 }
 
