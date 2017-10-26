@@ -970,5 +970,31 @@ module.exports = {
         url: '/api/krspace-op-web/fina-contract-detail-delete-test',
         method: 'post'
     },
-   
+
+     //注册地址－列表
+     'register-address-list': {
+        url: '/api/krspace-finance-web/cmt/register-address/list/type/search?communityId={communityId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //注册地址－新建
+    'register-address-add': {
+        url: '/api/krspace-finance-web/cmt/register-address/add',
+        method: 'post'
+    },
+     //注册地址－删除
+     'register-address-delete': {
+        url: '/api/krspace-finance-web/cmt/register-address/delete?id={id}',
+        method: 'delete'
+    },
+    //注册地址－编辑回显
+    'register-address-get': {
+        url: '/api/krspace-finance-web/cmt/register-address/info/type/edit?id={id}',
+        method: 'get'
+    },
+     //注册地址－编辑
+     'register-address-edit': {
+        url: '/api/krspace-finance-web/cmt/register-address/edit',
+        method: 'post'
+    },
+    
 }

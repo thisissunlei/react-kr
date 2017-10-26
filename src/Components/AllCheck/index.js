@@ -23,6 +23,7 @@ export default class AllCheck  extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps){
+		console.log('rece1111',nextProps.config,this.props.config);
 		if(nextProps.config!=this.props.config){
 			this.config=nextProps.config;
 		}
@@ -87,7 +88,7 @@ export default class AllCheck  extends React.Component{
     
 	render(){
 
-
+     
 		return(
            
 			<div className='ui-check'>

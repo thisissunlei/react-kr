@@ -22,30 +22,24 @@ class AddReg  extends React.Component{
             openCode:false,
             other:''
         }
-        this.config=[
-			'2-102',
-			'2-103',
-			'2-104',
-			'2-105',
-			'2-106',
-			'2-107',
-        ];
         this.checkData=[];
         this.configList=[];
 	}
     
     componentWillMount(){
-       this.config.map((item,index)=>{
-          var list={};
-          list.label=item;
-          list.checked=false;
-          this.configList.push(list);
-       })
+        
     }
     
     onSubmit=(values)=>{
-        values.checkNum=this.checkData;
-        console.log('values',values);
+        var codeArray=this.checkData||'';
+        var code=[];
+        if(codeArray&&codeArray.length!=0){
+            codeArray.map((item,index)=>{
+                code.push(item.label);
+            })
+            var codes=code.join(',');
+            values.codeArray=codes;
+        }
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
     }
@@ -62,9 +56,9 @@ class AddReg  extends React.Component{
     }
 
     codeSubmit=(values)=>{
-        if(values.desc){
+        if(values.code){
             var codeList=[];
-            (values.desc.split(',')).map((item,index)=>{
+            (values.code.split(',')).map((item,index)=>{
                 var list={};
                 list.label=item;
                 list.checked=false;
@@ -121,7 +115,7 @@ class AddReg  extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {handleSubmit,floor}=this.props;
 
      
 		return(
@@ -135,16 +129,16 @@ class AddReg  extends React.Component{
 
                        <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
-                            name="name"
+                            name="communityId"
                             component="select"
                             label="社区名称"
                             requireLabel={true}
-                            options={[{label:'123',value:'1'},{label:'456',value:'2'}]}
+                            options={floor}
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:29,marginBottom:5}}
-                            name="num"
+                            name="count"
                             component="input"
                             label="数量"
                             requireLabel={true}
@@ -156,19 +150,20 @@ class AddReg  extends React.Component{
                             component="select"
                             label="状态"
                             requireLabel={true}    
-                            options={[{label:'可以',value:'true'},{label:'不可以',value:'false'}]}
+                            options={[{label:'正常出租',value:'RENTAL'},{label:'备案中',value:'PUT_ON_RECORD'},{label:'暂停售卖',value:'SUSPEND_SALE'}]}
 						/>
 
                         <KrField grid={1/2}
                             style={{width:262,marginLeft:29,marginBottom:5}}
-                            name="style"
+                            name="codeType"
                             component="select"
                             label="编号方式"
                             requireLabel={true}
-                            options={[{label:'1',value:'1'},{label:'2',value:'2'}]}
+                            options={[{label:'无编号',value:'NONE'},{label:'无限数量自编号',value:'LIMITLESS'},{label:'按工位编号',value:'STATION'},{label:'按房间编号',value:'SPACE'}
+                        ,{label:'固定数量固定编号',value:'RULE'},{label:'固定数量自编号',value:'RULELESS'},{label:'业主编号',value:'OWNER'}]}
 						/>
 
-                        <KrField grid={1} label="地址模版" name="desc" heightStyle={{height:"78px",width:'544px'}} style={{width:552}} component="textarea"  maxSize={100} placeholder='请输入地址模版'  lengthClass='reg-len-textarea'/>
+                        <KrField grid={1} label="地址模版（需要替换为实际编号的地方填写${0}）" name="addressTemp" heightStyle={{height:"78px",width:'544px'}} style={{width:552,marginTop:5}} component="textarea"  maxSize={100} placeholder='请输入地址模版'  lengthClass='reg-len-textarea' requireLabel={true}/>
 
                         
                         <AllCheck  
@@ -212,6 +207,31 @@ class AddReg  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
+    
+    let regNum=/^[1-9]\d*|0$/;
+
+
+    if(!values.communityId){
+        errors.communityId='请输入社区名称';
+    }
+
+    if(!values.count){
+        errors.count='请输入数量';
+    }else if(!regNum.test(values.count)){
+        errors.count='数量为非负整数';
+    }
+
+    if(!values.status){
+        errors.status='请输入状态';
+    }
+    
+    if(!values.codeType){
+        errors.codeType='请输入编号方式';
+    }
+
+    if(!values.addressTemp){
+        errors.addressTemp='请输入地址模版';
+    }
 
     
     

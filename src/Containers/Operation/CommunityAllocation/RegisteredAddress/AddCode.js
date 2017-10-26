@@ -37,7 +37,7 @@ class AddCode  extends React.Component{
 			<div style={{marginTop:20,marginLeft:25}} className='m-has-create'>
 			  <form onSubmit={handleSubmit(this.onSubmit)}>
 
-                <KrField grid={1} label="编号" name="desc" heightStyle={{height:"130px",width:'500px'}} style={{width:510}} maxSize={300} component="textarea"  placeholder='请输入地址模版'  lengthClass='reg-len-textarea'  requireLabel={true}/>
+                <KrField grid={1} label="编号" name="code" heightStyle={{height:"130px",width:'500px'}} style={{width:510}} maxSize={300} component="textarea"  placeholder='请输入地址模版'  lengthClass='reg-len-textarea'  requireLabel={true}/>
 
                 <Grid style={{marginBottom:5,marginLeft:-20,marginTop:0}}>
                         <Row>
