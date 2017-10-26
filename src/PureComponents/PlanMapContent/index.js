@@ -18,6 +18,9 @@ export default class PlanMapComponent extends React.Component {
 
 
 
+
+
+
 		this.state = {
 			data:"",
 			imgW:"",
@@ -154,7 +157,7 @@ export default class PlanMapComponent extends React.Component {
 				}	
 			}
 		}
-		allDataObj["a"+newfloor] = [].concat(allData,allDataObj["a"+newfloor]);
+		allDataObj["a"+newfloor] = [].concat(allData);
 		delDataObj["a"+newfloor] = [].concat(del);
 		
 		this.setState({
