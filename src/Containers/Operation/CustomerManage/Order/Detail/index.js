@@ -176,7 +176,6 @@ export default class OrderDetail extends React.Component {
 				contractList: [],
 				antecedent: [],
 			},
-			staionsList: [],
 			openCopyAgreement:false,
 			url:''
 		}
@@ -618,34 +617,6 @@ export default class OrderDetail extends React.Component {
 		})
 	}
 
-	onView = () => {
-		var _this = this;
-		const {
-			orderBaseInfo,
-		} = this.state.response;
-		let {
-			isShow,
-			View
-		} = this.state
-		if (!isShow) {
-			Http.request('get-order-station', {
-				mainBillId: orderBaseInfo.id
-			}).then(function(response) {
-				_this.setState({
-					staionsList: response
-				})
-
-
-			}).catch(function(err) {
-				Notify.show([{
-					message: err.message,
-					type: 'danger',
-				}]);
-			});
-		}
-
-		this.onClose();
-	}
 	onChange=(files)=>{
 	}
 	showMoreOpretion(id){
@@ -756,7 +727,6 @@ export default class OrderDetail extends React.Component {
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
 
 			<div className="content">
-						{/*<StaionInfo onClose={this.onClose}  detail={this.state.staionsList} className='showCon' isShow={isShow} id={orderBaseInfo.id}/>*/}
 			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,fontSize:'18px !important'}}/>
 						<span className="border-top" style={{marginTop:'20px !important'}}></span>
 			<DotTitle title='合同列表' style={{marginTop:40,marginBottom:30}}/>
@@ -918,12 +888,6 @@ export default class OrderDetail extends React.Component {
 				<Col  md={4} ><KrField label="销售时间" component="labelText" value={DateFormat(orderBaseInfo.saleTime,'yyyy-mm-dd')} defaultValue="-" alignRight={true}/></Col>
 				<Col  md={4} ><KrField label="部门" component="labelText" value={orderBaseInfo.department} defaultValue="-" alignRight={true}/></Col>
 				</Row>
-				{/*				<Row>
-								<Col  md={4} ><div className="staion">工位编号</div><div className="view"  onTouchTap={this.onView} >点击查看</div></Col>
-								<Col  md={4} ><div className="staion"></div><div className="view"></div></Col>
-								<Col  md={4} ><div className="staion"></div><div className="view"></div></Col>
-								</Row>
-				*/}
 			</Grid>
 
             </div>
