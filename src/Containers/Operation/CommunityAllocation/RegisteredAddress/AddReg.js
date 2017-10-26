@@ -64,12 +64,21 @@ class AddReg  extends React.Component{
             var codeList=[];
             var num=[];
             var code=values.code.replace(/\s+/g,"");
-            var codeEnd=code.replace('，',',');
-            (codeEnd.split(',')).map((item,index)=>{
+            var codeSecond=code.replace(/，/ig,',');
+            var codeThird=codeSecond.split(',');
+            var codeArr= [];
+            for(var i = 0; i < codeThird.length; i++){ 
+               if (codeArr.indexOf(codeThird[i]) == -1) {
+                   codeArr.push(codeThird[i]); 
+               }
+            } 
+            codeArr.map((item,index)=>{
                 var list={};
                 list.label=item;
                 list.checked=false;
-                codeList.push(list);
+                if(list.label){
+                    codeList.push(list);
+                }
             })
             for(var i=0;i<codeList.length;i++){
                 for(var j=0;j<this.configList.length;j++){
