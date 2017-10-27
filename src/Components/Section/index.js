@@ -54,7 +54,7 @@ export default class Section extends Component {
 
 		return(
 			<div className="right-element">
-					{this.props.rightMenu}
+					{this.props.rightElement}
 			</div>
 		);
 	}

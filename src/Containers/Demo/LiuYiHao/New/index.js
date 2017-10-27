@@ -36,8 +36,8 @@ class New extends React.Component {
 					  label = "全部数据"
 			      >
 				  <TabC label='基本信息'>
-					  
-					    <EditFiled />
+				  		<RadioBug/>
+					   
 				  </TabC> 
 
 				  <TabC label='个人信息'>
@@ -46,7 +46,7 @@ class New extends React.Component {
 				  </TabC>
 
 				  <TabC label='工作信息'>
-					 <RadioBug/>
+				  	<EditFiled />
 				  </TabC>
 			  </TabCs>
 			</div>

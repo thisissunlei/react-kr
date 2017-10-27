@@ -164,6 +164,7 @@ export default class Editor extends React.Component{
     var ue = UE.getEditor(this.containerId,configs);
     this.ue = ue;
     this.ue.ready(function(editor){
+      // ue.setHeight("297mm")
       if(!editor){
         _this.initEditor();
       }

@@ -50,8 +50,12 @@ import {
 	ListGroupItem,
 	SearchForms,
 } from 'kr-ui';
-import './index.less'
-class RadioBug extends React.Component {
+import { observer, inject } from 'mobx-react';
+
+import './index.less';
+@inject("NavModel")
+@observer
+class TemplatePrint extends React.Component {
 
 
 	constructor(props) {
@@ -59,22 +63,27 @@ class RadioBug extends React.Component {
 		this.state = {
 			child:""
 		}
-	}
-	openOneAgreement = () =>{
-
-	}
-	onSearchSubmit = () =>{
-
-	}
-	onSubmit = () =>{
-		
+    }
+    componentDidMount(){
+		const { NavModel } = this.props;
+		NavModel.setSidebar(false);
+        // this.getDetail();
 	}
 
-	openSearchUpperDialog=()=>{
-
+	onSubmit = (value) =>{
+		var params = Object.assign({},value);
+		console.log(value,">.>>>>>>>");
+        Http.request("get-home-dynamics-list",params).then(function (response) {
+           
+          
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
 	}
+
+
 	onCancel = ()=>{
-
+        // window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
 	}
 
 	render() {
@@ -86,7 +95,7 @@ class RadioBug extends React.Component {
 		return (
 			<form className = "edit-print-formwork"  onSubmit={handleSubmit(this.onSubmit)} >
 				<Title value="合同列表"/>
-				<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}} rightElement = {
+				<Section title="合同列表" description="" style={{marginBottom:-5}} rightElement = {
 					<div>
 						<span style = {{display:'inline-block',marginRight:10}}><Button  label="确定" type="submit"/></span>
 						<Button  label="关闭" type="button" cancle={true} onTouchTap={this.onCancel} />
@@ -95,7 +104,7 @@ class RadioBug extends React.Component {
 					<div style={{width:"210mm",margin:"auto"}}>
 						<KrField 
 							
-							label="联系人姓名" 
+							label="模板名称" 
 							name="name" 
 							style={{width:262,marginLeft:15,display:'block'}} 
 							component="input" 
@@ -103,10 +112,7 @@ class RadioBug extends React.Component {
 							requireLabel={true}
 						/>	
 						<KrField component="editor" style={{width:"210mm",height:'297mm'}}  name="summary" label="" defaultValue=''/>
-						<ButtonGroup>
-							<Button  label="确定" type="submit"/>
-							<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
-						</ButtonGroup>
+						
 					</div>
 				</Section>
 				
@@ -117,7 +123,7 @@ class RadioBug extends React.Component {
 }
 
 export default reduxForm({
-	form: 'RadioBug'
-})(RadioBug);
+	form: 'TemplatePrint'
+})(TemplatePrint);
 
   

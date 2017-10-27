@@ -30,6 +30,19 @@ const PublicPage_DynamicsProfile = (location, callback) => {
     callback(null, require('kr/Containers/PublicPage/DynamicsProfile').default)
   }, 'PublicPage_DynamicsProfile')
 }
+const PublicPage_PrintOther = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/PublicPage/PrintOther').default)
+  }, 'PublicPage_PrintOther')
+}
+
+const PublicPage_TemplatePrint = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/PublicPage/TemplatePrint').default)
+  }, 'PublicPage_TemplatePrint')
+}
+
+
 
 
 module.exports =()=>{
@@ -39,6 +52,8 @@ module.exports =()=>{
         
             <Route path=":id/dynamicsDetail" getComponent={PublicPage_DynamicsDetail}/>
             <Route path="dynamicsProfile" getComponent={PublicPage_DynamicsProfile}/>
+            <Route path=":printId/printOther" getComponent={PublicPage_PrintOther}/>
+            <Route path="templatePrint" getComponent={PublicPage_TemplatePrint}/>
             
         </Route>
 	);
