@@ -37,7 +37,7 @@ class AddCode  extends React.Component{
 			<div style={{marginTop:20,marginLeft:25}} className='m-has-create'>
 			  <form onSubmit={handleSubmit(this.onSubmit)}>
 
-                <KrField grid={1} label="编号" name="code" heightStyle={{height:"130px",width:'500px'}} style={{width:510}} maxSize={1000} component="textarea"  placeholder='请输入编号'  lengthClass='reg-len-textarea'  requireLabel={true}/>
+                <KrField grid={1} label={'编号(多个编号","分割)'} name="code" heightStyle={{height:"130px",width:'500px'}} style={{width:510}} maxSize={1000} component="textarea"  placeholder='请输入编号'  lengthClass='reg-len-textarea'  requireLabel={true}/>
 
                 <Grid style={{marginBottom:5,marginLeft:-20,marginTop:0}}>
                         <Row>
@@ -57,10 +57,26 @@ class AddCode  extends React.Component{
 
 const validate = values =>{
 	const errors = {};
-	if(!values.code){
+	
+	if(!values.code ){
 		errors.code='请填写编号';
+	 }else if(codeInspection(values.code)){
+		errors.code='每个工位编号最多填写20个字符';
 	 }
 	return errors
 }
-
+function codeInspection(codeStr){
+	codeStr = codeStr.replace(/(^\s+)|(\s+$)/g,"");
+	codeStr = codeStr.replace("，",",");
+	var codeArr = codeStr.split(",");
+	for (var i = 0; i < codeArr.length; i++) {
+		if(codeArr[i] == ''){
+			break;
+		}
+		if(codeArr[i].length>20){
+			return true;
+		}
+	}
+	return false;
+}
 export default reduxForm({ form: 'AddCode',validate})(AddCode);
