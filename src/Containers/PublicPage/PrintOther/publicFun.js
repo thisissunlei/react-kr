@@ -29,6 +29,10 @@ function templateParse(template){
 }
 
 function getClassName(data){
+    for(let key in data){
+        let allList = key.split("_");
+        
+    }
 
 }
 module.exports = {
