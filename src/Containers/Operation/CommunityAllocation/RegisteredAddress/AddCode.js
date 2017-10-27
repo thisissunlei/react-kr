@@ -37,7 +37,11 @@ class AddCode  extends React.Component{
 			<div style={{marginTop:20,marginLeft:25}} className='m-has-create'>
 			  <form onSubmit={handleSubmit(this.onSubmit)}>
 
-                <KrField grid={1} label={'编号(多个编号","分割)'} name="code" heightStyle={{height:"130px",width:'500px'}} style={{width:510}} maxSize={1000} component="textarea"  placeholder='请输入编号'  lengthClass='reg-len-textarea'  requireLabel={true}/>
+                <KrField grid={1} 
+					label={(<span>编号<span style = {{color:"#999"}}>（多个编号","分割）</span></span>)} 
+					name="code" 
+					heightStyle={{height:"130px",width:'500px'}} 
+					style={{width:510}} maxSize={1000} component="textarea"  placeholder='请输入编号'  lengthClass='reg-len-textarea'  requireLabel={true}/>
 
                 <Grid style={{marginBottom:5,marginLeft:-20,marginTop:0}}>
                         <Row>

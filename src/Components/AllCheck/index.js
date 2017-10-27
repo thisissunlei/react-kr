@@ -1,12 +1,10 @@
 import React from 'react';
 import {
-	Button
-} from 'kr-ui';
-import {
 	reduxForm,
 	change
 } from 'redux-form';
 import './index.less';
+import Button from '../Button';
 export default class AllCheck  extends React.Component{
 
 	constructor(props,context){
@@ -93,22 +91,24 @@ export default class AllCheck  extends React.Component{
 		return(
            
 			<div className='ui-check'>
-			  <div onClick={this.deleteFn} className='ui-all-select'>删除</div>	
-			  <div onClick={this.addFn} className='ui-all-select'>添加</div>	
-			  <div onClick={this.noSameCheck} className='ui-all-select'>反选</div>	
-			  <div onClick={this.allCheck} className='ui-all-select'>全选</div>
-			  <div className='ui-loop'>{
-				this.config.map((item,index)=>{
-                   return <div key={index}>
-						<input type="checkbox" 
-							onChange={(event)=>{
-								this.onChange(event,item,index)
-							}}
-                            checked={item.checked}
-                            name={`check${index}`}
-					 />{item.label}</div>
-				})  
-			  }</div>
+				<Button  label="添加" type="button" onTouchTap={this.addFn} />
+				<span style={{width:20,display:"inline-block"}}></span>
+				<Button  label="删除" type="button" cancle={true} onTouchTap={this.deleteFn} />
+				<div onClick={this.allCheck} className='ui-all-select' style={{marginLeft:20}}>全选</div>
+				<span className='ui-all-select'>/</span>
+				<div onClick={this.noSameCheck} className='ui-all-select'>反选</div>	
+				<div className='ui-loop'>{
+					this.config.map((item,index)=>{
+					return <div key={index}>
+							<input type="checkbox" 
+								onChange={(event)=>{
+									this.onChange(event,item,index)
+								}}
+								checked={item.checked}
+								name={`check${index}`}
+						/>{item.label}</div>
+					})  
+				}</div>
 			</div>
 		);
 	}

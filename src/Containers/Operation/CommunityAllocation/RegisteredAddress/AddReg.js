@@ -7,7 +7,8 @@ import {
     ButtonGroup,
     Button,
     AllCheck,
-    Dialog
+    Dialog,
+    Message
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
 import {Store} from 'kr/Redux';
@@ -117,8 +118,11 @@ class AddReg  extends React.Component{
     
     deleteFn=()=>{
         if(this.checkData.length!=0){
-           this.cancelDelete();        
+           
+           this.cancelDelete();      
+           return;  
         }
+        Message.error("请选择编号");
     }
 
     cancelDelete=()=>{
@@ -174,7 +178,7 @@ class AddReg  extends React.Component{
                             style={{width:262,marginLeft:29,marginBottom:5}}
                             name="count"
                             component="input"
-                            label="数量"
+                            label={(<span>数量<span style={{color: "#999"}}>（不限制数量填-1）</span></span>)}
                             requireLabel={true}
 						/>
 
@@ -197,7 +201,9 @@ class AddReg  extends React.Component{
                         ,{label:'固定数量固定编号',value:'RULE'},{label:'固定数量自编号',value:'RULELESS'},{label:'业主编号',value:'OWNER'}]}
 						/>
 
-                        <KrField grid={1} label="地址模版（需要替换为实际编号的地方填写${0}）" name="addressTemp" heightStyle={{height:"78px",width:'544px'}} style={{width:552,marginTop:5}} component="textarea"  maxSize={100} placeholder='请输入地址模版'  lengthClass='reg-len-textarea' requireLabel={true}/>
+                        <KrField grid={1} 
+                            label={(<span>地址模版<span style={{color:"#999"}}>（需要替换为实际编号的地方填写${0}）</span></span>)} 
+                            name="addressTemp" heightStyle={{height:"78px",width:'544px'}} style={{width:552,marginTop:5}} component="textarea"  maxSize={100} placeholder='请输入地址模版'  lengthClass='reg-len-textarea' requireLabel={true}/>
 
                         
                         <AllCheck  
