@@ -131,8 +131,8 @@ openHighSearch = () => {
 		let {itemDetail}=this.state;
 		return (
 			<div className="g-hold-list">
-				<Title value="意见反馈"/>
-				<Section title="支持列表" >
+				<Title value="投诉建议"/>
+				<Section title="" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>
 						<Col md={4} align="left" > </Col>
@@ -154,9 +154,9 @@ openHighSearch = () => {
             >
         <TableHeader>
         	<TableHeaderColumn>社区名称</TableHeaderColumn>
-        	<TableHeaderColumn>内容</TableHeaderColumn>
 			<TableHeaderColumn>姓名</TableHeaderColumn>
 			<TableHeaderColumn>联系电话</TableHeaderColumn>
+        	<TableHeaderColumn>内容</TableHeaderColumn>
 			<TableHeaderColumn>创建时间</TableHeaderColumn>
 			<TableHeaderColumn>状态</TableHeaderColumn>
 			<TableHeaderColumn>操作</TableHeaderColumn>
@@ -165,7 +165,9 @@ openHighSearch = () => {
       <TableBody>
         <TableRow>
           <TableRowColumn name="cmtName" ></TableRowColumn>
- 		  <TableRowColumn name="content" component={(value)=>{
+          <TableRowColumn name="mbrName"></TableRowColumn>
+          <TableRowColumn name="phone"></TableRowColumn>
+		  <TableRowColumn name="content" component={(value)=>{
                   var styles = {
                     display:'block',
                     paddingTop:5
@@ -180,8 +182,6 @@ openHighSearch = () => {
                     <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                  }}>
           </TableRowColumn>
-          <TableRowColumn name="mbrName"></TableRowColumn>
-          <TableRowColumn name="phone"></TableRowColumn>
 		  <TableRowColumn type="date" name="ctime" component={(value)=>{
 			return (
 				<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>
