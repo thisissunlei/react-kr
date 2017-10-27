@@ -1,0 +1,111 @@
+.g-office-own-add{
+	// border:1px solid red;
+	// background-color: #fff;
+	min-height: 910px;
+	display: flex;
+	flex-direction:row;
+	p{
+		padding:10px 0;
+		margin:0;
+		font-size: 14px;
+		color:#499df1;
+	}
+	.left-tree{
+		flex:1;
+		flex-grow:0;
+		flex-shrink:0;
+		flex-basis:223px;
+		height: 100%;
+		margin-right: 20px;
+		background-color: #fff;
+		min-height: 910px;
+		display: inline-block;
+		.tree-line{
+			display: inline-block;
+			position: relative;
+			&::before{
+				content:'';
+				position: absolute;
+				width:10px;
+				border-top:1px dashed #9FC9F2;
+				display: inline-block;
+				left: -10px;
+				top: 20px;
+			}
+		}
+		.tree-list{
+			border-left:1px dashed #9FC9F2;
+			position: relative;
+			&::before{
+				content:'';
+				display: inline-block;
+				height: 17px;
+				width: 4px;
+				// border:1px solid red;
+				background-color: #fff;
+				top: 0;
+				left: -2px;
+				position: absolute;
+			}
+			&::after{
+				content:'';
+				display: inline-block;
+				height: 16px;
+				width: 4px;
+				// border:1px solid red;
+				background-color: #fff;
+				bottom: 0;
+				left: -2px;
+				position: absolute;
+			}
+
+		}
+		
+		.tree-one{
+			
+			color:#499DF1;
+			padding-left: 10px;
+			.left-style{
+				width: 8px;
+				height: 8px;
+				display: inline-block;
+				font-size: 12px;
+				margin:0 5px;
+				
+			}
+			
+		}
+		.tree-two{
+			padding-left: 25px;
+			.tree-line{
+				&::before{
+					width:35px;
+					left: -35px;
+					top: 20px;
+				}
+			}
+
+		}
+		.tree-three{
+			padding-left: 23px;
+			.tree-line{
+				&::before{
+					width:58px;
+					left: -58px;
+					top: 20px;
+				}
+			}
+			p{
+				color:#666;
+			}
+		}
+		
+	}
+	.right-content{
+		flex:4;
+		// border:1px solid #499df1;
+		height: 100%;
+		min-height: 910px;
+		display: inline-block;
+	}
+}
