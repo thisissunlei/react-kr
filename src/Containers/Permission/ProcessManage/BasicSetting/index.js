@@ -42,6 +42,7 @@ import DeleteDialog from './DeleteDialog';
 import EditDialog from './EditDialog';
 import Basic from './Basic';
 import InitiatorSetting from './InitiatorSetting';
+import Template from './Template';
 import { observer, inject } from 'mobx-react';
 
 @inject("NavModel")
@@ -144,7 +145,7 @@ export default class BasicSetting extends React.Component {
 			                    </TabC>
 
 			                 <TabC label='合同模板'>
-			                   23213123
+			                  	<Template />
 			                 </TabC>
 			               
 

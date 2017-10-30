@@ -89,11 +89,6 @@ module.exports = {
     url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intentletter/actions/update',
     method: 'put'
   },
-  //合同－创建基础数据
-  'finaContractIntention': {
-    url: '/mockjsdata/3/krspace-finance-web/finacontractdetail/fina-contract-intention?communityId={communityId}&customerId={customerId}',
-    method: 'get'
-  },
 
   //运营平台-出租方管理-新增
   'addFnaCorporation': {
