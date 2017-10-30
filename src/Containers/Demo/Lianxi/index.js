@@ -9,7 +9,9 @@ import {
 	IconTip,
 	TextDic,
 	Checkbox,
-	AllCheck
+	AllCheck,
+	Button,
+	Dialog
 } from 'kr-ui';
 import {
 	Actions,
@@ -20,6 +22,9 @@ import {
 	reduxForm,
 	change
 } from 'redux-form';
+import {
+	LocationChoice
+} from 'kr/PureComponents';
 import './index.less';
 
 class EditTable  extends React.Component{
@@ -27,52 +32,94 @@ class EditTable  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			
+			openStation:false
 		}
-		this.config=[
-			{label:'2-102',checked:false},
-			{label:'2-103',checked:false},
-			{label:'2-104',checked:true},
-			{label:'2-105',checked:false},
-			{label:'2-106',checked:true},
-			{label:'2-107',checked:false},
-		];
+	}
+
+	onSubmit=(values)=>{
+
 	}
   
 	
 	componentDidMount() {
 		
 	}
+
+	 //所属区县
+	 cityValue=(communityId,cityId,city)=>{
+		console.log('id',communityId,'co',cityId,'city',city);
+	  }
 	 
-	onChange=(params)=>{
-    console.log('onChange',params);
-	}
+	  openClick=()=>{
+		this.setState({
+			openStation:!this.state.openStation
+		})
+	  }
 
-	allCheck=(params)=>{
-    console.log('allCheck',params);
-	}
-
-	noSameCheck=(params)=>{
-    console.log('noSameCheck',params);
-	}
-	
+	  openAddCommunity=()=>{
+		  this.openClick();
+	  }
     
 	render(){
 		
-		var codes='444      ,    455555     ,898989889，        ';
-	    var code=codes.replace(/\s+/g,"");
-		var codeEnd=code.replace('，',',');
-		console.log('codeEnd',codeEnd);
-        
+		let {handleSubmit}=this.props;
+
+		let cityData='河北省／邢台市／任县';
+		
 		return(
 
 			<div>
-			  <AllCheck  
-				 config={this.config} 
-				 onChange={this.onChange}
-				 allCheck={this.allCheck}
-				 noSameCheck={this.noSameCheck}
-				/>
+			   <form onSubmit={handleSubmit(this.onSubmit)}>
+			            <KrField grid={1/2}
+                            style={{width:262,marginBottom:5}}
+                            name="name"
+                            component="searchAll"
+                            label="社区名称"
+                            requireLabel={true}
+							inline={false}
+							url='customerDataAddList'
+						/>
+
+						<KrField grid={1/2}
+                            style={{width:262,marginBottom:5}}
+                            name="code"
+                            component="searchAll"
+                            label="编码"
+                            requireLabel={true}
+							inline={false}
+							url='customerDataAddList'
+						/>
+
+
+						<KrField 
+						  grid={1/2} 
+						  label="所属区县" 
+						  name="countyId"  
+						  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} 
+						  component="city" 
+						  onSubmit={this.cityValue} 
+						  requireLabel={true}
+						  cityName={cityData}
+						/>
+
+						<div onClick={this.openClick}>点击</div>
+
+						<Button  label="确定" type="submit"/>
+			   </form>
+
+			   <Dialog
+						title = "选择工位" 
+						onClose={this.openAddCommunity}
+						open={this.state.openStation}
+						contentStyle ={{ width: '666px',height:'auto'}}
+					>
+					<LocationChoice 
+						communityId = {1} 
+						url='stage-detail-search'   
+						selectTitle='agreement'   
+						onClose = {this.openAddCommunity} 
+						onSubmit = {this.onStationSubmit} />
+				</Dialog>
 			</div>
 		);
 	}
