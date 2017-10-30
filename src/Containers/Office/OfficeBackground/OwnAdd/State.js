@@ -17,8 +17,8 @@ let State = observable({
 	   ]},{ 
 	   "fullname": "行政资源部",     
 	   "list": [     
-	      {"name": "办公用品", "value": "3"},     
-	      {"name": "报销","value": ""}   
+	      {"name": "办公用品", "value": "113"},     
+	      {"name": "报销","value": "0"}   
 	   ]}]
 });
 

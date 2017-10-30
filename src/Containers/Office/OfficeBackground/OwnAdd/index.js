@@ -53,7 +53,12 @@ export default class Initialize  extends React.Component{
 												{item.list.length && item.list.map((value,i)=>{
 													return (
 														<div className="tree-three">
-														<p className="tree-line" key={i}><span className="left-style">-</span>{value.name}</p>
+														<p className="tree-line" key={i}><span className="left-style">-</span>{value.name}
+														{parseInt(value.value)<100?(
+															parseInt(value.value)?<span className="num">{value.value}</span>:''
+															):<span className="num">99+</span>}
+														
+														</p>
 														</div>
 													)
 												})}
