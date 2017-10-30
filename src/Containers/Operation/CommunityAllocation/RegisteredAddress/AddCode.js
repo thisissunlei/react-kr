@@ -71,7 +71,7 @@ const validate = values =>{
 }
 function codeInspection(codeStr){
 	codeStr = codeStr.replace(/(^\s+)|(\s+$)/g,"");
-	codeStr = codeStr.replace("，",",");
+	codeStr = codeStr.replace(/，/ig,",");
 	var codeArr = codeStr.split(",");
 	for (var i = 0; i < codeArr.length; i++) {
 		if(codeArr[i] == ''){
