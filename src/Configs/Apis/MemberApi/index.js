@@ -111,7 +111,12 @@ module.exports = {
     'bind-member-code':{
         url:'/api/krspace-finance-web/member/bindCard',
         method:'post'
-    }
+    },
+    //获取会员模糊查询列表
+    'getMemberList':{
+        url:'/api/krspace-finance-web/member/select-options?name={name}',
+        method:'get'
+    },
 
 
 }

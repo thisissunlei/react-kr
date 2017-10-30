@@ -91,8 +91,13 @@ import LabelComponent from './LabelComponent';
 import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
 import MainNewsUploadImage from './MainNewsUploadImageComponent';
-
+import SearchMemeber from './SearchMemeber';
 import SearchPersonName from './SearchPersonName';
+
+
+
+
+
 
 
 class FieldRevert extends React.Component {
@@ -596,6 +601,14 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={LabelComponent}  style={WrapStyles} {...other} />
 				)
 			}
+
+			if (component === 'searchMemeber') {
+				return (
+
+					<FieldRevert {...this.props} component={SearchMemeber}  style={WrapStyles} {...other}/>
+				);
+			}
+
 			
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>

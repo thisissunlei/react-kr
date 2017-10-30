@@ -37,6 +37,7 @@ import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
 import BtnBox from './BtnBox';
 import EquipmentFirstDetail from './EquipmentFirstDetail';
+import HttpTokenDialog from './HttpTokenDialog';
 
 @inject("NavModel")
 @observer
@@ -82,7 +83,7 @@ export default class SecondDoorManage  extends React.Component{
 		
 	}
 	seeDetailInfoFun=(value,itemData)=>{
-		console.log("value",value);
+		
 		if(value.maker == "KRSPACE"){
 			this.secondEquipment(value);
 		}else{
@@ -146,14 +147,16 @@ export default class SecondDoorManage  extends React.Component{
 	closeConfirmDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
 	}
-	//打开查看详情
-	openSeeDetail=()=>{
+	//打开查看二代详情
+	openSeeDetailSecond=()=>{
 		State.openHardwareDetail = !State.openHardwareDetail;
 	}
-	//打开一代查看详情
-	openSeeDetail=()=>{
+
+	//打开查看一代详情
+	openFirstHardwareDetailFun=()=>{
 		State.openFirstHardwareDetail = !State.openFirstHardwareDetail;
 	}
+	
 	//打开编辑
 	openEditDialogFun=()=>{
 		State.openEditDialog = !State.openEditDialog;
@@ -404,10 +407,6 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 
-	openFirstHardwareDetailFun=()=>{
-		State.openFirstHardwareDetail = !State.openFirstHardwareDetailFun;
-	}
-
 	//获取管理员密码
 	getManagerPsd=()=>{
 		State.openManagePsd = !State.openManagePsd;
@@ -435,6 +434,11 @@ export default class SecondDoorManage  extends React.Component{
 		State.upgradeDialog = !State.upgradeDialog;
 	}
 
+
+	getHttpToken=()=>{
+		State.showHttpToken();
+	}
+
 	onMouseOn=(thisP)=>{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
@@ -459,7 +463,10 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"重启设备APP",onClickFun:_this.restartAPP},
 				{title:"重启设备系统",onClickFun:_this.restartSystems},
 				{title:"恢复出厂设置",onClickFun:_this.resetEquipmentOrigin},
-				{title:"升级",onClickFun:_this.upgrade}
+				{title:"升级",onClickFun:_this.upgrade},
+
+				{title:"获取httpToken",onClickFun:_this.getHttpToken}
+
 				
 			]
 		}else{
@@ -507,6 +514,10 @@ export default class SecondDoorManage  extends React.Component{
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+	}
+
+	openHttpTokenDialogFun=()=>{
+		State.httpTokenDialog = !State.httpTokenDialog;
 	}
 	
 
@@ -668,11 +679,11 @@ export default class SecondDoorManage  extends React.Component{
 			        </Table>
 			        <Drawer 
 			        	open={State.openHardwareDetail}
-			        	onClose = {this.openSeeDetail}
+			        	onClose = {this.openSeeDetailSecond}
 					    width={1000} 
 					    openSecondary={true} 
 					>
-						<EquipmentDetail onCancel={this.openSeeDetail} detail={itemDetail}/>
+						<EquipmentDetail onCancel={this.openSeeDetailSecond} detail={itemDetail}/>
 					</Drawer>
 
 					<Drawer 
@@ -900,6 +911,18 @@ export default class SecondDoorManage  extends React.Component{
 			        >
 			          	<PsdList/>
 			        </Dialog>
+
+
+			        <Dialog
+			          title="HttpToken"
+			          open={State.httpTokenDialog}
+			          onClose={this.openHttpTokenDialogFun}
+			          contentStyle={{width:443,height:260}}
+			        >
+			          	<HttpTokenDialog onCancle={this.openHttpTokenDialogFun}/>
+			        </Dialog>
+
+
 			        <Dialog
 			          title="重启APP提示"
 			          open={State.openRestartAPPDialog}
