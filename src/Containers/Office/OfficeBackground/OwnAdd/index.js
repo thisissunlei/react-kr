@@ -57,7 +57,7 @@ export default class Initialize  extends React.Component{
 																<div className="tree-line" key={i} style={{padding:'10px 0',color:'#333'}}>
 																	<span className="left-style">-</span>
 																	{value.name.substring(0,5)+'...'}
-																	<Tooltip offsetTop={8} place='top'>{value.name}</Tooltip>
+																	<Tooltip offsetTop={1} place='top'>{value.name}</Tooltip>
 																	
 																	{parseInt(value.value)<100?(
 																	parseInt(value.value)?<span className="num">{value.value}</span>:''

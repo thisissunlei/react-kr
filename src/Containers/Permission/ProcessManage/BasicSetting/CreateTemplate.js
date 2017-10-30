@@ -64,7 +64,7 @@ class CreateNewList extends React.Component {
 							requireLabel={true}
 							grid={1/2}
 					 	/>
-						<Grid style={{marginTop:50,width:'81%'}}>
+						<Grid style={{marginTop:50,width:'100%'}}>
 							<Row >
 								<Col md={12} align="center">
 									<ButtonGroup>

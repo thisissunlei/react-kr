@@ -1,5 +1,5 @@
 import React from 'react';
-import {reduxForm,initialize} from 'redux-form';
+import {reduxForm,initialize,reset} from 'redux-form';
 import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import {
@@ -13,7 +13,8 @@ import {
 	ListGroupItem,
 	CircleStyleTwo,
 	ButtonGroup,
-	Drawer
+	Drawer,
+	Dialog
 } from 'kr-ui';
 import CreateTemplate from './CreateTemplate';
 
@@ -23,26 +24,33 @@ import {
 import './index.less';
 
 @observer
-class EditNewList extends React.Component {
+class Template extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state={
 			open:false,
+			openChooce:false
 		}
 
 		
 	}
 	componentDidMount() {
-		
-		
+		var initializeValues = {mode:'normol',print:'ok'};
+		Store.dispatch(initialize('Template',initializeValues));
 	}
 	
 	onCancel=()=>{
-
+		// var initializeValues = {mode:'normol',print:'ok'};
+		// Store.dispatch(reset('Template',''));
 	}
 	onSubmit=(form)=>{
-
+		
+	}
+	closeChooceDialog=()=>{
+		this.setState({
+			openChooce:false
+		})
 	}
 	pcClick=(type)=>{
 		this.setState({
@@ -55,6 +63,18 @@ class EditNewList extends React.Component {
 			open:false
 		})
 	}
+	chooceShow=()=>{
+		console.log('chooceShow')
+		this.setState({
+			openChooce:true
+		})
+	}
+	choocePrint=()=>{
+		console.log('choocePrint')
+		this.setState({
+			openChooce:true
+		})
+	}
 
 
 	render() {
@@ -62,21 +82,21 @@ class EditNewList extends React.Component {
 		return (
 			<div className="g-chooce-template">
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
-					<CircleStyleTwo num="1" info="PC端模板">
+					<CircleStyleTwo num="1" info="PC端模板"  circle="none">
 					 	 <KrField 
 					 		style={{width:260,marginRight:25,marginBottom:10}}
-					 		name="publishedStatus" 
+					 		name="mode" 
 					 		component="group" 
 					 		label="显示模式"
 					 		grid={1}
 					 		requireLabel={true} 
 						 >
 			                    <KrField 
-			                    		name="publishedStatus" 
+			                    		name="mode" 
 			                    		grid={1 / 2} 
-			                    		label="发布" 
+			                    		label="普通模式" 
 			                    		type="radio" 
-			                    		value="PUBLISHED"
+			                    		value="normol"
 			                    />
 			                    {/*<KrField 
 			                    		name="publishedStatus" 
@@ -94,7 +114,7 @@ class EditNewList extends React.Component {
 			            />
 			            <div className="up-load-template">
 			            	<span className='addBtn' onClick={this.pcClick.bind(this,'pc')}>新建</span>
-			            	<span className="chooce-button">选择</span>
+			            	<span className="chooce-button"  onClick={this.chooceShow}>选择</span>
 			            	<span className="has-template template-name">发起人模板 2017-08-10 18:10:22</span>
 			            	<span className="no-template template-name">未设置</span>
 			            </div>
@@ -103,24 +123,24 @@ class EditNewList extends React.Component {
 					<CircleStyleTwo num="2" info="打印模板" circle="bottom">
 						<KrField 
 	                		style={{width:260,marginTop:5,marginBottom:5}}
-	                		name="stickStatus" 
+	                		name="print" 
 	                		component="group" 
 	                		label="是否打印"
 	                		requireLabel={true}
 	                		>
 			                    <KrField 
-			                    		name="stickStatus" 
+			                    		name="print" 
 			                    		grid={1 / 2} 
 			                    		label="是" 
 			                    		type="radio" 
-			                    		value="STICKED"
+			                    		value="ok"
 			                    />
 			                    <KrField 
-			                    		name="stickStatus" 
+			                    		name="print" 
 			                    		grid={1 / 2} 
 			                    		label="否" 
 			                    		type="radio" 
-			                    		value="UNSTICKED"
+			                    		value="no"
 			                    />
 	                	</KrField>
 	                	<KrField 
@@ -131,7 +151,7 @@ class EditNewList extends React.Component {
 			            />
 			            <div className="up-load-template">
 			            	<span className='addBtn' onClick={this.pcClick.bind(this,'print')}>新建</span>
-			            	<span className="chooce-button">选择</span>
+			            	<span className="chooce-button" onClick={this.choocePrint}>选择</span>
 			            	<span className="has-template template-name">发起人模板 2017-08-10 18:10:22</span>
 			            	<span className="no-template template-name">未设置</span>
 			            </div>
@@ -158,7 +178,16 @@ class EditNewList extends React.Component {
 			        >
 
 			       	 	<CreateTemplate onCancel={this.cloaeCreateTemplate}/>
-		           	</Drawer>
+		        </Drawer>
+		        <Dialog
+		              title="选择模板"
+		              modal={true}
+		              open={this.state.openChooce}
+		              onClose={this.closeChooceDialog}
+		              contentStyle={{width:666,height:330}}
+		            >
+		              dddd
+		        </Dialog>
 			</div>
 
 
@@ -200,8 +229,8 @@ const validate = values => {
 
 	return errors
 }
-export default EditNewList = reduxForm({
-	form: 'editNewList',
+export default Template = reduxForm({
+	form: 'Template',
 	validate,
-})(EditNewList);
+})(Template);
 
