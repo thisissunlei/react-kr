@@ -15,6 +15,7 @@ let State = observable({
 		searchParams:{
 			page:1,
 			pageSize:15,
+			other:'',
 		},
 		//新建社区
 		openNewCommunity:false,
@@ -22,6 +23,8 @@ let State = observable({
 		//高级查询
 		openSearchUpper:false,
 		openWatchCommunity:false,
+		//分期
+		openStaging:false,
 		//高级查询数据准备
 		searchData:'',
 		//编辑获取数据
@@ -35,8 +38,10 @@ let State = observable({
 		cityData:'',
 		isCorpName:false,
 		isCorpCode:false,
-		isCorpRank:false
+		isCorpRank:false,
 
+		//分期回血数据
+		stageData:'',
 });
 //参数修改
 State.setSearchParams = action(function(params) {
@@ -73,7 +78,8 @@ State.searchUpperCustomer = action(function() {
 State.closeAllDialog = action(function() {
 	    this.openNewCommunity=false;
         this.openEditCommunity=false;
-    	this.openWatchCommunity=false;
+		this.openWatchCommunity=false;
+		this.openStaging=false;
 });
 //社区列表数据准备
 State.searchDataHere = action(function() {
@@ -93,6 +99,16 @@ State.switchEditList = action(function() {
 State.switchWatchList = action(function() {
 	this.openWatchCommunity=!this.openWatchCommunity;
 })
+
+//分期页面的开关
+State.openStagingFun = action(function() {
+	
+	this.openStaging=!this.openStaging;
+	if(!this.openStaging){
+		
+	}
+})
+
 
 //获取详情信息
 State.getEditList = action(function(id) {

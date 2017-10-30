@@ -83,9 +83,6 @@ export default class JoinPrint extends React.Component {
 		}
 		return str;
 	}
-	print=()=>{
-		window.print()
-	}
 	render() {
 		let style={
 			position:'absolute',

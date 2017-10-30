@@ -948,12 +948,40 @@ module.exports = {
         url: '/api/krspace-finance-web/member/card/detail?id={id}',
         method: 'get'
     },
+    //运营平台-社区分期列表
+    'community-stage-list': {
+        url: '/api/krspace-finance-web/cmt/community/zone/list/search?communityId={communityId}',
+        method: 'get'
+    },
+    
+    //运营平台-社区分期列表-新增
+    'community-stage-add': {
+        url: '/api/krspace-finance-web/cmt/community/zone/save',
+        method: 'post'
+    },
+     //运营平台-社区分期列表-编辑
+     'community-stage-edit': {
+        url: '/api/krspace-finance-web/cmt/community/zone/update',
+        method: 'post'
+    },
+
+    //运营平台-社区分期-可配置明细查询
+    'stage-detail-search': {
+        url: '/api/krspace-finance-web/cmt/community/zone/config/search?communityId={communityId}&detailType={detailType}&floor={floor}&numberMax={numberMax}&numberMin={numberMin}',
+        method: 'get'
+    },
+    //运营平台-社区分期-已存在配置查询
+    'stage-down-search': {
+        url: '/api/krspace-finance-web/cmt/community/zone/configed/search?zoneId={zoneId}',
+        method: 'get'
+     },
 
      //运营平台-APP管理-积分管理-充值记录
      'charge-list': {
         url: '/api/krspace-finance-web/point/manage/charge-list?companyId={companyId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
+
     //运营平台-APP管理-我的地点-查找姓名
     'find-by-name': {
             url: '/api/krspace-finance-web/member/find-by-name?mbrNameStr={mbrNameStr}',
@@ -984,4 +1012,52 @@ module.exports = {
         url: '/api/krspace-finance-web/company/verification/edit',
         method: 'post'
     },  
+
+    // 合同调整列表
+    'agreementTrimList': {
+        url: '/api/krspace-op-web/fina-contract-change-list?page={page}&pageSize={pageSize}&customerId={customerId}',
+        method: 'get'
+    },
+    // 合同调整保存
+    'agreementTrimSave': {
+        url: '/api/krspace-op-web/fina-contract-detail-save',
+        method: 'post'
+    },
+    //清除测试数据
+    'delete-demo': {
+        url: '/api/krspace-op-web/fina-contract-detail-delete-test',
+        method: 'post'
+    },
+
+     //注册地址－列表
+     'register-address-list': {
+        url: '/api/krspace-finance-web/cmt/register-address/list/type/search?communityId={communityId}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //注册地址－新建
+    'register-address-add': {
+        url: '/api/krspace-finance-web/cmt/register-address/add',
+        method: 'post'
+    },
+     //注册地址－删除
+     'register-address-delete': {
+        url: '/api/krspace-finance-web/cmt/register-address/delete?id={id}',
+        method: 'delete'
+    },
+    //注册地址－编辑回显
+    'register-address-get': {
+        url: '/api/krspace-finance-web/cmt/register-address/info/type/edit?id={id}',
+        method: 'get'
+    },
+     //注册地址－编辑
+     'register-address-edit': {
+        url: '/api/krspace-finance-web/cmt/register-address/edit',
+        method: 'post'
+    },  
+     //注册地址－获取社区
+     'register-get-community': {
+        url: '/api/krspace-finance-web/cmt/register-address/select/type/community?communityId={communityId}',
+        method: 'get'
+    },
+
 }

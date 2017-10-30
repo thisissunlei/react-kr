@@ -415,11 +415,6 @@ const APIS = {
         url: '/api/krspace-finance-web/member/member-mail?email={email}',
         method: 'get'
     },
-    // 会员中心-会员-获取-(查询)高级搜索
-    'membersList': {
-        url: '/api/krspace-finance-web/member/member-list?value={value}&type={type}&startTime={startTime}&endTime={endTime}&registerSourceId={registerSourceId}&jobId={jobId}&pageSize={pageSize}&page={page}&companyId={companyId}&cityId={cityId}',
-        method: 'get'
-    },
     //获取指定公司会员列表
     'getCompanyMemberList': {
         url: '/api/krspace-finance-web/member/company-team?companyId={companyId}&page={page}&pageSize={pageSize}',
