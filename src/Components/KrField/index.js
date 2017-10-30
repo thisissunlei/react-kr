@@ -91,6 +91,7 @@ import LabelComponent from './LabelComponent';
 import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
 import MainNewsUploadImage from './MainNewsUploadImageComponent';
+import SearchRegCommunity from './SearchRegCommunity';
 
 
 import SearchMemeber from './SearchMemeber';
@@ -277,6 +278,11 @@ class FieldRevert extends React.Component {
 			if (component === 'searchCommunitys') {
 				return (
 					<FieldRevert {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'searchRegCommunity') {
+				return (
+					<FieldRevert {...this.props} component={SearchRegCommunity}  style={WrapStyles} {...other}/>
 				)
 			}
 			if (component === 'searchCommunityList') {
