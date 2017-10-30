@@ -82,12 +82,12 @@ export default class Table extends React.Component {
 
 
   componentWillReceiveProps (nextProps) {
-    var tableData = nextProps.input.value;
-    this.setState({
-      tableData,
-    })
-   
-
+    if(Array.prototype.isPrototypeOf(nextProps.input.value)){
+      var tableData = nextProps.input.value;
+      this.setState({
+        tableData,
+      })
+    }
   }
 
 

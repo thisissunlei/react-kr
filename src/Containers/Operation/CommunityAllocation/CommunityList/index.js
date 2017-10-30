@@ -7,7 +7,7 @@ import {
   change
 } from 'redux-form';
 import {
-	observer
+	observer,inject
 } from 'mobx-react';
 
 import {
@@ -40,8 +40,10 @@ import NewCommunityList from './NewCommunityList';
 import EditCommunityList from './EditCommunityList';
 import SearchUpperForm from './SearchUpperForm';
 import WatchCommunityList from './WatchCommunityList';
+import StagingCommunity from './StagingCommunity';
 //todo:城市组件值不清空，后期补上
 import cityDataState from "../../../../Components/KrField/CityComponent/State";
+
 @observer
 class CommunityList  extends React.Component{
 
@@ -52,13 +54,13 @@ class CommunityList  extends React.Component{
       timeStart:'',
       timeEnd:'',
       communityId:'',
-			cityId:''
+			cityId:'',
+			floor:[],
     }
 	}
 
 	componentDidMount(){
 		State.searchDataHere();
-
 	}
 
    //新建社区开关
@@ -99,20 +101,46 @@ class CommunityList  extends React.Component{
     }
 		State.setSearchParams(obj);
    }
+	
+	 onOperation=(type,itemDetail)=>{
+     if(type=='edit'){
+				State.isCorpRank=false;
+				State.searchDataHere();
+				this.ajaxSendData(itemDetail.id);
+		 }else if(type=='watch'){
+			  State.getEditList(itemDetail.id)
+		   	State.switchWatchList();
+		 }else if(type=='select'){
+				State.openStagingFun();
+				this.getFloor(itemDetail.id);
+				this.setState({
+					communityId:itemDetail.id
+				}) 
+		 }
+	 }
 
-   //查看
-   onOperation=(type,itemDetail)=>{
-      if(type=='watch'){
-      	 State.getEditList(itemDetail.id)
-      	 State.switchWatchList();
-         return ;
-      }
-       if(type=='edit'){
-				  State.isCorpRank=false;
-      	  State.searchDataHere();
-          this.ajaxSendData(itemDetail.id);
-      }
-   }
+	
+
+	 getFloor=(id)=>{
+		var _this=this;
+		Http.request('getCommunityFloors',{communityId:id}).then(function(response) {
+				_this.setState({
+						floor:response.floors
+				})
+		}).catch(function(err) {
+				Message.error(err.message);
+		});   
+}
+	 
+	 stagingCancel=()=>{
+			var searchParams={
+				other:new Date()
+			}
+
+		State.searchParams=Object.assign({},State.searchParams,searchParams);
+			State.openStagingFun(); 
+			
+	 }
 
     //发送ajax请求函数
       ajaxSendData=(id)=>{
@@ -236,7 +264,12 @@ class CommunityList  extends React.Component{
 
 
     whiteClose=()=>{
-    	State.closeAllDialog();
+			var searchParams={
+        other:new Date()
+      }
+
+      State.searchParams=Object.assign({},State.searchParams,searchParams);
+			State.closeAllDialog();
     }
 
     onPageChange=(page)=>{
@@ -261,7 +294,7 @@ class CommunityList  extends React.Component{
 
 		]
 
-    let {cityData,timeStart,timeEnd,communityId,cityId}=this.state;
+    let {cityData,timeStart,timeEnd,communityId,cityId,floor}=this.state;
 
 		return(
 
@@ -310,6 +343,7 @@ class CommunityList  extends React.Component{
 		              <TableHeaderColumn>社区排序</TableHeaderColumn>
 		              <TableHeaderColumn>开业时间</TableHeaderColumn>
 		              <TableHeaderColumn>开业状态</TableHeaderColumn>
+									<TableHeaderColumn>是否分期</TableHeaderColumn>
 		              <TableHeaderColumn>操作</TableHeaderColumn>
 		          	</TableHeader>
 
@@ -326,9 +360,13 @@ class CommunityList  extends React.Component{
 														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
 			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
+											<TableRowColumn name="hasZoneStr" component={(value,oldValue)=>{
+                              return <div style={value=='是'?{color:'red'}:{}}>{value}</div>
+                           }}></TableRowColumn>
 			                <TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation"  operation="edit" operateCode="oper_cmt_community_edit"/>
-			                      <Button label="查看"  type="operation"  operation="watch" />
+													     <Button label="编辑"  type="operation"  operation="edit" operateCode='oper_cmt_community_edit'/>
+															 <Button label="查看"  type="operation"  operation="watch"/>
+															 <Button label="分期"  type="operation"  operation="select"/>
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
@@ -395,6 +433,24 @@ class CommunityList  extends React.Component{
 													>
 												<WatchCommunityList
 														onCancel={this.onSwitchCancelWatchList}
+												/>
+
+											</Drawer>
+
+
+											{/*分期*/}
+											<Drawer
+														open={State.openStaging}
+														width={750}
+														onClose={this.whiteClose}
+														openSecondary={true}
+														containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+													>
+												<StagingCommunity
+														onCancel={this.stagingCancel}
+														whiteClose={this.whiteClose}
+														communityId={communityId}
+														floor={floor}
 												/>
 
 											</Drawer>
