@@ -92,13 +92,15 @@ import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
 import RangeComponent from './RangeComponent';
 import MainNewsUploadImage from './MainNewsUploadImageComponent';
+import SearchMemeber from './SearchMemeber';
+import SearchPersonName from './SearchPersonName';
 import SearchRegCommunity from './SearchRegCommunity';
 
 
-import SearchMemeber from './SearchMemeber';
 
 
-import SearchPersonName from './SearchPersonName';
+
+
 
 
 class FieldRevert extends React.Component {

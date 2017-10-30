@@ -981,7 +981,6 @@ module.exports = {
         url: '/api/krspace-finance-web/point/manage/charge-list?companyId={companyId}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
-
     //运营平台-APP管理-我的地点-查找姓名
     'find-by-name': {
             url: '/api/krspace-finance-web/member/find-by-name?mbrNameStr={mbrNameStr}',
@@ -1028,7 +1027,6 @@ module.exports = {
         url: '/api/krspace-op-web/fina-contract-detail-delete-test',
         method: 'post'
     },
-
      //注册地址－列表
      'register-address-list': {
         url: '/api/krspace-finance-web/cmt/register-address/list/type/search?communityId={communityId}&page={page}&pageSize={pageSize}',

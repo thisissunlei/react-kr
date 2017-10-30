@@ -33,11 +33,9 @@ import {default as IntegrationManage} from './IntegrationManage';
 import {default as Activitys} from './Activitys';
 import {default as AdvertManage} from './AdvertManage';
 import {default as AppOpinion} from './AppOpinion';
-<<<<<<< HEAD
 import {default as CompanyVerify} from './CompanyVerify';
-=======
 import {default as RegisteredAddress} from './RegisteredAddress';
->>>>>>> master
+
 
 module.exports = {
 	CommunityList,
@@ -57,5 +55,5 @@ module.exports = {
 	AdvertManage,
 	AppOpinion,
 	CompanyVerify,
-	RegisteredAddress
+	RegisteredAddress,
 }
