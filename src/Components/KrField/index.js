@@ -90,9 +90,12 @@ import CheckBoxComponent from './CheckBoxComponent';
 import LabelComponent from './LabelComponent';
 import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
+import RangeComponent from './RangeComponent';
 import MainNewsUploadImage from './MainNewsUploadImageComponent';
 import SearchMemeber from './SearchMemeber';
 import SearchPersonName from './SearchPersonName';
+import SearchRegCommunity from './SearchRegCommunity';
+
 
 
 
@@ -279,6 +282,11 @@ class FieldRevert extends React.Component {
 			if (component === 'searchCommunitys') {
 				return (
 					<FieldRevert {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
+				)
+			}
+			if (component === 'searchRegCommunity') {
+				return (
+					<FieldRevert {...this.props} component={SearchRegCommunity}  style={WrapStyles} {...other}/>
 				)
 			}
 			if (component === 'searchCommunityList') {
@@ -609,6 +617,11 @@ class FieldRevert extends React.Component {
 				);
 			}
 
+			if(type == "range" || component === "range"){
+				return (
+					<FieldRevert {...this.props} component={RangeComponent}  style={WrapStyles} {...other} />
+				)
+			}
 			
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>

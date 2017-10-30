@@ -68,6 +68,7 @@ import Toolbar from './Toolbar';
 import Toolbars from './Toolbars';
 import TextDic from './TextDic';
 import Dropdown from './Dropdown';
+import AllCheck from './AllCheck';
 
 import {
 	Grid,
@@ -180,4 +181,5 @@ module.exports = {
 	Toolbars,
 	TextDic,
 	Dropdown,
+	AllCheck
 }

@@ -283,6 +283,12 @@ const Operation_CommunityAllocation_CommunityStationDetail= (location, callback)
 		callback(null, require('kr/Containers/Operation/CommunityAllocation/CommunityStationDetail').default)
 	}, 'Operation_CommunityAllocation_CommunityStationDetail')
 }
+{/*注册地址列表*/}
+const Operation_CommunityAllocation_RegisteredAddress= (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CommunityAllocation/RegisteredAddress').default)
+	}, 'Operation_CommunityAllocation_RegisteredAddress')
+}
 {/*会议室列表选择社区*/}
 const Operation_CommunityAllocation_CommunityMeetingRoom= (location, callback) => {
 	require.ensure([], require => {
@@ -392,6 +398,8 @@ module.exports =()=>{
 			<Route path="communityStation" getComponent={Operation_CommunityAllocation_CommunityStation}/>
 			{/*工位列表*/}
 			<Route path=":communityId/communityStationDetail" getComponent={Operation_CommunityAllocation_CommunityStationDetail}/>
+			{/*注册地址列表*/}
+			<Route path="registeredAddress" getComponent={Operation_CommunityAllocation_RegisteredAddress}/>
 			{/*会议室列表选择社区*/}
 			<Route path="communityMeetingRoom" getComponent={Operation_CommunityAllocation_CommunityMeetingRoom}/>
 			{/*会议室列表*/}

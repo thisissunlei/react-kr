@@ -14,10 +14,7 @@ export default class PlanMapComponent extends React.Component {
 
 
 	constructor(props){
-		super(props)
-
-
-
+		super(props);
 		this.state = {
 			data:"",
 			imgW:"",
@@ -34,6 +31,7 @@ export default class PlanMapComponent extends React.Component {
 			deleteArr:[],
 			isOperation:true,
 			originData:[],
+			scaleNumber:50
 		}
 		this.getData();
 	}
@@ -99,7 +97,8 @@ export default class PlanMapComponent extends React.Component {
 				allDataObj["a"+item.floor] = [].concat(allData);
 				
 			})
-			console.log()
+			console.log('map',allDataObj,'selectedObjs',selectedObjs);
+			// selectedObjs = [].concat(selectedObjs,allDataObj)
 
 			_this.setState({
 				data:response,
@@ -109,7 +108,8 @@ export default class PlanMapComponent extends React.Component {
 				},
 				newfloor:floors[0].value,
 				submitData:allDataObj,
-				originData:originData
+				originData:originData,
+				// selectedObjs:allDataObj
 			},function(){
 				 _this.canvasEles();
 				 console.log('----->',allDataObj)
@@ -120,6 +120,7 @@ export default class PlanMapComponent extends React.Component {
 			console.log(err)
 		});
 	}
+
 
 	componentDidMount(){
 
@@ -132,11 +133,18 @@ export default class PlanMapComponent extends React.Component {
 	dataChange = (data,allData) =>{
 
 
-		const {selectedObjs,newfloor,submitData,deleteArr} = this.state;
+		const {selectedObjs,newfloor,submitData,deleteArr,originData} = this.state;
 		let del = [].concat(selectedObjs);
 		var allDataObj = Object.assign({},submitData);
 		var delDataObj = Object.assign({},deleteArr);
-		console.log('dataChange',data,allData,submitData,allDataObj)
+		console.log('------dataChange')
+		console.log(data);
+		console.log('------allData');
+		console.log(allData);
+		console.log('-------originData');
+		console.log(originData)
+		allData = [].concat(allData,originData);
+
 
 		for(let i=0;i<allData.length;i++){
 
@@ -173,7 +181,6 @@ export default class PlanMapComponent extends React.Component {
 		var dainitializeConfigs = {};
 		let start = Number(inputStart);
 		let end = Number(inputEnd);
-		console.log('canvas',selectedObjs)
 		
 		for(let i=0; i<data.length;i++){
 			if(data[i].floor == newfloor){
@@ -216,11 +223,18 @@ export default class PlanMapComponent extends React.Component {
 				})
 				dainitializeConfigs = {
 					stations:arr,
-					scale:1,
+					
 					isMode:'select',
 					plugin:{
 						onCheckedStationCallback:_this.dataChange
 					},
+					map:{
+                        translateX:0,
+                        translateY:0,
+                        scaleEnable:false,
+                        scale:0.5,
+                        contextMenuEnable:true
+                    },
 					backgroundImageUrl:"http://"+window.location.host + data[i].graphFilePath
 				}
 			}
@@ -228,12 +242,27 @@ export default class PlanMapComponent extends React.Component {
 		}
 		this.Map =  Map("plan-map-content",dainitializeConfigs);
 	}
+	//放大比例
+	rangeSelect = (event) => {
+        // let {destroyData}=this.state;
+		var scaleSize = Number(event.target.value);
+		var scaleNumber = parseInt(event.target.value * 100);
+		console.log('rangeSelect',this.state.newfloor)
+		this.setState({
+			scaleNumber
+		});
+        // destroyData.map((item,index)=>{
+           this.Map.setScale(scaleSize);
+        // })
+	}
     floorsChange = (value) =>{
 		let _this = this;
 		this.Map.destory();
         this.setState({
             newfloor:value,
+            scaleNumber:50
         },function(){
+        	console.log('floorsChange',value)
 			_this.canvasEles();
 		})
     }
@@ -271,10 +300,6 @@ export default class PlanMapComponent extends React.Component {
 		for(let i in deleteArr){
 			deleteDataArr = deleteDataArr.concat(deleteArr[i]);
 		}
-
-		console.log('--->',submitDataAll)
-
-
 		 
 		submitDataAll.map(function(item,index){
 			var obj1 = {};
@@ -313,7 +338,7 @@ export default class PlanMapComponent extends React.Component {
 	}
 
 	render() {
-		const {data,otherData} = this.state;
+		const {data,otherData,scaleNumber} = this.state;
 		
 
 		return (
@@ -325,10 +350,17 @@ export default class PlanMapComponent extends React.Component {
                         floorsChange = {this.floorsChange}
 						onSubmit = {this.onSubmit}
 						allOnSubmit = {this.allOnSubmit}
+						scaleNumber={scaleNumber}
+						rangeSelect={this.rangeSelect}
                     />
+                   {/* <div className="num-type">
+                        <span className="til">当前比例：</span>
+                        <input type="range" value={this.state.scaleNumber/100} min="0.1" max="2" step="0.1" onChange={this.rangeSelect} style={{verticalAlign:'middle'}}/>
+                        <output>{this.state.scaleNumber}</output>%
+                    </div>*/}
 
 				</div>
-				<div id = "plan-map-content"  style = {{width:"100%",overflow:'scroll',height:500}}>
+				<div id = "plan-map-content"  style = {{width:"100%",height:500}}>
 
 				</div>
 			</div>
