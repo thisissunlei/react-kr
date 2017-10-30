@@ -241,7 +241,8 @@ class AddStaging  extends React.Component{
                          >
                             <LocationChoice 
                                 communityId = {communityId} 
-                                url='stage-detail-search'      
+                                url='stage-detail-search'   
+                                selectTitle='stage'   
                                 onClose = {this.openAddCommunity} 
                                 onSubmit = {this.onStationSubmit} />
                         </Dialog>
@@ -255,6 +256,7 @@ class AddStaging  extends React.Component{
                                 communityId = {communityId} 
                                 url='stage-detail-search' 
                                 type = "edit"
+                                selectTitle='stage' 
                                 data = {this.getData}
                                 onClose = {this.openEditCommunity} 
                                 onSubmit = {this.onEditStationSubmit} />
