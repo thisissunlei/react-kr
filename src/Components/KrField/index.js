@@ -90,11 +90,13 @@ import CheckBoxComponent from './CheckBoxComponent';
 import LabelComponent from './LabelComponent';
 import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
+import RangeComponent from './RangeComponent';
 import MainNewsUploadImage from './MainNewsUploadImageComponent';
 import SearchRegCommunity from './SearchRegCommunity';
 
 
 import SearchMemeber from './SearchMemeber';
+
 
 
 
@@ -608,6 +610,11 @@ class FieldRevert extends React.Component {
 				);
 			}
 
+			if(type == "range" || component === "range"){
+				return (
+					<FieldRevert {...this.props} component={RangeComponent}  style={WrapStyles} {...other} />
+				)
+			}
 			
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>

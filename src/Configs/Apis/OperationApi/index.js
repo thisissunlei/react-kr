@@ -950,6 +950,34 @@ module.exports = {
         url: '/api/krspace-finance-web/member/card/detail?id={id}',
         method: 'get'
     },
+    //运营平台-社区分期列表
+    'community-stage-list': {
+        url: '/api/krspace-finance-web/cmt/community/zone/list/search?communityId={communityId}',
+        method: 'get'
+    },
+    
+    //运营平台-社区分期列表-新增
+    'community-stage-add': {
+        url: '/api/krspace-finance-web/cmt/community/zone/save',
+        method: 'post'
+    },
+     //运营平台-社区分期列表-编辑
+     'community-stage-edit': {
+        url: '/api/krspace-finance-web/cmt/community/zone/update',
+        method: 'post'
+    },
+
+    //运营平台-社区分期-可配置明细查询
+    'stage-detail-search': {
+        url: '/api/krspace-finance-web/cmt/community/zone/config/search?communityId={communityId}&detailType={detailType}&floor={floor}&numberMax={numberMax}&numberMin={numberMin}',
+        method: 'get'
+    },
+    //运营平台-社区分期-已存在配置查询
+    'stage-down-search': {
+        url: '/api/krspace-finance-web/cmt/community/zone/configed/search?zoneId={zoneId}',
+        method: 'get'
+     },
+
      //运营平台-APP管理-积分管理-充值记录
      'charge-list': {
         url: '/api/krspace-finance-web/point/manage/charge-list?companyId={companyId}&page={page}&pageSize={pageSize}',
