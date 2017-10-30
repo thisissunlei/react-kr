@@ -86,17 +86,18 @@ export default class AllCheck  extends React.Component{
     
     
 	render(){
-
+		 
+		let {style}=this.props;
      
 		return(
            
-			<div className='ui-check'>
+			<div className='ui-check' style={style}>
 				<Button  label="添加" type="button" onTouchTap={this.addFn} />
 				<span style={{width:20,display:"inline-block"}}></span>
 				<Button  label="删除" type="button" cancle={true} onTouchTap={this.deleteFn} />
-				<div onClick={this.allCheck} className='ui-all-select' style={{marginLeft:20}}>全选</div>
+				<div className='ui-all-no'><div onClick={this.allCheck} className='ui-all-select' style={{marginLeft:20}}>全选</div>
 				<span className='ui-all-select'>/</span>
-				<div onClick={this.noSameCheck} className='ui-all-select'>反选</div>	
+				<div onClick={this.noSameCheck} className='ui-all-select'>反选</div></div>	
 				<div className='ui-loop'>{
 					this.config.map((item,index)=>{
 					return <div key={index}>

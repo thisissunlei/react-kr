@@ -201,6 +201,7 @@ class EditReg  extends React.Component{
                             component="input"
                             label={(<span>数量<span style={{color: "#999"}}>（不限制数量填-1）</span></span>)}
                             requireLabel={true}
+                            placeholder='数量'
 						/>
 
                         <KrField grid={1/2}
@@ -242,6 +243,7 @@ class EditReg  extends React.Component{
                             noSameCheck={this.noSameCheck}
                             deleteFn={this.deleteFn}
                             addFn={this.addFn}
+                            style={{marginLeft:12,width:546}}
                         />
 
                        <Grid style={{marginBottom:5,marginLeft:-42}}>
