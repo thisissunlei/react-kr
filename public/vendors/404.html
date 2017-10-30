@@ -93,6 +93,7 @@ html body{
     cursor: pointer;
 }
 .container-bnt span .bnt-two{
+    text-decoration: none;
     position: absolute;
     top: 0px;
     margin-left: 30px;
@@ -131,13 +132,13 @@ html body{
     <div class='container-bnt'>
         <span>
                 <button class='bnt-one'><p class="retpage">返回主页</p><span class='timeOut'>(6秒)</span></button>
-                <div class='bnt-two'>联系我们</div>
+                <a href='mailTo:it@krspace.cn' class='bnt-two'>联系我们</a>
         </span> 
     </div>
    </div>
    <script>
        var Obntret=document.getElementsByClassName('bnt-one');
-var Obntrelation=document.getElementsByClassName('bnt-two');
+// var Obntrelation=document.getElementsByClassName('bnt-two');
 var timechange
 var timeControl=6;
 function timeRecord(){
@@ -155,9 +156,9 @@ function timeRecord(){
      console.log(window.location.href);
     window.location.href=window.location.origin; 
           }
- Obntrelation[0].onclick=function(e){
+//  Obntrelation[0].onclick=function(e){
     
-          }
+//           }
    </script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 import React from 'react';
 import KrDate from '../../KrDate';
+import Tooltip from '../../Tooltip';
+import './index.less';
 export default class FContent extends React.Component {
 
 
@@ -48,11 +50,11 @@ export default class FContent extends React.Component {
 
   }
   contentRender = () =>{
-    const {data,detail,checkbox} = this.props;
-    var doms = detail.map((item,index)=>{
+    const {data,detail,checkbox,index} = this.props;
+    var doms = detail.map((item,i)=>{
 			if (item.type == 'date' && !(item.component)) {
 				return (
-					<td key = {index}>
+					<td key = {i}>
 						<KrDate value={data[item.name]} format={item.format} />
 					</td>
 				);
@@ -60,30 +62,31 @@ export default class FContent extends React.Component {
 
       if (item.type === 'operation' && typeof (item.component) === 'function'){
          return (
-          <td key={index}>
-              {
-                item.component(data)
-              }
+          <td key={i}>
+             {  
+               item.component(data,index)  
+             }
           </td>
         );
       }
 
       return (
-        <td key = {index}>
-          {item.checkbox && <input
-              key={index}
-              type="checkbox"
-              onChange={(event) =>{
-                  this.onCheck(event,item,index)
-              }}
-              checked = {item.checked ? "checked":""}
-          />}
-          {this.renderValue(data[item.name],data,item.options,item.defaultValue)}
+        <td key = {i}>
+            <div className='fd-row' style={item.rowStyle?item.rowStyle:{}}>
+              {item.checkbox && <input
+                  key={i}
+                  type="checkbox"
+                  onChange={(event) =>{
+                      this.onCheck(event,item,i)
+                  }}
+                  checked = {item.checked ? "checked":""}
+              />}
+              {this.renderValue(data[item.name],data,item.options,item.defaultValue)}
+            </div>
         </td>
       )
-
-
     })
+
     if(checkbox){
       doms.unshift(
          <td>
