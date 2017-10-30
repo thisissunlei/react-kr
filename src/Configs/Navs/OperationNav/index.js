@@ -232,7 +232,7 @@ module.exports = [
 					},
 					{
 						primaryText: '注册地址',
-						menuCode: 'cmt_registerAddress_list',
+						menuCode: 'oper_cmt_stationList_base',
 						router: '/operation/communityAllocation/registeredAddress'
 					},
 					{
