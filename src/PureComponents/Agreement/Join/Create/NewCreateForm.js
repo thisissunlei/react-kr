@@ -1067,11 +1067,6 @@ class NewCreateForm extends Component {
 		biaodan[index] = e.value;
 		
 		let tacticsId = '';
-		// saleList.map((item)=>{
-		// 	if(item.value == e.value){
-		// 	   	tacticsId = item.id;
-		// 	}
-		// })
 		let time = {}
 		if(e.value == 1){
 			time = {
