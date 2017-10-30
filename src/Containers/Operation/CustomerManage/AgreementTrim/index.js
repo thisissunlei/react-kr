@@ -131,6 +131,10 @@ class AgreementTrim extends React.Component {
 	deleteDemoFun=()=>{
 		State.deleteDemo();
 	}
+	customerName=(itemData)=>{
+		console.log('customerName',itemData);
+		window.open(window.location.origin+`/new/#/operation/customerManage/`+itemData.customerid+`/order/`+itemData.mainbillid+`/detail`);
+	}
 
 	
 
@@ -184,17 +188,23 @@ class AgreementTrim extends React.Component {
 					<TableBody style={{position:'inherit'}}>
 						<TableRow>
 						<TableRowColumn name="customerName"
-						component={(value,oldValue)=>{
+						component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
 							if(value.length==""){
 								TooltipStyle="none"
 							}else{
 								TooltipStyle="block";
 							}
-							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:150,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-							 	<Tooltip offsetTop={5} place='top' >
-									<div style={{width:"150px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
-							 	</Tooltip></div>)
+							 return (
+							 	<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
+							 		<span className='tableOver' style={{maxWidth:150,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",cursor:'pointer'}} 
+							 			onTouchTap={this.customerName.bind(this,itemData)}>
+							 			{value}
+							 		</span>
+								 	<Tooltip offsetTop={5} place='top' >
+										<div style={{width:"150px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
+								 	</Tooltip>
+							 	</div>)
 						}}
 						></TableRowColumn>
 						<TableRowColumn name="billName"
