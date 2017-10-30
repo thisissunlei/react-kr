@@ -203,7 +203,7 @@ class AddReg  extends React.Component{
 						/>
 
                         <KrField grid={1} 
-                            label={(<span>地址模版<span style={{color:"#999"}}>（需要替换为实际编号的地方填写${0}）</span></span>)} 
+                            label={(<span>地址模版<span style={{color:"#999"}}>{'（需要替换为实际编号的地方填写${0}）'}</span></span>)} 
                             name="addressTemp" heightStyle={{height:"78px",width:'544px'}} style={{width:552,marginTop:5}} component="textarea"  maxSize={100} placeholder='请输入地址模版'  lengthClass='reg-len-textarea' requireLabel={true}/>
 
                         
