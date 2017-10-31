@@ -33,7 +33,15 @@ class EditTable  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			openStation:false
+			openStation:false,
+			mainInfo:[
+				{name:'123',
+				tableName:'345'
+				},
+				{name:'12311',
+				tableName:'3451'
+				}
+			]
 		}
 	}
 
@@ -43,7 +51,10 @@ class EditTable  extends React.Component{
   
 	
 	componentDidMount() {
-		Store.dispatch(change('EditTable','config',[{name:'123',isHere:false,isEdit:false,isDelete:false},{name:'1234',isHere:false,isEdit:false,isDelete:false}]));
+		let {mainInfo}=this.state;
+		mainInfo.map((item,index)=>{
+			Store.dispatch(change('EditTable',`config${index}`,[{name:'123',isHere:false,isEdit:false,isDelete:false},{name:'1234',isHere:false,isEdit:false,isDelete:false}]));
+		})
 	}
 
 	 //所属区县
@@ -67,14 +78,8 @@ class EditTable  extends React.Component{
 
 		let cityData='河北省／邢台市／任县';
 
-		let mainInfo=[
-			{name:'123',
-			tableName:'345'
-			},
-			{name:'12311',
-			tableName:'3451'
-			}
-		]
+		let {mainInfo}=this.state;
+
 		
 		return(
 
@@ -129,7 +134,7 @@ class EditTable  extends React.Component{
 
 
 									     <CheckTable
-												name ='config'
+												name ={`config${index}`}
 												isFold = {false}
 												initFoldNum={1000}
 												isSingle={true}
