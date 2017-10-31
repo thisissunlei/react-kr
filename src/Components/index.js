@@ -76,6 +76,7 @@ import {
 	Col
 } from './Grid';
 import FieldTabel from './FieldTabel';
+import CheckTable from './CheckTable';
 
 
 //materal-ui
@@ -175,6 +176,7 @@ module.exports = {
 	SwitchSlide,
 	Chip,
 	...FieldTabel,
+	...CheckTable,
 	ArticleList,
 	IconTip,
 	Toolbar,

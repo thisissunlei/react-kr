@@ -1,0 +1,157 @@
+.ui-field-tabel{
+    .ftable-dele{
+        text-align: center;
+        margin-bottom: 5px;
+        margin-top: 52px;
+    }
+    //工具条
+    .ui-field-tabel-toolbar{
+      display: inline-block;
+     
+      .ui-dele-all{
+        display:inline-block;
+        font-size: 14px;
+        color:#333;
+        cursor:pointer;
+        margin-right: 12px;
+        .ui-del-pic{
+           width:20px;
+           height:20px;
+           display:inline-block;
+           background:url(./images/delall.svg) no-repeat center;
+           background-size: 84%;
+           margin-right: 6px;
+           transition: all 0.1s;
+        }
+        .ui-del-pic:hover{
+            background:url(./images/delallActive.svg) no-repeat center; 
+            background-size:84%;
+        }
+      }
+      .move{
+        display:inline-block;
+        .ui-move-up{
+          display:inline-block;
+          .ui-move-pic{
+            width:20px;
+            height:20px;
+            cursor:pointer;
+            display:inline-block;
+            background:url(./images/up.svg) no-repeat center;
+            background-size: 84%;
+            transition: all 0.1s;
+        
+          }
+          .ui-move-pic:hover{
+            background:url(./images/upActive.svg) no-repeat center;
+            background-size:84%;
+          }
+          .ui-down-pic{
+            width:20px;
+            height:20px;
+            cursor:pointer;
+            display:inline-block;
+            background:url(./images/down.svg) no-repeat center;
+            background-size:84%;
+            transition: all 0.1s;
+           
+          }
+          .ui-down-pic:hover{
+            background:url(./images/downActive.svg) no-repeat center;
+             background-size:84%;  
+             
+          }
+        }
+      }
+    }
+
+
+
+
+
+    //展开条
+    .ui-field-tabel-fold{
+        text-align: center;
+
+        .fold{
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #666666;
+             cursor: pointer;
+
+        }
+        .icon-down{
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+            margin-left: 5px;
+            background:url(images/unfurled.svg) no-repeat;
+            background-size: 12px 12px;
+            background-position: 0px 1px;
+        }
+        .icon-up{
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+            margin-left: 5px;
+            background:url(images/packUp.svg) no-repeat;
+            background-size: 12px 12px;
+            background-position: 0px 1px;
+
+        }
+        .icon-down::before{
+            content: "1";
+            color: transparent;
+        }
+        .icon-up::before{
+            content: "1";
+            color: transparent;
+        }
+        .fold:hover{
+            color: #4A90E2;
+        }
+        .fold:hover .icon-down{
+            background:url(./images/unfurledActive.svg) no-repeat;
+            background-size: 12px 12px;
+            background-position: 0px 1px;
+        }
+        .fold:hover .icon-up{
+            background:url(./images/packUpActive.svg) no-repeat;
+            background-size: 12px 12px;
+            background-position: 0px 1px;
+        }
+    }
+     table{
+        border:1px solid #E1E6EB;
+        border-bottom: 0px;
+        border-right: 0px;
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+        .hander{
+            th{
+                background: #F5F6FA;
+                font-weight: 100;
+                width: auto;
+                border-bottom:1px solid #E1E6EB;
+                border-right:1px solid #E1E6EB;
+                padding: 8px 10px;
+                font-size: 14px;
+                color:#333;
+            }
+        }
+        tr{
+            width: auto;
+            th,td{
+                width: auto;
+                border-bottom:1px solid #E1E6EB;
+                border-right:1px solid #E1E6EB;
+                padding: 10px 10px;
+                font-size: 12px;
+                color:#666;
+            }
+        }
+     }
+
+}

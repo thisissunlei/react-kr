@@ -2,9 +2,8 @@ import React from 'react';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import {
 	KrField,
-	FdTabel,
-	FContent,
-	FRow,
+	CheckTable,
+	FdRow,
 	Section,
 	IconTip,
 	TextDic,
@@ -37,12 +36,12 @@ class EditTable  extends React.Component{
 	}
 
 	onSubmit=(values)=>{
-
+       console.log('values',values);
 	}
   
 	
 	componentDidMount() {
-		
+		Store.dispatch(change('EditTable','config',[{name:'123',isHere:false,isEdit:false,isDelete:false},{name:'1234',isHere:false,isEdit:false,isDelete:false}]));
 	}
 
 	 //所属区县
@@ -103,6 +102,19 @@ class EditTable  extends React.Component{
 						/>
 
 						<div onClick={this.openClick}>点击</div>
+
+
+						<CheckTable
+								name ='config'
+								isFold = {false}
+								initFoldNum={1000}
+								isSingle={true}
+							>
+								<FdRow name = "name" label = "字段显示名" />
+								<FdRow name = "isHere" label = "是否显示" checkbox={true}/>
+								<FdRow name = "isEdit" label = "是否编辑"  checkbox={true}/>
+								<FdRow name = "isDelete" label = "是否删除" checkbox={true}/>
+						</CheckTable>
 
 						<Button  label="确定" type="submit"/>
 			   </form>
