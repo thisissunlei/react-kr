@@ -539,7 +539,7 @@ module.exports = {
     },
     //PC端模板--新建--获取表单字段
     'get-form-template-field':{
-      url: '/mockjsdata/60/sys/form-template-field/list',
+      url: '/mockjsdata/60/sys/form-template-field/list?formId={formId}',
       method: 'get'
     },
     //PC端模板--选择

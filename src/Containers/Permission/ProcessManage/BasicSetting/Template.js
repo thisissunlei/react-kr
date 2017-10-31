@@ -43,10 +43,10 @@ class Template extends React.Component {
 	}
 	componentDidMount() {
 		var initializeValues = {mode:'normol',allowPrint:'true'};
+		State.getCreateTable(this.props.id);
 		Store.dispatch(initialize('Template',initializeValues));
 		State.getTemplateList();
 		State.getPrintTemplateList();
-		console.log('did========>',this)
 	}
 	
 	onCancel=()=>{

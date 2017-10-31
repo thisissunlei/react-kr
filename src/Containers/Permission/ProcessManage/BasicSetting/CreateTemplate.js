@@ -1,6 +1,11 @@
 import React from 'react';
-import {reduxForm,initialize} from 'redux-form';
+import {reduxForm,initialize,change} from 'redux-form';
 import {Store} from 'kr/Redux';
+import mobx, {
+	observable,
+	action,
+	toJS
+} from 'mobx';
 import {
 	KrField,
 	Grid,
@@ -11,8 +16,11 @@ import {
 	ListGroup,
 	ListGroupItem,
 	CircleStyleTwo,
-	ButtonGroup
+	ButtonGroup,
+	CheckTable,
+	FdRow,
 } from 'kr-ui';
+import State from './State';
 import {
 	observer
 } from 'mobx-react';
@@ -30,16 +38,27 @@ class CreateNewList extends React.Component {
 	componentWillMount() {
 	}
 
+	componentDidMount() {
+		Store.dispatch(change('createNewList','mainT',toJS(State.mainT.mainT)));
+
+		toJS(State.detailT).map((item,index)=>{
+			Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
+		})
+	}
+
 	onCancel=()=>{
 		let {onCancel}=this.props;
 		onCancel && onCancel();
 	}
 	onSubmit=(form)=>{
 		console.log('-----',form)
-		// let {onSubmit}=this.props;
-		// onSubmit && onSubmit(form);
 	}
+	changeHasEditButton=(value,index)=>{
+		console.log('changeHasEditButton',index,'value',value)
+		Store.dispatch(change('createNewList',`fieldList${index}.changeHasEditButton`,value));
+		// Store.dispatch(change('createNewList',`changeHasEditButton${index}`,value));
 
+	}
 
 	render() {
 		const { handleSubmit} = this.props;
@@ -75,15 +94,57 @@ class CreateNewList extends React.Component {
 							inline={true}
 							options={[{label:'2',value:'2'},{label:'1',value:'1'}]}
 					 	/>
-					 	<div className="template-title">明细表-请假明细 (wf_fdt_1_12)</div>
-							<KrField 
-					 		name="hasEditButton" 
-					 		component="checkBox" 
-					 		grid={1}
-					 		inline={true}
-					 		label="是否显示添加删除按钮"
-					 		requireLabel={true} 
-						 />
+							<div className='main-form' style={{marginTop:20}}>
+									     <CheckTable
+												name ={`mainT`}
+												isFold = {false}
+												initFoldNum={1000}
+												isSingle={true}
+											>
+
+											<FdRow name = "name" label = "字段显示名" />
+											<FdRow name = "display" label = "是否显示" checkbox={true}/>
+											<FdRow name = "editable" label = "是否编辑"  checkbox={true}/>
+											<FdRow name = "required" label = "是否必填" checkbox={true}/>
+											<FdRow name = "wholeLine" label = "是否整行" checkbox={true}/>
+										</CheckTable>
+								</div>
+						 {
+							toJS(State.detailT).map((item,index)=>{
+
+								return <div className='main-form' style={{marginTop:20}} key={index}>
+
+									<div className='main-name'>
+									<span style={{fontSize:'16px',color:'#666',lineHeight:'24px;'}}>明细表-</span>
+									<span>{item.name}</span>
+									{/*<span>({item.tableName})</span>*/}
+									</div>
+									<KrField 
+								 		name={`hasEditButton${index}`}
+								 		component="checkBox" 
+								 		grid={1}
+								 		inline={true}
+								 		label="是否显示添加删除按钮"
+									 />
+
+
+									     <CheckTable
+												name ={`fieldList${index}`}
+												isFold = {false}
+												initFoldNum={1000}
+												isSingle={true}
+											>
+
+											<FdRow name = "name" label = "字段显示名" />
+											<FdRow name = "display" label = "是否显示" checkbox={true}/>
+											<FdRow name = "editable" label = "是否编辑"  checkbox={true}/>
+											<FdRow name = "required" label = "是否必填" checkbox={true}/>
+											<FdRow name = "wholeLine" label = "是否整行" checkbox={true}/>
+										</CheckTable>
+								</div>
+							})
+						}
+
 						<Grid style={{marginTop:50,width:'100%'}}>
 							<Row >
 								<Col md={12} align="center">
