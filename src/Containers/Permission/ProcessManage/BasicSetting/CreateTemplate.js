@@ -35,8 +35,9 @@ class CreateNewList extends React.Component {
 		onCancel && onCancel();
 	}
 	onSubmit=(form)=>{
-		let {onSubmit}=this.props;
-		onSubmit && onSubmit(form);
+		console.log('-----',form)
+		// let {onSubmit}=this.props;
+		// onSubmit && onSubmit(form);
 	}
 
 
@@ -66,7 +67,7 @@ class CreateNewList extends React.Component {
 					 	/>
 					 	<div className="template-title">主表(ft_wf_ft)</div>
 					 	<KrField
-							name="num"
+							name="lineNum"
 							type="text"
 							component="select"
 							label="每行显示字段数"
@@ -75,7 +76,14 @@ class CreateNewList extends React.Component {
 							options={[{label:'2',value:'2'},{label:'1',value:'1'}]}
 					 	/>
 					 	<div className="template-title">明细表-请假明细 (wf_fdt_1_12)</div>
-
+							<KrField 
+					 		name="hasEditButton" 
+					 		component="checkBox" 
+					 		grid={1}
+					 		inline={true}
+					 		label="是否显示添加删除按钮"
+					 		requireLabel={true} 
+						 />
 						<Grid style={{marginTop:50,width:'100%'}}>
 							<Row >
 								<Col md={12} align="center">

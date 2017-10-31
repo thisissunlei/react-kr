@@ -46,6 +46,7 @@ class Template extends React.Component {
 		Store.dispatch(initialize('Template',initializeValues));
 		State.getTemplateList();
 		State.getPrintTemplateList();
+		console.log('did========>',this)
 	}
 	
 	onCancel=()=>{
@@ -218,7 +219,7 @@ class Template extends React.Component {
 				</form> 
 				<Drawer
 				        open={this.state.open}
-				        width={550}
+				        width={750}
 				        openSecondary={true}
 				        onClose={this.closeCreateTemplate}
 
