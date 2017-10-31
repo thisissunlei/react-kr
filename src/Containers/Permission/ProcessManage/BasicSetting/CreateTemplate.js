@@ -64,6 +64,18 @@ class CreateNewList extends React.Component {
 							requireLabel={true}
 							grid={1/2}
 					 	/>
+					 	<div className="template-title">主表(ft_wf_ft)</div>
+					 	<KrField
+							name="num"
+							type="text"
+							component="select"
+							label="每行显示字段数"
+							grid={1/2}
+							inline={true}
+							options={[{label:'2',value:'2'},{label:'1',value:'1'}]}
+					 	/>
+					 	<div className="template-title">明细表-请假明细 (wf_fdt_1_12)</div>
+
 						<Grid style={{marginTop:50,width:'100%'}}>
 							<Row >
 								<Col md={12} align="center">
@@ -92,27 +104,7 @@ const validate = values => {
 			errors.name = '模板名称不能超过20字';
 		}
 	}
-	if(!values.publishedTime){
-		errors.publishedTime = '请选择发布时间';
-	}
-	if(!values.orderNum){
-		errors.orderNum = '请输入排序号';
-	}
-	if(values.orderNum){
-		var orderNum = (values.orderNum+'').replace(/(^\s*)|(\s*$)/g, "");
-		if(!numContr.test(orderNum)){
-			errors.orderNum = '排序号必须为五位以内正整数';
-		}
-	}
-	if(!values.newsDesc){
-		errors.newsDesc = '请输入新闻简介';
-	}
-	if(!values.photoUrl){
-		errors.photoUrl = '请上传新闻列表图片';
-	}
-	if(!values.newsContent){
-		errors.newsContent = '请输入新闻内容';
-	}
+	
 	
 	
 

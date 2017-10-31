@@ -1,7 +1,12 @@
 import React from 'react';
-import {reduxForm,initialize,reset} from 'redux-form';
+import {reduxForm,initialize,reset,change} from 'redux-form';
 import {Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
+import mobx, {
+	observable,
+	action,
+	toJS
+} from 'mobx';
 import {
 	KrField,
 	Grid,
@@ -17,6 +22,7 @@ import {
 	Dialog
 } from 'kr-ui';
 import CreateTemplate from './CreateTemplate';
+import State from './State';
 
 import {
 	observer
@@ -31,36 +37,35 @@ class Template extends React.Component {
 		this.state={
 			open:false,
 			openChooce:false,
-			list:[
-				{label: "iOS工程师", value: 55},
-				{label: "Android开发工程师", value: 61},
-				{label: "Java开发工程师", value: 74},
-				{label: "Java开发工程师（中级）", value: 75},
-				{label: "Java开发工程师（高级）", value: 76},
-				{label: "前端开发工程师", value: 77},
-				{label: "技术经理", value: 78},
-				{label: "UI设计师", value: 79},
-				{label: "产品运维工程师", value: 80},
-				{label: "测试工程师", value: 81},
-				{label: "iOS开发工程师", value: 82},
-				{label: "创投", value: 316},
-				{label: "测试", value: 317}
-			],
 		}
 
 		
 	}
 	componentDidMount() {
-		var initializeValues = {mode:'normol',print:'ok'};
+		var initializeValues = {mode:'normol',allowPrint:'true'};
 		Store.dispatch(initialize('Template',initializeValues));
+		State.getTemplateList();
+		State.getPrintTemplateList();
 	}
 	
 	onCancel=()=>{
-		// var initializeValues = {mode:'normol',print:'ok'};
-		// Store.dispatch(reset('Template',''));
+		Store.dispatch(reset('Template',''));
+		State.reset()
 	}
 	onSubmit=(form)=>{
-		
+		console.log('onSubmit--->',form)
+		if(!form.printTemplateId){
+			State.printTemplateId = true;
+		}
+		if(!form.formTemplateId){
+			State.formTemplateId = true;
+		}
+		if(State.formTemplateId || State.printTemplateId){
+			return;
+		}
+		Message.error('提交成功');
+		Store.dispatch(reset('Template',''));
+		State.reset()
 	}
 	closeChooceDialog=()=>{
 		this.setState({
@@ -73,25 +78,25 @@ class Template extends React.Component {
 		})
 		console.log('pcClick',type)
 	}
-	cloaeCreateTemplate=()=>{
+	closeCreateTemplate=()=>{
 		this.setState({
 			open:false
 		})
 	}
-	chooceShow=()=>{
-		console.log('chooceShow')
-		this.setState({
-			openChooce:true
-		})
-	}
-	choocePrint=()=>{
-		console.log('choocePrint')
-		this.setState({
-			openChooce:true
-		})
-	}
 	changeName=(value)=>{
-		console.log('changeName',value)
+		console.log('changeName',value);
+		State.pcName = value.label;
+		State.formTemplateId = false;
+		Store.dispatch(change('Template','formTemplateId',value.value));
+
+
+	}
+	changePrintType=(value)=>{
+		console.log('changePrintType',value)
+		State.printName = value.label;
+		State.printTemplateId = false;
+		Store.dispatch(change('Template','printTemplateId',value.value));
+
 	}
 
 
@@ -137,39 +142,41 @@ class Template extends React.Component {
 			            	<KrField
 	                            grid={1/2}
 	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
-	                            name="jobId"
-	                            leftData={this.state.list}
+	                            name="formType"
+	                            leftData={toJS(State.pcList)}
 	                            component="switchSlide"
 	                            valueText = '选择'
 	                            control='single'
 	                            onChange={this.changeName}
 	                        />
-			            	<span className="has-template template-name">发起人模板 2017-08-10 18:10:22</span>
-			            	<span className="no-template template-name">未设置</span>
+	                        {!!State.pcName?
+			            	<span className="has-template template-name">{State.pcName} </span>
+			            	:<span className="no-template template-name">未设置</span>}
+			            	{State.formTemplateId && <div className="error-message">请选择显示模板</div>}
 			            </div>
 	                    
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="打印模板" circle="bottom">
 						<KrField 
 	                		style={{width:260,marginTop:5,marginBottom:5}}
-	                		name="print" 
+	                		name="allowPrint" 
 	                		component="group" 
 	                		label="是否打印"
 	                		requireLabel={true}
 	                		>
 			                    <KrField 
-			                    		name="print" 
+			                    		name="allowPrint" 
 			                    		grid={1 / 2} 
 			                    		label="是" 
 			                    		type="radio" 
-			                    		value="ok"
+			                    		value="true"
 			                    />
 			                    <KrField 
-			                    		name="print" 
+			                    		name="allowPrint" 
 			                    		grid={1 / 2} 
 			                    		label="否" 
 			                    		type="radio" 
-			                    		value="no"
+			                    		value="false"
 			                    />
 	                	</KrField>
 	                	<KrField 
@@ -184,15 +191,18 @@ class Template extends React.Component {
 			            	<KrField
 	                            grid={1/2}
 	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
-	                            name="jobId"
-	                            leftData={this.state.list}
+	                            name="printType"
+	                            leftData={toJS(State.printList)}
 	                            component="switchSlide"
 	                            valueText = '选择'
 	                            control='single'
-	                            onChange={this.changeName}
+	                            onChange={this.changePrintType}
 	                        />
-			            	<span className="has-template template-name">发起人模板 2017-08-10 18:10:22</span>
-			            	<span className="no-template template-name">未设置</span>
+	                        {!!State.printName?
+			            	<span className="has-template template-name">{State.printName}</span>
+			            	:<span className="no-template template-name">未设置</span>}
+			            	{State.printTemplateId && <div className="error-message">请选择显示模板</div>}
+
 			            </div>
 						<Grid style={{marginTop:50,width:'81%'}}>
 							<Row >
@@ -210,7 +220,7 @@ class Template extends React.Component {
 				        open={this.state.open}
 				        width={550}
 				        openSecondary={true}
-				        onClose={this.cloaeCreateTemplate}
+				        onClose={this.closeCreateTemplate}
 
 				        className='m-finance-drawer'
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
@@ -218,15 +228,6 @@ class Template extends React.Component {
 
 			       	 	<CreateTemplate onCancel={this.cloaeCreateTemplate}/>
 		        </Drawer>
-		        <Dialog
-		              title="选择模板"
-		              modal={true}
-		              open={this.state.openChooce}
-		              onClose={this.closeChooceDialog}
-		              contentStyle={{width:666,height:330}}
-		            >
-		              dddd
-		        </Dialog>
 			</div>
 
 
@@ -237,32 +238,6 @@ class Template extends React.Component {
 const validate = values => {
 	const errors = {}
 	let numContr =/^[1-9]\d{0,4}$/;
-	if(!values.title){
-		errors.title = '请输入新闻标题';
-	}
-	if(values.title){
-		if(values.title.length>50){
-			errors.title = '新闻标题不能超过50字';
-		}
-	}
-	if(!values.publishedTime){
-		errors.publishedTime = '请选择发布时间';
-	}
-	if(!values.orderNum){
-		errors.orderNum = '请输入排序号';
-	}
-	if(values.orderNum){
-		var orderNum = (values.orderNum+'').replace(/(^\s*)|(\s*$)/g, "");
-		if(!numContr.test(orderNum)){
-			errors.orderNum = '排序号必须为五位以内正整数';
-		}
-	}
-	if(!values.newsDesc){
-		errors.newsDesc = '请输入新闻简介';
-	}
-	if(!values.photoUrl){
-		errors.photoUrl = '请上传新闻列表图片';
-	}
 	
 	
 
