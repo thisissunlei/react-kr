@@ -15,6 +15,9 @@ import {
 } from 'kr-ui';
 import DoubleColumn from'./DoubleColumn';
 import StageTitle from './StageTitle';
+import AgreementTitle from './AgreementTitle';
+
+
 var type = [
     {value:"STATION",label:'工位'},
     {value:"SPACE",label:'独立空间'}
@@ -34,14 +37,14 @@ class LocationChoice extends Component {
         };
     }
     onSubmit = (values) =>{
-        let {url,communityId,data} = this.props;
-        var object = Object.assign({communityId:communityId,numberMin:values.all.startValue,numberMax:values.all.endValue},values)
-        
-        
-        this.box.getData(url,object);
-        
-       
+        let {url,communityId,data,selectTitle} = this.props;
+        var object={};
+        if(selectTitle=='stage'){
+            object = Object.assign({communityId:communityId,numberMin:values.all.startValue,numberMax:values.all.endValue},values);            
+        }
+        this.box.getData(url,object);  
     }
+    
     floorChange = (values) =>{
         
         this.submitData.floor = values.value;
@@ -52,22 +55,25 @@ class LocationChoice extends Component {
     }
     onClick = (values) =>{
         
-        let {onSubmit} = this.props;
-        if(!this.submitData.floor){
-            Message.error('楼层不能为空！');
-            return ;
+        let {onSubmit,selectTitle} = this.props;
+
+        if(selectTitle=='stage'){
+
+            if(!this.submitData.floor){
+                Message.error('楼层不能为空！');
+                return ;
+            }
+            if(!this.submitData.detailType){
+                Message.error('类型不能为空！');
+                return ;
+            }
+            if(!values.codeList.length){
+                Message.error('已选列表不能为空！');
+                return ;
+            }   
+            values = Object.assign(this.submitData,values);
         }
-        if(!this.submitData.detailType){
-            Message.error('类型不能为空！');
-            return ;
-        }
-        if(!values.codeList.length){
-            Message.error('已选列表不能为空！');
-            return ;
-        }
-       
-        values = Object.assign(this.submitData,values);
-       
+        
         onSubmit && onSubmit(values)
 
     }
@@ -93,18 +99,20 @@ class LocationChoice extends Component {
 
     }
     componentDidMount() {
-        let {url,data,type} = this.props;
-        this.getFloor();
-        console.log("box",this.box)
-        if(type == "edit"){
-            
-            this.box.getData(url,data);
-            Store.dispatch(initialize('StageTitle',data));
-        }
-        
+        let {url,data,type,selectTitle} = this.props;
+        if(selectTitle=='stage'){
+            this.getFloor();  
+            if(type == "edit"){       
+                this.box.getData(url,data);
+                Store.dispatch(initialize('StageTitle',data));
+            }
+        }  
     }
     componentWillUnmount(){
-         Store.dispatch(initialize('StageTitle',{floor:'',detailType:'',all:''}));
+        let {selectTitle}=this.props;
+         if(selectTitle=='stage'){
+            Store.dispatch(initialize('StageTitle',{floor:'',detailType:'',all:''}));         
+         }
     }
     render(){
         let {title,onClose,open,communityId,url,data,selectTitle} = this.props;
@@ -122,7 +130,16 @@ class LocationChoice extends Component {
                              onSubmit={this.onSubmit}
                            />
                          }
+
+
+                        {selectTitle=='agreement'&&
+                          <AgreementTitle 
+                             communityChange={this.communityChange}
+                             codeChange={this.codeChange}
+                             onSubmit={this.onSubmit}
+                         />}
                         
+
                         <DoubleColumn 
                             ref ={
                                 (ref)=>{

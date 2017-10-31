@@ -96,6 +96,7 @@ import SearchRegCommunity from './SearchRegCommunity';
 
 
 import SearchMemeber from './SearchMemeber';
+import SearchAllComponent from './SearchAllComponent';
 
 
 
@@ -614,6 +615,13 @@ class FieldRevert extends React.Component {
 				return (
 					<FieldRevert {...this.props} component={RangeComponent}  style={WrapStyles} {...other} />
 				)
+			}
+
+			if (component === 'searchAll') {
+				return (
+
+					<FieldRevert {...this.props} component={SearchAllComponent}  style={WrapStyles} {...other}/>
+				);
 			}
 			
 			return (
