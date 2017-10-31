@@ -52,7 +52,7 @@ module.exports =()=>{
         
             <Route path=":id/dynamicsDetail" getComponent={PublicPage_DynamicsDetail}/>
             <Route path="dynamicsProfile" getComponent={PublicPage_DynamicsProfile}/>
-            <Route path=":printId/printOther" getComponent={PublicPage_PrintOther}/>
+            <Route path=":otherPrintId/printOther" getComponent={PublicPage_PrintOther}/>
             <Route path="templatePrint" getComponent={PublicPage_TemplatePrint}/>
             
         </Route>

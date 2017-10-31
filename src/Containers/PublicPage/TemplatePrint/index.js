@@ -13,7 +13,8 @@ import {
 import {
 	
 	dataToTemplate,
-	ReactHtmlParser
+	ReactHtmlParser,
+	Http,
 }from 'kr/Utils'
 import {
 	Actions,
@@ -72,10 +73,10 @@ class TemplatePrint extends React.Component {
 
 	onSubmit = (value) =>{
 		var params = Object.assign({},value);
-		console.log(value,">.>>>>>>>");
-        Http.request("get-home-dynamics-list",params).then(function (response) {
+		console.log(params,"PPPPPPPPP")
+        Http.request("other-contract-formwork-new",{},params).then(function (response) {
+			console.log("=============")
            
-          
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -106,12 +107,13 @@ class TemplatePrint extends React.Component {
 							
 							label="模板名称" 
 							name="name" 
-							style={{width:262,marginLeft:15,display:'block'}} 
+							style={{marginLeft:15,display:'block'}} 
 							component="input" 
 							inline={true}
 							requireLabel={true}
+							
 						/>	
-						<KrField component="editor" style={{width:"210mm",height:'297mm'}}  name="summary" label="" defaultValue=''/>
+						<KrField component="editor" style={{width:"210mm"}} resizeChange = {true} name="content" label="" defaultValue=''/>
 						
 					</div>
 				</Section>

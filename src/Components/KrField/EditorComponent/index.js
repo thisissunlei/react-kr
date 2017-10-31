@@ -44,12 +44,13 @@ export default class EditorComponent extends React.Component {
 			placeholder,
 			style,
 			inline,
+			resizeChange
 		} = this.props;
 
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
-        <Editor onChange={this.onChange} defaultValue={this.props.defaultValue} />
+        <Editor onChange={this.onChange} resizeChange = {resizeChange} defaultValue={this.props.defaultValue} />
 				{touched && error && <div className="error-wrap"> <span>{error}</span></div> }
 			</WrapComponent>
 		);
