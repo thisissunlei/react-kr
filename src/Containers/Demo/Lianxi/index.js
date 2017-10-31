@@ -10,7 +10,9 @@ import {
 	Checkbox,
 	AllCheck,
 	Button,
-	Dialog
+	Dialog,
+	Toolbars,
+	Toolbar
 } from 'kr-ui';
 import {
 	Actions,
@@ -64,6 +66,15 @@ class EditTable  extends React.Component{
 		let {handleSubmit}=this.props;
 
 		let cityData='河北省／邢台市／任县';
+
+		let mainInfo=[
+			{name:'123',
+			tableName:'345'
+			},
+			{name:'12311',
+			tableName:'3451'
+			}
+		]
 		
 		return(
 
@@ -104,17 +115,39 @@ class EditTable  extends React.Component{
 						<div onClick={this.openClick}>点击</div>
 
 
-						<CheckTable
-								name ='config'
-								isFold = {false}
-								initFoldNum={1000}
-								isSingle={true}
-							>
-								<FdRow name = "name" label = "字段显示名" />
-								<FdRow name = "isHere" label = "是否显示" checkbox={true}/>
-								<FdRow name = "isEdit" label = "是否编辑"  checkbox={true}/>
-								<FdRow name = "isDelete" label = "是否删除" checkbox={true}/>
-						</CheckTable>
+
+						{
+							mainInfo.map((item,index)=>{
+
+								return <div className='main-form' style={{marginTop:20}}>
+
+									<div className='main-name'>
+									<span>主表-</span>
+									<span>{item.name}</span>
+									<span>({item.tableName})</span>
+									</div>
+
+
+									     <CheckTable
+												name ='config'
+												isFold = {false}
+												initFoldNum={1000}
+												isSingle={true}
+											>
+
+											<FdRow name = "name" label = "字段显示名" />
+											<FdRow name = "isHere" label = "是否显示" checkbox={true}/>
+											<FdRow name = "isEdit" label = "是否编辑"  checkbox={true}/>
+											<FdRow name = "isDelete" label = "是否删除" checkbox={true}/>
+										</CheckTable>
+								</div>
+							})
+						}
+
+
+
+
+						
 
 						<Button  label="确定" type="submit"/>
 			   </form>
