@@ -30,7 +30,22 @@ class Template extends React.Component {
 		super(props);
 		this.state={
 			open:false,
-			openChooce:false
+			openChooce:false,
+			list:[
+				{label: "iOS工程师", value: 55},
+				{label: "Android开发工程师", value: 61},
+				{label: "Java开发工程师", value: 74},
+				{label: "Java开发工程师（中级）", value: 75},
+				{label: "Java开发工程师（高级）", value: 76},
+				{label: "前端开发工程师", value: 77},
+				{label: "技术经理", value: 78},
+				{label: "UI设计师", value: 79},
+				{label: "产品运维工程师", value: 80},
+				{label: "测试工程师", value: 81},
+				{label: "iOS开发工程师", value: 82},
+				{label: "创投", value: 316},
+				{label: "测试", value: 317}
+			],
 		}
 
 		
@@ -75,6 +90,9 @@ class Template extends React.Component {
 			openChooce:true
 		})
 	}
+	changeName=(value)=>{
+		console.log('changeName',value)
+	}
 
 
 	render() {
@@ -112,9 +130,20 @@ class Template extends React.Component {
 			                type="labelText" 
 			                requireLabel={true}
 			            />
+			            
 			            <div className="up-load-template">
 			            	<span className='addBtn' onClick={this.pcClick.bind(this,'pc')}>新建</span>
-			            	<span className="chooce-button"  onClick={this.chooceShow}>选择</span>
+			            	<span className="chooce-button" >选择</span>
+			            	<KrField
+	                            grid={1/2}
+	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
+	                            name="jobId"
+	                            leftData={this.state.list}
+	                            component="switchSlide"
+	                            valueText = '选择'
+	                            control='single'
+	                            onChange={this.changeName}
+	                        />
 			            	<span className="has-template template-name">发起人模板 2017-08-10 18:10:22</span>
 			            	<span className="no-template template-name">未设置</span>
 			            </div>
@@ -152,6 +181,16 @@ class Template extends React.Component {
 			            <div className="up-load-template">
 			            	<span className='addBtn' onClick={this.pcClick.bind(this,'print')}>新建</span>
 			            	<span className="chooce-button" onClick={this.choocePrint}>选择</span>
+			            	<KrField
+	                            grid={1/2}
+	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
+	                            name="jobId"
+	                            leftData={this.state.list}
+	                            component="switchSlide"
+	                            valueText = '选择'
+	                            control='single'
+	                            onChange={this.changeName}
+	                        />
 			            	<span className="has-template template-name">发起人模板 2017-08-10 18:10:22</span>
 			            	<span className="no-template template-name">未设置</span>
 			            </div>
