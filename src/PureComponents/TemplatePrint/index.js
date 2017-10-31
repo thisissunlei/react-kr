@@ -73,10 +73,11 @@ class TemplatePrint extends React.Component {
 
 	onSubmit = (value) =>{
 		var params = Object.assign({},value);
+		let {onSubmit} = this.props;
 		
         Http.request("other-contract-formwork-new",{},params).then(function (response) {
 		
-           
+			onSubmit(Object.assign(value,{printTemplateId:response.printTemplateId}));
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -84,7 +85,8 @@ class TemplatePrint extends React.Component {
 
 
 	onCancel = ()=>{
-        // window.open(`./#/publicPage/${id}/dynamicsDetail`,'_blank');
+	   let {onCancel} = this.props;
+	   onCancel && onCancel()
 	}
 
 	render() {
@@ -113,7 +115,7 @@ class TemplatePrint extends React.Component {
 							requireLabel={true}
 							
 						/>	
-						<KrField component="editor" style={{width:"210mm"}} resizeChange = {true} name="content" label="" defaultValue=''/>
+						<KrField component="editor" style={{width:"210mm"}} resizeChange = {true} isReduxForm = {true} name="content" label="" defaultValue=''/>
 						
 					</div>
 				</Section>

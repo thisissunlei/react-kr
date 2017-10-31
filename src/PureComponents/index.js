@@ -10,11 +10,9 @@ import TheBell from './TheBell';
 import PlanMapContent from './PlanMapContent';
 import AddPostPeople from './AddPostPeople';
 import NodeFormwork from './NodeFormwork';
-<<<<<<< HEAD
 import PrintAgreement from './PrintAgreement';
-=======
 import LocationChoice from './LocationChoice';
->>>>>>> feature/合同模板配件
+import TemplatePrint from './TemplatePrint';
 
 module.exports = {
 	Agreement,
@@ -29,10 +27,8 @@ module.exports = {
 	PlanMapContent,
 	AddPostPeople,
 	NodeFormwork,
-<<<<<<< HEAD
-	PrintAgreement
-=======
-	LocationChoice
->>>>>>> feature/合同模板配件
+	PrintAgreement,
+	LocationChoice,
+	TemplatePrint
 }
 

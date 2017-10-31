@@ -50,9 +50,7 @@ import {
 	ListGroupItem,
 	SearchForms,
 } from 'kr-ui';
-<<<<<<< HEAD
-import './index.less'
-=======
+
 var allData = {
 	age:18,
 	name:"刘毅豪",
@@ -66,65 +64,28 @@ var allData = {
 座右铭：{{motto}}
 
 */
->>>>>>> feature/合同模板配件
+
 class RadioBug extends React.Component {
 
 
 	constructor(props) {
 		super(props);
-<<<<<<< HEAD
+
 		this.state = {
 			child:""
 		}
 	}
 	openOneAgreement = () =>{
 
-=======
-		this.state={
-			child:''
-		}
-		this.htmlData = '';
-		
->>>>>>> feature/合同模板配件
+件
 	}
 	onSearchSubmit = () =>{
-
-<<<<<<< HEAD
-=======
-	 onCancel=()=>{
-		 const {
-			onCancel
-		} = this.props;
-		onCancel && onCancel();
-	 }
-
-    onSubmit=(values)=>{
-		const {
-			onSubmit
-		} = this.props;
-		
-		let htmlData = values.summary;
-		console.log(Object.prototype.toString.call(htmlData),">>>>>>>")
-		this.setState({
-			child:this.attachTemplateToData(htmlData,allData)
-		})
-		console.log(this.attachTemplateToData(htmlData,allData),"------")
-		onSubmit && onSubmit();
->>>>>>> feature/合同模板配件
 	}
 	onSubmit = () =>{
 		
 	}
 
-<<<<<<< HEAD
-	openSearchUpperDialog=()=>{
 
-	}
-	onCancel = ()=>{
-
-	}
-
-=======
 	editorChange = (values) =>{
 		console.log(values,"PPPPPPP")
 	}
@@ -152,42 +113,11 @@ class RadioBug extends React.Component {
  
         return fragment;
     };
->>>>>>> feature/合同模板配件
+
 	render() {
 
 
 		let {handleSubmit}=this.props;
-<<<<<<< HEAD
-		let {child} = this.state;
-
-		return (
-			<form className = "edit-print-formwork"  onSubmit={handleSubmit(this.onSubmit)} >
-				<Title value="合同列表"/>
-				<Section title="合同列表" description="" style={{marginBottom:-5,minHeight:910}} rightElement = {
-					<div>
-						<span style = {{display:'inline-block',marginRight:10}}><Button  label="确定" type="submit"/></span>
-						<Button  label="关闭" type="button" cancle={true} onTouchTap={this.onCancel} />
-					</div>
-				}>
-					<div style={{width:"210mm",margin:"auto"}}>
-						<KrField 
-							
-							label="联系人姓名" 
-							name="name" 
-							style={{width:262,marginLeft:15,display:'block'}} 
-							component="input" 
-							inline={true}
-							requireLabel={true}
-						/>	
-						<KrField component="editor" style={{width:"210mm",height:'297mm'}}  name="summary" label="" defaultValue=''/>
-						<ButtonGroup>
-							<Button  label="确定" type="submit"/>
-							<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
-						</ButtonGroup>
-					</div>
-				</Section>
-				
-=======
 		let {child} = this.props;
 
 		return (
@@ -202,7 +132,6 @@ class RadioBug extends React.Component {
                     <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
                 </ButtonGroup>
 				{child}
->>>>>>> feature/合同模板配件
 			</form>
 
 		);

@@ -49,7 +49,7 @@ function everyPagination(elem){
     var detail = elem.getBoundingClientRect(),
         top = detail.top-uselessHeight,
         pageNum = Math.ceil(top/paperHeight),
-        diffValue = pageNum * paperHeight - top-100,
+        diffValue = pageNum * paperHeight - top,
         height = diffValue > 0 ? diffValue : 0;
     
         elem.style.height = height + "px";
@@ -111,13 +111,10 @@ function everyCheckMark(num,pageNum){
 }
 //顺序渲染所有节点
 function allElemsRender(){
-    console.log("1111111111")
     sortAll();
     for (var i = 0; i < elemArr.length; i++) {
         var elem = elemArr[i];
-        console.log("2222222",elem)
         if(elem.type === "include"){
-            console.log("000000000")
             everyInclude(elem.start,elem.end);
         }else{
             everyPagination(elem.elem);   

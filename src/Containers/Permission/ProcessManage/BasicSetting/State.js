@@ -12,6 +12,7 @@ let State = observable({
 	printName:'',
 	printTemplateId:false,
 	formTemplateId:false,
+	formworkId:'',
 
 
 });
