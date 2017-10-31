@@ -144,6 +144,7 @@ class AddPerson  extends React.Component{
 		if(!isPositionRank){
 			return null;
 		};
+        console.log('renderJobAndLevel',basicInfo.jobName,'====',positionList)
 		
 
 		return (

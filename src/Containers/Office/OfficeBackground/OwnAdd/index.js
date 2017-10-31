@@ -51,16 +51,35 @@ export default class Initialize  extends React.Component{
 											</p>
 											
 												{item.list.length && item.list.map((value,i)=>{
+													if(value.name.length>6){
+														return (
+															<div className="tree-three">
+																<div className="tree-line" key={i} style={{padding:'10px 0',color:'#333'}}>
+																	<span className="left-style">-</span>
+																	{value.name.substring(0,5)+'...'}
+																	<Tooltip offsetTop={1} place='top'>{value.name}</Tooltip>
+																	
+																	{parseInt(value.value)<100?(
+																	parseInt(value.value)?<span className="num">{value.value}</span>:''
+																	):<span className="num">99+</span>}
+																
+																</div>
+															</div>
+														)
+													}else{
+
 													return (
 														<div className="tree-three">
-														<p className="tree-line" key={i}><span className="left-style">-</span>{value.name}
-														{parseInt(value.value)<100?(
+														<p className="tree-line" key={i}>
+															<span className="left-style">-</span>
+															{value.name}
+															{parseInt(value.value)<100?(
 															parseInt(value.value)?<span className="num">{value.value}</span>:''
 															):<span className="num">99+</span>}
 														
 														</p>
 														</div>
-													)
+													)}
 												})}
 
 											
