@@ -760,7 +760,6 @@ class Merchants extends Component{
 			orderBaseInfo,
 			earnest,
 			installmentPlan,
-			contractStatusCount,
 		} = this.state.response;
 
 

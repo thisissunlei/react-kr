@@ -15,7 +15,8 @@ let State = observable({
 		type:'',
 		value:''
 	},
-	openInputCardDialog : false
+	openInputCardDialog : false,
+	openBindMemberDialog:false
 	
 });
 
