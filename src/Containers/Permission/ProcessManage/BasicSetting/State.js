@@ -15,7 +15,8 @@ let State = observable({
 	formId:'',
 	mainT:{},
 	detailT:[],
-	saveAndUse:false
+	saveAndUse:false,
+	formworkId:'',
 
 
 });
