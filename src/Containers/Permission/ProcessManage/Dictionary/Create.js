@@ -33,7 +33,9 @@ class NewCreateForm extends React.Component{
 			beginDate:'',
 			endDate:'',
 			beginTime:'',
-			endTime:''
+			endTime:'',
+			//类型
+			isStatic:false
 		}
 	}
 	componentWillMount() {
@@ -271,8 +273,23 @@ class NewCreateForm extends React.Component{
 		console.log('---changeCode----',e)
 	}
 
+	chooseStick=(e)=>{
+		if(e.value=='STATIC'){
+			this.setState({
+				isStatic:false
+			})
+		}else{
+			this.setState({
+				isStatic:true
+			})
+		}
+	}
+
+
 	render(){
 		const { handleSubmit} = this.props;
+		let {isStatic}=this.state;
+		
 		// 对应功能选项
 		return (
 			<div className="new-create-activity">
@@ -287,15 +304,16 @@ class NewCreateForm extends React.Component{
 					<div className="detail-info">
 								<KrField grid={1/2} name="dictName" type="text" label="字典名称" requireLabel={true} style={{width:252,zIndex:11}} onBlur={this.changeName}/>
 								<KrField grid={1/2} name="dictCode" type="text" left={50} label="字典编码" requireLabel={true} style={{width:252}} onBlur={this.changeCode}/>
-								<KrField grid={1} name="dataType" component="group" label="字典类型"  requireLabel={true}>
-									<KrField name="dataType" grid={1/2} label="静态" type="radio" value='STATIC' style={{marginTop:10,display:"inline-block"}} onClick={this.chooseStick}/>
+								<KrField grid={1/2} style={{width:262}} name="dataType" component="group" label="字典类型"  requireLabel={true}>
+									<KrField name="dataType" label="静态" type="radio" value='STATIC' style={{marginTop:10}} onClick={this.chooseStick}/>
+									<KrField name="dataType" label="动态" type="radio" value='DYNAMIC' style={{marginTop:10}} onClick={this.chooseStick}/>
 				              	</KrField>
-								<KrField grid={1} name="descr" 
+								{!isStatic&&<KrField grid={1} name="descr" 
 								 type="textarea" component="textarea"maxSize={100}
-								label="描述"/>
+								label="描述"/>}
 								
 					</div>
-					<div style={{marginLeft:28,marginBottom:40}}>
+					{!isStatic&&<div style={{marginLeft:28,marginBottom:40}}>
 					 <TabelEdit 
 					 	name = "itemListStr" 
 						toolbar = {true}
@@ -308,7 +326,10 @@ class NewCreateForm extends React.Component{
 						 <FRow name = "orderNum" type = "tableEdit" label = "排序号" />
 						 <FRow name = "isDefault" type = "checkBox" label = "是否默认" />
 					 </TabelEdit>
-					</div>
+					</div>}
+
+					{isStatic&&<div style={{marginLeft:22,marginBottom:20,marginTop:10}}><KrField grid={1/2} name="dictName" type="text" label="url地址" style={{width:252,zIndex:11}}/></div>}
+
 					<Grid style={{paddingBottom:50}}>
 						<Row>
 						<ListGroup>
