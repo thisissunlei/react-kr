@@ -7,7 +7,7 @@ import {
 import ButtonGroup from '../../ButtonGroup';
 import Button from '../../Button';
 
-export default class DrawerBottomBtn extends React.Component {
+export default class DrawerBtn extends React.Component {
 
     constructor(props) {
         super(props);
