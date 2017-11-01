@@ -65,16 +65,14 @@ export default class Table extends React.Component {
     item = Object.assign({},item);
     item.checked = event.target.checked;
     headers[index]= item;
-    for(var i=0;i<headers.length;i++){
-         if(headers[i].checked){
-           tableData.map((list,j)=>{
-              list[headers[i].name]=true;
-           })
-         }else if(!headers[i].checked&&headers[i].checkbox){
-            tableData.map((list,j)=>{
-              list[headers[i].name]=false;
-          })
-         }
+    if(headers[index].checked){
+      tableData.map((list,j)=>{
+        list[headers[index].name]=true;
+      })
+    }else if(!headers[index].checked&&headers[index].checkbox){
+      tableData.map((list,j)=>{
+        list[headers[index].name]=false;
+      })
     }
     this.setState({
       headers,
