@@ -10,26 +10,60 @@ import {
 	TableHeaderColumn,
 	TableRowColumn,
 	Button,
+	Drawer,
 } from 'kr-ui';
+import {reduxForm,initialize,reset,change} from 'redux-form';
+import {Store} from 'kr/Redux';
 import arrow from './images/arrows.png';
 import './index.less';
 import './detail.less';
 import State from './State.js'
+import {
+	FromsConfig
+} from 'kr/PureComponents';
+import {
+	configData
+} from './data';
 export default class Initialize  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		this.state = {
+			isOpenEdit:false,
+			detail:[]
+		} 
+		
 	}
+	componentDidMount() {
+
+
+	}
+
 	openEdit=(itemData)=>{
-		console.log('openEdit')
+		// Store.dispatch(initialize('FromsConfig',{fromsConfig:configData.tables}))
+		this.setState({
+			detail:configData.tables
+		})
+		this.onOpenEdit();
 	}
 	openPrint=(itemData)=>{
 		console.log('openPrint')
 	}
+	//编辑页面的开关
+	onOpenEdit = () =>{
+		let {isOpenEdit} = this.state;
+		this.setState({
+			isOpenEdit : !isOpenEdit
+		})
+	}
+	//编辑提交
+	editSubmit = (values) =>{
+
+	}
 
 
 	render(){
-
+		const {isOpenEdit,detail} = this.state;
 
 		return(
 
@@ -149,8 +183,8 @@ export default class Initialize  extends React.Component{
 					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='uTime' component={(value,oldValue,itemData)=>{
 					 							return (
 					 								<div>
-							                    <Button label="编辑"  type='operation'  onClick={this.openEdit.bind(this,itemData)}/>
-							                    <Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>
+													<Button label="编辑"  type='operation'  onClick={this.openEdit.bind(this,itemData)}/>
+													<Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>
 							                    </div>
 					 							)
 					 					}}>
@@ -162,6 +196,15 @@ export default class Initialize  extends React.Component{
 						</div>
 			        </Section>
 				</div>
+				<Drawer
+                    open={isOpenEdit}
+                    width={750}
+                    openSecondary={true}
+                    containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+                    onClose={this.onOpenEdit}
+				>
+					<FromsConfig detail = {detail} onSubmit={this.onCreatDrawerSubmit} onCancel={this.onOpenEdit} />
+				</Drawer>
 			</div>
 		);
 	}

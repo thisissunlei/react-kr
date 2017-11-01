@@ -98,7 +98,7 @@ class EditTable  extends React.Component{
 						<KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="code"
-                            component="searchAll"
+                            component="searchSelect"
                             label="编码"
                             requireLabel={true}
 							inline={false}
