@@ -165,15 +165,7 @@ class EditTable  extends React.Component{
 						   requireLabel={true}
 						 />
 
-						 <KrField 
-						   component="file" 
-						   label='文件' 
-						   style={{width:140,zIndex:5,marginLeft:16}} 
-						   name='file' 
-						   isStore={true}
-						   requireLabel={true}
-						 />
-
+						 
 
 						
 

@@ -58,6 +58,7 @@ export default class CityComponent extends React.Component {
 		this.province='';
 		this.city='';
 		this.county='';
+		this.key=0;
 	}
 
 	componentDidMount() {
@@ -66,27 +67,32 @@ export default class CityComponent extends React.Component {
 	}
 
 	//递归
-	fnTree = (id,data) =>{
-		    let key = 0;	
-			var arr = data.map((item,index)=>{
+	fnTree = (id,data) =>{	
+			data.map((item,index)=>{
 				var obj = Object.assign({},item);
-				if(obj.children.length!=0){
-					obj.children = this.fnTree(obj.children);
+				if(this.key==0){
+					this.province=obj.name;
 				}
-					obj.orgName = obj.name;
-					obj.orgId = obj.id;
-					obj.key = key++;
-					return obj;
-				})
-			return arr;
+				if(this.key==1){
+					this.city=obj.name;
+				}
+				if(id==obj.id&&this.key==2){
+					this.county=obj.name;
+				}
+				if(obj.children&&obj.children.length!=0){
+					this.key=this.key+1;
+					this.fnTree(id,obj.children);
+				}
+				this.key=0;
+			})
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.isStore){
 			if(!this.init){
 				State.city=nextProps.input.value;
-				console.log('id',nextProps.input.value);
-				//this.fnTree(nextProps.input.value,CityData);
+				this.fnTree(nextProps.input.value,CityData);
+				console.log('eee',this.province,'1',this.city,'2',this.county);
 				this.init=true;
 			}
 		}else{
