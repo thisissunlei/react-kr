@@ -52,6 +52,7 @@ export default class CityComponent extends React.Component {
 			city:cityName || '请选择',
 		}
 		State.city = cityName;
+		this.init=false;
 	}
 
 	componentDidMount() {
@@ -60,12 +61,15 @@ export default class CityComponent extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		// let cityName = nextProps.cityName;
-		// if(cityName){
-		// 	State.city=cityName;
-		// }
-		if(this.props.cityName != nextProps.cityName){
-			State.city=nextProps.cityName;
+		if(nextProps.isStore){
+			if(!this.init){
+				State.city=nextProps.input.value;
+				this.init=true;
+			}
+		}else{
+			if(this.props.cityName != nextProps.cityName){
+				State.city=nextProps.cityName;
+			}
 		}
 	}
 

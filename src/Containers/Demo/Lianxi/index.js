@@ -56,6 +56,7 @@ class EditTable  extends React.Component{
 			Store.dispatch(change('EditTable',`config${index}`,[{name:'123',isHere:false,isEdit:false,isDelete:false},{name:'1234',isHere:false,isEdit:false,isDelete:false}]));
 		})
 		Store.dispatch(change('EditTable','codeMore',[{label:'123',value:'1',checked:true},{label:'456',value:'2',checked:false}]));
+		Store.dispatch(change('EditTable','countyId','河北省／邢台市／任县'));
 	}
 
 	 //所属区县
@@ -115,7 +116,7 @@ class EditTable  extends React.Component{
 						  component="city" 
 						  onSubmit={this.cityValue} 
 						  requireLabel={true}
-						  cityName={cityData}
+						  isStore={true}
 						/>
 
 						<div onClick={this.openClick}>点击</div>
