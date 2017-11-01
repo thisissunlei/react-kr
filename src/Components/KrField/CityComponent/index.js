@@ -66,28 +66,27 @@ export default class CityComponent extends React.Component {
 	}
 
 	//递归
-	fnTree = (id) =>{
-		  	
-	      CityData.map((item,index)=>{
-			var obj = Object.assign({},item);
-			
-			if(obj.children.length!=0){
-				obj.children = this.fnTree(obj.children);
-			}
-			obj.isClick = true;
-			obj.orgName = obj.name;
-			obj.orgId = obj.id;
-				obj.key = key++;
-				return obj;
-			})
-		}
+	fnTree = (id,data) =>{
+		    let key = 0;	
+			var arr = data.map((item,index)=>{
+				var obj = Object.assign({},item);
+				if(obj.children.length!=0){
+					obj.children = this.fnTree(obj.children);
+				}
+					obj.orgName = obj.name;
+					obj.orgId = obj.id;
+					obj.key = key++;
+					return obj;
+				})
+			return arr;
+	}
 
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.isStore){
 			if(!this.init){
 				State.city=nextProps.input.value;
 				console.log('id',nextProps.input.value);
-				this.fnTree(nextProps.input.value);
+				//this.fnTree(nextProps.input.value,CityData);
 				this.init=true;
 			}
 		}else{
