@@ -52,7 +52,8 @@ class CreateNewList extends React.Component {
 	}
 	onSubmit=(form)=>{
 		let value = this.formData(form);
-		console.log('onSubmit',value)
+		console.log('onSubmit',value);
+		State.saveTemplate(value);
 
 		
 	}
@@ -88,12 +89,13 @@ class CreateNewList extends React.Component {
 		// 	}
 		// ];
 		let submitForm = {
-			mainTemplate:demo,
+			mainTemplate:JSON.stringify(demo),
 			name:formValue.name
 		}
 		return submitForm;
 	}
 	onSave=()=>{
+		State.saveAndUse = true;
 		// let value = this.formData(form);
 		console.log('onSave')
 	}
@@ -123,6 +125,7 @@ class CreateNewList extends React.Component {
 							grid={1/2}
 					 	/>
 					 	<div className="template-title">主表(ft_wf_ft)</div>
+					 	<div className="select-line-num">
 					 	<KrField
 							name="lineNum"
 							type="text"
@@ -132,6 +135,7 @@ class CreateNewList extends React.Component {
 							inline={true}
 							options={[{label:'2',value:'2'},{label:'1',value:'1'}]}
 					 	/>
+					 	</div>
 							<div className='main-form' style={{marginTop:20}}>
 									     <CheckTable
 												name ={`mainT`}

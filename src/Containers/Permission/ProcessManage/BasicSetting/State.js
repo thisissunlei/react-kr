@@ -14,7 +14,8 @@ let State = observable({
 	formTemplateId:false,
 	formId:'',
 	mainT:{},
-	detailT:[]
+	detailT:[],
+	saveAndUse:false
 
 
 });
@@ -40,6 +41,19 @@ State.reset = action(function(){
 	this.pcName = ''
 })
 // PC模板--新建提交
+State.saveTemplate = action(function(form) {
+	var _this = this;
+	Http.request('create-form-template', '',form).then(function(response) {
+		if(_this.saveAndUse){
+			console.log('------>>')
+		}
+		console.log('getTemplateList',response)
+		// _this.pcList = options;
+	}).catch(function(err) {
+		Message.error('下线失败');
+	});
+
+});
 // PC模板--新建获取数据
 State.getCreateTable = action(function(id) {
 	var _this = this;

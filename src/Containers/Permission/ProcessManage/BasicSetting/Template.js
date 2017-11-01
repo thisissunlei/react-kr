@@ -64,9 +64,15 @@ class Template extends React.Component {
 		if(State.formTemplateId || State.printTemplateId){
 			return;
 		}
-		Message.error('提交成功');
-		Store.dispatch(reset('Template',''));
-		State.reset()
+		
+		Http.request('save-template', '',form).then(function(response) {
+			Store.dispatch(reset('Template',''));
+			State.reset();
+			Message.success('提交成功');
+		}).catch(function(err) {
+			Message.error('下线失败');
+		});
+		
 	}
 	closeChooceDialog=()=>{
 		this.setState({
@@ -227,7 +233,7 @@ class Template extends React.Component {
 				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 			        >
 
-			       	 	<CreateTemplate onCancel={this.cloaeCreateTemplate}/>
+			       	 	<CreateTemplate onCancel={this.closeCreateTemplate}/>
 		        </Drawer>
 			</div>
 
