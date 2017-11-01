@@ -76,8 +76,6 @@ class RadioBug extends React.Component {
 		}
 	}
 	openOneAgreement = () =>{
-
-件
 	}
 	onSearchSubmit = () =>{
 	}
@@ -88,6 +86,9 @@ class RadioBug extends React.Component {
 
 	editorChange = (values) =>{
 		console.log(values,"PPPPPPP")
+	}
+	typeJudgment = (data) =>{
+		return Object.prototype.toString.call(data);
 	}
 	attachTemplateToData = (template, data) => {
         var i = 0,
