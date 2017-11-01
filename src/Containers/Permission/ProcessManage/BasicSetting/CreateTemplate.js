@@ -124,7 +124,7 @@ class CreateNewList extends React.Component {
 							requireLabel={true}
 							grid={1/2}
 					 	/>
-					 	<div className="template-title">主表(ft_wf_ft)</div>
+					 	<div className="template-title">主表{State.mainT.name}</div>
 					 	<div className="select-line-num">
 					 	<KrField
 							name="lineNum"

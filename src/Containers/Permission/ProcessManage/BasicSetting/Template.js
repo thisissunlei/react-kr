@@ -45,7 +45,7 @@ class Template extends React.Component {
 		var initializeValues = {mode:'normol',allowPrint:'true'};
 		State.getCreateTable(this.props.id);
 		Store.dispatch(initialize('Template',initializeValues));
-		State.getTemplateList();
+		State.getTemplateList(this.props.id);
 		State.getPrintTemplateList();
 	}
 	
@@ -193,7 +193,7 @@ class Template extends React.Component {
 			                requireLabel={true}
 			            />
 			            <div className="up-load-template">
-			            	<span className='addBtn' onClick={this.pcClick.bind(this,'print')}>新建</span>
+			            	<span className='addBtn'>新建</span>
 			            	<span className="chooce-button" onClick={this.choocePrint}>选择</span>
 			            	<KrField
 	                            grid={1/2}
