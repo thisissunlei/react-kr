@@ -534,32 +534,32 @@ module.exports = {
 
     //PC端模板--新建
     'create-form-template':{
-      url: '/mockjsdata/60/sys/form-template',
+      url: '/api/krspace-erp-web/sys/form-template',
       method: 'post'
     },
     //PC端模板--新建--获取表单字段
     'get-form-template-field':{
-      url: '/mockjsdata/60/sys/form-template-field/list?formId={formId}',
+      url: '/api/krspace-erp-web/sys/form-template-field/list?formId={formId}',
       method: 'get'
     },
     //PC端模板--选择
     'get-form-template-list':{
-      url: '/mockjsdata/60/sys/form-template/list',
+      url: '/api/krspace-erp-web/sys/form-template/list?formId={formId}&type={type}',
       method: 'get'
     },
     //合同模板保存
     'save-template':{
-      url: '/mockjsdata/60/sys/contract-template',
+      url: '/api/krspace-erp-web/sys/contract-template',
       method: 'post'
     },
     //打印模板--保存
     'save-print-template':{
-      url: '/mockjsdata/60/sys/print-template',
+      url: '/api/krspace-erp-web/sys/print-template',
       method: 'post'
     },
     //打印模板--选择
     'get-print-template-list':{
-      url: '/mockjsdata/60/sys/print-template/list',
+      url: '/api/krspace-erp-web/sys/print-template/list',
       method: 'get'
     },
 }

@@ -22,15 +22,14 @@ let State = observable({
 //PC模板--选择
 State.getTemplateList = action(function(id) {
 	var _this = this;
-	Http.request('get-form-template-list', {}).then(function(response) {
+	Http.request('get-form-template-list', {formId:id,type:''}).then(function(response) {
 		let options = response.items.map((item)=>{
 			let obj = {};
 			obj.label = item.name;
 			obj.value = item.id;
 			return obj;
 		});
-		console.log('getTemplateList',options)
-		// _this.pcList = options;
+		_this.pcList = options;
 	}).catch(function(err) {
 		Message.error('下线失败');
 	});
@@ -59,48 +58,49 @@ State.getCreateTable = action(function(id) {
 	var _this = this;
 	_this.formId = id;
 	Http.request('get-form-template-field', {formId:id}).then(function(response) {
+		console.log('============',response)
+		let fields = response;
 
-
-		let fields = [
-			{
-				fields:[
-					{id:1,isMain:false,name:'1'},
-					{id:1,isMain:false,name:'2'}
-				],
-				id:1,
-				isMain:false,
-				name:'1001',
-				hasEditButton:false,
-			},
-			{
-				fields:[{id:1,isMain:false,name:'1'}],
-				id:1,
-				isMain:false,
-				hasEditButton:false,
-				name:'1003'
-			},
-			{
-				fields:[
-					{id:1,isMain:false,name:'1'},
-					{id:1,isMain:false,name:'11'},
-					{id:1,isMain:false,name:'111'}
-				],
-				id:1,
-				isMain:true,
-				hasEditButton:false,
-				name:'1000'
-			},
-			{
-				fields:[
-					{id:1,isMain:false,name:'1'},
-					{id:1,isMain:false,name:'11'},
-					{id:1,isMain:false,name:'111'}],
-				id:1,
-				hasEditButton:false,
-				isMain:false,
-				name:'1004'
-			},
-		];
+		// let fields = [
+		// 	{
+		// 		fields:[
+		// 			{id:1,isMain:false,name:'1'},
+		// 			{id:1,isMain:false,name:'2'}
+		// 		],
+		// 		id:1,
+		// 		isMain:false,
+		// 		name:'1001',
+		// 		hasEditButton:false,
+		// 	},
+		// 	{
+		// 		fields:[{id:1,isMain:false,name:'1'}],
+		// 		id:1,
+		// 		isMain:false,
+		// 		hasEditButton:false,
+		// 		name:'1003'
+		// 	},
+		// 	{
+		// 		fields:[
+		// 			{id:1,isMain:false,name:'1'},
+		// 			{id:1,isMain:false,name:'11'},
+		// 			{id:1,isMain:false,name:'111'}
+		// 		],
+		// 		id:1,
+		// 		isMain:true,
+		// 		hasEditButton:false,
+		// 		name:'1000'
+		// 	},
+		// 	{
+		// 		fields:[
+		// 			{id:1,isMain:false,name:'1'},
+		// 			{id:1,isMain:false,name:'11'},
+		// 			{id:1,isMain:false,name:'111'}],
+		// 		id:1,
+		// 		hasEditButton:false,
+		// 		isMain:false,
+		// 		name:'1004'
+		// 	},
+		// ];
 		var obj = {
 			wholeLine:false,
 			required:false,
@@ -143,9 +143,7 @@ State.getPrintTemplateList = action(function(id) {
 			obj.value = item.id;
 			return obj;
 		})
-		console.log('getTemplateList',options)
-
-		// _this.printList = options;
+		_this.printList = options;
 	}).catch(function(err) {
 		Message.error('下线失败');
 	});

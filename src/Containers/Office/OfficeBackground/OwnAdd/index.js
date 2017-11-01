@@ -11,6 +11,12 @@ import {
 	TableRowColumn,
 	Button,
 } from 'kr-ui';
+import mobx, {
+	observable,
+	action,
+	toJS
+} from 'mobx';
+import {DateFormat} from 'kr/Utils';
 import arrow from './images/arrows.png';
 import './index.less';
 import './detail.less';
@@ -19,6 +25,10 @@ export default class Initialize  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
+		State.requestTree()
+	}
+	componentDidMount() {
+		
 	}
 	openEdit=(itemData)=>{
 		console.log('openEdit')
@@ -26,9 +36,48 @@ export default class Initialize  extends React.Component{
 	openPrint=(itemData)=>{
 		console.log('openPrint')
 	}
+	chooceType=(type)=>{
+		// let type = '';
+		let searchParams = {
+			page:1,
+			pageSize:15,
+			typeId:type,
+			wfId:'',
+			time:+new Date()
+
+		}
+		State.searchParams = searchParams;
+		console.log('chooceType',type)
+	}
+	chooceAll=()=>{
+		let searchParams = {
+			page:1,
+			pageSize:15,
+			typeId:'',
+			wfId:'',
+			time:+new Date()
+
+		}
+		State.searchParams = searchParams;
+
+		console.log('chooceAll');
+	}
+	chooceWf=(id)=>{
+		let searchParams = {
+			page:1,
+			pageSize:15,
+			typeId:'',
+			wfId:id,
+			time:+new Date()
+
+		}
+		State.searchParams = searchParams;
+		console.log('chooceWf',id);
+	}
 
 
 	render(){
+		console.log('render-=====>',toJS(State.request))
 
 
 		return(
@@ -38,29 +87,29 @@ export default class Initialize  extends React.Component{
 					<Section borderBool={false} title="流程树">
 						<div className="tree-list">
 							<div className="tree-one">
-								<p className="tree-line">
+								<p className="tree-line" onClick={()=>{this.chooceAll()}}>
 									<img className="left-style" src={arrow}></img>
 									全部流程
 								</p>
-								{State.liucheng.map((item,index)=>{
+								{toJS(State.request).map((item,index)=>{
 									return (
 										<div className="tree-two" key={index}>
-											<p className="tree-line">
+											<p className="tree-line"  onClick={()=>{this.chooceType(item.orgId)}}>
 												<img className="left-style" src={arrow}></img>
-												{item.fullname}
+												{item.orgName}
 											</p>
 											
-												{item.list.length && item.list.map((value,i)=>{
-													if(value.name.length>6){
+												{item.msgChildren.length && item.msgChildren.map((value,i)=>{
+													if(value.orgName.length>6){
 														return (
 															<div className="tree-three">
-																<div className="tree-line" key={i} style={{padding:'10px 0',color:'#333'}}>
+																<div className="tree-line" key={i} style={{padding:'10px 0',color:'#333'}} onClick={()=>{this.chooceWf(item.orgId)}}>
 																	<span className="left-style">-</span>
 																	{value.name.substring(0,5)+'...'}
-																	<Tooltip offsetTop={1} place='top'>{value.name}</Tooltip>
+																	<Tooltip offsetTop={1} place='top'>{value.orgName}</Tooltip>
 																	
-																	{parseInt(value.value)<100?(
-																	parseInt(value.value)?<span className="num">{value.value}</span>:''
+																	{parseInt(value.count)<100?(
+																	parseInt(value.count)?<span className="num">{value.count}</span>:''
 																	):<span className="num">99+</span>}
 																
 																</div>
@@ -70,11 +119,11 @@ export default class Initialize  extends React.Component{
 
 													return (
 														<div className="tree-three">
-														<p className="tree-line" key={i}>
+														<p className="tree-line" key={i}  onClick={()=>{this.chooceWf(item.orgId)}}>
 															<span className="left-style">-</span>
-															{value.name}
-															{parseInt(value.value)<100?(
-															parseInt(value.value)?<span className="num">{value.value}</span>:''
+															{value.orgName}
+															{parseInt(value.count)<100?(
+															parseInt(value.count)?<span className="num">{value.count}</span>:''
 															):<span className="num">99+</span>}
 														
 														</p>
@@ -116,35 +165,28 @@ export default class Initialize  extends React.Component{
 
 						        <TableBody >
 						              <TableRow className='detail-row'>
-						                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='dictName' component={(value,oldValue)=>{
+						                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='typeName' component={(value,oldValue)=>{
 					 						return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
 					 					}} ></TableRowColumn>
-			                            <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='dictCode' component={(value,oldValue)=>{
+			                            <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='wfBaseName' component={(value,oldValue)=>{
 					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
 					 					}}></TableRowColumn>
-						                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='dataTypeStr' component={(value,oldValue)=>{
+						                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='title' component={(value,oldValue)=>{
 					 							var maxWidth=6;
 					 							if(value.length>maxWidth){
 					 							 value = value.substring(0,6)+"...";
 					 							}
 					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 					 					}}></TableRowColumn>
-					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='dictItems' component={(value,oldValue)=>{
+					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='creator' component={(value,oldValue)=>{
 					 							var maxWidth=6;
 					 							if(value.length>maxWidth){
 					 							 value = value.substring(0,6)+"...";
 					 							}
 					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 					 					}}></TableRowColumn>
-					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='descr' component={(value,oldValue)=>{
-					 							var maxWidth=6;
-					 							if(!value.length){
-					 								return (<div>--</div>)
-					 							}
-					 							if(value.length>maxWidth){
-					 							 value = value.substring(0,6)+"...";
-					 							}
-					 								return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='cTime' component={(value,oldValue,itemData)=>{
+					 								return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.cTime,'yyyy-mm-dd HH:MM:ss')}</span></div>)
 					 					}}></TableRowColumn>
 					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='uTime' component={(value,oldValue,itemData)=>{
 					 							return (
