@@ -74,7 +74,7 @@ State.getCreateTable = action(function(id) {
 				id:1,
 				isMain:true,
 				hasEditButton:false,
-				name:'1003'
+				name:'1000'
 			},
 			{
 				fields:[

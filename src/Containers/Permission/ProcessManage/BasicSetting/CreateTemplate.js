@@ -51,13 +51,51 @@ class CreateNewList extends React.Component {
 		onCancel && onCancel();
 	}
 	onSubmit=(form)=>{
-		console.log('-----',form)
-	}
-	changeHasEditButton=(value,index)=>{
-		console.log('changeHasEditButton',index,'value',value)
-		Store.dispatch(change('createNewList',`fieldList${index}.changeHasEditButton`,value));
-		// Store.dispatch(change('createNewList',`changeHasEditButton${index}`,value));
+		let value = this.formData(form);
+		console.log('onSubmit',value)
 
+		
+	}
+	formData=(form)=>{
+		let formValue = form;
+		let mainT = toJS(State.mainT);
+		let detailT = toJS(State.detailT);
+		mainT.fields = formValue.mainT ;
+		mainT.lineNum = formValue.lineNum;
+		mainT.templateTableId = mainT.id;
+		let demo = [];
+		demo.push(mainT);
+
+		detailT = detailT.map((item,index)=>{
+			console.log('detailT-map',item);
+			let obj = item;
+			obj.fields = formValue[`fieldList${index}`];
+			obj.hasEditButton = formValue[`hasEditButton${index}`] || false;
+			obj.templateTableId = item.id;
+			obj.lineNum=0;
+			obj.isMain=false;
+			return obj;
+		})
+		demo = demo.concat(detailT);
+
+		// let mainTemplate = [
+		// 	{
+		// 		fieldList:[],
+		// 		hasEditButton:false,
+		// 		isMain:false,
+		// 		lineNum:2,
+		// 		templateTableId:1
+		// 	}
+		// ];
+		let submitForm = {
+			mainTemplate:demo,
+			name:formValue.name
+		}
+		return submitForm;
+	}
+	onSave=()=>{
+		// let value = this.formData(form);
+		console.log('onSave')
 	}
 
 	render() {
@@ -117,7 +155,6 @@ class CreateNewList extends React.Component {
 									<div className='main-name'>
 									<span style={{fontSize:'16px',color:'#666',lineHeight:'24px;'}}>明细表-</span>
 									<span>{item.name}</span>
-									{/*<span>({item.tableName})</span>*/}
 									</div>
 									<KrField 
 								 		name={`hasEditButton${index}`}
@@ -150,6 +187,7 @@ class CreateNewList extends React.Component {
 								<Col md={12} align="center">
 									<ButtonGroup>
 										<Button  label="确定" type="submit"  />
+										<Button  label="保存并选择" type="submit"  width={131} onTouchTap={this.onSave}/>
 										<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
 									</ButtonGroup>
 								  </Col>
@@ -172,6 +210,9 @@ const validate = values => {
 		if(values.name.length>20){
 			errors.name = '模板名称不能超过20字';
 		}
+	}
+	if(!values.lineNum){
+		errors.lineNum = '请选择主表显示字段数';
 	}
 	
 	
