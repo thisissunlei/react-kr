@@ -2,16 +2,17 @@ import React from 'react';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import {
 	KrField,
-	FdTabel,
-	FContent,
-	FRow,
+	CheckTable,
+	FdRow,
 	Section,
 	IconTip,
 	TextDic,
 	Checkbox,
 	AllCheck,
 	Button,
-	Dialog
+	Dialog,
+	Toolbars,
+	Toolbar
 } from 'kr-ui';
 import {
 	Actions,
@@ -32,17 +33,28 @@ class EditTable  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			openStation:false
+			openStation:false,
+			mainInfo:[
+				{name:'123',
+				tableName:'345'
+				},
+				{name:'12311',
+				tableName:'3451'
+				}
+			]
 		}
 	}
 
 	onSubmit=(values)=>{
-
+       console.log('values',values);
 	}
   
 	
 	componentDidMount() {
-		
+		let {mainInfo}=this.state;
+		mainInfo.map((item,index)=>{
+			Store.dispatch(change('EditTable',`config${index}`,[{name:'123',isHere:false,isEdit:false,isDelete:false},{name:'1234',isHere:false,isEdit:false,isDelete:false}]));
+		})
 	}
 
 	 //所属区县
@@ -65,6 +77,9 @@ class EditTable  extends React.Component{
 		let {handleSubmit}=this.props;
 
 		let cityData='河北省／邢台市／任县';
+
+		let {mainInfo}=this.state;
+
 		
 		return(
 
@@ -103,6 +118,41 @@ class EditTable  extends React.Component{
 						/>
 
 						<div onClick={this.openClick}>点击</div>
+
+
+
+						{
+							mainInfo.map((item,index)=>{
+
+								return <div className='main-form' style={{marginTop:20}}>
+
+									<div className='main-name'>
+									<span>主表-</span>
+									<span>{item.name}</span>
+									<span>({item.tableName})</span>
+									</div>
+
+
+									     <CheckTable
+												name ={`config${index}`}
+												isFold = {false}
+												initFoldNum={1000}
+												isSingle={true}
+											>
+
+											<FdRow name = "name" label = "字段显示名" />
+											<FdRow name = "isHere" label = "是否显示" checkbox={true}/>
+											<FdRow name = "isEdit" label = "是否编辑"  checkbox={true}/>
+											<FdRow name = "isDelete" label = "是否删除" checkbox={true}/>
+										</CheckTable>
+								</div>
+							})
+						}
+
+
+
+
+						
 
 						<Button  label="确定" type="submit"/>
 			   </form>
