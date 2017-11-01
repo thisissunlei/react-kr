@@ -145,7 +145,7 @@ export default class BasicSetting extends React.Component {
 			                    </TabC>
 
 			                 <TabC label='合同模板'>
-			                  	<Template />
+			                  	<Template id={this.props.params.processId}/>
 			                 </TabC>
 			               
 
