@@ -23,7 +23,7 @@ export default class  TabelEdit extends React.Component {
 		
 	}
 	componentWillReceiveProps(nextProps) {
-		console.log('will----------array',nextProps)
+		// console.log('will----------array',nextProps)
 		// Store.dispatch(initialize('EditForm',State.data));
 	}
 	rowDetail = () =>{

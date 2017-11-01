@@ -110,16 +110,7 @@ const webpackConfigs = {
 		noParse: [
 			'/node_modules/',
 		],
-		/*
-		preLoaders: [
-     {
-       test: /\.js$/,
-       loader: 'eslint-loader',
-			 exclude: /(node_modules|bower_components|static|test|build|configs)/,
-			 include: [ path.join(process.cwd(), './src')]
-     },
-   ],
-	 */
+		
 		loaders: [
 			{
 				test: /\.js?$/,
