@@ -55,6 +55,7 @@ class EditTable  extends React.Component{
 		mainInfo.map((item,index)=>{
 			Store.dispatch(change('EditTable',`config${index}`,[{name:'123',isHere:false,isEdit:false,isDelete:false},{name:'1234',isHere:false,isEdit:false,isDelete:false}]));
 		})
+		Store.dispatch(change('EditTable','codeMore',[{label:'123',value:'1',checked:true},{label:'456',value:'2',checked:false}]));
 	}
 
 	 //所属区县
@@ -151,7 +152,14 @@ class EditTable  extends React.Component{
 
 
 
-
+						<KrField 
+							grid={1/2} 
+							style={{width:262,marginLeft:28}}  
+							name="codeMore" 
+							component="moreRadio" 
+							label="多选" 
+							requireLabel={true}
+						 />
 						
 
 						<Button  label="确定" type="submit"/>
