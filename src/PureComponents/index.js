@@ -13,6 +13,7 @@ import NodeFormwork from './NodeFormwork';
 import PrintAgreement from './PrintAgreement';
 import LocationChoice from './LocationChoice';
 import TemplatePrint from './TemplatePrint';
+import FromsConfig from './FromsConfig';
 
 module.exports = {
 	Agreement,
@@ -29,6 +30,7 @@ module.exports = {
 	NodeFormwork,
 	PrintAgreement,
 	LocationChoice,
-	TemplatePrint
+	TemplatePrint,
+	FromsConfig
 }
 

@@ -9,7 +9,8 @@ import {
 	numberToSign
 } from 'kr/Utils';
 import {
-	LocationChoice
+	LocationChoice,
+	FromsConfig
 } from 'kr/PureComponents';
 import {reduxForm} from 'redux-form';
 import EditTable from './EditTable';
@@ -33,6 +34,7 @@ class New extends React.Component {
 		let {isOpen} = this.state;
 		return (
 			<div style = {{height:2000,background:"#fff"}}>
+				<FromsConfig />
 			</div>
 		);
 	}
