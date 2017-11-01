@@ -56,14 +56,11 @@ class EditTable  extends React.Component{
 			Store.dispatch(change('EditTable',`config${index}`,[{name:'123',isHere:false,isEdit:false,isDelete:false},{name:'1234',isHere:false,isEdit:false,isDelete:false}]));
 		})
 		Store.dispatch(change('EditTable','codeMore',[{label:'123',value:'1',checked:true},{label:'456',value:'2',checked:false}]));
-		Store.dispatch(change('EditTable','countyId','河北省／邢台市／任县'));
+		Store.dispatch(change('EditTable','countyId',32));
+		Store.dispatch(change('EditTable','businessBegin','10:30'));
 	}
 
-	 //所属区县
-	 cityValue=(communityId,cityId,city)=>{
-		console.log('id',communityId,'co',cityId,'city',city);
-	  }
-	 
+  
 	  openClick=()=>{
 		this.setState({
 			openStation:!this.state.openStation
@@ -78,7 +75,6 @@ class EditTable  extends React.Component{
 		
 		let {handleSubmit}=this.props;
 
-		let cityData='河北省／邢台市／任县';
 
 		let {mainInfo}=this.state;
 
@@ -114,13 +110,11 @@ class EditTable  extends React.Component{
 						  name="countyId"  
 						  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} 
 						  component="city" 
-						  onSubmit={this.cityValue} 
 						  requireLabel={true}
 						  isStore={true}
 						/>
 
 						<div onClick={this.openClick}>点击</div>
-
 
 
 						{
@@ -161,6 +155,26 @@ class EditTable  extends React.Component{
 							label="多选" 
 							requireLabel={true}
 						 />
+
+						 <KrField 
+						   component="selectTime" 
+						   label='营业时间' 
+						   style={{width:140,zIndex:5,marginLeft:16}} 
+						   name='businessBegin' 
+						   isStore={true}
+						   requireLabel={true}
+						 />
+
+						 <KrField 
+						   component="file" 
+						   label='文件' 
+						   style={{width:140,zIndex:5,marginLeft:16}} 
+						   name='file' 
+						   isStore={true}
+						   requireLabel={true}
+						 />
+
+
 						
 
 						<Button  label="确定" type="submit"/>

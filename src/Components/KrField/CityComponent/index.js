@@ -52,7 +52,12 @@ export default class CityComponent extends React.Component {
 			city:cityName || '请选择',
 		}
 		State.city = cityName;
+
+
 		this.init=false;
+		this.province='';
+		this.city='';
+		this.county='';
 	}
 
 	componentDidMount() {
@@ -60,10 +65,29 @@ export default class CityComponent extends React.Component {
 
 	}
 
+	//递归
+	fnTree = (id) =>{
+		  	
+	      CityData.map((item,index)=>{
+			var obj = Object.assign({},item);
+			
+			if(obj.children.length!=0){
+				obj.children = this.fnTree(obj.children);
+			}
+			obj.isClick = true;
+			obj.orgName = obj.name;
+			obj.orgId = obj.id;
+				obj.key = key++;
+				return obj;
+			})
+		}
+
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.isStore){
 			if(!this.init){
 				State.city=nextProps.input.value;
+				console.log('id',nextProps.input.value);
+				this.fnTree(nextProps.input.value);
 				this.init=true;
 			}
 		}else{
@@ -72,7 +96,7 @@ export default class CityComponent extends React.Component {
 			}
 		}
 	}
-
+    
 	firstCityList=()=>{
 		var firstCity = [];
 		firstCity = CityData.map((item)=>{
