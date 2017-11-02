@@ -35,7 +35,8 @@ import {
 } from 'kr-ui';
 import {Http} from "kr/Utils";
 import {
-	componentType
+	componentType,
+	btnType
 } from './config'
 class FromsConfig extends Component {
 	constructor(props, context) {
@@ -73,37 +74,54 @@ class FromsConfig extends Component {
 		var num = fields.lineNum
 		var mainFied = fields.map((item,index)=>{
 			var type = componentType[item.compType];
-			if(type == 'radio'){
-				return (
-					<KrField grid={1/lineNum} label={item.label} name={item.name} component="group">
-						<KrField name={item.name} label="是" type={type} value="YES" />
-						<KrField name={item.name} label="否" type={type} value="NO" />
-					</KrField>
-				)
-			}else{
-				return (
-					<KrField 
-						name = {item.name}
-						requireLabel = {item.required}
-						inline={false}
-						label={item.label}
-						grid={1/lineNum}
-						component={type}
-					/>
-				)
+			
+			switch (type)
+			{
+				case 'radio':
+					this.radioRender(item,type,lineNum);
+					break;
+				case 'BUTTON_BROWES':
+					this.btnFieldRender(item,lineNum);
+					break;
+				default:
+					this.universalRender(item,type,lineNum);
 			}
 			
 		})
 		return mainFied;
 	}
+	
+	//单选按钮
+	radioRender = (item,type,lineNum) =>{
+		return (
+			<KrField grid={1/lineNum} label={item.label} name={item.name} component="group">
+				<KrField name={item.name} label="是" type={type} value="YES" />
+				<KrField name={item.name} label="否" type={type} value="NO" />
+			</KrField>
+		)
+	}
+	//一般的表单渲染
+	universalRender = (item,type,lineNum) =>{
+		return (
+			<KrField 
+				name = {item.name}
+				requireLabel = {item.required}
+				inline={false}
+				label={item.label}
+				grid={1/lineNum}
+				component={type}
+			/>
+		)
+	}
+	//浏览按钮渲染
+	btnFieldRender = (item,lineNum) =>{
+		var setting = item.setting;
+		var type = btnType(setting.wsradio);
+		this.universalRender(item,type,lineNum);
+	}	
 	//明细表选人
 	detailRender = () =>{
-
-	}
-	//单选按钮
-	
-	radioRender = () =>{
-
+		
 	}
 
 	

@@ -173,7 +173,7 @@ class EditTable  extends React.Component{
 						   requireLabel={true}
 						 />
 
-						 
+						
 
 						
 
@@ -193,6 +193,14 @@ class EditTable  extends React.Component{
 						onClose = {this.openAddCommunity} 
 						onSubmit = {this.onStationSubmit} />
 				</Dialog>
+				<KrField 
+					component="address" 
+					label='什么鬼' 
+					style={{width:140,zIndex:5,marginLeft:16}} 
+					name='businessBegin' 
+					isStore={true}
+					requireLabel={true}
+				/>
 			</div>
 		);
 	}
