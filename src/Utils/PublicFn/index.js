@@ -175,7 +175,25 @@ function isArray(arr){
 function isObject(object){
   return Object.prototype.toString.call(object)=='[object Object]';
 }
-
+//模板渲染
+function dataToTemplate(template, data){
+  var t, key, reg;
+　　　 //遍历该数据项下所有的属性，将该属性作为key值来查找标签，然后替换
+  for (key in data) {
+      if(typeJudgment(data[key])=="[object Object]"||typeJudgment(data[key])=="[object Array]"){
+        t = dataToTemplate(template,data[key]);
+      }else{
+        reg = new RegExp('{{' + key + '}}', 'ig');
+        t = (t || template).replace(reg, data[key]);
+      }
+     
+  }
+  return t;
+};
+//类型判断
+function typeJudgment (data){
+  return Object.prototype.toString.call(data);
+}
 
 module.exports = {
   numberToSign,
@@ -187,5 +205,7 @@ module.exports = {
   arrDelEle,
   arrReverse,
   isArray,
-  isObject
+  isObject,
+  dataToTemplate,
+  typeJudgment
 }

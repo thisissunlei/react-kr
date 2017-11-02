@@ -42,6 +42,9 @@ class LocationChoice extends Component {
         if(selectTitle=='stage'){
             object = Object.assign({communityId:communityId,numberMin:values.all.startValue,numberMax:values.all.endValue},values);            
         }
+        if(selectTitle=='agreement'){
+            object =values;            
+        }
         this.box.getData(url,object);  
     }
     

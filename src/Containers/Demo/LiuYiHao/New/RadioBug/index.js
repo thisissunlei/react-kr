@@ -11,6 +11,11 @@ import {
 } from 'redux-form';
 
 import {
+	
+	dataToTemplate,
+	ReactHtmlParser
+}from 'kr/Utils'
+import {
 	Actions,
 	Store,
 	connect
@@ -19,8 +24,33 @@ import {
 import {
 	KrField,
     ButtonGroup,
-    Button
+	Button,
+	Table,
+	TableBody,
+	TableHeader,
+	TableHeaderColumn,
+	TableRow,
+	TableRowColumn,
+	TableFooter,
+	Section,
+	KrDate,
+	Row,
+	Col,
+	Dialog,
+    Title,
+	Drawer,
+	Tooltip,
+	Message,
+	UpLoadList,
+	FontIcon,
+	Pagination,
+	Loading,
+	CheckPermission,
+	ListGroup,
+	ListGroupItem,
+	SearchForms,
 } from 'kr-ui';
+
 var allData = {
 	age:18,
 	name:"刘毅豪",
@@ -34,44 +64,31 @@ var allData = {
 座右铭：{{motto}}
 
 */
+
 class RadioBug extends React.Component {
 
 
 	constructor(props) {
 		super(props);
-		this.state={
-			child:''
+
+		this.state = {
+			child:""
 		}
-		this.htmlData = '';
+	}
+	openOneAgreement = () =>{
+	}
+	onSearchSubmit = () =>{
+	}
+	onSubmit = () =>{
 		
 	}
 
-	 onCancel=()=>{
-		 const {
-			onCancel
-		} = this.props;
-		onCancel && onCancel();
-	 }
-
-    onSubmit=(values)=>{
-		const {
-			onSubmit
-		} = this.props;
-		
-		let htmlData = values.summary;
-		console.log(Object.prototype.toString.call(htmlData),">>>>>>>")
-		this.setState({
-			child:this.attachTemplateToData(htmlData,allData)
-		})
-		console.log(this.attachTemplateToData(htmlData,allData),"------")
-		onSubmit && onSubmit();
-	}
-	componentDidMount() {
-		Store.dispatch(change('RadioBug','wsenabled',false));
-	}
 
 	editorChange = (values) =>{
 		console.log(values,"PPPPPPP")
+	}
+	typeJudgment = (data) =>{
+		return Object.prototype.toString.call(data);
 	}
 	attachTemplateToData = (template, data) => {
         var i = 0,
@@ -97,6 +114,7 @@ class RadioBug extends React.Component {
  
         return fragment;
     };
+
 	render() {
 
 

@@ -271,12 +271,12 @@ class TextInfo  extends React.Component{
 		delete values.itemListStr;
 	  } 
 	}else{
-		var littleText=[];
+		var littleText={};
 		for (var item in values){
 			if(item.indexOf("ws")!=-1){
 				var list={};
 				list[item]=values[item];
-				littleText.push(list);
+				littleText=Object.assign(littleText,list);
 			}
 		}
 		values.setting=JSON.stringify(littleText);
@@ -313,12 +313,10 @@ class TextInfo  extends React.Component{
 			_this.props.TextDicModel.comType=response.compType;
 			Store.dispatch(initialize('EditText',response));
 			if(response.setting){
-                var setting=JSON.parse(response.setting);
-                 setting.map((item,index)=>{
-                    for(var index in item){ 
-                     Store.dispatch(change('EditText',index,item[index])); 
-                    }
-                 })
+				var set=JSON.parse(response.setting);
+                 for(var index in set){ 
+                     Store.dispatch(change('EditText',index,set[index])); 
+                 }
              }
 			Store.dispatch(change('EditText','itemListStr',response.items&&response.items.length>0?response.items:[]));	  
 		 }
@@ -359,12 +357,12 @@ class TextInfo  extends React.Component{
 				params.itemListStr=JSON.stringify(params.itemListStr);	
 			}
 			
-			var littleText=[];
+			var littleText={};
 			for (var item in params){
 					if(item.indexOf("ws")!=-1){
 						var list={};
 						list[item]=params[item];
-						littleText.push(list);
+						littleText=Object.assign(littleText,list);
 					}
 			}
 			params.setting=JSON.stringify(littleText);

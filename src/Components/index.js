@@ -77,6 +77,7 @@ import {
 } from './Grid';
 import FieldTabel from './FieldTabel';
 import CheckTable from './CheckTable';
+import DrawerOther from './DrawerOther';
 
 
 //materal-ui
@@ -183,5 +184,6 @@ module.exports = {
 	Toolbars,
 	TextDic,
 	Dropdown,
-	AllCheck
+	AllCheck,
+	...DrawerOther
 }

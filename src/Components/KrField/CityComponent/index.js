@@ -59,16 +59,14 @@ export default class CityComponent extends React.Component {
 
 	}
 
+
+   
 	componentWillReceiveProps(nextProps) {
-		// let cityName = nextProps.cityName;
-		// if(cityName){
-		// 	State.city=cityName;
-		// }
 		if(this.props.cityName != nextProps.cityName){
 			State.city=nextProps.cityName;
 		}
 	}
-
+    
 	firstCityList=()=>{
 		var firstCity = [];
 		firstCity = CityData.map((item)=>{

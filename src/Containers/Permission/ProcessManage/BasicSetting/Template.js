@@ -23,7 +23,9 @@ import {
 } from 'kr-ui';
 import CreateTemplate from './CreateTemplate';
 import State from './State';
-
+import {
+	TemplatePrint
+} from 'kr/PureComponents';
 import {
 	observer
 } from 'mobx-react';
@@ -38,6 +40,7 @@ class Template extends React.Component {
 			open:false,
 			openWarn:false,
 			openChooce:false,
+			openTemplate:false,//新建合同模板
 		}
 
 		
@@ -103,8 +106,8 @@ class Template extends React.Component {
 		console.log('changePrintType',value)
 		State.printName = value.label;
 		State.printTemplateId = false;
+		State.formworkId = value.value;
 		Store.dispatch(change('Template','printTemplateId',value.value));
-
 	}
 	onCancelDialog=()=>{
 		this.setState({
@@ -112,6 +115,37 @@ class Template extends React.Component {
 		})
 	}
 
+	//新建合同模板的开关
+	onOpenTemplate = (type) =>{
+		
+		let {openTemplate} = this.state;
+		if(!openTemplate && type !== "edit"){
+			Store.dispatch(initialize('TemplatePrint',{name:'',content:''}))
+		}
+		
+		this.setState({
+			openTemplate:!openTemplate,
+		})
+	}
+	
+	//模板新建提交
+	templateSubmit = (values) =>{
+		State.printName = values.name;
+		State.formworkId = values.printTemplateId;
+		this.onOpenTemplate();
+	}
+	//获取编辑数据
+	getEditData = () =>{
+		var id = State.formworkId;
+		var _this = this;
+		Http.request("get-other-contract-formwork",{id}).then(function (response) {
+			
+			Store.dispatch(initialize('TemplatePrint',{name:response.name,content:response.content}))
+			_this.onOpenTemplate("edit");
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
+	}
 
 	render() {
 		const { handleSubmit} = this.props;
@@ -200,7 +234,9 @@ class Template extends React.Component {
 			                requireLabel={true}
 			            />
 			            <div className="up-load-template">
-			            	<span className='addBtn'>新建</span>
+			            	<span className='addBtn' onClick={()=>{
+								this.onOpenTemplate("new")
+							}}>新建</span>
 			            	<span className="chooce-button" onClick={this.choocePrint}>选择</span>
 			            	{!!toJS(State.printList).length && <KrField
 	                            grid={1/2}
@@ -214,7 +250,7 @@ class Template extends React.Component {
 	                            onChange={this.changePrintType}
 	                        />}
 	                        {!!State.printName?
-			            	<span className="has-template template-name">{State.printName}</span>
+			            	<span className="has-template template-name" onClick = {this.getEditData}>{State.printName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
 			            	{State.printTemplateId && <div className="error-message">请选择显示模板</div>}
 
@@ -261,6 +297,19 @@ class Template extends React.Component {
 						</Grid>
 					</div>
 			  </Dialog>
+				{/*新建合同模板*/}
+				<Drawer
+					open={this.state.openTemplate}
+					width={880}
+					openSecondary={true}
+					onClose={this.onOpenTemplate}
+
+					className='m-finance-drawer'
+					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+				>
+
+			       	 	<TemplatePrint onSubmit = {this.templateSubmit} onCancel={this.onOpenTemplate}/>
+		        </Drawer>
 			</div>
 
 

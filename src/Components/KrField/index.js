@@ -96,8 +96,11 @@ import SearchRegCommunity from './SearchRegCommunity';
 
 
 import SearchMemeber from './SearchMemeber';
-import SearchAllComponent from './SearchAllComponent';
 import MoreRadioComponent from './MoreRadioComponent';
+import SearchSelectComponent from './SearchSelectComponent';
+import AddressComponent from './AddressComponent';
+import CountyComponent from './CountyComponent';
+import NewImageComponent from './NewImageComponent';
 
 
 
@@ -618,10 +621,10 @@ class FieldRevert extends React.Component {
 				)
 			}
 
-			if (component === 'searchAll') {
+			if (component === 'searchSelect') {
 				return (
 
-					<FieldRevert {...this.props} component={SearchAllComponent}  style={WrapStyles} {...other}/>
+					<FieldRevert {...this.props} component={SearchSelectComponent}  style={WrapStyles} {...other}/>
 				);
 			}
 			
@@ -629,6 +632,27 @@ class FieldRevert extends React.Component {
 				return (
 
 					<FieldRevert {...this.props} component={MoreRadioComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			if (component === 'address') {
+				return (
+
+					<FieldRevert {...this.props} component={AddressComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'county') {
+				return (
+
+					<FieldRevert {...this.props} component={CountyComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			
+			if (component === 'newImage') {
+				return (
+
+					<FieldRevert {...this.props} component={NewImageComponent}  style={WrapStyles} {...other}/>
+
 				);
 			}
 			

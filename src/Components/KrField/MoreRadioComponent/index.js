@@ -8,16 +8,19 @@ export default class MoreRadioComponent  extends React.Component{
             checkData:[]
         }
     }
-    
-    componentWillReceiveProps(nextProps){
-        if(Array.prototype.isPrototypeOf(nextProps.input.value)){
+
+    componentDidMount(){
+        if(Array.prototype.isPrototypeOf(this.props.input.value)){
             this.setState({
-                checkData:nextProps.input.value
+                checkData:this.props.input.value
             })
         }
     }
-
+    
+    
     onChange=(event,item,index)=>{
+        var _this=this;
+        let {input}=this.props;
         let {checkData}=this.state;
         checkData=[].concat(checkData);
         item.checked=event.target.checked;
@@ -25,6 +28,7 @@ export default class MoreRadioComponent  extends React.Component{
         this.setState({
             checkData
         })
+        input.onChange(checkData);
     }
     
 
@@ -42,7 +46,7 @@ export default class MoreRadioComponent  extends React.Component{
                 {
                     checkData.map((item,index)=>{
                         return <div style={{display:'inline-block',paddingRight:15}}>
-                                    <input {...input} type='checkbox' placeholder={placeholder|| label} disabled={disabled} checked={item.checked} onChange={(event)=>{
+                                    <input type='checkbox' value={item.value} placeholder={placeholder|| label} disabled={disabled} checked={item.checked} onChange={(event)=>{
                                        _this.onChange(event,item,index);
                                     }}></input>
                                     <span style={{paddingLeft:5}}>{item.label}</span>

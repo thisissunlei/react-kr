@@ -151,7 +151,7 @@ export default class Editor extends React.Component{
 
   initEditor = () =>{
 
-    var {configs,defaultValue} = this.props;
+    var {configs,defaultValue,resizeChange} = this.props;
     var _this = this;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function(action) {
@@ -163,7 +163,16 @@ export default class Editor extends React.Component{
     }
     var ue = UE.getEditor(this.containerId,configs);
     this.ue = ue;
+    
     this.ue.ready(function(editor){
+      if(resizeChange){
+        let wHeight = window.innerHeight;
+        let eHeight = wHeight - 430;
+        ue.setHeight(eHeight);
+      }
+      // ue.setHeight("297mm")
+     
+      // ue.setWidth(800);
       if(!editor){
         _this.initEditor();
       }
