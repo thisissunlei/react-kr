@@ -163,6 +163,15 @@ class EditTable  extends React.Component{
 						   isStore={true}
 						   requireLabel={true}
 						 />
+
+                         <KrField 
+                            component="address" 
+                            label='什么鬼' 
+                            style={{width:140,zIndex:5,marginLeft:16}} 
+                            name='businessBegin' 
+                            isStore={true}
+                            requireLabel={true}
+				        />
 						 
 
 						

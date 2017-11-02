@@ -50,7 +50,7 @@ class AgreementTitle  extends React.Component{
                             />
                             <KrField grid={1/2}
                                 style={{width:262,marginLeft:34,marginBottom:5}}
-                                name="detailType"
+                                name="floor"
                                 component="input"
                                 label="类型"
                                 onChange = {this.codeChange}
