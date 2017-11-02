@@ -116,7 +116,8 @@ class Template extends React.Component {
 	}
 
 	//新建合同模板的开关
-	onOpenTemplate = (type) =>{
+	onOpenTemplate = (type = '') =>{
+		console.log('=====onOpenTemplate=====',type)
 		
 		let {openTemplate} = this.state;
 		if(!openTemplate && type !== "edit"){
@@ -186,7 +187,7 @@ class Template extends React.Component {
 			            <div className="up-load-template">
 			            	<span className='addBtn' onClick={this.pcClick.bind(this,'pc')}>新建</span>
 			            	<span className="chooce-button" >选择</span>
-			            	{!!toJS(State.pcList).length && <KrField
+			            	{toJS(State.pcList).length && <KrField
 	                            grid={1/2}
 	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
 	                            name="formType"
@@ -238,7 +239,7 @@ class Template extends React.Component {
 								this.onOpenTemplate("new")
 							}}>新建</span>
 			            	<span className="chooce-button" onClick={this.choocePrint}>选择</span>
-			            	{!!toJS(State.printList).length && <KrField
+			            	{toJS(State.printList).length && <KrField
 	                            grid={1/2}
 	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
 	                            name="printType"
@@ -246,7 +247,7 @@ class Template extends React.Component {
 	                            component="switchSlide"
 	                            valueText = '选择'
 	                            control='single'
-	                            label="模板"
+	                            title="模板"
 	                            onChange={this.changePrintType}
 	                        />}
 	                        {!!State.printName?
