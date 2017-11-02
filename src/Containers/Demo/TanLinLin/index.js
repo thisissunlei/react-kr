@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import React from 'react';
 import {
 	reduxForm,
@@ -18,12 +19,56 @@ import './index.less';
 		super(props);
 		this.state={
 			initailPoint : '承德'
-		}
+		},
+		this.client = {}
 	}
 	componentWillMount() {
 	}
 
 	componentDidMount(){
+	    
+
+	    var OSS = require('ali-oss').Wrapper;
+	    var co = require('co');
+	    // var fs = require('fs');
+
+		var client = new OSS({
+		  region: 'oss-cn-beijing',
+		  accessKeyId: 'LTAIA8GOJGGoRk9E',
+		  accessKeySecret: 'ex8X9Pm8KdyFKggfxlkKGzuv3Vb3Af',
+		  bucket: 'tanlinlinbucket'
+		});
+
+		// client.list().then(function (result) {
+		//   console.log(result.objects);
+		// }).catch(function (err) {
+		//   console.error(err);
+		// });
+
+		co(function* () {
+		  var result = yield client.put('object-key', 'local-file');
+		  console.log(result);
+		}).catch(function (err) {
+		  console.log(err);
+		});
+
+
+		// // 上传一个文件，成功后下载这个文件
+		// // client.put('object', './index.less').then(function (val) {
+		// //   console.log(val.res);
+		// //   // return client.get('object');
+		// // }).then(function (val) {
+		// //   console.log(val.res);
+		// //   console.log(val.content.toString());
+		// // });
+
+		//     co(function* () {
+		//       client.useBucket('tanlinlinbucket');
+		//       var result = yield client.put('object-key', './index.less');
+		//       console.log(result);
+		//     }).catch(function (err) {
+		//       console.log(err);
+		//     });
 
 	}
 	onSubmit=(values)=>{
