@@ -38,6 +38,7 @@ class Template extends React.Component {
 		super(props);
 		this.state={
 			open:false,
+			openWarn:false,
 			openChooce:false,
 			openTemplate:false,//新建合同模板
 		}
@@ -58,15 +59,15 @@ class Template extends React.Component {
 	}
 	onSubmit=(form)=>{
 		console.log('onSubmit--->',form)
-		if(!form.printTemplateId){
-			State.printTemplateId = true;
-		}
-		if(!form.formTemplateId){
-			State.formTemplateId = true;
-		}
-		if(State.formTemplateId || State.printTemplateId){
-			return;
-		}
+		// if(!form.printTemplateId){
+		// 	State.printTemplateId = true;
+		// }
+		// if(!form.formTemplateId){
+		// 	State.formTemplateId = true;
+		// }
+		// if(State.formTemplateId || State.printTemplateId){
+		// 	return;
+		// }
 		
 		Http.request('save-template', '',form).then(function(response) {
 			Store.dispatch(reset('Template',''));
@@ -83,15 +84,10 @@ class Template extends React.Component {
 		})
 	}
 	pcClick=(type)=>{
-		this.setState({
-			open:true
-		})
-		console.log('pcClick',type)
+		State.open=true;
 	}
 	closeCreateTemplate=()=>{
-		this.setState({
-			open:false
-		})
+		State.open=false
 	}
 	changeName=(value)=>{
 		console.log('changeName',value);
@@ -101,6 +97,11 @@ class Template extends React.Component {
 
 
 	}
+	choocePrint=()=>{
+		this.setState({
+			openWarn:true
+		})
+	}
 	changePrintType=(value)=>{
 		console.log('changePrintType',value)
 		State.printName = value.label;
@@ -108,6 +109,12 @@ class Template extends React.Component {
 		State.formworkId = value.value;
 		Store.dispatch(change('Template','printTemplateId',value.value));
 	}
+	onCancelDialog=()=>{
+		this.setState({
+			openWarn:false
+		})
+	}
+
 	//新建合同模板的开关
 	onOpenTemplate = (type) =>{
 		
@@ -179,7 +186,7 @@ class Template extends React.Component {
 			            <div className="up-load-template">
 			            	<span className='addBtn' onClick={this.pcClick.bind(this,'pc')}>新建</span>
 			            	<span className="chooce-button" >选择</span>
-			            	<KrField
+			            	{!!toJS(State.pcList).length && <KrField
 	                            grid={1/2}
 	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
 	                            name="formType"
@@ -187,8 +194,9 @@ class Template extends React.Component {
 	                            component="switchSlide"
 	                            valueText = '选择'
 	                            control='single'
+	                            title='模板'
 	                            onChange={this.changeName}
-	                        />
+	                        />}
 	                        {!!State.pcName?
 			            	<span className="has-template template-name">{State.pcName} </span>
 			            	:<span className="no-template template-name">未设置</span>}
@@ -230,7 +238,7 @@ class Template extends React.Component {
 								this.onOpenTemplate("new")
 							}}>新建</span>
 			            	<span className="chooce-button" onClick={this.choocePrint}>选择</span>
-			            	<KrField
+			            	{!!toJS(State.printList).length && <KrField
 	                            grid={1/2}
 	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
 	                            name="printType"
@@ -238,8 +246,9 @@ class Template extends React.Component {
 	                            component="switchSlide"
 	                            valueText = '选择'
 	                            control='single'
+	                            label="模板"
 	                            onChange={this.changePrintType}
-	                        />
+	                        />}
 	                        {!!State.printName?
 			            	<span className="has-template template-name" onClick = {this.getEditData}>{State.printName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
@@ -259,7 +268,7 @@ class Template extends React.Component {
 					</CircleStyleTwo>
 				</form> 
 				<Drawer
-				        open={this.state.open}
+				        open={State.open}
 				        width={750}
 				        openSecondary={true}
 				        onClose={this.closeCreateTemplate}
@@ -270,6 +279,24 @@ class Template extends React.Component {
 
 			       	 	<CreateTemplate onCancel={this.closeCreateTemplate}/>
 		        </Drawer>
+		        <Dialog
+				title="选择模板"
+				contentStyle ={{ width: '444px',overflow:'inherit'}}
+				onClose={this.onCancelDialog}
+				open={this.state.openWarn} >
+					<div style={{fontSize:'16px',textAlign:'center',width:'100%',paddingTop:'30px'}}>
+						<span style={{fontSize:'16px',textAlign:'center',fontWeight:'400',color:'#666'}}>没有模板选择，请新建模板</span>
+						<Grid style={{marginTop:50,width:'100%'}}>
+							<Row >
+								<Col md={12} align="center">
+									<ButtonGroup>
+										<Button  label="确定" type="button"  onTouchTap={this.onCancelDialog}/>
+									</ButtonGroup>
+								  </Col>
+							</Row>
+						</Grid>
+					</div>
+			  </Dialog>
 				{/*新建合同模板*/}
 				<Drawer
 					open={this.state.openTemplate}
@@ -283,12 +310,6 @@ class Template extends React.Component {
 
 			       	 	<TemplatePrint onSubmit = {this.templateSubmit} onCancel={this.onOpenTemplate}/>
 		        </Drawer>
-				
-
-
-
-
-
 			</div>
 
 

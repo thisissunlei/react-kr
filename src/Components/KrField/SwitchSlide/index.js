@@ -186,6 +186,7 @@ export default class SwitchSlide extends React.Component{
             simple,
             heightStyle,
             autoFocus,
+            title,
 			//联动清空
 			isClear,
             ...other
@@ -234,7 +235,7 @@ export default class SwitchSlide extends React.Component{
 				textOverflow:"ellipsis",
 				whiteSpace: "nowrap",
 			}
-        var dialogTitle = label || '组件';
+        var dialogTitle = label|| title || '组件';
         dialogTitle = "选择" + dialogTitle;
 		var multiDialogTitle = label || '组件';
 		 return (
