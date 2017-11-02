@@ -98,8 +98,12 @@ import SearchRegCommunity from './SearchRegCommunity';
 import SearchMemeber from './SearchMemeber';
 import MoreRadioComponent from './MoreRadioComponent';
 import SearchSelectComponent from './SearchSelectComponent';
+<<<<<<< HEAD
+import AddressComponent from './AddressComponent';
+=======
 import CountyComponent from './CountyComponent';
 import NewImageComponent from './NewImageComponent';
+>>>>>>> cf9054c
 
 
 
@@ -633,6 +637,12 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={MoreRadioComponent}  style={WrapStyles} {...other}/>
 				);
 			}
+<<<<<<< HEAD
+			if (component === 'address') {
+				return (
+
+					<FieldRevert {...this.props} component={AddressComponent}  style={WrapStyles} {...other}/>
+=======
 
 			if (component === 'county') {
 				return (
@@ -645,6 +655,7 @@ class FieldRevert extends React.Component {
 				return (
 
 					<FieldRevert {...this.props} component={NewImageComponent}  style={WrapStyles} {...other}/>
+>>>>>>> cf9054c
 				);
 			}
 			

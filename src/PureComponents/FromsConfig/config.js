@@ -7,26 +7,23 @@ var componentType = {
     TEXT_MONEY_QUARTILE:'input',
     TEXT_AREA_TEXT:'textarea',
     TEXT_AREA_RICH:'editor',
-    /**
-     * 浏览按钮梳理一下
-    BUTTON_BROWES:''
-
-     */
     SELECT_SELECT:'select',
     SELECT_SEARCH:'searchSelect',
     CHECK_RADIO:'radio',
-    // CHECK_CHECK:'date'
     TIME_DATE:'date',
     TIME_TIME:'selectTime',
-    CHECK_CHECK:''
+    CHECK_CHECK:'moreRadio',
+    BUTTON_BROWES:'BUTTON_BROWES'
 }
 var btnType = {
-    
+    btnCity:'city',
+    btnAddress:'address'
 }
 
 
 
 module.exports = {
-    componentType
+    componentType,
+    btnType
 }
 
