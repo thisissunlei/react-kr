@@ -11,7 +11,6 @@ import {
 } from 'redux-form';
 
 import {
-	
 	dataToTemplate,
 	ReactHtmlParser,
 	Http,
@@ -54,8 +53,8 @@ import {
 import { observer, inject } from 'mobx-react';
 
 import './index.less';
-@inject("NavModel")
-@observer
+// @inject("NavModel")
+// @observer
 class TemplatePrint extends React.Component {
 
 
@@ -66,9 +65,9 @@ class TemplatePrint extends React.Component {
 		}
     }
     componentDidMount(){
-		const { NavModel } = this.props;
-		NavModel.setSidebar(false);
-        // this.getDetail();
+		// const { NavModel } = this.props;
+		// NavModel.setSidebar(false);
+		
 	}
 
 	onSubmit = (value) =>{
@@ -91,7 +90,7 @@ class TemplatePrint extends React.Component {
 
 	render() {
 
-
+		console.log("TemplatePrint", ">>>>>>>")
 		let {handleSubmit}=this.props;
 		let {child} = this.state;
 
