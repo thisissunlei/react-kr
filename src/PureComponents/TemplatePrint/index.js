@@ -125,8 +125,7 @@ class TemplatePrint extends React.Component {
 		);
 	}
 }
-
-export default reduxForm({
+export default TemplatePrint = reduxForm({
 	form: 'TemplatePrint'
 })(TemplatePrint);
 
