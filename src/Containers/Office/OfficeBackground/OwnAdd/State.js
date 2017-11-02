@@ -24,17 +24,7 @@ let State = observable({
 	      {"name": "办公用品办公dasda", "value": "113"},     
 	      {"name": "报销","value": "0"}   
 	   ]}],
-	request:[{
-		msgChildren:[{
-			count:11,
-			orgId:11,
-			orgName:'调休',
-			treeType:"WF_BASE"
-		}],
-		orgId:1,
-		orgName:'人力资源部',
-		treeType:"WF_TYPE"
-	}]
+	request:[]
 });
 
 

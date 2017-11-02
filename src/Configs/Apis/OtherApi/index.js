@@ -210,12 +210,12 @@ const APIS = {
       },
     //我发起的--流程列表
     'my-request-list':{
-      url: '/mockjsdata/60/api/krspace-erp-web/wf/request/list/type/my-request',
+      url: '/api/krspace-erp-web/wf/request/list/type/my-request?page={page}&typeId={typeId}&wfId={wfId}&pageSize={pageSize}',
       method: 'get'
     },
     //我发起的--流程树列表
     'my-request-tree':{
-      url: '/mockjsdata/60/api/krspace-erp-web/wf/base/tree/type/my-request',
+      url: '/api/krspace-erp-web/wf/base/tree/type/my-request',
       method: 'get'
     },
     

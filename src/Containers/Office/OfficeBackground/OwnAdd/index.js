@@ -179,7 +179,7 @@ export default class Initialize  extends React.Component{
 			                    exportSwitch={false}
 			                    ajaxParams={State.searchParams}
 			                    ajaxFieldListName="items"
-								ajaxUrlName='activityList'
+								ajaxUrlName='my-request-list'
 								  >
 					            <TableHeader className='detail-header'>
 					              <TableHeaderColumn className='header-row'>流程类型</TableHeaderColumn>
