@@ -90,7 +90,8 @@ class CreateNewList extends React.Component {
 		// ];
 		let submitForm = {
 			mainTemplate:JSON.stringify(demo),
-			name:formValue.name
+			name:formValue.name,
+			formId:State.formId
 		}
 		return submitForm;
 	}
