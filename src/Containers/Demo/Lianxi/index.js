@@ -56,7 +56,7 @@ class EditTable  extends React.Component{
 			Store.dispatch(change('EditTable',`config${index}`,[{name:'123',isHere:false,isEdit:false,isDelete:false},{name:'1234',isHere:false,isEdit:false,isDelete:false}]));
 		})
 		Store.dispatch(change('EditTable','codeMore',[{label:'123',value:'1',checked:true},{label:'456',value:'2',checked:false}]));
-		Store.dispatch(change('EditTable','countyId',32));
+		Store.dispatch(change('EditTable','countyId',38));
 		Store.dispatch(change('EditTable','businessBegin','10:30'));
 	}
 
@@ -109,7 +109,7 @@ class EditTable  extends React.Component{
 						  label="所属区县" 
 						  name="countyId"  
 						  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} 
-						  component="city" 
+						  component="county" 
 						  requireLabel={true}
 						  isStore={true}
 						/>

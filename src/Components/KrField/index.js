@@ -98,6 +98,7 @@ import SearchRegCommunity from './SearchRegCommunity';
 import SearchMemeber from './SearchMemeber';
 import MoreRadioComponent from './MoreRadioComponent';
 import SearchSelectComponent from './SearchSelectComponent';
+import CountyComponent from './CountyComponent';
 
 
 
@@ -629,6 +630,13 @@ class FieldRevert extends React.Component {
 				return (
 
 					<FieldRevert {...this.props} component={MoreRadioComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'county') {
+				return (
+
+					<FieldRevert {...this.props} component={CountyComponent}  style={WrapStyles} {...other}/>
 				);
 			}
 			

@@ -15,7 +15,7 @@ import {
 import State from './State';
 @observer
 
-export default class CityComponent extends React.Component {
+export default class CountyComponent extends React.Component {
 
 	static displayName = 'DateComponent';
 
@@ -52,20 +52,40 @@ export default class CityComponent extends React.Component {
 			city:cityName || '请选择',
 		}
 		State.city = cityName;
+
+
+		this.init=false;
+		this.key='';
 	}
 
 	componentDidMount() {
-		
-
+		State.city=this.fnTree(nextProps.input.value,CityData);
 	}
-
-
+    
+	//递归
+	fnTree = (id,data) =>{	
+			var cityLable = '';
+			for(var i=0;i<data.length;i++){		
+				let item = data[i];
+				cityLable = item.name;
+				if(!item.children && item.id == id ){
+						this.key = item.id;
+						 cityLable = item.name;
+						 return cityLable;
+				}else{
+					if(item.children){
+						let text = this.fnTree(id,item.children);
+						if(text){
+							return cityLable+='/'+text;
+						}
+						
+					}	
+				}
+			}
+			return false;
+	}
    
-	componentWillReceiveProps(nextProps) {
-		if(this.props.cityName != nextProps.cityName){
-			State.city=nextProps.cityName;
-		}
-	}
+
     
 	firstCityList=()=>{
 		var firstCity = [];
@@ -164,6 +184,7 @@ export default class CityComponent extends React.Component {
 
 	onSubmit=(event)=>{
 		let {thirdId,secondId} = this.state;
+		let {isStore,input}=this.props;
 		const target = event.target.getElementsByTagName('span')[0];
 		let {thirdName,firstName,secondName} = this.state;
 		let city = `${firstName}/${secondName}/${target.innerHTML}`;
@@ -171,6 +192,10 @@ export default class CityComponent extends React.Component {
 		this.setState({
 			showCity:false
 		});
+		if(isStore){
+			this.key=thirdId;
+			input.onChange(this.key);
+		}
 		let {onSubmit} = this.props;
 		onSubmit && onSubmit(thirdId,secondId,city);
 
