@@ -129,7 +129,20 @@ class EditTable  extends React.Component{
 										</CheckTable>
 								</div>
 							})
-						}*/}
+                        }*/}
+                        
+                        <KrField
+                                label="上传"
+                                name="stationImageId"
+                                component="newImage"
+                                innerstyle={{width:364,height:254,padding:16}}
+                                isTip={true}
+                                photoSize={'3:2'}
+                                pictureFormat={'JPG,PNG,GIF'}
+                                pictureMemory={'300'}
+                                requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                inline={false}
+                            />
 
 
 

@@ -67,7 +67,7 @@ class EditTable  extends React.Component{
 					title="删除职务"
 					onClose={this.delSwidth}
 					open={this.state.openAdd}
-					contentStyle ={{ width: '444px'}}
+					contentStyle ={{ width: '700px',height:'auto'}}
 				>
 					<Add
 						onCancel={this.delSwidth}
