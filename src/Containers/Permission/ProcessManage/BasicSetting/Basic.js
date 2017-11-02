@@ -54,8 +54,8 @@ class Basic extends Component {
         if(!isNaN(params.formId)){
             params.formId = [{orgId:params.formId}] 
         }
-        if(!isNaN(params.hrmResourceId)){
-            params.hrmResourceId = [{orgId:params.hrmResourceId}] 
+        if(!isNaN(params.resourceId)){
+            params.resourceId = [{orgId:params.resourceId}] 
         }
         
         onSubmit && onSubmit(params);
@@ -91,7 +91,7 @@ class Basic extends Component {
                 />
                 <KrField
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
-                    name="wfTypeId"
+                    name="typeId"
                     type="text"
                     component="SearchProcessType"
                     label="流程类型"
@@ -124,12 +124,12 @@ class Basic extends Component {
                     style={{width:262,marginTop:6}}
                     inline={false}
                     grid={1/2}
-                    name="hrmResourceId"
+                    name="resourceId"
                     component="treePersonnel"
                     label="对接人"
                     requireLabel={true}
                     ajaxUrlName = "get-personnel-tree"
-                    valueText={(infoList.hrmResourceName)?[{orgName:infoList.hrmResourceName}]:[{orgName:''}]}
+                    valueText={(infoList.resourceName)?[{orgName:infoList.resourceName}]:[{orgName:''}]}
                 />
                 
                 <KrField style={{width:262,marginTop:14,marginLeft:34}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={true}>
@@ -143,7 +143,7 @@ class Basic extends Component {
                <KrField
                   grid={1}
                   left={30}
-                  name="baseDesc"
+                  name="descr"
                   component="textarea"
                   maxSize={200}
                   style={{marginTop:12,height:56,width:590}}
@@ -183,8 +183,8 @@ const validate = values => {
 			errors.orderNum = '请输入排序号';
 		}
 
-		if (!values.hrmResourceId) {
-			errors.hrmResourceId = '请选择对接人';
+		if (!values.resourceId) {
+			errors.resourceId = '请选择对接人';
 		}
 		if (!values.formId) {
 			errors.formId = '请输入表单名称';

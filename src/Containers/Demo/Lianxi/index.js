@@ -29,7 +29,7 @@ import {
 import './index.less';
 import Add from './Add';
 
-class EditTable  extends React.Component{
+export default class EditTable  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -61,6 +61,7 @@ class EditTable  extends React.Component{
 		return(
 
 			<div>
+			    <div onClick={this.onClick}>点击</div>
 				{/*开通门禁*/}
 				<Dialog
 					title="删除职务"
@@ -78,6 +79,3 @@ class EditTable  extends React.Component{
 	}
 }
 
-export default reduxForm({
-	form: 'EditTable'
-})(EditTable);

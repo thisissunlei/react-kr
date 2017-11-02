@@ -100,7 +100,6 @@ import MoreRadioComponent from './MoreRadioComponent';
 import SearchSelectComponent from './SearchSelectComponent';
 // import AddressComponent from './AddressComponent';
 import CountyComponent from './CountyComponent';
-import NewImageComponent from './NewImageComponent';
 
 
 
@@ -648,13 +647,6 @@ class FieldRevert extends React.Component {
 				);
 			}
 			
-			if (component === 'newImage') {
-				return (
-
-					<FieldRevert {...this.props} component={NewImageComponent}  style={WrapStyles} {...other}/>
-
-				);
-			}
 			
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>

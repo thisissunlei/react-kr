@@ -128,7 +128,7 @@ export default class SingleType extends React.Component {
 		// const {updateTree} = this.props;
 		var params = Object.assign({},params);
 		params.formId=params.formId[0].orgId;
-        params.hrmResourceId = params.hrmResourceId[0].orgId;
+        params.resourceId = params.resourceId[0].orgId;
 		var _this = this;
 		Http.request('process-add', {}, params).then(function (response) {
 			_this.openCreateDrawer();
@@ -143,7 +143,7 @@ export default class SingleType extends React.Component {
         const {onSubmit} = this.props;
 		var params = Object.assign({},form);
 		params.formId=params.formId[0].orgId;
-        params.hrmResourceId = params.hrmResourceId[0].orgId;
+        params.resourceId = params.resourceId[0].orgId;
         var _this = this;
         Http.request('process-add', {}, params).then(function (response) {
 			_this.openCreateDrawer();
