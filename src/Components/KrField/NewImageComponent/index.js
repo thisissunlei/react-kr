@@ -46,16 +46,17 @@ export default class UploadImageComponent extends Component {
 		});
 
 	}
-	componentWillMount(){
-	}
+	
 	componentDidMount() {
 		
 	}
+
+	
 	componentWillReceiveProps(nextProps,nextState){
 		this.setInitValue(nextProps.defaultValue,nextProps.sizePhoto);
 
 	}
-
+    
 	setInitValue(defaultValue,sizePhoto) {
 		let {merthd}=this.props;
 		if(!defaultValue){

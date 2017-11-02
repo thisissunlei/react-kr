@@ -61,6 +61,7 @@ class EditTable  extends React.Component{
 		return(
 
 			<div>
+			    <div onClick={this.onClick}>点击</div>
 				{/*开通门禁*/}
 				<Dialog
 					title="删除职务"

@@ -91,13 +91,13 @@ class EditTable  extends React.Component{
 
 
 						<KrField 
-						  grid={1/2} 
-						  label="所属区县" 
-						  name="countyId"  
-						  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} 
-						  component="county" 
-						  requireLabel={true}
-						  isStore={true}
+                            grid={1/2} 
+                            label="所属区县" 
+                            name="countyId"  
+                            style={{width:262,marginLeft:16,position:'relative',zIndex:5}} 
+                            component="county" 
+                            requireLabel={true}
+                            isStore={true}
 						/>
 
 						<div onClick={this.openClick}>点击</div>
@@ -142,8 +142,7 @@ class EditTable  extends React.Component{
                                 pictureMemory={'300'}
                                 requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                 inline={false}
-                            />
-
+                        />
 
 
 						<KrField 
@@ -175,7 +174,6 @@ class EditTable  extends React.Component{
 						 
 
 						
-
 						<Button  label="确定" type="submit"/>
 			   </form>
 
