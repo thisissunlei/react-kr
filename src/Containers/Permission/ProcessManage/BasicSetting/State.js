@@ -15,13 +15,15 @@ let State = observable({
 	formId:'',
 	mainT:{},
 	detailT:[],
-	saveAndUse:false
+	saveAndUse:false,
+	open:false,
 
 
 });
 //PC模板--选择
 State.getTemplateList = action(function(id) {
 	var _this = this;
+	_this.formId = id;
 	Http.request('get-form-template-list', {formId:id,type:''}).then(function(response) {
 		let options = response.items.map((item)=>{
 			let obj = {};
@@ -46,6 +48,9 @@ State.saveTemplate = action(function(form) {
 		if(_this.saveAndUse){
 			console.log('------>>')
 		}
+		_this.open = false;
+		_this.getPrintTemplateList()
+		_this.getTemplateList(_this.formId)
 		console.log('getTemplateList',response)
 		// _this.pcList = options;
 	}).catch(function(err) {
@@ -60,47 +65,6 @@ State.getCreateTable = action(function(id) {
 	Http.request('get-form-template-field', {formId:id}).then(function(response) {
 		console.log('============',response)
 		let fields = response;
-
-		// let fields = [
-		// 	{
-		// 		fields:[
-		// 			{id:1,isMain:false,name:'1'},
-		// 			{id:1,isMain:false,name:'2'}
-		// 		],
-		// 		id:1,
-		// 		isMain:false,
-		// 		name:'1001',
-		// 		hasEditButton:false,
-		// 	},
-		// 	{
-		// 		fields:[{id:1,isMain:false,name:'1'}],
-		// 		id:1,
-		// 		isMain:false,
-		// 		hasEditButton:false,
-		// 		name:'1003'
-		// 	},
-		// 	{
-		// 		fields:[
-		// 			{id:1,isMain:false,name:'1'},
-		// 			{id:1,isMain:false,name:'11'},
-		// 			{id:1,isMain:false,name:'111'}
-		// 		],
-		// 		id:1,
-		// 		isMain:true,
-		// 		hasEditButton:false,
-		// 		name:'1000'
-		// 	},
-		// 	{
-		// 		fields:[
-		// 			{id:1,isMain:false,name:'1'},
-		// 			{id:1,isMain:false,name:'11'},
-		// 			{id:1,isMain:false,name:'111'}],
-		// 		id:1,
-		// 		hasEditButton:false,
-		// 		isMain:false,
-		// 		name:'1004'
-		// 	},
-		// ];
 		var obj = {
 			wholeLine:false,
 			required:false,
