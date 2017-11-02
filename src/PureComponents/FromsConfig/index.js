@@ -66,6 +66,8 @@ class FromsConfig extends Component {
 		})
 		return fields;
 	}	
+
+
 	//主表渲染
 	mainRender = (fields,lineNum) =>{
 		var num = fields.lineNum
@@ -96,6 +98,11 @@ class FromsConfig extends Component {
 	}
 	//明细表选人
 	detailRender = () =>{
+
+	}
+	//单选按钮
+	
+	radioRender = () =>{
 
 	}
 

@@ -20,7 +20,9 @@ var componentType = {
     TIME_TIME:'selectTime',
     CHECK_CHECK:''
 }
-
+var btnType = {
+    
+}
 
 
 

@@ -164,6 +164,14 @@ class EditTable  extends React.Component{
 						   isStore={true}
 						   requireLabel={true}
 						 />
+						 <KrField 
+						   component="selectTime" 
+						   label='营业时间' 
+						   style={{width:140,zIndex:5,marginLeft:16}} 
+						   name='businessBegin' 
+						   isStore={true}
+						   requireLabel={true}
+						 />
 
 						 
 
