@@ -27,46 +27,52 @@ import {
 	LocationChoice
 } from 'kr/PureComponents';
 import './index.less';
-import Add from './Add';
 
 class EditTable  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			openAdd:false,
+			openStation:false,
+			mainInfo:[
+				{name:'123',
+				tableName:'345'
+				},
+				{name:'12311',
+				tableName:'3451'
+				}
+			]
 		}
 	}
 
-	onClick=()=>{
-      this.setState({
-		openAdd:!this.state.openAdd
-	  })
-	  Store.dispatch(change('EditTable','countyId',38));
-	  Store.dispatch(change('EditTable','businessBegin','10:30'));
-	  Store.dispatch(change('EditTable','codeMore',[{label:'123',value:'1',checked:true},{label:'456',value:'2',checked:false}]));
+	onSubmit=(values)=>{
+       console.log('values',values);
 	}
-	
-	delSwidth=()=>{
-		this.onClick();
-	}
+  
+  
+	openClick=()=>{
+		this.setState({
+			openStation:!this.state.openStation
+		})
+	  }
 
-	delSubmit=(values)=>{
-
+	openAddCommunity=()=>{
+		this.openClick();
 	}
-	
+    
 	render(){
 		
+		let {handleSubmit}=this.props;
+
 		
 		return(
 
 			<div>
-<<<<<<< HEAD
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 			            <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
-                            component="searchAll"
+                            component="searchSelect"
                             label="社区名称"
                             requireLabel={true}
 							inline={false}
@@ -89,7 +95,7 @@ class EditTable  extends React.Component{
 						  label="所属区县" 
 						  name="countyId"  
 						  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} 
-						  component="city" 
+						  component="county" 
 						  requireLabel={true}
 						  isStore={true}
 						/>
@@ -97,7 +103,7 @@ class EditTable  extends React.Component{
 						<div onClick={this.openClick}>点击</div>
 
 
-						{
+						{/*{
 							mainInfo.map((item,index)=>{
 
 								return <div className='main-form' style={{marginTop:20}}>
@@ -123,7 +129,20 @@ class EditTable  extends React.Component{
 										</CheckTable>
 								</div>
 							})
-						}
+                        }*/}
+                        
+                        <KrField
+                                label="上传"
+                                name="stationImageId"
+                                component="newImage"
+                                innerstyle={{width:364,height:254,padding:16}}
+                                isTip={true}
+                                photoSize={'3:2'}
+                                pictureFormat={'JPG,PNG,GIF'}
+                                pictureMemory={'300'}
+                                requestURI = '/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                inline={false}
+                            />
 
 
 
@@ -144,16 +163,7 @@ class EditTable  extends React.Component{
 						   isStore={true}
 						   requireLabel={true}
 						 />
-						 <KrField 
-						   component="selectTime" 
-						   label='营业时间' 
-						   style={{width:140,zIndex:5,marginLeft:16}} 
-						   name='businessBegin' 
-						   isStore={true}
-						   requireLabel={true}
-						 />
-
-						
+						 
 
 						
 
@@ -172,29 +182,7 @@ class EditTable  extends React.Component{
 						selectTitle='agreement'   
 						onClose = {this.openAddCommunity} 
 						onSubmit = {this.onStationSubmit} />
-=======
-			    <div onClick={this.onClick}>点击</div>
-				{/*开通门禁*/}
-				<Dialog
-					title="删除职务"
-					onClose={this.delSwidth}
-					open={this.state.openAdd}
-					contentStyle ={{ width: '700px',height:'auto'}}
-				>
-					<Add
-						onCancel={this.delSwidth}
-						onSubmit={this.delSubmit}
-					/>
->>>>>>> cf9054c
 				</Dialog>
-				<KrField 
-					component="address" 
-					label='什么鬼' 
-					style={{width:140,zIndex:5,marginLeft:16}} 
-					name='businessBegin' 
-					isStore={true}
-					requireLabel={true}
-				/>
 			</div>
 		);
 	}

@@ -15,7 +15,7 @@ import {
 import State from './State';
 @observer
 
-export default class CityComponent extends React.Component {
+export default class CountyComponent extends React.Component {
 
 	static displayName = 'DateComponent';
 
@@ -34,8 +34,6 @@ export default class CityComponent extends React.Component {
 	constructor(props) {
 		super(props)
 
-		let {cityName} = this.props;
-
 		this.isInit = false;
 		this.state = {
 			value: '',
@@ -49,23 +47,42 @@ export default class CityComponent extends React.Component {
 			firstName:'',
 			secondName:'',
 			thirdName:'',
-			city:cityName || '请选择',
 		}
-		State.city = cityName;
+
+		this.key='';
 	}
 
 	componentDidMount() {
-		
-
-	}
-
-
-   
-	componentWillReceiveProps(nextProps) {
-		if(this.props.cityName != nextProps.cityName){
-			State.city=nextProps.cityName;
+		if(this.props.input.value){
+			State.city=this.fnTree(this.props.input.value,CityData);
 		}
 	}
+
+
+	//递归
+	fnTree = (id,data) =>{	
+			var cityLable = '';
+			for(var i=0;i<data.length;i++){		
+				let item = data[i];
+				cityLable = item.name;
+				if(!item.children && item.id == id ){
+						this.key = item.id;
+						 cityLable = item.name;
+						 return cityLable;
+				}else{
+					if(item.children){
+						let text = this.fnTree(id,item.children);
+						if(text){
+							return cityLable+='/'+text;
+						}
+						
+					}	
+				}
+			}
+			return false;
+	}
+   
+
     
 	firstCityList=()=>{
 		var firstCity = [];
@@ -128,7 +145,6 @@ export default class CityComponent extends React.Component {
 			firstId:firstCityId,
 			firstName:target.innerHTML
 		})
-
 	}
 	selectSecondCity=(event)=>{
 		let {secondCity} = this.state;
@@ -164,6 +180,7 @@ export default class CityComponent extends React.Component {
 
 	onSubmit=(event)=>{
 		let {thirdId,secondId} = this.state;
+		let {input}=this.props;
 		const target = event.target.getElementsByTagName('span')[0];
 		let {thirdName,firstName,secondName} = this.state;
 		let city = `${firstName}/${secondName}/${target.innerHTML}`;
@@ -171,9 +188,8 @@ export default class CityComponent extends React.Component {
 		this.setState({
 			showCity:false
 		});
-		let {onSubmit} = this.props;
-		onSubmit && onSubmit(thirdId,secondId,city);
-
+		this.key=thirdId;
+		input.onChange(this.key);
 	}
 
 
@@ -186,8 +202,6 @@ export default class CityComponent extends React.Component {
 		this.setState({
 			showCity:false
 		});
-		let {onSubmit} = this.props;
-		onSubmit && onSubmit('',secondId,city);
       }
     }
 
