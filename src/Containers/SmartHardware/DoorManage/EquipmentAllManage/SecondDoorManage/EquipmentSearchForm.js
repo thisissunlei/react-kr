@@ -226,6 +226,14 @@ class EquipmentAdvancedQueryForm extends React.Component{
 
 	}
 
+	onchangeConnect=(connectStatus)=>{
+		
+		var TimeObj={logined:connectStatus.value||''};
+		var objNewT = Object.assign({},State.equipmentSecondParams);
+	    State.equipmentSecondParams = Object.assign({},objNewT,TimeObj);
+
+	}
+
 	render(){
 		let {floorsOptions,propertyOption,makerOptions}=this.state;
 		const { error, handleSubmit,content,filter} = this.props;
@@ -240,8 +248,15 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		      value:"deviceId"
 		    }]
 		var itemsDrop=["重启APP","重启系统","断开重连","刷新屏幕"]
+		let connectOptions=[{
+			label:"已连接",
+			value:"true"
+		  },{
+			label:"未连接",
+			value:"false"
+		  }]
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{float:"left",marginTop:20}} className="second-equipment-search">
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{width:"100%",marginTop:20,position:"relative"}} className="second-equipment-search">
 				<span className="fir-span">
 					<KrField name="communityId"
 						component="searchCommunityAll"
@@ -281,11 +296,22 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						inline={true}
 					/>
 				</span>
-				<SearchForms onSubmit={this.onSearchSubmit}  ref = "inputFilter"
-                    style={{marginTop:3,zIndex:10000,marginLeft:10}}
-                    content={this.state.content}
-                    searchFilter={options}
-              	/>
+				<KrField name="propertyId"
+						component="select"
+						label="类型："
+						onChange = {this.onchangeConnect}
+						options={connectOptions}
+						style={{width:'160px'}}
+						inline={true}
+					/>
+				<div style={{position:"absolute",top:"-50px",right:0,width:300,height:50}}>
+					<SearchForms onSubmit={this.onSearchSubmit}  ref = "inputFilter"
+						style={{zIndex:10000,marginLeft:10}}
+						content={this.state.content}
+						searchFilter={options}
+					/>
+				</div>
+				
 				
 				
 		  </form>
