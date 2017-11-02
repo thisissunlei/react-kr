@@ -51,7 +51,7 @@ class CreateDrawer extends React.Component {
 		Store.dispatch(change('CreateDrawer','newRequestShow',"true"));
 		Store.dispatch(change('CreateDrawer','allowRequest',"true"));
 		if(this.props.detail.typeId!='0'){
-			Store.dispatch(change('CreateDrawer','wfTypeId',this.props.detail.typeId))
+			Store.dispatch(change('CreateDrawer','typeId',this.props.detail.typeId))
 		}
 	}
 	onCancel = () => {
@@ -113,7 +113,7 @@ class CreateDrawer extends React.Component {
 						/>
 						<KrField
 								style={{width:260,marginTop:4}}
-								name="wfTypeId"
+								name="typeId"
 								type="text"
 								component="SearchProcessType"
 								label="流程类型"
@@ -141,7 +141,7 @@ class CreateDrawer extends React.Component {
 						<KrField
                             grid={1/2}
                             style={{width:260,marginLeft:25,marginTop:4}}
-                            name="hrmResourceId"
+                            name="resourceId"
                             component="treePersonnel"
                             label="对接人"
                             requireLabel={true}
@@ -150,7 +150,7 @@ class CreateDrawer extends React.Component {
 						
 						<KrField
 								style={{width:548,marginTop:4}}
-								name="baseDesc"
+								name="descr"
 								component="textarea"
 								label="描述"
 								maxSize={200}
@@ -218,15 +218,15 @@ class CreateDrawer extends React.Component {
 		if (!values.code) {
 			errors.code = '请输入流程编码';
 		}
-		if (!values.wfTypeId) {
-			errors.wfTypeId = '请选择流程类型';
+		if (!values.typeId) {
+			errors.typeId = '请选择流程类型';
 		}
 		if (!values.orderNum) {
 			errors.orderNum = '请输入排序号';
 		}
 
-		if (!values.hrmResourceId) {
-			errors.hrmResourceId = '请选择对接人';
+		if (!values.resourceId) {
+			errors.resourceId = '请选择对接人';
 		}
 		if (!values.formId) {
 			errors.formId = '请输入表单名称';

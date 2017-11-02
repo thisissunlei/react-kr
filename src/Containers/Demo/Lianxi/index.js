@@ -29,7 +29,7 @@ import {
 import './index.less';
 import Add from './Add';
 
-class EditTable  extends React.Component{
+export default class EditTable  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -79,6 +79,3 @@ class EditTable  extends React.Component{
 	}
 }
 
-export default reduxForm({
-	form: 'EditTable'
-})(EditTable);
