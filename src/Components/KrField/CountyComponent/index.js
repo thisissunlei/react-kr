@@ -34,8 +34,6 @@ export default class CountyComponent extends React.Component {
 	constructor(props) {
 		super(props)
 
-		let {cityName} = this.props;
-
 		this.isInit = false;
 		this.state = {
 			value: '',
@@ -49,19 +47,18 @@ export default class CountyComponent extends React.Component {
 			firstName:'',
 			secondName:'',
 			thirdName:'',
-			city:cityName || '请选择',
 		}
-		State.city = cityName;
 
-
-		this.init=false;
 		this.key='';
 	}
 
 	componentDidMount() {
-		State.city=this.fnTree(nextProps.input.value,CityData);
+		if(this.props.input.value){
+			State.city=this.fnTree(this.props.input.value,CityData);
+		}
 	}
-    
+
+
 	//递归
 	fnTree = (id,data) =>{	
 			var cityLable = '';
@@ -148,7 +145,6 @@ export default class CountyComponent extends React.Component {
 			firstId:firstCityId,
 			firstName:target.innerHTML
 		})
-
 	}
 	selectSecondCity=(event)=>{
 		let {secondCity} = this.state;
@@ -184,7 +180,7 @@ export default class CountyComponent extends React.Component {
 
 	onSubmit=(event)=>{
 		let {thirdId,secondId} = this.state;
-		let {isStore,input}=this.props;
+		let {input}=this.props;
 		const target = event.target.getElementsByTagName('span')[0];
 		let {thirdName,firstName,secondName} = this.state;
 		let city = `${firstName}/${secondName}/${target.innerHTML}`;
@@ -192,13 +188,8 @@ export default class CountyComponent extends React.Component {
 		this.setState({
 			showCity:false
 		});
-		if(isStore){
-			this.key=thirdId;
-			input.onChange(this.key);
-		}
-		let {onSubmit} = this.props;
-		onSubmit && onSubmit(thirdId,secondId,city);
-
+		this.key=thirdId;
+		input.onChange(this.key);
 	}
 
 
@@ -211,8 +202,6 @@ export default class CountyComponent extends React.Component {
 		this.setState({
 			showCity:false
 		});
-		let {onSubmit} = this.props;
-		onSubmit && onSubmit('',secondId,city);
       }
     }
 

@@ -11,7 +11,7 @@ import {
 } from 'kr/Redux';
 
 let State = observable({
-		city:""
+		city:"请选择"
 });
 State.setCity = action(function(city) {
 	this.city=city;
