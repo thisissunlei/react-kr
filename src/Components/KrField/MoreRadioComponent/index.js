@@ -7,20 +7,16 @@ export default class MoreRadioComponent  extends React.Component{
         this.state={
             checkData:[]
         }
-        this.init=false;
     }
-    
-    componentWillReceiveProps(nextProps){
-        if(this.init){
-            return ;
-        }
-        if(Array.prototype.isPrototypeOf(nextProps.input.value)){
+
+    componentDidMount(){
+        if(Array.prototype.isPrototypeOf(this.props.input.value)){
             this.setState({
-                checkData:nextProps.input.value
+                checkData:this.props.input.value
             })
         }
-        this.init=true;
     }
+    
     
     onChange=(event,item,index)=>{
         var _this=this;
@@ -32,7 +28,7 @@ export default class MoreRadioComponent  extends React.Component{
         this.setState({
             checkData
         })
-        input.value=checkData;
+        input.onChange(checkData);
     }
     
 

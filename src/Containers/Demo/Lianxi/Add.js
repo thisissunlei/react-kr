@@ -49,22 +49,16 @@ class EditTable  extends React.Component{
        console.log('values',values);
 	}
   
-	
-	componentDidMount() {
-		//Store.dispatch(change('EditTable','codeMore',[{label:'123',value:'1',checked:true},{label:'456',value:'2',checked:false}]));
-		//Store.dispatch(change('EditTable','businessBegin','10:30'));
-	}
-    
   
-	  openClick=()=>{
+	openClick=()=>{
 		this.setState({
 			openStation:!this.state.openStation
 		})
 	  }
 
-	  openAddCommunity=()=>{
-		  this.openClick();
-	  }
+	openAddCommunity=()=>{
+		this.openClick();
+	}
     
 	render(){
 		
@@ -78,7 +72,7 @@ class EditTable  extends React.Component{
 			            <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
-                            component="searchAll"
+                            component="searchSelect"
                             label="社区名称"
                             requireLabel={true}
 							inline={false}
