@@ -93,6 +93,7 @@ import {
 import TextLabel from './TextLabel'
 
 import CheckPermission from './CheckPermission';
+import MoveSelect from './MoveSelect';
 module.exports = {
 	//Components
 
@@ -185,5 +186,6 @@ module.exports = {
 	TextDic,
 	Dropdown,
 	AllCheck,
-	...DrawerOther
+	...DrawerOther,
+	MoveSelect
 }

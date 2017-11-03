@@ -46,12 +46,12 @@ export default class PrintOther extends React.Component {
 	//获取信息
 	getData=()=>{
 		var allData =  {
-			m_main:{
-				name:"yihao",
-				age:18,
-				sex:"男",
-				motto:"宠辱不惊，看庭前花开花落；去留无意，望天空云卷云舒。",
-			},
+		
+			m_name:"yihao",
+			m_age:18,
+			m_sex:"男",
+			m_motto:"宠辱不惊，看庭前花开花落；去留无意，望天空云卷云舒。",
+		
 			d_moneyDetail:[
 				{name:"noe1",age:23,sex:"女"},
 				{name:"shui2",age:15,sex:"男"},

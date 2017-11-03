@@ -57,7 +57,7 @@ class FromsConfig extends Component {
 	//渲染所有表单
 	renderFields = () => {
 		let {detail} = this.props;
-	
+			detail = detail||[];
 		var fields = detail.map((item,index)=>{
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
@@ -71,7 +71,7 @@ class FromsConfig extends Component {
 
 	//主表渲染
 	mainRender = (fields,lineNum) =>{
-		var num = fields.lineNum
+		var num = fields.lineNum||[];
 		var mainFied = fields.map((item,index)=>{
 			var type = componentType[item.compType];
 			

@@ -78,7 +78,15 @@ class EditTable  extends React.Component{
 							inline={false}
 							url='customerDataAddList'
 						/>
-
+						<KrField grid={1 / 2}
+							style={{ width: 262, marginBottom: 5 }}
+							name="address"
+							component="address"
+							label="工位地址"
+							requireLabel={true}
+							inline={false}
+							url='customerDataAddList'
+						/>
 						<KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="code"
@@ -150,10 +158,6 @@ class EditTable  extends React.Component{
 						   isStore={true}
 						   requireLabel={true}
 						 />
-
-                         
-						 
-
 						
 						<Button  label="确定" type="submit"/>
 			   </form>

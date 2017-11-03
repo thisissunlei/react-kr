@@ -98,7 +98,7 @@ import SearchRegCommunity from './SearchRegCommunity';
 import SearchMemeber from './SearchMemeber';
 import MoreRadioComponent from './MoreRadioComponent';
 import SearchSelectComponent from './SearchSelectComponent';
-// import AddressComponent from './AddressComponent';
+import AddressComponent from './AddressComponent';
 import CountyComponent from './CountyComponent';
 
 
@@ -633,12 +633,12 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={MoreRadioComponent}  style={WrapStyles} {...other}/>
 				);
 			}
-			// if (component === 'address') {
-			// 	return (
+			if (component === 'address') {
+				return (
 
-			// 		<FieldRevert {...this.props} component={AddressComponent}  style={WrapStyles} {...other}/>
-			// 	);
-			// }
+					<FieldRevert {...this.props} component={AddressComponent}  style={WrapStyles} {...other}/>
+				);
+			}
 
 			if (component === 'county') {
 				return (
