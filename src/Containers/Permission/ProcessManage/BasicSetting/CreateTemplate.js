@@ -70,7 +70,7 @@ class CreateNewList extends React.Component {
 		detailT = detailT.map((item,index)=>{
 			console.log('detailT-map',item);
 			let obj = item;
-			obj.fields = formValue[`fieldList${index}`];
+			obj.fieldList = formValue[`fieldList${index}`];
 			obj.hasEditButton = formValue[`hasEditButton${index}`] || false;
 			obj.templateTableId = item.id;
 			obj.lineNum=0;
