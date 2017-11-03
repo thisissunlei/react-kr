@@ -51,21 +51,10 @@ export default class MoveSelect extends Component {
         
         let {onSubmit,selectTitle} = this.props;
 
-        if(selectTitle=='stage'){
+        if (!values.codeList.length){
 
-            if(!this.submitData.floor){
-                Message.error('楼层不能为空！');
-                return ;
-            }
-            if(!this.submitData.detailType){
-                Message.error('类型不能为空！');
-                return ;
-            }
-            if(!values.codeList.length){
-                Message.error('已选列表不能为空！');
-                return ;
-            }   
-            values = Object.assign(this.submitData,values);
+           Message.error('请选择内容');
+           return ;  
         }
         
         onSubmit && onSubmit(values)
@@ -96,7 +85,7 @@ export default class MoveSelect extends Component {
     }
    
     render(){
-        let { title, onClose, open, communityId, url, data, selectTitle, checked} = this.props;
+        let { title, onCancel, open, communityId, url, data, selectTitle, checked} = this.props;
         let {subCompany,floors} = this.state;
         return(
             <div className = "m-location-choice">
@@ -113,7 +102,7 @@ export default class MoveSelect extends Component {
                     }
                     
                     onSubmit = {this.onClick}
-                    onClose = {onClose}
+                    onClose={onCancel}
                     data = {data||{}}
                     checked = {checked}
                 />   

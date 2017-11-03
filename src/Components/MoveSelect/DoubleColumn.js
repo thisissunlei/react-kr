@@ -56,6 +56,7 @@ export default class DoubleColumn extends Component {
         let params = Object.assign({},obj);
         let that = this;
         Http.request("getTheCommunity").then(function(response) {
+            
             that.allData = [].concat(that.changeData(response.items));
             
             that.setState({
@@ -193,7 +194,6 @@ export default class DoubleColumn extends Component {
     //全选点击
     allSelect = (type) =>{
         let {leftData,rightData} = this.state;
-        // let allData = this.allData.map((item,index)=>{
         if(type=="left"){
             this.delLeft = [];
             this.setState({
@@ -279,10 +279,16 @@ export default class DoubleColumn extends Component {
          this.delRight = [];
     }
     selectSame = (arr,data,type) =>{
+        let {checked} = this.props;
         let {leftData,rightData} = this.state;
         let theData = []
-        if(type == "left"){
-            theData = data.concat(rightData);
+        if (type == "left" ){
+            if (checked && this.delLeft.length){
+                theData = data.concat(rightData);
+            }else{
+                    theData = data;
+            }
+            
         }else{
             theData = data.concat(leftData);
         }
@@ -303,7 +309,6 @@ export default class DoubleColumn extends Component {
                     haveData.push(allData[i]); 
                     isHave = true;
                 }
-                
             }
             if(!isHave){
                 otherData.push(allData[i]);
@@ -313,10 +318,11 @@ export default class DoubleColumn extends Component {
         object.otherData = otherData; 
         return object;
     }
+
     onSubmit = () =>{
         let {onSubmit} = this.props;
         let {rightData,titleData} = this.state;
-       
+        
         let object = Object.assign(titleData,{codeList:[].concat(rightData)});
         onSubmit && onSubmit(object)
 
@@ -402,12 +408,8 @@ export default class DoubleColumn extends Component {
                 </div>
                     	
 			</div>
-        )
-        
-        
-       
+        ) 
     }
-
 
 }
 

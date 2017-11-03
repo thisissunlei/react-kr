@@ -56,11 +56,17 @@ export default class AddressComponent extends React.Component {
         });
     }
     onCancel = () => {
+        
         this.dlogSwidch();
     }
 
     onSubmit = (data) => {
+        let {input} = this.props;
+        input.onChange(data);
         this.dlogSwidch();
+        this.setState({
+            other:new Date()
+        })
     }
 
 
@@ -140,13 +146,15 @@ export default class AddressComponent extends React.Component {
             ...other,
             autoFocus,
         }
+        console.log(input,">>>>>>")
+        var text = input.value && input.value.codeList && input.value.codeList[0] ? input.value.codeList[0].label : '';
        
 
         return (
             <WrapComponent {...wrapProps}>
 
                 <Input onClick={this.onFocus} {...inputProps} style={{ display: "none" }} />
-                <div className="oa-imulation-input "  onClick={this.onFocus}>{input.value.laber||''}</div>
+                <div className="oa-imulation-input "  onClick={this.onFocus}>{text||''}</div>
                 {touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
                 <div className="select-tree">
 
@@ -158,10 +166,9 @@ export default class AddressComponent extends React.Component {
                         contentStyle={{ width: '653px',paddingBottom:'30px', position: 'fixed', left: "50%", marginLeft: '-345px' }}
                     >
                         <MoveSelect 
-                            data = {allData} 
+                            data={input.value||[]} 
                             onCancel = {this.onCancel}   
                             onSubmit={this.onSubmit} 
-                            selected = {input.value} 
                             checked={checked||false}
                         />
                     </Dialog>
