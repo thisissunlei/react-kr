@@ -93,6 +93,7 @@ State.getCreateTable = action(function(id) {
 			item.fields = item.fields.map(value=>{
 				if(value){
 					value.tableId = item.id;
+					value.fieldId = value.id;
 					value = Object.assign({},value,obj);
 					// console.log('=====map',value)
 				}
