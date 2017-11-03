@@ -73,8 +73,8 @@ class Template extends React.Component {
 		}
 		
 		Http.request('save-template', '',form).then(function(response) {
-			Store.dispatch(reset('Template',''));
-			State.reset();
+			// Store.dispatch(reset('Template',''));
+			// State.reset();
 			Message.success('提交成功');
 		}).catch(function(err) {
 			Message.error(err.message);
