@@ -46,11 +46,13 @@ class Template extends React.Component {
 		
 	}
 	componentDidMount() {
+		State.initialize();
 		var initializeValues = {mode:'normol',allowPrint:'true'};
 		State.getCreateTable(this.props.id);
 		Store.dispatch(initialize('Template',initializeValues));
 		State.getTemplateList(this.props.id);
 		State.getPrintTemplateList();
+
 	}
 	
 	onCancel=()=>{
@@ -156,7 +158,7 @@ class Template extends React.Component {
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 					<CircleStyleTwo num="1" info="PC端模板"  circle="none">
 					 	 <KrField 
-					 		style={{width:260,marginRight:25,marginBottom:10}}
+					 		style={{width:260,marginRight:25}}
 					 		name="mode" 
 					 		component="group" 
 					 		label="显示模式"
@@ -208,7 +210,7 @@ class Template extends React.Component {
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="打印模板" circle="bottom">
 						<KrField 
-	                		style={{width:260,marginTop:5,marginBottom:5}}
+	                		style={{width:260,marginTop:5}}
 	                		name="allowPrint" 
 	                		component="group" 
 	                		label="是否打印"

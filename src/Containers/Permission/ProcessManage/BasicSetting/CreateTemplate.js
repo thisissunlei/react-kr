@@ -126,7 +126,11 @@ class CreateNewList extends React.Component {
 							requireLabel={true}
 							grid={1/2}
 					 	/>
-					 	<div className="template-title">主表{State.mainT.name}</div>
+
+					 	<div className='main-name'>
+							<span style={{fontSize:'16px',color:'#666',lineHeight:'24px;'}}>主表-</span>
+							<span>{State.mainT.name}</span>
+						</div>
 					 	<div className="select-line-num">
 					 	<KrField
 							name="lineNum"
@@ -138,7 +142,7 @@ class CreateNewList extends React.Component {
 							options={[{label:'2',value:'2'},{label:'1',value:'1'}]}
 					 	/>
 					 	</div>
-							<div className='main-form' style={{marginTop:20}}>
+							<div className='main-form'>
 									     <CheckTable
 												name ={`mainT`}
 												isFold = {false}

@@ -23,6 +23,16 @@ let State = observable({
 
 
 });
+State.initialize = action(function(){
+	this.pcName = '';
+	this.printName = '';
+	this.printTempId = false;
+	this.formTempId = false;
+	this.formId = '';
+	this.saveAndUse = false;
+	this.open = false;
+	this.formworkId = '';
+})
 //PC模板--选择
 State.getTemplateList = action(function(id) {
 	var _this = this;
