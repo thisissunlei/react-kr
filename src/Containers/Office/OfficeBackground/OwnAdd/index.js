@@ -23,13 +23,19 @@ import {Store} from 'kr/Redux';
 import arrow from './images/arrows.png';
 import './index.less';
 import './detail.less';
-import State from './State.js'
+import State from './State'
 import {
 	FromsConfig
 } from 'kr/PureComponents';
 import {
 	configData
 } from './data';
+
+import {
+	observer
+} from 'mobx-react';
+
+@observer
 export default class Initialize  extends React.Component{
 
 	constructor(props,context){
@@ -39,9 +45,10 @@ export default class Initialize  extends React.Component{
 			isOpenEdit:false,
 			detail:[]
 		} 
-		State.requestTree()
 	}
 	componentDidMount() {
+		State.requestTree()
+
 	}
 
 	openEdit=(itemData)=>{
@@ -106,6 +113,7 @@ export default class Initialize  extends React.Component{
 
 	render(){
 		const {isOpenEdit,detail} = this.state;
+		console.log('render---->',State.request)
 
 		return(
 
@@ -118,7 +126,7 @@ export default class Initialize  extends React.Component{
 									<img className="left-style" src={arrow}></img>
 									全部流程
 								</p>
-								{toJS(State.request).map((item,index)=>{
+								{!!State.request.length && State.request.map((item,index)=>{
 									return (
 										<div className="tree-two" key={index}>
 											<p className="tree-line"  onClick={()=>{this.chooceType(item.orgId)}}>
@@ -126,31 +134,30 @@ export default class Initialize  extends React.Component{
 												{item.orgName}
 											</p>
 											
-												{item.msgChildren.length && item.msgChildren.map((value,i)=>{
+												{!!item.msgChildren.length && item.msgChildren.map((value,i)=>{
 													if(value.orgName.length>6){
 														return (
 															<div className="tree-three">
-																<div className="tree-line" key={i} style={{padding:'10px 0',color:'#333'}} onClick={()=>{this.chooceWf(item.orgId)}}>
+																<div className="tree-line" key={i} style={{padding:'10px 0',color:'#333'}} onClick={()=>{this.chooceWf(value.orgId)}}>
 																	<span className="left-style">-</span>
-																	{value.name.substring(0,5)+'...'}
+																	{value.orgName.substring(0,5)+'...'}
 																	<Tooltip offsetTop={1} place='top'>{value.orgName}</Tooltip>
 																	
-																	{parseInt(value.count)<100?(
-																	parseInt(value.count)?<span className="num">{value.count}</span>:''
+																	{value.count<100?(
+																	value.count?<span className="num">{value.count}</span>:''
 																	):<span className="num">99+</span>}
 																
 																</div>
 															</div>
 														)
 													}else{
-
 													return (
 														<div className="tree-three">
-														<p className="tree-line" key={i}  onClick={()=>{this.chooceWf(item.orgId)}}>
+														<p className="tree-line" key={i}  onClick={()=>{this.chooceWf(value.orgId)}}>
 															<span className="left-style">-</span>
 															{value.orgName}
-															{parseInt(value.count)<100?(
-															parseInt(value.count)?<span className="num">{value.count}</span>:''
+															{value.count<100?(
+															value.count?<span className="num">{value.count}</span>:''
 															):<span className="num">99+</span>}
 														
 														</p>

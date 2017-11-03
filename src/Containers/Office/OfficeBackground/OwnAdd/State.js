@@ -3,6 +3,7 @@ import mobx, {
 	action,
 } from 'mobx';
 
+
 import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
 let State = observable({
@@ -49,13 +50,15 @@ State.itemDownPublish = action(function(id) {
 //流程树获取
 State.requestTree = action(function() {
 	var _this = this;
-	Http.request('my-request-tree', {}).then(function(response) {
+	Http.request('my-request-tree', '').then(function(response) {
 		console.log('-------->',response);
 
-		_this.request = response
+		State.request = response;
+		console.log('=========>')
 		// Message.success('下线成功');
 	}).catch(function(err) {
-		Message.error('获取失败');
+		console.log(err)
+		Message.error(err.message);
 	});
 
 });

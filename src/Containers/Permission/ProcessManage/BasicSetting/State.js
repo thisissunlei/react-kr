@@ -2,6 +2,8 @@ import mobx, {
 	observable,
 	action,
 } from 'mobx';
+import {reduxForm,initialize,reset,change} from 'redux-form';
+import {Store} from 'kr/Redux';
 
 import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
@@ -10,8 +12,8 @@ let State = observable({
 	pcList:[{label:"测试内容9od3",value:78538}],
 	pcName:'',
 	printName:'',
-	printTemplateId:false,
-	formTemplateId:false,
+	printTempId:false,
+	formTempId:false,
 	formId:'',
 	mainT:{},
 	detailT:[],
@@ -34,7 +36,7 @@ State.getTemplateList = action(function(id) {
 		});
 		_this.pcList = options;
 	}).catch(function(err) {
-		Message.error('下线失败');
+		Message.error(err.message);
 	});
 
 });
@@ -48,14 +50,18 @@ State.saveTemplate = action(function(form) {
 	Http.request('create-form-template', '',form).then(function(response) {
 		if(_this.saveAndUse){
 			console.log('------>>')
+			_this.formTempId = false;
+			_this.pcName = response.name;
+			Store.dispatch(change('Template','formTempId',response.formTemplateId));
 		}
 		_this.open = false;
 		_this.getPrintTemplateList()
-		_this.getTemplateList(_this.formId)
+		_this.getTemplateList(_this.formId);
+	
 		console.log('getTemplateList',response)
 		// _this.pcList = options;
 	}).catch(function(err) {
-		Message.error('下线失败');
+		Message.error(err.message);
 	});
 
 });
@@ -72,10 +78,18 @@ State.getCreateTable = action(function(id) {
 			editable:false,
 			display:false,
 		};
-		fields.map(item=>{
-			item.fields.map(value=>{
-				value = Object.assign({},value,obj)
+		fields = fields.map(item=>{
+			item.tableId = item.id;
+			item.fields = item.fields.map(value=>{
+				if(value){
+					value.tableId = item.id;
+					value = Object.assign({},value,obj);
+					// console.log('=====map',value)
+				}
+				return value;
+				
 			})
+			return item;
 		})
 
 		let mainT ;
@@ -94,7 +108,7 @@ State.getCreateTable = action(function(id) {
 
 		// _this.printList = options;
 	}).catch(function(err) {
-		Message.error('下线失败');
+		Message.error(err.message);
 	});
 
 });
@@ -110,7 +124,7 @@ State.getPrintTemplateList = action(function(id) {
 		})
 		_this.printList = options;
 	}).catch(function(err) {
-		Message.error('下线失败');
+		Message.error(err.message);
 	});
 
 });

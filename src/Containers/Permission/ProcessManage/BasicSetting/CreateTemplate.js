@@ -78,6 +78,7 @@ class CreateNewList extends React.Component {
 			return obj;
 		})
 		demo = demo.concat(detailT);
+		console.log('============>',demo)
 
 		// let mainTemplate = [
 		// 	{

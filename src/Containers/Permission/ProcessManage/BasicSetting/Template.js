@@ -59,22 +59,23 @@ class Template extends React.Component {
 	}
 	onSubmit=(form)=>{
 		console.log('onSubmit--->',form)
-		// if(!form.printTemplateId){
-		// 	State.printTemplateId = true;
-		// }
-		// if(!form.formTemplateId){
-		// 	State.formTemplateId = true;
-		// }
-		// if(State.formTemplateId || State.printTemplateId){
-		// 	return;
-		// }
+		form.wfId = State.formId;
+		if(!form.printTempId){
+			State.printTempId = true;
+		}
+		if(!form.formTempId){
+			State.formTempId = true;
+		}
+		if(State.formTempId || State.printTempId){
+			return;
+		}
 		
 		Http.request('save-template', '',form).then(function(response) {
 			Store.dispatch(reset('Template',''));
 			State.reset();
 			Message.success('提交成功');
 		}).catch(function(err) {
-			Message.error('下线失败');
+			Message.error(err.message);
 		});
 		
 	}
@@ -92,8 +93,8 @@ class Template extends React.Component {
 	changeName=(value)=>{
 		console.log('changeName',value);
 		State.pcName = value.label;
-		State.formTemplateId = false;
-		Store.dispatch(change('Template','formTemplateId',value.value));
+		State.formTempId = false;
+		Store.dispatch(change('Template','formTempId',value.value));
 
 
 	}
@@ -105,9 +106,9 @@ class Template extends React.Component {
 	changePrintType=(value)=>{
 		console.log('changePrintType',value)
 		State.printName = value.label;
-		State.printTemplateId = false;
+		State.printTempId = false;
 		State.formworkId = value.value;
-		Store.dispatch(change('Template','printTemplateId',value.value));
+		Store.dispatch(change('Template','printTempId',value.value));
 	}
 	onCancelDialog=()=>{
 		this.setState({
@@ -186,8 +187,8 @@ class Template extends React.Component {
 			            
 			            <div className="up-load-template">
 			            	<span className='addBtn' onClick={this.pcClick.bind(this,'pc')}>新建</span>
-			            	<span className="chooce-button" >选择</span>
-			            	{toJS(State.pcList).length && <KrField
+			            	<span className="chooce-button" onClick={this.choocePrint}>选择</span>
+			            	{!!toJS(State.pcList).length && <KrField
 	                            grid={1/2}
 	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
 	                            name="formType"
@@ -201,7 +202,7 @@ class Template extends React.Component {
 	                        {!!State.pcName?
 			            	<span className="has-template template-name">{State.pcName} </span>
 			            	:<span className="no-template template-name">未设置</span>}
-			            	{State.formTemplateId && <div className="error-message">请选择显示模板</div>}
+			            	{State.formTempId && <div className="error-message">请选择显示模板</div>}
 			            </div>
 	                    
 					</CircleStyleTwo>
@@ -239,7 +240,7 @@ class Template extends React.Component {
 								this.onOpenTemplate("new")
 							}}>新建</span>
 			            	<span className="chooce-button" onClick={this.choocePrint}>选择</span>
-			            	{toJS(State.printList).length && <KrField
+			            	{!!toJS(State.printList).length && <KrField
 	                            grid={1/2}
 	                            style={{width:73,height:26,overflow:'hidden',margin:'-10px 20px 0 9px'}}
 	                            name="printType"
@@ -253,7 +254,7 @@ class Template extends React.Component {
 	                        {!!State.printName?
 			            	<span className="has-template template-name" onClick = {this.getEditData}>{State.printName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
-			            	{State.printTemplateId && <div className="error-message">请选择显示模板</div>}
+			            	{State.printTempId && <div className="error-message">请选择显示模板</div>}
 
 			            </div>
 						<Grid style={{marginTop:50,width:'81%'}}>
