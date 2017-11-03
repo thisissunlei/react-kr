@@ -114,7 +114,7 @@ class TemplatePrint extends React.Component {
 							requireLabel={true}
 							
 						/>	
-						<KrField component="editor" style={{width:"210mm"}} resizeChange = {true} isReduxForm = {true} name="content" label="" defaultValue=''/>
+						<KrField component="editor" style={{width:"210mm"}}  isReduxForm = {true} name="content" label="" defaultValue=''/>
 						
 					</div>
 				</Section>

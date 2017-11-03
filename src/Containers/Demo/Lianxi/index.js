@@ -43,7 +43,8 @@ export default class EditTable  extends React.Component{
 		openAdd:!this.state.openAdd
 	  })
 	  Store.dispatch(change('EditTable','countyId',38));
-	  Store.dispatch(change('EditTable','businessBegin','10:30'));
+	  Store.dispatch(change('EditTable', 'businessBegin', '10:30'));
+	  Store.dispatch(change('EditTable', 'address',{laber:"求仙桥",id:22})); 
 	  Store.dispatch(change('EditTable','codeMore',[{label:'123',value:'1',checked:true},{label:'456',value:'2',checked:false}]));
 	}
 	

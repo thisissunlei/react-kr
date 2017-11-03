@@ -3,7 +3,7 @@ import {
 	KrField,
     TabCs,
     TabC,
-	
+	MoveSelect
 } from 'kr-ui';
 import {
 	numberToSign
@@ -34,7 +34,7 @@ class New extends React.Component {
 		let {isOpen} = this.state;
 		return (
 			<div style = {{height:2000,background:"#fff"}}>
-				<FromsConfig />
+				<MoveSelect />
 			</div>
 		);
 	}
