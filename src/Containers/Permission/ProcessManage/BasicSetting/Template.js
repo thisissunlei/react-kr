@@ -48,9 +48,9 @@ class Template extends React.Component {
 	componentDidMount() {
 		State.initialize();
 		var initializeValues = {mode:'normol',allowPrint:'true'};
-		State.getCreateTable(this.props.id);
+		State.getCreateTable(this.props.formId);
 		Store.dispatch(initialize('Template',initializeValues));
-		State.getTemplateList(this.props.id);
+		State.getTemplateList(this.props.formId);
 		State.getPrintTemplateList();
 
 	}

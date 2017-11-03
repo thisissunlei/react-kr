@@ -113,6 +113,7 @@ export default class BasicSetting extends React.Component {
 	render() {
 		console.log(this.state.infoList);
         let {item,itemDetail} = this.state;
+
 		return (
 			<div className="g-basic-setting">
                 <div className="center-row">
@@ -145,7 +146,7 @@ export default class BasicSetting extends React.Component {
 			                    </TabC>
 
 			                 <TabC label='合同模板'>
-			                  	<Template id={this.props.params.processId}/>
+			                  	<Template id={this.props.params.processId} formId={this.state.infoList.formId} />
 			                 </TabC>
 			               
 
