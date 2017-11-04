@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import {
 	Field,
 	FieldArray,
-	reduxForm
+	reduxForm,
+	initialize
 } from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -47,6 +48,7 @@ class FromsConfig extends Component {
 			
 		}
 	}
+	
 	onCancel = () =>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -65,7 +67,7 @@ class FromsConfig extends Component {
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
 			}else{
-				return this.detailRender(item.fields);
+				return this.detailRender(item);
 				// return '';
 			}	
 		})
@@ -111,16 +113,23 @@ class FromsConfig extends Component {
 		if (item.wholeLine){
 			grid = 1
 		}
-		return (
-			<KrField 
-				name = {item.name}
-				requireLabel = {item.required}
-				inline={false}
-				label={item.label}
-				grid={grid}
-				component={type}
-			/>
-		)
+		if(item.display){
+			return (
+				<KrField
+					name={item.name}
+					requireLabel={item.required}
+					inline={false}
+					label={item.label}
+					grid={grid}
+					isStore={true}
+					component={type}
+				/>
+			)
+		}else {
+			return ;
+		}
+
+		
 	}
 	//浏览按钮渲染
 	btnFieldRender = (item,lineNum) =>{
@@ -132,19 +141,17 @@ class FromsConfig extends Component {
 	detailRender = (item) =>{
 		
 		var details = []
-		item.map((item)=>{
+		item.fields.map((item)=>{
 
 			if (item.display){
 				details.push(
 					<FRow name={item.name} type={componentType[item.compType]} label={item.label} />
 				)
-				
 			}
-			
 		})
 		return(
 			<TabelEdit
-				name="datadetail"
+				name={item.tableName}
 			>
 				{details}
 				

@@ -55,23 +55,27 @@ export default class Initialize  extends React.Component{
 	openEdit=(itemData)=>{
 		var _this = this;
 		Http.request('get-config-template-edit', { wfId: itemData.wfId}).then(function (response) {
-			_this.onOpenEdit();
+			_this.getEditDetail(itemData)
+			
 			_this.setState({
 				detail: response.tables
 			})
 		}).catch(function (err) { });
 		
 	}
-	getEditDetail = () =>{
-		Http.request('get-config-input-edit', { wfId: itemData.wfId }).then(function (response) {
+
+	getEditDetail = (item) =>{
+		var _this = this;
+		Http.request('get-config-detail-edit', { requestId: item.id }).then(function (response) {
+		
+			Store.dispatch(initialize('FromsConfig', response));
+		
+			
 			_this.onOpenEdit();
-			_this.setState({
-				detail: response.tables
-			})
+			
 		}).catch(function (err) { });
 	}
 	openPrint=(itemData)=>{
-		console.log('openPrint', itemData)
 		var id = itemData.id;
 		http://adminlocal.krspace.cn/new/#/publicPage/81/printOther
 		window.location.href = `./#/publicPage/${id}/printOther`;
@@ -87,7 +91,6 @@ export default class Initialize  extends React.Component{
 
 		}
 		State.searchParams = searchParams;
-		console.log('chooceType',type)
 	}
 	chooceAll=()=>{
 		let searchParams = {
@@ -100,7 +103,6 @@ export default class Initialize  extends React.Component{
 		}
 		State.searchParams = searchParams;
 
-		console.log('chooceAll');
 	}
 	chooceWf=(id)=>{
 		let searchParams = {
@@ -112,7 +114,6 @@ export default class Initialize  extends React.Component{
 
 		}
 		State.searchParams = searchParams;
-		console.log('chooceWf',id);
 	}
 	//编辑页面的开关
 	onOpenEdit = () =>{
@@ -123,12 +124,16 @@ export default class Initialize  extends React.Component{
 	}
 	//编辑提交
 	editSubmit = (values) =>{
-
+		Http.request('get-config-detail-edit', { requestId: item.id }).then(function (response) {
+			Store.dispatch(initialize('FromsConfig', response));
+			_this.onOpenEdit();
+		}).catch(function (err) {
+			
+		 });
 	}
 
 	render(){
 		const {isOpenEdit,detail} = this.state;
-		console.log('render---->',State.request)
 
 		return(
 
