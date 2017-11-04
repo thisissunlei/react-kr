@@ -17,9 +17,11 @@ import {
 import {
 	Http
 } from "kr/Utils";
+import { FromsConfig} from "kr/PureComponents";
 import './index.less';
 import DeleteDialog from './DeleteDialog';
 import FirstMenu from './FirstMenu';
+import { data } from "./config";
 export default class NewOffice extends React.Component {
 
 	constructor(props,context){
@@ -28,6 +30,7 @@ export default class NewOffice extends React.Component {
             thingsType:[],
             newThings:[],
             openDelete:false,
+            openNew:false,
         }
 	}
 
@@ -41,24 +44,28 @@ export default class NewOffice extends React.Component {
     if (imageNum == 0){
       imageNum = 7;
     }
-    // var style = {
-    //   'background':'url('+require("./images/b"+imageNum+".svg")+') no-repeat center'
-    // };
-      if (item) {
+    if (item) {
+
       return (
-            <div onClick={()=>{
-                this.toHz(item)
-              }} className="item" key={index}>
+          <div 
+            onClick={()=>{
+              this.toHz(item)
+            }} 
+            className="item" 
+            key={index}
+          >
             <span className={`top-circle class-${imageNum}`} >
               <span>{item.name.substring(0,2)}</span>
             </span>
             <span className="item-text">
               {item.name}
             </span>
-            <span className="close" onClick={(event)=>{
-                event.stopPropagation();
-                this.toDelete(item)
-              }}>
+            <span className="close" 
+              onClick={(event)=>{
+                  event.stopPropagation();
+                  this.toDelete(item)
+              }}
+            >
 
             </span>
           </div>
@@ -66,12 +73,18 @@ export default class NewOffice extends React.Component {
     }
               
   }
+  leftClick = (item) =>{
+    console.log(item,"PPPPPPPPP")
+    this.swidthNew()
+  }
   renderNewThings=(item,index)=>{
     return (
-        <FirstMenu key={index} detail={item} onSubmit={this.updateData}/>
+        <FirstMenu key={index} detail={item} leftClick = {this.leftClick} onSubmit={this.updateData}/>
     )
   }
   toHz=(item)=>{
+    console.log(item.id,"OOOOOOOOO")
+    this.swidthNew();
     if(item.click){
       //window.open(`${item.hzUrl}`);
     }
@@ -85,14 +98,18 @@ export default class NewOffice extends React.Component {
   toDelete=(item)=>{
       var _this = this;
       Http.request('office-new-delete', {
-
-            },{myCommonId:item.id}).then(function(response) {
-                _this.updateData();
-            }).catch(function(err) {});
+      },{myCommonId:item.id}).then(function(response) {
+          _this.updateData();
+      }).catch(function(err) {});
+  }
+  swidthNew = () =>{
+    let {openNew} = this.state;
+    this.setState({
+      openNew: !openNew
+    })
   }
   updateData=()=>{
 		    var _this = this;
-        console.log("进入up");
         Http.request('process-common', {
               }).then(function(response) {
                   _this.setState({thingsType: response.items.slice(0,6)},function(){
@@ -106,8 +123,21 @@ export default class NewOffice extends React.Component {
                 })
             }).catch(function(err) {});
     
-	}
+  }
+  //新建页面提交
+  onSubmit = () =>{
+    var _this = this;
+    Http.request('process-common', {}).then(function (response) {
+      _this.swidthNew();
+
+    }).catch(function (err) { 
+
+    });
+
+    
+  }
   render() {
+    console.log(this.state.thingsType)
     return (
       <div className="g-deal-newthings">
         <Section borderBool={false} title="我的常用">
@@ -141,6 +171,16 @@ export default class NewOffice extends React.Component {
         >
                 <DeleteDialog onSubmit={this.onDeleteSubmit} onCancel={this.openDelete} />
         </Dialog>
+        <Drawer
+            title="新建"
+            modal={true}
+            open={this.state.openNew}
+            onClose={this.swidthNew}
+            width = {750}
+            containerStyle={{ top: 60, paddingBottom: 228, zIndex: 20 }}
+        >
+          <FromsConfig detail={data.data.tables} onSubmit={this.onSubmit} onCancel={this.swidthNews} />
+        </Drawer>
       </div>
     );
   }

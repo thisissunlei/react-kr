@@ -29,6 +29,7 @@ export default class  TabelEdit extends React.Component {
 	rowDetail = () =>{
 		let {children} = this.props;
 		var rowDetail = [];
+		console.log(children,"LLLLLLLL")
 		children.map((item,index)=>{
 			rowDetail.push(item.props);
 		})

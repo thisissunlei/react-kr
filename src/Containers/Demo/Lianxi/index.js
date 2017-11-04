@@ -12,7 +12,8 @@ import {
 	Button,
 	Dialog,
 	Toolbars,
-	Toolbar
+	Toolbar,
+	Drawer
 } from 'kr-ui';
 import {
 	Actions,
@@ -24,9 +25,11 @@ import {
 	change
 } from 'redux-form';
 import {
-	LocationChoice
+	LocationChoice,
+	FromsConfig
 } from 'kr/PureComponents';
 import './index.less';
+import { data } from "./data";
 import Add from './Add';
 
 export default class EditTable  extends React.Component{
@@ -58,23 +61,25 @@ export default class EditTable  extends React.Component{
 	
 	render(){
 		
-		
+		console.log(data,"=========")
 		return(
 
 			<div>
 			    <div onClick={this.onClick}>点击</div>
 				{/*开通门禁*/}
-				<Dialog
+				<Drawer
 					title="删除职务"
+					width={750}
 					onClose={this.delSwidth}
 					open={this.state.openAdd}
 					contentStyle ={{ width: '700px',height:'auto'}}
 				>
-					<Add
+					<FromsConfig detail={data.data.tables} />
+					{/* <Add
 						onCancel={this.delSwidth}
 						onSubmit={this.delSubmit}
-					/>
-				</Dialog>
+					/> */}
+				</Drawer>
 			</div>
 		);
 	}

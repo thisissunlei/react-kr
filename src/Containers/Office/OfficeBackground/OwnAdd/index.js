@@ -17,7 +17,7 @@ import mobx, {
 	action,
 	toJS
 } from 'mobx';
-import {DateFormat} from 'kr/Utils';
+import { DateFormat, Http} from 'kr/Utils';
 import {reduxForm,initialize,reset,change} from 'redux-form';
 import {Store} from 'kr/Redux';
 import arrow from './images/arrows.png';
@@ -51,15 +51,30 @@ export default class Initialize  extends React.Component{
 
 	}
 
+	//编辑页打开
 	openEdit=(itemData)=>{
-		// Store.dispatch(initialize('FromsConfig',{fromsConfig:configData.tables}))
-		this.setState({
-			detail:configData.tables
-		})
-		this.onOpenEdit();
+		var _this = this;
+		Http.request('get-config-template-edit', { wfId: itemData.wfId}).then(function (response) {
+			_this.onOpenEdit();
+			_this.setState({
+				detail: response.tables
+			})
+		}).catch(function (err) { });
+		
+	}
+	getEditDetail = () =>{
+		Http.request('get-config-input-edit', { wfId: itemData.wfId }).then(function (response) {
+			_this.onOpenEdit();
+			_this.setState({
+				detail: response.tables
+			})
+		}).catch(function (err) { });
 	}
 	openPrint=(itemData)=>{
-		console.log('openPrint')
+		console.log('openPrint', itemData)
+		var id = itemData.id;
+		http://adminlocal.krspace.cn/new/#/publicPage/81/printOther
+		window.location.href = `./#/publicPage/${id}/printOther`;
 	}
 	chooceType=(type)=>{
 		// let type = '';

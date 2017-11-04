@@ -30,14 +30,16 @@ import {
 	Message,
 	Grid,
 	DrawerBtn,
-	DrawerTitle
-
+	DrawerTitle,
+	TabelEdit,
+	FRow,
 } from 'kr-ui';
 import {Http} from "kr/Utils";
 import {
 	componentType,
 	btnType
 } from './config'
+import './index.less'
 class FromsConfig extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -57,12 +59,14 @@ class FromsConfig extends Component {
 	//渲染所有表单
 	renderFields = () => {
 		let {detail} = this.props;
+		
 			detail = detail||[];
 		var fields = detail.map((item,index)=>{
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
 			}else{
-				return this.detailRender(item.fields,item.lineNum);
+				return this.detailRender(item.fields);
+				// return '';
 			}	
 		})
 		return fields;
@@ -78,13 +82,14 @@ class FromsConfig extends Component {
 			switch (type)
 			{
 				case 'radio':
-					this.radioRender(item,type,lineNum);
+					return this.radioRender(item,type,lineNum);
 					break;
 				case 'BUTTON_BROWES':
-					this.btnFieldRender(item,lineNum);
+					return this.btnFieldRender(item,lineNum);
 					break;
 				default:
-					this.universalRender(item,type,lineNum);
+					console.log("type", type, item.compType)
+					return this.universalRender(item,type,lineNum);
 			}
 			
 		})
@@ -102,13 +107,17 @@ class FromsConfig extends Component {
 	}
 	//一般的表单渲染
 	universalRender = (item,type,lineNum) =>{
+		var grid = 1/lineNum;
+		if (item.wholeLine){
+			grid = 1
+		}
 		return (
 			<KrField 
 				name = {item.name}
 				requireLabel = {item.required}
 				inline={false}
 				label={item.label}
-				grid={1/lineNum}
+				grid={grid}
 				component={type}
 			/>
 		)
@@ -116,11 +125,31 @@ class FromsConfig extends Component {
 	//浏览按钮渲染
 	btnFieldRender = (item,lineNum) =>{
 		var setting = item.setting;
-		var type = btnType(setting.wsradio);
+		var type = btnType[setting.wsradio];
 		this.universalRender(item,type,lineNum);
 	}	
 	//明细表选人
-	detailRender = () =>{
+	detailRender = (item) =>{
+		
+		var details = []
+		item.map((item)=>{
+
+			if (item.display){
+				details.push(
+					<FRow name={item.name} type={componentType[item.compType]} label={item.label} />
+				)
+				
+			}
+			
+		})
+		return(
+			<TabelEdit
+				name="datadetail"
+			>
+				{details}
+				
+			</TabelEdit>
+		)
 		
 	}
 
@@ -134,7 +163,10 @@ class FromsConfig extends Component {
 				<DrawerTitle title = "注册地址编辑" onCancel = {this.onCancel}/>
 				
 				{/* <FieldArray name="fromsConfig" component={this.renderFields} text="123"/> */}
-				{this.renderFields()}
+				<div style = {{marginTop:30}}>
+					{this.renderFields()}
+				</div>
+				
 				
 				<DrawerBtn onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>	
 			</form>
