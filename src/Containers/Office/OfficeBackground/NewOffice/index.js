@@ -26,17 +26,19 @@ export default class NewOffice extends React.Component {
 
 	constructor(props,context){
 		super(props, context);
-        this.state={
-            thingsType:[],
-            newThings:[],
-            openDelete:false,
-            openNew:false,
-        }
+    this.state={
+        thingsType:[],
+        newThings:[],
+        openDelete:false,
+        openNew:false,
+        detail:[]
+    }
+    this.newSubmitData = {};
+
 	}
 
   componentDidMount() {
     this.updateData();
-    //this.renderAddWhite();
   }
   //渲染色块
   renderThingsType=(item,index)=>{
@@ -73,9 +75,26 @@ export default class NewOffice extends React.Component {
     }
               
   }
+  //获取表单模板的数据
+  getTemplateData = (itemData) =>{
+    let _this = this;
+    Http.request('get-config-template-edit', { wfId: itemData.id }).then(function (response) {
+      _this.swidthNew()
+      _this.newSubmitData = {
+        formId: itemData.formId,
+        wfName: itemData.name,
+        wfId: itemData.id
+      }
+      _this.setState({
+        detail: response.tables
+      })
+    }).catch(function (err) { 
+
+    });
+  }
   leftClick = (item) =>{
-    console.log(item,"PPPPPPPPP")
-    this.swidthNew()
+    this.getTemplateData(item);
+    
   }
   renderNewThings=(item,index)=>{
     return (
@@ -83,8 +102,7 @@ export default class NewOffice extends React.Component {
     )
   }
   toHz=(item)=>{
-    console.log(item.id,"OOOOOOOOO")
-    this.swidthNew();
+    this.getTemplateData(item);
     if(item.click){
       //window.open(`${item.hzUrl}`);
     }
@@ -110,12 +128,11 @@ export default class NewOffice extends React.Component {
   }
   updateData=()=>{
 		    var _this = this;
-        Http.request('process-common', {
-              }).then(function(response) {
-                  _this.setState({thingsType: response.items.slice(0,6)},function(){
-            
-                  })
-              }).catch(function(err) {});
+        Http.request('process-common', {}).then(function(response) {
+                _this.setState({thingsType: response.items.slice(0,6)},function(){
+          
+                })
+        }).catch(function(err) {});
         Http.request('process-new-request', {
             }).then(function(response) {
                 _this.setState({newThings: response.items},function(){
@@ -125,11 +142,12 @@ export default class NewOffice extends React.Component {
     
   }
   //新建页面提交
-  onSubmit = () =>{
+  onSubmit = (values) =>{
     var _this = this;
-    Http.request('process-common', {}).then(function (response) {
+    var params = Object.assign({}, this.newSubmitData);
+    params.dataJson = JSON.stringify(values);
+    Http.request('post-config-detail-new', {}, params).then(function (response) {
       _this.swidthNew();
-
     }).catch(function (err) { 
 
     });
@@ -137,7 +155,7 @@ export default class NewOffice extends React.Component {
     
   }
   render() {
-    console.log(this.state.thingsType)
+    const { detail} = this.state;
     return (
       <div className="g-deal-newthings">
         <Section borderBool={false} title="我的常用">
@@ -179,7 +197,7 @@ export default class NewOffice extends React.Component {
             width = {750}
             containerStyle={{ top: 60, paddingBottom: 228, zIndex: 20 }}
         >
-          <FromsConfig detail={data.data.tables} onSubmit={this.onSubmit} onCancel={this.swidthNews} />
+          <FromsConfig detail={detail} onSubmit={this.onSubmit} onCancel={this.swidthNew} />
         </Drawer>
       </div>
     );

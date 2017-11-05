@@ -90,7 +90,6 @@ class FromsConfig extends Component {
 					return this.btnFieldRender(item,lineNum);
 					break;
 				default:
-					console.log("type", type, item.compType)
 					return this.universalRender(item,type,lineNum);
 			}
 			
@@ -152,6 +151,8 @@ class FromsConfig extends Component {
 		return(
 			<TabelEdit
 				name={item.tableName}
+				toolbar={true}
+				checkbox={true}
 			>
 				{details}
 				
@@ -180,6 +181,7 @@ class FromsConfig extends Component {
 		);
 	}
 }
+
 export default reduxForm({
 	form: 'FromsConfig'
 })(FromsConfig);

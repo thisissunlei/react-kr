@@ -51,13 +51,10 @@ State.itemDownPublish = action(function(id) {
 State.requestTree = action(function() {
 	var _this = this;
 	Http.request('my-request-tree', '').then(function(response) {
-		console.log('-------->',response);
 
 		State.request = response;
-		console.log('=========>')
 		// Message.success('下线成功');
 	}).catch(function(err) {
-		console.log(err)
 		Message.error(err.message);
 	});
 

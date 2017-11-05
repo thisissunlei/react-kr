@@ -20,5 +20,14 @@ module.exports = {
         url: '/api/krspace-erp-web/wf/request/info/type/edit?requestId={requestId}',
         method: 'get'
     },
+    'post-config-detail-edit': {
+        url: '/api/krspace-erp-web/wf/request/edit',
+        method: 'post'
+    },
+    'post-config-detail-new': {
+        url: '/api/krspace-erp-web/wf/request/add',
+        method: 'post'
+    },
+    
 }
     

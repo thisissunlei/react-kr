@@ -45,6 +45,7 @@ export default class Initialize  extends React.Component{
 			isOpenEdit:false,
 			detail:[]
 		} 
+		this.editSubmitData = {};
 	}
 	componentDidMount() {
 		State.requestTree()
@@ -56,7 +57,11 @@ export default class Initialize  extends React.Component{
 		var _this = this;
 		Http.request('get-config-template-edit', { wfId: itemData.wfId}).then(function (response) {
 			_this.getEditDetail(itemData)
-			
+			_this.editSubmitData = {
+				wfId: itemData.wfId,
+				formId: response.formId,
+				id: itemData.id,
+			}
 			_this.setState({
 				detail: response.tables
 			})
@@ -124,9 +129,12 @@ export default class Initialize  extends React.Component{
 	}
 	//编辑提交
 	editSubmit = (values) =>{
-		Http.request('get-config-detail-edit', { requestId: item.id }).then(function (response) {
-			Store.dispatch(initialize('FromsConfig', response));
-			_this.onOpenEdit();
+		const _this = this;
+		var params = Object.assign({}, this.editSubmitData);
+
+		params.dataJson = JSON.stringify(values);
+		Http.request('post-config-detail-edit', {}, params).then(function (response) {
+			_this.onOpenEdit()
 		}).catch(function (err) {
 			
 		 });
@@ -249,9 +257,10 @@ export default class Initialize  extends React.Component{
 					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='uTime' component={(value,oldValue,itemData)=>{
 					 							return (
 					 								<div>
-													<Button label="编辑"  type='operation'  onClick={this.openEdit.bind(this,itemData)}/>
-													<Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>
-							                    </div>
+
+														<Button label="编辑"  type='operation'  onClick={this.openEdit.bind(this,itemData)}/>
+														{itemData.printed && <Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>}
+													</div>
 					 							)
 					 					}}>
 					 					</TableRowColumn>
@@ -269,7 +278,7 @@ export default class Initialize  extends React.Component{
                     containerStyle={{top:60,paddingBottom:228,zIndex:20}}
                     onClose={this.onOpenEdit}
 				>
-					<FromsConfig detail = {detail} onSubmit={this.onCreatDrawerSubmit} onCancel={this.onOpenEdit} />
+					<FromsConfig detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
 				</Drawer>
 			</div>
 		);
