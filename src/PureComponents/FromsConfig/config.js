@@ -1,4 +1,6 @@
-
+import {
+    Notify
+} from 'kr-ui';
 var componentType = {
     TEXT_TEXT:'input',
     TEXT_INTEGER:'input',
@@ -20,8 +22,157 @@ var btnType = {
     btnCity:'city',
     btnAddress:'address'
 }
+//明细表校验
+function detailCheck(params, values) {
+    //楼层检验 params.tableName;
+    let obj = {};
+    if (!values[params.tableName] || !values[params.tableName].length) {
+        // return 'At least one member must be entered'
+    } else {
+        const arrErrors = []
+        let text = '';
+        values[params.tableName].forEach((everyLine, index) => {
+            const memberErrors = {}
+            if (!everyLine){
+                return;
+            }
+            text = mainCheck(params.fields, everyLine,false)
+        })
+       return text;
+    }
+}
+function mainCheck(params, values, isMain) {
+    var obj = {};
+    let text = '';
+    params.map((item, index) => {
+        let setting = item.setting;
+        if (!values[item.name]){
+            return;
+        }
+        let name = values[item.name];
+        
+        switch (item.compType) {
+            case 'TEXT_TEXT':
+                text =  textCheck(item, name);
+                break;
+            case 'TEXT_INTEGER':
+                text =  integerCheck(item, name);
+                break;
+            case 'TEXT_FLOAT':
+                text =  floatCheck(item, name);
+                break;
+            case 'TEXT_MONEY_TRANSFER':
+                text =  transferCheck(item, name);
+                break;
+            case 'TEXT_MONEY_QUARTILE':
+                text =  quartileCheck(item, name);
+                break;
+            default:
+                text =  otherCheck(item, name);
+        }
+        if(!text){
+            obj[name] =  text;
+        }
+       
+        
+    })
+    if(isMain){
+        return obj;
+    }else{
+        return text;
+    }
+    
+}
+//文本类型
+function textCheck(params, name) {
+    let text = '';
+    if (params.required) {
+        if (!name && name !== 0) {
+            text = `${params.label}必填`
+            return text;
+        }
+    }
+    if (name && name > params.setting.wstext) {
+        text = `${params.label}最长为${params.setting.wstext}`
+        return text;
+    }
+
+}
+//整型
+function integerCheck(params, name) {
+    let num = /^-?\\d+$/;
+    let text = '';
+    if (params.required) {
+        if (!name && name !== 0) {
+            text = `${params.label}必填`
+            return text;
+        }
+    }
+    if (name && !num.test(name)) {
+        text = '请填写整数'
+        return text;
+    }
+}
+//浮点数
+function floatCheck(params, name) {
+    let text = '';
+    if (params.required) {
+        if (!name && name !== 0) {
+            text = `${params.label}必填`
+            return text;
+        }
+    }
+    if (name && (name.toString().split(".")[1].length) != params.setting.wsfloat) {
+        text = `${params.label}小数位数为${params.setting.wsfloat}`
+        return text;
+    }
+}
+
+//金额转换
+function transferCheck(params, name) {
+    let text = '';
+    if (params.required) {
+        if (!name && name !== 0) {
+            text = `${params.label}必填`
+            return text;
+        }
+    }
+    if (name && (name.toString().split(".")[1].length) != params.setting.wsfloat) {
+        text = `${params.label}小数位数为${params.setting.wsfloat}`
+        return text;
+    }
+}
+
+//金额千分位
+function quartileCheck(params, name) {
+    let text = '';
+    if (params.required) {
+        if (!name && name !== 0) {
+            text = `${params.label}必填`
+            return text;
+        }
+    }
+    if (name && (name.toString().split(".")[1].length) != params.setting.wsfloat) {
+        text = `${params.label}小数位数为${params.setting.wsfloat}`
+        return text;
+    }
+}
+
+//其他情况
+function otherCheck(params, name) {
+    let text = '';
+    if (params.required) {
+        if (!name && name !== 0) {
+            text = `${params.label}必填`
+            return text;
+        }
+    }
+}
+
 module.exports = {
     componentType,
-    btnType
+    btnType,
+    detailCheck,
+    mainCheck
 }
 

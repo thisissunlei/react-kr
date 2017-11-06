@@ -7,38 +7,20 @@ import {
 } from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
-	Table,
-	TableBody,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn,
-	TableFooter,
 	KrField,
-	Row,
-	Col,
-	Button,
-	Notify,
-	IframeContent,
-	KrDate,
-	DotTitle,
-	ButtonGroup,
-	ListGroup,
-	ListGroupItem,
-	Paper,
-	CircleStyle,
-	Tooltip,
 	Message,
-	Grid,
 	DrawerBtn,
 	DrawerTitle,
 	TabelEdit,
 	FRow,
+	Notify
 } from 'kr-ui';
 import {Http} from "kr/Utils";
 import {
 	componentType,
-	btnType
+	btnType,
+	detailCheck,
+	mainCheck
 } from './config';
 import './index.less';
 var inspectionData = [];//检验数据
@@ -174,129 +156,30 @@ class FromsConfig extends Component {
 		);
 	}
 }
+
+
+
 const validate = values => {
 
-	const errors = {};
+	let errors = {};
+	let detailMessage = ''
 	inspectionData.map((item, index) => {
 		if (item.isMain) {
-			mainCheck(item.fields);
+			errors = mainCheck(item.fields, values,true);
+		}else {
+			detailMessage = detailCheck(item, values);
+			if(detailMessage){
+				Notify.show([{
+					message: detailMessage,
+					type: 'danger',
+				}]);
+			}
+			
 		}
 	})
+	// errors.name = new Date();
 	return errors
 }
-function mainCheck(params,values) {
-	var obj = {};
-	params.map((item,index)=>{
-		let setting = item.setting;
-		let name = values[item.name];
-		switch (item.compType) {
-			case 'TEXT_TEXT':
-				return textCheck(item, name);
-				break;
-			case 'TEXT_INTEGER':
-				return integerCheck(item, name);
-				break;
-			case 'TEXT_FLOAT':
-				return floatCheck(item, name);
-				break;
-			case 'TEXT_MONEY_TRANSFER':
-				return transferCheck(item, name);
-				break;
-			case 'TEXT_MONEY_QUARTILE':
-				return quartileCheck(item, name);
-				break;
-			default:
-				return otherCheck(item, name);
-		}
-		
-	})
-}
-//文本类型
-function textCheck(params,name) {
-	let text = '';
-	if (params.required){
-		if(!name && name!==0){
-			text = `${params.label}必填`
-			return text;
-		}
-	}
-	if (name && name > params.setting.wstext) {
-		text = `${params.label}最长为${params.setting.wstext}`
-		return text;
-	}
-	
-}
-//整型
-function integerCheck(params,name) {
-	let num=/^-?\\d+$/;
-	let text = '';
-	if (params.required){
-		if(!name && name!==0){
-			text = `${params.label}必填`
-			return text;
-		}
-	}
-	if (name && !num.test(name)) {
-		text = '请填写整数'
-		return text;
-	}
-}
-//浮点数
-function floatCheck(params,name) {
-	let text = '';
-	if (params.required){
-		if(!name && name!==0){
-			text = `${params.label}必填`
-			return text;
-		}
-	}
-	if (name && (name.toString().split(".")[1].length)!=params.setting.wsfloat) {
-		text = `${params.label}小数位数为${params.setting.wsfloat}`
-		return text;
-	}
-}
-
-//金额转换
-function transferCheck(params,name) {
-	let text = '';
-	if (params.required){
-		if(!name && name!==0){
-			text = `${params.label}必填`
-			return text;
-		}
-	}
-	if (name && (name.toString().split(".")[1].length)!=params.setting.wsfloat) {
-		text = `${params.label}小数位数为${params.setting.wsfloat}`
-		return text;
-	}
-}
-
-//金额千分位
-function quartileCheck(params,name) {
-	let text = '';
-	if (params.required){
-		if(!name && name!==0){
-			text = `${params.label}必填`
-			return text;
-		}
-	}
-	if (name && (name.toString().split(".")[1].length)!=params.setting.wsfloat) {
-		text = `${params.label}小数位数为${params.setting.wsfloat}`
-		return text;
-	}
-}
-
-//其他情况
-function otherCheck(params,name) {
-	let text = '';
-	if (params.required) {
-		if (!name && name !== 0) {
-			text = `${params.label}必填`
-			return text;
-		}
-	}	
-}
-
 export default reduxForm({
 	form: 'FromsConfig',
 	validate
