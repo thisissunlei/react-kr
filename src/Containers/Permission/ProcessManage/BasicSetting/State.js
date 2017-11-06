@@ -145,6 +145,7 @@ State.getPrintTemplateList = action(function(id) {
 State.getPrintTemplateData = action(function(id) {
 	var _this = this;
 	Http.request('get-form-template-data', {wfId:id}).then(function(response) {
+		console.log(response,">>>>>>>");
 		if(response.id){
 			_this.formworkId=response.printTempId;
 			_this.formData = response;
@@ -153,6 +154,7 @@ State.getPrintTemplateData = action(function(id) {
 			Store.dispatch(change('Template','printTempId',response.printTempId));
 			Store.dispatch(change('Template','formTempId',response.formTempId));
 			Store.dispatch(change('Template','allowPrint',response.allowPrint+''));
+			_this.formworkId = ''
 		}
 		
 	}).catch(function(err) {
