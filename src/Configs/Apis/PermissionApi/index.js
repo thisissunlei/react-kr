@@ -562,4 +562,9 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/print-template/list',
       method: 'get'
     },
+    //获取合同模板数据
+    'get-form-template-data':{
+      url: '/api/krspace-erp-web/sys/form-template/node?wfId={wfId}',
+      method: 'get'
+    },
 }
