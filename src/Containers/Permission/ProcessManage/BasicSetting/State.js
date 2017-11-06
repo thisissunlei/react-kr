@@ -5,7 +5,7 @@ import mobx, {
 import {reduxForm,initialize,reset,change} from 'redux-form';
 import {Store} from 'kr/Redux';
 
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import {Message} from 'kr-ui';
 let State = observable({
 	printList:[{label:"测试内容9od3",value:78538}],
@@ -21,7 +21,7 @@ let State = observable({
 	open:false,
 	formworkId:'',
 	wfId:'',
-	formData:{}
+	formData:{},
 
 
 });
@@ -146,12 +146,15 @@ State.getPrintTemplateData = action(function(id) {
 	var _this = this;
 	Http.request('get-form-template-data', {wfId:id}).then(function(response) {
 		console.log('===getPrintTemplateData====',response);
-		_this.formData = response;
-		_this.pcName = response.formTemplateName;
-		_this.printName=response.printTemplateName;
-		Store.dispatch(change('Template','printTempId',response.printTempId));
-		Store.dispatch(change('Template','formTempId',response.formTempId));
-		Store.dispatch(change('Template','allowPrint',response.allowPrint));
+		if(response.id){
+			_this.formData = response;
+			_this.pcName = response.formTemplateName +'       '+ DateFormat(response.uFormTempTime,'   yyyy/mm/dd HH:MM:ss');
+			_this.printName=response.printTemplateName +'        '+ DateFormat(response.uPrintTempTime,'   yyyy/mm/dd HH:MM:ss');
+			Store.dispatch(change('Template','printTempId',response.printTempId));
+			Store.dispatch(change('Template','formTempId',response.formTempId));
+			Store.dispatch(change('Template','allowPrint',response.allowPrint+''));
+		}
+		
 	}).catch(function(err) {
 		Message.error(err.message);
 	});

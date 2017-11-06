@@ -62,11 +62,15 @@ class Template extends React.Component {
 	}
 	onSubmit=(form)=>{
 		console.log('onSubmit--->',form)
-		form.wfId = State.formId;
+		let _this = this;
+		form.wfId = this.props.id;
 		if(!form.formTempId){
 			State.formTempId = true;
 		}
-		if(State.formTempId){
+		if(form.allowPrint === 'true' && !form.formTempId){
+			State.printTempId = true;
+		}
+		if(State.formTempId || State.printTempId){
 			return;
 		}
 		
@@ -74,6 +78,7 @@ class Template extends React.Component {
 			// Store.dispatch(reset('Template',''));
 			// State.reset();
 			Message.success('提交成功');
+			State.getPrintTemplateData(_this.props.id);
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -200,7 +205,7 @@ class Template extends React.Component {
 	                            onChange={this.changeName}
 	                        />}
 	                        {!!State.pcName?
-			            	<span className="has-template template-name">{State.pcName} </span>
+			            	<span className="has-template template-name">{State.pcName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
 			            	{State.formTempId && <div className="error-message">请选择显示模板</div>}
 			            </div>
@@ -259,7 +264,7 @@ class Template extends React.Component {
 							<Row >
 								<Col md={12} align="center">
 									<ButtonGroup>
-										<Button  label="确定" type="submit"  />
+										<Button  label="保存" type="submit"  />
 										{/*<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>*/}
 									</ButtonGroup>
 								  </Col>
