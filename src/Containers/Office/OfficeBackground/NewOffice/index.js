@@ -127,7 +127,9 @@ export default class NewOffice extends React.Component {
       }).catch(function(err) {});
   }
   swidthNew = () =>{
+    
     let {openNew} = this.state;
+    console.log("99999999", openNew)
     this.setState({
       openNew: !openNew
     })
