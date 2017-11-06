@@ -161,13 +161,22 @@ class FromsConfig extends Component {
 const validate = values => {
 
 	let errors = {};
+	let detailMessage = ''
 	inspectionData.map((item, index) => {
 		if (item.isMain) {
-			errors = Object.assign(errors, mainCheck(item.fields, values));
+			errors = mainCheck(item.fields, values,true);
 		}else {
-			detailCheck(item, values);
+			detailMessage = detailCheck(item, values);
+			if(detailMessage){
+				Notify.show([{
+					message: detailMessage,
+					type: 'danger',
+				}]);
+			}
+			
 		}
 	})
+	// errors.name = new Date();
 	return errors
 }
 export default reduxForm({

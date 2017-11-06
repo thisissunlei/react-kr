@@ -1,6 +1,6 @@
-// import {
-//     Notify
-// } from 'kr-ui';
+import {
+    Notify
+} from 'kr-ui';
 var componentType = {
     TEXT_TEXT:'input',
     TEXT_INTEGER:'input',
@@ -24,32 +24,33 @@ var btnType = {
 }
 //明细表校验
 function detailCheck(params, values) {
-    //楼层检验 params[tableName];
+    //楼层检验 params.tableName;
     let obj = {};
-    if (!params[tableName] || !params[tableName].length) {
-        obj.params[tableName] = { _error: 'At least one member must be entered' }
+    if (!values[params.tableName] || !values[params.tableName].length) {
+        return 'At least one member must be entered'
     } else {
         const arrErrors = []
         let text = '';
-        values.params[tableName].forEach((everyLine, index) => {
+        values[params.tableName].forEach((everyLine, index) => {
             const memberErrors = {}
-            text = mainCheck(item.fields, everyLine)
+            if (!everyLine){
+                return;
+            }
+            text = mainCheck(params.fields, everyLine,false)
         })
-        if(text){
-            // Notify.show([{
-            //     message: text,
-            //     type: 'danger',
-            // }]);
-        }
+       return text;
     }
 }
-function mainCheck(params, values) {
+function mainCheck(params, values, isMain) {
     var obj = {};
-
+    let text = '';
     params.map((item, index) => {
         let setting = item.setting;
+        if (!values[item.name]){
+            return;
+        }
         let name = values[item.name];
-        let text = '';
+        
         switch (item.compType) {
             case 'TEXT_TEXT':
                 text =  textCheck(item, name);
@@ -72,9 +73,15 @@ function mainCheck(params, values) {
         if(!text){
             obj[name] =  text;
         }
+       
         
     })
-    return obj;
+    if(isMain){
+        return obj;
+    }else{
+        return text;
+    }
+    
 }
 //文本类型
 function textCheck(params, name) {
