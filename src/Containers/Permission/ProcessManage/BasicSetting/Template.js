@@ -52,6 +52,7 @@ class Template extends React.Component {
 		Store.dispatch(initialize('Template',initializeValues));
 		State.getTemplateList(this.props.formId);
 		State.getPrintTemplateList();
+		State.getPrintTemplateData(this.props.id);
 
 	}
 	

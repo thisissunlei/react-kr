@@ -62,6 +62,7 @@ class CreateNewList extends React.Component {
 		let mainT = toJS(State.mainT);
 		let detailT = toJS(State.detailT);
 		mainT.fields = formValue.mainT ;
+		mainT.fieldList = formValue.mainT ;
 		mainT.lineNum = formValue.lineNum;
 		mainT.templateTableId = mainT.id;
 		let demo = [];

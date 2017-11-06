@@ -20,6 +20,8 @@ let State = observable({
 	saveAndUse:false,
 	open:false,
 	formworkId:'',
+	wfId:'',
+	formData:{}
 
 
 });
@@ -123,6 +125,7 @@ State.getCreateTable = action(function(id) {
 	});
 
 });
+
 // 打印模板--选择
 State.getPrintTemplateList = action(function(id) {
 	var _this = this;
@@ -134,6 +137,21 @@ State.getPrintTemplateList = action(function(id) {
 			return obj;
 		})
 		_this.printList = options;
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+
+});
+State.getPrintTemplateData = action(function(id) {
+	var _this = this;
+	Http.request('get-form-template-data', {wfId:id}).then(function(response) {
+		console.log('===getPrintTemplateData====',response);
+		_this.formData = response;
+		_this.pcName = response.formTemplateName;
+		_this.printName=response.printTemplateName;
+		Store.dispatch(change('Template','printTempId',response.printTempId));
+		Store.dispatch(change('Template','formTempId',response.formTempId));
+		Store.dispatch(change('Template','allowPrint',response.allowPrint));
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
