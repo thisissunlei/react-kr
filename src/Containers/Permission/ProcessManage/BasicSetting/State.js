@@ -147,8 +147,8 @@ State.getPrintTemplateData = action(function(id) {
 	Http.request('get-form-template-data', {wfId:id}).then(function(response) {
 		if(response.id){
 			_this.formData = response;
-			_this.pcName = response.formTemplateName +'       '+ DateFormat(response.uFormTempTime,'   yyyy/mm/dd HH:MM:ss');
-			_this.printName= response.printTemplateName?(response.printTemplateName +'        '+ DateFormat(response.uPrintTempTime,'   yyyy/mm/dd HH:MM:ss')):'';
+			_this.pcName = response.formTemplateName +'       '+ DateFormat(response.uFormTempTime,'   yyyy-mm-dd HH:MM:ss');
+			_this.printName= response.printTemplateName?(response.printTemplateName +'        '+ DateFormat(response.uPrintTempTime,'   yyyy-mm-dd HH:MM:ss')):'';
 			Store.dispatch(change('Template','printTempId',response.printTempId));
 			Store.dispatch(change('Template','formTempId',response.formTempId));
 			Store.dispatch(change('Template','allowPrint',response.allowPrint+''));
