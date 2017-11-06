@@ -38,7 +38,8 @@ import {
 import {Http} from "kr/Utils";
 import {
 	componentType,
-	btnType
+	btnType,
+	detailCheck
 } from './config';
 import './index.less';
 var inspectionData = [];//检验数据
@@ -174,17 +175,22 @@ class FromsConfig extends Component {
 		);
 	}
 }
+
+
+
 const validate = values => {
 
 	const errors = {};
 	inspectionData.map((item, index) => {
 		if (item.isMain) {
 			mainCheck(item.fields);
+		}else {
+			detailCheck(item.fields);
 		}
 	})
 	return errors
 }
-function mainCheck(params,values) {
+function mainCheck(params) {
 	var obj = {};
 	params.map((item,index)=>{
 		let setting = item.setting;
