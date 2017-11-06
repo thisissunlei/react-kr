@@ -76,14 +76,20 @@ export default class NewOffice extends React.Component {
               
   }
   //获取表单模板的数据
-  getTemplateData = (itemData) =>{
+  getTemplateData = (itemData,type) =>{
+    var id=''
+    if(type=='new'){
+      id=itemData.id;
+    }else{
+      id=itemData.wfId;
+    }
     let _this = this;
-    Http.request('get-config-template-edit', { wfId: itemData.id }).then(function (response) {
+    Http.request('get-config-template-edit', { wfId:id}).then(function (response) {
       _this.swidthNew()
       _this.newSubmitData = {
         formId: itemData.formId,
         wfName: itemData.name,
-        wfId: itemData.id
+        wfId:id
       }
       _this.setState({
         detail: response.tables
@@ -93,7 +99,7 @@ export default class NewOffice extends React.Component {
     });
   }
   leftClick = (item) =>{
-    this.getTemplateData(item);
+    this.getTemplateData(item,'new');
     
   }
   renderNewThings=(item,index)=>{
