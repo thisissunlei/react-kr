@@ -265,6 +265,17 @@ class TextInfo  extends React.Component{
  //新增字段提交
  onAddTextSub=(values)=>{
 	 values = Object.assign({},values);
+	if(values.compType!='FILE_FILE'){
+		delete values.wsenabled;
+	}
+    if(values.compType!='FILE_PHOTO'){
+		delete values.wsPicEnabled;
+	}
+	if(values.compType!='BUTTON_BROWES'){
+		delete values.wsbtnEnabled;
+	}
+    
+
 	if(values.inputType=='SELECT'||values.inputType=='CHECK'){
 	  values.itemListStr=JSON.stringify(values.itemListStr);
       if(values.sourceType=='PUBLIC_DICT'){
@@ -332,6 +343,17 @@ class TextInfo  extends React.Component{
 	let {editId,detailId,editparam}=this.state;
 	let {basicInfo}=this.props;
 	var params = Object.assign({},data);
+
+	if(params.compType!='FILE_FILE'){
+		delete params.wsenabled;
+	}
+    if(params.compType!='FILE_PHOTO'){
+		delete params.wsPicEnabled;
+	}
+	if(params.compType!='BUTTON_BROWES'){
+		delete params.wsbtnEnabled;
+	}
+    
 	params.id=editId?editId:'';
 	params.detailId=detailId;
 	params.formId=basicInfo.id||'';

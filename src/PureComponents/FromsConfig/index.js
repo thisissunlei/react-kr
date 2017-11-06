@@ -39,20 +39,21 @@ import {Http} from "kr/Utils";
 import {
 	componentType,
 	btnType
-} from './config'
-import './index.less'
+} from './config';
+import './index.less';
+var inspectionData = [];//检验数据
 class FromsConfig extends Component {
 	constructor(props, context) {
 		super(props, context);
-		this.state={
-			
-		}
+		let {detail} =props;
+		inspectionData = [].concat(detail);
+		
 	}
-	
 	onCancel = () =>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	//提交代码
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
 		const {onSubmit} = this.props;
@@ -61,7 +62,6 @@ class FromsConfig extends Component {
 	//渲染所有表单
 	renderFields = () => {
 		let {detail} = this.props;
-		
 			detail = detail||[];
 		var fields = detail.map((item,index)=>{
 			if(item.isMain){
@@ -73,14 +73,11 @@ class FromsConfig extends Component {
 		})
 		return fields;
 	}	
-
-
 	//主表渲染
 	mainRender = (fields,lineNum) =>{
 		var num = fields.lineNum||[];
 		var mainFied = fields.map((item,index)=>{
 			var type = componentType[item.compType];
-			
 			switch (type)
 			{
 				case 'radio':
@@ -92,7 +89,6 @@ class FromsConfig extends Component {
 				default:
 					return this.universalRender(item,type,lineNum);
 			}
-			
 		})
 		return mainFied;
 	}
@@ -127,8 +123,6 @@ class FromsConfig extends Component {
 		}else {
 			return ;
 		}
-
-		
 	}
 	//浏览按钮渲染
 	btnFieldRender = (item,lineNum) =>{
@@ -141,7 +135,6 @@ class FromsConfig extends Component {
 		
 		var details = []
 		item.fields.map((item)=>{
-
 			if (item.display){
 				details.push(
 					<FRow name={item.name} type={componentType[item.compType]} label={item.label} />
@@ -155,12 +148,16 @@ class FromsConfig extends Component {
 				checkbox={true}
 			>
 				{details}
-				
 			</TabelEdit>
 		)
 		
 	}
+	componentDidMount () {
+		let {detail} = this.props;
+		inspectionData = detail;
 
+	}
+	
 	
 	render(){
 		const {handleSubmit} = this.props;
@@ -169,19 +166,138 @@ class FromsConfig extends Component {
 			
 			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}>
 				<DrawerTitle title = "注册地址编辑" onCancel = {this.onCancel}/>
-				
-				{/* <FieldArray name="fromsConfig" component={this.renderFields} text="123"/> */}
 				<div style = {{marginTop:30}}>
 					{this.renderFields()}
 				</div>
-				
-				
 				<DrawerBtn onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>	
 			</form>
 		);
 	}
 }
+const validate = values => {
+
+	const errors = {};
+	inspectionData.map((item, index) => {
+		if (item.isMain) {
+			mainCheck(item.fields);
+		}
+	})
+	return errors
+}
+function mainCheck(params,values) {
+	var obj = {};
+	params.map((item,index)=>{
+		let setting = item.setting;
+		let name = values[item.name];
+		switch (item.compType) {
+			case 'TEXT_TEXT':
+				return textCheck(item, name);
+				break;
+			case 'TEXT_INTEGER':
+				return integerCheck(item, name);
+				break;
+			case 'TEXT_FLOAT':
+				return floatCheck(item, name);
+				break;
+			case 'TEXT_MONEY_TRANSFER':
+				return transferCheck(item, name);
+				break;
+			case 'TEXT_MONEY_QUARTILE':
+				return quartileCheck(item, name);
+				break;
+			default:
+				return otherCheck(item, name);
+		}
+		
+	})
+}
+//文本类型
+function textCheck(params,name) {
+	let text = '';
+	if (params.required){
+		if(!name && name!==0){
+			text = `${params.label}必填`
+			return text;
+		}
+	}
+	if (name && name > params.setting.wstext) {
+		text = `${params.label}最长为${params.setting.wstext}`
+		return text;
+	}
+	
+}
+//整型
+function integerCheck(params,name) {
+	let num=/^-?\\d+$/;
+	let text = '';
+	if (params.required){
+		if(!name && name!==0){
+			text = `${params.label}必填`
+			return text;
+		}
+	}
+	if (name && !num.test(name)) {
+		text = '请填写整数'
+		return text;
+	}
+}
+//浮点数
+function floatCheck(params,name) {
+	let text = '';
+	if (params.required){
+		if(!name && name!==0){
+			text = `${params.label}必填`
+			return text;
+		}
+	}
+	if (name && (name.toString().split(".")[1].length)!=params.setting.wsfloat) {
+		text = `${params.label}小数位数为${params.setting.wsfloat}`
+		return text;
+	}
+}
+
+//金额转换
+function transferCheck(params,name) {
+	let text = '';
+	if (params.required){
+		if(!name && name!==0){
+			text = `${params.label}必填`
+			return text;
+		}
+	}
+	if (name && (name.toString().split(".")[1].length)!=params.setting.wsfloat) {
+		text = `${params.label}小数位数为${params.setting.wsfloat}`
+		return text;
+	}
+}
+
+//金额千分位
+function quartileCheck(params,name) {
+	let text = '';
+	if (params.required){
+		if(!name && name!==0){
+			text = `${params.label}必填`
+			return text;
+		}
+	}
+	if (name && (name.toString().split(".")[1].length)!=params.setting.wsfloat) {
+		text = `${params.label}小数位数为${params.setting.wsfloat}`
+		return text;
+	}
+}
+
+//其他情况
+function otherCheck(params,name) {
+	let text = '';
+	if (params.required) {
+		if (!name && name !== 0) {
+			text = `${params.label}必填`
+			return text;
+		}
+	}	
+}
 
 export default reduxForm({
-	form: 'FromsConfig'
+	form: 'FromsConfig',
+	validate
 })(FromsConfig);
