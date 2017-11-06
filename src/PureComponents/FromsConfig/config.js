@@ -27,7 +27,7 @@ function detailCheck(params, values) {
     //楼层检验 params.tableName;
     let obj = {};
     if (!values[params.tableName] || !values[params.tableName].length) {
-        return 'At least one member must be entered'
+        // return 'At least one member must be entered'
     } else {
         const arrErrors = []
         let text = '';
