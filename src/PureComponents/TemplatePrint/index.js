@@ -72,7 +72,8 @@ class TemplatePrint extends React.Component {
 
 	onSubmit = (value) =>{
 		var params = Object.assign({},value);
-		let {onSubmit} = this.props;
+		let {onSubmit,id} = this.props;
+		params.id= id;
 		
         Http.request("other-contract-formwork-new",{},params).then(function (response) {
 		
@@ -90,8 +91,8 @@ class TemplatePrint extends React.Component {
 
 	render() {
 
-		console.log("TemplatePrint", ">>>>>>>")
-		let {handleSubmit}=this.props;
+		
+		let {handleSubmit,allData}=this.props;
 		let {child} = this.state;
 
 		return (
@@ -114,7 +115,12 @@ class TemplatePrint extends React.Component {
 							requireLabel={true}
 							
 						/>	
-						<KrField component="editor" style={{width:"210mm"}}  isReduxForm = {true} name="content" label="" defaultValue=''/>
+						<KrField 
+							component="editor" 
+							style={{width:"210mm"}}  
+							name="content" 
+							label="" 
+							defaultValue={allData}/>
 						
 					</div>
 				</Section>

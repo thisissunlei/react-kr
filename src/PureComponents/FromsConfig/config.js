@@ -100,7 +100,7 @@ function textCheck(params, name) {
 }
 //整型
 function integerCheck(params, name) {
-    let num = /^-?\\d+$/;
+    let num = /^-?\d+$/;
     let text = '';
     if (params.required) {
         if (!name && name !== 0) {

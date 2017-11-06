@@ -41,6 +41,7 @@ class Template extends React.Component {
 			openWarn:false,
 			openChooce:false,
 			openTemplate:false,//新建合同模板
+			allData:{},
 		}
 
 		
@@ -126,11 +127,17 @@ class Template extends React.Component {
 
 	//新建合同模板的开关
 	onOpenTemplate = (type = '') =>{
-		console.log('=====onOpenTemplate=====',type)
 		
-		let {openTemplate} = this.state;
+		let {openTemplate,allData} = this.state;
+		let data = Object.assign({},allData);
 		if(!openTemplate && type !== "edit"){
+
 			Store.dispatch(initialize('TemplatePrint',{name:'',content:''}))
+			data.content = '';
+			this.setState({
+				allData: data,
+				id:''
+			})
 		}
 		
 		this.setState({
@@ -152,6 +159,10 @@ class Template extends React.Component {
 			
 			Store.dispatch(initialize('TemplatePrint',{name:response.name,content:response.content}))
 			_this.onOpenTemplate("edit");
+			_this.setState({
+				allData: response.content,
+				id:response.id,
+			})
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -159,6 +170,7 @@ class Template extends React.Component {
 
 	render() {
 		const { handleSubmit} = this.props;
+		const { allData, id} = this.state;
 		return (
 			<div className="g-chooce-template">
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -316,7 +328,7 @@ class Template extends React.Component {
 					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 				>
 
-			       	 	<TemplatePrint onSubmit = {this.templateSubmit} onCancel={this.onOpenTemplate}/>
+					<TemplatePrint id={id} allData = {allData} onSubmit = {this.templateSubmit} onCancel={this.onOpenTemplate}/>
 		        </Drawer>
 			</div>
 
