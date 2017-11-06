@@ -296,7 +296,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						inline={true}
 					/>
 				</span>
-				<KrField name="propertyId"
+				<KrField name="connectStatus"
 						component="select"
 						label="连接状态："
 						onChange = {this.onchangeConnect}
