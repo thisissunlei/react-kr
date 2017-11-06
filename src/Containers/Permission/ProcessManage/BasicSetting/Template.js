@@ -67,8 +67,11 @@ class Template extends React.Component {
 		if(!form.formTempId){
 			State.formTempId = true;
 		}
-		if(form.allowPrint === 'true' && !form.formTempId){
+		if(form.allowPrint === 'true' && !form.printTempId){
 			State.printTempId = true;
+		}
+		if(form.allowPrint === 'false'){
+			State.printTempId = false;
 		}
 		if(State.formTempId || State.printTempId){
 			return;
