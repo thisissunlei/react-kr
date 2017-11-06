@@ -12,6 +12,7 @@ var componentType = {
     CHECK_RADIO:'radio',
     TIME_DATE:'date',
     TIME_TIME:'selectTime',
+    TIME_DATETIME:'date',
     CHECK_CHECK:'moreRadio',
     BUTTON_BROWES:'BUTTON_BROWES'
 }
@@ -19,9 +20,6 @@ var btnType = {
     btnCity:'city',
     btnAddress:'address'
 }
-
-
-
 module.exports = {
     componentType,
     btnType

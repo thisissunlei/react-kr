@@ -17,7 +17,7 @@ import mobx, {
 	action,
 	toJS
 } from 'mobx';
-import {DateFormat} from 'kr/Utils';
+import { DateFormat, Http} from 'kr/Utils';
 import {reduxForm,initialize,reset,change} from 'redux-form';
 import {Store} from 'kr/Redux';
 import arrow from './images/arrows.png';
@@ -45,21 +45,45 @@ export default class Initialize  extends React.Component{
 			isOpenEdit:false,
 			detail:[]
 		} 
+		this.editSubmitData = {};
 	}
 	componentDidMount() {
 		State.requestTree()
 
 	}
 
+	//编辑页打开
 	openEdit=(itemData)=>{
-		// Store.dispatch(initialize('FromsConfig',{fromsConfig:configData.tables}))
-		this.setState({
-			detail:configData.tables
-		})
-		this.onOpenEdit();
+		var _this = this;
+		Http.request('get-config-template-edit', { wfId: itemData.wfId}).then(function (response) {
+			_this.getEditDetail(itemData)
+			_this.editSubmitData = {
+				wfId: itemData.wfId,
+				formId: response.formId,
+				id: itemData.id,
+			}
+			_this.setState({
+				detail: response.tables
+			})
+		}).catch(function (err) { });
+		
+	}
+
+	getEditDetail = (item) =>{
+		var _this = this;
+		Http.request('get-config-detail-edit', { requestId: item.id }).then(function (response) {
+		
+			Store.dispatch(initialize('FromsConfig', response));
+		
+			
+			_this.onOpenEdit();
+			
+		}).catch(function (err) { });
 	}
 	openPrint=(itemData)=>{
-		console.log('openPrint')
+		var id = itemData.id;
+		http://adminlocal.krspace.cn/new/#/publicPage/81/printOther
+		window.location.href = `./#/publicPage/${id}/printOther`;
 	}
 	chooceType=(type)=>{
 		// let type = '';
@@ -72,7 +96,6 @@ export default class Initialize  extends React.Component{
 
 		}
 		State.searchParams = searchParams;
-		console.log('chooceType',type)
 	}
 	chooceAll=()=>{
 		let searchParams = {
@@ -85,7 +108,6 @@ export default class Initialize  extends React.Component{
 		}
 		State.searchParams = searchParams;
 
-		console.log('chooceAll');
 	}
 	chooceWf=(id)=>{
 		let searchParams = {
@@ -97,7 +119,6 @@ export default class Initialize  extends React.Component{
 
 		}
 		State.searchParams = searchParams;
-		console.log('chooceWf',id);
 	}
 	//编辑页面的开关
 	onOpenEdit = () =>{
@@ -108,12 +129,19 @@ export default class Initialize  extends React.Component{
 	}
 	//编辑提交
 	editSubmit = (values) =>{
+		const _this = this;
+		var params = Object.assign({}, this.editSubmitData);
 
+		params.dataJson = JSON.stringify(values);
+		Http.request('post-config-detail-edit', {}, params).then(function (response) {
+			_this.onOpenEdit()
+		}).catch(function (err) {
+			
+		 });
 	}
 
 	render(){
 		const {isOpenEdit,detail} = this.state;
-		console.log('render---->',State.request)
 
 		return(
 
@@ -229,9 +257,10 @@ export default class Initialize  extends React.Component{
 					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='uTime' component={(value,oldValue,itemData)=>{
 					 							return (
 					 								<div>
-													<Button label="编辑"  type='operation'  onClick={this.openEdit.bind(this,itemData)}/>
-													<Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>
-							                    </div>
+
+														<Button label="编辑"  type='operation'  onClick={this.openEdit.bind(this,itemData)}/>
+														{itemData.printed && <Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>}
+													</div>
 					 							)
 					 					}}>
 					 					</TableRowColumn>
@@ -249,7 +278,7 @@ export default class Initialize  extends React.Component{
                     containerStyle={{top:60,paddingBottom:228,zIndex:20}}
                     onClose={this.onOpenEdit}
 				>
-					<FromsConfig detail = {detail} onSubmit={this.onCreatDrawerSubmit} onCancel={this.onOpenEdit} />
+					<FromsConfig detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
 				</Drawer>
 			</div>
 		);
