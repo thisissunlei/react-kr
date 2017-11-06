@@ -33,7 +33,8 @@ let State = observable({
 		        doorCode :'',
 		        doorType : '',
 		        title :'',
-		        floor : '',
+				floor : '',
+				logined :'',
 		        page : 1,
 		        pageSize: 15,
 
