@@ -90,8 +90,8 @@ class TemplatePrint extends React.Component {
 
 	render() {
 
-		console.log("TemplatePrint", ">>>>>>>")
-		let {handleSubmit}=this.props;
+		
+		let {handleSubmit,allData}=this.props;
 		let {child} = this.state;
 
 		return (
@@ -114,7 +114,12 @@ class TemplatePrint extends React.Component {
 							requireLabel={true}
 							
 						/>	
-						<KrField component="editor" style={{width:"210mm"}}  isReduxForm = {true} name="content" label="" defaultValue=''/>
+						<KrField 
+							component="editor" 
+							style={{width:"210mm"}}  
+							name="content" 
+							label="" 
+							defaultValue={allData}/>
 						
 					</div>
 				</Section>
