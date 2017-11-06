@@ -146,6 +146,7 @@ State.getPrintTemplateData = action(function(id) {
 	var _this = this;
 	Http.request('get-form-template-data', {wfId:id}).then(function(response) {
 		if(response.id){
+			_this.formworkId=response.printTempId;
 			_this.formData = response;
 			_this.pcName = response.formTemplateName +'       '+ DateFormat(response.uFormTempTime,'   yyyy-mm-dd HH:MM:ss');
 			_this.printName= response.printTemplateName?(response.printTemplateName +'        '+ DateFormat(response.uPrintTempTime,'   yyyy-mm-dd HH:MM:ss')):'';
