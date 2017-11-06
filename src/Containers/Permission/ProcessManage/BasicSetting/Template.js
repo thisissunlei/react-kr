@@ -63,13 +63,10 @@ class Template extends React.Component {
 	onSubmit=(form)=>{
 		console.log('onSubmit--->',form)
 		form.wfId = State.formId;
-		if(!form.printTempId){
-			State.printTempId = true;
-		}
 		if(!form.formTempId){
 			State.formTempId = true;
 		}
-		if(State.formTempId || State.printTempId){
+		if(State.formTempId){
 			return;
 		}
 		
@@ -215,7 +212,6 @@ class Template extends React.Component {
 	                		name="allowPrint" 
 	                		component="group" 
 	                		label="是否打印"
-	                		requireLabel={true}
 	                		>
 			                    <KrField 
 			                    		name="allowPrint" 
@@ -236,7 +232,6 @@ class Template extends React.Component {
 			                grid={1} 
 			                label="模板设置" 
 			                type="labelText" 
-			                requireLabel={true}
 			            />
 			            <div className="up-load-template">
 			            	<span className='addBtn' onClick={()=>{
@@ -260,12 +255,12 @@ class Template extends React.Component {
 			            	{State.printTempId && <div className="error-message">请选择显示模板</div>}
 
 			            </div>
-						<Grid style={{marginTop:50,width:'81%'}}>
+						<Grid style={{marginTop:50,width:'50%'}}>
 							<Row >
 								<Col md={12} align="center">
 									<ButtonGroup>
 										<Button  label="确定" type="submit"  />
-										<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
+										{/*<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>*/}
 									</ButtonGroup>
 								  </Col>
 							</Row>
