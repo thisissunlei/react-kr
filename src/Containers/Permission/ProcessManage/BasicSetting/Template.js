@@ -65,7 +65,7 @@ class Template extends React.Component {
 		console.log('onSubmit--->',form)
 		let _this = this;
 		form.wfId = this.props.id;
-		form.printTempId = form.printTempId || State.formworkId;
+		form.printTempId = form.printTempId || State.formworkId || '' ;
 		if(!form.formTempId){
 			State.formTempId = true;
 		}
