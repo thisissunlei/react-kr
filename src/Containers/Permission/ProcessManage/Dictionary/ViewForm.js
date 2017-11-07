@@ -73,8 +73,8 @@ class ViewForm extends React.Component{
 								value={State.data.dictCode} label="字典编码" requireLabel={true} style={{width:252}}/>
 								<KrField grid={1/2} name="dictCode" type="labelText" label="字典类型" 
 								value={State.data.dataTypeStr} requireLabel={true} inline={false} style={{width:252}}/>
-								{State.data.dataType=='DYNAMIC'&&<KrField grid={1/2} name="sourceOrgin" type="labelText" left={50} style={{width:252}}
-								value={State.data.sourceOrgin} label="url地址" inline={false}/>}
+								{State.data.dataType=='DYNAMIC'&&<KrField grid={1/2} name="dataSource" type="labelText" left={50} style={{width:252}}
+								value={State.data.dataSource} label="url地址" inline={false}/>}
 								<KrField grid={1} name="descr" type="labelText" 
 								value={State.data.descr} label="描述" inline={false}/>
 								{State.data.dataType=='STATIC'&&<div>

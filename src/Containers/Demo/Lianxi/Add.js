@@ -86,7 +86,7 @@ class EditTable  extends React.Component{
 							style={{ width: 262, marginBottom: 5 }}
 							name="address"
 							component="address"
-							label="工位地址"
+							label="注册地址"
 							requireLabel={true}
 							inline={false}
 							url='customerDataAddList'

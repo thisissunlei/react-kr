@@ -321,7 +321,7 @@ class EditForm extends React.Component{
 					 </TabelEdit>
 					</div>}
 
-					{isStatic&&<div style={{marginLeft:22,marginBottom:20,marginTop:10}}><KrField grid={1/2} name="sourceOrgin" type="text" label="url地址" style={{width:252,zIndex:11}}/></div>}
+					{isStatic&&<div style={{marginLeft:22,marginBottom:20,marginTop:10}}><KrField grid={1/2} name="dataSource" type="text" label="url地址" style={{width:252,zIndex:11}}/></div>}
 
 					<Grid style={{paddingBottom:50}}>
 						<Row>
