@@ -45,13 +45,9 @@ export default class  SearchAllComponent extends React.Component {
 	}
 
 	getOptions(searchKey){
-        let {url}=this.props;
+		let {options}=this.props;
 		return new Promise((resolve, reject) => {
-			Http.request(url,{searchKey:searchKey }).then(function(response){
-				resolve({options:response.customerSourceList});
-			}).catch(function(err){
-				reject(err);
-			});
+			resolve({options:options});
 		});
 	}
     

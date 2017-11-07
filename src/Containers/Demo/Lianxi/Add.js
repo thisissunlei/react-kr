@@ -63,12 +63,15 @@ class EditTable  extends React.Component{
 	render(){
 		
 		let {handleSubmit}=this.props;
+		
+		var options=[{label:'123',value:'1'},{label:'1sd',value:'2'}]
 
 		
 		return(
 
 			<div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
+			   
 			            <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
@@ -76,8 +79,9 @@ class EditTable  extends React.Component{
                             label="社区名称"
                             requireLabel={true}
 							inline={false}
-							url='customerDataAddList'
+							options={options}
 						/>
+
 						<KrField grid={1 / 2}
 							style={{ width: 262, marginBottom: 5 }}
 							name="address"
@@ -96,6 +100,17 @@ class EditTable  extends React.Component{
 							inline={false}
 							url='customerDataAddList'
 						/>
+
+
+						<KrField grid={1/2}
+                            style={{width:262,marginBottom:5}}
+                            name="file"
+                            component="file"
+                            label="文件"
+                            requireLabel={true}
+							inline={false}
+						/>
+
 
 
 						<KrField 

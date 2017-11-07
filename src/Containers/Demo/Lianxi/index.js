@@ -75,10 +75,10 @@ export default class EditTable  extends React.Component{
 					contentStyle ={{ width: '700px',height:'auto'}}
 				>
 					<FromsConfig detail={data.data.tables} />
-					{/* <Add
+					<Add
 						onCancel={this.delSwidth}
 						onSubmit={this.delSubmit}
-					/> */}
+					/>
 				</Drawer>
 			</div>
 		);
