@@ -81,7 +81,7 @@ export default class Initialize  extends React.Component{
 		}).catch(function (err) { });
 	}
 	openPrint=(itemData)=>{
-		var id = itemData.wfId;
+		var id = itemData.id;
 		// http://adminlocal.krspace.cn/new/#/publicPage/81/printOther
 		window.location.href = `./#/publicPage/${id}/printOther`;
 	}

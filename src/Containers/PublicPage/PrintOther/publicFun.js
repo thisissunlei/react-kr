@@ -1,5 +1,5 @@
 var paperHeight = 1120,//整张纸的高
-    uselessHeight = 60 + 25,//要减去的高
+    uselessHeight = 60 + 25 ,//要减去的高
     markHeight = 160,//章的高
     newDate = parseInt(Math.random()*1000+1000),
     markWidth = 160,
@@ -36,42 +36,29 @@ function templateParse(template){
     template = template.replace(includeEnd,'<div class="print-include-end'+newDate+'"></div>');
     return template;
 }
-
-// //所有分页的标记渲染
-// function paginations(){
-//     let elems = getNode(".print-pagination"+newDate);
-//     for(let i=0;i<elems.length;i++){
-//         everyPagination(elems[i]);
-//     }
-// }
 //每一个分页标记的渲染
 function everyPagination(elem){
     var detail = elem.getBoundingClientRect(),
         top = detail.top-uselessHeight,
+       
+        // top = elem.offsetTop - uselessHeight,
         pageNum = Math.ceil(top/paperHeight),
         diffValue = pageNum * paperHeight - top,
         height = diffValue > 0 ? diffValue : 0;
-    
+    console.log(top, "PPPPPPP", elem.offsetTop, "======", pageNum, "+++++++", height)
         elem.style.height = height + "px";
 }
-
-// // 所有包围标记的渲染
-// function includes(){
-//     var elemsStart = getNode('.print-include-start'+newDate);
-//     var elemsEnd = getNode('.print-include-end'+newDate);
-//     for(let i=0;i<elemsStart.length;i++){
-//         everyInclude(elemsStart[i],elemsEnd[i]);
-//     }
-
-// }
 //每一个包围标记的渲染
 function everyInclude(startElem,endElem){
     var startDetail = startElem.getBoundingClientRect(),
         endDetail = endElem.getBoundingClientRect(),
         startTop = startDetail.top - uselessHeight,
         endTop = endDetail.top - uselessHeight,
+        // startTop = startElem.offsetTop - uselessHeight,
+        // endTop = endElem.offsetTop - uselessHeight,
         startPageNum =  Math.ceil(startTop/paperHeight),
         endPageNum = Math.ceil(endTop/paperHeight);
+        console.log(endTop,">>>>>>>>>")
         if(endPageNum>startPageNum){
             var diffValue = startPageNum * paperHeight - startTop,
                 height = diffValue > 0 ? diffValue : 0;
@@ -112,6 +99,7 @@ function everyCheckMark(num,pageNum){
 //顺序渲染所有节点
 function allElemsRender(){
     sortAll();
+    console.log(elemArr,"=======")
     for (var i = 0; i < elemArr.length; i++) {
         var elem = elemArr[i];
         if(elem.type === "include"){
@@ -126,7 +114,7 @@ function sortAll(){
     produceElemArr(".print-pagination",'page')
     produceElemArr('.print-include','include')
     elemArr.sort(function(a,b){
-        return b.top-a.top
+        return b.top-a.top<0
     });
 }
 //获取每一个渲染的元素
