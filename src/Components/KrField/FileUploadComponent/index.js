@@ -281,7 +281,7 @@ export default class FileUploadComponent extends React.Component {
 						}
 					};
 
-					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
+					xhrfile.open('POST', 'http://optest02.krspace.cn/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
 					xhrfile.responseType = 'json';
 					xhrfile.send(form);
 				} else {
@@ -289,7 +289,7 @@ export default class FileUploadComponent extends React.Component {
 				}
 			}
 		};
-		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
+		xhr.open('GET', 'http://optest02.krspace.cn/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
 	}
