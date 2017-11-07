@@ -149,6 +149,8 @@ class Template extends React.Component {
 	templateSubmit = (values) =>{
 		State.printName = values.name;
 		State.formworkId = values.printTemplateId;
+		State.printTempId = false;
+		State.printTempId = values.printTemplateId
 		this.onOpenTemplate();
 	}
 	//获取编辑数据
