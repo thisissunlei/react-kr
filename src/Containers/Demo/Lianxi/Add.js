@@ -93,16 +93,6 @@ class EditTable  extends React.Component{
 						/>
 
 
-						<KrField grid={1/2}
-                            style={{width:262,marginBottom:5}}
-                            name="file"
-                            component="file"
-                            label="文件"
-                            requireLabel={true}
-							inline={false}
-						/>
-
-
 
 						<KrField 
                             grid={1/2} 
