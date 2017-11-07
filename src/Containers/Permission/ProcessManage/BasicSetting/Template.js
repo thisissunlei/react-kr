@@ -65,6 +65,7 @@ class Template extends React.Component {
 		console.log('onSubmit--->',form)
 		let _this = this;
 		form.wfId = this.props.id;
+		form.printTempId = form.printTempId || State.formworkId;
 		if(!form.formTempId){
 			State.formTempId = true;
 		}
@@ -149,8 +150,6 @@ class Template extends React.Component {
 	templateSubmit = (values) =>{
 		State.printName = values.name;
 		State.formworkId = values.printTemplateId;
-		State.printTempId = false;
-		State.printTempId = values.printTemplateId
 		this.onOpenTemplate();
 	}
 	//获取编辑数据
