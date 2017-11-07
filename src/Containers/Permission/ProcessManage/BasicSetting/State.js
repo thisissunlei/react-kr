@@ -145,7 +145,6 @@ State.getPrintTemplateList = action(function(id) {
 State.getPrintTemplateData = action(function(id) {
 	var _this = this;
 	Http.request('get-form-template-data', {wfId:id}).then(function(response) {
-		console.log(response,">>>>>>>");
 		if(response.id){
 			_this.formworkId=response.printTempId;
 			_this.formData = response;
