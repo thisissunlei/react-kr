@@ -153,6 +153,7 @@ State.getPrintTemplateData = action(function(id) {
 			Store.dispatch(change('Template','printTempId',response.printTempId));
 			Store.dispatch(change('Template','formTempId',response.formTempId));
 			Store.dispatch(change('Template','allowPrint',response.allowPrint+''));
+			_this.formworkId = ''
 		}
 		
 	}).catch(function(err) {
