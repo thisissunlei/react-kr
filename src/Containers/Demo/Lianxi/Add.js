@@ -71,7 +71,7 @@ class EditTable  extends React.Component{
 
 			<div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
-			   
+
 			            <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
@@ -88,15 +88,6 @@ class EditTable  extends React.Component{
 							component="address"
 							label="工位地址"
 							requireLabel={true}
-							inline={false}
-							url='customerDataAddList'
-						/>
-						<KrField grid={1/2}
-                            style={{width:262,marginBottom:5}}
-                            name="code"
-                            component="searchSelect"
-                            label="编码"
-                            requireLabel={true}
 							inline={false}
 							url='customerDataAddList'
 						/>
