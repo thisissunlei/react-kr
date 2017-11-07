@@ -82,7 +82,7 @@ export default class Initialize  extends React.Component{
 	}
 	openPrint=(itemData)=>{
 		var id = itemData.id;
-		http://adminlocal.krspace.cn/new/#/publicPage/81/printOther
+		// http://adminlocal.krspace.cn/new/#/publicPage/81/printOther
 		window.location.href = `./#/publicPage/${id}/printOther`;
 	}
 	chooceType=(type)=>{
@@ -278,7 +278,7 @@ export default class Initialize  extends React.Component{
                     containerStyle={{top:60,paddingBottom:228,zIndex:20}}
                     onClose={this.onOpenEdit}
 				>
-					<FromsConfig detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
+					<FromsConfig title = "新建" detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
 				</Drawer>
 			</div>
 		);

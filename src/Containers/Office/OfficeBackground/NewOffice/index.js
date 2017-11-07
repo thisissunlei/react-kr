@@ -205,7 +205,7 @@ export default class NewOffice extends React.Component {
             width = {750}
             containerStyle={{ top: 60, paddingBottom: 228, zIndex: 20 }}
         >
-          <FromsConfig detail={detail} onSubmit={this.onSubmit} onCancel={this.swidthNew} />
+          <FromsConfig title="编辑" detail={detail} onSubmit={this.onSubmit} onCancel={this.swidthNew} />
         </Drawer>
       </div>
     );
