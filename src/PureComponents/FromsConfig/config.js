@@ -19,7 +19,7 @@ var componentType = {
     BUTTON_BROWES:'BUTTON_BROWES'
 }
 var btnType = {
-    btnCity:'city',
+    btnCity:'county',
     btnAddress:'address'
 }
 //明细表校验

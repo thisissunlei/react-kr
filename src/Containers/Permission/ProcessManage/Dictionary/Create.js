@@ -55,6 +55,7 @@ class NewCreateForm extends React.Component{
 		return false;
 	}
 	onSubmit=(value)=>{
+	    if(value.dataType=='STATIC'){
 		let labelArr = [];
 		let valueArr = [];
 		let orderNumArr = [];
@@ -258,6 +259,9 @@ class NewCreateForm extends React.Component{
 		console.log('是否有空值',orderNumNone,valueNone,labelNone)
 		console.log('table数组',orderNumArray,valueArray,labelArray)
 		console.log('是否有重复的值',orderNumCop,valueCop,labelCop)
+
+	   }
+
 		State.newCreateDict(value);
 	}
 	onCancel=()=>{
@@ -328,7 +332,7 @@ class NewCreateForm extends React.Component{
 					 </TabelEdit>
 					</div>}
 
-					{isStatic&&<div style={{marginLeft:22,marginBottom:20,marginTop:10}}><KrField grid={1/2} name="dictName" type="text" label="url地址" style={{width:252,zIndex:11}}/></div>}
+					{isStatic&&<div style={{marginLeft:22,marginBottom:20,marginTop:10}}><KrField grid={1/2} name="sourceOrgin" type="text" label="url地址" style={{width:252,zIndex:11}}/></div>}
 
 					<Grid style={{paddingBottom:50}}>
 						<Row>

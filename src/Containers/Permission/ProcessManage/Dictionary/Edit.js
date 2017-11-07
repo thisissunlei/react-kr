@@ -43,11 +43,20 @@ class EditForm extends React.Component{
 	componentDidMount() {
 		Store.dispatch(initialize('EditForm',State.data));
 		Store.dispatch(change('EditForm','items',toJS(State.data.items)));
-
+		if(State.data.dataType=='DYNAMIC'){
+			this.setState({
+				isStatic:true
+			})
+		}else{
+			this.setState({
+				isStatic:false
+			})
+		}
 	}
 	componentWillReceiveProps(nextProps) {
 	}
 	onSubmit=(value)=>{
+		if(value.dataType=='STATIC'){
 		let labelArr = [];
 		let valueArr = [];
 		let orderNumArr = [];
@@ -242,6 +251,8 @@ class EditForm extends React.Component{
 		console.log('是否有空值',orderNumNone,valueNone,labelNone)
 		console.log('table数组',orderNumArray,valueArray,labelArray)
 		console.log('是否有重复的值',orderNumCop,valueCop,labelCop)
+
+	}
 		// State.newCreateDict(value);
 		State.editDict(value)
 	}
@@ -310,7 +321,7 @@ class EditForm extends React.Component{
 					 </TabelEdit>
 					</div>}
 
-					{isStatic&&<div style={{marginLeft:22,marginBottom:20,marginTop:10}}><KrField grid={1/2} name="dictName" type="text" label="url地址" style={{width:252,zIndex:11}}/></div>}
+					{isStatic&&<div style={{marginLeft:22,marginBottom:20,marginTop:10}}><KrField grid={1/2} name="sourceOrgin" type="text" label="url地址" style={{width:252,zIndex:11}}/></div>}
 
 					<Grid style={{paddingBottom:50}}>
 						<Row>

@@ -109,8 +109,9 @@ class FromsConfig extends Component {
 	//浏览按钮渲染
 	btnFieldRender = (item,lineNum) =>{
 		var setting = item.setting;
-		var type = btnType[setting.wsradio];
-		this.universalRender(item,type,lineNum);
+		var js=JSON.parse(setting);
+		var type = btnType[js.wsradio];
+		return this.universalRender(item,type,lineNum);
 	}	
 	//明细表选人
 	detailRender = (item) =>{
