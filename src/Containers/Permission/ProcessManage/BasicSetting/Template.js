@@ -156,7 +156,7 @@ class Template extends React.Component {
 	getEditData = () =>{
 		var id = State.formworkId;
 		var _this = this;
-		Http.request("get-other-contract-formwork",{id}).then(function (response) {
+		Http.request("get-other-contract-formwork",{id:id}).then(function (response) {
 			
 			Store.dispatch(initialize('TemplatePrint',{name:response.name,content:response.content}))
 			_this.onOpenTemplate("edit");
