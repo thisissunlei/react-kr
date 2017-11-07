@@ -67,13 +67,23 @@ export default class PrintOther extends React.Component {
 		const id = this.props.params.otherPrintId;
 		const _this = this;
 		
-        Http.request("get-other-contract-formwork",{id:id}).then(function (response) {
-           _this.allRender(response.content,allData);
+		Http.request("get-other-print-formwork", {requestId:id}).then(function (response) {
+			// _this.getAllData(response.content,id);
+			_this.allRender(response.content, allData);
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
 		
 	
+	}
+	getAllData = (content,id) =>{
+		const _this = this;
+		Http.request("get-other-print-data", { requestId: id }).then(function (response) {
+			console.log(response,"PPPPPP")
+			_this.allRender(content,{});
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
 	}
 	// //主表解析
 	// mianCodeParse = (elems,params) =>{
