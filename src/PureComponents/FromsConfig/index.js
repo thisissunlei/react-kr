@@ -29,6 +29,7 @@ class FromsConfig extends Component {
 		super(props, context);
 		let {detail} =props;
 		inspectionData = [].concat(detail);
+		this.detailNames=[];
 		
 	}
 	onCancel = () =>{
@@ -38,6 +39,15 @@ class FromsConfig extends Component {
 	//提交代码
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
+		 for(var i=0;i<this.detailNames.length;i++){
+			 if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
+				Notify.show([{
+					message:'明细表不能为空',
+					type: 'danger',
+				}]);
+				return ;
+			 }
+		 }
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(params)
 	}
@@ -49,6 +59,7 @@ class FromsConfig extends Component {
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
 			}else{
+				this.detailNames.push({name:item.tableName});
 				return this.detailRender(item);
 				// return '';
 			}	
