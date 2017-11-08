@@ -7,44 +7,18 @@ import {
 	Http
 } from "kr/Utils";
 import {
-	Actions,
-	Store
-} from 'kr/Redux';
-
-import {
 	KrField,
-	Grid,
-	Row,
-	Col,
 	Button,
-	ListGroup,
-	ListGroupItem,
-	SearchForms,
-  	Message,
-	ButtonGroup,
-	CircleStyleTwo,
-	KrDate
+  Message,
 } from 'kr-ui';
 
 import './index.less';
 
 
 class AuditDialog extends React.Component {
-
-	static PropTypes = {
-		onCancel: React.PropTypes.func,
-	}
-
 	constructor(props) {
 		super(props);
 	}
-
-
-	componentDidMount() {
-
-
-	}
-
   onSubmit = (form) => {
 		const {detail,onSubmit}=this.props;
 		form.companyId = detail.companyId;
