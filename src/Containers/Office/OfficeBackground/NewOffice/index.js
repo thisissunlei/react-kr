@@ -85,7 +85,7 @@ export default class NewOffice extends React.Component {
     }
     let _this = this;
     Http.request('get-config-template-edit', { wfId:id}).then(function (response) {
-      _this.swidthNew()
+      _this.swidthNew();
       _this.newSubmitData = {
         formId: itemData.formId,
         wfName: itemData.name,
@@ -204,7 +204,12 @@ export default class NewOffice extends React.Component {
             width = {750}
             containerStyle={{ top: 60, paddingBottom: 228, zIndex: 20 }}
         >
-          <FromsConfig title="编辑" detail={detail} onSubmit={this.onSubmit} onCancel={this.swidthNew} />
+          <FromsConfig 
+            title="编辑" 
+            detail={detail} 
+            onSubmit={this.onSubmit} 
+            onCancel={this.swidthNew} 
+          />
         </Drawer>
       </div>
     );

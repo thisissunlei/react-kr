@@ -32,6 +32,10 @@ class FromsConfig extends Component {
 		this.detailNames=[];
 		
 	}
+    componentWillUnmount(){
+		inspectionData=[];
+	}
+
 	onCancel = () =>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -39,7 +43,6 @@ class FromsConfig extends Component {
 	//提交代码
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
-		console.log('param',params);
 		 for(var i=0;i<this.detailNames.length;i++){
 			if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
 				/*Notify.show([{
@@ -61,7 +64,6 @@ class FromsConfig extends Component {
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
 			}else{
-				console.log('item>>>>>',item);
 				this.detailNames.push({name:item.tableName});
 				return this.detailRender(item);
 				// return '';
@@ -159,7 +161,6 @@ class FromsConfig extends Component {
 
 	}
 	
-	
 	render(){
 		const {handleSubmit,title} = this.props;
 
@@ -182,7 +183,7 @@ const validate = values => {
 
 	let errors = {};
 	let detailMessage = ''
-	console.log('values',values);
+	console.log('values',values,'inspectionData',inspectionData);
 	inspectionData.map((item, index) => {
 		if (item.isMain) {
 			errors = mainCheck(item.fields, values,true);

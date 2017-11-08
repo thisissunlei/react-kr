@@ -46,11 +46,14 @@ export default class Initialize  extends React.Component{
 			detail:[]
 		} 
 		this.editSubmitData = {};
+	
 	}
 	componentDidMount() {
 		State.requestTree()
 
 	}
+
+	
 
 	//编辑页打开
 	openEdit=(itemData)=>{
@@ -75,7 +78,6 @@ export default class Initialize  extends React.Component{
 		
 			Store.dispatch(initialize('FromsConfig', response));
 		
-			
 			_this.onOpenEdit();
 			
 		}).catch(function (err) { });
