@@ -1,15 +1,12 @@
 import React from 'react';
 import {
-	Http,
-	DateFormat
+	Http
 } from 'kr/Utils';
 import {
 	reduxForm,
-	change,
 	initialize
 } from 'redux-form';
 import {
-	Actions,
 	Store,
 	dispatch
 } from 'kr/Redux';
@@ -21,7 +18,6 @@ import {
 	ButtonGroup,
 	Button,
 	Message,
-	KrDate,
 } from 'kr-ui';
 import './index.less';
 import HeaderUpload from './../HeaderUpload';
@@ -106,7 +102,6 @@ class EditAudit extends React.Component {
                                 component="input"
 								label="公司简称"
 								requireLabel={true}
-								onChange={this.selectType}
 						 	/>
 							 <div className="u-photo-box">
 								<span className="u-photo-title"><span className="u-photo-symbol">*</span>公司Logo</span>
