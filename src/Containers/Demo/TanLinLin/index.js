@@ -109,6 +109,7 @@ import plupload from 'plupload/js/plupload.full.min';
 
 				Error: function(up, err) {
 					console.log("err",err);
+					console.log(err.message);
 					document.getElementById('console').appendChild(document.createTextNode("\nError xml:" + err.response));
 				}
 			},
