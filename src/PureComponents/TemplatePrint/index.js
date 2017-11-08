@@ -63,6 +63,7 @@ class TemplatePrint extends React.Component {
 		this.state = {
 			child:""
 		}
+		this.content = ''
     }
     componentDidMount(){
 		// const { NavModel } = this.props;
@@ -73,10 +74,9 @@ class TemplatePrint extends React.Component {
 	onSubmit = (value) =>{
 		var params = Object.assign({},value);
 		let {onSubmit,id} = this.props;
+	
 		params.id= id;
-		
         Http.request("other-contract-formwork-new",{},params).then(function (response) {
-		
 			onSubmit(Object.assign(value,{printTemplateId:response.printTemplateId}));
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -88,10 +88,11 @@ class TemplatePrint extends React.Component {
 	   let {onCancel} = this.props;
 	   onCancel && onCancel()
 	}
+	templateChange = (value) =>{
+		this.content = value;
+	}
 
 	render() {
-
-		
 		let {handleSubmit,allData}=this.props;
 		let {child} = this.state;
 
@@ -120,6 +121,7 @@ class TemplatePrint extends React.Component {
 							style={{width:"210mm"}}  
 							name="content" 
 							label="" 
+							onChange ={this.templateChange}
 							defaultValue={allData}/>
 						
 					</div>

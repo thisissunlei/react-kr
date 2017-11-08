@@ -17,7 +17,8 @@ import {Http,delHtmlTag} from 'kr/Utils';
 import {
 	templateParse,
 	checkMark,
-	allElemsRender
+	allElemsRender,
+	chaptersMove
 } from './publicFun'
 export default class PrintOther extends React.Component {
 
@@ -37,39 +38,14 @@ export default class PrintOther extends React.Component {
 	}
 	componentDidMount(){
 		this.getData();
-		setTimeout(function() {
-			
-			window.print();
-			window.close();
-		}, 1200)
+	
 	}
 	//获取信息
 	getData=()=>{
-		var allData =  {
-		
-			m_name:"yihao",
-			m_age:18,
-			m_sex:"男",
-			m_motto:"宠辱不惊，看庭前花开花落；去留无意，望天空云卷云舒。",
-		
-			d_moneyDetail:[
-				{name:"noe1",age:23,sex:"女"},
-				{name:"shui2",age:15,sex:"男"},
-				{name:"shui3",age:19,sex:"女"},
-			],
-			d_moneyDetail1:[
-				{name:"noe1",age:23,sex:"女"},
-				{name:"shui2",age:15,sex:"男"},
-				{name:"shui3",age:19,sex:"女"},
-			],
-			other:'其他'
-		};
 		const id = this.props.params.otherPrintId;
 		const _this = this;
-		
 		Http.request("get-other-print-formwork", {requestId:id}).then(function (response) {
-			// _this.getAllData(response.content,id);
-			_this.allRender(response.content, allData);
+			_this.getAllData(response.content,id);
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
@@ -79,22 +55,12 @@ export default class PrintOther extends React.Component {
 	getAllData = (content,id) =>{
 		const _this = this;
 		Http.request("get-other-print-data", { requestId: id }).then(function (response) {
-			console.log(response,"PPPPPP")
-			_this.allRender(content,{});
+			_this.allRender(content,response);
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
 	}
-	// //主表解析
-	// mianCodeParse = (elems,params) =>{
-	// 	console.loh()
-	// 	for(let i = 0; i<elems.length;i++){
-	// 		let everyLine = elems[i];
-				
-	// 		everyLine.innerHTML = this.codeParse(everyLine.innerHTML,params)
-	// 	}
-	// }
-	//明细表解析
+	
 	allRender = (template,allData) =>{
 		this.configData.template =  template;
 		this.configData.allData = allData;
@@ -105,9 +71,15 @@ export default class PrintOther extends React.Component {
 		this.detailCodeParse(detailTr,this.configData.allData.moneyDetail)
 		allElemsRender();
 		checkMark(this.print);
-	}
-	detailCodeParse = (elems, params) =>{
+		chaptersMove();
+		setTimeout(function() {
+			window.print();
+			window.close();
+		}, 500);
 		
+	}
+	//明细表解析
+	detailCodeParse = (elems, params) =>{
 		if(!elems.length){
 			return;
 		}
@@ -130,7 +102,6 @@ export default class PrintOther extends React.Component {
 		return t;
 	}
 
-   
    
 	render() {
        

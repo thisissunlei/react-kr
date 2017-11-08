@@ -40,13 +40,11 @@ function templateParse(template){
 function everyPagination(elem){
     var detail = elem.getBoundingClientRect(),
         top = detail.top-uselessHeight,
-       
-        // top = elem.offsetTop - uselessHeight,
         pageNum = Math.ceil(top/paperHeight),
         diffValue = pageNum * paperHeight - top,
         height = diffValue > 0 ? diffValue : 0;
-    console.log(top, "PPPPPPP", elem.offsetTop, "======", pageNum, "+++++++", height)
         elem.style.height = height + "px";
+        elem.style.marginTop = 50 + "px";
 }
 //每一个包围标记的渲染
 function everyInclude(startElem,endElem){
@@ -54,15 +52,14 @@ function everyInclude(startElem,endElem){
         endDetail = endElem.getBoundingClientRect(),
         startTop = startDetail.top - uselessHeight,
         endTop = endDetail.top - uselessHeight,
-        // startTop = startElem.offsetTop - uselessHeight,
-        // endTop = endElem.offsetTop - uselessHeight,
+       
         startPageNum =  Math.ceil(startTop/paperHeight),
         endPageNum = Math.ceil(endTop/paperHeight);
-        console.log(endTop,">>>>>>>>>")
         if(endPageNum>startPageNum){
             var diffValue = startPageNum * paperHeight - startTop,
                 height = diffValue > 0 ? diffValue : 0;
                 startElem.style.height = height + "px";
+                startElem.style.marginTop = 50 + "px";
         }      
 }
 
@@ -99,7 +96,6 @@ function everyCheckMark(num,pageNum){
 //顺序渲染所有节点
 function allElemsRender(){
     sortAll();
-    console.log(elemArr,"=======")
     for (var i = 0; i < elemArr.length; i++) {
         var elem = elemArr[i];
         if(elem.type === "include"){
@@ -141,11 +137,49 @@ function produceElemArr(className,type){
    
 
 }
-
+//印章位置调整
+function chaptersMove(params) {
+    var elems = getNode(".print-other-chapter" + newDate +" img");
+    console.log(elems,"-------");
+    for(let i = 0; i<elems.length;i++ ){
+        everyChapter(elems[i]);
+    }
+}
+//每一个章的位置调整
+function everyChapter(elem) {
+    var detail = elem.getBoundingClientRect(),
+        topTop = detail.top - uselessHeight,
+        bottomTop = topTop + detail.height, 
+        numTop = Math.ceil(topTop / paperHeight),
+        numBottom = Math.ceil(bottomTop / paperHeight),
+        distanceTop = Math.abs(numTop * paperHeight - topTop),
+        distanceBottom = Math.abs(numBottom * paperHeight- bottomTop);
+    if (numTop!= numBottom){
+        let elemTop = parseInt(elem.style.top)
+        if(distanceTop < distanceBottom){
+            elem.style.top = elemTop + distanceTop +50+ 'px';
+        }else{
+            elem.style.top = elemTop - distanceBottom -50+ "px"
+        }
+    }else{
+        let elemTop = parseInt(elem.style.top)
+        let newTop = Math.abs((numTop - 1) * paperHeight - topTop);
+        let newBottom = Math.abs((numTop) * paperHeight - bottomTop);
+        if (newTop<20){
+            elem.style.top = elemTop + 20 + 'px';
+        }
+        if (newBottom<20){
+            elem.style.top = elemTop  - 20 + 'px';
+        }
+        
+    }
+    
+}
 
 module.exports = {
 	templateParse,
     codeParse,
     checkMark,
-    allElemsRender
+    allElemsRender,
+    chaptersMove
 }   

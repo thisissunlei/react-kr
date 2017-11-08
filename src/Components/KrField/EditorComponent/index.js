@@ -25,7 +25,7 @@ export default class EditorComponent extends React.Component {
 
 	onChange = (value) =>{
 		const {onChange,input} = this.props;
-		
+		console.log(value,"-------------------");
 		input.onChange(value);
 		onChange && onChange(value);
 	}
