@@ -160,6 +160,9 @@ class FromsConfig extends Component {
 		// inspectionData = [].concat(detail);
 
 	}
+	componentWillUnmount(){
+		inspectionData = [];
+	}
 	
 	render(){
 		const {handleSubmit,title} = this.props;
@@ -181,9 +184,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const asyncValidate = (values /*, dispatch */) => {
   return sleep(1000).then(() => {
-	  if(!validate(values).name){
-		throw validate(values)
-	  }
+	throw validate(values)
   })
 }
 

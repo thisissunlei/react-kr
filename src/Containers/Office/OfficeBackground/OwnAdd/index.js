@@ -46,7 +46,7 @@ export default class Initialize  extends React.Component{
 			detail:[]
 		} 
 		this.editSubmitData = {};
-	
+		this.name = ''; 
 	}
 	componentDidMount() {
 		State.requestTree()
@@ -57,6 +57,8 @@ export default class Initialize  extends React.Component{
 
 	//编辑页打开
 	openEdit=(itemData)=>{
+		console.log(itemData,"OOOOOOO")
+		this.name = itemData.wfBaseName;
 		var _this = this;
 		Http.request('get-config-template-edit', { wfId: itemData.wfId}).then(function (response) {
 			_this.getEditDetail(itemData)
@@ -84,7 +86,6 @@ export default class Initialize  extends React.Component{
 	}
 	openPrint=(itemData)=>{
 		var id = itemData.id;
-		// http://adminlocal.krspace.cn/new/#/publicPage/81/printOther
 		window.location.href = `./#/publicPage/${id}/printOther`;
 	}
 	chooceType=(type)=>{
@@ -280,7 +281,7 @@ export default class Initialize  extends React.Component{
                     containerStyle={{top:60,paddingBottom:228,zIndex:20}}
                     onClose={this.onOpenEdit}
 				>
-					<FromsConfig title = "新建" detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
+					<FromsConfig title={`${this.name}-编辑`} detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
 				</Drawer>
 			</div>
 		);
