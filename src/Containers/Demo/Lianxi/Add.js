@@ -82,6 +82,15 @@ class EditTable  extends React.Component{
 							options={options}
 						/>
 
+						<KrField grid={1/2}
+                            style={{width:262,marginBottom:5}}
+                            name="df"
+                            component="input"
+                            label="df"
+                            requireLabel={true}
+							inline={false}
+						/>
+
 						<KrField grid={1 / 2}
 							style={{ width: 262, marginBottom: 5 }}
 							name="address"
@@ -176,6 +185,19 @@ class EditTable  extends React.Component{
 	}
 }
 
+const validate = values => {
+	    let nums=/^\d+(\.\d+)?$/;
+		let errors = {};
+
+		if(values.df && !nums.test(values.df)){
+			errors.df='we';
+		}
+		
+		// errors.name = new Date();
+		return errors
+	}
+
 export default reduxForm({
-	form: 'EditTable'
+	form: 'EditTable',
+	validate
 })(EditTable);

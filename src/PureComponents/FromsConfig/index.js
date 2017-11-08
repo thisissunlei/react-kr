@@ -40,13 +40,13 @@ class FromsConfig extends Component {
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
 		 for(var i=0;i<this.detailNames.length;i++){
-			 if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
+			/* if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
 				Notify.show([{
 					message:'明细表不能为空',
 					type: 'danger',
 				}]);
 				return ;
-			 }
+			 }*/
 		 }
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(params)
@@ -55,6 +55,8 @@ class FromsConfig extends Component {
 	renderFields = () => {
 		let {detail} = this.props;
 			detail = detail||[];
+			inspectionData = [].concat(detail);			
+			console.log('defilds-----',detail);
 		var fields = detail.map((item,index)=>{
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
@@ -150,8 +152,9 @@ class FromsConfig extends Component {
 		
 	}
 	componentDidMount () {
-		let {detail} = this.props;
-		inspectionData = detail;
+		// let {detail} = this.props;
+		// console.log('detailprops',detail);
+		// inspectionData = [].concat(detail);
 
 	}
 	
