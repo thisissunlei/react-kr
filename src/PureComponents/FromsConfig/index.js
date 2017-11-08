@@ -39,14 +39,15 @@ class FromsConfig extends Component {
 	//提交代码
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
+		console.log('param',params);
 		 for(var i=0;i<this.detailNames.length;i++){
-			/* if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
-				Notify.show([{
+			if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
+				/*Notify.show([{
 					message:'明细表不能为空',
 					type: 'danger',
 				}]);
-				return ;
-			 }*/
+				return ;*/
+			 }
 		 }
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(params)
@@ -56,11 +57,11 @@ class FromsConfig extends Component {
 		let {detail} = this.props;
 			detail = detail||[];
 			inspectionData = [].concat(detail);			
-			console.log('defilds-----',detail);
 		var fields = detail.map((item,index)=>{
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
 			}else{
+				console.log('item>>>>>',item);
 				this.detailNames.push({name:item.tableName});
 				return this.detailRender(item);
 				// return '';
@@ -181,6 +182,7 @@ const validate = values => {
 
 	let errors = {};
 	let detailMessage = ''
+	console.log('values',values);
 	inspectionData.map((item, index) => {
 		if (item.isMain) {
 			errors = mainCheck(item.fields, values,true);
