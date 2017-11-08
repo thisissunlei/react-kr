@@ -1,17 +1,10 @@
 import React from 'react';
 import {
-	Http,
-	DateFormat
+	Http
 } from 'kr/Utils';
 import {
-	reduxForm,
-	change,
-	initialize
+	reduxForm
 } from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
@@ -20,7 +13,6 @@ import {
 	ButtonGroup,
 	Button,
 	Message,
-	KrDate,
 } from 'kr-ui';
 import {PhotoSwipeGallery} from 'react-photoswipe';
 import 'react-photoswipe/lib/photoswipe.css';
@@ -136,56 +128,7 @@ class AuditDrawer extends React.Component {
 		);
 	}
 }
-const validate = values => {
-
-		const errors = {};
-
-		if (!values.title) {
-			errors.title = '请填写活动标题';
-		}
-		if (values.title && values.title.length>50) {
-			errors.title = '活动标题不能超过50个字符';
-		}
-
-		if (!values.cost) {
-			errors.cost = '请输入费用';
-		}
-
-		if (!values.type) {
-			errors.type = '请选择活动类型';
-		}
-		if (!values.address) {
-			errors.address = '请填写活动地址';
-		}
-
-		if (!values.cmtId) {
-			errors.cmtId = '请选择所属社区';
-		}
-		if (!values.sponsor) {
-			errors.sponsor = '请填写主办方';
-		}
-
-		if (!(values.startTime && values.StartTimeStr)) {
-			errors.startTime = '请填写开始时间';
-		}
-		if (!(values.endTime && values.EndTimeStr)) {
-			errors.endTime = '请填写结束时间';
-		}
-		if (!values.imgUrl) {
-			errors.imgUrl = '请选择活动封面';
-		}
-
-		if (!values.richText) {
-			errors.richText = '请输入活动内容';
-		}
-		
-		
-
-		return errors
-}
 
 export default reduxForm({
 		form: 'auditDrawer',
-		 validate,
-		
-	})(AuditDrawer);
+})(AuditDrawer);
