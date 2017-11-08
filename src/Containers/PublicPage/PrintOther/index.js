@@ -18,7 +18,9 @@ import {
 	templateParse,
 	checkMark,
 	allElemsRender,
-	chaptersMove
+	chaptersMove,
+	delEndFutility,
+	controlHeight
 } from './publicFun'
 export default class PrintOther extends React.Component {
 
@@ -70,8 +72,11 @@ export default class PrintOther extends React.Component {
 		
 		this.detailCodeParse(detailTr,this.configData.allData.moneyDetail)
 		allElemsRender();
+		
+		chaptersMove();//章位调整
+		delEndFutility();//删除最后无用内容		
+		controlHeight(this.print)
 		checkMark(this.print);
-		chaptersMove();
 		setTimeout(function() {
 			window.print();
 			window.close();

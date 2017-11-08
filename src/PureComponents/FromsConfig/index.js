@@ -42,6 +42,9 @@ class FromsConfig extends Component {
 	}
 	//提交代码
 	onSubmit = (values) =>{
+		console.log("11111111111111")
+		// validate(values);
+		// return ;
 		let params = Object.assign({},values);
 		 for(var i=0;i<this.detailNames.length;i++){
 			if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
@@ -160,6 +163,9 @@ class FromsConfig extends Component {
 		// inspectionData = [].concat(detail);
 
 	}
+	componentWillUnmount(){
+		inspectionData = [];
+	}
 	
 	render(){
 		const {handleSubmit,title} = this.props;
@@ -183,7 +189,6 @@ const validate = values => {
 
 	let errors = {};
 	let detailMessage = ''
-	console.log('values',values,'inspectionData',inspectionData);
 	inspectionData.map((item, index) => {
 		if (item.isMain) {
 			errors = mainCheck(item.fields, values,true);
@@ -203,5 +208,5 @@ const validate = values => {
 }
 export default reduxForm({
 	form: 'FromsConfig',
-	validate
+	validate,
 })(FromsConfig);

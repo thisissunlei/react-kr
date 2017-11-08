@@ -28,12 +28,14 @@ function templateParse(template){
     //区域划分组件开始
     var includeStart = new RegExp('#{includeStart}','ig')
     //区域划分组件结束
-    var includeEnd = new RegExp('#{includeEnd}','ig')
+    var includeEnd = new RegExp('#{includeEnd}', 'ig')
+    var allEnd = new RegExp('#{allEnd}','ig')
     template= template.replace(imgReg, '<span class="print-other-chapter'+newDate+'" style="position: relative;"><img style="position:absolute;display:inline-block;width:160px;height:160px;left:-80px;top:-80px" src = "http://krspace-upload.oss-cn-qingdao.aliyuncs.com/activity_unzip/201707/Y/131233886_443.png"></span>');
     template= template.replace(pageReg,'<div class = "print-pagination'+newDate+'"></div>');
     template= template.replace(qrImgReg,'<span class="print-qr-code'+newDate+'"><img src = "http://krspace-upload.oss-cn-qingdao.aliyuncs.com/activity_unzip/201707/Y/131233886_443.png"></span>');
     template = template.replace(includeStart,'<div class="print-include-start'+newDate+'"></div>');
-    template = template.replace(includeEnd,'<div class="print-include-end'+newDate+'"></div>');
+    template = template.replace(includeEnd, '<div class="print-include-end' + newDate + '"></div>');
+    template = template.replace(allEnd,'<div class="print-all-end'+newDate+'"></div>');
     return template;
 }
 //每一个分页标记的渲染
@@ -81,7 +83,7 @@ function checkMark(mainElem){
         
     }
     mainElem.innerHTML = mainElem.innerHTML + markElem;
-    mainElem.style.height = pageNum * paperHeight + 'px';
+    // mainElem.style.height = pageNum * paperHeight + 'px';
 }
 //每一页骑缝章的渲染
 function everyCheckMark(num,pageNum){
@@ -140,7 +142,6 @@ function produceElemArr(className,type){
 //印章位置调整
 function chaptersMove(params) {
     var elems = getNode(".print-other-chapter" + newDate +" img");
-    console.log(elems,"-------");
     for(let i = 0; i<elems.length;i++ ){
         everyChapter(elems[i]);
     }
@@ -175,11 +176,39 @@ function everyChapter(elem) {
     }
     
 }
-
+//去掉尾部无用节点
+function delEndFutility(elem) {
+    elem= elem || getNode(".print-all-end"+newDate)[0];
+    if(!elem){
+        return;
+    }
+    let nextElem = elem.nextSibling;
+    if(nextElem){
+        delEndFutility(nextElem);
+        delNowElem(nextElem);
+    }
+}
+//删除该元素
+function delNowElem(elem) {
+    elem.parentNode.removeChild(elem)
+}
+//控制页面的高度
+function controlHeight(elem){
+    // let endElem = getNode(".print-all-end" + newDate);
+    // if (!endElem){
+    //     return;
+    // }
+    var detail = elem.getBoundingClientRect();
+    console.log(detail.height, "PPPPPPPPP")
+    elem.style.height = detail.height - 30 + 'px';
+    elem.style.overflow = "hidden";
+}
 module.exports = {
 	templateParse,
     codeParse,
     checkMark,
     allElemsRender,
-    chaptersMove
+    chaptersMove,
+    delEndFutility,
+    controlHeight
 }   
