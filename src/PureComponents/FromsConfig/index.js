@@ -177,7 +177,16 @@ class FromsConfig extends Component {
 	}
 }
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
+const asyncValidate = (values /*, dispatch */) => {
+  return sleep(1000).then(() => {
+	  console.log('valir',validate(values).name,'----',validate(values));
+	  if(!validate(values).name){
+		throw validate(values)
+	  }
+  })
+}
 
 const validate = values => {
 
@@ -203,5 +212,5 @@ const validate = values => {
 }
 export default reduxForm({
 	form: 'FromsConfig',
-	validate
+	asyncValidate
 })(FromsConfig);
