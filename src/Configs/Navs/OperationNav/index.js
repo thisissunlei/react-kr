@@ -172,11 +172,11 @@ module.exports = [
 						menuCode: 'oper_opinion_base',
 						router: '/operation/communityAllocation/opinion'
 					},
-					{
-						primaryText: '企业认证',
-						menuCode: 'company_verify',
-						router: '/operation/communityAllocation/companyVerify'
-					},
+					// {
+					// 	primaryText: '企业认证',
+					// 	menuCode: 'company_verify',
+					// 	router: '/operation/communityAllocation/companyVerify'
+					// },
 				]
 			},
 			{
