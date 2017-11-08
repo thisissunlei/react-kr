@@ -27,6 +27,10 @@ import plupload from 'plupload/js/plupload.full.min';
 	}
 
 	componentDidMount(){
+
+		
+
+
 	    var policyText = {
 		    "expiration": "2020-01-01T12:00:00.000Z", //设置该Policy的失效时间，超过这个失效时间之后，就没有办法通过这个policy上传文件了
 		    "conditions": [
@@ -71,6 +75,7 @@ import plupload from 'plupload/js/plupload.full.min';
 
 				FilesAdded: function(up, files) {
 					plupload.each(files, function(file) {
+
 						document.getElementById('ossfile').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
 						+'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
 						+'</div>';
@@ -103,14 +108,20 @@ import plupload from 'plupload/js/plupload.full.min';
 				},
 
 				Error: function(up, err) {
+					console.log("err",err);
 					document.getElementById('console').appendChild(document.createTextNode("\nError xml:" + err.response));
 				}
-			}
+			},
+			drop_element:"drop-box"
 		});
 
 		uploader.init();
+		
 
 	}
+
+
+
 	onSubmit=(values)=>{
 	}
 	render(){
@@ -140,12 +151,13 @@ import plupload from 'plupload/js/plupload.full.min';
 									</ListGroup>
 								</Row>
 							</Grid>
-
+							<div id="drop-box" style={{width:"100%",height:100,border:"solid 1px #eee",borderRadius:5,marginBottom:6}}></div>
 							<div id="ossfile">你的浏览器不支持flash,Silverlight或者HTML5！</div>
 							<div id="sso-container">
 								<a id="selectfiles" href="javascript:void(0);" className='btn' style={{display:"inline-block",marginRight:10}}>选择文件</a>
 								<a id="postfiles" href="javascript:void(0);" className='btn'>开始上传</a>
 							</div>
+
 
 					</form>
 
