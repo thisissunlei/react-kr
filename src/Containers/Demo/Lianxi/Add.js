@@ -63,12 +63,15 @@ class EditTable  extends React.Component{
 	render(){
 		
 		let {handleSubmit}=this.props;
+		
+		var options=[{label:'123',value:'1'},{label:'1sd',value:'2'}]
 
 		
 		return(
 
 			<div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
+
 			            <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
@@ -76,26 +79,28 @@ class EditTable  extends React.Component{
                             label="社区名称"
                             requireLabel={true}
 							inline={false}
-							url='customerDataAddList'
+							options={options}
 						/>
+
+						<KrField grid={1/2}
+                            style={{width:262,marginBottom:5}}
+                            name="df"
+                            component="input"
+                            label="df"
+                            requireLabel={true}
+							inline={false}
+						/>
+
 						<KrField grid={1 / 2}
 							style={{ width: 262, marginBottom: 5 }}
 							name="address"
 							component="address"
-							label="工位地址"
+							label="注册地址"
 							requireLabel={true}
 							inline={false}
 							url='customerDataAddList'
 						/>
-						<KrField grid={1/2}
-                            style={{width:262,marginBottom:5}}
-                            name="code"
-                            component="searchSelect"
-                            label="编码"
-                            requireLabel={true}
-							inline={false}
-							url='customerDataAddList'
-						/>
+
 
 
 						<KrField 
@@ -180,6 +185,19 @@ class EditTable  extends React.Component{
 	}
 }
 
+const validate = values => {
+	    let nums=/^\d+(\.\d+)?$/;
+		let errors = {};
+
+		if(values.df && !nums.test(values.df)){
+			errors.df='we';
+		}
+		
+		// errors.name = new Date();
+		return errors
+	}
+
 export default reduxForm({
-	form: 'EditTable'
+	form: 'EditTable',
+	validate
 })(EditTable);

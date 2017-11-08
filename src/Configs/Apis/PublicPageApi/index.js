@@ -5,7 +5,7 @@ module.exports = {
         url: '/api/krspace-erp-web/sys/print-template',
         method: 'post'
     }, 
-    //获取非工位合同模板
+    //编辑时获取非工位合同打印模板
     'get-other-contract-formwork':{
         url: '/api/krspace-erp-web/sys/print-template?id={id}',
         method: 'get'
@@ -27,6 +27,16 @@ module.exports = {
     'post-config-detail-new': {
         url: '/api/krspace-erp-web/wf/request/add',
         method: 'post'
+    },
+    //打印室获取合同打印模板
+    'get-other-print-formwork': {
+        url: '/api/krspace-erp-web/sys/print/template/type/wf-request?requestId={requestId}',
+        method: 'get'
+    },
+    //打印室获取合同打印的数据
+    'get-other-print-data': {
+        url: '/api/krspace-erp-web/wf/request/info/type/print?requestId={requestId}',
+        method: 'get'
     },
     
 }

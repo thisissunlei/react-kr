@@ -19,7 +19,7 @@ var componentType = {
     BUTTON_BROWES:'BUTTON_BROWES'
 }
 var btnType = {
-    btnCity:'city',
+    btnCity:'county',
     btnAddress:'address'
 }
 //明细表校验
@@ -27,7 +27,7 @@ function detailCheck(params, values) {
     //楼层检验 params.tableName;
     let obj = {};
     if (!values[params.tableName] || !values[params.tableName].length) {
-        // return 'At least one member must be entered'
+        //return 'At least one member must be entered'
     } else {
         const arrErrors = []
         let text = '';
@@ -46,9 +46,6 @@ function mainCheck(params, values, isMain) {
     let text = '';
     params.map((item, index) => {
         let setting = item.setting;
-        if (!values[item.name]){
-            return;
-        }
         let name = values[item.name];
         
         switch (item.compType) {
@@ -70,8 +67,8 @@ function mainCheck(params, values, isMain) {
             default:
                 text =  otherCheck(item, name);
         }
-        if(!text){
-            obj[name] =  text;
+        if(text){
+            obj[item.name] =  text;
         }
        
         
@@ -92,7 +89,7 @@ function textCheck(params, name) {
             return text;
         }
     }
-    if (name && name > params.setting.wstext) {
+    if (name && name.length > params.setting.wstext) {
         text = `${params.label}最长为${params.setting.wstext}`
         return text;
     }
@@ -115,6 +112,7 @@ function integerCheck(params, name) {
 }
 //浮点数
 function floatCheck(params, name) {
+    let num=/^\d+(\.\d+)?$/;
     let text = '';
     if (params.required) {
         if (!name && name !== 0) {
@@ -122,14 +120,23 @@ function floatCheck(params, name) {
             return text;
         }
     }
-    if (name && (name.toString().split(".")[1].length) != params.setting.wsfloat) {
-        text = `${params.label}小数位数为${params.setting.wsfloat}`
+
+    if(name&&isNaN(name)){
+        text = `${params.label}必须为数字`
         return text;
+    }
+    
+    if(name&&!num.test(name)){
+        if((name.toString().split(".")[1].length) != params.setting.wsfloat){
+            text = `${params.label}为正浮点数且小数位数为${params.setting.wsfloat}`
+            return text;
+        }
     }
 }
 
 //金额转换
 function transferCheck(params, name) {
+    let num=/^\d+(\.\d+)?$/;
     let text = '';
     if (params.required) {
         if (!name && name !== 0) {
@@ -137,14 +144,23 @@ function transferCheck(params, name) {
             return text;
         }
     }
-    if (name && (name.toString().split(".")[1].length) != params.setting.wsfloat) {
-        text = `${params.label}小数位数为${params.setting.wsfloat}`
+
+    if(name&&isNaN(name)){
+        text = `${params.label}必须为数字`
         return text;
+    }
+    
+    if(name&&!num.test(name)){
+        if((name.toString().split(".")[1].length) != params.setting.wsfloat){
+            text = `${params.label}为正浮点数且小数位数为${params.setting.wsfloat}`
+            return text;
+        }
     }
 }
 
 //金额千分位
 function quartileCheck(params, name) {
+    let num=/^\d+(\.\d+)?$/;
     let text = '';
     if (params.required) {
         if (!name && name !== 0) {
@@ -152,9 +168,17 @@ function quartileCheck(params, name) {
             return text;
         }
     }
-    if (name && (name.toString().split(".")[1].length) != params.setting.wsfloat) {
-        text = `${params.label}小数位数为${params.setting.wsfloat}`
+
+    if(name&&isNaN(name)){
+        text = `${params.label}必须为数字`
         return text;
+    }
+    
+    if(name&&!num.test(name)){
+        if((name.toString().split(".")[1].length) != params.setting.wsfloat){
+            text = `${params.label}为正浮点数且小数位数为${params.setting.wsfloat}`
+            return text;
+        }
     }
 }
 

@@ -29,6 +29,7 @@ class FromsConfig extends Component {
 		super(props, context);
 		let {detail} =props;
 		inspectionData = [].concat(detail);
+		this.detailNames=[];
 		
 	}
 	onCancel = () =>{
@@ -38,6 +39,15 @@ class FromsConfig extends Component {
 	//提交代码
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
+		 for(var i=0;i<this.detailNames.length;i++){
+			/* if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
+				Notify.show([{
+					message:'明细表不能为空',
+					type: 'danger',
+				}]);
+				return ;
+			 }*/
+		 }
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(params)
 	}
@@ -45,10 +55,13 @@ class FromsConfig extends Component {
 	renderFields = () => {
 		let {detail} = this.props;
 			detail = detail||[];
+			inspectionData = [].concat(detail);			
+			console.log('defilds-----',detail);
 		var fields = detail.map((item,index)=>{
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
 			}else{
+				this.detailNames.push({name:item.tableName});
 				return this.detailRender(item);
 				// return '';
 			}	
@@ -109,8 +122,12 @@ class FromsConfig extends Component {
 	//浏览按钮渲染
 	btnFieldRender = (item,lineNum) =>{
 		var setting = item.setting;
-		var type = btnType[setting.wsradio];
-		this.universalRender(item,type,lineNum);
+		var jsData={};
+		if(setting){
+			jsData=JSON.parse(setting);
+		}
+		var type = btnType[jsData.wsradio];
+		return this.universalRender(item,type,lineNum);
 	}	
 	//明细表选人
 	detailRender = (item) =>{
@@ -135,8 +152,9 @@ class FromsConfig extends Component {
 		
 	}
 	componentDidMount () {
-		let {detail} = this.props;
-		inspectionData = detail;
+		// let {detail} = this.props;
+		// console.log('detailprops',detail);
+		// inspectionData = [].concat(detail);
 
 	}
 	

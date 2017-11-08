@@ -49,7 +49,9 @@ State.closeAll = action(function() {
 
 State.newCreateDict = action(function(value) {
 	let values = Object.assign({},value)
-	values.itemListStr = JSON.stringify(values.itemListStr);
+	if(values.itemListStr){
+	   values.itemListStr = JSON.stringify(values.itemListStr);
+	}
 	let _this = this;
 
 	Http.request('new-dict-submit',{},values).then(function(response) {
@@ -66,7 +68,9 @@ State.newCreateDict = action(function(value) {
 });
 State.editDict = action(function(value) {
 	let values = Object.assign({},value)
-	values.itemListStr = JSON.stringify(values.itemListStr);
+	if(values.itemListStr){
+	   values.itemListStr = JSON.stringify(values.itemListStr);
+	}
 	delete values.items;
 	let _this = this;
 
