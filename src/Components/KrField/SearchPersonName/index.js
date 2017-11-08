@@ -32,10 +32,6 @@ export default class  SearchPersonName extends React.Component {
 		let {input} = this.props;
 	}
 
-	onInputChange=()=>{
-
-
-	}
 
 	onChange(item){
 		let {input,onChange} = this.props;
@@ -45,17 +41,13 @@ export default class  SearchPersonName extends React.Component {
 	}
 
 	getOptions(mbrNameStr){
-		return new Promise((resolve, reject) => {
-			Http.request('find-by-name',{ mbrNameStr:mbrNameStr }).then(function(response){
+			return Http.request('find-by-name',{ mbrNameStr:mbrNameStr }).then(function(response){
 				response.mbrList.forEach(function(item,index){
 					item.value = item.memberId;
 					item.label = item.managerName;
 				});
-				resolve({options:response.mbrList});
-			}).catch(function(err){
-				reject(err);
-			});
-		});
+				return {options:response.mbrList};
+			})
 	}
 
 	render(){

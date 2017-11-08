@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react';
+import React from 'react';
 import {
 	observer
 } from 'mobx-react';
@@ -11,11 +9,11 @@ import upload from "./images/upload.png";
 import './index.less';
 
 @observer
-export default class HeaderUpload extends Component {
+export default class HeaderUpload extends React.Component {
 	static defaultProps = {
 
 	}
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string
 	}
 	constructor(props,context){
