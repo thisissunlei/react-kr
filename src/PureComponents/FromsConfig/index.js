@@ -181,7 +181,6 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const asyncValidate = (values /*, dispatch */) => {
   return sleep(1000).then(() => {
-	  console.log('valir',validate(values).name,'----',validate(values));
 	  if(!validate(values).name){
 		throw validate(values)
 	  }
@@ -192,7 +191,6 @@ const validate = values => {
 
 	let errors = {};
 	let detailMessage = ''
-	console.log('values',values,'inspectionData',inspectionData);
 	inspectionData.map((item, index) => {
 		if (item.isMain) {
 			errors = mainCheck(item.fields, values,true);
