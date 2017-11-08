@@ -28,9 +28,13 @@ import {
 	Section,
 	CheckPermission
 } from 'kr-ui';
+import {
+	reduxForm,
+	change,
+} from 'redux-form';
 import Todo from './Tododialog';
 // import './index.less';
-export default class TypeList extends Component{
+class TypeList extends Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -85,11 +89,24 @@ export default class TypeList extends Component{
 				>
 				<ListGroup>
 					<ListGroupItem>
+						<form className="sql-search-do">
+						<KrField  
+							grid={1/2}  
+							style={{marginRight:29,width:262}}  
+							name="nameKey" 
+							type="select"
+							inline={true}
+							options={[{label:'是',value:'true'},{label:'否',value:'false'}]}  
+							label="是否已执行"
+					/></form>
+					</ListGroupItem>
+					<ListGroupItem>
 						<SearchForms
 							placeholder='请输入表单名称'
 							onSubmit={this.onSearchSubmit}
 						/>
 					</ListGroupItem>
+
 				</ListGroup>
 				</Col>
 	        </Row>
@@ -187,3 +204,4 @@ export default class TypeList extends Component{
 
 }
 ;
+export default reduxForm({form:'searchUpperForm'})(TypeList);
