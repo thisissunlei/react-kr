@@ -148,7 +148,7 @@ export default class AddressComponent extends React.Component {
         }
         console.log(input,">>>>>>")
         var text = input.value && input.value.codeList && input.value.codeList[0] ? input.value.codeList[0].label : '';
-       
+        
 
         return (
             <WrapComponent {...wrapProps}>

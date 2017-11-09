@@ -9,7 +9,7 @@ var componentType = {
     TEXT_MONEY_QUARTILE:'input',
     TEXT_AREA_TEXT:'textarea',
     TEXT_AREA_RICH:'editor',
-    SELECT_SELECT:'select',
+    SELECT_SELECT:'searchSelect',
     SELECT_SEARCH:'searchSelect',
     CHECK_RADIO:'radio',
     TIME_DATE:'date',
@@ -89,11 +89,11 @@ function textCheck(params, name) {
             return text;
         }
     }
-    if (name && name.length > params.setting.wstext) {
-        text = `${params.label}最长为${params.setting.wstext}`
+   var seeting=JSON.parse(params.setting);
+    if (name && name.length > Number(seeting['wstext'])) {
+        text = `${params.label}最长为${seeting['wstext']}`
         return text;
     }
-
 }
 //整型
 function integerCheck(params, name) {
@@ -125,13 +125,14 @@ function floatCheck(params, name) {
         text = `${params.label}必须为数字`
         return text;
     }
-    
-    if(name&&!num.test(name)){
-        if((name.toString().split(".")[1].length) != params.setting.wsfloat){
-            text = `${params.label}为正浮点数且小数位数为${params.setting.wsfloat}`
-            return text;
+
+        var seeting=JSON.parse(params.setting);
+        if(name&&num.test(name)){
+            if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+                text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
+                return text;
+            }
         }
-    }
 }
 
 //金额转换
@@ -150,12 +151,13 @@ function transferCheck(params, name) {
         return text;
     }
     
-    if(name&&!num.test(name)){
-        if((name.toString().split(".")[1].length) != params.setting.wsfloat){
-            text = `${params.label}为正浮点数且小数位数为${params.setting.wsfloat}`
-            return text;
+        var seeting=JSON.parse(params.setting);
+        if(name&&num.test(name)){
+            if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+                text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
+                return text;
+            }
         }
-    }
 }
 
 //金额千分位
@@ -174,12 +176,13 @@ function quartileCheck(params, name) {
         return text;
     }
     
-    if(name&&!num.test(name)){
-        if((name.toString().split(".")[1].length) != params.setting.wsfloat){
-            text = `${params.label}为正浮点数且小数位数为${params.setting.wsfloat}`
-            return text;
+        var seeting=JSON.parse(params.setting);
+        if(name&&num.test(name)){
+            if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+                text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
+                return text;
+            }
         }
-    }
 }
 
 //其他情况
