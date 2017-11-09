@@ -156,8 +156,11 @@ class FromsConfig extends Component {
 		)
 		
 	}
+
 	componentDidMount () {
+		
 	}
+
 	componentWillUnmount(){
 		inspectionData = [];
 	}
@@ -182,32 +185,35 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const asyncValidate = (values /*, dispatch */) => {
   return sleep(1000).then(() => {
-	throw validate(values)
+	for(var item in validate(values)){
+		if(validate(values)[item]){
+			throw validate(values)
+		}
+	}
   })
 }
 
 const validate = values => {
-
-	let errors = {};
-	let detailMessage = ''
-	inspectionData.map((item, index) => {
-		if (item.isMain) {
-			errors = mainCheck(item.fields, values,true);
-		}else {
-			detailMessage = detailCheck(item, values);
-			if(detailMessage){
-				Notify.show([{
-					message: detailMessage,
-					type: 'danger',
-				}]);
+		let errors = {};
+		let detailMessage = ''
+		inspectionData.map((item, index) => {
+			if (item.isMain) {
+				errors = mainCheck(item.fields, values,true);
+			}else {
+				detailMessage = detailCheck(item, values);
+				if(detailMessage){
+					Notify.show([{
+						message: detailMessage,
+						type: 'danger',
+					}]);
+				}
+				
 			}
-			
-		}
-	})
-	// errors.name = new Date();
-	return errors
+		})
+		// errors.name = new Date();
+		return errors
 }
 export default reduxForm({
 	form: 'FromsConfig',
-	//asyncValidate
+	asyncValidate
 })(FromsConfig);
