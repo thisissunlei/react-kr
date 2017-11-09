@@ -17,7 +17,7 @@ import mobx, {
 	action,
 	toJS
 } from 'mobx';
-import { DateFormat, Http} from 'kr/Utils';
+import { DateFormat, Http, smalltoBIG} from 'kr/Utils';
 import {reduxForm,initialize,reset,change} from 'redux-form';
 import {Store} from 'kr/Redux';
 import arrow from './images/arrows.png';
@@ -57,7 +57,6 @@ export default class Initialize  extends React.Component{
 
 	//编辑页打开
 	openEdit=(itemData)=>{
-		console.log(itemData,"OOOOOOO")
 		this.name = itemData.wfBaseName;
 		var _this = this;
 		Http.request('get-config-template-edit', { wfId: itemData.wfId}).then(function (response) {
@@ -86,7 +85,8 @@ export default class Initialize  extends React.Component{
 	}
 	openPrint=(itemData)=>{
 		var id = itemData.id;
-		window.location.href = `./#/publicPage/${id}/printOther`;
+		let url = `./#/publicPage/${id}/printOther`;
+		var newWindow = window.open(url);
 	}
 	chooceType=(type)=>{
 		// let type = '';

@@ -194,12 +194,7 @@ function delNowElem(elem) {
 }
 //控制页面的高度
 function controlHeight(elem){
-    // let endElem = getNode(".print-all-end" + newDate);
-    // if (!endElem){
-    //     return;
-    // }
     var detail = elem.getBoundingClientRect();
-    console.log(detail.height, "PPPPPPPPP")
     elem.style.height = detail.height - 30 + 'px';
     elem.style.overflow = "hidden";
 }
