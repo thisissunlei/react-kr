@@ -38,13 +38,17 @@ class TypeList extends Component{
 
 	constructor(props,context){
 		super(props, context);
+		let id = this.props.type.id;
+		if(id === 0){
+			id = '';
+		}
 		this.state={
 			searchParams : {
 				page:1,
 				pageSize:15,
 				name:"",
 				executed:'',
-				typeId:this.props.type.id
+				typeId:id
 			},
 			other:"",
 
@@ -233,9 +237,9 @@ class TypeList extends Component{
 							component={(value,oldValue,itemData)=>{
 									return (
 										<span>
-											{(itemData.discarded ||!itemData.executed) && <Button label="执行"  type="operation" onClick={this.toDo.bind(this,itemData)}/>}
-											{!itemData.discarded && <Button label="作废"  type="operation" onClick={this.deleteItem.bind(this,itemData)}/>}
-											{itemData.discarded && itemData.executed && <span>--</span>}
+											{(!itemData.discarded && !itemData.executed) && <Button label="执行"  type="operation" onClick={this.toDo.bind(this,itemData)}/>}
+											{!itemData.discarded && !itemData.executed && <Button label="作废"  type="operation" onClick={this.deleteItem.bind(this,itemData)}/>}
+											{(itemData.discarded || itemData.executed) && <span>--</span>}
 										</span>
 
 									)
@@ -256,9 +260,9 @@ class TypeList extends Component{
 				<div>
 					<p style={{marginTop:42,marginBottom:50,width:'100%',textAlign:'center',fontSize:'14px',lineHeight:'22px',color:"#333"}}>是否确定作废本条sql？</p>
 					<span style={{width:'100%',textAlign:'center',display:'inline-block'}}>
-						<Button label="执行"  type="button" onTouchTap={this.deleteItemSubmit}/>
+						<Button label="确定"  type="button" onTouchTap={this.deleteItemSubmit}/>
 						<span style={{display:'inline-block',width:30}}></span>
-						<Button label="作废"  type="button" cancle={true} onClick={this.deleteItem}/>
+						<Button label="取消"  type="button" cancle={true} onClick={this.deleteItem}/>
 					</span>
 				</div>
 			</Dialog>
