@@ -12,6 +12,7 @@ import {
 import './index.less';
 import TypeList from './TypeList';
 import FormList from './FormList';
+import SqlList from './SqlList';
 import tree from './tree.json';
 export default class Form  extends React.Component{
 
@@ -154,6 +155,11 @@ export default class Form  extends React.Component{
                  <TabC label='表单列表'>
                    <FormList 
                      data={data}
+                   />
+                 </TabC>
+                 <TabC label='表单SQL'>
+                   <SqlList 
+                     type={data}
                    />
                  </TabC>
                
