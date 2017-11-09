@@ -150,12 +150,12 @@ export default class Initialize  extends React.Component{
 
 			<div className="g-office-own-add">
 				<div className="left-tree">
-					<Section borderBool={false} title="流程树">
+					<Section borderBool={false} title="合同树">
 						<div className="tree-list">
 							<div className="tree-one">
 								<p className="tree-line" onClick={()=>{this.chooceAll()}}>
 									<img className="left-style" src={arrow}></img>
-									全部流程
+									全部合同
 								</p>
 								{!!State.request.length && State.request.map((item,index)=>{
 									return (
@@ -220,9 +220,9 @@ export default class Initialize  extends React.Component{
 								ajaxUrlName='my-request-list'
 								  >
 					            <TableHeader className='detail-header'>
-					              <TableHeaderColumn className='header-row'>流程类型</TableHeaderColumn>
-					              <TableHeaderColumn className='header-row'>流程名称</TableHeaderColumn>
-			                      <TableHeaderColumn className='header-row'>流程请求标题</TableHeaderColumn>
+					              <TableHeaderColumn className='header-row'>合同类型</TableHeaderColumn>
+					              <TableHeaderColumn className='header-row'>合同名称</TableHeaderColumn>
+			                      <TableHeaderColumn className='header-row'>合同请求标题</TableHeaderColumn>
 					              <TableHeaderColumn className='header-row'>创建人</TableHeaderColumn>
 								  <TableHeaderColumn className='header-row'>创建时间</TableHeaderColumn>
 								  <TableHeaderColumn className='header-row'>操作</TableHeaderColumn>
