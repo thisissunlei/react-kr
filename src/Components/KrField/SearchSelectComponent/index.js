@@ -68,7 +68,7 @@ export default class  SearchAllComponent extends React.Component {
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
 					name={input.name}
-					value={Number(input.value)}
+					value={input.value}
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"
