@@ -65,14 +65,17 @@ class EditTable  extends React.Component{
 		let {handleSubmit}=this.props;
 		
 		var options=[{label:'123',value:'1'},{label:'1sd',value:'2'}]
-
+		let sourceTy={
+			sourceType:'PUBLIC_DICT',
+			sourceOrgin:2
+		}
 		
 		return(
 
 			<div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 
-			            <KrField grid={1/2}
+			            {/*<KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
                             component="searchSelect"
@@ -80,15 +83,16 @@ class EditTable  extends React.Component{
                             requireLabel={true}
 							inline={false}
 							options={options}
-						/>
+		                 />*/}
 
 						<KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="df"
-                            component="input"
+                            component="selectList"
                             label="df"
                             requireLabel={true}
 							inline={false}
+							item={sourceTy}
 						/>
 
 						<KrField grid={1 / 2}

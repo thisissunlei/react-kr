@@ -9,7 +9,7 @@ var componentType = {
     TEXT_MONEY_QUARTILE:'input',
     TEXT_AREA_TEXT:'textarea',
     TEXT_AREA_RICH:'editor',
-    SELECT_SELECT:'searchSelect',
+    SELECT_SELECT:'selectList',
     SELECT_SEARCH:'searchSelect',
     CHECK_RADIO:'radio',
     TIME_DATE:'date',
