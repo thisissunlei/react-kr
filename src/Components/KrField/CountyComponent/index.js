@@ -55,9 +55,11 @@ export default class CountyComponent extends React.Component {
 	componentDidMount() {
 		if(this.props.input.value){
 			State.city=this.fnTree(this.props.input.value,CityData);
+		}else{
+			State.city='请选择';
 		}
 	}
-
+    
 
 	//递归
 	fnTree = (id,data) =>{	

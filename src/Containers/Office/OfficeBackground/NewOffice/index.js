@@ -31,10 +31,11 @@ export default class NewOffice extends React.Component {
         newThings:[],
         openDelete:false,
         openNew:false,
-        detail:[]
+        detail:[],
+      
     }
     this.newSubmitData = {};
-
+    this.name = ''
 	}
 
   componentDidMount() {
@@ -85,7 +86,7 @@ export default class NewOffice extends React.Component {
     }
     let _this = this;
     Http.request('get-config-template-edit', { wfId:id}).then(function (response) {
-      _this.swidthNew()
+      _this.swidthNew();
       _this.newSubmitData = {
         formId: itemData.formId,
         wfName: itemData.name,
@@ -99,8 +100,8 @@ export default class NewOffice extends React.Component {
     });
   }
   leftClick = (item) =>{
+    this.name = item.name;
     this.getTemplateData(item,'new');
-    
   }
   renderNewThings=(item,index)=>{
     return (
@@ -108,6 +109,8 @@ export default class NewOffice extends React.Component {
     )
   }
   toHz=(item)=>{
+   
+    this.name = item.name;
     this.getTemplateData(item);
     if(item.click){
       //window.open(`${item.hzUrl}`);
@@ -136,15 +139,14 @@ export default class NewOffice extends React.Component {
   updateData=()=>{
 		    var _this = this;
         Http.request('process-common', {}).then(function(response) {
-                _this.setState({thingsType: response.items.slice(0,6)},function(){
-          
-                })
+              _this.setState({thingsType: response.items.slice(0,6)},function(){
+              })
         }).catch(function(err) {});
         Http.request('process-new-request', {
             }).then(function(response) {
-                _this.setState({newThings: response.items},function(){
-          
-                })
+              _this.setState({newThings: response.items},function(){
+        
+              })
             }).catch(function(err) {});
     
   }
@@ -204,7 +206,7 @@ export default class NewOffice extends React.Component {
             width = {750}
             containerStyle={{ top: 60, paddingBottom: 228, zIndex: 20 }}
         >
-          <FromsConfig title="编辑" detail={detail} onSubmit={this.onSubmit} onCancel={this.swidthNew} />
+          <FromsConfig title={`${this.name}-新建`} detail={detail} onSubmit={this.onSubmit} onCancel={this.swidthNew} />
         </Drawer>
       </div>
     );

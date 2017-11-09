@@ -48,7 +48,7 @@ class AgreementTitle  extends React.Component{
                 <KrField grid={1/2}
                     style={{width:262,marginLeft:32,marginBottom:5}}
                     name="communityId"
-                    component="searchRegCommunity"
+                    component="searchCommunityAll"
                     label="社区名称"
                     requireLabel={false}
                     inline={false}

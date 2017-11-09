@@ -3,7 +3,8 @@ import {
 	Field,
 	FieldArray,
 	reduxForm,
-	initialize
+	initialize,
+	change
 } from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -32,6 +33,10 @@ class FromsConfig extends Component {
 		this.detailNames=[];
 		
 	}
+    componentWillUnmount(){
+		inspectionData=[];
+	}
+    
 	onCancel = () =>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -40,13 +45,13 @@ class FromsConfig extends Component {
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
 		 for(var i=0;i<this.detailNames.length;i++){
-			/* if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
-				Notify.show([{
+			if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
+				/*Notify.show([{
 					message:'明细表不能为空',
 					type: 'danger',
 				}]);
-				return ;
-			 }*/
+				return ;*/
+			 }
 		 }
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(params)
@@ -56,7 +61,6 @@ class FromsConfig extends Component {
 		let {detail} = this.props;
 			detail = detail||[];
 			inspectionData = [].concat(detail);			
-			console.log('defilds-----',detail);
 		var fields = detail.map((item,index)=>{
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
@@ -113,6 +117,7 @@ class FromsConfig extends Component {
 					grid={grid}
 					isStore={true}
 					component={type}
+					item={item}
 				/>
 			)
 		}else {
@@ -151,13 +156,14 @@ class FromsConfig extends Component {
 		)
 		
 	}
-	componentDidMount () {
-		// let {detail} = this.props;
-		// console.log('detailprops',detail);
-		// inspectionData = [].concat(detail);
 
+	componentDidMount () {
+		
 	}
-	
+
+	componentWillUnmount(){
+		inspectionData = [];
+	}
 	
 	render(){
 		const {handleSubmit,title} = this.props;
@@ -175,30 +181,39 @@ class FromsConfig extends Component {
 	}
 }
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
+const asyncValidate = (values /*, dispatch */) => {
+  return sleep(1000).then(() => {
+	for(var item in validate(values)){
+		if(validate(values)[item]){
+			throw validate(values)
+		}
+	}
+  })
+}
 
 const validate = values => {
-
-	let errors = {};
-	let detailMessage = ''
-	inspectionData.map((item, index) => {
-		if (item.isMain) {
-			errors = mainCheck(item.fields, values,true);
-		}else {
-			detailMessage = detailCheck(item, values);
-			if(detailMessage){
-				Notify.show([{
-					message: detailMessage,
-					type: 'danger',
-				}]);
+		let errors = {};
+		let detailMessage = ''
+		inspectionData.map((item, index) => {
+			if (item.isMain) {
+				errors = mainCheck(item.fields, values,true);
+			}else {
+				detailMessage = detailCheck(item, values);
+				if(detailMessage){
+					Notify.show([{
+						message: detailMessage,
+						type: 'danger',
+					}]);
+				}
+				
 			}
-			
-		}
-	})
-	// errors.name = new Date();
-	return errors
+		})
+		// errors.name = new Date();
+		return errors
 }
 export default reduxForm({
 	form: 'FromsConfig',
-	validate
+	asyncValidate
 })(FromsConfig);

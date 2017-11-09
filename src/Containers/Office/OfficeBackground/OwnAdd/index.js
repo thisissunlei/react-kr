@@ -17,7 +17,7 @@ import mobx, {
 	action,
 	toJS
 } from 'mobx';
-import { DateFormat, Http} from 'kr/Utils';
+import { DateFormat, Http, smalltoBIG} from 'kr/Utils';
 import {reduxForm,initialize,reset,change} from 'redux-form';
 import {Store} from 'kr/Redux';
 import arrow from './images/arrows.png';
@@ -46,14 +46,18 @@ export default class Initialize  extends React.Component{
 			detail:[]
 		} 
 		this.editSubmitData = {};
+		this.name = ''; 
 	}
 	componentDidMount() {
 		State.requestTree()
 
 	}
 
+	
+
 	//编辑页打开
 	openEdit=(itemData)=>{
+		this.name = itemData.wfBaseName;
 		var _this = this;
 		Http.request('get-config-template-edit', { wfId: itemData.wfId}).then(function (response) {
 			_this.getEditDetail(itemData)
@@ -72,18 +76,17 @@ export default class Initialize  extends React.Component{
 	getEditDetail = (item) =>{
 		var _this = this;
 		Http.request('get-config-detail-edit', { requestId: item.id }).then(function (response) {
-		
+
 			Store.dispatch(initialize('FromsConfig', response));
-		
-			
+		    
 			_this.onOpenEdit();
 			
 		}).catch(function (err) { });
 	}
 	openPrint=(itemData)=>{
 		var id = itemData.id;
-		// http://adminlocal.krspace.cn/new/#/publicPage/81/printOther
-		window.location.href = `./#/publicPage/${id}/printOther`;
+		let url = `./#/publicPage/${id}/printOther`;
+		var newWindow = window.open(url);
 	}
 	chooceType=(type)=>{
 		// let type = '';
@@ -278,7 +281,7 @@ export default class Initialize  extends React.Component{
                     containerStyle={{top:60,paddingBottom:228,zIndex:20}}
                     onClose={this.onOpenEdit}
 				>
-					<FromsConfig title = "新建" detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
+					<FromsConfig title={`${this.name}-编辑`} detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
 				</Drawer>
 			</div>
 		);
