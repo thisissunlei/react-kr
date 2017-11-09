@@ -38,19 +38,20 @@ export default class Text  extends React.Component{
 
     
     componentDidMount(){
-        let {TextDicModel}=this.props;     
+        let {TextDicModel}=this.props;    
         if(toJS(TextDicModel.oldDetail).sourceType&&(toJS(TextDicModel.oldDetail).inputType=='SELECT'||toJS(TextDicModel.oldDetail).inputType=='CHECK')){
-          this.commonPublic(toJS(TextDicModel.oldDetail).sourceType);      
+          this.commonPublic(toJS(TextDicModel.oldDetail).sourceType);  
+          TextDicModel.itemStr=0;    
         }
     }
-
+    
 
     clearModel=()=>{
         this.models=null;	  
     }
     
     
-    commonPublic=(param)=>{         
+    commonPublic=(param)=>{       
         if(param=='PUBLIC_DICT'){     
             this.models=this.sourceRender();
         }else if(param=="CUSTOM"){     
@@ -326,6 +327,7 @@ export default class Text  extends React.Component{
 
 
 	render(){
+
                 let {label,TextDicModel}=this.props;
                 if(TextDicModel.itemStr==1){
                     this.models=null;
