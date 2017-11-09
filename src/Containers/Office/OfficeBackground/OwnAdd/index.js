@@ -208,7 +208,7 @@ export default class Initialize  extends React.Component{
 					</Section>
 				</div>
 				<div className="right-content">
-					 <Section borderBool={false} title="全部流程">
+					 <Section borderBool={false} title="全部合同">
 			            <div  className='detail-table'>
 							<Table
 			                    ajax={true}

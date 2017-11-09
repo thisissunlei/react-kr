@@ -168,6 +168,7 @@ class FromsConfig extends Component {
 	render(){
 		const {handleSubmit,title} = this.props;
 
+
 		return (
 			
 			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}>
@@ -181,9 +182,9 @@ class FromsConfig extends Component {
 	}
 }
 
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-console.log('lidat----',asyncValidate);
 const asyncValidate = (values /*, dispatch */) => {
   
   return sleep(1000).then(() => {
@@ -194,9 +195,9 @@ const asyncValidate = (values /*, dispatch */) => {
 		 num++;
 	  }
 	 }
-	if(num!=0){
-	   throw validate(values)
-	 }
+	  if(num!=0){
+		throw validate(values)
+     }
   })
 }
 
