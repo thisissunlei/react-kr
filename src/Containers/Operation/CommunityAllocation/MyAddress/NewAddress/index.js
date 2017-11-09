@@ -40,21 +40,21 @@ import HeaderUpload from './HeaderUpload';
 			openDown:true,
 	      	openUp:false,
 	      	communityName:'',
-	      	codeName:''
+			codeName:'',
 		}
 	}
   	componentDidMount(){
   		State.address = '';
   		State.stationVos=[
 				{
-					managerName:'',
+					managerNick:'',
 					managerPhone:'',
 					managerEmail:'',
 					managerIcon:'',
 					managerType:'COMMUNITY_MANAGER'
 				}];
 			State.Leader={
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -65,15 +65,18 @@ import HeaderUpload from './HeaderUpload';
  	}
 
 	onSubmit = (values) => {
+		var form={};
 		let managerInfo = {
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
-				managerType:'COMMUNITY_MANAGER'
+				managerType:'COMMUNITY_MANAGER',
+				memberId:''
 			};
 		let manager = [];
 		managerInfo = JSON.stringify(managerInfo);
+		
 		State.stationVos.map(item=>{
 			if(JSON.stringify(item) !== managerInfo){
 				manager.push(item)
@@ -83,7 +86,6 @@ import HeaderUpload from './HeaderUpload';
 		manager.push(State.Leader);
 		values.cmtManagerList = JSON.stringify(manager);
 		values.cmtGuideList = JSON.stringify(State.addGuideList)
-		console.log('values',values);
 		State.onNewAddressSubmit(values)
 
   	}
@@ -91,14 +93,14 @@ import HeaderUpload from './HeaderUpload';
 	onCancel = () => {
 		State.stationVos=[
 				{
-					managerName:'',
+					managerNick:'',
 					managerPhone:'',
 					managerEmail:'',
 					managerIcon:'',
 					managerType:'COMMUNITY_MANAGER'
 				}];
 			State.Leader={
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -205,7 +207,7 @@ import HeaderUpload from './HeaderUpload';
 	}
 	addArr=()=>{
 		let item = {
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -217,23 +219,41 @@ import HeaderUpload from './HeaderUpload';
 	reduceArr=(index)=>{
 		State.stationVos.splice(index,1);
 	}
+	selectManagerName=(form)=>{
+		State.Leader.managerNick=form.managerNick;
+		State.Leader.managerPhone=form.managerPhone;
+		State.Leader.managerEmail=form.managerEmail;
+		State.Leader.headerUrl=form.managerIcon;
+		State.Leader.memberId=form.memberId;
+		
+	}
 
+	selectName=(index,form)=>{
+		State.stationVos[index].managerNick=form.managerNick;
+		State.stationVos[index].managerPhone=form.managerPhone;
+		State.stationVos[index].managerEmail=form.managerEmail;
+		State.stationVos[index].headerUrl=form.managerIcon;
+		State.stationVos[index].memberId=form.memberId;
+
+	}
 
 
 	render(){
 		let {handleSubmit} = this.props;
 		let list = State.stationVos;
-		let _this = this;
+		var _this=this;
+		
+		
 		let typeLinkLeaderNameList = {
-			value: State.Leader.managerName,
-			requestChange: _this.onLeaderChange.bind(null,'managerName')
+			value:State.Leader.managerNick,
+			requestChange: _this.onLeaderChange.bind(null,'managerNick')
 		}
 		let typeLinkLeaderPhoneList = {
 			value: State.Leader.managerPhone,
 			requestChange: _this.onLeaderChange.bind(null,'managerPhone')
 		}
 		let typeLinkLeaderEmailList = {
-			value: State.Leader.managerEmail,
+			value:State.Leader.managerEmail,
 			requestChange: _this.onLeaderChange.bind(null,'managerEmail')
 		}
 		return (
@@ -266,16 +286,23 @@ import HeaderUpload from './HeaderUpload';
 					 	
 					<div className="info-list">
 						<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
-					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList} maxLength={10} placeholder='请输入姓名' onBlur={this.onBlur.bind(this,State.Leader,'managerName')}/>
-					 	<input type="text" name="leadertelephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'  onBlur={this.onBlur.bind(this,State.Leader,'managerPhone')}/>
-					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,State.Leader,'managerEmail')}/>
+						<KrField  
+							name="memberId"  
+							component="searchPersonName" 
+							inline={false} 
+							onChange={this.selectManagerName} 
+							style={{width:261}}
+						 />
+						<input type="text"  name="name" className="info-input" valueLink={typeLinkLeaderNameList} maxLength={10} placeholder='请输入昵称' onBlur={this.onBlur.bind(this,State.Leader,'managerNick')}/>
+					 	<input type="text"  name="leadertelephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder='请输入电话号码'  onBlur={this.onBlur.bind(this,State.Leader,'managerPhone')}/>
+					 	<input type="text"  name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,State.Leader,'managerEmail')}/>
 					</div> 
 				</div>
 
 				{list && list.map((item,index)=>{	
 			    		let typeLinkNameList = {
-							value: State.stationVos[index].managerName,
-							requestChange: _this.onStationVosChange.bind(null,'managerName',index)
+							value: State.stationVos[index].managerNick,
+							requestChange: _this.onStationVosChange.bind(null,'managerNick',index)
 						}
 						let typeLinkPhoneList = {
 							value: State.stationVos[index].managerPhone,
@@ -291,7 +318,14 @@ import HeaderUpload from './HeaderUpload';
 					    		
 								<div className="info-list">
 									<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区管家</span>
-					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList} maxLength={10}  placeholder='请输入姓名' onBlur={this.onBlur.bind(this,item,'managerName')}/>
+									<KrField  
+										name={`memberId${index}`}
+										component="searchPersonName" 
+										inline={false} 
+										onChange={this.selectName.bind(_this,index)} 
+										style={{width:261}}
+									/>
+					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList} maxLength={10}  placeholder='请输入姓名' onBlur={this.onBlur.bind(this,item,'managerNick')}/>
 					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder='请输入电话号码' onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
 					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder='请输入邮箱' onBlur={this.onBlur.bind(this,item,'managerEmail')}/>
 								</div> 

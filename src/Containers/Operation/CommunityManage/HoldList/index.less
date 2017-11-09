@@ -1,7 +1,7 @@
 .g-hold-list{
   .ui-table td{
     max-width: 200px;
-  	&:nth-child(2){
+  	&:nth-child(4){
       max-width:260px;
   		.ui-tooltip{
   			display:inline-block;
@@ -99,7 +99,7 @@
       display: block;
       width: 20px;
       height: 20px;
-      right: 0px;
+      right: 20px;
       top:0px;
       cursor: pointer;
       background: url(./images/closeIcon.svg) no-repeat;
@@ -108,7 +108,52 @@
 
 .g-create-opinoin{
   position: relative;
-  padding: 35px 0 48px 0;
+  padding: 50px 0 48px 0;
+  .pswp-gallery{
+    height:102px;
+    .pswp__button--share,.pswp__button--fs,.pswp__button--close,.pswp__button--zoom,.pswp__button--arrow--left,.pswp__button--arrow--right{
+      display:none;
+    }
+    @media screen and (max-width: 1280px) {
+      .pswp__top-bar{
+        background: url("./images/default-skin.svg") top right no-repeat;
+        background-position: 121% -44px;
+      }
+    }
+    @media screen and (min-width: 1281px) {
+      .pswp__top-bar{
+        background: url("./images/default-skin.svg") top right no-repeat;
+        background-position: 113% -44px;
+        
+      }
+    }
+    
+  }
+  .pswp-thumbnail{
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    border: 1px solid #dfdfdf;
+    padding: 3px 4px 4px 3px;
+    cursor: pointer;
+    img{
+      border: 1px solid #dfdfdf;
+    }
+    margin-right: 10px;
+  }
+  .u-photo-box{
+    margin-bottom: 15px;
+    display: inline-block;
+    .u-photo-title{
+      font-size: 14px;
+      line-height: 14px;
+      color: #333;
+      padding-bottom: 10px;
+      display: block;
+      padding-left:15px;
+    }
+    
+  }
  }
  .ui-btn-center {
   .ui-button{

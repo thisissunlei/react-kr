@@ -1,26 +1,19 @@
-import React, {
-	Component
-} from 'react';
-import {
-	Field,
-	reduxForm
-} from 'redux-form';
+import React from 'react';
 import {
 	observer
 } from 'mobx-react';
 import {Notify} from 'kr-ui';
 import ReactDOM from 'react-dom';
-import './index.less';
 import {Actions,Store} from 'kr/Redux';
 import upload from "./images/upload.png";
-import State from '../State';
+import './index.less';
 
 @observer
-export default class HeaderUpload extends Component {
+export default class HeaderUpload extends React.Component {
 	static defaultProps = {
 
 	}
-	static PropTypes = {
+	static propTypes = {
 		className: React.PropTypes.string
 	}
 	constructor(props,context){
@@ -43,7 +36,6 @@ export default class HeaderUpload extends Component {
 		});
 	}
 	componentDidMount() {
-		console.log(this.props.defaultUrl,upload)
 
 	}
 	componentWillReceiveProps(nextProps){
@@ -52,7 +44,6 @@ export default class HeaderUpload extends Component {
 				imgSrc:nextProps.defaultUrl
 			})
 		}
-		
 	}
 	onTokenError() {
 		Notify.show([{
@@ -133,7 +124,6 @@ export default class HeaderUpload extends Component {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
-									console.log('ddddd',fileResponse)
 									_this.setState({
 										imgSrc:fileResponse.data
 									})
@@ -172,10 +162,7 @@ export default class HeaderUpload extends Component {
 
 	}
 	render() {
-		// let {index} = this.props;
-		// let imgUrl = State.stationVos[index].headerUrl;
 		let {imgSrc} = this.state;
-		console.log('img')
 		return(
 			<div className="ui-upload-header">
 				<div className='ui-uploadimg-inner' >

@@ -14,8 +14,38 @@
 }
 .g-create-opinoin{
 	position: relative;
-  padding: 35px 0 48px 0;
-  
+  padding: 50px 0 48px 0;
+  .pswp-gallery{
+    height:102px;
+    .pswp__button--share,.pswp__button--fs,.pswp__button--close,.pswp__button--zoom,.pswp__button--arrow--left,.pswp__button--arrow--right{
+      display:none;
+    }
+    @media screen and (max-width: 1280px) {
+      .pswp__top-bar{
+        background: url("./images/default-skin.svg") top right no-repeat;
+        background-position: 121% -44px;
+      }
+    }
+    @media screen and (min-width: 1281px) {
+      .pswp__top-bar{
+        background: url("./images/default-skin.svg") top right no-repeat;
+        background-position: 113% -44px;
+        
+      }
+    }
+  }
+  .pswp-thumbnail{
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    border: 1px solid #dfdfdf;
+    padding: 3px 4px 4px 3px;
+    cursor: pointer;
+    img{
+      border: 1px solid #dfdfdf;
+    }
+    margin-right: 10px;
+  }
   iframe{
     width:550px;
   }
@@ -72,21 +102,7 @@
       display: block;
       padding-left:15px;
     }
-    .u-photo-img-box{
-      min-height: 159px;
-      width: 524px;
-      background-color: #fff;
-      padding-left:10px;
-      margin-left: 5px;
-      display:inline-block;
-      img {
-        width:160px;
-        height:160px;
-        margin:5px 10px 5px 0;
-        float:left;
-        
-      }
-    }
+    
     
     
   }
@@ -107,7 +123,7 @@
       display: block;
       width: 20px;
       height: 20px;
-      right: 0px;
+      right: 20px;
       top:0px;
       cursor: pointer;
       background: url(./images/closeIcon.svg) no-repeat;

@@ -1,16 +1,10 @@
 import React from 'react';
 import {
-	Http,
-	ReactHtmlParser
+	Http
 } from 'kr/Utils';
 import {
-	reduxForm,
-	change
+	reduxForm
 } from 'redux-form';
-import {
-	Actions,
-	Store
-} from 'kr/Redux';
 import {
 	KrField,
 	Grid,
@@ -26,32 +20,30 @@ import 'react-photoswipe/lib/photoswipe.css';
 import './index.less';
 
 
-class ViewOpinion extends React.Component {
-
+export default  class ViewDetail extends React.Component {
+	static PropTypes = {
+		onCancel: React.PropTypes.func,
+	}
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
 			infoList:{},
-			
 		}
-		this.getInfo();
+		
 	}
 	
 	componentDidMount() {
-        
+        this.getInfo();
     }
    
 	getInfo=()=>{
 		var _this=this;
 		const {detail}=this.props;
 		Http.request('question-detail',{id:detail.id}).then(function(response) {
-			
 			_this.setState({
 				infoList:response
 			})
-			
-			
 		}).catch(function(err) {
 			Message.error(err.message);
 		});	
@@ -72,7 +64,6 @@ class ViewOpinion extends React.Component {
 			
 			let {
 				infoList,
-				ifCity,
 			}=this.state;
 			let {detail}=this.props;
 			let items = [];
@@ -81,8 +72,8 @@ class ViewOpinion extends React.Component {
 					return(
 						{
 							src: item,
-							w: 900,
-							h: 900,
+							w: 600,
+							h: 600,
 						}
 					)
 				});
@@ -91,7 +82,7 @@ class ViewOpinion extends React.Component {
 			<div className="g-create-opinoin">
 				<div className="u-create-title">
 						<div className="title-text">反馈详情</div>
-						<div className="u-create-close" onTouchTap={this.onCancel}></div>
+						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
 				{infoList.handled == 1?
 				<div className="u-table-list">
@@ -116,7 +107,7 @@ class ViewOpinion extends React.Component {
                         </tbody>
                     </table>
                 </div>:''}
-				<form style={{paddingLeft:75}}>
+				<div style={{paddingLeft:75}}>
 
 							<KrField
 								style={{width:260}}
@@ -171,7 +162,7 @@ class ViewOpinion extends React.Component {
 								<span className="u-photo-title">图片</span>
 								<div style={{marginLeft:15}}>
 								  {
-									infoList.imgUrl?<PhotoSwipeGallery items={items}  options={{index:detail.id,Share:false}} thumbnailContent={this.getThumbnailContent}/>:'无'
+									infoList.imgUrl?<PhotoSwipeGallery items={items}  options={{index:detail.id,Share:false,Close:false}} thumbnailContent={this.getThumbnailContent}/>:'无'
 								  }
 								</div>
 							</div>
@@ -179,19 +170,17 @@ class ViewOpinion extends React.Component {
 						<Row >
 						<Col md={12} align="center">
 							<ButtonGroup>
-								<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
+								<Button  label="取消" cancle={true} type="button"  onClick={this.onCancel}/>
 							</ButtonGroup>
 						  </Col>
 						</Row>
 						</Grid>
 						
-				</form>
+				</div>
 			</div>
 		);
 	}
 }
 
 
-export default reduxForm({
-		form: 'viewOpinion'
-	})(ViewOpinion);
+

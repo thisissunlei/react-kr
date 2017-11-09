@@ -1,0 +1,115 @@
+.g-wait-audit{
+    .ui-table td{
+        &:nth-child(1){
+            width:50px;
+        }
+        &:nth-child(2){
+            width:200px;
+        }
+        &:nth-child(3){
+            width:180px;
+        }
+    }
+
+}
+.g-audit-drawer{
+  position: relative;
+  padding: 60px 0 48px 0;
+  .pswp-gallery{
+    height:102px;
+    .pswp__button--share,.pswp__button--fs,.pswp__button--close,.pswp__button--zoom,.pswp__button--arrow--left,.pswp__button--arrow--right{
+        display:none;
+    }
+    @media screen and (max-width: 1280px) {
+        .pswp__top-bar{
+          background: url("./images/default-skin.svg") top right no-repeat;
+          background-position: 121% -44px;
+        }
+      }
+      @media screen and (min-width: 1281px) {
+        .pswp__top-bar{
+          background: url("./images/default-skin.svg") top right no-repeat;
+          background-position: 113% -44px;
+          
+        }
+      }
+  }
+  .pswp-thumbnail{
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    border: 1px solid #dfdfdf;
+    padding: 3px 4px 4px 3px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .u-photo-box{
+    margin-bottom: 15px;
+    .u-photo-title{
+      font-size: 14px;
+      line-height: 14px;
+      color: #333;
+      padding-bottom: 10px;
+      display: block;
+      padding-left:15px;
+    }
+  }
+form{
+    padding-left: 75px;
+}
+	
+.u-create-close{
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    right: 20px;
+    top:0px;
+    cursor: pointer;
+    background: url(./../images/closeIcon.svg) no-repeat;
+    background-position: center center;    
+}
+.u-create-title{
+    position: relative;
+    font-size: 18px;
+    height:45px;
+    .title-text{
+    padding-left:83px;
+    }
+    .u-create-close{
+        vertical-align:middle;
+        display: inline-block;
+        margin-right: 20px;
+
+    }
+    
+}
+}
+.ui-btn-center {
+    margin-right: 30px;
+    display: inline-block;
+}
+.g-audit-edit{
+    .u-photo-box{
+        margin-bottom: 15px;
+        .u-photo-symbol{
+            color:red;
+            margin-right: 8px;
+        }
+        .u-photo-title{
+          font-size: 14px;
+          line-height: 14px;
+          color: #333;
+          padding-bottom: 10px;
+          display: block;
+          padding-left:0 !important;
+        }
+        .u-photo-error{
+            color:red;
+            display: block;
+            padding-left:15px;
+        }
+        
+    }
+}
