@@ -77,9 +77,9 @@ export default class Initialize  extends React.Component{
 	getEditDetail = (item) =>{
 		var _this = this;
 		Http.request('get-config-detail-edit', { requestId: item.id }).then(function (response) {
-		
+
 			Store.dispatch(initialize('FromsConfig', response));
-		
+		    
 			_this.onOpenEdit();
 			
 		}).catch(function (err) { });

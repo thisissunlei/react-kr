@@ -3,7 +3,8 @@ import {
 	Field,
 	FieldArray,
 	reduxForm,
-	initialize
+	initialize,
+	change
 } from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -35,7 +36,7 @@ class FromsConfig extends Component {
     componentWillUnmount(){
 		inspectionData=[];
 	}
-
+    
 	onCancel = () =>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
@@ -116,6 +117,7 @@ class FromsConfig extends Component {
 					grid={grid}
 					isStore={true}
 					component={type}
+					item={item}
 				/>
 			)
 		}else {
@@ -155,10 +157,6 @@ class FromsConfig extends Component {
 		
 	}
 	componentDidMount () {
-		// let {detail} = this.props;
-		// console.log('detailprops',detail);
-		// inspectionData = [].concat(detail);
-
 	}
 	componentWillUnmount(){
 		inspectionData = [];
@@ -211,5 +209,5 @@ const validate = values => {
 }
 export default reduxForm({
 	form: 'FromsConfig',
-	asyncValidate
+	//asyncValidate
 })(FromsConfig);

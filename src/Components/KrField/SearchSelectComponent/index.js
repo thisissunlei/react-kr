@@ -44,11 +44,20 @@ export default class  SearchAllComponent extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(searchKey){
-		let {options}=this.props;
+	getOptions(){
+		let {item}=this.props;
+		var sourceOrigin=item.sourceType=='CUSTOM'?item.id:item.sourceOrgin;
 		return new Promise((resolve, reject) => {
-			resolve({options:options});
+		Http.request('template-search-list',{
+			searchKey:item.searchKey||'',
+			sourceOrgin:sourceOrigin||'',
+			sourceType:item.sourceType||''
+		}).then(function(response){
+			resolve({options:response.items});
+		}).catch(function(err){
+			reject(err);
 		});
+	  });
 	}
     
 	render(){
@@ -59,7 +68,7 @@ export default class  SearchAllComponent extends React.Component {
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
 					name={input.name}
-					value={input.value}
+					value={Number(input.value)}
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"
