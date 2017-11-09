@@ -218,6 +218,18 @@ const APIS = {
       url: '/api/krspace-erp-web/wf/base/tree/type/my-request',
       method: 'get'
     },
+    'get-sql-list':{
+       url: '/api/krspace-erp-web/sys/form-sql/search?executed={executed}&name={name}&page={page}&pageSize={pageSize}&typeId={typeId}',
+       method: 'get'
+    },
+    'form-sql-execute':{
+       url: '/api/krspace-erp-web/sys/form-sql/execute',
+       method: 'post'
+    },
+    'form-sql-invalid':{
+       url: '/api/krspace-erp-web/sys/form-sql/invalid',
+       method: 'post'
+    },
     
 
     
