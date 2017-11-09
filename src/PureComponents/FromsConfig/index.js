@@ -33,9 +33,7 @@ class FromsConfig extends Component {
 		this.detailNames=[];
 		
 	}
-    componentWillUnmount(){
-		inspectionData=[];
-	}
+   
     
 	onCancel = () =>{
 		const {onCancel} = this.props;
@@ -53,6 +51,8 @@ class FromsConfig extends Component {
 				return ;*/
 			 }
 		 }
+		delete params.c_time;
+		delete params.u_time;
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(params)
 	}
@@ -183,13 +183,20 @@ class FromsConfig extends Component {
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
+console.log('lidat----',asyncValidate);
 const asyncValidate = (values /*, dispatch */) => {
+  
   return sleep(1000).then(() => {
+	var num=0;
+	console.log('num',validate(values),'lida',validate(values)[item]);
 	for(var item in validate(values)){
-		if(validate(values)[item]){
-			throw validate(values)
-		}
-	}
+	  if(validate(values)[item]){
+		 num++;
+	  }
+	 }
+	if(num!=0){
+	   throw validate(values)
+	 }
   })
 }
 
