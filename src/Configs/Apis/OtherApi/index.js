@@ -208,6 +208,18 @@ const APIS = {
          url: '/api/krspace-finance-web/cmt/community/select-list',
          method: 'get'
       },
+    'get-sql-list':{
+       url: '/mockjsdata/60/sys/form-sql/search?executed={executed}&name={name}&page={page}&pageSize={pageSize}&typeId={typeId}',
+       method: 'get'
+    },
+    'form-sql-execute':{
+       url: '/mockjsdata/60/sys/form-sql/execute',
+       method: 'post'
+    },
+    'form-sql-invalid':{
+       url: '/mockjsdata/60/sys/form-sql/invalid',
+       method: 'post'
+    },
     
 
     

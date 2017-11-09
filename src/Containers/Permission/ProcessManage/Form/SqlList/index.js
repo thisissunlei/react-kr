@@ -42,25 +42,81 @@ class TypeList extends Component{
 			searchParams : {
 				page:1,
 				pageSize:15,
-				nameKey:"",
+				name:"",
+				executed:'',
+				typeId:this.props.type.id
 			},
 			other:"",
+
 		}
 		this.allConfig = {
 			openDelete : false,
 			openDone : false,
+			itemData :{}
 		}
+		console.log('=========',this.props.type)
 	}
 	toDo=(item)=>{
 		let {openDone} = this.allConfig;
 		this.allConfig.openDone = !openDone;
+		this.allConfig.itemData = item;
 		this.isRender();
 	}
 	//废除开关
 	deleteItem=(item)=>{
 		let {openDelete} = this.allConfig;
 		this.allConfig.openDelete = !openDelete;
+		this.allConfig.itemData = item;
+
 		this.isRender();
+	}
+	submit=(item)=>{
+		console.log('=======',this.allConfig.itemData);
+		var _this=this;
+		
+		Http.request('form-sql-execute',{},{id:this.allConfig.itemData.id}).then(function(response) {
+			_this.allConfig.openDone = false;
+			_this.setState({
+				searchParams:{..._this.state.searchParams,time:+new Date()}
+			})
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+
+	}
+	deleteItemSubmit=()=>{
+		var _this=this;
+		Http.request('form-sql-invalid',{},{id:this.allConfig.itemData.id}).then(function(response) {
+			_this.allConfig.openDelete = false;
+			_this.setState({
+				searchParams:{..._this.state.searchParams,time:+new Date()}
+			})
+        }).catch(function(err) {
+          Message.error(err.message);
+        });
+	}
+	changeType=(value)=>{
+		console.log('changeType',value)
+		let {searchParams} = this.state;
+		let executed = '';
+		if(!value){
+			executed = ''
+		}else{
+			executed = value.value;
+		}
+		let search = Object.assign({},searchParams,{executed:executed})
+		this.setState({
+			searchParams : search
+		})
+	}
+	onSearchSubmit=(value)=>{
+		console.log('---------->',value);
+		let {searchParams} = this.state;
+		let name = value.content;
+		let search = Object.assign({},searchParams,{name:name})
+		this.setState({
+			searchParams : search
+		})
 	}
 
 
@@ -75,10 +131,10 @@ class TypeList extends Component{
 
 	render(){
 
-		const {openDelete,openDone} = this.allConfig;
+		const {openDelete,openDone,itemData} = this.allConfig;
 		return(
       	<div className="g-sql-list">
-	        <Row style={{marginBottom:21,marginTop:22}}>
+	        <Row style={{marginTop:22}}>
 				<Col
 					align="right"
 					style={{
@@ -92,12 +148,13 @@ class TypeList extends Component{
 						<form className="sql-search-do">
 						<KrField  
 							grid={1/2}  
-							style={{marginRight:29,width:262}}  
+							style={{width:262}}  
 							name="nameKey" 
 							type="select"
 							inline={true}
 							options={[{label:'是',value:'true'},{label:'否',value:'false'}]}  
 							label="是否已执行"
+							onChange={this.changeType}
 					/></form>
 					</ListGroupItem>
 					<ListGroupItem>
@@ -118,7 +175,7 @@ class TypeList extends Component{
               	onOperation={this.onOperation}
 	            displayCheckbox={false}
 	            ajaxParams={this.state.searchParams}
-	            ajaxUrlName="form-list-search"
+	            ajaxUrlName="get-sql-list"
 	            ajaxFieldListName="items"
 			    onPageChange = {this.pageChange}
               	hasBorder={true}
@@ -136,37 +193,52 @@ class TypeList extends Component{
 				</TableHeader>
 				<TableBody >
 					<TableRow>
+						<TableRowColumn name="typeName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn name="name" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="orderNum" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="descr" component={(value,oldValue)=>{
+						<TableRowColumn name="sqlContent"  component={(value,oldValue)=>{
 								var maxWidth=10;
 								if(value.length>maxWidth){
 									value = value.substring(0,10)+"...";
 								}
-								return (<div className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+								return (<div className='tooltipParent' style={{wordWrap:'break-word',whiteSpace:'normal'}}><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top' style={{width:300}}>{oldValue}</Tooltip></div>)
 							}}></TableRowColumn>
-						<TableRowColumn name="updatorName" 
+						<TableRowColumn name="creatorName" 
 						  style={{wordWrap:'break-word',whiteSpace:'normal'}}
 						></TableRowColumn>
-						<TableRowColumn name="uTime" component={(value,oldValue)=>{
+						<TableRowColumn name="cTime" component={(value,oldValue)=>{
 										return (<KrDate value={value} format="yyyy-mm-dd  HH:MM:ss"/>)
 						}} style={{width:150}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="purposeStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="created" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
-						<TableRowColumn name="enabledStr" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="executed" style={{wordWrap:'break-word',whiteSpace:'normal'}} component={(value,oldValue,itemData)=>{
+							let showText = '已执行';
+							let color = '#333';
+							if(itemData.discarded){
+								showText = '已废弃';
+								color = '#C3C8CD'
+							}else{
+								if(!itemData.executed){
+									showText = "未执行";
+									color = 'red'
+								}
+							}
+							return (<span style={{color:color}}>{showText}</span>)
+
+
+							
+						}} style={{width:150}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="executorName" style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
+						<TableRowColumn name="eTime" style={{wordWrap:'break-word',whiteSpace:'normal'}} component={(value,oldValue)=>{
+										return (<KrDate value={value} format="yyyy-mm-dd  HH:MM:ss"/>)
+						}} style={{width:150}} style={{wordWrap:'break-word',whiteSpace:'normal'}}></TableRowColumn>
 						<TableRowColumn  name="uTime"
 							component={(value,oldValue,itemData)=>{
-								if(itemData.created){
-									return (<span>--</span>)
-								}else{
 									return (
 										<span>
-											<Button label="执行"  type="operation" onClick={this.toDo.bind(this,itemData)}/>
-											<Button label="作废"  type="operation" onClick={this.deleteItem.bind(this,itemData)}/>
+											{(itemData.discarded ||!itemData.executed) && <Button label="执行"  type="operation" onClick={this.toDo.bind(this,itemData)}/>}
+											{!itemData.discarded && <Button label="作废"  type="operation" onClick={this.deleteItem.bind(this,itemData)}/>}
+											{itemData.discarded && itemData.executed && <span>--</span>}
 										</span>
 
 									)
-								}
 								
 						}}>
 						</TableRowColumn>
@@ -182,9 +254,9 @@ class TypeList extends Component{
 				contentStyle ={{ width: '446px',height:'236px'}}
 			>
 				<div>
-					<p style={{marginTop:52,marginBottom:50,width:'100%',textAlign:'center',fontSize:'14px',lineHeight:'22px',color:"#333"}}>是否确定作废本条sql？</p>
+					<p style={{marginTop:42,marginBottom:50,width:'100%',textAlign:'center',fontSize:'14px',lineHeight:'22px',color:"#333"}}>是否确定作废本条sql？</p>
 					<span style={{width:'100%',textAlign:'center',display:'inline-block'}}>
-						<Button label="执行"  type="button"/>
+						<Button label="执行"  type="button" onTouchTap={this.deleteItemSubmit}/>
 						<span style={{display:'inline-block',width:30}}></span>
 						<Button label="作废"  type="button" cancle={true} onClick={this.deleteItem}/>
 					</span>
@@ -196,7 +268,7 @@ class TypeList extends Component{
 				open={openDone}
 				contentStyle ={{ width: '665px',height:'368px'}}
 			>
-				<Todo onCancel={this.toDo}/>
+				<Todo onCancel={this.toDo} itemData = {itemData} onSubmit={this.submit}/>
 			</Dialog>
         </div>
 		);

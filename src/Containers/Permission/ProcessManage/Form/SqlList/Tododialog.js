@@ -15,9 +15,9 @@ export default class Tododialog  extends React.Component{
 		super(props, context);
 	}
 
-    onSubmit=(values)=>{
+    onSubmit=()=>{
         const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);
+        onSubmit && onSubmit();
     }
 
     onCancel=()=>{
@@ -27,28 +27,13 @@ export default class Tododialog  extends React.Component{
 
 	render(){
 
-    let {handleSubmit}=this.props;
+    let {handleSubmit,itemData}=this.props;
 
 		return(
 
 			<div className='sql-content'>
                 <div className="content">
-                    CREATE TABLE `fina_contract_detail` (
-                      `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-                      `mainbillid` int(11) NOT NULL COMMENT '合同订单id',
-                      `communityid` int(11) NOT NULL COMMENT '社区id',
-                      `customerid` int(11) NOT NULL COMMENT '客户id',
-                      `contractcode` varchar(60) NOT NULL COMMENT '合同编号',
-                      `contract_totalamount` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT '合同总额',
-                      `contract_backamount` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT 
-                      CREATE TABLE `fina_contract_detail` (
-                      `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-                      `mainbillid` int(11) NOT NULL COMMENT '合同订单id',
-                      `communityid` int(11) NOT NULL COMMENT '社区id',
-                      `customerid` int(11) NOT NULL COMMENT '客户id',
-                      `contractcode` varchar(60) NOT NULL COMMENT '合同编号',
-                      `contract_totalamount` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT '合同总额',
-                      `contract_backamount` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT 
+                    {itemData.sqlContent}
                 </div>
 
 
@@ -57,7 +42,7 @@ export default class Tododialog  extends React.Component{
                     <Row>
                         <Col md={12} align="center">
                         <ButtonGroup>
-                            <div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="submit"/></div>
+                            <div  style = {{display:"inline-block",marginRight:30}}><Button  label="确定" type="button" onTouchTap={this.onSubmit}/></div>
                             <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel} />
                         </ButtonGroup>
                         </Col>

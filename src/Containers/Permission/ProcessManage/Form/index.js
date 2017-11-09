@@ -159,7 +159,7 @@ export default class Form  extends React.Component{
                  </TabC>
                  <TabC label='表单SQL'>
                    <SqlList 
-                     data={data}
+                     type={data}
                    />
                  </TabC>
                
