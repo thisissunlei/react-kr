@@ -81,7 +81,7 @@ export default class PrintOther extends React.Component {
 		checkMark(this.print);
 		setTimeout(function() {
 			window.print();
-			// window.close();
+			window.close();
 		}, 500);
 		
 	}
