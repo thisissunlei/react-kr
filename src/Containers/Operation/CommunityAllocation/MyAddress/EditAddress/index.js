@@ -78,6 +78,11 @@ import HeaderUpload from './HeaderUpload';
 					memberId:response.cmtManagerList[0].memberId,
 					value:response.cmtManagerList[0].memberId,
 					label:response.cmtManagerList[0].managerName,
+					managerEmail:response.cmtManagerList[0].managerEmail,
+					managerIcon:response.cmtManagerList[0].managerIcon,
+					managerNick:response.cmtManagerList[0].managerNick,
+					managerPhone:response.cmtManagerList[0].managerPhone,
+					headerUrl:response.cmtManagerList[0].managerIcon,
 				}
 				
 			})
@@ -306,7 +311,11 @@ import HeaderUpload from './HeaderUpload';
 							managerName:State.editStationVos[index].managerName,
 							memberId:State.editStationVos[index].memberId,
 							value:State.editStationVos[index].memberId,
-							label:State.editStationVos[index].managerName
+							label:State.editStationVos[index].managerName,
+							managerEmail:State.editStationVos[index].managerEmail,
+							managerIcon:State.editStationVos[index].managerIcon,
+							managerNick:State.editStationVos[index].managerNick,
+							managerPhone:State.editStationVos[index].managerPhone
 						};
 			    		let typeLinkNameList = {
 							value: State.editStationVos[index].managerNick,

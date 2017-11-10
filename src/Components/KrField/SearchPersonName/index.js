@@ -31,15 +31,16 @@ export default class  SearchPersonName extends React.Component {
 	}
 
 	componentDidMount(){
-		let {input,ValueInfo} = this.props;
+		let {input,ValueInfo } = this.props;
+		let Info=ValueInfo?ValueInfo:{}
 		this.setState({
-			ValueInfo:ValueInfo
+			ValueInfo: Info
 		})
 		
 	}
 	componentWillReceiveProps(nextProps) {
 		var _this = this;
-		if(nextProps.ValueInfo.memberId!=undefined){
+		if(nextProps.ValueInfo.memberId){
 			this.setState({
 				ValueInfo:nextProps.ValueInfo
 			}, function() {
