@@ -212,7 +212,7 @@ class AgreementTrim extends React.Component {
 							 	</div>)
 						}}
 						></TableRowColumn>
-						<TableRowColumn name="billName"
+						<TableRowColumn name="mainbillName"
 						component={(value,oldValue)=>{
 							var TooltipStyle=""
 							if(value.length==""){
@@ -226,7 +226,7 @@ class AgreementTrim extends React.Component {
 							 	</Tooltip></div>)
 						}}
 						></TableRowColumn>
-						<TableRowColumn name="contractType"
+						<TableRowColumn name="detailType"
 						component={(value,oldValue)=>{
 							if(value==""){
 								value="-"
