@@ -151,7 +151,7 @@ class CreateNewList extends React.Component {
 												isSingle={true}
 											>
 
-											<FdRow name = "name" label = "字段显示名" />
+											<FdRow name = "label" label = "字段显示名" />
 											<FdRow name = "display" label = "是否显示" checkbox={true}/>
 											<FdRow name = "editable" label = "是否编辑"  checkbox={true}/>
 											<FdRow name = "required" label = "是否必填" checkbox={true}/>
@@ -183,7 +183,7 @@ class CreateNewList extends React.Component {
 												isSingle={true}
 											>
 
-											<FdRow name = "name" label = "字段显示名" />
+											<FdRow name = "label" label = "字段显示名" />
 											<FdRow name = "display" label = "是否显示" checkbox={true}/>
 											<FdRow name = "editable" label = "是否编辑"  checkbox={true}/>
 											<FdRow name = "required" label = "是否必填" checkbox={true}/>
