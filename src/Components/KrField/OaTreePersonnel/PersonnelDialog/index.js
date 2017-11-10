@@ -37,7 +37,6 @@ export default class PersonnelDialog extends React.Component{
 				detail.push(data[i]);
 			}
 		}
-		console.log(detail,"LLLLLLLLLLLL")
 		if(!detail[0] || detail.length == 0){
 			detail = [{orgName:''}]
 		}

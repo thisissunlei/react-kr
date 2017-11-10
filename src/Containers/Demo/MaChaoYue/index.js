@@ -90,7 +90,6 @@ class MaChaoYue extends React.Component {
 			titleChecked = true;
 			this.titleCheckbox.checked = false;
 		}
-		console.log('checkedArr',checkedArr)
 		this.setState({
 			checkedArr,
 		})
@@ -167,7 +166,6 @@ class MaChaoYue extends React.Component {
 		
 	}
 	renderBrights=({fields})=>{
-		console.log('fields',fields);
 		const self = this;
 		tabelLength = fields.length;
 		return (
@@ -427,15 +425,12 @@ class MaChaoYue extends React.Component {
 
 	}
 	changeType=(e,index,fields)=>{
-		console.log('changeType',e,index,fields)
 		let {biaodan} = this.state;
 		let {changeValues} = this.props;
 		let same = false;
 		let sameFree = false;
 		biaodan[index] = e.value;
-		console.log('changeValues',biaodan,biaodan.length);
 		biaodan.map((item)=>{
-			console.log(same,sameFree)
 			if(item == '222' && !same){
 				same = true;
 			}else if(item == '222' && same){
@@ -450,7 +445,6 @@ class MaChaoYue extends React.Component {
 			}else if(item == '3' && !sameFree){
 				sameFree = true;
 			}else if(sameFree){
-				console.log('==sameFree======',sameFree)
 				Notify.show([{
 					message: '折前和折后只可以选择一个',
 					type: 'danger',
@@ -477,10 +471,8 @@ class MaChaoYue extends React.Component {
 		let {changeValues} = this.props;
 		fields.remove(index);
 		fields.insert(index,{type:'222',num:'1234'})
-		console.log('zhekou',e,fields,changeValues.members);
 	}
 	onSubmit=(form)=>{
-		console.log('onSubmit',form)
 		// Store.dispatch(change('MaChaoYue', 'member', []));
 	}
 

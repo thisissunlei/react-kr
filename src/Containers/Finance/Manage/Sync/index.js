@@ -104,7 +104,6 @@ export default class AttributeSetting extends React.Component {
 
 	create=()=>{
 		State.openCreate = true;
-		console.log('-----',State.openCreate)
 	}
 	onCancel=()=>{
 		State.openCreate = false;
@@ -168,7 +167,6 @@ export default class AttributeSetting extends React.Component {
 						<TableRowColumn name="syncMainPartName" ></TableRowColumn>
 						<TableRowColumn name="stationnum"  component={(value,oldValue,itemData)=>{
 							let str = this.communityList(itemData.cmts);
-							console.log(str)
 							var TooltipStyle=""
 							if(str.length==""){
 								TooltipStyle="none"

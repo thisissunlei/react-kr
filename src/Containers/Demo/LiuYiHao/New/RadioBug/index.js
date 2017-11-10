@@ -85,7 +85,6 @@ class RadioBug extends React.Component {
 
 
 	editorChange = (values) =>{
-		console.log(values,"PPPPPPP")
 	}
 	typeJudgment = (data) =>{
 		return Object.prototype.toString.call(data);

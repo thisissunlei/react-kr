@@ -423,7 +423,6 @@ class NewCreateForm extends Component {
 	}
 	addClick=()=>{
       let {oldBasicStationVos,stationVos,openMinus,openAdd}=this.state;
-      console.log('add',oldBasicStationVos)
 	   this.setState({
 	  	 stationVos:oldBasicStationVos,
 	  	 openMinus:true,
@@ -433,7 +432,6 @@ class NewCreateForm extends Component {
 
 	minusClick=()=>{
       let {oldBasicStationVos,stationVos,openAdd,openMinus}=this.state;
-      console.log('minu',oldBasicStationVos,oldBasicStationVos.slice(0,5))
 	   
 	   this.setState({
 	  	 stationVos:oldBasicStationVos.slice(0,5),

@@ -31,7 +31,6 @@ class EditDialog extends Component {
     componentDidMount() {
         var _this = this;
         if(this.props.type=="all"){
-            console.log(this.props.itemDetail);
             var typeId = this.props.itemDetail.id;
         }else{
             var typeId = this.props.detail.typeId;
@@ -40,7 +39,6 @@ class EditDialog extends Component {
                 typeId: typeId,
             },{}).then(function(response) {
                   response.enable = response.enable.toString();
-                  console.log(typeof response.enable);
                 _this.setState({infoList: response},function(){
                   Store.dispatch(initialize('EditDialog', _this.state.infoList));
                 })
@@ -51,7 +49,6 @@ class EditDialog extends Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
-        console.log(form);
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
         onSubmit && onSubmit(params);
