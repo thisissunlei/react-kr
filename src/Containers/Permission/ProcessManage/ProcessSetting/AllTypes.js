@@ -277,7 +277,7 @@ export default class AllTypes extends React.Component {
                             onPageChange={this.onPageChange}
                         >
                             <TableHeader>
-                                <TableHeaderColumn>流程类型</TableHeaderColumn>
+                                <TableHeaderColumn>合同类型</TableHeaderColumn>
                                 <TableHeaderColumn>排序号</TableHeaderColumn>
                                 <TableHeaderColumn>描述</TableHeaderColumn>
                                 <TableHeaderColumn>操作人</TableHeaderColumn>
@@ -344,11 +344,11 @@ export default class AllTypes extends React.Component {
                             onPageChange={this.onPageChange}
                         >
                             <TableHeader>
-                                <TableHeaderColumn>流程名称</TableHeaderColumn>
-                                <TableHeaderColumn>流程编码</TableHeaderColumn>
-                                <TableHeaderColumn>流程类型</TableHeaderColumn>
+                                <TableHeaderColumn>合同名称</TableHeaderColumn>
+                                <TableHeaderColumn>合同编码</TableHeaderColumn>
+                                <TableHeaderColumn>合同类型</TableHeaderColumn>
                                 <TableHeaderColumn>顺序</TableHeaderColumn>
-                                <TableHeaderColumn>发起流程请求</TableHeaderColumn>
+                                <TableHeaderColumn>发起合同请求</TableHeaderColumn>
                                 <TableHeaderColumn>新办是否显示</TableHeaderColumn>
                                 <TableHeaderColumn>表单名称</TableHeaderColumn>
                                 <TableHeaderColumn>描述</TableHeaderColumn>
@@ -459,7 +459,7 @@ export default class AllTypes extends React.Component {
                     </div>
                 }
                 <Dialog
-					title="新建流程类型"
+					title="新建合同类型"
 					modal={true}
 					open={this.state.openCreateDialog}
 					onClose={this.openCreateDialog}
@@ -470,7 +470,7 @@ export default class AllTypes extends React.Component {
 					<CreateDialog detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
 				</Dialog>
                 <Dialog
-					title="编辑流程类型"
+					title="编辑合同类型"
 					modal={true}
 					open={this.state.openEditDialog}
 					onClose={this.openEditDialog}

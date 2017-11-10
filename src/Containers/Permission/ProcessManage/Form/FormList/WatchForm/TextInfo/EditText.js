@@ -162,25 +162,26 @@ class EditText  extends React.Component{
 							<div><span className="new-icon"></span><label className="title-text">编辑字段</label></div>
 							<div className="customer-close" onClick={this.onCancel}></div>
 					 </div>
-                       <KrField
+
+                     <KrField
                             grid={1/2}
                             style={{width:262,marginBottom:5}}
+                            name="label"
+                            component="input"
+                            label="字段显示名"
+                            marking={true}
+                        />
+
+
+                       <KrField
+                            grid={1/2}
+                            style={{width:262,marginBottom:5,marginLeft:30}}
                             name="name"
                             component="input"
                             label="字段名称 "
                             requireLabel={true}
                             marking={true}
 						/>
-
-
-                        <KrField
-                            grid={1/2}
-                            style={{width:262,marginBottom:5,marginLeft:30}}
-                            name="label"
-                            component="input"
-                            label="字段显示名"
-                            marking={true}
-                        />
 
 
                             {(toJS(this.props.TextDicModel.oldDetail).inputType)&&<TextDic

@@ -116,7 +116,7 @@ module.exports = [
 					},
 				]
 			},{
-				primaryText: "流程管理",
+				primaryText: "合同管理",
 				iconName: 'icon-process',
 				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',
