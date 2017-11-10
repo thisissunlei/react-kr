@@ -42,6 +42,8 @@ class FromsConfig extends Component {
 	//提交代码
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
+		console.log('params----nnn');
+
 		 for(var i=0;i<this.detailNames.length;i++){
 			if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
 				/*Notify.show([{
@@ -189,15 +191,10 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 const asyncValidate = (values /*, dispatch */) => {
   
   return sleep(1000).then(() => {
-	var num=0;
-	for(var item in validate(values)){
-	  if(validate(values)[item]){
-		 num++;
+	  console.log('validate---',validate(values))
+	  if (!values.rent_name) {
+		throw { rent_name: 'That username is taken'}
 	  }
-	 }
-	  if(num!=0){
-		throw validate(values)
-     }
   })
 }
 
@@ -223,5 +220,5 @@ const validate = values => {
 }
 export default reduxForm({
 	form: 'FromsConfig',
-	//asyncValidate
+	asyncValidate
 })(FromsConfig);

@@ -42,6 +42,8 @@ export default class TextareaComponent extends React.Component {
 
 	render() {
 
+		var styleHeight={};
+
 		let {
 			input,
 			label,
@@ -59,8 +61,19 @@ export default class TextareaComponent extends React.Component {
 			inline,
 			heightStyle,
 			maxSize,
-			lengthClass
+			lengthClass,
+			item
 		} = this.props;
+
+	
+		if(item.setting){
+			var seeting=JSON.parse(item.setting);
+			seeting.height=seeting.wsheight;
+			delete seeting.wsheight;
+			styleHeight=seeting;
+		}else{
+			styleHeight=heightStyle;
+		}
 
 		let {
 			inputSize
@@ -69,7 +82,7 @@ export default class TextareaComponent extends React.Component {
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
-				<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row} onChange={this.onChange} style={heightStyle}></textarea>
+				<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row} onChange={this.onChange} style={styleHeight}></textarea>
 				<div style={{width:40,height:30,lineHeight:"30px",color:'#cccccc',float:'right',fontSize:'14px'}} className={lengthClass}><span className="len">{inputSize}</span>/<span className="size">{maxSize?maxSize:200}</span></div>
 				{touched && error && <div className="error-wrap"> <span>{error}</span></div> }
 			</WrapComponent>
