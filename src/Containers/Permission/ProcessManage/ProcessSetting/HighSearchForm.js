@@ -69,7 +69,7 @@ class HighSearchForm extends React.Component {
 						component="input"
 			    		name="name"
 			    		style={{marginTop:4}}
-			    		label="流程名称"
+			    		label="合同名称"
 					/>
 					<KrField
 			    		grid={1/2}
@@ -78,9 +78,9 @@ class HighSearchForm extends React.Component {
 			    		name="code"
 			    		component="input"
 			    		style={{marginTop:4}}
-			    		label="流程编码"
+			    		label="合同编码"
 					/>
-					<KrField style={{width:262,marginTop:6,marginLeft:43}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={false}>
+					<KrField style={{width:262,marginTop:6,marginLeft:43}} name="allowRequest" component="group" label="发起合同请求" grid={1} requireLabel={false}>
 						<KrField style={{marginTop:10,marginRight:24}} name="allowRequest" label="允许" type="radio" value="1" />
 						<KrField style={{marginTop:10}} name="allowRequest" label="不允许" type="radio" value="0" />
 					</KrField>

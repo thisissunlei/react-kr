@@ -248,7 +248,7 @@ export default class AllTypes extends React.Component {
                                         类型列表
                                     </div>
                                     <div className={`department-tab ${this.state.tabSelect == 2 ? 'department-tab-active' : ''}`} onClick={this.checkTab.bind(this, 2)}>
-                                        流程列表
+                                        合同列表
                                     </div>
                                 </div>
 

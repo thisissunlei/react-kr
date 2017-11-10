@@ -127,7 +127,7 @@ module.exports = [
 						router: '/permission/processManage/form',
 					},
 					{
-						primaryText: '流程列表',
+						primaryText: '合同列表',
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/permission/processManage/processSetting',
 					},
