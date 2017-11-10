@@ -142,6 +142,11 @@ module.exports = [
 						menuCode: 'hrm_resourcesList_incumbency',
 						router:'/permission/processManage/dictionary',
 					},
+					{
+						primaryText: 'SQL模版',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/permission/processManage/sqlModel',
+					},
 				]
 			},
 
