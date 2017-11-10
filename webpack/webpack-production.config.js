@@ -47,7 +47,7 @@ const config = {
 	},
 	// 出口文件配置
 	output: {
-		publicPath: "//sta.krpsace.cn/op/new",
+		publicPath: "//sta.krspace.cn/op/new",
 		path: buildPath,
 		filename: 'scripts/[name].[hash].js',
 		chunkFilename: '/scripts/[name].[chunkhash:5].js',
