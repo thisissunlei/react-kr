@@ -25,6 +25,7 @@ import {
 import './index.less';
 import State from '../State';
 import HeaderUpload from './HeaderUpload';
+
 @observer
  class EditAddress extends React.Component{
 
@@ -35,7 +36,8 @@ import HeaderUpload from './HeaderUpload';
 	constructor(props){
 		super(props);
 		this.state={
-			
+			leaderInfo:{},
+			managerInfo:{}
 		}
 	}
   	componentDidMount(){
@@ -69,9 +71,16 @@ import HeaderUpload from './HeaderUpload';
 		 Http.request('getEditInfo',{id:State.editId}).then(function(response) {
 		 	let manager = [];
 			 State.detailData = response;
-			 
 			Store.dispatch(initialize('EditAddress', State.detailData));
-
+			_this.setState({
+				leaderInfo:{
+					managerName:response.cmtManagerList[0].managerName,
+					memberId:response.cmtManagerList[0].memberId,
+					value:response.cmtManagerList[0].memberId,
+					label:response.cmtManagerList[0].managerName,
+				}
+				
+			})
 			Store.dispatch(change('EditAddress', 'memberId',response.cmtManagerList[0].memberId));
 			response.cmtManagerList.map((item,index)=>{
 				if(item.managerType=='COMMUNITY_LEADER'){
@@ -207,7 +216,7 @@ import HeaderUpload from './HeaderUpload';
 
 
 	componentWillUnMount(){
-		console.log('componentWillUnMount')
+		
 		State.addGuideList=[];
 	}
 	selectManagerName=(form)=>{
@@ -232,6 +241,7 @@ import HeaderUpload from './HeaderUpload';
 
 	render(){
 		let {handleSubmit} = this.props;
+		let {leaderInfo}=this.state;
 		let list = State.stationVos;
 		let _this = this;
 		let typeLinkLeaderNameList = {
@@ -280,6 +290,7 @@ import HeaderUpload from './HeaderUpload';
 							name="memberId"  
 							component="searchPersonName" 
 							inline={false} 
+							ValueInfo={leaderInfo}
 							onChange={this.selectManagerName} 
 							style={{width:261}}
 						 />
@@ -289,7 +300,14 @@ import HeaderUpload from './HeaderUpload';
 					</div> 
 				</div>
 
-				{State.editStationVos && State.editStationVos.map((item,index)=>{	
+				{State.editStationVos && State.editStationVos.map((item,index)=>{
+					
+						let managerInfo={
+							managerName:State.editStationVos[index].managerName,
+							memberId:State.editStationVos[index].memberId,
+							value:State.editStationVos[index].memberId,
+							label:State.editStationVos[index].managerName
+						};
 			    		let typeLinkNameList = {
 							value: State.editStationVos[index].managerNick,
 							requestChange: _this.onStationVosChange.bind(null,'managerNick',index)
@@ -302,6 +320,8 @@ import HeaderUpload from './HeaderUpload';
 							value: State.editStationVos[index].managerEmail,
 							requestChange: _this.onStationVosChange.bind(null,'managerEmail',index)
 						}
+
+
 			    		return (
 			    			<div className="info-box" key={index}>
 					    		<HeaderUpload defaultUrl={item.managerIcon} onChange={this.addUrl} index={index}/>
@@ -312,6 +332,7 @@ import HeaderUpload from './HeaderUpload';
 										name={`memberId${index}`}
 										component="searchPersonName" 
 										inline={false} 
+										ValueInfo={managerInfo}
 										onChange={this.selectName.bind(_this,index)} 
 										style={{width:261}}
 									/>

@@ -23,13 +23,33 @@ export default class  SearchPersonName extends React.Component {
 
 	constructor(props){
 		super(props)
-
+		this.state = {
+			ValueInfo: {}
+		}
 		this.onChange = this.onChange.bind(this);
 		this.getOptions = this.getOptions.bind(this);
 	}
 
 	componentDidMount(){
-		let {input} = this.props;
+		let {input,ValueInfo} = this.props;
+		this.setState({
+			ValueInfo:ValueInfo
+		})
+		
+	}
+	componentWillReceiveProps(nextProps) {
+		var _this = this;
+		if(nextProps.ValueInfo.memberId!=undefined){
+			this.setState({
+				ValueInfo:nextProps.ValueInfo
+			}, function() {
+				_this.select.loadOptions()
+			})
+		}
+		
+		
+		
+		
 	}
 
 
@@ -41,11 +61,23 @@ export default class  SearchPersonName extends React.Component {
 	}
 
 	getOptions(mbrNameStr){
-			return Http.request('find-by-name',{ mbrNameStr:mbrNameStr }).then(function(response){
+		let {ValueInfo}=this.state;
+		var flag=[];
+		
+			return Http.request('find-by-name',{ mbrNameStr:mbrNameStr || ''}).then(function(response){
 				response.mbrList.forEach(function(item,index){
 					item.value = item.memberId;
 					item.label = item.managerName;
+					if(ValueInfo.memberId){
+						if(item.memberId==ValueInfo.memberId){
+							flag.push('0');
+						}
+					}
 				});
+				
+				if (flag.indexOf('0')== -1){
+					response.mbrList.push(ValueInfo);
+				}
 				return {options:response.mbrList};
 			})
 	}
@@ -58,6 +90,7 @@ export default class  SearchPersonName extends React.Component {
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
 					name={input.name}
+					ref={(select)=>this.select=select}
 					value={input.value}
 					loadOptions={this.getOptions}
 					clearable={true}
