@@ -189,7 +189,6 @@ const asyncValidate = (values /*, dispatch */) => {
   
   return sleep(1000).then(() => {
 	var num=0;
-	console.log('num',validate(values),'lida',validate(values)[item]);
 	for(var item in validate(values)){
 	  if(validate(values)[item]){
 		 num++;
@@ -223,5 +222,5 @@ const validate = values => {
 }
 export default reduxForm({
 	form: 'FromsConfig',
-	asyncValidate
+	//asyncValidate
 })(FromsConfig);
