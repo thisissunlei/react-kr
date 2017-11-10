@@ -97,17 +97,6 @@ export default class PrintOther extends React.Component {
 		}
 		document.querySelectorAll(".money-detail tbody")[0].innerHTML = text;
 	}
-	
-// 	//字段替换
-// 	codeParse = (template, data) =>{
-// 		var t, key, reg;
-// 　　　   //遍历该数据项下所有的属性，将该属性作为key值来查找标签，然后替换
-// 		for (key in data) {
-// 			reg = new RegExp('{{' + key + '}}', 'ig');
-// 			t = (t || template).replace(reg, data[key]);
-// 		}
-// 		return t;
-// 	}
 
    
 	render() {
