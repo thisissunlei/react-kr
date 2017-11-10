@@ -112,7 +112,7 @@ function integerCheck(params, name) {
 }
 //浮点数
 function floatCheck(params, name) {
-    let num=/^\d+(\.\d+)?$/;
+    let num=/^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$/;
     let text = '';
     if (params.required) {
         if (!name && name !== 0) {
@@ -126,19 +126,18 @@ function floatCheck(params, name) {
         return text;
     }
 
-    /*var seeting=JSON.parse(params.setting);
+    var seeting=JSON.parse(params.setting);
     if(name&&num.test(name)){
-        console.log('----',name.toString(),'ni--',name);
         if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
             text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
             return text;
         }
-    }*/
+    }
 }
 
 //金额转换
 function transferCheck(params, name) {
-    let num=/^\d+(\.\d+)?$/;
+    let num=/^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$/;
     let text = '';
     if (params.required) {
         if (!name && name !== 0) {
@@ -152,18 +151,18 @@ function transferCheck(params, name) {
         return text;
     }
     
-        /*var seeting=JSON.parse(params.setting);
+        var seeting=JSON.parse(params.setting);
         if(name&&num.test(name)){
             if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
                 text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
                 return text;
             }
-        }*/
+        }
 }
 
 //金额千分位
 function quartileCheck(params, name) {
-    let num=/^\d+(\.\d+)?$/;
+    let num=/^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$/;
     let text = '';
     if (params.required) {
         if (!name && name !== 0) {
@@ -177,13 +176,13 @@ function quartileCheck(params, name) {
         return text;
     }
     
-        /*var seeting=JSON.parse(params.setting);
+        var seeting=JSON.parse(params.setting);
         if(name&&num.test(name)){
             if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
                 text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
                 return text;
             }
-        }*/
+        }
 }
 
 //其他情况
