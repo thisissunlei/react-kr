@@ -40,7 +40,7 @@ export default class  SearchPersonName extends React.Component {
 	}
 	componentWillReceiveProps(nextProps) {
 		var _this = this;
-		if(nextProps.ValueInfo.memberId){
+		if(nextProps.ValueInfo && nextProps.ValueInfo.memberId){
 			this.setState({
 				ValueInfo:nextProps.ValueInfo
 			}, function() {
