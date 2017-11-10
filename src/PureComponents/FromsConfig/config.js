@@ -127,13 +127,13 @@ function floatCheck(params, name) {
     }
 
     var seeting=JSON.parse(params.setting);
-    if(name&&!num.test(name)){
+    /*if(name&&num.test(name)){
         console.log('----',name.toString(),'ni--',name);
         if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
             text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
             return text;
         }
-    }
+    }*/
 }
 
 //金额转换
@@ -153,12 +153,12 @@ function transferCheck(params, name) {
     }
     
         var seeting=JSON.parse(params.setting);
-        if(name&&num.test(name)){
+        /*if(name&&num.test(name)){
             if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
                 text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
                 return text;
             }
-        }
+        }*/
 }
 
 //金额千分位
@@ -178,12 +178,12 @@ function quartileCheck(params, name) {
     }
     
         var seeting=JSON.parse(params.setting);
-        if(name&&num.test(name)){
+        /*if(name&&num.test(name)){
             if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
                 text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
                 return text;
             }
-        }
+        }*/
 }
 
 //其他情况
