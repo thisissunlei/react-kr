@@ -227,11 +227,6 @@ class AgreementTrim extends React.Component {
 						}}
 						></TableRowColumn>
 						<TableRowColumn name="detailType"
-						component={(value,oldValue)=>{
-							if(value==""){
-								value="-"
-							}
-							return (<span>{this.contracttype(value)}</span>)}}
 						></TableRowColumn>
 						<TableRowColumn name="changeContent"
 						component={(value,oldValue)=>{
