@@ -31,6 +31,7 @@ class AgreementTitle  extends React.Component{
         this.titleData.communityId = value.id;
         this.getAddressFormwork(value.id);
        
+       
     }
     //模糊查询
     codeChange=(value)=>{
@@ -41,6 +42,7 @@ class AgreementTitle  extends React.Component{
     //获取模板
     getAddressFormwork = (communityId) =>{
         let _this = this;
+        console.log("9999999");
         Http.request("get-address-formwork", { communityId: communityId }).then(function (response) {
             console.log(response.items[0].label, "888888");
             _this.titleData.addressId = response.items[0].value;
@@ -54,7 +56,7 @@ class AgreementTitle  extends React.Component{
        
         let { getFormworkNum} = this.props;
         let param = Object.assign({},this.titleData);
-       
+        
         getFormworkNum && getFormworkNum(param)
     }
 
