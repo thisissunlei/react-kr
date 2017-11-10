@@ -1575,8 +1575,8 @@ class NewCreateForm extends Component {
 
 
 
-					<KrField  style={{width:262,marginLeft:25}}  name="totalrent" type="text" component="labelText"  label="租金总额" placeholder="" value={allRent} defaultValue="0" inline={false} requireLabel={true}
-					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}  />
+					<KrField  style={{width:262,marginLeft:25}}  name="totalrent" type="text" component="labelText"  label="服务费总额" placeholder="" value={allRent} defaultValue="0" inline={false} requireLabel={true}
+					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'服务费总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}  />
 					<KrField  style={{width:262,marginLeft:25}}  name="totaldeposit" type="text" component="input"  label="押金总额" requireLabel={true}
 					requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}} />
 
@@ -1706,11 +1706,11 @@ const validate = values => {
 	}
 
 	if (!String(values.totalrent)) {
-		errors.totalrent = '请填写租金总额';
+		errors.totalrent = '请填写服务费总额';
 	}
 
 	if (values.totalrent && isNaN(values.totalrent)) {
-		errors.totalrent = '租金总额必须为数字';
+		errors.totalrent = '服务费总额必须为数字';
 	}
 
 	if (!values.totaldeposit) {
