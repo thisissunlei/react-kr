@@ -45,7 +45,7 @@ module.exports = {
     },
     //获取地址编码
     'get-address-num': {
-        url: '/api/krspace-finance-web/cmt/register-address/detail/select/type/list?addressId={addressId}&allWhenNull={allWhenNull}',
+        url: '/api/krspace-finance-web/cmt/register-address/detail/select/type/list?addressId={addressId}&allWhenNull={allWhenNull}&searchKey={searchKey}',
         method: 'get'
     }
 }

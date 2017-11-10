@@ -85,8 +85,9 @@ export default class Initialize  extends React.Component{
 	}
 	openPrint=(itemData)=>{
 		var id = itemData.id;
-		let url = `./#/publicPage/${id}/printOther`;
-		var newWindow = window.open(url);
+		// let url = `./#/publicPage/${id}/printOther`;
+		// var newWindow = window.open(url);
+		window.location.href = `./#/publicPage/${id}/printOther`
 	}
 	chooceType=(type)=>{
 		// let type = '';

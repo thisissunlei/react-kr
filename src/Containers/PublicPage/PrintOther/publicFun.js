@@ -11,7 +11,7 @@ function codeParse(template, data){
     var t, key, reg;
 　　　   //遍历该数据项下所有的属性，将该属性作为key值来查找标签，然后替换
     for (key in data) {
-        reg = new RegExp('{{' + key + '}}', 'ig');
+        reg = new RegExp('{{' + key + '}}', 'g');
         t = (t || template).replace(reg, data[key]);
     }
     return t;
@@ -195,8 +195,14 @@ function delNowElem(elem) {
 //控制页面的高度
 function controlHeight(elem){
     var detail = elem.getBoundingClientRect();
+    var endHeight = '';
     elem.style.height = detail.height - 30 + 'px';
     elem.style.overflow = "hidden";
+    detail = elem.getBoundingClientRect();
+    endHeight = Math.ceil(detail.height/paperHeight)*paperHeight;
+    console.log(endHeight,"))))))))")
+    elem.style.height = endHeight-30+"px";
+    
 }
 module.exports = {
 	templateParse,

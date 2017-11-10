@@ -42,6 +42,7 @@ class AgreementTitle  extends React.Component{
     getAddressFormwork = (communityId) =>{
         let _this = this;
         Http.request("get-address-formwork", { communityId: communityId }).then(function (response) {
+            console.log(response.items[0].label, "888888");
             _this.titleData.addressId = response.items[0].value;
             _this.titleData.addressFormwork = response.items[0].label;
         }).catch(function (err) {
@@ -53,7 +54,7 @@ class AgreementTitle  extends React.Component{
        
         let { getFormworkNum} = this.props;
         let param = Object.assign({},this.titleData);
-        console.log(param,"888888");
+       
         getFormworkNum && getFormworkNum(param)
     }
 
