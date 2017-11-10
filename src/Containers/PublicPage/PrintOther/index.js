@@ -20,7 +20,8 @@ import {
 	allElemsRender,
 	chaptersMove,
 	delEndFutility,
-	controlHeight
+	controlHeight,
+	codeParse
 } from './publicFun'
 export default class PrintOther extends React.Component {
 
@@ -66,7 +67,8 @@ export default class PrintOther extends React.Component {
 	allRender = (template,allData) =>{
 		this.configData.template =  template;
 		this.configData.allData = allData;
-		this.print.innerHTML = templateParse(this.configData.template);
+		var templateData = templateParse(this.configData.template);
+		this.print.innerHTML = codeParse(templateData,allData);
 		
 		var detailTr = document.querySelectorAll(".money-detail tr");
 		
@@ -79,7 +81,7 @@ export default class PrintOther extends React.Component {
 		checkMark(this.print);
 		setTimeout(function() {
 			window.print();
-			window.close();
+			// window.close();
 		}, 500);
 		
 	}
@@ -96,16 +98,16 @@ export default class PrintOther extends React.Component {
 		document.querySelectorAll(".money-detail tbody")[0].innerHTML = text;
 	}
 	
-	//字段替换
-	codeParse = (template, data) =>{
-		var t, key, reg;
-　　　   //遍历该数据项下所有的属性，将该属性作为key值来查找标签，然后替换
-		for (key in data) {
-			reg = new RegExp('{{' + key + '}}', 'ig');
-			t = (t || template).replace(reg, data[key]);
-		}
-		return t;
-	}
+// 	//字段替换
+// 	codeParse = (template, data) =>{
+// 		var t, key, reg;
+// 　　　   //遍历该数据项下所有的属性，将该属性作为key值来查找标签，然后替换
+// 		for (key in data) {
+// 			reg = new RegExp('{{' + key + '}}', 'ig');
+// 			t = (t || template).replace(reg, data[key]);
+// 		}
+// 		return t;
+// 	}
 
    
 	render() {

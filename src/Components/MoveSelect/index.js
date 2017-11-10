@@ -22,7 +22,6 @@ class MoveSelect extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            data: [],
             other:'',
         }
         this.titleData = {};
@@ -52,8 +51,7 @@ class MoveSelect extends Component {
         })
     }
     render(){
-        let { title, onCancel, open, communityId, url, selectTitle, checked} = this.props;
-        let {data} = this.state;
+        let { title, onCancel, open, communityId, data,url, selectTitle, checked} = this.props;
         return(
            
             <div className = "m-location-choice">
