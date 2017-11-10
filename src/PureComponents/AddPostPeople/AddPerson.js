@@ -108,7 +108,6 @@ class AddPerson  extends React.Component{
         const _this = this; 
        
         Http.request('get-position-list',{typeId:param.value}).then(function(response) {
-            console.log("OOOOOOOOO")
              _this.setState({
                  positionList:response,
                  isPositionRank:true,
@@ -144,7 +143,6 @@ class AddPerson  extends React.Component{
 		if(!isPositionRank){
 			return null;
 		};
-        console.log('renderJobAndLevel',basicInfo.jobName,'====',positionList)
 		
 
 		return (

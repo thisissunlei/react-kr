@@ -30,7 +30,6 @@ class StationReservationDel extends Component{
 		
 	}
 	onSubmit = (values) => {
-		console.log(values,">>>>>>")
 
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit();

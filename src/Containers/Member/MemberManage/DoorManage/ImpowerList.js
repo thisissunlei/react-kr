@@ -209,7 +209,6 @@ export default class FinishUploadImgForm extends React.Component{
 			var EmptyArr = [];
 			for(var i =0;i<OriginArr.length;i++){
 				for(var j=0;j<newArrEmpty.length;j++){
-					console.log(OriginArr[i],)
 					if(ShallowEqual(OriginArr[i],newArrEmpty[j])){
 
 						OriginArr.splice(i,1);
@@ -217,7 +216,6 @@ export default class FinishUploadImgForm extends React.Component{
 
 				}
 			}
-			console.log("OriginArr",OriginArr);
 
 			// EmptyArr.sort(function(a,b){
 			// 	return b-a

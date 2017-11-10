@@ -62,7 +62,6 @@ export default class EditTable  extends React.Component{
 	
 	render(){
 		
-		console.log(data,"=========")
 		return(
 
 			<div>

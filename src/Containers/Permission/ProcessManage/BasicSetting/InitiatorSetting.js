@@ -88,7 +88,6 @@ export default class SingleType extends React.Component {
 		})
     }
 	onCreateSubmit = (params) => {
-        console.log(params);
 		console.log(this.props.id);
 		var form = Object.assign({},params);
         form.wfId=this.props.id;
@@ -133,7 +132,6 @@ export default class SingleType extends React.Component {
             })
 			form.rangeId=id;
         }
-        console.log("init",form);
 		var _this = this;
 		Http.request('process-authority-edit', {}, form).then(function (response) {
 			_this.openEditDialog();

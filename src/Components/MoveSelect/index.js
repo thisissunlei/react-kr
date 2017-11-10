@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import {
 	Field,
 	reduxForm,
-     initialize,
+    initialize,
+    change
 } from 'redux-form';
 
 import {Http} from "kr/Utils";
@@ -17,91 +18,54 @@ var type = [
     {value:"SPACE",label:'独立空间'}
 ]
 
-export default class MoveSelect extends Component {
+class MoveSelect extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            subCompany:[],
-            floors: [],
-            selected:props.selected||{},
+            other:'',
         }
-        this.submitData = {
-            communityId:props.communityId,
-            floor:props.data && props.data.floor || '',
-            // detailType:props.data && props.data.detailType || '',
-        };
+        this.titleData = {};
     }
     onSubmit = (values) =>{
-        let {url,communityId,data,selectTitle} = this.props;
-        var object={};
-      
-            object =values;            
-        this.box.getData(url,object);  
-    }
-    
-    floorChange = (values) =>{
-        
-        this.submitData.floor = values.value;
-    }
-    typeChange = (values) =>{
-       
-        this.submitData.detailType = values.value;
-    }
-    onClick = (values) =>{
-        
         let {onSubmit,selectTitle} = this.props;
-
         if (!values.codeList.length){
 
            Message.error('请选择内容');
            return ;  
         }
-        
-        onSubmit && onSubmit(values)
+        var params = Object.assign(this.titleData, values)
+        onSubmit && onSubmit(params)
 
-    }
-    
-    getFloor = () =>{
-        let {communityId} = this.props;
-        let that = this;
-        Http.request("getFloorByComunity",{communityId:communityId}).then(function(response) {
-			that.setState({
-                floors:that.changeFloor([].concat(response.floors))
-            })
-
-		}).catch(function(err) {
-
-		});
-    }
-    changeFloor = (arr) =>{
-        let floors = arr.map((item,index)=>{
-            return {value:item,label:item};
-        })
-        return floors;
-
-    }
-    componentDidMount() {
-       
     }
    
+    componentDidMount() {
+    }
+ 
+    getAddressNum = (params) =>{
+        var data = Object.assign({},params);
+        this.box.getData(data);
+        console.log(params,"PPPPPPPPP")
+        this.titleData = Object.assign(this.titleData,params);
+        this.setState({
+            other:new Date()
+        })
+    }
     render(){
-        let { title, onCancel, open, communityId, url, data, selectTitle, checked} = this.props;
-        let {subCompany,floors} = this.state;
+        let { title, onCancel, open, communityId, data,url, selectTitle, checked} = this.props;
         return(
+           
             <div className = "m-location-choice">
                 <AgreementTitle 
-                    communityChange={this.communityChange}
-                    codeChange={this.codeChange}
-                    onSubmit={this.onSubmit}
+                    getFormworkNum={this.getAddressNum}
                 />
+                <div></div>
                 <DoubleColumn 
                     ref ={
                         (ref)=>{
                             this.box = ref;
                         }
                     }
-                    
-                    onSubmit = {this.onClick}
+                    onSubmit={this.onSubmit}
                     onClose={onCancel}
                     data = {data||{}}
                     checked = {checked}
@@ -111,4 +75,6 @@ export default class MoveSelect extends Component {
     }
 }
 
- 
+export default reduxForm({
+    form: 'MoveSelect',
+})(MoveSelect);

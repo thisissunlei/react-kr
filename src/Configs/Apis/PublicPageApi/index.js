@@ -38,6 +38,15 @@ module.exports = {
         url: '/api/krspace-erp-web/wf/request/info/type/print?requestId={requestId}',
         method: 'get'
     },
-    
+    //获取地址模板
+    'get-address-formwork': {
+        url: '/api/krspace-finance-web/cmt/register-address/select/type/list?communityId={communityId}',
+        method: 'get'
+    },
+    //获取地址编码
+    'get-address-num': {
+        url: '/api/krspace-finance-web/cmt/register-address/detail/select/type/list?addressId={addressId}&allWhenNull={allWhenNull}&searchKey={searchKey}',
+        method: 'get'
+    }
 }
     

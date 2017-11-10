@@ -120,8 +120,9 @@ export default class Editor extends React.Component {
       enableAutoSave: false,
       autoFloatEnabled: false
     }
+    
   }
-
+  
   static propTypes = {
     configs: React.PropTypes.object,
     value: React.PropTypes.string,

@@ -30,7 +30,6 @@ class Basic extends Component {
     }
     componentDidMount() {
         var _this = this;
-            console.log(_this.props.id);
         var wfId = _this.props.id;
         Http.request('process-detail', {
                 wfId: wfId,
@@ -172,7 +171,6 @@ class Basic extends Component {
 const validate = values => {
 
 	const errors = {}
-        console.log(values,"PPPPPPPPPP");
 		if (!values.name) {
 			errors.name = '请输入流程名称';
 		}else if (values.name.length>20) {
