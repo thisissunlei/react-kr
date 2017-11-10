@@ -48,7 +48,6 @@ class EditText  extends React.Component{
         const {onSubmit}=this.props;
         values = Object.assign({},values);
       
-        console.log('frrrr',values);
          
         let itemListStr = [];
         if(values.inputType!='SELECT'&&values.inputType!='CHECK'){

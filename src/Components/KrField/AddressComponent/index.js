@@ -27,6 +27,7 @@ export default class AddressComponent extends React.Component {
             allData: [],
             oneOpen: true,
             other: '',
+            showText:''
         }
         this.allData = [];
     }
@@ -62,11 +63,19 @@ export default class AddressComponent extends React.Component {
 
     onSubmit = (data) => {
         let {input} = this.props;
-        input.onChange(data);
-        this.dlogSwidch();
-        this.setState({
-            other:new Date()
-        })
+        // addressFormwork
+        console.log(data)
+        // let templateReg = new RegExp("${0}", 'ig');
+        if (data.codeList && data.codeList.length && data.codeList[0].label){
+            let template = data.addressFormwork.replace("${0}", data.codeList[0].label);
+            
+           input.onChange(data.codeList[0].value);
+            this.dlogSwidch();
+            this.setState({
+                showText: data.codeList[0].value
+            })
+        }
+        
     }
 
 
@@ -82,7 +91,7 @@ export default class AddressComponent extends React.Component {
     
     render() {
 
-        const { isDialog, allData, oneOpen } = this.state;
+        const { isDialog, allData, oneOpen, showText} = this.state;
         let {
             input,
             prompt,
@@ -146,15 +155,15 @@ export default class AddressComponent extends React.Component {
             ...other,
             autoFocus,
         }
-        console.log(input,">>>>>>")
-        var text = input.value && input.value.codeList && input.value.codeList[0] ? input.value.codeList[0].label : '';
+        // var text = input.value && input.value.codeList && input.value.codeList[0] ? input.value.codeList[0].label : '';
+        var text = input.label || '';
         
 
         return (
             <WrapComponent {...wrapProps}>
 
                 <Input onClick={this.onFocus} {...inputProps} style={{ display: "none" }} />
-                <div className="oa-imulation-input "  onClick={this.onFocus}>{text||''}</div>
+                <div className="oa-imulation-input " onClick={this.onFocus}>{showText||''}</div>
                 {touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
                 <div className="select-tree">
 

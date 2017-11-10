@@ -274,7 +274,6 @@ export default class Table extends React.Component {
 		});
 		this.exportRows = exportRows;
 		this.exportData = exportData;
-		console.log("--------ppppp")
 		onExport && onExport(exportData, exportRows);
 
 	}

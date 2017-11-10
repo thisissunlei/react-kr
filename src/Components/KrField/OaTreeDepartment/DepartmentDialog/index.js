@@ -137,7 +137,6 @@ export default class DepartmentDialog extends React.Component{
 		let {
 			checkable
 		} = this.props;
-		console.log("++++++",detail)
 
 		return (
             <div className = "tree-department" style = {{position:"relative",textAlign:"center"}}>

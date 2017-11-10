@@ -46,7 +46,6 @@ class EditTable  extends React.Component{
 	}
 
 	onSubmit=(values)=>{
-       console.log('values',values);
 	}
   
   

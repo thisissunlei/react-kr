@@ -133,6 +133,7 @@ class FromsConfig extends Component {
 		}
 		var type = btnType[jsData.wsradio];
 		return this.universalRender(item,type,lineNum);
+		
 	}	
 	//明细表选人
 	detailRender = (item) =>{
