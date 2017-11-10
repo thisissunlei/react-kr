@@ -66,15 +66,15 @@ export default class TextareaComponent extends React.Component {
 		} = this.props;
 
 	
-		if(item.setting){
+		 /*if(item.setting){
 			var seeting=JSON.parse(item.setting);
 			seeting.height=seeting.wsheight;
 			delete seeting.wsheight;
 			styleHeight=seeting;
 		}else{
 			styleHeight=heightStyle;
-		}
-
+		// }*/
+        
 		let {
 			inputSize
 		} = this.state;

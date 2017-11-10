@@ -126,8 +126,8 @@ function floatCheck(params, name) {
         return text;
     }
 
-    var seeting=JSON.parse(params.setting);
-    /*if(name&&num.test(name)){
+    /*var seeting=JSON.parse(params.setting);
+    if(name&&num.test(name)){
         console.log('----',name.toString(),'ni--',name);
         if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
             text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
@@ -152,8 +152,8 @@ function transferCheck(params, name) {
         return text;
     }
     
-        var seeting=JSON.parse(params.setting);
-        /*if(name&&num.test(name)){
+        /*var seeting=JSON.parse(params.setting);
+        if(name&&num.test(name)){
             if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
                 text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
                 return text;
@@ -177,8 +177,8 @@ function quartileCheck(params, name) {
         return text;
     }
     
-        var seeting=JSON.parse(params.setting);
-        /*if(name&&num.test(name)){
+        /*var seeting=JSON.parse(params.setting);
+        if(name&&num.test(name)){
             if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
                 text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
                 return text;
