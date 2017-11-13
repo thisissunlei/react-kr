@@ -50,7 +50,8 @@ export default class PrintOther extends React.Component {
 		Http.request("get-other-print-formwork", {requestId:id}).then(function (response) {
 			_this.getAllData(response.content,id);
 		}).catch(function (err) {
-			Message.error(err.message);
+			Message.error("请配置打印模板");
+			// window.close()
 		});
 		
 	

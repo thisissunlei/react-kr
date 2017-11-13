@@ -60,7 +60,7 @@ class EditText  extends React.Component{
             }
         }
 
-        
+        console.log(values,"PPPPPPPPP");
         var valueReg = /^[1-9]\d{0,2}$/;
         var orderNumReg = /^[1-9]\d{0,1}$/;
         var label = true,
@@ -131,8 +131,28 @@ class EditText  extends React.Component{
 
             }
         }
-  
-      
+
+        
+        if(values.itemListStr && values.itemListStr.length){
+
+            //是否有默认值
+            var haveIsDefault = false;
+
+            values.itemListStr.map((item,index)=>{
+                if(!item.isDefault){
+                    item.isDefault = false;
+                } else{
+                    haveIsDefault = true;
+                }
+                
+            })
+            //如果没有默认值则将第一个设为默认值
+            if(!haveIsDefault){
+                values.itemListStr[0].isDefault = true;
+            }
+        }
+
+
         for (var item in values){
             if(item=='wstext'||item=='wsheight'||item=='wsfile'||item=='wspicWidth'||item=='wspicHeight'||item=='wspicFile'){
                 values[item]=values[item].replace(/^0+\./g,'0.'); 

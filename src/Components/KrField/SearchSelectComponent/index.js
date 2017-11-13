@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-	Http
+	Http,
+	typeJudgment
 } from "kr/Utils";
 
 import ReactSelectAsync from '../../Select/Async';
@@ -45,19 +46,20 @@ export default class  SearchAllComponent extends React.Component {
 	}
 
 	getOptions(){
-		let {item}=this.props;
-		var sourceOrigin=item.sourceType=='CUSTOM'?item.id:item.sourceOrgin;
+		//搜索下拉options优先级大于selectUrl
+		let {selectUrl,params,options}=this.props;
+
+		if(options && typeJudgment(options) === "[object Array]"){
+			return options;
+		}
+
 		return new Promise((resolve, reject) => {
-		Http.request('template-search-list',{
-			searchKey:item.searchKey||'',
-			sourceOrgin:sourceOrigin||'',
-			sourceType:item.sourceType||''
-		}).then(function(response){
-			resolve({options:response.items});
-		}).catch(function(err){
-			reject(err);
+			Http.request(selectUrl,params||{}).then(function(response){
+				resolve({options:response.items});
+			}).catch(function(err){
+				reject(err);
+			});
 		});
-	  });
 	}
     
 	render(){
