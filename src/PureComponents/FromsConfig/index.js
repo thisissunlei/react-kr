@@ -137,6 +137,11 @@ class FromsConfig extends Component {
 		if (item.wholeLine){
 			grid = 1
 		}
+		var params = {
+			searchKey: item.searchKey || '',
+			sourceOrgin: item.sourceOrgin || '',
+			sourceType: item.sourceType || ''
+		}
 		if(item.display){
 			return (
 				<KrField
@@ -146,8 +151,9 @@ class FromsConfig extends Component {
 					label={item.label}
 					grid={grid}
 					isStore={true}
+					selectUrl= 'template-search-list'
 					component={type}
-					item={item}
+					params={params}
 				/>
 			)
 		}else {
