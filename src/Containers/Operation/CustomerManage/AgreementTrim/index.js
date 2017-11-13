@@ -51,6 +51,7 @@ import './index.less'
 import AgreementList from './AgreementList';
 import Edit from './Edit';
 import State from './State';
+import Data from './Data';
 
 @observer
 class AgreementTrim extends React.Component {
@@ -135,6 +136,9 @@ class AgreementTrim extends React.Component {
 		console.log('customerName',itemData);
 		window.open(window.location.origin+`/new/#/operation/customerManage/`+itemData.customerid+`/order/`+itemData.mainbillid+`/detail`);
 	}
+	createData=()=>{
+		State.opencreateData()
+	}
 
 	
 
@@ -157,7 +161,8 @@ class AgreementTrim extends React.Component {
 						<Button  label="新建"  onTouchTap={this.openNewCreateDialog} />
 						<span style={{display:'inline-block',width:30}}></span>
 						<Button  label="清除测试数据" width={110} onTouchTap={this.deleteDemos} />
-							
+						<span style={{display:'inline-block',width:30}}></span>
+						<Button  label="确认月收入数据" width={110} onTouchTap={this.createData} />
 					  </Col>
 
 			          <Col style={{marginTop:-15,float:'right'}}>
@@ -207,7 +212,7 @@ class AgreementTrim extends React.Component {
 							 	</div>)
 						}}
 						></TableRowColumn>
-						<TableRowColumn name="billName"
+						<TableRowColumn name="mainbillName"
 						component={(value,oldValue)=>{
 							var TooltipStyle=""
 							if(value.length==""){
@@ -221,12 +226,7 @@ class AgreementTrim extends React.Component {
 							 	</Tooltip></div>)
 						}}
 						></TableRowColumn>
-						<TableRowColumn name="contractType"
-						component={(value,oldValue)=>{
-							if(value==""){
-								value="-"
-							}
-							return (<span>{this.contracttype(value)}</span>)}}
+						<TableRowColumn name="detailType"
 						></TableRowColumn>
 						<TableRowColumn name="changeContent"
 						component={(value,oldValue)=>{
@@ -304,6 +304,17 @@ class AgreementTrim extends React.Component {
 						</Row>
 						</Grid>
 					</div>
+
+			  </Dialog>
+			<Dialog
+				title="确认月收入数据"
+				modal={true}
+				autoScrollBodyContent={true}
+				autoDetectWindowHeight={true}
+				onClose={this.createData}
+				open={State.createData} 
+				contentStyle={{width:'400px'}}>
+					<Data onCancel={this.createData} />
 
 			  </Dialog>
 

@@ -1057,5 +1057,10 @@ module.exports = {
         url: '/api/krspace-finance-web/cmt/register-address/select/type/community?communityId={communityId}',
         method: 'get'
     },
+     //确认月收入数据
+     'init-report-income': {
+        url: '/api/krspace-op-web/init-report-income',
+        method: 'post'
+    },
 
 }
