@@ -7,7 +7,7 @@ module.exports = [
 		menuItems: [
 				{
 					primaryText: "门禁管理",
-					iconName: 'icon-com',
+					iconName: 'icon-card',
 					iconColor: '#79859a',
 					router :'',
 					menuItems: [
