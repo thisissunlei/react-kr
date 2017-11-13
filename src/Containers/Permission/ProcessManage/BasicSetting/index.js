@@ -90,7 +90,7 @@ export default class BasicSetting extends React.Component {
 	}
     //返回
     toBack=()=>{
-        window.location.href='./#/permission/processManage/processSetting'
+        window.location.href='./#/permission/processManage/processSetting?typeList=false'
     }
     //改变页码
     changeP=()=>{

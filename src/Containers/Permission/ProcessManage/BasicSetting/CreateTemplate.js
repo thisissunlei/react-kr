@@ -215,7 +215,7 @@ const validate = values => {
 	const errors = {}
 	let numContr =/^[1-9]\d{0,4}$/;
 	if(!values.name){
-		errors.name = '请输入新闻标题';
+		errors.name = '请输入模板标题';
 	}
 	if(values.name){
 		if(values.name.length>20){
