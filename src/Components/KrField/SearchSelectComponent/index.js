@@ -48,13 +48,13 @@ export default class  SearchAllComponent extends React.Component {
 	getOptions(){
 		//搜索下拉options优先级大于selectUrl
 		let {selectUrl,params,options}=this.props;
-
+		var obj = Object.assign({},params)
 		if(options && typeJudgment(options) === "[object Array]"){
 			return options;
 		}
-
+		console.log(params,"--------");
 		return new Promise((resolve, reject) => {
-			Http.request(selectUrl,params||{}).then(function(response){
+			Http.request(selectUrl, obj||{}).then(function(response){
 				resolve({options:response.items});
 			}).catch(function(err){
 				reject(err);
