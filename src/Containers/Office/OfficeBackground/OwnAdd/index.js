@@ -11,6 +11,7 @@ import {
 	TableRowColumn,
 	Button,
 	Drawer,
+	Message
 } from 'kr-ui';
 import mobx, {
 	observable,
@@ -69,7 +70,9 @@ export default class Initialize  extends React.Component{
 			_this.setState({
 				detail: response.tables
 			})
-		}).catch(function (err) { });
+		}).catch(function (err) {
+			Message.error(err.message);
+		 });
 		
 	}
 
@@ -81,7 +84,9 @@ export default class Initialize  extends React.Component{
 		    
 			_this.onOpenEdit();
 			
-		}).catch(function (err) { });
+		}).catch(function (err) {
+			Message.error(err.message);
+		 });
 	}
 	openPrint=(itemData)=>{
 		var id = itemData.id;
@@ -140,7 +145,7 @@ export default class Initialize  extends React.Component{
 		Http.request('post-config-detail-edit', {}, params).then(function (response) {
 			_this.onOpenEdit()
 		}).catch(function (err) {
-			
+			Message.error(err.message);
 		 });
 	}
 

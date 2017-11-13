@@ -96,7 +96,7 @@ export default class NewOffice extends React.Component {
         detail: response.tables
       })
     }).catch(function (err) { 
-
+      Message.error(err.message);
     });
   }
   leftClick = (item) =>{
@@ -127,7 +127,9 @@ export default class NewOffice extends React.Component {
       Http.request('office-new-delete', {
       },{myCommonId:item.id}).then(function(response) {
           _this.updateData();
-      }).catch(function(err) {});
+      }).catch(function(err) {
+        Message.error(err.message);
+      });
   }
   swidthNew = () =>{
     
@@ -147,7 +149,9 @@ export default class NewOffice extends React.Component {
               _this.setState({newThings: response.items},function(){
         
               })
-            }).catch(function(err) {});
+            }).catch(function(err) {
+              Message.error(err.message);
+            });
     
   }
   //新建页面提交
@@ -158,7 +162,7 @@ export default class NewOffice extends React.Component {
     Http.request('post-config-detail-new', {}, params).then(function (response) {
       _this.swidthNew();
     }).catch(function (err) { 
-
+      Message.error(err.message);
     });
 
     
