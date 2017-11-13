@@ -115,10 +115,10 @@ class Template extends React.Component {
 	}
 	changePrintType=(value)=>{
 		console.log('changePrintType',value)
-		State.printName = value.label;
+		State.printName = value ? value.label:'';
 		State.printTempId = false;
-		State.formworkId = value.value;
-		Store.dispatch(change('Template','printTempId',value.value));
+		State.formworkId = value ? value.value:'';
+		Store.dispatch(change('Template', 'printTempId', value ? value.value : ''));
 	}
 	onCancelDialog=()=>{
 		this.setState({
@@ -151,6 +151,7 @@ class Template extends React.Component {
 		State.printName = values.name;
 		State.formworkId = values.printTemplateId;
 		this.onOpenTemplate();
+		State.getPrintTemplateList();
 	}
 	//获取编辑数据
 	getEditData = () =>{
@@ -289,16 +290,16 @@ class Template extends React.Component {
 					</CircleStyleTwo>
 				</form> 
 				<Drawer
-				        open={State.open}
-				        width={750}
-				        openSecondary={true}
-				        onClose={this.closeCreateTemplate}
+					open={State.open}
+					width={750}
+					openSecondary={true}
+					onClose={this.closeCreateTemplate}
 
-				        className='m-finance-drawer'
-				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
-			        >
+					className='m-finance-drawer'
+					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			    >
 
-			       	 	<CreateTemplate onCancel={this.closeCreateTemplate}/>
+			       	<CreateTemplate onCancel={this.closeCreateTemplate}/>
 		        </Drawer>
 		        <Dialog
 				title="选择模板"
