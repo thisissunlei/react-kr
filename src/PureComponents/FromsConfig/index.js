@@ -25,34 +25,64 @@ import {
 } from './config';
 import './index.less';
 var inspectionData = [];//检验数据
+var isOk=false;
 class FromsConfig extends Component {
 	constructor(props, context) {
 		super(props, context);
 		let {detail} =props;
 		inspectionData = [].concat(detail);
 		this.detailNames=[];
-		
-	}
-    componentWillUnmount(){
-		inspectionData=[];
+		this.init=false;
 	}
     
 	onCancel = () =>{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	//提交代码
-	onSubmit = (values) =>{
-		let params = Object.assign({},values);
-		 for(var i=0;i<this.detailNames.length;i++){
+	
+	//主表首次不提示
+	mainTip=()=>{
+	    var _this=this;
+		if(inspectionData&&!isOk){
+			inspectionData.map((item,index)=>{
+				if(item.isMain){
+					item.fields&&item.fields.map((items,indexs)=>{
+						if(items.required){
+							Notify.show([{
+								message:`${items.label}不能为空`,
+								type: 'danger',
+							}]);
+							_this.init=true;
+						}
+					})
+				}
+			})
+		}
+	}
+
+	//明细表提示
+	detailTip=()=>{
+       /*for(var i=0;i<this.detailNames.length;i++){
 			if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
-				/*Notify.show([{
+				Notify.show([{
 					message:'明细表不能为空',
 					type: 'danger',
 				}]);
-				return ;*/
+				return ;
 			 }
-		 }
+		 }*/
+	}
+    
+	//提交代码
+	onSubmit = (values) =>{
+		let params = Object.assign({},values);
+		this.mainTip();
+		this.detailTip();
+		if(this.init){
+			return ;
+		}
+		delete params.c_time;
+		delete params.u_time;
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(params)
 	}
@@ -107,6 +137,11 @@ class FromsConfig extends Component {
 		if (item.wholeLine){
 			grid = 1
 		}
+		var params = {
+			searchKey: item.searchKey || '',
+			sourceOrgin: item.sourceOrgin || '',
+			sourceType: item.sourceType || ''
+		}
 		if(item.display){
 			return (
 				<KrField
@@ -116,8 +151,9 @@ class FromsConfig extends Component {
 					label={item.label}
 					grid={grid}
 					isStore={true}
+					selectUrl= 'template-search-list'
 					component={type}
-					item={item}
+					params={params}
 				/>
 			)
 		}else {
@@ -133,6 +169,7 @@ class FromsConfig extends Component {
 		}
 		var type = btnType[jsData.wsradio];
 		return this.universalRender(item,type,lineNum);
+		
 	}	
 	//明细表选人
 	detailRender = (item) =>{
@@ -168,6 +205,7 @@ class FromsConfig extends Component {
 	render(){
 		const {handleSubmit,title} = this.props;
 
+
 		return (
 			
 			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}>
@@ -181,21 +219,14 @@ class FromsConfig extends Component {
 	}
 }
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-const asyncValidate = (values /*, dispatch */) => {
-  return sleep(1000).then(() => {
-	for(var item in validate(values)){
-		if(validate(values)[item]){
-			throw validate(values)
-		}
-	}
-  })
-}
 
 const validate = values => {
 		let errors = {};
-		let detailMessage = ''
+		let detailMessage = '';
+		if(inspectionData.length!=0){
+			isOk=true;
+		}
 		inspectionData.map((item, index) => {
 			if (item.isMain) {
 				errors = mainCheck(item.fields, values,true);
@@ -215,5 +246,5 @@ const validate = values => {
 }
 export default reduxForm({
 	form: 'FromsConfig',
-	asyncValidate
+	validate
 })(FromsConfig);

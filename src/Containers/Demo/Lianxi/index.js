@@ -48,6 +48,7 @@ export default class EditTable  extends React.Component{
 	  Store.dispatch(change('EditTable','countyId',38));
 	  Store.dispatch(change('EditTable', 'businessBegin', '10:30'));
 	  Store.dispatch(change('EditTable', 'address',{laber:"求仙桥",id:22})); 
+	  Store.dispatch(change('EditTable', 'df',44)); 
 	  Store.dispatch(change('EditTable','codeMore',[{label:'123',value:'1',checked:true},{label:'456',value:'2',checked:false}]));
 	}
 	
@@ -61,7 +62,6 @@ export default class EditTable  extends React.Component{
 	
 	render(){
 		
-		console.log(data,"=========")
 		return(
 
 			<div>

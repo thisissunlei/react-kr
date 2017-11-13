@@ -30,7 +30,6 @@ class Basic extends Component {
     }
     componentDidMount() {
         var _this = this;
-            console.log(_this.props.id);
         var wfId = _this.props.id;
         Http.request('process-detail', {
                 wfId: wfId,
@@ -73,16 +72,16 @@ class Basic extends Component {
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
                     grid={1/2}
-                    label="流程名称"
+                    label="合同名称"
                     component="input"
                     name="name"
                     requireLabel={true}
-                    placeholder="请输入流程类型名称"
+                    placeholder="请输入合同类型名称"
                 />
                 <KrField
                     style={{width:262,marginTop:6}}
                     inline={false}
-                    label="流程编码"
+                    label="合同编码"
                     grid={1/2}
                     component="labelText"
                     name="code"
@@ -94,7 +93,7 @@ class Basic extends Component {
                     name="typeId"
                     type="text"
                     component="SearchProcessType"
-                    label="流程类型"
+                    label="合同类型"
                     requireLabel={true}
                 />
                 <KrField
@@ -132,7 +131,7 @@ class Basic extends Component {
                     valueText={(infoList.resourceName)?[{orgName:infoList.resourceName}]:[{orgName:''}]}
                 />
                 
-                <KrField style={{width:262,marginTop:14,marginLeft:34}} name="allowRequest" component="group" label="发起流程请求" grid={1} requireLabel={true}>
+                <KrField style={{width:262,marginTop:14,marginLeft:34}} name="allowRequest" component="group" label="发起合同请求" grid={1} requireLabel={true}>
                     <KrField style={{marginTop:10}} name="allowRequest" label="允许" type="radio" value="true" />
                     <KrField style={{marginTop:10}} name="allowRequest" label="不允许" type="radio" value="false" />
  				</KrField>
@@ -172,11 +171,10 @@ class Basic extends Component {
 const validate = values => {
 
 	const errors = {}
-        console.log(values,"PPPPPPPPPP");
 		if (!values.name) {
-			errors.name = '请输入流程名称';
+			errors.name = '请输入合同名称';
 		}else if (values.name.length>20) {
-			errors.name = '流程名称最多20个字符！';
+			errors.name = '合同名称最多20个字符！';
 		}   
 
 		if (!values.orderNum) {

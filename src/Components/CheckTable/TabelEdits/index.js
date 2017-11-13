@@ -23,7 +23,6 @@ export default class  TabelEdit extends React.Component {
 		
 	}
 	componentWillReceiveProps(nextProps) {
-		console.log('will----------array',nextProps)
 		// Store.dispatch(initialize('EditForm',State.data));
 	}
 	rowDetail = () =>{
@@ -130,7 +129,6 @@ export default class  TabelEdit extends React.Component {
 		setTimeout(()=>{
 
 			if(titleChecked){
-				console.log("99999999")
 				this.allChecked();
 				this.clearCheckBox(false);
 			}

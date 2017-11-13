@@ -83,7 +83,6 @@ export default class SwitchSlide extends React.Component{
 		// let {input} = this.props;
 		// input.onChange(value);
 		const {onChange} = this.props;
-		console.log('=======onChange',value);
 		onChange && onChange(value)
 	}
 

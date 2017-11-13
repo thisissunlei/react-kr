@@ -271,7 +271,7 @@ class Template extends React.Component {
 	                            onChange={this.changePrintType}
 	                        />}
 	                        {!!State.printName?
-			            	<span className="has-template template-name" onClick = {this.getEditData}>{State.printName}</span>
+			            	<span className="has-template template-name template-active" onClick = {this.getEditData}>{State.printName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
 			            	{State.printTempId && <div className="error-message">请选择显示模板</div>}
 

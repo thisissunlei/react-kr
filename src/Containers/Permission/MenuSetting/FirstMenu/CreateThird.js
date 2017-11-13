@@ -37,7 +37,6 @@ class CreateThird extends React.Component {
             subLevelId: id
         },{}).then(function(response) {
             infoList.subLevelName = response.name;
-            console.log(response);
             _this.setState({
                 infoList:infoList
             },function() {

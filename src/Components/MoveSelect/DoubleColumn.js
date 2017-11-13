@@ -16,7 +16,7 @@ export default class DoubleColumn extends Component {
         super(props, context);
         this.state = {
             leftData:[],
-            rightData:(props.data && props.data.codeList)|| [],
+            rightData:props.data || [],
             other:'',
             titleData:{},
         }
@@ -41,7 +41,7 @@ export default class DoubleColumn extends Component {
         this.isWindows = function() {
             return /windows|win32/i.test(navigator.userAgent);
         }(); 
-        this.getData();
+        // this.getData();
         
         
     }
@@ -52,13 +52,11 @@ export default class DoubleColumn extends Component {
         })
         return newData;
     }
-    getData = (url,obj) =>{
-        let params = Object.assign({},obj);
+    getData = (obj = { addressId: '', searchKey: '', allWhenNull:true}) =>{
         let that = this;
-        Http.request("getTheCommunity").then(function(response) {
-            
-            that.allData = [].concat(that.changeData(response.items));
-            
+        Http.request("get-address-num", obj).then(function(response) {
+          
+            that.allData = [].concat(response.items);
             that.setState({
                 leftData: that.allDataInit(that.allData),
                 titleData:Object.assign({},obj)

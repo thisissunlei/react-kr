@@ -79,7 +79,6 @@ class EditDialog extends Component {
         onSubmit && onSubmit(params);
     }
     changeType=(item)=>{
-        console.log("进入change");
         switch(item.value)
             {
             case 'SUBCOMPANY':
@@ -116,7 +115,6 @@ class EditDialog extends Component {
     }
     render() {
         const {handleSubmit,detail} = this.props;
-        console.log(this.state.rangeType,"rangetype",this.state.limit,"limit");
         return (
 
             <div>

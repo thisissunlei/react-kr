@@ -115,7 +115,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   }
 
 	onSubmit = (values) => {
-        console.log('values',values);
         if(values.porType.length<2){
              Message.error('至少选择两种工位类型');
              return ;

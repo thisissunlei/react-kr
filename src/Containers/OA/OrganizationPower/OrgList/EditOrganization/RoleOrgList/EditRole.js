@@ -25,7 +25,6 @@ class EditRole  extends React.Component{
 
 
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
         if(nextProps.depType!=this.props.depType){
             if(nextProps.depType=='DEPARTMENT'){
                     this.setState({

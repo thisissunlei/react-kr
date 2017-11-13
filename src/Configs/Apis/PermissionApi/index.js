@@ -529,9 +529,6 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/public-dict/check/code?dictCode={dictCode}&id={id}',
       method: 'get'
     },
-
-
-
     //PC端模板--新建
     'create-form-template':{
       url: '/api/krspace-erp-web/sys/form-template',
@@ -569,8 +566,29 @@ module.exports = {
     },
     //合同搜索下拉
     'template-search-list':{
-      url: '/api/krspace-erp-web/sys/public-dict/data/type/source?sourceType={sourceType}&sourceOrgin={sourceOrgin}&searchKey={searchKey}',
+      url: '/api/krspace-erp-web/sys/public-dict/data/type/source?sourceType={sourceType}&sourceOrgin={sourceOrgin}&searchKey={searchKey}&fieldId={fieldId}',
       method: 'get'
     },
+
+    //sql模版列表
+    'sql-list':{
+      url: '/api/krspace-erp-web/sys/sql-template/search?page={page}&pageSize={pageSize}&name={name}',
+      method: 'get'
+   },
+     //sql模版新增
+     'sql-add':{
+      url: '/api/krspace-erp-web/sys/sql-template/insert',
+      method: 'post'
+   },
+     //sql模版编辑
+     'sql-edit':{
+      url: '/api/krspace-erp-web/sys/sql-template/update',
+      method: 'post'
+   },
+    //sql模版删除
+    'sql-delete':{
+      url: '/api/krspace-erp-web/sys/sql-template/delete',
+      method: 'post'
+   },
 
 }

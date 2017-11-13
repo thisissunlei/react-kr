@@ -115,13 +115,14 @@ export default class Editor extends React.Component {
       autoHeightEnabled: true,
       autoFloatEnabled: true,
       elementPathEnabled: false,
-      maximumWords: 50000,
+      maximumWords: 40000,
       initialFrameHeight: 800,
       enableAutoSave: false,
       autoFloatEnabled: false
     }
+    
   }
-
+  
   static propTypes = {
     configs: React.PropTypes.object,
     value: React.PropTypes.string,

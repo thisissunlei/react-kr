@@ -7,66 +7,78 @@ import {
 	reduxForm,
      initialize,
 } from 'redux-form';
+import {
+    Http
+} from 'kr/Utils';
 
 class AgreementTitle  extends React.Component{
 
 	constructor(props,context){
         super(props, context);
-        this.params = {
+        this.state = {
+            other:'',
+        }
+        this.titleData = {
             communityId:'',
-            floor:''
+            addressId:'',
+            searchKey:'',
+            allWhenNull:true,
+            addressFormwork:'',
         }
 
 	}
-
+    //社区下拉
     communityChange=(value)=>{
         let {communityChange}=this.props;
-        // console.log(value, ">>>>>>")
-        this.params.communityId = value.value;
-        communityChange && communityChange(value);
+        this.titleData.addressId = value.value||'';
+        this.titleData.addressFormwork = value.addressTemp||'';
+       
     }
-
+    //模糊查询
     codeChange=(value)=>{
         let {codeChange}=this.props;
-        this.floor = value;
-        // console.log(value, ">>>>>>")
-        codeChange && codeChange(value);
+        this.titleData.searchKey = value;
+       
     }
-
-    onSubmit=()=>{
-        let {onSubmit} = this.props;
-        var values = Object.assign({},this.params);
-        onSubmit && onSubmit(values);
+    btnClick = () =>{
+       
+        let { getFormworkNum} = this.props;
+        let param = Object.assign({},this.titleData);
+        
+        getFormworkNum && getFormworkNum(param)
     }
 
 	render(){
 
         let {floors,type,handleSubmit}=this.props;
-
 		return(
             <div className='m-type-post'>
                 <KrField grid={1/2}
                     style={{width:262,marginLeft:32,marginBottom:5}}
                     name="communityId"
-                    component="searchRegCommunity"
+                    component="searchSelect"
                     label="社区名称"
                     requireLabel={false}
                     inline={false}
+                    selectUrl = "get-address-formwork"
                     onChange = {this.communityChange}
                 />
                 <KrField grid={1/2}
                     style={{width:262,marginLeft:34,marginBottom:5}}
                     name="floor"
                     component="input"
-                    label="类型"
+                    label="编号"
                     onChange = {this.codeChange}
                     requireLabel={false}
                     inline={false}
                 />
-
+               
                 <div style = {{display:"inline-block",marginLeft:40,marginBottom:15}}>
-                    <Button  label="查询" onClick = {this.onSubmit}/>
+                    <Button label="查询" onClick = {this.btnClick}/>
                 </div>
+                {this.titleData.addressFormwork && <div style = {{marginLeft:40,padding:'10px 0px'}}>
+                    {this.titleData.addressFormwork}
+                </div>}
             </div>		
 		);
 	}

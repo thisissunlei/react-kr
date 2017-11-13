@@ -27,6 +27,9 @@ export default class AddressComponent extends React.Component {
             allData: [],
             oneOpen: true,
             other: '',
+            showText:'',
+            //选中的数据
+            selectData:[]
         }
         this.allData = [];
     }
@@ -62,11 +65,18 @@ export default class AddressComponent extends React.Component {
 
     onSubmit = (data) => {
         let {input} = this.props;
-        input.onChange(data);
-        this.dlogSwidch();
-        this.setState({
-            other:new Date()
-        })
+        // addressFormwork
+        console.log(data)
+        // let templateReg = new RegExp("${0}", 'ig');
+        if (data.codeList && data.codeList.length && data.codeList[0].label){
+            let template =  data.codeList[0].label;
+           input.onChange(data.codeList[0].value);
+            this.dlogSwidch();
+            this.setState({
+                showText: template
+            })
+        }
+        
     }
 
 
@@ -77,12 +87,35 @@ export default class AddressComponent extends React.Component {
     }
 
     componentDidMount() {
+        let {input} = this.props;
+        // console.log(input.value,"______")
         // this.getData();
+        // this.getAdressData();
     }
-    
+    getAdressData = () =>{
+        let _this = this;
+        Http.request("get-address-num", { addressId: '', allWhenNull:true}).then(function (response) {
+            _this.theEcho(response.items)
+        }).catch(function (err) {
+
+        });
+    }
+    theEcho = (data) =>{
+        const {input} = this.props;
+        for (var i = 0; i < data.length; i++) {
+            if(data[i].value == input.value){
+                this.setState({
+                    showText:data[i].label,
+                    selectData:[data[i]]
+                })
+                break;
+            }
+        }
+        
+    }
     render() {
 
-        const { isDialog, allData, oneOpen } = this.state;
+        const { isDialog, allData, oneOpen, showText, selectData} = this.state;
         let {
             input,
             prompt,
@@ -146,15 +179,15 @@ export default class AddressComponent extends React.Component {
             ...other,
             autoFocus,
         }
-        console.log(input,">>>>>>")
-        var text = input.value && input.value.codeList && input.value.codeList[0] ? input.value.codeList[0].label : '';
-       
+        // var text = input.value && input.value.codeList && input.value.codeList[0] ? input.value.codeList[0].label : '';
+        // var text = input.label || '';
+        
 
         return (
             <WrapComponent {...wrapProps}>
 
                 <Input onClick={this.onFocus} {...inputProps} style={{ display: "none" }} />
-                <div className="oa-imulation-input "  onClick={this.onFocus}>{text||''}</div>
+                <div className="oa-imulation-input " style={{ overflow: "auto"}} onClick={this.onFocus}>{showText||''}</div>
                 {touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
                 <div className="select-tree">
 
@@ -166,7 +199,7 @@ export default class AddressComponent extends React.Component {
                         contentStyle={{ width: '653px',paddingBottom:'30px', position: 'fixed', left: "50%", marginLeft: '-345px' }}
                     >
                         <MoveSelect 
-                            data={input.value||[]} 
+                            data={selectData||[]} 
                             onCancel = {this.onCancel}   
                             onSubmit={this.onSubmit} 
                             checked={checked||false}

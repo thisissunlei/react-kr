@@ -37,7 +37,6 @@ export default class MultiSwitchDialog extends React.Component{
 	}
 	deletList = (index) => {
 		let leftData = [].concat(this.state.leftData);
-		console.log(leftData,index);
 		leftData[index].visable=false;
 		this.setState({
 			leftData,
@@ -65,7 +64,6 @@ export default class MultiSwitchDialog extends React.Component{
 
     }
 	initData=(data,rightData)=>{
-		console.log(rightData);
 		var param = data.map((item,index)=>{
 			//改变这里
 			if(item){
@@ -82,7 +80,6 @@ export default class MultiSwitchDialog extends React.Component{
 	}
 	leftLiClick = (item,index) =>{
 		let leftData = [].concat(this.state.leftData);
-		console.log(leftData);
 		leftData[index].visable = true;		
 		this.setState({
 			leftData,

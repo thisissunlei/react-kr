@@ -274,7 +274,6 @@ export default class DoubleColumn extends Component {
          this.delRight = [];
     }
     selectSame = (arr,data,type) =>{
-        console.log(arr,data)
         let {leftData,rightData} = this.state;
         let theData = []
         if(type == "left"){

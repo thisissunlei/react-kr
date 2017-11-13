@@ -227,7 +227,7 @@ export default class SingleType extends React.Component {
                                 </div>
                                 <div className="department-tab-list">
                                     <div className="department-tab" style={{cursor:"default"}}>
-                                        流程列表
+                                        合同列表
                                     </div>
                                    
                                 </div>
@@ -273,11 +273,11 @@ export default class SingleType extends React.Component {
 								onPageChange={this.onPageChange}
 							>
 								<TableHeader>
-									<TableHeaderColumn>流程名称</TableHeaderColumn>
-									<TableHeaderColumn>流程编码</TableHeaderColumn>
-									<TableHeaderColumn>流程类型</TableHeaderColumn>
+									<TableHeaderColumn>合同名称</TableHeaderColumn>
+									<TableHeaderColumn>合同编码</TableHeaderColumn>
+									<TableHeaderColumn>合同类型</TableHeaderColumn>
 									<TableHeaderColumn>顺序</TableHeaderColumn>
-									<TableHeaderColumn>发起流程请求</TableHeaderColumn>
+									<TableHeaderColumn>发起合同请求</TableHeaderColumn>
 									<TableHeaderColumn>新办是否显示</TableHeaderColumn>
                                     <TableHeaderColumn>表单名称</TableHeaderColumn>
 									<TableHeaderColumn>描述</TableHeaderColumn>
@@ -396,7 +396,7 @@ export default class SingleType extends React.Component {
 						<CreateDrawer detail={this.state.searchParams} toBasicSetting={this.toBasicSetting} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDrawer} />
 					</Drawer>
 					<Dialog
-						title="编辑流程类型"
+						title="编辑合同类型"
 						modal={true}
 						open={this.state.openEditDialog}
 						onClose={this.openEditDialog}

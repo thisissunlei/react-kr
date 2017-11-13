@@ -100,6 +100,7 @@ import MoreRadioComponent from './MoreRadioComponent';
 import SearchSelectComponent from './SearchSelectComponent';
 import AddressComponent from './AddressComponent';
 import CountyComponent from './CountyComponent';
+import SelectListComponent from './SelectListComponent';
 
 
 
@@ -647,6 +648,12 @@ class FieldRevert extends React.Component {
 				);
 			}
 			
+			if (component === 'selectList') {
+				return (
+
+					<FieldRevert {...this.props} component={SelectListComponent}  style={WrapStyles} {...other}/>
+				);
+			}
 			
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>
