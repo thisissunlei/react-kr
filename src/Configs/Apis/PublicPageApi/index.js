@@ -40,7 +40,7 @@ module.exports = {
     },
     //获取地址模板
     'get-address-formwork': {
-        url: '/api/krspace-finance-web/cmt/register-address/select/type/list?communityId={communityId}',
+        url: '/api/krspace-finance-web/cmt/register-address/select/type/list',
         method: 'get'
     },
     //获取地址编码

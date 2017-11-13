@@ -90,7 +90,7 @@ export default class AddressComponent extends React.Component {
         let {input} = this.props;
         // console.log(input.value,"______")
         // this.getData();
-        this.getAdressData();
+        // this.getAdressData();
     }
     getAdressData = () =>{
         let _this = this;
@@ -116,7 +116,6 @@ export default class AddressComponent extends React.Component {
     render() {
 
         const { isDialog, allData, oneOpen, showText, selectData} = this.state;
-        console.log(selectData,"KKKKKKKK")
         let {
             input,
             prompt,

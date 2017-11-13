@@ -566,7 +566,7 @@ module.exports = {
     },
     //合同搜索下拉
     'template-search-list':{
-      url: '/api/krspace-erp-web/sys/public-dict/data/type/source?sourceType={sourceType}&sourceOrgin={sourceOrgin}&searchKey={searchKey}',
+      url: '/api/krspace-erp-web/sys/public-dict/data/type/source?sourceType={sourceType}&sourceOrgin={sourceOrgin}&searchKey={searchKey}&fieldId={fieldId}',
       method: 'get'
     },
 

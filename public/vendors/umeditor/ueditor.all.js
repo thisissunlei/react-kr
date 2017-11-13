@@ -2899,7 +2899,7 @@ var domUtils = dom.domUtils = {
      * ```
      */
     isEmptyInlineElement:function (node) {
-        if (node.nodeType != 1 || !dtd.$removeEmpty[ node.tagName ]) {
+        if ((node && node.nodeType != 1) || !dtd.$removeEmpty[ node.tagName ]) {
             return 0;
         }
         node = node.firstChild;
@@ -3916,10 +3916,9 @@ var domUtils = dom.domUtils = {
      * @return { Boolean } 是否是空元素
      */
     isEmptyBlock:function (node,reg) {
-        if(node.nodeType != 1)
+        if (node && node.nodeType != 1)
             return 0;
         reg = reg || new RegExp('[ \xa0\t\r\n' + domUtils.fillChar + ']', 'g');
-
         if (node[browser.ie ? 'innerText' : 'textContent'].replace(reg, '').length > 0) {
             return 0;
         }
@@ -7871,7 +7870,10 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * ```
          */
         getLang: function (path) {
-            var lang = UE.I18N[this.options.lang];
+            var lang = '';
+            if (this.options){
+                lang = UE.I18N[this.options.lang];
+            }
             if (!lang) {
                 throw Error("not import language file");
             }
@@ -9362,7 +9364,7 @@ var filterWord = UE.filterWord = function () {
  * ```
  */
 
-var htmlparser = UE.htmlparser = function (htmlstr,ignoreBlank) {
+var htmlparser = UE.htmlparser = function (htmlstr="1",ignoreBlank) {
     //todo 原来的方式  [^"'<>\/] 有\/就不能配对上 <TD vAlign=top background=../AAA.JPG> 这样的标签了
     //先去掉了，加上的原因忘了，这里先记录
     var re_tag = /<(?:(?:\/([^>]+)>)|(?:!--([\S|\s]*?)-->)|(?:([^\s\/<>]+)\s*((?:(?:"[^"]*")|(?:'[^']*')|[^"'<>])*)\/?>))/g,
@@ -9373,6 +9375,9 @@ var htmlparser = UE.htmlparser = function (htmlstr,ignoreBlank) {
         b:1,code:1,i:1,u:1,strike:1,s:1,tt:1,strong:1,q:1,samp:1,em:1,span:1,
         sub:1,img:1,sup:1,font:1,big:1,small:1,iframe:1,a:1,br:1,pre:1
     };
+    if (typeof htmlstr !== "string"){
+        htmlstr = "";
+    }
     htmlstr = htmlstr.replace(new RegExp(domUtils.fillChar, 'g'), '');
     if(!ignoreBlank){
         htmlstr = htmlstr.replace(new RegExp('[\\r\\t\\n'+(ignoreBlank?'':' ')+']*<\/?(\\w+)\\s*(?:[^>]*)>[\\r\\t\\n'+(ignoreBlank?'':' ')+']*','g'), function(a,b){

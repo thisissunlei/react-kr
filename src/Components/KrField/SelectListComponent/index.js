@@ -30,22 +30,25 @@ export default class  SelectListComponent extends React.Component {
 	}
 
 	componentWillMount(){
-		let {item}=this.props;
+		//搜索下拉options优先级大于selectUrl
+		let {selectUrl,params,options}=this.props;
 		var _this=this;
-		var sourceOrigin=item.sourceType=='CUSTOM'?item.id:item.sourceOrgin;
-		return new Promise((resolve, reject) => {
-		Http.request('template-search-list',{
-			searchKey:item.searchKey||'',
-			sourceOrgin:sourceOrigin||'',
-			sourceType:item.sourceType||''
-		}).then(function(response){
-			_this.setState({
-				options:response.items
+		if(options && typeJudgment(options) === "[object Array]"){
+			this.setState({
+				options:options
 			})
-		}).catch(function(err){
-			reject(err);
+			return ;
+		}
+
+		return new Promise((resolve, reject) => {
+			Http.request(selectUrl,params||{}).then(function(response){
+				_this.setState({
+					options:response.items
+				})
+			}).catch(function(err){
+				reject(err);
+			});
 		});
-	  });
 	}
     
 
