@@ -171,6 +171,11 @@ class FromsConfig extends Component {
 			sourceType: item.sourceType || '',
 			fieldId: item.id
 		}
+
+		var editHeight={};
+		if(item.setting){
+			editHeight=JSON.parse(item.setting);
+		}
 		if(item.display){
 			return (
 				<KrField
@@ -183,6 +188,7 @@ class FromsConfig extends Component {
 					selectUrl= 'template-search-list'
 					component={type}
 					params={params}
+					editHeight={editHeight}
 				/>
 			)
 		}else {
