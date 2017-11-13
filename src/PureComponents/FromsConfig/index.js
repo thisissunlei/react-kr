@@ -43,6 +43,7 @@ class FromsConfig extends Component {
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
 		var init=false;
+		//
 		if(inspectionData&&!isOk){
 			inspectionData.map((item,index)=>{
 				if(item.isMain){
@@ -58,7 +59,7 @@ class FromsConfig extends Component {
 				}
 			})
 		}
-		 /*for(var i=0;i<this.detailNames.length;i++){
+		 for(var i=0;i<this.detailNames.length;i++){
 			if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
 				Notify.show([{
 					message:'明细表不能为空',
@@ -66,7 +67,7 @@ class FromsConfig extends Component {
 				}]);
 				return ;
 			 }
-		 }*/
+		 }
 		if(init){
 			return ;
 		}
