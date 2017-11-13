@@ -33,6 +33,7 @@ export default class  SelectListComponent extends React.Component {
 		//搜索下拉options优先级大于selectUrl
 		let {selectUrl,params,options}=this.props;
 		var _this=this;
+		var obj = Object.assign({},params);
 		if(options && typeJudgment(options) === "[object Array]"){
 			this.setState({
 				options:options

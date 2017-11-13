@@ -161,10 +161,15 @@ class FromsConfig extends Component {
 		if (item.wholeLine){
 			grid = 1
 		}
+		if (type == "searchSelect"){
+			console.log(item,"PPPPPPPP")
+		}
+		
 		var params = {
 			searchKey: item.searchKey || '',
 			sourceOrgin: item.sourceOrgin || '',
-			sourceType: item.sourceType || ''
+			sourceType: item.sourceType || '',
+			fieldId: item.id
 		}
 		if(item.display){
 			return (
