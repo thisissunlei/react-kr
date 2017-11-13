@@ -28,14 +28,10 @@ class EditList extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			
-		}
 		
 	}
 
 	componentDidMount() {
-		// Store.dispatch(initialize('EditList', State.itemDetail));
 
 
 	}
@@ -47,20 +43,14 @@ class EditList extends React.Component {
 		onCancel && onCancel()
 	}
 	onSubmit=(form)=>{
-		console.log('=====>',form);
 		let {onCancel} = this.props;
-		// init-report-income
 		Http.request('init-report-income', {},{date:form.date}).then(function(response) {
 			Message.success("保存成功");
 			onCancel && onCancel()
-			// window.location.reload();
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 		
-	}
-	chooseStick=(person)=>{
-		console.log('-----',person)
 	}
   
 
