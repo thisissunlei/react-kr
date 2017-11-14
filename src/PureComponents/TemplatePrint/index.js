@@ -64,6 +64,7 @@ class TemplatePrint extends React.Component {
 			child:""
 		}
 		this.content = ''
+		this.editId = "edit_"+ new Date();
     }
     componentDidMount(){
 		// const { NavModel } = this.props;
@@ -91,7 +92,13 @@ class TemplatePrint extends React.Component {
 	templateChange = (value) =>{
 		this.content = value;
 	}
-
+	h1Click = () =>{
+		var funcName = "23333";
+		// console.log(UE.getEditor('editor').focus(),"PPPPPPPP")
+		// UE.getEditor('editor').focus();
+		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
+		// UE.getEditor('editor').execCommand('inserthtml', '{' + funcName + '}');  
+	}
 	render() {
 		let {handleSubmit,allData}=this.props;
 		let {child} = this.state;
@@ -117,6 +124,7 @@ class TemplatePrint extends React.Component {
 							
 						/>	
 						<KrField 
+							id={this.editId}
 							component="editor" 
 							style={{width:"210mm"}}  
 							name="content" 
@@ -126,6 +134,7 @@ class TemplatePrint extends React.Component {
 						
 					</div>
 				</Section>
+				<h1 onClick = {this.h1Click}>fgdfgdfgdf</h1>
 				
 			</form>
 

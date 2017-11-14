@@ -131,7 +131,7 @@ export default class Editor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.containerId = 'container_' + Date.now();
+    this.containerId = props.id || ('container_' + Date.now());
     this.ue = null;
     this.init = false;
     this.editor = false;
@@ -152,7 +152,7 @@ export default class Editor extends React.Component {
 
   initEditor = () => {
 
-    var { configs, defaultValue } = this.props;
+    var { configs, defaultValue,id } = this.props;
     var _this = this;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function (action) {
@@ -231,6 +231,7 @@ export default class Editor extends React.Component {
 
   render() {
     let { label } = this.props;
+    
     return (
 
       <div id={this.containerId} className="u-editor-parent" name="content"> </div>
