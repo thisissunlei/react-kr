@@ -8,15 +8,41 @@ var paperHeight = 1120,//整张纸的高
 
 //字段替换
 function codeParse(template, data){
-    var t, key, reg;
-　　　   //遍历该数据项下所有的属性，将该属性作为key值来查找标签，然后替换
+    if (!template){
+        return '';
+    }
+    var t = removeSpace(template), key, reg;
+　　　 //遍历该数据项下所有的属性，将该属性作为key值来查找标签，然后替换
     for (key in data) {
-        reg = new RegExp('{{' + key + '}}', 'g');
-        t = (t || template).replace(reg, data[key]);
+       t = keyParse(t ,key ,data[key]);
+    }
+    for(key in data){
+        t = noKeyParse(t, key, data[key])
     }
     return t;
 }
-
+//去掉所有空格
+function removeSpace(template){
+    return template.replace(/\s/g,''); 
+}
+//替换掉属性的写法
+function keyParse(template,paramName,data) {
+    var t = template, reg;
+    for(var key in data){
+        reg = new RegExp('{{' + paramName+'\\|'+ key + '}}', 'g'); 
+        t = t.replace(reg,data[key]||'')
+    }  
+    return t; 
+}
+//
+function noKeyParse(template, paramName, data) {
+    var t = template, reg;
+    for (var key in data) {
+        reg = new RegExp('{{' + paramName + '}}', 'g');
+        t = t.replace(reg, data.printValue||'')
+    }
+    return t; 
+}
 
 //标记替换
 function templateParse(template){
