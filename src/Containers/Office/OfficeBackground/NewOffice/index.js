@@ -90,7 +90,8 @@ export default class NewOffice extends React.Component {
       _this.newSubmitData = {
         formId: itemData.formId,
         wfName: itemData.name,
-        wfId:id
+        wfId:id,
+        printed:response.printed
       }
       _this.setState({
         detail: response.tables
@@ -166,7 +167,7 @@ export default class NewOffice extends React.Component {
     }).catch(function (err) { 
       Message.error(err.message);
     });
-
+    
     
   }
   render() {

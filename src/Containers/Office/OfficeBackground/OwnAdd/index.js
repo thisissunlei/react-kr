@@ -66,6 +66,7 @@ export default class Initialize  extends React.Component{
 				wfId: itemData.wfId,
 				formId: response.formId,
 				id: itemData.id,
+				printed:response.printed
 			}
 			_this.setState({
 				detail: response.tables
