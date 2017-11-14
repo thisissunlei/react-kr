@@ -42,14 +42,14 @@ class FromsConfig extends Component {
 	}
 	
 	//主表首次不提示
-	mainTip=()=>{
+	mainTip=(params)=>{
 		var _this=this;
 		this.MainInit=false;
 		if(inspectionData&&!isOk){
 			inspectionData.map((item,index)=>{
 				if(item.isMain){
 					item.fields&&item.fields.map((items,indexs)=>{
-						if(items.required){
+						if(items.required&&!params[items.name]){
 							Notify.show([{
 								message:`${items.label}不能为空`,
 								type: 'danger',
@@ -99,7 +99,7 @@ class FromsConfig extends Component {
 	//提交代码
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
-		this.mainTip();
+		this.mainTip(params);
 		this.detailTip(params);
 		if(this.MainInit||this.detailInit){
 			return ;

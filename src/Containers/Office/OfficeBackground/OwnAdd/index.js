@@ -143,7 +143,8 @@ export default class Initialize  extends React.Component{
 
 		params.dataJson = JSON.stringify(values);
 		Http.request('post-config-detail-edit', {}, params).then(function (response) {
-			_this.onOpenEdit()
+			_this.onOpenEdit();
+			Message.success('保存成功');
 		}).catch(function (err) {
 			Message.error(err.message);
 		 });

@@ -127,6 +127,7 @@ export default class NewOffice extends React.Component {
       Http.request('office-new-delete', {
       },{myCommonId:item.id}).then(function(response) {
           _this.updateData();
+        Message.success('删除成功');
       }).catch(function(err) {
         Message.error(err.message);
       });
@@ -161,6 +162,7 @@ export default class NewOffice extends React.Component {
     params.dataJson = JSON.stringify(values);
     Http.request('post-config-detail-new', {}, params).then(function (response) {
       _this.swidthNew();
+      Message.success('保存成功');
     }).catch(function (err) { 
       Message.error(err.message);
     });
