@@ -31,9 +31,9 @@ function keyParse(template,paramName,data) {
     var t = template, reg;
     for(var key in data){
         if(paramName == "m-money"){
-            console.log('{{' + paramName + '\\|' + key + '}}', data[key],'---------')
+            console.log('{{' + paramName + '.' + key + '}}', data[key],'---------')
         }
-        reg = new RegExp('{{' + paramName+'\\|'+ key + '}}', 'g'); 
+        reg = new RegExp('{{' + paramName+'.'+ key + '}}', 'g'); 
         t = t.replace(reg,data[key]||'')
     }  
     return t; 
