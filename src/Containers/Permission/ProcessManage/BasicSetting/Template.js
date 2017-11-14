@@ -105,6 +105,7 @@ class Template extends React.Component {
 		console.log('changeName',value);
 		State.pcName = value.label;
 		State.formTempId = false;
+		State.formData.formTempId = value.value;
 		Store.dispatch(change('Template','formTempId',value.value));
 
 
