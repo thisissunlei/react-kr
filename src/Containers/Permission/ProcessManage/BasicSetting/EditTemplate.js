@@ -30,9 +30,6 @@ class EditTemplate extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			
-		}
 		
 	}
 	componentWillMount() {
@@ -40,15 +37,9 @@ class EditTemplate extends React.Component {
 
 	}
 	componentWillReceiveProps=()=>{
-		console.log('componentWillReceiveProps',State.editData,State.editMainT)
 	}
 
 	componentDidMount() {
-		console.log('=======componentDidMount',State.editData,State.editMainT)
-		Store.dispatch(change('editTemplate','mainT',toJS(State.editMainT.mainT)));
-		Store.dispatch(change('editTemplate','name',State.editData.name));
-		Store.dispatch(change('editTemplate','lineNum',State.editData.lineNum));
-
 		// toJS(State.detailT).map((item,index)=>{
 		// 	Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
 		// })
@@ -138,7 +129,7 @@ class EditTemplate extends React.Component {
 							label="每行显示字段数"
 							grid={1/2}
 							inline={true}
-							options={[{label:'2',value:'2'},{label:'1',value:'1'}]}
+							options={[{label:'2',value:2},{label:'1',value:1}]}
 					 	/>
 					 	</div>
 							<div className='main-form'>
