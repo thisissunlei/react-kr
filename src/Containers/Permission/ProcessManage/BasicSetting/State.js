@@ -22,6 +22,10 @@ let State = observable({
 	formworkId:'',
 	wfId:'',
 	formData:{},
+	openEdit:false,
+	editData :{},
+	editMainT:{},
+	editDetailT:{}
 
 
 });
@@ -67,6 +71,7 @@ State.saveTemplate = action(function(form) {
 			Store.dispatch(change('Template','formTempId',response.formTemplateId));
 		}
 		_this.open = false;
+		_this.openEdit = false;
 		_this.getPrintTemplateList()
 		_this.getTemplateList(_this.formId);
 	
@@ -164,6 +169,50 @@ State.getPrintTemplateData = action(function(id) {
 	});
 
 });
+// editTemplate
+State.editTemplate = action(function(id) {
+	var _this = this;
+	Http.request('get-form-template-detail-data', {id:id}).then(function(response) {
+		console.log("========");
+		let data = {};
+		data.name = response.name;
+		let table = response.tableVOList;
+		let mainT = response.tableVOList.filter((item)=>{
+			if(item.isMain){
+				item.mainT = item.fieldList;
+				return item
+			}
+		});
+		let buttonList = [];
+		let detailT = response.tableVOList.filter((item)=>{
+			if(!item.isMain){
+				buttonList.push(item.hasEditButton);
+				console.log('detailT.detail',item.fieldList)
+				return item
+			}
+		});
+		mainT = mainT[0];
+		console.log('====>>>mainT',mainT,mainT.mainT.length)
+		console.log('====>>>detailT',detailT)
+		data.lineNum = mainT.lineNum;
+		_this.openEdit = true;
+		// State.editMainT = mainT[0];
+		// State.editData = data;
+		Store.dispatch(change('editTemplate','name',data.name));
+		Store.dispatch(change('editTemplate','lineNum',data.lineNum));
+		Store.dispatch(change('editTemplate','mainT',mainT.mainT));
+		detailT.map((item,index)=>{
+			Store.dispatch(change('editTemplate',`fieldList${index}`,item.fieldList));
+		})
+		buttonList.map((item,index)=>{
+			Store.dispatch(change('editTemplate',`hasEditButton${index}`,item));
+		})
 
+	}).catch(function(err) {
+		console.log(err)
+		Message.error(err.message);
+	});
+
+});
 
 module.exports = State;

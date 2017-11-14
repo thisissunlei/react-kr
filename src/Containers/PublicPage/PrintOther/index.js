@@ -66,7 +66,9 @@ export default class PrintOther extends React.Component {
 	}
 	
 	allRender = (template,allData) =>{
+		// this.configData.template = '<p><strong>sdsdfs的发生</strong></p><p>{{ li | name}}的发生{{li|age}}发是防守{li}</p><p><strong>打法发斯蒂芬是否水电费水电费是撒地方水电费水电费是</strong></p>'
 		this.configData.template =  template;
+		// this.configData.allData = { li: { name: '梨花', age: '88', love: '哈哈',printValue:'什么鬼'}};
 		this.configData.allData = allData;
 		var templateData = templateParse(this.configData.template);
 		this.print.innerHTML = codeParse(templateData,allData);

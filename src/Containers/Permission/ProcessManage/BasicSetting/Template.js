@@ -22,6 +22,7 @@ import {
 	Dialog
 } from 'kr-ui';
 import CreateTemplate from './CreateTemplate';
+import EditTemplate from './EditTemplate';
 import State from './State';
 import {
 	TemplatePrint
@@ -104,6 +105,7 @@ class Template extends React.Component {
 		console.log('changeName',value);
 		State.pcName = value.label;
 		State.formTempId = false;
+		State.formData.formTempId = value.value;
 		Store.dispatch(change('Template','formTempId',value.value));
 
 
@@ -112,6 +114,9 @@ class Template extends React.Component {
 		this.setState({
 			openWarn:true
 		})
+	}
+	closeEditTemplate=()=>{
+		State.openEdit = false;
 	}
 	changePrintType=(value)=>{
 		console.log('changePrintType',value)
@@ -169,6 +174,10 @@ class Template extends React.Component {
 			Message.error(err.message);
 		});
 	}
+	openEdit=(id)=>{
+		// State.openEdit = true;
+		State.editTemplate(id);
+	}
 
 	render() {
 		const { handleSubmit} = this.props;
@@ -222,7 +231,7 @@ class Template extends React.Component {
 	                            onChange={this.changeName}
 	                        />}
 	                        {!!State.pcName?
-			            	<span className="has-template template-name">{State.pcName}</span>
+			            	<span className="template-name has-template " onClick={this.openEdit.bind(this,State.formData.formTempId)}>{State.pcName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
 			            	{State.formTempId && <div className="error-message">请选择显示模板</div>}
 			            </div>
@@ -300,6 +309,18 @@ class Template extends React.Component {
 			    >
 
 			       	<CreateTemplate onCancel={this.closeCreateTemplate}/>
+		        </Drawer>
+		        <Drawer
+					open={State.openEdit}
+					width={750}
+					openSecondary={true}
+					onClose={this.closeEditTemplate}
+
+					className='m-finance-drawer'
+					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			    >
+
+			       	<EditTemplate onCancel={this.closeEditTemplate}/>
 		        </Drawer>
 		        <Dialog
 				title="选择模板"
