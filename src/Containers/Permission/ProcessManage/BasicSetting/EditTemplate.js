@@ -26,7 +26,7 @@ import {
 } from 'mobx-react';
 import './index.less';
 @observer
-class CreateNewList extends React.Component {
+class EditTemplate extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -36,14 +36,22 @@ class CreateNewList extends React.Component {
 		
 	}
 	componentWillMount() {
+		console.log('=======componentWillMount')
+
+	}
+	componentWillReceiveProps=()=>{
+		console.log('componentWillReceiveProps',State.editData,State.editMainT)
 	}
 
 	componentDidMount() {
-		Store.dispatch(change('createNewList','mainT',toJS(State.mainT.mainT)));
+		console.log('=======componentDidMount',State.editData,State.editMainT)
+		Store.dispatch(change('editTemplate','mainT',toJS(State.editMainT.mainT)));
+		Store.dispatch(change('editTemplate','name',State.editData.name));
+		Store.dispatch(change('editTemplate','lineNum',State.editData.lineNum));
 
-		toJS(State.detailT).map((item,index)=>{
-			Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
-		})
+		// toJS(State.detailT).map((item,index)=>{
+		// 	Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
+		// })
 	}
 
 	onCancel=()=>{
@@ -81,15 +89,6 @@ class CreateNewList extends React.Component {
 		demo = demo.concat(detailT);
 		console.log('============>',demo)
 
-		// let mainTemplate = [
-		// 	{
-		// 		fieldList:[],
-		// 		hasEditButton:false,
-		// 		isMain:false,
-		// 		lineNum:2,
-		// 		templateTableId:1
-		// 	}
-		// ];
 		let submitForm = {
 			mainTemplate:JSON.stringify(demo),
 			name:formValue.name,
@@ -99,7 +98,6 @@ class CreateNewList extends React.Component {
 	}
 	onSave=()=>{
 		State.saveAndUse = true;
-		// let value = this.formData(form);
 		console.log('onSave')
 	}
 
@@ -140,7 +138,7 @@ class CreateNewList extends React.Component {
 							label="每行显示字段数"
 							grid={1/2}
 							inline={true}
-							options={[{label:'2',value:2},{label:'1',value:1}]}
+							options={[{label:'2',value:'2'},{label:'1',value:'1'}]}
 					 	/>
 					 	</div>
 							<div className='main-form'>
@@ -234,8 +232,8 @@ const validate = values => {
 	return errors
 }
 
-export default CreateNewList = reduxForm({
-	form: 'createNewList',
+export default EditTemplate = reduxForm({
+	form: 'editTemplate',
 	validate,
-})(CreateNewList);
+})(EditTemplate);
 

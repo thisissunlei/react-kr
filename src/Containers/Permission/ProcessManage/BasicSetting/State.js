@@ -22,6 +22,10 @@ let State = observable({
 	formworkId:'',
 	wfId:'',
 	formData:{},
+	openEdit:false,
+	editData :{},
+	editMainT:{},
+	editDetailT:{}
 
 
 });
@@ -164,6 +168,34 @@ State.getPrintTemplateData = action(function(id) {
 	});
 
 });
+// editTemplate
+State.editTemplate = action(function(id) {
+	var _this = this;
+	Http.request('get-form-template-detail-data', {id:id}).then(function(response) {
+		console.log("========");
+		let editData = {};
+		editData.name = response.name;
+		let table = response.tableVOList;
+		let mainT = response.tableVOList.filter((item)=>{
+			if(item.isMain){
+				return item
+			}
+		})
+		editData.lineNum = mainT[0].lineNum;
+		// mainT[0].mainT = Object.assign({},_this.mainT.mainT,mainT[0].fieldList);
+		_this.editMainT = mainT[0];
+		// editData.mainT = mainT[0];
+		// editData.mainT.mainT = mainT[0].fieldList;
+		// console.log('mainT',_this.editMainT)
 
+		// console.log('====>editData',editData,'mainT',mainT)
+		_this.openEdit = true;
+		_this.editData = editData;
+	}).catch(function(err) {
+		console.log(err)
+		Message.error(err.message);
+	});
+
+});
 
 module.exports = State;
