@@ -154,7 +154,7 @@ export default class Text  extends React.Component{
                     
                 />
     }
-
+   
     buttonRender=()=>{
         this.clearModel();
         return (
@@ -165,7 +165,7 @@ export default class Text  extends React.Component{
                     name="wsradio"
                     component="select"
                     label="按钮类型"
-                    options={[{label:'分部',value:'btnBranch'},{label:'部门',value:'btnDepartment'},{label:'城市',value:'btnCity'},{label:'地址',value:'btnAddress'},{label:'人员',value:'btnStaff'}]}
+                    options={[{label:'城市',value:'btnCity'},{label:'地址',value:'btnAddress'}]}
                     requireLabel={true}
                 />
                 <div className='m-form-radio'><KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="是否多选" requireLabel={true}>
