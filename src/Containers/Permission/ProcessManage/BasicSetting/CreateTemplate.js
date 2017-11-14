@@ -81,15 +81,6 @@ class CreateNewList extends React.Component {
 		demo = demo.concat(detailT);
 		console.log('============>',demo)
 
-		// let mainTemplate = [
-		// 	{
-		// 		fieldList:[],
-		// 		hasEditButton:false,
-		// 		isMain:false,
-		// 		lineNum:2,
-		// 		templateTableId:1
-		// 	}
-		// ];
 		let submitForm = {
 			mainTemplate:JSON.stringify(demo),
 			name:formValue.name,

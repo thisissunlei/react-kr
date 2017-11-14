@@ -230,7 +230,7 @@ class Template extends React.Component {
 	                            onChange={this.changeName}
 	                        />}
 	                        {!!State.pcName?
-			            	<span className="has-template template-name" onClick={this.openEdit.bind(this,State.formData.formTempId)}>{State.pcName}</span>
+			            	<span className="template-name has-template " onClick={this.openEdit.bind(this,State.formData.formTempId)}>{State.pcName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
 			            	{State.formTempId && <div className="error-message">请选择显示模板</div>}
 			            </div>
