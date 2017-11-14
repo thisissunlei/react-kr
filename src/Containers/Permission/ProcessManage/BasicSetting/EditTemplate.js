@@ -26,24 +26,23 @@ import {
 } from 'mobx-react';
 import './index.less';
 @observer
-class CreateNewList extends React.Component {
+class EditTemplate extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			
-		}
 		
 	}
 	componentWillMount() {
+		console.log('=======componentWillMount')
+
+	}
+	componentWillReceiveProps=()=>{
 	}
 
 	componentDidMount() {
-		Store.dispatch(change('createNewList','mainT',toJS(State.mainT.mainT)));
-
-		toJS(State.detailT).map((item,index)=>{
-			Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
-		})
+		// toJS(State.detailT).map((item,index)=>{
+		// 	Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
+		// })
 	}
 
 	onCancel=()=>{
@@ -52,7 +51,10 @@ class CreateNewList extends React.Component {
 	}
 	onSubmit=(form)=>{
 		let value = this.formData(form);
+		value.id = State.formData.formTempId;
 		console.log('onSubmit',value);
+
+		// return;
 		State.saveTemplate(value);
 
 		
@@ -86,11 +88,11 @@ class CreateNewList extends React.Component {
 			name:formValue.name,
 			formId:State.formId
 		}
+		console.log('============>',submitForm)
 		return submitForm;
 	}
 	onSave=()=>{
 		State.saveAndUse = true;
-		// let value = this.formData(form);
 		console.log('onSave')
 	}
 
@@ -225,8 +227,8 @@ const validate = values => {
 	return errors
 }
 
-export default CreateNewList = reduxForm({
-	form: 'createNewList',
+export default EditTemplate = reduxForm({
+	form: 'editTemplate',
 	validate,
-})(CreateNewList);
+})(EditTemplate);
 

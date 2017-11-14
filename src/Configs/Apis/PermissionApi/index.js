@@ -590,5 +590,10 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/sql-template/delete',
       method: 'post'
    },
+   //获取PC端合同模板数据
+    'get-form-template-detail-data':{
+      url: '/api/krspace-erp-web/sys/form-template?id={id}',
+      method: 'get'
+    },
 
 }
