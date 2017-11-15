@@ -122,16 +122,50 @@ class NewCreateForm extends React.Component {
 			openStationUnitPrice: false,
 			HeightAuto: false,
 			allRent:'-1',
-			biaodan:this.props.initialValues.biaodan
+			biaodan:this.props.initialValues.biaodan,
+			dateRange:''
 
 		}
 	}
+	checkDate=(begin,end)=>{
+		let _this = this;
+
+
+		if(new Date(end)<new Date(begin)){
+			_this.setState({
+				dateRange:''
+			})
+			Notify.show([{
+				message: '结束时间不能小于开始时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+		Http.request('contract-date-range', {start:begin,end:end}).then(function(response){
+			console.log('contract-date-range',response);
+			_this.setState({
+				dateRange:response
+			})
+		}).catch(function(err){
+			console.log('err',err)
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		})
+
+		console.log('check--date',begin,end)
+		// return true;
+	}
+
 
 	componentDidMount() {
 		let {
 			initialValues
 		} = this.props;
 		Store.dispatch(initialize('joinEditForm', initialValues));
+		console.log('componentDidMount------>initialValues',initialValues)
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -143,11 +177,13 @@ class NewCreateForm extends React.Component {
 		}
 		if (!this.isInit && nextProps.stationVos.length) {
 			let stationVos = nextProps.stationVos;
+			let {leaseBegindate,leaseEnddate} = nextProps.initialValues;
 			this.setState({
 				stationVos,
 				delStationVos:nextProps.delStationVos
 			}, function() {
 				this.calcStationNum();
+				this.checkDate(leaseBegindate,leaseEnddate)
 				// this.setAllRent(stationVos);
 			});
 			this.isInit = true;
@@ -164,6 +200,11 @@ class NewCreateForm extends React.Component {
 		let {delStationVos} = this.state;
 		let {array} = this.props;
 		array.removeAll('saleList')
+
+		let {changeValues} = this.props;
+		if(changeValues.leaseEnddate){
+			this.checkDate(value,changeValues.leaseEnddate)
+		}
 		
 
 		if (!stationVos.length) {
@@ -195,6 +236,10 @@ class NewCreateForm extends React.Component {
 		let {delStationVos} = this.state;
 		let {array} = this.props;
 		array.removeAll('saleList')
+		let {changeValues} = this.props;
+		if(changeValues.leaseBegindate){
+			this.checkDate(changeValues.leaseBegindate,value)
+		}
 
 		let {initialValues} = this.props;
 		delStationVos = delStationVos.concat(stationVos);
@@ -1472,7 +1517,7 @@ class NewCreateForm extends React.Component {
 			billList,
 			stationVos,
 			HeightAuto,
-			allRent
+			allRent,dateRange
 		} = this.state;
 		allRent = (allRent!='-1')?allRent:initialValues.totalrent;
 		let  allRentName = this.dealRentName(allRent);
@@ -1490,7 +1535,7 @@ class NewCreateForm extends React.Component {
 		<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 			<div className="small-cheek">
 			<KrField  name="wherefloor" style={{width:262,marginLeft:25}} component="select" label="所在楼层" options={optionValues.floorList} multi={true}  requireLabel={true} />
-			<KrField style={{width:343,marginLeft:25,position:"absolute"}}  left={10} component="group" label="租赁期限" requireLabel={true}>
+			<KrField style={{width:343,marginLeft:25,position:"absolute"}}  left={10} component="group" label={`租赁期限：${dateRange}`} requireLabel={true}>
 					<ListGroup>
 						<ListGroupItem style={{width:'141',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField style={{width:141}} name="leaseBegindate"  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
 						<ListGroupItem style={{width:'31',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'60px',width:'31px',textAlign:'center',left:'10px',position:"relative"}}>至</span></ListGroupItem>
@@ -1653,11 +1698,6 @@ class NewCreateForm extends React.Component {
 const validate = values => {
 
 	const errors = {}
-
-	++values.num;
-	localStorage.setItem(values.mainbillid+''+values.customerId+values.contracttype+'edit',JSON.stringify(values));
-	
-
 	if (!values.leaseId) {
 		errors.leaseId = '请填写出租方';
 	}

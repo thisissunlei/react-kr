@@ -79,7 +79,6 @@ export default class JoinCreate extends React.Component {
 		// console.log('jin-->',formValues)
 		// return;
 		Http.request('addOrEditEnterContract', {}, formValues).then(function(response) {
-			_this.removeAllLocalStorage();
 			_this.isConfirmSubmiting = true;
 			Notify.show([{
 				message: '更新成功',
@@ -115,39 +114,9 @@ export default class JoinCreate extends React.Component {
 		//window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}
 
-	removeLocalStorage=()=>{
-		let {params} = this.props;
-		let keyWord = params.orderId+''+params.customerId+'ENTERedit';
-		let removeList = [];
-		for (var i = 0; i < localStorage.length; i++) {
-			let itemName = localStorage.key(i);
-			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
-				 removeList.push(itemName);
-			 }
-		 }
-		 removeList.map((item)=>{
- 			 localStorage.removeItem(item);
- 		})
-	}
-
-	removeAllLocalStorage=()=>{
-		let {params} = this.props;
-		let keyWord = params.orderId+''+params.customerId;
-		let removeList = [];
-		for (var i = 0; i < localStorage.length; i++) {
-			let itemName = localStorage.key(i);
-			 if(localStorage.key(i).indexOf(keyWord)!='-1'){
-				 removeList.push(itemName);
-			 }
-		 }
-		 removeList.map((item)=>{
- 			 localStorage.removeItem(item);
- 		})
-	}
-
 	componentDidMount() {
 		Store.dispatch(reset('joinEditForm'));
-		this.getlocalSign()
+		this.getBasicData()
 	}
 
 	getBasicData=()=>{
@@ -241,10 +210,10 @@ export default class JoinCreate extends React.Component {
 					initialValues.agreement =  response.agreement;
 				}
 				//时间
-				initialValues.firstpaydate = DateFormat(response.firstpaydate, "yyyy-mm-dd hh:MM:ss");
-				initialValues.signdate =  DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
-				initialValues.leaseBegindate =  DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-				initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
+				initialValues.firstpaydate = DateFormat(response.firstpaydate, "yyyy-mm-dd HH:MM:ss");
+				initialValues.signdate =  DateFormat(response.signdate, "yyyy-mm-dd HH:MM:ss");
+				initialValues.leaseBegindate =  DateFormat(response.leaseBegindate, "yyyy-mm-dd HH:MM:ss");
+				initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd HH:MM:ss");
 				initialValues.saleList = response.saleList;
 			
 				if(response.saleList){
@@ -290,163 +259,7 @@ export default class JoinCreate extends React.Component {
 			}]);
 		});
 	}
-	getLocalStorageSata=()=>{
 
-		var _this = this;
-		const {
-			params
-		} = this.props;
-		let initialValues = {};
-		let optionValues = {};
-		let stationVos = [];
-		let delStationVos = [];
-
-		let keyWord = params.orderId+''+ params.customerId+'ENTERedit';
-		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
-
-
-		Http.request('fina-contract-intention', {
-			customerId: params.customerId,
-			mainBillId: params.orderId,
-			communityId: 1,
-			type : 1,
-		}).then(function(response) {
-
-			initialValues.contractstate = 'UNSTART';
-			initialValues.mainbillid = params.orderId;
-			initialValues.customerId = params.customerId;
-			initialValues.setLocalStorageDate = +new Date();
-
-			optionValues.communityAddress = response.customer.communityAddress;
-			optionValues.leaseAddress = response.customer.customerAddress;
-			//合同类别，枚举类型（1:意向书,2:入住协议,3:增租协议,4.续租协议,5:减租协议,6退租协议）
-			initialValues.contracttype = 'ENTER';
-
-			optionValues.fnaCorporationList = response.fnaCorporation.map(function(item, index) {
-				item.value = item.id;
-				item.label = item.corporationName;
-				return item;
-			});
-
-			optionValues.paymentList = response.payment.map(function(item, index) {
-				item.value = item.id;
-				item.label = item.dicName;
-				return item;
-			});
-
-			optionValues.payTypeList = response.payType.map(function(item, index) {
-				item.value = item.id;
-				item.label = item.dicName;
-				return item;
-			});
-
-			optionValues.floorList = response.customer.floor;
-			optionValues.customerName = response.customer.customerName;
-			optionValues.leaseAddress = response.customer.customerAddress;
-			optionValues.communityName = response.customer.communityName;
-			optionValues.communityId = response.customer.communityid;
-			optionValues.mainbillCommunityId = response.mainbillCommunityId || 1;
-
-
-			Http.request('show-checkin-agreement', {
-				id: params.id
-			}).then(function(response) {
-
-				initialValues.num = localStorageData.num || 1;
-			
-				if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
-					initialValues.oldNum = localStorageData.num;
-				}else{
-					initialValues.oldNum = 1;
-				}
-				optionValues = Object.assign({},optionValues,JSON.parse(localStorage.getItem(keyWord)));
-				initialValues = Object.assign({},initialValues,JSON.parse(localStorage.getItem(keyWord)));
-				if(localStorageData.oldNum && localStorageData.num-localStorageData.oldNum <=1){
-					initialValues.oldNum = localStorageData.num;
-				}else{
-					initialValues.oldNum = localStorageData.oldNum;
-				}
-				initialValues.saleList = response.saleList;
-
-
-				if(response.saleList){
-					initialValues.biaodan = response.saleList.map(item=>{
-						if(item){
-							return item.tacticsType
-						}else{
-							return ''
-						}
-					})
-				}else{
-					initialValues.biaodan=[]
-				}
-
-
-				//处理stationvos
-				stationVos = initialValues.stationVos || [];
-				delStationVos = initialValues.delStationVos || [];
-
-				_this.setState({
-					initialValues,
-					optionValues,
-					stationVos,
-					delStationVos
-				});
-
-			}).catch(function(err) {
-				console.log(err)
-				Notify.show([{
-					message: '后台出错请联系管理员',
-					type: 'danger',
-				}]);
-			});
-
-
-		}).catch(function(err) {
-				console.log(err)
-			Notify.show([{
-				message: '后台出错请联系管理员',
-				type: 'danger',
-			}]);
-		});
-	}
-
-
-	getlocalSign=()=>{
-     let {
-			params
-		} = this.props;
-		let _this = this;
-		let sign = false;
-		let keyWord = params.orderId+''+ params.customerId+'ENTERedit';
-		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
-		if( localStorageData.num - localStorageData.oldNum>1){
-			_this.setState({
-				openLocalStorages:true
-			})
-			sign = true;
-		}
-		 if(!sign){
-		 	this.getBasicData()
-		 }
-  }
-
-  onCancelStorage=()=>{
-    this.setState({
-      openLocalStorages:false,
-
-    },function(){
-      this.getBasicData()
-      this.removeLocalStorage()
-    })
-  }
-  getLocalStorage=()=>{
-    this.setState({
-      openLocalStorages:false,
-    },function(){
-      this.getLocalStorageSata();
-    })
-  }
 
 
 
@@ -469,27 +282,6 @@ export default class JoinCreate extends React.Component {
 			<div style={{marginTop:10}}>
 					<NewCreateForm onSubmit={this.onCreateSubmit} initialValues={initialValues} onCancel={this.onCancel} optionValues={optionValues} stationVos={stationVos} delStationVos={delStationVos}/>
 			</div>
-			<Dialog
-        title="提示"
-        modal={true}
-        autoScrollBodyContent={true}
-        autoDetectWindowHeight={true}
-        onClose={this.openConfirmCreateDialog}
-        open={this.state.openLocalStorages}
-        contentStyle={{width:'400px'}}>
-          <div>
-            <p style={{textAlign:'center',margin:'30px'}}>是否加载未提交的合同数据？</p>
-            <Grid>
-            <Row>
-            <ListGroup>
-              <ListGroupItem style={{width:'40%',textAlign:'right',paddingRight:'5%'}}><Button  label="确定" type="submit"  onTouchTap={this.getLocalStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-              <ListGroupItem style={{width:'40%',textAlign:'left',paddingLeft:'5%'}}><Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancelStorage}  width={100} height={40} fontSize={16}/></ListGroupItem>
-            </ListGroup>
-            </Row>
-            </Grid>
-          </div>
-
-        </Dialog>
 		</div>
 		);
 	}
