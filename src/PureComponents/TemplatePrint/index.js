@@ -122,7 +122,9 @@ class TemplatePrint extends React.Component {
 							name="content" 
 							label="" 
 							onChange ={this.templateChange}
-							defaultValue={allData}/>
+							defaultValue={allData}
+							
+						/>
 						
 					</div>
 				</Section>
@@ -132,8 +134,21 @@ class TemplatePrint extends React.Component {
 		);
 	}
 }
+const validate = values => {
+	const errors = {}
+	if (!values.name) {
+		errors.name = '请输入模板名称';
+	} 
+	if(!values.content){
+		errors.content = '模板内容不可为空';
+	}
+	
+	
+	return errors
+}
 export default TemplatePrint = reduxForm({
-	form: 'TemplatePrint'
+	form: 'TemplatePrint',
+	validate,
 })(TemplatePrint);
 
   

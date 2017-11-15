@@ -43,7 +43,7 @@ function noKeyParse(template, paramName, data) {
     var t = template, reg;
     for (var key in data) {
         reg = new RegExp('{{' + paramName + '}}', 'g');
-        t = t.replace(reg, data.printValue||'')
+        t = t.replace(reg, data.showValue||'')
     }
     return t; 
 }
@@ -230,7 +230,7 @@ function controlHeight(elem){
     elem.style.overflow = "hidden";
     detail = elem.getBoundingClientRect();
     endHeight = Math.ceil(detail.height/paperHeight)*paperHeight;
-    elem.style.height = endHeight-40+"px";
+    elem.style.height = endHeight-50+"px";
     
 }
 //合同两列对其
