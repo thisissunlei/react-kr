@@ -235,12 +235,12 @@ function controlHeight(elem){
     elem.style.overflow = "hidden";
     detail = elem.getBoundingClientRect();
     endHeight = Math.ceil(detail.height/paperHeight)*paperHeight;
-    // if (systemJudge() === "mac"){
+    if (systemJudge() === "mac"){
         elem.style.height = endHeight - 30 + "px";
-    // }
-    // if (systemJudge() === "window"){
-    //     elem.style.height = endHeight - 80 + "px";
-    // }
+    }
+    if (systemJudge() === "window"){
+        elem.style.height = endHeight - 80 + "px";
+    }
     
     
 }
