@@ -559,7 +559,7 @@ class Login extends Component {
                 氪空间管理平台
               </div>
               <div className="login-box">
-                <div className="logos"></div>
+                {/*<div className="logos"></div>*/}
                 { this.state.canLogin &&
                   <div>
                   <div className="login-tip">登录</div>
