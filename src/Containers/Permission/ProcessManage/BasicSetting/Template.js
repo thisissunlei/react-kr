@@ -170,7 +170,7 @@ class Template extends React.Component {
 	}
 
 	render() {
-		const { handleSubmit} = this.props;
+		const { handleSubmit,formId} = this.props;
 		const { allData, id} = this.state;
 		return (
 			<div className="g-chooce-template">
@@ -329,7 +329,7 @@ class Template extends React.Component {
 					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 				>
 
-					<TemplatePrint id={id} allData = {allData} onSubmit = {this.templateSubmit} onCancel={this.onOpenTemplate}/>
+					<TemplatePrint id={id} formId={formId} allData = {allData} onSubmit = {this.templateSubmit} onCancel={this.onOpenTemplate}/>
 		        </Drawer>
 			</div>
 

@@ -55,21 +55,56 @@ import { observer, inject } from 'mobx-react';
 import './index.less';
 // @inject("NavModel")
 // @observer
+var  textArr=[
+	{
+			name:'money',
+			label:'金额',
+			value:'小写',
+			showValue:'大写'
+	},
+	{
+			name:'city',
+			label:'城市',
+			value:'小写',
+			showValue:'大写'
+	}
+]
 class TemplatePrint extends React.Component {
 
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			child:""
+			child:"",
+			nameList: [
+				{
+					fields: [
+						{
+							label: "测试内容8aib",
+							name: "测试内容f7wv",
+							showValue: "测试内容d8vq",
+							value: 38225
+						}
+					],
+					id: 88788,
+					label: "主表",
+					value: "m"
+				}
+			]
 		}
 		this.content = ''
 		this.editId = "edit_"+ new Date();
     }
-    componentDidMount(){
-		// const { NavModel } = this.props;
-		// NavModel.setSidebar(false);
-		
+    componentWillMount(){
+		/*let {formId}=this.props;
+		var _this=this;
+		Http.request("other-contract-formwork-new",{},params).then(function (response) {
+			_this.setState({
+				nameList:response.items
+			})
+		}).catch(function (err) {
+			Message.error(err.message);
+		});*/
 	}
 
 	onSubmit = (value) =>{
@@ -92,6 +127,8 @@ class TemplatePrint extends React.Component {
 	templateChange = (value) =>{
 		this.content = value;
 	}
+
+    //案例
 	h1Click = () =>{
 		var funcName = "23333";
 		// console.log(UE.getEditor('editor').focus(),"PPPPPPPP")
@@ -99,10 +136,69 @@ class TemplatePrint extends React.Component {
 		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
 		// UE.getEditor('editor').execCommand('inserthtml', '{' + funcName + '}');  
 	}
+
+    //按钮
+	btnValue=(name)=>{
+		var showValue={};
+		textArr.map((item,index)=>{
+			for(var d in item){
+				if(d!='label'&&d!='name'){
+					showValue[d]=item[d];
+				}
+			}
+		})
+        var showBtn=[];
+		for(var item in showValue){
+			showBtn.push(<span 
+					style={{
+					padding:'0 10px',
+					background:'#499df1',
+					textAlign:'center',
+					color:'#fff',
+					borderRadius:'4px',
+					marginLeft:'10px',
+					display:'inline-block',
+					height:'25px',
+					lineHeight:'25px',
+					cursor:'pointer'
+					}}
+					onClick={this.originClick.bind(this,item,name)}
+			>{showValue[item]}</span>)
+		}
+		return showBtn
+	}
+	
+	//列表
+	btnWatch=()=>{
+		var showTexts=textArr.map((item,index)=>{
+			       return <li>
+								<span>{item.label}</span>
+								{
+									this.btnValue(item.name)
+								}
+				         </li>
+		})
+		return showTexts
+	}
+	
+	//点击上去
+	originClick=(item,bigItem)=>{
+		var funcName='';
+		if(item=='showValue'){
+			funcName = '{{m-'+bigItem+'}}';
+		}else{
+			funcName = '{{m-'+bigItem+'.'+item+'}}';
+		}
+		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
+	}
+
+    
+
 	render() {
 		let {handleSubmit,allData}=this.props;
-		let {child} = this.state;
+		let {child,nameList} = this.state;
 
+        
 		return (
 			<form className = "edit-print-formwork"  onSubmit={handleSubmit(this.onSubmit)} >
 				<Title value="合同列表"/>
@@ -112,17 +208,9 @@ class TemplatePrint extends React.Component {
 						<Button  label="关闭" type="button" cancle={true} onTouchTap={this.onCancel} />
 					</div>
 				}>
-					<div style={{width:"210mm",margin:"auto"}}>
-						<KrField 
-							
-							label="模板名称" 
-							name="name" 
-							style={{marginLeft:15,display:'block'}} 
-							component="input" 
-							inline={true}
-							requireLabel={true}
-							
-						/>	
+				  <div>
+					<div className='editor-left'>
+						
 						<KrField 
 							id={this.editId}
 							component="editor" 
@@ -133,8 +221,47 @@ class TemplatePrint extends React.Component {
 							defaultValue={allData}/>
 						
 					</div>
+
+				     <div className='print-right'>
+
+					   <KrField 	
+					        grid={1/2}		
+							label="模板名称" 
+							name="name" 
+							style={{display:'inline-block',boxSizing:'border-box'}} 
+							component="input" 
+							inline={false}
+							requireLabel={true}
+						/>
+
+					     <KrField 
+						    grid={1/2}			
+							label="表单名称" 
+							name="tableName" 
+							style={{paddingLeft:20,display:'inline-block',boxSizing:'border-box'}} 
+							component="select" 
+							inline={false}
+							options={nameList}		
+						/>
+
+					    <ul className='text-list'>
+							<li style={{background:'#F6F6F9',fontSize:'14px',color: '#333333'}}>字段列表</li>
+							{
+								this.btnWatch()
+							}
+						</ul>
+
+						<div className='text-introduction'>
+							<span style={{marginTop:20,fontSize:14,color:'#333',display:'inline-block'}}>配置说明</span>
+							<div className='sub-introduction'>
+								
+							</div>	 
+						</div>
+
+
+					 </div>
+				  </div>
 				</Section>
-				<h1 onClick = {this.h1Click}>fgdfgdfgdf</h1>
 				
 			</form>
 

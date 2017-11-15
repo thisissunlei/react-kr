@@ -1,9 +1,47 @@
 .edit-print-formwork{
     width: 100%;
+    .editor-middle{
+        width:auto;
+        margin:0 auto;
+        display:inline-block;
+    }
     .section-title .right-element{
         flex: 65;
     }
-    .ui-form-controller{
-        width:210mm; 
+    .print-right{
+        width:528px;
+        display:inline-block;
+        margin-left:20px;
+        margin-left: 50px;
+        .text-introduction{
+            .sub-introduction{
+                width:100%;
+                height:316px;
+                margin-top:10px;
+                border:solid 1px #DFDFDF;
+            }
+        }
+        .text-list{
+            width:100%;
+            height:auto;
+            border:solid 1px #DFDFDF;
+            border-bottom:none;
+            margin-top:20px;
+            li{
+                height:36px;
+                line-height:36px;
+                border-bottom:solid 1px #DFDFDF;
+                font-size: 12px;
+                color: #666666;
+                padding-left:12px;
+                box-sizing: border-box;
+            }
+        }
+    }
+    .editor-left{
+        width:210mm;
+        .ui-form-controller{
+            width:210mm; 
+        }
     }
 }
