@@ -237,7 +237,7 @@ export default class FormList extends Component{
 		var _this=this;
 		Http.request('sql-table-get',{id:itemDetail.id}).then(function(response) {
 			 _this.setState({
-				 tableData:response.tableSql,
+				 tableData:response.items,
 				 creatId:itemDetail.id
 			 })
 			 _this.cancelTable();
