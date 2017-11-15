@@ -302,9 +302,9 @@ class EditForm extends React.Component{
 									<KrField name="dataType" label="静态" type="radio" value='STATIC' style={{marginTop:10}} onClick={this.chooseStick}/>
 									<KrField name="dataType" label="动态" type="radio" value='DYNAMIC' style={{marginTop:10}} onClick={this.chooseStick}/>
 				              	</KrField>
-								{!isStatic&&<KrField grid={1} name="descr" 
+								<KrField grid={1} name="descr" 
 								 type="textarea" component="textarea"maxSize={100}
-								label="描述"/>}
+								label="描述"/>
 								
 					</div>
 					{!isStatic&&<div style={{marginLeft:28,marginBottom:40}}>
@@ -321,7 +321,14 @@ class EditForm extends React.Component{
 					 </TabelEdit>
 					</div>}
 
-					{isStatic&&<div style={{marginLeft:22,marginBottom:20,marginTop:10}}><KrField grid={1/2} name="dataSource" type="text" label="url地址" style={{width:252,zIndex:11}}/></div>}
+					{isStatic&&<div style={{marginLeft:22,marginBottom:20,marginTop:-10}}>
+					    <KrField 
+						  grid={1/2} 
+						  name="dataSource" 
+						  component="select" 
+						  label="公共字典编码" 
+						  style={{width:252,zIndex:11}}/>
+				   </div>}
 
 					<Grid style={{paddingBottom:50}}>
 						<Row>
