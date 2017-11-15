@@ -29,7 +29,7 @@ export default class AddTable extends React.Component{
         let {tableData}=this.props;
         var tables='';
         tableData&&tableData.map((item,index)=>{
-            tables=tables+item.tableSql;
+            tables=tables+(item.tableSql?item.tableSql:'');
         })
           
 		return(
