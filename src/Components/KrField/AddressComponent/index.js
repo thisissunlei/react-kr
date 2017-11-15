@@ -88,9 +88,7 @@ export default class AddressComponent extends React.Component {
 
     componentDidMount() {
         let {input} = this.props;
-        // console.log(input.value,"______")
-        // this.getData();
-        // this.getAdressData();
+        this.getAdressData();
     }
     getAdressData = () =>{
         let _this = this;

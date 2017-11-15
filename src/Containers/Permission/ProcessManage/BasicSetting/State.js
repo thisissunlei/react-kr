@@ -25,7 +25,7 @@ let State = observable({
 	openEdit:false,
 	editData :{},
 	editMainT:{},
-	editDetailT:{}
+	editDetailT:[]
 
 
 });
@@ -207,6 +207,9 @@ State.editTemplate = action(function(id) {
 		buttonList.map((item,index)=>{
 			Store.dispatch(change('editTemplate',`hasEditButton${index}`,item));
 		})
+		_this.editMainT = mainT;
+		_this.editDetailT = detailT;
+		console.log('===State===',_this.editMainT,_this.editDetailT)
 
 	}).catch(function(err) {
 		console.log(err)

@@ -36,11 +36,13 @@ export default class PrintOther extends React.Component {
 			allData: {},
 			//模板数据
 			template: ''
+
 		}
 
 	}
 	componentDidMount(){
 		this.getData();
+		console.log(window.screen,"======>");
 	
 	}
 	//获取信息

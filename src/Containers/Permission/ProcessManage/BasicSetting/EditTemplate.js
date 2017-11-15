@@ -52,7 +52,6 @@ class EditTemplate extends React.Component {
 	onSubmit=(form)=>{
 		let value = this.formData(form);
 		value.id = State.formData.formTempId;
-		console.log('onSubmit',value);
 
 		// return;
 		State.saveTemplate(value);
@@ -61,8 +60,8 @@ class EditTemplate extends React.Component {
 	}
 	formData=(form)=>{
 		let formValue = form;
-		let mainT = toJS(State.mainT);
-		let detailT = toJS(State.detailT);
+		let mainT = toJS(State.editMainT);
+		let detailT = toJS(State.editDetailT);
 		mainT.fields = formValue.mainT ;
 		mainT.fieldList = formValue.mainT ;
 		mainT.lineNum = formValue.lineNum;
@@ -88,7 +87,6 @@ class EditTemplate extends React.Component {
 			name:formValue.name,
 			formId:State.formId
 		}
-		console.log('============>',submitForm)
 		return submitForm;
 	}
 	onSave=()=>{

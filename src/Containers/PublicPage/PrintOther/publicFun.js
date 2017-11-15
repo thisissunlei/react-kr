@@ -230,7 +230,7 @@ function controlHeight(elem){
     elem.style.overflow = "hidden";
     detail = elem.getBoundingClientRect();
     endHeight = Math.ceil(detail.height/paperHeight)*paperHeight;
-    elem.style.height = endHeight-30+"px";
+    elem.style.height = endHeight-40+"px";
     
 }
 //合同两列对其
