@@ -106,7 +106,7 @@ class Createdialog extends React.Component {
 	onSelectController = (item) => {
 		this.setState({
 			ControllerItem: item,
-			idlist:item.methodId
+			idlist:item.id
 		})
 	}
 	getAllController = (value) => {
@@ -115,7 +115,7 @@ class Createdialog extends React.Component {
 		Http.request('getMethodByName', {name:value}).then(function(response) {
 			
 			response.methodList.forEach((item, index) => {
-				item.value = item.methodId;
+				item.value = item.id;
 				var comKrspaceStart = /^com.krspace./.test(item.controllerName);
 				var str = item.controllerName+"";
 				if(comKrspaceStart){
@@ -377,7 +377,7 @@ class Createdialog extends React.Component {
 		if(_this.timeOut==2){
 			_this.setState({
 				ControllerItem: value,
-				idlist:value.methodId
+				idlist:value.id
 			},function(){
 				_this.controllerAdd();
 				

@@ -25,6 +25,7 @@ import {
 import './index.less';
 import State from '../State';
 import HeaderUpload from './HeaderUpload';
+
 @observer
  class EditAddress extends React.Component{
 
@@ -35,21 +36,22 @@ import HeaderUpload from './HeaderUpload';
 	constructor(props){
 		super(props);
 		this.state={
-			
+			leaderInfo:{},
+			managerInfo:{}
 		}
 	}
   	componentDidMount(){
   		this.getEditInfo()
   		State.editStationVos=[
 				{
-					managerName:'',
+					managerNick:'',
 					managerPhone:'',
 					managerEmail:'',
 					managerIcon:'',
 					managerType:'COMMUNITY_MANAGER'
 				}];
 			State.editLeader={
-				managerName:'',
+				managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -60,7 +62,7 @@ import HeaderUpload from './HeaderUpload';
   	getEditInfo = ()=>{
   		 var _this=this;
 		 let item = {
-					managerName:'',
+					managerNick:'',
 					managerPhone:'',
 					managerEmail:'',
 					managerIcon:'',
@@ -68,18 +70,35 @@ import HeaderUpload from './HeaderUpload';
 				};
 		 Http.request('getEditInfo',{id:State.editId}).then(function(response) {
 		 	let manager = [];
-		 	State.detailData = response;
+			 State.detailData = response;
 			Store.dispatch(initialize('EditAddress', State.detailData));
-			response.cmtManagerList.map((item)=>{
+			_this.setState({
+				leaderInfo:{
+					managerName:response.cmtManagerList[0].managerName,
+					memberId:response.cmtManagerList[0].memberId,
+					value:response.cmtManagerList[0].memberId,
+					label:response.cmtManagerList[0].managerName,
+					managerEmail:response.cmtManagerList[0].managerEmail,
+					managerIcon:response.cmtManagerList[0].managerIcon,
+					managerNick:response.cmtManagerList[0].managerNick,
+					managerPhone:response.cmtManagerList[0].managerPhone,
+					headerUrl:response.cmtManagerList[0].managerIcon,
+				}
+				
+			})
+			Store.dispatch(change('EditAddress', 'memberId',response.cmtManagerList[0].memberId));
+			response.cmtManagerList.map((item,index)=>{
 				if(item.managerType=='COMMUNITY_LEADER'){
 					State.editLeader = item;
 				}else{
+					Store.dispatch(change('EditAddress', `memberId${index-1}`,item.memberId));
 					manager.push(item)
 				}
 			})
 			if(!manager.length){
 				manager.push(item)
 			}
+			
 			State.editStationVos = manager;
 			State.addGuideList = response.cmtGuideList;
 		}).catch(function(err) {
@@ -96,7 +115,7 @@ import HeaderUpload from './HeaderUpload';
 	
 		let manager = [];
 		State.editStationVos.map(item=>{
-			if(item.managerEmail || item.managerIcon || item.managerName ||item.managerPhone ){
+			if(item.managerEmail || item.managerIcon || item.managerNick ||item.managerPhone ){
 				manager.push(item)
 			}
 			
@@ -170,7 +189,7 @@ import HeaderUpload from './HeaderUpload';
 	}
 	addArr=()=>{
 		let item = {
-				managerName:'',
+			    managerNick:'',
 				managerPhone:'',
 				managerEmail:'',
 				managerIcon:'',
@@ -197,24 +216,42 @@ import HeaderUpload from './HeaderUpload';
 
 	}
 	selectCommunity=(item)=>{
-		console.log('edit----item',item)
+		
 	}
 
 
 	componentWillUnMount(){
-		console.log('componentWillUnMount')
+		
 		State.addGuideList=[];
 	}
+	selectManagerName=(form)=>{
+		State.editLeader.managerNick=form.managerNick;
+		State.editLeader.managerPhone=form.managerPhone;
+		State.editLeader.managerEmail=form.managerEmail;
+		State.editLeader.headerUrl=form.managerIcon;
+		State.editLeader.memberId=form.memberId;
+		State.editLeader.managerIcon=form.managerIcon;
+		
+	}
 
+	selectName=(index,form)=>{
+		State.editStationVos[index].managerNick=form.managerNick;
+		State.editStationVos[index].managerPhone=form.managerPhone;
+		State.editStationVos[index].managerEmail=form.managerEmail;
+		State.editStationVos[index].headerUrl=form.managerIcon;
+		State.editStationVos[index].memberId=form.memberId;
+		State.editStationVos[index].managerIcon=form.managerIcon
+	}
 
 
 	render(){
 		let {handleSubmit} = this.props;
+		let {leaderInfo}=this.state;
 		let list = State.stationVos;
 		let _this = this;
 		let typeLinkLeaderNameList = {
-			value: State.editLeader.managerName,
-			requestChange: _this.onLeaderChange.bind(null,'managerName')
+			value: State.editLeader.managerNick,
+			requestChange: _this.onLeaderChange.bind(null,'managerNick')
 		}
 		let typeLinkLeaderPhoneList = {
 			value: State.editLeader.managerPhone,
@@ -254,16 +291,35 @@ import HeaderUpload from './HeaderUpload';
 					 	
 					<div className="info-list">
 						<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区负责任人</span>
-					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder={State.editLeader.managerName||'请输入姓名'}maxLength={10} onBlur={this.onBlur.bind(this,State.editLeader,'managerName')}/>
+						<KrField  
+							name="memberId"  
+							component="searchPersonName" 
+							inline={false} 
+							ValueInfo={leaderInfo}
+							onChange={this.selectManagerName} 
+							style={{width:261}}
+						 />
+					 	<input type="text" name="name" className="info-input" valueLink={typeLinkLeaderNameList}  placeholder={State.editLeader.managerNick||'请输入姓名'}maxLength={10} onBlur={this.onBlur.bind(this,State.editLeader,'managerNick')}/>
 					 	<input type="text" name="telephone" className="info-input" valueLink={typeLinkLeaderPhoneList}  placeholder={State.editLeader.managerPhone||'请输入电话号码'} onBlur={this.onBlur.bind(this,State.editLeader,'managerPhone')}/>
 					 	<input type="text" name="email" className="info-input"  valueLink={typeLinkLeaderEmailList}  placeholder={State.editLeader.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,State.editLeader,'managerEmail')}/>
 					</div> 
 				</div>
 
-				{State.editStationVos && State.editStationVos.map((item,index)=>{	
+				{State.editStationVos && State.editStationVos.map((item,index)=>{
+					
+						let managerInfo={
+							managerName:State.editStationVos[index].managerName,
+							memberId:State.editStationVos[index].memberId,
+							value:State.editStationVos[index].memberId,
+							label:State.editStationVos[index].managerName,
+							managerEmail:State.editStationVos[index].managerEmail,
+							managerIcon:State.editStationVos[index].managerIcon,
+							managerNick:State.editStationVos[index].managerNick,
+							managerPhone:State.editStationVos[index].managerPhone
+						};
 			    		let typeLinkNameList = {
-							value: State.editStationVos[index].managerName,
-							requestChange: _this.onStationVosChange.bind(null,'managerName',index)
+							value: State.editStationVos[index].managerNick,
+							requestChange: _this.onStationVosChange.bind(null,'managerNick',index)
 						}
 						let typeLinkPhoneList = {
 							value: State.editStationVos[index].managerPhone,
@@ -273,13 +329,23 @@ import HeaderUpload from './HeaderUpload';
 							value: State.editStationVos[index].managerEmail,
 							requestChange: _this.onStationVosChange.bind(null,'managerEmail',index)
 						}
+
+
 			    		return (
 			    			<div className="info-box" key={index}>
 					    		<HeaderUpload defaultUrl={item.managerIcon} onChange={this.addUrl} index={index}/>
 					    		
 								<div className="info-list">
 									<span className="info-input" style={{border:'none',lineHeight:'36px',display:'inline-block',marginTop:'-10px',marginBottom:'3px'}}>社区管家</span>
-					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder={item.managerName||'请输入姓名'} maxLength={10} onBlur={this.onBlur.bind(this,item,'managerName')}/>
+									<KrField  
+										name={`memberId${index}`}
+										component="searchPersonName" 
+										inline={false} 
+										ValueInfo={managerInfo}
+										onChange={this.selectName.bind(_this,index)} 
+										style={{width:261}}
+									/>
+					    			<input type="text" name="name" className="info-input" valueLink={typeLinkNameList}  placeholder={item.managerNick||'请输入姓名'} maxLength={10} onBlur={this.onBlur.bind(this,item,'managerNick')}/>
 					    			<input type="text" name="telephone" className="info-input" valueLink={typeLinkPhoneList}  placeholder={item.managerPhone||'请输入电话号码'}onBlur={this.onBlur.bind(this,item,'managerPhone')}/>
 					    			<input type="text" name="email" className="info-input"  valueLink={typeLinkEmailList}  placeholder={item.managerEmail||'请输入邮箱'} onBlur={this.onBlur.bind(this,item,'managerEmail')}/>
 								</div> 

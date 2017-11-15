@@ -283,6 +283,12 @@ const Operation_CommunityAllocation_CommunityStationDetail= (location, callback)
 		callback(null, require('kr/Containers/Operation/CommunityAllocation/CommunityStationDetail').default)
 	}, 'Operation_CommunityAllocation_CommunityStationDetail')
 }
+{/*注册地址列表*/}
+const Operation_CommunityAllocation_RegisteredAddress= (location, callback) => {
+	require.ensure([], require => {
+		callback(null, require('kr/Containers/Operation/CommunityAllocation/RegisteredAddress').default)
+	}, 'Operation_CommunityAllocation_RegisteredAddress')
+}
 {/*会议室列表选择社区*/}
 const Operation_CommunityAllocation_CommunityMeetingRoom= (location, callback) => {
 	require.ensure([], require => {
@@ -361,6 +367,12 @@ const Operation_CommunityAllocation_Activitys=(location, callback)=>{
 	  callback(null, require('kr/Containers/Operation/CommunityAllocation/AppOpinion').default)
 	}, 'Operation_CommunityAllocation_AppOpinion')
   }
+  const Operation_CommunityAllocation_CompanyVerify=(location, callback)=>{
+	require.ensure([], require => {
+	  callback(null, require('kr/Containers/Operation/CommunityAllocation/CompanyVerify').default)
+	}, 'Operation_CommunityAllocation_CompanyVerify')
+  }
+  
 
 //   const Member_MemberManage_Detail = (location, callback) => {
 // 	  require.ensure([], require => {
@@ -386,6 +398,8 @@ module.exports =()=>{
 			<Route path="communityStation" getComponent={Operation_CommunityAllocation_CommunityStation}/>
 			{/*工位列表*/}
 			<Route path=":communityId/communityStationDetail" getComponent={Operation_CommunityAllocation_CommunityStationDetail}/>
+			{/*注册地址列表*/}
+			<Route path="registeredAddress" getComponent={Operation_CommunityAllocation_RegisteredAddress}/>
 			{/*会议室列表选择社区*/}
 			<Route path="communityMeetingRoom" getComponent={Operation_CommunityAllocation_CommunityMeetingRoom}/>
 			{/*会议室列表*/}
@@ -403,6 +417,8 @@ module.exports =()=>{
 			<Route path="activity" getComponent={Operation_CommunityAllocation_Activitys}/>
 			<Route path="advert" getComponent={Operation_CommunityAllocation_AdvertManage}/>
 			<Route path="opinion" getComponent={Operation_CommunityAllocation_AppOpinion}/>
+			<Route path="companyVerify" getComponent={Operation_CommunityAllocation_CompanyVerify}/>
+			
 		</Route>
 		{/*基础配置*/}
 		<Route path="basicConfig" getComponent={Basic}>

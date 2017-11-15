@@ -98,7 +98,7 @@ module.exports = [
 
 					},
 					{
-						primaryText: '支持列表',
+						primaryText: '投诉建议',
 						menuCode: 'mobile_question_base',
 						router: '/community/communityManage/holdList'
 					},
@@ -168,10 +168,15 @@ module.exports = [
 						router: '/operation/communityAllocation/advert'
 					},
 					{
-						primaryText: 'App意见反馈',
+						primaryText: '意见反馈',
 						menuCode: 'oper_opinion_base',
 						router: '/operation/communityAllocation/opinion'
 					},
+					// {
+					// 	primaryText: '企业认证',
+					// 	menuCode: 'company_verify',
+					// 	router: '/operation/communityAllocation/companyVerify'
+					// },
 				]
 			},
 			{
@@ -230,7 +235,11 @@ module.exports = [
 						menuCode: 'oper_cmt_stationList_base',
 						router: '/operation/communityAllocation/communityStation'
 					},
-
+					{
+						primaryText: '注册地址',
+						menuCode: 'cmt_registerAddress_list',
+						router: '/operation/communityAllocation/registeredAddress'
+					},
 					{
 						primaryText: '平面图配置',
 						menuCode: 'oper_cmt_graph_base',
