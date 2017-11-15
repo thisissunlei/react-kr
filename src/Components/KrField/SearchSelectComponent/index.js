@@ -52,14 +52,10 @@ export default class  SearchAllComponent extends React.Component {
 		if(options && typeJudgment(options) === "[object Array]"){
 			return options;
 		}
-		console.log(params,"--------");
-		return new Promise((resolve, reject) => {
-			Http.request(selectUrl, obj||{}).then(function(response){
-				resolve({options:response.items});
-			}).catch(function(err){
-				reject(err);
-			});
-		});
+		
+		return Http.request(selectUrl, obj||{}).then(function(response){
+			return {options:response.items};
+		})
 	}
     
 	render(){

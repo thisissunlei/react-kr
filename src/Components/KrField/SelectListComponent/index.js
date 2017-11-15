@@ -41,15 +41,11 @@ export default class  SelectListComponent extends React.Component {
 			return ;
 		}
 
-		return new Promise((resolve, reject) => {
-			Http.request(selectUrl,params||{}).then(function(response){
+		return Http.request(selectUrl,params||{}).then(function(response){
 				_this.setState({
 					options:response.items
 				})
-			}).catch(function(err){
-				reject(err);
-			});
-		});
+		})
 	}
     
 
