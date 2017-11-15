@@ -208,7 +208,7 @@ class TemplatePrint extends React.Component {
 						<Button  label="关闭" type="button" cancle={true} onTouchTap={this.onCancel} />
 					</div>
 				}>
-				  <div>
+				  <div className='editor-middle'>
 					<div className='editor-left'>
 						
 						<KrField 
