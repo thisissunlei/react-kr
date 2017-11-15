@@ -221,6 +221,7 @@ function smalltoBIG(n) {
   }
   return head + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整');
 }  
+//判断操作系统类型
 function systemJudge() {
     var mac = /macintosh|mac os x/i.test(navigator.userAgent);
     var win = /windows|win32/i.test(navigator.userAgent);
@@ -231,7 +232,22 @@ function systemJudge() {
       return "window";
     }
 }
-
+//获取名目的DPI
+function js_getDPI() {
+    var arrDPI = new Array();
+    if (window.screen.deviceXDPI != undefined) {
+        arrDPI[0] = window.screen.deviceXDPI;
+        arrDPI[1] = window.screen.deviceYDPI;
+    }else {
+        var tmpNode = document.createElement("DIV");
+        tmpNode.style.cssText = "width:1in;height:1in;position:absolute;left:0px;top:0px;z-index:99;visibility:hidden";
+        document.body.appendChild(tmpNode);
+        arrDPI[0] = parseInt(tmpNode.offsetWidth);
+        arrDPI[1] = parseInt(tmpNode.offsetHeight);
+        tmpNode.parentNode.removeChild(tmpNode);
+    }
+    return arrDPI;
+}
 module.exports = {
   numberToSign,
   arrUpMove,
@@ -246,5 +262,6 @@ module.exports = {
   dataToTemplate,
   typeJudgment,
   smalltoBIG,
-  systemJudge
+  systemJudge,
+  js_getDPI
 }

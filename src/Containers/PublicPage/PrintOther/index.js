@@ -11,7 +11,7 @@ import {
 } from 'kr-ui';
 import React, { PropTypes } from 'react';
 
-import { observer, inject } from 'mobx-react';
+import { observer, inject, } from 'mobx-react';
 import './index.less';
 import { Http, delHtmlTag, systemJudge} from 'kr/Utils';
 import {
@@ -43,7 +43,7 @@ export default class PrintOther extends React.Component {
 	}
 	componentDidMount(){
 		this.getData();
-		
+		// console.log(js_getDPI(),"--------")
 		// this.allRender();
 	
 	}

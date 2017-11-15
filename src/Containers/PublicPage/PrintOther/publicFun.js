@@ -1,8 +1,9 @@
-import {systemJudge } from 'kr/Utils';
+import { systemJudge, js_getDPI} from 'kr/Utils';
 
 
 
-var paperHeight = 1120,//整张纸的高
+var dpi = js_getDPI(),
+    paperHeight = Math.ceil((dpi[1]/25.4*297)*100)/100,//整张纸的高
     uselessHeight = 60 + 25 ,//要减去的高
     markHeight = 160,//章的高
     newDate = parseInt(Math.random()*1000+1000),
@@ -234,12 +235,12 @@ function controlHeight(elem){
     elem.style.overflow = "hidden";
     detail = elem.getBoundingClientRect();
     endHeight = Math.ceil(detail.height/paperHeight)*paperHeight;
-    if (systemJudge() === "mac"){
+    // if (systemJudge() === "mac"){
         elem.style.height = endHeight - 30 + "px";
-    }
-    if (systemJudge() === "window"){
-        elem.style.height = endHeight - 80 + "px";
-    }
+    // }
+    // if (systemJudge() === "window"){
+    //     elem.style.height = endHeight - 80 + "px";
+    // }
     
     
 }
