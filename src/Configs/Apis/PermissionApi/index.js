@@ -596,4 +596,10 @@ module.exports = {
       method: 'get'
     },
 
+   //创建表单回血
+   'sql-table-get':{
+    url: '/api/krspace-erp-web/sys/form/sqlTable/search?id={id}',
+    method: 'get'
+   },
+
 }

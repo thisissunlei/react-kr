@@ -23,13 +23,17 @@ function codeParse(template, data){
 }
 //去掉所有空格
 function removeSpace(template){
+    return template;
     return template.replace(/\s/g,''); 
 }
 //替换掉属性的写法
 function keyParse(template,paramName,data) {
     var t = template, reg;
     for(var key in data){
-        reg = new RegExp('{{' + paramName+'\\|'+ key + '}}', 'g'); 
+        if(paramName == "m-money"){
+            console.log('{{' + paramName + '.' + key + '}}', data[key],'---------')
+        }
+        reg = new RegExp('{{' + paramName+'.'+ key + '}}', 'g'); 
         t = t.replace(reg,data[key]||'')
     }  
     return t; 
