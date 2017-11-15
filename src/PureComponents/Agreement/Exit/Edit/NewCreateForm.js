@@ -259,8 +259,8 @@ class NewCreateForm extends React.Component {
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}/>
 
-				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退租金总额" requireLabel={true}
-				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退租金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}
+				<KrField name="totalreturn" style={{width:262,marginLeft:25}} type="text" component="labelText" label="退服务费总额" requireLabel={true}
+				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退服务费总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}
 				value={totalRent} inline={false}/>
 				<KrField style={{width:262,marginLeft:25}} name="signdate"  component="date" grid={1/2} label="签署时间" requireLabel={true}/>
 				<KrField style={{width:545,marginLeft:25}} name="contractmark" component="textarea" label="备注" maxSize={200}/>
@@ -330,7 +330,7 @@ const validate = values => {
 	}
 
 	if (!String(values.totalreturn)) {
-		errors.totalreturn = '请填写退租金总额';
+		errors.totalreturn = '请填写退服务费总额';
 	}
 
 	if (!String(values.depositamount)) {
