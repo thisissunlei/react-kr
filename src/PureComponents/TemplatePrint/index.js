@@ -253,9 +253,9 @@ class TemplatePrint extends React.Component {
 
 						<div className='text-introduction'>
 							<span style={{marginTop:20,fontSize:14,color:'#333',display:'inline-block'}}>配置说明</span>
-							<div className='sub-introduction'>
+							<textarea className='sub-introduction' placeholder='请输入配置说明'>
 								
-							</div>	 
+							</textarea>	 
 						</div>
 
 
