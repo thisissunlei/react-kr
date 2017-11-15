@@ -109,7 +109,6 @@ export default class JoinCreate extends React.Component {
 			params
 		} = this.context;
 		let {CommunityAgreementList} = this.props;
-		this.removeLocalStorage();
 		CommunityAgreementList.openEditAgreement=false;
 		//window.location.href = `./#/operation/customerManage/${params.customerId}/order/${params.orderId}/detail`;
 	}

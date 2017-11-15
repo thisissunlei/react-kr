@@ -188,7 +188,7 @@ class NewCreateForm extends React.Component {
 		let delStationVos;
 		let {array} = this.props;
 		array.removeAll('saleList');
-		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
+		value = DateFormat(value, "yyyy-mm-dd 00:00:00");
 
 
 		if(changeValues.leaseEnddate){
@@ -227,7 +227,7 @@ class NewCreateForm extends React.Component {
 		let delStationVos;
 		let {array} = this.props;
 		array.removeAll('saleList')
-		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
+		value = DateFormat(value, "yyyy-mm-dd 00:00:00");
 
 		let {changeValues} = this.props;
 		if(changeValues.leaseBegindate){
