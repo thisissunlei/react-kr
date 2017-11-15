@@ -35,10 +35,7 @@ class NewCreateForm extends React.Component{
 
 		this.params = this.props.params;
 	}
-	
-	componentDidMount(){
-		//this.getBasicData();
-	}
+
 
 	componentWillMount() {
 		this.params = this.props.params;
@@ -69,30 +66,7 @@ class NewCreateForm extends React.Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	getBasicData=()=>{
-		//  新增会员准备职位数据
-		let _this =this;
-		let params = {
-			communityId:'',
-			companyId:'',
-		}
-		Http.request('getMemberBasicData',params).then(function(response){
-			response.jobList.forEach(function(item,index){
-				item.value = item.id;
-				item.label = item.jobName;
-			});
-			//  let memberInfoVO = {
-			// 	communityId:_this.params.communityId,
-			// 	companyId:_this.params.companyId
-			// }
-			// Store.dispatch(initialize('NewCreateForm', memberInfoVO));
-			_this.setState({
-				selectOption:response.jobList
-			})
-		}).catch(function(err){
-			reject(err);
-		});
-	}
+	
 
 	//  输入手机号查看该手机号是否绑定
 	onBlur=(phone)=>{

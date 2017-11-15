@@ -281,7 +281,7 @@ export default class JoinDetail extends Component {
 
 					<KrField component="labelText" grid={1/2} label="首付款时间：" type="date" value={basic.firstpaydate} requireBlue={true}/>
 					<KrField component="labelText" grid={1/2} label="付款方式："  value={basic.payment.dicName} defaultValue="无" requireBlue={true} toolTrue='true'/>
-				<KrField component="labelText" grid={1/2}  label="租金总额：" value={basic.totalrent} defaultValue="0" requireBlue={true} toolTrue='true'/>
+				<KrField component="labelText" grid={1/2}  label="服务费总额：" value={basic.totalrent} defaultValue="0" requireBlue={true} toolTrue='true'/>
 					<KrField component="labelText" grid={1/2} label="押金总额：" value={basic.totaldeposit} defaultValue="0" requireBlue={true} toolTrue='true'/>
 					<KrField component="labelText" grid={1/2} label="签署日期：" value={dateFormat(basic.signdate,"yyyy-mm-dd")} defaultValue="无" requireBlue={true}/>
 					<KrField component="labelText" label="租赁工位：" grid={1/2}  value={basic.stationnum} requireBlue={true} defaultValue="0" requireBlue={true} toolTrue='true' />

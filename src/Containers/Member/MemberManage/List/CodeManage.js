@@ -124,7 +124,7 @@ export default class CodeManage extends React.Component {
                                     <tr key={index}>
                                         <td>{item.outerCode}</td>
                                         <td><KrDate value={item.holdAt}/></td>
-                                        <td onClick={this.openUncode.bind(this,item)}><span className="u-txt-blue">解绑</span></td>
+                                        <td onClick={this.openUncode.bind(this,item)}><span className="u-txt-blue u-pointer">解绑</span></td>
                                     </tr>
                                 )
                             })}

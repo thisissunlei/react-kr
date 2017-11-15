@@ -98,7 +98,7 @@ module.exports = [
 
 					},
 					{
-						primaryText: '支持列表',
+						primaryText: '投诉建议',
 						menuCode: 'mobile_question_base',
 						router: '/community/communityManage/holdList'
 					},
@@ -168,10 +168,15 @@ module.exports = [
 						router: '/operation/communityAllocation/advert'
 					},
 					{
-						primaryText: 'App意见反馈',
+						primaryText: '意见反馈',
 						menuCode: 'oper_opinion_base',
 						router: '/operation/communityAllocation/opinion'
 					},
+					// {
+					// 	primaryText: '企业认证',
+					// 	menuCode: 'company_verify',
+					// 	router: '/operation/communityAllocation/companyVerify'
+					// },
 				]
 			},
 			{
