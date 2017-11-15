@@ -1,3 +1,7 @@
+import {systemJudge } from 'kr/Utils';
+
+
+
 var paperHeight = 1120,//整张纸的高
     uselessHeight = 60 + 25 ,//要减去的高
     markHeight = 160,//章的高
@@ -230,7 +234,13 @@ function controlHeight(elem){
     elem.style.overflow = "hidden";
     detail = elem.getBoundingClientRect();
     endHeight = Math.ceil(detail.height/paperHeight)*paperHeight;
-    elem.style.height = endHeight-50+"px";
+    if (systemJudge() === "mac"){
+        elem.style.height = endHeight - 30 + "px";
+    }
+    if (systemJudge() === "window"){
+        elem.style.height = endHeight - 80 + "px";
+    }
+    
     
 }
 //合同两列对其

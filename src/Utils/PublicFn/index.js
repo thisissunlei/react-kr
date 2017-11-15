@@ -221,6 +221,16 @@ function smalltoBIG(n) {
   }
   return head + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整');
 }  
+function systemJudge() {
+    var mac = /macintosh|mac os x/i.test(navigator.userAgent);
+    var win = /windows|win32/i.test(navigator.userAgent);
+    if(mac){
+      return "mac";
+    }
+    if(win){
+      return "window";
+    }
+}
 
 module.exports = {
   numberToSign,
@@ -235,5 +245,6 @@ module.exports = {
   isObject,
   dataToTemplate,
   typeJudgment,
-  smalltoBIG
+  smalltoBIG,
+  systemJudge
 }

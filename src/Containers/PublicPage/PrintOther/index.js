@@ -13,7 +13,7 @@ import React, { PropTypes } from 'react';
 
 import { observer, inject } from 'mobx-react';
 import './index.less';
-import {Http,delHtmlTag} from 'kr/Utils';
+import { Http, delHtmlTag, systemJudge} from 'kr/Utils';
 import {
 	templateParse,
 	checkMark,
@@ -21,7 +21,8 @@ import {
 	chaptersMove,
 	delEndFutility,
 	controlHeight,
-	codeParse
+	codeParse,
+	
 } from './publicFun'
 export default class PrintOther extends React.Component {
 
@@ -41,9 +42,9 @@ export default class PrintOther extends React.Component {
 
 	}
 	componentDidMount(){
-		// this.getData();
-		console.log(window.screen.deviceXDPI,"======>");
-		this.allRender();
+		this.getData();
+		
+		// this.allRender();
 	
 	}
 	//获取信息
@@ -69,13 +70,13 @@ export default class PrintOther extends React.Component {
 	}
 	
 	allRender = (template,allData) =>{
-		this.configData.template = '<p><strong>sdsdfs的发生</strong></p><p>{{ li | name}}的发生{{li|age}}发是防守{li}</p><p><strong>打法发斯蒂芬是否水电费水电费是撒地方水电费水电费是</strong></p>'
-		// this.configData.template =  template;
-		this.configData.allData = { li: { name: '梨花', age: '88', love: '哈哈',printValue:'什么鬼'}};
-		// this.configData.allData = allData;
+		// this.configData.template = '<p><strong>sdsdfs的发生</strong></p><p>{{ li | name}}的发生{{li|age}}发是防守{li}</p><p><strong>打法发斯蒂芬是否水电费水电费是撒地方水电费水电费是</strong></p>'
+		this.configData.template =  template;
+		// this.configData.allData = { li: { name: '梨花', age: '88', love: '哈哈',printValue:'什么鬼'}};
+		this.configData.allData = allData;
 		var templateData = templateParse(this.configData.template);
 		this.print.innerHTML = codeParse(templateData, allData);
-		this.print.innerHTML = codeParse(templateData,this.configData.allData);
+		// this.print.innerHTML = codeParse(templateData,this.configData.allData);
 		
 		var detailTr = document.querySelectorAll(".money-detail tr");
 		
