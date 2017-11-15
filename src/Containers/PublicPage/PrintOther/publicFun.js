@@ -239,7 +239,7 @@ function controlHeight(elem){
         elem.style.height = endHeight - 30 + "px";
     }
     if (systemJudge() === "window"){
-        elem.style.height = endHeight - 80 + "px";
+        elem.style.height = endHeight - 200 + "px";
     }
     
     
