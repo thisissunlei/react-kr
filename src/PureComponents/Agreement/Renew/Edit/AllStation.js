@@ -43,7 +43,7 @@ class SelectStationForm extends Component {
 
 
 	onChangeRentBeginDate(value) {
-		value = DateFormat(value, 'yyyy-mm-dd') + ' 00:00:00';
+		value = DateFormat(value, 'yyyy-mm-dd 00:00:00') ;
 
 
 
@@ -51,7 +51,7 @@ class SelectStationForm extends Component {
 			leaseBegindate
 		} = this.props.changeValues;
 		//判断选择的时间是否大于租赁起始时间
-		let beginDate = Date.parse(DateFormat(leaseBegindate, 'yyyy-mm-dd') + ' 00:00:00');
+		let beginDate = Date.parse(DateFormat(leaseBegindate, 'yyyy-mm-dd 00:00:00'));
 		let rentBeginDate = Date.parse(value);
 
 		// if (beginDate > rentBeginDate) {
@@ -166,8 +166,8 @@ class SelectStationForm extends Component {
 		//工位结束时间相同
 		var some = true;
 		selectedStationVos.sort(function(pre, next) {
-			var preDate = DateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
-			var nextDate = DateFormat(next.leaseEndDate, 'yyyy-mm-dd');
+			var preDate = DateFormat(pre.leaseEndDate, 'yyyy-mm-dd 00:00:00');
+			var nextDate = DateFormat(next.leaseEndDate, 'yyyy-mm-dd 00:00:00');
 			if (preDate != nextDate) {
 				some = false;
 			}
@@ -193,7 +193,7 @@ class SelectStationForm extends Component {
 			obj.whereFloor = item.whereFloor;
 			obj.unitprice = item.unitprice;
 			obj.originalUnitprice = item.originalUnitprice;
-			obj.leaseBeginDate = DateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.leaseBeginDate = DateFormat(item.leaseEndDate, 'yyyy-mm-dd 00:00:00');
 			obj.leaseEndDate = item.rentBeginDate;
 			resultStationVos.push(obj);
 		});
@@ -217,7 +217,7 @@ class SelectStationForm extends Component {
 			var tmpDate = new Date();
 			tmpDate.setTime(Date.parse(item.leaseBeginDate));
 			tmpDate.setDate(tmpDate.getDate() + 1);
-			item.leaseBeginDate = DateFormat(tmpDate, 'yyyy-mm-dd')
+			item.leaseBeginDate = DateFormat(tmpDate, 'yyyy-mm-dd 00:00:00')
 		});
 
 
