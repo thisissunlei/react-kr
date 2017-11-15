@@ -80,6 +80,7 @@ class TypeList extends Component{
 		
 		Http.request('form-sql-execute',{},{id:this.allConfig.itemData.id}).then(function(response) {
 			_this.allConfig.openDone = false;
+			Message.success('执行成功');
 			_this.setState({
 				searchParams:{..._this.state.searchParams,time:+new Date()}
 			})
