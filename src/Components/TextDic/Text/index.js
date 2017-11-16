@@ -141,7 +141,7 @@ export default class Text  extends React.Component{
         return (
             <KrField
                 grid={1 / 2}
-                style={{ width: 262, marginBottom: 5 }}
+                style={{ width: 262, marginBottom: 5 ,marginLeft:30}}
                 name="wstext"
                 component="input"
                 label="最大长度"
