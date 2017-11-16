@@ -58,7 +58,6 @@ class TypeList extends Component{
 			openDone : false,
 			itemData :{}
 		}
-		console.log('=========',this.props.type)
 	}
 	toDo=(item)=>{
 		let {openDone} = this.allConfig;
@@ -75,7 +74,6 @@ class TypeList extends Component{
 		this.isRender();
 	}
 	submit=(item)=>{
-		console.log('=======',this.allConfig.itemData);
 		var _this=this;
 		
 		Http.request('form-sql-execute',{},{id:this.allConfig.itemData.id}).then(function(response) {
@@ -101,7 +99,6 @@ class TypeList extends Component{
         });
 	}
 	changeType=(value)=>{
-		console.log('changeType',value)
 		let {searchParams} = this.state;
 		let executed = '';
 		if(!value){
@@ -115,7 +112,6 @@ class TypeList extends Component{
 		})
 	}
 	onSearchSubmit=(value)=>{
-		console.log('---------->',value);
 		let {searchParams} = this.state;
 		let name = value.content;
 		let search = Object.assign({},searchParams,{name:name})
@@ -130,6 +126,14 @@ class TypeList extends Component{
 	isRender = () =>{
 		this.setState({
 			other : new Date,
+		})
+	}
+	pageChange=(page)=>{
+		let {searchParams} = this.state;
+
+		let search = Object.assign({},searchParams,{page:page})
+		this.setState({
+			searchParams : search
 		})
 	}
 	
