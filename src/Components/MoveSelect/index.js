@@ -44,7 +44,6 @@ class MoveSelect extends Component {
     getAddressNum = (params) =>{
         var data = Object.assign({},params);
         this.box.getData(data);
-        console.log(params,"PPPPPPPPP")
         this.titleData = Object.assign(this.titleData,params);
         this.setState({
             other:new Date()

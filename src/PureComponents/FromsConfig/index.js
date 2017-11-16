@@ -162,7 +162,6 @@ class FromsConfig extends Component {
 			grid = 1
 		}
 		if (type == "searchSelect"){
-			console.log(item,"PPPPPPPP")
 		}
 		
 		var params = {

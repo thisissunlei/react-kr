@@ -29,9 +29,11 @@ export default class AddressComponent extends React.Component {
             other: '',
             showText:'',
             //选中的数据
-            selectData:[]
+            selectData:[],
+
         }
         this.allData = [];
+    
     }
 
     onFocus = (value) => {
@@ -70,8 +72,12 @@ export default class AddressComponent extends React.Component {
         // let templateReg = new RegExp("${0}", 'ig');
         if (data.codeList && data.codeList.length && data.codeList[0].label){
             let template =  data.codeList[0].label;
+
+            this.selectValue = data.codeList[0].value;
            input.onChange(data.codeList[0].value);
-            this.dlogSwidch();
+          
+           this.dlogSwidch();
+           this.theEcho(this.selectValue);
             this.setState({
                 showText: template
             })
@@ -93,18 +99,26 @@ export default class AddressComponent extends React.Component {
     getAdressData = () =>{
         let _this = this;
         Http.request("get-address-num", { addressId: '', allWhenNull:true}).then(function (response) {
-            _this.theEcho(response.items)
+            _this.allData = [].concat(response.items);
+            _this.theEcho();
         }).catch(function (err) {
 
         });
     }
-    theEcho = (data) =>{
+    theEcho = (value) =>{
         const {input} = this.props;
+        console.log(value)
+        value = value || input.value;
+        
+        var data = [].concat(this.allData);
+        
         for (var i = 0; i < data.length; i++) {
-            if(data[i].value == input.value){
+            if (data[i].value == value){
                 this.setState({
                     showText:data[i].label,
                     selectData:[data[i]]
+                },function () {
+                    console.log("ooooooo", this.state.selectData)
                 })
                 break;
             }
@@ -180,7 +194,7 @@ export default class AddressComponent extends React.Component {
         // var text = input.value && input.value.codeList && input.value.codeList[0] ? input.value.codeList[0].label : '';
         // var text = input.label || '';
         
-
+        // console.log(selectData,"---------")
         return (
             <WrapComponent {...wrapProps}>
 
