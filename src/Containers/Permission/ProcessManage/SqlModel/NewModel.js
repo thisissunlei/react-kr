@@ -59,7 +59,7 @@ class  NewModel  extends React.Component{
                             label="操作类型"
                             requireLabel={true}
                             options={[{value:'TABLE_CREATE',label:'创建表'},{value:'TABLE_DELETE',label:'删除表'},{value:'TABLE_EDIT_DESCR',label:'修改表注释'},
-                            {value:'FIELD_ADD',label:'新增字段'},{value:'FIELD_DELETE',label:'删除字段'},{value:'FIELD_RENAME',label:'修改字段名'},{value:'FIELD_MODIFY',label:'修改字段属性'}]}
+                            {value:'FIELD_ADD',label:'新增字段'},{value:'FIELD_DELETE',label:'删除字段'},{value:'FIELD_RENAME',label:'修改字段名'},{value:'FIELD_MODIFY',label:'修改字段属性'},{value:'TABLE_EDIT_NAME',label:'修改表名'}]}
 						/>
                        
                         <div className='sql-add-des'><KrField grid={1} label="SQL模版" name="sqlTemplate" heightStyle={{height:"156px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={500} placeholder='请输入SQL模版'  lengthClass='sql-len-textarea' requireLabel={true}/></div>
