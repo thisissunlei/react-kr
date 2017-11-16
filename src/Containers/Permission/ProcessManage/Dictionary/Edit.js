@@ -327,6 +327,7 @@ class EditForm extends React.Component{
 						  name="dataSource" 
 						  component="select" 
 						  label="公共字典编码" 
+						  options={State.asynicData}
 						  style={{width:252,zIndex:11}}/>
 				   </div>}
 

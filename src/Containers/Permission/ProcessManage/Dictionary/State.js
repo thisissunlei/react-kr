@@ -21,7 +21,9 @@ let State = observable({
 		time:+new Date(),
 
 	},
-	data:{}
+	data:{},
+	//动态下拉
+	asynicData:[]
 
 
 });
@@ -41,6 +43,16 @@ State.showView = action(function(item) {
 	});
 
 });
+
+State.getAsyncData = action(function() {
+	let _this = this;
+	Http.request('common-dictionary-list').then(function(response) {
+		_this.asynicData = response.items;
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+});
+
 State.closeAll = action(function() {
 	this.openCreate = false;
 	this.openView = false;

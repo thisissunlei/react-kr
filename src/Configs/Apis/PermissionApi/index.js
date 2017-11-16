@@ -601,5 +601,10 @@ module.exports = {
     url: '/api/krspace-erp-web/sys/form/sqlTable/search?id={id}',
     method: 'get'
    },
-
+   //公共字典下拉
+   'common-dictionary-list':{
+    url: '/api/krspace-erp-web/sys/public-dict/source/select/type/list',
+    method: 'get'
+   },
+   
 }
