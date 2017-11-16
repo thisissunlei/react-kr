@@ -77,36 +77,30 @@ class TemplatePrint extends React.Component {
 		this.state = {
 			child:"",
 			nameList: [
-				{
-					fields: [
-						{
-							label: "测试内容8aib",
-							name: "测试内容f7wv",
-							showValue: "测试内容d8vq",
-							value: 38225
-						}
-					],
-					id: 88788,
-					label: "主表",
-					value: "m"
-				}
-			]
+			],
+			fieldVOs:[]
 		}
 		this.content = ''
 		this.editId = "edit_"+ new Date();
     }
     componentWillMount(){
-		/*let {formId}=this.props;
+		let {formId}=this.props;
+		let {fieldVOs}=this.state;
 		var _this=this;
-		Http.request("other-contract-formwork-new",{},params).then(function (response) {
+		Http.request("get-sql-print",{formId:formId}).then(function (response) {
+			response.items.map((item,index)=>{
+				console.log('items---',item.fieldVOs);
+				fieldVOs=fieldVOs.concat(item.fieldVOs)
+			})
 			_this.setState({
-				nameList:response.items
+				nameList:response.items,
+				fieldVOs
 			})
 		}).catch(function (err) {
 			Message.error(err.message);
-		});*/
+		});
 	}
-
+    
 	onSubmit = (value) =>{
 		var params = Object.assign({},value);
 		let {onSubmit,id} = this.props;
@@ -139,8 +133,9 @@ class TemplatePrint extends React.Component {
 
     //按钮
 	btnValue=(name)=>{
+		let {fieldVOs}=this.state;
 		var showValue={};
-		textArr.map((item,index)=>{
+		fieldVOs.map((item,index)=>{
 			for(var d in item){
 				if(d!='label'&&d!='name'){
 					showValue[d]=item[d];
@@ -170,7 +165,8 @@ class TemplatePrint extends React.Component {
 	
 	//列表
 	btnWatch=()=>{
-		var showTexts=textArr.map((item,index)=>{
+		let {fieldVOs}=this.state;
+		var showTexts=fieldVOs.map((item,index)=>{
 			       return <li>
 								<span>{item.label}</span>
 								{
@@ -179,6 +175,12 @@ class TemplatePrint extends React.Component {
 				         </li>
 		})
 		return showTexts
+	}
+
+	nameListChange=(item)=>{
+       this.setState({
+		 fieldVOs:item.fieldVOs
+	   })
 	}
 	
 	//点击上去
@@ -191,7 +193,7 @@ class TemplatePrint extends React.Component {
 		}
 		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
 	}
-
+    
     
 
 	render() {
@@ -241,7 +243,8 @@ class TemplatePrint extends React.Component {
 							style={{paddingLeft:20,display:'inline-block',boxSizing:'border-box'}} 
 							component="select" 
 							inline={false}
-							options={nameList}		
+							options={nameList}	
+							onChange={this.nameListChange}	
 						/>
 
 					    <ul className='text-list'>

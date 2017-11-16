@@ -590,5 +590,11 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/sql-template/delete',
       method: 'post'
    },
+   //获取打印模版配置信息
+   'get-sql-print':{
+    url: '/api/krspace-erp-web/sys/print/template/list/type/field?formId={formId}',
+    method: 'get'
+   },
+
 
 }
