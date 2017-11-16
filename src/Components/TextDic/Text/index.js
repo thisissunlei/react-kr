@@ -169,7 +169,7 @@ export default class Text  extends React.Component{
             label="高度"
 
         />)
-        arr.push(this.maxLength)
+        arr.push(this.maxLength())
         return arr;
     }
    
