@@ -23907,7 +23907,7 @@ UE.plugin.register('autosave', function (){
     return {
         defaultOptions: {
             //默认间隔时间
-            saveInterval: 500
+            saveInterval: 100
         },
         bindEvents:{
             'ready':function(){
@@ -23927,6 +23927,8 @@ UE.plugin.register('autosave', function (){
             },
 
             'contentchange': function () {
+
+                
 
                 if ( !saveKey ) {
                     return;
