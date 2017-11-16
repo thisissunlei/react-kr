@@ -22,6 +22,9 @@ var btnType = {
     btnCity:'county',
     btnAddress:'address'
 }
+var validation = {
+    integral : /^-?\d+$/,
+}
 //明细表校验
 function detailCheck(params, values) {
     //楼层检验 params.tableName;
@@ -91,7 +94,7 @@ function textCheck(params, name) {
     }
    var seeting=JSON.parse(params.setting);
    if (name && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长为${seeting['wstext']}`
+       text = `${params.label}最长多不超过${seeting['wstext']}个字符`
         return text;
     }
 }
@@ -111,7 +114,7 @@ function integerCheck(params, name) {
     }
     var seeting = JSON.parse(params.setting);
     if (name && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长为${seeting['wstext']}`
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
         return text;
     }
 }
@@ -138,10 +141,18 @@ function floatCheck(params, name) {
             return text;
         }
     }
-    if (name && (""+name).length > Number(seeting['wstext'])-1) {
-        text = `${params.label}最长为${seeting['wstext']}`
+   
+    if (name && !num.test(name) && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
         return text;
     }
+
+    if (name && num.test(name) && ("" + name).length >( Number(seeting['wstext']) + 1)) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        return text;
+    }
+
+    
 }
 
 //金额转换
@@ -168,8 +179,13 @@ function transferCheck(params, name) {
         }
     }
 
-    if (name && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长为${seeting['wstext']}`
+    if (name && !num.test(name) && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        return text;
+    }
+
+    if (name && num.test(name) && ("" + name).length > (Number(seeting['wstext']) + 1)) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
         return text;
     }
 }
@@ -198,8 +214,13 @@ function quartileCheck(params, name) {
         }
     }
 
-    if (name && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长为${seeting['wstext']}`
+    if (name && !num.test(name) && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        return text;
+    }
+
+    if (name && num.test(name) && ("" + name).length > (Number(seeting['wstext']) + 1)) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
         return text;
     }
 }
