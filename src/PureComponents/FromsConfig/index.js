@@ -172,9 +172,17 @@ class FromsConfig extends Component {
 		}
 
 		var editHeight={};
+		var maxLength = 200;
+
 		if(item.setting){
-			editHeight=JSON.parse(item.setting);
+			var seeting =JSON.parse(item.setting);
+			editHeight =seeting;
+			if (seeting.wstext){
+				maxLength = seeting.wstext;
+			}
 		}
+	
+		
 		if(item.display){
 			return (
 				<KrField
@@ -188,6 +196,7 @@ class FromsConfig extends Component {
 					component={type}
 					params={params}
 					editHeight={editHeight}
+					maxSize={maxLength}
 				/>
 			)
 		}else {

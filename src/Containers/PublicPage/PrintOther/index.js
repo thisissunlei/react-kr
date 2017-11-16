@@ -7,7 +7,8 @@ import {
 	Section,
 	SliderTree,
     ArticleList,
-    Message
+	Message,
+	Title
 } from 'kr-ui';
 import React, { PropTypes } from 'react';
 

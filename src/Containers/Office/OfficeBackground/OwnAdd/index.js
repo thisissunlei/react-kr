@@ -264,7 +264,7 @@ export default class Initialize  extends React.Component{
 					 								<div>
 
 														<Button label="编辑"  type='operation'  onClick={this.openEdit.bind(this,itemData)}/>
-														{itemData.printed && <Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>}
+														{(itemData.printed && itemData.allowPrint) && <Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>}
 													</div>
 					 							)
 					 					}}>
