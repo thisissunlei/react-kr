@@ -45,6 +45,7 @@ export default class TextDic extends React.Component{
             wspicFile:"",
             wsPicEnabled:"true",
             wsradio:"",
+            wsMaxLength:''
         }
     }
 

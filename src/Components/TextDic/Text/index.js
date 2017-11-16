@@ -118,41 +118,50 @@ export default class Text  extends React.Component{
 
     inputTextRender=()=>{
         this.clearModel();
-        return <KrField
-                    grid={1/2}
-                    style={{width:262,marginBottom:5}}
-                    name="wstext"
-                    component="input"
-                    label="文本长度"
-                    requireLabel={true}
-                    marking={true}
-                   
-                />
+        return this.maxLength()
     }
 
     floatTextRender=()=>{
         this.clearModel();
-        return <KrField
-                    grid={1/2}
-                    style={{width:262,marginBottom:5}}
-                    name="wsfloat"
-                    component="select"
-                    label="小数位数"
-                    options={[{label:'1',value:'1'},{label:'2',value:'2'},{label:'3',value:'3'},{label:'4',value:'4'}]}
-                    requireLabel={true}
-                />
+        var arr = [];
+        arr.push(<KrField
+                grid={1 / 2}
+                style={{ width: 262, marginBottom: 5 }}
+                name="wsfloat"
+                component="select"
+                label="小数位数"
+                options={[{ label: '1', value: '1' }, { label: '2', value: '2' }, { label: '3', value: '3' }, { label: '4', value: '4' }]}
+                requireLabel={true}
+        />)
+        arr.push(this.maxLength())
+        return arr;
+            
     }
-
+    maxLength = () =>{
+        return (
+            <KrField
+                grid={1 / 2}
+                style={{ width: 262, marginBottom: 5 }}
+                name="wstext"
+                component="input"
+                label="最大长度"
+                requireLabel={true}
+            />
+        )
+    }
     heightRender=()=>{
         this.clearModel();
-        return <KrField
-                    grid={1/2}
-                    style={{width:262,marginBottom:5}}
-                    name="wsheight"
-                    component="input"
-                    label="高度"
-                    
-                />
+        var arr = [];
+        arr.push(<KrField
+            grid={1 / 2}
+            style={{ width: 262, marginBottom: 5 }}
+            name="wsheight"
+            component="input"
+            label="高度"
+
+        />)
+        arr.push(this.maxLength)
+        return arr;
     }
    
     buttonRender=()=>{
