@@ -90,7 +90,7 @@ function textCheck(params, name) {
         }
     }
    var seeting=JSON.parse(params.setting);
-    if (name && name.length > Number(seeting['wstext'])) {
+   if (name && ("" + name).length > Number(seeting['wstext'])) {
         text = `${params.label}最长为${seeting['wstext']}`
         return text;
     }
@@ -107,6 +107,11 @@ function integerCheck(params, name) {
     }
     if (name && !num.test(name)) {
         text = '请填写整数'
+        return text;
+    }
+    var seeting = JSON.parse(params.setting);
+    if (name && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长为${seeting['wstext']}`
         return text;
     }
 }
@@ -133,6 +138,10 @@ function floatCheck(params, name) {
             return text;
         }
     }
+    if (name && (""+name).length > Number(seeting['wstext'])-1) {
+        text = `${params.label}最长为${seeting['wstext']}`
+        return text;
+    }
 }
 
 //金额转换
@@ -151,13 +160,18 @@ function transferCheck(params, name) {
         return text;
     }
     
-        var seeting=JSON.parse(params.setting);
-        if(name&&num.test(name)){
-            if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
-                text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
-                return text;
-            }
+    var seeting=JSON.parse(params.setting);
+    if(name&&num.test(name)){
+        if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+            text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
+            return text;
         }
+    }
+
+    if (name && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长为${seeting['wstext']}`
+        return text;
+    }
 }
 
 //金额千分位
@@ -176,13 +190,18 @@ function quartileCheck(params, name) {
         return text;
     }
     
-        var seeting=JSON.parse(params.setting);
-        if(name&&num.test(name)){
-            if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
-                text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
-                return text;
-            }
+    var seeting=JSON.parse(params.setting);
+    if(name&&num.test(name)){
+        if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+            text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
+            return text;
         }
+    }
+
+    if (name && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长为${seeting['wstext']}`
+        return text;
+    }
 }
 
 //其他情况

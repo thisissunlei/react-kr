@@ -118,9 +118,18 @@ export default class Text  extends React.Component{
 
     inputTextRender=()=>{
         this.clearModel();
-        return this.maxLength()
+        return (
+            <KrField
+                grid={1 / 2}
+                style={{ width: 262, marginBottom: 5}}
+                name="wstext"
+                component="input"
+                label="最大长度"
+                requireLabel={true}
+            />
+        )
     }
-
+    
     floatTextRender=()=>{
         this.clearModel();
         var arr = [];
