@@ -22,6 +22,9 @@ var btnType = {
     btnCity:'county',
     btnAddress:'address'
 }
+var validation = {
+    integral : /^-?\d+$/,
+}
 //明细表校验
 function detailCheck(params, values) {
     //楼层检验 params.tableName;
@@ -90,7 +93,7 @@ function textCheck(params, name) {
         }
     }
    var seeting=JSON.parse(params.setting);
-   if (name && ("" + name).length > Number(seeting['wstext'])) {
+   if (name && ("" + name).length >= Number(seeting['wstext'])) {
         text = `${params.label}最长为${seeting['wstext']}`
         return text;
     }
@@ -110,7 +113,7 @@ function integerCheck(params, name) {
         return text;
     }
     var seeting = JSON.parse(params.setting);
-    if (name && ("" + name).length > Number(seeting['wstext'])) {
+    if (name && ("" + name).length >= Number(seeting['wstext'])) {
         text = `${params.label}最长为${seeting['wstext']}`
         return text;
     }
@@ -133,15 +136,23 @@ function floatCheck(params, name) {
 
     var seeting=JSON.parse(params.setting);
     if(name&&num.test(name)){
-        if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+        if((name.toString().split(".")[1].length) >= Number(seeting['wsfloat'])){
             text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
             return text;
         }
     }
-    if (name && (""+name).length > Number(seeting['wstext'])-1) {
-        text = `${params.label}最长为${seeting['wstext']}`
-        return text;
+    if (validation.integral.test(name)){
+        if (name && ("" + name).length > Number(seeting['wstext'])) {
+            text = `${params.label}最长为${seeting['wstext']}`
+            return text;
+        }
+    }else{
+        if (name && ("" + name).length > Number(seeting['wstext']) - 1) {
+            text = `${params.label}最长为${seeting['wstext']}`
+            return text;
+        }
     }
+    
 }
 
 //金额转换
@@ -162,15 +173,22 @@ function transferCheck(params, name) {
     
     var seeting=JSON.parse(params.setting);
     if(name&&num.test(name)){
-        if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+        if((name.toString().split(".")[1].length) >= Number(seeting['wsfloat'])){
             text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
             return text;
         }
     }
 
-    if (name && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长为${seeting['wstext']}`
-        return text;
+    if (validation.integral.test(name)) {
+        if (name && ("" + name).length > Number(seeting['wstext'])) {
+            text = `${params.label}最长为${seeting['wstext']}`
+            return text;
+        }
+    } else {
+        if (name && ("" + name).length > Number(seeting['wstext']) - 1) {
+            text = `${params.label}最长为${seeting['wstext']}`
+            return text;
+        }
     }
 }
 
@@ -192,15 +210,22 @@ function quartileCheck(params, name) {
     
     var seeting=JSON.parse(params.setting);
     if(name&&num.test(name)){
-        if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+        if((name.toString().split(".")[1].length) >= Number(seeting['wsfloat'])){
             text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
             return text;
         }
     }
 
-    if (name && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长为${seeting['wstext']}`
-        return text;
+    if (validation.integral.test(name)) {
+        if (name && ("" + name).length > Number(seeting['wstext'])) {
+            text = `${params.label}最长为${seeting['wstext']}`
+            return text;
+        }
+    } else {
+        if (name && ("" + name).length > Number(seeting['wstext']) - 1) {
+            text = `${params.label}最长为${seeting['wstext']}`
+            return text;
+        }
     }
 }
 
