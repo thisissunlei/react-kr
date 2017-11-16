@@ -1,9 +1,15 @@
-var paperHeight = 1120,//整张纸的高
+import { systemJudge, js_getDPI} from 'kr/Utils';
+
+
+
+var dpi = js_getDPI(),
+    paperHeight = Math.ceil((dpi[1]/25.4*297)*100)/100,//整张纸的高
     uselessHeight = 60 + 25 ,//要减去的高
     markHeight = 160,//章的高
     newDate = parseInt(Math.random()*1000+1000),
     markWidth = 160,
-    elemArr= [];//章的宽
+    elemArr = [],//章的宽
+    allData = {};//所有的数据
     
 
 //字段替换
@@ -43,13 +49,14 @@ function noKeyParse(template, paramName, data) {
     var t = template, reg;
     for (var key in data) {
         reg = new RegExp('{{' + paramName + '}}', 'g');
-        t = t.replace(reg, data.printValue||'')
+        t = t.replace(reg, data.showValue||'')
     }
     return t; 
 }
 
 //标记替换
-function templateParse(template){
+function templateParse(template,data){
+    allData = Object.assign({},data)
     var imgReg = new RegExp('#{img}', 'ig');
     //分页标签
     var pageReg = new RegExp('#{pagination}','ig');
@@ -59,10 +66,11 @@ function templateParse(template){
     var includeStart = new RegExp('#{includeStart}','ig')
     //区域划分组件结束
     var includeEnd = new RegExp('#{includeEnd}', 'ig')
-    var allEnd = new RegExp('#{allEnd}','ig')
-    template= template.replace(imgReg, '<span class="print-other-chapter'+newDate+'" style="position: relative;"><img style="position:absolute;display:inline-block;width:160px;height:160px;left:-80px;top:-80px" src = "http://krspace-upload.oss-cn-qingdao.aliyuncs.com/activity_unzip/201707/Y/131233886_443.png"></span>');
+    var allEnd = new RegExp('#{allEnd}','ig');
+    var imgLabelling =allData.cachetUrl ? '<img style="position:absolute;display:inline-block;width:160px;height:160px;left:-80px;top:-80px" src = "'+allData.cachetUrl+'">' : '';
+    template = template.replace(imgReg, '<span class="print-other-chapter' + newDate + '" style="position: relative;">'+imgLabelling+'</span>');
     template= template.replace(pageReg,'<div class = "print-pagination'+newDate+'"></div>');
-    template= template.replace(qrImgReg,'<span class="print-qr-code'+newDate+'"><img src = "http://krspace-upload.oss-cn-qingdao.aliyuncs.com/activity_unzip/201707/Y/131233886_443.png"></span>');
+    template = template.replace(qrImgReg, '<span class="print-qr-code' + newDate + '"><img src = "' + allData.cachetUrl+'"></span>');
     template = template.replace(includeStart,'<div class="print-include-start'+newDate+'"></div>');
     template = template.replace(includeEnd, '<div class="print-include-end' + newDate + '"></div>');
     template = template.replace(allEnd,'<div class="print-all-end'+newDate+'"></div>');
@@ -120,7 +128,7 @@ function everyCheckMark(num,pageNum){
    var boxWidth = Math.ceil(markWidth/pageNum*1000)/1000;
    var top = num*paperHeight+paperHeight/2-markHeight/2;
    var elemImg = '<div style="height:'+markHeight+'px;width:'+boxWidth+'px;overflow:hidden;position:absolute;right:0px;top:'+top+'px;">'+
-                    '<img style="width:'+markWidth+'px;height:'+markHeight+'px;display:inline-block;left:'+(-num*boxWidth)+'px;position:absolute;" src = "http://krspace-upload.oss-cn-qingdao.aliyuncs.com/activity_unzip/201707/Y/131233886_443.png"/>'+
+                    '<img style="width:'+markWidth+'px;height:'+markHeight+'px;display:inline-block;left:'+(-num*boxWidth)+'px;position:absolute;" src = "'+allData.cachetUrl+'"/>'+
                  '</div>';
    
    return elemImg;
@@ -230,8 +238,7 @@ function controlHeight(elem){
     elem.style.overflow = "hidden";
     detail = elem.getBoundingClientRect();
     endHeight = Math.ceil(detail.height/paperHeight)*paperHeight;
-    elem.style.height = endHeight-40+"px";
-    
+    elem.style.height = endHeight - 30 + "px";
 }
 //合同两列对其
 function floatRender() {
