@@ -212,7 +212,7 @@ export default class MyColleague extends React.Component {
 					<div className="center-row">
 						<div className="department">
 						{/*图标*/}
-							<div className={`department-logo ${orgtype}`}>
+							<div className={`department-logo ${orgtype}`} style={{backgroundSize:'cover'}}>
 
 							</div>
 							<div className="department-name">

@@ -5,6 +5,7 @@ import {
     Col,
     Row,
     ButtonGroup,
+    DrawerTitle,
     Button
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
@@ -47,13 +48,11 @@ class AddOrganization  extends React.Component{
 
 			<div className='m-or-role'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-                      <div className="title" style={{marginBottom:"30px"}}>
-                            <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">新建机构分权</label></div>
-                            <div className="person-close" onClick={this.onCancel}></div>
-                      </div>
+                    <DrawerTitle title ='新建机构分权' onCancel = {this.onCancel}/>
+
 
                        <KrField grid={1/2}
-                            style={{width:262,marginBottom:5}}
+                            style={{width:262,marginBottom:5,marginTop:30}}
                             name="name"
                             component="input"
                             label="机构分权名称"

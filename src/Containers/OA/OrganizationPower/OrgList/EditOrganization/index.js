@@ -1,7 +1,8 @@
 import React from 'react';
 import {	
 	TabCs,
-	TabC
+	TabC,
+	DrawerTitle
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
 import RoleOrgList from './RoleOrgList';
@@ -30,10 +31,8 @@ export default class EditOrganization  extends React.Component{
 
 			<div>
 				 <div className='m-or-role'>
-				    <div className="title">
-                            <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">编辑机构分权</label></div>
-                            <div className="person-close" onClick={this.onCancel}></div>
-                    </div>
+                    <DrawerTitle title ='编辑机构分权' onCancel = {this.onCancel}/>
+
 			    </div>
 				<div className='role-tab'>    
 				    <TabCs
