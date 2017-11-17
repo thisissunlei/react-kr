@@ -94,7 +94,6 @@ import TextLabel from './TextLabel'
 
 import CheckPermission from './CheckPermission';
 import MoveSelect from './MoveSelect';
-import BrowseBtn from "./BrowseBtn";
 module.exports = {
 	//Components
 
@@ -189,5 +188,4 @@ module.exports = {
 	AllCheck,
 	...DrawerOther,
 	MoveSelect,
-	BrowseBtn
 }
