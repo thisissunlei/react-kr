@@ -21,9 +21,13 @@ let State = observable({
 	openDelete:false,
 	searchParams:{
 		// pageSize:5
-	}
+	},
+	createData:false
 
 });
+State.opencreateData = action(function(){
+	this.createData = !this.createData;
+})
 
 State.editAgreement = action(function(item){
 	this.openEdit = true;
