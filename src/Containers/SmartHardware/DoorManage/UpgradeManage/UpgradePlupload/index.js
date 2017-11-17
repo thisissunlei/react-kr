@@ -171,17 +171,23 @@ import {
 				},
 
 				FilesAdded: function(up, files) {
-					console.log("files",files);
-					console.log("up",up);
+					console.log("files========>",files);
+					console.log("up--------》",up);
 					if(up.files.length>1){
 						uploader.files.splice(0, 1);
 					}
+
 					plupload.each(files, function(file) {
 
 						document.getElementById('ossfile').innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
 						+'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
 						+'</div>';
 					});
+				},
+
+				BeforeUpload:function(uploader,file){
+					console.log("uploader",uploader);
+					console.log("file",file);
 				},
 
 				UploadProgress: function(up, file) {
