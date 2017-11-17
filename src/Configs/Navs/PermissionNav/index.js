@@ -128,7 +128,7 @@ module.exports = [
 					},
 					{
 						primaryText: '合同列表',
-						menuCode: 'hrm_resourcesList_incumbency',
+						menuCode: 'wf_base_list',
 						router: '/permission/processManage/processSetting',
 					},
 					// {
@@ -139,12 +139,12 @@ module.exports = [
 					// },
 					{
 						primaryText: '公共字典',
-						menuCode: 'hrm_resourcesList_incumbency',
+						menuCode: 'sys_publicDict_list',
 						router:'/permission/processManage/dictionary',
 					},
 					{
 						primaryText: 'SQL模版',
-						menuCode: 'hrm_resourcesList_incumbency',
+						menuCode: 'sys_sqlTemplate_list',
 						router: '/permission/processManage/sqlModel',
 					},
 				]
