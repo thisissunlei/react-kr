@@ -67,11 +67,15 @@ export default class FirstMenu extends React.Component {
 		)
 	}
 	toHz=(item)=>{
-		if(item.click){
-			//window.open(`${item.hzUrl}`);
-		}
+		let {leftClick} = this.props;
+		leftClick && leftClick(item);
+		// if(item.click){
+
+		// 	//window.open(`${item.hzUrl}`);
+		// }
 	}
 	onAddThings=(item)=>{
+		console.log(item,"PPPPPPPP")
 		const {
 			onSubmit,
 		} = this.props;

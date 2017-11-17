@@ -369,7 +369,6 @@ class SignedClient extends React.Component{
         	display:'none'
         }
       }
-      console.log('====>',State.mainbilltype)
 
 		return(
       <div className="m-signed" style={{paddingTop:25}}>

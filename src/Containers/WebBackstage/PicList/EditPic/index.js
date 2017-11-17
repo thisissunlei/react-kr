@@ -28,10 +28,6 @@ class EditPic extends React.Component{
         var id = this.props.detail.id;
         var _this = this;
         Http.request("web-pclist-listdetall",{id:id}).then(function (response) {
-           console.log(response);
-           
-         
-           
          Store.dispatch(initialize('EditPic',response));
          if(response.published==1){
             Store.dispatch(change('EditPic','published','1'))   
@@ -76,8 +72,6 @@ class EditPic extends React.Component{
         let {handleSubmit,subCompany,detail}=this.props;
         let {jobTypes,isType,photoUrl} = this.state;
         let host = "http://"+window.location.host;
-        // let host = "http://optest02.krspace.cn/"
-        console.log("detail",this.state.photoUrl);
 		return(
 
 			<div className='m-edit-pic'>

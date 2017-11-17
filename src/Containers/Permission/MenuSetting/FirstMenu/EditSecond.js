@@ -59,8 +59,6 @@ class EditSecond extends React.Component {
                     item.value = item.id;
                     return item;
 			    });
-                console.log(response);
-                console.log(FirstSelect,"FirstSelect");
                 _this.setState({
                     FirstSelect: FirstSelect
                 })

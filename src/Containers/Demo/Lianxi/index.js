@@ -2,14 +2,18 @@ import React from 'react';
 import DictionaryConfigs from 'kr/Configs/dictionary';
 import {
 	KrField,
-	FdTabel,
-	FContent,
-	FRow,
+	CheckTable,
+	FdRow,
 	Section,
 	IconTip,
 	TextDic,
 	Checkbox,
-	AllCheck
+	AllCheck,
+	Button,
+	Dialog,
+	Toolbars,
+	Toolbar,
+	Drawer
 } from 'kr-ui';
 import {
 	Actions,
@@ -20,64 +24,64 @@ import {
 	reduxForm,
 	change
 } from 'redux-form';
+import {
+	LocationChoice,
+	FromsConfig
+} from 'kr/PureComponents';
 import './index.less';
+import { data } from "./data";
+import Add from './Add';
 
-class EditTable  extends React.Component{
+export default class EditTable  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-			
+			openAdd:false,
 		}
-		this.config=[
-			{label:'2-102',checked:false},
-			{label:'2-103',checked:false},
-			{label:'2-104',checked:true},
-			{label:'2-105',checked:false},
-			{label:'2-106',checked:true},
-			{label:'2-107',checked:false},
-		];
-	}
-  
-	
-	componentDidMount() {
-		
-	}
-	 
-	onChange=(params)=>{
-    console.log('onChange',params);
 	}
 
-	allCheck=(params)=>{
-    console.log('allCheck',params);
-	}
-
-	noSameCheck=(params)=>{
-    console.log('noSameCheck',params);
+	onClick=()=>{
+      this.setState({
+		openAdd:!this.state.openAdd
+	  })
+	  Store.dispatch(change('EditTable','countyId',38));
+	  Store.dispatch(change('EditTable', 'businessBegin', '10:30'));
+	  Store.dispatch(change('EditTable', 'address',{laber:"求仙桥",id:22})); 
+	  Store.dispatch(change('EditTable', 'df',44)); 
+	  Store.dispatch(change('EditTable','codeMore',[{label:'123',value:'1',checked:true},{label:'456',value:'2',checked:false}]));
 	}
 	
-    
+	delSwidth=()=>{
+		this.onClick();
+	}
+
+	delSubmit=(values)=>{
+
+	}
+	
 	render(){
 		
-		var codes='444      ,    455555     ,898989889，        ';
-	    var code=codes.replace(/\s+/g,"");
-		var codeEnd=code.replace('，',',');
-		console.log('codeEnd',codeEnd);
-        
 		return(
 
 			<div>
-			  <AllCheck  
-				 config={this.config} 
-				 onChange={this.onChange}
-				 allCheck={this.allCheck}
-				 noSameCheck={this.noSameCheck}
-				/>
+			    <div onClick={this.onClick}>点击</div>
+				{/*开通门禁*/}
+				<Drawer
+					title="删除职务"
+					width={750}
+					onClose={this.delSwidth}
+					open={this.state.openAdd}
+					contentStyle ={{ width: '700px',height:'auto'}}
+				>
+					{/*<FromsConfig detail={data.data.tables} />*/}
+					<Add
+						onCancel={this.delSwidth}
+						onSubmit={this.delSubmit}
+					/>
+				</Drawer>
 			</div>
 		);
 	}
 }
 
-export default reduxForm({
-	form: 'EditTable'
-})(EditTable);

@@ -21,7 +21,7 @@ module.exports = [
 				menuCode: 'hrm_resourcesList_incumbency',
 				menuItems: [
 					{
-						primaryText: '发起流程',
+						primaryText: '发起合同',
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/office/officeBackground/newOffice',
 					},
@@ -41,25 +41,25 @@ module.exports = [
 			// 		},
 			// 	]	
 			// }, 
-			// {
-			// 	primaryText: '已办事宜',
-			// 	iconName: 'icon-schema',
-			// 	router: 'office',
-			// 	iconColor: '#79859a',
-			// 	menuCode: 'hrm_resourcesList_incumbency',
-			// 	menuItems: [
-			// 		{
-			// 			primaryText: '已办列表',
-			// 			menuCode: 'hrm_resourcesList_incumbency',
-			// 			router: '/office/officeBackground/downOffice',
-			// 		},
-			// 		{
-			// 			primaryText: '我发起的',
-			// 			menuCode: 'hrm_resourcesList_incumbency',
-			// 			router: '/office/officeBackground/ownAdd',
-			// 		},
-			// 	]	
-			// }, 
+			{
+				primaryText: '已办事宜',
+				iconName: 'icon-schema',
+				router: 'office',
+				iconColor: '#79859a',
+				menuCode: 'hrm_resourcesList_incumbency',
+				menuItems: [
+					// {
+					// 	primaryText: '已办列表',
+					// 	menuCode: 'hrm_resourcesList_incumbency',
+					// 	router: '/office/officeBackground/downOffice',
+					// },
+					{
+						primaryText: '我发起的',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/office/officeBackground/ownAdd',
+					},
+				]	
+			}, 
 		]
 	}
 ]

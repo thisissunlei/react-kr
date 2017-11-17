@@ -1390,7 +1390,6 @@ var Map = function (elementId, configs) {
                 if (typeof mapMenu === 'undefined') {
                     mapMenu = document.createElement('div');
                     var allMenu = document.querySelectorAll('[data-type="left"]');
-                    console.log(allMenu)
                     
 					//style
 					mapMenu.style.position = 'absolute';

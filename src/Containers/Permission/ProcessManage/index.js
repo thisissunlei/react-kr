@@ -7,9 +7,13 @@ import {
 import {
 	default as Form
 } from './Form';
+import {
+    default as SqlModel
+} from './SqlModel';
 
 module.exports = {
 	ProcessSetting,
 	Form,
-	Dictionary
+	Dictionary,
+	SqlModel
 }

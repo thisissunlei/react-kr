@@ -1,0 +1,45 @@
+var configData = {
+    form: 1,
+    tables:[{
+        fields:[
+            {
+                compType:'TEXT_TEXT',
+                detailId:3,
+                display:true,
+                editable:true,
+                id:1,
+                inputType:'',
+                label:'中文title',
+                name:'name',
+                required:true,
+                setting:'',
+                sourceOrgin:'',
+                sourceType:'',
+                wholeLine:false,
+            },{
+                compType:'CHECK_RADIO',
+                detailId:3,
+                display:true,
+                editable:true,
+                id:1,
+                inputType:'',
+                label:'中文title',
+                name:'name1',
+                required:true,
+                setting:'',
+                sourceOrgin:'',
+                sourceType:'',
+                wholeLine:false,
+            }
+        ],
+        hasEditButton:false,
+        id:1,
+        isMain:true,
+        lineNum:2,
+        name:'',
+        tableName:''
+    }]
+}
+module.exports = {
+    configData,
+}

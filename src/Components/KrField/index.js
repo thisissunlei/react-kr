@@ -96,9 +96,11 @@ import SearchMemeber from './SearchMemeber';
 import SearchPersonName from './SearchPersonName';
 import SearchRegCommunity from './SearchRegCommunity';
 
-
-
-
+import MoreRadioComponent from './MoreRadioComponent';
+import SearchSelectComponent from './SearchSelectComponent';
+import AddressComponent from './AddressComponent';
+import CountyComponent from './CountyComponent';
+import SelectListComponent from './SelectListComponent';
 
 
 
@@ -621,6 +623,40 @@ class FieldRevert extends React.Component {
 				return (
 					<FieldRevert {...this.props} component={RangeComponent}  style={WrapStyles} {...other} />
 				)
+			}
+
+			if (component === 'searchSelect') {
+				return (
+
+					<FieldRevert {...this.props} component={SearchSelectComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			
+			if (component === 'moreRadio') {
+				return (
+
+					<FieldRevert {...this.props} component={MoreRadioComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			if (component === 'address') {
+				return (
+
+					<FieldRevert {...this.props} component={AddressComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'county') {
+				return (
+
+					<FieldRevert {...this.props} component={CountyComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+			
+			if (component === 'selectList') {
+				return (
+
+					<FieldRevert {...this.props} component={SelectListComponent}  style={WrapStyles} {...other}/>
+				);
 			}
 			
 			return (

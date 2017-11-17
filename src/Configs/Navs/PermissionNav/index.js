@@ -116,7 +116,7 @@ module.exports = [
 					},
 				]
 			},{
-				primaryText: "流程管理",
+				primaryText: "合同管理",
 				iconName: 'icon-process',
 				menuCode: 'hrmresourceadmin',
 				iconColor: '#79859a',
@@ -127,8 +127,8 @@ module.exports = [
 						router: '/permission/processManage/form',
 					},
 					{
-						primaryText: '流程列表',
-						menuCode: 'hrm_resourcesList_incumbency',
+						primaryText: '合同列表',
+						menuCode: 'wf_base_list',
 						router: '/permission/processManage/processSetting',
 					},
 					// {
@@ -139,8 +139,13 @@ module.exports = [
 					// },
 					{
 						primaryText: '公共字典',
-						menuCode: 'hrm_resourcesList_incumbency',
+						menuCode: 'sys_publicDict_list',
 						router:'/permission/processManage/dictionary',
+					},
+					{
+						primaryText: 'SQL模版',
+						menuCode: 'sys_sqlTemplate_list',
+						router: '/permission/processManage/sqlModel',
 					},
 				]
 			},

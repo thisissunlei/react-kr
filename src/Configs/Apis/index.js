@@ -18,6 +18,7 @@ import CommonApi from './CommonApi';
 import SynchronizationApi from './SynchronizationApi';
 import OAApi from './OAApi';
 import SmartHardware from './SmartHardware';
+import PublicPageApi from './PublicPageApi';
 
 
 
@@ -40,5 +41,6 @@ module.exports = {
   ...CommonApi,
   ...SmartHardware,
   ...SynchronizationApi,
-  ...OAApi
+  ...OAApi,
+  ...PublicPageApi
 }

@@ -10,7 +10,10 @@ import TheBell from './TheBell';
 import PlanMapContent from './PlanMapContent';
 import AddPostPeople from './AddPostPeople';
 import NodeFormwork from './NodeFormwork';
+import PrintAgreement from './PrintAgreement';
 import LocationChoice from './LocationChoice';
+import TemplatePrint from './TemplatePrint';
+import FromsConfig from './FromsConfig';
 
 module.exports = {
 	Agreement,
@@ -25,6 +28,9 @@ module.exports = {
 	PlanMapContent,
 	AddPostPeople,
 	NodeFormwork,
-	LocationChoice
+	PrintAgreement,
+	LocationChoice,
+	TemplatePrint,
+	FromsConfig
 }
 

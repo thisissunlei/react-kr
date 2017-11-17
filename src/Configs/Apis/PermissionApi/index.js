@@ -529,4 +529,82 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/public-dict/check/code?dictCode={dictCode}&id={id}',
       method: 'get'
     },
+    //PC端模板--新建
+    'create-form-template':{
+      url: '/api/krspace-erp-web/sys/form-template',
+      method: 'post'
+    },
+    //PC端模板--新建--获取表单字段
+    'get-form-template-field':{
+      url: '/api/krspace-erp-web/sys/form-template-field/list?formId={formId}',
+      method: 'get'
+    },
+    //PC端模板--选择
+    'get-form-template-list':{
+      url: '/api/krspace-erp-web/sys/form-template/list?formId={formId}&type={type}',
+      method: 'get'
+    },
+    //合同模板保存
+    'save-template':{
+      url: '/api/krspace-erp-web/sys/contract-template',
+      method: 'post'
+    },
+    //打印模板--保存
+    'save-print-template':{
+      url: '/api/krspace-erp-web/sys/print-template',
+      method: 'post'
+    },
+    //打印模板--选择
+    'get-print-template-list':{
+      url: '/api/krspace-erp-web/sys/print-template/list',
+      method: 'get'
+    },
+    //获取合同模板数据
+    'get-form-template-data':{
+      url: '/api/krspace-erp-web/sys/form-template/node?wfId={wfId}',
+      method: 'get'
+    },
+    //合同搜索下拉
+    'template-search-list':{
+      url: '/api/krspace-erp-web/sys/public-dict/data/type/source?sourceType={sourceType}&sourceOrgin={sourceOrgin}&searchKey={searchKey}&fieldId={fieldId}',
+      method: 'get'
+    },
+
+    //sql模版列表
+    'sql-list':{
+      url: '/api/krspace-erp-web/sys/sql-template/search?page={page}&pageSize={pageSize}&name={name}',
+      method: 'get'
+   },
+     //sql模版新增
+     'sql-add':{
+      url: '/api/krspace-erp-web/sys/sql-template/insert',
+      method: 'post'
+   },
+     //sql模版编辑
+     'sql-edit':{
+      url: '/api/krspace-erp-web/sys/sql-template/update',
+      method: 'post'
+   },
+    //sql模版删除
+    'sql-delete':{
+      url: '/api/krspace-erp-web/sys/sql-template/delete',
+      method: 'post'
+   },
+   //获取PC端合同模板数据
+    'get-form-template-detail-data':{
+      url: '/api/krspace-erp-web/sys/form-template?id={id}',
+      method: 'get'
+    },
+
+   //创建表单回血
+   'sql-table-get':{
+    url: '/api/krspace-erp-web/sys/form/sqlTable/search?id={id}',
+    method: 'get'
+   },
+   //公共字典下拉
+   'common-dictionary-list':{
+    url: '/api/krspace-erp-web/sys/public-dict/source/select/type/list',
+    method: 'get'
+   },
+   
 }

@@ -76,6 +76,8 @@ import {
 	Col
 } from './Grid';
 import FieldTabel from './FieldTabel';
+import CheckTable from './CheckTable';
+import DrawerOther from './DrawerOther';
 
 
 //materal-ui
@@ -91,6 +93,7 @@ import {
 import TextLabel from './TextLabel'
 
 import CheckPermission from './CheckPermission';
+import MoveSelect from './MoveSelect';
 module.exports = {
 	//Components
 
@@ -175,11 +178,14 @@ module.exports = {
 	SwitchSlide,
 	Chip,
 	...FieldTabel,
+	...CheckTable,
 	ArticleList,
 	IconTip,
 	Toolbar,
 	Toolbars,
 	TextDic,
 	Dropdown,
-	AllCheck
+	AllCheck,
+	...DrawerOther,
+	MoveSelect,
 }
