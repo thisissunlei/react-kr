@@ -16,6 +16,12 @@ import {
 } from 'kr-ui';
 import './index.less';
 import plupload from 'plupload/js/plupload.full.min';
+import State from '../State';
+import {
+	observer,
+	inject
+} from 'mobx-react';
+@observer
 
  class TanLinLin extends React.Component{
 	constructor(props){
@@ -193,6 +199,8 @@ import plupload from 'plupload/js/plupload.full.min';
 					console.log("up",up);
 					console.log("file",file);
 					console.log("info",info);
+					console.log("State",State);
+					State.uploadedInfo = JSON.parse(info.response).data;
 		            if (info.status >= 200 || info.status < 200)
 		            {
 		                document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '上传成功';

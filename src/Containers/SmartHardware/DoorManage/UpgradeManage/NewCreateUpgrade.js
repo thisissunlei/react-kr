@@ -38,7 +38,15 @@ class NewCreateUpgradeForm extends React.Component{
 
 	// 新增设备定义
 	onSubmit=(values)=>{
-		State.NewCreateUpgrade(values);
+		console.log("values",values);
+		console.log("State.uploadedInfo",State.uploadedInfo);
+		var params = {
+				upgradeType : values.upgradeType,
+				url : State.uploadedInfo.url,
+				version :values.version,
+				versionCode : values.versionCode
+			}
+		State.NewCreateUpgrade(params);
 		State.openNewCreateUpgrade = false;
 		
 	}

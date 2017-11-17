@@ -18,7 +18,8 @@ let State = observable({
 	upgradeTypeOptions:[],
 	closeConfirmDelete : false,
 	itemDetail : {},
-	batchUpgradeDialog : false
+	batchUpgradeDialog : false,
+	uploadedInfo :{}
 
 });
 
