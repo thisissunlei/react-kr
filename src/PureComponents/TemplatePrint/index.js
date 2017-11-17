@@ -78,7 +78,8 @@ class TemplatePrint extends React.Component {
 			child:"",
 			nameList: [
 			],
-			fieldVOs:[]
+			fieldVOs:[],
+			selectOpen:false,
 		}
 		this.content = ''
 		this.editId = "edit_"+ new Date();
@@ -122,15 +123,6 @@ class TemplatePrint extends React.Component {
 		this.content = value;
 	}
 
-    //案例
-	h1Click = () =>{
-		var funcName = "23333";
-		// console.log(UE.getEditor('editor').focus(),"PPPPPPPP")
-		// UE.getEditor('editor').focus();
-		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
-		// UE.getEditor('editor').execCommand('inserthtml', '{' + funcName + '}');  
-	}
-
     //按钮
 	btnValue=(name)=>{
 		let {fieldVOs}=this.state;
@@ -145,6 +137,7 @@ class TemplatePrint extends React.Component {
         var showBtn=[];
 		for(var item in showValue){
 			showBtn.push(<span 
+				className= "value-btn"
 					style={{
 					padding:'0 10px',
 					background:'#499df1',
@@ -160,7 +153,7 @@ class TemplatePrint extends React.Component {
 					onClick={this.originClick.bind(this,item,name)}
 			>{showValue[item]}</span>)
 		}
-		return showBtn
+		return <div style = {{float:"right",paddingRight:10}}> {showBtn}</div>
 	}
 	
 	//列表
@@ -199,6 +192,12 @@ class TemplatePrint extends React.Component {
 	render() {
 		let {handleSubmit,allData}=this.props;
 		let {child,nameList} = this.state;
+		let selectStyle = {
+			transform: "rotateZ(-90deg)"
+		}
+		if (selectOpen){
+			selectStyle.transform = "rotateZ(0deg)";
+		}
 
         
 		return (
@@ -255,10 +254,16 @@ class TemplatePrint extends React.Component {
 						</ul>
 
 						<div className='text-introduction'>
-							<span style={{marginTop:20,fontSize:14,color:'#333',display:'inline-block'}}>配置说明</span>
-							<textarea className='sub-introduction' placeholder='请输入配置说明'>
-								
-							</textarea>	 
+							<div style={{marginTop:20,fontSize:14,color:'#333',display:'inline-block'}}>
+								配置说明
+							
+								<div className="select" style={selectStyle}></div>
+							</div>
+
+
+							<div>
+								1dsdfsdfdsfds
+							</div>
 						</div>
 
 
