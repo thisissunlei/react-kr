@@ -9364,7 +9364,7 @@ var filterWord = UE.filterWord = function () {
  * ```
  */
 
-var htmlparser = UE.htmlparser = function (htmlstr="1",ignoreBlank) {
+var htmlparser = UE.htmlparser = function (htmlstr,ignoreBlank) {
     //todo 原来的方式  [^"'<>\/] 有\/就不能配对上 <TD vAlign=top background=../AAA.JPG> 这样的标签了
     //先去掉了，加上的原因忘了，这里先记录
     var re_tag = /<(?:(?:\/([^>]+)>)|(?:!--([\S|\s]*?)-->)|(?:([^\s\/<>]+)\s*((?:(?:"[^"]*")|(?:'[^']*')|[^"'<>])*)\/?>))/g,
@@ -23907,7 +23907,7 @@ UE.plugin.register('autosave', function (){
     return {
         defaultOptions: {
             //默认间隔时间
-            saveInterval: 100
+            saveInterval:500
         },
         bindEvents:{
             'ready':function(){
