@@ -19,7 +19,7 @@ export default class Table extends React.Component {
 	// initFoldNum = "1" 默认展示几个
 	// checkbox ={true} 是否有 checkbox
   // checkbox = {true}
-	// 			batchDel = {true}
+	// batchDel = {true}
   //toolbar = {true} 是否有工具条
   constructor(props) {
     super(props);
@@ -306,13 +306,9 @@ export default class Table extends React.Component {
     const {foldLabel} = this.state;
     var text = "";
     var fold = false;
-    if(foldLabel == "展开"){
-      text = "收起";
-      fold = true;
-    }else{
-      text = "展开"
-      fold = false;
-    }
+    foldLabel == "展开" ? text = "收起" : text = "展开";
+    foldLabel == "展开" ? fold = true : fold = false;
+    
     this.setState({
       fold,
       foldLabel:text
