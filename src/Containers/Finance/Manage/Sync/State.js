@@ -27,9 +27,7 @@ let State = observable({
 
 State.getBasicData = action(function(id) {
 	var _this = this;
-	console.log('=====>')
 	Http.request('get-tongbu-basic-data', {}).then(function(response) {
-		console.log('======',response)
 		let syncMainPartType = [];
 		let syncSystem = [];
 		for(var p in response.syncMainPartType){

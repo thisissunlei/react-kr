@@ -57,7 +57,7 @@ class SearchForm extends React.Component {
 
 		return (
 			<div>
-				<SearchForms onSubmit={this.onSubmit} placeholder="请输入流程类型名称"/>
+				<SearchForms onSubmit={this.onSubmit} placeholder="请输入合同类型名称"/>
 			</div>
 		);
 	}

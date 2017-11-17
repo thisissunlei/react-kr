@@ -35,7 +35,6 @@ class BindCommunity extends React.Component {
 		
 	}
 	componentDidMount() {
-		console.log(this.props.cmtId,"jjjjjjjj");
 		this.getBindCmtData();
 	}
 
@@ -76,7 +75,6 @@ class BindCommunity extends React.Component {
 	getBindCmtData = () =>{
 		let self = this;
 		let values = {id:this.props.cmtId||''};
-		console.log(this.props.cmtId,"KKKKKKK");
 		const {existing} = this.props;
 		Http.request('getActivityCommunityList',values).then(function(response) {
 			self.setState({

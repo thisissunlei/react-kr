@@ -301,7 +301,7 @@ export default class List extends React.Component {
 
 								{/*新建活动*/}
 							  <Drawer open={State.openNewCreate}
-							   width={700} openSecondary={true} 
+							   width={750} openSecondary={true} 
 							   onClose={this.closeAll}
 							   containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}
 							   >
@@ -309,7 +309,7 @@ export default class List extends React.Component {
 								<NewCreateForm onCancel={this.openNewCreateDialog} open={State.openNewCreate} />
 							  </Drawer>
 							  {/*查看活动*/}
-							  <Drawer open={State.openDetail} width={700} 
+							  <Drawer open={State.openDetail} width={750} 
 							  	openSecondary={true} 
 							  	 onClose={this.closeAll}
 							  	containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
@@ -317,7 +317,7 @@ export default class List extends React.Component {
 							  </Drawer>
 								{/*编辑活动*/}
 							  <Drawer open={State.openEditDetail} 
-							  width={700} openSecondary={true} 
+							  width={750} openSecondary={true} 
 							   onClose={this.closeAll}
 							  containerStyle={{marginTop:60,boxShadow:'0 1px 1px rgba(0, 0, 0, 0.16), 0 1px 1px rgba(0, 0, 0, 0.23)',zIndex:9}}>
 								<EditActivityForm  onCancel={this.closeEditDialog} detail={State.itemData}/>

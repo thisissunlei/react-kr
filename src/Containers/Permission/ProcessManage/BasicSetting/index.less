@@ -118,6 +118,145 @@
     
 }
 
+.u-title-box{
+    width:100%;
+    height:40px;
+    margin-bottom:20px;
+    .u-title-img{
+      width:44px;
+      margin-left: -3px;
+      height:44px;
+    }
+    .u-title-text{
+      font-size: 18px;
+      display:inline-block;
+      height:40px;
+      line-height:40px;
+      vertical-align: top;
+      margin-left:22px;
+      margin-top: 3px;
+    }
+    .u-close-page{
+      width:18px;
+      height:18px;
+      float: right;
+        .u-close-page-img{
+          width:18px;
+        height:18px;
+        }
+    }
+  }
+.g-chooce-template{
+  padding:30px 0 20px 20px;
+  .up-load-template{
+    position: relative;
+    // border:1px solid red;
+    .oa-imulation-input {
+      opacity: 0;
+    }
+    .error-message{
+      color: red;
+      display: block;
+    }
+    .addBtn{
+        cursor:pointer;
+        color: #499df1;
+        font-size: 14px;
+        display: inline-block;
+        height: 24px;
+        line-height: 25px;
+        vertical-align: top;
+      &::before{
+        content:'';
+        width:18px;
+        height:18px;
+        background:url(images/add.svg) no-repeat center;
+        background-size: 200% 200%;
+        display:inline-block;
+        margin-left:8px;
+        margin-right:10px;
+        margin-bottom: -5px;
+        cursor:pointer;
+    }
+    }
+    .chooce-button{
+      width: 60px;
+      height: 24px;
+      display: inline-block;
+      position: absolute;
+      line-height: 25px;
+      vertical-align: top;
+      background: #FCFCFC;
+      border: 1px solid #E7E7E7;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #666666;
+      text-align: center;
+      margin:0 20px;
+      cursor: pointer;
+    }
+    .template-name{
+      font-size: 14px;
+      color: #999999;
+      display: inline-block;
+      height: 27px;
+      line-height: 27px;
+      position: absolute;
+      left: 170px;
+    }
+    .template-active{
+      cursor: pointer;
+      &:hover{
+        color: #499df1
+      }
+    }
+
+    .has-template{
+        cursor: pointer;
+        &:hover{
+        color: #499df1
+      }
+    }
+    .has-template::after{
+      content:'';
+      width: 18px;
+      height: 18px;
+      background:url(images/zhengque.png) no-repeat center;
+      background-size: cover;
+      margin-left:10px;
+      margin-right:10px;
+      margin-bottom: -5px;
+      display:inline-block;
+      cursor: pointer;
+    }
+    .no-template::after{
+      content:'';
+      width: 18px;
+      height: 18px;
+      background:url(images/tixing.png) no-repeat center;
+      background-size: cover;
+       margin-left:10px;
+        margin-right:10px;
+        margin-bottom: -5px;
+      display:inline-block;
+    }
+  }
+}
+.g-create-template{
+  padding:39px 36px;
+  .template-title{
+    color: #333;
+    font-size: 16px;
+    margin:15px 0;
+  }
+  .select-line-num{    
+    .ui-form-controller{
+      // width: 70px;
+      margin-left: 15px;
+    }
+  }
+}
+
 
 
 

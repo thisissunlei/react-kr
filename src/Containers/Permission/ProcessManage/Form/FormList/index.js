@@ -63,6 +63,8 @@ export default class FormList extends Component{
 			textInfo:[],
 			//是否已创建表
 			isCreate:false,
+			//表回血值
+			tableData:''
 		}
 		this.allConfig = {
 			openNew : false,
@@ -232,12 +234,18 @@ export default class FormList extends Component{
 	
 	//创建表打开
 	openTableStart=(itemDetail)=>{
-		this.cancelTable();
-		this.setState({
-			creatId:itemDetail.id
-		})
+		var _this=this;
+		Http.request('sql-table-get',{id:itemDetail.id}).then(function(response) {
+			 _this.setState({
+				 tableData:response.items,
+				 creatId:itemDetail.id
+			 })
+			 _this.cancelTable();
+			}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
-
+  
 	//打开查看
 	warchFormStart=(itemDetail)=>{
 		this.watchTable();
@@ -311,7 +319,7 @@ export default class FormList extends Component{
 
 		const {openNew,openTable,openSearch} = this.allConfig;
 		 
-		let {purposeType,typeList,basicInfo,textInfo,isCreate}=this.state;
+		let {purposeType,typeList,basicInfo,textInfo,isCreate,tableData}=this.state;
 
 		return(
       	<div className="basic-type-list">
@@ -460,7 +468,8 @@ export default class FormList extends Component{
       >
       <AddTable
         onCancel={this.cancelTable}
-        onSubmit={this.addRemoveSubmit}
+				onSubmit={this.addRemoveSubmit}
+				tableData={tableData}
       />
       </Dialog>
 

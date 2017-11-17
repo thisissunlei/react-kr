@@ -81,7 +81,6 @@ export default class SwitchSlide extends React.Component {
 	  if(control=='single'){
 		 let rightRemove=rightArr.splice(index,1);  
 	     var left=leftArr.concat(rightRemove);
-		 console.log('leftbbb',left,leftArr);
 		 this.setState({
 		   leftArr:left,
 		   rightArr,
@@ -107,7 +106,6 @@ export default class SwitchSlide extends React.Component {
 	//左上的搜索确定
 	leftSearchClick=()=>{
 	   let {leftChangeValue,leftArr,leftOldArr}=this.state;
-	   console.log('left',leftOldArr);
 	   var newLeftArr=[];
 	   if(!leftChangeValue){
 		  newLeftArr=leftOldArr; 

@@ -72,6 +72,17 @@ export default class CircleStyleTwo extends React.Component {
 
 		}
 
+		if (circle == 'none') {
+
+			return (
+				<div className="ui-textInfos" style={style}>
+					<div className="ones"><p>{num}</p><div className="txts"><span className="u-border"></span><span  className="u-info-txt"> {info}</span></div></div>
+					{children}
+			</div>
+			);
+
+		}
+
 
 	}
 }

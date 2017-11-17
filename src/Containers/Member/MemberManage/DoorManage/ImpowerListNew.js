@@ -140,7 +140,6 @@ export default class FinishUploadImgForm extends React.Component{
 		for(var i=0;i<_this.state.devices.length;i++){
 			newArr[i] = _this.state.devices[i]
 		}
-		console.log("newArr",newArr);
 		// 被选中
 		if(item.checked){
 			if(newArr.length==0){
@@ -334,7 +333,6 @@ export default class FinishUploadImgForm extends React.Component{
 	// 确认授权
 	impowerToCustomer=()=>{
 		let _this =this;
-		console.log("dkdkd","ldldldl");
 		var devicesT =this.state.devices;
 		if(devicesT.length>1){
 			// 数组去重
