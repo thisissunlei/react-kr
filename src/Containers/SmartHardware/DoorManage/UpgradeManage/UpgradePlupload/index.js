@@ -95,7 +95,7 @@ import plupload from 'plupload/js/plupload.full.min';
 			    },
 		        'multipart_params': {
 						
-				        'key' : response.pathPrefix+'ssksksoo.js',
+				        'key' : response.pathPrefix+fileNameRandom,
 						'policy': response.policy,
 				        'OSSAccessKeyId': response.ossAccessKeyId, 
 				        'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
