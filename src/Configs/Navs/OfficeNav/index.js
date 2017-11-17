@@ -18,11 +18,11 @@ module.exports = [
 				iconName: 'icon-schema',
 				router: 'office',
 				iconColor: '#79859a',
-				menuCode: 'hrm_resourcesList_incumbency',
+				menuCode: 'myCard',
 				menuItems: [
 					{
 						primaryText: '发起合同',
-						menuCode: 'hrm_resourcesList_incumbency',
+						menuCode: 'myCard',
 						router: '/office/officeBackground/newOffice',
 					},
 				]	
@@ -46,7 +46,7 @@ module.exports = [
 				iconName: 'icon-schema',
 				router: 'office',
 				iconColor: '#79859a',
-				menuCode: 'hrm_resourcesList_incumbency',
+				menuCode: 'myCard',
 				menuItems: [
 					// {
 					// 	primaryText: '已办列表',
@@ -55,7 +55,7 @@ module.exports = [
 					// },
 					{
 						primaryText: '我发起的',
-						menuCode: 'hrm_resourcesList_incumbency',
+						menuCode: 'myCard',
 						router: '/office/officeBackground/ownAdd',
 					},
 				]	
