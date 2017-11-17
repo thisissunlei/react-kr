@@ -12,6 +12,7 @@ import {
 	Button,
 	ListGroup,
 	ListGroupItem,
+	Message,
 } from 'kr-ui';
 import './index.less';
 import plupload from 'plupload/js/plupload.full.min';
@@ -20,7 +21,8 @@ import plupload from 'plupload/js/plupload.full.min';
 	constructor(props){
 		super(props);
 		this.state={
-			signaturreInfo : {}
+			signatureInfo : {},
+			expireCanUse : false,
 		}
 		
 	}
@@ -30,11 +32,12 @@ import plupload from 'plupload/js/plupload.full.min';
 
 	getSignature=()=>{
 
+		let _this = this;
 		Http.request('getSignatureUrl',{}).then(function(response) {
 
 			console.log("response",response);
-			this.setState({
-
+			_this.setState({
+				signatureInfo : response
 			})
 
 		}).catch(function(err) {
@@ -42,21 +45,91 @@ import plupload from 'plupload/js/plupload.full.min';
 		});
 	}
 
+
+	random_string=(len)=>{
+		len = len || 32;
+	　　var chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';   
+	　　var maxPos = chars.length;
+	　　var pwd = '';
+	　　for (var i = 0; i < len; i++) {
+	    　　pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+	    }
+	    return pwd;
+	}
+
+
+
+	//获取文件后缀名
+	get_suffix=(filename)=>{
+	    var pos = filename.lastIndexOf('.'),
+	    suffix = ''
+	    if (pos != -1) {
+	        suffix = filename.substring(pos)
+	    }
+	    return suffix;
+	}
+
+	set_file_name=(filename)=>{
+		this.get_suffix(filename);
+		var fileRandomName = this.random_string(10)+this.get_suffix(filename)
+		return fileRandomName;
+	}
+
+
+	set_multipart_params=(uploader)=>{
+		
+		let _this = this;
+		Http.request('getSignatureUrl',{}).then(function(response) {
+
+			console.log("response",response);
+			console.log("uploader====>",uploader);
+
+			var fileNameRandom = _this.set_file_name(uploader.files[0].name);
+
+			console.log("fileNameRandom",fileNameRandom);
+			uploader.setOption({
+		        'url': response.serverUrl,
+		        filters: {
+			       
+			        max_file_size : response.maxSizeKb,
+			    },
+		        'multipart_params': {
+						
+				        'key' : response.pathPrefix+'ssksksoo.js',
+						'policy': response.policy,
+				        'OSSAccessKeyId': response.ossAccessKeyId, 
+				        'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
+						'signature': response.sign,
+						'uid' :  response.uid,
+						'callback': response.callback,
+						'X:original_name': fileNameRandom
+
+					},
+
+		    });
+		    uploader.start();
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		
+	}
+
 	componentDidMount(){
 
-
+		let _this = this;
 		this.getSignature();
 
-	    var policyText = {
-		    "expiration": "2020-01-01T12:00:00.000Z", //设置该Policy的失效时间，超过这个失效时间之后，就没有办法通过这个policy上传文件了
-		    "conditions": [
-		    ["content-length-range", 0, 1048576000] // 设置上传文件的大小限制
-		    ]
-		};
+	 //    var policyText = {
+		//     "expiration": "2020-01-01T12:00:00.000Z", //设置该Policy的失效时间，超过这个失效时间之后，就没有办法通过这个policy上传文件了
+		//     "conditions": [
+		//     ["content-length-range", 0, 1048576000] // 设置上传文件的大小限制
+		//     ]
+		// };
 
-		var accessid= 'LTAIA8GOJGGoRk9E',
-		accesskey= 'ex8X9Pm8KdyFKggfxlkKGzuv3Vb3Af',
-		host = 'http://tanlinlinbucket.oss-cn-beijing.aliyuncs.com';
+		// var accessid= 'LTAIA8GOJGGoRk9E',
+		// accesskey= 'ex8X9Pm8KdyFKggfxlkKGzuv3Vb3Af',
+		// host = 'http://tanlinlinbucket.oss-cn-beijing.aliyuncs.com';
 
 
 		
@@ -69,30 +142,37 @@ import plupload from 'plupload/js/plupload.full.min';
 			flash_swf_url : 'lib/plupload-2.1.2/js/Moxie.swf',
 			silverlight_xap_url : 'lib/plupload-2.1.2/js/Moxie.xap',
 
-		    url : host,
+		    // url : host,
 
-			multipart_params: {
-				'Filename': '${filename}', 
-		        'key' : '${filename}',
-				'policy': 'eyJleHBpcmF0aW9uIjoiMjAyMC0wMS0wMVQxMjowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF1dfQ==',
-		        'OSSAccessKeyId': accessid, 
-		        'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
-				'signature': 'o19saGhusYBG64jrqInIFkLIjCs=',
-			},
+			// multipart_params: {
+			// 	'Filename': '${filename}', 
+		 //        'key' : '${filename}',
+			// 	'policy': 'eyJleHBpcmF0aW9uIjoiMjAyMC0wMS0wMVQxMjowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF1dfQ==',
+		 //        'OSSAccessKeyId': accessid, 
+		 //        'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
+			// 	'signature': 'o19saGhusYBG64jrqInIFkLIjCs=',
+			// },
 
 			init: {
 				PostInit: function() {
 					document.getElementById('ossfile').innerHTML = '';
 					document.getElementById('postfiles').onclick = function() {
-						uploader.start();
+
+					    _this.set_multipart_params(uploader);
+						
 						return false;
 					};
 				},
 
 				FilesAdded: function(up, files) {
+					console.log("files",files);
+					console.log("up",up);
+					if(up.files.length>1){
+						uploader.files.splice(0, 1);
+					}
 					plupload.each(files, function(file) {
 
-						document.getElementById('ossfile').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
+						document.getElementById('ossfile').innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
 						+'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
 						+'</div>';
 					});
@@ -157,7 +237,7 @@ import plupload from 'plupload/js/plupload.full.min';
 					<a id="postfiles" href="javascript:void(0);" className='btn'>开始上传</a>
 				</div>
 
-
+				<div id="console"></div>
 			{/*</form>*/}
 
 
