@@ -25,6 +25,9 @@ import {
 	codeParse,
 	
 } from './publicFun'
+import { Store, Actions} from 'kr/Redux';
+@inject("NavModel")
+@observer
 export default class PrintOther extends React.Component {
 
 	constructor(props, context) {
@@ -43,6 +46,8 @@ export default class PrintOther extends React.Component {
 
 	}
 	componentDidMount(){
+		const { NavModel } = this.props;
+		NavModel.setSidebar(false);
 		this.getData();
 		// console.log(js_getDPI(),"--------")
 		// this.allRender();

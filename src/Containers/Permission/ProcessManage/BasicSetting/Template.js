@@ -66,7 +66,11 @@ class Template extends React.Component {
 		console.log('onSubmit--->',form)
 		let _this = this;
 		form.wfId = this.props.id;
+		State.printTempId = false;
+		
 		form.printTempId = form.printTempId || State.formworkId || '' ;
+		console.log('onSubmit--->', form)
+		
 		if(!form.formTempId){
 			State.formTempId = true;
 		}
@@ -155,6 +159,7 @@ class Template extends React.Component {
 	templateSubmit = (values) =>{
 		State.printName = values.name;
 		State.formworkId = values.printTemplateId;
+		console.log('===>', values.printTemplateId, State.formworkId)
 		this.onOpenTemplate();
 		State.getPrintTemplateList();
 	}
@@ -283,7 +288,7 @@ class Template extends React.Component {
 	                        {!!State.printName?
 			            	<span className="has-template template-name template-active" onClick = {this.getEditData}>{State.printName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
-			            	{State.printTempId && <div className="error-message">请选择显示模板</div>}
+			            	{State.printTempId && <div className="error-message">请选择打印模板</div>}
 
 			            </div>
 						<Grid style={{marginTop:50,width:'50%'}}>
