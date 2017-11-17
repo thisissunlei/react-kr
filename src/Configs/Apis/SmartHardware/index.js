@@ -225,12 +225,19 @@ module.exports = {
       method: 'get'
    },
 
-   //
+   //批量上传
    'batchUpgradeUrl':{
       
       url: '/api/iot-platform/door-device/admin/batch-upgrade',
       method: 'post'
    },
+
+   //上传之前获取签名
+   'getSignatureUrl' : {
+      url: '/api/krspace-sso-web/common/upload-policy?isPublic=false&category=iot/upgrade',
+      method: 'get'
+   },
+
 
 
     

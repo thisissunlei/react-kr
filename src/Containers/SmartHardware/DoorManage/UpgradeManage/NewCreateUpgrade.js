@@ -4,6 +4,11 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
+
+import './index.less';
+
+import UpgradePlupload from './UpgradePlupload';
+
 import {
 	KrField,
 	Grid,
@@ -42,7 +47,7 @@ class NewCreateUpgradeForm extends React.Component{
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					
+					<UpgradePlupload/>
 					<KrField 
 						name="floor" 
 						component="select" 
@@ -53,15 +58,15 @@ class NewCreateUpgradeForm extends React.Component{
 						requireLabel={true} 
 
 					/>
-					<KrField 
-						grid={1/2} 
-						name="url" 
-						type="text" 
-						label="升级包地址" 
-						style={{width:'252px'}}
-						requireLabel={true} 
-
-					/>
+					{/*<KrField 
+											grid={1/2} 
+											name="url" 
+											type="text" 
+											label="升级包地址" 
+											style={{width:'252px'}}
+											requireLabel={true} 
+					
+										/>*/}
 					<KrField grid={1/2} 
 						name="version" 
 						type="text" 
@@ -78,6 +83,7 @@ class NewCreateUpgradeForm extends React.Component{
 						requireLabel={false} 
 						style={{width:'252px'}}
 					/>
+					<p className="upgrade-tip-text">注意：提交之前请确保已经上传升级包</p>
 					
 					<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px'}}>

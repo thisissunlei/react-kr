@@ -26,6 +26,7 @@ import BatchUpgrade from './BatchUpgrade';
 
 
 
+
 import State from './State';
 import {
 	observer,
@@ -115,7 +116,7 @@ export default class List extends React.Component {
 				<Title value="升级包管理"/>
 				<Section title={`升级包管理`} description="" >
 					<div>
-						<Button label="新增"  onTouchTap={this.openNewCreateUpgradeDialog} className="button-list"/>
+						<Button label="上传升级包"  onTouchTap={this.openNewCreateUpgradeDialog} className="button-list"/>
 					</div>
 					<Table
 						className="member-list-table"
@@ -190,7 +191,7 @@ export default class List extends React.Component {
 						<TableFooter></TableFooter>
 					</Table>
 					<Dialog
-			          title="新增升级包"
+			          title="上传升级包"
 			          open={State.openNewCreateUpgrade}
 			          onClose={this.openNewCreateUpgradeDialog}
 			          contentStyle={{width:687}}
