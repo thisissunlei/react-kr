@@ -81,15 +81,6 @@ class CreateNewList extends React.Component {
 		demo = demo.concat(detailT);
 		console.log('============>',demo)
 
-		// let mainTemplate = [
-		// 	{
-		// 		fieldList:[],
-		// 		hasEditButton:false,
-		// 		isMain:false,
-		// 		lineNum:2,
-		// 		templateTableId:1
-		// 	}
-		// ];
 		let submitForm = {
 			mainTemplate:JSON.stringify(demo),
 			name:formValue.name,
@@ -140,7 +131,7 @@ class CreateNewList extends React.Component {
 							label="每行显示字段数"
 							grid={1/2}
 							inline={true}
-							options={[{label:'2',value:'2'},{label:'1',value:'1'}]}
+							options={[{label:'2',value:2},{label:'1',value:1}]}
 					 	/>
 					 	</div>
 							<div className='main-form'>
@@ -151,7 +142,7 @@ class CreateNewList extends React.Component {
 												isSingle={true}
 											>
 
-											<FdRow name = "name" label = "字段显示名" />
+											<FdRow name = "label" label = "字段显示名" />
 											<FdRow name = "display" label = "是否显示" checkbox={true}/>
 											<FdRow name = "editable" label = "是否编辑"  checkbox={true}/>
 											<FdRow name = "required" label = "是否必填" checkbox={true}/>
@@ -183,7 +174,7 @@ class CreateNewList extends React.Component {
 												isSingle={true}
 											>
 
-											<FdRow name = "name" label = "字段显示名" />
+											<FdRow name = "label" label = "字段显示名" />
 											<FdRow name = "display" label = "是否显示" checkbox={true}/>
 											<FdRow name = "editable" label = "是否编辑"  checkbox={true}/>
 											<FdRow name = "required" label = "是否必填" checkbox={true}/>
@@ -215,7 +206,9 @@ const validate = values => {
 	const errors = {}
 	let numContr =/^[1-9]\d{0,4}$/;
 	if(!values.name){
-		errors.name = '请输入新闻标题';
+		errors.name = '请输入模板标题';
+
+		
 	}
 	if(values.name){
 		if(values.name.length>20){

@@ -221,19 +221,20 @@ const validate = values =>{
     }
 
     if(values.inputType=='TEXT'){
-        if(values.compType=='TEXT_TEXT'||values.compType=='TEXT_INTEGER'){
-            if(!values.wstext){
-                errors.wstext='请填写文本长度';      
-            }else if(values.wstext&&isNaN(values.wstext)){
-                errors.wstext='文本长度是数字';    
-            }else if(values.wstext&&(values.wstext.length>3||!dataRg.test(values.wstext))){
-                errors.wstext='请填写三位以下不能以0开头的正整数';
-            }
-        }else{
-            if(!values.wsfloat){
-                errors.wsfloat='请选择小数位数';        
-            }    
+        if(values.compType!='TEXT_TEXT'&&values.compType!='TEXT_INTEGER'){
+            if (!values.wsfloat) {
+                errors.wsfloat = '请选择小数位数';
+            }   
         }
+
+        if (!values.wstext) {
+            errors.wstext = '请填写文本长度';
+        } else if (values.wstext && isNaN(values.wstext)) {
+            errors.wstext = '文本长度是数字';
+        } else if (values.wstext && (values.wstext.length > 3 || !dataRg.test(values.wstext))) {
+            errors.wstext = '请填写三位以下不能以0开头的正整数';
+        }
+
     }
 
     if(values.inputType=='TEXT_AREA'){
@@ -242,6 +243,15 @@ const validate = values =>{
         }else if(values.wsheight&&(values.wsheight.length>3||!dataRg.test(values.wsheight))){
             errors.wsheight='请填写三位以下不能以0开头的正整数';
         }
+
+        if (!values.wstext) {
+            errors.wstext = '请填写文本长度';
+        } else if (values.wstext && isNaN(values.wstext)) {
+            errors.wstext = '文本长度是数字';
+        } else if (values.wstext && (values.wstext.length > 3 || !dataRg.test(values.wstext))) {
+            errors.wstext = '请填写三位以下不能以0开头的正整数';
+        }
+
     }
 
     if(values.inputType=='BUTTON'){

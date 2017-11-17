@@ -90,13 +90,14 @@ export default class NewOffice extends React.Component {
       _this.newSubmitData = {
         formId: itemData.formId,
         wfName: itemData.name,
-        wfId:id
+        wfId:id,
+        printed:response.printed
       }
       _this.setState({
         detail: response.tables
       })
     }).catch(function (err) { 
-
+      Message.error(err.message);
     });
   }
   leftClick = (item) =>{
@@ -127,7 +128,10 @@ export default class NewOffice extends React.Component {
       Http.request('office-new-delete', {
       },{myCommonId:item.id}).then(function(response) {
           _this.updateData();
-      }).catch(function(err) {});
+        Message.success('删除成功');
+      }).catch(function(err) {
+        Message.error(err.message);
+      });
   }
   swidthNew = () =>{
     
@@ -147,7 +151,9 @@ export default class NewOffice extends React.Component {
               _this.setState({newThings: response.items},function(){
         
               })
-            }).catch(function(err) {});
+            }).catch(function(err) {
+              Message.error(err.message);
+            });
     
   }
   //新建页面提交
@@ -157,10 +163,11 @@ export default class NewOffice extends React.Component {
     params.dataJson = JSON.stringify(values);
     Http.request('post-config-detail-new', {}, params).then(function (response) {
       _this.swidthNew();
+      Message.success('保存成功');
     }).catch(function (err) { 
-
+      Message.error(err.message);
     });
-
+    
     
   }
   render() {

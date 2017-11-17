@@ -1,7 +1,6 @@
 #!/bin/bash
 
 npm run dll
-npm run  build 
 
 
 buildEnvDir=$1
@@ -16,21 +15,30 @@ case $1 in
   test | test00)
     target_site=www@10.6.60.201
     target_site_port=9830
+
+    npm run  build:test 
   ;;
 
   test01 | test03 | test05)
     target_site="www@${test01_ip}"
     target_site_port=22
+
+    npm run  build:test01 
   ;;
 
   test02 | test04 | test06)
     target_site="www@${test02_ip}"
     target_site_port=22
+
+    npm run  build:test02 
   ;;
 
   *)
   target_site=www@10.1.60.201
   target_site_port=9830
+
+    npm run  build:test 
+
   ;;
 esac
 

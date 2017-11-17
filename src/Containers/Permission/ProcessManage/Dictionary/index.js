@@ -46,7 +46,8 @@ export default class ProcessSetting extends React.Component {
 
 	}
 
-	componentDidMount() {
+	componentWillMount() {
+		State.getAsyncData();
 	}
 
 	closeAll=()=>{

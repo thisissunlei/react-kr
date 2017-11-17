@@ -21,6 +21,8 @@ import {
 	Message,
 	KrDate,
 } from 'kr-ui';
+import {PhotoSwipeGallery} from 'react-photoswipe';
+import 'react-photoswipe/lib/photoswipe.css';
 import './index.less';
 
 
@@ -59,6 +61,11 @@ class ViewOpinion extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	getThumbnailContent = (item) => {
+		return (
+		  <img src={item.src} width={90} height={90}/>
+		);
+	  }
 	
 	
 	render() {
@@ -67,12 +74,24 @@ class ViewOpinion extends React.Component {
 				infoList,
 				ifCity,
 			}=this.state;
-			
+			let {detail}=this.props;
+			let items = [];
+			if(infoList.imgUrl){
+				items = infoList.imgUrl.map((item,value) => {
+					return(
+						{
+							src: item,
+							w: 900,
+							h: 900,
+						}
+					)
+				});
+			}
 		return (
 			<div className="g-create-opinoin">
 				<div className="u-create-title">
 						<div className="title-text">反馈详情</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+						<div className="u-create-close" onTouchTap={this.onCancel}></div>
 				</div>
 				{infoList.handled == 1?
 				<div className="u-table-list">
@@ -142,12 +161,20 @@ class ViewOpinion extends React.Component {
 							/>
 						 	<KrField  
 					 			grid={1/2}
-					 			style={{width:260}} 
+					 			style={{width:548}} 
 					 			label="内容" 
 					 			inline={false} 
 								component="labelText"
 								value={infoList.content}
 						 	/>
+							 <div className="u-photo-box">
+								<span className="u-photo-title">图片</span>
+								<div style={{marginLeft:15}}>
+								  {
+									infoList.imgUrl?<PhotoSwipeGallery items={items}  options={{index:detail.id,Share:false}} thumbnailContent={this.getThumbnailContent}/>:'无'
+								  }
+								</div>
+							</div>
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">

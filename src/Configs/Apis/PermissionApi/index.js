@@ -595,6 +595,21 @@ module.exports = {
     url: '/api/krspace-erp-web/sys/print/template/list/type/field?formId={formId}',
     method: 'get'
    },
+   //获取PC端合同模板数据
+    'get-form-template-detail-data':{
+      url: '/api/krspace-erp-web/sys/form-template?id={id}',
+      method: 'get'
+    },
 
-
+   //创建表单回血
+   'sql-table-get':{
+    url: '/api/krspace-erp-web/sys/form/sqlTable/search?id={id}',
+    method: 'get'
+   },
+   //公共字典下拉
+   'common-dictionary-list':{
+    url: '/api/krspace-erp-web/sys/public-dict/source/select/type/list',
+    method: 'get'
+   },
+   
 }

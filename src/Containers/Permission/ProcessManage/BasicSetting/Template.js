@@ -22,6 +22,7 @@ import {
 	Dialog
 } from 'kr-ui';
 import CreateTemplate from './CreateTemplate';
+import EditTemplate from './EditTemplate';
 import State from './State';
 import {
 	TemplatePrint
@@ -65,7 +66,11 @@ class Template extends React.Component {
 		console.log('onSubmit--->',form)
 		let _this = this;
 		form.wfId = this.props.id;
+		State.printTempId = false;
+		
 		form.printTempId = form.printTempId || State.formworkId || '' ;
+		console.log('onSubmit--->', form)
+		
 		if(!form.formTempId){
 			State.formTempId = true;
 		}
@@ -104,6 +109,7 @@ class Template extends React.Component {
 		console.log('changeName',value);
 		State.pcName = value.label;
 		State.formTempId = false;
+		State.formData.formTempId = value.value;
 		Store.dispatch(change('Template','formTempId',value.value));
 
 
@@ -113,12 +119,15 @@ class Template extends React.Component {
 			openWarn:true
 		})
 	}
+	closeEditTemplate=()=>{
+		State.openEdit = false;
+	}
 	changePrintType=(value)=>{
 		console.log('changePrintType',value)
-		State.printName = value.label;
+		State.printName = value ? value.label:'';
 		State.printTempId = false;
-		State.formworkId = value.value;
-		Store.dispatch(change('Template','printTempId',value.value));
+		State.formworkId = value ? value.value:'';
+		Store.dispatch(change('Template', 'printTempId', value ? value.value : ''));
 	}
 	onCancelDialog=()=>{
 		this.setState({
@@ -150,7 +159,9 @@ class Template extends React.Component {
 	templateSubmit = (values) =>{
 		State.printName = values.name;
 		State.formworkId = values.printTemplateId;
+		console.log('===>', values.printTemplateId, State.formworkId)
 		this.onOpenTemplate();
+		State.getPrintTemplateList();
 	}
 	//获取编辑数据
 	getEditData = () =>{
@@ -167,6 +178,10 @@ class Template extends React.Component {
 		}).catch(function (err) {
 			Message.error(err.message);
 		});
+	}
+	openEdit=(id)=>{
+		// State.openEdit = true;
+		State.editTemplate(id);
 	}
 
 	render() {
@@ -221,7 +236,7 @@ class Template extends React.Component {
 	                            onChange={this.changeName}
 	                        />}
 	                        {!!State.pcName?
-			            	<span className="has-template template-name">{State.pcName}</span>
+			            	<span className="template-name has-template " onClick={this.openEdit.bind(this,State.formData.formTempId)}>{State.pcName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
 			            	{State.formTempId && <div className="error-message">请选择显示模板</div>}
 			            </div>
@@ -273,7 +288,7 @@ class Template extends React.Component {
 	                        {!!State.printName?
 			            	<span className="has-template template-name template-active" onClick = {this.getEditData}>{State.printName}</span>
 			            	:<span className="no-template template-name">未设置</span>}
-			            	{State.printTempId && <div className="error-message">请选择显示模板</div>}
+			            	{State.printTempId && <div className="error-message">请选择打印模板</div>}
 
 			            </div>
 						<Grid style={{marginTop:50,width:'50%'}}>
@@ -289,16 +304,28 @@ class Template extends React.Component {
 					</CircleStyleTwo>
 				</form> 
 				<Drawer
-				        open={State.open}
-				        width={750}
-				        openSecondary={true}
-				        onClose={this.closeCreateTemplate}
+					open={State.open}
+					width={750}
+					openSecondary={true}
+					onClose={this.closeCreateTemplate}
 
-				        className='m-finance-drawer'
-				        containerStyle={{top:60,paddingBottom:48,zIndex:20}}
-			        >
+					className='m-finance-drawer'
+					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			    >
 
-			       	 	<CreateTemplate onCancel={this.closeCreateTemplate}/>
+			       	<CreateTemplate onCancel={this.closeCreateTemplate}/>
+		        </Drawer>
+		        <Drawer
+					open={State.openEdit}
+					width={750}
+					openSecondary={true}
+					onClose={this.closeEditTemplate}
+
+					className='m-finance-drawer'
+					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
+			    >
+
+			       	<EditTemplate onCancel={this.closeEditTemplate}/>
 		        </Drawer>
 		        <Dialog
 				title="选择模板"

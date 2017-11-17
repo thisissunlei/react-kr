@@ -220,7 +220,7 @@ export default class SqlModel extends Component{
                           >
                         </TableRowColumn>
 						<TableRowColumn name="operType" style={{wordWrap:'break-word',whiteSpace:'normal'}} options={[{value:'TABLE_CREATE',label:'创建表'},{value:'TABLE_DELETE',label:'删除表'},{value:'TABLE_EDIT_DESCR',label:'修改表注释'},
-                          {value:'FIELD_ADD',label:'新增字段'},{value:'FIELD_DELETE',label:'删除字段'},{value:'FIELD_RENAME',label:'修改字段名'},{value:'FIELD_MODIFY',label:'修改字段属性'}]} ></TableRowColumn>
+                          {value:'FIELD_ADD',label:'新增字段'},{value:'FIELD_DELETE',label:'删除字段'},{value:'FIELD_RENAME',label:'修改字段名'},{value:'FIELD_MODIFY',label:'修改字段属性'},{value:'TABLE_EDIT_NAME',label:'修改表名'}]} ></TableRowColumn>
 						<TableRowColumn name="sqlTemplate"  component={(value,oldValue)=>{
 		 										var maxWidth=20;
 		 										if(value.length>maxWidth){

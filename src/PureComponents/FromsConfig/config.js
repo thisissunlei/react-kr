@@ -22,6 +22,9 @@ var btnType = {
     btnCity:'county',
     btnAddress:'address'
 }
+var validation = {
+    integral : /^-?\d+$/,
+}
 //明细表校验
 function detailCheck(params, values) {
     //楼层检验 params.tableName;
@@ -90,8 +93,8 @@ function textCheck(params, name) {
         }
     }
    var seeting=JSON.parse(params.setting);
-    if (name && name.length > Number(seeting['wstext'])) {
-        text = `${params.label}最长为${seeting['wstext']}`
+   if (name && ("" + name).length > Number(seeting['wstext'])) {
+       text = `${params.label}最长多不超过${seeting['wstext']}个字符`
         return text;
     }
 }
@@ -107,6 +110,11 @@ function integerCheck(params, name) {
     }
     if (name && !num.test(name)) {
         text = '请填写整数'
+        return text;
+    }
+    var seeting = JSON.parse(params.setting);
+    if (name && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
         return text;
     }
 }
@@ -133,6 +141,18 @@ function floatCheck(params, name) {
             return text;
         }
     }
+   
+    if (name && !num.test(name) && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        return text;
+    }
+
+    if (name && num.test(name) && ("" + name).length >( Number(seeting['wstext']) + 1)) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        return text;
+    }
+
+    
 }
 
 //金额转换
@@ -151,13 +171,23 @@ function transferCheck(params, name) {
         return text;
     }
     
-        var seeting=JSON.parse(params.setting);
-        if(name&&num.test(name)){
-            if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
-                text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
-                return text;
-            }
+    var seeting=JSON.parse(params.setting);
+    if(name&&num.test(name)){
+        if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+            text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
+            return text;
         }
+    }
+
+    if (name && !num.test(name) && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        return text;
+    }
+
+    if (name && num.test(name) && ("" + name).length > (Number(seeting['wstext']) + 1)) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        return text;
+    }
 }
 
 //金额千分位
@@ -176,13 +206,23 @@ function quartileCheck(params, name) {
         return text;
     }
     
-        var seeting=JSON.parse(params.setting);
-        if(name&&num.test(name)){
-            if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
-                text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
-                return text;
-            }
+    var seeting=JSON.parse(params.setting);
+    if(name&&num.test(name)){
+        if((name.toString().split(".")[1].length) > Number(seeting['wsfloat'])){
+            text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
+            return text;
         }
+    }
+
+    if (name && !num.test(name) && ("" + name).length > Number(seeting['wstext'])) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        return text;
+    }
+
+    if (name && num.test(name) && ("" + name).length > (Number(seeting['wstext']) + 1)) {
+        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        return text;
+    }
 }
 
 //其他情况

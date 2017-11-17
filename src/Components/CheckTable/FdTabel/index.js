@@ -15,12 +15,39 @@ import {
 } from 'kr/Utils';
 
 export default class Table extends React.Component {
-  // isFold = {true} 是否有展开的按钮
-	// initFoldNum = "1" 默认展示几个
-	// checkbox ={true} 是否有 checkbox
-  // checkbox = {true}
-	// 			batchDel = {true}
-  //toolbar = {true} 是否有工具条
+
+
+  static defaultProps = {
+    batchDel:false,
+    checkbox:false,
+    toolbar:false,
+    isFold:false
+	}
+
+	static propTypes = {
+		/**
+		 * isFold 选中时值为true
+		 */
+		isFold: React.PropTypes.bool,
+		/**
+		 * 默认展示几个
+		 */
+		initFoldNum: React.PropTypes.string,
+		/**
+		 * 是否有工具条
+		 */
+		toolbar: React.PropTypes.bool,
+		/**
+		 *是否有删除按钮
+		 */
+    batchDel: React.PropTypes.bool,
+    /**
+		 *是否显示复选框
+		 */
+    checkbox:React.PropTypes.bool,
+    
+  };
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -306,13 +333,9 @@ export default class Table extends React.Component {
     const {foldLabel} = this.state;
     var text = "";
     var fold = false;
-    if(foldLabel == "展开"){
-      text = "收起";
-      fold = true;
-    }else{
-      text = "展开"
-      fold = false;
-    }
+    text = foldLabel == "展开" ? "收起" : "展开";
+    fold = foldLabel == "展开" ? true : false;
+    
     this.setState({
       fold,
       foldLabel:text

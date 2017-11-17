@@ -32,7 +32,8 @@ class FromsConfig extends Component {
 		let {detail} =props;
 		inspectionData = [].concat(detail);
 		this.detailNames=[];
-		this.init=false;
+		this.MainInit=false;
+		this.detailInit=false;
 	}
     
 	onCancel = () =>{
@@ -41,44 +42,66 @@ class FromsConfig extends Component {
 	}
 	
 	//主表首次不提示
-	mainTip=()=>{
-	    var _this=this;
+	mainTip=(params)=>{
+		var _this=this;
+		this.MainInit=false;
 		if(inspectionData&&!isOk){
 			inspectionData.map((item,index)=>{
 				if(item.isMain){
 					item.fields&&item.fields.map((items,indexs)=>{
-						if(items.required){
+						if(items.required&&!params[items.name]){
 							Notify.show([{
 								message:`${items.label}不能为空`,
 								type: 'danger',
 							}]);
-							_this.init=true;
+							_this.MainInit=true;
 						}
 					})
 				}
 			})
 		}
 	}
-
+    
 	//明细表提示
-	detailTip=()=>{
-       /*for(var i=0;i<this.detailNames.length;i++){
-			if(!params[this.detailNames[i].name]||params[this.detailNames[i].name].length==0){
-				Notify.show([{
-					message:'明细表不能为空',
-					type: 'danger',
-				}]);
-				return ;
-			 }
-		 }*/
+	detailTip=(params)=>{
+		var tableName=[];
+		var fields=[];
+		this.detailInit=false;
+        for(var i=0;i<this.detailNames.length;i++){
+			tableName.push(this.detailNames[i].item.tableName);
+			fields=[].concat(this.detailNames[i].item.fields);
+		}
+		tableName.map((item,index)=>{
+			if(params[item]){
+				params[item].map((items,indexs)=>{
+					if(!items||JSON.stringify(items) == "{}"){
+						Notify.show([{
+							message:'请填写明细表数据',
+							type: 'danger',
+						}]);
+						this.detailInit=true;
+					}else{
+						fields.map((it,ind)=>{
+							if(it.required&&!items[it.name]){
+								Notify.show([{
+									message:`${it.label}为必填项`,
+									type: 'danger',
+								}]);
+								this.detailInit=true;	
+							}
+						})
+					}
+				})
+			}
+		})
 	}
     
 	//提交代码
 	onSubmit = (values) =>{
 		let params = Object.assign({},values);
-		this.mainTip();
-		this.detailTip();
-		if(this.init){
+		this.mainTip(params);
+		this.detailTip(params);
+		if(this.MainInit||this.detailInit){
 			return ;
 		}
 		delete params.c_time;
@@ -90,12 +113,13 @@ class FromsConfig extends Component {
 	renderFields = () => {
 		let {detail} = this.props;
 			detail = detail||[];
+			this.detailNames=[];
 			inspectionData = [].concat(detail);			
 		var fields = detail.map((item,index)=>{
 			if(item.isMain){
 				return this.mainRender(item.fields,item.lineNum);
 			}else{
-				this.detailNames.push({name:item.tableName});
+				this.detailNames.push({item:item});
 				return this.detailRender(item);
 				// return '';
 			}	
@@ -137,11 +161,28 @@ class FromsConfig extends Component {
 		if (item.wholeLine){
 			grid = 1
 		}
+		if (type == "searchSelect"){
+		}
+		
 		var params = {
 			searchKey: item.searchKey || '',
 			sourceOrgin: item.sourceOrgin || '',
-			sourceType: item.sourceType || ''
+			sourceType: item.sourceType || '',
+			fieldId: item.id
 		}
+
+		var editHeight={};
+		var maxLength = 200;
+
+		if(item.setting){
+			var seeting =JSON.parse(item.setting);
+			editHeight =seeting;
+			if (seeting.wstext){
+				maxLength = seeting.wstext;
+			}
+		}
+	
+		
 		if(item.display){
 			return (
 				<KrField
@@ -154,6 +195,8 @@ class FromsConfig extends Component {
 					selectUrl= 'template-search-list'
 					component={type}
 					params={params}
+					editHeight={editHeight}
+					maxSize={maxLength}
 				/>
 			)
 		}else {

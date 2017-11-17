@@ -51,6 +51,7 @@ import './index.less'
 import AgreementList from './AgreementList';
 import Edit from './Edit';
 import State from './State';
+import Data from './Data';
 
 @observer
 class AgreementTrim extends React.Component {
@@ -135,6 +136,9 @@ class AgreementTrim extends React.Component {
 		console.log('customerName',itemData);
 		window.open(window.location.origin+`/new/#/operation/customerManage/`+itemData.customerid+`/order/`+itemData.mainbillid+`/detail`);
 	}
+	createData=()=>{
+		State.opencreateData()
+	}
 
 	
 
@@ -157,7 +161,8 @@ class AgreementTrim extends React.Component {
 						<Button  label="新建"  onTouchTap={this.openNewCreateDialog} />
 						<span style={{display:'inline-block',width:30}}></span>
 						<Button  label="清除测试数据" width={110} onTouchTap={this.deleteDemos} />
-							
+						<span style={{display:'inline-block',width:30}}></span>
+						<Button  label="确认月收入数据" width={110} onTouchTap={this.createData} />
 					  </Col>
 
 			          <Col style={{marginTop:-15,float:'right'}}>
@@ -178,55 +183,34 @@ class AgreementTrim extends React.Component {
 					onPageChange={this.onPageChange}
 				>
 					<TableHeader>
-						<TableHeaderColumn style={{width:150}}>客户名称</TableHeaderColumn>
-						<TableHeaderColumn  style={{width:150}}>订单名称</TableHeaderColumn>
+						<TableHeaderColumn>客户名称</TableHeaderColumn>
+						<TableHeaderColumn>订单名称</TableHeaderColumn>
 						<TableHeaderColumn>合同类型</TableHeaderColumn>
-						<TableHeaderColumn style={{width:250}}>调整内容</TableHeaderColumn>
-						<TableHeaderColumn>操作人</TableHeaderColumn>
-						<TableHeaderColumn>操作时间</TableHeaderColumn>
+						<TableHeaderColumn style={{width:350}}>调整内容</TableHeaderColumn>
+						<TableHeaderColumn style={{width:100}}>操作人</TableHeaderColumn>
+						<TableHeaderColumn style={{width:160}}>操作时间</TableHeaderColumn>
 					</TableHeader>
 					<TableBody style={{position:'inherit'}}>
 						<TableRow>
 						<TableRowColumn name="customerName"
 						component={(value,oldValue,itemData)=>{
-								var TooltipStyle=""
-							if(value.length==""){
-								TooltipStyle="none"
-							}else{
-								TooltipStyle="block";
-							}
 							 return (
-							 	<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
-							 		<span className='tableOver' style={{maxWidth:150,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",cursor:'pointer'}} 
+							 	<div style={{padding:5,whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}} >
+							 		<span className='tableOver'
 							 			onTouchTap={this.customerName.bind(this,itemData)}>
 							 			{value}
 							 		</span>
-								 	<Tooltip offsetTop={5} place='top' >
-										<div style={{width:"150px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
-								 	</Tooltip>
+
 							 	</div>)
 						}}
 						></TableRowColumn>
-						<TableRowColumn name="billName"
+						<TableRowColumn name="mainbillName"
 						component={(value,oldValue)=>{
-							var TooltipStyle=""
-							if(value.length==""){
-								TooltipStyle="none"
-							}else{
-								TooltipStyle="block";
-							}
-							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:150,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-							 	<Tooltip offsetTop={5} place='top' >
-									<div style={{width:"150px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
-							 	</Tooltip></div>)
+							 return (<div style={{padding:5,whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}} >
+							 <span>{value}</span></div>)
 						}}
 						></TableRowColumn>
-						<TableRowColumn name="contractType"
-						component={(value,oldValue)=>{
-							if(value==""){
-								value="-"
-							}
-							return (<span>{this.contracttype(value)}</span>)}}
+						<TableRowColumn name="detailType"
 						></TableRowColumn>
 						<TableRowColumn name="changeContent"
 						component={(value,oldValue)=>{
@@ -237,9 +221,9 @@ class AgreementTrim extends React.Component {
 							}else{
 								TooltipStyle="block";
 							}
-							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:250,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+							 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:350,display:"block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 							 	<Tooltip offsetTop={0} place='bottom' >
-									<div style={{width:"250px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
+									<div style={{width:"350px",whiteSpace:"normal",lineHeight:"22px",wordBreak:'break-word'}}>{value}</div>
 							 	</Tooltip></div>)
 						}}
 
@@ -304,6 +288,17 @@ class AgreementTrim extends React.Component {
 						</Row>
 						</Grid>
 					</div>
+
+			  </Dialog>
+			<Dialog
+				title="确认月收入数据"
+				modal={true}
+				autoScrollBodyContent={true}
+				autoDetectWindowHeight={true}
+				onClose={this.createData}
+				open={State.createData} 
+				contentStyle={{width:'400px'}}>
+					<Data onCancel={this.createData} />
 
 			  </Dialog>
 

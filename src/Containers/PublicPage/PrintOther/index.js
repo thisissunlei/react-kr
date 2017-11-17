@@ -7,13 +7,14 @@ import {
 	Section,
 	SliderTree,
     ArticleList,
-    Message
+	Message,
+	Title
 } from 'kr-ui';
 import React, { PropTypes } from 'react';
 
-import { observer, inject } from 'mobx-react';
+import { observer, inject, } from 'mobx-react';
 import './index.less';
-import {Http,delHtmlTag} from 'kr/Utils';
+import { Http, delHtmlTag, systemJudge} from 'kr/Utils';
 import {
 	templateParse,
 	checkMark,
@@ -21,8 +22,12 @@ import {
 	chaptersMove,
 	delEndFutility,
 	controlHeight,
-	codeParse
+	codeParse,
+	
 } from './publicFun'
+import { Store, Actions} from 'kr/Redux';
+@inject("NavModel")
+@observer
 export default class PrintOther extends React.Component {
 
 	constructor(props, context) {
@@ -36,11 +41,16 @@ export default class PrintOther extends React.Component {
 			allData: {},
 			//模板数据
 			template: ''
+
 		}
 
 	}
 	componentDidMount(){
+		const { NavModel } = this.props;
+		NavModel.setSidebar(false);
 		this.getData();
+		// console.log(js_getDPI(),"--------")
+		// this.allRender();
 	
 	}
 	//获取信息
@@ -67,9 +77,11 @@ export default class PrintOther extends React.Component {
 	
 	allRender = (template,allData) =>{
 		this.configData.template =  template;
+		// this.configData.allData = { li: { name: '梨花', age: '88', love: '哈哈',printValue:'什么鬼'}};
 		this.configData.allData = allData;
-		var templateData = templateParse(this.configData.template);
-		this.print.innerHTML = codeParse(templateData,allData);
+		var templateData = templateParse(this.configData.template,allData);
+		this.print.innerHTML = codeParse(templateData, allData);
+		// this.print.innerHTML = codeParse(templateData,this.configData.allData);
 		
 		var detailTr = document.querySelectorAll(".money-detail tr");
 		
@@ -79,7 +91,9 @@ export default class PrintOther extends React.Component {
 		chaptersMove();//章位调整
 		delEndFutility();//删除最后无用内容		
 		controlHeight(this.print)
-		checkMark(this.print);
+		if (allData.cachetUrl){
+			checkMark(this.print);
+		}
 		setTimeout(function() {
 			window.print();
 			window.close();
@@ -103,15 +117,19 @@ export default class PrintOther extends React.Component {
 	render() {
        
 		return (
-			<div 
-				className="print-other"
-				ref={
-					(ref)=>{
-						this.print = ref;
+			<div >
+				<Title value="电子合同打印" />
+				<div 
+					className="print-other"
+					ref={
+						(ref)=>{
+							this.print = ref;
+						}
 					}
-				}
-			>
-              
+				>
+
+				
+				</div>
 			</div>
 		);
 	}

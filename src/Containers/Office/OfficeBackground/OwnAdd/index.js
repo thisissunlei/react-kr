@@ -11,6 +11,7 @@ import {
 	TableRowColumn,
 	Button,
 	Drawer,
+	Message
 } from 'kr-ui';
 import mobx, {
 	observable,
@@ -20,6 +21,7 @@ import mobx, {
 import { DateFormat, Http, smalltoBIG} from 'kr/Utils';
 import {reduxForm,initialize,reset,change} from 'redux-form';
 import {Store} from 'kr/Redux';
+
 import arrow from './images/arrows.png';
 import './index.less';
 import './detail.less';
@@ -65,11 +67,14 @@ export default class Initialize  extends React.Component{
 				wfId: itemData.wfId,
 				formId: response.formId,
 				id: itemData.id,
+				printed:response.printed
 			}
 			_this.setState({
 				detail: response.tables
 			})
-		}).catch(function (err) { });
+		}).catch(function (err) {
+			Message.error(err.message);
+		 });
 		
 	}
 
@@ -81,7 +86,9 @@ export default class Initialize  extends React.Component{
 		    
 			_this.onOpenEdit();
 			
-		}).catch(function (err) { });
+		}).catch(function (err) {
+			Message.error(err.message);
+		 });
 	}
 	openPrint=(itemData)=>{
 		var id = itemData.id;
@@ -138,9 +145,10 @@ export default class Initialize  extends React.Component{
 
 		params.dataJson = JSON.stringify(values);
 		Http.request('post-config-detail-edit', {}, params).then(function (response) {
-			_this.onOpenEdit()
+			_this.onOpenEdit();
+			Message.success('保存成功');
 		}).catch(function (err) {
-			
+			Message.error(err.message);
 		 });
 	}
 
@@ -257,7 +265,7 @@ export default class Initialize  extends React.Component{
 					 								<div>
 
 														<Button label="编辑"  type='operation'  onClick={this.openEdit.bind(this,itemData)}/>
-														{itemData.printed && <Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>}
+														{(itemData.printed && itemData.allowPrint) && <Button label="打印"  type='operation'  onClick={this.openPrint.bind(this,itemData)}/>}
 													</div>
 					 							)
 					 					}}>

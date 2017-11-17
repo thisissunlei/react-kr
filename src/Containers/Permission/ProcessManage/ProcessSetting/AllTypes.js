@@ -63,6 +63,16 @@ export default class AllTypes extends React.Component {
 		}
 	}
 	componentDidMount() {
+        console.log('all=======>',window.location.hash)
+        let arr = window.location.hash.split('=');
+        console.log(arr[1])
+        if(arr[1]==='false'){
+            console.log('============>')
+            this.setState({
+                tabSelect:2
+            })
+        }
+
 		
 		
 		var _this = this;
@@ -71,7 +81,11 @@ export default class AllTypes extends React.Component {
     checkTab = (item) => {
 		this.setState({
 			tabSelect: item,
-		})
+		},function(){
+            if(item === 1){
+                window.location.href='./#/permission/processManage/processSetting'
+            }
+        })
 	}
     onSerchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);

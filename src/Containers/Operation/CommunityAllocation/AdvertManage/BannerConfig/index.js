@@ -286,7 +286,7 @@ export default class Banner extends React.Component{
 	              onClose={this.openDelete}
 	            >
 	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要删除该活动吗？</p>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要删除该条氪星推荐吗？</p>
 					<div style={{textAlign:'center',marginBottom:10}}>
 	                      <div  className='ui-btn-center'>
 		                      <Button  label="确定" onClick={this.onDeleteData}/></div>
@@ -302,7 +302,7 @@ export default class Banner extends React.Component{
 	              onClose={this.openPublish}
 	            >
 	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要发布该活动吗？</p>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要发布该条氪星推荐吗？</p>
 					<div style={{textAlign:'center',marginBottom:10}}>
 	                      <div  className='ui-btn-center'>
 		                      <Button  label="确定" onClick={this.openPublishDel}/></div>

@@ -92,16 +92,15 @@ import SearchSourceOrigin from './SearchSourceOrigin';
 import SelectOperationComponent from './SelectOperationComponent';
 import RangeComponent from './RangeComponent';
 import MainNewsUploadImage from './MainNewsUploadImageComponent';
+import SearchMemeber from './SearchMemeber';
+import SearchPersonName from './SearchPersonName';
 import SearchRegCommunity from './SearchRegCommunity';
 
-
-import SearchMemeber from './SearchMemeber';
 import MoreRadioComponent from './MoreRadioComponent';
 import SearchSelectComponent from './SearchSelectComponent';
 import AddressComponent from './AddressComponent';
 import CountyComponent from './CountyComponent';
 import SelectListComponent from './SelectListComponent';
-
 
 
 
@@ -309,7 +308,12 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchPersonelComponent}  style={WrapStyles} {...other}/>
 				);
 			}
-
+			if (component === 'searchPersonName') {
+				return (
+					<FieldRevert {...this.props} component={SearchPersonName}  style={WrapStyles} {...other}/>
+				);
+			}
+			
 			if (component === 'SearchSourceOrigin') {
 				return (
 					<FieldRevert {...this.props} component={SearchSourceOrigin}  style={WrapStyles} {...other}/>
