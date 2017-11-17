@@ -48,8 +48,6 @@ export default class Table extends React.Component {
     
   };
   
-
-
   constructor(props) {
     super(props);
     this.state = {
@@ -335,13 +333,9 @@ export default class Table extends React.Component {
     const {foldLabel} = this.state;
     var text = "";
     var fold = false;
-    if(foldLabel == "展开"){
-      text = "收起";
-      fold = true;
-    }else{
-      text = "展开"
-      fold = false;
-    }
+    foldLabel == "展开" ? text = "收起" : text = "展开";
+    foldLabel == "展开" ? fold = true : fold = false;
+    
     this.setState({
       fold,
       foldLabel:text
