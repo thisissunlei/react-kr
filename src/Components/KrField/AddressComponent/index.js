@@ -57,7 +57,7 @@ export default class AddressComponent extends React.Component {
                 allData,
             });
         }).catch(function (err) {
-
+            Message.error(err.message);
         });
     }
     onCancel = () => {
@@ -102,7 +102,7 @@ export default class AddressComponent extends React.Component {
             _this.allData = [].concat(response.items);
             _this.theEcho();
         }).catch(function (err) {
-
+            Message.error(err.message);
         });
     }
     theEcho = (value) =>{
