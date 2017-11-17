@@ -22,6 +22,7 @@ import {Http} from 'kr/Utils';
 import './index.less';
 import NewCreateUpgrade from './NewCreateUpgrade';
 import UpgradeAdd from './UpgradeAdd';
+import BatchUpgrade from './BatchUpgrade';
 
 
 
@@ -65,6 +66,13 @@ export default class List extends React.Component {
 		if(type == 'detail') {
 			_this.openUpgradeAddFun();
 		}
+		if(type == 'upgradeBtach'){
+			_this.openBatchUpgrade();
+		}
+	}
+
+	openBatchUpgrade=()=>{
+		State.openBatchUpgradeDialog();
 	}
 
 	//升级包地址详情
@@ -174,6 +182,7 @@ export default class List extends React.Component {
 							<TableRowColumn type="operation">
 								<Button  label="删除"  type="operation" operation="delete"/>
 								<Button  label="升级包地址"  type="operation" operation="detail"/>
+								<Button  label="升级"  type="operation" operation="upgradeBtach"/>
 							</TableRowColumn>
 
 						</TableRow>
@@ -192,6 +201,8 @@ export default class List extends React.Component {
 			            onSubmit = {this.onSubmitNewCreateEquipment}
 			          />
 			        </Dialog>
+
+
 			        <Dialog
 			          title="删除升级版本提示"
 			          open={State.closeConfirmDelete}
@@ -222,6 +233,16 @@ export default class List extends React.Component {
 			        >
 			          <UpgradeAdd onCancle={this.openUpgradeAddFun} detail={itemDetail}/>
 			        </Dialog>
+
+			        <Dialog
+			          title="批量升级"
+			          open={State.batchUpgradeDialog}
+			          onClose={this.openBatchUpgradeDialog}
+			          contentStyle={{width:470,height:270}}
+			        >
+			          <BatchUpgrade onCancle={State.openBatchUpgradeDialog} detail={itemDetail}/>
+			        </Dialog>
+
 				</Section>
 			</div>
 		);

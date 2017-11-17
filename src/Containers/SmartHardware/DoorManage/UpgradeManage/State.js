@@ -17,7 +17,8 @@ let State = observable({
 	},
 	upgradeTypeOptions:[],
 	closeConfirmDelete : false,
-	itemDetail : {}
+	itemDetail : {},
+	batchUpgradeDialog : false
 
 });
 
@@ -75,6 +76,14 @@ State.confirmDeleteAction = action(function() {
 	});
 
 });
+
+
+State.openBatchUpgradeDialog  = action(function() {
+
+	State.batchUpgradeDialog = !State.batchUpgradeDialog 
+
+});
+
 
 
 module.exports = State;

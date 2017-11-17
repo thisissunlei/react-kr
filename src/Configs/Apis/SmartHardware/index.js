@@ -225,6 +225,12 @@ module.exports = {
       method: 'get'
    },
 
+   //
+   'batchUpgradeUrl':{
+      
+      url: '/api/iot-platform/door-device/admin/batch-upgrade',
+      method: 'post'
+   },
 
 
     
