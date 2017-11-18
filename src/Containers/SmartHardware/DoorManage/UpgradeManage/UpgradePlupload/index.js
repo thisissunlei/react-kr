@@ -118,46 +118,91 @@ import {
 		
 	}
 
+	loadXML =(xmlString)=>{
+        var parser=new DOMParser();
+    	var xmlDoc=parser.parseFromString(xmlString,"text/xml");
+    	return xmlDoc;
+    }
+
+
+    showUploadMsg = (info)=>{
+    	let _this =this;
+    	try{
+    		State.uploadedInfo = JSON.parse(info.response).data;
+    	}catch(e){
+    		var text = _this.loadXML(info.response);
+        	var msg = text.getElementsByTagName("Code")[0].childNodes[0].nodeValue
+        	Message.error(msg)
+    	}
+    }
+
 	componentDidMount(){
+
+		let _this = this;
+		this.getSignature();
+
+	 //    var policyText = {
+		//     "expiration": "2020-01-01T12:00:00.000Z", //设置该Policy的失效时间，超过这个失效时间之后，就没有办法通过这个policy上传文件了
+		//     "conditions": [
+		//     ["content-length-range", 0, 1048576000] // 设置上传文件的大小限制
+		//     ]
+		// };
+
+		// var accessid= 'LTAIA8GOJGGoRk9E',
+		// accesskey= 'ex8X9Pm8KdyFKggfxlkKGzuv3Vb3Af',
+		var host = 'http://tanlinlinbucket.oss-cn-beijing.aliyuncs.com';
 
 
 		
-		let _this = this;
+
 		var uploader = new plupload.Uploader({
 			runtimes : 'html5,flash,silverlight,html4',
 			browse_button : 'selectfiles', 
 		    //runtimes : 'flash',
 			container: document.getElementById('sso-container'),
-			// flash_swf_url : 'lib/plupload-2.1.2/js/Moxie.swf',
-			// silverlight_xap_url : 'lib/plupload-2.1.2/js/Moxie.xap',
+			flash_swf_url : 'lib/plupload-2.1.2/js/Moxie.swf',
+			silverlight_xap_url : 'lib/plupload-2.1.2/js/Moxie.xap',
 
 		    url : host,
 
-			multipart_params: {
-				'Filename': '${filename}', 
-		        'key' : '${filename}',
-				'policy': 'eyJleHBpcmF0aW9uIjoiMjAyMC0wMS0wMVQxMjowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF1dfQ==',
-		        'OSSAccessKeyId': accessid, 
-		        'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
-				'signature': 'o19saGhusYBG64jrqInIFkLIjCs=',
-			},
+			// multipart_params: {
+			// 	'Filename': '${filename}', 
+		 //        'key' : '${filename}',
+			// 	'policy': 'eyJleHBpcmF0aW9uIjoiMjAyMC0wMS0wMVQxMjowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF1dfQ==',
+		 //        'OSSAccessKeyId': accessid, 
+		 //        'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
+			// 	'signature': 'o19saGhusYBG64jrqInIFkLIjCs=',
+			// },
 
 			init: {
 				PostInit: function() {
 					document.getElementById('ossfile').innerHTML = '';
 					document.getElementById('postfiles').onclick = function() {
-						_this.set_multipart_params(uploader);
+
+					    _this.set_multipart_params(uploader);
+						
 						return false;
 					};
 				},
 
 				FilesAdded: function(up, files) {
+					console.log("files========>",files);
+					console.log("up--------》",up);
+					if(up.files.length>1){
+						uploader.files.splice(0, 1);
+					}
+
 					plupload.each(files, function(file) {
 
-						document.getElementById('ossfile').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
+						document.getElementById('ossfile').innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
 						+'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
 						+'</div>';
 					});
+				},
+
+				BeforeUpload:function(uploader,file){
+					console.log("uploader",uploader);
+					console.log("file",file);
 				},
 
 				UploadProgress: function(up, file) {
@@ -175,9 +220,15 @@ import {
 					console.log("up",up);
 					console.log("file",file);
 					console.log("info",info);
+					console.log("State",State);
+					
 		            if (info.status >= 200 || info.status < 200)
-		            {
+		            {	
+
 		                document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '上传成功';
+		                
+	                	_this.showUploadMsg(info);
+		    
 		            }
 		            else
 		            {
@@ -190,11 +241,11 @@ import {
 					console.log(err.message);
 					document.getElementById('console').appendChild(document.createTextNode("\nError xml:" + err.response));
 				}
-			},
-			drop_element:"drop-box"
+			}
 		});
 
 		uploader.init();
+		
 
 	}
 
@@ -213,7 +264,7 @@ import {
 			{/*<form onSubmit={handleSubmit(this.onSubmit)}>*/}
 
 	              
-				<div id="ossfile">你的浏览器不支持flash,Silverlight或者HTML5！</div>
+				<div id="ossfile">你的浏览器不支持HTML5！</div>
 				<div id="sso-container">
 					<a id="selectfiles" href="javascript:void(0);" className='btn' style={{display:"inline-block",marginRight:10}}>选择文件</a>
 					<a id="postfiles" href="javascript:void(0);" className='btn'>开始上传</a>
