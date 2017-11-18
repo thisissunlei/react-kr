@@ -1,4 +1,7 @@
-//import "babel-polyfill";
+
+
+
+
 import {Http} from 'kr/Utils';
 import React from 'react';
 import {
@@ -6,16 +9,9 @@ import {
 	formValueSelector
 } from 'redux-form';
 import {
-	KrField,
-	Grid,
-	Row,
-	Button,
-	ListGroup,
-	ListGroupItem,
 	Message,
 } from 'kr-ui';
 import './index.less';
-//import plupload from 'plupload/js/plupload.full.min';
 import State from '../State';
 import {
 	observer,
@@ -23,32 +19,14 @@ import {
 } from 'mobx-react';
 @observer
 
- class TanLinLin extends React.Component{
+export default class UpgradePlupload extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
 			signatureInfo : {},
-			expireCanUse : false,
+			expire : 0
 		}
 		
-	}
-	componentWillMount() {
-
-	}
-
-	getSignature=()=>{
-
-		let _this = this;
-		Http.request('getSignatureUrl',{}).then(function(response) {
-
-			console.log("response",response);
-			_this.setState({
-				signatureInfo : response
-			})
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
 	}
 
 
@@ -81,15 +59,27 @@ import {
 		return fileRandomName;
 	}
 
-
-	set_multipart_params=(uploader)=>{
+	get_signature=(uploader)=>{
 		
+		var nowTimeStamp = Date.parse(new Date());
+		if(this.state.expire<nowTimeStamp+10){
+			
+			this.send_request(uploader);
+		}else{
+			uploader.start();
+		}
+		
+	}
+
+	send_request=(uploader)=>{
 		let _this = this;
 		Http.request('getSignatureUrl',{}).then(function(response) {
 
 			var fileNameRandom = _this.set_file_name(uploader.files[0].name);
-
-			console.log("fileNameRandom",fileNameRandom);
+			_this.setState({
+				expire : response.expireAt
+			})
+			
 			uploader.setOption({
 		        'url': response.serverUrl,
 		        filters: {
@@ -115,6 +105,14 @@ import {
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+	}
+
+
+	set_multipart_params=(uploader,ret)=>{
+		let _this = this;
+		if(ret == false){
+			_this.get_signature(uploader);
+		}
 		
 	}
 
@@ -139,55 +137,31 @@ import {
 	componentDidMount(){
 
 		let _this = this;
-		this.getSignature();
-
-	 //    var policyText = {
-		//     "expiration": "2020-01-01T12:00:00.000Z", //设置该Policy的失效时间，超过这个失效时间之后，就没有办法通过这个policy上传文件了
-		//     "conditions": [
-		//     ["content-length-range", 0, 1048576000] // 设置上传文件的大小限制
-		//     ]
-		// };
-
-		// var accessid= 'LTAIA8GOJGGoRk9E',
-		// accesskey= 'ex8X9Pm8KdyFKggfxlkKGzuv3Vb3Af',
-		var host = 'http://tanlinlinbucket.oss-cn-beijing.aliyuncs.com';
-
-
 		
+		var host = 'http://tanlinlinbucket.oss-cn-beijing.aliyuncs.com';
 
 		var uploader = new plupload.Uploader({
 			runtimes : 'html5,flash,silverlight,html4',
 			browse_button : 'selectfiles', 
-		    //runtimes : 'flash',
 			container: document.getElementById('sso-container'),
 			flash_swf_url : 'lib/plupload-2.1.2/js/Moxie.swf',
 			silverlight_xap_url : 'lib/plupload-2.1.2/js/Moxie.xap',
-
+			multi_selection :false,
 		    url : host,
-
-			// multipart_params: {
-			// 	'Filename': '${filename}', 
-		 //        'key' : '${filename}',
-			// 	'policy': 'eyJleHBpcmF0aW9uIjoiMjAyMC0wMS0wMVQxMjowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF1dfQ==',
-		 //        'OSSAccessKeyId': accessid, 
-		 //        'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
-			// 	'signature': 'o19saGhusYBG64jrqInIFkLIjCs=',
-			// },
 
 			init: {
 				PostInit: function() {
 					document.getElementById('ossfile').innerHTML = '';
 					document.getElementById('postfiles').onclick = function() {
 
-					    _this.set_multipart_params(uploader);
+					    _this.set_multipart_params(uploader,false);
 						
 						return false;
 					};
 				},
 
 				FilesAdded: function(up, files) {
-					console.log("files========>",files);
-					console.log("up--------》",up);
+					
 					if(up.files.length>1){
 						uploader.files.splice(0, 1);
 					}
@@ -200,10 +174,10 @@ import {
 					});
 				},
 
-				BeforeUpload:function(uploader,file){
-					console.log("uploader",uploader);
-					console.log("file",file);
-				},
+				BeforeUpload: function(up, file) {
+		            
+		            _this.set_multipart_params(up,true);
+		        },
 
 				UploadProgress: function(up, file) {
 					var d = document.getElementById(file.id);
@@ -216,11 +190,7 @@ import {
 				},
 				//上传完成
 				FileUploaded: function(up, file, info) {
-					//alert(info.status)
-					console.log("up",up);
-					console.log("file",file);
-					console.log("info",info);
-					console.log("State",State);
+					
 					
 		            if (info.status >= 200 || info.status < 200)
 		            {	
@@ -237,8 +207,7 @@ import {
 				},
 
 				Error: function(up, err) {
-					console.log("err",err);
-					console.log(err.message);
+					
 					document.getElementById('console').appendChild(document.createTextNode("\nError xml:" + err.response));
 				}
 			}
@@ -251,17 +220,12 @@ import {
 
 
 
-	onSubmit=(values)=>{
-	}
+	
 	render(){
-		let {initailPoint} = this.state;
-		const { error, handleSubmit, pristine,mapStyle} = this.props;
+		
 
 		return (
 			<div className="upgrade-plupload">
-
-
-			{/*<form onSubmit={handleSubmit(this.onSubmit)}>*/}
 
 	              
 				<div id="ossfile">你的浏览器不支持HTML5！</div>
@@ -271,24 +235,12 @@ import {
 				</div>
 
 				<div id="console"></div>
-			{/*</form>*/}
+		
 
 
 		  	</div>
 		);
 	}
 }
-const validate = values => {
-	const errors = {}
 
-	// if (!values.email) {
-	// 	errors.email = '请输入邮箱';
-	// }
 
-	return errors
-}
-const selector = formValueSelector('NewCreateForm');
-export default TanLinLin = reduxForm({
-	form: 'TanLinLin',
-	validate,
-})(TanLinLin);

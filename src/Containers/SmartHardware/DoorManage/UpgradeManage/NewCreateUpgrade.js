@@ -38,12 +38,11 @@ class NewCreateUpgradeForm extends React.Component{
 
 	// 新增设备定义
 	onSubmit=(values)=>{
-		console.log("values",values);
-		console.log("State.uploadedInfo",State.uploadedInfo);
-		if(!State.uploadedInfo.url){
-			Message.error("上传升级包有误，请重新上传试试");
-			return;
-		}
+		
+		// if(!State.uploadedInfo.url){
+		// 	Message.error("上传升级包有误，请重新上传试试");
+		// 	return;
+		// }
 		var params = {
 				upgradeType : values.upgradeType,
 				url : State.uploadedInfo.url,
@@ -70,15 +69,7 @@ class NewCreateUpgradeForm extends React.Component{
 						requireLabel={true} 
 
 					/>
-					{/*<KrField 
-											grid={1/2} 
-											name="url" 
-											type="text" 
-											label="升级包地址" 
-											style={{width:'252px'}}
-											requireLabel={true} 
 					
-										/>*/}
 					<KrField grid={1/2} 
 						name="version" 
 						type="text" 
@@ -120,9 +111,7 @@ const validate = values=>{
 	if(!values.upgradeType){
 		errors.upgradeType = '升级类型为必填项';
 	}
-	if(!values.url){
-		errors.url = '升级包地址为必填项';
-	}
+	
 	if(!values.version || /^\s+$/.test(values.version)){
 		errors.version = '版本信息为必填项';
 	}else if(values.version.length>20){
