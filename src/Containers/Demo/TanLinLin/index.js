@@ -1,4 +1,4 @@
-import "babel-polyfill";
+// import "babel-polyfill";
 import React from 'react';
 import {
 	reduxForm,
@@ -13,7 +13,7 @@ import {
 	ListGroupItem,
 } from 'kr-ui';
 import './index.less';
-import plupload from 'plupload/js/plupload.full.min';
+
 
  class TanLinLin extends React.Component{
 	constructor(props){
