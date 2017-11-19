@@ -109,6 +109,11 @@ export default class UpgradePlupload extends React.Component{
 
 
 	set_multipart_params=(uploader,ret)=>{
+		console.log("uploader",uploader);
+		if(uploader.files.length<1){
+			Message.error("请选择文件");
+			return;
+		}
 		let _this = this;
 		if(ret == false){
 			_this.get_signature(uploader);
