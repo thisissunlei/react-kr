@@ -39,10 +39,10 @@ class NewCreateUpgradeForm extends React.Component{
 	// 新增设备定义
 	onSubmit=(values)=>{
 		
-		// if(!State.uploadedInfo.url){
-		// 	Message.error("上传升级包有误，请重新上传试试");
-		// 	return;
-		// }
+		if(!State.uploadedInfo.url){
+			Message.error("上传升级包有误，请重新上传");
+			return;
+		}
 		var params = {
 				upgradeType : values.upgradeType,
 				url : State.uploadedInfo.url,
