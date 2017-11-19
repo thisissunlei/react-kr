@@ -79,7 +79,6 @@ class EditThird extends React.Component {
                     item.value = item.id;
                     return item;
 			    });
-                console.log(SecondSelect);
                 _this.setState({
                     SecondSelect: SecondSelect
                 })

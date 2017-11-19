@@ -74,7 +74,6 @@ export default class ImageShear extends React.Component {
       var moveBox = this.moveBox.getBoundingClientRect();
       var maxLeng = Math.max(imgData.w,imgData.h);
       var w = 0,h = 0,movex = 0,movey = 0;
-      console.log(imgData.w >= imgData.h,">>>>>>")
       if(imgData.w >= imgData.h){
         w = moveBox.width;
         h = w * this.proportion;
@@ -288,7 +287,6 @@ export default class ImageShear extends React.Component {
     //
     isSub = (can,img) =>{
       var maxLeng = Math.max(img.width,img.height);
-      console.log(maxLeng<=can.width,">>>>")
       if(maxLeng<=can.width){
         return false;
       }

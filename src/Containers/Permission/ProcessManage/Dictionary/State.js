@@ -21,7 +21,9 @@ let State = observable({
 		time:+new Date(),
 
 	},
-	data:{}
+	data:{},
+	//动态下拉
+	asynicData:[]
 
 
 });
@@ -41,6 +43,16 @@ State.showView = action(function(item) {
 	});
 
 });
+
+State.getAsyncData = action(function() {
+	let _this = this;
+	Http.request('common-dictionary-list').then(function(response) {
+		_this.asynicData = response.items;
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+});
+
 State.closeAll = action(function() {
 	this.openCreate = false;
 	this.openView = false;
@@ -49,7 +61,9 @@ State.closeAll = action(function() {
 
 State.newCreateDict = action(function(value) {
 	let values = Object.assign({},value)
-	values.itemListStr = JSON.stringify(values.itemListStr);
+	if(values.itemListStr){
+	   values.itemListStr = JSON.stringify(values.itemListStr);
+	}
 	let _this = this;
 
 	Http.request('new-dict-submit',{},values).then(function(response) {
@@ -66,7 +80,9 @@ State.newCreateDict = action(function(value) {
 });
 State.editDict = action(function(value) {
 	let values = Object.assign({},value)
-	values.itemListStr = JSON.stringify(values.itemListStr);
+	if(values.itemListStr){
+	   values.itemListStr = JSON.stringify(values.itemListStr);
+	}
 	delete values.items;
 	let _this = this;
 

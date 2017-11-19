@@ -45,6 +45,7 @@ export default class TextDic extends React.Component{
             wspicFile:"",
             wsPicEnabled:"true",
             wsradio:"",
+            wsMaxLength:''
         }
     }
 
@@ -124,11 +125,9 @@ export default class TextDic extends React.Component{
         var params=toJS(TextDicModel.oldDetail);
         if(params.setting){
             var setting=JSON.parse(params.setting);
-             setting.map((item,index)=>{
-                for(var index in item){ 
-                    paraSetting[index]=item[index];
-                }
-             })
+            for(var index in setting){ 
+                paraSetting[index]=setting[index];
+            }
          }
         for(var item in this.clearText){
             Store.dispatch(change('EditText',item,paraSetting[item]?paraSetting[item]:this.clearText[item])); 

@@ -48,7 +48,6 @@ class EditText  extends React.Component{
         const {onSubmit}=this.props;
         values = Object.assign({},values);
       
-        console.log('frrrr',values);
          
         let itemListStr = [];
         if(values.inputType!='SELECT'&&values.inputType!='CHECK'){
@@ -61,7 +60,7 @@ class EditText  extends React.Component{
             }
         }
 
-        
+        console.log(values,"PPPPPPPPP");
         var valueReg = /^[1-9]\d{0,2}$/;
         var orderNumReg = /^[1-9]\d{0,1}$/;
         var label = true,
@@ -132,8 +131,28 @@ class EditText  extends React.Component{
 
             }
         }
-  
-      
+
+        
+        if(values.itemListStr && values.itemListStr.length){
+
+            //是否有默认值
+            var haveIsDefault = false;
+
+            values.itemListStr.map((item,index)=>{
+                if(!item.isDefault){
+                    item.isDefault = false;
+                } else{
+                    haveIsDefault = true;
+                }
+                
+            })
+            //如果没有默认值则将第一个设为默认值
+            if(!haveIsDefault){
+                values.itemListStr[0].isDefault = true;
+            }
+        }
+
+
         for (var item in values){
             if(item=='wstext'||item=='wsheight'||item=='wsfile'||item=='wspicWidth'||item=='wspicHeight'||item=='wspicFile'){
                 values[item]=values[item].replace(/^0+\./g,'0.'); 
@@ -163,25 +182,26 @@ class EditText  extends React.Component{
 							<div><span className="new-icon"></span><label className="title-text">编辑字段</label></div>
 							<div className="customer-close" onClick={this.onCancel}></div>
 					 </div>
-                       <KrField
+
+                     <KrField
                             grid={1/2}
                             style={{width:262,marginBottom:5}}
+                            name="label"
+                            component="input"
+                            label="字段显示名"
+                            marking={true}
+                        />
+
+
+                       <KrField
+                            grid={1/2}
+                            style={{width:262,marginBottom:5,marginLeft:30}}
                             name="name"
                             component="input"
                             label="字段名称 "
                             requireLabel={true}
                             marking={true}
 						/>
-
-
-                        <KrField
-                            grid={1/2}
-                            style={{width:262,marginBottom:5,marginLeft:30}}
-                            name="label"
-                            component="input"
-                            label="字段显示名"
-                            marking={true}
-                        />
 
 
                             {(toJS(this.props.TextDicModel.oldDetail).inputType)&&<TextDic
@@ -228,29 +248,40 @@ const validate = values =>{
         errors.compType='请填写类型';
     }
 
-    if(values.inputType=='TEXT'){
-        if(values.compType=='TEXT_TEXT'||values.compType=='TEXT_INTEGER'){
-            if(!values.wstext){
-                errors.wstext='请填写文本长度';      
-            }else if(values.wstext&&isNaN(values.wstext)){
-                errors.wstext='文本长度是数字';    
-            }else if(values.wstext&&(values.wstext.length>3||!dataRg.test(values.wstext))){
-                errors.wstext='请填写三位以下不能以0开头的正整数';
+    if (values.inputType == 'TEXT') {
+        if (values.compType != 'TEXT_TEXT' && values.compType != 'TEXT_INTEGER') {
+            if (!values.wsfloat) {
+                errors.wsfloat = '请选择小数位数';
             }
-        }else{
-            if(!values.wsfloat){
-                errors.wsfloat='请选择小数位数';        
-            }    
         }
+
+        if (!values.wstext) {
+            errors.wstext = '请填写文本长度';
+        } else if (values.wstext && isNaN(values.wstext)) {
+            errors.wstext = '文本长度是数字';
+        } else if (values.wstext && (values.wstext.length > 3 || !dataRg.test(values.wstext))) {
+            errors.wstext = '请填写三位以下不能以0开头的正整数';
+        }
+
     }
 
-    if(values.inputType=='TEXT_AREA'){
-        if(values.wsheight&&isNaN(values.wsheight)){
-            errors.wsheight='请选择数字格式';
-        }else if(values.wsheight&&(values.wsheight.length>3||!dataRg.test(values.wsheight))){
-            errors.wsheight='请填写三位以下不能以0开头的正整数';
+    if (values.inputType == 'TEXT_AREA') {
+        if (values.wsheight && isNaN(values.wsheight)) {
+            errors.wsheight = '请选择数字格式';
+        } else if (values.wsheight && (values.wsheight.length > 3 || !dataRg.test(values.wsheight))) {
+            errors.wsheight = '请填写三位以下不能以0开头的正整数';
         }
+
+        if (!values.wstext) {
+            errors.wstext = '请填写文本长度';
+        } else if (values.wstext && isNaN(values.wstext)) {
+            errors.wstext = '文本长度是数字';
+        } else if (values.wstext && (values.wstext.length > 3 || !dataRg.test(values.wstext))) {
+            errors.wstext = '请填写三位以下不能以0开头的正整数';
+        }
+
     }
+
 
     if(values.inputType=='BUTTON'){
         if(!values.wsradio){

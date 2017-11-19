@@ -90,7 +90,6 @@ export default class Tooltip extends React.Component {
 				onMouseOn && onMouseOn();
 			}
 		})
-		console.log("dkdkkdkdk");
 
 	}
 	hideList=()=>{

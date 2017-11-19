@@ -2899,7 +2899,7 @@ var domUtils = dom.domUtils = {
      * ```
      */
     isEmptyInlineElement:function (node) {
-        if (node.nodeType != 1 || !dtd.$removeEmpty[ node.tagName ]) {
+        if ((node && node.nodeType != 1) || !dtd.$removeEmpty[ node.tagName ]) {
             return 0;
         }
         node = node.firstChild;
@@ -3916,10 +3916,9 @@ var domUtils = dom.domUtils = {
      * @return { Boolean } 是否是空元素
      */
     isEmptyBlock:function (node,reg) {
-        if(node.nodeType != 1)
+        if (node && node.nodeType != 1)
             return 0;
         reg = reg || new RegExp('[ \xa0\t\r\n' + domUtils.fillChar + ']', 'g');
-
         if (node[browser.ie ? 'innerText' : 'textContent'].replace(reg, '').length > 0) {
             return 0;
         }
@@ -7871,7 +7870,10 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * ```
          */
         getLang: function (path) {
-            var lang = UE.I18N[this.options.lang];
+            var lang = '';
+            if (this.options){
+                lang = UE.I18N[this.options.lang];
+            }
             if (!lang) {
                 throw Error("not import language file");
             }
@@ -9373,6 +9375,9 @@ var htmlparser = UE.htmlparser = function (htmlstr,ignoreBlank) {
         b:1,code:1,i:1,u:1,strike:1,s:1,tt:1,strong:1,q:1,samp:1,em:1,span:1,
         sub:1,img:1,sup:1,font:1,big:1,small:1,iframe:1,a:1,br:1,pre:1
     };
+    if (typeof htmlstr !== "string"){
+        htmlstr = "";
+    }
     htmlstr = htmlstr.replace(new RegExp(domUtils.fillChar, 'g'), '');
     if(!ignoreBlank){
         htmlstr = htmlstr.replace(new RegExp('[\\r\\t\\n'+(ignoreBlank?'':' ')+']*<\/?(\\w+)\\s*(?:[^>]*)>[\\r\\t\\n'+(ignoreBlank?'':' ')+']*','g'), function(a,b){
@@ -23902,7 +23907,7 @@ UE.plugin.register('autosave', function (){
     return {
         defaultOptions: {
             //默认间隔时间
-            saveInterval: 500
+            saveInterval:500
         },
         bindEvents:{
             'ready':function(){
@@ -23922,6 +23927,8 @@ UE.plugin.register('autosave', function (){
             },
 
             'contentchange': function () {
+
+                
 
                 if ( !saveKey ) {
                     return;

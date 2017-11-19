@@ -71,7 +71,6 @@ export default class SelectComponent extends React.Component {
 
 
 		if(this.props.onChangeOneOperation){
-			console.log("dkdkdkdkkdkdkdkkdkdkd")
 			let {onInputValue} = this.props;
 			onInputValue && onInputValue(value);
 		}
