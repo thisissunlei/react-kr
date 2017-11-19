@@ -40,7 +40,7 @@ class NewCreateUpgradeForm extends React.Component{
 	onSubmit=(values)=>{
 		
 		if(!State.uploadedInfo.url){
-			Message.error("上传升级包有误，请重新上传");
+			Message.error("升级包地址有误，请重新上传");
 			return;
 		}
 		var params = {
