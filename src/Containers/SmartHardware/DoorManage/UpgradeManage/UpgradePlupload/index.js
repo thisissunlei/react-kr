@@ -97,7 +97,7 @@ export default class UpgradePlupload extends React.Component{
 						'uid' :  response.uid,
 						'callback': response.callback,
 						'X:original_name': uploader.files[0].name,
-						"Content-Disposition": uploader.files[0].name
+						"Content-Disposition": "attachment;filename="+uploader.files[0].name
 
 					},
 
