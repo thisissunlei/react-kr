@@ -79,6 +79,7 @@ export default class UpgradePlupload extends React.Component{
 			_this.setState({
 				expire : response.expireAt
 			})
+
 			
 			uploader.setOption({
 		        'url': response.serverUrl,
@@ -87,7 +88,7 @@ export default class UpgradePlupload extends React.Component{
 			        max_file_size : response.maxSizeKb,
 			    },
 		        'multipart_params': {
-						
+						'Filename': uploader.files[0].name,
 				        'key' : response.pathPrefix+fileNameRandom,
 						'policy': response.policy,
 				        'OSSAccessKeyId': response.ossAccessKeyId, 
