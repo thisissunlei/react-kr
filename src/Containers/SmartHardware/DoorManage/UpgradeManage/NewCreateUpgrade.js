@@ -38,7 +38,7 @@ class NewCreateUpgradeForm extends React.Component{
 
 	// 新增设备定义
 	onSubmit=(values)=>{
-		
+
 		var upgradeTime = values.upgradeDate.substr(0,10)+" "+values.upgradeTime;
 		var  upgradTimestamp = new Date(upgradeTime).getTime();
 		
@@ -119,6 +119,7 @@ class NewCreateUpgradeForm extends React.Component{
 									</Row>
 								</Grid>
 					<p className="upgrade-tip-text">注意：提交之前请确保已经上传升级包</p>
+					<p className="upgrade-tip-text-time">考虑到网络原因，尽量不要选距当前时间太近的升级时间</p>
 					
 					<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px'}}>
@@ -157,9 +158,9 @@ const validate = values=>{
 		errors.upgradeDate = '请完整选择升级时间';
 	}else{
 		var upgradeTime = values.upgradeDate.substr(0,10)+" "+values.upgradeTime;
-		var  upgradTimestamp = new Date(upgradeTime).getTime();
+		var upgradTimestamp = new Date(upgradeTime).getTime();
 		var nowTime = new Date().getTime();
-		if(nowTime+3>upgradTimestamp){
+		if(nowTime+200>upgradTimestamp){
 			errors.upgradeDate = '升级时间只能是未来时间';
 		}
 	}
