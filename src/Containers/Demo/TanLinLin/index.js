@@ -64,12 +64,6 @@ import './index.less';
 									</ListGroup>
 								</Row>
 							</Grid>
-							{/*<div id="drop-box" style={{width:"100%",height:100,border:"solid 1px #eee",borderRadius:5,marginBottom:6}}></div>
-							<div id="ossfile">你的浏览器不支持flash,Silverlight或者HTML5！</div>
-							<div id="sso-container">
-								<a id="selectfiles" href="javascript:void(0);" className='btn' style={{display:"inline-block",marginRight:10}}>选择文件</a>
-								<a id="postfiles" href="javascript:void(0);" className='btn'>开始上传</a>
-							</div>*/}
 
 
 					</form>
@@ -85,7 +79,6 @@ const validate = values => {
 	// if (!values.email) {
 	// 	errors.email = '请输入邮箱';
 	// }
-
 
 	return errors
 }
