@@ -47,7 +47,7 @@ class NewCreateUpgradeForm extends React.Component{
 		var params = {
 				upgradeType : values.upgradeType,
 				url : State.uploadedInfo.url,
-				version :values.version,
+				version :values.version || '',
 				versionCode : values.versionCode,
 			}
 
