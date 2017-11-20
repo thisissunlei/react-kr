@@ -23,6 +23,7 @@ import {
 	TableRowColumn,
 	Tooltip,
 	Dialog,
+	DrawerTitle
 } from 'kr-ui';
 import mobx, {
 	observable,
@@ -132,14 +133,7 @@ class CreateNewList extends React.Component {
 		return (
 			<div className="g-agreement-trim-list">
 				<div className="u-title-box">
-						<img className="u-title-img" src={require('./images/activity.svg')} />
-						<span className="u-title-text">合同调整</span>
-						<span className="u-close-page" onClick={this.onCancel}>
-							<img 
-								src={require('./images/closeIMG.svg')} 
-								className="u-close-page-img"
-							 />
-						</span>
+					<DrawerTitle title ='合同调整' onCancel = {this.onCancel}/>
 					</div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 					<CircleStyleTwo num="1" info="选择客户">
