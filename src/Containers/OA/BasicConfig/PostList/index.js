@@ -179,7 +179,6 @@ export default class PostList extends Component{
 		let {subCompany} = this.state;
 		var _this=this;
        Http.request('post-list-watch',{id:id}).then(function(response) {
-		   console.log(response,subCompany,">>>>>>>>")
 		   if(response.enabled){
 			 response.enabled='true'
 		   }else{

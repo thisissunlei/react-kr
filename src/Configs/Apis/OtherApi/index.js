@@ -208,6 +208,28 @@ const APIS = {
          url: '/api/krspace-finance-web/cmt/community/select-list',
          method: 'get'
       },
+    //我发起的--流程列表
+    'my-request-list':{
+      url: '/api/krspace-erp-web/wf/request/list/type/my-request?page={page}&typeId={typeId}&wfId={wfId}&pageSize={pageSize}',
+      method: 'get'
+    },
+    //我发起的--流程树列表
+    'my-request-tree':{
+      url: '/api/krspace-erp-web/wf/base/tree/type/my-request',
+      method: 'get'
+    },
+    'get-sql-list':{
+       url: '/api/krspace-erp-web/sys/form-sql/search?executed={executed}&name={name}&page={page}&pageSize={pageSize}&typeId={typeId}',
+       method: 'get'
+    },
+    'form-sql-execute':{
+       url: '/api/krspace-erp-web/sys/form-sql/execute',
+       method: 'post'
+    },
+    'form-sql-invalid':{
+       url: '/api/krspace-erp-web/sys/form-sql/invalid',
+       method: 'post'
+    },
     
 
     

@@ -63,7 +63,6 @@ class EditFirst extends React.Component {
     
     render() {
         const {handleSubmit,detail} = this.props;
-        console.log(detail);
         return (
 
             <div>

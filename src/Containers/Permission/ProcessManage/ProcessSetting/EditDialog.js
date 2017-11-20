@@ -31,7 +31,6 @@ class EditDialog extends Component {
     componentDidMount() {
         var _this = this;
         if(this.props.type=="all"){
-            console.log(this.props.itemDetail);
             var typeId = this.props.itemDetail.id;
         }else{
             var typeId = this.props.detail.typeId;
@@ -40,7 +39,6 @@ class EditDialog extends Component {
                 typeId: typeId,
             },{}).then(function(response) {
                   response.enable = response.enable.toString();
-                  console.log(typeof response.enable);
                 _this.setState({infoList: response},function(){
                   Store.dispatch(initialize('EditDialog', _this.state.infoList));
                 })
@@ -51,7 +49,6 @@ class EditDialog extends Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
-        console.log(form);
         const {onSubmit,detail} = this.props;
         var params = Object.assign({},form);
         onSubmit && onSubmit(params);
@@ -68,11 +65,11 @@ class EditDialog extends Component {
                     style={{width:262,marginTop:6,marginRight:28,marginLeft:35}}
                     inline={false}
                     grid={1/2}
-                    label="流程类型名称"
+                    label="合同类型名称"
                     component="input"
                     name="name"
                     requireLabel={true}
-                    placeholder="请输入流程类型名称"
+                    placeholder="请输入合同类型名称"
                 />
                 <KrField
                     style={{width:262,marginTop:6}}
@@ -129,9 +126,9 @@ const validate = values => {
 
 	const errors = {}
 	if (!values.name) {
-		errors.name = '请输入流程类型名称';
+		errors.name = '请输入合同类型名称';
 	}else if (values.name.length>10) {
-		errors.name = '流程类型名称最多10个字符！';
+		errors.name = '合同类型名称最多10个字符！';
 	}
     
     if (!values.orderNum) {

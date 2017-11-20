@@ -175,7 +175,79 @@ function isArray(arr){
 function isObject(object){
   return Object.prototype.toString.call(object)=='[object Object]';
 }
+//模板渲染
+function dataToTemplate(template, data){
+  var t, key, reg;
+　　　 //遍历该数据项下所有的属性，将该属性作为key值来查找标签，然后替换
+  for (key in data) {
+      if(typeJudgment(data[key])=="[object Object]"||typeJudgment(data[key])=="[object Array]"){
+        t = dataToTemplate(template,data[key]);
+      }else{
+        reg = new RegExp('{{' + key + '}}', 'ig');
+        t = (t || template).replace(reg, data[key]);
+      }
+     
+  }
+  return t;
+};
+//类型判断
+function typeJudgment (data){
+  return Object.prototype.toString.call(data);
+}
 
+/** 数字金额大写转换(可以处理整数,小数,负数) */
+function smalltoBIG(n) {
+  var fraction = ['角', '分'];
+  var digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+  var unit = [['元', '万', '亿'], ['', '拾', '佰', '仟']];
+  var head = n < 0 ? '欠' : '';
+  n = Math.abs(n);
+
+  var s = '';
+
+  for (var i = 0; i < fraction.length; i++) {
+    s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');
+  }
+  s = s || '整';
+  n = Math.floor(n);
+
+  for (var i = 0; i < unit[0].length && n > 0; i++) {
+    var p = '';
+    for (var j = 0; j < unit[1].length && n > 0; j++) {
+      p = digit[n % 10] + unit[1][j] + p;
+      n = Math.floor(n / 10);
+    }
+    s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;
+  }
+  return head + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整');
+}  
+//判断操作系统类型
+function systemJudge() {
+    var mac = /macintosh|mac os x/i.test(navigator.userAgent);
+    var win = /windows|win32/i.test(navigator.userAgent);
+    if(mac){
+      return "mac";
+    }
+    if(win){
+      return "window";
+    }
+}
+//获取名目的DPI
+function js_getDPI() {
+  var arrDPI = new Array();
+  if (window.screen.deviceXDPI != undefined) {
+    arrDPI[0] = window.screen.deviceXDPI;
+    arrDPI[1] = window.screen.deviceYDPI;
+  } else {
+    var tmpNode = document.createElement("DIV");
+    tmpNode.style.cssText = "width:1in;height:1in;position:absolute;left:0px;top:0px;z-index:99;visibility:hidden";
+    document.body.appendChild(tmpNode);
+    arrDPI[0] = parseInt(tmpNode.offsetWidth);
+    arrDPI[1] = parseInt(tmpNode.offsetHeight);
+    tmpNode.parentNode.removeChild(tmpNode);
+  }
+  return arrDPI;
+}
 
 module.exports = {
   numberToSign,
@@ -187,5 +259,10 @@ module.exports = {
   arrDelEle,
   arrReverse,
   isArray,
-  isObject
+  isObject,
+  dataToTemplate,
+  typeJudgment,
+  smalltoBIG,
+  systemJudge,
+  js_getDPI
 }

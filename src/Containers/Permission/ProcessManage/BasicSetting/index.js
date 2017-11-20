@@ -42,6 +42,7 @@ import DeleteDialog from './DeleteDialog';
 import EditDialog from './EditDialog';
 import Basic from './Basic';
 import InitiatorSetting from './InitiatorSetting';
+import Template from './Template';
 import { observer, inject } from 'mobx-react';
 
 @inject("NavModel")
@@ -79,7 +80,7 @@ export default class BasicSetting extends React.Component {
 		var _this = this;
 		var form = Object.assign({},params);
 		form.formId = form.formId[0].orgId;
-		form.hrmResourceId = form.hrmResourceId[0].orgId;
+		form.resourceId = form.resourceId[0].orgId;
 		Http.request('process-edit', {}, form).then(function (response) {
 			Message.success('保存成功');
 			// _this.changeP();
@@ -89,7 +90,7 @@ export default class BasicSetting extends React.Component {
 	}
     //返回
     toBack=()=>{
-        window.location.href='./#/permission/processManage/processSetting'
+        window.location.href='./#/permission/processManage/processSetting?typeList=false'
     }
     //改变页码
     changeP=()=>{
@@ -112,25 +113,44 @@ export default class BasicSetting extends React.Component {
 	render() {
 		console.log(this.state.infoList);
         let {item,itemDetail} = this.state;
+
 		return (
 			<div className="g-basic-setting">
                 <div className="center-row">
                     <div className="department">
-                        <div className="department-logo">
+                        {/*<div className="department-logo">
                             <span>
                                 {this.state.infoList.name?this.state.infoList.name.substring(0,2):''}
                             </span>
                         </div>
                         <div className="department-name">
                             {this.state.infoList.name}
-                        </div>
-                        <div className="department-tab-list">
-                            <div className="department-tab department-tab-active" style={{cursor:"default"}}>
-                                基础设置
-                            </div>
-                            
-                        </div>
+                        </div>*/}
+                        <TabCs
+			                 isDetail='iconTab'
+			                 label = {this.state.infoList.name}
+			                 >
+			                    <TabC label='基础设置'>
+			                    	<div style={{height:30}}></div>
 
+			                      <TabCs isDetail='process'>
+				                    <TabC label='基本信息'> 
+				                        <Basic id={this.props.params.processId} onSubmit = {this.onSaveSubmit}/>
+				                    </TabC> 
+				                    
+				                    <TabC label='发起人设置'> 
+				                        <InitiatorSetting id={this.props.params.processId} />
+				                    </TabC> 
+				                 </TabCs>
+
+			                    </TabC>
+
+			                 <TabC label='合同模板'>
+			                  	<Template id={this.props.params.processId} formId={this.state.infoList.formId} />
+			                 </TabC>
+			               
+
+			             </TabCs>
                     </div>
                         
                     <div className="button-group">
@@ -148,15 +168,7 @@ export default class BasicSetting extends React.Component {
                     </div>
 
 				</div>
-				<TabCs isDetail='process'>
-                    <TabC label='基本信息'> 
-                        <Basic id={this.props.params.processId} onSubmit = {this.onSaveSubmit}/>
-                    </TabC> 
-                    
-                    <TabC label='发起人设置'> 
-                        <InitiatorSetting id={this.props.params.processId} />
-                    </TabC> 
-                 </TabCs>
+				
             </div>
 
 		);

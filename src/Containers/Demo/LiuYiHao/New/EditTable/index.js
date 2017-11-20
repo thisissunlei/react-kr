@@ -48,7 +48,6 @@ class EditTable extends React.Component {
 		const {
 			onSubmit
 		} = this.props;
-		console.log("KKKKKK")
 		onSubmit && onSubmit();
 	}
 	componentDidMount() {

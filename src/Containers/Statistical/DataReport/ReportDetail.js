@@ -65,10 +65,6 @@ export default class ReportDetail extends React.Component{
 	}
 
 
-	/*onSearchSubmit=(value)=>{
-      console.log('value',value);
-	}*/
-
 	render(){
 
 		return(

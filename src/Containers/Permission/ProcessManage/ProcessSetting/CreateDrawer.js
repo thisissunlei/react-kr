@@ -51,7 +51,7 @@ class CreateDrawer extends React.Component {
 		Store.dispatch(change('CreateDrawer','newRequestShow',"true"));
 		Store.dispatch(change('CreateDrawer','allowRequest',"true"));
 		if(this.props.detail.typeId!='0'){
-			Store.dispatch(change('CreateDrawer','wfTypeId',this.props.detail.typeId))
+			Store.dispatch(change('CreateDrawer','typeId',this.props.detail.typeId))
 		}
 	}
 	onCancel = () => {
@@ -92,7 +92,7 @@ class CreateDrawer extends React.Component {
 				<div className="u-creat-drawer">
 			     <div className="u-audit-add-title">
 			     	<span className="u-audit-add-icon"></span>
-			     	<span>新建流程</span>
+			     	<span>新建合同</span>
 			     	<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
 			     </div>
 			     <form ref="creatDrawer" onSubmit={handleSubmit(this.onSubmit)} >
@@ -100,7 +100,7 @@ class CreateDrawer extends React.Component {
 						<KrField
 								style={{width:260}}
 								name="name"
-								label="流程名称"
+								label="合同名称"
 								component="input"
 								requireLabel={true}
 						/>
@@ -108,15 +108,15 @@ class CreateDrawer extends React.Component {
 								style={{width:260,marginLeft:25}}
 								name="code"
 								component="input"
-								label="流程编码"
+								label="合同编码"
 								requireLabel={true}
 						/>
 						<KrField
 								style={{width:260,marginTop:4}}
-								name="wfTypeId"
+								name="typeId"
 								type="text"
 								component="SearchProcessType"
-								label="流程类型"
+								label="合同类型"
 								requireLabel={true}
 						/>
 						<KrField
@@ -141,7 +141,7 @@ class CreateDrawer extends React.Component {
 						<KrField
                             grid={1/2}
                             style={{width:260,marginLeft:25,marginTop:4}}
-                            name="hrmResourceId"
+                            name="resourceId"
                             component="treePersonnel"
                             label="对接人"
                             requireLabel={true}
@@ -150,7 +150,7 @@ class CreateDrawer extends React.Component {
 						
 						<KrField
 								style={{width:548,marginTop:4}}
-								name="baseDesc"
+								name="descr"
 								component="textarea"
 								label="描述"
 								maxSize={200}
@@ -159,7 +159,7 @@ class CreateDrawer extends React.Component {
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="开关设置" circle="bottom">
 						<Grid style={{marginTop:50,width:'81%'}}>
-							<KrField style={{width:220,marginBottom:16}}  name="allowRequest" component="group" label="发起流程请求" inline={false} requireLabel={true}>
+							<KrField style={{width:220,marginBottom:16}}  name="allowRequest" component="group" label="发起合同请求" inline={false} requireLabel={true}>
 								<KrField
 										name="allowRequest"
 										label="允许"
@@ -193,7 +193,7 @@ class CreateDrawer extends React.Component {
 						<Col md={12} align="center">
 							<ButtonGroup>
 								<Button  label="确定" type="submit" onTouchTap={this.commonSubmit}/>
-								<Button  label="保存并进入流程配置" width={178} cancle={true} type="submit" onTouchTap={this.basicSubmit}/>
+								<Button  label="保存并进入合同配置" width={178} cancle={true} type="submit" onTouchTap={this.basicSubmit}/>
 							</ButtonGroup>
 						  </Col>
 						</Row>
@@ -211,22 +211,22 @@ class CreateDrawer extends React.Component {
 		const errors = {};
 
 		if (!values.name) {
-			errors.name = '请输入流程名称';
+			errors.name = '请输入合同名称';
 		}else if (values.name.length>20) {
-			errors.name = '流程名称最多20个字符！';
+			errors.name = '合同名称最多20个字符！';
 		}   
 		if (!values.code) {
-			errors.code = '请输入流程编码';
+			errors.code = '请输入合同编码';
 		}
-		if (!values.wfTypeId) {
-			errors.wfTypeId = '请选择流程类型';
+		if (!values.typeId) {
+			errors.typeId = '请选择合同类型';
 		}
 		if (!values.orderNum) {
 			errors.orderNum = '请输入排序号';
 		}
 
-		if (!values.hrmResourceId) {
-			errors.hrmResourceId = '请选择对接人';
+		if (!values.resourceId) {
+			errors.resourceId = '请选择对接人';
 		}
 		if (!values.formId) {
 			errors.formId = '请输入表单名称';

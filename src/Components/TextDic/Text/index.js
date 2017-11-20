@@ -38,19 +38,20 @@ export default class Text  extends React.Component{
 
     
     componentDidMount(){
-        let {TextDicModel}=this.props;     
+        let {TextDicModel}=this.props;    
         if(toJS(TextDicModel.oldDetail).sourceType&&(toJS(TextDicModel.oldDetail).inputType=='SELECT'||toJS(TextDicModel.oldDetail).inputType=='CHECK')){
-          this.commonPublic(toJS(TextDicModel.oldDetail).sourceType);      
+          this.commonPublic(toJS(TextDicModel.oldDetail).sourceType);  
+          TextDicModel.itemStr=0;    
         }
     }
-
+    
 
     clearModel=()=>{
         this.models=null;	  
     }
     
     
-    commonPublic=(param)=>{         
+    commonPublic=(param)=>{       
         if(param=='PUBLIC_DICT'){     
             this.models=this.sourceRender();
         }else if(param=="CUSTOM"){     
@@ -117,43 +118,61 @@ export default class Text  extends React.Component{
 
     inputTextRender=()=>{
         this.clearModel();
-        return <KrField
-                    grid={1/2}
-                    style={{width:262,marginBottom:5}}
-                    name="wstext"
-                    component="input"
-                    label="文本长度"
-                    requireLabel={true}
-                    marking={true}
-                   
-                />
+        return (
+            <KrField
+                grid={1 / 2}
+                style={{ width: 262, marginBottom: 5}}
+                name="wstext"
+                component="input"
+                label="最大长度"
+                requireLabel={true}
+            />
+        )
     }
-
+    
     floatTextRender=()=>{
         this.clearModel();
-        return <KrField
-                    grid={1/2}
-                    style={{width:262,marginBottom:5}}
-                    name="wsfloat"
-                    component="select"
-                    label="小数位数"
-                    options={[{label:'1',value:'1'},{label:'2',value:'2'},{label:'3',value:'3'},{label:'4',value:'4'}]}
-                    requireLabel={true}
-                />
+        var arr = [];
+        arr.push(<KrField
+                grid={1 / 2}
+                style={{ width: 262, marginBottom: 5 }}
+                name="wsfloat"
+                component="select"
+                label="小数位数"
+                options={[{ label: '1', value: '1' }, { label: '2', value: '2' }, { label: '3', value: '3' }, { label: '4', value: '4' }]}
+                requireLabel={true}
+        />)
+        arr.push(this.maxLength())
+        return arr;
+            
     }
-
+    maxLength = () =>{
+        return (
+            <KrField
+                grid={1 / 2}
+                style={{ width: 262, marginBottom: 5 ,marginLeft:30}}
+                name="wstext"
+                component="input"
+                label="最大长度"
+                requireLabel={true}
+            />
+        )
+    }
     heightRender=()=>{
         this.clearModel();
-        return <KrField
-                    grid={1/2}
-                    style={{width:262,marginBottom:5}}
-                    name="wsheight"
-                    component="input"
-                    label="高度"
-                    
-                />
-    }
+        var arr = [];
+        arr.push(<KrField
+            grid={1 / 2}
+            style={{ width: 262, marginBottom: 5 }}
+            name="wsheight"
+            component="input"
+            label="高度"
 
+        />)
+        arr.push(this.maxLength())
+        return arr;
+    }
+   
     buttonRender=()=>{
         this.clearModel();
         return (
@@ -164,7 +183,7 @@ export default class Text  extends React.Component{
                     name="wsradio"
                     component="select"
                     label="按钮类型"
-                    options={[{label:'分部',value:'wsfen'},{label:'部门',value:'wsbu'},{label:'职务',value:'wszhi'},{label:'职级',value:'wsji'},{label:'人员',value:'wsren'}]}
+                    options={[{label:'城市',value:'btnCity'},{label:'地址',value:'btnAddress'}]}
                     requireLabel={true}
                 />
                 <div className='m-form-radio'><KrField grid={1/2} style={{width:262,marginLeft:'30px'}} name="wsenabled" component="group" label="是否多选" requireLabel={true}>
@@ -326,6 +345,7 @@ export default class Text  extends React.Component{
 
 
 	render(){
+
                 let {label,TextDicModel}=this.props;
                 if(TextDicModel.itemStr==1){
                     this.models=null;

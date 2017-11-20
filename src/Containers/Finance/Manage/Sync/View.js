@@ -80,7 +80,6 @@ class NewCreateForm extends React.Component {
 	onSubmit = (values) => {
 		let data = Object.assign({}, values);
 		data.cmtIds =this.cmtIdData();
-		console.log('=============',data)
 		const {onSubmit} = this.props;
 		var _this = this;
 		Http.request('get-tongbu-submit', {}, data).then(function(response) {
@@ -153,7 +152,6 @@ class NewCreateForm extends React.Component {
 			readyData
 		} = this.state;
 		let host = "http://"+window.location.host;
-		console.log("http://"+window.location.host);
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">

@@ -63,6 +63,16 @@ export default class AllTypes extends React.Component {
 		}
 	}
 	componentDidMount() {
+        console.log('all=======>',window.location.hash)
+        let arr = window.location.hash.split('=');
+        console.log(arr[1])
+        if(arr[1]==='false'){
+            console.log('============>')
+            this.setState({
+                tabSelect:2
+            })
+        }
+
 		
 		
 		var _this = this;
@@ -71,7 +81,11 @@ export default class AllTypes extends React.Component {
     checkTab = (item) => {
 		this.setState({
 			tabSelect: item,
-		})
+		},function(){
+            if(item === 1){
+                window.location.href='./#/permission/processManage/processSetting'
+            }
+        })
 	}
     onSerchSubmit = (form) => {
 		var searchParams = Object.assign({},this.state.searchParams);
@@ -136,7 +150,7 @@ export default class AllTypes extends React.Component {
         const {onSubmit} = this.props;
         var params = Object.assign({},params);
         params.formId=params.formId[0].orgId;
-        params.hrmResourceId = params.hrmResourceId[0].orgId;
+        params.resourceId = params.resourceId[0].orgId;
 		var _this = this;
 		Http.request('process-add', {}, params).then(function (response) {
 			_this.openCreateDrawer();
@@ -151,7 +165,7 @@ export default class AllTypes extends React.Component {
         const {onSubmit} = this.props;
         var params = Object.assign({},form);
         params.formId=params.formId[0].orgId;
-        params.hrmResourceId = params.hrmResourceId[0].orgId;
+        params.resourceId = params.resourceId[0].orgId;
         var _this = this;
         Http.request('process-add', {}, params).then(function (response) {
 			_this.openCreateDrawer();
@@ -248,7 +262,7 @@ export default class AllTypes extends React.Component {
                                         类型列表
                                     </div>
                                     <div className={`department-tab ${this.state.tabSelect == 2 ? 'department-tab-active' : ''}`} onClick={this.checkTab.bind(this, 2)}>
-                                        流程列表
+                                        合同列表
                                     </div>
                                 </div>
 
@@ -277,7 +291,7 @@ export default class AllTypes extends React.Component {
                             onPageChange={this.onPageChange}
                         >
                             <TableHeader>
-                                <TableHeaderColumn>流程类型</TableHeaderColumn>
+                                <TableHeaderColumn>合同类型</TableHeaderColumn>
                                 <TableHeaderColumn>排序号</TableHeaderColumn>
                                 <TableHeaderColumn>描述</TableHeaderColumn>
                                 <TableHeaderColumn>操作人</TableHeaderColumn>
@@ -344,11 +358,11 @@ export default class AllTypes extends React.Component {
                             onPageChange={this.onPageChange}
                         >
                             <TableHeader>
-                                <TableHeaderColumn>流程名称</TableHeaderColumn>
-                                <TableHeaderColumn>流程编码</TableHeaderColumn>
-                                <TableHeaderColumn>流程类型</TableHeaderColumn>
+                                <TableHeaderColumn>合同名称</TableHeaderColumn>
+                                <TableHeaderColumn>合同编码</TableHeaderColumn>
+                                <TableHeaderColumn>合同类型</TableHeaderColumn>
                                 <TableHeaderColumn>顺序</TableHeaderColumn>
-                                <TableHeaderColumn>发起流程请求</TableHeaderColumn>
+                                <TableHeaderColumn>发起合同请求</TableHeaderColumn>
                                 <TableHeaderColumn>新办是否显示</TableHeaderColumn>
                                 <TableHeaderColumn>表单名称</TableHeaderColumn>
                                 <TableHeaderColumn>描述</TableHeaderColumn>
@@ -459,7 +473,7 @@ export default class AllTypes extends React.Component {
                     </div>
                 }
                 <Dialog
-					title="新建流程类型"
+					title="新建合同类型"
 					modal={true}
 					open={this.state.openCreateDialog}
 					onClose={this.openCreateDialog}
@@ -470,7 +484,7 @@ export default class AllTypes extends React.Component {
 					<CreateDialog detail={this.state.searchParams} onSubmit={this.onCreatSubmit} onCancel={this.openCreateDialog} />
 				</Dialog>
                 <Dialog
-					title="编辑流程类型"
+					title="编辑合同类型"
 					modal={true}
 					open={this.state.openEditDialog}
 					onClose={this.openEditDialog}
