@@ -239,7 +239,7 @@ export default class List extends React.Component {
 			          title="批量升级"
 			          open={State.batchUpgradeDialog}
 			          onClose={this.openBatchUpgradeDialog}
-			          contentStyle={{width:470,height:270}}
+			          contentStyle={{width:470}}
 			        >
 			          <BatchUpgrade onCancle={State.openBatchUpgradeDialog} detail={itemDetail}/>
 			        </Dialog>

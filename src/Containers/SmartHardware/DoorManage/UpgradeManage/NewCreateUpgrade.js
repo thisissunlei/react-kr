@@ -39,8 +39,6 @@ class NewCreateUpgradeForm extends React.Component{
 	// 新增设备定义
 	onSubmit=(values)=>{
 
-		var upgradeTime = values.upgradeDate.substr(0,10)+" "+values.upgradeTime;
-		var  upgradTimestamp = new Date(upgradeTime).getTime();
 		
 		if(!State.uploadedInfo.url){
 			Message.error("升级包地址有误，请重新上传");
@@ -51,7 +49,6 @@ class NewCreateUpgradeForm extends React.Component{
 				url : State.uploadedInfo.url,
 				version :values.version,
 				versionCode : values.versionCode,
-				upgradeTime : upgradTimestamp
 			}
 
 
@@ -98,28 +95,11 @@ class NewCreateUpgradeForm extends React.Component{
 													style={{width:'252px'}}
 												/>
 											</ListGroupItem>
-											<ListGroupItem style={{marginTop:32,padding:0,marginRight:25}}></ListGroupItem>
-											<ListGroupItem style={{width:262,textAlign:'left'}}>
-												<KrField
-													name="upgradeDate"
-													component="date"
-													style={{width:170}}
-													requireLabel={true}
-													label='升级时间'
-													onChange = {this.beginDateChange}
-												/>
-												<KrField
-													name="upgradeTime"
-													component="selectTime"
-													style={{width:80,marginTop:14,zIndex:10}}
-													onChange = {this.beginTimeChange}
-													/>
-											</ListGroupItem>
+											
 										</ListGroup>
 									</Row>
 								</Grid>
 					<p className="upgrade-tip-text">注意：提交之前请确保已经上传升级包</p>
-					<p className="upgrade-tip-text-time">考虑到网络原因，尽量不要选距当前时间太近的升级时间</p>
 					
 					<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px'}}>
@@ -154,16 +134,7 @@ const validate = values=>{
 	if(values.versionCode &&!numberNotZero.test(values.versionCode)){
 		errors.versionCode = '版本编码必须为正整数';
 	}
-	if(!values.upgradeDate||!values.upgradeTime){
-		errors.upgradeDate = '请完整选择升级时间';
-	}else{
-		var upgradeTime = values.upgradeDate.substr(0,10)+" "+values.upgradeTime;
-		var upgradTimestamp = new Date(upgradeTime).getTime();
-		var nowTime = new Date().getTime();
-		if(nowTime+200>upgradTimestamp){
-			errors.upgradeDate = '升级时间只能是未来时间';
-		}
-	}
+	
 	
 	return errors;
 }
