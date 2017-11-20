@@ -8,7 +8,8 @@ import {
 	reduxForm,
 } from 'redux-form';
 import {
-	KrField
+	KrField,
+	DrawerTitle
 } from 'kr-ui';
 import './index.less';
 
@@ -64,11 +65,7 @@ export default class ItemDetail extends React.Component {
 		return (
 			<div className="u-audit-add">
 			     <div className="u-audit-add-title">
-			     	<span className="u-vouch-add-icon"></span>
-			     	<span>凭证详情</span>
-			     	<span className="u-audit-close" style={{
-								marginRight: 40
-						}} onTouchTap={this.onCancel}></span>
+			     	<DrawerTitle title ="凭证详情" onCancel = {this.onCancel}/>
 			     </div>
 
 					 <div style={{marginLeft:46,marginTop:30}}>

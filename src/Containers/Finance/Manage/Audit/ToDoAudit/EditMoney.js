@@ -26,6 +26,7 @@ import {
 	CircleStyleTwo,
 	Message,
 	LoadingTwo,
+	DrawerTitle,
 	KrDate
 } from 'kr-ui';
 import './index.less';
@@ -788,9 +789,7 @@ class EditMoney extends React.Component {
 			return (
 				<div className="u-audit-add u-audit-edit">
 			     <div className="u-audit-add-title">
-			     	<span className="u-audit-add-icon"></span>
-			     	<span>编辑回款</span>
-			     	<span className="u-audit-close" style={{marginRight:40}} onTouchTap={this.onCancel}></span>
+                    <DrawerTitle title ="编辑回款" onCancel = {this.onCancel}/>
 			     </div>
 					 {topInfoList.length>0?this.renderTable(topInfoList):''}
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
