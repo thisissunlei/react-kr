@@ -88,6 +88,8 @@ class NewCreateUpgradeForm extends React.Component{
 							</ListGroup>
 						</Row>
 					</Grid>
+					<p className="upgrade-tip-text-time">考虑到网络原因，尽量不要选距当前时间太近的升级时间</p>
+					
 					<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px',marginTop:35}}>
 							<ListGroup >
@@ -100,7 +102,6 @@ class NewCreateUpgradeForm extends React.Component{
 							</ListGroup>					
 						</Row>
 					</Grid>
-					<p className="upgrade-tip-text-time">考虑到网络原因，尽量不要选距当前时间太近的升级时间</p>
 					
 				</form>
 			</div>
