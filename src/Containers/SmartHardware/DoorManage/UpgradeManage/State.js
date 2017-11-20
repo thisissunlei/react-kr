@@ -53,7 +53,8 @@ State.NewCreateUpgrade = action(function(values) {
 			page:1,
 			pageSize:15,
 			date : new Date()
-		}
+		};
+		State.uploadedInfo = {};
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
