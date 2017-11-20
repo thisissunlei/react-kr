@@ -287,7 +287,7 @@ export default class Home extends React.Component {
 
 							<div className="apply">
 								<a className="apply-item" href="http://krspace.cn" target="_blank">
-									<div className="pic krspace-logo">
+									<div className="pic krspace-logo"  style={{height:this.applyItemWidth}}>
 
 									</div>
 									<div className="text">

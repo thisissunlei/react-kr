@@ -279,8 +279,8 @@ export default class EditCreate extends React.Component {
 
       initialValues.setLocalStorageDate = +new Date();
 
-      initialValues.leaseBegindate = DateFormat(new Date , "yyyy-mm-dd hh:MM:ss");
-      initialValues.leaseEnddate =  DateFormat(new Date , "yyyy-mm-dd hh:MM:ss");
+      initialValues.leaseBegindate = DateFormat(new Date , "yyyy-mm-dd 00:00:00");
+      initialValues.leaseEnddate =  DateFormat(new Date , "yyyy-mm-dd 00:00:00");
 
 
       optionValues.communityAddress = response.customer.communityAddress;
@@ -352,10 +352,10 @@ export default class EditCreate extends React.Component {
         initialValues.totalreturn = response.totalreturn || 0;
         //时间
 
-        initialValues.signdate = DateFormat(response.signdate, "yyyy-mm-dd hh:MM:ss");
-        initialValues.leaseBegindate =DateFormat(response.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-        initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-        initialValues.withdrawdate =DateFormat(response.withdrawdate , "yyyy-mm-dd hh:MM:ss");
+        initialValues.signdate = DateFormat(response.signdate, "yyyy-mm-dd 00:00:00");
+        initialValues.leaseBegindate =DateFormat(response.leaseBegindate, "yyyy-mm-dd 00:00:00");
+        initialValues.leaseEnddate = DateFormat(response.leaseEnddate, "yyyy-mm-dd 00:00:00");
+        initialValues.withdrawdate =DateFormat(response.withdrawdate , "yyyy-mm-dd 00:00:00");
 
 
         //处理stationvos
