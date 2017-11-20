@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ReactDOM from 'react-dom';
 import {
 	reduxForm,
 	formValueSelector,
@@ -160,12 +160,12 @@ class TemplatePrint extends React.Component {
 	btnWatch=()=>{
 		let {fieldVOs}=this.state;
 		var showTexts=fieldVOs.map((item,index)=>{
-			       return <li>
+			       return <div>
 								<span>{item.label}</span>
 								{
 									this.btnValue(item.name)
 								}
-				         </li>
+				         </div>
 		})
 		return showTexts
 	}
@@ -186,19 +186,30 @@ class TemplatePrint extends React.Component {
 		}
 		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
 	}
-    
+	
+	openSelectTop=()=>{
+		this.setState({
+			selectOpen:!this.state.selectOpen
+		})
+		const dom = ReactDOM.findDOMNode(this.introList);
+		if(dom.style.display=='none'){
+			dom.style.display='block';
+		}else{
+			dom.style.display='none';
+		}
+	}
     
 
 	render() {
 		let {handleSubmit,allData}=this.props;
-		let {child,nameList} = this.state;
+		let {child,nameList,selectOpen} = this.state;
 		let selectStyle = {
-			transform: "rotateZ(-90deg)"
+			transform: "rotateZ(0deg)"
 		}
 		if (selectOpen){
-			selectStyle.transform = "rotateZ(0deg)";
+			selectStyle.transform = "rotateZ(180deg)";
 		}
-
+	    
         
 		return (
 			<form className = "edit-print-formwork"  onSubmit={handleSubmit(this.onSubmit)} >
@@ -228,7 +239,7 @@ class TemplatePrint extends React.Component {
 				     <div className='print-right'>
 
 					   <KrField 	
-					        grid={1/2}		
+					        grid={1}		
 							label="模板名称" 
 							name="name" 
 							style={{display:'inline-block',boxSizing:'border-box'}} 
@@ -238,32 +249,34 @@ class TemplatePrint extends React.Component {
 						/>
 
 					     <KrField 
-						    grid={1/2}			
+						    grid={1} 		
 							label="表单名称" 
 							name="tableName" 
-							style={{paddingLeft:20,display:'inline-block',boxSizing:'border-box'}} 
 							component="select" 
 							inline={false}
 							options={nameList}	
 							onChange={this.nameListChange}	
 						/>
 
-					    <ul className='text-list'>
-							<li style={{background:'#F6F6F9',fontSize:'14px',color: '#333333'}}>字段列表</li>
+					    <div className='text-list'>
+							<p style={{background:'#F6F6F9',fontSize:'14px',color: '#333333'}} className='text-p-style'>字段列表</p>
+
+							<div className='btn-li-style'>
 							{
 								this.btnWatch()
 							}
-						</ul>
+							</div>
+						</div>
 
 						<div className='text-introduction'>
 							<div style={{marginTop:20,fontSize:14,color:'#333',display:'inline-block'}}>
 								配置说明
-							
-								<div className="select" style={selectStyle}></div>
+								<div className="select" style={selectStyle} onClick={this.openSelectTop}></div>
 							</div>
 
-
-							<div>
+							<div 
+							   ref={ul=>{this.introList = ul}}
+							   className='inner-introduction' style={{display:'none'}}>
 								1dsdfsdfdsfds
 							</div>
 						</div>

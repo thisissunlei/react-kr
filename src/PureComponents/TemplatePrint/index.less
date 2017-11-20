@@ -12,10 +12,11 @@
         flex: 65;
     }
     .print-right{
-        width:528px;
+        //width:528px;
+        width:300px;
         display:inline-block;
-        margin-left:20px;
         margin-left: 50px;
+        padding-bottom:50px;
         .text-introduction{
             .select{
                 border-color: #999 transparent transparent;
@@ -24,6 +25,7 @@
                 display: inline-block;
                 height: 0;
                 width: 0;
+                cursor: pointer;
             }
             .sub-introduction{
                 width:100%;
@@ -36,19 +38,40 @@
         }
         .text-list{
             width:100%;
-            height:467px;
             border:solid 1px #DFDFDF;
-            overflow: auto;
             margin-top:20px;
-            li{
+            .btn-li-style{
+                overflow: auto;
+                height:431px;
+                div{
+                    height:36px;
+                    line-height:36px;
+                    border-bottom:solid 1px #DFDFDF;
+                    font-size: 12px;
+                    color: #666666;
+                    padding-left:12px;
+                    box-sizing: border-box; 
+                }
+            }
+            .text-p-style{
+                margin: 0;
                 height:36px;
                 line-height:36px;
                 border-bottom:solid 1px #DFDFDF;
-                font-size: 12px;
-                color: #666666;
                 padding-left:12px;
                 box-sizing: border-box;
             }
+        }
+        .text-introduction{
+          .inner-introduction{
+            width: 100%;
+            border: solid 1px #DFDFDF;
+            padding: 10px;
+            height: 306px;
+            margin-top: 10px;
+            box-sizing: border-box;
+            transition: all 0.5s ease;
+          }  
         }
     }
     .editor-left{
@@ -59,3 +82,11 @@
         }
     }
 }
+
+/*@media screen and (max-width:1440px) {
+    .edit-print-formwork{
+        .print-right{
+            width:252px;
+        }
+    }
+}*/

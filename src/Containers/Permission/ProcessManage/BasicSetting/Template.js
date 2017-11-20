@@ -348,7 +348,7 @@ class Template extends React.Component {
 				{/*新建合同模板*/}
 				<Drawer
 					open={this.state.openTemplate}
-					width={"100%"}
+					width={"1300px"}
 					openSecondary={true}
 					onClose={this.onOpenTemplate}
 
