@@ -1062,5 +1062,10 @@ module.exports = {
         url: '/api/krspace-op-web/init-report-income',
         method: 'post'
     },
+     //计算合同租赁期限
+     'contract-date-range': {
+        url: '/api/krspace-op-web/finacontractdetail/contract-date-range?start={start}&end={end}',
+        method: 'get'
+    },
 
 }

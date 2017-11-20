@@ -275,11 +275,11 @@ class NewCreateForm extends Component {
 		}
 
 		form.list = stationVos;
-		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = dateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = dateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd 00:00:00");
+		form.leaseEnddate = dateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd 00:00:00");
 
 
 		form.stationVos = stationVos;
