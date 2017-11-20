@@ -17,7 +17,9 @@ let State = observable({
 	},
 	upgradeTypeOptions:[],
 	closeConfirmDelete : false,
-	itemDetail : {}
+	itemDetail : {},
+	batchUpgradeDialog : false,
+	uploadedInfo :{}
 
 });
 
@@ -51,7 +53,8 @@ State.NewCreateUpgrade = action(function(values) {
 			page:1,
 			pageSize:15,
 			date : new Date()
-		}
+		};
+		State.uploadedInfo = {};
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
@@ -75,6 +78,14 @@ State.confirmDeleteAction = action(function() {
 	});
 
 });
+
+
+State.openBatchUpgradeDialog  = action(function() {
+
+	State.batchUpgradeDialog = !State.batchUpgradeDialog 
+
+});
+
 
 
 module.exports = State;

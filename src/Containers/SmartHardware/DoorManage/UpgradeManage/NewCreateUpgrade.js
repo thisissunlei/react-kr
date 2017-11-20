@@ -4,6 +4,11 @@ import {connect} from 'kr/Redux';
 import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,FieldArray,reset} from 'redux-form';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
+
+import './index.less';
+
+import UpgradePlupload from './UpgradePlupload';
+
 import {
 	KrField,
 	Grid,
@@ -33,7 +38,27 @@ class NewCreateUpgradeForm extends React.Component{
 
 	// 新增设备定义
 	onSubmit=(values)=>{
-		State.NewCreateUpgrade(values);
+
+		
+		if(!State.uploadedInfo.url){
+			Message.error("升级包地址有误，请重新上传");
+			return;
+		}
+		if(values.upgradeType == "APP"){
+			if(!values.versionCode){
+				Message.error("升级类型为APP时必须填写版本编码")
+				return;
+			}
+		}
+		var params = {
+				upgradeType : values.upgradeType,
+				url : State.uploadedInfo.url,
+				version :values.version ,
+				versionCode : values.versionCode|| '',
+			}
+
+
+		State.NewCreateUpgrade(params);
 		State.openNewCreateUpgrade = false;
 		
 	}
@@ -42,7 +67,7 @@ class NewCreateUpgradeForm extends React.Component{
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					
+					<UpgradePlupload/>
 					<KrField 
 						name="floor" 
 						component="select" 
@@ -53,19 +78,11 @@ class NewCreateUpgradeForm extends React.Component{
 						requireLabel={true} 
 
 					/>
-					<KrField 
-						grid={1/2} 
-						name="url" 
-						type="text" 
-						label="升级包地址" 
-						style={{width:'252px'}}
-						requireLabel={true} 
-
-					/>
+					
 					<KrField grid={1/2} 
 						name="version" 
 						type="text" 
-						label="版本信息" 
+						label="版本名称" 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						requireLabel={true} 
 
@@ -78,6 +95,9 @@ class NewCreateUpgradeForm extends React.Component{
 						requireLabel={false} 
 						style={{width:'252px'}}
 					/>
+					
+					
+					<p className="upgrade-tip-text">注意：提交之前请确保已经上传升级包</p>
 					
 					<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px'}}>
@@ -102,18 +122,17 @@ const validate = values=>{
 	if(!values.upgradeType){
 		errors.upgradeType = '升级类型为必填项';
 	}
-	if(!values.url){
-		errors.url = '升级包地址为必填项';
-	}
+	
 	if(!values.version || /^\s+$/.test(values.version)){
-		errors.version = '版本信息为必填项';
+		errors.version = '版本名称为必填项';
 	}else if(values.version.length>20){
-		errors.version = '版本信息最多20个字符';
+		errors.version = '版本名称最多20个字符';
 	}
 	
 	if(values.versionCode &&!numberNotZero.test(values.versionCode)){
-		errors.versionCode = '升级信息ID必须为正整数';
+		errors.versionCode = '版本编码必须为正整数';
 	}
+	
 	
 	return errors;
 }
