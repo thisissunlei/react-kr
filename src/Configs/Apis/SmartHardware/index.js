@@ -234,7 +234,7 @@ module.exports = {
 
    //上传之前获取签名
    'getSignatureUrl' : {
-      url: '/api/krspace-sso-web/common/upload-policy?isPublic=false&category=iot/upgrade',
+      url: '/api/krspace-sso-web/common/upload-policy?isPublic={isPublic}&category={category}',
       method: 'get'
    },
 

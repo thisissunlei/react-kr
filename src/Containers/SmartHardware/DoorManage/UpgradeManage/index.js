@@ -194,7 +194,7 @@ export default class List extends React.Component {
 			          title="上传升级包"
 			          open={State.openNewCreateUpgrade}
 			          onClose={this.openNewCreateUpgradeDialog}
-			          contentStyle={{width:687}}
+			          contentStyle={{width:688}}
 			        >
 			          <NewCreateUpgrade
 			            onCancel={this.openNewCreateUpgrade}

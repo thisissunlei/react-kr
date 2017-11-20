@@ -73,7 +73,7 @@ export default class UpgradePlupload extends React.Component{
 
 	send_request=(uploader)=>{
 		let _this = this;
-		Http.request('getSignatureUrl',{}).then(function(response) {
+		Http.request('getSignatureUrl',{isPublic:true,category:"iot/upgrade"}).then(function(response) {
 
 			var fileNameRandom = _this.set_file_name(uploader.files[0].name);
 			_this.setState({
@@ -109,7 +109,7 @@ export default class UpgradePlupload extends React.Component{
 
 
 	set_multipart_params=(uploader,ret)=>{
-		console.log("uploader",uploader);
+		
 		if(uploader.files.length<1){
 			Message.error("请选择文件");
 			return;
