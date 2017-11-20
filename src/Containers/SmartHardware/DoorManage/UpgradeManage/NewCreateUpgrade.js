@@ -87,24 +87,16 @@ class NewCreateUpgradeForm extends React.Component{
 						requireLabel={true} 
 
 					/>
+					<KrField 
+						grid={1/2} 
+						name="versionCode" 
+						type="text" 
+						label="版本编码" 
+						requireLabel={false} 
+						style={{width:'252px'}}
+					/>
 					
-					<Grid >
-									<Row>
-										<ListGroup>
-											<ListGroupItem style={{width:262,padding:0}}>
-												<KrField 
-													grid={1/2} 
-													name="versionCode" 
-													type="text" 
-													label="版本编码" 
-													requireLabel={false} 
-													style={{width:'252px'}}
-												/>
-											</ListGroupItem>
-											
-										</ListGroup>
-									</Row>
-								</Grid>
+					
 					<p className="upgrade-tip-text">注意：提交之前请确保已经上传升级包</p>
 					
 					<Grid>
