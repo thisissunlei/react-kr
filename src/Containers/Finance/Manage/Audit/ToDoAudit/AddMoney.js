@@ -21,6 +21,7 @@ import {
 	SearchForms,
 	ButtonGroup,
 	CircleStyleTwo,
+	DrawerTitle,
 	Message
 } from 'kr-ui';
 import './index.less';
@@ -767,9 +768,7 @@ class AddMoney extends React.Component {
 			return (
 				<div className="u-audit-add  u-audit-edit">
 			     <div className="u-audit-add-title">
-			     	<span className="u-audit-add-icon"></span>
-			     	<span>添加回款</span>
-			     	<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
+                    <DrawerTitle title ="新建回款" onCancel = {this.onCancel}/>
 			     </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
 					<CircleStyleTwo num="1" info="付款信息">

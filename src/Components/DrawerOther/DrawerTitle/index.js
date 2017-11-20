@@ -34,6 +34,7 @@ export default class DrawerTitle extends React.Component {
         type = /编辑/.test(title)?'edit':type;
         type = /新建/.test(title)?'create':type;
         type = /新增/.test(title)?'create':type;
+        type = /添加/.test(title)?'create':type;
         let picStyle={};
         switch (type) {
             case 'create':
