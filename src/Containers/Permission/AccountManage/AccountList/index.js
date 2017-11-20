@@ -286,8 +286,8 @@ class AccountList extends React.Component {
                                     overflow: 'hidden'
                                 }} name="id"></TableRowColumn>
                                 <TableRowColumn name="accountName"></TableRowColumn>
-                                <TableRowColumn name="realName"></TableRowColumn>
-                                <TableRowColumn name="mobilePhone"></TableRowColumn>
+                                <TableRowColumn name="name"></TableRowColumn>
+                                <TableRowColumn name="phone"></TableRowColumn>
                                 <TableRowColumn name="email"></TableRowColumn>
                                 <TableRowColumn name="accountStatus" options={[
                                     {
