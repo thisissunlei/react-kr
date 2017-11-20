@@ -10,6 +10,7 @@ import {
 	Button,
 	Row,
 	Col,
+	DrawerTitle,
 	ButtonGroup
 } from 'kr-ui';
 import './index.less';
@@ -187,10 +188,10 @@ class Createdialog extends React.Component {
 		return (
 			<div className="g-create">
 				<div className="u-create-title">
-			     	<span className="u-create-icon"></span>
-			     	<span>新建角色</span>
-			     	<span className="u-create-close"   onTouchTap={this.onCancel}></span>
+			     	<DrawerTitle title ="新建角色" onCancel = {this.onCancel}/>
+
 			     </div>
+
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 					<KrField
 							style={{width:252,marginLeft:96,marginBottom:16}}

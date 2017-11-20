@@ -32,6 +32,7 @@ import {
 	SearchForms,
 	ButtonGroup,
 	Notify,
+	DrawerTitle
 } from 'kr-ui';
 import './index.less';
 
@@ -409,10 +410,8 @@ class Createdialog extends React.Component {
 		return (
 			<div className="g-operations-create">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{width:1000,marginTop:30,paddingLeft:40,paddingRight:40,boxSizing:"border-box"}}  >
-					<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
-					<div className="u-operations-edit-title">
-						<span>新建操作项</span>
-					</div>
+			     	<DrawerTitle title ="新建操作项" onCancel = {this.onCancel}/>
+
 					<KrField
 							style={{width:260,marginLeft:40,marginBottom:16}}
 							name="name" type="text"

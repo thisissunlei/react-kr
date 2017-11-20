@@ -10,6 +10,7 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem,
+	DrawerTitle,
 	ButtonGroup
 } from 'kr-ui';
 import {
@@ -46,14 +47,8 @@ class CreateNewList extends React.Component {
 		return (
 			<div className="new-create-system">
 				<div className="u-title-box">
-						<img className="u-title-img" src={require('./images/activity.svg')} />
-						<span className="u-title-text">新建系统</span>
-						<span className="u-close-page" onClick={this.onCancel}>
-							<img 
-								src={require('./images/closeIMG.svg')} 
-								className="u-close-page-img"
-							 />
-						</span>
+                <DrawerTitle title ="新建系统" onCancel = {this.onCancel}/>
+
 					</div>
 				<div className="m-create-system">
 							

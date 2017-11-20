@@ -15,6 +15,7 @@ import {
 	ListGroupItem,
 	TabelEdit,
 	FRow,
+	DrawerTitle,
 	Notify
 } from 'kr-ui';
 
@@ -289,11 +290,8 @@ class EditForm extends React.Component{
 			<div className="new-create-activity">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div className="title-box">
-						<img src={require('./images/activity.svg')} className="title-img"/>
-						<span className="title-text">编辑公共字典</span>
-						<span className="close-page" onClick={this.onCancel}>
-							<img src={require('./images/closeIMG.svg')} className="close-page-img" />
-						</span>
+                		<DrawerTitle title ="编辑公共字典" onCancel = {this.onCancel}/>
+
 					</div>
 					<div className="detail-info">
 								<KrField grid={1/2} name="dictName" type="text" label="字典名称" requireLabel={true} style={{width:252,zIndex:11}} onBlur={this.changeName}/>

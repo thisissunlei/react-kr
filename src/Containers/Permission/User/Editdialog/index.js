@@ -14,6 +14,7 @@ import {
 	Button,
 	Row,
 	Col,
+	DrawerTitle,
 	ButtonGroup,
 } from 'kr-ui';
 import './index.less';
@@ -215,10 +216,10 @@ class Editdialog extends React.Component {
 		return (
 			<div className="g-create">
 				<div className="u-create-title">
-			     	<span className="u-create-icon"></span>
-			     	<span>编辑角色</span>
-			     	<span className="u-create-close"   onTouchTap={this.onCancel}></span>
+			     	<DrawerTitle title ="编辑角色" onCancel = {this.onCancel}/>
+
 			     </div>
+
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:50}}  >
 					<KrField
 							style={{width:252,marginLeft:96,marginBottom:16}}

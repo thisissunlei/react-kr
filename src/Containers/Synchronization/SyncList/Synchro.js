@@ -17,6 +17,7 @@ import {
 	TableRow,
 	TableHeaderColumn,
 	TableRowColumn,
+	DrawerTitle,
 	Pagination
 } from 'kr-ui';
 import {
@@ -62,14 +63,8 @@ export default class Synchro extends React.Component {
 		return (
 		<div className="m-synchro-system">
 			<div className="u-title-box">
-				<img className="u-title-img" src={require('./images/activity.svg')} />
-				<span className="u-title-text">手动同步</span>
-				<span className="u-close-page" onClick={this.onCancel}>
-					<img 
-						src={require('./images/closeIMG.svg')} 
-						className="u-close-page-img"
-					 />
-				</span>
+                <DrawerTitle title ="手动同步" onCancel = {this.onCancel}/>
+
 			</div>
 			<form name="planTable" onSubmit={handleSubmit(this.onSubmit)} className="form-list">
 				<KrField
