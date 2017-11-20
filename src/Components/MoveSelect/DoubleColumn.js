@@ -346,7 +346,7 @@ export default class DoubleColumn extends Component {
                     </div>
                 </div>
                 <div className = "column-bar">
-                    <div className = "top" style={{marginTop:50,lineHeight:50,height:50}}>
+                    <div className = "top" style={{marginTop:50,lineHeight:'50px',height:50}}>
                         <div>
                             {/*<span 
                                 className="leftAllSelect"
@@ -367,7 +367,7 @@ export default class DoubleColumn extends Component {
                         </div>
                         
                     </div>
-                    <div className = "down" style={{lineHeight:50,height:50}}>
+                    <div className = "down" style={{lineHeight:'50px',height:50}}>
                         <div>
                             <span
                                 className="rightSelect"
