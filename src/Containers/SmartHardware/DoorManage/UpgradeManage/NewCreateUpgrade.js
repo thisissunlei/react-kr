@@ -44,6 +44,12 @@ class NewCreateUpgradeForm extends React.Component{
 			Message.error("升级包地址有误，请重新上传");
 			return;
 		}
+		if(values.upgradeType == "APP"){
+			if(!values.versionCode){
+				Message.error("升级类型为APP时必须填写版本编码")
+				return;
+			}
+		}
 		var params = {
 				upgradeType : values.upgradeType,
 				url : State.uploadedInfo.url,
