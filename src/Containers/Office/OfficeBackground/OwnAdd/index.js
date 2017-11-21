@@ -50,6 +50,7 @@ export default class Initialize  extends React.Component{
 		this.editSubmitData = {};
 		this.name = ''; 
 		this.responseData={};
+		this.introData='';
 	}
 	componentDidMount() {
 		State.requestTree()
@@ -73,6 +74,7 @@ export default class Initialize  extends React.Component{
 			_this.setState({
 				detail: response.tables
 			})
+			_this.introData=response.comment?response.comment:'';
 		}).catch(function (err) {
 			Message.error(err.message);
 		 });
@@ -287,7 +289,7 @@ export default class Initialize  extends React.Component{
                     containerStyle={{top:60,paddingBottom:228,zIndex:20}}
                     onClose={this.onOpenEdit}
 				>
-					<FromsConfig title={`${this.name}-编辑`} detail={detail} onSubmit={this.editSubmit} responseData={this.responseData} onCancel={this.onOpenEdit} />
+					<FromsConfig title={`${this.name}-编辑`} detail={detail} introData={this.introData} onSubmit={this.editSubmit} responseData={this.responseData} onCancel={this.onOpenEdit} />
 				</Drawer>
 			</div>
 		);

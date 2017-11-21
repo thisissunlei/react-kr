@@ -248,7 +248,7 @@ class FromsConfig extends Component {
 	}
 	
 	render(){
-		const {handleSubmit,title} = this.props;
+		const {handleSubmit,title,introData} = this.props;
 
 
 		return (
@@ -256,7 +256,10 @@ class FromsConfig extends Component {
 			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}>
 				<DrawerTitle title ={title||"新建"} onCancel = {this.onCancel}/>
 				<div style = {{marginTop:30}}>
-					{this.renderFields()}
+
+				<div className='m-form-intro'>填表说明：{introData}</div>
+
+				{this.renderFields()}
 				</div>
 				<DrawerBtn onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>	
 			</form>

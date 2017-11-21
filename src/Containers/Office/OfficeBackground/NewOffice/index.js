@@ -32,10 +32,10 @@ export default class NewOffice extends React.Component {
         openDelete:false,
         openNew:false,
         detail:[],
-      
     }
     this.newSubmitData = {};
-    this.name = ''
+    this.name = '';
+    this.introData='';
 	}
 
   componentDidMount() {
@@ -96,6 +96,7 @@ export default class NewOffice extends React.Component {
       _this.setState({
         detail: response.tables
       })
+      _this.introData=response.comment?response.comment:'';
     }).catch(function (err) { 
       Message.error(err.message);
     });
@@ -213,7 +214,7 @@ export default class NewOffice extends React.Component {
             width = {750}
             containerStyle={{ top: 60, paddingBottom: 228, zIndex: 20 }}
         >
-          <FromsConfig title={`${this.name}-新建`} detail={detail} onSubmit={this.onSubmit} onCancel={this.swidthNew} />
+          <FromsConfig title={`${this.name}-新建`} detail={detail} introData={this.introData} onSubmit={this.onSubmit} onCancel={this.swidthNew} />
         </Drawer>
       </div>
     );
