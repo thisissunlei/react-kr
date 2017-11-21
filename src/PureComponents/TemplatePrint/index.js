@@ -163,8 +163,12 @@ class TemplatePrint extends React.Component {
 	btnWatch=()=>{
 		let {fieldVOs}=this.state;
 		var showTexts=fieldVOs.map((item,index)=>{
-			       return <div>
-								<span>{item.label}</span>
+			       return <div key = {index}>
+					   <span>{item.label}
+							   <Tooltip offsetTop={5} place='top'>
+							   		"sdfsfs"
+							   </Tooltip>
+						</span>
 								{
 									this.btnValue(item.name)
 								}
@@ -185,21 +189,22 @@ class TemplatePrint extends React.Component {
 		if(item=='showValue'){
 			funcName = '{{m-'+bigItem+'}}';
 		}else{
-			funcName = '{{m-'+bigItem+'.'+item+'}}';
+			funcName = '{{m-'+bigItem+'$'+item+'}}';
 		}
 		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
 	}
 	
 	openSelectTop=()=>{
-		this.setState({
-			selectOpen:!this.state.selectOpen
-		})
+		
 		const dom = ReactDOM.findDOMNode(this.introList);
 		if(dom.style.display=='none'){
 			dom.style.display='block';
 		}else{
 			dom.style.display='none';
 		}
+		this.setState({
+			selectOpen:!this.state.selectOpen
+		})
 	}
     
 
@@ -207,11 +212,11 @@ class TemplatePrint extends React.Component {
 		let {handleSubmit,allData}=this.props;
 		let {child,nameList,selectOpen} = this.state;
 		let selectStyle = {
-			transform: "rotateZ(0deg)"
+			transform: "rotateZ(-90deg)"
 		}
 
 		if (selectOpen){
-			selectStyle.transform = "rotateZ(180deg)";
+			selectStyle.transform = "rotateZ(0deg)";
 		}
 	    
         
