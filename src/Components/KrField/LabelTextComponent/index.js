@@ -22,7 +22,7 @@ export default class LabelTextComponent extends React.Component {
 		alignRight: React.PropTypes.bool,
 		tooltip: React.PropTypes.string
 	}
-
+   
 	constructor(props) {
 		super(props)
 	}

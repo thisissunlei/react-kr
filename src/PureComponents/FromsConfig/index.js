@@ -157,6 +157,7 @@ class FromsConfig extends Component {
 	}
 	//一般的表单渲染
 	universalRender = (item,type,lineNum) =>{
+		let {responseData}=this.props;
 		var grid = 1/lineNum;
 		if (item.wholeLine){
 			grid = 1
@@ -193,10 +194,11 @@ class FromsConfig extends Component {
 					grid={grid}
 					isStore={true}
 					selectUrl= 'template-search-list'
-					component={type}
+					component={item.editable?type:'labelText'}
 					params={params}
 					editHeight={editHeight}
 					maxSize={maxLength}
+					value={responseData?responseData[item.name]:''}
 				/>
 			)
 		}else {

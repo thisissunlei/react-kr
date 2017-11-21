@@ -49,6 +49,7 @@ export default class Initialize  extends React.Component{
 		} 
 		this.editSubmitData = {};
 		this.name = ''; 
+		this.responseData={};
 	}
 	componentDidMount() {
 		State.requestTree()
@@ -83,6 +84,8 @@ export default class Initialize  extends React.Component{
 		Http.request('get-config-detail-edit', { requestId: item.id }).then(function (response) {
 
 			Store.dispatch(initialize('FromsConfig', response));
+
+			_this.responseData=response;
 		    
 			_this.onOpenEdit();
 			
@@ -284,7 +287,7 @@ export default class Initialize  extends React.Component{
                     containerStyle={{top:60,paddingBottom:228,zIndex:20}}
                     onClose={this.onOpenEdit}
 				>
-					<FromsConfig title={`${this.name}-编辑`} detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
+					<FromsConfig title={`${this.name}-编辑`} detail={detail} onSubmit={this.editSubmit} responseData={this.responseData} onCancel={this.onOpenEdit} />
 				</Drawer>
 			</div>
 		);

@@ -119,6 +119,19 @@ class EditTemplate extends React.Component {
 							grid={1/2}
 					 	/>
 
+
+						 <KrField 
+							grid={1} 
+							label="提示性文字" 
+							name="descr" 
+							heightStyle={{height:"178px",width:'550px'}}  
+							component="textarea"  
+							maxSize={500} 
+							style={{width:560,marginTop:10}} 
+							placeholder='请输入提示性文字' 
+							lengthClass='list-len-textarea'
+						 />
+
 					 	<div className='main-name'>
 							<span style={{fontSize:'16px',color:'#666',lineHeight:'24px;'}}>主表-</span>
 							<span>{State.mainT.name}</span>
