@@ -213,7 +213,7 @@ class NewCreateForm extends React.Component{
 						<img src={imgLine}/>
 					</div>
 					<KrField grid={1/2} name="communityId" component="searchCommunityAll" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true}  inline={false} style={{width:'252px',marginRight:'30'}}/>
-					<KrField grid={1/2} name="companyId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true}  style={{width:'252px',marginRight:'30'}}/>
+					<KrField grid={1/2} name="csrId" component="searchCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true}  style={{width:'252px',marginRight:'30'}}/>
 					<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30'}}/>
 					<KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur} style={{width:'252px',marginRight:'30'}} />
 					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px',marginRight:'30'}}/>
@@ -253,8 +253,8 @@ const validate = values => {
 	// if (!values.email) {
 	// 	errors.email = '请输入邮箱';
 	// }
-	if (!values.companyId) {
-		errors.companyId = '请输入公司';
+	if (!values.csrId) {
+		errors.csrId = '请输入公司';
 	}
 	if (!values.name || /^\s+$/.test(values.name)) {
 		errors.name = '请输入姓名';

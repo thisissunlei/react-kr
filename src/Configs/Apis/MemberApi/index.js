@@ -117,6 +117,12 @@ module.exports = {
         url:'/api/krspace-finance-web/member/select-options?name={name}',
         method:'get'
     },
+    //获取会员公司
+    'getCompanyInfo':{
+        url:'/api/krspace-finance-web/member/csr-list?companyName={companyName}',
+        method:'get'
+    },
+    
 
 
 }

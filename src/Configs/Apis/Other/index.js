@@ -393,9 +393,10 @@ const APIS = {
     },
     //会员中心-新增会员－公司模糊查询
     'getCompanyByCompanyText': {
-        url: '/api/krspace-finance-web/member/work/company-list?companyText={companyText}',
+        url: '/api/krspace-finance-web/member/csr-list?companyName={companyName}',
         method: 'get'
     },
+    
     //会员中心-新增会员－准备数据
     // 'getMemberPosition': {
     //   url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
