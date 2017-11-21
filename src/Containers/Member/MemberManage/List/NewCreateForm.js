@@ -42,7 +42,7 @@ class NewCreateForm extends React.Component{
 		let response = {
 			phone:'',
 			communityId:'',
-			companyId:'',
+			csrId:'',
 			email:'',
 			job:'',
 			name:'',
@@ -97,7 +97,7 @@ class NewCreateForm extends React.Component{
 			let response = {
 				phone:phone,
 				communityId:'',
-				companyId:'',
+				csrId:'',
 			}
 			if(phoneSame){
 				Store.dispatch(initialize('NewCreateForm',response));
@@ -182,11 +182,11 @@ class NewCreateForm extends React.Component{
 		Store.dispatch(change('NewCreateForm', 'communityId', communityId));
 	}
 	onChangeSearchCompany(company) {
-		let companyId="";
+		let csrId="";
 		if(company!==null){
-			companyId = company.id;
+			csrId = company.csrId;
 		}
-		Store.dispatch(change('NewCreateForm', 'companyId', companyId));
+		Store.dispatch(change('NewCreateForm', 'csrId', csrId));
 	}
 	render(){
 		const { error, handleSubmit, pristine, reset} = this.props;
