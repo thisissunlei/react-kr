@@ -88,14 +88,14 @@ class EditAccount extends React.Component {
                         height: 42,
                         marginLeft: 30,
                         width:188
-                    }} name="realName" component="input" inline={true} placeholder="请输入姓名"/>
+                    }} name="name" component="input" inline={true} placeholder="请输入姓名"/>
                     <KrField label="手机号：" style={{
                         marginLeft:88,
                         marginTop: 20
                     }} requireLabel={true} heightStyle={{
                         height: 42,
                         marginLeft: '17px',
-                    }} name="mobilePhone" component="input" inline={true} placeholder="请输入手机号"/>
+                    }} name="phone" component="input" inline={true} placeholder="请输入手机号"/>
                     <KrField label="邮箱：" style={{
                         marginTop: 20,
                         marginBottom: 20,
