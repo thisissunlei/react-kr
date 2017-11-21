@@ -667,9 +667,7 @@ class AddMoney extends React.Component {
 
 			return (
 				<div className="u-audit-add">
-			     <div className="u-audit-add-title">
 			     	<DrawerTitle title ="添加回款" onCancel = {this.onCancel}/>
-			     </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
            <CircleStyleTwo num="1" info="付款凭证">
              <div style={{marginTop:28}}>
