@@ -1,3 +1,4 @@
+// import "babel-polyfill";
 import React from 'react';
 import {
 	reduxForm,
@@ -13,19 +14,27 @@ import {
 } from 'kr-ui';
 import './index.less';
 
+
  class TanLinLin extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
 			initailPoint : '承德'
-		}
+		},
+		this.client = {}
 	}
 	componentWillMount() {
 	}
 
 	componentDidMount(){
 
+
+	 
+
 	}
+
+
+
 	onSubmit=(values)=>{
 	}
 	render(){
@@ -50,11 +59,12 @@ import './index.less';
 							<Grid style={{marginTop:19,marginBottom:'4px'}}>
 								<Row>
 									<ListGroup>
-											<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
-											<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
-										</ListGroup>
+										<ListGroupItem style={{width:'269px',textAlign:'right',padding:0,paddingRight:15}}><Button  label="确定" type="submit"/></ListGroupItem>
+										<ListGroupItem style={{width:'254px',textAlign:'left',padding:0,paddingLeft:15}}><Button  label="取消" type="button"  cancle={true} onTouchTap={this.onCancel} /></ListGroupItem>
+									</ListGroup>
 								</Row>
 							</Grid>
+
 
 					</form>
 
@@ -69,7 +79,6 @@ const validate = values => {
 	// if (!values.email) {
 	// 	errors.email = '请输入邮箱';
 	// }
-
 
 	return errors
 }
