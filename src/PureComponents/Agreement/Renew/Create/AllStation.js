@@ -89,7 +89,7 @@ class SelectStationForm extends Component {
 			return;
 		}
 
-		value = dateFormat(value, 'yyyy-mm-dd');
+		value = dateFormat(value, 'yyyy-mm-dd 00:00:00');
 		stationVos = [].concat(stationVos);
 		stationVos.map(function(item, index) {
 			if (selected.indexOf(index) !== -1) {
@@ -182,8 +182,8 @@ class SelectStationForm extends Component {
 		//工位结束时间相同
 		var some = true;
 		selectedStationVos.sort(function(pre, next) {
-			var preDate = dateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
-			var nextDate = dateFormat(next.leaseEndDate, 'yyyy-mm-dd');
+			var preDate = dateFormat(pre.leaseEndDate, 'yyyy-mm-dd 00:00:00');
+			var nextDate = dateFormat(next.leaseEndDate, 'yyyy-mm-dd 00:00:00');
 			if (preDate != nextDate) {
 				some = false;
 			}
@@ -209,7 +209,7 @@ class SelectStationForm extends Component {
 			obj.whereFloor = item.whereFloor;
 			obj.unitprice = item.originalUnitprice;
 			obj.originalUnitprice = item.originalUnitprice;
-			obj.leaseBeginDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.leaseBeginDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd 00:00:00');
 			obj.leaseEndDate = item.rentBeginDate;
 			resultStationVos.push(obj);
 		});
@@ -232,7 +232,7 @@ class SelectStationForm extends Component {
 			var tmpDate = new Date();
 			tmpDate.setTime(Date.parse(item.leaseBeginDate));
 			tmpDate.setDate(tmpDate.getDate() + 1);
-			item.leaseBeginDate = dateFormat(tmpDate, 'yyyy-mm-dd')
+			item.leaseBeginDate = dateFormat(tmpDate, 'yyyy-mm-dd 00:00:00')
 		});
 
 
