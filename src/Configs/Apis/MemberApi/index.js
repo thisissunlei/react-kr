@@ -99,13 +99,13 @@ module.exports = {
     },
     //会员列表-获取会员卡信息
     'get-member-code':{
-        url:'/api/krspace-finance-web/member/card?id={id}',
+        url:'/api/iot-platform/card/holder-cards?id={id}',
         method:'get'
     },
     //会员列表-解绑会员卡
     'unbind-member-code':{
-        url:'/api/krspace-finance-web/member/unbindCard?memberId={memberId}&cardId={cardId}',
-        method:'get'
+        url:'/api/iot-platform/card/actions/unbind',
+        method:'post'
     },
     //会员列表-绑定会员卡
     'bind-member-code':{
