@@ -103,10 +103,10 @@ class NewCreateForm extends React.Component {
 		form = Object.assign({}, form);
 
 		form.lessorAddress = changeValues.lessorAddress;
-		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd hh:MM:ss");
-		form.withdrawdate = DateFormat(form.withdrawdate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
+		form.leaseBegindate = DateFormat(form.leaseBegindate, "yyyy-mm-dd 00:00:00");
+		form.leaseEnddate = DateFormat(form.leaseEnddate, "yyyy-mm-dd 00:00:00");
+		form.withdrawdate = DateFormat(form.withdrawdate, "yyyy-mm-dd 00:00:00");
 		if(!form.hasOwnProperty('agreement')){
 			form.agreement = '无';
 		}

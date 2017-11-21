@@ -1,13 +1,6 @@
 .edit-print-formwork{
     width: 100%;
-    .editor-middle{
-        width: auto;
-        margin: 0 auto;
-        display: inline-block;
-        left: 50%;
-        transform: translateX(-50%);
-        position: relative;
-    }
+    
     .section-title .right-element{
         flex: 65;
     }
@@ -18,6 +11,24 @@
         margin-left: 50px;
         padding-bottom:50px;
         .text-introduction{
+            .instruction-content{
+                transition: all 0.3s;
+                
+                box-sizing: border-box;
+            }
+            .introduction-bar{
+                margin-top: 20px;
+                font-size: 14px;
+                color: #333;
+                display: inline-block;
+                width: 100%;
+                
+                padding: 10px;
+                box-sizing: border-box;
+            }
+            .introduction-bar:hover{
+                background: #F6F6F9;
+            }
             .select{
                 border-color: #999 transparent transparent;
                 border-style: solid;
@@ -25,6 +36,9 @@
                 display: inline-block;
                 height: 0;
                 width: 0;
+                float: right;
+                transition: all 0.3s;
+                margin-top: 5px;
                 cursor: pointer;
             }
             .sub-introduction{

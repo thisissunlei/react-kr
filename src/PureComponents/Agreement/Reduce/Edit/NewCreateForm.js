@@ -369,11 +369,11 @@ class NewCreateForm extends React.Component {
 		});
 		delStationVos = delStationVos.concat(delStationVo);
 
-		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd hh:MM:ss");
+		form.signdate = DateFormat(form.signdate, "yyyy-mm-dd 00:00:00");
 		form.lessorAddress = changeValues.lessorAddress;
 
-		form.leaseBegindate = DateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd hh:MM:ss");
-		form.leaseEnddate = DateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd hh:MM:ss");
+		form.leaseBegindate = DateFormat(stationVos[0].leaseBeginDate, "yyyy-mm-dd 00:00:00");
+		form.leaseEnddate = DateFormat(stationVos[0].leaseEndDate, "yyyy-mm-dd 00:00:00");
 		form.lessorAddress = changeValues.lessorAddress;
 		form.rentamount = (this.state.allRent!='-1')?this.state.allRent:initialValues.rentamount;
 		var _this = this;

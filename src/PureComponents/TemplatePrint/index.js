@@ -53,6 +53,7 @@ import {
 import { observer, inject } from 'mobx-react';
 
 import './index.less';
+import { window } from 'rxjs/operator/window';
 // @inject("NavModel")
 // @observer
 var  textArr=[
@@ -83,14 +84,27 @@ class TemplatePrint extends React.Component {
 		}
 		this.content = ''
 		this.editId = "edit_"+ new Date();
-    }
+		this.global = {
+			wWidth: document.body.clientWidth ,
+			wHeight: document.body.clientHeight 
+		}
+	}
+	componentDidMount() {
+		var ue = UE.getEditor(this.editId);
+		ue.ready(function () {
+			ue.setHeight(400);
+		});
+	}	
+	//编辑区域的大小修改
+	changeMiddleSize = () =>{
+
+	}
     componentWillMount(){
 		let {formId}=this.props;
 		let {fieldVOs}=this.state;
 		var _this=this;
 		Http.request("get-sql-print",{formId:formId}).then(function (response) {
 			response.items.map((item,index)=>{
-				console.log('items---',item.fieldVOs);
 				fieldVOs=fieldVOs.concat(item.fieldVOs)
 			})
 			_this.setState({
@@ -122,7 +136,7 @@ class TemplatePrint extends React.Component {
 	templateChange = (value) =>{
 		this.content = value;
 	}
-
+	
     //按钮
 	btnValue=(name)=>{
 		let {fieldVOs}=this.state;
@@ -138,19 +152,8 @@ class TemplatePrint extends React.Component {
 		for(var item in showValue){
 			showBtn.push(<span 
 				className= "value-btn"
-					style={{
-					padding:'0 10px',
-					background:'#499df1',
-					textAlign:'center',
-					color:'#fff',
-					borderRadius:'4px',
-					marginLeft:'10px',
-					display:'inline-block',
-					height:'25px',
-					lineHeight:'25px',
-					cursor:'pointer'
-					}}
-					onClick={this.originClick.bind(this,item,name)}
+				style={{padding:'0 10px',background:'#499df1',textAlign:'center',color:'#fff',borderRadius:'4px',marginLeft:'10px',display:'inline-block',height:'25px',lineHeight:'25px',cursor:'pointer'}}
+				onClick={this.originClick.bind(this,item,name)}
 			>{showValue[item]}</span>)
 		}
 		return <div style = {{float:"right",paddingRight:10}}> {showBtn}</div>
@@ -160,8 +163,12 @@ class TemplatePrint extends React.Component {
 	btnWatch=()=>{
 		let {fieldVOs}=this.state;
 		var showTexts=fieldVOs.map((item,index)=>{
-			       return <div>
-								<span>{item.label}</span>
+			       return <div key = {index}>
+					   <span>{item.label}
+							   <Tooltip offsetTop={5} place='top'>
+							   		"sdfsfs"
+							   </Tooltip>
+						</span>
 								{
 									this.btnValue(item.name)
 								}
@@ -182,21 +189,22 @@ class TemplatePrint extends React.Component {
 		if(item=='showValue'){
 			funcName = '{{m-'+bigItem+'}}';
 		}else{
-			funcName = '{{m-'+bigItem+'.'+item+'}}';
+			funcName = '{{m-'+bigItem+'$'+item+'}}';
 		}
 		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
 	}
 	
 	openSelectTop=()=>{
-		this.setState({
-			selectOpen:!this.state.selectOpen
-		})
+		
 		const dom = ReactDOM.findDOMNode(this.introList);
 		if(dom.style.display=='none'){
 			dom.style.display='block';
 		}else{
 			dom.style.display='none';
 		}
+		this.setState({
+			selectOpen:!this.state.selectOpen
+		})
 	}
     
 
@@ -204,10 +212,11 @@ class TemplatePrint extends React.Component {
 		let {handleSubmit,allData}=this.props;
 		let {child,nameList,selectOpen} = this.state;
 		let selectStyle = {
-			transform: "rotateZ(0deg)"
+			transform: "rotateZ(-90deg)"
 		}
+
 		if (selectOpen){
-			selectStyle.transform = "rotateZ(180deg)";
+			selectStyle.transform = "rotateZ(0deg)";
 		}
 	    
         
@@ -226,7 +235,6 @@ class TemplatePrint extends React.Component {
 						<KrField 
 							id={this.editId}
 							component="editor" 
-							style={{width:"210mm"}}  
 							name="content" 
 							label="" 
 							onChange ={this.templateChange}
@@ -269,7 +277,7 @@ class TemplatePrint extends React.Component {
 						</div>
 
 						<div className='text-introduction'>
-							<div style={{marginTop:20,fontSize:14,color:'#333',display:'inline-block'}}>
+							<div className = "introduction-bar">
 								配置说明
 								<div className="select" style={selectStyle} onClick={this.openSelectTop}></div>
 							</div>
@@ -279,8 +287,8 @@ class TemplatePrint extends React.Component {
 							   className='inner-introduction' style={{display:'none'}}>
 								1dsdfsdfdsfds
 							</div>
-						</div>
 
+						</div>
 
 					 </div>
 				  </div>
@@ -290,6 +298,17 @@ class TemplatePrint extends React.Component {
 
 		);
 	}
+
+	swidthSelect = () => {
+		let { openSelect } = this.state;
+		this.setState({
+			openSelect: !openSelect
+		})
+	}
+
+
+
+
 }
 const validate = values => {
 	const errors = {}

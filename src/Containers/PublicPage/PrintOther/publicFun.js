@@ -35,9 +35,8 @@ function removeSpace(template){
 //替换掉属性的写法
 function keyParse(template,paramName,data) {
     var t = template, reg;
-    for(var key in data){
-      
-        reg = new RegExp('{{' + paramName+'.'+ key + '}}', 'g'); 
+    for(var key in data){   
+        reg = new RegExp('{{' + paramName+'\\$'+ key + '}}', 'g'); 
         t = t.replace(reg,data[key]||'')
     }  
     return t; 

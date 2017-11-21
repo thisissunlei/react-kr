@@ -26,7 +26,7 @@ module.exports = [
 							router: '/smarthardware/doorManage/warning',
 						},
 						{
-							primaryText: '升级包管理',
+							primaryText: '升级管理',
 							menuCode: 'iot_upgrade_package',
 							router: '/smarthardware/doorManage/upgrademanage',
 						}
