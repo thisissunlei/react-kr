@@ -68,7 +68,7 @@ export default class ItemDetail extends React.Component {
 			     	<DrawerTitle title ="凭证详情" onCancel = {this.onCancel}/>
 			     </div>
 
-					 <div style={{marginLeft:46,marginTop:30}}>
+					 <div style={{marginTop:30}}>
 						 <KrField grid = {1 / 2}   inline={false} component="labelText" label="签约方名称" value={infoList.customerName}/>
 						 <KrField grid = {1 / 2}  component="labelText" inline={false} label="付款方式" value={infoList.payWayName}/>
 						 <KrField grid = {1 / 2} component="labelText" inline={false} label="付款方名称" value={infoList.paymentAccount}/>
