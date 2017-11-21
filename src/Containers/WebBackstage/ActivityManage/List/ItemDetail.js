@@ -17,6 +17,7 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Tooltip,
+	DrawerTitle
 } from 'kr-ui';
 import {
 	observer
@@ -173,11 +174,7 @@ import {DateFormat} from 'kr/Utils';
 			<form>
 
 				<div className="title-box">
-					<img src={require('./images/activity.svg')} className="title-img"/>
-					<span className="title-text">查看活动</span>
-					<span className="close-page" onClick={this.onCancel}>
-						<img src={require('./images/closeIMG.svg')} className="close-page-img" />
-					</span>
+					<DrawerTitle title ='查看活动' onCancel = {this.onCancel}/>
 				</div>
 				<div className="detail-info">
 					<div className="activity-info">

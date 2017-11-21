@@ -19,6 +19,7 @@ import {
 	ButtonGroup,
 	Button,
 	Message,
+	DrawerTitle,
 	KrDate,
 } from 'kr-ui';
 import './index.less';
@@ -81,10 +82,9 @@ class ViewNotice extends React.Component {
 		return (
 			<div className="g-create-notice">
 				<div className="u-create-title">
-						<div className="title-text">公告详情</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='公告详情' onCancel = {this.onCancel}/>
 				</div>
-				<form style={{paddingLeft:90}}>
+				<form >
 
 							<KrField
 								style={{width:548}}

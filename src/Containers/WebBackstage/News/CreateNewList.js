@@ -11,6 +11,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	CircleStyleTwo,
+	DrawerTitle,
 	ButtonGroup
 } from 'kr-ui';
 import {
@@ -49,14 +50,7 @@ class CreateNewList extends React.Component {
 		return (
 			<div className="g-new-list">
 				<div className="u-title-box">
-						<img className="u-title-img" src={require('./images/activity.svg')} />
-						<span className="u-title-text">新建新闻</span>
-						<span className="u-close-page" onClick={this.onCancel}>
-							<img 
-								src={require('./images/closeIMG.svg')} 
-								className="u-close-page-img"
-							 />
-						</span>
+					<DrawerTitle title ='新建新闻' onCancel = {this.onCancel}/>
 					</div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 					<CircleStyleTwo num="1" info="新闻基本信息">

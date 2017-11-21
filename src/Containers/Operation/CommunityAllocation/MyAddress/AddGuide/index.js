@@ -15,6 +15,7 @@ import {
 	Row,
 	ListGroup,
 	ListGroupItem,
+	DrawerTitle,
 	Button
 } from 'kr-ui';
 import './index.less';
@@ -67,9 +68,9 @@ import State from '../State';
         	<div className="add-community-guide-form">
         		<form onSubmit={handleSubmit(this.onSubmit)}>
         			<div className="close-new-div">
-			          <img src={require('../images/closeIcon.svg')} className="close-new-img" onClick={this.onCancel}/>
+					<DrawerTitle title ='添加指南' onCancel = {this.onCancel}/>
+
 			        </div>
-					<div className="add-guide-title">添加指南</div>
 					<div className="add-guide-container">
 						<KrField requireLabel={true} grid={1/2} name="guideTitle" type="text"  label="指南标题" maxLength={10}  style={{display:'inline-block',width:'252px'}} onChange={this.titleChang}/>
 						<span style={{display: "inline-block",width: 50,height: 40,margin: "33px 0 0 10px"}}>{titleLen}/10</span>

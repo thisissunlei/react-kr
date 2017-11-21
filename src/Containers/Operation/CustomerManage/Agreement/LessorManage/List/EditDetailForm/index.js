@@ -22,6 +22,7 @@ import {
 	Notify,
 	ButtonGroup,
 	Checkbox,
+	DrawerTitle,
 	Dialog
 } from 'kr-ui';
 import {Chip} from 'material-ui'
@@ -233,8 +234,7 @@ class EditDetailForm extends React.Component {
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">编辑出租方</label></div>
-						<div className="customer-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='编辑出租方' onCancel = {this.onCancel}/>
 				</div>
 				<div className="cheek">
 						<div className="titleBar">

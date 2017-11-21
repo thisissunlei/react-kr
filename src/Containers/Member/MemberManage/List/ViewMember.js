@@ -20,6 +20,7 @@ import {
 	Button,
 	Message,
 	KrDate,
+	DrawerTitle,
 	Tooltip
 } from 'kr-ui';
 import './index.less';
@@ -64,10 +65,9 @@ class ViewMember extends React.Component {
 		return (
 			<div className="g-create-member">
 			<div className="u-create-title">
-					<div className="title-text">会员详情</div>
-					<div className="u-create-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='会员详情' onCancel = {this.onCancel}/>
 			</div>
-			<form style={{paddingLeft:73}}>
+			<form>
 
 						<KrField
 							style={{width:300,marginRight:20}}
