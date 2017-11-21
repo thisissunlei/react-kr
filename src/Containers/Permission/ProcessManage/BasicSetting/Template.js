@@ -43,6 +43,7 @@ class Template extends React.Component {
 			openChooce:false,
 			openTemplate:false,//新建合同模板
 			allData:{},
+			sealList:[]
 		}
 
 		
@@ -55,7 +56,7 @@ class Template extends React.Component {
 		State.getTemplateList(this.props.formId);
 		State.getPrintTemplateList();
 		State.getPrintTemplateData(this.props.id);
-
+        this.getSealData();
 	}
 	
 	onCancel=()=>{
@@ -163,6 +164,20 @@ class Template extends React.Component {
 		this.onOpenTemplate();
 		State.getPrintTemplateList();
 	}
+
+	//获取公章
+    getSealData=()=>{
+		let {formId}=this.props;
+		var _this = this;
+		Http.request("get-seal-list",{formId:formId}).then(function (response) {
+			_this.setState({
+				sealList:response.items
+			})
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
+	}
+
 	//获取编辑数据
 	getEditData = () =>{
 		var id = toJS(State.formworkId);
@@ -186,7 +201,7 @@ class Template extends React.Component {
 
 	render() {
 		const { handleSubmit,formId} = this.props;
-		const { allData, id} = this.state;
+		const { allData, id,sealList} = this.state;
 		return (
 			<div className="g-chooce-template">
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -273,7 +288,7 @@ class Template extends React.Component {
                             name="subId"
                             component="select"
                             label="公章－取值字段"
-                            options={[{label:'123',value:'1'}]}
+                            options={sealList}
 						/>
 
 

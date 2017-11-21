@@ -611,6 +611,12 @@ module.exports = {
     url: '/api/krspace-erp-web/sys/public-dict/source/select/type/list',
     method: 'get'
    },
+
+   //公章列表下拉
+   'get-seal-list':{
+    url: '/api/krspace-erp-web/sys/contract-template/list/type/rent-field?formId={formId}',
+    method: 'get'
+   },
    
    
 }
