@@ -249,7 +249,8 @@ class FromsConfig extends Component {
 	
 	render(){
 		const {handleSubmit,title,introData} = this.props;
-
+		
+		let introDatas='121423423525245245';
 
 		return (
 			
@@ -257,7 +258,13 @@ class FromsConfig extends Component {
 				<DrawerTitle title ={title||"新建"} onCancel = {this.onCancel}/>
 				<div style = {{marginTop:30}}>
 
-				<div className='m-form-intro'>填表说明：{introData}</div>
+				<div className='m-form-intro'>
+					<div className='intro-pic'>
+					  <div></div>
+					  <span>填表说明：</span>
+					</div>
+					<div className='intro-text'>{introDatas}</div>
+				</div>
 
 				{this.renderFields()}
 				</div>
