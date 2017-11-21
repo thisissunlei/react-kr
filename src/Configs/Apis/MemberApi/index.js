@@ -47,7 +47,7 @@ module.exports = {
    
    //会员卡删除
    'memberCardDelete': {
-      url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
+      url: '/api/iot-platform/card/actions/delete?id={id}',
       method: 'delete'
    },
    
@@ -89,7 +89,7 @@ module.exports = {
     },
     //录入会员卡
     'inputCardUrl':{
-        url:'/api/krspace-finance-web/member/card/mbr-card',
+        url:'/api/iot-platform/card/actions/active',
         method:'post'
     },
     //会员列表-离职
@@ -109,7 +109,7 @@ module.exports = {
     },
     //会员列表-绑定会员卡
     'bind-member-code':{
-        url:'/api/krspace-finance-web/member/bindCard',
+        url:'/api/iot-platform/card/actions/bind',
         method:'post'
     },
     //获取会员模糊查询列表

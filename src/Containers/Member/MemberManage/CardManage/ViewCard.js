@@ -58,7 +58,9 @@ class ImportCard extends React.Component{
 				<KrField name="innerCode"  grid={1/2} component="labelText" label="卡内码：" value={detail.innerCode}/>
 				
 				<KrField name="cTime"  grid={1/2} component="labelText" label="入库时间：" value={DateFormat(detail.cTime, "yyyy-mm-dd HH:MM:ss")}/>
-				<KrField name="holdAt"  grid={1/2} component="labelText" label="绑定时间："  value={DateFormat(detail.holdAt, "yyyy-mm-dd HH:MM:ss")}/>
+				{detail.holdAt &&<KrField name="holdAt"  grid={1/2} component="labelText" label="绑定时间："  value={DateFormat(detail.holdAt, "yyyy-mm-dd HH:MM:ss")}/>}
+				{!detail.holdAt &&<KrField name="holdAt"  grid={1/2} component="labelText" label="绑定时间："  value={""}/>}
+				
 				<span className="see-detail-memo-box">
 					<KrField name="memo"  grid={1/1} component="labelText" label="备注：" value={detail.memo}/>
 				</span>

@@ -63,8 +63,6 @@ export default class List extends React.Component {
 				comminityId :'',
 				memo : '',
 			},
-			// isHeavilyClose:true,
-			// goHeavilyActivation:"index"
 			openPerson:false,
 			personInfo:{},
 
@@ -175,7 +173,7 @@ export default class List extends React.Component {
 
 	seeCardDetail=(thisP,itemData)=>{
 
-
+		
 		let _this = this;
 		Http.request('MemberCardSeeDetail',{id:thisP.id}).then(function(response) {
 			
@@ -219,14 +217,14 @@ export default class List extends React.Component {
 			return(
 					<div>
 						<Button  operateCode="mbr_define_add" label="编辑"  type="operation" operation="edit" onTouchTap={_this.openEditDialog.bind(this,itemData)}/>
-						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="edit" onTouchTap={_this.seeCardDetail.bind(this,itemData)}/>
+						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="view" onTouchTap={_this.seeCardDetail.bind(this,itemData)}/>
 					</div>
 				)
 		}else{
 			return(
 					<div>
 						<Button  operateCode="mbr_define_add" label="编辑"  type="operation"  operation="edit" onTouchTap={_this.openEditDialog.bind(this,itemData)}/>
-						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="edit" onTouchTap={_this.seeCardDetail.bind(this,itemData)}/>
+						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="view" onTouchTap={_this.seeCardDetail.bind(this,itemData)}/>
 						<Button  operateCode="mbr_define_add" label="删除"  type="operation"  operation="edit" onTouchTap={_this.deleteCard.bind(this,itemData)}/>
 						<Button                               label="绑会员"  type="operation" onTouchTap={_this.bindMember.bind(this,itemData)}/>
 						

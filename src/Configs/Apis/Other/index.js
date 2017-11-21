@@ -645,10 +645,10 @@ const APIS = {
         method: 'get'
     },
     //运营平台-会员管理-会员配置-会员卡激活-会卡编辑
-    'CardEdit': {
-        url: '/api/krspace-finance-web/member/card/mbr-card',
-        method: 'put'
-    },
+    // 'CardEdit': {
+    //     url: '/api/krspace-finance-web/member/card/mbr-card',
+    //     method: 'put'
+    // },
     //客户管理－招商线索列表
     'shareCustomers': {
         url: '/api/krspace-finance-web/customer/share-customers?page={page}&pageSize={pageSize}&company={company}&createEndDate={createEndDate}&createStartDate={createStartDate}&intentionCityId={intentionCityId}&intentionCommunityId={intentionCommunityId}&levelId={levelId}&sourceId={sourceId}',
