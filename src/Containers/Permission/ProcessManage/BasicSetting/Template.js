@@ -244,7 +244,8 @@ class Template extends React.Component {
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="打印模板" circle="bottom">
 						<KrField 
-	                		style={{width:260,marginTop:5}}
+						    grid={1}
+	                		style={{marginTop:5}}
 	                		name="allowPrint" 
 	                		component="group" 
 	                		label="是否打印"
@@ -264,6 +265,18 @@ class Template extends React.Component {
 			                    		value="false"
 			                    />
 	                	</KrField>
+
+
+						<KrField 
+						    grid={1}
+                            style={{width:262,marginTop:5}}
+                            name="subId"
+                            component="select"
+                            label="公章－取值字段"
+                            options={[{label:'123',value:'1'}]}
+						/>
+
+
 	                	<KrField 
 			                grid={1} 
 			                label="模板设置" 
