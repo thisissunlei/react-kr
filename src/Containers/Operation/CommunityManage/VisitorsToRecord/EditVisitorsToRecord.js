@@ -15,6 +15,7 @@ import {
 	ButtonGroup,
 	Message,
 	ListGroup,
+	DrawerTitle,
 	ListGroupItem
 } from 'kr-ui';
 import {mobxForm}  from 'kr/Utils/MobxForm';
@@ -116,8 +117,7 @@ import State from './State';
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
 				<div className="title" style={{marginBottom:"30px"}}>
-						<div><span className="new-icon"></span><label className="title-text">编辑访客</label></div>
-						<div className="customer-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='编辑访客' onCancel = {this.onCancel}/>
 				</div>
 
 

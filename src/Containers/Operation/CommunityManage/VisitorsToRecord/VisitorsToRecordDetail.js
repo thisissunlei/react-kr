@@ -14,6 +14,7 @@ import {
 	Notify,
 	ButtonGroup,
 	Message,
+	DrawerTitle,
 	Loading
 } from 'kr-ui';
 
@@ -113,8 +114,7 @@ import './index.less';
 		return (
       <div className = "m-newMerchants m-visitors-to-record-detail">
         <div className="title" style={{marginBottom:"30px"}}>
-			<div><span className="new-icon"></span><label className="title-text">查看访客</label></div>
-			<div className="customer-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='查看访客' onCancel = {this.onCancel}/>
 		</div>
         <KrField component="labelText" grid={1/2} label="社区："  value = {detail.communityName} requireBlue={true}  inline={true}/>
         <KrField component="labelText" grid={1/2} label="类型:" value={detail.typeName} requireBlue={true} />

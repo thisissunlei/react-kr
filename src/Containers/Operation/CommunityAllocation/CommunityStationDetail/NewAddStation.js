@@ -7,6 +7,7 @@ import {
 	Grid,
 	Row,
 	Col,
+	DrawerTitle,
   ButtonGroup
 } from 'kr-ui';
 import {
@@ -107,8 +108,7 @@ class NewAddStation  extends React.Component{
 	  <div className='m-newMerchants new-station'>
       <form onSubmit={handleSubmit(this.onSubmit)}>
            <div className="title" style={{marginBottom:"30px"}}>
-              <div><span className="new-icon"></span><label className="title-text">工位信息录入</label></div>
-              <div className="customer-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='新建工位信息' onCancel = {this.onCancel}/>
            </div>
             <KrField type='hidden' name="id"/>
 						<KrField type='hidden' name="communityId"/>

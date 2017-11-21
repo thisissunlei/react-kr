@@ -20,6 +20,7 @@ import {
 	Notify,
 	ButtonGroup,
 	Message,
+	DrawerTitle,
 } from 'kr-ui';
 import './index.less';
 import {Http} from 'kr/Utils';
@@ -370,8 +371,7 @@ class NewCustomerSource extends Component{
 
 			<form className = 'edit-source-from' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">新建客户来源</label></div>
-						<div className="customer-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='新建客户来源' onCancel = {this.onCancel}/>
 				</div>
 				<div className="cheek">
 						<div className="titleBar">
