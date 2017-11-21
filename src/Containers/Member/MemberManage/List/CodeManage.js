@@ -27,7 +27,7 @@ export default class CodeManage extends React.Component {
     getCodeList=()=>{
         let {detail}=this.props;
         var _this=this;
-        Http.request('get-member-code',{id:detail.id}).then(function (response) {
+        Http.request('get-member-code',{id:detail.uid}).then(function (response) {
 			_this.setState({
                 codeList:response.cards
             })
@@ -53,10 +53,10 @@ export default class CodeManage extends React.Component {
         let {codeItem}=this.state;
         var _this=this;
         var form={
-            memberId:detail.id,
+            holder:detail.uid,
             cardId:codeItem.id,
         }
-        Http.request('unbind-member-code',form).then(function (response) {
+        Http.request('unbind-member-code',{},form).then(function (response) {
             Message.success('解绑成功！')
             _this.getCodeList()
             _this.setState({
@@ -82,8 +82,8 @@ export default class CodeManage extends React.Component {
         }
       
         var form={
-            memberId:detail.id,
-            outerCard:codeValue,
+            holder:detail.uid,
+            outerCode:codeValue,
         }
         Http.request('bind-member-code',{},form).then(function (response) {
 			_this.refs.memberCode.value='';
