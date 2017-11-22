@@ -176,6 +176,7 @@ State.editTemplate = action(function(id) {
 		console.log("========");
 		let data = {};
 		data.name = response.name;
+		data.comment=response.comment;
 		let table = response.tableVOList;
 		let mainT = response.tableVOList.filter((item)=>{
 			if(item.isMain){
@@ -199,6 +200,7 @@ State.editTemplate = action(function(id) {
 		// State.editMainT = mainT[0];
 		// State.editData = data;
 		Store.dispatch(change('editTemplate','name',data.name));
+		Store.dispatch(change('editTemplate','comment',data.comment));
 		Store.dispatch(change('editTemplate','lineNum',data.lineNum));
 		Store.dispatch(change('editTemplate','mainT',mainT.mainT));
 		detailT.map((item,index)=>{

@@ -285,7 +285,7 @@ class Template extends React.Component {
 						<KrField 
 						    grid={1}
                             style={{width:262,marginTop:5}}
-                            name="subId"
+                            name="rentField"
                             component="select"
                             label="公章－取值字段"
                             options={sealList}

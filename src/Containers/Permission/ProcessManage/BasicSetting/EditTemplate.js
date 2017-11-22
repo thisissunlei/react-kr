@@ -85,7 +85,8 @@ class EditTemplate extends React.Component {
 		let submitForm = {
 			mainTemplate:JSON.stringify(demo),
 			name:formValue.name,
-			formId:State.formId
+			formId:State.formId,
+			comment:formValue.comment
 		}
 		return submitForm;
 	}
@@ -123,7 +124,7 @@ class EditTemplate extends React.Component {
 						 <KrField 
 							grid={1} 
 							label="提示性文字" 
-							name="descr" 
+							name="comment" 
 							heightStyle={{height:"178px",width:'550px'}}  
 							component="textarea"  
 							maxSize={500} 

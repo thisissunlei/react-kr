@@ -251,7 +251,6 @@ class FromsConfig extends Component {
 	render(){
 		const {handleSubmit,title,introData} = this.props;
 		
-		let introDatas='121423423525245245';
 
 		return (
 			
@@ -264,7 +263,7 @@ class FromsConfig extends Component {
 					  <div></div>
 					  <span>填表说明：</span>
 					</div>
-					<div className='intro-text'>{introDatas}</div>
+					<div className='intro-text'>{introData}</div>
 				</div>
 
 				{this.renderFields()}
