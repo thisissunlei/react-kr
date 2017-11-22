@@ -606,5 +606,12 @@ module.exports = {
     url: '/api/krspace-erp-web/sys/public-dict/source/select/type/list',
     method: 'get'
    },
+
+   //查询节点列表
+   'search-node-list':{
+    url: '/mockjsdata/60/krspace-erp-web/wf/wf-node/listSearch?page={page}&pageSize={pageSize}&wfId={wfId}',
+    method: 'get'
+   },
+
    
 }

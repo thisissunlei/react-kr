@@ -88,7 +88,7 @@ export default class TabCs extends React.Component {
         const {labels,showIndex} = this.state;
 
 		return (
-            <div class = "ui-oa-tabs">
+            <div className = "ui-oa-tabs">
                 {isDetail=='role'&&<TabTitle
                     labels = {this.getLabels()}
                     onSubmit = {this.titleClick}

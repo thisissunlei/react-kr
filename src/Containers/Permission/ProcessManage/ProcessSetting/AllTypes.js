@@ -43,6 +43,10 @@ import EditDialog from './EditDialog';
 import CreateDialog from './Createdialog';
 import CreateDrawer from './CreateDrawer';
 import HighSearchForm from './HighSearchForm';
+
+//流程设置
+import Circulation from './Circulation';
+
 export default class AllTypes extends React.Component {
 
 	constructor(props, context) {
@@ -264,6 +268,9 @@ export default class AllTypes extends React.Component {
                                     <div className={`department-tab ${this.state.tabSelect == 2 ? 'department-tab-active' : ''}`} onClick={this.checkTab.bind(this, 2)}>
                                         合同列表
                                     </div>
+                                    <div className={`department-tab ${this.state.tabSelect == 3 ? 'department-tab-active' : ''}`} onClick={this.checkTab.bind(this, 3)}>
+                                        流转设置
+                                    </div>
                                 </div>
 
                             </div>
@@ -472,6 +479,11 @@ export default class AllTypes extends React.Component {
                         </Table>
                     </div>
                 }
+
+                {this.state.tabSelect == 3 &&
+                  <Circulation />
+                }
+
                 <Dialog
 					title="新建合同类型"
 					modal={true}
@@ -519,6 +531,5 @@ export default class AllTypes extends React.Component {
                 </Dialog>
 			</div>
 		);
-	}
-
+    }
 }
