@@ -16,6 +16,7 @@ import {
 	Col,
 	ButtonGroup,
 	Button,
+	DrawerTitle,
 	Message
 } from 'kr-ui';
 import './../index.less';
@@ -56,8 +57,7 @@ class CreateStart extends React.Component {
 		return (
 			<div className="g-create-advert">
 				<div className="u-create-title">
-						<div className="title-text">新建广告图</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='新建广告图' onCancel = {this.onCancel}/>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField

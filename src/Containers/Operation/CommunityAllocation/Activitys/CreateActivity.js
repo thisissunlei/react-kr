@@ -16,6 +16,7 @@ import {
 	Col,
 	ButtonGroup,
 	Button,
+	DrawerTitle,
 	Message
 } from 'kr-ui';
 import './index.less';
@@ -131,8 +132,7 @@ class CreateActivityList extends React.Component {
 		return (
 			<div className="g-create-activity">
 				<div className="u-create-title">
-						<div className="title-text">新建活动</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='新建活动' onCancel = {this.onCancel}/>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField

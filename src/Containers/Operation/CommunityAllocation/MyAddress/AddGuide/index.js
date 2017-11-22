@@ -67,7 +67,7 @@ import State from '../State';
 		return (
         	<div className="add-community-guide-form">
         		<form onSubmit={handleSubmit(this.onSubmit)}>
-        			<div className="close-new-div">
+        			<div style={{marginBottom:40}}>
 					<DrawerTitle title ='添加指南' onCancel = {this.onCancel}/>
 
 			        </div>

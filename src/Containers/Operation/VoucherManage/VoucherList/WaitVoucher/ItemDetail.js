@@ -63,10 +63,8 @@ export default class ItemDetail extends React.Component {
 		}
 
 		return (
-			<div className="u-audit-add">
-			     <div className="u-audit-add-title">
+			<div className="u-audit-add-view" style={{padding:40}}>
 			     	<DrawerTitle title ="凭证详情" onCancel = {this.onCancel}/>
-			     </div>
 
 					 <div style={{marginTop:30}}>
 						 <KrField grid = {1 / 2}   inline={false} component="labelText" label="签约方名称" value={infoList.customerName}/>
