@@ -188,6 +188,7 @@ class FromsConfig extends Component {
 			return (
 				<KrField
 					name={item.name}
+					left={15}
 					requireLabel={item.required}
 					inline={false}
 					label={item.label}
@@ -256,15 +257,16 @@ class FromsConfig extends Component {
 			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}>
 				<DrawerTitle title ={title||"新建"} onCancel = {this.onCancel}/>
 				<div style = {{marginTop:30}}>
-
-				<div className='m-form-intro'>
-					<div className='intro-pic'>
-					  <div></div>
-					  <span>填表说明：</span>
+				
+				<div style={{width:'100%',paddingLeft:'15',boxSizing:'border-box'}}>
+					<div className='m-form-intro'>
+						<div className='intro-pic'>
+						<div></div>
+						<span>填表说明：</span>
+						</div>
+						<div className='intro-text'>{introData}</div>
 					</div>
-					<div className='intro-text'>{introData}</div>
-				</div>
-
+			    </div>
 				{this.renderFields()}
 				</div>
 				<DrawerBtn onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>	
