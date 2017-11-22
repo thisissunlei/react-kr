@@ -188,7 +188,6 @@ class FromsConfig extends Component {
 			return (
 				<KrField
 					name={item.name}
-					style={grid==1/2?{width:262,marginLeft:30}:{}}
 					requireLabel={item.required}
 					inline={false}
 					label={item.label}
