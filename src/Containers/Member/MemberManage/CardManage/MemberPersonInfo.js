@@ -181,15 +181,7 @@ class MemberPersonInfo extends React.Component {
 							label="注册时间:"
 							inline={true} 
 							component="labelText"
-							value={
-								< KrDate 
-									style = {{marginTop:5}} 
-									value = {
-										baseInfo.registerTime
-									}
-									   format = "yyyy-mm-dd HH:MM:ss" />
-							}
-
+							value={baseInfo.createTime}
 						/>
 						
 						
