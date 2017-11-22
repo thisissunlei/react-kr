@@ -265,7 +265,8 @@ import HeaderUpload from './HeaderUpload';
 		return (
 	      <div className="new-my-address">
 	        <div style={{marginLeft:10,marginBottom:30}}>
-					<DrawerTitle title ='编辑地点' onCancel = {this.onCancel}/>
+
+					<DrawerTitle title ='编辑地点' onCancel = {this.closeEdit}/>
 
 	        </div>
 	        <form onSubmit={handleSubmit(this.onSubmit)} >
