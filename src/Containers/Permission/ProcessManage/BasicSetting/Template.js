@@ -48,6 +48,10 @@ class Template extends React.Component {
 
 		
 	}
+
+	componentWillMount(){
+		this.getSealData();
+	}
 	componentDidMount() {
 		State.initialize();
 		var initializeValues = {mode:'normol',allowPrint:'true'};
@@ -55,8 +59,7 @@ class Template extends React.Component {
 		Store.dispatch(initialize('Template',initializeValues));
 		State.getTemplateList(this.props.formId);
 		State.getPrintTemplateList();
-		State.getPrintTemplateData(this.props.id);
-        this.getSealData();
+		State.getPrintTemplateData(this.props.id);  
 	}
 	
 	onCancel=()=>{
