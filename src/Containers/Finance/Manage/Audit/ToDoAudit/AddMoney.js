@@ -766,10 +766,10 @@ class AddMoney extends React.Component {
 			let options = [{value:'VC_SERVICE',label:'创投服务部'},{value:'PROJECT_GROUP',label:'项目组'},]
 
 			return (
-				<div className="u-audit-add  u-audit-edit">
-			     <div className="u-audit-add-title">
+				<div className="u-audit-add">
+					<div style={{paddingLeft:52}}>
                     <DrawerTitle title ="新建回款" onCancel = {this.onCancel}/>
-			     </div>
+                    </div>
 			     <form onSubmit={handleSubmit(this.onSubmit)} >
 					<CircleStyleTwo num="1" info="付款信息">
 						<KrField

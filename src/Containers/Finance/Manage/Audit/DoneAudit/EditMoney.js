@@ -735,8 +735,8 @@ class EditMoney extends React.Component {
 				oldId
 			} = this.state;
 			return (
-				<div className="u-audit-add">
-			     <div className="u-audit-add-title">
+				<div className="u-audit-add" style={{paddingTop:50}}>
+			      <div style={{paddingLeft:52,paddingRight:40}}>
                     <DrawerTitle title ="编辑回款" onCancel = {this.onCancel}/>
 			     </div>
 			     <div className="u-table-list">
