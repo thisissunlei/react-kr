@@ -49,6 +49,8 @@ import {
 	ListGroup,
 	ListGroupItem,
 	SearchForms,
+	AirBubbles,
+	KrMenu
 } from 'kr-ui';
 import { observer, inject } from 'mobx-react';
 
@@ -56,20 +58,7 @@ import './index.less';
 import { window } from 'rxjs/operator/window';
 // @inject("NavModel")
 // @observer
-var  textArr=[
-	{
-			name:'money',
-			label:'金额',
-			value:'小写',
-			showValue:'大写'
-	},
-	{
-			name:'city',
-			label:'城市',
-			value:'小写',
-			showValue:'大写'
-	}
-]
+
 class TemplatePrint extends React.Component {
 
 
@@ -80,14 +69,24 @@ class TemplatePrint extends React.Component {
 			nameList: [
 			],
 			fieldVOs:[],
-			selectOpen:false,
+			publicFields:[],
 		}
+		this.labellings = [
+			{ name: 'img',label:'合同公章' },
+			{ name: 'pagination',label:'另起一页' },
+			{ name: 'qrCode' ,label:'二维码'},
+			{ name: 'includeStart',label:'区块开始标签' },
+			{ name: 'includeEnd', label:'区块结束标签' },
+			{ name: 'allEnd',label:'文章结尾' },
+		]
 		this.content = ''
 		this.editId = "edit_"+ new Date();
 		this.global = {
 			wWidth: document.body.clientWidth ,
 			wHeight: document.body.clientHeight 
 		}
+		this.tableLabel = '所有字段';
+		this.prefixes = 'm-';
 	}
 	componentDidMount() {
 		var ue = UE.getEditor(this.editId);
@@ -109,7 +108,8 @@ class TemplatePrint extends React.Component {
 			})
 			_this.setState({
 				nameList:response.items,
-				fieldVOs
+				fieldVOs,
+				publicFields: response.publicFields,
 			})
 		}).catch(function (err) {
 			Message.error(err.message);
@@ -137,88 +137,102 @@ class TemplatePrint extends React.Component {
 		this.content = value;
 	}
 	
-    //按钮
-	btnValue=(name)=>{
+    //生成按钮
+	btnValue = (data, prefixes)=>{
 		let {fieldVOs}=this.state;
-		var showValue={};
-		fieldVOs.map((item,index)=>{
-			for(var d in item){
-				if(d!='label'&&d!='name'){
-					showValue[d]=item[d];
-				}
+		var showBtn=[];
+		for (var key in data) {
+			if (key != 'label' && key != 'name'){
+				showBtn.push(
+					<span
+						className="value-btn"
+						onClick={this.originClick.bind(this, key, data.name, prefixes)}
+					>
+						{data[key]}
+					</span>
+				)
 			}
-		})
-        var showBtn=[];
-		for(var item in showValue){
-			showBtn.push(<span 
-				className= "value-btn"
-				style={{padding:'0 10px',background:'#499df1',textAlign:'center',color:'#fff',borderRadius:'4px',marginLeft:'10px',display:'inline-block',height:'25px',lineHeight:'25px',cursor:'pointer'}}
-				onClick={this.originClick.bind(this,item,name)}
-			>{showValue[item]}</span>)
 		}
+		
 		return <div style = {{float:"right",paddingRight:10}}> {showBtn}</div>
 	}
 	
-	//列表
-	btnWatch=()=>{
-		let {fieldVOs}=this.state;
+	//字段展示列表
+	btnWatch = (fieldVOs, prefixes)=>{
 		var showTexts=fieldVOs.map((item,index)=>{
-			       return <div key = {index}>
-					   <span>{item.label}
-							   <Tooltip offsetTop={5} place='top'>
-							   		"sdfsfs"
-							   </Tooltip>
-						</span>
-								{
-									this.btnValue(item.name)
-								}
-				         </div>
+			return (
+				<div className = "box" key = {index}>
+					<div style = {{float:"left"}}>
+						<AirBubbles title={item.name} offsetTop = '10'>
+							{item.label}
+						</AirBubbles>
+					</div>
+					{
+						this.btnValue(item, prefixes)
+					}
+				</div>
+			)
 		})
 		return showTexts
 	}
 
+	//表单名称修改
 	nameListChange=(item)=>{
-       this.setState({
-		 fieldVOs:item.fieldVOs
-	   })
+		if(item.label == "主表"){
+			this.prefixes = 'm-';
+		}else{
+			this.prefixes = item.name + '-';
+		}
+		this.tableLabel = item.label;
+		this.setState({
+			fieldVOs:item.fieldVOs
+		})
 	}
 	
 	//点击上去
-	originClick=(item,bigItem)=>{
+	originClick = (item, bigItem, prefixes)=>{
 		var funcName='';
 		if(item=='showValue'){
-			funcName = '{{m-'+bigItem+'}}';
+			funcName = '{{' + prefixes + bigItem + '}}';
 		}else{
-			funcName = '{{m-'+bigItem+'$'+item+'}}';
+			funcName = '{{' + prefixes + bigItem + '$' + item + '}}';
 		}
 		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
 	}
-	
-	openSelectTop=()=>{
-		
-		const dom = ReactDOM.findDOMNode(this.introList);
-		if(dom.style.display=='none'){
-			dom.style.display='block';
-		}else{
-			dom.style.display='none';
-		}
-		this.setState({
-			selectOpen:!this.state.selectOpen
+	//便签渲染
+	labellingRender = () =>{
+		var arr = this.labellings.map((item,index)=>{
+			return (
+				<div className="add-btn" key={index}>
+					<div style={{ float: "left" }}>
+						<AirBubbles title={item.name} offsetTop='10'>
+							{item.label}
+						</AirBubbles>
+					</div>
+					<div style={{ float: "right", paddingRight: 10 }}>
+						<span
+							className="value-btn"
+							onClick={this.labelClick.bind(this, item.name)}
+						>
+							添加
+						</span>
+					</div>
+				</div>
+			)
+			
 		})
+		return arr;
 	}
-    
+	labelClick = (name) =>{
+		let funcName = '';
+		funcName = '#{' + name + '}';
+		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
+	}
+	
 
 	render() {
 		let {handleSubmit,allData}=this.props;
-		let {child,nameList,selectOpen} = this.state;
-		let selectStyle = {
-			transform: "rotateZ(-90deg)"
-		}
-
-		if (selectOpen){
-			selectStyle.transform = "rotateZ(0deg)";
-		}
-	    
+		let { child, nameList, fieldVOs, publicFields} = this.state;
         
 		return (
 			<form className = "edit-print-formwork"  onSubmit={handleSubmit(this.onSubmit)} >
@@ -265,31 +279,33 @@ class TemplatePrint extends React.Component {
 							options={nameList}	
 							onChange={this.nameListChange}	
 						/>
-
+						<div className='text-list'>
+							<KrMenu title="公共字段" subHeight="100px">
+								<div className='btn-li-style'>
+									{
+										this.btnWatch(publicFields,"o-")
+									}
+								</div>
+							</KrMenu>
+						</div>
 					    <div className='text-list'>
-							<p style={{background:'#F6F6F9',fontSize:'14px',color: '#333333'}} className='text-p-style'>字段列表</p>
-
-							<div className='btn-li-style'>
-							{
-								this.btnWatch()
-							}
-							</div>
+							<KrMenu title={this.tableLabel} subHeight= "431px">
+								<div className='btn-li-style'>
+									{
+										this.btnWatch(fieldVOs, this.prefixes)
+									}
+								</div>
+							</KrMenu>
 						</div>
-
-						<div className='text-introduction'>
-							<div className = "introduction-bar">
-								配置说明
-								<div className="select" style={selectStyle} onClick={this.openSelectTop}></div>
+						<KrMenu title="标签" subHeight="200px" style={{ marginTop: "20px" }}>
+							<div>
+								{this.labellingRender()}
 							</div>
-
-							<div 
-							   ref={ul=>{this.introList = ul}}
-							   className='inner-introduction' style={{display:'none'}}>
-								1dsdfsdfdsfds
-							</div>
-
-						</div>
-
+						</KrMenu>
+					
+						<KrMenu title="配置说明" subHeight="200px" style={{ marginTop:"20px"}}>
+							<div style = {{padding:10}}>asdasdadadsa</div>
+						</KrMenu>
 					 </div>
 				  </div>
 				</Section>

@@ -153,7 +153,11 @@ class Template extends React.Component {
 				id:''
 			})
 		}
-		
+		if(openTemplate){
+			document.body.style.overflow = "auto";
+		}else{
+			document.body.style.overflow = "hidden";
+		}
 		this.setState({
 			openTemplate:!openTemplate,
 		})

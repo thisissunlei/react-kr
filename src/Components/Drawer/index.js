@@ -40,12 +40,18 @@ export default class DrawerSimpleExample extends React.Component {
     const {onClose} = this.props;
     onClose && onClose();
   }
+ 
+  
+  
+  
+  
 
   render() {
 
     let {children,open,contentStyle,width,openSecondary,modal,drawerStyle,openDirection} = this.props;
    
     contentStyle = Object.assign({},contentStyle,{width:width});
+   
 
     if(!open){
       return null;
@@ -58,7 +64,6 @@ export default class DrawerSimpleExample extends React.Component {
         contentStyle.left = 0;
         contentStyle.right = 'auto';
     }
-
     return (
       <div className="ui-drawer" style={drawerStyle}>
         {modal && <DrawerModal onClose={this.onClose}/> }
