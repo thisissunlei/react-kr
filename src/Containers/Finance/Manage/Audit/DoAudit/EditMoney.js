@@ -221,8 +221,8 @@ class EditMoney extends React.Component {
 			topInfoList
 		} = this.state;
 		return (
-			<div className="u-audit-add u-audit-edit">
-			     <div className="u-audit-add-title">
+			<div className="u-audit-add u-audit-edit" style={{paddingTop:52}}>
+			     <div style={{paddingLeft:52,paddingRight:40}}>
                     <DrawerTitle title ="编辑回款" onCancel = {this.onCancel}/>
 			     </div>
 			     <div className="u-table-list">

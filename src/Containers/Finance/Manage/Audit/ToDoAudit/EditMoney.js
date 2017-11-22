@@ -787,8 +787,8 @@ class EditMoney extends React.Component {
 				oldId
 			} = this.state;
 			return (
-				<div className="u-audit-add u-audit-edit">
-			     <div className="u-audit-add-title">
+				<div className="u-audit-add">
+			     <div style={{paddingLeft:52}}>
                     <DrawerTitle title ="编辑回款" onCancel = {this.onCancel}/>
 			     </div>
 					 {topInfoList.length>0?this.renderTable(topInfoList):''}

@@ -35,7 +35,7 @@ export default class WatchForm  extends React.Component{
 			<div>
 				 <div className='m-or-role' style={{paddingLeft:0}}>
 				    <div className="title">
-                    <DrawerTitle title ="查看表单" onCancel = {this.onCancel}/>
+                    <DrawerTitle title ="查看表单" onCancel = {this.allClose}/>
             		</div>
 			    </div>
 				<div className='role-tab'>
