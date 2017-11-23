@@ -57,7 +57,7 @@ class AddWork  extends React.Component{
 						/>
 
                           <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
+                            style={{width:262,marginLeft:28,marginTop:30}}
                             name="job"
                             component="input"
                             label="职务"
