@@ -175,7 +175,7 @@ import newIndentState from "../NewIndent/State";
 				<div className="title" style={{marginBottom:"30px"}}>
 			     	<DrawerTitle title ="新建合同" onCancel = {this.onCancel}/>
 				</div>
-						<KrField  grid={1/2}  name="companyId" style={{width:262,marginLeft:28}} component='companyName'  label="客户名称" inline={false} onChange={this.onChangeSign} placeholder='请输入客户名称' requireLabel={true}/>
+						<KrField  grid={1/2}  name="companyId" style={{width:262,marginLeft:47}} component='companyName'  label="客户名称" inline={false} onChange={this.onChangeSign} placeholder='请输入客户名称' requireLabel={true}/>
 
 
 						<KrField grid={1/2} label="订单名称" name="staionTypeId" component="select" style={{width:262,marginLeft:28}}
