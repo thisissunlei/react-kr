@@ -342,7 +342,7 @@ class EditActivityForm extends React.Component{
 		return (
 			<div className="edit-activity">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-					<div className="title-box">
+					<div className="title-box" style={{paddingBottom:20}}>
 						<DrawerTitle title ='编辑活动' onCancel = {this.onCancel}/>
 					</div>
 					<div className="detail-info">

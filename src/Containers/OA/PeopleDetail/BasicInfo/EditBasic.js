@@ -153,7 +153,7 @@ class EditPerson  extends React.Component{
                             requireLabel={true}
 						/>
                        
-                         <KrField grid={1/2} style={{width:262,marginLeft:28}} name="sex" component="group" label="性别" requireLabel={true}>
+                         <KrField grid={1/2} style={{width:262,marginLeft:28,marginTop:30}} name="sex" component="group" label="性别" requireLabel={true}>
  							 <KrField name="sex" label="男" type="radio" value='MALE' />
  							 <KrField name="sex" label="女" type="radio" value='FAMALE' />
  						</KrField>
