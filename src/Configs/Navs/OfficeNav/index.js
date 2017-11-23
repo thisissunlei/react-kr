@@ -15,7 +15,7 @@ module.exports = [
 			},
 			{
 				primaryText: '新办事宜',
-				iconName: 'icon-schema',
+				iconName: 'icon-newthing',
 				router: 'office',
 				iconColor: '#79859a',
 				menuCode: 'myCard',
@@ -43,7 +43,7 @@ module.exports = [
 			// }, 
 			{
 				primaryText: '已办事宜',
-				iconName: 'icon-schema',
+				iconName: 'icon-donething',
 				router: 'office',
 				iconColor: '#79859a',
 				menuCode: 'myCard',
