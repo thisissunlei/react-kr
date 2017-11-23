@@ -108,13 +108,13 @@ class AddNode  extends React.Component{
 
 
                         <KrField grid={1/2} style={{width:262,marginLeft:30}} name="forceFinish" component="group" label="强制归档" requireLabel={true}>
-                                <KrField name="forceFinish" label="禁止" type="radio" value='true' />
-                                <KrField name="forceFinish" label="允许" type="radio" value='false' />
+                                <KrField name="forceFinish" label="禁止" type="radio" value='false' />
+                                <KrField name="forceFinish" label="允许" type="radio" value='true' />
                         </KrField>
 
                         <KrField grid={1/2} style={{width:262}} name="batchCommit" component="group" label="批量提交" requireLabel={true}>
-                                <KrField name="batchCommit" label="禁止" type="radio" value='true' />
-                                <KrField name="batchCommit" label="允许" type="radio" value='false' />
+                                <KrField name="batchCommit" label="禁止" type="radio" value='false' />
+                                <KrField name="batchCommit" label="允许" type="radio" value='true' />
                         </KrField>
 
 

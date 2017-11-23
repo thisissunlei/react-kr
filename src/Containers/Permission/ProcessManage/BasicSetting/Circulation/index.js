@@ -18,15 +18,18 @@ export default class Circulation  extends React.Component{
 	render(){
 
 
+		let {wfId}=this.props;
+
+
 		return(
 
 			  <div className='m-wrap-circulation'>
 
 				  <TabCs
-					  isDetail='detail'
+				     isDetail='process'
 			      >
                     <TabC label='节点信息'>
-                       <NodeInfor />
+                       <NodeInfor wfId={wfId}/>
                     </TabC>
 			    </TabCs>
 

@@ -38,19 +38,23 @@ export default class NodeInfor extends Component{
 		this.state={
             searchParams:{
                 page:1,
-                pageSize:15
+                pageSize:15,
+                wfId:props.wfId
             },
             openAdd:false,
             openWatch:false,
             openEdit:false,
-            basicData:{}
+            basicData:{},
+            //主键id
+            id:''
 		}
     }
     
     
     submitAddNode=(params)=>{
+        let {wfId}=this.props;
         var _this = this;
-        params.wfId=0;
+        params.wfId=wfId;
         Http.request('add-node-intro', {}, params).then(function (response) {
            _this.paramsRefresh();
 		   _this.openAddNode();
@@ -72,6 +76,10 @@ export default class NodeInfor extends Component{
     getEditData=(id)=>{
         var _this = this;
         Http.request('get-node-edit', {id:id}).then(function (response) {
+          
+           response.batchCommit=response.batchCommit?'true':'false'; 
+           response.forceFinish=response.forceFinish?'true':'false'; 
+          
            Store.dispatch(initialize('EditNode',response))
            _this.setState({
              basicData:response
@@ -163,7 +171,7 @@ export default class NodeInfor extends Component{
                             onClose={this.allClose}
                         >
                             <EditNode
-                                onCancel={this.openEditNode}
+                                onCancel={this.cancelEditNode}
                                 onSubmit={this.submitEditNode}
                             />
                     </Drawer>
@@ -192,16 +200,25 @@ export default class NodeInfor extends Component{
     }
 
     openEditNode=()=>{
+        let {id}=this.state;
+        this.getEditData(id);
+        this.setState({
+            openEdit:!this.state.openEdit, 
+        })
+    }
+
+    cancelEditNode=()=>{
         this.setState({
             openEdit:!this.state.openEdit
-        })
+        }) 
     }
 
     onOperation=(type,itemDetail)=>{
         if(type=='watch'){
             this.getEditData(itemDetail.id);
             this.setState({
-                openWatch:!this.state.openWatch
+                openWatch:!this.state.openWatch,
+                id:itemDetail.id
             })
         }
     }

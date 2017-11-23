@@ -609,25 +609,25 @@ module.exports = {
 
    //查询节点列表
    'search-node-list':{
-    url: '/mockjsdata/60/krspace-erp-web/wf/wf-node/listSearch?page={page}&pageSize={pageSize}&wfId={wfId}',
+    url: '/api/krspace-erp-web/wf/wf-node/listSearch?page={page}&pageSize={pageSize}&wfId={wfId}',
     method: 'get'
    },
 
    //新建节点信息
    'add-node-intro':{
-    url: '/mockjsdata/60/krspace-erp-web/wf/wf-node/add',
+    url: '/api/krspace-erp-web/wf/wf-node/add',
     method: 'post'
    },
 
    //编辑节点信息
    'edit-node-intro':{
-    url: '/mockjsdata/60/krspace-erp-web/wf/wf-node/edit',
+    url: '/api/krspace-erp-web/wf/wf-node/edit',
     method: 'post'
    },
 
    //查询节点对象
    'get-node-edit':{
-    url: '/mockjsdata/60/krspace-erp-web/wf/wf-node/wfNodeVOSearch?id={id}',
+    url: '/api/krspace-erp-web/wf/wf-node/wfNodeVOSearch?id={id}',
     method: 'get'
    },
    

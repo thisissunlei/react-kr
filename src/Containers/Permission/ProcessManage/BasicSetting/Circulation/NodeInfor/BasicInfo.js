@@ -89,7 +89,7 @@ export default class  BasicInfo extends React.Component{
                             component="labelText"
                             label="强制归档"
                             inline={false}
-                            value={basicData.name}
+                            value={basicData.forceFinishName}
 						/>
 
                         <KrField 
@@ -98,7 +98,7 @@ export default class  BasicInfo extends React.Component{
                             component="labelText"
                             label="批量提交"
                             inline={false}
-                            value={basicData.name}
+                            value={basicData.batchCommitName}
 						/>
 
                         <KrField 
