@@ -297,7 +297,7 @@ class TemplatePrint extends React.Component {
 								</div>
 							</KrMenu>
 						</div>
-						<KrMenu title="标签" subHeight="200px" style={{ marginTop: "20px" }}>
+						<KrMenu title="标签" subHeight="250px" style={{ marginTop: "20px" }}>
 							<div>
 								{this.labellingRender()}
 							</div>
