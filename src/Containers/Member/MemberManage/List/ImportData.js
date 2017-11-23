@@ -39,18 +39,18 @@ class ImportData extends React.Component {
 			progress: 0,
 			file:{},
 			fileName:'',
-			companyId:''
+			csrId:''
 		}
 	}
 	testDate=()=>{
 		let _this = this;
 		let {
-			companyId,
+			csrId,
 			file
 		}=this.state;
 		var form = new FormData();
 		form.append('file', file);
-		form.append('companyId', companyId);
+		form.append('csrId', csrId);
 
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
@@ -127,7 +127,7 @@ class ImportData extends React.Component {
 
 	onCompanyChange=(value)=>{
 		this.setState({
-			companyId:value.id
+			csrId:value.id
 		});
 	}
 
@@ -141,7 +141,7 @@ class ImportData extends React.Component {
 		return (
 			<form className="u-import-date" onSubmit={handleSubmit(this.testDate)} name='import' style={{textAlign:'center'}}>
 				<KrField 
-					name="companyId"
+					name="csrId"
 					label="公司" 
 					grid={1/2}
 					inline={false}
@@ -170,8 +170,8 @@ class ImportData extends React.Component {
 
 const validate = values => {
 	const errors = {}
-	if (!values.companyId) {
-		errors.companyId = '请输入公司名称';
+	if (!values.csrId) {
+		errors.csrId = '请输入公司名称';
 	}
 	return errors;
 }
