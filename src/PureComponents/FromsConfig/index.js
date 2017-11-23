@@ -126,6 +126,7 @@ class FromsConfig extends Component {
 		})
 		return fields;
 	}	
+	
 	//主表渲染
 	mainRender = (fields,lineNum) =>{
 		var num = fields.lineNum||[];
@@ -189,6 +190,7 @@ class FromsConfig extends Component {
 				<KrField
 					name={item.name}
 					left={15}
+					right={15} 
 					requireLabel={item.required}
 					inline={false}
 					label={item.label}
@@ -258,7 +260,7 @@ class FromsConfig extends Component {
 				<DrawerTitle title ={title||"新建"} onCancel = {this.onCancel}/>
 				<div style = {{marginTop:30}}>
 				
-				<div style={{width:'100%',paddingLeft:'15',boxSizing:'border-box'}}>
+				<div style={{width:'100%',padding:'0px 15px',boxSizing:'border-box'}}>
 					<div className='m-form-intro'>
 						<div className='intro-pic'>
 						<div></div>
