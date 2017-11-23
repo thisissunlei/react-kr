@@ -197,7 +197,7 @@ class FromsConfig extends Component {
 					grid={grid}
 					isStore={true}
 					selectUrl= 'template-search-list'
-					component={item.editable?type:'labelText'}
+					component={item.editable ? 'labelText':type}
 					params={params}
 					editHeight={editHeight}
 					maxSize={maxLength}
