@@ -187,6 +187,7 @@ export default class NodeInfor extends Component{
                             <WatchNode 
                               openEditNode={this.openEditNode} 
                               basicData={this.state.basicData}
+                              onCancel={this.cancelWatchNode}
                             />
                     </Drawer>
           </div>
@@ -210,6 +211,12 @@ export default class NodeInfor extends Component{
     cancelEditNode=()=>{
         this.setState({
             openEdit:!this.state.openEdit
+        }) 
+    }
+    
+    cancelWatchNode=()=>{
+        this.setState({
+            openWatch:!this.state.openWatch
         }) 
     }
 
