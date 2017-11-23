@@ -217,7 +217,7 @@ class EditNotice extends React.Component {
 				<div className="u-create-title">
 					<DrawerTitle title ='编辑公告' onCancel = {this.onCancel}/>
 				</div>
-				<form onSubmit={handleSubmit(this.onSubmit)} >
+				<form onSubmit={handleSubmit(this.onSubmit)}  style={{paddingLeft:42}}>
 							<KrField
 								style={{width:548}}
 								name="title"

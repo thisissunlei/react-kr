@@ -49,9 +49,9 @@ class NewAddCode  extends React.Component{
 
 		return(
 
-	  <div className='m-newMerchants'>
+	  <div className='m-new-code'>
       <form onSubmit={handleSubmit(this.onSubmit)}>
-           <div className="title" style={{marginBottom:"30px"}}>
+           <div className="title" style={{marginBottom:"30px",marginLeft:'-40px'}}>
           <DrawerTitle title ='新增代码分类' onCancel = {this.onCancel}/>
            </div>
             <KrField type='hidden' name="id"/>

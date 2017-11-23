@@ -180,7 +180,7 @@ class CreateNotice extends React.Component {
 				<div className="u-create-title">
 					<DrawerTitle title ='新建公告' onCancel = {this.onCancel}/>
 				</div>
-				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
+				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:42}}>
 							<KrField
 								style={{width:548}}
 								name="title"

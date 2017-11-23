@@ -104,7 +104,7 @@ export default class CodeManage extends React.Component {
         }=this.state;
 		return (
 			<div className="g-create-member">
-			<div className="u-create-title">
+			<div className="u-create-title" style={{marginBottom:30}}>
                     <DrawerTitle title ='门禁卡管理' onCancel = {this.onCancel}/>
 			</div>
             <div className="u-add-code">

@@ -171,7 +171,7 @@ class EditActivity extends React.Component {
 		
 		return (
 			<div className="g-create-activity">
-				<div className="u-create-title"  style={{padding:'0 83px',paddingBottom:30}}>
+				<div className="u-create-title"  style={{padding:'0 83px',paddingBottom:30,paddingLeft:40}}>
 					<DrawerTitle title ='编辑活动' onCancel = {this.onCancel}/>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >

@@ -59,7 +59,7 @@ class AddOrganization  extends React.Component{
                             requireLabel={true}
 						/>
                         <KrField grid={1/2}
-                            style={{width:262,marginLeft:29,marginBottom:5}}
+                            style={{width:262,marginLeft:29,marginBottom:5,marginTop:30}}
                             name="code"
                             component="input"
                             label="编码"

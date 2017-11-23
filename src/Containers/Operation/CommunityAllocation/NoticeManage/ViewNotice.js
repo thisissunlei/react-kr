@@ -84,7 +84,7 @@ class ViewNotice extends React.Component {
 				<div className="u-create-title">
 					<DrawerTitle title ='公告详情' onCancel = {this.onCancel}/>
 				</div>
-				<form >
+				<form  style={{paddingLeft:42}}>
 
 							<KrField
 								style={{width:548}}
