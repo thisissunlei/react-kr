@@ -76,7 +76,7 @@ class SelectStationForm extends Component {
 
 
 	onChangeRentBeginDate(value) {
-		value = dateFormat(value, 'yyyy-mm-dd') + ' 00:00:00';
+		value = dateFormat(value, 'yyyy-mm-dd 00:00:00') ;
 		let {
 			stationVos,
 			selected
@@ -88,7 +88,7 @@ class SelectStationForm extends Component {
 		} = this.props.changeValues;
 		//判断选择的时间是否大于租赁起始时间
 		let endDate = leaseEnddate;
-		let rentBeginDate = Date.parse(dateFormat(value, 'yyyy-mm-dd') + ' 00:00:00');
+		let rentBeginDate = Date.parse(dateFormat(value, 'yyyy-mm-dd 00:00:00')) ;
 
 		// if (endDate < rentBeginDate) {
 		// 	Notify.show([{
@@ -109,7 +109,7 @@ class SelectStationForm extends Component {
 		//比较减租开始日期不能小于工位起始日期
 		let isOK = true;
 		stationVos.map(function(item, index) {
-			let stationStartDate = Date.parse(dateFormat(item.leaseBeginDate, 'yyyy-mm-dd'));
+			let stationStartDate = Date.parse(dateFormat(item.leaseBeginDate, 'yyyy-mm-dd 00:00:00'));
 			if (rentBeginDate < stationStartDate) {
 				isOK = false;
 			}
@@ -220,8 +220,8 @@ class SelectStationForm extends Component {
 		//工位结束时间相同
 		var some = true;
 		selectedStationVos.sort(function(pre, next) {
-			var preDate = dateFormat(pre.leaseEndDate, 'yyyy-mm-dd');
-			var nextDate = dateFormat(next.leaseEndDate, 'yyyy-mm-dd');
+			var preDate = dateFormat(pre.leaseEndDate, 'yyyy-mm-dd 00:00:00');
+			var nextDate = dateFormat(next.leaseEndDate, 'yyyy-mm-dd 00:00:00');
 			if (preDate != nextDate) {
 				some = false;
 			}
@@ -246,12 +246,12 @@ class SelectStationForm extends Component {
 			obj.unitprice = item.unitprice;
 			obj.originalUnitprice = item.originalUnitprice;
 			obj.stationType = item.stationType;
-			obj.stationBeginDate = dateFormat(item.leaseBeginDate, 'yyyy-mm-dd');
-			obj.stationEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
+			obj.stationBeginDate = dateFormat(item.leaseBeginDate, 'yyyy-mm-dd 00:00:00');
+			obj.stationEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd 00:00:00');
 
-			obj.leaseBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd');
-			obj.leaseEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd');
-			obj.rentBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd');
+			obj.leaseBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd 00:00:00');
+			obj.leaseEndDate = dateFormat(item.leaseEndDate, 'yyyy-mm-dd 00:00:00');
+			obj.rentBeginDate = dateFormat(item.rentBeginDate, 'yyyy-mm-dd 00:00:00');
 
 			resultStationVos.push(obj);
 		});

@@ -129,6 +129,7 @@ class NewCreateForm extends Component {
 			HeightAuto: false,
 			allRent:this.props.initialValues.totalrent || '0',
 			biaodan:this.props.initialValues.biaodan || [],
+			dateRange:''
 		}
 	}
 
@@ -157,8 +158,12 @@ class NewCreateForm extends Component {
 		let {array} = this.props;
 		array.removeAll('saleList')
 
-		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
 
+		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
+		let {changeValues} = this.props;
+		if(changeValues.leaseEnddate){
+			this.checkDate(value,changeValues.leaseEnddate)
+		}
 		let {
 			stationVos
 		} = this.state;
@@ -181,6 +186,10 @@ class NewCreateForm extends Component {
 		let {array} = this.props;
 		array.removeAll('saleList')
 		value = dateFormat(value, "yyyy-mm-dd 00:00:00");
+		let {changeValues} = this.props;
+		if(changeValues.leaseBegindate){
+			this.checkDate(changeValues.leaseBegindate,value)
+		}
 		let {
 			stationVos
 		} = this.state;
@@ -197,6 +206,37 @@ class NewCreateForm extends Component {
 			biaodan:[]
 		});
 
+	}
+	checkDate=(begin,end)=>{
+		let _this = this;
+
+
+		if(new Date(end)<new Date(begin)){
+			_this.setState({
+				dateRange:''
+			})
+			Notify.show([{
+				message: '结束时间不能小于开始时间',
+				type: 'danger',
+			}]);
+			return;
+		}
+		Http.request('contract-date-range', {start:begin,end:end}).then(function(response){
+			console.log('contract-date-range',response);
+			_this.setState({
+				dateRange:response
+			})
+		}).catch(function(err){
+			console.log('err',err)
+			Notify.show([{
+				message: err.message,
+				type: 'danger',
+			}]);
+
+		})
+
+		console.log('check--date',begin,end)
+		// return true;
 	}
 
 	onStationVosChange(index, value) {
@@ -1430,6 +1470,7 @@ class NewCreateForm extends Component {
 			stationVos,
 			HeightAuto,
 			allRent,
+			dateRange
 		} = this.state;
 		let allRentName = this.dealRentName();
 		var agreementValue ='如社区申请增加补充条款的，补充条款内容经法务审核通过后，社区将审核通过的内容邮件发送法务林玉洁（linyujie@krspace.cn），抄送技术部田欢（tianhuan@krspace.cn），冯西臣（fengxichen@krspace.cn），由技术部修改该内容，修改后邮件回复社区即可联网打印盖章版本。';
@@ -1445,7 +1486,7 @@ class NewCreateForm extends Component {
 					<div className="titleBar" style={{marginLeft:-23}}><span className="order-number">1</span><span className="wire"></span><label className="small-title">租赁明细</label></div>
 					<div className="small-cheek" style={{paddingBottom:"0px"}}>
 					<KrField  name="wherefloor" style={{width:262,marginLeft:25}} component="select" label="所在楼层" options={optionValues.floorList} multi={true} requireLabel={true} />
-					<KrField style={{width:343,marginLeft:25,position:"absolute"}} component="group" label="租赁期限"  requireLabel={true}>
+					<KrField style={{width:343,marginLeft:25,position:"absolute"}} component="group" label={`租赁期限：${dateRange}`}  requireLabel={true}>
 						<ListGroup>
 							<ListGroupItem style={{width:'141',padding:0,marginLeft:'-10px',marginTop:'-10px'}}> <KrField name="leaseBegindate" style={{width:141}}  component="date" onChange={this.onChangeLeaseBeginDate} simple={true}/></ListGroupItem>
 							<ListGroupItem style={{width:'31',textAlign:'center',padding:0,marginLeft:10,marginTop:'-10px'}}><span style={{display:'inline-block',lineHeight:'60px',width:'31px',textAlign:'center',left:'10px',position:"relative"}}>至</span></ListGroupItem>
