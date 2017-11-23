@@ -27,17 +27,56 @@ import {
 	Message,
 } from 'kr-ui';
 import './index.less';
+import AddNode from './AddNode';
+import EditNode from './EditNode';
+import WatchNode from './WatchNode';
 export default class NodeInfor extends Component{
 
 
 	constructor(props,context){
 		super(props, context);
 		this.state={
-            searchParams:{},
-            openAdd:false
+            searchParams:{
+                page:1,
+                pageSize:15
+            },
+            openAdd:false,
+            openWatch:false,
+            openEdit:false,
 		}
-	}
+    }
     
+    
+    submitAddNode=(params)=>{
+        var _this = this;
+        params.wfId=0;
+        Http.request('add-node-intro', {}, params).then(function (response) {
+           _this.paramsRefresh();
+		   _this.openAddNode();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+    }
+
+    submitEditNode=(params)=>{
+        var _this = this;
+        Http.request('edit-node-intro', {}, params).then(function (response) {
+           _this.paramsRefresh();
+		   _this.openEditNode();
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+    }
+  
+    getEditData=(id)=>{
+        var _this = this;
+        Http.request('get-node-edit', {id:id}).then(function (response) {
+           Store.dispatch(initialize('EditNode',response))
+		}).catch(function (err) {
+			Message.error(err.message)
+		});
+    }
+	
     
   
 	render(){
@@ -96,13 +135,83 @@ export default class NodeInfor extends Component{
 					</TableRow>
 				 </TableBody>
                 </Table>
-        </div>
+
+                  {/*新建节点*/} 
+                    <Drawer
+                            open={this.state.openAdd}
+                            width={750}
+                            openSecondary={true}
+                            containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+                            onClose={this.allClose}
+                        >
+                            <AddNode
+                                onCancel={this.openAddNode}
+                                onSubmit={this.submitAddNode}
+                            />
+                    </Drawer>
+
+                    {/*编辑节点*/} 
+                    <Drawer
+                            open={this.state.openEdit}
+                            width={750}
+                            openSecondary={true}
+                            containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+                            onClose={this.allClose}
+                        >
+                            <EditNode
+                                onCancel={this.openEditNode}
+                                onSubmit={this.submitEditNode}
+                            />
+                    </Drawer>
+
+                    {/*查看节点*/} 
+                    <Drawer
+                            open={this.state.openWatch}
+                            width={750}
+                            openSecondary={true}
+                            containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+                            onClose={this.allClose}
+                        >
+                            <WatchNode/>
+                    </Drawer>
+          </div>
 		);
     }
     
     openAddNode=()=>{
         this.setState({
             openAdd:!this.state.openAdd
+        })
+    }
+
+    openEditNode=()=>{
+        this.setState({
+            openEdit:!this.state.openEdit
+        })
+    }
+
+    onOperation=(type,itemDetail)=>{
+        if(type=='watch'){
+            this.getEditData(itemDetail.id);
+            this.setState({
+                openWatch:!this.state.openWatch
+            })
+        }
+    }
+
+    allClose=()=>{
+        this.setState({
+            openAdd:false,
+            openEdit:false,
+            openWatch:false
+        })
+    }
+
+    paramsRefresh=()=>{
+        let params={};
+        params.other=+new Date();
+        this.setState({
+            searchParams:Object.assign({},params,this.state.searchParams)
         })
     }
 
