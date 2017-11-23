@@ -1,7 +1,8 @@
 import React from 'react';
 import {	
 	TabCs,
-	TabC
+    TabC,
+    DrawerTitle
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
 import './index.less';
@@ -16,25 +17,30 @@ export default class  WatchNode extends React.Component{
         const {onCancel}=this.props;
         onCancel && onCancel();
     }
-    
-	onSubmit=(values)=>{
-	   const {onSubmit}=this.props;
-        onSubmit && onSubmit(values);	
-	}
+
+    openEditNode=()=>{
+        const {openEditNode}=this.props;
+        openEditNode && openEditNode();
+    }
 
 	render(){
-		
+        
+        let {basicData}=this.props;
 
 		return(
 
-			<div>
+			<div className='m-watch-node'>
+                <div className='m-title-node'>
                     <DrawerTitle title='节点信息' onCancel={this.onCancel}/>
-                    <div className='role-tab'>    
+                </div>
+                <div className='role-tab'>    
                         <TabCs
                         isDetail='role'
                         >
                             <TabC label='基本信息'> 
-                                <BasicInfo           
+                                <BasicInfo  
+                                  openEditNode={this.openEditNode}
+                                  basicData={basicData}         
                                 />
                             </TabC> 
                             

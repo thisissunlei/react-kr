@@ -21,11 +21,7 @@ export default class  BasicInfo extends React.Component{
         }
 	}
 
-    componentDidMount(){
-      
-    }
    
-  
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -38,48 +34,91 @@ export default class  BasicInfo extends React.Component{
 
 	render(){
 
-        let {handleSubmit}=this.props;
+        let {basicData}=this.props;
        
-
 		return(
 
 			<div className='m-node-basic'>
                        <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
-                            component="input"
-                            label="机构分权名称"
-                            requireLabel={true}
-						/>
-                        <div className='add-code'><KrField grid={1/2}
-                            style={{width:262,marginLeft:32,marginBottom:5}}
-                            name="code"
                             component="labelText"
-                            label="编码"
-                            value={code}
-                            requireLabel={true}
+                            label="节点名称"
                             inline={false}
-						/></div>
+                            value={basicData.name}
+						/>
+                        <KrField grid={1/2}
+                            style={{width:262,marginLeft:32,marginBottom:5}}
+                            name="type"
+                            component="labelText"
+                            label="节点类型"
+                            inline={false}
+                            value={basicData.nodeTypeName}
+						/>
 
                         <KrField grid={1/2}
                             style={{width:262,marginBottom:5}}
-                            name="dimId"
+                            name="property"
                             component="labelText"
-                            label="所属纬度"
-                            value={dimName}
-                            requireLabel={true}
+                            label="节点属性"
                             inline={false}
+                            value={basicData.nodePropertyName}
 						/>
 
-                         <div className='m-edit-enable'><KrField style={{width:262,marginLeft:32}} name="enable" component="group" label="是否启用" requireLabel={true}>
- 							 <KrField name="enable" label="启用" type="radio" value='1' />
- 							 <KrField name="enable" label="不启用" type="radio" value='0' />
- 						</KrField></div>
+                        <KrField grid={1/2}
+                            style={{width:262,marginLeft:32,marginBottom:5}}
+                            name="orderNum"
+                            component="labelText"
+                            label="显示顺序"
+                            inline={false}
+                            value={basicData.orderNum}
+						/>
 
-                        <KrField grid={1} label="描述" name="desc" heightStyle={{height:"78px",width:'542px'}} style={{width:552}} component="textarea"  maxSize={30} placeholder='请输入描述'  lengthClass='role-len-textarea'/>
+                        <KrField grid={1/2}
+                            style={{width:262,marginBottom:5}}
+                            name="forceBack"
+                            component="labelText"
+                            label="强制收回"
+                            inline={false}
+                            value={basicData.forceBackName}
+						/>
 
-                        
+                        <KrField grid={1/2}
+                            style={{width:262,marginLeft:32,marginBottom:5}}
+                            name="forceFinish"
+                            component="labelText"
+                            label="强制归档"
+                            inline={false}
+                            value={basicData.name}
+						/>
+
+                        <KrField 
+                            grid={1}
+                            name="batchCommit"
+                            component="labelText"
+                            label="批量提交"
+                            inline={false}
+                            value={basicData.name}
+						/>
+
+                        <KrField 
+                            grid={1}
+                            name="descr"
+                            component="labelText"
+                            label="节点描述"
+                            inline={false}
+                            value={basicData.descr}
+						/>
+
+                        <div className='basic-btn'>
+                            <Button label="编辑" type='button' onTouchTap={this.openEditNode}/>
+                        </div>
+                     
 			</div>
 		);
-	}
+    }
+    openEditNode=()=>{
+        const {openEditNode}=this.props;
+        openEditNode && openEditNode();
+    }
 }

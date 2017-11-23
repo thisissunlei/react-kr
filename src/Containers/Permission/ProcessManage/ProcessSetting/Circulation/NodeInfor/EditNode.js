@@ -102,20 +102,20 @@ class EditNode  extends React.Component{
                         />
 
 
-                        <div className='m-form-radio'><KrField grid={1/2} style={{width:262}} name="forceFinish" component="group" label="强制归档" requireLabel={true}>
+                        <KrField grid={1/2} style={{width:262,marginLeft:30}} name="forceFinish" component="group" label="强制归档" requireLabel={true}>
                                 <KrField name="forceFinish" label="禁止" type="radio" value='true' />
                                 <KrField name="forceFinish" label="允许" type="radio" value='false' />
-                        </KrField></div>
+                        </KrField>
 
-                        <div className='m-form-radio'><KrField grid={1/2} style={{width:262}} name="batchCommit" component="group" label="批量提交" requireLabel={true}>
+                       <KrField grid={1/2} style={{width:262}} name="batchCommit" component="group" label="批量提交" requireLabel={true}>
                                 <KrField name="batchCommit" label="禁止" type="radio" value='true' />
                                 <KrField name="batchCommit" label="允许" type="radio" value='false' />
-                        </KrField></div>
+                        </KrField>
 
 
                          <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'544px'}}  component="textarea"  maxSize={100} style={{width:554}} placeholder='请输入描述' lengthClass='type-list-textarea'/>
 
-                        <Grid style={{marginBottom:5,marginLeft:-25,marginTop:-12}}>
+                        <Grid style={{marginBottom:5,marginLeft:-30,marginTop:0}}>
                             <Row>
                                 <Col md={12} align="center">
                                 <ButtonGroup>

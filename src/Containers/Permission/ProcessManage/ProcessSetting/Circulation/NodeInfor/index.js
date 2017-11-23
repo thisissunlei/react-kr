@@ -43,6 +43,7 @@ export default class NodeInfor extends Component{
             openAdd:false,
             openWatch:false,
             openEdit:false,
+            basicData:{}
 		}
     }
     
@@ -72,6 +73,9 @@ export default class NodeInfor extends Component{
         var _this = this;
         Http.request('get-node-edit', {id:id}).then(function (response) {
            Store.dispatch(initialize('EditNode',response))
+           _this.setState({
+             basicData:response
+           })
 		}).catch(function (err) {
 			Message.error(err.message)
 		});
@@ -155,7 +159,7 @@ export default class NodeInfor extends Component{
                             open={this.state.openEdit}
                             width={750}
                             openSecondary={true}
-                            containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+                            drawerStyle={{zIndex:110}}
                             onClose={this.allClose}
                         >
                             <EditNode
@@ -169,10 +173,13 @@ export default class NodeInfor extends Component{
                             open={this.state.openWatch}
                             width={750}
                             openSecondary={true}
-                            containerStyle={{top:60,paddingBottom:228,zIndex:20}}
+                            drawerStyle={{zIndex:100}}
                             onClose={this.allClose}
                         >
-                            <WatchNode/>
+                            <WatchNode 
+                              openEditNode={this.openEditNode} 
+                              basicData={this.state.basicData}
+                            />
                     </Drawer>
           </div>
 		);
