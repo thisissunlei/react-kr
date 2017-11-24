@@ -119,6 +119,8 @@ import State from './State';
 				<div className="title" style={{marginBottom:"30px"}}>
 					<DrawerTitle title ='编辑访客' onCancel = {this.onCancel}/>
 				</div>
+		<div style={{paddingLeft:20}}>
+
 
 
 
@@ -211,6 +213,7 @@ import State from './State';
 								</Col>
 							</Row>
 						</Grid>
+						</div>
 				</form>
 		);
 	}

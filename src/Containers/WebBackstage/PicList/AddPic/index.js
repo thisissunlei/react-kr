@@ -56,7 +56,7 @@ class AddPic extends React.Component{
           <DrawerTitle title ='新建轮播图' onCancel = {this.onCancel}/>
 				</div>
 
-				<div className="kk" style={{marginTop:30}}>
+				<div className="kk" style={{marginTop:30,paddingLeft:10}}>
 					<KrField grid={1/2} label="名称" name="title" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
                     <KrField grid={1/2} label="简介" name="desrc" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="跳转url" name="targetUrl" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>

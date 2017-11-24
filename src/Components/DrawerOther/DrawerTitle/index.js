@@ -76,7 +76,7 @@ export default class DrawerTitle extends React.Component {
         return (
             <div className="ui-drawer-title">
                     <div><span className={iconClass || "new-icon"} 
-                    style={pic}></span><label className="title-text">{title||''}</label></div>
+                    style={pic}></span><label className="title-texts">{title||''}</label></div>
                     <div className="order-close" style={closeStyle} onClick={this.onCancel}></div>
             </div>
         );

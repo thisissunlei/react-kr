@@ -95,6 +95,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 				<div className="title" style={{marginBottom:"30px"}}>
 					<DrawerTitle title ='新增访客' onCancel = {this.onCancel}/>
 				</div>
+				<div style={{paddingLeft:20}}>
 
 
 
@@ -181,6 +182,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 								</Col>
 							</Row>
 						</Grid>
+					</div>
 				</form>
 		);
 	}
