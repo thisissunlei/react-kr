@@ -51,7 +51,6 @@ class ImportData extends React.Component {
 		var form = new FormData();
 		form.append('file', file);
 		form.append('csrId', csrId);
-
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
 			return false;
@@ -127,7 +126,7 @@ class ImportData extends React.Component {
 
 	onCompanyChange=(value)=>{
 		this.setState({
-			csrId:value.id
+			csrId:value.csrId
 		});
 	}
 
