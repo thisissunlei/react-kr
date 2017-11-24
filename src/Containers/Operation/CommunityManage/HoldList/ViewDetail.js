@@ -13,6 +13,7 @@ import {
 	ButtonGroup,
 	Button,
 	Message,
+	DrawerTitle,
 	KrDate,
 } from 'kr-ui';
 import {PhotoSwipeGallery} from 'react-photoswipe';
@@ -80,10 +81,7 @@ export default  class ViewDetail extends React.Component {
 			}
 		return (
 			<div className="g-create-opinoin">
-				<div className="u-create-title">
-						<div className="title-text">反馈详情</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
-				</div>
+                 <DrawerTitle title ='反馈详情' onCancel = {this.onCancel}/>
 				{infoList.handled == 1?
 				<div className="u-table-list">
                     <table className="u-table">
@@ -151,7 +149,7 @@ export default  class ViewDetail extends React.Component {
 
 							/>
 						 	<KrField  
-					 			grid={1/2}
+					 			grid={1}
 					 			style={{width:548}} 
 					 			label="内容" 
 					 			inline={false} 
