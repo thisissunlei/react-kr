@@ -153,7 +153,7 @@ export default class BasicSetting extends React.Component {
 			                 </TabC>
 
 
-			                 <TabC label='流程设置'>
+			                 <TabC label='流转设置'>
 			                  	<Circulation wfId={this.props.params.processId}/>
 			                 </TabC>
 

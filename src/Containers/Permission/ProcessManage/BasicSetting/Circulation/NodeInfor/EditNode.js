@@ -41,7 +41,7 @@ class EditNode  extends React.Component{
 
 			<div className='m-add-node'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-					   <DrawerTitle title='新建节点信息' onCancel={this.onCancel}/>
+					   <DrawerTitle title='编辑节点信息' onCancel={this.onCancel}/>
                        <div style={{marginTop:'30px'}}><KrField
                             grid={1/2}
                             style={{width:262,marginBottom:5}}
