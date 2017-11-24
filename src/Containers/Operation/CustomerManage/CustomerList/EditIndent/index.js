@@ -142,8 +142,7 @@ import {
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
 				<div className="title">
-						<div><span className="order-new-icon"></span><label className="title-text">{companyName}</label></div>
-						<div className="order-close" onClick={this.onCancel}></div>
+			     	<DrawerTitle title ={'编辑'+companyName} onCancel = {this.onCancel}/>
 				</div>
 
 				<div className="kk" style={{marginTop:30,paddingLeft:20}}>

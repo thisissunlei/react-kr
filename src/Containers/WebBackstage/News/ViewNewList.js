@@ -4,7 +4,8 @@ import {
 } from "kr/Utils";
 import {
 	KrField,
-	CircleStyleTwo
+	CircleStyleTwo,
+	DrawerTitle
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import {reduxForm,initialize} from 'redux-form';
@@ -49,14 +50,7 @@ class ViewNewList extends React.Component {
 		return (
 			<div className="g-new-list">
 					<div className="u-title-box">
-						<img className="u-title-img" src={require('./images/activity.svg')} />
-						<span className="u-title-text">查看新闻</span>
-						<span className="u-close-page" onClick={this.onCancel}>
-							<img 
-								src={require('./images/closeIMG.svg')} 
-								className="u-close-page-img"
-							 />
-						</span>
+					<DrawerTitle title ='查看新闻' onCancel = {this.onCancel}/>
 					</div>
 					<CircleStyleTwo num="1" info="新闻基本信息">
 						<KrField

@@ -6,6 +6,7 @@ import {
     Row,
     ButtonGroup,
     Button,
+    DrawerTitle,
     Message
 } from 'kr-ui';
 import {reduxForm,change,formValueSelector}  from 'redux-form';
@@ -138,20 +139,21 @@ class EditPerson  extends React.Component{
 
 			<div className='m-addPerson'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-                      <div className="title" style={{marginBottom:"30px"}}>
+                      {/*<div className="title" style={{marginBottom:"30px"}}>
                             <div><span className="new-icon-add"></span><label className="title-text">编辑基本信息</label></div>
                             <div className="person-close" onClick={this.onCancel}></div>
-                      </div>
+                      </div>*/}
+                      <DrawerTitle title ='编辑基本信息' onCancel = {this.onCancel}/>
 
                        <KrField grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginTop:30}}
                             name="name"
                             component="input"
                             label="姓名"
                             requireLabel={true}
 						/>
                        
-                         <KrField grid={1/2} style={{width:262,marginLeft:28}} name="sex" component="group" label="性别" requireLabel={true}>
+                         <KrField grid={1/2} style={{width:262,marginLeft:28,marginTop:30}} name="sex" component="group" label="性别" requireLabel={true}>
  							 <KrField name="sex" label="男" type="radio" value='MALE' />
  							 <KrField name="sex" label="女" type="radio" value='FAMALE' />
  						</KrField>

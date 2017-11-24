@@ -18,6 +18,7 @@ import {
 	CircleStyleTwo,
 	ButtonGroup,
 	CheckTable,
+	DrawerTitle,
 	FdRow,
 } from 'kr-ui';
 import State from './State';
@@ -100,14 +101,7 @@ class EditTemplate extends React.Component {
 		return (
 			<div className="g-create-template">
 					<div className="u-title-box">
-						<img className="u-title-img" src={require('./images/icon-t.svg')} />
-						<span className="u-title-text">模板设置——普通模式</span>
-						<span className="u-close-page" onClick={this.onCancel}>
-							<img 
-								src={require('./images/closeIMG.svg')} 
-								className="u-close-page-img"
-							 />
-						</span>
+                    <DrawerTitle title ="编辑模板——普通模式" onCancel = {this.onCancel}/>
 					</div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 						<KrField

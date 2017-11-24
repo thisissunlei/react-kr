@@ -20,6 +20,7 @@ import {
 	ButtonGroup,
 	Button,
 	Message,
+	DrawerTitle,
 	KrDate,
 } from 'kr-ui';
 import './index.less';
@@ -214,10 +215,9 @@ class EditNotice extends React.Component {
 		return (
 			<div className="g-create-notice">
 				<div className="u-create-title">
-						<div className="title-text">编辑公告</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='编辑公告' onCancel = {this.onCancel}/>
 				</div>
-				<form onSubmit={handleSubmit(this.onSubmit)} >
+				<form onSubmit={handleSubmit(this.onSubmit)}  style={{paddingLeft:42}}>
 							<KrField
 								style={{width:548}}
 								name="title"

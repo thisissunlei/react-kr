@@ -13,6 +13,7 @@ import {
 	ListGroupItem,
 	SearchForms,
 	ButtonGroup,
+	DrawerTitle,
 	CircleStyleTwo
 } from 'kr-ui';
 import './index.less';
@@ -244,13 +245,9 @@ export default class ViewAudit extends React.Component {
 			topInfoList
 		} = this.state;
 		return (
-			<div className="u-audit-add  u-audit-edit">
-			     <div className="u-audit-add-title">
-			     	<span className="u-audit-add-icon"></span>
-			     	<span>回款详情</span>
-			     	<span className="u-audit-close" style={{
-								marginRight: 40
-						}} onTouchTap={this.onCancel}></span>
+			<div className="u-audit-add">
+			     <div style={{paddingLeft:52}}>
+                    <DrawerTitle title ="回款详情" onCancel = {this.onCancel}/>
 			     </div>
 			     {topInfoList.length>0?this.renderTable(topInfoList):''}
 					<CircleStyleTwo num="1" info="付款信息">

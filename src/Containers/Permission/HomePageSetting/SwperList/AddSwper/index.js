@@ -5,6 +5,7 @@ import {
     Col,
     Row,
     ButtonGroup,
+    DrawerTitle,
     Button
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
@@ -51,8 +52,7 @@ class AddSwper extends React.Component{
 			<div className='m-add-swper'>
 				 <form  onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
 				<div className="title">
-						<div><span className="order-new-icon"></span><label className="title-text">新建轮播图</label></div>
-						<div className="order-close" onClick={this.onCancel}></div>
+                        <DrawerTitle title ="新建轮播图" onCancel = {this.onCancel}/>
 				</div>
 
 				<div className="kk" style={{marginTop:30}}>
