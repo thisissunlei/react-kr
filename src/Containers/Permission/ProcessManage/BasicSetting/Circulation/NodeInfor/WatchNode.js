@@ -44,7 +44,7 @@ export default class  WatchNode extends React.Component{
                                 />
                             </TabC> 
                             
-                            <TabC label='节点模版'> 
+                            <TabC label='节点模版' readOnly={true}> 
                                 
                             </TabC> 
                     </TabCs>

@@ -23,7 +23,9 @@ export default class TabCs extends React.Component {
         const {children} = this.props;
         var newChildren = this.toArray(children);
         let labels = newChildren.map((item,index)=>{
-            
+            if(item.props.readOnly){
+                return item.props;
+            }
             return item.props.label;
         })
         return labels;

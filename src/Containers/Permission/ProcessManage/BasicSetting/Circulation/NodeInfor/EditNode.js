@@ -42,7 +42,7 @@ class EditNode  extends React.Component{
 			<div className='m-add-node'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 					   <DrawerTitle title='新建节点信息' onCancel={this.onCancel}/>
-                       <KrField
+                       <div style={{marginTop:'30px'}}><KrField
                             grid={1/2}
                             style={{width:262,marginBottom:5}}
                             name="name"
@@ -113,7 +113,7 @@ class EditNode  extends React.Component{
                         </KrField>
 
 
-                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'544px'}}  component="textarea"  maxSize={100} style={{width:554}} placeholder='请输入描述' lengthClass='type-list-textarea'/>
+                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'544px'}}  component="textarea"  maxSize={100} style={{width:554}} placeholder='请输入描述' lengthClass='type-list-textarea'/></div>
 
                         <Grid style={{marginBottom:5,marginLeft:-30,marginTop:0}}>
                             <Row>
