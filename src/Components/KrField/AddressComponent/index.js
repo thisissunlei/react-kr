@@ -146,6 +146,7 @@ export default class AddressComponent extends React.Component {
             ajaxUrlName,
             valueText,
             checked,
+            onlyRead,
             ...other
         } = this.props;
 
@@ -187,6 +188,15 @@ export default class AddressComponent extends React.Component {
             //  onFocus:this.onFocus,
             ...other,
             autoFocus,
+        }
+        console.log(onlyRead,"9999999")
+        if (onlyRead){
+            return(
+                <WrapComponent {...wrapProps}>
+                    <span style = {{display:"inline-block",padding:"0px 10px 10px"}}>{showText}</span>
+                </WrapComponent>
+            )
+           
         }
         return (
             <WrapComponent {...wrapProps}>

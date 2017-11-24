@@ -140,7 +140,7 @@ export default class DateComponent extends React.Component {
 		if (onlyRead){
 			return(
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-					<span>{DateFormat(input.value,"yyyy-mm-dd")}</span>
+					<span style={{ display: "inline-block", padding: "0px 10px 10px"}}>{DateFormat(input.value,"yyyy-mm-dd")}</span>
 				</WrapComponent>
 			)
 		}

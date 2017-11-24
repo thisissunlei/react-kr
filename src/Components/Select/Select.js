@@ -817,6 +817,9 @@ const Select = React.createClass({
 			return !this.state.inputValue ? <div className="Select-placeholder">{this.props.placeholder}</div> : null;
 		}
 		let onClick = this.props.onValueClick ? this.handleValueClick : null;
+		if(this.props.onlyRead){
+			return '';
+		}
 		if (this.props.multi) {
 			return valueArray.map((value, i) => {
 				return (
@@ -1095,7 +1098,7 @@ const Select = React.createClass({
 		//只读模式
 		if (this.props.onlyRead) {
 			return (
-				<span>{this.renderValue(valueArray, isOpen)}</span>
+				<span style={{ display: "inline-block", padding: "0px 10px 10px" }}>{this.renderValue(valueArray, isOpen)}</span>
 			)
 		}
 

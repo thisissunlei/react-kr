@@ -119,7 +119,7 @@ export default class InputComponent extends React.Component{
 		if (onlyRead){
 			return(
 				<WrapComponent {...wrapProps}>
-					<span>{input.value}</span>
+					<span style={{ display: "inline-block", padding: "0px 10px 10px"}}>{input.value}</span>
 				</WrapComponent>
 			)
 		}

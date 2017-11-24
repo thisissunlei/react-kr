@@ -61,7 +61,6 @@ export default class  SearchAllComponent extends React.Component {
 	render(){
 
 		let { input, label, type, meta: { touched, error }, placeholder, children, disabled, style, requireLabel, onlyRead,...other} = this.props;
-		console.log(onlyRead,"ppppp")
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
