@@ -193,7 +193,7 @@ export default class AddressComponent extends React.Component {
         if (onlyRead){
             return(
                 <WrapComponent {...wrapProps}>
-                    <span style = {{display:"inline-block",padding:"0px 10px 10px"}}>{showText}</span>
+                    <span style = {{display:"inline-block",padding:"10px 10px 10px 0px"}}>{showText}</span>
                 </WrapComponent>
             )
            

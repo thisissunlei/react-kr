@@ -164,7 +164,7 @@ export default class SelectTimeComponent extends React.Component{
 		if(onlyRead){
 			return(
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-					<span style={{ display: "inline-block", padding: "0px 10px 10px"}}>{isTime ? input.value : DateFormat(input.value, "hh:MM")}</span>
+					<span style={{ display: "inline-block", padding: "10px 10px 10px 0px"}}>{isTime ? input.value : DateFormat(input.value, "hh:MM")}</span>
 				</WrapComponent>
 			)
 		}
