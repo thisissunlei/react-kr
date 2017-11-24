@@ -1092,6 +1092,12 @@ const Select = React.createClass({
 			'is-searchable': this.props.searchable,
 			'has-value': valueArray.length,
 		});
+		//只读模式
+		if (this.props.onlyRead) {
+			return (
+				<span>{this.renderValue(valueArray, isOpen)}</span>
+			)
+		}
 
 		let removeMessage = null;
 		if (this.props.multi &&
@@ -1106,6 +1112,7 @@ const Select = React.createClass({
 				</span>
 			);
 		}
+	
 		return (
 			<div ref={ref => this.wrapper = ref}
 				 className={className}

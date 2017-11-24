@@ -73,6 +73,7 @@ export default class InputComponent extends React.Component{
 			simple,
 			heightStyle,
 			autoFocus,
+			onlyRead,
 			...other
 		} = this.props;
 
@@ -115,7 +116,13 @@ export default class InputComponent extends React.Component{
 			 ...other,
 			 autoFocus,
 		 }
-
+		if (onlyRead){
+			return(
+				<WrapComponent {...wrapProps}>
+					<span>{input.value}</span>
+				</WrapComponent>
+			)
+		}
 		 return (
 			 <WrapComponent {...wrapProps}>
 				 <Input {...inputProps}/>

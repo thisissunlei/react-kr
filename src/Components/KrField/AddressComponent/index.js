@@ -107,7 +107,6 @@ export default class AddressComponent extends React.Component {
     }
     theEcho = (value) =>{
         const {input} = this.props;
-        console.log(value)
         value = value || input.value;
         
         var data = [].concat(this.allData);
@@ -117,8 +116,6 @@ export default class AddressComponent extends React.Component {
                 this.setState({
                     showText:data[i].label,
                     selectData:[data[i]]
-                },function () {
-                    console.log("ooooooo", this.state.selectData)
                 })
                 break;
             }
@@ -191,10 +188,6 @@ export default class AddressComponent extends React.Component {
             ...other,
             autoFocus,
         }
-        // var text = input.value && input.value.codeList && input.value.codeList[0] ? input.value.codeList[0].label : '';
-        // var text = input.label || '';
-        
-        // console.log(selectData,"---------")
         return (
             <WrapComponent {...wrapProps}>
 

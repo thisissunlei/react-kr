@@ -1,6 +1,8 @@
 import React from 'react';
 import WrapComponent from '../WrapComponent';
-
+import {
+	DateFormat
+} from 'kr/Utils' 
 import "./index.less";
 export default class SelectTimeComponent extends React.Component{
 
@@ -162,7 +164,7 @@ export default class SelectTimeComponent extends React.Component{
         
 
 		
-        
+		console.log("---------")
 		return (
 		<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-select-time">

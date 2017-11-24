@@ -1,6 +1,8 @@
 import React from 'react';
 import WrapComponent from '../WrapComponent';
-
+import {
+	DateFormat
+} from 'kr/Utils' 
 import "./index.less";
 export default class SelectTimeComponent extends React.Component{
 
@@ -143,7 +145,7 @@ export default class SelectTimeComponent extends React.Component{
 	render() {
 
 		let {allOpen,minuteOpen,hourNum,minuteNum,timeNum}=this.state;
-		let {isStore,input,label,style,requireLabel,inline,search,inputStyle}=this.props;
+		let { isStore, input, label, style, requireLabel, meta: { touched, error }, inline, onlyRead,search,inputStyle}=this.props;
 		var inputDetailStyle = {inputStyle};
 		inputDetailStyle.border = '0 none';
 		inputDetailStyle.height = '34px';
@@ -158,11 +160,18 @@ export default class SelectTimeComponent extends React.Component{
 			onChange:this.inputChange.bind(this,hourNum,minuteNum),
 			style:inputDetailStyle
 		}
-        
+		let isTime = (""+input.value).indexOf(":") > 0;
+		if(onlyRead){
+			return(
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
+					<span>{isTime ? input.value : DateFormat(input.value, "hh:MM")}</span>
+				</WrapComponent>
+			)
+		}
 		return (
-		<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-select-time">
-	               	<input {...inputProps} />	
+					<input {...inputProps} value={isTime ? input.value : DateFormat(input.value, "hh:MM")} />	
 	              	
 	              	<div className="ui-time-select-all" style={{display:allOpen?'block':'none'}}>
 		                <div  className="ui-hour-style">
@@ -176,6 +185,7 @@ export default class SelectTimeComponent extends React.Component{
 	               </div>
 	              
 				</div>
+				{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 			</WrapComponent>
 
 
