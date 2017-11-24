@@ -56,8 +56,8 @@ class EditAccount extends React.Component {
             id: detail.id,
             accountName: form.accountName,
             email: form.email,
-            realName: form.realName,
-            mobilePhone: form.mobilePhone
+            name: form.realName,
+            phone: form.mobilePhone
         }).then(function(response) {
             Message.success('修改成功');
             onSubmit();
