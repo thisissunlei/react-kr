@@ -91,9 +91,10 @@ export default class PrintOther extends React.Component {
 		chaptersMove();//章位调整
 		delEndFutility();//删除最后无用内容		
 		controlHeight(this.print)
-		if (allData.cachetUrl){
+		//齐缝章
+		/*if (allData.cachetUrl){
 			checkMark(this.print);
-		}
+		}*/
 		setTimeout(function() {
 			window.print();
 			window.close();
