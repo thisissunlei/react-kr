@@ -52,7 +52,10 @@ class CreateNewList extends React.Component {
 	}
 	onSubmit=(form)=>{
 		let value = this.formData(form);
-		console.log('onSubmit',value);
+		if (!value.comment){
+			value.comment = '';
+		}
+		console.log(value,"ppppppppppp")
 		State.saveTemplate(value);
 
 		
@@ -69,7 +72,6 @@ class CreateNewList extends React.Component {
 		demo.push(mainT);
 
 		detailT = detailT.map((item,index)=>{
-			console.log('detailT-map',item);
 			let obj = item;
 			obj.fieldList = formValue[`fieldList${index}`];
 			obj.hasEditButton = formValue[`hasEditButton${index}`] || false;
@@ -79,7 +81,6 @@ class CreateNewList extends React.Component {
 			return obj;
 		})
 		demo = demo.concat(detailT);
-		console.log('============>',demo)
 
 		let submitForm = {
 			mainTemplate:JSON.stringify(demo),
@@ -91,8 +92,6 @@ class CreateNewList extends React.Component {
 	}
 	onSave=()=>{
 		State.saveAndUse = true;
-		// let value = this.formData(form);
-		console.log('onSave')
 	}
 
 	render() {
