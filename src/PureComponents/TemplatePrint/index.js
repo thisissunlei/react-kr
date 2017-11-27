@@ -87,6 +87,7 @@ class TemplatePrint extends React.Component {
 		}
 		this.tableLabel = '所有字段';
 		this.prefixes = 'm-';
+		this.allFields=[];
 	}
 	componentDidMount() {
 		var ue = UE.getEditor(this.editId);
@@ -104,7 +105,8 @@ class TemplatePrint extends React.Component {
 		var _this=this;
 		Http.request("get-sql-print",{formId:formId}).then(function (response) {
 			response.items.map((item,index)=>{
-				fieldVOs=fieldVOs.concat(item.fieldVOs)
+				fieldVOs=fieldVOs.concat(item.fieldVOs);
+				_this.allFields=fieldVOs.concat(item.fieldVOs);
 			})
 			_this.setState({
 				nameList:response.items,
@@ -178,6 +180,9 @@ class TemplatePrint extends React.Component {
 
 	//表单名称修改
 	nameListChange=(item)=>{
+		if(!item){
+			item={label:'所有字段',fieldVOs:this.allFields};
+		}
 		if(item.label == "主表"){
 			this.prefixes = 'm-';
 		}else{
