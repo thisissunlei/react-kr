@@ -157,8 +157,20 @@ State.getPrintTemplateData = action(function(id) {
 		
 			_this.formworkId = response.printTempId;
 			_this.formData = response;
-			_this.pcName = response.formTemplateName?(response.formTemplateName +'       '+ DateFormat(response.uFormTempTime,'   yyyy-mm-dd HH:MM:ss')):'';
-			_this.printName= response.printTemplateName?(response.printTemplateName +'        '+ DateFormat(response.uPrintTempTime,'   yyyy-mm-dd HH:MM:ss')):'';
+
+
+			if(response.formTemplateName){
+				_this.pcName=response.uFormTempTime?(response.formTemplateName +'       '+ DateFormat(response.uFormTempTime,'   yyyy-mm-dd HH:MM:ss')):response.formTemplateName;
+			}else{
+				_this.pcName='';
+			}
+
+			if(response.printTemplateName){
+				_this.printName=response.uPrintTempTime?(response.printTemplateName +'        '+ DateFormat(response.uPrintTempTime,'   yyyy-mm-dd HH:MM:ss')):response.printTemplateName;
+			}else{
+				_this.printName='';
+			}
+
 			Store.dispatch(change('Template','printTempId',response.printTempId));
 			Store.dispatch(change('Template','formTempId',response.formTempId));
 			Store.dispatch(change('Template','allowPrint',response.allowPrint+''));
