@@ -237,6 +237,7 @@ export default class Initialize  extends React.Component{
 					            <TableHeader className='detail-header'>
 					              <TableHeaderColumn className='header-row'>合同类型</TableHeaderColumn>
 					              <TableHeaderColumn className='header-row'>合同名称</TableHeaderColumn>
+								  <TableHeaderColumn className='header-row'>合同编号</TableHeaderColumn>
 			                      <TableHeaderColumn className='header-row'>合同请求标题</TableHeaderColumn>
 					              <TableHeaderColumn className='header-row'>创建人</TableHeaderColumn>
 								  <TableHeaderColumn className='header-row'>创建时间</TableHeaderColumn>
@@ -249,6 +250,13 @@ export default class Initialize  extends React.Component{
 					 						return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span></div>)
 					 					}} ></TableRowColumn>
 			                            <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='wfBaseName' component={(value,oldValue)=>{
+					 							var maxWidth=6;
+					 							if(value.length>maxWidth){
+					 							 value = value.substring(0,6)+"...";
+					 							}
+					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+					 					}}></TableRowColumn>
+										 <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='serialNumber' component={(value,oldValue)=>{
 					 							var maxWidth=6;
 					 							if(value.length>maxWidth){
 					 							 value = value.substring(0,6)+"...";

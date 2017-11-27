@@ -616,6 +616,30 @@ module.exports = {
    'get-seal-list':{
     url: '/api/krspace-erp-web/sys/contract-template/list/type/rent-field?formId={formId}',
     method: 'get'
+  },
+
+   //查询节点列表
+   'search-node-list':{
+    url: '/api/krspace-erp-web/wf/wf-node/listSearch?page={page}&pageSize={pageSize}&wfId={wfId}',
+    method: 'get'
+   },
+
+   //新建节点信息
+   'add-node-intro':{
+    url: '/api/krspace-erp-web/wf/wf-node/add',
+    method: 'post'
+   },
+
+   //编辑节点信息
+   'edit-node-intro':{
+    url: '/api/krspace-erp-web/wf/wf-node/edit',
+    method: 'post'
+   },
+
+   //查询节点对象
+   'get-node-edit':{
+    url: '/api/krspace-erp-web/wf/wf-node/wfNodeVOSearch?id={id}',
+    method: 'get'
    },
    
    

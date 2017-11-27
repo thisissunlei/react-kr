@@ -43,6 +43,8 @@ import EditDialog from './EditDialog';
 import CreateDialog from './Createdialog';
 import CreateDrawer from './CreateDrawer';
 import HighSearchForm from './HighSearchForm';
+
+
 export default class AllTypes extends React.Component {
 
 	constructor(props, context) {
@@ -472,6 +474,8 @@ export default class AllTypes extends React.Component {
                         </Table>
                     </div>
                 }
+
+
                 <Dialog
 					title="新建合同类型"
 					modal={true}
@@ -519,6 +523,5 @@ export default class AllTypes extends React.Component {
                 </Dialog>
 			</div>
 		);
-	}
-
+    }
 }
