@@ -20,30 +20,29 @@ import {
 	CheckTable,
 	FdRow,
 } from 'kr-ui';
-import State from './State';
+import State from '../../State';
 import {
 	observer
 } from 'mobx-react';
-import './index.less';
+import '../../index.less';
 @observer
-class CreateNewList extends React.Component {
+class EditTemplate extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			
-		}
 		
 	}
 	componentWillMount() {
+		console.log('=======componentWillMount')
+
+	}
+	componentWillReceiveProps=()=>{
 	}
 
 	componentDidMount() {
-		Store.dispatch(change('createNewList','mainT',toJS(State.mainT.mainT)));
-
-		toJS(State.detailT).map((item,index)=>{
-			Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
-		})
+		// toJS(State.detailT).map((item,index)=>{
+		// 	Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
+		// })
 	}
 
 	onCancel=()=>{
@@ -52,15 +51,17 @@ class CreateNewList extends React.Component {
 	}
 	onSubmit=(form)=>{
 		let value = this.formData(form);
-		console.log('onSubmit',value);
+		value.id = State.formData.formTempId;
+
+		// return;
 		State.saveTemplate(value);
 
 		
 	}
 	formData=(form)=>{
 		let formValue = form;
-		let mainT = toJS(State.mainT);
-		let detailT = toJS(State.detailT);
+		let mainT = toJS(State.editMainT);
+		let detailT = toJS(State.editDetailT);
 		mainT.fields = formValue.mainT ;
 		mainT.fieldList = formValue.mainT ;
 		mainT.lineNum = formValue.lineNum;
@@ -90,7 +91,6 @@ class CreateNewList extends React.Component {
 	}
 	onSave=()=>{
 		State.saveAndUse = true;
-		// let value = this.formData(form);
 		console.log('onSave')
 	}
 
@@ -100,11 +100,11 @@ class CreateNewList extends React.Component {
 		return (
 			<div className="g-create-template">
 					<div className="u-title-box">
-						<img className="u-title-img" src={require('./images/icon-t.svg')} />
+						<img className="u-title-img" src={require('../../images/icon-t.svg')} />
 						<span className="u-title-text">模板设置——普通模式</span>
 						<span className="u-close-page" onClick={this.onCancel}>
 							<img 
-								src={require('./images/closeIMG.svg')} 
+								src={require('../../images/closeIMG.svg')} 
 								className="u-close-page-img"
 							 />
 						</span>
@@ -225,8 +225,8 @@ const validate = values => {
 	return errors
 }
 
-export default CreateNewList = reduxForm({
-	form: 'createNewList',
+export default EditTemplate = reduxForm({
+	form: 'editTemplate',
 	validate,
-})(CreateNewList);
+})(EditTemplate);
 

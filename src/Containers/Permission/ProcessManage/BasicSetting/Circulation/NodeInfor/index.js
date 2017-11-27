@@ -46,7 +46,12 @@ export default class NodeInfor extends Component{
             openEdit:false,
             basicData:{},
             //主键id
-            id:''
+            id:'',
+            //查看
+            allId:{
+                formId:props.formId,
+                wfId:props.wfId
+            }
 		}
     }
     
@@ -188,6 +193,7 @@ export default class NodeInfor extends Component{
                               openEditNode={this.openEditNode} 
                               basicData={this.state.basicData}
                               onCancel={this.cancelWatchNode}
+                              allId={this.state.allId}
                             />
                     </Drawer>
           </div>

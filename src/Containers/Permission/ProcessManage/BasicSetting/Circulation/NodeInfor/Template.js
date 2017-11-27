@@ -23,14 +23,14 @@ import {
 } from 'kr-ui';
 import CreateTemplate from './CreateTemplate';
 import EditTemplate from './EditTemplate';
-import State from './State';
+import State from '../../State';
 import {
 	TemplatePrint
 } from 'kr/PureComponents';
 import {
 	observer
 } from 'mobx-react';
-import './index.less';
+import '../../index.less';
 
 @observer
 class Template extends React.Component {

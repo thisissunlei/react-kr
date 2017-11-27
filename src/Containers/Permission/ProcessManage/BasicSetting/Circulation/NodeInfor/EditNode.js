@@ -113,7 +113,7 @@ class EditNode  extends React.Component{
                         </KrField>
 
 
-                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'544px'}}  component="textarea"  maxSize={100} style={{width:554}} placeholder='请输入描述' lengthClass='type-list-textarea'/></div>
+                         <KrField grid={1} label="描述" name="descr" heightStyle={{height:"78px",width:'544px'}}  component="textarea"  maxSize={200} style={{width:554}} placeholder='请输入描述' lengthClass='type-list-textarea'/></div>
 
                         <Grid style={{marginBottom:5,marginLeft:-30,marginTop:0}}>
                             <Row>

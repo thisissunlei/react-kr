@@ -18,7 +18,7 @@ export default class Circulation  extends React.Component{
 	render(){
 
 
-		let {wfId}=this.props;
+		let {wfId,formId}=this.props;
 
 
 		return(
@@ -29,7 +29,7 @@ export default class Circulation  extends React.Component{
 				     isDetail='process'
 			      >
                     <TabC label='节点信息'>
-                       <NodeInfor wfId={wfId}/>
+                       <NodeInfor wfId={wfId} formId={formId}/>
                     </TabC>
 			    </TabCs>
 

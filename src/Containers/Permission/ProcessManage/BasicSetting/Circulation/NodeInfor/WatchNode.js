@@ -5,6 +5,7 @@ import {
     DrawerTitle
 } from 'kr-ui';
 import BasicInfo from './BasicInfo';
+import Template from './Template';
 import './index.less';
 
 export default class  WatchNode extends React.Component{
@@ -25,7 +26,7 @@ export default class  WatchNode extends React.Component{
 
 	render(){
         
-        let {basicData}=this.props;
+        let {basicData,allId}=this.props;
 
 		return(
 
@@ -44,8 +45,8 @@ export default class  WatchNode extends React.Component{
                                 />
                             </TabC> 
                             
-                            <TabC label='节点模版' readOnly={true}> 
-                                
+                            <TabC label='节点模版'> 
+                                 <Template id={allId.wfId} formId={allId.formId}/>
                             </TabC> 
                     </TabCs>
                 </div>
