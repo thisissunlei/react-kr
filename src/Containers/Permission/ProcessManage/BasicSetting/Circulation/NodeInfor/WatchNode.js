@@ -26,7 +26,7 @@ export default class  WatchNode extends React.Component{
 
 	render(){
         
-        let {basicData,allId}=this.props;
+        let {basicData,allId,id}=this.props;
 
 		return(
 
@@ -46,7 +46,7 @@ export default class  WatchNode extends React.Component{
                             </TabC> 
                             
                             <TabC label='节点模版'> 
-                                 <Template id={allId.wfId} formId={allId.formId}/>
+                                 <Template id={allId.wfId} formId={allId.formId} keyId={id}/>
                             </TabC> 
                     </TabCs>
                 </div>

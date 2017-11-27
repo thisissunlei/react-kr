@@ -194,6 +194,7 @@ export default class NodeInfor extends Component{
                               basicData={this.state.basicData}
                               onCancel={this.cancelWatchNode}
                               allId={this.state.allId}
+                              id={this.state.id}
                             />
                     </Drawer>
           </div>

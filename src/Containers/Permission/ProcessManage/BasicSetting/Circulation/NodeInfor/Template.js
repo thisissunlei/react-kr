@@ -59,7 +59,7 @@ class Template extends React.Component {
 		Store.dispatch(initialize('Template',initializeValues));
 		State.getTemplateList(this.props.formId);
 		State.getPrintTemplateList();
-		State.getPrintTemplateData(this.props.id);  
+		State.getPrintTemplateData(this.props.keyId);  
 	}
 	
 	onCancel=()=>{
@@ -70,6 +70,7 @@ class Template extends React.Component {
 		console.log('onSubmit--->',form)
 		let _this = this;
 		form.wfId = this.props.id;
+		form.id=this.props.keyId;
 		State.printTempId = false;
 		
 		form.printTempId = form.printTempId || State.formworkId || '' ;
@@ -92,7 +93,7 @@ class Template extends React.Component {
 			// Store.dispatch(reset('Template',''));
 			// State.reset();
 			Message.success('提交成功');
-			State.getPrintTemplateData(_this.props.id);
+			State.getPrintTemplateData(_this.props.keyId);
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -209,6 +210,7 @@ class Template extends React.Component {
 	render() {
 		const { handleSubmit,formId} = this.props;
 		const { allData, id,sealList} = this.state;
+	
 		return (
 			<div className="g-chooce-template">
 			   <form onSubmit={handleSubmit(this.onSubmit)}>

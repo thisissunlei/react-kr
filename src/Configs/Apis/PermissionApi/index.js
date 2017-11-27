@@ -561,7 +561,7 @@ module.exports = {
     },
     //获取合同模板数据
     'get-form-template-data':{
-      url: '/api/krspace-erp-web/sys/form-template/node?wfId={wfId}',
+      url: '/api/krspace-erp-web/sys/form-template/node?id={id}',
       method: 'get'
     },
     //合同搜索下拉
