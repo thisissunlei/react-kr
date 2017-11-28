@@ -94,7 +94,7 @@ export default class PrintOther extends React.Component {
 		//控制页面的高度
 		controlHeight(this.print)
 		//齐缝章
-		if (allData.cachetUrl){
+		if (allData.cachetUrl||true){
 			checkMark(this.print);
 		}
 		setTimeout(function() {
