@@ -137,7 +137,6 @@ export default class List extends React.Component {
 		});
 		if (type == 'view') {
 			this.openView();
-			//window.open(`./#/member/MemberManage/${itemDetail.id}/detail/${itemDetail.companyId}`, itemDetail.id);
 		} else if (type == 'edit') {
 			this.openEditDetailDialog();
 		}else if(type=='delete'){
@@ -282,7 +281,7 @@ export default class List extends React.Component {
 	onLeave=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('member-leave',{id:itemDetail.id}).then(function (response) {
+		Http.request('member-leave',{id:itemDetail.uid}).then(function (response) {
 			_this.openLeave();
 			Message.success('修改成功！');
 			_this.setState({
@@ -300,7 +299,7 @@ export default class List extends React.Component {
 	 onDeleteData=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('delete-members',{id:itemDetail.id}).then(function (response) {
+		Http.request('delete-members',{id:itemDetail.uid}).then(function (response) {
 			_this.openDelete();
 			Message.success('删除成功！');
 			_this.setState({
@@ -420,8 +419,8 @@ export default class List extends React.Component {
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
 											
-											<TableRowColumn name="registerTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
-											<TableRowColumn name="status" 
+											<TableRowColumn name="createTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
+											<TableRowColumn name="leaved" 
 												component={(value)=>{
 													let Style,status;
 													if(value==1){

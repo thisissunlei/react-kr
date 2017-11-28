@@ -23,33 +23,57 @@ export default class  SearchCompanyComponent extends React.Component {
 
 	constructor(props){
 		super(props)
-
-		this.onChange = this.onChange.bind(this);
-		this.getOptions = this.getOptions.bind(this);
+		this.state = {
+			ValueInfo: {}
+		}
+		
 	}
 
 	componentDidMount(){
-		let {input} = this.props;
+		let {input,ValueInfo } = this.props;
+		let Info=ValueInfo?ValueInfo:{}
+		this.setState({
+			ValueInfo: Info
+		})
+	}
+	componentWillReceiveProps(nextProps) {
+		var _this = this;
+		if(nextProps.ValueInfo && nextProps.ValueInfo.csrId){
+			this.setState({
+				ValueInfo:nextProps.ValueInfo
+			}, function() {
+				_this.selects.loadOptions()
+			})
+		}
+		
 	}
 
-	onChange(item){
+	onChange=(item)=>{
 		let {input,onChange} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
 		onChange && onChange(item);
 	}
-	getOptions(companyText){
-		return new Promise((resolve, reject) => {
-			Http.request('getCompanyByCompanyText',{ companyText:companyText }).then(function(response){
+	getOptions=(companyName)=>{
+		let {ValueInfo}=this.state;
+		
+		var flag=[];
+		return 	Http.request('getCompanyInfo',{ companyName:companyName || ''}).then(function(response){
 				response.forEach(function(item,index){
-					item.value = item.id;
-					item.label = item.customercompany;
+					item.value = item.csrId;
+					item.label = item.companyName;
+					if(ValueInfo.csrId){
+						if(item.csrId==ValueInfo.csrId){
+							flag.push('0');
+						}
+					}
 				});
-				resolve({options:response});
-			}).catch(function(err){
-				reject(err);
-			});
-		});
+				if (flag.indexOf('0')== -1){
+					response.push(ValueInfo);
+				}
+				return {options:response}
+			})
+			
 	}
 	render(){
 		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
@@ -58,6 +82,7 @@ export default class  SearchCompanyComponent extends React.Component {
 					<ReactSelectAsync
 					name={input.name}
 					value={input.value}
+					ref={(selects)=>this.selects=selects}
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"

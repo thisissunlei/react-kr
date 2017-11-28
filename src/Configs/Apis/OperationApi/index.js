@@ -156,7 +156,7 @@ module.exports = {
     },
     //运营平台-会员管理-会员配置-会员卡激活-会卡编辑
     'CardEdit': {
-        url: '/api/krspace-finance-web/member/card/mbr-card',
+        url: '/api/iot-platform/card',
         method: 'put'
     },
       //运营平台－社区配置－社区列表
@@ -934,18 +934,18 @@ module.exports = {
     
     //运营平台-会员管理-会员卡管理
     'MemberCardManageList': {
-        url: '/api/krspace-finance-web/member/card/card-list?type={type}&value={value}&page={page}&pageSize={pageSize}',
-        method: 'post'
+        url: '/api/iot-platform/card/list?type={type}&value={value}&page={page}&pageSize={pageSize}',
+        method: 'get'
     },
     //运营平台-会员管理-会员卡片编辑回显
     'MemberCardEditShow': {
-        url: '/api/krspace-finance-web/member/card/edit-info?id={id}',
+        url: '/api/iot-platform/card/edit-info?id={id}',
         method: 'get'
     },
 
     //运营平台-会员管理-会员卡片查看回显
     'MemberCardSeeDetail': {
-        url: '/api/krspace-finance-web/member/card/detail?id={id}',
+        url: '/api/iot-platform/card/detail?id={id}',
         method: 'get'
     },
     //运营平台-社区分期列表
