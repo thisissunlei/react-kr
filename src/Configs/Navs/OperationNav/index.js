@@ -304,7 +304,7 @@ module.exports = [
 			},
 			{
 				primaryText: "红木馆活动",
-				iconName: 'icon-basis',
+				iconName: 'icon-activity',
 				iconColor: '#79859a',
 				router: 'BaseManage',
 				menuCode: 'basic_config',

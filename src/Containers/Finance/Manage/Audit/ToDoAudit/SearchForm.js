@@ -73,7 +73,7 @@ class SearchForm extends React.Component {
 
 		return (
 			<div>
-				<Button label="添加回款" operateCode="fina_verify_addReturn" onTouchTap={this.openAdd} />
+				<Button label="新建回款" operateCode="fina_verify_addReturn" onTouchTap={this.openAdd} />
 				<span className="u-span"></span>
 				<Button label="批量审核" operateCode="fina_verify_batch" onTouchTap={this.openSomeAudit} />
 				<span className="u-high-search" onTouchTap={this.openSearch}></span>

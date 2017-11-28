@@ -5,6 +5,7 @@ import {
 import {
 	KrField,
 	KrDate,
+    DrawerTitle
 } from 'kr-ui';
 export default class Viewdialog extends React.Component {
 
@@ -33,20 +34,18 @@ export default class Viewdialog extends React.Component {
         let {infoList} = this.state;
         return (
 
-            <div style={{width:670,marginTop:30,paddingLeft:80,paddingRight:40}}>
-                <span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
-                <div className="u-operations-edit-title">
-                  <span>版本详情</span>
-                </div>
+            <div style={{marginTop:30,paddingLeft:80,paddingRight:40}}>
+                <DrawerTitle title ="版本详情" onCancel = {this.onCancel}/>
+
                 <KrField
-                    style={{width:260}}
+                    style={{width:260,marginTop:40}}
                     inline={false}
                     value={infoList.version}
                     label="系统版本"
                     component="labelText"
                 />
                 <KrField
-                    style={{width:260,marginLeft:25}}
+                    style={{width:260,marginLeft:25,marginTop:40}}
                     value={infoList.osType}
                     label="设备类型"
                     inline={false}

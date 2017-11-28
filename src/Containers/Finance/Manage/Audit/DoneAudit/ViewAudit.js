@@ -6,6 +6,7 @@ import {
     KrField,
     SearchForms,
     CircleStyleTwo,
+    DrawerTitle,
     KrDate
 } from 'kr-ui';
 
@@ -187,13 +188,9 @@ export default class ViewAudit extends React.Component {
         const {error, handleSubmit, pristine, reset} = this.props;
         let {infoList, payInfoList, topInfoList} = this.state;
         return (
-            <div className="u-audit-add u-audit-edit">
-                <div className="u-audit-add-title">
-                    <span className="u-audit-add-icon"></span>
-                    <span>回款详情</span>
-                    <span className="u-audit-close" style={{
-                        marginRight: 40
-                    }} onTouchTap={this.onCancel}></span>
+            <div className="u-audit-add u-audit-edit" style={{paddingTop:50}}>
+                 <div style={{paddingLeft:52,paddingRight:40}}>
+                    <DrawerTitle title ="回款详情" onCancel = {this.onCancel}/>
                 </div>
                 <div className="u-table-list">
                     <table className="u-table">

@@ -20,6 +20,7 @@ import {
 	ListGroupItem,
 	SearchForms,
 	ButtonGroup,
+	DrawerTitle,
 	CircleStyleTwo,
 	Message
 } from 'kr-ui';
@@ -91,9 +92,7 @@ class CreateDrawer extends React.Component {
 			return (
 				<div className="u-creat-drawer">
 			     <div className="u-audit-add-title">
-			     	<span className="u-audit-add-icon"></span>
-			     	<span>新建合同</span>
-			     	<span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
+                    <DrawerTitle title ="新建合同" onCancel = {this.onCancel}/>
 			     </div>
 			     <form ref="creatDrawer" onSubmit={handleSubmit(this.onSubmit)} >
 					<CircleStyleTwo num="1" info="基本信息">

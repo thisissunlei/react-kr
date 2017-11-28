@@ -15,6 +15,7 @@ import {
 	Row,
 	Col,
 	ButtonGroup,
+	DrawerTitle,
 	Button,
 	Message
 } from 'kr-ui';
@@ -80,8 +81,7 @@ class EditBanner extends React.Component {
 		return (
 			<div className="g-create-advert">
 				<div className="u-create-title">
-						<div className="title-text">编辑广告图</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='编辑广告图' onCancel = {this.onCancel}/>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField

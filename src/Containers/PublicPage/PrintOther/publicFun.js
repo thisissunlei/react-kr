@@ -9,7 +9,7 @@ var dpi = js_getDPI(),
     newDate = parseInt(Math.random()*1000+1000),
     markWidth = 160,
     elemArr = [],//章的宽
-    allData = {};//所有的数据
+    allData = { cachetUrl:'http://krspace-upload.oss-cn-qingdao.aliyuncs.com/activity_unzip/201707/I/131101521_42.png'};//所有的数据
     
 
 //字段替换
@@ -54,7 +54,7 @@ function noKeyParse(template, paramName, data) {
 
 //标记替换
 function templateParse(template,data){
-    allData = Object.assign({},data)
+    allData = Object.assign({}, data, allData)
     var imgReg = new RegExp('#{img}', 'ig');
     //分页标签
     var pageReg = new RegExp('#{pagination}','ig');
@@ -64,7 +64,13 @@ function templateParse(template,data){
     var includeStart = new RegExp('#{includeStart}','ig')
     //区域划分组件结束
     var includeEnd = new RegExp('#{includeEnd}', 'ig')
+    //文章结束
     var allEnd = new RegExp('#{allEnd}','ig');
+    //附件内容开始
+    var attachmentStart = new RegExp('#{attachmentStart}', 'ig');
+    //附件内容结束
+    var attachmentEnd = new RegExp('#{attachmentEnd}','ig');
+    
     var imgLabelling =allData.cachetUrl ? '<img style="position:absolute;display:inline-block;width:160px;height:160px;left:-80px;top:-80px" src = "'+allData.cachetUrl+'">' : '';
     template = template.replace(imgReg, '<span class="print-other-chapter' + newDate + '" style="position: relative;">'+imgLabelling+'</span>');
     template= template.replace(pageReg,'<div class = "print-pagination'+newDate+'"></div>');
@@ -72,6 +78,9 @@ function templateParse(template,data){
     template = template.replace(includeStart,'<div class="print-include-start'+newDate+'"></div>');
     template = template.replace(includeEnd, '<div class="print-include-end' + newDate + '"></div>');
     template = template.replace(allEnd,'<div class="print-all-end'+newDate+'"></div>');
+    template = template.replace(attachmentStart, '<div class = "print-pagination' + newDate + '"></div><div class="print-attachment-start' + newDate + '"></div>');
+    template = template.replace(attachmentEnd, '<div class="print-attachment-end' + newDate + '"></div><div class = "print-pagination' + newDate +'"></div>');
+    
     return template;
 }
 //每一个分页标记的渲染
@@ -108,13 +117,31 @@ function getNode(elem){
 
 //齐缝章
 function checkMark(mainElem){
+    /**
+     * startElem 指的是附件部分的开始标识
+     * endElem 指的是附件部分的结束标识
+     */
+    var startElem = getNode('.print-attachment-start' + newDate)[0];
+    var endElem = getNode('.print-attachment-end' + newDate)[0];
+    var startDetail = startElem.getBoundingClientRect(),
+        endDetail = endElem.getBoundingClientRect(),
+        startTop = startDetail.top,
+        endTop = endDetail.top,
+        startNum = Math.ceil(startTop / paperHeight),
+        endNum = Math.ceil(endTop / paperHeight);
+
     var mainDetil = mainElem.getBoundingClientRect(),
         mainHeight = mainDetil.height,
         pageNum = Math.ceil(mainHeight/paperHeight),
         markElem = '';
+
+    
     if(pageNum>1){
         for(let i = 0; i<pageNum;i++){
-            markElem += everyCheckMark(i,pageNum);
+            if(i<startNum-1 || i > endNum-1){
+                var diffValue = endNum - startNum + 1;
+                markElem += everyCheckMark(i, pageNum - diffValue,i>=endNum?endNum-1:0);
+            }
         }
         
     }
@@ -122,11 +149,11 @@ function checkMark(mainElem){
     // mainElem.style.height = pageNum * paperHeight + 'px';
 }
 //每一页骑缝章的渲染
-function everyCheckMark(num,pageNum){
+function everyCheckMark(num, pageNum,endNum){
    var boxWidth = Math.ceil(markWidth/pageNum*1000)/1000;
    var top = num*paperHeight+paperHeight/2-markHeight/2;
    var elemImg = '<div style="height:'+markHeight+'px;width:'+boxWidth+'px;overflow:hidden;position:absolute;right:0px;top:'+top+'px;">'+
-                    '<img style="width:'+markWidth+'px;height:'+markHeight+'px;display:inline-block;left:'+(-num*boxWidth)+'px;position:absolute;" src = "'+allData.cachetUrl+'"/>'+
+       '<img style="width:' + markWidth + 'px;height:' + markHeight + 'px;display:inline-block;left:' + ((-num + endNum) * boxWidth)+'px;position:absolute;" src = "'+allData.cachetUrl+'"/>'+
                  '</div>';
    
    return elemImg;
@@ -156,24 +183,18 @@ function produceElemArr(className,type){
     var elems = getNode(className+newDate);
     var detail = {};
     if(type === "include"){
-        
         var start = getNode(className+'-start'+newDate);
         var end = getNode(className+'-end'+newDate);
-      
         for(let i=0;i<start.length;i++){
             detail = start[i].getBoundingClientRect();
             elemArr.push({type:type,start:start[i],end:end[i],top:detail.top});
         }
-
     }else{
         for(let i=0;i<elems.length;i++){
             detail = elems[i].getBoundingClientRect();
-
             elemArr.push({type:type,elem:elems[i],top:detail.top});
         }
     }
-   
-
 }
 //印章位置调整
 function chaptersMove(params) {

@@ -9,6 +9,7 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Tooltip,
+	DrawerTitle,
 	KrDate
 } from 'kr-ui';
 import './index.less';
@@ -48,10 +49,9 @@ export default class ViewIntegration extends React.Component {
 		return (
 			<div className="g-view-integration">
 				<div className="u-create-title">
-						<div className="title-text"><span className="u-view-customerName">{detail.customerName}</span>—积分消费记录</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ={detail.customerName+'—积分消费记录'} onCancel = {this.onCancel}/>
 				</div>
-				<div style={{paddingLeft:50}}>
+				<div>
 					<Table
 						  style={{marginTop:10}}
 		                  ajax={true}

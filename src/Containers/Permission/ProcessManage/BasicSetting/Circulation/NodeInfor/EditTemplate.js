@@ -18,6 +18,7 @@ import {
 	CircleStyleTwo,
 	ButtonGroup,
 	CheckTable,
+	DrawerTitle,
 	FdRow,
 } from 'kr-ui';
 import State from '../../State';
@@ -104,6 +105,7 @@ class EditTemplate extends React.Component {
 		return (
 			<div className="g-create-template">
 					<div className="u-title-box">
+<<<<<<< HEAD:src/Containers/Permission/ProcessManage/BasicSetting/Circulation/NodeInfor/EditTemplate.js
 						<img className="u-title-img" src={require('../../images/icon-t.svg')} />
 						<span className="u-title-text">模板设置——普通模式</span>
 						<span className="u-close-page" onClick={this.onCancel}>
@@ -112,6 +114,9 @@ class EditTemplate extends React.Component {
 								className="u-close-page-img"
 							 />
 						</span>
+=======
+                    <DrawerTitle title ="编辑模板——普通模式" onCancel = {this.onCancel}/>
+>>>>>>> feature/合同添加承诺函且无骑缝:src/Containers/Permission/ProcessManage/BasicSetting/EditTemplate.js
 					</div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 						<KrField

@@ -89,7 +89,7 @@ class SearchForm extends React.Component {
 								<KrField label="至" name="endDate" component="date" inline={true} style={{width:200,marginTop:-3,zIndex:11}} onChange={this.chooseEndTime} placeholder={DateFormat(new Date() ,"yyyy-mm-dd")}/>
 							</div>
 						</ListGroupItem>
-						<ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+						<ListGroupItem style={{verticalAlign:'middle'}}><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'7'}}/></ListGroupItem>
 
 					</ListGroup>
 
