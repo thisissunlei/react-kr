@@ -16,6 +16,7 @@ import {
 	ButtonGroup,
 	Message,
 	ListGroup,
+	DrawerTitle,
 	ListGroupItem
 } from 'kr-ui';
 import './index.less';
@@ -92,9 +93,9 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:9}} >
 				<div className="title" style={{marginBottom:"30px"}}>
-						<div><span className="new-icon"></span><label className="title-text">新增访客</label></div>
-						<div className="customer-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='新增访客' onCancel = {this.onCancel}/>
 				</div>
+				<div style={{paddingLeft:20}}>
 
 
 
@@ -181,6 +182,7 @@ import {mobxForm}  from 'kr/Utils/MobxForm';
 								</Col>
 							</Row>
 						</Grid>
+					</div>
 				</form>
 		);
 	}

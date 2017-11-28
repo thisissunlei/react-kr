@@ -20,6 +20,7 @@ import {
 	Button,
 	Message,
 	KrDate,
+	DrawerTitle,
 	Tooltip
 } from 'kr-ui';
 import './index.less';
@@ -64,13 +65,12 @@ class ViewMember extends React.Component {
 		return (
 			<div className="g-create-member">
 			<div className="u-create-title">
-					<div className="title-text">会员详情</div>
-					<div className="u-create-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='会员详情' onCancel = {this.onCancel}/>
 			</div>
-			<form style={{paddingLeft:73}}>
+			<form style={{paddingLeft:40}}>
 
 						<KrField
-							style={{width:300,marginRight:20}}
+							style={{width:260,marginRight:20}}
 							label="姓名:"
 							inline={true} 
 							component="labelText"
@@ -78,14 +78,14 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField
-							style={{width:300}}
+							style={{width:260}}
 							label="公司："
 							inline={true} 
 							component="labelText"
 							value={baseInfo.companyName}
 						/>
 						<KrField
-							style={{width:300,marginRight:20}}
+							style={{width:260,marginRight:20}}
 							label="社区："
 							inline={true} 
 							component="labelText"
@@ -93,7 +93,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						/>
 						<KrField 
-							 style={{width:300}} 
+							 style={{width:260}} 
 							 label="联系电话:" 
 							 inline={true} 
 							component="labelText"
@@ -101,7 +101,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField
-							style={{width:300,marginRight:20}}
+							style={{width:260,marginRight:20}}
 							label="职位："
 							inline={true} 
 							component="labelText"
@@ -110,7 +110,7 @@ class ViewMember extends React.Component {
 
 						/>
 						<KrField  
-							 style={{width:300}} 
+							 style={{width:260}} 
 							 label="邮箱:" 
 							 inline={true} 
 							component="labelText"
@@ -118,7 +118,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField 
-							 style={{width:300,marginRight:20}} 
+							 style={{width:260,marginRight:20}} 
 							 label="性别:" 
 							 inline={true} 
 							component="labelText"
@@ -126,7 +126,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField
-							style={{width:300}}
+							style={{width:260}}
 							label="微信昵称:"
 							inline={true} 
 							component="labelText"
@@ -134,7 +134,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField  
-							 style={{width:300,marginRight:20}} 
+							 style={{width:260,marginRight:20}} 
 							 label="App昵称:" 
 							 inline={true} 
 							component="labelText"
@@ -142,7 +142,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField  
-							 style={{width:300}} 
+							 style={{width:260}} 
 							 label="生日:" 
 							 inline={true} 
 							component="labelText"
@@ -150,7 +150,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField
-							style={{width:300,marginRight:20}}
+							style={{width:260,marginRight:20}}
 							label="婚姻状况:"
 							inline={true} 
 							component="labelText"
@@ -158,7 +158,7 @@ class ViewMember extends React.Component {
 							defaultValue="无"
 						 />
 						 <KrField
-							style={{width:300}}
+							style={{width:260}}
 							label="注册时间:"
 							inline={true} 
 							component="labelText"

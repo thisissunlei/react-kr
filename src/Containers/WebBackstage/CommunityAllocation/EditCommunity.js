@@ -10,6 +10,7 @@ import {
 	Button,
 	ButtonGroup,
 	Message,
+  DrawerTitle
 } from 'kr-ui';
 import './index.less';
 
@@ -227,8 +228,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             <div>
                 <form className="web-communityList-m"  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
                     <div className="title">
-                        <div><span className="new-icon list-icon"></span><label className="title-text">编辑社区配置</label></div>
-                        <div className="customer-close" onClick={this.onCancel}></div>
+          <DrawerTitle title ='编辑社区配置' onCancel = {this.onCancel}/>
+
                     </div>
                     <div className="cheek">
                         <div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>

@@ -24,6 +24,7 @@ import {
 	Tab,
 	Tooltip,
 	ButtonGroup,
+	DrawerTitle,
 	KrDate,
 	Loading
 
@@ -97,8 +98,7 @@ class ItemDetail extends Component{
 		return(
 		  <div className="m-item-detail" >
 		      	<div className="title" >
-  					  <div><span className="look-new-icon"></span><label className="title-text">查看详情</label></div>
-  					  <div className="customer-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='查看详情' onCancel = {this.onCancel}/>
 				    </div>
     				<div style={{height:5}}></div>
     				 <div className="m-LookDetailed" style={{marginTop:8}}>

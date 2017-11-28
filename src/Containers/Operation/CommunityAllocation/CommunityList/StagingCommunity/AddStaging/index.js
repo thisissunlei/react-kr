@@ -9,6 +9,7 @@ import {
     FdTabel,
     FContent,
 	FRow,
+    DrawerTitle,
     Dialog
 } from 'kr-ui';
 import {
@@ -142,8 +143,7 @@ class AddStaging  extends React.Component{
 			<div className='m-stage-add'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
                       <div className="title" style={{marginBottom:"30px"}}>
-                            <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">分期配置新增</label></div>
-                            <div className="person-close" onClick={this.onCancel}></div>
+                            <DrawerTitle title ='分期配置新增' onCancel = {this.onCancel}/>
                       </div>
 
                       <KrField grid={1/2}

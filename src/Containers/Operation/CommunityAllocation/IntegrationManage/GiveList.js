@@ -9,6 +9,7 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Tooltip,
+	DrawerTitle,
 	KrDate
 } from 'kr-ui';
 import './index.less';
@@ -41,9 +42,8 @@ export default class GiveList extends React.Component {
 			const {detail}=this.props;
 		return (
 			<div className="g-give-list-integration">
-				<div className="u-create-title">
-						<div className="title-text"><span className="u-view-customerName">{detail.customerName}</span>—积分充值记录</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+				<div className="u-create-title" style={{paddingLeft:50}}>
+					<DrawerTitle title ={detail.customerName+'—积分充值记录'} onCancel = {this.onCancel}/>
 				</div>
 				<div style={{paddingLeft:50}}>
 					<Table

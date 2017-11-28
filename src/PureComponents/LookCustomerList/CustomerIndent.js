@@ -150,7 +150,9 @@ class CustomerIndent extends Component{
 
 		return(
 	    	<div className="m-CustomerIndent">
-				<div style={{marginTop:20,marginBottom:20}}><Button operateCode = 'oper_order_add' label="新建订单" type="button" onTouchTap={newIndentSwitch}/></div>
+				<div style={{marginTop:20,marginBottom:20}}>
+					<Button operateCode = 'oper_order_add' label="新建订单" type="button" onTouchTap={newIndentSwitch}/>
+				</div>
 				{this.orderInnerList()}
 	    	</div>
 

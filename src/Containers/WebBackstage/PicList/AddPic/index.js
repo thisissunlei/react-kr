@@ -5,6 +5,7 @@ import {
     Col,
     Row,
     ButtonGroup,
+    DrawerTitle,
     Button
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
@@ -52,11 +53,10 @@ class AddPic extends React.Component{
 			<div className='m-add-pic'>
 				 <form  onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
 				<div className="title">
-						<div><span className="order-new-icon"></span><label className="title-text">新建轮播图</label></div>
-						<div className="order-close" onClick={this.onCancel}></div>
+          <DrawerTitle title ='新建轮播图' onCancel = {this.onCancel}/>
 				</div>
 
-				<div className="kk" style={{marginTop:30}}>
+				<div className="kk" style={{marginTop:30,paddingLeft:10}}>
 					<KrField grid={1/2} label="名称" name="title" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
                     <KrField grid={1/2} label="简介" name="desrc" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
 					<KrField grid={1/2} label="跳转url" name="targetUrl" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>

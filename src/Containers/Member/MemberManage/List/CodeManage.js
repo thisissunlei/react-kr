@@ -7,6 +7,7 @@ import {
 	Button,
     Message,
     KrDate,
+    DrawerTitle,
     Dialog
 } from 'kr-ui';
 import './index.less';
@@ -103,9 +104,8 @@ export default class CodeManage extends React.Component {
         }=this.state;
 		return (
 			<div className="g-create-member">
-			<div className="u-create-title">
-					<div className="title-text">门禁卡管理</div>
-					<div className="u-create-close" onClick={this.onCancel}></div>
+			<div className="u-create-title" style={{marginBottom:30}}>
+                    <DrawerTitle title ='门禁卡管理' onCancel = {this.onCancel}/>
 			</div>
             <div className="u-add-code">
                 <input className="ui-input" ref="memberCode" type="text" onChange={this.getCodeValue}/> <Button  label="绑定" type="button" height={36} onClick={this.addCode} />

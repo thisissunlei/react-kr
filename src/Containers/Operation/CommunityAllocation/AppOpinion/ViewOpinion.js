@@ -17,6 +17,7 @@ import {
 	Row,
 	Col,
 	ButtonGroup,
+	DrawerTitle,
 	Button,
 	Message,
 	KrDate,
@@ -92,8 +93,7 @@ export default class ViewOpinion extends React.Component {
 		return (
 			<div className="g-create-opinoin">
 				<div className="u-create-title">
-						<div className="title-text">反馈详情</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='反馈详情' onCancel = {this.onCancel}/>
 				</div>
 				{infoList.handled == 1?
 				<div className="u-table-list">

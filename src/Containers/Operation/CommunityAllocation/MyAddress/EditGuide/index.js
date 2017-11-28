@@ -18,6 +18,7 @@ import {
 	Row,
 	ListGroup,
 	ListGroupItem,
+	DrawerTitle,
 	Button
 } from 'kr-ui';
 import './index.less';
@@ -82,10 +83,9 @@ class EditGuide extends  React.Component{
 		return (
         	<div className="add-community-guide-form">
         		<form onSubmit={handleSubmit(this.onSubmit)}>
-        			<div className="close-new-div">
-			          <img src={require('../images/closeIcon.svg')} className="close-new-img" onClick={this.onCancel}/>
+        			<div style={{marginLeft:10,marginBottom:30}}>
+						<DrawerTitle title ='编辑指南' onCancel = {this.onCancel}/>
 			        </div>
-					<div className="add-guide-title">编辑指南</div>
 					<div className="add-guide-container">
 						<KrField grid={1/2} name="guideTitle" type="text" requireLabel={true} label="指南标题" maxLength={10} onChange={this.titleChang} style={{display:'inline-block',width:'252px'}}/>
 						<span style={{display: "inline-block",width: 50,height: 40,margin: "33px 0 0 10px"}}>{titleLen}/10</span>

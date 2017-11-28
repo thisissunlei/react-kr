@@ -21,6 +21,7 @@ import {
 	TableRow,
 	TableHeaderColumn,
 	TableRowColumn,
+	DrawerTitle,
 	Tooltip
 } from 'kr-ui';
 import mobx, {
@@ -82,14 +83,7 @@ class EditList extends React.Component {
 		return (
 			<div className="g-agreement-trim-edit">
 				<div className="u-title-box">
-						<img className="u-title-img" src={require('./images/activity.svg')} />
-						<span className="u-title-text">合同调整-明细</span>
-						<span className="u-close-page" onClick={this.onCancel}>
-							<img 
-								src={require('./images/closeIMG.svg')} 
-								className="u-close-page-img"
-							 />
-						</span>
+					<DrawerTitle title ='合同调整-明细' onCancel = {this.onCancel}/>
 					</div>
 			   <form onSubmit={handleSubmit(this.onSubmit)} style={{width:650,margin:'0 auto'}}>
 				<div >

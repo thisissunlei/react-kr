@@ -6,6 +6,7 @@ import {
     Row,
     ButtonGroup,
     Button,
+    DrawerTitle,
 		Tooltip,
 		IconTip
 } from 'kr-ui';
@@ -45,8 +46,7 @@ class EditForm  extends React.Component{
 			<div className='pessi-form-add'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 					 <div className="title" style={{marginBottom:"30px"}}>
-							<div><span className="new-icon"></span><label className="title-text">编辑表单</label></div>
-							<div className="customer-close" onClick={this.onCancel}></div>
+                    <DrawerTitle title ="编辑表单" onCancel = {this.onCancel}/>
 					 </div>
                        <KrField
                             grid={1/2}

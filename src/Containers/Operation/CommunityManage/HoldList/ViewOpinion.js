@@ -18,6 +18,7 @@ import {
 	Col,
 	ButtonGroup,
 	Button,
+	DrawerTitle,
 	Message,
 	KrDate,
 } from 'kr-ui';
@@ -89,10 +90,9 @@ class ViewOpinion extends React.Component {
 			}
 		return (
 			<div className="g-create-opinoin">
-				<div className="u-create-title">
-						<div className="title-text">反馈详情</div>
-						<div className="u-create-close" onTouchTap={this.onCancel}></div>
-				</div>
+				<div style={{paddingLeft:34,paddingBottom:30}}>
+                 <DrawerTitle title ='反馈详情' onCancel = {this.onCancel}/>
+                 </div>
 				{infoList.handled == 1?
 				<div className="u-table-list">
                     <table className="u-table">
@@ -160,7 +160,7 @@ class ViewOpinion extends React.Component {
 
 							/>
 						 	<KrField  
-					 			grid={1/2}
+					 			grid={1}
 					 			style={{width:548}} 
 					 			label="内容" 
 					 			inline={false} 
