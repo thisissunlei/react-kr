@@ -75,14 +75,8 @@ export default class DrawerTitle extends React.Component {
 
         return (
             <div className="ui-drawer-title">
-<<<<<<< HEAD
                     <div><span className={iconClass || "new-icon"}></span><label className="title-text" style={{marginLeft:10}}>{title||''}</label></div>
                     <div className="order-close" onClick={this.onCancel}></div>
-=======
-                    <div><span className={iconClass || "new-icon"} 
-                    style={pic}></span><label className="title-texts">{title||''}</label></div>
-                    <div className="order-close" style={closeStyle} onClick={this.onCancel}></div>
->>>>>>> feature/合同添加承诺函且无骑缝
             </div>
         );
     }

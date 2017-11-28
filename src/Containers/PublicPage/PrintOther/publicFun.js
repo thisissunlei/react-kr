@@ -78,8 +78,8 @@ function templateParse(template,data){
     template = template.replace(includeStart,'<div class="print-include-start'+newDate+'"></div>');
     template = template.replace(includeEnd, '<div class="print-include-end' + newDate + '"></div>');
     template = template.replace(allEnd,'<div class="print-all-end'+newDate+'"></div>');
-    template = template.replace(attachmentStart, '<div class = "print-pagination' + newDate + '"></div><div class="print-attachment-start' + newDate + '"></div>');
-    template = template.replace(attachmentEnd, '<div class="print-attachment-end' + newDate + '"></div><div class = "print-pagination' + newDate +'"></div>');
+    template = template.replace(attachmentStart, '<div class="print-attachment-start' + newDate + '"></div>');
+    template = template.replace(attachmentEnd, '<div class="print-attachment-end' + newDate + '"></div>');
     
     return template;
 }
@@ -121,27 +121,72 @@ function checkMark(mainElem){
      * startElem 指的是附件部分的开始标识
      * endElem 指的是附件部分的结束标识
      */
-    var startElem = getNode('.print-attachment-start' + newDate)[0];
-    var endElem = getNode('.print-attachment-end' + newDate)[0];
-    var startDetail = startElem.getBoundingClientRect(),
-        endDetail = endElem.getBoundingClientRect(),
-        startTop = startDetail.top,
-        endTop = endDetail.top,
-        startNum = Math.ceil(startTop / paperHeight),
-        endNum = Math.ceil(endTop / paperHeight);
-
+    var startElem = getNode('.print-attachment-start' + newDate);
+    var endElem = getNode('.print-attachment-end' + newDate);
+    var haveElem = false;
+    var startDetail = "",
+        endDetail = '',
+        startTop =0,
+        endTop = 0,
+        startNum =0,
+        endNum = 0; 
     var mainDetil = mainElem.getBoundingClientRect(),
         mainHeight = mainDetil.height,
         pageNum = Math.ceil(mainHeight/paperHeight),
         markElem = '';
-
-    
+    var attachment = [];
+    if(startElem && endElem){
+        haveElem = true;
+        for(let i=0;i<startElem.length;i++){
+            startDetail = startElem[i].getBoundingClientRect();
+            endDetail = endElem[i].getBoundingClientRect();
+            startTop = startDetail.top;
+            endTop = endDetail.top;
+            startNum = Math.floor(startTop / paperHeight);
+            endNum = Math.floor(endTop / paperHeight);
+            attachment.push({
+                startNum:startNum,
+                endNum:endNum
+            })
+        }
+       
+        
+    }
     if(pageNum>1){
+        console.log(attachment,"ooooooo")
+        let nowDetail = null; 
+        
         for(let i = 0; i<pageNum;i++){
-            if(i<startNum-1 || i > endNum-1){
-                var diffValue = endNum - startNum + 1;
-                markElem += everyCheckMark(i, pageNum - diffValue,i>=endNum?endNum-1:0);
-            }
+            if(!haveElem){
+                markElem += everyCheckMark(i, pageNum,0);
+            }else{
+                let isChapter = true;
+                let diffValue = 0;
+                let isGo = true;
+               
+
+                for(let key=0;key<attachment.length;key++){
+                    var every = attachment[key]
+                   
+                    // if((i<every.startNum || i > every.endNum)||!haveElem){
+                    if((i>=every.startNum && i <= every.endNum)){
+                        isChapter = false;
+                       break;
+                    }else{
+                        diffValue += every.endNum - every.startNum + 1;  
+                      
+                        if(isGo){
+                            nowDetail = attachment[key];
+                            isGo = false;
+                            attachment.splice(key,1);
+                        }
+                    }
+
+                }
+                if(isChapter){
+                    markElem += everyCheckMark(i, pageNum - diffValue,i>nowDetail.endNum?nowDetail.endNum:0); 
+                }
+            }    
         }
         
     }
