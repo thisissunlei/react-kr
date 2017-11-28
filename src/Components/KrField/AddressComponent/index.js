@@ -100,6 +100,7 @@ export default class AddressComponent extends React.Component {
         let _this = this;
         Http.request("get-address-num", { addressId: '', allWhenNull:true}).then(function (response) {
             _this.allData = [].concat(response.items);
+            
             _this.theEcho();
         }).catch(function (err) {
             Message.error(err.message);

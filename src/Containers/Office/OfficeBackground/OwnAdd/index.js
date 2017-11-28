@@ -257,10 +257,14 @@ export default class Initialize  extends React.Component{
 					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 					 					}}></TableRowColumn>
 										 <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='serialNumber' component={(value,oldValue)=>{
-					 							var maxWidth=6;
+												var maxWidth=6;
+												if (!value){
+													return<span>{"-"}</span>
+												}
 					 							if(value.length>maxWidth){
 					 							 value = value.substring(0,6)+"...";
-					 							}
+												 }
+												 
 					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 					 					}}></TableRowColumn>
 						                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB',wordWrap:'break-word',whiteSpace:'normal'}} name='title'></TableRowColumn>

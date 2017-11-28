@@ -38,6 +38,7 @@ class FromsConfig extends Component {
     
 	onCancel = () =>{
 		const {onCancel} = this.props;
+		isOk = false;
 		onCancel && onCancel();
 	}
 	
@@ -107,6 +108,7 @@ class FromsConfig extends Component {
 		delete params.c_time;
 		delete params.u_time;
 		const {onSubmit} = this.props;
+		isOk = false;
 		onSubmit && onSubmit(params)
 	}
 	//渲染所有表单
