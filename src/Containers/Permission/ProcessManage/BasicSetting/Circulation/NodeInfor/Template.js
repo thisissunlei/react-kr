@@ -203,8 +203,14 @@ class Template extends React.Component {
 		});
 	}
 	openEdit=(id)=>{
+		var keyId='';
+		if(State.saveId){
+			keyId=State.saveId;
+		}else{
+			keyId=id;
+		}
 		// State.openEdit = true;
-		State.editTemplate(id);
+		State.editTemplate(keyId);
 	}
 
 	render() {
