@@ -41,7 +41,6 @@ State.initialize = action(function(){
 	this.saveAndUse = false;
 	this.open = false;
 	this.formworkId = '';
-	this.saveId='';
 })
 //PC模板--选择
 State.getTemplateList = action(function(id) {
@@ -63,8 +62,6 @@ State.getTemplateList = action(function(id) {
 State.reset = action(function(){
 	this.printName = '';
 	this.pcName = '';
-	this.saveId='';
-	this.saveAndUse=false;
 })
 // PC模板--新建提交
 State.saveTemplate = action(function(form) {
@@ -74,11 +71,12 @@ State.saveTemplate = action(function(form) {
 			console.log('------>>truuu----')
 			_this.formTempId = false;
 			_this.pcName = response.name;
-			_this.saveId=response.formTemplateId;
+			_this.formData.formTempId=response.formTemplateId;
 			Store.dispatch(change('Template','formTempId',response.formTemplateId));
 		}
 		_this.open = false;
 		_this.openEdit = false;
+		_this.saveAndUse=false;
 		_this.getPrintTemplateList()
 		_this.getTemplateList(_this.formId);
 	

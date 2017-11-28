@@ -203,16 +203,10 @@ class Template extends React.Component {
 		});
 	}
 	openEdit=(id)=>{
-		var keyId='';
-		if(State.saveId){
-			keyId=State.saveId;
-		}else{
-			keyId=id;
-		}
 		// State.openEdit = true;
-		State.editTemplate(keyId);
+		State.editTemplate(id);
 	}
-
+    
 	render() {
 		const { handleSubmit,formId} = this.props;
 		const { allData, id,sealList} = this.state;

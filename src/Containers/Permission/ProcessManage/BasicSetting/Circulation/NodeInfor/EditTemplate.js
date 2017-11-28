@@ -51,7 +51,10 @@ class EditTemplate extends React.Component {
 	}
 	onSubmit=(form)=>{
 		let value = this.formData(form);
-		value.id = State.saveId?State.saveId:State.formData.formTempId;
+		if (!value.comment){
+			value.comment = '';
+		}
+		value.id = State.formData.formTempId;
 		// return;
 		State.saveTemplate(value);
 
