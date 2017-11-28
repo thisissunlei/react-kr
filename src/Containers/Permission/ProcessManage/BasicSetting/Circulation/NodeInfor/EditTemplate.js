@@ -52,7 +52,10 @@ class EditTemplate extends React.Component {
 	onSubmit=(form)=>{
 		let value = this.formData(form);
 		value.id = State.formData.formTempId;
-
+		if (!value.comment) {
+			value.comment = '';
+		}
+		console.log(value, "ppppppppppp")
 		// return;
 		State.saveTemplate(value);
 
@@ -92,7 +95,7 @@ class EditTemplate extends React.Component {
 	}
 	onSave=()=>{
 		State.saveAndUse = true;
-		console.log('onSave')
+	
 	}
 
 	render() {

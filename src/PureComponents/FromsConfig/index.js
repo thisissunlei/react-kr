@@ -261,7 +261,7 @@ class FromsConfig extends Component {
 				<DrawerTitle title ={title||"新建"} onCancel = {this.onCancel}/>
 				<div style = {{marginTop:30}}>
 				
-				<div style={{width:'100%',padding:'0px 15px',boxSizing:'border-box'}}>
+				{introData &&<div style={{width:'100%',padding:'0px 15px',boxSizing:'border-box'}}>
 					<div className='m-form-intro'>
 						<div className='intro-pic'>
 						<div></div>
@@ -269,7 +269,7 @@ class FromsConfig extends Component {
 						</div>
 						<div className='intro-text'>{introData}</div>
 					</div>
-			    </div>
+			    </div>}
 				{this.renderFields()}
 				</div>
 				<DrawerBtn onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>	
