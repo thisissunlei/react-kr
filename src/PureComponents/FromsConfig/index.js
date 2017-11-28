@@ -38,6 +38,7 @@ class FromsConfig extends Component {
     
 	onCancel = () =>{
 		const {onCancel} = this.props;
+		isOk = false;
 		onCancel && onCancel();
 	}
 	
@@ -107,6 +108,7 @@ class FromsConfig extends Component {
 		delete params.c_time;
 		delete params.u_time;
 		const {onSubmit} = this.props;
+		isOk = false;
 		onSubmit && onSubmit(params)
 	}
 	//渲染所有表单
@@ -261,7 +263,7 @@ class FromsConfig extends Component {
 				<DrawerTitle title ={title||"新建"} onCancel = {this.onCancel}/>
 				<div style = {{marginTop:30}}>
 				
-				<div style={{width:'100%',padding:'0px 15px',boxSizing:'border-box'}}>
+				{introData &&<div style={{width:'100%',padding:'0px 15px',boxSizing:'border-box'}}>
 					<div className='m-form-intro'>
 						<div className='intro-pic'>
 						<div></div>
@@ -269,7 +271,7 @@ class FromsConfig extends Component {
 						</div>
 						<div className='intro-text'>{introData}</div>
 					</div>
-			    </div>
+			    </div>}
 				{this.renderFields()}
 				</div>
 				<DrawerBtn onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>	

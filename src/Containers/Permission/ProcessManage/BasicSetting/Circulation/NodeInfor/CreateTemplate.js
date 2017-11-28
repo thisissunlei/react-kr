@@ -55,7 +55,6 @@ class CreateNewList extends React.Component {
 		if (!value.comment){
 			value.comment = '';
 		}
-		console.log(value,"ppppppppppp")
 		State.saveTemplate(value);
 
 		
