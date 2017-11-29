@@ -7,6 +7,7 @@ import {
     ButtonGroup,
     Button,
     Tooltip,
+    DrawerTitle,
 	IconTip
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
@@ -52,8 +53,7 @@ class AddForm  extends React.Component{
 			<div className='pessi-form-add'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
 					 <div className="title" style={{marginBottom:"30px"}}>
-							<div><span className="new-icon"></span><label className="title-text">新建表单</label></div>
-							<div className="customer-close" onClick={this.onCancel}></div>
+                    <DrawerTitle title ="新建" onCancel = {this.onCancel}/>
 					 </div>
                        <KrField
                             grid={1/2}

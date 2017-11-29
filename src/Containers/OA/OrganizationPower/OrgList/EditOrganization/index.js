@@ -30,7 +30,7 @@ export default class EditOrganization  extends React.Component{
 		return(
 
 			<div>
-				 <div className='m-or-role'>
+				 <div className='m-or-role' style={{paddingLeft:0}}>
                     <DrawerTitle title ='编辑机构分权' onCancel = {this.onCancel}/>
 
 			    </div>

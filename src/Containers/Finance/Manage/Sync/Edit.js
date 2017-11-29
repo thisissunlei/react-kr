@@ -23,6 +23,7 @@ import {
 	Notify,
 	ButtonGroup,
 	Checkbox,
+	DrawerTitle,
 	Dialog,
 	Message
 } from 'kr-ui';
@@ -166,8 +167,7 @@ class NewCreateForm extends React.Component {
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text">编辑</label></div>
-						<div className="customer-close" onClick={this.onCancel}></div>
+                    <DrawerTitle title ="编辑" onCancel = {this.onCancel}/>
 				</div>
 				<div className="cheek">
 						<div className="titleBar">
