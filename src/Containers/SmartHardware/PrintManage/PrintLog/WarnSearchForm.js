@@ -18,6 +18,8 @@ import {
 	SearchForms
 } from 'kr-ui';
 
+import './index.less';
+
 import {DateFormat} from 'kr/Utils';
 import State from './State';
 import {
@@ -75,11 +77,11 @@ class DoorWarnForm extends React.Component{
 			pageSize:15,
 			communityId :  values.communityId||'',
 			customerId: values.customerId||'',
-			endDate:'',
-			jobType: '',
-			memberId : '',
-			printerName :'',
-			startDate :''
+			endDate:values.etime||'',
+			jobType: values.jobType||'',
+			accountNo : values.accountNo||'',
+			printerName :values.printerName||'',
+			startDate :values.stime||''
 		}
 	}
 
@@ -88,13 +90,16 @@ class DoorWarnForm extends React.Component{
 		Store.dispatch(change('DoorWarnForm','stime',''));
 		Store.dispatch(change('DoorWarnForm','etime',''));
 		var time=this.refs.stime
-		State.warnSearchParams={
+		State.printLogParams = {
 			page:1,
 			pageSize:15,
-			stime :  '',
-			etime: '',
-			deviceId:'',
-			logType: ''
+			communityId : '',
+			customerId: '',
+			endDate:'',
+			jobType: '',
+			accountNo : '',
+			printerName :'',
+			startDate :''
 		}
 
 	}
@@ -186,9 +191,9 @@ class DoorWarnForm extends React.Component{
 					<ListGroupItem >
 						
 						<KrField 
-							name="phone" 
+							name="accountNo" 
 							type="text" 
-							label="手机号：" 
+							label="账号：" 
 							inline={true}
 							requireLabel={false} 
 							
@@ -216,25 +221,27 @@ class DoorWarnForm extends React.Component{
 					</ListGroupItem>
 					
 					<ListGroupItem style={{padding:0}}>
-								
+						<span className="customer-box">
 						<KrField  
 							name="customerId" 
-							label="客户"
+							label="客户："
 							placeholder="请输入客户名称" 
 							component="searchCompany"  
+							inline={true}
 							onChange={this.changeCustomer}  
-							style={{width:150}}
+							
 						/>
+						</span>
 						
 					</ListGroupItem>
 					
 				</ListGroup>
 				<ListGroup className="sec-list">
 					
-					<ListGroupItem style={{margin:10}}>
+					<ListGroupItem style={{margin:"0 10px"}}>
 						<Button  label="搜索" type="submit"/>
 					</ListGroupItem>
-					<ListGroupItem style={{margin:"10px 0"}}>
+					<ListGroupItem >
 						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />
 					</ListGroupItem>
 					

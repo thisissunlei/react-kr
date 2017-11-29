@@ -18,7 +18,7 @@ let State = observable({
 		customerId: '',
 		endDate:'',
 		jobType: '',
-		memberId : '',
+		accountNo : '',
 		printerName :'',
 		startDate :''
 	}
