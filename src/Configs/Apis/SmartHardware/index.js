@@ -283,6 +283,14 @@ module.exports = {
       url: '/api/iot-platform/print-community/actions/add',
       method: 'post'
    },
+
+
+   //删除打印配置
+   'deletePrinterConfig': {
+      url: '/api/iot-platform/print-community/actions/delete?id={id}',
+      method: 'delete'
+   },
+
     
 
    

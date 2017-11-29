@@ -17,7 +17,12 @@ import {
 	Message,
 	Notify,
 	CheckPermission,
-	Tooltip
+	Tooltip,
+	Grid,
+	Row,
+	ListGroup,
+	ListGroupItem
+
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 
@@ -40,19 +45,7 @@ export default class List extends React.Component {
 		this.state = {
 			
 			realPage : 1,
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				startTime:'',
-				endTime:'',
-				registerSourceId:'',
-				jobId:'',
-				companyId:0,
-				cityId:'',
-				type:'COMP_NAME',
-				value:'',
-			},
-			openType:[]
+			itemDetail : {}
 		}
 	}
 
@@ -83,7 +76,17 @@ export default class List extends React.Component {
 
 	}
 	onClickDelete=(value)=>{
+		this.setState({
+			itemDetail : value
+		},function(){
+			State.openConfirmDelete = true;
+		})
+	}
 
+
+	confirmDelete=()=>{
+		let {itemDetail} = this.state;
+		State.deletePrinterConfig(itemDetail.id)
 	}
 
 	render() {
@@ -122,6 +125,7 @@ export default class List extends React.Component {
 								<TableHeaderColumn>节点服务器IP</TableHeaderColumn>
 								<TableHeaderColumn>价格策略名称</TableHeaderColumn>
 								<TableHeaderColumn>最后一次更新时间</TableHeaderColumn>
+								<TableHeaderColumn>操作</TableHeaderColumn>
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>
 								<TableRow>
@@ -211,6 +215,28 @@ export default class List extends React.Component {
 					            style ={{paddingTop:'35px'}}
 					        />
 			       		</Dialog>
+			       		 <Dialog
+				          title="删除提示"
+				          open={State.openConfirmDelete}
+				          onClose={this.openDeleteFun}
+				          contentStyle={{width:443,height:236}}
+				        >
+				          <div style={{marginTop:45}}>
+				            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除吗？</p>
+				            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+				                  <Row>
+				                    <ListGroup>
+				                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+				                        <Button  label="确定" type="submit" onClick={this.confirmDelete} />
+				                      </ListGroupItem>
+				                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+				                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openDeleteFun} />
+				                      </ListGroupItem>
+				                    </ListGroup>
+				                  </Row>
+				                </Grid>
+				          </div>
+				        </Dialog>
 					</Section>
 				</div>
 		);

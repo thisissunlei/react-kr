@@ -15,7 +15,8 @@ let State = observable({
 		communityId: '',
 		
 	},
-	openNewCreate : false
+	openNewCreate : false,
+	openConfirmDelete : false,
 
 });
 
@@ -36,6 +37,31 @@ State.newCreatePrinterConfig = action(function(values){
 
 	}).catch(function(err) {
 		State.openNewCreate =false;
+		State.printerConifigListParams = {
+			page:1,
+			pageSize:15,
+			communityId: '',
+			date: new Date()		
+		}
+		Message.error(err.message);
+	});	
+
+})
+State.deletePrinterConfig = action(function(values){
+	
+	Http.request('deletePrinterConfig',{id:values} ).then(function(response) {
+		
+		State.printerConifigListParams = {
+			page:1,
+			pageSize:15,
+			communityId : '',
+			date: new Date()		
+		}
+		State.openConfirmDelete =false;
+		Message.success("删除成功");
+
+	}).catch(function(err) {
+		State.openConfirmDelete =false;
 		State.printerConifigListParams = {
 			page:1,
 			pageSize:15,
