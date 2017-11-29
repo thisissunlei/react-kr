@@ -53,7 +53,7 @@ class OpenLogForm extends React.Component{
 		State.printerConifigListParams={
 			page:1,
 			pageSize:15,
-			communityId: value.id,
+			communityId: value.id || '',
 		}
 	}
 
