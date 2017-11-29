@@ -33,8 +33,15 @@
                 color: #4990E2;
                 float: right;
                 margin-right: 28px;
+                &::before{
+                  content:'';
+                  display: inline-block;
+                  width: 20px;
+                  height: 20px;
+                  background:url(../images/edit.svg) no-repeat left center;
+                  background-size: cover;
+                  vertical-align: text-bottom;                }
                 cursor:pointer;
-                background:url(../images/edit.svg) no-repeat left center;
             }
     }
     .info-inner{

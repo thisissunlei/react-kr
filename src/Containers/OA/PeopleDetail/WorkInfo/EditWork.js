@@ -5,6 +5,7 @@ import {
     Col,
     Row,
     ButtonGroup,
+    DrawerTitle,
     Button
 } from 'kr-ui';
 import {reduxForm}  from 'redux-form';
@@ -34,13 +35,10 @@ class EditWork  extends React.Component{
 
 			<div className='m-work'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-                      <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon"></span><label className="title-text">编辑工作信息</label></div>
-                            <div className="person-close" onClick={this.onCancel}></div>
-                      </div>
+                       <DrawerTitle title ='编辑工作信息' onCancel = {this.onCancel}/>
 
                        <KrField grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginTop:30}}
                             name="wageCard"
                             component="input"
                             label="工资卡号"

@@ -34,6 +34,7 @@ const webpackConfigs = {
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
+			'kr-img': path.join(process.cwd(), '/src/Styles/images'),
 			'react-dom': path.join(node_modules_dir, '/react-dom/dist/react-dom.min'),
 			'react-redux': path.join(node_modules_dir, '/react-redux/dist/react-redux.min'),
 			'react-select': path.join(node_modules_dir, '/react-select/dist/react-select.min'),
