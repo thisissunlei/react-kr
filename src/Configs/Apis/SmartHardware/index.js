@@ -251,6 +251,32 @@ module.exports = {
    },
 
 
+     //删除打印机数据
+   'deletePrinter': {
+      url: '/api/iot-platform/printer/actions/delete?id={id}',
+      method: 'delete'
+   },
+
+
+     //编辑和详情回显
+   'printerDetailInfo': {
+      url: '/api/iot-platform/printer/detail?id={id}',
+      method: 'get'
+   },
+
+
+     //编辑提交
+   'editPrinter': {
+      url: '/api/iot-platform/printer/actions/edit?alias={alias}&communityId={communityId}&id={id}&location={location}&printerName={printerName}&readerName={readerName}&serialNo={serialNo}',
+      method: 'put'
+   },
+      
+
+
+
+   
+
+
 
     
 

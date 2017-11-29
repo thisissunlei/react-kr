@@ -46,9 +46,7 @@ export default class PrinterManage  extends React.Component{
 
 
 	componentDidMount() {
-		State.getDicList();
-		//获取升级信息列表
-		State.getUpgradeTypeOptions();
+		
 
 	}
 
@@ -58,12 +56,13 @@ export default class PrinterManage  extends React.Component{
 
 	//操作相关
 	onOperation=(type, itemDetail)=>{
+
+		console.log("onOperation",itemDetail)
 		this.setState({
 			itemDetail
 		});
 		if (type == 'delete') {
-			console.log("delete","======>delete")
-			this.closeConfirmDeleteFun();
+			this.openDeleteFun();
 			
 		}
 		if (type == 'edit') {
@@ -104,8 +103,20 @@ export default class PrinterManage  extends React.Component{
 		State.openNewCreate = !State.openNewCreate;
 	}
 
+
+	onClickDelete=(params)=>{
+
+		this.setState({
+			itemDetail :params
+		},function(){
+			this.openDeleteFun();
+		});
+
+	}
+
+
 	//打开确认删除
-	closeConfirmDeleteFun=()=>{
+	openDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
 	}
 
@@ -119,7 +130,7 @@ export default class PrinterManage  extends React.Component{
 	//确认删除
 	confirmDelete=()=>{
 
-		this.closeConfirmDeleteFun();
+		this.openDeleteFun();
 		State.deleteEquipmentSingle(this.state.itemDetail.id);
 
 	}
@@ -127,7 +138,7 @@ export default class PrinterManage  extends React.Component{
 
 	editList=(thisP,value,itemData)=>{
 		let _this = this;
-		Http.request('getEditEquipmentUrl',{id:thisP.id}).then(function(response) {
+		Http.request('printerDetailInfo',{id:thisP.id}).then(function(response) {
 			
 			_this.setState({
 				itemDetail:response
@@ -145,7 +156,7 @@ export default class PrinterManage  extends React.Component{
 		this.setState({
 			itemDetail:thisP
 		});
-		this.closeConfirmDeleteFun();
+		this.openDeleteFun();
 	}
 
 
@@ -247,7 +258,7 @@ export default class PrinterManage  extends React.Component{
 											return (
 													<div>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
-														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.closeConfirmDeleteFun.bind(this,value,itemData)}/>
+														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)}/>
 														<Button  label="详情"  type="operation" operation="detail" onTouchTap={this.seeDetailFun.bind(this,value,itemData)}/>
 															
 													</div>
@@ -276,7 +287,7 @@ export default class PrinterManage  extends React.Component{
 			          />
 			        </Dialog>
 			        <Dialog
-			          title="编辑门禁设备"
+			          title="编辑打印机设备"
 			          open={State.openEditDialog}
 			          onClose={this.openEditDialogFun}
 			          contentStyle={{width:687}}
@@ -290,7 +301,7 @@ export default class PrinterManage  extends React.Component{
 			        <Dialog
 			          title="删除提示"
 			          open={State.openConfirmDelete}
-			          onClose={this.closeConfirmDeleteFun}
+			          onClose={this.openDeleteFun}
 			          contentStyle={{width:443,height:236}}
 			        >
 			          <div style={{marginTop:45}}>
@@ -302,7 +313,7 @@ export default class PrinterManage  extends React.Component{
 			                        <Button  label="确定" type="submit" onClick={this.confirmDelete} />
 			                      </ListGroupItem>
 			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeConfirmDeleteFun} />
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openDeleteFun} />
 			                      </ListGroupItem>
 			                    </ListGroup>
 			                  </Row>
