@@ -51,6 +51,9 @@ export default class PrintOther extends React.Component {
 		this.getData();
 		// console.log(js_getDPI(),"--------")
 		// this.allRender();
+		window.onresize = function () {
+			console.log("ppppppppp");
+		}
 	
 	}
 	//获取信息
