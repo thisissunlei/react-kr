@@ -14,23 +14,19 @@ let State = observable({
 	openNewCreate:false,
 	openEditDialog:false,
 	openConfirmDelete:false,
-	equipmentDatailInfo:[],
+	detailDialogOpen : false,
 	printerManageListParams: {
 		        
-		        communityId:'',
-		        serialNo :'',
-		        alias :'',
-		        readerName : '',
-		        printerName :'',
-				pageSize : '15',
-		        page : 1,
+        communityId:'',
+        serialNo :'',
+        alias :'',
+        readerName : '',
+        printerName :'',
+		pageSize : '15',
+        page : 1,
 
-		      },
-
-	searchEquipmentList :[],
+     },
 	
-	DropItems : [],
-	EquipmentHttpToken:'',
 });
 
 

@@ -53,7 +53,12 @@ class NewCreateDefinitionForm extends React.Component{
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-
+					<KrField grid={1/2} name="printerName" 
+						type="text" 
+						label="打印机名称" 
+						requireLabel={true} 
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+					/>
 					<KrField grid={1/2} name="alias" 
 						type="text" 
 						label="打印机别名" 
@@ -73,12 +78,7 @@ class NewCreateDefinitionForm extends React.Component{
 						requireLabel={true} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
-					<KrField grid={1/2} name="printerName" 
-						type="text" 
-						label="打印机名称" 
-						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
+					
 					<KrField grid={1/2} name="readerName" 
 						type="text" 
 						label="读卡器名称" 

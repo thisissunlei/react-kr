@@ -28,6 +28,7 @@ import {
 
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
+import DetailDialog from './DetailDialog';
 
 @inject("NavModel")
 @observer
@@ -136,14 +137,21 @@ export default class PrinterManage  extends React.Component{
 	}
 
 
-	editList=(thisP,value,itemData)=>{
+	editList=(value,str)=>{
+
+
 		let _this = this;
-		Http.request('printerDetailInfo',{id:thisP.id}).then(function(response) {
+		Http.request('printerDetailInfo',{id:value.id}).then(function(response) {
 			
 			_this.setState({
 				itemDetail:response
 			},function(){
-				_this.openEditDialogFun();
+				if(str=="edit"){
+					_this.openEditDialogFun();
+				}if(str=="detail"){
+					_this.openDetailDialog();
+				}
+				
 			});
 
 		}).catch(function(err) {
@@ -160,10 +168,15 @@ export default class PrinterManage  extends React.Component{
 	}
 
 
+	openDetailDialog=()=>{
+		State.detailDialogOpen = !State.detailDialogOpen;
+	}
+
+
 
 	render(){
 		let {itemDetail}=this.state;
-		let {showOpretion} = State;
+	
 		return(
 			<div >
 				<div>
@@ -189,16 +202,24 @@ export default class PrinterManage  extends React.Component{
 			           
 			          >
 			            <TableHeader>
+			            	<TableHeaderColumn>打印机名称</TableHeaderColumn>
 			              	<TableHeaderColumn>打印机别名</TableHeaderColumn>
 				            <TableHeaderColumn>所在社区</TableHeaderColumn>
 				            <TableHeaderColumn>位置</TableHeaderColumn>
-			              	<TableHeaderColumn>打印机名称</TableHeaderColumn>
+			              	
 				            <TableHeaderColumn>读卡器名称</TableHeaderColumn>
 			              	<TableHeaderColumn>序列号</TableHeaderColumn>
 			                <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 			          	<TableBody >
 				            <TableRow>
+				            	<TableRowColumn name="printerName" 
+									component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
 								<TableRowColumn name="alias" 
 									component={(value,oldValue)=>{
 									if(value==""){
@@ -220,13 +241,7 @@ export default class PrinterManage  extends React.Component{
 							
 								
 
-								<TableRowColumn name="printerName" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								
 								<TableRowColumn name="readerName" 
 									component={(value,oldValue)=>{
 									if(value==""){
@@ -244,10 +259,6 @@ export default class PrinterManage  extends React.Component{
 								></TableRowColumn>
 								
 							
-					     
-					            
-								
-
 					            <TableRowColumn type="operation"
 					            	style={{width:"15%"}}
 									component={
@@ -257,9 +268,9 @@ export default class PrinterManage  extends React.Component{
 											}
 											return (
 													<div>
-														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
+														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,"edit")}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)}/>
-														<Button  label="详情"  type="operation" operation="detail" onTouchTap={this.seeDetailFun.bind(this,value,itemData)}/>
+														<Button  label="详情"  type="operation" operation="detail" onTouchTap={this.editList.bind(this,value,"detail")}/>
 															
 													</div>
 												)
@@ -319,6 +330,18 @@ export default class PrinterManage  extends React.Component{
 			                  </Row>
 			                </Grid>
 			          </div>
+			        </Dialog>
+
+			        <Dialog
+			          title="打印机详情"
+			          open={State.detailDialogOpen}
+			          onClose={this.openDetailDialog}
+			          contentStyle={{width:687}}
+			        >
+			          <DetailDialog
+			            detail={itemDetail}
+			            closeEditEquipment = {this.openEditDialogFun}
+			          />
 			        </Dialog>
 			        
 			  
