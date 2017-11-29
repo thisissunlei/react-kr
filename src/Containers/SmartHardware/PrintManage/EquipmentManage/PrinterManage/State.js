@@ -167,11 +167,11 @@ State.getUpgradeTypeOptions = action(function() {
 
 
 //新增
-State.newCreateSecondDoor = action(function(values){
+State.newCreatePrinter = action(function(values){
 	
-	Http.request('addOrEditEquipment',values ).then(function(response) {
+	Http.request('newCreatePrinter',{},values ).then(function(response) {
 		
-		State.equipmentSecondParams = {
+		State.printerManageListParams = {
 			page:1,
 			pageSize:15,
 			date: new Date()		

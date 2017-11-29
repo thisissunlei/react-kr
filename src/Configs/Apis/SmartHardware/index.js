@@ -244,6 +244,12 @@ module.exports = {
       method: 'get'
    },
 
+     //新增打印机数据
+   'newCreatePrinter': {
+      url: '/api/iot-platform/printer/actions/add',
+      method: 'post'
+   },
+
 
 
     

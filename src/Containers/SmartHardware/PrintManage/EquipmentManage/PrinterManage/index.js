@@ -263,7 +263,7 @@ export default class PrinterManage  extends React.Component{
 		
 					
 					<Dialog
-			          title="新增门禁设备"
+			          title="新增打印机设备"
 			          open={State.openNewCreate}
 			          onClose={this.openNewCreateDialog}
 			          contentStyle={{width:687}}
