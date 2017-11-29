@@ -49,7 +49,7 @@ module.exports = [
 						{
 							primaryText: '费用配置',
 							menuCode: 'iot_device_alarm',
-							router: '/smarthardware/printmanage/warning',
+							router: '/smarthardware/printmanage/priceconfig',
 						},
 						{
 							primaryText: '打印记录',

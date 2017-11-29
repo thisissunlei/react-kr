@@ -61,10 +61,10 @@ const SmartHardware_PrintManage_PrintLog = (location, callback) => {
 }
 
 
-const SmartHardware_PrintManage_UpgradeManage = (location, callback) => {
+const SmartHardware_PrintManage_PriceConfig = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/SmartHardware/PrintManage/UpgradeManage').default)
-  }, 'SmartHardware_PrintManage_UpgradeManage')
+    callback(null, require('kr/Containers/SmartHardware/PrintManage/PriceConfig').default)
+  }, 'SmartHardware_PrintManage_PriceConfig')
 }
 
 
@@ -86,7 +86,7 @@ module.exports =()=>{
 				<Route path="equipmentmanage" getComponent={SmartHardware_PrintManage_EquipmentManage}/>
 				<Route path="printerconfig" getComponent={SmartHardware_PrintManage_PrinterConfig}/>
 				<Route path="printlog" getComponent={SmartHardware_PrintManage_PrintLog}/>
-				<Route path="upgrademanage" getComponent={SmartHardware_PrintManage_UpgradeManage}/>
+				<Route path="priceconfig" getComponent={SmartHardware_PrintManage_PriceConfig}/>
 				
 			</Route>
 			
