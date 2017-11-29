@@ -42,19 +42,19 @@ module.exports = [
 							menuCode: 'sysDeviceDefinitionList',
 							router: '/smarthardware/printmanage/equipmentmanage',
 						},{
-							primaryText: '打印记录',
+							primaryText: '打印机配置',
 							menuCode: 'iot_door_open_log',
-							router: '/smarthardware/doorManage/openlog',
+							router: '/smarthardware/printmanage/printerconfig',
 						},
 						{
 							primaryText: '费用配置',
 							menuCode: 'iot_device_alarm',
-							router: '/smarthardware/doorManage/warning',
+							router: '/smarthardware/printmanage/warning',
 						},
 						{
-							primaryText: '社区配置',
+							primaryText: '打印机配置',
 							menuCode: 'iot_upgrade_package',
-							router: '/smarthardware/doorManage/upgrademanage',
+							router: '/smarthardware/printmanage/printerconfig',
 						}
 					]
 			}, ],

@@ -47,6 +47,28 @@ const SmartHardware_PrintManage_EquipmentManage = (location, callback) => {
   }, 'SmartHardware_PrintManage_EquipmentManage')
 }
 
+
+const SmartHardware_PrintManage_PrinterConfig = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/PrintManage/PrinterConfig').default)
+  }, 'SmartHardware_PrintManage_PrinterConfig')
+}
+
+
+const SmartHardware_PrintManage_FailureWarning = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/PrintManage/FailureWarning').default)
+  }, 'SmartHardware_PrintManage_FailureWarning')
+}
+
+const SmartHardware_PrintManage_UpgradeManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/PrintManage/UpgradeManage').default)
+  }, 'SmartHardware_PrintManage_UpgradeManage')
+}
+
+
+
 module.exports =()=>{
 
 
@@ -62,9 +84,9 @@ module.exports =()=>{
 			</Route>
 			<Route path="printmanage" getComponent={Basic}>
 				<Route path="equipmentmanage" getComponent={SmartHardware_PrintManage_EquipmentManage}/>
-				<Route path="openlog" getComponent={SmartHardware_DoorManage_OpenLog}/>
-				<Route path="warning" getComponent={SmartHardware_DoorManage_FailureWarning}/>
-				<Route path="upgrademanage" getComponent={SmartHardware_DoorManage_UpgradeManage}/>
+				<Route path="printerconfig" getComponent={SmartHardware_PrintManage_PrinterConfig}/>
+				<Route path="warning" getComponent={SmartHardware_PrintManage_FailureWarning}/>
+				<Route path="upgrademanage" getComponent={SmartHardware_PrintManage_UpgradeManage}/>
 				
 			</Route>
 			

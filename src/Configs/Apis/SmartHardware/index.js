@@ -270,14 +270,19 @@ module.exports = {
       url: '/api/iot-platform/printer/actions/edit?alias={alias}&communityId={communityId}&id={id}&location={location}&printerName={printerName}&readerName={readerName}&serialNo={serialNo}',
       method: 'put'
    },
-      
 
 
+   //打印配置列表
+   'PrinterConifigList': {
+      url: '/api/iot-platform/print-community/list?communityId={communityId}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
 
-   
-
-
-
+   //新增打印配置
+   'addPrinterConfig': {
+      url: '/api/iot-platform/print-community/actions/add',
+      method: 'post'
+   },
     
 
    
