@@ -149,15 +149,15 @@ class DoorWarnForm extends React.Component{
 								]
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="door-warn-search">
-				<ListGroup className="fir-list">
+				<ListGroup >
 					<ListGroupItem>
 						
-							<KrField label="打印时间：" ref="startDate" name="stime" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange}/>
+							<KrField label="打印时间：" ref="startDate" name="stime" component="date" inline={true} style={{width:244,marginTop:-3,marginBottom : 10}} onChange={this.onStartChange}/>
 						
 					</ListGroupItem>
 
 					<ListGroupItem>
-							<KrField label="至：" name="etime" component="date" inline={true} style={{width:200,marginTop:-3}} onChange={this.onEndChange} />
+							<KrField label="至：" name="etime" component="date" inline={true} style={{width:200,marginTop:-3,marginBottom : 10}} onChange={this.onEndChange} />
 					
 					</ListGroupItem>
 					<ListGroupItem >
@@ -168,6 +168,7 @@ class DoorWarnForm extends React.Component{
 							label="打印机：" 
 							inline={true}
 							requireLabel={false} 
+							style={{marginBottom : 10}}
 							
 						/>
 					</ListGroupItem>
@@ -214,7 +215,7 @@ class DoorWarnForm extends React.Component{
 							component="searchCompany"  
 							inline={true}
 							onChange={this.changeCustomer}  
-							
+						
 						/>
 						</span>
 						
