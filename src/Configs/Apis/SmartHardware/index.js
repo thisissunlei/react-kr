@@ -298,6 +298,13 @@ module.exports = {
       method: 'put'
    },
 
+
+   //打印记录列表
+   'printLogUrl': {
+      url: '/api/iot-platform/print-record/list?communityId={communityId}&customerId={customerId}&endDate={endDate}&jobType={jobType}&memberId={memberId}&page={page}&pageSize={pageSize}&printerName={printerName}&startDate={startDate}',
+      method: 'get'
+   },
+
    
    
 }

@@ -75,8 +75,8 @@ export default class List extends React.Component {
 		
 		return (
 			    <div className="second-door-warn-table" style={{minHeight:'910',backgroundColor:"#fff"}} >
-					<Title value="故障报警"/>
-					<Section title={`故障报警`} description="" >
+					<Title value="打印记录"/>
+					<Section title={`打印记录`} description="" >
 						<div>
 							<WarnSearchForm/>
 						</div>
@@ -90,30 +90,52 @@ export default class List extends React.Component {
 								}}
 							exportSwitch={false}
 							ajaxFieldListName='items'
-							ajaxUrlName='getWarningLog'
-							ajaxParams={State.warnSearchParams}
+							ajaxUrlName='printLogUrl'
+							ajaxParams={State.printLogParams}
 							onPageChange={this.onPageChange}
 							displayCheckbox={false}
 							onOperation={this.onOperation}
 						>
 							<TableHeader>
-								<TableHeaderColumn>报警类型</TableHeaderColumn>
-								<TableHeaderColumn>报警时间</TableHeaderColumn>
-								<TableHeaderColumn>智能硬件ID</TableHeaderColumn>
-								<TableHeaderColumn>描述</TableHeaderColumn>
+								<TableHeaderColumn>时间</TableHeaderColumn>
+								<TableHeaderColumn>社区</TableHeaderColumn>
+								<TableHeaderColumn>客户</TableHeaderColumn>
+								<TableHeaderColumn>账号</TableHeaderColumn>
+								<TableHeaderColumn>打印机名称</TableHeaderColumn>
+								<TableHeaderColumn>文档名称</TableHeaderColumn>
+								<TableHeaderColumn>任务类型</TableHeaderColumn>
+								<TableHeaderColumn>总价</TableHeaderColumn>
 								
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>
 								<TableRow>
-								<TableRowColumn name="typeName"
+								<TableRowColumn name="jobStartTime" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
+
+								<TableRowColumn name="communityName"
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								 ></TableRowColumn>
-								<TableRowColumn name="time" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
-								<TableRowColumn name="deviceId"
+								<TableRowColumn name="customerName"
+								component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
+
+								<TableRowColumn name="accountNo"
+								component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
+
+
+								<TableRowColumn name="printerName"
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -122,21 +144,41 @@ export default class List extends React.Component {
 								></TableRowColumn>
 								
 
-								<TableRowColumn type ='operation' name="content" style={{width:400,overflow:"hidden"}}
-									component={
-										(value,oldValue,itemData)=>{
-											if(value==""){
-												value="-"
-											}
-											return (
-													<div onClick={this.seeContent.bind(this,itemData)} style={{width:400,color:"#499df1",cursor:"pointer",whiteSpace:"nowrap",textOverflow:"ellipsis",overflow:"hidden",cursor:"pointer"}}>
-														{itemData.content}
-													</div>
-												)
-										}
+								<TableRowColumn name="docName"
+								component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
 									}
-								> 
-								</TableRowColumn>
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
+								
+
+								<TableRowColumn name="jobType"
+								options = {[
+										{value:"PRINT",label:"打印"},
+										{value:"SCAN",label:"扫描"},
+										{value:"COPY",label:"复印"},
+										{value:"FAX",label:"传真接收"},
+										{value:"FAX_SEND",label:"传真发送"},
+										{value:"UNKNOWN",label:"未知"},
+									]}
+								component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
+
+								<TableRowColumn name="totalCost"
+								component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
+								
+								
+
 								
 							 </TableRow>
 						</TableBody>

@@ -52,9 +52,9 @@ module.exports = [
 							router: '/smarthardware/printmanage/warning',
 						},
 						{
-							primaryText: '打印机配置',
+							primaryText: '打印记录',
 							menuCode: 'iot_upgrade_package',
-							router: '/smarthardware/printmanage/printerconfig',
+							router: '/smarthardware/printmanage/printlog',
 						}
 					]
 			}, ],

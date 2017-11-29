@@ -11,13 +11,16 @@ import {Message} from 'kr-ui';
 let State = observable({
 	LogTypeOptions:[],
 	openContent: false,
-	warnSearchParams:{
+	printLogParams:{
 		page:1,
 		pageSize:15,
-		stime :  '',
-		etime: '',
-		deviceId:'',
-		logType: ''
+		communityId :  '',
+		customerId: '',
+		endDate:'',
+		jobType: '',
+		memberId : '',
+		printerName :'',
+		startDate :''
 	}
 
 });
