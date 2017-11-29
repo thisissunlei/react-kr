@@ -14,6 +14,7 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
+	DrawerTitle,
     Message
 } from 'kr-ui';
 import State from './State';
@@ -151,8 +152,7 @@ import {Http} from "kr/Utils"
 
 			<form className="m-newMerchants" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
 				<div className="title">
-						<div><span className="order-new-icon"></span><label className="title-text">{companyName}</label></div>
-						<div className="order-close" onClick={this.onCancel}></div>
+			     	<DrawerTitle title ={companyName+'-新建订单'} onCancel = {this.onCancel}/>
 				</div>
 
 				<div className="kk" style={{marginTop:30,paddingLeft:20}}>

@@ -9,6 +9,7 @@ import {
     Row,
     Col,
     Dialog,
+    DrawerTitle
 } from 'kr-ui';
 import './index.less';
 import {reduxForm, formValueSelector, change} from 'redux-form';
@@ -37,10 +38,8 @@ class Createdialog extends Component {
 
             <div className="g-opcode-create">
               <form onSubmit={handleSubmit(this.onSubmit)} style={{width:670,marginTop:30,paddingLeft:40,paddingRight:40}}  >
-                <span className="u-audit-close" style={{marginRight:40}}  onTouchTap={this.onCancel}></span>
-                <div className="u-operations-edit-title">
-                  <span>新建业务</span>
-                </div>
+            
+                  <DrawerTitle title ="新建业务" onCancel = {this.onCancel}/>
 				<KrField
     						 left={42}
     	 					 name="name"

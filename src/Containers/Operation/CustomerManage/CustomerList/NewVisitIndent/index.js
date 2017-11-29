@@ -11,6 +11,7 @@ import {
 	Col,
 	Button,
 	ButtonGroup,
+	DrawerTitle,
 	Message
 } from 'kr-ui';
 import StateIn from './State';
@@ -146,8 +147,7 @@ import {
 
 			<form className="m-newVisitIndent" onSubmit={handleSubmit(this.onSubmit)}>
 				<div className="title">
-						<div><span className="new-icon"></span><label className="title-text" style={{marginLeft:7}}>{this.props.companyName}</label></div>
-						<div className="close" onClick={this.onCancel}></div>
+			     	<DrawerTitle title ={'新增'+this.props.companyName+'拜访记录'} onCancel = {this.onCancel}/>
 				</div>
 				
 				<div className="kk" style={{marginTop:27,marginLeft:40}}>	

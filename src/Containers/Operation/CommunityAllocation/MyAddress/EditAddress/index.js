@@ -20,6 +20,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	DivTitle,
+	DrawerTitle,
 	Notify
 } from 'kr-ui';
 import './index.less';
@@ -263,11 +264,12 @@ import HeaderUpload from './HeaderUpload';
 		}
 		return (
 	      <div className="new-my-address">
-	        <div className="close-new-div">
-	          <img src={require('../images/closeIcon.svg')} className="close-new-img" onClick={this.closeEdit}/>
+	        <div style={{marginLeft:10,marginBottom:30}}>
+
+					<DrawerTitle title ='编辑地点' onCancel = {this.closeEdit}/>
+
 	        </div>
 	        <form onSubmit={handleSubmit(this.onSubmit)} >
-	        <p style={{fontSize:'18px',color:'#333',margin:0,marginBottom:'20px'}}>基本信息</p>
 	      	<DivTitle index={1} title='社区公告' styleType={2}>
 				<div style={{marginLeft:28}}>
 				

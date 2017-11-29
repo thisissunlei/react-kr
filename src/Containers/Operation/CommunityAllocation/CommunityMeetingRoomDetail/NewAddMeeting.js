@@ -8,6 +8,7 @@ import {
 	Grid,
 	Row,
 	Col,
+	DrawerTitle,
   ButtonGroup
 } from 'kr-ui';
 import {
@@ -178,8 +179,7 @@ class NewAddMeeting  extends React.Component{
 	  <div className='m-newMerchants new-meeting meeting-list'>
       <form onSubmit={handleSubmit(this.onSubmit)}>
            <div className="title" style={{marginBottom:"30px"}}>
-              <div><span className="new-icon"></span><label className="title-text">新增社区空间</label></div>
-              <div className="customer-close" onClick={this.onCancel}></div>
+					<DrawerTitle title ='新增社区空间' onCancel = {this.onCancel}/>
            </div>
             <KrField type='hidden' name="id"/>
 						<KrField type='hidden' name="communityId"/>

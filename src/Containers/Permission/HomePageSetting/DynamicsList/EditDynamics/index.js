@@ -5,6 +5,7 @@ import {
     Col,
     Row,
     ButtonGroup,
+    DrawerTitle,
     Button
 } from 'kr-ui';
 import {reduxForm,change}  from 'redux-form';
@@ -129,8 +130,7 @@ class EditDynamics extends React.Component{
 			<div className='m-edit-swper'>
 				 <form  onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:7}}>
 				<div className="title">
-						<div><span className="order-new-icon"></span><label className="title-text">编辑动态</label></div>
-						<div className="order-close" onClick={this.onCancel}></div>
+                    <DrawerTitle title ="编辑动态" onCancel = {this.onCancel}/>
 				</div>
 
 				<div className="kk" style={{marginTop:30}}>

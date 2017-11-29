@@ -15,6 +15,7 @@ import {
     KrDate,
     Drawer,
     Message,
+    DrawerTitle,
     Dialog
 } from 'kr-ui';
 import {change,initialize}  from 'redux-form';
@@ -221,8 +222,7 @@ class StagingCommunity  extends React.Component{
 
 			<div className='m-stage-list'>
                       <div className="title" style={{marginBottom:"30px"}}>
-                            <div style={{marginLeft:-40}}><span className="new-icon-add"></span><label className="title-text">分期配置</label></div>
-                            <div className="person-close" onClick={this.onCancel}></div>
+                            <DrawerTitle title ='分期配置' onCancel = {this.onCancel}/>
                       </div>
                       
                       <Row style={{marginBottom:21,position:'relative',zIndex:5}}>

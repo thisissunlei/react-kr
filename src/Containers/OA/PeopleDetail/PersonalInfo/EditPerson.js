@@ -5,6 +5,7 @@ import {
     Col,
     Row,
     ButtonGroup,
+    DrawerTitle,
     Button
 } from 'kr-ui';
 import {numberToSign} from 'kr/Utils';
@@ -45,13 +46,11 @@ class EditPerson  extends React.Component{
 
 			<div className='m-person'>
 				 <form onSubmit={handleSubmit(this.onSubmit)}>
-                      <div className="title" style={{marginBottom:"30px"}}>
-                            <div><span className="new-icon"></span><label className="title-text">编辑个人资料</label></div>
-                            <div className="person-close" onClick={this.onCancel}></div>
-                      </div>
+                       <DrawerTitle title ='编辑个人资料' onCancel = {this.onCancel}/>
+
 
                        <KrField grid={1/2}
-                            style={{width:262}}
+                            style={{width:262,marginTop:30}}
                             name="idCard"
                             component="input"
                             label="身份证号码"
@@ -60,7 +59,7 @@ class EditPerson  extends React.Component{
 						/>
 
                           <KrField grid={1/2}
-                            style={{width:262,marginLeft:28}}
+                            style={{width:262,marginLeft:28,marginTop:30}}
                             name="birthday"
                             component="date"
                             label="出生日期"
