@@ -38,11 +38,11 @@ module.exports = [
 					router :'',
 					menuItems: [
 						{
-							primaryText: '设备管理',
+							primaryText: '打印机管理',
 							menuCode: 'sysDeviceDefinitionList',
 							router: '/smarthardware/printmanage/equipmentmanage',
 						},{
-							primaryText: '打印机配置',
+							primaryText: '社区打印机配置',
 							menuCode: 'iot_door_open_log',
 							router: '/smarthardware/printmanage/printerconfig',
 						},

@@ -41,22 +41,7 @@ class DoorWarnForm extends React.Component{
 		}
 	}
 	componentDidMount(){
-		let _this = this;
-		Http.request('getWarningType', {}).then(function(response) {
-			var arrNew = []
-			for (var i=0;i<response.LogType.length;i++){
-				arrNew[i] = {
-							label:response.LogType[i].desc,
-							value:response.LogType[i].value
-						}
-			}
-			_this.setState({
-				logTypeOptions : arrNew
-			})
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		
 		
 	}
 	onSubmit=(values)=>{

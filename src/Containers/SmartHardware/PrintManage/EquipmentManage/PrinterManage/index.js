@@ -29,6 +29,7 @@ import {
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
 import DetailDialog from './DetailDialog';
+import SearchForm from './SearchForm';
 
 @inject("NavModel")
 @observer
@@ -180,6 +181,8 @@ export default class PrinterManage  extends React.Component{
 		return(
 			<div >
 				<div>
+
+					<SearchForm/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					
 				</div>
