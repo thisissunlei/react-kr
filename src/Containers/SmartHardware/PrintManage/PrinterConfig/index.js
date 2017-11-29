@@ -28,6 +28,8 @@ import {Actions,Store} from 'kr/Redux';
 
 import OpenSearchForm from './OpenSearchForm';
 import NewCreate from './NewCreate';
+import EditForm from './EditForm';
+
 
 
 import './index.less';
@@ -65,6 +67,7 @@ export default class List extends React.Component {
 		this.setState({
 			realPage : page 
 		})
+		State.page  = page
 	}
 
 
@@ -73,8 +76,19 @@ export default class List extends React.Component {
 	}
 
 	editList=(value)=>{
-
+		this.setState({
+			itemDetail : value
+		},function(){
+			State.openEditDialog = true;
+		})
 	}
+
+
+	openEditDialogFun=()=>{
+		State.openEditDialog = !State.openEditDialog;
+	}
+
+
 	onClickDelete=(value)=>{
 		this.setState({
 			itemDetail : value
@@ -89,8 +103,13 @@ export default class List extends React.Component {
 		State.deletePrinterConfig(itemDetail.id)
 	}
 
+
+	openDeleteFun=()=>{
+		State.openConfirmDelete = !State.openConfirmDelete;
+	}
+
 	render() {
-		let {list,seleced,openType} = this.state;
+		let {itemDetail} = this.state;
 
 		return (
 			    <div className="second-door-open-log" style={{minHeight:'910',backgroundColor:"#fff"}} >
@@ -236,6 +255,18 @@ export default class List extends React.Component {
 				                  </Row>
 				                </Grid>
 				          </div>
+				        </Dialog>
+
+				        <Dialog
+				          title="编辑打印配置"
+				          open={State.openEditDialog}
+				          onClose={this.openEditDialogFun}
+				          contentStyle={{width:687}}
+				        >
+				          <EditForm
+				            detail={itemDetail}
+				            closeEditEquipment = {this.openEditDialogFun}
+				          />
 				        </Dialog>
 					</Section>
 				</div>

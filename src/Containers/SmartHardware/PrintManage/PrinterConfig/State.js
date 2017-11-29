@@ -17,6 +17,8 @@ let State = observable({
 	},
 	openNewCreate : false,
 	openConfirmDelete : false,
+	openEditDialog : false,
+	page :1,
 
 });
 
@@ -38,7 +40,7 @@ State.newCreatePrinterConfig = action(function(values){
 	}).catch(function(err) {
 		State.openNewCreate =false;
 		State.printerConifigListParams = {
-			page:1,
+			page:State.page,
 			pageSize:15,
 			communityId: '',
 			date: new Date()		
@@ -63,7 +65,7 @@ State.deletePrinterConfig = action(function(values){
 	}).catch(function(err) {
 		State.openConfirmDelete =false;
 		State.printerConifigListParams = {
-			page:1,
+			page:State.page,
 			pageSize:15,
 			communityId: '',
 			date: new Date()		
@@ -72,6 +74,34 @@ State.deletePrinterConfig = action(function(values){
 	});	
 
 })
+
+State.editPrinterConfig = action(function(values){
+	
+	Http.request('editPrinterConfig',values ).then(function(response) {
+			
+		State.printerConifigListParams = {
+			page:State.page,
+			pageSize:15,
+			communityId : '',
+			date: new Date()		
+		}
+		State.openEditDialog =false;
+		Message.success("编辑成功");
+
+	}).catch(function(err) {
+		State.openEditDialog =false;
+		State.printerConifigListParams = {
+			page:State.page,
+			pageSize:15,
+			communityId: '',
+			date: new Date()		
+		}
+		Message.error(err.message);
+	});	
+
+})
+
+
 
 
 module.exports = State;

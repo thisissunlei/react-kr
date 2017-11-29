@@ -45,16 +45,16 @@ class OpenLogForm extends React.Component{
 	onSubmit=(values)=>{
 		
 
-		State.printerConifigListParams={
-			
-			communityId: values.communityId || ''
-		}
 	}
 
 
 	changeCommunity=(value)=>{
 		
-		State.printerConifigListParams.communityId= value.id;
+		State.printerConifigListParams={
+			page:1,
+			pageSize:15,
+			communityId: value.id,
+		}
 	}
 
 
