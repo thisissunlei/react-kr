@@ -118,13 +118,20 @@ export default class List extends React.Component {
 									}
 									return (<span>{value}</span>)}}
 								 ></TableRowColumn>
-								<TableRowColumn name="customerName"
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								 <TableRowColumn style={{width:"14%",overflow:"visible"}} name="customerName" 
+								 component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            if(value.length==""){
+		                            	value="-"
+		                              	TooltipStyle="none"
+		                            }else{
+		                            	TooltipStyle="block";
+		                            }
+
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+		              			}} ></TableRowColumn>
+								
 
 								<TableRowColumn name="accountNo"
 								component={(value,oldValue)=>{
@@ -144,13 +151,21 @@ export default class List extends React.Component {
 								></TableRowColumn>
 								
 
-								<TableRowColumn name="docName"
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								
+								 <TableRowColumn style={{width:"10%",overflow:"visible"}} name="docName" 
+								 component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            if(value.length==""){
+		                            	value="-"
+		                              	TooltipStyle="none"
+		                            }else{
+		                            	TooltipStyle="block";
+		                            }
+
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+		              			}} ></TableRowColumn>
+								
 								
 
 								<TableRowColumn name="jobType"

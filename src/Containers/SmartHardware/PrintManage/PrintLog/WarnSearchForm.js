@@ -59,7 +59,7 @@ class DoorWarnForm extends React.Component{
 	}
 	onSubmit=(values)=>{
 		
-		
+		console.log("values",values);
 		if(values.stime && values.etime){
 
 			var start=Date.parse(DateFormat(values.stime,"yyyy-mm-dd hh:MM:ss"));
@@ -70,14 +70,16 @@ class DoorWarnForm extends React.Component{
 				return ;
 			}
 		}
-		State.warnSearchParams={
+		State.printLogParams = {
 			page:1,
 			pageSize:15,
-			stime :  values.stime || '',
-			etime:  values.etime || '',
-			deviceId: values.deviceId || '',
-			logType:  values.logType || '',
-			date : new Date()
+			communityId :  values.communityId||'',
+			customerId: values.customerId||'',
+			endDate:'',
+			jobType: '',
+			memberId : '',
+			printerName :'',
+			startDate :''
 		}
 	}
 
@@ -133,15 +135,34 @@ class DoorWarnForm extends React.Component{
 			searchParams
 		});
 	}
+
+	
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let {logTypeOptions} = this.state;
+		 let  floorsOptions=[{
+		      label:"屏幕显示编号",
+		      value:"doorCode"
+		    },{
+		      label:"屏幕显示标题",
+		      value:"title"
+		    },{
+		      label:"智能硬件ID",
+		      value:"deviceId"
+		    }]
+	    let  printTypeOptions=[
+									{value:"PRINT",label:"打印"},
+									{value:"SCAN",label:"扫描"},
+									{value:"COPY",label:"复印"},
+									{value:"FAX",label:"传真接收"},
+									{value:"FAX_SEND",label:"传真发送"}
+								]
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="door-warn-search">
 				<ListGroup className="fir-list">
 					<ListGroupItem>
 						
-							<KrField label="报警时间：" ref="stime" name="stime" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange}/>
+							<KrField label="打印时间：" ref="startDate" name="stime" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange}/>
 						
 					</ListGroupItem>
 
@@ -149,24 +170,62 @@ class DoorWarnForm extends React.Component{
 							<KrField label="至：" name="etime" component="date" inline={true} style={{width:200,marginTop:-3}} onChange={this.onEndChange} />
 					
 					</ListGroupItem>
-					<ListGroupItem>
-						<KrField  name="deviceId" 
+					<ListGroupItem >
+						
+						<KrField 
+							name="printerName" 
 							type="text" 
-							label="智能硬件ID：" 
-							style={{width:265}}
+							label="打印机：" 
 							inline={true}
+							requireLabel={false} 
+							
 						/>
 					</ListGroupItem>
 					
+					
 					<ListGroupItem >
 						
-						<KrField name="logType" 
-							component="select" 
-							label="报警类型：" 
-							options = {logTypeOptions}
-							style={{width:265}}
+						<KrField 
+							name="phone" 
+							type="text" 
+							label="手机号：" 
+							inline={true}
+							requireLabel={false} 
+							
+						/>
+					</ListGroupItem>
+
+					<ListGroupItem>
+						<KrField name="communityId" 
+							component="searchCommunityAll" 
+							label="社区名称："  
 							inline={true}
 						/>
+					</ListGroupItem>
+
+					
+					<ListGroupItem >
+						
+						<KrField name="jobType"
+							component="select"
+							label="任务类型： "
+							inline={true}
+							options = {printTypeOptions}
+							
+						/>
+					</ListGroupItem>
+					
+					<ListGroupItem style={{padding:0}}>
+								
+						<KrField  
+							name="customerId" 
+							label="客户"
+							placeholder="请输入客户名称" 
+							component="searchCompany"  
+							onChange={this.changeCustomer}  
+							style={{width:150}}
+						/>
+						
 					</ListGroupItem>
 					
 				</ListGroup>
