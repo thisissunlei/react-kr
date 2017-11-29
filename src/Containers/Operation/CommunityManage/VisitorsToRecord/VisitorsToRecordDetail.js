@@ -112,10 +112,11 @@ import './index.less';
 		}
 
 		return (
-      <div className = "m-newMerchants m-visitors-to-record-detail">
+      <div className = "m-visitors-to-record-detail" style={{padding:'45px'}}>
         <div className="title" style={{marginBottom:"30px"}}>
 					<DrawerTitle title ='查看访客' onCancel = {this.onCancel}/>
 		</div>
+		<div style={{paddingLeft:44}}>
         <KrField component="labelText" grid={1/2} label="社区："  value = {detail.communityName} requireBlue={true}  inline={true}/>
         <KrField component="labelText" grid={1/2} label="类型:" value={detail.typeName} requireBlue={true} />
         {typeValue ==50 &&<KrField component="labelText" grid={1/2} label="面试类型：" value={detail.interviewTypeName} defaultValue="无" requireBlue={true} />}
@@ -134,6 +135,7 @@ import './index.less';
 		<div className = "bei-zhu">
 			<KrField  component="labelText" grid={1} label="备注：" value={detail.descr} defaultValue="无" requireBlue={true} />
 			
+		</div>
 		</div>
       </div>
 
