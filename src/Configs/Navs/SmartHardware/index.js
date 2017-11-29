@@ -31,6 +31,32 @@ module.exports = [
 							router: '/smarthardware/doorManage/upgrademanage',
 						}
 					]
+			}, {
+					primaryText: "打印管理",
+					iconName: 'icon-card',
+					iconColor: '#79859a',
+					router :'',
+					menuItems: [
+						{
+							primaryText: '设备管理',
+							menuCode: 'sysDeviceDefinitionList',
+							router: '/smarthardware/printmanage/equipmentmanage',
+						},{
+							primaryText: '打印记录',
+							menuCode: 'iot_door_open_log',
+							router: '/smarthardware/doorManage/openlog',
+						},
+						{
+							primaryText: '费用配置',
+							menuCode: 'iot_device_alarm',
+							router: '/smarthardware/doorManage/warning',
+						},
+						{
+							primaryText: '社区配置',
+							menuCode: 'iot_upgrade_package',
+							router: '/smarthardware/doorManage/upgrademanage',
+						}
+					]
 			}, ],
 	}
 ]

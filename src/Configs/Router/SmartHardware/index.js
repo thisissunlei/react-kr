@@ -40,6 +40,13 @@ const SmartHardware_DoorManage_UpgradeManage = (location, callback) => {
   }, 'SmartHardware_DoorManage_UpgradeManage')
 }
 
+
+const SmartHardware_PrintManage_EquipmentManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/PrintManage/EquipmentManage').default)
+  }, 'SmartHardware_PrintManage_EquipmentManage')
+}
+
 module.exports =()=>{
 
 
@@ -48,6 +55,13 @@ module.exports =()=>{
 			
 			<Route path="doormanage" getComponent={Basic}>
 				<Route path="equipmentmanage" getComponent={SmartHardware_DoorManage_EquipmentAllManage}/>
+				<Route path="openlog" getComponent={SmartHardware_DoorManage_OpenLog}/>
+				<Route path="warning" getComponent={SmartHardware_DoorManage_FailureWarning}/>
+				<Route path="upgrademanage" getComponent={SmartHardware_DoorManage_UpgradeManage}/>
+				
+			</Route>
+			<Route path="printmanage" getComponent={Basic}>
+				<Route path="equipmentmanage" getComponent={SmartHardware_PrintManage_EquipmentManage}/>
 				<Route path="openlog" getComponent={SmartHardware_DoorManage_OpenLog}/>
 				<Route path="warning" getComponent={SmartHardware_DoorManage_FailureWarning}/>
 				<Route path="upgrademanage" getComponent={SmartHardware_DoorManage_UpgradeManage}/>

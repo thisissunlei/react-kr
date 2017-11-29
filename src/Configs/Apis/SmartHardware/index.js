@@ -238,6 +238,12 @@ module.exports = {
       method: 'get'
    },
 
+   //打印机列表数据
+   'printerManageList': {
+      url: '/api/iot-platform/printer/list?serialNo={serialNo}&communityId={communityId}&alias={alias}&readerName={readerName}&printerName={printerName}&pageSize={pageSize}&page={page}',
+      method: 'get'
+   },
+
 
 
     
