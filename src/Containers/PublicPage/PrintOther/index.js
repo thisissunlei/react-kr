@@ -92,7 +92,7 @@ export default class PrintOther extends React.Component {
 		delEndFutility();
 		
 		//齐缝章
-		if (allData.cachetUrl||true){
+		if (allData.cachetUrl){
 			checkMark(this.print);
 		}
 		//控制页面的高度

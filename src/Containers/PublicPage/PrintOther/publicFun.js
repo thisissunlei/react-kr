@@ -9,7 +9,7 @@ var dpi = js_getDPI(),
     newDate = parseInt(Math.random()*1000+1000),
     markWidth = 160,
     elemArr = [],//章的宽
-    allData = { cachetUrl:'http://krspace-upload.oss-cn-qingdao.aliyuncs.com/activity_unzip/201707/I/131101521_42.png'};//所有的数据
+    allData = {};//所有的数据
     
 
 //字段替换
@@ -54,7 +54,7 @@ function noKeyParse(template, paramName, data) {
 
 //标记替换
 function templateParse(template,data){
-    allData = Object.assign({}, data, allData)
+    allData = Object.assign({}, data)
     var imgReg = new RegExp('#{img}', 'ig');
     //分页标签
     var pageReg = new RegExp('#{pagination}','ig');
@@ -142,9 +142,10 @@ function checkMark(mainElem){
         endTop = endDetail.top;
         startNum = Math.floor(startTop / paperHeight);
         endNum = Math.floor(endTop / paperHeight);
-        console.log(startNum, endNum, "PPPPPPP", pageNum)
     }
-    if(pageNum>1){
+    if (isHave && pageNum-1 <=1 ){
+        return
+    }else if(pageNum>1){
         for(let i = 0; i<pageNum;i++){
             if (isHave) {
                 if (i < startNum || i > endNum) {
