@@ -116,7 +116,7 @@ export default class Editor extends React.Component {
       autoFloatEnabled: true,
       elementPathEnabled: false,
       maximumWords: 40000,
-      initialFrameHeight: 200,
+      initialFrameHeight: 800,
       enableAutoSave: false,
       autoFloatEnabled: false
     }
@@ -164,7 +164,7 @@ export default class Editor extends React.Component {
     }
     var config=Object.assign({},configs);
     if(editHeight){
-      config.initialFrameHeight=editHeight.wsheight;
+      config.initialFrameHeight=editHeight.wsheight?editHeight.wsheight:800;
     }
     var ue = UE.getEditor(this.containerId, config);
     this.ue = ue;
