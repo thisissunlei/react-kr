@@ -134,6 +134,7 @@ function checkMark(mainElem){
     var isHave = false;
     
     if(startElem && endElem){
+        
         isHave = true;
         startDetail = startElem.getBoundingClientRect();
         endDetail = endElem.getBoundingClientRect();
@@ -142,8 +143,9 @@ function checkMark(mainElem){
         startNum = Math.floor(startTop / paperHeight);
         endNum = Math.floor(endTop / paperHeight);
     }
+    console.log(pageNum, "++++++++", startNum, endNum)
     if (isHave && pageNum-1 <=1 ){
-        return
+        return;
     }else if(pageNum>1){
         for(let i = 0; i<pageNum;i++){
             if (isHave) {
