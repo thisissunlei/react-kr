@@ -58,7 +58,7 @@ class Template extends React.Component {
 		State.getCreateTable(this.props.formId);
 		Store.dispatch(initialize('Template',initializeValues));
 		State.getTemplateList(this.props.formId);
-		State.getPrintTemplateList();
+		State.getPrintTemplateList(this.props.formId);
 		State.getPrintTemplateData(this.props.keyId);  
 	}
 	
@@ -170,7 +170,7 @@ class Template extends React.Component {
 		State.formworkId = values.printTemplateId;
 		console.log('===>', values.printTemplateId, State.formworkId)
 		this.onOpenTemplate();
-		State.getPrintTemplateList();
+		State.getPrintTemplateList(this.props.formId);
 	}
 
 	//获取公章

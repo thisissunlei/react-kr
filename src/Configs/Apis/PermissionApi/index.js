@@ -556,7 +556,7 @@ module.exports = {
     },
     //打印模板--选择
     'get-print-template-list':{
-      url: '/api/krspace-erp-web/sys/print-template/list',
+      url: '/api/krspace-erp-web/sys/print-template/list?formId={formId}',
       method: 'get'
     },
     //获取合同模板数据

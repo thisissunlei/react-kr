@@ -139,7 +139,7 @@ State.getCreateTable = action(function(id) {
 // 打印模板--选择
 State.getPrintTemplateList = action(function(id) {
 	var _this = this;
-	Http.request('get-print-template-list', {}).then(function(response) {
+	Http.request('get-print-template-list', {formId:id}).then(function(response) {
 		let options = response.items.map((item)=>{
 			let obj = {};
 			obj.label = item.name;

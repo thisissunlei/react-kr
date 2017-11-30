@@ -122,8 +122,8 @@ class TemplatePrint extends React.Component {
     
 	onSubmit = (value) =>{
 		var params = Object.assign({},value);
-		let {onSubmit,id} = this.props;
-	
+		let {onSubmit,id,formId} = this.props;
+		params.formId=formId;
 		params.id= id;
         Http.request("other-contract-formwork-new",{},params).then(function (response) {
 			onSubmit(Object.assign(value,{printTemplateId:response.printTemplateId}));
