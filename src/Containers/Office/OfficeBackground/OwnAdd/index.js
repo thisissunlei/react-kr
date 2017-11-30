@@ -256,16 +256,11 @@ export default class Initialize  extends React.Component{
 					 							}
 					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 					 					}}></TableRowColumn>
-										 <TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='serialNumber' component={(value,oldValue)=>{
-												var maxWidth=6;
+										 <TableRowColumn style={{borderRight:'solid 1px #E1E6EB',wordWrap:'break-word',whiteSpace:'normal'}} name='serialNumber' component={(value,oldValue)=>{
 												if (!value){
 													return<span>{"-"}</span>
 												}
-					 							if(value.length>maxWidth){
-					 							 value = value.substring(0,6)+"...";
-												 }
-												 
-					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
+					 							return (<span>{value}</span>)
 					 					}}></TableRowColumn>
 						                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB',wordWrap:'break-word',whiteSpace:'normal'}} name='title'></TableRowColumn>
 					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='creatorName' component={(value,oldValue)=>{
@@ -275,7 +270,7 @@ export default class Initialize  extends React.Component{
 					 							}
 					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 					 					}}></TableRowColumn>
-					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='cTime' component={(value,oldValue,itemData)=>{
+					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB',wordWrap:'break-word',whiteSpace:'normal'}} name='cTime' component={(value,oldValue,itemData)=>{
 					 								return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.cTime,'yyyy-mm-dd HH:MM:ss')}</span></div>)
 					 					}}></TableRowColumn>
 					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='uTime' component={(value,oldValue,itemData)=>{
