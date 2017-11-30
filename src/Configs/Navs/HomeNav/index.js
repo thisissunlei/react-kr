@@ -1,6 +1,6 @@
 module.exports = [
 	{
-		primaryText: "--页",
+		primaryText: "首页",
 		router: '',
 		openSidebar:false,
 	}
