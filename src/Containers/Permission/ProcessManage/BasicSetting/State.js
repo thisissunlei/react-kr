@@ -25,7 +25,10 @@ let State = observable({
 	openEdit:false,
 	editData :{},
 	editMainT:{},
-	editDetailT:[]
+	editDetailT:[],
+
+	//新建保存id
+	saveId:''
 
 
 });
@@ -58,20 +61,22 @@ State.getTemplateList = action(function(id) {
 });
 State.reset = action(function(){
 	this.printName = '';
-	this.pcName = ''
+	this.pcName = '';
 })
 // PC模板--新建提交
 State.saveTemplate = action(function(form) {
 	var _this = this;
 	Http.request('create-form-template', '',form).then(function(response) {
 		if(_this.saveAndUse){
-			console.log('------>>')
+			console.log('------>>truuu----')
 			_this.formTempId = false;
 			_this.pcName = response.name;
+			_this.formData.formTempId=response.formTemplateId;
 			Store.dispatch(change('Template','formTempId',response.formTemplateId));
 		}
 		_this.open = false;
 		_this.openEdit = false;
+		_this.saveAndUse=false;
 		_this.getPrintTemplateList()
 		_this.getTemplateList(_this.formId);
 	

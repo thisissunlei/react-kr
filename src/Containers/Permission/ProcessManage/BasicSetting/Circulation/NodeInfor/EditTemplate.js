@@ -52,11 +52,10 @@ class EditTemplate extends React.Component {
 	}
 	onSubmit=(form)=>{
 		let value = this.formData(form);
-		value.id = State.formData.formTempId;
-		if (!value.comment) {
+		if (!value.comment){
 			value.comment = '';
 		}
-		console.log(value, "ppppppppppp")
+		value.id = State.formData.formTempId;
 		// return;
 		State.saveTemplate(value);
 
@@ -105,7 +104,7 @@ class EditTemplate extends React.Component {
 		return (
 			<div className="g-create-template">
 					<div className="u-title-box">
-                   		<DrawerTitle title ="编辑模板——普通模式" onCancel = {this.onCancel}/>
+                    	<DrawerTitle title ="编辑模板——普通模式" onCancel = {this.onCancel}/>
 					</div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 						<KrField

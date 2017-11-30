@@ -206,7 +206,7 @@ class Template extends React.Component {
 		// State.openEdit = true;
 		State.editTemplate(id);
 	}
-
+    
 	render() {
 		const { handleSubmit,formId} = this.props;
 		const { allData, id,sealList} = this.state;

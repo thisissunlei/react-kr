@@ -9,9 +9,7 @@ var dpi = js_getDPI(),
     newDate = parseInt(Math.random()*1000+1000),
     markWidth = 160,
     elemArr = [],//章的宽
-    allData = {};//所有的数据
-    
-
+    allData = {};
 //字段替换
 function codeParse(template, data){
     if (!template){
@@ -80,7 +78,6 @@ function templateParse(template,data){
     template = template.replace(allEnd,'<div class="print-all-end'+newDate+'"></div>');
     template = template.replace(attachmentStart, '<div class="print-attachment-start' + newDate + '"></div>');
     template = template.replace(attachmentEnd, '<div class="print-attachment-end' + newDate + '"></div>');
-    
     return template;
 }
 //每一个分页标记的渲染
@@ -129,11 +126,13 @@ function checkMark(mainElem){
         endTop = 0,
         startNum =0,
         endNum = 0; 
+
     var mainDetil = mainElem.getBoundingClientRect(),
         mainHeight = mainDetil.height,
         pageNum = Math.ceil(mainHeight/paperHeight),
         markElem = '';
     var isHave = false;
+    
     if(startElem && endElem){
         isHave = true;
         startDetail = startElem.getBoundingClientRect();

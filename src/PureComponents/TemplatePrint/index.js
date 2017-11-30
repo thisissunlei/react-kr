@@ -311,7 +311,8 @@ class TemplatePrint extends React.Component {
 						</KrMenu>
 					
 						<KrMenu title="配置说明" subHeight="200px" style={{ marginTop:"20px"}}>
-							<div style = {{padding:10}}>asdasdadadsa</div>
+							<div style={{ padding: 10 }}>{"1、添加变量应 {{变量名}} 的形式录入,或者以 {{变量名$属性名}} 的形式录入"}</div>
+							<div style = {{padding:10}}>{"2、添加特定标签以 #{标签名} 的形式注入 例如：区块标签是成对存在"}</div>
 						</KrMenu>
 					 </div>
 				  </div>
