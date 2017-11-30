@@ -250,7 +250,7 @@ export default class NodeInfor extends Component{
             other:+new Date()
         };
         this.setState({
-            searchParams:Object.assign({},params,this.state.searchParams)
+            searchParams:Object.assign({},this.state.searchParams,params)
         })
     }
 
