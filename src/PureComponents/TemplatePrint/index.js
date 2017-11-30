@@ -92,9 +92,10 @@ class TemplatePrint extends React.Component {
 		this.allFields=[];
 	}
 	componentDidMount() {
-		var wHeight = window.innerHeight;
+		var wHeight = document.body.clientHeight;
 		var ue = UE.getEditor(this.editId);
-		var editorHeight = wHeight - 160;
+		var editorHeight = wHeight - 200;
+		
 		ue.ready(function () {
 			ue.setHeight(editorHeight||600);
 		});
