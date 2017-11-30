@@ -160,11 +160,12 @@ export default class SelectTimeComponent extends React.Component{
 			onChange:this.inputChange.bind(this,hourNum,minuteNum),
 			style:inputDetailStyle
 		}
+		// console.log(DateFormat(input.value, "hh:MM"),"iiiiiiiii");
 		let isTime = (""+input.value).indexOf(":") > 0;
 		if(onlyRead){
 			return(
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-					<span style={{ display: "inline-block", padding: "10px 10px 10px 0px"}}>{isTime ? input.value : DateFormat(input.value, "hh:MM")}</span>
+					<span style={{ display: "inline-block", padding: "10px 10px 10px 0px"}}>{isTime? input.value : DateFormat(input.value, "hh:MM")}</span>
 				</WrapComponent>
 			)
 		}
