@@ -47,7 +47,7 @@ module.exports = {
    
    //会员卡删除
    'memberCardDelete': {
-      url: '/api/krspace-finance-web/member/card/actions/delete?id={id}',
+      url: '/api/iot-platform/card/actions/delete?id={id}',
       method: 'delete'
    },
    
@@ -89,7 +89,7 @@ module.exports = {
     },
     //录入会员卡
     'inputCardUrl':{
-        url:'/api/krspace-finance-web/member/card/mbr-card',
+        url:'/api/iot-platform/card/actions/active',
         method:'post'
     },
     //会员列表-离职
@@ -99,17 +99,17 @@ module.exports = {
     },
     //会员列表-获取会员卡信息
     'get-member-code':{
-        url:'/api/krspace-finance-web/member/card?id={id}',
+        url:'/api/iot-platform/card/holder-cards?id={id}',
         method:'get'
     },
     //会员列表-解绑会员卡
     'unbind-member-code':{
-        url:'/api/krspace-finance-web/member/unbindCard?memberId={memberId}&cardId={cardId}',
-        method:'get'
+        url:'/api/iot-platform/card/actions/unbind',
+        method:'post'
     },
     //会员列表-绑定会员卡
     'bind-member-code':{
-        url:'/api/krspace-finance-web/member/bindCard',
+        url:'/api/iot-platform/card/actions/bind',
         method:'post'
     },
     //获取会员模糊查询列表
@@ -117,6 +117,12 @@ module.exports = {
         url:'/api/krspace-finance-web/member/select-options?name={name}',
         method:'get'
     },
+    //获取会员公司
+    'getCompanyInfo':{
+        url:'/api/krspace-finance-web/member/csr-list?companyName={companyName}',
+        method:'get'
+    },
+    
 
 
 }

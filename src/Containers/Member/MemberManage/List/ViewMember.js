@@ -90,6 +90,7 @@ class ViewMember extends React.Component {
 							inline={true} 
 							component="labelText"
 							value={baseInfo.communityName}
+							defaultValue="无"
 						/>
 						<KrField 
 							 style={{width:260}} 
@@ -105,6 +106,7 @@ class ViewMember extends React.Component {
 							inline={true} 
 							component="labelText"
 							value={baseInfo.job}
+							defaultValue="无"
 
 						/>
 						<KrField  
@@ -164,7 +166,7 @@ class ViewMember extends React.Component {
 								< KrDate 
 									style = {{marginTop:5}} 
 									value = {
-										baseInfo.registerTime
+										baseInfo.createTime
 									}
 									   format = "yyyy-mm-dd HH:MM:ss" />
 							}

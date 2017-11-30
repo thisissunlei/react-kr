@@ -41,6 +41,7 @@ export default class MemeberEditMemberForm extends React.Component {
 			onsubmitCode:true,
 			code:'',
 			email:'',
+			companyInfo:{},
 		}
 	}
 
@@ -71,12 +72,18 @@ export default class MemeberEditMemberForm extends React.Component {
 		let url = this.props.params;
 		
 		let _this = this;
-		Http.request('members-basic-date', {id:detail.id}).then(function(response) {
+		Http.request('members-basic-date', {id:detail.uid}).then(function(response) {
 			response.leader=String(response.leader);
 			Store.dispatch(initialize('memeberEditMemberForm', response));
 
 			_this.setState({
-				phone:response.phone
+				phone:response.phone,
+				companyInfo:{
+					label:response.companyName,
+					value:response.csrId,
+					companyName:response.companyName,
+					csrId:response.csrId,
+				}
 			})
 
 
@@ -164,6 +171,7 @@ export default class MemeberEditMemberForm extends React.Component {
 
 	render() {
 		let {detail,handleSubmit} = this.props;
+		let {companyInfo}=this.state;
 		let images = `./images/all.png`;
 		// itemData.phone = '13314619606';
 		return (
@@ -172,12 +180,12 @@ export default class MemeberEditMemberForm extends React.Component {
 					<div className="person-info">
 						{/* <span className="person-name">{detail.name}</span>
 						{detail.checkStatus?<span className="person-status-not">已验证</span>:<span className="person-status">未验证</span>} */}
-						<span className="person-id">员工UserID：{detail.id}</span>
+						<span className="person-id">员工UserID：{detail.uid}</span>
 					</div>
 					<div className="split-lines"></div>
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} right={30}   requireLabel={true}/>
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunityAll" right={30}   requireLabel={true} inline={false}/>
-					<KrField name="companyId" grid={1/2} label="公司" component="searchCompany"  right={30} requiredValue={true} requireLabel={true}/>
+					<KrField name="csrId" grid={1/2} label="公司" component="searchCompany" ValueInfo={companyInfo}  right={30} requiredValue={true} requireLabel={true}/>
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} />
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" right={30}  onBlur={this.communityChange} />
 					<KrField name="job" grid={1/2} label="职位" right={30}  />
@@ -219,8 +227,8 @@ const validate = values => {
 	if (values.phone && !phone.test(values.phone) ) {
 		errors.phone = '请输入正确电话号';
 	}
-	if (!values.companyId) {
-		errors.companyId = '请输入公司名称';
+	if (!values.csrId) {
+		errors.csrId = '请输入公司名称';
 	}
 
 	if (!values.name || /^\s+$/.test(values.name)) {
