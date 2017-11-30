@@ -77,7 +77,7 @@ State.saveTemplate = action(function(form) {
 		_this.open = false;
 		_this.openEdit = false;
 		_this.saveAndUse=false;
-		_this.getPrintTemplateList()
+		_this.getPrintTemplateList(_this.formId);
 		_this.getTemplateList(_this.formId);
 	
 		console.log('getTemplateList',response)
