@@ -260,7 +260,7 @@ class TemplatePrint extends React.Component {
 							label="" 
 							onChange ={this.templateChange}
 							defaultValue={allData}
-							editHeight={{wsheight:'1000'}}
+							editHeight={{wsheight:1000}}
 						/>
 						
 					</div>
