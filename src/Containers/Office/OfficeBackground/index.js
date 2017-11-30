@@ -10,9 +10,13 @@ import {
 import {
 	default as OwnAdd
 } from './OwnAdd';
+import {
+	default as ContractMonitor
+} from './ContractMonitor';
 module.exports = {
 	DownOffice,
 	NewOffice,
     Todo,
 	OwnAdd,
+	ContractMonitor
 }
