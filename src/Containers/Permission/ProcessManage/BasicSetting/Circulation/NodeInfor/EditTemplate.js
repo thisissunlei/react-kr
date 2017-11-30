@@ -154,7 +154,7 @@ class EditTemplate extends React.Component {
 
 											<FdRow name = "label" label = "字段显示名" />
 											<FdRow name = "display" label = "是否显示" checkbox={true}/>
-											<FdRow name = "editable" label = "是否只读"  checkbox={true}/>
+											<FdRow name = "editable" label = "是否编辑"  checkbox={true}/>
 											<FdRow name = "required" label = "是否必填" checkbox={true}/>
 											<FdRow name = "wholeLine" label = "是否整行" checkbox={true}/>
 										</CheckTable>

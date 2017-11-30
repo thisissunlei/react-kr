@@ -185,7 +185,7 @@ class FromsConfig extends Component {
 				maxLength = seeting.wstext;
 			}
 		}
-		//item.editable  是否只读
+		//item.editable  是否编辑
 
 		if(item.display){
 			return (
@@ -201,7 +201,7 @@ class FromsConfig extends Component {
 					selectUrl= 'template-search-list'
 					component={type}
 					params={params}
-					onlyRead={item.editable}
+					onlyRead={!item.editable}
 					editHeight={editHeight}
 					maxSize={maxLength}
 					value={responseData?responseData[item.name]:''}
