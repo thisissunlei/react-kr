@@ -78,6 +78,8 @@ class TemplatePrint extends React.Component {
 			{ name: 'includeStart',label:'区块开始标签' },
 			{ name: 'includeEnd', label:'区块结束标签' },
 			{ name: 'allEnd',label:'文章结尾' },
+			{ name: 'attachmentStart', label: '附件使用标签开始' },
+			{ name:'attachmentEnd',label:'附件使用标签结束'}
 		]
 		this.content = ''
 		this.editId = "edit_"+ new Date();

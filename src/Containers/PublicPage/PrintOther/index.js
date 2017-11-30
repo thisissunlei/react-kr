@@ -49,11 +49,7 @@ export default class PrintOther extends React.Component {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
 		this.getData();
-		// console.log(js_getDPI(),"--------")
-		// this.allRender();
-		window.onresize = function () {
-			console.log("ppppppppp");
-		}
+		
 	
 	}
 	//获取信息
@@ -64,7 +60,7 @@ export default class PrintOther extends React.Component {
 			_this.getAllData(response.content,id);
 		}).catch(function (err) {
 			Message.error("请配置打印模板");
-			// window.close()
+			
 		});
 		
 	
