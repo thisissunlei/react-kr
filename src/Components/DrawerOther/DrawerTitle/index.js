@@ -30,6 +30,7 @@ export default class DrawerTitle extends React.Component {
     checkType=()=>{
         let {title} = this.props;
         let type = 'view';
+       
         type = /查看/.test(title)?'view':type;
         type = /编辑/.test(title)?'edit':type;
         type = /新建/.test(title)?'create':type;
@@ -76,7 +77,7 @@ export default class DrawerTitle extends React.Component {
         return (
             <div className="ui-drawer-title">
             
-                    <div><span className={iconClass || "new-icon"}></span><label className="title-text" style={{marginLeft:10}}>{title||''}</label></div>
+                    <div><span style={pic} className={iconClass || "new-icon"}></span><label className="title-text" style={{marginLeft:10}}>{title||''}</label></div>
                     <div className="order-close" onClick={this.onCancel}></div>
             </div>
         );
