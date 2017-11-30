@@ -246,8 +246,9 @@ export default class NodeInfor extends Component{
     }
 
     paramsRefresh=()=>{
-        let params={};
-        params.other=+new Date();
+        let params={
+            other:+new Date()
+        };
         this.setState({
             searchParams:Object.assign({},params,this.state.searchParams)
         })
