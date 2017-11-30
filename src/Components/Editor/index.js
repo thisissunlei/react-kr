@@ -152,6 +152,7 @@ export default class Editor extends React.Component {
 
   initEditor = () => {
     var { configs, defaultValue, id, editHeight } = this.props;
+    console.log(editHeight,">>>>>>>>>>>>")
 
     var _this = this;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
