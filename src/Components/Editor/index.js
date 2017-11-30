@@ -152,7 +152,7 @@ export default class Editor extends React.Component {
 
   initEditor = () => {
     var { configs, defaultValue, id, editHeight } = this.props;
-    console.log(editHeight,">>>>>>>>>>>>")
+    
 
     var _this = this;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
@@ -167,7 +167,6 @@ export default class Editor extends React.Component {
     if(editHeight){
       config.initialFrameHeight=editHeight.wsheight?editHeight.wsheight:800;
     }
-    console.log(';;;0000',config);
     var ue = UE.getEditor(this.containerId, config);
     this.ue = ue;
     this.ue.ready(function (editor) {

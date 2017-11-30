@@ -94,7 +94,7 @@ class TemplatePrint extends React.Component {
 	componentDidMount() {
 		var ue = UE.getEditor(this.editId);
 		ue.ready(function () {
-			ue.setHeight(400);
+			ue.setHeight(800);
 		});
 	}	
 	//编辑区域的大小修改
