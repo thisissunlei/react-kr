@@ -39,7 +39,9 @@ export default class Introduction extends React.Component {
 		
 		$(".reservation-introduction .reservation-introduction-mask").click(function(event){
 			let {inData} = _this.state; 
+			
 			if($(this).attr("data-id") == data.id){
+				console.log(event.target, "pppppp")
 				let scollTop = $("body").scrollTop();
 				let num = $(this).index();
 				let pagex = event.pageX;
@@ -57,16 +59,19 @@ export default class Introduction extends React.Component {
 				if(data.endTime.m>30){
 					detailWidth = detailWidth +width;
 				}
+				let eventDetail = event.target.getBoundingClientRect();
 				let coordinates = {
-					x:pagex+(detailWidth-offsetx)-5,
-					y:pagey+(30 - offsety)-scollTop
+					// x:pagex+(detailWidth-offsetx)-5,
+					x: eventDetail.left+eventDetail.width-5,
+					y: eventDetail.top + Math.ceil(eventDetail.height/2),
 				};
 				
 				let location = "right";
-				if(pagex+(detailWidth-offsetx)+254>=wWidth){
+				if (eventDetail.left + eventDetail.width+254>=wWidth){
+					
 					coordinates = {
-						x:pagex-offsetx-235-15,
-						y:pagey+(30 - offsety)-scollTop
+						x: eventDetail.left - 254 - 10,
+						y: eventDetail.top + Math.ceil(eventDetail.height / 2),
 					}; 
 					location = "left";
 				}

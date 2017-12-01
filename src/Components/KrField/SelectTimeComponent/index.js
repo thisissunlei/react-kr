@@ -162,17 +162,31 @@ export default class SelectTimeComponent extends React.Component{
 		}
 		// console.log(DateFormat(input.value, "hh:MM"),"iiiiiiiii");
 		let isTime = (""+input.value).indexOf(":") > 0;
+
+		let showTime = '';
+		if(isTime){
+			showTime = input.value;
+		}else{
+			if(!input.value && input.value!==0){
+				showTime = "";
+			}else if(input.value === 0){
+				showTime  = "8:00";
+			}else{
+				showTime = DateFormat(input.value, "hh:MM")
+			}
+			
+		}
 		if(onlyRead){
 			return(
 				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
-					<span style={{ display: "inline-block", padding: "10px 10px 10px 0px"}}>{isTime? input.value : DateFormat(input.value, "hh:MM")}</span>
+					<span style={{ display: "inline-block", padding: "10px 10px 10px 0px"}}>{showTime}</span>
 				</WrapComponent>
 			)
 		}
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-select-time">
-					<input {...inputProps} value={isTime ? input.value : DateFormat(input.value, "hh:MM")} />	
+					<input {...inputProps} value={showTime} />	
 	              	
 	              	<div className="ui-time-select-all" style={{display:allOpen?'block':'none'}}>
 		                <div  className="ui-hour-style">

@@ -356,10 +356,10 @@ class SignedClient extends React.Component{
 	render(){
 
 
-       let {searchSignParams,dataReady,orderReady}=this.props;
-       let deleteId = this.props.CommunityDetailModel.deleteIndentId;
-			 let {isExport} = this.state;
-       var blockStyle={};
+		let {searchSignParams,dataReady,orderReady}=this.props;
+		let deleteId = this.props.CommunityDetailModel.deleteIndentId;
+		let {isExport} = this.state;
+		var blockStyle={};
       if(State.openPersonDialog==true){
         blockStyle={
         	display:'inline-block'
@@ -371,34 +371,34 @@ class SignedClient extends React.Component{
       }
 
 		return(
-      <div className="m-signed" style={{paddingTop:25}}>
+		<div className="m-signed" style={{ paddingTop: 25 }}>
       		<Title value="客户列表"/>
-      		<div className='merchants-dialog' style={blockStyle}>
-      		  <div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
-      		  <Button  label="转移" type="button" onTouchTap={this.openSwitchDialog}/>
-      		  <span className='mer-close' onClick={this.merClose}></span>
-      		</div>
+			<CheckPermission operateCode="admin_customer_edit" > 
+				<div className='merchants-dialog' style={blockStyle}>
+				<div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
+						<Button label="转移" type="button" onTouchTap={this.openSwitchDialog} operateCode="admin_customer_edit"/>
+				<span className='mer-close' onClick={this.merClose}></span>
+				</div>
+			</CheckPermission>
 	        <Row style={{marginBottom:21}}>
+				<Col
+					align="left"
+					style={{float:'left'}}
+				>
+					<Button
+							label="新建订单"
+							type='button'
+							onTouchTap={this.openContractFirst}
+							operateCode="admin_customer_edit"
+					/>
+				</Col>
 
-	                  <Col
-					     align="left"
-					     style={{float:'left'}}
-					   >
-
-							<Button
-									label="新建订单"
-									type='button'
-									onTouchTap={this.openContractFirst}
-									operateCode="oper_order_add"
-							/>
-					  </Col>
-
-			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
-				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入公司名称' inputName='sign' onSubmit={this.onSearchSubmit}/></ListGroupItem>
-				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
-				          </ListGroup>
-			          </Col>
+				<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
+					<ListGroup>
+					<ListGroupItem><SearchForms placeholder='请输入公司名称' inputName='sign' onSubmit={this.onSearchSubmit}/></ListGroupItem>
+					<ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+					</ListGroup>
+				</Col>
 	        </Row>
 
             <Table
