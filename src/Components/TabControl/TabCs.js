@@ -23,7 +23,9 @@ export default class TabCs extends React.Component {
         const {children} = this.props;
         var newChildren = this.toArray(children);
         let labels = newChildren.map((item,index)=>{
-            
+            if(item.props.readOnly){
+                return item.props;
+            }
             return item.props.label;
         })
         return labels;
@@ -88,7 +90,7 @@ export default class TabCs extends React.Component {
         const {labels,showIndex} = this.state;
 
 		return (
-            <div class = "ui-oa-tabs">
+            <div className = "ui-oa-tabs">
                 {isDetail=='role'&&<TabTitle
                     labels = {this.getLabels()}
                     onSubmit = {this.titleClick}

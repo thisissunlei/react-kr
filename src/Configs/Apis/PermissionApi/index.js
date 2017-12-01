@@ -556,12 +556,12 @@ module.exports = {
     },
     //打印模板--选择
     'get-print-template-list':{
-      url: '/api/krspace-erp-web/sys/print-template/list',
+      url: '/api/krspace-erp-web/sys/print-template/list?formId={formId}',
       method: 'get'
     },
     //获取合同模板数据
     'get-form-template-data':{
-      url: '/api/krspace-erp-web/sys/form-template/node?wfId={wfId}',
+      url: '/api/krspace-erp-web/sys/form-template/node?id={id}',
       method: 'get'
     },
     //合同搜索下拉
@@ -590,6 +590,11 @@ module.exports = {
       url: '/api/krspace-erp-web/sys/sql-template/delete',
       method: 'post'
    },
+   //获取打印模版配置信息
+   'get-sql-print':{
+    url: '/api/krspace-erp-web/sys/print/template/list/type/field?formId={formId}',
+    method: 'get'
+   },
    //获取PC端合同模板数据
     'get-form-template-detail-data':{
       url: '/api/krspace-erp-web/sys/form-template?id={id}',
@@ -606,5 +611,36 @@ module.exports = {
     url: '/api/krspace-erp-web/sys/public-dict/source/select/type/list',
     method: 'get'
    },
+
+   //公章列表下拉
+   'get-seal-list':{
+    url: '/api/krspace-erp-web/sys/contract-template/list/type/rent-field?formId={formId}',
+    method: 'get'
+  },
+
+   //查询节点列表
+   'search-node-list':{
+    url: '/api/krspace-erp-web/wf/wf-node/listSearch?page={page}&pageSize={pageSize}&wfId={wfId}',
+    method: 'get'
+   },
+
+   //新建节点信息
+   'add-node-intro':{
+    url: '/api/krspace-erp-web/wf/wf-node/add',
+    method: 'post'
+   },
+
+   //编辑节点信息
+   'edit-node-intro':{
+    url: '/api/krspace-erp-web/wf/wf-node/edit',
+    method: 'post'
+   },
+
+   //查询节点对象
+   'get-node-edit':{
+    url: '/api/krspace-erp-web/wf/wf-node/wfNodeVOSearch?id={id}',
+    method: 'get'
+   },
+   
    
 }

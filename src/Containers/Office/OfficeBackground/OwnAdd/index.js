@@ -45,10 +45,12 @@ export default class Initialize  extends React.Component{
 		
 		this.state = {
 			isOpenEdit:false,
-			detail:[]
+			detail:[],
+			introData:''
 		} 
 		this.editSubmitData = {};
 		this.name = ''; 
+		this.responseData={};
 	}
 	componentDidMount() {
 		State.requestTree()
@@ -70,8 +72,10 @@ export default class Initialize  extends React.Component{
 				printed:response.printed
 			}
 			_this.setState({
-				detail: response.tables
+				detail: response.tables,
+				introData:response.comment?response.comment:''
 			})
+		
 		}).catch(function (err) {
 			Message.error(err.message);
 		 });
@@ -83,6 +87,8 @@ export default class Initialize  extends React.Component{
 		Http.request('get-config-detail-edit', { requestId: item.id }).then(function (response) {
 
 			Store.dispatch(initialize('FromsConfig', response));
+
+			_this.responseData=response;
 		    
 			_this.onOpenEdit();
 			
@@ -153,7 +159,7 @@ export default class Initialize  extends React.Component{
 	}
 
 	render(){
-		const {isOpenEdit,detail} = this.state;
+		const {isOpenEdit,detail,introData} = this.state;
 
 		return(
 
@@ -231,6 +237,7 @@ export default class Initialize  extends React.Component{
 					            <TableHeader className='detail-header'>
 					              <TableHeaderColumn className='header-row'>合同类型</TableHeaderColumn>
 					              <TableHeaderColumn className='header-row'>合同名称</TableHeaderColumn>
+								  <TableHeaderColumn className='header-row'>合同编号</TableHeaderColumn>
 			                      <TableHeaderColumn className='header-row'>合同请求标题</TableHeaderColumn>
 					              <TableHeaderColumn className='header-row'>创建人</TableHeaderColumn>
 								  <TableHeaderColumn className='header-row'>创建时间</TableHeaderColumn>
@@ -249,6 +256,12 @@ export default class Initialize  extends React.Component{
 					 							}
 					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 					 					}}></TableRowColumn>
+										 <TableRowColumn style={{borderRight:'solid 1px #E1E6EB',wordWrap:'break-word',whiteSpace:'normal'}} name='serialNumber' component={(value,oldValue)=>{
+												if (!value){
+													return<span>{"-"}</span>
+												}
+					 							return (<span>{value}</span>)
+					 					}}></TableRowColumn>
 						                <TableRowColumn style={{borderRight:'solid 1px #E1E6EB',wordWrap:'break-word',whiteSpace:'normal'}} name='title'></TableRowColumn>
 					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='creatorName' component={(value,oldValue)=>{
 					 							var maxWidth=6;
@@ -257,7 +270,7 @@ export default class Initialize  extends React.Component{
 					 							}
 					 							return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 					 					}}></TableRowColumn>
-					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='cTime' component={(value,oldValue,itemData)=>{
+					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB',wordWrap:'break-word',whiteSpace:'normal'}} name='cTime' component={(value,oldValue,itemData)=>{
 					 								return (<div style={{paddingTop:'5px'}} className='tooltipParent'><span className='tableOver'>{DateFormat(itemData.cTime,'yyyy-mm-dd HH:MM:ss')}</span></div>)
 					 					}}></TableRowColumn>
 					 					<TableRowColumn style={{borderRight:'solid 1px #E1E6EB'}} name='uTime' component={(value,oldValue,itemData)=>{
@@ -284,7 +297,7 @@ export default class Initialize  extends React.Component{
                     containerStyle={{top:60,paddingBottom:228,zIndex:20}}
                     onClose={this.onOpenEdit}
 				>
-					<FromsConfig title={`${this.name}-编辑`} detail={detail} onSubmit={this.editSubmit} onCancel={this.onOpenEdit} />
+					<FromsConfig title={`${this.name}-编辑`} detail={detail} introData={introData} onSubmit={this.editSubmit} responseData={this.responseData} onCancel={this.onOpenEdit} />
 				</Drawer>
 			</div>
 		);

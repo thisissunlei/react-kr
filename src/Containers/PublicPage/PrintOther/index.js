@@ -49,8 +49,7 @@ export default class PrintOther extends React.Component {
 		const { NavModel } = this.props;
 		NavModel.setSidebar(false);
 		this.getData();
-		// console.log(js_getDPI(),"--------")
-		// this.allRender();
+		
 	
 	}
 	//获取信息
@@ -61,7 +60,7 @@ export default class PrintOther extends React.Component {
 			_this.getAllData(response.content,id);
 		}).catch(function (err) {
 			Message.error("请配置打印模板");
-			// window.close()
+			
 		});
 		
 	
@@ -77,28 +76,32 @@ export default class PrintOther extends React.Component {
 	
 	allRender = (template,allData) =>{
 		this.configData.template =  template;
-		// this.configData.allData = { li: { name: '梨花', age: '88', love: '哈哈',printValue:'什么鬼'}};
 		this.configData.allData = allData;
 		var templateData = templateParse(this.configData.template,allData);
 		this.print.innerHTML = codeParse(templateData, allData);
-		// this.print.innerHTML = codeParse(templateData,this.configData.allData);
-		
+		//明细表
 		var detailTr = document.querySelectorAll(".money-detail tr");
-		
+		//明细表渲染
 		this.detailCodeParse(detailTr,this.configData.allData.moneyDetail)
+
+		//按顺序顺序渲染所有节点
 		allElemsRender();
+		//章位调整
+		chaptersMove();
+		//删除最后无用内容		
+		delEndFutility();
 		
-		chaptersMove();//章位调整
-		delEndFutility();//删除最后无用内容		
-		controlHeight(this.print)
 		//齐缝章
-		/*if (allData.cachetUrl){
+		if (allData.cachetUrl){
+
 			checkMark(this.print);
-		}*/
+		}
+		//控制页面的高度
+		controlHeight(this.print)
 		setTimeout(function() {
 			window.print();
 			window.close();
-		}, 500);
+		}, 1000);
 		
 	}
 	//明细表解析

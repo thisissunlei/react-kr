@@ -59,27 +59,26 @@ export default class  SelectListComponent extends React.Component {
     
 	render(){
 
-		let { input, label, inline,type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
+		let { input, label, inline,type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,onlyRead,...other} = this.props;
 
 		let {options}=this.state;
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
-						<ReactSelect
-									name={input.name}
-									searchable={false}
-									value={input.value}
-									clearable={true}
-									options={options}
-									onChange={this.onChange}
-									placeholder={placeholder}
-									onValueClick={function(){
-									}}
-								/>
-
-					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
-		</WrapComponent>
-
+				<ReactSelect
+					name={input.name}
+					searchable={false}
+					value={input.value}
+					clearable={true}
+					options={options}
+					onChange={this.onChange}
+					placeholder={placeholder}
+					onlyRead={onlyRead}
+					onValueClick={function(){
+					}}
+				/>
+				{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }
+			</WrapComponent>
 		);
 	}
 }

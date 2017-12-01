@@ -813,10 +813,14 @@ const Select = React.createClass({
 	renderValue (valueArray, isOpen) {
 		let renderLabel = this.props.valueRenderer || this.getOptionLabel;
 		let ValueComponent = this.props.valueComponent;
+		if (this.props.onlyRead) {
+			return '';
+		}
 		if (!valueArray.length) {
 			return !this.state.inputValue ? <div className="Select-placeholder">{this.props.placeholder}</div> : null;
 		}
 		let onClick = this.props.onValueClick ? this.handleValueClick : null;
+		
 		if (this.props.multi) {
 			return valueArray.map((value, i) => {
 				return (
@@ -1092,6 +1096,12 @@ const Select = React.createClass({
 			'is-searchable': this.props.searchable,
 			'has-value': valueArray.length,
 		});
+		//只读模式
+		if (this.props.onlyRead) {
+			return (
+				<span style={{ display: "inline-block", padding: "10px 10px 10px 0px" }}>{this.renderValue(valueArray, isOpen)}</span>
+			)
+		}
 
 		let removeMessage = null;
 		if (this.props.multi &&
@@ -1106,6 +1116,7 @@ const Select = React.createClass({
 				</span>
 			);
 		}
+	
 		return (
 			<div ref={ref => this.wrapper = ref}
 				 className={className}

@@ -21,29 +21,30 @@ import {
 	DrawerTitle,
 	FdRow,
 } from 'kr-ui';
-import State from './State';
+import State from '../../State';
 import {
 	observer
 } from 'mobx-react';
-import './index.less';
+import '../../index.less';
 @observer
-class EditTemplate extends React.Component {
+class CreateNewList extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {
+			
+		}
 		
 	}
 	componentWillMount() {
-		console.log('=======componentWillMount')
-
-	}
-	componentWillReceiveProps=()=>{
 	}
 
 	componentDidMount() {
-		// toJS(State.detailT).map((item,index)=>{
-		// 	Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
-		// })
+		Store.dispatch(change('createNewList','mainT',toJS(State.mainT.mainT)));
+
+		toJS(State.detailT).map((item,index)=>{
+			Store.dispatch(change('createNewList',`fieldList${index}`,item.fields));
+		})
 	}
 
 	onCancel=()=>{
@@ -52,17 +53,17 @@ class EditTemplate extends React.Component {
 	}
 	onSubmit=(form)=>{
 		let value = this.formData(form);
-		value.id = State.formData.formTempId;
-
-		// return;
+		if (!value.comment){
+			value.comment = '';
+		}
 		State.saveTemplate(value);
 
 		
 	}
 	formData=(form)=>{
 		let formValue = form;
-		let mainT = toJS(State.editMainT);
-		let detailT = toJS(State.editDetailT);
+		let mainT = toJS(State.mainT);
+		let detailT = toJS(State.detailT);
 		mainT.fields = formValue.mainT ;
 		mainT.fieldList = formValue.mainT ;
 		mainT.lineNum = formValue.lineNum;
@@ -71,7 +72,6 @@ class EditTemplate extends React.Component {
 		demo.push(mainT);
 
 		detailT = detailT.map((item,index)=>{
-			console.log('detailT-map',item);
 			let obj = item;
 			obj.fieldList = formValue[`fieldList${index}`];
 			obj.hasEditButton = formValue[`hasEditButton${index}`] || false;
@@ -81,18 +81,17 @@ class EditTemplate extends React.Component {
 			return obj;
 		})
 		demo = demo.concat(detailT);
-		console.log('============>',demo)
 
 		let submitForm = {
 			mainTemplate:JSON.stringify(demo),
 			name:formValue.name,
-			formId:State.formId
+			formId:State.formId,
+			comment:formValue.comment
 		}
 		return submitForm;
 	}
 	onSave=()=>{
 		State.saveAndUse = true;
-		console.log('onSave')
 	}
 
 	render() {
@@ -101,7 +100,7 @@ class EditTemplate extends React.Component {
 		return (
 			<div className="g-create-template">
 					<div className="u-title-box">
-                    <DrawerTitle title ="编辑模板——普通模式" onCancel = {this.onCancel}/>
+                    	<DrawerTitle title ="新建模板——普通模式" onCancel = {this.onCancel}/>
 					</div>
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
 						<KrField
@@ -112,6 +111,19 @@ class EditTemplate extends React.Component {
 							requireLabel={true}
 							grid={1/2}
 					 	/>
+
+
+                         <KrField 
+							grid={1} 
+							label="提示性文字" 
+							name="comment" 
+							heightStyle={{height:"178px",width:'550px'}}  
+							component="textarea"  
+							maxSize={500} 
+							style={{width:560,marginTop:10}} 
+							placeholder='请输入提示性文字' 
+							lengthClass='list-len-textarea'
+						 />
 
 					 	<div className='main-name'>
 							<span style={{fontSize:'16px',color:'#666',lineHeight:'24px;'}}>主表-</span>
@@ -219,8 +231,8 @@ const validate = values => {
 	return errors
 }
 
-export default EditTemplate = reduxForm({
-	form: 'editTemplate',
+export default CreateNewList = reduxForm({
+	form: 'createNewList',
 	validate,
-})(EditTemplate);
+})(CreateNewList);
 

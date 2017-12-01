@@ -60,8 +60,7 @@ export default class  SearchAllComponent extends React.Component {
     
 	render(){
 
-		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
-
+		let { input, label, type, meta: { touched, error }, placeholder, children, disabled, style, requireLabel, onlyRead,...other} = this.props;
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
@@ -73,6 +72,7 @@ export default class  SearchAllComponent extends React.Component {
 					onChange={this.onChange}
 					onInputChange={this.onInputChange}
 					noResultsText=""
+					onlyRead = {onlyRead}
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 		</WrapComponent>
