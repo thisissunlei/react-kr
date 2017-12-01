@@ -28,7 +28,6 @@ import {
 
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
-import DetailDialog from './DetailDialog';
 import SearchForm from './SearchForm';
 
 
@@ -50,7 +49,8 @@ export default class PrinterManage  extends React.Component{
 				page : 1,
 				pageSize: 3
 			},
-			listData : {}
+			listData : {},
+			EditIntialDate:{}
 		}
 	}
 
@@ -64,49 +64,12 @@ export default class PrinterManage  extends React.Component{
 		State.freshPageReturn();
 	}
 
-	//操作相关
-	onOperation=(type, itemDetail)=>{
-
-		console.log("onOperation",itemDetail)
-		this.setState({
-			itemDetail
-		});
-		if (type == 'delete') {
-			this.openDeleteFun();
-			
-		}
-		if (type == 'edit') {
-			
-			this.openEditDialogFun();
-		}
-
-		if (type == 'detail') {
-			
-			this.seeDetailFun();
-		}
-
-		
-		
-	}
-
-	seeDetailFun=()=>{
-		console.log("this.state.itemDetail",this.state.itemDetail);
-	}
-
 
 	closeAll=()=>{
 		State.openHardwareDetail = false;
 	}
 
-	onSelcet=(result,selectedListData)=>{
-		var ids=[];
-		for(var i=0;i<selectedListData.length;i++){
-			ids.push(selectedListData[i].id);
-		}
-		this.setState({
-			selectIds:ids
-		})
-	}
+	
 
 	//打开新建
 	openNewCreateDialog=()=>{
@@ -146,40 +109,85 @@ export default class PrinterManage  extends React.Component{
 	}
 
 
-	editList=(value,str)=>{
 
+	editPrice=(value)=>{
 
-		let _this = this;
-		Http.request('printerDetailInfo',{id:value.id}).then(function(response) {
-			
+		var param = {id : value.id};
+		let _this =this;
+		Http.request('getDetailPriceUrl',param).then(function(response) {
+			console.log("response",response);
+			var monoPrice_T = JSON.parse(response.monoPrice),
+			colorPrice_T = JSON.parse(response.colorPrice),
+			paperPrice_T = JSON.parse(response.paperPrice);
+
+			var EditIntialDate_T = {
+				id : response.id,
+				name : response.name,
+				A4Mono :monoPrice_T.A4,
+				A4Color :colorPrice_T.A4,
+				A4White :paperPrice_T.A4,
+
+				A3Mono :monoPrice_T.A3,
+				A3Color :colorPrice_T.A3,
+				A3White :paperPrice_T.A3,
+
+				A5Mono :monoPrice_T.A5,
+				A5Color :colorPrice_T.A5,
+				A5White :paperPrice_T.A5,
+
+				LetterMono :monoPrice_T.Letter,
+				LetterColor :colorPrice_T.Letter,
+				LetterWhite :paperPrice_T.Letter,
+
+				LegalMono :monoPrice_T.Legal,
+				LegalColor :colorPrice_T.Legal,
+				LegalWhite :paperPrice_T.Legal,
+
+				B4Mono :monoPrice_T.B4,
+				B4Color :colorPrice_T.B4,
+				B4White :paperPrice_T.B4,
+
+				B5Mono :monoPrice_T.B5,
+				B5Color :colorPrice_T.B5,
+				B5White :paperPrice_T.B5,
+
+				scanPrice : response.scanPrice
+				 
+			}
 			_this.setState({
-				itemDetail:response
+				EditIntialDate : EditIntialDate_T
 			},function(){
-				if(str=="edit"){
-					_this.openEditDialogFun();
-				}if(str=="detail"){
-					_this.openDetailDialog();
-				}
-				
-			});
+				_this.openEditDialogFun();
+			})
 
 		}).catch(function(err) {
-			Message.error(err.message);
-		});
 		
+			Message.error(err.message);
+		});	
 	}
 
-	deleteList=(thisP,value,itemData)=>{
-		this.setState({
-			itemDetail:thisP
-		});
-		this.openDeleteFun();
+	deletePrice=(itemData)=>{
+		console.log("itemData",itemData);
+		let _this =this;
+		Http.request('deleteConfigListUrl',{id :itemData.id }).then(function(response) {
+		
+			Message.success("删除成功");
+			_this.setState({
+				getListDataParam:{
+					name : '',
+					page : 1,
+					pageSize: 3
+				}
+			})
+
+		}).catch(function(err) {
+			
+			Message.error(err.message);
+		});	
 	}
 
 
-	openDetailDialog=()=>{
-		State.detailDialogOpen = !State.detailDialogOpen;
-	}
+	
 
 	
 
@@ -198,7 +206,7 @@ export default class PrinterManage  extends React.Component{
 				
 				return(
 
-					<div className="list-item-box">	
+					<div className="list-item-box" ket={index}>	
 
 						<div className="list-left">{item.name}</div>
 						<div className="list-middle">
@@ -245,8 +253,8 @@ export default class PrinterManage  extends React.Component{
 						<div className="list-right">
 							<div className="scan-price">{item.scanPrice}</div>
 							<div className="operate-box">
-								<div className="operate-item"><span>编辑</span></div>
-								{item.canDelete && <div className="operate-item"><span>删除</span></div>}
+								{item.canDelete && <div className="operate-item"><span onClick={_this.editPrice.bind(this,item)}>编辑</span></div>}
+								{item.canDelete && <div className="operate-item"><span onClick={_this.deletePrice.bind(this,item)}>删除</span></div>}
 							</div>
 						</div>
 					</div>	
@@ -275,14 +283,17 @@ export default class PrinterManage  extends React.Component{
 
 
 
-	onPageChange=(page)=>{
-		console.log("page",page)
+	onPageChange=(pageParam)=>{
+		console.log("pageParam",pageParam)
+		let {getListDataParam} =this.state;
+		var bewObj = Object.assign({},getListDataParam,{page:pageParam});
+
 	}
 
 
 
 	render(){
-		let {itemDetail,priceListDom,getListDataParam,listData}=this.state;
+		let {itemDetail,priceListDom,getListDataParam,listData,EditIntialDate}=this.state;
 		
 		return(
 			<div >
@@ -323,7 +334,6 @@ export default class PrinterManage  extends React.Component{
 			          <NewCreate
 			            onCancel={this.openNewCreateDialog}
 			            style ={{paddingTop:'35px'}}
-			            onSubmit = {this.onSubmitNewCreateEquipment}
 			            saveAndNewCreate= {this.saveAndNewCreate}
 			          />
 			        </Dialog>
@@ -334,8 +344,7 @@ export default class PrinterManage  extends React.Component{
 			          contentStyle={{width:687}}
 			        >
 			          <EditForm
-			            detail={itemDetail}
-			            onSubmit = {this.onSubmitNewCreateEquipment}
+			            detail={EditIntialDate}
 			            closeEditEquipment = {this.openEditDialogFun}
 			          />
 			        </Dialog>
@@ -361,21 +370,6 @@ export default class PrinterManage  extends React.Component{
 			                </Grid>
 			          </div>
 			        </Dialog>
-
-			        <Dialog
-			          title="费用详情"
-			          open={State.detailDialogOpen}
-			          onClose={this.openDetailDialog}
-			          contentStyle={{width:687}}
-			        >
-			          <DetailDialog
-			            detail={itemDetail}
-			            closeEditEquipment = {this.openEditDialogFun}
-			          />
-			        </Dialog>
-			        
-			  
-
 
 				</div>
 				

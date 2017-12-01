@@ -323,7 +323,29 @@ module.exports = {
    'getPrintPriceList':{
       url: '/api/iot-platform/print-price/select-option?name={name}',
       method: 'get'
-   }
+   },
+
+
+   //费用配置编辑回显
+   'getDetailPriceUrl':{
+      url: '/api/iot-platform/print-price/detail?id={id}',
+      method: 'get'
+   },
+
+
+   //费用配置编辑
+   'editPriceUrl':{
+      url: '/api/iot-platform/print-price/actions/edit?id={id}&colorPrice={colorPrice}&monoPrice={monoPrice}&name={name}&paperPrice={paperPrice}&scanPrice={scanPrice}',
+      method: 'put'
+   },
+
+   
+
+   //删除费用配置
+   'deleteConfigListUrl':{
+      url : '/api/iot-platform/print-price/actions/delete?id={id}',
+      method : 'delete'
+   },
    
    
 }

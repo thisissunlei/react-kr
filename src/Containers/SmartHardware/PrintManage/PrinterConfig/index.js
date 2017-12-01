@@ -139,10 +139,11 @@ export default class List extends React.Component {
 							<TableHeader>
 								
 								<TableHeaderColumn>社区</TableHeaderColumn>
-								<TableHeaderColumn>创建人</TableHeaderColumn>
-								<TableHeaderColumn>创建时间</TableHeaderColumn>
+								
 								<TableHeaderColumn>节点服务器IP</TableHeaderColumn>
 								<TableHeaderColumn>价格策略名称</TableHeaderColumn>
+								<TableHeaderColumn>创建人</TableHeaderColumn>
+								<TableHeaderColumn>创建时间</TableHeaderColumn>
 								<TableHeaderColumn>最后一次更新时间</TableHeaderColumn>
 								<TableHeaderColumn>操作</TableHeaderColumn>
 							</TableHeader>
@@ -163,6 +164,21 @@ export default class List extends React.Component {
 		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
+								
+								<TableRowColumn name="nodeIp" 
+									component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
+								<TableRowColumn name="printPriceName" 
+									component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
 								<TableRowColumn name="creatorName" 
 									component={(value,oldValue)=>{
 									if(value==""){
@@ -178,20 +194,6 @@ export default class List extends React.Component {
 									format="yyyy-mm-dd HH:MM:ss" 
 								>
 								</TableRowColumn>
-								<TableRowColumn name="nodeIp" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								<TableRowColumn name="printPriceName" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
 							
 								<TableRowColumn 
 									style={{width:"15%"}}

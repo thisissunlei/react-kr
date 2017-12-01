@@ -73,17 +73,16 @@ State.newCreatePrice = action(function(values){
 })
 
 //编辑
-State.editPrinter = action(function(values){
+State.editPrice = action(function(values){
 	
-	Http.request('editPrinter',values).then(function(response) {
+	Http.request('editPriceUrl',values).then(function(response) {
 		
-		State.freshPageReturn();
+	
 		State.openEditDialog =false;
 		Message.success("编辑成功");
 
 	}).catch(function(err) {
-		State.openEditDialog =false;
-		State.freshPageReturn();
+		
 		Message.error(err.message);
 	});	
 
@@ -111,20 +110,20 @@ State.freshPageReturn =  action(function(){
 
 State.getPriceConfigList = action(function(){
 	Http.request('getPriceConfigListUrl',{}).then(function(response) {
-		console.log("response",response);
-		// State.freshPageReturn();
-		// State.openEditDialog =false;
-
-		// Message.success("编辑成功");
+		
 		State.responseData = response;
 
 	}).catch(function(err) {
-		// State.openEditDialog =false;
-		// State.freshPageReturn();
+		
 		Message.error(err.message);
 	});	
 
 })
+
+
+
+
+
 
 
 module.exports = State;

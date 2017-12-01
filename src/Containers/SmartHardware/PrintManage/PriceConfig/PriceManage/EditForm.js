@@ -5,8 +5,7 @@ import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,Fiel
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import State from './State';
-
-
+import './index.less';
 
 import {
 	KrField,
@@ -18,7 +17,7 @@ import {
 	Message,
 	err
 } from 'kr-ui';
-class EditForm extends React.Component{
+class NewCreateDefinitionForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.detail = this.props.detail;
@@ -28,77 +27,144 @@ class EditForm extends React.Component{
 		}
 	}
 
-	componentDidMount(){
-		Store.dispatch(initialize('EditForm', this.detail));
-	}
-
 	
 	onCancel=()=>{
-		const {closeEditEquipment}=this.props;
-		closeEditEquipment && closeEditEquipment();
+		State.openEditDialog = false;
 	}
 
-  	
+  	componentDidMount(){
+  		
+		Store.dispatch(initialize('NewCreateDefinitionForm', this.detail));
+		
+	}
 	
 
-	// 编辑设备
+	// 新增设备定义
 	onSubmit=(values)=>{
-		
 		let _this = this;
-
-		var postParam = Object.assign({id:_this.detail.id},values)
-		
-	 	State.editPrinter(postParam);
+		console.log("values",values);
 
 		
+		var colorPrice_var = {"A4":values.A4Color,"A3":values.A3Color,"A5":values.A5Color,"Letter":values.LetterColor,"Legal":values.LegalColor,"B4":values.B4Color,"B5":values.B5Color}
+		var monoPrice_var = {"A4":values.A4Mono,"A3":values.A3Mono,"A5":values.A5Mono,"Letter":values.LetterMono,"Legal":values.LegalMono,"B4":values.B4Mono,"B5":values.B5Mono}
+		var paperPrice_var = {"A4":values.A4White,"A3":values.A3White,"A5":values.A5White,"Letter":values.LetterWhite,"Legal":values.LegalWhite,"B4":values.B4White,"B5":values.B5White}
 		
+		colorPrice_var = 	JSON.stringify(colorPrice_var)
+		monoPrice_var = 	JSON.stringify(monoPrice_var)
+		paperPrice_var = 	JSON.stringify(paperPrice_var)
+
+
+		var newCreatePriceP = {
+			id :_this.detail.id,
+			colorPrice : colorPrice_var,
+			monoPrice : monoPrice_var,
+			name : values.name,
+			paperPrice : paperPrice_var,
+			scanPrice : values.scanPrice
+		}
+	 	State.editPrice(newCreatePriceP);
+
+
 	}
+
+	renderListDom=()=>{
+		var pageType = ["A4","A3","A5","Letter","Legal","B4","B5"]
+		var dom = pageType.map(function(item,index){
+			
+			return (
+				<ListGroup >
+					<ListGroupItem style={{width:"25%",padding:0}}>
+						<span>{item}</span>
+					</ListGroupItem>
+					<ListGroupItem style={{width:"25%",padding:0}}>
+						<KrField 
+							name={item+"Mono"}
+							type="text" 
+							label="" 
+							requireLabel={true} 
+							style={{width:90}}
+						/>
+					</ListGroupItem>
+					<ListGroupItem style={{width:"25%",padding:0}}>
+						<KrField 
+							name={item+"Color"}
+							type="text" 
+							label="" 
+							requireLabel={true} 
+							style={{width:90}}
+						/>
+					</ListGroupItem>
+					<ListGroupItem style={{width:"25%",padding:0}}>
+						<KrField 
+							name={item+"White"}
+							type="text" 
+							label="" 
+							requireLabel={true} 
+							style={{width:90}}
+						/>
+					</ListGroupItem>
+				</ListGroup>
+			)
+		})
+		return dom;
+	}
+
+
 	render(){
 		
 		const { error, handleSubmit, reset} = this.props;
 		return(
-			<div style={{padding:'20px 0 0 55px'}}>
+			<div style={{padding :"10px 0 0 40px"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-
-					<KrField grid={1/2} name="printerName" 
-						type="text" 
-						label="打印机名称" 
-						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
-					<KrField grid={1/2} name="alias" 
-						type="text" 
-						label="打印机别名" 
-						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
-					<KrField name="communityId" 
-						component="searchCommunityAll" 
-						label="所在社区"  
-						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						inline={false}
-					/>
-					<KrField grid={1/2} name="location" 
-						type="text" 
-						label="打印机位置" 
-						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
-					
-					<KrField grid={1/2} name="readerName" 
-						type="text" 
-						label="读卡器名称" 
-						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
-					<KrField grid={1/2} name="serialNo" 
-						type="text" 
-						label="序列号" 
-						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
-
+					<ListGroup >
+						<ListGroupItem style={{marginBottom:"20"}}>
+							<KrField 
+								name="name" 
+								type="text" 
+								label="策略名称：" 
+								requireLabel={true} 
+								inline={true}
+								style={{width:'252px'}}
+							/>
+						</ListGroupItem>
+					</ListGroup>
+					<ListGroup style={{marginBottom:10}}>
+						<ListGroupItem style={{width:"25%",padding:0}}>
+							纸张类型
+						</ListGroupItem>
+						<ListGroupItem style={{width:"25%",padding:0}}>
+							黑白单价(元/面)
+						</ListGroupItem>
+						<ListGroupItem style={{width:"25%",padding:0}}>
+							黑白单价(元/面)
+						</ListGroupItem>
+						<ListGroupItem style={{width:"25%",padding:0}}>
+							纸张单价(元/张)
+						</ListGroupItem>
+					</ListGroup>	
+					{
+						this.renderListDom()
+					}
+					<ListGroup className="tip-box">
+						<ListGroupItem style={{width:"100%",padding:0,margin: "0px 0 10px 0"}}>
+							<span style={{color:"red",borderTop:"solid 1px #eee",display:"inline-block",padding:"10px 0",width:550}}>
+							以上价格为打印/复印每面的价格
+							</span>
+						</ListGroupItem>
+					</ListGroup>
+					<ListGroup >
+							<ListGroupItem >
+								<KrField 
+									name="scanPrice" 
+									type="text" 
+									label="扫描价格：" 
+									requireLabel={true} 
+									inline={true}
+									style={{width:'252px'}}
+								/>
+								<span className="unit-text">元/页</span>
+							</ListGroupItem>
+					</ListGroup>
 					
 					<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px',marginTop:20}}>
@@ -119,46 +185,38 @@ class EditForm extends React.Component{
 }
 const validate = values=>{
 	const errors={};
-	if(!values.communityId){
-		errors.communityId = '社区名称为必填项';
-	}
-	if(!values.alias){
-		errors.alias = '打印机别名必填';
-	}
-	if(values.alias && values.alias.length>20){
-		errors.alias = '打印机别名不能超过20个字符';
-	}
-	if(!values.location ){
-		errors.location = '打印机位置必填';
-	}
-	if(values.location && values.location.length>20){
-		errors.location = '打印机位置不能超过20个字符';
-	}
-	if(!values.printerName){
+	var reg = /^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/;
+	console.log("values",values);
+	if(!values.A4Mono || !values.A4Color || !values.A4White ||
+		!values.A3Mono || !values.A3Color || !values.A3White ||
+		!values.A5Mono || !values.A5Color || !values.A5White ||
+		!values.LetterMono || !values.LetterColor || !values.LetterWhite ||
+		!values.LegalMono || !values.LegalColor || !values.LegalWhite ||
+		!values.B4Mono || !values.B4Color || !values.B4White ||
+		!values.B5Mono || !values.B5Color || !values.B5White ||
+		!values.scanPrice || !values.name
+	){
+		errors.scanPrice = '所有输入框都必须填写';
+	}else if(!reg.test(values.A4Mono) || !reg.test(values.A4Color) || !reg.test(values.A4White) ||
+	!reg.test(values.A3Mono) || !reg.test(values.A3Color) || !reg.test(values.A3White) ||
+	!reg.test(values.A5Mono) || !reg.test(values.A5Color) || !reg.test(values.A5White) ||
+	!reg.test(values.LetterWhite) || !reg.test(values.LetterColor) || !reg.test(values.LetterWhite) ||
+	!reg.test(values.LegalMono) || !reg.test(values.LegalColor) || !reg.test(values.LegalColor) ||
+	!reg.test(values.B4Mono) || !reg.test(values.B4Color) || !reg.test(values.B4White) ||
+	!reg.test(values.B5Mono) || !reg.test(values.B5Color) || !reg.test(values.B5White)||
+	!reg.test(values.scanPrice)){
 
-		errors.printerName = '打印机名称必填';
+		errors.scanPrice = '价格必须为正数';
 	}
-	if(values.printerName && values.printerName.length>20){
-		errors.printerName = '打印机名称不能超过20个字符';
-	}
-	if(!values.readerName){
 
-		errors.readerName = '读卡器名称必填';
+	if(values.name &&values.name.length>20){
+		errors.name ="价格策略必填"
 	}
-	if(values.readerName  && values.readerName.length>20){
-
-		errors.readerName = '读卡器名称不能超过20个字符';
-	}
-	if(!values.serialNo){
-		errors.serialNo = '序列号必填';
-	}
-	if(values.serialNo && values.serialNo.length>20){
-		errors.serialNo = '序列号不能超过20个字符';
-	}
+	
 	
 	return errors;
 }
-export default EditForm = reduxForm({
-	form: 'EditForm',
+export default NewCreateDefinitionForm = reduxForm({
+	form: 'NewCreateDefinitionForm',
 	validate,
-})(EditForm);
+})(NewCreateDefinitionForm);
