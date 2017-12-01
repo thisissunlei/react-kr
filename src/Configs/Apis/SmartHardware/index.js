@@ -306,6 +306,13 @@ module.exports = {
    },
 
 
+   //新增价格策略
+   'newCreatePriceUrl':{
+      url: '/api/iot-platform/print-price/actions/add',
+      method: 'post'
+   },
+
+
    
    
 }

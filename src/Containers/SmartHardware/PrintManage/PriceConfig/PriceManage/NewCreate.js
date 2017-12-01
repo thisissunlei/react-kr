@@ -41,8 +41,26 @@ class NewCreateDefinitionForm extends React.Component{
 	// 新增设备定义
 	onSubmit=(values)=>{
 		let _this = this;
+		console.log("values",values);
 
-	 	State.newCreatePrinter(values);
+		
+		var colorPrice_var = {"A4":values.A4Color,"A3":values.A3Color,"A5":values.A5Color,"Letter":values.LetterColor,"Legal":values.LegalColor,"B4":values.B4Color,"B5":values.B5Color}
+		var monoPrice_var = {"A4":values.A4Mono,"A3":values.A3Mono,"A5":values.A5Mono,"Letter":values.LetterMono,"Legal":values.LegalMono,"B4":values.B4Mono,"B5":values.B5Mono}
+		var paperPrice_var = {"A4":values.A4White,"A3":values.A3White,"A5":values.A5White,"Letter":values.LetterWhite,"Legal":values.LegalWhite,"B4":values.B4White,"B5":values.B5White}
+		
+		colorPrice_var = 	JSON.stringify(colorPrice_var)
+		monoPrice_var = 	JSON.stringify(monoPrice_var)
+		paperPrice_var = 	JSON.stringify(paperPrice_var)
+
+
+		var newCreatePriceP = {
+			colorPrice : colorPrice_var,
+			monoPrice : monoPrice_var,
+			name : values.name,
+			paperPrice : paperPrice_var,
+			scanPrice : values.scanPrice
+		}
+	 	State.newCreatePrice(newCreatePriceP);
 
 	}
 
@@ -96,10 +114,10 @@ class NewCreateDefinitionForm extends React.Component{
 			<div style={{padding :"10px 0 0 40px"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<ListGroup >
-						<ListGroupItem style={{marginBottom:"10"}}>
+						<ListGroupItem style={{marginBottom:"20"}}>
 							<KrField 
-								name="alias" 
-								type="name" 
+								name="name" 
+								type="text" 
 								label="策略名称：" 
 								requireLabel={true} 
 								inline={true}
@@ -126,17 +144,16 @@ class NewCreateDefinitionForm extends React.Component{
 					}
 					<ListGroup className="tip-box">
 						<ListGroupItem style={{width:"100%",padding:0,margin: "0px 0 10px 0"}}>
-							<span style={{color:"red"}}>
+							<span style={{color:"red",borderTop:"solid 1px #eee",display:"inline-block",padding:"10px 0",width:550}}>
 							以上价格为打印/复印每面的价格
 							</span>
 						</ListGroupItem>
 					</ListGroup>
 					<ListGroup >
-						
 							<ListGroupItem >
 								<KrField 
 									name="scanPrice" 
-									type="name" 
+									type="text" 
 									label="扫描价格：" 
 									requireLabel={true} 
 									inline={true}
@@ -144,8 +161,6 @@ class NewCreateDefinitionForm extends React.Component{
 								/>
 								<span className="unit-text">元/页</span>
 							</ListGroupItem>
-							
-						
 					</ListGroup>
 					
 					<Grid>
@@ -167,6 +182,8 @@ class NewCreateDefinitionForm extends React.Component{
 }
 const validate = values=>{
 	const errors={};
+	var reg = /^(?!(0[0-9]{0,}$))[0-9]{1,}[.]{0,}[0-9]{0,}$/;
+	console.log("values",values);
 	if(!values.A4Mono || !values.A4Color || !values.A4White ||
 		!values.A3Mono || !values.A3Color || !values.A3White ||
 		!values.A5Mono || !values.A5Color || !values.A5White ||
@@ -177,14 +194,15 @@ const validate = values=>{
 		!values.scanPrice || !values.name
 	){
 		errors.scanPrice = '所有输入框都必须填写';
-	}else if((!isNaN(values.A4Mono)&&values.A4Mono<0) || (!isNaN(values.A4Color)&&values.A4Color<0) || (!isNaN(values.A4White)&&values.A4White<0) ||
-	(!isNaN(values.A3Mono)&&values.A3Mono<0) || (!isNaN(values.A3Color)&&values.A3Color<0) || (!isNaN(values.A3White)&&values.A3White<0) ||
-	(!isNaN(values.A5Mono)&&values.A5Mono<0) || (!isNaN(values.A5Color)&&values.A5Color<0) || (!isNaN(values.A5White)&&values.A5White<0) ||
-	(!isNaN(values.LetterWhite)&&values.LetterMono<0) || (!isNaN(values.LetterColor)&&values.LetterColor<0) || (!isNaN(values.LetterWhite)&&values.LetterWhite<0) ||
-	(!isNaN(values.LegalMono)&&values.LegalMono<0) || (!isNaN(values.LegalColor)&&values.LegalColor<0) || (!isNaN(values.LegalColor)&&values.LegalColor<0) ||
-	(!isNaN(values.B4Mono)&&values.B4Mono<0) || (!isNaN(values.B4Color)&&values.B4Color<0) || (!isNaN(values.B4White)&&values.B4White<0) ||
-	(!isNaN(values.B5Mono)&&values.B5Mono<0) || (!isNaN(values.B5Color)&&values.B5Color<0) || (!isNaN(values.B5White)&&values.B5White<0) ||
-	(!isNaN(values.scanPrice)&&values.scanPrice<0) ){
+	}else if(!reg.test(values.A4Mono) || !reg.test(values.A4Color) || !reg.test(values.A4White) ||
+	!reg.test(values.A3Mono) || !reg.test(values.A3Color) || !reg.test(values.A3White) ||
+	!reg.test(values.A5Mono) || !reg.test(values.A5Color) || !reg.test(values.A5White) ||
+	!reg.test(values.LetterWhite) || !reg.test(values.LetterColor) || !reg.test(values.LetterWhite) ||
+	!reg.test(values.LegalMono) || !reg.test(values.LegalColor) || !reg.test(values.LegalColor) ||
+	!reg.test(values.B4Mono) || !reg.test(values.B4Color) || !reg.test(values.B4White) ||
+	!reg.test(values.B5Mono) || !reg.test(values.B5Color) || !reg.test(values.B5White)||
+	!reg.test(values.scanPrice)){
+
 		errors.scanPrice = '价格必须为正数';
 	}
 

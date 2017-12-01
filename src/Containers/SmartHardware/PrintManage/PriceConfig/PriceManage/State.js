@@ -47,25 +47,25 @@ State.deleteEquipmentSingle= action(function(deleteID) {
 
 
 //新增
-State.newCreatePrinter = action(function(values){
+State.newCreatePrice = action(function(values){
 	
-	Http.request('newCreatePrinter',{},values ).then(function(response) {
+	Http.request('newCreatePriceUrl',{},values ).then(function(response) {
 		
-		State.printerManageListParams = {
-			page:1,
-			pageSize:15,
-			date: new Date()		
-		}
+		// State.printerManageListParams = {
+		// 	page:1,
+		// 	pageSize:15,
+		// 	date: new Date()		
+		// }
 		State.openNewCreate =false;
 		Message.success("新增成功");
 
 	}).catch(function(err) {
 		State.openNewCreate =false;
-		State.equipmentSecondParams = {
-			page:1,
-			pageSize:15,
-			date: new Date()		
-		}
+		// State.equipmentSecondParams = {
+		// 	page:1,
+		// 	pageSize:15,
+		// 	date: new Date()		
+		// }
 		Message.error(err.message);
 	});	
 
