@@ -217,7 +217,7 @@ class LookDetailed extends Component{
 				<li className="everyText" style={{width:660,paddingLeft:0}}><span className="blueDrop" style={{height:5}}></span><span style={{display:"inline-block",paddingLeft:5}}>备注:</span>
 					<p style={{padding:"0 10px 0 15px",color:'#666'}}>{detail.remark}</p>
 				</li>
-				{isBotton && comeFrom !="message" && <div style={{textAlign: "center",marginTop:15}}><Button className='d-editBtn' label="编辑" type="submit" style={{margin:"auto",minWidth:'80px',height:'30px'}} onTouchTap={editsSwitch} /></div>}
+				{isBotton && comeFrom !="message" && <div style={{textAlign: "center",marginTop:15}}><Button operateCode="admin_customer_edit" className='d-editBtn' label="编辑" type="submit" style={{margin:"auto",minWidth:'80px',height:'30px'}} onTouchTap={editsSwitch} /></div>}
 				<span className="visitRecordTitle">拜访记录</span>
 				<div className="visitRecord">
 
@@ -231,7 +231,7 @@ class LookDetailed extends Component{
 
 				</div>
 				
-				{comeFrom != "message" && <div className='look-addVisitBtn' style={{textAlign: "center",marginTop:30}}><Button label="新增拜访记录" type="button" style={{width:120}} onTouchTap={IndentSwitch} /></div>}
+				{comeFrom != "message" && <div className='look-addVisitBtn' style={{ textAlign: "center", marginTop: 30 }}><Button label="新增拜访记录" type="button" style={{ width: 120 }} operateCode="admin_customer_edit" onTouchTap={IndentSwitch} /></div>}
 				
 
 

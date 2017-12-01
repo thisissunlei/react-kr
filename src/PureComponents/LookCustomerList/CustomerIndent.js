@@ -98,28 +98,30 @@ class CustomerIndent extends Component{
 						
 							<span>
 							
-							{item.contractSize?'':<Button operateCode="oper_mainbill_edit"  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>}
+								{item.contractSize ? '' : <Button operateCode="admin_customer_edit"  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>}
 							
 							<span className="interval"></span></span>
 						
 
-						<Button operateCode = 'oper_order_view' label="查看" type="button" cancle={true}>
+							<Button operateCode= 'admin_customer_edit' label="查看" type="button" cancle={true}>
 						  <a className='watchGo' href={`./#/operation/customerManage/${_this.props.listId}/order/${item.id}/detail`} target='_blank'/>
 						</Button>
 						<span className="interval"></span>
-						 {item.contractSize?'':<Button operateCode = 'oper_mainbill_del' label="删除" type="button" cancle={true} onTouchTap={()=>{
-																			if(operType=="PERSON"){
-																			//    personal.deleteId=item.id;
-																				_this.props.CommunityDetailModel.deleteIndent(item.id);
-																			}
-																			if(operType=="SIGN"){
-																			//    signedClient.deleteId=item.id;
-																				_this.props.CommunityDetailModel.deleteIndent(item.id);
-																			}
+							{item.contractSize ? '' : <Button operateCode= 'admin_customer_edit' label="删除" type="button" cancle={true} 
+						 	onTouchTap={()=>{
+								if(operType=="PERSON"){
+								//    personal.deleteId=item.id;
+									_this.props.CommunityDetailModel.deleteIndent(item.id);
+								}
+								if(operType=="SIGN"){
+								//    signedClient.deleteId=item.id;
+									_this.props.CommunityDetailModel.deleteIndent(item.id);
+								}
 
 
-																			DeleteSwitch();
-																		}} />}
+								DeleteSwitch();
+							}} 
+						/>}
 					</div>
 
 				</div>
@@ -151,7 +153,7 @@ class CustomerIndent extends Component{
 		return(
 	    	<div className="m-CustomerIndent">
 				<div style={{marginTop:20,marginBottom:20}}>
-					<Button operateCode = 'oper_order_add' label="新建订单" type="button" onTouchTap={newIndentSwitch}/>
+					<Button operateCode= 'admin_customer_edit' label="新建订单" type="button" onTouchTap={newIndentSwitch}/>
 				</div>
 				{this.orderInnerList()}
 	    	</div>

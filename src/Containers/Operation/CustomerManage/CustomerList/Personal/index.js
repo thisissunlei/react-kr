@@ -371,7 +371,7 @@ class Personal extends Component{
 
       <div className="m-personal" style={{paddingTop:25}}>
 			<Title value="客户列表"/>
-			<CheckPermission  operateCode="oper_csr_transfer" >
+			<CheckPermission operateCode="admin_customer_edit" >
 				<div className='merchants-dialog' style={blockStyle}>
 					<div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
 					<div style={{marginRight:20,display:'inline-block'}}><Button  label="转移" type="button" onTouchTap={this.openSwitchDialog}/></div>
@@ -380,24 +380,16 @@ class Personal extends Component{
 				</div>
 			</CheckPermission>
 	        <Row style={{marginBottom:21}}>
-			          <Col
-					     align="left"
-					     style={{float:'left'}}
-					   >
-						<Button
-							label="新建客户"
-							type='button'
-							onTouchTap={this.switchNewMerchants}
-							operateCode="oper_csr_add"
-						/>
-					  </Col>
+				<Col align="left" style={{float:'left'}} >
+					<Button label="新建客户" type='button' onTouchTap={this.switchNewMerchants} operateCode="admin_customer_edit" />
+				</Col>
 
-			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
-				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入公司名称' inputName='per' onSubmit={this.onSearchSubmit}/></ListGroupItem>
-				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
-				          </ListGroup>
-			          </Col>
+				<Col align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
+					<ListGroup>
+						<ListGroupItem><SearchForms placeholder='请输入公司名称' inputName='per' onSubmit={this.onSearchSubmit}/></ListGroupItem>
+						<ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+					</ListGroup>
+				</Col>
 	        </Row>
 
             <Table
@@ -413,7 +405,7 @@ class Personal extends Component{
 	            ajaxUrlName='personalCustomers'
 	            ajaxFieldListName="items"
 				onPageChange = {this.pageChange}
-					  >
+			>
 		            <TableHeader>
 		              <TableHeaderColumn>公司名称</TableHeaderColumn>
 		              <TableHeaderColumn>意向城市</TableHeaderColumn>
@@ -429,17 +421,20 @@ class Personal extends Component{
 
 			        <TableBody >
 			              <TableRow displayCheckbox={true}>
-			                <TableRowColumn name="company"  component={(value,oldValue)=>{
-														var TooltipStyle=""
-														if(value.length==""){
-															TooltipStyle="none"
+							<TableRowColumn name="company"  
+								component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
 
-														}else{
-															TooltipStyle="inline-block";
-														}
-														 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-														 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-													 }} ></TableRowColumn>
+									}else{
+										TooltipStyle="inline-block";
+									}
+									return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:130,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+											<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+										)
+								}} 
+							></TableRowColumn>
 			                <TableRowColumn name="intentionCityName" ></TableRowColumn>
 			                <TableRowColumn name="intentionCommunityName"  component={(value,oldValue)=>{
 														var TooltipStyle=""
