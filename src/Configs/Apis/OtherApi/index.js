@@ -229,8 +229,18 @@ const APIS = {
        url: '/api/krspace-erp-web/sys/form-sql/invalid',
        method: 'post'
     },
-    
 
+     //合同监控--流程树列表
+     'contract-monitor-tree':{
+        url: '/api/krspace-erp-web/wf/base/tree/type/requestMonitoring',
+        method: 'get'
+      },
+    
+    //合同监控--流程列表
+    'contract-monitor-list':{
+        url: '/api/krspace-erp-web/wf/request/list/type/monitoring?page={page}&typeId={typeId}&wfId={wfId}&pageSize={pageSize}',
+        method: 'get'
+    },
     
 
 
