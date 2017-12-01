@@ -311,8 +311,13 @@ module.exports = {
       url: '/api/iot-platform/print-price/actions/add',
       method: 'post'
    },
+ 
 
-
+   //获取价格配置列表数据
+   'getPriceConfigListUrl' :{
+      url: '/api/iot-platform/print-price/list?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
    
    
 }

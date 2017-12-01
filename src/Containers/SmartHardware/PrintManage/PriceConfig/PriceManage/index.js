@@ -42,13 +42,19 @@ export default class PrinterManage  extends React.Component{
 		this.state = {
 			selectIds : [],
 			openMenu :false,
-			itemDetail : {}
+			itemDetail : {},
+			priceListDom : '',
+			getListDataParam : {
+				name : '',
+				page : 1,
+				pageSize: 3
+			}
 		}
 	}
 
 
 	componentDidMount() {
-		
+		this.renderPrice();
 
 	}
 
@@ -173,11 +179,99 @@ export default class PrinterManage  extends React.Component{
 		State.detailDialogOpen = !State.detailDialogOpen;
 	}
 
+	
+
+	renderPrice=()=>{
+
+		var priceListDom;
+		let _this =this;
+		let {getListDataParam} = this.state;
+		Http.request('getPriceConfigListUrl',getListDataParam).then(function(response) {
+			
+			priceListDom = response.items.map(function(item,index){
+				
+				return(
+
+					<div className="list-item-box">	
+
+						<div className="list-left">{item.name}</div>
+						<div className="list-middle">
+							<div className="middle-item">
+								<div className="paper-type ">
+									<div>A4</div>
+									<div>A3</div>
+									<div>A5</div>
+									<div>Letter</div>
+									<div>Legal</div>
+									<div>B4</div>
+									<div>B5</div>
+								</div>
+								<div className="mono-price paper-type">
+									<div>{JSON.parse(item.monoPrice).A4}</div>
+									<div>{JSON.parse(item.monoPrice).A3}</div>
+									<div>{JSON.parse(item.monoPrice).A5}</div>
+									<div>{JSON.parse(item.monoPrice).Letter}</div>
+									<div>{JSON.parse(item.monoPrice).Legal}</div>
+									<div>{JSON.parse(item.monoPrice).B4}</div>
+									<div>{JSON.parse(item.monoPrice).B5}</div>
+								</div>
+								<div  className="color-price paper-type">
+									<div>{JSON.parse(item.colorPrice).A4}</div>
+									<div>{JSON.parse(item.colorPrice).A3}</div>
+									<div>{JSON.parse(item.colorPrice).A5}</div>
+									<div>{JSON.parse(item.colorPrice).Letter}</div>
+									<div>{JSON.parse(item.colorPrice).Legal}</div>
+									<div>{JSON.parse(item.colorPrice).B4}</div>
+									<div>{JSON.parse(item.colorPrice).B5}</div>
+								</div>
+								<div  className="paper-price paper-type">
+									<div>{JSON.parse(item.paperPrice).A4}</div>
+									<div>{JSON.parse(item.paperPrice).A3}</div>
+									<div>{JSON.parse(item.paperPrice).A5}</div>
+									<div>{JSON.parse(item.paperPrice).Letter}</div>
+									<div>{JSON.parse(item.paperPrice).Legal}</div>
+									<div>{JSON.parse(item.paperPrice).B4}</div>
+									<div>{JSON.parse(item.paperPrice).B5}</div>
+								</div>
+								
+							</div>
+						</div>
+						<div className="list-right">
+							<div className="scan-price">{item.scanPrice}</div>
+							<div className="operate-box">
+								<div className="operate-item"><span>编辑</span></div>
+								{item.canDelete && <div className="operate-item"><span>删除</span></div>}
+							</div>
+						</div>
+					</div>	
+				
+				)
+			})
+
+			
+
+			_this.setState({
+				priceListDom :priceListDom
+			})
+
+		}).catch(function(err) {
+			
+			Message.error(err.message);
+		});	
+		
+		
+	}
+
+
+	returnDom=(param)=>{
+		return param
+	}
+
 
 
 	render(){
-		let {itemDetail}=this.state;
-	
+		let {itemDetail,priceListDom,getListDataParam}=this.state;
+		
 		return(
 			<div >
 				<div>
@@ -187,104 +281,25 @@ export default class PrinterManage  extends React.Component{
 				</div>
 				
 				
-				<div>
-					<Table
-			            className="second-equipment-table"
-			            ajax={true}
-			            onProcessData={(state)=>{
-			              return state;
-			             }}
-			            onOperation={this.onOperation}
-			            exportSwitch={false}
-			            ajaxFieldListName='items'
-			            ajaxUrlName='printerManageList'
-			            ajaxParams={State.printerManageListParams}
-			            onPageChange={this.onPageChangeFun}
-			            displayCheckbox={true}
-			           
-			          >
-			            <TableHeader>
-			            	<TableHeaderColumn>打印机名称</TableHeaderColumn>
-			              	<TableHeaderColumn>打印机别名</TableHeaderColumn>
-				            <TableHeaderColumn>所在社区</TableHeaderColumn>
-				            <TableHeaderColumn>位置</TableHeaderColumn>
-			              	
-				            <TableHeaderColumn>读卡器名称</TableHeaderColumn>
-			              	<TableHeaderColumn>序列号</TableHeaderColumn>
-			                <TableHeaderColumn>操作</TableHeaderColumn>
-			          	</TableHeader>
-			          	<TableBody >
-				            <TableRow>
-				            	<TableRowColumn name="printerName" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								<TableRowColumn name="alias" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-
-				            	<TableRowColumn name="communityName" style={{width:"11%"}}></TableRowColumn>
-
-								<TableRowColumn name="location" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								
+				<div className="price-table-box">
+					<div className="price-table">
+						<div className="price-table-head">
+							<div className="price-table-head-title-name">策略名称</div>
+							<div className="price-table-head-title">纸张类型</div>
+							<div className="price-table-head-title">黑白单价(元/面)</div>
+							<div className="price-table-head-title">彩色单价(元/面)</div>
+							<div className="price-table-head-title">纸张单价(元/张)</div>
+							<div className="price-table-head-title">扫描价格(元/页)</div>
+							<div className="price-table-head-title">操作</div>
+						</div>
+						<div className="table-body">
 							
-								
-
-								
-								<TableRowColumn name="readerName" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-
-								<TableRowColumn name="serialNo" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								
 							
-					            <TableRowColumn type="operation"
-					            	style={{width:"15%"}}
-									component={
-										(value,oldValue,itemData)=>{
-											if(value==""){
-												value="-"
-											}
-											return (
-													<div>
-														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,"edit")}/>
-														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)}/>
-														<Button  label="详情"  type="operation" operation="detail" onTouchTap={this.editList.bind(this,value,"detail")}/>
-															
-													</div>
-												)
-										}
-									}
-								> 
-								</TableRowColumn>
-				            </TableRow>
-			            </TableBody>
-			            <TableFooter></TableFooter>
-			        </Table>
-		
+							{
+								this.returnDom(priceListDom)
+							}
+						</div>
+					</div>
 					
 					<Dialog
 			          title="新增费用配置"
