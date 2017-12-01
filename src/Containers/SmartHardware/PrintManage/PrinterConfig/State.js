@@ -102,6 +102,30 @@ State.editPrinterConfig = action(function(values){
 })
 
 
+State.getPrintPriceNameList=action(function(){
+	
+	Http.request('getPrintPriceList',{} ).then(function(response) {
+		
+		
+		var itmesData = response.items;
+		var arr =[]
+		for(var i=0;i<itmesData.length;i++){
+			arr[i] = {
+				label : itmesData[i].name,
+				value : itmesData[i].id
+			}
+		}
+
+		State.priceListOptions = arr;
+
+	}).catch(function(err) {
+		
+		Message.error(err.message);
+	});	
+
+})
+
+
 
 
 module.exports = State;

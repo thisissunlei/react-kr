@@ -52,7 +52,7 @@ export default class List extends React.Component {
 	}
 
 	componentDidMount(){
-		
+		State.getPrintPriceNameList();
 	}
 	
 	onLoaded=(response)=>{

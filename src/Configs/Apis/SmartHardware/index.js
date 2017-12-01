@@ -318,6 +318,12 @@ module.exports = {
       url: '/api/iot-platform/print-price/list?name={name}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
+
+   //打印机价格策略
+   'getPrintPriceList':{
+      url: '/api/iot-platform/print-price/select-option?name={name}',
+      method: 'get'
+   }
    
    
 }

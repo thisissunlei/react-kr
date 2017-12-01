@@ -48,13 +48,10 @@ class NewCreateDefinitionForm extends React.Component{
 	render(){
 		
 		const { error, handleSubmit, reset} = this.props;
-		let priceOptions=[
-			{
-				label : "sjsk",value : 111
-			},{
-				label : "jjj",value : 222
-			}
-		]
+
+
+		console.log("State.priceListOptions",State.priceListOptions);
+		
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -63,18 +60,14 @@ class NewCreateDefinitionForm extends React.Component{
 						onChange = {this.onChangeSearchCommunity}
 						label="社区名称"  
 						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'社区为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
 					<KrField name="priceId" 
 						component="select" 
-						label="打印策略" 
-						options = {priceOptions}
+						label="打印价格策略" 
+						options = {State.priceListOptions}
 						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'楼层为必填项'}} 
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
