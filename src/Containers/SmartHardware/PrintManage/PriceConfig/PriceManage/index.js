@@ -13,7 +13,7 @@ import {
 	Message,Dialog,Button,Table,TableHeader,TableHeaderColumn,TableBody
 	,TableRow,TableRowColumn,TableFooter,Tooltip,Drawer,Grid,Row,
 	ListGroup,ListGroupItem,SearchForms,FontIcon,
-	Dropdown,
+	Dropdown,Pagination
 } from 'kr-ui';
 import {Http} from 'kr/Utils';
 import $ from 'jquery';
@@ -30,6 +30,7 @@ import NewCreate from './NewCreate';
 import EditForm from './EditForm';
 import DetailDialog from './DetailDialog';
 import SearchForm from './SearchForm';
+
 
 @inject("NavModel")
 @observer
@@ -48,7 +49,8 @@ export default class PrinterManage  extends React.Component{
 				name : '',
 				page : 1,
 				pageSize: 3
-			}
+			},
+			listData : {}
 		}
 	}
 
@@ -188,6 +190,10 @@ export default class PrinterManage  extends React.Component{
 		let {getListDataParam} = this.state;
 		Http.request('getPriceConfigListUrl',getListDataParam).then(function(response) {
 			
+
+			_this.setState({
+				listData : response
+			})
 			priceListDom = response.items.map(function(item,index){
 				
 				return(
@@ -269,8 +275,14 @@ export default class PrinterManage  extends React.Component{
 
 
 
+	onPageChange=(page)=>{
+		console.log("page",page)
+	}
+
+
+
 	render(){
-		let {itemDetail,priceListDom,getListDataParam}=this.state;
+		let {itemDetail,priceListDom,getListDataParam,listData}=this.state;
 		
 		return(
 			<div >
@@ -299,6 +311,7 @@ export default class PrinterManage  extends React.Component{
 								this.returnDom(priceListDom)
 							}
 						</div>
+						<Pagination totalCount={listData.totalCount} page={listData.page} pageSize={listData.pageSize} onPageChange={this.onPageChange}/>
 					</div>
 					
 					<Dialog
