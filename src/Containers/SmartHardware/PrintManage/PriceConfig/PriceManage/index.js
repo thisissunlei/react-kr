@@ -28,7 +28,6 @@ import {
 
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
-import SearchForm from './SearchForm';
 
 
 @inject("NavModel")
@@ -49,24 +48,19 @@ export default class PrinterManage  extends React.Component{
 				page : 1,
 				pageSize: 3
 			},
-			listData : {},
+			listData : {
+				items : []
+
+			},
 			EditIntialDate:{}
 		}
 	}
 
 
 	componentDidMount() {
-		this.renderPrice();
+	
+		this.getPriceConfigListFun(this.state.getListDataParam)
 
-	}
-
-	freshPageThis=()=>{
-		State.freshPageReturn();
-	}
-
-
-	closeAll=()=>{
-		State.openHardwareDetail = false;
 	}
 
 	
@@ -75,6 +69,7 @@ export default class PrinterManage  extends React.Component{
 	openNewCreateDialog=()=>{
 		State.openNewCreate = !State.openNewCreate;
 	}
+
 
 
 	onClickDelete=(params)=>{
@@ -104,9 +99,31 @@ export default class PrinterManage  extends React.Component{
 	confirmDelete=()=>{
 
 		this.openDeleteFun();
-		State.deleteEquipmentSingle(this.state.itemDetail.id);
+		this.deleteEquipmentSingle(this.state.itemDetail.id);
 
 	}
+
+
+	//单个删除
+	deleteEquipmentSingle=(id)=>{
+
+		let _this =this;
+		Http.request('deleteConfigListUrl',{id:deleteID}).then(function(response) {
+			
+			Message.success("删除成功");
+			_this.setState({
+				getListDataParam:{
+					name : '',
+					page : 1,
+					pageSize: 3
+				}
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+		
+
 
 
 
@@ -166,6 +183,28 @@ export default class PrinterManage  extends React.Component{
 		});	
 	}
 
+	editPriceSubmit=(values)=>{
+
+		let _this =this;
+		Http.request('editPriceUrl',values).then(function(response) {
+	
+			State.openEditDialog =false;
+			Message.success("编辑成功");
+			console.log("编辑成功=====>")
+			var newParam = Object.assign({},_this.state.getListDataParam);
+			_this.setState({
+				getListDataParam : newParam
+			},function(){
+				_this.getPriceConfigListFun(_this.state.getListDataParam);
+			})
+		
+
+		}).catch(function(err) {
+			
+			Message.error(err.message);
+		});	
+	}
+
 	deletePrice=(itemData)=>{
 		console.log("itemData",itemData);
 		let _this =this;
@@ -175,9 +214,11 @@ export default class PrinterManage  extends React.Component{
 			_this.setState({
 				getListDataParam:{
 					name : '',
-					page : 1,
+					page : _this.state.getListDataParam.page,
 					pageSize: 3
 				}
+			},function(){
+				_this.getPriceConfigListFun(_this.state.getListDataParam);
 			})
 
 		}).catch(function(err) {
@@ -189,24 +230,30 @@ export default class PrinterManage  extends React.Component{
 
 	
 
-	
-
-	renderPrice=()=>{
-
-		var priceListDom;
+	getPriceConfigListFun=(param)=>{
 		let _this =this;
-		let {getListDataParam} = this.state;
-		Http.request('getPriceConfigListUrl',getListDataParam).then(function(response) {
-			
-
+		Http.request('getPriceConfigListUrl',param).then(function(response) {
 			_this.setState({
 				listData : response
 			})
-			priceListDom = response.items.map(function(item,index){
+
+		}).catch(function(err) {
+			
+			Message.error(err.message);
+		});	
+
+	}
+
+	
+
+	renderListData=(response)=>{
+		
+		let _this =this;
+		var priceListDom = response.map(function(item,index){
 				
 				return(
 
-					<div className="list-item-box" ket={index}>	
+					<div className="list-item-box" key={index}>	
 
 						<div className="list-left">{item.name}</div>
 						<div className="list-middle">
@@ -261,35 +308,62 @@ export default class PrinterManage  extends React.Component{
 				
 				)
 			})
+		return priceListDom;
 
-			
-
-			_this.setState({
-				priceListDom :priceListDom
-			})
-
-		}).catch(function(err) {
-			
-			Message.error(err.message);
-		});	
-		
-		
 	}
 
-
-	returnDom=(param)=>{
-		return param
-	}
 
 
 
 	onPageChange=(pageParam)=>{
-		console.log("pageParam",pageParam)
+		
 		let {getListDataParam} =this.state;
-		var bewObj = Object.assign({},getListDataParam,{page:pageParam});
+		var bewObj = {
+						name : '',
+						page : pageParam,
+						pageSize: 3
+					};
+		this.setState({
+				getListDataParam : {
+					name : '',
+					page : pageParam,
+					pageSize: 3
+				}
+		})
+
+		this.getPriceConfigListFun(bewObj);
 
 	}
 
+
+
+
+	//新增
+	newCreatePrice = (values)=>{
+
+		let _this =this;
+		Http.request('newCreatePriceUrl',{},values ).then(function(response) {
+		
+			State.openNewCreate =false;
+			_this.setState({
+				getListDataParam : {
+					name : '',
+					page : 1,
+					pageSize: 3
+				}
+			},function(){
+				_this.getPriceConfigListFun(_this.state.getListDataParam);
+			})
+			Message.success("新增成功");
+
+		}).catch(function(err) {
+
+			State.openNewCreate =false;
+			Message.error(err.message);
+
+		});	
+	}
+	
 
 
 	render(){
@@ -300,7 +374,7 @@ export default class PrinterManage  extends React.Component{
 				<div>
 
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
-					
+					<span style={{color : "red"}}>一个社区只能使用一个费用策略，不可以添加多种</span>
 				</div>
 				
 				
@@ -319,10 +393,13 @@ export default class PrinterManage  extends React.Component{
 							
 							
 							{
-								this.returnDom(priceListDom)
+								
+								this.renderListData(listData.items)
 							}
 						</div>
-						<Pagination totalCount={listData.totalCount} page={listData.page} pageSize={listData.pageSize} onPageChange={this.onPageChange}/>
+						<div style={{marginTop:20}}>
+							<Pagination totalCount={listData.totalCount} page={listData.page} pageSize={3} onPageChange={this.onPageChange}/>
+						</div>
 					</div>
 					
 					<Dialog
@@ -334,7 +411,7 @@ export default class PrinterManage  extends React.Component{
 			          <NewCreate
 			            onCancel={this.openNewCreateDialog}
 			            style ={{paddingTop:'35px'}}
-			            saveAndNewCreate= {this.saveAndNewCreate}
+			            newCreatePrice= {this.newCreatePrice}
 			          />
 			        </Dialog>
 			        <Dialog
@@ -346,6 +423,7 @@ export default class PrinterManage  extends React.Component{
 			          <EditForm
 			            detail={EditIntialDate}
 			            closeEditEquipment = {this.openEditDialogFun}
+			            editPriceSubmit = {this.editPriceSubmit}
 			          />
 			        </Dialog>
 			        <Dialog

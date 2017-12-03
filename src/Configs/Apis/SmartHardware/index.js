@@ -346,6 +346,10 @@ module.exports = {
       url : '/api/iot-platform/print-price/actions/delete?id={id}',
       method : 'delete'
    },
+
+
+
+
    
    
 }
