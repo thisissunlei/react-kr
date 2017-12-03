@@ -144,15 +144,25 @@ export default class List extends React.Component {
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>
 								<TableRow>
-								<TableRowColumn name="jobStartTime" type="date" format="yyyy-mm-dd HH:MM:ss"></TableRowColumn>
+								<TableRowColumn name="jobStartTime" 
+									type="date" 
+									format="yyyy-mm-dd HH:MM:ss" 
+									style={{width:"14%"}}
+								></TableRowColumn>
 
-								<TableRowColumn name="communityName"
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								 ></TableRowColumn>
+								 <TableRowColumn style={{width:"14%",overflow:"visible"}} name="communityName" 
+								 component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            if(value.length==""){
+		                            	value="-"
+		                              	TooltipStyle="none"
+		                            }else{
+		                            	TooltipStyle="block";
+		                            }
+
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+		              			}} ></TableRowColumn>
 								 <TableRowColumn style={{width:"14%",overflow:"visible"}} name="customerName" 
 								 component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle=""
@@ -163,30 +173,35 @@ export default class List extends React.Component {
 		                            	TooltipStyle="block";
 		                            }
 
-		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 
-								 <TableRowColumn style={{width:"10%",overflow:"visible"}} name="accountNo" 
+								 <TableRowColumn style={{width:"9%",overflow:"visible"}} name="accountNo" 
 								 component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle="block"
-		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{itemData.memberName}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 
 
+								 <TableRowColumn style={{width:"10%",overflow:"visible"}} name="printerName" 
+								 component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            if(value.length==""){
+		                            	value="-"
+		                              	TooltipStyle="none"
+		                            }else{
+		                            	TooltipStyle="block";
+		                            }
 
-								<TableRowColumn name="printerName"
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+		              			}} ></TableRowColumn>
 								
 
 
-		              			<TableRowColumn style={{width:"10%",overflow:"visible"}} name="docName" 
+		              			<TableRowColumn style={{width:"14%",overflow:"visible"}} name="docName" 
 								 component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle="block"
 		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
@@ -215,9 +230,7 @@ export default class List extends React.Component {
 		                              				this.returnCollate(itemData.collated)
 		                              			}</div>
 		                              		</div>
-		                              		<div className="doc-name-tip-line">
-		                              			<div className="tip-title">打印范围：</div><div className="tip-content">{itemData.jobType}</div>
-		                              		</div>
+		                              		
 		                              		<div className="doc-name-tip-line">
 		                              			<div className="tip-title">总张数：</div><div className="tip-content">{itemData.totalPageCount}</div>
 		                              		</div>
@@ -231,6 +244,8 @@ export default class List extends React.Component {
 								
 
 								<TableRowColumn name="jobType"
+								style={{width:"9%"}}
+
 								options = {[
 										{value:"PRINT",label:"打印"},
 										{value:"SCAN",label:"扫描"},
@@ -247,6 +262,9 @@ export default class List extends React.Component {
 								></TableRowColumn>
 
 								<TableRowColumn name="totalCost"
+								
+								style={{width:"8%"}}
+
 								component={(value,oldValue)=>{
 									if(value==""){
 										value="-"

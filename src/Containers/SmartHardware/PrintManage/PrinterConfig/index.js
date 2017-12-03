@@ -151,19 +151,14 @@ export default class List extends React.Component {
 								<TableRow>
 								
 								
-								 <TableRowColumn style={{width:"9%",overflow:"visible"}} name="communityName" 
-								 component={(value,oldValue,itemData)=>{
-		                            var TooltipStyle=""
-		                            if(value.length==""){
-		                            	value="-"
-		                              	TooltipStyle="none"
-		                            }else{
-		                            	TooltipStyle="block";
-		                            }
-
-		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-		              			}} ></TableRowColumn>
+								
+		              			<TableRowColumn name="communityName" 
+									component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
 								
 								<TableRowColumn name="nodeIp" 
 									component={(value,oldValue)=>{
@@ -188,7 +183,7 @@ export default class List extends React.Component {
 								></TableRowColumn>
 							
 								<TableRowColumn 
-									style={{width:"15%"}}
+									
 									name="ctime" 
 									type="date" 
 									format="yyyy-mm-dd HH:MM:ss" 
@@ -196,14 +191,14 @@ export default class List extends React.Component {
 								</TableRowColumn>
 							
 								<TableRowColumn 
-									style={{width:"15%"}}
+									
 									name="utime" 
 									type="date" 
 									format="yyyy-mm-dd HH:MM:ss" 
 								>
 								</TableRowColumn>
 								<TableRowColumn type="operation"
-					            	style={{width:"15%"}}
+					            	
 									component={
 										(value,oldValue,itemData)=>{
 											if(value==""){
