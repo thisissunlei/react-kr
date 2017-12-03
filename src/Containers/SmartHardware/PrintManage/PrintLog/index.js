@@ -68,6 +68,41 @@ export default class List extends React.Component {
 	}
 
 
+	returnPrintType=(type)=>{
+		var typeOptions =[
+							{value:"PRINT",label:"打印"},
+							{value:"SCAN",label:"扫描"},
+							{value:"COPY",label:"复印"},
+							{value:"FAX",label:"传真接收"},
+							{value:"FAX_SEND",label:"传真发送"},
+							{value:"UNKNOWN",label:"未知"},
+						]
+		var typeLable ="";
+		for(var i = 0 ;i<typeOptions.length;i++){
+			if(typeOptions[i].value==type){
+				typeLable = typeOptions[i].label;
+			}
+		}
+		return typeLable;
+	}
+
+	returnDouble=(isDouble)=>{
+		if(isDouble){
+			return "双面"
+		}else{
+			return "单面"
+		}
+	}
+
+
+	returnCollate=(collate)=>{
+		if(collate){
+			return "分页"
+		}else{
+			return "不分页"
+		}
+	}
+
 	render() {
 		let {
 			list,seleced,itemDetail
@@ -131,15 +166,14 @@ export default class List extends React.Component {
 		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
-								
 
-								<TableRowColumn name="accountNo"
-								component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								 <TableRowColumn style={{width:"10%",overflow:"visible"}} name="accountNo" 
+								 component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle="block"
+		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                              <Tooltip offsetTop={5} place='top'>{itemData.memberName}</Tooltip></div>)
+		              			}} ></TableRowColumn>
+
 
 
 								<TableRowColumn name="printerName"
@@ -151,19 +185,47 @@ export default class List extends React.Component {
 								></TableRowColumn>
 								
 
-								
-								 <TableRowColumn style={{width:"10%",overflow:"visible"}} name="docName" 
-								 component={(value,oldValue,itemData)=>{
-		                            var TooltipStyle=""
-		                            if(value.length==""){
-		                            	value="-"
-		                              	TooltipStyle="none"
-		                            }else{
-		                            	TooltipStyle="block";
-		                            }
 
+		              			<TableRowColumn style={{width:"10%",overflow:"visible"}} name="docName" 
+								 component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle="block"
 		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+		                              <Tooltip offsetTop={5} place='top'>
+		                              	<div className="doc-name-tip">
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">份数：</div><div className="tip-content">{itemData.duplicateCount}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">打印类型：</div><div className="tip-content">{
+
+		                              				this.returnPrintType(itemData.jobType)
+		                              			}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">纸张尺寸：</div><div className="tip-content">{itemData.paperSize}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">单/双面：</div><div className="tip-content">{
+		                              				
+		                              				this.returnDouble(itemData.doubleFace)
+		                              			}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">是否分页：</div><div className="tip-content">{
+		                              				this.returnCollate(itemData.collated)
+		                              			}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">打印范围：</div><div className="tip-content">{itemData.jobType}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">总张数：</div><div className="tip-content">{itemData.totalPageCount}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">总面数：</div><div className="tip-content">{itemData.totalSurfaceCount}</div>
+		                              		</div>
+		                              	</div>
+		                              </Tooltip></div>)
 		              			}} ></TableRowColumn>
 								
 								

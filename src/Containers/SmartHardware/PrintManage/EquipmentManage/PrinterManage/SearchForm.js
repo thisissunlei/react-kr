@@ -46,7 +46,6 @@ class DoorWarnForm extends React.Component{
 	}
 	onSubmit=(values)=>{
 		
-		console.log("values",values);
 		
 		State.printerManageListParams = {
 			communityId:values.communityId || '',
@@ -56,6 +55,7 @@ class DoorWarnForm extends React.Component{
 	        printerName :values.printerName || '',
 			pageSize : '15',
 	        page : 1,
+	        dateNow : new Date()
 		}
 	}
 

@@ -46,7 +46,6 @@ class DoorWarnForm extends React.Component{
 	}
 	onSubmit=(values)=>{
 		
-		console.log("values",values);
 		if(values.stime && values.etime){
 
 			var start=Date.parse(DateFormat(values.stime,"yyyy-mm-dd hh:MM:ss"));
@@ -84,7 +83,8 @@ class DoorWarnForm extends React.Component{
 			jobType: '',
 			accountNo : '',
 			printerName :'',
-			startDate :''
+			startDate :'',
+			dateNow : new Date()
 		}
 
 	}
