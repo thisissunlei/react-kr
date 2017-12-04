@@ -287,7 +287,7 @@
 					
 				}
 				.list-middle{
-					// display: inline-block;
+
 					width: 50%;
 					height: 210px;
 					border-right: solid 1px #eee;
@@ -296,29 +296,23 @@
 						display: flex;
 					}
 					.middle-item{
-						display: flex;
-						.paper-type{
-							width: 25%;
+						.item-list {
+							display: flex;
+							height: 30px;
+    						line-height: 30px;
+    						border-bottom: solid 1px #eee;
+							box-sizing: border-box;
 							div{
+								width:25%;
 								text-align: center;
-								height: 30px;
-							    line-height: 30px;
-							    border-bottom: solid 1px #eee;
-    							box-sizing: border-box;
 							}
-							div:last-of-type{
-								border-bottom: none;
-							}
-							
 						}
-						.mono-price{
-							 width: 25%;
+						.item-list:last-of-type{
+							border-bottom: none;
 						}
-						.color-price{
-							 width: 25%;
-						}
-						.paper-price{
-							 width: 25%;
+
+						.item-list:hover{
+							background :#deeeff
 						}
 					}
 				}

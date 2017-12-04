@@ -65,7 +65,8 @@ class DoorWarnForm extends React.Component{
 			jobType: values.jobType||'',
 			accountNo : values.accountNo||'',
 			printerName :values.printerName||'',
-			startDate :values.stime||''
+			startDate :values.stime||'',
+			dateP : new Date()
 		}
 	}
 

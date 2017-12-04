@@ -244,11 +244,45 @@ export default class PrinterManage  extends React.Component{
 
 	}
 
-	
+	renderListDataList=(item)=>{
+
+		var objColor = JSON.parse(item.colorPrice);
+		var objMono = JSON.parse(item.monoPrice);
+		var objPaper = JSON.parse(item.paperPrice);
+		
+		return (
+			<div className="middle-item" >
+				<div className="item-list">
+					<div>A4</div><div>{objMono.A4}</div><div>{objColor.A4}</div><div>{objPaper.A4}</div>
+				</div>
+				<div  className="item-list">
+					<div>A3</div><div>{objMono.A3}</div><div>{objColor.A3}</div><div>{objPaper.A3}</div>
+				</div>
+				<div  className="item-list">
+					<div>A5</div><div>{objMono.A5}</div><div>{objColor.A5}</div><div>{objPaper.A5}</div>
+				</div>
+				<div  className="item-list">
+					<div>A5</div><div>{objMono.Letter}</div><div>{objColor.Letter}</div><div>{objPaper.Letter}</div>
+				</div>
+				<div  className="item-list">
+					<div>A5</div><div>{objMono.Legal}</div><div>{objColor.Legal}</div><div>{objPaper.Legal}</div>
+				</div >
+				<div  className="item-list">
+					<div>A5</div><div>{objMono.B4}</div><div>{objColor.B4}</div><div>{objPaper.B4}</div>
+				</div>
+				<div  className="item-list">
+					<div>B5</div><div>{objMono.B5}</div><div>{objColor.B5}</div><div>{objPaper.B5}</div>
+				</div>
+			</div>
+
+		)
+
+	}
 
 	renderListData=(response)=>{
 		
 		let _this =this;
+
 		var priceListDom = response.map(function(item,index){
 				
 				return(
@@ -257,45 +291,11 @@ export default class PrinterManage  extends React.Component{
 
 						<div className="list-left">{item.name}</div>
 						<div className="list-middle">
-							<div className="middle-item">
-								<div className="paper-type ">
-									<div>A4</div>
-									<div>A3</div>
-									<div>A5</div>
-									<div>Letter</div>
-									<div>Legal</div>
-									<div>B4</div>
-									<div>B5</div>
-								</div>
-								<div className="mono-price paper-type">
-									<div>{JSON.parse(item.monoPrice).A4}</div>
-									<div>{JSON.parse(item.monoPrice).A3}</div>
-									<div>{JSON.parse(item.monoPrice).A5}</div>
-									<div>{JSON.parse(item.monoPrice).Letter}</div>
-									<div>{JSON.parse(item.monoPrice).Legal}</div>
-									<div>{JSON.parse(item.monoPrice).B4}</div>
-									<div>{JSON.parse(item.monoPrice).B5}</div>
-								</div>
-								<div  className="color-price paper-type">
-									<div>{JSON.parse(item.colorPrice).A4}</div>
-									<div>{JSON.parse(item.colorPrice).A3}</div>
-									<div>{JSON.parse(item.colorPrice).A5}</div>
-									<div>{JSON.parse(item.colorPrice).Letter}</div>
-									<div>{JSON.parse(item.colorPrice).Legal}</div>
-									<div>{JSON.parse(item.colorPrice).B4}</div>
-									<div>{JSON.parse(item.colorPrice).B5}</div>
-								</div>
-								<div  className="paper-price paper-type">
-									<div>{JSON.parse(item.paperPrice).A4}</div>
-									<div>{JSON.parse(item.paperPrice).A3}</div>
-									<div>{JSON.parse(item.paperPrice).A5}</div>
-									<div>{JSON.parse(item.paperPrice).Letter}</div>
-									<div>{JSON.parse(item.paperPrice).Legal}</div>
-									<div>{JSON.parse(item.paperPrice).B4}</div>
-									<div>{JSON.parse(item.paperPrice).B5}</div>
-								</div>
-								
-							</div>
+							
+								{
+									_this.renderListDataList(item)
+								}
+							
 						</div>
 						<div className="list-right">
 							<div className="scan-price">{item.scanPrice}</div>
