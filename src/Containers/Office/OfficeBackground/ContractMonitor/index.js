@@ -38,7 +38,7 @@ import {
 } from 'mobx-react';
 
 @observer
-export default class Initialize  extends React.Component{
+export default class ContractMonitor  extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
@@ -174,7 +174,7 @@ export default class Initialize  extends React.Component{
 												{item.orgName}
 											</p>
 											
-												{!!item.msgChildren.length && item.msgChildren.map((value,i)=>{
+												{item.msgChildren&&!!item.msgChildren.length && item.msgChildren.map((value,i)=>{
 													if(value.orgName.length>6){
 														return (
 															<div className="tree-three">
