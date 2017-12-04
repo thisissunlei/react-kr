@@ -272,22 +272,12 @@ export default class List extends React.Component {
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 								
-								
-
-								
 							 </TableRow>
 						</TableBody>
 						<TableFooter></TableFooter>
 						</Table>
 					</Section>
-					<Drawer 
-			          title="报警描述"
-			          open={State.openContent}
-			          onClose={this.openContentFun}
-			          width={"90%"}
-			        >
-			          	<WarnContent detail={itemDetail} onCancle={this.openContentFun}/>
-			        </Drawer>
+					
 				</div>
 		);
 
