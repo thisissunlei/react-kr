@@ -243,6 +243,7 @@ export default class CountyComponent extends React.Component {
 			colorStyle,
 			heightStyle,
 			lengthClass,
+			onlyRead,
 			...other
 		} = this.props;
 		let {showCity} = this.state;
@@ -259,6 +260,17 @@ export default class CountyComponent extends React.Component {
 		}
 		let hoverColor = {};
 		let color="#666";
+
+
+		if(onlyRead){
+			return (
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
+					<span style={{ display: "inline-block", padding: "10px",paddingLeft:'0px' }}>
+						{city}
+					</span>
+				</WrapComponent>
+			)
+		}
 
 
 		return (

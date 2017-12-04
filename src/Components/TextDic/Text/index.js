@@ -142,18 +142,18 @@ export default class Text  extends React.Component{
                 options={[{ label: '1', value: '1' }, { label: '2', value: '2' }, { label: '3', value: '3' }, { label: '4', value: '4' }]}
                 requireLabel={true}
         />)
-        arr.push(this.maxLength())
+        arr.push(this.maxLength("整数长度"))
         return arr;
             
     }
-    maxLength = () =>{
+    maxLength = (label) =>{
         return (
             <KrField
                 grid={1 / 2}
                 style={{ width: 262, marginBottom: 5 ,marginLeft:30}}
                 name="wstext"
                 component="input"
-                label="最大长度"
+                label={label}
                 requireLabel={true}
             />
         )
@@ -169,7 +169,7 @@ export default class Text  extends React.Component{
             label="高度"
 
         />)
-        arr.push(this.maxLength())
+        arr.push(this.maxLength("最大长度"))
         return arr;
     }
    

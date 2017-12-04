@@ -124,6 +124,7 @@ export default class DateComponent extends React.Component {
 			style,
 			defaultValue,
 			inline,
+			onlyRead
 		} = this.props;
 
 
@@ -136,7 +137,13 @@ export default class DateComponent extends React.Component {
 			backgroundColor: 'transparent',
 			opacity: 0
 		}
-
+		if (onlyRead){
+			return(
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
+					<span style={{ display: "inline-block", padding: "10px 10px 10px 0px"}}>{DateFormat(input.value,"yyyy-mm-dd")}</span>
+				</WrapComponent>
+			)
+		}
 		return (
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>

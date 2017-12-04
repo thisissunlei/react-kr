@@ -304,8 +304,7 @@ class Merchants extends Component{
 		return(
       <div className="m-merchants" style={{paddingTop:25}}>
 			<Title value="客户列表"/>
-			<CheckPermission  operateCode="oper_csr_receive" >
-
+			<CheckPermission operateCode="admin_customer_edit" >
 				<div className='merchants-dialog' style={blockStyle}>
 					<div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
 					<Button  label="领取" type="button" onTouchTap={this.openCatchDialog}/>
@@ -314,26 +313,15 @@ class Merchants extends Component{
 			</CheckPermission>
 
 	        <Row style={{marginBottom:21}}>
-			          <Col
-					     align="left"
-					     style={{float:'left'}}
-					   >
-
-									<Button
-											label="新建客户"
-											type='button'
-											onTouchTap={this.opNewMerchants}
-											operateCode="oper_csr_add"
-									/>
-
-					  </Col>
-
-			          <Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
-				          <ListGroup>
-				            <ListGroupItem><SearchForms placeholder='请输入公司名称' inputName='mr' onSubmit={this.onSearchSubmit}/></ListGroupItem>
-				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
-				          </ListGroup>
-			          </Col>
+			    <Col align="left" style={{float:'left'}}>
+					<Button label="新建客户" type='button' onTouchTap={this.opNewMerchants} operateCode="admin_customer_edit"/>
+				</Col>
+				<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>
+					<ListGroup>
+					<ListGroupItem><SearchForms placeholder='请输入公司名称' inputName='mr' onSubmit={this.onSearchSubmit}/></ListGroupItem>
+					<ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
+					</ListGroup>
+				</Col>
 	        </Row>
 
 

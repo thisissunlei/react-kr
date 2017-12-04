@@ -35,11 +35,19 @@ export default class Detail extends React.Component {
 		
 		
 		let startTime = DateFormat(detailData.beginTime,"dddd,mm,dd,hh:MM").split(",");
+		
 		let endTime = DateFormat(detailData.endTime,"dddd,mm,dd,hh:MM").split(",");
+		
 		let week = {Monday:'一',Tuesday:'二',Wednesday:'三',Thursday:'四',Friday:'五',Saturday:'六',Sunday:'日'}
 		// DateFormat(detailData.beginTime,"dddd,mm,dd,hh:MM")
-		let DeStartTime = DateFormat(detailData.beginTime,24).split(" ")[4].split(":");
-		let DeEndTime = DateFormat(detailData.endTime,24).split(" ")[4].split(":");
+		let DeStartTime = '',
+			DeEndTime ='';
+		if (detailData.beginTime || detailData.beginTime === 0){
+			DeStartTime = DateFormat(detailData.beginTime, 24).split(" ")[4].split(":");
+		}
+		if (detailData.endTime || detailData.endTime === 0) {
+			DeEndTime = DateFormat(detailData.endTime, 24).split(" ")[4].split(":");
+		}
 		
         if(!open){
             return null;
@@ -55,7 +63,6 @@ export default class Detail extends React.Component {
 				 <div className = {"detail "+location}  
 									onClick={(event) => {
 									    event.stopPropagation();
-                                    
 									
 								    }}
                                     style = {{left:coordinates.x,top:coordinates.y}}
