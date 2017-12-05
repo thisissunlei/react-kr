@@ -29,7 +29,7 @@ export default class EquipmentDetail extends React.Component{
 	render(){
 		let {detail} = this.props;
 		let {showReported,showDesired} = this.state;
-		
+		console.log("detail",detail);
 		return (
 			<div className="detail-dialog">
 				
@@ -102,20 +102,16 @@ export default class EquipmentDetail extends React.Component{
 					component="labelText"
 					inline={true}
 					label="创建时间："
-					value={ DateFormat(detail.ctime, "yyyy-mm-dd HH:mm:ss")}
+					value={ DateFormat(detail.ctime, "yyyy-mm-dd HH:MM:ss")}
 
 				/>
 							
-				
-				
-				
-				
 				<KrField
 					style={{width:310}}
 					component="labelText"
 					inline={true}
 					label="最后一次更新时间："
-					value={DateFormat(detail.utime, "yyyy-mm-dd HH:mm:ss") }
+					value={DateFormat(detail.utime, "yyyy-mm-dd HH:MM:ss") }
 
 				/>
 
