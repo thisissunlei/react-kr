@@ -16,22 +16,22 @@ import {
 	observer,
 } from 'mobx-react';
 @observer
-class  ContractOwn extends React.Component{
+class  ContractMonitor extends React.Component{
 
 	constructor(props,context){
 		super(props, context);
 
 	}
-    
+
 
 	render(){
 		return(
 
 			<div>
-				<ContractList treeUrl='my-request-tree' listUrl='my-request-list'/>
+				<ContractList treeUrl='contract-monitor-tree' listUrl='contract-monitor-list'/>
 			</div>
 		);
 	}
 
 }
-export default ContractOwn;
+export default ContractMonitor;

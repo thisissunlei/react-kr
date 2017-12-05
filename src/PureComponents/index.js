@@ -14,6 +14,7 @@ import PrintAgreement from './PrintAgreement';
 import LocationChoice from './LocationChoice';
 import TemplatePrint from './TemplatePrint';
 import FromsConfig from './FromsConfig';
+import ContractList from './ContractList';
 
 module.exports = {
 	Agreement,
@@ -31,6 +32,7 @@ module.exports = {
 	PrintAgreement,
 	LocationChoice,
 	TemplatePrint,
-	FromsConfig
+	FromsConfig,
+	ContractList
 }
 

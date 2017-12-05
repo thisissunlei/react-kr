@@ -60,6 +60,25 @@ module.exports = [
 					},
 				]	
 			}, 
+			{
+				primaryText: '合同监控',
+				iconName: 'icon-donething',
+				router: 'office',
+				iconColor: '#79859a',
+				menuCode: 'wf_contract_list',
+				menuItems: [
+					// {
+					// 	primaryText: '已办列表',
+					// 	menuCode: 'hrm_resourcesList_incumbency',
+					// 	router: '/office/officeBackground/downOffice',
+					// },
+					{
+						primaryText: '合同列表',
+						menuCode: 'wf_contract_list',
+						router: '/office/officeBackground/contractMonitor',
+					},
+				]	
+			}, 
 		]
 	}
 ]
