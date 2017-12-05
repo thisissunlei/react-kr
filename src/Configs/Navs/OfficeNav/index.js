@@ -65,7 +65,7 @@ module.exports = [
 				iconName: 'icon-donething',
 				router: 'office',
 				iconColor: '#79859a',
-				menuCode: 'myCard',
+				menuCode: 'wf_contract_list',
 				menuItems: [
 					// {
 					// 	primaryText: '已办列表',
@@ -74,7 +74,7 @@ module.exports = [
 					// },
 					{
 						primaryText: '合同列表',
-						menuCode: 'myCard',
+						menuCode: 'wf_contract_list',
 						router: '/office/officeBackground/contractMonitor',
 					},
 				]	
