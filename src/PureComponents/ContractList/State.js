@@ -48,9 +48,9 @@ State.itemDownPublish = action(function(id) {
 
 });
 //流程树获取
-State.requestTree = action(function() {
+State.requestTree = action(function(url) {
 	var _this = this;
-	Http.request('my-request-tree', '').then(function(response) {
+	Http.request(url, '').then(function(response) {
 
 		State.request = response;
 		// Message.success('下线成功');
