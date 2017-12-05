@@ -335,11 +335,10 @@ module.exports = {
 
    //费用配置编辑
    'editPriceUrl':{
-      url: '/api/iot-platform/print-price/actions/edit?id={id}&colorPrice={colorPrice}&monoPrice={monoPrice}&name={name}&paperPrice={paperPrice}&scanPrice={scanPrice}',
+      url: '/api/iot-platform/print-price/actions/edit?id={id}&colorPriceYuan={colorPriceYuan}&monoPriceYuan={monoPriceYuan}&name={name}&paperPriceYuan={paperPriceYuan}&scanPriceYuan={scanPriceYuan}',
       method: 'put'
    },
 
-   
 
    //删除费用配置
    'deleteConfigListUrl':{

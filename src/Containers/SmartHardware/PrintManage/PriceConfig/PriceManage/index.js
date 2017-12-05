@@ -132,10 +132,10 @@ export default class PrinterManage  extends React.Component{
 		var param = {id : value.id};
 		let _this =this;
 		Http.request('getDetailPriceUrl',param).then(function(response) {
-			console.log("response",response);
-			var monoPrice_T = JSON.parse(response.monoPrice),
-			colorPrice_T = JSON.parse(response.colorPrice),
-			paperPrice_T = JSON.parse(response.paperPrice);
+			
+			var monoPrice_T = JSON.parse(response.monoPriceYuan),
+			colorPrice_T = JSON.parse(response.colorPriceYuan),
+			paperPrice_T = JSON.parse(response.paperPriceYuan);
 
 			var EditIntialDate_T = {
 				id : response.id,
@@ -152,13 +152,13 @@ export default class PrinterManage  extends React.Component{
 				A5Color :colorPrice_T.A5,
 				A5White :paperPrice_T.A5,
 
-				LetterMono :monoPrice_T.Letter,
-				LetterColor :colorPrice_T.Letter,
-				LetterWhite :paperPrice_T.Letter,
+				LETTERMono :monoPrice_T.LETTER,
+				LETTERColor :colorPrice_T.LETTER,
+				LETTERWhite :paperPrice_T.LETTER,
 
-				LegalMono :monoPrice_T.Legal,
-				LegalColor :colorPrice_T.Legal,
-				LegalWhite :paperPrice_T.Legal,
+				LEGALMono :monoPrice_T.LEGAL,
+				LEGALColor :colorPrice_T.LEGAL,
+				LEGALWhite :paperPrice_T.LEGAL,
 
 				B4Mono :monoPrice_T.B4,
 				B4Color :colorPrice_T.B4,
@@ -168,7 +168,7 @@ export default class PrinterManage  extends React.Component{
 				B5Color :colorPrice_T.B5,
 				B5White :paperPrice_T.B5,
 
-				scanPrice : response.scanPrice
+				scanPriceYuan : response.scanPriceYuan
 				 
 			}
 			_this.setState({
@@ -190,7 +190,7 @@ export default class PrinterManage  extends React.Component{
 	
 			State.openEditDialog =false;
 			Message.success("编辑成功");
-			console.log("编辑成功=====>")
+			
 			var newParam = Object.assign({},_this.state.getListDataParam);
 			_this.setState({
 				getListDataParam : newParam
@@ -206,15 +206,16 @@ export default class PrinterManage  extends React.Component{
 	}
 
 	deletePrice=(itemData)=>{
-		console.log("itemData",itemData);
+		
 		let _this =this;
 		Http.request('deleteConfigListUrl',{id :itemData.id }).then(function(response) {
-		
+			
+
 			Message.success("删除成功");
 			_this.setState({
 				getListDataParam:{
 					name : '',
-					page : _this.state.getListDataParam.page,
+					page : _this.state.getListDataParam.page || 1,
 					pageSize: 3
 				}
 			},function(){
@@ -246,9 +247,9 @@ export default class PrinterManage  extends React.Component{
 
 	renderListDataList=(item)=>{
 
-		var objColor = JSON.parse(item.colorPrice);
-		var objMono = JSON.parse(item.monoPrice);
-		var objPaper = JSON.parse(item.paperPrice);
+		var objColor = JSON.parse(item.colorPriceYuan);
+		var objMono = JSON.parse(item.monoPriceYuan);
+		var objPaper = JSON.parse(item.paperPriceYuan);
 		
 		return (
 			<div className="middle-item" >
@@ -262,13 +263,13 @@ export default class PrinterManage  extends React.Component{
 					<div>A5</div><div>{objMono.A5}</div><div>{objColor.A5}</div><div>{objPaper.A5}</div>
 				</div>
 				<div  className="item-list">
-					<div>A5</div><div>{objMono.Letter}</div><div>{objColor.Letter}</div><div>{objPaper.Letter}</div>
+					<div>LETTER</div><div>{objMono.LETTER}</div><div>{objColor.LETTER}</div><div>{objPaper.LETTER}</div>
 				</div>
 				<div  className="item-list">
-					<div>A5</div><div>{objMono.Legal}</div><div>{objColor.Legal}</div><div>{objPaper.Legal}</div>
+					<div>LEGAL</div><div>{objMono.LEGAL}</div><div>{objColor.LEGAL}</div><div>{objPaper.LEGAL}</div>
 				</div >
 				<div  className="item-list">
-					<div>A5</div><div>{objMono.B4}</div><div>{objColor.B4}</div><div>{objPaper.B4}</div>
+					<div>B4</div><div>{objMono.B4}</div><div>{objColor.B4}</div><div>{objPaper.B4}</div>
 				</div>
 				<div  className="item-list">
 					<div>B5</div><div>{objMono.B5}</div><div>{objColor.B5}</div><div>{objPaper.B5}</div>
@@ -298,7 +299,7 @@ export default class PrinterManage  extends React.Component{
 							
 						</div>
 						<div className="list-right">
-							<div className="scan-price">{item.scanPrice}</div>
+							<div className="scan-price">{item.scanPriceYuan}</div>
 							<div className="operate-box">
 								{item.canDelete && <div className="operate-item"><span onClick={_this.editPrice.bind(this,item)}>编辑</span></div>}
 								{item.canDelete && <div className="operate-item"><span onClick={_this.deletePrice.bind(this,item)}>删除</span></div>}

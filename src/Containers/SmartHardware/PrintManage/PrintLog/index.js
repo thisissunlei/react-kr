@@ -235,7 +235,10 @@ export default class List extends React.Component {
 		                              			<div className="tip-title">总张数：</div><div className="tip-content">{itemData.totalPageCount}</div>
 		                              		</div>
 		                              		<div className="doc-name-tip-line">
-		                              			<div className="tip-title">总面数：</div><div className="tip-content">{itemData.totalSurfaceCount}</div>
+		                              			<div className="tip-title">彩色面数：</div><div className="tip-content">{itemData.colorSurfaceCount}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">黑白面数：</div><div className="tip-content">{itemData.monoSurfaceCount}</div>
 		                              		</div>
 		                              	</div>
 		                              </Tooltip></div>)

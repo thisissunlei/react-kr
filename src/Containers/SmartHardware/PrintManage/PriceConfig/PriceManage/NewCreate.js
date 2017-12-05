@@ -41,12 +41,11 @@ class NewCreateDefinitionForm extends React.Component{
 	// 新增设备定义
 	onSubmit=(values)=>{
 		let _this = this;
-		console.log("values",values);
 
 		
-		var colorPrice_var = {"A4":values.A4Color,"A3":values.A3Color,"A5":values.A5Color,"Letter":values.LetterColor,"Legal":values.LegalColor,"B4":values.B4Color,"B5":values.B5Color}
-		var monoPrice_var = {"A4":values.A4Mono,"A3":values.A3Mono,"A5":values.A5Mono,"Letter":values.LetterMono,"Legal":values.LegalMono,"B4":values.B4Mono,"B5":values.B5Mono}
-		var paperPrice_var = {"A4":values.A4White,"A3":values.A3White,"A5":values.A5White,"Letter":values.LetterWhite,"Legal":values.LegalWhite,"B4":values.B4White,"B5":values.B5White}
+		var colorPrice_var = {"A4":values.A4Color,"A3":values.A3Color,"A5":values.A5Color,"LETTER":values.LETTERColor,"LEGAL":values.LEGALColor,"B4":values.B4Color,"B5":values.B5Color}
+		var monoPrice_var = {"A4":values.A4Mono,"A3":values.A3Mono,"A5":values.A5Mono,"LETTER":values.LETTERMono,"LEGAL":values.LEGALMono,"B4":values.B4Mono,"B5":values.B5Mono}
+		var paperPrice_var = {"A4":values.A4White,"A3":values.A3White,"A5":values.A5White,"LETTER":values.LETTERWhite,"LEGAL":values.LEGALWhite,"B4":values.B4White,"B5":values.B5White}
 		
 		colorPrice_var = 	JSON.stringify(colorPrice_var)
 		monoPrice_var = 	JSON.stringify(monoPrice_var)
@@ -54,11 +53,11 @@ class NewCreateDefinitionForm extends React.Component{
 
 
 		var newCreatePriceP = {
-			colorPrice : colorPrice_var,
-			monoPrice : monoPrice_var,
+			colorPriceYuan : colorPrice_var,
+			monoPriceYuan : monoPrice_var,
 			name : values.name,
-			paperPrice : paperPrice_var,
-			scanPrice : values.scanPrice
+			paperPriceYuan : paperPrice_var,
+			scanPriceYuan : values.scanPrice
 		}
 
 	 	let {newCreatePrice} = this.props;
@@ -67,7 +66,7 @@ class NewCreateDefinitionForm extends React.Component{
 	}
 
 	renderListDom=()=>{
-		var pageType = ["A4","A3","A5","Letter","Legal","B4","B5"]
+		var pageType = ["A4","A3","A5","LETTER","LEGAL","B4","B5"]
 		var dom = pageType.map(function(item,index){
 			
 			return (
@@ -187,12 +186,11 @@ class NewCreateDefinitionForm extends React.Component{
 const validate = values=>{
 	const errors={};
 	var reg = /^0{1}([.]\d{1,2}){1}$|^[1-9]\d*([.]{1}[0-9]{1,2})?$/;
-	console.log("values",values);
 	if(!values.A4Mono || !values.A4Color || !values.A4White ||
 		!values.A3Mono || !values.A3Color || !values.A3White ||
 		!values.A5Mono || !values.A5Color || !values.A5White ||
-		!values.LetterMono || !values.LetterColor || !values.LetterWhite ||
-		!values.LegalMono || !values.LegalColor || !values.LegalWhite ||
+		!values.LETTERMono || !values.LETTERColor || !values.LETTERWhite ||
+		!values.LEGALMono || !values.LEGALColor || !values.LEGALWhite ||
 		!values.B4Mono || !values.B4Color || !values.B4White ||
 		!values.B5Mono || !values.B5Color || !values.B5White ||
 		!values.scanPrice || !values.name
@@ -201,8 +199,8 @@ const validate = values=>{
 	}else if(!reg.test(values.A4Mono) || !reg.test(values.A4Color) || !reg.test(values.A4White) ||
 	!reg.test(values.A3Mono) || !reg.test(values.A3Color) || !reg.test(values.A3White) ||
 	!reg.test(values.A5Mono) || !reg.test(values.A5Color) || !reg.test(values.A5White) ||
-	!reg.test(values.LetterWhite) || !reg.test(values.LetterColor) || !reg.test(values.LetterWhite) ||
-	!reg.test(values.LegalMono) || !reg.test(values.LegalColor) || !reg.test(values.LegalColor) ||
+	!reg.test(values.LETTERWhite) || !reg.test(values.LETTERColor) || !reg.test(values.LETTERWhite) ||
+	!reg.test(values.LEGALMono) || !reg.test(values.LEGALColor) || !reg.test(values.LEGALColor) ||
 	!reg.test(values.B4Mono) || !reg.test(values.B4Color) || !reg.test(values.B4White) ||
 	!reg.test(values.B5Mono) || !reg.test(values.B5Color) || !reg.test(values.B5White)||
 	!reg.test(values.scanPrice)){
