@@ -78,7 +78,7 @@ class DoorWarnForm extends React.Component{
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 	 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} className="door-warn-search">
+			<form onSubmit={handleSubmit(this.onSubmit)} className="print-manage-search">
 				<ListGroup className="fir-list">
 				
 					<ListGroupItem >
@@ -107,11 +107,14 @@ class DoorWarnForm extends React.Component{
 					
 
 					<ListGroupItem>
-						<KrField name="communityId" 
-							component="searchCommunityAll" 
-							label="社区名称："  
-							inline={true}
-						/>
+						<span className="community-box">
+							<KrField name="communityId" 
+								component="searchCommunityAll" 
+								label="社区名称："  
+								inline={true}
+								style={{width:252}}
+							/>
+						</span>
 					</ListGroupItem>
 
 					<ListGroupItem >

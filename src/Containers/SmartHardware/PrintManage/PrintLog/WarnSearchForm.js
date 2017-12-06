@@ -149,7 +149,7 @@ class DoorWarnForm extends React.Component{
 									{value:"FAX_SEND",label:"传真发送"}
 								]
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} className="door-warn-search">
+			<form onSubmit={handleSubmit(this.onSubmit)} className="print-log">
 				<ListGroup >
 					<ListGroupItem>
 						
@@ -188,11 +188,14 @@ class DoorWarnForm extends React.Component{
 					</ListGroupItem>
 
 					<ListGroupItem>
-						<KrField name="communityId" 
-							component="searchCommunityAll" 
-							label="社区名称："  
-							inline={true}
-						/>
+						<span className="community-box">
+							<KrField name="communityId" 
+								component="searchCommunityAll" 
+								label="社区名称："  
+								inline={true}
+								style={{width:222}}
+							/>
+						</span>
 					</ListGroupItem>
 
 					
@@ -208,7 +211,7 @@ class DoorWarnForm extends React.Component{
 					</ListGroupItem>
 					
 					<ListGroupItem style={{padding:0}}>
-						<span className="customer-box">
+						
 						<KrField  
 							name="customerId" 
 							label="客户："
@@ -216,9 +219,9 @@ class DoorWarnForm extends React.Component{
 							component="searchCompany"  
 							inline={true}
 							onChange={this.changeCustomer}  
-						
+							style={{width:300}}
 						/>
-						</span>
+						
 						
 					</ListGroupItem>
 					
