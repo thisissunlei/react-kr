@@ -117,7 +117,7 @@ export default class List extends React.Component {
 					<Section title={`打印配置`} description="" >
 						<div>
 							<Button label="新增"  onTouchTap={this.openNewCreateDialog}/>
-
+							<span style={{color : "red",marginLeft:10}}>一个社区只能使用一个费用策略</span>
 							<OpenSearchForm/>
 
 						</div>

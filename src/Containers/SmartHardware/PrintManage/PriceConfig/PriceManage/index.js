@@ -301,8 +301,8 @@ export default class PrinterManage  extends React.Component{
 						<div className="list-right">
 							<div className="scan-price">{item.scanPriceYuan}</div>
 							<div className="operate-box">
-								{item.canDelete && <div className="operate-item"><span onClick={_this.editPrice.bind(this,item)}>编辑</span></div>}
-								{item.canDelete && <div className="operate-item"><span onClick={_this.deletePrice.bind(this,item)}>删除</span></div>}
+								{item.canEdit?<div className="operate-item"><span onClick={_this.editPrice.bind(this,item)}>编辑</span></div>:<div className="operate-item"><span style={{color:"#bdb4b4"}}>编辑</span></div>}
+								{item.canDelete?<div className="operate-item"><span onClick={_this.deletePrice.bind(this,item)}>删除</span></div>:<div className="operate-item"><span style={{color:"#bdb4b4"}}>删除</span></div>}
 							</div>
 						</div>
 					</div>	
@@ -375,7 +375,7 @@ export default class PrinterManage  extends React.Component{
 				<div>
 
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
-					<span style={{color : "red"}}>一个社区只能使用一个费用策略，不可以添加多种</span>
+					<span style={{color : "red"}}>被一个社区选用的价格策略不能被删除，被多个社区选用的价格策略不能进行编辑</span>
 				</div>
 				
 				
