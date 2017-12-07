@@ -299,12 +299,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
                             <FieldArray name="porType" component={renderStation} />
 
-                            <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'538px'}}  component="textarea"  maxSize={200} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
+                            <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'538px'}}  component="textarea"  maxSize={300} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
                                 <KrField grid={1} label="基础设施" name="facility" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础设施' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="基础服务" name="service"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="特色服务" name="specialServcie" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入特色服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                 <KrField grid={1} label="交通" name="traffic"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={300} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
-                                <KrField grid={1} label="周边" name="arround" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
+                                <KrField grid={1} label="周边" name="arround" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={200} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
                                
                                    <div className='web-page-box'> <KrField 
                                          name="pageImageId"
