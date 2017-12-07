@@ -264,7 +264,7 @@ export default class List extends React.Component {
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 
-								<TableRowColumn name="totalCost"
+								<TableRowColumn name="totalCostYuan"
 								
 								style={{width:"8%"}}
 
