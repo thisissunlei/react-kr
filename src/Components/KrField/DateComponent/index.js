@@ -124,9 +124,9 @@ export default class DateComponent extends React.Component {
 			style,
 			defaultValue,
 			inline,
-			onlyRead
+			onlyRead,
+			className
 		} = this.props;
-
 
 		const styles = {
 			border: '1px solid #ddd',
@@ -146,7 +146,7 @@ export default class DateComponent extends React.Component {
 		}
 		return (
 
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search} className={className}>
 					<div className="date-component">
 									<InputDate
 												value = {input.value}
