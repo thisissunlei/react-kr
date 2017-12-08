@@ -40,7 +40,7 @@ module.exports = {
   },
   //创建合同时初始化数据
   'fina-contract-intention': {
-    url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}&type={type}',
+    url: '/api/krspace-finance-web/finacontractdetail/fina-contract-intention?customerId={customerId}&mainBillId={mainBillId}&type={type}&contractId={contractId}',
     method: 'get'
   },
   //合同－退租合同－查看

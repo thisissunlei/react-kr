@@ -29,7 +29,8 @@ let State = observable({
 	//高级查询
 	openSearchUpper:false,
 	communityId:'',
-	saleList:[]
+	saleList:[],
+	contractId:''
 
 });
 
