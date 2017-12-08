@@ -32,6 +32,9 @@ class AgreementTitle  extends React.Component{
         let {communityChange}=this.props;
         this.titleData.addressId = value.value||'';
         this.titleData.addressFormwork = value.addressTemp||'';
+        this.setState({
+            other:new Date(),
+        })
        
     }
     //模糊查询

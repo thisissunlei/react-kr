@@ -25,7 +25,10 @@ let State = observable({
 	openEdit:false,
 	editData :{},
 	editMainT:{},
-	editDetailT:[]
+	editDetailT:[],
+
+	//新建保存id
+	saveId:''
 
 
 });
@@ -58,21 +61,23 @@ State.getTemplateList = action(function(id) {
 });
 State.reset = action(function(){
 	this.printName = '';
-	this.pcName = ''
+	this.pcName = '';
 })
 // PC模板--新建提交
 State.saveTemplate = action(function(form) {
 	var _this = this;
 	Http.request('create-form-template', '',form).then(function(response) {
 		if(_this.saveAndUse){
-			console.log('------>>')
+			console.log('------>>truuu----')
 			_this.formTempId = false;
 			_this.pcName = response.name;
+			_this.formData.formTempId=response.formTemplateId;
 			Store.dispatch(change('Template','formTempId',response.formTemplateId));
 		}
 		_this.open = false;
 		_this.openEdit = false;
-		_this.getPrintTemplateList()
+		_this.saveAndUse=false;
+		_this.getPrintTemplateList(_this.formId);
 		_this.getTemplateList(_this.formId);
 	
 		console.log('getTemplateList',response)
@@ -134,7 +139,7 @@ State.getCreateTable = action(function(id) {
 // 打印模板--选择
 State.getPrintTemplateList = action(function(id) {
 	var _this = this;
-	Http.request('get-print-template-list', {}).then(function(response) {
+	Http.request('get-print-template-list', {formId:id}).then(function(response) {
 		let options = response.items.map((item)=>{
 			let obj = {};
 			obj.label = item.name;
@@ -149,7 +154,7 @@ State.getPrintTemplateList = action(function(id) {
 });
 State.getPrintTemplateData = action(function(id) {
 	var _this = this;
-	Http.request('get-form-template-data', {wfId:id}).then(function(response) {
+	Http.request('get-form-template-data', {id:id}).then(function(response) {
 		console.log("========")
 		
 		if(response.id){
@@ -157,11 +162,24 @@ State.getPrintTemplateData = action(function(id) {
 		
 			_this.formworkId = response.printTempId;
 			_this.formData = response;
-			_this.pcName = response.formTemplateName +'       '+ DateFormat(response.uFormTempTime,'   yyyy-mm-dd HH:MM:ss');
-			_this.printName= response.printTemplateName?(response.printTemplateName +'        '+ DateFormat(response.uPrintTempTime,'   yyyy-mm-dd HH:MM:ss')):'';
+
+
+			if(response.formTemplateName){
+				_this.pcName=response.uFormTempTime?(response.formTemplateName +'       '+ DateFormat(response.uFormTempTime,'   yyyy-mm-dd HH:MM:ss')):response.formTemplateName;
+			}else{
+				_this.pcName='';
+			}
+
+			if(response.printTemplateName){
+				_this.printName=response.uPrintTempTime?(response.printTemplateName +'        '+ DateFormat(response.uPrintTempTime,'   yyyy-mm-dd HH:MM:ss')):response.printTemplateName;
+			}else{
+				_this.printName='';
+			}
+
 			Store.dispatch(change('Template','printTempId',response.printTempId));
 			Store.dispatch(change('Template','formTempId',response.formTempId));
 			Store.dispatch(change('Template','allowPrint',response.allowPrint+''));
+			Store.dispatch(change('Template','rentField',response.rentField));
 		}
 		
 	}).catch(function(err) {
@@ -176,6 +194,7 @@ State.editTemplate = action(function(id) {
 		console.log("========");
 		let data = {};
 		data.name = response.name;
+		data.comment=response.comment;
 		let table = response.tableVOList;
 		let mainT = response.tableVOList.filter((item)=>{
 			if(item.isMain){
@@ -199,6 +218,7 @@ State.editTemplate = action(function(id) {
 		// State.editMainT = mainT[0];
 		// State.editData = data;
 		Store.dispatch(change('editTemplate','name',data.name));
+		Store.dispatch(change('editTemplate','comment',data.comment));
 		Store.dispatch(change('editTemplate','lineNum',data.lineNum));
 		Store.dispatch(change('editTemplate','mainT',mainT.mainT));
 		detailT.map((item,index)=>{

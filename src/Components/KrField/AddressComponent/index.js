@@ -100,6 +100,7 @@ export default class AddressComponent extends React.Component {
         let _this = this;
         Http.request("get-address-num", { addressId: '', allWhenNull:true}).then(function (response) {
             _this.allData = [].concat(response.items);
+            
             _this.theEcho();
         }).catch(function (err) {
             Message.error(err.message);
@@ -107,7 +108,6 @@ export default class AddressComponent extends React.Component {
     }
     theEcho = (value) =>{
         const {input} = this.props;
-        console.log(value)
         value = value || input.value;
         
         var data = [].concat(this.allData);
@@ -117,8 +117,6 @@ export default class AddressComponent extends React.Component {
                 this.setState({
                     showText:data[i].label,
                     selectData:[data[i]]
-                },function () {
-                    console.log("ooooooo", this.state.selectData)
                 })
                 break;
             }
@@ -149,6 +147,7 @@ export default class AddressComponent extends React.Component {
             ajaxUrlName,
             valueText,
             checked,
+            onlyRead,
             ...other
         } = this.props;
 
@@ -191,10 +190,15 @@ export default class AddressComponent extends React.Component {
             ...other,
             autoFocus,
         }
-        // var text = input.value && input.value.codeList && input.value.codeList[0] ? input.value.codeList[0].label : '';
-        // var text = input.label || '';
-        
-        // console.log(selectData,"---------")
+        console.log(onlyRead,"9999999")
+        if (onlyRead){
+            return(
+                <WrapComponent {...wrapProps}>
+                    <span style = {{display:"inline-block",padding:"10px 10px 10px 0px"}}>{showText}</span>
+                </WrapComponent>
+            )
+           
+        }
         return (
             <WrapComponent {...wrapProps}>
 

@@ -23,14 +23,14 @@ import {
 } from 'kr-ui';
 import CreateTemplate from './CreateTemplate';
 import EditTemplate from './EditTemplate';
-import State from './State';
+import State from '../../State';
 import {
 	TemplatePrint
 } from 'kr/PureComponents';
 import {
 	observer
 } from 'mobx-react';
-import './index.less';
+import '../../index.less';
 
 @observer
 class Template extends React.Component {
@@ -43,9 +43,14 @@ class Template extends React.Component {
 			openChooce:false,
 			openTemplate:false,//新建合同模板
 			allData:{},
+			sealList:[]
 		}
 
 		
+	}
+
+	componentWillMount(){
+		this.getSealData();
 	}
 	componentDidMount() {
 		State.initialize();
@@ -53,9 +58,8 @@ class Template extends React.Component {
 		State.getCreateTable(this.props.formId);
 		Store.dispatch(initialize('Template',initializeValues));
 		State.getTemplateList(this.props.formId);
-		State.getPrintTemplateList();
-		State.getPrintTemplateData(this.props.id);
-
+		State.getPrintTemplateList(this.props.formId);
+		State.getPrintTemplateData(this.props.keyId);  
 	}
 	
 	onCancel=()=>{
@@ -66,6 +70,7 @@ class Template extends React.Component {
 		console.log('onSubmit--->',form)
 		let _this = this;
 		form.wfId = this.props.id;
+		form.id=this.props.keyId;
 		State.printTempId = false;
 		
 		form.printTempId = form.printTempId || State.formworkId || '' ;
@@ -88,7 +93,7 @@ class Template extends React.Component {
 			// Store.dispatch(reset('Template',''));
 			// State.reset();
 			Message.success('提交成功');
-			State.getPrintTemplateData(_this.props.id);
+			State.getPrintTemplateData(_this.props.keyId);
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -149,7 +154,11 @@ class Template extends React.Component {
 				id:''
 			})
 		}
-		
+		if(openTemplate){
+			document.body.style.overflow = "auto";
+		}else{
+			document.body.style.overflow = "hidden";
+		}
 		this.setState({
 			openTemplate:!openTemplate,
 		})
@@ -161,8 +170,22 @@ class Template extends React.Component {
 		State.formworkId = values.printTemplateId;
 		console.log('===>', values.printTemplateId, State.formworkId)
 		this.onOpenTemplate();
-		State.getPrintTemplateList();
+		State.getPrintTemplateList(this.props.formId);
 	}
+
+	//获取公章
+    getSealData=()=>{
+		let {formId}=this.props;
+		var _this = this;
+		Http.request("get-seal-list",{formId:formId}).then(function (response) {
+			_this.setState({
+				sealList:response.items
+			})
+		}).catch(function (err) {
+			Message.error(err.message);
+		});
+	}
+
 	//获取编辑数据
 	getEditData = () =>{
 		var id = toJS(State.formworkId);
@@ -183,10 +206,11 @@ class Template extends React.Component {
 		// State.openEdit = true;
 		State.editTemplate(id);
 	}
-
+    
 	render() {
-		const { handleSubmit} = this.props;
-		const { allData, id} = this.state;
+		const { handleSubmit,formId} = this.props;
+		const { allData, id,sealList} = this.state;
+	
 		return (
 			<div className="g-chooce-template">
 			   <form onSubmit={handleSubmit(this.onSubmit)}>
@@ -244,7 +268,8 @@ class Template extends React.Component {
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="打印模板" circle="bottom">
 						<KrField 
-	                		style={{width:260,marginTop:5}}
+						    grid={1}
+	                		style={{marginTop:5}}
 	                		name="allowPrint" 
 	                		component="group" 
 	                		label="是否打印"
@@ -264,6 +289,18 @@ class Template extends React.Component {
 			                    		value="false"
 			                    />
 	                	</KrField>
+
+
+						<KrField 
+						    grid={1}
+                            style={{width:262,marginTop:5}}
+                            name="rentField"
+                            component="select"
+                            label="公章－取值字段"
+                            options={sealList}
+						/>
+
+
 	                	<KrField 
 			                grid={1} 
 			                label="模板设置" 
@@ -348,7 +385,7 @@ class Template extends React.Component {
 				{/*新建合同模板*/}
 				<Drawer
 					open={this.state.openTemplate}
-					width={880}
+					width={"1205px"}
 					openSecondary={true}
 					onClose={this.onOpenTemplate}
 
@@ -356,7 +393,7 @@ class Template extends React.Component {
 					containerStyle={{top:60,paddingBottom:48,zIndex:20}}
 				>
 
-					<TemplatePrint id={id} allData = {allData} onSubmit = {this.templateSubmit} onCancel={this.onOpenTemplate}/>
+					<TemplatePrint id={id} formId={formId} allData = {allData} onSubmit = {this.templateSubmit} onCancel={this.onOpenTemplate}/>
 		        </Drawer>
 			</div>
 

@@ -24,7 +24,8 @@ import {
 	Tab,
 	Form,
 	Title,
-	Message
+	Message,
+	Section
 } from 'kr-ui';
 import './index.less'
 import State from './State';
@@ -180,10 +181,8 @@ class CustomerList extends React.Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
-
-			<Title value="客户列表"/>
-
-			<Tabs className="tabs">
+				<Title value="签约客户"/>
+				<Tabs className="tabs">
 					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
 
 							<Merchants
@@ -210,10 +209,8 @@ class CustomerList extends React.Component {
 							/>
 
 					</Tab>
-			</Tabs>
-
-
-		</div>
+				</Tabs>
+			</div>
 		);
 	}
 }

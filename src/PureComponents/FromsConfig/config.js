@@ -94,7 +94,7 @@ function textCheck(params, name) {
     }
    var seeting=JSON.parse(params.setting);
    if (name && ("" + name).length > Number(seeting['wstext'])) {
-       text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+       text = `${params.label}最长不超过${seeting['wstext']}个字符`
         return text;
     }
 }
@@ -114,7 +114,7 @@ function integerCheck(params, name) {
     }
     var seeting = JSON.parse(params.setting);
     if (name && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        text = `${params.label}最长不超过${seeting['wstext']}个字符`
         return text;
     }
 }
@@ -140,15 +140,14 @@ function floatCheck(params, name) {
             text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
             return text;
         }
+        if((name.toString().split(".")[0].length) > Number(seeting['wstext'])){
+            text = `${params.label}的整数位最大不能超过${seeting['wstext']}`
+            return text;
+        }
     }
    
     if (name && !num.test(name) && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
-        return text;
-    }
-
-    if (name && num.test(name) && ("" + name).length >( Number(seeting['wstext']) + 1)) {
-        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        text = `${params.label}最长不超过${seeting['wstext']}个字符`
         return text;
     }
 
@@ -177,15 +176,14 @@ function transferCheck(params, name) {
             text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
             return text;
         }
+        if((name.toString().split(".")[0].length) > Number(seeting['wstext'])){
+            text = `${params.label}的整数位最大不能超过${seeting['wstext']}`
+            return text;
+        }
     }
-
+   
     if (name && !num.test(name) && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
-        return text;
-    }
-
-    if (name && num.test(name) && ("" + name).length > (Number(seeting['wstext']) + 1)) {
-        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        text = `${params.label}最长不超过${seeting['wstext']}个字符`
         return text;
     }
 }
@@ -212,15 +210,14 @@ function quartileCheck(params, name) {
             text = `${params.label}为正浮点数且小数位数最大为${seeting['wsfloat']}`
             return text;
         }
+        if((name.toString().split(".")[0].length) > Number(seeting['wstext'])){
+            text = `${params.label}的整数位最大不能超过${seeting['wstext']}`
+            return text;
+        }
     }
-
+   
     if (name && !num.test(name) && ("" + name).length > Number(seeting['wstext'])) {
-        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
-        return text;
-    }
-
-    if (name && num.test(name) && ("" + name).length > (Number(seeting['wstext']) + 1)) {
-        text = `${params.label}最长多不超过${seeting['wstext']}个字符`
+        text = `${params.label}最长不超过${seeting['wstext']}个字符`
         return text;
     }
 }
