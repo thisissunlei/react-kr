@@ -254,7 +254,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
-				<KrField style={{width:262,marginLeft:25}} className="red-label" name="withdrawdate" component="date" label="在场最后一天（当日收租金）" requireLabel={true} onChange={this.setTotalRent}/>
+				<KrField style={{width:262,marginLeft:25}} className="red-label" name="withdrawdate" component="date" label="退租日期（当日不收租金，若无法确认，请联系技术部-王鹏）" requireLabel={true} onChange={this.setTotalRent}/>
 				
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}/>
