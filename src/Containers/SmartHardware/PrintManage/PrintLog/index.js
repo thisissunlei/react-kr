@@ -87,12 +87,11 @@ export default class List extends React.Component {
 	}
 
 	returnDouble=(isDouble)=>{
-		if(isDouble=="SINGLE"){
+		if(isDouble){
+			return "双面打印"
+		}else{
 			return "单面打印"
-		}else if(isDouble=="DOUBLE_SHORT"){
-			return "短边翻转"
-		}else if(isDouble=="DOUBLE_LONG"){
-			return "长边翻转"
+
 		}
 	}
 

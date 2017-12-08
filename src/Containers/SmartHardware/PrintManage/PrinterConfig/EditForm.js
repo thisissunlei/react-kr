@@ -85,7 +85,7 @@ class EditForm extends React.Component{
 					
 					<KrField grid={1/2} name="nodeIp" 
 						type="text" 
-						label="节点IP" 
+						label="节点域名" 
 						requireLabel={true} 
 						requiredValue={true} 
 						errors={{requiredValue:'智能硬件ID为必填项'}} 

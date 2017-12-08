@@ -74,7 +74,7 @@ class NewCreateDefinitionForm extends React.Component{
 					
 					<KrField grid={1/2} name="nodeIp" 
 						type="text" 
-						label="节点IP" 
+						label="节点域名" 
 						requireLabel={true} 
 						requiredValue={true} 
 						errors={{requiredValue:'智能硬件ID为必填项'}} 
@@ -108,10 +108,10 @@ const validate = values=>{
 		errors.priceId = '价格策略为必填项';
 	}
 	if(!values.nodeIp){
-		errors.nodeIp = '节点IP为必填项';
+		errors.nodeIp = '节点域名为必填项';
 	}
 	if(values.nodeIp && values.nodeIp.length>20){
-		errors.nodeIp = '节点IP最长20个字符';
+		errors.nodeIp = '节点域名最长20个字符';
 	}
 	
 	return errors;
