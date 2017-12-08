@@ -185,7 +185,7 @@ class NewCreateDefinitionForm extends React.Component{
 }
 const validate = values=>{
 	const errors={};
-	var reg = /^0{1}([.]\d{1,2}){1}$|^[1-9]\d*([.]{1}[0-9]{1,2})?$/;
+	var reg = /^0{1}([.]\d{1,2}){1}$|^[1-9]\d*([.]{1}[0-9]{1,2})?$|0/;
 	if(!values.A4Mono || !values.A4Color || !values.A4White ||
 		!values.A3Mono || !values.A3Color || !values.A3White ||
 		!values.A5Mono || !values.A5Color || !values.A5White ||
@@ -205,7 +205,7 @@ const validate = values=>{
 	!reg.test(values.B5Mono) || !reg.test(values.B5Color) || !reg.test(values.B5White)||
 	!reg.test(values.scanPrice)){
 
-		errors.scanPrice = '价格应为正数,小数点后最多两位';
+		errors.scanPrice = '价格为非负数,小数点后最多两位';
 	}
 
 	if(values.name &&values.name.length>20){
