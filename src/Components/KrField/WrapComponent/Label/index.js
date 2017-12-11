@@ -20,25 +20,29 @@ export default class  WrapComponent extends React.Component {
 
 	render(){
 
-		let {requireLabel,label,inline, search,requireBlue, alignRight} = this.props;
+		let {requireLabel,label,inline, search,requireBlue, alignRight,className} = this.props;
 
-		let className = 'ui-form-label';
+		let classNames = 'ui-form-label';
 
 		if(inline){
-			className+= ' inline';
+			classNames+= ' inline';
 		}
 		if(search){
-			className+= ' search-content';
+			classNames+= ' search-content';
 		}
 		if(requireBlue){
-			className+=' require-blue';
+			classNames+=' require-blue';
 		}
 		if(alignRight){
-			className+=' alignRight';
+			classNames+=' alignRight';
+		}
+		if(className){
+			classNames+=` ${className}`;
+
 		}
 
 			return (
-					<div className={className}>
+					<div className={classNames}>
 						<label> {requireLabel?<span className="require-label">*</span>:null} {label}</label>
 					</div>
 				);

@@ -273,7 +273,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
-				<KrField style={{width:262,marginLeft:25}} name="withdrawdate" component="date" label="撤场日期" requireLabel={true}  onChange={this.setTotalRent}/>
+				<KrField className="red-label" style={{width:262,marginLeft:25}} name="withdrawdate" component="date" label="退租日期（当日不收租金，若无法确认，请联系技术部-王鹏）" requireLabel={true}  onChange={this.setTotalRent}/>
 
 
 
