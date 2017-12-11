@@ -226,7 +226,12 @@ export default class UploadImageComponent extends Component {
 							if (xhrfile.status === 200) {
 
 								if (fileResponse && fileResponse.code > 0) {
-									_this.functionHeightWidth(file,xhrfile);
+									if(_this.props.photoSize){
+										_this.functionHeightWidth(file,xhrfile);
+										return;
+									}
+									_this.refs.uploadImage.src = xhrfile.response.data;
+									_this.props.input.onChange(xhrfile.response.data);
 								} else {
 									_this.onError(fileResponse && fileResponse.msg);
 									return;
