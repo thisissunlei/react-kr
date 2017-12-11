@@ -138,7 +138,7 @@ export default class SelectTimeComponent extends React.Component{
 
 	renderMinute=()=>{
 		let {hourNum}=this.state;
-		var minute=['00','30'];
+		var minute=['00','10','20','30','40','50'];
 		return minute.map((item,index)=>{
          	return <p key={index} onClick={this.minuteClick.bind(this,hourNum,item)} >{item}</p>
       	})
