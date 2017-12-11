@@ -279,7 +279,7 @@ export default class JoinCreate extends Component {
 		}).catch(function(err) {
 			console.log(err)
 			Notify.show([{
-				message: "222",
+				message: err.message,
 				type: 'danger',
 			}]);
 		});
@@ -297,7 +297,6 @@ export default class JoinCreate extends Component {
 
 		let {CommunityAgreementList} = this.props;
 		optionValues.saleList = CommunityAgreementList.saleList;
-		console.log('======>',optionValues.saleList)
 
 		return (
 
