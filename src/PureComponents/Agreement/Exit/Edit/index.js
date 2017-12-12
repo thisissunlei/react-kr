@@ -168,13 +168,15 @@ export default class EditCreate extends React.Component {
     let keyWord = params.orderId+''+ params.customerId+'QUITRENTedit';
     let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
 
-
+    let {CommunityAgreementList} = this.props;
 
 
     Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       type :1,
+      contractId:CommunityAgreementList.contractId
+
     }).then(function(response) {
       
         initialValues = JSON.parse(localStorage.getItem(keyWord));
@@ -259,11 +261,14 @@ export default class EditCreate extends React.Component {
     let initialValues = {};
     let optionValues = {};
     let stationVos = [];
+    let {CommunityAgreementList} = this.props;
 
     Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       type :1,
+      contractId:CommunityAgreementList.contractId
+
     }).then(function(response) {
 
        let keyWord = params.orderId+ params.customerId+'QUITRENTedit';

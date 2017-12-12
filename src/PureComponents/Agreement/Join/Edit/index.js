@@ -128,12 +128,15 @@ export default class JoinCreate extends React.Component {
 		let optionValues = {};
 		let stationVos = [];
 		let delStationVos = [];
+		let {CommunityAgreementList} = this.props;
+
 
 		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
+			contractId:CommunityAgreementList.contractId
 		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
@@ -243,8 +246,9 @@ export default class JoinCreate extends React.Component {
 
 			}).catch(function(err) {
 				console.log('err',err)
+				_this.onCancel()
 				Notify.show([{
-					message: '后台出错请联系管理员',
+					message: err.message,
 					type: 'danger',
 				}]);
 			});
@@ -252,8 +256,9 @@ export default class JoinCreate extends React.Component {
 
 		}).catch(function(err) {
 			console.log('err',err)
+			_this.onCancel()
 			Notify.show([{
-				message: '后台出错请联系管理员',
+				message: err.message,
 				type: 'danger',
 			}]);
 		});

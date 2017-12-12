@@ -164,12 +164,15 @@ static contextTypes = {
     let optionValues = {};
     let stationVos = [];
     let delStationVos = [];
+    let {CommunityAgreementList} = this.props;
 
     Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       communityId: 1,
       type : 1,
+      contractId:CommunityAgreementList.contractId
+
     }).then(function(response) {
 
       initialValues.contractstate = 'UNSTART';
@@ -313,12 +316,14 @@ static contextTypes = {
     let keyWord = params.orderId+''+ params.customerId+''+params.id+'RENEWedit';
     let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
 
-
+    let {CommunityAgreementList} = this.props;
     Http.request('fina-contract-intention', {
       customerId: params.customerId,
       mainBillId: params.orderId,
       communityId: 1,
       type : 1,
+      contractId:CommunityAgreementList.contractId
+
     }).then(function(response) {
 
       initialValues.contractstate = 'UNSTART';

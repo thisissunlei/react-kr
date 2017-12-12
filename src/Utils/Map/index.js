@@ -627,6 +627,9 @@ var Map = function (elementId, configs) {
             if (removed) {
                 return;
             }
+            if(!this.props.name){
+                return;
+            }
 
             const props = this.props;
 

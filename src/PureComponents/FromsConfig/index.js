@@ -50,7 +50,7 @@ class FromsConfig extends Component {
 			inspectionData.map((item,index)=>{
 				if(item.isMain){
 					item.fields&&item.fields.map((items,indexs)=>{
-						if(items.required&&!params[items.name]){
+						if (items.required && !params[items.name] && params[items.name]!==0){
 							Notify.show([{
 								message:`${items.label}不能为空`,
 								type: 'danger',
