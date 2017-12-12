@@ -11,7 +11,7 @@ let State = observable({
 		typeId:'',
 		wfId:'',
 		page:1,
-		pageSize:10,
+		pageSize:15,
 		time:+new Date()
 	},
 	liucheng:[{     
