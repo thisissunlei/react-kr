@@ -136,7 +136,7 @@ export default class List extends React.Component {
 								<TableHeaderColumn>时间</TableHeaderColumn>
 								<TableHeaderColumn>社区</TableHeaderColumn>
 								<TableHeaderColumn>客户</TableHeaderColumn>
-								<TableHeaderColumn>账号</TableHeaderColumn>
+								<TableHeaderColumn>会员名</TableHeaderColumn>
 								<TableHeaderColumn>打印机名称</TableHeaderColumn>
 								<TableHeaderColumn>文档名称</TableHeaderColumn>
 								<TableHeaderColumn>任务类型</TableHeaderColumn>
