@@ -2,10 +2,10 @@
 module.exports = [
 	{
 		primaryText: "账单中心",
-		router: 'office',
+		menuCode:'bill',
 		menuItems: [
 			{
-				primaryText: '账单中心',
+				primaryText: '账单中心--',
 				iconName: 'icon-newthing',
 				iconColor: '#79859a',
 				menuItems: [
