@@ -7,7 +7,6 @@ module.exports = [
 			{
 				primaryText: '订单合同',
 				iconName: 'icon-newthing',
-				router: 'office',
 				iconColor: '#79859a',
 				menuItems: [
 					{

@@ -7,7 +7,6 @@ module.exports = [
 			{
 				primaryText: '账单中心',
 				iconName: 'icon-newthing',
-				router: 'office',
 				iconColor: '#79859a',
 				menuItems: [
 					{
