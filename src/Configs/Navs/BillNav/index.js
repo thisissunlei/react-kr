@@ -20,7 +20,7 @@ module.exports = [
 						originUrl: 'http://optest01.krspace.cn/bill/payment',
                     },
                     {
-						primaryText: '收入管理',
+						primaryText: '应收管理',
 						menuCode: 'pay_income_page',
 						originUrl: 'http://optest01.krspace.cn/bill/income',
                     },
