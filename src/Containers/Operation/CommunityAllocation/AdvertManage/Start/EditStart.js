@@ -92,9 +92,7 @@ class EditStart extends React.Component {
  								label="启动图片"
  								name="imgUrl"
  								component="newuploadImage"
- 								innerstyle={{width:375,height:667,padding:16}}
- 								sizePhoto
- 								photoSize={'375:667'}
+ 								innerstyle={{width:220,height:350,padding:16}}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
  								requestURI = '/api/krspace-finance-web/activity/upload-pic'
