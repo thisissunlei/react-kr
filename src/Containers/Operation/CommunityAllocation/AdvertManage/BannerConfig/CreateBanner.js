@@ -94,8 +94,6 @@ class CreateBanner extends React.Component {
  								name="imgUrl"
  								component="newuploadImage"
  								innerstyle={{width:370,height:223,padding:16}}
- 								sizePhoto
- 								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
  								requestURI = '/api/krspace-finance-web/activity/upload-pic'
