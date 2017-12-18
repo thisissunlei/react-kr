@@ -12,22 +12,22 @@ module.exports = [
 					{
 						primaryText: '已出账单管理',
 						menuCode: 'pay_created_bill_page',
-						originUrl: 'http://optest01.krspace.cn/bill/list',
+						originUrl: '/bill/list',
                     },
                     {
 						primaryText: '回款管理',
 						menuCode: 'pay_payment_page',
-						originUrl: 'http://optest01.krspace.cn/bill/payment',
+						originUrl: '/bill/payment',
                     },
                     {
 						primaryText: '应收管理',
 						menuCode: 'pay_income_page',
-						originUrl: 'http://optest01.krspace.cn/bill/income',
+						originUrl: '/bill/income',
                     },
                     {
 						primaryText: '交易流水',
 						menuCode: 'pay_deal_flow_page',
-						originUrl: 'http://optest01.krspace.cn/bill/payrecord',
+						originUrl: '/bill/payrecord',
 					},
 				]	
 			}, 
