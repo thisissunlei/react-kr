@@ -5,6 +5,22 @@
     <meta charset="utf-8">
     <link href="./vendors/images/logofav.png" rel="shortcut icon" type="image/vnd.microsoft.icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+       #christmasCanvas img[data-id="star"]{
+          opacity: 0.2;
+          animation-name:logoinStar;
+          animation-duration:3s;
+          animation-timing-function:linear;
+          animation-iteration-count:infinite;
+          animation-direction:alternate;
+          animation-play-state:running;
+        }
+        @keyframes logoinStar
+        {
+        from {opacity: 0.5;}
+        to {opacity: 1;}
+        }
+    </style>
   <script type="text/javascript" src="./vendors/index.js"></script>
 
 
@@ -14,8 +30,11 @@
 
   </head>
   <body>
-    <script type="text/javascript" src="./vendors/logIn/background.js"></script>
+    
+    
     <div id="app" class="app" style = "position:absolute;"></div>
-
+    <div id="christmasCanvas" style = "position: absolute; height: 100vh; width: 100vw; overflow: hidden;top:0;left:0;"></div>
   </body>
+  <script type="text/javascript" src="./vendors/logIn/background.js"></script>
+  <!-- <script type="text/javascript" src="./vendors/logIn/sonw.js"></script> -->
   </html>

@@ -1,5 +1,103 @@
 (function (params) {
     'use strict';
+    var box = document.getElementById("christmasCanvas");
+    var activeSonw = [];
+    var wDetail = {
+        height: document.documentElement.clientHeight,
+        width: document.documentElement.clientWidth
+    }
+    window.onresize =function () {
+        wDetail = {
+            height: document.documentElement.clientHeight,
+            width: document.documentElement.clientWidth
+        }
+    }
+
+
+    function setStars() {
+        var stars = "";
+        var starImg = {
+            heidht: 40,
+            width: 40,
+        }
+        for (var i = 0; i < 10; i++) {
+            var zoom = getRandom(5, 10) / 10;
+            var left = getRandom(0 + 200, wDetail.width - 200);
+            var top = getRandom(0, wDetail.height / 2);
+            var width = zoom * starImg.width;
+            var height = zoom * starImg.heidht;
+            stars += '<img src="./vendors/logIn/images/star.png" style="position:absolute;left:' + left + 'px;top:' + top + 'px;width:' + width + 'px;heidht:' + height + 'px;" data-id="star" alt="">';
+        }
+        return stars;
+    }
+    function setSnow() {
+        var str = '';
+        for (var i = 0; i < 30; i++) {
+            var num = getRandom(1, 3);
+            var elem = '';
+            var zoom = getRandom(3, 10) / 10;
+            var sonwImg = {
+                width: 60,
+                height: 60,
+            }
+            var roundImg = {
+                width: 14,
+                height: 14
+            }
+            var width = zoom * sonwImg.width;
+            var height = zoom * sonwImg.height;
+            if (num == 1) {
+                width = zoom * roundImg.width;
+                height = zoom * roundImg.height;
+                elem = '<img src="./vendors/logIn/images/round.png" style="position:fixed;width:' + width + 'px;height:' + height + 'px;z-index:2;"  data-type="round" data-id="snow" alt="">';
+            } else {
+                zoom = getRandom(3, 6) / 10;
+                width = zoom * sonwImg.width;
+                height = zoom * sonwImg.height;
+                elem = '<img src="./vendors/logIn/images/sonw.png" style="position:fixed;width:' + width + 'px;height:' + height + 'px;z-index:2;" data-type="sonw" data-id="snow" alt="">';
+
+            }
+            str += elem;
+
+        }
+        return str;
+    }
+    box.innerHTML = setSnow() + setStars() + 
+        '<img src="./vendors/logIn/images/ground.png" style="position:fixed;bottom:0;left:0;width:100%;height:246px;z-index:1;">' +
+        '<img src="./vendors/logIn/images/snowmanTree.png" style="position:fixed;bottom:80px;right:0;z-index:2;">'+
+        '<img src="./vendors/logIn/images/oldMainTree.png" style="position:fixed;bottom:50px;left:0;z-index:2;">' +
+        
+        '<img src="./vendors/logIn/images/oldMain.png" style="position:fixed;bottom:0;left:0;z-index:104;">'+
+        '<img src="./vendors/logIn/images/snowman.png" style="position:fixed;bottom:0;right:0;z-index:104;">' ;
+    // console.log(document.querySelectorAll('#christmasCanvas img[data-id="snow"]'));
+    var stars = document.querySelectorAll('#christmasCanvas img[data-id="snow"]');
+    for (var i = 0; i < stars.length; i++) {
+        var vy = 0;
+        var type = stars[i].getAttribute("data-type");
+        if (type == "round") {
+            vy = getRandom(30, 40) / 10
+        } else {
+            vy = getRandom(20,30) / 10
+        }
+        activeSonw.push({
+            elem: stars[i],
+            x: getRandom(0, wDetail.width),
+            y: getRandom(0, wDetail.height),
+            ax: 0,
+            ay: 0,
+            vx: 0,
+            vy: vy
+        })
+    }
+    function getRandom(n, m) {
+        var c = m - n + 1;
+        return Math.floor(Math.random() * c + n);
+    }
+
+
+
+
+
 
     var _class, _temp, _class2, _temp2, _class3, _temp3;
 
@@ -97,6 +195,20 @@
         };
 
         this.update = function (timestamp) {
+
+
+            for (var i = 0; i < activeSonw.length; i++) {
+                if (activeSonw[i].y > wDetail.height) {
+                    activeSonw[i].y = -40;
+                    activeSonw[i].x = getRandom(0, wDetail.width);
+                }
+                var every = activeSonw[i];
+                var elem = every.elem;
+                every.y += every.vy;
+                elem.style.left = every.x + 'px';
+                elem.style.top = every.y + 'px';
+            }
+
             requestAnimationFrame(_this4.update);
             _this4.renderer.render(_this4.scene, _this4.camera);
         };
@@ -112,7 +224,6 @@
         });
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        console.log(document.body,"ppppp")
         document.body.appendChild(this.renderer.domElement);
 
         this.clock = new THREE.Clock();
@@ -146,6 +257,8 @@
         this.scene.add(mountain);
         this.scene.add(mountain2);
         this.scene.add(mountain3);
+
+       
 
         requestAnimationFrame(this.update);
     };
