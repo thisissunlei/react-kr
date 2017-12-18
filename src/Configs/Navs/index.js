@@ -23,9 +23,11 @@ import AdministrationNav from './AdministrationNav';
 
 //智能硬件
 import SmartHardware from './SmartHardware';
+//订单中心
+import OrderCenter from './OrderCenter';
 
 
-const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware);
+const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware,OrderCenter);
 
 module.exports = {
     current_parent: '',
