@@ -13,6 +13,7 @@
         }
     }
 
+    
 
     function setStars() {
         var stars = "";
