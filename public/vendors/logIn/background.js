@@ -66,7 +66,7 @@
         }
         return str;
     }
-    box.innerHTML = setSnow() + setStars() + 
+    box.innerHTML = setSnow() +
         '<img src="./vendors/logIn/images/1.png" style="position:fixed;bottom:-10px;left:0;width:100%;height:80px;z-index:3;">' +
         '<img src="./vendors/logIn/images/2.png" style="position:fixed;bottom:40px;left:0;width:100%;height:130px;z-index:1;">' +
         '<img id="snowmanTree" src="./vendors/logIn/images/snowmanTree.png" style="position:fixed;bottom:80px;right:0px;z-index:3;">'+
