@@ -74,23 +74,7 @@
         
         '<img id="oldMain" src="./vendors/logIn/images/oldMain.png" style="position:fixed;bottom:0;left:0px;z-index:104;">'+
         '<img id="snowman" src="./vendors/logIn/images/snowman.png" style="position:fixed;bottom:0;right:0px;z-index:104;">' ;
-    // console.log(document.querySelectorAll('#christmasCanvas img[data-id="snow"]'));
-    // var oldMain = document.getElementById("oldMain");
-    // var snowman = document.getElementById("snowman");
-    // var snowmanTree = document.getElementById("snowmanTree");
-    // var oldMainTree = document.getElementById("oldMainTree");
-    // window.onmousemove = function (event) {
-    //     var mouseX = event.pageX;
-    //     var center = wDetail.width / 2;
-    //     var mainMove = (mouseX - center) * 20 / center;
-    //     var treeMove = (mouseX - center) * 10 / center;
-      
-        
-    //     oldMain.style.left = -20 + mainMove + "px";
-    //     snowman.style.right = -20 - mainMove + "px";
-    //     oldMainTree.style.left = -10 + treeMove + "px";
-    //     snowmanTree.style.right = -10 - treeMove+"px";
-    // }
+    
     var stars = document.querySelectorAll('#christmasCanvas img[data-id="snow"]');
     for (var i = 0; i < stars.length; i++) {
         var vy = 0;
