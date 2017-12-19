@@ -358,7 +358,7 @@ class EditMeeting  extends React.Component{
 
 
 
-			{(watchMeeting||watchHouse)&&(defaultValue.picUrl!='')&&<KrField
+			{(watchMeeting||watchHouse)&&<KrField
 					 label="空间图片"
 					 name="picId"
 					 component="newuploadImage"
