@@ -634,6 +634,7 @@ class Merchants extends Component{
     	State.agreementId=values.id;
     	State.mainBillId=values.mainbillid;
 		CommunityAgreementList.openEditAgreement=true;
+		CommunityAgreementList.contractId=values.id;
 	}
 	maskClock=()=>{
 		let {CommunityAgreementList} = this.props;

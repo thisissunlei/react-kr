@@ -38,6 +38,7 @@ class FromsConfig extends Component {
     
 	onCancel = () =>{
 		const {onCancel} = this.props;
+		isOk = false;
 		onCancel && onCancel();
 	}
 	
@@ -49,7 +50,7 @@ class FromsConfig extends Component {
 			inspectionData.map((item,index)=>{
 				if(item.isMain){
 					item.fields&&item.fields.map((items,indexs)=>{
-						if(items.required&&!params[items.name]){
+						if (items.required && !params[items.name] && params[items.name]!==0){
 							Notify.show([{
 								message:`${items.label}不能为空`,
 								type: 'danger',
@@ -107,6 +108,7 @@ class FromsConfig extends Component {
 		delete params.c_time;
 		delete params.u_time;
 		const {onSubmit} = this.props;
+		isOk = false;
 		onSubmit && onSubmit(params)
 	}
 	//渲染所有表单
@@ -126,6 +128,7 @@ class FromsConfig extends Component {
 		})
 		return fields;
 	}	
+	
 	//主表渲染
 	mainRender = (fields,lineNum) =>{
 		var num = fields.lineNum||[];
@@ -157,6 +160,7 @@ class FromsConfig extends Component {
 	}
 	//一般的表单渲染
 	universalRender = (item,type,lineNum) =>{
+		let {responseData}=this.props;
 		var grid = 1/lineNum;
 		if (item.wholeLine){
 			grid = 1
@@ -181,12 +185,14 @@ class FromsConfig extends Component {
 				maxLength = seeting.wstext;
 			}
 		}
-	
-		
+		//item.editable  是否编辑
+
 		if(item.display){
 			return (
 				<KrField
 					name={item.name}
+					left={15}
+					right={15} 
 					requireLabel={item.required}
 					inline={false}
 					label={item.label}
@@ -195,8 +201,10 @@ class FromsConfig extends Component {
 					selectUrl= 'template-search-list'
 					component={type}
 					params={params}
+					onlyRead={!item.editable}
 					editHeight={editHeight}
 					maxSize={maxLength}
+					value={responseData?responseData[item.name]:''}
 				/>
 			)
 		}else {
@@ -246,15 +254,25 @@ class FromsConfig extends Component {
 	}
 	
 	render(){
-		const {handleSubmit,title} = this.props;
-
+		const {handleSubmit,title,introData} = this.props;
+		
 
 		return (
 			
 			<form className="m-newMerchants" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}>
 				<DrawerTitle title ={title||"新建"} onCancel = {this.onCancel}/>
 				<div style = {{marginTop:30}}>
-					{this.renderFields()}
+				
+				{introData &&<div style={{width:'100%',padding:'0px 15px',boxSizing:'border-box'}}>
+					<div className='m-form-intro'>
+						<div className='intro-pic'>
+						<div></div>
+						<span>填表说明：</span>
+						</div>
+						<div className='intro-text'>{introData}</div>
+					</div>
+			    </div>}
+				{this.renderFields()}
 				</div>
 				<DrawerBtn onSubmit = {this.onSubmit} onCancel = {this.onCancel}/>	
 			</form>

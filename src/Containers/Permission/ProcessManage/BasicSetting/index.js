@@ -42,8 +42,10 @@ import DeleteDialog from './DeleteDialog';
 import EditDialog from './EditDialog';
 import Basic from './Basic';
 import InitiatorSetting from './InitiatorSetting';
-import Template from './Template';
 import { observer, inject } from 'mobx-react';
+
+//流程设置
+import Circulation from './Circulation';
 
 @inject("NavModel")
 @observer
@@ -145,10 +147,10 @@ export default class BasicSetting extends React.Component {
 
 			                    </TabC>
 
-			                 <TabC label='合同模板'>
-			                  	<Template id={this.props.params.processId} formId={this.state.infoList.formId} />
+
+			                 <TabC label='流转设置'>
+			                  	<Circulation wfId={this.props.params.processId} formId={this.state.infoList.formId}/>
 			                 </TabC>
-			               
 
 			             </TabCs>
                     </div>

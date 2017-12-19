@@ -293,6 +293,7 @@ class LookCustomerList extends Component{
 		return(
 		      <div className="m-lookCustomerList m-newMerchants" style={{paddingLeft:8}}>
 		      	<div className="title" >
+		      		
 					<div className="look-close" onClick={this.onCancel}></div>
 				</div>
 				<div style={{height:30}}></div>

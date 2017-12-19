@@ -1,8 +1,139 @@
 .edit-print-formwork{
+    width: 100%;
+    
     .section-title .right-element{
         flex: 65;
     }
-    .ui-form-controller{
-        width:210mm; 
+    .print-right{
+        //width:528px;
+        width:300px;
+        display:inline-block;
+        margin-left: 50px;
+        padding-bottom:50px;
+        .text-introduction{
+            .instruction-content{
+                transition: all 0.3s;
+                
+                box-sizing: border-box;
+            }
+            .introduction-bar{
+                margin-top: 20px;
+                font-size: 14px;
+                color: #333;
+                display: inline-block;
+                width: 100%;
+                
+                padding: 10px;
+                box-sizing: border-box;
+            }
+            .introduction-bar:hover{
+                background: #F6F6F9;
+            }
+            .select{
+                border-color: #999 transparent transparent;
+                border-style: solid;
+                border-width: 5px 5px 2.5px;
+                display: inline-block;
+                height: 0;
+                width: 0;
+                float: right;
+                transition: all 0.3s;
+                margin-top: 5px;
+                cursor: pointer;
+            }
+            .sub-introduction{
+                width:100%;
+                padding:10px;
+                box-sizing:border-box;
+                height:316px;
+                margin-top:10px;
+                border:solid 1px #DFDFDF;
+            }
+        }
+        .add-btn{
+            height:36px;
+            line-height:36px;
+            border-bottom:solid 1px #DFDFDF;
+            font-size: 12px;
+            color: #666666;
+            padding-left:12px;
+            box-sizing: border-box; 
+            .value-btn{
+                padding:0 10px;
+                background:#499df1;
+                text-align:center;
+                color:#fff;
+                border-radius:4px;
+                margin-left:10px;
+                display:inline-block;
+                height:25px;
+                line-height:25px;
+                padding-right:10px;
+                cursor:pointer;
+            }
+        }
+        .text-list{
+            width:100%;
+            margin-top:20px;
+            .btn-li-style{
+               
+                
+                div.box{
+                    height:36px;
+                    line-height:36px;
+                    border-bottom:solid 1px #DFDFDF;
+                    font-size: 12px;
+                    color: #666666;
+                    padding-left:12px;
+                    box-sizing: border-box; 
+                    .value-btn{
+                        padding:0 10px;
+                        background:#499df1;
+                        text-align:center;
+                        color:#fff;
+                        border-radius:4px;
+                        margin-left:10px;
+                        display:inline-block;
+                        height:25px;
+                        line-height:25px;
+                        cursor:pointer;
+                    }
+                }
+            }
+            .text-p-style{
+                margin: 0;
+                height:36px;
+                line-height:36px;
+                border-bottom:solid 1px #DFDFDF;
+                padding-left:12px;
+                box-sizing: border-box;
+            }
+        }
+        .text-introduction{
+          .inner-introduction{
+            width: 100%;
+            border: solid 1px #DFDFDF;
+            padding: 10px;
+            height: 306px;
+            margin-top: 10px;
+            box-sizing: border-box;
+            transition: all 0.5s ease;
+          }  
+        }
+    }
+    .editor-left{
+        width:210mm;
+        float:left;
+        .ui-form-controller{
+            width:210mm; 
+        }
     }
 }
+
+/*@media screen and (max-width:1440px) {
+    .edit-print-formwork{
+        .print-right{
+            width:252px;
+        }
+    }
+}*/

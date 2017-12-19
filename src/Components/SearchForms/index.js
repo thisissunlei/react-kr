@@ -250,7 +250,7 @@ export default class SearchForms extends Component{
 				<div className="search-filter" ref={div=>{this.selectList = div}}>
 					<span className="filter-container" onMouseOver={this.selectShow} onMouseOut={this.selectHidden}>
 						<span className="search-name" >{searchFilter[0].label}</span>
-						<em className="icon-return"></em>
+						<em className="icon-return1"></em>
 					</span>
 
 					<ul onMouseOver={this.selectShow} onMouseOut={this.selectHidden} ref={li=>{this.li = li}}>

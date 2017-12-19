@@ -251,7 +251,7 @@ export default class DoubleColumn extends Component {
         return elems; 
     }
     onKeyDown = (event) =>{
-        this.keyCode = event.keyCode;
+        //this.keyCode = event.keyCode;
     }
     onKeyUp = (event) =>{
         this.keyCode = '';
@@ -346,9 +346,9 @@ export default class DoubleColumn extends Component {
                     </div>
                 </div>
                 <div className = "column-bar">
-                    <div className = "top">
+                    <div className = "top" style={{marginTop:50,lineHeight:'50px',height:50}}>
                         <div>
-                            <span 
+                            {/*<span 
                                 className="leftAllSelect"
                                 onClick = {
                                     ()=>{
@@ -357,7 +357,7 @@ export default class DoubleColumn extends Component {
                                 }
                             >
                           
-                            </span>
+                            </span>*/}
                             <span 
                                 className="leftSelect"
                                 onClick = {()=>{
@@ -367,7 +367,7 @@ export default class DoubleColumn extends Component {
                         </div>
                         
                     </div>
-                    <div className = "down">
+                    <div className = "down" style={{lineHeight:'50px',height:50}}>
                         <div>
                             <span
                                 className="rightSelect"
@@ -378,14 +378,14 @@ export default class DoubleColumn extends Component {
                                 
                             </span>
 
-                            <span
+                            {/*<span
                                 className="rightAllSelect"
                                 onClick = {
                                     ()=>{
                                         this.allSelect("right")
                                     }
                                 }
-                            ></span>
+                            ></span>*/}
                         </div>
                         
                     </div>

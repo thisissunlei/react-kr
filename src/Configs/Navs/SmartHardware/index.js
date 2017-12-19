@@ -7,7 +7,7 @@ module.exports = [
 		menuItems: [
 				{
 					primaryText: "门禁管理",
-					iconName: 'icon-com',
+					iconName: 'icon-card',
 					iconColor: '#79859a',
 					router :'',
 					menuItems: [
@@ -29,6 +29,32 @@ module.exports = [
 							primaryText: '升级管理',
 							menuCode: 'iot_upgrade_package',
 							router: '/smarthardware/doorManage/upgrademanage',
+						}
+					]
+			}, {
+					primaryText: "打印管理",
+					iconName: 'icon-card',
+					iconColor: '#79859a',
+					router :'',
+					menuItems: [
+						{
+							primaryText: '打印机管理',
+							menuCode: 'printer_manage',
+							router: '/smarthardware/printmanage/equipmentmanage',
+						},{
+							primaryText: '社区打印配置',
+							menuCode: 'print_community_config',
+							router: '/smarthardware/printmanage/printerconfig',
+						},
+						{
+							primaryText: '费用配置',
+							menuCode: 'print_price_config',
+							router: '/smarthardware/printmanage/priceconfig',
+						},
+						{
+							primaryText: '打印记录',
+							menuCode: 'print_record',
+							router: '/smarthardware/printmanage/printlog',
 						}
 					]
 			}, ],

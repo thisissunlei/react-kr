@@ -314,7 +314,7 @@ export default class SingleType extends React.Component {
                                                 }
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-                                    <TableRowColumn name="wfTypeName" 
+                                    <TableRowColumn name="typeName" 
 										component={(value,oldValue)=>{
                                                         var maxWidth=10;
                                                         if(value){
@@ -359,7 +359,7 @@ export default class SingleType extends React.Component {
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
-                                    <TableRowColumn name="baseDesc"
+                                    <TableRowColumn name="descr"
 									component={(value,oldValue)=>{
 		 										var maxWidth=10;
 		 										if(value){

@@ -36,6 +36,7 @@ const config = {
 		alias: {
 			'kr-ui': path.join(process.cwd(), '/src/Components'),
 			'kr': path.join(process.cwd(), '/src'),
+			'kr-img': path.join(process.cwd(), '/src/Styles/images'),
 			'redux': path.join(node_modules_dir, 'redux'),
 			'react-redux': path.join(node_modules_dir, 'react-redux'),
 			'mobx': path.join(node_modules_dir, 'mobx'),

@@ -183,6 +183,7 @@ class FieldRevert extends React.Component {
 				...other
 			} = this.props;
 
+
 			let WrapStyles = Object.assign({}, {
 				width: (grid * 100) + '%',
 				paddingLeft: left,

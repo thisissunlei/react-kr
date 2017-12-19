@@ -1,6 +1,8 @@
 import React from 'react';
 import WrapComponent from '../WrapComponent';
-
+import {
+	DateFormat
+} from 'kr/Utils' 
 import "./index.less";
 export default class SelectTimeComponent extends React.Component{
 
@@ -136,7 +138,7 @@ export default class SelectTimeComponent extends React.Component{
 
 	renderMinute=()=>{
 		let {hourNum}=this.state;
-		var minute=['00','30'];
+		var minute=['00','10','20','30','40','50'];
 		return minute.map((item,index)=>{
          	return <p key={index} onClick={this.minuteClick.bind(this,hourNum,item)} >{item}</p>
       	})
@@ -162,7 +164,7 @@ export default class SelectTimeComponent extends React.Component{
         
 
 		
-        
+		console.log("---------")
 		return (
 		<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search}>
 				<div className="ui-select-time">

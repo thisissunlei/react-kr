@@ -82,7 +82,7 @@ class NewCreateForm extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if(this.props.initialValues != nextProps.initialValues){
 			this.setState({
-				totalRent:nextProps.initialValues.totalRent || nextProps.initialValues.totalreturn,
+				totalRent:nextProps.initialValues.totalRent || nextProps.initialValues.totalreturn || '0',
 				initialValues:nextProps.initialValues,
 			})
 		}
@@ -215,7 +215,7 @@ class NewCreateForm extends React.Component {
 		});
 		let {totalRent} = this.state;
 		var agreementValue = initialValues.agreement=='无'?'如社区申请增加补充条款的，补充条款内容经法务审核通过后，社区将审核通过的内容邮件发送法务林玉洁（linyujie@krspace.cn），抄送技术部田欢（tianhuan@krspace.cn），冯西臣（fengxichen@krspace.cn），由技术部修改该内容，修改后邮件回复社区即可联网打印盖章版本。':initialValues.agreement;
-
+		console.log('=========',totalRent)
 
 		return (
 
@@ -254,7 +254,7 @@ class NewCreateForm extends React.Component {
 
 				<KrField style={{width:262,marginLeft:25}} name="contractcode" component="labelText" label="合同编号" value={initialValues.contractcode} inline={false}/>
 
-				<KrField style={{width:262,marginLeft:25}} name="withdrawdate" component="date" label="撤场日期" requireLabel={true} onChange={this.setTotalRent}/>
+				<KrField style={{width:262,marginLeft:25}} className="red-label" name="withdrawdate" component="date" label="退租日期（当日不收租金，若无法确认，请联系技术部-王鹏）" requireLabel={true} onChange={this.setTotalRent}/>
 				
 				<KrField name="depositamount" style={{width:262,marginLeft:25}} type="text" component="input" label="退押金总额" requireLabel={true}
 				requiredValue={true} pattern={/^\d{0,16}(\.\d{0,2})?$/} errors={{requiredValue:'退押金总额为必填项',pattern:'请输入正数金额，小数点后最多两位'}}/>

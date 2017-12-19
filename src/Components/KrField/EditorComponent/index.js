@@ -46,13 +46,20 @@ export default class EditorComponent extends React.Component {
 			inline,
 			resizeChange,
 			isReduxForm,
+			id,
 			editHeight,
 		} = this.props;
 
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
-        <Editor editHeight={editHeight} onChange={this.onChange} resizeChange = {resizeChange} defaultValue={isReduxForm?input.value:this.props.defaultValue} />
+			<Editor 
+				id = {id} 
+				editHeight={editHeight} 
+				onChange={this.onChange} 
+				resizeChange = {resizeChange} 
+				defaultValue={isReduxForm ? input.value : this.props.defaultValue} 
+			/>
 				{touched && error && <div className="error-wrap"> <span>{error}</span></div> }
 			</WrapComponent>
 		);

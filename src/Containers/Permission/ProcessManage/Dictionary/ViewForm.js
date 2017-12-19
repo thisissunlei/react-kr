@@ -13,6 +13,7 @@ import {
 	TabelEdit,
 	FRow,
 	FdTabel,
+	DrawerTitle,
 	FContent
 } from 'kr-ui';
 
@@ -60,11 +61,8 @@ class ViewForm extends React.Component{
 			<div className="new-create-activity edit-dictionary">
 				<form>
 					<div className="title-box">
-						<img src={require('./images/activity.svg')} className="title-img"/>
-						<span className="title-text">查看公共字典</span>
-						<span className="close-page" onClick={this.onCancel}>
-							<img src={require('./images/closeIMG.svg')} className="close-page-img" />
-						</span>
+                		<DrawerTitle title ="查看公共字典" onCancel = {this.onCancel}/>
+
 					</div>
 					<div className="detail-info">
 								<KrField grid={1/2} name="dictName" type="labelText" label="字典名称" requireLabel={true}

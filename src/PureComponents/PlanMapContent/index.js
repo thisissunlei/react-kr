@@ -180,6 +180,8 @@ export default class PlanMapComponent extends React.Component {
 		const _this = this;
 		var dainitializeConfigs = {};
 		let start = Number(inputStart);
+
+		
 		let end = Number(inputEnd);
 		
 		for(let i=0; i<data.length;i++){

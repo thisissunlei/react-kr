@@ -434,6 +434,7 @@ export default class OrderDetail extends React.Component {
 				typeValue = value.value;
 			}
 		});
+		CommunityAgreementList.contractId = agreementId;
 		allState.editParams(customerId, orderId, typeId, agreementId)
 	}
 	closeEditAgreement=()=>{

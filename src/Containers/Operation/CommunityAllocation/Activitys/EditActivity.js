@@ -20,6 +20,7 @@ import {
 	ButtonGroup,
 	Button,
 	Message,
+	DrawerTitle,
 	KrDate,
 } from 'kr-ui';
 import './index.less';
@@ -170,9 +171,8 @@ class EditActivity extends React.Component {
 		
 		return (
 			<div className="g-create-activity">
-				<div className="u-create-title">
-						<div className="title-text">编辑活动</div>
-						<div className="u-create-close" onClick={this.onCancel}></div>
+				<div className="u-create-title"  style={{padding:'0 83px',paddingBottom:30,paddingLeft:40}}>
+					<DrawerTitle title ='编辑活动' onCancel = {this.onCancel}/>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} >
 							<KrField
@@ -269,9 +269,7 @@ class EditActivity extends React.Component {
  								name="imgUrl"
  								component="newuploadImage"
  								innerstyle={{width:370,height:223,padding:16}}
- 								sizePhoto
  								merthd='Url'
- 								photoSize={'16:9'}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
  								requestURI = '/api/krspace-finance-web/activity/upload-pic'

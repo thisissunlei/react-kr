@@ -254,7 +254,7 @@ class AccountList extends React.Component {
                                     paddingTop: 7,
                                     paddingBottom: 6
                                 }}>
-                                    <Button label="新建" type="button" operateCode="sso_userList_edit" onClick={this.openNewCreate} width={70} height={26} fontSize={14}/>
+                                    {/* <Button label="新建" type="button" operateCode="sso_userList_edit" onClick={this.openNewCreate} width={70} height={26} fontSize={14}/> */}
                                 </ListGroupItem>
                             </ListGroup>
                         </Col>
@@ -286,8 +286,8 @@ class AccountList extends React.Component {
                                     overflow: 'hidden'
                                 }} name="id"></TableRowColumn>
                                 <TableRowColumn name="accountName"></TableRowColumn>
-                                <TableRowColumn name="realName"></TableRowColumn>
-                                <TableRowColumn name="mobilePhone"></TableRowColumn>
+                                <TableRowColumn name="name"></TableRowColumn>
+                                <TableRowColumn name="phone"></TableRowColumn>
                                 <TableRowColumn name="email"></TableRowColumn>
                                 <TableRowColumn name="accountStatus" options={[
                                     {

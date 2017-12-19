@@ -238,9 +238,116 @@ module.exports = {
       method: 'get'
    },
 
+   //打印机列表数据
+   'printerManageList': {
+      url: '/api/iot-platform/printer/list?serialNo={serialNo}&communityId={communityId}&alias={alias}&readerName={readerName}&printerName={printerName}&pageSize={pageSize}&page={page}',
+      method: 'get'
+   },
+
+     //新增打印机数据
+   'newCreatePrinter': {
+      url: '/api/iot-platform/printer/actions/add',
+      method: 'post'
+   },
 
 
-    
+     //删除打印机数据
+   'deletePrinter': {
+      url: '/api/iot-platform/printer/actions/delete?id={id}',
+      method: 'delete'
+   },
+
+
+     //编辑和详情回显
+   'printerDetailInfo': {
+      url: '/api/iot-platform/printer/detail?id={id}',
+      method: 'get'
+   },
+
+
+     //编辑提交
+   'editPrinter': {
+      url: '/api/iot-platform/printer/actions/edit?alias={alias}&communityId={communityId}&id={id}&location={location}&printerName={printerName}&readerName={readerName}&serialNo={serialNo}',
+      method: 'put'
+   },
+
+
+   //打印配置列表
+   'PrinterConifigList': {
+      url: '/api/iot-platform/print-community/list?communityId={communityId}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+
+   //新增打印配置
+   'addPrinterConfig': {
+      url: '/api/iot-platform/print-community/actions/add',
+      method: 'post'
+   },
+
+
+   //删除打印配置
+   'deletePrinterConfig': {
+      url: '/api/iot-platform/print-community/actions/delete?id={id}',
+      method: 'delete'
+   },
+
+
+   //编辑打印配置
+   'editPrinterConfig' : {
+      url: '/api/iot-platform/print-community/actions/edit?communityId={communityId}&id={id}&nodeIp={nodeIp}&priceId={priceId}',
+      method: 'put'
+   },
+
+
+   //打印记录列表
+   'printLogUrl': {
+      url: '/api/iot-platform/print-record/list?communityId={communityId}&customerId={customerId}&endDate={endDate}&jobType={jobType}&page={page}&pageSize={pageSize}&printerName={printerName}&startDate={startDate}&accountNo={accountNo}',
+      method: 'get'
+   },
+
+
+   //新增价格策略
+   'newCreatePriceUrl':{
+      url: '/api/iot-platform/print-price/actions/add',
+      method: 'post'
+   },
+ 
+
+   //获取价格配置列表数据
+   'getPriceConfigListUrl' :{
+      url: '/api/iot-platform/print-price/list?name={name}&page={page}&pageSize={pageSize}',
+      method: 'get'
+   },
+
+   //打印机价格策略
+   'getPrintPriceList':{
+      url: '/api/iot-platform/print-price/select-option?name={name}',
+      method: 'get'
+   },
+
+
+   //费用配置编辑回显
+   'getDetailPriceUrl':{
+      url: '/api/iot-platform/print-price/detail?id={id}',
+      method: 'get'
+   },
+
+
+   //费用配置编辑
+   'editPriceUrl':{
+      url: '/api/iot-platform/print-price/actions/edit?id={id}&colorPriceYuan={colorPriceYuan}&monoPriceYuan={monoPriceYuan}&name={name}&paperPriceYuan={paperPriceYuan}&scanPriceYuan={scanPriceYuan}',
+      method: 'put'
+   },
+
+
+   //删除费用配置
+   'deleteConfigListUrl':{
+      url : '/api/iot-platform/print-price/actions/delete?id={id}',
+      method : 'delete'
+   },
+
+
+
 
    
    

@@ -48,9 +48,6 @@ export default class  SearchPersonName extends React.Component {
 			})
 		}
 		
-		
-		
-		
 	}
 
 

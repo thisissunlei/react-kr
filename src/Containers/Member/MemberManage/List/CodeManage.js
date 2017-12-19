@@ -7,6 +7,7 @@ import {
 	Button,
     Message,
     KrDate,
+    DrawerTitle,
     Dialog
 } from 'kr-ui';
 import './index.less';
@@ -27,7 +28,7 @@ export default class CodeManage extends React.Component {
     getCodeList=()=>{
         let {detail}=this.props;
         var _this=this;
-        Http.request('get-member-code',{id:detail.id}).then(function (response) {
+        Http.request('get-member-code',{id:detail.uid}).then(function (response) {
 			_this.setState({
                 codeList:response.cards
             })
@@ -53,10 +54,10 @@ export default class CodeManage extends React.Component {
         let {codeItem}=this.state;
         var _this=this;
         var form={
-            memberId:detail.id,
+            holder:detail.uid,
             cardId:codeItem.id,
         }
-        Http.request('unbind-member-code',form).then(function (response) {
+        Http.request('unbind-member-code',{},form).then(function (response) {
             Message.success('解绑成功！')
             _this.getCodeList()
             _this.setState({
@@ -82,8 +83,8 @@ export default class CodeManage extends React.Component {
         }
       
         var form={
-            memberId:detail.id,
-            outerCard:codeValue,
+            holder:detail.uid,
+            outerCode:codeValue,
         }
         Http.request('bind-member-code',{},form).then(function (response) {
 			_this.refs.memberCode.value='';
@@ -103,9 +104,8 @@ export default class CodeManage extends React.Component {
         }=this.state;
 		return (
 			<div className="g-create-member">
-			<div className="u-create-title">
-					<div className="title-text">门禁卡管理</div>
-					<div className="u-create-close" onClick={this.onCancel}></div>
+			<div className="u-create-title" style={{marginBottom:30}}>
+                    <DrawerTitle title ='门禁卡管理' onCancel = {this.onCancel}/>
 			</div>
             <div className="u-add-code">
                 <input className="ui-input" ref="memberCode" type="text" onChange={this.getCodeValue}/> <Button  label="绑定" type="button" height={36} onClick={this.addCode} />

@@ -52,6 +52,7 @@ export default class TextareaComponent extends React.Component {
 				touched,
 				error
 			},
+			onlyRead,
 			requireLabel,
 			disabled,
 			placeholder,
@@ -80,6 +81,13 @@ export default class TextareaComponent extends React.Component {
 		} = this.state;
 		inputSize=this.props.input.value.length||0;
 
+		if (onlyRead) {
+			return (
+				<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
+					<span style={{ display: "inline-block", padding: "10px 10px 10px 0px" }}>{input.value}</span>
+				</WrapComponent>
+			)
+		}
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>
 				<textarea {...input} placeholder={placeholder|| label} disabled={disabled} col={col} row={row} onChange={this.onChange} style={styleHeight}></textarea>

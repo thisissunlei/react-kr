@@ -116,7 +116,7 @@ export default class Editor extends React.Component {
       autoFloatEnabled: true,
       elementPathEnabled: false,
       maximumWords: 40000,
-      initialFrameHeight: 200,
+      initialFrameHeight: 800,
       enableAutoSave: false,
       autoFloatEnabled: false
     }
@@ -131,7 +131,7 @@ export default class Editor extends React.Component {
   constructor(props) {
     super(props);
 
-    this.containerId = 'container_' + Date.now();
+    this.containerId = props.id || ('container_' + Date.now());
     this.ue = null;
     this.init = false;
     this.editor = false;
@@ -151,8 +151,9 @@ export default class Editor extends React.Component {
 
 
   initEditor = () => {
+    var { configs, defaultValue, id, editHeight } = this.props;
+    
 
-    var { configs, defaultValue ,editHeight} = this.props;
     var _this = this;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function (action) {
@@ -164,7 +165,7 @@ export default class Editor extends React.Component {
     }
     var config=Object.assign({},configs);
     if(editHeight){
-      config.initialFrameHeight=editHeight.wsheight;
+      config.initialFrameHeight=editHeight.wsheight?editHeight.wsheight:800;
     }
     var ue = UE.getEditor(this.containerId, config);
     this.ue = ue;
@@ -235,6 +236,7 @@ export default class Editor extends React.Component {
 
   render() {
     let { label } = this.props;
+    
     return (
 
       <div id={this.containerId} className="u-editor-parent" name="content"> </div>

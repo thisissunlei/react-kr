@@ -53,7 +53,6 @@ const APIS = {
     //根据人员姓名获取人员基本信息---------------->组件
     'getHrmResourceExtListByLastname': {
         url: '/api-old/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
-        rap: '/mockjsdata/9/krspace_oa_web/interface/hrm/hrmResource/getHrmResourceExtListByLastname?lastname={lastname}',
         method: 'get'
     },
 
@@ -230,8 +229,18 @@ const APIS = {
        url: '/api/krspace-erp-web/sys/form-sql/invalid',
        method: 'post'
     },
-    
 
+     //合同监控--流程树列表
+     'contract-monitor-tree':{
+        url: '/api/krspace-erp-web/wf/base/tree/type/requestMonitoring',
+        method: 'get'
+      },
+    
+    //合同监控--流程列表
+    'contract-monitor-list':{
+        url: '/api/krspace-erp-web/wf/request/list/type/monitoring?page={page}&typeId={typeId}&wfId={wfId}&pageSize={pageSize}',
+        method: 'get'
+    },
     
 
 

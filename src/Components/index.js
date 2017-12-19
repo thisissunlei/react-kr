@@ -94,6 +94,8 @@ import TextLabel from './TextLabel'
 
 import CheckPermission from './CheckPermission';
 import MoveSelect from './MoveSelect';
+import AirBubbles from "./AirBubbles";
+import KrMenu from './KrMenu';
 module.exports = {
 	//Components
 
@@ -188,4 +190,6 @@ module.exports = {
 	AllCheck,
 	...DrawerOther,
 	MoveSelect,
+	AirBubbles,
+	KrMenu
 }

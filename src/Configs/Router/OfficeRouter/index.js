@@ -43,6 +43,12 @@ const Office_OfficeBackground_OwnAdd = (location, callback) => {
   }, 'Office_OfficeBackground_OwnAdd')
 }
 
+const Office_OfficeBackground_ContractMonitor = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Office/OfficeBackground/ContractMonitor').default)
+  }, 'Office_OfficeBackground_ContractMonitor')
+}
+
 module.exports =()=>{
 	return (
         <Route path="office" getComponent={Basic}>
@@ -52,6 +58,7 @@ module.exports =()=>{
                 <Route path="newOffice" getComponent={Office_OfficeBackground_NewOffice}/>
                 <Route path="todo" getComponent={Office_OfficeBackground_Todo}/>
                 <Route path="ownAdd" getComponent={Office_OfficeBackground_OwnAdd}/>
+                <Route path="contractMonitor" getComponent={Office_OfficeBackground_ContractMonitor}/>
             </Route>
         </Route>
 	);
