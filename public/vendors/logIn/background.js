@@ -69,8 +69,8 @@
     box.innerHTML = setSnow() +
         '<img src="./vendors/logIn/images/1.png" style="position:fixed;bottom:-10px;left:0;width:100%;height:80px;z-index:3;">' +
         '<img src="./vendors/logIn/images/2.png" style="position:fixed;bottom:40px;left:0;width:100%;height:130px;z-index:1;">' +
-        '<img id="snowmanTree" src="./vendors/logIn/images/snowmanTree.png" style="position:fixed;bottom:80px;right:0px;z-index:3;">'+
-        '<img id="oldMainTree" src="./vendors/logIn/images/oldMainTree.png" style="position:fixed;bottom:50px;left:0px;z-index:3;">' +
+        '<img id="snowmanTree" src="./vendors/logIn/images/snowmanTree.png" style="position:fixed;bottom:80px;right:0px;z-index:1;">'+
+        '<img id="oldMainTree" src="./vendors/logIn/images/oldMainTree.png" style="position:fixed;bottom:50px;left:0px;z-index:1;">' +
         
         '<img id="oldMain" src="./vendors/logIn/images/oldMain.png" style="position:fixed;bottom:0;left:0px;z-index:104;">'+
         '<img id="snowman" src="./vendors/logIn/images/snowman.png" style="position:fixed;bottom:0;right:0px;z-index:104;">' ;
