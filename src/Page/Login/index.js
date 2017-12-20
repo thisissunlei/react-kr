@@ -24,7 +24,6 @@ import {Debug} from 'kr/Utils';
 window.Debug = Debug;
 
 const Master  = ({...props})=><div {...props}></div>;
-const Welcome  = ({...props})=><div>welcome</div>;
 
 const Permission_Login = (location, callback) => {
   require.ensure([], require => {
