@@ -50,7 +50,8 @@ import {
 	ListGroupItem,
 	SearchForms,
 	AirBubbles,
-	KrMenu
+	KrMenu,
+	InputNumber
 } from 'kr-ui';
 import { observer, inject } from 'mobx-react';
 
@@ -233,6 +234,10 @@ class TemplatePrint extends React.Component {
 		})
 		return arr;
 	}
+
+	inputChange=(data)=>{
+		console.log('data---',data);
+	}
 	//明细表
 	detailRender = () =>{
 		let {nameList} = this.state;
@@ -246,6 +251,7 @@ class TemplatePrint extends React.Component {
 							</AirBubbles>
 						</div>
 						<div style={{ float: "right", paddingRight: 10 }}>
+						    <InputNumber max={20} min={2} change={this.inputChange}></InputNumber>
 							<span
 								className="value-btn"
 								onClick={this.detailClick.bind(this, item , 5)}

@@ -16,12 +16,16 @@ class WuShuLin extends React.Component {
 
 	}
 
+	onChange=(data)=>{
+		console.log('data--',data);
+	}
+
 
 	render() {
 	
 		return (
 			<div>
-			   <InputNumber max={5} min={-1}></InputNumber>
+			   <InputNumber max={5} min={1} change={this.onChange}></InputNumber>
 			</div>
 		);
 	}
