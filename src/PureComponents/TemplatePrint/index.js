@@ -233,11 +233,55 @@ class TemplatePrint extends React.Component {
 		})
 		return arr;
 	}
+	//明细表
+	detailRender = () =>{
+		let {nameList} = this.state;
+		var elems = nameList.map((item,index)=>{
+			if(item.name !=="main_table"){
+				return (
+					<div className="add-btn" key={index}>
+						<div style={{ float: "left" }}>
+							<AirBubbles title={item.name} offsetTop='10'>
+								{item.label}
+							</AirBubbles>
+						</div>
+						<div style={{ float: "right", paddingRight: 10 }}>
+							<span
+								className="value-btn"
+								onClick={this.detailClick.bind(this, item , 5)}
+							>
+								添加
+						</span>
+						</div>
+					</div>
+				)
+			}
+			
+		})
+		return elems;
+	}
 	labelClick = (name) =>{
 		let funcName = '';
 		funcName = '#{' + name + '}';
 		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
 	}
+	detailClick = (item,colNum) =>{
+		var th = "";
+		var td = "";
+		var tableStyle = "width:100%;border-top: 1px solid #c1c1c1;border-left: 1px solid #c1c1c1;";
+		var thAndTd = "border-right: 1px solid #c1c1c1;border-bottom: 1px solid #c1c1c1;line-height:26px;";
+		var trStyle = "text-align: center;";		
+		var thStyle = thAndTd + "background: #2d8dcd;color: #fff;";
+		var tdStyle = thAndTd + trStyle;
+		for(var i=0;i<colNum;i++){
+			th += `<th style="${thStyle}"></th>`;
+			td += `<td style="${tdStyle}"></td>`; 
+		}
+	
+		var str = `<div>${item.label}</div><table class="detailTable" style="${tableStyle}" data-id="table-${item.name}" table-name="${item.name}"><tr id="th-${item.name}" style="${trStyle}">${th}</tr><tr id="td-${item.name}" style="${trStyle}">${td}</tr><div data-id="tableBox-${item.name}"></div>`
+		UE.getEditor(this.editId).execCommand('inserthtml', str);
+		
+	}	
 	
 
 	render() {
@@ -310,6 +354,11 @@ class TemplatePrint extends React.Component {
 						<KrMenu title="标签" subHeight="250px" style={{ marginTop: "20px" }}>
 							<div>
 								{this.labellingRender()}
+							</div>
+						</KrMenu>
+						<KrMenu title="明细表" subHeight="150px" style={{ marginTop: "20px" }}>
+							<div>
+								{this.detailRender()}
 							</div>
 						</KrMenu>
 					
