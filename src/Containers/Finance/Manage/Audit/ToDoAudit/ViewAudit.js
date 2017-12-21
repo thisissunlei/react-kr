@@ -30,9 +30,6 @@ export default class ViewAudit extends React.Component {
 		this.state = {
 			totalCountMoney: 0,
 			payment: [{
-				label: '无',
-				value: 'NONE'
-			}, {
 				label: '支付宝支付',
 				value: 'ZHIFUBAO'
 			}, {
@@ -41,9 +38,22 @@ export default class ViewAudit extends React.Component {
 			}, {
 				label: '银行转账',
 				value: 'YINGHANG'
-			}, {
-				label: 'POS机支付',
-				value: 'POS'
+			},
+			{
+				label: "转移",
+				value: "TRANSFER"
+			},
+			{
+				label: "社区变更",
+				value: "NONE"
+			},
+			{
+				label:'押金转租',
+				value:'DEP_RENT'
+			},
+			{
+				label:'租金转押',
+				value:'RENT_DEP'
 			}],
 			accountList: [],
 			infoList: {},

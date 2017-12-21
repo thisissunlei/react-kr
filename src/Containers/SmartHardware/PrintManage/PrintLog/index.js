@@ -136,7 +136,7 @@ export default class List extends React.Component {
 								<TableHeaderColumn>时间</TableHeaderColumn>
 								<TableHeaderColumn>社区</TableHeaderColumn>
 								<TableHeaderColumn>客户</TableHeaderColumn>
-								<TableHeaderColumn>账号</TableHeaderColumn>
+								<TableHeaderColumn>会员名</TableHeaderColumn>
 								<TableHeaderColumn>打印机名称</TableHeaderColumn>
 								<TableHeaderColumn>文档名称</TableHeaderColumn>
 								<TableHeaderColumn>任务类型</TableHeaderColumn>
@@ -178,11 +178,11 @@ export default class List extends React.Component {
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 
-								 <TableRowColumn style={{width:"9%",overflow:"visible"}} name="accountNo" 
+								 <TableRowColumn style={{width:"9%",overflow:"visible"}} name="memberName" 
 								 component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle="block"
 		                             return (<div style={{width:"100%",display:TooltipStyle,paddingTop:5}} ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-		                              <Tooltip offsetTop={5} place='top'>{itemData.memberName}</Tooltip></div>)
+		                              <Tooltip offsetTop={5} place='top'>{itemData.accountNo}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 
 
@@ -209,9 +209,6 @@ export default class List extends React.Component {
 		                              <Tooltip offsetTop={5} place='top'>
 		                              	<div className="doc-name-tip">
 		                              		<div className="doc-name-tip-line">
-		                              			<div className="tip-title">份数：</div><div className="tip-content">{itemData.duplicateCount}</div>
-		                              		</div>
-		                              		<div className="doc-name-tip-line">
 		                              			<div className="tip-title">打印类型：</div><div className="tip-content">{
 
 		                              				this.returnPrintType(itemData.jobType)
@@ -220,6 +217,20 @@ export default class List extends React.Component {
 		                              		<div className="doc-name-tip-line">
 		                              			<div className="tip-title">纸张尺寸：</div><div className="tip-content">{itemData.paperSize}</div>
 		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">彩色面数：</div><div className="tip-content">{itemData.colorSurfaceCount}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">黑白面数：</div><div className="tip-content">{itemData.monoSurfaceCount}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">总张数：</div><div className="tip-content">{itemData.totalPageCount}</div>
+		                              		</div>
+		                              		<div className="doc-name-tip-line">
+		                              			<div className="tip-title">份数：</div><div className="tip-content">{itemData.duplicateCount}</div>
+		                              		</div>
+		                              		
+		                              		
 		                              		<div className="doc-name-tip-line">
 		                              			<div className="tip-title">单/双面：</div><div className="tip-content">{
 		                              				
@@ -232,15 +243,7 @@ export default class List extends React.Component {
 		                              			}</div>
 		                              		</div>
 		                              		
-		                              		<div className="doc-name-tip-line">
-		                              			<div className="tip-title">总张数：</div><div className="tip-content">{itemData.totalPageCount}</div>
-		                              		</div>
-		                              		<div className="doc-name-tip-line">
-		                              			<div className="tip-title">彩色面数：</div><div className="tip-content">{itemData.colorSurfaceCount}</div>
-		                              		</div>
-		                              		<div className="doc-name-tip-line">
-		                              			<div className="tip-title">黑白面数：</div><div className="tip-content">{itemData.monoSurfaceCount}</div>
-		                              		</div>
+		                              		
 		                              	</div>
 		                              </Tooltip></div>)
 		              			}} ></TableRowColumn>
