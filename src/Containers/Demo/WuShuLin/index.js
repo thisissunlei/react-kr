@@ -1,7 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import {
-	
+	InputNumber
 } from 'kr-ui';
 import './index.less';
 
@@ -21,7 +21,7 @@ class WuShuLin extends React.Component {
 	
 		return (
 			<div>
-			  123	
+			   <InputNumber max={5} min={-1}></InputNumber>
 			</div>
 		);
 	}

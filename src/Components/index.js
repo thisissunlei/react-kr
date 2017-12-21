@@ -69,6 +69,7 @@ import Toolbars from './Toolbars';
 import TextDic from './TextDic';
 import Dropdown from './Dropdown';
 import AllCheck from './AllCheck';
+import InputNumber from './InputNumber';
 
 import {
 	Grid,
@@ -191,5 +192,6 @@ module.exports = {
 	...DrawerOther,
 	MoveSelect,
 	AirBubbles,
-	KrMenu
+	KrMenu,
+	InputNumber
 }
