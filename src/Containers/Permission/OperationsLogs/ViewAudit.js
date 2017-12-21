@@ -44,7 +44,7 @@ export default class ViewAudit extends React.Component {
 			},
 			{
 				label: "社区变更",
-				value: "COMMUNITY_CHANGE"
+				value: "NONE"
 			},
 			{
 				label:'押金转租',
