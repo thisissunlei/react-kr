@@ -9,14 +9,15 @@ export default class InputNumber extends React.Component {
         this.state={
            other:''
         }
-        this.min=props.min||1;
+        this.min=props.defaultValue||props.min||1;
         this.max=props.max||100;
         this.num=this.min;
         this.changeData=this.min;
         
     }
     componentWillMount(){
-        this.toProps(this.min);
+        let {elemKey}=this.props;
+        this.toProps(this.num,elemKey);
     }
     
     refresh=()=>{
@@ -25,9 +26,9 @@ export default class InputNumber extends React.Component {
         })
     }
 
-    toProps=(data)=>{
+    toProps=(data,elemKey)=>{
         const {change}=this.props;
-        change && change(data);
+        change && change(data,elemKey);
     }
 
     minus=()=>{
@@ -35,7 +36,8 @@ export default class InputNumber extends React.Component {
            return ;
        }
        this.num=!this.num?this.min:parseInt(this.num)-1
-       this.toProps(this.num);
+       let {elemKey}=this.props;
+       this.toProps(this.num,elemKey);
        this.refresh();
     }
     
@@ -44,11 +46,13 @@ export default class InputNumber extends React.Component {
             return ;
         }
         this.num=!this.num?this.min:parseInt(this.num)+1
-        this.toProps(this.num);
+        let {elemKey}=this.props;
+        this.toProps(this.num,elemKey);
         this.refresh();
     }
 
     inputChange=(e)=>{
+      let {elemKey}=this.props;
       var val=e.target.value;
       let g=/^-?\d+$/;
       if((!val&&val!=0)||(val&&(g.test(val))||val==0)){
@@ -59,25 +63,25 @@ export default class InputNumber extends React.Component {
                }else if(val<=this.min){
                  this.num=this.min
                }else{
-                  this.num=val
+                 this.num=val
                }  
            }else{
                this.num='';
-           }
-           this.toProps(this.num);
+           }  
+           this.toProps(this.min,elemKey);
       }else{
            this.num=this.changeData;
-           this.toProps(this.num);
+           this.toProps(this.num,elemKey);
       }
       this.refresh();
       var _this=this;
-      setTimeout(function() {
-        if(_this.num==''){
+      if(_this.num==''){
+        setTimeout(function() {     
             _this.num=_this.min;
-            _this.toProps(_this.num);
+            _this.toProps(_this.num,elemKey);
             _this.refresh();
-        }
-      },1000);
+        },1000);
+      }
     }
     
     

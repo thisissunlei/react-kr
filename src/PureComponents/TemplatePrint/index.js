@@ -71,7 +71,7 @@ class TemplatePrint extends React.Component {
 			],
 			fieldVOs:[],
 			publicFields:[],
-			rowNum:0
+			rowNums:{}
 		}
 		this.labellings = [
 			{ name: 'img',label:'合同公章' },
@@ -236,15 +236,16 @@ class TemplatePrint extends React.Component {
 		return arr;
 	}
 
-	inputChange=(data)=>{
+	inputChange=(data,key)=>{
+		var {rowNums} = this.state;
+		rowNums[key] = data;
 		this.setState({
-			rowNum:data
+			rowNums,
 		})
 	}
 	//明细表
 	detailRender = () =>{
-	   let {nameList,rowNum} = this.state;
-	   console.log('----',rowNum);
+	   let {nameList,rowNums} = this.state;
 		var elems = nameList.map((item,index)=>{
 			if(item.name !=="main_table"){
 				return (
@@ -255,10 +256,14 @@ class TemplatePrint extends React.Component {
 							</AirBubbles>
 						</div>
 						<div style={{ float: "right", paddingRight: 10 }}>
-						    <InputNumber max={20} min={2} change={this.inputChange}></InputNumber>
+						    <InputNumber max={20} min={2} change={this.inputChange} elemKey={index}></InputNumber>
 							<span
 								className="value-btn"
-								onClick={this.detailClick.bind(this, item , rowNum)}
+								onClick={(event)=>{
+									
+									this.detailClick(item,rowNums[index]||2);
+								}}
+								
 							>
 								添加
 						</span>
