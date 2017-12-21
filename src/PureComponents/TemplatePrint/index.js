@@ -71,6 +71,7 @@ class TemplatePrint extends React.Component {
 			],
 			fieldVOs:[],
 			publicFields:[],
+			rowNum:0
 		}
 		this.labellings = [
 			{ name: 'img',label:'合同公章' },
@@ -236,11 +237,13 @@ class TemplatePrint extends React.Component {
 	}
 
 	inputChange=(data)=>{
-		console.log('data---',data);
+		this.setState({
+			rowNum:data
+		})
 	}
 	//明细表
 	detailRender = () =>{
-		let {nameList} = this.state;
+	   let {nameList,rowNum} = this.state;
 		var elems = nameList.map((item,index)=>{
 			if(item.name !=="main_table"){
 				return (
@@ -254,7 +257,7 @@ class TemplatePrint extends React.Component {
 						    <InputNumber max={20} min={2} change={this.inputChange}></InputNumber>
 							<span
 								className="value-btn"
-								onClick={this.detailClick.bind(this, item , 5)}
+								onClick={this.detailClick.bind(this, item , rowNum)}
 							>
 								添加
 						</span>

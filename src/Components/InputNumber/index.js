@@ -61,6 +61,7 @@ export default class InputNumber extends React.Component {
         var _this=this;
         setTimeout(function() {
             _this.num=_this.min;
+            _this.toProps(this.num);
             _this.refresh();
         },30);
       }
