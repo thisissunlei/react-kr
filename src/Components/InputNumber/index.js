@@ -7,71 +7,67 @@ export default class InputNumber extends React.Component {
 	constructor(props){
         super(props);
         this.state={
-            num:props.min||1,
-            noMinus:'',
-            noAdd:'',
+            num:parseInt(props.min)||1,
         }
-        this.changeData=''
+        this.changeData=parseInt(props.min)||1;
     }
-
+    
 
     minus=()=>{
        let {num}=this.state;
-       var min=this.props.min||1;
+       var min=parseInt(this.props.min)||1;
        if(num==min){
-           this.setState({
-             noMinus:'no-minus'
-           })
            return ;
        }
        this.setState({
-           num:!num?this.changeData-1:num-1,
-           noMinus:''
+           num:!num&&num!=0?this.changeData-1:num-1,
        })
     }
 
     add=()=>{
         let {num}=this.state;
-        var max=this.props.max||100;
+        var max=parseInt(this.props.max)||100;
         if(num==max){
-            this.setState({
-                noAdd:'no-minus'
-            })
             return ;
         }
         this.setState({
-            num:!num?this.changeData+1:num+1,
-            noAdd:''
+            num:!num&&num!=0?this.changeData+1:num+1,
         })
     }
 
     inputChange=(e)=>{
+      var val=e.target.value;
+      this.changeData=parseInt(this.props.min)?parseInt(this.props.min):1;
       let {num}=this.state;
-      this.changeData=num;
-      let g=/^-?\d+$/; 
-      if(!e.target.value||e.target.value&&(g.test(e.target.value))){
-        this.setState({
-            num:e.target.value
-        })
+      let g=/^-?\d+$/;
+      if((!val&&val!=0)||(val&&(g.test(val))||val==0)){
+          this.changeData=val?parseInt(val):this.changeData;
+          this.setState({
+              num:val
+          })
       }else{
-        this.setState({
-            num:this.props.min||1
-        })
+         var _this=this;
+         setTimeout(function() {
+            _this.setState({
+                num:_this.changeData
+            })
+         },50); 
       }
     }
-
     
     
 	render() {
 
         let {min,max}=this.props;
-        let {num,noMinus,noAdd}=this.state;
-       
+        let {num}=this.state;
+        console.log('num-0',num);
+        var noMinus=min?(num==min?'no-minus':''):(num==1?'no-minus':'');
+        var noAdd=max?(num==max?'no-minus':''):(num==100?'no-minus':'');
 
 		return ( 
             <div className='u-input-number'>
                 <div className={`u-number-minus ${noMinus}`} onClick={this.minus}>-</div>
-                 <input className='u-number-input' onChange={this.inputChange} value={num} onblur={this.onBlur}/>
+                 <input className='u-number-input' onChange={this.inputChange} value={num}/>
                 <div className={`u-number-minus num-right  ${noAdd}`} onClick={this.add}>+</div>
             </div>
        );
