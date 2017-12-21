@@ -15,6 +15,9 @@ export default class InputNumber extends React.Component {
         this.changeData=this.min;
         
     }
+    componentWillMount(){
+        this.toProps(this.min);
+    }
     
     refresh=()=>{
         this.setState({
@@ -50,22 +53,31 @@ export default class InputNumber extends React.Component {
       let g=/^-?\d+$/;
       if((!val&&val!=0)||(val&&(g.test(val))||val==0)){
            this.changeData=val?parseInt(val):this.changeData;
-           this.num=val!=''?(val>=this.max?this.max:val||val<=this.min?this.min:val):'';
+           if(val!=''){
+               if(val>=this.max){
+                 this.num=this.max
+               }else if(val<=this.min){
+                 this.num=this.min
+               }else{
+                  this.num=val
+               }  
+           }else{
+               this.num='';
+           }
            this.toProps(this.num);
       }else{
            this.num=this.changeData;
            this.toProps(this.num);
       }
       this.refresh();
-      if(!this.num){
-        var _this=this;
-        setTimeout(function() {
+      var _this=this;
+      setTimeout(function() {
+        if(_this.num==''){
             _this.num=_this.min;
-            _this.toProps(this.num);
+            _this.toProps(_this.num);
             _this.refresh();
-        },30);
-      }
-      
+        }
+      },1000);
     }
     
     

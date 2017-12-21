@@ -244,6 +244,7 @@ class TemplatePrint extends React.Component {
 	//明细表
 	detailRender = () =>{
 	   let {nameList,rowNum} = this.state;
+	   console.log('----',rowNum);
 		var elems = nameList.map((item,index)=>{
 			if(item.name !=="main_table"){
 				return (
