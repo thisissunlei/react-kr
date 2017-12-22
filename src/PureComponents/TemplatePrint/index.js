@@ -256,7 +256,7 @@ class TemplatePrint extends React.Component {
 							</AirBubbles>
 						</div>
 						<div style={{ float: "right", paddingRight: 10 }}>
-						    <InputNumber max={20} min={2} change={this.inputChange} elemKey={index}></InputNumber>
+						    <InputNumber max='20' min='2' change={this.inputChange} elemKey={index} height='27' inputWidth='50' label=''></InputNumber>
 							<span
 								className="value-btn"
 								onClick={(event)=>{

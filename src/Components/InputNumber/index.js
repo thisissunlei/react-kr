@@ -9,8 +9,8 @@ export default class InputNumber extends React.Component {
         this.state={
            other:''
         }
-        this.min=props.defaultMin||props.min||1;
-        this.max=props.defaultMax||props.max||100;
+        this.min=props.defaultValue||props.min||1;
+        this.max=props.max||100;
         this.num=this.min;
         this.changeData=this.min;
         
@@ -33,39 +33,31 @@ export default class InputNumber extends React.Component {
         change && change(data,elemKey);
     }
 
-    minus=()=>{
-       if(this.num==this.min){
-           return ;
-       }
-       this.num=!this.num?this.min:parseInt(this.num)-1
-       let {elemKey}=this.props;
-       this.outTransfer(this.num,elemKey);
-       this.refresh();
-    }
-    
-    add=()=>{
-        if(this.num==this.max){
+
+    plusAndMinus=(type,compare)=>{
+        let {elemKey}=this.props;
+        if(this.num==compare){
             return ;
         }
-        this.num=!this.num?this.min:parseInt(this.num)+1
-        let {elemKey}=this.props;
+        this.num=this.num==''?this.min:(type=='minus'?parseInt(this.num)-1:parseInt(this.num)+1)
         this.outTransfer(this.num,elemKey);
         this.refresh();
     }
+
 
     inputChange=(e)=>{
       let {elemKey}=this.props;
       var val=e.target.value;
       let g=/^-?\d+$/;
-      if((!val&&val!=0)||(val&&(g.test(val))||val==0)){
-           this.changeData=val?parseInt(val):this.changeData;
+      if(!val||(val&&(g.test(Number(val))))){
+           this.changeData=val!=''?parseInt(val):this.changeData;
            if(val!=''){
-               if(val>=this.max){
+               if(Number(val)>=this.max){
                  this.num=this.max
-               }else if(val<=this.min){
+               }else if(Number(val)<=this.min){
                  this.num=this.min
                }else{
-                 this.num=val
+                 this.num=Number(val)
                }  
            }else{
                this.num='';
@@ -88,16 +80,23 @@ export default class InputNumber extends React.Component {
     
     
 	render() {
-        
-        let {min,max}=this.props;
-        var noMinus=min?(this.num<=min?'no-minus':''):(this.num<=1?'no-minus':'');
-        var noAdd=max?(this.num>=max?'no-minus':''):(this.num>=100?'no-minus':'');
+
+        let {height,inputWidth,label}=this.props;
+
+        var noMinus=this.num<=this.min?'no-minus':'';
+        var noAdd=this.num>=this.max?'no-minus':'';
 
 		return ( 
-            <div className='u-input-number'>
-                <div className={`u-number-minus ${noMinus}`} onClick={this.minus}>-</div>
-                 <input className='u-number-input' onChange={this.inputChange} value={this.num} onBlur={this.inputBlur}/>
-                <div className={`u-number-minus num-right  ${noAdd}`} onClick={this.add}>+</div>
+            <div className='u-input-number' style={height?{height:height,lineHeight:height-2+'px'}:{}}>
+                <div className={`u-number-minus ${noMinus}`} onClick={(event)=>{
+                    this.plusAndMinus('minus',this.min)
+                }}>-</div>
+                <input className='u-number-input' style={inputWidth?{width:inputWidth}:{}} onChange={this.inputChange} value={this.num} onBlur={this.inputBlur}/>
+                <div className={`u-number-minus num-right  ${noAdd}`} onClick={(event)=>{
+                    this.plusAndMinus('plus',this.max)
+                }}>+</div>
+                
+                {label&&<span style={{paddingLeft:10}}>{label}</span>}
             </div>
        );
 

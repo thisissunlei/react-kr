@@ -1,41 +1,36 @@
 .u-input-number{
-     width:100px;
      line-height: 25px;
      height:27px;
+     width:auto;
      margin-top: -3px;
      vertical-align: middle;
-     position: relative;
      display: inline-block;
     .u-number-minus{
-        position: absolute;
-        z-index: 1;
-        top: 1px;
+        display: inline-block;
         width: 20px;
         height: auto;
         text-align: center;
         background: #f5f7fa;
         font-size: 16px;
-        left: 1px;
         border-radius: 4px 0 0 4px;
         border: 1px solid #dcdfe6;
         cursor: pointer;
+        user-select:none;
+        vertical-align: bottom;
     }
     .num-right{
-        left:auto;
-        right: 1px;
         border-radius: 0 4px 4px 0;
     }
     .u-number-input{
-        position: absolute;
-        left: 21px;
         width: 58px;;
-        top:1px;
         background-color: #fff;
         border: 1px solid #dcdfe6;
+        border-right: none;
+        border-left: none;
         box-sizing: border-box;
         color: #606266;
         display: inline-block;
-        height: 27px;
+        height: 100%;
         outline: none;
         padding: 0 15px;
         text-align: center;
