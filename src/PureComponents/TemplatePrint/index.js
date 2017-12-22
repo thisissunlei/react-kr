@@ -151,6 +151,7 @@ class TemplatePrint extends React.Component {
 	btnValue = (data, prefixes) => {
 		let { fieldVOs } = this.state;
 		var showBtn = [];
+		
 		for (var key in data) {
 			if (key != 'label' && key != 'name') {
 				showBtn.push(
@@ -163,6 +164,7 @@ class TemplatePrint extends React.Component {
 				)
 			}
 		}
+		
 
 		return <div style={{ float: "right", paddingRight: 10 }}> {showBtn}</div>
 	}
@@ -170,11 +172,14 @@ class TemplatePrint extends React.Component {
 	//字段展示列表
 	btnWatch = (fieldVOs, prefixes) => {
 		var showTexts = fieldVOs.map((item, index) => {
+			
 			return (
 				<div className="box" key={index}>
-					<div style={{ float: "left" }}>
+					<div style={{ float: "left" }} >
 						<AirBubbles title={item.name} offsetTop='10'>
-							{item.label}
+							<span className="text-label" onClick={()=>{
+								this.btnLabelClick(item.label);
+							}}>{item.label}</span>
 						</AirBubbles>
 					</div>
 					{
@@ -185,7 +190,9 @@ class TemplatePrint extends React.Component {
 		})
 		return showTexts
 	}
-
+	btnLabelClick = (label)=>{
+		UE.getEditor(this.editId).execCommand('inserthtml', label);
+	}
 	//表单名称修改
 	nameListChange = (item) => {
 		if (!item) {
