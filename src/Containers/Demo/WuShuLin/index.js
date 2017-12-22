@@ -25,7 +25,7 @@ class WuShuLin extends React.Component {
 	
 		return (
 			<div>
-			   <InputNumber max={5} min={1} change={this.onChange}></InputNumber>
+			   <InputNumber max={5} min={-5} change={this.onChange}></InputNumber>
 			</div>
 		);
 	}

@@ -33,13 +33,13 @@ export default class InputNumber extends React.Component {
         change && change(data,elemKey);
     }
 
-
+    //增减事件
     plusAndMinus=(type,compare)=>{
         let {elemKey}=this.props;
         if(this.num==compare){
             return ;
         }
-        this.num=this.num==''?this.min:(type=='minus'?parseInt(this.num)-1:parseInt(this.num)+1)
+        this.num=(!this.num&&this.num!=0)?this.min:(type=='minus'?parseInt(this.num)-1:parseInt(this.num)+1)
         this.outTransfer(this.num,elemKey);
         this.refresh();
     }
@@ -48,22 +48,22 @@ export default class InputNumber extends React.Component {
     inputChange=(e)=>{
       let {elemKey}=this.props;
       var val=e.target.value;
-      let g=/^-?\d+$/;
-      if(!val||(val&&(g.test(Number(val))))){
-           this.changeData=val!=''?parseInt(val):this.changeData;
-           if(val!=''){
+      let digital=/^-?\d+$/;
+      if(!val||(val&&(digital.test(Number(val))))||val=='-'){
+           if(val!=''&&val!='-'){
                if(Number(val)>=this.max){
                  this.num=this.max
                }else if(Number(val)<=this.min){
                  this.num=this.min
                }else{
                  this.num=Number(val)
-               }  
+               } 
            }else{
-               this.num='';
-           }  
+               this.num=val;
+           } 
+           this.changeData=(val!=''&&val!='-')?this.num:this.changeData;  
       }else{
-           this.num=this.changeData;   
+           this.num=this.changeData; 
       }
       this.outTransfer(this.num,elemKey);
       this.refresh();
@@ -71,7 +71,7 @@ export default class InputNumber extends React.Component {
     
     inputBlur=()=>{
         let {elemKey}=this.props;
-        if(this.num==''){
+        if(!this.num||this.num=='-'){
             this.num=this.changeData;   
             this.outTransfer(this.changeData,elemKey);
             this.refresh();
