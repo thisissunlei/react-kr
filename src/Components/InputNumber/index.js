@@ -9,24 +9,26 @@ export default class InputNumber extends React.Component {
         this.state={
            other:''
         }
-        this.min=props.defaultValue||props.min||1;
-        this.max=props.max||100;
+        this.min=props.defaultMin||props.min||1;
+        this.max=props.defaultMax||props.max||100;
         this.num=this.min;
         this.changeData=this.min;
         
     }
     componentWillMount(){
         let {elemKey}=this.props;
-        this.toProps(this.num,elemKey);
+        this.outTransfer(this.num,elemKey);
     }
     
+    //刷新
     refresh=()=>{
         this.setState({
             other:+new Date()
         })
     }
-
-    toProps=(data,elemKey)=>{
+    
+    //向外传递
+    outTransfer=(data,elemKey)=>{
         const {change}=this.props;
         change && change(data,elemKey);
     }
@@ -37,7 +39,7 @@ export default class InputNumber extends React.Component {
        }
        this.num=!this.num?this.min:parseInt(this.num)-1
        let {elemKey}=this.props;
-       this.toProps(this.num,elemKey);
+       this.outTransfer(this.num,elemKey);
        this.refresh();
     }
     
@@ -47,7 +49,7 @@ export default class InputNumber extends React.Component {
         }
         this.num=!this.num?this.min:parseInt(this.num)+1
         let {elemKey}=this.props;
-        this.toProps(this.num,elemKey);
+        this.outTransfer(this.num,elemKey);
         this.refresh();
     }
 
@@ -68,12 +70,20 @@ export default class InputNumber extends React.Component {
            }else{
                this.num='';
            }  
-           this.toProps(this.num,elemKey);
       }else{
-           this.num=this.changeData;
-           this.toProps(this.num,elemKey);
+           this.num=this.changeData;   
       }
+      this.outTransfer(this.num,elemKey);
       this.refresh();
+    }
+    
+    inputBlur=()=>{
+        let {elemKey}=this.props;
+        if(this.num==''){
+            this.num=this.changeData;   
+            this.outTransfer(this.changeData,elemKey);
+            this.refresh();
+        }
     }
     
     
@@ -86,7 +96,7 @@ export default class InputNumber extends React.Component {
 		return ( 
             <div className='u-input-number'>
                 <div className={`u-number-minus ${noMinus}`} onClick={this.minus}>-</div>
-                 <input className='u-number-input' onChange={this.inputChange} value={this.num}/>
+                 <input className='u-number-input' onChange={this.inputChange} value={this.num} onBlur={this.inputBlur}/>
                 <div className={`u-number-minus num-right  ${noAdd}`} onClick={this.add}>+</div>
             </div>
        );
