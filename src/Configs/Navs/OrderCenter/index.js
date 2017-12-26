@@ -12,7 +12,7 @@ module.exports = [
                 menuItems: [
                     {
                         primaryText: "订单列表",
-                        originUrl: '/orderCenter/orderManage',
+                        originUrl: '/order-center/order-manage',
                         type:'vue',
                         menuCode: 'iot_door_open_log',
                         //menuCode: 'fina_meeting_order_page'
@@ -27,7 +27,7 @@ module.exports = [
                 menuItems: [
                     {
                         primaryText: "合同列表",
-                        originUrl: '/contractCenter/list',
+                        originUrl: '/contract-center/list',
                         menuCode: 'iot_door_open_log',
                         //menuCode: 'fina_meeting_order_page'
                     },
