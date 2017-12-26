@@ -65,7 +65,7 @@ module.exports = [
 					},
 					{
 						primaryText: "企业管理员设置",
-						originUrl: '/member/settingManager',
+						originUrl: '/member/setting-manager',
 						type:'vue',
 						menuCode: 'fina_manager_setting_page'
 					},
