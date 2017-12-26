@@ -2,7 +2,7 @@
   list-style: none;
   font-family: "Microsoft YaHei", "黑体";
   height:100%;
-  background: #202973 url('./images/bg.jpg') no-repeat center center;
+  // background: #202973 url('./images/bg.jpg') no-repeat center center;
 
   .error-wrap{
     display: inline-block;
@@ -40,10 +40,14 @@
     	position:relative;
     	z-index:100;
       .content-wrap {
+        position: relative;
       	width:40%;
       	margin: 0 auto;
       	width:720px;
-      	text-align:center;
+        text-align:center;
+        transform: translateY(-50%);
+        top: 50%;
+        margin-top: -70px;
 
         .login-title {
         	color: #ffffff;

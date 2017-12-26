@@ -163,6 +163,33 @@ export default class Home extends React.Component {
    toSlider=(item)=>{
 	   window.open(`${item.linkUrl}`,'_blank');
    }
+	applyRender = () =>{
+		var applyArr = [
+			{ text: '氪空间官网', href: 'http://krspace.cn/', url: './images/main.png' },
+			{ text: '氪星小镇', href: 'http://bbs.corp.36kr.com', url: './images/forum.png' },
+			{ text: '云快报', href: 'https://baoxiao.corp.36kr.com/', url: './images/cloud.png' },
+			{ text: 'E-learning', href: 'https://elearnplus.com', url: './images/learning.png' },
+			{ text: '销售易', href: 'https://crm.xiaoshouyi.com/', url: './images/sellEasy.png' },
+			{ text: 'Udesk', href: 'https://krspace.udesk.cn/', url: './images/Udesk.png' },
+			{ text: '敬请期待', href: '', url:'./images/more-apply.png'},
+					]
+		var elems = applyArr.map((item,index)=>{
+			
+				return (
+					<a className="apply-item" href={item.href ? item.href : "javascript: void(0);"} target="_blank">
+						{item.url && <div className="pic krspace-logo" 
+							style={{ 
+									height: this.applyItemWidth, 
+									background: 'background: url('+item.url+') no-repeat center center' 
+								}}
+						></div>}
+						{item.url && <div className="text">{item.text}</div>}
+					</a>
+					) 
+			
+		})
+		return elems
+	}
   render() {
     return (
       <div className="g-home">
@@ -286,48 +313,8 @@ export default class Home extends React.Component {
 							</div>
 
 							<div className="apply">
-								<a className="apply-item" href="http://krspace.cn" target="_blank">
-									<div className="pic krspace-logo"  style={{height:this.applyItemWidth}}>
-
-									</div>
-									<div className="text">
-										氪空间官网
-									</div>
-								</a>
-								<a className="apply-item" href="http://bbs.corp.36kr.com" target="_blank">
-									<div className="pic" style={{height:this.applyItemWidth}}>
-
-									</div>
-									<div className="text">
-										氪星小镇
-									</div>
-								</a>
-								<a className="apply-item" href="https://baoxiao.corp.36kr.com/" target="_blank">
-									<div className="pic" style={{height:this.applyItemWidth}}>
-
-									</div>
-									<div className="text">
-										云快报
-									</div>
-								</a>
-
-								<a className="apply-item" href="https://elearnplus.com" target="_blank">
-									<div className="pic" style={{height:this.applyItemWidth}}>
-
-									</div>
-									<div className="text" style={{paddingTop:3}}>
-										E-learning
-									</div>
-								</a>
-
-								<div className="apply-item">
-									<div className="pic" style={{height:this.applyItemWidth}}>
-
-									</div>
-									<div className="text">
-										敬请期待
-									</div>
-								</div>
+								
+								{this.applyRender()}
 							</div>
 						</div>
 				</div>
