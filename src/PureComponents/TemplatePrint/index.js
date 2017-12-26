@@ -301,13 +301,13 @@ class TemplatePrint extends React.Component {
 			tBottom += `<td style="${tdStyle}"></td>`;
 		}
 
-		var str = `<div>${item.label}</div>` +
+		var str = `<div id="tableBigBox-${item.name}"><div>${item.label}</div>` +
 			`<table style="${tableStyle}" data-id="table-${item.name}" table-name="${item.name}">` +
 			`<tr id="th-${item.name}" style="${trStyle}">${th}</tr>` +
 			`<tr id="td-${item.name}" style="${trStyle}">${td}</tr>` +
 			`<tr id="tBottom-${item.name}" style="${trStyle}">${td}</tr>` +
 			`</table>` +
-			`<div data-id="tableBox-${item.name}"></div>`;
+			`<div data-id="tableBox-${item.name}"></div></div>`;
 		UE.getEditor(this.editId).execCommand('inserthtml', str);
 
 	}
