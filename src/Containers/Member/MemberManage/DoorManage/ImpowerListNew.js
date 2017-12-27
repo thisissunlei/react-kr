@@ -441,7 +441,7 @@ export default class FinishUploadImgForm extends React.Component{
 					onChangeFloor={this.onChangeFloor}
 					onSearchSubmit={this.onSearchSubmit}
 				/>
-				<div className="upload-img-box" style={{padding:"0 30px",height:"90%"}}>
+				<div className="upload-img-box" style={{padding:"0 30px",height:"90%",width:"90%"}}>
 
 					<div className="upload-img-body" style={{width:"100%",height:"90%"}}>
 
