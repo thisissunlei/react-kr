@@ -170,7 +170,7 @@ export default class Home extends React.Component {
 			{ text: '云快报', href: 'https://baoxiao.corp.36kr.com/', url: './images/cloud.png' },
 			{ text: 'E-learning', href: 'https://elearnplus.com', url: './images/learning.png' },
 			{ text: '销售易', href: 'https://crm.xiaoshouyi.com/', url: './images/sellEasy.png' },
-			{ text: 'Udesk', href: 'https://krspace.udesk.cn/', url: './images/Udesk.png' },
+			{ text: 'Udesk', href: 'http://krspace.udesk.cn/users/sign_in', url: './images/Udesk.png' },
 			{ text: '敬请期待', href: '', url:'./images/more-apply.png'},
 					]
 		var elems = applyArr.map((item,index)=>{
