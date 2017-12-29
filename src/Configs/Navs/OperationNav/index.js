@@ -63,6 +63,12 @@ module.exports = [
 						router: '/member/membermanage/cardmanage',
 						menuCode: 'mbr_card_base',
 					},
+					{
+						primaryText: "企业管理员设置",
+						originUrl: '/member/setting-manager',
+						type:'vue',
+						menuCode: 'fina_manager_setting_page'
+					},
 				]
 			},
 			{
