@@ -68,6 +68,14 @@ const SmartHardware_PrintManage_PriceConfig = (location, callback) => {
 }
 
 
+const SmartHardware_CenterControlManage_EquipmentManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/CenterControlManage/EquipmentManage').default)
+  }, 'SmartHardware_CenterControlManage_EquipmentManage')
+}
+
+
+
 
 module.exports =()=>{
 
@@ -89,6 +97,10 @@ module.exports =()=>{
 				<Route path="priceconfig" getComponent={SmartHardware_PrintManage_PriceConfig}/>
 				
 			</Route>
+
+      <Route path="centercontrolmanage" getComponent={Basic}>
+        <Route path="equipmentmanage" getComponent={SmartHardware_CenterControlManage_EquipmentManage}/>
+      </Route>
 			
 		</Route>
 	);
