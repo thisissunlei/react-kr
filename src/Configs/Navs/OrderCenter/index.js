@@ -11,8 +11,8 @@ module.exports = [
                 iconColor: '#79859a',
                 menuItems: [
                     {
-                        primaryText: "订单列表",
-                        originUrl: '/order-center/order-manage/general-order-manage',
+                        primaryText: "工位订单列表",
+                        originUrl: '/order-center/order-manage/station-order-manage',
                         type:'vue',
                         menuCode: 'iot_door_open_log',
                         //menuCode: 'fina_meeting_order_page'
