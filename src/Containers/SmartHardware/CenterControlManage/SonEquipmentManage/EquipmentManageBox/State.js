@@ -11,7 +11,7 @@ import {Message} from 'kr-ui';
 let State = observable({
 	itemDetail:[],
 	realPage : 1,
-	openCenterControlDetail:false,
+	openHardwareDetail:false,
 	openNewCreate:false,
 	openEditDialog:false,
 	openConfirmDelete:false,
@@ -58,6 +58,7 @@ let State = observable({
 	loading :false,
 	DropItems : [],
 	openFirstHardwareDetail: false,
+	resetFirstEquipmentDialog : false,
 	EquipmentHttpToken:'',
 	httpTokenDialog :false
 });
@@ -105,7 +106,7 @@ State.deleteEquipmentBatch= action(function() {
 State.deleteEquipmentSingle= action(function() {
 	
 	
-	Http.request('deleteCenterControEquipment',{id:State.selectedDeleteIds}).then(function(response) {
+	Http.request('deleteEquipmentSingleURL',{id:State.selectedDeleteIds}).then(function(response) {
 		
 		State.freshPageReturn();	
 		Message.success("删除成功");
@@ -169,9 +170,9 @@ State.getUpgradeTypeOptions = action(function() {
 
 
 //新增
-State.newCreateCenterControl = action(function(values){
+State.newCreateSecondDoor = action(function(values){
 	
-	Http.request('addCenterControlEquipment',{},values ).then(function(response) {
+	Http.request('addOrEditEquipment',values ).then(function(response) {
 		
 		State.equipmentSecondParams = {
 			page:1,
@@ -194,9 +195,9 @@ State.newCreateCenterControl = action(function(values){
 })
 
 //编辑
-State.editCenterControl = action(function(values){
+State.editSecondDoor = action(function(values){
 	
-	Http.request('editCenterControl',{},values ).then(function(response) {
+	Http.request('addOrEditEquipment',values ).then(function(response) {
 		
 		State.freshPageReturn();
 		State.openEditDialog =false;
@@ -401,6 +402,15 @@ State.confirmSynchronizingAction = action(function(){
 })
 
 
+//一代门禁重置
+State.confirmResetFirstEquipmentState = action(function(){
+	var urlParams = {deviceId:State.itemDetail.deviceId}
+	Http.request('resetFirstEquipmentUrl',urlParams).then(function(response) {
+		Message.success("重置设备成功");
+	}).catch(function(err) {
+		Message.error(err.message);
+	});
+})
 
 
 

@@ -25,6 +25,7 @@ class NewCreateDefinitionForm extends React.Component{
 			floorsOptions:[],
 			locationOptions:[],
 			communityId :'',
+			propertyOption :State.propertyOption,
 		}
 	}
 
@@ -55,7 +56,8 @@ class NewCreateDefinitionForm extends React.Component{
 			communityId :community.id,
 		})
     	Store.dispatch(change('NewCreateDefinitionForm', 'communityId', community.communityId));
-		Store.dispatch(change('NewCreateDefinitionForm','spaceId',''));
+  		// Store.dispatch(change('NewCreateDefinitionForm','doorType',''));
+		Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
 
 
     	Http.request('getFloorByComunity',httpParam).then(function(response){
@@ -72,28 +74,29 @@ class NewCreateDefinitionForm extends React.Component{
   	}
   	
   	//选择属性(会议室／大门)
-	onchooseProperty=(spaceType)=>{
+	onchooseProperty=(doorType)=>{
+		//console.log("doorType",doorType);
 		let _this = this;
-		if(spaceType == null){
-  			Store.dispatch(change('NewCreateDefinitionForm','spaceType',''));
+		if(doorType == null){
+  			Store.dispatch(change('NewCreateDefinitionForm','doorType',''));
 			return;
 		}
   		
-  		Store.dispatch(change('NewCreateDefinitionForm','spaceType',spaceType.value));
+  		Store.dispatch(change('NewCreateDefinitionForm','doorType',doorType.value));
   	}
 	
 	// 选择对应位置
-	onchooseCorrespondingLocation=(spaceId)=>{
-		if(spaceId == null){
+	onchooseCorrespondingLocation=(roomId)=>{
+		if(roomId == null){
 			return;
 		}
-		Store.dispatch(change('NewCreateDefinitionForm','spaceId',spaceId.value));
+		Store.dispatch(change('NewCreateDefinitionForm','roomId',roomId.value));
 	}
 	// 选择楼层
 	getFloor=(floor)=>{
 		let _this = this;
 		if(!floor){
-			// Store.dispatch(change('NewCreateDefinitionForm', 'spaceType', ""));
+			// Store.dispatch(change('NewCreateDefinitionForm', 'doorType', ""));
 		}else{
 			_this.setState({
 				floorNum : floor.value
@@ -146,29 +149,24 @@ class NewCreateDefinitionForm extends React.Component{
 	// 新增设备定义
 	onSubmit=(values)=>{
 		let _this = this;
-		
 		let hardwareIdparams = {
-			serialNo :values.serialNo
+			deviceId :values.deviceId
 		}
-		var deviceTypeObj = {deviceType:"GATEWAY_PANEL"}
-		var submitValue = Object.assign(values,deviceTypeObj);
 
-		console.log("submitValue",submitValue,submitValue.name);
+		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
 
-		// Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
+	 		State.newCreateSecondDoor(values);
 
-	 		State.newCreateCenterControl(submitValue);
+		}).catch(function(err){
 
-		// }).catch(function(err){
+	 		Message.error(err.message);
 
-	 		// Message.error(err.message);
-
-		// });
+		});
 		
 	}
 	render(){
-		let {floorsOptions,locationOptions,defaultChecked} =this.state;
-		let spaceOptions = [{label:"会议室",value:"MEETING"},{label:"独立办公室",value:"OFFICE"},{label:"大厅",value:"HALL"}]
+		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked} =this.state;
+		
 		const { error, handleSubmit, reset} = this.props;
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
@@ -193,7 +191,7 @@ class NewCreateDefinitionForm extends React.Component{
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
-					<KrField name="spaceId" grid={2}
+					<KrField name="roomId" grid={2}
 						component="select" 
 						options={locationOptions}
 						label="房间"
@@ -201,7 +199,7 @@ class NewCreateDefinitionForm extends React.Component{
 						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
 					/>
 					
-					<KrField grid={1/2} name="serialNo" 
+					<KrField grid={1/2} name="deviceId" 
 						type="text" 
 						label="智能硬件ID" 
 						requireLabel={true} 
@@ -211,26 +209,44 @@ class NewCreateDefinitionForm extends React.Component{
 						onBlur = {this.hardwareIdHasFun}
 					/>
 					
-					<KrField name="spaceType" 
+					<KrField name="doorType" 
 						component="select" 
-						label="空间类型"
+						label="门类型"
 						onChange = {this.onchooseProperty}
-						options={spaceOptions}  
+						options={propertyOption}  
 						requireLabel={true} 
 						requiredValue={true} 
 						errors={{requiredValue:'门类型为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
-					
-					<KrField grid={1/2} name="name" 
-						type="text" 
-						label="屏幕显示名称" 
+					<KrField name="maker" grid={1/2}
+						component="select" 
+						label="厂家" 
+						options = {State.makerOptions}
 						requireLabel={true} 
 						requiredValue={true} 
-						errors={{requiredValue:'展示名称为必填项'}} 
+						errors={{requiredValue:'厂家为必填项'}} 
+						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
+					/>
+					<KrField grid={1/2} name="title" 
+						type="text" 
+						label="屏幕显示标题" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'展示标题为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onBlur = {this.onChangeTitle}
 					/>
+					<KrField grid={1/2} name="doorCode" 
+						type="text" 
+						label="屏幕显示编号" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'门编号为必填项'}} 
+						style={{width:'252px'}}
+						onBlur = {this.doorNumHasFun}
+					/>
+					
 					
 					<KrField
 						label="备注"
@@ -266,24 +282,32 @@ const validate = values=>{
 		errors.floor = '楼层为必填项';
 	}
 	if(!values.title || /^\s+$/.test(values.title)){
-		errors.title = '屏幕显示名称为必填项';
+		errors.title = '屏幕显示标题为必填项';
 	}
 	if(values.title && values.title.length>11){
 
-		errors.title = '屏幕显示名称最多11个字符';
+		errors.title = '屏幕显示标题最多11个字符';
 	}
-	
+	if(!values.doorCode || /^\s+$/.test(values.doorCode)){
+		errors.doorCode = '屏幕显示编号为必填项';
+	}
+	if(values.doorCode  && values.doorCode.length>9){
+		errors.doorCode = '屏幕显示编号最多9个字符';
+	}
 	if(!values.deviceId || /^\s+$/.test(values.deviceId)){
 		errors.deviceId = '智能硬件ID为必填项';
 	}
 	if(values.deviceId && values.deviceId.length>50){
 		errors.deviceId = '智能硬件ID最多50个字符';
 	}
-	if(!values.spaceType){
-		errors.spaceType = '空间类型类型为必填项';
+	if(!values.doorType){
+		errors.doorType = '门类型为必填项';
 	}
-	if(values.spaceType && (values.spaceType=='MEETING' ||values.spaceType=='OFFICE')&& !values.spaceId){
-		errors.spaceId ='空间类型为会议室或独立办公室,房间必填'
+	if(values.doorType && (values.doorType=='MEETING' ||values.doorType=='OFFICE')&& !values.roomId){
+		errors.roomId ='门类型为会议室或独立办公室，房间必须填写'
+	}
+	if(!values.maker){
+		errors.maker = '厂家为必填项';
 	}
 	
 	return errors;

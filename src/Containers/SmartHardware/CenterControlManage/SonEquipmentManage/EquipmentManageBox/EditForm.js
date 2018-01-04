@@ -5,6 +5,7 @@ import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,Fiel
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import State from './State';
+import {ShallowEqual} from 'kr/Utils';
 
 import {
 	KrField,
@@ -20,25 +21,33 @@ import {
 class EditForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
-		this.detail = this.props.detail
+		this.detail = this.props.detail;
 		this.state={
 			
 			floorsOptions:[],
 			locationOptions:[],
 			communityId :'',
+			floorNum :'',
+			propertyOption :State.propertyOption,
+
 		}
 	}
-	
 	//首次加载，只执行一次
 	componentWillMount() {
 		this.getBasicData(this.detail);
 	}
-
-
+	componentWillReceiveProps(nextProps){
+		if(!ShallowEqual(this.state.initializeValues,nextProps.detail)){
+			
+			this.setState({
+				initializeValues:nextProps.detail
+			})
+		}
+	}
 	componentDidMount(){
+		console.log("this.detail",this.detail);
 		Store.dispatch(initialize('EditForm', this.detail));
 	}
-
 	getBasicData=(detail)=>{
 		
 		
@@ -83,37 +92,38 @@ class EditForm extends React.Component{
 		})
 
 	}
-
 	onCancel=()=>{
-		const {onCancel}=this.props;
-		onCancel && onCancel();
+		State.openEditDialog = false;
 	}
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
   		
-
-  		Store.dispatch(change('EditForm', 'floor', ''))
-
   		let _this = this;
   		if(!community){
   			_this.setState({
-  				
   				floorsOptions : [],
-  				locationOptions:[]
+  				locationOptions :[]
   			})
+  			Store.dispatch(change('EditForm', 'floor', ""))
+  			Store.dispatch(change('EditForm','roomId',''));
 			return;
 		}
-		let httpParam = {
-			communityId : community.id
-		}
+		
 		this.setState({
 			communityId :community.id,
 		})
-    	Store.dispatch(change('EditForm', 'communityId', community.communityId));
-		Store.dispatch(change('EditForm','spaceId',''));
+    	Store.dispatch(change('EditForm', 'communityId', community.id));
+		Store.dispatch(change('EditForm','roomId',''));
+  		Store.dispatch(change('EditForm', 'floor', ""))
+
+  		let communityIdParam = {communityId : community.id}
+    	this.getFloorOption(communityIdParam);
+  	}
 
 
-    	Http.request('getFloorByComunity',httpParam).then(function(response){
+  	getFloorOption = (communityIdParam)=>{
+  		let _this =this;
+  		Http.request('getFloorByComunity',communityIdParam).then(function(response){
     		var arrNew = []
     		for (var i=0;i<response.floors.length;i++){
     			arrNew[i] = {label:response.floors[i],value:response.floors[i]}
@@ -122,73 +132,74 @@ class EditForm extends React.Component{
     			floorsOptions : arrNew
     		})
     	}).catch(function(err){
-
+    		Message.error(err.message);
     	})
   	}
   	
-  	//选择属性(会议室／大门)
-	onchooseProperty=(spaceType)=>{
-		let _this = this;
-		if(spaceType == null){
-  			Store.dispatch(change('EditForm','spaceType',''));
-			return;
-		}
-  		
-  		Store.dispatch(change('EditForm','spaceType',spaceType.value));
+  	//选择门类型
+	onchooseProperty=(doorType)=>{
+
+  		Store.dispatch(change('EditForm','doorType',doorType.value));
+
   	}
 	
-	// 选择对应位置
-	onchooseCorrespondingLocation=(spaceId)=>{
-		if(spaceId == null){
+	// 选择房间
+	onchooseCorrespondingLocation=(roomId)=>{
+
+		if(!roomId){
+			Store.dispatch(change('EditForm','roomId',''));
 			return;
 		}
-		Store.dispatch(change('EditForm','spaceId',spaceId.value));
+		// console.log("roomId",roomId);
+		Store.dispatch(change('EditForm','roomId',roomId.value));
+		
 	}
 	// 选择楼层
 	getFloor=(floor)=>{
 		let _this = this;
 		if(!floor){
-			// Store.dispatch(change('EditForm', 'spaceType', ""));
+			
+			// Store.dispatch(change('EditForm', 'doorType', ""));
 		}else{
 			_this.setState({
 				floorNum : floor.value
 			},function(){
-				_this.getRoom();
+				_this.getRoomOption();
 			})
-			
 		}
 		
 	}
 
-	getRoom =()=>{
+	getRoomOption=()=>{
 		let _this =this;
 		let SearchLocationParams = 
-			{
-	  			communityId:_this.state.communityId,
-	  			whereFloor:_this.state.floorNum
-  			}
+				{
+					communityId:_this.state.communityId,
+  					whereFloor:_this.state.floorNum
+  				}
   			
-  			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
-				var locationArr = []
-	    		for (var i=0;i<response.length;i++){
-	    			locationArr[i] = {label:response[i].name,value:response[i].id}
-	    		}
-	    		_this.setState({
-	    			locationOptions : locationArr
-	    		})
-			});
+		Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
+			var locationArr = []
+    		for (var i=0;i<response.length;i++){
+    			locationArr[i] = {label:response[i].name,value:response[i].id}
+    		}
+    		_this.setState({
+    			locationOptions : locationArr
+    		})
+		});
 	}
 	
 	
 	// 判断智能硬件ID是否存在
 	hardwareIdHasFun=(hardwareId)=>{
-		
+		let {detail} = this.props;
 		if(!hardwareId || /^\s+$/.test(hardwareId)){
 			return;
 		}
 		let _this = this;
 		let hardwareIdparams = {
 			deviceId :hardwareId,
+			id: detail.id
 		}
 		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
 	 		
@@ -198,35 +209,39 @@ class EditForm extends React.Component{
 		});
 	}
 
-	// 新增设备
+	// 编辑设备定义
 	onSubmit=(values)=>{
+		// console.log("values",values);
+		let {detail} = this.props;
 		let _this = this;
-		
 		let hardwareIdparams = {
-			serialNo :values.serialNo
+			deviceId :values.deviceId,
+			id: detail.id
 		}
-		var deviceTypeObj = {deviceType:"GATEWAY_PANEL",id :this.detail.id}
-		var submitValue = Object.assign(values,deviceTypeObj);
 
+		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
 
-		// Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
+	 		State.editSecondDoor(values);
 
-	 		State.editCenterControl(submitValue);
+		}).catch(function(err){
 
-		// }).catch(function(err){
-
-	 		// Message.error(err.message);
-
-		// });
+	 		Message.error(err.message);
+ 
+		});
 		
 	}
 	render(){
-		let {floorsOptions,locationOptions,defaultChecked} =this.state;
-		let spaceOptions = [{label:"会议室",value:"MEETING"},{label:"独立办公室",value:"OFFICE"},{label:"大厅",value:"HALL"}]
-		const { error, handleSubmit, reset} = this.props;
+		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked} =this.state;
+		
+		const { error, handleSubmit, reset ,detail} = this.props;
 		return(
-			<div style={{padding:'20px 0 0 55px'}}>
+			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
+					<div style={{margin:"0 0 20px 10px",fontSize: 14,color:'black'}}>
+						<div><span>智能硬件ID：</span><span style={{color:"#ff6868"}}>{detail.deviceId}</span></div>
+						<div style={{marginTop:15}}><span>标记：</span><span style={{color:"#ff6868"}}>{detail.name}</span></div>
+					</div>
+					
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
 						onChange = {this.onChangeSearchCommunity}
@@ -247,44 +262,54 @@ class EditForm extends React.Component{
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
-					<KrField name="spaceId" grid={2}
+
+					<KrField name="roomId" grid={1/2}
 						component="select" 
 						options={locationOptions}
 						label="房间"
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
 					/>
-					
-					<KrField grid={1/2} name="serialNo" 
-						type="text" 
-						label="智能硬件ID" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'智能硬件ID为必填项'}} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						onBlur = {this.hardwareIdHasFun}
-					/>
-					
-					<KrField name="spaceType" 
+
+					<KrField name="doorType" 
 						component="select" 
-						label="空间类型"
+						label="门类型"
 						onChange = {this.onchooseProperty}
-						options={spaceOptions}  
+						options={propertyOption}  
 						requireLabel={true} 
 						requiredValue={true} 
 						errors={{requiredValue:'门类型为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
-					
-					<KrField grid={1/2} name="name" 
-						type="text" 
-						label="屏幕显示名称" 
+					<KrField name="maker" grid={1/2}
+						component="select" 
+						label="厂家" 
+						options = {State.makerOptions}
 						requireLabel={true} 
 						requiredValue={true} 
-						errors={{requiredValue:'展示名称为必填项'}} 
+						errors={{requiredValue:'厂家为必填项'}} 
+						style={{width:'252px'}}
+					/>
+
+					<KrField grid={1/2} name="title" 
+						type="text" 
+						label="屏幕显示标题" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'屏幕显示标题为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onBlur = {this.onChangeTitle}
 					/>
+					<KrField grid={1/2} name="doorCode" 
+						type="text" 
+						label="屏幕显示编号" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'屏幕显示编号为必填项'}} 
+						style={{width:'252px'}}
+						onBlur = {this.doorNumHasFun}
+					/>
+					
 					
 					<KrField
 						label="备注"
@@ -320,24 +345,31 @@ const validate = values=>{
 		errors.floor = '楼层为必填项';
 	}
 	if(!values.title || /^\s+$/.test(values.title)){
-		errors.title = '屏幕显示名称为必填项';
+		errors.title = '屏幕显示标题为必填项';
 	}
 	if(values.title && values.title.length>11){
-
-		errors.title = '屏幕显示名称最多11个字符';
+		errors.title = '屏幕显示标题最多11个字符';
 	}
-	
+	if(!values.doorCode || /^\s+$/.test(values.doorCode)){
+		errors.doorCode = '屏幕显示编号为必填项';
+	}
+	if(values.doorCode  && values.doorCode.length>9){
+		errors.doorCode = '屏幕显示编号最多9个字符';
+	}
 	if(!values.deviceId || /^\s+$/.test(values.deviceId)){
 		errors.deviceId = '智能硬件ID为必填项';
 	}
 	if(values.deviceId && values.deviceId.length>50){
 		errors.deviceId = '智能硬件ID最多50个字符';
 	}
-	if(!values.spaceType){
-		errors.spaceType = '空间类型类型为必填项';
+	if(!values.doorType){
+		errors.doorType = '门类型为必填项';
 	}
-	if(values.spaceType && (values.spaceType=='MEETING' ||values.spaceType=='OFFICE')&& !values.spaceId){
-		errors.spaceId ='空间类型为会议室或独立办公室,房间必填'
+	if(values.doorType && (values.doorType=='MEETING' ||values.doorType=='OFFICE')&& !values.roomId){
+		errors.roomId ='门类型为会议室或独立办公室，必须选择房间'
+	}
+	if(!values.maker){
+		errors.maker = '厂家为必填项';
 	}
 	
 	return errors;

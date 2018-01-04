@@ -74,6 +74,23 @@ const SmartHardware_CenterControlManage_EquipmentManage = (location, callback) =
   }, 'SmartHardware_CenterControlManage_EquipmentManage')
 }
 
+const SmartHardware_CenterControlManage_SonEquipmentManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/CenterControlManage/SonEquipmentManage').default)
+  }, 'SmartHardware_CenterControlManage_SonEquipmentManage')
+}
+
+const SmartHardware_CenterControlManage_OperateLog = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/CenterControlManage/OperateLog').default)
+  }, 'SmartHardware_CenterControlManage_OperateLog')
+}
+
+
+
+
+
+
 
 
 
@@ -100,6 +117,8 @@ module.exports =()=>{
 
       <Route path="centercontrolmanage" getComponent={Basic}>
         <Route path="equipmentmanage" getComponent={SmartHardware_CenterControlManage_EquipmentManage}/>
+        <Route path="sonequipmentmanage" getComponent={SmartHardware_CenterControlManage_SonEquipmentManage}/>
+        <Route path="operatelog" getComponent={SmartHardware_CenterControlManage_OperateLog}/>
       </Route>
 			
 		</Route>
