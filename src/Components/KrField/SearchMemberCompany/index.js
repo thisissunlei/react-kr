@@ -61,10 +61,10 @@ export default class  SearchMemberCompany extends React.Component {
 		return 	Http.request('get-member-company',{ companyName:companyName || ''}).then(function(response){
 				let items=response.items;
 				items.forEach(function(item,index){
-					item.value = item.cityId;
+					item.value = item.id;
 					item.label = item.companyName;
 					if(ValueInfo.csrId){
-						if(item.cityId==ValueInfo.csrId){
+						if(item.id==ValueInfo.csrId){
 							flag.push('0');
 						}
 					}

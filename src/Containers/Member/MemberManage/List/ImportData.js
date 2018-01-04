@@ -39,18 +39,21 @@ class ImportData extends React.Component {
 			progress: 0,
 			file:{},
 			fileName:'',
-			csrId:''
+			csrId:'',
+			communityId:''
 		}
 	}
 	testDate=()=>{
 		let _this = this;
 		let {
 			csrId,
-			file
+			file,
+			communityId
 		}=this.state;
 		var form = new FormData();
 		form.append('file', file);
 		form.append('csrId', csrId);
+		form.append('communityId', communityId);
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
 			return false;
@@ -126,11 +129,15 @@ class ImportData extends React.Component {
 
 	onCompanyChange=(value)=>{
 		this.setState({
-			csrId:value.csrId
+			csrId:value.id
 		});
 	}
 
-
+	onCommunity=(value)=>{
+		this.setState({
+			communityId:value.id
+		});
+	}
 
 
 	render() {
@@ -145,6 +152,7 @@ class ImportData extends React.Component {
 						label="公司" 
 						grid={1/2}
 						inline={false}
+						height={36}
 						component="searchMemberCompany" 
 						requireLabel={true}
 						onChange={this.onCompanyChange}
@@ -156,8 +164,10 @@ class ImportData extends React.Component {
 						grid={1/2} 
 						label="社区" 
 						component="searchCommunityAll" 
+						height={36}
 						requireLabel={true} 
 						inline={false}
+						onChange={this.onCommunity}
 					/>
 					</div>
 				

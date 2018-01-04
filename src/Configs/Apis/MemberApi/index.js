@@ -127,6 +127,10 @@ module.exports = {
         url:'/api/krspace-sso-web/member/customer/csr-list?companyName={companyName}',
         method:'get'
     },
-
+    //会员列表-恢复
+    'cancle-leave':{
+        url:'/api/krspace-sso-web/member/cancle-leave?id={id}',
+        method:'get'
+    },
 
 }

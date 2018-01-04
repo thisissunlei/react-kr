@@ -215,7 +215,6 @@ class NewCreateForm extends React.Component{
 					<KrField grid={1/2} name="communityId" component="searchCommunityAll" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true}  inline={false} style={{width:'252px',marginRight:'30'}}/>
 					<KrField grid={1/2} name="csrId" component="searchMemberCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true}  style={{width:'252px',marginRight:'30'}}/>
 					<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30'}}/>
-					<KrField grid={1/2} name="foreignCode" type="text" label="会员卡号" onBlur={this.foreignCodeBlur} style={{width:'252px',marginRight:'30'}} />
 					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:'252px',marginRight:'30'}}/>
 					<KrField name="job"  grid={1/2}  label="职位"  style={{width:'252px'}}/>
 					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />

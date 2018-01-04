@@ -37,7 +37,6 @@ export default class List extends React.Component {
 		super(props, context);
 		this.openAdvancedQueryDialog = this.openAdvancedQueryDialog.bind(this);
 		this.onLoaded = this.onLoaded.bind(this);
-		this.onOperation = this.onOperation.bind(this);
 		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.params = this.context.router.params;
 		this.state = {
@@ -57,6 +56,7 @@ export default class List extends React.Component {
 			openDelete:false,
 			openView:false,
 			openLeave:false,
+			openBack:false,
 			openBindCode:false,
 			searchParams: {
 				page: 1,
@@ -79,26 +79,35 @@ export default class List extends React.Component {
 			importdata:!this.state.importdata
 		}) 
 	}
-	openLeave=()=>{
+	openLeave=(itemDetail)=>{
+		
 		this.setState({
 			openLeave: !this.state.openLeave,
+			itemDetail
 		});
 	}
-	
+	openBack=(itemDetail)=>{
+		this.setState({
+			openBack: !this.state.openBack,
+			itemDetail
+		});
+	}
 	openNewCreateDialog=()=> {
 		this.setState({
 			openNewCreate: !this.state.openNewCreate,
 		});
 	}
-	openView=()=>{
+	openView=(itemDetail)=>{
 		this.setState({
-			openView:!this.state.openView
+			openView:!this.state.openView,
+			itemDetail
 		})
 	}
 	// 编辑详情的Dialog
-	openEditDetailDialog=()=>{
+	openEditDetailDialog=(itemDetail)=>{
 		this.setState({
 			openEditDetail: !this.state.openEditDetail,
+			itemDetail
 		});
 	}
 	// 社区模糊查询
@@ -119,34 +128,19 @@ export default class List extends React.Component {
 			list
 		})
 	}
-	openDelete=()=>{
+	openDelete=(itemDetail)=>{
 		this.setState({
-			openDelete:!this.state.openDelete
-		})
-	}
-	openBindCode=()=>{
-		this.setState({
-			openBindCode:!this.state.openBindCode
-		})
-	}
-	//操作相关
-	onOperation(type, itemDetail) {
-		
-		this.setState({
+			openDelete:!this.state.openDelete,
 			itemDetail
-		});
-		if (type == 'view') {
-			this.openView();
-		} else if (type == 'edit') {
-			this.openEditDetailDialog();
-		}else if(type=='delete'){
-			this.openDelete();
-		}else if(type=='leave'){
-			this.openLeave();
-		}else if(type=="bindcode"){
-			this.openBindCode();
-		}
+		})
 	}
+	openBindCode=(itemDetail)=>{
+		this.setState({
+			openBindCode:!this.state.openBindCode,
+			itemDetail
+		})
+	}
+	
 	// 导出Excle表格
 	onExport=(values)=>{
 		let ids = [];
@@ -295,7 +289,25 @@ export default class List extends React.Component {
 		});
 		
 	}
-	 //删除
+	//恢复
+	onBack=()=>{
+		var _this=this;
+		const {itemDetail}=this.state;
+		Http.request('cancle-leave',{id:itemDetail.uid}).then(function (response) {
+			_this.openBack();
+			Message.success('修改成功！');
+			_this.setState({
+				searchParams:{
+					date:new Date()
+				}
+			})
+
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+		
+	}
+	//删除
 	 onDeleteData=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
@@ -329,6 +341,7 @@ export default class List extends React.Component {
 		if (!list.totalCount) {
 			list.totalCount = 0;
 		}
+		var logFlag = '';
 		let options = [{
 			label: '公司名称',
 			value: 'COMP_NAME'
@@ -360,7 +373,6 @@ export default class List extends React.Component {
 											onProcessData={(state)=>{
 												return state;
 												}}
-											onOperation={this.onOperation}
 											//exportSwitch={true}
 										 	//onExport={this.onExport}
 											ajaxFieldListName='items'
@@ -433,12 +445,27 @@ export default class List extends React.Component {
 													return (<span className={Style}>{status}</span>)
 												}}
 											></TableRowColumn>
-											<TableRowColumn type="operation" style={{width:200}}>
-													<Button label="详情"  type="operation" operation="view"/>
-													<Button operateCode="mbr_list_edit" label="编辑"  type="operation" operation="edit"/>
-													<Button operateCode="mbr_list_leave" label="离场"  type="operation" operation="leave"/>
-													<Button operateCode="mbr_list_bind" label="绑卡"  type="operation" operation="bindcode"/>
-													<Button operateCode="mbr_list_delete" label="删除"  type="operation" operation="delete"/>
+											<TableRowColumn type="operation" name="leaved" style={{width:200}} component={(value,oldValue,itemDetail) => {
+												  if (value == 1) {
+														logFlag = false;
+													}
+													if (value == 0) {
+														logFlag = true;
+													}
+													return (
+														<div>
+															<Button label="详情" onClick={this.openView.bind(this,itemDetail)} type="operation"/>
+															<Button operateCode="mbr_list_edit" onClick={this.openEditDetailDialog.bind(this,itemDetail)} label="编辑"  type="operation"/>
+															{logFlag?<Button operateCode="mbr_list_leave" onClick={this.openLeave.bind(this,itemDetail)} label="离场"  type="operation" operation="leave"/>:<Button operateCode="mbr_list_leave" label="恢复" onClick={this.openBack.bind(this,itemDetail)}  type="operation" operation="back"/>}
+															<Button operateCode="mbr_list_bind" onClick={this.openBindCode.bind(this,itemDetail)} label="绑卡"  type="operation" operation="bindcode"/>
+															<Button operateCode="mbr_list_delete" onClick={this.openDelete.bind(this,itemDetail)} label="删除"  type="operation" operation="delete"/>	
+															
+														</div>
+													)
+											}}>
+													
+													
+													
 												
 											 </TableRowColumn>
 										 </TableRow>
@@ -494,6 +521,22 @@ export default class List extends React.Component {
 										<div  className='ui-btn-center'>
 											<Button  label="确定" onClick={this.onLeave}/></div>
 											<Button  label="取消" type="button" cancle={true} onClick={this.openLeave} />
+										</div>
+									</div>
+								</Dialog>
+								<Dialog
+								title="恢复"
+								modal={true}
+								contentStyle ={{ width: '444',overflow:'visible'}}
+								open={this.state.openBack}
+								onClose={this.openBack}
+								>
+								<div className='u-list-delete'>
+									<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认恢复此会员吗？</p>
+									<div style={{textAlign:'center',marginBottom:10}}>
+										<div  className='ui-btn-center'>
+											<Button  label="确定" onClick={this.onBack}/></div>
+											<Button  label="取消" type="button" cancle={true} onClick={this.openBack} />
 										</div>
 									</div>
 								</Dialog>
