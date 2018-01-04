@@ -79,7 +79,7 @@ class ImportData extends React.Component {
 
 		xhr.onerror = function(e) {
 		};
-		xhr.open('POST', '/api/krspace-finance-web/member/member-excel', true);
+		xhr.open('POST', '/api/krspace-sso-web/member/member-excel', true);
 		xhr.responseType = 'json';
 		xhr.send(form);
 

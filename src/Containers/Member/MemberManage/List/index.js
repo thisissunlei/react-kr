@@ -156,13 +156,13 @@ export default class List extends React.Component {
 			});
 		}
 		ids = String(ids);
-		var url = `/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
+		var url = `/api/krspace-sso-web/member/member-list-excel?ids=${ids}`
 		//var url = `http://optest01.krspace.cn/api/krspace-finance-web/member/member-list-excel?ids=${ids}`
 		window.location.href = url;
 	}
 	//下载模板
 	onLoadDemo=()=>{
-		let url = '/api/krspace-finance-web/member/member-templet-excel';
+		let url = '/api/krspace-sso-web/member/member-templet-excel';
 		window.location.href = url;
 	}
     //提交编辑

@@ -198,7 +198,7 @@ class Editdialog extends React.Component {
 			Params
 		} = this.state;
 		var _this = this;
-		Http.request('getMethodByName', Params, {}).then(function(response) {
+		Http.request('getModule', Params, {}).then(function(response) {
 			var ModuleList = response.ssoModuleList.map((item, index) => {
 				item.value = item.id;
 				item.label = item.name;
