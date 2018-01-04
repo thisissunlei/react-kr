@@ -146,7 +146,7 @@ class ImportData extends React.Component {
 
 		return (
 			<form className="u-import-date" onSubmit={handleSubmit(this.testDate)} name='import' style={{textAlign:'center'}}>
-					<div style={{margin:0,padding:0,height:36,marginBottom:16}}>
+					<div style={{margin:0,padding:0,height:36,marginBottom:16,position:'relative',zIndex:100}}>
 					<KrField 
 						name="csrId"
 						label="公司" 
