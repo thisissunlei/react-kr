@@ -144,7 +144,7 @@ class ImportData extends React.Component {
 					label="公司" 
 					grid={1/2}
 					inline={false}
-					component="searchCompany" 
+					component="searchMemberCompany" 
 					requireLabel={true}
 					onChange={this.onCompanyChange}
 				/>
