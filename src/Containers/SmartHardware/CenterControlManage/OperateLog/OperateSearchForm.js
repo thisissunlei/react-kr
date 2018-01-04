@@ -137,8 +137,6 @@ class OpenLogForm extends React.Component{
 							<KrField  name="communityId" component="searchCommunityAll" label="社区名称：" inline={true} style={{width:254}} onChange={this.chooseCommunity} className="community-id"/>
 						</span>
 					</ListGroupItem>
-				</ListGroup>
-				<ListGroup style={{marginBottom:10}}>
 					<ListGroupItem>
 						<KrField grid={1/2} name="deviceId" 
 							type="text" 
@@ -151,20 +149,16 @@ class OpenLogForm extends React.Component{
 					<ListGroupItem>
 						<KrField grid={1/2} name="memberName" 
 							type="text" 
-							label="姓名：" 
+							label="房间号：" 
 							style={{width:245}}
 							inline={true}
 						/>
 					</ListGroupItem>
+				</ListGroup>
+				<ListGroup style={{marginBottom:10}}>
 					
-					<ListGroupItem>
-						<KrField grid={1/2} name="phone" 
-							type="text" 
-							label="手机号：" 
-							style={{width:245}}
-							inline={true}
-						/>
-					</ListGroupItem>
+					
+					
 
 					<ListGroupItem style={{float:"right",margin:"0px 20px 10px 0"}}>
 						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />

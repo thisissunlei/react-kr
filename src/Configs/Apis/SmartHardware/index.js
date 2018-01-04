@@ -346,9 +346,42 @@ module.exports = {
       method : 'delete'
    },
 
+  
+    //中央控制设备列表
+    'centerControlEquipmentList':{
+      url : 'mockjsdata/53/iot-platform/device-def/list?communityId={communityId}&connected={connected}&floor={floor}&page={page}&pageSize={pageSize}&serialNo={serialNo}',
+      method : 'get'
+   },
 
+     //中央控制设备列表
+   'deleteCenterControEquipment':{
+    url : 'mockjsdata/53/iot-platform/device-def/actions/delete?id={id}',
+    method : 'delete'
+    },
 
+    //查看中央控制设备详情
+    'seeCenterControlEquipDetail':{
+      url : 'mockjsdata/53/iot-platform/device-def/detail?id={id}',
+      method : 'get'
+      },
 
-   
+      //中央控制新增设备
+      'addCenterControlEquipment':{
+        url : 'mockjsdata/53/iot-platform/device-def/actions/add',
+        method : 'post'
+      },
+      //获取编辑信息
+      'getCenterControolEditData':{
+        url : 'mockjsdata/53/iot-platform/device-def/edit-info?id={id}',
+        method : 'get'
+      },
+
+      //提交编辑 
+      'editCenterControl':{
+        url : 'mockjsdata/53/iot-platform/device-def/actions/edit',
+        method : 'post'
+      },
+      
+
    
 }

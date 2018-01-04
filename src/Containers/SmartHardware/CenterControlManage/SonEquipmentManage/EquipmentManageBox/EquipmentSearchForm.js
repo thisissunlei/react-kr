@@ -238,9 +238,6 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		let {floorsOptions,propertyOption,makerOptions}=this.state;
 		const { error, handleSubmit,content,filter} = this.props;
 		let options=[{
-		      label:"屏幕显示标题",
-		      value:"doorCode"
-		    },{
 		      label:"智能硬件ID",
 		      value:"deviceId"
 		    }]
@@ -283,7 +280,16 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						inline={true}
 					/>
 				</span>
-				
+				<span className="fouth-span">
+					<KrField name="maker"
+						component="select"
+						label="厂商: "
+						onChange = {this.onchangeMaker}
+						options={makerOptions}
+						style={{width:'150px'}}
+						inline={true}
+					/>
+				</span>
 				<KrField name="connectStatus"
 						component="select"
 						label="连接状态："
