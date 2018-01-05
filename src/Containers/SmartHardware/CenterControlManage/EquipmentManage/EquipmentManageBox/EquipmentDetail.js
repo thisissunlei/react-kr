@@ -15,6 +15,7 @@ import {
 export default class EquipmentDetail extends React.Component{
 	constructor(props){
 		super(props);
+
 		this.state={
 			itemDetail:{},
 			showReported : true,
@@ -27,9 +28,10 @@ export default class EquipmentDetail extends React.Component{
 		let _this =this;
 		_this.setState({
 			itemDetail :detail
+
 		},function(){
-			$("#json-str-report").html(_this.syntaxHighlight(detail.deviceVO.reported));
-			$("#json-str-desired").html(_this.syntaxHighlight(detail.deviceVO.desired));
+			$("#center-control-report").html(_this.syntaxHighlight(detail.deviceVO.reported));
+			$("#center-control-desired").html(_this.syntaxHighlight(detail.deviceVO.desired));
 		})
 		if(!detail.deviceVO.reported||JSON.stringify(detail.deviceVO.reported).length<1){
 			_this.setState({
@@ -45,7 +47,7 @@ export default class EquipmentDetail extends React.Component{
 		
 	}
 	closeDialog=()=>{
-		State.openHardwareDetail= false;
+		State.openCenterControlDetail= false;
 	}
 
 	freshEquipmentReporter=()=>{
@@ -97,12 +99,63 @@ export default class EquipmentDetail extends React.Component{
 	    });
 	}
 
+	renderSpaceType=()=>{
+		let spaceType = this.props.detail.spaceType;
+
+		var spaceTypeOption = [{label:"会议室",value:"MEETING"},
+								{label:"大厅",value:"HALL"},
+								{label:"独立办公室",value:"OFFICE"}]
+		var spaceTypeLabel = '无';
+		for(var i =0;i<spaceTypeOption.length;i++){
+			if(spaceType==spaceTypeOption[i].value){
+				spaceTypeLabel=spaceTypeOption[i].label;
+				console.log("i",i);
+				return spaceTypeLabel;
+			}
+		}
+		return spaceTypeLabel;
+	}
+
+
+	
+	returnDeviceType=()=>{
+
+		var deviceType = this.props.detail.deviceType;
+		var deviceTypeOption = [{label:"灯",value:"LAMP"},
+								{label:"雾化膜",value:"ATOMIZATION_MEMBRANE"},
+								{label:"空调",value:"AIR_CONDITION"},
+								{label:"空气质量仪",value:"AIR_SENSOR"},
+								{label:"温湿度计",value:"HUMITURE_SENSOR"},
+								{label:"网关面板",value:"BODY_SENSOR"}]
+		var deviceTypeLabel = '无';
+		for(var i =0;i<deviceTypeOption.length;i++){
+			if(deviceType==deviceTypeOption[i].value){
+
+				deviceTypeLabel=deviceTypeOption[i].label;
+				
+				return deviceTypeLabel;
+			}
+		}
+		return deviceTypeLabel;
+	}
+
+	returnConnectStatus=()=>{
+		let connectStatus = this.props.detail.connected;
+		if(connectStatus){
+			return <span style={{color:"green"}}>是</span>
+		}else{
+			return <span style={{color:"red"}}>否</span>
+		}
+		
+	}
+
 
 	render(){
 		let {detail} = this.props;
 		let {showReported,showDesired} = this.state;
 		var params = detail.deviceVO;
-		console.log("params",params);
+		console.log("detail",detail);
+		let _this =this;
 		return (
 			<div className="seconde-dialog">
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
@@ -110,31 +163,29 @@ export default class EquipmentDetail extends React.Component{
 				<div className="detail-list-equipment">
 					<Button label="刷新设备上报信息" onTouchTap={this.freshEquipmentReporter} style={{width:130,margin:"0 0 20px 30px"}}/>
 					<div>
-						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{params.deviceId || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">标记:</div><div className="td-right">{params.name || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{detail.serialNo || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">标记:</div><div className="td-right">{detail.alias || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">底层固件版本:</div><div className="td-right">{params.driverV || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{params.v || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{params.ip || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">当前连接服务器:</div><div className="td-right">{params.loginedServer || "无"}</div></div>
-						
+						<div className="tr-line"><div className="td-left">设备类型:</div><div className="td-right">{_this.returnDeviceType()}</div></div>
+						<div className="tr-line"><div className="td-left">是否连接:</div><div className="td-right">{_this.returnConnectStatus()}</div></div>
+						<div className="tr-line"><div className="td-left">最后一次连接时间:</div><div className="td-right">{DateFormat(detail.connectTime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">最后一次更新时间:</div><div className="td-right">{DateFormat(detail.utime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
 						<div>
-							<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="json-str-report"></pre></div></div>
-							<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="json-str-desired"></pre></div></div>
+							<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="center-control-report"></pre></div></div>
+							<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="center-control-desired"></pre></div></div>
 						</div>
 					</div>
 					<div>
 						<div className="tr-line"><div className="td-left">社区名称:</div><div className="td-right">{detail.communityName || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">楼层:</div><div className="td-right">{detail.floor || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">房间:</div><div className="td-right">{detail.roomName || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">门类型:</div><div className="td-right">{detail.doorTypeName || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">房间:</div><div className="td-right">{detail.spaceName || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">空间类型:</div><div className="td-right">{_this.renderSpaceType()}</div></div>
 						
-						<div className="tr-line"><div className="td-left">屏幕展示标题:</div><div className="td-right">{detail.title || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">屏幕展示编号:</div><div className="td-right">{detail.doorCode || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">屏幕展示标题:</div><div className="td-right">{detail.name || "无"}</div></div>
 						
-						<div className="tr-line"><div className="td-left">厂家:</div><div className="td-right">{detail.makerName || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">二维码有效期:</div><div className="td-right">{DateFormat(detail.qrExpireAt, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">二维码:</div><div className="td-right" style={{paddingLeft:5}}>{detail.qrImgUrl?<img src={detail.qrImgUrl} style={{width:100,height:100}}/>:<span>无</span>}</div></div>
-						<div className="tr-line"><div className="td-left">二维码地址:</div><div className="td-right">{detail.qrImgUrl || "无"}</div></div>
 						<div className="tr-line-last" style={{display:"block"}}><div className="td-left">备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
 
 					</div>

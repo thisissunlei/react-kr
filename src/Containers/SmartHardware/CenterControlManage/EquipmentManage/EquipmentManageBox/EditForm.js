@@ -87,6 +87,7 @@ class EditForm extends React.Component{
 	onCancel=()=>{
 		const {onCancel}=this.props;
 		onCancel && onCancel();
+
 	}
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
@@ -198,7 +199,7 @@ class EditForm extends React.Component{
 		});
 	}
 
-	// 新增设备
+	
 	onSubmit=(values)=>{
 		let _this = this;
 		
@@ -227,6 +228,10 @@ class EditForm extends React.Component{
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
+					<div style={{margin:"0 0 20px 10px",fontSize: 14,color:'black'}}>
+						<div><span>智能硬件ID：</span><span style={{color:"#ff6868"}}>{this.detail.serialNo}</span></div>
+						<div style={{marginTop:15}}><span>标记别名：</span><span style={{color:"#ff6868"}}>{this.detail.alias}</span></div>
+					</div>
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
 						onChange = {this.onChangeSearchCommunity}
@@ -255,15 +260,6 @@ class EditForm extends React.Component{
 						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
 					/>
 					
-					<KrField grid={1/2} name="serialNo" 
-						type="text" 
-						label="智能硬件ID" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'智能硬件ID为必填项'}} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						onBlur = {this.hardwareIdHasFun}
-					/>
 					
 					<KrField name="spaceType" 
 						component="select" 

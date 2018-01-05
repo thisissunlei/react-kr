@@ -26,7 +26,7 @@ let State = observable({
 	selectedDeleteIds:'',
 	makerOptions :[],
 	deviceVO:{},
-	equipmentSecondParams: {
+	equipmentSearchParams: {
 		        
 		        communityId:'',
 		        deviceId :'',
@@ -173,7 +173,7 @@ State.newCreateCenterControl = action(function(values){
 	
 	Http.request('addCenterControlEquipment',{},values ).then(function(response) {
 		
-		State.equipmentSecondParams = {
+		State.equipmentSearchParams = {
 			page:1,
 			pageSize:15,
 			date: new Date()		
@@ -183,7 +183,7 @@ State.newCreateCenterControl = action(function(values){
 
 	}).catch(function(err) {
 		State.openNewCreate =false;
-		State.equipmentSecondParams = {
+		State.equipmentSearchParams = {
 			page:1,
 			pageSize:15,
 			date: new Date()		
@@ -214,17 +214,17 @@ State.editCenterControl = action(function(values){
 
 //刷新并保持原查询条件
 State.freshPageReturn =  action(function(){
-	State.equipmentSecondParams = {
+	State.equipmentSearchParams = {
         date:new Date(),
         page : State.realPage,
         pageSize: 15,
-        communityId: State.equipmentSecondParams.communityId ||'',
-        deviceId : State.equipmentSecondParams.deviceId ||'',
-        doorCode : State.equipmentSecondParams.doorCode ||'',
-        doorType :  State.equipmentSecondParams.doorType ||'',
-        floor :  State.equipmentSecondParams.floor ||'',
-        maker :  State.equipmentSecondParams.maker ||'',
-        title : State.equipmentSecondParams.title ||'',
+        communityId: State.equipmentSearchParams.communityId ||'',
+        deviceId : State.equipmentSearchParams.deviceId ||'',
+        doorCode : State.equipmentSearchParams.doorCode ||'',
+        doorType :  State.equipmentSearchParams.doorType ||'',
+        floor :  State.equipmentSearchParams.floor ||'',
+        maker :  State.equipmentSearchParams.maker ||'',
+        title : State.equipmentSearchParams.title ||'',
 
     }	
 })
