@@ -57,10 +57,14 @@ let State = observable({
 	openConfirmDeleteBatch : false,
 	loading :false,
 	DropItems : [],
-	openFirstHardwareDetail: false,
 	resetFirstEquipmentDialog : false,
 	EquipmentHttpToken:'',
-	httpTokenDialog :false
+	httpTokenDialog :false,
+	
+	controlLampDialog: false,
+	controlAirConditionDialog : false,
+	controlFrostedGlassDialog : false,
+
 });
 
 

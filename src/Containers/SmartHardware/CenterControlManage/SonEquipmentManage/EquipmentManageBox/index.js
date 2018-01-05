@@ -35,8 +35,12 @@ import EquipmentCache from './EquipmentCache';
 import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
 import BtnBox from './BtnBox';
-import EquipmentFirstDetail from './EquipmentFirstDetail';
 import HttpTokenDialog from './HttpTokenDialog';
+
+import ControlLamp from './ControlLamp';
+import ControlAirCondition from './ControlAirCondition';
+import ControlFrostedGlass from './ControlFrostedGlass';
+
 
 @inject("NavModel")
 @observer
@@ -146,10 +150,7 @@ export default class EquipmentManageBox  extends React.Component{
 		State.openHardwareDetail = !State.openHardwareDetail;
 	}
 
-	//打开查看一代详情
-	openFirstHardwareDetailFun=()=>{
-		State.openFirstHardwareDetail = !State.openFirstHardwareDetail;
-	}
+	
 	
 	//打开编辑
 	openEditDialogFun=()=>{
@@ -331,7 +332,20 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	controlEquipment=()=>{
-		console.log("远程控制");
+		
+		if(State.itemDetail.deviceType=="LAMP"){
+
+			this.switchControlLampDialog()
+		}else if(State.itemDetail.deviceType=="ATOMIZATION_MEMBRANE"){
+
+			
+			this.switchControlFrostedGlassDialog();
+
+		}else if(State.itemDetail.deviceType=="AIR_CONDITION"){
+
+			this.switchControlAirConditionDialog();
+		}
+		
 	}
 
 	onMouseOn=(thisP)=>{
@@ -379,18 +393,30 @@ export default class EquipmentManageBox  extends React.Component{
 	returnCenterControl=()=>{
 		window.location.href='/#/smarthardware/centercontrolmanage/equipmentmanage';
 	}
+
+	switchControlLampDialog=()=>{
+		State.controlLampDialog = !State.controlLampDialog;
+	}
+
+	switchControlAirConditionDialog=()=>{
+		State.controlAirConditionDialog= !State.controlAirConditionDialog
+	}
+
+	switchControlFrostedGlassDialog=()=>{
+		State.controlFrostedGlassDialog= !State.controlFrostedGlassDialog
+	}
 	
 
 
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
-		let deviceTypeOptions = [{label:"灯",value:"LAMP"},
-								{label:"雾化膜",value:"ATOMIZATION_MEMBRANE"},
-								{label:"空调",value:"AIR_CONDITION"},
-								{label:"空气质量仪",value:"AIR_SENSOR"},
-								{label:"温湿度计",value:"HUMITURE_SENSOR"},
-								{label:"网关面板",value:"BODY_SENSOR"}]
+		let deviceTypeOptions = [{label:"灯控制器",value:"LAMP"},
+								{label:"雾化膜控制器",value:"ATOMIZATION_MEMBRANE"},
+								{label:"空调控制器",value:"AIR_CONDITION"},
+								{label:"空气质量仪控制器",value:"AIR_SENSOR"},
+								{label:"温湿度计控制器",value:"HUMITURE_SENSOR"},
+								{label:"人体感应控制器",value:"BODY_SENSOR"}]
 		return(
 			<div >
 				<span style={{float:"right",marginTop:"-50px",cursor:"pointer"}} onClick={this.returnCenterControl}>返回中央控制管理</span>
@@ -571,15 +597,34 @@ export default class EquipmentManageBox  extends React.Component{
 					>
 						<EquipmentDetail onCancel={this.openSeeDetailSecond} detail={itemDetail}/>
 					</Drawer>
+					<Dialog
+			          title="灯控制器"
+			          open={State.controlLampDialog}
+			          onClose = {this.switchControlLampDialog}
+			          contentStyle={{width:470}}
+			        >
+						<ControlLamp onCancel={this.switchControlLampDialog} detail={itemDetail}/>
+			        </Dialog>
 
-					<Drawer 
-			        	open={State.openFirstHardwareDetail}
-			        	onClose = {this.openFirstHardwareDetailFun}
-					    width={1000} 
-					    openSecondary={true} 
-					>
-						<EquipmentFirstDetail onCancel={this.openFirstHardwareDetailFun} detail={itemDetail} prodoctQRCodeFun={this.prodoctQRCodeFun}/>
-					</Drawer>
+			        <Dialog
+			          title="空调控制器"
+			          open={State.controlAirConditionDialog}
+			          onClose = {this.switchControlAirConditionDialog}
+			          contentStyle={{width:470}}
+			        >
+						<ControlAirCondition onCancel={this.switchControlLampDialog} detail={itemDetail}/>
+			        </Dialog>
+
+			        <Dialog
+			          title="雾化玻璃控制器"
+			          open={State.controlFrostedGlassDialog}
+			          onClose = {this.switchControlFrostedGlassDialog}
+			          contentStyle={{width:687}}
+			        >
+						<ControlFrostedGlass onCancel={this.switchControlFrostedGlassDialog} detail={itemDetail}/>
+			        </Dialog>
+					
+
 
 					 <Drawer 
 			        	open={State.openSearchEquipment}

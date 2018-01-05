@@ -15,7 +15,7 @@ import {
 	SearchForm,
 	SearchForms,
 	Message,
-	SetNumber,
+
 } from 'kr-ui';
 
 import State from './State';
@@ -299,9 +299,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						style={{width:'185px'}}
 						inline={true}
 					/>
-				<div>
-					<span>温度：</span><SetNumber/>
-				</div>
+				
 				<div style={{position:"absolute",top:"-50px",right:0,width:300,height:50}}>
 					<SearchForms onSubmit={this.onSearchSubmit}  ref = "inputFilter"
 						style={{zIndex:10000,marginLeft:10}}
