@@ -23,6 +23,7 @@ const NavItem = ({...props})=>{
 	}else{
 		url='./#/'+path;
 	}
+	
 
 	return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
 };
