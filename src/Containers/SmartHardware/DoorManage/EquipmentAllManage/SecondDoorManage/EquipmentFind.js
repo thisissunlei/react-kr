@@ -144,6 +144,7 @@ export default class EquipmentSearch extends React.Component{
 		return (
 			<div className="seconde-dialog">
 				<div style={{paddingLeft:20}}>
+					<span style={{display:"inline-block",width:40,height:30}}>
 					<Toggle 
 						toggled={this.state.switch} 
 						label="是否自动发现设备" 
@@ -153,7 +154,7 @@ export default class EquipmentSearch extends React.Component{
 						trackStyle={{height:25,lineHeight:25}}
 						thumbStyle={{marginTop:5}}
 					/>
-					
+					</span>
 					
 					
 				</div>

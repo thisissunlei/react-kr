@@ -20,14 +20,15 @@ import PermissionNav from './PermissionNav';
 import OtherNav from './OtherNav';
 //行政管理
 import AdministrationNav from './AdministrationNav';
-
 //智能硬件
 import SmartHardware from './SmartHardware';
 //订单中心
 import OrderCenter from './OrderCenter';
+//账单中心
+import BillNav from './BillNav';
+//订单中心
 
-
-const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware,OrderCenter);
+const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware,BillNav,OrderCenter);
 
 module.exports = {
     current_parent: '',
