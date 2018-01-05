@@ -31,6 +31,8 @@ import {
     Dialog,
 } from 'kr-ui';
 import './index.less';
+import BindMember from './BindMember';
+
 class AccountList extends React.Component {
 
     constructor(props, context) {
@@ -274,12 +276,12 @@ class AccountList extends React.Component {
         });
     }
 
-    onBindMember=()=>{
+    onBindMember=(memberId)=>{
         var _this = this;
         let {itemDetail}=this.state; 
         let form={
             ssoId:itemDetail.id,
-            uid:itemDetail.uid
+            uid:memberId
         }  
         Http.request('connect-member',form).then(function(response) {
             Message.success('绑定会员成功');
@@ -472,18 +474,16 @@ class AccountList extends React.Component {
                 <Dialog
 	              title="绑定会员"
 	              modal={true}
-	              contentStyle ={{ width: '444',overflow:'visible'}}
+	              contentStyle ={{ width: 600,height:400,overflow:'visible'}}
 	              open={this.state.openBindMember}
 	              onClose={this.openBindMember}
 	            >
-	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要绑定会员吗？</p>
-					<div style={{textAlign:'center',marginBottom:10}}>
-	                      <div  className='ui-btn-center'>
-		                      <Button  label="确定" onClick={this.onBindMember}/></div>
-		                      <Button  label="取消" type="button" cancle={true} onClick={this.openBindMember} />
-	                      </div>
-	            	</div>
+                <BindMember 
+                    detail={itemDetail}
+                    onSubmit={this.onBindMember}
+                    onCancel={this.openBindMember}  
+                />
+	           
 	            </Dialog>
             </div>
         );

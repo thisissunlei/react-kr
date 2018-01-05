@@ -651,4 +651,9 @@ module.exports = {
     url: '/api/krspace-sso-web/sso/ssoUser/connect-member?ssoId={ssoId}&uid={uid}',
     method: 'get'
    },
+   //账户列表-绑定-获取会员信息
+   'get-mobile-phone-info':{
+    url: '/api/krspace-sso-web/member/mobile-phone?phone={phone}',
+    method: 'get'
+   },
 }
