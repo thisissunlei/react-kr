@@ -12,40 +12,43 @@ import {
 	Store
 } from 'kr/Redux';
 import {
+	Title,
+	Section,
 	KrField,
-	Grid,
-	Row,
-	Col,
-	ButtonGroup,
-	Button,
-	Message,
 	KrDate,
-	DrawerTitle,
-	Tooltip
+	Message
 } from 'kr-ui';
 import './index.less';
 
-
-class ViewMember extends React.Component {
+export default class ViewMember extends React.Component {
 
 
 	constructor(props, context) {
 		super(props, context);
-		
-		
+		this.state={
+			baseInfo:{}
+		}
 	}
 	
-	onCancel=()=>{
-		let {onCancel} = this.props;
-		onCancel && onCancel();
+	componentDidMount() {
+		this.getBacicInfo()
 	}
 	
+	getBacicInfo=()=>{
+		let memberId=this.props.params.memberId;
+		let _this=this;
+		Http.request('get-member-detail',{id:memberId}).then(function (response) {
+			_this.setState({
+				baseInfo:response
+			})
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+	}
 	
 	render() {
-		let {
-			detail
-		} = this.props;
-		let baseInfo = detail;
+		let {baseInfo}=this.state;
+			
 			if(baseInfo.gender==0){
 	     		baseInfo.gender  = "女";
 			}else if(baseInfo.gender==1){
@@ -53,145 +56,144 @@ class ViewMember extends React.Component {
 			}else{
 				baseInfo.gender  = "保密";
 			}
-			if(baseInfo.maritalStatus=="MARRIED"){
-				baseInfo.maritalStatus = "已婚";
-			}else if(baseInfo.maritalStatus=="UNMARRIED"){
-				baseInfo.maritalStatus = "未婚";
-			}else{
-				baseInfo.maritalStatus = "保密";
-			}	
+			if(baseInfo.userType=="0"){
+				baseInfo.userType = "入驻会员";
+			}else if(baseInfo.userType=="1"){
+				baseInfo.userType = "内部会员";
+			}
+			if(baseInfo.leader=="0"){
+				baseInfo.leader = "否";
+			}else if(baseInfo.leader=="1"){
+				baseInfo.leader = "是";
+			}
 			
 			
 		return (
-			<div className="g-create-member">
-			<div className="u-create-title">
-					<DrawerTitle title ='会员详情' onCancel = {this.onCancel}/>
-			</div>
-			<form style={{paddingLeft:40}}>
-
-						<KrField
-							style={{width:260,marginRight:20}}
+			<div className="g-member-detail">
+			<Title value="会员详情"/>
+			<Section title="会员详情" description="" >
+				<div className="m-member-info">
+					   <KrField
+							grid={1/3} 
 							label="姓名:"
-							inline={true} 
+							alignRight={true} 
 							component="labelText"
 							value={baseInfo.name}
 							defaultValue="无"
 						 />
-						 <KrField
-							style={{width:260}}
-							label="公司："
-							inline={true} 
-							component="labelText"
-							value={baseInfo.companyName}
+					   <KrField 
+							   grid={1/3} 
+							   alignRight={true} 
+							   label="公司:" 
+							   component="labelText" 
+							   value={baseInfo.companyName} 
+							   defaultValue="无"
 						/>
-						<KrField
-							style={{width:260,marginRight:20}}
-							label="社区："
-							inline={true} 
-							component="labelText"
-							value={baseInfo.communityName}
-							defaultValue="无"
+
+					   <KrField 
+							   grid={1/3}  
+							   alignRight={true} 
+							   component="labelText"
+							   label="社区:" 
+							   value={baseInfo.communityName} 
+							   defaultValue="无"
+						/>
+
+					   <KrField 
+							   grid={1/3} 
+							   alignRight={true} 
+							   label="联系电话:" 
+							   component="labelText" 
+							   value={baseInfo.phone} 
+							   defaultValue="无"
+						/>
+
+					   <KrField 
+							   grid={1/3} 
+							   alignRight={true} 
+							   label="职位:" 
+							   component="labelText" 
+							   value={baseInfo.job} 
+							   defaultValue="无"
+						/>
+
+					   <KrField 
+							   grid={1/3} 
+							   alignRight={true} 
+							   label="邮箱:" 
+							   component="labelText"
+							   value={baseInfo.email} 
+							   defaultValue="无"
+						/>
+
+					   <KrField 
+							   grid={1/3} 
+							   alignRight={true} 
+							   label="性别:" 
+							   component="labelText" 
+							   value={baseInfo.gender} 
+							   defaultValue="无"
+						/>
+
+						<KrField 
+								grid={1/3} 
+								alignRight={true} 
+								label="微信昵称:" 
+								component="labelText" 
+								value={baseInfo.wechatNick} 
+								defaultValue="无" 
+						/>
+
+						 <KrField 
+								 grid={1/3} 
+								 alignRight={true} 
+								 label="App昵称:" 
+								 component="labelText" 
+								 value={baseInfo.nick} 
+								 defaultValue="无"
+						 />
+
+						 <KrField 
+								 grid={1/3} 
+								 alignRight={true} 
+								 label="生日:" 
+								 component="labelText"
+								 value={baseInfo.birthday} 
+								 defaultValue="无"
+						 />
+
+						
+
+						<KrField 
+								grid={1/3} 
+								alignRight={true} 
+								label="注册时间:"
+								type="date"  
+								component="labelText" 
+								value={baseInfo.createTime} 
+								defaultValue="无"
 						/>
 						<KrField 
-							 style={{width:260}} 
-							 label="联系电话:" 
-							 inline={true} 
-							component="labelText"
-							value={baseInfo.phone}
-							defaultValue="无"
-						 />
-						 <KrField
-							style={{width:260,marginRight:20}}
-							label="职位："
-							inline={true} 
-							component="labelText"
-							value={baseInfo.job}
-							defaultValue="无"
-
+								grid={1/3} 
+								alignRight={true} 
+								label="会员类型:" 
+								component="labelText" 
+								value={baseInfo.userType} 
+								defaultValue="无"
 						/>
-						<KrField  
-							 style={{width:260}} 
-							 label="邮箱:" 
-							 inline={true} 
-							component="labelText"
-							value={baseInfo.email}
-							defaultValue="无"
-						 />
-						 <KrField 
-							 style={{width:260,marginRight:20}} 
-							 label="性别:" 
-							 inline={true} 
-							component="labelText"
-							value={baseInfo.gender}
-							defaultValue="无"
-						 />
-						 <KrField
-							style={{width:260}}
-							label="微信昵称:"
-							inline={true} 
-							component="labelText"
-							value={baseInfo.wechatNick}
-							defaultValue="无"
-						 />
-						 <KrField  
-							 style={{width:260,marginRight:20}} 
-							 label="App昵称:" 
-							 inline={true} 
-							component="labelText"
-							value={baseInfo.nick}
-							defaultValue="无"
-						 />
-						 <KrField  
-							 style={{width:260}} 
-							 label="生日:" 
-							 inline={true} 
-							component="labelText"
-							value={baseInfo.birthday}
-							defaultValue="无"
-						 />
-						 <KrField
-							style={{width:260,marginRight:20}}
-							label="婚姻状况:"
-							inline={true} 
-							component="labelText"
-							value={baseInfo.maritalStatus}
-							defaultValue="无"
-						 />
-						 <KrField
-							style={{width:260}}
-							label="注册时间:"
-							inline={true} 
-							component="labelText"
-							value={
-								< KrDate 
-									style = {{marginTop:5}} 
-									value = {
-										baseInfo.createTime
-									}
-									   format = "yyyy-mm-dd HH:MM:ss" />
-							}
-
+						<KrField 
+								grid={1/3} 
+								alignRight={true} 
+								label="企业管理员:" 
+								component="labelText" 
+								value={baseInfo.leader} 
+								defaultValue="无"
 						/>
-						
-						
-						
-					<Grid style={{marginTop:50,width:'81%'}}>
-					<Row >
-					<Col md={12} align="center">
-						<ButtonGroup>
-							<Button  label="取消" cancle={true} type="button"  onTouchTap={this.onCancel}/>
-						</ButtonGroup>
-					  </Col>
-					</Row>
-					</Grid>
-					
-			</form>
-		</div>
+				</div>
+			</Section>
+			</div>
 		);
 	}
 }
 
-export default reduxForm({
-	form: 'viewMember'
-})(ViewMember);
  

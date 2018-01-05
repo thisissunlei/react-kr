@@ -132,5 +132,9 @@ module.exports = {
         url:'/api/krspace-sso-web/member/cancle-leave?id={id}',
         method:'get'
     },
-
+     //会员列表-会员详情
+     'get-member-detail':{
+        url:'/api/krspace-sso-web/member/detail?id={id}',
+        method:'get'
+    },
 }

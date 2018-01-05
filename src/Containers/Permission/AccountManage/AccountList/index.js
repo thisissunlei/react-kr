@@ -276,7 +276,6 @@ class AccountList extends React.Component {
                             <TableHeaderColumn>姓名</TableHeaderColumn>
                             <TableHeaderColumn>手机号</TableHeaderColumn>
                             <TableHeaderColumn>电子邮箱</TableHeaderColumn>
-                            <TableHeaderColumn>锁定标识</TableHeaderColumn>
                             <TableHeaderColumn>操作</TableHeaderColumn>
                         </TableHeader>
 
@@ -289,26 +288,6 @@ class AccountList extends React.Component {
                                 <TableRowColumn name="name"></TableRowColumn>
                                 <TableRowColumn name="phone"></TableRowColumn>
                                 <TableRowColumn name="email"></TableRowColumn>
-                                <TableRowColumn name="accountStatus" options={[
-                                    {
-                                        label: '未锁定',
-                                        value: 'NOTLOCK'
-                                    }, {
-                                        label: '锁定',
-                                        value: 'LOCKED'
-                                    }
-                                ]} component={(value, oldValue) => {
-                                    if (value == '未锁定') {
-                                        logFlag = false;
-                                    }
-                                    if (value == '锁定') {
-                                        logFlag = true;
-                                    }
-                                    return (
-                                        <div>{value}</div>
-                                    )
-                                }}></TableRowColumn>
-
                                 <TableRowColumn type="operation" name="accountStatus" component={(value,oldValue,itemDetail) => {
                                         if (value == 'NOTLOCK') {
                                             logFlag = false;

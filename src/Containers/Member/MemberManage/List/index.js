@@ -98,10 +98,11 @@ export default class List extends React.Component {
 		});
 	}
 	openView=(itemDetail)=>{
-		this.setState({
-			openView:!this.state.openView,
-			itemDetail
-		})
+		window.location.href=`./#/member/memberManage/list/${itemDetail.uid}`;
+		// this.setState({
+		// 	openView:!this.state.openView,
+		// 	itemDetail
+		// })
 	}
 	// 编辑详情的Dialog
 	openEditDetailDialog=(itemDetail)=>{
@@ -381,8 +382,9 @@ export default class List extends React.Component {
 											onPageChange={this.onPageChange}
 										>
 										<TableHeader>
-											<TableHeaderColumn>联系电话</TableHeaderColumn>
+											<TableHeaderColumn>ID</TableHeaderColumn>
 											<TableHeaderColumn>姓名</TableHeaderColumn>
+											<TableHeaderColumn>联系电话</TableHeaderColumn>、
 											<TableHeaderColumn>邮箱</TableHeaderColumn>
 											<TableHeaderColumn>所在社区</TableHeaderColumn>
 											<TableHeaderColumn>公司</TableHeaderColumn>
@@ -394,13 +396,7 @@ export default class List extends React.Component {
 									</TableHeader>
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
-											<TableRowColumn name="phone"
-											component={(value,oldValue)=>{
-												if(value==""){
-													value="-"
-												}
-												return (<span>{value}</span>)}}
-											></TableRowColumn>
+											<TableRowColumn name="uid"></TableRowColumn>
 											<TableRowColumn name="name"
 											component={(value,oldValue)=>{
 												if(value==""){
@@ -408,6 +404,13 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											 ></TableRowColumn>
+											<TableRowColumn name="phone"
+											component={(value,oldValue)=>{
+												if(value==""){
+													value="-"
+												}
+												return (<span>{value}</span>)}}
+											></TableRowColumn>
 											<TableRowColumn name="email" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
@@ -549,20 +552,6 @@ export default class List extends React.Component {
 								>
 									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail} style={{marginTop:37}} content={this.state.content} filter={this.state.filter} />
 							  </Dialog> 
-							  <Drawer
-							  modal={true}
-							  width={750}
-							  open={this.state.openView}
-							  onClose={this.openView}
-							  openSecondary={true}
-							  containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
-							>
-								  <ViewMember 
-								  		  detail={itemDetail}
-										  onCancel={this.openView} 
-										 
-								   />
-							</Drawer>
 							<Dialog
 								title="批量导入"							
 								modal={true} 
