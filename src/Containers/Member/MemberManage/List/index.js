@@ -67,7 +67,7 @@ export default class List extends React.Component {
 				job:'',
 				companyId:0,
 				cityId:'',
-				type:'COMP_NAME',
+				type:'',
 				value:'',
 				status:false,
 			},
@@ -557,7 +557,7 @@ export default class List extends React.Component {
 								modal={true} 
 								open={this.state.importdata} 
 								onClose={this.importData} 
-								contentStyle={{width:444}}
+								contentStyle={{width:500}}
 							> 
 							<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>							
 							</Dialog>

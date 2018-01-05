@@ -18,8 +18,10 @@ import {
 	KrDate,
 	Message
 } from 'kr-ui';
+import { observer, inject } from 'mobx-react';
 import './index.less';
-
+@inject("NavModel")
+@observer
 export default class ViewMember extends React.Component {
 
 
@@ -31,7 +33,9 @@ export default class ViewMember extends React.Component {
 	}
 	
 	componentDidMount() {
-		this.getBacicInfo()
+		const {NavModel} = this.props;
+		NavModel.setSidebar(false);
+		this.getBacicInfo();
 	}
 	
 	getBacicInfo=()=>{

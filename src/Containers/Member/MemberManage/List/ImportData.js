@@ -149,10 +149,10 @@ class ImportData extends React.Component {
 					<div style={{margin:0,padding:0,height:36,marginBottom:16,position:'relative',zIndex:100}}>
 					<KrField 
 						name="csrId"
-						label="公司" 
-						grid={1/2}
+						label="公司"
 						inline={false}
 						height={36}
+						style={{width:260}}
 						component="searchMemberCompany" 
 						requireLabel={true}
 						onChange={this.onCompanyChange}
@@ -161,7 +161,7 @@ class ImportData extends React.Component {
 					<div style={{margin:0,padding:0,height:36,marginBottom:16}}>
 					<KrField 
 						name="communityId" 
-						grid={1/2} 
+						style={{width:260}}
 						label="社区" 
 						component="searchCommunityAll" 
 						height={36}
