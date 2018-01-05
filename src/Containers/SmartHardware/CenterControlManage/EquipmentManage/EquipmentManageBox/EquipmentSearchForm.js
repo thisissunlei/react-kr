@@ -30,7 +30,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		this.state={
 			searchForm: false,
 			floorsOptions:[{label:"",value:""}],
-			propertyOption:[],
+			
 			makerOptions : []
 		}
 	}
@@ -49,15 +49,8 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		let _this =this;
 		Http.request('getWarningType', {}).then(function(response) {
 				
-			var arrNewDoorType = [],arrMakerOptions=[]
-			for(var i=0;i<response.DoorType.length;i++){
-				arrNewDoorType[i] = {
-					label:response.DoorType[i].desc,
-					value:response.DoorType[i].value,
-					code : response.DoorType[i].code
-				}
-				
-			}
+			var arrMakerOptions=[]
+			
 			for(var i=0;i<response.Maker.length;i++){
 				
 				arrMakerOptions[i]={
@@ -68,7 +61,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			}
 
 			_this.setState({
-				propertyOption :arrNewDoorType,
+				
 				makerOptions : arrMakerOptions
 			})
 			
@@ -104,7 +97,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 
 		}else{
 			communityIdReal = community.id;
-			floorReal = State.equipmentSecondParams.floor
+			floorReal = State.equipmentSearchParams.floor
 
 			let CommunityId = {
 				communityId : community.id
@@ -129,7 +122,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			page:1
 		}
 		State.realPage =1;
-		State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newObj);
+		State.equipmentSearchParams = Object.assign({},State.equipmentSearchParams,newObj);
 
 	}
 
@@ -146,105 +139,79 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			page :1
 		}
 		State.realPage = 1;
-		State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newObj);
+		State.equipmentSearchParams = Object.assign({},State.equipmentSearchParams,newObj);
 	}
 
-	onchangeDoorType=(doorType)=>{
-		var doorTypeReal
-		if(doorType){
-			doorTypeReal = doorType.value;
+	onchangeSpaceType=(spaceType)=>{
+		var spaceTypeReal
+		if(spaceType){
+			spaceTypeReal = spaceType.value;
 		}else{
-			doorTypeReal = '';
+			spaceTypeReal = '';
 		}
 		State.realPage =1;
 		var newData = {
-			doorType : doorTypeReal,
+			spaceType : spaceTypeReal,
 			date: new Date(),
 			page : 1
 		}
-		State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newData);
+		State.equipmentSearchParams = Object.assign({},State.equipmentSearchParams,newData);
 		
 	}
 
-	onchangeMaker=(makerItem)=>{
-		
-		var makerItemReal
-		if(makerItem){
-			makerItemReal = makerItem.value;
-		}else{
-			makerItemReal = '';
-		}
-		
-		State.realPage =1;
-		var newData={
-			maker : makerItemReal,
-			page : 1,
-			date: new Date()
-		}
-		State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newData);
-
-	}
 
 
 	onSearchSubmit=(value)=>{
 		
 		var newObj;
-		if(value.filter == "doorCode"){
+		if(value.filter == "serialNo"){
 
 			
 		    newObj ={
-				    	doorCode: value.content,
-				    	deviceId: '',
-				    	title : '',
+				    	serialNo: value.content,
+				    	name: '',
 				    	page:1
 				    }
 
-		}else if(value.filter == "title"){
+		}else if(value.filter == "name"){
 
 			
 		    newObj ={
-				    	title: value.content,
-				    	deviceId: '',
-				    	doorCode: '',
+				    	name: value.content,
+				    	serialNo: '',
 				    	page:1
 				    }
 
-		}else{
-		    
-		    
-		    newObj ={
-				    	deviceId: value.content,
-				    	doorCode: '',
-				    	title :'',
-				    	page:1
-				    }
-	    }
+		}
 
-	    var objNewT = Object.assign({},State.equipmentSecondParams);
+	    var objNewT = Object.assign({},State.equipmentSearchParams);
 	    State.realPage =1;
-	    State.equipmentSecondParams = Object.assign({},objNewT,newObj);
+	    State.equipmentSearchParams = Object.assign({},objNewT,newObj);
 
 	}
 
 	onchangeConnect=(connectStatus)=>{
 		
-		var TimeObj={logined:connectStatus.value||''};
-		var objNewT = Object.assign({},State.equipmentSecondParams);
-	    State.equipmentSecondParams = Object.assign({},objNewT,TimeObj);
+		var TimeObj={connected:connectStatus.value||''};
+		var objNewT = Object.assign({},State.equipmentSearchParams,TimeObj);
+	    State.equipmentSearchParams = objNewT;
 
 	}
 
 	render(){
-		let {floorsOptions,propertyOption,makerOptions}=this.state;
+		let {floorsOptions,makerOptions}=this.state;
 		const { error, handleSubmit,content,filter} = this.props;
 		let options=[{
 		      label:"屏幕显示标题",
-		      value:"doorCode"
+		      value:"name"
 		    },{
 		      label:"智能硬件ID",
-		      value:"deviceId"
+		      value:"serialNo"
 		    }]
-		var itemsDrop=["重启APP","重启系统","断开重连","刷新屏幕"]
+		var itemsDrop=["重启APP","重启系统","断开重连","刷新屏幕"];
+		let spaceOptions = [{label:"会议室",value:"MEETING"},
+							{label:"独立办公室",value:"OFFICE"},
+							{label:"大厅",value:"HALL"}]
 		let connectOptions=[{
 			label:"已连接",
 			value:"true"
@@ -274,12 +241,13 @@ class EquipmentAdvancedQueryForm extends React.Component{
 					/>
 				</span>
 				<span className="thir-span">
-					<KrField name="propertyId"
+					<KrField 
+						name="spaceType"
 						component="select"
-						label="类型: "
-						onChange = {this.onchangeDoorType}
-						options={propertyOption}
-						style={{width:'150px'}}
+						label="空间类型: "
+						onChange = {this.onchangeSpaceType}
+						options={spaceOptions}
+						style={{width:'180px'}}
 						inline={true}
 					/>
 				</span>

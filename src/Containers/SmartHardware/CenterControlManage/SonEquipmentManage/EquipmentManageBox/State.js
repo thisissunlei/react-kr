@@ -26,15 +26,15 @@ let State = observable({
 	selectedDeleteIds:'',
 	makerOptions :[],
 	deviceVO:{},
-	equipmentSecondParams: {
+	equipmentSearchParams: {
 		        
-		        communityId:'',
-		        deviceId :'',
-		        doorCode :'',
-		        doorType : '',
-		        title :'',
-				floor : '',
-				logined :'',
+		        deviceType:'',
+		       	localNo:'',
+		       	name:'',
+		       	parentId:'',
+		       	floor:'',
+		       	spaceType:'',
+		       	communityId:'',
 		        page : 1,
 		        pageSize: 15,
 
@@ -64,30 +64,16 @@ let State = observable({
 });
 
 
-// 获取列表数据
-State.getDetailList= action(function() {
+//获取地址栏参数渲染列表
+State.refreshList =action(function(param) {
 
-	var searchParams={
-
-		endDate : State.endDate,
-		customerId :  State.customerId,
-		corporationId : State.corporationId,
-		communityId : State.communityId,
-		dayType : State.dayType,
-		end : State.end
-
-	}
+	var paramParantId = {parentId:param};
+	var newParam = Object.assign(State.equipmentSearchParams,paramParantId);
+	State.equipmentSearchParams = newParam;
 	
-	Http.request('getDetailList', searchParams).then(function(response) {
-		
-		State.items = response;
-		
-		
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
 
 });
+
 
 // 批量删除设备
 State.deleteEquipmentBatch= action(function() {

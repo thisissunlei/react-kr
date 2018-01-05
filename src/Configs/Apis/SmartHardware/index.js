@@ -349,39 +349,73 @@ module.exports = {
   
     //中央控制设备列表
     'centerControlEquipmentList':{
-      url : 'mockjsdata/53/iot-platform/device-def/list?communityId={communityId}&connected={connected}&floor={floor}&page={page}&pageSize={pageSize}&serialNo={serialNo}',
+
+      url : '/mockjsdata/53/iot-platform/device-def/list?communityId={communityId}&spaceType={spaceType}&connected={connected}&floor={floor}&page={page}&pageSize={pageSize}&serialNo={serialNo}&name={name}',
       method : 'get'
    },
 
-     //中央控制设备列表
+     //删除中央控制设备
    'deleteCenterControEquipment':{
-    url : 'mockjsdata/53/iot-platform/device-def/actions/delete?id={id}',
+    url : '/mockjsdata/53/iot-platform/device-def/actions/delete?id={id}',
     method : 'delete'
     },
 
     //查看中央控制设备详情
     'seeCenterControlEquipDetail':{
-      url : 'mockjsdata/53/iot-platform/device-def/detail?id={id}',
+      url : '/mockjsdata/53/iot-platform/device-def/detail?id={id}',
       method : 'get'
       },
 
       //中央控制新增设备
       'addCenterControlEquipment':{
-        url : 'mockjsdata/53/iot-platform/device-def/actions/add',
+        url : '/mockjsdata/53/iot-platform/device-def/actions/add',
         method : 'post'
       },
       //获取编辑信息
       'getCenterControolEditData':{
-        url : 'mockjsdata/53/iot-platform/device-def/edit-info?id={id}',
+        url : '/mockjsdata/53/iot-platform/device-def/edit-info?id={id}',
         method : 'get'
       },
 
       //提交编辑 
       'editCenterControl':{
-        url : 'mockjsdata/53/iot-platform/device-def/actions/edit',
+        url : '/mockjsdata/53/iot-platform/device-def/actions/edit',
         method : 'post'
       },
+
+
+      //子设备列表
+      'getSonEquipmentList':{
+        url : '/mockjsdata/53/iot-platform/device-def/sub-device/list?deviceType={deviceType}&localNo={localNo}&pageSize={pageSize}&name={name}&parentId={parentId}&page={page}&floor={floor}&spaceType={spaceType}&communityId={communityId}',
+        method : 'get'
+      },
+
+
+      //发现父级设备列表
+      'findFatherCenterControlEquipment':{
+        url : '/mockjsdata/53/iot-platform/device-def/discovery',
+        method : 'get'
+      },
+
+
+      //强制删除中控设备
+      'deleteCenterControlEquipment':{
+        url : '/mockjsdata/53/iot-platform/device-def/actions/force-delete',
+        method : 'post'
+      },
+
+
+      
+
+
+
       
 
    
 }
+
+
+
+
+
+

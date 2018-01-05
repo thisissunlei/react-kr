@@ -32,8 +32,6 @@ export default class EquipmentSearch extends React.Component{
 		State.changeSwitchStatusAction({onOff:isInputChecked})
 	}
 
-	componentWillReceiveProps(nextProps){
-	}
 
 	componentDidMount(){
 		this.getWitchFind()
@@ -42,7 +40,7 @@ export default class EquipmentSearch extends React.Component{
 
 	getUnusedEquipmentFun =()=>{
 		let _this = this;
-		Http.request('getUnusedEquipment', {}).then(function(response) {
+		Http.request('findFatherCenterControlEquipment', {}).then(function(response) {
 			_this.setState({
 				searchEquipmentList : response.items
 			})
@@ -81,9 +79,10 @@ export default class EquipmentSearch extends React.Component{
 
 	//发现设备列表强制删除
 	deleteEquipmentFun=(thisP)=>{
+		console.log("thisP",thisP);
 		let _this =this;
-		var urlParams = {deviceId:thisP.deviceId}
-		Http.request('deleteFindEquipmentUrl',{},urlParams).then(function(response) {
+		var urlParams = {serialNo:thisP.deviceId}
+		Http.request('deleteCenterControlEquipment',{},urlParams).then(function(response) {
 			
 			Message.success("强制删除设备成功");
 			_this.getUnusedEquipmentFun();
@@ -130,7 +129,7 @@ export default class EquipmentSearch extends React.Component{
 					<div  className="table-item-index">{item.ip}</div>
 					<div  className="table-item-index">{item.name}</div>
 					<div className="table-item-index"> 
-						<div  className="table-item-last" onClick={_this.registEquipmentFun.bind(this,item)}>注册设备</div>
+						<div  className="table-item-last" onClick={_this.registEquipmentFun.bind(this,item)}>添加设备</div>
 						<div  className="table-item-last" onClick={_this.deleteEquipmentFun.bind(this,item)}>强制删除</div>
 					</div>
 				</div>

@@ -206,8 +206,10 @@ export default class EquipmentManageBox  extends React.Component{
 		let _this = this;
 		Http.request('getCenterControolEditData',{id:thisP.id}).then(function(response) {
 			
+			var idObj = {id : thisP.id};
+			var itemDetailReal = Object.assign(response,idObj);
 			_this.setState({
-				itemDetail:response
+				itemDetail:itemDetailReal
 			},function(){
 				_this.openEditDialogFun();
 			});
@@ -385,7 +387,9 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	seeSonEquipment=()=>{
-		window.location.href = '/#/smarthardware/centercontrolmanage/sonequipmentmanage';
+		let sonEquipmentId = State.itemDetail.id;
+		var url = `/#/smarthardware/centercontrolmanage/sonequipmentmanage/${sonEquipmentId}`;
+		window.location.href =url;
 	}
 
 	onMouseOn=(thisP)=>{
@@ -454,7 +458,7 @@ export default class EquipmentManageBox  extends React.Component{
 			            exportSwitch={false}
 			            ajaxFieldListName='items'
 			            ajaxUrlName='centerControlEquipmentList'
-			            ajaxParams={State.equipmentSecondParams}
+			            ajaxParams={State.equipmentSearchParams}
 			            onPageChange={this.onPageChangeFun}
 			            displayCheckbox={true}
 			            onSelect={this.onSelcet}
@@ -486,7 +490,7 @@ export default class EquipmentManageBox  extends React.Component{
 								
 								
 								
-								<TableRowColumn name="id"
+								<TableRowColumn name="serialNo"
 									style={{width:"20%"}}
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
@@ -502,7 +506,7 @@ export default class EquipmentManageBox  extends React.Component{
 									}} 
 								>
 								</TableRowColumn>
-								<TableRowColumn name="doorTypeName" 
+								<TableRowColumn name="makerName" 
 									style={{width:"6%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
@@ -555,7 +559,7 @@ export default class EquipmentManageBox  extends React.Component{
 											}
 											return (
 													<div>
-				                    <Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
+				                    					<Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
               											<Dropdown 
@@ -606,8 +610,6 @@ export default class EquipmentManageBox  extends React.Component{
 			          <NewCreate
 			            onCancel={this.openNewCreateDialog}
 			            style ={{paddingTop:'35px'}}
-			            onSubmit = {this.onSubmitNewCreateEquipment}
-			            saveAndNewCreate= {this.saveAndNewCreate}
 			          />
 			        </Dialog>
 			        <Dialog
@@ -618,8 +620,7 @@ export default class EquipmentManageBox  extends React.Component{
 			        >
 			          <EditForm
 			            detail={itemDetail}
-			            onSubmit = {this.onSubmitNewCreateEquipment}
-			            closeEditEquipment = {this.openEditDialogFun}
+			            onCancel = {this.openEditDialogFun}
 			          />
 			        </Dialog>
 			        

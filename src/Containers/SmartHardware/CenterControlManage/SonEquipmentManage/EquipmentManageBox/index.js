@@ -55,9 +55,27 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	componentDidMount() {
+
 		State.getDicList();
+		
 
 	}
+
+	componentWillMount(){
+		var paramId =this.getUrlParam();
+		// console.log("paramId",paramId)
+		State.refreshList(paramId);
+
+	}
+
+
+	getUrlParam=()=>{
+		var hashStr = window.location.hash;
+		var hashArr = hashStr.split("/");
+		var param = hashArr.pop()
+		return param
+	}
+
 
 	freshPageThis=()=>{
 		State.freshPageReturn();
@@ -399,6 +417,12 @@ export default class EquipmentManageBox  extends React.Component{
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
+		let deviceTypeOptions = [{label:"灯",value:"LAMP"},
+								{label:"雾化膜",value:"ATOMIZATION_MEMBRANE"},
+								{label:"空调",value:"AIR_CONDITION"},
+								{label:"空气质量仪",value:"AIR_SENSOR"},
+								{label:"温湿度计",value:"HUMITURE_SENSOR"},
+								{label:"网关面板",value:"BODY_SENSOR"}]
 		return(
 			<div >
 				<span style={{float:"right",marginTop:"-50px",cursor:"pointer"}} onClick={this.returnCenterControl}>返回中央控制管理</span>
@@ -423,74 +447,117 @@ export default class EquipmentManageBox  extends React.Component{
 			            onOperation={this.onOperation}
 			            exportSwitch={false}
 			            ajaxFieldListName='items'
-			            ajaxUrlName='getDecondeEquipmentList'
-			            ajaxParams={State.equipmentSecondParams}
+			            ajaxUrlName='getSonEquipmentList'
+			            ajaxParams={State.equipmentSearchParams}
 			            onPageChange={this.onPageChangeFun}
 			            displayCheckbox={true}
 			            onSelect={this.onSelcet}
 			          >
 			            <TableHeader>
-										<TableHeaderColumn>设备ID</TableHeaderColumn>
+							
+							<TableHeaderColumn>设备ID</TableHeaderColumn>
 				            <TableHeaderColumn>类型</TableHeaderColumn>
-										
-			              <TableHeaderColumn>名称</TableHeaderColumn>
+			              	<TableHeaderColumn>名称</TableHeaderColumn>
+							<TableHeaderColumn>权重</TableHeaderColumn>
+			              	<TableHeaderColumn>社区</TableHeaderColumn>
+							<TableHeaderColumn>房间</TableHeaderColumn>
 				            <TableHeaderColumn>位置</TableHeaderColumn>
-										<TableHeaderColumn>权重</TableHeaderColumn>
-										
 			            	<TableHeaderColumn>备注</TableHeaderColumn>
-										<TableHeaderColumn>操作</TableHeaderColumn>
+							<TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 			          	<TableBody >
 				            <TableRow>
-										<TableRowColumn name="deviceId"
-											style={{width:"20%"}}
-											component={(value,oldValue)=>{
-												var TooltipStyle=""
-												if(value.length==""){
-													TooltipStyle="none"
+				            	
+								
+								<TableRowColumn name="localNo"
+									style={{width:"15%"}}
+									component={(value,oldValue)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
 
-												}else{
-													TooltipStyle="inline-block";
-												}
-												return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-													<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
-												)
-											}} 
-										>
-										</TableRowColumn>
-										<TableRowColumn style={{width:"20%",overflow:"visible"}} name="title" component={(value,oldValue)=>{
-											var TooltipStyle=""
-											if(value.length==""){
-												TooltipStyle="none"
+										}else{
+											TooltipStyle="inline-block";
+										}
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+											<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+										)
+									}} 
+								>
+								</TableRowColumn>
 
-											}else{
-												TooltipStyle="block";
-											}
-												return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-												<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-										}} ></TableRowColumn>
-				            	<TableRowColumn name="communityName" style={{width:"15%"}}></TableRowColumn>
-									
-								
-								
-								
-								<TableRowColumn name="makerName" 
-									style={{width:"10%"}}
+								<TableRowColumn name="deviceType" 
+									style={{width:"10%",overflow:"visible"}} 
+									options={deviceTypeOptions}
+									component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
+
+									}else{
+										TooltipStyle="block";
+									}
+										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+								}} ></TableRowColumn>
+
+				            	<TableRowColumn name="name" style={{width:"15%"}}></TableRowColumn>
+
+				            	<TableRowColumn name="weight" 
+									style={{width:"5%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="doorTypeName" 
-									style={{width:"10%"}}
+
+								<TableRowColumn name="communityName" 
+									style={{width:"12%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="doorTypeName" 
+								
+								<TableRowColumn name="spaceName"
+									style={{width:"8%"}}
+									component={(value,oldValue)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="inline-block";
+										}
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+											<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+										)
+									}} 
+								>
+								</TableRowColumn>
+								<TableRowColumn name="location"
+									style={{width:"10%"}}
+									component={(value,oldValue)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="inline-block";
+										}
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+											<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+										)
+									}} 
+								>
+								</TableRowColumn>
+								
+								
+
+								
+								<TableRowColumn name="memo" 
 									style={{width:"15%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
@@ -499,8 +566,8 @@ export default class EquipmentManageBox  extends React.Component{
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 							
-					      <TableRowColumn type="operation"
-					        style={{width:"25%"}}
+					      		<TableRowColumn type="operation"
+					        		style={{width:"25%"}}
 									component={
 										(value,oldValue,itemData)=>{
 											if(value==""){
@@ -508,7 +575,7 @@ export default class EquipmentManageBox  extends React.Component{
 											}
 											return (
 													<div>
-				                    <Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
+				                    					<Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
 														<Dropdown 
@@ -521,9 +588,7 @@ export default class EquipmentManageBox  extends React.Component{
 														/>
 
 													</div>
-												)
-										}
-									}
+											)}}
 								> 
 								</TableRowColumn>
 				            </TableRow>
