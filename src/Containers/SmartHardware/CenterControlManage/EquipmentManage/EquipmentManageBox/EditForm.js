@@ -181,46 +181,19 @@ class EditForm extends React.Component{
 	}
 	
 	
-	// 判断智能硬件ID是否存在
-	hardwareIdHasFun=(hardwareId)=>{
-		
-		if(!hardwareId || /^\s+$/.test(hardwareId)){
-			return;
-		}
-		let _this = this;
-		let hardwareIdparams = {
-			deviceId :hardwareId,
-		}
-		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
-	 		
-		}).catch(function(err){
-	 		
-	 		Message.error(err.message);
-		});
-	}
 
 	
 	onSubmit=(values)=>{
+
 		let _this = this;
 		
-		let hardwareIdparams = {
-			serialNo :values.serialNo
-		}
 		var deviceTypeObj = {deviceType:"GATEWAY_PANEL",id :this.detail.id}
 		var submitValue = Object.assign(values,deviceTypeObj);
-
-
-		// Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
-
-	 		State.editCenterControl(submitValue);
-
-		// }).catch(function(err){
-
-	 		// Message.error(err.message);
-
-		// });
+	 	State.editCenterControl(submitValue);
+		
 		
 	}
+
 	render(){
 		let {floorsOptions,locationOptions,defaultChecked} =this.state;
 		let spaceOptions = [{label:"会议室",value:"MEETING"},{label:"独立办公室",value:"OFFICE"},{label:"大厅",value:"HALL"}]
