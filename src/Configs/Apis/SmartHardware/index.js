@@ -416,11 +416,30 @@ module.exports = {
         method : 'post'
       },
 
+      //获取子设备详情
+      'getSonEquipmentDetailInfo':{
+        url : '/mockjsdata/53/iot-platform/device-def/sub-device/detail?id={id}',
+        method : 'get'
+      },
 
+      //设置空调模式
+      'setAirConditionMode':{
+        url : '/mockjsdata/53/iot-platform/device-def/sub-device/detail?id={id}',
+        method : 'post'
+      },
       
+      //设置空调风速
+      'setAirConditionWindSpeed':{
+        url : '/mockjsdata/53/iot-platform/device-def/admin/air-condition/set-speed',
+        method : 'post'
+      },
 
-
-
+      //空调开关
+      'SwitchOpenAirCondition':{
+        url : '/mockjsdata/53/iot-platform/device-def/admin/sub-device/switch',
+        method : 'post'
+      }
+ 
       
 
    

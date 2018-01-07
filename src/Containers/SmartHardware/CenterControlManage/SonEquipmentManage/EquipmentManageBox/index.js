@@ -53,7 +53,8 @@ export default class EquipmentManageBox  extends React.Component{
 		this.state = {
 			selectIds : [],
 			openMenu :false,
-			itemDetail : {}
+			itemDetail : {},
+			mainInfo: {}
 		}
 	}
 
@@ -122,10 +123,6 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 
-
-	closeAll=()=>{
-		State.openHardwareDetail = false;
-	}
 
 	onSelcet=(result,selectedListData)=>{
 		var ids=[];
@@ -266,9 +263,6 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 
-
-
-
 	
 	
 	//点击批量删除
@@ -329,10 +323,9 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 
-
-
 	controlEquipment=()=>{
 		
+		let _this =this;
 		if(State.itemDetail.deviceType=="LAMP"){
 
 			this.switchControlLampDialog()
@@ -343,7 +336,16 @@ export default class EquipmentManageBox  extends React.Component{
 
 		}else if(State.itemDetail.deviceType=="AIR_CONDITION"){
 
-			this.switchControlAirConditionDialog();
+			Http.request('getSonEquipmentDetailInfo',{id:State.itemDetail.id}).then(function(response) {
+				_this.setState({
+					mainInfo : _this.state.itemDetail,
+					itemDetail : response
+				},function(){
+					_this.switchControlAirConditionDialog();
+				})
+			}).catch(function(err) {
+				Message.error(err.message);
+			});
 		}
 		
 	}
@@ -409,7 +411,7 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	render(){
-		let {itemDetail}=this.state;
+		let {itemDetail,mainInfo}=this.state;
 		let {showOpretion} = State;
 		let deviceTypeOptions = [{label:"灯控制器",value:"LAMP"},
 								{label:"雾化膜控制器",value:"ATOMIZATION_MEMBRANE"},
@@ -612,7 +614,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          onClose = {this.switchControlAirConditionDialog}
 			          contentStyle={{width:470}}
 			        >
-						<ControlAirCondition onCancel={this.switchControlLampDialog} detail={itemDetail}/>
+						<ControlAirCondition onCancel={this.switchControlLampDialog} detail={itemDetail} mainInfo={mainInfo}/>
 			        </Dialog>
 
 			        <Dialog

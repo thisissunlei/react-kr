@@ -406,9 +406,6 @@ State.confirmResetFirstEquipmentState = action(function(){
 
 
 
-
-
-
 module.exports = State;
 
 
