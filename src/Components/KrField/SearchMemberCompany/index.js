@@ -38,7 +38,6 @@ export default class  SearchMemberCompany extends React.Component {
 	}
 	componentWillReceiveProps(nextProps) {
 		var _this = this;
-		console.log('nextProps====',nextProps)
 		if(nextProps.ValueInfo && nextProps.ValueInfo.csrId){
 			this.setState({
 				ValueInfo:nextProps.ValueInfo
