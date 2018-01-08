@@ -38,6 +38,7 @@ export default class  SearchMemberCompany extends React.Component {
 	}
 	componentWillReceiveProps(nextProps) {
 		var _this = this;
+		console.log('nextProps====',nextProps)
 		if(nextProps.ValueInfo && nextProps.ValueInfo.csrId){
 			this.setState({
 				ValueInfo:nextProps.ValueInfo
@@ -80,6 +81,7 @@ export default class  SearchMemberCompany extends React.Component {
 	}
 	render(){
 		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
+		
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
