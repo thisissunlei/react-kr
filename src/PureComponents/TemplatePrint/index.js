@@ -76,7 +76,7 @@ class TemplatePrint extends React.Component {
 		this.labellings = [
 			{ name: 'img', label: '合同公章' },
 			{ name: 'pagination', label: '另起一页' },
-			// { name: 'qrCode' ,label:'二维码'},
+			{ name: 'qrCode' ,label:'二维码'},
 			{ name: 'includeStart', label: '区块开始标签' },
 			{ name: 'includeEnd', label: '区块结束标签' },
 			{ name: 'allEnd', label: '文章结尾' },
