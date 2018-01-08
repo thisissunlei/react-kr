@@ -73,6 +73,7 @@ class TemplatePrint extends React.Component {
 			publicFields:[],
 			rowNums:{}
 		}
+		
 		this.labellings = [
 			{ name: 'img', label: '合同公章' },
 			{ name: 'pagination', label: '另起一页' },
