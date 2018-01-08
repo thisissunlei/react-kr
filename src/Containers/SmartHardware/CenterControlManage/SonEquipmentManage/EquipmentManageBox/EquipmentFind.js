@@ -42,7 +42,9 @@ export default class EquipmentSearch extends React.Component{
 
 	getUnusedEquipmentFun =()=>{
 		let _this = this;
-		Http.request('getUnusedEquipment', {}).then(function(response) {
+		let {serialNo} = this.props;
+		var param = {serialNo : serialNo}
+		Http.request('findNewSonEquipment', param).then(function(response) {
 			_this.setState({
 				searchEquipmentList : response.items
 			})
@@ -51,8 +53,6 @@ export default class EquipmentSearch extends React.Component{
 		});
 	}
 	
-
-
 
 
 	getWitchFind =(callBack)=>{
@@ -81,9 +81,11 @@ export default class EquipmentSearch extends React.Component{
 
 	//发现设备列表强制删除
 	deleteEquipmentFun=(thisP)=>{
+
+		let {serialNo} =this.props;
 		let _this =this;
-		var urlParams = {deviceId:thisP.deviceId}
-		Http.request('deleteFindEquipmentUrl',{},urlParams).then(function(response) {
+		var urlParams = {localNo:thisP.localNo,serialNo : serialNo,deviceType:thisP.deviceType}
+		Http.request('deleteFindSonEquipment',{},urlParams).then(function(response) {
 			
 			Message.success("强制删除设备成功");
 			_this.getUnusedEquipmentFun();
@@ -97,9 +99,11 @@ export default class EquipmentSearch extends React.Component{
 
 	//注册设备
 	registEquipmentFun=(thisP)=>{
+
+		let {serialNo} =this.props;
 		let _this =this;
-		var urlParams = {deviceId:thisP.deviceId}
-		Http.request('changeUnusedToList',{},urlParams).then(function(response) {
+		var urlParams = {localNo:thisP.localNo,serialNo : serialNo,deviceType:thisP.deviceType}
+		Http.request('regesterSonEquipment',{},urlParams).then(function(response) {
 
 			Message.success("注册设备成功");
 			_this.getUnusedEquipmentFun();
@@ -124,11 +128,8 @@ export default class EquipmentSearch extends React.Component{
 		var DOM_list = search_equipment_list.map(function(item,index){
 			return(
 				<div className="table-item" key={index}>
-					<div  className="table-item-index">{item.deviceId}</div>
-					<div  className="table-item-index">{item.driverV}</div>
-					<div  className="table-item-index">{item.v}</div>
-					<div  className="table-item-index">{item.ip}</div>
-					<div  className="table-item-index">{item.name}</div>
+					<div  className="table-item-index">{item.localNo}</div>
+					<div  className="table-item-index">{item.deviceType}</div>
 					<div className="table-item-index"> 
 						<div  className="table-item-last" onClick={_this.registEquipmentFun.bind(this,item)}>注册设备</div>
 						<div  className="table-item-last" onClick={_this.deleteEquipmentFun.bind(this,item)}>强制删除</div>
@@ -142,7 +143,7 @@ export default class EquipmentSearch extends React.Component{
 	render(){
 		let {searchEquipmentList} = this.state;
 		return (
-			<div className="seconde-dialog">
+			<div className="seconde-dialog ">
 				<div style={{paddingLeft:20}}>
 					<span style={{display:"inline-block",width:40,height:30}}>
 					<Toggle 
@@ -161,16 +162,13 @@ export default class EquipmentSearch extends React.Component{
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
 				<h1>设备发现</h1>
 
-				<div className="detail-list-equipment search-equipment">
+				<div className="detail-list-equipment  find-son-equipment">
 					
 				
 			        <div className="table-box">
-			        	<div className="table-header">
-			        		<div className="header-item">硬件ID</div>
-			        		<div className="header-item">固件版本</div>
-			        		<div className="header-item">APP版本</div>
-			        		<div className="header-item">IP地址</div>
-			        		<div className="header-item">标记</div>
+			        	<div className="table-header-find-son">
+			        		<div className="header-item">局部编号</div>
+			        		<div className="header-item">设备类型</div>
 			        		<div className="header-item">操作</div>
 			        	</div>
 			        	<div className="table-body">

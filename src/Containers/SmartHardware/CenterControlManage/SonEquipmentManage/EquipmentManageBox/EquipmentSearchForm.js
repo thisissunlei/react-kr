@@ -175,12 +175,12 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						{label:"名称",value:"name"}]
 		let connectOptions=[{label:"已连接",value:"true"},
 							{label:"未连接",value:"false"}]
-	let controlEquipmentOption=[{label:"灯",value:"LAMP"},
-						  		{label:"雾化膜",value:"ATOMIZATION_MEMBRANE"},
-						  		{label:"空调",value:"AIR_CONDITION"},
-						  		{label:"空气质量仪",value:"AIR_SENSOR"},
-						  		{label:"温湿度计",value:"HUMITURE_SENSOR"},
-						  		{label:"人体感应器",value:"BODY_SENSOR"}]
+		let controlEquipmentOption=[{label:"灯",value:"LAMP"},
+							  		{label:"雾化膜",value:"ATOMIZATION_MEMBRANE"},
+							  		{label:"空调",value:"AIR_CONDITION"},
+							  		{label:"空气质量仪",value:"AIR_SENSOR"},
+							  		{label:"温湿度计",value:"HUMITURE_SENSOR"},
+							  		{label:"人体感应器",value:"BODY_SENSOR"}]
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{width:"100%",marginTop:20,position:"relative"}} className="second-equipment-search">
 				<span className="fir-span">

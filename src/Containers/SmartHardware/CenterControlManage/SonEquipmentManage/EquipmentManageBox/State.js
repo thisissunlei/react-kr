@@ -12,7 +12,6 @@ let State = observable({
 	itemDetail:[],
 	realPage : 1,
 	openHardwareDetail:false,
-	openNewCreate:false,
 	openEditDialog:false,
 	openConfirmDelete:false,
 	openSearchEquipment:false,
@@ -48,7 +47,6 @@ let State = observable({
 	//第一次请求设备缓存时的设备Id
 	equipmentCacheitems :[],
 	switch : false,
-	showOpretion : false,
 	openRestartSystemsDialog : false,
 	openRestartAPPDialog :false,
 	openManagePsd :false,
@@ -159,30 +157,6 @@ State.getUpgradeTypeOptions = action(function() {
 
 
 
-//新增
-State.newCreateSecondDoor = action(function(values){
-	
-	Http.request('addOrEditEquipment',values ).then(function(response) {
-		
-		State.equipmentSecondParams = {
-			page:1,
-			pageSize:15,
-			date: new Date()		
-		}
-		State.openNewCreate =false;
-		Message.success("新增成功");
-
-	}).catch(function(err) {
-		State.openNewCreate =false;
-		State.equipmentSecondParams = {
-			page:1,
-			pageSize:15,
-			date: new Date()		
-		}
-		Message.error(err.message);
-	});	
-
-})
 
 //编辑
 State.editSecondDoor = action(function(values){
@@ -202,25 +176,22 @@ State.editSecondDoor = action(function(values){
 })
 
 
-
-//刷新并保持原查询条件
 State.freshPageReturn =  action(function(){
-	State.equipmentSecondParams = {
+	State.equipmentSearchParams = {
         date:new Date(),
         page : State.realPage,
         pageSize: 15,
-        communityId: State.equipmentSecondParams.communityId ||'',
-        deviceId : State.equipmentSecondParams.deviceId ||'',
-        doorCode : State.equipmentSecondParams.doorCode ||'',
-        doorType :  State.equipmentSecondParams.doorType ||'',
-        floor :  State.equipmentSecondParams.floor ||'',
-        maker :  State.equipmentSecondParams.maker ||'',
-        title : State.equipmentSecondParams.title ||'',
-
+        communityId: State.equipmentSearchParams.communityId ||'',
+        spaceType : State.equipmentSearchParams.spaceType ||'',
+        parentId : State.equipmentSearchParams.parentId ||'',
+        deviceType :  State.equipmentSearchParams.deviceType ||'',
+        floor :  State.equipmentSearchParams.floor ||'',
+        localNo :  State.equipmentSearchParams.localNo ||'',
+        name : State.equipmentSearchParams.name ||'',
     }	
 })
 
-//刷新设备搜索页面
+
 State.freshSearchEquipmentPage = action(function(){
 	State.searchEquipmentParam = {
         date:new Date(),
@@ -230,20 +201,6 @@ State.freshSearchEquipmentPage = action(function(){
 })
 
 
-
-//添加
-State.equipmentAddLocation = action(function(param){
-	var urlParams = {deviceId:param}
-	Http.request('changeUnusedToList',{},urlParams).then(function(response) {
-		
-		Message.success("注册设备成功");
-		State.getUnusedEquipmentFun();
-		State.freshPageReturn();
-
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
 
 //清空缓存
 State.clearCacheAction= action(function(){

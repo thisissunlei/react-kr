@@ -438,7 +438,25 @@ module.exports = {
       'SwitchOpenAirCondition':{
         url : '/mockjsdata/53/iot-platform/device-def/admin/sub-device/switch',
         method : 'post'
-      }
+      },
+
+      //发现子设备列表
+      'findNewSonEquipment':{
+        url : '/mockjsdata/53/iot-platform/device-def/sub-device/discovery?serialNo={serialNo}',
+        method : 'get'
+      },
+
+      //删除发现子设备
+      'deleteFindSonEquipment':{
+        url : '/mockjsdata/53/iot-platform/sub-device/actions/force-delete',
+        method : 'post'
+      },
+
+      //注册子设备
+      'regesterSonEquipment':{
+        url : '/mockjsdata/53/iot-platform/sub-device/actions/enable',
+        method : 'post'
+      },
  
       
 

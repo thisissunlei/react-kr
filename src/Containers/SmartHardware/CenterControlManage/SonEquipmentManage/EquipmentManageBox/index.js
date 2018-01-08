@@ -27,7 +27,6 @@ import {
 } from 'mobx-react';
 
 import EquipmentDetail from './EquipmentDetail';
-import NewCreate from './NewCreate';
 import EditForm from './EditForm';
 import EquipmentFind from './EquipmentFind';
 import EquipmentSearchForm from './EquipmentSearchForm';
@@ -54,7 +53,8 @@ export default class EquipmentManageBox  extends React.Component{
 			selectIds : [],
 			openMenu :false,
 			itemDetail : {},
-			mainInfo: {}
+			mainInfo: {},
+			serialNo :''
 		}
 	}
 
@@ -77,7 +77,10 @@ export default class EquipmentManageBox  extends React.Component{
 	getUrlParam=()=>{
 		var hashStr = window.location.hash;
 		var hashArr = hashStr.split("/");
-		var param = hashArr.pop()
+		var param = hashArr[4]
+		this.setState({
+			serialNo : hashArr[5]
+		})
 		return param
 	}
 
@@ -134,10 +137,7 @@ export default class EquipmentManageBox  extends React.Component{
 		})
 	}
 
-	//打开新建
-	openNewCreateDialog=()=>{
-		State.openNewCreate = !State.openNewCreate;
-	}
+	
 	//打开确认删除
 	closeConfirmDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
@@ -189,18 +189,7 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 
-	showMoreOpretion=(thisP,value,itemData)=>{
-		State.deviceVO = thisP.deviceVO
-		this.showOpretionFun();
-		State.itemDetail = thisP;
-		this.setState({
-			itemDetail :thisP
-		})
-	}
 
-	showOpretionFun=()=>{
-		State.showOpretion = !State.showOpretion;
-	}
 
 
 
@@ -299,7 +288,7 @@ export default class EquipmentManageBox  extends React.Component{
 
 	//查看设备缓存
 	deviceCache=()=>{
-		State.showOpretion=false;
+		
 		let _this =this;
 		var urlParamsT = {
 							deviceId:State.itemDetail.deviceId,
@@ -360,10 +349,8 @@ export default class EquipmentManageBox  extends React.Component{
 		let _this = this;
 		
 
-			State.DropItems=[
-				{title:"远程控制",onClickFun:_this.controlEquipment},
-				{title:"数据查看",onClickFun:_this.deviceCache},
-			]
+			State.DropItems=[{title:"远程控制",onClickFun:_this.controlEquipment},
+							{title:"数据查看",onClickFun:_this.deviceCache}]
 	}
 
 
@@ -411,8 +398,7 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	render(){
-		let {itemDetail,mainInfo}=this.state;
-		let {showOpretion} = State;
+		let {itemDetail,mainInfo,serialNo}=this.state;
 		let deviceTypeOptions = [{label:"灯控制器",value:"LAMP"},
 								{label:"雾化膜控制器",value:"ATOMIZATION_MEMBRANE"},
 								{label:"空调控制器",value:"AIR_CONDITION"},
@@ -424,7 +410,6 @@ export default class EquipmentManageBox  extends React.Component{
 				<span style={{float:"right",marginTop:"-50px",cursor:"pointer"}} onClick={this.returnCenterControl}>返回中央控制管理</span>
 				<div>
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
-					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
 					<Button label="发现设备"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
 					
@@ -634,22 +619,9 @@ export default class EquipmentManageBox  extends React.Component{
 					    width={1100} 
 					    openSecondary={true} 
 					>
-						<EquipmentFind onCancel={this.openSearchEquipmentFun} registeEquipment={this.registeEquipmentFun}/>
+						<EquipmentFind onCancel={this.openSearchEquipmentFun} registeEquipment={this.registeEquipmentFun} serialNo={serialNo}/>
 					</Drawer>
 					
-					<Dialog
-			          title="新增门禁设备"
-			          open={State.openNewCreate}
-			          onClose={this.openNewCreateDialog}
-			          contentStyle={{width:687}}
-			        >
-			          <NewCreate
-			            onCancel={this.openNewCreateDialog}
-			            style ={{paddingTop:'35px'}}
-			            onSubmit = {this.onSubmitNewCreateEquipment}
-			            saveAndNewCreate= {this.saveAndNewCreate}
-			          />
-			        </Dialog>
 			        <Dialog
 			          title="编辑门禁设备"
 			          open={State.openEditDialog}
@@ -816,14 +788,7 @@ export default class EquipmentManageBox  extends React.Component{
 						<EquipmentCache onCancel={this.openEquipmentCacheFun}/>
 					</Drawer>
 
-					<Dialog
-			          title="按钮库"
-			          open={State.showOpretion}
-			          onClose={this.showOpretionFun}
-			          contentStyle={{width:700,height:355}}
-			        >
-			          <BtnBox onCancle={this.showOpretionFun}/>
-			        </Dialog>
+					
 			      
 
 				</div>

@@ -388,7 +388,9 @@ export default class EquipmentManageBox  extends React.Component{
 
 	seeSonEquipment=()=>{
 		let sonEquipmentId = State.itemDetail.id;
-		var url = `/#/smarthardware/centercontrolmanage/sonequipmentmanage/${sonEquipmentId}`;
+		let equipmentDeviceId =State.itemDetail.serialNo;
+		console.log("State.itemDetail",State.itemDetail);
+		var url = `/#/smarthardware/centercontrolmanage/sonequipmentmanage/${sonEquipmentId}/${equipmentDeviceId}`;
 		window.location.href =url;
 	}
 
