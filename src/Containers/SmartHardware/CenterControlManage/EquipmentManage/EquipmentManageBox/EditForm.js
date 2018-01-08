@@ -210,8 +210,6 @@ class EditForm extends React.Component{
 						onChange = {this.onChangeSearchCommunity}
 						label="社区名称"  
 						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'社区为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
@@ -220,30 +218,27 @@ class EditForm extends React.Component{
 						label="楼层" 
 						options = {floorsOptions}
 						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'楼层为必填项'}} 
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
-					<KrField name="spaceId" grid={2}
-						component="select" 
-						options={locationOptions}
-						label="房间"
-						onChange = {this.onchooseCorrespondingLocation}  
-						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
-					/>
-					
-					
+
 					<KrField name="spaceType" 
 						component="select" 
 						label="空间类型"
 						onChange = {this.onchooseProperty}
 						options={spaceOptions}  
 						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'门类型为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
+
+					<KrField name="spaceId" grid={2}
+						component="select" 
+						options={locationOptions}
+						label="房间"
+						onChange = {this.onchooseCorrespondingLocation}  
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+					/>
+					
 					
 					<KrField grid={1/2} name="name" 
 						type="text" 
@@ -302,6 +297,8 @@ const validate = values=>{
 	if(values.deviceId && values.deviceId.length>50){
 		errors.deviceId = '智能硬件ID最多50个字符';
 	}
+
+
 	if(!values.spaceType){
 		errors.spaceType = '空间类型类型为必填项';
 	}

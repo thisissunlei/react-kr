@@ -77,24 +77,12 @@ State.refreshList =action(function(param) {
 });
 
 
-// 批量删除设备
-State.deleteEquipmentBatch= action(function() {
-	
-	Http.request('deleteEquipmentBatch',{},{ids:State.selectedDeleteIds}).then(function(response) {
-		
-		State.freshPageReturn();
-		Message.success("删除成功");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-
-});
 
 //单个删除
 State.deleteEquipmentSingle= action(function() {
 	
 	
-	Http.request('deleteEquipmentSingleURL',{id:State.selectedDeleteIds}).then(function(response) {
+	Http.request('deleteCenterControEquipment',{id:State.selectedDeleteIds}).then(function(response) {
 		
 		State.freshPageReturn();	
 		Message.success("删除成功");
@@ -159,9 +147,9 @@ State.getUpgradeTypeOptions = action(function() {
 
 
 //编辑
-State.editSecondDoor = action(function(values){
+State.editSonEquipment = action(function(values){
 	
-	Http.request('addOrEditEquipment',values ).then(function(response) {
+	Http.request('EditSonEquipment',{},values).then(function(response) {
 		
 		State.freshPageReturn();
 		State.openEditDialog =false;

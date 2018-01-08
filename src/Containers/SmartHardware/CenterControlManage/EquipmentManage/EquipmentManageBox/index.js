@@ -435,7 +435,8 @@ export default class EquipmentManageBox  extends React.Component{
 	render(){
 		let {itemDetail}=this.state;
 		let {showOpretion} = State;
-		let spaceTypeOptions = [{label:"会议室",value : '1'},{label:"独立办公室",value : '2'},{label:"大厅",value : '3'},]
+		let spaceTypeOptions = [{label:"会议室",value : 'MEETING'},{label:"独立办公室",value : 'OFFICE'},{label:"大厅",value : 'HALL'}]
+
 		return(
 			<div >
 				<div>
@@ -478,17 +479,18 @@ export default class EquipmentManageBox  extends React.Component{
 			          	<TableBody >
 				            <TableRow>
 				            	<TableRowColumn name="communityName" style={{width:"12%"}}></TableRowColumn>
-										<TableRowColumn style={{width:"13%",overflow:"visible"}} name="name" component={(value,oldValue)=>{
-											var TooltipStyle=""
-											if(value.length==""){
-												TooltipStyle="none"
+								
+								<TableRowColumn style={{width:"13%",overflow:"visible"}} name="name" component={(value,oldValue)=>{
+									var TooltipStyle=""
+									if(value.length==""){
+										TooltipStyle="none"
 
-											}else{
-												TooltipStyle="block";
-											}
-												return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-												<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-										}} ></TableRowColumn>
+									}else{
+										TooltipStyle="block";
+									}
+										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+								}} ></TableRowColumn>
 								
 								
 								
@@ -657,29 +659,6 @@ export default class EquipmentManageBox  extends React.Component{
 			          </div>
 			        </Dialog>
 
-			        <Dialog
-			          title="批量删除提示"
-			          open={State.openConfirmDeleteBatch}
-			          onClose={this.copenConfirmDeleteBatchFun}
-			          contentStyle={{width:443,height:236}}
-			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除吗？</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-			                        <Button  label="确定" type="submit" onClick={this.confirmDeleteBatch} />
-			                      </ListGroupItem>
-			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.copenConfirmDeleteBatchFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
-			        </Dialog>
-			        
 			        
 			        <Dialog
 			          title="断开重连提示"

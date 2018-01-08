@@ -21,6 +21,7 @@ import {
 class ControlLampForm extends React.Component{
 	constructor(props){
 		super(props);
+		this.detail = this.props.detail;
 		this.state={
 			detail:{}
 		}
@@ -44,6 +45,36 @@ class ControlLampForm extends React.Component{
 		console.log("values",values);
 		
 	}
+
+	openFrostGlass=()=>{
+
+		var onParam = {on:true}
+		this.switchOpenFrostGlass(onParam);
+		
+	}
+
+	closeFrostGlass=()=>{
+
+		var onParam = {on:false}
+		this.switchOpenFrostGlass(onParam);
+
+	}
+
+	switchOpenFrostGlass=(obj)=>{
+		let _this = this;
+		let {mainInfo} = this.props;
+		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo};
+		var newParam = Object.assign(param,obj)
+		Http.request('SwitchOpenLampFrost',{},newParam).then(function(response) {
+			
+			Message.success("已将命令发送给控制器");
+			// _this.freshAidCondition();
+		
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
 	render(){
 		
 		const { error, handleSubmit, reset ,detail} = this.props;
@@ -55,13 +86,13 @@ class ControlLampForm extends React.Component{
 					
 					<div>
 						<div style={{textAlign:"center"}}>
-							<span>当前灯开关状态状态：</span>
-							<span>当前灯开关状态状态</span>
+							<span>当前雾化玻璃开关状态：</span>
+							<span>{this.detail.extra.on?"开启":"关闭"}</span>
 						</div>
 						<div className="btn-div">
 
-							<div style={{display:"inline-block",marginRight:20}}><Button label="远程开灯" onTouchTap={this.productQRCode}/></div>
-							<div style={{display:"inline-block"}}><Button label="远程关灯" onTouchTap={this.closeDialog}/></div>
+							<div style={{display:"inline-block",marginRight:20}}><Button label="远程开启" onTouchTap={this.openFrostGlass}/></div>
+							<div style={{display:"inline-block"}}><Button label="远程关闭" onTouchTap={this.closeFrostGlass}/></div>
 
 						</div>
 						

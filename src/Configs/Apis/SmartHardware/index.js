@@ -436,7 +436,13 @@ module.exports = {
 
       //空调开关
       'SwitchOpenAirCondition':{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/sub-device/switch',
+        url : '/mockjsdata/53/iot-platform/device-def/admin/air-condition/switch',
+        method : 'post'
+      },
+
+      //灯/雾化膜开关
+      'SwitchOpenLampFrost':{
+        url : '/mockjsdata/53/iot-platform/device-def/admin/switcher/switch',
         method : 'post'
       },
 
@@ -457,6 +463,12 @@ module.exports = {
         url : '/mockjsdata/53/iot-platform/sub-device/actions/enable',
         method : 'post'
       },
+
+      //编辑子设备
+      'EditSonEquipment':{
+        url : '/mockjsdata/53/iot-platform/device-def/actions/edit',
+        method : 'post'
+      }
  
       
 

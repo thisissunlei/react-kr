@@ -204,21 +204,11 @@ export default class EquipmentManageBox  extends React.Component{
 		State.openConnectAgian =false;
 	}
 
-	//确认刷新h5页面
-	confirmFreshHTML=()=>{
-		State.confirmFreshHTMLAction();
-		this.openFreshHTMLDialogFun();
-	}
-
-		//刷新H5页面窗口
-	openFreshHTMLDialogFun=()=>{
-		State.openFreshHTMLDialog = !State.openFreshHTMLDialog;
-	}
-
 
 	editList=(thisP,value,itemData)=>{
+
 		let _this = this;
-		Http.request('getEditEquipmentUrl',{id:thisP.id}).then(function(response) {
+		Http.request('getCenterControolEditData',{id:thisP.id}).then(function(response) {
 			
 			_this.setState({
 				itemDetail:response
@@ -251,31 +241,6 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 
-
-	
-	
-	//点击批量删除
-	deleteSelectEquipment = ()=>{
-		if(this.state.selectIds.length == 0){
-			Message.error("请选择您要删除的设备");
-			return;
-		}
-		this.deleteSelectEquipmentFun();
-	}
-
-	//批量删除提示窗口
-	deleteSelectEquipmentFun=()=>{
-		State.openConfirmDeleteBatch = !State.openConfirmDeleteBatch
-	}
-
-	//批量删除
-	confirmDeleteBatch=()=>{
-		
-		var selectedIdsArr = this.state.selectIds;
-		State.selectedDeleteIds = selectedIdsArr.join(",");
-		State.deleteEquipmentBatch();
-		this.deleteSelectEquipmentFun();
-	}
 
 	registeEquipmentFun=(value)=>{
 		this.setState({
@@ -315,27 +280,28 @@ export default class EquipmentManageBox  extends React.Component{
 	controlEquipment=()=>{
 		
 		let _this =this;
-		if(State.itemDetail.deviceType=="LAMP"){
+		Http.request('getSonEquipmentDetailInfo',{id:State.itemDetail.id}).then(function(response) {
+			_this.setState({
+				mainInfo : _this.state.itemDetail,
+				itemDetail : response
+			},function(){
+				if(State.itemDetail.deviceType=="LAMP"){
 
-			this.switchControlLampDialog()
-		}else if(State.itemDetail.deviceType=="ATOMIZATION_MEMBRANE"){
+					_this.switchControlLampDialog()
+				}else if(State.itemDetail.deviceType=="ATOMIZATION_MEMBRANE"){
 
-			
-			this.switchControlFrostedGlassDialog();
+					
+					_this.switchControlFrostedGlassDialog();
 
-		}else if(State.itemDetail.deviceType=="AIR_CONDITION"){
-
-			Http.request('getSonEquipmentDetailInfo',{id:State.itemDetail.id}).then(function(response) {
-				_this.setState({
-					mainInfo : _this.state.itemDetail,
-					itemDetail : response
-				},function(){
+				}else if(State.itemDetail.deviceType=="AIR_CONDITION"){
 					_this.switchControlAirConditionDialog();
-				})
-			}).catch(function(err) {
-				Message.error(err.message);
-			});
-		}
+					
+				}
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		
 		
 	}
 
@@ -348,9 +314,13 @@ export default class EquipmentManageBox  extends React.Component{
 
 		let _this = this;
 		
-
+		if(thisP.deviceType == "LAMP"||thisP.deviceType == "ATOMIZATION_MEMBRANE"||thisP.deviceType == "AIR_CONDITION"){
 			State.DropItems=[{title:"远程控制",onClickFun:_this.controlEquipment},
-							{title:"数据查看",onClickFun:_this.deviceCache}]
+						{title:"数据查看",onClickFun:_this.deviceCache}]
+		}else{
+			State.DropItems=[{title:"数据查看",onClickFun:_this.deviceCache}]	
+		}
+		
 	}
 
 
@@ -410,7 +380,6 @@ export default class EquipmentManageBox  extends React.Component{
 				<span style={{float:"right",marginTop:"-50px",cursor:"pointer"}} onClick={this.returnCenterControl}>返回中央控制管理</span>
 				<div>
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
-					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
 					<Button label="发现设备"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
 					
 				</div>
@@ -478,7 +447,7 @@ export default class EquipmentManageBox  extends React.Component{
 									}else{
 										TooltipStyle="block";
 									}
-										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 								}} ></TableRowColumn>
 
@@ -590,7 +559,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          onClose = {this.switchControlLampDialog}
 			          contentStyle={{width:470}}
 			        >
-						<ControlLamp onCancel={this.switchControlLampDialog} detail={itemDetail}/>
+						<ControlLamp onCancel={this.switchControlLampDialog} detail={itemDetail} mainInfo={mainInfo}/>
 			        </Dialog>
 
 			        <Dialog
@@ -606,9 +575,9 @@ export default class EquipmentManageBox  extends React.Component{
 			          title="雾化玻璃控制器"
 			          open={State.controlFrostedGlassDialog}
 			          onClose = {this.switchControlFrostedGlassDialog}
-			          contentStyle={{width:687}}
+			          contentStyle={{width:470}}
 			        >
-						<ControlFrostedGlass onCancel={this.switchControlFrostedGlassDialog} detail={itemDetail}/>
+						<ControlFrostedGlass onCancel={this.switchControlFrostedGlassDialog} detail={itemDetail} mainInfo={mainInfo}/>
 			        </Dialog>
 					
 
@@ -659,29 +628,6 @@ export default class EquipmentManageBox  extends React.Component{
 			          </div>
 			        </Dialog>
 
-			        <Dialog
-			          title="批量删除提示"
-			          open={State.openConfirmDeleteBatch}
-			          onClose={this.copenConfirmDeleteBatchFun}
-			          contentStyle={{width:443,height:236}}
-			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除吗？</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-			                        <Button  label="确定" type="submit" onClick={this.confirmDeleteBatch} />
-			                      </ListGroupItem>
-			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.copenConfirmDeleteBatchFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
-			        </Dialog>
-			        
 			        
 			        <Dialog
 			          title="断开重连提示"
@@ -707,28 +653,7 @@ export default class EquipmentManageBox  extends React.Component{
 			        </Dialog>
 			      
 
-			        <Dialog
-			          title="刷新屏幕提示"
-			          open={State.openFreshHTMLDialog}
-			          onClose={this.openFreshHTMLDialogFun}
-			          contentStyle={{width:443,height:236}}
-			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>刷新屏幕可能导致屏幕显示不正常，确定刷新？</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-			                        <Button  label="确定" type="submit" onClick={this.confirmFreshHTML} />
-			                      </ListGroupItem>
-			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openFreshHTMLDialogFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
-			        </Dialog>
+			        
 			        <Dialog
 			          title="恢复出厂设置提示"
 			          open={State.resetEquipmentDialog}

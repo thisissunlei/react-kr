@@ -204,7 +204,7 @@ class ControlAirConditionForm extends React.Component{
 		Http.request('SwitchOpenAirCondition',{},newParam).then(function(response) {
 			
 			Message.success("已将开启命令发送给空调控制器--------??????");
-			_this.freshAidCondition();
+			// _this.freshAidCondition();
 		
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -231,7 +231,6 @@ class ControlAirConditionForm extends React.Component{
 		
 		const { error, handleSubmit, reset} = this.props;
 		let {chooseHeating,modelOptions,speedWindOptions} =this.state;
-		console.log("this.detail",this.detail);
 		return(
 			<div style={{paddingTop:20}} className="air-condition-form">
 				<form onSubmit={handleSubmit(this.onSubmit)}>

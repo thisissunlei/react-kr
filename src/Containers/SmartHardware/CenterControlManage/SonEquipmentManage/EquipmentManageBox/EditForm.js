@@ -45,8 +45,9 @@ class EditForm extends React.Component{
 		}
 	}
 	componentDidMount(){
-		console.log("this.detail",this.detail);
 		Store.dispatch(initialize('EditForm', this.detail));
+		Store.dispatch(change('EditForm','weight',this.detail.extra.weight));
+
 	}
 	getBasicData=(detail)=>{
 		
@@ -136,14 +137,13 @@ class EditForm extends React.Component{
     	})
   	}
   	
-  	//选择门类型
-	onchooseProperty=(doorType)=>{
+	onchooseDeviceType=(deviceType)=>{
 
-  		Store.dispatch(change('EditForm','doorType',doorType.value));
+  		Store.dispatch(change('EditForm','deviceType',deviceType.value));
 
   	}
-	
-	// 选择房间
+
+
 	onchooseCorrespondingLocation=(roomId)=>{
 
 		if(!roomId){
@@ -159,7 +159,7 @@ class EditForm extends React.Component{
 		let _this = this;
 		if(!floor){
 			
-			// Store.dispatch(change('EditForm', 'doorType', ""));
+			// Store.dispatch(change('EditForm', 'deviceType', ""));
 		}else{
 			_this.setState({
 				floorNum : floor.value
@@ -190,65 +190,73 @@ class EditForm extends React.Component{
 	}
 	
 	
-	// 判断智能硬件ID是否存在
-	hardwareIdHasFun=(hardwareId)=>{
-		let {detail} = this.props;
-		if(!hardwareId || /^\s+$/.test(hardwareId)){
-			return;
-		}
-		let _this = this;
-		let hardwareIdparams = {
-			deviceId :hardwareId,
-			id: detail.id
-		}
-		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
-	 		
-		}).catch(function(err){
-	 		
-	 		Message.error(err.message);
-		});
-	}
 
 	// 编辑设备定义
 	onSubmit=(values)=>{
-		// console.log("values",values);
-		let {detail} = this.props;
-		let _this = this;
-		let hardwareIdparams = {
-			deviceId :values.deviceId,
-			id: detail.id
-		}
 
-		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
-
-	 		State.editSecondDoor(values);
-
-		}).catch(function(err){
-
-	 		Message.error(err.message);
- 
-		});
+		var newExtraObj = Object.assign(this.detail.extra,{weight:values.weight})
+		values.extraJson = JSON.stringify(newExtraObj);
+	 	State.editSonEquipment(values);
 		
 	}
+
+	returnDeviceType=()=>{
+		let deviceTypeOptions = [{label:"灯控制器",value:"LAMP"},
+								{label:"雾化膜控制器",value:"ATOMIZATION_MEMBRANE"},
+								{label:"空调控制器",value:"AIR_CONDITION"},
+								{label:"空气质量仪控制器",value:"AIR_SENSOR"},
+								{label:"温湿度计控制器",value:"HUMITURE_SENSOR"},
+								{label:"人体感应控制器",value:"BODY_SENSOR"}]
+		let {detail} =this.props;
+		var deviceTypeText ;
+		for(var i=0;i<deviceTypeOptions.length;i++){
+			if(detail.deviceType == deviceTypeOptions[i].value){
+				deviceTypeText =  deviceTypeOptions[i].label;
+				return deviceTypeText;
+			}
+		}
+
+		console.log("deviceTypeText",deviceTypeText);
+		return deviceTypeText;
+
+	}
+
+
 	render(){
-		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked} =this.state;
+		let {floorsOptions,propertyOption,locationOptions,defaultChecked} =this.state;
 		
 		const { error, handleSubmit, reset ,detail} = this.props;
+		let spaceTypeOptions = [{label:"会议室",value : 'MEETING'},{label:"独立办公室",value : 'OFFICE'},{label:"大厅",value : 'HALL'}]
+
 		return(
 			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div style={{margin:"0 0 20px 10px",fontSize: 14,color:'black'}}>
-						<div><span>智能硬件ID：</span><span style={{color:"#ff6868"}}>{detail.deviceId}</span></div>
-						<div style={{marginTop:15}}><span>标记：</span><span style={{color:"#ff6868"}}>{detail.name}</span></div>
+						<div><span>智能硬件ID：</span><span style={{color:"#ff6868"}}>{detail.serialNo}</span></div>
+						<div style={{marginTop:15}}><span>设备类型：</span><span>{this.returnDeviceType()}</span></div>
 					</div>
 					
+
+					<KrField grid={1/2} name="name" 
+						type="text" 
+						label="名称" 
+						requireLabel={true}
+						onBlur = {this.onChangeTitle}
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+					/>
+
+					<KrField grid={1/2} name="weight" 
+						type="text" 
+						label="权值" 
+						requireLabel={true} 
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+					/>
+
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
 						onChange = {this.onChangeSearchCommunity}
 						label="社区名称"  
 						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'社区为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
@@ -257,60 +265,33 @@ class EditForm extends React.Component{
 						label="楼层" 
 						options = {floorsOptions}
 						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'楼层为必填项'}} 
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
 
-					<KrField name="roomId" grid={1/2}
+					<KrField name="spaceType" 
+						component="select" 
+						label="空间类型"
+						onChange = {this.onchangeSpaceType}
+						options={spaceTypeOptions}  
+						requireLabel={true} 
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+					/>
+
+					<KrField name="spaceId" grid={1/2}
 						component="select" 
 						options={locationOptions}
 						label="房间"
 						onChange = {this.onchooseCorrespondingLocation}  
-						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
-					/>
-
-					<KrField name="doorType" 
-						component="select" 
-						label="门类型"
-						onChange = {this.onchooseProperty}
-						options={propertyOption}  
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'门类型为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
-					<KrField name="maker" grid={1/2}
-						component="select" 
-						label="厂家" 
-						options = {State.makerOptions}
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'厂家为必填项'}} 
-						style={{width:'252px'}}
+
+					<KrField grid={1/2} name="location" 
+						type="text" 
+						label="位置描述"
+						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
 
-					<KrField grid={1/2} name="title" 
-						type="text" 
-						label="屏幕显示标题" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'屏幕显示标题为必填项'}} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						onBlur = {this.onChangeTitle}
-					/>
-					<KrField grid={1/2} name="doorCode" 
-						type="text" 
-						label="屏幕显示编号" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'屏幕显示编号为必填项'}} 
-						style={{width:'252px'}}
-						onBlur = {this.doorNumHasFun}
-					/>
-					
-					
 					<KrField
 						label="备注"
 						name ="memo"
@@ -338,38 +319,48 @@ class EditForm extends React.Component{
 }
 const validate = values=>{
 	const errors={};
+	var weightReg =/^([1-9]\d*)(\.{0,1}\d*[1-9])?$/;
 	if(!values.communityId){
 		errors.communityId = '社区名称为必填项';
 	}
 	if(!values.floor){
 		errors.floor = '楼层为必填项';
 	}
-	if(!values.title || /^\s+$/.test(values.title)){
-		errors.title = '屏幕显示标题为必填项';
+
+	if(!values.spaceType){
+		errors.spaceType = '空间类型为必填项';
 	}
-	if(values.title && values.title.length>11){
-		errors.title = '屏幕显示标题最多11个字符';
+
+	if(values.spaceType && (values.spaceType=="MEETING"||values.spaceType=="OFFICE")){
+		if(!values.spaceId){
+			errors.spaceId = '当空间类型为会议室或独立办公室时，房间号为必填项';
+		}
 	}
-	if(!values.doorCode || /^\s+$/.test(values.doorCode)){
-		errors.doorCode = '屏幕显示编号为必填项';
+
+	if(!values.name || /^\s+$/.test(values.name)){
+		errors.name = '名称为必填项';
 	}
-	if(values.doorCode  && values.doorCode.length>9){
-		errors.doorCode = '屏幕显示编号最多9个字符';
+	if(values.name && values.name.length>11){
+		errors.name = '名称最多11个字符';
 	}
-	if(!values.deviceId || /^\s+$/.test(values.deviceId)){
-		errors.deviceId = '智能硬件ID为必填项';
+	
+	if(!values.weight || /^\s+$/.test(values.weight)){
+		errors.weight = '权值为必填项';
 	}
-	if(values.deviceId && values.deviceId.length>50){
-		errors.deviceId = '智能硬件ID最多50个字符';
+	if(values.weight  && !weightReg.test(values.weight)){
+		errors.weight = '权值必须为正数';
 	}
-	if(!values.doorType){
-		errors.doorType = '门类型为必填项';
+
+	if(!values.deviceType){
+		errors.deviceType = '设备类型为必填项';
 	}
-	if(values.doorType && (values.doorType=='MEETING' ||values.doorType=='OFFICE')&& !values.roomId){
-		errors.roomId ='门类型为会议室或独立办公室，必须选择房间'
+
+	if(values.location && values.location.length>50){
+		errors.location = '位置描述最多50个字符';
 	}
-	if(!values.maker){
-		errors.maker = '厂家为必填项';
+
+	if(values.memo && values.memo.length>50){
+		errors.memo = '备注最多50个字符';
 	}
 	
 	return errors;
@@ -378,3 +369,9 @@ export default EditForm = reduxForm({
 	form: 'EditForm',
 	validate,
 })(EditForm);
+
+
+
+
+
+
