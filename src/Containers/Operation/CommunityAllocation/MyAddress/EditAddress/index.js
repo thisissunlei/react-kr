@@ -226,6 +226,9 @@ import HeaderUpload from './HeaderUpload';
 		State.addGuideList=[];
 	}
 	selectManagerName=(form)=>{
+		this.setState({
+			leaderInfo:{}
+		})
 		State.editLeader.managerNick=form.managerNick;
 		State.editLeader.managerPhone=form.managerPhone;
 		State.editLeader.managerEmail=form.managerEmail;
@@ -236,12 +239,17 @@ import HeaderUpload from './HeaderUpload';
 	}
 
 	selectName=(index,form)=>{
+		this.setState({
+			managerInfo:{}
+		})
+		State.editStationVos[index].managerName=form.managerName;
 		State.editStationVos[index].managerNick=form.managerNick;
 		State.editStationVos[index].managerPhone=form.managerPhone;
 		State.editStationVos[index].managerEmail=form.managerEmail;
 		State.editStationVos[index].headerUrl=form.managerIcon;
 		State.editStationVos[index].memberId=form.memberId;
-		State.editStationVos[index].managerIcon=form.managerIcon
+		State.editStationVos[index].managerIcon=form.managerIcon;
+		
 	}
 
 

@@ -164,7 +164,11 @@ export default class MemeberEditMemberForm extends React.Component {
 		}
 
 	}
-
+	changeCompany=()=>{
+		this.setState({
+			companyInfo:{}
+		})
+	}
 
 
 
@@ -185,12 +189,12 @@ export default class MemeberEditMemberForm extends React.Component {
 					<div className="split-lines"></div>
 					<KrField name="phone" grid={1/2} label="手机号" inline={false} right={30}   requireLabel={true}/>
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunityAll" right={30}   requireLabel={true} inline={false}/>
-					<KrField name="csrId" grid={1/2} label="公司" component="searchCompany" ValueInfo={companyInfo}  right={30} requiredValue={true} requireLabel={true}/>
+					<KrField name="csrId" grid={1/2} label="公司" component="searchMemberCompany" onChange={this.changeCompany} ValueInfo={companyInfo}   right={30} requiredValue={true} requireLabel={true}/>
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} />
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" right={30}  onBlur={this.communityChange} />
 					<KrField name="job" grid={1/2} label="职位" right={30}  />
 					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
-					<KrField name="leader" component="group" label="Leader"  style={{width:252}} >
+					<KrField name="leader" component="group" label="企业管理员"  style={{width:252}} >
 						<KrField name="leader" label="是" type="radio" value="1" />
 						<KrField name="leader" label="否" type="radio" value='0' />
 					</KrField>
