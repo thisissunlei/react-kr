@@ -470,10 +470,10 @@ export default class EquipmentManageBox  extends React.Component{
 			            	<TableHeaderColumn>社区名称</TableHeaderColumn>
 			            	<TableHeaderColumn>屏幕显示标题</TableHeaderColumn>
 				            <TableHeaderColumn>智能硬件ID</TableHeaderColumn>
-				            <TableHeaderColumn>厂商</TableHeaderColumn>
 				            <TableHeaderColumn>空间类型</TableHeaderColumn>
 			              <TableHeaderColumn>连接状态</TableHeaderColumn>
 			              <TableHeaderColumn>最后一次连接时间</TableHeaderColumn>
+				            <TableHeaderColumn>厂商</TableHeaderColumn>
 			              <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 			          	<TableBody >
@@ -510,14 +510,7 @@ export default class EquipmentManageBox  extends React.Component{
 									}} 
 								>
 								</TableRowColumn>
-								<TableRowColumn name="makerName" 
-									style={{width:"6%"}}
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								
 
 								<TableRowColumn name="spaceType" 
 									options = {spaceTypeOptions}
@@ -553,9 +546,17 @@ export default class EquipmentManageBox  extends React.Component{
 									format="yyyy-mm-dd HH:MM:ss" 
 								>
 								</TableRowColumn>
+								<TableRowColumn name="makerName" 
+									style={{width:"6%"}}
+									component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
 
-					            <TableRowColumn type="operation"
-					            	style={{width:"16%"}}
+								<TableRowColumn type="operation"
+									style={{width:"16%"}}
 									component={
 										(value,oldValue,itemData)=>{
 											if(value==""){

@@ -124,46 +124,15 @@ class NewCreateDefinitionForm extends React.Component{
 			});
 	}
 	
-	
-	// 判断智能硬件ID是否存在
-	hardwareIdHasFun=(hardwareId)=>{
-		
-		if(!hardwareId || /^\s+$/.test(hardwareId)){
-			return;
-		}
-		let _this = this;
-		let hardwareIdparams = {
-			deviceId :hardwareId,
-		}
-		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
-	 		
-		}).catch(function(err){
-	 		
-	 		Message.error(err.message);
-		});
-	}
 
 	// 新增设备定义
 	onSubmit=(values)=>{
-		let _this = this;
 		
-		let hardwareIdparams = {
-			serialNo :values.serialNo
-		}
+		let _this = this;
 		var deviceTypeObj = {deviceType:"GATEWAY_PANEL"}
 		var submitValue = Object.assign(values,deviceTypeObj);
 
-		console.log("submitValue",submitValue,submitValue.name);
-
-		// Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
-
-	 		State.newCreateCenterControl(submitValue);
-
-		// }).catch(function(err){
-
-	 		// Message.error(err.message);
-
-		// });
+	 	State.newCreateCenterControl(submitValue);
 		
 	}
 	render(){
@@ -193,24 +162,7 @@ class NewCreateDefinitionForm extends React.Component{
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
-					<KrField name="spaceId" grid={2}
-						component="select" 
-						options={locationOptions}
-						label="房间"
-						onChange = {this.onchooseCorrespondingLocation}  
-						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
-					/>
-					
-					<KrField grid={1/2} name="serialNo" 
-						type="text" 
-						label="智能硬件ID" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'智能硬件ID为必填项'}} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-						onBlur = {this.hardwareIdHasFun}
-					/>
-					
+
 					<KrField name="spaceType" 
 						component="select" 
 						label="空间类型"
@@ -221,6 +173,25 @@ class NewCreateDefinitionForm extends React.Component{
 						errors={{requiredValue:'门类型为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
+
+					<KrField name="spaceId" grid={2}
+						component="select" 
+						options={locationOptions}
+						label="房间"
+						onChange = {this.onchooseCorrespondingLocation}  
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+					/>
+					
+					<KrField grid={1/2} name="serialNo" 
+						type="text" 
+						label="智能硬件ID" 
+						requireLabel={true} 
+						requiredValue={true} 
+						errors={{requiredValue:'智能硬件ID为必填项'}} 
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+					/>
+					
+					
 					
 					<KrField grid={1/2} name="name" 
 						type="text" 
@@ -265,12 +236,12 @@ const validate = values=>{
 	if(!values.floor){
 		errors.floor = '楼层为必填项';
 	}
-	if(!values.title || /^\s+$/.test(values.title)){
-		errors.title = '屏幕显示名称为必填项';
+	if(!values.name || /^\s+$/.test(values.name)){
+		errors.name = '屏幕显示名称为必填项';
 	}
-	if(values.title && values.title.length>11){
+	if(values.name && values.name.length>11){
 
-		errors.title = '屏幕显示名称最多11个字符';
+		errors.name = '屏幕显示名称最多11个字符';
 	}
 	
 	if(!values.deviceId || /^\s+$/.test(values.deviceId)){
