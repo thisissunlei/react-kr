@@ -60,7 +60,6 @@ class EditList extends React.Component {
 		State.openEdit = false;
 	}
 	onSubmit=(form)=>{
-		console.log('onSubmit',State.itemDetail)
 		form.detailId = State.itemDetail.id;
 		// form.leaseBeginDate = form.leaseBeginDate || State.itemDetail.leaseBegindate;
 		
