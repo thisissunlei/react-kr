@@ -468,10 +468,9 @@ module.exports = {
       'getEquipmentOperateLog':{
         url : '/mockjsdata/53/iot-platform/device-status-log/list?deviceDefId={deviceDefId}&endDate={endDate}&startDate={startDate}',
         method : 'get'
-      }
- 
-      
+      },
 
+ 
    
 }
 

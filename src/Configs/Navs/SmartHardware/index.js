@@ -69,18 +69,9 @@ module.exports = [
 						menuCode: 'printer_manage',
 						router: '/smarthardware/centercontrolmanage/equipmentmanage',
 					},{
-						primaryText: '中央管理台',
-						menuCode: 'print_record',
-						router: '/smarthardware/printmanage/printlog',
-					},{
 						primaryText: '操作记录',
 						menuCode: 'print_price_config',
 						router: '/smarthardware/centercontrolmanage/operatelog',
-					},
-					{
-						primaryText: '故障报警',
-						menuCode: 'print_community_config',
-						router: '/smarthardware/printmanage/printerconfig',
 					}
 				]
 		},

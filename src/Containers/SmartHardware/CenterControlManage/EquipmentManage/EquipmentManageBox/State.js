@@ -269,7 +269,7 @@ State.clearCacheAction= action(function(){
 
 
 State.disConnectAction= action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('disconnnetEquipmentURL',{},urlParams).then(function(response) {
 
 		Message.success("断开成功");
@@ -283,7 +283,7 @@ State.disConnectAction= action(function(){
 
 //获取口令码
 State.getPassword= action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('getPasswordURL',urlParams).then(function(response) {
 		State.EquipmentPassword =response.token;
 		State.passwordDialog = true;
@@ -296,7 +296,7 @@ State.getPassword= action(function(){
 //获取httpToken
 State.showHttpToken= action(function(){
 	console.log("ddldldldldld");
-	var urlParams = {deviceId:State.itemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('getHttpTokenURL',urlParams).then(function(response) {
 		State.EquipmentHttpToken =response.httpToken;
 		State.httpTokenDialog = true;
@@ -308,7 +308,7 @@ State.showHttpToken= action(function(){
 
 //远程开门
 State.openDoorOnlineAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('openDoorOnlineURL',{},urlParams).then(function(response) {
 
 		Message.success("远程开门成功");
@@ -335,7 +335,7 @@ State.changeSwitchStatusAction = action(function(params){
 
 //确认重启设备系统
 State.confirmOpenRestartSystemsAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('restartSystemsUrl',urlParams).then(function(response) {
 		Message.success("设备接收到重启命令");
 	}).catch(function(err) {
@@ -345,7 +345,7 @@ State.confirmOpenRestartSystemsAction = action(function(){
 
 //确认重启APP
 State.confirmOpenRestartAPPAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('restartAPPUrl',urlParams).then(function(response) {
 		Message.success("设备接收到重启APP命令");
 	}).catch(function(err) {
@@ -358,7 +358,7 @@ State.confirmOpenRestartAPPAction = action(function(){
 
 //确认恢复出厂设置
 State.confirmResetEquipmentAction  = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('resetEquipmentUrl',urlParams).then(function(response) {
 		Message.success("设备已收到恢复出厂设置的消息");
 	}).catch(function(err) {
@@ -368,7 +368,7 @@ State.confirmResetEquipmentAction  = action(function(){
 
 //确认刷新H5
 State.confirmFreshHTMLAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('freshHTMLUrl',urlParams).then(function(response) {
 		
 		Message.success("提交刷新请求成功");
@@ -380,7 +380,7 @@ State.confirmFreshHTMLAction = action(function(){
 
 //刷新设备上报信息
 State.freshEquipmentReporterAction = action(function(){
-	var urlParams = {deviceId:State.iitemDetail.deviceId}
+	var urlParams = {deviceId:State.iitemDetail.serialNo}
 	Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
 		State.iitemDetail.reported = response.reported;
 		Message.success("刷新成功");
@@ -391,7 +391,7 @@ State.freshEquipmentReporterAction = action(function(){
 
 
 State.confirmSynchronizingAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
+	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('SynchronizingUrl',{},urlParams).then(function(response) {
 		
 		Message.success("同步成功");
