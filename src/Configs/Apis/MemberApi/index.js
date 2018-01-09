@@ -94,7 +94,7 @@ module.exports = {
     },
     //会员列表-离职
     'member-leave':{
-        url:'/api/krspace-finance-web/member/leave?id={id}',
+        url:'/api/krspace-sso-web/member/leave?id={id}',
         method:'get'
     },
     //会员列表-获取会员卡信息
@@ -122,7 +122,19 @@ module.exports = {
         url:'/api/krspace-finance-web/member/csr-list?companyName={companyName}',
         method:'get'
     },
-    
-
-
+    //获取会员公司
+    'get-member-company':{
+        url:'/api/krspace-sso-web/member/customer/csr-list?companyName={companyName}',
+        method:'get'
+    },
+    //会员列表-恢复
+    'cancle-leave':{
+        url:'/api/krspace-sso-web/member/cancle-leave?id={id}',
+        method:'get'
+    },
+     //会员列表-会员详情
+     'get-member-detail':{
+        url:'/api/krspace-sso-web/member/detail?id={id}',
+        method:'get'
+    },
 }

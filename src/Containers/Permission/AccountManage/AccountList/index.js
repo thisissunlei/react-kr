@@ -31,6 +31,8 @@ import {
     Dialog,
 } from 'kr-ui';
 import './index.less';
+import BindMember from './BindMember';
+
 class AccountList extends React.Component {
 
     constructor(props, context) {
@@ -51,7 +53,9 @@ class AccountList extends React.Component {
             openEditAcc: false,
             openSetAcc: false,
             item: {},
-            itemDetail: {}
+            itemDetail: {},
+            openCancelMember:false,
+            openBindMember:false
         }
 
     }
@@ -221,7 +225,80 @@ class AccountList extends React.Component {
     onDataSubimt=()=>{
         this.changeP();
         this.openDataPermission();
+        
     }
+    openView=(itemDetail)=>{
+        window.location.href=`./#/member/memberManage/list/${itemDetail.uid}`;
+    }
+    openCancelMember=()=>{
+        this.setState({
+            openCancelMember: !this.state.openCancelMember,
+        });
+    }
+    onOpenBindMember=(itemDetail)=>{
+        this.setState({
+            itemDetail: itemDetail
+        });
+        this.openBindMember();
+    }
+    openBindMember=()=>{
+        this.setState({
+            openBindMember: !this.state.openBindMember,
+        });
+    }
+
+    openCancelBindMember=(itemDetail)=>{
+        this.setState({
+            itemDetail: itemDetail
+        });
+        this.openCancelMember();
+    }
+
+    onCancelBindMember=()=>{
+        var _this = this;
+        let {itemDetail}=this.state;
+        let form={
+            ssoId:itemDetail.id
+        }
+        Http.request('remove-member',form).then(function(response) {
+            Message.success('解绑会员成功');
+            _this.openCancelMember();
+            _this.setState({
+                searchParams: {
+                    accountName: '',
+                    page: 1,
+                    pageSize: 20,
+                    timer: new Date()
+                },
+            })
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+    }
+
+    onBindMember=(memberId)=>{
+        var _this = this;
+        let {itemDetail}=this.state; 
+        let form={
+            ssoId:itemDetail.id,
+            uid:memberId
+        }  
+        Http.request('connect-member',form).then(function(response) {
+            Message.success('绑定会员成功');
+            _this.openBindMember();
+            _this.setState({
+                searchParams: {
+                    accountName: '',
+                    page: 1,
+                    pageSize: 20,
+                    timer: new Date()
+                },
+            })
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+    }
+
     render() {
         let {searchParams,itemDetail} = this.state;
         var logFlag = '';
@@ -276,7 +353,7 @@ class AccountList extends React.Component {
                             <TableHeaderColumn>姓名</TableHeaderColumn>
                             <TableHeaderColumn>手机号</TableHeaderColumn>
                             <TableHeaderColumn>电子邮箱</TableHeaderColumn>
-                            <TableHeaderColumn>锁定标识</TableHeaderColumn>
+                            <TableHeaderColumn>会员信息</TableHeaderColumn>
                             <TableHeaderColumn>操作</TableHeaderColumn>
                         </TableHeader>
 
@@ -289,26 +366,26 @@ class AccountList extends React.Component {
                                 <TableRowColumn name="name"></TableRowColumn>
                                 <TableRowColumn name="phone"></TableRowColumn>
                                 <TableRowColumn name="email"></TableRowColumn>
-                                <TableRowColumn name="accountStatus" options={[
-                                    {
-                                        label: '未锁定',
-                                        value: 'NOTLOCK'
-                                    }, {
-                                        label: '锁定',
-                                        value: 'LOCKED'
+                                <TableRowColumn name="uid" component={(value,oldValue,itemDetail)=>{
+                                    if(value>0){
+                                        return(
+                                            <div>
+                                                <Button label="查看" onClick={this.openView.bind(this,itemDetail)} type="operation" operation="edit"/> 
+                                                <Button label="解绑" onClick={this.openCancelBindMember.bind(this,itemDetail)} type="operation" operation="edit"/> 
+                                            </div>
+                                        )
+                                    }else{
+                                        return(
+                                            <Button label="绑定" onClick={this.onOpenBindMember.bind(this,itemDetail)} type="operation" operation="edit"/> 
+                                        ) 
                                     }
-                                ]} component={(value, oldValue) => {
-                                    if (value == '未锁定') {
-                                        logFlag = false;
-                                    }
-                                    if (value == '锁定') {
-                                        logFlag = true;
-                                    }
-                                    return (
-                                        <div>{value}</div>
-                                    )
-                                }}></TableRowColumn>
+                                    
 
+                                    
+
+                                }} ></TableRowColumn>
+                                
+                               
                                 <TableRowColumn type="operation" name="accountStatus" component={(value,oldValue,itemDetail) => {
                                         if (value == 'NOTLOCK') {
                                             logFlag = false;
@@ -378,6 +455,36 @@ class AccountList extends React.Component {
                 }}>
                     <SetPermission detail={this.state.itemDetail} onSubmit = {this.onSetSubimt} onCancel={this.openSetAcc}/>
                 </Dialog>
+                <Dialog
+	              title="解绑会员"
+	              modal={true}
+	              contentStyle ={{ width: '444',overflow:'visible'}}
+	              open={this.state.openCancelMember}
+	              onClose={this.openCancelMember}
+	            >
+	            <div className='u-list-delete'>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要解绑会员吗？</p>
+					<div style={{textAlign:'center',marginBottom:10}}>
+	                      <div  className='ui-btn-center'>
+		                      <Button  label="确定" onClick={this.onCancelBindMember}/></div>
+		                      <Button  label="取消" type="button" cancle={true} onClick={this.openCancelMember} />
+	                      </div>
+	            	</div>
+	            </Dialog>
+                <Dialog
+	              title="绑定会员"
+	              modal={true}
+	              contentStyle ={{ width: 600,height:400,overflow:'visible'}}
+	              open={this.state.openBindMember}
+	              onClose={this.openBindMember}
+	            >
+                <BindMember 
+                    detail={itemDetail}
+                    onSubmit={this.onBindMember}
+                    onCancel={this.openBindMember}  
+                />
+	           
+	            </Dialog>
             </div>
         );
     }

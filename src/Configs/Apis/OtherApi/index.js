@@ -84,17 +84,17 @@ const APIS = {
     },
     // 会员中心－新增会员－电话号码校验是否存在---------->Operation和Memeber共用
     'isPhoneRegistered': {
-        url: '/api/krspace-finance-web/member/member-phone?phone={phone}',
+        url: '/api/krspace-sso-web/member/member-phone?phone={phone}',
         method: 'get'
     },
     // 会员中心－新增会员－邮箱校验是否存在---------->Operation和Memeber共用
     'isEmailRegistered': {
-        url: '/api/krspace-finance-web/member/member-mail?email={email}',
+        url: '/api/krspace-sso-web/member/member-mail?email={email}',
         method: 'get'
     },
     // 会员中心-会员-获取-(查询)高级搜索---------->Operation和Memeber共用
     'membersList': {
-        url: '/api/krspace-finance-web/member/member-list?value={value}&type={type}&pageSize={pageSize}&page={page}',
+        url: '/api/krspace-sso-web/member/member-list?value={value}&type={type}&pageSize={pageSize}&page={page}',
         method: 'get'
     },
     //获取指定公司会员列表－－－－－－－－－－－>这个接口居然没有用到
@@ -109,27 +109,27 @@ const APIS = {
     },
     //新建编辑会员的准备数据---------->Operation和Memeber共用
     'getMemberBasicData': {
-        url: '/api/krspace-finance-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
+        url: '/api/krspace-sso-web/member/member-add-edit?companyId={companyId}&memberId={memberId}&communityId={communityId}',
         method: 'get'
     },
     //新建会员
     'add-members': {
-        url: '/api/krspace-finance-web/member/add',
+        url: '/api/krspace-sso-web/member/add',
         method: 'post'
     },
     //编辑会员 
     'edit-members': {
-        url: '/api/krspace-finance-web/member/edit',
+        url: '/api/krspace-sso-web/member/edit',
         method: 'post'
     },
     //删除会员 
     'delete-members': {
-        url: '/api/krspace-finance-web/member/delete?id={id}',
+        url: '/api/krspace-sso-web/member/delete?id={id}',
         method: 'get'
     },
     //编辑会员前的数据 
     'members-basic-date': {
-        url: '/api/krspace-finance-web/member/detail?id={id}',
+        url: '/api/krspace-sso-web/member/detail?id={id}',
         method: 'get'
     },
     
@@ -145,7 +145,7 @@ const APIS = {
     },
     //根据会员卡号判断是否存在－－－－－－－－－－－>Member和Operation共用
     'membersByForeignCode': {
-        url: '/api/krspace-finance-web/member/member-foreigncode?code={code}&codeType=foreign',
+        url: '/api/krspace-sso-web/member/member-foreigncode?code={code}&codeType=foreign',
         method: 'get'
     },
     //下载导入模板－－－－－－－－－－－>这个接口居然没有用到
