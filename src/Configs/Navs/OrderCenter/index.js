@@ -2,7 +2,7 @@
 module.exports = [
 	{
 		primaryText: "订单中心",
-        originUrl: 'order',
+        menuCode:'order',
         menuItems: [
             {
                 primaryText: "订单管理",
