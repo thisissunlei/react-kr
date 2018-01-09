@@ -60,7 +60,7 @@ class EditList extends React.Component {
 		State.openEdit = false;
 	}
 	onSubmit=(form)=>{
-
+		console.log('onSubmit',State.itemDetail)
 		form.detailId = State.itemDetail.id;
 		// form.leaseBeginDate = form.leaseBeginDate || State.itemDetail.leaseBegindate;
 		
@@ -162,7 +162,7 @@ class EditList extends React.Component {
 											</TableRowColumn>
 											<TableRowColumn >{State.itemDetail.agreement}</TableRowColumn>
 											<TableRowColumn>
-												<KrField name="agreement" component="textarea" style={{width:160}}/>
+												<KrField name="agreement" component="textarea" style={{width:160}} maxSize={1000}/>
 											</TableRowColumn>
 									   	</TableRow>
 								</TableBody>
