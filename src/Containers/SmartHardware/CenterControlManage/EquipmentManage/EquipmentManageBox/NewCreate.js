@@ -240,15 +240,13 @@ const validate = values=>{
 		errors.name = '屏幕显示名称为必填项';
 	}
 	if(values.name && values.name.length>11){
-
 		errors.name = '屏幕显示名称最多11个字符';
 	}
-	
-	if(!values.deviceId || /^\s+$/.test(values.deviceId)){
-		errors.deviceId = '智能硬件ID为必填项';
+	if(!values.serialNo || /^\s+$/.test(values.serialNo)){
+		errors.serialNo = '智能硬件ID为必填项';
 	}
-	if(values.deviceId && values.deviceId.length>50){
-		errors.deviceId = '智能硬件ID最多50个字符';
+	if(values.serialNo && values.serialNo.length>50){
+		errors.serialNo = '智能硬件ID最多50个字符';
 	}
 	if(!values.spaceType){
 		errors.spaceType = '空间类型类型为必填项';
@@ -256,7 +254,6 @@ const validate = values=>{
 	if(values.spaceType && (values.spaceType=='MEETING' ||values.spaceType=='OFFICE')&& !values.spaceId){
 		errors.spaceId ='空间类型为会议室或独立办公室,房间必填'
 	}
-	
 	return errors;
 }
 export default NewCreateDefinitionForm = reduxForm({
