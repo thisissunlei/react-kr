@@ -404,12 +404,6 @@ module.exports = {
         method : 'post'
       },
 
-      //查看子设备详情
-      'SonEquipmentDetail':{
-        url : '/mockjsdata/53/iot-platform/device-def/sub-device/detail?id={id}',
-        method : 'get'
-      },
-
       //发现设备之后启用
       'startCenterControlEquipment':{
         url : '/mockjsdata/53/iot-platform/device-def/actions/enable',
@@ -424,7 +418,7 @@ module.exports = {
 
       //设置空调模式
       'setAirConditionMode':{
-        url : '/mockjsdata/53/iot-platform/device-def/sub-device/detail?id={id}',
+        url : '/mockjsdata/53/iot-platform/device-def/admin/air-condition/set-mode',
         method : 'post'
       },
       
@@ -468,6 +462,12 @@ module.exports = {
       'EditSonEquipment':{
         url : '/mockjsdata/53/iot-platform/device-def/actions/edit',
         method : 'post'
+      },
+
+      //获取设备操作列表
+      'getEquipmentOperateLog':{
+        url : '/mockjsdata/53/iot-platform/device-status-log/list?deviceDefId={deviceDefId}&endDate={endDate}&startDate={startDate}',
+        method : 'get'
       }
  
       

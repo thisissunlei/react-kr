@@ -201,12 +201,7 @@ class EditForm extends React.Component{
 	}
 
 	returnDeviceType=()=>{
-		let deviceTypeOptions = [{label:"灯控制器",value:"LAMP"},
-								{label:"雾化膜控制器",value:"ATOMIZATION_MEMBRANE"},
-								{label:"空调控制器",value:"AIR_CONDITION"},
-								{label:"空气质量仪控制器",value:"AIR_SENSOR"},
-								{label:"温湿度计控制器",value:"HUMITURE_SENSOR"},
-								{label:"人体感应控制器",value:"BODY_SENSOR"}]
+		let deviceTypeOptions = State.sonEquipmentTypeOptions;
 		let {detail} =this.props;
 		var deviceTypeText ;
 		for(var i=0;i<deviceTypeOptions.length;i++){

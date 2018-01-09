@@ -11,17 +11,11 @@ import {Message} from 'kr-ui';
 let State = observable({
 	itemDetail:[],
 	realPage : 1,
-	openHardwareDetail:false,
+	openSonEquipmentDetail:false,
 	openEditDialog:false,
 	openConfirmDelete:false,
 	openSearchEquipment:false,
-	upgradeDialog:false,
-	openClearCached : false,
-	openConnectAgian :false,
-	passwordDialog : false,
-	openEquipmentCache:false,
-	synchronizingPswDialog :false,
-	equipmentDatailInfo:[],
+	openOperateLog: false,
 	selectedDeleteIds:'',
 	makerOptions :[],
 	deviceVO:{},
@@ -39,30 +33,26 @@ let State = observable({
 
 
 		      },
-	searchEquipmentParam:{
-		page : 1,
-		pageSize: 15
-	},
 	searchEquipmentList :[],
-	//第一次请求设备缓存时的设备Id
-	equipmentCacheitems :[],
 	switch : false,
-	openRestartSystemsDialog : false,
-	openRestartAPPDialog :false,
-	openManagePsd :false,
-	resetEquipmentDialog : false,
-	openFreshHTMLDialog :false,
-	openConfirmDeleteBatch : false,
 	loading :false,
 	DropItems : [],
-	resetFirstEquipmentDialog : false,
-	EquipmentHttpToken:'',
-	httpTokenDialog :false,
-	
 	controlLampDialog: false,
 	controlAirConditionDialog : false,
 	controlFrostedGlassDialog : false,
-
+	equipmentOperateLogParam:{
+		endDate :'',
+		startDate : '',
+		deviceDefId : '',
+		page : 1,
+		pageSize : 15
+	},
+	sonEquipmentTypeOptions : [{label:"灯",value:"LAMP"},
+	{label:"雾化膜",value:"ATOMIZATION_MEMBRANE"},
+	{label:"空调",value:"AIR_CONDITION"},
+	{label:"空气质量仪",value:"AIR_SENSOR"},
+	{label:"温湿度计",value:"HUMITURE_SENSOR"},
+	{label:"人体感应",value:"BODY_SENSOR"}]
 });
 
 
@@ -91,58 +81,6 @@ State.deleteEquipmentSingle= action(function() {
 	});
 
 });
-
-// 获取通用字典
-State.getDicList = action(function() {
-	var _this = this;
-	Http.request('getWarningType', {}).then(function(response) {
-		
-		var arrNewMaker = []
-		var arrNewDoorType = []
-		for (var i=0;i<response.Maker.length;i++){
-			
-			arrNewMaker[i] = {
-						label:response.Maker[i].desc,
-						value:response.Maker[i].value
-					}
-		}
-		for(var i=0;i<response.DoorType.length;i++){
-			arrNewDoorType[i] = {
-						label:response.DoorType[i].desc,
-						value:response.DoorType[i].value,
-						code : response.DoorType[i].code
-					}
-		}
-		
-		State.makerOptions = arrNewMaker;
-		State.propertyOption = arrNewDoorType;
-
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-
-});
-
-//获取升级信息列表字典
-State.getUpgradeTypeOptions = action(function() {
-	var _this = this;
-	Http.request('getUpgradeInfoUrl', {}).then(function(response) {
-		
-		var arrNew = []
-		for (var i=0;i<response.items.length;i++){
-			arrNew[i] = {
-						label:response.items[i].label,
-						value:response.items[i].value
-					}
-		}
-		State.typeOptions = arrNew;
-
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-
-});
-
 
 
 
@@ -180,79 +118,6 @@ State.freshPageReturn =  action(function(){
 })
 
 
-State.freshSearchEquipmentPage = action(function(){
-	State.searchEquipmentParam = {
-        date:new Date(),
-        page : 1,
-        pageSize: 15
-    }	
-})
-
-
-
-//清空缓存
-State.clearCacheAction= action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('clearEquipmentCacheURL',{},urlParams).then(function(response) {
-
-		Message.success("缓存清除成功");
-		State.freshPageReturn();
-
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-
-State.disConnectAction= action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('disconnnetEquipmentURL',{},urlParams).then(function(response) {
-
-		Message.success("断开成功");
-		State.freshPageReturn();
-
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-
-//获取口令码
-State.getPassword= action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('getPasswordURL',urlParams).then(function(response) {
-		State.EquipmentPassword =response.token;
-		State.passwordDialog = true;
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-
-//获取httpToken
-State.showHttpToken= action(function(){
-	console.log("ddldldldldld");
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('getHttpTokenURL',urlParams).then(function(response) {
-		State.EquipmentHttpToken =response.httpToken;
-		State.httpTokenDialog = true;
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-
-//远程开门
-State.openDoorOnlineAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('openDoorOnlineURL',{},urlParams).then(function(response) {
-
-		Message.success("远程开门成功");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
 
 
 State.changeSwitchStatusAction = action(function(params){
@@ -269,49 +134,6 @@ State.changeSwitchStatusAction = action(function(params){
 })
 
 
-//确认重启设备系统
-State.confirmOpenRestartSystemsAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('restartSystemsUrl',urlParams).then(function(response) {
-		Message.success("设备接收到重启命令");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-//确认重启APP
-State.confirmOpenRestartAPPAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('restartAPPUrl',urlParams).then(function(response) {
-		Message.success("设备接收到重启APP命令");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-
-
-
-//确认恢复出厂设置
-State.confirmResetEquipmentAction  = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('resetEquipmentUrl',urlParams).then(function(response) {
-		Message.success("设备已收到恢复出厂设置的消息");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-//确认刷新H5
-State.confirmFreshHTMLAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('freshHTMLUrl',urlParams).then(function(response) {
-		
-		Message.success("提交刷新请求成功");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
 
 
 //刷新设备上报信息
@@ -335,18 +157,6 @@ State.confirmSynchronizingAction = action(function(){
 		Message.error(err.message);
 	});
 })
-
-
-//一代门禁重置
-State.confirmResetFirstEquipmentState = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('resetFirstEquipmentUrl',urlParams).then(function(response) {
-		Message.success("重置设备成功");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
 
 
 

@@ -30,15 +30,10 @@ import EquipmentDetail from './EquipmentDetail';
 import EditForm from './EditForm';
 import EquipmentFind from './EquipmentFind';
 import EquipmentSearchForm from './EquipmentSearchForm';
-import EquipmentCache from './EquipmentCache';
-import PsdList from './PsdList';
-import PasswordCode from './PasswordCode';
-import BtnBox from './BtnBox';
-import HttpTokenDialog from './HttpTokenDialog';
-
 import ControlLamp from './ControlLamp';
 import ControlAirCondition from './ControlAirCondition';
 import ControlFrostedGlass from './ControlFrostedGlass';
+import EquipmentOperateLog from './EquipmentOperateLog';
 
 
 @inject("NavModel")
@@ -60,9 +55,6 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	componentDidMount() {
-
-		State.getDicList();
-		
 
 	}
 
@@ -111,12 +103,12 @@ export default class EquipmentManageBox  extends React.Component{
 
 	seeDetailInfoFun=(value)=>{
 		let _this = this;
-		Http.request('SonEquipmentDetail',{id:value.id}).then(function(response) {
+		Http.request('getSonEquipmentDetailInfo',{id:value.id}).then(function(response) {
 			
 			_this.setState({
 				itemDetail:response
 			},function(){
-				State.openHardwareDetail = true;
+				State.openSonEquipmentDetail = true;
 			});
 
 		}).catch(function(err) {
@@ -142,18 +134,13 @@ export default class EquipmentManageBox  extends React.Component{
 	closeConfirmDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
 	}
-	//打开查看二代详情
-	openSeeDetailSecond=()=>{
-		State.openHardwareDetail = !State.openHardwareDetail;
-	}
-
 	
 	
 	//打开编辑
 	openEditDialogFun=()=>{
 		State.openEditDialog = !State.openEditDialog;
 	}
-	//打开设备搜索
+	//打开发现设备
 	openSearchEquipmentFun=()=>{
 		State.openSearchEquipment = !State.openSearchEquipment;
 	}
@@ -183,26 +170,11 @@ export default class EquipmentManageBox  extends React.Component{
 		State.openSearchDialog = !State.openSearchDialog;
 	}
 
-	//断开重连提示窗口
-	openConnectAgianFun=()=>{
-		State.openConnectAgian = !State.openConnectAgian;
+
+	openSeeSonEquipmentDetail=()=>{
+		State.openSonEquipmentDetail = !State.openSonEquipmentDetail
 	}
 
-
-
-
-
-
-
-	passwordDialogFun=()=>{
-		State.passwordDialog = !State.passwordDialog;
-	}
-
-
-	confirmConnnetAgain=()=>{
-		State.disConnectAction();
-		State.openConnectAgian =false;
-	}
 
 
 	editList=(thisP,value,itemData)=>{
@@ -229,16 +201,7 @@ export default class EquipmentManageBox  extends React.Component{
 		this.closeConfirmDeleteFun();
 	}
 
-	//恢复出厂设置提示窗口
-	resetEquipmentDialogFun=()=>{
-		State.resetEquipmentDialog = !State.resetEquipmentDialog;
-	}  
-
-	//确认恢复出厂设置
-	confirmResetEquipment=()=>{
-		State.confirmResetEquipmentAction();
-		this.resetEquipmentDialogFun();
-	}
+	
 
 
 
@@ -249,32 +212,6 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 	
-
-
-	//查看设备缓存
-	deviceCache=()=>{
-		
-		let _this =this;
-		var urlParamsT = {
-							deviceId:State.itemDetail.deviceId,
-							lastCardNo:'',
-							limit:50,
-						}
-		Http.request('getEquipmentCacheURL',urlParamsT).then(function(response) {
-				
-			_this.openEquipmentCacheFun();
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-		
-
-	}
-
-	openEquipmentCacheFun=()=>{
-		State.openEquipmentCache = !State.openEquipmentCache;
-	}
-
 
 
 	controlEquipment=()=>{
@@ -309,45 +246,20 @@ export default class EquipmentManageBox  extends React.Component{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
 		this.setState({
-			itemDetail :thisP
+			itemDetail :thisP,
+			mainInfo : thisP
 		})
 
 		let _this = this;
 		
 		if(thisP.deviceType == "LAMP"||thisP.deviceType == "ATOMIZATION_MEMBRANE"||thisP.deviceType == "AIR_CONDITION"){
 			State.DropItems=[{title:"远程控制",onClickFun:_this.controlEquipment},
-						{title:"数据查看",onClickFun:_this.deviceCache}]
+						{title:"数据查看",onClickFun:_this.switchOpenOperateLog}]
 		}else{
-			State.DropItems=[{title:"数据查看",onClickFun:_this.deviceCache}]	
+			State.DropItems=[{title:"数据查看",onClickFun:_this.switchOpenOperateLog}]	
 		}
 		
 	}
-
-
-
-
-
-
-	prodoctQRCodeFun=()=>{
-		this.productQRCodeXHR();
-	}
-
-	productQRCodeXHR = ()=>{
-		let _this = this;
-		let {itemDetail} = this.state;
-		Http.request('productQRCodeUrl',{deviceId:itemDetail.deviceId}).then(function(response) {
-		
-			// _this.firstEquipment(itemDetail)
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
-
-	openHttpTokenDialogFun=()=>{
-		State.httpTokenDialog = !State.httpTokenDialog;
-	}
-
 
 	returnCenterControl=()=>{
 		window.location.href='/#/smarthardware/centercontrolmanage/equipmentmanage';
@@ -364,17 +276,16 @@ export default class EquipmentManageBox  extends React.Component{
 	switchControlFrostedGlassDialog=()=>{
 		State.controlFrostedGlassDialog= !State.controlFrostedGlassDialog
 	}
+
+	switchOpenOperateLog=()=>{
+		State.openOperateLog = !State.openOperateLog
+	}
 	
 
 
 	render(){
 		let {itemDetail,mainInfo,serialNo}=this.state;
-		let deviceTypeOptions = [{label:"灯控制器",value:"LAMP"},
-								{label:"雾化膜控制器",value:"ATOMIZATION_MEMBRANE"},
-								{label:"空调控制器",value:"AIR_CONDITION"},
-								{label:"空气质量仪控制器",value:"AIR_SENSOR"},
-								{label:"温湿度计控制器",value:"HUMITURE_SENSOR"},
-								{label:"人体感应控制器",value:"BODY_SENSOR"}]
+		let deviceTypeOptions = State.sonEquipmentTypeOptions
 		return(
 			<div >
 				<span style={{float:"right",marginTop:"-50px",cursor:"pointer"}} onClick={this.returnCenterControl}>返回中央控制管理</span>
@@ -546,12 +457,12 @@ export default class EquipmentManageBox  extends React.Component{
 			          <TableFooter></TableFooter>
 			        </Table>
 			        <Drawer 
-			        	open={State.openHardwareDetail}
-			        	onClose = {this.openSeeDetailSecond}
+			        	open={State.openSonEquipmentDetail}
+			        	onClose = {this.openSeeSonEquipmentDetail}
 					    width={1000} 
 					    openSecondary={true} 
 					>
-						<EquipmentDetail onCancel={this.openSeeDetailSecond} detail={itemDetail}/>
+						<EquipmentDetail onCancel={this.openSeeSonEquipmentDetail} detail={itemDetail}/>
 					</Drawer>
 					<Dialog
 			          title="灯控制器"
@@ -628,93 +539,14 @@ export default class EquipmentManageBox  extends React.Component{
 			          </div>
 			        </Dialog>
 
-			        
-			        <Dialog
-			          title="断开重连提示"
-			          open={State.openConnectAgian}
-			          onClose={this.openConnectAgianFun}
-			          contentStyle={{width:443,height:236}}
-			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>断开重连有可能导致设备连接失败,确定要断开重连吗？</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-			                        <Button  label="确定" type="submit" onClick={this.confirmConnnetAgain} />
-			                      </ListGroupItem>
-			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openConnectAgianFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
-			        </Dialog>
-			      
-
-			        
-			        <Dialog
-			          title="恢复出厂设置提示"
-			          open={State.resetEquipmentDialog}
-			          onClose={this.resetEquipmentDialogFun}
-			          contentStyle={{width:443,height:236}}
-			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>恢复出厂设置可能导致设备无法被发现，确定恢复出厂设置？</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-			                        <Button  label="确定" type="submit" onClick={this.confirmResetEquipment} />
-			                      </ListGroupItem>
-			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.resetEquipmentDialogFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
-			        </Dialog>
-			        <Dialog
-			          title="口令码"
-			          open={State.passwordDialog}
-			          onClose={this.passwordDialogFun}
-			          contentStyle={{width:443,height:236}}
-			        >
-			         	<PasswordCode onCancle={this.passwordDialogFun}/>
-			        </Dialog>
-			        <Dialog
-			          title="管理员密码"
-			          open={State.openManagePsd}
-			          onClose={this.openManagePsdFun}
-			          contentStyle={{width:443,height:260}}
-			        >
-			          	<PsdList/>
-			        </Dialog>
-
-
-			        <Dialog
-			          title="HttpToken"
-			          open={State.httpTokenDialog}
-			          onClose={this.openHttpTokenDialogFun}
-			          contentStyle={{width:443,height:260}}
-			        >
-			          	<HttpTokenDialog onCancle={this.openHttpTokenDialogFun}/>
-			        </Dialog>
-
-
-			         <Drawer 
-			        	open={State.openEquipmentCache}
-			        	onClose = {this.openEquipmentCacheFun}
-					    width={"90%"} 
+			        <Drawer 
+			        	open={State.openOperateLog}
+			        	onClose = {this.switchOpenOperateLog}
+					    width={1000} 
 					    openSecondary={true} 
 					>
-						<EquipmentCache onCancel={this.openEquipmentCacheFun}/>
+						<EquipmentOperateLog onCancel={this.switchOpenOperateLog} detail={itemDetail} mainInfo={mainInfo}/>
 					</Drawer>
-
-					
-			      
 
 				</div>
 				
