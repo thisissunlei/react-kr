@@ -22,11 +22,29 @@ class ControlCenterControl extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
+			pageInfo : {},
+			lampItems : []
 		}
 	}
 
 	componentDidMount(){
 		
+		this.getNowInfo();
+	}
+
+	getNowInfo=()=>{
+		let {detail} = this.props;
+		let _this =this;
+		console.log("detail",detail);
+		Http.request('getControlAllInfo',{serialNo:detail.serialNo}).then(function(response) {
+			console.log("response",response);
+			_this.setState({
+				pageInfo : response,
+				lampItems : response.allDevice.switchers
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 
 	changeTemperature=(value)=>{
@@ -60,11 +78,14 @@ class ControlCenterControl extends React.Component{
 	}
 
 	renderWindSpeedRadio=(param)=>{
-		
+		if(!param.allDevice){
+			return null;
+		}
+		var paramArr =param.allDevice.switchers 
 		let _this =this;
 		let {detail} = this.props;
 
-		var dom = param.map(function(item,index){
+		var dom = paramArr.map(function(item,index){
 
 			return (
 				<span key={index} className="wind-speed-checkbox">
@@ -76,8 +97,28 @@ class ControlCenterControl extends React.Component{
 		return dom;
 	}
 	
+
+	renderLamps=(param)=>{
+	
+		console.log("param",param);
+		
+		var dom = param.map(function(item,index){
+			console.log("item",item.name,"index",index);
+			return(
+				<div  className={"lamp-item"+index%3} key={index} >
+					<Toggle
+					label={item.name+"："}
+					defaultToggled={true}
+					style={{marginBottom: 16,}}
+					/>
+				</div>
+			)
+		})
+		return dom;
+	}
 	render(){
 		const { error, handleSubmit, reset} = this.props;
+		let {pageInfo,lampItems} = this.state;
 		return (
 			<div className="control-center-control">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -87,15 +128,17 @@ class ControlCenterControl extends React.Component{
 							name="customerId"
 							inline={true}
 							component="labelText"
-							label="室内温度"
+							label="室内温度："
+							value={pageInfo.temp+"℃"}
 						/>
-						{/*	value={infoList.company}*/}
+						
 						<KrField
 							style={{width:260}}
 							name="customerId"
 							inline={true}
 							component="labelText"
-							label="室内湿度"
+							label="室内湿度："
+							value={pageInfo.humidity+"%"}
 						/>
 
 						<KrField
@@ -103,7 +146,8 @@ class ControlCenterControl extends React.Component{
 							name="customerId"
 							inline={true}
 							component="labelText"
-							label="PM2.5"
+							label="PM2.5："
+							value={pageInfo.pm25||""}
 						/>
 					</div>
 					<div className="center-control-line">
@@ -142,94 +186,16 @@ class ControlCenterControl extends React.Component{
 							</div>
 						</div>
 						<div className="switch-open">
-							<div className="toggle-box">
-								<Toggle
-								label="灯光总开关："
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
+							<span className="lamp-swirtch-all">灯光总开关:</span>
+							<div className="btn">开启</div>
+							<div className="btn">关闭</div>
 						</div>
 					</div>
 					<div className="lamp-box">
-						<div className="lamp-line">
-
-							<div  className="lamp-item">
-								<Toggle
-								label="灯光一"
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
-							<div  className="lamp-item">
-								<Toggle
-								label="灯光一"
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
-							<div  className="lamp-item">
-								<Toggle
-								label="灯光一"
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
-
-
-						</div>
-						<div className="lamp-line">
-
-							<div  className="lamp-item">
-								<Toggle
-								label="灯光一"
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
-							<div  className="lamp-item">
-								<Toggle
-								label="灯光一"
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
-							<div  className="lamp-item">
-								<Toggle
-								label="灯光一"
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
-
-
-						</div>
-						<div className="lamp-line">
-
-							<div  className="lamp-item">
-								<Toggle
-								label="灯光一"
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
-							<div  className="lamp-item">
-								<Toggle
-								label="灯光一"
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
-							<div  className="lamp-item">
-								<Toggle
-								label="灯光一快点快"
-								defaultToggled={true}
-								style={{marginBottom: 16,}}
-								/>
-							</div>
-
-
-						</div>
+						
+						{
+							this.renderLamps(lampItems)
+						}
 						
 					</div>
 					<div className="close-line">

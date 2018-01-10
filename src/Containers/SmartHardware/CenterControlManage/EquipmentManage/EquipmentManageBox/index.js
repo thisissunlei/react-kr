@@ -648,7 +648,7 @@ export default class EquipmentManageBox  extends React.Component{
 								title="控制中控设备"
 								open={State.ControlCenterControl}
 								onClose={this.ControlCenterControlFun}
-								contentStyle={{width:650}}
+								contentStyle={{width:680}}
 							>
 								<ControlCenterControl detail={itemDetail}/>
 							</Dialog>

@@ -470,6 +470,12 @@ module.exports = {
         method : 'get'
       },
 
+      //获取控制灯以及空调回显
+      'getControlAllInfo':{
+        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/view?serialNo={serialNo}',
+        method : 'get'
+      },
+
  
    
 }

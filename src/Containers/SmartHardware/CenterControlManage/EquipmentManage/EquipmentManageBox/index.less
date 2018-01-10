@@ -257,8 +257,27 @@
 		.switch-open{
 			width: 50%;
 			display: inline-block;
+			vertical-align: top;
 			.toggle-box{
 				width: 132px;
+			}
+			.btn{
+				display: inline-block;
+				color: rgb(0, 188, 212);
+				width: 50px;
+				height: 22px;
+				line-height: 22px;
+				text-align: center;
+				border: 1px solid rgb(0, 188, 212);
+				border-radius: 4px;
+				box-shadow: 0 1px 4px rgba(134, 174, 214, 0.5);
+				vertical-align: top;
+				margin: 1px 0 0 10px;
+			}
+			.lamp-swirtch-all{
+				display: inline-block;
+				vertical-align: top;
+				margin-top: -6px;
 			}
 		}
 		
@@ -271,23 +290,27 @@
 	}
 	.lamp-box{
 		border-top: solid 1px #eee;
-		padding-top: 10px;
-		.lamp-line{
-			.lamp-item{
-				display: inline-block;
-				width: 130px;
-				padding-left: 10px;
-				margin-right: 85px;
-			}
-			.lamp-item:last-child{
-				margin-right: 0;
-			}
+		padding: 10px 0 0 10px;
+		.lamp-item0{
+			display: inline-block;
+			width : 145px;
+			box-sizing: border-box;
 		}
-		
+		.lamp-item1{
+			display: inline-block;
+			width : 145px;
+			margin : 0 85px;
+			box-sizing: border-box;
+		}
+		.lamp-item2{
+			display: inline-block;
+			width : 145px;
+			box-sizing: border-box;
+		}
 	}
 	.close-line{
 		.ui-button{
-			margin-left : 232px;
+			margin-left : 265px;
 		}
 	}
 	.show-box{
