@@ -186,7 +186,7 @@ class EditForm extends React.Component{
 	onSubmit=(values)=>{
 
 		let _this = this;
-		
+		console.log("values",values);
 		var deviceTypeObj = {deviceType:"GATEWAY_PANEL",id :this.detail.id}
 		var submitValue = Object.assign(values,deviceTypeObj);
 	 	State.editCenterControl(submitValue);

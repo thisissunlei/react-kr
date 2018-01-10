@@ -95,7 +95,6 @@ function getUrl(path, params = {},mode = false) {
     request:(path='demo', params,payload,method)=>{
 
       const url = getUrl(path, params);
-      console.log("url>>>>>>>",url);
       method = method || getMethod(path);
       var promise = '';
 

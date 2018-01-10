@@ -35,8 +35,37 @@ class NewCreateDefinitionForm extends React.Component{
 			locationOptions:[],
 			communityId :'',
 			propertyOption :[{label:"",value:""}],
+			upgradeListOptions : []
+			
 		}
 	}
+
+	componentDidMount(){
+		this.getUpgradeListOptions();
+		
+	}
+
+	getUpgradeListOptions=()=>{
+		let param = {serialNo :State.itemDetail.serialNo};
+		var _this = this;
+		Http.request('getUpgradeInfoUrl',param).then(function(response) {
+			
+			var arrNew = []
+			for (var i=0;i<response.items.length;i++){
+				arrNew[i] = {
+							label:response.items[i].label,
+							value:response.items[i].value
+						}
+			}
+			_this.setState({
+				upgradeListOptions : arrNew
+			})
+	
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+	
 	onCancel=()=>{
 		State.upgradeDialog = false;
 	}
@@ -51,7 +80,7 @@ class NewCreateDefinitionForm extends React.Component{
 		}
 		State.upgradeDialog = false;
 		var postParams = {
-			deviceId :State.itemDetail.deviceId,
+			deviceId :State.itemDetail.serialNo,
 			value :values.value,
 		}
 		Http.request('upgradeEquipment',{},postParams).then(function(response) {
@@ -63,7 +92,7 @@ class NewCreateDefinitionForm extends React.Component{
 		
 	}
 	render(){
-		
+		let {upgradeListOptions} = this.state;
 		const { error, handleSubmit, reset} = this.props;
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
@@ -72,7 +101,7 @@ class NewCreateDefinitionForm extends React.Component{
 					<KrField name="value" 
 						component="select" 
 						label="升级内容" 
-						options = {State.typeOptions}
+						options = {upgradeListOptions}
 						style={{width:'252px',margin:"0 auto"}}
 						onChange = {this.getFloor}
 						

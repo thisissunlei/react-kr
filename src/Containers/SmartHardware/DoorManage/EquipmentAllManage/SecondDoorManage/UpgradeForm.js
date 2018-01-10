@@ -35,16 +35,39 @@ class NewCreateDefinitionForm extends React.Component{
 			locationOptions:[],
 			communityId :'',
 			propertyOption :[{label:"",value:""}],
+			typeOpyionns  :[]
 		}
 	}
 	onCancel=()=>{
 		State.upgradeDialog = false;
 	}
+
+	componentDidMount(){
+		
+		let _this =this;
+		var param = {serialNo :State.itemDetail.deviceId}
+		Http.request('getUpgradeInfoUrl',param).then(function(response) {
+		
+			var arrNew = []
+			for (var i=0;i<response.items.length;i++){
+				arrNew[i] = {
+							label:response.items[i].label,
+							value:response.items[i].value
+						}
+			}
+			_this.setState({
+				typeOptions : arrNew
+			})
+	
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+	
 	
 	
 	// 确认升级设备
 	onSubmit=(values)=>{
-		console.log("values",values);
 		if(!values.value){
 			Message.error("请选择升级内容");
 			return;
@@ -63,7 +86,7 @@ class NewCreateDefinitionForm extends React.Component{
 		
 	}
 	render(){
-		
+		let {typeOptions} = this.state;
 		const { error, handleSubmit, reset} = this.props;
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
@@ -72,7 +95,7 @@ class NewCreateDefinitionForm extends React.Component{
 					<KrField name="value" 
 						component="select" 
 						label="升级内容" 
-						options = {State.typeOptions}
+						options = {typeOptions}
 						style={{width:'252px',margin:"0 auto"}}
 						onChange = {this.getFloor}
 						

@@ -134,7 +134,7 @@ class EquipmentDataForm extends React.Component{
 						this.renderTitle()+"数据查看"
 					}
 					</span>
-					<span style={{float:"right",marginRight:50}} onClick={this.closeDialog}><img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/></span>
+					<span style={{float:"right"}} onClick={this.closeDialog}><img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/></span>
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)} className="search-form-second-door">
 					<ListGroup>
@@ -175,7 +175,8 @@ class EquipmentDataForm extends React.Component{
 				            {deviceType=="AIR_CONDITION" &&<TableHeaderColumn>温度</TableHeaderColumn>}
 				            {deviceType=="HUMITURE_SENSOR" &&<TableHeaderColumn>温度</TableHeaderColumn>}
 				            {deviceType=="HUMITURE_SENSOR" &&<TableHeaderColumn>湿度</TableHeaderColumn>}
-				            {deviceType=="AIR_SENSOR" &&<TableHeaderColumn>PM2.5数据</TableHeaderColumn>}
+							{deviceType=="BODY_SENSOR"  &&<TableHeaderColumn>是否有人</TableHeaderColumn>}
+						    {deviceType=="AIR_SENSOR" &&<TableHeaderColumn>PM2.5数据</TableHeaderColumn>}
 				            {deviceType=="AIR_SENSOR" &&<TableHeaderColumn>PM10数据</TableHeaderColumn>}
 				            {deviceType=="AIR_SENSOR" &&<TableHeaderColumn>PM2510数据</TableHeaderColumn>}
 						 	
@@ -236,7 +237,7 @@ class EquipmentDataForm extends React.Component{
 									if(itemData.extra.temp==""){
 										value="无"
 									}else{
-										value=itemData.extra.temp+""
+										value=itemData.extra.temp+"℃"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}

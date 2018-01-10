@@ -169,7 +169,7 @@ module.exports = {
 
    //获取升级信息下拉列表
    'getUpgradeInfoUrl':{
-      url: '/api/iot-platform/device-upgrade/select',
+      url: '/api/iot-platform/device-upgrade/select?serialNo={serialNo}',
       method: 'get'
    },
 

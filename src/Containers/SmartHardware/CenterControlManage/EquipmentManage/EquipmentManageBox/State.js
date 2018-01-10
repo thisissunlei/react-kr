@@ -20,14 +20,13 @@ let State = observable({
 	openClearCached : false,
 	openConnectAgian :false,
 	passwordDialog : false,
-	openEquipmentCache:false,
+	ControlCenterControl:false,
 	synchronizingPswDialog :false,
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
 	makerOptions :[],
 	deviceVO:{},
 	equipmentSearchParams: {
-		        
 		        communityId:'',
 		        deviceId :'',
 		        doorCode :'',
@@ -37,8 +36,6 @@ let State = observable({
 				logined :'',
 		        page : 1,
 		        pageSize: 15,
-
-
 		      },
 	searchEquipmentParam:{
 		page : 1,
@@ -59,7 +56,9 @@ let State = observable({
 	DropItems : [],
 	openFirstHardwareDetail: false,
 	EquipmentHttpToken:'',
-	httpTokenDialog :false
+	httpTokenDialog :false,
+	modelOptions :[{label:"制冷",value:"REFRIGERATION"},{label:"制热",value:"HEATING"}],
+
 });
 
 
@@ -80,7 +79,6 @@ State.getDetailList= action(function() {
 	Http.request('getDetailList', searchParams).then(function(response) {
 		
 		State.items = response;
-		
 		
 	}).catch(function(err) {
 		Message.error(err.message);
@@ -114,58 +112,6 @@ State.deleteEquipmentSingle= action(function() {
 	});
 
 });
-
-// 获取通用字典
-State.getDicList = action(function() {
-	var _this = this;
-	Http.request('getWarningType', {}).then(function(response) {
-		
-		var arrNewMaker = []
-		var arrNewDoorType = []
-		for (var i=0;i<response.Maker.length;i++){
-			
-			arrNewMaker[i] = {
-						label:response.Maker[i].desc,
-						value:response.Maker[i].value
-					}
-		}
-		for(var i=0;i<response.DoorType.length;i++){
-			arrNewDoorType[i] = {
-						label:response.DoorType[i].desc,
-						value:response.DoorType[i].value,
-						code : response.DoorType[i].code
-					}
-		}
-		
-		State.makerOptions = arrNewMaker;
-		State.propertyOption = arrNewDoorType;
-
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-
-});
-
-//获取升级信息列表字典
-State.getUpgradeTypeOptions = action(function() {
-	var _this = this;
-	Http.request('getUpgradeInfoUrl', {}).then(function(response) {
-		
-		var arrNew = []
-		for (var i=0;i<response.items.length;i++){
-			arrNew[i] = {
-						label:response.items[i].label,
-						value:response.items[i].value
-					}
-		}
-		State.typeOptions = arrNew;
-
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-
-});
-
 
 
 //新增

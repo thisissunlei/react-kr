@@ -311,7 +311,7 @@ export default class EquipmentManageBox  extends React.Component{
 			            ajaxUrlName='getSonEquipmentList'
 			            ajaxParams={State.equipmentSearchParams}
 			            onPageChange={this.onPageChangeFun}
-			            displayCheckbox={true}
+			            displayCheckbox={false}
 			            onSelect={this.onSelcet}
 			          >
 			            <TableHeader>
@@ -348,7 +348,7 @@ export default class EquipmentManageBox  extends React.Component{
 								</TableRowColumn>
 
 								<TableRowColumn name="deviceType" 
-									style={{width:"10%",overflow:"visible"}} 
+									style={{width:"7%",overflow:"visible"}} 
 									options={deviceTypeOptions}
 									component={(value,oldValue)=>{
 									var TooltipStyle=""
@@ -383,7 +383,7 @@ export default class EquipmentManageBox  extends React.Component{
 								></TableRowColumn>
 								
 								<TableRowColumn name="spaceName"
-									style={{width:"8%"}}
+									style={{width:"6%"}}
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -428,7 +428,7 @@ export default class EquipmentManageBox  extends React.Component{
 								></TableRowColumn>
 							
 					      		<TableRowColumn type="operation"
-					        		style={{width:"25%"}}
+					        		style={{width:"15%"}}
 									component={
 										(value,oldValue,itemData)=>{
 											if(value==""){

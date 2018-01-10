@@ -32,11 +32,9 @@ import EditForm from './EditForm';
 import EquipmentFind from './EquipmentFind';
 import EquipmentSearchForm from './EquipmentSearchForm';
 import UpgradeForm from './UpgradeForm';
-import EquipmentCache from './EquipmentCache';
+import ControlCenterControl from './ControlCenterControl';
 import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
-import BtnBox from './BtnBox';
-import EquipmentFirstDetail from './EquipmentFirstDetail';
 import HttpTokenDialog from './HttpTokenDialog';
 
 @inject("NavModel")
@@ -48,7 +46,6 @@ export default class EquipmentManageBox  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state = {
-			selectIds : [],
 			openMenu :false,
 			itemDetail : {}
 		}
@@ -56,9 +53,6 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	componentDidMount() {
-		State.getDicList();
-		//获取升级信息列表
-		State.getUpgradeTypeOptions();
 
 	}
 
@@ -84,7 +78,6 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 
-
 	seeDetailInfoFun=(value,itemData)=>{
 		let _this = this;
 		Http.request('seeCenterControlEquipDetail',{id:value.id}).then(function(response) {
@@ -102,16 +95,6 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 
-	onSelcet=(result,selectedListData)=>{
-		var ids=[];
-		for(var i=0;i<selectedListData.length;i++){
-			ids.push(selectedListData[i].id);
-		}
-		this.setState({
-			selectIds:ids
-		})
-	}
-
 	//打开新建
 	openNewCreateDialog=()=>{
 		State.openNewCreate = !State.openNewCreate;
@@ -126,36 +109,24 @@ export default class EquipmentManageBox  extends React.Component{
 		State.openCenterControlDetail = !State.openCenterControlDetail;
 	}
 
-	
-	//打开编辑
+
 	openEditDialogFun=()=>{
 		State.openEditDialog = !State.openEditDialog;
 	}
-	//打开设备搜索
+	//打开发现设备
 	openSearchEquipmentFun=()=>{
 		State.openSearchEquipment = !State.openSearchEquipment;
 	}
 
-
 	//确认删除
 	confirmDelete=()=>{
-
 		this.closeConfirmDeleteFun();
 		State.selectedDeleteIds = this.state.itemDetail.id;
 		State.deleteEquipmentSingle();
-
 	}
-
 	
-
 	onPageChangeFun=(page)=>{
-
 		State.realPage =page;
-	}
-
-	openEquipmentsearchDialogFun=()=>{
-
-		State.openSearchDialog = !State.openSearchDialog;
 	}
 
 	//断开重连提示窗口
@@ -164,52 +135,22 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 
-	showMoreOpretion=(thisP,value,itemData)=>{
-		State.deviceVO = thisP.deviceVO
-		this.showOpretionFun();
-		State.itemDetail = thisP;
-		this.setState({
-			itemDetail :thisP
-		})
-	}
-
-	showOpretionFun=()=>{
-		State.showOpretion = !State.showOpretion;
-	}
-
-
-
-
 	passwordDialogFun=()=>{
 		State.passwordDialog = !State.passwordDialog;
 	}
-
 
 	confirmConnnetAgain=()=>{
 		State.disConnectAction();
 		State.openConnectAgian =false;
 	}
 
-	//确认刷新h5页面
-	confirmFreshHTML=()=>{
-		State.confirmFreshHTMLAction();
-		this.openFreshHTMLDialogFun();
-	}
-
-		//刷新H5页面窗口
-	openFreshHTMLDialogFun=()=>{
-		State.openFreshHTMLDialog = !State.openFreshHTMLDialog;
-	}
-
 
 	editList=(thisP,value,itemData)=>{
 		let _this = this;
 		Http.request('getCenterControolEditData',{id:thisP.id}).then(function(response) {
-			
-			var idObj = {id : thisP.id};
-			var itemDetailReal = Object.assign(response,idObj);
+
 			_this.setState({
-				itemDetail:itemDetailReal
+				itemDetail:response
 			},function(){
 				_this.openEditDialogFun();
 			});
@@ -260,44 +201,6 @@ export default class EquipmentManageBox  extends React.Component{
 		State.openRestartSystemsDialog=!State.openRestartSystemsDialog;
 	}
 
-	
-	
-	//点击批量删除
-	deleteSelectEquipment = ()=>{
-		if(this.state.selectIds.length == 0){
-			Message.error("请选择您要删除的设备");
-			return;
-		}
-		this.deleteSelectEquipmentFun();
-	}
-
-	//批量删除提示窗口
-	deleteSelectEquipmentFun=()=>{
-		State.openConfirmDeleteBatch = !State.openConfirmDeleteBatch
-	}
-
-	//批量删除
-	confirmDeleteBatch=()=>{
-		
-		var selectedIdsArr = this.state.selectIds;
-		State.selectedDeleteIds = selectedIdsArr.join(",");
-		State.deleteEquipmentBatch();
-		this.deleteSelectEquipmentFun();
-	}
-
-
-
-
-	//确认同步口令
-	confirmSynchronizingPsw=()=>{
-		State.confirmSynchronizingAction();
-		this.synchronizingPswDialogFun();
-	}
-
-	//口令提示
-	synchronizingPswDialogFun=()=>{
-		State.synchronizingPswDialog = !State.synchronizingPswDialog;
-	}
 
 	registeEquipmentFun=(value)=>{
 		this.setState({
@@ -305,46 +208,6 @@ export default class EquipmentManageBox  extends React.Component{
 		})
 	}
 
-	
-
-
-	//查看设备缓存
-	deviceCache=()=>{
-		State.showOpretion=false;
-		let _this =this;
-		var urlParamsT = {
-							deviceId:State.itemDetail.deviceId,
-							lastCardNo:'',
-							limit:50,
-						}
-		Http.request('getEquipmentCacheURL',urlParamsT).then(function(response) {
-				
-			_this.openEquipmentCacheFun();
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-		
-
-	}
-
-	openEquipmentCacheFun=()=>{
-		State.openEquipmentCache = !State.openEquipmentCache;
-	}
-
-
-	//刷新H5页面
-	freshH5=()=>{
-
-		State.openFreshHTMLDialog = !State.openFreshHTMLDialog;
-
-	}
-
-	//同步口令
-	synchronizingPsw=()=>{
-		
-		State.synchronizingPswDialog = true;
-	}
 
 	//点击断开重连
 	connectAgain=()=>{
@@ -357,7 +220,6 @@ export default class EquipmentManageBox  extends React.Component{
 	getManagerPsd=()=>{
 		State.openManagePsd = !State.openManagePsd;
 	}
-
 
 	//重启APP
 	restartAPP=()=>{
@@ -404,23 +266,26 @@ export default class EquipmentManageBox  extends React.Component{
 		let _this = this;
 		
 
-			State.DropItems=[
-				{title:"查看子设备",onClickFun:_this.seeSonEquipment},
+		State.DropItems=[
+			{title:"查看子设备",onClickFun:_this.seeSonEquipment},
+			{title:"控制屏幕",onClickFun:_this.ControlCenterControlFun},
+			
+			{title:"断开重连",onClickFun:_this.connectAgain},
+			{title:"获取管理员密码",onClickFun:_this.getManagerPsd},
 
-				{title:"断开重连",onClickFun:_this.connectAgain},
-				{title:"获取管理员密码",onClickFun:_this.getManagerPsd},
+			{title:"重启设备APP",onClickFun:_this.restartAPP},
+			{title:"重启设备系统",onClickFun:_this.restartSystems},
+			{title:"恢复出厂设置",onClickFun:_this.resetEquipmentOrigin},
 
-				{title:"重启设备APP",onClickFun:_this.restartAPP},
-				{title:"重启设备系统",onClickFun:_this.restartSystems},
-				{title:"恢复出厂设置",onClickFun:_this.resetEquipmentOrigin},
+			{title:"升级",onClickFun:_this.upgrade},
+			{title:"获取httpToken",onClickFun:_this.getHttpToken}
 
-				{title:"升级",onClickFun:_this.upgrade},
-				{title:"获取httpToken",onClickFun:_this.getHttpToken}
+			
+		]
+	}
 
-				
-			]
-		
-
+	ControlCenterControlFun=()=>{
+		State.ControlCenterControl = !State.ControlCenterControl;
 	}
 
 
@@ -442,7 +307,6 @@ export default class EquipmentManageBox  extends React.Component{
 				<div>
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
-					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
 					<Button label="发现设备"  onTouchTap={this.openSearchEquipmentFun} className="button-list"/>
 					
 				</div>
@@ -464,7 +328,6 @@ export default class EquipmentManageBox  extends React.Component{
 			            ajaxParams={State.equipmentSearchParams}
 			            onPageChange={this.onPageChangeFun}
 			            displayCheckbox={true}
-			            onSelect={this.onSelcet}
 			          >
 			            <TableHeader>
 			            	<TableHeaderColumn>社区名称</TableHeaderColumn>
@@ -706,28 +569,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          </div>
 			        </Dialog>
 
-			        <Dialog
-			          title="刷新屏幕提示"
-			          open={State.openFreshHTMLDialog}
-			          onClose={this.openFreshHTMLDialogFun}
-			          contentStyle={{width:443,height:236}}
-			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>刷新屏幕可能导致屏幕显示不正常，确定刷新？</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-			                        <Button  label="确定" type="submit" onClick={this.confirmFreshHTML} />
-			                      </ListGroupItem>
-			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openFreshHTMLDialogFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
-			        </Dialog>
+
 			        <Dialog
 			          title="恢复出厂设置提示"
 			          open={State.resetEquipmentDialog}
@@ -801,49 +643,17 @@ export default class EquipmentManageBox  extends React.Component{
 			          </div>
 			        </Dialog>
 
-			         <Drawer 
-			        	open={State.openEquipmentCache}
-			        	onClose = {this.openEquipmentCacheFun}
-					    width={"90%"} 
-					    openSecondary={true} 
-					>
-						<EquipmentCache onCancel={this.openEquipmentCacheFun}/>
-					</Drawer>
-
-					<Dialog
-			          title="按钮库"
-			          open={State.showOpretion}
-			          onClose={this.showOpretionFun}
-			          contentStyle={{width:700,height:355}}
-			        >
-			          <BtnBox onCancle={this.showOpretionFun}/>
-			        </Dialog>
-			        <Dialog
-			          title="同步口令提示"
-			          open={State.synchronizingPswDialog}
-			          onClose={this.synchronizingPswDialogFun}
-			          contentStyle={{width:443,height:260}}
-			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>同步口令后有可能造成口令码无法开门，确认同步？</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-			                        <Button  label="确定" type="submit" onClick={this.confirmSynchronizingPsw} />
-			                      </ListGroupItem>
-			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.synchronizingPswDialogFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
-			        </Dialog>
 			        
-
-				</div>
+							<Dialog
+								title="控制中控设备"
+								open={State.ControlCenterControl}
+								onClose={this.ControlCenterControlFun}
+								contentStyle={{width:600}}
+							>
+								<ControlCenterControl detail={itemDetail}/>
+							</Dialog>
 				
+				</div>
 			</div>
 		);
 	}

@@ -52,7 +52,10 @@ let State = observable({
 	{label:"空调",value:"AIR_CONDITION"},
 	{label:"空气质量仪",value:"AIR_SENSOR"},
 	{label:"温湿度计",value:"HUMITURE_SENSOR"},
-	{label:"人体感应",value:"BODY_SENSOR"}]
+	{label:"人体感应",value:"BODY_SENSOR"}],
+	SpaceType :  [{label:"会议室",value:"MEETING"},
+	{label:"大厅",value:"HALL"},
+	{label:"独立办公室",value:"OFFICE"}]
 });
 
 
