@@ -10,6 +10,7 @@ import {
 import {Button,Message,Loading,ChangeNumber,KrField} from 'kr-ui';
 import './index.less';
 
+import Toggle from 'material-ui/Toggle';
 import {DateFormat,Http} from 'kr/Utils';
 import State from './State';
 import {
@@ -53,6 +54,11 @@ class ControlCenterControl extends React.Component{
 		return dom;
 	}
 
+
+	onCancel=()=>{
+		State.ControlCenterControl= false;
+	}
+
 	renderWindSpeedRadio=(param)=>{
 		
 		let _this =this;
@@ -75,71 +81,159 @@ class ControlCenterControl extends React.Component{
 		return (
 			<div className="control-center-control">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
+					<div className="show-box">
+						<KrField
+							style={{width:260}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="室内温度"
+						/>
+						{/*	value={infoList.company}*/}
+						<KrField
+							style={{width:260}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="室内湿度"
+						/>
 
-					<KrField
-						style={{width:260}}
-						name="customerId"
-						inline={true}
-						component="labelText"
-						label="室内温度"
-					/>
-					{/*	value={infoList.company}*/}
-					<KrField
-						style={{width:260}}
-						name="customerId"
-						inline={true}
-						component="labelText"
-						label="室内湿度"
-					/>
-
-					<KrField
-						style={{width:260}}
-						name="customerId"
-						inline={true}
-						component="labelText"
-						label="PM2.5"
-					/>
+						<KrField
+							style={{width:260}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="PM2.5"
+						/>
+					</div>
 					<div className="center-control-line">
 						<span className="center-control-line-title">设置温度：</span>
 						<ChangeNumber changeNum={this.changeTemperature}/>
 					</div>
-					<div  className="air-condition-line center-control-line">
-						<span  className="center-control-line-title">空调模式：</span>
-						<span>
-							{/*
-								this.renderRadioBox(State.modelOptions)
-							*/}
-						</span>
-						
-						
-					</div>
-					<div className="air-condition-line center-control-line">
-						<span  className="center-control-line-title">风速：</span>
-						<span>
-							{/*
-								this.renderWindSpeedRadio(speedWindOptions)
-							*/}
-						</span>
+					<div className="air-condition-line">
+						<div  className="center-control-line">
+							<span  className="center-control-line-title">空调模式：</span>
+							<span>
+								{/*
+									this.renderRadioBox(State.modelOptions)
+								*/}
+							</span>
+							
+							
+						</div>
+						<div className="center-control-line">
+							<span  className="center-control-line-title">风速：</span>
+							<span>
+								{/*
+									this.renderWindSpeedRadio(speedWindOptions)
+								*/}
+							</span>
+						</div>
 					</div>
 
 					<div className="air-condition-line center-control-line">
-						<span  className="center-control-line-title">空调开关状态：</span>
-						<span>
-							{/*
-								this.renderWindSpeedRadio(speedWindOptions)
-							*/}
-						</span>
+						<div className="switch-open">
+							<div className="toggle-box">
+								<Toggle
+								label="空调开关："
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+						</div>
+						<div className="switch-open">
+							<div className="toggle-box">
+								<Toggle
+								label="灯光总开关："
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+						</div>
 					</div>
-					<div className="center-control-line">
-						<span>灯光总开关：</span>
-						<span></span>
+					<div className="lamp-box">
+						<div className="lamp-line">
+
+							<div  className="lamp-item">
+								<Toggle
+								label="灯光一"
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+							<div  className="lamp-item">
+								<Toggle
+								label="灯光一"
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+							<div  className="lamp-item">
+								<Toggle
+								label="灯光一"
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+
+
+						</div>
+						<div className="lamp-line">
+
+							<div  className="lamp-item">
+								<Toggle
+								label="灯光一"
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+							<div  className="lamp-item">
+								<Toggle
+								label="灯光一"
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+							<div  className="lamp-item">
+								<Toggle
+								label="灯光一"
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+
+
+						</div>
+						<div className="lamp-line">
+
+							<div  className="lamp-item">
+								<Toggle
+								label="灯光一"
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+							<div  className="lamp-item">
+								<Toggle
+								label="灯光一"
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+							<div  className="lamp-item">
+								<Toggle
+								label="灯光一快点快"
+								defaultToggled={true}
+								style={{marginBottom: 16,}}
+								/>
+							</div>
+
+
+						</div>
+						
 					</div>
-					<div className="">
-						<div>走廊灯（开）</div>
-						<div>走廊灯（开）</div>
-						<div>走廊灯（开）</div>
-						<div>走廊灯（开）</div>
-						<div>走廊灯（开）</div>
+					<div className="close-line">
+						<Button  label="关闭" type="button"  cancle={true} onTouchTap={this.onCancel} />
 					</div>
 				</form>
 		  	</div>
