@@ -27,7 +27,7 @@ module.exports = [
                 menuItems: [
                     {
                         primaryText: "合同列表",
-                        originUrl: '/contract-center/list',
+                        originUrl: '/order-center/contract-manage/contract-list/list',
                         menuCode: 'iot_door_open_log',
                         //menuCode: 'fina_meeting_order_page'
                     },
