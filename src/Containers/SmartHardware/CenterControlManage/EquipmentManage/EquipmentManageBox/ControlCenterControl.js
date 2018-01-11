@@ -149,7 +149,7 @@ class ControlCenterControl extends React.Component{
 	renderLamps=(param)=>{
 	
 		console.log("param",param);
-		
+		let _this = this;
 		var dom = param.map(function(item,index){
 			return(
 				<div  className={"lamp-item"+index%3} key={index} >
@@ -157,12 +157,16 @@ class ControlCenterControl extends React.Component{
 					label={item.name+"："}
 					defaultToggled={item.on}
 					style={{marginBottom: 16,}}
+					onToggle={_this.onToggleSingleLamp.bind(this,item)}
 					/>
 				</div>
 			)
 		})
 		return dom;
 	}
+
+
+
 
 	renderTemprature=(paramTemp)=>{
 
@@ -198,6 +202,32 @@ class ControlCenterControl extends React.Component{
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+	}
+
+	onToggleSingleLamp=(item)=>{
+		console.log("item",item);
+		
+		let _this = this;
+		let {detail} = this.props;
+		var urlParams = {serialNo : detail.serialNo,temp : !item.on,localNo : item.localNo}
+		Http.request('SwitchOpenLampFrost',{},urlParams).then(function(response) {
+			Message.success("设置成功");
+			_this.changeLampItems(item,response.on)
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+		
+	}
+
+	changeLampItems=(item,on)=>{
+		console.log("item",item,"on",on);
+		var {lampItems} = this.state;
+		for(var i=0;i<lampItems.length;i++){
+			if(lampItems[i].localNo == item.localNo){
+				lampItems[i].on = on
+				return;
+			}
+		}
 	}
 
 
