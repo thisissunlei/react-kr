@@ -55,12 +55,10 @@ class OpenLogForm extends React.Component{
 		State.openLogSearchParams={
 			page:1,
 			pageSize:15,
-			sdate : values.sdate || '',
-			edate: values.edate || '',
+			startDate : values.sdate || '',
+			endDate: values.edate || '',
 			communityId: values.communityId || '',
-			deviceId: values.deviceId || '',
-			memberName:  values.memberName || '',
-			phone :  values.phone || '',
+			serialNo: State.openLogSearchParams.serialNo || '',
 			date : new Date()
 		}
 	}
@@ -71,14 +69,26 @@ class OpenLogForm extends React.Component{
 		Store.dispatch(change('OpenLogForm','edate',''));
 
 		State.openLogSearchParams={
+			communityId: '',
+			endDate: '',
 			page:1,
 			pageSize:15,
-			sdate : '',
-			edate: '',
-			communityId: '',
-			deviceId: '',
-			memberName:  '',
-			phone : '',
+			serialNo: '',
+			spaceId: '',
+			startDate : '',
+		}
+	}
+
+	onSearchSubmit=(item)=>{
+		
+		State.openLogSearchParams = {
+			page:1,
+			pageSize:15,
+			startdate : State.openLogSearchParams.startdate || '',
+			enddate: State.openLogSearchParams.endDate || '',
+			communityId: State.openLogSearchParams.communityId || '',
+			serialNo: item.content || '',
+			date : new Date()
 		}
 	}
 
@@ -119,6 +129,7 @@ class OpenLogForm extends React.Component{
 		});
 	}
 	render(){
+		let filterOptions=[{label:"硬件ID",value:"serialNo"}]
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="search-form-second-door">
@@ -137,27 +148,19 @@ class OpenLogForm extends React.Component{
 							<KrField  name="communityId" component="searchCommunityAll" label="社区名称：" inline={true} style={{width:254}} onChange={this.chooseCommunity} className="community-id"/>
 						</span>
 					</ListGroupItem>
-					<ListGroupItem>
-						<KrField grid={1/2} name="deviceId" 
-							type="text" 
-							label="智能硬件ID：" 
-							style={{width:265}}
-							inline={true}
+					
+					
+					<ListGroupItem style={{float:"right"}}>
+						<SearchForms onSubmit={this.onSearchSubmit} 
+							style={{zIndex:10000,marginLeft:10}}
+							content={this.state.content}
+							searchFilter={filterOptions}
 						/>
 					</ListGroupItem>
 					
-					<ListGroupItem>
-						<KrField grid={1/2} name="memberName" 
-							type="text" 
-							label="房间号：" 
-							style={{width:245}}
-							inline={true}
-						/>
-					</ListGroupItem>
+					
 				</ListGroup>
 				<ListGroup style={{marginBottom:10}}>
-					
-					
 					
 
 					<ListGroupItem style={{float:"right",margin:"0px 20px 10px 0"}}>

@@ -508,14 +508,14 @@ module.exports = {
 
       //智能面板操作日志
       'centerControlOperateLog' :{
-        url : '/api/iot-platform/panel-click-log/list?communityId={communityId}?endDate={endDate}?page={page}?pageSize={pageSize}?serialNo={serialNo}?spaceId={spaceId}?startDate={startDate}',
+        url : '/api/iot-platform/panel-click-log/list?communityId={communityId}&endDate={endDate}&page={page}&pageSize={pageSize}&serialNo={serialNo}&spaceId={spaceId}&startDate={startDate}',
         method : 'get'
       },
 
       
 
- 
-   
+
+      
 }
 
 
