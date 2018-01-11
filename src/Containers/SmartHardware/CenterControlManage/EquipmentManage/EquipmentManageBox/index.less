@@ -245,13 +245,68 @@
 
 .control-center-control{
 	color : #333;
+	.center-control-temperature{
+		padding-left: 10px;
+		padding-top: 15px;
+		.temprature-box{
+			display: inline-block;
+			position: relative;
+			width: 555px;
+			height: 20px;
+			vertical-align: middle;
+			.temperature-line{
+				position: absolute;
+				width: 560px;
+				border-bottom: solid 1px #00bcd4;
+				height: 1px;
+				margin-top: 9px;
+			}
+			.temperature-btn-box{
+				position:  absolute;
+				width: 590px;
+				.temprature-btn{
+					display: inline-block;
+					width: 20px;
+					height: 20px;
+					border-radius: 14px;
+					border: solid 1px #00bcd4;
+					background : #fff;
+					text-align: center;
+					line-height: 20px;
+					margin-right: 6px;
+					cursor : pointer;
+					
+				}
+				.temprature-btn-active{
+					display: inline-block;
+					width: 20px;
+					height: 20px;
+					border-radius: 14px;
+					border: solid 1px #00bcd4;
+					background : rgba(139,221,234,1);
+					text-align: center;
+					line-height: 20px;
+					margin-right: 6px;
+					cursor : pointer;
+				}
+				.temprature-btn:last-child{
+					margin-right: 0;
+				}
+			}
+		
+		}
+	}
 	.center-control-line{
 		padding-left: 10px;
-		padding-top: 10px;
+		padding-top: 15px;
 		display: inline-block;
-		width: 50%;
+		width: 49%;
 		box-sizing: border-box;
 		.center-control-line-title{
+			margin-right: 10px;
+		}
+		
+		.wind-speed-checkbox{
 			margin-right: 10px;
 		}
 		.switch-open{
@@ -273,6 +328,7 @@
 				box-shadow: 0 1px 4px rgba(134, 174, 214, 0.5);
 				vertical-align: top;
 				margin: 1px 0 0 10px;
+				cursor : pointer;
 			}
 			.lamp-swirtch-all{
 				display: inline-block;
@@ -310,7 +366,7 @@
 	}
 	.close-line{
 		.ui-button{
-			margin-left : 265px;
+			margin-left : 295px;
 		}
 	}
 	.show-box{

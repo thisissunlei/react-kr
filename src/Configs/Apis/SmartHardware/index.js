@@ -476,6 +476,38 @@ module.exports = {
         method : 'get'
       },
 
+      //设置该中控下所有空调风速
+      'setAirConditionWindSpeedAll' :{
+        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/air-condition/set-speed',
+        method : 'post'
+      },
+
+       //设置该中控下所有空调模式
+       'setAirConditionModeAll' :{
+        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/air-condition/set-mode',
+        method : 'post'
+      },
+
+      //设置该中控下所有空调温度
+      'setAirConditionTemperatureAll' :{
+        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/air-condition/set-temp',
+        method : 'post'
+      },
+
+       //设置该中控下所有空调开关
+       'setAirConditionSwitchOn' :{
+        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/air-condition/switch',
+        method : 'post'
+      },
+
+      //设置灯的总开总关
+      'setSwitchOnAllLamps' :{
+        url : '/mockjsdata/53/iot-platform/device-def/admin/switcher/global-switch',
+        method : 'post'
+      },
+
+      
+
  
    
 }

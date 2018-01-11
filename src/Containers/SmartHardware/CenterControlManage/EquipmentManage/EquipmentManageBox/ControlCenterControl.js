@@ -23,7 +23,11 @@ class ControlCenterControl extends React.Component{
 		super(props);
 		this.state={
 			pageInfo : {},
-			lampItems : []
+			lampItems : [],
+			airConditionSwitchOn : false,
+			windSpeed : '',
+			mode : '',
+			airConditionSetTemp : 16,
 		}
 	}
 
@@ -35,12 +39,15 @@ class ControlCenterControl extends React.Component{
 	getNowInfo=()=>{
 		let {detail} = this.props;
 		let _this =this;
-		console.log("detail",detail);
 		Http.request('getControlAllInfo',{serialNo:detail.serialNo}).then(function(response) {
-			console.log("response",response);
+			
 			_this.setState({
 				pageInfo : response,
-				lampItems : response.allDevice.switchers
+				airConditionSetTemp :response.airCondition.temp,
+				lampItems : response.allDevice.switchers,
+				airConditionSwitchOn : response.airCondition.on,
+				windSpeed : response.airCondition.speed,
+				mode : response.airCondition.mode
 			})
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -56,16 +63,21 @@ class ControlCenterControl extends React.Component{
 	}
 
 	renderRadioBox=(param)=>{
-		
-
 		let _this =this;
-		let {detail} = this.props;
-		var dom = param.map(function(item,index){
+		var arrData =	[{label:"制冷",value:"COOLING"},{label:"制热",value:"HEATING"}];
+		for(var i =0;i<arrData.length;i++){
+			if(arrData[i].value == param){
+				arrData[i].checked= true;
+			}else{
+				arrData[i].checked= false;
+			}
+		}	
 
+		var dom = arrData.map(function(item,index){
 			return (
 				<span key={index}  className="wind-speed-checkbox">
 					<span  className="speed-label">{item.label}</span>
-					<input type="radio" name = "mode" value={item.value} checked={item.checked} onChange={(event)=>{_this.onChangeWind(event,item,index)}} disabled={detail.extra.on?false:true}/>
+					<input type="radio" name = "mode" value={item.value} checked={item.checked} onChange={(event)=>{_this.onChangeMode(event,item,index)}} />
 				</span>
 			)
 		})
@@ -78,23 +90,59 @@ class ControlCenterControl extends React.Component{
 	}
 
 	renderWindSpeedRadio=(param)=>{
-		if(!param.allDevice){
-			return null;
-		}
-		var paramArr =param.allDevice.switchers 
-		let _this =this;
-		let {detail} = this.props;
-
-		var dom = paramArr.map(function(item,index){
+		console.log("param",param);
+		let _this = this;
+		var arrData =	[{label:"高速",value:"HIGH"},{label:"低速",value:"LOW"},{label:"中速",values : 'MEDIUM'}];
+		for(var i =0;i<arrData.length;i++){
+			if(arrData[i].value == param){
+				arrData[i].checked= true;
+			}else{
+				arrData[i].checked= false;
+			}
+		}		
+		var dom = arrData.map(function(item,index){
 
 			return (
 				<span key={index} className="wind-speed-checkbox">
 					<span className="speed-label">{item.label}</span>
-					<input type="radio" name = "speed" value={item.value} checked={item.checked} onChange={(event)=>{_this.onChangeSpeed(event,item,index)}} disabled={detail.extra.on?false:true}/>
+					<input type="radio" name = "speed" value={item.value} checked={item.checked} onChange={(event)=>{_this.onChangeSpeed(event,item,index)}} />
 				</span>
 			)
 		})
 		return dom;
+	}
+
+
+	onChangeSpeed=(e)=>{
+		console.log("e",e.target.value);
+		let {detail} = this.props;
+		let _this=this;
+		console.log("detail",detail);
+		var urlParams = {serialNo:detail.serialNo,speed : e.target.value}
+		Http.request('setAirConditionWindSpeedAll',{},urlParams).then(function(response) {
+			Message.success("设置成功");
+			_this.setState({
+				windSpeed :  e.target.value
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+	onChangeMode=(e)=>{
+		console.log("e",e.target.value);
+		let {detail} = this.props;
+		let _this=this;
+		console.log("detail",detail);
+		var urlParams = {serialNo:detail.serialNo,mode : e.target.value}
+		Http.request('setAirConditionModeAll',{},urlParams).then(function(response) {
+			Message.success("设置成功");
+			_this.setState({
+				mode :  e.target.value
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 	
 
@@ -103,12 +151,11 @@ class ControlCenterControl extends React.Component{
 		console.log("param",param);
 		
 		var dom = param.map(function(item,index){
-			console.log("item",item.name,"index",index);
 			return(
 				<div  className={"lamp-item"+index%3} key={index} >
 					<Toggle
 					label={item.name+"："}
-					defaultToggled={true}
+					defaultToggled={item.on}
 					style={{marginBottom: 16,}}
 					/>
 				</div>
@@ -116,15 +163,95 @@ class ControlCenterControl extends React.Component{
 		})
 		return dom;
 	}
+
+	renderTemprature=(paramTemp)=>{
+
+		let _this =this;
+		let {pageInfo,airConditionSetTemp} = this.state;
+		var arr = []
+		for(var i =15;i<36;i++){
+			var avtiveBool = paramTemp == i?true : false;
+			var obj = {value: i, active :avtiveBool }
+			arr.push(obj);
+		}
+		var dom ;
+		dom = arr.map(function(item,index){
+			return(
+				<span key={index} className={item.active?"temprature-btn-active":"temprature-btn"} onClick={_this.changeTemperature.bind(_this,item)}>{item.value}</span>
+			)
+
+		})
+		return dom;
+	}
+
+	changeTemperature=(item)=>{
+		console.log("item",item);
+
+		let _this = this;
+		let {detail} = this.props;
+		var urlParams = {serialNo : detail.serialNo,temp : item.value}
+		Http.request('setAirConditionTemperatureAll',{},urlParams).then(function(response) {
+			Message.success("设置成功");
+			_this.setState({
+				airConditionSetTemp : item.value
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+
+	changeAirConditionSwitchOn=(e)=>{
+
+		let _this = this;
+		let {detail} = this.props;
+		var urlParams = {serialNo : detail.serialNo,on : !_this.state.airConditionSwitchOn}
+		Http.request('setAirConditionSwitchOn',{},urlParams).then(function(response) {
+			Message.success("设置成功");
+			_this.setState({
+				airConditionSwitchOn :  !_this.state.airConditionSwitchOn
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+	closeAllLamps=()=>{
+		let {detail} = this.props;
+		var urlParams = {serialNo : detail.serialNo,on : false}
+		this.controlAllLamps(urlParams);
+	}
+
+	openAllLamps=()=>{
+		let {detail} = this.props;
+		var urlParams = {serialNo : detail.serialNo,on : true}
+		this.controlAllLamps(urlParams);
+		
+	}
+
+	controlAllLamps=(param)=>{
+		let _this =this;
+		Http.request('setSwitchOnAllLamps',{},param).then(function(response) {
+			Message.success("设置成功");
+			_this.setState({
+				lampItems : response.items
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+
 	render(){
 		const { error, handleSubmit, reset} = this.props;
-		let {pageInfo,lampItems} = this.state;
+		let {pageInfo,lampItems,airConditionSwitchOn,windSpeed,mode,airConditionSetTemp} = this.state;
+		console.log("pageInfo",pageInfo);
 		return (
 			<div className="control-center-control">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div className="show-box">
 						<KrField
-							style={{width:260}}
+							style={{width:335}}
 							name="customerId"
 							inline={true}
 							component="labelText"
@@ -133,7 +260,7 @@ class ControlCenterControl extends React.Component{
 						/>
 						
 						<KrField
-							style={{width:260}}
+							style={{width:335}}
 							name="customerId"
 							inline={true}
 							component="labelText"
@@ -142,25 +269,37 @@ class ControlCenterControl extends React.Component{
 						/>
 
 						<KrField
-							style={{width:260}}
+							style={{width:335}}
 							name="customerId"
 							inline={true}
 							component="labelText"
 							label="PM2.5："
-							value={pageInfo.pm25||""}
+							value={pageInfo.pm25||"无数据"}
 						/>
 					</div>
-					<div className="center-control-line">
+					<div className="center-control-temperature">
 						<span className="center-control-line-title">设置温度：</span>
-						<ChangeNumber changeNum={this.changeTemperature}/>
+						{/*<ChangeNumber changeNum={this.changeTemperature}/>*/}
+						<div className="temprature-box">
+							<div className="temperature-line">
+								
+							</div>
+							<div className="temperature-btn-box">
+								{
+									this.renderTemprature(airConditionSetTemp)
+								}
+							</div>
+
+							
+						</div>
 					</div>
 					<div className="air-condition-line">
 						<div  className="center-control-line">
 							<span  className="center-control-line-title">空调模式：</span>
 							<span>
-								{/*
-									this.renderRadioBox(State.modelOptions)
-								*/}
+								{
+									this.renderRadioBox(mode)
+								}
 							</span>
 							
 							
@@ -168,9 +307,9 @@ class ControlCenterControl extends React.Component{
 						<div className="center-control-line">
 							<span  className="center-control-line-title">风速：</span>
 							<span>
-								{/*
-									this.renderWindSpeedRadio(speedWindOptions)
-								*/}
+								{
+									this.renderWindSpeedRadio(windSpeed)
+								}
 							</span>
 						</div>
 					</div>
@@ -180,15 +319,16 @@ class ControlCenterControl extends React.Component{
 							<div className="toggle-box">
 								<Toggle
 								label="空调开关："
-								defaultToggled={true}
+								defaultToggled={airConditionSwitchOn}
 								style={{marginBottom: 16,}}
+								onToggle={this.changeAirConditionSwitchOn}
 								/>
 							</div>
 						</div>
 						<div className="switch-open">
 							<span className="lamp-swirtch-all">灯光总开关:</span>
-							<div className="btn">开启</div>
-							<div className="btn">关闭</div>
+							<div className="btn" onClick={this.openAllLamps}>开启</div>
+							<div className="btn"  onClick={this.closeAllLamps}>关闭</div>
 						</div>
 					</div>
 					<div className="lamp-box">
