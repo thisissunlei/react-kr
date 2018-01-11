@@ -30,19 +30,29 @@ export default class EquipmentDetail extends React.Component{
 			itemDetail :detail
 
 		},function(){
-			$("#center-control-report").html(_this.syntaxHighlight(detail.deviceVO.reported));
-			$("#center-control-desired").html(_this.syntaxHighlight(detail.deviceVO.desired));
+			if(detail.deviceVO){
+				$("#center-control-report").html(_this.syntaxHighlight(detail.deviceVO.reported));
+				$("#center-control-desired").html(_this.syntaxHighlight(detail.deviceVO.desired));
+			}
 		})
-		if(!detail.deviceVO.reported||JSON.stringify(detail.deviceVO.reported).length<1){
+		if(detail.deviceVO){
+			if(!detail.deviceVO.reported||JSON.stringify(detail.deviceVO.reported).length<1){
+				_this.setState({
+					showReported : false
+				})
+			}
+			if(!detail.deviceVO.desired||JSON.stringify(detail.deviceVO.desired).length<1){
+				_this.setState({
+					showDesired : false
+				})
+			}
+		}else{
 			_this.setState({
-				showReported : false
+				showReported : false,
+				showDesired :false
 			})
 		}
-		if(!detail.deviceVO.desired||JSON.stringify(detail.deviceVO.desired).length<1){
-			_this.setState({
-				showDesired : false
-			})
-		}
+		
 			
 		
 	}
@@ -153,7 +163,6 @@ export default class EquipmentDetail extends React.Component{
 	render(){
 		let {detail} = this.props;
 		let {showReported,showDesired} = this.state;
-		var params = detail.deviceVO;
 		console.log("detail",detail);
 		let _this =this;
 		return (
@@ -165,10 +174,10 @@ export default class EquipmentDetail extends React.Component{
 					<div>
 						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{detail.serialNo || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">标记:</div><div className="td-right">{detail.alias || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">底层固件版本:</div><div className="td-right">{params.driverV || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{params.v || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{params.ip || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">当前连接服务器:</div><div className="td-right">{params.loginedServer || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">底层固件版本:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.driverV) || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.v) || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.ip) || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">当前连接服务器:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.loginedServer) || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">设备类型:</div><div className="td-right">{_this.returnDeviceType()}</div></div>
 						<div className="tr-line"><div className="td-left">是否连接:</div><div className="td-right">{_this.returnConnectStatus()}</div></div>
 						<div className="tr-line"><div className="td-left">最后一次连接时间:</div><div className="td-right">{DateFormat(detail.connectTime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
