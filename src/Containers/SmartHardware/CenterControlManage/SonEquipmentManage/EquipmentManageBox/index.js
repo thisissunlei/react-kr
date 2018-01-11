@@ -30,9 +30,8 @@ import EquipmentDetail from './EquipmentDetail';
 import EditForm from './EditForm';
 import EquipmentFind from './EquipmentFind';
 import EquipmentSearchForm from './EquipmentSearchForm';
-import ControlLamp from './ControlLamp';
+import ControlLampGrostGlass from './ControlLampGrostGlass';
 import ControlAirCondition from './ControlAirCondition';
-import ControlFrostedGlass from './ControlFrostedGlass';
 import EquipmentOperateLog from './EquipmentOperateLog';
 
 
@@ -49,7 +48,8 @@ export default class EquipmentManageBox  extends React.Component{
 			openMenu :false,
 			itemDetail : {},
 			mainInfo: {},
-			serialNo :''
+			serialNo :'',
+			controlLampOrGrostedGlass : ""
 		}
 	}
 
@@ -222,14 +222,13 @@ export default class EquipmentManageBox  extends React.Component{
 				mainInfo : _this.state.itemDetail,
 				itemDetail : response
 			},function(){
-				if(State.itemDetail.deviceType=="LAMP"){
-
-					_this.switchControlLampDialog()
-				}else if(State.itemDetail.deviceType=="ATOMIZATION_MEMBRANE"){
-
+				if(State.itemDetail.deviceType=="LAMP"||State.itemDetail.deviceType=="ATOMIZATION_MEMBRANE" ){
 					
-					_this.switchControlFrostedGlassDialog();
-
+					_this.setState({
+						controlLampOrGrostedGlass : State.itemDetail.deviceType=="LAMP"?"远程控制灯":"远程控制雾化玻璃"
+					},function(){
+						_this.switchControlLampDialog()
+					})
 				}else if(State.itemDetail.deviceType=="AIR_CONDITION"){
 					_this.switchControlAirConditionDialog();
 					
@@ -284,7 +283,7 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	render(){
-		let {itemDetail,mainInfo,serialNo}=this.state;
+		let {itemDetail,mainInfo,serialNo,controlLampOrGrostedGlass}=this.state;
 		let deviceTypeOptions = State.sonEquipmentTypeOptions
 		return(
 			<div >
@@ -465,12 +464,12 @@ export default class EquipmentManageBox  extends React.Component{
 						<EquipmentDetail onCancel={this.openSeeSonEquipmentDetail} detail={itemDetail}/>
 					</Drawer>
 					<Dialog
-			          title="灯控制器"
+			          title={controlLampOrGrostedGlass}
 			          open={State.controlLampDialog}
 			          onClose = {this.switchControlLampDialog}
 			          contentStyle={{width:470}}
 			        >
-						<ControlLamp onCancel={this.switchControlLampDialog} detail={itemDetail} mainInfo={mainInfo}/>
+						<ControlLampGrostGlass onCancel={this.switchControlLampDialog} detail={itemDetail} mainInfo={mainInfo}/>
 			        </Dialog>
 
 			        <Dialog
@@ -481,17 +480,6 @@ export default class EquipmentManageBox  extends React.Component{
 			        >
 						<ControlAirCondition onCancel={this.switchControlLampDialog} detail={itemDetail} mainInfo={mainInfo}/>
 			        </Dialog>
-
-			        <Dialog
-			          title="雾化玻璃控制器"
-			          open={State.controlFrostedGlassDialog}
-			          onClose = {this.switchControlFrostedGlassDialog}
-			          contentStyle={{width:470}}
-			        >
-						<ControlFrostedGlass onCancel={this.switchControlFrostedGlassDialog} detail={itemDetail} mainInfo={mainInfo}/>
-			        </Dialog>
-					
-
 
 					 <Drawer 
 			        	open={State.openSearchEquipment}

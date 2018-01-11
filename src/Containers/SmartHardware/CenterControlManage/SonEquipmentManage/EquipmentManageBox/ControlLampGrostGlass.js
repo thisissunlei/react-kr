@@ -23,14 +23,16 @@ class ControlLampForm extends React.Component{
 		super(props);
 		this.detail = this.props.detail;
 		this.state={
-			detail:{}
+			detail:{},
+			switchOn : true
 		}
 	}
 
 	componentDidMount(){
 		let {detail} = this.props;
 		this.setState({
-			detail : detail
+			detail : detail,
+			switchOn : detail.extra.on
 		})		
 	}
 
@@ -46,39 +48,42 @@ class ControlLampForm extends React.Component{
 		
 	}
 
-	openFrostGlass=()=>{
+	openLamp=()=>{
 
 		var onParam = {on:true}
-		this.switchOpenFrostGlass(onParam);
+		this.switchOpenLamp(onParam);
 		
 	}
 
-	closeFrostGlass=()=>{
+	closeLamp=()=>{
 
 		var onParam = {on:false}
-		this.switchOpenFrostGlass(onParam);
+		this.switchOpenLamp(onParam);
 
 	}
 
-	switchOpenFrostGlass=(obj)=>{
+	switchOpenLamp=(obj)=>{
 		let _this = this;
 		let {mainInfo} = this.props;
 		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo};
 		var newParam = Object.assign(param,obj)
 		Http.request('SwitchOpenLampFrost',{},newParam).then(function(response) {
 			
-			Message.success("已将命令发送给控制器");
+			Message.success("操作成功");
 			// _this.freshAidCondition();
+			_this.setState({
+				switchOn : response.on
+			})
 		
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 	}
-
 	render(){
 		
-		const { error, handleSubmit, reset ,detail} = this.props;
-		console.log("detail",detail);
+		const { error, handleSubmit, reset ,detail,mainInfo} = this.props;
+		console.log("detail",detail,"mainInfo",mainInfo);
+		let {switchOn} = this.state;
 
 		return(
 			<div style={{paddingTop:20}}>
@@ -86,16 +91,13 @@ class ControlLampForm extends React.Component{
 					
 					<div>
 						<div style={{textAlign:"center"}}>
-							<span>当前雾化玻璃开关状态：</span>
-							<span>{this.detail.extra.on?"开启":"关闭"}</span>
+							<span>当前开关状态：</span>
+							<span>{switchOn?"开启":"关闭"}</span>
 						</div>
 						<div className="btn-div">
-
-							<div style={{display:"inline-block",marginRight:20}}><Button label="远程开启" onTouchTap={this.openFrostGlass}/></div>
-							<div style={{display:"inline-block"}}><Button label="远程关闭" onTouchTap={this.closeFrostGlass}/></div>
-
+							<div style={{display:"inline-block",marginRight:20}}><Button label="开启" onTouchTap={this.openLamp}/></div>
+							<div style={{display:"inline-block"}}><Button label="关闭" onTouchTap={this.closeLamp}/></div>
 						</div>
-						
 				  	</div>
 					
 					
