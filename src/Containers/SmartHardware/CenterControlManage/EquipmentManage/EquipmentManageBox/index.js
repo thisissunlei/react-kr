@@ -316,7 +316,7 @@ export default class EquipmentManageBox  extends React.Component{
 				
 				<div>
 					<Table
-			            className="second-equipment-table"
+			            className="center-control-equipment-table"
 			            ajax={true}
 			            onProcessData={(state)=>{
 			              return state;

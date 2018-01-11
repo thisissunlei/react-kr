@@ -272,21 +272,16 @@ export default class EquipmentManageBox  extends React.Component{
 		State.controlAirConditionDialog= !State.controlAirConditionDialog
 	}
 
-	switchControlFrostedGlassDialog=()=>{
-		State.controlFrostedGlassDialog= !State.controlFrostedGlassDialog
-	}
-
 	switchOpenOperateLog=()=>{
 		State.openOperateLog = !State.openOperateLog
 	}
-	
 
 
 	render(){
 		let {itemDetail,mainInfo,serialNo,controlLampOrGrostedGlass}=this.state;
 		let deviceTypeOptions = State.sonEquipmentTypeOptions
 		return(
-			<div >
+			<div className="son-equipment-manage">
 				<span style={{float:"right",marginTop:"-50px",cursor:"pointer"}} onClick={this.returnCenterControl}>返回中央控制管理</span>
 				<div>
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
@@ -299,7 +294,7 @@ export default class EquipmentManageBox  extends React.Component{
 				
 				<div>
 					<Table
-			            className="second-equipment-table"
+			            className="son-equipment-table"
 			            ajax={true}
 			            onProcessData={(state)=>{
 			              return state;

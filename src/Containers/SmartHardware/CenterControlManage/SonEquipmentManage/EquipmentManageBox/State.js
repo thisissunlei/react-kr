@@ -39,7 +39,6 @@ let State = observable({
 	DropItems : [],
 	controlLampDialog: false,
 	controlAirConditionDialog : false,
-	controlFrostedGlassDialog : false,
 	equipmentOperateLogParam:{
 		endDate :'',
 		startDate : '',

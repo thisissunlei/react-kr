@@ -350,160 +350,166 @@ module.exports = {
     //中央控制设备列表
     'centerControlEquipmentList':{
 
-      url : '/mockjsdata/53/iot-platform/device-def/list?communityId={communityId}&spaceType={spaceType}&connected={connected}&floor={floor}&page={page}&pageSize={pageSize}&serialNo={serialNo}&name={name}',
+      url : '/api/iot-platform/device-def/list?communityId={communityId}&spaceType={spaceType}&connected={connected}&floor={floor}&page={page}&pageSize={pageSize}&serialNo={serialNo}&name={name}',
       method : 'get'
    },
 
      //删除中央控制设备
    'deleteCenterControEquipment':{
-    url : '/mockjsdata/53/iot-platform/device-def/actions/delete?id={id}',
+    url : '/api/iot-platform/device-def/actions/delete?id={id}',
     method : 'delete'
     },
 
     //查看中央控制设备详情
     'seeCenterControlEquipDetail':{
-      url : '/mockjsdata/53/iot-platform/device-def/detail?id={id}',
+      url : '/api/iot-platform/device-def/detail?id={id}',
       method : 'get'
       },
 
       //中央控制新增设备
       'addCenterControlEquipment':{
-        url : '/mockjsdata/53/iot-platform/device-def/actions/add',
+        url : '/api/iot-platform/device-def/actions/add',
         method : 'post'
       },
       //获取编辑信息
       'getCenterControolEditData':{
-        url : '/mockjsdata/53/iot-platform/device-def/edit-info?id={id}',
+        url : '/api/iot-platform/device-def/edit-info?id={id}',
         method : 'get'
       },
 
       //提交编辑 
       'editCenterControl':{
-        url : '/mockjsdata/53/iot-platform/device-def/actions/edit',
+        url : '/api/iot-platform/device-def/actions/edit',
         method : 'post'
       },
 
 
       //子设备列表
       'getSonEquipmentList':{
-        url : '/mockjsdata/53/iot-platform/device-def/sub-device/list?deviceType={deviceType}&localNo={localNo}&pageSize={pageSize}&name={name}&parentId={parentId}&page={page}&floor={floor}&spaceType={spaceType}&communityId={communityId}',
+        url : '/api/iot-platform/device-def/sub-device/list?deviceType={deviceType}&localNo={localNo}&pageSize={pageSize}&name={name}&parentId={parentId}&page={page}&floor={floor}&spaceType={spaceType}&communityId={communityId}',
         method : 'get'
       },
 
 
       //发现父级设备列表
       'findFatherCenterControlEquipment':{
-        url : '/mockjsdata/53/iot-platform/device-def/discovery',
+        url : '/api/iot-platform/device-def/discovery',
         method : 'get'
       },
 
 
       //强制删除中控设备
       'deleteCenterControlEquipment':{
-        url : '/mockjsdata/53/iot-platform/device-def/actions/force-delete',
+        url : '/api/iot-platform/device-def/actions/force-delete',
         method : 'post'
       },
 
       //发现设备之后启用
       'startCenterControlEquipment':{
-        url : '/mockjsdata/53/iot-platform/device-def/actions/enable',
+        url : '/api/iot-platform/device-def/actions/enable',
         method : 'post'
       },
 
       //获取子设备详情
       'getSonEquipmentDetailInfo':{
-        url : '/mockjsdata/53/iot-platform/device-def/sub-device/detail?id={id}',
+        url : '/api/iot-platform/device-def/sub-device/detail?id={id}',
         method : 'get'
       },
 
       //设置空调模式
       'setAirConditionMode':{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/air-condition/set-mode',
+        url : '/api/iot-platform/device-def/admin/air-condition/set-mode',
         method : 'post'
       },
       
       //设置空调风速
       'setAirConditionWindSpeed':{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/air-condition/set-speed',
+        url : '/api/iot-platform/device-def/admin/air-condition/set-speed',
         method : 'post'
       },
 
       //空调开关
       'SwitchOpenAirCondition':{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/air-condition/switch',
+        url : '/api/iot-platform/device-def/admin/air-condition/switch',
         method : 'post'
       },
 
       //灯/雾化膜开关
       'SwitchOpenLampFrost':{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/switcher/switch',
+        url : '/api/iot-platform/device-def/admin/switcher/switch',
         method : 'post'
       },
 
       //发现子设备列表
       'findNewSonEquipment':{
-        url : '/mockjsdata/53/iot-platform/device-def/sub-device/discovery?serialNo={serialNo}',
+        url : '/api/iot-platform/device-def/sub-device/discovery?serialNo={serialNo}',
         method : 'get'
       },
 
       //删除发现子设备
       'deleteFindSonEquipment':{
-        url : '/mockjsdata/53/iot-platform/sub-device/actions/force-delete',
+        url : '/api/iot-platform/sub-device/actions/force-delete',
         method : 'post'
       },
 
       //注册子设备
       'regesterSonEquipment':{
-        url : '/mockjsdata/53/iot-platform/sub-device/actions/enable',
+        url : '/api/iot-platform/sub-device/actions/enable',
         method : 'post'
       },
 
       //编辑子设备
       'EditSonEquipment':{
-        url : '/mockjsdata/53/iot-platform/device-def/actions/edit',
+        url : '/api/iot-platform/device-def/actions/edit',
         method : 'post'
       },
 
       //获取设备操作列表
       'getEquipmentOperateLog':{
-        url : '/mockjsdata/53/iot-platform/device-status-log/list?deviceDefId={deviceDefId}&endDate={endDate}&startDate={startDate}',
+        url : '/api/iot-platform/device-status-log/list?deviceDefId={deviceDefId}&endDate={endDate}&startDate={startDate}',
         method : 'get'
       },
 
       //获取控制灯以及空调回显
       'getControlAllInfo':{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/view?serialNo={serialNo}',
+        url : '/api/iot-platform/device-def/admin/gateway-panel/view?serialNo={serialNo}',
         method : 'get'
       },
 
       //设置该中控下所有空调风速
       'setAirConditionWindSpeedAll' :{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/air-condition/set-speed',
+        url : '/api/iot-platform/device-def/admin/gateway-panel/air-condition/set-speed',
         method : 'post'
       },
 
        //设置该中控下所有空调模式
        'setAirConditionModeAll' :{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/air-condition/set-mode',
+        url : '/api/iot-platform/device-def/admin/gateway-panel/air-condition/set-mode',
         method : 'post'
       },
 
       //设置该中控下所有空调温度
       'setAirConditionTemperatureAll' :{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/air-condition/set-temp',
+        url : '/api/iot-platform/device-def/admin/gateway-panel/air-condition/set-temp',
         method : 'post'
       },
 
        //设置该中控下所有空调开关
        'setAirConditionSwitchOn' :{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/gateway-panel/air-condition/switch',
+        url : '/api/iot-platform/device-def/admin/gateway-panel/air-condition/switch',
         method : 'post'
       },
 
       //设置灯的总开总关
       'setSwitchOnAllLamps' :{
-        url : '/mockjsdata/53/iot-platform/device-def/admin/switcher/global-switch',
+        url : '/api/iot-platform/device-def/admin/switcher/global-switch',
         method : 'post'
+      },
+
+      //智能面板操作日志
+      'centerControlOperateLog' :{
+        url : '/api/iot-platform/panel-click-log/list?communityId={communityId}?endDate={endDate}?page={page}?pageSize={pageSize}?serialNo={serialNo}?spaceId={spaceId}?startDate={startDate}',
+        method : 'get'
       },
 
       

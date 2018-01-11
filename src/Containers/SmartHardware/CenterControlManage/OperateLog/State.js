@@ -10,15 +10,15 @@ import {Message} from 'kr-ui';
 
 let State = observable({
 	openLogSearchParams:{
+		communityId: '',
+		endDate: '',
 		page:1,
 		pageSize:15,
-		sdate : '',
-		edate: '',
-		communityId: '',
-		deviceId: '',
-		memberName: '',
-		phone : ''
-	}
+		serialNo: '',
+		spaceId: '',
+		startDate : '',
+	},
+	
 
 });
 

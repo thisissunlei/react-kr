@@ -5,20 +5,9 @@ import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,Fiel
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import State from './State';
-import {ShallowEqual} from 'kr/Utils';
+import {Button,	Message,err} from 'kr-ui';
+import Toggle from 'material-ui/Toggle';
 
-import {
-	KrField,
-	Grid,
-	Row,
-	ListGroup,
-	ListGroupItem,
-	Button,
-	Notify,
-	Message,
-	err,
-	RadioGroup,
-} from 'kr-ui';
 class ControlAirConditionForm extends React.Component{
 	constructor(props){
 		super(props);
@@ -26,8 +15,9 @@ class ControlAirConditionForm extends React.Component{
 		this.state={
 			detail:{},
 			mode : '',
-			windSpeed  : '',
-			modelOptions :[{label:"制冷",value:"REFRIGERATION"},{label:"制热",value:"HEATING"}],
+			speed  : '',
+			on  : false,
+			modeOptions :[{label:"制冷",value:"COOLING"},{label:"制热",value:"HEATING"}],
 			speedWindOptions : [{label:"高速",value:"HIGHT"},{label:"中速",value:"MEDIUM"},{label:"低速",value:"LOW"}]
 
 		}
@@ -36,60 +26,13 @@ class ControlAirConditionForm extends React.Component{
 	componentDidMount(){
 		let {detail} = this.props;
 		this.setState({
-			detail : detail
+			detail : detail,
+			mode : detail.extra.mode,
+			speed  :detail.extra.speed,
+			on  : detail.extra.on,
 		})	
     	
-    	this.changeModeOptions(detail.extra.mode);
-    	this.changeSpeedOptions(detail.extra.speed);
-    	
 	}
-
-
-	changeModeOptions= (valueParam,callBack)=>{
-		this.setState({
-			mode : valueParam
-		})
-		if(valueParam == "HEATING"){
-    		this.setState({
-    			modelOptions : [{label:"制冷",value:"REFRIGERATION",checked:false},{label:"制热",value:"HEATING",checked:true}]
-    		},function(){
-    			callBack && callBack()
-    		})
-    	}else{
-    		this.setState({
-    			modelOptions : [{label:"制冷",value:"REFRIGERATION",checked:true},{label:"制热",value:"HEATING",checked:false}]
-    		},function(){
-    			callBack && callBack()
-    		})
-    	}
-	}
-
-	changeSpeedOptions= (valueParam,callBack)=>{
-
-		this.setState({
-			windSpeed : valueParam
-		})
-		if(valueParam == "HIGHT"){
-    		this.setState({
-    			speedWindOptions : [{label:"高速",value:"HIGHT",checked:true},{label:"中速",value:"MEDIUM",checked:false},{label:"低速",value:"LOW",checked:false}]
-    		},function(){
-    			callBack && callBack()
-    		})
-    	}else if(valueParam == "LOW"){
-    		this.setState({
-    			speedWindOptions : [{label:"高速",value:"HIGHT",checked:false},{label:"中速",value:"MEDIUM",checked:false},{label:"低速",value:"LOW",checked:true}]
-    		},function(){
-    			callBack && callBack()
-    		})
-    	}else{
-    		this.setState({
-    			speedWindOptions : [{label:"高速",value:"HIGHT",checked:false},{label:"中速",value:"MEDIUM",checked:true},{label:"低速",value:"LOW",checked:false}]
-    		},function(){
-    			callBack && callBack()
-    		})
-    	}
-	}
-
 
 
 	closeDialog=()=>{
@@ -102,170 +45,157 @@ class ControlAirConditionForm extends React.Component{
 	}
 
 
-	renderRadioBox=(param)=>{
+	renderAirConditionModeBox=(mode)=>{
 		
 
 		let _this =this;
 		let {detail} = this.props;
-		var dom = param.map(function(item,index){
-
+		let {on,modeOptions} = this.state;
+		var dom = modeOptions.map(function(item,index){
+			console.log("mode=======>",mode,"item.value",item.value,item.value==mode)
 			return (
 				<span key={index}  className="wind-speed-checkbox">
 					<span  className="speed-label">{item.label}</span>
-					<input type="radio" name = "mode" value={item.value} checked={item.checked} onChange={(event)=>{_this.onChangeWind(event,item,index)}} disabled={detail.extra.on?false:true}/>
+					<input type="radio" name = "mode" 
+						value={item.value} 
+						checked={item.value==mode?true:false} 
+						onChange={(event)=>{_this.changeAirConditionMode(event,item,index)}} 
+						disabled={on?false:true}
+					/>
 				</span>
 			)
 		})
 		return dom;
 	}
 
-	renderWindSpeedRadio=(param)=>{
+	renderWindSpeedRadio=(speed)=>{
 		
 		let _this =this;
 		let {detail} = this.props;
-
-		var dom = param.map(function(item,index){
-
+		let {on,speedWindOptions} = this.state;
+		var dom = speedWindOptions.map(function(item,index){
 			return (
 				<span key={index} className="wind-speed-checkbox">
 					<span className="speed-label">{item.label}</span>
-					<input type="radio" name = "speed" value={item.value} checked={item.checked} onChange={(event)=>{_this.onChangeSpeed(event,item,index)}} disabled={detail.extra.on?false:true}/>
+					<input type="radio" name = "speed" 
+						value={item.value} 
+						checked={item.value==speed?true:false} 
+						onChange={(event)=>{_this.changeAirConditionWind(event,item,index)}} 
+						disabled={on?false:true}
+					/>
 				</span>
 			)
 		})
 		return dom;
 	}
 
-
-	onChangeWind=(event,item,index)=>{
-
-		this.changeModeOptions(item.value,this.changeAirConditionMode);
-
-	}
-
-	onChangeSpeed=(event,item,index)=>{
-
-		this.changeSpeedOptions(item.value,this.changeAirConditionWind);
-
-	}
 
 
 	changeAirConditionMode=()=>{
 
 		let {mainInfo} = this.props;
+		let _this =this;
 		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo,mode:this.state.mode};
-		Http.request('setAirConditionMode',{},urlParams).then(function(response) {
-		
-			Message.success("已将修空调模式发送给空调控制器");
-			// this.freshAidCondition();
-			
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		this.changePageStatus("mode",param);
+
 	}
 
-	changeAirConditionWind=()=>{
-
+	changeAirConditionWind=(event)=>{
 		let {mainInfo} = this.props;
+		let _this = this;
+		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo,speed:event.value};
+		this.changePageStatus("speed",param);
+	}
 
-		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo,speed:this.state.windSpeed};
-		Http.request('setAirConditionWindSpeed',{},param).then(function(response) {
+	changePageStatus = (type,param)=>{
+		let _this = this;
+		var url =''
+		if(type="speed"){
+			url = "setAirConditionWindSpeed"
+		}else if(type="mode"){
+			url = "setAirConditionMode"
+		}else if(type="on"){
+			url = "SwitchOpenAirCondition"
+		}
+		Http.request(url,{},param).then(function(response) {
 		
-			Message.success("已将修改风速命令发送给空调控制器");
-			// this.freshAidCondition();
+			Message.success("操作成功");
+			_this.setState({
+				mode : response.mode,
+				speed : response.speed,
+				on : response.on
+			})
 		
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
-	}
-
-
-
-	openAirCondition=()=>{
-
-		var onParam = {on:true}
-		this.SwitchOpenAirConditionFun(onParam);
-		
-	}
-
-	closeAirCondition=()=>{
-
-		var onParam = {on:false}
-		this.SwitchOpenAirConditionFun(onParam);
 
 	}
 
 	SwitchOpenAirConditionFun=(obj)=>{
 
-		let _this = this;
+		
 		let {mainInfo} = this.props;
 		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo};
 		var newParam = Object.assign(param,obj)
-		Http.request('SwitchOpenAirCondition',{},newParam).then(function(response) {
-			
-			Message.success("已将开启命令发送给空调控制器--------??????");
-			// _this.freshAidCondition();
-		
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		this.changePageStatus("on",newParam);
 	}
-	freshAidCondition = ()=>{
 
-		let {mainInfo} = this.props;
-		let _this = this;
-		Http.request('getSonEquipmentDetailInfo',{id:mainInfo.id,date:new Date()}).then(function(response) {
-			_this.setState({
-				detail : response
-			},function(){
-				_this.changeModeOptions(response.extra.mode);
-    			_this.changeSpeedOptions(response.extra.speed);
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+	
+	switchOnAiCondition=()=>{
+		let {on} = this.state;
+		var onParam = {on:!on}
+		this.SwitchOpenAirConditionFun(onParam);
 	}
+
+
+	closeControlAirCondition=()=>{
+		State.controlAirConditionDialog = false;
+	}
+
 
 
 	render(){
 		
 		const { error, handleSubmit, reset} = this.props;
-		let {chooseHeating,modelOptions,speedWindOptions} =this.state;
+		let {chooseHeating,modelOptions,speedWindOptions,on,speed,mode} =this.state;
 		return(
 			<div style={{paddingTop:20}} className="air-condition-form">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					
-					<div>
+					<div className="control-air-condition">
+
 						<div className="air-condition-line">
-							<span>空调开启状态：</span>
-							<span>{this.detail.extra.on?"开启":"关闭"}</span>
+							<div className="air-condition-on" style={{width: 116}}>
+								<Toggle
+									label={"空调开关："}
+									defaultToggled={on}
+									style={{marginBottom: 16,}}
+									labelStyle={{color :"rgba(0, 0, 0, 0.6)" }}
+									onToggle = {this.switchOnAiCondition}
+								/>
+							</div>
 						</div>
 						<div  className="air-condition-line">
-							<span>空调模式：</span>
+							<span  className="title">空调模式：</span>
 							<span>
 								{
-									this.renderRadioBox(modelOptions)
+									this.renderAirConditionModeBox(mode)
 								}
 							</span>
 							
 							
 						</div>
 						<div className="air-condition-line">
-							<span>风速：</span>
+							<span className="title">风速：</span>
 							<span>
 								{
-									this.renderWindSpeedRadio(speedWindOptions)
+									this.renderWindSpeedRadio(speed)
 								}
 							</span>
 						</div>
-						<div className="tip-text">注意：还有空调是开启状态时才能更改风速和模式。</div>
-
-						<div className="open-air-condition-div">
-
-							<div style={{display:"inline-block",marginRight:20}}><Button label="远程开启" onTouchTap={this.openAirCondition}/></div>
-							<div style={{display:"inline-block"}}><Button label="远程关闭" onTouchTap={this.closeAirCondition}/></div>
-
-						</div>
+						<div className="tip-text">注意：只有有空调是开启状态时才能更改风速和模式。</div>
+						<div className="btn" onClick={this.closeControlAirCondition}>关闭</div>
 						
 				  	</div>
 					
@@ -280,7 +210,6 @@ const validate = values=>{
 	// if(!values.communityId){
 	// 	errors.communityId = '社区名称为必填项';
 	// }
-	
 	return errors;
 }
 export default ControlAirConditionForm = reduxForm({

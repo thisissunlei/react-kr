@@ -57,7 +57,7 @@ let State = observable({
 	openFirstHardwareDetail: false,
 	EquipmentHttpToken:'',
 	httpTokenDialog :false,
-	modelOptions :[{label:"制冷",value:"REFRIGERATION"},{label:"制热",value:"HEATING"}],
+	modelOptions :[{label:"制冷",value:"COOLING"},{label:"制热",value:"HEATING"}],
 	windSpeedOptions : 	[{label:"高速",value:"HIGH"},{label:"低速",value:"LOW"},{label:"自动",values : 'MEDIUM'}],
 });
 

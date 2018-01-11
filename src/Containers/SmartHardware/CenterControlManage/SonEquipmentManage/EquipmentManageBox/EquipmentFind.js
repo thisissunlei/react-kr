@@ -143,7 +143,7 @@ export default class EquipmentSearch extends React.Component{
 	render(){
 		let {searchEquipmentList} = this.state;
 		return (
-			<div className="seconde-dialog ">
+			<div>
 				<div style={{paddingLeft:20}}>
 					<span style={{display:"inline-block",width:40,height:30}}>
 					<Toggle 

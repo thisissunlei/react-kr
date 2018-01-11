@@ -17,7 +17,7 @@ import {
 	Message,
 
 } from 'kr-ui';
-
+import './index.less';
 import State from './State';
 import {
 	observer
@@ -25,7 +25,7 @@ import {
 @observer
 
 
-class EquipmentAdvancedQueryForm extends React.Component{
+class EquipmentSearchForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -182,12 +182,12 @@ class EquipmentAdvancedQueryForm extends React.Component{
 							  		{label:"温湿度计",value:"HUMITURE_SENSOR"},
 							  		{label:"人体感应器",value:"BODY_SENSOR"}]
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} style={{width:"100%",marginTop:20,position:"relative"}} className="second-equipment-search">
+			<form onSubmit={handleSubmit(this.onSubmit)} style={{width:"100%",marginTop:20,position:"relative"}} className="son-equipment-search">
 				<span className="fir-span">
 					<KrField name="communityId"
 						component="searchCommunityAll"
-						label="社区名称: "
-						style={{width:'235px'}}
+						label="社区名称："
+						style={{width:'237px'}}
 						onChange = {this.onChangeCommunity}
 						inline={true}
 					/>
@@ -195,9 +195,9 @@ class EquipmentAdvancedQueryForm extends React.Component{
 				<span className="sec-span">
 					<KrField name="floor"
 						component="select"
-						label="楼层: "
+						label="楼层： "
 						options = {floorsOptions}
-						style={{width:110}}
+						style={{width:120}}
 						inline={true}
 						onChange = {this.onchangeFloor}
 					/>
@@ -205,7 +205,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 				<span className="thir-span">
 					<KrField name="propertyId"
 						component="select"
-						label="控制器类型: "
+						label="控制器类型： "
 						onChange = {this.onchangeControlEquipmentType}
 						options={controlEquipmentOption}
 						style={{width:'200px'}}
@@ -236,9 +236,9 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		);
 	}
 }
-export default EquipmentAdvancedQueryForm = reduxForm({
-	form: 'EquipmentAdvancedQueryForm',
+export default EquipmentSearchForm = reduxForm({
+	form: 'EquipmentSearchForm',
 	// validate,
 	// enableReinitialize: true,
 	// keepDirtyOnReinitialize: true,
-})(EquipmentAdvancedQueryForm);
+})(EquipmentSearchForm);

@@ -195,7 +195,7 @@ class EditForm extends React.Component{
 	onSubmit=(values)=>{
 
 		var newExtraObj = Object.assign(this.detail.extra,{weight:values.weight})
-		values.extraJson = JSON.stringify(newExtraObj);
+		values.extraConfJson = JSON.stringify(newExtraObj);
 	 	State.editSonEquipment(values);
 		
 	}

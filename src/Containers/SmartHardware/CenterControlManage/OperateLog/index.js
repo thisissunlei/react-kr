@@ -34,24 +34,11 @@ export default class List extends React.Component {
 		this.state = {
 			
 			realPage : 1,
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				startTime:'',
-				endTime:'',
-				registerSourceId:'',
-				jobId:'',
-				companyId:0,
-				cityId:'',
-				type:'COMP_NAME',
-				value:'',
-			},
-			openType:[]
 		}
 	}
 
 	componentDidMount(){
-		this.getDicList();
+		
 	}
 	
 	onLoaded=(response)=>{
@@ -68,31 +55,15 @@ export default class List extends React.Component {
 		})
 	}
 
-	// 获取通用字典
-	getDicList =()=>{
-		var _this = this;
-		Http.request('getWarningType', {}).then(function(response) {
-			var arrNew = []
-			for (var i=0;i<response.OpenType.length;i++){
-				
-				arrNew[i] = {
-							label:response.OpenType[i].desc,
-							value:response.OpenType[i].value
-						}
-			}
-			_this.setState({
-				openType : arrNew
-			})
-			
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
 
 
 	render() {
-		let {list,seleced,openType} = this.state;
+		let {list,seleced} = this.state;
+		console.log("State",State);
+		let spaceTypeOptions =  [{label:"会议室",value:"MEETING"},
+								{label:"大厅",value:"HALL"},
+								{label:"独立办公室",value:"OFFICE"}]
+
 		return (
 			    <div className="second-door-open-log" style={{minHeight:'910',backgroundColor:"#fff"}} >
 					<Title value="操作记录"/>
@@ -110,7 +81,7 @@ export default class List extends React.Component {
 								}}
 							exportSwitch={false}
 							ajaxFieldListName='items'
-							ajaxUrlName='getOpenLogList'
+							ajaxUrlName='centerControlOperateLog'
 							ajaxParams={State.openLogSearchParams}
 							onPageChange={this.onPageChange}
 							displayCheckbox={false}
@@ -119,16 +90,24 @@ export default class List extends React.Component {
 								<TableHeaderColumn>时间</TableHeaderColumn>
 								<TableHeaderColumn>社区</TableHeaderColumn>
 								<TableHeaderColumn>智能硬件ID</TableHeaderColumn>
+								<TableHeaderColumn>空间类型</TableHeaderColumn>
 								<TableHeaderColumn>房间号</TableHeaderColumn>
 								<TableHeaderColumn>操作事件</TableHeaderColumn>
 								<TableHeaderColumn>结果</TableHeaderColumn>
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>
 								<TableRow>
-								<TableRowColumn name="time" type="date" format="yyyy-mm-dd HH:MM:ss" style={{width:"25%"}}></TableRowColumn>
+								<TableRowColumn 
+									name="time" 
+									type="date" 
+									format="yyyy-mm-dd HH:MM:ss" 
+									style={{width:"15%"}}
+								></TableRowColumn>
 								
 								
-								 <TableRowColumn style={{width:"20%",overflow:"visible"}} name="communityName" 
+								 <TableRowColumn 
+								 style={{width:"10%",overflow:"visible"}} 
+								 name="communityName" 
 								 component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
@@ -142,7 +121,7 @@ export default class List extends React.Component {
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 								
-								<TableRowColumn name="deviceId" style={{width:"25%"}}
+								<TableRowColumn name="serialNo" style={{width:"15%"}}
 								component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle=""
 		                            if(value.length==""){
@@ -155,7 +134,13 @@ export default class List extends React.Component {
 		                             return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}}></TableRowColumn>
-								<TableRowColumn name="doorCode"
+
+								  <TableRowColumn name="spaceType" 
+								  style={{width:"10%"}}
+								  options={spaceTypeOptions}
+								></TableRowColumn>
+
+								<TableRowColumn name="spaceName"
 								style={{width:"10%"}}
 								component={(value,oldValue,itemData)=>{
 		                            var TooltipStyle=""
@@ -172,10 +157,8 @@ export default class List extends React.Component {
 								
 								
 								
-								
 								<TableRowColumn 
-									name="openType" 
-									options={openType} 
+									name="conent" 
 									style={{width:"10%"}}
 								></TableRowColumn>
 								<TableRowColumn style={{width:"10%",overflow:"visible"}} name="success" component={(value,oldValue,itemData)=>{
