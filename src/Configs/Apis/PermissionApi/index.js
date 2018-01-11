@@ -641,6 +641,19 @@ module.exports = {
     url: '/api/krspace-erp-web/wf/wf-node/wfNodeVOSearch?id={id}',
     method: 'get'
    },
-   
-   
+   //账户列表-解除绑定
+   'remove-member':{
+    url: '/api/krspace-sso-web/sso/ssoUser/remove-member?ssoId={ssoId}',
+    method: 'get'
+   },
+   //账户列表-绑定
+   'connect-member':{
+    url: '/api/krspace-sso-web/sso/ssoUser/connect-member?ssoId={ssoId}&uid={uid}',
+    method: 'get'
+   },
+   //账户列表-绑定-获取会员信息
+   'get-mobile-phone-info':{
+    url: '/api/krspace-sso-web/member/mobile-phone?phone={phone}',
+    method: 'get'
+   },
 }

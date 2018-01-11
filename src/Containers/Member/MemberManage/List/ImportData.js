@@ -39,18 +39,21 @@ class ImportData extends React.Component {
 			progress: 0,
 			file:{},
 			fileName:'',
-			csrId:''
+			csrId:'',
+			communityId:''
 		}
 	}
 	testDate=()=>{
 		let _this = this;
 		let {
 			csrId,
-			file
+			file,
+			communityId
 		}=this.state;
 		var form = new FormData();
 		form.append('file', file);
 		form.append('csrId', csrId);
+		form.append('communityId', communityId);
 		if(!this.state.file.name){
 			Message.error('请选择上传文件');
 			return false;
@@ -79,7 +82,7 @@ class ImportData extends React.Component {
 
 		xhr.onerror = function(e) {
 		};
-		xhr.open('POST', '/api/krspace-finance-web/member/member-excel', true);
+		xhr.open('POST', '/api/krspace-sso-web/member/member-excel', true);
 		xhr.responseType = 'json';
 		xhr.send(form);
 
@@ -126,11 +129,15 @@ class ImportData extends React.Component {
 
 	onCompanyChange=(value)=>{
 		this.setState({
-			csrId:value.csrId
+			csrId:value.id
 		});
 	}
 
-
+	onCommunity=(value)=>{
+		this.setState({
+			communityId:value.id
+		});
+	}
 
 
 	render() {
@@ -139,16 +146,32 @@ class ImportData extends React.Component {
 
 		return (
 			<form className="u-import-date" onSubmit={handleSubmit(this.testDate)} name='import' style={{textAlign:'center'}}>
-				<KrField 
-					name="csrId"
-					label="公司" 
-					grid={1/2}
-					inline={false}
-					component="searchCompany" 
-					requireLabel={true}
-					onChange={this.onCompanyChange}
-				/>
-				<div>
+					<div style={{margin:0,padding:0,height:36,marginBottom:16,position:'relative',zIndex:100}}>
+					<KrField 
+						name="csrId"
+						label="公司"
+						inline={false}
+						height={36}
+						style={{width:260}}
+						component="searchMemberCompany" 
+						requireLabel={true}
+						onChange={this.onCompanyChange}
+					/>
+					</div>
+					<div style={{margin:0,padding:0,height:36,marginBottom:16}}>
+					<KrField 
+						name="communityId" 
+						style={{width:260}}
+						label="社区" 
+						component="searchCommunityAll" 
+						height={36}
+						requireLabel={true} 
+						inline={false}
+						onChange={this.onCommunity}
+					/>
+					</div>
+				
+				<div style={{marginTop:50}}>
 					<span className='import-logo icon-excel' onClick={this.importFile}><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
 					<span className='import-font'><span className="chooce">请选择上传文件</span><input type="file" name="file" className='chooce-file' onChange={this.onChange}/></span>
 					{fileName?<span className='file-name'>{fileName}</span>:''}

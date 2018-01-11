@@ -34,6 +34,11 @@ const Member_MemberManage_CardManage = (location, callback) => {
     callback(null, require('kr/Containers/Member/MemberManage/CardManage').default)
   }, 'Member_MemberManage_CardManage')
 }
+const Member_MemberManage_Detail = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Member/MemberManage/List/ViewMember').default)
+  }, 'Member_MemberManage_Detail')
+}
 
 
 
@@ -45,6 +50,7 @@ module.exports =()=>{
             <Route path="list"  getComponent={Member_MemberManage_List}/>
             <Route path="cardmanage"  getComponent={Member_MemberManage_CardManage}/>
 						<Route path="doormanage"  getComponent={Member_MemberManage_DoorManage}/>
+            <Route path="list/:memberId"  getComponent={Member_MemberManage_Detail}/>
         </Route>
     </Route>
 	);
