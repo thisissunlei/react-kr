@@ -144,23 +144,24 @@ export default class EquipmentSearch extends React.Component{
 		let {searchEquipmentList} = this.state;
 		return (
 			<div>
-				<div style={{paddingLeft:20}}>
+				<div style={{padding:"30px 0 0 50px"}}>
+					<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
+					
 					<span style={{display:"inline-block",width:40,height:30}}>
-					<Toggle 
-						toggled={this.state.switch} 
-						label="是否自动发现设备" 
-						labelPosition="right"
-						labelStyle={{fontSize:14,width:120,marginTop:5}} 
-						onToggle={this.changeSearchEquipment}
-						trackStyle={{height:25,lineHeight:25}}
-						thumbStyle={{marginTop:5}}
-					/>
+						<Toggle 
+							toggled={this.state.switch} 
+							label="是否自动发现设备" 
+							labelPosition="right"
+							labelStyle={{fontSize:14,width:120,marginTop:5}} 
+							onToggle={this.changeSearchEquipment}
+							trackStyle={{height:25,lineHeight:25}}
+							thumbStyle={{marginTop:5}}
+						/>
 					</span>
 					
 					
 				</div>
-				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
-				<h1>设备发现</h1>
+				
 
 				<div className="detail-list-equipment  find-son-equipment">
 					
@@ -178,7 +179,6 @@ export default class EquipmentSearch extends React.Component{
 			        	</div>
 			        </div>
 				</div>
-				<img src={require("./images/selectOne.svg")} className="end-img"/>
 				<div className="btn-div">
 					<Button label="关闭" onTouchTap={this.closeDialog}/>
 				</div>
