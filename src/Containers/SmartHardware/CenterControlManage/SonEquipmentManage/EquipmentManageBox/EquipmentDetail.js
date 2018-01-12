@@ -80,21 +80,35 @@ export default class EquipmentDetail extends React.Component{
 	}
 
 	renderAirConditionMode=(param)=>{
-		if(param == "HEATING"){
-			return "制热"			
-		}else if(param == "REFRIGERATION"){
-			return "制冷"			
+		if(param.extra){
+			var paramMode = detail.extra.mode;
+			if(paramMode == "HEATING"){
+				return "制热"			
+			}else if(parparamModeam == "REFRIGERATION"){
+				return "制冷"			
+			}
+		}else{
+			return "无数据"
 		}
+		
+	
 	}
 
 	renderAirConditionWindSpeed=(param)=>{
-		if(param == "HIGH"){
-			return "高速"			
-		}else if(param == "LOW"){
-			return "低速"			
+		console.log("param",param);
+		if(param.extra){
+			var paramMode = detail.extra.speed;
+			if(paramMode == "HIGH"){
+				return "高速"			
+			}else if(paramMode == "LOW"){
+				return "低速"			
+			}else{
+				return "中速"
+			}
 		}else{
-			return "自动"
+			return "无数据"
 		}
+	
 	}
 
 
@@ -211,8 +225,9 @@ export default class EquipmentDetail extends React.Component{
 								inline={true}
 								component="labelText"
 								label="空调模式："
-								value={this.renderAirConditionMode(detail.extra.mode)}
-							/>
+								value={this.renderAirConditionMode(detail)}
+								
+								/>
 						}
 
 						{
@@ -223,7 +238,7 @@ export default class EquipmentDetail extends React.Component{
 								inline={true}
 								component="labelText"
 								label="空调风速："
-								value={this.renderAirConditionWindSpeed(detail.extra.speed)}
+								value={this.renderAirConditionWindSpeed(detail)}
 							/>
 						}
 
@@ -234,8 +249,8 @@ export default class EquipmentDetail extends React.Component{
 								name="customerId"
 								inline={true}
 								component="labelText"
-								label="空调风速："
-								value={detail.extra && detail.extra.temp+"℃"}
+								label="空调设置温度："
+								value={(detail.extra && detail.extra.temp+"℃") || "无数据"}
 							/>
 						}
 
