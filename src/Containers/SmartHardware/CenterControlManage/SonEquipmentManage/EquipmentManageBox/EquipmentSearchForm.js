@@ -46,7 +46,6 @@ class EquipmentSearchForm extends React.Component{
 
 	// 提交
 	onSubmit=(values)=>{
-		//console.log("values",values);
 	}
 
 
@@ -76,7 +75,6 @@ class EquipmentSearchForm extends React.Component{
 	    		for (var i=0;i<response.floors.length;i++){
 	    			arrNew[i] = {label:response.floors[i],value:response.floors[i]}
 	    		}
-	    		console.log("arrNew",arrNew);
 	    		_this.setState({
 	    			floorsOptions : arrNew
 	    		})
@@ -132,7 +130,6 @@ class EquipmentSearchForm extends React.Component{
 
 
 	onSearchSubmit=(value)=>{
-		console.log("value",value);
 		var newObj;
 		if(value.filter == "deviceId"){
 

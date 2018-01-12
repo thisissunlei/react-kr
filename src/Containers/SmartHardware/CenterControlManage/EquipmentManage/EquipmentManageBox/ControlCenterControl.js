@@ -41,7 +41,6 @@ class ControlCenterControl extends React.Component{
 		let {detail} = this.props;
 		let _this =this;
 		Http.request('getControlAllInfo',{serialNo:detail.serialNo}).then(function(response) {
-			console.log("response",response);
 			
 			_this.setState({
 				pageInfo : response,
@@ -91,7 +90,6 @@ class ControlCenterControl extends React.Component{
 	}
 
 	renderWindSpeedRadio=(param)=>{
-		console.log("param",param);
 		let _this = this;
 		var arrData =	[{label:"高速",value:"HIGH"},{label:"低速",value:"LOW"},{label:"中速",values : 'MEDIUM'}];
 		for(var i =0;i<arrData.length;i++){
@@ -115,10 +113,8 @@ class ControlCenterControl extends React.Component{
 
 
 	onChangeSpeed=(e)=>{
-		console.log("e",e.target.value);
 		let {detail} = this.props;
 		let _this=this;
-		console.log("detail",detail);
 		var urlParams = {serialNo:detail.serialNo,speed : e.target.value}
 		Http.request('setAirConditionWindSpeedAll',{},urlParams).then(function(response) {
 			Message.success("设置成功");
@@ -131,10 +127,8 @@ class ControlCenterControl extends React.Component{
 	}
 
 	onChangeMode=(e)=>{
-		console.log("e",e.target.value);
 		let {detail} = this.props;
 		let _this=this;
-		console.log("detail",detail);
 		var urlParams = {serialNo:detail.serialNo,mode : e.target.value}
 		Http.request('setAirConditionModeAll',{},urlParams).then(function(response) {
 			Message.success("设置成功");
@@ -149,7 +143,6 @@ class ControlCenterControl extends React.Component{
 
 	renderLamps=(param)=>{
 	
-		console.log("param",param);
 		let _this = this;
 		var dom = param.map(function(item,index){
 			return(
@@ -190,7 +183,6 @@ class ControlCenterControl extends React.Component{
 	}
 
 	changeTemperature=(item)=>{
-		console.log("item",item);
 
 		let _this = this;
 		let {detail} = this.props;
@@ -206,7 +198,6 @@ class ControlCenterControl extends React.Component{
 	}
 
 	onToggleSingleLamp=(item)=>{
-		console.log("item",item);
 		
 		let _this = this;
 		let {detail} = this.props;
@@ -221,7 +212,6 @@ class ControlCenterControl extends React.Component{
 	}
 
 	changeLampItems=(item,on)=>{
-		console.log("item",item,"on",on);
 		var {lampItems} = this.state;
 		for(var i=0;i<lampItems.length;i++){
 			if(lampItems[i].localNo == item.localNo){
@@ -276,7 +266,6 @@ class ControlCenterControl extends React.Component{
 	render(){
 		const { error, handleSubmit, reset} = this.props;
 		let {pageInfo,lampItems,airConditionSwitchOn,windSpeed,mode,airConditionSetTemp,title} = this.state;
-		console.log("pageInfo",pageInfo);
 		return (
 			<div className="control-center-control">
 				<form onSubmit={handleSubmit(this.onSubmit)}>

@@ -110,7 +110,6 @@ class ControlAirConditionForm extends React.Component{
 	changePageStatus = (type,param)=>{
 		let _this = this;
 		var url =''
-		console.log("url",url);
 		if(type=="speed"){
 			url = "setAirConditionWindSpeed"
 		}else if(type=="mode"){

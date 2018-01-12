@@ -73,7 +73,6 @@ class NewCreateDefinitionForm extends React.Component{
 	
 	// 确认升级设备
 	onSubmit=(values)=>{
-		console.log("values",values);
 		if(!values.value){
 			Message.error("请选择升级内容");
 			return;

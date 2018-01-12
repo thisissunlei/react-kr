@@ -41,7 +41,6 @@ class EquipmentDataForm extends React.Component{
 		}
 	}
 	componentDidMount(){
-		console.log("this.detail",this.detail);
 		let {mainInfo} = this.props;
 		State.equipmentOperateLogParam ={
 			endDate :'',

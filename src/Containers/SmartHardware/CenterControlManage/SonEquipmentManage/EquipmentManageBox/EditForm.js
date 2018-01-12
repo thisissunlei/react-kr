@@ -154,7 +154,6 @@ class EditForm extends React.Component{
 			Store.dispatch(change('EditForm','roomId',''));
 			return;
 		}
-		// console.log("roomId",roomId);
 		Store.dispatch(change('EditForm','roomId',roomId.value));
 		
 	}
@@ -197,11 +196,9 @@ class EditForm extends React.Component{
 
 
 	onSubmit=(values)=>{
-		console.log("values",values);
 		var weigthObj = {weight:values.weight};
 		var oldObj = this.detail.extra || {}
 		var newExtraObj = Object.assign(oldObj,weigthObj)
-		console.log("newExtraObj",newExtraObj);
 		values.extraConfJson = JSON.stringify(newExtraObj);
 	 	State.editSonEquipment(values);
 		
@@ -218,7 +215,6 @@ class EditForm extends React.Component{
 			}
 		}
 
-		console.log("deviceTypeText",deviceTypeText);
 		return deviceTypeText;
 
 	}
@@ -321,7 +317,6 @@ class EditForm extends React.Component{
 	}
 }
 const validate = values=>{
-	console.log("values",values);
 	const errors={};
 	var weightReg =/^([1-9]\d*)(\.{0,1}\d*[1-9])?$/;
 	if(!values.communityId){

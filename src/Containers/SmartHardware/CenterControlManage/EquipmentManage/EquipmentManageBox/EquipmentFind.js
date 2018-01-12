@@ -79,7 +79,6 @@ export default class EquipmentSearch extends React.Component{
 
 	//发现设备列表强制删除
 	deleteEquipmentFun=(thisP)=>{
-		console.log("thisP",thisP);
 		let _this =this;
 		var urlParams = {serialNo:thisP.deviceId}
 		Http.request('deleteCenterControlEquipment',{},urlParams).then(function(response) {

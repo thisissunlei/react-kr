@@ -117,7 +117,6 @@ export default class EquipmentSearch extends React.Component{
 			}
 		]
 		for (var i=0;i<deviceOptions.length;i++){
-			console.log("par")
 			if(param == deviceOptions[i].value){
 				return  deviceOptions[i].label
 			}

@@ -44,7 +44,6 @@ export default class EquipmentDetail extends React.Component{
 		for(var i =0;i<spaceTypeOption.length;i++){
 			if(spaceType==spaceTypeOption[i].value){
 				spaceTypeLabel=spaceTypeOption[i].label;
-				console.log("i",i);
 				return spaceTypeLabel;
 			}
 		}
@@ -120,7 +119,6 @@ export default class EquipmentDetail extends React.Component{
 		let {detail} = this.props;
 		let {showReported,showDesired} = this.state;
 		var deviceType = this.props.detail.deviceType;
-		console.log("deviceType",deviceType);
 		let _this =this;
 		return (
 			<div style={{padding :"18px 0 0 20px"}}>

@@ -59,7 +59,6 @@ export default class List extends React.Component {
 
 	render() {
 		let {list,seleced} = this.state;
-		console.log("State",State);
 		let spaceTypeOptions =  [{label:"会议室",value:"MEETING"},
 								{label:"大厅",value:"HALL"},
 								{label:"独立办公室",value:"OFFICE"}]

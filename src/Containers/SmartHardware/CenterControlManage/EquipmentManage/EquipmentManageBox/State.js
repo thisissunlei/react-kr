@@ -171,7 +171,6 @@ State.freshPageReturn =  action(function(){
         name :  State.equipmentSearchParams.name ||'',
 
 	}
-	console.log("State.equipmentSearchParams",State.equipmentSearchParams);
 })
 
 //刷新设备搜索页面
@@ -240,7 +239,6 @@ State.getPassword= action(function(){
 
 //获取httpToken
 State.showHttpToken= action(function(){
-	console.log("ddldldldldld");
 	var urlParams = {deviceId:State.itemDetail.serialNo}
 	Http.request('getHttpTokenURL',urlParams).then(function(response) {
 		State.EquipmentHttpToken =response.httpToken;

@@ -119,7 +119,6 @@ export default class EquipmentDetail extends React.Component{
 		for(var i =0;i<spaceTypeOption.length;i++){
 			if(spaceType==spaceTypeOption[i].value){
 				spaceTypeLabel=spaceTypeOption[i].label;
-				console.log("i",i);
 				return spaceTypeLabel;
 			}
 		}
@@ -163,7 +162,6 @@ export default class EquipmentDetail extends React.Component{
 	render(){
 		let {detail} = this.props;
 		let {showReported,showDesired} = this.state;
-		console.log("detail",detail);
 		let _this =this;
 		return (
 			<div className="seconde-dialog">

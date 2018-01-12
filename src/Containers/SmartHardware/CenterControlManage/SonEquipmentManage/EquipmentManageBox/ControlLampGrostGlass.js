@@ -52,7 +52,6 @@ class ControlLampForm extends React.Component{
 	
 	// 编辑设备定义
 	onSubmit=(values)=>{
-		console.log("values",values);
 		
 	}
 
@@ -90,7 +89,6 @@ class ControlLampForm extends React.Component{
 	render(){
 		
 		const { error, handleSubmit, reset ,detail,mainInfo} = this.props;
-		console.log("detail",detail,"mainInfo",mainInfo);
 		let {switchOn} = this.state;
 
 		return(

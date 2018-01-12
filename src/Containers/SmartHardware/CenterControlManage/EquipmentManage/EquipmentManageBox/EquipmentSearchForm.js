@@ -74,7 +74,6 @@ class EquipmentAdvancedQueryForm extends React.Component{
 
 	// 提交
 	onSubmit=(values)=>{
-		//console.log("values",values);
 	}
 	// 关闭窗口
 	onCancle=()=>{
@@ -156,7 +155,6 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			page : 1
 		}
 		State.equipmentSearchParams = Object.assign({},State.equipmentSearchParams,newData);
-		console.log("equipmentSearchParams",State.equipmentSearchParams);
 	}
 
 

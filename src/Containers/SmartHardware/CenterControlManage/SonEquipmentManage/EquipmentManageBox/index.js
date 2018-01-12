@@ -60,7 +60,6 @@ export default class EquipmentManageBox  extends React.Component{
 
 	componentWillMount(){
 		var paramId =this.getUrlParam();
-		// console.log("paramId",paramId)
 		State.refreshList(paramId);
 
 	}
