@@ -512,6 +512,12 @@ module.exports = {
         method : 'get'
       },
 
+      //断开重连中控
+      'disconnnetCenterControlEquipment':{
+        url : '/api/iot-platform/device-def/admin/disconnect',
+        method : 'post'
+      }
+
       
 
 

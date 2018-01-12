@@ -213,8 +213,8 @@ State.clearCacheAction= action(function(){
 
 
 State.disConnectAction= action(function(){
-	var urlParams = {deviceId:State.itemDetail.serialNo}
-	Http.request('disconnnetEquipmentURL',{},urlParams).then(function(response) {
+	var urlParams = {serialNo:State.itemDetail.serialNo}
+	Http.request('disconnnetCenterControlEquipment',{},urlParams).then(function(response) {
 
 		Message.success("断开成功");
 		State.freshPageReturn();
