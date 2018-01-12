@@ -60,14 +60,15 @@ class EquipmentDataForm extends React.Component{
 				return ;
 			}
 		}
-		var timeObj = {endDate :values.edate,startDate : values.sdate,date : new Date()}
 
 		State.equipmentOperateLogParam ={
 			endDate :values.edate ||'',
 			startDate : values.sdate ||'',
 			deviceDefId : State.equipmentOperateLogParam.deviceDefId || '',
 			page : 1,
-			pageSize : 15
+			pageSize : 15,
+			date : new Date()
+
 		}
 	}
 
