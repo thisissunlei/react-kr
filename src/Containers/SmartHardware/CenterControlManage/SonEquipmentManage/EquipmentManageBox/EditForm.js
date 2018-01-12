@@ -195,10 +195,13 @@ class EditForm extends React.Component{
 	
 	
 
-	// 编辑设备定义
-	onSubmit=(values)=>{
 
-		var newExtraObj = Object.assign(this.detail.extra,{weight:values.weight})
+	onSubmit=(values)=>{
+		console.log("values",values);
+		var weigthObj = {weight:values.weight};
+		var oldObj = this.detail.extra || {}
+		var newExtraObj = Object.assign(oldObj,weigthObj)
+		console.log("newExtraObj",newExtraObj);
 		values.extraConfJson = JSON.stringify(newExtraObj);
 	 	State.editSonEquipment(values);
 		
@@ -317,6 +320,7 @@ class EditForm extends React.Component{
 	}
 }
 const validate = values=>{
+	console.log("values",values);
 	const errors={};
 	var weightReg =/^([1-9]\d*)(\.{0,1}\d*[1-9])?$/;
 	if(!values.communityId){
