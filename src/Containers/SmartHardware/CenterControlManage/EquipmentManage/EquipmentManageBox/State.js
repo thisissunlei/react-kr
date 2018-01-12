@@ -27,15 +27,14 @@ let State = observable({
 	makerOptions :[],
 	deviceVO:{},
 	equipmentSearchParams: {
-		        communityId:'',
-		        deviceId :'',
-		        doorCode :'',
-		        doorType : '',
-		        title :'',
-				floor : '',
-				logined :'',
-		        page : 1,
-		        pageSize: 15,
+				communityId:"",
+				spaceType:"",
+				connected:"",
+				floor:"",
+				page:1,
+				pageSize:15,
+				serialNo:"",
+				name:""
 		      },
 	searchEquipmentParam:{
 		page : 1,
@@ -165,14 +164,14 @@ State.freshPageReturn =  action(function(){
         page : State.realPage,
         pageSize: 15,
         communityId: State.equipmentSearchParams.communityId ||'',
-        deviceId : State.equipmentSearchParams.deviceId ||'',
-        doorCode : State.equipmentSearchParams.doorCode ||'',
-        doorType :  State.equipmentSearchParams.doorType ||'',
+        spaceType : State.equipmentSearchParams.spaceType ||'',
+        connected : State.equipmentSearchParams.connected ||'',
         floor :  State.equipmentSearchParams.floor ||'',
-        maker :  State.equipmentSearchParams.maker ||'',
-        title : State.equipmentSearchParams.title ||'',
+        serialNo :  State.equipmentSearchParams.serialNo ||'',
+        name :  State.equipmentSearchParams.name ||'',
 
-    }	
+	}
+	console.log("State.equipmentSearchParams",State.equipmentSearchParams);
 })
 
 //刷新设备搜索页面

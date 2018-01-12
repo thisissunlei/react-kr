@@ -24,16 +24,24 @@ class ControlLampForm extends React.Component{
 		this.detail = this.props.detail;
 		this.state={
 			detail:{},
-			switchOn : true
+			switchOn : ""
 		}
 	}
 
 	componentDidMount(){
 		let {detail} = this.props;
-		this.setState({
-			detail : detail,
-			switchOn : detail.extra.on
-		})		
+		if(detail.extra){
+			this.setState({
+				detail : detail,
+				switchOn : detail.extra.on?"开启":"关闭"
+			})
+		}else{
+			this.setState({
+				detail : detail,
+				switchOn : "未知"
+			})
+		}
+				
 	}
 
 
@@ -72,7 +80,7 @@ class ControlLampForm extends React.Component{
 			Message.success("操作成功");
 			// _this.freshAidCondition();
 			_this.setState({
-				switchOn : response.on
+				switchOn : (response.on && response.on?"开启":"关闭") ||"未知"
 			})
 		
 		}).catch(function(err) {
@@ -94,7 +102,7 @@ class ControlLampForm extends React.Component{
 							<span>当前开关状态：</span>
 							<span>{switchOn?"开启":"关闭"}</span>
 						</div>
-						<div className="btn-div">
+						<div style={{width:180,paddingTop : 1,margin:"0 auto"}}>
 							<div style={{display:"inline-block",marginRight:20}}><Button label="开启" onTouchTap={this.openLamp}/></div>
 							<div style={{display:"inline-block"}}><Button label="关闭" onTouchTap={this.closeLamp}/></div>
 						</div>

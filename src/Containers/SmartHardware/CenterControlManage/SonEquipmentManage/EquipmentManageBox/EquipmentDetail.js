@@ -72,7 +72,6 @@ export default class EquipmentDetail extends React.Component{
 	returnConnectStatus=()=>{
 
 		let {detail} = this.props;
-		console.log("detail-----------",detail);
 		let connectStatus = detail.connected;
 		
 		if(connectStatus){
@@ -85,10 +84,10 @@ export default class EquipmentDetail extends React.Component{
 
 	renderAirConditionMode=(param)=>{
 		if(param.extra){
-			var paramMode = detail.extra.mode;
+			var paramMode = param.extra.mode;
 			if(paramMode == "HEATING"){
 				return "制热"			
-			}else if(parparamModeam == "REFRIGERATION"){
+			}else if(paramMode == "COOLING"){
 				return "制冷"			
 			}
 		}else{
@@ -100,7 +99,7 @@ export default class EquipmentDetail extends React.Component{
 
 	renderAirConditionWindSpeed=(param)=>{
 		if(param.extra){
-			var paramMode = detail.extra.speed;
+			var paramMode = param.extra.speed;
 			if(paramMode == "HIGH"){
 				return "高速"			
 			}else if(paramMode == "LOW"){
@@ -130,7 +129,6 @@ export default class EquipmentDetail extends React.Component{
 					<div>
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="硬件ID："
@@ -138,7 +136,6 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="设备类型："
@@ -146,7 +143,6 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="屏幕展示标题："
@@ -154,7 +150,6 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="是否连接："
@@ -162,7 +157,6 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="最后一次连接时间："
@@ -170,7 +164,6 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="最后一次更新时间："
@@ -179,7 +172,6 @@ export default class EquipmentDetail extends React.Component{
 
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="社区名称："
@@ -187,7 +179,6 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="楼层："
@@ -195,7 +186,6 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="空间类型："
@@ -203,7 +193,6 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						<KrField
 							style={{width:300}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="房间："
@@ -213,7 +202,6 @@ export default class EquipmentDetail extends React.Component{
 							(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="开关状态："
@@ -224,7 +212,6 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="AIR_CONDITION" &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="空调模式："
@@ -237,7 +224,6 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="AIR_CONDITION" &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="空调风速："
@@ -249,7 +235,6 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="AIR_CONDITION" &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="空调设置温度："
@@ -263,7 +248,6 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="HUMITURE_SENSOR" &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="温度："
@@ -275,7 +259,6 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="HUMITURE_SENSOR" &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="湿度："
@@ -287,7 +270,6 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="AIR_SENSOR" &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="PM2.5："
@@ -300,7 +282,6 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="AIR_SENSOR" &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="PM10："
@@ -312,7 +293,6 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="AIR_SENSOR" &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="PM2510："
@@ -324,7 +304,6 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="BODY_SENSOR" &&
 							<KrField
 								style={{width:300}}
-								name="customerId"
 								inline={true}
 								component="labelText"
 								label="是否有人："
@@ -333,7 +312,6 @@ export default class EquipmentDetail extends React.Component{
 						}
 						<KrField
 							style={{width:700}}
-							name="customerId"
 							inline={true}
 							component="labelText"
 							label="备注："

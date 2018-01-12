@@ -211,7 +211,7 @@ class EquipmentDataForm extends React.Component{
 									}else{
 										if(itemData.extra.mode=="HEATING"){
 											value = "制热"
-										}else if(itemData.extra.mode=="REFRIGERATION"){
+										}else if(itemData.extra.mode=="COOLING"){
 											value ="制冷"
 										}
 									}

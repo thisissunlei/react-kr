@@ -156,7 +156,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			page : 1
 		}
 		State.equipmentSearchParams = Object.assign({},State.equipmentSearchParams,newData);
-		
+		console.log("equipmentSearchParams",State.equipmentSearchParams);
 	}
 
 

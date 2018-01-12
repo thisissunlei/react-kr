@@ -213,15 +213,7 @@ class EquipmentSearchForm extends React.Component{
 					/>
 				</span>
 				
-				<KrField name="connectStatus"
-						component="select"
-						label="连接状态："
-						onChange = {this.onchangeConnect}
-						options={connectOptions}
-						style={{width:'185px'}}
-						inline={true}
-					/>
-				
+			
 				<div style={{position:"absolute",top:"-50px",right:0,width:300,height:50}}>
 					<SearchForms onSubmit={this.onSearchSubmit}  ref = "inputFilter"
 						style={{zIndex:10000,marginLeft:10}}

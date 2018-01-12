@@ -527,7 +527,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          contentStyle={{width:443,height:236}}
 			        >
 			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除吗？</p>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>删除父设备后，父子设备之间的关联将会解除。确定要删除吗？</p>
 			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
 			                  <Row>
 			                    <ListGroup>
