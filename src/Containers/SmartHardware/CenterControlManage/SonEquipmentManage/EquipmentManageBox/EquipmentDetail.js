@@ -130,13 +130,13 @@ export default class EquipmentDetail extends React.Component{
 						{deviceType=="AIR_CONDITION" &&<div className="tr-line"><div className="td-left">空调风速</div><div className="td-right">{
 							this.renderAirConditionWindSpeed(detail.extra.speed)
 						}</div></div>}
-						{deviceType=="AIR_CONDITION" &&<div className="tr-line"><div className="td-left">空调设置温度</div><div className="td-right">{detail.extra.temp+"℃"}</div></div>}
-						{deviceType=="HUMITURE_SENSOR" &&<div className="tr-line"><div className="td-left">温度</div><div className="td-right">{detail.extra.temp+"℃"}</div></div>}
-						{deviceType=="HUMITURE_SENSOR" &&<div className="tr-line"><div className="td-left">湿度</div><div className="td-right">{detail.extra.humidity}</div></div>}
-						{deviceType=="AIR_SENSOR" &&<div className="tr-line"><div className="td-left">PM2.5</div><div className="td-right">{detail.extra.pm25}</div></div>}
-						{deviceType=="AIR_SENSOR" &&<div className="tr-line"><div className="td-left">PM10</div><div className="td-right">{detail.extra.pm10}</div></div>}
-						{deviceType=="AIR_SENSOR"  &&<div className="tr-line"><div className="td-left">PM2510</div><div className="td-right">{detail.extra.pm2510}</div></div>}
-						{deviceType=="BODY_SENSOR"  &&<div className="tr-line"><div className="td-left">是否有人</div><div className="td-right">{detail.extra.hasBody?"有人":"无人"}</div></div>}
+						{deviceType=="AIR_CONDITION" &&<div className="tr-line"><div className="td-left">空调设置温度</div><div className="td-right">{detail.extra && detail.extra.temp+"℃"}</div></div>}
+						{deviceType=="HUMITURE_SENSOR" &&<div className="tr-line"><div className="td-left">温度</div><div className="td-right">{detail.extra && detail.extra.temp+"℃"}</div></div>}
+						{deviceType=="HUMITURE_SENSOR" &&<div className="tr-line"><div className="td-left">湿度</div><div className="td-right">{detail.extra && detail.extra.humidity}</div></div>}
+						{deviceType=="AIR_SENSOR" &&<div className="tr-line"><div className="td-left">PM2.5</div><div className="td-right">{detail.extra && detail.extra.pm25}</div></div>}
+						{deviceType=="AIR_SENSOR" &&<div className="tr-line"><div className="td-left">PM10</div><div className="td-right">{detail.extra && detail.extra.pm10}</div></div>}
+						{deviceType=="AIR_SENSOR"  &&<div className="tr-line"><div className="td-left">PM2510</div><div className="td-right">{detail.extra && detail.extra.pm2510}</div></div>}
+						{deviceType=="BODY_SENSOR"  &&<div className="tr-line"><div className="td-left">是否有人</div><div className="td-right">{detail.extra && detail.extra.hasBody?"有人":"无人"}</div></div>}
 						<div className="tr-line-last" style={{display:"block"}}><div className="td-left">备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
 
 					</div>
