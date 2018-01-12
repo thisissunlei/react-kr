@@ -124,7 +124,7 @@ export default class EquipmentDetail extends React.Component{
 		console.log("deviceType",deviceType);
 		let _this =this;
 		return (
-			<div style={{padding :"40px 0 0 20px"}}>
+			<div style={{padding :"18px 0 0 20px"}}>
 				
 				<div className="detail-list-equipment">
 					<div>
@@ -267,7 +267,7 @@ export default class EquipmentDetail extends React.Component{
 								inline={true}
 								component="labelText"
 								label="温度："
-								value={detail.extra && detail.extra.temp+"℃"}
+								value={(detail.extra && detail.extra.temp+"℃") || "无"}
 							/>
 						}
 
@@ -279,7 +279,7 @@ export default class EquipmentDetail extends React.Component{
 								inline={true}
 								component="labelText"
 								label="湿度："
-								value={detail.extra && detail.extra.humidity}
+								value={(detail.extra && detail.extra.humidity)|| "无"}
 							/>
 						}
 
@@ -327,8 +327,8 @@ export default class EquipmentDetail extends React.Component{
 								name="customerId"
 								inline={true}
 								component="labelText"
-								label="PM2510："
-								value={detail.extra && detail.extra.hasBody?"有人":"无人"}
+								label="是否有人："
+								value={(detail.extra && (detail.extra.hasBody?"有人":"无人"))||"无数据"}
 							/>
 						}
 						<KrField
@@ -340,6 +340,7 @@ export default class EquipmentDetail extends React.Component{
 							value={detail.memo || "无"}
 						/>
 		
+
 					</div>
 				</div>
 				<div className="btn-div">
