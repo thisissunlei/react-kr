@@ -450,14 +450,16 @@ export default class EquipmentManageBox  extends React.Component{
 			          </TableBody>
 			          <TableFooter></TableFooter>
 			        </Table>
-			        <Drawer 
-			        	open={State.openSonEquipmentDetail}
-			        	onClose = {this.openSeeSonEquipmentDetail}
-					    width={1000} 
-					    openSecondary={true} 
-					>
+			       
+					<Dialog
+			          title="子设备详情"
+			          open={State.openSonEquipmentDetail}
+			          onClose = {this.openSeeSonEquipmentDetail}
+			          contentStyle={{width:700}}
+			        >
 						<EquipmentDetail onCancel={this.openSeeSonEquipmentDetail} detail={itemDetail}/>
-					</Drawer>
+			        </Dialog>
+
 					<Dialog
 			          title={controlLampOrGrostedGlass}
 			          open={State.controlLampDialog}

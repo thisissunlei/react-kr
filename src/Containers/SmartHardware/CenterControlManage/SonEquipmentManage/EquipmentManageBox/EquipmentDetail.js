@@ -108,35 +108,214 @@ export default class EquipmentDetail extends React.Component{
 		let _this =this;
 		return (
 			<div style={{padding :"40px 0 0 20px"}}>
-				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
 				
 				<div className="detail-list-equipment">
 					<div>
-						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{detail.serialNo || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">设备类型:</div><div className="td-right">{_this.returnDeviceType()}</div></div>
-						<div className="tr-line"><div className="td-left">屏幕展示标题:</div><div className="td-right">{detail.name || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">是否连接:</div><div className="td-right">{_this.returnConnectStatus()}</div></div>
-						<div className="tr-line"><div className="td-left">最后一次连接时间:</div><div className="td-right">{DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">最后一次更新时间:</div><div className="td-right">{DateFormat(detail.utime, "yyyy-mm-dd HH:MM:ss") || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">社区名称:</div><div className="td-right">{detail.communityName || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">楼层:</div><div className="td-right">{detail.floor || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">空间类型:</div><div className="td-right">{_this.renderSpaceType()}</div></div>
-						<div className="tr-line"><div className="td-left">房间:</div><div className="td-right">{detail.spaceName || "无"}</div></div>
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="硬件ID："
+							value={detail.serialNo}
+						/>
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="设备类型："
+							value={_this.returnDeviceType()}
+						/>
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="屏幕展示标题："
+							value={detail.name}
+						/>
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="是否连接："
+							value={_this.returnConnectStatus()}
+						/>
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="最后一次连接时间："
+							value={DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}
+						/>
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="最后一次更新时间："
+							value={DateFormat(detail.utime, "yyyy-mm-dd HH:MM:ss") || "无"}
+						/>
+
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="社区名称："
+							value={detail.communityName || "无"}
+						/>
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="楼层："
+							value={detail.floor  || "无"}
+						/>
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="空间类型："
+							value={_this.renderSpaceType()}
+						/>
+						<KrField
+							style={{width:300}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="房间："
+							value={detail.spaceName}
+						/>
+						{
+							(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="开关状态："
+								value={(detail.extra && detail.extra.on && detail.extra.on?"开启":"关闭")||"无数据"}
+							/>
+						}
+						{
+							deviceType=="AIR_CONDITION" &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="空调模式："
+								value={this.renderAirConditionMode(detail.extra.mode)}
+							/>
+						}
+
+						{
+							deviceType=="AIR_CONDITION" &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="空调风速："
+								value={this.renderAirConditionWindSpeed(detail.extra.speed)}
+							/>
+						}
+
+						{
+							deviceType=="AIR_CONDITION" &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="空调风速："
+								value={detail.extra && detail.extra.temp+"℃"}
+							/>
+						}
+
+
+
+						{
+							deviceType=="HUMITURE_SENSOR" &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="温度："
+								value={detail.extra && detail.extra.temp+"℃"}
+							/>
+						}
+
+						{
+							deviceType=="HUMITURE_SENSOR" &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="湿度："
+								value={detail.extra && detail.extra.humidity}
+							/>
+						}
+
+						{
+							deviceType=="AIR_SENSOR" &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="PM2.5："
+								value={detail.extra && detail.extra.pm25}
+							/>
+						}
+
+
+						{
+							deviceType=="AIR_SENSOR" &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="PM10："
+								value={detail.extra && detail.extra.pm10}
+							/>
+						}	
+
+						{
+							deviceType=="AIR_SENSOR" &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="PM2510："
+								value={detail.extra && detail.extra.pm2510}
+							/>
+						}
+
+						{
+							deviceType=="BODY_SENSOR" &&
+							<KrField
+								style={{width:300}}
+								name="customerId"
+								inline={true}
+								component="labelText"
+								label="PM2510："
+								value={detail.extra && detail.extra.hasBody?"有人":"无人"}
+							/>
+						}
+		
+		
 						
-						{(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&<div className="tr-line"><div className="td-left">开关状态</div><div className="td-right">{detail.extra && detail.extra.on?"开启":"关闭"}</div></div>}
-						{deviceType=="AIR_CONDITION" &&<div className="tr-line"><div className="td-left">空调模式</div><div className="td-right">{
-							this.renderAirConditionMode(detail.extra.mode)
-						}</div></div>}
-						{deviceType=="AIR_CONDITION" &&<div className="tr-line"><div className="td-left">空调风速</div><div className="td-right">{
-							this.renderAirConditionWindSpeed(detail.extra.speed)
-						}</div></div>}
-						{deviceType=="AIR_CONDITION" &&<div className="tr-line"><div className="td-left">空调设置温度</div><div className="td-right">{detail.extra && detail.extra.temp+"℃"}</div></div>}
-						{deviceType=="HUMITURE_SENSOR" &&<div className="tr-line"><div className="td-left">温度</div><div className="td-right">{detail.extra && detail.extra.temp+"℃"}</div></div>}
-						{deviceType=="HUMITURE_SENSOR" &&<div className="tr-line"><div className="td-left">湿度</div><div className="td-right">{detail.extra && detail.extra.humidity}</div></div>}
-						{deviceType=="AIR_SENSOR" &&<div className="tr-line"><div className="td-left">PM2.5</div><div className="td-right">{detail.extra && detail.extra.pm25}</div></div>}
-						{deviceType=="AIR_SENSOR" &&<div className="tr-line"><div className="td-left">PM10</div><div className="td-right">{detail.extra && detail.extra.pm10}</div></div>}
-						{deviceType=="AIR_SENSOR"  &&<div className="tr-line"><div className="td-left">PM2510</div><div className="td-right">{detail.extra && detail.extra.pm2510}</div></div>}
-						{deviceType=="BODY_SENSOR"  &&<div className="tr-line"><div className="td-left">是否有人</div><div className="td-right">{detail.extra && detail.extra.hasBody?"有人":"无人"}</div></div>}
 						<div className="tr-line-last" style={{display:"block"}}><div className="td-left">备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
 
 					</div>
