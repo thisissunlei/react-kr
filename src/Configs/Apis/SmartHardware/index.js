@@ -460,7 +460,7 @@ module.exports = {
 
       //编辑子设备
       'EditSonEquipment':{
-        url : '/api/iot-platform/device-def/actions/edit',
+        url : '/api/iot-platform/device-def/sub-device/actions/edit',
         method : 'post'
       },
 

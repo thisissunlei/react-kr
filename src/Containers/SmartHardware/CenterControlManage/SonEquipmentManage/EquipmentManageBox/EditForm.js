@@ -47,9 +47,9 @@ class EditForm extends React.Component{
 	componentDidMount(){
 		Store.dispatch(initialize('EditForm', this.detail));
 		if(this.detail.extra){
-			Store.dispatch(change('EditForm','weight',this.detail.extra.weight));
+			Store.dispatch(change('EditForm','weight',this.detail.extra.weight||100));
 		}else{
-			Store.dispatch(change('EditForm','weight',''));
+			Store.dispatch(change('EditForm','weight',100));
 		}
 
 	}
