@@ -102,7 +102,7 @@ class ControlLampForm extends React.Component{
 							<span>当前开关状态：</span>
 							<span>{switchOn?"开启":"关闭"}</span>
 						</div>
-						<div style={{width:180,paddingTop : 1,margin:"0 auto"}}>
+						<div style={{width:180,paddingTop : 10,margin:"0 auto"}}>
 							<div style={{display:"inline-block",marginRight:20}}><Button label="开启" onTouchTap={this.openLamp}/></div>
 							<div style={{display:"inline-block"}}><Button label="关闭" onTouchTap={this.closeLamp}/></div>
 						</div>

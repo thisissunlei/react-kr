@@ -41,13 +41,14 @@ class ControlCenterControl extends React.Component{
 		let _this =this;
 		Http.request('getControlAllInfo',{serialNo:detail.serialNo}).then(function(response) {
 			console.log("response",response);
+			
 			_this.setState({
 				pageInfo : response,
-				airConditionSetTemp :response.airCondition.temp,
-				lampItems : response.allDevice.switchers,
-				airConditionSwitchOn : response.airCondition.on,
-				windSpeed : response.airCondition.speed,
-				mode : response.airCondition.mode
+				airConditionSetTemp :(response.airCondition && response.airCondition.temp) || "",
+				lampItems : (response.allDevice &&response.allDevice.switchers)||[],
+				airConditionSwitchOn : (response.airCondition && response.airCondition.on)||false,
+				windSpeed :(response.airCondition && response.airCondition.speed)||"",
+				mode :(response.airCondition && response.airCondition.mode) || ""
 			})
 		}).catch(function(err) {
 			Message.error(err.message);

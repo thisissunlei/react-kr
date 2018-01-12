@@ -25,6 +25,7 @@ class ControlAirConditionForm extends React.Component{
 
 	componentDidMount(){
 		let {detail} = this.props;
+		
 		this.setState({
 			detail : detail,
 			mode : detail.extra.mode,
@@ -52,7 +53,6 @@ class ControlAirConditionForm extends React.Component{
 		let {detail} = this.props;
 		let {on,modeOptions} = this.state;
 		var dom = modeOptions.map(function(item,index){
-			console.log("mode=======>",mode,"item.value",item.value,item.value==mode)
 			return (
 				<span key={index}  className="wind-speed-checkbox">
 					<span  className="speed-label">{item.label}</span>
@@ -110,11 +110,12 @@ class ControlAirConditionForm extends React.Component{
 	changePageStatus = (type,param)=>{
 		let _this = this;
 		var url =''
-		if(type="speed"){
+		console.log("url",url);
+		if(type=="speed"){
 			url = "setAirConditionWindSpeed"
-		}else if(type="mode"){
+		}else if(type=="mode"){
 			url = "setAirConditionMode"
-		}else if(type="on"){
+		}else if(type=="on"){
 			url = "SwitchOpenAirCondition"
 		}
 		Http.request(url,{},param).then(function(response) {
@@ -128,6 +129,11 @@ class ControlAirConditionForm extends React.Component{
 		
 		}).catch(function(err) {
 			Message.error(err.message);
+			_this.setState({
+				mode : _this.state.mode,
+				speed : _this.state.speed,
+				on : _this.state.on
+			})
 		});
 
 	}
@@ -168,8 +174,8 @@ class ControlAirConditionForm extends React.Component{
 						<div className="air-condition-line">
 							<div className="air-condition-on" style={{width: 116}}>
 								<Toggle
+									toggled={on} 
 									label={"空调开关："}
-									defaultToggled={on}
 									style={{marginBottom: 16,}}
 									labelStyle={{color :"rgba(0, 0, 0, 0.6)" }}
 									onToggle = {this.switchOnAiCondition}

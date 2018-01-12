@@ -261,7 +261,7 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 	returnCenterControl=()=>{
-		window.location.href='/#/smarthardware/centercontrolmanage/equipmentmanage';
+		window.location.href='./#/smarthardware/centercontrolmanage/equipmentmanage';
 	}
 
 	switchControlLampDialog=()=>{
