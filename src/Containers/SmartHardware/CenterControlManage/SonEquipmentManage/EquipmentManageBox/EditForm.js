@@ -225,7 +225,7 @@ class EditForm extends React.Component{
 		
 		const { error, handleSubmit, reset ,detail} = this.props;
 		let spaceTypeOptions = [{label:"会议室",value : 'MEETING'},{label:"独立办公室",value : 'OFFICE'},{label:"大厅",value : 'HALL'}]
-
+		console.log("this.detail",this.detail);
 		return(
 			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -243,12 +243,15 @@ class EditForm extends React.Component{
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
 
-					<KrField grid={1/2} name="weight" 
-						type="text" 
-						label="权值" 
-						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
+					{(this.detail.deviceType == "HUMITURE_SENSOR" || 
+					this.detail.deviceType == "AIR_SENSOR")&&
+						<KrField grid={1/2} name="weight" 
+							type="text" 
+							label="权值" 
+							requireLabel={true} 
+							style={{width:'252px',margin:'0 35px 5px 0'}}
+						/>
+					}
 
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
@@ -263,7 +266,7 @@ class EditForm extends React.Component{
 						label="楼层" 
 						options = {floorsOptions}
 						requireLabel={true} 
-						style={{width:'252px'}}
+						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onChange = {this.getFloor}
 					/>
 
