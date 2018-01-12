@@ -7,7 +7,7 @@ import {
 	reduxForm,
 	formValueSelector
 } from 'redux-form';
-import {Button,Message,Loading,ChangeNumber,KrField} from 'kr-ui';
+import {Button,Message,Loading,KrField} from 'kr-ui';
 import './index.less';
 
 import Toggle from 'material-ui/Toggle';
@@ -40,7 +40,7 @@ class ControlCenterControl extends React.Component{
 		let {detail} = this.props;
 		let _this =this;
 		Http.request('getControlAllInfo',{serialNo:detail.serialNo}).then(function(response) {
-			
+			console.log("response",response);
 			_this.setState({
 				pageInfo : response,
 				airConditionSetTemp :response.airCondition.temp,
@@ -54,9 +54,7 @@ class ControlCenterControl extends React.Component{
 		});
 	}
 
-	changeTemperature=(value)=>{
-		console.log("value",value);
-	}
+
 
 	onSubmit=()=>{
 
@@ -309,7 +307,6 @@ class ControlCenterControl extends React.Component{
 					</div>
 					<div className="center-control-temperature">
 						<span className="center-control-line-title">设置温度：</span>
-						{/*<ChangeNumber changeNum={this.changeTemperature}/>*/}
 						<div className="temprature-box">
 							<div className="temperature-line">
 								

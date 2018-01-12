@@ -96,7 +96,6 @@ import CheckPermission from './CheckPermission';
 import MoveSelect from './MoveSelect';
 import AirBubbles from "./AirBubbles";
 import KrMenu from './KrMenu';
-import ChangeNumber from './ChangeNumber';
 
 module.exports = {
 	//Components
@@ -194,6 +193,5 @@ module.exports = {
 	MoveSelect,
 	AirBubbles,
 	KrMenu,
-	ChangeNumber,
 	
 }

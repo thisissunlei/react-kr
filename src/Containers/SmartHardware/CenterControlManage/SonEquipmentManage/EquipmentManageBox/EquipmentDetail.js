@@ -116,8 +116,8 @@ export default class EquipmentDetail extends React.Component{
 						<div className="tr-line"><div className="td-left">设备类型:</div><div className="td-right">{_this.returnDeviceType()}</div></div>
 						<div className="tr-line"><div className="td-left">屏幕展示标题:</div><div className="td-right">{detail.name || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">是否连接:</div><div className="td-right">{_this.returnConnectStatus()}</div></div>
-						<div className="tr-line"><div className="td-left">最后一次连接时间:</div><div className="td-right">{DateFormat(detail.connectTime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">最后一次更新时间:</div><div className="td-right">{DateFormat(detail.utime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">最后一次连接时间:</div><div className="td-right">{DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">最后一次更新时间:</div><div className="td-right">{DateFormat(detail.utime, "yyyy-mm-dd HH:MM:ss") || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">社区名称:</div><div className="td-right">{detail.communityName || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">楼层:</div><div className="td-right">{detail.floor || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">空间类型:</div><div className="td-right">{_this.renderSpaceType()}</div></div>

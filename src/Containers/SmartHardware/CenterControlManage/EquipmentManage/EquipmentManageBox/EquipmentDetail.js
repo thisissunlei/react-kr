@@ -180,8 +180,8 @@ export default class EquipmentDetail extends React.Component{
 						<div className="tr-line"><div className="td-left">当前连接服务器:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.loginedServer) || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">设备类型:</div><div className="td-right">{_this.returnDeviceType()}</div></div>
 						<div className="tr-line"><div className="td-left">是否连接:</div><div className="td-right">{_this.returnConnectStatus()}</div></div>
-						<div className="tr-line"><div className="td-left">最后一次连接时间:</div><div className="td-right">{DateFormat(detail.connectTime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">最后一次更新时间:</div><div className="td-right">{DateFormat(detail.utime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">最后一次连接时间:</div><div className="td-right">{DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">最后一次更新时间:</div><div className="td-right">{DateFormat(detail.utime, "yyyy-mm-dd HH:MM:ss") || "无"}</div></div>
 						<div>
 							<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="center-control-report"></pre></div></div>
 							<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="center-control-desired"></pre></div></div>
