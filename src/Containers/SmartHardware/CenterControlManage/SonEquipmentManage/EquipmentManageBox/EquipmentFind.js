@@ -20,31 +20,22 @@ export default class EquipmentSearch extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			switch :false,
 			searchEquipmentList:[]
 		}
 	}
 
-	changeSearchEquipment=(event,isInputChecked)=>{
-		this.setState({
-			switch : isInputChecked
-		})
-		State.changeSwitchStatusAction({onOff:isInputChecked})
-	}
-
-	componentWillReceiveProps(nextProps){
-	}
-
 	componentDidMount(){
-		this.getWitchFind()
-		this.getUnusedEquipmentFun();
+
+		
+		this.getUnusedEquipmentFun({});
 	}
 
-	getUnusedEquipmentFun =()=>{
+	getUnusedEquipmentFun =(param)=>{
 		let _this = this;
 		let {serialNo} = this.props;
-		var param = {serialNo : serialNo}
-		Http.request('findNewSonEquipment', param).then(function(response) {
+		let paramOld = {serialNo : serialNo,forceRefresh : false};
+		let newParam = Object.assign(paramOld,param);
+		Http.request('findNewSonEquipment', newParam).then(function(response) {
 			_this.setState({
 				searchEquipmentList : response.items
 			})
@@ -53,19 +44,6 @@ export default class EquipmentSearch extends React.Component{
 		});
 	}
 	
-
-
-	getWitchFind =(callBack)=>{
-		let _this = this;
-		Http.request('getSwitchStatusUrl',{}).then(function(response) {
-			_this.setState({
-				switch:response.onOff
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-
-	}
 
 
 	closeDialog=()=>{
@@ -88,7 +66,8 @@ export default class EquipmentSearch extends React.Component{
 		Http.request('deleteFindSonEquipment',{},urlParams).then(function(response) {
 			
 			Message.success("强制删除设备成功");
-			_this.getUnusedEquipmentFun();
+			var param = {date:new Date()}
+			_this.getUnusedEquipmentFun(param);
 			
 
 		}).catch(function(err) {
@@ -106,8 +85,10 @@ export default class EquipmentSearch extends React.Component{
 		Http.request('regesterSonEquipment',{},urlParams).then(function(response) {
 
 			Message.success("注册设备成功");
-			_this.getUnusedEquipmentFun();
-			State.freshPageReturn();
+
+			var param = {date:new Date()}
+			_this.getUnusedEquipmentFun(param);
+
 			_this.setState({
 				itemDetail : response
 			},function(){
@@ -139,29 +120,27 @@ export default class EquipmentSearch extends React.Component{
 		});
 		return DOM_list;
 	}
-	
+	freshPage=()=>{
+		var param = {date: new Date()}
+		this.getUnusedEquipmentFun(param)
+	}
+
+	freshPageForce=()=>{
+		var param = {date: new Date(),forceRefresh:true}
+		this.getUnusedEquipmentFun(param)
+	}
+
 	render(){
 		let {searchEquipmentList} = this.state;
 		return (
 			<div>
 				<div style={{padding:"30px 0 0 50px"}}>
 					<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
-					
-					<span style={{display:"inline-block",width:40,height:30}}>
-						<Toggle 
-							toggled={this.state.switch} 
-							label="是否自动发现设备" 
-							labelPosition="right"
-							labelStyle={{fontSize:14,width:120,marginTop:5}} 
-							onToggle={this.changeSearchEquipment}
-							trackStyle={{height:25,lineHeight:25}}
-							thumbStyle={{marginTop:5}}
-						/>
-					</span>
-					
-					
 				</div>
-				
+				<div className="son-equipment-btn-box-find">
+					<div className="btn" onClick={this.freshPage}>刷新</div>
+					<div className="btn" onClick={this.freshPageForce}>强制刷新</div>
+				</div>
 
 				<div className="detail-list-equipment  find-son-equipment">
 					
