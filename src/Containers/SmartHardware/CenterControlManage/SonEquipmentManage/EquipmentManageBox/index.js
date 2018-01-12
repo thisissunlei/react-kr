@@ -486,7 +486,7 @@ export default class EquipmentManageBox  extends React.Component{
 					</Drawer>
 					
 			        <Dialog
-			          title="编辑门禁设备"
+			          title="编辑子设备"
 			          open={State.openEditDialog}
 			          onClose={this.openEditDialogFun}
 			          contentStyle={{width:687}}
