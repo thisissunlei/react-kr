@@ -47,7 +47,9 @@ export default class EquipmentManageBox  extends React.Component{
 		super(props, context);
 		this.state = {
 			openMenu :false,
-			itemDetail : {}
+			itemDetail : {},
+			mainPsw : '',
+			vicePsw : ''
 		}
 	}
 
@@ -217,8 +219,26 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	//获取管理员密码
-	getManagerPsd=()=>{
+	openManagerPsw=()=>{
 		State.openManagePsd = !State.openManagePsd;
+	}
+
+
+	//获取管理员密码
+	getManagerPsd =()=>{
+		let _this = this;
+		var urlParams = {deviceId:State.itemDetail.serialNo}
+		Http.request('getManagerPsdUrl',urlParams).then(function(response) {
+			
+			_this.setState({
+				mainPsw : response.main,
+				vicePsw :response.backup
+			},function(){
+				_this.openManagerPsw();
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 
 	//重启APP
@@ -298,7 +318,7 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	render(){
-		let {itemDetail}=this.state;
+		let {itemDetail,	mainPsw ,vicePsw }=this.state;
 		let {showOpretion} = State;
 		let spaceTypeOptions = [{label:"会议室",value : 'MEETING'},{label:"独立办公室",value : 'OFFICE'},{label:"大厅",value : 'HALL'}]
 
@@ -606,7 +626,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          onClose={this.openManagePsdFun}
 			          contentStyle={{width:443,height:260}}
 			        >
-			          	<PsdList/>
+			          	<PsdList mainPsw={mainPsw} vicePsw ={vicePsw} />
 			        </Dialog>
 
 

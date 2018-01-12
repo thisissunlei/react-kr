@@ -36,22 +36,12 @@ class NewCreateDefinitionForm extends React.Component{
 	}
 	
 	componentDidMount(){
-		this.getManagerPsdFun()
-	}
-
-	//获取管理员密码
-	getManagerPsdFun =()=>{
-		let _this = this;
-		var urlParams = {deviceId:State.itemDetail.serialNo}
-		Http.request('getManagerPsdUrl',urlParams).then(function(response) {
-			
-			_this.setState({
-				main : response.main,
-				backup :response.backup
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		
+		let {mainPsw , vicePsw} = this.props;
+		this.setState({
+			main : mainPsw,
+			backup :vicePsw
+		})
 	}
 
 
