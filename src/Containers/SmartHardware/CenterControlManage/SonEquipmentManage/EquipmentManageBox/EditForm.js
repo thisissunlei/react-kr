@@ -215,7 +215,7 @@ class EditForm extends React.Component{
 			serialNo : values.serialNo ,
 			spaceId : values.spaceId ,
 			spaceType : values.spaceType ,
-
+			parentId : values.parentId
 		}
 	 	State.editSonEquipment(submiteParam);
 		

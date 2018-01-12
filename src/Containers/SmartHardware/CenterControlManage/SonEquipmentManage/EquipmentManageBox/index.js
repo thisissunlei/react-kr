@@ -347,7 +347,7 @@ export default class EquipmentManageBox  extends React.Component{
 									var TooltipStyle=""
 									if(value.length==""){
 										TooltipStyle="none"
-
+										value= '-'
 									}else{
 										TooltipStyle="block";
 									}
@@ -355,7 +355,16 @@ export default class EquipmentManageBox  extends React.Component{
 										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 								}} ></TableRowColumn>
 
-				            	<TableRowColumn name="name" style={{width:"15%"}}></TableRowColumn>
+
+								<TableRowColumn name="name" 
+									style={{width:"15%"}}
+									component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
+
 
 				            	<TableRowColumn name="weight" 
 									style={{width:"5%"}}
@@ -381,7 +390,7 @@ export default class EquipmentManageBox  extends React.Component{
 										var TooltipStyle=""
 										if(value.length==""){
 											TooltipStyle="none"
-
+											value ='-'
 										}else{
 											TooltipStyle="inline-block";
 										}
@@ -397,7 +406,7 @@ export default class EquipmentManageBox  extends React.Component{
 										var TooltipStyle=""
 										if(value.length==""){
 											TooltipStyle="none"
-
+											value ='-'
 										}else{
 											TooltipStyle="inline-block";
 										}
@@ -414,7 +423,7 @@ export default class EquipmentManageBox  extends React.Component{
 										var TooltipStyle=""
 										if(value.length==""){
 											TooltipStyle="none"
-
+											value ='-'
 										}else{
 											TooltipStyle="inline-block";
 										}
