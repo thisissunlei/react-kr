@@ -107,9 +107,9 @@ export default class EquipmentDetail extends React.Component{
 		console.log("deviceType",deviceType);
 		let _this =this;
 		return (
-			<div>
+			<div style={{padding :"40px 0 0 20px"}}>
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
-				<h1 style={{marginTop:"-10px"}}>设备信息</h1>
+				
 				<div className="detail-list-equipment">
 					<div>
 						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{detail.serialNo || "无"}</div></div>

@@ -85,7 +85,7 @@ export default class EquipmentSearch extends React.Component{
 		Http.request('regesterSonEquipment',{},urlParams).then(function(response) {
 
 			Message.success("注册设备成功");
-
+			State.freshPageReturn();
 			var param = {date:new Date()}
 			_this.getUnusedEquipmentFun(param);
 
