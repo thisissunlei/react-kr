@@ -348,7 +348,7 @@ class ControlCenterControl extends React.Component{
 							<div className="toggle-box">
 								<Toggle
 								label="空调开关："
-								defaultToggled={airConditionSwitchOn}
+								toggled={airConditionSwitchOn}
 								style={{marginBottom: 16,}}
 								onToggle={this.changeAirConditionSwitchOn}
 								/>
