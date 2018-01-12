@@ -448,7 +448,7 @@ module.exports = {
 
       //删除发现子设备
       'deleteFindSonEquipment':{
-        url : '/api/iot-platform/sub-device/actions/force-delete',
+        url : '/api/iot-platform/device-def/sub-device/actions/force-delete',
         method : 'post'
       },
 

@@ -123,7 +123,7 @@ export default class EquipmentDetail extends React.Component{
 						<div className="tr-line"><div className="td-left">空间类型:</div><div className="td-right">{_this.renderSpaceType()}</div></div>
 						<div className="tr-line"><div className="td-left">房间:</div><div className="td-right">{detail.spaceName || "无"}</div></div>
 						
-						{(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&<div className="tr-line"><div className="td-left">开关状态</div><div className="td-right">{detail.extra.on?"开启":"关闭"}</div></div>}
+						{(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&<div className="tr-line"><div className="td-left">开关状态</div><div className="td-right">{detail.extra && detail.extra.on?"开启":"关闭"}</div></div>}
 						{deviceType=="AIR_CONDITION" &&<div className="tr-line"><div className="td-left">空调模式</div><div className="td-right">{
 							this.renderAirConditionMode(detail.extra.mode)
 						}</div></div>}
