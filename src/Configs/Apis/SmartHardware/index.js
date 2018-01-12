@@ -454,7 +454,7 @@ module.exports = {
 
       //注册子设备
       'regesterSonEquipment':{
-        url : '/api/iot-platform/sub-device/actions/enable',
+        url : '/api/iot-platform/device-def/sub-device/actions/enable',
         method : 'post'
       },
 
