@@ -28,6 +28,7 @@ class ControlCenterControl extends React.Component{
 			windSpeed : '',
 			mode : '',
 			airConditionSetTemp : 16,
+			title : ''
 		}
 	}
 
@@ -44,6 +45,7 @@ class ControlCenterControl extends React.Component{
 			
 			_this.setState({
 				pageInfo : response,
+				title : response.title ,
 				airConditionSetTemp :(response.airCondition && response.airCondition.temp) || "",
 				lampItems : (response.allDevice &&response.allDevice.switchers)||[],
 				airConditionSwitchOn : (response.airCondition && response.airCondition.on)||false,
@@ -273,11 +275,21 @@ class ControlCenterControl extends React.Component{
 
 	render(){
 		const { error, handleSubmit, reset} = this.props;
-		let {pageInfo,lampItems,airConditionSwitchOn,windSpeed,mode,airConditionSetTemp} = this.state;
+		let {pageInfo,lampItems,airConditionSwitchOn,windSpeed,mode,airConditionSetTemp,title} = this.state;
 		console.log("pageInfo",pageInfo);
 		return (
 			<div className="control-center-control">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
+					<div className="show-box">
+						<KrField
+							style={{width:600}}
+							name="title"
+							inline={true}
+							component="labelText"
+							label="屏幕显示标题："
+							value={title}
+						/>
+					</div>
 					<div className="show-box">
 						<KrField
 							style={{width:335}}
