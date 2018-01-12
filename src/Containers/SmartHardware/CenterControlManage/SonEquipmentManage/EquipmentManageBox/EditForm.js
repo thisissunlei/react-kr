@@ -196,11 +196,28 @@ class EditForm extends React.Component{
 
 
 	onSubmit=(values)=>{
+
 		var weigthObj = {weight:values.weight};
 		var oldObj = this.detail.extra || {}
 		var newExtraObj = Object.assign(oldObj,weigthObj)
-		values.extraConfJson = JSON.stringify(newExtraObj);
-	 	State.editSonEquipment(values);
+		var extraConfJsonParam = JSON.stringify(newExtraObj);
+
+		var submiteParam = {
+			communityId : values.communityId ,
+			deviceType : values.deviceType ,
+			extraConfJson : extraConfJsonParam ,
+			floor : values.floor ,
+			id : values.id ,
+			localNo : values.localNo ,
+			location : values.location ,
+			memo : values.memo ,
+			name : values.name ,
+			serialNo : values.serialNo ,
+			spaceId : values.spaceId ,
+			spaceType : values.spaceType ,
+
+		}
+	 	State.editSonEquipment(submiteParam);
 		
 	}
 
