@@ -70,7 +70,11 @@ export default class EquipmentDetail extends React.Component{
 	}
 
 	returnConnectStatus=()=>{
-		let connectStatus = this.props.detail.connected;
+
+		let {detail} = this.props;
+		console.log("detail-----------",detail);
+		let connectStatus = detail.connected;
+		
 		if(connectStatus){
 			return <span style={{color:"green"}}>是</span>
 		}else{
@@ -88,14 +92,13 @@ export default class EquipmentDetail extends React.Component{
 				return "制冷"			
 			}
 		}else{
-			return "无数据"
+			return "无"
 		}
 		
 	
 	}
 
 	renderAirConditionWindSpeed=(param)=>{
-		console.log("param",param);
 		if(param.extra){
 			var paramMode = detail.extra.speed;
 			if(paramMode == "HIGH"){
@@ -106,7 +109,7 @@ export default class EquipmentDetail extends React.Component{
 				return "中速"
 			}
 		}else{
-			return "无数据"
+			return "无"
 		}
 	
 	}
@@ -147,7 +150,7 @@ export default class EquipmentDetail extends React.Component{
 							inline={true}
 							component="labelText"
 							label="屏幕展示标题："
-							value={detail.name}
+							value={detail.name || "无"}
 						/>
 						<KrField
 							style={{width:300}}
@@ -204,7 +207,7 @@ export default class EquipmentDetail extends React.Component{
 							inline={true}
 							component="labelText"
 							label="房间："
-							value={detail.spaceName}
+							value={detail.spaceName || "无"}
 						/>
 						{
 							(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&
@@ -214,7 +217,7 @@ export default class EquipmentDetail extends React.Component{
 								inline={true}
 								component="labelText"
 								label="开关状态："
-								value={(detail.extra && detail.extra.on && detail.extra.on?"开启":"关闭")||"无数据"}
+								value={(detail.extra && (detail.extra.on?"开启":"关闭"))||"无"}
 							/>
 						}
 						{
@@ -250,7 +253,7 @@ export default class EquipmentDetail extends React.Component{
 								inline={true}
 								component="labelText"
 								label="空调设置温度："
-								value={(detail.extra && detail.extra.temp+"℃") || "无数据"}
+								value={(detail.extra && detail.extra.temp+"℃") || "无"}
 							/>
 						}
 
@@ -328,11 +331,15 @@ export default class EquipmentDetail extends React.Component{
 								value={detail.extra && detail.extra.hasBody?"有人":"无人"}
 							/>
 						}
+						<KrField
+							style={{width:700}}
+							name="customerId"
+							inline={true}
+							component="labelText"
+							label="备注："
+							value={detail.memo || "无"}
+						/>
 		
-		
-						
-						<div className="tr-line-last" style={{display:"block"}}><div className="td-left">备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
-
 					</div>
 				</div>
 				<div className="btn-div">
