@@ -66,11 +66,11 @@ module.exports = [
 
 					{
 						primaryText: '设备管理',
-						menuCode: 'printer_manage',
+						menuCode: 'gateway_list',
 						router: '/smarthardware/centercontrolmanage/equipmentmanage',
 					},{
 						primaryText: '操作记录',
-						menuCode: 'print_price_config',
+						menuCode: 'gateway_click_list',
 						router: '/smarthardware/centercontrolmanage/operatelog',
 					}
 				]

@@ -52,6 +52,7 @@ class OpenLogForm extends React.Component{
 				return ;
 			}
 		}
+		
 		State.openLogSearchParams={
 			page:1,
 			pageSize:15,
