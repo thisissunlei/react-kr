@@ -102,6 +102,29 @@ export default class EquipmentSearch extends React.Component{
 		});
 	}
 
+	deviceTypeOptionsReturn=(param)=>{
+		var deviceOptions = [
+			{
+				label : "开关",value : "SWITCHER"
+			},{
+				label : "空调",value : "AIR_CONDITION"
+			},{
+				label : "空气质量仪",value : "AIR_SENSOR"
+			},{
+				label : "温湿度计",value : "HUMITURE_SENSOR"
+			},{
+				label : "人体感应器",value : "BODY_SENSOR"
+			}
+		]
+		for (var i=0;i<deviceOptions.length;i++){
+			console.log("par")
+			if(param == deviceOptions[i].value){
+				return  deviceOptions[i].label
+			}
+		}
+	
+		
+	}
 
 	renderTableBody=(searchEquipmentList)=>{
 		let _this = this;
@@ -110,7 +133,9 @@ export default class EquipmentSearch extends React.Component{
 			return(
 				<div className="table-item" key={index}>
 					<div  className="table-item-index">{item.localNo}</div>
-					<div  className="table-item-index">{item.deviceType}</div>
+					<div  className="table-item-index">{
+						_this.deviceTypeOptionsReturn(item.deviceType)
+					}</div>
 					<div className="table-item-index"> 
 						<div  className="table-item-last" onClick={_this.registEquipmentFun.bind(this,item)}>注册设备</div>
 						<div  className="table-item-last" onClick={_this.deleteEquipmentFun.bind(this,item)}>强制删除</div>
