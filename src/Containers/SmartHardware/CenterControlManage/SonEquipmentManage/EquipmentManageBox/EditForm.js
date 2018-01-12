@@ -299,6 +299,7 @@ class EditForm extends React.Component{
 						name ="memo"
 						component = 'textarea'
 						style={{width:538}}
+						maxSize={50}
 					/>
 					
 					
@@ -362,9 +363,10 @@ const validate = values=>{
 		errors.location = '位置描述最多50个字符';
 	}
 
-	if(values.memo && values.memo.length>50){
-		errors.memo = '备注最多50个字符';
+	if(values.location && values.location.length>50){
+		errors.memo = '位置最多50个字符';
 	}
+	
 	
 	return errors;
 }

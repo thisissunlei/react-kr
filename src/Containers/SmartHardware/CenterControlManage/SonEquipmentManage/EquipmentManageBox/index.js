@@ -409,17 +409,24 @@ export default class EquipmentManageBox  extends React.Component{
 								>
 								</TableRowColumn>
 								
-								
-
-								
-								<TableRowColumn name="memo" 
+								<TableRowColumn name="memo"
 									style={{width:"15%"}}
 									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="inline-block";
+										}
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+											<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+										)
+									}} 
+								>
+								</TableRowColumn>
+
+								
 							
 					      		<TableRowColumn type="operation"
 					        		style={{width:"15%"}}
