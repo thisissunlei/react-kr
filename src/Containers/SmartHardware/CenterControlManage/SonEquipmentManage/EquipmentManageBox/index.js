@@ -368,8 +368,10 @@ export default class EquipmentManageBox  extends React.Component{
 
 				            	<TableRowColumn name="weight" 
 									style={{width:"5%"}}
-									component={(value,oldValue)=>{
-									if(value==""){
+									component={(value,oldValue,itemDetail)=>{
+									if(itemDetail.extraConf){
+										value=itemDetail.extraConf.weight 
+									}else{
 										value="-"
 									}
 									return (<span>{value}</span>)}}

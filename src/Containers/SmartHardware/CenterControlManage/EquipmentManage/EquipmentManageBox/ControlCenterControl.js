@@ -46,7 +46,7 @@ class ControlCenterControl extends React.Component{
 				pageInfo : response,
 				title : response.title ,
 				airConditionSetTemp :(response.airCondition && response.airCondition.temp) || "",
-				lampItems : (response.allDevice &&response.allDevice.switchers)||[],
+				lampItems : response.switchers||[],
 				airConditionSwitchOn : (response.airCondition && response.airCondition.on)||false,
 				windSpeed :(response.airCondition && response.airCondition.speed)||"",
 				mode :(response.airCondition && response.airCondition.mode) || ""

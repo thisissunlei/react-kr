@@ -197,7 +197,14 @@ class EditForm extends React.Component{
 
 	onSubmit=(values)=>{
 
-		var weigthObj = {weight:values.weight};
+		var weigthObj;
+		if(this.detail.deviceType == "HUMITURE_SENSOR" || 
+		this.detail.deviceType == "AIR_SENSOR"){
+			weigthObj = {weight:values.weight};
+		}else{
+			weigthObj = {weight : ''}
+		}
+		
 		var oldObj = this.detail.extra || {}
 		var newExtraObj = Object.assign(oldObj,weigthObj)
 		var extraConfJsonParam = JSON.stringify(newExtraObj);
