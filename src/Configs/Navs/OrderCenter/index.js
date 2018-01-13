@@ -17,6 +17,12 @@ module.exports = [
                         menuCode: 'iot_door_open_log',
                         //menuCode: 'fina_meeting_order_page'
                     },
+                    {
+                        primaryText: "通用订单列表",
+                        originUrl: '/order-center/order-manage/general-order-manage',
+                        type:'vue',
+                        menuCode: 'order_seat_list',
+                    }
                 ]
             },
             {

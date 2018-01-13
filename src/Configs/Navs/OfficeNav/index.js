@@ -77,6 +77,12 @@ module.exports = [
 						menuCode: 'wf_contract_list',
 						router: '/office/officeBackground/contractMonitor',
 					},
+					{
+						primaryText: '合同扫码',
+						menuCode: 'wf_contract_list',
+						type:'vue',
+						originUrl: '/order-center/contract-manage/contract-yard',
+					}
 				]	
 			}, 
 		]
