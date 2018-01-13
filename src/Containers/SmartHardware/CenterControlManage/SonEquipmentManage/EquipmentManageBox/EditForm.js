@@ -250,7 +250,6 @@ class EditForm extends React.Component{
 		const { error, handleSubmit, reset ,detail} = this.props;
 		let spaceTypeOptions = [{label:"会议室",value : 'MEETING'},{label:"独立办公室",value : 'OFFICE'},{label:"大厅",value : 'HALL'}]
 		let deviceTypeOptions = [{label:"灯",value : 'LAMP'},{label:"雾化膜",value : 'ATOMIZATION_MEMBRANE'}]
-		console.log("this.detail",this.detail);
 		return(
 			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -380,8 +379,13 @@ const validate = values=>{
 	if(!values.name || /^\s+$/.test(values.name)){
 		errors.name = '名称为必填项';
 	}
-	if(values.name && values.name.length>6){
-		errors.name = '名称最多6个字符';
+	if(values.name ){
+
+		var nameLen = values.name.replace(/[^\x00-\xff]/g, "**").length;
+		if(nameLen>12){
+			errors.name = '名称最多12个字节';
+		}
+		
 	}
 	
 	if(!values.weight || /^\s+$/.test(values.weight)){
