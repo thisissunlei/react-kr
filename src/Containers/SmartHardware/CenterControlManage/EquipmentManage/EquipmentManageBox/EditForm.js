@@ -308,7 +308,7 @@ const validate = values=>{
 
 
 	if(!values.spaceType){
-		errors.spaceType = '空间类型类型为必填项';
+		errors.spaceType = '空间类型为必填项';
 	}
 	if(values.spaceType && (values.spaceType=='MEETING' ||values.spaceType=='OFFICE')&& !values.spaceId){
 		errors.spaceId ='空间类型为会议室或独立办公室,房间必填'
