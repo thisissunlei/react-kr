@@ -148,7 +148,7 @@ class ControlCenterControl extends React.Component{
 			return(
 				<div  className={"lamp-item"+index%3} key={index} >
 					<Toggle
-					label={item.name+"："}
+					label={(item.name||item.localNo)+"："}
 					toggled={item.on}
 					style={{marginBottom: 16,}}
 					onToggle={_this.onToggleSingleLamp.bind(this,item)}

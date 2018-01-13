@@ -380,8 +380,8 @@ const validate = values=>{
 	if(!values.name || /^\s+$/.test(values.name)){
 		errors.name = '名称为必填项';
 	}
-	if(values.name && values.name.length>11){
-		errors.name = '名称最多11个字符';
+	if(values.name && values.name.length>6){
+		errors.name = '名称最多6个字符';
 	}
 	
 	if(!values.weight || /^\s+$/.test(values.weight)){
