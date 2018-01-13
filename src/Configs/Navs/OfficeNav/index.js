@@ -3,6 +3,7 @@ module.exports = [
 	{
 		primaryText: "综合办公",
 		router: 'office',
+		originUrl: '#/office/officeBackground/newOffice',
 		menuItems: [
 			{
 				primaryText: "办公主页",
@@ -80,7 +81,6 @@ module.exports = [
 					{
 						primaryText: '合同扫码',
 						menuCode: 'wf_contract_list',
-						type:'vue',
 						originUrl: '/order-center/contract-manage/contract-yard',
 					}
 				]	
