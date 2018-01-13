@@ -143,7 +143,7 @@ export default class EquipmentDetail extends React.Component{
 							style={{width:300}}
 							inline={true}
 							component="labelText"
-							label="屏幕展示标题："
+							label="名称："
 							value={detail.name || "无"}
 						/>
 						<KrField
