@@ -135,7 +135,9 @@ export default class EquipmentDetail extends React.Component{
 								{label:"空调",value:"AIR_CONDITION"},
 								{label:"空气质量仪",value:"AIR_SENSOR"},
 								{label:"温湿度计",value:"HUMITURE_SENSOR"},
-								{label:"网关面板",value:"BODY_SENSOR"}]
+								{label:"人体感应器",value:"BODY_SENSOR"},
+								{label:"网关面板",value:"GATEWAY_PANEL"},
+							]
 		var deviceTypeLabel = '无';
 		for(var i =0;i<deviceTypeOption.length;i++){
 			if(deviceType==deviceTypeOption[i].value){
@@ -171,7 +173,6 @@ export default class EquipmentDetail extends React.Component{
 					<Button label="刷新设备上报信息" onTouchTap={this.freshEquipmentReporter} style={{width:130,margin:"0 0 20px 30px"}}/>
 					<div>
 						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{detail.serialNo || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">标记:</div><div className="td-right">{detail.alias || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">底层固件版本:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.driverV) || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.v) || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.ip) || "无"}</div></div>
