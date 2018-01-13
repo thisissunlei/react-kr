@@ -172,29 +172,122 @@ export default class EquipmentDetail extends React.Component{
 				<div className="detail-list-equipment">
 					<Button label="刷新设备上报信息" onTouchTap={this.freshEquipmentReporter} style={{width:130,margin:"0 0 20px 30px"}}/>
 					<div>
-						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{detail.serialNo || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">底层固件版本:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.driverV) || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.v) || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.ip) || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">当前连接服务器:</div><div className="td-right">{(detail.deviceVO && detail.deviceVO.loginedServer) || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">设备类型:</div><div className="td-right">{_this.returnDeviceType()}</div></div>
-						<div className="tr-line"><div className="td-left">是否连接:</div><div className="td-right">{_this.returnConnectStatus()}</div></div>
-						<div className="tr-line"><div className="td-left">最后一次连接时间:</div><div className="td-right">{DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">最后一次更新时间:</div><div className="td-right">{DateFormat(detail.utime, "yyyy-mm-dd HH:MM:ss") || "无"}</div></div>
+						<div  style={{paddingLeft:25}}>
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="硬件ID："
+								value={detail.serialNo}
+							/>
+
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="底层固件版本："
+								value={(detail.deviceVO && detail.deviceVO.driverV) || "无"}
+							/>
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="APP版本："
+								value={(detail.deviceVO && detail.deviceVO.v) || "无"}
+							/>
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="IP地址："
+								value={(detail.deviceVO && detail.deviceVO.ip) || "无"}
+							/>
+
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="当前连接服务器："
+								value={(detail.deviceVO && detail.deviceVO.loginedServer) || "无"}
+							/>
+
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="设备类型："
+								value={_this.returnDeviceType()}
+							/>
+
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="是否连接："
+								value={_this.returnConnectStatus()}
+							/>
+
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="最后一次连接时间："
+								value={DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}
+							/>
+
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="最后一次更新时间："
+								value={DateFormat(detail.utime, "yyyy-mm-dd HH:MM:ss") || "无"}
+							/>
+						</div>
+						
 						<div>
-							<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="center-control-report"></pre></div></div>
-							<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="center-control-desired"></pre></div></div>
+							<div className="tr-line-bottom"><div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="center-control-report"></pre></div></div>
+							<div className="tr-line-bottom"><div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="center-control-desired"></pre></div></div>
 						</div>
 					</div>
-					<div>
-						<div className="tr-line"><div className="td-left">社区名称:</div><div className="td-right">{detail.communityName || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">楼层:</div><div className="td-right">{detail.floor || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">房间:</div><div className="td-right">{detail.spaceName || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">空间类型:</div><div className="td-right">{_this.renderSpaceType()}</div></div>
+					<div style={{paddingLeft:25}}>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="社区："
+							value={detail.communityName || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="楼层："
+							value={detail.floor || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="房间："
+							value={detail.spaceName || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="空间类型："
+							value={_this.renderSpaceType()}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="屏幕展示标题："
+							value={detail.name || "无"}
+						/>
 						
-						<div className="tr-line"><div className="td-left">屏幕展示标题:</div><div className="td-right">{detail.name || "无"}</div></div>
 						
-						<div className="tr-line-last" style={{display:"block"}}><div className="td-left">备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
+						<div className="tr-line-last" style={{display:"block"}}><div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
 
 					</div>
 				</div>
