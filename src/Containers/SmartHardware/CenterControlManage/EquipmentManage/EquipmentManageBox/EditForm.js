@@ -203,6 +203,11 @@ class EditForm extends React.Component{
 					<div style={{margin:"0 0 20px 10px",fontSize: 14,color:'black'}}>
 						<div><span>智能硬件ID：</span><span style={{color:"#ff6868"}}>{this.detail.serialNo}</span></div>
 					</div>
+					<div style={{margin:"0 0 20px 10px",fontSize: 14,color:'black'}}>
+						<div><span>标记：</span><span style={{color:"#ff6868"}}>{this.detail.alias}</span></div>
+					</div>
+					
+					
 					<KrField name="communityId" 
 						component="searchCommunityAll" 
 						onChange = {this.onChangeSearchCommunity}
@@ -278,6 +283,11 @@ const validate = values=>{
 	if(!values.communityId){
 		errors.communityId = '社区名称为必填项';
 	}
+
+	if(!values.name){
+		errors.name = '展示标题必须填写';
+	}
+
 	if(!values.floor){
 		errors.floor = '楼层为必填项';
 	}
