@@ -28,20 +28,6 @@ module.exports = [
 					},
 				]	
 			}, 
-			// {
-			// 	primaryText: '待办事宜',
-			// 	iconName: 'icon-schema',
-			// 	router: 'office',
-			// 	iconColor: '#79859a',
-			// 	menuCode: 'hrm_resourcesList_incumbency',
-			// 	menuItems: [
-			// 		{
-			// 			primaryText: '待办列表',
-			// 			menuCode: 'hrm_resourcesList_incumbency',
-			// 			router: '/office/officeBackground/todo',
-			// 		},
-			// 	]	
-			// }, 
 			{
 				primaryText: '已办事宜',
 				iconName: 'icon-donething',
