@@ -96,7 +96,6 @@ import CheckPermission from './CheckPermission';
 import MoveSelect from './MoveSelect';
 import AirBubbles from "./AirBubbles";
 import KrMenu from './KrMenu';
-
 module.exports = {
 	//Components
 
