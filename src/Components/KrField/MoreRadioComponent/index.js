@@ -10,7 +10,6 @@ export default class MoreRadioComponent  extends React.Component{
     }
 
     componentDidMount(){
-        console.log("this.props",this.props);
         if(Array.prototype.isPrototypeOf(this.props.input.value)){
             this.setState({
                 checkData:this.props.input.value

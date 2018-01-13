@@ -192,6 +192,5 @@ module.exports = {
 	...DrawerOther,
 	MoveSelect,
 	AirBubbles,
-	KrMenu,
-	
+	KrMenu
 }
