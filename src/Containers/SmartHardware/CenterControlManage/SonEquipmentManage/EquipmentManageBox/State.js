@@ -54,7 +54,8 @@ let State = observable({
 	{label:"人体感应",value:"BODY_SENSOR"}],
 	SpaceType :  [{label:"会议室",value:"MEETING"},
 	{label:"大厅",value:"HALL"},
-	{label:"独立办公室",value:"OFFICE"}]
+	{label:"独立办公室",value:"OFFICE"}],
+	openForceFreshDialog : false,
 });
 
 

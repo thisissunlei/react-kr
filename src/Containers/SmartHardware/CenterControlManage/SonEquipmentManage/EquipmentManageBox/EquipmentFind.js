@@ -4,7 +4,7 @@ import {
 	formValueSelector
 } from 'redux-form';
 import {KrField,Grid,Row,Button,ListGroup,ListGroupItem,Loading,Table,TableHeader,TableHeaderColumn,TableBody
-	,TableRow,TableRowColumn,TableFooter,Tooltip,Message} from 'kr-ui';
+	,TableRow,TableRowColumn,TableFooter,Tooltip,Message,Dialog} from 'kr-ui';
 import {
 	Toggle
 }from 'material-ui';
@@ -31,6 +31,8 @@ export default class EquipmentSearch extends React.Component{
 	}
 
 	getUnusedEquipmentFun =(param)=>{
+		
+		
 		let _this = this;
 		let {serialNo} = this.props;
 		let paramOld = {serialNo : serialNo,forceRefresh : false};
@@ -39,6 +41,14 @@ export default class EquipmentSearch extends React.Component{
 			_this.setState({
 				searchEquipmentList : response.items
 			})
+
+			if(Object.keys(param).length !== 0){
+				if(param.forceRefresh){
+					Message.success("强制刷新成功")
+				}else{
+					Message.success("刷新成功")
+				}
+			}
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -145,13 +155,18 @@ export default class EquipmentSearch extends React.Component{
 		return DOM_list;
 	}
 	freshPage=()=>{
-		var param = {date: new Date()}
+		var param = {date: new Date(),forceRefresh:false}
 		this.getUnusedEquipmentFun(param)
 	}
 
-	freshPageForce=()=>{
+	forceRefresh=()=>{
+		this.openForceFreshDialogFun();
 		var param = {date: new Date(),forceRefresh:true}
 		this.getUnusedEquipmentFun(param)
+	}
+
+	openForceFreshDialogFun=()=>{
+		State.openForceFreshDialog = ! State.openForceFreshDialog
 	}
 
 	render(){
@@ -163,7 +178,7 @@ export default class EquipmentSearch extends React.Component{
 				</div>
 				<div className="son-equipment-btn-box-find">
 					<div className="btn" onClick={this.freshPage}>刷新</div>
-					<div className="btn" onClick={this.freshPageForce}>强制刷新</div>
+					<div className="btn" onClick={this.openForceFreshDialogFun}>强制刷新</div>
 				</div>
 
 				<div className="detail-list-equipment  find-son-equipment">
@@ -185,6 +200,28 @@ export default class EquipmentSearch extends React.Component{
 				<div className="btn-div">
 					<Button label="关闭" onTouchTap={this.closeDialog}/>
 				</div>
+				<Dialog
+			          title="强制刷新确定"
+			          open={State.openForceFreshDialog}
+			          onClose={this.openForceFreshDialogFun}
+			          contentStyle={{width:443,height:236}}
+			        >
+			          <div style={{marginTop:45}}>
+			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>强制刷新会导致子设备上报信息较慢，确定刷新吗？</p>
+			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
+			                  <Row>
+			                    <ListGroup>
+			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+			                        <Button  label="确定" type="submit" onClick={this.forceRefresh} />
+			                      </ListGroupItem>
+			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openForceFreshDialogFun} />
+			                      </ListGroupItem>
+			                    </ListGroup>
+			                  </Row>
+			                </Grid>
+			          </div>
+			        </Dialog>
 				
 		  	</div>
 		);

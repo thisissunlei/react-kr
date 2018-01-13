@@ -210,19 +210,19 @@ class EditForm extends React.Component{
 		var extraConfJsonParam = JSON.stringify(newExtraObj);
 
 		var submiteParam = {
-			communityId : values.communityId ,
-			deviceType : values.deviceType ,
-			extraConfJson : extraConfJsonParam ,
-			floor : values.floor ,
-			id : values.id ,
-			localNo : values.localNo ,
-			location : values.location ,
-			memo : values.memo ,
-			name : values.name ,
-			serialNo : values.serialNo ,
-			spaceId : values.spaceId ,
-			spaceType : values.spaceType ,
-			parentId : values.parentId
+			communityId : values.communityId ||"" ,
+			deviceType : values.deviceType||"" ,
+			extraConfJson : extraConfJsonParam||"" ,
+			floor : values.floor||"" ,
+			id : values.id ||"",
+			localNo : values.localNo||"" ,
+			location : values.location||"" ,
+			memo : values.memo||"" ,
+			name : values.name||"" ,
+			serialNo : values.serialNo ||"",
+			spaceId : values.spaceId||"" ,
+			spaceType : values.spaceType||"" ,
+			parentId : values.parentId||""
 		}
 	 	State.editSonEquipment(submiteParam);
 		
@@ -249,16 +249,30 @@ class EditForm extends React.Component{
 		
 		const { error, handleSubmit, reset ,detail} = this.props;
 		let spaceTypeOptions = [{label:"会议室",value : 'MEETING'},{label:"独立办公室",value : 'OFFICE'},{label:"大厅",value : 'HALL'}]
+		let deviceTypeOptions = [{label:"灯",value : 'LAMP'},{label:"雾化膜",value : 'ATOMIZATION_MEMBRANE'}]
 		console.log("this.detail",this.detail);
 		return(
 			<div style={{padding:'20px 0 0 50px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div style={{margin:"0 0 20px 10px",fontSize: 14,color:'black'}}>
 						<div><span>智能硬件ID：</span><span style={{color:"#ff6868"}}>{detail.serialNo}</span></div>
-						<div style={{marginTop:15}}><span>设备类型：</span><span>{this.returnDeviceType()}</span></div>
+						{
+							(this.detail.deviceType!=="LAMP" && this.detail.deviceType !=="ATOMIZATION_MEMBRANE") &&<div style={{marginTop:15}}><span>设备类型：</span><span>{this.returnDeviceType()}</span></div>
+						
+						}
 					</div>
 					
-
+					{
+						(this.detail.deviceType=="LAMP" || this.detail.deviceType=="ATOMIZATION_MEMBRANE") &&
+						<KrField name="deviceType" 
+							component="select" 
+							label="设备类型" 
+							options = {deviceTypeOptions}
+							requireLabel={true} 
+							style={{width:'252px',margin:'0 35px 5px 0'}}
+						/>
+					
+					}
 					<KrField grid={1/2} name="name" 
 						type="text" 
 						label="名称" 
