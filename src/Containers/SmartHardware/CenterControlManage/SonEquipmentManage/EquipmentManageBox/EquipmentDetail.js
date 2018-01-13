@@ -18,16 +18,35 @@ export default class EquipmentDetail extends React.Component{
 
 		this.state={
 			itemDetail:{},
-			showReported : true,
-			showDesired :true
+			canFreshStatus:{
+				sensorTemp : '',
+				sensorHumidity : '',
+				hasBody : '',
+				pm25 : '',
+				pm10 : '',
+				pm2510 : ''
+			}
+			
+
 		}
 	}
 
 	componentDidMount(){
 		let {detail} = this.props;
+		console.log("detail",detail);
 		let _this =this;
 		_this.setState({
-			itemDetail :detail
+			itemDetail :detail,
+			canFreshStatus:{
+				sensorTemp :(detail.extra && detail.extra.temp+"℃") || "无",
+				sensorHumidity : (detail.extra && detail.extra.humidity+"%")|| "无",
+				hasBody :(detail.extra && (detail.extra.hasBody?"有人":"无人"))||"无数据",
+				pm25 : detail.extra && detail.extra.pm25+" ",
+				pm10 : detail.extra && detail.extra.pm10+" ",
+				pm2510 : detail.extra && detail.extra.pm2510+" "
+			}
+			
+
 		})
 	}
 
@@ -112,14 +131,57 @@ export default class EquipmentDetail extends React.Component{
 	
 	}
 
+	getNewStatus=()=>{
+		let {detail} = this.props;
+		let _this =this;
+		var deviceType = detail.deviceType;
+		var url;
 
+		if(deviceType =="AIR_SENSOR" ){
+			url = "getNewAirSendor"
+		}else if(deviceType =="HUMITURE_SENSOR" ){
+			url = "getNewHumitureSensor"
+		}else if(deviceType =="BODY_SENSOR" ){
+			url = "getNewBodySensor"
+		}
+		var getDataParams={localNo : detail.localNo ,serialNo : detail.serialNo}
+		Http.request(url,getDataParams).then(function(response) {
+			
+			var newObj;
+			if(deviceType =="AIR_SENSOR" ){
+				newObj = {
+					pm25 :  response.pm25 +" ",
+					pm10 : response.pm10 +" ",
+					pm2510 : response.pm2510 +" ",
+				}
+			}else if(deviceType =="HUMITURE_SENSOR" ){
+				newObj = {
+					sensorTemp : response.temperature+"℃" ||'无',
+					sensorHumidity : response.humidity+"%" ||'无',
+				}
+			}else if(deviceType =="BODY_SENSOR" ){
+				newObj = {
+					hasBody : response.hasBody?"有人":"无人",
+				}
+			}
+			var bothObj = Object.assign(_this.state.canFreshStatus,newObj);
+			Message.success("更新成功")
+			_this.setState({
+				canFreshStatus : bothObj
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+
+	}
 
 
 	render(){
 		let {detail} = this.props;
-		let {showReported,showDesired} = this.state;
+		let {sensorTemp,canFreshStatus} = this.state;
 		var deviceType = this.props.detail.deviceType;
 		let _this =this;
+		console.log("canFreshStatus",canFreshStatus);
 		return (
 			<div style={{padding :"18px 0 0 20px"}}>
 				
@@ -236,7 +298,7 @@ export default class EquipmentDetail extends React.Component{
 								inline={true}
 								component="labelText"
 								label="空调设置温度："
-								value={(detail.extra && detail.extra.temp+"℃") || "无"}
+								value={sensorTemp}
 							/>
 						}
 
@@ -252,7 +314,7 @@ export default class EquipmentDetail extends React.Component{
 							deviceType=="AIR_SENSOR" ||
 							deviceType=="BODY_SENSOR") &&
 							<div className="sensor-box">
-								<div className="btn">获取最新状态</div>
+								<div className="btn" onClick={this.getNewStatus}>获取最新状态</div>
 								{
 									deviceType=="HUMITURE_SENSOR" &&
 									<KrField
@@ -260,7 +322,7 @@ export default class EquipmentDetail extends React.Component{
 										inline={true}
 										component="labelText"
 										label="温度："
-										value={(detail.extra && detail.extra.temp+"℃") || "无"}
+										value={canFreshStatus.sensorTemp}
 									/>
 								}
 
@@ -271,7 +333,7 @@ export default class EquipmentDetail extends React.Component{
 										inline={true}
 										component="labelText"
 										label="湿度："
-										value={(detail.extra && detail.extra.humidity+"%")|| "无"}
+										value={canFreshStatus.sensorHumidity}
 									/>
 								}
 
@@ -282,7 +344,7 @@ export default class EquipmentDetail extends React.Component{
 										inline={true}
 										component="labelText"
 										label="PM2.5："
-										value={detail.extra && detail.extra.pm25}
+										value={canFreshStatus.pm25}
 									/>
 								}
 
@@ -294,7 +356,7 @@ export default class EquipmentDetail extends React.Component{
 										inline={true}
 										component="labelText"
 										label="PM10："
-										value={detail.extra && detail.extra.pm10}
+										value={canFreshStatus.pm10}
 									/>
 								}	
 
@@ -305,7 +367,7 @@ export default class EquipmentDetail extends React.Component{
 										inline={true}
 										component="labelText"
 										label="PM2510："
-										value={detail.extra && detail.extra.pm2510}
+										value={canFreshStatus.pm2510}
 									/>
 								}
 
@@ -316,7 +378,7 @@ export default class EquipmentDetail extends React.Component{
 										inline={true}
 										component="labelText"
 										label="是否有人："
-										value={(detail.extra && (detail.extra.hasBody?"有人":"无人"))||"无数据"}
+										value={canFreshStatus.hasBody}
 									/>
 								}
 							</div>

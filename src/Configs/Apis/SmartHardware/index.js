@@ -516,7 +516,27 @@ module.exports = {
       'disconnnetCenterControlEquipment':{
         url : '/api/iot-platform/device-def/admin/disconnect',
         method : 'post'
-      }
+      },
+
+
+       //获取最新的空气质量
+       'getNewAirSendor':{
+        url : '/api/iot-platform/device-def/admin/air-sensor/fetch?localNo={localNo}&serialNo={serialNo}',
+        method : 'get'
+      },
+
+      //获取最新的温湿度
+      'getNewHumitureSensor':{
+        url : '/api/iot-platform/device-def/admin/humiture-sensor/fetch?localNo={localNo}&serialNo={serialNo}',
+        method : 'get'
+      },
+
+      //获取最新的人体感应
+      'getNewBodySensor':{
+        url : '/api/iot-platform/device-def/admin/body-sensor/fetch?localNo={localNo}&serialNo={serialNo}',
+        method : 'get'
+      },
+
 
       
 

@@ -346,7 +346,8 @@ export default class EquipmentManageBox  extends React.Component{
 			            ajaxUrlName='centerControlEquipmentList'
 			            ajaxParams={State.equipmentSearchParams}
 			            onPageChange={this.onPageChangeFun}
-			            displayCheckbox={true}
+									displayCheckbox={true}
+									displayCheckbox={false}
 			          >
 			            <TableHeader>
 			            	<TableHeaderColumn>社区名称</TableHeaderColumn>
