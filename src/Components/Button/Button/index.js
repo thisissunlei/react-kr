@@ -24,7 +24,7 @@ export default class Button extends Component {
 	}
 
 	static propTypes = {
-		className: React.PropTypes.string,
+		className: React.PropTypes.string,,
 		children: React.PropTypes.node,
 		/**
 		* 样式
