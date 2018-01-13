@@ -255,7 +255,7 @@ class ControlCenterControl extends React.Component{
 		Http.request('setSwitchOnAllLamps',{},param).then(function(response) {
 			Message.success("设置成功");
 			_this.setState({
-				lampItems : response.items
+				lampItems : response.items || []
 			})
 		}).catch(function(err) {
 			Message.error(err.message);
