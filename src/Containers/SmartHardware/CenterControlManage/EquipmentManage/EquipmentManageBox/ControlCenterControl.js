@@ -149,7 +149,7 @@ class ControlCenterControl extends React.Component{
 				<div  className={"lamp-item"+index%3} key={index} >
 					<Toggle
 					label={item.name+"："}
-					defaultToggled={item.on}
+					toggled={item.on}
 					style={{marginBottom: 16,}}
 					onToggle={_this.onToggleSingleLamp.bind(this,item)}
 					/>
@@ -204,7 +204,7 @@ class ControlCenterControl extends React.Component{
 		var urlParams = {serialNo : detail.serialNo,temp : !item.on,localNo : item.localNo}
 		Http.request('SwitchOpenLampFrost',{},urlParams).then(function(response) {
 			Message.success("设置成功");
-			_this.changeLampItems(item,response.on)
+			_this.changeLampItems(item,response.on || false)
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
