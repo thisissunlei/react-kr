@@ -240,74 +240,6 @@ export default class EquipmentDetail extends React.Component{
 							/>
 						}
 
-
-
-						{
-							deviceType=="HUMITURE_SENSOR" &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="温度："
-								value={(detail.extra && detail.extra.temp+"℃") || "无"}
-							/>
-						}
-
-						{
-							deviceType=="HUMITURE_SENSOR" &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="湿度："
-								value={(detail.extra && detail.extra.humidity)|| "无"}
-							/>
-						}
-
-						{
-							deviceType=="AIR_SENSOR" &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="PM2.5："
-								value={detail.extra && detail.extra.pm25}
-							/>
-						}
-
-
-						{
-							deviceType=="AIR_SENSOR" &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="PM10："
-								value={detail.extra && detail.extra.pm10}
-							/>
-						}	
-
-						{
-							deviceType=="AIR_SENSOR" &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="PM2510："
-								value={detail.extra && detail.extra.pm2510}
-							/>
-						}
-
-						{
-							deviceType=="BODY_SENSOR" &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="是否有人："
-								value={(detail.extra && (detail.extra.hasBody?"有人":"无人"))||"无数据"}
-							/>
-						}
 						<KrField
 							style={{width:700}}
 							inline={true}
@@ -315,6 +247,82 @@ export default class EquipmentDetail extends React.Component{
 							label="备注："
 							value={detail.memo || "无"}
 						/>
+						{
+							(deviceType=="HUMITURE_SENSOR" ||
+							deviceType=="AIR_SENSOR" ||
+							deviceType=="BODY_SENSOR") &&
+							<div className="sensor-box">
+								<div className="btn">获取最新状态</div>
+								{
+									deviceType=="HUMITURE_SENSOR" &&
+									<KrField
+										style={{width:300}}
+										inline={true}
+										component="labelText"
+										label="温度："
+										value={(detail.extra && detail.extra.temp+"℃") || "无"}
+									/>
+								}
+
+								{
+									deviceType=="HUMITURE_SENSOR" &&
+									<KrField
+										style={{width:300}}
+										inline={true}
+										component="labelText"
+										label="湿度："
+										value={(detail.extra && detail.extra.humidity+"%")|| "无"}
+									/>
+								}
+
+								{
+									deviceType=="AIR_SENSOR" &&
+									<KrField
+										style={{width:300}}
+										inline={true}
+										component="labelText"
+										label="PM2.5："
+										value={detail.extra && detail.extra.pm25}
+									/>
+								}
+
+
+								{
+									deviceType=="AIR_SENSOR" &&
+									<KrField
+										style={{width:300}}
+										inline={true}
+										component="labelText"
+										label="PM10："
+										value={detail.extra && detail.extra.pm10}
+									/>
+								}	
+
+								{
+									deviceType=="AIR_SENSOR" &&
+									<KrField
+										style={{width:300}}
+										inline={true}
+										component="labelText"
+										label="PM2510："
+										value={detail.extra && detail.extra.pm2510}
+									/>
+								}
+
+								{
+									deviceType=="BODY_SENSOR" &&
+									<KrField
+										style={{width:300}}
+										inline={true}
+										component="labelText"
+										label="是否有人："
+										value={(detail.extra && (detail.extra.hasBody?"有人":"无人"))||"无数据"}
+									/>
+								}
+							</div>
+
+						}
+						
 		
 
 					</div>
