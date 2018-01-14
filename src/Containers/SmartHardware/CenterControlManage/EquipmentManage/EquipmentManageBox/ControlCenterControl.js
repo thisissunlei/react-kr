@@ -28,13 +28,20 @@ class ControlCenterControl extends React.Component{
 			windSpeed : '',
 			mode : '',
 			airConditionSetTemp : 16,
-			title : ''
+			title : '',
+			showLoading : false
 		}
 	}
 
 	componentDidMount(){
 		
 		this.getNowInfo();
+	}
+
+	switchShowLoading=()=>{
+		this.setState({
+			showLoading : !this.state.showLoading
+		})
 	}
 
 	getNowInfo=()=>{
@@ -91,7 +98,7 @@ class ControlCenterControl extends React.Component{
 
 	renderWindSpeedRadio=(param)=>{
 		let _this = this;
-		var arrData =	[{label:"高速",value:"HIGH"},{label:"低速",value:"LOW"},{label:"中速",values : 'MEDIUM'}];
+		var arrData =	[{label:"高速",value:"HIGH"},{label:"低速",value:"LOW"},{label:"中速",value : 'MEDIUM'}];
 		for(var i =0;i<arrData.length;i++){
 			if(arrData[i].value == param){
 				arrData[i].checked= true;
@@ -116,12 +123,16 @@ class ControlCenterControl extends React.Component{
 		let {detail} = this.props;
 		let _this=this;
 		var urlParams = {serialNo:detail.serialNo,speed : e.target.value}
+		console.log("e.target.value",e.target.value);
+		_this.switchShowLoading();
 		Http.request('setAirConditionWindSpeedAll',{},urlParams).then(function(response) {
+			_this.switchShowLoading();
 			Message.success("设置成功");
 			_this.setState({
 				windSpeed :  e.target.value
 			})
 		}).catch(function(err) {
+			_this.switchShowLoading();
 			Message.error(err.message);
 		});
 	}
@@ -129,13 +140,16 @@ class ControlCenterControl extends React.Component{
 	onChangeMode=(e)=>{
 		let {detail} = this.props;
 		let _this=this;
+		_this.switchShowLoading();	
 		var urlParams = {serialNo:detail.serialNo,mode : e.target.value}
 		Http.request('setAirConditionModeAll',{},urlParams).then(function(response) {
+			_this.switchShowLoading();
 			Message.success("设置成功");
 			_this.setState({
 				mode :  e.target.value
 			})
 		}).catch(function(err) {
+			_this.switchShowLoading();
 			Message.error(err.message);
 		});
 	}
@@ -239,13 +253,16 @@ class ControlCenterControl extends React.Component{
 
 		let _this = this;
 		let {detail} = this.props;
+		_this.switchShowLoading();
 		var urlParams = {serialNo : detail.serialNo,on : !_this.state.airConditionSwitchOn}
 		Http.request('setAirConditionSwitchOn',{},urlParams).then(function(response) {
+			_this.switchShowLoading();
 			Message.success("设置成功");
 			_this.setState({
 				airConditionSwitchOn :  !_this.state.airConditionSwitchOn
 			})
 		}).catch(function(err) {
+			_this.switchShowLoading();
 			Message.error(err.message);
 		});
 	}
@@ -265,12 +282,15 @@ class ControlCenterControl extends React.Component{
 
 	controlAllLamps=(param)=>{
 		let _this =this;
+		_this.switchShowLoading();
 		Http.request('setSwitchOnAllLamps',{},param).then(function(response) {
+
+			_this.switchShowLoading();
+
 			var onOffNumLampsObj = _this.onOffLampsNum(response.items);
-			console.log("onOffNumLampsObj",onOffNumLampsObj)
 			var openStr = "成功开灯"+onOffNumLampsObj.ONNum+"盏";
 			var closeStr = "成功关灯"+onOffNumLampsObj.OFFNum+"盏";
-			console.log("openStr",openStr,"closeStr",closeStr);
+			
 			if(param.on){
 				Message.success(openStr)
 			}else{
@@ -280,6 +300,7 @@ class ControlCenterControl extends React.Component{
 				lampItems : response.items || []
 			})
 		}).catch(function(err) {
+			_this.switchShowLoading();
 			Message.error(err.message);
 		});
 	}
@@ -303,9 +324,13 @@ class ControlCenterControl extends React.Component{
 
 	render(){
 		const { error, handleSubmit, reset} = this.props;
-		let {pageInfo,lampItems,airConditionSwitchOn,windSpeed,mode,airConditionSetTemp,title} = this.state;
+		let {pageInfo,lampItems,airConditionSwitchOn,windSpeed,mode,airConditionSetTemp,title,showLoading} = this.state;
 		return (
 			<div className="control-center-control">
+				
+				{showLoading && <div className="loading-box">
+					<Loading/>
+				</div>}
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div className="show-box">
 						<KrField

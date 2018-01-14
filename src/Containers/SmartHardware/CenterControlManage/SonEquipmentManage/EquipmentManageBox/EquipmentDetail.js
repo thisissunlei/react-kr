@@ -38,7 +38,7 @@ export default class EquipmentDetail extends React.Component{
 		_this.setState({
 			itemDetail :detail,
 			canFreshStatus:{
-				sensorTemp :(detail.extra && detail.extra.temp+"℃") || "无",
+				sensorTemp :(detail.extra && detail.extra.celsius+"℃") || "无",
 				sensorHumidity : (detail.extra && detail.extra.humidity+"%")|| "无",
 				hasBody :(detail.extra && (detail.extra.hasBody?"有人":"无人"))||"无数据",
 				pm25 : detail.extra && detail.extra.pm25+" ",
