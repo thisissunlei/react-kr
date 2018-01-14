@@ -123,6 +123,8 @@ class EquipmentDataForm extends React.Component{
 		State.openOperateLog = false;
 	}
 
+	
+
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let deviceType = this.detail.deviceType;
@@ -161,7 +163,6 @@ class EquipmentDataForm extends React.Component{
 			            ajaxFieldListName='items'
 			            ajaxUrlName='getEquipmentOperateLog'
 			            ajaxParams={State.equipmentOperateLogParam}
-			            onPageChange={this.onPageChangeFun}
 			            displayCheckbox={true}
 						onSelect={this.onSelcet}
 						displayCheckbox={false}

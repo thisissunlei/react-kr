@@ -466,7 +466,7 @@ module.exports = {
 
       //获取设备操作列表
       'getEquipmentOperateLog':{
-        url : '/api/iot-platform/device-status-log/list?deviceDefId={deviceDefId}&endDate={endDate}&startDate={startDate}',
+        url : '/api/iot-platform/device-status-log/list?deviceDefId={deviceDefId}&endDate={endDate}&startDate={startDate}&page={page}&pageSize={pageSize}',
         method : 'get'
       },
 
