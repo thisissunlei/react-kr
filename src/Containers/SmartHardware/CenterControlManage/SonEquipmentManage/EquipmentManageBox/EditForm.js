@@ -46,8 +46,8 @@ class EditForm extends React.Component{
 	}
 	componentDidMount(){
 		Store.dispatch(initialize('EditForm', this.detail));
-		if(this.detail.extraConf){
-			Store.dispatch(change('EditForm','weight',this.detail.extraConf.weight||100));
+		if(this.detail.extConf){
+			Store.dispatch(change('EditForm','weight',this.detail.extConf.weight||100));
 		}else{
 			Store.dispatch(change('EditForm','weight',100));
 		}
@@ -205,7 +205,7 @@ class EditForm extends React.Component{
 			weigthObj = {weight : ''}
 		}
 		
-		var oldObj = this.detail.extra || {}
+		var oldObj = this.detail.extReported || {}
 		var newExtraObj = Object.assign(oldObj,weigthObj)
 		var extraConfJsonParam = JSON.stringify(newExtraObj);
 

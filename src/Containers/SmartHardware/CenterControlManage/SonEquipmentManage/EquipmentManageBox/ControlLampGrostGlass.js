@@ -30,10 +30,10 @@ class ControlLampForm extends React.Component{
 
 	componentDidMount(){
 		let {detail} = this.props;
-		if(detail.extra){
+		if(detail.extReported){
 			this.setState({
 				detail : detail,
-				switchOn : detail.extra.on?"开启":"关闭"
+				switchOn : detail.extReported.on?"开启":"关闭"
 			})
 		}else{
 			this.setState({
