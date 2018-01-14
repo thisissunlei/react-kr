@@ -72,12 +72,12 @@ class ControlLampForm extends React.Component{
 	switchOpenLamp=(obj)=>{
 		let _this = this;
 		let {mainInfo} = this.props;
+		
 		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo};
 		var newParam = Object.assign(param,obj)
 		Http.request('SwitchOpenLampFrost',{},newParam).then(function(response) {
 			
 			Message.success("操作成功");
-			// _this.freshAidCondition();
 			_this.setState({
 				switchOn : (response.on && response.on?"开启":"关闭") ||"未知"
 			})
@@ -90,7 +90,7 @@ class ControlLampForm extends React.Component{
 		
 		const { error, handleSubmit, reset ,detail,mainInfo} = this.props;
 		let {switchOn} = this.state;
-
+		
 		return(
 			<div style={{paddingTop:20}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
@@ -100,9 +100,9 @@ class ControlLampForm extends React.Component{
 							<span>当前开关状态：</span>
 							<span>{switchOn?"开启":"关闭"}</span>
 						</div>
-						<div style={{width:180,paddingTop : 10,margin:"0 auto"}}>
-							<div style={{display:"inline-block",marginRight:20}}><Button label="开启" onTouchTap={this.openLamp}/></div>
-							<div style={{display:"inline-block"}}><Button label="关闭" onTouchTap={this.closeLamp}/></div>
+						<div style={{width:180,paddingTop : 20,margin:"0 auto"}}>
+							<div style={{display:"inline-block",marginRight:20}}><Button label={mainInfo.deviceType=="LAMP"?"开灯":"开启雾化膜"} onTouchTap={this.openLamp}/></div>
+							<div style={{display:"inline-block"}}><Button label={mainInfo.deviceType=="LAMP"?"关灯":"关闭雾化膜"} onTouchTap={this.closeLamp}/></div>
 						</div>
 				  	</div>
 					
