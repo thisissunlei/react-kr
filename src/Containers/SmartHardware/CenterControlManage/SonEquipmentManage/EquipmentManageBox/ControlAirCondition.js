@@ -28,9 +28,9 @@ class ControlAirConditionForm extends React.Component{
 		
 		this.setState({
 			detail : detail,
-			mode : detail.extReported.mode,
-			speed  :detail.extReported.speed,
-			on  : detail.extReported.on,
+			mode : detail.extReported && detail.extReported.mode || "",
+			speed  : detail.extReported && detail.extReported.speed|| "",
+			on  : detail.extReported && detail.extReported.on|| false,
 		})	
     	
 	}
