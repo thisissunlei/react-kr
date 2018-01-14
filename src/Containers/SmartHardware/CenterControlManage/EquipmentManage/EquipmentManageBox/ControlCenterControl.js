@@ -7,7 +7,7 @@ import {
 	reduxForm,
 	formValueSelector
 } from 'redux-form';
-import {Button,Message,Loading,KrField} from 'kr-ui';
+import {Button,Message,Loading,KrField,Grid,Row,ListGroup,ListGroupItem} from 'kr-ui';
 import './index.less';
 
 import Toggle from 'material-ui/Toggle';
@@ -201,9 +201,22 @@ class ControlCenterControl extends React.Component{
 		
 		let _this = this;
 		let {detail} = this.props;
-		var urlParams = {serialNo : detail.serialNo,temp : !item.on,localNo : item.localNo}
+		var urlParams = {serialNo : detail.serialNo,on : !item.on,localNo : item.localNo}
 		Http.request('SwitchOpenLampFrost',{},urlParams).then(function(response) {
-			Message.success("设置成功");
+			if(urlParams.on){
+				if(response.on){
+					Message.success("开启成功")
+				}else{
+					Message.error("开启失败")
+				}
+			}else{
+				if(!response.on){
+					Message.success("关闭成功")
+				}else{
+					Message.error("关闭失败")
+				}
+			}
+			
 			_this.changeLampItems(item,response.on || false)
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -253,13 +266,38 @@ class ControlCenterControl extends React.Component{
 	controlAllLamps=(param)=>{
 		let _this =this;
 		Http.request('setSwitchOnAllLamps',{},param).then(function(response) {
-			Message.success("设置成功");
+			var onOffNumLampsObj = _this.onOffLampsNum(response.items);
+			console.log("onOffNumLampsObj",onOffNumLampsObj)
+			var openStr = "成功开灯"+onOffNumLampsObj.ONNum+"盏";
+			var closeStr = "成功关灯"+onOffNumLampsObj.OFFNum+"盏";
+			console.log("openStr",openStr,"closeStr",closeStr);
+			if(param.on){
+				Message.success(openStr)
+			}else{
+				Message.success(closeStr)
+			}
 			_this.setState({
 				lampItems : response.items || []
 			})
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+	}
+
+	onOffLampsNum=(items)=>{
+		
+		var num = {
+			ONNum :0,
+			OFFNum : 0
+		}
+		for(var i =0 ;i<items.length;i++){
+			if(items[i].on){
+				num.OnNum++
+			}else{
+				num.OFFNum++
+			}
+		}
+		return num;
 	}
 
 
@@ -354,11 +392,23 @@ class ControlCenterControl extends React.Component{
 								/>
 							</div>
 						</div>
-						<div className="switch-open">
-							<span className="lamp-swirtch-all">灯光总开关:</span>
-							<div className="btn" onClick={this.openAllLamps}>开启</div>
-							<div className="btn"  onClick={this.closeAllLamps}>关闭</div>
-						</div>
+					</div>
+					<div className="control-all-lamp">
+						<Grid>
+							<Row style={{width:332}}>
+								<ListGroup >
+									<ListGroupItem style={{padding:0,display:'inline-block',marginRight:10}}>
+										<span className="lamp-swirtch-all">灯光总开关:</span>
+									</ListGroupItem>
+									<ListGroupItem style={{padding:0,display:'inline-block',marginRight:10,width:80}}>
+										<Button  label="开启" type="button"  cancle={true} onTouchTap={this.openAllLamps} height={20} width={60}/>
+									</ListGroupItem>
+									<ListGroupItem style={{padding:0,display:'inline-block'}}>
+										<Button  label="关闭" type="button"  cancle={true} onTouchTap={this.closeAllLamps} height={20}  width={60}/>
+									</ListGroupItem>
+								</ListGroup>					
+							</Row>
+						</Grid>
 					</div>
 					<div className="lamp-box">
 						
