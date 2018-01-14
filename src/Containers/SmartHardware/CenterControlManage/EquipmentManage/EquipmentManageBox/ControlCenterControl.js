@@ -215,8 +215,10 @@ class ControlCenterControl extends React.Component{
 		
 		let _this = this;
 		let {detail} = this.props;
+		_this.switchShowLoading();	
 		var urlParams = {serialNo : detail.serialNo,on : !item.on,localNo : item.localNo}
 		Http.request('SwitchOpenLampFrost',{},urlParams).then(function(response) {
+			_this.switchShowLoading();	
 			if(urlParams.on){
 				if(response.on){
 					Message.success("开启成功")
@@ -233,6 +235,7 @@ class ControlCenterControl extends React.Component{
 			
 			_this.changeLampItems(item,response.on || false)
 		}).catch(function(err) {
+			_this.switchShowLoading();	
 			Message.error(err.message);
 		});
 		
