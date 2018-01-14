@@ -199,7 +199,7 @@ class ControlAirConditionForm extends React.Component{
 								}
 							</span>
 						</div>
-						<div className="tip-text">注意：只有有空调是开启状态时才能更改风速和模式。</div>
+						<div className="tip-text">注意：只有空调是开启状态时才能更改风速和模式。</div>
 						<div className="btn" onClick={this.closeControlAirCondition}>关闭</div>
 						
 				  	</div>
