@@ -229,31 +229,37 @@
 
 
 .son-equipment-manage{
-	position: inherit;
-	.list-div:hover{
-		background :#f2f2f2;
-	}
-	tr:hover{
-		background-color: #deeeff;
-	}
-	tr:nth-child(odd):hover{
-		background-color: #deeeff;
-	}
-	thead {
-		background-color: #fff;
-		tr:first-child:hover{
+	.son-equipment-table{
+		.ui-table{
+			margin-top: 0;
+		}
+		position: inherit;
+		.list-div:hover{
+			background :#f2f2f2;
+		}
+		tr:hover{
+			background-color: #deeeff;
+		}
+		tr:nth-child(odd):hover{
+			background-color: #deeeff;
+		}
+		thead {
+			background-color: #fff;
+			tr:first-child:hover{
+				background-color: #fff;
+			}
+		}
+		.tfoot tr:hover{
 			background-color: #fff;
 		}
+		tr>td:first-child{
+			width:30px;
+		}
+		tr>th:first-child{
+			width:30px;
+		}
 	}
-	.tfoot tr:hover{
-		background-color: #fff;
-	}
-	tr>td:first-child{
-		width:30px;
-	}
-	tr>th:first-child{
-		width:30px;
-	}
+	
 }
 
 

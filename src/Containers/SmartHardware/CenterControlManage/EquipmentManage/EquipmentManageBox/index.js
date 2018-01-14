@@ -333,7 +333,7 @@ export default class EquipmentManageBox  extends React.Component{
 					<EquipmentSearchForm/>
 				</div>
 				
-				<div>
+				<div className="center-control-table">
 					<Table
 			            className="center-control-equipment-table"
 			            ajax={true}
