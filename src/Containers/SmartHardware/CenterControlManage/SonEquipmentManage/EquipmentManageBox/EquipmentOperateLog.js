@@ -204,7 +204,7 @@ class EquipmentDataForm extends React.Component{
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
-								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="switchOpen" 
+								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="mode" 
 									component={(value,oldValue,itemData)=>{
 									if(itemData.extra.mode==""){
 										value="无"
@@ -217,7 +217,7 @@ class EquipmentDataForm extends React.Component{
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
-								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="switchOpen" 
+								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="speed" 
 									component={(value,oldValue,itemData)=>{
 									if(itemData.extra.speed==""){
 										value="无"
@@ -232,7 +232,7 @@ class EquipmentDataForm extends React.Component{
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
-								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="switchOpen" 
+								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="temprature" 
 									component={(value,oldValue,itemData)=>{
 									if(itemData.extra.temp==""){
 										value="无"
@@ -241,12 +241,12 @@ class EquipmentDataForm extends React.Component{
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
-								{deviceType=="HUMITURE_SENSOR" &&<TableRowColumn name="switchOpen" 
+								{deviceType=="HUMITURE_SENSOR" &&<TableRowColumn name="temprature" 
 									component={(value,oldValue,itemData)=>{
-									if(itemData.extra.temp==""){
+									if(itemData.extra.celsius==""){
 										value="无"
 									}else{
-										value=itemData.extra.temp+"℃"
+										value=itemData.extra.celsius+"℃"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
@@ -259,7 +259,7 @@ class EquipmentDataForm extends React.Component{
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
-								{deviceType=="BODY_SENSOR" &&<TableRowColumn name="switchOpen" 
+								{deviceType=="BODY_SENSOR" &&<TableRowColumn name="hasBody" 
 									component={(value,oldValue,itemData)=>{
 										console.log("itemData",itemData.extra.hasBody,itemData.extra.hasBody=="");
 									if(!itemData.extra){
@@ -270,7 +270,7 @@ class EquipmentDataForm extends React.Component{
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
 
-								{deviceType=="AIR_SENSOR" &&<TableRowColumn name="switchOpen" 
+								{deviceType=="AIR_SENSOR" &&<TableRowColumn name="pm25" 
 									component={(value,oldValue,itemData)=>{
 									if(itemData.extra.pm25==""){
 										value="无数据"
@@ -280,7 +280,7 @@ class EquipmentDataForm extends React.Component{
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
 
-								{deviceType=="AIR_SENSOR" &&<TableRowColumn name="switchOpen" 
+								{deviceType=="AIR_SENSOR" &&<TableRowColumn name="pm10" 
 									component={(value,oldValue,itemData)=>{
 									if(itemData.extra.pm10==""){
 										value="无数据"
@@ -289,7 +289,7 @@ class EquipmentDataForm extends React.Component{
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
-								{deviceType=="AIR_SENSOR" &&<TableRowColumn name="switchOpen" 
+								{deviceType=="AIR_SENSOR" &&<TableRowColumn name="pm2510" 
 									component={(value,oldValue,itemData)=>{
 									if(itemData.extra.pm2510==""){
 										value="无数据"

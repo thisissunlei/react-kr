@@ -324,7 +324,7 @@ class ControlCenterControl extends React.Component{
 							inline={true}
 							component="labelText"
 							label="室内温度："
-							value={(pageInfo.temp &&(pageInfo.temp+"℃")) || "无数据"}
+							value={(pageInfo.celsius &&(pageInfo.celsius+"℃")) || "无数据"}
 						/>
 						
 						<KrField

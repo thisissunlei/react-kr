@@ -156,7 +156,7 @@ export default class EquipmentDetail extends React.Component{
 				}
 			}else if(deviceType =="HUMITURE_SENSOR" ){
 				newObj = {
-					sensorTemp : response.temperature+"℃" ||'无',
+					sensorTemp : response.celsius+"℃" ||'无',
 					sensorHumidity : response.humidity+"%" ||'无',
 				}
 			}else if(deviceType =="BODY_SENSOR" ){
