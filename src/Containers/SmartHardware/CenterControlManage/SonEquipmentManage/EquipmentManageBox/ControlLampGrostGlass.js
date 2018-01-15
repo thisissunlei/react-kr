@@ -80,7 +80,6 @@ class ControlLampForm extends React.Component{
 		Http.request('SwitchOpenLampFrost',{},newParam).then(function(response) {
 			
 			Message.success("操作成功");
-			console.log('(response.on && response.on?"开启":"关闭") ||"未知"',(response.on && response.on?"开启":"关闭") ||"未知");
 			_this.setState({
 				switchOn : (response.on && response.on?"开启":"关闭") ||"未知"
 			})
