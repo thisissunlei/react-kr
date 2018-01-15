@@ -245,10 +245,15 @@ class ControlCenterControl extends React.Component{
 		var {lampItems} = this.state;
 		for(var i=0;i<lampItems.length;i++){
 			if(lampItems[i].localNo == item.localNo){
-				lampItems[i].on = on
+				lampItems[i].on = on;
+				
+				this.setState({
+					lampItems : lampItems
+				})
 				return;
 			}
 		}
+		
 	}
 
 
