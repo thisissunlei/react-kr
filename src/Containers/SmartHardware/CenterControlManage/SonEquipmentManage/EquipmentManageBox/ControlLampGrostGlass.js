@@ -30,6 +30,8 @@ class ControlLampForm extends React.Component{
 
 	componentDidMount(){
 		let {detail} = this.props;
+
+		console.log('detail.extReported.on?"开启":"关闭"',detail.extReported.on?"开启":"关闭");
 		if(detail.extReported){
 			this.setState({
 				detail : detail,
@@ -78,6 +80,7 @@ class ControlLampForm extends React.Component{
 		Http.request('SwitchOpenLampFrost',{},newParam).then(function(response) {
 			
 			Message.success("操作成功");
+			console.log('(response.on && response.on?"开启":"关闭") ||"未知"',(response.on && response.on?"开启":"关闭") ||"未知");
 			_this.setState({
 				switchOn : (response.on && response.on?"开启":"关闭") ||"未知"
 			})
@@ -98,7 +101,7 @@ class ControlLampForm extends React.Component{
 					<div>
 						<div style={{textAlign:"center"}}>
 							<span>当前开关状态：</span>
-							<span>{switchOn?"开启":"关闭"}</span>
+							<span>{switchOn}</span>
 						</div>
 						<div style={{width:180,paddingTop : 20,margin:"0 auto"}}>
 							<div style={{display:"inline-block",marginRight:20}}><Button label={mainInfo.deviceType=="LAMP"?"开灯":"开启雾化膜"} onTouchTap={this.openLamp}/></div>
