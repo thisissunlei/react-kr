@@ -291,6 +291,7 @@ class ControlCenterControl extends React.Component{
 			_this.switchShowLoading();
 
 			var onOffNumLampsObj = _this.onOffLampsNum(response.items);
+			
 			var openStr = "成功开灯"+onOffNumLampsObj.ONNum+"盏";
 			var closeStr = "成功关灯"+onOffNumLampsObj.OFFNum+"盏";
 			
@@ -316,7 +317,7 @@ class ControlCenterControl extends React.Component{
 		}
 		for(var i =0 ;i<items.length;i++){
 			if(items[i].on){
-				num.OnNum++
+				num.ONNum++
 			}else{
 				num.OFFNum++
 			}

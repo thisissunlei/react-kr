@@ -195,7 +195,7 @@ class EquipmentDataForm extends React.Component{
 								{(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&<TableRowColumn name="switchOpen" 
 									component={(value,oldValue,itemData)=>{
 									if(itemData.extra.on==""){
-										value="关闭"
+										value="无数据"
 									}else{
 										if(itemData.extra.on){
 											value = "开启"
@@ -292,6 +292,7 @@ class EquipmentDataForm extends React.Component{
 								></TableRowColumn>}
 								{deviceType=="AIR_SENSOR" &&<TableRowColumn name="pm2510" 
 									component={(value,oldValue,itemData)=>{
+									
 									if(itemData.extra.pm2510==""){
 										value="无数据"
 									}else{
