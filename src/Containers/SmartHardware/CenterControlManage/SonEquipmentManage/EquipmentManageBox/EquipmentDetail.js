@@ -144,7 +144,7 @@ export default class EquipmentDetail extends React.Component{
 		}else if(deviceType =="BODY_SENSOR" ){
 			url = "getNewBodySensor"
 		}
-		var getDataParams={localNo : detail.localNo ,serialNo : detail.serialNo}
+		var getDataParams={serialNo : detail.serialNo}
 		Http.request(url,getDataParams).then(function(response) {
 			
 			var newObj;

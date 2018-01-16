@@ -533,7 +533,7 @@ module.exports = {
 
       //获取最新的人体感应
       'getNewBodySensor':{
-        url : '/api/iot-platform/device-def/admin/body-sensor/fetch?localNo={localNo}&serialNo={serialNo}',
+        url : '/api/iot-platform/device-def/admin/body-sensor/fetch?serialNo={serialNo}',
         method : 'get'
       },
 
