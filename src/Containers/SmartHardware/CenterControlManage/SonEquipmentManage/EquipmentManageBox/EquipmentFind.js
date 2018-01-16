@@ -94,10 +94,9 @@ export default class EquipmentSearch extends React.Component{
 
 	//注册设备
 	registEquipmentFun=(thisP)=>{
-
-		let {serialNo} =this.props;
+		
 		let _this =this;
-		var urlParams = {serialNo : serialNo}
+		var urlParams = {serialNo : thisP.serialNo}
 		Http.request('regesterSonEquipment',{},urlParams).then(function(response) {
 
 			Message.success("注册设备成功");
