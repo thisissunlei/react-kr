@@ -97,7 +97,7 @@ class ControlAirConditionForm extends React.Component{
 
 		let {mainInfo} = this.props;
 		let _this =this;
-		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo,mode:event.target.value};
+		var param = {serialNo:mainInfo.serialNo,mode:event.target.value};
 		this.changePageStatus("mode",param);
 
 	}
@@ -105,7 +105,7 @@ class ControlAirConditionForm extends React.Component{
 	changeAirConditionWind=(event)=>{
 		let {mainInfo} = this.props;
 		let _this = this;
-		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo,speed:event.target.value};
+		var param = {serialNo:mainInfo.serialNo,speed:event.target.value};
 		this.changePageStatus("speed",param);
 	}
 
@@ -161,7 +161,7 @@ class ControlAirConditionForm extends React.Component{
 
 		
 		let {mainInfo} = this.props;
-		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo};
+		var param = {serialNo:mainInfo.serialNo};
 		var newParam = Object.assign(param,obj)
 		this.changePageStatus("on",newParam);
 	}
