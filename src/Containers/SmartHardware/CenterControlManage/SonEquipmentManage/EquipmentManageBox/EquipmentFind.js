@@ -35,7 +35,7 @@ export default class EquipmentSearch extends React.Component{
 		
 		let _this = this;
 		let {serialNo} = this.props;
-		let paramOld = {serialNo : serialNo,forceRefresh : false};
+		let paramOld = {parentSerialNo : serialNo,forceRefresh : false};
 		let newParam = Object.assign(paramOld,param);
 		Http.request('findNewSonEquipment', newParam).then(function(response) {
 			_this.setState({

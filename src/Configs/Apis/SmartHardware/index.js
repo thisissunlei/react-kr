@@ -442,7 +442,7 @@ module.exports = {
 
       //发现子设备列表
       'findNewSonEquipment':{
-        url : '/api/iot-platform/device-def/sub-device/discovery?serialNo={serialNo}&forceRefresh={forceRefresh}',
+        url : '/api/iot-platform/device-def/sub-device/discovery?parentSerialNo={parentSerialNo}&forceRefresh={forceRefresh}',
         method : 'get'
       },
 
