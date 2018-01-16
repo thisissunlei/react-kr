@@ -521,13 +521,13 @@ module.exports = {
 
        //获取最新的空气质量
        'getNewAirSendor':{
-        url : '/api/iot-platform/device-def/admin/air-sensor/fetch?localNo={localNo}&serialNo={serialNo}',
+        url : '/api/iot-platform/device-def/admin/air-sensor/fetch?serialNo={serialNo}',
         method : 'get'
       },
 
       //获取最新的温湿度
       'getNewHumitureSensor':{
-        url : '/api/iot-platform/device-def/admin/humiture-sensor/fetch?localNo={localNo}&serialNo={serialNo}',
+        url : '/api/iot-platform/device-def/admin/humiture-sensor/fetch?serialNo={serialNo}',
         method : 'get'
       },
 
