@@ -75,7 +75,7 @@ class ControlLampForm extends React.Component{
 		let _this = this;
 		let {mainInfo} = this.props;
 		
-		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo};
+		var param = {serialNo:mainInfo.serialNo};
 		var newParam = Object.assign(param,obj)
 		Http.request('SwitchOpenLampFrost',{},newParam).then(function(response) {
 			
