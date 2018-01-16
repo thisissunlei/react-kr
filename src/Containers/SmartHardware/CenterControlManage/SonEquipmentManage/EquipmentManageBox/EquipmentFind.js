@@ -28,10 +28,10 @@ export default class EquipmentSearch extends React.Component{
 	componentDidMount(){
 
 		
-		this.getUnusedEquipmentFun({});
+		this.getUnusedEquipmentFun({},"noAlertMsg");
 	}
 
-	getUnusedEquipmentFun =(param)=>{
+	getUnusedEquipmentFun =(param,str)=>{
 		
 		
 		let _this = this;
@@ -45,11 +45,14 @@ export default class EquipmentSearch extends React.Component{
 			})
 
 			if(Object.keys(param).length !== 0){
-				if(param.forceRefresh){
-					Message.success("强制刷新成功")
-				}else{
-					Message.success("刷新成功")
+				if(str == "alertMsg"){
+					if(param.forceRefresh){
+						Message.success("强制刷新成功")
+					}else{
+						Message.success("刷新成功")
+					}
 				}
+				
 			}
 			
 		}).catch(function(err) {
@@ -83,7 +86,7 @@ export default class EquipmentSearch extends React.Component{
 			
 			Message.success("强制删除设备成功");
 			var param = {date:new Date()}
-			_this.getUnusedEquipmentFun(param);
+			_this.getUnusedEquipmentFun(param,"noAlertMsg");
 			
 
 		}).catch(function(err) {
@@ -102,7 +105,7 @@ export default class EquipmentSearch extends React.Component{
 			Message.success("注册设备成功");
 			State.freshPageReturn();
 			var param = {date:new Date()}
-			_this.getUnusedEquipmentFun(param);
+			_this.getUnusedEquipmentFun(param,"noAlertMsg");
 
 			_this.setState({
 				itemDetail : response
@@ -161,7 +164,7 @@ export default class EquipmentSearch extends React.Component{
 	}
 	freshPage=()=>{
 		var param = {date: new Date(),forceRefresh:false}
-		this.getUnusedEquipmentFun(param)
+		this.getUnusedEquipmentFun(param,"alertMsg")
 	}
 
 	forceRefresh=()=>{
@@ -170,7 +173,7 @@ export default class EquipmentSearch extends React.Component{
 		})
 		this.openForceFreshDialogFun();
 		var param = {date: new Date(),forceRefresh:true}
-		this.getUnusedEquipmentFun(param)
+		this.getUnusedEquipmentFun(param,"alertMsg")
 	}
 
 	openForceFreshDialogFun=()=>{
