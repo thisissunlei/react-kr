@@ -340,6 +340,7 @@ class ControlCenterControl extends React.Component{
 				{showLoading && <div className="loading-box">
 					<Loading/>
 				</div>}
+				
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div className="show-box">
 						<KrField

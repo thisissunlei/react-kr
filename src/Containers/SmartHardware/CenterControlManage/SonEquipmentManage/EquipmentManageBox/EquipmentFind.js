@@ -72,7 +72,7 @@ export default class EquipmentSearch extends React.Component{
 
 		let {serialNo} =this.props;
 		let _this =this;
-		var urlParams = {localNo:thisP.localNo,serialNo : serialNo,deviceType:thisP.deviceType}
+		var urlParams = {serialNo : serialNo}
 		Http.request('deleteFindSonEquipment',{},urlParams).then(function(response) {
 			
 			Message.success("强制删除设备成功");
