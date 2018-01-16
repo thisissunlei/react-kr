@@ -18,8 +18,10 @@ class ControlAirConditionForm extends React.Component{
 			speed  : '',
 			on  : false,
 			modeOptions :[{label:"制冷",value:"COOLING"},{label:"制热",value:"HEATING"}],
-			speedWindOptions : [{label:"高速",value:"HIGH"},{label:"中速",value:"MEDIUM"},{label:"低速",value:"LOW"}]
-
+			speedWindOptions : [{label:"高速",value:"HIGH"},{label:"中速",value:"MEDIUM"},{label:"低速",value:"LOW"}],
+			airConditionCanControlOptions :[{value:'speed',label : "风速"},
+											{value: 'mode',label :'模式'},
+											{value:'on',label:'开关'}]
 		}
 	}
 
@@ -91,11 +93,11 @@ class ControlAirConditionForm extends React.Component{
 
 
 
-	changeAirConditionMode=()=>{
+	changeAirConditionMode=(event)=>{
 
 		let {mainInfo} = this.props;
 		let _this =this;
-		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo,mode:this.state.mode};
+		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo,mode:event.target.value};
 		this.changePageStatus("mode",param);
 
 	}
@@ -117,9 +119,28 @@ class ControlAirConditionForm extends React.Component{
 		}else if(type=="on"){
 			url = "SwitchOpenAirCondition"
 		}
-		Http.request(url,{},param).then(function(response) {
+		this.getSetAirConditionReaponse(url,param,type);
 		
-			Message.success("命令下发成功");
+	}
+
+
+	getSetAirConditionReaponse=(url,param,type)=>{
+
+		let {airConditionCanControlOptions} = this.state;
+		let _this =this;
+		Http.request(url,{},param).then(function(response) {
+			var operationText = ''
+			for(var i=0;i<airConditionCanControlOptions.length;i++){
+				if(type == airConditionCanControlOptions[i].value){
+					if(param[type] == response[type]){
+						operationText = "控制空调"+airConditionCanControlOptions[i].label+"成功";
+						Message.success(operationText);
+					}else{
+						operationText = "控制空调"+airConditionCanControlOptions[i].label+"失败";
+						Message.error(operationText);
+					}
+				}
+			}
 			_this.setState({
 				mode : response.mode,
 				speed : response.speed,
@@ -134,7 +155,6 @@ class ControlAirConditionForm extends React.Component{
 				on : _this.state.on
 			})
 		});
-
 	}
 
 	SwitchOpenAirConditionFun=(obj)=>{
