@@ -18,7 +18,7 @@ class ControlAirConditionForm extends React.Component{
 			speed  : '',
 			on  : false,
 			modeOptions :[{label:"制冷",value:"COOLING"},{label:"制热",value:"HEATING"}],
-			speedWindOptions : [{label:"高速",value:"HIGHT"},{label:"中速",value:"MEDIUM"},{label:"低速",value:"LOW"}]
+			speedWindOptions : [{label:"高速",value:"HIGH"},{label:"中速",value:"MEDIUM"},{label:"低速",value:"LOW"}]
 
 		}
 	}
