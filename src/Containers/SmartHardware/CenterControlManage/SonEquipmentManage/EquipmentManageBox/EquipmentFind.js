@@ -20,7 +20,8 @@ export default class EquipmentSearch extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			searchEquipmentList:[]
+			searchEquipmentList:[],
+			showLoading : false
 		}
 	}
 
@@ -39,7 +40,8 @@ export default class EquipmentSearch extends React.Component{
 		let newParam = Object.assign(paramOld,param);
 		Http.request('findNewSonEquipment', newParam).then(function(response) {
 			_this.setState({
-				searchEquipmentList : response.items
+				searchEquipmentList : response.items,
+				showLoading : false
 			})
 
 			if(Object.keys(param).length !== 0){
@@ -49,8 +51,12 @@ export default class EquipmentSearch extends React.Component{
 					Message.success("刷新成功")
 				}
 			}
+			
 		}).catch(function(err) {
 			Message.error(err.message);
+			_this.setState({
+				showLoading : false
+			})
 		});
 	}
 	
@@ -160,6 +166,9 @@ export default class EquipmentSearch extends React.Component{
 	}
 
 	forceRefresh=()=>{
+		this.setState({
+			showLoading :true 
+		})
 		this.openForceFreshDialogFun();
 		var param = {date: new Date(),forceRefresh:true}
 		this.getUnusedEquipmentFun(param)
@@ -170,9 +179,13 @@ export default class EquipmentSearch extends React.Component{
 	}
 
 	render(){
-		let {searchEquipmentList} = this.state;
+		let {searchEquipmentList,showLoading} = this.state;
 		return (
-			<div>
+			<div className="find-son-equipment-box">
+
+				{showLoading &&<div className="loading-box">
+					<Loading/>
+				</div>}
 				<div style={{padding:"30px 0 0 50px"}}>
 					<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
 				</div>
