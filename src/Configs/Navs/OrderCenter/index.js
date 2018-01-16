@@ -11,6 +11,11 @@ module.exports = [
                 iconColor: '#79859a',
                 menuItems: [
                     {
+						primaryText: '会议室订单管理',
+						menuCode: 'fina_meeting_order_page',
+						originUrl: '/order/list',
+                    },
+                    {
                         primaryText: "工位订单列表",
                         originUrl: '/order-center/order-manage/station-order-manage',
                         type:'vue',
