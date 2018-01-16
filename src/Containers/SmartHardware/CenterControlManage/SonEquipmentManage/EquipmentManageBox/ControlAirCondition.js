@@ -103,7 +103,7 @@ class ControlAirConditionForm extends React.Component{
 	changeAirConditionWind=(event)=>{
 		let {mainInfo} = this.props;
 		let _this = this;
-		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo,speed:event.value};
+		var param = {localNo:mainInfo.localNo,serialNo:mainInfo.serialNo,speed:event.target.value};
 		this.changePageStatus("speed",param);
 	}
 
@@ -119,7 +119,7 @@ class ControlAirConditionForm extends React.Component{
 		}
 		Http.request(url,{},param).then(function(response) {
 		
-			Message.success("操作成功");
+			Message.success("命令下发成功");
 			_this.setState({
 				mode : response.mode,
 				speed : response.speed,
