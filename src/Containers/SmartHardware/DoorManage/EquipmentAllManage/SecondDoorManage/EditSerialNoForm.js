@@ -69,13 +69,13 @@ class EditSerialNo extends React.Component{
 						style={{width:400}}
 						inline={true}
 						component="labelText"
-						label="原智能硬件ID："
+						label="原硬件ID："
 						value={detail.deviceId}
 					/>
 					<KrField 
 						name="deviceId" 
 						type="text" 
-						label="新的智能硬件ID：" 
+						label="新的硬件ID：" 
 						requireLabel={true} 
 						inline={true}
 						style={{width:600}}

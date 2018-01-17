@@ -469,7 +469,7 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"升级",onClickFun:_this.upgrade},
 
 				{title:"获取httpToken",onClickFun:_this.getHttpToken},
-				{title:"编辑序列号",onClickFun:_this.editSerialNoFun}
+				{title:"编辑硬件ID",onClickFun:_this.editSerialNoFun}
 				
 			]
 		}else{
@@ -788,7 +788,7 @@ export default class SecondDoorManage  extends React.Component{
 			        </Dialog>
 
 							<Dialog
-			          title="编辑序列号"
+			          title="编辑硬件ID"
 			          open={State.switchOpenEditSerialNo}
 			          onClose={this.editSerialNoFun}
 			          contentStyle={{width:450}}
