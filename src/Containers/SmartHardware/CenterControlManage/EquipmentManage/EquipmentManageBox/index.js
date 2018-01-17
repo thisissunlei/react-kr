@@ -36,6 +36,7 @@ import ControlCenterControl from './ControlCenterControl';
 import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
 import HttpTokenDialog from './HttpTokenDialog';
+import EditSerialNoForm from './EditSerialNoForm';
 
 @inject("NavModel")
 @observer
@@ -297,7 +298,8 @@ export default class EquipmentManageBox  extends React.Component{
 			{title:"恢复出厂设置",onClickFun:_this.resetEquipmentOrigin},
 
 			{title:"升级",onClickFun:_this.upgrade},
-			{title:"获取httpToken",onClickFun:_this.getHttpToken}
+			{title:"获取httpToken",onClickFun:_this.getHttpToken},
+			{title:"编辑序列号",onClickFun:_this.editSerialNoFun}
 
 			
 		]
@@ -312,6 +314,10 @@ export default class EquipmentManageBox  extends React.Component{
 
 	openHttpTokenDialogFun=()=>{
 		State.httpTokenDialog = !State.httpTokenDialog;
+	}
+
+	editSerialNoFun=()=>{
+		State.switchOpenEditSerialNo = !State.switchOpenEditSerialNo;
 	}
 	
 
@@ -498,6 +504,19 @@ export default class EquipmentManageBox  extends React.Component{
 			          <NewCreate
 			            onCancel={this.openNewCreateDialog}
 			            style ={{paddingTop:'35px'}}
+			          />
+			        </Dialog>
+
+							<Dialog
+			          title="编辑序列号"
+			          open={State.switchOpenEditSerialNo}
+			          onClose={this.editSerialNoFun}
+			          contentStyle={{width:450}}
+			        >
+			          <EditSerialNoForm
+			            onCancel={this.editSerialNoFun}
+									style ={{paddingTop:'35px'}}
+									detail={itemDetail}
 			          />
 			        </Dialog>
 			        <Dialog

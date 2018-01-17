@@ -199,7 +199,6 @@ class ControlCenterControl extends React.Component{
 			return(
 				<span key={index} className={item.active?"temprature-btn-active":"temprature-btn"} onClick={_this.changeTemperature.bind(_this,item)}>{item.value}</span>
 			)
-
 		})
 		return dom;
 	}
@@ -228,19 +227,10 @@ class ControlCenterControl extends React.Component{
 		Http.request('SwitchOpenLampFrost',{},urlParams).then(function(response) {
 			_this.switchShowLoading();	
 			if(urlParams.on){
-				if(response.on){
-					Message.success("开启成功")
-				}else{
-					Message.error("开启失败")
-				}
+				Message.success("开启成功")
 			}else{
-				if(!response.on){
-					Message.success("关闭成功")
-				}else{
-					Message.error("关闭失败")
-				}
+				Message.success("关闭成功")
 			}
-			
 			_this.changeLampItems(item,!item.on)
 		}).catch(function(err) {
 			_this.switchShowLoading();	

@@ -537,6 +537,12 @@ module.exports = {
         method : 'get'
       },
 
+      //编辑序列号
+      'editCenterControlSerialNo':{
+        url : '/api/iot-platform/device-def/actions/edit-serial-no',
+        method : 'post'
+      },
+
 
       
 

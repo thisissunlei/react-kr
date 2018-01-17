@@ -22,6 +22,7 @@ let State = observable({
 	passwordDialog : false,
 	ControlCenterControl:false,
 	synchronizingPswDialog :false,
+	switchOpenEditSerialNo : false,
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
 	makerOptions :[],
