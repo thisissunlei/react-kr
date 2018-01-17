@@ -44,11 +44,13 @@ class ControlCenterControl extends React.Component{
 		})
 	}
 
-	getNowInfo=()=>{
+	getNowInfo=(param)=>{
 		let {detail} = this.props;
 		let _this =this;
 		Http.request('getControlAllInfo',{serialNo:detail.serialNo}).then(function(response) {
-			
+			if(param && param == "clickFreshBtn"){
+				Message.success("刷新成功")
+			}
 			_this.setState({
 				pageInfo : response,
 				title : response.title ,
@@ -61,6 +63,12 @@ class ControlCenterControl extends React.Component{
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+	}
+
+
+	freshDetailInfo=()=>{
+
+		this.getNowInfo("clickFreshBtn");
 	}
 
 
@@ -294,41 +302,19 @@ class ControlCenterControl extends React.Component{
 		Http.request('setSwitchOnAllLamps',{},param).then(function(response) {
 
 			_this.switchShowLoading();
-
-			var onOffNumLampsObj = _this.onOffLampsNum(response.items);
-			
-			var openStr = "成功开灯"+onOffNumLampsObj.ONNum+"盏";
-			var closeStr = "成功关灯"+onOffNumLampsObj.OFFNum+"盏";
 			
 			if(param.on){
-				Message.success(openStr)
+				Message.success("成功下发开灯命令")
 			}else{
-				Message.success(closeStr)
+				Message.success("成功下发关灯命令")
 			}
-			_this.setState({
-				lampItems : response.items || []
-			})
+			
 		}).catch(function(err) {
 			_this.switchShowLoading();
 			Message.error(err.message);
 		});
 	}
 
-	onOffLampsNum=(items)=>{
-		
-		var num = {
-			ONNum :0,
-			OFFNum : 0
-		}
-		for(var i =0 ;i<items.length;i++){
-			if(items[i].on){
-				num.ONNum++
-			}else{
-				num.OFFNum++
-			}
-		}
-		return num;
-	}
 
 
 	render(){
@@ -453,7 +439,18 @@ class ControlCenterControl extends React.Component{
 						
 					</div>
 					<div className="close-line">
-						<Button  label="关闭" type="button"  cancle={true} onTouchTap={this.onCancel} />
+						<Grid>
+							<Row>
+								<ListGroup style={{textAlign:"center"}}>
+									<ListGroupItem style={{padding:0,display:'inline-block',margin:"0 10px 0 236px"}}>
+										<Button  label="刷新" type="button"  cancle={true} onTouchTap={this.freshDetailInfo} />
+									</ListGroupItem>
+									<ListGroupItem style={{padding:0,display:'inline-block'}}>
+										<Button  label="关闭" type="button"  cancle={true} onTouchTap={this.onCancel} />
+									</ListGroupItem>
+								</ListGroup>					
+							</Row>
+						</Grid>
 					</div>
 				</form>
 		  	</div>
