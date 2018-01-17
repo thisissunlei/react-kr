@@ -132,19 +132,16 @@ class ControlAirConditionForm extends React.Component{
 			var operationText = ''
 			for(var i=0;i<airConditionCanControlOptions.length;i++){
 				if(type == airConditionCanControlOptions[i].value){
-					if(param[type] == response[type]){
-						operationText = "控制空调"+airConditionCanControlOptions[i].label+"成功";
-						Message.success(operationText);
-					}else{
-						operationText = "控制空调"+airConditionCanControlOptions[i].label+"失败";
-						Message.error(operationText);
-					}
+					operationText = "控制空调"+airConditionCanControlOptions[i].label+"成功";
+					Message.success(operationText);
 				}
 			}
+			var oldObj = Object.assign({},_this.state);
+			var newObj =  Object.assign(oldObj,param);
 			_this.setState({
-				mode : response.mode,
-				speed : response.speed,
-				on : response.on
+				mode : newObj.mode ,
+				speed : newObj.speed,
+				on : newObj.on,
 			})
 		
 		}).catch(function(err) {
@@ -171,6 +168,23 @@ class ControlAirConditionForm extends React.Component{
 		let {on} = this.state;
 		var onParam = {on:!on}
 		this.SwitchOpenAirConditionFun(onParam);
+	}
+
+	freshAirconditionStatus=()=>{
+		let {detail} = this.props;
+		let _this = this;
+		Http.request('getSonEquipmentDetailInfo',{id:detail.id}).then(function(response) {
+			
+			_this.setState({
+				detail : response,
+				mode : response.extReported && response.extReported.mode,
+				speed  : response.extReported && response.extReported.speed,
+				on  : response.extReported && response.extReported.on,
+			})
+			Message.success("刷新成功");
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 
 
@@ -220,8 +234,10 @@ class ControlAirConditionForm extends React.Component{
 							</span>
 						</div>
 						<div className="tip-text">注意：只有空调是开启状态时才能更改风速和模式。</div>
-						<div className="btn" onClick={this.closeControlAirCondition}>关闭</div>
-						
+						<div className="btn-box">
+							<div className="btn" onClick={this.closeControlAirCondition}>关闭</div>
+							<div className="btn" onClick={this.freshAirconditionStatus}>刷新</div>
+						</div>
 				  	</div>
 					
 					

@@ -241,7 +241,7 @@ class ControlCenterControl extends React.Component{
 				}
 			}
 			
-			_this.changeLampItems(item,response.on || false)
+			_this.changeLampItems(item,!item.on)
 		}).catch(function(err) {
 			_this.switchShowLoading();	
 			Message.error(err.message);

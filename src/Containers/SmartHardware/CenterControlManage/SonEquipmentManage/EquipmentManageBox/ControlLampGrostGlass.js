@@ -31,7 +31,6 @@ class ControlLampForm extends React.Component{
 	componentDidMount(){
 		let {detail} = this.props;
 
-		console.log('detail.extReported.on?"开启":"关闭"',detail.extReported.on?"开启":"关闭");
 		if(detail.extReported){
 			this.setState({
 				detail : detail,
@@ -81,13 +80,28 @@ class ControlLampForm extends React.Component{
 			
 			Message.success("操作成功");
 			_this.setState({
-				switchOn : (response.on && response.on?"开启":"关闭") ||"未知"
+				switchOn : obj.on?"开启":"关闭"
 			})
 		
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 	}
+
+	freshStatus=()=>{
+		let {detail} = this.props;
+		let _this = this;
+		Http.request('getSonEquipmentDetailInfo',{id:detail.id}).then(function(response) {
+			
+			_this.setState({
+				switchOn:(response.extReported &&response.extReported.on?"开启":"关闭")||"未知"
+			})
+			Message.success("刷新成功");
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
 	render(){
 		
 		const { error, handleSubmit, reset ,detail,mainInfo} = this.props;
@@ -102,9 +116,10 @@ class ControlLampForm extends React.Component{
 							<span>当前开关状态：</span>
 							<span>{switchOn}</span>
 						</div>
-						<div style={{width:180,paddingTop : 20,margin:"0 auto"}}>
+						<div style={{width:280,paddingTop : 20,margin:"0 auto"}}>
 							<div style={{display:"inline-block",marginRight:20}}><Button label={mainInfo.deviceType=="LAMP"?"开灯":"开启雾化膜"} onTouchTap={this.openLamp}/></div>
-							<div style={{display:"inline-block"}}><Button label={mainInfo.deviceType=="LAMP"?"关灯":"关闭雾化膜"} onTouchTap={this.closeLamp}/></div>
+							<div style={{display:"inline-block",marginRight:20}}><Button label={mainInfo.deviceType=="LAMP"?"关灯":"关闭雾化膜"} onTouchTap={this.closeLamp}/></div>
+							<div style={{display:"inline-block"}}><Button label="刷新"  onTouchTap={this.freshStatus}/></div>
 						</div>
 				  	</div>
 					
