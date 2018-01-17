@@ -189,6 +189,7 @@ class EquipmentDataForm extends React.Component{
 									name="time" 
 									type="date" 
 									format="yyyy-mm-dd HH:MM:ss" 
+									style={{width:"25%"}}
 								>
 								</TableRowColumn>
 
