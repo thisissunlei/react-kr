@@ -40,6 +40,7 @@ const More = ({...props})=>{
 		<div className="u-header-more">
 			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
 			<div className="u-header-more-box">
+				<p className="u-single"></p>
 				<ul className="u-header-more-list">
 					{navs.map((item,index)=>{
 						return(
