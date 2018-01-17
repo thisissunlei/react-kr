@@ -37,6 +37,7 @@ export default class EquipmentDetail extends React.Component{
 		let _this =this;
 		_this.setState({
 			itemDetail :detail,
+			sensorTemp : (detail.extReported && detail.extReported.temp+"℃") || "无",
 			canFreshStatus:{
 				sensorTemp :(detail.extReported && detail.extReported.celsius+"℃") || "无",
 				sensorHumidity : (detail.extReported && detail.extReported.humidity+"%")|| "无",
@@ -101,8 +102,8 @@ export default class EquipmentDetail extends React.Component{
 	}
 
 	renderAirConditionMode=(param)=>{
-		if(param.extra){
-			var paramMode = param.extra.mode;
+		if(param.extReported){
+			var paramMode = param.extReported.mode;
 			if(paramMode == "HEATING"){
 				return "制热"			
 			}else if(paramMode == "COOLING"){
@@ -116,8 +117,8 @@ export default class EquipmentDetail extends React.Component{
 	}
 
 	renderAirConditionWindSpeed=(param)=>{
-		if(param.extra){
-			var paramMode = param.extra.speed;
+		if(param.extReported){
+			var paramMode = param.extReported.speed;
 			if(paramMode == "HIGH"){
 				return "高速"			
 			}else if(paramMode == "LOW"){
@@ -183,7 +184,7 @@ export default class EquipmentDetail extends React.Component{
 		let _this =this;
 		console.log("canFreshStatus",canFreshStatus);
 		return (
-			<div style={{padding :"18px 0 0 20px"}}>
+			<div style={{paddingTop :18}}>
 				
 				<div className="detail-list-equipment">
 					<div>
@@ -252,50 +253,7 @@ export default class EquipmentDetail extends React.Component{
 							label="房间："
 							value={detail.spaceName || "无"}
 						/>
-						{
-							(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="开关状态："
-								value={(detail.extra && (detail.extra.on?"开启":"关闭"))||"无"}
-							/>
-						}
-						{
-							deviceType=="AIR_CONDITION" &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="空调模式："
-								value={this.renderAirConditionMode(detail)}
-								
-								/>
-						}
-
-						{
-							deviceType=="AIR_CONDITION" &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="空调风速："
-								value={this.renderAirConditionWindSpeed(detail)}
-							/>
-						}
-
-						{
-							deviceType=="AIR_CONDITION" &&
-							<KrField
-								style={{width:300}}
-								inline={true}
-								component="labelText"
-								label="空调设置温度："
-								value={sensorTemp}
-							/>
-						}
-
+						
 						<KrField
 							style={{width:700}}
 							inline={true}
@@ -304,76 +262,122 @@ export default class EquipmentDetail extends React.Component{
 							value={detail.memo || "无"}
 						/>
 						{
-							(deviceType=="HUMITURE_SENSOR" ||
-							deviceType=="AIR_SENSOR" ||
-							deviceType=="BODY_SENSOR") &&
-							<div className="sensor-box">
-								<div className="btn" onClick={this.getNewStatus}>获取最新状态</div>
+							<div className="status-box">
 								{
-									deviceType=="HUMITURE_SENSOR" &&
+									(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&
 									<KrField
 										style={{width:300}}
 										inline={true}
 										component="labelText"
-										label="温度："
-										value={canFreshStatus.sensorTemp}
+										label="开关状态："
+										value={(detail.extReported && (detail.extReported.on?"开启":"关闭"))||"无"}
 									/>
 								}
-
 								{
-									deviceType=="HUMITURE_SENSOR" &&
+									deviceType=="AIR_CONDITION" &&
 									<KrField
 										style={{width:300}}
 										inline={true}
 										component="labelText"
-										label="湿度："
-										value={canFreshStatus.sensorHumidity}
+										label="空调设置温度："
+										value={sensorTemp}
 									/>
 								}
-
 								{
-									deviceType=="AIR_SENSOR" &&
+									deviceType=="AIR_CONDITION" &&
 									<KrField
 										style={{width:300}}
 										inline={true}
 										component="labelText"
-										label="PM2.5："
-										value={canFreshStatus.pm25}
+										label="空调模式："
+										value={this.renderAirConditionMode(detail)}
+										
+										/>
+								}
+								{
+									deviceType=="AIR_CONDITION" &&
+									<KrField
+										style={{width:300}}
+										inline={true}
+										component="labelText"
+										label="空调风速："
+										value={this.renderAirConditionWindSpeed(detail)}
 									/>
 								}
-
-
+								
 								{
-									deviceType=="AIR_SENSOR" &&
-									<KrField
-										style={{width:300}}
-										inline={true}
-										component="labelText"
-										label="PM10："
-										value={canFreshStatus.pm10}
-									/>
-								}	
+								(deviceType=="HUMITURE_SENSOR" ||
+								deviceType=="AIR_SENSOR" ||
+								deviceType=="BODY_SENSOR") &&
+								<div className="sensor-box">
+									<div className="btn" onClick={this.getNewStatus}>获取最新状态</div>
+									{
+										deviceType=="HUMITURE_SENSOR" &&
+										<KrField
+											style={{width:300}}
+											inline={true}
+											component="labelText"
+											label="温度："
+											value={canFreshStatus.sensorTemp}
+										/>
+									}
 
-								{
-									deviceType=="AIR_SENSOR" &&
-									<KrField
-										style={{width:300}}
-										inline={true}
-										component="labelText"
-										label="PM2510："
-										value={canFreshStatus.pm2510}
-									/>
-								}
+									{
+										deviceType=="HUMITURE_SENSOR" &&
+										<KrField
+											style={{width:300}}
+											inline={true}
+											component="labelText"
+											label="湿度："
+											value={canFreshStatus.sensorHumidity}
+										/>
+									}
 
-								{
-									deviceType=="BODY_SENSOR" &&
-									<KrField
-										style={{width:300}}
-										inline={true}
-										component="labelText"
-										label="是否有人："
-										value={canFreshStatus.hasBody}
-									/>
+									{
+										deviceType=="AIR_SENSOR" &&
+										<KrField
+											style={{width:300}}
+											inline={true}
+											component="labelText"
+											label="PM2.5："
+											value={canFreshStatus.pm25}
+										/>
+									}
+
+
+									{
+										deviceType=="AIR_SENSOR" &&
+										<KrField
+											style={{width:300}}
+											inline={true}
+											component="labelText"
+											label="PM10："
+											value={canFreshStatus.pm10}
+										/>
+									}	
+
+									{
+										deviceType=="AIR_SENSOR" &&
+										<KrField
+											style={{width:300}}
+											inline={true}
+											component="labelText"
+											label="PM2510："
+											value={canFreshStatus.pm2510}
+										/>
+									}
+
+									{
+										deviceType=="BODY_SENSOR" &&
+										<KrField
+											style={{width:300}}
+											inline={true}
+											component="labelText"
+											label="是否有人："
+											value={canFreshStatus.hasBody}
+										/>
+									}
+								</div>
 								}
 							</div>
 
