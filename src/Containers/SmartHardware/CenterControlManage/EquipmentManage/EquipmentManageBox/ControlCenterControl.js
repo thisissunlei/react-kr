@@ -106,7 +106,7 @@ class ControlCenterControl extends React.Component{
 
 	renderWindSpeedRadio=(param)=>{
 		let _this = this;
-		var arrData =	[{label:"高速",value:"HIGH"},{label:"低速",value:"LOW"},{label:"中速",value : 'MEDIUM'}];
+		var arrData =	[{label:"高速",value:"HIGH"},{label:"中速",value : 'MEDIUM'},{label:"低速",value:"LOW"}];
 		for(var i =0;i<arrData.length;i++){
 			if(arrData[i].value == param){
 				arrData[i].checked= true;
@@ -224,7 +224,7 @@ class ControlCenterControl extends React.Component{
 		let _this = this;
 		let {detail} = this.props;
 		_this.switchShowLoading();	
-		var urlParams = {serialNo : detail.serialNo,on : !item.on,localNo : item.localNo}
+		var urlParams = {serialNo : item.serialNo,on : !item.on}
 		Http.request('SwitchOpenLampFrost',{},urlParams).then(function(response) {
 			_this.switchShowLoading();	
 			if(urlParams.on){
