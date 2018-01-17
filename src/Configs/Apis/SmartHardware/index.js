@@ -543,6 +543,12 @@ module.exports = {
         method : 'post'
       },
 
+      //编辑门禁智能硬件ID
+      'editDoorEquipmentdeviceID':{
+        url : '/api/iot-platform/door-device/actions/edit-device-id',
+        method : 'post'
+      },
+
 
       
 

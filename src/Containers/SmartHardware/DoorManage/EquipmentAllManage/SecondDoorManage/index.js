@@ -38,6 +38,8 @@ import PasswordCode from './PasswordCode';
 import BtnBox from './BtnBox';
 import EquipmentFirstDetail from './EquipmentFirstDetail';
 import HttpTokenDialog from './HttpTokenDialog';
+import EditSerialNoForm from './EditSerialNoForm';
+
 
 @inject("NavModel")
 @observer
@@ -431,6 +433,10 @@ export default class SecondDoorManage  extends React.Component{
 		State.upgradeDialog = !State.upgradeDialog;
 	}
 
+	editSerialNoFun=()=>{
+		State.switchOpenEditSerialNo = !State.switchOpenEditSerialNo;
+	}
+
 
 	getHttpToken=()=>{
 		State.showHttpToken();
@@ -462,8 +468,8 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"恢复出厂设置",onClickFun:_this.resetEquipmentOrigin},
 				{title:"升级",onClickFun:_this.upgrade},
 
-				{title:"获取httpToken",onClickFun:_this.getHttpToken}
-
+				{title:"获取httpToken",onClickFun:_this.getHttpToken},
+				{title:"编辑序列号",onClickFun:_this.editSerialNoFun}
 				
 			]
 		}else{
@@ -780,6 +786,20 @@ export default class SecondDoorManage  extends React.Component{
 			                </Grid>
 			          </div>
 			        </Dialog>
+
+							<Dialog
+			          title="编辑序列号"
+			          open={State.switchOpenEditSerialNo}
+			          onClose={this.editSerialNoFun}
+			          contentStyle={{width:450}}
+			        >
+			          <EditSerialNoForm
+			            onCancel={this.editSerialNoFun}
+									style ={{paddingTop:'35px'}}
+									detail={itemDetail}
+			          />
+			        </Dialog>
+							
 			        <Dialog
 			          title="清空缓存提示"
 			          open={State.openClearCached}
