@@ -90,12 +90,12 @@ export default class EquipmentDetail extends React.Component{
 	returnConnectStatus=()=>{
 
 		let {detail} = this.props;
-		let connectStatus = detail.connected;
+		let equipmentStatus = detail.status;
 		
-		if(connectStatus){
-			return <span style={{color:"green"}}>是</span>
+		if(equipmentStatus=="NORMAL"){
+			return <span style={{color:"green"}}>正常</span>
 		}else{
-			return <span style={{color:"red"}}>否</span>
+			return <span style={{color:"red"}}>故障</span>
 		}
 		
 	}
@@ -188,7 +188,7 @@ export default class EquipmentDetail extends React.Component{
 				<div className="detail-list-equipment">
 					<div>
 						<KrField
-							style={{width:300}}
+							style={{width:400,diaplay:"block"}}
 							inline={true}
 							component="labelText"
 							label="硬件ID："
@@ -212,16 +212,10 @@ export default class EquipmentDetail extends React.Component{
 							style={{width:300}}
 							inline={true}
 							component="labelText"
-							label="是否连接："
+							label="是否故障："
 							value={_this.returnConnectStatus()}
 						/>
-						<KrField
-							style={{width:300}}
-							inline={true}
-							component="labelText"
-							label="最后一次连接时间："
-							value={DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}
-						/>
+						
 						<KrField
 							style={{width:300}}
 							inline={true}
