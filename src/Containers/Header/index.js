@@ -153,11 +153,13 @@ export default class Header extends React.Component {
 		NavModel.clearSidebar();
 
 	}
-	renderNav = (navs)=>{
+	renderNav = (Navs)=>{
+		var navs=Navs.slice(0,7);
 		var navIsActive=navs.map((item,index)=>{
 			return item.isActive;
 		})
 		var isActive=navIsActive.indexOf(true)==-1?true:false;
+
 		
 		return (
 			<Nav> 

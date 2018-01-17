@@ -28,7 +28,7 @@ import OrderCenter from './OrderCenter';
 import BillNav from './BillNav';
 //订单中心
 
-const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware,BillNav,OrderCenter);
+const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware,OrderCenter,BillNav);
 
 module.exports = {
     current_parent: '',
