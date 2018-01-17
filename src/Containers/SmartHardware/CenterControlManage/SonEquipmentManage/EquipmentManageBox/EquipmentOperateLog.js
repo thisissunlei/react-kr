@@ -194,21 +194,18 @@ class EquipmentDataForm extends React.Component{
 
 								{(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&<TableRowColumn name="switchOpen" 
 									component={(value,oldValue,itemData)=>{
-									if(itemData.extra.on==""){
-										value="无数据"
-									}else{
 										if(itemData.extra.on){
 											value = "开启"
 										}else{
 											value ="关闭"
 										}
-									}
+								
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
 								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="mode" 
 									component={(value,oldValue,itemData)=>{
-									if(itemData.extra.mode==""){
-										value="无"
+									if(!itemData.extra.mode){
+										value="无数据"
 									}else{
 										if(itemData.extra.mode=="HEATING"){
 											value = "制热"
@@ -220,23 +217,23 @@ class EquipmentDataForm extends React.Component{
 								></TableRowColumn>}
 								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="speed" 
 									component={(value,oldValue,itemData)=>{
-									if(itemData.extra.speed==""){
-										value="无"
+									if(!itemData.extra.speed){
+										value="无数据"
 									}else{
 										if(itemData.extra.speed=="HIGH"){
 											value = "高速"
 										}else if(itemData.extra.speed=="LOW"){
 											value ="低速"
-										}else{
-											value ="自动"
+										}else if(itemData.extra.speed=="MEDIUM"){
+											value ="中速"
 										}
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
 								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="temprature" 
 									component={(value,oldValue,itemData)=>{
-									if(itemData.extra.temp==""){
-										value="无"
+									if(!itemData.extra.temp){
+										value="无数据"
 									}else{
 										value=itemData.extra.temp+"℃"
 									}
