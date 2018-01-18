@@ -81,9 +81,10 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 
-	seeDetailInfoFun=(value,itemData)=>{
+	seeDetailInfoFun=(itemData,value)=>{
+		console.log("value,itemData",itemData)
 		let _this = this;
-		Http.request('seeCenterControlEquipDetail',{id:value.id}).then(function(response) {
+		Http.request('seeCenterControlEquipDetail',{id:itemData.id}).then(function(response) {
 			
 			_this.setState({
 				itemDetail:response
@@ -268,8 +269,8 @@ export default class EquipmentManageBox  extends React.Component{
 		State.showHttpToken();
 	}
 
-	clickSeeDetail=(itemData)=>{
-		State.itemDetail = itemData;
+	clickSeeDetail=(value,itemData)=>{
+		State.itemDetail = value;
 		this.seeSonEquipment();
 	}
 
@@ -376,7 +377,7 @@ export default class EquipmentManageBox  extends React.Component{
 				            <TableRow>
 				            	<TableRowColumn name="communityName" style={{width:"12%"}}></TableRowColumn>
 								
-								<TableRowColumn style={{width:"13%",overflow:"visible"}} name="name" component={(value,oldValue)=>{
+								<TableRowColumn style={{width:"13%",overflow:"visible"}} name="name" component={(value,oldValue,itemData)=>{
 									var TooltipStyle=""
 									if(value.length==""){
 										TooltipStyle="none"
@@ -384,7 +385,7 @@ export default class EquipmentManageBox  extends React.Component{
 									}else{
 										TooltipStyle="block";
 									}
-										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										return (<div style={{display:TooltipStyle,paddingTop:5,color:"#499df1",cursor:"pointer"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} onClick={this.seeDetailInfoFun.bind(this,itemData,value)}>{value}</span>
 										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 								}} ></TableRowColumn>
 								
@@ -400,7 +401,7 @@ export default class EquipmentManageBox  extends React.Component{
 										}else{
 											TooltipStyle="inline-block";
 										}
-										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%",color:"#499df1",cursor:"pointer"}} className='financeDetail-hover' onClick={this.clickSeeDetail.bind(this,itemData)}><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover' ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
 										)
 									}} 
@@ -461,7 +462,7 @@ export default class EquipmentManageBox  extends React.Component{
 											}
 											return (
 													<div>
-				                    					<Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
+				                    <Button  label="子设备"  type="operation" operation="seeDetail"  onTouchTap={this.clickSeeDetail.bind(this,value,itemData)}/>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
               											<Dropdown 
