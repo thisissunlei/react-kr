@@ -36,7 +36,6 @@ export default class AgingAccount  extends React.Component{
 		var hashStr = window.location.hash;
 		var hashArr = hashStr.split("/");
 		var param = hashArr[4]
-		console.log(" hashArr[5]", hashArr[5]);
 		this.setState({
 			serialNo : hashArr[5],
 			fatherName : hashArr[6]
@@ -48,7 +47,6 @@ export default class AgingAccount  extends React.Component{
 
 	render(){
 		let {TabNum,fatherName,serialNo} = this.state;
-		console.log("fatherName",serialNo,fatherName,decodeURIComponent(fatherName));
 
 		return(
 

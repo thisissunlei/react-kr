@@ -260,7 +260,6 @@ class EquipmentDataForm extends React.Component{
 								></TableRowColumn>}
 								{deviceType=="BODY_SENSOR" &&<TableRowColumn name="hasBody" 
 									component={(value,oldValue,itemData)=>{
-										console.log("itemData",itemData.extra.hasBody,itemData.extra.hasBody=="");
 									if(!itemData.extra){
 										value="无数据"
 									}else{

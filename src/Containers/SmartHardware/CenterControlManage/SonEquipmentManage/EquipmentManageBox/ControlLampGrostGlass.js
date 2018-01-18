@@ -105,7 +105,6 @@ class ControlLampForm extends React.Component{
 		
 		const { error, handleSubmit, reset ,detail,mainInfo} = this.props;
 		let {switchOn} = this.state;
-		console.log("mainInfo",mainInfo);
 		return(
 			<div>
 				<form onSubmit={handleSubmit(this.onSubmit)}>

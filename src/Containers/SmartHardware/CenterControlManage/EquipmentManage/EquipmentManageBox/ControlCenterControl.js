@@ -131,7 +131,6 @@ class ControlCenterControl extends React.Component{
 		let {detail} = this.props;
 		let _this=this;
 		var urlParams = {serialNo:detail.serialNo,speed : e.target.value}
-		console.log("e.target.value",e.target.value);
 		_this.switchShowLoading();
 		Http.request('setAirConditionWindSpeedAll',{},urlParams).then(function(response) {
 			_this.switchShowLoading();

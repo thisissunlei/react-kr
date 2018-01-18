@@ -198,7 +198,6 @@ class ControlAirConditionForm extends React.Component{
 		
 		const { error, handleSubmit, reset,mainInfo} = this.props;
 		let {chooseHeating,modelOptions,speedWindOptions,on,speed,mode} =this.state;
-		console.log("mainInfo",mainInfo);
 		return(
 			<div  className="air-condition-form">
 				<form onSubmit={handleSubmit(this.onSubmit)}>

@@ -66,7 +66,6 @@ export default class EquipmentDetail extends React.Component{
 		State.freshPageReturn();
 		var urlParams = {deviceId:detail.deviceVO.deviceId}
 		Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
-			console.log("_this.syntaxHighlight(response.reported)",_this.syntaxHighlight(response.reported));
 			$("#center-control-report").html(_this.syntaxHighlight(response.reported));
 			Message.success("刷新成功");
 			if(!response.reported||JSON.stringify(response.reported).length<1){
