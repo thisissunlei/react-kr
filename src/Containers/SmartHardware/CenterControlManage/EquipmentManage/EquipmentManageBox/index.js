@@ -268,9 +268,12 @@ export default class EquipmentManageBox  extends React.Component{
 		State.showHttpToken();
 	}
 
+	clickSeeDetail=(itemData)=>{
+		State.itemDetail = itemData;
+		this.seeSonEquipment();
+	}
 
 	seeSonEquipment=()=>{
-		console.log("State.itemDetail",State.itemDetail);
 		let fatherName = State.itemDetail.name || '无';
 		let sonEquipmentId = State.itemDetail.id;
 		let equipmentDeviceId =State.itemDetail.serialNo;
@@ -321,6 +324,8 @@ export default class EquipmentManageBox  extends React.Component{
 	editSerialNoFun=()=>{
 		State.switchOpenEditSerialNo = !State.switchOpenEditSerialNo;
 	}
+
+	
 	
 
 
@@ -387,7 +392,7 @@ export default class EquipmentManageBox  extends React.Component{
 								
 								<TableRowColumn name="serialNo"
 									style={{width:"20%"}}
-									component={(value,oldValue)=>{
+									component={(value,oldValue,itemData)=>{
 										var TooltipStyle=""
 										if(value.length==""){
 											TooltipStyle="none"
@@ -395,12 +400,13 @@ export default class EquipmentManageBox  extends React.Component{
 										}else{
 											TooltipStyle="inline-block";
 										}
-										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%",color:"#499df1",cursor:"pointer"}} className='financeDetail-hover' onClick={this.clickSeeDetail.bind(this,itemData)}><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
 										)
 									}} 
 								>
 								</TableRowColumn>
+							
 								
 
 								<TableRowColumn name="spaceType" 
