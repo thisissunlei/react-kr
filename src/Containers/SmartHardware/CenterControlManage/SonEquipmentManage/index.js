@@ -22,23 +22,39 @@ export default class AgingAccount  extends React.Component{
 	constructor(props,context){
 		super(props, context);
 		this.state = {
-			
+			serialNo:'',
+			fatherName : '',
 		}
 	}
 
 	componentDidMount() {
 		Baidu.trackEvent('中央控制子设备管理','访问');
+		this.getUrlParam();
+	}
+
+	getUrlParam=()=>{
+		var hashStr = window.location.hash;
+		var hashArr = hashStr.split("/");
+		var param = hashArr[4]
+		console.log(" hashArr[5]", hashArr[5]);
+		this.setState({
+			serialNo : hashArr[5],
+			fatherName : hashArr[6]
+		})
+		return param
 	}
 
 	
 
 	render(){
-		let {TabNum} = this.state;
+		let {TabNum,fatherName,serialNo} = this.state;
+		console.log("fatherName",serialNo,fatherName,decodeURIComponent(fatherName));
+
 		return(
 
 			<div className="equipment-all">
 				<Title value="中央控制子设备管理"/>
-				<Section title={`中央控制子设备管理`} description="">
+				<Section title={`   `} description="">
 					<EquipmentManageBox />
 				</Section>
 				

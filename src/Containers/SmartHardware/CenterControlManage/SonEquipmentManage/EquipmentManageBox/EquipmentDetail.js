@@ -18,33 +18,34 @@ export default class EquipmentDetail extends React.Component{
 
 		this.state={
 			itemDetail:{},
+			airconditionTemp : '',
 			canFreshStatus:{
 				sensorTemp : '',
 				sensorHumidity : '',
 				hasBody : '',
 				pm25 : '',
 				pm10 : '',
-				pm2510 : ''
+				pm2510 : '',
 			}
-			
-
 		}
 	}
 
 	componentDidMount(){
 		let {detail} = this.props;
-		console.log("detail",detail);
+
 		let _this =this;
 		_this.setState({
 			itemDetail :detail,
 			sensorTemp : (detail.extReported && detail.extReported.temp+"℃") || "无",
+			airconditionTemp : (detail.extReported && detail.extReported.detectedTemp+"℃") || "无",			
+			
 			canFreshStatus:{
 				sensorTemp :(detail.extReported && detail.extReported.celsius+"℃") || "无",
 				sensorHumidity : (detail.extReported && detail.extReported.humidity+"%")|| "无",
 				hasBody :(detail.extReported && (detail.extReported.hasBody?"有人":"无人"))||"无数据",
 				pm25 : detail.extReported && detail.extReported.pm25+" ",
 				pm10 : detail.extReported && detail.extReported.pm10+" ",
-				pm2510 : detail.extReported && detail.extReported.pm2510+" "
+				pm2510 : detail.extReported && detail.extReported.pm2510+" ",
 			}
 			
 
@@ -179,10 +180,9 @@ export default class EquipmentDetail extends React.Component{
 
 	render(){
 		let {detail} = this.props;
-		let {sensorTemp,canFreshStatus} = this.state;
+		let {sensorTemp,canFreshStatus,airconditionTemp} = this.state;
 		var deviceType = this.props.detail.deviceType;
 		let _this =this;
-		console.log("canFreshStatus",canFreshStatus);
 		return (
 			<div style={{paddingTop :18}}>
 				
@@ -273,16 +273,7 @@ export default class EquipmentDetail extends React.Component{
 										value={(detail.extReported && (detail.extReported.on?"开启":"关闭"))||"无"}
 									/>
 								}
-								{
-									deviceType=="AIR_CONDITION" &&
-									<KrField
-										style={{width:300}}
-										inline={true}
-										component="labelText"
-										label="空调设置温度："
-										value={sensorTemp}
-									/>
-								}
+								
 								{
 									deviceType=="AIR_CONDITION" &&
 									<KrField
@@ -304,6 +295,28 @@ export default class EquipmentDetail extends React.Component{
 										value={this.renderAirConditionWindSpeed(detail)}
 									/>
 								}
+								
+								{
+									deviceType=="AIR_CONDITION" &&
+									<KrField
+										style={{width:300}}
+										inline={true}
+										component="labelText"
+										label="空调设置温度："
+										value={sensorTemp}
+									/>
+								}
+								{
+									deviceType=="AIR_CONDITION" &&
+									<KrField
+										style={{width:300}}
+										inline={true}
+										component="labelText"
+										label="空调监测温度："
+										value={airconditionTemp}
+									/>
+								}
+								
 								
 								{
 								(deviceType=="HUMITURE_SENSOR" ||

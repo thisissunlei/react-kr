@@ -49,7 +49,8 @@ export default class EquipmentManageBox  extends React.Component{
 			itemDetail : {},
 			mainInfo: {},
 			serialNo :'',
-			controlLampOrGrostedGlass : ""
+			controlLampOrGrostedGlass : "",
+			fatherName : ''
 		}
 	}
 
@@ -61,7 +62,6 @@ export default class EquipmentManageBox  extends React.Component{
 	componentWillMount(){
 		var paramId =this.getUrlParam();
 		State.refreshList(paramId);
-
 	}
 
 
@@ -70,7 +70,8 @@ export default class EquipmentManageBox  extends React.Component{
 		var hashArr = hashStr.split("/");
 		var param = hashArr[4]
 		this.setState({
-			serialNo : hashArr[5]
+			serialNo : hashArr[5],
+			fatherName : hashArr[6]
 		})
 		return param
 	}
@@ -277,11 +278,21 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	render(){
-		let {itemDetail,mainInfo,serialNo,controlLampOrGrostedGlass}=this.state;
+		let {itemDetail,mainInfo,serialNo,controlLampOrGrostedGlass,fatherName}=this.state;
 		let deviceTypeOptions = State.sonEquipmentTypeOptions
 		return(
 			<div className="son-equipment-manage">
-				<span style={{float:"right",marginTop:"-50px",cursor:"pointer"}} onClick={this.returnCenterControl}>返回中央控制管理</span>
+				<div style={{float:"left",marginTop:"-55px",width:"100%"}}>
+					<span>
+						<span style={{marginRight:10,cursor:"pointer"}} onClick={this.returnCenterControl}>中央控制管理</span>
+						<span style={{marginRight:10}}>&gt;</span>
+						<span style={{marginRight:10}}>中控子设备管理</span>
+					</span>
+					<span style={{float:"right"}} >
+						<span style={{marginRight:10}}>父设备序列号：{serialNo}</span>
+						<span style={{marginRight:10}}>父设备展示标题：{decodeURIComponent(fatherName)}</span>
+					</span>
+				</div>
 				<div>
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="发现设备"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
@@ -481,7 +492,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          title={controlLampOrGrostedGlass}
 			          open={State.controlLampDialog}
 			          onClose = {this.switchControlLampDialog}
-			          contentStyle={{width:470}}
+			          contentStyle={{width:660}}
 			        >
 						<ControlLampGrostGlass onCancel={this.switchControlLampDialog} detail={itemDetail} mainInfo={mainInfo}/>
 			        </Dialog>
@@ -490,7 +501,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          title="空调控制器"
 			          open={State.controlAirConditionDialog}
 			          onClose = {this.switchControlAirConditionDialog}
-			          contentStyle={{width:470}}
+			          contentStyle={{width:660}}
 			        >
 						<ControlAirCondition onCancel={this.switchControlLampDialog} detail={itemDetail} mainInfo={mainInfo}/>
 			        </Dialog>

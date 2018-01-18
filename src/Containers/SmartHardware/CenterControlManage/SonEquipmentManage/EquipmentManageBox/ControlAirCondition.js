@@ -5,7 +5,7 @@ import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,Fiel
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import State from './State';
-import {Button,	Message,err} from 'kr-ui';
+import {Button,	Message,KrField} from 'kr-ui';
 import Toggle from 'material-ui/Toggle';
 
 class ControlAirConditionForm extends React.Component{
@@ -196,14 +196,28 @@ class ControlAirConditionForm extends React.Component{
 
 	render(){
 		
-		const { error, handleSubmit, reset} = this.props;
+		const { error, handleSubmit, reset,mainInfo} = this.props;
 		let {chooseHeating,modelOptions,speedWindOptions,on,speed,mode} =this.state;
+		console.log("mainInfo",mainInfo);
 		return(
-			<div style={{paddingTop:20}} className="air-condition-form">
+			<div  className="air-condition-form">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					
 					<div className="control-air-condition">
-
+						<KrField
+							style={{width:300,display:"inline-block"}}
+							inline={true}
+							component="labelText"
+							label="设备ID："
+							value={mainInfo.localNo}
+						/>
+						<KrField
+							style={{width:300,display:"inline-block"}}
+							inline={true}
+							component="labelText"
+							label="名称："
+							value={mainInfo.name}
+						/>
 						<div className="air-condition-line">
 							<div className="air-condition-on" style={{width: 116}}>
 								<Toggle
@@ -216,7 +230,7 @@ class ControlAirConditionForm extends React.Component{
 							</div>
 						</div>
 						<div  className="air-condition-line">
-							<span  className="title">空调模式：</span>
+							<span  className="title"  style={{color :"#333333"}}>空调模式：</span>
 							<span>
 								{
 									this.renderAirConditionModeBox(mode)
@@ -226,7 +240,7 @@ class ControlAirConditionForm extends React.Component{
 							
 						</div>
 						<div className="air-condition-line">
-							<span className="title">风速：</span>
+							<span className="title"  style={{color :"#333333"}}>风速：</span>
 							<span>
 								{
 									this.renderWindSpeedRadio(speed)

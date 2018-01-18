@@ -16,7 +16,6 @@ import {
 	Button,
 	Notify,
 	Message,
-	err
 } from 'kr-ui';
 class ControlLampForm extends React.Component{
 	constructor(props){
@@ -106,14 +105,28 @@ class ControlLampForm extends React.Component{
 		
 		const { error, handleSubmit, reset ,detail,mainInfo} = this.props;
 		let {switchOn} = this.state;
-		
+		console.log("mainInfo",mainInfo);
 		return(
-			<div style={{paddingTop:20}}>
+			<div>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					
 					<div>
-						<div style={{textAlign:"center"}}>
-							<span>当前开关状态：</span>
+						<KrField
+							style={{width:300,display:"inline-block"}}
+							inline={true}
+							component="labelText"
+							label="设备ID："
+							value={mainInfo.localNo}
+						/>
+						<KrField
+							style={{width:300,display:"inline-block"}}
+							inline={true}
+							component="labelText"
+							label="名称："
+							value={mainInfo.name}
+						/>
+						<div style={{paddingLeft:10}}>
+							<span style={{color :"#333333"}}>当前开关状态：</span>
 							<span>{switchOn}</span>
 						</div>
 						<div style={{width:280,paddingTop : 20,margin:"0 auto"}}>

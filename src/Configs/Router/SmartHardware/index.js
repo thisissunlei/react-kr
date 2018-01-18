@@ -117,7 +117,7 @@ module.exports =()=>{
 
       <Route path="centercontrolmanage" getComponent={Basic}>
         <Route path="equipmentmanage" getComponent={SmartHardware_CenterControlManage_EquipmentManage}/>
-        <Route path="sonequipmentmanage/:sonEquipmentId/:fatherEquipmentId" getComponent={SmartHardware_CenterControlManage_SonEquipmentManage}/>
+        <Route path="sonequipmentmanage/:sonEquipmentId/:fatherEquipmentId/:fatherName" getComponent={SmartHardware_CenterControlManage_SonEquipmentManage}/>
         <Route path="operatelog" getComponent={SmartHardware_CenterControlManage_OperateLog}/>
       </Route>
 			
