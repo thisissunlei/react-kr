@@ -9,7 +9,7 @@ import {
 	FieldArray,
 	change
 } from 'redux-form';
-
+import qrCodeUrl from './images/qrCode.png'
 import {
 	dataToTemplate,
 	ReactHtmlParser,
@@ -212,7 +212,10 @@ class TemplatePrint extends React.Component {
 
 	//点击上去
 	originClick = (item, bigItem, prefixes) => {
+		
+		console.log(item,bigItem,"oooooooo")
 		var funcName = '';
+		
 		if (item == 'showValue') {
 			funcName = '{{' + prefixes + bigItem + '}}';
 		} else {
@@ -284,6 +287,11 @@ class TemplatePrint extends React.Component {
 	}
 	labelClick = (name) => {
 		let funcName = '';
+		if (name == "qrCode") {
+			funcName = "<img class='qrCode' style='width:80px;height:80px;' src='"+qrCodeUrl+"'/>"
+			UE.getEditor(this.editId).execCommand('inserthtml', funcName);
+			return;
+		}
 		funcName = '#{' + name + '}';
 		UE.getEditor(this.editId).execCommand('inserthtml', funcName);
 	}

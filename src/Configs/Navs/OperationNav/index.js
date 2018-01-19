@@ -47,8 +47,8 @@ module.exports = [
 					{
 						primaryText: '撤场记录管理',
 						type: 'vue',
-						originUrl: '/operations-center/from-field',
-						menuCode: 'contract_edit',
+						router: 'operations-center/from-field',
+						menuCode: 'csr_withdrawal_list',
 					},
 				]
 			},
