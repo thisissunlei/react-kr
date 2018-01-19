@@ -126,6 +126,7 @@ export default class EquipmentSearch extends React.Component{
 					<div  className="table-item-index">{item.driverV}</div>
 					<div  className="table-item-index">{item.v}</div>
 					<div  className="table-item-index">{item.ip}</div>
+					<div  className="table-item-index">{item.name}</div>
 					<div className="table-item-index"> 
 						<div  className="table-item-last" onClick={_this.registEquipmentFun.bind(this,item)}>添加设备</div>
 						<div  className="table-item-last" onClick={_this.deleteEquipmentFun.bind(this,item)}>强制删除</div>
@@ -167,6 +168,7 @@ export default class EquipmentSearch extends React.Component{
 			        		<div className="header-item">固件版本</div>
 			        		<div className="header-item">APP版本</div>
 			        		<div className="header-item">IP地址</div>
+			        		<div className="header-item">标记</div>
 			        		<div className="header-item">操作</div>
 			        	</div>
 			        	<div className="table-body">

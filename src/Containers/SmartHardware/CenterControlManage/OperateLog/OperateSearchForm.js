@@ -64,6 +64,10 @@ class OpenLogForm extends React.Component{
 		}
 	}
 
+	onchangeSerialNo=(value)=>{
+		Store.dispatch(change('OpenLogForm','serialNo',value));
+	}
+
 	onClearAll=()=>{
 		Store.dispatch(reset('OpenLogForm',''));
 		Store.dispatch(change('OpenLogForm','sdate',''));
@@ -80,18 +84,7 @@ class OpenLogForm extends React.Component{
 		}
 	}
 
-	onSearchSubmit=(item)=>{
-		
-		State.openLogSearchParams = {
-			page:1,
-			pageSize:15,
-			startdate : State.openLogSearchParams.startdate || '',
-			enddate: State.openLogSearchParams.endDate || '',
-			communityId: State.openLogSearchParams.communityId || '',
-			serialNo: item.content || '',
-			date : new Date()
-		}
-	}
+
 
 	onStartChange=(sdate)=>{
 		let {searchParams}=this.state;
@@ -130,15 +123,12 @@ class OpenLogForm extends React.Component{
 		});
 	}
 	render(){
-		let filterOptions=[{label:"硬件ID",value:"serialNo"}]
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="search-form-second-door">
 				<ListGroup>
 					<ListGroupItem>
-						
 							<KrField label="开始时间：" name="sdate" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange} placeholder="日期"/>
-						
 					</ListGroupItem>
 
 					<ListGroupItem>
@@ -149,17 +139,18 @@ class OpenLogForm extends React.Component{
 							<KrField  name="communityId" component="searchCommunityAll" label="社区名称：" inline={true} style={{width:254}} onChange={this.chooseCommunity} className="community-id"/>
 						</span>
 					</ListGroupItem>
-					
-					
-					<ListGroupItem style={{float:"right"}}>
-						<SearchForms onSubmit={this.onSearchSubmit} 
-							style={{zIndex:10000,marginLeft:10}}
-							content={this.state.content}
-							searchFilter={filterOptions}
-						/>
+					<ListGroupItem>
+						<span className="serialNo-box">
+							<KrField
+								inline={true}
+								name="serialNo" 
+								type="text" 
+								label="序列号：" 
+								style={{width:300,margin:'0 35px 5px 0'}}
+								onChange = {this.onchangeSerialNo}
+							/>
+						</span>
 					</ListGroupItem>
-					
-					
 				</ListGroup>
 				<ListGroup style={{marginBottom:10}}>
 					
