@@ -38,7 +38,7 @@ export default class AgingAccount  extends React.Component{
 
 			<div className="equipment-all">
 				<Title value="中央控制管理"/>
-				<Section title={`中央控制管理`} description="" >
+				<Section title={`网关管理`} description="" >
 					<EquipmentManageBox />
 				</Section>
 				

@@ -50,12 +50,14 @@ export default class EquipmentManageBox  extends React.Component{
 			openMenu :false,
 			itemDetail : {},
 			mainPsw : '',
-			vicePsw : ''
+			vicePsw : '',
+			mainInfo : {}
 		}
 	}
 
 
 	componentDidMount() {
+
 
 	}
 
@@ -81,7 +83,6 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	seeDetailInfoFun=(itemData,value)=>{
-		console.log("value,itemData",itemData)
 		let _this = this;
 		Http.request('seeCenterControlEquipDetail',{id:itemData.id}).then(function(response) {
 			
@@ -295,7 +296,8 @@ export default class EquipmentManageBox  extends React.Component{
 
 	ControlScreen=(itemData)=>{
 		this.setState({
-			itemDetail : itemData
+			itemDetail : itemData,
+			mainInfo : itemData
 		},function(){
 			this.ControlCenterControlFun()
 		})
@@ -317,7 +319,7 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 	render(){
-		let {itemDetail,	mainPsw ,vicePsw }=this.state;
+		let {itemDetail,	mainPsw ,vicePsw ,mainInfo}=this.state;
 		let {showOpretion} = State;
 		let spaceTypeOptions = [{label:"会议室",value : 'MEETING'},{label:"独立办公室",value : 'OFFICE'},{label:"大厅",value : 'HALL'}]
 
@@ -371,7 +373,7 @@ export default class EquipmentManageBox  extends React.Component{
 									}else{
 										TooltipStyle="block";
 									}
-										return (<div style={{display:TooltipStyle,paddingTop:5,color:"#499df1",cursor:"pointer"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} onClick={this.seeDetailInfoFun.bind(this,itemData,value)}>{value}</span>
+										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
 										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 								}} ></TableRowColumn>
 								
@@ -387,7 +389,7 @@ export default class EquipmentManageBox  extends React.Component{
 										}else{
 											TooltipStyle="inline-block";
 										}
-										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover' ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover' ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} ><span onClick={this.seeDetailInfoFun.bind(this,itemData,value)} style={{color:"#499df1",cursor:"pointer"}}>{value}</span></span>
 										 	<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
 										)
 									}} 
@@ -450,15 +452,15 @@ export default class EquipmentManageBox  extends React.Component{
 													<div>
 				                    <Button  label="子设备"  type="operation" operation="seeDetail"  onTouchTap={this.clickSeeDetail.bind(this,value,itemData)}/>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
-														<Button  label="控制屏幕"  type="operation" operation="controlScreen" onTouchTap={this.ControlScreen.bind(this,value,itemData)}/>
-              											<Dropdown 
-              												wrapStyle={{marginLeft:5}} 
-              												textTitle="更多" 
-              												dropItmes={State.DropItems} 
-              												liWidth={100} 
-              												onMouseOn={this.onMouseOn.bind(this,value,itemData)} 
-              												titleStyle={{color:"#499df1",fontSize:14}}
-              											/>
+														<Button  label="设备总控"  type="operation" operation="controlScreen" onTouchTap={this.ControlScreen.bind(this,value,itemData)}/>
+														<Dropdown 
+															wrapStyle={{marginLeft:5}} 
+															textTitle="更多" 
+															dropItmes={State.DropItems} 
+															liWidth={100} 
+															onMouseOn={this.onMouseOn.bind(this,value,itemData)} 
+															titleStyle={{color:"#499df1",fontSize:14}}
+														/>
 
 													</div>
 												)
@@ -679,12 +681,12 @@ export default class EquipmentManageBox  extends React.Component{
 
 			        
 							<Dialog
-								title="屏幕控制"
+								title="设备总控"
 								open={State.ControlCenterControl}
 								onClose={this.ControlCenterControlFun}
 								contentStyle={{width:720}}
 							>
-								<ControlCenterControl detail={itemDetail}/>
+								<ControlCenterControl detail={itemDetail} mainInfo={mainInfo}/>
 							</Dialog>
 				
 				</div>

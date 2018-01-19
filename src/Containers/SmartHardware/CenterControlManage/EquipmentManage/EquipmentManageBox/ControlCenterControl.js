@@ -29,7 +29,8 @@ class ControlCenterControl extends React.Component{
 			mode : '',
 			airConditionSetTemp : 16,
 			title : '',
-			showLoading : false
+			showLoading : false,
+			serialNoControl : ''
 		}
 	}
 
@@ -45,7 +46,7 @@ class ControlCenterControl extends React.Component{
 	}
 
 	getNowInfo=(param)=>{
-		let {detail} = this.props;
+		let {detail,mainInfo} = this.props;
 		let _this =this;
 		Http.request('getControlAllInfo',{serialNo:detail.serialNo}).then(function(response) {
 			if(param && param == "clickFreshBtn"){
@@ -58,7 +59,8 @@ class ControlCenterControl extends React.Component{
 				lampItems : response.switchers||[],
 				airConditionSwitchOn : (response.airCondition && response.airCondition.on)||false,
 				windSpeed :(response.airCondition && response.airCondition.speed)||"",
-				mode :(response.airCondition && response.airCondition.mode) || ""
+				mode :(response.airCondition && response.airCondition.mode) || "",
+				serialNoControl : mainInfo.serialNo
 			})
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -308,7 +310,7 @@ class ControlCenterControl extends React.Component{
 
 	render(){
 		const { error, handleSubmit, reset} = this.props;
-		let {pageInfo,lampItems,airConditionSwitchOn,windSpeed,mode,airConditionSetTemp,title,showLoading} = this.state;
+		let {pageInfo,lampItems,airConditionSwitchOn,windSpeed,mode,airConditionSetTemp,title,showLoading,serialNoControl} = this.state;
 		return (
 			<div className="control-center-control">
 				
@@ -319,12 +321,20 @@ class ControlCenterControl extends React.Component{
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					<div className="show-box">
 						<KrField
-							style={{width:600}}
+							style={{width:335}}
 							name="title"
 							inline={true}
 							component="labelText"
 							label="屏幕显示标题："
 							value={title}
+						/>
+						<KrField
+							style={{width:335}}
+							name="title"
+							inline={true}
+							component="labelText"
+							label="序列号："
+							value={serialNoControl}
 						/>
 					</div>
 					<div className="show-box">

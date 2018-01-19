@@ -41,8 +41,17 @@ class EquipmentAdvancedQueryForm extends React.Component{
 		let _this = this;
 		_this.getDicList();
 		Store.dispatch(change('EquipmentAdvancedQueryForm','type',this.props.filter));
-		Store.dispatch(change('EquipmentAdvancedQueryForm','value',this.props.content));
+
+		var serialNoLocalStorage = localStorage.getItem("fatherSerialNo");
+
+		var newSerailNo = {serialNo:serialNoLocalStorage}
+		var objNewT = Object.assign({},State.equipmentSearchParams,newSerailNo);
+		State.equipmentSearchParams = objNewT;
+
+		Store.dispatch(change('EquipmentAdvancedQueryForm','serialNo',serialNoLocalStorage));
+		localStorage.setItem("fatherSerialNo",'');
 	}
+
 
 	// 获取通用字典
 	getDicList =()=>{
@@ -162,16 +171,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 	onSearchSubmit=(value)=>{
 		
 		var newObj;
-		if(value.filter == "serialNo"){
-
-			
-		    newObj ={
-				    	serialNo: value.content,
-				    	name: '',
-				    	page:1
-				    }
-
-		}else if(value.filter == "name"){
+		if(value.filter == "name"){
 
 			
 		    newObj ={
@@ -196,15 +196,21 @@ class EquipmentAdvancedQueryForm extends React.Component{
 
 	}
 
+	onchangeSerialNo=(value)=>{
+
+		var serialNoNew={serialNo:value || ''};
+		var objNewT = Object.assign({},State.equipmentSearchParams,serialNoNew);
+		State.equipmentSearchParams = objNewT;
+		Store.dispatch(change('EquipmentAdvancedQueryForm','serialNo',serialNoNew.serialNo));
+		
+	}
+
 	render(){
 		let {floorsOptions,makerOptions}=this.state;
 		const { error, handleSubmit,content,filter} = this.props;
 		let options=[{
 		      label:"屏幕显示标题",
 		      value:"name"
-		    },{
-		      label:"智能硬件ID",
-		      value:"serialNo"
 		    }]
 		var itemsDrop=["重启APP","重启系统","断开重连","刷新屏幕"];
 		let spaceOptions = [{label:"会议室",value:"MEETING"},
@@ -249,15 +255,27 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						inline={true}
 					/>
 				</span>
+					
 				
 				<KrField name="connectStatus"
-						component="select"
-						label="连接状态："
-						onChange = {this.onchangeConnect}
-						options={connectOptions}
-						style={{width:'185px'}}
+					component="select"
+					label="连接状态："
+					onChange = {this.onchangeConnect}
+					options={connectOptions}
+					style={{width:'185px'}}
+					inline={true}
+				/>
+				<span className="serialNo-box">
+					<KrField
 						inline={true}
+						name="serialNo" 
+						type="text" 
+						label="序列号：" 
+						style={{width:300,margin:'0 35px 5px 0'}}
+						onChange = {this.onchangeSerialNo}
 					/>
+				</span>
+
 				<div style={{position:"absolute",top:"-50px",right:0,width:300,height:50}}>
 					<SearchForms onSubmit={this.onSearchSubmit}  ref = "inputFilter"
 						style={{zIndex:10000,marginLeft:10}}

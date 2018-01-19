@@ -241,6 +241,13 @@ export default class EquipmentManageBox  extends React.Component{
 		
 	}
 
+	returnSeeFatherEquipment=(serialNo)=>{
+
+		console.log("serialNo",serialNo);
+		window.location.href='./#/smarthardware/centercontrolmanage/equipmentmanage';
+		localStorage.setItem("fatherSerialNo",serialNo);
+	}
+
 	onMouseOn=(thisP)=>{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
@@ -284,12 +291,12 @@ export default class EquipmentManageBox  extends React.Component{
 			<div className="son-equipment-manage">
 				<div style={{float:"left",marginTop:"-55px",width:"100%"}}>
 					<span>
-						<span style={{marginRight:10,cursor:"pointer"}} onClick={this.returnCenterControl}>中央控制管理</span>
+						<span style={{marginRight:10,cursor:"pointer",color:"rgb(73, 157, 241)"}} onClick={this.returnCenterControl}>中央控制管理</span>
 						<span style={{marginRight:10}}>&gt;</span>
 						<span style={{marginRight:10}}>中控子设备管理</span>
 					</span>
 					<span style={{float:"right"}} >
-						<span style={{marginRight:10}}>父设备序列号：{decodeURIComponent(serialNo)}</span>
+						<span style={{marginRight:10}}>父设备序列号：<span style={{color:"rgb(73, 157, 241)",cursor:"pointer"}} onClick={this.returnSeeFatherEquipment.bind(this,serialNo)}>{decodeURIComponent(serialNo)}</span></span>
 						<span style={{marginRight:10}}>父设备展示标题：{decodeURIComponent(fatherName)}</span>
 					</span>
 				</div>
