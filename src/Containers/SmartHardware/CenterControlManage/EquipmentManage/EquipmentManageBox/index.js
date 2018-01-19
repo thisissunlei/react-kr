@@ -293,7 +293,7 @@ export default class EquipmentManageBox  extends React.Component{
 		
 
 		State.DropItems=[
-			{title:"查看子设备",onClickFun:_this.seeSonEquipment},
+			// {title:"查看子设备",onClickFun:_this.seeSonEquipment},
 			{title:"控制屏幕",onClickFun:_this.ControlCenterControlFun},
 			
 			{title:"断开重连",onClickFun:_this.connectAgain},
