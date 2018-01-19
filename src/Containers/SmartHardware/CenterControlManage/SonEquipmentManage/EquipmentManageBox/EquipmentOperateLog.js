@@ -110,10 +110,11 @@ class EquipmentDataForm extends React.Component{
 	}
 
 	renderTitle=()=>{
+		let {mainInfo} = this.props;
 		let deviceType = this.detail.deviceType;
 		for(var i = 0;i<State.sonEquipmentTypeOptions.length;i++){
 			if(deviceType == State.sonEquipmentTypeOptions[i].value){
-				return State.sonEquipmentTypeOptions[i].label
+				return State.sonEquipmentTypeOptions[i].label+" —— "+mainInfo.name
 			}
 		}		
 
@@ -131,14 +132,14 @@ class EquipmentDataForm extends React.Component{
 		return (
 			<div className="equipment-operate-log">
 				<div className="title-close">
-					<span style={{float:"left",fontSize:16,marginLeft:10}}>
+					<span style={{float:"left",fontSize:16,margin:"20px 0 0 10px",color: '#499df1',fontFamily: "PingFangSC-Regular"}}>
 					{
-						this.renderTitle()+"数据查看"
+						this.renderTitle()
 					}
 					</span>
 					<span style={{float:"right"}} onClick={this.closeDialog}><img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/></span>
 				</div>
-				<form onSubmit={handleSubmit(this.onSubmit)} className="search-form-second-door">
+				<form onSubmit={handleSubmit(this.onSubmit)} className="search-form-second-door" style={{marginTop:20}}>
 					<ListGroup>
 						<ListGroupItem>
 							<KrField label="开始时间：" name="sdate" component="date" inline={true} style={{width:244,marginTop:-3}} onChange={this.onStartChange} placeholder="日期"/>
