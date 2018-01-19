@@ -212,8 +212,6 @@ class TemplatePrint extends React.Component {
 
 	//点击上去
 	originClick = (item, bigItem, prefixes) => {
-		
-		console.log(item,bigItem,"oooooooo")
 		var funcName = '';
 		
 		if (item == 'showValue') {
@@ -302,7 +300,7 @@ class TemplatePrint extends React.Component {
 		var tableStyle = "width:100%;border-top: 1px solid #c1c1c1;border-left: 1px solid #c1c1c1;";
 		var thAndTd = "border-right: 1px solid #c1c1c1;border-bottom: 1px solid #c1c1c1;line-height:26px;";
 		var trStyle = "text-align: center;";
-		var thStyle = thAndTd + "background: #2d8dcd;color: #fff;";
+		var thStyle = thAndTd + "background: #F5F6FA;;color: #fff;";
 		var tdStyle = thAndTd + trStyle;
 		for (var i = 0; i < colNum; i++) {
 			th += `<th style="${thStyle}"></th>`;
