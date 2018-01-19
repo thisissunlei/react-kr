@@ -176,7 +176,7 @@ export default class EquipmentDetail extends React.Component{
 								style={{width:400}}
 								inline={true}
 								component="labelText"
-								label="硬件ID："
+								label="序列号："
 								value={detail.serialNo}
 							/>
 
@@ -244,8 +244,14 @@ export default class EquipmentDetail extends React.Component{
 						</div>
 						
 						<div>
-							<div className="tr-line-bottom"><div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="center-control-report"></pre></div></div>
-							<div className="tr-line-bottom"><div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="center-control-desired"></pre></div></div>
+							<div className="tr-line-bottom">
+								<div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>设备上报信息:</div>
+								<div className="td-right" style={{display:showReported?"block":"none"}}><pre id="center-control-report"></pre></div>
+							</div>
+							<div className="tr-line-bottom">
+								<div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>设备影子信息:</div>
+								<div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="center-control-desired"></pre></div>
+							</div>
 						</div>
 					</div>
 					<div style={{paddingLeft:25}}>
@@ -286,7 +292,10 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						
 						
-						<div className="tr-line-last" style={{display:"block"}}><div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
+						<div className="tr-line-last" style={{display:"block",paddingLeft:6}}>
+							<div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>备注:</div>
+							<div className="td-right" style={{color: "#666",fontSize: 14}}>{detail.memo || "无"}</div>
+						</div>
 
 					</div>
 				</div>

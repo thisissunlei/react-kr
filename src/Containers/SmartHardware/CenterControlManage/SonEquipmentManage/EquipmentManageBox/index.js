@@ -289,7 +289,7 @@ export default class EquipmentManageBox  extends React.Component{
 						<span style={{marginRight:10}}>中控子设备管理</span>
 					</span>
 					<span style={{float:"right"}} >
-						<span style={{marginRight:10}}>父设备序列号：{serialNo}</span>
+						<span style={{marginRight:10}}>父设备序列号：{decodeURIComponent(serialNo)}</span>
 						<span style={{marginRight:10}}>父设备展示标题：{decodeURIComponent(fatherName)}</span>
 					</span>
 				</div>
