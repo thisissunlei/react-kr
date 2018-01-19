@@ -63,7 +63,6 @@ export default class EquipmentManageBox  extends React.Component{
 		State.freshPageReturn();
 	}
 
-	//操作相关
 	onOperation=(type, itemDetail)=>{
 		this.setState({
 			itemDetail
@@ -99,16 +98,14 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 
-	//打开新建
 	openNewCreateDialog=()=>{
 		State.openNewCreate = !State.openNewCreate;
 	}
-	//打开确认删除
+
 	closeConfirmDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
 	}
 
-	//打开查看设备详情
 	openSeeDetailSecond=()=>{
 		State.openCenterControlDetail = !State.openCenterControlDetail;
 	}
@@ -117,12 +114,11 @@ export default class EquipmentManageBox  extends React.Component{
 	openEditDialogFun=()=>{
 		State.openEditDialog = !State.openEditDialog;
 	}
-	//打开发现设备
+
 	openSearchEquipmentFun=()=>{
 		State.openSearchEquipment = !State.openSearchEquipment;
 	}
 
-	//确认删除
 	confirmDelete=()=>{
 		this.closeConfirmDeleteFun();
 		State.selectedDeleteIds = this.state.itemDetail.id;
@@ -133,7 +129,6 @@ export default class EquipmentManageBox  extends React.Component{
 		State.realPage =page;
 	}
 
-	//断开重连提示窗口
 	openConnectAgianFun=()=>{
 		State.openConnectAgian = !State.openConnectAgian;
 	}
@@ -165,42 +160,33 @@ export default class EquipmentManageBox  extends React.Component{
 		
 	}
 
-	deleteList=(thisP,value,itemData)=>{
-		this.setState({
-			itemDetail:thisP
-		});
+	deleteList=()=>{
 		this.closeConfirmDeleteFun();
 	}
 
-	//恢复出厂设置提示窗口
 	resetEquipmentDialogFun=()=>{
 		State.resetEquipmentDialog = !State.resetEquipmentDialog;
 	}  
 
-	//确认恢复出厂设置
 	confirmResetEquipment=()=>{
 		State.confirmResetEquipmentAction();
 		this.resetEquipmentDialogFun();
 	}
 
-	//重启APP提示
 	openRestartAPPDialogFun=()=>{
 		State.openRestartAPPDialog = !State.openRestartAPPDialog;
 	}
 
-	//确认重启APP
 	confirmOpenRestartAPP=()=>{
 		State.confirmOpenRestartAPPAction();
 		this.openRestartAPPDialogFun();
 	}
 
-	//确认重启设备系统
 	confirmOpenRestartSystems=()=>{
 		State.confirmOpenRestartSystemsAction();
 		this.openRestartSystemsDialogFun();
 	}
 
-	//重启设备系统提示
 	openRestartSystemsDialogFun = ()=>{
 		State.openRestartSystemsDialog=!State.openRestartSystemsDialog;
 	}
@@ -213,20 +199,17 @@ export default class EquipmentManageBox  extends React.Component{
 	}
 
 
-	//点击断开重连
 	connectAgain=()=>{
 		State.openConnectAgian = !State.openConnectAgian;
 	}
 
 
 
-	//获取管理员密码
 	openManagerPsw=()=>{
 		State.openManagePsd = !State.openManagePsd;
 	}
 
 
-	//获取管理员密码
 	getManagerPsd =()=>{
 		let _this = this;
 		var urlParams = {deviceId:State.itemDetail.serialNo}
@@ -243,23 +226,19 @@ export default class EquipmentManageBox  extends React.Component{
 		});
 	}
 
-	//重启APP
 	restartAPP=()=>{
 		State.openRestartAPPDialog = !State.openRestartAPPDialog;
 	}
 
 
-	//重启设备系统
 	restartSystems=()=>{
 		State.openRestartSystemsDialog=!State.openRestartSystemsDialog;
 	}
 
-	//恢复设备出厂设置
 	resetEquipmentOrigin=()=>{
 		State.resetEquipmentDialog = !State.resetEquipmentDialog;
 	}
 
-	//升级
 	upgrade=(thisP,value,itemData)=>{
 		State.upgradeDialog = !State.upgradeDialog;
 	}
@@ -293,8 +272,6 @@ export default class EquipmentManageBox  extends React.Component{
 		
 
 		State.DropItems=[
-			// {title:"查看子设备",onClickFun:_this.seeSonEquipment},
-			{title:"控制屏幕",onClickFun:_this.ControlCenterControlFun},
 			
 			{title:"断开重连",onClickFun:_this.connectAgain},
 			{title:"获取管理员密码",onClickFun:_this.getManagerPsd},
@@ -305,7 +282,8 @@ export default class EquipmentManageBox  extends React.Component{
 
 			{title:"升级",onClickFun:_this.upgrade},
 			{title:"获取httpToken",onClickFun:_this.getHttpToken},
-			{title:"编辑序列号",onClickFun:_this.editSerialNoFun}
+			{title:"编辑序列号",onClickFun:_this.editSerialNoFun},
+			{title:"删除",onClickFun:_this.deleteList},
 
 			
 		]
@@ -313,6 +291,14 @@ export default class EquipmentManageBox  extends React.Component{
 
 	ControlCenterControlFun=()=>{
 		State.ControlCenterControl = !State.ControlCenterControl;
+	}
+
+	ControlScreen=(itemData)=>{
+		this.setState({
+			itemDetail : itemData
+		},function(){
+			this.ControlCenterControlFun()
+		})
 	}
 
 
@@ -464,7 +450,7 @@ export default class EquipmentManageBox  extends React.Component{
 													<div>
 				                    <Button  label="子设备"  type="operation" operation="seeDetail"  onTouchTap={this.clickSeeDetail.bind(this,value,itemData)}/>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
-														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
+														<Button  label="控制屏幕"  type="operation" operation="controlScreen" onTouchTap={this.ControlScreen.bind(this,value,itemData)}/>
               											<Dropdown 
               												wrapStyle={{marginLeft:5}} 
               												textTitle="更多" 
