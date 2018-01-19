@@ -169,7 +169,7 @@ module.exports = {
 
    //获取升级信息下拉列表
    'getUpgradeInfoUrl':{
-      url: '/api/iot-platform/device-upgrade/select',
+      url: '/api/iot-platform/device-upgrade/select?serialNo={serialNo}',
       method: 'get'
    },
 
@@ -346,9 +346,218 @@ module.exports = {
       method : 'delete'
    },
 
+  
+    //中央控制设备列表
+    'centerControlEquipmentList':{
+
+      url : '/api/iot-platform/device-def/list?communityId={communityId}&spaceType={spaceType}&connected={connected}&floor={floor}&page={page}&pageSize={pageSize}&serialNo={serialNo}&name={name}',
+      method : 'get'
+   },
+
+     //删除中央控制设备
+   'deleteCenterControEquipment':{
+    url : '/api/iot-platform/device-def/actions/delete?id={id}',
+    method : 'delete'
+    },
+
+    //查看中央控制设备详情
+    'seeCenterControlEquipDetail':{
+      url : '/api/iot-platform/device-def/detail?id={id}',
+      method : 'get'
+      },
+
+      //中央控制新增设备
+      'addCenterControlEquipment':{
+        url : '/api/iot-platform/device-def/actions/add',
+        method : 'post'
+      },
+      //获取编辑信息
+      'getCenterControolEditData':{
+        url : '/api/iot-platform/device-def/edit-info?id={id}',
+        method : 'get'
+      },
+
+      //提交编辑 
+      'editCenterControl':{
+        url : '/api/iot-platform/device-def/actions/edit',
+        method : 'post'
+      },
 
 
+      //子设备列表
+      'getSonEquipmentList':{
+        url : '/api/iot-platform/device-def/sub-device/list?deviceType={deviceType}&localNo={localNo}&pageSize={pageSize}&name={name}&parentId={parentId}&page={page}&floor={floor}&spaceType={spaceType}&communityId={communityId}',
+        method : 'get'
+      },
 
-   
-   
+
+      //发现父级设备列表
+      'findFatherCenterControlEquipment':{
+        url : '/api/iot-platform/device-def/discovery',
+        method : 'get'
+      },
+
+
+      //强制删除中控设备
+      'deleteCenterControlEquipment':{
+        url : '/api/iot-platform/device-def/actions/force-delete',
+        method : 'post'
+      },
+
+      //发现设备之后启用
+      'startCenterControlEquipment':{
+        url : '/api/iot-platform/device-def/actions/enable',
+        method : 'post'
+      },
+
+      //获取子设备详情
+      'getSonEquipmentDetailInfo':{
+        url : '/api/iot-platform/device-def/sub-device/detail?id={id}',
+        method : 'get'
+      },
+
+      //设置空调模式
+      'setAirConditionMode':{
+        url : '/api/iot-platform/device-def/admin/air-condition/set-mode',
+        method : 'post'
+      },
+      
+      //设置空调风速
+      'setAirConditionWindSpeed':{
+        url : '/api/iot-platform/device-def/admin/air-condition/set-speed',
+        method : 'post'
+      },
+
+      //空调开关
+      'SwitchOpenAirCondition':{
+        url : '/api/iot-platform/device-def/admin/air-condition/switch',
+        method : 'post'
+      },
+
+      //灯/雾化膜开关
+      'SwitchOpenLampFrost':{
+        url : '/api/iot-platform/device-def/admin/switcher/switch',
+        method : 'post'
+      },
+
+      //发现子设备列表
+      'findNewSonEquipment':{
+        url : '/api/iot-platform/device-def/sub-device/discovery?parentSerialNo={parentSerialNo}&forceRefresh={forceRefresh}',
+        method : 'get'
+      },
+
+      //删除发现子设备
+      'deleteFindSonEquipment':{
+        url : '/api/iot-platform/device-def/sub-device/actions/force-delete',
+        method : 'post'
+      },
+
+      //注册子设备
+      'regesterSonEquipment':{
+        url : '/api/iot-platform/device-def/sub-device/actions/enable',
+        method : 'post'
+      },
+
+      //编辑子设备
+      'EditSonEquipment':{
+        url : '/api/iot-platform/device-def/sub-device/actions/edit',
+        method : 'post'
+      },
+
+      //获取设备操作列表
+      'getEquipmentOperateLog':{
+        url : '/api/iot-platform/device-status-log/list?deviceDefId={deviceDefId}&endDate={endDate}&startDate={startDate}&page={page}&pageSize={pageSize}',
+        method : 'get'
+      },
+
+      //获取控制灯以及空调回显
+      'getControlAllInfo':{
+        url : '/api/iot-platform/device-def/admin/gateway-panel/view?serialNo={serialNo}',
+        method : 'get'
+      },
+
+      //设置该中控下所有空调风速
+      'setAirConditionWindSpeedAll' :{
+        url : '/api/iot-platform/device-def/admin/gateway-panel/air-condition/set-speed',
+        method : 'post'
+      },
+
+       //设置该中控下所有空调模式
+       'setAirConditionModeAll' :{
+        url : '/api/iot-platform/device-def/admin/gateway-panel/air-condition/set-mode',
+        method : 'post'
+      },
+
+      //设置该中控下所有空调温度
+      'setAirConditionTemperatureAll' :{
+        url : '/api/iot-platform/device-def/admin/gateway-panel/air-condition/set-temp',
+        method : 'post'
+      },
+
+       //设置该中控下所有空调开关
+       'setAirConditionSwitchOn' :{
+        url : '/api/iot-platform/device-def/admin/gateway-panel/air-condition/switch',
+        method : 'post'
+      },
+
+      //设置灯的总开总关
+      'setSwitchOnAllLamps' :{
+        url : '/api/iot-platform/device-def/admin/switcher/global-switch',
+        method : 'post'
+      },
+
+      //智能面板操作日志
+      'centerControlOperateLog' :{
+        url : '/api/iot-platform/panel-click-log/list?communityId={communityId}&endDate={endDate}&page={page}&pageSize={pageSize}&serialNo={serialNo}&spaceId={spaceId}&startDate={startDate}',
+        method : 'get'
+      },
+
+      //断开重连中控
+      'disconnnetCenterControlEquipment':{
+        url : '/api/iot-platform/device-def/admin/disconnect',
+        method : 'post'
+      },
+
+
+       //获取最新的空气质量
+       'getNewAirSendor':{
+        url : '/api/iot-platform/device-def/admin/air-sensor/fetch?serialNo={serialNo}',
+        method : 'get'
+      },
+
+      //获取最新的温湿度
+      'getNewHumitureSensor':{
+        url : '/api/iot-platform/device-def/admin/humiture-sensor/fetch?serialNo={serialNo}',
+        method : 'get'
+      },
+
+      //获取最新的人体感应
+      'getNewBodySensor':{
+        url : '/api/iot-platform/device-def/admin/body-sensor/fetch?serialNo={serialNo}',
+        method : 'get'
+      },
+
+      //编辑序列号
+      'editCenterControlSerialNo':{
+        url : '/api/iot-platform/device-def/actions/edit-serial-no',
+        method : 'post'
+      },
+
+      //编辑门禁智能硬件ID
+      'editDoorEquipmentdeviceID':{
+        url : '/api/iot-platform/door-device/actions/edit-device-id',
+        method : 'post'
+      },
+
+
+      
+
+
+      
 }
+
+
+
+
+
+

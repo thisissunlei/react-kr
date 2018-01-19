@@ -68,6 +68,31 @@ const SmartHardware_PrintManage_PriceConfig = (location, callback) => {
 }
 
 
+const SmartHardware_CenterControlManage_EquipmentManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/CenterControlManage/EquipmentManage').default)
+  }, 'SmartHardware_CenterControlManage_EquipmentManage')
+}
+
+const SmartHardware_CenterControlManage_SonEquipmentManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/CenterControlManage/SonEquipmentManage').default)
+  }, 'SmartHardware_CenterControlManage_SonEquipmentManage')
+}
+
+const SmartHardware_CenterControlManage_OperateLog = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/CenterControlManage/OperateLog').default)
+  }, 'SmartHardware_CenterControlManage_OperateLog')
+}
+
+
+
+
+
+
+
+
 
 module.exports =()=>{
 
@@ -89,6 +114,12 @@ module.exports =()=>{
 				<Route path="priceconfig" getComponent={SmartHardware_PrintManage_PriceConfig}/>
 				
 			</Route>
+
+      <Route path="centercontrolmanage" getComponent={Basic}>
+        <Route path="equipmentmanage" getComponent={SmartHardware_CenterControlManage_EquipmentManage}/>
+        <Route path="sonequipmentmanage/:sonEquipmentId/:fatherEquipmentId/:fatherName" getComponent={SmartHardware_CenterControlManage_SonEquipmentManage}/>
+        <Route path="operatelog" getComponent={SmartHardware_CenterControlManage_OperateLog}/>
+      </Route>
 			
 		</Route>
 	);

@@ -38,6 +38,8 @@ import PasswordCode from './PasswordCode';
 import BtnBox from './BtnBox';
 import EquipmentFirstDetail from './EquipmentFirstDetail';
 import HttpTokenDialog from './HttpTokenDialog';
+import EditSerialNoForm from './EditSerialNoForm';
+
 
 @inject("NavModel")
 @observer
@@ -57,9 +59,6 @@ export default class SecondDoorManage  extends React.Component{
 
 	componentDidMount() {
 		State.getDicList();
-		//获取升级信息列表
-		State.getUpgradeTypeOptions();
-
 	}
 
 	freshPageThis=()=>{
@@ -434,6 +433,10 @@ export default class SecondDoorManage  extends React.Component{
 		State.upgradeDialog = !State.upgradeDialog;
 	}
 
+	editSerialNoFun=()=>{
+		State.switchOpenEditSerialNo = !State.switchOpenEditSerialNo;
+	}
+
 
 	getHttpToken=()=>{
 		State.showHttpToken();
@@ -465,8 +468,8 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"恢复出厂设置",onClickFun:_this.resetEquipmentOrigin},
 				{title:"升级",onClickFun:_this.upgrade},
 
-				{title:"获取httpToken",onClickFun:_this.getHttpToken}
-
+				{title:"获取httpToken",onClickFun:_this.getHttpToken},
+				{title:"编辑硬件ID",onClickFun:_this.editSerialNoFun}
 				
 			]
 		}else{
@@ -576,7 +579,7 @@ export default class SecondDoorManage  extends React.Component{
 		                            }else{
 		                              TooltipStyle="block";
 		                            }
-		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:100,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
 								<TableRowColumn name="doorCode"
@@ -783,6 +786,20 @@ export default class SecondDoorManage  extends React.Component{
 			                </Grid>
 			          </div>
 			        </Dialog>
+
+							<Dialog
+			          title="编辑硬件ID"
+			          open={State.switchOpenEditSerialNo}
+			          onClose={this.editSerialNoFun}
+			          contentStyle={{width:450}}
+			        >
+			          <EditSerialNoForm
+			            onCancel={this.editSerialNoFun}
+									style ={{paddingTop:'35px'}}
+									detail={itemDetail}
+			          />
+			        </Dialog>
+							
 			        <Dialog
 			          title="清空缓存提示"
 			          open={State.openClearCached}

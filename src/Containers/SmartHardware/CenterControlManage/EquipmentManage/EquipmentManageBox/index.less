@@ -1,5 +1,5 @@
 
-.second-equipment-table{
+.center-control-equipment-table{
 	position: inherit;
 	.list-div:hover{
 		background :#f2f2f2;
@@ -50,6 +50,7 @@
 	width:18px;
 	height:18px;
 	margin-right: 50px;
+	cursor: pointer;
 }
 
 .detail-list-equipment{
@@ -75,7 +76,7 @@
     	.td-right{
 		    float: left;
 		    padding: 5px;
-		    width: 270px;
+		    width: 272px;
 		    word-break: break-all; 
     	}
     }
@@ -159,14 +160,14 @@
 	    align-items: center;
 		.table-item-index{
 			height:40px;
-			width:20%;
+			width:24%;
 			text-align: center;
 		}
 		.table-item-index:nth-child(2){
-			width:10%
+			width:14%
 		}
 		.table-item-index:nth-child(3){
-			width:10%
+			width:14%
 		}
 
 		.table-item-index-cache{
@@ -193,15 +194,15 @@
 		background-color:#eee; 
 	}
 	.header-item{
-		width:20%;
+		width:24%;
 		text-align: center;
 		font-size: 14px;
 	}
 	.header-item:nth-child(2){
-		width:10%
+		width:14%
 	}
 	.header-item:nth-child(3){
-		width:10%
+		width:14%
 	}
 	.header-item-cache{
 		width:25%;
@@ -228,6 +229,12 @@
 	margin-left:5px;
 }
 
+.serialNo-box{
+	.ui-form-controller{
+		width:200px;
+	}
+}
+
 .second-equipment-search{
 	.show-li{
 		margin-top: -20px;
@@ -240,6 +247,155 @@
 		display: none;
 	}
 }
+
+
+.control-center-control{
+	position : relative;
+	color : #333;
+	.center-control-temperature{
+		padding-left: 10px;
+		padding-top: 15px;
+		.temprature-box{
+			display: inline-block;
+			position: relative;
+			width: 555px;
+			height: 20px;
+			vertical-align: middle;
+			.temperature-line{
+				position: absolute;
+				width: 560px;
+				border-bottom: solid 1px #00bcd4;
+				height: 1px;
+				margin-top: 9px;
+			}
+			.temperature-btn-box{
+				position:  absolute;
+				width: 590px;
+				.temprature-btn{
+					display: inline-block;
+					width: 20px;
+					height: 20px;
+					border-radius: 14px;
+					border: solid 1px #00bcd4;
+					background : #fff;
+					text-align: center;
+					line-height: 20px;
+					margin-right: 6px;
+					cursor : pointer;
+					
+				}
+				.temprature-btn-active{
+					display: inline-block;
+					width: 20px;
+					height: 20px;
+					border-radius: 14px;
+					border: solid 1px #00bcd4;
+					background : rgba(139,221,234,1);
+					text-align: center;
+					line-height: 20px;
+					margin-right: 6px;
+					cursor : pointer;
+				}
+				.temprature-btn:last-child{
+					margin-right: 0;
+				}
+			}
+		
+		}
+	}
+	.center-control-line{
+		padding-left: 10px;
+		padding-top: 15px;
+		display: inline-block;
+		width: 49%;
+		box-sizing: border-box;
+		.center-control-line-title{
+			margin-right: 10px;
+		}
+		
+		.wind-speed-checkbox{
+			margin-right: 10px;
+		}
+		.switch-open{
+			width: 50%;
+			display: inline-block;
+			vertical-align: top;
+			.toggle-box{
+				width: 132px;
+			}
+			.btn{
+				display: inline-block;
+				color: rgb(0, 188, 212);
+				width: 50px;
+				height: 22px;
+				line-height: 22px;
+				text-align: center;
+				border: 1px solid rgb(0, 188, 212);
+				border-radius: 4px;
+				box-shadow: 0 1px 4px rgba(134, 174, 214, 0.5);
+				vertical-align: top;
+				margin: 1px 0 0 10px;
+				cursor : pointer;
+			}
+			.lamp-swirtch-all{
+				display: inline-block;
+				vertical-align: top;
+				margin-top: -6px;
+			}
+		}
+		
+	}
+	.air-condition-line{
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+		margin-bottom: 10px;
+	}
+	.lamp-box{
+		border-top: solid 1px #eee;
+		padding: 10px 0 0 10px;
+		.lamp-item0{
+			display: inline-block;
+			width : 145px;
+			box-sizing: border-box;
+		}
+		.lamp-item1{
+			display: inline-block;
+			width : 145px;
+			margin : 0 85px;
+			box-sizing: border-box;
+		}
+		.lamp-item2{
+			display: inline-block;
+			width : 145px;
+			box-sizing: border-box;
+		}
+	}
+	.control-all-lamp{
+		float: right;
+    	margin-top: -35px;
+		.ui-button{
+			margin-left : 0;
+		}
+	}
+
+	.show-box{
+		border-bottom: solid 1px #eee;
+	}
+	.loading-box{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		
+	}
+}
+.center-control-table{
+	.ui-table{
+		margin-top: 0;
+	}
+}
+
 .eidt-serial-form{
 	.ui-form-controller{
 		width : 220px;

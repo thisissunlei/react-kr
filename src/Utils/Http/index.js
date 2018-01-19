@@ -10,6 +10,7 @@ var env = process.env.NODE_ENV;
 
 function getUrl(path, params = {},mode = false) {
 
+
     let server = Envs[env] || '';
 
     var url = APIS[path].url;
@@ -94,7 +95,6 @@ function getUrl(path, params = {},mode = false) {
     request:(path='demo', params,payload,method)=>{
 
       const url = getUrl(path, params);
-
       method = method || getMethod(path);
       var promise = '';
 

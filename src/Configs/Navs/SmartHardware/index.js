@@ -57,6 +57,24 @@ module.exports = [
 							router: '/smarthardware/printmanage/printlog',
 						}
 					]
-			}, ],
+			},{
+				primaryText: "中央控制管理",
+				iconName: 'icon-card',
+				iconColor: '#79859a',
+				router :'',
+				menuItems: [
+
+					{
+						primaryText: '设备管理',
+						menuCode: 'gateway_list',
+						router: '/smarthardware/centercontrolmanage/equipmentmanage',
+					},{
+						primaryText: '操作记录',
+						menuCode: 'gateway_click_list',
+						router: '/smarthardware/centercontrolmanage/operatelog',
+					}
+				]
+		},
+		],
 	}
 ]

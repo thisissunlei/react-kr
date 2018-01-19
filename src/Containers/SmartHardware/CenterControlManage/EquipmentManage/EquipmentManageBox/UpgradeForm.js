@@ -35,19 +35,21 @@ class NewCreateDefinitionForm extends React.Component{
 			locationOptions:[],
 			communityId :'',
 			propertyOption :[{label:"",value:""}],
-			typeOpyionns  :[]
+			upgradeListOptions : []
+			
 		}
-	}
-	onCancel=()=>{
-		State.upgradeDialog = false;
 	}
 
 	componentDidMount(){
+		this.getUpgradeListOptions();
 		
-		let _this =this;
-		var param = {serialNo :State.itemDetail.deviceId}
+	}
+
+	getUpgradeListOptions=()=>{
+		let param = {serialNo :State.itemDetail.serialNo};
+		var _this = this;
 		Http.request('getUpgradeInfoUrl',param).then(function(response) {
-		
+			
 			var arrNew = []
 			for (var i=0;i<response.items.length;i++){
 				arrNew[i] = {
@@ -56,7 +58,7 @@ class NewCreateDefinitionForm extends React.Component{
 						}
 			}
 			_this.setState({
-				typeOptions : arrNew
+				upgradeListOptions : arrNew
 			})
 	
 		}).catch(function(err) {
@@ -64,6 +66,9 @@ class NewCreateDefinitionForm extends React.Component{
 		});
 	}
 	
+	onCancel=()=>{
+		State.upgradeDialog = false;
+	}
 	
 	
 	// 确认升级设备
@@ -74,7 +79,7 @@ class NewCreateDefinitionForm extends React.Component{
 		}
 		State.upgradeDialog = false;
 		var postParams = {
-			deviceId :State.itemDetail.deviceId,
+			deviceId :State.itemDetail.serialNo,
 			value :values.value,
 		}
 		Http.request('upgradeEquipment',{},postParams).then(function(response) {
@@ -86,7 +91,7 @@ class NewCreateDefinitionForm extends React.Component{
 		
 	}
 	render(){
-		let {typeOptions} = this.state;
+		let {upgradeListOptions} = this.state;
 		const { error, handleSubmit, reset} = this.props;
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
@@ -95,7 +100,7 @@ class NewCreateDefinitionForm extends React.Component{
 					<KrField name="value" 
 						component="select" 
 						label="升级内容" 
-						options = {typeOptions}
+						options = {upgradeListOptions}
 						style={{width:'252px',margin:"0 auto"}}
 						onChange = {this.getFloor}
 						
