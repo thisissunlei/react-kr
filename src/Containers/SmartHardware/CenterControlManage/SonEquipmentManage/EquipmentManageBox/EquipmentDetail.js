@@ -95,9 +95,9 @@ export default class EquipmentDetail extends React.Component{
 		let equipmentStatus = detail.status;
 		
 		if(equipmentStatus=="NORMAL"){
-			return <span style={{color:"green"}}>正常</span>
+			return <span style={{color:"green"}}>否</span>
 		}else{
-			return <span style={{color:"red"}}>故障</span>
+			return <span style={{color:"red"}}>是</span>
 		}
 		
 	}

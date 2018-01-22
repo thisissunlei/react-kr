@@ -210,8 +210,8 @@ class ControlAirConditionForm extends React.Component{
 							style={{width:300,display:"inline-block"}}
 							inline={true}
 							component="labelText"
-							label="设备ID："
-							value={mainInfo.localNo}
+							label="序列号："
+							value={mainInfo.serialNo}
 						/>
 						<KrField
 							style={{width:300,display:"inline-block"}}

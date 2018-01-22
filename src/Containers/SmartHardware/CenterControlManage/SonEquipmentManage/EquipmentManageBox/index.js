@@ -502,7 +502,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          title={controlLampOrGrostedGlass}
 			          open={State.controlLampDialog}
 			          onClose = {this.switchControlLampDialog}
-			          contentStyle={{width:660}}
+			          contentStyle={{width:400}}
 			        >
 						<ControlLampGrostGlass onCancel={this.switchControlLampDialog} detail={itemDetail} mainInfo={mainInfo}/>
 			        </Dialog>
