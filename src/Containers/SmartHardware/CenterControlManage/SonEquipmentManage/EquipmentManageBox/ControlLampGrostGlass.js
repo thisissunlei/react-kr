@@ -77,13 +77,15 @@ class ControlLampForm extends React.Component{
 		var newParam = Object.assign(param,obj)
 		Http.request('SwitchOpenLampFrost',{},newParam).then(function(response) {
 			
-			Message.success("操作成功");
+			Message.warntimeout("操作成功",'success');
+
 			_this.setState({
 				switchOn : obj.on?"开启":"关闭"
 			})
 		
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
+			
 		});
 	}
 
@@ -95,9 +97,10 @@ class ControlLampForm extends React.Component{
 			_this.setState({
 				switchOn:(response.extReported &&response.extReported.on?"开启":"关闭")||"未知"
 			})
-			Message.success("刷新成功");
+			Message.warntimeout("刷新成功",'success');
+			
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 

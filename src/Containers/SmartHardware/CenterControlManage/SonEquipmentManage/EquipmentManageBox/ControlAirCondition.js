@@ -133,7 +133,8 @@ class ControlAirConditionForm extends React.Component{
 			for(var i=0;i<airConditionCanControlOptions.length;i++){
 				if(type == airConditionCanControlOptions[i].value){
 					operationText = "控制空调"+airConditionCanControlOptions[i].label+"成功";
-					Message.success(operationText);
+					Message.warntimeout(operationText,'success');
+
 				}
 			}
 			var oldObj = Object.assign({},_this.state);
@@ -145,7 +146,7 @@ class ControlAirConditionForm extends React.Component{
 			})
 		
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 			_this.setState({
 				mode : _this.state.mode,
 				speed : _this.state.speed,
@@ -181,9 +182,11 @@ class ControlAirConditionForm extends React.Component{
 				speed  : response.extReported && response.extReported.speed,
 				on  : response.extReported && response.extReported.on,
 			})
-			Message.success("刷新成功");
+			Message.warntimeout('刷新成功','success');
+			
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
+			
 		});
 	}
 
