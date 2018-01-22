@@ -114,7 +114,7 @@ class EquipmentDataForm extends React.Component{
 		let deviceType = this.detail.deviceType;
 		for(var i = 0;i<State.sonEquipmentTypeOptions.length;i++){
 			if(deviceType == State.sonEquipmentTypeOptions[i].value){
-				return State.sonEquipmentTypeOptions[i].label+" —— "+mainInfo.name
+				return State.sonEquipmentTypeOptions[i].label+" —— "+(mainInfo.name ||" ")
 			}
 		}		
 
