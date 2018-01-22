@@ -211,18 +211,9 @@ export default class EquipmentManageBox  extends React.Component{
 
 	getManagerPsd =()=>{
 		let _this = this;
-		// var urlParams = {deviceId:State.itemDetail.serialNo}
-		// Http.request('getManagerPsdUrl',urlParams).then(function(response) {
-			
-		// 	_this.setState({
-		// 		mainPsw : response.main,
-		// 		vicePsw :response.backup
-		// 	},function(){
-				_this.openManagerPsw();
-		// 	})
-		// }).catch(function(err) {
-		// 	Message.error(err.message);
-		// });
+		console.log("State.itemDetail",State.itemDetail);
+		_this.openManagerPsw();
+		
 	}
 
 	restartAPP=()=>{
@@ -263,6 +254,7 @@ export default class EquipmentManageBox  extends React.Component{
 	onMouseOn=(thisP)=>{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
+		console.log("thisP",thisP);
 		this.setState({
 			itemDetail :thisP
 		})

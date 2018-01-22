@@ -52,7 +52,8 @@ export default class SecondDoorManage  extends React.Component{
 		this.state = {
 			selectIds : [],
 			openMenu :false,
-			itemDetail : {}
+			itemDetail : {},
+			mainInfo : {}
 		}
 	}
 
@@ -446,7 +447,8 @@ export default class SecondDoorManage  extends React.Component{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
 		this.setState({
-			itemDetail :thisP
+			itemDetail :thisP,
+			mainInfo : thisP
 		})
 
 		let _this = this;

@@ -51,10 +51,11 @@ class PswdListForm extends React.Component{
 		
 		const { error, handleSubmit, reset} = this.props;
 		let {getPswListParams} = this.state;
+		
 		return(
 			<div style={{padding:"45px 30px 0 30px"}}>
 				<div  style={{marginBottom:10}}>
-					<span style={{fontSize:18,color:"#499df1"}}>管理员密码列表</span>
+					<span style={{fontSize:18,color:"#499df1"}}>管理员密码列表 —— 设备ID:{State.itemDetail.serialNo || ""}，屏幕展示标题：{State.itemDetail.name||""}</span>
 				</div>
 			  	<Table
 				ajax={true}
