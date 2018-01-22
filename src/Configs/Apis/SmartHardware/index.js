@@ -125,7 +125,7 @@ module.exports = {
 
     //获取管理员密码
    'getManagerPsdUrl':{
-      url: '/api/iot-platform/door-device/admin/admin-pwd?deviceId={deviceId}',
+      url: '/api/iot-platform/device-def/admin/admin-pwd/list?serialNo={serialNo}&limit={limit}',
       method: 'get'
    },
 

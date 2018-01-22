@@ -920,14 +920,15 @@ export default class SecondDoorManage  extends React.Component{
 			        >
 			         	<PasswordCode onCancle={this.passwordDialogFun}/>
 			        </Dialog>
-			        <Dialog
-			          title="管理员密码"
-			          open={State.openManagePsd}
-			          onClose={this.openManagePsdFun}
-			          contentStyle={{width:443,height:260}}
-			        >
+			        
+							<Drawer 
+			        	open={State.openManagePsd}
+			        	onClose = {this.openManagePsdFun}
+								width={1100} 
+								openSecondary={true} 
+							>
 			          	<PsdList/>
-			        </Dialog>
+			        </Drawer>
 
 
 			        <Dialog

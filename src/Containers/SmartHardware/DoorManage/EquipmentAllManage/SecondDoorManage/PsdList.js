@@ -15,7 +15,8 @@ import {
 	Button,
 	Notify,
 	Message,
-	err
+	Table,TableHeader,TableHeaderColumn,TableBody
+	,TableRow,TableRowColumn,TableFooter,
 } from 'kr-ui';
 import State from './State';
 import {
@@ -26,33 +27,21 @@ import {
 
 
 
-class NewCreateDefinitionForm extends React.Component{
+class PswListForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.state={
-			main : "",
-			backup :""
+			getPswListParams :{
+				limit : 20,
+				serialNo : State.itemDetail.deviceId
+			}
 		}
 	}
 	
 	componentDidMount(){
-		this.getManagerPsdFun()
+		
 	}
 
-	//获取管理员密码
-	getManagerPsdFun =()=>{
-		let _this = this;
-		var urlParams = {deviceId:State.itemDetail.deviceId}
-		Http.request('getManagerPsdUrl',urlParams).then(function(response) {
-			
-			_this.setState({
-				main : response.main,
-				backup :response.backup
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
 
 
 	//管理员密码出口
@@ -63,18 +52,52 @@ class NewCreateDefinitionForm extends React.Component{
 	
 	
 	render(){
-		let {main,backup}=this.state;
-		var mainpsd = main+"";
-		var backuppsd = backup+"";
+		
 		const { error, handleSubmit, reset} = this.props;
+		let {getPswListParams} = this.state;
+
 		return(
-			<div style={{marginTop:45}}>
-	            <p style={{textAlign:"center",color:"#333333",fontSize:20}}>主密码：<span style={{display:"inline-block",marginRight:10,color:"#d52c2c"}}>{mainpsd.substr(0,4)}</span><span style={{color:"#0c6e0d"}}>{mainpsd.substr(4)}</span></p>
-	            <p style={{textAlign:"center",color:"#333333",fontSize:20}}>备用密码：<span style={{display:"inline-block",marginRight:10,color:"#0c6e0d"}}>{backuppsd.substr(0,4)}</span><span style={{color:"#d52c2c"}}>{backuppsd.substr(4)}</span></p>
-	            <Grid style={{marginTop:30,marginBottom:'4px'}}>
+			<div style={{padding:"45px 30px 0 30px"}}>
+				<div style={{marginBottom:10}}>
+					<span style={{fontSize:18,color:"#499df1"}}>管理员密码列表</span>
+				</div>
+	            <Table
+				ajax={true}
+				onProcessData={(state)=>{
+					return state;
+					}}
+				onOperation={this.onOperation}
+				exportSwitch={false}
+				ajaxFieldListName='items'
+				ajaxUrlName='getManagerPsdUrl'
+				ajaxParams={getPswListParams}
+				displayCheckbox={false}
+				>
+					<TableHeader>
+						<TableHeaderColumn>密码</TableHeaderColumn>
+						<TableHeaderColumn>创建时间</TableHeaderColumn>
+					</TableHeader>
+					<TableBody >
+						<TableRow>
+							<TableRowColumn 
+								style={{width:"50%"}}
+								name="adminPwd">
+							</TableRowColumn>
+							<TableRowColumn 
+								style={{width:"50%"}}
+								name="ctime" 
+								type="date" 
+								format="yyyy-mm-dd HH:MM:ss" 
+							>
+							</TableRowColumn>
+							
+						</TableRow>
+					</TableBody>
+				</Table>
+				<Grid style={{marginTop:30,marginBottom:'4px'}}>
 	                <Row>
 	                    <ListGroup>
-	                      <ListGroupItem style={{width:400,textAlign:'center',padding:0}}>
+	                      <ListGroupItem style={{width:"100%",textAlign:'center',padding:0}}>
 	                        <Button  label="确定" type="button"  cancle={true} onTouchTap={this.openManagePsdFun} />
 	                      </ListGroupItem>
 	                    </ListGroup>
@@ -91,7 +114,7 @@ const validate = values=>{
 	// }
 	return errors;
 }
-export default NewCreateDefinitionForm = reduxForm({
-	form: 'NewCreateDefinitionForm',
+export default PswListForm = reduxForm({
+	form: 'PswListForm',
 	validate,
-})(NewCreateDefinitionForm);
+})(PswListForm);
