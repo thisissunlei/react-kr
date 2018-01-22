@@ -47,16 +47,18 @@ export default class EquipmentSearch extends React.Component{
 			if(Object.keys(param).length !== 0){
 				if(str == "alertMsg"){
 					if(param.forceRefresh){
-						Message.success("强制刷新成功")
+						Message.warntimeout("强制刷新成功",'success');
 					}else{
-						Message.success("刷新成功")
+						Message.warntimeout("刷新成功",'success');
+						
 					}
 				}
 				
 			}
 			
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout("刷新成功",'error');
+			
 			_this.setState({
 				showLoading : false
 			})
@@ -84,13 +86,13 @@ export default class EquipmentSearch extends React.Component{
 		var urlParams = {serialNo : serialNo}
 		Http.request('deleteFindSonEquipment',{},urlParams).then(function(response) {
 			
-			Message.success("强制删除设备成功");
+			Message.warntimeout("强制删除设备成功",'success');
 			var param = {date:new Date()}
 			_this.getUnusedEquipmentFun(param,"noAlertMsg");
 			
 
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 
@@ -102,7 +104,7 @@ export default class EquipmentSearch extends React.Component{
 		var urlParams = {serialNo : thisP.serialNo}
 		Http.request('regesterSonEquipment',{},urlParams).then(function(response) {
 
-			Message.success("注册设备成功");
+			Message.warntimeout("注册设备成功",'success');
 			State.freshPageReturn();
 			var param = {date:new Date()}
 			_this.getUnusedEquipmentFun(param,"noAlertMsg");
@@ -116,7 +118,7 @@ export default class EquipmentSearch extends React.Component{
 			})
 
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 

@@ -137,7 +137,7 @@ class EditForm extends React.Component{
     			floorsOptions : arrNew
     		})
     	}).catch(function(err){
-    		Message.error(err.message);
+			Message.warntimeout(err.message,'error');
     	})
   	}
   	

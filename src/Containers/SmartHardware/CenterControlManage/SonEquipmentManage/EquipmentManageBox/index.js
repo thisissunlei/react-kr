@@ -291,7 +291,7 @@ export default class EquipmentManageBox  extends React.Component{
 			<div className="son-equipment-manage">
 				<div style={{float:"left",marginTop:"-55px",width:"100%"}}>
 					<span>
-						<span style={{marginRight:10,cursor:"pointer",color:"rgb(73, 157, 241)"}} onClick={this.returnCenterControl}>中央控制管理</span>
+						<span style={{marginRight:10,cursor:"pointer",color:"rgb(73, 157, 241)"}} onClick={this.returnCenterControl}>网关管理</span>
 						<span style={{marginRight:10}}>&gt;</span>
 						<span style={{marginRight:10}}>中控子设备管理</span>
 					</span>

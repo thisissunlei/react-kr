@@ -14,7 +14,6 @@ import {
 	ListGroupItem,
 	Button,
 	Notify,
-	Message,
 	err
 } from 'kr-ui';
 class EditForm extends React.Component{

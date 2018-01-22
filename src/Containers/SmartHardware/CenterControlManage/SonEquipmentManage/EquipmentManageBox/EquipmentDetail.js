@@ -167,12 +167,12 @@ export default class EquipmentDetail extends React.Component{
 				}
 			}
 			var bothObj = Object.assign(_this.state.canFreshStatus,newObj);
-			Message.success("更新成功")
+			Message.warntimeout("更新成功",'success');
 			_this.setState({
 				canFreshStatus : bothObj
 			})
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 
 	}

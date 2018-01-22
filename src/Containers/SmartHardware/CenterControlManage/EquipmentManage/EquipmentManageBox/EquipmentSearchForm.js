@@ -76,7 +76,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			
 
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 	

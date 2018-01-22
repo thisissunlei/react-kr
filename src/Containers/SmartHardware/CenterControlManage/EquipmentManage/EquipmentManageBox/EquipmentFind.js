@@ -45,7 +45,7 @@ export default class EquipmentSearch extends React.Component{
 				searchEquipmentList : response.items
 			})
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 	
@@ -60,7 +60,7 @@ export default class EquipmentSearch extends React.Component{
 				switch:response.onOff
 			})
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 
 	}
@@ -83,12 +83,12 @@ export default class EquipmentSearch extends React.Component{
 		var urlParams = {serialNo:thisP.deviceId}
 		Http.request('deleteCenterControlEquipment',{},urlParams).then(function(response) {
 			
-			Message.success("强制删除设备成功");
+			Message.warntimeout("强制删除设备成功",'success');
 			_this.getUnusedEquipmentFun();
 			
 
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 
@@ -99,7 +99,8 @@ export default class EquipmentSearch extends React.Component{
 		var urlParams = {serialNo:thisP.deviceId}
 		Http.request('startCenterControlEquipment',{},urlParams).then(function(response) {
 
-			Message.success("注册设备成功");
+			Message.warntimeout("注册设备成功",'success');
+			
 			_this.getUnusedEquipmentFun();
 			State.freshPageReturn();
 			_this.setState({
@@ -111,7 +112,7 @@ export default class EquipmentSearch extends React.Component{
 			})
 
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 
