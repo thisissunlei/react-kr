@@ -165,7 +165,7 @@ class ControlAirConditionForm extends React.Component{
 	}
 
 	
-	switchOnAiCondition=()=>{
+	switchOnAirCondition=()=>{
 		let {on} = this.state;
 		var onParam = {on:!on}
 		this.SwitchOpenAirConditionFun(onParam);
@@ -205,7 +205,18 @@ class ControlAirConditionForm extends React.Component{
 			<div  className="air-condition-form">
 				<form onSubmit={handleSubmit(this.onSubmit)}>
 					
-					<div className="control-air-condition">
+					<div className="control-air-condition" >
+						{/* <div className="air-condition-line"> */}
+							<div className="air-condition-on" style={{width: 116,paddingLeft:10}}>
+								<Toggle
+									toggled={on} 
+									label={"空调开关："}
+									style={{marginBottom:10}}
+									labelStyle={{color :"#333" }}
+									onToggle = {this.switchOnAirCondition}
+								/>
+							</div>
+						{/* </div> */}
 						<KrField
 							style={{width:300,display:"inline-block"}}
 							inline={true}
@@ -220,35 +231,27 @@ class ControlAirConditionForm extends React.Component{
 							label="名称："
 							value={mainInfo.name}
 						/>
-						<div className="air-condition-line">
-							<div className="air-condition-on" style={{width: 116}}>
-								<Toggle
-									toggled={on} 
-									label={"空调开关："}
-									style={{marginBottom: 16,}}
-									labelStyle={{color :"rgba(0, 0, 0, 0.6)" }}
-									onToggle = {this.switchOnAiCondition}
-								/>
-							</div>
-						</div>
+						
 						<div  className="air-condition-line">
-							<span  className="title"  style={{color :"#333333"}}>空调模式：</span>
-							<span>
-								{
-									this.renderAirConditionModeBox(mode)
-								}
-							</span>
-							
+							<div className="air-condition-line-item">
+								<span  className="title"  style={{color :"#333333"}}>空调模式：</span>
+								<span>
+									{
+										this.renderAirConditionModeBox(mode)
+									}
+								</span>
+							</div>
+							<div className="air-condition-line-item">
+								<span className="title"  style={{width:48,color :"#333333"}}>风速：</span>
+								<span>
+									{
+										this.renderWindSpeedRadio(speed)
+									}
+								</span>
+							</div>
 							
 						</div>
-						<div className="air-condition-line">
-							<span className="title"  style={{color :"#333333"}}>风速：</span>
-							<span>
-								{
-									this.renderWindSpeedRadio(speed)
-								}
-							</span>
-						</div>
+						
 						<div className="tip-text">注意：只有空调是开启状态时才能更改风速和模式。</div>
 						<div className="btn-box">
 							<div className="btn" onClick={this.closeControlAirCondition}>关闭</div>
