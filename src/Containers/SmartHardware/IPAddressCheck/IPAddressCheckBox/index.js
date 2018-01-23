@@ -196,22 +196,16 @@ export default class IPAddressCheckBox  extends React.Component{
 											return (<span>{value}</span>)}}
 										></TableRowColumn>
 
-										<TableRowColumn name="ip"
-											style={{width:"7%"}}
+										<TableRowColumn name="ip" 
+											style={{width:"12%"}}
 											component={(value,oldValue)=>{
-												var TooltipStyle=""
-												if(value.length==""){
-													TooltipStyle="none"
-													value ='-'
-												}else{
-													TooltipStyle="inline-block";
-												}
-												return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-													<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
-												)
-											}} 
-										>
-										</TableRowColumn>
+											if(value==""){
+												value="-"
+											}
+											return (<span>{value}</span>)}}
+										></TableRowColumn>
+
+										
 										<TableRowColumn name="connected"
 											style={{width:"8%"}}
 
