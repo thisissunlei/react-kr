@@ -55,7 +55,7 @@ class PswdListForm extends React.Component{
 		return(
 			<div style={{padding:"45px 30px 0 30px"}}>
 				<div  style={{marginBottom:10}}>
-					<span style={{fontSize:18,color:"#499df1"}}>管理员密码列表 —— 设备ID:{State.itemDetail.serialNo || ""}，屏幕展示标题：{State.itemDetail.name||""}</span>
+					<span style={{fontSize:18,color:"#499df1"}}>管理员密码列表 —— 序列号：{State.itemDetail.serialNo || ""}，屏幕展示标题：{State.itemDetail.name||""}</span>
 				</div>
 			  	<Table
 				ajax={true}
