@@ -102,7 +102,7 @@ export default class IPAddressCheckBox  extends React.Component{
 		let connectedOptions = [{label:"已连接",value:true},{label:"未连接",value:false}]
 		console.log("searchParams.communityId",searchParams.communityId);
 		return(
-			<div className="son-equipment-manage">
+			<div className="ip-address-check">
 				<div style={{float:"left",marginTop:"-55px",width:"100%"}}>
 					<span>
 						{
@@ -121,10 +121,11 @@ export default class IPAddressCheckBox  extends React.Component{
 					<EquipmentSearchForm getRepeatIpListProps={this.getRepeatIpListProps}/>
 				</div>
 				
-				<div>
+				<div style={{paddingBottom:40}}>
 					{
-						(ajaxUrl && searchParams.communityId) ? <Table
-
+						(ajaxUrl && searchParams.communityId) ? 
+						<Table
+						className="ip-address-check-table"
 						ajax={true}
 			            onProcessData={(state)=>{
 			              return state;
@@ -161,7 +162,7 @@ export default class IPAddressCheckBox  extends React.Component{
 										
 										
 										<TableRowColumn name="serialNo"
-											style={{width:"20%"}}
+											style={{width:"16%"}}
 											component={(value,oldValue,itemData)=>{
 												var TooltipStyle=""
 												if(value.length==""){
@@ -177,27 +178,44 @@ export default class IPAddressCheckBox  extends React.Component{
 										>
 										</TableRowColumn>
 										
-										<TableRowColumn name="name" 
-											style={{width:"12%"}}
-											component={(value,oldValue)=>{
-											if(value==""){
-												value="-"
-											}
-											return (<span>{value}</span>)}}
-										></TableRowColumn>
+										
+										<TableRowColumn name="name"
+											style={{width:"20%"}}
+											component={(value,oldValue,itemData)=>{
+												var TooltipStyle=""
+												if(value.length==""){
+													TooltipStyle="none"
 
+												}else{
+													TooltipStyle="inline-block";
+												}
+												return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+													<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+												)
+											}} 
+										>
+										</TableRowColumn>
 
-										<TableRowColumn name="code" 
-											style={{width:"12%"}}
-											component={(value,oldValue)=>{
-											if(value==""){
-												value="-"
-											}
-											return (<span>{value}</span>)}}
-										></TableRowColumn>
+										<TableRowColumn name="code"
+											style={{width:"14%"}}
+											component={(value,oldValue,itemData)=>{
+												var TooltipStyle=""
+												if(value.length==""){
+													TooltipStyle="none"
+
+												}else{
+													TooltipStyle="inline-block";
+												}
+												return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+													<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+												)
+											}} 
+										>
+										</TableRowColumn>
+
 
 										<TableRowColumn name="ip" 
-											style={{width:"12%"}}
+											style={{width:"10%"}}
 											component={(value,oldValue)=>{
 											if(value==""){
 												value="-"
@@ -207,7 +225,7 @@ export default class IPAddressCheckBox  extends React.Component{
 
 										
 										<TableRowColumn name="connected"
-											style={{width:"8%"}}
+											style={{width:"6%"}}
 
 											component={(value,oldValue)=>{
 												var spanColor = "";

@@ -372,7 +372,7 @@ export default class EquipmentManageBox  extends React.Component{
 								
 								
 								<TableRowColumn name="serialNo"
-									style={{width:"20%"}}
+									style={{width:"18%"}}
 									component={(value,oldValue,itemData)=>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -392,7 +392,7 @@ export default class EquipmentManageBox  extends React.Component{
 
 								<TableRowColumn name="spaceType" 
 									options = {spaceTypeOptions}
-									style={{width:"6%"}}
+									style={{width:"7%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -402,7 +402,7 @@ export default class EquipmentManageBox  extends React.Component{
 								
 							
 					            <TableRowColumn name="connected"
-									style={{width:"8%"}}
+									style={{width:"7%"}}
 
 					              	component={(value,oldValue)=>{
 						                var spanColor = "";
@@ -418,14 +418,14 @@ export default class EquipmentManageBox  extends React.Component{
 					            </TableRowColumn>
 					            
 								<TableRowColumn 
-									style={{width:"16%"}}
+									style={{width:"14%"}}
 									name="connectTime" 
 									type="date" 
 									format="yyyy-mm-dd HH:MM:ss" 
 								>
 								</TableRowColumn>
 								<TableRowColumn name="makerName" 
-									style={{width:"6%"}}
+									style={{width:"5%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
