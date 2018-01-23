@@ -18,7 +18,6 @@ import {
 	Message
 } from 'kr-ui';
 import CreateNotice from './CreateNotice';
-import ViewNotice from './ViewNotice';
 import EditNotice from './EditNotice';
 import './index.less';
 export default class NoticeManage extends React.Component {
@@ -32,10 +31,9 @@ export default class NoticeManage extends React.Component {
 				pageSize:15
 			},
 			openNewCreat:false,
-			openView:false,
+			openCancel:false,
 			openDelete:false,
 			openEdit:false,
-			openPublish:false,
 			viewRichText:false,
 			viewItem:{},
 			page:1,
@@ -64,23 +62,23 @@ export default class NoticeManage extends React.Component {
 		});
 
 	}
-	openPublishDel=()=>{
-		var _this=this;
-		const {itemDetail}=this.state;
-		Http.request('publish-notice',{},{id:itemDetail.id}).then(function (response) {
-			_this.openPublish();
-			Message.success('发布成功！');
-			_this.setState({
-				searchParams:{
-					date:new Date(),
-					page:_this.state.page
-				}
-			})
+	// openPublishDel=()=>{
+	// 	var _this=this;
+	// 	const {itemDetail}=this.state;
+	// 	Http.request('publish-notice',{},{id:itemDetail.id}).then(function (response) {
+	// 		_this.openPublish();
+	// 		Message.success('发布成功！');
+	// 		_this.setState({
+	// 			searchParams:{
+	// 				date:new Date(),
+	// 				page:_this.state.page
+	// 			}
+	// 		})
 
-		}).catch(function (err) { 
-			Message.error(err.message)
-		});
-	}
+	// 	}).catch(function (err) { 
+	// 		Message.error(err.message)
+	// 	});
+	// }
 
 	pageChange = (page) =>{
 		this.setState({
@@ -93,11 +91,11 @@ export default class NoticeManage extends React.Component {
 		})
 
 	}
-	openView=(itemDetail)=>{
+	openCancel=(itemDetail)=>{
 		
 		this.setState({
 			itemDetail,
-			openView:!this.state.openView
+			openCancel:!this.state.openCancel
 		})
 	}
 	openEdit=(itemDetail)=>{
@@ -112,12 +110,12 @@ export default class NoticeManage extends React.Component {
 			openDelete:!this.state.openDelete
 		})
 	}
-	openPublish=(itemDetail)=>{
-		this.setState({
-			itemDetail,
-			openPublish:!this.state.openPublish
-		})
-	}
+	// openPublish=(itemDetail)=>{
+	// 	this.setState({
+	// 		itemDetail,
+	// 		openPublish:!this.state.openPublish
+	// 	})
+	// }
 	//预览
 	viewRichText=(item)=>{
 		this.setState({
@@ -187,18 +185,18 @@ export default class NoticeManage extends React.Component {
 		                  onPageChange = {this.pageChange}
 					  >
 				            <TableHeader>
-				              <TableHeaderColumn>公告标题</TableHeaderColumn>
-				              <TableHeaderColumn>公告类型</TableHeaderColumn>
+				              <TableHeaderColumn>公告内容</TableHeaderColumn>
 				              <TableHeaderColumn>社区名称</TableHeaderColumn>
+							  <TableHeaderColumn>发布人</TableHeaderColumn>
+				              <TableHeaderColumn>阅读人数</TableHeaderColumn>
 				              <TableHeaderColumn>发布时间</TableHeaderColumn>
-				              <TableHeaderColumn>发布人</TableHeaderColumn>
-				              <TableHeaderColumn>发布状态</TableHeaderColumn>
+				              <TableHeaderColumn>过期时间</TableHeaderColumn>
 				              <TableHeaderColumn>操作</TableHeaderColumn>
 				          	</TableHeader>
 
 					        <TableBody >
 					              <TableRow>
-					                <TableRowColumn name="title" 
+					                <TableRowColumn name="text" 
 										component={(value,oldValue)=>{
 				                            var TooltipStyle=""
 				                            if(value.length==""){
@@ -210,39 +208,40 @@ export default class NoticeManage extends React.Component {
 				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
-					                <TableRowColumn name="typeName"></TableRowColumn>
-					                <TableRowColumn name="cmtName" ></TableRowColumn>
+									<TableRowColumn name="cmtName" ></TableRowColumn>
+					                <TableRowColumn name="creater"></TableRowColumn>
+									<TableRowColumn name="readNum" ></TableRowColumn>
 					                <TableRowColumn 
 					                	name="publishTime" 
 					                	component={(value) => {
 					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
 					                    }}
 					                ></TableRowColumn>
-					                <TableRowColumn name="creater" ></TableRowColumn>
 					                <TableRowColumn 
-					                	name="published" 
-										options={[{label:'已发布',value:'1'},{label:'未发布',value:'0'}]}
+					                	name="endTime" 
+					                	component={(value) => {
+					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+					                    }}
 					                ></TableRowColumn>
+					               
 					                <TableRowColumn 
-					                	name="published"
+					                	name="expired"
 										component={(value,oldValue,itemDetail) => {
-											if(value==1){
+											if(value==0){
 												return(
 													<div style={{display:'inline'}}>
-													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
+													<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
+													<Button label="过期" type="operation" onClick={this.openCancel.bind(this,itemDetail)} />
 												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
-												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-													</div>
+												  	</div>
 													)
 					                         
 											}
-											if(value==0){
+											if(value==1){
 												return(
 													<div style={{display:'inline'}}> 
-													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
-												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
-												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-												  	<Button label="发布" type="operation" onClick={this.openPublish.bind(this,itemDetail)} />
+														<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
+												  		<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
 													</div>
 													)
 											}
@@ -291,15 +290,15 @@ export default class NoticeManage extends React.Component {
 	           <Drawer
 	             modal={true}
 	             width={750}
-	             open={this.state.openView}
-	             onClose={this.openView}
+	             open={this.state.openCancel}
+	             onClose={this.openCancel}
 	             openSecondary={true}
 	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 	           >
-	             	<ViewNotice 
-	             			onCancel={this.openView} 
+	             	{/* <ViewNotice 
+	             			onCancel={this.openCancel} 
 	             			detail={itemDetail}
-	             	 />
+	             	 /> */}
 	           </Drawer>
 	           <Dialog
 	              title="删除"
@@ -317,7 +316,7 @@ export default class NoticeManage extends React.Component {
 	                      </div>
 	            	</div>
 	            </Dialog>
-	            <Dialog
+	            {/* <Dialog
 	              title="发布"
 	              modal={true}
 	              contentStyle ={{ width: '444',overflow:'visible'}}
@@ -332,7 +331,7 @@ export default class NoticeManage extends React.Component {
 		                      <Button  label="取消" type="button" cancle={true} onClick={this.openPublish} />
 	                      </div>
 	            	</div>
-	            </Dialog>
+	            </Dialog> */}
 			</div>
 		);
 	}

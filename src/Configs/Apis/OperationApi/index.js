@@ -653,7 +653,7 @@ module.exports = {
     },
     //APP管理-公告管理-公告分页
     'get-notice-page': {
-        url: '/api/krspace-finance-web/notice/management/page?page={page}&pageSize={pageSize}',
+        url: '/api/krspace-finance-web/notice/management/page?page={page}&pageSize={pageSize}&cmtId={cmtId}&searchText={searchText}',
         method: 'get'
     },
     //APP管理-公告管理-创建公告
