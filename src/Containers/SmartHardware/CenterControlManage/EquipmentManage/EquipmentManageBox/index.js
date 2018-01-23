@@ -304,7 +304,9 @@ export default class EquipmentManageBox  extends React.Component{
 		State.switchOpenEditSerialNo = !State.switchOpenEditSerialNo;
 	}
 
-	
+	locationIpAddressCheck=()=>{
+		window.location.href = `./#/smarthardware/ipaddresscheck/centercontrol`
+	}
 	
 
 
@@ -319,6 +321,7 @@ export default class EquipmentManageBox  extends React.Component{
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="发现设备"  onTouchTap={this.openSearchEquipmentFun} className="button-list"/>
+					<Button label="检测IP"  onTouchTap={this.locationIpAddressCheck} className="button-list"/>
 					
 				</div>
 				<div>

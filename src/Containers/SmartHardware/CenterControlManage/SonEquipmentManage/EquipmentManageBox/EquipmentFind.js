@@ -80,10 +80,10 @@ export default class EquipmentSearch extends React.Component{
 
 	//发现设备列表强制删除
 	deleteEquipmentFun=(thisP)=>{
-
+		console.log("thisP",thisP);
 		let {serialNo} =this.props;
 		let _this =this;
-		var urlParams = {serialNo : serialNo}
+		var urlParams = {serialNo : thisP.serialNo}
 		Http.request('deleteFindSonEquipment',{},urlParams).then(function(response) {
 			
 			Message.warntimeout("强制删除设备成功",'success');

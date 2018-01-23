@@ -549,8 +549,18 @@ module.exports = {
         method : 'post'
       },
 
+      //检测重复IP
+      'checkRepeatIpAddress':{
+        url : '/api/iot-platform/device/deploy/actions/detect-ip?communityId={communityId}',
+        method : 'get'
+      },
 
-      
+      //查询ip
+      'searchIp':{
+        url : '/api/iot-platform/device/deploy/actions/view?communityId={communityId}&connected={connected}&ip={ip}',
+        method : 'get'
+      },
+
 
 
       
