@@ -112,7 +112,7 @@ export default class IPAddressCheckBox  extends React.Component{
 							
 						}
 						<span style={{marginRight:10}}>&gt;</span>
-						<span style={{marginRight:10}}>中控子设备管理</span>
+						<span style={{marginRight:10}}>检测IP地址</span>
 					</span>
 					
 				</div>
