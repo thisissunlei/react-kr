@@ -100,6 +100,7 @@ export default class IPAddressCheckBox  extends React.Component{
 	render(){
 		let {deviceTypeOptions,fatherPage,searchParams,ajaxUrl} = this.state;
 		let connectedOptions = [{label:"已连接",value:true},{label:"未连接",value:false}]
+		console.log("searchParams.communityId",searchParams.communityId);
 		return(
 			<div className="son-equipment-manage">
 				<div style={{float:"left",marginTop:"-55px",width:"100%"}}>
@@ -122,7 +123,7 @@ export default class IPAddressCheckBox  extends React.Component{
 				
 				<div>
 					{
-						ajaxUrl ? <Table
+						(ajaxUrl && searchParams.communityId) ? <Table
 
 						ajax={true}
 			            onProcessData={(state)=>{
