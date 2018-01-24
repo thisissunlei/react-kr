@@ -63,13 +63,8 @@ export default class IPAddressCheckBox  extends React.Component{
 		})
 	}
 
-	returnCenterControl=()=>{
-		window.location.href = `./#/smarthardware/centercontrolmanage/equipmentmanage`;
-	}
+	
 
-	returnDoorManage=()=>{
-		window.location.href = `./#/smarthardware/doorManage/equipmentmanage`;
-	}
 
 	getRepeatIpListProps = (params,urlParams)=>{
 		
@@ -103,20 +98,6 @@ export default class IPAddressCheckBox  extends React.Component{
 		console.log("searchParams.communityId",searchParams.communityId);
 		return(
 			<div className="ip-address-check">
-				<div style={{float:"left",marginTop:"-55px",width:"100%"}}>
-					<span>
-						{
-							fatherPage == "centercontrol"?
-								<span style={{marginRight:10,cursor:"pointer",color:"rgb(73, 157, 241)"}} onClick={this.returnCenterControl}>网关管理</span>
-							:<span style={{marginRight:10,cursor:"pointer",color:"rgb(73, 157, 241)"}} onClick={this.returnDoorManage}>门禁管理</span>
-							
-						}
-						<span style={{marginRight:10}}>&gt;</span>
-						<span style={{marginRight:10}}>检测IP地址</span>
-					</span>
-					
-				</div>
-				
 				<div>
 					<EquipmentSearchForm getRepeatIpListProps={this.getRepeatIpListProps}/>
 				</div>

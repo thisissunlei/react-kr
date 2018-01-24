@@ -541,7 +541,7 @@ export default class SecondDoorManage  extends React.Component{
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
 					<Button label="发现设备"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
-					<Button label="检测IP"  onTouchTap={this.locationIpCheck} className="button-list"/>
+					{/* <Button label="检测IP"  onTouchTap={this.locationIpCheck} className="button-list"/> */}
 					
 				</div>
 				<div>

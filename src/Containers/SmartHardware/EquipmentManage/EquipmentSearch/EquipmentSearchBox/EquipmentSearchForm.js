@@ -85,22 +85,6 @@ class IpAddressCheck extends React.Component{
 		getRepeatIpListProps && getRepeatIpListProps(searchParams,"searchIp");
 	}
 
-	getRepeatIpList=()=>{
-
-		let {searchParams} = this.state;
-		if(!searchParams.communityId){
-			Message.warntimeout("请选择社区",'error');
-			return;
-		}
-		this.setState({
-			listUrl : "checkRepeatIpAddress"
-		})
-		let {getRepeatIpListProps} = this.props;
-		getRepeatIpListProps && getRepeatIpListProps(searchParams,"checkRepeatIpAddress"); 
-	}
-
-
-
 
 	render(){
 		const { error, handleSubmit,content,filter} = this.props;
@@ -111,6 +95,7 @@ class IpAddressCheck extends React.Component{
 		{label:"智能网关面板",value:"GATEWAY_PANEL"}]	
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{width:"100%",marginTop:20,position:"relative"}} className="son-equipment-search">
+				
 				<span className="fir-span">
 					<KrField name="communityId"
 						component="searchCommunityAll"
@@ -120,6 +105,7 @@ class IpAddressCheck extends React.Component{
 						inline={true}
 					/>
 				</span>
+					
 				<KrField name="connectStatus"
 					component="select"
 					label="连接状态："
@@ -140,9 +126,7 @@ class IpAddressCheck extends React.Component{
 				</span>
 				
 			
-			
 				<Button label="查询"  onTouchTap={this.searchList} className="button-list"/>
-				<Button label="查看重复IP"  onTouchTap={this.getRepeatIpList} className="button-list"/>
 				
 				
 				
