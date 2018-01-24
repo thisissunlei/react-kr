@@ -297,10 +297,10 @@ class TemplatePrint extends React.Component {
 		var th = "";
 		var td = "";
 		var tBottom = "";
-		var tableStyle = "width:100%;border-top: 1px solid #c1c1c1;border-left: 1px solid #c1c1c1;border-collapse:collapse";
-		var thAndTd = "border-right: 1px solid #c1c1c1;border-bottom: 1px solid #c1c1c1;line-height:26px;";
+		var tableStyle = "width:100%;border-top: 1px solid #000;border-left: 1px solid #000;border-collapse:collapse";
+		var thAndTd = "border-right: 1px solid #000;border-bottom: 1px solid #000;line-height:26px;";
 		var trStyle = "text-align: center;color: #333;";
-		var thStyle = thAndTd + "background: #F5F6FA;";
+		var thStyle = thAndTd + "background: #fff;";
 		var tdStyle = thAndTd + trStyle;
 		for (var i = 0; i < colNum; i++) {
 			th += `<th style="${thStyle}"></th>`;
