@@ -83,11 +83,11 @@ module.exports = [
 
 				{
 					primaryText: '设备查询',
-					menuCode: 'gateway_list',
+					menuCode: 'myCard',
 					router: '/smarthardware/equipmentmanage/equipmentsearch',
 				},{
 					primaryText: 'IP检测',
-					menuCode: 'gateway_click_list',
+					menuCode: 'myCard',
 					router: '/smarthardware/equipmentmanage/checkrepeatip',
 				}
 			]
