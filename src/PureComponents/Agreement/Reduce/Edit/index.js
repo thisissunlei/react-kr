@@ -159,12 +159,14 @@ export default class JoinCreate extends React.Component {
 		let stationVos = [];
 		let rentamount = 0;
 		let delStationVos = [];
+		let {CommunityAgreementList} = this.props;
 
 		Http.request('fina-contract-intention', {
 			customerId: params.customerId,
 			mainBillId: params.orderId,
 			communityId: 1,
 			type : 1,
+			contractId:CommunityAgreementList.contractId
 		}).then(function(response) {
 
 			initialValues.contractstate = 'UNSTART';
@@ -383,22 +385,7 @@ export default class JoinCreate extends React.Component {
 
 
 	getlocalSign=()=>{
-      let {
-			params
-		} = this.props;
-		let _this = this;
-		let sign = false;
-		let keyWord =  params.orderId+''+ params.customerId+''+params.id+'LESSRENTedit';
-		let localStorageData = JSON.parse(localStorage.getItem(keyWord)) || {num:1,oldNum:1};
-		if( localStorageData.num - localStorageData.oldNum>1){
-			_this.setState({
-				openLocalStorages:true
-			})
-			sign = true;
-		}
-		 if(!sign){
 		 	this.getBasicData()
-		 }
   }
 
   onCancelStorage=()=>{
