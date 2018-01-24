@@ -678,7 +678,7 @@ module.exports = {
     },
     //APP管理-公告管理-获取公告详情
     'get-notice-detail': {
-        url: '/api/krspace-finance-web/notice/management/detail?id={id}',
+        url: '/api/krspace-finance-web/notice/management/detail?noticeId={noticeId}',
         method: 'get'
     },
     //APP管理-公告管理-获取是否有全国 公告的权限
@@ -1072,5 +1072,9 @@ module.exports = {
         url: '/api/krspace-finance-web/cmt/community/all/list?communityName={communityName}',
         method: 'get'
     },
-
+    //App管理--公告管理--过期
+    'expire-notice': {
+        url: '/api/krspace-finance-web/notice/management/expire',
+        method: 'post'
+    },
 }

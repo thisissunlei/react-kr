@@ -32,88 +32,28 @@ class EditNotice extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			ifCity:false,
-			groupType:[],
 			infoList:[],
-			richTextValue:'',
-			cmtName:'',
-			title:'',
-			type:'',
-			publishTime:'',
-			flag:0,
+			
 		}
-		this.getType();
+		
 		
 	}
 	
 	componentDidMount() {
-		var _this=this;
-		setTimeout(function(){
-			_this.getInfo();
-		},1000)
+		this.getInfo();
 
 	}
-	componentWillReceiveProps(nextProps) {
-        this.setState({
-        	flag:nextProps.flag
-        })
-    }
 	
-	viewChange=(item)=>{
-		this.setState({
-			richTextValue:item
-		})
-	}
-	viewRichText=()=>{
-		let {richTextValue,ifCity,cmtName,title,type,publishTime}=this.state;
-		let {viewRichText} = this.props;
-		
-		let  typetxt=type==1?'全国公告':'社区公告';
-		let  time=new Date(publishTime);
-		let  year=time.getFullYear();
-		let  Month=time.getMonth()+1;
-		let  date=time.getDate();
-		let form={
-			  richTextValue:richTextValue,
-			  title,
-			  typetxt,
-			  time:`${year}年${Month}月${date}日`,
-			  type
-			}
-		if(ifCity){
-			form.cmtName=cmtName;
-		}
-		if(form.richTextValue &&form.title &&form.typetxt && form.time){
-			this.setState({
-				flag:1
-			})
-			viewRichText && viewRichText(form)
-			return
-		}
-		
-	}
+	
 	getInfo=()=>{
 		var _this=this;
 		const {detail}=this.props;
-		Http.request('get-notice-detail',{id:detail.id}).then(function(response) {
-			if(response.type==0){
-				_this.setState({
-					ifCity:true
-				})
-			}else{
-				_this.setState({
-					ifCity:false
-				})
-			}
-
+		Http.request('get-notice-detail',{noticeId:detail.noticeId}).then(function(response) {
+			
 			_this.setState({
-				infoList:response,
-				title:response.title,
-				type:response.type,
-				cmtName:response.cmtName,
-				publishTime:response.publishTime
+				infoList:response
 			})
-			response.type=String(response.type)
+			
 			Store.dispatch(initialize('editNotice', response));
 			
 			
@@ -121,53 +61,15 @@ class EditNotice extends React.Component {
 			Message.error(err.message);
 		});	
 	}
-   	getType=()=>{
-   		var _this=this;
-		Http.request('get-findCmtRight').then(function(response) {
-			if(response.hasRight==1){
-				_this.setState({
-					groupType:[
-						{label:'全国公告',value:"1"},
-						{label:'社区公告',value:"0"}
-					]
-				})
-			}else if(response.hasRight==0){
-				_this.setState({
-					groupType:[
-						{label:'社区公告',value:"0"}
-					]
-				})
-			}
-			
-		}).catch(function(err) {
-			Message.error(err.message);
-		});	
-
-   	}
-	selectType=(item)=>{
-		Store.dispatch(change('editNotice', 'cmtId', ''));
-		if(item.value==0){
-			this.setState({
-				ifCity:true
-			})
-		}else{
-			this.setState({
-				ifCity:false
-			})
-		}
-		this.setState({
-			type:item.value
-		})
-	}
+   	
+	
 	
 	
 
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
-		var _this=this;
-		if(this.state.flag==1){
-			return
-		}
+		
+		
 		form.publishTime=DateFormat(form.publishTime, "yyyy-mm-dd hh:MM:ss");
 		Http.request('edit-notice',{},form).then(function(response) {
 			Message.success('编辑成功')
@@ -181,22 +83,7 @@ class EditNotice extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	selectCommunity=(item)=>{
-		this.setState({
-			cmtName:item.label
-		})
-	}
-	changeTitle=(item)=>{
-		this.setState({
-			title:item
-		})
-	}
-	selectTime=(item)=>{
-		let time=Date.parse(item)
-		this.setState({
-			publishTime:time
-		})
-	}
+	
 	
 	render() {
 			const {
@@ -207,8 +94,6 @@ class EditNotice extends React.Component {
 			} = this.props;
 			let {
 				infoList,
-				ifCity,
-				groupType,
 			}=this.state;
 			
 		
@@ -218,60 +103,43 @@ class EditNotice extends React.Component {
 					<DrawerTitle title ='编辑公告' onCancel = {this.onCancel}/>
 				</div>
 				<form onSubmit={handleSubmit(this.onSubmit)}  style={{paddingLeft:42}}>
-							<KrField
-								style={{width:548}}
-								name="title"
-								type="text"
-								ref="title"
-								component="input"
-								label="公告标题"
-								requireLabel={true}
-								onChange={this.changeTitle}
-						 	/>
-							<KrField
-								style={{width:260,marginRight:25,margintop:20}}
-								component="select"
-								name="type"
-								ref="type"
-								options={groupType}
-								label="公告类型"
-								requireLabel={true}
-								onChange={this.selectType}
-						 	/>
-						 	{ifCity?<KrField  
-					 			style={{width:262}} 
+							<KrField  
+					 			style={{width:262,marginRight:25,margintop:20}} 
 					 			name="cmtId"
-					 			component='searchCommunityAll'  
-					 			label="所属社区"
+					 			component='searchAllCommunity'  
+					 			label="所属社区" 
 					 			inline={false}  
 					 			placeholder='请输入社区名称' 
 						 		requireLabel={true}
-						 		onChange={this.selectCommunity}
-						 	/>:''}
-						 	<KrField
+						 		
+						 	/>
+							 <KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								name="publishTime"
-								ref="publishTime"
 								component="date"
 								label="发布时间"
-								requireLabel={true}
-								onChange={this.selectTime}
 						 	/>
+							 <KrField
+								style={{width:260,marginRight:25,margintop:20}}
+								name="endTime"
+								component="date"
+								label="过期时间"
+						 	/>
+							
 						 	<KrField 
-								component="editor" 
-								name="richText" 
-								label="公告内容"
+								component="textarea" 
+								name="text" 
+								label="公告内容" 
 								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}
-								defaultValue={infoList.richText}
-								onChange={this.viewChange}
-								/>
-
-
-						 <div  className="u-view" onClick={this.viewRichText}>
-						 	<Button  label="点击预览" type="submit" onClick={this.viewRichText}/>
-						 </div>
-							
+								defaultValue=''
+								maxSize={60}
+								
+							/>
+							<KrField name="push" component="group" label="同步推送" requireLabel={true} style={{width:260,marginRight:25,marginTop:25}} >
+	 							 <KrField name="push" label="是" type="radio" value='1' />
+	 							 <KrField name="push" label="否" type="radio" value='0' />
+	 						</KrField>
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">

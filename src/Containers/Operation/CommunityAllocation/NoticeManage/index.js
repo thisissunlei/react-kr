@@ -48,7 +48,7 @@ export default class NoticeManage extends React.Component {
 		var _this=this;
 		const {itemDetail}=this.state;
 		Http.request('delete-notice',{},{noticeId:itemDetail.noticeId}).then(function (response) {
-			_this.openCancel();
+			_this.openDelete();
 			Message.success('删除成功！');
 			_this.setState({
 				searchParams:{
@@ -65,8 +65,8 @@ export default class NoticeManage extends React.Component {
 	onCancelNotice=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('publish-notice',{},{id:itemDetail.id}).then(function (response) {
-			_this.openPublish();
+		Http.request('expire-notice',{},{noticeId:itemDetail.noticeId}).then(function (response) {
+			_this.openCancel();
 			Message.success('修改成功！');
 			_this.setState({
 				searchParams:{
