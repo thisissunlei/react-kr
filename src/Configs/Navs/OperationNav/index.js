@@ -44,12 +44,6 @@ module.exports = [
 						router: '/operation/customerManage/agreementtrim',
 						menuCode: 'contract_edit',
 					},
-					{
-						primaryText: '撤场记录管理',
-						type: 'vue',
-						originUrl: '/operations-center/from-field',
-						menuCode: 'csr_withdrawal_list',
-					},
 				]
 			},
 			{
