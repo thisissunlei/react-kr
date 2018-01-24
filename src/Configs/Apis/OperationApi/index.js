@@ -1067,5 +1067,10 @@ module.exports = {
         url: '/api/krspace-op-web/finacontractdetail/contract-date-range?start={start}&end={end}',
         method: 'get'
     },
+     //App管理--公告管理--所有社区接口
+     'get-all-list': {
+        url: '/api/krspace-finance-web/cmt/community/all/list?communityName={communityName}',
+        method: 'get'
+    },
 
 }

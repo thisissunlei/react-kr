@@ -27,7 +27,6 @@ class CreateNotice extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			ifCity:false,
 			groupType:[
 				
 			],
@@ -72,16 +71,7 @@ class CreateNotice extends React.Component {
    	}
 	selectType=(item)=>{
 		Store.dispatch(change('createNotice', 'cmtId', ''));
-		if(item.value=="0"){
-			this.setState({
-				ifCity:true
-			})                                                                                                   
-		}else{
-			this.setState({
-				ifCity:false
-			})
-			
-		}
+		
 		this.setState({
 			type:item.value
 		})
@@ -114,7 +104,7 @@ class CreateNotice extends React.Component {
 		})
 	}
 	viewRichText=()=>{
-		let {richTextValue,ifCity,cmtName,title,type,publishTime}=this.state;
+		let {richTextValue,cmtName,title,type,publishTime}=this.state;
 		let {viewRichText} = this.props;
 		let  typetxt=type==1?'全国公告':'社区公告';
 		let  time=new Date(publishTime);
@@ -128,9 +118,7 @@ class CreateNotice extends React.Component {
 			  time:`${year}年${Month}月${date}日`,
 			  type
 			}
-		if(ifCity){
-			form.cmtName=cmtName;
-		}
+		
 		if(form.richTextValue &&form.title &&form.typetxt && form.time){
 			this.setState({
 				flag:1
@@ -169,8 +157,6 @@ class CreateNotice extends React.Component {
 				reset
 			} = this.props;
 			let {
-				
-				ifCity,
 				groupType,
 			}=this.state;
 			
@@ -181,15 +167,31 @@ class CreateNotice extends React.Component {
 					<DrawerTitle title ='新建公告' onCancel = {this.onCancel}/>
 				</div>
 				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:42}}>
-							<KrField
-								style={{width:548}}
-								name="title"
-								type="text"
-								component="input"
-								label="公告标题"
-								requireLabel={true}
-								onChange={this.changeTitle}
+							<KrField  
+					 			style={{width:262}} 
+					 			name="cmtId"
+					 			component='searchAllCommunity'  
+					 			label="所属社区" 
+					 			inline={false}  
+					 			placeholder='请输入社区名称' 
+						 		requireLabel={true}
+						 		onChange={this.selectCommunity}
 						 	/>
+							 <KrField
+								style={{width:260,marginRight:25,margintop:20}}
+								name="publishTime"
+								component="date"
+								label="发布时间"
+								onChange={this.selectTime}
+						 	/>
+							 <KrField
+								style={{width:260,marginRight:25,margintop:20}}
+								name="endTime"
+								component="date"
+								label="过期时间"
+								onChange={this.selectTime}
+						 	/>
+							
 							<KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								component="select"
@@ -199,16 +201,7 @@ class CreateNotice extends React.Component {
 								requireLabel={true}
 								onChange={this.selectType}
 						 	/>
-						 	{ifCity?<KrField  
-					 			style={{width:262}} 
-					 			name="cmtId"
-					 			component='searchCommunityAll'  
-					 			label="所属社区" 
-					 			inline={false}  
-					 			placeholder='请输入社区名称' 
-						 		requireLabel={true}
-						 		onChange={this.selectCommunity}
-						 	/>:''}
+						 	
 						 	<KrField
 								style={{width:260,marginRight:25,margintop:20}}
 								name="publishTime"
@@ -218,8 +211,8 @@ class CreateNotice extends React.Component {
 								onChange={this.selectTime}
 						 	/>
 						 	<KrField 
-								component="editor" 
-								name="richText" 
+								component="textarea" 
+								name="text" 
 								label="公告内容" 
 								style={{width:560,marginTop:20,position:'relative',zIndex:'1'}}
 								requireLabel={true}

@@ -47,8 +47,8 @@ export default class NoticeManage extends React.Component {
 	onDeleteData=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('delete-notice',{},{id:itemDetail.id}).then(function (response) {
-			_this.openDelete();
+		Http.request('delete-notice',{},{noticeId:itemDetail.noticeId}).then(function (response) {
+			_this.openCancel();
 			Message.success('删除成功！');
 			_this.setState({
 				searchParams:{
@@ -62,23 +62,23 @@ export default class NoticeManage extends React.Component {
 		});
 
 	}
-	// openPublishDel=()=>{
-	// 	var _this=this;
-	// 	const {itemDetail}=this.state;
-	// 	Http.request('publish-notice',{},{id:itemDetail.id}).then(function (response) {
-	// 		_this.openPublish();
-	// 		Message.success('发布成功！');
-	// 		_this.setState({
-	// 			searchParams:{
-	// 				date:new Date(),
-	// 				page:_this.state.page
-	// 			}
-	// 		})
+	onCancelNotice=()=>{
+		var _this=this;
+		const {itemDetail}=this.state;
+		Http.request('publish-notice',{},{id:itemDetail.id}).then(function (response) {
+			_this.openPublish();
+			Message.success('修改成功！');
+			_this.setState({
+				searchParams:{
+					date:new Date(),
+					page:_this.state.page
+				}
+			})
 
-	// 	}).catch(function (err) { 
-	// 		Message.error(err.message)
-	// 	});
-	// }
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+	}
 
 	pageChange = (page) =>{
 		this.setState({
@@ -110,12 +110,7 @@ export default class NoticeManage extends React.Component {
 			openDelete:!this.state.openDelete
 		})
 	}
-	// openPublish=(itemDetail)=>{
-	// 	this.setState({
-	// 		itemDetail,
-	// 		openPublish:!this.state.openPublish
-	// 	})
-	// }
+	
 	//预览
 	viewRichText=(item)=>{
 		this.setState({
@@ -287,19 +282,23 @@ export default class NoticeManage extends React.Component {
 	             			flag={flag}
 	             	 />
 	           </Drawer>
-	           <Drawer
-	             modal={true}
-	             width={750}
-	             open={this.state.openCancel}
-	             onClose={this.openCancel}
-	             openSecondary={true}
-	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
-	           >
-	             	{/* <ViewNotice 
-	             			onCancel={this.openCancel} 
-	             			detail={itemDetail}
-	             	 /> */}
-	           </Drawer>
+			   <Dialog
+	              title="过期"
+	              modal={true}
+	              contentStyle ={{ width: '444',overflow:'visible'}}
+	              open={this.state.openCancel}
+	              onClose={this.openCancel}
+	            >
+	            <div className='u-list-delete'>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确定要将此公告设置为“已过期”吗？</p>
+					<div style={{textAlign:'center',marginBottom:10}}>
+	                      <div  className='ui-btn-center'>
+		                      <Button  label="确定" onClick={this.onCancelNotice}/></div>
+		                      <Button  label="取消" type="button" cancle={true} onClick={this.openCancel} />
+	                      </div>
+	            	</div>
+	            </Dialog> 
+	           
 	           <Dialog
 	              title="删除"
 	              modal={true}
@@ -316,22 +315,7 @@ export default class NoticeManage extends React.Component {
 	                      </div>
 	            	</div>
 	            </Dialog>
-	            {/* <Dialog
-	              title="发布"
-	              modal={true}
-	              contentStyle ={{ width: '444',overflow:'visible'}}
-	              open={this.state.openPublish}
-	              onClose={this.openPublish}
-	            >
-	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要发布公告吗？</p>
-					<div style={{textAlign:'center',marginBottom:10}}>
-	                      <div  className='ui-btn-center'>
-		                      <Button  label="确定" onClick={this.openPublishDel}/></div>
-		                      <Button  label="取消" type="button" cancle={true} onClick={this.openPublish} />
-	                      </div>
-	            	</div>
-	            </Dialog> */}
+	           
 			</div>
 		);
 	}
