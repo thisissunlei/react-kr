@@ -25,7 +25,6 @@ module.exports = [
                         primaryText: "通用订单列表",
                         originUrl: '/order-center/order-manage/general-order-manage',
                         type:'vue',
-
                         menuCode: 'orderCurrency_list',
                     },
                     {
