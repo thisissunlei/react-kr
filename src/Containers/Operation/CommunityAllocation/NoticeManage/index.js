@@ -1,6 +1,11 @@
 import React from 'react';
 import {Http,ReactHtmlParser} from 'kr/Utils';
 import {
+	reduxForm,
+	submitForm,
+	change,
+} from 'redux-form';
+import {
 	Title,
 	Section,
 	Table,
@@ -15,12 +20,14 @@ import {
 	Dialog,
 	Tooltip,
 	KrDate,
-	Message
+	Message,
+	SearchForms,
+	KrField
 } from 'kr-ui';
 import CreateNotice from './CreateNotice';
 import EditNotice from './EditNotice';
 import './index.less';
-export default class NoticeManage extends React.Component {
+class NoticeManage extends React.Component {
 
 
 	constructor(props, context) {
@@ -34,10 +41,9 @@ export default class NoticeManage extends React.Component {
 			openCancel:false,
 			openDelete:false,
 			openEdit:false,
-			viewRichText:false,
-			viewItem:{},
 			page:1,
-			flag:0,
+			searchText:'',
+			cmtId:'',
 		}
 
 	}
@@ -111,15 +117,7 @@ export default class NoticeManage extends React.Component {
 		})
 	}
 	
-	//预览
-	viewRichText=(item)=>{
-		this.setState({
-			viewRichText:!this.state.viewRichText,
-			viewItem:item,
-			flag:0
-		})
-	}
-
+	
 	createSubmit=()=>{
 		this.setState({
 			searchParams:{
@@ -139,26 +137,54 @@ export default class NoticeManage extends React.Component {
 		})
 		this.openEdit();
 	}
-	
-	renderViewRichText=()=>{
-		let {viewItem}=this.state;
-		return(
-			<div className="u-view-rich-text">
-				<div className="u-view-rich-context">
-					<div className="u-view-rich-title">{viewItem.title}</div>
-					<div className="u-view-rich-detail clearFix">
-						<div className="u-view-rich-time">{viewItem.type==1?'氪空间团队':`${viewItem.cmtName}团队`} <span className="u-point">.</span> {viewItem.time}</div>
-						<div className="u-view-rich-com">{viewItem.typetxt}</div>
-					</div>
-					{viewItem && ReactHtmlParser(viewItem.richTextValue)}
-				</div>
-				<span className="u-view-close" onTouchTap={this.viewRichText}></span>
-			</div>
-			) 
+
+	//搜索
+	onSearchSubmit=(params)=>{
+		let {cmtId}=this.state;
+		if(cmtId){
+			this.setState({
+				searchParams:{
+					searchText:params.content,
+					cmtId
+				},
+				searchText:params.content
+			})
+		}else{
+			this.setState({
+				searchParams:{
+					searchText:params.content
+				},
+				searchText:params.content
+			})
+		}
+		
+		
 	}
+	selectCommunity=(params)=>{
+		let {searchText}=this.state;
+		console.log('params====',params)
+		if(searchText){
+			this.setState({
+				searchParams:{
+					cmtId:params.cmtId,
+					searchText
+				},
+				cmtId:params.cmtId
+			})
+		}else{
+			this.setState({
+				searchParams:{
+					cmtId:params.cmtId
+				},
+				cmtId:params.cmtId
+			})
+		}
+		
+	}
+	
 
 	render() {
-		let {itemDetail,viewRichText,flag}=this.state;
+		let {itemDetail}=this.state;
 		return (
 
 			<div className="g-notice" >
@@ -170,6 +196,22 @@ export default class NoticeManage extends React.Component {
 								type='button'
 								onTouchTap={this.openNewCreat}
 							/>
+						<SearchForms 
+							placeholder='请输入公告内容' 
+							inputName='mr' 
+							onSubmit={this.onSearchSubmit}
+						/>
+						<div className="u-communityName">
+							<KrField  
+									
+									name="cmtId"
+									component='searchAllCommunity'  
+									label="社区：" 
+									inline={true}  
+									placeholder='请输入社区名称' 
+									onChange={this.selectCommunity}
+							/>
+						</div>
 					</div>
 					<Table
 						  style={{marginTop:10}}
@@ -249,7 +291,7 @@ export default class NoticeManage extends React.Component {
 					        </TableBody>
 			        		<TableFooter></TableFooter>
             		</Table>
-            		{viewRichText && this.renderViewRichText()}
+            		
 				</Section>
 				<Drawer
 	             modal={true}
@@ -262,8 +304,6 @@ export default class NoticeManage extends React.Component {
 	             	<CreateNotice 
 	             			onCancel={this.openNewCreat} 
 	             			onSubmit={this.createSubmit} 
-	             			viewRichText={this.viewRichText}
-	             			flag={flag}
 	             	 />
 	           </Drawer>
 	           <Drawer
@@ -278,8 +318,6 @@ export default class NoticeManage extends React.Component {
 	             			onCancel={this.openEdit}
 	             			detail={itemDetail} 
 	             			onSubmit={this.editSubmit}
-	             			viewRichText={this.viewRichText} 
-	             			flag={flag}
 	             	 />
 	           </Drawer>
 			   <Dialog
@@ -320,3 +358,7 @@ export default class NoticeManage extends React.Component {
 		);
 	}
 }
+export default reduxForm({
+	form: 'noticeManage'
+	
+})(NoticeManage);
