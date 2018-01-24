@@ -86,7 +86,7 @@ module.exports = [
 					menuCode: 'myCard',
 					router: '/smarthardware/equipmentmanage/equipmentsearch',
 				},{
-					primaryText: 'IP检测',
+					primaryText: 'IP冲突检测',
 					menuCode: 'myCard',
 					router: '/smarthardware/equipmentmanage/checkrepeatip',
 				}

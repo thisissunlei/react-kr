@@ -28,7 +28,7 @@ export default class IpAddressCheck  extends React.Component{
 	}
 
 	componentDidMount() {
-		Baidu.trackEvent('智能硬件设备查询','访问');
+		Baidu.trackEvent('IP冲突检测','访问');
 	}
 
 	
@@ -41,8 +41,8 @@ export default class IpAddressCheck  extends React.Component{
 		return(
 
 			<div className="ip-adress-check">
-				<Title value="查询重复IP"/>
-				<Section title={`查询重复IP`} description="" bodyPadding="0 20px">
+				<Title value="IP冲突检测"/>
+				<Section title={`IP冲突检测`} description="" bodyPadding="0 20px">
 					<IpAddressCheckBox/>
 				</Section>
 				

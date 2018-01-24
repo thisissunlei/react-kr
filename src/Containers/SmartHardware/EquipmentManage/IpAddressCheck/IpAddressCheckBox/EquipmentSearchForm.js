@@ -62,8 +62,8 @@ class IpAddressCheck extends React.Component{
 					<span className="fir-span">
 						<KrField name="communityId"
 							component="searchCommunityAll"
-							label="社区名称："
-							style={{width:'237px'}}
+							label="查询该社区IP冲突的设备："
+							style={{width:380}}
 							onChange = {this.onChangeCommunity}
 							inline={true}
 						/>

@@ -89,13 +89,19 @@ export default class IPAddressCheckBox  extends React.Component{
 		
 	}
 
+	tableLoaded=(response)=>{
+		if(response.items.length==0){
+			Message.warntimeout("该社区没有IP冲突的设备",'success');
+
+		}
+	}
+
 	
 
 
 	render(){
 		let {deviceTypeOptions,fatherPage,searchParams,ajaxUrl} = this.state;
 		let connectedOptions = [{label:"已连接",value:true},{label:"未连接",value:false}]
-		console.log("searchParams.communityId",searchParams.communityId);
 		return(
 			<div className="ip-address-check">
 				<div>
@@ -110,7 +116,8 @@ export default class IPAddressCheckBox  extends React.Component{
 						ajax={true}
 			            onProcessData={(state)=>{
 			              return state;
-			             }}
+						}}
+						onLoaded={this.tableLoaded}
 			            exportSwitch={false}
 			            ajaxFieldListName='items'
 			            ajaxUrlName={ajaxUrl}
@@ -234,7 +241,7 @@ export default class IPAddressCheckBox  extends React.Component{
 			        </Table>:
 					<div style={{display:"block",width:"100%",borderTop:"solid 1px #eee",textAlign:"center",padding:"200px 0"}}>
 						<img src={require('./images/nothings.png')}/>
-						<p style={{textAlign:"center",marginTop:10}}>暂时没有数据</p>
+						<p style={{textAlign:"center",marginTop:10}}>选择社区查询IP冲突的设备</p>
 					</div>
 					}
 					
