@@ -162,21 +162,20 @@ class NoticeManage extends React.Component {
 	}
 	selectCommunity=(params)=>{
 		let {searchText}=this.state;
-		console.log('params====',params)
 		if(searchText){
 			this.setState({
 				searchParams:{
-					cmtId:params.cmtId,
+					cmtId:params.id,
 					searchText
 				},
-				cmtId:params.cmtId
+				cmtId:params.id
 			})
 		}else{
 			this.setState({
 				searchParams:{
-					cmtId:params.cmtId
+					cmtId:params.id
 				},
-				cmtId:params.cmtId
+				cmtId:params.id
 			})
 		}
 		
