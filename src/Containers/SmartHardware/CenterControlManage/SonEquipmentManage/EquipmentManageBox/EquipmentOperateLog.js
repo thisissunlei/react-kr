@@ -55,7 +55,7 @@ class EquipmentDataForm extends React.Component{
 			var start=Date.parse(DateFormat(values.sdate,"yyyy-mm-dd hh:MM:ss"));
 			var end=Date.parse(DateFormat(values.edate,"yyyy-mm-dd hh:MM:ss"));
 			if(start>end){
-				Message.error("结束时间不能小于开始时间");
+				Message.warntimeout('结束时间不能小于开始时间','error');
 				return ;
 			}
 		}
@@ -79,7 +79,7 @@ class EquipmentDataForm extends React.Component{
 			var end=Date.parse(DateFormat(searchParams.edate,"yyyy-mm-dd hh:MM:ss"))
 		}
 		if(searchParams.edate&&start>end){
-			Message.error("结束时间不能小于开始时间");
+			Message.warntimeout('结束时间不能小于开始时间','error');
 			return ;
 		}
 
@@ -99,7 +99,7 @@ class EquipmentDataForm extends React.Component{
 			var start=Date.parse(DateFormat(searchParams.sdate,"yyyy-mm-dd hh:MM:ss"));
 		}
 		if(searchParams.sdate&&start>end){
-			Message.error("结束时间不能小于开始时间");
+			Message.warntimeout('结束时间不能小于开始时间','error');
 			return ;
 		}
 		Store.dispatch(change('EquipmentDataForm','edate',edate));			 
@@ -114,7 +114,7 @@ class EquipmentDataForm extends React.Component{
 		let deviceType = this.detail.deviceType;
 		for(var i = 0;i<State.sonEquipmentTypeOptions.length;i++){
 			if(deviceType == State.sonEquipmentTypeOptions[i].value){
-				return State.sonEquipmentTypeOptions[i].label+" —— "+mainInfo.name
+				return State.sonEquipmentTypeOptions[i].label+" —— "+(mainInfo.name ||" ")
 			}
 		}		
 

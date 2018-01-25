@@ -40,7 +40,6 @@ class NewCreateDefinitionForm extends React.Component{
 	
 	render(){
 		var params = State.EquipmentPassword+'';
-
 		return(
 			<div style={{marginTop:45}}>
 	            <p style={{textAlign:"center",color:"#333333",fontSize:20}}>口令码：<span style={{display:"inline-block",marginRight:10,color:"#d52c2c"}}>{params.substr(0,3)}</span><span style={{color:"#0c6e0d"}}>{params.substr(3)}</span></p>

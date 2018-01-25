@@ -52,7 +52,8 @@ export default class SecondDoorManage  extends React.Component{
 		this.state = {
 			selectIds : [],
 			openMenu :false,
-			itemDetail : {}
+			itemDetail : {},
+			mainInfo : {}
 		}
 	}
 
@@ -446,7 +447,8 @@ export default class SecondDoorManage  extends React.Component{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
 		this.setState({
-			itemDetail :thisP
+			itemDetail :thisP,
+			mainInfo : thisP
 		})
 
 		let _this = this;
@@ -523,7 +525,11 @@ export default class SecondDoorManage  extends React.Component{
 		State.httpTokenDialog = !State.httpTokenDialog;
 	}
 	
-
+	locationIpCheck=()=>{
+		
+	 	window.location.href = `./#/smarthardware/ipaddresscheck/doormanage`
+	
+	}
 
 	render(){
 		let {itemDetail}=this.state;
@@ -535,6 +541,7 @@ export default class SecondDoorManage  extends React.Component{
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="删除"  onTouchTap={this.deleteSelectEquipment} className="button-list"/>
 					<Button label="发现设备"  onTouchTap={this.openSearchEquipmentList} className="button-list"/>
+					{/* <Button label="检测IP"  onTouchTap={this.locationIpCheck} className="button-list"/> */}
 					
 				</div>
 				<div>
@@ -582,14 +589,17 @@ export default class SecondDoorManage  extends React.Component{
 		                             return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 		                              <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 		              			}} ></TableRowColumn>
-								<TableRowColumn name="doorCode"
-									style={{width:"8%"}} 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+									<TableRowColumn style={{width:"8%",overflow:"visible"}} name="doorCode" component={(value,oldValue)=>{
+													var TooltipStyle=""
+													if(value.length==""){
+														TooltipStyle="none"
+
+													}else{
+														TooltipStyle="block";
+													}
+														return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+														<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+									}} ></TableRowColumn>
 								
 								
 								<TableRowColumn name="deviceId"
@@ -920,14 +930,15 @@ export default class SecondDoorManage  extends React.Component{
 			        >
 			         	<PasswordCode onCancle={this.passwordDialogFun}/>
 			        </Dialog>
-			        <Dialog
-			          title="管理员密码"
-			          open={State.openManagePsd}
-			          onClose={this.openManagePsdFun}
-			          contentStyle={{width:443,height:260}}
-			        >
+			        
+							<Drawer 
+			        	open={State.openManagePsd}
+			        	onClose = {this.openManagePsdFun}
+								width={1100} 
+								openSecondary={true} 
+							>
 			          	<PsdList/>
-			        </Dialog>
+			        </Drawer>
 
 
 			        <Dialog

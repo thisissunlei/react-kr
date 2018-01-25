@@ -250,25 +250,16 @@ State.showHttpToken= action(function(){
 })
 
 
-//远程开门
-State.openDoorOnlineAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.serialNo}
-	Http.request('openDoorOnlineURL',{},urlParams).then(function(response) {
-
-		Message.success("远程开门成功");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-
 
 State.changeSwitchStatusAction = action(function(params){
 	Http.request('changeSwitchStatusUrl',{},params).then(function(response) {
 		if(params.onOff){
-			Message.success("设备连接自动入库");
+			
+			Message.warntimeout("设备连接自动入库",'success');
 		}else{
-			Message.success("设备连接不自动入库");
+			
+			Message.warntimeout("设备连接不自动入库",'success');
+			
 		}
 		
 	}).catch(function(err) {
@@ -310,16 +301,7 @@ State.confirmResetEquipmentAction  = action(function(){
 	});
 })
 
-//确认刷新H5
-State.confirmFreshHTMLAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.serialNo}
-	Http.request('freshHTMLUrl',urlParams).then(function(response) {
-		
-		Message.success("提交刷新请求成功");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
+
 
 
 //刷新设备上报信息
@@ -332,22 +314,6 @@ State.freshEquipmentReporterAction = action(function(){
 		Message.error(err.message);
 	});
 })
-
-
-State.confirmSynchronizingAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.serialNo}
-	Http.request('SynchronizingUrl',{},urlParams).then(function(response) {
-		
-		Message.success("同步成功");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-
-
-
-
 
 
 

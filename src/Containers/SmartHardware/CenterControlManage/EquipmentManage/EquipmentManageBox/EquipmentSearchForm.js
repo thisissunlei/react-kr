@@ -76,7 +76,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 			
 
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 	
@@ -271,7 +271,7 @@ class EquipmentAdvancedQueryForm extends React.Component{
 						name="serialNo" 
 						type="text" 
 						label="序列号：" 
-						style={{width:300,margin:'0 35px 5px 0'}}
+						style={{width:300}}
 						onChange = {this.onchangeSerialNo}
 					/>
 				</span>

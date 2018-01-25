@@ -61,25 +61,31 @@ export default class EquipmentDetail extends React.Component{
 	}
 
 	freshEquipmentReporter=()=>{
+
 		let {detail} = this.props;
 		let _this = this;
-		State.freshPageReturn();
-		var urlParams = {deviceId:detail.deviceVO.deviceId}
-		Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
-			$("#center-control-report").html(_this.syntaxHighlight(response.reported));
-			Message.success("刷新成功");
-			if(!response.reported||JSON.stringify(response.reported).length<1){
-				_this.setState({
-					showReported : false
-				})
-			}else{
-				_this.setState({
-					showReported : true
-				})
-			}
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		if(!(detail.deviceVO)){
+			Message.warntimeout("设备不存在",'error');
+		}else{
+			var urlParams = {deviceId:detail.deviceVO.deviceId}
+			Http.request('freshReporteInfoUrl',urlParams).then(function(response) {
+				$("#center-control-report").html(_this.syntaxHighlight(response.reported));
+				Message.warntimeout("刷新成功",'success');
+				State.freshPageReturn();
+				if(!response.reported||JSON.stringify(response.reported).length<1){
+					_this.setState({
+						showReported : false
+					})
+				}else{
+					_this.setState({
+						showReported : true
+					})
+				}
+			}).catch(function(err) {
+				Message.warntimeout(err.message,'error');
+			});
+		}
+		
 	}
 	
 	syntaxHighlight=(json)=>{
