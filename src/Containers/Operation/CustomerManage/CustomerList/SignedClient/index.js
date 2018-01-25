@@ -385,12 +385,12 @@ class SignedClient extends React.Component{
 					align="left"
 					style={{float:'left'}}
 				>
-					<Button
+					{/*<Button
 							label="新建订单"
 							type='button'
 							onTouchTap={this.openContractFirst}
 							operateCode="admin_customer_edit"
-					/>
+					/>*/}
 				</Col>
 
 				<Col  align="right" style={{marginTop:0,float:"right",marginRight:-10}}>

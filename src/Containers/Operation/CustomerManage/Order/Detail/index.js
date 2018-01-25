@@ -728,7 +728,7 @@ export default class OrderDetail extends React.Component {
 			<Section title="客户订单详情" description="" hide={!!this.props.location.query.closeAll} bodyPadding={'20px 20px 50px 20px'}>
 
 			<div className="content">
-			<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,fontSize:'18px !important'}}/>
+			{/*<Button label="新建合同"  onTouchTap={this.openCreateAgreementDialog} style={{width:160,height:40,fontSize:'18px !important'}}/>*/}
 						<span className="border-top" style={{marginTop:'20px !important'}}></span>
 			<DotTitle title='合同列表' style={{marginTop:40,marginBottom:30}}/>
 
@@ -769,27 +769,8 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn>{item.inputUser}</TableRowColumn>
 					<TableRowColumn>
 					<span className='upload-button'><Button  type="link" href="javascript:void(0)" label="查看" onTouchTap={this.getAgrementDetailUrl.bind(this,item.customerid,this.props.params.orderId,item.contracttype,item.id)} /></span>
-					<span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
-					{(item.contracttype != 'QUITRENT' || showMoreOnExit)?<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:''}
-
-					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
-					<div style={{visibility:showOpretion}} className="m-operation" >
-						{item.contractstate != 'EXECUTE' &&
-						 item.editFlag && 
-						 <span style={{display:'block'}}><a  type="link" label="编辑" onTouchTap={this.getAgrementEditUrl.bind(this,item.customerid,this.props.params.orderId,item.contracttype,item.id)} disabled={item.contractstate == 'EXECUTE'}>编辑</a></span> }
-						
-
-						{
-						 item.contracttype !=  'QUITRENT' &&
-						 <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-
-						{
-						item.contractstate != 'EXECUTE' && item.editFlag  && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item)} disabled={item.contractstate == 'EXECUTE'}>删除</a> 
-						</span>}
-					</div>
-
-
-
+					{/* <span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>*/}
+					<span className='upload-button'><Button  type="link" label="打印" href="javascript:void(0)" onTouchTap={this.print.bind(this,item)}/></span>
 					</TableRowColumn>
 					</TableRow>
 				);

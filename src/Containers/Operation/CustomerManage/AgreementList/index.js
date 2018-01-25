@@ -809,11 +809,11 @@ class Merchants extends Component{
 			   	>
 				   <CheckPermission  operateCode="contract_create_contract" >
 
-					<Button
+					{/*<Button
 						label="新建合同"
 						type='button'
 						onTouchTap={this.openOneAgreement}
-					/>
+					/>*/}
 				  </CheckPermission>
 
 			 	 </Col>
@@ -925,8 +925,10 @@ class Merchants extends Component{
 									<TableRowColumn><span className="tableOver">{item.contractfile?'有':'无'}</span></TableRowColumn>
 					                <TableRowColumn>
 					                    <Button label="查看"  type='operation'  onClick={this.lookClick.bind(this,item)}/>
+					                    <span style={{display:'inline-block',width:10}}></span>
+					                    <Button label="打印"  type='operation'  onClick={this.print.bind(this,item)}/>
 
-					                    <div className="agreement-list-annex" style={{display:"inline-block",width: 24,paddingRight: 10}}>
+					                   {/* <div className="agreement-list-annex" style={{display:"inline-block",width: 24,paddingRight: 10}}>
 					                    <Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)} linkTrue labelStyleLink={{paddingLeft:0,paddingRight:0,fontWeight:0}}/>
 										<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
 										</div>
@@ -942,7 +944,7 @@ class Merchants extends Component{
 													{State.isDel && item.editFlag && item.contracttype!='QUITRENT' && <span style={{display:'block'}}><a  type="link" label="删除"  href="javascript:void(0)" onTouchTap={this.setDelAgreementId.bind(this,item)} disabled={item.contractstate == 'EXECUTE'}>删除</a> </span>}
 
 											</div>
-										</div>}
+										</div>*/}
 
 					                </TableRowColumn>
 					            </TableRow>

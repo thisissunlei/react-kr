@@ -19,21 +19,21 @@ module.exports = [
 				iconName: 'icon-money',
 				iconColor: '#79859a',
 				menuItems: [
-					{
-						primaryText: "审核列表",
-						router: '/finance/manage/audit/auditlist',
-						menuCode: 'fina_verify_page'
-					},
-					{
-						primaryText: "账单列表",
-						router: '/finance/manage/orderbill/orderList',
-						menuCode: 'fina_account_list'
-					},
-					{
-						primaryText: '凭证列表',
-			            router: '/finance/voucherManage/voucherList',
-			            menuCode: 'upload_evidence_base',
-					},
+					// {
+					// 	primaryText: "审核列表",
+					// 	router: '/finance/manage/audit/auditlist',
+					// 	menuCode: 'fina_verify_page'
+					// },
+					// {
+					// 	primaryText: "账单列表",
+					// 	router: '/finance/manage/orderbill/orderList',
+					// 	menuCode: 'fina_account_list'
+					// },
+					// {
+					// 	primaryText: '凭证列表',
+			  //           router: '/finance/voucherManage/voucherList',
+			  //           menuCode: 'upload_evidence_base',
+					// },
 					{
 						primaryText: "同步中心",
 						router: '/finance/manage/sync/list',
