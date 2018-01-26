@@ -49,8 +49,6 @@ export default class EquipmentManageBox  extends React.Component{
 		this.state = {
 			openMenu :false,
 			itemDetail : {},
-			mainPsw : '',
-			vicePsw : '',
 			mainInfo : {}
 		}
 	}
@@ -213,18 +211,9 @@ export default class EquipmentManageBox  extends React.Component{
 
 	getManagerPsd =()=>{
 		let _this = this;
-		var urlParams = {deviceId:State.itemDetail.serialNo}
-		Http.request('getManagerPsdUrl',urlParams).then(function(response) {
-			
-			_this.setState({
-				mainPsw : response.main,
-				vicePsw :response.backup
-			},function(){
-				_this.openManagerPsw();
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		console.log("State.itemDetail",State.itemDetail);
+		_this.openManagerPsw();
+		
 	}
 
 	restartAPP=()=>{
@@ -265,6 +254,7 @@ export default class EquipmentManageBox  extends React.Component{
 	onMouseOn=(thisP)=>{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
+		console.log("thisP",thisP);
 		this.setState({
 			itemDetail :thisP
 		})
@@ -314,12 +304,14 @@ export default class EquipmentManageBox  extends React.Component{
 		State.switchOpenEditSerialNo = !State.switchOpenEditSerialNo;
 	}
 
-	
+	locationIpAddressCheck=()=>{
+		window.location.href = `./#/smarthardware/ipaddresscheck/centercontrol`
+	}
 	
 
 
 	render(){
-		let {itemDetail,	mainPsw ,vicePsw ,mainInfo}=this.state;
+		let {itemDetail,mainInfo}=this.state;
 		let {showOpretion} = State;
 		let spaceTypeOptions = [{label:"会议室",value : 'MEETING'},{label:"独立办公室",value : 'OFFICE'},{label:"大厅",value : 'HALL'}]
 
@@ -329,6 +321,7 @@ export default class EquipmentManageBox  extends React.Component{
 					<Button label="刷新"  onTouchTap={this.freshPageThis} className="button-list"/>
 					<Button label="新增"  onTouchTap={this.openNewCreateDialog} className="button-list"/>
 					<Button label="发现设备"  onTouchTap={this.openSearchEquipmentFun} className="button-list"/>
+					{/* <Button label="检测IP"  onTouchTap={this.locationIpAddressCheck} className="button-list"/> */}
 					
 				</div>
 				<div>
@@ -348,7 +341,6 @@ export default class EquipmentManageBox  extends React.Component{
 			            ajaxUrlName='centerControlEquipmentList'
 			            ajaxParams={State.equipmentSearchParams}
 			            onPageChange={this.onPageChangeFun}
-									displayCheckbox={true}
 									displayCheckbox={false}
 			          >
 			            <TableHeader>
@@ -380,7 +372,7 @@ export default class EquipmentManageBox  extends React.Component{
 								
 								
 								<TableRowColumn name="serialNo"
-									style={{width:"20%"}}
+									style={{width:"18%"}}
 									component={(value,oldValue,itemData)=>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -400,7 +392,7 @@ export default class EquipmentManageBox  extends React.Component{
 
 								<TableRowColumn name="spaceType" 
 									options = {spaceTypeOptions}
-									style={{width:"6%"}}
+									style={{width:"7%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -410,7 +402,7 @@ export default class EquipmentManageBox  extends React.Component{
 								
 							
 					            <TableRowColumn name="connected"
-									style={{width:"8%"}}
+									style={{width:"7%"}}
 
 					              	component={(value,oldValue)=>{
 						                var spanColor = "";
@@ -426,14 +418,14 @@ export default class EquipmentManageBox  extends React.Component{
 					            </TableRowColumn>
 					            
 								<TableRowColumn 
-									style={{width:"16%"}}
+									style={{width:"14%"}}
 									name="connectTime" 
 									type="date" 
 									format="yyyy-mm-dd HH:MM:ss" 
 								>
 								</TableRowColumn>
 								<TableRowColumn name="makerName" 
-									style={{width:"6%"}}
+									style={{width:"5%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -483,11 +475,11 @@ export default class EquipmentManageBox  extends React.Component{
 
 	
 
-					 <Drawer 
-			        	open={State.openSearchEquipment}
-			        	onClose = {this.openSearchEquipmentFun}
-					    width={1100} 
-					    openSecondary={true} 
+					<Drawer 
+			      open={State.openSearchEquipment}
+			    	onClose = {this.openSearchEquipmentFun}
+				    width={1100} 
+				    openSecondary={true} 
 					>
 						<EquipmentFind onCancel={this.openSearchEquipmentFun} registeEquipment={this.registeEquipmentFun}/>
 					</Drawer>
@@ -636,14 +628,14 @@ export default class EquipmentManageBox  extends React.Component{
 			        >
 			         	<PasswordCode onCancle={this.passwordDialogFun}/>
 			        </Dialog>
-			        <Dialog
-			          title="管理员密码"
-			          open={State.openManagePsd}
-			          onClose={this.openManagePsdFun}
-			          contentStyle={{width:443,height:260}}
-			        >
-			          	<PsdList mainPsw={mainPsw} vicePsw ={vicePsw} />
-			        </Dialog>
+			        
+							<Drawer 
+								open={State.openManagePsd}
+								width={1100} 
+								openSecondary={true} 
+							>
+			          <PsdList/>
+			        </Drawer>
 
 
 			        <Dialog

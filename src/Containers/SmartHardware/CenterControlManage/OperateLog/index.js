@@ -11,7 +11,6 @@ import {
 	Button,
 	Section,
 	Dialog,
-	Message,
 	Notify,
 	CheckPermission,
 	Tooltip

@@ -74,7 +74,24 @@ module.exports = [
 						router: '/smarthardware/centercontrolmanage/operatelog',
 					}
 				]
-		},
+		},{
+			primaryText: "设备管理",
+			iconName: 'icon-card',
+			iconColor: '#79859a',
+			router :'',
+			menuItems: [
+
+				{
+					primaryText: '设备查询',
+					menuCode: 'myCard',
+					router: '/smarthardware/equipmentmanage/equipmentsearch',
+				},{
+					primaryText: 'IP冲突检测',
+					menuCode: 'myCard',
+					router: '/smarthardware/equipmentmanage/checkrepeatip',
+				}
+			]
+	},
 		],
 	}
 ]

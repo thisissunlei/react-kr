@@ -86,6 +86,20 @@ const SmartHardware_CenterControlManage_OperateLog = (location, callback) => {
   }, 'SmartHardware_CenterControlManage_OperateLog')
 }
 
+const SmartHardware_EquipmentManage_IpAddressCheck =  (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/EquipmentManage/IpAddressCheck').default)
+  }, 'SmartHardware_EquipmentManage_IpAddressCheck')
+}
+
+const SmartHardware_EquipmentManage_EquipmentSearch =  (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/EquipmentManage/EquipmentSearch').default)
+  }, 'SmartHardware_EquipmentManage_EquipmentSearch')
+}
+
+
+
 
 
 
@@ -120,6 +134,13 @@ module.exports =()=>{
         <Route path="sonequipmentmanage/:sonEquipmentId/:fatherEquipmentId/:fatherName" getComponent={SmartHardware_CenterControlManage_SonEquipmentManage}/>
         <Route path="operatelog" getComponent={SmartHardware_CenterControlManage_OperateLog}/>
       </Route>
+
+      <Route path="equipmentmanage" getComponent={Basic}>
+        <Route path="equipmentsearch" getComponent={SmartHardware_EquipmentManage_EquipmentSearch}/>
+        <Route path="checkrepeatip" getComponent={SmartHardware_EquipmentManage_IpAddressCheck}/>
+      </Route> 
+        
+      
 			
 		</Route>
 	);

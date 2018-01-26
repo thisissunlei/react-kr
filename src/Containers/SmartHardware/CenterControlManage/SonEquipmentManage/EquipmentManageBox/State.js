@@ -151,18 +151,6 @@ State.freshEquipmentReporterAction = action(function(){
 })
 
 
-State.confirmSynchronizingAction = action(function(){
-	var urlParams = {deviceId:State.itemDetail.deviceId}
-	Http.request('SynchronizingUrl',{},urlParams).then(function(response) {
-		
-		Message.success("同步成功");
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-})
-
-
-
 
 module.exports = State;
 

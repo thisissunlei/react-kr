@@ -291,7 +291,7 @@ export default class EquipmentManageBox  extends React.Component{
 			<div className="son-equipment-manage">
 				<div style={{float:"left",marginTop:"-55px",width:"100%"}}>
 					<span>
-						<span style={{marginRight:10,cursor:"pointer",color:"rgb(73, 157, 241)"}} onClick={this.returnCenterControl}>中央控制管理</span>
+						<span style={{marginRight:10,cursor:"pointer",color:"rgb(73, 157, 241)"}} onClick={this.returnCenterControl}>网关管理</span>
 						<span style={{marginRight:10}}>&gt;</span>
 						<span style={{marginRight:10}}>中控子设备管理</span>
 					</span>
@@ -326,12 +326,11 @@ export default class EquipmentManageBox  extends React.Component{
 			            onSelect={this.onSelcet}
 			          >
 			            <TableHeader>
-							
-							<TableHeaderColumn>设备ID</TableHeaderColumn>
-				            <TableHeaderColumn>类型</TableHeaderColumn>
+							<TableHeaderColumn>类型</TableHeaderColumn>
+							<TableHeaderColumn>序列号</TableHeaderColumn>
 			              	<TableHeaderColumn>名称</TableHeaderColumn>
 							<TableHeaderColumn>权重</TableHeaderColumn>
-			              	<TableHeaderColumn>社区</TableHeaderColumn>
+			              	{/* <TableHeaderColumn>社区</TableHeaderColumn> */}
 							<TableHeaderColumn>房间</TableHeaderColumn>
 				            <TableHeaderColumn>位置</TableHeaderColumn>
 			            	<TableHeaderColumn>备注</TableHeaderColumn>
@@ -339,24 +338,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          	</TableHeader>
 			          	<TableBody >
 				            <TableRow>
-				            	
-								
-								<TableRowColumn name="localNo"
-									style={{width:"15%"}}
-									component={(value,oldValue)=>{
-										var TooltipStyle=""
-										if(value.length==""){
-											TooltipStyle="none"
 
-										}else{
-											TooltipStyle="inline-block";
-										}
-										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-											<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
-										)
-									}} 
-								>
-								</TableRowColumn>
 
 								<TableRowColumn name="deviceType" 
 									style={{width:"7%",overflow:"visible"}} 
@@ -372,10 +354,31 @@ export default class EquipmentManageBox  extends React.Component{
 										return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 										<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
 								}} ></TableRowColumn>
+				            	
+								
+								<TableRowColumn name="serialNo"
+									style={{width:"20%"}}
+									component={(value,oldValue,itemData)=>{
+										var TooltipStyle=""
+										if(value.length==""){
+											TooltipStyle="none"
+
+										}else{
+											TooltipStyle="inline-block";
+										}
+										return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+											<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>
+										)
+									}} 
+								>
+								</TableRowColumn>
+								
+
+								
 
 
 								<TableRowColumn name="name" 
-									style={{width:"15%"}}
+									style={{width:"12%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -385,7 +388,7 @@ export default class EquipmentManageBox  extends React.Component{
 
 
 				            	<TableRowColumn name="weight" 
-									style={{width:"5%"}}
+									style={{width:"4%"}}
 									component={(value,oldValue,itemDetail)=>{
 									if(itemDetail.extReported){
 										value=itemDetail.extReported.weight 
@@ -395,17 +398,17 @@ export default class EquipmentManageBox  extends React.Component{
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 
-								<TableRowColumn name="communityName" 
+								{/* <TableRowColumn name="communityName" 
 									style={{width:"12%"}}
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								></TableRowColumn> */}
 								
 								<TableRowColumn name="spaceName"
-									style={{width:"6%"}}
+									style={{width:"7%"}}
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -421,7 +424,7 @@ export default class EquipmentManageBox  extends React.Component{
 								>
 								</TableRowColumn>
 								<TableRowColumn name="location"
-									style={{width:"10%"}}
+									style={{width:"12%"}}
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -438,7 +441,7 @@ export default class EquipmentManageBox  extends React.Component{
 								</TableRowColumn>
 								
 								<TableRowColumn name="memo"
-									style={{width:"15%"}}
+									style={{width:"12%"}}
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
 										if(value.length==""){
@@ -499,7 +502,7 @@ export default class EquipmentManageBox  extends React.Component{
 			          title={controlLampOrGrostedGlass}
 			          open={State.controlLampDialog}
 			          onClose = {this.switchControlLampDialog}
-			          contentStyle={{width:660}}
+			          contentStyle={{width:400}}
 			        >
 						<ControlLampGrostGlass onCancel={this.switchControlLampDialog} detail={itemDetail} mainInfo={mainInfo}/>
 			        </Dialog>

@@ -50,7 +50,7 @@ class ControlCenterControl extends React.Component{
 		let _this =this;
 		Http.request('getControlAllInfo',{serialNo:detail.serialNo}).then(function(response) {
 			if(param && param == "clickFreshBtn"){
-				Message.success("刷新成功")
+				Message.warntimeout("刷新成功",'success');
 			}
 			_this.setState({
 				pageInfo : response,
@@ -63,7 +63,7 @@ class ControlCenterControl extends React.Component{
 				serialNoControl : mainInfo.serialNo
 			})
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 
@@ -136,13 +136,14 @@ class ControlCenterControl extends React.Component{
 		_this.switchShowLoading();
 		Http.request('setAirConditionWindSpeedAll',{},urlParams).then(function(response) {
 			_this.switchShowLoading();
-			Message.success("设置成功");
+			Message.warntimeout("设置成功",'success');
 			_this.setState({
 				windSpeed :  e.target.value
 			})
 		}).catch(function(err) {
 			_this.switchShowLoading();
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
+			
 		});
 	}
 
@@ -153,13 +154,14 @@ class ControlCenterControl extends React.Component{
 		var urlParams = {serialNo:detail.serialNo,mode : e.target.value}
 		Http.request('setAirConditionModeAll',{},urlParams).then(function(response) {
 			_this.switchShowLoading();
-			Message.success("设置成功");
+			Message.warntimeout("设置成功",'success');
 			_this.setState({
 				mode :  e.target.value
 			})
 		}).catch(function(err) {
 			_this.switchShowLoading();
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
+			
 		});
 	}
 	
@@ -210,12 +212,12 @@ class ControlCenterControl extends React.Component{
 		let {detail} = this.props;
 		var urlParams = {serialNo : detail.serialNo,temp : item.value}
 		Http.request('setAirConditionTemperatureAll',{},urlParams).then(function(response) {
-			Message.success("设置成功");
+			Message.warntimeout("设置成功",'success');
 			_this.setState({
 				airConditionSetTemp : item.value
 			})
 		}).catch(function(err) {
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
 		});
 	}
 
@@ -228,14 +230,17 @@ class ControlCenterControl extends React.Component{
 		Http.request('SwitchOpenLampFrost',{},urlParams).then(function(response) {
 			_this.switchShowLoading();	
 			if(urlParams.on){
-				Message.success("开启成功")
+				Message.warntimeout("开启成功",'success');
+				
 			}else{
-				Message.success("关闭成功")
+				Message.warntimeout("关闭成功",'success');
 			}
 			_this.changeLampItems(item,!item.on)
 		}).catch(function(err) {
 			_this.switchShowLoading();	
-			Message.error(err.message);
+			
+			Message.warntimeout(err.message,'error');
+			
 		});
 		
 	}
@@ -264,13 +269,14 @@ class ControlCenterControl extends React.Component{
 		var urlParams = {serialNo : detail.serialNo,on : !_this.state.airConditionSwitchOn}
 		Http.request('setAirConditionSwitchOn',{},urlParams).then(function(response) {
 			_this.switchShowLoading();
-			Message.success("设置成功");
+			Message.warntimeout("设置成功",'success');
 			_this.setState({
 				airConditionSwitchOn :  !_this.state.airConditionSwitchOn
 			})
 		}).catch(function(err) {
 			_this.switchShowLoading();
-			Message.error(err.message);
+			Message.warntimeout(err.message,'error');
+			
 		});
 	}
 
@@ -295,14 +301,15 @@ class ControlCenterControl extends React.Component{
 			_this.switchShowLoading();
 			
 			if(param.on){
-				Message.success("成功下发开灯命令")
+				Message.warntimeout("成功下发开灯命令",'success');
 			}else{
-				Message.success("成功下发关灯命令")
+				Message.warntimeout("成功下发关灯命令",'success');
 			}
 			
 		}).catch(function(err) {
 			_this.switchShowLoading();
-			Message.error(err.message);
+			Message.warntimeout("成功下发开灯命令",'error');
+			
 		});
 	}
 
