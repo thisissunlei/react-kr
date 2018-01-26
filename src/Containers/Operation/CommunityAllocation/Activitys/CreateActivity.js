@@ -278,9 +278,9 @@ const validate = values => {
 			errors.title = '活动标题不能超过50个字符';
 		}
 
-		// if (!values.cost) {
-		// 	errors.cost = '请输入费用';
-		// }
+		if (!values.site) {
+			errors.site = '请输入活动地点';
+		}
 		
 		if (!values.type) {
 			errors.type = '请选择活动类型';
