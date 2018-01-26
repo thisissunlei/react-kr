@@ -209,12 +209,19 @@ class EditActivity extends React.Component {
 					 			placeholder='请输入社区名称' 
 						 		requireLabel={true}
 						 		onChange={this.selectCommunity}
-						 	/>:''}
+							 />:''}
+							<KrField
+								style={{width:260,marginRight:25}}
+								component="input"
+								name="site"
+								label="地点"
+								requireLabel={true}
+						 	/>
 						 	<KrField
 								style={{width:260,marginRight:25}}
 								component="input"
 								name="address"
-								label="地点"
+								label="地址"
 								requireLabel={true}
 						 	/>
 						 	<KrField
@@ -224,16 +231,10 @@ class EditActivity extends React.Component {
 								label="主办方"
 								requireLabel={true}
 						 	/>
-						 	<KrField name="stick" component="group" label="是否置顶" requireLabel={true} style={{width:260,marginRight:25,marginTop:25}} >
+							<KrField name="stick" component="group" label="是否置顶" requireLabel={true} style={{width:260,marginRight:25,marginTop:25}} >
 	 							 <KrField name="stick" label="置顶" type="radio" value='1' />
 	 							 <KrField name="stick" label="不置顶" type="radio" value='0' />
-	 						</KrField>
-						 	<KrField
-								style={{width:260,marginRight:25}}
-								component="input"
-								name="maxPerson"
-								label="最大人数限制"
-						 	/>
+	 						</KrField>	 	
 						 	<div className="u-meet-setting">
 									<div className="u-meet-setTime">
 									<KrField name="startTimes" component="group" label="开始时间" requireLabel={true} style={{width:280}} >
@@ -264,6 +265,13 @@ class EditActivity extends React.Component {
 									</KrField>
 									</div>
 							</div>
+							<KrField
+								style={{width:260,marginRight:25}}
+								component="input"
+								name="maxPerson"
+								label="最大人数限制"
+						 	/>
+						 	
 							<KrField
  								label="活动封面"
  								name="imgUrl"
