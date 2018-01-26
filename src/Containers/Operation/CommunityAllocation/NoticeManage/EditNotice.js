@@ -49,7 +49,7 @@ class EditNotice extends React.Component {
 		var _this=this;
 		const {detail}=this.props;
 		Http.request('get-notice-detail',{noticeId:detail.noticeId}).then(function(response) {
-			
+			response.push=response.push.toString();
 			_this.setState({
 				infoList:response
 			})
