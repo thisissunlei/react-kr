@@ -97,8 +97,8 @@ export default class EquipmentSearch extends React.Component{
 	//注册设备
 	registEquipmentFun=(thisP)=>{
 		let _this =this;
-		var urlParams = {deviceId:thisP.deviceId}
-		Http.request('changeUnusedToList',{},urlParams).then(function(response) {
+		var urlParams = {serialNo:thisP.deviceId}
+		Http.request('startCenterControlEquipment',{},urlParams).then(function(response) {
 
 			Message.success("注册设备成功");
 			_this.getUnusedEquipmentFun();

@@ -404,6 +404,18 @@ module.exports = {
         method : 'post'
       },
 
+      //查看子设备详情
+      'SonEquipmentDetail':{
+        url : '/mockjsdata/53/iot-platform/device-def/sub-device/detail?id={id}',
+        method : 'get'
+      },
+
+      //发现设备之后启用
+      'startCenterControlEquipment':{
+        url : '/mockjsdata/53/iot-platform/device-def/actions/enable',
+        method : 'post'
+      },
+
 
       
 

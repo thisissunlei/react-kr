@@ -97,34 +97,13 @@ export default class EquipmentManageBox  extends React.Component{
 		}
 		
 	}
-	seeDetailInfoFun=(value,itemData)=>{
-		
-		if(value.maker == "KRSPACE"){
-			this.secondEquipment(value);
-		}else{
-			this.firstEquipment(value);
-		}
-		
-	}
 
-	firstEquipment=(value)=>{
+
+
+
+	seeDetailInfoFun=(value)=>{
 		let _this = this;
-		Http.request('getFirstEquipmentDetailUrl',{id:value.id}).then(function(response) {
-				
-			_this.setState({
-				itemDetail:response
-			},function(){
-				State.openFirstHardwareDetail = true;
-			});
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
-
-	secondEquipment=(value)=>{
-		let _this = this;
-		Http.request('getSecEquipmentDetailUrl',{id:value.id}).then(function(response) {
+		Http.request('SonEquipmentDetail',{id:value.id}).then(function(response) {
 			
 			_this.setState({
 				itemDetail:response
@@ -371,20 +350,9 @@ export default class EquipmentManageBox  extends React.Component{
 			]
 	}
 
-	resetFirstEquipmentFun=()=>{
-		this.resetFirstEquipmentDialogFun();
-	}
 
-	resetFirstEquipmentDialogFun=()=>{
-		State.resetFirstEquipmentDialog = !State.resetFirstEquipmentDialog ;
-	}
 
-	confirmResetFirstEquipment=()=>{
 
-		State.confirmResetFirstEquipmentState();
-		this.resetFirstEquipmentDialogFun();
-		
-	}
 
 
 	prodoctQRCodeFun=()=>{
@@ -396,7 +364,7 @@ export default class EquipmentManageBox  extends React.Component{
 		let {itemDetail} = this.state;
 		Http.request('productQRCodeUrl',{deviceId:itemDetail.deviceId}).then(function(response) {
 		
-			_this.firstEquipment(itemDetail)
+			// _this.firstEquipment(itemDetail)
 
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -810,28 +778,6 @@ export default class EquipmentManageBox  extends React.Component{
 			          <BtnBox onCancle={this.showOpretionFun}/>
 			        </Dialog>
 			      
-			        <Dialog
-			          title="一代门禁重置警告"
-			          open={State.resetFirstEquipmentDialog}
-			          onClose={this.resetFirstEquipmentDialogFun}
-			          contentStyle={{width:443,height:260}}
-			        >
-			          <div style={{marginTop:45}}>
-			            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>重置可能导致设备暂时掉线，确认重置？</p>
-			            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-			                  <Row>
-			                    <ListGroup>
-			                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-			                        <Button  label="确定" type="submit" onClick={this.confirmResetFirstEquipment} />
-			                      </ListGroupItem>
-			                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-			                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.resetFirstEquipmentDialogFun} />
-			                      </ListGroupItem>
-			                    </ListGroup>
-			                  </Row>
-			                </Grid>
-			          </div>
-			        </Dialog>
 
 				</div>
 				
