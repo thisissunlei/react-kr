@@ -75,11 +75,16 @@ module.exports = [
 						}
 					]
 			},{
+<<<<<<< HEAD
 				primaryText: "设备管理",
+=======
+				primaryText: "中央控制管理",
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
 				iconName: 'icon-card',
 				iconColor: '#79859a',
 				router :'',
 				menuItems: [
+<<<<<<< HEAD
 	
 					{
 						primaryText: '设备查询',
@@ -96,3 +101,29 @@ module.exports = [
 		}
 	]
 	
+=======
+
+					{
+						primaryText: '设备管理',
+						menuCode: 'printer_manage',
+						router: '/smarthardware/centercontrolmanage/equipmentmanage',
+					},{
+						primaryText: '中央管理台',
+						menuCode: 'print_record',
+						router: '/smarthardware/printmanage/printlog',
+					},{
+						primaryText: '操作记录',
+						menuCode: 'print_price_config',
+						router: '/smarthardware/centercontrolmanage/operatelog',
+					},
+					{
+						primaryText: '故障报警',
+						menuCode: 'print_community_config',
+						router: '/smarthardware/printmanage/printerconfig',
+					}
+				]
+		},
+		],
+	}
+]
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63

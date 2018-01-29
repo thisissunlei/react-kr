@@ -349,56 +349,89 @@ module.exports = {
     //中央控制设备列表
     'centerControlEquipmentList':{
 
+<<<<<<< HEAD
       url : '/api/iot-platform/device-def/list?communityId={communityId}&spaceType={spaceType}&connected={connected}&floor={floor}&page={page}&pageSize={pageSize}&serialNo={serialNo}&name={name}',
+=======
+      url : '/mockjsdata/53/iot-platform/device-def/list?communityId={communityId}&spaceType={spaceType}&connected={connected}&floor={floor}&page={page}&pageSize={pageSize}&serialNo={serialNo}&name={name}',
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
       method : 'get'
    },
 
      //删除中央控制设备
    'deleteCenterControEquipment':{
+<<<<<<< HEAD
     url : '/api/iot-platform/device-def/actions/delete?id={id}',
+=======
+    url : '/mockjsdata/53/iot-platform/device-def/actions/delete?id={id}',
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
     method : 'delete'
     },
 
     //查看中央控制设备详情
     'seeCenterControlEquipDetail':{
+<<<<<<< HEAD
       url : '/api/iot-platform/device-def/detail?id={id}',
+=======
+      url : '/mockjsdata/53/iot-platform/device-def/detail?id={id}',
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
       method : 'get'
       },
 
       //中央控制新增设备
       'addCenterControlEquipment':{
+<<<<<<< HEAD
         url : '/api/iot-platform/device-def/actions/add',
+=======
+        url : '/mockjsdata/53/iot-platform/device-def/actions/add',
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
         method : 'post'
       },
       //获取编辑信息
       'getCenterControolEditData':{
+<<<<<<< HEAD
         url : '/api/iot-platform/device-def/edit-info?id={id}',
+=======
+        url : '/mockjsdata/53/iot-platform/device-def/edit-info?id={id}',
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
         method : 'get'
       },
 
       //提交编辑 
       'editCenterControl':{
+<<<<<<< HEAD
         url : '/api/iot-platform/device-def/actions/edit',
+=======
+        url : '/mockjsdata/53/iot-platform/device-def/actions/edit',
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
         method : 'post'
       },
 
 
       //子设备列表
       'getSonEquipmentList':{
+<<<<<<< HEAD
         url : '/api/iot-platform/device-def/sub-device/list?deviceType={deviceType}&localNo={localNo}&pageSize={pageSize}&name={name}&parentId={parentId}&page={page}&floor={floor}&spaceType={spaceType}&communityId={communityId}',
+=======
+        url : '/mockjsdata/53/iot-platform/device-def/sub-device/list?deviceType={deviceType}&localNo={localNo}&pageSize={pageSize}&name={name}&parentId={parentId}&page={page}&floor={floor}&spaceType={spaceType}&communityId={communityId}',
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
         method : 'get'
       },
 
 
       //发现父级设备列表
       'findFatherCenterControlEquipment':{
+<<<<<<< HEAD
         url : '/api/iot-platform/device-def/discovery',
+=======
+        url : '/mockjsdata/53/iot-platform/device-def/discovery',
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
         method : 'get'
       },
 
 
       //强制删除中控设备
       'deleteCenterControlEquipment':{
+<<<<<<< HEAD
         url : '/api/iot-platform/device-def/actions/force-delete',
         method : 'post'
       },
@@ -559,10 +592,36 @@ module.exports = {
         url : '/api/iot-platform/device/deploy/actions/view?communityId={communityId}&connected={connected}&ip={ip}',
         method : 'get'
       },
+=======
+        url : '/mockjsdata/53/iot-platform/device-def/actions/force-delete',
+        method : 'post'
+      },
+
+      //查看子设备详情
+      'SonEquipmentDetail':{
+        url : '/mockjsdata/53/iot-platform/device-def/sub-device/detail?id={id}',
+        method : 'get'
+      },
+
+      //发现设备之后启用
+      'startCenterControlEquipment':{
+        url : '/mockjsdata/53/iot-platform/device-def/actions/enable',
+        method : 'post'
+      },
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
+
+
+      
 
 
 
       
+
+<<<<<<< HEAD
+      
+=======
+   
+>>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
 }
 
 
