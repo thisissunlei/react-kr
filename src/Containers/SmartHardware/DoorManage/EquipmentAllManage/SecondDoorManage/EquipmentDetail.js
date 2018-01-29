@@ -110,34 +110,131 @@ export default class EquipmentDetail extends React.Component{
 				<div className="detail-list-equipment">
 					<Button label="刷新设备上报信息" onTouchTap={this.freshEquipmentReporter} style={{width:130,margin:"0 0 20px 30px"}}/>
 					<div>
-						<div className="tr-line"><div className="td-left">硬件ID:</div><div className="td-right">{params.deviceId || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">标记:</div><div className="td-right">{params.name || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">底层固件版本:</div><div className="td-right">{params.driverV || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{params.v || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{params.ip || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">当前连接服务器:</div><div className="td-right">{params.loginedServer || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">最后连接时间:</div><div className="td-right">{DateFormat(detail.ctime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">最后断开时间:</div><div className="td-right">{DateFormat(detail.logoutTime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
+						<div style={{paddingLeft:20}}>
+							<KrField
+									style={{width:400}}
+									inline={true}
+									component="labelText"
+									label="硬件ID："
+									value={params.deviceId || "无"}
+							/>
+							<KrField
+									style={{width:400}}
+									inline={true}
+									component="labelText"
+									label="标记："
+									value={params.name || "无"}
+							/>
+							<KrField
+									style={{width:400}}
+									inline={true}
+									component="labelText"
+									label="底层固件版本："
+									value={params.driverV || "无"}
+							/>
+							<KrField
+									style={{width:400}}
+									inline={true}
+									component="labelText"
+									label="APP版本："
+									value={params.v || "无"}
+							/>
+							<KrField
+									style={{width:400}}
+									inline={true}
+									component="labelText"
+									label="IP地址："
+									value={params.ip || "无"}
+							/>
+
+							<KrField
+									style={{width:400}}
+									inline={true}
+									component="labelText"
+									label="当前连接服务器："
+									value={params.loginedServer || "无"}
+							/>
+							<KrField
+									style={{width:400}}
+									inline={true}
+									component="labelText"
+									label="最后连接时间："
+									value={DateFormat(detail.ctime, "yyyy-mm-dd HH:mm:ss") || "无"}
+							/>
+							<KrField
+									style={{width:400}}
+									inline={true}
+									component="labelText"
+									label="最后断开时间："
+									value={DateFormat(detail.logoutTime, "yyyy-mm-dd HH:mm:ss") || "无"}
+							/>
+						</div>
 												
 						<div>
 							<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="json-str-report"></pre></div></div>
 							<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="json-str-desired"></pre></div></div>
 						</div>
 					</div>
-					<div>
-						<div className="tr-line"><div className="td-left">社区名称:</div><div className="td-right">{detail.communityName || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">楼层:</div><div className="td-right">{detail.floor || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">房间:</div><div className="td-right">{detail.roomName || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">门类型:</div><div className="td-right">{detail.doorTypeName || "无"}</div></div>
-						
-						<div className="tr-line"><div className="td-left">屏幕展示标题:</div><div className="td-right">{detail.title || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">屏幕展示编号:</div><div className="td-right">{detail.doorCode || "无"}</div></div>
-						
-						<div className="tr-line"><div className="td-left">厂家:</div><div className="td-right">{detail.makerName || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">二维码有效期:</div><div className="td-right">{DateFormat(detail.qrExpireAt, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
-						<div className="tr-line"><div className="td-left">二维码:</div><div className="td-right" style={{paddingLeft:5}}>{detail.qrImgUrl?<img src={detail.qrImgUrl} style={{width:100,height:100}}/>:<span>无</span>}</div></div>
-						<div className="tr-line"><div className="td-left">二维码地址:</div><div className="td-right">{detail.qrImgUrl || "无"}</div></div>
-						<div className="tr-line-last" style={{display:"block"}}><div className="td-left">备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
+					<div style={{paddingLeft:20}}>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="社区名称："
+							value={detail.communityName || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="楼层："
+							value={detail.floor || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="房间："
+							value={detail.roomName || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="门类型："
+							value={detail.doorTypeName || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="屏幕展示标题："
+							value={detail.title || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="屏幕展示编号："
+							value={detail.doorCode || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="厂家："
+							value={detail.makerName || "无"}
+						/>
+						<KrField
+							style={{width:400}}
+							inline={true}
+							component="labelText"
+							label="二维码有效期："
+							value={DateFormat(detail.qrExpireAt, "yyyy-mm-dd HH:mm:ss") || "无"}
+						/>
+						<div style={{fontSize:14,paddingLeft:10}}><div className="td-left" style={{display:"inline-block",marginRight:10}}>二维码地址:</div><div className="td-right" style={{color : "#666",marginTop:10,display:"inline-block"}}>{detail.qrImgUrl || "无"}</div></div>
+						<div style={{display:"block",fontSize:14,marginTop:20,paddingLeft:10}}><div className="td-left" style={{display:"inline-block",verticalAlign:"top"}}>二维码:</div><div className="td-right" style={{paddingLeft:5,display:"inline-block"}}>{detail.qrImgUrl?<img src={detail.qrImgUrl} style={{width:100,height:100}}/>:<span>无</span>}</div></div>
+						<div className="tr-line-last" style={{display:"block"}}><div className="td-left" style={{fontSize:14}}>备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
 
 					</div>
 				</div>
