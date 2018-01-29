@@ -769,8 +769,19 @@ export default class OrderDetail extends React.Component {
 					<TableRowColumn>{item.inputUser}</TableRowColumn>
 					<TableRowColumn>
 					<span className='upload-button'><Button  type="link" href="javascript:void(0)" label="查看" onTouchTap={this.getAgrementDetailUrl.bind(this,item.customerid,this.props.params.orderId,item.contracttype,item.id)} /></span>
-					{/* <span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>*/}
-					<span className='upload-button'><Button  type="link" label="打印" href="javascript:void(0)" onTouchTap={this.print.bind(this,item)}/></span>
+					<span className='upload-button'><Button  type="link" label="附件" href="javascript:void(0)" onTouchTap={this.uploadFile.bind(this,item.id)}/></span>
+					{/*<span className='upload-button'><Button  type="link" label="打印" href="javascript:void(0)" onTouchTap={this.print.bind(this,item)}/></span>*/}
+					
+					{(item.contracttype != 'QUITRENT' || showMoreOnExit)?<Button  type="link" href="javascript:void(0)" icon={<FontIcon className="icon-more" style={{fontSize:'16px'}}/>} onTouchTap={this.showMoreOpretion.bind(this,item.id)}/>:''}
+
+					<UpLoadList open={[this.state.openMenu,this.state.openId]} onChange={this.onChange} detail={item}>Tooltip</UpLoadList>
+					<div style={{visibility:showOpretion}} className="m-operation" >
+						 {item.contracttype !=  'QUITRENT' &&
+						 <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
+
+					</div>
+
+
 					</TableRowColumn>
 					</TableRow>
 				);
