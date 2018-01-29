@@ -234,8 +234,8 @@ export default class IPAddressCheckBox  extends React.Component{
 			          	
 			        </Table>:
 					<div style={{display:"block",width:"100%",borderTop:"solid 1px #eee",textAlign:"center",padding:"200px 0"}}>
-						<img src={require('./images/nothings.png')}/>
-						<p style={{textAlign:"center",marginTop:10}}>暂时没有数据</p>
+						<img src={require('./images/search.png')} style={{width:150}}/>
+						<p style={{textAlign:"center",marginTop:10}}>请输入查询条件查询设备</p>
 					</div>
 					}
 					
