@@ -116,7 +116,9 @@ export default class EquipmentDetail extends React.Component{
 						<div className="tr-line"><div className="td-left">APP版本:</div><div className="td-right">{params.v || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">IP地址:</div><div className="td-right">{params.ip || "无"}</div></div>
 						<div className="tr-line"><div className="td-left">当前连接服务器:</div><div className="td-right">{params.loginedServer || "无"}</div></div>
-						
+						<div className="tr-line"><div className="td-left">最后连接时间:</div><div className="td-right">{DateFormat(detail.ctime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
+						<div className="tr-line"><div className="td-left">最后断开时间:</div><div className="td-right">{DateFormat(detail.logoutTime, "yyyy-mm-dd HH:mm:ss") || "无"}</div></div>
+												
 						<div>
 							<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="json-str-report"></pre></div></div>
 							<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="json-str-desired"></pre></div></div>

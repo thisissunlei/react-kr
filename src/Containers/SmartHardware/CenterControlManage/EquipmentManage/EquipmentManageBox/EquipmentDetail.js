@@ -232,13 +232,7 @@ export default class EquipmentDetail extends React.Component{
 								value={_this.returnConnectStatus()}
 							/>
 
-							<KrField
-								style={{width:400}}
-								inline={true}
-								component="labelText"
-								label="最后一次连接时间："
-								value={DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}
-							/>
+							
 
 							<KrField
 								style={{width:400}}
@@ -247,6 +241,25 @@ export default class EquipmentDetail extends React.Component{
 								label="最后一次更新时间："
 								value={DateFormat(detail.utime, "yyyy-mm-dd HH:MM:ss") || "无"}
 							/>
+
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="最后连接时间："
+								value={DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}
+							/>
+
+
+							<KrField
+								style={{width:400}}
+								inline={true}
+								component="labelText"
+								label="最后断开时间："
+								value={DateFormat(detail.logoutTime, "yyyy-mm-dd HH:MM:ss") || "无"}
+							/>
+
+
 						</div>
 						
 						<div>
