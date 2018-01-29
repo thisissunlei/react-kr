@@ -86,7 +86,6 @@ const SmartHardware_CenterControlManage_OperateLog = (location, callback) => {
   }, 'SmartHardware_CenterControlManage_OperateLog')
 }
 
-<<<<<<< HEAD
 const SmartHardware_EquipmentManage_IpAddressCheck =  (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/SmartHardware/EquipmentManage/IpAddressCheck').default)
@@ -101,8 +100,6 @@ const SmartHardware_EquipmentManage_EquipmentSearch =  (location, callback) => {
 
 
 
-=======
->>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
 
 
 
@@ -134,7 +131,6 @@ module.exports =()=>{
 
       <Route path="centercontrolmanage" getComponent={Basic}>
         <Route path="equipmentmanage" getComponent={SmartHardware_CenterControlManage_EquipmentManage}/>
-<<<<<<< HEAD
         <Route path="sonequipmentmanage/:sonEquipmentId/:fatherEquipmentId/:fatherName" getComponent={SmartHardware_CenterControlManage_SonEquipmentManage}/>
         <Route path="operatelog" getComponent={SmartHardware_CenterControlManage_OperateLog}/>
       </Route>
@@ -145,11 +141,6 @@ module.exports =()=>{
       </Route> 
         
       
-=======
-        <Route path="sonequipmentmanage/:sonEquipmentId" getComponent={SmartHardware_CenterControlManage_SonEquipmentManage}/>
-        <Route path="operatelog" getComponent={SmartHardware_CenterControlManage_OperateLog}/>
-      </Route>
->>>>>>> 1d7cd2578caea5541181dafb479cc5f5fdf0cf63
 			
 		</Route>
 	);
