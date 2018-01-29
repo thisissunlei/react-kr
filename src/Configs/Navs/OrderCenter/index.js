@@ -1,8 +1,8 @@
 
 module.exports = [
-	{
-		primaryText: "订单中心",
-        menuCode:'order',
+    {
+        primaryText: "订单中心",
+        menuCode: 'order',
         menuItems: [
             {
                 primaryText: "订单管理",
@@ -13,26 +13,27 @@ module.exports = [
                     {
                         primaryText: "工位订单列表",
                         originUrl: '/order-center/order-manage/station-order-manage',
-                        type:'vue',
+                        type: 'vue',
                         menuCode: 'seat_order_list',
                     },
                     {
-						primaryText: '会议室订单管理',
-						menuCode: 'fina_meeting_order_page',
-						originUrl: '/order/list',
+                        primaryText: '会议室订单管理',
+                        menuCode: 'fina_meeting_order_page',
+                        originUrl: '/order/list',
                     },
                     {
                         primaryText: "通用订单列表",
                         originUrl: '/order-center/order-manage/general-order-manage',
-                        type:'vue',
+                        type: 'vue',
                         menuCode: 'orderCurrency_list',
                     },
+                    
                     {
-						primaryText: '撤场记录管理',
-						type: 'vue',
-						originUrl: '/operations-center/from-field',
-						menuCode: 'csr_withdrawal_list',
-					}                             
+                        primaryText: '撤场记录管理',
+                        router: 'operations-center/from-field',
+                        menuCode: 'checklist_list',
+                    }
+
                 ]
             },
             {
@@ -44,7 +45,7 @@ module.exports = [
                     {
                         primaryText: "合同列表",
                         originUrl: '/order-center/contract-manage/contract-list/list',
-                        menuCode: 'iot_door_open_log',
+                        menuCode: 'stationContract_list',
                         //menuCode: 'fina_meeting_order_page'
                     },
                 ]
@@ -61,7 +62,7 @@ module.exports = [
                     },
 
                 ]
-            }, 
+            },
         ]
-	}
+    }
 ]
