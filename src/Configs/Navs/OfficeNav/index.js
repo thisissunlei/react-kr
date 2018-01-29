@@ -66,7 +66,7 @@ module.exports = [
 					},
 					{
 						primaryText: '合同扫码',
-						menuCode: 'wf_contract_list',
+						menuCode: 'pigeonhole',
 						originUrl: '/order-center/contract-manage/contract-yard',
 					}
 				]	
