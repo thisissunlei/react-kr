@@ -68,6 +68,45 @@ const SmartHardware_PrintManage_PriceConfig = (location, callback) => {
 }
 
 
+const SmartHardware_CenterControlManage_EquipmentManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/CenterControlManage/EquipmentManage').default)
+  }, 'SmartHardware_CenterControlManage_EquipmentManage')
+}
+
+const SmartHardware_CenterControlManage_SonEquipmentManage = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/CenterControlManage/SonEquipmentManage').default)
+  }, 'SmartHardware_CenterControlManage_SonEquipmentManage')
+}
+
+const SmartHardware_CenterControlManage_OperateLog = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/CenterControlManage/OperateLog').default)
+  }, 'SmartHardware_CenterControlManage_OperateLog')
+}
+
+const SmartHardware_EquipmentManage_IpAddressCheck =  (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/EquipmentManage/IpAddressCheck').default)
+  }, 'SmartHardware_EquipmentManage_IpAddressCheck')
+}
+
+const SmartHardware_EquipmentManage_EquipmentSearch =  (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/SmartHardware/EquipmentManage/EquipmentSearch').default)
+  }, 'SmartHardware_EquipmentManage_EquipmentSearch')
+}
+
+
+
+
+
+
+
+
+
+
 
 module.exports =()=>{
 
@@ -89,6 +128,19 @@ module.exports =()=>{
 				<Route path="priceconfig" getComponent={SmartHardware_PrintManage_PriceConfig}/>
 				
 			</Route>
+
+      <Route path="centercontrolmanage" getComponent={Basic}>
+        <Route path="equipmentmanage" getComponent={SmartHardware_CenterControlManage_EquipmentManage}/>
+        <Route path="sonequipmentmanage/:sonEquipmentId/:fatherEquipmentId/:fatherName" getComponent={SmartHardware_CenterControlManage_SonEquipmentManage}/>
+        <Route path="operatelog" getComponent={SmartHardware_CenterControlManage_OperateLog}/>
+      </Route>
+
+      <Route path="equipmentmanage" getComponent={Basic}>
+        <Route path="equipmentsearch" getComponent={SmartHardware_EquipmentManage_EquipmentSearch}/>
+        <Route path="checkrepeatip" getComponent={SmartHardware_EquipmentManage_IpAddressCheck}/>
+      </Route> 
+        
+      
 			
 		</Route>
 	);

@@ -22,6 +22,7 @@ let State = observable({
 	passwordDialog : false,
 	openEquipmentCache:false,
 	synchronizingPswDialog :false,
+	switchOpenEditSerialNo :false,
 	equipmentDatailInfo:[],
 	selectedDeleteIds:'',
 	makerOptions :[],
@@ -147,25 +148,25 @@ State.getDicList = action(function() {
 
 });
 
-//获取升级信息列表字典
-State.getUpgradeTypeOptions = action(function() {
-	var _this = this;
-	Http.request('getUpgradeInfoUrl', {}).then(function(response) {
+// //获取升级信息列表字典
+// State.getUpgradeTypeOptions = action(function(params) {
+// 	var _this = this;
+// 	Http.request('getUpgradeInfoUrl',params).then(function(response) {
 		
-		var arrNew = []
-		for (var i=0;i<response.items.length;i++){
-			arrNew[i] = {
-						label:response.items[i].label,
-						value:response.items[i].value
-					}
-		}
-		State.typeOptions = arrNew;
+// 		var arrNew = []
+// 		for (var i=0;i<response.items.length;i++){
+// 			arrNew[i] = {
+// 						label:response.items[i].label,
+// 						value:response.items[i].value
+// 					}
+// 		}
+// 		State.typeOptions = arrNew;
 
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
+// 	}).catch(function(err) {
+// 		Message.error(err.message);
+// 	});
 
-});
+// });
 
 
 
