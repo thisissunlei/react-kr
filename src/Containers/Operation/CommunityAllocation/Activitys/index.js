@@ -199,7 +199,7 @@ export default class ActivityList extends React.Component {
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
 					                <TableRowColumn 
-					                		name="address"
+					                		name="site"
 					                		component={(value,oldValue)=>{
 				                            var TooltipStyle=""
 				                            if(value.length==""){

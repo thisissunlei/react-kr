@@ -102,7 +102,7 @@ import AddressComponent from './AddressComponent';
 import CountyComponent from './CountyComponent';
 import SelectListComponent from './SelectListComponent';
 import SearchMemberCompany from './SearchMemberCompany';
-
+import SearchAllCommunity from './SearchAllCommunity';
 
 
 class FieldRevert extends React.Component {
@@ -287,6 +287,12 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
 				)
 			}
+			if (component === 'searchAllCommunity') {
+				return (
+					<FieldRevert {...this.props} component={SearchAllCommunity}  style={WrapStyles} {...other}/>
+				)
+			}
+			
 			if (component === 'searchRegCommunity') {
 				return (
 					<FieldRevert {...this.props} component={SearchRegCommunity}  style={WrapStyles} {...other}/>
