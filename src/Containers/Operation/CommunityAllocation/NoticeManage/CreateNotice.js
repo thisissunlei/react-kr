@@ -112,10 +112,10 @@ class CreateNotice extends React.Component {
 								maxSize={60}
 								
 							/>
-							<KrField name="push" component="group" label="同步推送" requireLabel={true} style={{width:260,marginRight:25,marginTop:25}} >
+							{/*<KrField name="push" component="group" label="同步推送" requireLabel={true} style={{width:260,marginRight:25,marginTop:25}} >
 	 							 <KrField name="push" label="是" type="radio" value='1' />
 	 							 <KrField name="push" label="否" type="radio" value='0' />
-	 						</KrField>
+		 						</KrField>*/}
 						<Grid style={{marginTop:50,width:'81%'}}>
 						<Row >
 						<Col md={12} align="center">
