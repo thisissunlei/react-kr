@@ -171,8 +171,8 @@ export default class EquipmentDetail extends React.Component{
 						</div>
 												
 						<div>
-							<div className="tr-line-bottom"><div className="td-left">设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="json-str-report"></pre></div></div>
-							<div className="tr-line-bottom"><div className="td-left">设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="json-str-desired"></pre></div></div>
+							<div className="tr-line-bottom"><div className="td-left" style={{fontSize:14,fontWeight:"normal"}}>设备上报信息:</div><div className="td-right" style={{display:showReported?"block":"none"}}><pre id="json-str-report"></pre></div></div>
+							<div className="tr-line-bottom"><div className="td-left" style={{fontSize:14,fontWeight:"normal"}}>设备影子信息:</div><div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="json-str-desired"></pre></div></div>
 						</div>
 					</div>
 					<div style={{paddingLeft:20}}>
@@ -234,7 +234,10 @@ export default class EquipmentDetail extends React.Component{
 						/>
 						<div style={{fontSize:14,paddingLeft:10}}><div className="td-left" style={{display:"inline-block",marginRight:10}}>二维码地址:</div><div className="td-right" style={{color : "#666",marginTop:10,display:"inline-block"}}>{detail.qrImgUrl || "无"}</div></div>
 						<div style={{display:"block",fontSize:14,marginTop:20,paddingLeft:10}}><div className="td-left" style={{display:"inline-block",verticalAlign:"top"}}>二维码:</div><div className="td-right" style={{paddingLeft:5,display:"inline-block"}}>{detail.qrImgUrl?<img src={detail.qrImgUrl} style={{width:100,height:100}}/>:<span>无</span>}</div></div>
-						<div className="tr-line-last" style={{display:"block"}}><div className="td-left" style={{fontSize:14}}>备注:</div><div className="td-right">{detail.memo || "无"}</div></div>
+						<div style={{display:"block",fontSize:14,paddingLeft:10,color:"#333"}}>
+							<div style={{}}>备注:</div>
+							<div style={{marginTop:10}}>{detail.memo || "无"}</div>
+						</div>
 
 					</div>
 				</div>
