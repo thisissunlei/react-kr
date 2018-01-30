@@ -62,9 +62,7 @@ export default class ImageShear extends React.Component {
         that.trget.addEventListener('mouseout',that.imgMouseOut);
         that.trget.addEventListener('mouseover',that.imgMouseOver)
         that.trget.addEventListener('mousewheel',that.scoll)
-        // that.trget.onscroll = function(){
-        //   console.log("OOOO")
-        // };
+        
         that.canImgSet();
         that.canRander();
       }
@@ -324,17 +322,6 @@ export default class ImageShear extends React.Component {
       const {onCancel}=this.props;
       onCancel && onCancel();
     }
-    // componentWillUnmount(){
-    //     this.trget.addEventListener(this.imgMousedown);
-    //     this.trget.addEventListener(this.imgMouseup);
-    //     this.trget.addEventListener(this.imgMouseMove);
-    //     this.trget.addEventListener(this.imgMouseOut);
-    //     this.trget.addEventListener(this.imgMouseOver)
-    //     this.trget.addEventListener(this.scoll)
-    // }
-
-
-
 	render() {
     const {
       children,
