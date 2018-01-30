@@ -40,6 +40,7 @@ const More = ({...props})=>{
 		<div className="u-header-more">
 			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
 			<div className="u-header-more-box">
+				<p className="u-single"></p>
 				<ul className="u-header-more-list">
 					{navs.map((item,index)=>{
 						return(
@@ -152,11 +153,13 @@ export default class Header extends React.Component {
 		NavModel.clearSidebar();
 
 	}
-	renderNav = (navs)=>{
+	renderNav = (Navs)=>{
+		var navs=Navs.slice(0,7);
 		var navIsActive=navs.map((item,index)=>{
 			return item.isActive;
 		})
 		var isActive=navIsActive.indexOf(true)==-1?true:false;
+
 		
 		return (
 			<Nav> 

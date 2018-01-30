@@ -178,11 +178,12 @@ module.exports = [
 						menuCode: 'oper_opinion_base',
 						router: '/operation/communityAllocation/opinion'
 					},
-					// {
-					// 	primaryText: '企业认证',
-					// 	menuCode: 'company_verify',
-					// 	router: '/operation/communityAllocation/companyVerify'
-					// },
+					{
+						primaryText: '管家设置',
+						menuCode: 'oper_steward_base',
+						type:'vue',
+						originUrl: '/app-manage/steward-setting',
+					},
 				]
 			},
 			{

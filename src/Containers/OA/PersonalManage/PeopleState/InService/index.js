@@ -41,7 +41,7 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
-
+import State from './State';
 @inject("NavModel")
 @observer
 export default class InService  extends React.Component{
@@ -89,6 +89,7 @@ export default class InService  extends React.Component{
       isName:false,
       positionList:[]
 		}
+		// this.disabled
 	}
 
 
@@ -251,15 +252,17 @@ export default class InService  extends React.Component{
 
    //开通关闭
     cancelAccount=()=>{
-	 this.setState({
-		openAccount:!this.state.openAccount
-	 })
+		State.disabled = false;
+		this.setState({
+			openAccount:!this.state.openAccount
+		})
    }
 
     //开通提交
    addOpenSubmit=()=>{
-	   const _this = this;
-	   const {resourceId} = this.state;
+		const _this = this;
+	   	State.disabled = true;	
+		const {resourceId} = this.state;
 	    var param={};
 	    param.resourceId=resourceId;
 		var searchParams={
@@ -270,7 +273,9 @@ export default class InService  extends React.Component{
                searchParams:Object.assign({},_this.state.searchParams,searchParams)
 		    })
 			_this.cancelAccount();
+			State.disabled = false;	
         }).catch(function (err) {
+			State.disabled = false;	
             Message.error(err.message);
         });
    }
