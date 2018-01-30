@@ -17,7 +17,8 @@ import {
 	ButtonGroup,
 	Button,
 	DrawerTitle,
-	Message
+	Message,
+	IconTip
 } from 'kr-ui';
 import './index.less';
 
@@ -41,6 +42,15 @@ class CreateNotice extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
+		var ptime,etime;
+		if(form.publishtime && form.publishDate){
+			ptime=form.publishtime.substring(0,10);
+			form.publishTime=`${ptime} ${form.publishDate}:00`;
+		}
+		if(form.endtime && form.endDate){
+			etime=form.endtime.substring(0,10);
+			form.endTime=`${etime} ${form.endDate}:00`;
+		}
 		
 		
 		Http.request('create-notice',{},form).then(function(response) {
@@ -78,7 +88,7 @@ class CreateNotice extends React.Component {
 				<div className="u-create-title">
 					<DrawerTitle title ='新建公告' onCancel = {this.onCancel}/>
 				</div>
-				<form ref="form" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:42}}>
+				<form className="u-form" ref="form" onSubmit={handleSubmit(this.onSubmit)} style={{paddingLeft:42}}>
 							<KrField  
 					 			style={{width:262,marginRight:25,margintop:20}} 
 					 			name="cmtId"
@@ -89,18 +99,41 @@ class CreateNotice extends React.Component {
 						 		requireLabel={true}
 						 		
 						 	/>
-							 <KrField
-								style={{width:260,marginRight:25,margintop:20}}
-								name="publishTime"
-								component="date"
-								label="发布时间"
-						 	/>
-							 <KrField
-								style={{width:260,marginRight:25,margintop:20}}
-								name="endTime"
-								component="date"
-								label="过期时间"
-						 	/>
+							 <KrField name="publishTimes" component="group" label="发布时间"  style={{width:280}} >
+									<KrField
+											style={{width:120,marginLeft:'-10px',marginTop:'-10px'}}
+											name="publishtime"
+											component="date"
+									/>
+									<KrField 
+											component="timeSelect"
+											style={{width:108,marginLeft:40,marginTop:'-10px'}} 
+											name='publishDate'
+									/>
+							</KrField>
+							 <div style={{ position:'absolute',top:-2,right:235}}>
+	                                <IconTip tipStyle = {{width:100}}>
+	                                    <div style={{textAlign:'left'}}>不填默认为当前时间</div>
+	                                </IconTip>
+	                        </div>
+							<KrField name="endTimes" component="group" label="过期时间"  style={{width:280}} >
+									<KrField
+											style={{width:120,marginLeft:'-10px',marginTop:'-10px'}}
+											name="endtime"
+											component="date"
+									/>
+									<KrField 
+											component="timeSelect"
+											style={{width:108,marginLeft:40,marginTop:'-10px'}} 
+											name='endDate'
+									/>
+							</KrField>
+							 
+							<div  style={{ position:'absolute',top:80,left:120}}>
+								<IconTip tipStyle = {{width:100}}>
+									<div style={{textAlign:'left'}}>不填默认为永久有效</div>
+								</IconTip>
+	                        </div>
 							
 						 	<KrField 
 								component="textarea" 
