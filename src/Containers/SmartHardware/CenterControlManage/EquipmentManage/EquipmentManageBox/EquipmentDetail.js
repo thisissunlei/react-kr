@@ -247,7 +247,7 @@ export default class EquipmentDetail extends React.Component{
 								inline={true}
 								component="labelText"
 								label="最后连接时间："
-								value={DateFormat(detail.connectTime, "yyyy-mm-dd HH:MM:ss") || "无"}
+								value={(detail.deviceVO && DateFormat(detail.deviceVO.loginedUtime, "yyyy-mm-dd HH:MM:ss")) || "无"}
 							/>
 
 
@@ -256,7 +256,7 @@ export default class EquipmentDetail extends React.Component{
 								inline={true}
 								component="labelText"
 								label="最后断开时间："
-								value={DateFormat(detail.logoutTime, "yyyy-mm-dd HH:MM:ss") || "无"}
+								value={(detail.deviceVO && DateFormat(detail.deviceVO.logoutTime, "yyyy-mm-dd HH:MM:ss")) || "无"}
 							/>
 
 

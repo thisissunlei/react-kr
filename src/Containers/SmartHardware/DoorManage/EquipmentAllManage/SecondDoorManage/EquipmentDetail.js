@@ -102,7 +102,7 @@ export default class EquipmentDetail extends React.Component{
 		let {detail} = this.props;
 		let {showReported,showDesired} = this.state;
 		var params = detail.deviceVO;
-		console.log("params",params);
+		// console.log("params",params);
 		return (
 			<div className="seconde-dialog">
 				<img src={require("./images/closeIMG.svg")} className="close-dialog" onClick={this.closeDialog}/>
@@ -159,14 +159,14 @@ export default class EquipmentDetail extends React.Component{
 									inline={true}
 									component="labelText"
 									label="最后连接时间："
-									value={DateFormat(detail.ctime, "yyyy-mm-dd HH:mm:ss") || "无"}
+									value={DateFormat(params.loginedUtime, "yyyy-mm-dd HH:MM:ss") || "无"}
 							/>
 							<KrField
 									style={{width:400}}
 									inline={true}
 									component="labelText"
 									label="最后断开时间："
-									value={DateFormat(detail.logoutTime, "yyyy-mm-dd HH:mm:ss") || "无"}
+									value={DateFormat(params.logoutTime, "yyyy-mm-dd HH:MM:ss") || "无"}
 							/>
 						</div>
 												
