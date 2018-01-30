@@ -98,7 +98,7 @@ class CustomerIndent extends Component{
 						
 							<span>
 							
-								{item.contractSize ? '' : <Button operateCode="oper_mainbill_edit"  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>}
+								{/*item.contractSize ? '' : <Button operateCode="oper_mainbill_edit"  label="编辑" type="button" cancle={true} onTouchTap={_this.editIndentClick.bind(this,item.id)}/>*/}
 							
 							<span className="interval"></span></span>
 						
@@ -107,7 +107,7 @@ class CustomerIndent extends Component{
 						  <a className='watchGo' href={`./#/operation/customerManage/${_this.props.listId}/order/${item.id}/detail`} target='_blank'/>
 						</Button>
 						<span className="interval"></span>
-							{item.contractSize ? '' : <Button operateCode= 'oper_mainbill_del' label="删除" type="button" cancle={true} 
+							{/*item.contractSize ? '' : <Button operateCode= 'oper_mainbill_del' label="删除" type="button" cancle={true} 
 						 	onTouchTap={()=>{
 								if(operType=="PERSON"){
 								//    personal.deleteId=item.id;
@@ -121,7 +121,7 @@ class CustomerIndent extends Component{
 
 								DeleteSwitch();
 							}} 
-						/>}
+						/>*/}
 					</div>
 
 				</div>
