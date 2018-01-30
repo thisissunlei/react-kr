@@ -251,13 +251,13 @@ class NoticeManage extends React.Component {
 					                <TableRowColumn 
 					                	name="publishTime" 
 					                	component={(value) => {
-					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+					                          return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
 					                    }}
 					                ></TableRowColumn>
 					                <TableRowColumn 
 					                	name="endTime" 
 					                	component={(value) => {
-					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+					                          return (<KrDate value={value} format="yyyy-mm-dd HH:MM:ss"/>)
 					                    }}
 					                ></TableRowColumn>
 					               
