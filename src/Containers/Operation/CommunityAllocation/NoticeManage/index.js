@@ -1,6 +1,11 @@
 import React from 'react';
 import {Http,ReactHtmlParser} from 'kr/Utils';
 import {
+	reduxForm,
+	submitForm,
+	change,
+} from 'redux-form';
+import {
 	Title,
 	Section,
 	Table,
@@ -15,13 +20,14 @@ import {
 	Dialog,
 	Tooltip,
 	KrDate,
-	Message
+	Message,
+	SearchForms,
+	KrField
 } from 'kr-ui';
 import CreateNotice from './CreateNotice';
-import ViewNotice from './ViewNotice';
 import EditNotice from './EditNotice';
 import './index.less';
-export default class NoticeManage extends React.Component {
+class NoticeManage extends React.Component {
 
 
 	constructor(props, context) {
@@ -32,14 +38,12 @@ export default class NoticeManage extends React.Component {
 				pageSize:15
 			},
 			openNewCreat:false,
-			openView:false,
+			openCancel:false,
 			openDelete:false,
 			openEdit:false,
-			openPublish:false,
-			viewRichText:false,
-			viewItem:{},
 			page:1,
-			flag:0,
+			searchText:'',
+			cmtId:'',
 		}
 
 	}
@@ -49,7 +53,7 @@ export default class NoticeManage extends React.Component {
 	onDeleteData=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('delete-notice',{},{id:itemDetail.id}).then(function (response) {
+		Http.request('delete-notice',{},{noticeId:itemDetail.noticeId}).then(function (response) {
 			_this.openDelete();
 			Message.success('删除成功！');
 			_this.setState({
@@ -64,12 +68,12 @@ export default class NoticeManage extends React.Component {
 		});
 
 	}
-	openPublishDel=()=>{
+	onCancelNotice=()=>{
 		var _this=this;
 		const {itemDetail}=this.state;
-		Http.request('publish-notice',{},{id:itemDetail.id}).then(function (response) {
-			_this.openPublish();
-			Message.success('发布成功！');
+		Http.request('expire-notice',{},{noticeId:itemDetail.noticeId}).then(function (response) {
+			_this.openCancel();
+			Message.success('修改成功！');
 			_this.setState({
 				searchParams:{
 					date:new Date(),
@@ -93,11 +97,11 @@ export default class NoticeManage extends React.Component {
 		})
 
 	}
-	openView=(itemDetail)=>{
+	openCancel=(itemDetail)=>{
 		
 		this.setState({
 			itemDetail,
-			openView:!this.state.openView
+			openCancel:!this.state.openCancel
 		})
 	}
 	openEdit=(itemDetail)=>{
@@ -112,21 +116,8 @@ export default class NoticeManage extends React.Component {
 			openDelete:!this.state.openDelete
 		})
 	}
-	openPublish=(itemDetail)=>{
-		this.setState({
-			itemDetail,
-			openPublish:!this.state.openPublish
-		})
-	}
-	//预览
-	viewRichText=(item)=>{
-		this.setState({
-			viewRichText:!this.state.viewRichText,
-			viewItem:item,
-			flag:0
-		})
-	}
-
+	
+	
 	createSubmit=()=>{
 		this.setState({
 			searchParams:{
@@ -146,26 +137,54 @@ export default class NoticeManage extends React.Component {
 		})
 		this.openEdit();
 	}
-	
-	renderViewRichText=()=>{
-		let {viewItem}=this.state;
-		return(
-			<div className="u-view-rich-text">
-				<div className="u-view-rich-context">
-					<div className="u-view-rich-title">{viewItem.title}</div>
-					<div className="u-view-rich-detail clearFix">
-						<div className="u-view-rich-time">{viewItem.type==1?'氪空间团队':`${viewItem.cmtName}团队`} <span className="u-point">.</span> {viewItem.time}</div>
-						<div className="u-view-rich-com">{viewItem.typetxt}</div>
-					</div>
-					{viewItem && ReactHtmlParser(viewItem.richTextValue)}
-				</div>
-				<span className="u-view-close" onTouchTap={this.viewRichText}></span>
-			</div>
-			) 
+
+	//搜索
+	onSearchSubmit=(params)=>{
+		let {cmtId}=this.state;
+		if(cmtId){
+			this.setState({
+				searchParams:{
+					searchText:params.content,
+					cmtId
+				},
+				searchText:params.content
+			})
+		}else{
+			this.setState({
+				searchParams:{
+					searchText:params.content
+				},
+				searchText:params.content
+			})
+		}
+		
+		
 	}
+	selectCommunity=(params)=>{
+		let param=params.id?params.id:0;
+		let {searchText}=this.state;
+		if(searchText){
+			this.setState({
+				searchParams:{
+					cmtId:param,
+					searchText
+				},
+				cmtId:param
+			})
+		}else{
+			this.setState({
+				searchParams:{
+					cmtId:param
+				},
+				cmtId:param
+			})
+		}
+		
+	}
+	
 
 	render() {
-		let {itemDetail,viewRichText,flag}=this.state;
+		let {itemDetail}=this.state;
 		return (
 
 			<div className="g-notice" >
@@ -177,6 +196,22 @@ export default class NoticeManage extends React.Component {
 								type='button'
 								onTouchTap={this.openNewCreat}
 							/>
+						<SearchForms 
+							placeholder='请输入公告内容' 
+							inputName='mr' 
+							onSubmit={this.onSearchSubmit}
+						/>
+						<div className="u-communityName">
+							<KrField  
+									
+									name="cmtId"
+									component='searchAllCommunity'  
+									label="社区：" 
+									inline={true}  
+									placeholder='请输入社区名称' 
+									onChange={this.selectCommunity}
+							/>
+						</div>
 					</div>
 					<Table
 						  style={{marginTop:10}}
@@ -187,18 +222,18 @@ export default class NoticeManage extends React.Component {
 		                  onPageChange = {this.pageChange}
 					  >
 				            <TableHeader>
-				              <TableHeaderColumn>公告标题</TableHeaderColumn>
-				              <TableHeaderColumn>公告类型</TableHeaderColumn>
+				              <TableHeaderColumn>公告内容</TableHeaderColumn>
 				              <TableHeaderColumn>社区名称</TableHeaderColumn>
+							  <TableHeaderColumn>发布人</TableHeaderColumn>
+				              <TableHeaderColumn>阅读人数</TableHeaderColumn>
 				              <TableHeaderColumn>发布时间</TableHeaderColumn>
-				              <TableHeaderColumn>发布人</TableHeaderColumn>
-				              <TableHeaderColumn>发布状态</TableHeaderColumn>
+				              <TableHeaderColumn>过期时间</TableHeaderColumn>
 				              <TableHeaderColumn>操作</TableHeaderColumn>
 				          	</TableHeader>
 
 					        <TableBody >
 					              <TableRow>
-					                <TableRowColumn name="title" 
+					                <TableRowColumn name="text" 
 										component={(value,oldValue)=>{
 				                            var TooltipStyle=""
 				                            if(value.length==""){
@@ -210,39 +245,40 @@ export default class NoticeManage extends React.Component {
 				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 				                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 				                      }}></TableRowColumn>
-					                <TableRowColumn name="typeName"></TableRowColumn>
-					                <TableRowColumn name="cmtName" ></TableRowColumn>
+									<TableRowColumn name="cmtName" ></TableRowColumn>
+					                <TableRowColumn name="creater"></TableRowColumn>
+									<TableRowColumn name="readNum" ></TableRowColumn>
 					                <TableRowColumn 
 					                	name="publishTime" 
 					                	component={(value) => {
 					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
 					                    }}
 					                ></TableRowColumn>
-					                <TableRowColumn name="creater" ></TableRowColumn>
 					                <TableRowColumn 
-					                	name="published" 
-										options={[{label:'已发布',value:'1'},{label:'未发布',value:'0'}]}
+					                	name="endTime" 
+					                	component={(value) => {
+					                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+					                    }}
 					                ></TableRowColumn>
+					               
 					                <TableRowColumn 
-					                	name="published"
+					                	name="expired"
 										component={(value,oldValue,itemDetail) => {
-											if(value==1){
+											if(value==0){
 												return(
 													<div style={{display:'inline'}}>
-													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
+													<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
+													<Button label="过期" type="operation" onClick={this.openCancel.bind(this,itemDetail)} />
 												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
-												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-													</div>
+												  	</div>
 													)
 					                         
 											}
-											if(value==0){
+											if(value==1){
 												return(
 													<div style={{display:'inline'}}> 
-													<Button label="查看" type="operation" onClick={this.openView.bind(this,itemDetail)} />
-												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
-												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
-												  	<Button label="发布" type="operation" onClick={this.openPublish.bind(this,itemDetail)} />
+														<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
+												  		<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
 													</div>
 													)
 											}
@@ -255,7 +291,7 @@ export default class NoticeManage extends React.Component {
 					        </TableBody>
 			        		<TableFooter></TableFooter>
             		</Table>
-            		{viewRichText && this.renderViewRichText()}
+            		
 				</Section>
 				<Drawer
 	             modal={true}
@@ -268,8 +304,6 @@ export default class NoticeManage extends React.Component {
 	             	<CreateNotice 
 	             			onCancel={this.openNewCreat} 
 	             			onSubmit={this.createSubmit} 
-	             			viewRichText={this.viewRichText}
-	             			flag={flag}
 	             	 />
 	           </Drawer>
 	           <Drawer
@@ -284,23 +318,25 @@ export default class NoticeManage extends React.Component {
 	             			onCancel={this.openEdit}
 	             			detail={itemDetail} 
 	             			onSubmit={this.editSubmit}
-	             			viewRichText={this.viewRichText} 
-	             			flag={flag}
 	             	 />
 	           </Drawer>
-	           <Drawer
-	             modal={true}
-	             width={750}
-	             open={this.state.openView}
-	             onClose={this.openView}
-	             openSecondary={true}
-	             containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
-	           >
-	             	<ViewNotice 
-	             			onCancel={this.openView} 
-	             			detail={itemDetail}
-	             	 />
-	           </Drawer>
+			   <Dialog
+	              title="过期"
+	              modal={true}
+	              contentStyle ={{ width: '444',overflow:'visible'}}
+	              open={this.state.openCancel}
+	              onClose={this.openCancel}
+	            >
+	            <div className='u-list-delete'>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确定要将此公告设置为“已过期”吗？</p>
+					<div style={{textAlign:'center',marginBottom:10}}>
+	                      <div  className='ui-btn-center'>
+		                      <Button  label="确定" onClick={this.onCancelNotice}/></div>
+		                      <Button  label="取消" type="button" cancle={true} onClick={this.openCancel} />
+	                      </div>
+	            	</div>
+	            </Dialog> 
+	           
 	           <Dialog
 	              title="删除"
 	              modal={true}
@@ -317,23 +353,12 @@ export default class NoticeManage extends React.Component {
 	                      </div>
 	            	</div>
 	            </Dialog>
-	            <Dialog
-	              title="发布"
-	              modal={true}
-	              contentStyle ={{ width: '444',overflow:'visible'}}
-	              open={this.state.openPublish}
-	              onClose={this.openPublish}
-	            >
-	            <div className='u-list-delete'>
-	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要发布公告吗？</p>
-					<div style={{textAlign:'center',marginBottom:10}}>
-	                      <div  className='ui-btn-center'>
-		                      <Button  label="确定" onClick={this.openPublishDel}/></div>
-		                      <Button  label="取消" type="button" cancle={true} onClick={this.openPublish} />
-	                      </div>
-	            	</div>
-	            </Dialog>
+	           
 			</div>
 		);
 	}
 }
+export default reduxForm({
+	form: 'noticeManage'
+	
+})(NoticeManage);

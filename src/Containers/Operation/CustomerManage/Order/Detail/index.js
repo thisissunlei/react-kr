@@ -298,6 +298,7 @@ export default class OrderDetail extends React.Component {
 
 	componentDidMount() {
 		allState.listId=this.props.params.customerId;
+		console.log("allState.listId",allState.listId)
 		allState.mainBillId = this.props.params.orderId;
 		const closeAll = this.props.location.query.closeAll;
 		if (closeAll) {
@@ -778,7 +779,6 @@ export default class OrderDetail extends React.Component {
 					<div style={{visibility:showOpretion}} className="m-operation" >
 						 {item.contracttype !=  'QUITRENT' &&
 						 <span  style={{display:'block'}} onClick={this.print.bind(this,item)}>打印</span>}
-
 					</div>
 
 

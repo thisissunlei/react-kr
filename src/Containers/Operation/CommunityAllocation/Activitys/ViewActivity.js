@@ -125,6 +125,14 @@ class ViewNotice extends React.Component {
 					 			label="地点" 
 					 			inline={false} 
 								component="labelText"
+								value={infoList.site}
+						 	/>
+							 <KrField  
+					 			grid={1/2}
+					 			style={{width:260}} 
+					 			label="地址" 
+					 			inline={false} 
+								component="labelText"
 								value={infoList.address}
 						 	/>
 						 	<KrField  

@@ -3,6 +3,7 @@ module.exports = [
 	{
 		primaryText: "综合办公",
 		router: 'office',
+		originUrl: '#/office/officeBackground/newOffice',
 		menuItems: [
 			{
 				primaryText: "办公主页",
@@ -27,20 +28,6 @@ module.exports = [
 					},
 				]	
 			}, 
-			// {
-			// 	primaryText: '待办事宜',
-			// 	iconName: 'icon-schema',
-			// 	router: 'office',
-			// 	iconColor: '#79859a',
-			// 	menuCode: 'hrm_resourcesList_incumbency',
-			// 	menuItems: [
-			// 		{
-			// 			primaryText: '待办列表',
-			// 			menuCode: 'hrm_resourcesList_incumbency',
-			// 			router: '/office/officeBackground/todo',
-			// 		},
-			// 	]	
-			// }, 
 			{
 				primaryText: '已办事宜',
 				iconName: 'icon-donething',
@@ -77,6 +64,11 @@ module.exports = [
 						menuCode: 'wf_contract_list',
 						router: '/office/officeBackground/contractMonitor',
 					},
+					{
+						primaryText: '合同扫码',
+						menuCode: 'pigeonhole',
+						originUrl: '/order-center/contract-manage/contract-yard',
+					}
 				]	
 			}, 
 		]

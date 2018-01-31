@@ -95,9 +95,8 @@ class CustomerIndent extends Component{
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="销售员:" style={unifyStyle} component="labelText" value={item.saleName} defaultValue='无' inline={true} /></li>
 					<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="销售时间:" style={unifyStyle} component="labelText" value={DateFormat(item.saleTime,'yyyy-mm-dd')} defaultValue='0' inline={true} /></li>
 					<div style={{marginTop:20,textAlign: "center"}} className='btnBoxShadow'>
-						
 						<Button operateCode= 'oper_order_view' label="查看" type="button" cancle={true}>
-						  <a className='watchGo' href={`./#/operation/customerManage/${_this.props.listId}/order/${item.id}/detail`} target='_blank'/>
+						  	<a className='watchGo' href={`./#/operation/customerManage/${_this.props.listId}/order/${item.id}/detail`} target='_blank'/>
 						</Button>
 					</div>
 

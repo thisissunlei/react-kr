@@ -4,8 +4,6 @@ import {
 	reduxForm
 } from 'redux-form';
 
-//import DatePicker from 'material-ui/DatePicker';
-import DatePicker from '../../DatePicker';
 import InputDate from '../../InputDate';
 
 import {

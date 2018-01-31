@@ -333,7 +333,7 @@ export default class UpLoadList extends React.Component {
 		}
 	}
 	download(item){
-		window.location.href = item.fileUrl;
+		window.location.href = window.location.host+'/'+ item.fileUrl;
 	}
 	render() {
 		let {isUploading,progress,files,fileName} = this.state;
