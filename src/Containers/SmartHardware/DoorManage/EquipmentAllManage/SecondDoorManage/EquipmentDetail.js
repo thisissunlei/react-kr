@@ -116,35 +116,35 @@ export default class EquipmentDetail extends React.Component{
 									inline={true}
 									component="labelText"
 									label="硬件ID："
-									value={params.deviceId || "无"}
+									value={(params && params.deviceId) || "无"}
 							/>
 							<KrField
 									style={{width:400}}
 									inline={true}
 									component="labelText"
 									label="标记："
-									value={params.name || "无"}
+									value={(params && params.name) || "无"}
 							/>
 							<KrField
 									style={{width:400}}
 									inline={true}
 									component="labelText"
 									label="底层固件版本："
-									value={params.driverV || "无"}
+									value={(params && params.driverV )|| "无"}
 							/>
 							<KrField
 									style={{width:400}}
 									inline={true}
 									component="labelText"
 									label="APP版本："
-									value={params.v || "无"}
+									value={(params && params.v) || "无"}
 							/>
 							<KrField
 									style={{width:400}}
 									inline={true}
 									component="labelText"
 									label="IP地址："
-									value={params.ip || "无"}
+									value={(params && params.ip) || "无"}
 							/>
 
 							<KrField
@@ -152,21 +152,21 @@ export default class EquipmentDetail extends React.Component{
 									inline={true}
 									component="labelText"
 									label="当前连接服务器："
-									value={params.loginedServer || "无"}
+									value={(params && params.loginedServer )|| "无"}
 							/>
 							<KrField
 									style={{width:400}}
 									inline={true}
 									component="labelText"
 									label="最后连接时间："
-									value={DateFormat(params.loginedUtime, "yyyy-mm-dd HH:MM:ss") || "无"}
+									value={(params && DateFormat(params.loginedUtime, "yyyy-mm-dd HH:MM:ss")) || "无"}
 							/>
 							<KrField
 									style={{width:400}}
 									inline={true}
 									component="labelText"
 									label="最后断开时间："
-									value={DateFormat(params.logoutTime, "yyyy-mm-dd HH:MM:ss") || "无"}
+									value={(params && DateFormat(params.logoutTime, "yyyy-mm-dd HH:MM:ss")) || "无"}
 							/>
 						</div>
 												
