@@ -84,7 +84,7 @@ class Login extends Component {
 		this.setState({
 			LoginHeight:docuW
 		})
-    //this.getCanvas();
+    this.getCanvas();
 		this.HandleEnterKey();
 
 	}
