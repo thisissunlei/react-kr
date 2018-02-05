@@ -263,11 +263,11 @@ export default class EquipmentDetail extends React.Component{
 						</div>
 						
 						<div>
-							<div className="tr-line-bottom">
+							<div className="tr-line-bottom" style={{margin:"10px 0"}}>
 								<div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>设备上报信息:</div>
 								<div className="td-right" style={{display:showReported?"block":"none"}}><pre id="center-control-report"></pre></div>
 							</div>
-							<div className="tr-line-bottom">
+							<div className="tr-line-bottom" style={{margin:"15px 0 10px 0"}}>
 								<div className="td-left" style={{fontSize:14,color:"#333",fontWeight:"normal"}}>设备影子信息:</div>
 								<div className="td-right" style={{display:showDesired?"block":"none"}}><pre id="center-control-desired"></pre></div>
 							</div>
