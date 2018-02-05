@@ -1,5 +1,5 @@
 module.exports = [
-	
+
 	{
 		primaryText: "财法管理",
 		router: 'finance',
@@ -10,7 +10,7 @@ module.exports = [
 				iconName: 'icon-money',
 				iconColor: '#79859a',
 				menuItems: [
-					
+
 				]
 			},
 			{
@@ -31,15 +31,15 @@ module.exports = [
 					},
 					{
 						primaryText: '凭证列表',
-			            router: '/finance/voucherManage/voucherList',
-			            menuCode: 'upload_evidence_base',
+						router: '/finance/voucherManage/voucherList',
+						menuCode: 'upload_evidence_base',
 					},
 					{
 						primaryText: "同步中心",
 						router: '/finance/manage/sync/list',
 						menuCode: 'sync_cmt_ctrl'
-					}, 
-					
+					},
+
 				]
 			},
 			{
@@ -52,8 +52,8 @@ module.exports = [
 						primaryText: "款项配置",
 						router: '/finance/manage/fundSetting/totalFund',
 						menuCode: 'fina_category_1stPage'
-					}, 
-					
+					},
+
 				]
 			},
 		]
