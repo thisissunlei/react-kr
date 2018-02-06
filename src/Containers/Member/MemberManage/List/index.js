@@ -98,11 +98,7 @@ export default class List extends React.Component {
 		});
 	}
 	openView=(itemDetail)=>{
-		window.location.href=`./#/member/memberManage/list/${itemDetail.uid}`;
-		// this.setState({
-		// 	openView:!this.state.openView,
-		// 	itemDetail
-		// })
+		window.open(`./#/member/memberManage/list/${itemDetail.uid}`,'_blank');
 	}
 	// 编辑详情的Dialog
 	openEditDetailDialog=(itemDetail)=>{

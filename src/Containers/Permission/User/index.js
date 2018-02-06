@@ -82,8 +82,8 @@ class Operations extends React.Component {
 		}
 	}
 	openView = (id,page) => {
-		var url = `./#/permission/userlist/${id}/${page}`;
-		window.location.href=url;
+		window.open(`./#/permission/userlist/${id}/${page}`,'_blank');
+		
 	}
 	openDeleteDialog = () => {
 		this.setState({
