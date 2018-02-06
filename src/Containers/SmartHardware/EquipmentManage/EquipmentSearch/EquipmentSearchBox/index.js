@@ -41,7 +41,9 @@ export default class IPAddressCheckBox  extends React.Component{
 			fatherPage : '',
 			deviceTypeOptions :[{label:"门禁",value:"DOOR"},{label:"智能网关面板",value:"GATEWAY_PANEL"}],
 			searchParams : {},
-			ajaxUrl : ''
+			ajaxUrl : '',
+			equipmentNum : 0,
+			showEquipmentNum: false
 		}
 	}
 
@@ -89,19 +91,29 @@ export default class IPAddressCheckBox  extends React.Component{
 		
 	}
 
+	tableLoaded=(response)=>{
+
+		this.setState({
+			equipmentNum : response.items.length || 0,
+			showEquipmentNum : true
+		})
+
+	}
+
 	
 
 
 	render(){
-		let {deviceTypeOptions,fatherPage,searchParams,ajaxUrl} = this.state;
+		let {deviceTypeOptions,fatherPage,searchParams,ajaxUrl,equipmentNum,showEquipmentNum} = this.state;
 		let connectedOptions = [{label:"已连接",value:true},{label:"未连接",value:false}]
 		return(
 			<div className="ip-address-check">
-				
+				{showEquipmentNum && <span style={{float:"right",paddingRight:5}}>查询结果共<span style={{color:"#499df1"}}> {equipmentNum} </span>条</span>}
 				
 				<div>
 					<EquipmentSearchForm getRepeatIpListProps={this.getRepeatIpListProps}/>
 				</div>
+				
 				
 				<div style={{paddingBottom:40}}>
 					{
@@ -118,6 +130,7 @@ export default class IPAddressCheckBox  extends React.Component{
 			            ajaxParams={searchParams}
 			            onPageChange={this.onPageChangeFun}
 						displayCheckbox={false}
+						onLoaded = {this.tableLoaded}
 			          >
 			            <TableHeader>
 							<TableHeaderColumn>类型</TableHeaderColumn>
@@ -234,8 +247,8 @@ export default class IPAddressCheckBox  extends React.Component{
 			          	
 			        </Table>:
 					<div style={{display:"block",width:"100%",borderTop:"solid 1px #eee",textAlign:"center",padding:"200px 0"}}>
-						<img src={require('./images/nothings.png')}/>
-						<p style={{textAlign:"center",marginTop:10}}>暂时没有数据</p>
+						<img src={require('./images/search.png')} style={{width:150}}/>
+						<p style={{textAlign:"center",marginTop:10}}>请输入查询条件查询设备</p>
 					</div>
 					}
 					
