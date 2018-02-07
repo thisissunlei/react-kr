@@ -184,6 +184,12 @@ module.exports = [
 						type:'vue',
 						originUrl: '/app-manage/steward-setting',
 					},
+					{
+						primaryText: 'Icon管理',
+						menuCode: 'app_console_common_icon',
+						type: 'vue',
+						originUrl: '/app-manage/icon-manage'
+					},
 				]
 			},
 			{

@@ -230,17 +230,16 @@ class CreateActivityList extends React.Component {
 								label="最大人数限制"
 						 	/>
 							<KrField
- 								label="活动封面"
+ 								label="活动封面（推荐图片宽高比例 3:4）"
  								name="imgUrl"
  								component="newuploadImage"
- 								innerstyle={{width:370,height:223,padding:16}}
- 								
+ 								innerstyle={{width:300,height:400,padding:16}}
  								pictureFormat={'JPG,PNG,GIF'}
  								pictureMemory={'300'}
  								requestURI = '/api/krspace-finance-web/activity/upload-pic'
  								inline={false}
  								merthd="Url"
-								requireLabel={true}
+								
  							/>
 						 	<KrField 
 								component="editor" 
@@ -301,9 +300,7 @@ const validate = values => {
 		if (!(values.endTime && values.EndTimeStr)) {
 			errors.endTime = '请填写结束时间';
 		}
-		if (!values.imgUrl) {
-			errors.imgUrl = '请选择活动封面';
-		}
+		
 
 		if (!values.richText) {
 			errors.richText = '请输入活动内容';

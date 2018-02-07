@@ -192,7 +192,7 @@ class ViewNotice extends React.Component {
 							/>
 							<div className="u-photo-box">
 								<span className="u-photo-title">活动封面</span>
-								<div className="u-photo-img-box" style={{width:390,height:161,marginLeft:15}}>
+								<div className="u-photo-img-box" style={{width:300,height:400,marginLeft:15}}>
 									<img src={infoList.imgUrl} style={{width:'100%',height:'100%'}}/>
 								</div>
 							</div>
