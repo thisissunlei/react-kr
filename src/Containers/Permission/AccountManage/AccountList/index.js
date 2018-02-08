@@ -228,7 +228,8 @@ class AccountList extends React.Component {
         
     }
     openView=(itemDetail)=>{
-        window.location.href=`./#/member/memberManage/list/${itemDetail.uid}`;
+        window.open(`./#/member/memberManage/list/${itemDetail.uid}`,'_blank');
+       
     }
     openCancelMember=()=>{
         this.setState({
