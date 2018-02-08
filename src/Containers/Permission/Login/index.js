@@ -89,7 +89,22 @@ class Login extends Component {
 		})
     // this.getCanvas();
 		this.HandleEnterKey();
+		//=======
+		this.windowResize();
+		window.onresize = this.windowResize;
 
+	}
+	windowResize = () =>{
+		var width = document.body.clientWidth;
+		var height = document.body.clientHeight;
+		var initProportion = 1280/768;
+		var proportion = width/height;
+
+		if (initProportion > proportion){
+			this.loginBg.style.backgroundSize = "auto 100%";
+		}else{
+			this.loginBg.style.backgroundSize = "100% auto";
+		}
 	}
 		//屏蔽tab
 	HandleEnterKey=(evt)=>{
@@ -556,10 +571,12 @@ class Login extends Component {
 		return (
           <div className="g-permission-login" style={{height:`${LoginHeight}`}}>
 						{/* <canvas id="canvas"></canvas> */}
-						<div className="login-bg">
+						<div className="login-bg" ref = {(ref)=>{
+							this.loginBg = ref;
+						}}>
 								<img className="login-earth" src={loginEarth} />
-								<img className="login-parents" src={loginParents} />
-								<img className="login-sons" src={loginSons} />
+								{/* <img className="login-parents" src={loginParents} />
+								<img className="login-sons" src={loginSons} /> */}
 								<img className="login-fireworks" src={loginFireworks}/>
 						</div>
           {<div className="content">
