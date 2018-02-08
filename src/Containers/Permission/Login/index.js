@@ -34,7 +34,10 @@ import {
 
 import State from './State';
 import './index.less';
-
+import loginEarth from './images/newYear/earth.png'
+import loginParents from './images/newYear/parents.png'
+import loginSons from './images/newYear/sons.png'
+import loginFireworks from './images/newYear/fireworks.png'
 @observer
 class Login extends Component {
 	static contextTypes = {
@@ -84,9 +87,30 @@ class Login extends Component {
 		this.setState({
 			LoginHeight:docuW
 		})
-    //this.getCanvas();
+    // this.getCanvas();
 		this.HandleEnterKey();
+		//=======
+		this.windowResize();
+		window.onresize = this.windowResize;
 
+	}
+	windowResize = () =>{
+		var width = document.body.clientWidth;
+		var height = document.body.clientHeight;
+		var initProportion = 1280/768;
+		var proportion = width/height;
+
+		if (initProportion > proportion){
+			this.loginBg.style.backgroundSize = "auto 100%";
+		}else{
+			this.loginBg.style.backgroundSize = "100% auto";
+		}
+		if(1200>width && width>1000){
+			console.log("---------", width)
+			var poor = 1200 - width;
+			this.loginParents.style.width = 300 - poor / 4 + "px";
+			this.loginSons.style.width = 300 - poor/4 + "px";
+		}
 	}
 		//屏蔽tab
 	HandleEnterKey=(evt)=>{
@@ -552,7 +576,25 @@ class Login extends Component {
 		var time = this.time;
 		return (
           <div className="g-permission-login" style={{height:`${LoginHeight}`}}>
-            <canvas id="canvas"></canvas>
+						{/* <canvas id="canvas"></canvas> */}
+						<div className="login-bg" ref = {(ref)=>{
+							this.loginBg = ref;
+						}}>
+							<img className="login-earth" src={loginEarth} />
+							<img className="login-parents" 
+								ref={(ref) => {
+									this.loginParents = ref;
+								}} 
+								src={loginParents} 
+							/>
+							<img className="login-sons" 
+								ref={(ref) => {
+									this.loginSons = ref;
+								}} 
+								src={loginSons} 
+							/>
+							<img className="login-fireworks" src={loginFireworks}/>
+						</div>
           {<div className="content">
             <div className="content-wrap">
               <div className="login-title">
