@@ -105,6 +105,12 @@ class Login extends Component {
 		}else{
 			this.loginBg.style.backgroundSize = "100% auto";
 		}
+		if(1200>width && width>1000){
+			console.log("---------", width)
+			var poor = 1200 - width;
+			this.loginParents.style.width = 300 - poor / 4 + "px";
+			this.loginSons.style.width = 300 - poor/4 + "px";
+		}
 	}
 		//屏蔽tab
 	HandleEnterKey=(evt)=>{
@@ -574,10 +580,20 @@ class Login extends Component {
 						<div className="login-bg" ref = {(ref)=>{
 							this.loginBg = ref;
 						}}>
-								<img className="login-earth" src={loginEarth} />
-								{/* <img className="login-parents" src={loginParents} />
-								<img className="login-sons" src={loginSons} /> */}
-								<img className="login-fireworks" src={loginFireworks}/>
+							<img className="login-earth" src={loginEarth} />
+							<img className="login-parents" 
+								ref={(ref) => {
+									this.loginParents = ref;
+								}} 
+								src={loginParents} 
+							/>
+							<img className="login-sons" 
+								ref={(ref) => {
+									this.loginSons = ref;
+								}} 
+								src={loginSons} 
+							/>
+							<img className="login-fireworks" src={loginFireworks}/>
 						</div>
           {<div className="content">
             <div className="content-wrap">
