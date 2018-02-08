@@ -34,7 +34,10 @@ import {
 
 import State from './State';
 import './index.less';
-
+import loginEarth from './images/newYear/earth.png'
+import loginParents from './images/newYear/parents.png'
+import loginSons from './images/newYear/sons.png'
+import loginFireworks from './images/newYear/fireworks.png'
 @observer
 class Login extends Component {
 	static contextTypes = {
@@ -84,7 +87,7 @@ class Login extends Component {
 		this.setState({
 			LoginHeight:docuW
 		})
-    this.getCanvas();
+    // this.getCanvas();
 		this.HandleEnterKey();
 
 	}
@@ -552,7 +555,13 @@ class Login extends Component {
 		var time = this.time;
 		return (
           <div className="g-permission-login" style={{height:`${LoginHeight}`}}>
-            <canvas id="canvas"></canvas>
+						{/* <canvas id="canvas"></canvas> */}
+						<div className="login-bg">
+								<img className="login-earth" src={loginEarth} />
+								<img className="login-parents" src={loginParents} />
+								<img className="login-sons" src={loginSons} />
+								<img className="login-fireworks" src={loginFireworks}/>
+						</div>
           {<div className="content">
             <div className="content-wrap">
               <div className="login-title">
