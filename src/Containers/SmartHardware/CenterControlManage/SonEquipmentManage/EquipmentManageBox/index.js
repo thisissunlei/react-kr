@@ -260,9 +260,9 @@ export default class EquipmentManageBox  extends React.Component{
 		
 		if(thisP.deviceType == "LAMP"||thisP.deviceType == "ATOMIZATION_MEMBRANE"||thisP.deviceType == "AIR_CONDITION"){
 			State.DropItems=[{title:"远程控制",onClickFun:_this.controlEquipment},
-						{title:"查看数据变化",onClickFun:_this.switchOpenOperateLog}]
+						{title:"查看数据变化",onClickFun:_this.openOperateLog}]
 		}else{
-			State.DropItems=[{title:"查看数据变化",onClickFun:_this.switchOpenOperateLog}]	
+			State.DropItems=[{title:"查看数据变化",onClickFun:_this.openOperateLog}]	
 		}
 		
 	}
@@ -279,7 +279,20 @@ export default class EquipmentManageBox  extends React.Component{
 		State.controlAirConditionDialog= !State.controlAirConditionDialog
 	}
 
+	openOperateLog=()=>{
+		let {itemDetail} = this.state;
+		State.equipmentOperateLogParam ={
+			endDate :'',
+			startDate : '',
+			deviceDefId : itemDetail.id,
+			page : 1,
+			pageSize : 15
+		}
+		this.switchOpenOperateLog();
+	}
+
 	switchOpenOperateLog=()=>{
+
 		State.openOperateLog = !State.openOperateLog
 	}
 
