@@ -181,7 +181,6 @@ class EditActivity extends React.Component {
 			this.setState({
 				timeStart:new Date(time).getTime()
 			},function(){
-				console.log('1111',timeEnd)
 				if(timeEnd){
 					this.checkTime()
 				}
