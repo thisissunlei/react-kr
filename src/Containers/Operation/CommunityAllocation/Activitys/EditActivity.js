@@ -34,10 +34,16 @@ class EditActivity extends React.Component {
 			groupType:[
 				
 			],
-			timeEnd:'',
-			timeStart:'',
+			timeEndNum:'',
+			timeStartNum:'',
 			richText:'',
-			imgUrl:''
+			imgUrl:'',
+			startDate:'',
+			startHour:'',
+			endDate:'',
+			endHour:'',
+			timeStart:'',
+			timeEnd:''
 		}
 		
 		
@@ -64,13 +70,18 @@ class EditActivity extends React.Component {
 			}
 			response.stick=String(response.stick);
 			response.type=String(response.type);
-			response.startTime=DateFormat(response.begin_time, 'yyyy-mm-dd HH:MM:ss')
-			response.endTime=DateFormat(response.end_time, 'yyyy-mm-dd HH:MM:ss')
-			response.StartTimeStr=DateFormat(response.begin_time, 'yyyy-mm-dd HH:MM:ss').substring(11,16)
-			response.EndTimeStr=DateFormat(response.end_time, 'yyyy-mm-dd HH:MM:ss').substring(11,16)
+			response.startTime=DateFormat(response.begin_time, 'yyyy-mm-dd HH:MM:ss');
+			response.endTime=DateFormat(response.end_time, 'yyyy-mm-dd HH:MM:ss');
+			response.StartTimeStr=DateFormat(response.begin_time, 'yyyy-mm-dd HH:MM:ss').substring(11,16);
+			response.EndTimeStr=DateFormat(response.end_time, 'yyyy-mm-dd HH:MM:ss').substring(11,16);
+			
 			_this.setState({
-					timeStart:response.StartTimeStr,
-					timeEnd:response.EndTimeStr,
+					timeStartNum:response.StartTimeStr,
+					timeEndNum:response.EndTimeStr,
+					startHour:`${response.StartTimeStr}:00`,
+					endHour:`${response.EndTimeStr}:00`,
+					timeStart:new Date(response.startTime).getTime(),
+					timeEnd:new Date(response.endTime).getTime(),
 					richText:response.richText,
 					imgUrl:response.imgUrl
 				})
@@ -148,7 +159,104 @@ class EditActivity extends React.Component {
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}
+	checkTime=()=>{
+		let {
+			timeEnd,
+			timeStart
+		}=this.state;
+		if(timeEnd-timeStart<0){
+			Message.error('结束时间不能小于开始时间');
+		}
+	}
+	startDate=(item)=>{
+		let {
+			startHour,
+			startDate,
+			timeEnd
+		}=this.state;
+		let date=item.substring(0,10);
+		
+		if(startHour){
+			let time=`${date} ${startHour}:00`;
+			this.setState({
+				timeStart:new Date(time).getTime()
+			},function(){
+				console.log('1111',timeEnd)
+				if(timeEnd){
+					this.checkTime()
+				}
+			})
+			
+		}
+		this.setState({
+			startDate:date
+		})
+	}
 
+	startHour=(item)=>{
+		let {
+			startHour,
+			startDate,
+			timeEnd
+		}=this.state;
+		if(startDate){
+			let time=`${startDate} ${item}:00`;
+			this.setState({
+				timeStart:new Date(time).getTime()
+			},function(){
+				if(timeEnd){
+					this.checkTime()
+				}
+			})
+			
+		}
+		this.setState({
+			startHour:`${item}:00`
+		})
+	}
+	endDate=(item)=>{
+		let {
+			endHour,
+			endDate,
+			timeStart
+		}=this.state;
+		let date=item.substring(0,10);
+		if(endHour){
+			let time=`${date} ${endHour}:00`;
+			this.setState({
+				timeEnd:new Date(time).getTime()
+			},function(){
+				if(timeStart){
+					this.checkTime()
+				}
+			})
+			
+		}
+		this.setState({
+			endDate:date
+		})
+	}
+	endHour=(item)=>{
+		let {
+			endHour,
+			endDate,
+			timeStart
+		}=this.state;
+		if(endDate){
+			let time=`${endDate} ${item}:00`;
+			this.setState({
+				timeEnd:new Date(time).getTime()
+			},function(){
+				if(timeStart){
+					this.checkTime()
+				}
+			})
+			
+		}
+		this.setState({
+			endHour:`${item}:00`
+		})
+	}
 	
 	
 	
@@ -163,8 +271,8 @@ class EditActivity extends React.Component {
 				
 				ifCity,
 				groupType,
-				timeStart,
-				timeEnd,
+				timeStartNum,
+				timeEndNum,
 				richText,
 				imgUrl
 			}=this.state;
@@ -242,12 +350,14 @@ class EditActivity extends React.Component {
 													style={{width:120,marginLeft:'-10px'}}
 													name="startTime"
 													component="date"
+													onChange={this.startDate}
 											/>
 											<KrField 
 													component="timeSelect"
 													style={{width:108,marginLeft:40}} 
 													name='StartTimeStr'
-													timeNum={timeStart}
+													timeNum={timeStartNum}
+													onChange={this.startHour}
 											/>
 									</KrField>
 									<KrField name="endTimes" component="group" label="结束时间" requireLabel={true}  style={{width:280,marginRight:20}}>
@@ -255,12 +365,14 @@ class EditActivity extends React.Component {
 													style={{width:120,marginLeft:'-10px'}}
 													name="endTime"
 													component="date"
+													onChange={this.endDate}
 											/>
 											<KrField 
 													component="timeSelect"  
 													style={{width:108,marginLeft:40}} 
 													name='EndTimeStr'
-													timeNum={timeEnd}
+													timeNum={timeEndNum}
+													onChange={this.endHour}
 											/>
 									</KrField>
 									</div>
