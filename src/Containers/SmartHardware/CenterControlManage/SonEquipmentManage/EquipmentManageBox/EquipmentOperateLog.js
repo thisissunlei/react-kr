@@ -42,13 +42,6 @@ class EquipmentDataForm extends React.Component{
 	}
 	componentDidMount(){
 		let {mainInfo} = this.props;
-		State.equipmentOperateLogParam ={
-			endDate :'',
-			startDate : '',
-			deviceDefId : this.detail.id,
-			page : 1,
-			pageSize : 15
-		}
 	}
 	onSubmit=(values)=>{
 		if(values.sdate && values.edate){
@@ -174,7 +167,7 @@ class EquipmentDataForm extends React.Component{
 				            {(deviceType=="LAMP"||deviceType=="ATOMIZATION_MEMBRANE"||deviceType=="AIR_CONDITION") &&<TableHeaderColumn>开关状态</TableHeaderColumn>}
 				            {deviceType=="AIR_CONDITION" &&<TableHeaderColumn>模式</TableHeaderColumn>}
 				            {deviceType=="AIR_CONDITION" &&<TableHeaderColumn>风速</TableHeaderColumn>}
-				            {deviceType=="AIR_CONDITION" &&<TableHeaderColumn>温度</TableHeaderColumn>}
+				            {deviceType=="AIR_CONDITION" &&<TableHeaderColumn>监测温度</TableHeaderColumn>}
 				            {deviceType=="HUMITURE_SENSOR" &&<TableHeaderColumn>温度</TableHeaderColumn>}
 				            {deviceType=="HUMITURE_SENSOR" &&<TableHeaderColumn>湿度</TableHeaderColumn>}
 							{deviceType=="BODY_SENSOR"  &&<TableHeaderColumn>是否有人</TableHeaderColumn>}
@@ -228,16 +221,18 @@ class EquipmentDataForm extends React.Component{
 											value ="低速"
 										}else if(itemData.extra.speed=="MEDIUM"){
 											value ="中速"
+										}else if(itemData.extra.speed=="AUTO"){
+											value ="自动"
 										}
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
 								{deviceType=="AIR_CONDITION" &&<TableRowColumn name="temprature" 
 									component={(value,oldValue,itemData)=>{
-									if(!itemData.extra.temp){
+									if(!itemData.extra.detectedTemp){
 										value="无数据"
 									}else{
-										value=itemData.extra.temp+"℃"
+										value=itemData.extra.detectedTemp+"℃"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>}
