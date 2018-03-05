@@ -87,11 +87,11 @@ class Login extends Component {
 		this.setState({
 			LoginHeight:docuW
 		})
-    // this.getCanvas();
+    this.getCanvas();
 		this.HandleEnterKey();
 		//=======
-		this.windowResize();
-		window.onresize = this.windowResize;
+		// this.windowResize();
+		// window.onresize = this.windowResize;
 
 	}
 	windowResize = () =>{
@@ -576,8 +576,8 @@ class Login extends Component {
 		var time = this.time;
 		return (
           <div className="g-permission-login" style={{height:`${LoginHeight}`}}>
-						{/* <canvas id="canvas"></canvas> */}
-						<div className="login-bg" ref = {(ref)=>{
+						<canvas id="canvas"></canvas>
+						{/* <div className="login-bg" ref = {(ref)=>{
 							this.loginBg = ref;
 						}}>
 							<img className="login-earth" src={loginEarth} />
@@ -593,8 +593,8 @@ class Login extends Component {
 								}} 
 								src={loginSons} 
 							/>
-							<img className="login-fireworks" src={loginFireworks}/>
-						</div>
+							<img className="login-fireworks" src={loginFireworks}/> 
+						</div> */}
           {<div className="content">
             <div className="content-wrap">
               <div className="login-title">
