@@ -88,7 +88,7 @@ module.exports = [
 				},
 				 {
                             primaryText: '参数配置',
-                            router: 'basic/parameter',
+                            originUrl: '/basic/parameter',
                             type: 'vue',
                             menuCode: 'op_ver',
                         },
