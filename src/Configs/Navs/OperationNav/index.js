@@ -194,13 +194,13 @@ module.exports = [
 						primaryText: '推送管理',
 						menuCode: 'app_console_push',
 						type: 'vue',
-						router: 'app-manage/push-manage'
+						router: '/app-manage/push-manage'
 					},
 					{
 						primaryText: '通知管理',
 						menuCode: 'app_console_notification',
 						type: 'vue',
-						router: 'app-manage/notification-manage'
+						router: '/app-manage/notification-manage'
 					},
 				]
 			},
