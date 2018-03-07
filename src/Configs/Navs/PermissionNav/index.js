@@ -90,7 +90,7 @@ module.exports = [
                             primaryText: '参数配置',
                             originUrl: '/basic/parameter',
                             type: 'vue',
-                            menuCode: 'op_ver',
+                            menuCode: 'system_param',
                         },
 				]
 			},
