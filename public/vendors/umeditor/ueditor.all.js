@@ -20196,7 +20196,7 @@ UE.plugins['table'] = function () {
                     utils.each(tables, function (table) {
 
                         domUtils.setAttributes(table, {
-                            style:'border-left:1px solid #666; border-top:1px solid #666;',
+                            style:'border-left:1px solid #666; border-top:1px solid #666;border-collapse:collapse',
                         }); 
                         removeStyleSize(table, true);
                         // domUtils.removeAttributes(table, ['style', 'border']);
