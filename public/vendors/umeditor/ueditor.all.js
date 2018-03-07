@@ -18918,8 +18918,9 @@ UE.plugins['video'] = function (){
                 for (var r = 0; r < rowsNum; r++) {
                     html.push('<tr' + (r == 0 ? ' class="firstRow"':'') + '>');
                     for (var c = 0; c < colsNum; c++) {
-                        html.push('<td  style="border:1px solid #ddd;"  width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
+                        html.push('<td style="border:1px solid #ddd;"  width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
                     }
+                    
                     html.push('</tr>')
                 }
                 //禁止指定table-width
@@ -20193,6 +20194,7 @@ UE.plugins['table'] = function () {
                     }
                 } else {
                     utils.each(tables, function (table) {
+
                         domUtils.setAttributes(table, {
                             style:'border-left:1px solid #666; border-top:1px solid #666;',
                         }); 
