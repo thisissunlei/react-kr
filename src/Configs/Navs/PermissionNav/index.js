@@ -86,6 +86,12 @@ module.exports = [
 					router: '/permission/systemManage/update-log',
 					menuCode: 'op_ver',
 				},
+				 {
+                            primaryText: '参数配置',
+                            originUrl: '/basic/parameter',
+                            type: 'vue',
+                            menuCode: 'op_ver',
+                        },
 				]
 			},
 			{
