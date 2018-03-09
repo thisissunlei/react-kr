@@ -184,6 +184,7 @@ export default class LessorManageList extends Component {
 		const {params} = this.state;
 		let newParams = Object.assign({},params);
 		newParams.cmtId = values.value || '';
+		newParams.page = 1;
 		this.setState({
 			params : newParams
 		})
