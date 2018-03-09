@@ -356,7 +356,7 @@ const validate = values => {
 export default reduxForm({
 	form: 'newCreateForm',
 	initialValues: {
-		enableflag: 'ENABLE'
+		enableflag: 'true'
 	},
 	validate,
 	enableReinitialize: true,
