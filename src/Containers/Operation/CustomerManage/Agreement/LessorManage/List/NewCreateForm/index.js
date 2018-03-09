@@ -210,6 +210,7 @@ class NewCreateForm extends React.Component {
 				<div className="title">
 					<DrawerTitle title ='新建出租方' onCancel = {this.onCancel}/>
 				</div>
+				
 				<div className="cheek">
 						<div className="titleBar">
 							<span className="order-number">1</span>
@@ -220,8 +221,8 @@ class NewCreateForm extends React.Component {
 								<KrField grid={1/2} label="出租方名称"  name="corName" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="注册地址" name="corAddress" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="是否启用" name="enableflag" style={{width:262,marginLeft:15,marginRight:13}} requireLabel={true} component="group">
-		              <KrField name="enableflag" label="是" type="radio" value="ENABLE" style={{marginTop:5,display:'inline-block',width:84}}/>
-		             	<KrField name="enableflag" label="否" type="radio" value="DISENABLE"  style={{marginTop:5,display:'inline-block',width:53}}/>
+		              <KrField name="enableflag" label="是" type="radio" value="true" style={{marginTop:5,display:'inline-block',width:84}}/>
+		             	<KrField name="enableflag" label="否" type="radio" value="false"  style={{marginTop:5,display:'inline-block',width:53}}/>
 		            </KrField>
 								<div className='remaskInfo'><KrField grid={1} label="备注" name="corDesc" style={{marginLeft:15,marginTop:10,marginBottom:10}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
 
