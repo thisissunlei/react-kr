@@ -344,8 +344,10 @@ const validate = values => {
         } else {
           let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
-			if(porTypes){
+			if (porTypes.accountNum){
 				porTypes.accountNum = porTypes.accountNum.toString().replace(/[ /d]/g, '');
+			}
+			  if (porTypes.bankAddress){
 				porTypes.bankAddress = porTypes.bankAddress.toString().replace(/[ /d]/g, '');
 			}
 
