@@ -58,7 +58,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 				<KrField
 					style={krStyle}
 					grid={1 / 2}
-					name={`${brightsStr}`.accountNum}
+					name={`${brightsStr}.accountNum`}
 					type="text"
 					component={renderField}
 					label={index ? '' : '银行账户'}
@@ -68,7 +68,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 				<KrField
 					style={krStyle}
 					grid={1 / 2}
-					name={`${brightsStr}`.bankAddress}
+					name={`${brightsStr}.bankAddress`}
 					type="text"
 					component={renderField}
 					label={index ? '' : '开户行地址'}
