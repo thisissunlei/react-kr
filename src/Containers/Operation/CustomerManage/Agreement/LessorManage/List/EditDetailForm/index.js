@@ -57,14 +57,24 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 			<li key={index} style={{width:600,listStyle:'none'}}>
 				<KrField
 					style={krStyle}
-					grid={1/2}
-					name={`${brightsStr}`}
+					grid={1 / 2}
+					name={`${brightsStr}`.accountNum}
 					type="text"
 					component={renderField}
-					label={index?'':'银行账户'}
+					label={index ? '' : '银行账户'}
 					placeholder='银行账户'
-					requireLabel={index?false:true}
-					/>
+					requireLabel={index ? false : true}
+				/>
+				<KrField
+					style={krStyle}
+					grid={1 / 2}
+					name={`${brightsStr}`.bankAddress}
+					type="text"
+					component={renderField}
+					label={index ? '' : '开户行地址'}
+					placeholder='开户行地址'
+					requireLabel={index ? false : true}
+				/>
 				<span onClick={() => fields.insert(index+1)} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
 				<span
 					className='minusBtn'
@@ -208,7 +218,6 @@ class EditDetailForm extends React.Component {
 		})
 	}
 	componentWillUnmount(){
-		console.log("LLLLLLL")
 		this.setState({
 			detail:{}
 		})
@@ -363,13 +372,19 @@ const validate = values => {
           let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
 
-            let memberErrors = '';
-			if(porTypes){
-				porTypes = porTypes.toString().replace(/[ /d]/g, '');
+			if (porTypes) {
+				porTypes.accountNum = porTypes.accountNum.toString().replace(/[ /d]/g, '');
+				porTypes.bankAddress = porTypes.bankAddress.toString().replace(/[ /d]/g, '');
 			}
-			if (!porTypes){
-              memberErrors = '请填写银行账户'
 
+
+			let memberErrors = {};
+			if (!porTypes.accountNum) {
+				memberErrors.accountNum = '请填写银行账户'
+
+			}
+			if (!porTypes.bankAddress) {
+				memberErrors.bankAddress = '请填写开户行地址'
 			}
 			membersArrayErrors[memberIndex] = memberErrors
           })

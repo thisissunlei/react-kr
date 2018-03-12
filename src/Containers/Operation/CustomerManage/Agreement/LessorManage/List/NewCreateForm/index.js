@@ -61,7 +61,7 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 				<KrField
 					style={krStyle}
 					grid={1/2}
-					name={`${brightsStr.accountNum}`}
+					name={`${brightsStr}`.accountNum}
 					type="text"
 					component={renderField}
 					label={index?'':'银行账户'}
@@ -344,14 +344,18 @@ const validate = values => {
           let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
 			if(porTypes){
-				porTypes = porTypes.toString().replace(/[ /d]/g, '');
+				porTypes.accountNum = porTypes.accountNum.toString().replace(/[ /d]/g, '');
+				porTypes.bankAddress = porTypes.bankAddress.toString().replace(/[ /d]/g, '');
 			}
 
 
-            let memberErrors = '';
-			if (!porTypes){
-              memberErrors = '请填写银行账户'
+            let memberErrors = {};
+			if (!porTypes.accountNum){
+				memberErrors.accountNum = '请填写银行账户'
 
+			}
+			if(!porTypes.bankAddress){
+				memberErrors.bankAddress = '请填写银行账户'
 			}
 			membersArrayErrors[memberIndex] = memberErrors
           })
