@@ -88,13 +88,13 @@ class ItemDetail extends Component{
 					
 					<div className = 'bank' style = {{display:"inline-block",position:'relative',top:-6}}> 
 								<span className="blueDrop"></span>
-								<KrField label={"银行账户:"} style={{marginLeft:index==0?0:70,width:"auto"}} component="labelText" value={item.accountNum} inline={true} />
+								<KrField label={"银行账户:"} style={{width:"auto"}} component="labelText" value={item.accountNum} inline={true} />
 							</div>
 				</li>
 				<li className="everyText" style={{paddingLeft:"10px"}}>
 					<div className = 'bank' style = {{display:"inline-block",position:'relative',top:-6}}> 
-							<span className="blueDrop"></span>
-							<KrField label={"开户行地址:"} style={{marginLeft:index==0?0:70,width:"auto"}} component="labelText" value={item.bankAddress} inline={true} />
+							<span className="blueDrop" style={{background:'url()'}}></span>
+							<KrField label={"开户行地址:"} style={{width:"auto"}} component="labelText" value={item.bankAddress} inline={true} />
 					</div>
 				</li>
 				</div>
