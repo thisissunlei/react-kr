@@ -127,7 +127,7 @@ class EditDetailForm extends React.Component {
 		data.id = detail.id;
 
 		var _this = this;
-		console.log(values,"?????")
+		data.bankAccounts = JSON.stringify(bankAccounts)
 		Http.request('editFnaCorporation',{},data).then(function(response) {
 			onSubmit && onSubmit();
 			_this.onCancel();
@@ -372,20 +372,20 @@ const validate = values => {
           let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
 
-			// if (porTypes) {
-			// 	porTypes.accountNum = porTypes.accountNum.toString().replace(/[ /d]/g, '');
-			// 	porTypes.bankAddress = porTypes.bankAddress.toString().replace(/[ /d]/g, '');
-			// }
+			if (porTypes) {
+				porTypes.accountNum = porTypes.accountNum.toString().replace(/[ /d]/g, '');
+				porTypes.bankAddress = porTypes.bankAddress.toString().replace(/[ /d]/g, '');
+			}
 
 
 			let memberErrors = {};
-			// if (!porTypes.accountNum) {
-			// 	memberErrors.accountNum = '请填写银行账户'
+			if (!porTypes.accountNum) {
+				memberErrors.accountNum = '请填写银行账户'
 
-			// }
-			// if (!porTypes.bankAddress) {
-			// 	memberErrors.bankAddress = '请填写开户行地址'
-			// }
+			}
+			if (!porTypes.bankAddress) {
+				memberErrors.bankAddress = '请填写开户行地址'
+			}
 			membersArrayErrors[memberIndex] = memberErrors
           })
         if(membersArrayErrors.length) {
