@@ -61,13 +61,23 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 				<KrField
 					style={krStyle}
 					grid={1/2}
-					name={`${brightsStr}`}
+					name={`${brightsStr.accountNum}`}
 					type="text"
 					component={renderField}
 					label={index?'':'银行账户'}
 					placeholder='银行账户'
 					requireLabel={index?false:true}
-					/>
+				/>
+				<KrField
+					style={krStyle}
+					grid={1 / 2}
+					name={`${brightsStr.bankAddress}`}
+					type="text"
+					component={renderField}
+					label={index ? '' : '开户行地址'}
+					placeholder='开户行地址'
+					requireLabel={index ? false : true}
+				/>
 				<span onClick={() => fields.insert(index+1)} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
 				<span
 					className='minusBtn'
