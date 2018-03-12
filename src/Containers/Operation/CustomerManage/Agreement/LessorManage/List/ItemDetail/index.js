@@ -82,11 +82,25 @@ class ItemDetail extends Component{
 		let uniStyle = {};
 		
 		var arr = detail.bankAccount.map(function(item,index){
-			return (<div className = 'bank' style = {{display:"inline-block",position:'relative',top:-6}}> 
-						<KrField label={index==0?"银行账户:":''} style={{marginLeft:index==0?0:70}} component="labelText" value={item} inline={true} />
-				</div>)
+			return (
+				<div>
+				<li className="everyText">
+					
+					<div className = 'bank' style = {{display:"inline-block",position:'relative',top:-6}}> 
+								<span className="blueDrop"></span>
+								<KrField label={index==0?"银行账户:":''} style={{marginLeft:index==0?0:70,width:"auto"}} component="labelText" value={item.accountNum} inline={true} />
+							</div>
+				</li>
+				<li className="everyText" style={{paddingLeft:"10px"}}>
+					<div className = 'bank' style = {{display:"inline-block",position:'relative',top:-6}}> 
+							<span className="blueDrop"></span>
+							<KrField label={index==0?"开户行地址:":''} style={{marginLeft:index==0?0:70,width:"auto"}} component="labelText" value={item.bankAddress} inline={true} />
+					</div>
+				</li>
+				</div>
+				)
 		})
-		return <li className="everyText"><span className="blueDrop"></span>{arr}</li>;
+		return arr;
 	}
 
 	render(){
