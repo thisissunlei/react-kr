@@ -140,6 +140,14 @@ class CreateNewList extends React.Component {
 								label="新闻列表图片"
 								inline={false}
 								/>
+						<KrField
+								style={{width:548}}
+								name="newsDesc"
+								component="searchCommunitys"
+								label="新闻简介"
+								maxSize={300}
+								requireLabel={true}
+						/>		
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="新闻详细信息" circle="bottom">
 						<KrField 
