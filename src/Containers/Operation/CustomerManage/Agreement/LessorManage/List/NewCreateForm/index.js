@@ -136,6 +136,7 @@ class NewCreateForm extends React.Component {
 		data.cmtId =this.cmtIdData();
 		const {onSubmit} = this.props;
 		var _this = this;
+		data.bankAccounts = JSON.stringify(bankAccounts)
 		Http.request('addFnaCorporation', {}, data).then(function(response) {
 			onSubmit && onSubmit();
 			_this.onCancel();
