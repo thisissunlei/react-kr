@@ -181,7 +181,8 @@ export default class CommunityAllocation  extends React.Component{
              baseFacility:response.baseFacility, 
              baseService:response.baseService, 
              specialServcie:response.specialServcie,
-             cmtDiscountInfo:response.cmtDiscountInfo       
+             cmtDiscountInfo:response.cmtDiscountInfo,
+             addressPhotoUrl: response.addressPhotoUrl   
             })
         }).catch(function(err) {
             Message.error(err.message);
@@ -287,7 +288,8 @@ export default class CommunityAllocation  extends React.Component{
             inDetailImage,
             outDetailImage,
             stationDetailImage,
-            cmtDiscountInfo
+            cmtDiscountInfo,
+            addressPhotoUrl,
         }=this.state;
 
          
@@ -389,6 +391,7 @@ export default class CommunityAllocation  extends React.Component{
                           outDetailImage={outDetailImage}
                           inDetailImage={inDetailImage}
                           cmtDiscountInfo={cmtDiscountInfo}
+                          addressPhotoUrl={addressPhotoUrl}
 						/>
 
 		            </Drawer>
