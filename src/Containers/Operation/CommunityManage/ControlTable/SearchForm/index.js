@@ -79,7 +79,6 @@ class SearchFormControlTable extends React.Component {
 		let {todayDate}=this.props;
 		let rentalStatus = [
 			{label:'已租',value:'RENT'},
-			{label:'意向',value:'INTENTION'},
 			{label:'未租',value:'UNRENT'},
 			{label:'全部',value:''}
 			];
