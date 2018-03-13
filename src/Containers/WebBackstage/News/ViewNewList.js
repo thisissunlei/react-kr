@@ -105,6 +105,14 @@ class ViewNewList extends React.Component {
 									<img src={State.newsDate.photoUrl} style={{width:'100%',height:'100%'}}/>
 								</div>
 						</div>
+						<KrField
+								style={{width:548}}
+								name="newsDesc"
+								type="labelText"
+								inline={false}
+								label="文章关联社区"
+								value={State.newsDate.relateCmtName}
+						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="新闻详细信息" circle="bottom">
 						<div style={{width:560}}>
