@@ -372,6 +372,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 formfile='file '
                                 defaultValue={stationValue}
                                 style={{marginLeft:15,}}
+                                style={{textAlign:'left'}}
                             />
                              <div className="u-checkbox-content">
                                   <div className="u-checkbox-title">基础设施</div>
