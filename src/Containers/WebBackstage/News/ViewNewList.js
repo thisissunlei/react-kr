@@ -111,7 +111,7 @@ class ViewNewList extends React.Component {
 								type="labelText"
 								inline={false}
 								label="文章关联社区"
-								value={State.newsDate.relateCmtName}
+								value={State.newsDate.relateCmtName?State.newsDate.relateCmtName:'无'}
 						/>
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="新闻详细信息" circle="bottom">
