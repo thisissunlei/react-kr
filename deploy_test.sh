@@ -1,7 +1,5 @@
 #!/bin/bash
 
-npm run dll
-
 
 buildEnvDir=$1
 target_site=www@10.1.60.201
