@@ -216,7 +216,13 @@ module.exports = [
 						primaryText: '轮播图列表',
 						menuCode: 'por_mobilepic_list',
 						router: '/WebBackstage/picList',
-					}
+					},
+					{
+						primaryText: '社区设施标签',
+						menuCode: 'brightpoint_label_list',
+						type:'vue',
+						originUrl: '/facility-tags/',
+					},
 				]
 			},
 
