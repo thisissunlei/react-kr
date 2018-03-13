@@ -225,19 +225,77 @@ export default class CommunityAllocation  extends React.Component{
  
  //编辑提交
   editSubmit=(params)=>{
+     
        let _this=this;
-       params=Object.assign({},params);
-       var detailArr=[];
-       params.detailImageId.map((item,index)=>{
-           detailArr.push(item.photoId);
-       })
        delete params.detailImage;
-       params.detailImageId=detailArr; 
+       delete params.detailImageId;
+       params=Object.assign({},params);
+       var inImgDetail=[],outImgDetail=[],stationImgDetail=[];
+       //室内
+       params.inDetailImage.map((item,index)=>{
+            inImgDetail.push(item.photoId);
+       });
+       delete params.inDetailImage;
+       params.inImgDetailIds=inImgDetail; 
+        //室外
+       params.outDetailImage.map((item,index)=>{
+         outImgDetail.push(item.photoId);
+       });
+       delete params.outDetailImage;
+       params.outImgDetailIds=outImgDetail; 
+       //工位
+       params.stationDetailImage.map((item,index)=>{
+            stationImgDetail.push(item.photoId);
+       });
+       delete params.stationDetailImage;
+       params.stationImgDetailIds=stationImgDetail;
+       //特设标签
+       let cmtFeatureLable=[];
+       cmtFeatureLable.push(params.label0);
+       cmtFeatureLable.push(params.label1)
+       cmtFeatureLable.push(params.label2)
+       params.cmtFeatureLable=cmtFeatureLable;
+       delete params.label0;
+       delete params.label1;
+       delete params.label2;
+
+       let baseFacilityArr=[],baseServiceArr=[],specialServcieArr=[];
+       //基础特色
+       params.baseFacility.map((item,index)=>{
+           if(item.changeStatus=="1"){
+             baseFacilityArr.push(item.id)
+           }
+           
+       })
+       params.baseFacilityIds=baseFacilityArr;
+       delete params.baseFacility;
+       //基础服务
+       params.baseService.map((item,index)=>{
+            if(item.changeStatus=="1"){
+                baseServiceArr.push(item.id)
+            }
+        })
+       params.baseServiceIds=baseServiceArr;
+       delete params.baseService;
+       //特色服务
+       params.specialServcie.map((item,index)=>{
+            if(item.changeStatus=="1"){
+                specialServcieArr.push(item.id)
+            }
+       })
+       params.specialServcieIds=specialServcieArr;
+       delete params.specialServcie;
+       
        params.porType=JSON.stringify(params.porType);
+
+
+
+
+
        if(!params.stationImageId){
          params.stationImageId='';   
        }
-       Http.request('web-community-edit',{},params).then(function(response) {
+       Http.request('newedit-cmt',{},params).then(function(response) {
            var searchParams={
               time:+new Date()
            }

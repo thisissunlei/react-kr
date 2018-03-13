@@ -117,7 +117,11 @@ module.exports = {
       url: '/api/krspace-finance-web/cmt/newdetail?id={id}',
       method: 'get'
   },
-
+//新社区配置--编辑
+'newedit-cmt':{
+  url: '/api/krspace-finance-web/cmt/newedit',
+  method: 'post'
+},
 
 
 }

@@ -117,7 +117,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   }
 
 	onSubmit = (values) => {
-    console.log('9999999====>>>>')
+    
         if(values.porType.length<2){
              Message.error('至少选择两种工位类型');
              return ;
@@ -147,17 +147,18 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            }
         }
 
-   if(values.detailImageId.length<1){
-       this.setState({
-         detailTip:true
-       })
-       Message.error('请上传详情图片');
-       return ;
-    }else{
-      this.setState({
-         detailTip:false
-       })
-    }
+  //  if(values.detailImageId.length<1){
+  //      this.setState({
+  //        detailTip:true
+  //      })
+  //      Message.error('请上传详情图片');
+  //      return ;
+  //   }else{
+  //     this.setState({
+  //        detailTip:false
+  //      })
+  //   }
+    
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
     }
@@ -224,6 +225,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         let {isCover,chargeName,detailTip,disabled}=this.state;
 
         const {handleSubmit,
+          addressPhotoUrl,
           baseFacility,
           baseService,
           specialServcie,
@@ -370,7 +372,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 requestURI = '/api/krspace-finance-web/cmtbright/upload-pic'
                                 inline={false}
                                 formfile='file '
-                                defaultValue={stationValue}
+                                defaultValue={addressPhotoUrl}
                                 style={{marginLeft:15,}}
                                 style={{textAlign:'left'}}
                             />
@@ -543,11 +545,6 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
             if(values.discount&&values.discount.length>15){
               errors.discount='最多输入15个字符'
             }
-
-            if(values.discountPrice&&values.discountPrice.length>5){
-              errors.discountPrice='最多输入5个字符'
-            }
-
 
             if(!values.pageImageId){
               errors.pageImageId='请上传首页图片'
