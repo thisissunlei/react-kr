@@ -53,7 +53,11 @@ export default class CommunityAllocation  extends React.Component{
             //是否显示覆盖
             isCover:"false",
             //负责人
-            chargeName:''    
+            chargeName:'' ,
+            baseFacility:[],
+            baseService:[],
+            specialServcie:[], 
+            cmtDiscountInfo:'' 
         }
 	}
    
@@ -93,16 +97,33 @@ export default class CommunityAllocation  extends React.Component{
    onOperation=(type,itemDetail)=>{
      if(type=='edit'){
         let _this=this;
-        Http.request('web-community-detail',{id:itemDetail.id}).then(function(response) {
-            var detailArr=[];
-            if(response.detailImage){
-                response.detailImage.map((item,index)=>{
-                var list={};
+        Http.request('get-cmt-newdetail',{id:itemDetail.id}).then(function(response) {
+            var inDetailImageArr=[],outDetailImageArr=[],stationDetailImageArr=[];
+            if(response.inDetailImage){
+                response.inDetailImage.map((item,index)=>{
+                let list={};
                 list.photoId=item.photoId;
                 list.src=item.photoUrl;
-                detailArr.push(list);
+                inDetailImageArr.push(list);
                 })
             }
+            if(response.outDetailImage){
+                response.outDetailImage.map((item,index)=>{
+                let list={};
+                list.photoId=item.photoId;
+                list.src=item.photoUrl;
+                outDetailImageArr.push(list);
+                })
+            }
+            if(response.stationDetailImage){
+                response.stationDetailImage.map((item,index)=>{
+                let list={};
+                list.photoId=item.photoId;
+                list.src=item.photoUrl;
+                stationDetailImageArr.push(list);
+                })
+            }
+           
 
             if(response.appoint==true){
                 response.appoint='true';
@@ -128,6 +149,11 @@ export default class CommunityAllocation  extends React.Component{
             if(response.show==false){
                 response.show='false';
             }
+            if(response.cmtFeatureLable && response.cmtFeatureLable.length>0){
+                response.label0= response.cmtFeatureLable[0];
+                response.label1= response.cmtFeatureLable[1]
+                response.label2= response.cmtFeatureLable[2]
+            }
 
             Store.dispatch(initialize('EditCommunity',response));
 
@@ -148,8 +174,14 @@ export default class CommunityAllocation  extends React.Component{
                 picId:response.stationImageId,
                 picUrl:response.stationImageUrl  
              },
-             detailValue:detailArr,
-             chargeName:response.chargeName          
+             inDetailImage:inDetailImageArr,
+             outDetailImage:outDetailImageArr,
+             stationDetailImage:stationDetailImageArr,
+             chargeName:response.chargeName,
+             baseFacility:response.baseFacility, 
+             baseService:response.baseService, 
+             specialServcie:response.specialServcie,
+             cmtDiscountInfo:response.cmtDiscountInfo       
             })
         }).catch(function(err) {
             Message.error(err.message);
@@ -166,7 +198,9 @@ export default class CommunityAllocation  extends React.Component{
            openEditCommunity:false,
            firstValue:'',
            listValue:'',
-           detailValue:'',
+           inDetailImage:'',
+           outDetailImage:'',
+           stationDetailImage:'',
            stationValue:'',
            chargeName:'',
            isCover:"false",
@@ -179,7 +213,9 @@ export default class CommunityAllocation  extends React.Component{
            openEditCommunity:!this.state.openEditCommunity,
            firstValue:'',
            listValue:'',
-           detailValue:'',
+           inDetailImage:'',
+           outDetailImage:'',
+           stationDetailImage:'',
            stationValue:'',
            chargeName:'',
            isCover:"false",
@@ -209,9 +245,11 @@ export default class CommunityAllocation  extends React.Component{
                searchParams,
                firstValue:'',     
                listValue:'',
-               detailValue:'',
                stationValue:'',
-               chargeName:''
+               chargeName:'',
+               inDetailImage:'',
+               outDetailImage:'',
+               stationDetailImage:''
            })
            _this.editCancel();
         }).catch(function(err) {
@@ -233,9 +271,26 @@ export default class CommunityAllocation  extends React.Component{
 
 	render(){
 
-        let {searchParams,chargeName,communityName,opend,openDate,stationValue,detailValue,firstValue,listValue,isCover}=this.state;
+        let {
+            searchParams,
+            chargeName,
+            communityName,
+            opend,
+            openDate,
+            stationValue,
+            firstValue,
+            listValue,
+            isCover,
+            baseFacility,
+            baseService,
+            specialServcie,
+            inDetailImage,
+            outDetailImage,
+            stationDetailImage,
+            cmtDiscountInfo
+        }=this.state;
 
-
+         
 		return(
            <div className='m-web-community'>
 				<Title value="官网社区配置"/>
@@ -323,11 +378,17 @@ export default class CommunityAllocation  extends React.Component{
                           opend={opend}
                           openDate={openDate}
                           stationValue={stationValue}
-                          detailValue={detailValue}
                           firstValue={firstValue}
                           listValue={listValue}
                           isCover={isCover}
                           chargeName={chargeName}
+                          baseFacility={baseFacility}
+                          baseService={baseService}
+                          specialServcie={specialServcie}
+                          stationDetailImage={stationDetailImage}
+                          outDetailImage={outDetailImage}
+                          inDetailImage={inDetailImage}
+                          cmtDiscountInfo={cmtDiscountInfo}
 						/>
 
 		            </Drawer>

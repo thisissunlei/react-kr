@@ -10,7 +10,8 @@ import {
 	Button,
 	ButtonGroup,
 	Message,
-  DrawerTitle
+  DrawerTitle,
+  Checkbox
 } from 'kr-ui';
 import './index.less';
 
@@ -55,21 +56,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           onClick={() => fields.remove(index)}/>
       </li>
     )}
-    <KrField
-          style={{width:262,marginLeft:15}}
-          grid={1/2}
-          name="discount"
-          component="input"
-          label="活动名称"/>
-    <div className="krFlied-box"><KrField
-          style={{width:153,marginLeft:30,marginRight:3}}
-          grid={1/2}
-          name="discountPrice"
-          type="text"
-          component={renderField}
-          label="活动优惠价格"/>
-          <span className="unit">元/工位/月</span>
-    </div>
+   
+   
   </ul>
 
  )
@@ -84,7 +72,11 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           isInit:false,
           detailTip:false,
           chargeName:'社区负责人',
-          isChargeName:false
+          isChargeName:false,
+          disabled:false,
+          baseFacility:[],
+          baseService:[],
+          specialServcie:[],
         }
 	}
 
@@ -105,6 +97,15 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         })
 
      }
+     if(nextProps.cmtDiscountInfo=='NO_DISCOUNT'){
+          this.setState({
+            disabled:true
+          })
+      }else{
+          this.setState({
+            disabled:false
+          })
+      }
      if(!isChargeName && nextProps.chargeName ){
        this.setState({
           chargeName:nextProps.chargeName,
@@ -116,6 +117,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   }
 
 	onSubmit = (values) => {
+    console.log('9999999====>>>>')
         if(values.porType.length<2){
              Message.error('至少选择两种工位类型');
              return ;
@@ -197,14 +199,38 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         })
       }
    }
+   renderCheckbox=(checkboxList)=>{
+     if(checkboxList){
+        return checkboxList.map((item,index)=>{
+          return(
+            <Checkbox
+                key={index}
+                style={{display:'inline-block',color:'#666'}}
+                label={item.lableName}
+                checked={item.changeStatus==1?true:false}
+                onCheck={this.checked.bind(this,item,index)}
+            />
+          )
+      })
+    }
+  }
+  checked=(item,index)=>{
 
+  }
 
 
     render(){
 
-        let {isCover,chargeName,detailTip}=this.state;
+        let {isCover,chargeName,detailTip,disabled}=this.state;
 
-        const {handleSubmit,communityName,opend,openDate,firstValue,listValue,stationValue,detailValue} = this.props;
+        const {handleSubmit,
+          baseFacility,
+          baseService,
+          specialServcie,
+          outDetailImage,
+          communityName,
+          inDetailImage,
+          stationDetailImage,opend,openDate,firstValue,listValue,stationValue} = this.props;
 
         var sortStyle={};
         var chartStyle={};
@@ -298,13 +324,76 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                             <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" onChange = {this.changeCharge} placeholder={chargeName}/>
 
                             <FieldArray name="porType" component={renderStation} />
-
-                            <div className='speakInfo' style={{marginBottom:3}}><KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'538px'}}  component="textarea"  maxSize={300} placeholder='请输入社区简介' lengthClass='list-length-textarea'/></div>
-                                <KrField grid={1} label="基础设施" name="facility" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础设施' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
-                                <KrField grid={1} label="基础服务" name="service"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入基础服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
-                                <KrField grid={1} label="特色服务" name="specialServcie" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={100} placeholder='请输入特色服务' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
-                                <KrField grid={1} label="交通" name="traffic"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={300} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
-                                <KrField grid={1} label="周边" name="arround" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={200} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' requireLabel={true}/>
+                            <KrField grid={1/2} label="优惠信息" name="cmtDiscountInfo" style={{width:500,marginLeft:15}} component="group" >
+                                <KrField name="cmtDiscountInfo" label="无" type="radio" value="NO_DISCOUNT"  style={{marginTop:5,display:'inline-block',width:60}}  onClick={this.onDiscountInfo}/>
+                                <KrField name="cmtDiscountInfo" label="开业特惠" type="radio" value="OPEN_DISCOUNT"  style={{marginTop:5,display:'inline-block',width:84}} onClick={this.onDiscountInfo}/>
+                                <KrField name="cmtDiscountInfo" label="限时优惠" type="radio" value="TIME_DISCOUNT"  style={{marginTop:5,display:'inline-block',width:84}} onClick={this.onDiscountInfo}/>
+                                <KrField name="cmtDiscountInfo" label="特价优惠" type="radio" value="SPECIAL_DISCOUNT"  style={{marginTop:5,display:'inline-block',width:84}} onClick={this.onDiscountInfo}/>
+                            </KrField>
+                            <div className="krFlied-box">
+                                <KrField
+                                    style={{width:153,marginLeft:15}}
+                                    grid={1/2}
+                                    name="cmtDiscountPrice"
+                                    type="text"
+                                    component={renderField}
+                                    label="优惠价格"
+                                    disabled={disabled}
+                                    />
+                                <span className="unit">元/工位/月</span>
+                            </div>
+                            <KrField  label="社区状态" name="communityStatus" style={{width:600,marginLeft:15}} component="group">
+                                <KrField name="communityStatus" label="无" type="radio" value="NO_STATUS"  style={{marginTop:5,display:'inline-block',width:60}}/>
+                                <KrField name="communityStatus" label="即将开业" type="radio" value="READY_OPEN"  style={{marginTop:5,display:'inline-block',width:84}}/>
+                                <KrField name="communityStatus" label="工位充足" type="radio" value="STATION_FULL"  style={{marginTop:5,display:'inline-block',width:84}}/>
+                                <KrField name="communityStatus" label="工位即将被租满" type="radio" value="STATION_FASTFULL"  style={{marginTop:5,display:'inline-block',width:140}}/>
+                            </KrField>
+                            <KrField  label="社区特色标签" name="cmtFeatureLable" style={{width:600,marginLeft:15}} component="group">
+                                <KrField   name="label0" component="input" style={{width:150,marginLeft:'-10px',marginRight:15}}/>
+                                <KrField   name="label1" component="input" style={{width:150,marginRight:15}}/>
+                                <KrField   name="label2" component="input" style={{width:150,marginRight:15}}/>
+                            </KrField>
+                            
+                            <div className='speakInfo' style={{marginBottom:3}}>
+                                <KrField grid={1} label="社区简介" name="desc" style={{marginLeft:15}} heightStyle={{height:"140px",width:'538px'}}  component="textarea"  maxSize={300} placeholder='请输入社区简介' lengthClass='list-length-textarea'/>
+                            </div>
+                            <KrField
+                                label="社区位置简略图"
+                                name="addressPhotoUrl"
+                                component="newuploadImage"
+                                innerstyle={{width:245,height:171,padding:10}}
+                                sizePhoto={true}
+                                photoSize={'16:9'}
+                                customTip="提示：图片比例16:9，图片由产品技术设计同事提供"
+                                pictureFormat={'JPG,PNG,GIF'}
+                                pictureMemory={'300'}
+                                requestURI = '/api/krspace-finance-web/cmtbright/upload-pic'
+                                inline={false}
+                                formfile='file '
+                                defaultValue={stationValue}
+                                style={{marginLeft:15,}}
+                            />
+                             <div className="u-checkbox-content">
+                                  <div className="u-checkbox-title">基础设施</div>
+                                  <div className="u-checkbox-box">
+                                    {this.renderCheckbox(baseFacility)}
+                                  </div>
+                                </div>
+                                <div className="u-checkbox-content">
+                                  <div className="u-checkbox-title">基础服务</div>
+                                  <div className="u-checkbox-box">
+                                    {this.renderCheckbox(baseService)}
+                                  </div>
+                                </div>
+                                <div className="u-checkbox-content">
+                                  <div className="u-checkbox-title">特色服务</div>
+                                  <div className="u-checkbox-box">
+                                    {this.renderCheckbox(specialServcie)}
+                                  </div>
+                                </div>                   
+                                <KrField grid={1} label="公共交通" name="traffic"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={300} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
+                                <KrField grid={1} label="停车信息" name="pakeingInfo" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={200} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea' />
+                                <KrField grid={1} label="周边配套" name="arround" heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={200} placeholder='请输入周边' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
                                
                                    <div className='web-page-box'> <KrField 
                                          name="pageImageId"
@@ -329,23 +418,50 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                        label='上传列表页图片'
                                        requireLabel={true}
                                     /></div>
-
-
-
-                                    <div className='web-detail-img'><KrField name="detailImageId"
+                                  <div className='web-detail-img'>
+                                      <KrField name="detailImageId"
                                         component="uploadImageList"
                                         boxStyle={{marginLeft:-35,textAlign:'left'}}
-                                        defaultValue={detailValue}
+                                        defaultValue={outDetailImage}
                                         imgFlag={false}
                                         innerBoxStyle={{width:254,height:70}}
                                         innerStyle={{left:110,top:12}}
                                         inline={false}
-                                        label='上传详情页图片'
-                                        requireLabel={true}
+                                        label='上传详情页图片（室外环境）'
                                         onChange={this.picChange}
                                     />
-                                    {detailTip&&<div style={{color:'red',display:'block'}}>请上传详情图片</div>}
+                                    
+                                  </div>
+                                  <div className='web-detail-img'>
+                                        <KrField name="detailImageId"
+                                              component="uploadImageList"
+                                              boxStyle={{marginLeft:-35,textAlign:'left'}}
+                                              defaultValue={inDetailImage}
+                                              imgFlag={false}
+                                              innerBoxStyle={{width:254,height:70}}
+                                              innerStyle={{left:110,top:12}}
+                                              inline={false}
+                                              label='上传详情页图片（室内环境）'
+                                              onChange={this.picChange}
+                                          /> 
                                     </div>
+
+                                    <div className='web-detail-img'>
+                                      <KrField name="detailImageId"
+                                          component="uploadImageList"
+                                          boxStyle={{marginLeft:-35,textAlign:'left'}}
+                                          defaultValue={stationDetailImage}
+                                          imgFlag={false}
+                                          innerBoxStyle={{width:254,height:70}}
+                                          innerStyle={{left:110,top:12}}
+                                          inline={false}
+                                          label='上传详情页图片（社区工位）'
+                                          onChange={this.picChange}
+                                      />
+                                    </div>
+
+
+                                    
 
 
                             </div>
