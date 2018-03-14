@@ -67,12 +67,10 @@ const webpackConfigs = {
 		chunkFilename: 'scripts/[name].js',
 		publicPath: "/"
 	},
+	externals: {
+		React: true
+	},
 	plugins: [
-		new webpack.DllReferencePlugin({
-			context: __dirname,
-			manifest: require(path.join(buildPath, 'vendors/manifest.json')),
-			name: 'lib'
-		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new HappyPack({
 			id: 'jsx',
