@@ -74,9 +74,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           chargeName:'社区负责人',
           isChargeName:false,
           disabled:false,
-          baseFacility:[],
-          baseService:[],
-          specialServcie:[],
+          baseFacilityList:[],
+          baseServiceList:[],
+          specialServcieList:[],
         }
 	}
 
@@ -84,7 +84,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   componentDidMount(){
       let {isCover}=this.props;
       this.setState({
-          isCover:isCover
+          isCover:isCover,
       })
     }
 
@@ -93,7 +93,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
      if(!isInit && nextProps.isCover == "true"){
         this.setState({
           isCover:nextProps.isCover,
-          isInit:true
+          isInit:true,
         })
 
      }
@@ -112,6 +112,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           isChargeName:true
         })
      }
+     
+     this.setState({
+        baseFacilityList:nextProps.baseFacility,
+        baseServiceList:nextProps.baseService,
+        specialServcieList:nextProps.specialServcie
+     })
 
 
   }
@@ -200,7 +206,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         })
       }
    }
-   renderCheckbox=(checkboxList)=>{
+   renderCheckbox=(checkboxList,listIndex)=>{
      if(checkboxList){
         return checkboxList.map((item,index)=>{
           return(
@@ -209,26 +215,53 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                 style={{display:'inline-block',color:'#666'}}
                 label={item.lableName}
                 checked={item.changeStatus==1?true:false}
-                onCheck={this.checked.bind(this,item,index)}
+                onCheck={this.checked.bind(this,item,index,checkboxList,listIndex)}
             />
           )
       })
     }
   }
-  checked=(item,index)=>{
-
+  checked=(item,index,checkboxList,listIndex)=>{
+      let {
+        baseFacilityList,
+        baseServiceList,
+        specialServcieList,
+      }=this.state;
+       if(item.changeStatus==0){
+         checkboxList[index].changeStatus=1;
+       }else{
+         checkboxList[index].changeStatus=0;
+       }
+      if(listIndex=="0"){
+        this.setState({
+          baseFacilityList:checkboxList
+        })
+      }else if(listIndex=="1"){
+        this.setState({
+          baseServiceList:checkboxList
+        })
+      }else if(listIndex=="2"){
+        this.setState({
+          specialServcieList:checkboxList
+        })
+      }
+       
+     
+   
+   
   }
 
 
     render(){
 
-        let {isCover,chargeName,detailTip,disabled}=this.state;
+        let {isCover,chargeName,detailTip,disabled,
+          baseFacilityList,
+          baseServiceList,
+          specialServcieList,
+        }=this.state;
 
         const {handleSubmit,
           addressPhotoUrl,
-          baseFacility,
-          baseService,
-          specialServcie,
           outDetailImage,
           communityName,
           inDetailImage,
@@ -252,6 +285,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            }
         }
 
+       
         return (
             <div>
                 <form className="web-communityList-m"  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
@@ -379,19 +413,19 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                              <div className="u-checkbox-content">
                                   <div className="u-checkbox-title">基础设施</div>
                                   <div className="u-checkbox-box">
-                                    {this.renderCheckbox(baseFacility)}
+                                    {this.renderCheckbox(baseFacilityList,'0')}
                                   </div>
                                 </div>
                                 <div className="u-checkbox-content">
                                   <div className="u-checkbox-title">基础服务</div>
                                   <div className="u-checkbox-box">
-                                    {this.renderCheckbox(baseService)}
+                                    {this.renderCheckbox(baseServiceList,'1')}
                                   </div>
                                 </div>
                                 <div className="u-checkbox-content">
                                   <div className="u-checkbox-title">特色服务</div>
                                   <div className="u-checkbox-box">
-                                    {this.renderCheckbox(specialServcie)}
+                                    {this.renderCheckbox(specialServcieList,'2')}
                                   </div>
                                 </div>                   
                                 <KrField grid={1} label="公共交通" name="traffic"  heightStyle={{height:"78px",width:'538px'}}  component="textarea"  maxSize={300} placeholder='请输入交通' style={{width:517,marginLeft:15}} lengthClass='list-len-textarea'/>
