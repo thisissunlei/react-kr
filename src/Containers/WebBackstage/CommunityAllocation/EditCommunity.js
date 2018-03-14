@@ -123,7 +123,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   }
 
 	onSubmit = (values) => {
-    
+        console.log('values---',values)
+        
         if(values.porType.length<2){
              Message.error('至少选择两种工位类型');
              return ;
@@ -153,17 +154,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            }
         }
 
-  //  if(values.detailImageId.length<1){
-  //      this.setState({
-  //        detailTip:true
-  //      })
-  //      Message.error('请上传详情图片');
-  //      return ;
-  //   }else{
-  //     this.setState({
-  //        detailTip:false
-  //      })
-  //   }
+ 
     
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
@@ -187,17 +178,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
       }
    }
 
-   picChange=(imgs)=>{
-     if(imgs.length<1){
-       this.setState({
-         detailTip:true
-       })
-     }else{
-       this.setState({
-         detailTip:false
-       })
-     }
-   }
+   
 
    changeCharge = (data) =>{
       if(!data||(data&&data.length==0)){
@@ -456,7 +437,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                        requireLabel={true}
                                     /></div>
                                   <div className='web-detail-img'>
-                                      <KrField name="detailImageId"
+                                      <KrField name="outImgDetailIds"
                                         component="uploadImageList"
                                         boxStyle={{marginLeft:-35,textAlign:'left'}}
                                         defaultValue={outDetailImage}
@@ -465,12 +446,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                         innerStyle={{left:110,top:12}}
                                         inline={false}
                                         label='上传详情页图片（室外环境）'
-                                        onChange={this.picChange}
+                                       
                                     />
                                     
                                   </div>
                                   <div className='web-detail-img'>
-                                        <KrField name="detailImageId"
+                                        <KrField name="inImgDetailIds"
                                               component="uploadImageList"
                                               boxStyle={{marginLeft:-35,textAlign:'left'}}
                                               defaultValue={inDetailImage}
@@ -479,12 +460,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                               innerStyle={{left:110,top:12}}
                                               inline={false}
                                               label='上传详情页图片（室内环境）'
-                                              onChange={this.picChange}
+                                             
                                           /> 
                                     </div>
 
                                     <div className='web-detail-img'>
-                                      <KrField name="detailImageId"
+                                      <KrField name="stationImageId"
                                           component="uploadImageList"
                                           boxStyle={{marginLeft:-35,textAlign:'left'}}
                                           defaultValue={stationDetailImage}
@@ -493,7 +474,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                           innerStyle={{left:110,top:12}}
                                           inline={false}
                                           label='上传详情页图片（社区工位）'
-                                          onChange={this.picChange}
+                                         
                                       />
                                     </div>
 
