@@ -67,7 +67,7 @@ module.exports = {
   },
   // 数据统计-账龄分析-高级查询主体准备数据
   'getMainbody':{
-    url: '/api/krspace-finance-web/fna-corporation-list',
+    url: '/api/krspace-sso-web/dict/corpora/id-name',
     method: 'get'
   },
   //数据报表-总列表

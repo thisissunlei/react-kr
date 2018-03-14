@@ -57,14 +57,24 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 			<li key={index} style={{width:600,listStyle:'none'}}>
 				<KrField
 					style={krStyle}
-					grid={1/2}
-					name={`${brightsStr}`}
+					grid={1 / 2}
+					name={`${brightsStr}.accountNum`}
 					type="text"
 					component={renderField}
-					label={index?'':'银行账户'}
+					label={index ? '' : '银行账户'}
 					placeholder='银行账户'
-					requireLabel={index?false:true}
-					/>
+					requireLabel={index ? false : true}
+				/>
+				<KrField
+					style={krStyle}
+					grid={1 / 2}
+					name={`${brightsStr}.bankAddress`}
+					type="text"
+					component={renderField}
+					label={index ? '' : '开户行地址'}
+					placeholder='开户行地址'
+					requireLabel={index ? false : true}
+				/>
 				<span onClick={() => fields.insert(index+1)} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
 				<span
 					className='minusBtn'
@@ -117,7 +127,7 @@ class EditDetailForm extends React.Component {
 		data.id = detail.id;
 
 		var _this = this;
-		console.log(values,"?????")
+		data.bankAccount = JSON.stringify(data.bankAccount);
 		Http.request('editFnaCorporation',{},data).then(function(response) {
 			onSubmit && onSubmit();
 			_this.onCancel();
@@ -208,7 +218,6 @@ class EditDetailForm extends React.Component {
 		})
 	}
 	componentWillUnmount(){
-		console.log("LLLLLLL")
 		this.setState({
 			detail:{}
 		})
@@ -246,8 +255,8 @@ class EditDetailForm extends React.Component {
 								<KrField grid={1/2} label="出租方名称"  name="corName" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="注册地址" name="corAddress" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="是否启用" name="enableflag" style={{width:262,marginLeft:15,marginRight:13}} component="group" requireLabel={true}>
-		              <KrField name="enableflag" label="是" type="radio" value="ENABLE" style={{marginTop:5,display:'inline-block',width:84}}/>
-		             	<KrField name="enableflag" label="否" type="radio" value="DISENABLE"  style={{marginTop:5,display:'inline-block',width:53}}/>
+		              <KrField name="enableflag" label="是" type="radio" value="true" style={{marginTop:5,display:'inline-block',width:84}}/>
+		             	<KrField name="enableflag" label="否" type="radio" value="false"  style={{marginTop:5,display:'inline-block',width:53}}/>
 		            </KrField>
 								<div className='remaskInfo'><KrField grid={1} label="备注" name="corDesc" style={{marginLeft:15,marginTop:10,marginBottom:10}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
 
@@ -363,13 +372,21 @@ const validate = values => {
           let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
 
-            let memberErrors = '';
-			if(porTypes){
-				porTypes = porTypes.toString().replace(/[ /d]/g, '');
+			if (porTypes && porTypes.accountNum){
+				porTypes.accountNum = porTypes.accountNum.toString().replace(/[ /d]/g, '');
 			}
-			if (!porTypes){
-              memberErrors = '请填写银行账户'
+			  if ( porTypes && porTypes.bankAddress){
+				porTypes.bankAddress = porTypes.bankAddress.toString().replace(/[ /d]/g, '');
+			}
 
+
+            let memberErrors = {};
+			if ( porTypes && !porTypes.accountNum){
+				memberErrors.accountNum = '请填写银行账户'
+
+			}
+			if(porTypes && !porTypes.bankAddress){
+				memberErrors.bankAddress = '请填写开户行地址'
 			}
 			membersArrayErrors[memberIndex] = memberErrors
           })
