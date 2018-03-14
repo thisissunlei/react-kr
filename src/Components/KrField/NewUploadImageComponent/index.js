@@ -224,15 +224,20 @@ export default class UploadImageComponent extends Component {
 						if (xhrfile.readyState === 4) {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
-
+								
 								if (fileResponse && fileResponse.code > 0) {
+									
 									if(_this.props.photoSize){
+										
 										_this.functionHeightWidth(file,xhrfile);
 										return;
 									}
+									
 									_this.refs.uploadImage.src = xhrfile.response.data;
 									_this.props.input.onChange(xhrfile.response.data);
 								} else {
+								
+									
 									_this.onError(fileResponse && fileResponse.msg);
 									return;
 								}
@@ -286,9 +291,15 @@ export default class UploadImageComponent extends Component {
 							 var proportion = width/height;
 								 if(proportion == standard){
 								 	    if(merthd=='Url'){
-                                            _this.refs.uploadImage.src = xhrfile.response.data;
 											const {input}=_this.props;
-								            input.onChange(xhrfile.response.data);
+											 if(_this.props.picUrl){
+												_this.refs.uploadImage.src = xhrfile.response.data.picUrl;
+												input.onChange(xhrfile.response.data.picUrl);
+											 }else{
+												_this.refs.uploadImage.src = xhrfile.response.data;
+												input.onChange(xhrfile.response.data);
+											 }
+								            
 										}else{
 
 										 	if(xhrfile.response.data instanceof Array){

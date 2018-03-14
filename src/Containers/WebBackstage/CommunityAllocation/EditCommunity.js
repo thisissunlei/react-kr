@@ -234,6 +234,18 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
        
    
   }
+  onDiscountInfo=(item)=>{
+    if(item.value!='NO_DISCOUNT'){
+      this.setState({
+        disabled:false
+      })
+    }else{
+      this.setState({
+        disabled:true
+      })
+      
+    }
+  }
 
   checkLength=(item)=>{
     if(item.length>10){
@@ -412,7 +424,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 pictureMemory={'300'}
                                 requestURI = '/api/krspace-finance-web/cmtbright/upload-pic'
                                 inline={false}
-                                formfile='upfile '
+                                merthd='Url'
+                                picUrl={true}
                                 defaultValue={addressPhotoUrl}
                                 style={{marginLeft:15,}}
                                 style={{textAlign:'left'}}
