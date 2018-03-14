@@ -412,7 +412,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 pictureMemory={'300'}
                                 requestURI = '/api/krspace-finance-web/cmtbright/upload-pic'
                                 inline={false}
-                                formfile='file '
+                                formfile='upfile '
                                 defaultValue={addressPhotoUrl}
                                 style={{marginLeft:15,}}
                                 style={{textAlign:'left'}}
