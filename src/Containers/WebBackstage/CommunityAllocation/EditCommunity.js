@@ -123,8 +123,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   }
 
 	onSubmit = (values) => {
-        console.log('values---',values)
-        
+   
+   
         if(values.porType.length<2){
              Message.error('至少选择两种工位类型');
              return ;
@@ -154,7 +154,12 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            }
         }
 
- 
+     if(values.cmtDiscountInfo!="NO_DISCOUNT"){
+       if(values.cmtDiscountPrice==''){
+          Message.error('请填写优惠价格');
+          return ;
+       }
+     }
     
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
@@ -227,10 +232,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         })
       }
        
-     
-   
    
   }
+
+  checkLength=(item)=>{
+    if(item.length>6){
+       Message.error('标签不能大于6个字');
+    }
+   
+  }
+
 
 
     render(){
@@ -366,9 +377,24 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 <KrField name="communityStatus" label="工位即将被租满" type="radio" value="STATION_FASTFULL"  style={{marginTop:5,display:'inline-block',width:140}}/>
                             </KrField>
                             <KrField  label="社区特色标签" name="cmtFeatureLable" style={{width:600,marginLeft:15}} component="group">
-                                <KrField   name="label0" component="input" style={{width:150,marginLeft:'-10px',marginRight:15}}/>
-                                <KrField   name="label1" component="input" style={{width:150,marginRight:15}}/>
-                                <KrField   name="label2" component="input" style={{width:150,marginRight:15}}/>
+                                <KrField   
+                                      name="label0" 
+                                      component="input" 
+                                      style={{width:150,marginLeft:'-10px',marginRight:15}}
+                                      onBlur={this.checkLength}
+                                />
+                                <KrField   
+                                      name="label1" 
+                                      component="input" 
+                                      style={{width:150,marginRight:15}}
+                                      onBlur={this.checkLength}
+                                />
+                                <KrField   
+                                      name="label2" 
+                                      component="input" 
+                                      style={{width:150,marginRight:15}}
+                                      onBlur={this.checkLength}
+                                />
                             </KrField>
                             
                             <div className='speakInfo' style={{marginBottom:3}}>
@@ -437,7 +463,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                        requireLabel={true}
                                     /></div>
                                   <div className='web-detail-img'>
-                                      <KrField name="outImgDetailIds"
+                                      <KrField name="outDetailImage"
                                         component="uploadImageList"
                                         boxStyle={{marginLeft:-35,textAlign:'left'}}
                                         defaultValue={outDetailImage}
@@ -451,7 +477,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     
                                   </div>
                                   <div className='web-detail-img'>
-                                        <KrField name="inImgDetailIds"
+                                        <KrField name="inDetailImage"
                                               component="uploadImageList"
                                               boxStyle={{marginLeft:-35,textAlign:'left'}}
                                               defaultValue={inDetailImage}
@@ -465,7 +491,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                     </div>
 
                                     <div className='web-detail-img'>
-                                      <KrField name="stationImageId"
+                                      <KrField name="stationDetailImage"
                                           component="uploadImageList"
                                           boxStyle={{marginLeft:-35,textAlign:'left'}}
                                           defaultValue={stationDetailImage}

@@ -287,11 +287,6 @@ export default class CommunityAllocation  extends React.Component{
        delete params.specialServcie;
        
        params.porType=JSON.stringify(params.porType);
-
-
-
-
-
        if(!params.stationImageId){
          params.stationImageId='';   
        }
