@@ -251,6 +251,10 @@ export default class CommunityAllocation  extends React.Component{
        params.stationImgDetailIds=stationImgDetail;
        //特设标签
        let cmtFeatureLable=[];
+       if(params.label0.length>10 || params.label1.length>10 || params.label2.length>10){
+            Message.error('特色标签不能大于10个字符');
+            return
+       }
        cmtFeatureLable.push(params.label0);
        cmtFeatureLable.push(params.label1)
        cmtFeatureLable.push(params.label2)

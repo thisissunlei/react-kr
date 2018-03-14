@@ -236,8 +236,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
   }
 
   checkLength=(item)=>{
-    if(item.length>6){
-       Message.error('标签不能大于6个字');
+    if(item.length>10){
+       Message.error('标签不能大于10个字');
     }
    
   }
