@@ -81,7 +81,7 @@ export default class LessorManageList extends Component {
 				idList.push(item.id)
 			})
 		}
-		var url = `/api/krspace-finance-web/fna/corpora/export?corporationIdList=${idList}`
+		var url = `/api/krspace-sso-web/dict/corpora/export?corporationIdList=${idList}`
 		window.location.href = url;
 	}
 
@@ -156,6 +156,7 @@ export default class LessorManageList extends Component {
 		const {params} = this.state;
 		let newParams = Object.assign({},params);
 		newParams.corporationName = values.corporationName;
+		newParams.page = 1;
 		this.setState({
 			params : newParams
 		})
@@ -183,6 +184,7 @@ export default class LessorManageList extends Component {
 		const {params} = this.state;
 		let newParams = Object.assign({},params);
 		newParams.cmtId = values.value || '';
+		newParams.page = 1;
 		this.setState({
 			params : newParams
 		})
