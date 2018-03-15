@@ -92,33 +92,33 @@ module.exports = {
 
   //运营平台-出租方管理-新增
   'addFnaCorporation': {
-    url: '/api/krspace-finance-web/fna/corpora/insert',
+    url: '/api/krspace-sso-web/dict/corpora/insert',
     method: 'post'
   },
   //运营平台-出租方管理-列表
   'fnaCorporationList': {
-    url: '/api/krspace-finance-web/fna/corpora/list?cmtId={cmtId}&corporationName={corporationName}&page={page}&pageSize={pageSize}',
+    url: '/api/krspace-sso-web/dict/corpora/list?cmtId={cmtId}&corporationName={corporationName}&page={page}&pageSize={pageSize}',
     method: 'get'
   },
   //运营平台-出租方管理-编辑
   'editFnaCorporation': {
-    url: '/api/krspace-finance-web/fna/corpora/update',
+    url: '/api/krspace-sso-web/dict/corpora/update',
     method: 'post'
   },
 
   //运营平台-出租方管理-详情页
   'getFnaCorporation': {
-    url: '/api/krspace-finance-web/fna/corpora/detail?id={id}',
+    url: '/api/krspace-sso-web/dict/corpora/detail?id={id}',
     method: 'get'
   },
  //运营平台-出租方管理-绑定社区数据
   'bindCommunity': {
-    url: '/api/krspace-finance-web/fna/corpora/cmt?id={id}',
+    url: '/api/krspace-sso-web/dict/corpora/cmt?id={id}',
     method: 'get'
   },
   //运营平台-出租方管理-湖区微信支付宝数据
   'getWeChatAndAlipay': {
-    url: '/api/krspace-finance-web/fna/corpora/info',
+    url: '/api/krspace-sso-web/dict/corpora/info',
     method: 'get'
   },
   //合同-基础配置-新增
