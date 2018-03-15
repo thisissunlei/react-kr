@@ -38,7 +38,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           style={{width:262,marginLeft:15}}
           grid={1/2}
           name={`${porTypesStr}.type`}
-          options={[{label:'移动办公桌',value:'MOBILE_DESK'},{label:'开放工作区',value:'OPEN_WORKSPACE'},{label:'独立工作区',value:'INDEPENDENT_WORKSPACE'}]}
+          options={[{label:'移动办公桌',value:'MOBILE_DESK'},{label:'开放办公室',value:'OPEN_WORKSPACE'},{label:'独立办公室',value:'INDEPENDENT_WORKSPACE'}]}
           component='select'
           label="工位类型"/>
         <div className="krFlied-box"><KrField
