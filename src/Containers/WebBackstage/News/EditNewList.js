@@ -162,7 +162,7 @@ class EditNewList extends React.Component {
 								defaultValue={photoUrl}
 								/>
 						<KrField
-								style={{width:248}}
+								style={{width:248,zIndex:1000}}
 								name="relateCmt"
 								component="searchCommunitys"
 								label="文章关联社区"

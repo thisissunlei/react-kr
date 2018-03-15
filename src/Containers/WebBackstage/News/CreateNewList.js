@@ -141,7 +141,7 @@ class CreateNewList extends React.Component {
 								inline={false}
 								/>
 						<KrField
-								style={{width:248}}
+								style={{width:248,zIndex:1000}}
 								name="relateCmt"
 								component="searchCommunitys"
 								label="文章关联社区"
