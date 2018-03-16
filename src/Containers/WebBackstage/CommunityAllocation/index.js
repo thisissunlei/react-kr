@@ -225,7 +225,7 @@ export default class CommunityAllocation  extends React.Component{
  
  //编辑提交
   editSubmit=(params)=>{
-     
+      
        let _this=this;
        delete params.detailImage;
        delete params.detailImageId;
@@ -247,14 +247,17 @@ export default class CommunityAllocation  extends React.Component{
        params.stationDetailImage.map((item,index)=>{
             stationImgDetail.push(item.photoId);
        });
+       
        delete params.stationDetailImage;
        params.stationImgDetailIds=stationImgDetail;
        //特设标签
        let cmtFeatureLable=[];
-       if(params.label0.length>10 || params.label1.length>10 || params.label2.length>10){
+      
+       if((params.label0&&params.label0.length>10) || (params.label1&&params.label1.length>10) || (params.label2&&params.label2.length>10)){
             Message.error('特色标签不能大于10个字符');
             return
        }
+       
        cmtFeatureLable.push(params.label0);
        cmtFeatureLable.push(params.label1)
        cmtFeatureLable.push(params.label2)
@@ -294,6 +297,7 @@ export default class CommunityAllocation  extends React.Component{
        if(!params.stationImageId){
          params.stationImageId='';   
        }
+      
        Http.request('newedit-cmt',{},params).then(function(response) {
            var searchParams={
               time:+new Date()
