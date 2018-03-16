@@ -1,6 +1,5 @@
 #!/bin/bash
 
-npm run dll
 npm run build
 
 

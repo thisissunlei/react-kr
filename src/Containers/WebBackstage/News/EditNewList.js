@@ -161,6 +161,12 @@ class EditNewList extends React.Component {
 								inline={false}
 								defaultValue={photoUrl}
 								/>
+						<KrField
+								style={{width:248,zIndex:1000}}
+								name="relateCmt"
+								component="searchCommunitys"
+								label="文章关联社区"
+						/>		
 					</CircleStyleTwo>
 					<CircleStyleTwo num="2" info="新闻详细信息" circle="bottom">
 						<KrField 

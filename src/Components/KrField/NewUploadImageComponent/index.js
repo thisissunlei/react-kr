@@ -224,15 +224,20 @@ export default class UploadImageComponent extends Component {
 						if (xhrfile.readyState === 4) {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
-
+								
 								if (fileResponse && fileResponse.code > 0) {
+									
 									if(_this.props.photoSize){
+										
 										_this.functionHeightWidth(file,xhrfile);
 										return;
 									}
+									
 									_this.refs.uploadImage.src = xhrfile.response.data;
 									_this.props.input.onChange(xhrfile.response.data);
 								} else {
+								
+									
 									_this.onError(fileResponse && fileResponse.msg);
 									return;
 								}
@@ -286,9 +291,15 @@ export default class UploadImageComponent extends Component {
 							 var proportion = width/height;
 								 if(proportion == standard){
 								 	    if(merthd=='Url'){
-                                            _this.refs.uploadImage.src = xhrfile.response.data;
 											const {input}=_this.props;
-								            input.onChange(xhrfile.response.data);
+											 if(_this.props.picUrl){
+												_this.refs.uploadImage.src = xhrfile.response.data.picUrl;
+												input.onChange(xhrfile.response.data.picUrl);
+											 }else{
+												_this.refs.uploadImage.src = xhrfile.response.data;
+												input.onChange(xhrfile.response.data);
+											 }
+								            
 										}else{
 
 										 	if(xhrfile.response.data instanceof Array){
@@ -374,11 +385,34 @@ export default class UploadImageComponent extends Component {
 		const {input}=this.props;
 		input.onChange("");
 	}
+	renderTip=()=>{
+		let {
+			sizePhoto,
+			photoSize,
+			pictureMemory,
+			pictureFormat,
+			customTip
+		}=this.props;
+		if(customTip){
+			return(
+				<span>{customTip}</span>
+			)
+		}
+		
+		if(sizePhoto){
+			return(
+				<span>提示：图片比例为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>
+			)
+		}else{
+			return(
+				<span>提示：图片小于{pictureMemory}k,格式为{pictureFormat}</span>
+			)
+		}
+	}
 
 	render() {
 		let {children,className,style,type,name, meta: { touched, error } ,disabled,photoSize,pictureFormat,pictureMemory,requestURI,label,requireLabel,inline,innerstyle,defaultValue,onDeleteImg,sizePhoto,formfile,center,...other} = this.props;
 		let {operateImg} = this.state;
-		console.log('sizePhoto===',sizePhoto)
 		return(
       	<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} >
 
@@ -406,7 +440,8 @@ export default class UploadImageComponent extends Component {
 					</div>
 
 				<p className="ui-uploadimg-notice">
-					{sizePhoto?<span>提示：图片比例为{photoSize}，图片小于{pictureMemory}k,格式为{pictureFormat}</span>:<span>提示：图片小于{pictureMemory}k,格式为{pictureFormat}</span>}
+					{this.renderTip()}
+					
 				</p>
 				<p className="ui-uploadimg-error" style={{display:this.state.errorHide?"none":"block"}} >
 					{this.state.errorTip}
