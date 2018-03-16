@@ -78,6 +78,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           baseServiceList:[],
           specialServcieList:[],
         }
+        this.mask=false;
 	}
 
 
@@ -90,22 +91,14 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
 
   componentWillReceiveProps(nextProps){
      let {isInit,isChargeName}=this.state;
+     
      if(!isInit && nextProps.isCover == "true"){
         this.setState({
           isCover:nextProps.isCover,
           isInit:true,
         })
-
      }
-     if(nextProps.cmtDiscountInfo=='NO_DISCOUNT'){
-          this.setState({
-            disabled:true
-          })
-      }else{
-          this.setState({
-            disabled:false
-          })
-      }
+     
      if(!isChargeName && nextProps.chargeName ){
        this.setState({
           chargeName:nextProps.chargeName,
@@ -119,6 +112,19 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
         specialServcieList:nextProps.specialServcie
      })
 
+     if(this.mask){
+        return;
+     }
+     
+     if(nextProps.cmtDiscountInfo=='NO_DISCOUNT'){
+          this.setState({
+            disabled:true
+          })
+      }else{
+          this.setState({
+            disabled:false
+          })
+      }
 
   }
 
@@ -235,15 +241,16 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
    
   }
   onDiscountInfo=(item)=>{
+    this.mask=true;
     if(item.value!='NO_DISCOUNT'){
       this.setState({
         disabled:false
       })
     }else{
+      Store.dispatch(change('EditCommunity','cmtDiscountPrice',''));
       this.setState({
         disabled:true
-      })
-      
+      }) 
     }
   }
 
@@ -289,7 +296,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
            }
         }
 
-       
+    
         return (
             <div>
                 <form className="web-communityList-m"  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
