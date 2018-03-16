@@ -190,6 +190,18 @@ module.exports = [
 						type: 'vue',
 						originUrl: '/app-manage/icon-manage'
 					},
+					{
+						primaryText: '推送管理',
+						menuCode: 'app_console_push',
+						type: 'vue',
+						originUrl: '/app-manage/push-manage'
+					},
+					{
+						primaryText: '通知管理',
+						menuCode: 'app_console_notification',
+						type: 'vue',
+						originUrl: '/app-manage/notification-manage'
+					},
 				]
 			},
 			{
