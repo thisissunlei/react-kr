@@ -82,11 +82,25 @@ class ItemDetail extends Component{
 		let uniStyle = {};
 		
 		var arr = detail.bankAccount.map(function(item,index){
-			return (<div className = 'bank' style = {{display:"inline-block",position:'relative',top:-6}}> 
-						<KrField label={index==0?"银行账户:":''} style={{marginLeft:index==0?0:70}} component="labelText" value={item} inline={true} />
-				</div>)
+			return (
+				<div>
+				<li className="everyText">
+					
+					<div className = 'bank' style = {{display:"inline-block",position:'relative',top:-6}}> 
+								<span className="blueDrop"></span>
+								<KrField label={"银行账户:"} style={{width:"auto"}} component="labelText" value={item.accountNum} inline={true} />
+							</div>
+				</li>
+				<li className="everyText" style={{paddingLeft:"10px"}}>
+					<div className = 'bank' style = {{display:"inline-block",position:'relative',top:-6}}> 
+							<span className="blueDrop" style={{background:'url()'}}></span>
+							<KrField label={"开户行地址:"} style={{width:"auto"}} component="labelText" value={item.bankAddress} inline={true} />
+					</div>
+				</li>
+				</div>
+				)
 		})
-		return <li className="everyText"><span className="blueDrop"></span>{arr}</li>;
+		return arr;
 	}
 
 	render(){
@@ -107,7 +121,7 @@ class ItemDetail extends Component{
 
 							<li className="everyText"><span className="blueDrop"></span><KrField grid={1/2} label="注册地址:" style={oddStyle} component="labelText" value={detail.corAddress} inline={true} /></li>
 							<li className="everyText" style = {{width:'100%'}}><span className="blueDrop"></span><KrField grid={1/2} label="公章:" style={evenStyle} component="labelText" inline={true} /><div><img style = {{width:200,margin:'auto',display:'inherit'}} src = {detail.cachetUrl} /></div></li>
-							<li className="everyText" style = {{display:'block',width:"auto"}}><span className="blueDrop"></span><KrField grid={1/2} label="状态:" style={oddStyle} component="labelText" value={detail.enableflag == "ENABLE" ? '启用':'不启用'} inline={true} /></li>
+							<li className="everyText" style = {{display:'block',width:"auto"}}><span className="blueDrop"></span><KrField grid={1/2} label="状态:" style={oddStyle} component="labelText" value={detail.enableflag == "true" ? '启用':'不启用'} inline={true} /></li>
 							<li className="everyText" style = {{display:'block',width:'100%'}}><span className="blueDrop"></span><KrField grid={1/2} label="备注:" style={{width:660,paddingLeft:0,paddingLeft:0,marginLeft:-10}} component="labelText" value={detail.corDesc} inline={true} /></li>
 
 							<div className="bottomWire"></div>

@@ -61,13 +61,23 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 				<KrField
 					style={krStyle}
 					grid={1/2}
-					name={`${brightsStr}`}
+						name={`${brightsStr}.accountNum`}
 					type="text"
 					component={renderField}
 					label={index?'':'银行账户'}
 					placeholder='银行账户'
 					requireLabel={index?false:true}
-					/>
+				/>
+				<KrField
+					style={krStyle}
+					grid={1 / 2}
+						name={`${brightsStr}.bankAddress`}
+					type="text"
+					component={renderField}
+					label={index ? '' : '开户行地址'}
+					placeholder='开户行地址'
+					requireLabel={index ? false : true}
+				/>
 				<span onClick={() => fields.insert(index+1)} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
 				<span
 					className='minusBtn'
@@ -126,6 +136,7 @@ class NewCreateForm extends React.Component {
 		data.cmtId =this.cmtIdData();
 		const {onSubmit} = this.props;
 		var _this = this;
+		data.bankAccount = JSON.stringify(data.bankAccount)
 		Http.request('addFnaCorporation', {}, data).then(function(response) {
 			onSubmit && onSubmit();
 			_this.onCancel();
@@ -210,6 +221,7 @@ class NewCreateForm extends React.Component {
 				<div className="title">
 					<DrawerTitle title ='新建出租方' onCancel = {this.onCancel}/>
 				</div>
+				
 				<div className="cheek">
 						<div className="titleBar">
 							<span className="order-number">1</span>
@@ -220,8 +232,8 @@ class NewCreateForm extends React.Component {
 								<KrField grid={1/2} label="出租方名称"  name="corName" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="注册地址" name="corAddress" style={{width:262,marginLeft:15}} component="input" requireLabel={true}/>
 								<KrField grid={1/2} label="是否启用" name="enableflag" style={{width:262,marginLeft:15,marginRight:13}} requireLabel={true} component="group">
-		              <KrField name="enableflag" label="是" type="radio" value="ENABLE" style={{marginTop:5,display:'inline-block',width:84}}/>
-		             	<KrField name="enableflag" label="否" type="radio" value="DISENABLE"  style={{marginTop:5,display:'inline-block',width:53}}/>
+		              <KrField name="enableflag" label="是" type="radio" value="true" style={{marginTop:5,display:'inline-block',width:84}}/>
+		             	<KrField name="enableflag" label="否" type="radio" value="false"  style={{marginTop:5,display:'inline-block',width:53}}/>
 		            </KrField>
 								<div className='remaskInfo'><KrField grid={1} label="备注" name="corDesc" style={{marginLeft:15,marginTop:10,marginBottom:10}} heightStyle={{height:"70px",width:'543px'}}  component="textarea"  maxSize={100} requireLabel={false} placeholder='请输入备注' lengthClass='cus-textarea'/></div>
 
@@ -332,15 +344,22 @@ const validate = values => {
         } else {
           let membersArrayErrors = []
           values.bankAccount.forEach((porTypes, memberIndex) => {
-			if(porTypes){
-				porTypes = porTypes.toString().replace(/[ /d]/g, '');
+			 
+			if (porTypes && porTypes.accountNum){
+				porTypes.accountNum = porTypes.accountNum.toString().replace(/[ /d]/g, '');
+			}
+			  if ( porTypes && porTypes.bankAddress){
+				porTypes.bankAddress = porTypes.bankAddress.toString().replace(/[ /d]/g, '');
 			}
 
 
-            let memberErrors = '';
-			if (!porTypes){
-              memberErrors = '请填写银行账户'
+            let memberErrors = {};
+			if ( porTypes && !porTypes.accountNum){
+				memberErrors.accountNum = '请填写银行账户'
 
+			}
+			if(porTypes && !porTypes.bankAddress){
+				memberErrors.bankAddress = '请填写开户行地址'
 			}
 			membersArrayErrors[memberIndex] = memberErrors
           })
@@ -355,7 +374,7 @@ const validate = values => {
 export default reduxForm({
 	form: 'newCreateForm',
 	initialValues: {
-		enableflag: 'ENABLE'
+		enableflag: 'true'
 	},
 	validate,
 	enableReinitialize: true,

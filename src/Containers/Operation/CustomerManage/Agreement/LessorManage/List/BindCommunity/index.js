@@ -35,7 +35,6 @@ class BindCommunity extends React.Component {
 		
 	}
 	componentDidMount() {
-		console.log(this.props.cmtId,"jjjjjjjj");
 		this.getBindCmtData();
 	}
 
