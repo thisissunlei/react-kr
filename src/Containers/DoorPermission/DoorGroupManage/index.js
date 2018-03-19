@@ -23,6 +23,7 @@ import './index.less';
 import NewCreateUpgrade from './NewCreateUpgrade';
 import UpgradeAdd from './UpgradeAdd';
 import BatchUpgrade from './BatchUpgrade';
+import SearchGroupForm from './SearchGroupForm';
 
 
 
@@ -112,12 +113,17 @@ export default class List extends React.Component {
 		} = this.state;
 		
 		return (
-		    <div className="second-door-upgrade" style={{minHeight:'910',backgroundColor:"#fff"}} >
-				<Title value="升级包管理"/>
-				<Section title={`升级包管理`} description="" >
-					<div>
-						<Button label="上传升级包"  onTouchTap={this.openNewCreateUpgradeDialog} className="button-list"/>
+		    <div className="door-permission-manage" style={{minHeight:'910',backgroundColor:"#fff"}} >
+				<Title value="门禁组管理"/>
+				<Section title={`门禁组管理`} description="" >
+					
+					<div style={{float:"right",marginTop:"-60px"}}>
+						<Button label="新建门禁组"  onTouchTap={this.openNewCreateUpgradeDialog} className="button-list"/>
 					</div>
+					<div>
+						<SearchGroupForm/>
+					</div>
+
 					<Table
 						className="member-list-table"
 						style={{marginTop:10,position:'inherit'}}
@@ -135,13 +141,13 @@ export default class List extends React.Component {
 						displayCheckbox={false}
 					>
 						<TableHeader>
+							<TableHeaderColumn>组名称</TableHeaderColumn>
+							<TableHeaderColumn>组级别</TableHeaderColumn>
+							<TableHeaderColumn>所属社区</TableHeaderColumn>
+							<TableHeaderColumn>公司名称</TableHeaderColumn>
 							<TableHeaderColumn>创建时间</TableHeaderColumn>
-							<TableHeaderColumn>升级类型</TableHeaderColumn>
-							<TableHeaderColumn>升级包地址</TableHeaderColumn>
-							<TableHeaderColumn>版本信息</TableHeaderColumn>
-							<TableHeaderColumn>版本编码</TableHeaderColumn>
+							<TableHeaderColumn>创建人</TableHeaderColumn>
 							<TableHeaderColumn>操作</TableHeaderColumn>
-							
 						</TableHeader>
 						<TableBody style={{position:'inherit'}}>
 							<TableRow>
