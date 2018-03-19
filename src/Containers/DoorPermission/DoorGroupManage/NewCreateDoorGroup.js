@@ -54,6 +54,8 @@ class NewCreateDooGroup extends React.Component{
 	onSubmit=(values)=>{
 		
 		console.log("values",values);
+		let {submitNewCreateDoorGoup} = this.props;
+		submitNewCreateDoorGoup && submitNewCreateDoorGoup(values);
 		
 	}
 
@@ -64,17 +66,17 @@ class NewCreateDooGroup extends React.Component{
 
 	onClearAll=()=>{
 		Store.dispatch(reset('NewCreateDooGroup',''));
-		Store.dispatch(change('NewCreateDooGroup','stime',''));
-		Store.dispatch(change('NewCreateDooGroup','etime',''));
-		var time=this.refs.stime
-		State.warnSearchParams={
-			page:1,
-			pageSize:15,
-			stime :  '',
-			etime: '',
-			deviceId:'',
-			logType: ''
-		}
+		// Store.dispatch(change('NewCreateDooGroup','stime',''));
+		// Store.dispatch(change('NewCreateDooGroup','etime',''));
+		// var time=this.refs.stime
+		// State.warnSearchParams={
+		// 	page:1,
+		// 	pageSize:15,
+		// 	stime :  '',
+		// 	etime: '',
+		// 	deviceId:'',
+		// 	logType: ''
+		// }
 	}
 
 	render(){
@@ -108,7 +110,7 @@ class NewCreateDooGroup extends React.Component{
 					inline={false}
 				/>
 
-				<KrField grid={1/2} name="csrId" 
+				<KrField grid={1/2} name="customerId" 
 					component="searchMemberCompany" 
 					label="公司" 
 					style={{width:'252px',marginRight:'30px'}}

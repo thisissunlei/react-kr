@@ -57,7 +57,8 @@ export default class DoorGroupManage extends React.Component {
 				customerId : '',
 				name : '',
 				page : '',
-				pageSize : 15
+				pageSize : 15,
+				groupLevel:''
 			}
 		}
 	}
@@ -126,6 +127,46 @@ export default class DoorGroupManage extends React.Component {
 		State.openNewCreateDoorGroup = !State.openNewCreateDoorGroup;
 	}
 
+	submitSearchParams=(params)=>{
+		let {getDoorPermissionListParams} = this.state;
+		var params = Object.assign({},getDoorPermissionListParams,params);
+		this.setState({
+			getDoorPermissionListParams:params
+		})
+	}
+
+
+	submitNewCreateDoorGoup=(values)=>{
+		let that= this;
+		let {getDoorPermissionListParams} = this.state;
+		Http.request('newCreateDoorGroup',{},values).then(function(response) {
+			Message.success("添加成功");
+			var newObj = Object.assign({},getDoorPermissionListParams,{date :new Date()});
+			that.setState({
+				getDoorPermissionListParams:newObj
+			})
+			that.openNewCreateDoorGoupDialog();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+
+	clearParams=()=>{
+		this.setState({
+			getDoorPermissionListParams:{
+				communityId : '',
+				customerId : '',
+				name : '',
+				page : '',
+				pageSize : 15,
+				groupLevel:''
+			}
+		})
+	}
+
+
+
 	render() {
 		let {
 			groupLevelOptions,getDoorPermissionListParams,
@@ -141,7 +182,7 @@ export default class DoorGroupManage extends React.Component {
 						<Button label="新建门禁组"  onTouchTap={this.openNewCreateDoorGoupDialog} className="button-list"/>
 					</div>
 					<div>
-						<SearchGroupForm/>
+						<SearchGroupForm submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
 					</div>
 
 					<Table
@@ -274,10 +315,21 @@ export default class DoorGroupManage extends React.Component {
 			        >
 			          <NewCreateDoorGroup
 			            onCancel={this.NewCreateDoorGroup}
-			            style ={{paddingTop:'35px'}}
-			            onSubmit = {this.onSubmitNewCreateEquipment}
+						submitNewCreateDoorGoup = {this.submitNewCreateDoorGoup}
 			          />
 			        </Dialog>
+
+					{/* <Dialog
+			          title="编辑门禁组"
+			          open={State.openEditDoorGroup}
+			          onClose={this.openEditDoorGroupFun}
+			          contentStyle={{width:625}}
+			        >
+			          <NewCreateDoorGroup
+			            onCancel={this.openEditDoorGroupFun}
+						submitEditDoorGroupFun = {this.submitEditDoorGroupFun}
+			          />
+			        </Dialog> */}
 
 
 			        <Dialog

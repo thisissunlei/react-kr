@@ -54,22 +54,26 @@ class SearchGroupForm extends React.Component{
 	onSubmit=(values)=>{
 		
 		console.log("values",values);
+		let {submitSearchParams}=this.props;
+		submitSearchParams && submitSearchParams(values);
 		
 	}
 
 	onClearAll=()=>{
 		Store.dispatch(reset('SearchGroupForm',''));
-		Store.dispatch(change('SearchGroupForm','stime',''));
-		Store.dispatch(change('SearchGroupForm','etime',''));
-		var time=this.refs.stime
-		State.warnSearchParams={
-			page:1,
-			pageSize:15,
-			stime :  '',
-			etime: '',
-			deviceId:'',
-			logType: ''
-		}
+		let {clearParams} = this.props;
+		clearParams && clearParams();
+		// Store.dispatch(change('SearchGroupForm','stime',''));
+		// Store.dispatch(change('SearchGroupForm','etime',''));
+		// var time=this.refs.stime
+		// State.warnSearchParams={
+		// 	page:1,
+		// 	pageSize:15,
+		// 	stime :  '',
+		// 	etime: '',
+		// 	deviceId:'',
+		// 	logType: ''
+		// }
 	}
 
 	render(){
@@ -90,7 +94,7 @@ class SearchGroupForm extends React.Component{
 						</span>
 					</ListGroupItem>
 					<ListGroupItem>
-						<KrField name="companyId" 
+						<KrField name="customerId" 
 							component="searchMemberCompany" 
 							label="公司：" 
 							style={{width:'237px'}}
@@ -101,7 +105,7 @@ class SearchGroupForm extends React.Component{
 					
 					<ListGroupItem >
 						
-						<KrField name="groupType" 
+						<KrField name="groupLevel" 
 							component="select" 
 							label="组级别：" 
 							options = {logTypeOptions}
@@ -111,7 +115,7 @@ class SearchGroupForm extends React.Component{
 					<ListGroupItem >
 						
 						<KrField
-							name="groupName" 
+							name="name" 
 							type="text" 
 							label="组名称："
 							style={{width:237}}
