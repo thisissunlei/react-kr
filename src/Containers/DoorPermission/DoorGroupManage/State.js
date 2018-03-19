@@ -9,7 +9,7 @@ import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
 
 let State = observable({
-	openNewCreateUpgrade : false,
+	openNewCreateDoorGroup : false,
 	openUpgradeAdd : false,
 	upgradeListParams:{
 		page:1,

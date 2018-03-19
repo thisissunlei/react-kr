@@ -15,17 +15,18 @@ import {
 	Grid,
 	Row,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Tooltip
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
-import NewCreateUpgrade from './NewCreateUpgrade';
+
 import UpgradeAdd from './UpgradeAdd';
 import BatchUpgrade from './BatchUpgrade';
+
+import NewCreateDoorGroup from './NewCreateDoorGroup';
 import SearchGroupForm from './SearchGroupForm';
-
-
 
 
 import State from './State';
@@ -35,12 +36,29 @@ import {
 } from 'mobx-react';
 @observer
 
-export default class List extends React.Component {
+export default class DoorGroupManage extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			itemDetail:{}
+			itemDetail:{},
+			groupLevelOptions: [{
+				label:"普通组",
+				value: "NORMAL"
+			},{
+				label:"全国通开组",
+				value: "COUNTRYWIDE"
+			},{
+				label:"社区通开组",
+				value: "COMMUNITYWIDE"
+			}],
+			getDoorPermissionListParams:{
+				communityId : '',
+				customerId : '',
+				name : '',
+				page : '',
+				pageSize : 15
+			}
 		}
 	}
 
@@ -104,11 +122,13 @@ export default class List extends React.Component {
 
 
 
-	openNewCreateUpgradeDialog=()=>{
-		State.openNewCreateUpgrade = !State.openNewCreateUpgrade;
+	openNewCreateDoorGoupDialog=()=>{
+		State.openNewCreateDoorGroup = !State.openNewCreateDoorGroup;
 	}
+
 	render() {
 		let {
+			groupLevelOptions,getDoorPermissionListParams,
 			list,seleced,itemDetail
 		} = this.state;
 		
@@ -118,7 +138,7 @@ export default class List extends React.Component {
 				<Section title={`门禁组管理`} description="" >
 					
 					<div style={{float:"right",marginTop:"-60px"}}>
-						<Button label="新建门禁组"  onTouchTap={this.openNewCreateUpgradeDialog} className="button-list"/>
+						<Button label="新建门禁组"  onTouchTap={this.openNewCreateDoorGoupDialog} className="button-list"/>
 					</div>
 					<div>
 						<SearchGroupForm/>
@@ -135,8 +155,8 @@ export default class List extends React.Component {
 						exportSwitch={false}
 						onOperation={this.onOperation}
 						ajaxFieldListName='items'
-						ajaxUrlName='upgradeInfoListUrl'
-						ajaxParams={State.upgradeListParams}
+						ajaxUrlName='getDoorPermissionList'
+						ajaxParams={getDoorPermissionListParams}
 						onPageChange={this.onPageChange}
 						displayCheckbox={false}
 					>
@@ -152,10 +172,24 @@ export default class List extends React.Component {
 						<TableBody style={{position:'inherit'}}>
 							<TableRow>
 
-							<TableRowColumn name="ctime" type="date" format="yyyy-mm-dd HH:MM:ss">
-							</TableRowColumn>
+							<TableRowColumn 
+								style={{width:"12%",overflow:"visible"}} 
+								name="name" 
+								component={(value,oldValue,itemData)=>{
+								var TooltipStyle=""
+								if(value.length==""){
+									TooltipStyle="none"
 
-							<TableRowColumn name="upgradeTypeName"
+								}else{
+									TooltipStyle="block";
+								}
+									return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+									<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+							}} ></TableRowColumn>
+
+							<TableRowColumn name="groupLevel"
+							style={{width:"5%",overflow:"visible"}} 
+							options={groupLevelOptions}
 							component={(value,oldValue)=>{
 								if(value==""){
 									value="-"
@@ -163,33 +197,69 @@ export default class List extends React.Component {
 								return (<span>{value}</span>)}}
 							></TableRowColumn>
 
+							<TableRowColumn name="communityName"
+							style={{width:"10%",overflow:"visible"}} 
+							component={(value,oldValue)=>{
+								if(value==""){
+									value="-"
+								}
+								return (<span>{value}</span>)}}
+							></TableRowColumn>
 							
-							<TableRowColumn style={{width:400,overflow:"visible"}} name="url" component={(value,oldValue)=>{
-		                           
-		                        return (<div style={{paddingTop:5}} className='financeDetail-hover'>
-		                        			<span className='tableOver' style={{maxWidth:400,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-		                        		</div>)
-		              			}} ></TableRowColumn>
-							<TableRowColumn name="version"
-							component={(value,oldValue)=>{
-								if(value==""){
-									value="-"
-								}
-								return (<span>{value}</span>)}}
-							 ></TableRowColumn>
 
-							 <TableRowColumn name="versionCode"
-							component={(value,oldValue)=>{
-								if(value==""){
-									value="-"
-								}
-								return (<span>{value}</span>)}}
-							 ></TableRowColumn>
 
-							<TableRowColumn type="operation">
-								<Button  label="删除"  type="operation" operation="delete"/>
-								<Button  label="升级包地址"  type="operation" operation="detail"/>
-								<Button  label="升级"  type="operation" operation="upgradeBtach"/>
+							<TableRowColumn 
+								style={{width:"10%",overflow:"visible"}} 
+								name="customerName" 
+								component={(value,oldValue,itemData)=>{
+								var TooltipStyle=""
+								if(value.length==""){
+									TooltipStyle="none"
+
+								}else{
+									TooltipStyle="block";
+								}
+									return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+									<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+							}} ></TableRowColumn>
+
+
+
+							<TableRowColumn 
+								name="ctime" 
+								type="date" 
+								format="yyyy-mm-dd HH:MM:ss"
+								style={{width:"12%"}}
+							>
+							</TableRowColumn>
+
+							
+
+							<TableRowColumn 
+								style={{width:"10%",overflow:"visible"}} 
+								name="creatorName" 
+								component={(value,oldValue,itemData)=>{
+								var TooltipStyle=""
+								if(value.length==""){
+									TooltipStyle="none"
+
+								}else{
+									TooltipStyle="block";
+								}
+									return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+									<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+							}} ></TableRowColumn>
+
+							
+
+							
+							<TableRowColumn type="operation" style={{width:"16%",overflow:"visible"}} >
+
+								<Button  label="添加成员"  type="operation" operation="addMember"/>
+								<Button  label="授权设备"  type="operation" operation="upgradeBtach"/>
+								<Button  label="编辑"  type="operation" operation="detail"/>
+								<Button  label="添加成员"  type="operation" operation="delete"/>
+								
 							</TableRowColumn>
 
 						</TableRow>
@@ -197,13 +267,13 @@ export default class List extends React.Component {
 						<TableFooter></TableFooter>
 					</Table>
 					<Dialog
-			          title="上传升级包"
-			          open={State.openNewCreateUpgrade}
-			          onClose={this.openNewCreateUpgradeDialog}
-			          contentStyle={{width:688}}
+			          title="新建门禁组"
+			          open={State.openNewCreateDoorGroup}
+			          onClose={this.openNewCreateDoorGoupDialog}
+			          contentStyle={{width:625}}
 			        >
-			          <NewCreateUpgrade
-			            onCancel={this.openNewCreateUpgrade}
+			          <NewCreateDoorGroup
+			            onCancel={this.NewCreateDoorGroup}
 			            style ={{paddingTop:'35px'}}
 			            onSubmit = {this.onSubmitNewCreateEquipment}
 			          />
