@@ -426,7 +426,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 innerstyle={{width:245,height:171,padding:10}}
                                 // sizePhoto={true}
                                 // photoSize={'16:9'}
-                                customTip="提示：图片比例16:9，图片由产品技术设计同事提供"
+                                customTip="提示：图片比例500 * 254，图片由产品技术设计同事提供"
                                 pictureFormat={'JPG,PNG,GIF'}
                                 pictureMemory={'300'}
                                 requestURI = '/api/krspace-finance-web/cmtbright/upload-pic'
