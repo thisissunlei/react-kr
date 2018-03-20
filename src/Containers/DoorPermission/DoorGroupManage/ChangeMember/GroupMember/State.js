@@ -12,6 +12,7 @@ let State = observable({
 	openNewCreateDoorGroup : false,
 	openDeleteGroup : false,
 	openChangeMemeberDialog : false,
+	
 
 	openUpgradeAdd : false,
 	upgradeListParams:{
