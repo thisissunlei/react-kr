@@ -7,13 +7,9 @@ import {Http} from 'kr/Utils';
 
 import {
 	KrField,
-	Grid,
-	Row,
 	Button,
-	Notify,
 	ListGroup,
 	ListGroupItem,
-	SearchForm,
 	Message,
 	
 } from 'kr-ui';
@@ -37,11 +33,11 @@ class SearchGroupForm extends React.Component{
 					label:"普通组",
 					value: "NORMAL"
 				},{
-					label:"全国通开组",
-					value: "COUNTRYWIDE"
-				},{
 					label:"社区通开组",
 					value: "COMMUNITYWIDE"
+				},{
+					label:"全国通开组",
+					value: "COUNTRYWIDE"
 				}
 				
 			],
@@ -53,7 +49,6 @@ class SearchGroupForm extends React.Component{
 	}
 	onSubmit=(values)=>{
 		
-		console.log("values",values);
 		let {submitSearchParams}=this.props;
 		submitSearchParams && submitSearchParams(values);
 		
@@ -63,17 +58,6 @@ class SearchGroupForm extends React.Component{
 		Store.dispatch(reset('SearchGroupForm',''));
 		let {clearParams} = this.props;
 		clearParams && clearParams();
-		// Store.dispatch(change('SearchGroupForm','stime',''));
-		// Store.dispatch(change('SearchGroupForm','etime',''));
-		// var time=this.refs.stime
-		// State.warnSearchParams={
-		// 	page:1,
-		// 	pageSize:15,
-		// 	stime :  '',
-		// 	etime: '',
-		// 	deviceId:'',
-		// 	logType: ''
-		// }
 	}
 
 	render(){

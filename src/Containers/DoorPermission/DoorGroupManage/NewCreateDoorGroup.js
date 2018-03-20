@@ -10,10 +10,8 @@ import {
 	Grid,
 	Row,
 	Button,
-	Notify,
 	ListGroup,
 	ListGroupItem,
-	SearchForm,
 	Message,
 	
 } from 'kr-ui';
@@ -28,32 +26,35 @@ import {
 
 
 
-class NewCreateDooGroup extends React.Component{
+class NewCreateDoorGroup extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			logTypeOptions : [
+			groupLevelOptions : [
 				{
 					label:"普通组",
 					value: "NORMAL"
 				},{
-					label:"全国通开组",
-					value: "COUNTRYWIDE"
-				},{
 					label:"社区通开组",
 					value: "COMMUNITYWIDE"
+				},{
+					label:"全国通开组",
+					value: "COUNTRYWIDE"
 				}
 				
 			],
+			chooseCOUNTRYWIDE :false,
+			communityId : '',
+			customerId : '',
+
 		}
 	}
 	componentDidMount(){
 		
-		
 	}
+
 	onSubmit=(values)=>{
 		
-		console.log("values",values);
 		let {submitNewCreateDoorGoup} = this.props;
 		submitNewCreateDoorGoup && submitNewCreateDoorGoup(values);
 		
@@ -64,24 +65,42 @@ class NewCreateDooGroup extends React.Component{
 		State.openNewCreateDoorGroup = false;
 	}
 
-	onClearAll=()=>{
-		Store.dispatch(reset('NewCreateDooGroup',''));
-		// Store.dispatch(change('NewCreateDooGroup','stime',''));
-		// Store.dispatch(change('NewCreateDooGroup','etime',''));
-		// var time=this.refs.stime
-		// State.warnSearchParams={
-		// 	page:1,
-		// 	pageSize:15,
-		// 	stime :  '',
-		// 	etime: '',
-		// 	deviceId:'',
-		// 	logType: ''
-		// }
+	changGroupLevel=(option)=>{
+
+		let {communityId,customerId} = this.state;
+		if(option.value == "COUNTRYWIDE"){
+
+			this.setState({
+				chooseCOUNTRYWIDE : true
+			})
+			Store.dispatch(change('NewCreateDoorGroup','communityId',''));
+			Store.dispatch(change('NewCreateDoorGroup','customerId',''));
+			return;
+		}
+
+		this.setState({
+			chooseCOUNTRYWIDE : false
+		})
+		Store.dispatch(change('NewCreateDoorGroup','communityId',communityId));
+		Store.dispatch(change('NewCreateDoorGroup','customerId', customerId));
 	}
+
+	changeCommunityId=(option)=>{
+		this.setState({
+			communityId:option.id
+		})
+	}
+
+	changeCustomerId=(option)=>{
+		this.setState({
+			customerId:option.value
+		})
+	}
+
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {logTypeOptions} = this.state;
+		let {groupLevelOptions,chooseCOUNTRYWIDE} = this.state;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="new-creat-door-group">
 				<KrField grid={1/2} 
@@ -97,33 +116,37 @@ class NewCreateDooGroup extends React.Component{
 				<KrField name="groupLevel" 
 					component="select" 
 					label="组级别："
-					options={logTypeOptions}  
+					options={groupLevelOptions}  
 					requireLabel={true} 
 					errors={{requiredValue:'组级别为必填项'}} 
 					style={{width:'252px',margin:'0 35px 5px 0'}}
+					onChange={this.changGroupLevel}
 				/>
 
-				<KrField name="communityId" 
+				{!chooseCOUNTRYWIDE && <KrField name="communityId" 
 					component="searchCommunityAll" 
 					label="社区名称"  
 					style={{width:'252px',margin:'0 35px 5px 0'}}
 					inline={false}
-				/>
+					onChange={this.changeCommunityId}
+				/>}
 
-				<KrField grid={1/2} name="customerId" 
+				{!chooseCOUNTRYWIDE && <KrField grid={1/2} name="customerId" 
 					component="searchMemberCompany" 
 					label="公司" 
 					style={{width:'252px',marginRight:'30px'}}
-				/>
+					onChange={this.changeCustomerId}
+				/>}
 				
 				
 					
 				<KrField
-						label="备注"
-						name ="memo"
-						component = 'textarea'
-						style={{width:538}}
-					/>
+					label="备注"
+					name ="memo"
+					component = 'textarea'
+					style={{width:538}}
+				/>
+
 				<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px'}}>
 							<ListGroup >
@@ -140,9 +163,23 @@ class NewCreateDooGroup extends React.Component{
 		);
 	}
 }
-export default NewCreateDooGroup = reduxForm({
-	form: 'NewCreateDooGroup',
-	// validate,
+const validate = values => {
+	const errors = {}
+	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+	if (!values.name) {
+		errors.name = '请输入组名称';
+	}
+	if (!values.groupLevel) {
+		errors.groupLevel = '请选择组级别';
+	}
+	if(values.groupLevel=="COMMUNITYWIDE" && !values.communityId){
+		errors.communityId = "请选择社区";
+	}
+	return errors
+}
+export default NewCreateDoorGroup = reduxForm({
+	form: 'NewCreateDoorGroup',
+	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(NewCreateDooGroup);
+})(NewCreateDoorGroup);
