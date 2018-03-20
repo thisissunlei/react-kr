@@ -32,7 +32,8 @@ export default class DoorGroupManage extends React.Component {
         this.groupItemDetail  = this.props.groupItemDetail;
 		this.state = {
             items : [],
-            itemDetail:{},
+			itemDetail:{},
+			batchChecked :false,
             searchParams:{
                 name : '',
                 communityId :'',
@@ -51,9 +52,16 @@ export default class DoorGroupManage extends React.Component {
         let that = this;
 		let {searchParams} = this.state;
 		let {groupItemDetail} = this.props;
-		console.log("<=======>groupItemDetail",groupItemDetail);
+		
 		var params = Object.assign({},searchParams,{groupId : groupItemDetail.id});
         Http.request('getDoorGroupMemberList',params).then(function(response) {
+			var returnItems= response.items;
+			console.log("{{{{returnItems",returnItems)
+			returnItems.forEach(function(element,index,array){
+				element.checked = false;
+			})
+			console.log("===?>{{{{returnItems",returnItems)
+			
 			that.setState({
                 items: response.items
             })
@@ -115,14 +123,9 @@ export default class DoorGroupManage extends React.Component {
 		});
 	}
 
-	openChangeMemeberFun=()=>{
-
-		State.openChangeMemeberDialog = !State.openChangeMemeberDialog;
-	}
 
 	deleteMember=(item)=>{
 
-		console.log("item",item);
 		let that = this;
 		this.setState({
 			itemDetail : item
@@ -137,13 +140,23 @@ export default class DoorGroupManage extends React.Component {
 		State.openDeleteMemberFromGroup = !State.openDeleteMemberFromGroup;
 	}
 
+	changeItemCheckbox=(item)=>{
+
+		console.log("item",item);
+		item.checked = !item.checked;
+		let {items} = this.state;
+		this.setState({
+			items : items
+		})
+	}
+
     renderItemsList=(items)=>{
 		let that = this;
         var dom = items.map(function(item,index){
             return (
                 <div key={index} className="item-line">
 					<span  className="first-line-item item-line-span">
-						<input type="checkbox"/>
+						<input type="checkbox"  checked={item.checked?"checked":""} onClick={that.changeItemCheckbox.bind(this,item)}/>
 					</span>
                     <span className="item-line-span">{item.name}</span>
 					<span className="item-line-span">{item.phone}</span>
@@ -155,13 +168,31 @@ export default class DoorGroupManage extends React.Component {
             )
         });
         return dom;
-    }
+	}
+	
+	changeBatchCheck=()=>{
+
+		let {batchChecked,items} = this.state;
+		let that = this;
+		items.forEach(function(element,index,array){
+			element.checked = !batchChecked;
+		})
+		this.setState({
+			batchChecked : !batchChecked,
+			items : items
+		})
+	}
+
+	batchDeleteMember=()=>{
+		console.log("批量删除");
+	}
+
 
 	render() {
 		let {
-			items
+			items,batchChecked
 		} = this.state;
-		
+		let that = this;
 		return (
 		    <div className="change-member-item-box" style={{backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
@@ -188,11 +219,11 @@ export default class DoorGroupManage extends React.Component {
 							<Row style={{marginTop:10}}>
 								<ListGroup >
 									<ListGroupItem style={{padding:"7px 10px 0 5px",display:'inline-block',}}>
-										<input type="checkbox"/>
+										<input type="checkbox" checked={batchChecked} onClick={that.changeBatchCheck}/>
 										<span style={{marginLeft:5}}>全选</span>
 									</ListGroupItem>
 									<ListGroupItem style={{padding:0,display:'inline-block',marginRight:3}}>
-										<Button  label="批量删除" type="button"  cancle={true} onTouchTap={this.closeNewCreateDoorGroup} />
+										<Button  label="批量删除" type="button"  cancle={true} onTouchTap={this.batchDeleteMember} />
 									</ListGroupItem>
 								</ListGroup>					
 							</Row>
