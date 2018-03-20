@@ -11,6 +11,7 @@ import {Message} from 'kr-ui';
 let State = observable({
 
 	openDeleteMemberFromGroup : false,
+	openBatchDeleteDialog : false,
 
 
 

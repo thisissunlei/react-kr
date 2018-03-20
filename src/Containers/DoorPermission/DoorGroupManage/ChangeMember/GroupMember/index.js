@@ -56,11 +56,9 @@ export default class DoorGroupManage extends React.Component {
 		var params = Object.assign({},searchParams,{groupId : groupItemDetail.id});
         Http.request('getDoorGroupMemberList',params).then(function(response) {
 			var returnItems= response.items;
-			console.log("{{{{returnItems",returnItems)
 			returnItems.forEach(function(element,index,array){
 				element.checked = false;
 			})
-			console.log("===?>{{{{returnItems",returnItems)
 			
 			that.setState({
                 items: response.items
@@ -184,7 +182,36 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	batchDeleteMember=()=>{
+		
+
+		this.openBatchDeleteDialogFun();
+
+	}
+
+	openBatchDeleteDialogFun=()=>{
+		State.openBatchDeleteDialog = !State.openBatchDeleteDialog
+	}
+
+	confirmBatchDelete=()=>{
 		console.log("批量删除");
+		let {items} = this.state;
+		let that = this;
+		var toDeleteIds = [];
+		for(let i=0;i<items.length;i++){
+			if(items[i].checked){
+				toDeleteIds.push(items.id);
+			}
+		}
+		console.log("toDeleteIds",toDeleteIds);
+		Http.request('BatchDeleteMember',toDeleteIds).then(function(response) {
+
+			that.openBatchDeleteDialogFun();
+			that.refreshPage();
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+
 	}
 
 
@@ -232,7 +259,7 @@ export default class DoorGroupManage extends React.Component {
                     </div>
 
 					<Dialog
-			          title="移除成员"
+			          title="确认移除成员"
 			          open={State.openDeleteMemberFromGroup}
 			          onClose={this.openDeleteMemberFromGroupFun}
 			          contentStyle={{width:425}}
@@ -240,6 +267,19 @@ export default class DoorGroupManage extends React.Component {
 			          <DeleteMemberFromGroup
 			            onCancel={this.openDeleteMemberFromGroupFun}
 						confirmDelete = {this.confirmDelete}
+						
+			          />
+			        </Dialog>
+
+					<Dialog
+			          title="确认批量移除成员"
+			          open={State.openBatchDeleteDialog}
+			          onClose={this.openBatchDeleteDialogFun}
+			          contentStyle={{width:425}}
+			        >
+			          <BatchDeleteMemberFromGroup
+			            onCancel={this.openBatchDeleteDialogFun}
+						confirmDelete = {this.confirmBatchDelete}
 						
 			          />
 			        </Dialog>
