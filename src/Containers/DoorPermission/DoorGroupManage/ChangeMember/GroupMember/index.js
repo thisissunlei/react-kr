@@ -15,6 +15,7 @@ import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
  import SearchGroupMember from './SearchGroupMember';
+ import DeleteMemberFromGroup from './DeleteMemberFromGroup';
 
 
 import State from './State';
@@ -29,14 +30,13 @@ export default class DoorGroupManage extends React.Component {
 	constructor(props, context) {
         super(props, context);
         this.groupItemDetail  = this.props.groupItemDetail;
-        this.groupId  = this.props.groupItemDetail.id;
 		this.state = {
             items : [],
             itemDetail:{},
             searchParams:{
                 name : '',
                 communityId :'',
-                groupId : this.props.groupItemDetail.id,
+                groupId : '',
                 customerId : '',
                 phone : ''
             }
@@ -51,8 +51,9 @@ export default class DoorGroupManage extends React.Component {
         let that = this;
 		let {searchParams} = this.state;
 		let {groupItemDetail} = this.props;
-		
-        Http.request('getDoorGroupMemberList',searchParams).then(function(response) {
+		console.log("<=======>groupItemDetail",groupItemDetail);
+		var params = Object.assign({},searchParams,{groupId : groupItemDetail.id});
+        Http.request('getDoorGroupMemberList',params).then(function(response) {
 			that.setState({
                 items: response.items
             })
@@ -61,48 +62,7 @@ export default class DoorGroupManage extends React.Component {
 		});
     }
 	
-	onLoaded=(response)=>{
-		let list = response;
-		this.setState({
-			list
-		})
-	}
-
-	openDeleteGroupFun=()=>{
-		State.openDeleteGroup = !State.openDeleteGroup;
-	}
-
-	//操作相关
-	onOperation=(type, itemDetail)=>{
-		State.itemDetail = itemDetail;
-		this.setState({
-			itemDetail
-		})
-		let _this = this;
-		if (type == 'delete') {
-			
-			_this.openDeleteGroupFun();
-		}
-		if(type == 'detail') {
-			// _this.openUpgradeAddFun();
-		}
-		if(type=='changeMember'){
-			
-		}
-	}
-
 	
-	onPageChange=(page)=>{
-		this.setState({
-			realPage : page 
-		})
-	}
-
-
-
-	openNewCreateDoorGoupDialog=()=>{
-		State.openNewCreateDoorGroup = !State.openNewCreateDoorGroup;
-	}
 
 	submitSearchParams=(params)=>{
 
@@ -117,24 +77,15 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 
-	submitNewCreateDoorGoup=(values)=>{
-		let that= this;
-		let {getDoorPermissionListParams} = this.state;
-		Http.request('newCreateDoorGroup',{},values).then(function(response) {
-			Message.success("添加成功");
-			that.refreshPage();
-			that.openNewCreateDoorGoupDialog();
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
-
 
 	refreshPage=()=>{
-		let {getDoorPermissionListParams}  =this.state;
-		var newObj = Object.assign({},getDoorPermissionListParams,{date :new Date()});
+		let {searchParams}  =this.state;
+		let that = this;
+		var newObj = Object.assign({},searchParams,{date :new Date()});
 		this.setState({
-			getDoorPermissionListParams:newObj
+			searchParams:newObj
+		},function(){
+			that.getItemsData();
 		})
 	}
 
@@ -157,8 +108,8 @@ export default class DoorGroupManage extends React.Component {
 		let that = this;
 		Http.request('deleteDoorGroup',{id:itemDetail.id}).then(function(response) {
 			Message.success("删除成功");
+			that.openDeleteMemberFromGroupFun();
 			that.refreshPage();
-			that.openDeleteGroupFun();
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -169,8 +120,25 @@ export default class DoorGroupManage extends React.Component {
 		State.openChangeMemeberDialog = !State.openChangeMemeberDialog;
 	}
 
-    renderItemsList=(items)=>{
+	deleteMember=(item)=>{
 
+		console.log("item",item);
+		let that = this;
+		this.setState({
+			itemDetail : item
+		},function(){
+			that.openDeleteMemberFromGroupFun();
+		})
+		
+
+	}
+
+	openDeleteMemberFromGroupFun=()=>{
+		State.openDeleteMemberFromGroup = !State.openDeleteMemberFromGroup;
+	}
+
+    renderItemsList=(items)=>{
+		let that = this;
         var dom = items.map(function(item,index){
             return (
                 <div key={index} className="item-line">
@@ -182,7 +150,7 @@ export default class DoorGroupManage extends React.Component {
 					<span className="item-line-span">{item.communityName}</span>
 					<span className="item-line-span">{item.customerName}</span>
 					<span className="item-line-span">{item.email}</span>
-					<span className="item-line-span last-line-span">移除</span>
+					<span className="item-line-span last-line-span" onClick={that.deleteMember.bind(this,item)}>移除</span>
                 </div>
             )
         });
@@ -231,7 +199,19 @@ export default class DoorGroupManage extends React.Component {
 						</Grid>
 						
                     </div>
-					
+
+					<Dialog
+			          title="移除成员"
+			          open={State.openDeleteMemberFromGroup}
+			          onClose={this.openDeleteMemberFromGroupFun}
+			          contentStyle={{width:425}}
+			        >
+			          <DeleteMemberFromGroup
+			            onCancel={this.openDeleteMemberFromGroupFun}
+						confirmDelete = {this.confirmDelete}
+						
+			          />
+			        </Dialog>
 					
 
 				</Section>
