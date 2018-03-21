@@ -134,7 +134,12 @@ module.exports = {
     },
      //会员列表-会员详情
      'get-member-detail':{
-        url:'/api/krspace-sso-web/member/detail?id={id}',
+        url:'/api/krspace-sso-web/member/detail?uid={uid}',
+        method:'get'
+    },
+    //会员列表-会员入驻历史记录
+    'get-member-enter-history':{
+        url:'/api/krspace-sso-web/member/enter/history?uid={uid}',
         method:'get'
     },
 }

@@ -223,9 +223,36 @@
 		}
 	}
 .g-member-detail{
-	height:400px;
+	min-height:400px;
 	background:#fff;
 	.m-member-info{
 		padding-top:20px;
+	}
+	.ui-detail-layout{
+		font-size: 14px;
+		color: #333333;
+		line-height: 14px;
+		.ui-content-title{
+			margin-bottom: 24px;
+		}
+		.ui-circle{
+			font-size: 14px;
+			color: #333333;
+			font-weight: 500;
+		}
+		.ui-circle:before{
+			content:'';
+			width:7px;
+			height:7px;
+			display: inline-block;
+			border:1px solid #333333;
+			border-radius: 100% 100%;
+			margin-right:6px;
+			vertical-align: middle;
+			margin-top: -3px;
+		}
+	}
+	.u-info-content{
+		padding-bottom:30px;
 	}
 }
