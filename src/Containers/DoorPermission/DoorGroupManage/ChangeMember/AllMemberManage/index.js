@@ -242,7 +242,7 @@ export default class DoorGroupManage extends React.Component {
 		return (
 		    <div className="change-member-item-box" style={{backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
-				<Section title={`组成员`} description="" >
+				<Section title={`全部会员`} description="" >
 					<div>
 						<SearchGroupMember submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
 					</div>

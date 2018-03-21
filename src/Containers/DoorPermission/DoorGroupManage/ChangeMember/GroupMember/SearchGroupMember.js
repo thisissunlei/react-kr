@@ -11,7 +11,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
-	SearchForms,
+	SearchFormsNew,
 } from 'kr-ui';
 import './index.less';
 import {DateFormat} from 'kr/Utils';
@@ -49,10 +49,13 @@ class SearchGroupForm extends React.Component{
 		
 		
 	}
+
 	onSubmit=(values)=>{
-		console.log("values",values);
+
+		var sendData = {communityId:'',customerId : ''}
+		sendData = Object.assign(sendData,values);
 		let {submitSearchParams}=this.props;
-		submitSearchParams && submitSearchParams(values);
+		submitSearchParams && submitSearchParams(sendData);
 		
 	}
 
@@ -88,13 +91,14 @@ class SearchGroupForm extends React.Component{
 
 	resetSearchFormData=(content)=>{
 		let {seachFormFilter} = this.state;
-		if(seachFormFilter=="name"){
-			Store.dispatch(change('SearchGroupForm','name',content));
-			Store.dispatch(change('SearchGroupForm','phone',''));
-		}else{
-			Store.dispatch(change('SearchGroupForm','phone',content));
-			Store.dispatch(change('SearchGroupForm','name',''));
-		}
+		var newParamObj = {};
+		newParamObj[seachFormFilter] = content;
+		var emptyObj={name:'',phone:''};
+		var realData = Object.assign(emptyObj,newParamObj);
+
+		Store.dispatch(change('SearchGroupForm','name',realData.name||''));
+		Store.dispatch(change('SearchGroupForm','phone',realData.phone||''));
+	
 	}
 
 	render(){
@@ -128,12 +132,13 @@ class SearchGroupForm extends React.Component{
 					
 					<ListGroupItem >
 						<span style={{display:"inline-block",marginRight:10}}>
-							<SearchForms onSubmit={this.onSearchSubmit}  
+							<SearchFormsNew onSubmit={this.onSearchSubmit}  
 								style={{zIndex:10000,marginLeft:10}}
 								content={seachFormContent}
 								searchFilter={searchFormOptions}
 								onChange={this.changeSearchFormContent}
 								onFilter={this.changeSearchFormFilter}
+								filterSpecialClass ="search-member-all-search-form"
 							/>
 						</span>
 

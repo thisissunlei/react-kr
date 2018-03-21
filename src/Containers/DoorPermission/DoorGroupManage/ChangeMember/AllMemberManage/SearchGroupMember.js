@@ -11,7 +11,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
-	SearchForms,
+	SearchFormsNew,
 } from 'kr-ui';
 import './index.less';
 import {DateFormat} from 'kr/Utils';
@@ -46,9 +46,14 @@ class SearchGroupForm extends React.Component{
 		
 	}
 	onSubmit=(values)=>{
-		console.log("values",values);
+
+		var sendData = {
+			communityId :values.communityId_all,
+			customerId : values.customerId_all
+		}
+		sendData = Object.assign(sendData,values);
 		let {submitSearchParams}=this.props;
-		submitSearchParams && submitSearchParams(values);
+		submitSearchParams && submitSearchParams(sendData);
 		
 	}
 
@@ -101,7 +106,7 @@ class SearchGroupForm extends React.Component{
 				<ListGroup className="search-item-line">
 					<ListGroupItem>
 						<span className="communityId-span">
-							<KrField name="communityId"
+							<KrField name="communityId_all"
 								component="searchCommunityAll"
 								label="社区名称："
 								style={{width:'237px'}}
@@ -111,7 +116,7 @@ class SearchGroupForm extends React.Component{
 						</span>
 					</ListGroupItem>
 					<ListGroupItem>
-						<KrField name="customerId" 
+						<KrField name="customerId_all" 
 							component="searchMemberCompany" 
 							label="公司：" 
 							style={{width:'237px'}}
@@ -124,12 +129,13 @@ class SearchGroupForm extends React.Component{
 					
 					<ListGroupItem >
 						<span style={{display:"inline-block",marginRight:10}}>
-							<SearchForms onSubmit={this.onSearchSubmit}  
+							<SearchFormsNew onSubmit={this.onSearchSubmit}  
 								style={{zIndex:10000,marginLeft:10}}
 								content={seachFormContent}
 								searchFilter={searchFormOptions}
 								onChange={this.changeSearchFormContent}
 								onFilter={this.changeSearchFormFilter}
+								filterSpecialClass ="search-member-in-group-search-form"
 							/>
 						</span>
 
