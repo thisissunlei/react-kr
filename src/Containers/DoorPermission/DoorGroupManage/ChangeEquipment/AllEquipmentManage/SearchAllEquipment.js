@@ -85,8 +85,14 @@ class SearchGroupForm extends React.Component{
 
 	onSubmit=(values)=>{
 		console.log("values",values);
+
+		var sendValues = Object.assign({},values);
+		sendValues.communityId = sendValues.communityId_all || '';
+		sendValues.floor = sendValues.floor_all|| '';
+		sendValues.doorType = sendValues.doorType_all|| '';
+
 		let {submitSearchParams}=this.props;
-		submitSearchParams && submitSearchParams(values);
+		submitSearchParams && submitSearchParams(sendValues);
 		
 	}
 
@@ -125,11 +131,11 @@ class SearchGroupForm extends React.Component{
 		let newObj = {};
 		newObj[seachFormFilter] = content;
 
-		console.log("newObj",newObj);
+		// console.log("newObj",newObj);
 
 		let emptyObj ={doorCode : '',deviceId : '',title : ''}
 		let formDateObj = Object.assign(emptyObj,newObj);
-		console.log("formDateObj",formDateObj);
+		// console.log("formDateObj",formDateObj);
 		Store.dispatch(change('SearchGroupForm','deviceId',formDateObj.deviceId || ""));
 		Store.dispatch(change('SearchGroupForm','doorCode',formDateObj.doorCode || ""));
 		Store.dispatch(change('SearchGroupForm','title',formDateObj.title|| ""));
@@ -141,10 +147,11 @@ class SearchGroupForm extends React.Component{
 		let _this = this;
 		var communityIdReal,floorReal;
 		if(!community){
-
+			console.log("ldldlld====>SearchGroupForm");
 			// communityIdReal = '';
 			floorReal = '';
-			Store.dispatch(change('SearchGroupForm','floor',''));
+			Store.dispatch(change('SearchGroupForm','floor_all',''));
+			Store.dispatch(change('SearchGroupForm','communityId_all',''));
 			_this.setState({
 				floorsOptions : []
 			})
