@@ -9,10 +9,14 @@ import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
 
 let State = observable({
+
+	openDeleteMemberFromGroup : false,
+	openBatchDeleteDialog : false,
+
+
+
 	openNewCreateDoorGroup : false,
-	openDeleteGroup : false,
 	openChangeMemeberDialog : false,
-	
 
 	openUpgradeAdd : false,
 	upgradeListParams:{

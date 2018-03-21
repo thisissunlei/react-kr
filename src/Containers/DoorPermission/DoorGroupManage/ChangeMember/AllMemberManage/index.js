@@ -224,9 +224,6 @@ export default class DoorGroupManage extends React.Component {
 
 			that.openBatchDeleteDialogFun();
 			that.refreshPage();
-			that.setState({
-				batchChecked : false
-			})
 
 		}).catch(function(err) {
 			Message.error(err.message);

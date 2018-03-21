@@ -76,7 +76,6 @@ export default class DoorGroupManage extends React.Component {
 	//操作相关
 	onOperation=(type,itemDetail)=>{
 		// State.itemDetail = itemDetail;
-		console.log("=====>itemDetail",itemDetail);
 		let _this = this;
 		this.setState({
 			itemDetail
@@ -179,7 +178,6 @@ export default class DoorGroupManage extends React.Component {
 			list,seleced,
 			itemDetail
 		} = this.state;
-		console.log("itemDetail",itemDetail);
 		return (
 		    <div className="door-permission-manage" style={{minHeight:'910',backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>

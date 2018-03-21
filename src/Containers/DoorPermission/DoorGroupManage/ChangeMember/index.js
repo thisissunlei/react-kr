@@ -13,11 +13,10 @@ import {
 } from 'kr-ui';
 import './index.less';
 
-
-import AllMemeber from './AllMemeber';
-import GroupMember from './GroupMember';
-
 import closeImg from './images/close.svg';
+
+import GroupMember from './GroupMember';
+import AllMemberManage from './AllMemberManage';
 
 import State from '../State';
 import {
@@ -58,7 +57,7 @@ export default class ChangeMember extends React.Component{
 				</div>
 				<div style={{width:"100%"}}>
 					<div className="change-member-item">
-						<AllMemeber/>
+						<AllMemberManage groupItemDetail={itemDetail}/>
 					</div>
 					<div className="change-member-item">
 						<GroupMember groupItemDetail={itemDetail}/>
