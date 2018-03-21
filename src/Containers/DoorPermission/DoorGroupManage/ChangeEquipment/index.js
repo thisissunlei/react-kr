@@ -16,7 +16,7 @@ import './index.less';
 import closeImg from './images/close.svg';
 
 import GroupEquipment from './GroupEquipment';
-import AllMemberManage from './AllMemberManage';
+import AllEquipmentManage from './AllEquipmentManage';
 
 import State from '../State';
 import {
@@ -57,7 +57,7 @@ export default class ChangeMember extends React.Component{
 				</div>
 				<div style={{width:"100%"}}>
 					<div className="change-member-item">
-						<AllMemberManage groupItemDetail={itemDetail}/>
+						<AllEquipmentManage groupItemDetail={itemDetail}/>
 					</div>
 					<div className="change-member-item">
 						<GroupEquipment groupItemDetail={itemDetail}/>

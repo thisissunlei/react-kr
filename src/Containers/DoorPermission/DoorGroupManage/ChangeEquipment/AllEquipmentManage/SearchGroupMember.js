@@ -11,7 +11,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
-	SearchForms,
+	SearchFormsNew,
 } from 'kr-ui';
 import './index.less';
 import {DateFormat} from 'kr/Utils';
@@ -33,14 +33,19 @@ class SearchGroupForm extends React.Component{
 			searchEquipmentFormOptions : [
 				{
 					label:"屏幕编号",
-					value:"doorCode"
+					value:"doorCode",
+					className:"all-search-equipment-doorCode"
 				},{
 					label:"屏幕标题",
-					value:"title"
+					value:"title",
+					className:"all-search-equipment-title"
+					
 			    },{
 					label:"硬件ID",
-					value:"deviceId"
-				}	
+					value:"deviceId",
+					className:"all-search-equipment-deviceId"
+					
+				}
 			],
 		}
 	}
@@ -98,7 +103,7 @@ class SearchGroupForm extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {logTypeOptions,searchFormOptions,seachFormContent} = this.state;
+		let {logTypeOptions,searchEquipmentFormOptions,seachFormContent} = this.state;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="group-member-search door-permission-group-search">
 				<ListGroup className="search-item-line">
@@ -127,12 +132,14 @@ class SearchGroupForm extends React.Component{
 					
 					<ListGroupItem >
 						<span style={{display:"inline-block",marginRight:10}}>
-							<SearchForms onSubmit={this.onSearchSubmit}  
+							<SearchFormsNew onSubmit={this.onSearchSubmit}  
 								style={{zIndex:10000,marginLeft:10}}
 								content={seachFormContent}
-								searchFilter={searchFormOptions}
+								searchFilter={searchEquipmentFormOptions}
 								onChange={this.changeSearchFormContent}
-								onFilter={this.changeSearchFormFilter}
+								onFilter={this.changeSearchFormFilter}								filterSpecialClass ="search-group-equipment-search-form"
+								filterSpecialClass ="search-all-equipment-search-form"
+								
 							/>
 						</span>
 

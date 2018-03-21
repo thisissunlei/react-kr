@@ -33,10 +33,14 @@ class SearchGroupForm extends React.Component{
 			searchFormOptions : [
 				{
 					label:"姓名",
-					value: "name"
+					value: "name",
+					className:"group-member-deviceId"
+					
 				},{
 					label:"手机",
-					value: "phone"
+					value: "phone",
+					className:"all-search-member-deviceId"
+					
 				}	
 			],
 		}
