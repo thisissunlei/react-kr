@@ -53,6 +53,13 @@ export default class ViewMember extends React.Component {
 				baseInfo:response.baseInfo || {},
 				companyInfo:response.companyInfo || {},
 				contacts:response.contacts || {},
+			})
+		}).catch(function (err) { 
+			Message.error(err.message)
+		});
+		Http.request('get-user-business-info',{uid:memberId}).then(function (response) {
+			console.log('respo1111nse---',response)
+			_this.setState({
 				socialDynamic:response.socialDynamic || {},
 				workInfo:response.workInfo || {}
 			})
@@ -248,7 +255,7 @@ export default class ViewMember extends React.Component {
 									grid={1/2} 
 									label="QQ号："
 									component="labelText"
-									value={baseInfo.qq}
+									value={contacts.qq}
 									defaultValue="-"
 							/>
 						</div>
@@ -263,42 +270,42 @@ export default class ViewMember extends React.Component {
 									grid={1/2} 
 									label="姓名："
 									component="labelText"
-									value={contacts.linkPhone}
+									value={companyInfo.mbrName}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="入驻状态："
 									component="labelText"
-									value={contacts.email}
+									value={companyInfo.enterStatus}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="所属客户：" 
 									component="labelText"
-									value={contacts.weChat}
+									value={companyInfo.companyName}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="所属社区："
 									component="labelText"
-									value={contacts.microBlog}
+									value={companyInfo.cmtName}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="企业管理员："
 									component="labelText"
-									value={baseInfo.qq}
+									value={companyInfo.leader}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="入驻时间："
 									component="labelText"
-									value={baseInfo.qq}
+									value={companyInfo.enterDate}
 									defaultValue="-"
 							/>
 						</div>
@@ -312,28 +319,28 @@ export default class ViewMember extends React.Component {
 									grid={1/2} 
 									label="问题反馈：" 
 									component="labelText"
-									value={contacts.weChat}
+									value={workInfo.feedback}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="预定会议室："
 									component="labelText"
-									value={contacts.microBlog}
+									value={workInfo.reservation}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="预约的访客："
 									component="labelText"
-									value={baseInfo.qq}
+									value={workInfo.visiter}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="打印次数："
 									component="labelText"
-									value={baseInfo.qq}
+									value={workInfo.print}
 									defaultValue="-"
 							/>
 						</div>
@@ -347,28 +354,28 @@ export default class ViewMember extends React.Component {
 									grid={1/2} 
 									label="报名活动：" 
 									component="labelText"
-									value={contacts.weChat}
+									value={socialDynamic.activityNum}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="发布的动态："
 									component="labelText"
-									value={contacts.microBlog}
+									value={socialDynamic.topicNum}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
-									label="评论回复数："
+									label="评论&回复数："
 									component="labelText"
-									value={baseInfo.qq}
+									value={socialDynamic.replyNum}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="点赞数："
 									component="labelText"
-									value={baseInfo.qq}
+									value={socialDynamic.tipNum}
 									defaultValue="-"
 							/>
 						</div>
