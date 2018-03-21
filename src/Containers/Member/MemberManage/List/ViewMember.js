@@ -47,7 +47,7 @@ export default class ViewMember extends React.Component {
 		let memberId=this.props.params.memberId;
 		let _this=this;
 		Http.request('get-member-detail',{uid:memberId}).then(function (response) {
-			console.log('response---',response)
+		
 			_this.setState({
 				accountInfo:response.accountInfo || {},
 				baseInfo:response.baseInfo || {},
@@ -58,7 +58,7 @@ export default class ViewMember extends React.Component {
 			Message.error(err.message)
 		});
 		Http.request('get-user-business-info',{uid:memberId}).then(function (response) {
-			console.log('respo1111nse---',response)
+			
 			_this.setState({
 				socialDynamic:response.socialDynamic || {},
 				workInfo:response.workInfo || {}
@@ -66,6 +66,35 @@ export default class ViewMember extends React.Component {
 		}).catch(function (err) { 
 			Message.error(err.message)
 		});
+	}
+
+	renderStatus=(companyInfo)=>{
+		
+
+		if(companyInfo.enterStatusCode=="0"){
+			return(
+				<div  className="u-info-photo">
+					<span>入驻状态：</span>
+					<div className="u-text u-green">{companyInfo.enterStatus}</div>
+				</div>
+			)
+		}else if(companyInfo.enterStatusCode=="1"){
+			return(
+				<div  className="u-info-photo">
+					<span>入驻状态：</span>
+					<div className="u-text u-orange">{companyInfo.enterStatus}</div>
+				</div>
+			)
+		}else if(companyInfo.enterStatusCode=="2"){
+			return(
+				<div  className="u-info-photo">
+					<span>入驻状态：</span>
+					<div className="u-text u-red">{companyInfo.enterStatus}</div>
+				</div>
+			)
+		}
+		
+
 	}
 	
 	render() {
@@ -77,24 +106,6 @@ export default class ViewMember extends React.Component {
 				socialDynamic,
 				workInfo
 			}=this.state;
-			
-			if(baseInfo.gender==0){
-	     		baseInfo.gender  = "女";
-			}else if(baseInfo.gender==1){
-				 baseInfo.gender  = "男";
-			}else{
-				baseInfo.gender  = "保密";
-			}
-			if(baseInfo.userType=="0"){
-				baseInfo.userType = "入驻会员";
-			}else if(baseInfo.userType=="1"){
-				baseInfo.userType = "内部会员";
-			}
-			if(baseInfo.leader=="0"){
-				baseInfo.leader = "否";
-			}else if(baseInfo.leader=="1"){
-				baseInfo.leader = "是";
-			}
 			
 			
 		return (
@@ -157,8 +168,8 @@ export default class ViewMember extends React.Component {
 						</div>
 						<div className="u-info-content">
 							<div  className="u-info-photo">
-								<span>头像：1111</span>
-								<img src={baseInfo.avatar} />	
+								<span>头像：</span>
+								{baseInfo.avatar?<img src={baseInfo.avatar} />:'-'}	
 							</div>	
 							<KrField
 									grid={1/2} 
@@ -273,13 +284,7 @@ export default class ViewMember extends React.Component {
 									value={companyInfo.mbrName}
 									defaultValue="-"
 							/>
-							<KrField
-									grid={1/2} 
-									label="入驻状态："
-									component="labelText"
-									value={companyInfo.enterStatus}
-									defaultValue="-"
-							/>
+							{this.renderStatus(companyInfo)}
 							<KrField
 									grid={1/2} 
 									label="所属客户：" 
