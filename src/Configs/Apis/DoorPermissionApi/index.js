@@ -28,6 +28,11 @@ module.exports = {
         url: '/mockjsdata/53/iot-platform/auth/user-group-mapping/delete?ids={ids}',
         method: 'delete'
     },
+    //添加组成员
+    'addGroupMemberApi':{
+        url: '/mockjsdata/53/iot-platform/auth/user-group-mapping/add',
+        method: 'post'
+    },
     //门禁权限组已授权设备/iot-platform/auth/device-grant/list
     'getGroupAuthorizeEquipmentApi':{
         url: '/mockjsdata/53/iot-platform/auth/device-grant/list?communityId={communityId}&deviceId={deviceId}&doorType={doorType}&floor={floor}&title={title}&doorCode={doorCode}',
@@ -48,7 +53,11 @@ module.exports = {
         url: '/mockjsdata/53/iot-platform/auth/device-grant/add',
         method: 'post'
     },
-
+    //获取所有成员列表数据以供添加成员到组
+    'getAllMemberInDoorPermissionApi':{
+        url: '/mockjsdata/53/sso/user/list?communityId={communityId}&customerId={customerId}&name={name}&phone={phone}',
+        method: 'post'
+    },
 }
 
 

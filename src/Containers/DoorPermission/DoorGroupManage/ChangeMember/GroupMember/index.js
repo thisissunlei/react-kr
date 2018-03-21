@@ -48,7 +48,15 @@ export default class DoorGroupManage extends React.Component {
 
 	componentDidMount(){
         this.getItemsData();
-    }
+	}
+	
+	componentWillReceiveProps(nextProps){
+
+		let {freshGroupMemberList} = this.props;
+		if(freshGroupMemberList!==nextProps.freshGroupMemberList){
+			this.getItemsData();
+		}
+	}
     
     getItemsData=()=>{
         let that = this;

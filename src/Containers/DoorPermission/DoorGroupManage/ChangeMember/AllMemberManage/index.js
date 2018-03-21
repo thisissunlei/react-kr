@@ -15,8 +15,8 @@ import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
  import SearchGroupMember from './SearchGroupMember';
- import DeleteMemberFromGroup from './DeleteMemberFromGroup';
- import BatchDeleteMemberFromGroup from './BatchDeleteMemberFromGroup';
+ import AddMemberToGroup from './AddMemberToGroup';
+ import BatchAddMemberToGroup from './BatchAddMemberToGroup';
 
 
 import State from './State';
@@ -39,7 +39,6 @@ export default class DoorGroupManage extends React.Component {
             searchParams:{
                 name : '',
                 communityId :'',
-                groupId : '',
                 customerId : '',
                 phone : ''
             }
@@ -55,8 +54,8 @@ export default class DoorGroupManage extends React.Component {
 		let {searchParams} = this.state;
 		let {groupItemDetail} = this.props;
 		
-		var params = Object.assign({},searchParams,{groupId : groupItemDetail.id});
-        Http.request('getDoorGroupMemberList',params).then(function(response) {
+		var params = Object.assign({},searchParams);
+        Http.request('getAllMemberInDoorPermissionApi',params).then(function(response) {
 			var returnItems= response.items;
 			returnItems.forEach(function(element,index,array){
 				element.checked = false;
@@ -111,34 +110,42 @@ export default class DoorGroupManage extends React.Component {
 		})
 	}
 
-	confirmDelete=()=>{
+	confirmAdd=()=>{
 		
 		let {itemDetail,getDoorPermissionListParams}  = this.state;
+		let {groupItemDetail}= this.props;
 		let that = this;
-		Http.request('deleteGroupMemberApi',{ids:itemDetail.id}).then(function(response) {
-			Message.success("删除成功");
-			that.openDeleteMemberFromGroupFun();
-			that.refreshPage();
+		var params = {
+			uids:itemDetail.id,
+			groupId : groupItemDetail.id
+		}
+		Http.request('addGroupMemberApi',{},params).then(function(response) {
+			Message.success("添加成功");
+			that.openAddMemberToGroupFun();
+			console.log("刷新组成员列表");
+
+			let {freshGroupMemberList} = that.props;
+			freshGroupMemberList && freshGroupMemberList();
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 	}
 
 
-	deleteMember=(item)=>{
-
+	addMember=(item)=>{
+		
 		let that = this;
 		this.setState({
 			itemDetail : item
 		},function(){
-			that.openDeleteMemberFromGroupFun();
+			that.openAddMemberToGroupFun();
 		})
 		
 
 	}
 
-	openDeleteMemberFromGroupFun=()=>{
-		State.openDeleteMemberFromGroup = !State.openDeleteMemberFromGroup;
+	openAddMemberToGroupFun=()=>{
+		State.openAddMemberToGroup = !State.openAddMemberToGroup;
 	}
 
 	changeItemCheckbox=(item)=>{
@@ -168,7 +175,7 @@ export default class DoorGroupManage extends React.Component {
 					<span className="item-line-span">{item.communityName}</span>
 					<span className="item-line-span">{item.customerName}</span>
 					<span className="item-line-span">{item.email}</span>
-					<span className="item-line-span last-line-span" onClick={that.deleteMember.bind(this,item)}>移除</span>
+					<span className="item-line-span last-line-span" onClick={that.addMember.bind(this,item)}>添加</span>
                 </div>
             )
         });
@@ -199,30 +206,32 @@ export default class DoorGroupManage extends React.Component {
 			}
 		}
 		if(chekedNum==0){
-			Message.warntimeout("请选择您要删除的成员",'error');
+			Message.warntimeout("请选择您要添加的成员",'error');
 			return ;
 		}
-		this.openBatchDeleteDialogFun();
+		this.openBatchAddDialogFun();
 
 	}
 
-	openBatchDeleteDialogFun=()=>{
-		State.openBatchDeleteDialog = !State.openBatchDeleteDialog
+	openBatchAddDialogFun=()=>{
+		State.openBatchAddDialog = !State.openBatchAddDialog
 	}
 
-	confirmBatchDelete=()=>{
+	confirmBatchAddMember=()=>{
 		let {items} = this.state;
+		let {groupItemDetail} = this.props;
 		let that = this;
-		var toDeleteIds = [];
+		var toAddIds = [];
 		for(let i=0;i<items.length;i++){
 			if(items[i].checked){
-				toDeleteIds.push(items[i].id)
+				toAddIds.push(items[i].id)
 			}
 		}
-		var toDeleteIdsStr = toDeleteIds.join(",");
-		Http.request('deleteGroupMemberApi',{ids:toDeleteIdsStr}).then(function(response) {
+		var toAddIdsStr = toAddIds.join(",");
+		var params = {groupId: groupItemDetail.id,uids :toAddIdsStr }
+		Http.request('addGroupMemberApi',{},params).then(function(response) {
 
-			that.openBatchDeleteDialogFun();
+			that.openBatchAddDialogFun();
 			that.refreshPage();
 
 		}).catch(function(err) {
@@ -269,7 +278,7 @@ export default class DoorGroupManage extends React.Component {
 										<span style={{marginLeft:5}}>全选</span>
 									</ListGroupItem>
 									<ListGroupItem style={{padding:0,display:'inline-block',marginRight:3}}>
-										<Button  label="批量删除" type="button"  cancle={true} onTouchTap={this.batchDeleteMember} />
+										<Button  label="批量添加" type="button"  cancle={true} onTouchTap={this.batchDeleteMember} />
 									</ListGroupItem>
 								</ListGroup>					
 							</Row>
@@ -278,30 +287,30 @@ export default class DoorGroupManage extends React.Component {
                     </div>
 
 					<Dialog
-			          title="确认移除成员"
-			          open={State.openDeleteMemberFromGroup}
-			          onClose={this.openDeleteMemberFromGroupFun}
+			          title="确认添加成员"
+			          open={State.openAddMemberToGroup}
+			          onClose={this.openAddMemberToGroupFun}
 			          contentStyle={{width:425}}
 			        >
-			          <DeleteMemberFromGroup
-			            onCancel={this.openDeleteMemberFromGroupFun}
-						confirmDelete = {this.confirmDelete}
+			          <AddMemberToGroup
+			            onCancel={this.openAddMemberToGroupFun}
+						confirmAdd = {this.confirmAdd}
 						groupItemDetail={groupItemDetail}
 						itemDetail={itemDetail}
 			          />
 			        </Dialog>
 
 					<Dialog
-			          title="确认移除成员"
-			          open={State.openBatchDeleteDialog}
-			          onClose={this.openBatchDeleteDialogFun}
+			          title="确认添加成员"
+			          open={State.openBatchAddDialog}
+			          onClose={this.openBatchAddDialogFun}
 			          contentStyle={{width:425}}
 			        >
-			          <BatchDeleteMemberFromGroup
-			            onCancel={this.openBatchDeleteDialogFun}
-						confirmDelete = {this.confirmBatchDelete}
+			          <BatchAddMemberToGroup
+			            onCancel={this.openBatchAddDialogFun}
+						confirmBatchAddMember = {this.confirmBatchAddMember}
 						groupItemDetail={groupItemDetail}
-						
+						itemDetail={itemDetail}
 			          />
 			        </Dialog>
 					

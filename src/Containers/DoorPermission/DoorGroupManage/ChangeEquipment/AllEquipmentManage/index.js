@@ -156,7 +156,7 @@ export default class DoorGroupManage extends React.Component {
 	sendAddRequest=(sendParams)=>{
 		let that = this;
 		Http.request('addEquipmentToGroupApi',{},sendParams).then(function(response) {
-			Message.success("授权成功");
+			Message.success("添加成功");
 			State.openAddEquipmentToGroup = false;
 			State.openBatchAddDialog = false;
 			that.setState({

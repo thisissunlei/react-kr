@@ -38,33 +38,33 @@ export default class DeleteMemberFromGroup extends React.Component {
 		
 	}
 
-	confirmDelete=()=>{
+	confirmAdd=()=>{
 		
-		let {confirmDelete}= this.props;
-		confirmDelete && confirmDelete();
+		let {confirmAdd}= this.props;
+		confirmAdd && confirmAdd();
 	}
 	
-	closeDeleteGroup=()=>{
-		State.openBatchDeleteDialog = false;
+	closeAddMemberToGroup=()=>{
+		State.openAddMemberToGroup = false;
 	}
 
 	render() {
-		
+		let {groupItemDetail,itemDetail} = this.props;
 		return (
 		    <div style={{marginTop:20}}>
-					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要删除吗？</p>
+					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要将<span style={{color:"#499df1"}}>{itemDetail.name}</span>添加到<span style={{color:"#499df1"}}>{groupItemDetail.name}</span>吗？</p>
 					<p style={{textAlign:"center",color:"#333333",fontSize:12,color:"#ff6868"}}>
 						<img src={warning} style={{width:15,verticalAlign: "top",  marginRight: 4}}/>
-						<span>从组中删除后该成员将失去该门禁组的所有权限</span>
+						<span>添加后，该成员将会有该组的门禁权限</span>
 					</p>
 					<Grid style={{marginTop:30,marginBottom:'4px'}}>
 						<Row>
 							<ListGroup>
 								<ListGroupItem style={{width:170,textAlign:'right',padding:0,paddingRight:15}}>
-								<Button  label="确定" type="submit" onClick={this.confirmDelete} />
+								<Button  label="确定" type="submit" onClick={this.confirmAdd} />
 								</ListGroupItem>
 								<ListGroupItem style={{width:170,textAlign:'left',padding:0,paddingLeft:15}}>
-								<Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeDeleteGroup} />
+								<Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeAddMemberToGroup} />
 								</ListGroupItem>
 							</ListGroup>
 						</Row>
