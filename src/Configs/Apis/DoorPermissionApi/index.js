@@ -28,6 +28,11 @@ module.exports = {
         url: '/mockjsdata/53/iot-platform/auth/user-group-mapping/delete?ids={ids}',
         method: 'delete'
     },
+    //门禁权限组已授权设备/iot-platform/auth/device-grant/list
+    'getGroupAuthorizeEquipmentApi':{
+        url: '/mockjsdata/53/iot-platform/auth/device-grant/list?communityId={communityId}&deviceId={deviceId}&doorType={doorType}&floor={floor}',
+        method: 'get'
+    },
       
 }
 

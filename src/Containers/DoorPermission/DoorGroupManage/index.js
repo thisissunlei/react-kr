@@ -22,6 +22,7 @@ import NewCreateDoorGroup from './NewCreateDoorGroup';
 import SearchGroupForm from './SearchGroupForm';
 import DeleteGroupDialog from './DeleteGroupDialog';
 import ChangeMember from './ChangeMember';
+import ChangeEquipment from './ChangeEquipment';
 
 
 import State from './State';
@@ -90,6 +91,10 @@ export default class DoorGroupManage extends React.Component {
 			if(type=='changeMember'){
 				_this.openChangeMemeberFun();
 			}
+			if(type=='changeEquipment'){
+				_this.openChangeEquipmentFun();
+			}
+			
 		})
 		
 	}
@@ -168,6 +173,11 @@ export default class DoorGroupManage extends React.Component {
 	openChangeMemeberFun=()=>{
 
 		State.openChangeMemeberDialog = !State.openChangeMemeberDialog;
+	}
+
+	openChangeEquipmentFun=()=>{
+		State.openChangeEquipmentDialog = !State.openChangeEquipmentDialog;
+		
 	}
 
 
@@ -302,7 +312,7 @@ export default class DoorGroupManage extends React.Component {
 							<TableRowColumn type="operation" style={{width:"16%",overflow:"visible"}} >
 
 								<Button  label="更改成员"  type="operation" operation="changeMember"/>
-								<Button  label="授权设备"  type="operation" operation="upgradeBtach"/>
+								<Button  label="授权设备"  type="operation" operation="changeEquipment"/>
 								<Button  label="编辑"  type="operation" operation="detail"/>
 								<Button  label="删除"  type="operation" operation="delete"/>
 								
@@ -358,6 +368,17 @@ export default class DoorGroupManage extends React.Component {
 					>
 						<ChangeMember onCancel={this.openChangeMemeberFun} itemDetail={itemDetail} closeChangeMember={this.openChangeMemeberFun}/>
 					</Drawer>
+
+					<Drawer 
+			        	open={State.openChangeEquipmentDialog}
+			        	onClose = {this.openChangeEquipmentFun}
+					    width={"100%"} 
+					    openSecondary={true} 
+					>
+						<ChangeEquipment onCancel={this.openChangeEquipmentFun} itemDetail={itemDetail} closeChangeMember={this.openChangeEquipmentFun}/>
+					</Drawer>
+
+					
 
 
 				</Section>

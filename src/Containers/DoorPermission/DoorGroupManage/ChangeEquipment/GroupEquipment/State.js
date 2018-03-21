@@ -9,17 +9,21 @@ import {Http} from 'kr/Utils';
 import {Message} from 'kr-ui';
 
 let State = observable({
+
+	openDeleteMemberFromGroup : false,
+	openBatchDeleteDialog : false,
+
+
+
 	openNewCreateDoorGroup : false,
-	openDeleteGroup : false,
 	openChangeMemeberDialog : false,
-	openChangeEquipmentDialog : false,
 
 	openUpgradeAdd : false,
 	upgradeListParams:{
 		page:1,
 		pageSize:15,
 	},
-	upgradeTypeOptions:[],
+	doorTypeOptions:[],
 	closeConfirmDelete : false,
 	itemDetail : {},
 	batchUpgradeDialog : false,
@@ -32,17 +36,17 @@ let State = observable({
 State.getDicOptions= action(function() {
 	Http.request('getWarningType',{}).then(function(response) {
 		var arrNew = []
-		if(response.UpgradePkgType){
-			for (var i=0;i<response.UpgradePkgType.length;i++){
+		if(response.DoorType){
+			for (var i=0;i<response.DoorType.length;i++){
 
 			arrNew[i] = {
-						label:response.UpgradePkgType[i].desc,
-						value:response.UpgradePkgType[i].value
+						label:response.DoorType[i].desc,
+						value:response.DoorType[i].value
 					}
 			}
 		}
 
-		State.upgradeTypeOptions = arrNew;
+		State.doorTypeOptions = arrNew;
 	}).catch(function(err) {
 		Message.error(err.message);
 	});
