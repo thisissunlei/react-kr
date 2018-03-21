@@ -41,6 +41,8 @@ export default class DoorGroupManage extends React.Component {
                 doorType : '',
 				floor : '',
 				deviceId : '',
+				title : '',
+				doorCode:''
             }
 		}
 	}
@@ -77,7 +79,7 @@ export default class DoorGroupManage extends React.Component {
 
 		let that =this;
 		let {searchParams} = this.state;
-		var params = Object.assign({},searchParams,params,{date:new Date()});
+		var params = Object.assign({},params,{date:new Date()});
 		this.setState({
 			searchParams:params
 		},function(){
@@ -115,7 +117,7 @@ export default class DoorGroupManage extends React.Component {
 		
 		let {itemDetail,getDoorPermissionListParams}  = this.state;
 		let that = this;
-		Http.request('deleteGroupMemberApi',{ids:itemDetail.id}).then(function(response) {
+		Http.request('deleteEquipmentFromGroupApi',{ids:itemDetail.id}).then(function(response) {
 			Message.success("删除成功");
 			that.openDeleteMemberFromGroupFun();
 			that.refreshPage();
@@ -156,7 +158,6 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	renderDoorType=(doorType)=>{
-		console.log("doorTypeOptions",State.doorTypeOptions,"doorType",doorType);
 		for(let i=0;i<State.doorTypeOptions.length;i++){
 			if(State.doorTypeOptions[i].value == doorType){
 				return(
@@ -203,7 +204,6 @@ export default class DoorGroupManage extends React.Component {
 	batchDeleteMember=()=>{
 		
 		let {items} = this.state;
-		console.log("batch==>items",items);
 		var chekedNum=0;
 		for(let i=0;i<items.length;i++){
 			if(items[i].checked){
@@ -232,7 +232,7 @@ export default class DoorGroupManage extends React.Component {
 			}
 		}
 		var toDeleteIdsStr = toDeleteIds.join(",");
-		Http.request('deleteGroupMemberApi',{ids:toDeleteIdsStr}).then(function(response) {
+		Http.request('deleteEquipmentFromGroupApi',{ids:toDeleteIdsStr}).then(function(response) {
 
 			that.openBatchDeleteDialogFun();
 			that.refreshPage();
@@ -259,7 +259,7 @@ export default class DoorGroupManage extends React.Component {
 				<Title value="门禁组管理"/>
 				<Section title={`已授权设备`} description="" >
 					<div>
-						<SearchGroupMember submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
+						<SearchGroupMember submitSearchParams={this.submitSearchParams} clearParams={this.clearParams} />
 					</div>
                     <div className="table">
 						<div className="title">

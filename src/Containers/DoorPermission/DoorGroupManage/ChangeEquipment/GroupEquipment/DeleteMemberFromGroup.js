@@ -52,10 +52,10 @@ export default class DeleteMemberFromGroup extends React.Component {
 		let {groupItemDetail,itemDetail} = this.props;
 		return (
 		    <div style={{marginTop:20}}>
-					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要将<span style={{color:"#499df1"}}>{itemDetail.name}</span>从<span style={{color:"#499df1"}}>{groupItemDetail.name}</span>中删除吗？</p>
+					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要将<span style={{color:"#499df1"}}>{itemDetail.title||"设备"}</span>从<span style={{color:"#499df1"}}>{groupItemDetail.name}</span>中删除吗？</p>
 					<p style={{textAlign:"center",color:"#333333",fontSize:12,color:"#ff6868"}}>
 						<img src={warning} style={{width:15,verticalAlign: "top",  marginRight: 4}}/>
-						<span>从组中删除后，该成员将失去该门禁组的所有权限</span>
+						<span>从组中删除后，该组中的所有成员将失去此设备权限</span>
 					</p>
 					<Grid style={{marginTop:30,marginBottom:'4px'}}>
 						<Row>
