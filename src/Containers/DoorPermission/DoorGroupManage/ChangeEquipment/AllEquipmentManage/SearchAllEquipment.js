@@ -11,7 +11,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
-	SearchFormsNew,
+	SearchFormsNew
 } from 'kr-ui';
 import './index.less';
 import {DateFormat} from 'kr/Utils';
@@ -29,7 +29,9 @@ class SearchGroupForm extends React.Component{
 		super(props);
 		this.state={
 			seachFormContent : '',
-			seachFormFilter : "name",
+			seachFormFilter : "doorCode",
+			floorsOptions:[],
+			doorTypeOptions : [],
 			searchEquipmentFormOptions : [
 				{
 					label:"屏幕编号",
@@ -47,12 +49,40 @@ class SearchGroupForm extends React.Component{
 					
 				}
 			],
+			searchFormFilterContent : {
+				doorCode : '',
+				deviceId : '',
+				title : ''
+			}
 		}
 	}
 	componentDidMount(){
 		
-		
+		this.getBasicInfoList()
 	}
+
+	getBasicInfoList=()=>{
+		let that = this;
+		Http.request('getWarningType',{}).then(function(response) {
+			var arrNew = []
+			if(response.DoorType){
+				for (var i=0;i<response.DoorType.length;i++){
+	
+				arrNew[i] = {
+							label:response.DoorType[i].desc,
+							value:response.DoorType[i].value
+						}
+				}
+			}
+	
+			that.setState({
+				doorTypeOptions : arrNew
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
 	onSubmit=(values)=>{
 		console.log("values",values);
 		let {submitSearchParams}=this.props;
@@ -79,7 +109,6 @@ class SearchGroupForm extends React.Component{
 	}
 
 	changeSearchFormFilter=(filter)=>{
-
 		let that = this;
 		let {searchFilterContent} = this.state;
 		this.setState({
@@ -91,25 +120,76 @@ class SearchGroupForm extends React.Component{
 	}
 
 	resetSearchFormData=(content)=>{
+
 		let {seachFormFilter} = this.state;
-		if(seachFormFilter=="name"){
-			Store.dispatch(change('SearchGroupForm','name',content));
-			Store.dispatch(change('SearchGroupForm','phone',''));
+		let newObj = {};
+		newObj[seachFormFilter] = content;
+
+		console.log("newObj",newObj);
+
+		let emptyObj ={doorCode : '',deviceId : '',title : ''}
+		let formDateObj = Object.assign(emptyObj,newObj);
+		console.log("formDateObj",formDateObj);
+		Store.dispatch(change('SearchGroupForm','deviceId',formDateObj.deviceId || ""));
+		Store.dispatch(change('SearchGroupForm','doorCode',formDateObj.doorCode || ""));
+		Store.dispatch(change('SearchGroupForm','title',formDateObj.title|| ""));
+		
+	}
+
+	onChangeCommunity=(community)=>{
+		
+		let _this = this;
+		var communityIdReal,floorReal;
+		if(!community){
+
+			// communityIdReal = '';
+			floorReal = '';
+			Store.dispatch(change('SearchGroupForm','floor',''));
+			_this.setState({
+				floorsOptions : []
+			})
+
 		}else{
-			Store.dispatch(change('SearchGroupForm','phone',content));
-			Store.dispatch(change('SearchGroupForm','name',''));
+			// communityIdReal = community.id;
+			// floorReal = State.equipmentSecondParams.floor
+
+			let CommunityId = {
+				communityId : community.id
+			}
+			Http.request('getFloorByComunity',CommunityId).then(function(response){
+				var arrNew = []
+				for (var i=0;i<response.floors.length;i++){
+					arrNew[i] = {label:response.floors[i],value:response.floors[i]}
+				}
+				_this.setState({
+					floorsOptions : arrNew
+				})
+			}).catch(function(err){
+
+			})
+
 		}
+
+		// var newObj = {
+		// 	communityId: communityIdReal,
+		// 	floor : floorReal,
+		// 	page:1
+		// }
+		// State.realPage =1;
+		// State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newObj);
+
 	}
 
 	render(){
-		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {logTypeOptions,searchEquipmentFormOptions,seachFormContent} = this.state;
+		const { error, handleSubmit, pristine, reset,content,filter,} = this.props;
+		let {searchEquipmentFormOptions,seachFormContent,floorsOptions,doorTypeOptions} = this.state;
+		
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="group-member-search door-permission-group-search">
 				<ListGroup className="search-item-line">
 					<ListGroupItem>
 						<span className="communityId-span">
-							<KrField name="communityId"
+							<KrField name="communityId_all"
 								component="searchCommunityAll"
 								label="社区名称："
 								style={{width:'237px'}}
@@ -119,16 +199,31 @@ class SearchGroupForm extends React.Component{
 						</span>
 					</ListGroupItem>
 					<ListGroupItem>
-						<KrField name="customerId" 
-							component="searchMemberCompany" 
-							label="公司：" 
-							style={{width:'237px'}}
+						<span className="communityId-span">
+						<KrField name="floor_all"
+							component="select"
+							label="楼层："
+							options = {floorsOptions}
+							style={{width:237}}
+							inline={true}
+							onChange = {this.onchangeFloor}
+						/>
+					</span>
+					
+					</ListGroupItem>
+
+					<ListGroupItem>
+					<span className="communityId-span">
+						<KrField name="doorType_all"
+							component="select"
+							label="门类型："
+							onChange = {this.onchangeDoorType}
+							options={doorTypeOptions}
+							style={{width:237}}
 							inline={true}
 						/>
-
+					</span>
 					</ListGroupItem>
-					
-					
 					
 					<ListGroupItem >
 						<span style={{display:"inline-block",marginRight:10}}>
@@ -137,9 +232,8 @@ class SearchGroupForm extends React.Component{
 								content={seachFormContent}
 								searchFilter={searchEquipmentFormOptions}
 								onChange={this.changeSearchFormContent}
-								onFilter={this.changeSearchFormFilter}								filterSpecialClass ="search-group-equipment-search-form"
+								onFilter={this.changeSearchFormFilter}
 								filterSpecialClass ="search-all-equipment-search-form"
-								
 							/>
 						</span>
 

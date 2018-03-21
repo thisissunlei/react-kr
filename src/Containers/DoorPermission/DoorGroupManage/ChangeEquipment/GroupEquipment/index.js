@@ -36,6 +36,7 @@ export default class DoorGroupManage extends React.Component {
 			itemDetail:{},
 			batchChecked :false,
 			checkedIds : '',
+			doorTypeOptions : [],
             searchParams:{
                 communityId :'',
                 doorType : '',
@@ -48,9 +49,39 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	componentDidMount(){
-		State.getDicOptions();
+		this.getBasicListInfo();
         this.getItemsData();
-    }
+	}
+
+	componentWillReceiveProps(nextProps){
+
+		let {freshGroupEquipment} = this.props;
+		if(nextProps.freshGroupEquipment !==freshGroupEquipment){
+			this.refreshPage();
+		}
+	}
+	
+	getBasicListInfo=()=>{
+		let that = this;
+		Http.request('getWarningType',{}).then(function(response) {
+			var arrNew = []
+			if(response.DoorType){
+				for (var i=0;i<response.DoorType.length;i++){
+	
+				arrNew[i] = {
+							label:response.DoorType[i].desc,
+							value:response.DoorType[i].value
+						}
+				}
+			}
+	
+			that.setState({
+				doorTypeOptions : arrNew
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
     
     getItemsData=()=>{
         let that = this;
@@ -158,10 +189,15 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	renderDoorType=(doorType)=>{
-		for(let i=0;i<State.doorTypeOptions.length;i++){
-			if(State.doorTypeOptions[i].value == doorType){
+		let {doorTypeOptions} = this.state;
+		for(let i=0;i<doorTypeOptions.length;i++){
+			if(doorTypeOptions[i].value == doorType){
 				return(
-					<span>{State.doorTypeOptions[i].label}</span>
+					<span>{doorTypeOptions[i].label}</span>
+				)
+			}else{
+				return(
+					<span>doorType</span>
 				)
 			}
 		}

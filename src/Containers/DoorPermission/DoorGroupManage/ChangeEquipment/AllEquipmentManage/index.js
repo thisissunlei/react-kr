@@ -14,9 +14,9 @@ import {
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
- import SearchGroupMember from './SearchGroupMember';
- import DeleteMemberFromGroup from './DeleteMemberFromGroup';
- import BatchDeleteMemberFromGroup from './BatchDeleteMemberFromGroup';
+ import SearchAllEquipment from './SearchAllEquipment';
+ import AddEquipmentToGroup from './AddEquipmentToGroup';
+ import BatchAddEquipmentToGroup from './BatchAddEquipmentToGroup';
 
 
 import State from './State';
@@ -36,19 +36,44 @@ export default class DoorGroupManage extends React.Component {
 			itemDetail:{},
 			batchChecked :false,
 			checkedIds : '',
+			doorTypeOptions:[],
             searchParams:{
-                name : '',
                 communityId :'',
-                groupId : '',
-                customerId : '',
-                phone : ''
+                doorType : '',
+				floor : '',
+				deviceId : '',
+				title : '',
+				doorCode:''
             }
 		}
 	}
 
 	componentDidMount(){
+		this.getBasicInfoList();
         this.getItemsData();
-    }
+	}
+	
+	getBasicInfoList=()=>{
+		let that = this;
+		Http.request('getWarningType',{}).then(function(response) {
+			var arrNew = []
+			if(response.DoorType){
+				for (var i=0;i<response.DoorType.length;i++){
+	
+				arrNew[i] = {
+							label:response.DoorType[i].desc,
+							value:response.DoorType[i].value
+						}
+				}
+			}
+	
+			that.setState({
+				doorTypeOptions : arrNew
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
     
     getItemsData=()=>{
         let that = this;
@@ -56,7 +81,8 @@ export default class DoorGroupManage extends React.Component {
 		let {groupItemDetail} = this.props;
 		
 		var params = Object.assign({},searchParams,{groupId : groupItemDetail.id});
-        Http.request('getDoorGroupMemberList',params).then(function(response) {
+        Http.request('doorGroupAllEquipmentApi',params).then(function(response) {
+
 			var returnItems= response.items;
 			returnItems.forEach(function(element,index,array){
 				element.checked = false;
@@ -77,7 +103,7 @@ export default class DoorGroupManage extends React.Component {
 
 		let that =this;
 		let {searchParams} = this.state;
-		var params = Object.assign({},searchParams,params,{date:new Date()});
+		var params = Object.assign({},params,{date:new Date()});
 		this.setState({
 			searchParams:params
 		},function(){
@@ -111,34 +137,77 @@ export default class DoorGroupManage extends React.Component {
 		})
 	}
 
-	confirmDelete=()=>{
-		
+	confirmAddEquipment=(values)=>{
+
 		let {itemDetail,getDoorPermissionListParams}  = this.state;
+		let {groupItemDetail} = this.props;
+		
+		var params = {
+			deviceIds : itemDetail.id,
+			granteeId : groupItemDetail.id,
+			granteeType : "USER_GROUP"
+		}
+		var sendParams = Object.assign({},params,values)
+
+		this.sendAddRequest(sendParams);
+		
+	}
+
+	sendAddRequest=(sendParams)=>{
 		let that = this;
-		Http.request('deleteGroupMemberApi',{ids:itemDetail.id}).then(function(response) {
-			Message.success("删除成功");
-			that.openDeleteMemberFromGroupFun();
-			that.refreshPage();
+		Http.request('addEquipmentToGroupApi',{},sendParams).then(function(response) {
+			Message.success("授权成功");
+			State.openAddEquipmentToGroup = false;
+			State.openBatchAddDialog = false;
+			that.setState({
+				batchChecked : false
+			})
+			// 刷新组内设备列表
+			let {refreshEquipmentInGroupList} = that.props;
+			refreshEquipmentInGroupList && refreshEquipmentInGroupList();
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 	}
 
+	confirmBatchAdd=(values)=>{
 
-	deleteMember=(item)=>{
+		let {items} = this.state;
+		let {groupItemDetail} = this.props;
+		
+		let that = this;
+		var toDeleteIds = [];
+		for(let i=0;i<items.length;i++){
+			if(items[i].checked){
+				toDeleteIds.push(items[i].id)
+			}
+		}
+		var toDeleteIdsStr = toDeleteIds.join(",");
+		var params = {
+			deviceIds : toDeleteIdsStr,
+			granteeId : groupItemDetail.id,
+			granteeType : "USER_GROUP"
+		}
+		var sendParams = Object.assign(params,values)
+		this.sendAddRequest(sendParams);
+	
+	}
+
+
+	addMember=(item)=>{
 
 		let that = this;
 		this.setState({
 			itemDetail : item
 		},function(){
-			that.openDeleteMemberFromGroupFun();
+			that.openAddEquipmentToGroupFun();
 		})
 		
 
 	}
 
-	openDeleteMemberFromGroupFun=()=>{
-		State.openDeleteMemberFromGroup = !State.openDeleteMemberFromGroup;
+	openAddEquipmentToGroupFun=()=>{
+		State.openAddEquipmentToGroup = !State.openAddEquipmentToGroup;
 	}
 
 	changeItemCheckbox=(item)=>{
@@ -155,6 +224,22 @@ export default class DoorGroupManage extends React.Component {
 		})
 	}
 
+	renderDoorType=(doorType)=>{
+		let {doorTypeOptions} = this.state;
+		for(let i=0;i<doorTypeOptions.length;i++){
+			if(doorTypeOptions[i].value == doorType){
+				return(
+					<span>{doorTypeOptions[i].label}</span>
+				)
+			}else{
+				return(
+					<span>doorType</span>
+				)
+			}
+		}
+
+	}
+
     renderItemsList=(items)=>{
 		let that = this;
         var dom = items.map(function(item,index){
@@ -163,12 +248,12 @@ export default class DoorGroupManage extends React.Component {
 					<span  className="first-line-item item-line-span">
 						<input type="checkbox"  checked={item.checked?"checked":""} onClick={that.changeItemCheckbox.bind(this,item)}/>
 					</span>
-                    <span className="item-line-span">{item.name}</span>
-					<span className="item-line-span">{item.phone}</span>
-					<span className="item-line-span">{item.communityName}</span>
-					<span className="item-line-span">{item.customerName}</span>
-					<span className="item-line-span">{item.email}</span>
-					<span className="item-line-span last-line-span" onClick={that.deleteMember.bind(this,item)}>移除</span>
+                    <span className="item-line-span">{item.communityName}</span>
+					<span className="item-line-span">{item.title}</span>
+					<span className="item-line-span">{item.doorCode}</span>
+					<span className="item-line-span deviceId-line-span">{item.deviceId}</span>
+					<span className="item-line-span">{that.renderDoorType(item.doorType)}</span>
+					<span className="item-line-span last-line-span" onClick={that.addMember.bind(this,item)}>授权</span>
                 </div>
             )
         });
@@ -191,7 +276,6 @@ export default class DoorGroupManage extends React.Component {
 	batchDeleteMember=()=>{
 		
 		let {items} = this.state;
-		console.log("batch==>items",items);
 		var chekedNum=0;
 		for(let i=0;i<items.length;i++){
 			if(items[i].checked){
@@ -199,37 +283,18 @@ export default class DoorGroupManage extends React.Component {
 			}
 		}
 		if(chekedNum==0){
-			Message.warntimeout("请选择您要删除的成员",'error');
+			Message.warntimeout("请选择您要授权的设备",'error');
 			return ;
 		}
-		this.openBatchDeleteDialogFun();
+		this.openBatchAddDialogFun();
 
 	}
 
-	openBatchDeleteDialogFun=()=>{
-		State.openBatchDeleteDialog = !State.openBatchDeleteDialog
+	openBatchAddDialogFun=()=>{
+		State.openBatchAddDialog = !State.openBatchAddDialog
 	}
 
-	confirmBatchDelete=()=>{
-		let {items} = this.state;
-		let that = this;
-		var toDeleteIds = [];
-		for(let i=0;i<items.length;i++){
-			if(items[i].checked){
-				toDeleteIds.push(items[i].id)
-			}
-		}
-		var toDeleteIdsStr = toDeleteIds.join(",");
-		Http.request('deleteGroupMemberApi',{ids:toDeleteIdsStr}).then(function(response) {
-
-			that.openBatchDeleteDialogFun();
-			that.refreshPage();
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-
-	}
+	
 
 
 	render() {
@@ -242,20 +307,20 @@ export default class DoorGroupManage extends React.Component {
 		return (
 		    <div className="change-member-item-box" style={{backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
-				<Section title={`组成员`} description="" >
+				<Section title={`已授权设备`} description="" >
 					<div>
-						<SearchGroupMember submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
+						<SearchAllEquipment submitSearchParams={this.submitSearchParams} clearParams={this.clearParams} />
 					</div>
                     <div className="table">
 						<div className="title">
 							<span  className="first-line-item">
 							
 							</span>
-							<span className="item-line-span">姓名</span>
-							<span className="item-line-span">电话</span>
-							<span className="item-line-span">社区</span>
-							<span className="item-line-span">公司</span>
-							<span className="item-line-span">邮箱</span>
+							<span className="item-line-span">社区名称</span>
+							<span className="item-line-span">屏幕展示标题</span>
+							<span className="item-line-span">屏幕展示编号</span>
+							<span className="item-line-span">硬件ID</span>
+							<span className="item-line-span">门类型</span>
 							<span className="item-line-span last-line-span">操作</span>
 						</div>
                         {
@@ -269,7 +334,7 @@ export default class DoorGroupManage extends React.Component {
 										<span style={{marginLeft:5}}>全选</span>
 									</ListGroupItem>
 									<ListGroupItem style={{padding:0,display:'inline-block',marginRight:3}}>
-										<Button  label="批量删除" type="button"  cancle={true} onTouchTap={this.batchDeleteMember} />
+										<Button  label="批量授权" type="button"  cancle={true} onTouchTap={this.batchDeleteMember} />
 									</ListGroupItem>
 								</ListGroup>					
 							</Row>
@@ -278,30 +343,26 @@ export default class DoorGroupManage extends React.Component {
                     </div>
 
 					<Dialog
-			          title="确认移除成员"
-			          open={State.openDeleteMemberFromGroup}
-			          onClose={this.openDeleteMemberFromGroupFun}
+			          title="授权时间"
+			          open={State.openAddEquipmentToGroup}
+			          onClose={that.openAddEquipmentToGroupFun}
 			          contentStyle={{width:425}}
 			        >
-			          <DeleteMemberFromGroup
-			            onCancel={this.openDeleteMemberFromGroupFun}
-						confirmDelete = {this.confirmDelete}
-						groupItemDetail={groupItemDetail}
-						itemDetail={itemDetail}
+			          <AddEquipmentToGroup
+			            onCancel={that.openAddEquipmentToGroupFun}
+						confirmAddEquipment = {that.confirmAddEquipment}
 			          />
 			        </Dialog>
 
 					<Dialog
-			          title="确认移除成员"
-			          open={State.openBatchDeleteDialog}
-			          onClose={this.openBatchDeleteDialogFun}
+			          title="授权时间"
+			          open={State.openBatchAddDialog}
+			          onClose={that.openBatchAddDialogFun}
 			          contentStyle={{width:425}}
 			        >
-			          <BatchDeleteMemberFromGroup
-			            onCancel={this.openBatchDeleteDialogFun}
-						confirmDelete = {this.confirmBatchDelete}
-						groupItemDetail={groupItemDetail}
-						
+			          <BatchAddEquipmentToGroup
+			            onCancel={that.openBatchAddDialogFun}
+						confirmBatchAdd = {that.confirmBatchAdd}
 			          />
 			        </Dialog>
 					

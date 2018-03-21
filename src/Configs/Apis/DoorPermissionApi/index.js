@@ -38,6 +38,17 @@ module.exports = {
         url: '/mockjsdata/53/iot-platform/auth/device-grant/delete?ids={ids}',
         method: 'delete'
     },
+    //门禁组所有可选择设备
+    'doorGroupAllEquipmentApi':{
+        url: '/mockjsdata/53/iot-platform/door-device/select-items?communityId={communityId}&deviceId={deviceId}&doorType={doorType}&floor={floor}&title={title}&doorCode={doorCode}',
+        method: 'get'
+    },
+    //增加设备到门禁授权组
+    'addEquipmentToGroupApi':{
+        url: '/mockjsdata/53/iot-platform/auth/device-grant/add',
+        method: 'post'
+    },
+
 }
 
 

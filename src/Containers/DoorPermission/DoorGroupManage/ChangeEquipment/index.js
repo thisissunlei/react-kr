@@ -29,7 +29,7 @@ export default class ChangeMember extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			
+			freshGroupEquipment : false
 		}
 		
 	}
@@ -45,11 +45,19 @@ export default class ChangeMember extends React.Component{
 		closeChangeMember && closeChangeMember();
 	}
 
+	freshGroupEquipment=()=>{
+		console.log("刷新组内设备===>");
+		let {freshGroupEquipment} = this.state;
+		this.setState({
+			freshGroupEquipment: !freshGroupEquipment
+		})
+	}
 
 
 	
 	render(){
 		let {itemDetail}  = this.props;
+		let {freshGroupEquipment} = this.state;
 		return (
 			<div className="change-member">
 				<div style={{width:"100%",height:30}}>
@@ -57,10 +65,10 @@ export default class ChangeMember extends React.Component{
 				</div>
 				<div style={{width:"100%"}}>
 					<div className="change-member-item">
-						<AllEquipmentManage groupItemDetail={itemDetail}/>
+						<AllEquipmentManage groupItemDetail={itemDetail} refreshEquipmentInGroupList={this.freshGroupEquipment}/>
 					</div>
 					<div className="change-member-item">
-						<GroupEquipment groupItemDetail={itemDetail}/>
+						<GroupEquipment groupItemDetail={itemDetail} freshGroupEquipment={freshGroupEquipment}/>
 					</div>
 				</div>
 

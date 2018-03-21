@@ -8,10 +8,12 @@
     }
     .table{
         min-height:450px;
+        margin-top:-15px;
         .title{
             height:45px;
             border-top:solid 1px #eee;
             border-bottom:solid 1px #eee;
+            font-size:12px;
         }
         .item-line{
              height:45px; 
@@ -22,22 +24,35 @@
         }
         .item-line-span{
              display:inline-block;
-             width:17%;
+             width:15%;
              height:45px;
              line-height:45px;
              text-align:center;
              vertical-align: top;
+            &:nth-of-type(4){
+                 width:13%;
+            }
+            
+            &:nth-of-type(5){
+                width:24%;
+            }
+            &:nth-of-type(6){
+                width:13%;
+            }
         }
         .last-line-span{
-            width:10%;
+            width:6%;
             cursor: pointer;
             color: #499df1;
         }
         .first-line-item{
             display:inline-block;
-            width:5%;
+            width:4%;
             cursor: pointer;
             
+        }
+        .deviceId-line-span{
+
         }
     }
     

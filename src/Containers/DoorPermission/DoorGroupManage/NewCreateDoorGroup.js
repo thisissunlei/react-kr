@@ -165,7 +165,6 @@ class NewCreateDoorGroup extends React.Component{
 }
 const validate = values => {
 	const errors = {}
-	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 	if (!values.name) {
 		errors.name = '请输入组名称';
 	}
