@@ -215,13 +215,13 @@ class NewCreateForm extends React.Component{
 					<KrField grid={1/2} name="communityId" component="searchCommunityAll" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true}  inline={false} style={{width:'252px',marginRight:'30px'}}/>
 					<KrField grid={1/2} name="csrId" component="searchMemberCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true}  style={{width:'252px',marginRight:'30px'}}/>
 					<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30px'}}/>
-					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:252,marginRight:30}}/>
+					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:252,marginRight:30}} requireLabel={true}/>
 					<KrField name="job"  grid={1/2}  label="职位"  style={{width:252,marginRight:30}}/>
 					<KrField name="leader" component="group" label="企业管理员"  style={{width:252}} >
 						<KrField name="leader" label="是" type="radio" value="1" />
 						<KrField name="leader" label="否" type="radio" value='0' />
 					</KrField>
-					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
+					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} requireLabel={true} />
 					<Grid style={{marginTop:18,marginBottom:'4px'}}>
 						<Row>
 							<ListGroup>
@@ -245,13 +245,17 @@ const validate = values => {
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
+	if (!values.email) {
+		errors.email = '请输入邮箱';
+	}
+	if (!values.identityCard) {
+		errors.identityCard = '请输入身份证号码';
+	}
 	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
-    if( values.idCardNo && !reg.test(values.idCardNo)){  
-        errors.idCardNo = '身份证输入不合法';   
+    if( values.identityCard && !reg.test(values.identityCard)){  
+        errors.identityCard = '身份证输入不合法';   
     }
-	// if (!values.email) {
-	// 	errors.email = '请输入邮箱';
-	// }
+	
 	if (!values.csrId) {
 		errors.csrId = '请输入公司';
 	}
