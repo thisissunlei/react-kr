@@ -147,4 +147,9 @@ module.exports = {
         url:'/api/krspace-sso-web/member/enter/history?uid={uid}',
         method:'get'
     },
+    //会员列表-会员编辑详情信息
+    'get-member-base-info':{
+        url:'/api/krspace-sso-web/member/base/info?uid={uid}',
+        method:'get'
+    },
 }

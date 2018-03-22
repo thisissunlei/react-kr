@@ -72,7 +72,7 @@ export default class MemeberEditMemberForm extends React.Component {
 		let url = this.props.params;
 		
 		let _this = this;
-		Http.request('members-basic-date', {id:detail.uid}).then(function(response) {
+		Http.request('get-member-base-info', {uid:detail.uid}).then(function(response) {
 			response.leader=String(response.leader);
 			Store.dispatch(initialize('memeberEditMemberForm', response));
 
