@@ -23,7 +23,7 @@ let State = observable({
 		page:1,
 		pageSize:15,
 	},
-	doorTypeOptions:[],
+	
 	closeConfirmDelete : false,
 	itemDetail : {},
 	batchUpgradeDialog : false,
@@ -32,26 +32,7 @@ let State = observable({
 });
 
 
-//获取字典数据
-State.getDicOptions= action(function() {
-	Http.request('getWarningType',{}).then(function(response) {
-		var arrNew = []
-		if(response.DoorType){
-			for (var i=0;i<response.DoorType.length;i++){
 
-			arrNew[i] = {
-						label:response.DoorType[i].desc,
-						value:response.DoorType[i].value
-					}
-			}
-		}
-
-		State.doorTypeOptions = arrNew;
-	}).catch(function(err) {
-		Message.error(err.message);
-	});
-
-});
 
 
 

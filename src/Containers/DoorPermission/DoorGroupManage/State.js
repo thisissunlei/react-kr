@@ -13,6 +13,8 @@ let State = observable({
 	openDeleteGroup : false,
 	openChangeMemeberDialog : false,
 	openChangeEquipmentDialog : false,
+	doorTypeOptions : [],
+	
 
 	openUpgradeAdd : false,
 	upgradeListParams:{
@@ -23,7 +25,7 @@ let State = observable({
 	closeConfirmDelete : false,
 	itemDetail : {},
 	batchUpgradeDialog : false,
-	uploadedInfo :{}
+	uploadedInfo :{},
 
 });
 
@@ -31,7 +33,7 @@ let State = observable({
 //获取字典数据
 State.getDicOptions= action(function() {
 	Http.request('getWarningType',{}).then(function(response) {
-		var arrNew = []
+		var arrNew = [],doorTypeArrNew=[];
 		if(response.UpgradePkgType){
 			for (var i=0;i<response.UpgradePkgType.length;i++){
 
@@ -41,7 +43,17 @@ State.getDicOptions= action(function() {
 					}
 			}
 		}
+		if(response.DoorType){
+			for (var i=0;i<response.DoorType.length;i++){
+				
+				doorTypeArrNew[i] = {
+					label:response.DoorType[i].desc,
+					value:response.DoorType[i].value
+				}
+			}
+		}
 
+		State.doorTypeOptions = doorTypeArrNew;
 		State.upgradeTypeOptions = arrNew;
 	}).catch(function(err) {
 		Message.error(err.message);

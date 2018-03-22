@@ -15,6 +15,9 @@ import {
 } from 'kr-ui';
 import './index.less';
 import {DateFormat} from 'kr/Utils';
+
+import PropsState from '../../State';
+
 import State from './State';
 import {
 	observer,
@@ -31,7 +34,6 @@ class SearchGroupForm extends React.Component{
 			seachFormContent : '',
 			seachFormFilter : "doorCode",
 			floorsOptions:[],
-			doorTypeOptions : [],
 			searchEquipmentFormOptions : [
 				{
 					label:"屏幕编号",
@@ -58,30 +60,9 @@ class SearchGroupForm extends React.Component{
 	}
 	componentDidMount(){
 		
-		this.getBasicInfoList()
 	}
 
-	getBasicInfoList=()=>{
-		let that = this;
-		Http.request('getWarningType',{}).then(function(response) {
-			var arrNew = []
-			if(response.DoorType){
-				for (var i=0;i<response.DoorType.length;i++){
 	
-				arrNew[i] = {
-							label:response.DoorType[i].desc,
-							value:response.DoorType[i].value
-						}
-				}
-			}
-	
-			that.setState({
-				doorTypeOptions : arrNew
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
 
 	onSubmit=(values)=>{
 		console.log("values",values);
@@ -189,7 +170,8 @@ class SearchGroupForm extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter,} = this.props;
-		let {searchEquipmentFormOptions,seachFormContent,floorsOptions,doorTypeOptions} = this.state;
+		let doorTypeOptions = PropsState.doorTypeOptions;
+		let {searchEquipmentFormOptions,seachFormContent,floorsOptions} = this.state;
 		
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="group-member-search door-permission-group-search">

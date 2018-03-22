@@ -18,7 +18,8 @@ import './index.less';
  import AddEquipmentToGroup from './AddEquipmentToGroup';
  import BatchAddEquipmentToGroup from './BatchAddEquipmentToGroup';
 
-
+ import PropsState from '../../State';
+ 
 import State from './State';
 import {
 	observer,
@@ -36,7 +37,6 @@ export default class DoorGroupManage extends React.Component {
 			itemDetail:{},
 			batchChecked :false,
 			checkedIds : '',
-			doorTypeOptions:[],
             searchParams:{
                 communityId :'',
                 doorType : '',
@@ -49,31 +49,10 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	componentDidMount(){
-		this.getBasicInfoList();
         this.getItemsData();
 	}
 	
-	getBasicInfoList=()=>{
-		let that = this;
-		Http.request('getWarningType',{}).then(function(response) {
-			var arrNew = []
-			if(response.DoorType){
-				for (var i=0;i<response.DoorType.length;i++){
-	
-				arrNew[i] = {
-							label:response.DoorType[i].desc,
-							value:response.DoorType[i].value
-						}
-				}
-			}
-	
-			that.setState({
-				doorTypeOptions : arrNew
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
+
     
     getItemsData=()=>{
         let that = this;
@@ -225,15 +204,11 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	renderDoorType=(doorType)=>{
-		let {doorTypeOptions} = this.state;
+		let doorTypeOptions = PropsState.doorTypeOptions;
 		for(let i=0;i<doorTypeOptions.length;i++){
 			if(doorTypeOptions[i].value == doorType){
 				return(
 					<span>{doorTypeOptions[i].label}</span>
-				)
-			}else{
-				return(
-					<span>doorType</span>
 				)
 			}
 		}
@@ -311,7 +286,7 @@ export default class DoorGroupManage extends React.Component {
 					<div>
 						<SearchAllEquipment submitSearchParams={this.submitSearchParams} clearParams={this.clearParams} />
 					</div>
-                    <div className="table">
+                    <div className="all-equipment-table">
 						<div className="title">
 							<span  className="first-line-item">
 							
@@ -319,7 +294,7 @@ export default class DoorGroupManage extends React.Component {
 							<span className="item-line-span">社区名称</span>
 							<span className="item-line-span">屏幕展示标题</span>
 							<span className="item-line-span">屏幕展示编号</span>
-							<span className="item-line-span">硬件ID</span>
+							<span className="item-line-span community-id-item">硬件ID</span>
 							<span className="item-line-span">门类型</span>
 							<span className="item-line-span last-line-span">操作</span>
 						</div>

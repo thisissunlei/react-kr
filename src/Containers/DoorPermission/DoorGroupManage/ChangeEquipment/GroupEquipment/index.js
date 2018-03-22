@@ -19,6 +19,8 @@ import './index.less';
  import BatchDeleteMemberFromGroup from './BatchDeleteMemberFromGroup';
 
 
+ import PropsState from '../../State';
+
 import State from './State';
 import {
 	observer,
@@ -61,7 +63,7 @@ export default class DoorGroupManage extends React.Component {
 		}
 	}
 	
-	getBasicListInfo=()=>{
+	getBasicListInfo=(fun)=>{
 		let that = this;
 		Http.request('getWarningType',{}).then(function(response) {
 			var arrNew = []
@@ -77,6 +79,8 @@ export default class DoorGroupManage extends React.Component {
 	
 			that.setState({
 				doorTypeOptions : arrNew
+			},function(){
+				fun && fun()
 			})
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -189,20 +193,21 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	renderDoorType=(doorType)=>{
-		let {doorTypeOptions} = this.state;
+		
+		let doorTypeOptions = PropsState.doorTypeOptions;
+		console.log("PropsState",PropsState)
+		console.log("doorTypeOptions",doorTypeOptions)
 		for(let i=0;i<doorTypeOptions.length;i++){
 			if(doorTypeOptions[i].value == doorType){
 				return(
 					<span>{doorTypeOptions[i].label}</span>
 				)
-			}else{
-				return(
-					<span>doorType</span>
-				)
 			}
 		}
 
 	}
+
+	
 
     renderItemsList=(items)=>{
 		let that = this;
@@ -212,7 +217,7 @@ export default class DoorGroupManage extends React.Component {
 					<span  className="first-line-item item-line-span">
 						<input type="checkbox"  checked={item.checked?"checked":""} onClick={that.changeItemCheckbox.bind(this,item)}/>
 					</span>
-                    <span className="item-line-span">{item.communityName}</span>
+                    <span className="item-line-span community-id-item">{item.communityName}</span>
 					<span className="item-line-span">{item.title}</span>
 					<span className="item-line-span">{item.doorCode}</span>
 					<span className="item-line-span deviceId-line-span">{item.deviceId}</span>
@@ -297,12 +302,12 @@ export default class DoorGroupManage extends React.Component {
 					<div>
 						<SearchGroupMember submitSearchParams={this.submitSearchParams} clearParams={this.clearParams} />
 					</div>
-                    <div className="table">
+                    <div className="table-group-equipment">
 						<div className="title">
 							<span  className="first-line-item">
 							
 							</span>
-							<span className="item-line-span">社区名称</span>
+							<span className="item-line-span community-id-item">社区名称</span>
 							<span className="item-line-span">屏幕展示标题</span>
 							<span className="item-line-span">屏幕展示编号</span>
 							<span className="item-line-span">硬件ID</span>

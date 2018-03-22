@@ -15,6 +15,8 @@ import {
 } from 'kr-ui';
 import './index.less';
 import {DateFormat} from 'kr/Utils';
+
+import PropsState from '../../State';
 import State from './State';
 import {
 	observer,
@@ -31,7 +33,6 @@ class SearchGroupForm extends React.Component{
 			seachFormContent : '',
 			seachFormFilter : "doorCode",
 			floorsOptions:[],
-			doorTypeOptions : [],
 			searchEquipmentFormOptions : [
 				{
 					label:"屏幕编号",
@@ -58,33 +59,12 @@ class SearchGroupForm extends React.Component{
 	}
 	componentDidMount(){
 		
-		this.getBasicInfoList()
 	}
 
-	getBasicInfoList=()=>{
-		let that = this;
-		Http.request('getWarningType',{}).then(function(response) {
-			var arrNew = []
-			if(response.DoorType){
-				for (var i=0;i<response.DoorType.length;i++){
 	
-				arrNew[i] = {
-							label:response.DoorType[i].desc,
-							value:response.DoorType[i].value
-						}
-				}
-			}
-	
-			that.setState({
-				doorTypeOptions : arrNew
-			})
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
 
 	onSubmit=(values)=>{
-		console.log("values",values);
+		
 		let {submitSearchParams}=this.props;
 		submitSearchParams && submitSearchParams(values);
 		
@@ -125,11 +105,8 @@ class SearchGroupForm extends React.Component{
 		let newObj = {};
 		newObj[seachFormFilter] = content;
 
-		console.log("newObj",newObj);
-
 		let emptyObj ={doorCode : '',deviceId : '',title : ''}
 		let formDateObj = Object.assign(emptyObj,newObj);
-		console.log("formDateObj",formDateObj);
 		Store.dispatch(change('SearchGroupForm','deviceId',formDateObj.deviceId || ""));
 		Store.dispatch(change('SearchGroupForm','doorCode',formDateObj.doorCode || ""));
 		Store.dispatch(change('SearchGroupForm','title',formDateObj.title|| ""));
@@ -182,8 +159,8 @@ class SearchGroupForm extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter,} = this.props;
-		let {searchEquipmentFormOptions,seachFormContent,floorsOptions,doorTypeOptions} = this.state;
-		
+		let {searchEquipmentFormOptions,seachFormContent,floorsOptions} = this.state;
+		let doorTypeOptions = PropsState.doorTypeOptions;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="group-member-search door-permission-group-search">
 				<ListGroup className="search-item-line">
