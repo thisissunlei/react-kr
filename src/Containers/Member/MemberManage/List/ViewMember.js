@@ -169,7 +169,7 @@ export default class ViewMember extends React.Component {
 						<div className="u-info-content">
 							<div  className="u-info-photo">
 								<span>头像：</span>
-								{baseInfo.avatar?<img src={baseInfo.avatar} />:'-'}	
+								{baseInfo.avatar?<img className="u-info-photo-img" src={baseInfo.avatar} />:'-'}	
 							</div>	
 							<KrField
 									grid={1/2} 
