@@ -30,22 +30,11 @@ class NewCreateDoorGroup extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			groupLevelOptions : [
-				{
-					label:"普通组",
-					value: "NORMAL"
-				},{
-					label:"社区通开组",
-					value: "COMMUNITYWIDE"
-				},{
-					label:"全国通开组",
-					value: "COUNTRYWIDE"
-				}
-				
-			],
-			chooseCOUNTRYWIDE :false,
+			
 			communityId : '',
 			customerId : '',
+			showCompany : true,
+			showCommunity : true,
 
 		}
 	}
@@ -68,18 +57,33 @@ class NewCreateDoorGroup extends React.Component{
 	changGroupLevel=(option)=>{
 
 		let {communityId,customerId} = this.state;
+		console.log("option.value",option);
 		if(option.value == "COUNTRYWIDE"){
 
 			this.setState({
-				chooseCOUNTRYWIDE : true
+				showCommunity : false,
+				showCompany : false
 			})
 			Store.dispatch(change('NewCreateDoorGroup','communityId',''));
 			Store.dispatch(change('NewCreateDoorGroup','customerId',''));
 			return;
 		}
+		if(option.value == "COMMUNITYWIDE"){
+			
+			this.setState({
+				showCompany : false,
+				showCommunity : true 
+			})
+			Store.dispatch(change('NewCreateDoorGroup','communityId',communityId));
+			Store.dispatch(change('NewCreateDoorGroup','customerId',''));
+			return;
+		}
+		
+
 
 		this.setState({
-			chooseCOUNTRYWIDE : false
+			showCommunity : true,
+			showCompany : true
 		})
 		Store.dispatch(change('NewCreateDoorGroup','communityId',communityId));
 		Store.dispatch(change('NewCreateDoorGroup','customerId', customerId));
@@ -100,7 +104,9 @@ class NewCreateDoorGroup extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {groupLevelOptions,chooseCOUNTRYWIDE} = this.state;
+		let {showCompany,showCommunity} = this.state;
+		let groupLevelOptions = State.groupLevelOptions;
+		console.log("showCompany",showCompany);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="new-creat-door-group">
 				<KrField grid={1/2} 
@@ -123,7 +129,7 @@ class NewCreateDoorGroup extends React.Component{
 					onChange={this.changGroupLevel}
 				/>
 
-				{!chooseCOUNTRYWIDE && <KrField name="communityId" 
+				{showCommunity && <KrField name="communityId" 
 					component="searchCommunityAll" 
 					label="社区名称"  
 					style={{width:'252px',margin:'0 35px 5px 0'}}
@@ -131,7 +137,7 @@ class NewCreateDoorGroup extends React.Component{
 					onChange={this.changeCommunityId}
 				/>}
 
-				{!chooseCOUNTRYWIDE && <KrField grid={1/2} name="customerId" 
+				{showCompany && <KrField grid={1/2} name="customerId" 
 					component="searchMemberCompany" 
 					label="公司" 
 					style={{width:'252px',marginRight:'30px'}}
@@ -171,8 +177,11 @@ const validate = values => {
 	if (!values.groupLevel) {
 		errors.groupLevel = '请选择组级别';
 	}
-	if(values.groupLevel=="COMMUNITYWIDE" && !values.communityId){
+	if((values.groupLevel=="COMMUNITYWIDE"||values.groupLevel=="CUSTOMER_COMMUNITYWIDE") && !values.communityId){
 		errors.communityId = "请选择社区";
+	}
+	if(values.groupLevel=="CUSTOMER_COMMUNITYWIDE" && !values.customerId){
+		errors.customerId = "请选择公司";
 	}
 	return errors
 }

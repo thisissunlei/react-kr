@@ -38,16 +38,6 @@ export default class DoorGroupManage extends React.Component {
 		super(props, context);
 		this.state = {
 			itemDetail:{},
-			groupLevelOptions: [{
-				label:"普通组",
-				value: "NORMAL"
-			},{
-				label:"全国通开组",
-				value: "COUNTRYWIDE"
-			},{
-				label:"社区通开组",
-				value: "COMMUNITYWIDE"
-			}],
 			getDoorPermissionListParams:{
 				communityId : '',
 				customerId : '',
@@ -184,10 +174,10 @@ export default class DoorGroupManage extends React.Component {
 
 	render() {
 		let {
-			groupLevelOptions,getDoorPermissionListParams,
-			list,seleced,
+			getDoorPermissionListParams,
 			itemDetail
 		} = this.state;
+		let groupLevelOptions = State.groupLevelOptions;
 		return (
 		    <div className="door-permission-manage" style={{minHeight:'910',backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
