@@ -58,6 +58,17 @@ module.exports = {
         url: '/mockjsdata/53/sso/user/list?communityId={communityId}&customerId={customerId}&name={name}&phone={phone}',
         method: 'post'
     },
+    //获取所有成员列表数据以供添加成员到组
+    'getDoorGroupDetailApi':{
+        url: '/mockjsdata/53/iot-platform/auth/user-group/detail?id={id}',
+        method: 'get'
+    },
+
+    // 编辑门禁组
+    'editDoorGroupApi':{
+        url: '/mockjsdata/53/iot-platform/auth/user-group/edit',
+        method: 'put'
+    },
 }
 
 

@@ -15,10 +15,9 @@ import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
 
-// import UpgradeAdd from './UpgradeAdd';
-// import BatchUpgrade from './BatchUpgrade';
 
 import NewCreateDoorGroup from './NewCreateDoorGroup';
+import EditDoorGroup from './EditDoorGroup';
 import SearchGroupForm from './SearchGroupForm';
 import DeleteGroupDialog from './DeleteGroupDialog';
 import ChangeMember from './ChangeMember';
@@ -75,8 +74,8 @@ export default class DoorGroupManage extends React.Component {
 				
 				_this.openDeleteGroupFun();
 			}
-			if(type == 'detail') {
-				// _this.openUpgradeAddFun();
+			if(type == 'edit') {
+				_this.openEditDoorGroupFun();
 			}
 			if(type=='changeMember'){
 				_this.openChangeMemeberFun();
@@ -125,6 +124,18 @@ export default class DoorGroupManage extends React.Component {
 		});
 	}
 
+	submitEditDoorGroup=(values)=>{
+		let that= this;
+		let {getDoorPermissionListParams} = this.state;
+		Http.request('editDoorGroupApi',{},values).then(function(response) {
+			Message.success("编辑成功");
+			that.refreshPage();
+			that.openEditDoorGroupFun();
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
 
 	refreshPage=()=>{
 		let {getDoorPermissionListParams}  =this.state;
@@ -168,6 +179,10 @@ export default class DoorGroupManage extends React.Component {
 	openChangeEquipmentFun=()=>{
 		State.openChangeEquipmentDialog = !State.openChangeEquipmentDialog;
 		
+	}
+
+	openEditDoorGroupFun=()=>{
+		State.openEditDoorGroup = !State.openEditDoorGroup;
 	}
 
 
@@ -303,7 +318,7 @@ export default class DoorGroupManage extends React.Component {
 
 								<Button  label="更改成员"  type="operation" operation="changeMember"/>
 								<Button  label="授权设备"  type="operation" operation="changeEquipment"/>
-								<Button  label="编辑"  type="operation" operation="detail"/>
+								<Button  label="编辑"  type="operation" operation="edit"/>
 								<Button  label="删除"  type="operation" operation="delete"/>
 								
 							</TableRowColumn>
@@ -324,17 +339,20 @@ export default class DoorGroupManage extends React.Component {
 			          />
 			        </Dialog>
 
-					{/* <Dialog
+					<Dialog
 			          title="编辑门禁组"
 			          open={State.openEditDoorGroup}
 			          onClose={this.openEditDoorGroupFun}
 			          contentStyle={{width:625}}
 			        >
-			          <NewCreateDoorGroup
+			          <EditDoorGroup
 			            onCancel={this.openEditDoorGroupFun}
-						submitEditDoorGroupFun = {this.submitEditDoorGroupFun}
+						submitEditDoorGroup = {this.submitEditDoorGroup}
+						itemDetail={itemDetail}
 			          />
-					</Dialog> */}
+			        </Dialog>
+					
+
 					
 					<Dialog
 			          title="删除门禁组"

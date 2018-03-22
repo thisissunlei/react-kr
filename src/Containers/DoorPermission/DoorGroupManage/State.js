@@ -10,6 +10,7 @@ import {Message} from 'kr-ui';
 
 let State = observable({
 	openNewCreateDoorGroup : false,
+	openEditDoorGroup: false,
 	openDeleteGroup : false,
 	openChangeMemeberDialog : false,
 	openChangeEquipmentDialog : false,
