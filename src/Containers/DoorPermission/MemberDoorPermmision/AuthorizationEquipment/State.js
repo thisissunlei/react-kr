@@ -10,6 +10,7 @@ import {Message} from 'kr-ui';
 
 let State = observable({
 	showCancleAuthorization : false,
+	showAuthorizationEquipmentDialog : false,
 	doorTypeOptions : [],
 	groupLevelOptions: [{
 		label:"普通组",

@@ -35,7 +35,7 @@ module.exports = {
     },
     //个人/门禁权限组已授权设备
     'getGroupAuthorizeEquipmentApi':{
-        url: '/mockjsdata/53/iot-platform/auth/device-grant/list?communityId={communityId}&deviceId={deviceId}&doorType={doorType}&floor={floor}&title={title}&doorCode={doorCode}',
+        url: '/mockjsdata/53/iot-platform/auth/device-grant/list?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&title={title}&granteeId={granteeId}&granteeType={granteeType}',
         method: 'get'
     },
     //从门禁组/个人已授权设备中删除设备
