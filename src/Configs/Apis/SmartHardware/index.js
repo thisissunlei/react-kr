@@ -92,7 +92,7 @@ module.exports = {
 
    //查看设备缓存
    'getEquipmentCacheURL':{
-      url: '/api/iot-platform/door-device/admin/card-rule/list?deviceId={deviceId}&lastCardNo={lastCardNo}&limit={limit}',
+      url: '/mockjsdata/53/iot-platform/door-device/admin/card-rule/list?deviceId={deviceId}&lastCardNo={lastCardNo}&limit={limit}',
       method: 'get'
    },
 
