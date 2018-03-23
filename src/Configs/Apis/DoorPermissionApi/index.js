@@ -33,12 +33,12 @@ module.exports = {
         url: '/mockjsdata/53/iot-platform/auth/user-group-mapping/add',
         method: 'post'
     },
-    //门禁权限组已授权设备/iot-platform/auth/device-grant/list
+    //个人/门禁权限组已授权设备
     'getGroupAuthorizeEquipmentApi':{
         url: '/mockjsdata/53/iot-platform/auth/device-grant/list?communityId={communityId}&deviceId={deviceId}&doorType={doorType}&floor={floor}&title={title}&doorCode={doorCode}',
         method: 'get'
     },
-    //从门禁组中删除设备
+    //从门禁组/个人已授权设备中删除设备
     'deleteEquipmentFromGroupApi':{
         url: '/mockjsdata/53/iot-platform/auth/device-grant/delete?ids={ids}',
         method: 'delete'
@@ -69,6 +69,14 @@ module.exports = {
         url: '/mockjsdata/53/iot-platform/auth/user-group/edit',
         method: 'put'
     },
+
+    // 用户所属门禁组列表
+    'getGroupContainMember':{
+        url: '/mockjsdata/53/iot-platform/auth/user/belong-to-group/list?uid={uid}',
+        method: 'get'
+    },
+
+    
 }
 
 

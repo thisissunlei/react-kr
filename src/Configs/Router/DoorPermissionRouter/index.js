@@ -21,6 +21,14 @@ const DoorPermission_DoorGroupManage = (location, callback) => {
   }, 'DoorPermission_DoorGroupManage')
 }
 
+const DoorPermission_MemberDoorPermmision = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/DoorPermission/MemberDoorPermmision').default)
+  }, 'DoorPermission_MemberDoorPermmision')
+}
+
+
+
 
 module.exports =()=>{
 
@@ -30,13 +38,9 @@ module.exports =()=>{
 			
 			
 			<Route path="doorgroupmanage" getComponent={DoorPermission_DoorGroupManage}/>
-		
 
-      {/* <Route path="equipmentmanage" getComponent={Basic}>
-        <Route path="equipmentsearch" getComponent={SmartHardware_EquipmentManage_EquipmentSearch}/>
-        <Route path="checkrepeatip" getComponent={SmartHardware_EquipmentManage_IpAddressCheck}/>
-      </Route>  */}
-        
+			<Route path="memberdoormanage/:memberId" getComponent={DoorPermission_MemberDoorPermmision}/>
+		
       
 			
 		</Route>
