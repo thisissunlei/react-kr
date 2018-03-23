@@ -12,6 +12,8 @@ let State = observable({
 	showCancleAuthorization : false,
 	showAuthorizationEquipmentDialog : false,
 	openNewCreateAuthoriazation : false,
+	
+	openSetAuthorizationTime: false,
 	doorTypeOptions : [],
 	groupLevelOptions: [{
 		label:"普通组",

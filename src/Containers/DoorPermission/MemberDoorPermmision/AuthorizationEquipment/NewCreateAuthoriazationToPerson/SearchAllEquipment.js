@@ -13,11 +13,11 @@ import {
 	Message,
 	SearchFormsNew
 } from 'kr-ui';
-import '../index.less';
+import './index.less';
 import {DateFormat} from 'kr/Utils';
 
 import PropsState from '../../State';
-import State from '../State';
+import State from './State';
 import {
 	observer,
 	inject
@@ -26,7 +26,7 @@ import {
 
 
 
-class SearchForm extends React.Component{
+class SearchGroupForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -58,13 +58,12 @@ class SearchForm extends React.Component{
 		}
 	}
 	componentDidMount(){
-		console.log("dldddld;dl;dldlfklfk");
+		
 	}
 
 	
 
 	onSubmit=(values)=>{
-		console.log("values",values);
 		
 		let {submitSearchParams}=this.props;
 		submitSearchParams && submitSearchParams(values);
@@ -72,7 +71,7 @@ class SearchForm extends React.Component{
 	}
 
 	// onClearAll=()=>{
-	// 	Store.dispatch(reset('SearchForm',''));
+	// 	Store.dispatch(reset('SearchGroupForm',''));
 	// 	let {clearParams} = this.props;
 	// 	clearParams && clearParams();
 	// }
@@ -108,9 +107,9 @@ class SearchForm extends React.Component{
 
 		let emptyObj ={doorCode : '',deviceId : '',title : ''}
 		let formDateObj = Object.assign(emptyObj,newObj);
-		Store.dispatch(change('SearchForm','deviceId',formDateObj.deviceId || ""));
-		Store.dispatch(change('SearchForm','doorCode',formDateObj.doorCode || ""));
-		Store.dispatch(change('SearchForm','title',formDateObj.title|| ""));
+		Store.dispatch(change('SearchGroupForm','deviceId',formDateObj.deviceId || ""));
+		Store.dispatch(change('SearchGroupForm','doorCode',formDateObj.doorCode || ""));
+		Store.dispatch(change('SearchGroupForm','title',formDateObj.title|| ""));
 		
 	}
 
@@ -122,7 +121,7 @@ class SearchForm extends React.Component{
 
 			// communityIdReal = '';
 			floorReal = '';
-			Store.dispatch(change('SearchForm','floor',''));
+			Store.dispatch(change('SearchGroupForm','floor',''));
 			_this.setState({
 				floorsOptions : []
 			})
@@ -162,6 +161,9 @@ class SearchForm extends React.Component{
 		const { error, handleSubmit, pristine, reset,content,filter,} = this.props;
 		let {searchEquipmentFormOptions,seachFormContent,floorsOptions} = this.state;
 		let doorTypeOptions = PropsState.doorTypeOptions;
+		var str= new Date().getTime();
+		str =  "search-form-" + str;
+
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="group-member-search door-permission-group-search">
 				<ListGroup className="search-item-line">
@@ -211,7 +213,7 @@ class SearchForm extends React.Component{
 								searchFilter={searchEquipmentFormOptions}
 								onChange={this.changeSearchFormContent}
 								onFilter={this.changeSearchFormFilter}
-								filterSpecialClass ="search-person-group-equipment-search-form"
+								filterSpecialClass ={str}
 							/>
 						</span>
 
@@ -230,9 +232,9 @@ class SearchForm extends React.Component{
 		);
 	}
 }
-export default SearchForm = reduxForm({
-	form: 'SearchForm',
+export default SearchGroupForm = reduxForm({
+	form: 'SearchGroupForm',
 	// validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(SearchForm);
+})(SearchGroupForm);

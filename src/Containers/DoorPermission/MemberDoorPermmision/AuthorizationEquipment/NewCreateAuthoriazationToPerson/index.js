@@ -15,13 +15,15 @@ import {Actions,Store} from 'kr/Redux';
 import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
-import SearchForm from './SearchForm';
-import CancleAuthorization from './CancleAuthorization';
-import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
+import SearchAllEquipment from './SearchAllEquipment';
+import AuthoriazationTime from './AuthoriazationTime';
+
+import close from '../../images/close.svg';
 
 
 import State from './State';
-import PropsState from '../State';
+import PropsState from '../../State';
+import ListState from '../State';
 
 import {
 	observer,
@@ -36,15 +38,14 @@ export default class CanOperationEquipment extends React.Component {
         
 		this.state = {
             itemDetail : {},
-            memberDetailInfo :{},
-			getMemberAuthorizeEquipmentParams : {
+			getAllEquipmentParams : {
                 communityId : '',
                 deviceId : '',
                 doorCode : '',
                 doorType : '',
                 floor : '',
-                granteeId : '',
-                granteeType : 'USER',
+                page : '',
+                pageSize : 'USER',
                 title : '',
                 date : null
             }
@@ -52,42 +53,17 @@ export default class CanOperationEquipment extends React.Component {
 	}
 
 	componentDidMount(){
-        this.setInitailParams();
-    }
-
-    componentWillReceiveProps(nextProps){
-
-        let {memberDetailInfo}= this.props;
-        let that =this;
-        if(memberDetailInfo !==nextProps.memberDetailInfo){
-            this.setState({
-                memberDetailInfo :nextProps.memberDetailInfo
-            },function(){
-                that.setInitailParams()
-            })
-        }
         
     }
 
-    setInitailParams=()=>{
-
-        let {memberDetailInfo} = this.state;
-        let {getMemberAuthorizeEquipmentParams} = this.state;
-        var obj = {granteeId :memberDetailInfo.uid }
-        var newObj = Object.assign({},getMemberAuthorizeEquipmentParams,obj)
-        this.setState({
-            getMemberAuthorizeEquipmentParams  :newObj
-        })
-    }
-
-    
 
     onOperation=(type,itemDetail)=>{
+        console.log("dldldld;dld;flk========>>>>>=======>>>>ldkfljkdjfkdj");
         this.setState({
             itemDetail
         })
-        if(type=="cancleAuthorization"){
-            this.cancleAuthorizationFun();
+        if(type=="setAuthorizationTime"){
+            this.setAuthorizationTime();
         }
         
     }
@@ -116,45 +92,60 @@ export default class CanOperationEquipment extends React.Component {
 
         var now = new Date().getTime();
         let obj= {date:now};
-        let {getMemberAuthorizeEquipmentParams} = this.state;
-        let params = Object.assign({},getMemberAuthorizeEquipmentParams)
+        let {getAllEquipmentParams} = this.state;
+        let params = Object.assign({},getAllEquipmentParams)
         params = Object.assign(params,obj)
         
         this.setState({
-            getMemberAuthorizeEquipmentParams : params
+            getAllEquipmentParams : params
         })
         
     }
 
-    openNewCreateAuthoriazationFun=()=>{
-        State.openNewCreateAuthoriazation = !State.openNewCreateAuthoriazation;
-
+    onOperation=(type,itemDetail)=>{
+        this.setState({
+            itemDetail
+        })
+        if(type=="cancleAuthorization"){
+            this.cancleAuthorizationFun();
+        }
+        
     }
 
-    submitSearchParams=(values)=>{
 
-        let {getMemberAuthorizeEquipmentParams,memberDetailInfo} = this.state;
-        var timer = {date : new Date(),granteeId :memberDetailInfo.uid ,granteeType : 'USER'};
+    setAuthorizationTime=()=>{
+        State.openSetAuthorizationTimeDialog = !State.openSetAuthorizationTimeDialog;
+    }
+
+    submitSearch=(values)=>{
+        let {getAllEquipmentParams} = this.state;
+        let {memberDetailInfo} = this.props;
+        var timer = {date : new Date()};
         var param = Object.assign({},values);
         param = Object.assign({},param,timer);
         this.setState({
-            getMemberAuthorizeEquipmentParams : param
+            getAllEquipmentParams : param
         })
     }
+
+    closeAddAuthoriazation=()=>{
+        ListState.openNewCreateAuthoriazation = false;
+    }
+    
 
 
 
 	render() {
-        let {memberDetailInfo,doorTypeOptions} = this.props;
-        var title = "授权给"+memberDetailInfo.name + "的设备";
-        let {getMemberAuthorizeEquipmentParams,itemDetail} = this.state;
+        let {memberDetailInfo} = this.props;
+        let doorTypeOptions = PropsState.doorTypeOptions;
+        let {getAllEquipmentParams,itemDetail} = this.state;
 		return (
-		    <div className="can-operate-equipment">
-                <Section title={title} description="" >
-                    <div className="new-create-authoriazation">
-                        <Button label="新增授权"  onTouchTap={this.openNewCreateAuthoriazationFun} className="button-list"/>
-                    </div>
-                    <SearchForm submitSearchParams={this.submitSearchParams} doorTypeOptions={doorTypeOptions}/>
+		    <div className="all-equipment">
+                <div style={{width:"100%",height:30,boxSizing: "border-box"}}>
+                    <img src={close} style={{dispaly:"inline-block",verticalAlign:"top",width:30,float:"right",cursor:"pointer"}} onClick={this.closeAddAuthoriazation}/>
+                </div>
+                <Section title={`所有设备`} description="" >
+                    <SearchAllEquipment submitSearchParams={this.submitSearch}/>
                     <Table
                         className="member-list-table"
                         style={{marginTop:10,position:'inherit'}}
@@ -166,8 +157,8 @@ export default class CanOperationEquipment extends React.Component {
                         exportSwitch={false}
                         onOperation={this.onOperation}
                         ajaxFieldListName='items'
-                        ajaxUrlName='getGroupAuthorizeEquipmentApi'
-                        ajaxParams={getMemberAuthorizeEquipmentParams}
+                        ajaxUrlName='doorGroupAllEquipmentApi'
+                        ajaxParams={getAllEquipmentParams}
                         onPageChange={this.onPageChange}
                         displayCheckbox={false}
                     >
@@ -177,7 +168,6 @@ export default class CanOperationEquipment extends React.Component {
                         <TableHeaderColumn>屏幕显示编号</TableHeaderColumn>
                         <TableHeaderColumn>智能硬件ID</TableHeaderColumn>
                         <TableHeaderColumn>门类型</TableHeaderColumn>
-                        <TableHeaderColumn>授权时间</TableHeaderColumn>
                         <TableHeaderColumn>备注</TableHeaderColumn>
                         <TableHeaderColumn>操作</TableHeaderColumn>
                     </TableHeader>
@@ -195,7 +185,7 @@ export default class CanOperationEquipment extends React.Component {
                         ></TableRowColumn>
 
                         <TableRowColumn 
-                            style={{width:"10%"}}
+                            style={{width:"12%"}}
                             name="title" 
                             component={(value,oldValue,itemData)=>{
                             var TooltipStyle=""
@@ -252,20 +242,9 @@ export default class CanOperationEquipment extends React.Component {
                         ></TableRowColumn>
 
 
-                        <TableRowColumn name="startEndTime"
-                            style={{width:"32%"}}
-                            
-                        component={(value,oldValue,item)=>{
-                            if(value==""){
-                                value="-"
-                            }
-                            return (<span>{
-                                DateFormat(item.startAt,"yyyy-mm-dd HH:MM:ss")+"-"+DateFormat(item.endAt,"yyyy-mm-dd HH:MM:ss")
-                            }</span>)}}
-                        ></TableRowColumn>
-
                         <TableRowColumn 
                             name="memo" 
+                            style={{width:"26%"}}
                             component={(value,oldValue,itemData)=>{
                             var TooltipStyle=""
                             if(value.length==""){
@@ -282,7 +261,8 @@ export default class CanOperationEquipment extends React.Component {
 
                         <TableRowColumn type="operation" style={{width:"6%",overflow:"visible"}} >
 
-                            <Button  label="取消授权"  type="operation" operation="cancleAuthorization"/>
+                            <Button  label="授权"  type="operation" operation="setAuthorizationTime"/>
+
                             
                         </TableRowColumn>
 
@@ -291,36 +271,22 @@ export default class CanOperationEquipment extends React.Component {
 					</Table>
                     
 
+                    
+
                     <Dialog
-			          title="取消授权"
-			          open={State.showCancleAuthorization}
-			          onClose={this.cancleAuthorizationFun}
+			          title="新增授权"
+			          open={State.openSetAuthorizationTimeDialog}
+			          onClose={this.setAuthorizationTime}
 			          contentStyle={{width:425}}
 			        >
-			          <CancleAuthorization
-			            onCancel={this.cancleAuthorizationFun}
+			          <AuthoriazationTime
+			            onCancel={this.setAuthorizationTime}
                         confirmCancleAuthorization = {this.confirmCancleAuthorization}
                         itemDetail = {itemDetail}
                         memberDetailInfo={memberDetailInfo}
 			          />
 			        </Dialog>
 
-                    <Drawer 
-			        	open={State.openNewCreateAuthoriazation}
-			        	onClose = {this.openNewCreateAuthoriazationFun}
-					    width={"90%"} 
-					    openSecondary={true} 
-					>
-                   
-			          <NewCreateAuthoriazationToPerson
-			            onCancel={this.openNewCreateAuthoriazationFun}
-                        confirmCancleAuthorization = {this.confirmCancleAuthorization}
-                        itemDetail = {itemDetail}
-                        memberDetailInfo={memberDetailInfo}
-			          />
-			        </Drawer>
-
-                    {/*  */}
                 </Section>
 			</div>
 		);

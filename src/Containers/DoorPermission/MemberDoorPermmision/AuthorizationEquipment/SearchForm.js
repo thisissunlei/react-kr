@@ -16,8 +16,8 @@ import {
 import './index.less';
 import {DateFormat} from 'kr/Utils';
 
-import PropsState from './State';
 import State from './State';
+import PropsState from '../State';
 import {
 	observer,
 	inject
@@ -64,7 +64,7 @@ class SearchGroupForm extends React.Component{
 	
 
 	onSubmit=(values)=>{
-		
+
 		let {submitSearchParams}=this.props;
 		submitSearchParams && submitSearchParams(values);
 		
@@ -104,9 +104,8 @@ class SearchGroupForm extends React.Component{
 		let {seachFormFilter} = this.state;
 		let newObj = {};
 		newObj[seachFormFilter] = content;
-
 		let emptyObj ={doorCode : '',deviceId : '',title : ''}
-		let formDateObj = Object.assign(emptyObj,newObj);
+		let formDateObj = Object.assign({},emptyObj,newObj);
 		Store.dispatch(change('SearchGroupForm','deviceId',formDateObj.deviceId || ""));
 		Store.dispatch(change('SearchGroupForm','doorCode',formDateObj.doorCode || ""));
 		Store.dispatch(change('SearchGroupForm','title',formDateObj.title|| ""));
@@ -158,9 +157,9 @@ class SearchGroupForm extends React.Component{
 	}
 
 	render(){
-		const { error, handleSubmit, pristine, reset,content,filter,} = this.props;
+		const { error, handleSubmit, pristine, reset,content,filter,doorTypeOptions} = this.props;
 		let {searchEquipmentFormOptions,seachFormContent,floorsOptions} = this.state;
-		let doorTypeOptions = PropsState.doorTypeOptions;
+		console.log("kdlfdkdlkf====>doorTypeOptions",doorTypeOptions);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="group-member-search door-permission-group-search">
 				<ListGroup className="search-item-line">

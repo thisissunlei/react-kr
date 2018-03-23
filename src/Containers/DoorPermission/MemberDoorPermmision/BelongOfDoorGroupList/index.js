@@ -105,7 +105,6 @@ export default class BelongOfDoorGroup extends React.Component {
 
 
     clickShowAuthorizationEquipment=(item)=>{
-    //    console.log("item",item)
         let _this =this;
         this.setState({
             itemDetail: item
@@ -117,7 +116,6 @@ export default class BelongOfDoorGroup extends React.Component {
 
     getgetGroupAuthorizeEquipmentList=()=>{
         let {itemDetail} = this.state;
-        // console.log("itemDetail====>",itemDetail);
         let that =this;
         let params = {granteeId:itemDetail.id,granteeType:"USER"}
         Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
@@ -157,9 +155,6 @@ export default class BelongOfDoorGroup extends React.Component {
                     <span className="item-block" style={{width:"19%"}}>
                         <Button  label="退出该组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,item)}/>
                         <Button  label="查看组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,item)}/>
-                        {/* <span onClick={that.clickShowAuthorizationEquipment.bind(that,item)} style={{color:"#499df1",marginLeft:5}}>查看组授权设备</span> */}
-                        
-                        <span></span>
                     </span>
                 </div>
             )

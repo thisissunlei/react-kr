@@ -34,7 +34,6 @@ export default class DropOutGroup extends React.Component {
 		super(props, context);
 		this.state = {
 			items:[],
-			serachParams : {}
 		}
 	}
 
@@ -67,7 +66,7 @@ export default class DropOutGroup extends React.Component {
 	}
 
 	renderAuthoriaztionTime=(item)=>{
-		console.log("item",item);
+		// console.log("item",item);
 
 		var str = DateFormat(item.startAt,"yyyy-mm-dd HH:MM:ss") + "-" + DateFormat(item.endAt,"yyyy-mm-dd HH:MM:ss")
 		return (
@@ -89,10 +88,15 @@ export default class DropOutGroup extends React.Component {
 	}
 
 	submitSearchParams=(values)=>{
-		let {serachParams} = this.state;
+		
+		let {itemDetail} = this.props;
+		let that =this;
+
 		var staticParams = {granteeId:itemDetail.id,granteeType:"USER"}
-		var params = Object.assign(serachParams,values,staticParams);
-        Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
+
+		var sendParams = Object.assign({},staticParams,values);
+		
+        Http.request('getGroupAuthorizeEquipmentApi',sendParams).then(function(response) {
             that.setState({
                 items : response.items
             })
@@ -112,8 +116,8 @@ export default class DropOutGroup extends React.Component {
 		console.log("items",items);
 		return (
 		    <div style={{marginTop:20,padding:20,boxSizing: "border-box"}} className="authoriaztion-equipment">
-                <div style={{width:"100%",height:30,padding:20,boxSizing: "border-box"}}>
-                    <img src={close} style={{width:30,float:"right"}} onClick={this.closePage}/>
+                <div style={{width:"100%",height:30,boxSizing: "border-box"}}>
+                    <img src={close} style={{dispaly:"inline-block",verticalAlign:"top",width:30,float:"right",cursor:"pointer"}} onClick={this.closePage}/>
                 </div>
 				<div>
 					<SearchForm submitSearchParams={this.submitSearchParams}/>
