@@ -17,7 +17,8 @@ import './index.less';
 
 import SearchForm from './SearchForm';
 import CancleAuthorization from './CancleAuthorization';
-import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
+// import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
+import AllEquipmentListBox from './AllEquipmentListBox';
 
 
 import State from './State';
@@ -312,12 +313,7 @@ export default class CanOperationEquipment extends React.Component {
 					    openSecondary={true} 
 					>
                    
-			          <NewCreateAuthoriazationToPerson
-			            onCancel={this.openNewCreateAuthoriazationFun}
-                        confirmCancleAuthorization = {this.confirmCancleAuthorization}
-                        itemDetail = {itemDetail}
-                        memberDetailInfo={memberDetailInfo}
-			          />
+			          <AllEquipmentListBox memberDetailInfo={memberDetailInfo} refreshPage={this.refreshPage}/>
 			        </Drawer>
 
                     {/*  */}

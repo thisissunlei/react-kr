@@ -16,7 +16,7 @@ import {
 	Tooltip,
 	KrField
 } from 'kr-ui';
-import warning from "./images/warning.svg";
+// import warning from "./images/warning.svg";
 import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
@@ -27,7 +27,7 @@ import {
 } from 'mobx-react';
 @observer
 
-class BatchAddEquipmentToGroup extends React.Component {
+class AddEquipmentToGroup extends React.Component {
 
 	constructor(props, context) {
 		super(props, context);
@@ -42,9 +42,10 @@ class BatchAddEquipmentToGroup extends React.Component {
 	}
 
 
+
 	onSubmit=(values)=>{
 		
-		console.log("dldldl");
+		
 		if(values.startAt && values.endAt){
 			var start=Date.parse(DateFormat(values.startAt,"yyyy-mm-dd hh:MM:ss"));
 			var end=Date.parse(DateFormat(values.endAt,"yyyy-mm-dd hh:MM:ss"));
@@ -59,14 +60,16 @@ class BatchAddEquipmentToGroup extends React.Component {
 				startAt : values.startAt,
 				endAt : endTime
 			}
-			let {confirmBatchAdd} = this.props;
-			console.log("dldldldl===>confirmBatchAdd",confirmBatchAdd);
-			confirmBatchAdd && confirmBatchAdd(params);
+			let {confirmAuthoriazationEquipment} = this.props;
+			confirmAuthoriazationEquipment && confirmAuthoriazationEquipment(params);
 		}
 	}
 	
-	closeDeleteGroup=()=>{
-		State.openBatchAddDialog = false;
+	cancleAuthoriazation=()=>{
+
+		console.log("sldkflkflkd");
+		let {onCancel} = this.props;
+		onCancel && onCancel();
 	}
 
 	onStartChange=(sdate)=>{
@@ -99,7 +102,7 @@ class BatchAddEquipmentToGroup extends React.Component {
 			
 			return ;
 		}
-		Store.dispatch(change('BatchAddEquipmentToGroup','endAt',edate));			 
+		Store.dispatch(change('AddEquipmentToGroup','endAt',edate));			 
 		
 		this.setState({
 			endAt : edate
@@ -107,6 +110,7 @@ class BatchAddEquipmentToGroup extends React.Component {
 	}
 
 	render() {
+		let {} = this.props;
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		
 		return (
@@ -119,7 +123,7 @@ class BatchAddEquipmentToGroup extends React.Component {
 							<KrField label="开始时间：" 
 								name="startAt" component="date" 
 								inline={false} 
-								style={{width:256}} 
+								style={{width:366}} 
 								onChange={this.onStartChange} 
 								placeholder="日期"
 							/>
@@ -130,7 +134,7 @@ class BatchAddEquipmentToGroup extends React.Component {
 							<KrField label="结束时间：" 
 								name="endAt" component="date" 
 								inline={false} 
-								style={{width:256}} 
+								style={{width:366}} 
 								onChange={this.onEndChange}  
 								placeholder="日期"
 							/>
@@ -144,7 +148,7 @@ class BatchAddEquipmentToGroup extends React.Component {
 								<Button  label="确定" type="submit"  />
 								</ListGroupItem>
 								<ListGroupItem style={{width:170,textAlign:'left',padding:0,paddingLeft:15}}>
-								<Button  label="取消" type="button"  cancle={true} onTouchTap={this.closeDeleteGroup} />
+								<Button  label="取消" type="button"  cancle={true} onTouchTap={this.cancleAuthoriazation} />
 								</ListGroupItem>
 							</ListGroup>
 						</Row>
@@ -168,10 +172,10 @@ const validate = values => {
 	
 	return errors
 }
-export default BatchAddEquipmentToGroup = reduxForm({
-	form: 'BatchAddEquipmentToGroup',
+export default AddEquipmentToGroup = reduxForm({
+	form: 'AddEquipmentToGroup',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(BatchAddEquipmentToGroup);
+})(AddEquipmentToGroup);
 

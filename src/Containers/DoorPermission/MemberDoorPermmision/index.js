@@ -90,7 +90,6 @@ export default class MemberDoorPermissionManage extends React.Component {
             memberDetailInfo,doorTypeOptions
 		} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
-		console.log("memberDetailInfo====>",memberDetailInfo);
 		return (
 		    <div className="member-door-permmision" >
 				<Title value="个人门禁权限"/>

@@ -38,6 +38,8 @@ export default class CanOperationEquipment extends React.Component {
         
 		this.state = {
             itemDetail : {},
+            ids: '',
+            selectedListData : [],
 			getAllEquipmentParams : {
                 communityId : '',
                 deviceId : '',
@@ -57,16 +59,6 @@ export default class CanOperationEquipment extends React.Component {
     }
 
 
-    onOperation=(type,itemDetail)=>{
-        console.log("dldldld;dld;flk========>>>>>=======>>>>ldkfljkdjfkdj");
-        this.setState({
-            itemDetail
-        })
-        if(type=="setAuthorizationTime"){
-            this.setAuthorizationTime();
-        }
-        
-    }
     
     
     cancleAuthorizationFun=()=>{
@@ -104,10 +96,11 @@ export default class CanOperationEquipment extends React.Component {
 
     onOperation=(type,itemDetail)=>{
         this.setState({
-            itemDetail
+            itemDetail,
+            ids : itemDetail.id
         })
-        if(type=="cancleAuthorization"){
-            this.cancleAuthorizationFun();
+        if(type=="setAuthorizationTime"){
+            this.setAuthorizationTime();
         }
         
     }
@@ -128,12 +121,91 @@ export default class CanOperationEquipment extends React.Component {
         })
     }
 
-    closeAddAuthoriazation=()=>{
-        ListState.openNewCreateAuthoriazation = false;
+
+    confirmAuthoriazationEquipment=(times)=>{
+
+        let {memberDetailInfo,granteeType} = this.props;
+        let {itemDetail,ids} = this.state;
+
+        var timersParam = Object.assign({},times);
+        let otherParams = {
+            deviceIds:ids,
+            granteeId: memberDetailInfo.uid,
+            granteeType :granteeType,
+        }
+        let postParams =  Object.assign({},otherParams,times);
+
+        this.sendAddRequest(postParams);
+    }
+
+    batchAddAuthoriazation=()=>{
+
+        let _this =this;
+        let {selectedListData}  = this.state;
+       
+
+        if(selectedListData.length<1){
+            Message.warntimeout("请选择您要授权的设备","error")
+        }else{
+
+            let idList = [];
+            selectedListData.map((item, value) => {
+				idList.push(item.id)
+			});
+            var ids = idList.join(",");
+            this.setState({
+                ids 
+            },function(){
+                _this.setAuthorizationTime();
+            })
+        }
+        
+    }
+
+    sendAddRequest=(sendParams)=>{
+		let that = this;
+		Http.request('addEquipmentToGroupApi',{},sendParams).then(function(response) {
+
+            Message.success("添加成功");
+			that.setAuthorizationTime();
+            that.refreshPage();
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
     }
     
+    refreshPage=()=>{
+        let {refreshPage} =this.props;
+        refreshPage && refreshPage();
+        
+    }
+
+  
 
 
+    renderOther=()=>{
+		return (
+
+            <a 
+                style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}} 
+                onClick={this.batchAddAuthoriazation}
+            >
+                批量授权
+             </a>
+
+			
+		)
+    }
+    
+    onSelect=(result,selectedListData)=>{
+        this.setState({
+            selectedListData 
+        })
+    }
+
+
+    
 
 	render() {
         let {memberDetailInfo} = this.props;
@@ -141,9 +213,7 @@ export default class CanOperationEquipment extends React.Component {
         let {getAllEquipmentParams,itemDetail} = this.state;
 		return (
 		    <div className="all-equipment">
-                <div style={{width:"100%",height:30,boxSizing: "border-box"}}>
-                    <img src={close} style={{dispaly:"inline-block",verticalAlign:"top",width:30,float:"right",cursor:"pointer"}} onClick={this.closeAddAuthoriazation}/>
-                </div>
+              
                 <Section title={`所有设备`} description="" >
                     <SearchAllEquipment submitSearchParams={this.submitSearch}/>
                     <Table
@@ -160,7 +230,8 @@ export default class CanOperationEquipment extends React.Component {
                         ajaxUrlName='doorGroupAllEquipmentApi'
                         ajaxParams={getAllEquipmentParams}
                         onPageChange={this.onPageChange}
-                        displayCheckbox={false}
+                        displayCheckbox={true}
+                        onSelect={this.onSelect}
                     >
                     <TableHeader>
                         <TableHeaderColumn>社区名称</TableHeaderColumn>
@@ -265,9 +336,13 @@ export default class CanOperationEquipment extends React.Component {
 
                             
                         </TableRowColumn>
-
+                        
+                        
                     </TableRow>
+                        
                     </TableBody>
+                        <TableFooter renderOther={this.renderOther} noShowPagination="yes">
+				        </TableFooter>
 					</Table>
                     
 
@@ -281,7 +356,7 @@ export default class CanOperationEquipment extends React.Component {
 			        >
 			          <AuthoriazationTime
 			            onCancel={this.setAuthorizationTime}
-                        confirmCancleAuthorization = {this.confirmCancleAuthorization}
+                        confirmAuthoriazationEquipment = {this.confirmAuthoriazationEquipment}
                         itemDetail = {itemDetail}
                         memberDetailInfo={memberDetailInfo}
 			          />

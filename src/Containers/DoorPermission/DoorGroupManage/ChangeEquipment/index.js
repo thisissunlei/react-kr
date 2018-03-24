@@ -16,7 +16,7 @@ import './index.less';
 import closeImg from './images/close.svg';
 
 import GroupEquipment from './GroupEquipment';
-import AllEquipmentManage from './AllEquipmentManage';
+import AllEquipmentListSearch from '../../MemberDoorPermmision/AuthorizationEquipment/AllEquipmentListSearch';
 
 import State from '../State';
 import {
@@ -65,11 +65,14 @@ export default class ChangeMember extends React.Component{
 				</div>
 				<div style={{width:"100%"}}>
 					<div className="change-member-item">
-						<AllEquipmentManage groupItemDetail={itemDetail} refreshEquipmentInGroupList={this.freshGroupEquipment}/>
-					</div>
-					<div className="change-member-item">
 						<GroupEquipment groupItemDetail={itemDetail} freshGroupEquipment={freshGroupEquipment}/>
 					</div>
+					<div className="change-member-item">
+						{/* <AllEquipmentManage groupItemDetail={itemDetail} refreshEquipmentInGroupList={this.freshGroupEquipment}/> */}
+						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP"/>
+
+					</div>
+					
 				</div>
 
 		  	</div>

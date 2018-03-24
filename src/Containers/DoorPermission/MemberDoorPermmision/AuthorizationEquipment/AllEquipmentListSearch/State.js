@@ -13,6 +13,8 @@ let State = observable({
 	showAuthorizationEquipmentDialog : false,
 	openNewCreateAuthoriazation : false,
 	
+	openSetAuthorizationTimeDialog : false,
+	
 	openSetAuthorizationTime: false,
 	doorTypeOptions : [],
 	groupLevelOptions: [{
