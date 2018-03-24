@@ -34,12 +34,19 @@ export default class DoorGroupManage extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			
+			companyId : ''
 		}
 	}
 
 	componentDidMount(){
 		State.getDicOptions();
+	}
+
+
+	changeCompany=(item)=>{
+		this.setState({
+			companyId: item.id
+		})
 	}
 	
 
@@ -51,14 +58,15 @@ export default class DoorGroupManage extends React.Component {
 		// 	getDoorPermissionListParams,
 		// 	itemDetail
 		// } = this.state;
+		let {companyId} = this.state;
 		// let groupLevelOptions = State.groupLevelOptions;
 		let memberDetailInfo = {},granteeId='',doorTypeOptions=[];
 		return (
-		    <div className="door-permission-manage  search-company-permmision" style={{minHeight:'910',backgroundColor:"#fff"}} >
+		    <div className="door-permission-manage  search-company-permmision" style={{width:"100%",minHeight:'910',backgroundColor:"#fff"}} >
 				<Title value="门禁权限管理"/>
 				<Section title={`查询客户权限`} description="" >
-					<SearchGroupForm/>
-					<AuthorizationEquipment memberDetailInfo={memberDetailInfo} granteeId={memberDetailInfo.uid} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
+					<SearchGroupForm  changeCompany={this.changeCompany}/>
+					<AuthorizationEquipment memberDetailInfo={memberDetailInfo} granteeId={companyId} doorTypeOptions={doorTypeOptions} granteeType="CUSTOMER" companyId={companyId}/> 
 				</Section>
 			</div>
 		);

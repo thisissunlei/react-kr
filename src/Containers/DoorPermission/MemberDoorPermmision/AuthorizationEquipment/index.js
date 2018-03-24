@@ -70,13 +70,22 @@ export default class CanOperationEquipment extends React.Component {
 
     componentWillReceiveProps(nextProps){
 
-        let {memberDetailInfo}= this.props;
+        let {memberDetailInfo,granteeId}= this.props;
+
         let that =this;
         if(memberDetailInfo !==nextProps.memberDetailInfo){
             this.setState({
                 memberDetailInfo :nextProps.memberDetailInfo
             },function(){
                 that.setInitailParams()
+            })
+        }
+        if(granteeId !==nextProps.granteeId){
+            let obj = {granteeId : nextProps.granteeId,date:new Date()};
+            let {getMemberAuthorizeEquipmentParams} = this.state;
+            let params = Object.assign({},getMemberAuthorizeEquipmentParams,obj)
+            this.setState({
+                getMemberAuthorizeEquipmentParams : params
             })
         }
         
