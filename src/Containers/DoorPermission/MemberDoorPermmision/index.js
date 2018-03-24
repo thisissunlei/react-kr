@@ -16,7 +16,7 @@ import {Http} from 'kr/Utils';
 import './index.less';
 
 import MemberInfo from './MemberInfo';
-import AuthorizationEquipment from './AuthorizationEquipment';
+import AuthoriazationEquipmentBox from './AuthoriazationEquipmentBox';
 import BelongOfDoorGroupList from './BelongOfDoorGroupList';
 
 
@@ -70,6 +70,7 @@ export default class MemberDoorPermissionManage extends React.Component {
 	}
 
     getMemberDetail=()=>{
+		console.log("this.props",this.props);
         let memberId=this.props.params.memberId;
         console.log("memberId",memberId); 
         let that = this;       
@@ -93,11 +94,11 @@ export default class MemberDoorPermissionManage extends React.Component {
 		return (
 		    <div className="member-door-permmision" >
 				<Title value="个人门禁权限"/>
-				<Section title={`个人门禁权限`} description="" >
+				<Section title={`个人信息`} description="" >
 					
                     <MemberInfo memberDetailInfo={memberDetailInfo}/>
                     <BelongOfDoorGroupList memberDetailInfo={memberDetailInfo}/>
-                    <AuthorizationEquipment memberDetailInfo={memberDetailInfo} granteeId={memberDetailInfo.uid} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
+                    <AuthoriazationEquipmentBox memberDetailInfo={memberDetailInfo} granteeId={memberDetailInfo.uid} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
 					
 				</Section>
 			</div>

@@ -160,12 +160,11 @@ export default class CanOperationEquipment extends React.Component {
 
 	render() {
         let {memberDetailInfo,doorTypeOptions} = this.props;
-        var title = "授权给"+memberDetailInfo.name + "的设备";
         let {getMemberAuthorizeEquipmentParams,itemDetail} = this.state;
 		return (
-		    <div className="can-operate-equipment">
-                <Section title={title} description="" >
-                    <div className="new-create-authoriazation">
+		    <div className="new-create-authoriazation">
+                
+                    <div className="new-create-authoriazation-box">
                         <Button label="新增授权"  onTouchTap={this.openNewCreateAuthoriazationFun} className="button-list"/>
                     </div>
                     <SearchForm submitSearchParams={this.submitSearchParams} doorTypeOptions={doorTypeOptions}/>
@@ -330,7 +329,7 @@ export default class CanOperationEquipment extends React.Component {
 			        </Drawer>
 
                     {/*  */}
-                </Section>
+                {/* </Section> */}
 			</div>
 		);
 
