@@ -15,7 +15,8 @@ import './index.less';
 
 import closeImg from './images/close.svg';
 
-import GroupEquipment from './GroupEquipment';
+
+import AuthorizationEquipment from '../../MemberDoorPermmision/AuthorizationEquipment'
 import AllEquipmentListSearch from '../../MemberDoorPermmision/AuthorizationEquipment/AllEquipmentListSearch';
 
 import State from '../State';
@@ -46,7 +47,7 @@ export default class ChangeMember extends React.Component{
 	}
 
 	freshGroupEquipment=()=>{
-		console.log("刷新组内设备===>");
+
 		let {freshGroupEquipment} = this.state;
 		this.setState({
 			freshGroupEquipment: !freshGroupEquipment
@@ -54,10 +55,12 @@ export default class ChangeMember extends React.Component{
 	}
 
 
+
 	
 	render(){
 		let {itemDetail}  = this.props;
 		let {freshGroupEquipment} = this.state;
+		let doorTypeOptions=State.doorTypeOptions;
 		return (
 			<div className="change-member">
 				<div style={{width:"100%",height:30}}>
@@ -65,12 +68,12 @@ export default class ChangeMember extends React.Component{
 				</div>
 				<div style={{width:"100%"}}>
 					<div className="change-member-item">
-						<GroupEquipment groupItemDetail={itemDetail} freshGroupEquipment={freshGroupEquipment}/>
+						
+						<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP"/> 
 					</div>
 					<div className="change-member-item">
-						{/* <AllEquipmentManage groupItemDetail={itemDetail} refreshEquipmentInGroupList={this.freshGroupEquipment}/> */}
-						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP"/>
-
+						
+						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment}/>
 					</div>
 					
 				</div>

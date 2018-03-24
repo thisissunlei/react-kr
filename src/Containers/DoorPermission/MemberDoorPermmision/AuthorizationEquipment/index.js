@@ -45,7 +45,7 @@ export default class CanOperationEquipment extends React.Component {
                 doorType : '',
                 floor : '',
                 granteeId : '',
-                granteeType : 'USER',
+                granteeType : '',
                 title : '',
                 date : null
             }
@@ -53,7 +53,19 @@ export default class CanOperationEquipment extends React.Component {
 	}
 
 	componentDidMount(){
-        this.setInitailParams();
+
+        let {granteeType,granteeId} = this.props;
+        let {getMemberAuthorizeEquipmentParams} = this.state;
+        let newobj = {
+            granteeType : granteeType,
+            granteeId : granteeId
+        }
+
+        let objParams = Object.assign({},getMemberAuthorizeEquipmentParams,newobj);
+        this.setState({
+            getMemberAuthorizeEquipmentParams : objParams
+        })
+        
     }
 
     componentWillReceiveProps(nextProps){
@@ -72,9 +84,9 @@ export default class CanOperationEquipment extends React.Component {
 
     setInitailParams=()=>{
 
-        let {memberDetailInfo} = this.state;
+        let {granteeId} = this.props;
         let {getMemberAuthorizeEquipmentParams} = this.state;
-        var obj = {granteeId :memberDetailInfo.uid }
+        var obj = {granteeId :granteeId }
         var newObj = Object.assign({},getMemberAuthorizeEquipmentParams,obj)
         this.setState({
             getMemberAuthorizeEquipmentParams  :newObj
@@ -134,8 +146,9 @@ export default class CanOperationEquipment extends React.Component {
 
     submitSearchParams=(values)=>{
 
+        let {granteeType,granteeId} = this.props;
         let {getMemberAuthorizeEquipmentParams,memberDetailInfo} = this.state;
-        var timer = {date : new Date(),granteeId :memberDetailInfo.uid ,granteeType : 'USER'};
+        var timer = {date : new Date(),granteeId :granteeId ,granteeType : granteeType};
         var param = Object.assign({},values);
         param = Object.assign({},param,timer);
         this.setState({

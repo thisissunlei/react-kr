@@ -97,7 +97,7 @@ export default class MemberDoorPermissionManage extends React.Component {
 					
                     <MemberInfo memberDetailInfo={memberDetailInfo}/>
                     <BelongOfDoorGroupList memberDetailInfo={memberDetailInfo}/>
-                    <AuthorizationEquipment memberDetailInfo={memberDetailInfo} doorTypeOptions={doorTypeOptions}/> 
+                    <AuthorizationEquipment memberDetailInfo={memberDetailInfo} granteeId={memberDetailInfo.uid} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
 					
 				</Section>
 			</div>
