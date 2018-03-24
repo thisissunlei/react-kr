@@ -26,7 +26,7 @@ import {
 
 
 
-class SearchGroupForm extends React.Component{
+class SearchAllEquipmentForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -107,9 +107,9 @@ class SearchGroupForm extends React.Component{
 
 		let emptyObj ={doorCode : '',deviceId : '',title : ''}
 		let formDateObj = Object.assign(emptyObj,newObj);
-		Store.dispatch(change('SearchGroupForm','deviceId',formDateObj.deviceId || ""));
-		Store.dispatch(change('SearchGroupForm','doorCode',formDateObj.doorCode || ""));
-		Store.dispatch(change('SearchGroupForm','title',formDateObj.title|| ""));
+		Store.dispatch(change('SearchAllEquipmentForm','deviceId',formDateObj.deviceId || ""));
+		Store.dispatch(change('SearchAllEquipmentForm','doorCode',formDateObj.doorCode || ""));
+		Store.dispatch(change('SearchAllEquipmentForm','title',formDateObj.title|| ""));
 		
 	}
 
@@ -121,7 +121,7 @@ class SearchGroupForm extends React.Component{
 
 			// communityIdReal = '';
 			floorReal = '';
-			Store.dispatch(change('SearchGroupForm','floor',''));
+			Store.dispatch(change('SearchAllEquipmentForm','floor',''));
 			_this.setState({
 				floorsOptions : []
 			})
@@ -232,9 +232,9 @@ class SearchGroupForm extends React.Component{
 		);
 	}
 }
-export default SearchGroupForm = reduxForm({
-	form: 'SearchGroupForm',
+export default SearchAllEquipmentForm = reduxForm({
+	form: 'SearchAllEquipmentForm',
 	// validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(SearchGroupForm);
+})(SearchAllEquipmentForm);

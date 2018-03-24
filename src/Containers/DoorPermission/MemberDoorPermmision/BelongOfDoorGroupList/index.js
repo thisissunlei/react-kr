@@ -81,9 +81,10 @@ export default class BelongOfDoorGroup extends React.Component {
 
     confirmDropOutGroup=()=>{
         let {itemDetail} = this.state;
+        let {memberDetailInfo} = this.props;
         let that = this;
-        Http.request('deleteEquipmentFromGroupApi',{ids : itemDetail.id}).then(function(response) {
-            Message.success("取消授权成功");
+        Http.request('personPageDropOutGroup',{uid :memberDetailInfo.uid,groupId : itemDetail.id}).then(function(response) {
+            Message.success("移出成功");
             that.showDropOutGroupFun();
             that.getItems();
         }).catch(function(err) {
@@ -153,7 +154,7 @@ export default class BelongOfDoorGroup extends React.Component {
                     <span className="item-block" style={{width:"15%"}}>{item.name}</span>
                     <span className="item-block" style={{width:"13%"}}>{item.creatorName}</span>
                     <span className="item-block" style={{width:"19%"}}>
-                        <Button  label="退出该组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,item)}/>
+                        <Button  label="退出权限组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,item)}/>
                         <Button  label="查看组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,item)}/>
                     </span>
                 </div>
@@ -195,7 +196,7 @@ export default class BelongOfDoorGroup extends React.Component {
                     
                     
                     <Dialog
-			          title="取消授权"
+			          title="退出权限组"
 			          open={State.showDropOutGroup}
 			          onClose={this.showDropOutGroupFun}
 			          contentStyle={{width:425}}

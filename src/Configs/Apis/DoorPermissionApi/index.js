@@ -75,6 +75,12 @@ module.exports = {
         url: '/mockjsdata/53/iot-platform/auth/user/belong-to-group/list?uid={uid}',
         method: 'get'
     },
+    //个人权限页将个人移出权限组
+    'personPageDropOutGroup':{
+        url: '/mockjsdata/53/iot-platform/auth/user-group/user/delete?uid={uid}&groupId={groupId}',
+        method: 'delete'
+    },
+
 
     
 }
