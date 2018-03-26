@@ -20,7 +20,7 @@ module.exports = {
     },
     //获取组成员列表
     'getDoorGroupMemberList':{
-        url: '/pai/iot-platform/auth/user-group/user/list?name={name}&communityId={communityId}&groupId={groupId}&customerId={customerId}&phone={phone}&date={date}',
+        url: '/api/iot-platform/auth/user-group/user/list?name={name}&communityId={communityId}&groupId={groupId}&customerId={customerId}&phone={phone}&date={date}',
         method: 'get'
     },
     //删除组成员
@@ -55,8 +55,8 @@ module.exports = {
     },
     //获取所有成员列表数据以供添加成员到组
     'getAllMemberInDoorPermissionApi':{
-        url: '/mockjsdata/53/sso/user/list?communityId={communityId}&customerId={customerId}&name={name}&phone={phone}',
-        method: 'post'
+        url: '/api/sso/user/list?communityId={communityId}&customerId={customerId}&name={name}&phone={phone}',
+        method: 'get'
     },
     //获取所有成员列表数据以供添加成员到组
     'getDoorGroupDetailApi':{
