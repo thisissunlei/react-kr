@@ -70,7 +70,7 @@ export default class CanOperationEquipment extends React.Component {
 
         let {itemDetail} = this.state;
         let that = this;
-        Http.request('deleteEquipmentFromGroupApi',{ids : itemDetail.id}).then(function(response) {
+        Http.request('deleteEquipmentFromGroupApi',{},{ids : itemDetail.id}).then(function(response) {
             Message.success("取消授权成功");
             that.cancleAuthorizationFun();
             // that.refreshPage();
@@ -125,17 +125,15 @@ export default class CanOperationEquipment extends React.Component {
 
     confirmAuthoriazationEquipment=(times)=>{
 
-        let {memberDetailInfo,granteeType} = this.props;
+        let {memberDetailInfo,granteeType,granteeId} = this.props;
         let {itemDetail,ids} = this.state;
-        
+        console.log("granteeType===---------",granteeType,"memberDetailInfo",memberDetailInfo);
         var timersParam = Object.assign({},times);
-        console.log("granteeType",granteeType)
         var granteeIdParam ;
-        if(granteeType == "USER_GROUP"){
+        if(granteeType == "USER_GROUP" || granteeType == "CUSTOMER"){
             granteeIdParam = {granteeId : memberDetailInfo.id}
         }else if(granteeType == "USER"){
             granteeIdParam = {granteeId : memberDetailInfo.uid}
-            
         }
         let otherParams = {
             deviceIds:ids,
@@ -223,7 +221,7 @@ export default class CanOperationEquipment extends React.Component {
         let {memberDetailInfo,doorTypeOptions} = this.props;
         let {getAllEquipmentParams,itemDetail} = this.state;
 
-        console.log("========>memberDetailInfo",memberDetailInfo);
+        console.log("========>memberDetailInfo",memberDetailInfo,"doorTypeOptions======",doorTypeOptions);
 		return (
 		    <div className="all-equipment ">
               

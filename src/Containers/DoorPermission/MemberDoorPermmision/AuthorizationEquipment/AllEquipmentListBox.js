@@ -40,20 +40,20 @@ export default class AllEquipmentListBox extends React.Component {
 	
 
 	refreshAuthoriazationEquipmentList=()=>{
-		console.log("refreshAuthoriazationEquipmentList-d-df--------");
+		
 		let {refreshAuthoriazationEquipmentList} = this.props;
 		refreshAuthoriazationEquipmentList && refreshAuthoriazationEquipmentList();
 	}
 
 
 	render() {
-        let {memberDetailInfo} = this.props;
+        let {memberDetailInfo,doorTypeOptions,granteeType} = this.props;
 		return (
 		    <div className="can-operate-equipment">
                 <div style={{width:"100%",height:30,boxSizing: "border-box"}}>
                     <img src={close} style={{dispaly:"inline-block",verticalAlign:"top",width:30,float:"right",cursor:"pointer"}} onClick={this.closeAddAuthoriazation}/>
                 </div>
-               	<AllEquipmentListSearch memberDetailInfo={memberDetailInfo} granteeType="USER" refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
+               	<AllEquipmentListSearch memberDetailInfo={memberDetailInfo} granteeType={granteeType} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList} doorTypeOptions={doorTypeOptions}/>
 			</div>
 		);
 

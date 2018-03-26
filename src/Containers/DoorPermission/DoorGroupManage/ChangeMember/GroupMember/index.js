@@ -123,7 +123,7 @@ export default class DoorGroupManage extends React.Component {
 		
 		let {itemDetail,getDoorPermissionListParams}  = this.state;
 		let that = this;
-		Http.request('deleteGroupMemberApi',{ids:itemDetail.id}).then(function(response) {
+		Http.request('deleteGroupMemberApi',{},{ids:itemDetail.id}).then(function(response) {
 			Message.success("删除成功");
 			that.openDeleteMemberFromGroupFun();
 			that.refreshPage();
@@ -228,7 +228,7 @@ export default class DoorGroupManage extends React.Component {
 			}
 		}
 		var toDeleteIdsStr = toDeleteIds.join(",");
-		Http.request('deleteGroupMemberApi',{ids:toDeleteIdsStr}).then(function(response) {
+		Http.request('deleteGroupMemberApi',{},{ids:toDeleteIdsStr}).then(function(response) {
 
 			that.openBatchDeleteDialogFun();
 			that.refreshPage();

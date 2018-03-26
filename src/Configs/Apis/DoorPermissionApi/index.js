@@ -25,8 +25,8 @@ module.exports = {
     },
     //删除组成员
     'deleteGroupMemberApi':{
-        url: '/api/iot-platform/auth/user-group-mapping/delete?ids={ids}',
-        method: 'delete'
+        url: '/api/iot-platform/auth/user-group-mapping/delete',
+        method: 'post'
     },
     //添加组成员
     'addGroupMemberApi':{
@@ -40,8 +40,8 @@ module.exports = {
     },
     //从门禁组/个人已授权设备中删除设备
     'deleteEquipmentFromGroupApi':{
-        url: '/api/iot-platform/auth/device-grant/delete?ids={ids}',
-        method: 'delete'
+        url: '/api/iot-platform/auth/device-grant/delete',
+        method: 'post'
     },
     //门禁组所有可选择设备
     'doorGroupAllEquipmentApi':{
@@ -58,7 +58,7 @@ module.exports = {
         url: '/api/sso/user/list?communityId={communityId}&customerId={customerId}&name={name}&phone={phone}',
         method: 'get'
     },
-    //获取所有成员列表数据以供添加成员到组
+    //获取门禁组详情
     'getDoorGroupDetailApi':{
         url: '/api/iot-platform/auth/user-group/detail?id={id}',
         method: 'get'
