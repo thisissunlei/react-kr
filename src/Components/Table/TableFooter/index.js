@@ -89,7 +89,6 @@ export default class TableFooter extends React.Component {
 			pageSize,
 			noShowPagination
 		} = this.props;
-		console.log("pagination",pagination,!pagination,this.props);
 		if (!pagination) {
 			return null;
 		}
