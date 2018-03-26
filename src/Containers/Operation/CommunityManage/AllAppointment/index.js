@@ -22,6 +22,7 @@ import {
 	Tab,
 	Form,
 	Title,
+	Section,
 	Message
 } from 'kr-ui';
 import './index.less';
@@ -107,14 +108,10 @@ class AllAppointment extends React.Component {
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
 			<Title value="空间预订"/>
+			<Section title="预约会议室" >
+				<MeetingReservation/>
+			</Section>
 
-			<Tabs className="tabs">
-					<Tab label="预约会议室" onActive={this.merchants} style={merchantsStyle}>
-
-							<MeetingReservation/>
-					</Tab>
-					
-			</Tabs>
 
 
 		</div>

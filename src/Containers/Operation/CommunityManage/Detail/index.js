@@ -21,6 +21,7 @@ import {
 	Tab,
 	Form,
 	BreadCrumbs,
+	Section,
 	Title
 } from 'kr-ui';
 
@@ -107,11 +108,9 @@ export default class CommunityManage extends React.Component {
 			<Title value="计划表"/>
 		 	<BreadCrumbs children={['系统运营','社区管理','销控表']}/>
 				<span className="line"></span>
-				 <Tabs className="tabs">
-					<Tab label="平面图"  onActive={this.Floorplan} style={planStyle}>
-					   <FloorPlan tab={tab} />
-					</Tab>
-			</Tabs>
+				<Section title="平面图" >
+					<FloorPlan tab={tab} />
+				</Section>
 
 
 

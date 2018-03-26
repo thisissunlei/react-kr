@@ -94,6 +94,7 @@ export default class TabsComponent extends React.Component {
 	renderLines=()=>{
 		let {children} = this.props;
 		let lines = [];
+		console.log('children=====>',children)
         children.map((item,index)=>{
 			if(!item){
 				children.splice(index,1);

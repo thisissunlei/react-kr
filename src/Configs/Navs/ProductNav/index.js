@@ -21,14 +21,14 @@ module.exports = [
 						router: '/operation/communityAllocation/communityList'
 					},
 					{
+						primaryText: '社区平面图',
+						menuCode: 'oper_cmt_graph_base',
+						router: '/operation/communityAllocation/communityPlanList'
+					},
+					{
 						primaryText: '空间',
 						menuCode: 'oper_cmt_spaceList_base',
 						router: '/operation/communityAllocation/CommunityMeetingRoom'
-					},
-					{
-						primaryText: '会议室设备配置',
-		                menuCode: 'oper_cmt_deviceList_base',
-		                router: '/operation/communityAllocation/equipmentList'
 					},
 					{
 						primaryText: '工位',
@@ -41,19 +41,14 @@ module.exports = [
 						router: '/operation/communityAllocation/registeredAddress'
 					},
 					{
-						primaryText: '社区平面图',
-						menuCode: 'oper_cmt_graph_base',
-						router: '/operation/communityAllocation/communityPlanList'
-					},
-					{
-						primaryText: "客户门禁权限",
-						router: '/member/memberManage/doormanage',
-						menuCode: 'door_base',
-					},
-					{
 						primaryText: "我方合同主体",
 						menuCode: 'lessor_management_base',
 						router: '/operation/customerManage/agreement/lessorManage/list',
+					},
+					{
+						primaryText: '会议室设备配置',
+		                menuCode: 'oper_cmt_deviceList_base',
+		                router: '/operation/communityAllocation/equipmentList'
 					},
 				]	
 			}, 

@@ -58,28 +58,12 @@ module.exports = [
 						router: '/permission/systemManage/appLoginLogs',
 						menuCode: 'sso_appVersion_base',
 					},
-					//少登陆日志，
-
-
-
-
-
-					// {
-					// 	primaryText: '我的地点',
-					// 	menuCode: 'communityNotice',
-					// 	router: '/operation/communityAllocation/myaddress'
-					// },
-					// {
-					// 	primaryText: '社群管理',
-					// 	menuCode: 'oper_cluster_base',
-					// 	router: '/operation/communityAllocation/appmanage'
-					// },
-					
-					// {
-					// 	primaryText: '积分管理',
-					// 	menuCode: 'oper_integration_base',
-					// 	router: '/operation/communityAllocation/integration'
-					// },	
+					{
+						primaryText: '登录日志',
+						router: '/permission/loginLog',
+						menuCode: 'sso_loginLog_base',
+					}
+					//少登陆日志（待与pc版拆分）	
 				]
 			},
 			{
@@ -152,7 +136,11 @@ module.exports = [
 				iconColor: '#79859a',
 				// router: 'activity',
 				menuItems: [
-					// 少账号权限
+					{
+						primaryText: '账号权限',
+						router: '/permission/accountManage/accountList',
+						menuCode: 'sso_userList_base',
+					},
 					{
 						primaryText: '角色权限',
 						router: '/permission/user',
@@ -203,7 +191,16 @@ module.exports = [
 				iconName: 'icon-theLog',
 				iconColor: '#79859a',
 				menuItems: [
-				// 少表单配置，类型配置
+					{
+						primaryText: '表单配置',
+						menuCode: 'sys_form_list',
+						router: '/permission/processManage/form',
+					},
+					{
+						primaryText: '类型配置',
+						menuCode: 'wf_base_list',
+						router: '/permission/processManage/processSetting',
+					},
 					{
 						primaryText: '公共字典',
 						menuCode: 'sys_publicDict_list',
@@ -232,7 +229,7 @@ module.exports = [
 						menuCode: 'sync_system',
 					},
 					{
-						primaryText: '日志列表',
+						primaryText: '同步日志',
 						router: '/permission/Synchronization/journal/main/system',
 						menuCode: 'sync_log',
 					},

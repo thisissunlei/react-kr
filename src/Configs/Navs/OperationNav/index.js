@@ -2,8 +2,7 @@ module.exports = [
 
 	{
 		primaryText: "社区运营",
-		router: 'operation',
-		originUrl: '#/operation/customerManage/customerList',
+		router: 'community',
 		menuItems: [
 			{
 				primaryText: "社区运营",
@@ -32,6 +31,12 @@ module.exports = [
 						menuCode: 'oper_appointment_base',
 						router: '/community/communityManage/allAppointment'
 					},
+					{
+                        primaryText: '撤场',
+                        originUrl: '/operations-center/from-field',
+                        type: 'vue',
+                        menuCode: 'checklist_list',
+                    },
 				]
 			},
 			
