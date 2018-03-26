@@ -66,7 +66,6 @@ export default class DropOutGroup extends React.Component {
 	}
 
 	renderAuthoriaztionTime=(item)=>{
-		// console.log("item",item);
 
 		var str = DateFormat(item.startAt,"yyyy-mm-dd HH:MM:ss") + "-" + DateFormat(item.endAt,"yyyy-mm-dd HH:MM:ss")
 		return (
@@ -113,7 +112,6 @@ export default class DropOutGroup extends React.Component {
 	render() {
         let {memberDetailInfo,itemDetail} = this.props;
 		let {items} = this.state;
-		console.log("items",items);
 		return (
 		    <div style={{marginTop:20,padding:20,boxSizing: "border-box"}} className="authoriaztion-equipment">
                 <div style={{width:"100%",height:30,boxSizing: "border-box"}}>

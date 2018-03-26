@@ -58,7 +58,6 @@ export default class CanOperationEquipment extends React.Component {
 
 
     onOperation=(type,itemDetail)=>{
-        console.log("dldldld;dld;flk========>>>>>=======>>>>ldkfljkdjfkdj");
         this.setState({
             itemDetail
         })

@@ -131,6 +131,15 @@ export default class List extends React.Component {
 			itemDetail
 		})
 	}
+
+	toMemberDoorPermmision=(itemDetail)=>{
+		
+		this.setState({
+			itemDetail
+		},function(){
+			window.open(`./#/doorpermission/memberdoormanage/${itemDetail.uid}`,'_blank');
+		})
+	}
 	openBindCode=(itemDetail)=>{
 		this.setState({
 			openBindCode:!this.state.openBindCode,
@@ -444,7 +453,7 @@ export default class List extends React.Component {
 													return (<span className={Style}>{status}</span>)
 												}}
 											></TableRowColumn>
-											<TableRowColumn type="operation" name="leaved" style={{width:200}} component={(value,oldValue,itemDetail) => {
+											<TableRowColumn type="operation" name="leaved" style={{width:230}} component={(value,oldValue,itemDetail) => {
 												  if (value == 1) {
 														logFlag = false;
 													}
@@ -458,6 +467,7 @@ export default class List extends React.Component {
 															{logFlag?<Button operateCode="mbr_list_leave" onClick={this.openLeave.bind(this,itemDetail)} label="离场"  type="operation" operation="leave"/>:<Button operateCode="mbr_list_leave" label="恢复" onClick={this.openBack.bind(this,itemDetail)}  type="operation" operation="back"/>}
 															<Button operateCode="mbr_list_bind" onClick={this.openBindCode.bind(this,itemDetail)} label="绑卡"  type="operation" operation="bindcode"/>
 															<Button operateCode="mbr_list_delete" onClick={this.openDelete.bind(this,itemDetail)} label="删除"  type="operation" operation="delete"/>	
+															<Button  onClick={this.toMemberDoorPermmision.bind(this,itemDetail)} label="门禁权限"  type="operation" operation="doorpermmision"/>	
 															
 														</div>
 													)

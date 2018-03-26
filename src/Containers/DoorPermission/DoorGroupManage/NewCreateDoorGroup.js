@@ -57,7 +57,6 @@ class NewCreateDoorGroup extends React.Component{
 	changGroupLevel=(option)=>{
 
 		let {communityId,customerId} = this.state;
-		console.log("option.value",option);
 		if(option.value == "ROOT"){
 
 			this.setState({
@@ -106,7 +105,6 @@ class NewCreateDoorGroup extends React.Component{
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let {showCompany,showCommunity} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
-		console.log("showCompany",showCompany);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="new-creat-door-group">
 				<KrField grid={1/2} 

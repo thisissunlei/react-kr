@@ -12,7 +12,7 @@ import {
 	Drawer ,
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
-import {Http} from 'kr/Utils';
+import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
 import DropOutGroup from './DropOutGroup';
@@ -64,7 +64,6 @@ export default class BelongOfDoorGroup extends React.Component {
 
         let that = this;
         let {memberDetailInfo} = this.props;
-        console.log("memberDetailInfo",memberDetailInfo)
         if(memberDetailInfo !== nextProps.memberDetailInfo){
             this.setState({
                 getGroupContainMemberParams : {
@@ -161,10 +160,10 @@ export default class BelongOfDoorGroup extends React.Component {
                             that.returnGroupLevel(item)
                         }
                     </span>
-                    <span className="item-block" style={{width:"13%"}}>{item.communityName}</span>
-                    <span className="item-block" style={{width:"13%"}}>{item.customerName}</span>
-                    <span className="item-block" style={{width:"15%"}}>{item.name}</span>
-                    <span className="item-block" style={{width:"13%"}}>{item.creatorName}</span>
+                    <span className="item-block" style={{width:"12%"}}>{item.communityName}</span>
+                    <span className="item-block" style={{width:"25%"}}>{item.customerName}</span>
+                    <span className="item-block" style={{width:"15%"}}>{ DateFormat(item.ctime,"yyyy-mm-dd HH:MM:ss")}</span>
+                    <span className="item-block" style={{width:"6%"}}>{item.creatorName}</span>
                     <span className="item-block" style={{width:"19%"}}>
                         <Button  label="退出权限组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,item)}/>
                         <Button  label="查看组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,item)}/>
@@ -193,11 +192,11 @@ export default class BelongOfDoorGroup extends React.Component {
                     <div className="title-line">
                         <span className="item-block" style={{width:"15%"}} >组名称</span>
                         <span className="item-block" style={{width:"8%"}}>组级别</span>
-                        <span className="item-block" style={{width:"13%"}}>所属社区</span>
-                        <span className="item-block" style={{width:"13%"}}>公司名称</span>
+                        <span className="item-block" style={{width:"12%"}}>所属社区</span>
+                        <span className="item-block" style={{width:"25%"}}>公司名称</span>
                         <span className="item-block" style={{width:"15%"}}>创建时间</span>
-                        <span className="item-block" style={{width:"13%"}}>创建人</span>
-                        <span className="item-block" style={{width:"19%"}}>操作</span>
+                        <span className="item-block" style={{width:"6%"}}>创建人</span>
+                        <span className="item-block" style={{width:"18%"}}>操作</span>
 
                     </div>
                     <div className="table-body-content">

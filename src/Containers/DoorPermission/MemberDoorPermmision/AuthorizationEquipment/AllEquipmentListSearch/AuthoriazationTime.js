@@ -67,7 +67,6 @@ class AddEquipmentToGroup extends React.Component {
 	
 	cancleAuthoriazation=()=>{
 
-		console.log("sldkflkflkd");
 		let {onCancel} = this.props;
 		onCancel && onCancel();
 	}

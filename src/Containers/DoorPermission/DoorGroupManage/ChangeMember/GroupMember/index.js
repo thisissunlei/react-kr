@@ -199,7 +199,6 @@ export default class DoorGroupManage extends React.Component {
 	batchDeleteMember=()=>{
 		
 		let {items} = this.state;
-		console.log("batch==>items",items);
 		var chekedNum=0;
 		for(let i=0;i<items.length;i++){
 			if(items[i].checked){

@@ -159,7 +159,6 @@ class SearchGroupForm extends React.Component{
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter,doorTypeOptions} = this.props;
 		let {searchEquipmentFormOptions,seachFormContent,floorsOptions} = this.state;
-		console.log("kdlfdkdlkf====>doorTypeOptions",doorTypeOptions);
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="group-member-search door-permission-group-search">
 				<ListGroup className="search-item-line">

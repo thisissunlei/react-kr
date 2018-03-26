@@ -49,7 +49,6 @@ let State = observable({
 //确认删除
 State.confirmDeleteAction = action(function() {
 	var urlParams = {id:State.itemDetail.id};
-	console.log("urlParams",urlParams);
 	Http.request('deleteUpgradeInfo',urlParams).then(function(response) {
 		Message.success("删除成功");
 		State.upgradeListParams={

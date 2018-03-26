@@ -70,7 +70,6 @@ class EditDoorGroupForm extends React.Component{
 	explainGroupLevel=()=>{
 		let {groupDetail} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
-		console.log("groupDetail",groupDetail);
 		for(let i=0;i<groupLevelOptions.length;i++){
 			if(groupDetail.groupLevel ==groupLevelOptions[i].value ){
 				this.setState({

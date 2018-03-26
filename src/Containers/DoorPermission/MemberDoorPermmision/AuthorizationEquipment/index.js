@@ -173,7 +173,7 @@ export default class CanOperationEquipment extends React.Component {
         
         let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail} = this.state;
-        console.log("memberDetailInfo",memberDetailInfo,"doorTypeOptions==={{}}}",doorTypeOptions,"dkjkfj00000000",granteeType);
+        console.log("granteeId",granteeId);
 		return (
 		    <div className="new-create-authoriazation">
                     {
@@ -184,6 +184,8 @@ export default class CanOperationEquipment extends React.Component {
                     }
                    
                     <SearchForm submitSearchParams={this.submitSearchParams} doorTypeOptions={doorTypeOptions}/>
+                    {
+                        granteeId &&
                     <Table
                         className="member-list-table"
                         style={{marginTop:10,position:'inherit'}}
@@ -318,7 +320,7 @@ export default class CanOperationEquipment extends React.Component {
                     </TableRow>
                     </TableBody>
 					</Table>
-                    
+                    }
 
                     <Dialog
 			          title="取消授权"
@@ -341,11 +343,18 @@ export default class CanOperationEquipment extends React.Component {
 					    openSecondary={true} 
 					>
                    
-			          <AllEquipmentListBox memberDetailInfo={memberDetailInfo} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList} doorTypeOptions={doorTypeOptions} granteeType={granteeType} granteeId={granteeId}/>
+                    
+                        
+                    <AllEquipmentListBox 
+                        memberDetailInfo={memberDetailInfo} 
+                        refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList} 
+                        doorTypeOptions={doorTypeOptions} 
+                        granteeType={granteeType} 
+                        granteeId={granteeId}
+                    />
+                    
 			        </Drawer>
 
-                    {/*  */}
-                {/* </Section> */}
 			</div>
 		);
 

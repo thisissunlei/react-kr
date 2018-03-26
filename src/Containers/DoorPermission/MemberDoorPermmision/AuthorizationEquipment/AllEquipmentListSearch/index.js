@@ -111,7 +111,6 @@ export default class CanOperationEquipment extends React.Component {
     }
 
     submitSearch=(values)=>{
-        console.log("dkdlkd");
         let {getAllEquipmentParams} = this.state;
         let {memberDetailInfo} = this.props;
         var timer = {date : new Date()};
@@ -127,7 +126,6 @@ export default class CanOperationEquipment extends React.Component {
 
         let {memberDetailInfo,granteeType,granteeId} = this.props;
         let {itemDetail,ids} = this.state;
-        console.log("granteeType===---------",granteeType,"memberDetailInfo",memberDetailInfo);
         var timersParam = Object.assign({},times);
         var granteeIdParam ;
         if(granteeType == "USER_GROUP" || granteeType == "CUSTOMER"){
@@ -177,7 +175,6 @@ export default class CanOperationEquipment extends React.Component {
 			that.setAuthorizationTime();
             // that.refreshPage();
             let {refreshAuthoriazationEquipmentList} =  that.props;
-            console.log("refreshAuthoriazationEquipmentList",refreshAuthoriazationEquipmentList);
             refreshAuthoriazationEquipmentList && refreshAuthoriazationEquipmentList();
 
 		}).catch(function(err) {
@@ -221,7 +218,6 @@ export default class CanOperationEquipment extends React.Component {
         let {memberDetailInfo,doorTypeOptions} = this.props;
         let {getAllEquipmentParams,itemDetail} = this.state;
 
-        console.log("========>memberDetailInfo",memberDetailInfo,"doorTypeOptions======",doorTypeOptions);
 		return (
 		    <div className="all-equipment ">
               

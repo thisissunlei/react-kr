@@ -58,13 +58,12 @@ class SearchForm extends React.Component{
 		}
 	}
 	componentDidMount(){
-		console.log("dldddld;dl;dldlfklfk");
+
 	}
 
 	
 
 	onSubmit=(values)=>{
-		console.log("values",values);
 		
 		let {submitSearchParams}=this.props;
 		submitSearchParams && submitSearchParams(values);

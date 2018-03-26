@@ -41,7 +41,6 @@ class SearchGroupForm extends React.Component{
 	}
 
 	onChangeCommunity=(item)=>{
-		console.log("item",item);
 		let {changeCompany} = this.props;
 		changeCompany && changeCompany(item);
 	}

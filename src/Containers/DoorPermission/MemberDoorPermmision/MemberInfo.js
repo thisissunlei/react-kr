@@ -42,7 +42,6 @@ class MemberInfoForm extends React.Component{
     setMemberInfo=()=>{
             
         let {memberDetailInfo} = this.props;
-        console.log("memberDetailInfo",memberDetailInfo);
         Store.dispatch(initialize('MemberInfoForm', memberDetailInfo));
         
     }
