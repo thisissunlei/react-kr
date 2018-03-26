@@ -46,13 +46,16 @@ export default class ChangeMember extends React.Component{
 		closeChangeMember && closeChangeMember();
 	}
 
-	freshGroupEquipment=()=>{
+	refreshAuthoriazationEquipmentList=()=>{
 
 		let {freshGroupEquipment} = this.state;
 		this.setState({
 			freshGroupEquipment: !freshGroupEquipment
 		})
 	}
+
+
+	
 
 
 
@@ -69,12 +72,12 @@ export default class ChangeMember extends React.Component{
 				<div style={{width:"100%"}}>
 					<div className="change-member-item">
 						<Section title={`组授权设备`} description="" >
-							<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP" noShowAddNew={true}/> 
+							<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP" noShowAddNew={true} freshGroupEquipment={freshGroupEquipment}/> 
 						</Section>
 					</div>
 					<div className="change-member-item">
 						
-						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions}/>
+						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
 					</div>
 					
 				</div>

@@ -39,9 +39,10 @@ export default class AllEquipmentListBox extends React.Component {
 	}
 	
 
-	refreshPage=()=>{
-		let {refreshPage} = this.props;
-		refreshPage && refreshPage();
+	refreshAuthoriazationEquipmentList=()=>{
+		console.log("refreshAuthoriazationEquipmentList-d-df--------");
+		let {refreshAuthoriazationEquipmentList} = this.props;
+		refreshAuthoriazationEquipmentList && refreshAuthoriazationEquipmentList();
 	}
 
 
@@ -52,7 +53,7 @@ export default class AllEquipmentListBox extends React.Component {
                 <div style={{width:"100%",height:30,boxSizing: "border-box"}}>
                     <img src={close} style={{dispaly:"inline-block",verticalAlign:"top",width:30,float:"right",cursor:"pointer"}} onClick={this.closeAddAuthoriazation}/>
                 </div>
-               	<AllEquipmentListSearch memberDetailInfo={memberDetailInfo} granteeType="USER" refreshPage={this.refreshPage}/>
+               	<AllEquipmentListSearch memberDetailInfo={memberDetailInfo} granteeType="USER" refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
 			</div>
 		);
 

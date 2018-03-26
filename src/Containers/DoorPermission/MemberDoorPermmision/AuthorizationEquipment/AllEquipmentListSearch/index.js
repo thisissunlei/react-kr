@@ -73,26 +73,26 @@ export default class CanOperationEquipment extends React.Component {
         Http.request('deleteEquipmentFromGroupApi',{ids : itemDetail.id}).then(function(response) {
             Message.success("取消授权成功");
             that.cancleAuthorizationFun();
-            that.refreshPage();
+            // that.refreshPage();
         }).catch(function(err) {
             Message.error(err.message);
         });
     }
 
 
-    refreshPage=()=>{
+    // refreshPage=()=>{
 
-        var now = new Date().getTime();
-        let obj= {date:now};
-        let {getAllEquipmentParams} = this.state;
-        let params = Object.assign({},getAllEquipmentParams)
-        params = Object.assign(params,obj)
+    //     var now = new Date().getTime();
+    //     let obj= {date:now};
+    //     let {getAllEquipmentParams} = this.state;
+    //     let params = Object.assign({},getAllEquipmentParams)
+    //     params = Object.assign(params,obj)
         
-        this.setState({
-            getAllEquipmentParams : params
-        })
+    //     this.setState({
+    //         getAllEquipmentParams : params
+    //     })
         
-    }
+    // }
 
     onOperation=(type,itemDetail)=>{
         this.setState({
@@ -111,6 +111,7 @@ export default class CanOperationEquipment extends React.Component {
     }
 
     submitSearch=(values)=>{
+        console.log("dkdlkd");
         let {getAllEquipmentParams} = this.state;
         let {memberDetailInfo} = this.props;
         var timer = {date : new Date()};
@@ -176,7 +177,10 @@ export default class CanOperationEquipment extends React.Component {
 
             Message.success("添加成功");
 			that.setAuthorizationTime();
-            that.refreshPage();
+            // that.refreshPage();
+            let {refreshAuthoriazationEquipmentList} =  that.props;
+            console.log("refreshAuthoriazationEquipmentList",refreshAuthoriazationEquipmentList);
+            refreshAuthoriazationEquipmentList && refreshAuthoriazationEquipmentList();
 
 		}).catch(function(err) {
 			Message.error(err.message);

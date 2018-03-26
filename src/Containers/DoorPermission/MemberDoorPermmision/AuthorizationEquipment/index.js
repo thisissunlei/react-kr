@@ -74,11 +74,11 @@ export default class CanOperationEquipment extends React.Component {
 
     componentWillReceiveProps(nextProps){
 
-        let {memberDetailInfo,granteeId}= this.props;
+        
+        let {memberDetailInfo,granteeId,freshGroupEquipment}= this.props;
 
         let that =this;
-        if(granteeId !==nextProps.granteeId){
-            console
+        if(granteeId !==nextProps.granteeId || freshGroupEquipment!==nextProps.freshGroupEquipment){
             let obj = {
                     granteeId : nextProps.granteeId,
                     date:new Date()
@@ -89,6 +89,7 @@ export default class CanOperationEquipment extends React.Component {
                 getMemberAuthorizeEquipmentParams : params
             })
         }
+        
         
     }
 
@@ -128,14 +129,14 @@ export default class CanOperationEquipment extends React.Component {
         Http.request('deleteEquipmentFromGroupApi',{ids : itemDetail.id}).then(function(response) {
             Message.success("取消授权成功");
             that.cancleAuthorizationFun();
-            that.refreshPage();
+            that.refreshAuthoriazationEquipmentList();
         }).catch(function(err) {
             Message.error(err.message);
         });
     }
 
 
-    refreshPage=()=>{
+    refreshAuthoriazationEquipmentList=()=>{
 
         var now = new Date().getTime();
         let obj= {date:now};
@@ -340,7 +341,7 @@ export default class CanOperationEquipment extends React.Component {
 					    openSecondary={true} 
 					>
                    
-			          <AllEquipmentListBox memberDetailInfo={memberDetailInfo} refreshPage={this.refreshPage}/>
+			          <AllEquipmentListBox memberDetailInfo={memberDetailInfo} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
 			        </Drawer>
 
                     {/*  */}
