@@ -171,7 +171,7 @@ export default class CanOperationEquipment extends React.Component {
 
 	render() {
         
-        let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId} = this.props;
+        let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail} = this.state;
         console.log("granteeId",granteeId);
 		return (
@@ -210,7 +210,10 @@ export default class CanOperationEquipment extends React.Component {
                         <TableHeaderColumn>门类型</TableHeaderColumn>
                         <TableHeaderColumn>授权时间</TableHeaderColumn>
                         <TableHeaderColumn>备注</TableHeaderColumn>
-                        <TableHeaderColumn>操作</TableHeaderColumn>
+                        {
+                            (rootPage && rootPage=="personal")?null:<TableHeaderColumn>操作</TableHeaderColumn>
+                        }
+                        
                     </TableHeader>
                     <TableBody style={{position:'inherit'}}>
                         <TableRow>
@@ -309,13 +312,16 @@ export default class CanOperationEquipment extends React.Component {
                                 <Tooltip offsetTop={5} place='top'><span  className="start-end">{value}</span></Tooltip></div>)
                         }} ></TableRowColumn>
 
+                        {
+                                (rootPage && rootPage=="personal")?null:
+                                <TableRowColumn type="operation" style={{width:"6%",overflow:"visible"}} >
+                                
+                                    <Button  label="取消授权"  type="operation" operation="cancleAuthorization"/>
+                                    
+                                </TableRowColumn>
+
+                        }
                         
-
-                        <TableRowColumn type="operation" style={{width:"6%",overflow:"visible"}} >
-
-                            <Button  label="取消授权"  type="operation" operation="cancleAuthorization"/>
-                            
-                        </TableRowColumn>
 
                     </TableRow>
                     </TableBody>

@@ -238,6 +238,7 @@ export default class BelongOfDoorGroup extends React.Component {
                                 doorTypeOptions={doorTypeOptions} 
                                 granteeType="USER_GROUP"
                                 noShowAddNew = {true}
+                                rootPage = "personal"
                             /> 
                         </div>  
 
