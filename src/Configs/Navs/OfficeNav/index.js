@@ -5,15 +5,15 @@ module.exports = [
 		router: 'office',
 		originUrl: '#/office/officeBackground/newOffice',
 		menuItems: [
-			{
-				primaryText: "办公主页",
-				router: 'office',
-				iconName: 'icon-money',
-				iconColor: '#79859a',
-				menuItems: [
+			// {
+			// 	primaryText: "办公主页",
+			// 	router: 'office',
+			// 	iconName: 'icon-money',
+			// 	iconColor: '#79859a',
+			// 	menuItems: [
 					
-				]
-			},
+			// 	]
+			// },
 			{
 				primaryText: '新办事宜',
 				iconName: 'icon-newthing',

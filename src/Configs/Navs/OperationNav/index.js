@@ -1,18 +1,18 @@
 module.exports = [
 
 	{
-		primaryText: "运营管理",
+		primaryText: "社区运营",
 		router: 'operation',
 		originUrl: '#/operation/customerManage/customerList',
 		menuItems: [
 			{
-				primaryText: "运营主页",
+				primaryText: "社区主页",
 				iconName: 'icon-operation-home',
 				iconColor: '#79859a',
 				router: 'index',
 				menuItems: [
 					{
-						primaryText: '运营主页',
+						primaryText: '社区主页',
 						router: '/operation/index',
 						menuCode: 'operation_home',
 					},
