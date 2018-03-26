@@ -173,8 +173,8 @@ export default class DoorGroupManage extends React.Component {
 					</span>
                     <span className="item-line-span">{item.name}</span>
 					<span className="item-line-span">{item.phone}</span>
-					<span className="item-line-span">{item.communityName}</span>
-					<span className="item-line-span">{item.customerName}</span>
+					<span className="item-line-span ">{item.communityName}</span>
+					<span className="item-line-span company-item-span">{item.customerName}</span>
 					<span className="item-line-span">{item.email}</span>
 					<span className="item-line-span last-line-span" onClick={that.deleteMember.bind(this,item)}>移除</span>
                 </div>
@@ -265,7 +265,7 @@ export default class DoorGroupManage extends React.Component {
 							<span className="item-line-span">姓名</span>
 							<span className="item-line-span">电话</span>
 							<span className="item-line-span">社区</span>
-							<span className="item-line-span">公司</span>
+							<span className="item-line-span company-item-span">公司</span>
 							<span className="item-line-span">邮箱</span>
 							<span className="item-line-span last-line-span">操作</span>
 						</div>

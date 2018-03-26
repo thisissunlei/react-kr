@@ -7,7 +7,7 @@
         }
     }
     .table{
-        min-height:450px;
+        
         .title{
             height:45px;
             border-top:solid 1px #eee;
@@ -16,13 +16,14 @@
         .item-line{
              height:45px; 
              border-bottom:solid 1px #eee;
-             span{
-                 font-size:12px;
-             }
+             
+             &:nth-of-type(odd){
+                background: #f2f2f2;
+            }
         }
         .item-line-span{
              display:inline-block;
-             width:17%;
+             width:15%;
              height:45px;
              line-height:45px;
              text-align:center;
@@ -38,6 +39,9 @@
             width:5%;
             cursor: pointer;
             
+        }
+        .community-item-span{
+            width:20%;
         }
     }
     

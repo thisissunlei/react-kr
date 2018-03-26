@@ -119,10 +119,20 @@ export default class DoorGroupManage extends React.Component {
 			uids:itemDetail.uid,
 			groupId : groupItemDetail.id
 		}
+		that.sendAddRequest(params);
+	}
+
+
+
+	sendAddRequest=(params)=>{
+
+		let that = this;
 		Http.request('addGroupMemberApi',{},params).then(function(response) {
 			Message.success("添加成功");
-			that.openAddMemberToGroupFun();
 
+			State.openAddMemberToGroup = false;
+			State.openBatchAddDialog = false;
+		
 			let {freshGroupMemberList} = that.props;
 			freshGroupMemberList && freshGroupMemberList();
 		}).catch(function(err) {
@@ -172,7 +182,7 @@ export default class DoorGroupManage extends React.Component {
                     <span className="item-line-span">{item.name}</span>
 					<span className="item-line-span">{item.phone}</span>
 					<span className="item-line-span">{item.communityName}</span>
-					<span className="item-line-span">{item.customerName}</span>
+					<span className="item-line-span company-item-span">{item.companyName}</span>
 					<span className="item-line-span">{item.email}</span>
 					<span className="item-line-span last-line-span" onClick={that.addMember.bind(this,item)}>添加</span>
                 </div>
@@ -194,7 +204,7 @@ export default class DoorGroupManage extends React.Component {
 		})
 	}
 
-	batchDeleteMember=()=>{
+	batchAddMember=()=>{
 		
 		let {items} = this.state;
 		console.log("batch==>items",items);
@@ -223,20 +233,13 @@ export default class DoorGroupManage extends React.Component {
 		var toAddIds = [];
 		for(let i=0;i<items.length;i++){
 			if(items[i].checked){
-				toAddIds.push(items[i].id)
+				toAddIds.push(items[i].uid)
 			}
 		}
-		console.log("toAddIds",toAddIds);
 		var toAddIdsStr = toAddIds.join(",");
 		var params = {groupId: groupItemDetail.id,uids :toAddIdsStr }
-		Http.request('addGroupMemberApi',{},params).then(function(response) {
-
-			that.openBatchAddDialogFun();
-			that.refreshPage();
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
+		that.sendAddRequest(params);
+		
 
 	}
 
@@ -263,7 +266,7 @@ export default class DoorGroupManage extends React.Component {
 							<span className="item-line-span">姓名</span>
 							<span className="item-line-span">电话</span>
 							<span className="item-line-span">社区</span>
-							<span className="item-line-span">公司</span>
+							<span className="item-line-span company-item-span">公司</span>
 							<span className="item-line-span">邮箱</span>
 							<span className="item-line-span last-line-span">操作</span>
 						</div>
@@ -278,7 +281,7 @@ export default class DoorGroupManage extends React.Component {
 										<span style={{marginLeft:5}}>全选</span>
 									</ListGroupItem>
 									<ListGroupItem style={{padding:0,display:'inline-block',marginRight:3}}>
-										<Button  label="批量添加" type="button"  cancle={true} onTouchTap={this.batchDeleteMember} />
+										<Button  label="批量添加" type="button"  cancle={true} onTouchTap={this.batchAddMember} />
 									</ListGroupItem>
 								</ListGroup>					
 							</Row>
