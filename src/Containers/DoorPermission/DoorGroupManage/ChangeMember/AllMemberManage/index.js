@@ -116,13 +116,12 @@ export default class DoorGroupManage extends React.Component {
 		let {groupItemDetail}= this.props;
 		let that = this;
 		var params = {
-			uids:itemDetail.id,
+			uids:itemDetail.uid,
 			groupId : groupItemDetail.id
 		}
 		Http.request('addGroupMemberApi',{},params).then(function(response) {
 			Message.success("添加成功");
 			that.openAddMemberToGroupFun();
-			console.log("刷新组成员列表");
 
 			let {freshGroupMemberList} = that.props;
 			freshGroupMemberList && freshGroupMemberList();
@@ -227,6 +226,7 @@ export default class DoorGroupManage extends React.Component {
 				toAddIds.push(items[i].id)
 			}
 		}
+		console.log("toAddIds",toAddIds);
 		var toAddIdsStr = toAddIds.join(",");
 		var params = {groupId: groupItemDetail.id,uids :toAddIdsStr }
 		Http.request('addGroupMemberApi',{},params).then(function(response) {
