@@ -113,10 +113,6 @@ class AllAppointment extends React.Component {
 
 							<MeetingReservation/>
 					</Tab>
-					<Tab label="预约工位" onActive={this.personal}  style={personalStyle}>
-
-							<StationReservation />
-					</Tab>
 					
 			</Tabs>
 

@@ -42,7 +42,7 @@ import ConfigNav from './ConfigNav';
 // import BillNav from './BillNav';
 //订单中心
 
-const NavItems = [].concat(HomeNav,OtherNav,OfficeNav,OANav,OperationNav,AdministrationNav,FinanceNav,PermissionNav,SmartHardware,OrderCenter,BillNav);
+const NavItems = [].concat(HomeNav,ConfigNav,SmartHardware,FinanceNav,OrderNav,ProductNav,UserNav,OperationNav);
 
 module.exports = {
     current_parent: '',

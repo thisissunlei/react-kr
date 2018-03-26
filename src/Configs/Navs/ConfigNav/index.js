@@ -10,40 +10,40 @@ module.exports = [
 				iconColor: '#79859a',
 				menuItems: [
 					{
-						primaryText: '公告管理',
+						primaryText: '公告',
 						menuCode: 'oper_notice_base',
 						router: '/operation/communityAllocation/noticemanage'
 					},
 					{
-						primaryText: '活动管理',
+						primaryText: '活动',
 						menuCode: 'oper_activity_base',
 						router: '/operation/communityAllocation/activity'
 					},
 					{
-						primaryText: '广告管理',
+						primaryText: '广告',
 						menuCode: 'oper_advert_base',
 						router: '/operation/communityAllocation/advert'
 					},
 					{
-						primaryText: '管家设置',
+						primaryText: '管家',
 						menuCode: 'oper_steward_base',
 						type:'vue',
 						originUrl: '/app-manage/steward-setting',
 					},
 					{
-						primaryText: '通知管理',
+						primaryText: '通知',
 						menuCode: 'app_console_notification',
 						type: 'vue',
 						originUrl: '/app-manage/notification-manage'
 					},
 					{
-						primaryText: 'Icon管理',
+						primaryText: '图标',
 						menuCode: 'app_console_common_icon',
 						type: 'vue',
 						originUrl: '/app-manage/icon-manage'
 					},
 					{
-						primaryText: '推送管理',
+						primaryText: '推送',
 						menuCode: 'app_console_push',
 						type: 'vue',
 						originUrl: '/app-manage/push-manage'
@@ -88,11 +88,6 @@ module.exports = [
 				iconColor: '#79859a',
 				router: 'activity',
 				menuItems: [
-					// {
-					// 	primaryText: '活动列表',
-					// 	menuCode: 'main_acitvity',
-					// 	router: '/WebBackstage/activity/list',
-					// },
 					{
 						primaryText: '新闻动态',
 						menuCode: 'main_news',
@@ -103,14 +98,8 @@ module.exports = [
 						menuCode: 'krspace_cmt',
 						router: '/WebBackstage/communityAllocation',
 					},
-					// 服务及设施配置
-					// {
-					// 	primaryText: '轮播图列表',
-					// 	menuCode: 'por_mobilepic_list',
-					// 	router: '/WebBackstage/picList',
-					// },
 					{
-						primaryText: '社区设施标签',
+						primaryText: '服务及设施配置',
 						menuCode: 'brightpoint_label_list',
 						type:'vue',
 						originUrl: '/facility-tags/',
@@ -123,8 +112,9 @@ module.exports = [
 				iconColor: '#79859a',
 				// router: 'activity',
 				menuItems: [
+
 					{
-						primaryText: "客户来源",
+						primaryText: "客户来源配置",
 						menuCode: 'oper_csr_sourceList_base',
 						router: '/operation/customerManage/customerSource',
 					},
@@ -162,7 +152,7 @@ module.exports = [
 				iconColor: '#79859a',
 				// router: 'activity',
 				menuItems: [
-					// 少其他合同角色，账号权限
+					// 少账号权限
 					{
 						primaryText: '角色权限',
 						router: '/permission/user',
@@ -177,7 +167,12 @@ module.exports = [
 						primaryText: '业务代码配置',
 						router: '/permission/opCode',
 						menuCode: 'sso_businessCode_base',
-					}
+					},
+					{
+						primaryText: '其他合同角色权限列表',
+						menuCode: 'hrm_role_list',
+						router: '/oa/organizationPower/role',
+					},
 				]
 			},
 			{

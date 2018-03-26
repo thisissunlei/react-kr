@@ -10,7 +10,7 @@ module.exports = [
                 iconColor: '#79859a',
                 type: 'vue',
                 menuItems: [
-                // 少账单老数据,账款数据
+                // 少账单老数据,
                     {
                         primaryText: "已出账单管理",
                         router: 'bill/list',
@@ -46,7 +46,12 @@ module.exports = [
                         router: 'bill/customerAssets',
                         type:'vue',
                         menuCode: 'customer_assets'
-                    }
+                    },
+                    {
+						primaryText: "账款数据",
+						router: '/statistical/agingaccount',
+						menuCode: 'finance_explan',
+					},
                     ]
                 },
 			// {
