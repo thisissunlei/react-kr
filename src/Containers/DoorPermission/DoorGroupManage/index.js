@@ -105,7 +105,7 @@ export default class DoorGroupManage extends React.Component {
 
 	submitSearchParams=(params)=>{
 		let {getDoorPermissionListParams} = this.state;
-		var params = Object.assign({},getDoorPermissionListParams,params);
+		var params = Object.assign({},getDoorPermissionListParams,params,{date:new Date()});
 		this.setState({
 			getDoorPermissionListParams:params
 		})
