@@ -129,7 +129,7 @@ export default class BelongOfDoorGroup extends React.Component {
     getgetGroupAuthorizeEquipmentList=()=>{
         let {itemDetail} = this.state;
         let that =this;
-        let params = {granteeId:itemDetail.id,granteeType:"USER"}
+        let params = {granteeId:itemDetail.id,granteeType:"USER_GROUP"}
         Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
             that.setState({
                 authorazitionEquipmentList : response.items
