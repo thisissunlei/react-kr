@@ -50,6 +50,16 @@ module.exports = [
 		                menuCode: 'oper_cmt_deviceList_base',
 		                router: '/operation/communityAllocation/equipmentList'
 					},
+					{
+						primaryText: '库存平面图',
+						menuCode: 'cmt_run',
+						router: '/community/communityManage/detail',
+					},
+					{
+						primaryText: '销控',
+						menuCode: 'cmt_sell_control',
+						router: '/community/communityManage/controlTable',
+					},
 				]	
 			}, 
 		]
