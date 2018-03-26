@@ -98,7 +98,7 @@ export default class MemberDoorPermissionManage extends React.Component {
 				<Section title={`个人信息`} description="" >
 					
                     <MemberInfo memberDetailInfo={memberDetailInfo}/>
-                    <BelongOfDoorGroupList memberDetailInfo={memberDetailInfo} doorTypeOptions={doorTypeOptions}/>
+                    <BelongOfDoorGroupList memberDetailInfo={memberDetailInfo} doorTypeOptions={doorTypeOptions} memberId={memberId}/>
                     <AuthoriazationEquipmentBox memberDetailInfo={memberDetailInfo} granteeId={memberId} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
 					
 				</Section>

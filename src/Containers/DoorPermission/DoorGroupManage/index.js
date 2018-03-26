@@ -37,6 +37,7 @@ export default class DoorGroupManage extends React.Component {
 		super(props, context);
 		this.state = {
 			itemDetail:{},
+			page : 1,
 			getDoorPermissionListParams:{
 				communityId : '',
 				customerId : '',
@@ -104,8 +105,8 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	submitSearchParams=(params)=>{
-		let {getDoorPermissionListParams} = this.state;
-		var params = Object.assign({},getDoorPermissionListParams,params,{date:new Date()});
+		let {getDoorPermissionListParams,realPage} = this.state;
+		var params = Object.assign({},getDoorPermissionListParams,params,{date:new Date(),page : realPage});
 		this.setState({
 			getDoorPermissionListParams:params
 		})
@@ -139,7 +140,7 @@ export default class DoorGroupManage extends React.Component {
 
 	refreshPage=()=>{
 		let {getDoorPermissionListParams}  =this.state;
-		var newObj = Object.assign({},getDoorPermissionListParams,{date :new Date()});
+		var newObj = Object.assign({},getDoorPermissionListParams,{date :new Date(),page : realPage});
 		this.setState({
 			getDoorPermissionListParams:newObj
 		})
@@ -183,6 +184,16 @@ export default class DoorGroupManage extends React.Component {
 
 	openEditDoorGroupFun=()=>{
 		State.openEditDoorGroup = !State.openEditDoorGroup;
+	}
+
+	onPageChange=(page)=>{
+		console.log("page",page);
+		this.setState({
+			realPage : page
+		})
+		// let pageParam = {page: page}
+		// let {getDoorPermissionListParams} = this.state;
+		// var newObj =Object.assign({},getDoorPermissionListParams,pageParam)
 	}
 
 

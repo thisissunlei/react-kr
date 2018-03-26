@@ -49,11 +49,14 @@ export default class BelongOfDoorGroup extends React.Component {
         
 
         let that = this;
-        
+        let {memberDetailInfo} =this.props;
         let {getGroupContainMemberParams} = that.state;
-        Http.request('getGroupContainMember',getGroupContainMemberParams).then(function(response) {
+        let obj = {uid:memberDetailInfo.uid }
+        let sendParams = Object.assign({},getGroupContainMemberParams,obj);
+        Http.request('getGroupContainMember',sendParams).then(function(response) {
             that.setState({
-                items : response.items
+                items : response.items,
+                getGroupContainMemberParams : sendParams
             })
         }).catch(function(err) {
             Message.error(err.message);
