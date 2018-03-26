@@ -16,7 +16,8 @@ import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
 import DropOutGroup from './DropOutGroup';
-import GroupAuthoriazitionEquipment from './GroupAuthoriazitionEquipment';
+import AuthorizationEquipment from '../AuthorizationEquipment';
+import close from "../images/close.svg";
 
 import PropsState from '../State';
 import State from './State';
@@ -181,7 +182,7 @@ export default class BelongOfDoorGroup extends React.Component {
 
 
 	render() {
-        let {memberDetailInfo} = this.props;
+        let {memberDetailInfo,doorTypeOptions} = this.props;
         let groupLevelOptions = PropsState.groupLevelOptions;
         var title = memberDetailInfo.name + "已加入的组";
         let {getGroupContainMemberParams,itemDetail,items,authorazitionEquipmentList} = this.state;
@@ -226,13 +227,20 @@ export default class BelongOfDoorGroup extends React.Component {
 					    width={"90%"} 
 					    openSecondary={true} 
 					>
-                        <GroupAuthoriazitionEquipment 
-                            onCancel={this.showAuthorizationEquipmentFun} 
-                            itemDetail={itemDetail} 
-                            memberDetailInfo={memberDetailInfo}
-                            closeGroupAuthoriazitionEquipment={this.showAuthorizationEquipmentFun}
-                            initailAuthorazitionEquipmentList={authorazitionEquipmentList}
-                        />
+                        <div className="person-group-items-list">   
+                            <div className="person-group-item-list-close-btn">
+                                <img src={close} onClick={this.showAuthorizationEquipmentFun}/>
+                            
+                            </div>                
+                            <AuthorizationEquipment 
+                                memberDetailInfo={itemDetail} 
+                                granteeId={itemDetail.id} 
+                                doorTypeOptions={doorTypeOptions} 
+                                granteeType="USER_GROUP"
+                                noShowAddNew = {true}
+                            /> 
+                        </div>  
+
 					</Drawer>
                     
 
