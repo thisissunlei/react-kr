@@ -126,14 +126,22 @@ export default class CanOperationEquipment extends React.Component {
 
         let {memberDetailInfo,granteeType} = this.props;
         let {itemDetail,ids} = this.state;
-
+        
         var timersParam = Object.assign({},times);
+        console.log("granteeType",granteeType)
+        var granteeIdParam ;
+        if(granteeType == "USER_GROUP"){
+            granteeIdParam = {granteeId : memberDetailInfo.id}
+        }else if(granteeType == "USER"){
+            granteeIdParam = {granteeId : memberDetailInfo.uid}
+            
+        }
         let otherParams = {
             deviceIds:ids,
-            granteeId: memberDetailInfo.uid,
             granteeType :granteeType,
         }
-        let postParams =  Object.assign({},otherParams,times);
+
+        let postParams =  Object.assign({},otherParams,granteeIdParam,times);
 
         this.sendAddRequest(postParams);
     }
@@ -210,6 +218,8 @@ export default class CanOperationEquipment extends React.Component {
 	render() {
         let {memberDetailInfo,doorTypeOptions} = this.props;
         let {getAllEquipmentParams,itemDetail} = this.state;
+
+        console.log("========>memberDetailInfo",memberDetailInfo);
 		return (
 		    <div className="all-equipment ">
               

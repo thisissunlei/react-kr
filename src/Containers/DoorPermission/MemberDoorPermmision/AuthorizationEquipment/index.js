@@ -44,7 +44,7 @@ export default class CanOperationEquipment extends React.Component {
                 doorCode : '',
                 doorType : '',
                 floor : '',
-                granteeId : '',
+                granteeId : this.props.granteeId,
                 granteeType : this.props.granteeType,
                 title : '',
                 date : null
@@ -66,9 +66,9 @@ export default class CanOperationEquipment extends React.Component {
         }
 
         let objParams = Object.assign({},getMemberAuthorizeEquipmentParams,newobj);
-        this.setState({
-            getMemberAuthorizeEquipmentParams : objParams
-        })
+        // this.setState({
+        //     getMemberAuthorizeEquipmentParams : objParams
+        // })
         
     }
 
@@ -78,7 +78,7 @@ export default class CanOperationEquipment extends React.Component {
 
         let that =this;
         if(granteeId !==nextProps.granteeId){
-        
+            console
             let obj = {
                     granteeId : nextProps.granteeId,
                     date:new Date()
@@ -169,8 +169,10 @@ export default class CanOperationEquipment extends React.Component {
 
 
 	render() {
+        
         let {memberDetailInfo,doorTypeOptions,noShowAddNew} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail} = this.state;
+        console.log("memberDetailInfo",memberDetailInfo);
 		return (
 		    <div className="new-create-authoriazation">
                     {
@@ -267,7 +269,7 @@ export default class CanOperationEquipment extends React.Component {
                                 <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                         }} ></TableRowColumn>
 
-                        <TableRowColumn name="doorType"
+                        <TableRowColumn name="doorTypeName"
                         style={{width:"8%"}}
                         options={doorTypeOptions}
                         component={(value,oldValue)=>{
