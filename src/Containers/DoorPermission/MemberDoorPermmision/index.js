@@ -33,7 +33,8 @@ export default class MemberDoorPermissionManage extends React.Component {
 		super(props, context);
 		this.state = {
 			memberDetailInfo : {},
-			doorTypeOptions : []
+			doorTypeOptions : [],
+			memberId : this.props.params.memberId
 		}
 	}
 
@@ -88,17 +89,19 @@ export default class MemberDoorPermissionManage extends React.Component {
 
 	render() {
 		let {
-            memberDetailInfo,doorTypeOptions
+            memberDetailInfo,doorTypeOptions,memberId
 		} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
+
+		
 		return (
 		    <div className="member-door-permmision" >
 				<Title value="个人门禁权限"/>
 				<Section title={`个人信息`} description="" >
 					
                     <MemberInfo memberDetailInfo={memberDetailInfo}/>
-                    <BelongOfDoorGroupList memberDetailInfo={memberDetailInfo}/>
-                    <AuthoriazationEquipmentBox memberDetailInfo={memberDetailInfo} granteeId={memberDetailInfo.uid} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
+                    <BelongOfDoorGroupList memberDetailInfo={memberDetailInfo} />
+                    <AuthoriazationEquipmentBox memberDetailInfo={memberDetailInfo} granteeId={memberId} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
 					
 				</Section>
 			</div>

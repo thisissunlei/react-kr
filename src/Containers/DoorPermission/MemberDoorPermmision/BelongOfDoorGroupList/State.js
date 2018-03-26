@@ -18,13 +18,13 @@ let State = observable({
 		value: "NORMAL"
 	},{
 		label:"全国通开组",
-		value: "COUNTRYWIDE"
+		value: "ROOT"
 	},{
 		label:"社区通开组",
-		value: "COMMUNITYWIDE"
+		value: "COMMUNITY"
 	},{
-		label:"客户社区组",
-		value: "CUSTOMER_COMMUNITYWIDE"
+		label:"客户默认组",
+		value: "CUSTOMER"
 	}],
 
 

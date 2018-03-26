@@ -208,8 +208,7 @@ export default class CanOperationEquipment extends React.Component {
     
 
 	render() {
-        let {memberDetailInfo} = this.props;
-        let doorTypeOptions = PropsState.doorTypeOptions;
+        let {memberDetailInfo,doorTypeOptions} = this.props;
         let {getAllEquipmentParams,itemDetail} = this.state;
 		return (
 		    <div className="all-equipment ">

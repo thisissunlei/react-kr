@@ -58,7 +58,7 @@ class NewCreateDoorGroup extends React.Component{
 
 		let {communityId,customerId} = this.state;
 		console.log("option.value",option);
-		if(option.value == "COUNTRYWIDE"){
+		if(option.value == "ROOT"){
 
 			this.setState({
 				showCommunity : false,
@@ -68,7 +68,7 @@ class NewCreateDoorGroup extends React.Component{
 			Store.dispatch(change('NewCreateDoorGroup','customerId',''));
 			return;
 		}
-		if(option.value == "COMMUNITYWIDE"){
+		if(option.value == "COMMUNITY"){
 			
 			this.setState({
 				showCompany : false,
@@ -177,10 +177,10 @@ const validate = values => {
 	if (!values.groupLevel) {
 		errors.groupLevel = '请选择组级别';
 	}
-	if((values.groupLevel=="COMMUNITYWIDE"||values.groupLevel=="CUSTOMER_COMMUNITYWIDE") && !values.communityId){
+	if((values.groupLevel=="COMMUNITY"||values.groupLevel=="CUSTOMER") && !values.communityId){
 		errors.communityId = "请选择社区";
 	}
-	if(values.groupLevel=="CUSTOMER_COMMUNITYWIDE" && !values.customerId){
+	if(values.groupLevel=="CUSTOMER" && !values.customerId){
 		errors.customerId = "请选择公司";
 	}
 	return errors

@@ -9,7 +9,7 @@ import {
 	formValueSelector
 } from 'redux-form';
 import {
-	Message,
+	Message,Section,
 } from 'kr-ui';
 import './index.less';
 
@@ -68,12 +68,13 @@ export default class ChangeMember extends React.Component{
 				</div>
 				<div style={{width:"100%"}}>
 					<div className="change-member-item">
-						
-						<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP"/> 
+						<Section title={`组授权设备`} description="" >
+							<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP" noShowAddNew={true}/> 
+						</Section>
 					</div>
 					<div className="change-member-item">
 						
-						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment}/>
+						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions}/>
 					</div>
 					
 				</div>

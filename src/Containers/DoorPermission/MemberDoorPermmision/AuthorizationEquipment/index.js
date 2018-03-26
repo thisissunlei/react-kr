@@ -45,7 +45,7 @@ export default class CanOperationEquipment extends React.Component {
                 doorType : '',
                 floor : '',
                 granteeId : '',
-                granteeType : '',
+                granteeType : this.props.granteeType,
                 title : '',
                 date : null
             }
@@ -54,10 +54,14 @@ export default class CanOperationEquipment extends React.Component {
 
 	componentDidMount(){
 
+        
         let {granteeType,granteeId} = this.props;
         let {getMemberAuthorizeEquipmentParams} = this.state;
+        
+        if( !granteeId){
+            return;
+        }
         let newobj = {
-            granteeType : granteeType,
             granteeId : granteeId
         }
 
@@ -73,15 +77,12 @@ export default class CanOperationEquipment extends React.Component {
         let {memberDetailInfo,granteeId}= this.props;
 
         let that =this;
-        if(memberDetailInfo !==nextProps.memberDetailInfo){
-            this.setState({
-                memberDetailInfo :nextProps.memberDetailInfo
-            },function(){
-                that.setInitailParams()
-            })
-        }
         if(granteeId !==nextProps.granteeId){
-            let obj = {granteeId : nextProps.granteeId,date:new Date()};
+        
+            let obj = {
+                    granteeId : nextProps.granteeId,
+                    date:new Date()
+                };
             let {getMemberAuthorizeEquipmentParams} = this.state;
             let params = Object.assign({},getMemberAuthorizeEquipmentParams,obj)
             this.setState({
@@ -168,14 +169,17 @@ export default class CanOperationEquipment extends React.Component {
 
 
 	render() {
-        let {memberDetailInfo,doorTypeOptions} = this.props;
+        let {memberDetailInfo,doorTypeOptions,noShowAddNew} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail} = this.state;
 		return (
 		    <div className="new-create-authoriazation">
-                
-                    <div className="new-create-authoriazation-box">
-                        <Button label="新增授权"  onTouchTap={this.openNewCreateAuthoriazationFun} className="button-list"/>
-                    </div>
+                    {
+                        (noShowAddNew && noShowAddNew==true)?null:
+                        <div className="new-create-authoriazation-box">
+                            <Button label="新增授权"  onTouchTap={this.openNewCreateAuthoriazationFun} className="button-list"/>
+                        </div>
+                    }
+                   
                     <SearchForm submitSearchParams={this.submitSearchParams} doorTypeOptions={doorTypeOptions}/>
                     <Table
                         className="member-list-table"

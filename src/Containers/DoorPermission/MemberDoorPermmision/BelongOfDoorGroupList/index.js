@@ -41,27 +41,39 @@ export default class BelongOfDoorGroup extends React.Component {
 	}
 
 	componentDidMount(){
-        this.getItems();
+        
     }
 
     getItems=()=>{
+        
+
+        let that = this;
+        
+        let {getGroupContainMemberParams} = that.state;
+        Http.request('getGroupContainMember',getGroupContainMemberParams).then(function(response) {
+            that.setState({
+                items : response.items
+            })
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+       
+    }
+
+    componentWillReceiveProps(nextProps){
+
         let that = this;
         let {memberDetailInfo} = this.props;
-
-        this.setState({
-            getGroupContainMemberParams:{
-                uid : memberDetailInfo.uid
-            }
-        },function(){
-            let {getGroupContainMemberParams} = that.state;
-            Http.request('getGroupContainMember',getGroupContainMemberParams).then(function(response) {
-                that.setState({
-                    items : response.items
-                })
-            }).catch(function(err) {
-                Message.error(err.message);
-            });
-        })
+        console.log("memberDetailInfo",memberDetailInfo)
+        if(memberDetailInfo !== nextProps.memberDetailInfo){
+            this.setState({
+                getGroupContainMemberParams : {
+                    uid : nextProps.memberDetailInfo.uid
+                }
+            },function(){
+                that.getItems();
+            })
+        }
     }
 
     

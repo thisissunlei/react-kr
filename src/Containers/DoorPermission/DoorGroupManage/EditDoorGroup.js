@@ -70,6 +70,7 @@ class EditDoorGroupForm extends React.Component{
 	explainGroupLevel=()=>{
 		let {groupDetail} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
+		console.log("groupDetail",groupDetail);
 		for(let i=0;i<groupLevelOptions.length;i++){
 			if(groupDetail.groupLevel ==groupLevelOptions[i].value ){
 				this.setState({
@@ -89,7 +90,7 @@ class EditDoorGroupForm extends React.Component{
 	initialShowCommunityCompany=(param)=>{
 
 		let {communityId,customerId} = this.state;
-		if(param == "COUNTRYWIDE"){
+		if(param == "ROOT"){
 
 			this.setState({
 				showCommunity : false,
@@ -99,7 +100,7 @@ class EditDoorGroupForm extends React.Component{
 			Store.dispatch(change('EditDoorGroupForm','customerId',''));
 			return;
 		}
-		if(param == "COMMUNITYWIDE"){
+		if(param == "COMMUNITY"){
 			
 			this.setState({
 				showCompany : false,
@@ -215,10 +216,10 @@ const validate = values => {
 	if (!values.groupLevel) {
 		errors.groupLevel = '请选择组级别';
 	}
-	if((values.groupLevel=="COMMUNITYWIDE"||values.groupLevel=="CUSTOMER_COMMUNITYWIDE") && !values.communityId){
+	if((values.groupLevel=="COMMUNITY"||values.groupLevel=="CUSTOMER") && !values.communityId){
 		errors.communityId = "请选择社区";
 	}
-	if(values.groupLevel=="CUSTOMER_COMMUNITYWIDE" && !values.customerId){
+	if(values.groupLevel=="CUSTOMER" && !values.customerId){
 		errors.customerId = "请选择公司";
 	}
 	return errors
