@@ -93,7 +93,6 @@ const Operation_CommunityAllocation_CommunityPlanMap= (location, callback) => {
 
 
 
-
 module.exports =()=>{
 	return (
 
@@ -116,7 +115,7 @@ module.exports =()=>{
       <Route path="communityPlanList" getComponent={Operation_CommunityAllocation_CommunityPlanList}/>
       {/*平面图配置*/}
       <Route path=":communityId/communityPlanMap" getComponent={Operation_CommunityAllocation_CommunityPlanMap}/>
-      <Route path="equipmentList" getComponent={Operation_CommunityAllocation_CommunityPlanMap}/>
+      <Route path="equipmentList" getComponent={Operation_CommunityAllocation_EquipmentList}/>
       
     </Route>
     <Route path="customerManage" getComponent={Basic}>
