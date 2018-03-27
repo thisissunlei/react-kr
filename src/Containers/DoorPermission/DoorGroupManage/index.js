@@ -344,7 +344,7 @@ export default class DoorGroupManage extends React.Component {
 
 							
 							<TableRowColumn type="operation" style={{width:"16%",overflow:"visible"}} >
-
+							
 								<Button  label="更改成员"  type="operation" operation="changeMember"/>
 								<Button  label="授权设备"  type="operation" operation="changeEquipment"/>
 								<Button  label="编辑"  type="operation" operation="edit"/>

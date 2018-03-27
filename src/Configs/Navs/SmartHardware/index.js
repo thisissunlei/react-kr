@@ -29,11 +29,6 @@ module.exports = [
 								primaryText: '升级管理',
 								menuCode: 'iot_upgrade_package',
 								router: '/smarthardware/doorManage/upgrademanage',
-							},
-							{
-								primaryText: '门禁组管理',
-								menuCode: 'auth_user_group_list',
-								router: '/doorpermission/doorgroupmanage',
 							}
 							// ,
 							// {
