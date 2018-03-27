@@ -49,7 +49,7 @@ class SearchGroupForm extends React.Component{
 
 		var sendData = {
 			communityId :values.communityId_all,
-			customerId : values.customerId_all
+			customerId : values.customerId_all||''
 		}
 		sendData = Object.assign(sendData,values);
 		let {submitSearchParams}=this.props;
