@@ -169,8 +169,8 @@ export default class BelongOfDoorGroup extends React.Component {
                     <span className="item-block" style={{width:"15%"}}>{ DateFormat(item.ctime,"yyyy-mm-dd HH:MM:ss")}</span>
                     <span className="item-block" style={{width:"6%"}}>{item.creatorName}</span>
                     <span className="item-block" style={{width:"19%"}}>
-                        <Button  label="退出权限组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,item)}/>
-                        <Button  label="查看组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,item)}/>
+                        <Button  label="移出组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,item)}/>
+                        <Button  label="组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,item)}/>
                     </span>
                 </div>
             )
@@ -211,7 +211,7 @@ export default class BelongOfDoorGroup extends React.Component {
                     
                     
                     <Dialog
-			          title="退出权限组"
+			          title="退出组"
 			          open={State.showDropOutGroup}
 			          onClose={this.showDropOutGroupFun}
 			          contentStyle={{width:425}}
