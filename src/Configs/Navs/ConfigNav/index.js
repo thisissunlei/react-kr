@@ -94,7 +94,6 @@ module.exports = [
 				primaryText: 'OP配置',
 				iconName: 'icon-website',
 				iconColor: '#79859a',
-				// router: 'activity',
 				menuItems: [
 
 					{

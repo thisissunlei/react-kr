@@ -2,7 +2,7 @@
 module.exports = [
 	{
 		primaryText: "订单合同",
-		menuCode:'order',
+		router:'order',
 		menuItems: [
 			{
 				primaryText: '订单',

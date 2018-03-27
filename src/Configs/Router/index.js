@@ -37,6 +37,11 @@ import HomeRouter from './HomeRouter';
 import PublicPageRouter from './PublicPageRouter';
 import SynchronizationRouter from './SynchronizationRouter';
 
+//客户会员
+import UserRouter from './UserRouter';
+//商品产品
+import ProductRouter from './ProductRouter';
+
 
 const Master = (location, callback) => {
   require.ensure([], require => {
@@ -130,6 +135,9 @@ export default (
         {HomeRouter()}
         
         {PublicPageRouter()}
+
+        {UserRouter()}
+        {ProductRouter()}
 
 
 		{/*帮助*/}

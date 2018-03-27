@@ -3,6 +3,7 @@ module.exports = [
 	{
 		primaryText: "社区运营",
 		router: 'community',
+		originUrl: '#/community/operation/index',
 		menuItems: [
 			{
 				primaryText: "社区运营",
@@ -12,7 +13,7 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '社区主页',
-						router: '/operation/index',
+						router: '/community/operation/index',
 						menuCode: 'operation_home',
 					},
 					{

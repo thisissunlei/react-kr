@@ -2,63 +2,65 @@
 module.exports = [
 	{
 		primaryText: "产品商品",
-		menuCode:'order',
+		router: 'product',
+		originUrl: '#/product/statistical/index',
 		menuItems: [ 
 			{
 				primaryText: '产品商品',
 				iconName: 'icon-donething',
 				iconColor: '#79859a',
+				router:'index',
 				menuItems: [
 					{
 						primaryText: "招商数据",
-						router: '/statistical/index',
+						router: '/product/statistical/index',
 						menuCode: 'stat_group',
 					},
 					{
 
 						primaryText: '社区',
 						menuCode: 'oper_cmt_communityList_base',
-						router: '/operation/communityAllocation/communityList'
+						router: '/product/communityAllocation/communityList'
 					},
 					{
 						primaryText: '社区平面图',
 						menuCode: 'oper_cmt_graph_base',
-						router: '/operation/communityAllocation/communityPlanList'
+						router: '/product/communityAllocation/communityPlanList'
 					},
 					{
 						primaryText: '空间',
 						menuCode: 'oper_cmt_spaceList_base',
-						router: '/operation/communityAllocation/CommunityMeetingRoom'
+						router: '/product/communityAllocation/CommunityMeetingRoom'
 					},
 					{
 						primaryText: '工位',
 						menuCode: 'oper_cmt_stationList_base',
-						router: '/operation/communityAllocation/communityStation'
+						router: '/product/communityAllocation/communityStation'
 					},
 					{
 						primaryText: '注册地址',
 						menuCode: 'cmt_registerAddress_list',
-						router: '/operation/communityAllocation/registeredAddress'
+						router: '/product/communityAllocation/registeredAddress'
 					},
 					{
 						primaryText: "我方合同主体",
 						menuCode: 'lessor_management_base',
-						router: '/operation/customerManage/agreement/lessorManage/list',
+						router: '/product/customerManage/lessorManage',
 					},
 					{
 						primaryText: '会议室设备配置',
 		                menuCode: 'oper_cmt_deviceList_base',
-		                router: '/operation/communityAllocation/equipmentList'
+		                router: '/product/communityAllocation/equipmentList'
 					},
 					{
 						primaryText: '库存平面图',
 						menuCode: 'cmt_run',
-						router: '/community/communityManage/detail',
+						router: '/product/communityManage/detail',
 					},
 					{
 						primaryText: '销控',
 						menuCode: 'cmt_sell_control',
-						router: '/community/communityManage/controlTable',
+						router: '/product/communityManage/controlTable',
 					},
 				]	
 			}, 

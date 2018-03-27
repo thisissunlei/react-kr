@@ -22,26 +22,6 @@ import SmartHardware from './SmartHardware';
 import ConfigNav from './ConfigNav';
 
 
-//财法管理
-
-// //人事管理
-// import OANav from './OANav';
-// //综合办公
-// import OfficeNav from './OfficeNav';
-// //基础管理
-
-// //综合办公
-// import OtherNav from './OtherNav';
-// //行政管理
-// import AdministrationNav from './AdministrationNav';
-// //智能硬件
-
-// //订单中心
-// import OrderCenter from './OrderCenter';
-// //账单中心
-// import BillNav from './BillNav';
-//订单中心
-
 const NavItems = [].concat(HomeNav,OperationNav,UserNav,ProductNav,OrderNav,FinanceNav,SmartHardware,ConfigNav);
 
 module.exports = {

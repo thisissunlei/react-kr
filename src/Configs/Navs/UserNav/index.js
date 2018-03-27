@@ -2,18 +2,18 @@
 module.exports = [
 	{
 		primaryText: "客户会员",
-		router: 'operation',
-		originUrl: '#/operation/customerManage/customerList',
-		menuCode:'order',
+		router: 'user',
+		originUrl: '#/user/customerManage/customerList',
 		menuItems: [
 			{
 				primaryText: '客户',
 				iconName: 'icon-donething',
 				iconColor: '#79859a',
+				router:'index',
 				menuItems: [
 					{
 						primaryText: '客户线索',
-						router: '/operation/customerManage/customerList',
+						router: '/user/customerManage/customerList',
 						menuCode: 'oper_csr_base',
 					},
 					{
@@ -30,7 +30,7 @@ module.exports = [
 					},
                     {
 						primaryText: "客户门禁权限",
-						router: '/member/memberManage/doormanage',
+						router: '/user/memberManage/doormanage',
 						menuCode: 'door_base',
 					},
 				]	
@@ -43,23 +43,23 @@ module.exports = [
 					{
 						primaryText: '工作人员',
 						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/oa/personalManage/peopleState',
+						router: '/user/personalManage/peopleState',
 
 					},
 					{
 						primaryText: "会员",
-						router: '/member/memberManage/list',
+						router: '/user/memberManage/list',
 						menuCode: 'mbr_list_base',
 					},
 					{
 						primaryText: "会员卡",
-						router: '/member/membermanage/cardmanage',
+						router: '/user/membermanage/cardmanage',
 						menuCode: 'mbr_card_base',
 					},
 					{
 						primaryText: '会员APP禁言',
 						menuCode: 'oper_cluster_base',
-						router: '/operation/communityAllocation/appmanage'
+						router: '/user/communityAllocation/appmanage'
 					},
 				]	
 			}, 
