@@ -2,16 +2,13 @@
 module.exports = [
 	{
 		primaryText: "订单合同",
-		router:'order',
         originUrl: '/order-center/order-manage/station-order-manage',
 
 		menuItems: [
 			{
 				primaryText: '订单',
 				iconName: 'icon-donething',
-				router: 'office',
 				iconColor: '#79859a',
-				menuCode: 'myCard',
 				menuItems: [
 					{
                         primaryText: "工位订单",
