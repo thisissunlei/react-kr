@@ -24,7 +24,7 @@ import {
 
 
 
-class SearchGroupForm extends React.Component{
+class GroupListSearchForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -55,7 +55,7 @@ class SearchGroupForm extends React.Component{
 	}
 
 	onClearAll=()=>{
-		Store.dispatch(reset('SearchGroupForm',''));
+		Store.dispatch(reset('GroupListSearchForm',''));
 		let {clearParams} = this.props;
 		clearParams && clearParams();
 	}
@@ -119,9 +119,9 @@ class SearchGroupForm extends React.Component{
 		);
 	}
 }
-export default SearchGroupForm = reduxForm({
-	form: 'SearchGroupForm',
+export default GroupListSearchForm = reduxForm({
+	form: 'GroupListSearchForm',
 	// validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(SearchGroupForm);
+})(GroupListSearchForm);
