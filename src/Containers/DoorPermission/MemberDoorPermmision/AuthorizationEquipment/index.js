@@ -264,7 +264,7 @@ export default class CanOperationEquipment extends React.Component {
                         }} ></TableRowColumn>
 
                         <TableRowColumn 
-                            name="deviceId" 
+                            name="serialNo" 
                             style={{width:"16%"}}
                             component={(value,oldValue,itemData)=>{
                             var TooltipStyle=""
@@ -329,12 +329,12 @@ export default class CanOperationEquipment extends React.Component {
                     </TableRow>
                     
                     </TableBody>
-                    {
-                        granteeType && granteeType =="CUSTOMER" &&
+                    {/* {
+                        granteeType && granteeType =="CUSTOMER" && */}
                         <TableFooter>
 						</TableFooter>
 
-                    }
+                    
 					</Table>
                     }
 

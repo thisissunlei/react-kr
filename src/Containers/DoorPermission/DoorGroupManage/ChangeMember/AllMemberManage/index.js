@@ -320,7 +320,6 @@ export default class DoorGroupManage extends React.Component {
 						
 					</TableBody>
 						<TableFooter renderOther={this.renderOther} >
-						{/* <TableFooter renderOther={this.renderOther} noShowPagination="yes"> */}
 						</TableFooter>
 					</Table>
 

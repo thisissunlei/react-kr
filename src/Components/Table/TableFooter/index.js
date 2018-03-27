@@ -87,14 +87,11 @@ export default class TableFooter extends React.Component {
 			totalCount,
 			page,
 			pageSize,
-			noShowPagination
 		} = this.props;
 		if (!pagination) {
 			return null;
 		}
-		if (noShowPagination && noShowPagination=="yes") {
-			return null;
-		}
+		
 
 		return (
 			<Pagination totalCount={totalCount} page={page} pageSize={pageSize} onPageChange={this.onPageChange}/>

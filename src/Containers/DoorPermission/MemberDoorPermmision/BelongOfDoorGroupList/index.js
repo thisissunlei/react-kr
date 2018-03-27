@@ -124,22 +124,22 @@ export default class BelongOfDoorGroup extends React.Component {
         let _this =this;
         this.setState({
             itemDetail: item
-        },function(){
-            
-            _this.getgetGroupAuthorizeEquipmentList()
         })
+            
+        _this.getgetGroupAuthorizeEquipmentList(item)
+       
     }
 
-    getgetGroupAuthorizeEquipmentList=()=>{
-        let {itemDetail} = this.state;
+    getgetGroupAuthorizeEquipmentList=(item)=>{
+
         let that =this;
-        let params = {granteeId:itemDetail.id,granteeType:"USER_GROUP"}
+        let params = {granteeId:item.id,granteeType:"USER_GROUP",page:1,pageSize:15}
         Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
             that.setState({
                 authorazitionEquipmentList : response.items
-            },function(){
-                that.showAuthorizationEquipmentFun();
             })
+            that.showAuthorizationEquipmentFun();
+
         }).catch(function(err) {
             Message.error(err.message);
         });

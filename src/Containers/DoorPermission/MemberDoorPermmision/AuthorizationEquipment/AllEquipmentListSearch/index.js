@@ -359,7 +359,6 @@ export default class CanOperationEquipment extends React.Component {
                     </TableRow>
                         
                     </TableBody>
-                        {/* <TableFooter renderOther={this.renderOther} noShowPagination="yes"> */}
                         <TableFooter renderOther={this.renderOther}>
 				        </TableFooter>
 					</Table>

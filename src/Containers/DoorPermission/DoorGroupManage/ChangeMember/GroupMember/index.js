@@ -43,7 +43,9 @@ export default class GroupMemberManage extends React.Component {
                 communityId :'',
                 groupId : this.props.groupItemDetail.id,
                 customerId : '',
-                phone : ''
+				phone : '',
+				page : 1,
+				pageSize : 15
             }
 		}
 	}
@@ -339,7 +341,7 @@ export default class GroupMemberManage extends React.Component {
 					</TableRow>
 						
 					</TableBody>
-						<TableFooter renderOther={this.renderOther} noShowPagination="yes">
+						<TableFooter renderOther={this.renderOther} >
 						</TableFooter>
 					</Table>
 

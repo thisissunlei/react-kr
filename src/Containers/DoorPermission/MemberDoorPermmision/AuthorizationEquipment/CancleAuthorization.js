@@ -55,7 +55,7 @@ export default class DeleteGroup extends React.Component {
 					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要取消“{memberDetailInfo.name}”对“{itemDetail.title}”的权限吗？</p>
 					<p style={{textAlign:"center",color:"#333333",fontSize:12,color:"#ff6868"}}>
 						<img src={warning} style={{width:15,verticalAlign: "top",  marginRight: 4}}/>
-						<span>取消后将无法操作改设备</span>
+						<span>取消后将无法操作该设备</span>
 					</p>
 					<Grid style={{marginTop:30,marginBottom:'4px'}}>
 						<Row>

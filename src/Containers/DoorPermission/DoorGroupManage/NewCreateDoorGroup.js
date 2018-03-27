@@ -35,6 +35,16 @@ class NewCreateDoorGroup extends React.Component{
 			customerId : '',
 			showCompany : true,
 			showCommunity : true,
+			groupLevelOptions : [{
+				label:"普通组",
+				value: "NORMAL"
+			},{
+				label:"全国通开组",
+				value: "ROOT"
+			},{
+				label:"社区通开组",
+				value: "COMMUNITY"
+			}]
 
 		}
 	}
@@ -103,8 +113,7 @@ class NewCreateDoorGroup extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {showCompany,showCommunity} = this.state;
-		let groupLevelOptions = State.groupLevelOptions;
+		let {showCompany,showCommunity,groupLevelOptions} = this.state;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="new-creat-door-group">
 				<KrField grid={1/2} 

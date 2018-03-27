@@ -65,8 +65,10 @@ class SearchGroupForm extends React.Component{
 
 	onSubmit=(values)=>{
 
+		let pageSizeParams = {pageSize : 15}
+		let sendParams = Object.assign({},values,pageSizeParams);
 		let {submitSearchParams}=this.props;
-		submitSearchParams && submitSearchParams(values);
+		submitSearchParams && submitSearchParams(sendParams);
 		
 	}
 
