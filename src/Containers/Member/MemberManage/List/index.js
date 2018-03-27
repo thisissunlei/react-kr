@@ -137,7 +137,7 @@ export default class List extends React.Component {
 		this.setState({
 			itemDetail
 		},function(){
-			window.open(`./#/doorpermission/memberdoormanage/${itemDetail.uid}`,'_blank');
+			window.open(`./#/member/memberdoormanage/${itemDetail.uid}`,'_blank');
 		})
 	}
 	openBindCode=(itemDetail)=>{

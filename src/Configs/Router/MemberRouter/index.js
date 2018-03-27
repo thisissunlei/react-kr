@@ -46,6 +46,12 @@ const DoorPermission_CompanyDoorPermission = (location, callback) => {
   }, 'DoorPermission_CompanyDoorPermission')
 }
 
+const DoorPermission_MemberDoorPermmision = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/DoorPermission/MemberDoorPermmision').default)
+  }, 'DoorPermission_MemberDoorPermmision')
+}
+
 
 
 module.exports =()=>{
@@ -59,6 +65,7 @@ module.exports =()=>{
 						<Route path="doormanage"  getComponent={DoorPermission_CompanyDoorPermission}/>
             <Route path="list/:memberId"  getComponent={Member_MemberManage_Detail}/>
         </Route>
+        <Route path="memberdoormanage/:memberId" getComponent={DoorPermission_MemberDoorPermmision}/>
     </Route>
 	);
 };
