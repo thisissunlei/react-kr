@@ -18,7 +18,7 @@ module.exports = [
 					},
 					{
                         primaryText: '客户账户',
-                        originUrl: 'bill/customerAssets',
+                        originUrl: '/bill/customerAssets',
                         type:'vue',
                         menuCode: 'customer_assets'
                     },

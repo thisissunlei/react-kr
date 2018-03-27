@@ -3,6 +3,8 @@ module.exports = [
 	{
 		primaryText: "订单合同",
 		router:'order',
+        originUrl: '/order-center/order-manage/station-order-manage',
+
 		menuItems: [
 			{
 				primaryText: '订单',
@@ -13,19 +15,19 @@ module.exports = [
 				menuItems: [
 					{
                         primaryText: "工位订单",
-                        router: 'order-center/order-manage/station-order-manage',
+                        originUrl: '/order-center/order-manage/station-order-manage',
                         type: 'vue',
                         menuCode: 'seat_order_list',
                     },
                     {
                         primaryText: "会议室订单",
-                        router: 'order/list',
+                        originUrl: '/order/list',
                         type: 'vue',
                         menuCode: 'fina_meeting_order_page'
                     },
                     {
                         primaryText: "通用订单",
-                        router: 'order-center/order-manage/general-order-manage',
+                        originUrl: '/order-center/order-manage/general-order-manage',
                         type: 'vue',
                         menuCode: 'orderCurrency_list',
                     },
@@ -40,7 +42,7 @@ module.exports = [
 				menuItems: [
 					{
                         primaryText: "工位合同",
-                        router: 'order-center/contract-manage/contract-list/list',
+                        originUrl: '/order-center/contract-manage/contract-list/list',
                         type: 'vue',
                         menuCode: 'stationContract_list',
                     },
