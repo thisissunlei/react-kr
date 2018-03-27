@@ -71,8 +71,9 @@ export default class CanOperationEquipment extends React.Component {
         let {itemDetail} = this.state;
         let that = this;
         Http.request('deleteEquipmentFromGroupApi',{},{ids : itemDetail.id}).then(function(response) {
-            Message.success("取消授权成功");
+            
             that.cancleAuthorizationFun();
+            Message.success("取消授权成功");
             // that.refreshPage();
         }).catch(function(err) {
             Message.error(err.message);
@@ -171,8 +172,8 @@ export default class CanOperationEquipment extends React.Component {
 		let that = this;
 		Http.request('addEquipmentToGroupApi',{},sendParams).then(function(response) {
 
-            Message.success("添加成功");
 			that.setAuthorizationTime();
+            Message.success("添加成功");
             // that.refreshPage();
             let {refreshAuthoriazationEquipmentList} =  that.props;
             refreshAuthoriazationEquipmentList && refreshAuthoriazationEquipmentList();

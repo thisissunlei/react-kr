@@ -99,8 +99,8 @@ export default class BelongOfDoorGroup extends React.Component {
         let {memberDetailInfo} = this.props;
         let that = this;
         Http.request('personPageDropOutGroup',{uid :memberDetailInfo.uid,groupId : itemDetail.id}).then(function(response) {
-            Message.success("移出成功");
             that.showDropOutGroupFun();
+            Message.success("移出成功");
             that.getItems();
         }).catch(function(err) {
             Message.error(err.message);

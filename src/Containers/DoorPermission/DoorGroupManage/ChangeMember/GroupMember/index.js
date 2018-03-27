@@ -20,13 +20,14 @@ import './index.less';
 
 
 import State from './State';
+import PropsState from '../../State';
 import {
 	observer,
 	inject
 } from 'mobx-react';
 @observer
 
-export default class DoorGroupManage extends React.Component {
+export default class GroupMemberManage extends React.Component {
 
 	constructor(props, context) {
         super(props, context);
@@ -36,10 +37,11 @@ export default class DoorGroupManage extends React.Component {
 			itemDetail:{},
 			batchChecked :false,
 			checkedIds : '',
-            searchParams:{
+			selectedListData : [],
+            getDoorGroupMemberParams:{
                 name : '',
                 communityId :'',
-                groupId : '',
+                groupId : this.props.groupItemDetail.id,
                 customerId : '',
                 phone : ''
             }
@@ -47,62 +49,39 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	componentDidMount(){
-        this.getItemsData();
+        // this.getItemsData();
 	}
 	
 	componentWillReceiveProps(nextProps){
 
 		let {freshGroupMemberList} = this.props;
 		if(freshGroupMemberList!==nextProps.freshGroupMemberList){
-			this.getItemsData();
+			this.refreshPage();
 		}
 	}
     
-    getItemsData=()=>{
-        let that = this;
-		let {searchParams} = this.state;
-		let {groupItemDetail} = this.props;
-		
-		var params = Object.assign({},searchParams,{groupId : groupItemDetail.id});
-        Http.request('getDoorGroupMemberList',params).then(function(response) {
-			var returnItems= response.items;
-			returnItems.forEach(function(element,index,array){
-				element.checked = false;
-			})
-			
-			that.setState({
-				items: response.items,
-				// batchChecked :
-            })
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-    }
 	
 	
 
 	submitSearchParams=(params)=>{
-
+		console.log("params",params);
+		let {groupItemDetail} = this.props;
 		let that =this;
-		let {searchParams} = this.state;
-		var params = Object.assign({},searchParams,params,{date:new Date()});
+		var params = Object.assign({},params,{date:new Date(),groupId :groupItemDetail.id});
 		this.setState({
-			searchParams:params
-		},function(){
-			that.getItemsData();
+			getDoorGroupMemberParams:params
 		})
 	}
 
 
 
 	refreshPage=()=>{
-		let {searchParams}  =this.state;
+		let {getDoorGroupMemberParams}  =this.state;
+		let {groupItemDetail} = this.props;
 		let that = this;
-		var newObj = Object.assign({},searchParams,{date :new Date()});
+		var newObj = Object.assign({},getDoorGroupMemberParams,{date :new Date(),groupId :groupItemDetail.id });
 		this.setState({
-			searchParams:newObj
-		},function(){
-			that.getItemsData();
+			getDoorGroupMemberParams:newObj
 		})
 	}
 
@@ -124,89 +103,28 @@ export default class DoorGroupManage extends React.Component {
 		let {itemDetail,getDoorPermissionListParams}  = this.state;
 		let that = this;
 		Http.request('deleteGroupMemberApi',{},{ids:itemDetail.id}).then(function(response) {
-			Message.success("删除成功");
 			that.openDeleteMemberFromGroupFun();
 			that.refreshPage();
+			Message.success("移除成功");
+			
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 	}
 
 
-	deleteMember=(item)=>{
-
-		let that = this;
-		this.setState({
-			itemDetail : item
-		},function(){
-			that.openDeleteMemberFromGroupFun();
-		})
-		
-
-	}
+	
 
 	openDeleteMemberFromGroupFun=()=>{
 		State.openDeleteMemberFromGroup = !State.openDeleteMemberFromGroup;
 	}
-
-	changeItemCheckbox=(item)=>{
-		let {batchChecked} = this.state;
-		if(item.checked){
-			this.setState({
-				batchChecked : false
-			})
-		}
-		item.checked = !item.checked;
-		let {items} = this.state;
-		this.setState({
-			items : items
-		})
-	}
-
-    renderItemsList=(items)=>{
-		let that = this;
-        var dom = items.map(function(item,index){
-            return (
-                <div key={index} className="item-line">
-					<span  className="first-line-item item-line-span">
-						<input type="checkbox"  checked={item.checked?"checked":""} onClick={that.changeItemCheckbox.bind(this,item)}/>
-					</span>
-                    <span className="item-line-span">{item.name}</span>
-					<span className="item-line-span">{item.phone}</span>
-					<span className="item-line-span ">{item.communityName}</span>
-					<span className="item-line-span company-item-span">{item.customerName}</span>
-					<span className="item-line-span">{item.email}</span>
-					<span className="item-line-span last-line-span" onClick={that.deleteMember.bind(this,item)}>移除</span>
-                </div>
-            )
-        });
-        return dom;
-	}
 	
-	changeBatchCheck=()=>{
-
-		let {batchChecked,items} = this.state;
-		let that = this;
-		items.forEach(function(element,index,array){
-			element.checked = !batchChecked;
-		})
-		this.setState({
-			batchChecked : !batchChecked,
-			items : items
-		})
-	}
 
 	batchDeleteMember=()=>{
 		
-		let {items} = this.state;
-		var chekedNum=0;
-		for(let i=0;i<items.length;i++){
-			if(items[i].checked){
-				chekedNum++;
-			}
-		}
-		if(chekedNum==0){
-			Message.warntimeout("请选择您要删除的成员",'error');
+		let {selectedListData} = this.state;
+		if(selectedListData.length==0){
+			Message.warntimeout("请选择您要移除的成员",'error');
 			return ;
 		}
 		this.openBatchDeleteDialogFun();
@@ -218,16 +136,10 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	confirmBatchDelete=()=>{
-		let {items} = this.state;
+		
+		let {ids} = this.state;
 		let that = this;
-		var toDeleteIds = [];
-		for(let i=0;i<items.length;i++){
-			if(items[i].checked){
-				toDeleteIds.push(items[i].id)
-			}
-		}
-		var toDeleteIdsStr = toDeleteIds.join(",");
-		Http.request('deleteGroupMemberApi',{},{ids:toDeleteIdsStr}).then(function(response) {
+		Http.request('deleteGroupMemberApi',{},{ids:ids}).then(function(response) {
 
 			that.openBatchDeleteDialogFun();
 			that.refreshPage();
@@ -241,51 +153,195 @@ export default class DoorGroupManage extends React.Component {
 
 	}
 
+	onOperation=(type,itemDetail)=>{
+		this.setState({
+			ids : itemDetail.id,
+			itemDetail
+		})
+		if(type=="deleteMember"){
+			this.openDeleteMemberFromGroupFun();
+		}
+	}
+
+	renderOther=()=>{
+		return (
+			
+			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}} 
+				onClick={this.batchDeleteMember}>
+				批量移除
+			</a>
+
+			
+		)
+	}
+
+	batchDeleteMember=()=>{
+
+        let _this =this;
+        let {selectedListData}  = this.state;
+       
+
+        if(selectedListData.length<1){
+            Message.warntimeout("请选择您要移除的成员","error")
+        }else{
+
+            let idList = [];
+            selectedListData.map((item, value) => {
+				idList.push(item.id)
+			});
+            var ids = idList.join(",");
+            this.setState({
+                ids 
+            },function(){
+                _this.openBatchDeleteDialogFun();
+            })
+        }
+	}
+
+	
+
+	onSelect=(result,selectedListData)=>{
+		this.setState({
+            selectedListData 
+        })
+	}
+
+	
+	
+
 
 	render() {
 		let {
-			items,batchChecked,itemDetail
+			items,batchChecked,itemDetail,getDoorGroupMemberParams
 		} = this.state;
 		let that = this;
 		let {groupItemDetail} = this.props;
+		let doorTypeOptions = PropsState.doorTypeOptions;
 		
 		return (
 		    <div className="change-member-item-box" style={{backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
 				<Section title={`组成员`} description="" >
-					<div>
+					<div className="group-member-search-box">
 						<SearchGroupMember submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
 					</div>
-                    <div className="table">
-						<div className="title">
-							<span  className="first-line-item">
+                    <Table
+						className="member-list-table"
+						style={{marginTop:10,position:'inherit'}}
+						onLoaded={this.onLoaded}
+						ajax={true}
+						onProcessData={(state)=>{
+							return state;
+							}}
+						exportSwitch={false}
+						onOperation={this.onOperation}
+						ajaxFieldListName='items'
+						ajaxUrlName='getDoorGroupMemberList'
+						ajaxParams={getDoorGroupMemberParams}
+						onPageChange={this.onPageChange}
+						displayCheckbox={true}
+						onSelect={this.onSelect}
+					>
+					<TableHeader>
+						<TableHeaderColumn>姓名</TableHeaderColumn>
+						<TableHeaderColumn>电话</TableHeaderColumn>
+						<TableHeaderColumn>社区名称</TableHeaderColumn>
+						<TableHeaderColumn>公司</TableHeaderColumn>
+						<TableHeaderColumn>邮箱</TableHeaderColumn>
+						<TableHeaderColumn>操作</TableHeaderColumn>
+					</TableHeader>
+					<TableBody style={{position:'inherit'}}>
+						<TableRow>
 							
-							</span>
-							<span className="item-line-span">姓名</span>
-							<span className="item-line-span">电话</span>
-							<span className="item-line-span">社区</span>
-							<span className="item-line-span company-item-span">公司</span>
-							<span className="item-line-span">邮箱</span>
-							<span className="item-line-span last-line-span">操作</span>
-						</div>
-                        {
-                            this.renderItemsList(items)
-						}
-						<Grid>
-							<Row style={{marginTop:10}}>
-								<ListGroup >
-									<ListGroupItem style={{padding:"7px 10px 0 5px",display:'inline-block',}}>
-										<input type="checkbox" checked={batchChecked} onClick={that.changeBatchCheck}/>
-										<span style={{marginLeft:5}}>全选</span>
-									</ListGroupItem>
-									<ListGroupItem style={{padding:0,display:'inline-block',marginRight:3}}>
-										<Button  label="批量删除" type="button"  cancle={true} onTouchTap={this.batchDeleteMember} />
-									</ListGroupItem>
-								</ListGroup>					
-							</Row>
-						</Grid>
+						<TableRowColumn name="name"
+							style={{width:"15%"}}
+							
+						component={(value,oldValue)=>{
+							if(value==""){
+								value="-"
+							}
+							return (<span>{value}</span>)}}
+						></TableRowColumn>
+
+						<TableRowColumn 
+							style={{width:"15%"}}
+							name="phone" 
+							component={(value,oldValue,itemData)=>{
+							var TooltipStyle=""
+							if(value.length==""){
+								TooltipStyle="none"
+
+							}else{
+								TooltipStyle="block";
+							}
+								return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+								<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+						}} ></TableRowColumn>
+
+					
+
+						<TableRowColumn 
+							name="communityName" 
+							style={{width:"15%"}}
+							component={(value,oldValue,itemData)=>{
+							var TooltipStyle=""
+							if(value.length==""){
+								TooltipStyle="none"
+
+							}else{
+								TooltipStyle="block";
+							}
+								return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+								<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+						}} ></TableRowColumn>
+
+						<TableRowColumn 
+							name="customerName" 
+							style={{width:"25%"}}
+							component={(value,oldValue,itemData)=>{
+							var TooltipStyle=""
+							if(value.length==""){
+								TooltipStyle="none"
+
+							}else{
+								TooltipStyle="block";
+							}
+								return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+								<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+						}} ></TableRowColumn>
+
+
+						<TableRowColumn 
+							name="email" 
+							style={{width:"15%"}}
+							component={(value,oldValue,itemData)=>{
+							var TooltipStyle=""
+							if(value.length==""){
+								TooltipStyle="none"
+
+							}else{
+								TooltipStyle="block";
+							}
+								return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+								<Tooltip offsetTop={5} place='top'><span  className="start-end">{value}</span></Tooltip></div>)
+						}} ></TableRowColumn>
+
 						
-                    </div>
+
+						<TableRowColumn type="operation" style={{width:"10%",overflow:"visible"}} >
+
+							<Button  label="移除"  type="operation" operation="deleteMember"/>
+
+							
+						</TableRowColumn>
+						
+						
+					</TableRow>
+						
+					</TableBody>
+						<TableFooter renderOther={this.renderOther} noShowPagination="yes">
+						</TableFooter>
+					</Table>
 
 					<Dialog
 			          title="确认移除成员"

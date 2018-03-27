@@ -128,11 +128,12 @@ export default class DoorGroupManage extends React.Component {
 
 		let that = this;
 		Http.request('addGroupMemberApi',{},params).then(function(response) {
-			Message.success("添加成功");
+
 
 			State.openAddMemberToGroup = false;
 			State.openBatchAddDialog = false;
-		
+			Message.success("添加成功");
+
 			let {freshGroupMemberList} = that.props;
 			freshGroupMemberList && freshGroupMemberList();
 		}).catch(function(err) {

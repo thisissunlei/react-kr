@@ -38,6 +38,7 @@ export default class DoorGroupManage extends React.Component {
 		this.state = {
 			itemDetail:{},
 			page : 1,
+			realPage : 1,
 			getDoorPermissionListParams:{
 				communityId : '',
 				customerId : '',
@@ -117,9 +118,15 @@ export default class DoorGroupManage extends React.Component {
 		let that= this;
 		let {getDoorPermissionListParams} = this.state;
 		Http.request('newCreateDoorGroup',{},values).then(function(response) {
-			Message.success("添加成功");
-			that.refreshPage();
+
 			that.openNewCreateDoorGoupDialog();
+			Message.success("添加成功");
+			that.setState({
+				realPage :1
+			},function(){
+				that.refreshPage();
+			})
+			
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -129,9 +136,11 @@ export default class DoorGroupManage extends React.Component {
 		let that= this;
 		let {getDoorPermissionListParams} = this.state;
 		Http.request('editDoorGroupApi',{},values).then(function(response) {
-			Message.success("编辑成功");
-			that.refreshPage();
+
 			that.openEditDoorGroupFun();
+			that.refreshPage();
+			Message.success("编辑成功");
+			
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -139,7 +148,7 @@ export default class DoorGroupManage extends React.Component {
 
 
 	refreshPage=()=>{
-		let {getDoorPermissionListParams}  =this.state;
+		let {getDoorPermissionListParams,realPage}  =this.state;
 		var newObj = Object.assign({},getDoorPermissionListParams,{date :new Date(),page : realPage});
 		this.setState({
 			getDoorPermissionListParams:newObj
@@ -164,9 +173,11 @@ export default class DoorGroupManage extends React.Component {
 		let {itemDetail,getDoorPermissionListParams}  = this.state;
 		let that = this;
 		Http.request('deleteDoorGroup',{id:itemDetail.id}).then(function(response) {
-			Message.success("删除成功");
-			that.refreshPage();
+			
 			that.openDeleteGroupFun();
+			that.refreshPage();
+			Message.success("删除成功");
+			
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
