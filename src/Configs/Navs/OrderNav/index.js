@@ -32,7 +32,6 @@ module.exports = [
 			{
 				primaryText: '合同',
 				iconName: 'icon-donething',
-				router: 'office',
 				iconColor: '#79859a',
 				menuCode: 'wf_contract_list',
 				menuItems: [
