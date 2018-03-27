@@ -276,7 +276,7 @@ export default class DoorGroupManage extends React.Component {
 						}} ></TableRowColumn>
 
 						<TableRowColumn 
-							name="customerName" 
+							name="companyName" 
 							style={{width:"25%"}}
 							component={(value,oldValue,itemData)=>{
 							var TooltipStyle=""
