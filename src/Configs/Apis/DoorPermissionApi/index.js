@@ -35,7 +35,7 @@ module.exports = {
     },
     //个人/门禁权限组已授权设备
     'getGroupAuthorizeEquipmentApi':{
-        url: '/api/iot-platform/auth/device-grant/list?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&title={title}&granteeId={granteeId}&granteeType={granteeType}',
+        url: '/api/iot-platform/auth/device-grant/list?communityId={communityId}&deviceId={deviceId}&doorCode={doorCode}&doorType={doorType}&floor={floor}&title={title}&granteeId={granteeId}&granteeType={granteeType}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //从门禁组/个人已授权设备中删除设备
@@ -45,7 +45,7 @@ module.exports = {
     },
     //门禁组所有可选择设备
     'doorGroupAllEquipmentApi':{
-        url: '/api/iot-platform/door-device/select-items?communityId={communityId}&deviceId={deviceId}&doorType={doorType}&floor={floor}&title={title}&doorCode={doorCode}',
+        url: '/api/iot-platform/door-device/select-items?communityId={communityId}&deviceId={deviceId}&doorType={doorType}&floor={floor}&title={title}&doorCode={doorCode}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //增加设备到门禁授权组
@@ -55,7 +55,7 @@ module.exports = {
     },
     //获取所有成员列表数据以供添加成员到组
     'getAllMemberInDoorPermissionApi':{
-        url: '/api/sso/user/list?communityId={communityId}&customerId={customerId}&name={name}&phone={phone}',
+        url: '/api/sso/user/list?communityId={communityId}&customerId={customerId}&name={name}&phone={phone}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //获取门禁组详情

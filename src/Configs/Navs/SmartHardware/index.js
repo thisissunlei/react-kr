@@ -32,7 +32,7 @@ module.exports = [
 							},
 							{
 								primaryText: '门禁组管理',
-								menuCode: 'iot_upgrade_package',
+								menuCode: 'auth_user_group_list',
 								router: '/doorpermission/doorgroupmanage',
 							}
 							// ,

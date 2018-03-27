@@ -65,8 +65,10 @@ class SearchAllEquipmentForm extends React.Component{
 
 	onSubmit=(values)=>{
 		
+		let newObj = {pageSize:15}
+		let sendParams = Object.assign({},values,newObj)
 		let {submitSearchParams}=this.props;
-		submitSearchParams && submitSearchParams(values);
+		submitSearchParams && submitSearchParams(sendParams);
 		
 	}
 

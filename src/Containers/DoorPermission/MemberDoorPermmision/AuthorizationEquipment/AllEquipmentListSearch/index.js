@@ -46,8 +46,8 @@ export default class CanOperationEquipment extends React.Component {
                 doorCode : '',
                 doorType : '',
                 floor : '',
-                page : '',
-                pageSize : '',
+                page : 1,
+                pageSize : 15,
                 title : '',
                 date : null
             }
@@ -112,6 +112,7 @@ export default class CanOperationEquipment extends React.Component {
     }
 
     submitSearch=(values)=>{
+        console.log("values",values);
         let {getAllEquipmentParams} = this.state;
         let {memberDetailInfo} = this.props;
         var timer = {date : new Date()};
@@ -174,7 +175,6 @@ export default class CanOperationEquipment extends React.Component {
 
 			that.setAuthorizationTime();
             Message.success("添加成功");
-            // that.refreshPage();
             let {refreshAuthoriazationEquipmentList} =  that.props;
             refreshAuthoriazationEquipmentList && refreshAuthoriazationEquipmentList();
 
@@ -211,6 +211,16 @@ export default class CanOperationEquipment extends React.Component {
             selectedListData 
         })
     }
+
+    // onPageChange=(page)=>{
+    //     console.log("page",page);
+    //     let {getAllEquipmentParams} = this.state;
+    //     let pageObj = {page:page};
+    //     let newObj = Object.assign({},getAllEquipmentParams,pageObj);
+    //     this.setState({
+    //         getAllEquipmentParams  :newObj
+    //     })
+    // }
 
 
     
@@ -349,7 +359,8 @@ export default class CanOperationEquipment extends React.Component {
                     </TableRow>
                         
                     </TableBody>
-                        <TableFooter renderOther={this.renderOther} noShowPagination="yes">
+                        {/* <TableFooter renderOther={this.renderOther} noShowPagination="yes"> */}
+                        <TableFooter renderOther={this.renderOther}>
 				        </TableFooter>
 					</Table>
                     

@@ -112,7 +112,7 @@ class GroupListSearchForm extends React.Component{
 					<ListGroupItem style={{}}>
 						<Button  label="搜索" type="submit"/>
 					</ListGroupItem>
-					<ListGroupItem style={{}}>
+					<ListGroupItem style={{marginBottom:15}}>
 						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />
 					</ListGroupItem>
 					

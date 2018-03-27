@@ -47,7 +47,9 @@ export default class CanOperationEquipment extends React.Component {
                 granteeId : this.props.granteeId,
                 granteeType : this.props.granteeType,
                 title : '',
-                date : null
+                date : null,
+                page :1,
+                pageSize:15
             }
 		}
 	}
@@ -174,8 +176,8 @@ export default class CanOperationEquipment extends React.Component {
         
         let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail} = this.state;
-        console.log("granteeId",granteeId);
-		return (
+
+        return (
 		    <div className="new-create-authoriazation">
                     {
                         (noShowAddNew && noShowAddNew==true)?null:
@@ -325,7 +327,14 @@ export default class CanOperationEquipment extends React.Component {
                         
 
                     </TableRow>
+                    
                     </TableBody>
+                    {
+                        granteeType && granteeType =="CUSTOMER" &&
+                        <TableFooter>
+						</TableFooter>
+
+                    }
 					</Table>
                     }
 

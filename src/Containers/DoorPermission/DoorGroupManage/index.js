@@ -236,7 +236,7 @@ export default class DoorGroupManage extends React.Component {
 
 					<Table
 						className="member-list-table"
-						style={{marginTop:10,position:'inherit'}}
+						style={{marginTop:0,position:'inherit'}}
 						onLoaded={this.onLoaded}
 						ajax={true}
 						onProcessData={(state)=>{
