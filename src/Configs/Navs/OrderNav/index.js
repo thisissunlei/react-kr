@@ -2,12 +2,11 @@
 module.exports = [
 	{
 		primaryText: "订单合同",
-        originUrl: '/order-center/order-manage/station-order-manage',
-
+		menuCode:'bill',
 		menuItems: [
 			{
 				primaryText: '订单',
-				iconName: 'icon-donething',
+				iconName: 'icon-newthing',
 				iconColor: '#79859a',
 				menuItems: [
 					{
