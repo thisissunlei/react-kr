@@ -60,7 +60,7 @@ module.exports = [
 					},
 					{
 						primaryText: '登录日志',
-						router: '/permission/loginLog',
+						router: '/permission/loginLogApp',
 						menuCode: 'sso_loginLog_base',
 					}
 					//少登陆日志（待与pc版拆分）	
