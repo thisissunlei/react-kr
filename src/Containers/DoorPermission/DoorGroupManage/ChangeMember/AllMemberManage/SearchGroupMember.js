@@ -33,10 +33,12 @@ class SearchGroupForm extends React.Component{
 			searchFormOptions : [
 				{
 					label:"姓名",
-					value: "name"
+					value: "name",
+					className : "name-class"
 				},{
 					label:"手机",
-					value: "phone"
+					value: "phone",
+					className : "phone-class"
 				}	
 			],
 		}
@@ -48,8 +50,8 @@ class SearchGroupForm extends React.Component{
 	onSubmit=(values)=>{
 
 		var sendData = {
-			communityId :values.communityId_all,
-			customerId : values.customerId_all||''
+			communityId :values.communityId_all||'',
+			customerId : values.customerId_all||'',
 		}
 		sendData = Object.assign(sendData,values);
 		let {submitSearchParams}=this.props;
@@ -101,6 +103,7 @@ class SearchGroupForm extends React.Component{
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let {logTypeOptions,searchFormOptions,seachFormContent} = this.state;
+		
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="group-member-search door-permission-group-search">
 				<ListGroup className="search-item-line">
@@ -135,7 +138,7 @@ class SearchGroupForm extends React.Component{
 								searchFilter={searchFormOptions}
 								onChange={this.changeSearchFormContent}
 								onFilter={this.changeSearchFormFilter}
-								filterSpecialClass ="search-member-in-group-search-form"
+								filterSpecialClass ="search-all-member-to-group"
 							/>
 						</span>
 

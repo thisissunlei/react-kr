@@ -70,15 +70,17 @@ export default class ChangeMember extends React.Component{
 					<img src={closeImg} style={{float:"right",width:30,cursor:"pointer"}} onClick={this.closeChangeMember}/>
 				</div>
 				<div style={{width:"100%"}}>
+
+					<div className="change-member-item">
+						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
+					</div>
+					
 					<div className="change-member-item">
 						<Section title={`组授权设备`} description="" >
 							<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP" noShowAddNew={true} freshGroupEquipment={freshGroupEquipment}/> 
 						</Section>
 					</div>
-					<div className="change-member-item">
-						
-						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
-					</div>
+					
 					
 				</div>
 

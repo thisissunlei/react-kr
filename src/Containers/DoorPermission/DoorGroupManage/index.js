@@ -67,26 +67,32 @@ export default class DoorGroupManage extends React.Component {
 
 	//操作相关
 	onOperation=(type,itemDetail)=>{
-		// State.itemDetail = itemDetail;
+
 		let _this = this;
 		this.setState({
 			itemDetail
-		},function(){
-			if (type == 'delete') {
-				
-				_this.openDeleteGroupFun();
-			}
-			if(type == 'edit') {
-				_this.openEditDoorGroupFun();
-			}
-			if(type=='changeMember'){
-				_this.openChangeMemeberFun();
-			}
-			if(type=='changeEquipment'){
-				_this.openChangeEquipmentFun();
-			}
-			
 		})
+		
+		if (type == 'delete') {
+			
+			_this.openDeleteGroupFun();
+			return;
+		}
+		if(type == 'edit') {
+			_this.openEditDoorGroupFun();
+			return;
+			
+		}
+		if(type=='changeMember'){
+			_this.openChangeMemeberFun();
+			return;
+			
+		}
+		if(type=='changeEquipment'){
+			_this.openChangeEquipmentFun();
+			return;
+			
+		}
 		
 	}
 

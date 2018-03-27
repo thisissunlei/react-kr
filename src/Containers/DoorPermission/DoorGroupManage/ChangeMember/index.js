@@ -64,12 +64,15 @@ export default class ChangeMember extends React.Component{
 					<img src={closeImg} style={{float:"right",width:30,cursor:"pointer"}} onClick={this.closeChangeMember}/>
 				</div>
 				<div style={{width:"100%"}}>
-					<div className="change-member-item">
-						<GroupMember groupItemDetail={itemDetail} freshGroupMemberList={freshGroupMemberList}/>
-					</div>
+				
 					<div className="change-member-item">
 						<AllMemberManage groupItemDetail={itemDetail} freshGroupMemberList={this.freshGroupMemberList}/>
 					</div>
+
+					<div className="change-member-item">
+						<GroupMember groupItemDetail={itemDetail} freshGroupMemberList={freshGroupMemberList}/>
+					</div>
+					
 				</div>
 
 		  	</div>
