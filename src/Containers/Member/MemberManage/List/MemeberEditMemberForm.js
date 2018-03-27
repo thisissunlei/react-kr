@@ -193,7 +193,7 @@ export default class MemeberEditMemberForm extends React.Component {
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} />
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" right={30}  onBlur={this.communityChange} requireLabel={true}/>
 					<KrField name="job" grid={1/2} label="职位" right={30}  />
-					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} requireLabel={true}/>
+					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
 					<KrField name="leader" component="group" label="企业管理员"  style={{width:252}} >
 						<KrField name="leader" label="是" type="radio" value="1" />
 						<KrField name="leader" label="否" type="radio" value='0' />
@@ -223,9 +223,9 @@ const validate = values => {
 	if (!values.email) {
 		errors.email = '请输入邮箱';
 	}
-	if (!values.identityCard) {
-		errors.identityCard = '请输入身份证号码';
-	}
+	// if (!values.identityCard) {
+	// 	errors.identityCard = '请输入身份证号码';
+	// }
 	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
     if( values.identityCard && !reg.test(values.identityCard)){   
          errors.identityCard = '身份证输入不合法';   

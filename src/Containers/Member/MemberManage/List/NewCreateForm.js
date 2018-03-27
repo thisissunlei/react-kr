@@ -221,7 +221,7 @@ class NewCreateForm extends React.Component{
 						<KrField name="leader" label="是" type="radio" value="1" />
 						<KrField name="leader" label="否" type="radio" value='0' />
 					</KrField>
-					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} requireLabel={true} />
+					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}}/>
 					<Grid style={{marginTop:18,marginBottom:'4px'}}>
 						<Row>
 							<ListGroup>
@@ -248,9 +248,9 @@ const validate = values => {
 	if (!values.email) {
 		errors.email = '请输入邮箱';
 	}
-	if (!values.identityCard) {
-		errors.identityCard = '请输入身份证号码';
-	}
+	// if (!values.identityCard) {
+	// 	errors.identityCard = '请输入身份证号码';
+	// }
 	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
     if( values.identityCard && !reg.test(values.identityCard)){  
         errors.identityCard = '身份证输入不合法';   
