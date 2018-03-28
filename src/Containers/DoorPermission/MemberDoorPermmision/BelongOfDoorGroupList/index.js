@@ -17,6 +17,8 @@ import './index.less';
 
 import DropOutGroup from './DropOutGroup';
 import AuthorizationEquipment from '../AuthorizationEquipment';
+import AllGroupList from '../../DoorGroupManage';
+import AddMemberIntoGroup from './AddMemberIntoGroup';
 import close from "../images/close.svg";
 
 import PropsState from '../State';
@@ -156,6 +158,7 @@ export default class BelongOfDoorGroup extends React.Component {
     renderItems=(items)=>{
         let that = this;
         var dom = items.map(function(item,index){
+            console.log("item",item);
             return(
                 <div className="content-item-line" key={index}>
                     <span className="item-block" style={{width:"15%"}}>{item.name}</span>
@@ -170,12 +173,59 @@ export default class BelongOfDoorGroup extends React.Component {
                     <span className="item-block" style={{width:"6%"}}>{item.creatorName}</span>
                     <span className="item-block" style={{width:"19%"}}>
                         <Button  label="移出组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,item)}/>
-                        <Button  label="组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,item)}/>
+                        {
+                            item.groupLevel == "NORMAL" &&
+                            
+                            <Button  label="组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,item)}/>
+                            
+                        }
                     </span>
                 </div>
             )
         })
         return dom;
+    }
+
+    openAllGroupList=()=>{
+        
+        State.openAllGroupListDialog = !State.openAllGroupListDialog
+    }
+
+
+    confirmAddMemberToGroup=()=>{
+        let that = this;
+        let  {memberDetailInfo} = this.props;
+        let {groupDetail}= this.state;
+        let sendParams ={
+            groupId : groupDetail.id,
+            uids : memberDetailInfo.uid
+        }
+        Http.request('addGroupMemberApi',{},sendParams).then(function(response) {
+            
+            that.openAddTipDialogFun();
+            Message.success("成功加入组");
+            that.getItems();
+            
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+    }
+
+    clickAddMemberBtn=(groupDetail)=>{
+
+        let _this =this;
+        this.setState({
+            groupDetail :groupDetail
+        },function(){
+            _this.openAddTipDialogFun();
+        })
+        
+    }
+
+
+
+    openAddTipDialogFun=()=>{
+        State.openAddTipDialog = !State.openAddTipDialog;
     }
 
 
@@ -188,10 +238,13 @@ export default class BelongOfDoorGroup extends React.Component {
         let {memberDetailInfo,doorTypeOptions} = this.props;
         let groupLevelOptions = PropsState.groupLevelOptions;
         var title = memberDetailInfo.name + "已加入的组";
-        let {getGroupContainMemberParams,itemDetail,items,authorazitionEquipmentList} = this.state;
+        let {getGroupContainMemberParams,itemDetail,items,authorazitionEquipmentList,groupDetail} = this.state;
         
 		return (
 		    <div className="belong-of-door-group" >
+                <div className="add-group-btn">
+                    <Button label="加入组"  onTouchTap={this.openAllGroupList} />
+                </div>
 				<Section title={title} description="" >
                     <div className="title-line">
                         <span className="item-block" style={{width:"15%"}} >组名称</span>
@@ -246,6 +299,33 @@ export default class BelongOfDoorGroup extends React.Component {
                         </div>  
 
 					</Drawer>
+                    <Drawer 
+			        	open={State.openAllGroupListDialog}
+			        	onClose = {this.openAllGroupList}
+					    width={"70%"} 
+					    openSecondary={true} 
+					>
+                        <div className="person-group-items-list">   
+                            <div className="person-group-item-list-close-btn">
+                                <img src={close} onClick={this.openAllGroupList}/>
+                            </div>                
+                            <AllGroupList rootPage="personalDoorPermmision" clickAddMemberBtn={this.clickAddMemberBtn}/> 
+                        </div>  
+
+					</Drawer>
+
+                    <Dialog
+			          title="将成员加入组"
+			          open={State.openAddTipDialog}
+			          onClose={this.openAddTipDialogFun}
+			          contentStyle={{width:425}}
+			        >
+                      <AddMemberIntoGroup 
+                        memberDetailInfo={memberDetailInfo} 
+                        confirmAddMemberToGroup={this.confirmAddMemberToGroup}
+                        groupDetail ={groupDetail}
+                    />
+			        </Dialog>
                     
 
                 </Section>

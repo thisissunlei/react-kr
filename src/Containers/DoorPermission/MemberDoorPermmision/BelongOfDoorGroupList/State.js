@@ -12,6 +12,8 @@ let State = observable({
 	
 	showDropOutGroup : false,
 	showAuthorizationEquipmentDialog: false,
+	openAllGroupListDialog: false,
+	openAddTipDialog : false,
 	doorTypeOptions : [],
 	groupLevelOptions: [{
 		label:"普通组",

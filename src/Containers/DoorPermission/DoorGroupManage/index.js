@@ -93,6 +93,10 @@ export default class DoorGroupManage extends React.Component {
 			return;
 			
 		}
+		if(type=="addMemberToGroup"){
+			let {clickAddMemberBtn} =this.props;
+			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
+		}
 		
 	}
 
@@ -222,6 +226,7 @@ export default class DoorGroupManage extends React.Component {
 		} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
 		let that = this;
+		let {rootPage}=this.props;
 		return (
 		    <div className="door-permission-manage" style={{minHeight:'910',backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
@@ -346,12 +351,17 @@ export default class DoorGroupManage extends React.Component {
 								component={
 									(itemData)=>{
 										return (
+											(rootPage && rootPage=="personalDoorPermmision")?
 												<div>
+															
+													<Button  label="加入"  type="operation" operation="addMemberToGroup" onClick={that.onOperation.bind(this,"addMemberToGroup",itemData)}/>
+												</div>
+												:<div>
 													
 													<Button  label="成员"  type="operation" operation="changeMember" onClick={that.onOperation.bind(this,"changeMember",itemData)}/>
 													{
 														itemData.groupLevel == "NORMAL" &&
-														<Button  label="授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
+														<Button  label="已授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
 													}
 													<Button  label="编辑"  type="operation" operation="edit"  onClick={that.onOperation.bind(this,"edit",itemData)}/>
 													<Button  label="删除"  type="operation" operation="delete" onClick={that.onOperation.bind(this,"delete",itemData)}/>

@@ -34,6 +34,7 @@ export default class SearchForms extends Component{
 	}
 	componentDidMount() {
 		let _this = this;
+		this.click();
 		 $('.search-val').bind('keypress',function(event){
 
             if(event.keyCode == "13")

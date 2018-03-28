@@ -95,7 +95,6 @@ export default class MemberDoorPermissionManage extends React.Component {
 		return (
 		    <div className="member-door-permmision personsal-door-permmision" >
 				<Title value="个人门禁权限"/>
-				{/* <Section title={`个人门禁权限`} description="" > */}
 
 					<div className="personal-permmision-item">
                     	<MemberInfo memberDetailInfo={memberDetailInfo}/>
@@ -107,7 +106,6 @@ export default class MemberDoorPermissionManage extends React.Component {
 						<AuthoriazationEquipmentBox memberDetailInfo={memberDetailInfo} granteeId={memberId} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
 					</div>
 					
-				{/* </Section> */}
 			</div>
 		);
 
