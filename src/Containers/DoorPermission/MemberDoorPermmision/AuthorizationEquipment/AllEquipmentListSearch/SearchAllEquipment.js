@@ -33,6 +33,7 @@ class SearchAllEquipmentForm extends React.Component{
 			seachFormContent : '',
 			seachFormFilter : "doorCode",
 			floorsOptions:[],
+			doorTypeOptions : [],
 			searchEquipmentFormOptions : [
 				{
 					label:"屏幕编号",
@@ -58,7 +59,31 @@ class SearchAllEquipmentForm extends React.Component{
 		}
 	}
 	componentDidMount(){
-		
+		this.getDoorTypeOptions();
+	}
+
+
+	getDoorTypeOptions=()=>{
+		let that = this;
+		Http.request('getWarningType',{}).then(function(response) {
+			var doorTypeArrNew=[];
+			
+			if(response.DoorType){
+				for (var i=0;i<response.DoorType.length;i++){
+					
+					doorTypeArrNew[i] = {
+						label:response.DoorType[i].desc,
+						value:response.DoorType[i].value
+					}
+				}
+			}
+	
+			that.setState({
+				doorTypeOptions : doorTypeArrNew
+			})
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
 	}
 
 	
@@ -72,11 +97,7 @@ class SearchAllEquipmentForm extends React.Component{
 		
 	}
 
-	// onClearAll=()=>{
-	// 	Store.dispatch(reset('SearchGroupForm',''));
-	// 	let {clearParams} = this.props;
-	// 	clearParams && clearParams();
-	// }
+	
 
 	changeSearchFormContent=(content)=>{
 		
@@ -121,7 +142,6 @@ class SearchAllEquipmentForm extends React.Component{
 		var communityIdReal,floorReal;
 		if(!community){
 
-			// communityIdReal = '';
 			floorReal = '';
 			Store.dispatch(change('SearchAllEquipmentForm','floor',''));
 			_this.setState({
@@ -129,8 +149,7 @@ class SearchAllEquipmentForm extends React.Component{
 			})
 
 		}else{
-			// communityIdReal = community.id;
-			// floorReal = State.equipmentSecondParams.floor
+			
 
 			let CommunityId = {
 				communityId : community.id
@@ -149,20 +168,13 @@ class SearchAllEquipmentForm extends React.Component{
 
 		}
 
-		// var newObj = {
-		// 	communityId: communityIdReal,
-		// 	floor : floorReal,
-		// 	page:1
-		// }
-		// State.realPage =1;
-		// State.equipmentSecondParams = Object.assign({},State.equipmentSecondParams,newObj);
 
 	}
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter,} = this.props;
-		let {searchEquipmentFormOptions,seachFormContent,floorsOptions} = this.state;
-		let doorTypeOptions = PropsState.doorTypeOptions;
+		let {searchEquipmentFormOptions,seachFormContent,floorsOptions,doorTypeOptions} = this.state;
+		
 		var str= new Date().getTime();
 		str =  "search-form-" + str;
 
