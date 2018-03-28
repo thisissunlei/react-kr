@@ -207,6 +207,7 @@ export default class CanOperationEquipment extends React.Component {
     }
     
     onSelect=(result,selectedListData)=>{
+        console.log("selectedListData",selectedListData);
         this.setState({
             selectedListData 
         })

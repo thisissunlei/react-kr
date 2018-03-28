@@ -158,6 +158,8 @@ class NewCreateDoorGroup extends React.Component{
 					name ="memo"
 					component = 'textarea'
 					style={{width:538}}
+					maxSize = {40}
+					
 				/>
 
 				<Grid>

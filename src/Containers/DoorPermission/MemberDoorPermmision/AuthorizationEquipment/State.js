@@ -10,6 +10,7 @@ import {Message} from 'kr-ui';
 
 let State = observable({
 	showCancleAuthorization : false,
+	showBatchCancleAuthorization :false,
 	showAuthorizationEquipmentDialog : false,
 	openNewCreateAuthoriazation : false,
 	doorTypeOptions : [],

@@ -17,6 +17,7 @@ import './index.less';
 
 import SearchForm from './SearchForm';
 import CancleAuthorization from './CancleAuthorization';
+import BatchCancleAuthoriazation from './BatchCancleAuthoriazation';
 // import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
 import AllEquipmentListBox from './AllEquipmentListBox';
 
@@ -38,6 +39,8 @@ export default class CanOperationEquipment extends React.Component {
 		this.state = {
             itemDetail : {},
             memberDetailInfo :{},
+            selectedListData : [],
+            ids : '',
 			getMemberAuthorizeEquipmentParams : {
                 communityId : '',
                 deviceId : '',
@@ -128,14 +131,8 @@ export default class CanOperationEquipment extends React.Component {
 
         let {itemDetail} = this.state;
         let that = this;
-        Http.request('deleteEquipmentFromGroupApi',{},{ids : itemDetail.id}).then(function(response) {
-           
-            that.cancleAuthorizationFun();
-            that.refreshAuthoriazationEquipmentList();
-            Message.success("取消授权成功");
-        }).catch(function(err) {
-            Message.error(err.message);
-        });
+        let params = {ids : itemDetail.id}
+        this.sendRequest(params);
     }
 
 
@@ -170,10 +167,74 @@ export default class CanOperationEquipment extends React.Component {
         })
     }
 
+    renderBatchCancleAuthoriazation=()=>{
+
+        return (
+
+            <a 
+                style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}} 
+                onClick={this.batchCancleAuthorization}
+            >
+                取消授权
+             </a>
+
+			
+		)
+    }
+
+    batchCancleAuthorization=()=>{
+        console.log("dlflld;fl;dlf;ld;fl");
+        let {selectedListData} = this.state;
+        console.log("dlflld;fl;dlf;ld;fl");
+        
+        if(selectedListData.length<1){
+            Message.warntimeout("请选择您要取消的设备","error");
+            return;
+        }
+
+        this.showBatchCancleAuthorizationFun();
+
+    }
+
+    onSelect=(result,selectedListData)=>{
+        
+        this.setState({
+            selectedListData 
+        })
+    }
+
+    showBatchCancleAuthorizationFun=()=>{
+        State.showBatchCancleAuthorization = !State.showBatchCancleAuthorization;
+    }
+
+    confirmBatchCancleAuthorization=()=>{
+        let {selectedListData} = this.state;
+        var ids = []
+        for(var i =0 ;i<selectedListData.length;i++){
+            ids.push(selectedListData[i].id);
+        }
+        let params = {ids :ids.join(",")};
+        this.sendRequest(params);
+        
+
+    }
+
+    sendRequest=(params)=>{
+        
+        let that= this;
+        Http.request('deleteEquipmentFromGroupApi',{},params).then(function(response) {
+            State.showBatchCancleAuthorization = false;
+            State.showCancleAuthorization = false;
+            Message.success("取消授权成功");
+            that.refreshAuthoriazationEquipmentList();
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
+    }
+
 
 
 	render() {
-        
         let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail} = this.state;
 
@@ -203,7 +264,8 @@ export default class CanOperationEquipment extends React.Component {
                         ajaxUrlName='getGroupAuthorizeEquipmentApi'
                         ajaxParams={getMemberAuthorizeEquipmentParams}
                         onPageChange={this.onPageChange}
-                        displayCheckbox={false}
+                        displayCheckbox={true}
+                        onSelect={this.onSelect}
                     >
                     <TableHeader>
                         <TableHeaderColumn>社区名称</TableHeaderColumn>
@@ -329,10 +391,9 @@ export default class CanOperationEquipment extends React.Component {
                     </TableRow>
                     
                     </TableBody>
-                    {/* {
-                        granteeType && granteeType =="CUSTOMER" && */}
-                        <TableFooter>
-						</TableFooter>
+                    
+                    <TableFooter renderOther={this.renderBatchCancleAuthoriazation}>
+                    </TableFooter>
 
                     
 					</Table>
@@ -347,6 +408,20 @@ export default class CanOperationEquipment extends React.Component {
 			          <CancleAuthorization
 			            onCancel={this.cancleAuthorizationFun}
                         confirmCancleAuthorization = {this.confirmCancleAuthorization}
+                        itemDetail = {itemDetail}
+                        memberDetailInfo={memberDetailInfo}
+			          />
+			        </Dialog>
+
+                    <Dialog
+			          title="批量取消授权"
+			          open={State.showBatchCancleAuthorization}
+			          onClose={this.showBatchCancleAuthorizationFun}
+			          contentStyle={{width:425}}
+			        >
+			          <BatchCancleAuthoriazation
+			            onCancel={this.showBatchCancleAuthorizationFun}
+                        confirmBatchCancleAuthorization = {this.confirmBatchCancleAuthorization}
                         itemDetail = {itemDetail}
                         memberDetailInfo={memberDetailInfo}
 			          />
