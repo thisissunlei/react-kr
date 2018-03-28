@@ -1,8 +1,7 @@
 module.exports = [
     {
         primaryText: "项目管理",
-        router: 'finance',
-        type: 'vue',
+        menuCode: 'bill',
         menuItems: [
             {
                 primaryText: "项目管理",
@@ -12,9 +11,9 @@ module.exports = [
                 menuItems: [
                     {
                         primaryText: "项目管理",
-                        router: 'bill/projectSetting',
+                        originUrl: '/bill/projectSetting',
                         type: 'vue',
-                        menuCode: 'pay_deal_flow_page'
+                        menuCode: 'pay_deal_flow_page',
                     }
                 ]
             }
