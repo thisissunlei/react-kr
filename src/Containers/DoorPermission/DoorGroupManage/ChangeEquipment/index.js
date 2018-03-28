@@ -72,12 +72,10 @@ export default class ChangeMember extends React.Component{
 					<img src={closeImg} style={{float:"right",width:30,cursor:"pointer"}} onClick={this.closeChangeMember}/>
 				</div>
 				<div style={{width:"100%"}}>
-					{
-						itemDetail.groupLevel &&  itemDetail.groupLevel=="NORMAL" &&
-						<div className="change-member-item">
-							<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
-						</div>
-					}
+
+					{/* <div className="change-member-item">
+						<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
+					</div> */}
 					
 					
 					<div className="change-member-item">

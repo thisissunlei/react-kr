@@ -137,13 +137,6 @@ export default class SearchForms extends Component{
 				};
 				let {onSubmit} = this.props;
 				onSubmit && onSubmit(value);
-			// if(this.hasClass(searchForm, 'show-form')){
-		 //        this.removeClass(searchForm,'show-form');
-			// 	this.removeClass(searchButton,'click');
-			// }
-			// _this.setState({
-			// 		num:0
-			// 	})
 
 		}
 
