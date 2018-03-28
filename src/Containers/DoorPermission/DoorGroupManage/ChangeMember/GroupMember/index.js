@@ -225,11 +225,12 @@ export default class GroupMemberManage extends React.Component {
 		let that = this;
 		let {groupItemDetail} = this.props;
 		let doorTypeOptions = PropsState.doorTypeOptions;
+		var str = "组成员 | 组名称：" + groupItemDetail.name
 		
 		return (
 		    <div className="change-member-item-box" style={{backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
-				<Section title={`组成员`} description="" >
+				<Section title={str} description="" >
 					<div style={{    float: "right", marginTop: "-60px"}}>
 						<Button label="添加成员"  onTouchTap={this.openAddMemberDialogFun} className="button-list"/>
 					</div>
