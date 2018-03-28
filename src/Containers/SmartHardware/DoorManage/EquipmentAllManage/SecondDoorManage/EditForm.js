@@ -287,7 +287,7 @@ class EditForm extends React.Component{
 
 		Http.request('getDeviceIDRepeat',hardwareIdparams).then(function(response){
 
-	 		State.editSecondDoor(values);
+			 State.editSecondDoor(values);
 
 		}).catch(function(err){
 

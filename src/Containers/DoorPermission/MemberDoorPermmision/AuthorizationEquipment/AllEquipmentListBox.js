@@ -8,9 +8,6 @@ import './index.less';
 
 import close from '../images/close.svg';
 
-// import SearchForm from './SearchForm';
-// import CancleAuthorization from './CancleAuthorization';
-// import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
 import AllEquipmentListSearch from './AllEquipmentListSearch';
 
 

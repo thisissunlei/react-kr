@@ -18,7 +18,6 @@ export default class SearchForms extends Component{
 	}
 	constructor(props, context) {
 		super(props, context);
-		this.click = this.click.bind(this);
 		this.selectShow = this.selectShow.bind(this);
 		this.state = {
 			num : 0,
@@ -26,12 +25,10 @@ export default class SearchForms extends Component{
 			otherName:'',
 			valueType:'',
 		};
-		this.hasClass = this.hasClass.bind(this);
 		this.removeClass = this.removeClass.bind(this);
 		this.toggleClass = this.toggleClass.bind(this);
 		this.selectHidden = this.selectHidden.bind(this);
 		this.getValue = this.getValue.bind(this);
-		this.renderFilter = this.renderFilter.bind(this);
 		this.bodyEvent = this.bodyEvent.bind(this);
 		// this.bodyEvent()
 	}
@@ -60,7 +57,7 @@ export default class SearchForms extends Component{
 		}
 
 	}
-	hasClass(obj, cls) {
+	hasClass=(obj, cls)=> {
 	    return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
 	}
 
@@ -82,7 +79,7 @@ export default class SearchForms extends Component{
 	    }
 	}
 
-	click(){
+	click=()=>{
 		let {num} = this.state;
 		let {searchFilter} = this.props;
 		let _this = this;
@@ -90,7 +87,6 @@ export default class SearchForms extends Component{
 		const form = ReactDOM.findDOMNode(this.form);
 		const searchButton = form.getElementsByClassName('icon-searching')[0];
 		const searchForm = form.getElementsByClassName('search-status')[0];
-
 		if(!num){
 			if(!this.hasClass(searchButton, 'click')){
 				searchButton.className = searchButton.className + ' click';
@@ -182,45 +178,6 @@ export default class SearchForms extends Component{
 		}
 		let targetList = ['icon-searching', 'search-val', 'search-name','filter-container','icon-searching click'];
 		$('.icon-searching').click(function(event){
-			// const form = ReactDOM.findDOMNode(_this.form);
-
-			// let searchName = '';
-			// let {searchFilter} = _this.props;
-			// let filterValue = '';
-
-			// const filterDom = document.getElementsByClassName('search-name');
-			// if(filterDom.length){
-			// 	searchName = document.getElementsByClassName('search-name')[0].innerHTML;
-			// 	searchFilter.forEach((item)=>{
-			// 		if(item.label === searchName ){
-			// 			filterValue = item.value
-			// 		}
-			// 	})
-			// }
-			// var searchWord = document.getElementById("keywords").value;
-
-			// if(form){
-			// 	const searchButton = form.getElementsByClassName('icon-searching')[0];
-			// 	const searchForm = form.getElementsByClassName('search-status')[0];
-			// 	let name = event.target.className;
-			// 	let close = true;
-			// 	if(parseInt(name)+1){return;}
-			// 	targetList.forEach((item)=>{
-			// 		if(item === name){
-			// 			close = false;
-			// 		}
-			// 	})
-			// 	if(name == 'icon-searching click' || name == 'icon-searching'){
-			// 		_this.click();
-			// 	}
-			// 	if(filterValue || searchWord){return;}
-			// 	// if(close){
-			// 	// 	_this.removeClass(searchForm,'show-form');
-			// 	// 	_this.removeClass(searchButton,'click');
-			// 	// 	_this.setState({num:0})
-			// 	// }
-			// }
-
 
 		})
 	}
@@ -232,7 +189,7 @@ export default class SearchForms extends Component{
 		onChange && onChange(values)
 	}
 
-	renderFilter(){
+	renderFilter=()=>{
 		let {searchFilter,filterSpecialClass} = this.props;
 		let {value} = this.state;
 		let select ='请选择';
@@ -261,6 +218,17 @@ export default class SearchForms extends Component{
 			)
 		}
 	}
+
+	onkeydown=(e)=>{
+		var e = e || window.event;
+
+		if(e.keyCode == 13){
+			let {inputEnter} = this.props;
+			inputEnter && inputEnter();
+		}
+	}
+
+
 	render(){
 		var placeholder=this.props.placeholder||"请输入查找内容"
 
@@ -277,7 +245,7 @@ export default class SearchForms extends Component{
 					{this.renderFilter()}
 
 					<div className="search-content" style={contentStyle}>
-						<input type="text" autoComplete="off"  onChange = {this.onChange} className="search-val" placeholder={placeholder}  name={inputName} id={inputName} ref="realInput"/>
+						<input type="text" autoComplete="off"  onChange = {this.onChange} className="search-val" placeholder={placeholder}  name={inputName} id={inputName} ref="realInput" onKeyDown={this.onkeydown}/>
 					</div>
 				</div>
 				<span className="icon-searching" onClick={this.click}></span>

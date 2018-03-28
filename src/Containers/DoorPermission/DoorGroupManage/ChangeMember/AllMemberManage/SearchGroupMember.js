@@ -30,6 +30,16 @@ class SearchGroupForm extends React.Component{
 		this.state={
 			seachFormContent : '',
 			seachFormFilter : "name",
+			communityId : '',
+			customerId : '',
+			searchParams : {
+				communityId:'', 
+				customerId: '', 
+				name: '', 
+				phone: '', 
+				page: 1,
+				pageSize: 15
+			},
 			searchFormOptions : [
 				{
 					label:"姓名",
@@ -54,9 +64,36 @@ class SearchGroupForm extends React.Component{
 			customerId : values.customerId_all||'',
 		}
 		sendData = Object.assign(sendData,values);
+		
+		this.sendSearchParams(sendData);
+		
+	}
+
+	onSearchFormSubmit=()=>{
+
+		let {communityId,customerId,seachFormFilter,searchFilterContent} = this.state;
+		var param ={};
+		param[seachFormFilter] = searchFilterContent;
+		var searchParams = {
+			communityId: communityId,
+			customerId: customerId,
+			page: 1,
+			pageSize: 15
+		}
+		var sendParams = Object.assign({},searchParams,param);
+		
+		this.sendSearchParams(sendParams);
+	}
+
+
+	sendSearchParams = (sendData)=>{
+
 		let {submitSearchParams}=this.props;
 		submitSearchParams && submitSearchParams(sendData);
-		
+		this.setState({
+			searchParams : sendData
+		})
+
 	}
 
 	// onClearAll=()=>{
@@ -100,6 +137,35 @@ class SearchGroupForm extends React.Component{
 		}
 	}
 
+	onChangeCommunity=(item)=>{
+		console.log("item",item);
+		if(!item){
+			this.setState({
+				communityId : ''
+			})
+			return;
+		}
+		this.setState({
+			communityId : item.id
+		})
+	}
+
+	onChangeCompany=(item)=>{
+		console.log("item",item);
+		if(!item){
+			this.setState({
+				customerId : ''
+			})
+			return;
+		}
+		this.setState({
+			customerId : item.id
+		})
+	}
+
+
+
+
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let {logTypeOptions,searchFormOptions,seachFormContent} = this.state;
@@ -124,6 +190,7 @@ class SearchGroupForm extends React.Component{
 							label="公司：" 
 							style={{width:'237px'}}
 							inline={true}
+							onChange = {this.onChangeCompany}
 						/>
 
 					</ListGroupItem>
@@ -133,6 +200,7 @@ class SearchGroupForm extends React.Component{
 					<ListGroupItem >
 						<span style={{display:"inline-block",marginRight:10}}>
 							<SearchFormsNew onSubmit={this.onSearchSubmit}  
+								inputEnter={this.onSearchFormSubmit}
 								style={{zIndex:10000,marginLeft:10}}
 								content={seachFormContent}
 								searchFilter={searchFormOptions}

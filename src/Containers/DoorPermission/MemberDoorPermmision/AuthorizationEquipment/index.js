@@ -15,7 +15,7 @@ import {Actions,Store} from 'kr/Redux';
 import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
-import SearchForm from './SearchForm';
+import SearchForm from './AllEquipmentListSearch/SearchAllEquipment';
 import CancleAuthorization from './CancleAuthorization';
 import BatchCancleAuthoriazation from './BatchCancleAuthoriazation';
 // import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
@@ -172,10 +172,10 @@ export default class CanOperationEquipment extends React.Component {
         return (
 
             <a 
-                style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}} 
+                style={{width:105,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}} 
                 onClick={this.batchCancleAuthorization}
             >
-                取消授权
+                批量取消授权
              </a>
 
 			

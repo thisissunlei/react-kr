@@ -226,7 +226,8 @@ State.freshPageReturn =  action(function(){
         doorType :  State.equipmentSecondParams.doorType ||'',
         floor :  State.equipmentSecondParams.floor ||'',
         maker :  State.equipmentSecondParams.maker ||'',
-        title : State.equipmentSecondParams.title ||'',
+		title : State.equipmentSecondParams.title ||'',
+		logined :  State.equipmentSecondParams.logined ||'',
 
     }	
 })

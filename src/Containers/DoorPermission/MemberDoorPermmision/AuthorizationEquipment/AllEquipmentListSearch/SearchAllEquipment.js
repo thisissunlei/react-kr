@@ -34,6 +34,9 @@ class SearchAllEquipmentForm extends React.Component{
 			seachFormFilter : "doorCode",
 			floorsOptions:[],
 			doorTypeOptions : [],
+			communityId: '',
+			doorType:'',
+			floor: '',
 			searchEquipmentFormOptions : [
 				{
 					label:"屏幕编号",
@@ -90,8 +93,11 @@ class SearchAllEquipmentForm extends React.Component{
 
 	onSubmit=(values)=>{
 		
+		let {seachFormContent,seachFormFilter} =this.state;
+		let SearchFormData = {};
+		SearchFormData[seachFormFilter] = seachFormContent;
 		let newObj = {pageSize:15}
-		let sendParams = Object.assign({},values,newObj)
+		let sendParams = Object.assign({},values,newObj,SearchFormData)
 		let {submitSearchParams}=this.props;
 		submitSearchParams && submitSearchParams(sendParams);
 		
@@ -100,39 +106,30 @@ class SearchAllEquipmentForm extends React.Component{
 	
 
 	changeSearchFormContent=(content)=>{
-		
+		console.log("centent",content);
 		let that = this;
 		let {seachFormFilter} = this.state;
 		this.setState({
-			searchFilterContent : content
+			seachFormContent : content
 		},function(){
-			that.resetSearchFormData(content);
+			// that.resetSearchFormData(content);
 		})
 
 	}
 
 	changeSearchFormFilter=(filter)=>{
 		let that = this;
-		let {searchFilterContent} = this.state;
+		let {seachFormContent} = this.state;
 		this.setState({
 			seachFormFilter : filter
 		},function(){
-			that.resetSearchFormData(searchFilterContent);
+			// that.resetSearchFormData(seachFormContent);
 		})
 		
 	}
 
 	resetSearchFormData=(content)=>{
 
-		let {seachFormFilter} = this.state;
-		let newObj = {};
-		newObj[seachFormFilter] = content;
-
-		let emptyObj ={doorCode : '',deviceId : '',title : ''}
-		let formDateObj = Object.assign(emptyObj,newObj);
-		Store.dispatch(change('SearchAllEquipmentForm','deviceId',formDateObj.deviceId || ""));
-		Store.dispatch(change('SearchAllEquipmentForm','doorCode',formDateObj.doorCode || ""));
-		Store.dispatch(change('SearchAllEquipmentForm','title',formDateObj.title|| ""));
 		
 	}
 
@@ -145,11 +142,14 @@ class SearchAllEquipmentForm extends React.Component{
 			floorReal = '';
 			Store.dispatch(change('SearchAllEquipmentForm','floor',''));
 			_this.setState({
-				floorsOptions : []
+				floorsOptions : [],
+				communityId : ''
 			})
 
 		}else{
-			
+			_this.setState({
+				communityId : community.id
+			})
 
 			let CommunityId = {
 				communityId : community.id
@@ -167,8 +167,50 @@ class SearchAllEquipmentForm extends React.Component{
 			})
 
 		}
+	}
 
+	onchangeFloor=(item)=>{
+		if(!item){
+			this.setState({
+				floor: '',
+			})
+		}else{
+			this.setState({
+				floor: item.value
+			})
+		}
+	}
 
+	onchangeDoorType=(item)=>{
+		
+		if(!item){
+			this.setState({
+				doorType: '',
+			})
+		}else{
+			this.setState({
+				doorType: item.value
+			})
+		}
+	}
+
+	onSearchFormSubmit=()=>{
+
+		let {communityId,doorType,floor,seachFormFilter,seachFormContent} = this.state;
+		var param ={};
+		param[seachFormFilter] = seachFormContent;
+		console.log("param",param);
+		var searchParams = {
+			communityId: communityId,
+			doorType: doorType,
+			floor : floor,
+			page: 1,
+			pageSize: 15
+		}
+		var sendParams = Object.assign({},searchParams,param);
+		
+		let {submitSearchParams} =this.props;
+		submitSearchParams && submitSearchParams(sendParams);
 	}
 
 	render(){
@@ -222,6 +264,7 @@ class SearchAllEquipmentForm extends React.Component{
 					<ListGroupItem >
 						<span style={{display:"inline-block",marginRight:10}}>
 							<SearchFormsNew onSubmit={this.onSearchSubmit}  
+								inputEnter={this.onSearchFormSubmit}
 								style={{zIndex:10000,marginLeft:10}}
 								content={seachFormContent}
 								searchFilter={searchEquipmentFormOptions}

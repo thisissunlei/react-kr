@@ -14,7 +14,7 @@ import {
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
- import SearchGroupMember from './SearchGroupMember';
+ import SearchGroupMember from '../AllMemberManage/SearchGroupMember';
  import DeleteMemberFromGroup from './DeleteMemberFromGroup';
  import BatchDeleteMemberFromGroup from './BatchDeleteMemberFromGroup';
  import AllMemberList from './AllMemberList';

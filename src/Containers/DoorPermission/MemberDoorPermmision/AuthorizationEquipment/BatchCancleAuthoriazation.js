@@ -53,7 +53,7 @@ export default class DeleteGroup extends React.Component {
 		console.log("itemDetail",itemDetail);
 		return (
 		    <div style={{marginTop:20}}>
-					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要取消“{itemDetail.title}”的权限吗？</p>
+					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>取消授权后，{itemDetail.name}将失去开门权限？</p>
 					<p style={{textAlign:"center",color:"#333333",fontSize:12,color:"#ff6868"}}>
 						<img src={warning} style={{width:15,verticalAlign: "top",  marginRight: 4}}/>
 						<span>取消授权后，将无法开门</span>
