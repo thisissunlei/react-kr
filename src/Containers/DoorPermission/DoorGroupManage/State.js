@@ -14,6 +14,7 @@ let State = observable({
 	openDeleteGroup : false,
 	openChangeMemeberDialog : false,
 	openChangeEquipmentDialog : false,
+	openAddEquipmentDialog :false,
 	doorTypeOptions : [],
 	groupLevelOptions: [{
 		label:"普通组",
