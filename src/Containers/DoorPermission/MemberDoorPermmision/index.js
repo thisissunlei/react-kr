@@ -93,15 +93,21 @@ export default class MemberDoorPermissionManage extends React.Component {
 
 		
 		return (
-		    <div className="member-door-permmision" >
+		    <div className="member-door-permmision personsal-door-permmision" >
 				<Title value="个人门禁权限"/>
-				<Section title={`个人信息`} description="" >
+				{/* <Section title={`个人门禁权限`} description="" > */}
+
+					<div className="personal-permmision-item">
+                    	<MemberInfo memberDetailInfo={memberDetailInfo}/>
+					</div>
+					<div className="personal-permmision-item">
+				   		<BelongOfDoorGroupList memberDetailInfo={memberDetailInfo} doorTypeOptions={doorTypeOptions} memberId={memberId}/>
+                    </div>
+					<div className="personal-permmision-item">
+						<AuthoriazationEquipmentBox memberDetailInfo={memberDetailInfo} granteeId={memberId} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
+					</div>
 					
-                    <MemberInfo memberDetailInfo={memberDetailInfo}/>
-                    <BelongOfDoorGroupList memberDetailInfo={memberDetailInfo} doorTypeOptions={doorTypeOptions} memberId={memberId}/>
-                    <AuthoriazationEquipmentBox memberDetailInfo={memberDetailInfo} granteeId={memberId} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
-					
-				</Section>
+				{/* </Section> */}
 			</div>
 		);
 

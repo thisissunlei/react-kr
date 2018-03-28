@@ -13,7 +13,7 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
-	
+	Section
 } from 'kr-ui';
 import './index.less';
 import {DateFormat} from 'kr/Utils';
@@ -58,52 +58,55 @@ class MemberInfoForm extends React.Component{
         const { error, handleSubmit, pristine, reset,content,filter,memberDetailInfo} = this.props;
 
 		return (
-			<form onSubmit={handleSubmit(this.onSubmit)} className="member-info-top">
-				<KrField
-					style={{width:'252px',marginRight:30}}
-					inline={true}
-					component="labelText"
-					label="姓名："
-					value={memberDetailInfo.name}
-				/>
+			<Section title={`个人信息`} description="" >
+			
+				<form onSubmit={handleSubmit(this.onSubmit)} className="member-info-top">
+					<KrField
+						style={{width:'252px',marginRight:30}}
+						inline={true}
+						component="labelText"
+						label="姓名："
+						value={memberDetailInfo.name}
+					/>
 
-                <KrField
-					style={{width:'252px',marginRight:30}}
-					inline={true}
-					component="labelText"
-					label="联系电话："
-					value={memberDetailInfo.phone}
-				/>
+					<KrField
+						style={{width:'252px',marginRight:30}}
+						inline={true}
+						component="labelText"
+						label="联系电话："
+						value={memberDetailInfo.phone}
+					/>
 
-                <KrField
-					style={{width:'252px',marginRight:30}}
-					inline={true}
-					component="labelText"
-					label="邮箱："
-					value={memberDetailInfo.email}
-				/>
+					<KrField
+						style={{width:'252px',marginRight:30}}
+						inline={true}
+						component="labelText"
+						label="邮箱："
+						value={memberDetailInfo.email}
+					/>
 
-                
-                <KrField
-					style={{width:'252px',marginRight:30}}
-					inline={true}
-					component="labelText"
-					label="社区名称："
-					value={memberDetailInfo.communityName}
-				/>
+					
+					<KrField
+						style={{width:'252px',marginRight:30}}
+						inline={true}
+						component="labelText"
+						label="社区名称："
+						value={memberDetailInfo.communityName}
+					/>
 
-                <KrField
-					style={{width:300,marginRight:30}}
-					inline={true}
-					component="labelText"
-					label="公司："
-					value={memberDetailInfo.companyName}
-				/>
+					<KrField
+						style={{width:300,marginRight:30}}
+						inline={true}
+						component="labelText"
+						label="公司："
+						value={memberDetailInfo.companyName}
+					/>
 
 
-                
+					
 
-			</form>
+				</form>
+			</Section>
 		);
 	}
 }
