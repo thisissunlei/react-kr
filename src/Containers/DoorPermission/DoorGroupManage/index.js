@@ -222,6 +222,7 @@ export default class DoorGroupManage extends React.Component {
 			itemDetail
 		} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
+		let that = this;
 		return (
 		    <div className="door-permission-manage" style={{minHeight:'910',backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
@@ -341,15 +342,27 @@ export default class DoorGroupManage extends React.Component {
 							}} ></TableRowColumn>
 
 							
+							<TableRowColumn type="operation"
+								style={{width:"15%"}}
+								component={
+									(itemData)=>{
+										console.log("itemData",itemData);
+										return (
+												<div>
+													
+													<Button  label="更改成员"  type="operation" operation="changeMember" onClick={that.onOperation.bind(this,"changeMember",itemData)}/>
+													{
+														itemData.groupLevel == "NORMAL" &&
+														<Button  label="授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
+													}
+													<Button  label="编辑"  type="operation" operation="edit"  onClick={that.onOperation.bind(this,"edit",itemData)}/>
+													<Button  label="删除"  type="operation" operation="delete" onClick={that.onOperation.bind(this,"delete",itemData)}/>
 
-							
-							<TableRowColumn type="operation" style={{width:"16%",overflow:"visible"}} >
-							
-								<Button  label="更改成员"  type="operation" operation="changeMember"/>
-								<Button  label="授权设备"  type="operation" operation="changeEquipment"/>
-								<Button  label="编辑"  type="operation" operation="edit"/>
-								<Button  label="删除"  type="operation" operation="delete"/>
-								
+												</div>
+											)
+									}
+								}
+							> 
 							</TableRowColumn>
 
 						</TableRow>
