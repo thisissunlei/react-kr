@@ -50,7 +50,6 @@ export default class DeleteGroup extends React.Component {
 
 	render() {
         let {memberDetailInfo,groupDetail} =this.props;
-        console.log("memberDetailInfo",memberDetailInfo,"groupDetail",groupDetail);
 		return (
 		    <div style={{marginTop:20}}>
 					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要将{memberDetailInfo.name}加入{groupDetail.name}吗？</p>

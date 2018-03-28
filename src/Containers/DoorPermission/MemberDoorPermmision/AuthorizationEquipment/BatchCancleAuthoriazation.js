@@ -50,7 +50,6 @@ export default class DeleteGroup extends React.Component {
 
 	render() {
 		let {itemDetail} = this.props;
-		console.log("itemDetail",itemDetail);
 		return (
 		    <div style={{marginTop:20}}>
 					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>取消授权后，{itemDetail.name}将失去开门权限？</p>

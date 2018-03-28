@@ -106,7 +106,6 @@ class SearchAllEquipmentForm extends React.Component{
 	
 
 	changeSearchFormContent=(content)=>{
-		console.log("centent",content);
 		let that = this;
 		let {seachFormFilter} = this.state;
 		this.setState({
@@ -199,7 +198,6 @@ class SearchAllEquipmentForm extends React.Component{
 		let {communityId,doorType,floor,seachFormFilter,seachFormContent} = this.state;
 		var param ={};
 		param[seachFormFilter] = seachFormContent;
-		console.log("param",param);
 		var searchParams = {
 			communityId: communityId,
 			doorType: doorType,

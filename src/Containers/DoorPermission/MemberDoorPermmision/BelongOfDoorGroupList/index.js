@@ -158,7 +158,6 @@ export default class BelongOfDoorGroup extends React.Component {
     renderItems=(items)=>{
         let that = this;
         var dom = items.map(function(item,index){
-            console.log("item",item);
             return(
                 <div className="content-item-line" key={index}>
                     <span className="item-block" style={{width:"15%"}}>{item.name}</span>

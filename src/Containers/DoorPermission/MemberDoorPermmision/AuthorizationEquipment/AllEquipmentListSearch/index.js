@@ -112,7 +112,6 @@ export default class CanOperationEquipment extends React.Component {
     }
 
     submitSearch=(values)=>{
-        console.log("values",values);
         let {getAllEquipmentParams} = this.state;
         let {memberDetailInfo} = this.props;
         var timer = {date : new Date()};
@@ -207,14 +206,12 @@ export default class CanOperationEquipment extends React.Component {
     }
     
     onSelect=(result,selectedListData)=>{
-        console.log("selectedListData",selectedListData);
         this.setState({
             selectedListData 
         })
     }
 
     // onPageChange=(page)=>{
-    //     console.log("page",page);
     //     let {getAllEquipmentParams} = this.state;
     //     let pageObj = {page:page};
     //     let newObj = Object.assign({},getAllEquipmentParams,pageObj);

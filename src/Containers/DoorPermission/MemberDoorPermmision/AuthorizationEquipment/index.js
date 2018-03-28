@@ -183,9 +183,7 @@ export default class CanOperationEquipment extends React.Component {
     }
 
     batchCancleAuthorization=()=>{
-        console.log("dlflld;fl;dlf;ld;fl");
         let {selectedListData} = this.state;
-        console.log("dlflld;fl;dlf;ld;fl");
         
         if(selectedListData.length<1){
             Message.warntimeout("请选择您要取消的设备","error");

@@ -50,7 +50,6 @@ export default class DeleteGroup extends React.Component {
 
 	render() {
 		let {itemDetail,memberDetailInfo} = this.props;
-		console.log("memberDetailInfo",memberDetailInfo)
 		return (
 		    <div style={{marginTop:20}}>
 					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要取消“{memberDetailInfo.name}”对“{itemDetail.title}”的权限吗？</p>
