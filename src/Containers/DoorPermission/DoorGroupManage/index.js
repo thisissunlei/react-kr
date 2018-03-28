@@ -205,7 +205,6 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	onPageChange=(page)=>{
-		console.log("page",page);
 		this.setState({
 			realPage : page
 		})
@@ -346,7 +345,6 @@ export default class DoorGroupManage extends React.Component {
 								style={{width:"15%"}}
 								component={
 									(itemData)=>{
-										console.log("itemData",itemData);
 										return (
 												<div>
 													

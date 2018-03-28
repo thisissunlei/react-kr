@@ -227,14 +227,13 @@ export default class DoorGroupManage extends React.Component {
 						<TableHeaderColumn>电话</TableHeaderColumn>
 						<TableHeaderColumn>社区名称</TableHeaderColumn>
 						<TableHeaderColumn>公司</TableHeaderColumn>
-						<TableHeaderColumn>邮箱</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
 					<TableBody style={{position:'inherit'}}>
 						<TableRow>
 							
 						<TableRowColumn name="name"
-							style={{width:"15%"}}
+							style={{width:"20%"}}
 							
 						component={(value,oldValue)=>{
 							if(value==""){
@@ -244,7 +243,7 @@ export default class DoorGroupManage extends React.Component {
 						></TableRowColumn>
 
 						<TableRowColumn 
-							style={{width:"15%"}}
+							style={{width:"20%"}}
 							name="phone" 
 							component={(value,oldValue,itemData)=>{
 							var TooltipStyle=""
@@ -262,7 +261,7 @@ export default class DoorGroupManage extends React.Component {
 
 						<TableRowColumn 
 							name="communityName" 
-							style={{width:"15%"}}
+							style={{width:"20%"}}
 							component={(value,oldValue,itemData)=>{
 							var TooltipStyle=""
 							if(value.length==""){
@@ -277,7 +276,7 @@ export default class DoorGroupManage extends React.Component {
 
 						<TableRowColumn 
 							name="companyName" 
-							style={{width:"25%"}}
+							style={{width:"30%"}}
 							component={(value,oldValue,itemData)=>{
 							var TooltipStyle=""
 							if(value.length==""){
@@ -291,24 +290,7 @@ export default class DoorGroupManage extends React.Component {
 						}} ></TableRowColumn>
 
 
-						<TableRowColumn 
-							name="email" 
-							style={{width:"15%"}}
-							component={(value,oldValue,itemData)=>{
-							var TooltipStyle=""
-							if(value.length==""){
-								TooltipStyle="none"
-
-							}else{
-								TooltipStyle="block";
-							}
-								return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
-								<Tooltip offsetTop={5} place='top'><span  className="start-end">{value}</span></Tooltip></div>)
-						}} ></TableRowColumn>
-
-						
-
-						<TableRowColumn type="operation" style={{width:"10%",overflow:"visible"}} >
+						<TableRowColumn type="operation" style={{width:"15%",overflow:"visible"}} >
 
 							<Button  label="添加"  type="operation" operation="addMember"/>
 

@@ -17,6 +17,7 @@ import './index.less';
  import SearchGroupMember from './SearchGroupMember';
  import DeleteMemberFromGroup from './DeleteMemberFromGroup';
  import BatchDeleteMemberFromGroup from './BatchDeleteMemberFromGroup';
+ import AllMemberList from './AllMemberList';
 
 
 import State from './State';
@@ -61,12 +62,11 @@ export default class GroupMemberManage extends React.Component {
 			this.refreshPage();
 		}
 	}
-    
-	
+
 	
 
 	submitSearchParams=(params)=>{
-		console.log("params",params);
+		// console.log("params",params);
 		let {groupItemDetail} = this.props;
 		let that =this;
 		var params = Object.assign({},params,{date:new Date(),groupId :groupItemDetail.id});
@@ -209,6 +209,12 @@ export default class GroupMemberManage extends React.Component {
 	}
 
 	
+
+	openAddMemberDialogFun=()=>{
+		State.openAddMemberDialog = !State.openAddMemberDialog;
+	}
+
+	
 	
 
 
@@ -224,6 +230,9 @@ export default class GroupMemberManage extends React.Component {
 		    <div className="change-member-item-box" style={{backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
 				<Section title={`组成员`} description="" >
+					<div style={{    float: "right", marginTop: "-60px"}}>
+						<Button label="添加成员"  onTouchTap={this.openAddMemberDialogFun} className="button-list"/>
+					</div>
 					<div className="group-member-search-box">
 						<SearchGroupMember submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
 					</div>
@@ -249,14 +258,13 @@ export default class GroupMemberManage extends React.Component {
 						<TableHeaderColumn>电话</TableHeaderColumn>
 						<TableHeaderColumn>社区名称</TableHeaderColumn>
 						<TableHeaderColumn>公司</TableHeaderColumn>
-						<TableHeaderColumn>邮箱</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
 					<TableBody style={{position:'inherit'}}>
 						<TableRow>
 							
 						<TableRowColumn name="name"
-							style={{width:"15%"}}
+							style={{width:"20%"}}
 							
 						component={(value,oldValue)=>{
 							if(value==""){
@@ -266,7 +274,7 @@ export default class GroupMemberManage extends React.Component {
 						></TableRowColumn>
 
 						<TableRowColumn 
-							style={{width:"15%"}}
+							style={{width:"20%"}}
 							name="phone" 
 							component={(value,oldValue,itemData)=>{
 							var TooltipStyle=""
@@ -284,7 +292,7 @@ export default class GroupMemberManage extends React.Component {
 
 						<TableRowColumn 
 							name="communityName" 
-							style={{width:"15%"}}
+							style={{width:"20%"}}
 							component={(value,oldValue,itemData)=>{
 							var TooltipStyle=""
 							if(value.length==""){
@@ -299,7 +307,7 @@ export default class GroupMemberManage extends React.Component {
 
 						<TableRowColumn 
 							name="customerName" 
-							style={{width:"25%"}}
+							style={{width:"30%"}}
 							component={(value,oldValue,itemData)=>{
 							var TooltipStyle=""
 							if(value.length==""){
@@ -313,24 +321,9 @@ export default class GroupMemberManage extends React.Component {
 						}} ></TableRowColumn>
 
 
-						<TableRowColumn 
-							name="email" 
-							style={{width:"15%"}}
-							component={(value,oldValue,itemData)=>{
-							var TooltipStyle=""
-							if(value.length==""){
-								TooltipStyle="none"
-
-							}else{
-								TooltipStyle="block";
-							}
-								return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
-								<Tooltip offsetTop={5} place='top'><span  className="start-end">{value}</span></Tooltip></div>)
-						}} ></TableRowColumn>
-
 						
 
-						<TableRowColumn type="operation" style={{width:"10%",overflow:"visible"}} >
+						<TableRowColumn type="operation" style={{width:"15%",overflow:"visible"}} >
 
 							<Button  label="移除"  type="operation" operation="deleteMember"/>
 
@@ -372,7 +365,15 @@ export default class GroupMemberManage extends React.Component {
 						
 			          />
 			        </Dialog>
-					
+					<Drawer 
+			        	open={State.openAddMemberDialog}
+			        	onClose = {this.openAddMemberDialogFun}
+					    width={"70%"} 
+					    openSecondary={true} 
+					>
+						<AllMemberList groupItemDetail={groupItemDetail} freshGroupMemberList={this.refreshPage}/>
+						
+					</Drawer>
 
 				</Section>
 			</div>
