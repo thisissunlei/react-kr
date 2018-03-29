@@ -39,10 +39,12 @@ export default class EquipmentSearch extends React.Component{
 	scrollTable = ()=>{
 		let _this =this;
 		var DomOuter = document.getElementsByClassName("table-body")[0];
+		var DomInner = document.getElementsByClassName("table-body-box")[0];
 		console.log("DomOuter",DomOuter);
 		DomOuter.onscroll = function(){
-			console.log("this.scrollTop+this.offsetHeight+10",this.scrollTop+this.offsetHeight+10,"this.scrollHeight",this.scrollHeight)
-			if(this.scrollTop+this.offsetHeight+10>=this.scrollHeight){
+			console.log("DomInner.offsetHeight",DomInner.offsetHeight);
+			console.log("this.scrollTop",this.scrollTop,"this.offsetHeight",this.offsetHeight)
+			if(this.scrollTop+this.offsetHeight+20>=DomInner.offsetHeight){
 				
 				_this.getEquipmentCache();
 			}
