@@ -63,24 +63,32 @@ const ForEachMenuItemPermission = function (childItem, parentItem, topItem, menu
 
 }
 const ForEachMenuItem = function (childItem, router, topItem) {
-	var nowRouter = (router+"").substring(0,25);
-	if(nowRouter == "/member/memberdoormanage/"){
-		if(childItem.menuCode=="mbr_list_base"){
-			childItem.isActive = true;
-			topItem.isActive = true;
-		}
-		
-		
-	}else{
+	
 
-		if (childItem.hasOwnProperty('router') && childItem.router === router) {
-			childItem.isActive = true;
-			topItem.isActive = true;
-		} else {
-			childItem.isActive = false;
-			
+	if (childItem.hasOwnProperty('router') && childItem.router === router) {
+		childItem.isActive = true;
+		topItem.isActive = true;
+	}else {
+		childItem.isActive = false;
+
+	}
+	if(childItem.hasOwnProperty('otherRouter')){
+
+
+		for(let i=0;i<childItem.otherRouter.length;i++){
+
+			var pageRouterContainOtherRouter=(router.indexOf(childItem.otherRouter[i]))!== -1 ?true:false;
+			if(childItem.otherRouter[i] === router || pageRouterContainOtherRouter){
+				childItem.isActive = true;
+				topItem.isActive = true;
+				break;
+			}
 		}
 	}
+		
+		
+	
+	
 	
 	
 
@@ -188,12 +196,12 @@ State.setRouter = action(function () {
 	var topRouter = router.split('/')[1];
 	var obj = mobx.toJS(this);
 	var navs = obj.items;
-
 	navs = navs.map(function (topItem) {
 		var item = ForEachMenuItem(topItem, router, topItem)
 		if (item.hasOwnProperty('router') && item.router === topRouter) {
 			item.isActive = true;
 		}
+		
 		return item;
 	});
 
@@ -220,27 +228,14 @@ State.setSidebarNavs = action(function () {
 
 	var hash = window.location.hash;
 	var router = hash.split('?').shift().substring(1);
-	var routerNowStr = (router + '').substring(0,25);
-	if(routerNowStr=='/member/memberdoormanage/'){
-		for(var i = 0; i < navs.length; i++){
-			if(navs[i].primaryText == "运营管理"){
-				topItem = navs[i]
-				break;
-			}	
-			
-		}
-	}else{
-
-		for (var i = 0; i < navs.length; i++) {
-		
-			topItem = navs[i];
-			if (topItem.isActive) {
-				break;
-			}
+	
+	for (var i = 0; i < navs.length; i++) {
+	
+		topItem = navs[i];
+		if (topItem.isActive) {
+			break;
 		}
 	}
-
-	
 
 	if (topItem && typeof topItem === 'object' && topItem.hasOwnProperty('menuItems')) {
 		menuItems = topItem.menuItems;
