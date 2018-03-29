@@ -54,6 +54,16 @@ const Member_MemberManage_CardManage = (location, callback) => {
     callback(null, require('kr/Containers/Member/MemberManage/CardManage').default)
   }, 'Member_MemberManage_CardManage')
 }
+const DoorPermission_MemberDoorPermmision = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/DoorPermission/MemberDoorPermmision').default)
+  }, 'DoorPermission_MemberDoorPermmision')
+}
+const DoorPermission_CompanyDoorPermission = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/DoorPermission/CompanyDoorPermission').default)
+  }, 'DoorPermission_CompanyDoorPermission')
+}
 
 
 
@@ -74,11 +84,13 @@ module.exports =()=>{
 	    <Route path="memberManage" getComponent={Basic}>
             <Route path="cardmanage"  getComponent={Member_MemberManage_CardManage}/>
             <Route path="list"  getComponent={Member_MemberManage_List}/>
-			<Route path="doormanage"  getComponent={Member_MemberManage_DoorManage}/>
+			<Route path="doormanage"  getComponent={DoorPermission_CompanyDoorPermission}/>
         </Route>
         <Route path="personalManage" getComponent={Basic}>
 			<Route path="peopleState" getComponent={OA_PersonalManage_PeopleState}/>
         </Route>
+        <Route path="memberdoormanage/:memberId" getComponent={DoorPermission_MemberDoorPermmision}/>
+
 
 	</Route>
 	);
