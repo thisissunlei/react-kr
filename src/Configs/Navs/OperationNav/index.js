@@ -55,9 +55,10 @@ module.exports = [
 					{
 						primaryText: "会员列表",
 						router: '/member/memberManage/list',
+						otherRouter : ['/operation/memberdoormanage/'],
 						menuCode: 'mbr_list_base',
 					},
-					
+
 					{
 						primaryText: "会员卡管理",
 						router: '/member/membermanage/cardmanage',
@@ -68,7 +69,15 @@ module.exports = [
 						originUrl: '/member/setting-manager',
 						type:'vue',
 						menuCode: 'fina_manager_setting_page'
-					},
+					},{
+						primaryText: '门禁权限组管理',
+						menuCode: 'auth_user_group_list',
+						router: '/doorpermission/doorgroupmanage',
+					},{
+						primaryText: "企业门禁授权",
+						router: '/member/memberManage/doormanage',
+						menuCode: 'door_base',
+					}
 				]
 			},
 			{
@@ -279,25 +288,6 @@ module.exports = [
 
 				]
 			},
-			{
-				primaryText: '硬件平台',
-				iconName: 'icon-hardware',
-				iconColor: '#79859a',
-				menuItems: [
-					{
-						primaryText: "门禁授权",
-						router: '/member/memberManage/doormanage',
-						menuCode: 'door_base',
-					},
-					// {
-					// 	primaryText: '设备定义',
-					// 	menuCode: 'sysDeviceDefinitionList',
-					// 	router: '/operation/basicconfig/equipmentdefinition'
-					// },
-
-				]
-			},
-
 			{
 				primaryText: "基础配置",
 				iconName: 'icon-basis',

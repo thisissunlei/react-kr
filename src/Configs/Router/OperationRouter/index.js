@@ -373,6 +373,11 @@ const Operation_CommunityAllocation_Activitys=(location, callback)=>{
 	}, 'Operation_CommunityAllocation_CompanyVerify')
   }
   
+  const DoorPermission_MemberDoorPermmision = (location, callback) => {
+	require.ensure([], require => {
+	  callback(null, require('kr/Containers/DoorPermission/MemberDoorPermmision').default)
+	}, 'DoorPermission_MemberDoorPermmision')
+  }
 
 //   const Member_MemberManage_Detail = (location, callback) => {
 // 	  require.ensure([], require => {
@@ -386,7 +391,10 @@ module.exports =()=>{
 		<Route path="index" getComponent={Operation_Home}/>
 		{/*分组模版管理*/}
 		<Route path="groupSetting" getComponent={Operation_GroupSetting}/>
+		
 
+        <Route path="memberdoormanage/:memberId" getComponent={DoorPermission_MemberDoorPermmision}/>
+		
 		{/*社区配置*/}
 		<Route path="communityAllocation" getComponent={Basic}>
 

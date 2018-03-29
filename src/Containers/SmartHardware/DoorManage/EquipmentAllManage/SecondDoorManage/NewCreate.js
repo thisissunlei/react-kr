@@ -26,6 +26,9 @@ class NewCreateDefinitionForm extends React.Component{
 			locationOptions:[],
 			communityId :'',
 			propertyOption :State.propertyOption,
+			noShowDoorCode : false,
+			doorTypeState : '',
+			doorCodeText : ''
 		}
 	}
 
@@ -75,12 +78,42 @@ class NewCreateDefinitionForm extends React.Component{
   	
   	//选择属性(会议室／大门)
 	onchooseProperty=(doorType)=>{
-		//console.log("doorType",doorType);
+
 		let _this = this;
+		let {doorCodeText} =this.state;
 		if(doorType == null){
-  			Store.dispatch(change('NewCreateDefinitionForm','doorType',''));
+			  Store.dispatch(change('NewCreateDefinitionForm','doorType',''));
+			  this.setState({
+				  doorTypeState : ''
+			  })
 			return;
 		}
+		if(doorType.value =="MEETING"){
+			this.setState({
+				noShowDoorCode : true
+			},function(){
+				
+				Store.dispatch(change('NewCreateDefinitionForm','doorCode',' '));
+				
+			})
+		}else if(doorType.value =="OFFICE"){
+			this.setState({
+				noShowDoorCode: false,
+			},function(){
+				if(doorCodeText){
+					Store.dispatch(change('NewCreateDefinitionForm','doorCode',doorCodeText));
+				}
+			})
+		}else{
+			this.setState({
+				
+				noShowDoorCode: false
+			})
+		}
+
+		this.setState({
+			doorTypeState : doorType.value,
+		})
   		
   		Store.dispatch(change('NewCreateDefinitionForm','doorType',doorType.value));
   	}
@@ -88,9 +121,26 @@ class NewCreateDefinitionForm extends React.Component{
 	// 选择对应位置
 	onchooseCorrespondingLocation=(roomId)=>{
 		if(roomId == null){
+			this.setState({
+				doorCodeText : ''
+			})
+			Store.dispatch(change('NewCreateDefinitionForm','roomId',''));
+			Store.dispatch(change('NewCreateDefinitionForm','doorCode',''));
 			return;
 		}
+		
 		Store.dispatch(change('NewCreateDefinitionForm','roomId',roomId.value));
+
+
+		let {doorTypeState} = this.state;
+		if(doorTypeState && doorTypeState == "OFFICE"){
+			Store.dispatch(change('NewCreateDefinitionForm','doorCode',roomId.label));
+		}else{
+
+		}
+		this.setState({
+			doorCodeText : roomId.label
+		})
 	}
 	// 选择楼层
 	getFloor=(floor)=>{
@@ -165,7 +215,8 @@ class NewCreateDefinitionForm extends React.Component{
 		
 	}
 	render(){
-		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked} =this.state;
+		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked,noShowDoorCode,
+			doorTypeState,doorCodeText} =this.state;
 		
 		const { error, handleSubmit, reset} = this.props;
 		return(
@@ -230,22 +281,23 @@ class NewCreateDefinitionForm extends React.Component{
 					/>
 					<KrField grid={1/2} name="title" 
 						type="text" 
-						label="屏幕显示标题" 
+						label="屏幕显示标题：" 
 						requireLabel={true} 
 						requiredValue={true} 
 						errors={{requiredValue:'展示标题为必填项'}} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						onBlur = {this.onChangeTitle}
 					/>
-					<KrField grid={1/2} name="doorCode" 
-						type="text" 
-						label="屏幕显示编号" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'门编号为必填项'}} 
-						style={{width:'252px'}}
-						onBlur = {this.doorNumHasFun}
-					/>
+					{!noShowDoorCode &&
+						<KrField grid={1/2} name="doorCode" 
+							type="text" 
+							label="屏幕显示编号：" 
+							style={{width:'252px'}}
+							onBlur = {this.doorNumHasFun}
+						/>
+					}
+
+					
 					
 					
 					<KrField
@@ -288,9 +340,7 @@ const validate = values=>{
 
 		errors.title = '屏幕显示标题最多11个字符';
 	}
-	if(!values.doorCode || /^\s+$/.test(values.doorCode)){
-		errors.doorCode = '屏幕显示编号为必填项';
-	}
+	
 	if(values.doorCode  && values.doorCode.length>9){
 		errors.doorCode = '屏幕显示编号最多9个字符';
 	}
@@ -300,12 +350,19 @@ const validate = values=>{
 	if(values.deviceId && values.deviceId.length>50){
 		errors.deviceId = '智能硬件ID最多50个字符';
 	}
+	
+
 	if(!values.doorType){
 		errors.doorType = '门类型为必填项';
 	}
 	if(values.doorType && (values.doorType=='MEETING' ||values.doorType=='OFFICE')&& !values.roomId){
-		errors.roomId ='门类型为会议室或独立办公室，房间必须填写'
+		errors.roomId ='门类型为会议室或独立办公室，房间必选'
 	}
+
+	if(values.doorType && (values.doorType=='GATE' ||values.doorType=='SPECIAL_CONTROL')&& !values.doorCode){
+		errors.doorCode ='门类型为大门或配置门时，屏幕显示编号必填'
+	}
+
 	if(!values.maker){
 		errors.maker = '厂家为必填项';
 	}
