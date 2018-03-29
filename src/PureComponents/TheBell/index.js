@@ -137,7 +137,6 @@ class TheBell extends React.Component {
   }
 componentDidMount(){
 	let {checkMenus,menusData} = this.props.NavModel;
-	console.log('hhhhh',checkMenus("oper_msg_alert"),checkMenus("oper_msg_csr_due"),checkMenus("oper_msg_csr_trans_base"),checkMenus("oper_msg_visit_base"))
 	if(
 		  checkMenus("oper_msg_alert")
 		||checkMenus("oper_msg_csr_due")
