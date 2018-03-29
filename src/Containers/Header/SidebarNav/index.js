@@ -13,6 +13,7 @@ export default class SidebarNav extends React.Component {
 	}
 
 	renderMenuItems=(menuItems)=>{
+
 		return menuItems.map((item,index)=>{
 			var path=item.originUrl?item.originUrl:`.#${item.router}`;
 			if(!item.target){
@@ -28,6 +29,7 @@ export default class SidebarNav extends React.Component {
 		const {NavModel} = this.props;
 
 		const sidebarNavs = NavModel.sidebarNavs;
+		
 			return (
 				<div className="g-sidebar-nav">
 					<div className="m-siderbar-list">

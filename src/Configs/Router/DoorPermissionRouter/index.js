@@ -21,13 +21,7 @@ const DoorPermission_DoorGroupManage = (location, callback) => {
   }, 'DoorPermission_DoorGroupManage')
 }
 
-
-
-
-
-
 module.exports =()=>{
-
 
 	return (
 		<Route path="doorpermission" getComponent={Basic}>
@@ -35,10 +29,6 @@ module.exports =()=>{
 			
 			<Route path="doorgroupmanage" getComponent={DoorPermission_DoorGroupManage}/>
 
-			{/* <Route path="memberdoormanage/:memberId" getComponent={DoorPermission_MemberDoorPermmision}/> */}
-		
-      
-			
 		</Route>
 	);
 };

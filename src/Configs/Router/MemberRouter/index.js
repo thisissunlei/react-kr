@@ -57,7 +57,6 @@ module.exports =()=>{
         <Route path="memberManage" getComponent={Basic}>
             <Route path="list"  getComponent={Member_MemberManage_List}/>
             <Route path="cardmanage"  getComponent={Member_MemberManage_CardManage}/>
-						{/* <Route path="doormanage"  getComponent={Member_MemberManage_DoorManage}/> */}
 						<Route path="doormanage"  getComponent={DoorPermission_CompanyDoorPermission}/>
             <Route path="list/:memberId"  getComponent={Member_MemberManage_Detail}/>
         </Route>
