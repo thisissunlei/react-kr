@@ -386,7 +386,7 @@ export default class CanOperationEquipment extends React.Component {
                             }
                                 return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
                                 <Tooltip offsetTop={5} place='top'>
-								<span style={{display: 'inline-block',maxWidth: 200,minWidth: 150,wordWrap: 'break-word',wordBreak: "break-all",whiteSpace: 'normal'}}>
+								<span style={{display: 'inline-block',minWidth: 200,wordWrap: 'break-word',wordBreak: "break-all",whiteSpace: 'normal'}}>
                                 {value}
                                 </span>
                                 </Tooltip></div>)

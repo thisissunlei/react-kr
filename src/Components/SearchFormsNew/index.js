@@ -249,7 +249,7 @@ export default class SearchForms extends Component{
 						<input type="text" autoComplete="off"  onChange = {this.onChange} className="search-val" placeholder={placeholder}  name={inputName} id={inputName} ref="realInput" onKeyDown={this.onkeydown}/>
 					</div>
 				</div>
-				<span className="icon-searching" onClick={this.click}></span>
+				<span className="icon-searching" onClick={this.click} style={{display:'none'}}></span>
 
 			</div>
 		)
