@@ -360,7 +360,7 @@ export default class SecondDoorManage  extends React.Component{
 		var urlParamsT = {
 							deviceId:State.itemDetail.deviceId,
 							lastCardNo:'',
-							limit:5,
+							limit:50,
 						}
 		Http.request('getEquipmentCacheURL',urlParamsT).then(function(response) {
 				// console.log("response",response,response.list);
