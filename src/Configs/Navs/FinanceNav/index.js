@@ -10,17 +10,16 @@ module.exports = [
                 iconColor: '#79859a',
                 type: 'vue',
                 menuItems: [
-                // 少账单老数据,
-                	{
-						primaryText: "账单(老数据)",
-						router: '/finance/manage/orderbill/orderList',
-						menuCode: 'fina_account_list'
-					},
                     {
-                        primaryText: "已出账单管理",
+                        primaryText: "账单",
                         originUrl: '/bill/list',
                         type: 'vue',
                         menuCode: 'pay_created_bill_page',
+                    },
+                    {
+                        primaryText: "账单(老数据)",
+                        router: '/finance/manage/orderbill/orderList',
+                        menuCode: 'fina_account_list'
                     },
                     {
                         primaryText: "回款管理",

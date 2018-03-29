@@ -12,11 +12,6 @@ module.exports = [
 				router:'index',
 				menuItems: [
 					{
-						primaryText: '客户线索',
-						router: '/user/customerManage/customerList',
-						menuCode: 'oper_csr_base',
-					},
-					{
                         primaryText: '客户账户',
                         originUrl: '/bill/customerAssets',
                         type:'vue',
@@ -33,6 +28,11 @@ module.exports = [
 						router: '/user/memberManage/doormanage',
 						menuCode: 'door_base',
 					},
+					{
+						primaryText: '客户线索',
+						router: '/user/customerManage/customerList',
+						menuCode: 'oper_csr_base',
+					},
 				]	
 			}, 
 			{
@@ -40,12 +40,7 @@ module.exports = [
 				iconName: 'icon-donething',
 				iconColor: '#79859a',
 				menuItems: [
-					{
-						primaryText: '工作人员',
-						menuCode: 'hrm_resourcesList_incumbency',
-						router: '/user/personalManage/peopleState',
-
-					},
+					
 					{
 						primaryText: "会员",
 						router: '/user/memberManage/list',
@@ -60,6 +55,12 @@ module.exports = [
 						primaryText: '会员APP禁言',
 						menuCode: 'oper_cluster_base',
 						router: '/user/communityAllocation/appmanage'
+					},
+					{
+						primaryText: '工作人员',
+						menuCode: 'hrm_resourcesList_incumbency',
+						router: '/user/personalManage/peopleState',
+
 					},
 				]	
 			}, 
