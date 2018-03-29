@@ -32,12 +32,14 @@ export default class EquipmentSearch extends React.Component{
 			equipmentCacheitems :equipmentCachedItems,
 			itemDetail:State.itemDetail
 		})
-		
+
+		this.scrollTable();
 	}
 
 	scrollTable = ()=>{
 		let _this =this;
 		var DomOuter = document.getElementsByClassName("table-body")[0];
+		console.log("DomOuter",DomOuter);
 		DomOuter.onscroll = function(){
 			console.log("this.scrollTop+this.offsetHeight+10",this.scrollTop+this.offsetHeight+10,"this.scrollHeight",this.scrollHeight)
 			if(this.scrollTop+this.offsetHeight+10>=this.scrollHeight){
