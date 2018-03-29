@@ -58,6 +58,7 @@ module.exports = [
 						otherRouter : ['/operation/memberdoormanage/'],
 						menuCode: 'mbr_list_base',
 					},
+
 					{
 						primaryText: "会员卡管理",
 						router: '/member/membermanage/cardmanage',
@@ -287,21 +288,6 @@ module.exports = [
 
 				]
 			},
-			// {
-			// 	primaryText: '硬件平台',
-			// 	iconName: 'icon-hardware',
-			// 	iconColor: '#79859a',
-			// 	menuItems: [
-			// 		,
-			// 		// {
-			// 		// 	primaryText: '设备定义',
-			// 		// 	menuCode: 'sysDeviceDefinitionList',
-			// 		// 	router: '/operation/basicconfig/equipmentdefinition'
-			// 		// },
-
-			// 	]
-			// },
-
 			{
 				primaryText: "基础配置",
 				iconName: 'icon-basis',
