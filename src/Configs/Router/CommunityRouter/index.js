@@ -14,6 +14,12 @@ const Basic = (location, callback) => {
   }, 'Basic')
 }
 
+const Operation_Home = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Operation/Home').default)
+  }, 'Operation_Home')
+}
+
 const Operation_CommunityManage_Detail = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/Operation/CommunityManage/Detail').default)
@@ -68,7 +74,11 @@ module.exports =()=>{
 
 	return (
     <Route path="community" getComponent={Basic}>
+
          <IndexRedirect to="communityManage/detail" />
+         <Route path="operation" getComponent={Basic}>
+                <Route path="index" getComponent={Operation_Home}/>
+        </Route>
 
         {/*销控表*/}
         <Route path="communityManage" getComponent={Basic}>

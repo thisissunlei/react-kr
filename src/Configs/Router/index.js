@@ -38,6 +38,11 @@ import PublicPageRouter from './PublicPageRouter';
 import SynchronizationRouter from './SynchronizationRouter';
 import DoorPermissionRouter from './DoorPermissionRouter';
 
+//客户会员
+import UserRouter from './UserRouter';
+//商品产品
+import ProductRouter from './ProductRouter';
+
 
 const Master = (location, callback) => {
   require.ensure([], require => {
@@ -134,6 +139,8 @@ export default (
 
         {/*门禁权限管理*/}
         {DoorPermissionRouter()}
+        {UserRouter()}
+        {ProductRouter()}
 
 
 		{/*帮助*/}

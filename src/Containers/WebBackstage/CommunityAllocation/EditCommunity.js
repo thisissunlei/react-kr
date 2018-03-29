@@ -38,7 +38,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           style={{width:262,marginLeft:15}}
           grid={1/2}
           name={`${porTypesStr}.type`}
-          options={[{label:'移动办公桌',value:'MOBILE_DESK'},{label:'开放办公室',value:'OPEN_WORKSPACE'},{label:'独立办公室',value:'INDEPENDENT_WORKSPACE'}]}
+          options={[{label:'移动办公桌',value:'MOBILE_DESK'},{label:'固定办公桌',value:'OPEN_WORKSPACE'},{label:'独立办公室',value:'INDEPENDENT_WORKSPACE'}]}
           component='select'
           label="工位类型"/>
         <div className="krFlied-box"><KrField
@@ -424,9 +424,9 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                 name="addressPhotoUrl"
                                 component="newuploadImage"
                                 innerstyle={{width:245,height:171,padding:10}}
-                                sizePhoto={true}
-                                photoSize={'16:9'}
-                                customTip="提示：图片比例16:9，图片由产品技术设计同事提供"
+                                // sizePhoto={true}
+                                // photoSize={'16:9'}
+                                customTip="提示：图片比例500 * 254，图片由产品技术设计同事提供"
                                 pictureFormat={'JPG,PNG,GIF'}
                                 pictureMemory={'300'}
                                 requestURI = '/api/krspace-finance-web/cmtbright/upload-pic'

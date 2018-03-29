@@ -52,6 +52,7 @@ export function setUserNavs(navcodes){
 		permissionNavs.forEach(function(item,index){
 			var itemPermissionKeys = navcodes[item.menuCode];
 			var childNavs = [];
+			console.log('menuCode',item.menuCode)
 
 			item.permission = true;
 
