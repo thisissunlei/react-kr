@@ -86,12 +86,12 @@ export default class TableFooter extends React.Component {
 			pagination,
 			totalCount,
 			page,
-			pageSize,
+			pageSize
 		} = this.props;
+
 		if (!pagination) {
 			return null;
 		}
-		
 
 		return (
 			<Pagination totalCount={totalCount} page={page} pageSize={pageSize} onPageChange={this.onPageChange}/>
@@ -113,7 +113,6 @@ export default class TableFooter extends React.Component {
 		);
 	}
 	renderOther=()=>{
-		console.log("dkldlkdflkdlfkld");
 		let {renderOther} = this.props;
 		renderOther && renderOther();
 	}
