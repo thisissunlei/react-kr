@@ -32,7 +32,8 @@ import {
 export default class BelongOfDoorGroup extends React.Component {
 
 	constructor(props, context) {
-		super(props, context);
+        super(props, context);
+        this.memberDetailInfo = this.props.memberDetailInfo;
 		this.state = {
             items : [],
 			getGroupContainMemberParams:{
@@ -44,41 +45,19 @@ export default class BelongOfDoorGroup extends React.Component {
 	}
 
 	componentDidMount(){
-        
+        let {memberDetailInfo,memberId} =this.props;
+        this.setState({
+            getGroupContainMemberParams:{
+                uid : memberId,
+                page : 1,
+                pageSize : 15
+            },
+        })
     }
 
-    getItems=()=>{
-        
-
-        let that = this;
-        let {memberDetailInfo} =this.props;
-        let {getGroupContainMemberParams} = that.state;
-        let obj = {uid:memberDetailInfo.uid }
-        let sendParams = Object.assign({},getGroupContainMemberParams,obj);
-        Http.request('getGroupContainMember',sendParams).then(function(response) {
-            that.setState({
-                items : response.items,
-                getGroupContainMemberParams : sendParams
-            })
-        }).catch(function(err) {
-            Message.error(err.message);
-        });
-       
-    }
 
     componentWillReceiveProps(nextProps){
 
-        let that = this;
-        let {memberDetailInfo} = this.props;
-        if(memberDetailInfo !== nextProps.memberDetailInfo){
-            this.setState({
-                getGroupContainMemberParams : {
-                    uid : nextProps.memberDetailInfo.uid
-                }
-            },function(){
-                that.getItems();
-            })
-        }
     }
 
     
@@ -103,24 +82,13 @@ export default class BelongOfDoorGroup extends React.Component {
         Http.request('personPageDropOutGroup',{uid :memberDetailInfo.uid,groupId : itemDetail.id}).then(function(response) {
             that.showDropOutGroupFun();
             Message.success("移出成功");
-            that.getItems();
+            that.refreshPage();
         }).catch(function(err) {
             Message.error(err.message);
         });
     }
 
     
-    returnGroupLevel=(item)=>{
-        let {groupLevelOptions} = PropsState;
-        for(let i =0 ;i<groupLevelOptions.length;i++){
-            if(item.groupLevel ==groupLevelOptions[i].value ){
-                return(
-                    <span>{groupLevelOptions[i].label}</span>
-                )
-            }
-        }
-    }
-
 
     clickShowAuthorizationEquipment=(item)=>{
         let _this =this;
@@ -151,39 +119,6 @@ export default class BelongOfDoorGroup extends React.Component {
         State.showAuthorizationEquipmentDialog = !State.showAuthorizationEquipmentDialog;
     }
 
-    
-
-
-
-    renderItems=(items)=>{
-        let that = this;
-        var dom = items.map(function(item,index){
-            return(
-                <div className="content-item-line" key={index}>
-                    <span className="item-block" style={{width:"15%"}}>{item.name}</span>
-                    <span className="item-block" style={{width:"8%"}}>
-                        {
-                            that.returnGroupLevel(item)
-                        }
-                    </span>
-                    <span className="item-block" style={{width:"12%"}}>{item.communityName}</span>
-                    <span className="item-block" style={{width:"25%"}}>{item.customerName}</span>
-                    <span className="item-block" style={{width:"15%"}}>{ DateFormat(item.ctime,"yyyy-mm-dd HH:MM:ss")}</span>
-                    <span className="item-block" style={{width:"6%"}}>{item.creatorName}</span>
-                    <span className="item-block" style={{width:"19%"}}>
-                        <Button  label="移出组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,item)}/>
-                        {
-                            item.groupLevel == "NORMAL" &&
-                            
-                            <Button  label="组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,item)}/>
-                            
-                        }
-                    </span>
-                </div>
-            )
-        })
-        return dom;
-    }
 
     openAllGroupList=()=>{
         
@@ -203,11 +138,20 @@ export default class BelongOfDoorGroup extends React.Component {
             
             that.openAddTipDialogFun();
             Message.success("成功加入组");
-            that.getItems();
+            that.refreshPage();
             
         }).catch(function(err) {
             Message.error(err.message);
         });
+    }
+
+    refreshPage=()=>{
+        let {getGroupContainMemberParams} = this.state;
+        let newObj = {date: new Date()};
+        let newParams = Object.assign({},getGroupContainMemberParams,newObj)
+        this.setState({
+            getGroupContainMemberParams:newParams
+        })
     }
 
     clickAddMemberBtn=(groupDetail)=>{
@@ -238,30 +182,153 @@ export default class BelongOfDoorGroup extends React.Component {
         let groupLevelOptions = PropsState.groupLevelOptions;
         var title = memberDetailInfo.name + "已加入的组";
         let {getGroupContainMemberParams,itemDetail,items,authorazitionEquipmentList,groupDetail} = this.state;
-        
+        let that = this;
+        console.log("groupLevelOptions",groupLevelOptions);
 		return (
 		    <div className="belong-of-door-group" >
                 <div className="add-group-btn">
                     <Button label="加入组"  onTouchTap={this.openAllGroupList} />
                 </div>
 				<Section title={title} description="" >
-                    <div className="title-line">
-                        <span className="item-block" style={{width:"15%"}} >组名称</span>
-                        <span className="item-block" style={{width:"8%"}}>组级别</span>
-                        <span className="item-block" style={{width:"12%"}}>所属社区</span>
-                        <span className="item-block" style={{width:"25%"}}>公司名称</span>
-                        <span className="item-block" style={{width:"15%"}}>创建时间</span>
-                        <span className="item-block" style={{width:"6%"}}>创建人</span>
-                        <span className="item-block" style={{width:"18%"}}>操作</span>
+                    
+                  {
+                      getGroupContainMemberParams.uid && 
+                      <Table
+                        className="member-list-table"
+                        style={{position:'inherit'}}
+                        onLoaded={this.onLoaded}
+                        ajax={true}
+                        onProcessData={(state)=>{
+                            return state;
+                            }}
+                        exportSwitch={false}
+                        onOperation={this.onOperation}
+                        ajaxFieldListName='items'
+                        ajaxUrlName='getGroupContainMember'
+                        ajaxParams={getGroupContainMemberParams}
+                        onPageChange={this.onPageChange}
+                        displayCheckbox={true}
+                        onSelect={this.onSelect}
+                    >
+                    <TableHeader>
+                        <TableHeaderColumn>组名称</TableHeaderColumn>
+                        <TableHeaderColumn>组级别</TableHeaderColumn>
+                        <TableHeaderColumn>所属社区</TableHeaderColumn>
+                        <TableHeaderColumn>公司名称</TableHeaderColumn>
+                        <TableHeaderColumn>创建时间</TableHeaderColumn>
+                        <TableHeaderColumn>创建人</TableHeaderColumn>
+                        <TableHeaderColumn>操作</TableHeaderColumn>
+                        
+                    </TableHeader>
+                    <TableBody style={{position:'inherit'}}>
+                        <TableRow>
+                            
+                            <TableRowColumn name="name"
+                                style={{width:"15%"}}
+                                
+                            component={(value,oldValue)=>{
+                                if(value==""){
+                                    value="-"
+                                }
+                                return (<span>{value}</span>)}}
+                            ></TableRowColumn>
+                            
+                            <TableRowColumn name="groupLevel"
+                            style={{width:"8%"}}
+                            options={groupLevelOptions}
+                            component={(value,oldValue)=>{
+                                if(value==""){
+                                    value="-"
+                                }
+                                return (<span>{value}</span>)}}
+                            ></TableRowColumn>
 
-                    </div>
-                    <div className="table-body-content">
-                        {
-                            this.renderItems(items)
-                        }
-                    </div>
+
+                            <TableRowColumn 
+                                style={{width:"12%"}}
+                                name="communityName" 
+                                component={(value,oldValue,itemData)=>{
+                                var TooltipStyle=""
+                                if(value.length==""){
+                                    TooltipStyle="none"
+
+                                }else{
+                                    TooltipStyle="block";
+                                }
+                                    return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+                                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                            }} ></TableRowColumn>
+
+                        
+
+                            <TableRowColumn 
+                                name="customerName" 
+                                style={{width:"25%"}}
+                                component={(value,oldValue,itemData)=>{
+                                var TooltipStyle=""
+                                if(value.length==""){
+                                    TooltipStyle="none"
+
+                                }else{
+                                    TooltipStyle="block";
+                                }
+                                    return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+                                    <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                            }} ></TableRowColumn>
+
+                            <TableRowColumn 
+                                style={{width:"15%"}}
+                                name="ctime" 
+                                type="date" 
+                                format="yyyy-mm-dd HH:MM:ss" 
+                            >
+                            </TableRowColumn>
+
+                            <TableRowColumn name="creatorName"
+                            style={{width:"6%"}}
+                            options={doorTypeOptions}
+                            component={(value,oldValue)=>{
+                                if(value==""){
+                                    value="-"
+                                }
+                                return (<span>{value}</span>)}}
+                            ></TableRowColumn>
+
+
+                            
+                            <TableRowColumn type="operation"
+                                style={{width:"19%"}}
+                                component={
+                                    (itemData)=>{
+                                        
+                                        return (
+                                                <div>
+                                                    <Button  label="移出组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,itemData)}/>
+                                                    {
+                                                        itemData.groupLevel == "NORMAL" &&
+                                                        
+                                                        <Button  label="组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,itemData)}/>
+                                                        
+                                                    }
+
+                                                </div>
+                                            )
+                                    }
+                                }
+                            > 
+                            </TableRowColumn>
+
+                        
+
+                    </TableRow>
                     
+                    </TableBody>
                     
+                    <TableFooter>
+                    </TableFooter>
+                    </Table>
+                  }  
+                
                     <Dialog
 			          title="退出组"
 			          open={State.showDropOutGroup}
