@@ -53,6 +53,21 @@ export default class DoorGroupManage extends React.Component {
 	componentDidMount(){
 		State.getDicOptions();
 	}
+
+	
+
+	componentWillUnmount(){
+
+		State.openNewCreateDoorGroup =false;
+		State.openChangeEquipmentDialog =false;
+		State.openChangeMemeberDialog = false;
+		State.openNewCreateDoorGroup =false;
+		State.openEditDoorGroup=false;
+		State.openDeleteGroup = false;
+		
+		
+	}
+	
 	
 	onLoaded=(response)=>{
 		let list = response;
@@ -421,7 +436,7 @@ export default class DoorGroupManage extends React.Component {
 					<Drawer 
 			        	open={State.openChangeMemeberDialog}
 			        	onClose = {this.openChangeMemeberFun}
-					    width={"100%"} 
+					    width={"70%"} 
 					    openSecondary={true} 
 					>
 						<ChangeMember onCancel={this.openChangeMemeberFun} itemDetail={itemDetail} closeChangeMember={this.openChangeMemeberFun}/>
@@ -430,7 +445,7 @@ export default class DoorGroupManage extends React.Component {
 					<Drawer 
 			        	open={State.openChangeEquipmentDialog}
 			        	onClose = {this.openChangeEquipmentFun}
-					    width={"100%"} 
+					    width={"70%"} 
 					    openSecondary={true} 
 					>
 						<ChangeEquipment onCancel={this.openChangeEquipmentFun} itemDetail={itemDetail} closeChangeMember={this.openChangeEquipmentFun}/>

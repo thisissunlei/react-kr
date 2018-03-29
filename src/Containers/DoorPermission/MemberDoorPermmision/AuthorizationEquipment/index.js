@@ -325,7 +325,7 @@ export default class CanOperationEquipment extends React.Component {
 
                         <TableRowColumn 
                             name="serialNo" 
-                            style={{width:"16%"}}
+                            style={{width:"12%"}}
                             component={(value,oldValue,itemData)=>{
                             var TooltipStyle=""
                             if(value.length==""){
@@ -349,17 +349,30 @@ export default class CanOperationEquipment extends React.Component {
                         ></TableRowColumn>
 
 
-                        <TableRowColumn name="startEndTime"
-                            style={{width:"32%"}}
-                            
-                        component={(value,oldValue,item)=>{
-                            if(value==""){
-                                value="-"
-                            }
-                            return (<span>{
-                                DateFormat(item.startAt,"yyyy-mm-dd HH:MM:ss")+"-"+DateFormat(item.endAt,"yyyy-mm-dd HH:MM:ss")
-                            }</span>)}}
-                        ></TableRowColumn>
+                        
+                        <TableRowColumn 
+                            name="startEndTime" 
+                            style={{width:300}}
+                            component={(value,oldValue,itemData)=>{
+                                var timers = DateFormat(itemData.startAt,"yyyy-mm-dd HH:MM:ss")+" —— "+DateFormat(itemData.endAt,"yyyy-mm-dd HH:MM:ss")
+                                var TooltipStyle=""
+                                if(timers.length==""){
+                                    TooltipStyle="none"
+
+                                }else{
+                                    TooltipStyle="block";
+                                }
+                                return (
+                                    <div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
+                                        <span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",fontSize:12}} >
+                                            {timers}
+                                        </span>
+                                        <Tooltip offsetTop={5} place='top'>
+                                            <span  className="start-end">{timers}</span>
+                                        </Tooltip>
+                                    </div>)
+                            }} >
+                        </TableRowColumn>
 
                         <TableRowColumn 
                             name="memo" 

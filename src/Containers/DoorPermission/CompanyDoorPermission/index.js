@@ -80,10 +80,8 @@ export default class DoorGroupManage extends React.Component {
 	render() {
 		let {
 			doorTypeOptions,
-		// 	itemDetail
 		} = this.state;
 		let {companyId} = this.state;
-		// let groupLevelOptions = State.groupLevelOptions;
 		let memberDetailInfo = {id:companyId};
 		return (
 		    <div className="door-permission-manage  search-company-permmision" style={{width:"100%",minHeight:'910',backgroundColor:"#fff"}} >
