@@ -232,6 +232,11 @@ export default class UploadImageComponent extends Component {
 										_this.functionHeightWidth(file,xhrfile);
 										return;
 									}
+									if(_this.props.picUrl){
+										_this.refs.uploadImage.src = xhrfile.response.data.picUrl;
+										_this.props.input.onChange(xhrfile.response.data.picUrl);
+										return;
+									 }
 									
 									_this.refs.uploadImage.src = xhrfile.response.data;
 									_this.props.input.onChange(xhrfile.response.data);
