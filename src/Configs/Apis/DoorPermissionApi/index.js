@@ -72,7 +72,7 @@ module.exports = {
 
     // 用户所属门禁组列表
     'getGroupContainMember':{
-        url: '/api/iot-platform/auth/user/belong-to-group/list?uid={uid}',
+        url: '/api/iot-platform/auth/user/belong-to-group/list?uid={uid}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
     //个人权限页将个人移出权限组
