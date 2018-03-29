@@ -2,19 +2,23 @@
 module.exports = [
 	{
 		primaryText: "客户会员",
-		router: 'user',
-		originUrl: '#/user/customerManage/customerList',
+		menuCode: 'bill',
 		menuItems: [
 			{
 				primaryText: '客户',
 				iconName: 'icon-donething',
 				iconColor: '#79859a',
-				router:'index',
+				type: 'vue',
 				menuItems: [
+					// {
+					// 	primaryText: '客户线索',
+					// 	router: '/user/customerManage/customerList',
+					// 	menuCode: 'oper_csr_base',
+					// },
 					{
                         primaryText: '客户账户',
                         originUrl: '/bill/customerAssets',
-                        type:'vue',
+                        type: 'vue',
                         menuCode: 'customer_assets'
                     },
                     {
