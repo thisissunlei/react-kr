@@ -53,15 +53,16 @@ module.exports = [
 						router: '/product/communityManage/controlTable',
 					},
 					{
-						primaryText: '会议室设备配置',
-		                menuCode: 'oper_cmt_deviceList_base',
-		                router: '/product/communityAllocation/equipmentList'
-					},
-					{
 						primaryText: "招商数据",
 						router: '/product/statistical/index',
 						menuCode: 'stat_group',
 					},
+					{
+						primaryText: '会议室设备配置',
+		                menuCode: 'oper_cmt_deviceList_base',
+		                router: '/product/communityAllocation/equipmentList'
+					},
+					
 				]	
 			}, 
 		]
