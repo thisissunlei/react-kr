@@ -137,10 +137,10 @@ export default (
         
         {PublicPageRouter()}
 
-        {UserRouter()}
-        {ProductRouter()}
         {/*门禁权限管理*/}
         {DoorPermissionRouter()}
+        {UserRouter()}
+        {ProductRouter()}
 
 
 		{/*帮助*/}

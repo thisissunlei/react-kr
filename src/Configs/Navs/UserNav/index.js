@@ -10,11 +10,6 @@ module.exports = [
 				iconColor: '#79859a',
 				type: 'vue',
 				menuItems: [
-					// {
-					// 	primaryText: '客户线索',
-					// 	router: '/user/customerManage/customerList',
-					// 	menuCode: 'oper_csr_base',
-					// },
 					{
                         primaryText: '客户账户',
                         originUrl: '/bill/customerAssets',
@@ -54,6 +49,11 @@ module.exports = [
 						primaryText: "会员卡",
 						router: '/user/membermanage/cardmanage',
 						menuCode: 'mbr_card_base',
+					},
+					{
+						primaryText: '会员权限组',
+						menuCode: 'auth_user_group_list',
+						router: '/doorpermission/doorgroupmanage',
 					},
 					{
 						primaryText: '会员APP禁言',
