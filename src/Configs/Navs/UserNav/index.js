@@ -43,6 +43,7 @@ module.exports = [
 					{
 						primaryText: "会员",
 						router: '/user/memberManage/list',
+						otherRouter : ['/user/memberdoormanage/'],
 						menuCode: 'mbr_list_base',
 					},
 					{
