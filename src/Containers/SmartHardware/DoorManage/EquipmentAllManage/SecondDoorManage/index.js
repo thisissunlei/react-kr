@@ -53,7 +53,8 @@ export default class SecondDoorManage  extends React.Component{
 			selectIds : [],
 			openMenu :false,
 			itemDetail : {},
-			mainInfo : {}
+			mainInfo : {},
+			equipmentCachedItems : []
 		}
 	}
 
@@ -362,8 +363,13 @@ export default class SecondDoorManage  extends React.Component{
 							limit:50,
 						}
 		Http.request('getEquipmentCacheURL',urlParamsT).then(function(response) {
-				
-			_this.openEquipmentCacheFun();
+				// console.log("response",response,response.list);
+			
+			_this.setState({
+				equipmentCachedItems: response.list
+			},function(){
+				_this.openEquipmentCacheFun();
+			})
 
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -532,7 +538,7 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	render(){
-		let {itemDetail}=this.state;
+		let {itemDetail,equipmentCachedItems}=this.state;
 		let {showOpretion} = State;
 		return(
 			<div >
@@ -980,7 +986,7 @@ export default class SecondDoorManage  extends React.Component{
 					    width={"90%"} 
 					    openSecondary={true} 
 					>
-						<EquipmentCache onCancel={this.openEquipmentCacheFun}/>
+						<EquipmentCache onCancel={this.openEquipmentCacheFun} equipmentCachedItems={equipmentCachedItems}/>
 					</Drawer>
 
 					<Dialog

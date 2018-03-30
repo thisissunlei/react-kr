@@ -27,22 +27,21 @@ export default class EquipmentSearch extends React.Component{
 	}
 
 	componentDidMount(){
-		console.log("State.itemDetail",State.itemDetail);
+		let {equipmentCachedItems} = this.props;
 		this.setState({
+			equipmentCacheitems :equipmentCachedItems,
 			itemDetail:State.itemDetail
-		},function(){
-			this.getEquipmentCache();
-			this.scrollTable();
 		})
-		
+
+		this.scrollTable();
 	}
 
 	scrollTable = ()=>{
 		let _this =this;
 		var DomOuter = document.getElementsByClassName("table-body")[0];
+		var DomInner = document.getElementsByClassName("table-body-box")[0];
 		DomOuter.onscroll = function(){
-			console.log("this.scrollTop",this.scrollTop,"this.offsetHeight",this.offsetHeight,"this.scrollHeight",this.scrollHeight);
-			if(this.scrollTop+this.offsetHeight+10>=this.scrollHeight){
+			if(this.scrollTop+this.offsetHeight+20>=DomInner.offsetHeight){
 				
 				_this.getEquipmentCache();
 			}
@@ -59,34 +58,23 @@ export default class EquipmentSearch extends React.Component{
 			_this.setState({
 				loading : true
 			})
-			console.log("_this.state.itemDetail",_this.state.itemDetail);
-			//首次请求 cachedeviceId=""
-			if(_this.state.cachedeviceId !==_this.state.itemDetail.deviceId){
-				_this.setState({
-					cachedeviceId : _this.state.itemDetail.deviceId
-				})
-				var urlParams = {
-								deviceId:_this.state.itemDetail.deviceId,
-								lastCardNo:'',
-								limit:50,
-							}
-			}else{
-				var lastCardNoParams=null;
-				if(_this.state.equipmentCacheitems.length>0){
-					lastCardNoParams = _this.state.equipmentCacheitems[length-1].cardNo 
-				}else{
-					lastCardNoParams = null
-				}
-				
-				var urlParams = {
-								deviceId:_this.state.itemDetail.deviceId,
-								lastCardNo:lastCardNoParams,
-								limit:50,
-							}
+			
+			var lastCardNoParams=null;
+			// console.log("lastCardNoParams",lastCardNoParams);
+			let {equipmentCacheitems} = _this.state;
+			if(equipmentCacheitems.length>0){
+				// console.log("length-1",equipmentCacheitems.length-1,"equipmentCacheitems",equipmentCacheitems);
+				lastCardNoParams = equipmentCacheitems[equipmentCacheitems.length-1].cardNo 
 			}
+			
+			
+			var urlParams = {
+							deviceId:_this.state.itemDetail.deviceId,
+							lastCardNo:lastCardNoParams,
+							limit:50,
+						}
 			Http.request('getEquipmentCacheURL',urlParams).then(function(response) {
 				var oldItems = _this.state.equipmentCacheitems;
-				console.log("response.list",response);
 				if(response.list.length <50){
 					_this.setState({
 						isAll : true
@@ -127,10 +115,9 @@ export default class EquipmentSearch extends React.Component{
 	}
 
 
-	renderTableBody=()=>{
+	renderTableBody=(equipment_cach_list)=>{
 		let _this = this;
 
-		var equipment_cach_list = _this.state.equipmentCacheitems;
 		var DOM_list = equipment_cach_list.map(function(item,index){
 			return(
 				<div className="table-item" key={index}>
@@ -145,7 +132,8 @@ export default class EquipmentSearch extends React.Component{
 	}
 	
 	render(){
-		let {isAll,itemsZero,loading} = this.state;
+		let {isAll,itemsZero,loading,equipmentCacheitems} = this.state;
+		// console.log("equipmentCacheitems",equipmentCacheitems);
 		return (
 			<div className="seconde-dialog">
 
@@ -165,7 +153,7 @@ export default class EquipmentSearch extends React.Component{
 			        		<div className="table-body-box">
 			        			
 				        		{
-				        			this.renderTableBody()
+				        			this.renderTableBody(equipmentCacheitems)
 				        		}
 			        		</div>
 			        		{isAll && !itemsZero&& <div style={{textAlign:'center',margin:"10px 0"}}>以上是全部数据</div>}
