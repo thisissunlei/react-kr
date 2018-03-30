@@ -24,6 +24,7 @@ import Paper from './Paper';
 import SplitLine from './SplitLine';
 import FontIcon from './FontIcon';
 import SearchForms from './SearchForms';
+import SearchFormsNew from './SearchFormsNew';
 import SearchForm from './SearchForm';
 import List from './List';
 import AppBar from './AppBar';
@@ -160,6 +161,7 @@ module.exports = {
 	// Tabs,
 	Tab,
 	SearchForms,
+	SearchFormsNew,
 	...Tabs,
 	UpLoadList,
 	PageHeader,

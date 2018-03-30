@@ -63,13 +63,35 @@ const ForEachMenuItemPermission = function (childItem, parentItem, topItem, menu
 
 }
 const ForEachMenuItem = function (childItem, router, topItem) {
+	
 
 	if (childItem.hasOwnProperty('router') && childItem.router === router) {
 		childItem.isActive = true;
 		topItem.isActive = true;
-	} else {
+	}else {
 		childItem.isActive = false;
+
 	}
+	if(childItem.hasOwnProperty('otherRouter')){
+
+
+		for(let i=0;i<childItem.otherRouter.length;i++){
+
+			var pageRouterContainOtherRouter=(router.indexOf(childItem.otherRouter[i]))!== -1 ?true:false;
+			if(childItem.otherRouter[i] === router || pageRouterContainOtherRouter){
+				childItem.isActive = true;
+				topItem.isActive = true;
+				break;
+			}
+		}
+	}
+		
+		
+	
+	
+	
+	
+
 
 	if (typeof childItem === 'object' && childItem.hasOwnProperty('menuItems')) {
 		var menuItems = childItem.menuItems;
@@ -174,12 +196,12 @@ State.setRouter = action(function () {
 	var topRouter = router.split('/')[1];
 	var obj = mobx.toJS(this);
 	var navs = obj.items;
-
 	navs = navs.map(function (topItem) {
 		var item = ForEachMenuItem(topItem, router, topItem)
 		if (item.hasOwnProperty('router') && item.router === topRouter) {
 			item.isActive = true;
 		}
+		
 		return item;
 	});
 
@@ -204,7 +226,11 @@ State.setSidebarNavs = action(function () {
 	var topItem = null;
 	var menuItems = [];
 
+	var hash = window.location.hash;
+	var router = hash.split('?').shift().substring(1);
+	
 	for (var i = 0; i < navs.length; i++) {
+	
 		topItem = navs[i];
 		if (topItem.isActive) {
 			break;

@@ -36,6 +36,7 @@ import SmartHardware from './SmartHardware';
 import HomeRouter from './HomeRouter';
 import PublicPageRouter from './PublicPageRouter';
 import SynchronizationRouter from './SynchronizationRouter';
+import DoorPermissionRouter from './DoorPermissionRouter';
 
 //客户会员
 import UserRouter from './UserRouter';
@@ -138,6 +139,8 @@ export default (
 
         {UserRouter()}
         {ProductRouter()}
+        {/*门禁权限管理*/}
+        {DoorPermissionRouter()}
 
 
 		{/*帮助*/}
