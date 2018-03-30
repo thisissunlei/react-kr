@@ -72,7 +72,7 @@ export default class MemeberEditMemberForm extends React.Component {
 		let url = this.props.params;
 		
 		let _this = this;
-		Http.request('members-basic-date', {id:detail.uid}).then(function(response) {
+		Http.request('get-member-base-info', {uid:detail.uid}).then(function(response) {
 			response.leader=String(response.leader);
 			Store.dispatch(initialize('memeberEditMemberForm', response));
 
@@ -191,7 +191,7 @@ export default class MemeberEditMemberForm extends React.Component {
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunityAll" right={30}   requireLabel={true} inline={false}/>
 					<KrField name="csrId" grid={1/2} label="公司" component="searchMemberCompany" onChange={this.changeCompany} ValueInfo={companyInfo}   right={30} requiredValue={true} requireLabel={true}/>
 					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} />
-					<KrField name="email" grid={1/2} label="邮箱:" type="text" right={30}  onBlur={this.communityChange} />
+					<KrField name="email" grid={1/2} label="邮箱:" type="text" right={30}  onBlur={this.communityChange} requireLabel={true}/>
 					<KrField name="job" grid={1/2} label="职位" right={30}  />
 					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
 					<KrField name="leader" component="group" label="企业管理员"  style={{width:252}} >
@@ -220,6 +220,12 @@ const validate = values => {
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';
 	}
+	if (!values.email) {
+		errors.email = '请输入邮箱';
+	}
+	// if (!values.identityCard) {
+	// 	errors.identityCard = '请输入身份证号码';
+	// }
 	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
     if( values.identityCard && !reg.test(values.identityCard)){   
          errors.identityCard = '身份证输入不合法';   

@@ -134,7 +134,22 @@ module.exports = {
     },
      //会员列表-会员详情
      'get-member-detail':{
-        url:'/api/krspace-sso-web/member/detail?id={id}',
+        url:'/api/krspace-sso-web/member/detail?uid={uid}',
+        method:'get'
+    },
+    //会员列表-会员-社交业务统计信息
+    'get-user-business-info':{
+        url:'/api/krspace-finance-web/user/business/info?uid={uid}',
+        method:'get'
+    },
+    //会员列表-会员入驻历史记录
+    'get-member-enter-history':{
+        url:'/api/krspace-sso-web/member/enter/history?uid={uid}',
+        method:'get'
+    },
+    //会员列表-会员编辑详情信息
+    'get-member-base-info':{
+        url:'/api/krspace-sso-web/member/base/info?uid={uid}',
         method:'get'
     },
 }

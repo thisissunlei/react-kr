@@ -445,10 +445,10 @@ export default class List extends React.Component {
 													let Style,status;
 													if(value==1){
 														Style="u-txt-red";
-														status='离场';
+														status='已离场';
 													}else if(value==0){
 														Style="u-txt-green";
-														status='正常';
+														status='已入驻';
 													}
 													return (<span className={Style}>{status}</span>)
 												}}
