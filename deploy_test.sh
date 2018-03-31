@@ -37,7 +37,7 @@ case $1 in
     target_site=www@192.168.200.2
     target_site_port=22
 
-    npm run  build:test02 
+    npm run  build:test03
   ;;
   *)
   target_site=www@10.1.60.201
