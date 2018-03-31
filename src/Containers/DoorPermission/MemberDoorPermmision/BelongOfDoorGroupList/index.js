@@ -132,7 +132,7 @@ export default class BelongOfDoorGroup extends React.Component {
         let {groupDetail}= this.state;
         let sendParams ={
             groupId : groupDetail.id,
-            uids : memberDetailInfo.uid
+            uids : memberDetailInfo.accountInfo.uid
         }
         Http.request('addGroupMemberApi',{},sendParams).then(function(response) {
             

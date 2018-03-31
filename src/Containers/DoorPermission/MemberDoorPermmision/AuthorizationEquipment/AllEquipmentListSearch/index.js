@@ -132,7 +132,7 @@ export default class CanOperationEquipment extends React.Component {
         if(granteeType == "USER_GROUP" || granteeType == "CUSTOMER"){
             granteeIdParam = {granteeId : memberDetailInfo.id}
         }else if(granteeType == "USER"){
-            granteeIdParam = {granteeId : memberDetailInfo.uid}
+            granteeIdParam = {granteeId : memberDetailInfo.accountInfo.uid}
         }
         let otherParams = {
             deviceIds:ids,

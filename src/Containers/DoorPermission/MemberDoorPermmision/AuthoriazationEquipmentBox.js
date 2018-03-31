@@ -54,7 +54,7 @@ export default class MemberDoorPermissionManage extends React.Component {
 		return (
 		    <div className="authoriazation-equipment-box" >
                 <Section title={title} description="" >
-                    <AuthorizationEquipment memberDetailInfo={memberDetailInfo} granteeId={memberDetailInfo.uid} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
+                    <AuthorizationEquipment memberDetailInfo={memberDetailInfo} granteeId={memberDetailInfo.accountInfo.uid} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
                 </Section>
 			</div>
 		);
