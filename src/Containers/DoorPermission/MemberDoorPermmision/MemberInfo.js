@@ -41,7 +41,8 @@ class MemberInfoForm extends React.Component{
 
     setMemberInfo=()=>{
             
-        let {memberDetailInfo} = this.props;
+		let {memberDetailInfo} = this.props;
+		console.log("memberDetailInfo",memberDetailInfo);
         Store.dispatch(initialize('MemberInfoForm', memberDetailInfo));
         
     }
@@ -55,52 +56,53 @@ class MemberInfoForm extends React.Component{
 	
 
 	render(){
-        const { error, handleSubmit, pristine, reset,content,filter,memberDetailInfo} = this.props;
+		const { error, handleSubmit, pristine, reset,content,filter,memberDetailInfo} = this.props;
+		console.log("memberDetailInfo",memberDetailInfo);
 
 		return (
 			<Section title={`个人信息`} description="" >
 			
 				<form onSubmit={handleSubmit(this.onSubmit)} className="member-info-top">
-					<KrField
+					{memberDetailInfo.companyInfo &&<KrField
 						style={{width:'252px',marginRight:30}}
 						inline={true}
 						component="labelText"
 						label="姓名："
 						value={memberDetailInfo.companyInfo.mbrName}
-					/>
+					/>}
 
-					<KrField
+					{memberDetailInfo.accountInfo && <KrField
 						style={{width:'252px',marginRight:30}}
 						inline={true}
 						component="labelText"
 						label="联系电话："
 						value={memberDetailInfo.accountInfo.phone}
-					/>
+					/>}
 
-					<KrField
+					{memberDetailInfo.contacts && <KrField
 						style={{width:'252px',marginRight:30}}
 						inline={true}
 						component="labelText"
 						label="邮箱："
 						value={memberDetailInfo.contacts.email}
-					/>
+					/>}
 
 					
-					<KrField
+					{ memberDetailInfo.companyInfo &&<KrField
 						style={{width:'252px',marginRight:30}}
 						inline={true}
 						component="labelText"
 						label="社区名称："
 						value={memberDetailInfo.companyInfo.communityName}
-					/>
+					/>}
 
-					<KrField
+					{memberDetailInfo.companyInfo && <KrField
 						style={{width:300,marginRight:30}}
 						inline={true}
 						component="labelText"
 						label="公司："
 						value={memberDetailInfo.companyInfo.companyName}
-					/>
+					/> }
 
 
 					
