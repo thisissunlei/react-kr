@@ -130,10 +130,14 @@ export default class BelongOfDoorGroup extends React.Component {
         let that = this;
         let  {memberDetailInfo} = this.props;
         let {groupDetail}= this.state;
-        let sendParams ={
-            groupId : groupDetail.id,
-            uids : memberDetailInfo.accountInfo.uid
+        var  sendParams;
+        if(memberDetailInfo.accountInfo){
+            sendParams ={
+                groupId : groupDetail.id,
+                uids : memberDetailInfo.accountInfo.uid
+            }
         }
+        
         Http.request('addGroupMemberApi',{},sendParams).then(function(response) {
             
             that.openAddTipDialogFun();
