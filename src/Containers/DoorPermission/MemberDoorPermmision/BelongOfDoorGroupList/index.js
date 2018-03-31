@@ -77,17 +77,17 @@ export default class BelongOfDoorGroup extends React.Component {
 
     confirmDropOutGroup=()=>{
         let {itemDetail} = this.state;
-        let {memberDetailInfo} = this.props;
+        let {memberDetailInf,memberId} = this.props;
         let that = this;
-        if(memberDetailInfo.accountInfo){
-            Http.request('personPageDropOutGroup',{uid :memberDetailInfo.uid,groupId : itemDetail.id}).then(function(response) {
+        // if(memberDetailInfo.accountInfo){
+            Http.request('personPageDropOutGroup',{uid :memberId,groupId : itemDetail.id}).then(function(response) {
                 that.showDropOutGroupFun();
                 Message.success("移出成功");
                 that.refreshPage();
             }).catch(function(err) {
                 Message.error(err.message);
             });
-        }
+        // }
        
     }
 
