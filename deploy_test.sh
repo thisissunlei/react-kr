@@ -10,7 +10,7 @@ target_site_port=9830
 
 test01_ip=ali-docker-test01
 test02_ip=ali-docker-test02
-test03_ip=ali-docker-test02
+test03_ip=ali-docker-test03
 
 case $1 in
   test | test00)
