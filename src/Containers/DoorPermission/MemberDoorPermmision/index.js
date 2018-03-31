@@ -73,7 +73,7 @@ export default class MemberDoorPermissionManage extends React.Component {
     getMemberDetail=()=>{
         let memberId=this.props.params.memberId;
         let that = this;       
-        Http.request('get-member-detail',{id:memberId}).then(function(response) {
+        Http.request('get-member-detail',{uid:memberId}).then(function(response) {
             that.setState({
                 memberDetailInfo : response
             })
