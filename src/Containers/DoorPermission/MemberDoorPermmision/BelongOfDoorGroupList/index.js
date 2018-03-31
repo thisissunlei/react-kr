@@ -180,10 +180,9 @@ export default class BelongOfDoorGroup extends React.Component {
 	render() {
         let {memberDetailInfo,doorTypeOptions} = this.props;
         let groupLevelOptions = PropsState.groupLevelOptions;
-        var title = memberDetailInfo.name + "已加入的组";
+        var title = "已加入的组";
         let {getGroupContainMemberParams,itemDetail,items,authorazitionEquipmentList,groupDetail} = this.state;
         let that = this;
-        console.log("groupLevelOptions",groupLevelOptions);
 		return (
 		    <div className="belong-of-door-group" >
                 <div className="add-group-btn">
