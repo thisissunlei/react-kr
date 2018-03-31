@@ -66,7 +66,6 @@ export default class CanOperationEquipment extends React.Component {
         if( !granteeId){
             return;
         }
-        console.log("granteeId",granteeId);
         let newobj = {
             granteeId : granteeId
         }
