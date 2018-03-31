@@ -34,7 +34,7 @@ case $1 in
     npm run  build:test02 
   ;;
   test07)
-    target_site=www@192.168.200.2
+    target_site="www@${test03_ip}"
     target_site_port=22
 
     npm run  build:test03
