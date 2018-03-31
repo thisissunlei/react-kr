@@ -66,7 +66,7 @@ class MemberInfoForm extends React.Component{
 						inline={true}
 						component="labelText"
 						label="姓名："
-						value={memberDetailInfo.name}
+						value={memberDetailInfo.companyInfo.mbrName}
 					/>
 
 					<KrField
@@ -74,7 +74,7 @@ class MemberInfoForm extends React.Component{
 						inline={true}
 						component="labelText"
 						label="联系电话："
-						value={memberDetailInfo.phone}
+						value={memberDetailInfo.accountInfo.phone}
 					/>
 
 					<KrField
@@ -82,7 +82,7 @@ class MemberInfoForm extends React.Component{
 						inline={true}
 						component="labelText"
 						label="邮箱："
-						value={memberDetailInfo.email}
+						value={memberDetailInfo.contacts.email}
 					/>
 
 					
@@ -91,7 +91,7 @@ class MemberInfoForm extends React.Component{
 						inline={true}
 						component="labelText"
 						label="社区名称："
-						value={memberDetailInfo.communityName}
+						value={memberDetailInfo.companyInfo.communityName}
 					/>
 
 					<KrField
@@ -99,7 +99,7 @@ class MemberInfoForm extends React.Component{
 						inline={true}
 						component="labelText"
 						label="公司："
-						value={memberDetailInfo.companyName}
+						value={memberDetailInfo.companyInfo.companyName}
 					/>
 
 
