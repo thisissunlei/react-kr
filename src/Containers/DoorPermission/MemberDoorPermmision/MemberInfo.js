@@ -92,7 +92,7 @@ class MemberInfoForm extends React.Component{
 						inline={true}
 						component="labelText"
 						label="社区名称："
-						value={memberDetailInfo.companyInfo.communityName}
+						value={memberDetailInfo.companyInfo.cmtName}
 					/>}
 
 					{memberDetailInfo.companyInfo && <KrField
