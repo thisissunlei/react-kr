@@ -20,6 +20,7 @@ module.exports = [
 					{
 						primaryText: '社区平面图',
 						menuCode: 'oper_cmt_graph_base',
+						otherRouter:['/communityPlanMap'],
 						router: '/product/communityAllocation/communityPlanList'
 					},
 					{
