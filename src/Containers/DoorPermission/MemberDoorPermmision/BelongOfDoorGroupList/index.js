@@ -77,15 +77,18 @@ export default class BelongOfDoorGroup extends React.Component {
 
     confirmDropOutGroup=()=>{
         let {itemDetail} = this.state;
-        let {memberDetailInfo} = this.props;
+        let {memberDetailInf,memberId} = this.props;
         let that = this;
-        Http.request('personPageDropOutGroup',{uid :memberDetailInfo.uid,groupId : itemDetail.id}).then(function(response) {
-            that.showDropOutGroupFun();
-            Message.success("移出成功");
-            that.refreshPage();
-        }).catch(function(err) {
-            Message.error(err.message);
-        });
+        // if(memberDetailInfo.accountInfo){
+            Http.request('personPageDropOutGroup',{uid :memberId,groupId : itemDetail.id}).then(function(response) {
+                that.showDropOutGroupFun();
+                Message.success("移出成功");
+                that.refreshPage();
+            }).catch(function(err) {
+                Message.error(err.message);
+            });
+        // }
+       
     }
 
     
@@ -130,10 +133,14 @@ export default class BelongOfDoorGroup extends React.Component {
         let that = this;
         let  {memberDetailInfo} = this.props;
         let {groupDetail}= this.state;
-        let sendParams ={
-            groupId : groupDetail.id,
-            uids : memberDetailInfo.uid
+        var  sendParams;
+        if(memberDetailInfo.accountInfo){
+            sendParams ={
+                groupId : groupDetail.id,
+                uids : memberDetailInfo.accountInfo.uid
+            }
         }
+        
         Http.request('addGroupMemberApi',{},sendParams).then(function(response) {
             
             that.openAddTipDialogFun();
@@ -180,10 +187,9 @@ export default class BelongOfDoorGroup extends React.Component {
 	render() {
         let {memberDetailInfo,doorTypeOptions} = this.props;
         let groupLevelOptions = PropsState.groupLevelOptions;
-        var title = memberDetailInfo.name + "已加入的组";
+        var title = "已加入的组";
         let {getGroupContainMemberParams,itemDetail,items,authorazitionEquipmentList,groupDetail} = this.state;
         let that = this;
-        console.log("groupLevelOptions",groupLevelOptions);
 		return (
 		    <div className="belong-of-door-group" >
                 <div className="add-group-btn">

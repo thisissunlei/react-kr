@@ -49,12 +49,14 @@ export default class MemberDoorPermissionManage extends React.Component {
             memberDetailInfo
 		} = this.props;
         let doorTypeOptions = State.doorTypeOptions;
-        var title = "授权给"+memberDetailInfo.name + "的设备";
+        var title = "授权的设备";
         
 		return (
 		    <div className="authoriazation-equipment-box" >
                 <Section title={title} description="" >
-                    <AuthorizationEquipment memberDetailInfo={memberDetailInfo} granteeId={memberDetailInfo.uid} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
+				   {memberDetailInfo.accountInfo &&
+				    <AuthorizationEquipment memberDetailInfo={memberDetailInfo} granteeId={memberDetailInfo.accountInfo.uid} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
+					}
                 </Section>
 			</div>
 		);
