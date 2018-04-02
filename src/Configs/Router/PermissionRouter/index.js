@@ -51,11 +51,7 @@ const Permission_AccountManage_OperationsLogs = (location, callback) => {
     callback(null, require('kr/Containers/Permission/AccountManage/OperationsLogs').default)
   }, 'Permission_AccountManage_OperationsLogs')
 }
-const Permission_LoginLog = (location, callback) => {
-  require.ensure([], require => {
-    callback(null, require('kr/Containers/Permission/LoginLog').default)
-  }, 'Permission_LoginLog')
-}
+
 
 const Permission_SystemManage_AppLoginLogs = (location, callback) => {
   require.ensure([], require => {
@@ -137,6 +133,17 @@ const Permission_ProcessManage_SqlModel= (location, callback) => {
     callback(null, require('kr/Containers/Permission/ProcessManage/SqlModel').default)
   }, 'Permission_ProcessManage_SqlModel')
 }
+// 登录拆分
+const Permission_LoginLog_App = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/LoginLog/AppLog').default)
+  }, 'Permission_LoginLog')
+}
+const Permission_LoginLog_PC = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/Permission/LoginLog/PcLog').default)
+  }, 'Permission_LoginLog')
+}
 
 
 module.exports =()=>{
@@ -147,7 +154,8 @@ module.exports =()=>{
       <Route path="user" getComponent={Permission_User}/>
 		  <Route path="user/:page" getComponent={Permission_User}/>
 		  <Route path="operations" getComponent={Permission_Operations}/>
-      <Route path="loginlog" getComponent={Permission_LoginLog}/>
+      <Route path="loginlog" getComponent={Permission_LoginLog_PC}/>
+      <Route path="loginlogApp" getComponent={Permission_LoginLog_App}/>
       <Route path="accountManage" getComponent={Basic}>
           <Route path="accountList" getComponent={Permission_AccountManage_AccountList}/>
           <Route path="operationsLogs" getComponent={Permission_AccountManage_OperationsLogs}/>

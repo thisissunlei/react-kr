@@ -183,14 +183,14 @@ class CustomerList extends React.Component {
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
 				<Title value="签约客户"/>
 				<Tabs className="tabs">
-					<Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
+					{/*// <Tab label="招商线索" onActive={this.merchants} style={merchantsStyle}>
 
-							<Merchants
-								dataReady={State.dataReady}
-								searchParams={State.searchParams}
-								initSearch={initSearch}
-							/>
-					</Tab>
+					// 		<Merchants
+					// 			dataReady={State.dataReady}
+					// 			searchParams={State.searchParams}
+					// 			initSearch={initSearch}
+					// 		/>
+					// </Tab>*/}
 					<Tab label="个人客户"  onActive={this.personal} style={personalStyle}>
 
 							<Personal
