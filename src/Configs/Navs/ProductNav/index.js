@@ -26,14 +26,14 @@ module.exports = [
 					{
 						primaryText: '空间',
 						menuCode: 'oper_cmt_spaceList_base',
-						otherRouter:['communityMeetingRoomDetail'],
+						otherRouter:['communityMeetingRoomDetail','/operation/communityAllocation/communityMeetingRoom'],
 						router: '/product/communityAllocation/CommunityMeetingRoom'
 					},
 					{
 						primaryText: '工位',
 						menuCode: 'oper_cmt_stationList_base',
 						otherRouter:['communityStationDetail'],
-						
+
 						router: '/product/communityAllocation/communityStation'
 					},
 					{
