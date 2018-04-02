@@ -20,7 +20,7 @@ import FinanceNav from './FinanceNav';
 import SmartHardware from './SmartHardware';
 // 系统配置
 import ConfigNav from './ConfigNav';
-import ObjectSetting from './ObjectSetting'
+// import ObjectSetting from './ObjectSetting'
 
 
 const NavItems = [].concat(HomeNav, OperationNav, UserNav, ProductNav, OrderNav, FinanceNav, SmartHardware, ConfigNav, ObjectSetting);
