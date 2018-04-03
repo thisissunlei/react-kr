@@ -120,10 +120,10 @@ const validate = values=>{
 		errors.priceId = '价格策略为必填项';
 	}
 	if(!values.nodeIp){
-		errors.nodeIp = '节点IP为必填项';
+		errors.nodeIp = '节点域名为必填项';
 	}
-	if(values.nodeIp && values.nodeIp.length>20){
-		errors.nodeIp = '节点IP最长20个字符';
+	if(values.nodeIp && values.nodeIp.length>250){
+		errors.nodeIp = '节点域名最长250个字符';
 	}
 	
 	

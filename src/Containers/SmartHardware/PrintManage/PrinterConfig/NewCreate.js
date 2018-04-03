@@ -112,8 +112,8 @@ const validate = values=>{
 	if(!values.nodeIp){
 		errors.nodeIp = '节点域名为必填项';
 	}
-	if(values.nodeIp && values.nodeIp.length>20){
-		errors.nodeIp = '节点域名最长20个字符';
+	if(values.nodeIp && values.nodeIp.length>250){
+		errors.nodeIp = '节点域名最长250个字符';
 	}
 	
 	return errors;
