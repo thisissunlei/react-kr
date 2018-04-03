@@ -31,7 +31,9 @@ export default class Visitor extends React.Component{
 				endTime:'',
 				name:'',
 				startTime:'',
-				visitName:''
+				visitName:'',
+				page:1,
+				pageSize:15
 			},
 			openSearchDialog:false,
 		}
@@ -60,6 +62,15 @@ export default class Visitor extends React.Component{
 		})
 		
 	}
+	onPageChange=(page)=>{
+		console.log('page',page)
+	    var searchParams={
+	       page:page
+	    }
+	    this.setState({
+	       searchParams:Object.assign({},this.state.searchParams,searchParams)
+	    })
+	  }
 
 	onExport=(values)=>{
 		let idList = [];
@@ -88,6 +99,7 @@ export default class Visitor extends React.Component{
 											onLoaded={this.onLoaded}
 											ajax={true}
 											exportSwitch={true}
+											onPageChange={this.onPageChange}
 											onExport={this.onExport}
 											ajaxUrlName='get-visit-list'
 											ajaxParams={this.state.searchParams}
