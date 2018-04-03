@@ -29,6 +29,7 @@ import DeleteCard from "./DeleteCard";
 import InputCardForm from "./InputCardForm";
 import MemberPersonInfo from "./MemberPersonInfo";
 import BindMember from "./BindMember";
+import UnBindMember from './UnBindMember';
 
 import './index.less';
 
@@ -210,6 +211,20 @@ export default class List extends React.Component {
 	}
 
 
+	unBindMember=(item)=>{
+		
+		this.openUnBindMemberDialogFun();
+    	this.setState({
+    		itemDetail : item
+    	})
+	}
+
+	openUnBindMemberDialogFun=()=>{
+		State.openUnBindMemberDialog = !State.openUnBindMemberDialog;
+	}
+
+
+
 
 	renderOperation=(itemData)=>{
 		let _this =this;
@@ -218,6 +233,8 @@ export default class List extends React.Component {
 					<div>
 						<Button  operateCode="mbr_define_add" label="编辑"  type="operation" operation="edit" onTouchTap={_this.openEditDialog.bind(this,itemData)}/>
 						<Button  operateCode="mbr_define_add" label="查看"  type="operation"  operation="view" onTouchTap={_this.seeCardDetail.bind(this,itemData)}/>
+						<Button                               label="解绑会员"  type="operation" onTouchTap={_this.unBindMember.bind(this,itemData)}/>
+
 					</div>
 				)
 		}else{
@@ -484,6 +501,16 @@ export default class List extends React.Component {
 						contentStyle={{width:680}}
 					>
 						<BindMember  onCancel={this.openBindMemberDialogFun} detail={this.state.itemDetail} />
+				    </Dialog>
+
+				    <Dialog
+						title="解绑会员"
+						modal={true}
+						open={State.openUnBindMemberDialog}
+						onClose={this.openUnBindMemberDialogFun}
+						contentStyle={{width:500}}
+					>
+						<UnBindMember  onCancel={this.openUnBindMemberDialogFun} detail={this.state.itemDetail} />
 				    </Dialog>
 			</div>
 		);
