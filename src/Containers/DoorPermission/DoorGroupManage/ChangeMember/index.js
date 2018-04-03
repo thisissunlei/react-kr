@@ -69,7 +69,7 @@ export default class ChangeMember extends React.Component{
 						<AllMemberManage groupItemDetail={itemDetail} freshGroupMemberList={this.freshGroupMemberList}/>
 					</div> */}
 
-					<div className="change-member-item">
+					<div className="change-member-item group-member-list">
 						<GroupMember groupItemDetail={itemDetail} freshGroupMemberList={freshGroupMemberList}/>
 					</div>
 					
