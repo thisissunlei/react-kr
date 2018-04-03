@@ -27,7 +27,6 @@ import CardManageSearchForm from "./CardManageSearchForm";
 import ViewCard from "./ViewCard";
 import DeleteCard from "./DeleteCard";
 import InputCardForm from "./InputCardForm";
-import MemberPersonInfo from "./MemberPersonInfo";
 import BindMember from "./BindMember";
 import UnBindMember from './UnBindMember';
 
@@ -272,10 +271,10 @@ export default class List extends React.Component {
 	    })
     }
 	openPersonDeatil=(value)=>{
-		this.setState({
-			personInfo:value,
-			openPerson:!this.state.openPerson
-		})
+		
+		console.log("value",value);
+		window.open(`./#/member/memberManage/list/${value.holder}`,'_blank');
+
 	}
 
 
@@ -479,20 +478,7 @@ export default class List extends React.Component {
 					>
 						<InputCardForm  onCancel={this.switchOpenInputCardDialog} />
 				    </Dialog>
-					<Drawer
-						modal={true}
-						width={750}
-						open={this.state.openPerson}
-						onClose={this.openPerson}
-						openSecondary={true}
-						containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
-						>
-							<MemberPersonInfo
-									detail={personInfo}
-									onCancel={this.openPerson} 
-									
-							/>
-					</Drawer>
+				    
 					<Dialog
 						title="绑定会员"
 						modal={true}

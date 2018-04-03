@@ -24,7 +24,6 @@ import {Http} from 'kr/Utils';
 import NewCreateForm from './NewCreateForm';
 import MemeberEditMemberForm from './MemeberEditMemberForm';
 import AdvancedQueryForm from './AdvancedQueryForm';
-import ViewMember from './ViewMember';
 import ImportData from './ImportData';
 import CodeManage from './CodeManage';
 import './index.less';
