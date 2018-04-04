@@ -173,8 +173,11 @@ export default class Header extends React.Component {
 	renderNavs(navs){
 		navs = navs.map(item=>{
 			item = mobx.toJS(item)
-			console.log('===',item.menuItems[0].menuItems[0])
-			item.router = item.menuItems[0].menuItems[0].router.substring(1) || './'
+			console.log('item===',item)
+			let url = item.menuItems[0].menuItems[0].router || item.menuItems[0].menuItems[0].originUrl;
+			item.router = url.substring(1) || './'
+			console.log('url===',url)
+
 			return item;
 		})
 
