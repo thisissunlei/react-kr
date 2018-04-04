@@ -52,7 +52,7 @@ export default class CanOperationEquipment extends React.Component {
                 title : '',
                 date : null,
                 page :1,
-                pageSize:15
+                pageSize:25,
             }
 		}
 	}

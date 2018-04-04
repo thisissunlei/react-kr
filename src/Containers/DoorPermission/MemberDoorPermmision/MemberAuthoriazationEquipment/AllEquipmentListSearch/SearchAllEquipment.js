@@ -96,7 +96,7 @@ class SearchAllEquipmentForm extends React.Component{
 		let {seachFormContent,seachFormFilter} =this.state;
 		let SearchFormData = {};
 		SearchFormData[seachFormFilter] = seachFormContent;
-		let newObj = {pageSize:15}
+		let newObj = {pageSize:25}
 		let sendParams = Object.assign({},values,newObj,SearchFormData)
 		let {submitSearchParams}=this.props;
 		submitSearchParams && submitSearchParams(sendParams);
@@ -203,7 +203,7 @@ class SearchAllEquipmentForm extends React.Component{
 			doorType: doorType,
 			floor : floor,
 			page: 1,
-			pageSize: 15
+			pageSize: 25,
 		}
 		var sendParams = Object.assign({},searchParams,param);
 		

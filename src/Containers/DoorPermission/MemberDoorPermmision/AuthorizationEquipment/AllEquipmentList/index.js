@@ -45,7 +45,7 @@ export default class CanOperationEquipment extends React.Component {
                 doorType : '',
                 floor : '',
                 page : '',
-                pageSize : 'USER',
+                pageSize : 25,
                 title : '',
                 date : null
             }
