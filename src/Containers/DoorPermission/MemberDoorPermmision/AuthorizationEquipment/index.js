@@ -15,7 +15,7 @@ import {Actions,Store} from 'kr/Redux';
 import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
-import SearchForm from './AllEquipmentListSearch/SearchAllEquipment';
+import SearchForm from './AuthoriazationEquipmentSearch';
 import CancleAuthorization from './CancleAuthorization';
 import BatchCancleAuthoriazation from './BatchCancleAuthoriazation';
 // import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
