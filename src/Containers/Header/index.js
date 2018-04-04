@@ -161,7 +161,7 @@ export default class Header extends React.Component {
 		})
 		var isActive=navIsActive.indexOf(true)==-1?true:false;
 
-		navs = this.renderNavs(navs)
+		// navs = this.renderNavs(navs)
 		return (
 			<Nav> 
 				<NavItem  label="首页" originUrl="./"  isActive={isActive}  onClick={this.clearSidebar} />
