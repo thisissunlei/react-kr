@@ -1,61 +1,58 @@
 module.exports = [
 
 	{
-		primaryText: "财法管理",
-		router: 'finance',
+		primaryText: "账单财务",
+        menuCode: 'bill',
 		menuItems: [
 			{
-				primaryText: "财法主页",
-				router: 'manage',
-				iconName: 'icon-money',
-				iconColor: '#79859a',
-				menuItems: [
-
-				]
-			},
-			{
-				primaryText: "财务管理",
-				router: 'manage',
-				iconName: 'icon-money',
-				iconColor: '#79859a',
-				menuItems: [
-					{
-						primaryText: "审核列表",
-						router: '/finance/manage/audit/auditlist',
-						menuCode: 'fina_verify_page'
+                primaryText: "账单财务",
+                iconName: 'icon-money',
+                iconColor: '#79859a',
+                type: 'vue',
+                menuItems: [
+                    
+                    {
+                        primaryText: "账单",
+                        originUrl: '/bill/list',
+                        type: 'vue',
+                        menuCode: 'pay_created_bill_page',
+                    },
+                    {
+                        primaryText: "账单(老数据)",
+                        router: '/finance/manage/orderbill/orderList',
+                        menuCode: 'fina_account_list'
+                    },
+                    {
+                        primaryText: "回款",
+                        originUrl: '/bill/payment',
+                        type: 'vue',
+                        menuCode: 'pay_payment_page',
+                    },
+                    {
+                        primaryText: "应收",
+                        originUrl: '/bill/income',
+                        type: 'vue',
+                        menuCode: 'pay_income_page',
+                    },
+                    {
+                        primaryText: "结算单",
+                        originUrl: '/bill/settlement-list',
+                        type: 'vue',
+                        menuCode: 'checklist_list',
+                    },
+                    {
+                        primaryText: "交易流水",
+                        originUrl: '/bill/payrecord',
+                        type: 'vue',
+                        menuCode: 'pay_deal_flow_page'
+                    },
+                    {
+						primaryText: "账款数据",
+						router: '/statistical/agingaccount',
+						menuCode: 'finance_explan',
 					},
-					{
-						primaryText: "账单列表",
-						router: '/finance/manage/orderbill/orderList',
-						menuCode: 'fina_account_list'
-					},
-					{
-						primaryText: '凭证列表',
-						router: '/finance/voucherManage/voucherList',
-						menuCode: 'upload_evidence_base',
-					},
-					{
-						primaryText: "同步中心",
-						router: '/finance/manage/sync/list',
-						menuCode: 'sync_cmt_ctrl'
-					},
-
-				]
-			},
-			{
-				primaryText: "基础配置",
-				router: 'manage',
-				iconName: 'icon-basis',
-				iconColor: '#79859a',
-				menuItems: [
-					{
-						primaryText: "款项配置",
-						router: '/finance/manage/fundSetting/totalFund',
-						menuCode: 'fina_category_1stPage'
-					},
-
-				]
-			},
+                    ]
+                },
 		]
 	}
 

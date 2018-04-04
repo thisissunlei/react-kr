@@ -59,7 +59,7 @@ module.exports = {
 
    //访客列表--分页
    'get-visit-list':{
-      url: '/api/krspace-finance-web/cmt/visit/get-visit-list?communityId={communityId}&company={company}&endTime={endTime}&name={name}&startTime={startTime}&visitName={visitName}',
+      url: '/api/krspace-finance-web/cmt/visit/get-visit-list?communityId={communityId}&company={company}&endTime={endTime}&name={name}&startTime={startTime}&visitName={visitName}&page={page}&pageSize={pageSize}',
       method: 'get'
    },
     //支持列表--分页

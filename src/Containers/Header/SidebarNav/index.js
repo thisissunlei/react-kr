@@ -39,7 +39,7 @@ export default class SidebarNav extends React.Component {
 									<div className="m-sidebar-nav" key={index}>
 										<div className="u-sidebar-nav-title">
 											<span className={item.iconName} style={{color:`${item.iconColor}`}}></span>
-											{item.primaryText}
+											<span style={{paddingLeft:40}}>{item.primaryText}</span>
 										</div>
 										<div className="u-sidebar-navlist">
 											{this.renderMenuItems(item.menuItems)}
