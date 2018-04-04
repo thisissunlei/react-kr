@@ -16,7 +16,7 @@ import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
 import DropOutGroup from './DropOutGroup';
-import AuthorizationEquipment from '../AuthorizationEquipment';
+import MemberAuthoriazationEquipment from '../MemberAuthoriazationEquipment';
 import AllGroupList from '../../DoorGroupManage';
 import AddMemberIntoGroup from './AddMemberIntoGroup';
 import close from "../images/close.svg";
@@ -360,7 +360,7 @@ export default class BelongOfDoorGroup extends React.Component {
                                 <img src={close} onClick={this.showAuthorizationEquipmentFun}/>
                             
                             </div>                
-                            <AuthorizationEquipment 
+                            <MemberAuthoriazationEquipment 
                                 memberDetailInfo={itemDetail} 
                                 granteeId={itemDetail.id} 
                                 doorTypeOptions={doorTypeOptions} 
