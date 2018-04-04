@@ -52,7 +52,7 @@ export default class DropOutGroup extends React.Component {
 		let {memberDetailInfo,itemDetail} = this.props;
 		return (
 		    <div style={{marginTop:20}}>
-					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要将“{memberDetailInfo.name}”从“{itemDetail.name}”中移除吗？</p>
+					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要将{memberDetailInfo.companyInfo && memberDetailInfo.companyInfo.mbrName}从{itemDetail.name}中移除吗？</p>
 					<p style={{textAlign:"center",color:"#333333",fontSize:12,color:"#ff6868"}}>
 						<img src={warning} style={{width:15,verticalAlign: "top",  marginRight: 4}}/>
 						<span>移除后将会失去该组的所有权限</span>

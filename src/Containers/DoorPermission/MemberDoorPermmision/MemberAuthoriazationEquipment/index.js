@@ -15,7 +15,7 @@ import {Actions,Store} from 'kr/Redux';
 import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
-import SearchForm from './AuthoriazationEquipmentSearch';
+import SearchForm from './AllEquipmentListSearch/SearchAllEquipment';
 import CancleAuthorization from './CancleAuthorization';
 import BatchCancleAuthoriazation from './BatchCancleAuthoriazation';
 // import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
@@ -52,7 +52,7 @@ export default class CanOperationEquipment extends React.Component {
                 title : '',
                 date : null,
                 page :1,
-                pageSize:25,
+                pageSize:25
             }
 		}
 	}

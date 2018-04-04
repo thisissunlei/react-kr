@@ -50,9 +50,10 @@ export default class DeleteGroup extends React.Component {
 
 	render() {
         let {memberDetailInfo,groupDetail} =this.props;
+        
 		return (
 		    <div style={{marginTop:20}}>
-					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要将{memberDetailInfo.name}加入{groupDetail.name}吗？</p>
+					<p style={{textAlign:"center",color:"#333333",fontSize:14}}>确认要将{memberDetailInfo.companyInfo && memberDetailInfo.companyInfo.mbrName}加入{groupDetail.name}吗？</p>
 					<p style={{textAlign:"center",color:"#333333",fontSize:12,color:"#ff6868"}}>
 						<img src={warning} style={{width:15,verticalAlign: "top",  marginRight: 4}}/>
 						<span>将会员加入该组后,该会员将拥有该组的门禁权限</span>

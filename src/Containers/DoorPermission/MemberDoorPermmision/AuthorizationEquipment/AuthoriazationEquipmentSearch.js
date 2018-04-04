@@ -16,7 +16,7 @@ import {
 import './index.less';
 import {DateFormat} from 'kr/Utils';
 
-import PropsState from '../../State';
+import PropsState from '../State';
 import State from './State';
 import {
 	observer,
@@ -26,7 +26,7 @@ import {
 
 
 
-class SearchAllEquipmentForm extends React.Component{
+class SearchAuthoriazationEquipmentForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
@@ -139,7 +139,7 @@ class SearchAllEquipmentForm extends React.Component{
 		if(!community){
 
 			floorReal = '';
-			Store.dispatch(change('SearchAllEquipmentForm','floor',''));
+			Store.dispatch(change('SearchAuthoriazationEquipmentForm','floor',''));
 			_this.setState({
 				floorsOptions : [],
 				communityId : ''
@@ -287,9 +287,10 @@ class SearchAllEquipmentForm extends React.Component{
 		);
 	}
 }
-export default SearchAllEquipmentForm = reduxForm({
-	form: 'SearchAllEquipmentForm',
+
+export default SearchAuthoriazationEquipmentForm = reduxForm({
+	form: 'SearchAuthoriazationEquipmentForm',
 	// validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(SearchAllEquipmentForm);
+})(SearchAuthoriazationEquipmentForm);

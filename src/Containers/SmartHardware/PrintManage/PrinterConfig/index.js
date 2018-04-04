@@ -160,13 +160,24 @@ export default class List extends React.Component {
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 								
-								<TableRowColumn name="nodeIp" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-									}
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
+								
+								<TableRowColumn 
+		                            name="nodeIp" 
+		                            component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            if(value.length==""){
+		                                TooltipStyle="none"
+
+		                            }else{
+		                                TooltipStyle="block";
+		                            }
+		                                return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+		                                <Tooltip offsetTop={5} place='top'>
+										<span style={{display: 'inline-block',minWidth: 200,wordWrap: 'break-word',wordBreak: "break-all",whiteSpace: 'normal'}}>
+		                                {value}
+		                                </span>
+		                                </Tooltip></div>)
+		                        }} ></TableRowColumn>
 								<TableRowColumn name="printPriceName" 
 									component={(value,oldValue)=>{
 									if(value==""){

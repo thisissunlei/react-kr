@@ -16,7 +16,7 @@ import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
 import DropOutGroup from './DropOutGroup';
-import AuthorizationEquipment from '../AuthorizationEquipment';
+import MemberAuthoriazationEquipment from '../MemberAuthoriazationEquipment';
 import AllGroupList from '../../DoorGroupManage';
 import AddMemberIntoGroup from './AddMemberIntoGroup';
 import close from "../images/close.svg";
@@ -50,7 +50,7 @@ export default class BelongOfDoorGroup extends React.Component {
             getGroupContainMemberParams:{
                 uid : memberId,
                 page : 1,
-                pageSize : 15
+                pageSize : 25,
             },
         })
     }
@@ -106,7 +106,7 @@ export default class BelongOfDoorGroup extends React.Component {
     getgetGroupAuthorizeEquipmentList=(item)=>{
 
         let that =this;
-        let params = {granteeId:item.id,granteeType:"USER_GROUP",page:1,pageSize:15}
+        let params = {granteeId:item.id,granteeType:"USER_GROUP",page:1,pageSize:25}
         Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
             that.setState({
                 authorazitionEquipmentList : response.items
@@ -360,7 +360,7 @@ export default class BelongOfDoorGroup extends React.Component {
                                 <img src={close} onClick={this.showAuthorizationEquipmentFun}/>
                             
                             </div>                
-                            <AuthorizationEquipment 
+                            <MemberAuthoriazationEquipment 
                                 memberDetailInfo={itemDetail} 
                                 granteeId={itemDetail.id} 
                                 doorTypeOptions={doorTypeOptions} 
