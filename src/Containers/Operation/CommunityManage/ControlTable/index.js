@@ -235,12 +235,9 @@ getScrollTop = () => {
 				downLoading:true,
 			})
 		}
-
-
 		let data = Object.assign({},searchParams)
 		let arr = [].concat(listData);
 		Http.request('control-table',data).then(function(response) {
-
 			_this.setState({
 				otherData:{
 					incomeMonth:response.incomeMonth,
