@@ -76,6 +76,17 @@ module.exports = {
         method: 'get'
     },
 
+    // 新增员工自动加入客户默认组的初始值
+    'getInitailToogleAddToCompanyTeamAuto':{
+        url: '/api/iot-platform/auth/user-group/auto-add-user?id={id}',
+        method: 'get'
+    },
+    // 修改新增员工自动加入客户默认组
+    'changeToogleAddToCompanyTeamAuto':{
+        url: '/api/iot-platform/auth/user-group/actions/set-auto-add-user',
+        method: 'post'
+    },
+
 
     
 }
