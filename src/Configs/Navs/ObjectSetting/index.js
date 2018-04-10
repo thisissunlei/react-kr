@@ -11,7 +11,7 @@ module.exports = [
                 menuItems: [
                     {
                         primaryText: "项目管理",
-                        originUrl: '/bill/projectSetting',
+                        originUrl: '/bill/project-setting',
                         type: 'vue',
                         menuCode: 'pay_deal_flow_page',
                     }
