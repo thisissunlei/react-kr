@@ -97,7 +97,6 @@ export default class ChangeMember extends React.Component{
 								labelStyle={{fontSize:14,width:220,marginTop:5}} 
 								onToggle={this.changeAutoAddMemberToCompanyTeam}
 								trackStyle={{height:25,lineHeight:25}}
-								trackSwitchedStyle={{backgroundColor:"red"}}
 								thumbStyle={{marginTop:5}}
 							/>
 						
