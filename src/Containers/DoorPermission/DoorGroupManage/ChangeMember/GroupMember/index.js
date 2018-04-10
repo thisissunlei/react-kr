@@ -214,6 +214,10 @@ export default class GroupMemberManage extends React.Component {
 		State.openAddMemberDialog = !State.openAddMemberDialog;
 	}
 
+	toMemberDetailInfo=(itemDetail,data)=>{
+		window.open(`./#/member/memberManage/list/${itemDetail.uid}`,'_blank');
+	}
+
 	
 	
 
@@ -264,15 +268,23 @@ export default class GroupMemberManage extends React.Component {
 					<TableBody style={{position:'inherit'}}>
 						<TableRow>
 							
+						
 						<TableRowColumn name="name"
 							style={{width:"20%"}}
-							
-						component={(value,oldValue)=>{
-							if(value==""){
-								value="-"
-							}
-							return (<span>{value}</span>)}}
-						></TableRowColumn>
+							component={(value,oldValue,itemData)=>{
+								var TooltipStyle=""
+								if(value.length==""){
+									TooltipStyle="none"
+
+								}else{
+									TooltipStyle="inline-block";
+								}
+								return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover' ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} ><span onClick={this.toMemberDetailInfo.bind(this,itemData,value)} style={{color:"#499df1",cursor:"pointer"}}>{value}</span></span>
+									</div>
+								)
+							}} 
+						>
+						</TableRowColumn>
 
 						<TableRowColumn 
 							style={{width:"20%"}}
@@ -303,7 +315,7 @@ export default class GroupMemberManage extends React.Component {
 								TooltipStyle="block";
 							}
 								return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
-								<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+								</div>)
 						}} ></TableRowColumn>
 						
 						<TableRowColumn 
