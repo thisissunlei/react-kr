@@ -155,7 +155,7 @@ export default class GroupMemberManage extends React.Component {
 
 	}
 
-	onOperation=(type,itemDetail)=>{
+	onOperation=(type,itemDetail,event)=>{
 		this.setState({
 			ids : itemDetail.id,
 			itemDetail

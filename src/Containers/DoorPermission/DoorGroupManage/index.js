@@ -81,8 +81,8 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	//操作相关
-	onOperation=(type,itemDetail)=>{
-
+	onOperation=(type,itemDetail,event)=>{
+		this.tableRowColumnClick(event);
 		let _this = this;
 		this.setState({
 			itemDetail
@@ -231,6 +231,51 @@ export default class DoorGroupManage extends React.Component {
 		// let {getDoorPermissionListParams} = this.state;
 		// var newObj =Object.assign({},getDoorPermissionListParams,pageParam)
 	}
+
+	tableRowColumnClick=(event)=>{
+		
+		var targetDom = event.target;
+		this.findDomTd(targetDom);
+
+	}
+
+	findDomTd =(targetDom)=>{
+		
+		
+		if(targetDom.nodeName.toLowerCase()=="td"){
+			
+			
+			var trDom = targetDom.parentNode;
+			var otherTr = trDom.nextSibling;
+			var preOtherTr = trDom.previousSibling;
+			this.resetTrColor(otherTr,"next");
+			this.resetTrColor(preOtherTr,"pre");
+			targetDom.parentNode.style.background ="#c9e0f6";
+
+		}else{
+			var newTargetDom = targetDom.parentNode
+			this.findDomTd(newTargetDom);
+		}
+	}
+
+
+	resetTrColor=(otherTr,strParam)=>{
+
+		if(!otherTr){
+			return;
+		}
+
+		otherTr.style.background ="";
+		if(strParam=="next"){
+			var newOtherTr = otherTr.nextSibling;
+		}else{
+			var newOtherTr = otherTr.previousSibling;
+		}
+		this.resetTrColor(newOtherTr);
+	}
+
+
+	
 
 
 
