@@ -17,6 +17,9 @@ import closeImg from './images/close.svg';
 
 import GroupMember from './GroupMember';
 import AllMemberManage from './AllMemberManage';
+import {
+	Toggle
+}from 'material-ui';
 
 import State from '../State';
 import {
@@ -61,6 +64,17 @@ export default class ChangeMember extends React.Component{
 		return (
 			<div className="change-member">
 				<div style={{width:"100%",height:30}}>
+					<div style={{float:"left",marginLeft:10}}>
+						<Toggle 
+							toggled={true} 
+							label="新增员工是否自动加入客户默认组" 
+							labelPosition="right"
+							labelStyle={{fontSize:14,width:220,marginTop:5}} 
+							onToggle={this.changeSearchEquipment}
+							trackStyle={{height:25,lineHeight:25}}
+							thumbStyle={{marginTop:5}}
+						/>
+					</div>
 					<img src={closeImg} style={{float:"right",width:30,cursor:"pointer"}} onClick={this.closeChangeMember}/>
 				</div>
 				<div style={{width:"100%"}}>
@@ -70,6 +84,7 @@ export default class ChangeMember extends React.Component{
 					</div> */}
 
 					<div className="change-member-item group-member-list">
+
 						<GroupMember groupItemDetail={itemDetail} freshGroupMemberList={freshGroupMemberList}/>
 					</div>
 					
