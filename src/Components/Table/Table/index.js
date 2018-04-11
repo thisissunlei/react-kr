@@ -242,7 +242,7 @@ export default class Table extends React.Component {
 			var preOtherTr = trDom.previousSibling;
 			this.resetTrColor(otherTr,"next");
 			this.resetTrColor(preOtherTr,"pre");
-			targetDom.parentNode.style.background ="#c9e0f6";
+			trDom.style.background ="#c9e0f6";
 
 		}else{
 			var newTargetDom = targetDom.parentNode
@@ -256,14 +256,13 @@ export default class Table extends React.Component {
 		if(!otherTr){
 			return;
 		}
-
 		otherTr.style.background ="";
 		if(strParam=="next"){
 			var newOtherTr = otherTr.nextSibling;
 		}else{
 			var newOtherTr = otherTr.previousSibling;
 		}
-		this.resetTrColor(newOtherTr);
+		this.resetTrColor(newOtherTr,strParam);
 	}
 
 
