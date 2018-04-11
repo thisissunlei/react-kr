@@ -220,8 +220,8 @@ export default class BelongOfDoorGroup extends React.Component {
                         <TableHeaderColumn>组级别</TableHeaderColumn>
                         <TableHeaderColumn>所属社区</TableHeaderColumn>
                         <TableHeaderColumn>公司名称</TableHeaderColumn>
-                        <TableHeaderColumn>创建时间</TableHeaderColumn>
-                        <TableHeaderColumn>创建人</TableHeaderColumn>
+                        <TableHeaderColumn>加入时间</TableHeaderColumn>
+                        <TableHeaderColumn>操作人</TableHeaderColumn>
                         <TableHeaderColumn>操作</TableHeaderColumn>
                         
                     </TableHeader>
