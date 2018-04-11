@@ -271,7 +271,7 @@ export default class DoorGroupManage extends React.Component {
 		}else{
 			var newOtherTr = otherTr.previousSibling;
 		}
-		this.resetTrColor(newOtherTr);
+		this.resetTrColor(newOtherTr,strParam);
 	}
 
 
