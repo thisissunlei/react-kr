@@ -257,6 +257,7 @@ export default class Table extends React.Component {
 			return;
 		}
 		otherTr.style.background ="";
+		// console.log("otherTr",otherTr,"strParam",strParam)
 		if(strParam=="next"){
 			var newOtherTr = otherTr.nextSibling;
 		}else{

@@ -361,7 +361,7 @@ export default class BelongOfDoorGroup extends React.Component {
                             </div>                
                             <MemberAuthoriazationEquipment 
                                 memberDetailInfo={itemDetail} 
-                                granteeId={itemDetail.id} 
+                                granteeId={itemDetail.groupId} 
                                 doorTypeOptions={doorTypeOptions} 
                                 granteeType="USER_GROUP"
                                 noShowAddNew = {true}
