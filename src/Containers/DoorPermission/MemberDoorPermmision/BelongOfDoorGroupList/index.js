@@ -17,7 +17,7 @@ import './index.less';
 
 import DropOutGroup from './DropOutGroup';
 import MemberAuthoriazationEquipment from '../MemberAuthoriazationEquipment';
-import AllGroupList from '../../DoorGroupManage';
+import AllGroupList from '../../DoorGroupManage/DoorGroupList';
 import AddMemberIntoGroup from './AddMemberIntoGroup';
 import close from "../images/close.svg";
 
