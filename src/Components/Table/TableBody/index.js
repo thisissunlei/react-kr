@@ -68,11 +68,11 @@ export default class TableBody extends React.Component {
 		)
 	}
 
-	onOperation = (type, itemData) => {
+	onOperation = (type, itemData,event) => {
 		const {
 			onOperation
 		} = this.props;
-		onOperation && onOperation(type, itemData);
+		onOperation && onOperation(type, itemData,event);
 	}
 
 	onCellClick =() =>{

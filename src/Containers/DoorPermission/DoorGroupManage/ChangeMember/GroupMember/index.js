@@ -155,7 +155,7 @@ export default class GroupMemberManage extends React.Component {
 
 	}
 
-	onOperation=(type,itemDetail)=>{
+	onOperation=(type,itemDetail,event)=>{
 		this.setState({
 			ids : itemDetail.id,
 			itemDetail
@@ -214,6 +214,10 @@ export default class GroupMemberManage extends React.Component {
 		State.openAddMemberDialog = !State.openAddMemberDialog;
 	}
 
+	toMemberDetailInfo=(itemDetail,data)=>{
+		window.open(`./#/member/memberManage/list/${itemDetail.uid}`,'_blank');
+	}
+
 	
 	
 
@@ -257,22 +261,30 @@ export default class GroupMemberManage extends React.Component {
 					<TableHeader>
 						<TableHeaderColumn>姓名</TableHeaderColumn>
 						<TableHeaderColumn>电话</TableHeaderColumn>
-						<TableHeaderColumn>社区名称</TableHeaderColumn>
-						<TableHeaderColumn>公司</TableHeaderColumn>
+						<TableHeaderColumn>操作人</TableHeaderColumn>
+						<TableHeaderColumn>操作时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
 					</TableHeader>
 					<TableBody style={{position:'inherit'}}>
 						<TableRow>
 							
+						
 						<TableRowColumn name="name"
 							style={{width:"20%"}}
-							
-						component={(value,oldValue)=>{
-							if(value==""){
-								value="-"
-							}
-							return (<span>{value}</span>)}}
-						></TableRowColumn>
+							component={(value,oldValue,itemData)=>{
+								var TooltipStyle=""
+								if(value.length==""){
+									TooltipStyle="none"
+
+								}else{
+									TooltipStyle="inline-block";
+								}
+								return (<div style={{display:TooltipStyle,paddingTop:5,width:"100%"}} className='financeDetail-hover' ><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} ><span onClick={this.toMemberDetailInfo.bind(this,itemData,value)} style={{color:"#499df1",cursor:"pointer"}}>{value}</span></span>
+									</div>
+								)
+							}} 
+						>
+						</TableRowColumn>
 
 						<TableRowColumn 
 							style={{width:"20%"}}
@@ -292,7 +304,7 @@ export default class GroupMemberManage extends React.Component {
 					
 
 						<TableRowColumn 
-							name="communityName" 
+							name="creatorName" 
 							style={{width:"20%"}}
 							component={(value,oldValue,itemData)=>{
 							var TooltipStyle=""
@@ -303,35 +315,23 @@ export default class GroupMemberManage extends React.Component {
 								TooltipStyle="block";
 							}
 								return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
-								<Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+								</div>)
 						}} ></TableRowColumn>
-
+						
 						<TableRowColumn 
-							name="customerName" 
-							style={{width:"30%"}}
-							component={(value,oldValue,itemData)=>{
-							var TooltipStyle=""
-							if(value.length==""){
-								TooltipStyle="none"
-
-							}else{
-								TooltipStyle="block";
-							}
-								return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
-								<Tooltip offsetTop={5} place='top'>
-									<span style={{display: 'inline-block',minWidth: 200,wordWrap: 'break-word',wordBreak: "break-all",whiteSpace: 'normal'}}>
-										{value}
-									</span>
-								</Tooltip></div>)
-						}} ></TableRowColumn>
-
+							name="ctime" 
+							type="date" 
+							format="yyyy-mm-dd HH:MM:ss"
+							style={{width:"20%"}}
+						>
+						</TableRowColumn>
+						
 
 						
 
 						<TableRowColumn type="operation" style={{width:"15%",overflow:"visible"}} >
 
 							<Button  label="移除"  type="operation" operation="deleteMember"/>
-
 							
 						</TableRowColumn>
 						

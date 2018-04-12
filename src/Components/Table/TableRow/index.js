@@ -41,7 +41,7 @@ export default class TableRow extends React.Component {
 		   type = event.target.getAttribute('data-operation');
 		}catch(err){
 		}
-		onOperation && onOperation(type,this.props.itemData);
+		onOperation && onOperation(type,this.props.itemData,event);
 	}
 
 	onCellHoverExit = () =>{
