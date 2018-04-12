@@ -82,16 +82,17 @@ class EditForm extends React.Component{
 						requireLabel={true} 
 						style={{width:'252px'}}
 					/>
-					
-					<KrField grid={1/2} name="nodeIp" 
-						type="text" 
-						label="节点域名" 
-						requireLabel={true} 
-						requiredValue={true} 
-						errors={{requiredValue:'智能硬件ID为必填项'}} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
-					
+					<div style={{position:"relative"}}>
+						<span style={{position:"absolute",left:65,top:"-2px",color:"rgba(255, 165, 0, 0.92)"}}>（多个节点请用英文逗号分隔）</span>
+							<KrField grid={1/1} name="nodeIp" 
+								type="text" 
+								label="节点域名" 
+								requireLabel={true} 
+								requiredValue={true} 
+								errors={{requiredValue:'智能硬件ID为必填项'}} 
+								style={{width:536}}
+							/>
+					</div>
 					
 					<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px',marginTop:20}}>
@@ -119,10 +120,10 @@ const validate = values=>{
 		errors.priceId = '价格策略为必填项';
 	}
 	if(!values.nodeIp){
-		errors.nodeIp = '节点IP为必填项';
+		errors.nodeIp = '节点域名为必填项';
 	}
-	if(values.nodeIp && values.nodeIp.length>20){
-		errors.nodeIp = '节点IP最长20个字符';
+	if(values.nodeIp && values.nodeIp.length>250){
+		errors.nodeIp = '节点域名最长250个字符';
 	}
 	
 	

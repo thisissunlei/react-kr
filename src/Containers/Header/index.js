@@ -1,4 +1,5 @@
 import React from 'react';
+import mobx from 'mobx';
 import { observer, inject } from 'mobx-react';
 import {ListGroup,ListGroupItem,Drawer} from 'kr-ui';
 import {
@@ -160,7 +161,7 @@ export default class Header extends React.Component {
 		})
 		var isActive=navIsActive.indexOf(true)==-1?true:false;
 
-		
+		navs = this.renderNavs(navs)
 		return (
 			<Nav> 
 				<NavItem  label="首页" originUrl="./"  isActive={isActive}  onClick={this.clearSidebar} />
@@ -168,6 +169,17 @@ export default class Header extends React.Component {
 			</Nav>
 
 			);
+	}
+	renderNavs(navs){
+		navs = navs.map(item=>{
+			item = mobx.toJS(item)
+			let url = item.menuItems[0].menuItems[0].router || item.menuItems[0].menuItems[0].originUrl || '/./';
+			item.router = url.substring(1);
+
+			return item;
+		})
+
+		return navs
 	}
 	
 	render() {

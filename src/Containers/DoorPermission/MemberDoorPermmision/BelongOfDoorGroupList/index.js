@@ -16,8 +16,8 @@ import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
 import DropOutGroup from './DropOutGroup';
-import AuthorizationEquipment from '../AuthorizationEquipment';
-import AllGroupList from '../../DoorGroupManage';
+import MemberAuthoriazationEquipment from '../MemberAuthoriazationEquipment';
+import AllGroupList from '../../DoorGroupManage/DoorGroupList';
 import AddMemberIntoGroup from './AddMemberIntoGroup';
 import close from "../images/close.svg";
 
@@ -50,7 +50,7 @@ export default class BelongOfDoorGroup extends React.Component {
             getGroupContainMemberParams:{
                 uid : memberId,
                 page : 1,
-                pageSize : 15
+                pageSize : 25,
             },
         })
     }
@@ -61,7 +61,9 @@ export default class BelongOfDoorGroup extends React.Component {
     }
 
     
-    clickShowDropOutGroup=(item)=>{
+    clickShowDropOutGroup=(item,event)=>{
+		this.tableRowColumnClick(event);
+        
         let that = this;
         this.setState({
             itemDetail : item
@@ -69,6 +71,48 @@ export default class BelongOfDoorGroup extends React.Component {
             that.showDropOutGroupFun();
         })
     }
+
+    tableRowColumnClick=(event)=>{
+		
+		var targetDom = event.target;
+		this.findDomTd(targetDom);
+
+	}
+
+	findDomTd =(targetDom)=>{
+		
+		
+		if(targetDom.nodeName.toLowerCase()=="td"){
+			
+			
+			var trDom = targetDom.parentNode;
+			var otherTr = trDom.nextSibling;
+			var preOtherTr = trDom.previousSibling;
+			this.resetTrColor(otherTr,"next");
+			this.resetTrColor(preOtherTr,"pre");
+			targetDom.parentNode.style.background ="#c9e0f6";
+
+		}else{
+			var newTargetDom = targetDom.parentNode
+			this.findDomTd(newTargetDom);
+		}
+	}
+
+
+	resetTrColor=(otherTr,strParam)=>{
+
+		if(!otherTr){
+			return;
+		}
+
+		otherTr.style.background ="";
+		if(strParam=="next"){
+			var newOtherTr = otherTr.nextSibling;
+		}else{
+			var newOtherTr = otherTr.previousSibling;
+		}
+		this.resetTrColor(newOtherTr,strParam);
+	}
 
 
     showDropOutGroupFun=()=>{
@@ -79,15 +123,14 @@ export default class BelongOfDoorGroup extends React.Component {
         let {itemDetail} = this.state;
         let {memberDetailInf,memberId} = this.props;
         let that = this;
-        // if(memberDetailInfo.accountInfo){
-            Http.request('personPageDropOutGroup',{uid :memberId,groupId : itemDetail.id}).then(function(response) {
-                that.showDropOutGroupFun();
-                Message.success("移出成功");
-                that.refreshPage();
-            }).catch(function(err) {
-                Message.error(err.message);
-            });
-        // }
+        
+        Http.request('deleteGroupMemberApi',{},{ids: itemDetail.id}).then(function(response) {
+            that.showDropOutGroupFun();
+            Message.success("移出成功");
+            that.refreshPage();
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
        
     }
 
@@ -106,7 +149,7 @@ export default class BelongOfDoorGroup extends React.Component {
     getgetGroupAuthorizeEquipmentList=(item)=>{
 
         let that =this;
-        let params = {granteeId:item.id,granteeType:"USER_GROUP",page:1,pageSize:15}
+        let params = {granteeId:item.id,granteeType:"USER_GROUP",page:1,pageSize:25}
         Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
             that.setState({
                 authorazitionEquipmentList : response.items
@@ -221,8 +264,8 @@ export default class BelongOfDoorGroup extends React.Component {
                         <TableHeaderColumn>组级别</TableHeaderColumn>
                         <TableHeaderColumn>所属社区</TableHeaderColumn>
                         <TableHeaderColumn>公司名称</TableHeaderColumn>
-                        <TableHeaderColumn>创建时间</TableHeaderColumn>
-                        <TableHeaderColumn>创建人</TableHeaderColumn>
+                        <TableHeaderColumn>加入时间</TableHeaderColumn>
+                        <TableHeaderColumn>操作人</TableHeaderColumn>
                         <TableHeaderColumn>操作</TableHeaderColumn>
                         
                     </TableHeader>
@@ -360,9 +403,9 @@ export default class BelongOfDoorGroup extends React.Component {
                                 <img src={close} onClick={this.showAuthorizationEquipmentFun}/>
                             
                             </div>                
-                            <AuthorizationEquipment 
+                            <MemberAuthoriazationEquipment 
                                 memberDetailInfo={itemDetail} 
-                                granteeId={itemDetail.id} 
+                                granteeId={itemDetail.groupId} 
                                 doorTypeOptions={doorTypeOptions} 
                                 granteeType="USER_GROUP"
                                 noShowAddNew = {true}
