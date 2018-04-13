@@ -1,7 +1,7 @@
 module.exports = [
     {
         primaryText: "项目管理",
-        menuCode: 'pm_manage_list',
+        menuCode: 'pm_manage',
         menuItems: [
             {
                 primaryText: "项目管理",
