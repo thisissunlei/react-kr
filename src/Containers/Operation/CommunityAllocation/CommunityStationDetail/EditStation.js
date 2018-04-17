@@ -161,7 +161,7 @@ class EditStation  extends React.Component{
             requireLabel={true} options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]} onChange={this.belongSpace}/>
             {isBelongSpace&&<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceId" component="select" label="空间名称"
 						requireLabel={true} options={slectNameCommunity}/>}
-            <KrField grid={1/2} style={style}  name="enable" component="select" label="启用标识"
+            <KrField grid={1/2} style={style}  name="enable" component="select" label="启用状态"
             requireLabel={true} options={[{value:'UNENABLE',label:'不可用'},{value:'ENABLE',label:'启用'},{value:'UNDERCARRIAGE',label:'下架'}]}/>
 
              <KrField grid={1/2} style={priceStyle} name="quotedPrice" component="input"  label="报价"
@@ -213,7 +213,7 @@ const validate = values =>{
    }
 
 	 if(!values.enable){
-     errors.enable='请输入启用标识';
+     errors.enable='请输入启用状态';
    }
 
     if(values.quotedPrice&&isNaN(values.quotedPrice)){
