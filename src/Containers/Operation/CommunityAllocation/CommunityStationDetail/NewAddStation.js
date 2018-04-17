@@ -118,14 +118,16 @@ class NewAddStation  extends React.Component{
 						 requireLabel={true} options={floorData} onChange={this.floorChange}/>
 						 {this.props.CommunityStationModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该工位编号已存在</div>}
             <KrField grid={1/2} style={{width:262}}  name="area" component="input" label="工位面积"/>
-						<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
-						requireLabel={true} options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/>
+						{/* <KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationType" component="select" label="工位性质"
+						requireLabel={true} options={[{value:'OPEN',label:'开放'},{value:'HALF_OPEN',label:'半开放'},{value:'CLOSED',label:'封闭'}]}/> */}
+						<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="stationAttr" component="select" label="工位类型"
+						requireLabel={true} options={[{value:'MOBILE_DESK',label:'移动办公桌'},{value:'OPEN_WORKSPACE',label:'固定办公桌'}]}/> 
 						<KrField grid={1/2} style={{width:262}}  name="belongSpace" component="select" label="是否属于空间"
 						requireLabel={true} options={[{value:'true',label:'属于'},{value:'false',label:'不属于'}]} onChange={this.belongSpace}/>
 						{isBelongSpace&&<KrField grid={1/2} style={{width:262,marginLeft:28}}  name="spaceId" component="select" label="空间名称"
 						requireLabel={true} options={slectNameCommunity}/>}
             <KrField grid={1/2} style={style}  name="enable" component="select" label="启用标识"
-						requireLabel={true} options={[{value:'true',label:'启用'},{value:'false',label:'未启用'}]}/>
+						requireLabel={true} options={[{value:'UNENABLE',label:'不可用'},{value:'ENABLE',label:'启用'},{value:'UNDERCARRIAGE',label:'下架'}]}/>
 
 				        <KrField grid={1/2} style={priceStyle} name="quotedPrice" component="input"  label="报价"
                         onBlur={this.priceBlur}/>		
@@ -161,9 +163,10 @@ const validate = values =>{
 		errors.area='工位面积为数字'
 	}
 
-    if(!values.stationType){
-      errors.stationType='请输入工位性质';
-    }
+	if(!values.stationAttr){
+		errors.stationAttr='请输入工位类型';
+	}
+	
    if(!values.belongSpace){
      errors.belongSpace='请输入是否属于空间';
    }
