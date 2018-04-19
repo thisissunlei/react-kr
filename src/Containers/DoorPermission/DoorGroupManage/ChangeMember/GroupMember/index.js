@@ -66,7 +66,6 @@ export default class GroupMemberManage extends React.Component {
 	
 
 	submitSearchParams=(params)=>{
-		// console.log("params",params);
 		let {groupItemDetail} = this.props;
 		let that =this;
 		var params = Object.assign({},params,{date:new Date(),groupId :groupItemDetail.id});

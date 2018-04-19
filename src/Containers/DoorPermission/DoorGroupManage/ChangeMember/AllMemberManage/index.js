@@ -93,7 +93,6 @@ export default class DoorGroupManage extends React.Component {
 		let {itemDetail,getDoorPermissionListParams,ids}  = this.state;
 		let {groupItemDetail}= this.props;
 		let that = this;
-		console.log("itemDetail",itemDetail);
 		var params = {
 			uids:itemDetail.uid,
 			groupId : groupItemDetail.id
@@ -142,7 +141,6 @@ export default class DoorGroupManage extends React.Component {
 
 		var idsArr =[];
 		for(var i=0;i<selectedListData.length;i++){
-			console.log("selectedListData[i]",selectedListData[i],"selectedListData[i].uid",selectedListData[i].uid);
 			idsArr.push(selectedListData[i].uid)
 		}
 		var sendIds = idsArr.join(",");

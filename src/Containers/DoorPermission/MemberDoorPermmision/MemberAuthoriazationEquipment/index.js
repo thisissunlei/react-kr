@@ -204,7 +204,6 @@ export default class CanOperationEquipment extends React.Component {
         }
 
         var idsStr = idsArr.join(",");
-        console.log("idsStr",idsStr);
         
         this.setState({
             selectedListData:selectedListData ,
@@ -219,7 +218,6 @@ export default class CanOperationEquipment extends React.Component {
     confirmBatchCancleAuthorization=()=>{
 
         let {selectedListData,ids} = this.state;
-        console.log("this.state",this.state);
         let params = {ids :ids};
         this.sendRequest(params);
         
@@ -244,7 +242,6 @@ export default class CanOperationEquipment extends React.Component {
 	render() {
         let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail,selectedListData,ids} = this.state;
-        console.log("ids",ids);
         return (
 		    <div className="new-create-authoriazation">
                     {

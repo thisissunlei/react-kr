@@ -138,7 +138,6 @@ class SearchGroupForm extends React.Component{
 	}
 
 	onChangeCommunity=(item)=>{
-		console.log("item",item);
 		if(!item){
 			this.setState({
 				communityId : ''
@@ -151,7 +150,6 @@ class SearchGroupForm extends React.Component{
 	}
 
 	onChangeCompany=(item)=>{
-		console.log("item",item);
 		if(!item){
 			this.setState({
 				customerId : ''
