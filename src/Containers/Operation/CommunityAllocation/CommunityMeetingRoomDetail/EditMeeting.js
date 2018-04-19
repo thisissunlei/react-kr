@@ -321,22 +321,24 @@ class EditMeeting  extends React.Component{
 
 				<KrField grid={1/2}
 					style={{width:262}}
-					name="spaceLocationType"
+					name="locationType"
 					component="select"
 					label="方位"
+					requireLabel={true}
 					options={[{value:'OUTSIDE_SPACE',label:'外侧间'},{value:'INSIDE_SPACE',label:'内侧间'},{value:'UNKNOWN',label:'未知'}]}
 				/>
 				<KrField grid={1/2}
 					style={{width:262,marginLeft:28}}
-					name="SpaceSuite"
+					name="suiteType"
 					component="select"
 					label="有无套间"
+					requireLabel={true}
 					options={[{value:'SUITE',label:'有套间'},{value:'UNSUITE',label:'无套间'},{value:'UNKNOWN',label:'未知'}]}
 				/>
 
 				<KrField
                     style={{width:553}}
-                    name="desc"
+                    name="descr"
                     component="textarea"
                     label="补充描述"
                     maxSize={25}
@@ -498,7 +500,15 @@ const validate = values =>{
 
     if(!values.floor){
       errors.floor='请输入所在楼层';
-    }
+	}
+	
+	if(!values.locationType){
+		errors.locationType='请选择方位';
+	}
+
+	if(!values.suiteType){
+	    errors.suiteType='请选择有无套间';
+	}
 
     if(!values.area||(values.area&&reg.test(values.area.toString().trim()))){
 		errors.area='请输入面积'
