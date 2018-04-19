@@ -787,6 +787,7 @@ export default class Table extends React.Component {
 	}
 
 	tableOnClick=(event)=>{
+		console.log("dlkfldk")
 		this.tableRowColumnClick(event);
 	}
 
@@ -806,14 +807,14 @@ export default class Table extends React.Component {
 			
 			var trDom = targetDom.parentNode;
 			if(trDom.parentNode.nodeName.toLowerCase()=="tfoot" || trDom.parentNode.nodeName.toLowerCase()=="thead"){
-				returnl
+				return;
 			}
 
 			var otherTr = trDom.nextSibling;
 			var preOtherTr = trDom.previousSibling;
 			this.resetTrColor(otherTr,"next");
 			this.resetTrColor(preOtherTr,"pre");
-			targetDom.parentNode.style.background ="#c9e0f6";
+			targetDom.parentNode.style.background ="#c1ddfa";
 
 		}else{
 			var newTargetDom = targetDom.parentNode
