@@ -25,6 +25,8 @@ module.exports = [
 								primaryText: '故障报警',
 								menuCode: 'iot_device_alarm',
 								router: '/smarthardware/doorManage/warning',
+								otherRouter : ['/smarthardware/doorManage/warning/'],
+								
 							},
 							{
 								primaryText: '升级管理',

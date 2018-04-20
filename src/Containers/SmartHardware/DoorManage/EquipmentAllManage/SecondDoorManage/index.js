@@ -478,7 +478,8 @@ export default class SecondDoorManage  extends React.Component{
 
 				{title:"获取httpToken",onClickFun:_this.getHttpToken},
 				{title:"编辑硬件ID",onClickFun:_this.editSerialNoFun},
-				{title:"开门记录",onClickFun:_this.toOpenLog}
+				{title:"开门记录",onClickFun:_this.toOpenLog},
+				{title:"故障报警",onClickFun:_this.toFailureWarning},
 				
 			]
 		}else{
@@ -500,6 +501,10 @@ export default class SecondDoorManage  extends React.Component{
 
 	toOpenLog=()=>{
 		window.open(`./#/smarthardware/doorManage/openlog/${State.itemDetail.deviceId}`,'_blank');
+	}
+
+	toFailureWarning=()=>{
+		window.open(`./#/smarthardware/doorManage/warning/${State.itemDetail.deviceId}`,'_blank');
 	}
 
 

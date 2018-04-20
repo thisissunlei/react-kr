@@ -33,11 +33,24 @@ export default class List extends React.Component {
 		super(props, context);
 		this.state = {
 			realPage : 1,
-			itemDetail:{}
+			itemDetail:{},
+			warnSearchParams:{
+				page:1,
+				pageSize:15,
+				stime :  '',
+				etime: '',
+				deviceId:this.props.params.deviceId || '',
+				logType: ''
+			}
 		}
 	}
 
 	componentDidMount(){
+
+		let {deviceId} = this.props.params;
+		this.setState({
+			initailDeviceId :deviceId
+		})
 	}
 	
 	onLoaded=(response)=>{
@@ -67,18 +80,24 @@ export default class List extends React.Component {
 		State.openContent =!State.openContent
 	}
 
+	submitDate=(data)=>{
+		this.setState({
+			warnSearchParams : data
+		})
+	}
+
 
 	render() {
 		let {
-			list,seleced,itemDetail
+			list,seleced,itemDetail,initailDeviceId,warnSearchParams
 		} = this.state;
-		
+		console.log("initailDeviceId",initailDeviceId)
 		return (
 			    <div className="second-door-warn-table" style={{minHeight:'910',backgroundColor:"#fff"}} >
 					<Title value="故障报警"/>
 					<Section title={`故障报警`} description="" >
 						<div>
-							<WarnSearchForm/>
+							<WarnSearchForm initailDeviceId={initailDeviceId} submitDate={this.submitDate}/>
 						</div>
 						<Table
 							className="door-warning-table"
@@ -91,7 +110,7 @@ export default class List extends React.Component {
 							exportSwitch={false}
 							ajaxFieldListName='items'
 							ajaxUrlName='getWarningLog'
-							ajaxParams={State.warnSearchParams}
+							ajaxParams={warnSearchParams}
 							onPageChange={this.onPageChange}
 							displayCheckbox={false}
 							onOperation={this.onOperation}

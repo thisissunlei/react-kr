@@ -119,6 +119,7 @@ module.exports =()=>{
 				<Route path="openlog" getComponent={SmartHardware_DoorManage_OpenLog}/>
 				<Route path="openlog/:deviceId" getComponent={SmartHardware_DoorManage_OpenLog}/>
 				<Route path="warning" getComponent={SmartHardware_DoorManage_FailureWarning}/>
+				<Route path="warning/:deviceId" getComponent={SmartHardware_DoorManage_FailureWarning}/>
 				<Route path="upgrademanage" getComponent={SmartHardware_DoorManage_UpgradeManage}/>
 				
 			</Route>
