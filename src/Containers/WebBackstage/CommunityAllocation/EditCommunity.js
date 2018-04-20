@@ -282,11 +282,11 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
           firstValue,
           listValue,
           stationValue,
-          movrStationUrl,
-          fixStationUrl,
-          indepOfficeUrl
+          moveStationValue,
+          fixStationValue,
+          indepOfficeValue
         } = this.props;
-        console.log('movrStationUrl---',movrStationUrl,listValue)
+       
         var sortStyle={};
         var chartStyle={};
         if(isCover=='false'||isCover==false){
@@ -380,13 +380,13 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                             <KrField style={chartStyle}  name="chargeId" component="searchPersonel" label="社区负责人" onChange = {this.changeCharge} placeholder={chargeName}/>
 
                             <FieldArray name="porType" component={renderStation} />
-                            {/* http://optest02.krspace.cn */}
+                          
                             <div className='web-page-box'> <KrField 
                                   name="moveStationId"
                                   component="uploadImage"
-                                  requestUrl='http://optest04.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                  requestUrl='/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                   style={{textAlign:'left'}}
-                                  defaultValue={movrStationUrl}
+                                  defaultValue={moveStationValue}
                                   inline={false}
                                   label='上传移动办公桌图片'
                                  
@@ -394,19 +394,19 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                              <div className='web-page-box'> <KrField 
                                   name="indepOfficeId"
                                   component="uploadImage"
-                                  requestUrl='http://optest04.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                  requestUrl='/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                   style={{textAlign:'left'}}
-                                  defaultValue={indepOfficeUrl}
+                                  defaultValue={indepOfficeValue}
                                   inline={false}
-                                  label='上传独立办公桌图片'
+                                  label='上传独立办公室图片'
                                   
                               /></div>
                               <div className='web-page-box'> <KrField 
-                                  name="indepOfficeUrl"
+                                  name="fixStationId"
                                   component="uploadImage"
-                                  requestUrl='http://optest04.krspace.cn/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
+                                  requestUrl='/api/krspace-finance-web/cmt/community/upload-photo/type/multi'
                                   style={{textAlign:'left'}}
-                                  defaultValue={fixStationUrl}
+                                  defaultValue={fixStationValue}
                                   inline={false}
                                   label='上传固定办公桌图片'
                             /></div>
