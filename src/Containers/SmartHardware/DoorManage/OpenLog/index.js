@@ -32,26 +32,36 @@ export default class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			
+			initialDeviceId : '',
 			realPage : 1,
-			searchParams: {
-				page: 1,
-				pageSize: 15,
-				startTime:'',
-				endTime:'',
-				registerSourceId:'',
-				jobId:'',
-				companyId:0,
-				cityId:'',
-				type:'COMP_NAME',
-				value:'',
+			openLogSearchParams: {
+				page:1,
+				pageSize:15,
+				sdate : '',
+				edate: '',
+				communityId: '',
+				deviceId: this.props.params.deviceId || '',
+				memberName:  '',
+				phone :  '',
+				date : new Date()
 			},
 			openType:[]
 		}
 	}
 
+
 	componentDidMount(){
+
 		this.getDicList();
+
+		let {deviceId} = this.props.params;
+		if(deviceId){
+			this.setState({
+				initialDeviceId : deviceId
+			})
+			console.log("deviceId",deviceId)
+			
+		}
 	}
 	
 	onLoaded=(response)=>{
@@ -90,16 +100,20 @@ export default class List extends React.Component {
 		});
 	}
 
+	submitNewData =(data)=>{
+		this.setState({
+			openLogSearchParams : data
+		})
+	}
 
 	render() {
-		let {list,seleced,openType} = this.state;
-		console.log("openType",openType);
+		let {list,seleced,openType,initialDeviceId,openLogSearchParams} = this.state;
 		return (
 			    <div className="second-door-open-log" style={{minHeight:'910',backgroundColor:"#fff"}} >
 					<Title value="开门记录"/>
 					<Section title={`开门记录`} description="" >
 						<div>
-							<OpenSearchForm/>
+							<OpenSearchForm initialDeviceId={initialDeviceId} submitNewData={this.submitNewData}/>
 						</div>
 						<Table
 							className="member-list-table"
@@ -112,7 +126,7 @@ export default class List extends React.Component {
 							exportSwitch={false}
 							ajaxFieldListName='items'
 							ajaxUrlName='getOpenLogList'
-							ajaxParams={State.openLogSearchParams}
+							ajaxParams={openLogSearchParams}
 							onPageChange={this.onPageChange}
 							displayCheckbox={false}
 						>

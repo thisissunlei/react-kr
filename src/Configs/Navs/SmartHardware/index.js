@@ -19,6 +19,7 @@ module.exports = [
 								primaryText: '开门记录',
 								menuCode: 'iot_door_open_log',
 								router: '/smarthardware/doorManage/openlog',
+								otherRouter : ['/smarthardware/doorManage/openlog/'],
 							},
 							{
 								primaryText: '故障报警',

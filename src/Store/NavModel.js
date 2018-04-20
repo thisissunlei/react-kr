@@ -64,7 +64,6 @@ const ForEachMenuItemPermission = function (childItem, parentItem, topItem, menu
 }
 const ForEachMenuItem = function (childItem, router, topItem) {
 	
-
 	if (childItem.hasOwnProperty('router') && childItem.router === router) {
 		childItem.isActive = true;
 		topItem.isActive = true;
