@@ -57,7 +57,10 @@ export default class CommunityAllocation  extends React.Component{
             baseFacility:[],
             baseService:[],
             specialServcie:[], 
-            cmtDiscountInfo:'' 
+            cmtDiscountInfo:'',
+            movrStationUrl:'',
+            fixStationUrl:'',
+            indepOfficeUrl:''
         }
 	}
    
@@ -182,7 +185,19 @@ export default class CommunityAllocation  extends React.Component{
              baseService:response.baseService, 
              specialServcie:response.specialServcie,
              cmtDiscountInfo:response.cmtDiscountInfo,
-             addressPhotoUrl: response.addressPhotoUrl   
+             addressPhotoUrl: response.addressPhotoUrl ,
+             movrStationUrl:{
+                picId:response.listImageId,
+                picUrl:response.movrStationUrl  
+             },
+             fixStationUrl:{
+                picId:response.listImageId,
+                picUrl:response.fixStationUrl  
+             },
+             indepOfficeUrl:{
+                picId:response.listImageId,
+                picUrl:response.indepOfficeUrl  
+             }
             })
         }).catch(function(err) {
             Message.error(err.message);
@@ -225,10 +240,13 @@ export default class CommunityAllocation  extends React.Component{
  
  //编辑提交
   editSubmit=(params)=>{
-      
+      console.log('params----',params)
        let _this=this;
        delete params.detailImage;
        delete params.detailImageId;
+       delete params.fixStationUrl;
+       delete params.movrStationUrl;
+       delete params.stationImageUrl;
        params=Object.assign({},params);
        var inImgDetail=[],outImgDetail=[],stationImgDetail=[];
        //室内
@@ -351,8 +369,11 @@ export default class CommunityAllocation  extends React.Component{
             stationDetailImage,
             cmtDiscountInfo,
             addressPhotoUrl,
+            movrStationUrl,
+            fixStationUrl,
+            indepOfficeUrl
         }=this.state;
-
+       
          
 		return(
            <div className='m-web-community'>
@@ -453,6 +474,9 @@ export default class CommunityAllocation  extends React.Component{
                           inDetailImage={inDetailImage}
                           cmtDiscountInfo={cmtDiscountInfo}
                           addressPhotoUrl={addressPhotoUrl}
+                          movrStationUrl={movrStationUrl}
+                          fixStationUrl={fixStationUrl}
+                          indepOfficeUrl={indepOfficeUrl}
 						/>
 
 		            </Drawer>
