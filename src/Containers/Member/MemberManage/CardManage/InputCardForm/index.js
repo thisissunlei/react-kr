@@ -21,6 +21,8 @@ import {
 	Message
 } from 'kr-ui';
 
+const defaultNotificationSound = require('file!./warn.mp3');
+
 import State from '../State';
 import {
 	observer
@@ -38,6 +40,7 @@ class InputCardForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.continueOrClose = '';
+		this.errorMsgAudio = new Audio(defaultNotificationSound)
 		this.state = {
 			showJump : false,
 			tipContent : '',
@@ -46,6 +49,13 @@ class InputCardForm extends React.Component {
 		}
 
 	}
+
+	componentDidMount(){
+		// console.log("this.errorMsgAudio",this.errorMsgAudio)
+		// return this.errorMsgAudio.play();
+	}
+
+
 	onSubmit=(values)=>{
 
 		let _this =this;
@@ -102,6 +112,7 @@ class InputCardForm extends React.Component {
 
 		}).catch(function(err) {
 			
+			_this.errorMsgAudio.play();
 			_this.setState({
 				showTip : true,
 				tipContent : err.message,
@@ -236,7 +247,7 @@ class InputCardForm extends React.Component {
 								{
 									showJump && 
 									<div  className='ui-btn-center'>
-										<Button  label="跳过" type="submit" onTouchTap={this.jumpToNextFun} cancle={true}/>
+										<Button  label="跳过次外码" type="submit" onTouchTap={this.jumpToNextFun} cancle={true}/>
 									</div>
 								}
 								
