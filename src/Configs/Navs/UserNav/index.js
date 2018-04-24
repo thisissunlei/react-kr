@@ -18,7 +18,7 @@ module.exports = [
 					},
 					{
 						primaryText: "客户管理",
-						originUrl: '/client/manage',
+						originUrl: '/customer-manage/manage',
 						type:'vue',
 						menuCode: 'customer_center'
 					},
