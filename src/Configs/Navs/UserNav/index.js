@@ -15,7 +15,13 @@ module.exports = [
                         originUrl: '/bill/customerAssets',
                         type: 'vue',
                         menuCode: 'customer_assets'
-                    },
+					},
+					{
+						primaryText: "客户管理",
+						originUrl: '/client/manage',
+						type:'vue',
+						menuCode: 'customer_center'
+					},
                     {
 						primaryText: "客户管理员",
 						originUrl: '/member/setting-manager',
