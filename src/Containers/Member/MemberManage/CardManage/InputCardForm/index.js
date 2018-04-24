@@ -251,7 +251,7 @@ class InputCardForm extends React.Component {
 								{
 									showJump && 
 									<div  className='ui-btn-center'>
-										<Button  label="跳过次外码" type="submit" onTouchTap={this.jumpToNextFun} cancle={true}/>
+										<Button  label="跳过此外码" type="submit" onTouchTap={this.jumpToNextFun} cancle={true}/>
 									</div>
 								}
 								
