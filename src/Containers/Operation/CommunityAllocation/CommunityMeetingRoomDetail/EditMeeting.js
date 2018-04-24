@@ -485,7 +485,7 @@ const validate = values =>{
 	//整数
 	let zeroNum=/^-?\d+$/;　
 
-	let areaReg=/^(([1-9]{1}[0-9]{0,2})|([0]\.\d{1,2}|[1-9]{1}[0-9]{0,2}\.\d{1,2}))$/;
+	let areaReg=/^(([1-9]{1}[0-9]{0,2})|([0])|([0]\.\d{1,2}|[1-9]{1}[0-9]{0,2}\.\d{1,2}))$/;
 
 	//空格
 	let reg=/^\s*$/;
@@ -519,7 +519,7 @@ const validate = values =>{
 	}
 	
 	if(values.area&&!areaReg.test(values.area.toString().trim())){
-		errors.area='面积整数位最多3位,小数位最多2位'
+		errors.area='请输入小于1000的数字,最多2位小数'
 	}
 
   if(!values.capacity||(values.capacity&&reg.test(values.capacity.toString().trim()))){
