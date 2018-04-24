@@ -39,6 +39,7 @@ class InputCardForm extends React.Component {
 		super(props);
 		this.continueOrClose = '';
 		this.state = {
+			showJump : false,
 			tipContent : '',
 			showTip : false,
 			submitSuc : false,
@@ -49,6 +50,17 @@ class InputCardForm extends React.Component {
 
 		let _this =this;
 		var submitValues = Object.assign({},values);
+
+		if(values.jumpToNext){
+			Http.request('jumpToNextCardApi',{outerCode:values.outerCode}).then(function(response) {
+				Store.dispatch(change('InputCardForm','outerCode',response.suggestedOuterCode||''));
+			}).catch(function(err) {
+			
+				
+			});
+			return;
+		}
+
 		Http.request('inputCardUrl',{},values).then(function(response) {
 			
 			if(_this.continueOrClose=="close"){
@@ -121,12 +133,29 @@ class InputCardForm extends React.Component {
 
 
 	submitClose=()=>{
+
+		Store.dispatch(change('InputCardForm','jumpToNext',false));
 		this.continueOrClose = "close"
 	}
 
 	submitContinue=()=>{
+		
+		Store.dispatch(change('InputCardForm','jumpToNext',false));
 		this.continueOrClose = "continue"
 	}
+
+
+	changeOuterCode=(value)=>{
+		var showJumpParam ;
+
+		(value&& value.length>0)? showJumpParam=true:showJumpParam=false
+		this.setState({
+			showJump : showJumpParam
+		})
+		Store.dispatch(change('InputCardForm','outerCode',value));
+		this.inputData();
+	}
+
 
 	inputData=()=>{
 		this.submitContinue();
@@ -134,6 +163,11 @@ class InputCardForm extends React.Component {
 
 	closeInputDialog=()=>{
 		State.openInputCardDialog = false;
+	}
+
+	jumpToNextFun=()=>{
+		Store.dispatch(change('InputCardForm','jumpToNext',true));
+		
 	}
 
 
@@ -144,7 +178,7 @@ class InputCardForm extends React.Component {
 			pristine,
 			reset
 		} = this.props;
-		let {tipContent,showTip,submitSuc} = this.state;
+		let {tipContent,showTip,submitSuc,showJump} = this.state;
 		return (
 
 			<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:0}} className="input-card-form">
@@ -171,7 +205,7 @@ class InputCardForm extends React.Component {
 					label="会员卡外码" 
 					onBlur={this.foreignCodeBlur}
 					requireLabel={true}
-					onChange={this.inputData}
+					onChange={this.changeOuterCode}
 				/>
 				
 				
@@ -199,6 +233,13 @@ class InputCardForm extends React.Component {
 					<Row>
 						<Col md={12} align="center">
 							<ButtonGroup>
+								{
+									showJump && 
+									<div  className='ui-btn-center'>
+										<Button  label="跳过" type="submit" onTouchTap={this.jumpToNextFun} cancle={true}/>
+									</div>
+								}
+								
 								<div  className='ui-btn-center'>
 									<Button  label="关闭" type="submit" onTouchTap={this.closeInputDialog} cancle={true}/>
 								</div>
@@ -217,25 +258,27 @@ class InputCardForm extends React.Component {
 }
 
 const validate = values =>{
+		
 		var reg=/^[0-9a-fA-F]{8}$/;
+		
 		const errors = {}
-		if(!values.communityId){
+		if(!values.jumpToNext && !values.communityId){
 			errors.communityId = '请选择社区';
 		}
-		if(values.memo&&values.memo.length>50){
+		if(!values.jumpToNext && values.memo&&values.memo.length>50){
 			errors.memo = '备注内容必须在50位以内';
 		}
 		if(!values.outerCode){
 			errors.outerCode = '请输入会员卡外码';
 		}
-		if(values.outerCode&&values.outerCode.length>20){
+		if(!values.jumpToNext && values.outerCode&&values.outerCode.length>20){
 			errors.outerCode = '请输入20位以内的会员卡外码';
 		}
 		
-		if(!values.innerCode){
+		if(!values.jumpToNext && !values.innerCode){
 			errors.innerCode = '请输入会员卡内码';
 
-		}else if (!reg.test(values.innerCode)) {
+		}else if (!values.jumpToNext && !reg.test(values.innerCode)) {
 
 			errors.innerCode = '内码为8位16进制数';
 		}
