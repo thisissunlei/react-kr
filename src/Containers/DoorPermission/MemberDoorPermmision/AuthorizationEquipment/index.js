@@ -448,13 +448,12 @@ export default class CanOperationEquipment extends React.Component {
 			          />
 			        </Dialog>
 
-                    <Drawer 
+                    <Dialog 
+                        title="设备列表"
 			        	open={State.openNewCreateAuthoriazation}
 			        	onClose = {this.openNewCreateAuthoriazationFun}
-					    width={"90%"} 
-					    openSecondary={true} 
+                        contentStyle={{width:1000}}
 					>
-                   
                     
                         
                     <AllEquipmentListBox 
@@ -465,7 +464,7 @@ export default class CanOperationEquipment extends React.Component {
                         granteeId={granteeId}
                     />
                     
-			        </Drawer>
+			        </Dialog>
 
 			</div>
 		);

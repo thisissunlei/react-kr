@@ -49,15 +49,19 @@ export default class DeleteMemberFromGroup extends React.Component {
 		freshGroupMemberList && freshGroupMemberList();
 	}
 	
+	continueOrCloseAllMember=(propsData)=>{
+
+		if(propsData == "close"){
+			this.closeAllMemberList()
+		}
+	}
 
 	render() {
 		let {groupItemDetail} = this.props;
 		return (
 		    <div className="add-member-to-group">
-				<div style={{width:"100%",height:30}}>
-					<img src={closeImg} style={{float:"right",width:30,cursor:"pointer"}} onClick={this.closeAllMemberList}/>
-				</div>
-				<AllMemberManage groupItemDetail={groupItemDetail} freshGroupMemberList={this.freshGroupMemberList}/>
+			
+				<AllMemberManage groupItemDetail={groupItemDetail} freshGroupMemberList={this.freshGroupMemberList} continueOrCloseAllMember={this.continueOrCloseAllMember}/>
 				
 
 			</div>

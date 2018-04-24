@@ -9,7 +9,7 @@ import {
 	formValueSelector
 } from 'redux-form';
 import {
-	Message,Section,Button,Drawer
+	Message,Section,Button,Drawer,Dialog
 } from 'kr-ui';
 import './index.less';
 
@@ -47,12 +47,16 @@ export default class ChangeMember extends React.Component{
 		closeChangeMember && closeChangeMember();
 	}
 
-	refreshAuthoriazationEquipmentList=()=>{
+	refreshAuthoriazationEquipmentList=(param)=>{
 
 		let {freshGroupEquipment} = this.state;
 		this.setState({
 			freshGroupEquipment: !freshGroupEquipment
 		})
+		console.log("param",param)
+		if(param && param == true){
+			this.openAddEquipmentDialogFun()
+		}
 	}
 
 	openAddEquipmentDialogFun=()=>{
@@ -82,11 +86,11 @@ export default class ChangeMember extends React.Component{
 								<Button label="添加设备"  onTouchTap={this.openAddEquipmentDialogFun} className="button-list"/>
 							</div>
 							<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP" noShowAddNew={true} freshGroupEquipment={freshGroupEquipment}/> 
-							<Drawer 
+							<Dialog 
+								title="设备列表"
 								open={State.openAddEquipmentDialog}
 								onClose = {this.openAddEquipmentDialogFun}
-								width={"70%"} 
-								openSecondary={true} 
+								contentStyle={{width:1016}}
 							>	
 								<div style={{padding:40}}>
 									<div style={{width:"100%",height:30}}>
@@ -94,7 +98,7 @@ export default class ChangeMember extends React.Component{
 									</div>
 									<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
 								</div>
-							</Drawer>
+							</Dialog>
 						</Section>
 					</div>
 					

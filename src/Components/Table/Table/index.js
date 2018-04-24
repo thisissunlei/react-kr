@@ -787,7 +787,6 @@ export default class Table extends React.Component {
 	}
 
 	tableOnClick=(event)=>{
-		console.log("dlkfldk")
 		this.tableRowColumnClick(event);
 	}
 

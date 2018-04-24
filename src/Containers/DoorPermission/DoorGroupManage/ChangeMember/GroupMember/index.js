@@ -14,7 +14,7 @@ import {
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
- import SearchGroupMember from '../AllMemberManage/SearchGroupMember';
+ import SearchGroupMember from './SearchGroupMember';
  import DeleteMemberFromGroup from './DeleteMemberFromGroup';
  import BatchDeleteMemberFromGroup from './BatchDeleteMemberFromGroup';
  import AllMemberList from './AllMemberList';
@@ -369,15 +369,16 @@ export default class GroupMemberManage extends React.Component {
 						
 			          />
 			        </Dialog>
-					<Drawer 
+					<Dialog 
+						title="会员列表"
 			        	open={State.openAddMemberDialog}
 			        	onClose = {this.openAddMemberDialogFun}
-					    width={"70%"} 
-					    openSecondary={true} 
+						openSecondary={true} 
+						contentStyle={{width:1016}}
 					>
 						<AllMemberList groupItemDetail={groupItemDetail} freshGroupMemberList={this.refreshPage}/>
 						
-					</Drawer>
+					</Dialog>
 
 				</Section>
 			</div>
