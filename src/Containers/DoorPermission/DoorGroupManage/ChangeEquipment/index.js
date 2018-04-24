@@ -53,7 +53,6 @@ export default class ChangeMember extends React.Component{
 		this.setState({
 			freshGroupEquipment: !freshGroupEquipment
 		})
-		console.log("param",param)
 		if(param && param == true){
 			this.openAddEquipmentDialogFun()
 		}
@@ -93,9 +92,7 @@ export default class ChangeMember extends React.Component{
 								contentStyle={{width:1016}}
 							>	
 								<div style={{padding:40}}>
-									<div style={{width:"100%",height:30}}>
-										<img src={closeImg} style={{float:"right",width:30,cursor:"pointer"}} onClick={this.openAddEquipmentDialogFun}/>
-									</div>
+									
 									<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
 								</div>
 							</Dialog>

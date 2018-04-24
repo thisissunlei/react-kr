@@ -18,8 +18,7 @@ import './index.less';
 import SearchForm from './AuthoriazationEquipmentSearch';
 import CancleAuthorization from './CancleAuthorization';
 import BatchCancleAuthoriazation from './BatchCancleAuthoriazation';
-// import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
-import AllEquipmentListBox from './AllEquipmentListBox';
+import AllEquipmentListSearch from './AllEquipmentListSearch';
 
 
 import State from './State';
@@ -136,7 +135,7 @@ export default class CanOperationEquipment extends React.Component {
     }
 
 
-    refreshAuthoriazationEquipmentList=()=>{
+    refreshAuthoriazationEquipmentList=(param)=>{
 
         var now = new Date().getTime();
         let obj= {date:now};
@@ -147,6 +146,10 @@ export default class CanOperationEquipment extends React.Component {
         this.setState({
             getMemberAuthorizeEquipmentParams : params
         })
+        console.log("param",param)
+        if(param && param==true){
+            this.openNewCreateAuthoriazationFun();
+        }
         
     }
 
@@ -456,7 +459,7 @@ export default class CanOperationEquipment extends React.Component {
 					>
                     
                         
-                    <AllEquipmentListBox 
+                    <AllEquipmentListSearch 
                         memberDetailInfo={memberDetailInfo} 
                         refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList} 
                         doorTypeOptions={doorTypeOptions} 

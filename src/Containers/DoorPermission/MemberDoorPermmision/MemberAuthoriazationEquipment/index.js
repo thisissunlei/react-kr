@@ -19,7 +19,7 @@ import SearchForm from './AllEquipmentListSearch/SearchAllEquipment';
 import CancleAuthorization from './CancleAuthorization';
 import BatchCancleAuthoriazation from './BatchCancleAuthoriazation';
 // import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
-import AllEquipmentListBox from './AllEquipmentListBox';
+import AllEquipmentListSearch from './AllEquipmentListSearch';
 
 
 import State from './State';
@@ -457,7 +457,7 @@ export default class CanOperationEquipment extends React.Component {
                    
                     
                         
-                    <AllEquipmentListBox 
+                    <AllEquipmentListSearch 
                         memberDetailInfo={memberDetailInfo} 
                         refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList} 
                         doorTypeOptions={doorTypeOptions} 

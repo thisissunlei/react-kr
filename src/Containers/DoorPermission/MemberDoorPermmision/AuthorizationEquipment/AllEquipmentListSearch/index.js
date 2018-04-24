@@ -185,7 +185,6 @@ export default class CanOperationEquipment extends React.Component {
     sendAddRequest=(sendParams)=>{
         let that = this;
         let {closeMemberList}= this.state;
-        console.log("closeMemberList",closeMemberList)
 		Http.request('addEquipmentToGroupApi',{},sendParams).then(function(response) {
 
 			that.setAuthorizationTime();
@@ -234,14 +233,6 @@ export default class CanOperationEquipment extends React.Component {
         })
     }
 
-    // onPageChange=(page)=>{
-    //     let {getAllEquipmentParams} = this.state;
-    //     let pageObj = {page:page};
-    //     let newObj = Object.assign({},getAllEquipmentParams,pageObj);
-    //     this.setState({
-    //         getAllEquipmentParams  :newObj
-    //     })
-    // }
 
 
     
@@ -251,7 +242,7 @@ export default class CanOperationEquipment extends React.Component {
         let {getAllEquipmentParams,itemDetail} = this.state;
 
 		return (
-		    <div className="all-equipment ">
+		    <div className="all-equipment" style={{paddingTop:20}}>
               
                 {/* <Section title={`所有设备`} description="" > */}
                     <SearchAllEquipment submitSearchParams={this.submitSearch}/>
