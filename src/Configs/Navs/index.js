@@ -23,7 +23,7 @@ import ConfigNav from './ConfigNav';
 import ObjectSetting from './ObjectSetting'
 
 
-const NavItems = [].concat(HomeNav, OperationNav, UserNav, ProductNav, OrderNav, FinanceNav, SmartHardware, ConfigNav,ObjectSetting);
+const NavItems = [].concat(HomeNav, ObjectSetting, OperationNav, UserNav, ProductNav, OrderNav, FinanceNav, SmartHardware, ConfigNav);
 
 module.exports = {
     current_parent: '',
