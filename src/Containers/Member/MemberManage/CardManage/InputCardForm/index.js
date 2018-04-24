@@ -21,7 +21,8 @@ import {
 	Message
 } from 'kr-ui';
 
-const defaultNotificationSound = require('file!./warn.mp3');
+const errorMusic = require('file!./warn.mp3');
+const successMusic = require('file!./success.mp3');
 
 import State from '../State';
 import {
@@ -40,7 +41,8 @@ class InputCardForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.continueOrClose = '';
-		this.errorMsgAudio = new Audio(defaultNotificationSound)
+		this.errorMsgAudio = new Audio(errorMusic);
+		this.sucMsgAudio = new Audio(successMusic);
 		this.state = {
 			showJump : false,
 			tipContent : '',
@@ -108,6 +110,8 @@ class InputCardForm extends React.Component {
 				value:'',
 				date : new Date(),
 			}
+
+			_this.sucMsgAudio.play();
 			
 
 		}).catch(function(err) {
