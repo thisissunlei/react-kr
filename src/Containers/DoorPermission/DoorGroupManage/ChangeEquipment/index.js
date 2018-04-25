@@ -9,7 +9,7 @@ import {
 	formValueSelector
 } from 'redux-form';
 import {
-	Message,Section,Button,Drawer,Dialog
+	Message,Section,Button,Drawer,Dialog,DialogInner
 } from 'kr-ui';
 import './index.less';
 
@@ -85,17 +85,18 @@ export default class ChangeMember extends React.Component{
 								<Button label="添加设备"  onTouchTap={this.openAddEquipmentDialogFun} className="button-list"/>
 							</div>
 							<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP" noShowAddNew={true} freshGroupEquipment={freshGroupEquipment}/> 
-							<Dialog 
+							<DialogInner 
 								title="设备列表"
 								open={State.openAddEquipmentDialog}
 								onClose = {this.openAddEquipmentDialogFun}
-								contentStyle={{width:1016}}
+								bodyStyle={{overflow:"scroll"}}
+								contentStyle={{width:1016,maxHeight:860}}
 							>	
-								<div style={{padding:40}}>
+								<div  className="all-equipment-box">
 									
 									<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
 								</div>
-							</Dialog>
+							</DialogInner>
 						</Section>
 					</div>
 					

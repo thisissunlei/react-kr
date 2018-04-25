@@ -9,7 +9,7 @@ import {
 	Grid,Row,
 	ListGroup,ListGroupItem,
 	Tooltip,
-	Drawer ,
+	Drawer ,DialogInner
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http,DateFormat} from 'kr/Utils';
@@ -451,10 +451,11 @@ export default class CanOperationEquipment extends React.Component {
 			          />
 			        </Dialog>
 
-                    <Dialog 
+                    <DialogInner 
                         title="设备列表"
 			        	open={State.openNewCreateAuthoriazation}
-			        	onClose = {this.openNewCreateAuthoriazationFun}
+                        onClose = {this.openNewCreateAuthoriazationFun}
+                        bodyStyle={{overflow:"scroll"}}
                         contentStyle={{width:1000}}
 					>
                     
@@ -467,7 +468,7 @@ export default class CanOperationEquipment extends React.Component {
                         granteeId={granteeId}
                     />
                     
-			        </Dialog>
+			        </DialogInner>
 
 			</div>
 		);

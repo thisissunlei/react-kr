@@ -9,7 +9,7 @@ import {
 	Grid,Row,
 	ListGroup,ListGroupItem,
 	Tooltip,
-	Drawer ,
+	Drawer ,DialogInner
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
@@ -369,16 +369,17 @@ export default class GroupMemberManage extends React.Component {
 						
 			          />
 			        </Dialog>
-					<Dialog 
+					<DialogInner  
 						title="会员列表"
 			        	open={State.openAddMemberDialog}
 			        	onClose = {this.openAddMemberDialogFun}
 						openSecondary={true} 
-						contentStyle={{width:1016}}
+						bodyStyle={{overflow:"scroll"}}
+						contentStyle={{width:1016,maxHeight:860}}
 					>
 						<AllMemberList groupItemDetail={groupItemDetail} freshGroupMemberList={this.refreshPage}/>
 						
-					</Dialog>
+					</DialogInner >
 
 				</Section>
 			</div>
