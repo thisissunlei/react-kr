@@ -374,8 +374,9 @@ export default class GroupMemberManage extends React.Component {
 			        	open={State.openAddMemberDialog}
 			        	onClose = {this.openAddMemberDialogFun}
 						openSecondary={true} 
-						bodyStyle={{overflow:"scroll"}}
-						contentStyle={{width:1016,maxHeight:860}}
+						bodyStyle={{overflow:"scroll",maxHeight:600}}
+						noMaxHeight = {true}
+						contentStyle={{width:1016,maxHeight:750}}
 					>
 						<AllMemberList groupItemDetail={groupItemDetail} freshGroupMemberList={this.refreshPage}/>
 						

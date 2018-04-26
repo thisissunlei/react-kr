@@ -79,7 +79,7 @@ export default class DialogComponent extends React.Component {
 			dialogContentEle.style.transform = `translateY(-${Math.floor(height / 2)}px)`;
 			return;
 		}
-		dialogContentEle.style.transform = `translateY(-${Math.floor(height / 2+30)}px)`;
+		dialogContentEle.style.transform = `translateY(-${Math.floor(height / 2+50)}px)`;
 	}
 
 
