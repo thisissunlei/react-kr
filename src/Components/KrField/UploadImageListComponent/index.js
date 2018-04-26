@@ -118,8 +118,9 @@ export default class UploadImageListComponent extends Component {
 			errorHide: true
 		})
 		let _this = this;
-		let file = event.target.files[0];
-       
+		console.log('event.target.files----',event.target.files)
+		//let file = event.target.files[0];
+		let file = event.target.files;
 		if (!file) {
 			return;
 		}
@@ -135,19 +136,23 @@ export default class UploadImageListComponent extends Component {
 				});
 			}, 300);
 		}
-
-		let imgType = file.type;
-		let imgSize = Math.round(file.size/1024*100)/100;
-		if(imgType!== "image/jpg" && imgType!== "image/jpeg"&& imgType!== "image/png"){
-			Message.warntimeout('请上传正确格式的图片', 'error')
-			return;
-		}
-		if(imgSize>1000){
-			Message.warntimeout('图片尺寸不得大于1M', 'error')
-			return;
-		}
+		
+		
 		var form = new FormData();
-		form.append('file', file);
+		for(var i=0; i<file.length;i++){
+				let imgType = file[i].type;
+				let imgSize = Math.round(file[i].size/1024*100)/100;
+				if(imgType!== "image/jpg" && imgType!== "image/jpeg"&& imgType!== "image/png"){
+					Message.warntimeout('请上传正确格式的图片', 'error')
+					return;
+				}
+				if(imgSize>1000){
+					Message.warntimeout('图片尺寸不得大于1M', 'error')
+					return;
+				}
+			form.append('file', file[i]);
+		}
+		//form.append('file', file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
@@ -165,8 +170,10 @@ export default class UploadImageListComponent extends Component {
 					xhrfile.onreadystatechange = function() {
 						if (xhrfile.readyState === 4) {
 							var fileResponse = xhrfile.response;
+							console.log('fileResponse.data',xhrfile.response)
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
+									
 									fileResponse.data.map((item,index)=>{
                                      images.push({
 										photoId:item.id,
@@ -309,7 +316,7 @@ export default class UploadImageListComponent extends Component {
 				<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg} style={this.props.innerBoxStyle}>
 					<div className='ui-uploadimg-inner' style={this.props.innerStyle}>
 						<span className='ui-uploadimg-button'>+</span>
-						<input type='file' onChange={this.updateImage} ref="inputImg"/>
+						<input type='file' multiple onChange={this.updateImage} ref="inputImg"/>
 						<span className='ui-uploadimg-tip'>上传图片</span>
 					</div>
 				</div>

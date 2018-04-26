@@ -244,9 +244,9 @@ const validate = values => {
 	if (!values.name || /^\s+$/.test(values.name)) {
 		errors.name = '请输入姓名';
 	}
-	if (values.email &&!email.test(values.email) ) {
-        errors.email = '请输入正确邮箱';
-    }
+	// if (values.email &&!email.test(values.email) ) {
+    //     errors.email = '请输入正确邮箱';
+    // }
   if (values.phone && !phone.test(values.phone) ) {
       errors.phone = '请输入正确电话号';
   }
