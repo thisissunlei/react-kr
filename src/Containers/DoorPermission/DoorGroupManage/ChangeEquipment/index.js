@@ -95,7 +95,6 @@ export default class ChangeMember extends React.Component{
 							>	
 								<div  className="all-equipment-box">
 									
-									
 									<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
 								</div>
 							</DialogInner>
