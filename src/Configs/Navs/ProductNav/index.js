@@ -24,18 +24,6 @@ module.exports = [
 						router: '/product/communityAllocation/communityPlanList'
 					},
 					{
-                        primaryText: "每日库存",
-                        originUrl: '/inventory/daily-inventory',
-                        type: 'vue',
-                        menuCode: 'seat_order_list',
-					},
-					{
-                        primaryText: "可租库存",
-                        originUrl: '/inventory/optional-inventory',
-                        type: 'vue',
-                        menuCode: 'seat_order_list',
-                    },
-					{
 						primaryText: '空间',
 						menuCode: 'oper_cmt_spaceList_base',
 						otherRouter:['communityMeetingRoomDetail','/operation/communityAllocation/communityMeetingRoom'],
@@ -48,6 +36,18 @@ module.exports = [
 
 						router: '/product/communityAllocation/communityStation'
 					},
+					{
+                        primaryText: "每日库存查询",
+                        originUrl: '/inventory/daily-inventory',
+                        type: 'vue',
+                        menuCode: 'myCard',
+					},
+					{
+                        primaryText: "可租商品查询",
+                        originUrl: '/inventory/optional-inventory',
+                        type: 'vue',
+                        menuCode: 'myCard',
+                    },
 					{
 						primaryText: '注册地址',
 						menuCode: 'cmt_registerAddress_list',
