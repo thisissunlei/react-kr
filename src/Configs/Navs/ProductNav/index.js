@@ -37,6 +37,18 @@ module.exports = [
 						router: '/product/communityAllocation/communityStation'
 					},
 					{
+                        primaryText: "每日库存查询",
+                        originUrl: '/inventory/daily-inventory',
+                        type: 'vue',
+                        menuCode: 'daily_inventory',
+					},
+					{
+                        primaryText: "可租商品查询",
+                        originUrl: '/inventory/optional-inventory',
+                        type: 'vue',
+                        menuCode: 'inventory',
+                    },
+					{
 						primaryText: '注册地址',
 						menuCode: 'cmt_registerAddress_list',
 						router: '/product/communityAllocation/registeredAddress'
