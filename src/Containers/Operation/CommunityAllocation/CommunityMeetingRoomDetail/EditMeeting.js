@@ -111,13 +111,6 @@ class EditMeeting  extends React.Component{
 						   		 EndTimeStr
 						   })
 				   }
-				  
-
-				   if(response.enable==1){
-				   	 response.enable='1';
-				   }else if(response.enable==0){
-				   	 response.enable='0';
-				   }
 
 
 					 if(response.spaceType=='BOARDROOM'){
@@ -201,7 +194,7 @@ class EditMeeting  extends React.Component{
 	}
 
 
-	//校验空间名称
+	//校验商品名称
 	 codeCompare=(params)=>{
 		 this.props.CommunityMeetingModel.codeStationCompare(params.toString().trim());
 	 }
@@ -280,7 +273,7 @@ class EditMeeting  extends React.Component{
 	 						style={{marginTop:1,width:262}}
 	 						name="name"
 	 						component="input"
-	 						label="空间名称"
+	 						label="商品名称"
 	 						requireLabel={true}
 	 						onChange={this.codeCompare}
 	 				/>
@@ -289,13 +282,13 @@ class EditMeeting  extends React.Component{
 							style={{width:262,marginLeft:28}}
 							name="spaceType"
 							component="select"
-							label="空间类型"
+							label="房间类型"
 							requireLabel={true}
 							options={this.props.CommunityMeetingModel.sapceTypes}
 							onChange={this.spaceTypeChange}
 					/>
 
-					{this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该空间名称已存在</div>}
+					{this.props.CommunityMeetingModel.isCode && <div style={{fontSize:14,color:"red",paddingLeft:15,paddingBottom:7}}>该商品名称已存在</div>}
 
 	 				<KrField grid={1/2}
 	 						style={{width:262}}
@@ -316,7 +309,7 @@ class EditMeeting  extends React.Component{
 					 style={{width:262}}
 					 name="capacity"
 					 component="input"
-					 label="可容纳人数"
+					 label="工位数"
 					 requireLabel={true}
 				/>
 				<KrField grid={1/2}
@@ -326,7 +319,30 @@ class EditMeeting  extends React.Component{
 					 label="空间位置"
 				 />
 
+				<KrField grid={1/2}
+					style={{width:262}}
+					name="locationType"
+					component="select"
+					label="方位"
+					requireLabel={true}
+					options={[{value:'OUTSIDE_SPACE',label:'外侧间'},{value:'INSIDE_SPACE',label:'内侧间'},{value:'UNKNOWN',label:'未知'}]}
+				/>
+				<KrField grid={1/2}
+					style={{width:262,marginLeft:28}}
+					name="suiteType"
+					component="select"
+					label="有无套间"
+					requireLabel={true}
+					options={[{value:'SUITE',label:'有套间'},{value:'UNSUITE',label:'无套间'},{value:'UNKNOWN',label:'未知'}]}
+				/>
 
+				<KrField
+                    style={{width:553}}
+                    name="descr"
+                    component="textarea"
+                    label="补充描述"
+                    maxSize={25}
+                />
 
 				 {watchMeeting&&<div>
 				 	<div style={{display:'block'}} className='community-list-time'>
@@ -396,11 +412,12 @@ class EditMeeting  extends React.Component{
 				
 
 				<KrField grid={1/2} style={{width:262}} name="enable" component="group" label="启用状态">
-					<KrField name="enable" label="启用" type="radio" value='1' />
-					<KrField name="enable" label="禁用" type="radio" value='0' />
+					<KrField name="enable" label="启用" type="radio" value='ENABLE' />
+					<KrField name="enable" label="不可用" type="radio" value='UNENABLE' />
+				    <KrField name="enable" label="下架" type="radio" value='UNDERCARRIAGE' />
 			   </KrField>
 
-			    <KrField grid={1/2} style={{width:262,marginLeft:29}} name="quotedPrice" component="input"  label="报价"
+			    <KrField grid={1/2} style={{width:262,marginLeft:29}} name="quotedPrice" component="input"  label="商品总价"
                  onBlur={this.priceBlur}/>	
 				
 				{watchMeeting && <div className="u-meet-setting">
@@ -468,20 +485,30 @@ const validate = values =>{
 	//整数
 	let zeroNum=/^-?\d+$/;　
 
+	let areaReg=/^(([1-9]{1}[0-9]{0,2})|([0])|([0]\.\d{1,2}|[1-9]{1}[0-9]{0,2}\.\d{1,2}))$/;
+
 	//空格
 	let reg=/^\s*$/;
 
     if(!values.name||(values.name&&reg.test(values.name.toString().trim()))){
-      errors.name='请输入空间名称';
+      errors.name='请输入商品名称';
     }
 
 		if(!values.spaceType){
-      errors.spaceType='请输入空间类型';
+      errors.spaceType='请输入房间类型';
     }
 
     if(!values.floor){
       errors.floor='请输入所在楼层';
-    }
+	}
+	
+	if(!values.locationType){
+		errors.locationType='请选择方位';
+	}
+
+	if(!values.suiteType){
+	    errors.suiteType='请选择有无套间';
+	}
 
     if(!values.area||(values.area&&reg.test(values.area.toString().trim()))){
 		errors.area='请输入面积'
@@ -490,14 +517,17 @@ const validate = values =>{
 	if(values.area&&isNaN(values.area)){
 		errors.area='面积为数字'
 	}
-
+	
+	if(values.area&&!areaReg.test(values.area.toString().trim())){
+		errors.area='请输入小于1000的数字,最多2位小数'
+	}
 
   if(!values.capacity||(values.capacity&&reg.test(values.capacity.toString().trim()))){
-		errors.capacity='请输入可容纳人数'
+		errors.capacity='请输入工位数'
 	}
 
 	if(values.capacity&&(!numberNotZero.test(values.capacity.toString().trim())&&values.capacity!=0)){
-		errors.capacity='可容纳人数为正整数或0'
+		errors.capacity='工位数为正整数或0'
 	}
 
 	if((!values.idlePrice&&values.idlePrice!=0)||(values.idlePrice&&reg.test(values.idlePrice.toString().trim()))){
@@ -551,11 +581,11 @@ errors.maskStation = membersArrayErrors
 }
 
     if(values.quotedPrice&&isNaN(values.quotedPrice)){
-		errors.quotedPrice='报价为数字'
+		errors.quotedPrice='商品总价为数字'
 	}
 
 	if(values.quotedPrice&&values.quotedPrice.length>18){
-		  errors.quotedPrice='报价长度不能超过18位'
+		  errors.quotedPrice='商品总价长度不能超过18位'
    	}
 
 
