@@ -32,7 +32,7 @@ class ViewNotice extends React.Component {
 		super(props, context);
 		this.state = {
 			ifCity:false,
-			infoList:[],
+			infoList:{},
 			
 		}
 		this.getInfo();
@@ -165,7 +165,7 @@ class ViewNotice extends React.Component {
 					 			label="点击量" 
 					 			inline={false} 
 								component="labelText"
-								value={infoList.readCount}
+								value={infoList.readCount==0?'0':infoList.readCount}
 						 	/>
 						 	
 						 	<KrField
