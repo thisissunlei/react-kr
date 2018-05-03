@@ -159,6 +159,14 @@ class ViewNotice extends React.Component {
 								component="labelText"
 								value={infoList.maxPerson==0?'无限制':infoList.maxPerson}
 						 	/>
+							 <KrField  
+					 			grid={1/2}
+					 			style={{width:260}} 
+					 			label="点击量" 
+					 			inline={false} 
+								component="labelText"
+								value={infoList.readCount}
+						 	/>
 						 	
 						 	<KrField
 								style={{width:260}}
