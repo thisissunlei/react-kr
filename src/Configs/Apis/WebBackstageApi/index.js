@@ -86,7 +86,7 @@ module.exports = {
     url: '/api/krspace-sso-web/sso/ssoUser/select?phoneOrEmail={phoneOrEmail}',
     method: 'get'
  },
-  
+
  //轮播列表显示
  'web-piclist-listshow':{
   url: '/api/krspace-finance-web/por-mobile-pic/list?page={page}&pageSize={pageSize}',
@@ -121,6 +121,12 @@ module.exports = {
 'newedit-cmt':{
   url: '/api/krspace-finance-web/cmt/newedit',
   method: 'post'
+},
+
+//官网-关键词配置
+'keyword-setting':{
+  url: 'api/krspace-finance-web/por-sem/list?page={page}&pageSize={pageSize}&semCode={semCode}&semName={semName}',
+  method: 'get'
 },
 
 
