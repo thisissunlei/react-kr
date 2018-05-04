@@ -271,7 +271,7 @@ export default class Keyword extends React.Component{
                         onClose={this.openNewDialog}
                         contentStyle={{width:687}}
                     >
-                        <KeyWordEditForm onSubmit={this.onEditSubmit} onCancel={this.openEditDetailDialog} detail={this.state.itemDetail}/>
+                        <KeyWordEditForm onSubmit={this.onEditSubmit} onCancel={this.openNewDialog} detail={this.state.itemDetail}/>
                     </Dialog>
                     <Dialog
                         title="编辑"
