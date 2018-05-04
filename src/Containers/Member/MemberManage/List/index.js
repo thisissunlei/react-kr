@@ -377,7 +377,7 @@ export default class List extends React.Component {
 											ajax={true}
 											onProcessData={(state)=>{
 												return state;
-												}}
+											}}
 											//exportSwitch={true}
 										 	//onExport={this.onExport}
 											ajaxFieldListName='items'

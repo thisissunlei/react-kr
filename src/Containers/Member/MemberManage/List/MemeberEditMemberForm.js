@@ -61,7 +61,7 @@ export default class MemeberEditMemberForm extends React.Component {
 		//this.communityChange(values.email);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
-		
+
 	}
 	onCancel=()=>{
 		const {onCancel} = this.props;
@@ -70,7 +70,7 @@ export default class MemeberEditMemberForm extends React.Component {
 	getBasicData=()=>{
 		const {detail}=this.props;
 		let url = this.props.params;
-		
+
 		let _this = this;
 		Http.request('get-member-base-info', {uid:detail.uid}).then(function(response) {
 			response.leader=String(response.leader);
@@ -226,9 +226,9 @@ const validate = values => {
 	// if (!values.identityCard) {
 	// 	errors.identityCard = '请输入身份证号码';
 	// }
-	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
-    if( values.identityCard && !reg.test(values.identityCard)){   
-         errors.identityCard = '身份证输入不合法';   
+	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+    if( values.identityCard && !reg.test(values.identityCard)){
+         errors.identityCard = '身份证输入不合法';
     }
 
 	if (!values.phone) {
@@ -253,7 +253,7 @@ const validate = values => {
   // if (values.foreignCode && !code.test(values.foreignCode) ) {
   //     errors.foreignCode = '会员卡号为10位纯数字';
   // }
-  
+
     // if (!values.foreignCode) {
     //     errors.foreignCode = '请输入会员卡号';
     // }

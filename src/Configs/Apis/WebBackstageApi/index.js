@@ -123,9 +123,33 @@ module.exports = {
   method: 'post'
 },
 
-//官网-关键词配置
+//官网-关键词配置列表
 'keyword-setting':{
-  url: 'api/krspace-finance-web/por-sem/list?page={page}&pageSize={pageSize}&semCode={semCode}&semName={semName}',
+  url: '/api/krspace-finance-web/por-sem/list?page={page}&pageSize={pageSize}&semCode={semCode}&semName={semName}',
+  method: 'get'
+},
+
+//官网-关键词配置-详情
+'keyword-setting-detail':{
+  url: '/api/krspace-finance-web/por-sem/show?id={id}',
+  method: 'get'
+},
+
+//官网-关键词配置-编辑
+'keyword-setting-edit':{
+  url: '/api/krspace-finance-web/por-sem/saveoredit',
+  method: 'post'
+},
+
+//官网-关键词配置-删除
+'keyword-setting-delete':{
+  url: '/api/krspace-finance-web/por-sem/delete?id={id}',
+  method: 'get'
+},
+
+//官网-关键词配置-批量删除
+'keyword-setting-deleteall':{
+  url: '/api/krspace-finance-web/por-sem/batchdelete?ids={ids}',
   method: 'get'
 },
 
