@@ -91,7 +91,7 @@ module.exports = [
 					},
                     {
                         primaryText: '关键词配置',
-                        menuCode: 'brightpoint_label_list',
+                        menuCode: 'sem_list',
                         router: '/WebBackstage/keyword',
                     },
 				]

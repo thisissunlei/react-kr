@@ -216,10 +216,10 @@ export default class Keyword extends React.Component{
                 <Section title='关键词配置' description="" >
                     <form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
                     <div className="u-member-btn-list">
-                        <Button operateCode="mbr_list_add"  label="新建"  onTouchTap={this.openNewDialog} />
-                        <Button  operateCode="mbr_list_import" label="批量导入" type="button" onTouchTap={this.importAllData} width={80} height={30} />
-                        <Button operateCode="mbr_list_add"  label="批量删除"  onTouchTap={this.openAllDelete} />
-                        <Button operateCode="mbr_list_add"  label="下载报表"  onTouchTap={this.downloadReport} />
+                        <Button operateCode="sem_saveoredit"  label="新建"  onTouchTap={this.openNewDialog} />
+                        <Button  operateCode="sem_execle" label="批量导入" type="button" onTouchTap={this.importAllData} width={80} height={30} />
+                        <Button operateCode="sem_del"  label="批量删除"  onTouchTap={this.openAllDelete} />
+                        <Button operateCode="sem_execle"  label="下载报表"  onTouchTap={this.downloadReport} />
                     </div>
                         {/*高级查询*/}
                         <SearchForms
@@ -241,7 +241,7 @@ export default class Keyword extends React.Component{
                         onSelect={this.onSelect}
                     >
                         <TableHeader>
-                            <TableHeaderColumn>ID</TableHeaderColumn>
+                            <TableHeaderColumn>序号</TableHeaderColumn>
                             <TableHeaderColumn>关键词</TableHeaderColumn>
                             <TableHeaderColumn>参数代码</TableHeaderColumn>、
                             <TableHeaderColumn>操作</TableHeaderColumn>
@@ -254,8 +254,8 @@ export default class Keyword extends React.Component{
                                 <TableRowColumn type="operation" name="leaved" style={{width:230}} component={(value,oldValue,itemDetail) => {
                                     return (
                                         <div>
-                                            <Button operateCode="mbr_list_edit" onClick={this.openEditDetailDialog.bind(this,itemDetail)} label="编辑"  type="operation"/>
-                                            <Button operateCode="mbr_list_delete" onClick={this.openDelete.bind(this,itemDetail)} label="删除"  type="operation" operation="delete"/>
+                                            <Button operateCode="sem_saveoredit" onClick={this.openEditDetailDialog.bind(this,itemDetail)} label="编辑"  type="operation"/>
+                                            <Button operateCode="sem_del" onClick={this.openDelete.bind(this,itemDetail)} label="删除"  type="operation" operation="delete"/>
                                         </div>
                                     )
                                 }}>
