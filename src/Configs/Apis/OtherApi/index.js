@@ -94,7 +94,7 @@ const APIS = {
     },
     // 会员中心-会员-获取-(查询)高级搜索---------->Operation和Memeber共用
     'membersList': {
-        url: '/api/krspace-sso-web/member/member-list?value={value}&type={type}&pageSize={pageSize}&page={page}',
+        url: '/api/krspace-sso-web/member/member-list?value={value}&type={type}&pageSize={pageSize}&page={page}&cmtId={cmtId}',
         method: 'get'
     },
     //获取指定公司会员列表－－－－－－－－－－－>这个接口居然没有用到

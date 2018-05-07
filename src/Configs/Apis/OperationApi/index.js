@@ -1077,4 +1077,14 @@ module.exports = {
         url: '/api/krspace-finance-web/notice/management/expire',
         method: 'post'
     },
+    //App管理--广告管理--banner--下架
+    'banner-unpublish': {
+        url: '/api/krspace-finance-web/advertising/banner/unpublish',
+        method: 'post'
+    },
+    //App管理--广告管理--启动页--下架
+    'boot-unpublish': {
+        url: '/api/krspace-finance-web/advertising/boot/unpublish',
+        method: 'post'
+    },
 }
