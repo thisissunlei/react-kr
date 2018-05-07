@@ -71,16 +71,16 @@ export default class List extends React.Component {
 				value:'',
 				status:false,
 			},
-			
+
 		}
 	}
 	importData=()=>{
 		this.setState({
 			importdata:!this.state.importdata
-		}) 
+		})
 	}
 	openLeave=(itemDetail)=>{
-		
+
 		this.setState({
 			openLeave: !this.state.openLeave,
 			itemDetail
@@ -133,7 +133,7 @@ export default class List extends React.Component {
 	}
 
 	toMemberDoorPermmision=(itemDetail)=>{
-		
+
 		this.setState({
 			itemDetail
 		},function(){
@@ -146,7 +146,7 @@ export default class List extends React.Component {
 			itemDetail
 		})
 	}
-	
+
 	// 导出Excle表格
 	onExport=(values)=>{
 		let ids = [];
@@ -188,7 +188,7 @@ export default class List extends React.Component {
 				}
 			})
 		}).catch(function(err){
-			
+
 			Message.error(err.message);
 		});
 	}
@@ -205,7 +205,7 @@ export default class List extends React.Component {
 							_this.openNewCreateDialog();
 							Message.success("操作成功");
 
-							
+
 							_this.setState({
 								status:!_this.state.status,
 								searchParams:{
@@ -274,7 +274,7 @@ export default class List extends React.Component {
 	}
 	onPageChange=(page)=>{
 		this.setState({
-			realPage : page 
+			realPage : page
 		})
 	}
 	//离职
@@ -290,10 +290,10 @@ export default class List extends React.Component {
 				}
 			})
 
-		}).catch(function (err) { 
+		}).catch(function (err) {
 			Message.error(err.message)
 		});
-		
+
 	}
 	//恢复
 	onBack=()=>{
@@ -308,10 +308,10 @@ export default class List extends React.Component {
 				}
 			})
 
-		}).catch(function (err) { 
+		}).catch(function (err) {
 			Message.error(err.message)
 		});
-		
+
 	}
 	//删除
 	 onDeleteData=()=>{
@@ -326,7 +326,7 @@ export default class List extends React.Component {
 				}
 			})
 
-		}).catch(function (err) { 
+		}).catch(function (err) {
 			Message.error(err.message)
 		});
 
@@ -413,7 +413,7 @@ export default class List extends React.Component {
 											ajax={true}
 											onProcessData={(state)=>{
 												return state;
-												}}
+											}}
 											//exportSwitch={true}
 										 	//onExport={this.onExport}
 											ajaxFieldListName='items'
@@ -458,7 +458,7 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											
+
 											<TableRowColumn name="communityName"
 											component={(value,oldValue)=>{
 												if(value==""){
@@ -473,9 +473,9 @@ export default class List extends React.Component {
 												}
 												return (<span>{value}</span>)}}
 											></TableRowColumn>
-											
+
 											<TableRowColumn name="createTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
-											<TableRowColumn name="leaved" 
+											<TableRowColumn name="leaved"
 												component={(value)=>{
 													let Style,status;
 													if(value==1){
@@ -501,16 +501,16 @@ export default class List extends React.Component {
 															<Button operateCode="mbr_list_edit" onClick={this.openEditDetailDialog.bind(this,itemDetail)} label="编辑"  type="operation"/>
 															{logFlag?<Button operateCode="mbr_list_leave" onClick={this.openLeave.bind(this,itemDetail)} label="离场"  type="operation" operation="leave"/>:<Button operateCode="mbr_list_leave" label="恢复" onClick={this.openBack.bind(this,itemDetail)}  type="operation" operation="back"/>}
 															<Button operateCode="mbr_list_bind" onClick={this.openBindCode.bind(this,itemDetail)} label="绑卡"  type="operation" operation="bindcode"/>
-															<Button operateCode="mbr_list_delete" onClick={this.openDelete.bind(this,itemDetail)} label="删除"  type="operation" operation="delete"/>	
-															<Button  onClick={this.toMemberDoorPermmision.bind(this,itemDetail)} label="门禁权限"  type="operation" operation="doorpermmision"/>	
-															
+															<Button operateCode="mbr_list_delete" onClick={this.openDelete.bind(this,itemDetail)} label="删除"  type="operation" operation="delete"/>
+															<Button  onClick={this.toMemberDoorPermmision.bind(this,itemDetail)} label="门禁权限"  type="operation" operation="doorpermmision"/>
+
 														</div>
 													)
 											}}>
-													
-													
-													
-												
+
+
+
+
 											 </TableRowColumn>
 										 </TableRow>
 									</TableBody>
@@ -526,7 +526,7 @@ export default class List extends React.Component {
 								>
 										<NewCreateForm onSubmit={this.onNewCreateSubmit} onCancel={this.openNewCreateDialog} />
 							  </Dialog>
-							 
+
 								<Dialog
 									title="编辑会员"
 									modal={true}
@@ -592,15 +592,15 @@ export default class List extends React.Component {
 									contentStyle={{width:687}}
 								>
 									<AdvancedQueryForm onSubmit={this.onAdvanceSearchSubmit} params={this.params} onCancel={this.openAdvancedQueryDialog} detail={itemDetail} style={{marginTop:37}} content={this.state.content} filter={this.state.filter} />
-							  </Dialog> 
+							  </Dialog>
 							<Dialog
-								title="批量导入"							
-								modal={true} 
-								open={this.state.importdata} 
-								onClose={this.importData} 
+								title="批量导入"
+								modal={true}
+								open={this.state.importdata}
+								onClose={this.importData}
 								contentStyle={{width:500}}
-							> 
-							<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>							
+							>
+							<ImportData onSubmit={this.importDataPost} onCancel={this.importData} onLoadDemo={this.onLoadDemo}/>
 							</Dialog>
 							<Drawer
 							  modal={true}
@@ -610,10 +610,10 @@ export default class List extends React.Component {
 							  openSecondary={true}
 							  containerStyle={{paddingRight:43,paddingTop:40,paddingLeft:48,paddingBottom:48,zIndex:20}}
 							>
-								  <CodeManage 
+								  <CodeManage
 								  		  detail={itemDetail}
-										  onCancel={this.openBindCode} 
-										 
+										  onCancel={this.openBindCode}
+
 								   />
 							</Drawer>
 				</div>

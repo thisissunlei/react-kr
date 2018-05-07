@@ -53,7 +53,7 @@ module.exports = [
 						menuCode: 'oper_opinion_base',
 						router: '/operation/communityAllocation/opinion'
 					},
-					
+
 					{
 						primaryText: '登录日志',
 						router: '/permission/loginLogApp',
@@ -78,7 +78,7 @@ module.exports = [
 				iconColor: '#79859a',
 				router: 'activity',
 				menuItems: [
-					
+
 					{
 						primaryText: '社区信息',
 						menuCode: 'krspace_cmt',
@@ -95,6 +95,11 @@ module.exports = [
 						type:'vue',
 						originUrl: '/facility-tags/',
 					},
+                    {
+                        primaryText: '关键词配置',
+                        menuCode: 'sem_list',
+                        router: '/WebBackstage/keyword',
+                    },
 				]
 			},
 			{
@@ -142,7 +147,7 @@ module.exports = [
 				iconColor: '#79859a',
 				// router: 'activity',
 				menuItems: [
-					
+
 					{
 						primaryText: '角色权限',
 						router: '/permission/user',
@@ -168,7 +173,7 @@ module.exports = [
 						router: '/permission/opCode',
 						menuCode: 'sso_businessCode_base',
 					},
-					
+
 				]
 			},
 			{

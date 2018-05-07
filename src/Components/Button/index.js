@@ -34,7 +34,6 @@ export default class Button extends React.Component {
 		/**
 		 *子元素
 		 */
-		
 		children: PropTypes.node,
 		/**
 		 *行内样式
@@ -86,7 +85,7 @@ export default class Button extends React.Component {
 		setTimeout(function(){
 			_this.getCheck();
 		},800)
-		
+
 
 	}
 	componentWillReceiveProps(){
@@ -100,7 +99,7 @@ export default class Button extends React.Component {
 				_this.setState({
 					IsOperate
 				})
-				
+
 		}
 	}
 	render() {
@@ -123,7 +122,7 @@ export default class Button extends React.Component {
 			menusCode,
 			shadow,
 			...other
-			
+
 		} = this.props;
 		let {IsOperate,IsMenus}=this.state;
 		let border = 'none';
@@ -145,7 +144,7 @@ export default class Button extends React.Component {
 				border:'1px solid #E7E7E7',
 				borderRadius:4,
 			}
-			
+
 		}else{
 			var divStyle = {
 				border:border,
@@ -153,7 +152,7 @@ export default class Button extends React.Component {
 				boxShadow: "0 1px 4px rgba(134,174,214,.5)",
 			}
 		}
-		
+
 		let labelStyle={
 			padding:0,
 			fontSize:fontSize|| 14
@@ -173,7 +172,7 @@ export default class Button extends React.Component {
         	lineHeight:'32px'
         }
 
-		
+
 		if(operateCode){
          if(IsOperate){
 			if (type == 'link') {

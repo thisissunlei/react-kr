@@ -37,9 +37,14 @@ const WebBackstage_PicList = (location, callback) => {
     callback(null, require('kr/Containers/WebBackstage/PicList').default)
   }, 'WebBackstage_PicList')
 }
+
+const WebBackstage_Keyword = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/WebBackstage/KeyWordSetting').default)
+  }, 'WebBackstage_Keyword')
+}
+
 module.exports =()=>{
-
-
 	return (
 		<Route path="WebBackstage" getComponent={Basic}>
 			{/*活动列表*/}
@@ -49,9 +54,10 @@ module.exports =()=>{
 			<Route path="news" getComponent={Basic}>
 				<Route path="list" getComponent={WebBackstage_News}/>
 			</Route>
-      {/*官网社区配置*/}
+            {/*官网社区配置*/}
 			<Route path="communityAllocation" getComponent={WebBackstage_CommunityAllocation}/>
 			<Route path="picList" getComponent={WebBackstage_PicList}/>
+            <Route path="keyword" getComponent={WebBackstage_Keyword}/>
 		</Route>
 	);
 };
