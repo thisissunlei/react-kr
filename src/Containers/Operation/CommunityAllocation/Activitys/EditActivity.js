@@ -43,7 +43,8 @@ class EditActivity extends React.Component {
 			endDate:'',
 			endHour:'',
 			timeStart:'',
-			timeEnd:''
+			timeEnd:'',
+			cost:'',
 		}
 		
 		
@@ -83,7 +84,8 @@ class EditActivity extends React.Component {
 					timeStart:new Date(response.startTime).getTime(),
 					timeEnd:new Date(response.endTime).getTime(),
 					richText:response.richText,
-					imgUrl:response.imgUrl
+					imgUrl:response.imgUrl,
+					cost:response.cost
 				})
 			Store.dispatch(initialize('editActivity', response));
 
@@ -130,6 +132,7 @@ class EditActivity extends React.Component {
 	}
 	selectCommunity=(item)=>{
 		Http.request('activity-findCmtAddres',{cmtId:item.id}).then(function(response) {
+			this.
 			Store.dispatch(change('editActivity', 'address', response.address));
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -273,7 +276,8 @@ class EditActivity extends React.Component {
 				timeStartNum,
 				timeEndNum,
 				richText,
-				imgUrl
+				imgUrl,
+				cost
 			}=this.state;
 		
 		return (
@@ -296,7 +300,7 @@ class EditActivity extends React.Component {
 								name="cost"
 								label="费用"
 								inline={false} 
-								value="免费"
+								value={cost=='0'?'免费':cost}
 						 	/>
 						 	<KrField
 								style={{width:260,marginRight:25}}
