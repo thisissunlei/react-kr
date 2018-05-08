@@ -15,7 +15,9 @@ import {
 	Store
 } from 'kr/Redux';
 import http from 'kr/Redux/Utils/fetch';
-
+import {
+	Waiting
+} from 'kr/PureComponents';
 import {
 	Tabs,
 	Tab,
@@ -57,7 +59,6 @@ export default class CommunityManage extends React.Component {
 	}
 
 	componentDidMount() {
-		Message.dataWaiting()
 		Baidu.trackEvent('计划表页面','访问');
 	}
 
@@ -106,8 +107,9 @@ export default class CommunityManage extends React.Component {
 
 		return (
 
-			<div className="tab-container" style={{minHeight:910}}>
+			<div className="plan-tab-container" style={{minHeight:910}}>
 			<Title value="库存平面图"/>
+			<Waiting />
 		 	<BreadCrumbs children={['系统运营','社区管理','销控表']}/>
 				<span className="line"></span>
 				<Section title="库存平面图" >

@@ -34,7 +34,8 @@ import {
 	inject
 } from 'mobx-react';
 import {
-	Agreement
+	Agreement,
+	Waiting
 } from 'kr/PureComponents';
 @inject("NavModel")
 @observer
@@ -48,7 +49,6 @@ class Home  extends React.Component{
 	componentDidMount(){
 		const {NavModel} = this.props;
 		// NavModel.setSidebar(false);
-		Message.dataWaiting()
 		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
 		let communityName = localStorage.getItem('OP_HOME_COMMUNITY_NAME');
 		if(communityId){
@@ -109,6 +109,7 @@ class Home  extends React.Component{
 		return(
 			<div style={{minHeight:'910'}} className="operation-home">
 				<Title value="运营首页" />
+				<Waiting />
 				<div className="home-main-part">
 					<img src={home} className="community-img"/>
 					<span className="community-name">{State.info.communityName}</span>

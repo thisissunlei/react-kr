@@ -14,7 +14,9 @@ import {
 import CompanyPanel from './CompanyPanel';
 import BussinessPanel from './BussinessPanel';
 import './index.less';
-
+import {
+	Waiting
+} from 'kr/PureComponents';
 @inject("NavModel")
 @observer
 export default class Home  extends React.Component{
@@ -124,7 +126,6 @@ export default class Home  extends React.Component{
    }
 
 	componentDidMount() {
-		Message.dataWaiting()
 		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 
@@ -136,6 +137,7 @@ export default class Home  extends React.Component{
 
 		return(
 			<div className="g-statistical">
+			<Waiting />
 					{this.renderGroupTabs()}
 			</div>
 
