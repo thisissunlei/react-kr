@@ -32,22 +32,16 @@ class Message extends React.Component {
 		let {
 			messages,
 			className,
-			close
 		} = this.props;
 		let {
 			isClassName
 		} = this.state;
 
-		let closeColor = ''
-		if(close){
-			closeColor = 'close'
-		}
-		console.log('render',closeColor)
 
 		return (
 			<div className="shadow">
 				<div className={`ui-message message_box ${isClassName?'exit':''}`}>
-					<span onTouchTap={this.onClose} className={closeColor}></span>
+					<span onTouchTap={this.onClose}></span>
 					<p className={className}>
 						<span>{messages}</span>
 					</p>
@@ -134,20 +128,6 @@ function commonRender(messages, type, fn) {
 	}
 }
 
-function waitingRender() {
-	var className = 'waiting';
-	let messages = '亲，现在数据略有不准哦！！'
-	let close = true
-	if (!containerDOM) {
-		shadowDOM = document.createElement('div');
-		shadowDOM.className = "outer";
-		containerDOM = document.createElement('div');
-		shadowDOM.appendChild(containerDOM);
-		document.body.appendChild(shadowDOM);
-	}
-	ReactDOM.render(<Message messages={messages} className={className} close={close}/>, shadowDOM);
-}
-
 function warnRender(messages, type, fn) {
 
 	var className = 'normal';
@@ -194,9 +174,6 @@ Message.warntimeout = function(messages, type) {
 	warnRender(messages, type, commonTimeoutWarn);
 };
 
-Message.dataWaiting = function() {
-	waitingRender();
-};
 
 
 module.exports = Message;
