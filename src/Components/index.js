@@ -38,6 +38,7 @@ import Input from './Input';
 import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
 import Message from './Message';
+import Waiting from './Waiting';
 import DemoComponent from './Demo';
 import Textarea from './Textarea';
 import CircleStyle from './CircleStyle';
@@ -147,6 +148,7 @@ module.exports = {
 	InputDate,
 	SnackTip,
 	Editor,
+	Waiting,
 	...XTable,
 
 	//materal-ui
