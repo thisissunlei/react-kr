@@ -245,14 +245,22 @@ class CreateActivityList extends React.Component {
 								label="活动标题"
 								requireLabel={true}
 						 	/>
-							<KrField
+							 <KrField
+								style={{width:260,marginRight:25}}
+								name="cost"
+								type="text"
+								component="input"
+								label="费用"
+								requireLabel={true}
+						 	/>
+							{/* <KrField
 								style={{width:260,marginRight:25}}
 								component="labelText"
 								name="cost"
 								inline={false} 
 								label="费用"
 								value="免费"
-						 	/>
+						 	/> */}
 						 	<KrField
 								style={{width:260,marginRight:25}}
 								component="select"
