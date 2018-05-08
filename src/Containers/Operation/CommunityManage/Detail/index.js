@@ -22,7 +22,8 @@ import {
 	Form,
 	BreadCrumbs,
 	Section,
-	Title
+	Title,
+	Message
 } from 'kr-ui';
 
 import Baidu from 'kr/Utils/Baidu';
@@ -56,6 +57,7 @@ export default class CommunityManage extends React.Component {
 	}
 
 	componentDidMount() {
+		Message.dataWaiting()
 		Baidu.trackEvent('计划表页面','访问');
 	}
 
@@ -105,10 +107,10 @@ export default class CommunityManage extends React.Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910}}>
-			<Title value="计划表"/>
+			<Title value="库存平面图"/>
 		 	<BreadCrumbs children={['系统运营','社区管理','销控表']}/>
 				<span className="line"></span>
-				<Section title="平面图" >
+				<Section title="库存平面图" >
 					<FloorPlan tab={tab} />
 				</Section>
 

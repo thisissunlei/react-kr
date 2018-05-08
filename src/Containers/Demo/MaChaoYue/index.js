@@ -64,6 +64,8 @@ class MaChaoYue extends React.Component {
 		}
 	}
 	componentDidMount() {
+		// Message.dataWaiting()
+		Message.error('无社区权限');
 		let initialValues = {leaseEnddate:'2015-10-21',leaseBegindate:'2014-03-13',members:[{type:'1111',num:'11',money:'111'},{type:'222',num:'12',money:'1321'}]}
 		Store.dispatch(initialize('joinCreateForm', initialValues));
 	}

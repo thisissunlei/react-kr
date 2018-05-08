@@ -11,8 +11,8 @@ import {
   Store
 } from 'kr/Redux';
 import {
-	Title,Dialog,Drawer
-
+	Title,Dialog,Drawer,
+Message
 } from 'kr-ui';
 import home from './images/home-community.svg';
 import  "./index.less";
@@ -48,6 +48,7 @@ class Home  extends React.Component{
 	componentDidMount(){
 		const {NavModel} = this.props;
 		// NavModel.setSidebar(false);
+		Message.dataWaiting()
 		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
 		let communityName = localStorage.getItem('OP_HOME_COMMUNITY_NAME');
 		if(communityId){

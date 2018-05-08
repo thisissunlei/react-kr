@@ -124,6 +124,7 @@ export default class Home  extends React.Component{
    }
 
 	componentDidMount() {
+		Message.dataWaiting()
 		Store.dispatch(Actions.switchSidebarNav(false));
 	}
 
