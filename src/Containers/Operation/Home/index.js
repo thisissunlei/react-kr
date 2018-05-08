@@ -11,8 +11,8 @@ import {
   Store
 } from 'kr/Redux';
 import {
-	Title,Dialog,Drawer
-
+	Title,Dialog,Drawer,
+Message
 } from 'kr-ui';
 import home from './images/home-community.svg';
 import  "./index.less";
@@ -34,7 +34,8 @@ import {
 	inject
 } from 'mobx-react';
 import {
-	Agreement
+	Agreement,
+	Waiting
 } from 'kr/PureComponents';
 @inject("NavModel")
 @observer
@@ -108,6 +109,7 @@ class Home  extends React.Component{
 		return(
 			<div style={{minHeight:'910'}} className="operation-home">
 				<Title value="运营首页" />
+				<Waiting />
 				<div className="home-main-part">
 					<img src={home} className="community-img"/>
 					<span className="community-name">{State.info.communityName}</span>
