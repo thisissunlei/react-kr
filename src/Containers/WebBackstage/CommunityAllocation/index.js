@@ -57,7 +57,10 @@ export default class CommunityAllocation  extends React.Component{
             baseFacility:[],
             baseService:[],
             specialServcie:[], 
-            cmtDiscountInfo:'' 
+            cmtDiscountInfo:'',
+            moveStationValue:'',
+            fixStationValue:'',
+            indepOfficeValue:''
         }
 	}
    
@@ -182,7 +185,19 @@ export default class CommunityAllocation  extends React.Component{
              baseService:response.baseService, 
              specialServcie:response.specialServcie,
              cmtDiscountInfo:response.cmtDiscountInfo,
-             addressPhotoUrl: response.addressPhotoUrl   
+             addressPhotoUrl: response.addressPhotoUrl ,
+             moveStationValue:{
+                picId:response.moveStationId,
+                picUrl:response.moveStationUrl  
+             },
+             fixStationValue:{
+                picId:response.fixStationId,
+                picUrl:response.fixStationUrl  
+             },
+             indepOfficeValue:{
+                picId:response.indepOfficeId,
+                picUrl:response.indepOfficeUrl  
+             }
             })
         }).catch(function(err) {
             Message.error(err.message);
@@ -205,6 +220,9 @@ export default class CommunityAllocation  extends React.Component{
            stationValue:'',
            chargeName:'',
            isCover:"false",
+           moveStationValue:'',
+           fixStationValue:'',
+           indepOfficeValue:''
        })  
    }
   
@@ -220,6 +238,9 @@ export default class CommunityAllocation  extends React.Component{
            stationValue:'',
            chargeName:'',
            isCover:"false",
+           moveStationValue:'',
+           fixStationValue:'',
+           indepOfficeValue:''
        })
    }
  
@@ -229,6 +250,9 @@ export default class CommunityAllocation  extends React.Component{
        let _this=this;
        delete params.detailImage;
        delete params.detailImageId;
+       delete params.fixStationUrl;
+       delete params.moveStationUrl;
+       delete params.stationImageUrl;
        params=Object.assign({},params);
        var inImgDetail=[],outImgDetail=[],stationImgDetail=[];
        //室内
@@ -311,7 +335,10 @@ export default class CommunityAllocation  extends React.Component{
                chargeName:'',
                inDetailImage:'',
                outDetailImage:'',
-               stationDetailImage:''
+               stationDetailImage:'',
+               moveStationValue:'',
+               fixStationValue:'',
+               indepOfficeValue:''
            })
            _this.editCancel();
         }).catch(function(err) {
@@ -351,8 +378,11 @@ export default class CommunityAllocation  extends React.Component{
             stationDetailImage,
             cmtDiscountInfo,
             addressPhotoUrl,
+            moveStationValue,
+            fixStationValue,
+            indepOfficeValue
         }=this.state;
-
+       
          
 		return(
            <div className='m-web-community'>
@@ -453,6 +483,9 @@ export default class CommunityAllocation  extends React.Component{
                           inDetailImage={inDetailImage}
                           cmtDiscountInfo={cmtDiscountInfo}
                           addressPhotoUrl={addressPhotoUrl}
+                          moveStationValue={moveStationValue}
+                          fixStationValue={fixStationValue}
+                          indepOfficeValue={indepOfficeValue}
 						/>
 
 		            </Drawer>

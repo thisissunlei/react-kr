@@ -30,14 +30,14 @@ import './index.less';
 
 @observer
 export default class News extends React.Component {
-	
+
 	constructor(props, context) {
 		super(props, context);
 		this.state={
 			itemDetail:{},
 
 		}
-		
+
 	}
 	 //操作相关
   	onOperation = (type, itemDetail) => {
@@ -56,19 +56,19 @@ export default class News extends React.Component {
     }
     openNewCreateDialog=()=>{
     	State.openNewCreateDialog()
-    	
+
     }
     openViewDialog=()=>{
     	State.openViewDialog();
-		
+
     }
     openEditDialog=()=>{
     	State.openEditDialog();
-		
+
     }
     openSearchDialog=()=>{
     	State.openSearchDialog();
-		
+
     }
     //高级查询
     onSearchSubmit=(form)=>{
@@ -107,7 +107,7 @@ export default class News extends React.Component {
 		searchParams.page = page;
 		State.searchParams = searchParams;
 	}
-	
+
 
 	render() {
 		let {itemDetail}=this.state;
@@ -120,10 +120,10 @@ export default class News extends React.Component {
 								<Button label="新建新闻" operateCode="main_news_add" onTouchTap={this.openNewCreateDialog} />
 							{/*高级查询*/}
 							<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
-							<SearchForms 
-									onSubmit={this.onSearch} 
-									placeholder="请输入新闻标题"  
-									style={{marginTop:5,zIndex:10000}} 
+							<SearchForms
+									onSubmit={this.onSearch}
+									placeholder="请输入新闻标题"
+									style={{marginTop:5,zIndex:10000}}
 							/>
 						</form>
 						<Table
@@ -146,7 +146,7 @@ export default class News extends React.Component {
 		              </TableHeader>
 		              <TableBody>
 		              	<TableRow>
-		              		 <TableRowColumn 
+		              		 <TableRowColumn
 		              		 		name="title"
 		              		 		component={(value,oldValue)=>{
 										var TooltipStyle=""
@@ -160,7 +160,7 @@ export default class News extends React.Component {
 										 	<Tooltip offsetTop={5} place='top' >{value}</Tooltip></div>)
 									 }}
 		              		 ></TableRowColumn>
-		              		 <TableRowColumn 
+		              		 <TableRowColumn
 		              		 		name="newsDesc"
 									component={(value,oldValue)=>{
 										var TooltipStyle=""
@@ -196,9 +196,9 @@ export default class News extends React.Component {
 		             onClose={this.openNewCreateDialog}
 		             openSecondary={true}
 		           >
-		             <CreateNewList  
-		             		detail={itemDetail} 
-		             		onCancel={this.openNewCreateDialog}  
+		             <CreateNewList
+		             		detail={itemDetail}
+		             		onCancel={this.openNewCreateDialog}
 							onSubmit={this.createSave}
 		             />
 		           </Drawer>
@@ -209,9 +209,9 @@ export default class News extends React.Component {
 		             onClose={this.openEditDialog}
 		             openSecondary={true}
 		           >
-		             <EditNewList  
-		             		detail={itemDetail} 
-		             		onCancel={this.openEditDialog}  
+		             <EditNewList
+		             		detail={itemDetail}
+		             		onCancel={this.openEditDialog}
 		             		onSubmit={this.editSave}
 		             />
 		           </Drawer>

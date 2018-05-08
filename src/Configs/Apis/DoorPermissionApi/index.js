@@ -75,10 +75,16 @@ module.exports = {
         url: '/api/iot-platform/auth/user/belong-to-group/list?uid={uid}&page={page}&pageSize={pageSize}',
         method: 'get'
     },
-    //个人权限页将个人移出权限组
-    'personPageDropOutGroup':{
-        url: '/api/iot-platform/auth/user-group/user/delete?uid={uid}&groupId={groupId}',
-        method: 'delete'
+
+    // 新增员工自动加入客户默认组的初始值
+    'getInitailToogleAddToCompanyTeamAuto':{
+        url: '/api/iot-platform/auth/user-group/auto-add-user?id={id}',
+        method: 'get'
+    },
+    // 修改新增员工自动加入客户默认组
+    'changeToogleAddToCompanyTeamAuto':{
+        url: '/api/iot-platform/auth/user-group/actions/set-auto-add-user',
+        method: 'post'
     },
 
 

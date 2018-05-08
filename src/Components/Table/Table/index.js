@@ -214,13 +214,58 @@ export default class Table extends React.Component {
 	}
 
 
-	onOperation=(type, itemData)=> {
-
+	onOperation=(type, itemData,event)=> {
 		const {
 			onOperation
 		} = this.props;
 		onOperation && onOperation(type, itemData);
+		this.tableRowColumnClick(event);
+
 	}
+
+
+	tableRowColumnClick=(event)=>{
+
+		var targetDom = event.target;
+		this.findDomTd(targetDom);
+
+	}
+
+	findDomTd =(targetDom)=>{
+
+
+		if(targetDom.nodeName.toLowerCase()=="td"){
+
+
+			var trDom = targetDom.parentNode;
+			var otherTr = trDom.nextSibling;
+			var preOtherTr = trDom.previousSibling;
+			this.resetTrColor(otherTr,"next");
+			this.resetTrColor(preOtherTr,"pre");
+			trDom.style.background ="#c9e0f6";
+
+		}else{
+			var newTargetDom = targetDom.parentNode
+			this.findDomTd(newTargetDom);
+		}
+	}
+
+
+	resetTrColor=(otherTr,strParam)=>{
+
+		if(!otherTr){
+			return;
+		}
+		otherTr.style.background ="";
+		// console.log("otherTr",otherTr,"strParam",strParam)
+		if(strParam=="next"){
+			var newOtherTr = otherTr.nextSibling;
+		}else{
+			var newOtherTr = otherTr.previousSibling;
+		}
+		this.resetTrColor(newOtherTr,strParam);
+	}
+
 
 	onPageChange=(page)=> {
 
@@ -430,7 +475,6 @@ export default class Table extends React.Component {
 
 
 	onRowClick = (event, rowNumber)=> {
-
 		let {
 			selectedRows
 		} = this.state;
