@@ -255,6 +255,7 @@ class CreateActivityList extends React.Component {
 										</div>
 								</IconTip>
 							 </div>
+							 <span className="u-unit">￥</span>
 							 <KrField
 								style={{width:260,marginRight:25}}
 								name="cost"
