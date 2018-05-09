@@ -457,9 +457,13 @@ const validate = values => {
 		if (!values.site) {
 			errors.site = '请输入活动地点';
 		}
-		// if (!values.cost) {
-		// 	errors.cost = '请输入费用';
-		// }
+		let reg=/^[+-]?(\d|[1-9]\d+)(\.\d+)?$/;
+		if (!values.cost) {
+			errors.cost = '请输入费用金额';
+		}
+		if(!reg.test(values.cost)){
+			errors.cost = '请输入正确的费用金额';
+		}
 
 		if (!values.type) {
 			errors.type = '请选择活动类型';

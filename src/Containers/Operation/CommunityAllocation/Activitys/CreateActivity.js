@@ -402,7 +402,13 @@ const validate = values => {
 		if (values.title && values.title.length>50) {
 			errors.title = '活动标题不能超过50个字符';
 		}
-
+		let reg=/^[+-]?(\d|[1-9]\d+)(\.\d+)?$/;
+		if (!values.cost) {
+			errors.cost = '请输入费用金额';
+		}
+		if(!reg.test(values.cost)){
+			errors.cost = '请输入正确的费用金额';
+		}
 		if (!values.site) {
 			errors.site = '请输入活动地点';
 		}
