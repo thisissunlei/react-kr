@@ -311,6 +311,7 @@ class EditActivity extends React.Component {
 										</div>
 								</IconTip>
 							 </div>
+							 <span className="u-unit">￥</span>
 							 <KrField
 								style={{width:260,marginRight:25}}
 								name="cost"
@@ -318,6 +319,7 @@ class EditActivity extends React.Component {
 								component="input"
 								label="费用"
 								requireLabel={true}
+								className="u-cost"
 						 	 />
 						 	<KrField
 								style={{width:260,marginRight:25}}

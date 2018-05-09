@@ -263,6 +263,7 @@ class CreateActivityList extends React.Component {
 								component="input"
 								label="费用"
 								requireLabel={true}
+								className="u-cost"
 						 	/>
 							{/* <KrField
 								style={{width:260,marginRight:25}}
