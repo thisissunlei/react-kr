@@ -34,7 +34,8 @@ import {
 	Title,
 	Drawer,
 	Tooltip,
-	KrDate
+	KrDate,
+	Notify
 } from 'kr-ui';
 
 

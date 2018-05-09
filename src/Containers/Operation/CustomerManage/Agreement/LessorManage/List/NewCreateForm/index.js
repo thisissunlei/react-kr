@@ -48,20 +48,21 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
 //社区亮点-亮点
 const renderBrights = ({ fields, meta: { touched, error }}) => {
 
-		 var krStyle={};
-			krStyle={
-				width:228,
-				marginLeft:18,
-				marginRight:3,
-		 }
+	var krStyle={};
+		krStyle={
+			width:228,
+			marginLeft:18,
+			marginRight:3,
+	}
+
 	return (
 			<ul style={{padding:0,margin:0}}>
 			{fields.map((brightsStr, index) =>
-			<li key={index} style={{width:600,listStyle:'none'}}>
+			<li key={index} style={{width:640,listStyle:'none'}}>
 				<KrField
 					style={krStyle}
 					grid={1/2}
-						name={`${brightsStr}.accountNum`}
+					name={`${brightsStr}.accountNum`}
 					type="text"
 					component={renderField}
 					label={index?'':'银行账户'}
@@ -71,14 +72,17 @@ const renderBrights = ({ fields, meta: { touched, error }}) => {
 				<KrField
 					style={krStyle}
 					grid={1 / 2}
-						name={`${brightsStr}.bankAddress`}
+					name={`${brightsStr}.bankAddress`}
 					type="text"
 					component={renderField}
 					label={index ? '' : '开户行地址'}
 					placeholder='开户行地址'
 					requireLabel={index ? false : true}
 				/>
-				<span onClick={() => fields.insert(index+1)} className='addBtn' style={index?{marginTop:17}:{marginTop:32}}></span>
+				<KrField grid={1/2} label={index ? '' : '是否默认'} name={`${brightsStr}.deful`} style={{width:70}} component="group">
+		              <KrField name={`${brightsStr}.deful`} type="fieldCheck" style={{marginTop:10,display:'inline-block',width:'30px'}}/>
+		        </KrField>
+				<span onClick={() => fields.insert(index+1)} className='addBtn' style={index?{marginTop:15,marginLeft:-10}:{marginTop:30,marginLeft:-10}}></span>
 				<span
 					className='minusBtn'
 					onClick={() => fields.remove(index)}/>
@@ -133,6 +137,24 @@ class NewCreateForm extends React.Component {
 	}
 	onSubmit = (values) => {
 		let data = Object.assign({}, values);
+		/*是否默认*/
+		var defulNum=0;
+		data.bankAccount.map((item,index)=>{
+			if(item.deful){
+				defulNum++;
+				item.deful=1;
+			}else{
+				item.deful=0;
+			}
+		})
+		if(defulNum!=1){
+			Notify.show([{
+				message:'有且必须选择一个默认',
+				type: 'danger',
+			}]);
+			return ;
+		}
+		/**/
 		data.cmtId =this.cmtIdData();
 		const {onSubmit} = this.props;
 		var _this = this;

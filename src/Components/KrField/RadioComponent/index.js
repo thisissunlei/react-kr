@@ -20,16 +20,33 @@ export default class RadioComponent  extends React.Component{
 		const Styles = Object.assign(style,{
 			paddingRight:10,
 		});
-
-		var inputProps = {
+		var inputProps = {};
+        if(type=='fieldCheck'){
+			var fieldCheck=false;
+			if(input.value){
+				fieldCheck=true;
+			}else{
+				fieldCheck=false;
+			}
+			type='checkbox';
+			inputProps = {
 				...input,
 				placeholder:placeholder||label,
 				type,
 				disabled,
 				onClick:this.onClick,
+				checked:fieldCheck
+		    }
+		}else{
+			inputProps = {
+				...input,
+				placeholder:placeholder||label,
+				type,
+				disabled,
+				onClick:this.onClick,
+		    }
 		}
 		
-
 		return (
 			<span style={Styles}>
 					<input {...inputProps} />

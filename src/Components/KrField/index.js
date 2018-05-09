@@ -490,7 +490,7 @@ class FieldRevert extends React.Component {
 				);
 			}
 
-			if (component === 'radio' || type == 'radio') {
+			if (component === 'radio' || type == 'radio'||type=='fieldCheck') {
 				return (
 					<FieldRevert {...this.props} component={RadioComponent}  style={WrapStyles}/>
 				);
