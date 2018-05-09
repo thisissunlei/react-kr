@@ -80,7 +80,7 @@ class EditDetailForm extends React.Component {
 		})
 		if(defulNum!=1){
 			Notify.show([{
-				message:'有且必须选择一个默认',
+				message:'有且必须选择一个默认账号',
 				type: 'danger',
 			}]);
 			return ;
@@ -233,7 +233,7 @@ class EditDetailForm extends React.Component {
 						placeholder='开户行地址'
 						requireLabel={index ? false : true}
 					/>
-					<KrField grid={1/2} label={index ? '' : '是否默认'} name={`${brightsStr}.deful`} style={{width:70}} component="group">
+					<KrField grid={1/2} label={index ? '' : '默认'} name={`${brightsStr}.deful`} style={{width:70}} component="group">
 						<KrField name={`${brightsStr}.deful`} type="fieldCheck" style={{marginTop:10,display:'inline-block',width:'30px'}}/>
 					</KrField>
 					<span onClick={() => fields.insert(index+1)} className='addBtn' style={index?{marginTop:15,marginLeft:-10}:{marginTop:30,marginLeft:-10}}></span>
