@@ -17,7 +17,8 @@ import {
 	ButtonGroup,
 	Button,
 	DrawerTitle,
-	Message
+	Message,
+	IconTip
 } from 'kr-ui';
 import './index.less';
 
@@ -245,6 +246,15 @@ class CreateActivityList extends React.Component {
 								label="活动标题"
 								requireLabel={true}
 						 	/>
+							 <div className="u-icon-tip">
+								<IconTip tipStyle = {{width:200}}>
+										<div style={{textAlign:'left'}}>
+											<p>①费用仅支持填写数字，如“42”“38.8”；</p>
+											<p>②若免费活动，费用请填写0；</p>
+											<p>③APP暂不支持会员直接缴纳活动费用，请在活动内容中详细描述会员线下缴费流程；</p>
+										</div>
+								</IconTip>
+							 </div>
 							 <KrField
 								style={{width:260,marginRight:25}}
 								name="cost"
