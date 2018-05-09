@@ -99,7 +99,7 @@ class ViewNotice extends React.Component {
 								label="费用"
 								inline={false} 
 								component="labelText"
-								value={infoList.cost=='0'?'免费':infoList.cost}
+								value={infoList.cost=='0'?'免费':`￥${infoList.cost}`}
 								
 						 	/>
 						 	<KrField
