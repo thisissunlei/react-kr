@@ -17,7 +17,8 @@ import {
 	ButtonGroup,
 	Button,
 	DrawerTitle,
-	Message
+	Message,
+	IconTip
 } from 'kr-ui';
 import './index.less';
 
@@ -99,7 +100,6 @@ class CreateActivityList extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
-		form.cost=0;
 		var stime=form.startTime.substring(0,10);
 		var etime=form.endTime.substring(0,10);
 		form.begin_time=`${stime} ${form.StartTimeStr}:00`;
@@ -245,14 +245,33 @@ class CreateActivityList extends React.Component {
 								label="活动标题"
 								requireLabel={true}
 						 	/>
-							<KrField
+							 <div className="u-icon-tip">
+								<IconTip tipStyle = {{width:200}}>
+										<div style={{textAlign:'left'}}>
+											<p>①费用仅支持填写数字，如“42”“38.8”；</p>
+											<p>②若免费活动，费用请填写0；</p>
+											<p>③APP暂不支持会员直接缴纳活动费用，请在活动内容中详细描述会员线下缴费流程；</p>
+										</div>
+								</IconTip>
+							 </div>
+							 <span className="u-unit">￥</span>
+							 <KrField
+								style={{width:260,marginRight:25}}
+								name="cost"
+								type="text"
+								component="input"
+								label="费用"
+								requireLabel={true}
+								className="u-cost"
+						 	/>
+							{/* <KrField
 								style={{width:260,marginRight:25}}
 								component="labelText"
 								name="cost"
 								inline={false} 
 								label="费用"
 								value="免费"
-						 	/>
+						 	/> */}
 						 	<KrField
 								style={{width:260,marginRight:25}}
 								component="select"
@@ -382,7 +401,13 @@ const validate = values => {
 		if (values.title && values.title.length>50) {
 			errors.title = '活动标题不能超过50个字符';
 		}
-
+		let reg=/^[+-]?(\d|[1-9]\d+)(\.\d+)?$/;
+		if (!values.cost) {
+			errors.cost = '请输入费用金额';
+		}
+		if(!reg.test(values.cost)){
+			errors.cost = '请输入正确的费用金额';
+		}
 		if (!values.site) {
 			errors.site = '请输入活动地点';
 		}
