@@ -63,12 +63,14 @@ export default class SetPermission extends React.Component {
 
     }
     renderData=(item,index)=>{
+      let disabled = (item.id==39|| item.id == 79)?true:false;
     	return (
     		<div key={index} style={{width:'33%',display:'inline-block'}}>
     			<Checkbox
     					style={{display:'block',width:'100%',lineHeigitemht:'32px',color:'#333'}}
     					label={item.name}
     					checked={item.ownFlag==1?true:false}
+              disabled={disabled}
     					onCheck={this.checked.bind(this,item,index)}
     			/>
     		</div>
