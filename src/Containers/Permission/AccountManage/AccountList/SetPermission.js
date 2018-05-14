@@ -70,7 +70,7 @@ export default class SetPermission extends React.Component {
     					style={{display:'block',width:'100%',lineHeigitemht:'32px',color:'#333'}}
     					label={item.name}
     					checked={item.ownFlag==1?true:false}
-              disabled={disabled}
+              readOnly={disabled}
     					onCheck={this.checked.bind(this,item,index)}
     			/>
     		</div>
