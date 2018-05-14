@@ -63,6 +63,7 @@ export default class KrCheckbox extends Component {
 			checked,
 			label,
 			style,
+			readOnly,
 			heightStyle,
 			...other
 		} = this.props;
@@ -70,6 +71,7 @@ export default class KrCheckbox extends Component {
 		if(checked && !other.disabled){
 			checkboxClass = "input-checkbox-active"
 		}
+		let disabled = readOnly?'disabled':''
 		if(checked && other.disabled){
 			checkboxClass = "input-checkbox-disabled-active"
 		}
@@ -79,7 +81,7 @@ export default class KrCheckbox extends Component {
 
 		return (
 			<span style={style} className="ui-checkbox">
-					 <input type="checkbox" onChange={this.onCheck} checked={checked} {...other}/>
+					 <input type="checkbox" onChange={this.onCheck} checked={checked} disabled={disabled} {...other}/>
 					{label && <span style={heightStyle} className="label">{label}</span>}
 			</span>
 
