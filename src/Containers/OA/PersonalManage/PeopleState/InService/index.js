@@ -357,6 +357,7 @@ export default class InService  extends React.Component{
 	  })
    }
    onSearchSubmit = (data) =>{
+    this.state.searchParams.page = 1;
 	var searchParams = Object.assign({},this.state.searchParams);
 	searchParams.nameKey = data.content;
   searchParams.codeKey = data.content;
