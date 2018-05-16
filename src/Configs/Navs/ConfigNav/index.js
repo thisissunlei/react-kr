@@ -94,6 +94,12 @@ module.exports = [
                         menuCode: 'sem_list',
                         router: '/WebBackstage/keyword',
                     },
+                    {
+                        primaryText: '计算器配置',
+                        menuCode: 'cbd_list',
+                        type:'vue',
+                        router: '/official-website/calculator',
+                    },
 				]
 			},
 			{
