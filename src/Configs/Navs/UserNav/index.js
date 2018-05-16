@@ -76,7 +76,7 @@ module.exports = [
 					{
 						primaryText: '工作人员职务',
 						menuCode: 'hrm_job_list',
-						router: '/oa/basicConfig/postList',
+						router: '/user/basicConfig/postList',
 					},
 				]	
 			}, 
