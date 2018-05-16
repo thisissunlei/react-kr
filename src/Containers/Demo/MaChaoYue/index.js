@@ -29,7 +29,10 @@ import {
 	observer
 } from 'mobx-react';
 import {
-	CommonItem
+	Waiting
+} from 'kr/PureComponents';
+ import {
+       CommonItem
 } from 'kr/PureComponents/Agreement';
 import {Actions,Store} from 'kr/Redux';
 import {
@@ -482,6 +485,7 @@ class MaChaoYue extends React.Component {
 
 		return (
 			    <div style={{background: '#fff',height:1400}} className="demo-Machaoyue">
+			    	<Waiting />
 					<form onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField style={{width:343,marginLeft:25,position:"absolute"}} component="group" label="租赁期限" requireLabel={true}>
 					<ListGroup>

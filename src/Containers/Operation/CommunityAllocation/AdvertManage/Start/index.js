@@ -35,6 +35,7 @@ export default class Start extends React.Component{
 			openDelete:false,
 			openEdit:false,
 			openPublish:false,
+			openDown:false,
 			
 			
 		}
@@ -76,6 +77,23 @@ export default class Start extends React.Component{
 			Message.error(err.message)
 		});
 	}
+	openDownDel=()=>{
+			var _this=this;
+			const {itemDetail}=this.state;
+			Http.request('boot-unpublish',{},{id:itemDetail.id}).then(function (response) {
+				_this.openDown();
+				Message.success('下架成功！');
+				_this.setState({
+					searchParams:{
+						date:new Date(),
+						page:_this.state.page
+					}
+				})
+
+			}).catch(function (err) { 
+				Message.error(err.message)
+			});
+	}
 
 	pageChange = (page) =>{
 		this.setState({
@@ -106,6 +124,12 @@ export default class Start extends React.Component{
 		this.setState({
 			itemDetail,
 			openPublish:!this.state.openPublish
+		})
+	}
+	openDown=(itemDetail)=>{
+		this.setState({
+			itemDetail,
+			openDown:!this.state.openDown
 		})
 	}
 	editSubmit=()=>{
@@ -211,6 +235,7 @@ export default class Start extends React.Component{
 													<div style={{display:'inline'}}>
 												  	<Button label="编辑" type="operation" onClick={this.openEdit.bind(this,itemDetail)} />
 												  	<Button label="删除" type="operation" onClick={this.openDelete.bind(this,itemDetail)} />
+													<Button label="下架" type="operation" onClick={this.openDown.bind(this,itemDetail)} />
 													</div>
 													)
 					                         
@@ -291,6 +316,22 @@ export default class Start extends React.Component{
 	                      <div  className='ui-btn-center'>
 		                      <Button  label="确定" onClick={this.openPublishDel}/></div>
 		                      <Button  label="取消" type="button" cancle={true} onClick={this.openPublish} />
+	                      </div>
+	            	</div>
+	            </Dialog>
+				<Dialog
+	              title="下架"
+	              modal={true}
+	              contentStyle ={{ width: '444',overflow:'visible'}}
+	              open={this.state.openDown}
+	              onClose={this.openDown}
+	            >
+	            <div className='u-list-delete'>
+	              	<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认要下架该活动吗？</p>
+					<div style={{textAlign:'center',marginBottom:10}}>
+	                      <div  className='ui-btn-center'>
+		                      <Button  label="确定" onClick={this.openDownDel}/></div>
+		                      <Button  label="取消" type="button" cancle={true} onClick={this.openDown} />
 	                      </div>
 	            	</div>
 	            </Dialog>

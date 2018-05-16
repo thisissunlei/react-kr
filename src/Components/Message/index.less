@@ -87,6 +87,7 @@
   text-align: center;
   overflow: hidden;
 }
+
 .error{
   background:url(images/error.svg) no-repeat center 14px;
   width: 100%;
@@ -102,6 +103,15 @@
   float: right;
   margin: 26px 26px 0 0;
   display: inline-block;
+}
+.message_box>.close{
+  width: 10px;
+  height: 10px;
+  background:url(images/close.png) no-repeat center;
+  float: right;
+  margin: 26px 26px 0 0;
+  display: inline-block;
+  background-size:cover;
 }
 .message_box_warn .error-warn{
   width: 15px;
@@ -209,6 +219,34 @@
     opacity: 0;
   }
 }
+.waiting{
+  background:url(images/data.jpg) no-repeat center 14px;
+  width: 100%;
+  margin: 0px;
+  height: 240px;
+  background-size: 156px 156px;
+  text-align: center;
+  overflow: hidden;
+  span{
+    margin-top: 187px;
+    display: inline-block;
+    font-size: 14px;
+    color: red;
+    /*color: #333333;*/
+    font-family: "Adobe 黑体 Std R";
+    word-break:break-all;
+    width: 80%;
+  }
+}
+.outer .waiting>span{
+    margin-top: 187px;
+    display: inline-block;
+    font-size: 14px;
+    color: #333333;
+    font-family: "Adobe 黑体 Std R";
+    word-break:break-all;
+    width: 80%;
+  }
 .error-warn{
   .ui-messages{
      border:1px solid #ffb8b8;

@@ -63,6 +63,12 @@ module.exports = [
 						primaryText: '版本更新通知',
 						router: '/permission/systemManage/appLoginLogs',
 						menuCode: 'sso_appVersion_base',
+					},	
+					{
+						primaryText: '会员福利',
+						menuCode: 'op_member_coupon_external',
+						type: 'vue',
+						originUrl: '/app-manage/member-welfare'
 					},
 				]
 			},
@@ -172,6 +178,12 @@ module.exports = [
 						primaryText: '业务代码配置',
 						router: '/permission/opCode',
 						menuCode: 'sso_businessCode_base',
+					},
+					{
+						primaryText: '运维工具',
+						menuCode: 'ops_tool_management',
+						type: 'vue',
+						originUrl: '/ops'
 					},
 
 				]

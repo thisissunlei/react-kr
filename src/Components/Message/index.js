@@ -31,11 +31,13 @@ class Message extends React.Component {
 	render() {
 		let {
 			messages,
-			className
+			className,
 		} = this.props;
 		let {
 			isClassName
 		} = this.state;
+
+
 		return (
 			<div className="shadow">
 				<div className={`ui-message message_box ${isClassName?'exit':''}`}>
@@ -71,8 +73,9 @@ class Warn extends React.Component {
 	render() {
 		let {
 			messages,
-			className
+			className,
 		} = this.props;
+
 		let {
 			isClassName
 		} = this.state;
