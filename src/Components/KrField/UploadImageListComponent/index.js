@@ -20,12 +20,14 @@ import WrapComponent from '../WrapComponent';
 export default class UploadImageListComponent extends Component {
 
 	static defaultProps = {
-			defaultValue:[]
+			defaultValue:[],
+			sort:false,
 	}
 
 	static propTypes = {
 		className: React.PropTypes.string,
-		defaultValue:React.PropTypes.array
+		defaultValue:React.PropTypes.array,
+		sort:React.PropTypes.boolean,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -277,7 +279,7 @@ export default class UploadImageListComponent extends Component {
 
 	render() {
 
-		let {children,imgFlag,meta: { touched, error },className,boxStyle,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,label,requireLabel,inline,requestURI,...other} = this.props;
+		let {children,imgFlag,meta: { touched, error },className,boxStyle,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,label,requireLabel,inline,requestURI,sort,...other} = this.props;
 		let {operateImg,images,deleteIndex} = this.state;
 
         var imgStyle='';
@@ -287,6 +289,9 @@ export default class UploadImageListComponent extends Component {
           imgStyle='detailImg'
         }
 
+		// if(sort){
+		// 	console.log("支持排序");
+		// }
         
 
 		return(
