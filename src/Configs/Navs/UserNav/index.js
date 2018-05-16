@@ -73,6 +73,11 @@ module.exports = [
 						router: '/user/personalManage/peopleState',
 
 					},
+					{
+						primaryText: '工作人员职务',
+						menuCode: 'hrm_job_list',
+						router: '/oa/basicConfig/postList',
+					},
 				]	
 			}, 
 		]
