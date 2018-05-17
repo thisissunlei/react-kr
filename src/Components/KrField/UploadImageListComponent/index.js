@@ -27,7 +27,8 @@ export default class UploadImageListComponent extends Component {
 
 	static propTypes = {
 		className: React.PropTypes.string,
-		defaultValue:React.PropTypes.array
+		defaultValue:React.PropTypes.array,
+		sort:React.PropTypes.boolean,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -310,9 +311,18 @@ export default class UploadImageListComponent extends Component {
         }else{
           imgStyle='detailImg'
         }
+<<<<<<< HEAD
 		if(sort){
 			console.log("images>>>>",images);
 		}
+=======
+
+		// if(sort){
+		// 	console.log("支持排序");
+		// }
+        
+
+>>>>>>> ed6372b41c526efbec45f07d5968f4d760a79673
 		return(
 		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
 			<div className="ui-uploadimgList-box" style={boxStyle} >
