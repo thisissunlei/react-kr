@@ -311,9 +311,7 @@ export default class UploadImageListComponent extends Component {
         }else{
           imgStyle='detailImg'
         }
-		if(sort){
-			console.log("images>>>>",images);
-		}
+		
 		return(
 		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
 			<div className="ui-uploadimgList-box" style={boxStyle} >
@@ -322,7 +320,6 @@ export default class UploadImageListComponent extends Component {
 
 					{
 						images.map((item,index)=>{
-							console.log("mapData",index,images.length);
 							return (<div className='lostsImg'>
 							<div style={{backgroundImage:`url(${item.src})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain'}} className={imgStyle}></div>
 							<div className="ui-uploadimg-fresh-delete">
