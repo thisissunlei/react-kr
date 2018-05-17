@@ -25,6 +25,11 @@ const Operation_CommunityAllocation_AppManage=(location, callback)=>{
     callback(null, require('kr/Containers/Operation/CommunityAllocation/AppManage').default)
   }, 'Operation_CommunityAllocation_AppManage')
 }
+const OA_BasicConfig_PostList = (location, callback) => {
+  require.ensure([], require => {
+    callback(null, require('kr/Containers/OA/BasicConfig/PostList').default)
+  }, 'OA_BasicConfig_PostList')
+}
 
 const Operation_CustomerManage_CustomerList = (location, callback) => {
 	require.ensure([], require => {
@@ -73,7 +78,10 @@ module.exports =()=>{
 
 	<Route path="user" getComponent={Basic}>
       <Route path="index" getComponent={Operation_CommunityAllocation_AppManage}/>
-    
+      {/*基础配置*/}
+      <Route path="basicConfig" getComponent={Basic}>
+        <Route path="postList" getComponent={OA_BasicConfig_PostList}/>
+      </Route>
 		<Route path="communityAllocation" getComponent={Basic}>
 			<Route path="appmanage" getComponent={Operation_CommunityAllocation_AppManage}/>
 		</Route>

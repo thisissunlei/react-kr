@@ -63,7 +63,7 @@ module.exports = [
 						primaryText: '版本更新通知',
 						router: '/permission/systemManage/appLoginLogs',
 						menuCode: 'sso_appVersion_base',
-					},	
+					},
 					{
 						primaryText: '会员福利',
 						menuCode: 'op_member_coupon_external',
@@ -105,6 +105,12 @@ module.exports = [
                         primaryText: '关键词配置',
                         menuCode: 'sem_list',
                         router: '/WebBackstage/keyword',
+                    },
+                    {
+                        primaryText: '计算器配置',
+                        menuCode: 'cbd_list',
+                        type:'vue',
+                        originUrl: '/official-website/calculator',
                     },
 				]
 			},
