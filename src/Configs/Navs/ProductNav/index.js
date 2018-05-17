@@ -74,7 +74,7 @@ module.exports = [
 						menuCode: 'stat_group',
 					},
 					{
-                        primaryText: "社区招商",
+                        primaryText: "社区招商情况",
                         originUrl: '/community/attract-investment',
                         type: 'vue',
                         menuCode: 'cmt_investment',
