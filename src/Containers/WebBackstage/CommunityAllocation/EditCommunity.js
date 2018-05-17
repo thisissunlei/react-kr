@@ -531,7 +531,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                         innerStyle={{left:110,top:12}}
                                         inline={false}
                                         label='上传详情页图片（室外环境）'
-                                       
+                                        sort={true}
                                     />
                                     
                                   </div>
@@ -545,7 +545,7 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                               innerStyle={{left:110,top:12}}
                                               inline={false}
                                               label='上传详情页图片（室内环境）'
-                                             
+                                              sort={true}
                                           /> 
                                     </div>
 
@@ -558,8 +558,8 @@ const renderStation = ({ fields, meta: { touched, error }}) => {
                                           innerBoxStyle={{width:254,height:70}}
                                           innerStyle={{left:110,top:12}}
                                           inline={false}
+                                          sort={true}
                                           label='上传详情页图片（社区工位）'
-                                         
                                       />
                                     </div>
 

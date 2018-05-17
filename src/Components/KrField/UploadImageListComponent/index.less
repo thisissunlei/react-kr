@@ -29,12 +29,12 @@
 				display:block;
 				text-align: center;
 				.delete-middle{
-				   width:80px; 
+				   width:100%; 
 			       position: absolute;
-				    left: 50%;
-				    margin-left: -40px;
 				    top: 50%;
-				    margin-top: -15px;
+					margin-top: -15px;
+					display: flex;
+    				justify-content: center;
 				    height:30px;
 				}
 			}
@@ -66,10 +66,17 @@
 					}
 				}
 				.ui-uploadimg-operateimg-left{
-					margin-right:16px;
 					text-align:center;
 					margin-top:0;
+					margin-right:15px;
+					&:last-child{
+						margin-right:0;
+					}
+					.prev{
+						transform: rotate(180deg); 
+					}
 				}
+				
 				.ui-uploadimg-operateimg-btn{
 					position:absolute;
 					width:18px;

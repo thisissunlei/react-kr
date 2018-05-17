@@ -1,0 +1,199 @@
+.ui-uploadimgList-box {
+  width: 100%;
+  text-align: center;
+}
+.ui-uploadimgList-box .listImg {
+  width: 120px;
+  height: 75px;
+}
+.ui-uploadimgList-box .detailImg {
+  width: 225px;
+  height: 70px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox {
+  min-width: 120px;
+  min-height: 75px;
+  width: auto;
+  height: auto;
+  border: dashed 1px #c5c5c5;
+  padding: 16px;
+  padding-top: 0;
+  display: inline-block;
+  margin-left: 30px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg {
+  display: inline-block;
+  position: relative;
+  margin-top: 16px;
+  vertical-align: top;
+  margin-right: 15px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg:hover .ui-uploadimg-fresh-delete {
+  display: block;
+  text-align: center;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg:hover .ui-uploadimg-fresh-delete .delete-middle {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  margin-top: -15px;
+  display: flex;
+  justify-content: center;
+  height: 30px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg .ui-uploadimg-fresh-delete {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg {
+  position: relative;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  background-color: #fff;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg .ui-refreshImgBtn {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg-left {
+  text-align: center;
+  margin-top: 0;
+  margin-right: 15px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg-left:last-child {
+  margin-right: 0;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg-left .prev {
+  transform: rotate(180deg);
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .lostsImg .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg-btn {
+  position: absolute;
+  width: 18px;
+  left: 4px;
+  top: 4px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox {
+  position: relative;
+  width: 120px;
+  height: 75px;
+  border: dashed 1px #c5c5c5;
+  background-color: #f6f6f6;
+  display: inline-block;
+  margin-top: 16px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-inner {
+  position: relative;
+  top: 15px;
+  left: 45px;
+  width: 50px;
+  height: 46px;
+  display: inline-block;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-inner .ui-uploadimg-button {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  background-color: #499df1;
+  font-size: 24px;
+  color: #fff;
+  border-radius: 12px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-inner .ui-uploadimg-tip {
+  font-size: 12px;
+  color: #666;
+  display: block;
+  margin-top: 7px;
+  margin-left: -10px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-inner input {
+  position: absolute;
+  left: -45px;
+  top: -15px;
+  width: 122px;
+  height: 75px;
+  border-radius: 15px;
+  opacity: 0;
+  cursor: pointer;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-inner .image {
+  position: absolute;
+  left: -84px;
+  top: -34px;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-fresh-delete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 214px;
+  height: 138px;
+  line-height: 138px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg .ui-refreshImgBtn {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg-left {
+  margin-right: 52px;
+  text-align: center;
+}
+.ui-uploadimgList-box .ui-uploadimg-outbox .ui-uploadimg-innerbox .ui-uploadimg-fresh-delete .ui-uploadimg-operateimg-btn {
+  position: absolute;
+  width: 18px;
+  left: 6px;
+  top: 6px;
+}
+.ui-uploadimgList-box .ui-uploadimg-notice {
+  margin: 0;
+  color: #999999;
+  margin-top: 7px;
+}
+.ui-uploadimgList-box .ui-uploadimg-notice span {
+  font-size: 12px;
+}
+.ui-uploadimgList-box .ui-uploadimg-error {
+  font-size: 12px;
+  margin: 0;
+  color: #ff6868;
+  margin-top: 7px;
+  margin-left: 30px;
+}
+.list-delete .sureIncome {
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  text-align: center;
+  margin-top: 44px;
+  margin-bottom: 46px;
+}
