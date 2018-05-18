@@ -204,8 +204,8 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 									<div style={nameStyle}><div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.communityNameChange}/>
 									{State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该社区名称已存在</div>}
 								</div>
-								<div style={{height:'auto',display:'inline-block',float:'left',height:'73px'}}>
-									<KrField grid={1/2} inline={false} label="社区编码:" name="code" style={{width:262,marginLeft:28}} component="label" />
+								<div className="communityList-code" style={{height:'auto',display:'inline-block',float:'left',height:'73px'}}>
+									<KrField grid={1/2} inline={false} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="label" />
 									
 							</div>
 						</div>
