@@ -70,6 +70,12 @@ module.exports = [
 						type: 'vue',
 						originUrl: '/app-manage/member-welfare'
 					},
+					{
+						primaryText: '电视图库管理',
+						menuCode: 'tv_ad_storage',
+						type: 'vue',
+						originUrl: '/smart-hardware/map-depot'
+					},
 				]
 			},
 			{
