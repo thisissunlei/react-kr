@@ -10,6 +10,7 @@ import Dialog from '../../Dialog';
 import ReactDOM from 'react-dom';
 import Message from '../../Message';
 import './index.less';
+import next from "./images/next.svg";
 import refresh from "./images/pic.svg";
 import defaultRemoveImageIcon from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
@@ -20,12 +21,14 @@ import WrapComponent from '../WrapComponent';
 export default class UploadImageListComponent extends Component {
 
 	static defaultProps = {
-			defaultValue:[]
+			defaultValue:[],
+			sort:false,
 	}
 
 	static propTypes = {
 		className: React.PropTypes.string,
-		defaultValue:React.PropTypes.array
+		defaultValue:React.PropTypes.array,
+		sort:React.PropTypes.boolean,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -272,12 +275,34 @@ export default class UploadImageListComponent extends Component {
 		},function(){
 			onChange && onChange(images);
 		});
-    }
-
+	}
+	
+	//排序相关
+	swapImages(arr, index1, index2) {
+        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+		this.changeImages(arr);
+	}
+	
+	//向后
+	backwardImage=($index)=>{
+		let {images}=this.state;
+		if($index == 0) {
+            return;
+		}
+		this.swapImages(images,$index,$index - 1);
+	}
+	//向前
+	forwardImage=($index)=>{
+		let {images}=this.state;
+		if($index == images.length -1) {
+            return;
+		}
+		this.swapImages(images,$index,$index + 1);
+	}
 
 	render() {
 
-		let {children,imgFlag,meta: { touched, error },className,boxStyle,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,label,requireLabel,inline,requestURI,...other} = this.props;
+		let {children,imgFlag,meta: { touched, error },className,boxStyle,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,label,requireLabel,inline,requestURI,sort,...other} = this.props;
 		let {operateImg,images,deleteIndex} = this.state;
 
         var imgStyle='';
@@ -286,9 +311,7 @@ export default class UploadImageListComponent extends Component {
         }else{
           imgStyle='detailImg'
         }
-
-        
-
+		
 		return(
 		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
 			<div className="ui-uploadimgList-box" style={boxStyle} >
@@ -301,12 +324,22 @@ export default class UploadImageListComponent extends Component {
 							<div style={{backgroundImage:`url(${item.src})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain'}} className={imgStyle}></div>
 							<div className="ui-uploadimg-fresh-delete">
 								<div className='delete-middle'>
+									{(sort && index>0) && 
+										<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.backwardImage.bind(this,index)}>
+											<img src={next} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete prev"/>
+										</div>
+									}
 									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openFirstFun.bind(this,index)}>
 										<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh" style={{top:8,cursor:'pointer'}}/>
 									</div>
-									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.openDeleteFun.bind(this,index)}>
+									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openDeleteFun.bind(this,index)}>
 										<img src={defaultRemoveImageIcon} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
 									</div>
+									{(sort && (index<images.length-1)) && 
+										<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.forwardImage.bind(this,index)}>
+											<img src={next} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
+										</div>
+									}
 								</div>
 							</div>
 						</div>)
