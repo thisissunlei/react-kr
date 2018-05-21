@@ -10,6 +10,7 @@ import Dialog from '../../Dialog';
 import ReactDOM from 'react-dom';
 import Message from '../../Message';
 import './index.less';
+import next from "./images/next.svg";
 import refresh from "./images/pic.svg";
 import defaultRemoveImageIcon from "./images/deleteImg.svg";
 import {Actions,Store} from 'kr/Redux';
@@ -20,12 +21,14 @@ import WrapComponent from '../WrapComponent';
 export default class UploadImageListComponent extends Component {
 
 	static defaultProps = {
-			defaultValue:[]
+			defaultValue:[],
+			sort:false,
 	}
 
 	static propTypes = {
 		className: React.PropTypes.string,
-		defaultValue:React.PropTypes.array
+		defaultValue:React.PropTypes.array,
+		sort:React.PropTypes.boolean,
 	}
 	constructor(props,context){
 		super(props,context);
@@ -118,8 +121,9 @@ export default class UploadImageListComponent extends Component {
 			errorHide: true
 		})
 		let _this = this;
-		let file = event.target.files[0];
-       
+		console.log('event.target.files----',event.target.files)
+		//let file = event.target.files[0];
+		let file = event.target.files;
 		if (!file) {
 			return;
 		}
@@ -135,19 +139,23 @@ export default class UploadImageListComponent extends Component {
 				});
 			}, 300);
 		}
-
-		let imgType = file.type;
-		let imgSize = Math.round(file.size/1024*100)/100;
-		if(imgType!== "image/jpg" && imgType!== "image/jpeg"&& imgType!== "image/png"){
-			Message.warntimeout('请上传正确格式的图片', 'error')
-			return;
-		}
-		if(imgSize>1000){
-			Message.warntimeout('图片尺寸不得大于1M', 'error')
-			return;
-		}
+		
+		
 		var form = new FormData();
-		form.append('file', file);
+		for(var i=0; i<file.length;i++){
+				let imgType = file[i].type;
+				let imgSize = Math.round(file[i].size/1024*100)/100;
+				if(imgType!== "image/jpg" && imgType!== "image/jpeg"&& imgType!== "image/png"){
+					Message.warntimeout('请上传正确格式的图片', 'error')
+					return;
+				}
+				if(imgSize>1000){
+					Message.warntimeout('图片尺寸不得大于1M', 'error')
+					return;
+				}
+			form.append('file', file[i]);
+		}
+		//form.append('file', file);
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState === 4) {
@@ -165,8 +173,10 @@ export default class UploadImageListComponent extends Component {
 					xhrfile.onreadystatechange = function() {
 						if (xhrfile.readyState === 4) {
 							var fileResponse = xhrfile.response;
+							console.log('fileResponse.data',xhrfile.response)
 							if (xhrfile.status === 200) {
 								if (fileResponse && fileResponse.code > 0) {
+									
 									fileResponse.data.map((item,index)=>{
                                      images.push({
 										photoId:item.id,
@@ -265,12 +275,34 @@ export default class UploadImageListComponent extends Component {
 		},function(){
 			onChange && onChange(images);
 		});
-    }
-
+	}
+	
+	//排序相关
+	swapImages(arr, index1, index2) {
+        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
+		this.changeImages(arr);
+	}
+	
+	//向后
+	backwardImage=($index)=>{
+		let {images}=this.state;
+		if($index == 0) {
+            return;
+		}
+		this.swapImages(images,$index,$index - 1);
+	}
+	//向前
+	forwardImage=($index)=>{
+		let {images}=this.state;
+		if($index == images.length -1) {
+            return;
+		}
+		this.swapImages(images,$index,$index + 1);
+	}
 
 	render() {
 
-		let {children,imgFlag,meta: { touched, error },className,boxStyle,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,label,requireLabel,inline,requestURI,...other} = this.props;
+		let {children,imgFlag,meta: { touched, error },className,boxStyle,style,type,name,disabled,photoSize,pictureFormat,pictureMemory,label,requireLabel,inline,requestURI,sort,...other} = this.props;
 		let {operateImg,images,deleteIndex} = this.state;
 
         var imgStyle='';
@@ -279,9 +311,7 @@ export default class UploadImageListComponent extends Component {
         }else{
           imgStyle='detailImg'
         }
-
-        
-
+		
 		return(
 		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
 			<div className="ui-uploadimgList-box" style={boxStyle} >
@@ -294,12 +324,22 @@ export default class UploadImageListComponent extends Component {
 							<div style={{backgroundImage:`url(${item.src})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain'}} className={imgStyle}></div>
 							<div className="ui-uploadimg-fresh-delete">
 								<div className='delete-middle'>
+									{(sort && index>0) && 
+										<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.backwardImage.bind(this,index)}>
+											<img src={next} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete prev"/>
+										</div>
+									}
 									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openFirstFun.bind(this,index)}>
 										<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh" style={{top:8,cursor:'pointer'}}/>
 									</div>
-									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-right" onClick={this.openDeleteFun.bind(this,index)}>
+									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openDeleteFun.bind(this,index)}>
 										<img src={defaultRemoveImageIcon} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
 									</div>
+									{(sort && (index<images.length-1)) && 
+										<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.forwardImage.bind(this,index)}>
+											<img src={next} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
+										</div>
+									}
 								</div>
 							</div>
 						</div>)
@@ -309,7 +349,7 @@ export default class UploadImageListComponent extends Component {
 				<div className='ui-uploadimg-innerbox' onMouseEnter={this.operationImg} onMouseLeave={this.notOperateImg} style={this.props.innerBoxStyle}>
 					<div className='ui-uploadimg-inner' style={this.props.innerStyle}>
 						<span className='ui-uploadimg-button'>+</span>
-						<input type='file' onChange={this.updateImage} ref="inputImg"/>
+						<input type='file' multiple onChange={this.updateImage} ref="inputImg"/>
 						<span className='ui-uploadimg-tip'>上传图片</span>
 					</div>
 				</div>

@@ -15,9 +15,11 @@ import LocationChoice from './LocationChoice';
 import TemplatePrint from './TemplatePrint';
 import FromsConfig from './FromsConfig';
 import ContractList from './ContractList';
+import Waiting from './Waiting';
 
 module.exports = {
 	Agreement,
+	Waiting,
 	AppointmentVisit,
 	TransferCustomer,
 	LookCustomerList,

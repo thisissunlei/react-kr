@@ -215,7 +215,7 @@ export default class ActivityList extends React.Component {
 					                <TableRowColumn 
 					                	name="cost" 
 					                	component={(value) => {
-					                		let cost=value==0?'免费':value;
+					                		let cost=value==0?'免费':`￥${value}`;
 					                        return cost;
 					                    }}
 					                ></TableRowColumn>

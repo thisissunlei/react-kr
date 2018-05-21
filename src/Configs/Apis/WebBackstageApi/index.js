@@ -86,7 +86,7 @@ module.exports = {
     url: '/api/krspace-sso-web/sso/ssoUser/select?phoneOrEmail={phoneOrEmail}',
     method: 'get'
  },
-  
+
  //轮播列表显示
  'web-piclist-listshow':{
   url: '/api/krspace-finance-web/por-mobile-pic/list?page={page}&pageSize={pageSize}',
@@ -121,6 +121,36 @@ module.exports = {
 'newedit-cmt':{
   url: '/api/krspace-finance-web/cmt/newedit',
   method: 'post'
+},
+
+//官网-关键词配置列表
+'keyword-setting':{
+  url: '/api/krspace-finance-web/por-sem/list?page={page}&pageSize={pageSize}&semCode={semCode}&semName={semName}',
+  method: 'get'
+},
+
+//官网-关键词配置-详情
+'keyword-setting-detail':{
+  url: '/api/krspace-finance-web/por-sem/show?id={id}',
+  method: 'get'
+},
+
+//官网-关键词配置-编辑
+'keyword-setting-edit':{
+  url: '/api/krspace-finance-web/por-sem/saveoredit',
+  method: 'post'
+},
+
+//官网-关键词配置-删除
+'keyword-setting-delete':{
+  url: '/api/krspace-finance-web/por-sem/delete?id={id}',
+  method: 'get'
+},
+
+//官网-关键词配置-批量删除
+'keyword-setting-deleteall':{
+  url: '/api/krspace-finance-web/por-sem/batchdelete?ids={ids}',
+  method: 'get'
 },
 
 

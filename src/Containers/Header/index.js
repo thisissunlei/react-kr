@@ -2,9 +2,6 @@ import React from 'react';
 import mobx from 'mobx';
 import { observer, inject } from 'mobx-react';
 import {ListGroup,ListGroupItem,Drawer} from 'kr-ui';
-import {
-	TheBell
-} from 'kr/PureComponents';
 
 import SidebarNav from './SidebarNav';
 
@@ -199,7 +196,6 @@ export default class Header extends React.Component {
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					{this.renderNav(navs)}
 					{navs.length>7?<More Navs={navs} NavModel={NavModel}/>:''}
-					{NavModel.menusData.length>0?<TheBell  />:''}
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} logout={this.logout}/>
 				</div>
 				<Drawer 

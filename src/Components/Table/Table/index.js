@@ -220,7 +220,7 @@ export default class Table extends React.Component {
 		} = this.props;
 		onOperation && onOperation(type, itemData);
 		this.tableRowColumnClick(event);
-		
+
 	}
 
 
@@ -232,11 +232,11 @@ export default class Table extends React.Component {
 	}
 
 	findDomTd =(targetDom)=>{
-		
-		
+
+
 		if(targetDom.nodeName.toLowerCase()=="td"){
-			
-			
+
+
 			var trDom = targetDom.parentNode;
 			var otherTr = trDom.nextSibling;
 			var preOtherTr = trDom.previousSibling;

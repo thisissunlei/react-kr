@@ -373,13 +373,13 @@ class SignedClient extends React.Component{
 		return(
 		<div className="m-signed" style={{ paddingTop: 25 }}>
       		<Title value="客户列表"/>
-			<CheckPermission operateCode="admin_customer_edit" > 
+			{/* <CheckPermission operateCode="admin_customer_edit" > 
 				<div className='merchants-dialog' style={blockStyle}>
 				<div className='selectCheck'>已选中<span className='dialog-number'>{this.state.dialogNum}</span>项</div>
 						<Button label="转移" type="button" onTouchTap={this.openSwitchDialog} operateCode="admin_customer_edit"/>
 				<span className='mer-close' onClick={this.merClose}></span>
 				</div>
-			</CheckPermission>
+			</CheckPermission> */}
 	        <Row style={{marginBottom:21}}>
 				<Col
 					align="left"

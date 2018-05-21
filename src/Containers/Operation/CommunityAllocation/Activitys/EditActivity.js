@@ -22,6 +22,7 @@ import {
 	Message,
 	DrawerTitle,
 	KrDate,
+	IconTip
 } from 'kr-ui';
 import './index.less';
 
@@ -43,7 +44,8 @@ class EditActivity extends React.Component {
 			endDate:'',
 			endHour:'',
 			timeStart:'',
-			timeEnd:''
+			timeEnd:'',
+			cost:'',
 		}
 		
 		
@@ -83,7 +85,8 @@ class EditActivity extends React.Component {
 					timeStart:new Date(response.startTime).getTime(),
 					timeEnd:new Date(response.endTime).getTime(),
 					richText:response.richText,
-					imgUrl:response.imgUrl
+					imgUrl:response.imgUrl,
+					cost:response.cost
 				})
 			Store.dispatch(initialize('editActivity', response));
 
@@ -130,6 +133,7 @@ class EditActivity extends React.Component {
 	}
 	selectCommunity=(item)=>{
 		Http.request('activity-findCmtAddres',{cmtId:item.id}).then(function(response) {
+			this.
 			Store.dispatch(change('editActivity', 'address', response.address));
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -141,7 +145,6 @@ class EditActivity extends React.Component {
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
 		var _this=this;
-		form.cost=0;
 		var stime=form.startTime.substring(0,10);
 		var etime=form.endTime.substring(0,10);
 		form.begin_time=`${stime} ${form.StartTimeStr}:00`;
@@ -273,7 +276,8 @@ class EditActivity extends React.Component {
 				timeStartNum,
 				timeEndNum,
 				richText,
-				imgUrl
+				imgUrl,
+				cost
 			}=this.state;
 		
 		return (
@@ -290,14 +294,33 @@ class EditActivity extends React.Component {
 								label="活动标题"
 								requireLabel={true}
 						 	/>
-							<KrField
+							{/* <KrField
 								style={{width:260,marginRight:25}}
 								component="labelText"
 								name="cost"
 								label="费用"
 								inline={false} 
-								value="免费"
-						 	/>
+								value={cost=='0'?'免费':cost}
+						 	/> */}
+							<div className="u-icon-tip">
+								<IconTip tipStyle = {{width:200}}>
+										<div style={{textAlign:'left'}}>
+											<p>①费用仅支持填写数字，如“42”“38.8”；</p>
+											<p>②若免费活动，费用请填写0；</p>
+											<p>③APP暂不支持会员直接缴纳活动费用，请在活动内容中详细描述会员线下缴费流程；</p>
+										</div>
+								</IconTip>
+							 </div>
+							 <span className="u-unit">￥</span>
+							 <KrField
+								style={{width:260,marginRight:25}}
+								name="cost"
+								type="text"
+								component="input"
+								label="费用"
+								requireLabel={true}
+								className="u-cost"
+						 	 />
 						 	<KrField
 								style={{width:260,marginRight:25}}
 								component="select"
@@ -434,9 +457,13 @@ const validate = values => {
 		if (!values.site) {
 			errors.site = '请输入活动地点';
 		}
-		// if (!values.cost) {
-		// 	errors.cost = '请输入费用';
-		// }
+		let reg=/^[+-]?(\d|[1-9]\d+)(\.\d+)?$/;
+		if (!values.cost) {
+			errors.cost = '请输入费用金额';
+		}
+		if(!reg.test(values.cost)){
+			errors.cost = '请输入正确的费用金额';
+		}
 
 		if (!values.type) {
 			errors.type = '请选择活动类型';

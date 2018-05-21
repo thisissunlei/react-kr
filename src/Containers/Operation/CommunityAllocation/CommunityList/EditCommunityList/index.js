@@ -204,9 +204,9 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 									<div style={nameStyle}><div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.communityNameChange}/>
 									{State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该社区名称已存在</div>}
 								</div>
-								<div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true} onChange={this.communityCodeChange}/>
-
-								{State.isCorpCode && <div style={{fontSize:14,color:"red",paddingLeft:40,paddingBottom:7}}>该社区编码已存在</div>}
+								<div className="communityList-code" style={{height:'auto',display:'inline-block',float:'left',height:'73px'}}>
+									<KrField grid={1/2} inline={false} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="label" />
+									
 							</div>
 						</div>
 						<div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">m<sup>2</sup></span></div>
@@ -367,9 +367,6 @@ const renderMembers = ({ fields, meta: { touched, error } }) => {
 	         errors.name = '请填写社区名称';
 	       }
 
-	       if(!values.code||(values.code&&regs.test(values.code.toString().trim()))){
-	         errors.code='请填写社区编码';
-	       }
 
 	       if(!values.local||(values.local&&regs.test(values.local.toString().trim()))){
 	         errors.local='请输入社区坐标';

@@ -15,6 +15,12 @@ module.exports = [
                         originUrl: '/bill/customerAssets',
                         type: 'vue',
                         menuCode: 'customer_assets'
+					},
+					{
+                        primaryText: '客户管理',
+                        originUrl: '/customer-manage/manage',
+                        type: 'vue',
+                        menuCode: 'customer_center'
                     },
                     {
 						primaryText: "客户管理员",
@@ -66,6 +72,11 @@ module.exports = [
 						menuCode: 'hrm_resourcesList_incumbency',
 						router: '/user/personalManage/peopleState',
 
+					},
+					{
+						primaryText: '工作人员职务',
+						menuCode: 'hrm_job_list',
+						router: '/user/basicConfig/postList',
 					},
 				]	
 			}, 

@@ -66,7 +66,7 @@ class NewCreateForm extends React.Component{
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
-	
+
 
 	//  输入手机号查看该手机号是否绑定
 	onBlur=(phone)=>{
@@ -251,27 +251,27 @@ const validate = values => {
 	// if (!values.identityCard) {
 	// 	errors.identityCard = '请输入身份证号码';
 	// }
-	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;     
-    if( values.identityCard && !reg.test(values.identityCard)){  
-        errors.identityCard = '身份证输入不合法';   
+	var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+    if( values.identityCard && !reg.test(values.identityCard)){
+        errors.identityCard = '身份证输入不合法';
     }
-	
+
 	if (!values.csrId) {
 		errors.csrId = '请输入公司';
 	}
 	if (!values.name || /^\s+$/.test(values.name)) {
 		errors.name = '请输入姓名';
 	}
-	if (values.email && !email.test(values.email) ) {
-		errors.email = '请输入正确邮箱';
-	}
+	// if (values.email && !email.test(values.email) ) {
+	// 	errors.email = '请输入正确邮箱';
+	// }
 	if (values.phone && !phone.test(values.phone) ) {
 		errors.phone = '请输入正确电话号';
 	}
 	// if (!code.test(values.foreignCode) ) {
 	//     errors.foreignCode = '会员卡号为10位纯数字';
 	// }
-	
+
 	// if (!values.foreignCode) {
 	//     errors.foreignCode = '请输入会员卡号';
 	// }
