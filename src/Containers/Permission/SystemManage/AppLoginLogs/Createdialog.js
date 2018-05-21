@@ -11,11 +11,19 @@ import {
     Dialog,
     DrawerTitle
 } from 'kr-ui';
-import {reduxForm, formValueSelector, change} from 'redux-form';
+import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
+import ApkFileUpload from './ApkFileUpload';
 class Createdialog extends Component {
 
     constructor(props, context) {
         super(props, context);
+        this.state={
+            version:'' 
+        }
+    }
+    componentDidMount() {
+        Store.dispatch(initialize('createdialog',{}));
+       
 
     }
     onCancel = () => {
@@ -26,9 +34,20 @@ class Createdialog extends Component {
         const {onSubmit} = this.props;
         onSubmit && onSubmit(form);
     }
+    onVersionChange=(value)=>{
+        this.setState({
+            version:value
+        })
+    }
+    uploadChange=()=>{
+        this.setState({
+            version:value
+        })
+    }
 
     render() {
         const {handleSubmit} = this.props;
+        let {version}=this.state;
         return (
 
             <div>
@@ -39,10 +58,11 @@ class Createdialog extends Component {
     						 left={42}
     						 right={18}
     	 					 name="version"
-                 requireLabel={true}
+                             requireLabel={true}
     	 					 style={{marginTop:4}}
     	 					 label="系统版本"
-    						 component="input"
+                             component="input"
+                             onBlur={this.onVersionChange}
     	 			 		/>
     					<KrField
     			    		grid={1/2}
@@ -128,6 +148,16 @@ class Createdialog extends Component {
                   style={{marginTop:4,marginLeft:20}}
                   label="安装包大小"
               />
+              <div className="u-upload-apk">
+                  <div className="u-title">上传apk</div>
+                  <ApkFileUpload  
+                        version={version}
+                        defaultValue={[]}
+                        onChange={(files)=>{
+                            Store.dispatch(change('createdialog','downUrl',files.downUrl));
+                        }} 
+                  />
+              </div>
               <KrField
                   grid={1}
                   left={42}
