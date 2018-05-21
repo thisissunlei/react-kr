@@ -68,16 +68,17 @@ class EditForm extends React.Component{
 			
 			let SearchLocationParams = {
 									communityId:detail.communityId,
-									whereFloor:detail.floor,
+									floor:detail.floor,
 								}
-			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
+			Http.request('getspacelistapi',SearchLocationParams).then(function(response){
+				var listDate = response.items;
 				var locationArr = []
-	    		for (var i=0;i<response.length;i++){
-					locationArr[i] = {label:response[i].name,value:response[i].id}
-					if(response[i].id == _this.detail.roomId){
+	    		for (var i=0;i<listDate.length;i++){
+					locationArr[i] = {label:listDate[i].name,value:listDate[i].id}
+					if(listDate[i].id == _this.detail.roomId){
 						
 						_this.setState({
-							doorCodeText : response[i].name
+							doorCodeText : listDate[i].name
 						})
 					}
 				}
@@ -242,13 +243,14 @@ class EditForm extends React.Component{
 		let SearchLocationParams = 
 				{
 					communityId:_this.state.communityId,
-  					whereFloor:_this.state.floorNum
+					floor:_this.state.floorNum
   				}
   			
-		Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
+		Http.request('getspacelistapi',SearchLocationParams).then(function(response){
+			var listData = response.items;
 			var locationArr = []
-    		for (var i=0;i<response.length;i++){
-    			locationArr[i] = {label:response[i].name,value:response[i].id}
+    		for (var i=0;i<listData.length;i++){
+    			locationArr[i] = {label:listData[i].name,value:listData[i].id}
     		}
     		_this.setState({
     			locationOptions : locationArr
@@ -333,7 +335,7 @@ class EditForm extends React.Component{
 					<KrField name="roomId" grid={1/2}
 						component="select" 
 						options={locationOptions}
-						label="房间"
+						label="空间名称"
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
 					/>
@@ -431,7 +433,7 @@ const validate = values=>{
 		errors.doorType = '门类型为必填项';
 	}
 	if(values.doorType && (values.doorType=='MEETING' ||values.doorType=='OFFICE')&& !values.roomId){
-		errors.roomId ='门类型为会议室或独立办公室，房间必选'
+		errors.roomId ='门类型为会议室或独立办公室，空间名称必选'
 	}
 
 	if(values.doorType && (values.doorType=='GATE' ||values.doorType=='SPECIAL_CONTROL')&& !values.doorCode){
