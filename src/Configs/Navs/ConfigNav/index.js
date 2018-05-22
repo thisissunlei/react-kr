@@ -20,6 +20,12 @@ module.exports = [
 						router: '/operation/communityAllocation/activity'
 					},
 					{
+						primaryText: '会员福利',
+						menuCode: 'op_member_coupon_external',
+						type: 'vue',
+						originUrl: '/app-manage/member-welfare'
+					},
+					{
 						primaryText: '广告',
 						menuCode: 'oper_advert_base',
 						router: '/operation/communityAllocation/advert'
@@ -63,18 +69,6 @@ module.exports = [
 						primaryText: '版本更新通知',
 						router: '/permission/systemManage/appLoginLogs',
 						menuCode: 'sso_appVersion_base',
-					},
-					{
-						primaryText: '会员福利',
-						menuCode: 'op_member_coupon_external',
-						type: 'vue',
-						originUrl: '/app-manage/member-welfare'
-					},
-					{
-						primaryText: '电视图库管理',
-						menuCode: 'tv_ad_storage',
-						type: 'vue',
-						originUrl: '/smart-hardware/map-depot'
 					},
 				]
 			},
