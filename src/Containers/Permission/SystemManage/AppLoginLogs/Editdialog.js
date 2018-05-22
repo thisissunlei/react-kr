@@ -16,6 +16,8 @@ import {
     DrawerTitle
 } from 'kr-ui';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
+import ApkFileUpload from './ApkFileUpload';
+
 class Editdialog extends React.Component {
     static PropTypes = {
         detail: React.PropTypes.object,
@@ -24,6 +26,11 @@ class Editdialog extends React.Component {
     }
     constructor(props, context) {
         super(props, context);
+        this.state={
+            infoList:'',
+            version:'',
+            fileList:[]
+        }
 
     }
     componentDidMount() {
@@ -33,8 +40,17 @@ class Editdialog extends React.Component {
         Http.request('get-version-detail', {
                 id: id
             },{}).then(function(response) {
+               let arr=[];
+               let obj={
+                 fileUrl:response.downUrl,
+                 fileName:response.apkName
+               }
+               arr.push(obj)
                 _this.setState({infoList: response},function(){
                   Store.dispatch(initialize('editdialog', _this.state.infoList));
+                })
+                _this.setState({
+                    fileList: arr
                 })
             }).catch(function(err) {});
 
@@ -47,10 +63,20 @@ class Editdialog extends React.Component {
         const {onSubmit} = this.props;
         onSubmit && onSubmit(form);
     }
+    onVersionChange=(value)=>{
+        this.setState({
+            version:value
+        })
+    }
 
     render() {
         const {handleSubmit} = this.props;
-
+        let {
+                infoList,
+                version,
+                fileList
+            }=this.state;
+            console.log('fileList===',fileList)
         return (
 
             <div>
@@ -152,6 +178,23 @@ class Editdialog extends React.Component {
                   style={{marginTop:4,marginLeft:20}}
                   label="安装包大小"
               />
+               <div className="u-upload-apk">
+                  <div className="u-title">上传apk</div>
+                  <ApkFileUpload  
+                        version={version}
+                        defaultValue={fileList}
+                        onChange={(files)=>{
+                            if(files){
+                                Store.dispatch(change('editdialog','apkName',files.fileName));
+                                Store.dispatch(change('editdialog','downUrl',files.downUrl));
+                            }else{
+                                Store.dispatch(change('editdialog','apkName',''));
+                                Store.dispatch(change('editdialog','downUrl',''));
+                            }
+                           
+                        }} 
+                  />
+              </div>
               <KrField
                   grid={1}
                   left={42}

@@ -39,11 +39,11 @@ class Createdialog extends Component {
             version:value
         })
     }
-    uploadChange=()=>{
-        this.setState({
-            version:value
-        })
-    }
+    // uploadChange=()=>{
+    //     this.setState({
+    //         version:value
+    //     })
+    // }
 
     render() {
         const {handleSubmit} = this.props;
@@ -154,7 +154,13 @@ class Createdialog extends Component {
                         version={version}
                         defaultValue={[]}
                         onChange={(files)=>{
-                            Store.dispatch(change('createdialog','downUrl',files.downUrl));
+                            if(files){
+                                Store.dispatch(change('createdialog','apkName',files.fileName));
+                                Store.dispatch(change('createdialog','downUrl',files.downUrl));
+                            }else{
+                                Store.dispatch(change('createdialog','apkName',''));
+                                Store.dispatch(change('createdialog','downUrl',''));
+                            }
                         }} 
                   />
               </div>

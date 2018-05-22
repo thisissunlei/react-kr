@@ -72,7 +72,7 @@ export default class ApkFileUpload extends React.Component {
 	}
 
 	setInitValue(defaultValue) {
-
+		console.log('defaultValue---',defaultValue)
 
 		let {
 			files,
@@ -154,6 +154,7 @@ export default class ApkFileUpload extends React.Component {
 
 	onSuccess(response) {
 		response = Object.assign({}, response);
+		response.fileUrl=response.downUrl;
 		let {
 			form
 		} = this.state;
