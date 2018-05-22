@@ -139,7 +139,7 @@ class InputCardForm extends React.Component {
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
 
 		if(cReg.test(value)){
-			Message.error('卡内码内含有中文请切换英文输入法！');
+			Message.warntimeout('请切换为英文输入法！',"error");
 			return;
 		}
 		this.submitContinue();
@@ -182,6 +182,10 @@ class InputCardForm extends React.Component {
 
 	jumpToNextFun=()=>{
 		Store.dispatch(change('InputCardForm','jumpToNext',true));
+		var inputCardForm = document.getElementsByClassName("input-card-form")[0];
+		inputCardForm.getElementsByClassName("ui-form-item")[1].getElementsByTagName("input")[0].blur();
+		inputCardForm.getElementsByClassName("ui-form-item")[2].getElementsByTagName("input")[0].blur();
+		inputCardForm.getElementsByClassName("ui-form-item")[3].getElementsByTagName("input")[0].focus();
 		
 	}
 
