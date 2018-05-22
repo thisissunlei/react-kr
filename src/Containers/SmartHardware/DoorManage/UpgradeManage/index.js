@@ -15,7 +15,8 @@ import {
 	Grid,
 	Row,
 	ListGroup,
-	ListGroupItem
+	ListGroupItem,
+	Tooltip
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
@@ -101,7 +102,7 @@ export default class List extends React.Component {
 	}
 
 
-
+	
 
 	openNewCreateUpgradeDialog=()=>{
 		State.openNewCreateUpgrade = !State.openNewCreateUpgrade;
@@ -156,14 +157,25 @@ export default class List extends React.Component {
 								}
 								return (<span>{value}</span>)}}
 							></TableRowColumn>
+							<TableRowColumn 
+		                            name="url" 
+		                            component={(value,oldValue,itemData)=>{
+		                            var TooltipStyle=""
+		                            if(value.length==""){
+		                                TooltipStyle="none"
 
+		                            }else{
+		                                TooltipStyle="block";
+		                            }
+		                                return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+		                                <Tooltip offsetTop={5} place='top'>
+										<span style={{display: 'inline-block',minWidth: 300,wordWrap: 'break-word',wordBreak: "break-all",whiteSpace: 'normal'}}>
+		                                {value}
+		                                </span>
+		                                </Tooltip></div>)
+		                        }} ></TableRowColumn>
 							
-							<TableRowColumn style={{width:400,overflow:"visible"}} name="url" component={(value,oldValue)=>{
-		                           
-		                        return (<div style={{paddingTop:5}} className='financeDetail-hover'>
-		                        			<span className='tableOver' style={{maxWidth:400,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
-		                        		</div>)
-		              			}} ></TableRowColumn>
+						
 							<TableRowColumn name="version"
 							component={(value,oldValue)=>{
 								if(value==""){

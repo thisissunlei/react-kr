@@ -2,6 +2,7 @@
 import PlanMap from './PlanMap';
 import Calendar from './Calendar';
 import Dialog from './Dialog';
+import DialogInner from './DialogInner';
 import DotTitle from './DotTitle';
 import LineText from './LineText';
 import Section from './Section';
@@ -117,6 +118,7 @@ module.exports = {
 	Row,
 	Col,
 	Dialog,
+	DialogInner,
 	DotTitle,
 	DivTitle,
 	LineText,
@@ -157,6 +159,7 @@ module.exports = {
 
 	Avatar,
 	Dialog,
+	DialogInner,
 	Snackbar,
 	// Tabs,
 	Tab,

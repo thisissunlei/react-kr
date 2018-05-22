@@ -9,7 +9,7 @@ import {
 	Grid,Row,
 	ListGroup,ListGroupItem,
 	Tooltip,
-	Drawer ,
+	Drawer ,DialogInner
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http,DateFormat} from 'kr/Utils';
@@ -18,8 +18,7 @@ import './index.less';
 import SearchForm from './AuthoriazationEquipmentSearch';
 import CancleAuthorization from './CancleAuthorization';
 import BatchCancleAuthoriazation from './BatchCancleAuthoriazation';
-// import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
-import AllEquipmentListBox from './AllEquipmentListBox';
+import AllEquipmentListSearch from './AllEquipmentListSearch';
 
 
 import State from './State';
@@ -136,7 +135,7 @@ export default class CanOperationEquipment extends React.Component {
     }
 
 
-    refreshAuthoriazationEquipmentList=()=>{
+    refreshAuthoriazationEquipmentList=(param)=>{
 
         var now = new Date().getTime();
         let obj= {date:now};
@@ -147,6 +146,10 @@ export default class CanOperationEquipment extends React.Component {
         this.setState({
             getMemberAuthorizeEquipmentParams : params
         })
+        console.log("param",param)
+        if(param && param==true){
+            this.openNewCreateAuthoriazationFun();
+        }
         
     }
 
@@ -204,7 +207,6 @@ export default class CanOperationEquipment extends React.Component {
         }
 
         var idsStr = idsArr.join(",");
-        console.log("idsStr",idsStr);
         
         this.setState({
             selectedListData:selectedListData ,
@@ -219,7 +221,6 @@ export default class CanOperationEquipment extends React.Component {
     confirmBatchCancleAuthorization=()=>{
 
         let {selectedListData,ids} = this.state;
-        console.log("this.state",this.state);
         let params = {ids :ids};
         this.sendRequest(params);
         
@@ -244,7 +245,6 @@ export default class CanOperationEquipment extends React.Component {
 	render() {
         let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail,selectedListData,ids} = this.state;
-        console.log("ids",ids);
         return (
 		    <div className="new-create-authoriazation">
                     {
@@ -451,16 +451,17 @@ export default class CanOperationEquipment extends React.Component {
 			          />
 			        </Dialog>
 
-                    <Drawer 
+                    <DialogInner 
+                        title="设备列表"
 			        	open={State.openNewCreateAuthoriazation}
-			        	onClose = {this.openNewCreateAuthoriazationFun}
-					    width={"90%"} 
-					    openSecondary={true} 
+                        onClose = {this.openNewCreateAuthoriazationFun}
+                        bodyStyle={{overflow:"scroll",maxHeight:600}}
+                        noMaxHeight = {true}
+                        contentStyle={{width:1016,maxHeight:750}}
 					>
-                   
                     
                         
-                    <AllEquipmentListBox 
+                    <AllEquipmentListSearch 
                         memberDetailInfo={memberDetailInfo} 
                         refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList} 
                         doorTypeOptions={doorTypeOptions} 
@@ -468,7 +469,7 @@ export default class CanOperationEquipment extends React.Component {
                         granteeId={granteeId}
                     />
                     
-			        </Drawer>
+			        </DialogInner>
 
 			</div>
 		);

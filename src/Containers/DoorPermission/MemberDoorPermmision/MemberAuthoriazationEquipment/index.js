@@ -19,7 +19,7 @@ import SearchForm from './AllEquipmentListSearch/SearchAllEquipment';
 import CancleAuthorization from './CancleAuthorization';
 import BatchCancleAuthoriazation from './BatchCancleAuthoriazation';
 // import NewCreateAuthoriazationToPerson from './NewCreateAuthoriazationToPerson';
-import AllEquipmentListBox from './AllEquipmentListBox';
+import AllEquipmentListSearch from './AllEquipmentListSearch';
 
 
 import State from './State';
@@ -204,7 +204,6 @@ export default class CanOperationEquipment extends React.Component {
         }
 
         var idsStr = idsArr.join(",");
-        console.log("idsStr",idsStr);
         
         this.setState({
             selectedListData:selectedListData ,
@@ -219,7 +218,6 @@ export default class CanOperationEquipment extends React.Component {
     confirmBatchCancleAuthorization=()=>{
 
         let {selectedListData,ids} = this.state;
-        console.log("this.state",this.state);
         let params = {ids :ids};
         this.sendRequest(params);
         
@@ -244,7 +242,6 @@ export default class CanOperationEquipment extends React.Component {
 	render() {
         let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail,selectedListData,ids} = this.state;
-        console.log("ids",ids);
         return (
 		    <div className="new-create-authoriazation">
                     {
@@ -460,7 +457,7 @@ export default class CanOperationEquipment extends React.Component {
                    
                     
                         
-                    <AllEquipmentListBox 
+                    <AllEquipmentListSearch 
                         memberDetailInfo={memberDetailInfo} 
                         refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList} 
                         doorTypeOptions={doorTypeOptions} 
