@@ -37,7 +37,13 @@ module.exports = [
                         originUrl: '/operations-center/from-field',
                         type: 'vue',
                         menuCode: 'checklist_list',
-                    },
+					},
+					{
+						primaryText: '电视图库管理',
+						menuCode: 'tv_ad_storage',
+						type: 'vue',
+						originUrl: '/smart-hardware/map-depot'
+					},
 				]
 			},
 			
