@@ -102,7 +102,7 @@ module.exports = [
                 menuItems: [
                     {
                         primaryText: '空间管理',
-                        menuCode: 'oper_steward_base',
+                        menuCode: 'basic_space',
                         type:'vue',
                         originUrl: '/smart-hardware/space-manage',
                     },
