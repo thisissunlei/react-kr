@@ -1,5 +1,5 @@
 module.exports = [
-	
+
 		{
 			primaryText: "智能硬件",
 			router: 'smarthardware',
@@ -26,7 +26,7 @@ module.exports = [
 								menuCode: 'iot_device_alarm',
 								router: '/smarthardware/doorManage/warning',
 								otherRouter : ['/smarthardware/doorManage/warning/'],
-								
+
 							},
 							{
 								primaryText: '升级管理',
@@ -66,7 +66,7 @@ module.exports = [
 					iconColor: '#79859a',
 					router :'',
 					menuItems: [
-	
+
 						{
 							primaryText: '设备管理',
 							menuCode: 'gateway_list',
@@ -83,7 +83,7 @@ module.exports = [
 				iconColor: '#79859a',
 				router :'',
 				menuItems: [
-	
+
 					{
 						primaryText: '设备查询',
 						menuCode: 'myCard',
@@ -94,8 +94,21 @@ module.exports = [
 						router: '/smarthardware/equipmentmanage/checkrepeatip',
 					}
 				]
-		},
+		    },{
+                primaryText: "空间管理",
+                iconName: 'icon-card',
+                iconColor: '#79859a',
+                router :'',
+                menuItems: [
+                    {
+                        primaryText: '空间管理',
+                        menuCode: 'oper_steward_base',
+                        type:'vue',
+                        originUrl: '/smart-hardware/space-manage',
+                    },
+                ]
+              },
 			],
 		}
 	]
-	
+
