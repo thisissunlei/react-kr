@@ -10,6 +10,12 @@ module.exports = [
 				iconColor: '#79859a',
 				menuItems: [
 					{
+						primaryText: '产品运营主页',
+						menuCode: 'app_console_push',
+						type: 'vue',
+						originUrl: '/app-manage/home'
+					},
+					{
 						primaryText: '公告',
 						menuCode: 'oper_notice_base',
 						router: '/operation/communityAllocation/noticemanage'
