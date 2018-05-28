@@ -93,7 +93,6 @@ export default class DoorGroupManage extends React.Component {
 		let {itemDetail,getDoorPermissionListParams,ids}  = this.state;
 		let {groupItemDetail}= this.props;
 		let that = this;
-		console.log("itemDetail",itemDetail);
 		var params = {
 			uids:itemDetail.uid,
 			groupId : groupItemDetail.id
@@ -106,6 +105,7 @@ export default class DoorGroupManage extends React.Component {
 	sendAddRequest=(params)=>{
 
 		let that = this;
+		let {continueOrClose} = this.state;
 		Http.request('addGroupMemberApi',{},params).then(function(response) {
 
 
@@ -113,8 +113,9 @@ export default class DoorGroupManage extends React.Component {
 			State.openBatchAddDialog = false;
 			Message.success("添加成功");
 
-			let {freshGroupMemberList} = that.props;
+			let {freshGroupMemberList,continueOrCloseAllMember} = that.props;
 			freshGroupMemberList && freshGroupMemberList();
+			continueOrCloseAllMember && continueOrCloseAllMember(continueOrClose)
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -142,7 +143,6 @@ export default class DoorGroupManage extends React.Component {
 
 		var idsArr =[];
 		for(var i=0;i<selectedListData.length;i++){
-			console.log("selectedListData[i]",selectedListData[i],"selectedListData[i].uid",selectedListData[i].uid);
 			idsArr.push(selectedListData[i].uid)
 		}
 		var sendIds = idsArr.join(",");
@@ -156,14 +156,39 @@ export default class DoorGroupManage extends React.Component {
 
 	renderOther=()=>{
 		return (
+			<span>
 			
 			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}} 
-				onClick={this.batchAddMemberBtn}>
-				批量添加
+				onClick={this.batchAddMemberBtnAndClose}>
+				添加并关闭
 			</a>
+			<a style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}} 
+				onClick={this.batchAddMemberBtnAndContinue}>
+				添加并继续
+			</a>
+
+			</span>
 
 			
 		)
+	}
+
+	batchAddMemberBtnAndClose=()=>{
+		let _this =this;
+		this.setState({
+			continueOrClose :"close"
+		},function(){
+			_this.batchAddMemberBtn()
+		})
+	}
+
+	batchAddMemberBtnAndContinue=()=>{
+		let _this =this;
+		this.setState({
+			continueOrClose :"continue"
+		},function(){
+			_this.batchAddMemberBtn()
+		})
 	}
 
 	batchAddMemberBtn=()=>{
@@ -174,6 +199,7 @@ export default class DoorGroupManage extends React.Component {
 		}
 		this.openBatchAddDialogFun();
 	}
+
 
 	onSelect=(result,selectedListData)=>{
 		
@@ -201,7 +227,7 @@ export default class DoorGroupManage extends React.Component {
 		return (
 		    <div className="change-member-item-box" style={{backgroundColor:"#fff"}} >
 				<Title value="门禁组管理"/>
-				<Section title={`全部会员`} description="" >
+				{/* <Section title={`全部会员`} description="" > */}
 					<div className="group-manage-all-member-search">
 						<SearchGroupMember submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
 					</div>
@@ -227,7 +253,7 @@ export default class DoorGroupManage extends React.Component {
 						<TableHeaderColumn>电话</TableHeaderColumn>
 						<TableHeaderColumn>社区名称</TableHeaderColumn>
 						<TableHeaderColumn>公司</TableHeaderColumn>
-						<TableHeaderColumn>操作</TableHeaderColumn>
+						{/* <TableHeaderColumn>操作</TableHeaderColumn> */}
 					</TableHeader>
 					<TableBody style={{position:'inherit'}}>
 						<TableRow>
@@ -290,12 +316,12 @@ export default class DoorGroupManage extends React.Component {
 						}} ></TableRowColumn>
 
 
-						<TableRowColumn type="operation" style={{width:"15%",overflow:"visible"}} >
+						{/* <TableRowColumn type="operation" style={{width:"15%",overflow:"visible"}} >
 
 							<Button  label="添加"  type="operation" operation="addMember"/>
 
 							
-						</TableRowColumn>
+						</TableRowColumn> */}
 						
 						
 					</TableRow>
@@ -334,7 +360,7 @@ export default class DoorGroupManage extends React.Component {
 			        </Dialog>
 					
 
-				</Section>
+				{/* </Section> */}
 			</div>
 		);
 

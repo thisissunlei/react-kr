@@ -230,7 +230,7 @@ export default class CanOperationEquipment extends React.Component {
         let {getAllEquipmentParams,itemDetail} = this.state;
 
 		return (
-		    <div className="all-equipment ">
+		    <div className="all-equipment " style={{paddingTop:30}}>
               
                 <Section title={`所有设备`} description="" >
                     <SearchAllEquipment submitSearchParams={this.submitSearch}/>

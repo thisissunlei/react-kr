@@ -1,5 +1,5 @@
 module.exports = [
-	
+
 		{
 			primaryText: "智能硬件",
 			router: 'smarthardware',
@@ -19,11 +19,14 @@ module.exports = [
 								primaryText: '开门记录',
 								menuCode: 'iot_door_open_log',
 								router: '/smarthardware/doorManage/openlog',
+								otherRouter : ['/smarthardware/doorManage/openlog/'],
 							},
 							{
 								primaryText: '故障报警',
 								menuCode: 'iot_device_alarm',
 								router: '/smarthardware/doorManage/warning',
+								otherRouter : ['/smarthardware/doorManage/warning/'],
+
 							},
 							{
 								primaryText: '升级管理',
@@ -63,7 +66,7 @@ module.exports = [
 					iconColor: '#79859a',
 					router :'',
 					menuItems: [
-	
+
 						{
 							primaryText: '设备管理',
 							menuCode: 'gateway_list',
@@ -80,7 +83,7 @@ module.exports = [
 				iconColor: '#79859a',
 				router :'',
 				menuItems: [
-	
+
 					{
 						primaryText: '设备查询',
 						menuCode: 'myCard',
@@ -91,8 +94,21 @@ module.exports = [
 						router: '/smarthardware/equipmentmanage/checkrepeatip',
 					}
 				]
-		},
+		    },{
+                primaryText: "空间管理",
+                iconName: 'icon-card',
+                iconColor: '#79859a',
+                router :'',
+                menuItems: [
+                    {
+                        primaryText: '空间管理',
+                        menuCode: 'basic_space',
+                        type:'vue',
+                        originUrl: '/smart-hardware/space-manage',
+                    },
+                ]
+              },
 			],
 		}
 	]
-	
+

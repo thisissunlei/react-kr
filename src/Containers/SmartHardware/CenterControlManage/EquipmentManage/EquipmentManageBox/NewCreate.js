@@ -109,13 +109,14 @@ class NewCreateDefinitionForm extends React.Component{
 		let SearchLocationParams = 
 			{
 	  			communityId:_this.state.communityId,
-	  			whereFloor:_this.state.floorNum
+	  			floor:_this.state.floorNum
   			}
   			
-  			Http.request('getLocationByProperty',SearchLocationParams).then(function(response){
+  			Http.request('getspacelistapi',SearchLocationParams).then(function(response){
+				var listData = response.items;
 				var locationArr = []
-	    		for (var i=0;i<response.length;i++){
-	    			locationArr[i] = {label:response[i].name,value:response[i].id}
+	    		for (var i=0;i<listData.length;i++){
+	    			locationArr[i] = {label:listData[i].name,value:listData[i].id}
 	    		}
 	    		_this.setState({
 	    			locationOptions : locationArr
@@ -176,7 +177,7 @@ class NewCreateDefinitionForm extends React.Component{
 					<KrField name="spaceId" grid={2}
 						component="select" 
 						options={locationOptions}
-						label="房间"
+						label="空间名称"
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
@@ -251,7 +252,7 @@ const validate = values=>{
 		errors.spaceType = '空间类型为必填项';
 	}
 	if(values.spaceType && (values.spaceType=='MEETING' ||values.spaceType=='OFFICE')&& !values.spaceId){
-		errors.spaceId ='空间类型为会议室或独立办公室,房间必填'
+		errors.spaceId ='空间类型为会议室或独立办公室,空间名称必填'
 	}
 	return errors;
 }

@@ -9,7 +9,7 @@ import {
 	formValueSelector
 } from 'redux-form';
 import {
-	Message,Section,Button,Drawer
+	Message,Section,Button,Drawer,Dialog,DialogInner
 } from 'kr-ui';
 import './index.less';
 
@@ -47,12 +47,15 @@ export default class ChangeMember extends React.Component{
 		closeChangeMember && closeChangeMember();
 	}
 
-	refreshAuthoriazationEquipmentList=()=>{
+	refreshAuthoriazationEquipmentList=(param)=>{
 
 		let {freshGroupEquipment} = this.state;
 		this.setState({
 			freshGroupEquipment: !freshGroupEquipment
 		})
+		if(param && param == true){
+			this.openAddEquipmentDialogFun()
+		}
 	}
 
 	openAddEquipmentDialogFun=()=>{
@@ -66,7 +69,6 @@ export default class ChangeMember extends React.Component{
 		let {itemDetail}  = this.props;
 		let {freshGroupEquipment} = this.state;
 		let doorTypeOptions=State.doorTypeOptions;
-		console.log("itemDetail",itemDetail);
 		let titleText =  "组授权设备 | 组名称："+itemDetail.name 
 		return (
 			<div className="change-member">
@@ -83,19 +85,19 @@ export default class ChangeMember extends React.Component{
 								<Button label="添加设备"  onTouchTap={this.openAddEquipmentDialogFun} className="button-list"/>
 							</div>
 							<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP" noShowAddNew={true} freshGroupEquipment={freshGroupEquipment}/> 
-							<Drawer 
+							<DialogInner 
+								title="设备列表"
 								open={State.openAddEquipmentDialog}
 								onClose = {this.openAddEquipmentDialogFun}
-								width={"70%"} 
-								openSecondary={true} 
+								bodyStyle={{overflow:"scroll",maxHeight:600}}
+								noMaxHeight = {true}
+								contentStyle={{width:1016,maxHeight:750}}
 							>	
-								<div style={{padding:40}}>
-									<div style={{width:"100%",height:30}}>
-										<img src={closeImg} style={{float:"right",width:30,cursor:"pointer"}} onClick={this.openAddEquipmentDialogFun}/>
-									</div>
+								<div  className="all-equipment-box">
+									
 									<AllEquipmentListSearch memberDetailInfo={itemDetail} granteeType="USER_GROUP" refreshPage={this.freshGroupEquipment} doorTypeOptions={doorTypeOptions} refreshAuthoriazationEquipmentList={this.refreshAuthoriazationEquipmentList}/>
 								</div>
-							</Drawer>
+							</DialogInner>
 						</Section>
 					</div>
 					

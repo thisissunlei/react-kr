@@ -477,7 +477,9 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"升级",onClickFun:_this.upgrade},
 
 				{title:"获取httpToken",onClickFun:_this.getHttpToken},
-				{title:"编辑硬件ID",onClickFun:_this.editSerialNoFun}
+				{title:"编辑硬件ID",onClickFun:_this.editSerialNoFun},
+				{title:"开门记录",onClickFun:_this.toOpenLog},
+				{title:"故障报警",onClickFun:_this.toFailureWarning},
 				
 			]
 		}else{
@@ -488,16 +490,28 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"刷新屏幕",onClickFun:_this.freshH5},
 				{title:"远程开门",onClickFun:_this.openDoorInline},
 				{title:"重置",onClickFun:_this.resetFirstEquipmentFun},
-				{title:"断开重连",onClickFun:_this.connectAgain}
+				{title:"断开重连",onClickFun:_this.connectAgain},
+				{title:"开门记录",onClickFun:_this.toOpenLog}
 				
 			]
 		}
 
 	}
 
+
+	toOpenLog=()=>{
+		window.open(`./#/smarthardware/doorManage/openlog/${State.itemDetail.deviceId}`,'_blank');
+	}
+
+	toFailureWarning=()=>{
+		window.open(`./#/smarthardware/doorManage/warning/${State.itemDetail.deviceId}`,'_blank');
+	}
+
+
 	resetFirstEquipmentFun=()=>{
 		this.resetFirstEquipmentDialogFun();
 	}
+	
 
 	resetFirstEquipmentDialogFun=()=>{
 		State.resetFirstEquipmentDialog = !State.resetFirstEquipmentDialog ;

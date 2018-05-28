@@ -167,7 +167,7 @@ export default class SearchForms extends Component{
 				filterValue = item.value
 			}
 		})
-
+		console.log("onFilter===>")
 		let {onFilter} = this.props;
 		onFilter && onFilter(filterValue);
 	}

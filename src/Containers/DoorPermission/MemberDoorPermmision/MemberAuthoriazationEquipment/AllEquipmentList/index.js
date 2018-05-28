@@ -140,10 +140,8 @@ export default class CanOperationEquipment extends React.Component {
         let doorTypeOptions = PropsState.doorTypeOptions;
         let {getAllEquipmentParams,itemDetail} = this.state;
 		return (
-		    <div className="all-equipment">
-                {/* <div style={{width:"100%",height:30,boxSizing: "border-box"}}>
-                    <img src={close} style={{dispaly:"inline-block",verticalAlign:"top",width:30,float:"right",cursor:"pointer"}} onClick={this.closeAddAuthoriazation}/>
-                </div> */}
+		    <div className="all-equipment" style={{paddingTop:30}}>
+                
                 <Section title={`所有设备`} description="" >
                     <SearchAllEquipment submitSearchParams={this.submitSearch}/>
                     <Table
