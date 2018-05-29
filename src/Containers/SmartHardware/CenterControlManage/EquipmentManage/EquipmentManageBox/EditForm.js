@@ -204,7 +204,6 @@ class EditForm extends React.Component{
 
 	render(){
 		let {floorsOptions,locationOptions,defaultChecked,communityId,floorNum,spaceName} =this.state;
-		console.log("communityId,floorNum,spaceName}",communityId,floorNum,spaceName)
 		let spaceOptions = [{label:"会议室",value:"MEETING"},{label:"独立办公室",value:"OFFICE"},{label:"大厅",value:"HALL"}]
 		const { error, handleSubmit, reset} = this.props;
 		return(
