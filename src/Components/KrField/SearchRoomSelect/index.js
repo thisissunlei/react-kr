@@ -30,6 +30,28 @@ export default class SearchCommunity extends React.Component {
 
 		this.onChange = this.onChange.bind(this);
 		this.getOptions = this.getOptions.bind(this);
+		this.state={
+			communityId : '',
+			floor : '',
+			spaceName :'',
+			initialEdit : false
+		}
+	}
+
+	componentWillReceiveProps(nextProsp){
+
+		let {communityId,floor,spaceName}= this.props;
+		if(!nextProsp.communityId || !nextProsp.floor){
+			return
+		}
+		this.setState({
+			communityId : nextProsp.communityId,
+			floor : nextProsp.floor,
+			spaceName :nextProsp.spaceName,
+			initialEdit : true
+		},function(){
+			this.getOptions(nextProsp.spaceName)
+		})
 	}
 
 	componentDidMount() {
@@ -39,7 +61,7 @@ export default class SearchCommunity extends React.Component {
 	}
 
 	onInputChange = () => {
-
+		// console.log("kdkffld")
 
 	}
 
@@ -53,16 +75,24 @@ export default class SearchCommunity extends React.Component {
 		onChange && onChange(item);
 	}
 
-	getOptions(lastname) {
-		console.log("lastname",lastname);
+	getOptions=(lastname)=> {
+		let _this =this;
+		let {communityId,floor} = this.state;
+		let {input} = this.props;
+		if(!communityId || !floor){
+				return Promise.resolve({ options: [] });
+		}
 		return 	Http.request('getspacelistapi', {
-					name: lastname
+					name: lastname,
+					communityId : communityId,
+					floor : floor
 				}).then(function(response) {
 					var obj = [].concat(response.items);
 					obj.forEach(function(item, index) {
 						item.value = item.id;
 						item.label = item.name;
 					});
+					
 					return {options: obj}
 					
 				})
@@ -86,9 +116,11 @@ export default class SearchCommunity extends React.Component {
 			requireLabel,
 			...other
 		} = this.props;
+		let {initialEdit} = this.state;
+		
 		return (
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireLabel={requireLabel}>
-					<ReactSelectAsync
+					{initialEdit &&<ReactSelectAsync
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}
@@ -97,7 +129,7 @@ export default class SearchCommunity extends React.Component {
 					onChange={this.onChange}
 					onInputChange={this.onInputChange}
 					noResultsText=""
-					placeholder={placeholder}/>
+					placeholder={placeholder}/>}
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 		</WrapComponent>
 		);

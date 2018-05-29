@@ -25,6 +25,7 @@ class EditForm extends React.Component{
 			floorsOptions:[],
 			locationOptions:[],
 			communityId :'',
+			spaceName : ''
 		}
 	}
 	
@@ -36,6 +37,9 @@ class EditForm extends React.Component{
 
 	componentDidMount(){
 		Store.dispatch(initialize('EditForm', this.detail));
+		// this.setState({
+		// 	spaceName : this.detail.spaceName
+		// })
 	}
 
 	getBasicData=(detail)=>{
@@ -74,7 +78,7 @@ class EditForm extends React.Component{
 	    			communityId : detail.communityId,
 				},function(){
 					
-					this.getRoom();
+					// this.getRoom();
 				})
 				
 		    }).catch(function(err){
@@ -159,7 +163,7 @@ class EditForm extends React.Component{
 			_this.setState({
 				floorNum : floor.value
 			},function(){
-				_this.getRoom();
+				// _this.getRoom();
 			})
 			
 		}
@@ -199,7 +203,8 @@ class EditForm extends React.Component{
 	}
 
 	render(){
-		let {floorsOptions,locationOptions,defaultChecked} =this.state;
+		let {floorsOptions,locationOptions,defaultChecked,communityId,floorNum,spaceName} =this.state;
+		console.log("communityId,floorNum,spaceName}",communityId,floorNum,spaceName)
 		let spaceOptions = [{label:"会议室",value:"MEETING"},{label:"独立办公室",value:"OFFICE"},{label:"大厅",value:"HALL"}]
 		const { error, handleSubmit, reset} = this.props;
 		return(
@@ -244,9 +249,12 @@ class EditForm extends React.Component{
 						component="SearchRoomSelect" 
 						onChange = {this.onchooseCorrespondingLocation}
 						label="空间名称"  
-						requireLabel={true} 
+						requireLabel={false} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						inline={false}
+						communityId = {communityId}
+						floor = {floorNum}
+						spaceName={spaceName}
 					/>
 
 					{/* <KrField name="spaceId" grid={2}
