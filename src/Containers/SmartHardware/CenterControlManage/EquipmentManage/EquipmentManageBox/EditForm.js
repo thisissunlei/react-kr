@@ -229,6 +229,7 @@ class EditForm extends React.Component{
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
+					
 
 					<KrField name="spaceType" 
 						component="select" 
@@ -239,13 +240,22 @@ class EditForm extends React.Component{
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
 
-					<KrField name="spaceId" grid={2}
+					<KrField name="spaceId" 
+						component="SearchRoomSelect" 
+						onChange = {this.onchooseCorrespondingLocation}
+						label="空间名称"  
+						requireLabel={true} 
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+						inline={false}
+					/>
+
+					{/* <KrField name="spaceId" grid={2}
 						component="select" 
 						options={locationOptions}
 						label="空间名称"
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
+					/> */}
 					
 					
 					<KrField grid={1/2} name="name" 
