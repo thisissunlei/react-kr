@@ -69,9 +69,14 @@ class EditForm extends React.Component{
 	    		}
 	    		_this.setState({
 	    			floorsOptions : arrNew,
-	    			floor : detail.floor,
+					floor : detail.floor,
+					floorNum : detail.floor,
 	    			communityId : detail.communityId,
-	    		})
+				},function(){
+					
+					this.getRoom();
+				})
+				
 		    }).catch(function(err){
 
 	    	})
@@ -163,22 +168,21 @@ class EditForm extends React.Component{
 
 	getRoom =()=>{
 		let _this =this;
-		let SearchLocationParams = 
-			{
+		let SearchLocationParams = {
 	  			communityId:_this.state.communityId,
-	  			whereFloor:_this.state.floorNum
+	  			floor:_this.state.floorNum
   			}
   			
-  			Http.request('getspacelistapi',SearchLocationParams).then(function(response){
-				  var listData = response.items;
-				var locationArr = []
-	    		for (var i=0;i<listData.length;i++){
-	    			locationArr[i] = {label:listData[i].name,value:listData[i].id}
-	    		}
-	    		_this.setState({
-	    			locationOptions : locationArr
-	    		})
-			});
+		Http.request('getspacelistapi',SearchLocationParams).then(function(response){
+				var listData = response.items;
+			var locationArr = []
+			for (var i=0;i<listData.length;i++){
+				locationArr[i] = {label:listData[i].name,value:listData[i].id}
+			}
+			_this.setState({
+				locationOptions : locationArr
+			})
+		});
 	}
 	
 	
