@@ -11,14 +11,20 @@ module.exports = [
 				iconColor: '#79859a',
 				router: 'index',
 				menuItems: [
-					{
-						primaryText: '社区主页',
-						router: '/community/operation/index',
-						menuCode: 'operation_home',
-					},
+					// {
+					// 	primaryText: '社区主页',
+					// 	router: '/community/operation/index',
+					// 	menuCode: 'operation_home',
+					// },
 					 {
                         primaryText: '即将到期',
                         originUrl: '/inventory/over-date',
+                        type:'vue',
+                        menuCode: 'operation_home',
+                    },
+                    {
+                        primaryText: '即将进场',
+                        originUrl: '/inventory/enter-fielde',
                         type:'vue',
                         menuCode: 'operation_home',
                     },
