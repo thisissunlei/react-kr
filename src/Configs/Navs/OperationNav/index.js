@@ -2,6 +2,7 @@ module.exports = [
 
 	{
 		primaryText: "社区运营",
+		menuCode: 'bill',
 		menuItems: [
 			{
 				primaryText: "社区运营",
@@ -9,11 +10,12 @@ module.exports = [
 				iconColor: '#79859a',
 				type: 'vue',
 				menuItems: [
-					// {
-					// 	primaryText: '社区主页',
-					// 	router: '/community/operation/index',
-					// 	menuCode: 'operation_home',
-					// },
+					{
+                        primaryText: '客户账户',
+                        originUrl: '/bill/customerAssets',
+                        type: 'vue',
+                        menuCode: 'customer_assets'
+					},
 					 {
                         primaryText: '即将到期',
                         originUrl: '/inventory/over-date',
