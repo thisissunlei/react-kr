@@ -125,6 +125,8 @@ export default class BasicInfo  extends React.Component{
 			  detail:basicInfo.leaderName},
 			 {name:'职务',
 			  detail:basicInfo.jobName},
+			 {name:'人员角色',
+			  detail:basicInfo.roleTypeStr},
 			 {name:'入职时间',
 			  detail:<KrDate value={basicInfo.entryDate} format="yyyy-mm-dd"/>},
 			 {name:'员工属性',
