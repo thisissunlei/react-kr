@@ -37,9 +37,10 @@ class EditForm extends React.Component{
 
 	componentDidMount(){
 		Store.dispatch(initialize('EditForm', this.detail));
-		// this.setState({
-		// 	spaceName : this.detail.spaceName
-		// })
+		console.log("this.detail",this.detail);
+		this.setState({
+			spaceName : this.detail.spaceName || ''
+		})
 	}
 
 	getBasicData=(detail)=>{

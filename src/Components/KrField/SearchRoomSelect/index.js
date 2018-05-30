@@ -39,19 +39,28 @@ export default class SearchCommunity extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProsp){
-
-		let {communityId,floor,spaceName}= this.props;
-		if(!nextProsp.communityId || !nextProsp.floor){
-			return
-		}
-		this.setState({
-			communityId : nextProsp.communityId,
-			floor : nextProsp.floor,
-			spaceName :nextProsp.spaceName,
-			initialEdit : true
-		},function(){
-			this.getOptions(nextProsp.spaceName)
-		})
+		let _this =this;
+		let {initialEdit} = this.state;
+		console.log("nextProsp",nextProsp)
+		// this.setState({
+		// 	initialEdit : false
+		// },function(){
+			// console.log("initialEdit",initialEdit)
+			let {communityId,floor,spaceName}= _this.props;
+			if(!nextProsp.communityId || !nextProsp.floor ||!nextProsp.spaceName){
+				_this.getOptions(nextProsp.spaceName)
+				return
+			}
+			_this.setState({
+				communityId : nextProsp.communityId,
+				floor : nextProsp.floor,
+				spaceName :nextProsp.spaceName,
+				initialEdit : true
+			},function(){
+				_this.getOptions(nextProsp.spaceName)
+			})
+		// })
+		
 	}
 
 	componentDidMount() {
@@ -117,7 +126,7 @@ export default class SearchCommunity extends React.Component {
 			...other
 		} = this.props;
 		let {initialEdit} = this.state;
-		
+		console.log("initialEdit",initialEdit)
 		return (
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireLabel={requireLabel}>
 					{initialEdit &&<ReactSelectAsync
