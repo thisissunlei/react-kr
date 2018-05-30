@@ -14,13 +14,13 @@ module.exports = [
                         primaryText: '即将到期',
                         originUrl: '/inventory/over-date',
                         type:'vue',
-                        menuCode: 'operation_home',
+                        menuCode: 'vueList',
                     },
                     {
                         primaryText: '即将进场',
                         originUrl: '/inventory/enter-field',
                         type:'vue',
-                        menuCode: 'operation_home',
+                        menuCode: 'imtPutawayList',
                     },
 					{
 						primaryText: '预约参观',
