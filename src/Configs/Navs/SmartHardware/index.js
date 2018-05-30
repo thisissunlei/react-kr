@@ -37,7 +37,7 @@ module.exports = [
                                 primaryText: '级联图谱',
 								menuCode: 'door_relation',
 								type: 'vue',
-                                router: 'doorrelationship/map',
+                                router: '/doorrelationship/map',
                             }
 						]
 				}, {
