@@ -39,27 +39,58 @@ export default class SearchCommunity extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProsp){
+		console.log("dslf;ld;lf;dl;fl;dlf;============")
 		let _this =this;
 		let {initialEdit} = this.state;
-		console.log("nextProsp",nextProsp)
-		// this.setState({
-		// 	initialEdit : false
-		// },function(){
-			// console.log("initialEdit",initialEdit)
-			let {communityId,floor,spaceName}= _this.props;
+		let {communityId,floor,spaceName}= _this.props;
+		this.setState({
+			initialEdit : false
+		},function(){
 			if(!nextProsp.communityId || !nextProsp.floor ||!nextProsp.spaceName){
-				_this.getOptions(nextProsp.spaceName)
-				return
+				console.log("dldfkldkdfld");
+				if(!nextProsp.communityId || !nextProsp.floor){
+					console.log("dfl;dlf;dl====>",_this.state.initialEdit,nextProsp)
+					this.setState({
+						initialEdit : true
+					},function(){
+						_this.getOptions(nextProsp.spaceName)
+						return
+					})
+				}else{
+					console.log("dfl;dlf;dl<<<<=>",_this.state.initialEdit,nextProsp)
+					_this.setState({
+						initialEdit : false
+					},function(){
+						_this.setState({
+							initialEdit : true,
+							communityId : nextProsp.communityId,
+							floor : nextProsp.floor,
+							spaceName :nextProsp.spaceName,
+						},function(){
+							_this.getOptions(nextProsp.spaceName)
+							return;
+						})
+					})
+					
+				}
+				
+				
+			}else{
+				consol.log("dfl;dlf;dl")
+				_this.setState({
+					communityId : nextProsp.communityId,
+					floor : nextProsp.floor,
+					spaceName :nextProsp.spaceName,
+					initialEdit : true
+				},function(){
+					_this.getOptions(nextProsp.spaceName)
+				})
 			}
-			_this.setState({
-				communityId : nextProsp.communityId,
-				floor : nextProsp.floor,
-				spaceName :nextProsp.spaceName,
-				initialEdit : true
-			},function(){
-				_this.getOptions(nextProsp.spaceName)
-			})
-		// })
+		})
+		
+		
+
+		
 		
 	}
 
@@ -126,7 +157,6 @@ export default class SearchCommunity extends React.Component {
 			...other
 		} = this.props;
 		let {initialEdit} = this.state;
-		console.log("initialEdit",initialEdit)
 		return (
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireLabel={requireLabel}>
 					{initialEdit &&<ReactSelectAsync
