@@ -10,12 +10,6 @@ module.exports = [
 				iconColor: '#79859a',
 				type: 'vue',
 				menuItems: [
-					{
-                        primaryText: '客户账户',
-                        originUrl: '/bill/customerAssets',
-                        type: 'vue',
-                        menuCode: 'customer_assets'
-					},
 					 {
                         primaryText: '即将到期',
                         originUrl: '/inventory/over-date',
