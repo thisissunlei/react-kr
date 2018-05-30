@@ -20,7 +20,7 @@ module.exports = [
                         primaryText: '即将进场',
                         originUrl: '/inventory/enter-field',
                         type:'vue',
-                        menuCode: 'imtPutawayList',
+                        menuCode: 'imt_putaway_list',
                     },
 					{
 						primaryText: '预约参观',
