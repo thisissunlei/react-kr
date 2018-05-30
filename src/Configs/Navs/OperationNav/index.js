@@ -7,8 +7,7 @@ module.exports = [
 				primaryText: "社区运营",
 				iconName: 'icon-operation-home',
 				iconColor: '#79859a',
-				router: 'index',
-				type: 'vue'
+				type: 'vue',
 				menuItems: [
 					// {
 					// 	primaryText: '社区主页',
