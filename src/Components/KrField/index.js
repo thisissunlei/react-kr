@@ -104,6 +104,8 @@ import SelectListComponent from './SelectListComponent';
 import SearchMemberCompany from './SearchMemberCompany';
 import SearchAllCommunity from './SearchAllCommunity';
 import SearchRoomSelect from './SearchRoomSelect';
+import SearchRoomSelectNewCreate from './SearchRoomSelectNewCreate';
+
 
 
 class FieldRevert extends React.Component {
@@ -677,6 +679,14 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchRoomSelect}  style={WrapStyles} {...other}/>
 				)
 			}
+
+
+			if (component === 'SearchRoomSelectNewCreate') {
+				return (
+					<FieldRevert {...this.props} component={SearchRoomSelectNewCreate}  style={WrapStyles} {...other}/>
+				)
+			}
+			// 
 			
 			
 			return (

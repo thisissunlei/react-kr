@@ -24,6 +24,7 @@ class NewCreateDefinitionForm extends React.Component{
 			floorsOptions:[],
 			locationOptions:[],
 			communityId :'',
+			floor : ''
 		}
 	}
 
@@ -41,9 +42,10 @@ class NewCreateDefinitionForm extends React.Component{
   		let _this = this;
   		if(!community){
   			_this.setState({
-  				
+				communityId : '',
   				floorsOptions : [],
-  				locationOptions:[]
+				locationOptions:[],
+				floor : ''  
   			})
 			return;
 		}
@@ -93,9 +95,13 @@ class NewCreateDefinitionForm extends React.Component{
 		let _this = this;
 		if(!floor){
 			// Store.dispatch(change('NewCreateDefinitionForm', 'spaceType', ""));
+			this.setState({
+				floor : floor.value
+			})
 		}else{
 			_this.setState({
-				floorNum : floor.value
+				floorNum : floor.value,
+				floor : floor.value,
 			},function(){
 				_this.getRoom();
 			})
@@ -136,7 +142,7 @@ class NewCreateDefinitionForm extends React.Component{
 		
 	}
 	render(){
-		let {floorsOptions,locationOptions,defaultChecked} =this.state;
+		let {floorsOptions,locationOptions,defaultChecked,communityId,floor} =this.state;
 		let spaceOptions = [{label:"会议室",value:"MEETING"},{label:"独立办公室",value:"OFFICE"},{label:"大厅",value:"HALL"}]
 		const { error, handleSubmit, reset} = this.props;
 		return(
@@ -174,12 +180,24 @@ class NewCreateDefinitionForm extends React.Component{
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
 
-					<KrField name="spaceId" grid={2}
+					{/*  <KrField name="spaceId" grid={2}
 						component="select" 
 						options={locationOptions}
 						label="空间名称"
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',margin:'0 35px 5px 0'}}
+					/>
+					*/}
+					<KrField name="spaceId" 
+						component="SearchRoomSelectNewCreate" 
+						onChange = {this.onchooseCorrespondingLocation}
+						label="空间名称"  
+						requireLabel={false} 
+						style={{width:'252px',margin:'0 35px 5px 0'}}
+						inline={false}
+						communityId = {communityId}
+						floor = {floor}
+						spaceName={""}
 					/>
 					
 					<KrField grid={1/2} name="serialNo" 
