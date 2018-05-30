@@ -2,8 +2,6 @@ module.exports = [
 
 	{
 		primaryText: "社区运营",
-		router: 'community',
-		originUrl: '#/community/operation/index',
 		menuItems: [
 			{
 				primaryText: "社区运营",
@@ -24,7 +22,7 @@ module.exports = [
                     },
                     {
                         primaryText: '即将进场',
-                        originUrl: '/inventory/enter-fielde',
+                        originUrl: '/inventory/enter-field',
                         type:'vue',
                         menuCode: 'operation_home',
                     },
