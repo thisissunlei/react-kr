@@ -175,11 +175,11 @@ export default class Pagination extends Component {
 	renderBody = ()=> {
 
 		let {
-			page,
-			pageSize,
-			totalCount,
-			pageNumber,
-			pageJump
+			page,//当前页
+			pageSize,//每页显示数目
+			totalCount,//总条数
+			pageNumber,//pageNumber: 10,不知道具体含义，张屈默认写10
+			pageJump//中间显示的数
 		} = this.props;
 
 
@@ -189,12 +189,13 @@ export default class Pagination extends Component {
 
 
 		const handlers = {
-			onClick: this.onJumpPage
+			onClick: this.onJumpPage//页面跳转方法
 		}
 
 		let pageStart = parseInt(page/pageJump)*pageJump;
+		
 		if(pageStart === 0){
-					pageStart = 1;
+			pageStart = 1;
 		}
 		let pageMax = Math.ceil(totalCount/pageSize);
 		let pageEnd = pageStart + pageJump;
