@@ -317,6 +317,7 @@ class AddPerson  extends React.Component{
                             component="select"
                             label="人员角色"
                             options = {personType}
+                            requireLabel={true}
 						/>
                         
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
@@ -364,6 +365,10 @@ const validate = values =>{
         errors.leader='请选择直接上级';
     }
 
+    if(!values.roleType){
+        errors.roleType='请选择人员角色';
+    }
+    
      if(!values.depId){
         errors.depId='请选择部门';
     }

@@ -287,6 +287,7 @@ class EditPerson  extends React.Component{
                             component="select"
                             label="人员角色"
                             options = {personType}
+                            requireLabel={true}
 						/>
 
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
@@ -335,6 +336,10 @@ const validate = values =>{
 
     if(!values.type){
         errors.type='请选择员工类别';
+    }
+
+    if(!values.roleType){
+        errors.roleType='请选择人员角色';
     }
 
      if(!values.depId){
