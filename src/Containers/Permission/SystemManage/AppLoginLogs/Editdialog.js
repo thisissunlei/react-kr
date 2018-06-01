@@ -40,6 +40,7 @@ class Editdialog extends React.Component {
         Http.request('get-version-detail', {
                 id: id
             },{}).then(function(response) {
+                console.log('response=====>>>',response)
                let arr=[];
                let obj={
                  fileUrl:response.downUrl,
@@ -50,7 +51,8 @@ class Editdialog extends React.Component {
                   Store.dispatch(initialize('editdialog', _this.state.infoList));
                 })
                 _this.setState({
-                    fileList: arr
+                    fileList: arr,
+                    version:response.version
                 })
             }).catch(function(err) {});
 
@@ -152,8 +154,7 @@ class Editdialog extends React.Component {
               <KrField
                   grid={1/2}
                   right={69}
-                  requireLabel={true}
-                 left={4}
+                  left={4}
                   name="downUrl"
                   type="input"
                   style={{marginTop:4}}

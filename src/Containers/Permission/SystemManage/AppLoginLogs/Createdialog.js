@@ -123,10 +123,9 @@ class Createdialog extends Component {
               <KrField
                   grid={1/2}
                   right={69}
-                  requireLabel={true}
-                 left={4}
+                  left={4}
                   name="downUrl"
-                  type="input"
+                  type="hidden"
                   style={{marginTop:4}}
                   label="下载地址"
               />
