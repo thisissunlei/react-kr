@@ -84,6 +84,7 @@ export default class ApkFileUpload extends React.Component {
 		if (!defaultValue.length) {
 			return;
 		}
+		
 		files = defaultValue;
 		this.setState({
 			files,
@@ -200,8 +201,9 @@ export default class ApkFileUpload extends React.Component {
 
 		var _this = this;
 		let {version}=this.props;
-
+		
 		let file = event.target.files[0];
+		
 		if (!file) {
 			return;
 		}
@@ -299,7 +301,7 @@ export default class ApkFileUpload extends React.Component {
 		} = this.state;
 		let fileBgStyles = {};
 		// let showList = (files.length>=6)?'hidden':'visible';
-		let showList = (files.length>=6)?'none':'block';
+		let showList = (files.length>=1)?'none':'block';
 
 		return (
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline}>

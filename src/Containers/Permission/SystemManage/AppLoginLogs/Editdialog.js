@@ -40,7 +40,6 @@ class Editdialog extends React.Component {
         Http.request('get-version-detail', {
                 id: id
             },{}).then(function(response) {
-                console.log('response=====>>>',response)
                let arr=[];
                let obj={
                  fileUrl:response.downUrl,
@@ -151,16 +150,17 @@ class Editdialog extends React.Component {
                     {label:'TV_APP',value:'TVAPP'}
                   ]}
               />
+              
               <KrField
                   grid={1/2}
                   right={69}
+                  requireLabel={true}
                   left={4}
-                  name="downUrl"
+                  name="appSize"
                   type="input"
                   style={{marginTop:4}}
-                  label="下载地址"
+                  label="安装包大小"
               />
-
             <KrField
               grid={1/2}
               style={{width:325,marginLeft:-10,marginTop:2,paddingLeft:53}}
@@ -169,15 +169,12 @@ class Editdialog extends React.Component {
               requireLabel={true}
               component="date"
               />
+             
               <KrField
-                  grid={1/2}
-                  right={69}
-                  requireLabel={true}
-                  left={4}
-                  name="appSize"
-                  type="input"
-                  style={{marginTop:4,marginLeft:20}}
-                  label="安装包大小"
+                  name="downUrl"
+                  type="hidden"
+                  style={{marginTop:4}}
+                  label="下载地址"
               />
                <div className="u-upload-apk">
                   <div className="u-title">上传apk</div>
