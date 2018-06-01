@@ -259,7 +259,7 @@ export default class ApkFileUpload extends React.Component {
 			}
 		};
 
-		xhrfile.open('POST', 'http://optest01.krspace.cn/api/krspace-sso-web/sso/mobile/version/upload', true);
+		xhrfile.open('POST', '/api/krspace-sso-web/sso/mobile/version/upload', true);
 		xhrfile.responseType = 'json';
 		xhrfile.send(form);
 			
@@ -300,7 +300,7 @@ export default class ApkFileUpload extends React.Component {
 			error
 		} = this.state;
 		let fileBgStyles = {};
-		// let showList = (files.length>=6)?'hidden':'visible';
+		
 		let showList = (files.length>=1)?'none':'block';
 
 		return (
