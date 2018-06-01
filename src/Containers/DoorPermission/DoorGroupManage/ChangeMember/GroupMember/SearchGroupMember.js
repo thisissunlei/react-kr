@@ -204,7 +204,7 @@ class SearchGroupForm extends React.Component{
 								searchFilter={searchFormOptions}
 								onChange={this.changeSearchFormContent}
 								onFilter={this.changeSearchFormFilter}
-								filterSpecialClass ="search-all-member-to-group"
+								filterSpecialClass ="search-group-member-to-group"
 							/>
 						</span>
 

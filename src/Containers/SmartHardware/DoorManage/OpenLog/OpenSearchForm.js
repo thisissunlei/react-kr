@@ -33,7 +33,7 @@ class OpenLogForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			
+			initialDeviceId : '',
 			searchParams:{
 
 			},
@@ -41,7 +41,31 @@ class OpenLogForm extends React.Component{
 	}
 	componentDidMount(){
 		
+		let {initialDeviceId} = this.props;
+		this.setState({
+			initialDeviceId : initialDeviceId
+		})
+		
 	}
+
+	componentWillReceiveProps(nextProps){
+		
+		let {initialDeviceId} = this.state;
+		
+		
+		if(nextProps.initialDeviceId !== initialDeviceId){
+			
+			Store.dispatch(change('OpenLogForm','deviceId',nextProps.initialDeviceId));
+			this.setState({
+				initialDeviceId : nextProps.initialDeviceId
+			})
+			
+		}
+	}
+
+
+
+
 	onSubmit=(values)=>{
 		
 		if(values.sdate && values.edate){
@@ -52,7 +76,7 @@ class OpenLogForm extends React.Component{
 				return ;
 			}
 		}
-		State.openLogSearchParams={
+		var newObj = {
 			page:1,
 			pageSize:15,
 			sdate : values.sdate || '',
@@ -63,6 +87,17 @@ class OpenLogForm extends React.Component{
 			phone :  values.phone || '',
 			date : new Date()
 		}
+		this.submitNewData(newObj);
+		window.location = `./#/smarthardware/doorManage/openlog/${values.deviceId}`
+
+	}
+
+
+	submitNewData=(data)=>{
+
+		let {submitNewData} = this.props;
+		submitNewData && submitNewData(data)
+
 	}
 
 	onClearAll=()=>{
@@ -70,7 +105,7 @@ class OpenLogForm extends React.Component{
 		Store.dispatch(change('OpenLogForm','sdate',''));
 		Store.dispatch(change('OpenLogForm','edate',''));
 
-		State.openLogSearchParams={
+		var newObj={
 			page:1,
 			pageSize:15,
 			sdate : '',
@@ -80,6 +115,9 @@ class OpenLogForm extends React.Component{
 			memberName:  '',
 			phone : '',
 		}
+		this.submitNewData(newObj);
+		window.location = `./#/smarthardware/doorManage/openlog`
+		
 	}
 
 	onStartChange=(sdate)=>{
@@ -143,7 +181,7 @@ class OpenLogForm extends React.Component{
 						<KrField grid={1/2} name="deviceId" 
 							type="text" 
 							label="智能硬件ID：" 
-							style={{width:265}}
+							style={{width:300}}
 							inline={true}
 						/>
 					</ListGroupItem>

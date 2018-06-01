@@ -56,6 +56,14 @@ module.exports = {
       url: '/api/krspace-finance-web/member/card/recv-list',
       method: 'get'
    },
+
+
+   //跳到下一张会员卡
+   'jumpToNextCardApi':{
+    url: '/api/iot-platform/card/next-code?outerCode={outerCode}',
+    method: 'get'
+ },
+//    
    
   
    //会员中心-会员详细信息－个人资料

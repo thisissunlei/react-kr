@@ -560,6 +560,12 @@ module.exports = {
         method : 'get'
       },
 
+      //根据社区楼层获取空间下拉列表
+      'getspacelistapi':{
+        url : '/api/iot-platform/space/select-items?communityId={communityId}&floor={floor}&name={name}',
+        method : 'get'
+      },
+
 
 
       

@@ -786,6 +786,57 @@ export default class Table extends React.Component {
 
 	}
 
+	tableOnClick=(event)=>{
+		this.tableRowColumnClick(event);
+	}
+
+	tableRowColumnClick=(event)=>{
+		
+		var targetDom = event.target;
+		this.findDomTd(targetDom);
+
+	}
+
+	findDomTd =(targetDom)=>{
+		if(!targetDom){
+			return;
+		}
+		if(targetDom.nodeName.toLowerCase()=="td"){
+			
+			
+			var trDom = targetDom.parentNode;
+			if(trDom.parentNode.nodeName.toLowerCase()=="tfoot" || trDom.parentNode.nodeName.toLowerCase()=="thead"){
+				return;
+			}
+
+			var otherTr = trDom.nextSibling;
+			var preOtherTr = trDom.previousSibling;
+			this.resetTrColor(otherTr,"next");
+			this.resetTrColor(preOtherTr,"pre");
+			targetDom.parentNode.style.background ="#c1ddfa";
+
+		}else{
+			var newTargetDom = targetDom.parentNode
+			this.findDomTd(newTargetDom);
+		}
+	}
+
+
+	resetTrColor=(otherTr,strParam)=>{
+
+		if(!otherTr){
+			return;
+		}
+
+		otherTr.style.background ="";
+		if(strParam=="next"){
+			var newOtherTr = otherTr.nextSibling;
+		}else{
+			var newOtherTr = otherTr.previousSibling;
+		}
+		this.resetTrColor(newOtherTr,strParam);
+	}
+
 	render() {
 
 		let {
@@ -810,7 +861,7 @@ export default class Table extends React.Component {
 
 		return (
 			<div className="ui-table-wrap">
-				<table className={"ui-table "+className} style={style}>
+				<table className={"ui-table "+className} style={style} onClick={this.tableOnClick}>
 					{this.renderTableHeader()}
 					{this.renderTableBody()}
 					{this.renderTableFooter()}

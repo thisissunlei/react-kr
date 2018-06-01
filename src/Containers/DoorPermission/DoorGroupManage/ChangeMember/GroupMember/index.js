@@ -9,12 +9,12 @@ import {
 	Grid,Row,
 	ListGroup,ListGroupItem,
 	Tooltip,
-	Drawer ,
+	Drawer ,DialogInner
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import './index.less';
- import SearchGroupMember from '../AllMemberManage/SearchGroupMember';
+ import SearchGroupMember from './SearchGroupMember';
  import DeleteMemberFromGroup from './DeleteMemberFromGroup';
  import BatchDeleteMemberFromGroup from './BatchDeleteMemberFromGroup';
  import AllMemberList from './AllMemberList';
@@ -66,7 +66,6 @@ export default class GroupMemberManage extends React.Component {
 	
 
 	submitSearchParams=(params)=>{
-		// console.log("params",params);
 		let {groupItemDetail} = this.props;
 		let that =this;
 		var params = Object.assign({},params,{date:new Date(),groupId :groupItemDetail.id});
@@ -370,15 +369,18 @@ export default class GroupMemberManage extends React.Component {
 						
 			          />
 			        </Dialog>
-					<Drawer 
+					<DialogInner  
+						title="会员列表"
 			        	open={State.openAddMemberDialog}
 			        	onClose = {this.openAddMemberDialogFun}
-					    width={"70%"} 
-					    openSecondary={true} 
+						openSecondary={true} 
+						bodyStyle={{overflow:"scroll",maxHeight:600}}
+						noMaxHeight = {true}
+						contentStyle={{width:1016,maxHeight:750}}
 					>
 						<AllMemberList groupItemDetail={groupItemDetail} freshGroupMemberList={this.refreshPage}/>
 						
-					</Drawer>
+					</DialogInner >
 
 				</Section>
 			</div>

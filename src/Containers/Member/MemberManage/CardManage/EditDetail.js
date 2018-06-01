@@ -94,7 +94,7 @@ class EditDetail extends React.Component {
 		var cReg=new RegExp("[\\u4E00-\\u9FFF]+","g");
 
 		if(cReg.test(value)){
-			Message.error('卡内码内含有中文请切换英文输入法！');
+			Message.warntimeout('请切换为英文输入法！',"error");
 			return;
 		}
 

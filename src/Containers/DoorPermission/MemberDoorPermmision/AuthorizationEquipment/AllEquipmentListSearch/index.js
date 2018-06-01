@@ -40,6 +40,7 @@ export default class CanOperationEquipment extends React.Component {
             itemDetail : {},
             ids: '',
             selectedListData : [],
+            closeMemberList : false,
 			getAllEquipmentParams : {
                 communityId : '',
                 deviceId : '',
@@ -170,14 +171,26 @@ export default class CanOperationEquipment extends React.Component {
         
     }
 
+    batchAddAuthoriazationAndCloseOrContinue=(param)=>{
+
+        this.setState({
+            closeMemberList :  param
+        },function(){
+            this.batchAddAuthoriazation()
+        })
+    }
+
+
+
     sendAddRequest=(sendParams)=>{
-		let that = this;
+        let that = this;
+        let {closeMemberList}= this.state;
 		Http.request('addEquipmentToGroupApi',{},sendParams).then(function(response) {
 
 			that.setAuthorizationTime();
             Message.success("添加成功");
             let {refreshAuthoriazationEquipmentList} =  that.props;
-            refreshAuthoriazationEquipmentList && refreshAuthoriazationEquipmentList();
+            refreshAuthoriazationEquipmentList && refreshAuthoriazationEquipmentList(closeMemberList);
 
 		}).catch(function(err) {
 			Message.error(err.message);
@@ -195,13 +208,20 @@ export default class CanOperationEquipment extends React.Component {
 
     renderOther=()=>{
 		return (
-
-            <a 
+            <span>
+                <a 
                 style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}} 
-                onClick={this.batchAddAuthoriazation}
-            >
-                批量授权
-             </a>
+                onClick={this.batchAddAuthoriazationAndCloseOrContinue.bind(this,true)}
+                >
+                    授权并关闭
+                </a>
+                <a 
+                    style={{width:80,height:30,background:'#499df1',color:'#fff',display:'inline-block',borderRadius:'4px',lineHeight:'30px',textAlign:'center',boxShadow:' 0 1px 6px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.2)',marginRight:20,cursor: 'pointer'}} 
+                    onClick={this.batchAddAuthoriazationAndCloseOrContinue.bind(this,false)}
+                >
+                    授权并继续
+                </a>
+            </span>
 
 			
 		)
@@ -213,14 +233,6 @@ export default class CanOperationEquipment extends React.Component {
         })
     }
 
-    // onPageChange=(page)=>{
-    //     let {getAllEquipmentParams} = this.state;
-    //     let pageObj = {page:page};
-    //     let newObj = Object.assign({},getAllEquipmentParams,pageObj);
-    //     this.setState({
-    //         getAllEquipmentParams  :newObj
-    //     })
-    // }
 
 
     
@@ -230,9 +242,9 @@ export default class CanOperationEquipment extends React.Component {
         let {getAllEquipmentParams,itemDetail} = this.state;
 
 		return (
-		    <div className="all-equipment ">
+		    <div className="all-equipment" style={{paddingTop:20}}>
               
-                <Section title={`所有设备`} description="" >
+                {/* <Section title={`所有设备`} description="" > */}
                     <SearchAllEquipment submitSearchParams={this.submitSearch}/>
                     <Table
                         className="member-list-table"
@@ -258,7 +270,7 @@ export default class CanOperationEquipment extends React.Component {
                         <TableHeaderColumn>智能硬件ID</TableHeaderColumn>
                         <TableHeaderColumn>门类型</TableHeaderColumn>
                         <TableHeaderColumn>备注</TableHeaderColumn>
-                        <TableHeaderColumn>操作</TableHeaderColumn>
+                        {/* <TableHeaderColumn>操作</TableHeaderColumn> */}
                     </TableHeader>
                     <TableBody style={{position:'inherit'}}>
                         <TableRow>
@@ -351,12 +363,12 @@ export default class CanOperationEquipment extends React.Component {
 
                         
 
-                        <TableRowColumn type="operation" style={{width:"6%",overflow:"visible"}} >
+                        {/* <TableRowColumn type="operation" style={{width:"6%",overflow:"visible"}} >
 
                             <Button  label="授权"  type="operation" operation="setAuthorizationTime"/>
 
                             
-                        </TableRowColumn>
+                        </TableRowColumn> */}
                         
                         
                     </TableRow>
@@ -383,7 +395,7 @@ export default class CanOperationEquipment extends React.Component {
 			          />
 			        </Dialog>
 
-                </Section>
+                {/* </Section> */}
 			</div>
 		);
 

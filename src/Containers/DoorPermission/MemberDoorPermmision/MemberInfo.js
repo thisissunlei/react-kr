@@ -56,7 +56,6 @@ class MemberInfoForm extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter,memberDetailInfo} = this.props;
-		console.log("memberDetailInfo",memberDetailInfo);
 
 		return (
 			<Section title={`个人信息`} description="" >

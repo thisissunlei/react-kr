@@ -55,8 +55,26 @@ class DoorWarnForm extends React.Component{
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
+
+		let {initailDeviceId} = this.props;
+		this.setState({
+			initailDeviceId : initailDeviceId
+		})
 		
 	}
+
+
+	componentWillReceiveProps(nextProps){
+		let {initailDeviceId} = this.state;
+		if(initailDeviceId !== nextProps.initailDeviceId){
+			Store.dispatch(change('DoorWarnForm','deviceId',nextProps.initailDeviceId));
+			this.setState({
+				initailDeviceId : nextProps.initailDeviceId
+			})
+			
+		}
+	}
+
 	onSubmit=(values)=>{
 		
 		
@@ -70,7 +88,7 @@ class DoorWarnForm extends React.Component{
 				return ;
 			}
 		}
-		State.warnSearchParams={
+		var newObj={
 			page:1,
 			pageSize:15,
 			stime :  values.stime || '',
@@ -79,6 +97,10 @@ class DoorWarnForm extends React.Component{
 			logType:  values.logType || '',
 			date : new Date()
 		}
+		this.submitDate(newObj)
+		window.location = `./#/smarthardware/doorManage/warning/${values.deviceId}`
+		
+		
 	}
 
 	onClearAll=()=>{
@@ -86,7 +108,7 @@ class DoorWarnForm extends React.Component{
 		Store.dispatch(change('DoorWarnForm','stime',''));
 		Store.dispatch(change('DoorWarnForm','etime',''));
 		var time=this.refs.stime
-		State.warnSearchParams={
+		var newObj ={
 			page:1,
 			pageSize:15,
 			stime :  '',
@@ -95,6 +117,15 @@ class DoorWarnForm extends React.Component{
 			logType: ''
 		}
 
+		this.submitDate(newObj)
+		window.location = `./#/smarthardware/doorManage/warning`
+		
+
+	}
+
+	submitDate=(data)=>{
+		let {submitDate} = this.props;
+		submitDate && submitDate(data);
 	}
 
 	onStartChange=(stime)=>{
@@ -153,7 +184,7 @@ class DoorWarnForm extends React.Component{
 						<KrField  name="deviceId" 
 							type="text" 
 							label="智能硬件ID：" 
-							style={{width:265}}
+							style={{width:300}}
 							inline={true}
 						/>
 					</ListGroupItem>
