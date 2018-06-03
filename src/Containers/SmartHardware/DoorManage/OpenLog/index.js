@@ -59,7 +59,6 @@ export default class List extends React.Component {
 			this.setState({
 				initialDeviceId : deviceId
 			})
-			console.log("deviceId",deviceId)
 			
 		}
 	}

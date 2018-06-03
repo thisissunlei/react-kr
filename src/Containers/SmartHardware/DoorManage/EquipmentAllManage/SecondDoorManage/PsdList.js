@@ -55,7 +55,6 @@ class PswListForm extends React.Component{
 		
 		const { error, handleSubmit, reset} = this.props;
 		let {getPswListParams} = this.state;
-		console.log("State.itemDetail",State.itemDetail);
 		return(
 			<div style={{padding:"45px 30px 0 30px"}}>
 				<div style={{marginBottom:10}}>
