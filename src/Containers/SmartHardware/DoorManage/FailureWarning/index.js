@@ -91,7 +91,6 @@ export default class List extends React.Component {
 		let {
 			list,seleced,itemDetail,initailDeviceId,warnSearchParams
 		} = this.state;
-		console.log("initailDeviceId",initailDeviceId)
 		return (
 			    <div className="second-door-warn-table" style={{minHeight:'910',backgroundColor:"#fff"}} >
 					<Title value="故障报警"/>

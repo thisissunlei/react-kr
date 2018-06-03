@@ -29,7 +29,6 @@ export default class EquipmentDetail extends React.Component{
 	render(){
 		let {detail} = this.props;
 		let {showReported,showDesired} = this.state;
-		console.log("detail",detail);
 		return (
 			<div className="detail-dialog">
 				

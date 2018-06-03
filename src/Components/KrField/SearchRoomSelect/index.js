@@ -34,63 +34,23 @@ export default class SearchCommunity extends React.Component {
 			communityId : '',
 			floor : '',
 			spaceName :'',
-			initialEdit : false
 		}
 	}
 
 	componentWillReceiveProps(nextProsp){
-		console.log("dslf;ld;lf;dl;fl;dlf;============")
-		let _this =this;
-		let {initialEdit} = this.state;
-		let {communityId,floor,spaceName}= _this.props;
+		let {communityId,floor,spaceName}= this.props;
+		if(!nextProsp.communityId || !nextProsp.floor){
+			return
+		}
 		this.setState({
-			initialEdit : false
+			communityId : nextProsp.communityId,
+			floor : nextProsp.floor,
+			spaceName :nextProsp.spaceName,
+			initialEdit : true
 		},function(){
-			if(!nextProsp.communityId || !nextProsp.floor ||!nextProsp.spaceName){
-				console.log("dldfkldkdfld");
-				if(!nextProsp.communityId || !nextProsp.floor){
-					console.log("dfl;dlf;dl====>",_this.state.initialEdit,nextProsp)
-					this.setState({
-						initialEdit : true
-					},function(){
-						_this.getOptions(nextProsp.spaceName)
-						return
-					})
-				}else{
-					console.log("dfl;dlf;dl<<<<=>",_this.state.initialEdit,nextProsp)
-					_this.setState({
-						initialEdit : false
-					},function(){
-						_this.setState({
-							initialEdit : true,
-							communityId : nextProsp.communityId,
-							floor : nextProsp.floor,
-							spaceName :nextProsp.spaceName,
-						},function(){
-							_this.getOptions(nextProsp.spaceName)
-							return;
-						})
-					})
-					
-				}
-				
-				
-			}else{
-				consol.log("dfl;dlf;dl")
-				_this.setState({
-					communityId : nextProsp.communityId,
-					floor : nextProsp.floor,
-					spaceName :nextProsp.spaceName,
-					initialEdit : true
-				},function(){
-					_this.getOptions(nextProsp.spaceName)
-				})
-			}
+			this.getOptions(nextProsp.spaceName)
 		})
-		
-		
 
-		
 		
 	}
 
@@ -156,10 +116,9 @@ export default class SearchCommunity extends React.Component {
 			requireLabel,
 			...other
 		} = this.props;
-		let {initialEdit} = this.state;
 		return (
 			<WrapComponent label={label} wrapStyle={style} inline={inline} requireLabel={requireLabel}>
-					{initialEdit &&<ReactSelectAsync
+					<ReactSelectAsync
 					name={input.name}
 					value={input.value}
 					loadOptions={this.getOptions}
@@ -168,7 +127,7 @@ export default class SearchCommunity extends React.Component {
 					onChange={this.onChange}
 					onInputChange={this.onInputChange}
 					noResultsText=""
-					placeholder={placeholder}/>}
+					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
 		</WrapComponent>
 		);

@@ -40,7 +40,6 @@ class NewCreateDefinitionForm extends React.Component{
 	
 	render(){
 		var params = State.EquipmentPassword+'';
-		console.log("params",params);
 
 		return(
 			<div style={{marginTop:45}}>

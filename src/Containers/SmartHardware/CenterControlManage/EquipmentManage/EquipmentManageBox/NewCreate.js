@@ -24,7 +24,8 @@ class NewCreateDefinitionForm extends React.Component{
 			floorsOptions:[],
 			locationOptions:[],
 			communityId :'',
-			floor : ''
+			floor : '',
+			spaceName : ''
 		}
 	}
 
@@ -38,6 +39,10 @@ class NewCreateDefinitionForm extends React.Component{
   		
 
   		Store.dispatch(change('NewCreateDefinitionForm', 'floor', ''))
+		Store.dispatch(change('NewCreateDefinitionForm', 'spaceId', ''))
+		this.setState({
+			spaceName : ''
+		})
 
   		let _this = this;
   		if(!community){
@@ -93,6 +98,10 @@ class NewCreateDefinitionForm extends React.Component{
 	// 选择楼层
 	getFloor=(floor)=>{
 		let _this = this;
+		Store.dispatch(change('NewCreateDefinitionForm', 'spaceId', ''))
+		this.setState({
+			spaceName : ''
+		})
 		if(!floor){
 			// Store.dispatch(change('NewCreateDefinitionForm', 'spaceType', ""));
 			this.setState({
@@ -100,7 +109,6 @@ class NewCreateDefinitionForm extends React.Component{
 			})
 		}else{
 			_this.setState({
-				floorNum : floor.value,
 				floor : floor.value,
 			},function(){
 				_this.getRoom();
@@ -115,7 +123,7 @@ class NewCreateDefinitionForm extends React.Component{
 		let SearchLocationParams = 
 			{
 	  			communityId:_this.state.communityId,
-	  			floor:_this.state.floorNum
+	  			floor:_this.state.floor
   			}
   			
   			Http.request('getspacelistapi',SearchLocationParams).then(function(response){
@@ -142,7 +150,7 @@ class NewCreateDefinitionForm extends React.Component{
 		
 	}
 	render(){
-		let {floorsOptions,locationOptions,defaultChecked,communityId,floor} =this.state;
+		let {floorsOptions,locationOptions,defaultChecked,communityId,floor,spaceName} =this.state;
 		let spaceOptions = [{label:"会议室",value:"MEETING"},{label:"独立办公室",value:"OFFICE"},{label:"大厅",value:"HALL"}]
 		const { error, handleSubmit, reset} = this.props;
 		return(
@@ -189,15 +197,16 @@ class NewCreateDefinitionForm extends React.Component{
 					/>
 					*/}
 					<KrField name="spaceId" 
-						component="SearchRoomSelectNewCreate" 
+						component="SearchRoomSelect" 
 						onChange = {this.onchooseCorrespondingLocation}
 						label="空间名称"  
 						requireLabel={false} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
+						style={{width:'252px',marginBottom:5}}
 						inline={false}
 						communityId = {communityId}
 						floor = {floor}
-						spaceName={""}
+						spaceName={spaceName}
+						placeholder={spaceName}
 					/>
 					
 					<KrField grid={1/2} name="serialNo" 

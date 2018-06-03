@@ -62,7 +62,6 @@ class EditForm extends React.Component{
 	render(){
 		
 		const { error, handleSubmit, reset} = this.props;
-		console.log("State.priceListOptions",State.priceListOptions);
 		return(
 			<div style={{padding:'20px 0 0 55px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>

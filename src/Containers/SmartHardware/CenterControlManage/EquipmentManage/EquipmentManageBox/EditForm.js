@@ -37,7 +37,6 @@ class EditForm extends React.Component{
 
 	componentDidMount(){
 		Store.dispatch(initialize('EditForm', this.detail));
-		console.log("this.detail",this.detail);
 		this.setState({
 			spaceName : this.detail.spaceName || ''
 		})
@@ -104,6 +103,10 @@ class EditForm extends React.Component{
   		
 
   		Store.dispatch(change('EditForm', 'floor', ''))
+		  Store.dispatch(change('EditForm', 'spaceId', ''))
+		  this.setState({
+			  spaceName : ''
+		  })
 
   		let _this = this;
   		if(!community){
@@ -150,24 +153,26 @@ class EditForm extends React.Component{
 	
 	// 选择对应位置
 	onchooseCorrespondingLocation=(spaceId)=>{
-		if(spaceId == null){
+		if(!spaceId.value){
+			this.setState({
+				spaceName : ''
+			})
 			return;
 		}
+		
 		Store.dispatch(change('EditForm','spaceId',spaceId.value));
 	}
 	// 选择楼层
 	getFloor=(floor)=>{
 		let _this = this;
-		if(!floor){
-			// Store.dispatch(change('EditForm', 'spaceType', ""));
-		}else{
-			_this.setState({
-				floorNum : floor.value
-			},function(){
-				// _this.getRoom();
-			})
-			
-		}
+		this.setState({
+			spaceName : ''
+		})
+		Store.dispatch(change('EditForm', 'spaceId', ""));
+		
+		_this.setState({
+			floorNum : floor.value || ''
+		})
 		
 	}
 
@@ -250,11 +255,12 @@ class EditForm extends React.Component{
 						onChange = {this.onchooseCorrespondingLocation}
 						label="空间名称"  
 						requireLabel={false} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
+						style={{width:'252px',marginBottom:5}}
 						inline={false}
 						communityId = {communityId}
 						floor = {floorNum}
 						spaceName={spaceName}
+						placeholder={spaceName}
 					/>
 
 					{/* <KrField name="spaceId" grid={2}
