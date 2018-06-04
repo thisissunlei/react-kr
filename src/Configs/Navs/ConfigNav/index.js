@@ -110,7 +110,7 @@ module.exports = [
 			},
 			{
 				primaryText: 'OP配置',
-				iconName: 'icon-website',
+				iconName: 'icon-op-set',
 				iconColor: '#79859a',
 				menuItems: [
 
@@ -149,7 +149,7 @@ module.exports = [
 			},
 			{
 				primaryText: 'OP权限',
-				iconName: 'icon-website',
+				iconName: 'icon-op-permission',
 				iconColor: '#79859a',
 				// router: 'activity',
 				menuItems: [
@@ -213,7 +213,7 @@ module.exports = [
 			},
 			{
 				primaryText: "OP合同配置",
-				iconName: 'icon-theLog',
+				iconName: 'icon-op-contract',
 				iconColor: '#79859a',
 				menuItems: [
 					{

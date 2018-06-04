@@ -6,7 +6,7 @@ module.exports = [
 		menuItems: [
 			{
 				primaryText: '订单',
-				iconName: 'icon-newthing',
+				iconName: 'icon-orders',
 				iconColor: '#79859a',
 				menuItems: [
 					{
@@ -31,7 +31,7 @@ module.exports = [
 			}, 
 			{
 				primaryText: '合同',
-				iconName: 'icon-donething',
+				iconName: 'icon-contracts',
 				iconColor: '#79859a',
 				menuCode: 'wf_contract_list',
 				menuItems: [
