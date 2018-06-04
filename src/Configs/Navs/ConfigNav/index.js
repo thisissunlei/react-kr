@@ -11,7 +11,7 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '产品运营主页',
-						menuCode: 'app_console_push',
+						menuCode: 'mobile_app_operate_home',
 						type: 'vue',
 						originUrl: '/app-manage/home'
 					},
