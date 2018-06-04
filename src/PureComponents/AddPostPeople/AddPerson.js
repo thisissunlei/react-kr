@@ -24,6 +24,11 @@ class AddPerson  extends React.Component{
             positionList:[],
             rankList:[],
             positionType:[],
+            personType:[
+                {label:'招商',value:'ATTRACT'},
+                {label:'运营',value:'OPERATE'},
+                {label:'其他',value:'OTHERS'}
+            ],
             isPositionRank:false,
             //选择部门
             isDepSelect:true,
@@ -189,6 +194,7 @@ class AddPerson  extends React.Component{
                 positionList,
                 isPositionRank,
                 positionType,
+                personType,
                 isDepSelect,
                 basicInfo,
                 isType
@@ -305,6 +311,15 @@ class AddPerson  extends React.Component{
                             otherType="resourceProperty"
 						/>
 
+                        <KrField grid={1/2}
+                            style={{width:262,marginLeft:(isType || orgDetail[0].orgId)?0:28,marginTop:6}}
+                            name="roleType"
+                            component="select"
+                            label="人员角色"
+                            options = {personType}
+                            requireLabel={true}
+						/>
+                        
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
                             <Row>
                                 <Col md={12} align="center">
@@ -350,6 +365,10 @@ const validate = values =>{
         errors.leader='请选择直接上级';
     }
 
+    if(!values.roleType){
+        errors.roleType='请选择人员角色';
+    }
+    
      if(!values.depId){
         errors.depId='请选择部门';
     }
