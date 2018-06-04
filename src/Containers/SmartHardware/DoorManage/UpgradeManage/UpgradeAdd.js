@@ -42,7 +42,6 @@ class NewCreateDefinitionForm extends React.Component{
 	
 	render(){
 		let {detail} = this.props;
-		console.log("detail",detail);
 		return(
 			<div style={{marginTop:45}}>
 	            <div style={{color:"#333333",fontSize:18,width:639,wordBreak:"break-all",wordWrap:"break-word",height:105,overflowY:"scroll"}}>{detail.url}</div>

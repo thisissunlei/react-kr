@@ -211,7 +211,6 @@ export default class EquipmentManageBox  extends React.Component{
 
 	getManagerPsd =()=>{
 		let _this = this;
-		console.log("State.itemDetail",State.itemDetail);
 		_this.openManagerPsw();
 		
 	}
@@ -254,7 +253,6 @@ export default class EquipmentManageBox  extends React.Component{
 	onMouseOn=(thisP)=>{
 		State.deviceVO = thisP.deviceVO
 		State.itemDetail = thisP;
-		console.log("thisP",thisP);
 		this.setState({
 			itemDetail :thisP
 		})

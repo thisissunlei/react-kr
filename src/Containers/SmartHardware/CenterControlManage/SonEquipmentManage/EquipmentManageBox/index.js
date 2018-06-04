@@ -243,7 +243,6 @@ export default class EquipmentManageBox  extends React.Component{
 
 	returnSeeFatherEquipment=(serialNo)=>{
 
-		console.log("serialNo",serialNo);
 		window.location.href='./#/smarthardware/centercontrolmanage/equipmentmanage';
 		localStorage.setItem("fatherSerialNo",serialNo);
 	}

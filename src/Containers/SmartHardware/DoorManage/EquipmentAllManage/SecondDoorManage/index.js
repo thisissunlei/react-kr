@@ -363,7 +363,6 @@ export default class SecondDoorManage  extends React.Component{
 							limit:50,
 						}
 		Http.request('getEquipmentCacheURL',urlParamsT).then(function(response) {
-				// console.log("response",response,response.list);
 			
 			_this.setState({
 				equipmentCachedItems: response.list

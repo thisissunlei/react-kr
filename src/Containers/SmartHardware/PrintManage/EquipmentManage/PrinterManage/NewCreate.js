@@ -38,9 +38,6 @@ class NewCreateDefinitionForm extends React.Component{
 	onSubmit=(values)=>{
 		let _this = this;
 
-		console.log("values",values);
-		
-
 		
 	 	State.newCreatePrinter(values);
 

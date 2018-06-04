@@ -25,6 +25,7 @@ class EditForm extends React.Component{
 			floorsOptions:[],
 			locationOptions:[],
 			communityId :'',
+			spaceName : ''
 		}
 	}
 	
@@ -36,6 +37,9 @@ class EditForm extends React.Component{
 
 	componentDidMount(){
 		Store.dispatch(initialize('EditForm', this.detail));
+		this.setState({
+			spaceName : this.detail.spaceName || ''
+		})
 	}
 
 	getBasicData=(detail)=>{
@@ -69,9 +73,14 @@ class EditForm extends React.Component{
 	    		}
 	    		_this.setState({
 	    			floorsOptions : arrNew,
-	    			floor : detail.floor,
+					floor : detail.floor,
+					floorNum : detail.floor,
 	    			communityId : detail.communityId,
-	    		})
+				},function(){
+					
+					// this.getRoom();
+				})
+				
 		    }).catch(function(err){
 
 	    	})
@@ -94,6 +103,10 @@ class EditForm extends React.Component{
   		
 
   		Store.dispatch(change('EditForm', 'floor', ''))
+		  Store.dispatch(change('EditForm', 'spaceId', ''))
+		  this.setState({
+			  spaceName : ''
+		  })
 
   		let _this = this;
   		if(!community){
@@ -140,45 +153,46 @@ class EditForm extends React.Component{
 	
 	// 选择对应位置
 	onchooseCorrespondingLocation=(spaceId)=>{
-		if(spaceId == null){
+		if(!spaceId.value){
+			this.setState({
+				spaceName : ''
+			})
 			return;
 		}
+		
 		Store.dispatch(change('EditForm','spaceId',spaceId.value));
 	}
 	// 选择楼层
 	getFloor=(floor)=>{
 		let _this = this;
-		if(!floor){
-			// Store.dispatch(change('EditForm', 'spaceType', ""));
-		}else{
-			_this.setState({
-				floorNum : floor.value
-			},function(){
-				_this.getRoom();
-			})
-			
-		}
+		this.setState({
+			spaceName : ''
+		})
+		Store.dispatch(change('EditForm', 'spaceId', ""));
+		
+		_this.setState({
+			floorNum : floor.value || ''
+		})
 		
 	}
 
 	getRoom =()=>{
 		let _this =this;
-		let SearchLocationParams = 
-			{
+		let SearchLocationParams = {
 	  			communityId:_this.state.communityId,
-	  			whereFloor:_this.state.floorNum
+	  			floor:_this.state.floorNum
   			}
   			
-  			Http.request('getspacelistapi',SearchLocationParams).then(function(response){
-				  var listData = response.items;
-				var locationArr = []
-	    		for (var i=0;i<listData.length;i++){
-	    			locationArr[i] = {label:listData[i].name,value:listData[i].id}
-	    		}
-	    		_this.setState({
-	    			locationOptions : locationArr
-	    		})
-			});
+		Http.request('getspacelistapi',SearchLocationParams).then(function(response){
+				var listData = response.items;
+			var locationArr = []
+			for (var i=0;i<listData.length;i++){
+				locationArr[i] = {label:listData[i].name,value:listData[i].id}
+			}
+			_this.setState({
+				locationOptions : locationArr
+			})
+		});
 	}
 	
 	
@@ -195,7 +209,7 @@ class EditForm extends React.Component{
 	}
 
 	render(){
-		let {floorsOptions,locationOptions,defaultChecked} =this.state;
+		let {floorsOptions,locationOptions,defaultChecked,communityId,floorNum,spaceName} =this.state;
 		let spaceOptions = [{label:"会议室",value:"MEETING"},{label:"独立办公室",value:"OFFICE"},{label:"大厅",value:"HALL"}]
 		const { error, handleSubmit, reset} = this.props;
 		return(
@@ -225,6 +239,7 @@ class EditForm extends React.Component{
 						style={{width:'252px'}}
 						onChange = {this.getFloor}
 					/>
+					
 
 					<KrField name="spaceType" 
 						component="select" 
@@ -235,13 +250,26 @@ class EditForm extends React.Component{
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>
 
-					<KrField name="spaceId" grid={2}
+					<KrField name="spaceId" 
+						component="SearchRoomSelect" 
+						onChange = {this.onchooseCorrespondingLocation}
+						label="空间名称"  
+						requireLabel={false} 
+						style={{width:'252px',marginBottom:5}}
+						inline={false}
+						communityId = {communityId}
+						floor = {floorNum}
+						spaceName={spaceName}
+						placeholder={spaceName}
+					/>
+
+					{/* <KrField name="spaceId" grid={2}
 						component="select" 
 						options={locationOptions}
 						label="空间名称"
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',margin:'0 35px 5px 0'}}
-					/>
+					/> */}
 					
 					
 					<KrField grid={1/2} name="name" 
