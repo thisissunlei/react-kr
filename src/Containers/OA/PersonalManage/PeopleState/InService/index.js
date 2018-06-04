@@ -543,6 +543,7 @@ export default class InService  extends React.Component{
     								<TableHeaderColumn>部门</TableHeaderColumn>
     								<TableHeaderColumn>直接上级</TableHeaderColumn>
     								<TableHeaderColumn>职务</TableHeaderColumn>
+									<TableHeaderColumn>人员角色</TableHeaderColumn>
     								<TableHeaderColumn>员工属性</TableHeaderColumn>
     								<TableHeaderColumn>员工类别</TableHeaderColumn>
     								<TableHeaderColumn>员工状态</TableHeaderColumn>
@@ -579,6 +580,7 @@ export default class InService  extends React.Component{
                            <TableRowColumn name='depName'></TableRowColumn>
                            <TableRowColumn name='leaderName'></TableRowColumn>
                            <TableRowColumn name='jobName'></TableRowColumn>
+						   <TableRowColumn name='roleTypeStr'></TableRowColumn>
                            <TableRowColumn name='propertyStr'></TableRowColumn>
                            <TableRowColumn name='typeStr'></TableRowColumn>
                            <TableRowColumn name='statusStr'></TableRowColumn>

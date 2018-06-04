@@ -103,6 +103,8 @@ import CountyComponent from './CountyComponent';
 import SelectListComponent from './SelectListComponent';
 import SearchMemberCompany from './SearchMemberCompany';
 import SearchAllCommunity from './SearchAllCommunity';
+import SearchRoomSelect from './SearchRoomSelect';
+
 
 class FieldRevert extends React.Component {
 
@@ -670,6 +672,16 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SelectListComponent}  style={WrapStyles} {...other}/>
 				);
 			}
+
+			
+			if (component === 'SearchRoomSelect') {
+				return (
+					<FieldRevert {...this.props} component={SearchRoomSelect}  style={WrapStyles} {...other}/>
+				)
+			}
+
+
+			
 			
 			return (
 				<FieldRevert {...this.props} component={InputComponent}  style={WrapStyles}/>

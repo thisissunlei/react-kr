@@ -132,7 +132,6 @@ class BtnBox extends React.Component{
 
 	//重启APP
 	restartAPP=()=>{
-		console.log("重启APP");
 		State.showOpretion=false
 		State.openRestartAPPDialog = !State.openRestartAPPDialog;
 	}
@@ -140,7 +139,6 @@ class BtnBox extends React.Component{
 
 	//重启设备系统
 	restartSystems=()=>{
-		// console.log("重启设备系统");
 		State.openRestartSystemsDialog=!State.openRestartSystemsDialog;
 		State.showOpretion=false
 
@@ -160,7 +158,6 @@ class BtnBox extends React.Component{
 	
 	render(){
 		var params = State.EquipmentPassword+'';
-		console.log("params",params);
 
 		return(
 			<div style={{paddingTop:30}}>

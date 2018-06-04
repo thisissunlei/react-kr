@@ -31,7 +31,9 @@ class EditForm extends React.Component{
 			propertyOption :State.propertyOption,
 			noShowDoorCode : false,
 			doorTypeState : '',
-			doorCodeText : ''
+			doorCodeText : '',
+			floor : '',
+			spaceName : ''
 
 		}
 	}
@@ -57,6 +59,12 @@ class EditForm extends React.Component{
 	componentDidMount(){
 		
 		Store.dispatch(initialize('EditForm', this.detail));
+		var initialData = Object.assign({},this.detail);
+		this.setState({
+			communityId : initialData.communityId|| "",
+			floor : initialData.floor || "",
+			spaceName  : initialData.roomName || "",
+		})
 		
 	}
 	getBasicData=(detail)=>{
@@ -115,7 +123,12 @@ class EditForm extends React.Component{
 	}
 	// 社区模糊查询
   	onChangeSearchCommunity=(community)=>{
-  		
+		
+		this.setState({
+			floor : '',
+			spaceName : '',
+		})
+		
   		let _this = this;
   		if(!community){
   			_this.setState({
@@ -140,6 +153,7 @@ class EditForm extends React.Component{
 
 
   	getFloorOption = (communityIdParam)=>{
+
   		let _this =this;
   		Http.request('getFloorByComunity',communityIdParam).then(function(response){
     		var arrNew = []
@@ -202,7 +216,8 @@ class EditForm extends React.Component{
 	onchooseCorrespondingLocation=(roomId)=>{
 		if(roomId == null){
 			this.setState({
-				doorCodeText : ''
+				doorCodeText : '',
+				spaceName : ''
 			})
 			Store.dispatch(change('EditForm','roomId',''));
 			Store.dispatch(change('EditForm','doorCode',''));
@@ -225,6 +240,11 @@ class EditForm extends React.Component{
 	// 选择楼层
 	getFloor=(floor)=>{
 		let _this = this;
+		this.setState({
+			spaceName : '',
+			floor : floor.value || ''
+		})
+		Store.dispatch(change('EditForm', 'roomId', ""));
 		if(!floor){
 			
 			// Store.dispatch(change('EditForm', 'doorType', ""));
@@ -300,7 +320,7 @@ class EditForm extends React.Component{
 	}
 	render(){
 		let {floorsOptions,propertyOption,doorType,locationOptions,defaultChecked,
-			noShowDoorCode} =this.state;
+			noShowDoorCode,spaceName,communityId,floor} =this.state;
 		
 		const { error, handleSubmit, reset ,detail} = this.props;
 		return(
@@ -332,12 +352,24 @@ class EditForm extends React.Component{
 						onChange = {this.getFloor}
 					/>
 
-					<KrField name="roomId" grid={1/2}
+					{/* <KrField name="roomId" grid={1/2}
 						component="select" 
 						options={locationOptions}
 						label="空间名称"
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
+					/> */}
+					<KrField name="roomId" 
+						component="SearchRoomSelect" 
+						onChange = {this.onchooseCorrespondingLocation}
+						label="空间名称"  
+						requireLabel={false} 
+						style={{width:'252px',margin:'0 35px 5px 0',display:"block"}}
+						inline={false}
+						communityId = {communityId}
+						floor = {floor}
+						spaceName={spaceName}
+						placeholder={spaceName}
 					/>
 
 					<KrField name="doorType" 
