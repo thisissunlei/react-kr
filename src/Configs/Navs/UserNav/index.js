@@ -6,7 +6,7 @@ module.exports = [
 		menuItems: [
 			{
 				primaryText: '客户',
-				iconName: 'icon-donething',
+				iconName: 'icon-customers',
 				iconColor: '#79859a',
 				type: 'vue',
 				menuItems: [
@@ -42,7 +42,7 @@ module.exports = [
 			}, 
 			{
 				primaryText: '会员',
-				iconName: 'icon-donething',
+				iconName: 'icon-members',
 				iconColor: '#79859a',
 				menuItems: [
 					

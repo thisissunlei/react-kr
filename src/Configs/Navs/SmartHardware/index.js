@@ -7,7 +7,7 @@ module.exports = [
 			menuItems: [
 					{
 						primaryText: "门禁管理",
-						iconName: 'icon-card',
+						iconName: 'icon-placket-manage',
 						iconColor: '#79859a',
 						router :'',
 						menuItems: [
@@ -68,7 +68,7 @@ module.exports = [
 						]
 				},{
 					primaryText: "中央控制管理",
-					iconName: 'icon-card',
+					iconName: 'icon-central-control',
 					iconColor: '#79859a',
 					router :'',
 					menuItems: [
@@ -85,7 +85,7 @@ module.exports = [
 					]
 			},{
 				primaryText: "设备管理",
-				iconName: 'icon-card',
+				iconName: 'icon-equipment-manage',
 				iconColor: '#79859a',
 				router :'',
 				menuItems: [
@@ -102,7 +102,7 @@ module.exports = [
 				]
 		    },{
                 primaryText: "空间管理",
-                iconName: 'icon-card',
+                iconName: 'icon-space-manage',
                 iconColor: '#79859a',
                 router :'',
                 menuItems: [

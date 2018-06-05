@@ -7,7 +7,7 @@ module.exports = [
 		menuItems: [ 
 			{
 				primaryText: '产品商品',
-				iconName: 'icon-donething',
+				iconName: 'icon-product-goods',
 				iconColor: '#79859a',
 				router:'index',
 				menuItems: [
