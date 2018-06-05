@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?bzwpka');
-  src:  url('fonts/icomoon.eot?bzwpka#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?bzwpka') format('truetype'),
-    url('fonts/icomoon.woff?bzwpka') format('woff'),
-    url('fonts/icomoon.svg?bzwpka#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?gfs3db');
+  src:  url('fonts/icomoon.eot?gfs3db#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?gfs3db') format('truetype'),
+    url('fonts/icomoon.woff?gfs3db') format('woff'),
+    url('fonts/icomoon.svg?gfs3db#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-op-contract:before {
+  content: "\e902";
+  color: #79859a;
+}
 .icon-placket-manage:before {
   content: "\e901";
   color: #798599;
@@ -76,25 +80,6 @@
 .icon-central-control:before {
   content: "\e943";
   color: #798599;
-}
-.icon-op-contract .path1:before {
-  content: "\e944";
-  color: rgb(121, 133, 154);
-}
-.icon-op-contract .path2:before {
-  content: "\e945";
-  margin-left: -1.0625em;
-  color: rgb(255, 255, 255);
-}
-.icon-op-contract .path3:before {
-  content: "\e946";
-  margin-left: -1.0625em;
-  color: rgb(121, 133, 153);
-}
-.icon-op-contract .path4:before {
-  content: "\e947";
-  margin-left: -1.0625em;
-  color: rgb(255, 255, 255);
 }
 .icon-op-permission:before {
   content: "\e948";

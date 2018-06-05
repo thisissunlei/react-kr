@@ -13,6 +13,7 @@
 		el.innerHTML = '<span style="font-family: \'icomoon\'">' + entity + '</span>' + html;
 	}
 	var icons = {
+		'icon-op-contract': '&#xe902;',
 		'icon-placket-manage': '&#xe901;',
 		'icon-product-goods': '&#xe938;',
 		'icon-card': '&#xe939;',
@@ -26,7 +27,6 @@
 		'icon-wendang': '&#xe941;',
 		'icon-money': '&#xe942;',
 		'icon-central-control': '&#xe943;',
-		'icon-op-contract': '&#xe944;',
 		'icon-op-permission': '&#xe948;',
 		'icon-theLog': '&#xe949;',
 		'icon-op-set': '&#xe94a;',
