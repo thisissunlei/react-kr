@@ -32,6 +32,12 @@ module.exports = [
 								primaryText: '升级管理',
 								menuCode: 'iot_upgrade_package',
 								router: '/smarthardware/doorManage/upgrademanage',
+							},
+							{
+								primaryText: "门禁级联关系",
+								originUrl: '/doorrelationship/map',
+								type: 'vue',
+								menuCode: 'door_relation',
 							}
 						]
 				}, {
