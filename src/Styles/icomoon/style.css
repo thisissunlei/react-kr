@@ -63,6 +63,7 @@
 .icon-equipment-manage:before {
   content: "\e940";
   color: #798599;
+  font-size:14px;
 }
 .icon-wendang:before {
   content: "\e941";
