@@ -298,7 +298,6 @@ State.getPassword= action(function(){
 
 //获取httpToken
 State.showHttpToken= action(function(){
-	console.log("ddldldldldld");
 	var urlParams = {deviceId:State.itemDetail.deviceId}
 	Http.request('getHttpTokenURL',urlParams).then(function(response) {
 		State.EquipmentHttpToken =response.httpToken;

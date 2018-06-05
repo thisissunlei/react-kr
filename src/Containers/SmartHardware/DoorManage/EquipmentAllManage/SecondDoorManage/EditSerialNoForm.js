@@ -61,7 +61,6 @@ class EditSerialNo extends React.Component{
 	render(){
 		let {detail} = this.state;
         const { error, handleSubmit, reset} = this.props;
-        console.log("detail",detail);
 		return(
 			<div className="eidt-serial-form">
 				<form onSubmit={handleSubmit(this.onSubmit)}>

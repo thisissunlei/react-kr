@@ -59,7 +59,6 @@ export default class PrinterManage  extends React.Component{
 	//操作相关
 	onOperation=(type, itemDetail)=>{
 
-		console.log("onOperation",itemDetail)
 		this.setState({
 			itemDetail
 		});
@@ -82,7 +81,6 @@ export default class PrinterManage  extends React.Component{
 	}
 
 	seeDetailFun=()=>{
-		console.log("this.state.itemDetail",this.state.itemDetail);
 	}
 
 

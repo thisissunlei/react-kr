@@ -23,6 +23,11 @@ class EditPerson  extends React.Component{
             positionList:[],
             rankList:[],
             positionType:[],
+            personType:[
+                {label:'招商',value:'ATTRACT'},
+                {label:'运营',value:'OPERATE'},
+                {label:'其他',value:'OTHERS'}
+            ],
             isPositionRank:false,
             //选择部门
             isDepSelect:true,
@@ -132,7 +137,7 @@ class EditPerson  extends React.Component{
 	render(){
 
         let {handleSubmit}=this.props;
-        let {rankList,positionList,isPositionRank,positionType,isDepSelect,basicInfo} = this.state;
+        let {rankList,positionList,isPositionRank,positionType,isDepSelect,basicInfo,personType} = this.state;
         
       
 		return(
@@ -276,6 +281,14 @@ class EditPerson  extends React.Component{
                             otherType="resourceProperty"
 						/>
 
+                        <KrField grid={1/2}
+                            style={{width:262,marginLeft:!this.props.changeValues.depId?28:0,marginTop:6}}
+                            name="roleType"
+                            component="select"
+                            label="人员角色"
+                            options = {personType}
+                            requireLabel={true}
+						/>
 
                         <Grid style={{marginTop:17,marginBottom:5,marginLeft:-50}}>
                             <Row>
@@ -323,6 +336,10 @@ const validate = values =>{
 
     if(!values.type){
         errors.type='请选择员工类别';
+    }
+
+    if(!values.roleType){
+        errors.roleType='请选择人员角色';
     }
 
      if(!values.depId){

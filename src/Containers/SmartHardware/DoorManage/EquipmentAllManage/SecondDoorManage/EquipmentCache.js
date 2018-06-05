@@ -60,10 +60,8 @@ export default class EquipmentSearch extends React.Component{
 			})
 			
 			var lastCardNoParams=null;
-			// console.log("lastCardNoParams",lastCardNoParams);
 			let {equipmentCacheitems} = _this.state;
 			if(equipmentCacheitems.length>0){
-				// console.log("length-1",equipmentCacheitems.length-1,"equipmentCacheitems",equipmentCacheitems);
 				lastCardNoParams = equipmentCacheitems[equipmentCacheitems.length-1].cardNo 
 			}
 			
@@ -133,7 +131,6 @@ export default class EquipmentSearch extends React.Component{
 	
 	render(){
 		let {isAll,itemsZero,loading,equipmentCacheitems} = this.state;
-		// console.log("equipmentCacheitems",equipmentCacheitems);
 		return (
 			<div className="seconde-dialog">
 
