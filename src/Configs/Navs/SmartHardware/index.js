@@ -7,7 +7,7 @@ module.exports = [
 			menuItems: [
 					{
 						primaryText: "门禁管理",
-						iconName: 'icon-card',
+						iconName: 'icon-placket-manage',
 						iconColor: '#79859a',
 						router :'',
 						menuItems: [
@@ -32,6 +32,12 @@ module.exports = [
 								primaryText: '升级管理',
 								menuCode: 'iot_upgrade_package',
 								router: '/smarthardware/doorManage/upgrademanage',
+							},
+							{
+								primaryText: "门禁级联关系",
+								originUrl: '/doorrelationship/map',
+								type: 'vue',
+								menuCode: 'door_relation',
 							}
 						]
 				}, {
@@ -62,7 +68,7 @@ module.exports = [
 						]
 				},{
 					primaryText: "中央控制管理",
-					iconName: 'icon-card',
+					iconName: 'icon-central-control',
 					iconColor: '#79859a',
 					router :'',
 					menuItems: [
@@ -79,7 +85,7 @@ module.exports = [
 					]
 			},{
 				primaryText: "设备管理",
-				iconName: 'icon-card',
+				iconName: 'icon-equipment-manage',
 				iconColor: '#79859a',
 				router :'',
 				menuItems: [
@@ -96,7 +102,7 @@ module.exports = [
 				]
 		    },{
                 primaryText: "空间管理",
-                iconName: 'icon-card',
+                iconName: 'icon-space-manage',
                 iconColor: '#79859a',
                 router :'',
                 menuItems: [

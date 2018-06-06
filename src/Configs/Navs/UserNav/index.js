@@ -6,7 +6,7 @@ module.exports = [
 		menuItems: [
 			{
 				primaryText: '客户',
-				iconName: 'icon-donething',
+				iconName: 'icon-customers',
 				iconColor: '#79859a',
 				type: 'vue',
 				menuItems: [
@@ -28,11 +28,11 @@ module.exports = [
 						type:'vue',
 						menuCode: 'fina_manager_setting_page'
 					},
-                    {
-						primaryText: "客户门禁权限",
-						router: '/user/memberManage/doormanage',
-						menuCode: 'door_base',
-					},
+                    // {
+					// 	primaryText: "客户门禁权限",
+					// 	router: '/user/memberManage/doormanage',
+					// 	menuCode: 'door_base',
+					// },
 					{
 						primaryText: '客户线索',
 						router: '/user/customerManage/customerList',
@@ -42,7 +42,7 @@ module.exports = [
 			}, 
 			{
 				primaryText: '会员',
-				iconName: 'icon-donething',
+				iconName: 'icon-members',
 				iconColor: '#79859a',
 				menuItems: [
 					
