@@ -106,7 +106,6 @@ import SearchAllCommunity from './SearchAllCommunity';
 import SearchRoomSelect from './SearchRoomSelect';
 
 
-
 class FieldRevert extends React.Component {
 
 		static propTypes = {
@@ -229,6 +228,8 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={FileUploadComponent}  style={WrapStyles} {...other}/>
 				);
 			}
+			
+			
 
 			if (component === 'doorCard') {
 				return (
