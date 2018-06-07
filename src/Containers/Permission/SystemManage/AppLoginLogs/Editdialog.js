@@ -146,8 +146,8 @@ class Editdialog extends React.Component {
                   style={{marginTop:4}}
                   label="APP类型"
                   options={[
-                    {label:'M_APP',value:'MAPP'},
-                    {label:'TV_APP',value:'TVAPP'},
+                    {label:'m_app',value:'MAPP'},
+                    {label:'tv_app',value:'TVAPP'},
                     {label:'tv_ads',value:'TVADS'}
                   ]}
               />
