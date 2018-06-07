@@ -117,7 +117,8 @@ class Createdialog extends Component {
                   label="	app 类型"
                   options={[
                     {label:'m_app',value:'MAPP'},
-                    {label:'tv_app',value:'TVAPP'}
+                    {label:'tv_app',value:'TVAPP'},
+                    {label:'tv_ads',value:'TVADS'}
                   ]}
               />
 
