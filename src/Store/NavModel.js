@@ -165,8 +165,14 @@ State.setPermissionNav = action(function (menusCode) {
 			if (item.menuCode == "oa" || item.menuCode == "pm_manage" || item.menuCode=="order" ||  item.menuCode=="bill"){
 				item.originUrl = childItem.originUrl;
 			}else{
-				originUrl = '#'+childItem.router;
-				item.originUrl = originUrl;
+				if(childItem.type=="vue"){
+					originUrl = childItem.originUrl;
+					item.originUrl = originUrl;
+				}else{
+					originUrl = '#'+childItem.router;
+					item.originUrl = originUrl;
+				}
+				
 			}
 
 		}
