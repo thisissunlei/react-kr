@@ -21,8 +21,6 @@ const NavItem = ({...props})=>{
 	}else{
 		url='./#/'+path;
 	}
-	
-
 	return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
 };
 
@@ -34,6 +32,7 @@ const More = ({...props})=>{
 	function setSidebar(){
 		NavModel.setSidebar(true);
 	}
+	
 	return (
 		<div className="u-header-more">
 			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
@@ -41,6 +40,7 @@ const More = ({...props})=>{
 				<p className="u-single"></p>
 				<ul className="u-header-more-list">
 					{navs.map((item,index)=>{
+						
 						return(
 							<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} onClick={setSidebar} />
 						)
