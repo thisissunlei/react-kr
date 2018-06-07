@@ -159,7 +159,6 @@ State.setPermissionNav = action(function (menusCode) {
 		return item.isPermission;
 	}).map(function(item){
 		var originUrl = '';
-		console.log('item---',item)
 		if(item.hasOwnProperty('menuItems') && item.menuItems[0].hasOwnProperty('menuItems')){
 			var childItem = item.menuItems[0].menuItems[0];
 
