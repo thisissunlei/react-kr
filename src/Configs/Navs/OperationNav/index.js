@@ -34,6 +34,12 @@ module.exports = [
 
 					},
 					{
+                        primaryText: 'KM会议',
+                        originUrl: '/krmeeting',
+                        type: 'vue',
+                        menuCode: 'km-meeting',
+					},
+					{
 						primaryText: '会议室',
 						menuCode: 'oper_appointment_base',
 						router: '/community/communityManage/allAppointment'
