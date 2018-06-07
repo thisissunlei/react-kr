@@ -167,12 +167,12 @@ export default class Home extends React.Component {
 		var applyArr = [
 			{ text: '氪空间官网', href: 'http://krspace.cn/', url: './images/main.png' },
 			{ text: '氪星小镇', href: 'http://bbs.corp.36kr.com', url: './images/forum.png' },
-			{ text: '云快报', href: 'https://baoxiao.corp.36kr.com/', url: './images/cloud.png' },
+			{ text: 'EHR', href: 'http://www.italent.cn/', url:'./images/bei.jpg'},
+			// { text: '云快报', href: 'https://baoxiao.corp.36kr.com/', url: './images/cloud.png' },
 			{ text: 'E-learning', href: 'https://elearnplus.com', url: './images/learning.png' },
 			{ text: '销售易', href: 'https://crm.xiaoshouyi.com/', url: './images/sellEasy.png' },
 			{ text: 'Udesk', href: 'http://krspace.udesk.cn/users/sign_in', url: './images/Udesk.png' },
 			{ text: 'OA', href: 'http://oa.xlzc.com', url: './images/oa.jpg' },
-			{ text: 'EHR', href: 'http://www.italent.cn/', url:'./images/bei.jpg'},
 			{ text: '敬请期待', href: '', url:'./images/more-apply.png'}
 		]
 		var elems = applyArr.map((item,index)=>{
