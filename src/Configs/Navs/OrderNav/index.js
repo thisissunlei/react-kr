@@ -16,7 +16,7 @@ module.exports = [
                         menuCode: 'seat_order_list',
                     },
                     {
-                        primaryText: "会议室订单",
+                        primaryText: "APP会议室订单",
                         originUrl: '/order/list',
                         type: 'vue',
                         menuCode: 'fina_meeting_order_page'
