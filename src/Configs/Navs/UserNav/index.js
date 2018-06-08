@@ -28,11 +28,11 @@ module.exports = [
 						type:'vue',
 						menuCode: 'fina_manager_setting_page'
 					},
-                    // {
-					// 	primaryText: "客户门禁权限",
-					// 	router: '/user/memberManage/doormanage',
-					// 	menuCode: 'door_base',
-					// },
+                    {
+						primaryText: "客户门禁权限",
+						router: '/user/memberManage/doormanage',
+						menuCode: 'door_base',
+					},
 					{
 						primaryText: '客户线索',
 						router: '/user/customerManage/customerList',

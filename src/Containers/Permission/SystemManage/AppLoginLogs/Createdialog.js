@@ -11,11 +11,19 @@ import {
     Dialog,
     DrawerTitle
 } from 'kr-ui';
-import {reduxForm, formValueSelector, change} from 'redux-form';
+import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
+import ApkFileUpload from './ApkFileUpload';
 class Createdialog extends Component {
 
     constructor(props, context) {
         super(props, context);
+        this.state={
+            version:'' 
+        }
+    }
+    componentDidMount() {
+        Store.dispatch(initialize('createdialog',{}));
+       
 
     }
     onCancel = () => {
@@ -26,9 +34,20 @@ class Createdialog extends Component {
         const {onSubmit} = this.props;
         onSubmit && onSubmit(form);
     }
+    onVersionChange=(value)=>{
+        this.setState({
+            version:value
+        })
+    }
+    // uploadChange=()=>{
+    //     this.setState({
+    //         version:value
+    //     })
+    // }
 
     render() {
         const {handleSubmit} = this.props;
+        let {version}=this.state;
         return (
 
             <div>
@@ -39,10 +58,11 @@ class Createdialog extends Component {
     						 left={42}
     						 right={18}
     	 					 name="version"
-                 requireLabel={true}
+                             requireLabel={true}
     	 					 style={{marginTop:4}}
     	 					 label="系统版本"
-    						 component="input"
+                             component="input"
+                             onBlur={this.onVersionChange}
     	 			 		/>
     					<KrField
     			    		grid={1/2}
@@ -97,19 +117,22 @@ class Createdialog extends Component {
                   label="	app 类型"
                   options={[
                     {label:'m_app',value:'MAPP'},
-                    {label:'tv_app',value:'TVAPP'}
+                    {label:'tv_app',value:'TVAPP'},
+                    {label:'tv_ads',value:'TVADS'}
                   ]}
               />
+
               <KrField
                   grid={1/2}
                   right={69}
                   requireLabel={true}
-                 left={4}
-                  name="downUrl"
+                  left={4}
+                  name="appSize"
                   type="input"
                   style={{marginTop:4}}
-                  label="下载地址"
+                  label="安装包大小"
               />
+             
             <KrField
               grid={1/2}
               style={{width:325,marginLeft:-10,marginTop:2,paddingLeft:53}}
@@ -118,16 +141,30 @@ class Createdialog extends Component {
               requireLabel={true}
               component="date"
               />
-              <KrField
-                  grid={1/2}
-                  right={69}
-                  requireLabel={true}
+              
+               <KrField
                   left={4}
-                  name="appSize"
-                  type="input"
-                  style={{marginTop:4,marginLeft:20}}
-                  label="安装包大小"
+                  name="downUrl"
+                  type="hidden"
+                  style={{marginTop:4}}
+                  label="下载地址"
               />
+              <div className="u-upload-apk">
+                  <div className="u-title">上传apk</div>
+                  <ApkFileUpload  
+                        version={version}
+                        defaultValue={[]}
+                        onChange={(files)=>{
+                            if(files){
+                                Store.dispatch(change('createdialog','apkName',files.fileName));
+                                Store.dispatch(change('createdialog','downUrl',files.downUrl));
+                            }else{
+                                Store.dispatch(change('createdialog','apkName',''));
+                                Store.dispatch(change('createdialog','downUrl',''));
+                            }
+                        }} 
+                  />
+              </div>
               <KrField
                   grid={1}
                   left={42}
