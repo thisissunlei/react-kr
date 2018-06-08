@@ -89,7 +89,7 @@ export default class ChangeMember extends React.Component{
 		return (
 			<div className="change-member">
 				<div style={{width:"100%",height:30}}>
-					{/* <div style={{float:"left",marginLeft:10}}>
+					<div style={{float:"left",marginLeft:10}}>
 						{	itemDetail.groupLevel=="CUSTOMER" &&
 							<Toggle 
 								toggled={toggleChoosed} 
@@ -103,7 +103,7 @@ export default class ChangeMember extends React.Component{
 						
 					
 						}
-					</div>  */}
+					</div> 
 					<img src={closeImg} style={{float:"right",width:30,cursor:"pointer"}} onClick={this.closeChangeMember}/>
 				</div>
 				<div style={{width:"100%"}}>
