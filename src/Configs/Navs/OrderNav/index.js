@@ -16,10 +16,16 @@ module.exports = [
                         menuCode: 'seat_order_list',
                     },
                     {
-                        primaryText: "会议室订单",
+                        primaryText: "APP会议室订单",
                         originUrl: '/order/list',
                         type: 'vue',
                         menuCode: 'fina_meeting_order_page'
+					},
+					{
+                        primaryText: "KM会议室订单",
+                        originUrl: '/krmeetingorder',
+                        type: 'vue',
+                        menuCode: 'krm_order_base'
                     },
                     {
                         primaryText: "通用订单",
