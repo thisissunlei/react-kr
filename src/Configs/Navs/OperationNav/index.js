@@ -10,12 +10,12 @@ module.exports = [
 				iconColor: '#79859a',
 				type: 'vue',
 				menuItems: [
-					{
-                        primaryText: '社区主页',
-                        router: 'operation/community',
-                        type:'vue',
-                        menuCode: 'op_home',
-                    },
+					// {
+                    //     primaryText: '社区主页',
+                    //     originUrl: '/operation/community',
+                    //     type:'vue',
+                    //     menuCode: 'op_home',
+                    // },
 					 {
                         primaryText: '即将到期',
                         originUrl: '/inventory/over-date',
