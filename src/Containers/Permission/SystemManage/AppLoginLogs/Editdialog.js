@@ -42,7 +42,7 @@ class Editdialog extends React.Component {
             },{}).then(function(response) {
                let arr=[];
                let obj={
-                 fileUrl:response.downUrl,
+                 url:response.downUrl,
                  fileName:response.apkName
                }
                arr.push(obj)

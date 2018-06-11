@@ -285,9 +285,8 @@ export default class ApkFileUpload extends React.Component {
 					form.append('callback', response.callback);
 					form.append('x:original_name', file.name);
 					form.append('file', file);
-					form.append('Content-Disposition', file.name);
-					
-
+					form.append('Content-Disposition',`attachment;filename=${file.name}`);
+				
 					_this.onTokenSuccess({
 						sourceservicetoken: response.token,
 						docTypeCode: response.docTypeCode,
