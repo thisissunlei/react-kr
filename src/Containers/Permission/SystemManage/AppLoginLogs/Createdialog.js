@@ -31,6 +31,7 @@ class Createdialog extends Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
+        console.log('form-----',form)
         const {onSubmit} = this.props;
         onSubmit && onSubmit(form);
     }
@@ -219,9 +220,9 @@ const validate = values => {
     if (!values.publishTime) {
 		errors.publishTime = '请选择发布时间';
 	}
-    if (!values.downUrl) {
-		errors.downUrl = '请输入下载地址';
-	}
+    // if (!values.downUrl) {
+	// 	errors.downUrl = '请输入下载地址';
+	// }
     if (!values.appType) {
 		errors.appType = '请选择app类型';
 	}
