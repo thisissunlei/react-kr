@@ -158,8 +158,9 @@ export default class ApkFileUpload extends React.Component {
 	}
 
 	onSuccess(response) {
+		console.log('response----',response)
 		response = Object.assign({}, response);
-		response.fileUrl=response.downUrl;
+		response.url=response.url;
 		let {
 			form
 		} = this.state;
@@ -284,6 +285,8 @@ export default class ApkFileUpload extends React.Component {
 					form.append('callback', response.callback);
 					form.append('x:original_name', file.name);
 					form.append('file', file);
+					form.append('Content-Disposition', file.name);
+					
 
 					_this.onTokenSuccess({
 						sourceservicetoken: response.token,
@@ -341,7 +344,7 @@ export default class ApkFileUpload extends React.Component {
 			return list=files.map((item,index)=>{
 					return (
 						<li key={index}>
-							<a href={item.fileUrl} target="_blank">{item.fileName}</a>
+							<a href={item.url} target="_blank">{item.fileName}</a>
 							<span className="del" onTouchTap={this.onFileDelete.bind(this,index)}>删除</span>
 						</li>
 					);
