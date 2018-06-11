@@ -12,7 +12,7 @@ module.exports = [
 				menuItems: [
 					{
 						primaryText: '社区主页',
-						router: 'operation/community',
+						originUrl: '/operation/community',
 						type:'vue',
 						menuCode: 'op_home',
 					},
