@@ -28,6 +28,18 @@ module.exports = [
                         type:'vue',
 						//menuCode: 'imt_putaway_list',
 						menuCode: 'vueList',
+					},
+					{
+                        primaryText: '已起租未付',
+                        router: 'inventory/rented-unpaid',
+                        type:'vue',
+                        menuCode: 'rent_no_pay',
+                    },
+                    {
+                        primaryText: '逾期未付',
+                        router: 'inventory/over-date-unpaid',
+                        type:'vue',
+                        menuCode: 'overdate_no_pay',
                     },
 					{
 						primaryText: '预约参观',
