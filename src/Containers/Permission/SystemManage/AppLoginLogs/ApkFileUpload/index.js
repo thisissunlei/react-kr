@@ -320,6 +320,7 @@ export default class ApkFileUpload extends React.Component {
 		};
 		xhr.open('GET', '/api/sso/common/upload-policy?isPublic='+isPublic+'&category='+category, true);
 		xhr.responseType = 'json';
+		xhr.withCredentials = true; 
 		xhr.send();
 		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
 		_this.setState({
