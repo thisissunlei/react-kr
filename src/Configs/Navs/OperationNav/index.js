@@ -10,6 +10,12 @@ module.exports = [
 				iconColor: '#79859a',
 				type: 'vue',
 				menuItems: [
+					// {
+                    //     primaryText: '社区主页',
+                    //     originUrl: '/operation/community',
+                    //     type:'vue',
+                    //     menuCode: 'op_home',
+                    // },
 					 {
                         primaryText: '即将到期',
                         originUrl: '/inventory/over-date',
@@ -21,6 +27,18 @@ module.exports = [
                         originUrl: '/inventory/enter-field',
                         type:'vue',
                         menuCode: 'imt_putaway_list',
+					},
+					{
+                        primaryText: '已起租未付',
+                        router: 'inventory/rented-unpaid',
+                        type:'vue',
+                        menuCode: 'rent_no_pay',
+                    },
+                    {
+                        primaryText: '逾期未付',
+                        router: 'inventory/over-date-unpaid',
+                        type:'vue',
+                        menuCode: 'overdate_no_pay',
                     },
 					{
 						primaryText: '预约参观',
