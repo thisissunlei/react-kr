@@ -9,8 +9,7 @@ import {
     Row,
     Col,
     Dialog,
-    DrawerTitle,
-    UpLoad
+    DrawerTitle
 } from 'kr-ui';
 import {reduxForm, formValueSelector, change,initialize} from 'redux-form';
 import ApkFileUpload from './ApkFileUpload';
@@ -151,11 +150,11 @@ class Createdialog extends Component {
                   style={{marginTop:4}}
                   label="下载地址"
               />
-                <UpLoad />
-              {/* <div className="u-upload-apk">
+               
+              <div className="u-upload-apk">
                   <div className="u-title">上传apk</div>
                   <ApkFileUpload  
-                        version={version}
+                        category='app/upgrade'
                         defaultValue={[]}
                         onChange={(files)=>{
                             if(files){
@@ -167,7 +166,7 @@ class Createdialog extends Component {
                             }
                         }} 
                   />
-              </div> */}
+              </div>
               <KrField
                   grid={1}
                   left={42}

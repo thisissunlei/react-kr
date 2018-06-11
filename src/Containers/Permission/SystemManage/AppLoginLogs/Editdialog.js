@@ -180,7 +180,7 @@ class Editdialog extends React.Component {
                <div className="u-upload-apk">
                   <div className="u-title">上传apk</div>
                   <ApkFileUpload  
-                        version={version}
+                        category='app/upgrade'
                         defaultValue={fileList}
                         onChange={(files)=>{
                             if(files){

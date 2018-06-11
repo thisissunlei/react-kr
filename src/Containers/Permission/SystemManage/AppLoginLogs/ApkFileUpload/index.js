@@ -15,7 +15,9 @@ export default class ApkFileUpload extends React.Component {
 
 	static defaultProps = {
 		multiple: false,
-		defaultValue: []
+		defaultValue: [],
+		category:'op/upload',
+        isPublic:true,
 	}
 
 	static PropTypes = {
@@ -24,7 +26,9 @@ export default class ApkFileUpload extends React.Component {
 		defaultValue: React.PropTypes.array,
 		onChange: React.PropTypes.func,
 		inline: React.PropTypes.bool,
-		version: React.PropTypes.string
+		category:React.PropTypes.string,
+        isPublic:React.PropTypes.bool
+
 	}
 
 	constructor(props) {
@@ -199,10 +203,11 @@ export default class ApkFileUpload extends React.Component {
 
 	onChange(event) {
 
-		var _this = this;
-		let {version}=this.props;
+		 var _this = this;
 		
-		let file = event.target.files[0];
+		let {isPublic,category}=this.props;
+		
+		 let file = event.target.files[0];
 		
 		if (!file) {
 			return;
@@ -232,39 +237,104 @@ export default class ApkFileUpload extends React.Component {
 
 		}
 
+		// var form = new FormData();
+		// form.append('apkFlie', file);
+		// if(!version){
+		// 	_this.onError('请填写系统版本！');
+		// 	return;
+		// }
+		// form.append('version',version);
+		// var xhrfile = new XMLHttpRequest();
+		// 	xhrfile.onreadystatechange = function() {
+		// 	if (xhrfile.readyState === 4) {
+		// 		var fileResponse = xhrfile.response;
+		// 		if (xhrfile.status === 200) {
+		// 			if (fileResponse && fileResponse.code > 0) {
+		// 				_this.onSuccess(fileResponse.data);
+
+		// 			} else {
+		// 				_this.onError(fileResponse.msg);
+		// 			}
+		// 		} else if (xhrfile.status == 413) {
+
+		// 			_this.onError('您上传的文件过大！');
+		// 		} else {
+		// 			_this.onError('后台报错请联系管理员！');
+		// 		}
+		// 	}
+		// };
+
+		// xhrfile.open('POST', '/api/krspace-sso-web/sso/mobile/version/upload', true);
+		// xhrfile.responseType = 'json';
+		// xhrfile.send(form);
+
+
 		var form = new FormData();
-		form.append('apkFlie', file);
-		if(!version){
-			_this.onError('请填写系统版本！');
-			return;
-		}
-		form.append('version',version);
-		var xhrfile = new XMLHttpRequest();
-			xhrfile.onreadystatechange = function() {
-			if (xhrfile.readyState === 4) {
-				var fileResponse = xhrfile.response;
-				if (xhrfile.status === 200) {
-					if (fileResponse && fileResponse.code > 0) {
-						_this.onSuccess(fileResponse.data);
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					var response = xhr.response.data;
 
-					} else {
-						_this.onError(fileResponse.msg);
-					}
-				} else if (xhrfile.status == 413) {
+					form.append('OSSAccessKeyId', response.ossAccessKeyId);
+					form.append('policy', response.policy);
+					form.append('Signature', response.sign);
+					form.append('key', response.pathPrefix+'/'+file.name);
+					form.append('uid', response.uid);
+					form.append('callback', response.callback);
+					form.append('x:original_name', file.name);
+					form.append('file', file);
 
-					_this.onError('您上传的文件过大！');
+					_this.onTokenSuccess({
+						sourceservicetoken: response.token,
+						docTypeCode: response.docTypeCode,
+						operater: response.operater
+					});
+					
+					var xhrfile = new XMLHttpRequest();
+					xhrfile.onreadystatechange = function() {
+						if (xhrfile.readyState === 4) {
+							var fileResponse = xhrfile.response;
+							if (xhrfile.status === 200) {
+								if (fileResponse && fileResponse.code > 0) {
+									_this.onSuccess(fileResponse.data,file);
+
+								} else {
+									_this.onError(fileResponse.msg);
+								}
+							} else if (xhrfile.status == 413) {
+
+								_this.onError('您上传的文件过大！');
+							} else {
+								_this.onError('后台报错请联系管理员！');
+							}
+						}
+					};
+					xhrfile.open('POST', response.serverUrl, true);
+					xhrfile.responseType = 'json';
+					xhrfile.send(form);
 				} else {
-					_this.onError('后台报错请联系管理员！');
+					_this.onTokenError();
 				}
 			}
 		};
-
-		xhrfile.open('POST', '/api/krspace-sso-web/sso/mobile/version/upload', true);
-		xhrfile.responseType = 'json';
-		xhrfile.send(form);
+		xhr.open('GET', '/api/sso/common/upload-policy?isPublic='+isPublic+'&category='+category, true);
+		xhr.responseType = 'json';
+		xhr.send();
+		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
+		_this.setState({
+			imgUpload: true,
+			operateImg : false
+		});
 			
 		
 	}
+	
+
+	
+
+	
+	
 	renderFiles=(files)=>{
 		var list;
 		if(files){
