@@ -35,7 +35,6 @@ export default class ApkFileUpload extends React.Component {
 		super(props)
 
 		this.onChange = this.onChange.bind(this);
-		this.onSuccess = this.onSuccess.bind(this);
 		this.onError = this.onError.bind(this);
 		this.onTokenSuccess = this.onTokenSuccess.bind(this);
 		this.onTokenError = this.onTokenError.bind(this);
@@ -157,10 +156,10 @@ export default class ApkFileUpload extends React.Component {
 		});
 	}
 
-	onSuccess(response) {
+	onSuccess=(response,file)=> {
 		console.log('response----',response)
 		response = Object.assign({}, response);
-		response.url=response.url;
+		
 		let {
 			form
 		} = this.state;
@@ -171,7 +170,7 @@ export default class ApkFileUpload extends React.Component {
 		let {
 			files
 		} = this.state;
-
+		response.fileName=file.fileName;
 		files.unshift(response);
 
 		this.setState({
