@@ -170,7 +170,7 @@ export default class ApkFileUpload extends React.Component {
 		let {
 			files
 		} = this.state;
-		response.fileName=file.fileName;
+		response.fileName=file.name;
 		files.unshift(response);
 
 		this.setState({
@@ -297,7 +297,9 @@ export default class ApkFileUpload extends React.Component {
 						if (xhrfile.readyState === 4) {
 							var fileResponse = xhrfile.response;
 							if (xhrfile.status === 200) {
+								console.log('7777777',file)
 								if (fileResponse && fileResponse.code > 0) {
+									console.log('888888')
 									_this.onSuccess(fileResponse.data,file);
 
 								} else {
@@ -319,7 +321,7 @@ export default class ApkFileUpload extends React.Component {
 				}
 			}
 		};
-		xhr.open('GET', '/api/sso/common/upload-policy?isPublic='+isPublic+'&category='+category, true);
+		xhr.open('GET', 'http://optest01.krspace.cn/api/sso/common/upload-policy?isPublic='+isPublic+'&category='+category, true);
 		xhr.responseType = 'json';
 		xhr.send();
 		// 暂时觉得此处用不着了，等连上服务器需要再检查一下
