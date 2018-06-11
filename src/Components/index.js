@@ -100,6 +100,8 @@ import MoveSelect from './MoveSelect';
 import AirBubbles from "./AirBubbles";
 import KrMenu from './KrMenu';
 import SetNumber from './SetNumber';
+import UpLoad from './UpLoad';
+
 module.exports = {
 	//Components
 
@@ -201,4 +203,5 @@ module.exports = {
 	KrMenu,
 	InputNumber,
 	SetNumber,
+	UpLoad
 }
