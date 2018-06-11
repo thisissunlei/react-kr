@@ -185,7 +185,7 @@ class Editdialog extends React.Component {
                         onChange={(files)=>{
                             if(files){
                                 Store.dispatch(change('editdialog','apkName',files.fileName));
-                                Store.dispatch(change('editdialog','downUrl',files.downUrl));
+                                Store.dispatch(change('editdialog','downUrl',files.url));
                             }else{
                                 Store.dispatch(change('editdialog','apkName',''));
                                 Store.dispatch(change('editdialog','downUrl',''));

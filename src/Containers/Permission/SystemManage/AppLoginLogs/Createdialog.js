@@ -159,7 +159,7 @@ class Createdialog extends Component {
                         onChange={(files)=>{
                             if(files){
                                 Store.dispatch(change('createdialog','apkName',files.fileName));
-                                Store.dispatch(change('createdialog','downUrl',files.downUrl));
+                                Store.dispatch(change('createdialog','downUrl',files.url));
                             }else{
                                 Store.dispatch(change('createdialog','apkName',''));
                                 Store.dispatch(change('createdialog','downUrl',''));
