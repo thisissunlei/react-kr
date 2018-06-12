@@ -150,15 +150,16 @@ class Createdialog extends Component {
                   style={{marginTop:4}}
                   label="下载地址"
               />
+               
               <div className="u-upload-apk">
                   <div className="u-title">上传apk</div>
                   <ApkFileUpload  
-                        version={version}
+                        category='app/upgrade'
                         defaultValue={[]}
                         onChange={(files)=>{
                             if(files){
                                 Store.dispatch(change('createdialog','apkName',files.fileName));
-                                Store.dispatch(change('createdialog','downUrl',files.downUrl));
+                                Store.dispatch(change('createdialog','downUrl',files.url));
                             }else{
                                 Store.dispatch(change('createdialog','apkName',''));
                                 Store.dispatch(change('createdialog','downUrl',''));
