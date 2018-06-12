@@ -46,7 +46,7 @@ module.exports = [
 						router: '/community/communityManage/visitorsToRecord'
 					},
 					{
-						primaryText: '访客',
+						primaryText: '预约访客',
 						menuCode: 'visitRecord',
 						router: '/community/visitor/list'
 
