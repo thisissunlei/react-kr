@@ -42,7 +42,7 @@ class Editdialog extends React.Component {
             },{}).then(function(response) {
                let arr=[];
                let obj={
-                 fileUrl:response.downUrl,
+                 url:response.downUrl,
                  fileName:response.apkName
                }
                arr.push(obj)
@@ -180,12 +180,12 @@ class Editdialog extends React.Component {
                <div className="u-upload-apk">
                   <div className="u-title">上传apk</div>
                   <ApkFileUpload  
-                        version={version}
+                        category='app/upgrade'
                         defaultValue={fileList}
                         onChange={(files)=>{
                             if(files){
                                 Store.dispatch(change('editdialog','apkName',files.fileName));
-                                Store.dispatch(change('editdialog','downUrl',files.downUrl));
+                                Store.dispatch(change('editdialog','downUrl',files.url));
                             }else{
                                 Store.dispatch(change('editdialog','apkName',''));
                                 Store.dispatch(change('editdialog','downUrl',''));

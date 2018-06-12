@@ -31,6 +31,7 @@ class Createdialog extends Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
+        console.log('form-----',form)
         const {onSubmit} = this.props;
         onSubmit && onSubmit(form);
     }
@@ -149,15 +150,16 @@ class Createdialog extends Component {
                   style={{marginTop:4}}
                   label="下载地址"
               />
+               
               <div className="u-upload-apk">
                   <div className="u-title">上传apk</div>
                   <ApkFileUpload  
-                        version={version}
+                        category='app/upgrade'
                         defaultValue={[]}
                         onChange={(files)=>{
                             if(files){
                                 Store.dispatch(change('createdialog','apkName',files.fileName));
-                                Store.dispatch(change('createdialog','downUrl',files.downUrl));
+                                Store.dispatch(change('createdialog','downUrl',files.url));
                             }else{
                                 Store.dispatch(change('createdialog','apkName',''));
                                 Store.dispatch(change('createdialog','downUrl',''));
@@ -219,9 +221,9 @@ const validate = values => {
     if (!values.publishTime) {
 		errors.publishTime = '请选择发布时间';
 	}
-    if (!values.downUrl) {
-		errors.downUrl = '请输入下载地址';
-	}
+    // if (!values.downUrl) {
+	// 	errors.downUrl = '请输入下载地址';
+	// }
     if (!values.appType) {
 		errors.appType = '请选择app类型';
 	}

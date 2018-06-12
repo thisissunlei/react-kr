@@ -33,7 +33,7 @@ class Waiting extends React.Component {
 		}
 		  
 		return (
-			<div className="shadow" style={{display:isClassName?'display':'none'}}>
+			<div className="u-waiting-shadow" style={{display:isClassName?'display':'none'}}>
 				<div className="ui-message message_box">
 					<span onTouchTap={this.onClose} style={{color:'#EDEDED'}}></span>
 					<p className="waiting">
