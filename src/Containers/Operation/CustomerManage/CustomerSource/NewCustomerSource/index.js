@@ -39,11 +39,24 @@ class NewCustomerSource extends Component {
 		super(props);
 		this.state = {
 			typeValue: this.props.typeValue,
+			sourceList:[]
 		}
 	}
 	componentDidMount() {
+		this.getSourceList()
 		Store.dispatch(change('newCustomerSource', 'enabled', "true"));
 	}
+
+	//获取来源类型的信息
+	getSourceList = () =>{
+		Http.request('get-source-list',{enmuKey:'com.krspace.order.api.enums.customer.CsrChannelType'}).then(function(response) {
+			console.log('response',response)
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
+
 	onCancel = () => {
 		const { onCancel } = this.props;
 
@@ -254,130 +267,13 @@ class NewCustomerSource extends Component {
 		}
 
 	}
-	renderField = ({ input, label, placeholder, meta: { touched, error } }) => (
-		<div>
-			<label>{label}</label>
-			<div>
-				<input {...input} placeholder={label || placeholder} />
-				{touched && error && <span>{error}</span>}
-			</div>
-		</div>
-	)
-	renderBrights = ({ fields, meta: { touched, error } }) => {
-
-
-		const self = this;
-		var krStyle = {};
-
-		krStyle = { width: 228, marginLeft: 18, marginRight: 3 }
-		let promptStyle = { marginLeft: 25, color: "red" };
-		let columnStyle = { display: "inline-block", verticalAlign: "top" };
-
-
-		var brights = fields.map(function (brightsStr, index) {
-
-			return (<li key={index} style={{ width: 600, listStyle: 'none' }}>
-				<div style={columnStyle}>
-					<KrField
-
-						style={{ width: 190, marginLeft: 18, marginRight: 3, }}
-						grid={1 / 3}
-						name={`${brightsStr}.name`}
-						type="text"
-						component={self.renderField}
-						label={index ? '' : '子项名称'}
-						placeholder='子项名称'
-						onChange={(data) => {
-							self.nameChange(data, index);
-						}}
-
-					/>
-					<div
-						id={"customerSourceName" + index}
-						style={promptStyle}>
-					</div>
-				</div>
-				<div style={columnStyle}>
-					<KrField
-						style={{ width: 100, marginLeft: 0, marginRight: 3, }}
-						grid={1 / 3}
-						name={`${brightsStr}.code`}
-						type="text"
-						component={self.renderField}
-						label={index ? '' : '子项编码'}
-						placeholder='子项编码'
-						onChange={(data) => {
-							self.codeChange(data, index)
-						}}
-
-					/>
-					<KrField
-						style={{ width: 100, marginLeft: 0, marginRight: 3, }}
-						grid={1 / 3}
-						name={`${brightsStr}.brokerage`}
-						type="text"
-						component={self.renderField}
-						label={index ? '' : '佣金'}
-						placeholder='佣金'
-						onChange={(data) => {
-							self.codeChange(data, index)
-						}}
-
-					/>
-					<div id={"customerSourceCode" + index} style={promptStyle}></div>
-
-				</div>
-				<div style={columnStyle}>
-					<KrField
-						style={{ width: 90, marginLeft: 0, marginRight: 3, }}
-						grid={1 / 3}
-						name={`${brightsStr}.orderNum`}
-						type="text"
-						component={self.renderField}
-						label={index ? '' : '子项顺序'}
-						placeholder='子项顺序'
-						onChange={(data) => {
-
-							self.orderChange(data, index)
-						}}
-					/>
-					<div id={"customerSourceOrder" + index} style={{ marginLeft: 7, color: 'red' }}></div>
-
-				</div>
-				<span
-					className='minusBtn'
-					style={!index ? { marginTop: 32, marginLeft: 8 } : { marginTop: 16, marginLeft: 8 }}
-
-					onClick={() => {
-
-						fields.remove(index);
-						self.remove(index);
-					}}
-				/>
-			</li>)
-		})
-
-		return (
-			<ul style={{ padding: 0, margin: 0 }}>
-
-				{brights}
-				<div style={{ marginLeft: 20, marginBottom: 20 }}>
-					<Button label="添加子项" onTouchTap={() => {
-						fields.push();
-
-					}} />
-				</div>
-			</ul>
-
-		)
-	}
 	render() {
 		const { handleSubmit, select } = this.props;
-		const { typeValue } = this.state;
+		const { typeValue,sourceList } = this.state;
 		let fieldStyle = { width: 262, marginLeft: 28 };
 		let promptStyle = { marginLeft: 25, color: "red" };
 		let columnStyle = { display: "inline-block", verticalAlign: "top" };
-
+		console.log('sourceList',sourceList)
 
 		return (
 
@@ -446,6 +342,16 @@ class NewCustomerSource extends Component {
 						/>
 						<KrField
 							grid={1 / 2}
+							label="来源类型"
+							name="type"
+							style={{ width: 262, marginLeft: 15 }}
+							component="select"
+							options={sourceList}
+							requireLabel={true}
+						/>
+
+						<KrField
+							grid={1 / 2}
 							label="全员开放"
 							name="enabled"
 							style={{ width: 262, marginLeft: 15, marginRight: 13 }}
@@ -468,18 +374,6 @@ class NewCustomerSource extends Component {
 							/>
 						</KrField>
 						<div className="middle-round"></div>
-					</div>
-
-					<div className="titleBar">
-						<span className="order-number">2</span>
-						<span className="wire"></span>
-						<label className="small-title">子来源信息</label>
-					</div>
-					<div className="small-cheek" style={{ paddingBottom: 0 }}>
-						<div id="child-prompt-new" style={{ textAlign: "center", color: "red", marginBottom: 20 }}></div>
-
-						<FieldArray name="subListStr" component={this.renderBrights} />
-
 					</div>
 
 					<div className="end-round"></div>
@@ -525,6 +419,9 @@ const validate = values => {
 		errors.orderNum = "序号必须为正整数"
 	}
 
+	if (!values.type) {
+		errors.type = "类型为必填项"
+	}
 
 	if (values.brokerage === '') {
 		errors.brokerage = '拥金比例为必填项';
@@ -532,63 +429,6 @@ const validate = values => {
 		errors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';
 	} else if (values.brokerage.length > 6) {
 		errors.brokerage = '佣金比例最多6位';
-	}
-
-
-	if (!values.subListStr || !values.subListStr.length) {
-
-
-	} else {
-		let membersArrayErrors = []
-
-		values.subListStr.forEach((porTypes, memberIndex) => {
-
-			let memberErrors = {};
-			let must = false;
-
-			if (!porTypes) {
-				return;
-			}
-
-			if (porTypes.name || porTypes.code || porTypes.orderNum || porTypes.brokerage) {
-				must = true;
-			}
-
-
-			if (must && !porTypes.name) {
-				memberErrors.name = '该子项名称必填';
-			}
-			if (must && !porTypes.code) {
-				memberErrors.code = '该子项编码必填';
-			}
-			if (must && !porTypes.orderNum) {
-				memberErrors.orderNum = '该子项排序必填';
-			}
-
-			if (must) {
-				if (!decimal.test(porTypes.brokerage)) {
-					memberErrors.brokerage = '佣金的整数部分最多6位，小数部分最多4位';
-				} else if (porTypes.brokerage.length > 6) {
-					memberErrors.brokerage = '佣金比例最多6位';
-				}
-			}
-
-			if (porTypes.name && porTypes.name.length > 20) {
-				memberErrors.name = '子项名称最多20个字';
-			}
-			if (porTypes.code && porTypes.code.length > 30) {
-				memberErrors.code = '子项编码最多30个字符';
-			}
-			if (porTypes.orderNum && porTypes.orderNum.toString().trim() && !numberNotZero.test(porTypes.orderNum.toString().trim())) {
-				memberErrors.orderNum = '序号必须为正整数';
-			}
-
-			membersArrayErrors[memberIndex] = memberErrors
-		})
-
-		if (membersArrayErrors.length) {
-			errors.subListStr = membersArrayErrors
-		}
 	}
 	return errors;
 }

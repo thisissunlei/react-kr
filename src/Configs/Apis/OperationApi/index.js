@@ -1087,4 +1087,9 @@ module.exports = {
         url: '/api/krspace-finance-web/advertising/boot/unpublish',
         method: 'post'
     },
+    'get-source-list': {
+        url: '/api/krspace-sso-web/sys/enmu?enmuKey={enmuKey}',
+        method: 'get'
+    },
+    // 
 }
