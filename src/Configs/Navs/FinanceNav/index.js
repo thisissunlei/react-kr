@@ -55,7 +55,25 @@ module.exports = [
 						primaryText: "账款数据",
 						router: '/statistical/agingaccount',
 						menuCode: 'finance_explan',
-					},
+                    },
+                    {
+                        primaryText: "财务端",
+                        originUrl: '/bill/make-invoice',
+                        type: 'vue',
+                        menuCode: 'pay_deal_flow_page'
+                    },
+                    {
+                        primaryText: "运营端",
+                        originUrl: '/inventory/make-invoice',
+                        type: 'vue',
+                        menuCode: 'pay_deal_flow_page'
+                    },
+                    {
+                        primaryText: "发票资料",
+                        originUrl: '/bill/financial-invoice',
+                        type: 'vue',
+                        menuCode: 'pay_deal_flow_page'
+                    },
                     ]
                 },
 		]
