@@ -266,7 +266,7 @@ module.exports = {
 
      //编辑提交
    'editPrinter': {
-      url: '/api/iot-platform/printer/actions/edit?alias={alias}&communityId={communityId}&id={id}&location={location}&printerName={printerName}&readerName={readerName}&serialNo={serialNo}',
+      url: '/api/iot-platform/printer/actions/edit?alias={alias}&communityId={communityId}&id={id}&location={location}&printerName={printerName}&readerName={readerName}&serialNo={serialNo}&selfReader={selfReader}',
       method: 'put'
    },
 
@@ -563,6 +563,12 @@ module.exports = {
       //根据社区楼层获取空间下拉列表
       'getspacelistapi':{
         url : '/api/iot-platform/space/select-items?communityId={communityId}&floor={floor}&name={name}',
+        method : 'get'
+      },
+
+      //获取自研设备序列号
+      'getSelfReaderSerialNo':{
+        url : '/api/iot-platform/ic-reader/serial-no',
         method : 'get'
       },
 

@@ -499,7 +499,7 @@ export default class SecondDoorManage  extends React.Component{
 
 
 	toOpenLog=()=>{
-		window.open(`./#/smarthardware/doorManage/openlog/${State.itemDetail.deviceId}`,'_blank');
+		window.open(`../smarthardware/openlog?deviceId=${State.itemDetail.deviceId}`,'_blank');
 	}
 
 	toFailureWarning=()=>{

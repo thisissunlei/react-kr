@@ -5,6 +5,8 @@ import {reduxForm,formValueSelector,change,initialize,arrayPush,arrayInsert,Fiel
 import {Actions,Store} from 'kr/Redux';
 import {Http} from 'kr/Utils';
 import State from './State';
+import './index.less';
+
 
 
 
@@ -30,6 +32,9 @@ class EditForm extends React.Component{
 
 	componentDidMount(){
 		Store.dispatch(initialize('EditForm', this.detail));
+		this.setState({
+			selfReader:this.detail.selfReader
+		})
 	}
 
 	
@@ -45,21 +50,48 @@ class EditForm extends React.Component{
 	onSubmit=(values)=>{
 		
 		let _this = this;
+		let {selfReader} = this.state;
+		var obj = {
+			id : _this.detail.id,
+			selfReader:selfReader
+		}
 
-		var postParam = Object.assign({id:_this.detail.id},values)
+		var postParam = Object.assign({},obj,values);
 		
 	 	State.editPrinter(postParam);
-
-		
 		
 	}
+
+	getSelfReaderSerail=()=>{
+		let _this =this;
+		Http.request('getSelfReaderSerialNo',{}).then(function(response) {
+			_this.setState({
+				selfReader : response.serialNo
+			})
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
 	render(){
 		
 		const { error, handleSubmit, reset} = this.props;
+		let {selfReader} = this.state;
 		return(
-			<div style={{padding:'20px 0 0 55px'}}>
+			<div style={{padding:'15px 0 0 40px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-
+					{
+						selfReader ?
+						<KrField
+							style={{width:"100%",marginBottom:15}}
+							name="selfReader"
+							inline={true}
+							component="labelText"
+							label="自研读卡器序列号："
+							value={selfReader}
+						/> : <div style={{margin:"0 0 15px 12px"}}><Button  label="获取自研读卡器序列码" type="button"   onTouchTap={this.getSelfReaderSerail} style={{width:140}} className="get-self-reader-serial-no"/></div>
+					}
 					<KrField grid={1/2} name="printerName" 
 						type="text" 
 						label="打印机名称" 
