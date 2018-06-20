@@ -88,7 +88,7 @@ module.exports = [
 					// },
 					{
 						primaryText: '会议室',
-						originUrl: 'product/meeting',
+						originUrl: '/product/meeting',
 						type: 'vue',
 						menuCode: 'meeting_room_goods',
 					},			
