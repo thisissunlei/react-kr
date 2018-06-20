@@ -56,8 +56,21 @@ class EditCustomerSource extends Component {
 
 	//获取来源类型的信息
 	getSourceList = () =>{
+		let _this =this;
 		Http.request('get-source-list',{enmuKey:'com.krspace.order.api.enums.customer.CsrChannelType'}).then(function(response) {
-			console.log('response',response)
+			var options=[];
+			for(var i=0;i<response.length;i++){
+				options.push({
+					label : response[i].desc,
+					value : response[i].value
+				})
+			}
+			_this.setState({
+				sourceList : options
+			})
+
+
+
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -69,6 +82,7 @@ class EditCustomerSource extends Component {
 	}
 
 	onSubmit = (values) => {
+		
 		let { onSubmit } = this.props;
 		onSubmit && onSubmit(values);
 	}
@@ -288,7 +302,7 @@ class EditCustomerSource extends Component {
 
 			<form className='edit-source-from' onSubmit={handleSubmit(this.onSubmit)} style={{ padding: " 35px 45px 45px 45px" }}>
 				<div className="title">
-					<DrawerTitle title='新建客户来源' onCancel={this.onCancel} />
+					<DrawerTitle title='编辑客户来源' onCancel={this.onCancel} />
 				</div>
 				<div className="cheek">
 					<div className="titleBar">

@@ -148,9 +148,9 @@ export default class CustomerSource  extends Component{
 		const self = this;
 		Http.request('get-detail-source',value).then(function(response) {
 			var data = Object.assign({},response);
-			data.enabled = data.enabledStr;
-			self.initEditChild(data);
+			data.enabled = data.enabled+"";
 			Store.dispatch(initialize('editCustomerSource',data));
+
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -200,17 +200,10 @@ export default class CustomerSource  extends Component{
 	}
 	//编辑提交
 	editSubmit = (data) =>{
+		console.log("data",data);
 		const self = this;
-		let arr = [];
-		for(let i = 0; i<data.subListStr.length;i++){
-			if(data.subListStr[i]!=null){
-				arr.push(data.subListStr[i])
-			}
-		}
-		var subListStr = JSON.stringify(arr);
-		data = Object.assign({},data);
-		data.subListStr = subListStr;
-		var value = Object.assign({},data);
+		
+		var value = Object.assign({},data,{cTime :''});
 		Http.request('edit-source',{},value).then(function(response) {
 			self.editSwitch();
 			self.refreshList();
@@ -222,17 +215,7 @@ export default class CustomerSource  extends Component{
 	newSubmit = (data) =>{
 		const self = this;
 		let arr = [];
-		console.log("OOOOOO");
-		if(data.subListStr){
-			for(let i = 0; i<data.subListStr.length;i++){
-				if(data.subListStr[i] && data.subListStr[i].name && data.subListStr[i] != null){
-					arr.push(data.subListStr[i])
-				}
-			}
-		}
-		var subListStr = JSON.stringify(arr);
-		data = Object.assign({},data);
-		data.subListStr = subListStr;
+		
 		var value = Object.assign({},data);
 		Http.request('new-source',{},value).then(function(response) {
 			self.newSwitch();

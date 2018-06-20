@@ -39,7 +39,12 @@ class NewCustomerSource extends Component {
 		super(props);
 		this.state = {
 			typeValue: this.props.typeValue,
-			sourceList:[]
+			sourceList:[
+				{
+					label:"slslsl",
+					value:"slslsl",
+				}
+			]
 		}
 	}
 	componentDidMount() {
@@ -49,8 +54,20 @@ class NewCustomerSource extends Component {
 
 	//获取来源类型的信息
 	getSourceList = () =>{
+		let _this =this;
 		Http.request('get-source-list',{enmuKey:'com.krspace.order.api.enums.customer.CsrChannelType'}).then(function(response) {
-			console.log('response',response)
+			var options=[];
+			for(var i=0;i<response.length;i++){
+				options.push({
+					label : response[i].desc,
+					value : response[i].value
+				})
+			}
+			_this.setState({
+				sourceList : options
+			})
+
+
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
@@ -70,6 +87,7 @@ class NewCustomerSource extends Component {
 	}
 
 	onSubmit = (values) => {
+		
 		let { onSubmit } = this.props;
 		onSubmit && onSubmit(values);
 	}
@@ -273,7 +291,7 @@ class NewCustomerSource extends Component {
 		let fieldStyle = { width: 262, marginLeft: 28 };
 		let promptStyle = { marginLeft: 25, color: "red" };
 		let columnStyle = { display: "inline-block", verticalAlign: "top" };
-		console.log('sourceList',sourceList)
+		console.log('sourceList===》',sourceList)
 
 		return (
 
