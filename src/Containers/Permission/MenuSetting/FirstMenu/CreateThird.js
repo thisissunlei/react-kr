@@ -68,7 +68,7 @@ class CreateThird extends React.Component {
         let infoList = this.state.infoList;
         return (
             <div>
-              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:356,marginTop:30,paddingLeft:40,paddingRight:40}}>
+              <form onSubmit={handleSubmit(this.onSubmit)} style={{width:330,marginTop:30,paddingLeft:40,paddingRight:40}}>
                 <KrField
                     style={{width:310,paddingLeft:20}}
                     inline={true}
@@ -87,6 +87,67 @@ class CreateThird extends React.Component {
                     requireLabel={true}
                     placeholder="比如：运营平台"
                 />
+                 <KrField
+                    name="path"
+                    style={{width:300,marginLeft:14,marginTop:10}}
+                    component="input"
+                    label="路径"
+                    inline={true}
+                    requireLabel={true}
+                   
+				/>
+                <div>
+                    <KrField 
+                        inline={true} 
+                        name="leader" 
+                        requireLabel={true} 
+                        component="group" 
+                        label="是否侧栏折叠"
+                        style={{marginTop:10,marginLeft:14}}
+                    >
+                        <KrField name="leader" label="是" type="radio" value="1" />
+                        <KrField name="leader" label="否" type="radio" value='0' />
+                    </KrField>
+                </div>
+
+                <div>
+                    <KrField 
+                        inline={true} 
+                        name="leader" 
+                        requireLabel={true} 
+                        component="group" 
+                        label="是否上栏折叠" 
+                        style={{marginTop:10,marginLeft:14}}
+                    >
+                        <KrField name="leader" label="是" type="radio" value="1" />
+                        <KrField name="leader" label="否" type="radio" value='0' />
+                    </KrField>
+                </div>
+                
+                <div>
+                    <KrField 
+                        inline={true} 
+                        name="leader" 
+                        requireLabel={true} 
+                        component="group" 
+                        label="是否展示" 
+                        style={{marginTop:10,marginLeft:14}}
+                    >
+                        <KrField name="leader" label="是" type="radio" value="1" />
+                        <KrField name="leader" label="否" type="radio" value='0' />
+                    </KrField>
+                </div>
+                <div>
+                    <KrField
+                        name="path"
+                        style={{width:300,marginLeft:14}}
+                        component="input"
+                        label="备注"
+                        inline={true}
+                        requireLabel={true}
+                      
+                    />
+                </div>
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
       						<ButtonGroup>
