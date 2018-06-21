@@ -179,7 +179,7 @@ export default class Timeline extends React.Component {
         
         return(
             <div className="metting-Timeline">
-               
+               {/* 会议室刻度开始 */}
                 <div className = "metting-Timeline-box">
                     <div className = "metting-Timeline-shaft" style = {{width:inWidth}}>
                         {this.generateCalibration()}
@@ -187,6 +187,7 @@ export default class Timeline extends React.Component {
                          <span className = "hours" style = {{position:"absolute",border:0,left:inWidth+5}}>{endTime.h+"时"}</span>
                     </div>
                 </div>
+                {/* 会议室刻度结束 */}
                 <div className = "sticky-notes">
                     <span>{data.communityName}</span>
                     <span>{data.name}</span>
