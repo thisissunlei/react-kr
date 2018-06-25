@@ -64,16 +64,12 @@ export default class Timeline extends React.Component {
 
     //生成刻度
     generateCalibration = () =>{
-        //let {endTime,startTime,width}=this.state;
         let {width}=this.state;
         let elems = [];
-        // if(endTime.h==23 && endTime.m == 59){
-        //     endTime.h=24
-        // }
         
-        for(var i= 1;i<25;i++){
+        for(var i= 1;i<24;i++){
             let border= "0px solid #ccc"
-            if(i==24){
+            if(i==23){
                 border= "1px solid #ccc"
             }
          elems.push (
@@ -176,7 +172,7 @@ export default class Timeline extends React.Component {
         //     endTime.h=24
         // }
         //let len = endTime.h - startTime.h;
-        let len=48;
+        let len=23;
         let inWidth = width*len+1;
         
         if(!data){
@@ -190,7 +186,7 @@ export default class Timeline extends React.Component {
                     <div className = "metting-Timeline-shaft" style = {{width:inWidth}}>
                         {this.generateCalibration()}
                         {this.generateIntroduction()}
-                         <span className = "hours" style = {{position:"absolute",border:0,left:inWidth+5}}>{+"时"}</span>
+                         <span className = "hours" style = {{position:"absolute",border:0,left:inWidth+5}}>24时</span>
                     </div>
                 </div>
                 {/* 会议室刻度结束 */}
