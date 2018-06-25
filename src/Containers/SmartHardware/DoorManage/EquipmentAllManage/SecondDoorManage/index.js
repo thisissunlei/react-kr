@@ -35,10 +35,11 @@ import UpgradeForm from './UpgradeForm';
 import EquipmentCache from './EquipmentCache';
 import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
-import BtnBox from './BtnBox';
+// import BtnBox from './BtnBox';
 import EquipmentFirstDetail from './EquipmentFirstDetail';
 import HttpTokenDialog from './HttpTokenDialog';
 import EditSerialNoForm from './EditSerialNoForm';
+import DelayClose from './DelayClose';
 
 
 @inject("NavModel")
@@ -54,7 +55,8 @@ export default class SecondDoorManage  extends React.Component{
 			openMenu :false,
 			itemDetail : {},
 			mainInfo : {},
-			equipmentCachedItems : []
+			equipmentCachedItems : [],
+			
 		}
 	}
 
@@ -202,18 +204,18 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 
-	showMoreOpretion=(thisP,value,itemData)=>{
-		State.deviceVO = thisP.deviceVO
-		this.showOpretionFun();
-		State.itemDetail = thisP;
-		this.setState({
-			itemDetail :thisP
-		})
-	}
+	// showMoreOpretion=(thisP,value,itemData)=>{
+	// 	State.deviceVO = thisP.deviceVO
+	// 	this.showOpretionFun();
+	// 	State.itemDetail = thisP;
+	// 	this.setState({
+	// 		itemDetail :thisP
+	// 	})
+	// }
 
-	showOpretionFun=()=>{
-		State.showOpretion = !State.showOpretion;
-	}
+	// showOpretionFun=()=>{
+	// 	State.showOpretion = !State.showOpretion;
+	// }
 
 
 
@@ -479,7 +481,7 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"编辑硬件ID",onClickFun:_this.editSerialNoFun},
 				{title:"开门记录",onClickFun:_this.toOpenLog},
 				{title:"故障报警",onClickFun:_this.toFailureWarning},
-				
+				{title:"设置延迟锁门",onClickFun:_this.openDelayClose},
 			]
 		}else{
 
@@ -548,6 +550,11 @@ export default class SecondDoorManage  extends React.Component{
 		
 	 	window.location.href = `./#/smarthardware/ipaddresscheck/doormanage`
 	
+	}
+
+
+	openDelayClose=()=>{
+		State.openDelayCloseDialog = !State.openDelayCloseDialog
 	}
 
 	render(){
@@ -1002,14 +1009,14 @@ export default class SecondDoorManage  extends React.Component{
 						<EquipmentCache onCancel={this.openEquipmentCacheFun} equipmentCachedItems={equipmentCachedItems}/>
 					</Drawer>
 
-					<Dialog
+					{/* <Dialog
 			          title="按钮库"
 			          open={State.showOpretion}
 			          onClose={this.showOpretionFun}
 			          contentStyle={{width:700,height:355}}
 			        >
 			          <BtnBox onCancle={this.showOpretionFun}/>
-			        </Dialog>
+			        </Dialog> */}
 			        <Dialog
 			          title="同步口令提示"
 			          open={State.synchronizingPswDialog}
@@ -1053,6 +1060,17 @@ export default class SecondDoorManage  extends React.Component{
 			                  </Row>
 			                </Grid>
 			          </div>
+			        </Dialog>
+
+							<Dialog
+			          title="设置延迟锁门间隔"
+			          open={State.openDelayCloseDialog}
+			          onClose={this.openDelayClose}
+			          contentStyle={{width:400}}
+			        >
+			          <DelayClose
+									detail={itemDetail}
+								/>
 			        </Dialog>
 
 				</div>
