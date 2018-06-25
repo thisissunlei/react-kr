@@ -31,6 +31,12 @@ module.exports = [
 						router: '/product/communityAllocation/communityStation'
 					},
 					{
+                        primaryText: "商品库",
+                        originUrl: '/inventory/goods-library',
+                        type: 'vue',
+                        menuCode: 'goods_list',
+					},
+					{
 						primaryText: '平面图配置',
 						menuCode: 'oper_cmt_graph_base',
 						otherRouter:['/communityPlanMap'],
