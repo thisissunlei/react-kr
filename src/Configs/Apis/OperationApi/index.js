@@ -1089,12 +1089,12 @@ module.exports = {
     },
     //社区运营--社区运营--会议室--社区列表
     'get-community-new-list': {
-        url: '/api/krspace-op-web/cmt/community/new/list?cmtId={cmtId}',
+        url: '/api/krspace-op-web/cmt/community/new/list?cmtName={cmtName}',
         method: 'get'
     },
     //社区运营--社区运营--会议室--楼层
-    'get-krmting-room-floor-list': {
-        url: '/api/krspace-op-web/krmting/room/floor/list?cmtName={cmtName}',
+    'get-krmting-room-stock-floor-list': {
+        url: '/api/krspace-op-web/krmting/room/stock/floor/list?cmtId={cmtId}',
         method: 'get'
     },
      //社区运营--社区运营--会议室--会议室预定列表
