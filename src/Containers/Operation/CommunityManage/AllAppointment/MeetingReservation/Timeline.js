@@ -37,8 +37,6 @@ export default class Timeline extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-            //endTime:this.hourFormat(this.props.data.orderEndTime),
-           // startTime:this.hourFormat(this.props.data.orderStartTime),
             openDetail:false,
             coordinates:{},
             location:"right",
@@ -55,10 +53,7 @@ export default class Timeline extends React.Component {
 		if(!nextProps.data){
             return;
         }
-        this.setState({
-            //endTime:this.hourFormat(nextProps.data.orderEndTime),
-            //startTime:this.hourFormat(nextProps.data.orderStartTime),
-        })
+        
 	}
 
 
@@ -95,7 +90,6 @@ export default class Timeline extends React.Component {
     generateIntroduction = () =>{
         let _this = this;
         const {data} = this.props;
-        //const {startTime,endTime,coordinates,openDetail,location,width}=this.state;
         const {startTime,endTime,coordinates,openDetail,location,width}=this.state;
         if(!data.appointments){
             return null;
@@ -103,14 +97,11 @@ export default class Timeline extends React.Component {
 
         let elems =  data.appointments.map(function(item,index){
             let inData = Object.assign({}, item);
-            // inData.beginTime = _this.hourFormat(item.beginTime);
-            // inData.endTime = _this.hourFormat(item.endTime);
+           
            
             return  <Introduction
                         key = {index}  
                         onClick = {_this.openDetail}
-                        // allStartTime = {startTime}
-                        // allEndTime = {endTime}
                         data = {inData}
                         width = {width}
                         index = {index}
