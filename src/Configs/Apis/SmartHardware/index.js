@@ -572,6 +572,12 @@ module.exports = {
         method : 'get'
       },
 
+      //设置延迟锁门时间
+      'setDelayCloseTime':{
+        url : '/api/iot-platform/door-device/admin/actions/set-door-delay-time',
+        method : 'post'
+      },
+
 
 
       
