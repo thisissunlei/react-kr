@@ -132,7 +132,9 @@ export default class MeetingReservation extends React.Component {
 		this.setState({
 			isRefreshList:true,
 		})
-		Http.request("meeting-reservation",data).then(function(response) {
+		//
+		//meeting-reservation
+		Http.request("get-krmting-room-stock-list",data).then(function(response) {
 			
 			_this.setState({
 				data:response.items,

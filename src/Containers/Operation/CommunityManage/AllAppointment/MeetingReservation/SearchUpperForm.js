@@ -39,12 +39,12 @@ class MeetingReservationFrom extends React.Component {
 			date:DateFormat(new Date(),"yyyy-mm-dd"),
 			communityIdList:[],
 		}
-		this.getcommunity();
+		this.getcommunity('');
 	}
 	getcommunity = () => {
 		let _this = this;
 		let {communityIdList} = this.state;
-		Http.request('getCommunity').then(function(response) {
+		Http.request('get-community-new-list').then(function(response) {
 
 			communityIdList = response.communityInfoList.map(function(item, index) {
 
@@ -99,7 +99,7 @@ class MeetingReservationFrom extends React.Component {
 			return ;
 		}
 		let _this = this;
-		Http.request("getCommunityFloors",{communityId:data.value}).then(function(response) {
+		Http.request("get-krmting-room-floor-list",{cmtId:data.value}).then(function(response) {
 			response.floors.map(function(item,index){
 				options.push({label:item,value:item});
 			})
