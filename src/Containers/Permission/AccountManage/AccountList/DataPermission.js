@@ -148,7 +148,7 @@ export default class DataPermission extends React.Component{
 			<div key={index}>
 				<div style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333',marginBottom:8}}>
 						<div style={{color:'#333',fontWeight:500,fontSize:14}}>{item.name}</div>
-						<Checkbox label="全选" style={{color:'#333',display:'inline-block'}} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item,index)}/>
+						<Checkbox label="全部" style={{color:'#333',display:'inline-block'}} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item,index)}/>
 						{item.communities.map((itemC,indexC)=>{return (
 								<div style={{display:'inline-block',lineHeight:'32px'}} key={indexC}>
 									<Checkbox
@@ -156,6 +156,7 @@ export default class DataPermission extends React.Component{
 											label={itemC.communityName}
 											checked={itemC.ownFlag==1?true:false}
 											onCheck={this.checked.bind(this,item,itemC,index,indexC)}
+											readOnly={item.flag==1?true:false}
 									/>
 								</div>
 							)
@@ -228,7 +229,7 @@ export default class DataPermission extends React.Component{
 		let {cityList,outSelect} = this.state;
 		return(
 			<div className="g-DataPermission">
-				<Checkbox label="全选" style={{display:'inline-block',lineHeight:'30px',marginBottom:6,color:'#000'}} checked={outSelect?true:false} onCheck={this.outSelect}/>
+				<Checkbox label="全部" style={{display:'inline-block',lineHeight:'30px',marginBottom:6,color:'#000'}} checked={outSelect?true:false} onCheck={this.outSelect}/>
           <div className="leftSec">
 						{cityList.map((item,index)=>{return this.renderData(item,index)})}
           </div>
