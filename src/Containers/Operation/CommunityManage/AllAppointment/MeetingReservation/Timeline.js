@@ -37,8 +37,8 @@ export default class Timeline extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-            endTime:this.hourFormat(this.props.data.orderEndTime),
-            startTime:this.hourFormat(this.props.data.orderStartTime),
+            //endTime:this.hourFormat(this.props.data.orderEndTime),
+           // startTime:this.hourFormat(this.props.data.orderStartTime),
             openDetail:false,
             coordinates:{},
             location:"right",
@@ -56,23 +56,24 @@ export default class Timeline extends React.Component {
             return;
         }
         this.setState({
-            endTime:this.hourFormat(nextProps.data.orderEndTime),
-            startTime:this.hourFormat(nextProps.data.orderStartTime),
+            //endTime:this.hourFormat(nextProps.data.orderEndTime),
+            //startTime:this.hourFormat(nextProps.data.orderStartTime),
         })
 	}
 
 
     //生成刻度
     generateCalibration = () =>{
-        let {endTime,startTime,width}=this.state;
+        //let {endTime,startTime,width}=this.state;
+        let {width}=this.state;
         let elems = [];
-        if(endTime.h==23 && endTime.m == 59){
-            endTime.h=24
-        }
+        // if(endTime.h==23 && endTime.m == 59){
+        //     endTime.h=24
+        // }
         
-        for(var i= startTime.h;i<endTime.h;i++){
+        for(var i= 1;i<25;i++){
             let border= "0px solid #ccc"
-            if(i==endTime.h-1){
+            if(i==24){
                 border= "1px solid #ccc"
             }
          elems.push (
@@ -98,6 +99,7 @@ export default class Timeline extends React.Component {
     generateIntroduction = () =>{
         let _this = this;
         const {data} = this.props;
+        //const {startTime,endTime,coordinates,openDetail,location,width}=this.state;
         const {startTime,endTime,coordinates,openDetail,location,width}=this.state;
         if(!data.appointments){
             return null;
@@ -105,14 +107,14 @@ export default class Timeline extends React.Component {
 
         let elems =  data.appointments.map(function(item,index){
             let inData = Object.assign({}, item);
-            inData.beginTime = _this.hourFormat(item.beginTime);
-            inData.endTime = _this.hourFormat(item.endTime);
+            // inData.beginTime = _this.hourFormat(item.beginTime);
+            // inData.endTime = _this.hourFormat(item.endTime);
            
             return  <Introduction
                         key = {index}  
                         onClick = {_this.openDetail}
-                        allStartTime = {startTime}
-                        allEndTime = {endTime}
+                        // allStartTime = {startTime}
+                        // allEndTime = {endTime}
                         data = {inData}
                         width = {width}
                         index = {index}
@@ -124,7 +126,10 @@ export default class Timeline extends React.Component {
     equipment = () =>{
         
         let {data} = this.props;
-        
+        if(!data.device){
+            return null;
+        }
+
         let elems = data.device.map(function(item,index){
             return <span key = {index} style={{float:"right"}}>{item}</span>
         })
@@ -139,7 +144,7 @@ export default class Timeline extends React.Component {
         if(!data){
             return null;
         }
-        data.appointments.map(function(item,index){
+        data.appointment &&  data.appointments.map(function(item,index){
             if(item.id == id){
                 detailData = item;
             }
@@ -164,13 +169,14 @@ export default class Timeline extends React.Component {
     }
     
     render(){
-        const {startTime,endTime,coordinates,openDetail,location,detailData,width} = this.state;
+        //const {startTime,endTime,coordinates,openDetail,location,detailData,width} = this.state;
+        const {coordinates,openDetail,location,detailData,width} = this.state;
         const {data} = this.props;
-        if(endTime.h==23 && endTime.m == 59){
-            endTime.h=24
-        }
-        let len = endTime.h - startTime.h;
-        
+        // if(endTime.h==23 && endTime.m == 59){
+        //     endTime.h=24
+        // }
+        //let len = endTime.h - startTime.h;
+        let len=48;
         let inWidth = width*len+1;
         
         if(!data){
@@ -184,7 +190,7 @@ export default class Timeline extends React.Component {
                     <div className = "metting-Timeline-shaft" style = {{width:inWidth}}>
                         {this.generateCalibration()}
                         {this.generateIntroduction()}
-                         <span className = "hours" style = {{position:"absolute",border:0,left:inWidth+5}}>{endTime.h+"时"}</span>
+                         <span className = "hours" style = {{position:"absolute",border:0,left:inWidth+5}}>{+"时"}</span>
                     </div>
                 </div>
                 {/* 会议室刻度结束 */}

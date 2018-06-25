@@ -77,9 +77,9 @@ export default class MeetingReservation extends React.Component {
 		}
 		let elems = data.map(function(item,index){
 				console.log('data----->>>>',data)
-			if(_this.hourFormat(item.orderEndTime).h==0){
-				item.orderEndTime=item.orderEndTime-1
-			}
+			// if(_this.hourFormat(item.orderEndTime).h==0){
+			// 	item.orderEndTime=item.orderEndTime-1
+			// }
 			return <Timeline 
 						key = {index}
 						data = {item}
