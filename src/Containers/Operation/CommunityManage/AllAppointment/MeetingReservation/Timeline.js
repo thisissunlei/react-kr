@@ -125,7 +125,7 @@ export default class Timeline extends React.Component {
         
         let {data} = this.props;
         
-        let elems = data.deviceList.map(function(item,index){
+        let elems = data.device.map(function(item,index){
             return <span key = {index} style={{float:"right"}}>{item}</span>
         })
         return <div style={{float:"right"}}>{elems}</div>;
@@ -190,9 +190,9 @@ export default class Timeline extends React.Component {
                 {/* 会议室刻度结束 */}
                 <div className = "sticky-notes">
                     <span>{data.communityName}</span>
-                    <span>{data.name}</span>
-                    <span>{data.floor+"楼"}</span>
-                    <span>{data.capacity+"人"}</span>
+                    <span>{data.roomName}</span>
+                    <span>{data.floorName}</span>
+                    <span>{data.capacity}</span>
                     {this.equipment()}
                     
                 </div>
