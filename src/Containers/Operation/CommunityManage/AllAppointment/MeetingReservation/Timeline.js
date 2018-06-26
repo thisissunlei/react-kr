@@ -124,18 +124,18 @@ export default class Timeline extends React.Component {
     }
 
    
-    openDetail = (coordinates,location,id) =>{ 
+    openDetail = (coordinates,location,dataItem) =>{ 
         const {data} = this.props;   
         let detailData = '';
         $("body").css("overflow","hidden");
         if(!data){
             return null;
         }
-        data.orderList &&  data.orderList.map(function(item,index){
-            if(item.id == id){
-                detailData = item;
-            }
-        })
+        // data.orderList &&  data.orderList.map(function(item,index){
+        //     if(item.id == id){
+        //         detailData = item;
+        //     }
+        // })
         
         this.setState({
             coordinates,

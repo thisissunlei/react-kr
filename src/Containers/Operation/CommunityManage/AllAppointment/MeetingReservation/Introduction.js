@@ -37,50 +37,43 @@ export default class Introduction extends React.Component {
 		
 		
 		
-		// $(".reservation-introduction .reservation-introduction-mask").click(function(event){
-		// 	let {inData} = _this.state; 
+		$(".reservation-introduction .reservation-introduction-mask").click(function(event){
+			let {inData} = _this.state; 
 			
-		// 	if($(this).attr("data-id") == data.id){
-		// 		console.log(event.target, "pppppp")
-		// 		let scollTop = $("body").scrollTop();
-		// 		let num = $(this).index();
-		// 		let pagex = event.pageX;
-		// 		let pagey = event.pageY;
-		// 		let offsetx = event.offsetX; 
-		// 		let offsety = event.offsetY; 
-		// 		let periodTime = data.endTime.h-data.beginTime.h;
-		// 		let detailWidth = width*(periodTime);
-		// 		if(data.beginTime.m){
-		// 			detailWidth = detailWidth -width/2;
-		// 		}
-		// 		if(data.endTime.m<=30){
-		// 			detailWidth = detailWidth +width/2;
-		// 		}
-		// 		if(data.endTime.m>30){
-		// 			detailWidth = detailWidth +width;
-		// 		}
-		// 		let eventDetail = event.target.getBoundingClientRect();
-		// 		let coordinates = {
-		// 			// x:pagex+(detailWidth-offsetx)-5,
-		// 			x: eventDetail.left+eventDetail.width-5,
-		// 			y: eventDetail.top + Math.ceil(eventDetail.height/2),
-		// 		};
+			if($(this).attr("data-id") == data.orderNo){
+				console.log(event.target, "pppppp")
+				let scollTop = $("body").scrollTop();
+				let num = $(this).index();
+				let pagex = event.pageX;
+				let pagey = event.pageY;
+				let offsetx = event.offsetX; 
+				let offsety = event.offsetY; 
+				let periodTime =data.orderTimes.length;
+				let detailWidth = width*periodTime/2;
 				
-		// 		let location = "right";
-		// 		if (eventDetail.left + eventDetail.width+254>=wWidth){
+				let eventDetail = event.target.getBoundingClientRect();
+				let coordinates = {
+					x: eventDetail.left+eventDetail.width-15,
+					y: eventDetail.top + Math.ceil(eventDetail.height/2),
+				};
+				
+				let location = "right";
+				if (eventDetail.left + eventDetail.width+254>=wWidth){
 					
-		// 			coordinates = {
-		// 				x: eventDetail.left - 254 - 10,
-		// 				y: eventDetail.top + Math.ceil(eventDetail.height / 2),
-		// 			}; 
-		// 			location = "left";
-		// 		}
-		// 		onClick && onClick(coordinates,location,data.id);
+					coordinates = {
+						x: eventDetail.left - 254 - 15,
+						y: eventDetail.top + Math.ceil(eventDetail.height / 2),
+					}; 
+					location = "left";
+				}
+
+
+				onClick && onClick(coordinates,location,data);
 			
-		// 	}
+			}
 			
 			
-		// })
+		})
 		this.setState({
 			inData:data,
 			
@@ -171,7 +164,7 @@ export default class Introduction extends React.Component {
 				<div>{data.userName}</div>
 				<div>{data.companyName}</div>
 				<div>{orderSource}</div>
-				<div data-id = {data.id}  className = "reservation-introduction-mask"></div>
+				<div data-id = {data.orderNo}  className = "reservation-introduction-mask"></div>
 				
             </div>
         );
