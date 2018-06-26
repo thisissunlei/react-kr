@@ -54,22 +54,6 @@ export default class Detail extends React.Component {
     render(){
         let {open,coordinates,offset,detailData,metting} = this.props;
 		let showDelete = true;
-		
-		
-		// let startTime = DateFormat(detailData.beginTime,"dddd,mm,dd,hh:MM").split(",");
-		
-		// let endTime = DateFormat(detailData.endTime,"dddd,mm,dd,hh:MM").split(",");
-		
-		//let week = {Monday:'一',Tuesday:'二',Wednesday:'三',Thursday:'四',Friday:'五',Saturday:'六',Sunday:'日'}
-		// DateFormat(detailData.beginTime,"dddd,mm,dd,hh:MM")
-		let DeStartTime = '',
-			DeEndTime ='';
-		// if (detailData.beginTime || detailData.beginTime === 0){
-		// 	DeStartTime = DateFormat(detailData.beginTime, 24).split(" ")[4].split(":");
-		// }
-		// if (detailData.endTime || detailData.endTime === 0) {
-		// 	DeEndTime = DateFormat(detailData.endTime, 24).split(" ")[4].split(":");
-		// }
 		let sourceType={
 			'APP_MEETING':'App预定',
 			'KRM_MEETING':'krmeeting预定'
@@ -80,8 +64,6 @@ export default class Detail extends React.Component {
             return null;
 		}
 		let timeStr=detailData.useTime.split(')');
-
-		console.log('timeStr',timeStr)
         let location = "detail-right"
         if(offset == 'left'){
             location = "detail-left";

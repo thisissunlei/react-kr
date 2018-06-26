@@ -41,7 +41,6 @@ export default class Introduction extends React.Component {
 			let {inData} = _this.state; 
 			
 			if($(this).attr("data-id") == data.orderNo){
-				console.log(event.target, "pppppp")
 				let scollTop = $("body").scrollTop();
 				let num = $(this).index();
 				let pagex = event.pageX;
@@ -138,7 +137,6 @@ export default class Introduction extends React.Component {
 			start:timeType[timeArr[0]],
 			end:timeType[timeArr[len-1]]
 		}
-		console.log('timeObj',timeObj)
 		return timeObj;
 	}
     render(){
@@ -162,7 +160,8 @@ export default class Introduction extends React.Component {
             <div className="reservation-introduction" style = {{width:detailWidth,left:left}} onClick = {this.onClick}> 
 				
 				<div>{data.userName}</div>
-				<div>{data.companyName}</div>
+				{data.orderSource=='APP_MEETING'?<div>{data.companyName}</div>:''}
+				{data.orderSource=='KRM_MEETING'?<div>{data.phone}</div>:''}
 				<div>{orderSource}</div>
 				<div data-id = {data.orderNo}  className = "reservation-introduction-mask"></div>
 				
