@@ -126,23 +126,28 @@ export default class Timeline extends React.Component {
    
     openDetail = (coordinates,location,dataItem) =>{ 
         const {data} = this.props;   
-        let detailData = '';
+        let detailData = {};
+        var _this=this;
         $("body").css("overflow","hidden");
         if(!data){
             return null;
         }
-        // data.orderList &&  data.orderList.map(function(item,index){
-        //     if(item.id == id){
-        //         detailData = item;
-        //     }
-        // })
+        let form =Object.assign({},dataItem);
+       
+        Http.request("get-krmting-room-stock-info",form).then(function(response) {
+			
+            _this.setState({
+                coordinates,
+                openDetail:true,
+                location,
+                detailData:response
+            })
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
         
-        this.setState({
-            coordinates,
-            openDetail:true,
-            location,
-            detailData
-        })
+        
+       
     }
     closeDetail = () =>{
          $("body").css("overflow","scroll");

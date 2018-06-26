@@ -1104,7 +1104,7 @@ module.exports = {
     },
     //社区运营--社区运营--会议室--根据订单id来源查询订单详情
     'get-krmting-room-stock-info': {
-        url: '/api/krspace-op-web/krmting/room/stock/info?orderNo={orderNo}&floor={floor}&orderSource={orderSource}',
+        url: '/api/krspace-op-web/krmting/room/stock/info?orderNo={orderNo}&orderSource={orderSource}',
         method: 'get'
     },
 }
