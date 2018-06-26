@@ -35,10 +35,10 @@ module.exports = [
                 menuItems: [
                     
                     {
-                        primaryText: "数据监控",
+                        primaryText: "订单数据监控",
                         originUrl: '/management-tool/data-monitoring',
                         type: 'vue',
-                        menuCode: 'pm_manage_list',
+                        menuCode: 'order_validate_list',
                     },
                 ]
             }
