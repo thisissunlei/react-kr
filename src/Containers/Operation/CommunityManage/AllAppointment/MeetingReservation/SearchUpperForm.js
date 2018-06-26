@@ -32,7 +32,7 @@ class MeetingReservationFrom extends React.Component {
 			options:[],
 			searchParams:{
 				cmtId:'',
-				meetingDate:DateFormat(new Date(),"yyyy-mm-dd hh:MM:ss"),
+				meetingDate:DateFormat(new Date(),"yyyy-mm-dd"),
 				floor:'',
 
 			},

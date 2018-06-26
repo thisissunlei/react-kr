@@ -45,7 +45,7 @@ export default class MeetingReservation extends React.Component {
 			data : '',
 			searchParams:{
 				cmtId:"",
-				meetingDate:DateFormat(new Date(),"yyyy-mm-dd hh:MM:ss"),
+				meetingDate:DateFormat(new Date(),"yyyy-mm-dd"),
 				floor:"",
 				page:1,
 				pageSize:4
@@ -76,10 +76,7 @@ export default class MeetingReservation extends React.Component {
 			return null;
 		}
 		let elems = data.map(function(item,index){
-				console.log('data----->>>>',data)
-			// if(_this.hourFormat(item.orderEndTime).h==0){
-			// 	item.orderEndTime=item.orderEndTime-1
-			// }
+			
 			return <Timeline 
 						key = {index}
 						data = {item}

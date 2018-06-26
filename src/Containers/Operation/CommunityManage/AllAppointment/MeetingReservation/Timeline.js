@@ -91,11 +91,11 @@ export default class Timeline extends React.Component {
         let _this = this;
         const {data} = this.props;
         const {startTime,endTime,coordinates,openDetail,location,width}=this.state;
-        if(!data.appointments){
+        if(!data.orderList){
             return null;
         }
 
-        let elems =  data.appointments.map(function(item,index){
+        let elems =  data.orderList.map(function(item,index){
             let inData = Object.assign({}, item);
            
            
@@ -131,7 +131,7 @@ export default class Timeline extends React.Component {
         if(!data){
             return null;
         }
-        data.appointment &&  data.appointments.map(function(item,index){
+        data.orderList &&  data.orderList.map(function(item,index){
             if(item.id == id){
                 detailData = item;
             }
@@ -159,10 +159,6 @@ export default class Timeline extends React.Component {
         //const {startTime,endTime,coordinates,openDetail,location,detailData,width} = this.state;
         const {coordinates,openDetail,location,detailData,width} = this.state;
         const {data} = this.props;
-        // if(endTime.h==23 && endTime.m == 59){
-        //     endTime.h=24
-        // }
-        //let len = endTime.h - startTime.h;
         let len=23;
         let inWidth = width*len+1;
         
