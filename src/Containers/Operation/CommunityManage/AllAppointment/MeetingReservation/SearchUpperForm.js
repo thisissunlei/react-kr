@@ -31,8 +31,8 @@ class MeetingReservationFrom extends React.Component {
 		this.state={
 			options:[],
 			searchParams:{
-				communityId:'',
-				time:DateFormat(new Date(),"yyyy-mm-dd hh:MM:ss"),
+				cmtId:'',
+				meetingDate:DateFormat(new Date(),"yyyy-mm-dd hh:MM:ss"),
 				floor:'',
 
 			},
@@ -71,8 +71,8 @@ class MeetingReservationFrom extends React.Component {
 		}
 		this.setState({
 			searchParams:{
-				communityId:searchParams.communityId,
-				time:data,
+				cmtId:searchParams.cmtId,
+				meetingDate:data,
 				floor:searchParams.floor,
 			}
 		},function(){
@@ -88,8 +88,8 @@ class MeetingReservationFrom extends React.Component {
 			this.setState({
 				options,
 				searchParams:{
-					communityId:"",
-					time:searchParams.time,
+					cmtId:"",
+					meetingDate:searchParams.meetingDate,
 					floor:searchParams.floor,
 				}
 			},function(){
@@ -106,8 +106,8 @@ class MeetingReservationFrom extends React.Component {
 			_this.setState({
 				options,
 				searchParams:{
-					communityId:data.value,
-					time:searchParams.time,
+					cmtId:data.value,
+					meetingDate:searchParams.meetingDate,
 					floor:searchParams.floor,
 				}
 			},function(){
@@ -125,8 +125,8 @@ class MeetingReservationFrom extends React.Component {
 		}
 		this.setState({
 			searchParams:{
-				communityId:searchParams.communityId,
-				time:searchParams.time,
+				cmtId:searchParams.cmtId,
+				meetingDate:searchParams.meetingDate,
 				floor:data.value,
 			}
 		},function(){
