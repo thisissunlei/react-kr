@@ -28,6 +28,28 @@ export default class Detail extends React.Component {
 		const {mtDelete,detailData} = this.props;
 		mtDelete && mtDelete(detailData);
 	}
+	renderPhoneOrCompany=(detailData)=>{
+		if(detailData.orderSource=='APP_MEETING'){
+			return(
+				<div className = "place">
+					<span style = {{display:"inline-block",width:80}}>所属公司:</span>
+					<div>
+						<p>{detailData.companyName}</p>
+					</div>
+				</div>
+			)
+		}else if(detailData.orderSource=='KRM_MEETING'){
+			return(
+				<div className = "place">
+					<span style = {{display:"inline-block",width:80}}>联系电话:</span>
+					<div>
+						<p>{detailData.phone}</p>
+					</div>
+				</div>
+			)
+		}
+
+	}
 
     render(){
         let {open,coordinates,offset,detailData,metting} = this.props;
@@ -104,12 +126,9 @@ export default class Detail extends React.Component {
 							<p>{detailData.userName}</p>
 						</div>
 					</div>
-					<div className = "place">
-						<span style = {{display:"inline-block",width:80}}>所属公司:</span>
-						<div>
-							<p>{detailData.companyName}</p>
-						</div>
-					</div>
+					{
+						this.renderPhoneOrCompany(detailData)
+					}
 					<div className = "place">
 						<span style = {{display:"inline-block",width:80}}>参会人:</span>
 						<div>
