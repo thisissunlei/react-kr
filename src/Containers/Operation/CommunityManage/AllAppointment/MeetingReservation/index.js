@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {initialize} from 'redux-form';
 
@@ -44,8 +43,8 @@ export default class MeetingReservation extends React.Component {
 		this.state = {
 			data : '',
 			searchParams:{
-				cmtId:"",
-				meetingDate:DateFormat(new Date(),"yyyy-mm-dd"),
+				communityId:"",
+				date:DateFormat(new Date(),"yyyy-mm-dd hh:MM:ss"),
 				floor:"",
 				page:1,
 				pageSize:4
@@ -76,7 +75,10 @@ export default class MeetingReservation extends React.Component {
 			return null;
 		}
 		let elems = data.map(function(item,index){
-			
+				
+			if(_this.hourFormat(item.orderEndTime).h==0){
+				item.orderEndTime=item.orderEndTime-1
+			}
 			return <Timeline 
 						key = {index}
 						data = {item}
@@ -93,8 +95,8 @@ export default class MeetingReservation extends React.Component {
 		
 		 this.setState({
 			 searchParams:{
-				cmtId:searchParams.cmtId,
-				meetingDate:searchParams.meetingDate,
+				communityId:searchParams.communityId,
+				date:searchParams.date,
 				floor:searchParams.floor,
 				page:page,
 				pageSize:searchParams.pageSize
@@ -109,8 +111,8 @@ export default class MeetingReservation extends React.Component {
 		let _this = this;
 		this.setState({
 			searchParams:{
-				cmtId:params.cmtId,
-				meetingDate:params.meetingDate,
+				communityId:params.communityId,
+				date:params.time,
 				floor:params.floor,
 				page:searchParams.page,
 				pageSize:searchParams.pageSize
@@ -129,9 +131,7 @@ export default class MeetingReservation extends React.Component {
 		this.setState({
 			isRefreshList:true,
 		})
-		//
-		//meeting-reservation
-		Http.request("get-krmting-room-stock-list",data).then(function(response) {
+		Http.request("meeting-reservation",data).then(function(response) {
 			
 			_this.setState({
 				data:response.items,
