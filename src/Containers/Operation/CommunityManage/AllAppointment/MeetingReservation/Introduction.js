@@ -147,8 +147,8 @@ export default class Introduction extends React.Component {
 			return null;
 		}
 		let sourceType={
-			'APP_MEETING':'App预定',
-			'KRM_MEETING':'krmeeting预定'
+			'APP_MEETING':'App预订',
+			'KRM_MEETING':'krmeeting预订'
 		}
 		let orderSource=sourceType[data.orderSource];
 		let detailWidth = width*periodTime/2;

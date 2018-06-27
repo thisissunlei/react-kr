@@ -54,8 +54,8 @@ export default class Detail extends React.Component {
         let {open,coordinates,offset,detailData,metting} = this.props;
 		let showDelete = true;
 		let sourceType={
-			'APP_MEETING':'App预定',
-			'KRM_MEETING':'krmeeting预定'
+			'APP_MEETING':'App预订',
+			'KRM_MEETING':'krmeeting预订'
 		}
 		let orderSource=sourceType[detailData.orderSource];
 		
