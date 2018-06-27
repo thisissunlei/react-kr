@@ -22,10 +22,10 @@ import SmartHardware from './SmartHardware';
 import ConfigNav from './ConfigNav';
 import ObjectSetting from './ObjectSetting';
 import DevTool from './DevTool';
+console.log(DevTool,"--------")
 
-
-const NavItems = [].concat(HomeNav, ObjectSetting, OperationNav, UserNav, ProductNav, OrderNav, FinanceNav, SmartHardware, ConfigNav,DevTool);
-
+const NavItems = [].concat(HomeNav, ObjectSetting, OperationNav, UserNav, ProductNav, OrderNav, FinanceNav, SmartHardware, ConfigNav, DevTool);
+console.log([].concat(NavItems),"llllll")
 module.exports = {
     current_parent: '',
     current_child: '',
