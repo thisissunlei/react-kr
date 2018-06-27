@@ -44,8 +44,8 @@ export default class MeetingReservation extends React.Component {
 		this.state = {
 			data : '',
 			searchParams:{
-				communityId:"",
-				date:DateFormat(new Date(),"yyyy-mm-dd hh:MM:ss"),
+				cmtId:"",
+				meetingDate:DateFormat(new Date(),"yyyy-mm-dd"),
 				floor:"",
 				page:1,
 				pageSize:4
@@ -76,10 +76,7 @@ export default class MeetingReservation extends React.Component {
 			return null;
 		}
 		let elems = data.map(function(item,index){
-				
-			if(_this.hourFormat(item.orderEndTime).h==0){
-				item.orderEndTime=item.orderEndTime-1
-			}
+			
 			return <Timeline 
 						key = {index}
 						data = {item}
@@ -96,8 +93,8 @@ export default class MeetingReservation extends React.Component {
 		
 		 this.setState({
 			 searchParams:{
-				communityId:searchParams.communityId,
-				date:searchParams.date,
+				cmtId:searchParams.cmtId,
+				meetingDate:searchParams.meetingDate,
 				floor:searchParams.floor,
 				page:page,
 				pageSize:searchParams.pageSize
@@ -112,8 +109,8 @@ export default class MeetingReservation extends React.Component {
 		let _this = this;
 		this.setState({
 			searchParams:{
-				communityId:params.communityId,
-				date:params.time,
+				cmtId:params.cmtId,
+				meetingDate:params.meetingDate,
 				floor:params.floor,
 				page:searchParams.page,
 				pageSize:searchParams.pageSize
@@ -132,7 +129,9 @@ export default class MeetingReservation extends React.Component {
 		this.setState({
 			isRefreshList:true,
 		})
-		Http.request("meeting-reservation",data).then(function(response) {
+		//
+		//meeting-reservation
+		Http.request("get-krmting-room-stock-list",data).then(function(response) {
 			
 			_this.setState({
 				data:response.items,
