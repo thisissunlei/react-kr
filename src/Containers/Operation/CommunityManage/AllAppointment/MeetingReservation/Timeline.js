@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {initialize} from 'redux-form';
 
