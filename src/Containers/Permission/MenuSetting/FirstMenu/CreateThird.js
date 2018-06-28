@@ -27,6 +27,20 @@ class CreateThird extends React.Component {
         super(props, context);
         this.state={
             infoList:{},
+            projectTypeList: [
+              {
+                name: 'admin',
+                value: 'admin'
+              },
+              {
+                name: 'vue',
+                value: 'vue'
+              },
+              {
+                name: 'member',
+                value: 'member'
+              }
+            ]
         }
     }
     componentDidMount() {
@@ -77,7 +91,7 @@ class CreateThird extends React.Component {
                     requireLabel={true}
                     name="subLevelName"
                     value={infoList.subLevelName}
-                />  
+                />
                 <KrField
                     style={{width:310,paddingLeft:10}}
                     inline={true}
@@ -96,6 +110,21 @@ class CreateThird extends React.Component {
                     requireLabel={true}
                    
 				/>
+                <div>
+                    <KrField
+                        inline={true}
+                        name="sideFoldFlag"
+                        requireLabel={true}
+                        component="group"
+                        label="项目类型"
+                        style={{marginTop:10,marginLeft:14}}
+                    >
+                        <KrField name="projectType" label="admin" type="radio" value="admin" />
+                        <KrField name="sideFoldFlag" label="否" type="radio" value='0' />
+                        <KrField name="sideFoldFlag" label="否" type="radio" value='0' />
+                    </KrField>
+                </div>sss
+
                 <div>
                     <KrField 
                         inline={true} 

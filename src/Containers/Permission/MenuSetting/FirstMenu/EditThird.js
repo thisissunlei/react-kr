@@ -96,10 +96,10 @@ class EditThird extends React.Component {
             }
             //提交
 			var params = {
-				firstLevelId: form.firstLevelId,
-				name: form.name,
-				subLevelId: form.subLevelId,
-				threeLevelId: detail.id,
+          firstLevelId: form.firstLevelId,
+          name: form.name,
+          subLevelId: form.subLevelId,
+          threeLevelId: detail.id,
 			}
 			onSubmit && onSubmit(params);
     }
