@@ -159,39 +159,39 @@ class EditThird extends React.Component {
 				/>
 
                  <KrField
-                    name="path"
+                    name="url"
                     style={{width:300,marginLeft:14,marginTop:10}}
                     component="input"
                     label="路径"
                     inline={true}
                     requireLabel={true}
-                    value={detail.name}
+                   
 				/>
                 <div>
                     <KrField 
                         inline={true} 
-                        name="leader" 
+                        name="sideFoldFlag" 
                         requireLabel={true} 
                         component="group" 
                         label="是否侧栏折叠"
                         style={{marginTop:10,marginLeft:14}}
                     >
-                        <KrField name="leader" label="是" type="radio" value="1" />
-                        <KrField name="leader" label="否" type="radio" value='0' />
+                        <KrField name="sideFoldFlag" label="是" type="radio" value="1" />
+                        <KrField name="sideFoldFlag" label="否" type="radio" value='0' />
                     </KrField>
                 </div>
 
                 <div>
                     <KrField 
                         inline={true} 
-                        name="leader" 
+                        name="topFoldFlag" 
                         requireLabel={true} 
                         component="group" 
                         label="是否上栏折叠" 
                         style={{marginTop:10,marginLeft:14}}
                     >
-                        <KrField name="leader" label="是" type="radio" value="1" />
-                        <KrField name="leader" label="否" type="radio" value='0' />
+                        <KrField name="topFoldFlag" label="是" type="radio" value="1" />
+                        <KrField name="topFoldFlag" label="否" type="radio" value='0' />
                     </KrField>
                 </div>
                 
@@ -210,13 +210,13 @@ class EditThird extends React.Component {
                 </div>
                 <div>
                     <KrField
-                        name="path"
+                        name="remark"
                         style={{width:300,marginLeft:14}}
                         component="input"
                         label="备注"
                         inline={true}
                         requireLabel={true}
-                        value={detail.name}
+                      
                     />
                 </div>
                 <Row style={{marginTop:30,marginBottom:15}}>
