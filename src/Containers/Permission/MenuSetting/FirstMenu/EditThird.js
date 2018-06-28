@@ -94,6 +94,7 @@ class EditThird extends React.Component {
                 Message.errortimeout("请输入子模块名称");
                 return ;
             }
+            //提交
 			var params = {
 				firstLevelId: form.firstLevelId,
 				name: form.name,
