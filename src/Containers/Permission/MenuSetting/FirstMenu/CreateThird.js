@@ -70,15 +70,22 @@ class CreateThird extends React.Component {
             Message.errortimeout("请输入子模块名称");
             return ;
         }
+        const {name, url, projectType, sideFoldFlag, topFoldFlag, remark, showFlag} = form;
         var params = {
             subLevelId: detail.id,
-            name: form.name,
+            name,
+            url,
+            projectType,
+            sideFoldFlag,
+            topFoldFlag,
+            remark,
+            showFlag
         }
 		onSubmit && onSubmit(params);
     }
-    
     render() {
         const {handleSubmit,error} = this.props;
+        const {projectTypeList} = this.state;
         let infoList = this.state.infoList;
         return (
             <div>
@@ -113,20 +120,21 @@ class CreateThird extends React.Component {
                 <div>
                     <KrField
                         inline={true}
-                        name="sideFoldFlag"
+                        name="projectType"
                         requireLabel={true}
                         component="group"
                         label="项目类型"
                         style={{marginTop:10,marginLeft:14}}
                     >
-                        <KrField name="projectType" label="admin" type="radio" value="admin" />
-                        <KrField name="sideFoldFlag" label="否" type="radio" value='0' />
-                        <KrField name="sideFoldFlag" label="否" type="radio" value='0' />
+                    {
+                        projectTypeList.map((i,key) => (
+                            <KrField name="projectType" label={i.name} type="radio" value={i.value} />
+                        ))
+                    }
                     </KrField>
-                </div>sss
-
+                </div>
                 <div>
-                    <KrField 
+                    <KrField
                         inline={true} 
                         name="sideFoldFlag" 
                         requireLabel={true} 
@@ -156,14 +164,14 @@ class CreateThird extends React.Component {
                 <div>
                     <KrField 
                         inline={true} 
-                        name="leader" 
+                        name="showFlag"
                         requireLabel={true} 
                         component="group" 
                         label="是否展示" 
                         style={{marginTop:10,marginLeft:14}}
                     >
-                        <KrField name="leader" label="是" type="radio" value="1" />
-                        <KrField name="leader" label="否" type="radio" value='0' />
+                        <KrField name="showFlag" label="是" type="radio" value="1" />
+                        <KrField name="showFlag" label="否" type="radio" value='0' />
                     </KrField>
                 </div>
                 <div>

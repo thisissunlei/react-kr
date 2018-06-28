@@ -29,6 +29,20 @@ class EditThird extends React.Component {
             SecondSelect:[],
             FirstSelect:[],
             infoList:{},
+            projectTypeList: [
+              {
+                name: 'admin',
+                value: 'admin'
+              },
+              {
+                name: 'vue',
+                value: 'vue'
+              },
+              {
+                name: 'member',
+                value: 'member'
+              }
+            ]
         }
         this.getFirstData();
     }
@@ -39,11 +53,12 @@ class EditThird extends React.Component {
         Http.request('three-level-detail', {
                 threeLevelId: id
             },{}).then(function(response) {
-                infoList.subLevelId = response.subLevelId;
-                infoList.firstLevelId = response.firstLevelId;
-                infoList.name = response.name;
+                infoList = response;
+                // infoList.subLevelId = response.subLevelId;
+                // infoList.firstLevelId = response.firstLevelId;
+                // infoList.name = response.name;
                 _this.setState({
-                    infoList:infoList
+                    infoList
                 },function() {
                      _this.getSecondData();
                     Store.dispatch(initialize('EditThird',infoList));
@@ -94,12 +109,19 @@ class EditThird extends React.Component {
                 Message.errortimeout("请输入子模块名称");
                 return ;
             }
+            const {firstLevelId, name, subLevelId, url, projectType, sideFoldFlag, topFoldFlag, remark, showFlag} = form;
             //提交
 			var params = {
-          firstLevelId: form.firstLevelId,
-          name: form.name,
-          subLevelId: form.subLevelId,
+          firstLevelId,
+          name,
+          subLevelId,
           threeLevelId: detail.id,
+          url,
+          projectType,
+          sideFoldFlag,
+          topFoldFlag,
+          remark,
+          showFlag
 			}
 			onSubmit && onSubmit(params);
     }
@@ -122,7 +144,7 @@ class EditThird extends React.Component {
 	}
     render() {
         const {handleSubmit,detail,error} = this.props;
-        let {FirstSelect,SecondSelect} = this.state;
+        const {FirstSelect, SecondSelect, projectTypeList} = this.state;
         //console.log(detail);
         return (
 
@@ -169,6 +191,23 @@ class EditThird extends React.Component {
                    
 				/>
                 <div>
+                  <KrField
+                    inline={true}
+                    name="projectType"
+                    requireLabel={true}
+                    component="group"
+                    label="项目类型"
+                    style={{marginTop:10,marginLeft:14}}
+                  >
+                  {
+                    projectTypeList.map((i,key) => (
+                        <KrField name="projectType" label={i.name} type="radio" value={i.value} />
+                    ))
+                  }
+                  </KrField>
+                </div>
+
+                <div>
                     <KrField 
                         inline={true} 
                         name="sideFoldFlag" 
@@ -199,14 +238,14 @@ class EditThird extends React.Component {
                 <div>
                     <KrField 
                         inline={true} 
-                        name="leader" 
+                        name="showFlag"
                         requireLabel={true} 
                         component="group" 
                         label="是否展示" 
                         style={{marginTop:10,marginLeft:14}}
                     >
-                        <KrField name="leader" label="是" type="radio" value="1" />
-                        <KrField name="leader" label="否" type="radio" value='0' />
+                        <KrField name="showFlag" label="是" type="radio" value="1" />
+                        <KrField name="showFlag" label="否" type="radio" value='0' />
                     </KrField>
                 </div>
                 <div>
