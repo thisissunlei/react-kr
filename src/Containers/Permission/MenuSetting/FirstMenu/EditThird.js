@@ -109,7 +109,12 @@ class EditThird extends React.Component {
                 Message.errortimeout("请输入子模块名称");
                 return ;
             }
-            const {firstLevelId, name, subLevelId, url, projectType, sideFoldFlag, topFoldFlag, remark, showFlag} = form;
+            //todo: 待优化，策略模式
+            if (form.url === undefined || form.projectType === undefined || form.sideFoldFlag === undefined || form.topFoldFlag === undefined || form.showFlag === undefined) {
+              Message.errortimeout("请补充完必填信息");
+              return ;
+            }
+            const {firstLevelId, name, subLevelId, url, projectType, sideFoldFlag, topFoldFlag, descr, showFlag} = form;
             //提交
 			var params = {
           firstLevelId,
@@ -120,7 +125,7 @@ class EditThird extends React.Component {
           projectType,
           sideFoldFlag,
           topFoldFlag,
-          remark,
+          descr,
           showFlag
 			}
 			onSubmit && onSubmit(params);
@@ -201,7 +206,7 @@ class EditThird extends React.Component {
                   >
                   {
                     projectTypeList.map((i,key) => (
-                        <KrField name="projectType" label={i.name} type="radio" value={i.value} />
+                        <KrField name="projectType" label={i.name} type="radio" value={i.value} key={i.value}/>
                     ))
                   }
                   </KrField>
@@ -216,8 +221,8 @@ class EditThird extends React.Component {
                         label="是否侧栏折叠"
                         style={{marginTop:10,marginLeft:14}}
                     >
-                        <KrField name="sideFoldFlag" label="是" type="radio" value="1" />
-                        <KrField name="sideFoldFlag" label="否" type="radio" value='0' />
+                        <KrField name="sideFoldFlag" label="是" type="radio" value="YES" />
+                        <KrField name="sideFoldFlag" label="否" type="radio" value='NO' />
                     </KrField>
                 </div>
 
@@ -230,8 +235,8 @@ class EditThird extends React.Component {
                         label="是否上栏折叠" 
                         style={{marginTop:10,marginLeft:14}}
                     >
-                        <KrField name="topFoldFlag" label="是" type="radio" value="1" />
-                        <KrField name="topFoldFlag" label="否" type="radio" value='0' />
+                        <KrField name="topFoldFlag" label="是" type="radio" value="YES" />
+                        <KrField name="topFoldFlag" label="否" type="radio" value='NO' />
                     </KrField>
                 </div>
                 
@@ -244,18 +249,18 @@ class EditThird extends React.Component {
                         label="是否展示" 
                         style={{marginTop:10,marginLeft:14}}
                     >
-                        <KrField name="showFlag" label="是" type="radio" value="1" />
-                        <KrField name="showFlag" label="否" type="radio" value='0' />
+                        <KrField name="showFlag" label="是" type="radio" value="YES" />
+                        <KrField name="showFlag" label="否" type="radio" value='NO' />
                     </KrField>
                 </div>
                 <div>
                     <KrField
-                        name="remark"
+                        name="descr"
                         style={{width:300,marginLeft:14}}
                         component="input"
                         label="备注"
                         inline={true}
-                        requireLabel={true}
+                        requireLabel={false}
                       
                     />
                 </div>

@@ -79,6 +79,7 @@ class EditSecond extends React.Component {
 				firstLevelId: form.firstLevelId,
 				name: form.name,
 				subLevelId: detail.id,
+        iconUrl: form.icon
 			}
 			onSubmit && onSubmit(params);
     }
@@ -108,6 +109,14 @@ class EditSecond extends React.Component {
                         inline={true}
                         requireLabel={true}
 				/>
+                <KrField
+                    name="icon"
+                    style={{width:310,marginLeft:14}}
+                    component="input"
+                    label="图标名称"
+                    inline={true}
+                    requireLabel={false}
+                />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
       						<ButtonGroup>

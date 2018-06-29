@@ -303,7 +303,7 @@ export default class FirstMenu extends React.Component {
 			'border':'1px solid #e8e9e9',
 			'lineHeight':'35px'
 		}
-		console.log(this.state.editState,this.state.itemDetail);		
+		// console.log(this.state.editState,this.state.itemDetail);
 		return (
 			<div className="first-menu">
 				<div className="first-title-row">

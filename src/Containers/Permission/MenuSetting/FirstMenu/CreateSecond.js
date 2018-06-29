@@ -42,6 +42,7 @@ class CreateSecond extends React.Component {
         var params = {
             firstLevelId: detail.id,
             name: form.name,
+            iconUrl: form.icon
         }
 		onSubmit && onSubmit(params);
     }
@@ -60,6 +61,15 @@ class CreateSecond extends React.Component {
                     name="name"
                     placeholder="比如：运营平台"
                     requireLabel={true}
+                />
+                <KrField
+                    style={{width:310,paddingLeft:20}}
+                    inline={true}
+                    label="图标名称"
+                    component="input"
+                    name="icon"
+                    placeholder="图标名称"
+                    requireLabel={false}
                 />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">

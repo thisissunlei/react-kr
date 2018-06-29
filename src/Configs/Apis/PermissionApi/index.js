@@ -335,7 +335,7 @@ module.exports = {
     },
     //菜单配置--新建子模块
     'three-level-save':{
-            url: '/ben/krspace-sso-web/sso/module/three-level-save',
+            url: '/api/krspace-sso-web/sso/module/three-level-save',
             method: 'post'
     },
     //菜单配置--编辑子模块
@@ -656,4 +656,9 @@ module.exports = {
     url: '/api/krspace-sso-web/member/mobile-phone?phone={phone}',
     method: 'get'
    },
+  // 获取菜单目录
+  'get-menu-catalog': {
+    url: '/api/krspace-sso-web/sso/sysOwn/getUserMenu',
+    method: 'get'
+  }
 }
