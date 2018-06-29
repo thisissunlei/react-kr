@@ -38,6 +38,12 @@ module.exports = [
 						router: '/user/customerManage/customerList',
 						menuCode: 'oper_csr_base',
 					},
+					{
+						primaryText: '协助客户授权',
+						router: 'accredit',
+						type:'member',
+						menuCode: 'oper_csr_base'
+                    },
 				]	
 			}, 
 			{
