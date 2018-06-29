@@ -161,7 +161,7 @@ State.setPermissionNav = action(function (menusCode) {
 		var originUrl = '';
 		if(item.hasOwnProperty('menuItems') && item.menuItems[0].hasOwnProperty('menuItems')){
 			var childItem = item.menuItems[0].menuItems[0];
-
+		
 			if (item.menuCode == "oa" || item.menuCode == "pm_manage" || item.menuCode=="order" ||  item.menuCode=="bill"){
 				item.originUrl = childItem.originUrl;
 			}else{
