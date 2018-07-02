@@ -467,6 +467,7 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"开门记录",onClickFun:_this.toOpenLog},
 				{title:"故障报警",onClickFun:_this.toFailureWarning},
 				{title:"设置延迟锁门",onClickFun:_this.openDelayClose},
+				{title:"权限所有人",onClickFun:_this.openPowerOwner},
 			]
 		}else{
 
@@ -477,7 +478,9 @@ export default class SecondDoorManage  extends React.Component{
 				{title:"远程开门",onClickFun:_this.openDoorInline},
 				{title:"重置",onClickFun:_this.resetFirstEquipmentFun},
 				{title:"断开重连",onClickFun:_this.connectAgain},
-				{title:"开门记录",onClickFun:_this.toOpenLog}
+				{title:"开门记录",onClickFun:_this.toOpenLog},
+				{title:"权限所有人",onClickFun:_this.openPowerOwner},
+
 				
 			]
 		}
@@ -491,6 +494,9 @@ export default class SecondDoorManage  extends React.Component{
 
 	toFailureWarning=()=>{
 		window.open(`./#/smarthardware/doorManage/warning/${State.itemDetail.deviceId}`,'_blank');
+	}
+	openPowerOwner=()=>{
+		window.open(`../smarthardware/powerowner?id=${State.itemDetail.id}`,'_blank');
 	}
 
 
