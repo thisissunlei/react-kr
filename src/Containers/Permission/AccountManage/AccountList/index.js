@@ -354,6 +354,7 @@ class AccountList extends React.Component {
                             <TableHeaderColumn>姓名</TableHeaderColumn>
                             <TableHeaderColumn>手机号</TableHeaderColumn>
                             <TableHeaderColumn>电子邮箱</TableHeaderColumn>
+                            <TableHeaderColumn>人员角色</TableHeaderColumn>
                             <TableHeaderColumn>会员信息</TableHeaderColumn>
                             <TableHeaderColumn>操作</TableHeaderColumn>
                         </TableHeader>
@@ -367,6 +368,7 @@ class AccountList extends React.Component {
                                 <TableRowColumn name="name"></TableRowColumn>
                                 <TableRowColumn name="phone"></TableRowColumn>
                                 <TableRowColumn name="email"></TableRowColumn>
+                                <TableRowColumn name="roleTypeName"></TableRowColumn>
                                 <TableRowColumn name="uid" component={(value,oldValue,itemDetail)=>{
                                     if(value>0){
                                         return(

@@ -78,7 +78,7 @@ module.exports = {
     },
     //权限--账户列表--获取账户列表
     'getSsoUserList': {
-      url: '/api/krspace-sso-web/sso/ssoUser/getSsoUserList?accountName={accountName}&email={email}&mobilePhone={mobilePhone}&realName={realName}&page={page}&pageSize={pageSize}&accountStatus={accountStatus}',
+      url: '/api/krspace-erp-web/erp/ssoUser/list?accountName={accountName}&email={email}&mobilePhone={mobilePhone}&realName={realName}&page={page}&pageSize={pageSize}&accountStatus={accountStatus}',
       method: 'get'
     },
     //权限--账户列表--获取数据权限
