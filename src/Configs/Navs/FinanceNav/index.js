@@ -60,19 +60,19 @@ module.exports = [
                         primaryText: "财务端",
                         originUrl: '/bill/make-invoice',
                         type: 'vue',
-                        menuCode: 'pay_deal_flow_page'
+                        menuCode: 'invoice_finance'
                     },
                     {
                         primaryText: "运营端",
                         originUrl: '/inventory/make-invoice',
                         type: 'vue',
-                        menuCode: 'pay_deal_flow_page'
+                        menuCode: 'invoice_operation'
                     },
                     {
-                        primaryText: "发票资料",
+                        primaryText: "增票资质",
                         originUrl: '/bill/financial-invoice',
                         type: 'vue',
-                        menuCode: 'pay_deal_flow_page'
+                        menuCode: 'qualification'
                     },
                     ]
                 },
