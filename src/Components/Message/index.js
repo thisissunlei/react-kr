@@ -110,7 +110,7 @@ function commonTimeoutWarn() {
 
 function commonRender(messages, type, fn) {
 	var className = 'normal';
-	if (type == 'success') {
+	if (type == 'success'||type=='successClose') {
 		className = 'success';
 	} else if (type == 'error') {
 		className = 'error';
@@ -159,6 +159,10 @@ Message.show = function(messages) {
 Message.success = function(messages) {
 	commonRender(messages, 'success', commonTimeout);
 
+};
+
+Message.successClose = function(messages) {
+	commonRender(messages, 'successClose');
 };
 
 Message.error = function(messages) {
