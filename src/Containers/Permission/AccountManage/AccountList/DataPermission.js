@@ -118,37 +118,38 @@ export default class DataPermission extends React.Component{
 		item.communities.map((itemA, index) => {
 			checked.push(itemA.ownFlag);
 		})
-		if (checked.indexOf(0) == -1) {
-			item.flag = 1;
-		} else {
-			item.flag = 0;
-		}
+		// if (checked.indexOf(0) == -1) {
+		// 	item.flag = 1;
+		// } else {
+		// 	item.flag = 0;
+		// }
 		list[index] = item;
-		var allSelect = 0;
-		list.map((itemA,indexA)=>{
-			if(itemA.flag==1){
-				allSelect++;
-			}
-		})
-		if (allSelect==list.length) {
-			_this.setState({
-				outSelect:true,
-			})
-		}else{
-			_this.setState({
-				outSelect:false,
-			})
-		}
+		// var allSelect = 0;
+		// list.map((itemA,indexA)=>{
+		// 	if(itemA.flag==1){
+		// 		allSelect++;
+		// 	}
+		// })
+		// if (allSelect==list.length) {
+		// 	_this.setState({
+		// 		outSelect:true,
+		// 	})
+		// }else{
+		// 	_this.setState({
+		// 		outSelect:false,
+		// 	})
+		// }
 		_this.setState({
 			cityList:list,
 		})
 	}
 	renderData=(item,index)=>{
+		let {outSelect}=this.state;
 		return (
 			<div key={index}>
 				<div style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333',marginBottom:8}}>
 						<div style={{color:'#333',fontWeight:500,fontSize:14}}>{item.name}</div>
-						<Checkbox label="全部" style={{color:'#333',display:'inline-block'}} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item,index)}/>
+						<Checkbox label="全部" style={{color:'#333',display:'inline-block'}} readOnly={outSelect?true:false} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item,index)}/>
 						{item.communities.map((itemC,indexC)=>{return (
 								<div style={{display:'inline-block',lineHeight:'32px'}} key={indexC}>
 									<Checkbox
