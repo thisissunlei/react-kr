@@ -85,21 +85,21 @@ export default class DataPermission extends React.Component{
 			})
 		}
 		list[index] = item;
-		var allSelect = 0;
-		list.map((itemA,indexA)=>{
-			if(itemA.flag==1){
-				allSelect++;
-			}
-		})
-		if (allSelect==list.length) {
-			_this.setState({
-				outSelect:true,
-			})
-		}else{
-			_this.setState({
-				outSelect:false,
-			})
-		}
+		// var allSelect = 0;
+		// list.map((itemA,indexA)=>{
+		// 	if(itemA.flag==1){
+		// 		allSelect++;
+		// 	}
+		// })
+		// if (allSelect==list.length) {
+		// 	_this.setState({
+		// 		outSelect:true,
+		// 	})
+		// }else{
+		// 	_this.setState({
+		// 		outSelect:false,
+		// 	})
+		// }
 		_this.setState({
 			cityList:list,
 		})
@@ -168,20 +168,43 @@ export default class DataPermission extends React.Component{
 		);
 	}
 	onSubmit = () => {
-		let {cityList} = this.state;
+		let {cityList,outSelect} = this.state;
 		const {detail,onSubmit} = this.props;
 		var idList = [];
+		var cityRender=[];
+		var someCityRender=[];
 		cityList.map((item, index) => {
 			item.communities.map((itemC,indexC)=>{
 				if(itemC.ownFlag==1){
 					idList.push(itemC.communityId);
 				}
 			})
+			cityRender.push(item.id);
+			if(item.flag){
+				someCityRender.push(item.id);
+			}
 		})
-		Http.request('editUserCommunity',{},{
-			id:detail.id,
-			communityIds:idList
-		}).then(function(response) {
+		let params={};
+		if(outSelect){
+			params={
+				id:detail.id,
+				communityIds:'',
+				cityId:cityRender	
+			}
+		}else if(someCityRender.length){
+			params={
+				id:detail.id,
+				communityIds:idList,
+				cityId:someCityRender	
+			}
+		}else{
+			params={
+				id:detail.id,
+				communityIds:idList,
+				cityId:''	
+			}
+		}
+		Http.request('editUserCommunity',{},params).then(function(response) {
 				Message.success('修改成功')
 				onSubmit();
 		}).catch(function(err) {
