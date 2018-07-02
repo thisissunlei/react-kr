@@ -20,9 +20,13 @@ class NewCreateDefinitionForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.state={
-			
+			selfReader : ''
 			
 		}
+	}
+
+	componentDidMount(){
+		this.getSelfReaderId();
 	}
 
 	
@@ -31,25 +35,45 @@ class NewCreateDefinitionForm extends React.Component{
 		onCancel && onCancel();
 	}
 
-  	
+	getSelfReaderId =()=>{
+		
+		let _this =this;
+		Http.request('getSelfReaderSerialNo',{}).then(function(response) {
+			
+			_this.setState({
+				selfReader : response.serialNo
+			});
+
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	}
+
 	
 
-	// 新增设备定义
+	// 新增打印机
 	onSubmit=(values)=>{
 		let _this = this;
-
-		
-	 	State.newCreatePrinter(values);
-
-		
+		let {selfReader}= this.state;
+		var NewObj = Object.assign({},values,{selfReader:selfReader});
+	 	State.newCreatePrinter(NewObj);
 		
 	}
 	render(){
 		
 		const { error, handleSubmit, reset} = this.props;
+		let {selfReader} = this.state;
 		return(
-			<div style={{padding:'20px 0 0 55px'}}>
+			<div style={{padding:'5px 0 0 45px'}}>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
+					<KrField
+						style={{width:"100%",marginBottom:15}}
+						name="selfReader"
+						inline={true}
+						component="labelText"
+						label="自研读卡器序列号："
+						value={selfReader}
+					/>
 					<KrField grid={1/2} name="printerName" 
 						type="text" 
 						label="打印机名称" 

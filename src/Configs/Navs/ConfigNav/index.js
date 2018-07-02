@@ -191,7 +191,12 @@ module.exports = [
 						type: 'vue',
 						originUrl: '/ops'
 					},
-
+					{
+						primaryText: '项目管理权限',
+						menuCode: 'pm_manage_role',
+						type: 'vue',
+						originUrl: '/nav-config'
+					}
 				]
 			},
 			{

@@ -266,7 +266,7 @@ module.exports = {
 
      //编辑提交
    'editPrinter': {
-      url: '/api/iot-platform/printer/actions/edit?alias={alias}&communityId={communityId}&id={id}&location={location}&printerName={printerName}&readerName={readerName}&serialNo={serialNo}',
+      url: '/api/iot-platform/printer/actions/edit?alias={alias}&communityId={communityId}&id={id}&location={location}&printerName={printerName}&readerName={readerName}&serialNo={serialNo}&selfReader={selfReader}',
       method: 'put'
    },
 
@@ -564,6 +564,18 @@ module.exports = {
       'getspacelistapi':{
         url : '/api/iot-platform/space/select-items?communityId={communityId}&floor={floor}&name={name}',
         method : 'get'
+      },
+
+      //获取自研设备序列号
+      'getSelfReaderSerialNo':{
+        url : '/api/iot-platform/ic-reader/serial-no',
+        method : 'get'
+      },
+
+      //设置延迟锁门时间
+      'setDelayCloseTime':{
+        url : '/api/iot-platform/door-device/admin/actions/set-door-delay-time',
+        method : 'post'
       },
 
 

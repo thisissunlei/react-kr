@@ -321,7 +321,7 @@ class EditForm extends React.Component{
 					<KrField name="spaceId" grid={1/2}
 						component="select" 
 						options={locationOptions}
-						label="房间"
+						label="空间名称"
 						onChange = {this.onchooseCorrespondingLocation}  
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 					/>

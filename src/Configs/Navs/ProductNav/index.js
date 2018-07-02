@@ -31,6 +31,12 @@ module.exports = [
 						router: '/product/communityAllocation/communityStation'
 					},
 					{
+                        primaryText: "商品库",
+                        originUrl: '/inventory/goods-library',
+                        type: 'vue',
+                        menuCode: 'goods_list',
+					},
+					{
 						primaryText: '平面图配置',
 						menuCode: 'oper_cmt_graph_base',
 						otherRouter:['/communityPlanMap'],
@@ -85,12 +91,19 @@ module.exports = [
 					// 	primaryText: '库存平面图',
 					// 	menuCode: 'cmt_run',
 					// 	router: '/product/communityManage/detail',
-					// },			
+					// },
+					{
+						primaryText: '会议室',
+						originUrl: '/product/meeting',
+						type: 'vue',
+						menuCode: 'meeting_room_goods',
+					},			
 					{
 						primaryText: '会议室设备配置',
 		                menuCode: 'oper_cmt_deviceList_base',
 		                router: '/product/communityAllocation/equipmentList'
 					},
+
 					
 				]	
 			}, 

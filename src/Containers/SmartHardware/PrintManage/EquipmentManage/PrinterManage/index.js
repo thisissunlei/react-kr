@@ -207,8 +207,8 @@ export default class PrinterManage  extends React.Component{
 			              	<TableHeaderColumn>打印机别名</TableHeaderColumn>
 				            <TableHeaderColumn>所在社区</TableHeaderColumn>
 				            <TableHeaderColumn>位置</TableHeaderColumn>
-				            <TableHeaderColumn>读卡器名称</TableHeaderColumn>
-			              	<TableHeaderColumn>序列号</TableHeaderColumn>
+				            <TableHeaderColumn>自研读卡器序列号</TableHeaderColumn>
+			              	<TableHeaderColumn>打印机序列号</TableHeaderColumn>
 			                <TableHeaderColumn>操作</TableHeaderColumn>
 			          	</TableHeader>
 			          	<TableBody >
@@ -238,7 +238,7 @@ export default class PrinterManage  extends React.Component{
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
 								
-								<TableRowColumn name="readerName" 
+								<TableRowColumn name="selfReader" 
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
