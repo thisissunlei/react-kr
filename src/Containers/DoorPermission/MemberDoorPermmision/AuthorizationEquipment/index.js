@@ -146,7 +146,6 @@ export default class CanOperationEquipment extends React.Component {
         this.setState({
             getMemberAuthorizeEquipmentParams : params
         })
-        console.log("param",param)
         if(param && param==true){
             this.openNewCreateAuthoriazationFun();
         }
@@ -243,7 +242,7 @@ export default class CanOperationEquipment extends React.Component {
 
 
 	render() {
-        let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage} = this.props;
+        let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage,deviceId} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail,selectedListData,ids} = this.state;
         return (
 		    <div className="new-create-authoriazation">
@@ -254,7 +253,7 @@ export default class CanOperationEquipment extends React.Component {
                         </div>
                     }
                    
-                    <SearchForm submitSearchParams={this.submitSearchParams} doorTypeOptions={doorTypeOptions}/>
+                    <SearchForm submitSearchParams={this.submitSearchParams} doorTypeOptions={doorTypeOptions} deviceId={deviceId}/>
                     {
                         granteeId &&
                     <Table

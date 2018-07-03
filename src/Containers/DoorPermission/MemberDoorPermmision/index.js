@@ -41,6 +41,7 @@ export default class MemberDoorPermissionManage extends React.Component {
 	
 
 	componentDidMount(){
+		
         this.getDicOptions();
         this.getMemberDetail();
 	}
@@ -71,6 +72,7 @@ export default class MemberDoorPermissionManage extends React.Component {
 	}
 
     getMemberDetail=()=>{
+		
         let memberId=this.props.params.memberId;
         let that = this;       
         Http.request('get-member-detail',{uid:memberId}).then(function(response) {
@@ -90,7 +92,7 @@ export default class MemberDoorPermissionManage extends React.Component {
             memberDetailInfo,doorTypeOptions,memberId
 		} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
-
+		var deviceIdParam = this.props.location.query.deviceId;
 		
 		return (
 		    <div className="member-door-permmision personsal-door-permmision" >
@@ -103,7 +105,7 @@ export default class MemberDoorPermissionManage extends React.Component {
 				   		<BelongOfDoorGroupList memberDetailInfo={memberDetailInfo} doorTypeOptions={doorTypeOptions} memberId={memberId}/>
                     </div>
 					<div className="personal-permmision-item">
-						<AuthoriazationEquipmentBox memberDetailInfo={memberDetailInfo} granteeId={memberId} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
+						<AuthoriazationEquipmentBox deviceId={deviceIdParam} memberDetailInfo={memberDetailInfo} granteeId={memberId} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
 					</div>
 					
 			</div>
