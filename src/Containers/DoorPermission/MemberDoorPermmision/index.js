@@ -43,8 +43,28 @@ export default class MemberDoorPermissionManage extends React.Component {
 	componentDidMount(){
 		
         this.getDicOptions();
-        this.getMemberDetail();
+		this.getMemberDetail();
+		
+
 	}
+
+	windowScroll=()=>{
+		
+		var derivedFromGroup = this.props.location.query.derivedFromGroup;
+		if(derivedFromGroup){
+			var detailInfoHeight = document.getElementsByClassName("person-info")[0].scrollHeight;
+			var belongDeviceHeight = document.getElementsByClassName("belong-of-equipment")[0].scrollHeight;
+			var totalHeight = detailInfoHeight + belongDeviceHeight +100;
+
+			window.setTimeout(function(){
+				window.scrollTo(0,totalHeight)
+			},300)
+			
+		}
+
+	}
+
+
 	
 	getDicOptions=()=>{
 		let _this =this;
@@ -78,7 +98,9 @@ export default class MemberDoorPermissionManage extends React.Component {
         Http.request('get-member-detail',{uid:memberId}).then(function(response) {
             that.setState({
                 memberDetailInfo : response
-            })
+            },function(){
+				that.windowScroll();
+			})
             
         }).catch(function(err) {
             Message.error(err.message);
@@ -94,18 +116,19 @@ export default class MemberDoorPermissionManage extends React.Component {
 		let groupLevelOptions = State.groupLevelOptions;
 		var deviceIdParam = this.props.location.query.deviceId;
 		
+		
 		return (
 		    <div className="member-door-permmision personsal-door-permmision" >
 				<Title value="个人门禁权限"/>
 
-					<div className="personal-permmision-item">
+					<div className="personal-permmision-item person-info">
                     	<MemberInfo memberDetailInfo={memberDetailInfo}/>
 					</div>
-					<div className="personal-permmision-item">
+					<div className="personal-permmision-item belong-of-equipment">
 				   		<BelongOfDoorGroupList memberDetailInfo={memberDetailInfo} doorTypeOptions={doorTypeOptions} memberId={memberId}/>
                     </div>
 					<div className="personal-permmision-item">
-						<AuthoriazationEquipmentBox deviceId={deviceIdParam} memberDetailInfo={memberDetailInfo} granteeId={memberId} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
+						<AuthoriazationEquipmentBox deviceId={deviceIdParam}  memberDetailInfo={memberDetailInfo} granteeId={memberId} doorTypeOptions={doorTypeOptions} granteeType="USER"/> 
 					</div>
 					
 			</div>
