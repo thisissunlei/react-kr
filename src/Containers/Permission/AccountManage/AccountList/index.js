@@ -299,7 +299,11 @@ class AccountList extends React.Component {
             Message.error(err.message);
         });
     }
-
+    
+    goDetail(item){
+        window.open(`./#/oa/${item.id}/peopleDetail`,'_blank');
+    }
+    
     render() {
         let {searchParams,itemDetail} = this.state;
         var logFlag = '';
@@ -368,7 +372,13 @@ class AccountList extends React.Component {
                                 <TableRowColumn name="name"></TableRowColumn>
                                 <TableRowColumn name="phone"></TableRowColumn>
                                 <TableRowColumn name="email"></TableRowColumn>
-                                <TableRowColumn name="roleTypeName"></TableRowColumn>
+                                <TableRowColumn name="roleTypeName" component={(value,oldValue,itemDetail)=>{
+                                        return <span style = {{cursor:"pointer"}} 
+                                        onClick = {()=>{
+                                            this.goDetail(itemDetail)
+                                        }}
+                                    >{value}</span>;
+                                }}></TableRowColumn>
                                 <TableRowColumn name="uid" component={(value,oldValue,itemDetail)=>{
                                     if(value>0){
                                         return(
