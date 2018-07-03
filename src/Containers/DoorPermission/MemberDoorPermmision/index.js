@@ -51,7 +51,8 @@ export default class MemberDoorPermissionManage extends React.Component {
 	windowScroll=()=>{
 		
 		var derivedFromGroup = this.props.location.query.derivedFromGroup;
-		if(derivedFromGroup){
+		console.log("derivedFromGroup",derivedFromGroup)
+		if(derivedFromGroup=="false"){
 			var detailInfoHeight = document.getElementsByClassName("person-info")[0].scrollHeight;
 			var belongDeviceHeight = document.getElementsByClassName("belong-of-equipment")[0].scrollHeight;
 			var totalHeight = detailInfoHeight + belongDeviceHeight +100;
@@ -114,8 +115,13 @@ export default class MemberDoorPermissionManage extends React.Component {
             memberDetailInfo,doorTypeOptions,memberId
 		} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
-		var deviceIdParam = this.props.location.query.deviceId;
-		
+		var deviceIdParam;
+		var derivedFromGroup = this.props.location.query.derivedFromGroup;
+		if(derivedFromGroup=="true"){
+			deviceIdParam = '';
+		}else{
+			deviceIdParam = this.props.location.query.deviceId;
+		}
 		
 		return (
 		    <div className="member-door-permmision personsal-door-permmision" >
