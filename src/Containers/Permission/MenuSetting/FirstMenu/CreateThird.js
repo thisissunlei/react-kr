@@ -90,7 +90,7 @@ class CreateThird extends React.Component {
             projectType,
             sideFoldFlag,
             topFoldFlag,
-            descr,
+            descr: descr || '',
             showFlag
         }
 		onSubmit && onSubmit(params);
