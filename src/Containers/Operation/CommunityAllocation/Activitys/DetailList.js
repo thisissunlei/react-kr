@@ -63,7 +63,7 @@ export default class DetailList extends React.Component {
 						<div className="title-text">报名列表</div>
 						<div className="u-create-close" onClick={this.onCancel}></div>
 				</div>
-				<div className="m-activity-list">
+				<div className="m-activity-list" > 
 					<Table
 							  style={{marginTop:10}}
 			                  ajax={true}
@@ -75,6 +75,8 @@ export default class DetailList extends React.Component {
 					              <TableHeaderColumn>姓名</TableHeaderColumn>
 					              <TableHeaderColumn>电话</TableHeaderColumn>
 					              <TableHeaderColumn>公司</TableHeaderColumn>
+					              <TableHeaderColumn>社区</TableHeaderColumn>
+					              <TableHeaderColumn>职位</TableHeaderColumn>
 					              <TableHeaderColumn>报名时间</TableHeaderColumn>
 					          	</TableHeader>
 
@@ -91,13 +93,36 @@ export default class DetailList extends React.Component {
 					                            }else{
 					                              TooltipStyle="block";
 					                            }
-					                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+					                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:80,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
 					                            <Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
 					                      }}></TableRowColumn>
+						              	<TableRowColumn name="communityName" ></TableRowColumn>
+										  <TableRowColumn name="job" 
+												component={(value,oldValue)=>{
+													var TooltipStyle=""
+													if(value.length==""){
+													TooltipStyle="none";
+
+													}else{
+													TooltipStyle="block";
+													}
+													return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:80,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+													<Tooltip offsetTop={8} place='top'>{value}</Tooltip></div>)
+											}} ></TableRowColumn>
 						                <TableRowColumn 
 						                	name="ctime" 
 						                	component={(value) => {
-						                          return (<KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/>)
+												var TooltipStyle=""
+					                            if(value.length==""){
+					                              TooltipStyle="none";
+					                            }else{
+					                              TooltipStyle="block";
+					                            }
+						                          return (
+													<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:80,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}> <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/></span>
+													<Tooltip offsetTop={8} place='top'> <KrDate value={value} format="yyyy-mm-dd hh:MM:ss"/></Tooltip></div>
+												 
+												)
 						                    }}
 						                ></TableRowColumn>
 						               
