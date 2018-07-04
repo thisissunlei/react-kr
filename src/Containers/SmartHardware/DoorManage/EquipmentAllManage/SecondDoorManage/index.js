@@ -26,7 +26,6 @@ import {
 	inject
 } from 'mobx-react';
 
-import EquipmentDetail from './EquipmentDetail';
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
 import EquipmentFind from './EquipmentFind';
@@ -35,8 +34,6 @@ import UpgradeForm from './UpgradeForm';
 import EquipmentCache from './EquipmentCache';
 import PsdList from './PsdList';
 import PasswordCode from './PasswordCode';
-// import BtnBox from './BtnBox';
-import EquipmentFirstDetail from './EquipmentFirstDetail';
 import HttpTokenDialog from './HttpTokenDialog';
 import EditSerialNoForm from './EditSerialNoForm';
 import DelayClose from './DelayClose';
@@ -87,28 +84,11 @@ export default class SecondDoorManage  extends React.Component{
 	}
 	seeDetailInfoFun=(value,itemData)=>{
 		
-		if(value.maker == "KRSPACE"){
-			this.secondEquipment(value);
-		}else{
-			this.firstEquipment(value);
-		}
+		window.open(`../smarthardware/doorManage/devicedetail?id=${value.id}&maker=${value.maker}`,'_blank');
 		
 	}
 
-	firstEquipment=(value)=>{
-		let _this = this;
-		Http.request('getFirstEquipmentDetailUrl',{id:value.id}).then(function(response) {
-				
-			_this.setState({
-				itemDetail:response
-			},function(){
-				State.openFirstHardwareDetail = true;
-			});
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
+	
 
 	secondEquipment=(value)=>{
 		let _this = this;
@@ -150,15 +130,7 @@ export default class SecondDoorManage  extends React.Component{
 	closeConfirmDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
 	}
-	//打开查看二代详情
-	openSeeDetailSecond=()=>{
-		State.openHardwareDetail = !State.openHardwareDetail;
-	}
-
-	//打开查看一代详情
-	openFirstHardwareDetailFun=()=>{
-		State.openFirstHardwareDetail = !State.openFirstHardwareDetail;
-	}
+	
 	
 	//打开编辑
 	openEditDialogFun=()=>{
@@ -517,21 +489,6 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 
-	prodoctQRCodeFun=()=>{
-		this.productQRCodeXHR();
-	}
-
-	productQRCodeXHR = ()=>{
-		let _this = this;
-		let {itemDetail} = this.state;
-		Http.request('productQRCodeUrl',{deviceId:itemDetail.deviceId}).then(function(response) {
-		
-			_this.firstEquipment(itemDetail)
-
-		}).catch(function(err) {
-			Message.error(err.message);
-		});
-	}
 
 	openHttpTokenDialogFun=()=>{
 		State.httpTokenDialog = !State.httpTokenDialog;
@@ -684,7 +641,7 @@ export default class SecondDoorManage  extends React.Component{
 											}
 											return (
 													<div>
-				                        				<Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
+				                    <Button  label="查看"  type="operation" operation="seeDetail"  onTouchTap={this.seeDetailInfoFun.bind(this,value,itemData)}/>
 														<Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value,itemData)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.deleteList.bind(this,value,itemData)}/>
               											<Dropdown 
@@ -706,23 +663,7 @@ export default class SecondDoorManage  extends React.Component{
 			            </TableBody>
 			            <TableFooter></TableFooter>
 			        </Table>
-			        <Drawer 
-			        	open={State.openHardwareDetail}
-			        	onClose = {this.openSeeDetailSecond}
-					    width={1000} 
-					    openSecondary={true} 
-					>
-						<EquipmentDetail onCancel={this.openSeeDetailSecond} detail={itemDetail}/>
-					</Drawer>
-
-					<Drawer 
-			        	open={State.openFirstHardwareDetail}
-			        	onClose = {this.openFirstHardwareDetailFun}
-					    width={1000} 
-					    openSecondary={true} 
-					>
-						<EquipmentFirstDetail onCancel={this.openFirstHardwareDetailFun} detail={itemDetail} prodoctQRCodeFun={this.prodoctQRCodeFun}/>
-					</Drawer>
+			      
 
 					 <Drawer 
 			        	open={State.openSearchEquipment}
