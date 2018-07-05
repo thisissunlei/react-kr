@@ -37,6 +37,12 @@ module.exports = [
                         menuCode: 'goods_list',
 					},
 					{
+                        primaryText: "折扣配置",
+                        originUrl: '/basic/preferential',
+                        type: 'vue',
+                        menuCode: 'zhekou',
+					},
+					{
 						primaryText: '平面图配置',
 						menuCode: 'oper_cmt_graph_base',
 						otherRouter:['/communityPlanMap'],
