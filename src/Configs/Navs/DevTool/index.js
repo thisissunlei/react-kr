@@ -15,6 +15,12 @@ module.exports = [
                         type: 'vue',
                         menuCode: 'order_validate_list',
                     },
+                    {
+						primaryText: '运维工具',
+						menuCode: 'ops_tool_management',
+						type: 'vue',
+						originUrl: '/ops'
+					},
                 ]
             }
         ]
