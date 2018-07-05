@@ -189,19 +189,19 @@ export default class DataPermission extends React.Component{
 			params={
 				id:detail.id,
 				communityIds:'',
-				cityId:cityRender	
+				cityIds:cityRender	
 			}
 		}else if(someCityRender.length){
 			params={
 				id:detail.id,
 				communityIds:idList,
-				cityId:someCityRender	
+				cityIds:someCityRender	
 			}
 		}else{
 			params={
 				id:detail.id,
 				communityIds:idList,
-				cityId:''	
+				cityIds:''	
 			}
 		}
 		Http.request('editUserCommunity',{},params).then(function(response) {
