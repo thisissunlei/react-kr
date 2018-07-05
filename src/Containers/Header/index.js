@@ -12,6 +12,7 @@ import './index.less';
 const Nav = ({...props}) =>{
 	return <ul className="u-header-nav" {...props}></ul>
 }
+//菜单组建
 const NavItem = ({...props})=>{
 	const {label,path,isActive,originUrl,isPermission} = props;
 
@@ -77,6 +78,7 @@ export default class Header extends React.Component {
 		super(props, context);
 		this.state={
 			Isperson:false,
+			sidebarNavs:[]
 		}
 		const {NavModel} = this.props;
 		NavModel.getUser(1);
@@ -85,19 +87,24 @@ export default class Header extends React.Component {
 	componentDidMount(){
 		const {NavModel} = this.props;
 		NavModel.loadNavData();	
+		NavModel.getNavsData();	
+
 		var  navs = NavModel.getNavs();
 		window.addEventListener("click", this.personHide, false);
 		NavModel.setSidebar(true);
+		
 		
 	}
 
 	componentWillUnmount(){
 		window.removeEventListener("click", this.personHide, false);
 	}
+
 	setSidebar=()=>{
 		const {NavModel} = this.props;
 		NavModel.setSidebar(true);
 	}
+	//打开侧边栏
 	openSidebar = ()=>{
 		const {NavModel} = this.props;
 		var navIsActive=NavModel.items.map((item,index)=>{
@@ -110,16 +117,17 @@ export default class Header extends React.Component {
 		}
 		NavModel.toggleSidebar();
 	}
+	//logo点击
 	clickLogo=()=> {
 		window.location.href = '/#/home';
 	}
-
+	//登录信息
 	personShow=()=>{
 		this.setState({
 			Isperson:true
 		})
 	}
-
+	//退出
 	logout = ()=>{
 		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
 		if(communityId){
@@ -132,7 +140,7 @@ export default class Header extends React.Component {
 		
 		});
 	}
-
+	//隐藏登录信息
 	personHide=(e)=>{
 		var target=e.target.className;
 		if(target=="u-header-more-icon"){
@@ -146,35 +154,42 @@ export default class Header extends React.Component {
 		}
 		
 	}
+	//清楚侧边栏
 	clearSidebar=()=>{
 		const {NavModel} = this.props;
 		NavModel.clearSidebar();
 
 	}
+	//上边的菜单
 	renderNav = (Navs)=>{
 		var navs=Navs.slice(0,7);
 		var navIsActive=navs.map((item,index)=>{
 			return item.isActive;
 		})
 		var isActive=navIsActive.indexOf(true)==-1?true:false;
-
+        
 		navs = this.renderNavs(navs)
+	//	navs = this.state.sidebarNavs;
+	//	debugger;
+		
 		return (
 			<Nav> 
 				<NavItem  label="首页" originUrl="./"  isActive={isActive}  onClick={this.clearSidebar} />
-				{navs.map((item,index)=>(<NavItem key={index} label={item.primaryText} originUrl={item.originUrl}  isActive={item.isActive} path={item.router} isPermission={item.isPermission} onClick={this.setSidebar}/>))} 
+				{navs.map((item,index)=>(<NavItem key={index} label={item.name} originUrl={item.url}  isActive={item.isActive} path={item.router} isPermission={item.isPermission} onClick={this.setSidebar}/>))} 
 			</Nav>
 
 			);
 	}
+	//处理数据
 	renderNavs(navs){
-		navs = navs.map(item=>{
-			item = mobx.toJS(item)
-			let url = item.menuItems[0].menuItems[0].url || item.menuItems[0].menuItems[0].router || item.menuItems[0].menuItems[0].originUrl || '/./';
-			item.router = url.substring(1);
+		
+		// navs = navs.map(item=>{
+		// 	// item = mobx.toJS(item)
+		// 	// let url = item.menuItems[0].menuItems[0].url || item.menuItems[0].menuItems[0].router || item.menuItems[0].menuItems[0].originUrl || '/./';
+		// 	// item.router = url.substring(1);
 
-			return item;
-		})
+		// 	return item;
+		// })
 
 		return navs
 	}

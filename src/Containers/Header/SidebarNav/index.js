@@ -42,6 +42,7 @@ export default class SidebarNav extends React.Component {
     const _this = this;
     Http.request('get-menu-catalog').then(function(res) {
 			if (!res.length) return;
+			console.log(res,1111);
       _this.setState({
 				sidebarNavs: res
       });
@@ -56,7 +57,7 @@ export default class SidebarNav extends React.Component {
 
 		const {sidebarNavs} = this.state;
 		const sidebarNavs2 = NavModel.sidebarNavs;
-		console.log('sideNavs2', sidebarNavs2);
+		console.log('sideNavs2', sidebarNavs2,sidebarNavs);
 			return (
 				<div className="g-sidebar-nav">
 					<div className="m-siderbar-list">

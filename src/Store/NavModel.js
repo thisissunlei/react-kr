@@ -26,6 +26,7 @@ let State = observable({
 });
 
 
+
 const ForEachMenuItemPermission = function (childItem, parentItem, topItem, menusCode) {
 	if (childItem.hasOwnProperty('menuCode') && menusCode.indexOf(childItem.menuCode) !== -1) {
 		childItem.isPermission = true;
@@ -62,6 +63,7 @@ const ForEachMenuItemPermission = function (childItem, parentItem, topItem, menu
 	return childItem;
 
 }
+//循环菜单
 const ForEachMenuItem = function (childItem, router, topItem) {
 	
 	if (childItem.hasOwnProperty('router') && childItem.router === router) {
@@ -123,7 +125,7 @@ State.setUserInfo = action(function (userInfo) {
 State.clearSidebar=action(function(userInfo){
 	this.sidebarNavs=[];
 });
-
+//获取权限数据
 State.loadNavData = action(function () {
 	var _this = this;
 
@@ -137,7 +139,7 @@ State.loadNavData = action(function () {
 		_this.menusCode=response.menusCode;
 		_this.menusData=response.resourcesCode;
 		_this.setUserInfo(response.userInfo);
-		_this.setPermissionNav(response.menusCode);
+		// _this.setPermissionNav(response.menusCode);
 		// _this.setResourcds(response.resourcds);
 		_this.resourcdsCode = response.resourcesCode;
 		_this.isLoadNavData = true;
@@ -145,8 +147,30 @@ State.loadNavData = action(function () {
 	}).catch(function (err) { });
 
 });
-
+//获取菜单数据
+State.getNavsData = action(function(){
+	const _this = this;
+		Http.request('get-menu-catalog').then(function(res) {
+				if (!res.length) return;
+				console.log(res,1111);
+				_this.setPermissionNav(res);
+			//   _this.setState({
+			// 			sidebarNavs: res
+			//   });
+		}).catch(function(err) {
+		  console.log('err', err);
+		});
+})
+//设置菜单
 State.setPermissionNav = action(function (menusCode) {
+	console.log(menusCode,"ooooo==")
+	this.items = menusCode;
+	this.isLoadedPermissionNav = true;
+	this.setRouter();
+	
+	return ;
+
+
 
 	if (this.isLoadedPermissionNav) {
 		return;
@@ -183,9 +207,7 @@ State.setPermissionNav = action(function (menusCode) {
 
 
 
-	this.items = navs;
-	this.isLoadedPermissionNav = true;
-	this.setRouter();
+	
 
 });
 
@@ -223,7 +245,7 @@ State.getSidebarNavs = function () {
 	var obj = mobx.toJS(this);
 	return obj.sidebarNavs;
 }
-
+//设置侧边数据
 State.setSidebarNavs = action(function () {
 
 	var obj = mobx.toJS(this);
@@ -247,6 +269,9 @@ State.setSidebarNavs = action(function () {
 	}
 	mobx.extendObservable(this, { sidebarNavs: menuItems })
 });
+
+
+//获取menusCode
 State.setResourcds = action(function(menusCode){
 	this.resourcdsCode = menusCode;
 })
