@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="260px" viewBox="0 0 200 260" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>dibu4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="3.30203087%" x2="50%" y2="98.5741791%" id="linearGradient-1">
+            <stop stop-color="#8AE1C5" offset="0%"></stop>
+            <stop stop-color="#4FD1A6" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="OA办公1" transform="translate(-1224.000000, -240.000000)">
+            <g id="活动管理列表">
+                <g id="财务纬度" transform="translate(1224.000000, 240.000000)">
+                    <g id="dibu4">
+                        <path d="M0,4.00582873 C0,1.79347061 1.79010294,0 3.99507582,0 L196.004924,0 C198.211344,0 200,1.79912895 200,4.00582873 L200,255.994171 C200,258.206529 198.209897,260 196.004924,260 L3.99507582,260 C1.78865637,260 0,258.200871 0,255.994171 L0,4.00582873 Z M156,220.00181 L156,260 L195.99819,260 C198.206909,260 200,258.208329 200,255.99819 L200,216 L160.00181,216 C157.793091,216 156,217.791671 156,220.00181 Z" id="Combined-Shape" fill="url(#linearGradient-1)"></path>
+                        <path d="M159,222.993235 C159,220.787832 160.782427,219 162.993235,219 L197.871408,219 C198.975386,219 199.236564,219.633773 198.451618,220.418718 L160.418718,258.451618 C159.635182,259.235155 159,258.978692 159,257.871408 L159,222.993235 Z" id="Rectangle-4-Copy" fill="#8AE1C5"></path>
+                        <rect id="Rectangle-6" fill="#FFFFFF" opacity="0.4" x="40" y="130" width="120" height="8" rx="4"></rect>
+                        <rect id="Rectangle-6-Copy-2" fill="#FFFFFF" opacity="0.4" x="40" y="186" width="80" height="8" rx="4"></rect>
+                        <rect id="Rectangle-6-Copy" fill="#FFFFFF" opacity="0.4" x="40" y="158" width="120" height="8" rx="4"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
