@@ -40,29 +40,30 @@ export default class SidebarNav extends React.Component {
 
   componentDidMount() {
     const _this = this;
-    Http.request('get-menu-catalog').then(function(res) {
-			if (!res.length) return;
-			console.log(res,1111);
-      _this.setState({
-				sidebarNavs: res
-      });
-    }).catch(function(err) {
-      console.log('err', err);
-    });
+    // Http.request('get-menu-catalog').then(function(res) {
+		// 	if (!res.length) return;
+		// 	console.log(res,1111);
+    //   _this.setState({
+		// 		sidebarNavs: res
+    //   });
+    // }).catch(function(err) {
+    //   console.log('err', err);
+    // });
   }
 
 	render() {
 
-		const {NavModel} = this.props;
+		const {NavModel,item} = this.props;
 
 		const {sidebarNavs} = this.state;
 		const sidebarNavs2 = NavModel.sidebarNavs;
-		console.log('sideNavs2', sidebarNavs2,sidebarNavs);
+		console.log('item--',item);
+		
 			return (
 				<div className="g-sidebar-nav">
 					<div className="m-siderbar-list">
-					{sidebarNavs.map((item,index)=>{
-						if(item.childList.length>0){
+					{item.childList&&item.childList.map((item,index)=>{
+						if(item.childList&&item.childList.length>0){
 							return(
 									<div className="m-sidebar-nav" key={index}>
 										<div className="u-sidebar-nav-title">

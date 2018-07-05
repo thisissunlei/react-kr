@@ -78,7 +78,8 @@ export default class Header extends React.Component {
 		super(props, context);
 		this.state={
 			Isperson:false,
-			sidebarNavs:[]
+			sidebarNavs:[],
+			secondBarNavs:[]
 		}
 		const {NavModel} = this.props;
 		NavModel.getUser(1);
@@ -99,8 +100,11 @@ export default class Header extends React.Component {
 	componentWillUnmount(){
 		window.removeEventListener("click", this.personHide, false);
 	}
-
-	setSidebar=()=>{
+    
+	setSidebar=(item)=>{
+		this.setState({
+			secondBarNavs:item
+		})
 		const {NavModel} = this.props;
 		NavModel.setSidebar(true);
 	}
@@ -175,7 +179,20 @@ export default class Header extends React.Component {
 		return (
 			<Nav> 
 				<NavItem  label="首页" originUrl="./"  isActive={isActive}  onClick={this.clearSidebar} />
-				{navs.map((item,index)=>(<NavItem key={index} label={item.name} originUrl={item.url}  isActive={item.isActive} path={item.router} isPermission={item.isPermission} onClick={this.setSidebar}/>))} 
+				{navs.map((item,index)=>{
+					let type='';
+					if(item.childList[0].childList[0].projectType ==='admin' ){
+						type='/new/#'
+					}
+				return	(<NavItem key={index} label={item.name} originUrl={type+item.childList[0].childList[0].url}  isActive={item.isActive} path={item.router} isPermission={item.isPermission} 
+						onClick={()=>{
+						this.setSidebar(item)
+					   }			
+					}/>)
+				}
+				 
+				
+			 )} 
 			</Nav>
 
 			);
@@ -197,8 +214,8 @@ export default class Header extends React.Component {
 	render() {
 
 		const {NavModel} = this.props;
-		let {Isperson}=this.state;
-
+		let {Isperson,secondBarNavs}=this.state;
+     
 		var  navs = NavModel.items;
 		var	 person=NavModel.getUser();
 	
@@ -222,7 +239,7 @@ export default class Header extends React.Component {
 						drawerStyle={{zIndex:-1,width:180}} 
 						contentStyle={{width:"100%",background:'rgb(57, 68, 87)',padding:0}}
 					>
-					<SidebarNav />
+					<SidebarNav item={secondBarNavs}/>
 				</Drawer>
 			</div>
 	   );
