@@ -258,11 +258,20 @@ class Login extends Component {
 			}
 		}
 		var _this = this;
+
+    function getQueryString(name) {
+      const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+      const r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+        return decodeURIComponent(r[2]);
+      }
+      return null;
+    }
+
 		Http.request('loginSubmit', {},obj).then(function(response) {
 			//跳转？
-
-			window.location.href = './';
-
+			const redirectUrl = getQueryString('RU');
+			window.location.href = (redirectUrl ? redirectUrl : './');
 		}).catch(function(err) {
 			 if(err.code==-1){
 			 	Message.error(err.message)

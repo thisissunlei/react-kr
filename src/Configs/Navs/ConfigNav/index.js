@@ -186,12 +186,6 @@ module.exports = [
 						menuCode: 'sso_businessCode_base',
 					},
 					{
-						primaryText: '运维工具',
-						menuCode: 'ops_tool_management',
-						type: 'vue',
-						originUrl: '/ops'
-					},
-					{
 						primaryText: '项目管理权限',
 						menuCode: 'pm_manage_role',
 						type: 'vue',
