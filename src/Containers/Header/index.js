@@ -154,9 +154,10 @@ export default class Header extends React.Component {
 	}
 	//route发生变化
     refresh(){
+		let {firstNav}=this.state;
 		let first=location.hash.split('#')[1];
-		console.log('#',this.nav);
-		var nowData=this.recursiveAssign(this.nav,first);
+		console.log('#',firstNav);
+		var nowData=this.recursiveAssign(firstNav,first);
 		nowData.allData&&nowData.allData.map((item,index)=>{
 			if(item.isActive){
 				this.setState({
@@ -290,7 +291,7 @@ export default class Header extends React.Component {
      
 		var  navs = NavModel.items;
 		var	 person=NavModel.getUser();
-	
+		console.log('nav--',secondBarNavs);
 		return (
 			<div className="no-print">
 				<div className="g-header-nav u-clearfix">
