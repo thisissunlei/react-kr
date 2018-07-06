@@ -108,21 +108,11 @@ export default class Header extends React.Component {
 		window.addEventListener("click", this.personHide, false);
 		NavModel.setSidebar(true);
 		
-<<<<<<< HEAD
-		//
-		// this.context.router.history.listen((route) => {
-		// 	console.log(1111)
-		// 	// if(route.pathname === '/xxx') {
-		// 	// 	console.log(1);
-		// 	// }
-		// });
-=======
 		var hash = window.location.hash;
 		var router = hash.split('?').shift().substring(1);
 		var topRouter = router.split('/')[1];
 		console.log('rouw000',hash,'1',router,'5',topRouter);
 		
->>>>>>> 56984cca5061267be028e0ecbafbc2e0095dcdf1
 	}
 
 	componentWillUnmount(){
