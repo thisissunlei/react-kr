@@ -44,8 +44,8 @@ case $1 in
   dev01)
     target_site="www@${dev01_ip}"
     target_site_port=22
-    
-    npm run build:dev01
+
+    # npm run build:dev01
   ;;
   *)
   target_site=www@10.1.60.201
