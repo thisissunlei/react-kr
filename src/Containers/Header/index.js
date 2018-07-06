@@ -108,6 +108,10 @@ export default class Header extends React.Component {
 		window.addEventListener("click", this.personHide, false);
 		NavModel.setSidebar(true);
 		
+		var hash = window.location.hash;
+		var router = hash.split('?').shift().substring(1);
+		var topRouter = router.split('/')[1];
+		console.log('rouw000',hash,'1',router,'5',topRouter);
 		
 	}
 
