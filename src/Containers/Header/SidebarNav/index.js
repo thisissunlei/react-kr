@@ -20,7 +20,9 @@ export default class SidebarNav extends React.Component {
 
 		return menuItems.map((item,index)=>{
 			// console.log(item.type,"kkkkkkkk")
-      let path = item.url || item.originUrl || `.#${item.router}`;
+			let type = item.projectType;
+			let path = item.url || item.originUrl || `.#${item.router}`;
+			let label = item.name;
 			if(item.type=="member"){
 					
 				var hostname = location.hostname;
@@ -31,12 +33,19 @@ export default class SidebarNav extends React.Component {
 				path =  location.protocol + "//" + "memberadmintest03.krspace.cn" + port  +"/"+ item.router;
 			}
 			// 三级跳转
-			if(location.href.indexOf('new/#') !==-1 && path.indexOf('new/#') !==-1 ){
-
-						return <a onClick ={()=>{location.hash=df}} >{label}</a>
+			if(location.href.indexOf('new/#') !==-1 ){
+						if(type === 'admin'){
+							return <a key ={index}  onClick ={()=>{location.hash = path}} >{label}</a>
+						}else if(type === 'vue'){
+							return <a key ={index}  href={path} >{label}</a>	
+						}
 				}else{
-					
-						return <a href={url}>{label}</a>
+						if(type ==='admin'){
+							path  = '/new/#' + path;
+							return <a href={path}>{label}</a>
+						}else if(type ==='vue'){
+							return <a href={path}>{label}</a>
+						}
 				}
 			// if(!item.target){
 			// 	return <a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.name}</a>

@@ -103,12 +103,18 @@ export default class Header extends React.Component {
 		const {NavModel} = this.props;
 		NavModel.loadNavData();	
 		NavModel.getNavsData();	
-
+		console.log(111111112222);
 		var  navs = NavModel.getNavs();
 		window.addEventListener("click", this.personHide, false);
 		NavModel.setSidebar(true);
 		
-		
+		//
+		// this.context.router.history.listen((route) => {
+		// 	console.log(1111)
+		// 	// if(route.pathname === '/xxx') {
+		// 	// 	console.log(1);
+		// 	// }
+		// });
 	}
 
 	componentWillUnmount(){
