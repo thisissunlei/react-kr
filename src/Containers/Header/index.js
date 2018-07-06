@@ -1,5 +1,5 @@
 import React from 'react';
-import mobx from 'mobx';
+import {mobx,toJS} from 'mobx';
 import { observer, inject } from 'mobx-react';
 import {ListGroup,ListGroupItem,Drawer} from 'kr-ui';
 
@@ -22,7 +22,6 @@ const NavItem = ({...props})=>{
 	}else{
 		url='./#/'+path;
 	}
-    console.log(url,originUrl);
 	if(location.href.indexOf('new/#') !==-1 && originUrl.indexOf('new/#') !==-1 ){
 	//	if(originUrl.indexOf('new/#') !==-1){
 			return <li className={isActive?'u-header-active':''} {...props}><a onClick ={()=>{location.hash=df}} >{label}</a></li>
@@ -92,45 +91,85 @@ export default class Header extends React.Component {
 		super(props, context);
 		this.state={
 			Isperson:false,
-			sidebarNavs:[],
+			firstNav:[],
 			secondBarNavs:[]
 		}
+		this.nav=[];
 		const {NavModel} = this.props;
 		NavModel.getUser(1);
 	}
 	
 	componentDidMount(){
+		this.getNavData();
 		const {NavModel} = this.props;
 		NavModel.loadNavData();	
 		NavModel.getNavsData();	
-		console.log(111111112222);
+	
 		var  navs = NavModel.getNavs();
 		window.addEventListener("click", this.personHide, false);
 		NavModel.setSidebar(true);
-		
-<<<<<<< HEAD
-		//
-		// this.context.router.history.listen((route) => {
-		// 	console.log(1111)
-		// 	// if(route.pathname === '/xxx') {
-		// 	// 	console.log(1);
-		// 	// }
-		// });
-=======
-		var hash = window.location.hash;
-		var router = hash.split('?').shift().substring(1);
-		var topRouter = router.split('/')[1];
-		console.log('rouw000',hash,'1',router,'5',topRouter);
-		
->>>>>>> 56984cca5061267be028e0ecbafbc2e0095dcdf1
+        window.addEventListener('hashchange', this.refresh.bind(this), false);
 	}
-
+	getNavData(){
+		const _this = this;
+		Http.request('get-menu-catalog').then(function(res) {
+			if (!res.length) return;
+			let first=location.hash.split('#')[1];
+			var nowData=_this.recursiveAssign(res,first);
+			_this.setState({
+				firstNav:nowData.allData
+			})
+			nowData.allData&&nowData.allData.map((item,index)=>{
+				if(item.isActive){
+					_this.setState({
+						secondBarNavs:item
+					})
+				}
+			})
+		}).catch(function(err) {
+		  console.log('err', err);
+		});
+	}
+	//递归赋值
+	recursiveAssign(data,url){
+		var isOpen = false;
+		var allData=data.map((item,index)=>{
+			if(item.url==url){
+				item.isActive=true;
+				isOpen = true;  
+			}else{
+				item.isActive=false;
+			}
+			if(item.childList&&item.childList.length){
+				let middle=this.recursiveAssign(item.childList,url);
+				if(middle.isOpen){
+					item.isActive=true;
+					isOpen = true;
+				}
+				item.childList=middle.allData;
+			}
+			return item;
+		})
+		return  {allData:allData,isOpen:isOpen};
+	}
+	//route发生变化
+    refresh(){
+		let first=location.hash.split('#')[1];
+		console.log('#',this.nav);
+		var nowData=this.recursiveAssign(this.nav,first);
+		nowData.allData&&nowData.allData.map((item,index)=>{
+			if(item.isActive){
+				this.setState({
+					secondBarNavs:item
+				})
+			}
+		})
+	}
 	componentWillUnmount(){
 		window.removeEventListener("click", this.personHide, false);
 	}
     
 	setSidebar=(item)=>{
-		console.log(item,'1111')
 		this.setState({
 			secondBarNavs:item
 		})
@@ -195,20 +234,20 @@ export default class Header extends React.Component {
 	}
 	//上边的菜单
 	renderNav = (Navs)=>{
-		var navs=Navs.slice(0,7);
-		var navIsActive=navs.map((item,index)=>{
-			return item.isActive;
-		})
-		var isActive=navIsActive.indexOf(true)==-1?true:false;
+		let {firstNav}=this.state;
+		// var navs=Navs.slice(0,7);
+		// var navIsActive=navs.map((item,index)=>{
+		// 	return item.isActive;
+		// })
+		// var isActive=navIsActive.indexOf(true)==-1?true:false;
         
-		navs = this.renderNavs(navs)
-	//	navs = this.state.sidebarNavs;
-	//	debugger;
-		
+		// navs = this.renderNavs(navs)
+		// this.nav=navs;
+	   
 		return (
 			<Nav> 
-				<NavItem  label="首页" originUrl="./"  isActive={isActive}  onClick={this.clearSidebar} />
-				{navs.map((item,index)=>{
+				<NavItem  label="首页" originUrl="./"    onClick={this.clearSidebar} />
+				{firstNav.map((item,index)=>{
 					let type='';
 					if(item.childList[0].childList[0].projectType ==='admin' ){
 						// if(location.href.indexOf('new') ===-1){

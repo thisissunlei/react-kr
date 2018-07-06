@@ -149,17 +149,17 @@ State.loadNavData = action(function () {
 });
 //获取菜单数据
 State.getNavsData = action(function(){
-	const _this = this;
-		Http.request('get-menu-catalog').then(function(res) {
-				if (!res.length) return;
-				console.log(res,1111);
-				_this.setPermissionNav(res);
-			//   _this.setState({
-			// 			sidebarNavs: res
-			//   });
-		}).catch(function(err) {
-		  console.log('err', err);
-		});
+	// const _this = this;
+	// 	Http.request('get-menu-catalog').then(function(res) {
+	// 			if (!res.length) return;
+	// 			console.log(res,1111);
+	// 			_this.setPermissionNav(res);
+	// 		//   _this.setState({
+	// 		// 			sidebarNavs: res
+	// 		//   });
+	// 	}).catch(function(err) {
+	// 	  console.log('err', err);
+	// 	});
 })
 //设置菜单
 State.setPermissionNav = action(function (menusCode) {
