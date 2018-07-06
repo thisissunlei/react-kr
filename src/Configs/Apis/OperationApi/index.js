@@ -1089,9 +1089,10 @@ module.exports = {
     },
     //社区运营--社区运营--会议室--社区列表
     'get-community-new-list': {
-        url: '/api/krspace-op-web/cmt/community/new/list?cmtName={cmtName}',
+        url: '/api/krspace-op-web/cmt/community/all/list?cmtName={cmtName}',
         method: 'get'
     },
+    
     //社区运营--社区运营--会议室--楼层
     'get-krmting-room-stock-floor-list': {
         url: '/api/krspace-op-web/krmting/room/stock/floor/list?cmtId={cmtId}',

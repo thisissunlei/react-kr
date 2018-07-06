@@ -98,6 +98,7 @@ class MeetingReservationFrom extends React.Component {
 			
 			return ;
 		}
+		data.value=data.value?data.value:'';
 		let _this = this;
 		Http.request("get-krmting-room-stock-floor-list",{cmtId:data.value}).then(function(response) {
 			response.floors.map(function(item,index){
