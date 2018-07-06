@@ -22,6 +22,7 @@
     "build:test02": "export NODE_ENV=test02 &&  webpack --config ./webpack/webpack-test.config.js --progress --colors",
     "build:test03": "export NODE_ENV=test03 &&  webpack --config ./webpack/webpack-test.config.js --progress --colors",
     "build:test04": "export NODE_ENV=test04 &&  webpack --config ./webpack/webpack-test.config.js --progress --colors",
+    "build:dev01": "export NODE_ENV=dev01 &&  webpack --config ./webpack/webpack-test.config.js --progress --colors",
     "dll": "export NODE_ENV=production && webpack --config ./webpack/webpack-dll.config.js --progress --colors --profile",
     "lint": "eslint *.js ./src/**",
     "commitmsg": "validate-commit-msg"
