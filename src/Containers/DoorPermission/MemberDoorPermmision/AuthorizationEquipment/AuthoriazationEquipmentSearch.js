@@ -29,6 +29,7 @@ import {
 class SearchAuthoriazationEquipmentForm extends React.Component{
 	constructor(props){
 		super(props);
+		
 		this.state={
 			seachFormContent : '',
 			seachFormFilter : "doorCode",
@@ -47,12 +48,13 @@ class SearchAuthoriazationEquipmentForm extends React.Component{
 					value:"title",
 					className:"group-equipment-title"
 					
-			    },{
-					label:"硬件ID",
-					value:"deviceId",
-					className:"group-equipment-deviceId"
-					
 				}
+				// ,{
+				// 	label:"硬件ID",
+				// 	value:"deviceId",
+				// 	className:"group-equipment-deviceId"
+					
+				// }
 			],
 			searchFormFilterContent : {
 				doorCode : '',
@@ -62,6 +64,16 @@ class SearchAuthoriazationEquipmentForm extends React.Component{
 		}
 	}
 	componentDidMount(){
+		let {deviceId} = this.props;
+		if(deviceId){
+			Store.dispatch(change('SearchAuthoriazationEquipmentForm','deviceId',deviceId));
+			var SearchFormData = {deviceId : deviceId}
+			let sendParams = Object.assign({},SearchFormData)
+			let {submitSearchParams}=this.props;
+			submitSearchParams && submitSearchParams(sendParams);
+		}
+		
+
 		this.getDoorTypeOptions();
 	}
 
@@ -127,10 +139,7 @@ class SearchAuthoriazationEquipmentForm extends React.Component{
 		
 	}
 
-	resetSearchFormData=(content)=>{
-
-		
-	}
+	
 
 	onChangeCommunity=(community)=>{
 		
@@ -222,6 +231,16 @@ class SearchAuthoriazationEquipmentForm extends React.Component{
 			<form onSubmit={handleSubmit(this.onSubmit)} className="group-member-search door-permission-group-search">
 				<ListGroup className="search-item-line">
 					<ListGroupItem>
+						<span className="device-id-span">
+							<KrField  name="deviceId" 
+								type="text" 
+								label="硬件ID：" 
+								style={{width:300,marginTop:"-10px"}}
+								inline={true}
+							/>
+						</span>
+					</ListGroupItem>
+					<ListGroupItem>
 						<span className="communityId-span">
 							<KrField name="communityId"
 								component="searchCommunityAll"
@@ -278,9 +297,7 @@ class SearchAuthoriazationEquipmentForm extends React.Component{
 					<ListGroupItem style={{}}>
 						<Button  label="搜索" type="submit"/>
 					</ListGroupItem>
-					{/* <ListGroupItem style={{}}> */}
-						{/* <Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} /> */}
-					{/* </ListGroupItem> */}
+				
 					
 				</ListGroup>
 			</form>

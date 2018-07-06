@@ -152,7 +152,8 @@ State.setPermissionNav = action(function (menusCode) {
 		return;
 	}
 
-	var navs = DefaultNavsDic.items;
+	var navs = [].concat(DefaultNavsDic.items);
+	console.log(DefaultNavsDic,"kkkkkkkk")
 	navs = navs.map(function (topItem) {
 		return  ForEachMenuItemPermission(topItem, topItem, topItem, menusCode);
 	}).filter(function (item) {
@@ -179,7 +180,7 @@ State.setPermissionNav = action(function (menusCode) {
 
 		return item;
 	});
-
+	console.log(navs,"ooooooo")
 
 
 

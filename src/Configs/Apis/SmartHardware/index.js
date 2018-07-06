@@ -185,11 +185,6 @@ module.exports = {
    },
 
 
-   //获取设备详情
-   'getSecEquipmentDetailUrl':{
-      url: '/api/iot-platform/door-device/detail?id={id}',
-      method: 'get'
-   },
 
    //获取编辑准备数据
    'getEditEquipmentUrl':{
@@ -198,11 +193,6 @@ module.exports = {
       method: 'get'
    },
 
-   //一代门禁获取设备详情
-   'getFirstEquipmentDetailUrl':{
-      url: '/api/iot-platform/door-device/v1/detail?id={id}',
-      method: 'get'
-   },
 
 
    //一代门禁重置

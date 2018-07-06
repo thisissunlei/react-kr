@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {initialize} from 'redux-form';
 
@@ -37,8 +36,6 @@ export default class Timeline extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-            endTime:this.hourFormat(this.props.data.orderEndTime),
-            startTime:this.hourFormat(this.props.data.orderStartTime),
             openDetail:false,
             coordinates:{},
             location:"right",
@@ -55,24 +52,18 @@ export default class Timeline extends React.Component {
 		if(!nextProps.data){
             return;
         }
-        this.setState({
-            endTime:this.hourFormat(nextProps.data.orderEndTime),
-            startTime:this.hourFormat(nextProps.data.orderStartTime),
-        })
+        
 	}
 
 
     //生成刻度
     generateCalibration = () =>{
-        let {endTime,startTime,width}=this.state;
+        let {width}=this.state;
         let elems = [];
-        if(endTime.h==23 && endTime.m == 59){
-            endTime.h=24
-        }
         
-        for(var i= startTime.h;i<endTime.h;i++){
+        for(var i= 1;i<24;i++){
             let border= "0px solid #ccc"
-            if(i==endTime.h-1){
+            if(i==23){
                 border= "1px solid #ccc"
             }
          elems.push (
@@ -99,20 +90,17 @@ export default class Timeline extends React.Component {
         let _this = this;
         const {data} = this.props;
         const {startTime,endTime,coordinates,openDetail,location,width}=this.state;
-        if(!data.appointments){
+        if(!data.orderList){
             return null;
         }
 
-        let elems =  data.appointments.map(function(item,index){
+        let elems =  data.orderList.map(function(item,index){
             let inData = Object.assign({}, item);
-            inData.beginTime = _this.hourFormat(item.beginTime);
-            inData.endTime = _this.hourFormat(item.endTime);
+           
            
             return  <Introduction
                         key = {index}  
                         onClick = {_this.openDetail}
-                        allStartTime = {startTime}
-                        allEndTime = {endTime}
                         data = {inData}
                         width = {width}
                         index = {index}
@@ -124,33 +112,41 @@ export default class Timeline extends React.Component {
     equipment = () =>{
         
         let {data} = this.props;
-        
-        let elems = data.deviceList.map(function(item,index){
+        if(!data.device){
+            return null;
+        }
+
+        let elems = data.device.map(function(item,index){
             return <span key = {index} style={{float:"right"}}>{item}</span>
         })
         return <div style={{float:"right"}}>{elems}</div>;
     }
 
    
-    openDetail = (coordinates,location,id) =>{ 
+    openDetail = (coordinates,location,dataItem) =>{ 
         const {data} = this.props;   
-        let detailData = '';
+        let detailData = {};
+        var _this=this;
         $("body").css("overflow","hidden");
         if(!data){
             return null;
         }
-        data.appointments.map(function(item,index){
-            if(item.id == id){
-                detailData = item;
-            }
-        })
+        let form =Object.assign({},dataItem);
+       
+        Http.request("get-krmting-room-stock-info",form).then(function(response) {
+			
+            _this.setState({
+                coordinates,
+                openDetail:true,
+                location,
+                detailData:response
+            })
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
         
-        this.setState({
-            coordinates,
-            openDetail:true,
-            location,
-            detailData
-        })
+        
+       
     }
     closeDetail = () =>{
          $("body").css("overflow","scroll");
@@ -164,13 +160,10 @@ export default class Timeline extends React.Component {
     }
     
     render(){
-        const {startTime,endTime,coordinates,openDetail,location,detailData,width} = this.state;
+        //const {startTime,endTime,coordinates,openDetail,location,detailData,width} = this.state;
+        const {coordinates,openDetail,location,detailData,width} = this.state;
         const {data} = this.props;
-        if(endTime.h==23 && endTime.m == 59){
-            endTime.h=24
-        }
-        let len = endTime.h - startTime.h;
-        
+        let len=23;
         let inWidth = width*len+1;
         
         if(!data){
@@ -179,19 +172,20 @@ export default class Timeline extends React.Component {
         
         return(
             <div className="metting-Timeline">
-               
+               {/* 会议室刻度开始 */}
                 <div className = "metting-Timeline-box">
                     <div className = "metting-Timeline-shaft" style = {{width:inWidth}}>
                         {this.generateCalibration()}
                         {this.generateIntroduction()}
-                         <span className = "hours" style = {{position:"absolute",border:0,left:inWidth+5}}>{endTime.h+"时"}</span>
+                         <span className = "hours" style = {{position:"absolute",border:0,left:inWidth+5}}>24时</span>
                     </div>
                 </div>
+                {/* 会议室刻度结束 */}
                 <div className = "sticky-notes">
                     <span>{data.communityName}</span>
-                    <span>{data.name}</span>
-                    <span>{data.floor+"楼"}</span>
-                    <span>{data.capacity+"人"}</span>
+                    <span>{data.roomName}</span>
+                    <span>{data.floorName}</span>
+                    <span>{data.capacity}</span>
                     {this.equipment()}
                     
                 </div>

@@ -104,7 +104,7 @@ import SelectListComponent from './SelectListComponent';
 import SearchMemberCompany from './SearchMemberCompany';
 import SearchAllCommunity from './SearchAllCommunity';
 import SearchRoomSelect from './SearchRoomSelect';
-
+import SearchMeetingCommunity from './SearchMeetingCommunity';
 
 class FieldRevert extends React.Component {
 
@@ -361,7 +361,12 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={searchCommunity}  style={WrapStyles} {...other}/>
 				)
 			}
-
+			if (component === 'searchMeetingCommunity') {
+				return (
+					<FieldRevert {...this.props} component={SearchMeetingCommunity}  style={WrapStyles} {...other}/>
+				)
+			}
+			
 
 			if (component === 'searchLeader') {
 
