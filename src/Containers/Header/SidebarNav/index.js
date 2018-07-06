@@ -35,16 +35,16 @@ export default class SidebarNav extends React.Component {
 			// 三级跳转
 			if(location.href.indexOf('new/#') !==-1 ){
 						if(type === 'admin'){
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':''} onClick ={()=>{location.hash = path}} >{label}</a>
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type === 'vue'){
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':''} href={path} >{label}</a>	
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
 						}
 				}else{
 						if(type ==='admin'){
 							path  = '/new/#' + path;
-							return <a href={path}>{label}</a>
+							return <a  href={path} className={item.isActive?'u-sidebar-nav-active':'curson'} >{label}</a>
 						}else if(type ==='vue'){
-							return <a href={path}>{label}</a>
+							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
 						}
 				}
 			// if(!item.target){
