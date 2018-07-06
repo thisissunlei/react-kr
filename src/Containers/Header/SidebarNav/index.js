@@ -30,11 +30,19 @@ export default class SidebarNav extends React.Component {
 				}
 				path =  location.protocol + "//" + "memberadmintest03.krspace.cn" + port  +"/"+ item.router;
 			}
-			if(!item.target){
-				return <a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.name}</a>
-			}else{
-				return <a href={path}  target={item.target} className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.name}</a>
-			}
+			// 三级跳转
+			if(location.href.indexOf('new/#') !==-1 && path.indexOf('new/#') !==-1 ){
+
+						return <a onClick ={()=>{location.hash=df}} >{label}</a>
+				}else{
+					
+						return <a href={url}>{label}</a>
+				}
+			// if(!item.target){
+			// 	return <a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.name}</a>
+			// }else{
+			// 	return <a href={path}  target={item.target} className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.name}</a>
+			// }
 		})
 	}
 

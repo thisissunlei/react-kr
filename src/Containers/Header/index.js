@@ -14,7 +14,7 @@ const Nav = ({...props}) =>{
 }
 //菜单组建
 const NavItem = ({...props})=>{
-	const {label,path,isActive,originUrl,isPermission} = props;
+	const {label,path,isActive,originUrl,isPermission,df} = props;
 
 	var url=path;
 	if(originUrl){
@@ -22,7 +22,21 @@ const NavItem = ({...props})=>{
 	}else{
 		url='./#/'+path;
 	}
-	return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
+    console.log(url,originUrl);
+	if(location.href.indexOf('new/#') !==-1 && originUrl.indexOf('new/#') !==-1 ){
+	//	if(originUrl.indexOf('new/#') !==-1){
+			return <li className={isActive?'u-header-active':''} {...props}><a onClick ={()=>{location.hash=df}} >{label}</a></li>
+	//	}else{
+	//		return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
+	//	}
+	}else{
+	//	if(originUrl.indexOf('new/#') !==-1){
+	//		return <li className={isActive?'u-header-active':''} {...props}><a href={url} >{label}</a></li>
+	//	}else{
+			return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
+//		}
+	}
+	
 };
 
 
@@ -102,6 +116,7 @@ export default class Header extends React.Component {
 	}
     
 	setSidebar=(item)=>{
+		console.log(item,'1111')
 		this.setState({
 			secondBarNavs:item
 		})
@@ -182,9 +197,13 @@ export default class Header extends React.Component {
 				{navs.map((item,index)=>{
 					let type='';
 					if(item.childList[0].childList[0].projectType ==='admin' ){
-						type='/new/#'
+						// if(location.href.indexOf('new') ===-1){
+						 	type='/new/#'
+						// }
+						
 					}
-				return	(<NavItem key={index} label={item.name} originUrl={type+item.childList[0].childList[0].url}  isActive={item.isActive} path={item.router} isPermission={item.isPermission} 
+					
+				return	(<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type+item.childList[0].childList[0].url}  isActive={item.isActive} path={item.router} isPermission={item.isPermission} 
 						onClick={()=>{
 						this.setSidebar(item)
 					   }			
