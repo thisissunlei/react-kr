@@ -301,7 +301,14 @@ class AccountList extends React.Component {
     }
     
     goDetail(item){
-        window.open(`./#/oa/${item.id}/peopleDetail`,'_blank');
+        this.getPersonId(item);
+    }
+    getPersonId(item){
+        Http.request('get-bill-person-id',{ssoId:item.id}).then(function(response) {
+            window.open(`./#/oa/${response}/peopleDetail`,'_blank');
+        }).catch(function(err) {
+            Message.error(err.message);
+        });
     }
     
     render() {
