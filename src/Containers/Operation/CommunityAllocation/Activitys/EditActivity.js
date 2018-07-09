@@ -133,7 +133,6 @@ class EditActivity extends React.Component {
 	}
 	selectCommunity=(item)=>{
 		Http.request('activity-findCmtAddres',{cmtId:item.id}).then(function(response) {
-			this.
 			Store.dispatch(change('editActivity', 'address', response.address));
 		}).catch(function(err) {
 			Message.error(err.message);
