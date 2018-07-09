@@ -41,6 +41,7 @@ class EditSecond extends React.Component {
             },{}).then(function(response) {
                 infoList.firstLevelId = response.firstLevelId;
                 infoList.name = response.name;
+                infoList.icon = response.iconUrl;
                 _this.setState({
                     infoList:infoList
                 },function() {
@@ -79,7 +80,7 @@ class EditSecond extends React.Component {
 				firstLevelId: form.firstLevelId,
 				name: form.name,
 				subLevelId: detail.id,
-        iconUrl: form.icon
+                iconUrl: form.icon
 			}
 			onSubmit && onSubmit(params);
     }
