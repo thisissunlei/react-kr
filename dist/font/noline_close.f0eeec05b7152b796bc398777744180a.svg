@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="4px" height="8px" viewBox="0 0 4 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>nor_arrows</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-6" transform="translate(-48.000000, -224.000000)" fill="#666666">
+            <path d="M53.5038156,226.086985 L50.0046672,229.342884 L46.4962017,226.078315 C46.3833407,225.9733 46.1996146,225.973983 46.0858357,226.079853 C45.9720569,226.185722 45.9712766,226.356676 46.0841835,226.461691 L49.7690774,229.890424 C49.7773848,229.900759 49.7862429,229.910795 49.7962944,229.920147 C49.9100733,230.026017 50.0938453,230.0267 50.2067062,229.921685 L53.9158339,226.470361 C54.0286948,226.365345 54.0279604,226.194391 53.9141816,226.088522 C53.8004027,225.982653 53.6167225,225.981969 53.5038156,226.086985 Z" id="nor_arrows" transform="translate(50.000000, 228.000000) rotate(-90.000000) translate(-50.000000, -228.000000) "></path>
+        </g>
+    </g>
+</svg>

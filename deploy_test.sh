@@ -1,6 +1,5 @@
 #!/bin/bash
 
-npm run dll
 
 
 buildEnvDir=$1
@@ -12,6 +11,7 @@ test01_ip=ali-docker-test01
 test02_ip=ali-docker-test02
 test03_ip=ali-docker-test03
 test04_ip=ali-docker-test04
+dev01_ip=10.4.15.241
 
 case $1 in
   
@@ -40,6 +40,12 @@ case $1 in
     target_site_port=22
 
     npm run build:test04
+  ;;
+  dev01)
+    target_site="www@${dev01_ip}"
+    target_site_port=22
+
+    # npm run build:dev01
   ;;
   *)
   target_site=www@10.1.60.201
