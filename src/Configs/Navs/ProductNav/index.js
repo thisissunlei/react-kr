@@ -99,6 +99,12 @@ module.exports = [
 					// 	router: '/product/communityManage/detail',
 					// },
 					{
+						primaryText: '社区商品配置',
+						originUrl: 'product/goods',
+						type: 'vue',
+						menuCode: 'mobile_community_goods',
+					},
+					{
 						primaryText: '会议室',
 						originUrl: '/product/meeting',
 						type: 'vue',
