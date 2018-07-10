@@ -31,25 +31,25 @@ class MeetingReservationFrom extends React.Component {
 		this.state={
 			options:[],
 			searchParams:{
-				communityId:'',
-				time:DateFormat(new Date(),"yyyy-mm-dd hh:MM:ss"),
+				cmtId:'',
+				meetingDate:DateFormat(new Date(),"yyyy-mm-dd"),
 				floor:'',
 
 			},
 			date:DateFormat(new Date(),"yyyy-mm-dd"),
 			communityIdList:[],
 		}
-		this.getcommunity();
+		this.getcommunity('');
 	}
 	getcommunity = () => {
 		let _this = this;
 		let {communityIdList} = this.state;
-		Http.request('getCommunity').then(function(response) {
+		Http.request('get-community-new-list').then(function(response) {
 
 			communityIdList = response.communityInfoList.map(function(item, index) {
 
-				item.value = item.id;
-				item.label = item.name;
+				item.value = item.cmtId;
+				item.label = item.cmtName;
 				return item;
 			});
 			_this.setState({
@@ -71,8 +71,8 @@ class MeetingReservationFrom extends React.Component {
 		}
 		this.setState({
 			searchParams:{
-				communityId:searchParams.communityId,
-				time:data,
+				cmtId:searchParams.cmtId,
+				meetingDate:data,
 				floor:searchParams.floor,
 			}
 		},function(){
@@ -84,12 +84,12 @@ class MeetingReservationFrom extends React.Component {
 		let {searchParams} = this.state;
 		let {onSubmit} = this.props;
 		let options = [];
-		if(!data){
+		if(!data || data.value==-1){
 			this.setState({
 				options,
 				searchParams:{
-					communityId:"",
-					time:searchParams.time,
+					cmtId:"",
+					meetingDate:searchParams.meetingDate,
 					floor:searchParams.floor,
 				}
 			},function(){
@@ -98,16 +98,17 @@ class MeetingReservationFrom extends React.Component {
 			
 			return ;
 		}
+		data.value=data.value?data.value:'';
 		let _this = this;
-		Http.request("getCommunityFloors",{communityId:data.value}).then(function(response) {
+		Http.request("get-krmting-room-stock-floor-list",{cmtId:data.value}).then(function(response) {
 			response.floors.map(function(item,index){
 				options.push({label:item,value:item});
 			})
 			_this.setState({
 				options,
 				searchParams:{
-					communityId:data.value,
-					time:searchParams.time,
+					cmtId:data.value,
+					meetingDate:searchParams.meetingDate,
 					floor:searchParams.floor,
 				}
 			},function(){
@@ -125,8 +126,8 @@ class MeetingReservationFrom extends React.Component {
 		}
 		this.setState({
 			searchParams:{
-				communityId:searchParams.communityId,
-				time:searchParams.time,
+				cmtId:searchParams.cmtId,
+				meetingDate:searchParams.meetingDate,
 				floor:data.value,
 			}
 		},function(){
@@ -144,7 +145,7 @@ class MeetingReservationFrom extends React.Component {
                     <KrField grid={1/2} label="时间:" name="time" style ={{width:310}} component="date" inline={true} placeholder={date} onChange = {this.timeChange} />
                     <KrField grid={1/2} 
 						name="intentionCommunityId" 
-						component='searchCommunityAll' 
+						component='searchMeetingCommunity' 
 						style ={{width:335,marginTop:3}} 
 						label="社区:" inline={true}  
 						placeholder='请输入社区名称' 

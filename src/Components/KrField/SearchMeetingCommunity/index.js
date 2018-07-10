@@ -58,10 +58,10 @@ export default class SearchCommunity extends React.Component {
 			Http.request('get-community-new-list', {
 				cmtName: lastname
 			}).then(function(response) {
-				var obj = [].concat(response.cmts);
+				var obj = [].concat(response.items);
 				obj.forEach(function(item, index) {
-					item.value = item.cmtId;
-					item.label = item.cmtName;
+					item.value = item.id;
+					item.label = item.name;
 				});
 				resolve({
 					options: obj
