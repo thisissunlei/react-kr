@@ -132,9 +132,10 @@ export default class DoorGroupManage extends React.Component {
 	submitSearchParams=(params)=>{
 
 		let {getDoorPermissionListParams,realPage} = this.state;
-		var params = Object.assign({},params,{date:new Date(),page : realPage});
+		var params = Object.assign({},params,{date:new Date(),page : 1});
 		this.setState({
-			getDoorPermissionListParams:params
+			getDoorPermissionListParams:params,
+			realPage : 1
 		})
 	}
 
@@ -373,7 +374,7 @@ export default class DoorGroupManage extends React.Component {
 													
 													<Button  label="成员"  type="operation" operation="changeMember" onClick={that.onOperation.bind(this,"changeMember",itemData)}/>
 													{
-														itemData.groupLevel == "NORMAL" &&
+														(itemData.groupLevel == "NORMAL" || itemData.groupLevel == "CUSTOMER" ) &&
 														<Button  label="已授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
 													}
 													<Button  label="编辑"  type="operation" operation="edit"  onClick={that.onOperation.bind(this,"edit",itemData)}/>

@@ -1087,9 +1087,33 @@ module.exports = {
         url: '/api/krspace-finance-web/advertising/boot/unpublish',
         method: 'post'
     },
+<<<<<<< HEAD
     'get-source-list': {
         url: '/api/krspace-sso-web/sys/enmu?enmuKey={enmuKey}',
         method: 'get'
     },
     // 
+=======
+    //社区运营--社区运营--会议室--社区列表
+    'get-community-new-list': {
+        url: '/api/krspace-op-web/cmt/community/all/list?cmtName={cmtName}',
+        method: 'get'
+    },
+    
+    //社区运营--社区运营--会议室--楼层
+    'get-krmting-room-stock-floor-list': {
+        url: '/api/krspace-op-web/krmting/room/stock/floor/list?cmtId={cmtId}',
+        method: 'get'
+    },
+     //社区运营--社区运营--会议室--会议室预定列表
+     'get-krmting-room-stock-list': {
+        url: '/api/krspace-op-web/krmting/room/stock/list?cmtId={cmtId}&floor={floor}&meetingDate={meetingDate}&page={page}&pageSize={pageSize}',
+        method: 'get'
+    },
+    //社区运营--社区运营--会议室--根据订单id来源查询订单详情
+    'get-krmting-room-stock-info': {
+        url: '/api/krspace-op-web/krmting/room/stock/info?orderNo={orderNo}&orderSource={orderSource}',
+        method: 'get'
+    },
+>>>>>>> master
 }

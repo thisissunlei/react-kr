@@ -15,7 +15,18 @@ export default class SidebarNav extends React.Component {
 	renderMenuItems=(menuItems)=>{
 
 		return menuItems.map((item,index)=>{
+			
+			console.log(item.type,"kkkkkkkk")
 			var path=item.originUrl?item.originUrl:`.#${item.router}`;
+			if(item.type=="member"){
+					
+				var hostname = location.hostname;
+				var port = location.port || '';
+				if (port) {
+					port = ":" + port;
+				}
+				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ item.router;
+			}
 			if(!item.target){
 				return <a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.primaryText}</a>
 			}else{

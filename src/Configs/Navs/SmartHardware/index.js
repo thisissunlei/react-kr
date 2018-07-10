@@ -16,10 +16,11 @@ module.exports = [
 								menuCode: 'sysDeviceDefinitionList',
 								router: '/smarthardware/doorManage/equipmentmanage',
 							},{
-								primaryText: '开门记录',
+								primaryText: "开门记录",
+								originUrl: '/smarthardware/openlog',
+								type: 'vue',
 								menuCode: 'iot_door_open_log',
-								router: '/smarthardware/doorManage/openlog',
-								otherRouter : ['/smarthardware/doorManage/openlog/'],
+								// otherRouter : ['/smarthardware/doorManage/openlog/'],
 							},
 							{
 								primaryText: '故障报警',
@@ -92,11 +93,11 @@ module.exports = [
 
 					{
 						primaryText: '设备查询',
-						menuCode: 'myCard',
+						menuCode: 'device_deploy_search',
 						router: '/smarthardware/equipmentmanage/equipmentsearch',
 					},{
 						primaryText: 'IP冲突检测',
-						menuCode: 'myCard',
+						menuCode: 'device_ip_detection',
 						router: '/smarthardware/equipmentmanage/checkrepeatip',
 					}
 				]

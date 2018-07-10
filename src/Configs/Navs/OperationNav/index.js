@@ -10,13 +10,13 @@ module.exports = [
 				iconColor: '#79859a',
 				type: 'vue',
 				menuItems: [
-					// {
-                    //     primaryText: '社区主页',
-                    //     originUrl: '/operation/community',
-                    //     type:'vue',
-                    //     menuCode: 'op_home',
-                    // },
-					 {
+					{
+						primaryText: '社区主页',
+						originUrl: '/operation/community',
+						type:'vue',
+						menuCode: 'op_home',
+					},
+					{
                         primaryText: '即将到期',
                         originUrl: '/inventory/over-date',
                         type:'vue',
@@ -26,7 +26,7 @@ module.exports = [
                         primaryText: '即将进场',
                         originUrl: '/inventory/enter-field',
                         type:'vue',
-                        menuCode: 'imt_putaway_list',
+						menuCode: 'imt_putaway_list',
 					},
 					{
                         primaryText: '已起租未付',
@@ -46,7 +46,7 @@ module.exports = [
 						router: '/community/communityManage/visitorsToRecord'
 					},
 					{
-						primaryText: '访客',
+						primaryText: '预约访客',
 						menuCode: 'visitRecord',
 						router: '/community/visitor/list'
 

@@ -69,7 +69,8 @@ export default class ChangeMember extends React.Component{
 		let {itemDetail}  = this.props;
 		let {freshGroupEquipment} = this.state;
 		let doorTypeOptions=State.doorTypeOptions;
-		let titleText =  "组授权设备 | 组名称："+itemDetail.name 
+		let titleText =  "组授权设备 | 组名称："+itemDetail.name ;
+		console.log("itemDetail",itemDetail);
 		return (
 			<div className="change-member">
 				<div style={{width:"100%",height:30}}>
@@ -82,7 +83,8 @@ export default class ChangeMember extends React.Component{
 					<div className="change-member-item">
 						<Section title={titleText} description="" >
 							<div style={{    float: "right", marginTop: "-60px"}}>
-								<Button label="添加设备"  onTouchTap={this.openAddEquipmentDialogFun} className="button-list"/>
+								{itemDetail.groupLevel=="NORMAL" && <Button label="添加设备"  onTouchTap={this.openAddEquipmentDialogFun} className="button-list"/>
+								}							
 							</div>
 							<AuthorizationEquipment memberDetailInfo={itemDetail} doorTypeOptions={doorTypeOptions} granteeId={itemDetail.id} granteeType="USER_GROUP" noShowAddNew={true} freshGroupEquipment={freshGroupEquipment}/> 
 							<DialogInner 
