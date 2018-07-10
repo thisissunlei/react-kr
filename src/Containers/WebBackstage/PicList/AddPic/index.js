@@ -20,12 +20,14 @@ class AddPic extends React.Component{
         this.state = {
             jobTypes:[],
             isType :false,
+            cityData:[],
 
         }
 	}
 
     componentDidMount(){
         Store.dispatch(change('AddPic','published',"1"))
+        this.getCity();
     }
 
 
@@ -38,6 +40,22 @@ class AddPic extends React.Component{
         const {onCancel}=this.props;
         
         onCancel && onCancel();
+    }
+
+    getCity=()=>{
+        var _this = this;
+        Http.request('get-city', {}).then(function(response) {
+            var data = response;
+            data.map((item,index)=>{
+                item.label = item.name;
+                item.value = item.id;
+            })
+            _this.setState({
+                cityData:data,
+            })
+            // Store.dispatch(initialize('editNewList',response));
+            
+        })
     }
 
 	render(){
@@ -65,6 +83,12 @@ class AddPic extends React.Component{
                         <KrField name="published" label="是" type="radio" value="1" style={{marginTop:5,display:'inline-block',width:84}}/>
                         <KrField name="published" label="否" type="radio" value="0" style={{marginTop:5,display:'inline-block',width:53}}/>
                     </KrField>
+                    <KrField grid={1/2} equireLabel={true} label="文章类型" name="articleType" component="select" style={{width:262,marginLeft:28,marginTop:14}}
+                        options={this.state.cityData}
+                        requireLabel={true}
+                    />
+
+                    
                     <div style = {{marginLeft:30,marginTop:14}}>
                         <KrField
                             name="logo"
@@ -75,7 +99,39 @@ class AddPic extends React.Component{
                             pictureMemoryM={'1'}
                             requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
                             deviation = {"50*50"}
-                            label="上传图片"
+                            label="上传图片(尺寸:1920*600)"
+                            inline={false}
+                            requireLabel={true}
+
+                        />
+                    </div>
+                    <div style = {{marginLeft:30,marginTop:14}}>
+                        <KrField
+                            name="smallPic"
+                            component="mainNewsUploadImage"
+                            innerstyle={{width:200,height:100,padding:10,marginLeft:-80}}
+                            photoSize={'199*300'}
+                            pictureFormat={'JPG,PNG,GIF'}
+                            pictureMemory={'200'}
+                            requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                            deviation = {"50*50"}
+                            label="上传缩略图(尺寸:160*90)"
+                            inline={false}
+                            requireLabel={true}
+
+                        />
+                    </div>
+                    <div style = {{marginLeft:30,marginTop:14}}>
+                        <KrField
+                            name="mPic"
+                            component="mainNewsUploadImage"
+                            innerstyle={{width:400,height:250,padding:10,marginLeft:-80}}
+                            photoSize={'199*300'}
+                            pictureFormat={'JPG,PNG,GIF'}
+                            pictureMemory={'500'}
+                            requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                            deviation = {"50*50"}
+                            label="上传缩略图(尺寸:1125*843)"
                             inline={false}
                             requireLabel={true}
 

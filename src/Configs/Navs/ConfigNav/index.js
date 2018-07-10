@@ -101,6 +101,11 @@ module.exports = [
 						type:'vue',
 						originUrl: '/facility-tags/',
 					},
+					{
+						primaryText: '轮播图列表',
+						menuCode: 'por_mobilepic_list',
+						router: '/WebBackstage/picList',
+					},
                     {
                         primaryText: '关键词配置',
                         menuCode: 'sem_list',

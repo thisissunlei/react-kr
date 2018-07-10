@@ -153,5 +153,11 @@ module.exports = {
   method: 'get'
 },
 
+//官网-轮播图列表-获取城市
+'get-city':{
+  url: '/api/krspace-gateway-wap/protals-all-city',
+  method: 'get'
+}
+
 
 }
