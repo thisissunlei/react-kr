@@ -131,7 +131,7 @@ class AddPic extends React.Component{
                             pictureMemory={'500'}
                             requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
                             deviation = {"50*50"}
-                            label="上传缩略图(尺寸:1125*843)"
+                            label="上传M站图(尺寸:1125*843)"
                             inline={false}
                             requireLabel={true}
 

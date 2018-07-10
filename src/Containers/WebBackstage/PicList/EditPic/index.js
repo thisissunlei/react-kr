@@ -102,9 +102,41 @@ class EditPic extends React.Component{
                             deviation = {"50*50"}
                             defaultValue={photoUrl}
 							onDeleteImg ={this.deletePhoto}
-                            label="上传图片"
+                            label="上传图片(尺寸:1920*600)"
                             inline={false}
                             requireLabel={true}
+                        />
+                    </div>
+                    <div style = {{marginLeft:30,marginTop:14}}>
+                        <KrField
+                            name="smallPic"
+                            component="mainNewsUploadImage"
+                            innerstyle={{width:200,height:100,padding:10,marginLeft:-80}}
+                            photoSize={'199*300'}
+                            pictureFormat={'JPG,PNG,GIF'}
+                            pictureMemory={'200'}
+                            requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                            deviation = {"50*50"}
+                            label="上传缩略图(尺寸:160*90)"
+                            inline={false}
+                            requireLabel={true}
+
+                        />
+                    </div>
+                    <div style = {{marginLeft:30,marginTop:14}}>
+                        <KrField
+                            name="mPic"
+                            component="mainNewsUploadImage"
+                            innerstyle={{width:400,height:250,padding:10,marginLeft:-80}}
+                            photoSize={'199*300'}
+                            pictureFormat={'JPG,PNG,GIF'}
+                            pictureMemory={'500'}
+                            requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                            deviation = {"50*50"}
+                            label="上传M站图(尺寸:1125*843)"
+                            inline={false}
+                            requireLabel={true}
+
                         />
                     </div>
 
