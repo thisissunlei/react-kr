@@ -215,7 +215,6 @@ const validate = values=>{
     if(values.picUrls && values.picUrls.length == 0){
 		errors.picUrls = '图片为必填项';
     }
-    console.log(values)
 	return errors;
 }
 export default EditHouseForm = reduxForm({
