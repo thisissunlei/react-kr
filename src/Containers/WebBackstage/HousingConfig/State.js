@@ -1,5 +1,4 @@
 
-
 import mobx, {
 	observable,
 	action,
@@ -12,18 +11,16 @@ let State = observable({
 	houseConifigListParams:{
         cmtId: '11111',
         page:1,
-        pageSize:15
+        pageSize:10
 	},
 	openNewCreate : false,
 	openConfirmDelete : false,
 	openEditDialog : false,
 	page :1,
-
 });
 
 //新增
 State.newCreateHouseConfig = action(function(values){
-	
 	Http.request('house-city-list-add',{},values ).then(function(response) {
 		State.houseConifigListParams = {
 			page:1,
@@ -43,37 +40,45 @@ State.newCreateHouseConfig = action(function(values){
 		}
 		Message.error(err.message);
 	});	
-
 })
-State.deleteHouseConfig = action(function(values){
-	
-	Http.request('house-city-list-delete',{id:values} ).then(function(response) {
+
+//删除
+State.deleteHouseConfig = action(function(values,cmtId){
+	Http.request('house-city-list-delete',{houseId:values} ).then(function(response) {
 		State.houseConifigListParams = {
-			page:1,
-			pageSize:15,
-			cmtId : '',
+			page:State.page,
+			pageSize:10,
+			cmtId:cmtId,
 			date: new Date()		
 		}
 		State.openConfirmDelete =false;
 		Message.success("删除成功");
 
 	}).catch(function(err) {
-		State.openConfirmDelete =false;
+		Message.error(err.message);
+	});	
+
+})
+
+//发布
+State.pushHouseConfig = action(function(values,cmtId){
+	Http.request('house-city-list-push',{houseId:values} ).then(function(response) {
 		State.houseConifigListParams = {
-			page:State.page,
-			pageSize:15,
-			communityId: '',
+			page:1,
+			pageSize:10,
+			cmtId : cmtId,
 			date: new Date()		
 		}
+		State.openConfirmDelete =false;
+		Message.success("发布成功");
+	}).catch(function(err) {
 		Message.error(err.message);
 	});	
 
 })
 
 State.editPrinterConfig = action(function(values){
-	
 	Http.request('editPrinterConfig',values ).then(function(response) {
-			
 		State.houseConifigListParams = {
 			page:State.page,
 			pageSize:15,
@@ -82,7 +87,6 @@ State.editPrinterConfig = action(function(values){
 		}
 		State.openEditDialog =false;
 		Message.success("编辑成功");
-
 	}).catch(function(err) {
 		State.openEditDialog =false;
 		State.houseConifigListParams = {
@@ -93,7 +97,6 @@ State.editPrinterConfig = action(function(values){
 		}
 		Message.error(err.message);
 	});	
-
 })
 
 

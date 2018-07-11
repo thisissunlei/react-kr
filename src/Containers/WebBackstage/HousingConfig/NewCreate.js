@@ -48,11 +48,10 @@ class NewCreateDefinitionForm extends React.Component{
 	// 新建数据
 	onSubmit=(values)=>{
         let _this = this;
-        values.payMonth = values.depositMonth.charAt(3)
-        values.depositMonth = values.depositMonth.charAt(1)
-
-        console.log(values)
-	 	//State.newCreateHouseConfig(values);
+        values.payMonth = values.depositMonthAll.charAt(3)
+        values.depositMonth = values.depositMonthAll.charAt(1)
+        values.picUrls = JSON.stringify(values.picUrls)
+	 	State.newCreateHouseConfig(values);
     }
 	render(){
         const { error, handleSubmit, reset} = this.props;
@@ -65,7 +64,7 @@ class NewCreateDefinitionForm extends React.Component{
 						onChange = {this.onChangeSearchCity}
 						label="城市"  
 						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
+						style={{width:'280px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
                     <KrField 
@@ -75,7 +74,7 @@ class NewCreateDefinitionForm extends React.Component{
                         label="社区" 
                         cityType={this.state.cityType} 
 						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
+						style={{width:'280px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
                     <KrField 
@@ -83,14 +82,14 @@ class NewCreateDefinitionForm extends React.Component{
                         label="工位类型" 
                         name="houseType" 
                         component="select" 
-                        style={{width:'252px',margin:'0 35px 5px 0'}}
+                        style={{width:'280px',margin:'0 35px 5px 0'}}
                         options={[{label:"独立办公室",value:"INDEPENDENT_OFFICE"},{label:"移动工位",value:"OPEN_STATION"}]}
                         requireLabel={true}
                     />
                     <KrField 
                         label="工位单价(月/元)" 
                         name="monthPrice" 
-                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
@@ -110,7 +109,7 @@ class NewCreateDefinitionForm extends React.Component{
                     <KrField 
                         label="容纳人数" 
                         name="allowNum" 
-                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
@@ -118,15 +117,15 @@ class NewCreateDefinitionForm extends React.Component{
                     <KrField 
                         label="最短租期" 
                         name="rentDate" 
-                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
                     />
                     <KrField 
                         label="付款方式" 
-                        name="depositMonth" 
-                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        name="depositMonthAll" 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
@@ -134,7 +133,7 @@ class NewCreateDefinitionForm extends React.Component{
                     <KrField 
                         label="佣金比例" 
                         name="moneyRate" 
-                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}

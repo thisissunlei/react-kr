@@ -30,7 +30,6 @@ class OpenLogForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			
 			searchParams:{
 			},
 		}
@@ -44,8 +43,11 @@ class OpenLogForm extends React.Component{
 	}
 
 	changeCommunity=(value)=>{
+        console.log(value)
 		State.houseConifigListParams={
-			cmtId: value.cmtId || '',
+            cmtId: value.cmtId || '',
+            page:1,
+            pageSize:10
 		}
 	}
 

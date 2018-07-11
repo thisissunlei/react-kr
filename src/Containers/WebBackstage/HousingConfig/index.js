@@ -29,9 +29,6 @@ import {Actions,Store} from 'kr/Redux';
 import OpenSearchForm from './OpenSearchForm';
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
-
-
-
 import './index.less';
 import State from './State';
 import {
@@ -39,11 +36,11 @@ import {
 	inject
 } from 'mobx-react';
 @observer
-
 export default class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
+            realPage:1,
 			itemDetail : {}
 		}
 	}
@@ -68,10 +65,10 @@ export default class List extends React.Component {
     }
 
     onPageChange=(page)=>{
-		this.setState({
-			realPage : page 
-		})
-		State.page  = page
+        var houseConifigListParams = Object.assign({},State.houseConifigListParams);
+		houseConifigListParams.page = page;
+        State.houseConifigListParams = houseConifigListParams;
+        State.page = page;
 	}
     
 	openEditDialogFun=()=>{
@@ -83,17 +80,23 @@ export default class List extends React.Component {
 		},function(){
 			State.openConfirmDelete = true;
 		})
-	}
+    }
+    onClickPush=(value)=>{
+        this.setState({
+            itemDetail : value
+        })
+		State.pushHouseConfig(value.id,value.cmtId)
+    }
 	confirmDelete=()=>{
         let {itemDetail} = this.state;
-        console.log(itemDetail)
-		State.deleteHouseConfig(itemDetail.id)
+		State.deleteHouseConfig(itemDetail.id,itemDetail.cmtId)
 	}
 	openDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
 	}
 	render() {
-		let {itemDetail} = this.state;
+        let {itemDetail} = this.state;
+        console.log(State.houseConifigListParams)
 		return (
 			    <div className='house-config-box'>
 					<Title value="好租房源配置"/>
@@ -198,7 +201,7 @@ export default class List extends React.Component {
 											}
 											return (
 													<div>
-														<Button  label="发布"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value)}/>
+														<Button  label="发布"  type="operation" operation="publish" onTouchTap={this.onClickPush.bind(this,value,itemData)}/>
                                                         <Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value)}/>
 														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)}/>
 													</div>

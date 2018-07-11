@@ -154,7 +154,7 @@ module.exports = {
 },
 //官网-好租房源配置-房源列表
 'house-get-list':{
-    url: '/api/krspace-finance-web/haozu/list?cmtId={cmtId}',
+    url: '/api/krspace-finance-web/haozu/list?cmtId={cmtId}&page={page}&pageSize={pageSize}',
     method: 'get'
 },
 //官网-好租房源配置-社区列表
@@ -179,12 +179,12 @@ module.exports = {
 },
 //官网-好租房源配置-城市-删除
 'house-city-list-delete':{
-    url: '/api/krspace-finance-web/haozu/delete?id={id}',
+    url: '/api/krspace-finance-web/haozu/delete?houseId={houseId}',
     method: 'get'
 },
 //官网-好租房源配置-城市-发布
 'house-city-list-push':{
-    url: '/api/krspace-finance-web/haozu/publish?id={id}',
+    url: '/api/krspace-finance-web/haozu/publish?houseId={houseId}',
     method: 'get'
 }
 }
