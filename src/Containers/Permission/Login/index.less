@@ -74,12 +74,11 @@
         position: relative;
       	width:40%;
       	margin: 0 auto;
-      	width:720px;
+      	width:760px;
         text-align:center;
         transform: translateY(-50%);
         top: 50%;
         margin-top: -70px;
-
         .login-title {
         	color: #ffffff;
         	font-size:32px;
@@ -88,13 +87,23 @@
         }
         .login-box{
           width:100%;
-        	height: 432px;
+          height: 472px;
+          overflow: hidden;
         	position:relative;
-        	background: #fff;
+           background:url(images/OPlogin/bg.png) center center no-repeat;
+           background-size: contain;
+           background-color: #fff;
         	filter: progid:DXImageTransform.Microsoft.Shadow(color=#3d5d6e,
         		direction=120, strength=4 ); /*ie*/
         	box-shadow: 2px 2px 20px #ac465a; /*opera或ie9*/
-        	border-radius: 4px; /* W3C syntax */
+          border-radius: 4px; /* W3C syntax */
+          .login-newLogin{
+            position: absolute;
+            top:30px;
+            width: 300px;
+            right: 43px;
+            height: 100%;
+          }
           .logos {
           	width: 56px;
           	height: 56px;
@@ -106,13 +115,36 @@
           	background-size:100% 100%;
           }
           .login-tip {
-          	color: #57a9f9;
-          	font-size: 24px;
-          	padding-top: 62px;
-            margin-bottom: 20px;
+            text-align: center;
+           // width: 248px;
+         //   height: 112px;
+            position: relative;
+            .logins-denglu{
+              position: absolute;
+              left:1px;
+              top:31px;
+              display: inline-block;
+              color: #282624;
+            //  padding-top: 31px;
+          //    margin-bottom: 39px;
+              font-family: PingFang-SC-Medium;
+              font-size: 30px;
+              height: 42px;
+              width: 60px;
+            }
+            .logins-log{
+              width: 248px;
+              height:112px;
+              position:relative;
+              left: -19px;
+              display: inline-block;
+              font-family: PingFang-SC-Medium;
+              font-size: 80px;
+              color: #EEEEEE;
+            }
           }
           .login-content-ul {
-          	width:320px;
+          	width:300px;
           	margin-left:auto;
           	margin-right:auto;
           	font-family: "微软雅黑", "黑体";

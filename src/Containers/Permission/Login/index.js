@@ -38,6 +38,12 @@ import loginEarth from './images/newYear/earth.png'
 import loginParents from './images/newYear/parents.png'
 import loginSons from './images/newYear/sons.png'
 import loginFireworks from './images/newYear/fireworks.png'
+// 二维码图片 
+import icon_Cblank from './images/OPlogin/icon_Cblank.svg'
+import icon_Cblue from './images/OPlogin/icon_Cblue.svg'
+import icon_QRblank from './images/OPlogin/icon_QRblank.svg'
+import icon_QRblue from './images/OPlogin/icon_QRblue.svg'
+
 @observer
 class Login extends Component {
 	static contextTypes = {
@@ -79,6 +85,9 @@ class Login extends Component {
 			edited:false,
 			timeToLogin:3,
 			LoginHeight:0,
+			//二维码
+			QRCode:false,
+			QrcodeExpired:false
     }
 	}
 	componentDidMount() {
@@ -503,6 +512,64 @@ class Login extends Component {
 					}
 				});
 	}
+
+	  /*
+	  * 获取二维码 
+						editPwd:true,
+						forgetPwd:false,
+						canLogin:false,
+	  */
+	  getQRCode = () => { 
+			let timer;  
+	    let _this = this;
+				this.setState(
+											{QrcodeExpired:false,
+											QRCode:true,
+											canLogin:false},()=>{
+					      Http.request('getQrCode', {}).then( (response) =>{
+					        Message.success("获取二维码");
+					        // 赋值
+					        this.setState({
+					          qrCodeUrl:response.qrCodeUrl,
+					          uuid:response.uuid
+					        },()=>{
+					          // 调取轮询 
+					          QRtime()
+					        })
+					      }).catch(function(err) {
+					        if(err.code<0){
+					          Message.error(err.message)
+					        }
+					      });	   
+						})
+	    // 定时器轮询
+	    function QRtime(){
+	       timer = setTimeout(()=>{
+	        Http.request('getQrLoginStatus',{uuid: _this.state.uuid}).then((response) =>{
+	          if(response.code === 1){
+	            // 成功
+	            clearTimeout(timer);
+	            window.location.href = './';
+	 
+	          }else if(response.code === 0){
+	            // 未登录
+	            QRtime();
+	          }else if(response.code === -2){
+	            // 二维码过期 
+	            clearTimeout(timer);
+	            _this.setState({QrcodeExpired:true,QRCode:false});
+	          }else if(response.code === -1){
+		            // 异常 
+		            clearTimeout(timer);
+						  	Message.error(response.message);
+		           // _this.setState({QrcodeExpired:true})
+		          }
+	        })
+	      },1000)
+	    } 
+	  } 
+	
+	
 	// onSubmit(form){
 	// 	const {
 	// 		onSubmit
@@ -612,8 +679,11 @@ class Login extends Component {
               <div className="login-box">
                 {/*<div className="logos"></div>*/}
                 { this.state.canLogin &&
-                  <div>
-                  <div className="login-tip">登录</div>
+                  <div className='login-newLogin'>
+                  <div className="login-tip">
+									<span className='logins-log'>LOGIN</span>
+									<span className='logins-denglu'>登录</span>
+									</div>
                   <div className="login-content">
                      <ul className="login-content-ul">
 											{/*<li className="hideInput">

@@ -656,4 +656,14 @@ module.exports = {
     url: '/api/krspace-sso-web/member/mobile-phone?phone={phone}',
     method: 'get'
    },
+   // 获取二维码 
+  'getQrCode':{
+    url: '/api/krspace-sso-web/sso/login/getQrCode',
+    method: 'get'
+  },
+  // 登录状态查询  
+  'getQrLoginStatus':{
+    url: '/api/krspace-sso-web/sso/login/getQrLoginStatus',
+    method: 'get'
+  },
 }

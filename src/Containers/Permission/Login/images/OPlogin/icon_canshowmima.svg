@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="13px" viewBox="0 0 20 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_能看见密码</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="正式" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="07_重置密码" transform="translate(-1261.000000, -505.000000)" fill="#FFFFFF" stroke="#666666" stroke-width="1.2">
+            <g id="请输入手机号或者邮箱" transform="translate(1002.000000, 483.000000)">
+                <g id="icon_能看见密码" transform="translate(259.000000, 22.000000)">
+                    <ellipse id="Oval" cx="10" cy="6.5" rx="9.4" ry="5.9"></ellipse>
+                    <circle id="Oval-2" cx="10.5" cy="6.5" r="3.1"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
