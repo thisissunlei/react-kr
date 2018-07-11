@@ -37,10 +37,8 @@ class EditForm extends React.Component{
 		closeEditEquipment && closeEditEquipment();
 	}
 	
-	// 编
 	onSubmit=(values)=>{
-		
-		
+        State.editHouseConfig(values);
 	}
 	render(){
 		

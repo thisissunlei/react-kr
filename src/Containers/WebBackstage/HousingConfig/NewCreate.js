@@ -49,8 +49,6 @@ class NewCreateDefinitionForm extends React.Component{
 	onSubmit=(values)=>{
         let _this = this;
         let arrPic = [];
-        values.payMonth = values.depositMonthAll.charAt(3)
-        values.depositMonth = values.depositMonthAll.charAt(1)
         values.picUrls.forEach(v => {
             arrPic.push(v.src)
         });
@@ -127,8 +125,16 @@ class NewCreateDefinitionForm extends React.Component{
                         inline={false}
                     />
                     <KrField 
-                        label="付款方式" 
-                        name="depositMonthAll" 
+                        label="付款方式(付)" 
+                        name="payMonth" 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField 
+                        label="付款方式(押)" 
+                        name="depositMonth" 
                         style={{width:'280px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 

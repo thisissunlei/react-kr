@@ -58,9 +58,9 @@ State.deleteHouseConfig = action(function(values,cmtId){
 State.pushHouseConfig = action(function(values,cmtId){
 	Http.request('house-city-list-push',{houseId:values} ).then(function(response) {
 		State.houseConifigListParams = {
-			page:1,
+			page:State.page,
 			pageSize:10,
-			cmtId : cmtId,
+			cmtId:cmtId,
 			date: new Date()		
 		}
 		State.openConfirmDelete =false;
@@ -72,24 +72,18 @@ State.pushHouseConfig = action(function(values,cmtId){
 })
 
 //编辑
-State.editPrinterConfig = action(function(values){
-	Http.request('editPrinterConfig',values ).then(function(response) {
+State.editHouseConfig = action(function(values,cmtId){
+	Http.request('house-city-list-edit',{},values ).then(function(response) {
 		State.houseConifigListParams = {
 			page:State.page,
-			pageSize:15,
-			communityId : '',
+			pageSize:10,
+			cmtId:'11111',
 			date: new Date()		
 		}
 		State.openEditDialog =false;
 		Message.success("编辑成功");
 	}).catch(function(err) {
 		State.openEditDialog =false;
-		State.houseConifigListParams = {
-			page:State.page,
-			pageSize:15,
-			communityId: '',
-			date: new Date()		
-		}
 		Message.error(err.message);
 	});	
 })

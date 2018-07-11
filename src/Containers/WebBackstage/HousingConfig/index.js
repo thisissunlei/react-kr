@@ -46,17 +46,21 @@ export default class List extends React.Component {
 	}
 	componentDidMount(){
 		State.getPrintPriceNameList();
-	}
+    }
+    
 	onLoaded=(response)=>{
 		let list = response;
 		this.setState({
 			list
 		})
-	}
+    }
+    
 	openNewCreateDialog=()=>{
 		State.openNewCreate = !State.openNewCreate;
-	}
+    }
+    
 	editList=(value)=>{
+        console.log(value)
 		this.setState({
 			itemDetail : value
 		},function(){
@@ -96,7 +100,6 @@ export default class List extends React.Component {
 	}
 	render() {
         let {itemDetail} = this.state;
-        console.log(State.houseConifigListParams)
 		return (
 			    <div className='house-config-box'>
 					<Title value="好租房源配置"/>

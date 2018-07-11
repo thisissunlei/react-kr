@@ -186,5 +186,10 @@ module.exports = {
 'house-city-list-push':{
     url: '/api/krspace-finance-web/haozu/publish?houseId={houseId}',
     method: 'get'
-}
+},
+//官网-好租房源配置-城市-编辑
+'house-city-list-edit':{
+    url: '/api/krspace-finance-web/haozu/edit',
+    method: 'post'
+},
 }
