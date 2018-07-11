@@ -45,14 +45,13 @@ State.newCreateHouseConfig = action(function(values){
 	});	
 
 })
-State.deletePrinterConfig = action(function(values){
+State.deleteHouseConfig = action(function(values){
 	
-	Http.request('deletePrinterConfig',{id:values} ).then(function(response) {
-		
+	Http.request('house-city-list-delete',{houseId:values} ).then(function(response) {
 		State.houseConifigListParams = {
 			page:1,
 			pageSize:15,
-			communityId : '',
+			cmtId : '',
 			date: new Date()		
 		}
 		State.openConfirmDelete =false;

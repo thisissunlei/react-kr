@@ -85,8 +85,9 @@ export default class List extends React.Component {
 		})
 	}
 	confirmDelete=()=>{
-		let {itemDetail} = this.state;
-		State.deletePrinterConfig(itemDetail.id)
+        let {itemDetail} = this.state;
+        console.log(itemDetail)
+		State.deleteHouseConfig(itemDetail.id)
 	}
 	openDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;

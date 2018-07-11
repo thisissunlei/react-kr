@@ -177,4 +177,8 @@ module.exports = {
     url: '/api/krspace-finance-web/haozu/add',
     method: 'post'
 },
+'house-city-list-delete':{
+    url: '/api/krspace-finance-web/haozu/delete?houseId={houseId}',
+    method: 'get'
+}
 }
