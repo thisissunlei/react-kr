@@ -43,9 +43,8 @@ class OpenLogForm extends React.Component{
 	}
 
 	changeCommunity=(value)=>{
-        console.log(value)
 		State.houseConifigListParams={
-            cmtId: value.cmtId || '',
+            cmtId: value.cmtId || '111111',
             page:1,
             pageSize:10
 		}
