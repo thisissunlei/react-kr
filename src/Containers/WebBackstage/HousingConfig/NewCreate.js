@@ -52,7 +52,7 @@ class NewCreateDefinitionForm extends React.Component{
         values.picUrls.forEach(v=>{
             arr.push(v.src)
         })
-        values.picUrls = JSON.stringify(arr);
+        values.picUrls = arr;
 	 	State.newCreateHouseConfig(values);
     }
 	render(){
