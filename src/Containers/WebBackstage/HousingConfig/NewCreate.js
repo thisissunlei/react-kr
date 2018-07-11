@@ -50,10 +50,10 @@ class NewCreateDefinitionForm extends React.Component{
         let _this = this;
         values.payMonth = values.depositMonth.charAt(3)
         values.depositMonth = values.depositMonth.charAt(1)
+
         console.log(values)
-	 	State.newCreateHouseConfig(values);
+	 	//State.newCreateHouseConfig(values);
     }
-    
 	render(){
         const { error, handleSubmit, reset} = this.props;
 		return(

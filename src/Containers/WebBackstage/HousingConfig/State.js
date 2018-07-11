@@ -47,7 +47,7 @@ State.newCreateHouseConfig = action(function(values){
 })
 State.deleteHouseConfig = action(function(values){
 	
-	Http.request('house-city-list-delete',{houseId:values} ).then(function(response) {
+	Http.request('house-city-list-delete',{id:values} ).then(function(response) {
 		State.houseConifigListParams = {
 			page:1,
 			pageSize:15,

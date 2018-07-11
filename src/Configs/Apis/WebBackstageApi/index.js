@@ -177,8 +177,14 @@ module.exports = {
     url: '/api/krspace-finance-web/haozu/add',
     method: 'post'
 },
+//官网-好租房源配置-城市-删除
 'house-city-list-delete':{
-    url: '/api/krspace-finance-web/haozu/delete?houseId={houseId}',
+    url: '/api/krspace-finance-web/haozu/delete?id={id}',
+    method: 'get'
+},
+//官网-好租房源配置-城市-发布
+'house-city-list-push':{
+    url: '/api/krspace-finance-web/haozu/publish?id={id}',
     method: 'get'
 }
 }
