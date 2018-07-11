@@ -173,7 +173,7 @@ module.exports = {
     method: 'get'
 },
 //官网-好租房源配置-城市-添加
-'house-city-cmt-list':{
+'house-city-list-add':{
     url: '/api/krspace-finance-web/haozu/add',
     method: 'post'
 },

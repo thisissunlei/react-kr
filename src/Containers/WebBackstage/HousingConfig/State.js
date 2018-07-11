@@ -24,11 +24,11 @@ let State = observable({
 //新增
 State.newCreateHouseConfig = action(function(values){
 	
-	Http.request('house-city-cmt-list',{},values ).then(function(response) {
+	Http.request('house-city-list-add',{},values ).then(function(response) {
 		State.houseConifigListParams = {
 			page:1,
 			pageSize:10,
-			communityId : '',
+			cmtId : '11111',
 			date: new Date()		
 		}
 		State.openNewCreate =false;
@@ -38,7 +38,7 @@ State.newCreateHouseConfig = action(function(values){
 		State.houseConifigListParams = {
 			page:State.page,
 			pageSize:15,
-			communityId: '',
+			cmtId : '11111',
 			date: new Date()		
 		}
 		Message.error(err.message);

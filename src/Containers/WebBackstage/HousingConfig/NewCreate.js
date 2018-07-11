@@ -21,7 +21,7 @@ class NewCreateDefinitionForm extends React.Component{
 		super(props,context);
 		this.state={
             cityType:'',
-            titleUrl:''
+            titleUrl:[]
 		}
 	}
 	
