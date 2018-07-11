@@ -74,6 +74,12 @@ module.exports = [
                         type: 'vue',
                         menuCode: 'qualification'
                     },
+                    {
+                        primaryText: "客户资金转移",
+                        type: 'vue',
+                        originUrl: '/order-center/apply-manage/_transferOperate',
+                        menuCode: 'wallet_transfer',
+                    }
                     ]
                 },
 		]
