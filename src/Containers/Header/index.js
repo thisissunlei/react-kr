@@ -42,7 +42,7 @@ const NavItem = ({ ...props }) => {
 
 const More = ({ ...props }) => {
 	let { Navs, NavModel } = props;
-	var navs = Navs.slice(7);
+	var navs = Navs;
 	function setSidebar() {
 		NavModel.setSidebar(true);
 	}
@@ -54,10 +54,24 @@ const More = ({ ...props }) => {
 				<p className="u-single"></p>
 				<ul className="u-header-more-list">
 					{navs.map((item, index) => {
-
-						return (
-							<NavItem key={index} label={item.primaryText} originUrl={item.originUrl} isActive={item.isActive} path={item.router} onClick={setSidebar} />
-						)
+								
+									let type = '';
+									if (item.childList[0].childList[0].projectType === 'admin') {
+										// if(location.href.indexOf('new') ===-1){
+										type = '/new/#'
+										// }
+				
+									}
+				
+									return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
+										onClick={() => {
+											this.setSidebar(item)
+										}
+										} />)
+								
+						// return (
+						// 	<NavItem key={index} label={item.primaryText} originUrl={item.originUrl} isActive={item.isActive} path={item.router} onClick={setSidebar} />
+						// )
 					})}
 				</ul>
 			</div>
@@ -185,15 +199,21 @@ export default class Header extends React.Component {
 	}
 	//打开侧边栏
 	openSidebar = () => {
+		// let { secondBarNavs }= this.state;
+		// if(secondBarNavs){
+
+		// }
+
 		const { NavModel } = this.props;
-		var navIsActive = NavModel.items.map((item, index) => {
-			return item.isActive;
-		})
-		var isActive = navIsActive.indexOf(true) == -1 ? true : false;
-		if (isActive) {
-			NavModel.clearSidebar();
-			return;
-		}
+		
+		// var navIsActive = NavModel.items.map((item, index) => {
+		// 	return item.isActive;
+		// })
+		// var isActive = navIsActive.indexOf(true) == -1 ? true : false;
+		// if (isActive) {
+		// 	NavModel.clearSidebar();
+		// 	return;
+		// }
 		NavModel.toggleSidebar();
 	}
 	//logo点击
@@ -242,62 +262,39 @@ export default class Header extends React.Component {
 	//上边的菜单
 	renderNav = (Navs) => {
 		let { firstNav } = this.state;
-		// var navs=Navs.slice(0,7);
-		// var navIsActive=navs.map((item,index)=>{
-		// 	return item.isActive;
-		// })
-		// var isActive=navIsActive.indexOf(true)==-1?true:false;
-
-		// navs = this.renderNavs(navs)
-		// this.nav=navs;
+		var navs=firstNav.slice(0,7);
 
 		return (
 			<Nav>
 				<NavItem label="首页" originUrl="./" isActive={this.state.headActive} onClick={this.clearSidebar} />
-				{firstNav.map((item, index) => {
+				{navs && navs.map((item, index) => {
 					let type = '';
 					if (item.childList[0].childList[0].projectType === 'admin') {
 						// if(location.href.indexOf('new') ===-1){
 						type = '/new/#'
 						// }
-
 					}
-
 					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 						onClick={() => {
 							this.setSidebar(item)
 						}
 						} />)
 				}
-
-
 				)}
 			</Nav>
 
 		);
 	}
-	//处理数据
-	renderNavs(navs) {
-
-		// navs = navs.map(item=>{
-		// 	// item = mobx.toJS(item)
-		// 	// let url = item.menuItems[0].menuItems[0].url || item.menuItems[0].menuItems[0].router || item.menuItems[0].menuItems[0].originUrl || '/./';
-		// 	// item.router = url.substring(1);
-
-		// 	return item;
-		// })
-
-		return navs
-	}
 
 	render() {
-
+		let { firstNav } = this.state;
+		let more = firstNav && firstNav.slice(7);
 		const { NavModel } = this.props;
 		let { Isperson, secondBarNavs } = this.state;
 
 		var navs = NavModel.items;
 		var person = NavModel.getUser();
-		console.log('nav--', secondBarNavs);
+		console.log('nav--', NavModel.openSidebar);
 		return (
 			<div className="no-print">
 				<div className="g-header-nav u-clearfix">
@@ -306,7 +303,7 @@ export default class Header extends React.Component {
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					{this.renderNav(navs)}
-					{navs.length > 7 ? <More Navs={navs} NavModel={NavModel} /> : ''}
+					{more && more.length ? <More Navs={more} NavModel={NavModel} /> : ''}
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} logout={this.logout} />
 				</div>
 				<Drawer
