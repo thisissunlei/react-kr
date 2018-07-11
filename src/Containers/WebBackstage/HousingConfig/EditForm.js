@@ -55,7 +55,11 @@ class EditForm extends React.Component{
 	}
 	
 	onSubmit=(values)=>{
-        values.picUrls = JSON.stringify(values.picUrls);
+        let arr = []
+        values.picUrls.forEach(v=>{
+            arr.push(v.src)
+        })
+        values.picUrls = JSON.stringify(arr);
         State.editHouseConfig(values);
     }
     
