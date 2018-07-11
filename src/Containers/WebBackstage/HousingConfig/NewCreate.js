@@ -52,7 +52,7 @@ class NewCreateDefinitionForm extends React.Component{
         values.picUrls.forEach(v=>{
             arr.push(v.src)
         })
-        values.picUrls = arr;
+        values.picUrls = arr.join(',');
 	 	State.newCreateHouseConfig(values);
     }
 	render(){
@@ -98,6 +98,7 @@ class NewCreateDefinitionForm extends React.Component{
                     />
                     <KrField 
                         name="picUrls"
+                        requireLabel={true} 
                         component="uploadImageList"
                         boxStyle={{marginLeft:-7,textAlign:'left'}}
                         defaultValue={this.state.titleUrl}
@@ -105,6 +106,7 @@ class NewCreateDefinitionForm extends React.Component{
                         innerBoxStyle={{width:254,height:70}}
                         innerStyle={{left:110,top:12}}
                         inline={false}
+                        requireLabel={true}
                         label='上传工位图片'
                         sort={true}
                     />
@@ -194,6 +196,9 @@ const validate = values=>{
 	}
 	if(!values.moneyRate){
 		errors.moneyRate = '佣金比例为必填项';
+    }
+    if(!values.picUrls){
+		errors.picUrls = '图片为必填项';
 	}
 	return errors;
 }
