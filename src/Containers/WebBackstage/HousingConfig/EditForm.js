@@ -38,14 +38,14 @@ class EditForm extends React.Component{
 	}
 	
 	onSubmit=(values)=>{
-        State.editHouseConfig(values);
+        State.editHouseConfig(values,);
 	}
 	render(){
 		
 		const { error, handleSubmit, reset} = this.props;
 		return(
 			<div>
-				<form onSubmit={handleSubmit(this.onSubmit)}>
+				<form style={{'margin':'20px 0 0 10px'}} onSubmit={handleSubmit(this.onSubmit)}>
 					<KrField 
                         name="brandType" 
 						component="searchHouseCity" 

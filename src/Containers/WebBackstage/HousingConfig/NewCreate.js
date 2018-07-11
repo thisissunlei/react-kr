@@ -48,6 +48,7 @@ class NewCreateDefinitionForm extends React.Component{
 	// 新建数据
 	onSubmit=(values)=>{
         let _this = this;
+        values.picUrls = JSON.stringify(values.picUrls);
 	 	State.newCreateHouseConfig(values);
     }
 	render(){
