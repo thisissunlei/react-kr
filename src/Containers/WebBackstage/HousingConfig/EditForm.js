@@ -23,14 +23,31 @@ class EditForm extends React.Component{
 		super(props,context);
 		this.detail = this.props.detail;
 		this.state={
-			
+            cityType:'',
+            picUrls:[]
 		}
-	}
+    }
+    componentWillMount(){
+        let arr = []
+        this.props.detail.picUrls.forEach(v => {
+            arr.push({
+                src:v
+            })
+        });
+        this.setState({
+            picUrls:arr
+        })
+    }
 
 	componentDidMount(){
 		Store.dispatch(initialize('EditForm', this.detail));
-	}
-
+    }
+    
+    onChangeSearchCity=(value)=>{
+        this.setState({
+            cityType:value.code
+        })
+    }
 	
 	onCancel=()=>{
 		const {closeEditEquipment}=this.props;
@@ -38,8 +55,10 @@ class EditForm extends React.Component{
 	}
 	
 	onSubmit=(values)=>{
-        State.editHouseConfig(values,);
-	}
+        values.picUrls = JSON.stringify(values.picUrls);
+        State.editHouseConfig(values);
+    }
+    
 	render(){
 		
 		const { error, handleSubmit, reset} = this.props;
@@ -86,7 +105,7 @@ class EditForm extends React.Component{
                         name="picUrls"
                         component="uploadImageList"
                         boxStyle={{marginLeft:-35,textAlign:'left'}}
-                        defaultValue={this.state.titleUrl}
+                        defaultValue={this.state.picUrls}
                         imgFlag={false}
                         innerBoxStyle={{width:254,height:70}}
                         innerStyle={{left:110,top:12}}
@@ -111,8 +130,16 @@ class EditForm extends React.Component{
                         inline={false}
                     />
                     <KrField 
-                        label="付款方式" 
-                        name="depositMonthAll" 
+                        label="付款方式(付)" 
+                        name="payMonth" 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField 
+                        label="付款方式(押)" 
+                        name="depositMonth" 
                         style={{width:'280px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 

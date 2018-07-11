@@ -311,38 +311,39 @@ export default class UploadImageListComponent extends Component {
         }else{
           imgStyle='detailImg'
         }
-		
+        
+        console.log(images,'111222233344')
 		return(
 		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
 			<div className="ui-uploadimgList-box" style={boxStyle} >
 
 				<div className='ui-uploadimg-outbox' >
-
 					{
 						images.map((item,index)=>{
-							return (<div className='lostsImg'>
-							<div style={{backgroundImage:`url(${item.src})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain'}} className={imgStyle}></div>
-							<div className="ui-uploadimg-fresh-delete">
-								<div className='delete-middle'>
-									{(sort && index>0) && 
-										<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.backwardImage.bind(this,index)}>
-											<img src={next} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete prev"/>
-										</div>
-									}
-									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openFirstFun.bind(this,index)}>
-										<img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh" style={{top:8,cursor:'pointer'}}/>
-									</div>
-									<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openDeleteFun.bind(this,index)}>
-										<img src={defaultRemoveImageIcon} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
-									</div>
-									{(sort && (index<images.length-1)) && 
-										<div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.forwardImage.bind(this,index)}>
-											<img src={next} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
-										</div>
-									}
-								</div>
-							</div>
-						</div>)
+							return (
+                            <div className='lostsImg' key={index}>
+                                <div style={{backgroundImage:`url(${item.src})`,backgroundRepeat:'no-repeat',backgroundPosition:'center',backgroundSize:'contain'}} className={imgStyle}></div>
+                                <div className="ui-uploadimg-fresh-delete">
+                                    <div className='delete-middle'>
+                                        {(sort && index>0) && 
+                                            <div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.backwardImage.bind(this,index)}>
+                                                <img src={next} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete prev"/>
+                                            </div>
+                                        }
+                                        <div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openFirstFun.bind(this,index)}>
+                                            <img src={refresh} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-refresh" style={{top:8,cursor:'pointer'}}/>
+                                        </div>
+                                        <div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.openDeleteFun.bind(this,index)}>
+                                            <img src={defaultRemoveImageIcon} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
+                                        </div>
+                                        {(sort && (index<images.length-1)) && 
+                                            <div className="ui-uploadimg-operateimg ui-uploadimg-operateimg-left" onClick={this.forwardImage.bind(this,index)}>
+                                                <img src={next} className="ui-uploadimg-operateimg-btn ui-uploadimg-operateimg-delete"/>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+						    </div>)
 					})
 				}
 
