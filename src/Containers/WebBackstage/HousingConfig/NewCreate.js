@@ -45,14 +45,13 @@ class NewCreateDefinitionForm extends React.Component{
             titleUrl:''
         })
     }
-
 	// 新建数据
 	onSubmit=(values)=>{
         let _this = this;
         values.payMonth = values.depositMonth.charAt(3)
         values.depositMonth = values.depositMonth.charAt(1)
         console.log(values)
-	 	//State.newCreateHouseConfig(values);
+	 	State.newCreateHouseConfig(values);
     }
     
 	render(){

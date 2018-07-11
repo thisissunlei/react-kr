@@ -22,19 +22,17 @@ let State = observable({
 });
 
 //新增
-State.newCreatePrinterConfig = action(function(values){
+State.newCreateHouseConfig = action(function(values){
 	
-	Http.request('addPrinterConfig',{},values ).then(function(response) {
-		
+	Http.request('house-city-cmt-list',{},values ).then(function(response) {
 		State.houseConifigListParams = {
 			page:1,
-			pageSize:15,
+			pageSize:10,
 			communityId : '',
 			date: new Date()		
 		}
 		State.openNewCreate =false;
 		Message.success("新增成功");
-
 	}).catch(function(err) {
 		State.openNewCreate =false;
 		State.houseConifigListParams = {
