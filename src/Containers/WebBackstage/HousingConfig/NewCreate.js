@@ -98,7 +98,6 @@ class NewCreateDefinitionForm extends React.Component{
                     />
                     <KrField 
                         name="picUrls"
-                        requireLabel={true} 
                         component="uploadImageList"
                         boxStyle={{marginLeft:-7,textAlign:'left'}}
                         defaultValue={this.state.titleUrl}
