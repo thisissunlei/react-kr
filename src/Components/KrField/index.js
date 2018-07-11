@@ -50,6 +50,7 @@ import SearchCorporation from './SearchCorporation';
 import SearchCommunitys from './SearchCommunitys';
 import SearchCommunityList from './SearchCommunityList';
 import searchCommunity from './SearchCommunity';
+import SearchCommunityHouseConfig from './SearchCommunityHouseConfig';
 import SearchCustomer from './SearchCustomer';
 import SearchMainbill from './SearchMainbill';
 import SearchPayment from './SearchPayment';
@@ -95,7 +96,7 @@ import MainNewsUploadImage from './MainNewsUploadImageComponent';
 import SearchMemeber from './SearchMemeber';
 import SearchPersonName from './SearchPersonName';
 import SearchRegCommunity from './SearchRegCommunity';
-
+import searchHouseCity from './searchHouseCity';
 import MoreRadioComponent from './MoreRadioComponent';
 import SearchSelectComponent from './SearchSelectComponent';
 import AddressComponent from './AddressComponent';
@@ -289,12 +290,14 @@ class FieldRevert extends React.Component {
 				return (
 					<FieldRevert {...this.props} component={SearchCommunitys}  style={WrapStyles} {...other}/>
 				)
-			}
+            }
+            
 			if (component === 'searchAllCommunity') {
 				return (
 					<FieldRevert {...this.props} component={SearchAllCommunity}  style={WrapStyles} {...other}/>
 				)
-			}
+            }
+            
 			
 			if (component === 'searchRegCommunity') {
 				return (
@@ -360,7 +363,14 @@ class FieldRevert extends React.Component {
 				return (
 					<FieldRevert {...this.props} component={searchCommunity}  style={WrapStyles} {...other}/>
 				)
-			}
+            }
+
+            if (component === 'SearchCommunityHouseConfig') {
+				return (
+					<FieldRevert {...this.props} component={SearchCommunityHouseConfig}  style={WrapStyles} {...other}/>
+				)
+            }
+
 			if (component === 'searchMeetingCommunity') {
 				return (
 					<FieldRevert {...this.props} component={SearchMeetingCommunity}  style={WrapStyles} {...other}/>
@@ -429,6 +439,11 @@ class FieldRevert extends React.Component {
 			if (component === 'searchCity') {
 				return (
 					<FieldRevert {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>
+				);
+            }
+            if (component === 'searchHouseCity') {
+				return (
+					<FieldRevert {...this.props} component={searchHouseCity}  style={WrapStyles} {...other}/>
 				);
 			}
 			if (component === 'searchMethod') {

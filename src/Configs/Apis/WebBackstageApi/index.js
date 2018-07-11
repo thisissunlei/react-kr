@@ -152,6 +152,24 @@ module.exports = {
   url: '/api/krspace-finance-web/por-sem/batchdelete?ids={ids}',
   method: 'get'
 },
-
-
+//官网-好租房源配置-房源列表
+'house-get-list':{
+    url: '/api/krspace-finance-web/haozu/list?cmtId={cmtId}',
+    method: 'get'
+},
+//官网-好租房源配置-社区列表
+'house-cmt-list':{
+    url: '/api/krspace-finance-web/haozu/cmtList',
+    method: 'get'
+},
+//官网-好租房源配置-城市列表
+'house-city-list':{
+    url: '/api/krspace-finance-web/haozu/cityList',
+    method: 'get'
+},
+//官网-好租房源配置-城市-社区列表
+'house-city-cmt-list':{
+    url: '/api/krspace-finance-web/haozu/cmtList',
+    method: 'get'
+},
 }
