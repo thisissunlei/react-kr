@@ -24,7 +24,6 @@ class EditForm extends React.Component{
 		this.detail = this.props.detail;
 		this.state={
 			
-			
 		}
 	}
 
@@ -37,25 +36,9 @@ class EditForm extends React.Component{
 		const {closeEditEquipment}=this.props;
 		closeEditEquipment && closeEditEquipment();
 	}
-
-  	
 	
-
-	// 编辑打印配置
+	// 编
 	onSubmit=(values)=>{
-			
-		let _this = this;
-
-		var postParam = {id:_this.detail.id,
-						communityId : values.communityId,
-						nodeIp : values.nodeIp,
-						priceId : values.priceId,
-
-
-			}
-		
-	 	State.editPrinterConfig(postParam);
-
 		
 		
 	}
@@ -63,35 +46,88 @@ class EditForm extends React.Component{
 		
 		const { error, handleSubmit, reset} = this.props;
 		return(
-			<div style={{padding:'20px 0 0 55px'}}>
+			<div>
 				<form onSubmit={handleSubmit(this.onSubmit)}>
-
-					<KrField name="communityId" 
-						component="searchCommunityAll" 
-						onChange = {this.onChangeSearchCommunity}
-						label="社区名称"  
+					<KrField 
+                        name="brandType" 
+						component="searchHouseCity" 
+						onChange = {this.onChangeSearchCity}
+						label="城市"  
 						requireLabel={true} 
-						style={{width:'252px',margin:'0 35px 5px 0'}}
+						style={{width:'280px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
-					<KrField name="priceId" 
-						component="select" 
-						label="打印价格策略" 
-						options = {State.priceListOptions}
+                    <KrField 
+                        name="cmtId" 
+						component="searchHouseCommunity" 
+						onChange = {this.onChangeSearchCommunity}
+                        label="社区" 
+                        cityType={this.state.cityType} 
 						requireLabel={true} 
-						style={{width:'252px'}}
+						style={{width:'280px',margin:'0 35px 5px 0'}}
+						inline={false}
 					/>
-					<div style={{position:"relative"}}>
-						<span style={{position:"absolute",left:65,top:"-2px",color:"rgba(255, 165, 0, 0.92)"}}>（多个节点请用英文逗号分隔）</span>
-							<KrField grid={1/1} name="nodeIp" 
-								type="text" 
-								label="节点域名" 
-								requireLabel={true} 
-								requiredValue={true} 
-								errors={{requiredValue:'智能硬件ID为必填项'}} 
-								style={{width:536}}
-							/>
-					</div>
+                    <KrField 
+                        requireLabel={true} 
+                        label="工位类型" 
+                        name="houseType" 
+                        component="select" 
+                        style={{width:'280px',margin:'0 35px 5px 0'}}
+                        options={[{label:"独立办公室",value:"INDEPENDENT_OFFICE"},{label:"移动工位",value:"OPEN_STATION"}]}
+                        requireLabel={true}
+                    />
+                    <KrField 
+                        label="工位单价(月/元)" 
+                        name="monthPrice" 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField 
+                        name="picUrls"
+                        component="uploadImageList"
+                        boxStyle={{marginLeft:-35,textAlign:'left'}}
+                        defaultValue={this.state.titleUrl}
+                        imgFlag={false}
+                        innerBoxStyle={{width:254,height:70}}
+                        innerStyle={{left:110,top:12}}
+                        inline={false}
+                        label='上传工位图片'
+                        sort={true}
+                    />
+                    <KrField 
+                        label="容纳人数" 
+                        name="allowNum" 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField 
+                        label="最短租期" 
+                        name="rentDate" 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField 
+                        label="付款方式" 
+                        name="depositMonthAll" 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField 
+                        label="佣金比例" 
+                        name="moneyRate" 
+                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
 					
 					<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px',marginTop:20}}>
@@ -112,18 +148,7 @@ class EditForm extends React.Component{
 }
 const validate = values=>{
 	const errors={};
-	if(!values.communityId){
-		errors.communityId = '社区名称为必填项';
-	}
-	if(!values.priceId){
-		errors.priceId = '价格策略为必填项';
-	}
-	if(!values.nodeIp){
-		errors.nodeIp = '节点域名为必填项';
-	}
-	if(values.nodeIp && values.nodeIp.length>250){
-		errors.nodeIp = '节点域名最长250个字符';
-	}
+	
 	
 	
 	return errors;

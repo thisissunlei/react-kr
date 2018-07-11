@@ -48,9 +48,13 @@ class NewCreateDefinitionForm extends React.Component{
 	// 新建数据
 	onSubmit=(values)=>{
         let _this = this;
+        let arrPic = [];
         values.payMonth = values.depositMonthAll.charAt(3)
         values.depositMonth = values.depositMonthAll.charAt(1)
-        values.picUrls = JSON.stringify(values.picUrls)
+        values.picUrls.forEach(v => {
+            arrPic.push(v.src)
+        });
+        values.picUrls = JSON.stringify(arrPic)
 	 	State.newCreateHouseConfig(values);
     }
 	render(){

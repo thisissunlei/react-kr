@@ -248,10 +248,10 @@ export default class List extends React.Component {
 				          </div>
 				        </Dialog>
 				        <Dialog
-				          title="编辑打印配置"
+				          title="编辑"
 				          open={State.openEditDialog}
 				          onClose={this.openEditDialogFun}
-				          contentStyle={{width:687}}
+				          contentStyle={{width:410}}
 				        >
 				          <EditForm
 				            detail={itemDetail}

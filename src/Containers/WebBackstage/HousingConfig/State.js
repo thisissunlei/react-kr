@@ -32,12 +32,6 @@ State.newCreateHouseConfig = action(function(values){
 		Message.success("新增成功");
 	}).catch(function(err) {
 		State.openNewCreate =false;
-		State.houseConifigListParams = {
-			page:State.page,
-			pageSize:15,
-			cmtId : '11111',
-			date: new Date()		
-		}
 		Message.error(err.message);
 	});	
 })
@@ -77,6 +71,7 @@ State.pushHouseConfig = action(function(values,cmtId){
 
 })
 
+//编辑
 State.editPrinterConfig = action(function(values){
 	Http.request('editPrinterConfig',values ).then(function(response) {
 		State.houseConifigListParams = {
