@@ -57,6 +57,10 @@ class EditHouseForm extends React.Component{
 	
 	onSubmit=(values)=>{
         let arr = []
+        if(values.picUrls.length == 0){
+            Message.error('图片为必填项');
+            return false
+        }
         values.picUrls.forEach(v=>{
             arr.push(v.src)
         })
@@ -211,7 +215,7 @@ const validate = values=>{
     if(values.picUrls && values.picUrls.length == 0){
 		errors.picUrls = '图片为必填项';
     }
-    
+    console.log(values)
 	return errors;
 }
 export default EditHouseForm = reduxForm({
