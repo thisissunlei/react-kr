@@ -177,7 +177,35 @@ class EditHouseForm extends React.Component{
 	}
 }
 const validate = values=>{
-	const errors={};
+    const errors={};
+    if(!values.brandType){
+		errors.brandType = '城市为必填项';
+	}
+	if(!values.cmtId){
+		errors.cmtId = '社区为必填项';
+	}
+	if(!values.houseType){
+		errors.houseType = '工位类型为必填项';
+	}
+    if(!values.monthPrice){
+		errors.monthPrice = '工位单价为必填项';
+	}
+	if(!values.allowNum){
+		errors.allowNum = '容纳人数为必填项';
+	}
+	if(!values.rentDate){
+		errors.rentDate = '最短租期为必填项';
+    }
+    
+	if(!values.payMonth){
+		errors.payMonth = '付款方式(付)为必填项';
+	}
+	if(!values.depositMonth){
+		errors.depositMonth = '付款方式(押)为必填项';
+	}
+	if(!values.moneyRate){
+		errors.moneyRate = '佣金比例为必填项';
+	}
 	return errors;
 }
 export default EditHouseForm = reduxForm({

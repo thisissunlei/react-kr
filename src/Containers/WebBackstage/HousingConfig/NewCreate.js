@@ -167,19 +167,34 @@ class NewCreateDefinitionForm extends React.Component{
 }
 const validate = values=>{
 	const errors={};
-	if(!values.communityId){
-		errors.communityId = '社区名称为必填项';
+	if(!values.brandType){
+		errors.brandType = '城市为必填项';
 	}
-	if(!values.priceId){
-		errors.priceId = '价格策略为必填项';
+	if(!values.cmtId){
+		errors.cmtId = '社区为必填项';
 	}
-	if(!values.nodeIp){
-		errors.nodeIp = '节点域名为必填项';
+	if(!values.houseType){
+		errors.houseType = '工位类型为必填项';
 	}
-	if(values.nodeIp && values.nodeIp.length>250){
-		errors.nodeIp = '节点域名最长250个字符';
+    if(!values.monthPrice){
+		errors.monthPrice = '工位单价为必填项';
 	}
-	
+	if(!values.allowNum){
+		errors.allowNum = '容纳人数为必填项';
+	}
+	if(!values.rentDate){
+		errors.rentDate = '最短租期为必填项';
+    }
+    
+	if(!values.payMonth){
+		errors.payMonth = '付款方式(付)为必填项';
+	}
+	if(!values.depositMonth){
+		errors.depositMonth = '付款方式(押)为必填项';
+	}
+	if(!values.moneyRate){
+		errors.moneyRate = '佣金比例为必填项';
+	}
 	return errors;
 }
 export default NewCreateDefinitionForm = reduxForm({
