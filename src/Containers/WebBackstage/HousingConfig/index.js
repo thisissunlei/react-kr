@@ -60,7 +60,6 @@ export default class List extends React.Component {
     }
     
 	editList=(value)=>{
-        console.log(value)
 		this.setState({
 			itemDetail : value
 		},function(){

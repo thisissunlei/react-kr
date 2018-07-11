@@ -311,8 +311,6 @@ export default class UploadImageListComponent extends Component {
         }else{
           imgStyle='detailImg'
         }
-        
-        console.log(images,'111222233344')
 		return(
 		<WrapComponent label={label} style={style} requireLabel={requireLabel} inline={inline} >
 			<div className="ui-uploadimgList-box" style={boxStyle} >

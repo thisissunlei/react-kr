@@ -18,7 +18,7 @@ import {
 	Message,
 	err
 } from 'kr-ui';
-class EditForm extends React.Component{
+class EditHouseForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.detail = this.props.detail;
@@ -35,12 +35,13 @@ class EditForm extends React.Component{
             })
         });
         this.setState({
-            picUrls:arr
+            picUrls:arr,
+            cityType:this.props.detail.brandType
         })
     }
 
 	componentDidMount(){
-		Store.dispatch(initialize('EditForm', this.detail));
+		Store.dispatch(initialize('EditHouseForm', this.detail));
     }
     
     onChangeSearchCity=(value)=>{
@@ -75,7 +76,7 @@ class EditForm extends React.Component{
 						onChange = {this.onChangeSearchCity}
 						label="城市"  
 						requireLabel={true} 
-						style={{width:'280px',margin:'0 35px 5px 0'}}
+						style={{width:'330px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
                     <KrField 
@@ -85,7 +86,7 @@ class EditForm extends React.Component{
                         label="社区" 
                         cityType={this.state.cityType} 
 						requireLabel={true} 
-						style={{width:'280px',margin:'0 35px 5px 0'}}
+						style={{width:'330px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
                     <KrField 
@@ -93,14 +94,14 @@ class EditForm extends React.Component{
                         label="工位类型" 
                         name="houseType" 
                         component="select" 
-                        style={{width:'280px',margin:'0 35px 5px 0'}}
+                        style={{width:'330px',margin:'0 35px 5px 0'}}
                         options={[{label:"独立办公室",value:"INDEPENDENT_OFFICE"},{label:"移动工位",value:"OPEN_STATION"}]}
                         requireLabel={true}
                     />
                     <KrField 
                         label="工位单价(月/元)" 
                         name="monthPrice" 
-                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
@@ -108,7 +109,7 @@ class EditForm extends React.Component{
                     <KrField 
                         name="picUrls"
                         component="uploadImageList"
-                        boxStyle={{marginLeft:-35,textAlign:'left'}}
+                        boxStyle={{marginLeft:-7,textAlign:'left'}}
                         defaultValue={this.state.picUrls}
                         imgFlag={false}
                         innerBoxStyle={{width:254,height:70}}
@@ -120,7 +121,7 @@ class EditForm extends React.Component{
                     <KrField 
                         label="容纳人数" 
                         name="allowNum" 
-                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
@@ -128,7 +129,7 @@ class EditForm extends React.Component{
                     <KrField 
                         label="最短租期" 
                         name="rentDate" 
-                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
@@ -136,7 +137,7 @@ class EditForm extends React.Component{
                     <KrField 
                         label="付款方式(付)" 
                         name="payMonth" 
-                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
@@ -144,7 +145,7 @@ class EditForm extends React.Component{
                     <KrField 
                         label="付款方式(押)" 
                         name="depositMonth" 
-                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
@@ -152,7 +153,7 @@ class EditForm extends React.Component{
                     <KrField 
                         label="佣金比例" 
                         name="moneyRate" 
-                        style={{width:'280px',margin:'0 35px 5px 0'}} 
+                        style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
                         requireLabel={true} 
                         inline={false}
@@ -177,12 +178,9 @@ class EditForm extends React.Component{
 }
 const validate = values=>{
 	const errors={};
-	
-	
-	
 	return errors;
 }
-export default EditForm = reduxForm({
-	form: 'EditForm',
+export default EditHouseForm = reduxForm({
+	form: 'EditHouseForm',
 	validate,
-})(EditForm);
+})(EditHouseForm);
