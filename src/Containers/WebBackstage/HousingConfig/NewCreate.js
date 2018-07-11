@@ -117,7 +117,7 @@ class NewCreateDefinitionForm extends React.Component{
                         inline={false}
                     />
                     <KrField 
-                        label="最短租期" 
+                        label="最短租期(1-36个月之间,填正整数)" 
                         name="rentDate" 
                         style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 

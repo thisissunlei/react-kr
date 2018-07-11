@@ -25,7 +25,7 @@ State.newCreateHouseConfig = action(function(values){
 		State.houseConifigListParams = {
 			page:1,
 			pageSize:10,
-			cmtId : '11111',
+			cmtId : State.houseConifigListParams.cmtId,
 			date: new Date()		
 		}
 		State.openNewCreate =false;
@@ -77,7 +77,7 @@ State.editHouseConfig = action(function(values,cmtId){
 		State.houseConifigListParams = {
 			page:State.page,
 			pageSize:10,
-			cmtId:'11111',
+			cmtId:State.houseConifigListParams.cmtId,
 			date: new Date()		
 		}
 		State.openEditDialog =false;
