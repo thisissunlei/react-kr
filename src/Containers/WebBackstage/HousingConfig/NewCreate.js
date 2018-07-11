@@ -56,7 +56,6 @@ class NewCreateDefinitionForm extends React.Component{
     
 	render(){
         const { error, handleSubmit, reset} = this.props;
-        let host = "http://"+window.location.host;
 		return(
 			<div>
 				<form style={{'margin':'20px 0 0 10px'}} onSubmit={handleSubmit(this.onSubmit)}>
@@ -96,20 +95,17 @@ class NewCreateDefinitionForm extends React.Component{
                         requireLabel={true} 
                         inline={false}
                     />
-                    <KrField
+                    <KrField 
                         name="picUrls"
-                        component="newuploadImage"
-                        innerstyle={{width:222,height:179,padding:10,marginLeft:-80}}
-                        photoSize={'202*150'}
-                        pictureFormat={'JPG,PNG,GIF'}
-                        pictureMemory={'200'}
-                        requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
-                        deviation = {"50*50"}
+                        component="uploadImageList"
+                        boxStyle={{marginLeft:-35,textAlign:'left'}}
                         defaultValue={this.state.titleUrl}
-                        onDeleteImg ={this.deletePhoto}
-                        label="上传工位图片"
+                        imgFlag={false}
+                        innerBoxStyle={{width:254,height:70}}
+                        innerStyle={{left:110,top:12}}
                         inline={false}
-                        requireLabel={true}
+                        label='上传工位图片'
+                        sort={true}
                     />
                     <KrField 
                         label="容纳人数" 
