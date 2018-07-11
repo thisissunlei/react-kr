@@ -96,7 +96,8 @@ import MainNewsUploadImage from './MainNewsUploadImageComponent';
 import SearchMemeber from './SearchMemeber';
 import SearchPersonName from './SearchPersonName';
 import SearchRegCommunity from './SearchRegCommunity';
-import searchHouseCity from './searchHouseCity';
+import SearchHouseCity from './SearchHouseCity';
+import SearchHouseCommunity from './SearchHouseCommunity'
 import MoreRadioComponent from './MoreRadioComponent';
 import SearchSelectComponent from './SearchSelectComponent';
 import AddressComponent from './AddressComponent';
@@ -443,7 +444,12 @@ class FieldRevert extends React.Component {
             }
             if (component === 'searchHouseCity') {
 				return (
-					<FieldRevert {...this.props} component={searchHouseCity}  style={WrapStyles} {...other}/>
+					<FieldRevert {...this.props} component={SearchHouseCity}  style={WrapStyles} {...other}/>
+				);
+            }
+            if (component === 'searchHouseCommunity') {
+				return (
+					<FieldRevert {...this.props} component={SearchHouseCommunity}  style={WrapStyles} {...other}/>
 				);
 			}
 			if (component === 'searchMethod') {

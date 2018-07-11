@@ -169,7 +169,7 @@ module.exports = {
 },
 //官网-好租房源配置-城市-社区列表
 'house-city-cmt-list':{
-    url: '/api/krspace-finance-web/haozu/cmtList',
+    url: '/api/krspace-finance-web/haozu/cmtListByCity?cityType={cityType}',
     method: 'get'
 },
 }

@@ -20,70 +20,130 @@ class NewCreateDefinitionForm extends React.Component{
 	constructor(props,context){
 		super(props,context);
 		this.state={
-			
-			
+            cityType:'',
+            titleUrl:''
 		}
 	}
-
 	
 	onCancel=()=>{
 		const {onCancel}=this.props;
 		onCancel && onCancel();
-	}
+    }
+    
+    onChangeSearchCity=(value)=>{
+        this.setState({
+            cityType:value.code
+        })
+    }
 
-  	
-	
+    onChangeSearchCommunity=(value)=>{
 
-	// 新增打印机配置
+    }
+
+    deletePhoto=()=>{
+        this.setState({
+            titleUrl:''
+        })
+    }
+
+	// 新建数据
 	onSubmit=(values)=>{
-		let _this = this;
-
-
-		
-	 	State.newCreatePrinterConfig(values);
-
-		
-		
-	}
+        let _this = this;
+        values.payMonth = values.depositMonth.charAt(3)
+        values.depositMonth = values.depositMonth.charAt(1)
+        console.log(values)
+	 	//State.newCreateHouseConfig(values);
+    }
+    
 	render(){
-		
-		const { error, handleSubmit, reset} = this.props;
-
-
+        const { error, handleSubmit, reset} = this.props;
+        let host = "http://"+window.location.host;
 		return(
 			<div>
-				<form onSubmit={handleSubmit(this.onSubmit)}>
+				<form style={{'margin':'20px 0 0 10px'}} onSubmit={handleSubmit(this.onSubmit)}>
                     <KrField 
-                        name="communityId" 
+                        name="brandType" 
 						component="searchHouseCity" 
-						onChange = {this.onChangeSearchCommunity}
+						onChange = {this.onChangeSearchCity}
 						label="城市"  
 						requireLabel={true} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
                     <KrField 
-                        name="communityId" 
+                        name="cmtId" 
 						component="searchHouseCommunity" 
 						onChange = {this.onChangeSearchCommunity}
-						label="社区"  
+                        label="社区" 
+                        cityType={this.state.cityType} 
 						requireLabel={true} 
 						style={{width:'252px',margin:'0 35px 5px 0'}}
 						inline={false}
 					/>
-
-                    <div style={{position:"relative"}}>
-						<KrField grid={1/1} name="nodeIp" 
-							type="text" 
-							label="" 
-							requireLabel={true} 
-							requiredValue={true} 
-							errors={{requiredValue:''}} 
-							style={{width:'252px',margin:'0 35px 5px 0'}}
-							onBlur = {this.hardwareIdHasFun}
-						/>
-					</div>
-
+                    <KrField 
+                        requireLabel={true} 
+                        label="工位类型" 
+                        name="houseType" 
+                        component="select" 
+                        style={{width:'252px',margin:'0 35px 5px 0'}}
+                        options={[{label:"独立办公室",value:"INDEPENDENT_OFFICE"},{label:"移动工位",value:"OPEN_STATION"}]}
+                        requireLabel={true}
+                    />
+                    <KrField 
+                        label="工位单价(月/元)" 
+                        name="monthPrice" 
+                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField
+                        name="picUrls"
+                        component="newuploadImage"
+                        innerstyle={{width:222,height:179,padding:10,marginLeft:-80}}
+                        photoSize={'202*150'}
+                        pictureFormat={'JPG,PNG,GIF'}
+                        pictureMemory={'200'}
+                        requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                        deviation = {"50*50"}
+                        defaultValue={this.state.titleUrl}
+                        onDeleteImg ={this.deletePhoto}
+                        label="上传工位图片"
+                        inline={false}
+                        requireLabel={true}
+                    />
+                    <KrField 
+                        label="容纳人数" 
+                        name="allowNum" 
+                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField 
+                        label="最短租期" 
+                        name="rentDate" 
+                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField 
+                        label="付款方式" 
+                        name="depositMonth" 
+                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
+                    <KrField 
+                        label="佣金比例" 
+                        name="moneyRate" 
+                        style={{width:'252px',margin:'0 35px 5px 0'}} 
+                        component="input" 
+                        requireLabel={true} 
+                        inline={false}
+                    />
 					<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px',marginTop:20}}>
 							<ListGroup >

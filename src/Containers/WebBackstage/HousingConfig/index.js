@@ -214,7 +214,7 @@ export default class List extends React.Component {
 				          title="新建"
 				          open={State.openNewCreate}
 				          onClose={this.openNewCreateDialog}
-				          contentStyle={{width:370}}
+				          contentStyle={{width:410}}
 				        >
 					        <NewCreate
 					            onCancel={this.openNewCreateDialog}
