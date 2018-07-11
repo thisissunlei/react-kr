@@ -60,7 +60,7 @@ class EditHouseForm extends React.Component{
         values.picUrls.forEach(v=>{
             arr.push(v.src)
         })
-        values.picUrls = arr;
+        values.picUrls = arr.join(',');
         State.editHouseConfig(values);
     }
     
