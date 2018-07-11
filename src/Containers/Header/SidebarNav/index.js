@@ -77,7 +77,7 @@ export default class SidebarNav extends React.Component {
 							return(
 									<div className="m-sidebar-nav" key={index}>
 										<div className="u-sidebar-nav-title">
-											<span className={item.iconName} style={{color:`${item.iconColor}`}}></span>
+											<span className={item.iconUrl} style={{color:`${item.iconColor}`}}></span>
 											<span style={{paddingLeft:40}}>{item.name}</span>
 										</div>
 										<div className="u-sidebar-navlist">
