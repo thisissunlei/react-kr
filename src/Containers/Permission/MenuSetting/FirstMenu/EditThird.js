@@ -54,9 +54,10 @@ class EditThird extends React.Component {
                 threeLevelId: id
             },{}).then(function(response) {
                 infoList = response;
-                // infoList.subLevelId = response.subLevelId;
-                // infoList.firstLevelId = response.firstLevelId;
-                // infoList.name = response.name;
+                infoList.subLevelId = response.subLevelId;
+                infoList.firstLevelId = response.firstLevelId;
+                infoList.name = response.name;
+                infoList.sort = response.sort;
                 _this.setState({
                     infoList
                 },function() {
@@ -117,16 +118,17 @@ class EditThird extends React.Component {
             const {firstLevelId, name, subLevelId, url, projectType, sideFoldFlag, topFoldFlag, descr, showFlag} = form;
             //提交
 			var params = {
-          firstLevelId,
-          name,
-          subLevelId,
-          threeLevelId: detail.id,
-          url,
-          projectType,
-          sideFoldFlag,
-          topFoldFlag,
-          descr,
-          showFlag
+                firstLevelId,
+                name,
+                subLevelId,
+                threeLevelId: detail.id,
+                url,
+                projectType,
+                sideFoldFlag,
+                topFoldFlag,
+                descr,
+                showFlag,
+                sort:form.sort
 			}
 			onSubmit && onSubmit(params);
     }
@@ -195,6 +197,15 @@ class EditThird extends React.Component {
                     requireLabel={true}
                    
 				/>
+                <KrField
+                    style={{width:322,marginTop:20,paddingLeft:15}}
+                    inline={true}
+                    label="排序"
+                    component="input"
+                    name="sort"
+                    placeholder="输入排序"
+                    requireLabel={true}
+                />
                 <div>
                   <KrField
                     inline={true}

@@ -42,7 +42,8 @@ class CreateSecond extends React.Component {
         var params = {
             firstLevelId: detail.id,
             name: form.name,
-            iconUrl: form.icon
+            iconUrl: form.icon,
+            sort:from.sort
         }
 		onSubmit && onSubmit(params);
     }
@@ -71,6 +72,16 @@ class CreateSecond extends React.Component {
                     placeholder="图标名称"
                     requireLabel={false}
                 />
+                <KrField
+                    style={{width:314,marginTop:20}}
+                    inline={true}
+                    label="排序"
+                    component="input"
+                    name="sort"
+                    placeholder="输入排序"
+                    requireLabel={true}
+                />
+
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
       						<ButtonGroup>
@@ -113,5 +124,5 @@ export default reduxForm({
 	form: 'CreateSecond',
   enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-    //validate,
+    //validate,firstLevelId
 })(CreateSecond);

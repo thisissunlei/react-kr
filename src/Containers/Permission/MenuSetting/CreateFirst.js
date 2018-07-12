@@ -57,7 +57,7 @@ class CreateFirst extends React.Component {
                     label="导航名称"
                     component="input"
                     name="name"
-                    placeholder="输入排序"
+                    placeholder="比如：运营平台"
                     requireLabel={true}
                 />
                 <KrField
@@ -66,7 +66,7 @@ class CreateFirst extends React.Component {
                     label="排序"
                     component="input"
                     name="sort"
-                    placeholder="比如：运营平台"
+                    placeholder="请输入排序"
                     requireLabel={true}
                 />
                 <Row style={{marginTop:30,marginBottom:15}}>

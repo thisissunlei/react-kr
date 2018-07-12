@@ -155,6 +155,7 @@ export default class FirstMenu extends React.Component {
 		});
 	}
 	onEditSecondSubmit=(form)=>{
+		console.log(form,"pppppp")
 		const {
 			onSubmit,
 		} = this.props;
@@ -181,6 +182,7 @@ export default class FirstMenu extends React.Component {
 		});
 	}
 	onCreateSecondSubmit=(form)=>{
+	
 		const {
 			onSubmit,
 		} = this.props;

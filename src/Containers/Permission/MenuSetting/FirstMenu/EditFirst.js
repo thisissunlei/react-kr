@@ -35,6 +35,7 @@ class EditFirst extends React.Component {
                 firstLevelId: id
             },{}).then(function(response) {
                 infoList.name = response.name;
+                infoList.sort = response.sort;
                 _this.setState({
                     infoList:infoList
                 },function() {
@@ -57,6 +58,7 @@ class EditFirst extends React.Component {
 			var params = {
 				firstLevelId: detail.id,
 				name: form.name,
+				sort: form.sort,
 			}
 			onSubmit && onSubmit(params);
     }
@@ -76,7 +78,7 @@ class EditFirst extends React.Component {
                         requireLabel={true}
 				/>
                 <KrField
-                    style={{width:314,paddingLeft:48,marginTop:20}}
+                    style={{width:314,marginTop:20,paddingLeft:12}}
                     inline={true}
                     label="排序"
                     component="input"
