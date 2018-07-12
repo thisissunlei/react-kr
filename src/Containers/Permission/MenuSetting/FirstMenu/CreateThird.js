@@ -92,7 +92,7 @@ class CreateThird extends React.Component {
             topFoldFlag,
             descr: descr || '',
             showFlag,
-            sort:from.sort
+            sort:form.sort
         }
 		onSubmit && onSubmit(params);
     }

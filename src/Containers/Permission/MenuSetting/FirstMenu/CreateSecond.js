@@ -43,7 +43,7 @@ class CreateSecond extends React.Component {
             firstLevelId: detail.id,
             name: form.name,
             iconUrl: form.icon,
-            sort:from.sort
+            sort:form.sort
         }
 		onSubmit && onSubmit(params);
     }

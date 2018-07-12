@@ -42,6 +42,7 @@ class EditSecond extends React.Component {
                 infoList.firstLevelId = response.firstLevelId;
                 infoList.name = response.name;
                 infoList.icon = response.iconUrl;
+                infoList.sort = response.sort;
                 _this.setState({
                     infoList:infoList
                 },function() {
@@ -58,6 +59,7 @@ class EditSecond extends React.Component {
                 var FirstSelect = response.items.map((item, index) => {
                     item.label = item.name;
                     item.value = item.id;
+                    // item.value = item.id;
                     return item;
 			    });
                 _this.setState({
