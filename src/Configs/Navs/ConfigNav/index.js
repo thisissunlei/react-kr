@@ -114,7 +114,7 @@ module.exports = [
                     },
                     {
                         primaryText: '好租房源配置',
-                        menuCode: 'sem_list',
+                        menuCode: 'haozu_list',
                         router: '/WebBackstage/HousingConfig',
                     },
 				]

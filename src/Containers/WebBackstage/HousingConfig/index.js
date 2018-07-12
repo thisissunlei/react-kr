@@ -104,7 +104,7 @@ export default class List extends React.Component {
 					<Title value="好租房源配置"/>
 					<Section title={`好租房源配置`} description="" >
 						<div>
-							<Button label="新增"  onTouchTap={this.openNewCreateDialog}/>
+							<Button label="新增"  onTouchTap={this.openNewCreateDialog} operateCode="haozu_crud"/>
 							<OpenSearchForm/>
 						</div>
 						<Table
@@ -203,9 +203,9 @@ export default class List extends React.Component {
 											}
 											return (
 													<div>
-														<Button  label="发布"  type="operation" operation="publish" onTouchTap={this.onClickPush.bind(this,value,itemData)}/>
-                                                        <Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value)}/>
-														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)}/>
+														<Button  label="发布"  type="operation" operation="publish" onTouchTap={this.onClickPush.bind(this,value,itemData)} operateCode="haozu_crud"/>
+                                                        <Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value)} operateCode="haozu_crud"/>
+														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)} operateCode="haozu_crud"/>
 													</div>
 												)
 										}
