@@ -234,7 +234,9 @@ export default class Header extends React.Component {
 		}
 
 		Http.request('user-logout').then(function (response) {
-			window.location.href = "/new/login.html";
+			let redirectUrl = encodeURIComponent(window.location.href);
+			window.location.href = `/new/login.html?RU=${redirectUrl}`;
+			// window.location.href = "/new/login.html";
 		}).catch(function (err) {
 
 		});
