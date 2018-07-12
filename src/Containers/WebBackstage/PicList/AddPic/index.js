@@ -75,15 +75,19 @@ class AddPic extends React.Component{
 				</div>
 
 				<div className="kk" style={{marginTop:30,paddingLeft:10}}>
-					<KrField grid={1/2} label="名称" name="title" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-                    <KrField grid={1/2} label="简介" name="desrc" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-					<KrField grid={1/2} label="跳转url" name="targetUrl" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+					<KrField grid={1/2} label="社区名称" name="communityName" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="社区状态" name="communityStatus" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="社区概述" name="communityDesc" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="小图标题" name="communityTitle" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="社区ID" name="communityId" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    {/* <KrField grid={1/2} label="简介" name="desrc" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/> */}
+					{/* <KrField grid={1/2} label="跳转url" name="targetUrl" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/> */}
                    
                     <KrField grid={1/2} label="是否上线" name="published" style={{width:262,marginLeft:30,marginTop:14}} component="group" requireLabel={true} >
                         <KrField name="published" label="是" type="radio" value="1" style={{marginTop:5,display:'inline-block',width:84}}/>
                         <KrField name="published" label="否" type="radio" value="0" style={{marginTop:5,display:'inline-block',width:53}}/>
                     </KrField>
-                    <KrField grid={1/2} equireLabel={true} label="文章类型" name="articleType" component="select" style={{width:262,marginLeft:28,marginTop:14}}
+                    <KrField grid={1/2} equireLabel={true} label="社区所在城市" name="cityId" component="select" style={{width:262,marginLeft:28,marginTop:14}}
                         options={this.state.cityData}
                         requireLabel={true}
                     />
@@ -123,7 +127,7 @@ class AddPic extends React.Component{
                     </div>
                     <div style = {{marginLeft:30,marginTop:14}}>
                         <KrField
-                            name="mPic"
+                            name="mobilePic"
                             component="mainNewsUploadImage"
                             innerstyle={{width:400,height:250,padding:10,marginLeft:-80}}
                             photoSize={'199*300'}
@@ -165,9 +169,9 @@ const validate = values =>{
     var reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
     
     if(!values.title){
-       errors.title='请填写名称';
+       errors.title='请填写社区名称';
     }else if(values.title.length>15){
-       errors.title='名称不能超过15个字符';
+       errors.title='社区名称不能超过15个字符';
     }
    if(!values.desrc){
     errors.desrc='请填写简介';
