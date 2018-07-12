@@ -17,19 +17,19 @@ module.exports = [
 						menuCode: 'oper_cmt_communityList_base',
 						router: '/product/communityAllocation/communityList'
 					},
-					{
-						primaryText: '空间',
-						menuCode: 'oper_cmt_spaceList_base',
-						otherRouter:['communityMeetingRoomDetail','/operation/communityAllocation/communityMeetingRoom'],
-						router: '/product/communityAllocation/CommunityMeetingRoom'
-					},
-					{
-						primaryText: '工位',
-						menuCode: 'oper_cmt_stationList_base',
-						otherRouter:['communityStationDetail'],
+					// {
+					// 	primaryText: '空间',
+					// 	menuCode: 'oper_cmt_spaceList_base',
+					// 	otherRouter:['communityMeetingRoomDetail','/operation/communityAllocation/communityMeetingRoom'],
+					// 	router: '/product/communityAllocation/CommunityMeetingRoom'
+					// },
+					// {
+					// 	primaryText: '工位',
+					// 	menuCode: 'oper_cmt_stationList_base',
+					// 	otherRouter:['communityStationDetail'],
 
-						router: '/product/communityAllocation/communityStation'
-					},
+					// 	router: '/product/communityAllocation/communityStation'
+					// },
 					{
                         primaryText: "商品库",
                         originUrl: '/inventory/goods-library',

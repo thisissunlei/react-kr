@@ -42,6 +42,7 @@ class EditSecond extends React.Component {
                 infoList.firstLevelId = response.firstLevelId;
                 infoList.name = response.name;
                 infoList.icon = response.iconUrl;
+                infoList.sort = response.sort;
                 _this.setState({
                     infoList:infoList
                 },function() {
@@ -58,6 +59,7 @@ class EditSecond extends React.Component {
                 var FirstSelect = response.items.map((item, index) => {
                     item.label = item.name;
                     item.value = item.id;
+                    // item.value = item.id;
                     return item;
 			    });
                 _this.setState({
@@ -71,6 +73,7 @@ class EditSecond extends React.Component {
         onCancel && onCancel();
     }
     onSubmit = (form) => {
+        console.log(form,"lllllll")
             const {onSubmit,detail} = this.props;
             if(form.name == undefined){
                 Message.errortimeout("请输入分类名称");
@@ -80,7 +83,8 @@ class EditSecond extends React.Component {
 				firstLevelId: form.firstLevelId,
 				name: form.name,
 				subLevelId: detail.id,
-                iconUrl: form.icon
+                iconUrl: form.icon,
+                sort:form.sort
 			}
 			onSubmit && onSubmit(params);
     }
@@ -118,6 +122,15 @@ class EditSecond extends React.Component {
                     inline={true}
                     requireLabel={false}
                 />
+                <KrField
+                    style={{width:314,marginTop:20,paddingLeft:12}}
+                    inline={true}
+                    label="排序"
+                    component="input"
+                    name="sort"
+                    placeholder="输入排序"
+                    requireLabel={true}
+                />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
       						<ButtonGroup>
@@ -149,6 +162,6 @@ class EditSecond extends React.Component {
 }
 export default reduxForm({
 	form: 'EditSecond',
-  enableReinitialize: true,
+    enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
 })(EditSecond);
