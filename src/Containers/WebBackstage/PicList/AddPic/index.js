@@ -45,7 +45,7 @@ class AddPic extends React.Component{
     getCity=()=>{
         var _this = this;
         Http.request('get-city', {}).then(function(response) {
-            var data = response;
+            var data = response.items;
             data.map((item,index)=>{
                 item.label = item.name;
                 item.value = item.id;
@@ -62,8 +62,8 @@ class AddPic extends React.Component{
 
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType} = this.state;
-        let host = "http://"+window.location.host;
-        //  let host = "http://optest02.krspace.cn/"
+        // let host = "http://"+window.location.host;
+         let host = "http://optest03.krspace.cn/"
 
 
 		return(
@@ -164,37 +164,48 @@ class AddPic extends React.Component{
 }
 
 const validate = values =>{
-	const errors = {};
-    let numContr =/^[1-9]\d{0,4}$/;
-    var reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
+    const errors = {};
     
-    if(!values.title){
-       errors.title='请填写社区名称';
-    }else if(values.title.length>15){
-       errors.title='社区名称不能超过15个字符';
+    let numContr =/^[1-9]\d{0,4}$/;
+    
+    if(!values.communityName){
+       errors.communityName='communityName';
+    }else if(values.communityName.length>15){
+       errors.communityName='社区名称不能超过15个字符';
     }
-   if(!values.desrc){
-    errors.desrc='请填写简介';
-   }else if(values.desrc.length>30){
-    errors.desrc='简介长度不能超过30个字符';
+   if(!values.communityStatus){
+    errors.communityStatus='请填写社区状态';
+   }else if(values.communityStatus.length>8){
+    errors.communityStatus='社区状态长度不能超过8个字符';
    }
-   if(!values.targetUrl){
-       errors.targetUrl='链接地址为必填字段';
-   }else if(!reg.test(values.targetUrl)){
-       errors.targetUrl='链接地址格式有误';
+   if(!values.communityDesc){
+    errors.communityDesc='请填写社区概述';
+   }else if(values.communityDesc.length>20){
+    errors.communityDesc='社区状态概述不能超过20个字符';
    }
-   if(!values.orderNum){
-       errors.orderNum='请填写排序号';
+   if(!values.communityTitle){
+    errors.communityTitle='请填写小图标题';
+   }else if(values.communityTitle.length>15){
+    errors.communityTitle='小图标题不能超过15个字符';
    }
-   if(values.orderNum){
-    var orderNum = (values.orderNum+'').replace(/(^\s*)|(\s*$)/g, "");
-    if(!numContr.test(orderNum)){
-        errors.orderNum = '排序号必须为五位以内正整数';
-    }
-}
+   if(!values.communityId){
+    errors.communityId='请填写社区ID';
+   }
+   if(!values.cityId){
+    errors.cityId='请选择城市';
+   }
+   
+
    if(!values.logo){
-       errors.logo='请上传图片';
+       errors.logo='请上传PC轮播图';
    }
+
+   if(!values.smallPic){
+        errors.smallPic='请上传PC缩略图';
+    }
+    if(!values.mobilePic){
+        errors.mobilePic='请上传M站图';
+    }
 
 
 	return errors
