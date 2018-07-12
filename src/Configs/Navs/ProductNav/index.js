@@ -100,7 +100,7 @@ module.exports = [
 					// },
 					{
 						primaryText: '社区商品配置',
-						originUrl: 'product/goods',
+						originUrl: '/product/goods',
 						type: 'vue',
 						menuCode: 'mobile_community_goods',
 					},
