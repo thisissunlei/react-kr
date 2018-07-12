@@ -152,6 +152,44 @@ module.exports = {
   url: '/api/krspace-finance-web/por-sem/batchdelete?ids={ids}',
   method: 'get'
 },
-
-
+//官网-好租房源配置-房源列表
+'house-get-list':{
+    url: '/api/krspace-finance-web/haozu/list?cmtId={cmtId}&page={page}&pageSize={pageSize}',
+    method: 'get'
+},
+//官网-好租房源配置-社区列表
+'house-cmt-list':{
+    url: '/api/krspace-finance-web/haozu/cmtList',
+    method: 'get'
+},
+//官网-好租房源配置-城市列表
+'house-city-list':{
+    url: '/api/krspace-finance-web/haozu/cityList',
+    method: 'get'
+},
+//官网-好租房源配置-城市-社区列表
+'house-city-cmt-list':{
+    url: '/api/krspace-finance-web/haozu/cmtListByCity?cityType={cityType}',
+    method: 'get'
+},
+//官网-好租房源配置-城市-添加
+'house-city-list-add':{
+    url: '/api/krspace-finance-web/haozu/add',
+    method: 'post'
+},
+//官网-好租房源配置-城市-删除
+'house-city-list-delete':{
+    url: '/api/krspace-finance-web/haozu/delete?houseId={houseId}',
+    method: 'get'
+},
+//官网-好租房源配置-城市-发布
+'house-city-list-push':{
+    url: '/api/krspace-finance-web/haozu/publish?houseId={houseId}',
+    method: 'get'
+},
+//官网-好租房源配置-城市-编辑
+'house-city-list-edit':{
+    url: '/api/krspace-finance-web/haozu/edit',
+    method: 'post'
+},
 }

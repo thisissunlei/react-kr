@@ -112,6 +112,11 @@ module.exports = [
                         type:'vue',
                         originUrl: '/official-website/calculator',
                     },
+                    {
+                        primaryText: '好租房源配置',
+                        menuCode: 'haozu_list',
+                        router: '/WebBackstage/HousingConfig',
+                    },
 				]
 			},
 			{
