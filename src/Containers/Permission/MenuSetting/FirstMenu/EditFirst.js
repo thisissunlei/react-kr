@@ -75,6 +75,15 @@ class EditFirst extends React.Component {
                         inline={true}
                         requireLabel={true}
 				/>
+                <KrField
+                    style={{width:314,paddingLeft:48,marginTop:20}}
+                    inline={true}
+                    label="排序"
+                    component="input"
+                    name="sort"
+                    placeholder="输入排序"
+                    requireLabel={true}
+                />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
       						<ButtonGroup>

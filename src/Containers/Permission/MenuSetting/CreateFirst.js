@@ -57,6 +57,15 @@ class CreateFirst extends React.Component {
                     label="导航名称"
                     component="input"
                     name="name"
+                    placeholder="输入排序"
+                    requireLabel={true}
+                />
+                <KrField
+                    style={{width:314,paddingLeft:48,marginTop:20}}
+                    inline={true}
+                    label="排序"
+                    component="input"
+                    name="sort"
                     placeholder="比如：运营平台"
                     requireLabel={true}
                 />
