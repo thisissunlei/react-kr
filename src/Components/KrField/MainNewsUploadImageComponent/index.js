@@ -265,7 +265,7 @@ export default class MainNewsUploadImageComponent extends Component {
 				}
 			}
 		};
-
+		//
 		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
 		xhr.responseType = 'json';
 		xhr.send(null);
