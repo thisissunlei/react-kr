@@ -95,8 +95,8 @@ class EditPic extends React.Component{
 
         let {handleSubmit,subCompany,detail}=this.props;
         let {jobTypes,isType,photoUrl,smallPic,mobilePic} = this.state;
-        // let host = "http://"+window.location.host;
-        let host = 'http://optest03.krspace.cn';
+        let host = "http://"+window.location.host;
+        // let host = 'http://optest03.krspace.cn';
 		return(
 
 			<div className='m-edit-pic'>
