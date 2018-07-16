@@ -101,6 +101,11 @@ module.exports = [
 						type:'vue',
 						originUrl: '/facility-tags/',
 					},
+					{
+						primaryText: '轮播图列表',
+						menuCode: 'por_mobilepic_list',
+						router: '/WebBackstage/picList',
+					},
                     {
                         primaryText: '关键词配置',
                         menuCode: 'sem_list',
@@ -111,6 +116,11 @@ module.exports = [
                         menuCode: 'cbd_list',
                         type:'vue',
                         originUrl: '/official-website/calculator',
+                    },
+                    {
+                        primaryText: '好租房源配置',
+                        menuCode: 'haozu_list',
+                        router: '/WebBackstage/HousingConfig',
                     },
 				]
 			},
