@@ -39,11 +39,12 @@ import loginParents from './images/newYear/parents.png'
 import loginSons from './images/newYear/sons.png'
 import loginFireworks from './images/newYear/fireworks.png'
 // 二维码图片 
-import icon_Cblank from './images/OPlogin/icon_Cblank.svg'
-import icon_Cblue from './images/OPlogin/icon_Cblue.svg'
-import icon_QRblank from './images/OPlogin/icon_QRblank.svg'
-import icon_QRblue from './images/OPlogin/icon_QRblue.svg'
+import icon_Cblank from './images/OPlogin/icon_Cblank.png'
+import icon_Cblue from './images/OPlogin/icon_Cblue.png'
+import icon_QRblank from './images/OPlogin/icon_QRblank.png'
+import icon_QRblue from './images/OPlogin/icon_QRblue.png'
 
+var timer;  
 @observer
 class Login extends Component {
 	static contextTypes = {
@@ -87,7 +88,8 @@ class Login extends Component {
 			LoginHeight:0,
 			//二维码
 			QRCode:false,
-			QrcodeExpired:false
+			QrcodeExpired:false,
+			headPic:icon_QRblank,
     }
 	}
 	componentDidMount() {
@@ -519,52 +521,72 @@ class Login extends Component {
 						forgetPwd:false,
 						canLogin:false,
 	  */
-	  getQRCode = () => { 
-			let timer;  
+	  getQRCode = (type) => { 
 	    let _this = this;
+			let {headPic} = this.state
+			if((headPic === icon_Cblue || headPic === icon_Cblank) && type !=='reload' ){
+				clearTimeout(timer);
+				this.setState({editPwd:false,canLogin:true,QrcodeExpired:false,QRCode:false,forgetPwd:false,headPic:icon_QRblank});
+			}else{ 
 				this.setState(
-											{QrcodeExpired:false,
-											QRCode:true,
-											canLogin:false},()=>{
-					      Http.request('getQrCode', {}).then( (response) =>{
-					        Message.success("获取二维码");
-					        // 赋值
-					        this.setState({
-					          qrCodeUrl:response.qrCodeUrl,
-					          uuid:response.uuid
-					        },()=>{
-					          // 调取轮询 
-					          QRtime()
-					        })
-					      }).catch(function(err) {
-					        if(err.code<0){
-					          Message.error(err.message)
-					        }
-					      });	   
-						})
+					{QrcodeExpired:false,
+					QRCode:true,
+					canLogin:false,
+					headPic: icon_Cblank,
+					forgetPwd:false,
+					editPwd:false,
+					// 忘记密码 密码重置 
+					},()=>{
+      Http.request('getQrCode', {}).then( (response) =>{
+      //  Message.success("获取二维码");
+        // 赋值
+        this.setState({
+          qrCodeUrl:response.qrCodeUrl,
+          uuid:response.uuid
+        },()=>{
+          // 调取轮询 
+          QRtime()
+				 
+        })
+      }).catch(function(err) {
+        if(err.code<0){
+          Message.error(err.message)
+        }
+      });	   
+})
+			}
+		
+						
 	    // 定时器轮询
 	    function QRtime(){
 	       timer = setTimeout(()=>{
 	        Http.request('getQrLoginStatus',{uuid: _this.state.uuid}).then((response) =>{
-	          if(response.code === 1){
+					//	console.log(response,'ddddd'); 只有大于0 
+	          if(!response.code){
 	            // 成功
 	            clearTimeout(timer);
 	            window.location.href = './';
-	 
-	          }else if(response.code === 0){
-	            // 未登录
-	            QRtime();
-	          }else if(response.code === -2){
-	            // 二维码过期 
-	            clearTimeout(timer);
-	            _this.setState({QrcodeExpired:true,QRCode:false});
-	          }else if(response.code === -1){
-		            // 异常 
-		            clearTimeout(timer);
-						  	Message.error(response.message);
-		           // _this.setState({QrcodeExpired:true})
-		          }
-	        })
+	          }
+	        }).catch(function(err) {
+		// 放小于0 
+		if(err.code===0){
+			// 未登录
+			 QRtime();
+			console.log(timer,'timer');
+		}
+		else if(err.code === -2){
+			            // 二维码过期 
+			            clearTimeout(timer);
+									Message.error(err.message);
+			            _this.setState({QrcodeExpired:true});
+			          }
+			else if(err.code === -1){
+				            // 异常 
+				            clearTimeout(timer);
+										Message.error(err.message);
+				         }
+
+	});
 	      },1000)
 	    } 
 	  } 
@@ -646,9 +668,31 @@ class Login extends Component {
 			}
 		}
 	}
+	// 鼠标离开
+	mouseleave = ()=>{
+		let {headPic} = this.state;
+		if(headPic == icon_QRblue){
+			this.setState({headPic:icon_QRblank })
+		}else if(headPic == icon_Cblue){
+			this.setState({headPic:icon_Cblank })
+		}
+		
+	}
+
+	// 鼠标进入
+	mouseenter =() =>{
+		let {headPic} = this.state;
+		if(headPic ==icon_QRblank ){
+			this.setState({headPic: icon_QRblue})
+		}else if(headPic === icon_Cblank){
+			this.setState({headPic: icon_Cblue})
+		}
+		
+	}
+
 	render() {
 		const {handleSubmit} = this.props;
-		let {imgCode,LoginHeight} = this.state;
+		let {imgCode,LoginHeight,headPic} = this.state;
 		var time = this.time;
 		return (
           <div className="g-permission-login" style={{height:`${LoginHeight}`}}>
@@ -677,12 +721,23 @@ class Login extends Component {
                 氪空间管理平台
               </div>
               <div className="login-box">
+							<div className={headPic === icon_QRblue? 'QR-show QR-state':'QR-hide QR-state'} >
+									二维码登录
+								</div>
+								<div className={headPic === icon_Cblue? 'QR-show QR-state':'QR-hide QR-state'} >
+									密码登录
+								</div>
+								<div className='head-mask' onClick={()=>{this.getQRCode()}}  onMouseLeave={this.mouseleave} onMouseEnter={this.mouseenter} ></div>
+								<div className='headPic'  >
+									<img src={headPic}></img>
+								</div>
                 {/*<div className="logos"></div>*/}
                 { this.state.canLogin &&
                   <div className='login-newLogin'>
                   <div className="login-tip">
 									<span className='logins-log'>LOGIN</span>
 									<span className='logins-denglu'>登录</span>
+									<span className='logins-yellow'> </span>
 									</div>
                   <div className="login-content">
                      <ul className="login-content-ul">
@@ -702,7 +757,7 @@ class Login extends Component {
  													/>
 												 </div>
 
-												{ this.state.noneName && <span className="redErr">请输入您的手机号/邮箱</span>}
+												{/* { this.state.noneName && <span className="redErr">请输入您的手机号/邮箱</span>} */}
 												</li>
                 				{/*
 												<li className="input-txt loginpwd">
@@ -727,7 +782,7 @@ class Login extends Component {
 													  />
 												 </div>
 
-												{ this.state.nonePwd && <span className="redErr">请输入密码</span>}
+												{/* { this.state.nonePwd && <span className="redErr">请输入密码</span>} */}
 												</li>
 											 { this.state.errThree &&
 												 <li className="clearfix">
@@ -746,21 +801,72 @@ class Login extends Component {
                      </ul>
                     </div>
                     </div>
+								}
+								 
+								 { this.state.QRCode &&
+                  <div className='login-newLogin'>
+                  <div className="login-tip">
+									<span className='logins-log'>LOGIN</span>
+									<span className='logins-saomadenglu'>扫码登录</span>
+									<span className='logins-saomayellow'> </span>
+									</div>
+                  <div className="login-QR_pic">
+											<div className="QR_pic-title">
+											请打开氪空间APP，点击“扫一扫”并确认
+											登录OP系统
+											</div>
+											<div className='QR_pic'>
+												<img src = {this.state.qrCodeUrl} />
+												<div className='QR_pic_mask' style={{display: this.state.QrcodeExpired?'block':'none'}}>
+														<div onClick={()=>{this.getQRCode('reload')}}>
+
+														</div>
+												</div>
+											</div>
+											<div className='QrcodeExpired'  style={{display: this.state.QrcodeExpired?'block':'none'}}>
+												二维码已失效，点击刷新
+											</div>
+                	 </div>
+                    </div>
                 }
+
                 { this.state.forgetPwd &&
                     <div className="verifyTotal">
-                      <div className="tabList">
-                  			<p className={this.state.verifyByMail?'activeTitle':'normalTitle'} onClick={this.mailTitleClick}>验证邮箱</p>
-                        <p className={!this.state.verifyByMail?'activeTitle':'normalTitle'} onClick={this.mobileTitleClick}>验证手机</p>
+                      <div className="tabList tabList_forget_pas">
+												<span className='logins-log'>LOGIN</span>
+												<div className="forget_title">
+                  				<p className={this.state.verifyByMail?'activeTitle':'normalTitle'} onClick={this.mailTitleClick}>
+													验证邮箱
+													</p>
+													<span style={{display:this.state.verifyByMail?'block':'none'}} className='logins-yellows1'> </span>
+                        	<p className={!this.state.verifyByMail?'active_shouji':'nomal_shouji '} onClick={this.mobileTitleClick}>
+													验证手机
+													</p>
+													<span style={{display:this.state.verifyByMail?'none':'block'}} className='logins-yellows2'> </span>
+												</div>
                   		</div>
                   { this.state.verifyByMail &&
 
                   		<div className="login-content">
-                  			 <ul className="login-content-ul">
+                  			 <ul className="login-content-ul tabList_forget_pas">
                   			         <li className="input-txt loginpwds">
                   			         	<input type="text" ref="loginMail" placeholder="请输入邮箱"/>
                   			         </li>
-                  				     <li className="clearfix">
+																 <li className="input-txt loginpwds clearfix ">
+                  			         		<input className='' type="text" ref="verifyCodeByMail" placeholder="请输入验证码"/> 
+																	  <div className="new_sendCode" onClick={this.togetMobiletestCode} >
+																			{(()=>{
+																				if(this.state.togetMailtest){
+																					return (<span  onClick={this.togetMailtestCode} >发送验证码</span>)
+																				}else if(this.state.MailTimeDisabledState){
+																					return(<div className='read_secend'>{this.state.timeminMail+'s'}</div>)
+																				}else if(this.state.regettestMailState){
+																					return(<span onClick={this.togetMailtestCode}>重新获取</span>)
+																				}
+																			})()}
+																		</div>
+                  			         </li>
+                  				     {/* <li className="clearfix">
                   				          <div className="input-verifycode fl">
                   					            <input type="text" className="codes" ref="verifyCodeByMail" placeholder="请输入验证码"/>
                   				          </div>
@@ -769,11 +875,11 @@ class Login extends Component {
 																			{ this.state.gettingMail && <span className="timeout">正在发送...</span>}
 																			{ this.state.MailTimeDisabledState && <span className="timeout">{this.state.timeminMail+this.state.timedisabled}</span>}
 																			{ this.state.regettestMailState && <span className="sendCode" onClick={this.togetMailtestCode} >重新获取</span>}
-																 </li>
+																 </li> */}
                   			         <li>
-                  			             <input onClick={this.submitIdByMail} type="button" value="下一步" className="login-btn next"  />
+                  			             <input onClick={this.submitIdByMail} type="button" value="下一步" className="login-btn next new_next"  />
                   			         </li>
-                  			         <li onClick={this.goToLogin} className="login-pwdinfo pointer">
+                  			         <li onClick={this.goToLogin} className="login-pwdinfo pointer new_backlogin">
                   			             返回登录
                   			         </li>
 
@@ -785,11 +891,25 @@ class Login extends Component {
                   { !this.state.verifyByMail &&
 
                   		<div className="login-content">
-                  			 <ul className="login-content-ul">
+                  			 <ul className="login-content-ul tabList_forget_pas">
                   			         <li className="input-txt loginpwds">
-                  			         	<input type="text" ref="loginMobile" placeholder="请输入手机"/>
+                  			         	<input type="text" ref="loginMobile" placeholder="请输入手机号"/>
                   			         </li>
-                  				     <li className="clearfix">
+																 <li className="input-txt loginpwds clearfix ">
+                  			         		<input className='' type="text" ref="verifyCodeByMobile" placeholder="请输入验证码"/> 
+																	  <div className="new_sendCode" onClick={this.togetMobiletestCode} >
+																			{(()=>{
+																				if(this.state.togetMobiletest){
+																					return (<span  onClick={this.togetMobiletestCode} >发送验证码</span>)
+																				}else if(this.state.MobileTimeDisabledState){
+																					return(<div className='read_secend'>{this.state.timeminMobile+'s'}</div>)
+																				}else if(this.state.regettestMobileState){
+																					return(<span onClick={this.togetMobiletestCode}>重新获取</span>)
+																				}
+																			})()}
+																		</div>
+                  			         </li>
+                  				     {/* <li className="clearfix">
                   				          <div className="input-verifycode fl">
                   					            <input type="text" className="codes" ref="verifyCodeByMobile" placeholder="请输入验证码"/>
                   				          </div>
@@ -798,11 +918,11 @@ class Login extends Component {
 																			{ this.state.MobileTimeDisabledState && <span className="timeout">{this.state.timeminMobile+this.state.timedisabled}</span>}
 																			{this.state.regettestMobileState && <span onClick={this.togetMobiletestCode} className="sendCode">重新获取</span>}
 
-                  				     </li>
+                  				     </li> */}
                   			         <li>
-                  			             <input type="button" value="下一步" onClick={this.submitIdByMobile} className="login-btn next"  />
+                  			             <input type="button" value="下一步" onClick={this.submitIdByMobile} className="login-btn next new_next"  />
                   			         </li>
-                  			         <li onClick={this.goToLogin} className="login-pwdinfo">
+                  			         <li onClick={this.goToLogin} className="login-pwdinfo new_backlogin">
                   			             返回登录
                   			         </li>
                   			 </ul>
