@@ -196,6 +196,7 @@ export default class Header extends React.Component {
 		})
 		const { NavModel } = this.props;
 		NavModel.setSidebar(true);
+		NavModel.toggleSidebar();
 	}
 	//打开侧边栏
 	openSidebar = () => {
