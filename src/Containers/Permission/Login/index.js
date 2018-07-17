@@ -536,6 +536,7 @@ class Login extends Component {
 					headPic: icon_Cblank,
 					forgetPwd: false,
 					editPwd: false,
+					errThree:false,
 					// 忘记密码 密码重置 
 				}, () => {
 					Http.request('getQrCode', {}).then((response) => {
@@ -786,7 +787,7 @@ class Login extends Component {
 												{/* { this.state.nonePwd && <span className="redErr">请输入密码</span>} */}
 											</li>
 											{this.state.errThree &&
-												<li className="clearfix">
+												<li className="clearfix errThree_check">
 													<div className="input-verifycode">
 														<input ref="imgCode" type="text" placeholder="请输入验证码" />
 													</div>
