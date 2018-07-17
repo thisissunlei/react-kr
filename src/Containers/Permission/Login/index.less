@@ -56,7 +56,9 @@
   }
   .ui-form-notify{
     text-align: left;
+    left:-126% !important;
   }
+  
     #canvas{
       position:absolute;
       z-index:0;
@@ -275,6 +277,7 @@
               font-family: PingFang-SC-Medium;
               font-size: 80px;
               color: #EEEEEE;
+              user-select: none;
             }
           }
           .login-content-ul {
@@ -510,6 +513,7 @@
               font-family: PingFang-SC-Medium;
               font-size: 80px;
               color: #EEEEEE;
+              user-select: none;
             }
            
             .activeTitle{
@@ -598,7 +602,7 @@
           }
           .login-content{
             .login-content-ul{
-              width:320px;
+              width:300px;
             	margin-left:auto;
             	margin-right:auto;
             	font-family: "微软雅黑", "黑体";
@@ -696,19 +700,25 @@
         }
 
     /*重置密码*/
-        .editPwd{
+        .new_editpwd{
+            position: relative !important;
+            left:160px !important; 
+          }
+        .tabList_forget_pas{
           .login-tip {
           	color: #57a9f9;
           	font-size: 24px;
           	padding-top: 62px;
           }
+          
           .login-content-ul {
-          	width:320px;
+          	width:300px;
           	margin-left:auto;
           	margin-right:auto;
           	font-family: "微软雅黑", "黑体";
           	padding-left:5px;
-          	position:relative;
+            position:relative;
+            
           .info {
           	padding: 11px 0;
           	color: #ff0000;
@@ -848,6 +858,103 @@
     }
 
   }
+
+  .inputtest{
+    position: relative;
+    input{
+    //  background:url(images/pwd_03.jpg) 10px center no-repeat;
+    //  margin-bottom:15px !important;
+   //   width: 103%;
+   //   height: 50px;
+  //    border: 1px solid #dfdfdf;
+  //    border-radius: 4px; /* W3C syntax */
+  //    text-indent: 56px;
+  //    position: relative;
+   //   font-size: 16px;
+  //    font-family: "微软雅黑", "黑体";
+  //    margin-left: -10px;
+    }
+    //  input:-webkit-autofill {
+    //    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    //    -webkit-text-fill-color: #333 !important;
+    //  }
+    p{
+      display:inline-block;
+      width:32px;
+      height:32px;
+      position:absolute;
+      right:12px;
+      top:5px;
+      background:url(images/show_10.jpg) center center no-repeat;
+    }
+    .hidePwd{
+      background:url(images/close1_05.jpg) center center no-repeat !important;
+    }
+  }
+  
+  .inputtesttwo{
+    position: relative;
+    input{
+    //  background:url(images/pwd_06.jpg) 10px center no-repeat;
+     // margin-bottom:15px !important;
+     // width: 103%;
+    //  height: 50px;
+      border: 1px solid #dfdfdf;
+      border-radius: 4px; /* W3C syntax */
+     // text-indent: 56px;
+      position: relative;
+    //  margin-left: -10px;
+     // font-size: 16px;
+   //   font-family: "微软雅黑", "黑体";
+    }
+    // input:-webkit-autofill {
+    // -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    // -webkit-text-fill-color: red !important;
+    // }
+    p{
+      display:inline-block;
+      width:32px;
+      height:32px;
+      position:absolute;
+      right:12px;
+      top:5px;
+      background:url(images/show_10.jpg) center center no-repeat;
+    }
+    .hidePwd{
+      background:url(images/close1_05.jpg) center center no-repeat !important;
+    }
+  }
+  .login-content .error-wrap:nth-of-type(1){
+    position: relative;
+    top:-12px;
+  }
+  
+  div.error-wrap{
+    position: relative;
+    bottom:15px;
+    margin-bottom:0 !important;
+  }
+  .success_login.J_login{
+    width: 290px;
+    margin-left:10px;
+    position: relative;
+    top:0;
+  }
+  .success_back.login-pwdinfo {
+    margin-left:10px;
+    margin-top:20px;
+  }
+
+  .ui-input[name=new]{
+    position: relative;
+    top:-6px;
+    height: 56px;
+  }
+  .ui-input[name=newagain]{
+    position: relative;
+    top: -8px;
+    height: 56px;
+  }
       .edited{
         .login-tip {
           color: #57a9f9;
@@ -855,7 +962,7 @@
           padding-top: 62px;
         }
         .login-content-ul {
-          width:320px;
+          width:300px;
           margin-left:auto;
           margin-right:auto;
           font-family: "微软雅黑", "黑体";
