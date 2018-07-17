@@ -57,6 +57,7 @@
   .ui-form-notify{
     text-align: left;
     left:-126% !important;
+    top:-8px;
   }
   
     #canvas{
@@ -92,7 +93,7 @@
           height: 472px;
           overflow: hidden;
         	position:relative;
-           background:url(images/bgs.png) center center no-repeat;
+           background:url(images/OPlogin/bgs.png) center center no-repeat;
            background-size: 100% 101%;
          //  background-position-y: -2px;
            background-color: #fff;
@@ -189,7 +190,7 @@
           .head-mask{
             position: absolute;
             background-color:transparent;
-            
+            cursor: pointer;
             width: 120px;
             height: 100px;
             right: -47px;
@@ -296,6 +297,10 @@
           .loginName{
             margin-bottom: 16px;
             position: relative;
+            &::focus{
+              border: 1px solid #000;
+            }
+
             .outer-name{
               border: 1px solid #dfdfdf;
               height: 54px;
@@ -475,22 +480,45 @@
               position: absolute;
               right:10px;
               top:7px;
+              letter-spacing: 0;
+              text-indent: 0;
+              font-size: 14px;
+              line-height: 36px;
+              width: 90px;
+              height: 36px;
+              .read_sendCode{
+              width: 90px;
+              height: 36px;
               background: #FFFFFF;
               border: 1px solid #333333;
               border-radius: 4px;
-              width: 90px;
-              height: 36px;
-              font-family: PingFangSC-Regular;
               font-size: 14px;
               color: #333333;
-              letter-spacing: 0;
-              text-indent: 0;
+              
               cursor: pointer;
+              font-family: PingFangSC-Regular;
               line-height: 36px;
-              .read_secend{
+              }
+              .read_reload{
+                font-family: PingFangSC-Regular;
+                width: 90px;
+                height: 36px;
+                line-height: 36px;
+                cursor: pointer;
+                background: #FFFFFF;
+                border: 1px solid #333333;
+                border-radius: 4px;
+              }
+              .read_second{
+                font-family: PingFangSC-Regular;
+                width: 90px;
+                height: 36px;
+                line-height: 36px;
+            //    display: inline-block;
                 background: #CCCCCC;
                 border: 1px solid #CCCCCC;
                 border-radius: 4px;
+                color: #FFFFFF
               }
             }
           }
@@ -618,6 +646,7 @@
               }
               .new_backlogin{
                 margin-left:26px;
+                cursor: pointer;
               }
               .input-txt {
               	width:99%;
@@ -861,26 +890,11 @@
     }
 
   }
+.new_editPass{
 
   .inputtest{
     position: relative;
-    input{
-    //  background:url(images/pwd_03.jpg) 10px center no-repeat;
-    //  margin-bottom:15px !important;
-   //   width: 103%;
-   //   height: 50px;
-  //    border: 1px solid #dfdfdf;
-  //    border-radius: 4px; /* W3C syntax */
-  //    text-indent: 56px;
-  //    position: relative;
-   //   font-size: 16px;
-  //    font-family: "微软雅黑", "黑体";
-  //    margin-left: -10px;
-    }
-    //  input:-webkit-autofill {
-    //    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
-    //    -webkit-text-fill-color: #333 !important;
-    //  }
+  
     p{
       display:inline-block;
       width:32px;
@@ -898,17 +912,9 @@
   .inputtesttwo{
     position: relative;
     input{
-    //  background:url(images/pwd_06.jpg) 10px center no-repeat;
-     // margin-bottom:15px !important;
-     // width: 103%;
-    //  height: 50px;
       border: 1px solid #dfdfdf;
       border-radius: 4px; /* W3C syntax */
-     // text-indent: 56px;
       position: relative;
-    //  margin-left: -10px;
-     // font-size: 16px;
-   //   font-family: "微软雅黑", "黑体";
     }
     // input:-webkit-autofill {
     // -webkit-box-shadow: 0 0 0px 1000px white inset !important;
@@ -929,7 +935,7 @@
   }
   .login-content .error-wrap:nth-of-type(1){
     position: relative;
-    top:-12px;
+    top:-7px;
   }
   
   div.error-wrap{
@@ -941,13 +947,18 @@
     width: 290px;
     margin-left:10px;
     position: relative;
-    top:0;
+    top:4px;
   }
   .success_back.login-pwdinfo {
     margin-left:10px;
     margin-top:20px;
+    cursor: pointer;
+    width: 100px;
   }
-
+  .ui-form-controller input[type=password]:focus{
+    border-color:#DFDFDF;
+    box-shadow: 0 0 0 #fff !important;
+  }
   .ui-input[name=new]{
     position: relative;
     top:-6px;
@@ -955,9 +966,12 @@
   }
   .ui-input[name=newagain]{
     position: relative;
-    top: -8px;
+    top: -5px;
     height: 56px;
   }
+
+
+}
       .edited{
         .login-tip {
           color: #57a9f9;

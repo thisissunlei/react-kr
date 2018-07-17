@@ -257,6 +257,9 @@ class Login extends Component {
 		}
 		var obj = {};
 		if (this.state.errThree) {
+			if(!this.refs.imgCode.value){
+				Message.error('请输入正确的验证码')
+			}
 			obj = {
 				loginName: this.refs.loginName.value,
 				loginPwd: this.refs.loginPwds.value,
@@ -741,12 +744,12 @@ class Login extends Component {
 										<span className='logins-denglu'>登录</span>
 										<span className='logins-yellow'> </span>
 									</div>
-									<div className="login-content">
+									<div className="login-content"  >
 										<ul className="login-content-ul">
 											{/*<li className="hideInput">
 												<input type="text" />
 											</li>*/}
-											<li className="loginName">
+											<li className="loginName" >
 												<div className="outer-name">
 													<span className="pre-name">
 
@@ -761,16 +764,7 @@ class Login extends Component {
 
 												{/* { this.state.noneName && <span className="redErr">请输入您的手机号/邮箱</span>} */}
 											</li>
-											{/*
-												<li className="input-txt loginpwd">
-                         <Input style={{width:"80%",marginTop:5}} ref="loginPwds" component="input" type="password" placeholder="请输入密码"/>
-                           { this.state.nonePwd && <span className="redErr">请输入密码</span>}
-                       	</li>
-											 */}
-
-											{/*<li className="hideInput">
- 												<input type="text" />
- 												</li>*/}
+										
 											<li className="loginPwd">
 												<div className="outer-pwd">
 													<span className="pre-loginpwd">
@@ -843,7 +837,7 @@ class Login extends Component {
 											<span style={{ display: this.state.verifyByMail ? 'block' : 'none' }} className='logins-yellows1'> </span>
 											<p className={!this.state.verifyByMail ? 'active_shouji' : 'nomal_shouji '} onClick={this.mobileTitleClick}>
 												验证手机
-													</p>
+								   		</p>
 											<span style={{ display: this.state.verifyByMail ? 'none' : 'block' }} className='logins-yellows2'> </span>
 										</div>
 									</div>
@@ -856,28 +850,14 @@ class Login extends Component {
 												</li>
 												<li className="input-txt loginpwds clearfix ">
 													<input className='' type="text" ref="verifyCodeByMail" placeholder="请输入验证码" />
-													<div className="new_sendCode" >
-														{(() => {
-															if (this.state.togetMailtest) {
-																return (<span onClick={this.togetMailtestCode} >发送验证码</span>)
-															} else if (this.state.MailTimeDisabledState) {
-																return (<div className='read_secend'>{this.state.timeminMail + 's'}</div>)
-															} else if (this.state.regettestMailState) {
-																return (<span onClick={this.togetMailtestCode}>重新获取</span>)
-															}
-														})()}
+		
+														<div className="new_sendCode" >
+														{this.state.togetMailtest && <div className='read_sendCode' onClick={this.togetMailtestCode} >发送验证码</div> }
+														{this.state.MailTimeDisabledState && <div className='read_second'>{this.state.timeminMail + 's'}</div> }
+														{this.state.regettestMailState && <div className='read_reload' onClick={this.togetMailtestCode}>重新获取</div>}
 													</div>
 												</li>
-												{/* <li className="clearfix">
-                  				          <div className="input-verifycode fl">
-                  					            <input type="text" className="codes" ref="verifyCodeByMail" placeholder="请输入验证码"/>
-                  				          </div>
-
-																			{ this.state.togetMailtest && <span className="sendCode" onClick={this.togetMailtestCode} >发送验证码</span>}
-																			{ this.state.gettingMail && <span className="timeout">正在发送...</span>}
-																			{ this.state.MailTimeDisabledState && <span className="timeout">{this.state.timeminMail+this.state.timedisabled}</span>}
-																			{ this.state.regettestMailState && <span className="sendCode" onClick={this.togetMailtestCode} >重新获取</span>}
-																 </li> */}
+												
 												<li>
 													<input onClick={this.submitIdByMail} type="button" value="下一步" className="login-btn next new_next" />
 												</li>
@@ -900,15 +880,9 @@ class Login extends Component {
 												<li className="input-txt loginpwds clearfix ">
 													<input className='' type="text" ref="verifyCodeByMobile" placeholder="请输入验证码" />
 													<div className="new_sendCode" >
-														{(() => {
-															if (this.state.togetMobiletest) {
-																return (<span onClick={this.togetMobiletestCode} >发送验证码</span>)
-															} else if (this.state.MobileTimeDisabledState) {
-																return (<div className='read_secend'>{this.state.timeminMobile + 's'}</div>)
-															} else if (this.state.regettestMobileState) {
-																return (<span onClick={this.togetMobiletestCode}>重新获取</span>)
-															}
-														})()}
+														{this.state.togetMobiletest && <div className='read_sendCode' onClick={this.togetMobiletestCode} >发送验证码</div> }
+														{this.state.MobileTimeDisabledState && <div className='read_second'>{this.state.timeminMobile + 's'}</div> }
+														{this.state.regettestMobileState && <div className='read_reload' onClick={this.togetMobiletestCode}>重新获取</div>}
 													</div>
 												</li>
 												{/* <li className="clearfix">
@@ -924,7 +898,7 @@ class Login extends Component {
 												<li>
 													<input type="button" value="下一步" onClick={this.submitIdByMobile} className="login-btn next new_next" />
 												</li>
-
+ 
 												<li onClick={this.goToLogin} className="login-pwdinfo new_backlogin">
 													返回登录
                   			         </li>
@@ -935,6 +909,7 @@ class Login extends Component {
 							}
 
 							{this.state.editPwd &&
+							<div className="new_editPass">
 								<div className="verifyTotal">
 									<div className="tabList tabList_forget_pas">
 										<span className='logins-log'>LOGIN</span>
@@ -1011,7 +986,7 @@ class Login extends Component {
 
 									</div>
 
-
+									</div>
 								</div>
 							}
 							{/* { this.state.editPwd &&
