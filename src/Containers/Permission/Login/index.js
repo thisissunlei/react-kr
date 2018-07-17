@@ -578,7 +578,7 @@ class Login extends Component {
 					else if (err.code === -2) {
 						// 二维码过期 
 						clearTimeout(timer);
-						Message.error(err.message);
+					//	Message.error(err.message);
 						_this.setState({ QrcodeExpired: true });
 					}
 					else if (err.code === -1) {
