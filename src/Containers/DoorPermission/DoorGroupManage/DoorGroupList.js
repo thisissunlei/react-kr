@@ -374,8 +374,12 @@ export default class DoorGroupManage extends React.Component {
 													
 													<Button  label="成员"  type="operation" operation="changeMember" onClick={that.onOperation.bind(this,"changeMember",itemData)}/>
 													{
-														(itemData.groupLevel == "NORMAL" || itemData.groupLevel == "CUSTOMER" ) &&
+														itemData.groupLevel == "NORMAL" &&
 														<Button  label="已授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
+													}
+													{
+														itemData.groupLevel == "Father" &&
+														<Button  label="子集"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
 													}
 													<Button  label="编辑"  type="operation" operation="edit"  onClick={that.onOperation.bind(this,"edit",itemData)}/>
 													<Button  label="删除"  type="operation" operation="delete" onClick={that.onOperation.bind(this,"delete",itemData)}/>
