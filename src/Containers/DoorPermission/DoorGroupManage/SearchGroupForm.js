@@ -33,7 +33,7 @@ class GroupListSearchForm extends React.Component{
 				value: "NORMAL"
 			},{
 				label:"父级组",
-				value: "Father"
+				value: "PARENT"
 			}],
 		}
 	}

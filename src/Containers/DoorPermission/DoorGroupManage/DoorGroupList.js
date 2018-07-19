@@ -111,6 +111,12 @@ export default class DoorGroupManage extends React.Component {
 			let {clickAddMemberBtn} =this.props;
 			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
 		}
+
+		if(type="containGroup"){
+			console.log("ksdkfjkdjkfjdk");
+			// window.open(`../smarthardware/doorManage/devicedetail?id=${value.id}&maker=${value.maker}`,'_blank');
+			return;
+		}
 		
 	}
 
@@ -160,7 +166,8 @@ export default class DoorGroupManage extends React.Component {
 
 	submitEditDoorGroup=(values)=>{
 		let that= this;
-		let {getDoorPermissionListParams} = this.state;
+		console.log("values",values);
+		
 		Http.request('editDoorGroupApi',{},values).then(function(response) {
 
 			that.openEditDoorGroupFun();
@@ -222,12 +229,6 @@ export default class DoorGroupManage extends React.Component {
 	openEditDoorGroupFun=()=>{
 		State.openEditDoorGroup = !State.openEditDoorGroup;
 	}
-
-	
-
-
-
-
 
 	
 
@@ -378,8 +379,9 @@ export default class DoorGroupManage extends React.Component {
 														<Button  label="已授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
 													}
 													{
-														itemData.groupLevel == "Father" &&
-														<Button  label="子集"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
+														itemData.groupLevel !== "NORMAL" &&
+														// itemData.groupLevel == "PARENT" &&
+														<Button  label="子集"  type="operation" operation="containeGroups" onClick={that.onOperation.bind(this,"containeGroups",itemData)}/>
 													}
 													<Button  label="编辑"  type="operation" operation="edit"  onClick={that.onOperation.bind(this,"edit",itemData)}/>
 													<Button  label="删除"  type="operation" operation="delete" onClick={that.onOperation.bind(this,"delete",itemData)}/>
@@ -453,8 +455,6 @@ export default class DoorGroupManage extends React.Component {
 					>
 						<ChangeEquipment onCancel={this.openChangeEquipmentFun} itemDetail={itemDetail} closeChangeMember={this.openChangeEquipmentFun}/>
 					</Drawer>
-
-					
 
 
 				</Section>

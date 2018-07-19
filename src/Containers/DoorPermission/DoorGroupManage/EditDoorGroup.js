@@ -17,8 +17,6 @@ import {
 } from 'kr-ui';
 import './index.less';
 import {DateFormat} from 'kr/Utils';
-
-
 import State from './State';
 import {
 	observer,
@@ -28,108 +26,33 @@ import {
 
 
 
-class EditDoorGroupForm extends React.Component{
+class EditDoorGroup extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
 			
 			communityId : '',
 			customerId : '',
-			showCompany : false,
-			showCommunity : false,
-			groupDetail : {},
-			groupLevelLabel : ''
+			groupLevelOptions : [{
+				label:"普通组",
+				value: "NORMAL"
+			},{
+				label:"父级组",
+				value: "PARENT"
+			}]
 
 		}
 	}
 	componentDidMount(){
-		this.getInitailData();
-    }
-    
-    getInitailData=()=>{
-		let {itemDetail} = this.props;
-		let param = {id :itemDetail.id }
-		let that = this;
-        Http.request('getDoorGroupDetailApi',param).then(function(response) {
-			
-			Store.dispatch(initialize('EditDoorGroupForm', response));
-			that.setState({
-				groupDetail :  response,
-				communityId: response.communityId,
-				customerId : response.customerId
-			},function(){
-				that.changeShowCommunityCompany(response);
-				that.explainGroupLevel();
-			})
-        }).catch(function(err) {
-            Message.error(err.message);
-        });
-
-	}
-
-	explainGroupLevel=()=>{
-		let {groupDetail} = this.state;
-		let groupLevelOptions = State.groupLevelOptions;
-		for(let i=0;i<groupLevelOptions.length;i++){
-			if(groupDetail.groupLevel ==groupLevelOptions[i].value ){
-				this.setState({
-					groupLevelLabel :groupLevelOptions[i].label
-				})
-				return;
-			}
-		}
-	}
-
-	changeShowCommunityCompany=(reponse)=>{
-
-		let param = reponse.groupLevel;
-		this.initialShowCommunityCompany(param);
-	}
-	
-	initialShowCommunityCompany=(param)=>{
-
-		let {communityId,customerId} = this.state;
-		if(param == "ROOT"){
-
-			this.setState({
-				showCommunity : false,
-				showCompany : false
-			})
-			Store.dispatch(change('EditDoorGroupForm','communityId',''));
-			Store.dispatch(change('EditDoorGroupForm','customerId',''));
-			return;
-		}
-		if(param == "COMMUNITY"){
-			
-			this.setState({
-				showCompany : false,
-				showCommunity : true 
-			})
-			Store.dispatch(change('EditDoorGroupForm','communityId',communityId));
-			Store.dispatch(change('EditDoorGroupForm','customerId',''));
-			return;
-		}
 		
-
-
-		this.setState({
-			showCommunity : true,
-			showCompany : true
-		})
-		Store.dispatch(change('EditDoorGroupForm','communityId',communityId));
-		Store.dispatch(change('EditDoorGroupForm','customerId', customerId));
+		let {itemDetail} = this.props;
+		Store.dispatch(initialize('EditDoorGroup', itemDetail));
 	}
 
 	onSubmit=(values)=>{
-		
-
-		var param = {
-						id:values.id,
-						name:values.name,
-						memo:values.memo
-					}
+		// console.log("values",values);
 		let {submitEditDoorGroup} = this.props;
-		submitEditDoorGroup && submitEditDoorGroup(param);
+		submitEditDoorGroup && submitEditDoorGroup(values);
 		
 	}
 
@@ -140,12 +63,22 @@ class EditDoorGroupForm extends React.Component{
 
 	
 
-	
+	changeCommunityId=(option)=>{
+		this.setState({
+			communityId:option.id
+		})
+	}
+
+	changeCustomerId=(option)=>{
+		this.setState({
+			customerId:option.value
+		})
+	}
+
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {showCompany,showCommunity,groupDetail,groupLevelLabel} = this.state;
-		let groupLevelOptions = State.groupLevelOptions;
+		let {groupLevelOptions} = this.state;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="new-creat-door-group">
 				<KrField grid={1/2} 
@@ -157,31 +90,31 @@ class EditDoorGroupForm extends React.Component{
 					style={{width:'252px',margin:'0 35px 5px 0'}}
 				/>
 
-				<KrField
-					style={{width:'252px',margin:'22px 35px 5px 0'}}
-					inline={true}
-					component="labelText"
+
+				<KrField name="groupLevel" 
+					component="select" 
 					label="组级别："
-					value={groupLevelLabel}
+					options={groupLevelOptions}  
+					requireLabel={true} 
+					errors={{requiredValue:'组级别为必填项'}} 
+					style={{width:'252px',margin:'0 35px 5px 0'}}
 				/>
 
-				{showCommunity &&<KrField
-					style={{width:'252px',margin:'0 35px 20px 0'}}
-					inline={true}
-					component="labelText"
-					label="社区名称："
-					value={groupDetail.communityName}
-					
-				/>}
+				<KrField name="communityId" 
+					component="searchCommunityAll" 
+					label="社区名称"  
+					style={{width:'252px',margin:'0 35px 5px 0'}}
+					inline={false}
+					onChange={this.changeCommunityId}
+				/>
 
-				{showCompany &&<KrField
-					style={{width:'252px',margin:'0 35px 20px 0'}}
-					inline={true}
-					component="labelText"
-					label="公司："
-					value={groupDetail.customerName}
-					
-				/>}
+				<KrField grid={1/2} name="customerId" 
+					component="searchMemberCompany" 
+					label="公司" 
+					style={{width:'252px',marginRight:'30px'}}
+					onChange={this.changeCustomerId}
+				/>
+				
 				
 					
 				<KrField
@@ -190,6 +123,7 @@ class EditDoorGroupForm extends React.Component{
 					component = 'textarea'
 					style={{width:538}}
 					maxSize = {40}
+					
 				/>
 
 				<Grid>
@@ -216,17 +150,11 @@ const validate = values => {
 	if (!values.groupLevel) {
 		errors.groupLevel = '请选择组级别';
 	}
-	if((values.groupLevel=="COMMUNITY"||values.groupLevel=="CUSTOMER") && !values.communityId){
-		errors.communityId = "请选择社区";
-	}
-	if(values.groupLevel=="CUSTOMER" && !values.customerId){
-		errors.customerId = "请选择公司";
-	}
 	return errors
 }
-export default EditDoorGroupForm = reduxForm({
-	form: 'EditDoorGroupForm',
+export default EditDoorGroup = reduxForm({
+	form: 'EditDoorGroup',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(EditDoorGroupForm);
+})(EditDoorGroup);

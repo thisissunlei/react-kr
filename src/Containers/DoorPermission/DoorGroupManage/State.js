@@ -20,14 +20,8 @@ let State = observable({
 		label:"普通组",
 		value: "NORMAL"
 	},{
-		label:"全国通开组",
-		value: "ROOT"
-	},{
-		label:"社区通开组",
-		value: "COMMUNITY"
-	},{
-		label:"客户默认组",
-		value: "CUSTOMER"
+		label:"父级组",
+		value: "PARENT"
 	}],
 	
 
