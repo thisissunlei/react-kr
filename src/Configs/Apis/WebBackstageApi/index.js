@@ -152,6 +152,14 @@ module.exports = {
   url: '/api/krspace-finance-web/por-sem/batchdelete?ids={ids}',
   method: 'get'
 },
+
+//官网-轮播图列表-获取城市
+'get-city':{
+  url: '/api/op/por-mobile-pic/getallcity',
+  method: 'get'
+},
+
+
 //官网-好租房源配置-房源列表
 'house-get-list':{
     url: '/api/krspace-finance-web/haozu/list?cmtId={cmtId}&page={page}&pageSize={pageSize}',
