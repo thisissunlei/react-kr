@@ -235,7 +235,7 @@ class NewCreateForm extends React.Component {
 			jsonData,
 			readyData
 		} = this.state;
-		let host = "http://"+window.location.host;
+		let host = location.protocol +"//"+window.location.host;
 		
 		console.log(location.hostname);
 		return (
