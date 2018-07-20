@@ -25,7 +25,7 @@ class UserImageChange  extends React.Component{
 	render(){
 
         let {handleSubmit,personId,url}=this.props;
-		let host = "http://"+window.location.host;
+		let host = location.protocol + "//"+window.location.host;
 
 		return(
 

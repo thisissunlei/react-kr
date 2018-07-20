@@ -77,7 +77,7 @@ class EditSwper extends React.Component{
 
         let {handleSubmit,subCompany}=this.props;
         let {jobTypes,isType,photoUrl} = this.state;
-        let host = "http://"+window.location.host;
+        let host = location.protocol +"//"+window.location.host;
 
 		return(
 

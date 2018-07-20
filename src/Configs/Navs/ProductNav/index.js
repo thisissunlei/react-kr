@@ -73,16 +73,16 @@ module.exports = [
                         type: 'vue',
                         menuCode: 'cmt_investment',
 					},
-					{
-						primaryText: '销控',
-						menuCode: 'cmt_sell_control',
-						router: '/product/communityManage/controlTable',
-					},
-					{
-						primaryText: "招商数据",
-						router: '/product/statistical/index',
-						menuCode: 'stat_group',
-					},
+					// {
+					// 	primaryText: '销控',
+					// 	menuCode: 'cmt_sell_control',
+					// 	router: '/product/communityManage/controlTable',
+					// },
+					// {
+					// 	primaryText: "招商数据",
+					// 	router: '/product/statistical/index',
+					// 	menuCode: 'stat_group',
+					// },
 					{
 						primaryText: '注册地址',
 						menuCode: 'cmt_registerAddress_list',
@@ -98,6 +98,12 @@ module.exports = [
 					// 	menuCode: 'cmt_run',
 					// 	router: '/product/communityManage/detail',
 					// },
+					{
+						primaryText: '社区商品配置',
+						originUrl: '/product/goods',
+						type: 'vue',
+						menuCode: 'mobile_community_goods',
+					},
 					{
 						primaryText: '会议室',
 						originUrl: '/product/meeting',
