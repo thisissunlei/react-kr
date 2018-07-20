@@ -263,7 +263,7 @@ class EditDetailForm extends React.Component {
 			detail,
 			id
 		} = this.state;
-		let host = "http://"+window.location.host;
+		let host =location.protocol +"//"+window.location.host;
 		return (
 			<form className = 'edit-detail-form' onSubmit={handleSubmit(this.onSubmit)} style={{padding:" 35px 45px 45px 45px"}}>
 				<div className="title">
