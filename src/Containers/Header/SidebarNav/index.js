@@ -19,24 +19,26 @@ export default class SidebarNav extends React.Component {
 	renderMenuItems=(menuItems)=>{
 
 		return menuItems.map((item,index)=>{
-			// console.log(item.type,"kkkkkkkk")
 			let type = item.projectType;
 			let path = item.url || item.originUrl || `.#${item.router}`;
 			let label = item.name;
-			if(item.type=="member"){
+			if(type=="member"){
 					
 				var hostname = location.hostname;
 				var port = location.port || '';
 				if (port) {
 					port = ":" + port;
 				}
-				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ item.router;
+				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
 			}
+			console.log(path,"ppppppp")
 			// 三级跳转
 			if(location.href.indexOf('new/#') !==-1 ){
 						if(type === 'admin'){
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type === 'vue'){
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+						}else {
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
 						}
 				}else{
@@ -44,6 +46,8 @@ export default class SidebarNav extends React.Component {
 							path  = '/new/#' + path;
 							return <a  href={path} className={item.isActive?'u-sidebar-nav-active':'curson'} >{label}</a>
 						}else if(type ==='vue'){
+							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
+						}else{
 							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
 						}
 				}
