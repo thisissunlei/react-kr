@@ -122,6 +122,11 @@ module.exports = [
                         menuCode: 'haozu_list',
                         router: '/WebBackstage/HousingConfig',
                     },
+                    {
+                        primaryText: '渠道接口配置',
+                        menuCode: 'sem_list',
+                        router: '/WebBackstage/ChannelConfig',
+                    },
 				]
 			},
 			{

@@ -26,7 +26,6 @@ import {
 } from 'kr-ui';
 import {Actions,Store} from 'kr/Redux';
 
-import OpenSearchForm from './OpenSearchForm';
 import NewCreate from './NewCreate';
 import EditForm from './EditForm';
 import './index.less';
@@ -36,18 +35,23 @@ import {
 	inject
 } from 'mobx-react';
 @observer
-export default class List extends React.Component {
+export default class Channel extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
             realPage:1,
 			itemDetail : {}
 		}
-	}
-	componentDidMount(){
-		State.getPrintPriceNameList();
     }
-    
+	componentDidMount(){
+
+    }
+    onPageChange=(page)=>{
+        var houseConifigListParams = Object.assign({},State.houseConifigListParams);
+		houseConifigListParams.page = page;
+        State.houseConifigListParams = houseConifigListParams;
+        State.page = page;
+	}
 	onLoaded=(response)=>{
 		let list = response;
 		this.setState({
@@ -64,15 +68,9 @@ export default class List extends React.Component {
 			State.openEditDialog = true;
 		})
     }
-    onPageChange=(page)=>{
-        var houseConifigListParams = Object.assign({},State.houseConifigListParams);
-		houseConifigListParams.page = page;
-        State.houseConifigListParams = houseConifigListParams;
-        State.page = page;
-	}
 	openEditDialogFun=()=>{
 		State.openEditDialog = !State.openEditDialog;
-    }
+	}
 	onClickDelete=(value)=>{
 		this.setState({
 			itemDetail : value
@@ -80,15 +78,9 @@ export default class List extends React.Component {
 			State.openConfirmDelete = true;
 		})
     }
-    onClickPush=(value)=>{
-        this.setState({
-            itemDetail : value
-        })
-		State.pushHouseConfig(value.id,value.cmtId)
-    }
 	confirmDelete=()=>{
         let {itemDetail} = this.state;
-		State.deleteHouseConfig(itemDetail.id,itemDetail.cmtId)
+		State.deleteChannelConfig(itemDetail.id)
 	}
 	openDeleteFun=()=>{
 		State.openConfirmDelete = !State.openConfirmDelete;
@@ -97,11 +89,10 @@ export default class List extends React.Component {
         let {itemDetail} = this.state;
 		return (
 			    <div className='house-config-box'>
-					<Title value="好租房源配置"/>
-					<Section title={`好租房源配置`} description="" >
+					<Title value="渠道接口配置"/>
+					<Section title={`渠道接口配置`} description="" >
 						<div>
-							<Button label="新增"  onTouchTap={this.openNewCreateDialog} operateCode="haozu_crud"/>
-							<OpenSearchForm/>
+							<Button label="新增"  onTouchTap={this.openNewCreateDialog}/>
 						</div>
 						<Table
 							className="member-list-table"
@@ -113,78 +104,82 @@ export default class List extends React.Component {
 							}}
 							exportSwitch={false}
 							ajaxFieldListName='items'
-                            ajaxUrlName='house-get-list'
-                            ajaxParams={State.houseConifigListParams}
+                            ajaxUrlName='channel-list'
+                            ajaxParams={State.channelConfigListParams}
                             onPageChange={this.onPageChange}
 							displayCheckbox={false}
 						>
 							<TableHeader>
-								<TableHeaderColumn>城市</TableHeaderColumn>
-								<TableHeaderColumn>社区名称</TableHeaderColumn>
-								<TableHeaderColumn>房源类型</TableHeaderColumn>
-								<TableHeaderColumn>月价格（元）</TableHeaderColumn>
-								<TableHeaderColumn>房间类型（人间）</TableHeaderColumn>
-								<TableHeaderColumn>最短租期(月)</TableHeaderColumn>
-								<TableHeaderColumn>付款方式</TableHeaderColumn>
-                                <TableHeaderColumn>佣金比例</TableHeaderColumn>
+								<TableHeaderColumn>渠道名称</TableHeaderColumn>
+								<TableHeaderColumn>渠道来源</TableHeaderColumn>
+								<TableHeaderColumn>传参姓名</TableHeaderColumn>
+								<TableHeaderColumn>传参电话</TableHeaderColumn>
+								<TableHeaderColumn>传参社区</TableHeaderColumn>
+								<TableHeaderColumn>社区ID</TableHeaderColumn>
+								<TableHeaderColumn>传参规则(社区)</TableHeaderColumn>
+                                <TableHeaderColumn>传参次数</TableHeaderColumn>
+                                <TableHeaderColumn>传参城市</TableHeaderColumn>
                                 <TableHeaderColumn>操作</TableHeaderColumn>
 							</TableHeader>
 							<TableBody style={{position:'inherit'}}>
 								<TableRow>
-		              			<TableRowColumn name="brandType" 
+		              			<TableRowColumn name="sourceKey" 
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="cmtName" 
+								<TableRowColumn name="csrSourceName" 
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-								<TableRowColumn name="houseType" 
-									component={(value,oldValue)=>{
-									if(value==""){
-										value="-"
-                                    }else if(value=="INDEPENDENT_OFFICE"){
-                                        value="独立办公室"
-                                    }else if(value=="OPEN_STATION"){
-                                        value="开放工位"
-                                    }
-									return (<span>{value}</span>)}}
-								></TableRowColumn>
-								<TableRowColumn name="monthPrice" 
+								<TableRowColumn name="matchName" 
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-                                <TableRowColumn name="allowNum" 
+                                <TableRowColumn name="matchPhone" 
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-                                <TableRowColumn name="rentDate" 
+                                <TableRowColumn name="matchCommunityName" 
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
 									return (<span>{value}</span>)}}
 								></TableRowColumn>
-                                <TableRowColumn name="payMonth" 
-									component={(value,oldValue,allValue)=>{
+                               <TableRowColumn name="matchCommunityId" 
+									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
 									}
-									return (<span>{'押'+allValue.depositMonth+'付'+allValue.payMonth}</span>)}}
+									return (<span>{value}</span>)}}
 								></TableRowColumn>
-                                <TableRowColumn name="moneyRate" 
+                                <TableRowColumn name="matchCommunitySplit" 
+									component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
+                                <TableRowColumn name="parsingNum" 
+									component={(value,oldValue)=>{
+									if(value==""){
+										value="-"
+									}
+									return (<span>{value}</span>)}}
+								></TableRowColumn>
+                                <TableRowColumn name="matchCityName" 
 									component={(value,oldValue)=>{
 									if(value==""){
 										value="-"
@@ -198,12 +193,11 @@ export default class List extends React.Component {
 												value="-"
 											}
 											return (
-													<div>
-														<Button  label="发布"  type="operation" operation="publish" onTouchTap={this.onClickPush.bind(this,value,itemData)} operateCode="haozu_crud"/>
-                                                        <Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value)} operateCode="haozu_crud"/>
-														<Button  label="删除"  type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)} operateCode="haozu_crud"/>
-													</div>
-												)
+                                                <div>
+                                                    <Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value)}/>
+                                                    <Button  label="删除"  type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)}/>
+                                                </div>
+											)
 										}
 									}
 								> 
@@ -213,48 +207,48 @@ export default class List extends React.Component {
                         <TableFooter></TableFooter>
 						</Table>
 						<Dialog
-				          title="新建"
-				          open={State.openNewCreate}
-				          onClose={this.openNewCreateDialog}
-				          contentStyle={{width:410}}
+				            title="新建"
+				            open={State.openNewCreate}
+				            onClose={this.openNewCreateDialog}
+				            contentStyle={{width:410}}
 				        >
 					        <NewCreate
 					            onCancel={this.openNewCreateDialog}
 					            style ={{paddingTop:'35px'}}
 					        />
 			       		</Dialog>
-			       		 <Dialog
-				          title="删除提示"
-				          open={State.openConfirmDelete}
-				          onClose={this.openDeleteFun}
-				          contentStyle={{width:443,height:236}}
+			       		<Dialog
+				            title="删除提示"
+				            open={State.openConfirmDelete}
+				            onClose={this.openDeleteFun}
+				            contentStyle={{width:443,height:236}}
 				        >
-				          <div style={{marginTop:45}}>
+				        <div style={{marginTop:45}}>
 				            <p style={{textAlign:"center",color:"#333333",fontSize:14}}>确定要删除吗？</p>
 				            <Grid style={{marginTop:60,marginBottom:'4px'}}>
-				                  <Row>
+				                <Row>
 				                    <ListGroup>
-				                      <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
-				                        <Button  label="确定" type="submit" onClick={this.confirmDelete} />
-				                      </ListGroupItem>
-				                      <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
-				                        <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openDeleteFun} />
-				                      </ListGroupItem>
+				                        <ListGroupItem style={{width:175,textAlign:'right',padding:0,paddingRight:15}}>
+				                            <Button  label="确定" type="submit" onClick={this.confirmDelete} />
+				                        </ListGroupItem>
+				                        <ListGroupItem style={{width:175,textAlign:'left',padding:0,paddingLeft:15}}>
+				                            <Button  label="取消" type="button"  cancle={true} onTouchTap={this.openDeleteFun} />
+				                        </ListGroupItem>
 				                    </ListGroup>
-				                  </Row>
-				                </Grid>
-				          </div>
+				                </Row>
+				            </Grid>
+				        </div>
 				        </Dialog>
 				        <Dialog
-				          title="编辑"
-				          open={State.openEditDialog}
-				          onClose={this.openEditDialogFun}
-				          contentStyle={{width:410}}
+				            title="编辑"
+				            open={State.openEditDialog}
+				            onClose={this.openEditDialogFun}
+				            contentStyle={{width:410}}
 				        >
-				          <EditForm
+				        <EditForm
 				            detail={itemDetail}
 				            closeEditEquipment = {this.openEditDialogFun}
-				          />
+				        />
 				        </Dialog>
 					</Section>
 				</div>
