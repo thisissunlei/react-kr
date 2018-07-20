@@ -130,7 +130,7 @@ class EditPic extends React.Component{
                             innerstyle={{width:500,height:344,padding:10,marginLeft:-80}}
                             photoSize={'199*300'}
                             pictureFormat={'JPG,PNG,GIF'}
-                            pictureMemoryM={'1'}
+                            pictureMemoryM={'5'}
                             requestURI = {host + '/api/krspace-finance-web/por-mobile-pic/upload-pic'}
                             deviation = {"50*50"}
                             defaultValue={photoUrl}
@@ -165,7 +165,7 @@ class EditPic extends React.Component{
                             innerstyle={{width:400,height:250,padding:10,marginLeft:-80}}
                             photoSize={'199*300'}
                             pictureFormat={'JPG,PNG,GIF'}
-                            pictureMemory={'500'}
+                            pictureMemoryM={'3'}
                             requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
                             deviation = {"50*50"}
                             label="上传M站图(尺寸:1125*843)"
