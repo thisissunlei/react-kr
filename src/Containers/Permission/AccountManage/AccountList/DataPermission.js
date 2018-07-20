@@ -189,8 +189,7 @@ export default class DataPermission extends React.Component{
 		if(outSelect){
 			params={
 				id:detail.id,
-				communityIds:'',
-				cityIds:cityRender	
+				cityIds:-1	
 			}
 		}else if(someCityRender.length){
 			params={
