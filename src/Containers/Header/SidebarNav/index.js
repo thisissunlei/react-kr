@@ -29,11 +29,7 @@ export default class SidebarNav extends React.Component {
 				if (port) {
 					port = ":" + port;
 				}
-<<<<<<< HEAD
-				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port + item.router;
-=======
 				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
->>>>>>> 0ca7a382f5ac400ef9b9ca145cd541c1d825cb3a
 			}
 			console.log(path,"ppppppp")
 			// 三级跳转
