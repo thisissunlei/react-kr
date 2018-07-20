@@ -30,14 +30,11 @@ export default class SidebarNav extends React.Component {
 				if (port) {
 					port = ":" + port;
 				}
-				if(path.indexOf('http://')!=-1||path.indexOf('https://')!=-1){
-
-				}else{
+				if(path.indexOf('http://')==-1&&path.indexOf('https://')==-1){
 					path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
 				}
 				
 			}
-			console.log(path,"ppppppp")
 			// 三级跳转
 			if(location.href.indexOf('new/#') !==-1 ){
 						if(type === 'admin'){
