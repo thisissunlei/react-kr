@@ -40,7 +40,7 @@ class MonthPayment extends React.Component{
 			where.push(`${item}=${searchParams[item]}`);
 			}
 		}
-		var url = `http://op.krspace.cn/api/krspace-finance-web/operation/signed-customer-excel?${where.join('&')}`
+		var url = location.protocol +"//"+`op.krspace.cn/api/krspace-finance-web/operation/signed-customer-excel?${where.join('&')}`
 		window.location.href = url;
 	}
 
