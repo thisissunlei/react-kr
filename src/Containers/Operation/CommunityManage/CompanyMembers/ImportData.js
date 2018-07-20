@@ -73,7 +73,7 @@ export default class CancleLeader extends React.Component {
 
 		xhr.onerror = function(e) {
 		};
-		xhr.open('POST', 'http://op.krspace.cn/api/krspace-finance-web/member/member-excel', true);
+		xhr.open('POST', location.protocol + '//op.krspace.cn/api/krspace-finance-web/member/member-excel', true);
 		xhr.responseType = 'json';
 		xhr.send(form);
 

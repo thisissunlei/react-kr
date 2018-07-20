@@ -656,6 +656,11 @@ module.exports = {
     url: '/api/krspace-sso-web/member/mobile-phone?phone={phone}',
     method: 'get'
    },
+  // 获取菜单目录
+  'get-menu-catalog': {
+    url: '/api/krspace-sso-web/sso/sysOwn/getUserMenu',
+    method: 'get'
+  },
    //账户列表-人员获取id
    'get-bill-person-id':{
     url: '/api/krspace-erp-web/erp/ssoUser/resource-id?ssoId={ssoId}',
