@@ -22,6 +22,7 @@ export default class SidebarNav extends React.Component {
 			let type = item.projectType;
 			let path = item.url || item.originUrl || `.#${item.router}`;
 			let label = item.name;
+			
 			if(type=="member"){
 					
 				var hostname = location.hostname;
@@ -29,7 +30,12 @@ export default class SidebarNav extends React.Component {
 				if (port) {
 					port = ":" + port;
 				}
-				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
+				if(path.indexOf('http://')!=-1||path.indexOf('https://')!=-1){
+
+				}else{
+					path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
+				}
+				
 			}
 			console.log(path,"ppppppp")
 			// 三级跳转
