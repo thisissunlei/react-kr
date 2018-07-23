@@ -62,6 +62,9 @@ const More = ({ ...props }) => {
 										// }
 				
 									}
+									if(item.childList[0].childList[0].projectType === 'project'){
+										type = '/project/#'
+									}
 				
 									return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 										onClick={() => {
@@ -275,6 +278,11 @@ export default class Header extends React.Component {
 					if (item.childList[0].childList[0].projectType === 'admin') {
 						// if(location.href.indexOf('new') ===-1){
 						type = '/new/#'
+						// }
+					}
+					if (item.childList[0].childList[0].projectType === 'project') {
+						// if(location.href.indexOf('new') ===-1){
+						type = '/project/#'
 						// }
 					}
 					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
