@@ -245,7 +245,7 @@ class Header extends React.Component {
 	};
 
 	touchTitle() {
-		window.location.href = 'http://krspace.cn';
+		window.location.href = location.protocol +'//krspace.cn';
 	}
 
 	renderHeaderNav(item, index) {

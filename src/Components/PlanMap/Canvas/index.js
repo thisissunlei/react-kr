@@ -26,7 +26,7 @@ export default  class Canvas extends React.Component {
 		const {url,id} = this.props;
 		const {data} = this.state;
 		const _this = this;
-		const host = "http://"+window.location.host;
+		const host = location.protocol + "//"+window.location.host;
 		let img = new Image();
 		img.src = host+url;
 		img.onload = function () {
@@ -210,7 +210,7 @@ export default  class Canvas extends React.Component {
 		const {url,id} = this.props;
 		const {imgW,imgH} = this.state;
 		
-		const host = "http://"+window.location.host;
+		const host = location.protocol + "//"+window.location.host;
 		let src = host+url;
 		return (
 
