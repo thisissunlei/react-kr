@@ -112,9 +112,8 @@ export default class DoorGroupManage extends React.Component {
 			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
 		}
 
-		if(type="containGroup"){
-			console.log("ksdkfjkdjkfjdk");
-			// window.open(`../smarthardware/doorManage/devicedetail?id=${value.id}&maker=${value.maker}`,'_blank');
+		if(type="containGroups"){
+			window.open(`../doorpermmision/containgroups?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
 			return;
 		}
 		
@@ -379,9 +378,13 @@ export default class DoorGroupManage extends React.Component {
 														<Button  label="已授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
 													}
 													{
+														itemData.groupLevel == "NORMAL" &&
+														<Button  label="父级组"  type="operation" operation="containGroups" onClick={that.onOperation.bind(this,"containGroups",itemData)}/>
+													}
+													{
 														itemData.groupLevel !== "NORMAL" &&
 														// itemData.groupLevel == "PARENT" &&
-														<Button  label="子集"  type="operation" operation="containeGroups" onClick={that.onOperation.bind(this,"containeGroups",itemData)}/>
+														<Button  label="子集"  type="operation" operation="containGroups" onClick={that.onOperation.bind(this,"containGroups",itemData)}/>
 													}
 													<Button  label="编辑"  type="operation" operation="edit"  onClick={that.onOperation.bind(this,"edit",itemData)}/>
 													<Button  label="删除"  type="operation" operation="delete" onClick={that.onOperation.bind(this,"delete",itemData)}/>
