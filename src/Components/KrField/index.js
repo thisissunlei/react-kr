@@ -107,6 +107,7 @@ import SearchMemberCompany from './SearchMemberCompany';
 import SearchAllCommunity from './SearchAllCommunity';
 import SearchRoomSelect from './SearchRoomSelect';
 import SearchMeetingCommunity from './SearchMeetingCommunity';
+import SearchSmartHardCompany from './SearchSmartHardCompany';
 
 class FieldRevert extends React.Component {
 
@@ -437,6 +438,12 @@ class FieldRevert extends React.Component {
 					<FieldRevert {...this.props} component={SearchMemberCompany}  style={WrapStyles} {...other}/>
 				);
 			}
+			if (component === 'searchSmartHardCompany') {
+				return (
+					<FieldRevert {...this.props} component={SearchSmartHardCompany}  style={WrapStyles} {...other}/>
+				);
+			}
+			
 			if (component === 'searchCity') {
 				return (
 					<FieldRevert {...this.props} component={SearchBelongCityComponent}  style={WrapStyles} {...other}/>

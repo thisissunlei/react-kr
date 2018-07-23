@@ -75,7 +75,7 @@ class GroupListSearchForm extends React.Component{
 					</ListGroupItem>
 					<ListGroupItem>
 						<KrField name="customerId" 
-							component="searchMemberCompany" 
+							component="searchSmartHardCompany" 
 							label="公司：" 
 							style={{width:'237px'}}
 							inline={true}

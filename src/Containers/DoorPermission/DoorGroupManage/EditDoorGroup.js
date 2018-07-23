@@ -109,7 +109,7 @@ class EditDoorGroup extends React.Component{
 				/>
 
 				<KrField grid={1/2} name="customerId" 
-					component="searchMemberCompany" 
+					component="searchSmartHardCompany" 
 					label="公司" 
 					style={{width:'252px',marginRight:'30px'}}
 					onChange={this.changeCustomerId}
