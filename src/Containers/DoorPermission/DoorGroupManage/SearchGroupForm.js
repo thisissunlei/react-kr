@@ -28,13 +28,7 @@ class GroupListSearchForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			logTypeOptions : [{
-				label:"普通组",
-				value: "NORMAL"
-			},{
-				label:"父级组",
-				value: "PARENT"
-			}],
+			
 		}
 	}
 	componentDidMount(){
@@ -58,7 +52,7 @@ class GroupListSearchForm extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {logTypeOptions} = this.state;
+		let {groupLevelOptions} = State;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="door-permission-group-search">
 				<ListGroup className="fir-list">
@@ -89,7 +83,7 @@ class GroupListSearchForm extends React.Component{
 
 								component="select" 
 								label="组级别：" 
-								options = {logTypeOptions}
+								options = {groupLevelOptions}
 								style={{width:237}}
 							/>
 						</span>

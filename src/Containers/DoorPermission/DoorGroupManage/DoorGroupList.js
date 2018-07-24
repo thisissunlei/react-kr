@@ -102,9 +102,15 @@ export default class DoorGroupManage extends React.Component {
 			return;
 			
 		}
-		if(type=='changeEquipment'){
-			_this.openChangeEquipmentFun();
-			return;
+		if(type=='ownPower'){
+			
+			if(itemDetail.groupLevel=="NORMAL"){
+				_this.openChangeEquipmentFun();
+				return;
+			}else{
+				window.open(`../doorpermmision/containgroups?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
+				return;
+			}
 			
 		}
 		if(type=="addMemberToGroup"){
@@ -372,7 +378,7 @@ export default class DoorGroupManage extends React.Component {
 												</div>
 												:<div>
 													
-													<Button  label="成员"  type="operation" operation="changeMember" onClick={that.onOperation.bind(this,"changeMember",itemData)}/>
+													{/* <Button  label="成员"  type="operation" operation="changeMember" onClick={that.onOperation.bind(this,"changeMember",itemData)}/>
 													{
 														itemData.groupLevel == "NORMAL" &&
 														<Button  label="已授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
@@ -385,7 +391,10 @@ export default class DoorGroupManage extends React.Component {
 														itemData.groupLevel !== "NORMAL" &&
 														// itemData.groupLevel == "PARENT" &&
 														<Button  label="子集"  type="operation" operation="containGroups" onClick={that.onOperation.bind(this,"containGroups",itemData)}/>
-													}
+													} */}
+													<Button  label="已有权限"  type="operation" operation="ownPower" onClick={that.onOperation.bind(this,"ownPower",itemData)}/>
+													<Button  label="授予详情"  type="operation" operation="containGroups" onClick={that.onOperation.bind(this,"containGroups",itemData)}/>
+
 													<Button  label="编辑"  type="operation" operation="edit"  onClick={that.onOperation.bind(this,"edit",itemData)}/>
 													<Button  label="删除"  type="operation" operation="delete" onClick={that.onOperation.bind(this,"delete",itemData)}/>
 
