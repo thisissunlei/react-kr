@@ -60,8 +60,9 @@ export default class SearchSmartHardCompany extends React.Component {
 			}).then(function(response) {
 				var obj = [].concat(response.items);
 				obj.forEach(function(item, index) {
+					console.log("item",item);
 					item.value = item.id;
-					item.label = item.name;
+					item.label = item.company;
 				});
 				resolve({
 					options: obj

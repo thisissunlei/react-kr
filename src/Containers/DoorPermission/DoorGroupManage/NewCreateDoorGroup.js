@@ -106,12 +106,14 @@ class NewCreateDoorGroup extends React.Component{
 					onChange={this.changeCommunityId}
 				/>
 
-				<KrField grid={1/2} name="customerId" 
+				<KrField  name="customerId" 
 					component="searchSmartHardCompany" 
 					label="公司" 
 					style={{width:'252px',marginRight:'30px'}}
 					onChange={this.changeCustomerId}
+					inline={false}
 				/>
+			
 				
 				
 					

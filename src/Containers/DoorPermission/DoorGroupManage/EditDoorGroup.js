@@ -113,6 +113,7 @@ class EditDoorGroup extends React.Component{
 					label="公司" 
 					style={{width:'252px',marginRight:'30px'}}
 					onChange={this.changeCustomerId}
+					inline={false}
 				/>
 				
 				

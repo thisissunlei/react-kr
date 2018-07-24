@@ -83,16 +83,18 @@ class GroupListSearchForm extends React.Component{
 
 					</ListGroupItem>
 					
-					<ListGroupItem >
-						
-						<KrField name="groupLevel" 
-							component="select" 
-							label="组级别：" 
-							options = {logTypeOptions}
-							style={{width:237}}
-						/>
+					<ListGroupItem className="special-style">
+						<span className="special-style-innner">
+							<KrField name="groupLevel"
+
+								component="select" 
+								label="组级别：" 
+								options = {logTypeOptions}
+								style={{width:237}}
+							/>
+						</span>
 					</ListGroupItem>
-					<ListGroupItem >
+					<ListGroupItem  className="special-style">
 						
 						<KrField
 							name="name" 
