@@ -25,8 +25,8 @@
     "build:dev01": "export NODE_ENV=dev01 &&  webpack --config ./webpack/webpack-test.config.js --progress --colors",
     "build:dev02": "export NODE_ENV=dev02 &&  webpack --config ./webpack/webpack-test.config.js --progress --colors",
     "dll": "export NODE_ENV=production && webpack --config ./webpack/webpack-dll.config.js --progress --colors --profile",
-    "lint": "eslint *.js ./src/**",
-    "commitmsg": "validate-commit-msg"
+    "lint": "eslint *.js ./src/**"
+    
   },
   "author": "",
   "license": "ISC",
@@ -150,7 +150,7 @@
     "stylus": "0.53.0",
     "transfer-webpack-plugin": "0.1.4",
     "url-search-params": "0.5.0",
-    "validate-commit-msg": "2.14.0",
+    
     "validatorjs": "3.7.0",
     "warning": "3.0.0",
     "webpack": "2.1.0-beta.21",
