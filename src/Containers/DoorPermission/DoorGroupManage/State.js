@@ -17,7 +17,7 @@ let State = observable({
 	openAddEquipmentDialog :false,
 	doorTypeOptions : [],
 	groupLevelOptions: [{
-		label:"普通组",
+		label:"设备组",
 		value: "NORMAL"
 	},{
 		label:"父级组",
