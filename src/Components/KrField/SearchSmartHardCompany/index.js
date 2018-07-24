@@ -1,96 +1,105 @@
 import React from 'react';
+
 import {
 	Http
 } from "kr/Utils";
-
 import ReactSelectAsync from '../../Select/Async';
 
-import {Actions,Store} from 'kr/Redux';
+import {
+	Actions,
+	Store
+} from 'kr/Redux';
 
 
 import WrapComponent from '../WrapComponent';
 
-export default class  SearchSmartHardCompany extends React.Component {
+export default class SearchSmartHardCompany extends React.Component {
 
 	static defaultProps = {
-		placeholder:'请输入公司名称'
+		placeholder: '请选择公司',
+		inline: true
 	}
 
 	static PropTypes = {
-		placeholder:React.PropTypes.string,
-		inline:React.PropTypes.bool
+		placeholder: React.PropTypes.string,
+		inline: React.PropTypes.bool
 	}
 
-	constructor(props){
+	constructor(props) {
 		super(props)
-		this.state = {
-			ValueInfo: {}
-		}
-		
+
+		this.onChange = this.onChange.bind(this);
+		this.getOptions = this.getOptions.bind(this);
 	}
 
-	componentDidMount(){
-		let {input,ValueInfo } = this.props;
-		let Info=ValueInfo?ValueInfo:{}
-		this.setState({
-			ValueInfo: Info
-		})
-	}
-	componentWillReceiveProps(nextProps) {
-		var _this = this;
-		if(nextProps.ValueInfo && nextProps.ValueInfo.csrId){
-			this.setState({
-				ValueInfo:nextProps.ValueInfo
-			}, function() {
-				_this.selects.loadOptions()
-			})
-		}
-		
+	componentDidMount() {
+		let {
+			input
+		} = this.props;
 	}
 
-	onChange=(item)=>{
-		let {input,onChange} = this.props;
+	onInputChange = () => {
+
+
+	}
+
+	onChange(item) {
+		let {
+			input,
+			onChange
+		} = this.props;
 		var value = (item && item.value) || '';
 		input.onChange(value);
 		onChange && onChange(item);
 	}
-	getOptions=(companyName)=>{
-		let {ValueInfo}=this.state;
-		
-		var flag=[];
-		return 	Http.request('get-smart-hard-company',{ companyName:companyName || ''}).then(function(response){
-				let items=response.items;
-				items.forEach(function(item,index){
+
+	getOptions(lastname) {
+		return new Promise((resolve, reject) => {
+			Http.request('get-smart-hard-company', {
+				companyName: lastname
+			}).then(function(response) {
+				var obj = [].concat(response.items);
+				obj.forEach(function(item, index) {
 					item.value = item.id;
-					item.label = item.company;
-					if(ValueInfo.csrId){
-						if(item.id==ValueInfo.csrId){
-							flag.push('0');
-						}
-					}
+					item.label = item.name;
 				});
-				
-				if (flag.indexOf('0')== -1){
-					items.push(ValueInfo);
-				}
-				
-				return {options:items}
-			})
-			
+				resolve({
+					options: obj
+				});
+			}).catch(function(err) {
+				reject(err);
+			});
+		});
 	}
-	render(){
-		let { input, label, type, meta: { touched, error },placeholder,children,disabled,style,requireLabel,...other} = this.props;
-		
+
+	render() {
+
+		let {
+			input,
+			label,
+			type,
+			inline,
+			meta: {
+				touched,
+				error
+			},
+			placeholder,
+			children,
+			disabled,
+			style,
+			requireLabel,
+			...other
+		} = this.props;
 		return (
-			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
+			<WrapComponent label={label} wrapStyle={style} inline={inline} requireLabel={requireLabel}>
 					<ReactSelectAsync
 					name={input.name}
 					value={input.value}
-					ref={(selects)=>this.selects=selects}
 					loadOptions={this.getOptions}
 					clearable={true}
 					clearAllText="清除"
 					onChange={this.onChange}
+					onInputChange={this.onInputChange}
 					noResultsText=""
 					placeholder={placeholder}/>
 			{touched && error && <div className="error-wrap"> <span>{error}</span> </div>}
