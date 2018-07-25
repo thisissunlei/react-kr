@@ -107,8 +107,9 @@ export default class DoorGroupManage extends React.Component {
 			let {clickAddMemberBtn} =this.props;
 			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
 		}
+		console.log("type",type);
 
-		if(type="powerOwner"){
+		if(type=="powerOwner"){
 			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
 			return;
 		}
