@@ -100,7 +100,8 @@ export default class BelongOfDoorGroup extends React.Component {
             itemDetail: item
         })
             
-        _this.getgetGroupAuthorizeEquipmentList(item)
+        window.open(`../doorpermmision/powerOrigin?groupid=${item.id}&groupname=${item.name}&groupLevel=${item.groupLevel}`,'_blank');
+			
        
     }
 
@@ -311,12 +312,9 @@ export default class BelongOfDoorGroup extends React.Component {
                                         return (
                                                 <div>
                                                     <Button  label="移出组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,itemData)}/>
-                                                    {
-                                                        itemData.groupLevel == "NORMAL" &&
+                                                     
+                                                    <Button  label="已有权限"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,itemData)}/>
                                                         
-                                                        <Button  label="组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,itemData)}/>
-                                                        
-                                                    }
 
                                                 </div>
                                             )
