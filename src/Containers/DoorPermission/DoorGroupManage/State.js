@@ -20,7 +20,7 @@ let State = observable({
 		label:"设备组",
 		value: "NORMAL"
 	},{
-		label:"父级组",
+		label:"复合组",
 		value: "PARENT"
 	}],
 	
