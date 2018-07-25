@@ -33,13 +33,7 @@ class EditDoorGroup extends React.Component{
 			
 			communityId : '',
 			customerId : '',
-			groupLevelOptions : [{
-				label:"普通组",
-				value: "NORMAL"
-			},{
-				label:"父级组",
-				value: "PARENT"
-			}]
+			
 
 		}
 	}
@@ -78,7 +72,7 @@ class EditDoorGroup extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {groupLevelOptions} = this.state;
+		let groupLevelOptions = State.groupLevelOptions;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="new-creat-door-group">
 				<KrField grid={1/2} 
