@@ -102,25 +102,22 @@ export default class DoorGroupManage extends React.Component {
 			return;
 			
 		}
-		if(type=='ownPower'){
-			
-			if(itemDetail.groupLevel=="NORMAL"){
-				_this.openChangeEquipmentFun();
-				return;
-			}else{
-				window.open(`../doorpermmision/containgroups?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
-				return;
-			}
-			
-		}
+		
 		if(type=="addMemberToGroup"){
 			let {clickAddMemberBtn} =this.props;
 			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
 		}
 
-		if(type="containGroups"){
-			window.open(`../doorpermmision/containgroups?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
+		if(type="powerOwner"){
+			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
 			return;
+		}
+
+		if(type=='powerOrigin'){
+			
+			window.open(`../doorpermmision/powerOrigin?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
+			return;
+			
 		}
 		
 	}
@@ -378,22 +375,9 @@ export default class DoorGroupManage extends React.Component {
 												</div>
 												:<div>
 													
-													{/* <Button  label="成员"  type="operation" operation="changeMember" onClick={that.onOperation.bind(this,"changeMember",itemData)}/>
-													{
-														itemData.groupLevel == "NORMAL" &&
-														<Button  label="已授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
-													}
-													{
-														itemData.groupLevel == "NORMAL" &&
-														<Button  label="父级组"  type="operation" operation="containGroups" onClick={that.onOperation.bind(this,"containGroups",itemData)}/>
-													}
-													{
-														itemData.groupLevel !== "NORMAL" &&
-														// itemData.groupLevel == "PARENT" &&
-														<Button  label="子集"  type="operation" operation="containGroups" onClick={that.onOperation.bind(this,"containGroups",itemData)}/>
-													} */}
-													<Button  label="已有权限"  type="operation" operation="ownPower" onClick={that.onOperation.bind(this,"ownPower",itemData)}/>
-													<Button  label="授予详情"  type="operation" operation="containGroups" onClick={that.onOperation.bind(this,"containGroups",itemData)}/>
+													
+													<Button  label="已有权限"  type="operation" operation="powerOrigin" onClick={that.onOperation.bind(this,"powerOrigin",itemData)}/>
+													<Button  label="授予详情"  type="operation" operation="powerOwner" onClick={that.onOperation.bind(this,"powerOwner",itemData)}/>
 
 													<Button  label="编辑"  type="operation" operation="edit"  onClick={that.onOperation.bind(this,"edit",itemData)}/>
 													<Button  label="删除"  type="operation" operation="delete" onClick={that.onOperation.bind(this,"delete",itemData)}/>
