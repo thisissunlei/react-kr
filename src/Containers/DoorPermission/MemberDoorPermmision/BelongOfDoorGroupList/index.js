@@ -16,7 +16,7 @@ import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
 import DropOutGroup from './DropOutGroup';
-import MemberAuthoriazationEquipment from '../MemberAuthoriazationEquipment';
+// import MemberAuthoriazationEquipment from '../MemberAuthoriazationEquipment';
 import AllGroupList from '../../DoorGroupManage/DoorGroupList';
 import AddMemberIntoGroup from './AddMemberIntoGroup';
 import close from "../images/close.svg";
@@ -105,24 +105,24 @@ export default class BelongOfDoorGroup extends React.Component {
        
     }
 
-    getgetGroupAuthorizeEquipmentList=(item)=>{
+    // getgetGroupAuthorizeEquipmentList=(item)=>{
 
-        let that =this;
-        let params = {granteeId:item.id,granteeType:"USER_GROUP",page:1,pageSize:25}
-        Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
-            that.setState({
-                authorazitionEquipmentList : response.items
-            })
-            that.showAuthorizationEquipmentFun();
+    //     let that =this;
+    //     let params = {granteeId:item.id,granteeType:"USER_GROUP",page:1,pageSize:25}
+    //     Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
+    //         that.setState({
+    //             authorazitionEquipmentList : response.items
+    //         })
+    //         that.showAuthorizationEquipmentFun();
 
-        }).catch(function(err) {
-            Message.error(err.message);
-        });
-    }
+    //     }).catch(function(err) {
+    //         Message.error(err.message);
+    //     });
+    // }
 
-    showAuthorizationEquipmentFun=()=>{
-        State.showAuthorizationEquipmentDialog = !State.showAuthorizationEquipmentDialog;
-    }
+    // showAuthorizationEquipmentFun=()=>{
+    //     State.showAuthorizationEquipmentDialog = !State.showAuthorizationEquipmentDialog;
+    // }
 
 
     openAllGroupList=()=>{
@@ -348,7 +348,7 @@ export default class BelongOfDoorGroup extends React.Component {
 			          />
 			        </Dialog>
 
-                    <Drawer 
+                    {/* <Drawer 
 			        	open={State.showAuthorizationEquipmentDialog}
 			        	onClose = {this.showAuthorizationEquipmentFun}
 					    width={"90%"} 
@@ -369,7 +369,7 @@ export default class BelongOfDoorGroup extends React.Component {
                             /> 
                         </div>  
 
-					</Drawer>
+					</Drawer> */}
                     <Drawer 
 			        	open={State.openAllGroupListDialog}
 			        	onClose = {this.openAllGroupList}

@@ -21,7 +21,7 @@ import EditDoorGroup from './EditDoorGroup';
 import SearchGroupForm from './SearchGroupForm';
 import DeleteGroupDialog from './DeleteGroupDialog';
 import ChangeMember from './ChangeMember';
-import ChangeEquipment from './ChangeEquipment';
+// import ChangeEquipment from './ChangeEquipment';
 
 
 import State from './State';
@@ -97,17 +97,16 @@ export default class DoorGroupManage extends React.Component {
 			return;
 			
 		}
-		if(type=='changeMember'){
-			_this.openChangeMemeberFun();
-			return;
+		// if(type=='changeMember'){
+		// 	_this.openChangeMemeberFun();
+		// 	return;
 			
-		}
+		// }
 		
 		if(type=="addMemberToGroup"){
 			let {clickAddMemberBtn} =this.props;
 			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
 		}
-		console.log("type",type);
 
 		if(type=="powerOwner"){
 			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
@@ -219,15 +218,15 @@ export default class DoorGroupManage extends React.Component {
 		});
 	}
 
-	openChangeMemeberFun=()=>{
+	// openChangeMemeberFun=()=>{
 
-		State.openChangeMemeberDialog = !State.openChangeMemeberDialog;
-	}
+	// 	State.openChangeMemeberDialog = !State.openChangeMemeberDialog;
+	// }
 
-	openChangeEquipmentFun=()=>{
-		State.openChangeEquipmentDialog = !State.openChangeEquipmentDialog;
+	// openChangeEquipmentFun=()=>{
+	// 	State.openChangeEquipmentDialog = !State.openChangeEquipmentDialog;
 		
-	}
+	// }
 
 	openEditDoorGroupFun=()=>{
 		State.openEditDoorGroup = !State.openEditDoorGroup;
@@ -435,23 +434,23 @@ export default class DoorGroupManage extends React.Component {
 			        </Dialog>
 
 
-					<Drawer 
+					{/* <Drawer 
 			        	open={State.openChangeMemeberDialog}
 			        	onClose = {this.openChangeMemeberFun}
 					    width={"70%"} 
 					    openSecondary={true} 
 					>
 						<ChangeMember onCancel={this.openChangeMemeberFun} itemDetail={itemDetail} closeChangeMember={this.openChangeMemeberFun}/>
-					</Drawer>
+					</Drawer> */}
 
-					<Drawer 
+					{/* <Drawer 
 			        	open={State.openChangeEquipmentDialog}
 			        	onClose = {this.openChangeEquipmentFun}
 					    width={"70%"} 
 					    openSecondary={true} 
 					>
 						<ChangeEquipment onCancel={this.openChangeEquipmentFun} itemDetail={itemDetail} closeChangeMember={this.openChangeEquipmentFun}/>
-					</Drawer>
+					</Drawer> */}
 
 
 				</Section>

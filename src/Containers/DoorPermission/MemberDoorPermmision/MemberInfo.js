@@ -58,7 +58,7 @@ class MemberInfoForm extends React.Component{
 		const { error, handleSubmit, pristine, reset,content,filter,memberDetailInfo} = this.props;
 
 		return (
-			<Section title={`个人信息`} description="" >
+			
 			
 				<form onSubmit={handleSubmit(this.onSubmit)} className="member-info-top">
 					{memberDetailInfo.companyInfo &&<KrField
@@ -106,7 +106,6 @@ class MemberInfoForm extends React.Component{
 					
 
 				</form>
-			</Section>
 		);
 	}
 }
