@@ -100,7 +100,7 @@ export default class BelongOfDoorGroup extends React.Component {
             itemDetail: item
         })
             
-        window.open(`../doorpermmision/powerOrigin?groupid=${item.id}&groupname=${item.name}&groupLevel=${item.groupLevel}`,'_blank');
+        window.open(`../doorpermmision/powerOrigin?groupid=${item.groupId}&groupname=${item.name}&groupLevel=${item.groupLevel}`,'_blank');
 			
        
     }
@@ -178,6 +178,23 @@ export default class BelongOfDoorGroup extends React.Component {
 
     openAddTipDialogFun=()=>{
         State.openAddTipDialog = !State.openAddTipDialog;
+    }
+
+    sendAddReq=(slectedIdsAtr)=>{
+        let {memberDetailInfo} = this.props;
+        console.log("memberDetailInfo",memberDetailInfo);
+        var param ={
+            groupIds : slectedIdsAtr,
+            uid : memberDetailInfo.accountInfo.uid
+        }
+        Http.request('put-member-to-groups',{},param).then(function(response) {
+			
+			
+			Message.success("添加成功");
+			
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
     }
 
 
@@ -373,14 +390,16 @@ export default class BelongOfDoorGroup extends React.Component {
                     <Drawer 
 			        	open={State.openAllGroupListDialog}
 			        	onClose = {this.openAllGroupList}
-					    width={"70%"} 
+					    width={900} 
 					    openSecondary={true} 
 					>
                         <div className="person-group-items-list">   
                             <div className="person-group-item-list-close-btn">
                                 <img src={close} onClick={this.openAllGroupList}/>
                             </div>                
-                            <AllGroupList rootPage="personalDoorPermmision" clickAddMemberBtn={this.clickAddMemberBtn}/> 
+                            <AllGroupList rootPage="personalDoorPermmision" clickAddMemberBtn={this.clickAddMemberBtn}
+                                sendAddReq={this.sendAddReq}
+                            /> 
                         </div>  
 
 					</Drawer>

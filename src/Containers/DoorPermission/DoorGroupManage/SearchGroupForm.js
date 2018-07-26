@@ -50,6 +50,11 @@ class GroupListSearchForm extends React.Component{
 		clearParams && clearParams();
 	}
 
+	addSelected=()=>{
+		let {addSelected} = this.props;
+		addSelected && addSelected();
+	}
+
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
 		let {groupLevelOptions} = State;
@@ -104,6 +109,9 @@ class GroupListSearchForm extends React.Component{
 					</ListGroupItem>
 					<ListGroupItem style={{marginBottom:15}}>
 						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />
+					</ListGroupItem>
+					<ListGroupItem style={{marginBottom:15}}>
+						<Button  label="批量加入" type="button"  cancle={true} onTouchTap={this.addSelected} />
 					</ListGroupItem>
 					
 				</ListGroup>

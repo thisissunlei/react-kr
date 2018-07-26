@@ -20,7 +20,7 @@ import NewCreateDoorGroup from './NewCreateDoorGroup';
 import EditDoorGroup from './EditDoorGroup';
 import SearchGroupForm from './SearchGroupForm';
 import DeleteGroupDialog from './DeleteGroupDialog';
-import ChangeMember from './ChangeMember';
+// import ChangeMember from './ChangeMember';
 // import ChangeEquipment from './ChangeEquipment';
 
 
@@ -39,6 +39,7 @@ export default class DoorGroupManage extends React.Component {
 			itemDetail:{},
 			page : 1,
 			realPage : 1,
+			selected : [],
 			getDoorPermissionListParams:{
 				communityId : '',
 				customerId : '',
@@ -80,6 +81,16 @@ export default class DoorGroupManage extends React.Component {
 		State.openDeleteGroup = !State.openDeleteGroup;
 	}
 
+
+	onSelect=(selected,selectItems)=>{
+
+		console.log("selected",selected,"selectItems",selectItems);
+		this.setState({
+			selected :selectItems
+		})
+
+	}
+
 	//操作相关
 	onOperation=(type,itemDetail,event)=>{
 		let _this = this;
@@ -109,13 +120,13 @@ export default class DoorGroupManage extends React.Component {
 		}
 
 		if(type=="powerOwner"){
-			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
+			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.groupId}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
 			return;
 		}
 
 		if(type=='powerOrigin'){
 			
-			window.open(`../doorpermmision/powerOrigin?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
+			window.open(`../doorpermmision/powerOrigin?groupid=${itemDetail.groupId}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
 			return;
 			
 		}
@@ -232,6 +243,30 @@ export default class DoorGroupManage extends React.Component {
 		State.openEditDoorGroup = !State.openEditDoorGroup;
 	}
 
+	addSelected=()=>{
+		console.log("eee")
+		let {selected} = this.state;
+		if(selected.length<1){
+			Message.warntimeout("请选择要加入的组","error");
+			return;
+		}
+		this.sendAddReq()
+	}
+
+	sendAddReq=()=>{
+		let {selected} = this.state;
+		var selectedGrouppid = selected.map(function(item,index){
+			return item.id;
+		})
+		var selectedStr = selectedGrouppid.join(",");
+		var param ={
+			groupIds : selectedStr
+		}
+		let {sendAddReq} = this.props;
+		sendAddReq && sendAddReq(selectedStr);
+		
+	}
+
 	
 
 
@@ -253,7 +288,9 @@ export default class DoorGroupManage extends React.Component {
 						<Button label="新建门禁组"  onTouchTap={this.openNewCreateDoorGoupDialog} className="button-list"/>
 					</div>
 					<div>
-						<SearchGroupForm submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
+						<SearchGroupForm 
+							addSelected ={this.addSelected}
+							submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
 					</div>
 
 					<Table
@@ -270,7 +307,8 @@ export default class DoorGroupManage extends React.Component {
 						ajaxUrlName='getDoorPermissionList'
 						ajaxParams={getDoorPermissionListParams}
 						onPageChange={this.onPageChange}
-						displayCheckbox={false}
+						displayCheckbox={true}
+                        onSelect={this.onSelect}
 					>
 						<TableHeader>
 							<TableHeaderColumn>组名称</TableHeaderColumn>
@@ -285,7 +323,7 @@ export default class DoorGroupManage extends React.Component {
 							<TableRow>
 
 							<TableRowColumn 
-								style={{width:"12%",overflow:"visible"}} 
+								// style={{width:"12%",overflow:"visible"}} 
 								name="name" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -300,7 +338,7 @@ export default class DoorGroupManage extends React.Component {
 							}} ></TableRowColumn>
 
 							<TableRowColumn name="groupLevel"
-							style={{width:"5%",overflow:"visible"}} 
+							// style={{width:"5%",overflow:"visible"}} 
 							options={groupLevelOptions}
 							component={(value,oldValue)=>{
 								if(value==""){
@@ -321,7 +359,7 @@ export default class DoorGroupManage extends React.Component {
 
 
 							<TableRowColumn 
-								style={{width:"10%",overflow:"visible"}} 
+								// style={{width:"10%",overflow:"visible"}} 
 								name="customerName" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -341,14 +379,14 @@ export default class DoorGroupManage extends React.Component {
 								name="ctime" 
 								type="date" 
 								format="yyyy-mm-dd HH:MM:ss"
-								style={{width:"12%"}}
+								// style={{width:"12%"}}
 							>
 							</TableRowColumn>
 
 							
 
 							<TableRowColumn 
-								style={{width:"10%",overflow:"visible"}} 
+								// style={{width:"10%",overflow:"visible"}} 
 								name="creatorName" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -364,7 +402,7 @@ export default class DoorGroupManage extends React.Component {
 
 							
 							<TableRowColumn type="operation"
-								style={{width:"15%"}}
+								// style={{width:"15%"}}
 								component={
 									(itemData)=>{
 										return (

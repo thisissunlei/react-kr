@@ -91,6 +91,11 @@ module.exports = {
         url: '/api/iot-platform/customer/select-items?companyName={companyName}',
         method: 'get'
     },
+    // 将会员批量加入一堆组
+    'put-member-to-groups':{
+        url: '/api/iot-platform/auth/user/actions/grant-group',
+        method: 'post'
+    },
 
 
     
