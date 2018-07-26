@@ -62,7 +62,7 @@ class MemberInfoForm extends React.Component{
 			
 				<form onSubmit={handleSubmit(this.onSubmit)} className="member-info-top">
 					{memberDetailInfo.companyInfo &&<KrField
-						style={{width:'252px',marginRight:30}}
+						style={{width:'230px'}}
 						inline={true}
 						component="labelText"
 						label="姓名："
@@ -70,32 +70,31 @@ class MemberInfoForm extends React.Component{
 					/>}
 
 					{memberDetailInfo.accountInfo && <KrField
-						style={{width:'252px',marginRight:30}}
+						style={{width:'220px'}}
 						inline={true}
 						component="labelText"
-						label="联系电话："
+						label="电话："
 						value={memberDetailInfo.accountInfo.phone}
 					/>}
-
-					{memberDetailInfo.contacts && <KrField
-						style={{width:'252px',marginRight:30}}
-						inline={true}
-						component="labelText"
-						label="邮箱："
-						value={memberDetailInfo.contacts.email}
-					/>}
-
-					
 					{ memberDetailInfo.companyInfo &&<KrField
-						style={{width:'252px',marginRight:30}}
+						style={{width:'230px'}}
 						inline={true}
 						component="labelText"
 						label="社区名称："
 						value={memberDetailInfo.companyInfo.cmtName}
 					/>}
 
+					{memberDetailInfo.contacts && <KrField
+						style={{width:'250px'}}
+						inline={true}
+						component="labelText"
+						label="邮箱："
+						value={memberDetailInfo.contacts.email}
+					/>}
+					
+
 					{memberDetailInfo.companyInfo && <KrField
-						style={{width:300,marginRight:30}}
+						style={{width:300}}
 						inline={true}
 						component="labelText"
 						label="公司："

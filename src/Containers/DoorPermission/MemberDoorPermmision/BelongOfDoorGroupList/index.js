@@ -105,24 +105,6 @@ export default class BelongOfDoorGroup extends React.Component {
        
     }
 
-    // getgetGroupAuthorizeEquipmentList=(item)=>{
-
-    //     let that =this;
-    //     let params = {granteeId:item.id,granteeType:"USER_GROUP",page:1,pageSize:25}
-    //     Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
-    //         that.setState({
-    //             authorazitionEquipmentList : response.items
-    //         })
-    //         that.showAuthorizationEquipmentFun();
-
-    //     }).catch(function(err) {
-    //         Message.error(err.message);
-    //     });
-    // }
-
-    // showAuthorizationEquipmentFun=()=>{
-    //     State.showAuthorizationEquipmentDialog = !State.showAuthorizationEquipmentDialog;
-    // }
 
 
     openAllGroupList=()=>{
@@ -182,7 +164,7 @@ export default class BelongOfDoorGroup extends React.Component {
 
     sendAddReq=(slectedIdsAtr)=>{
         let {memberDetailInfo} = this.props;
-        console.log("memberDetailInfo",memberDetailInfo);
+        let that= this;
         var param ={
             groupIds : slectedIdsAtr,
             uid : memberDetailInfo.accountInfo.uid
@@ -190,7 +172,8 @@ export default class BelongOfDoorGroup extends React.Component {
         Http.request('put-member-to-groups',{},param).then(function(response) {
 			
 			
-			Message.success("添加成功");
+            Message.success("添加成功");
+            that.refreshPage();
 			
 		}).catch(function(err) {
 			Message.error(err.message);
