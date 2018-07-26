@@ -55,7 +55,7 @@ export default class CustomerSource  extends Component{
 				searchKey:'',
 				other:'',
 			},
-			sourceId:''
+			sourceId:'',
 		}
 
 	}
@@ -64,6 +64,7 @@ export default class CustomerSource  extends Component{
 	onCreateSubmit=(params)=> {
 
 	}
+
 
 
 	//导出事件
@@ -147,13 +148,16 @@ export default class CustomerSource  extends Component{
 		const self = this;
 		Http.request('get-detail-source',value).then(function(response) {
 			var data = Object.assign({},response);
-			data.enabled = data.enabledStr;
-			self.initEditChild(data);
+			data.enabled = data.enabled+"";
 			Store.dispatch(initialize('editCustomerSource',data));
+
 		}).catch(function(err) {
 			Message.error(err.message);
 		});
 	}
+
+
+
 	initEditChild = (data) =>{
 		var names = {};
 		var codes = {};
@@ -196,17 +200,10 @@ export default class CustomerSource  extends Component{
 	}
 	//编辑提交
 	editSubmit = (data) =>{
+		console.log("data",data);
 		const self = this;
-		let arr = [];
-		for(let i = 0; i<data.subListStr.length;i++){
-			if(data.subListStr[i]!=null){
-				arr.push(data.subListStr[i])
-			}
-		}
-		var subListStr = JSON.stringify(arr);
-		data = Object.assign({},data);
-		data.subListStr = subListStr;
-		var value = Object.assign({},data);
+		
+		var value = Object.assign({},data,{cTime :''});
 		Http.request('edit-source',{},value).then(function(response) {
 			self.editSwitch();
 			self.refreshList();
@@ -218,17 +215,7 @@ export default class CustomerSource  extends Component{
 	newSubmit = (data) =>{
 		const self = this;
 		let arr = [];
-		console.log("OOOOOO");
-		if(data.subListStr){
-			for(let i = 0; i<data.subListStr.length;i++){
-				if(data.subListStr[i] && data.subListStr[i].name && data.subListStr[i] != null){
-					arr.push(data.subListStr[i])
-				}
-			}
-		}
-		var subListStr = JSON.stringify(arr);
-		data = Object.assign({},data);
-		data.subListStr = subListStr;
+		
 		var value = Object.assign({},data);
 		Http.request('new-source',{},value).then(function(response) {
 			self.newSwitch();
@@ -290,7 +277,6 @@ export default class CustomerSource  extends Component{
                                 <TableHeader>
                                     <TableHeaderColumn>来源编码</TableHeaderColumn>
                                     <TableHeaderColumn>来源名称</TableHeaderColumn>
-                                    <TableHeaderColumn>子项</TableHeaderColumn>
                                     <TableHeaderColumn>佣金</TableHeaderColumn>
                                     <TableHeaderColumn>顺序</TableHeaderColumn>
                                     <TableHeaderColumn>是否全员开放</TableHeaderColumn>
@@ -305,36 +291,6 @@ export default class CustomerSource  extends Component{
 
                                         <TableRowColumn name="code" ></TableRowColumn>
                                         <TableRowColumn name="name"></TableRowColumn>
-                                        <TableRowColumn name="subSourceStr" component={(value,oldValue)=>{
-						                				let show="inline-block";
-						                				if(value.length==0){
-						                					show="none";
-						                				}else{
-						                					show="inline-block";
-						                				}
-														 return (
-															 <div style={{display:"inline-block"}}>
-																 <span className='tableOver' 
-																 	style={{
-																		 maxWidth:130,
-																		 marginTop:5,
-																		 display:"inline-block",
-																		 overflowX:"hidden",
-																		 textOverflow:" ellipsis",
-																		 whiteSpace:" nowrap"}}
-																	>
-																	{value}
-																</span>
-																<Tooltip 
-																	offsetTop={10} 
-																	place='top' 
-																	style={{left:50,display:"show"}}
-																>
-																	<div>{value}</div>
-																</Tooltip>
-															 </div>
-															 )
-										}}></TableRowColumn>
                                         <TableRowColumn name="brokerage"></TableRowColumn>
                                         <TableRowColumn name="orderNum"></TableRowColumn>
                                         <TableRowColumn name="enabled" component={(value,oldValue)=>{
