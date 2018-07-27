@@ -155,6 +155,7 @@ export default class Editor extends React.Component {
     
 
     var _this = this;
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function (action) {
  
       if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
@@ -163,7 +164,6 @@ export default class Editor extends React.Component {
         return this._bkGetActionUrl.call(this, action);
       }
     }
-    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     var config=Object.assign({},configs);
     if(editHeight){
       config.initialFrameHeight=editHeight.wsheight?editHeight.wsheight:800;
