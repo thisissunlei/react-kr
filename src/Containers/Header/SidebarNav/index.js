@@ -31,7 +31,6 @@ export default class SidebarNav extends React.Component {
 				}
 				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
 			}
-			console.log(path,"ppppppp")
 			// 三级跳转
 			if(location.href.indexOf('new/#') !==-1 ){
 						if(type === 'admin'){
