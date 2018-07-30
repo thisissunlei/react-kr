@@ -666,6 +666,10 @@ module.exports = {
   'getQrLoginStatus':{
     url: '/api/krspace-sso-web/sso/login/getQrLoginStatus?uuid={uuid}',
   //  url: 'http://sun.krspace.cn/api/krspace-sso-web/sso/login/getQrLoginStatus?uuid={uuid}',
+  // 获取菜单目录
+  },
+  'get-menu-catalog': {
+    url: '/api/krspace-sso-web/sso/sysOwn/getUserMenu',
     method: 'get'
   },
    //账户列表-人员获取id

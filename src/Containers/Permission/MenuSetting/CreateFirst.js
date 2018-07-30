@@ -60,6 +60,15 @@ class CreateFirst extends React.Component {
                     placeholder="比如：运营平台"
                     requireLabel={true}
                 />
+                <KrField
+                    style={{width:314,paddingLeft:48,marginTop:20}}
+                    inline={true}
+                    label="排序"
+                    component="input"
+                    name="sort"
+                    placeholder="请输入排序"
+                    requireLabel={true}
+                />
                 <Row style={{marginTop:30,marginBottom:15}}>
       					<Col md={12} align="center">
       						<ButtonGroup>

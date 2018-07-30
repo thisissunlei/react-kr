@@ -95,7 +95,7 @@ class EditPic extends React.Component{
 
         let {handleSubmit,subCompany,detail}=this.props;
         let {jobTypes,isType,photoUrl,smallPic,mobilePic} = this.state;
-        let host = "http://"+window.location.host;
+        let host = location.protocol +"//"+window.location.host;
         // let host = 'http://optest03.krspace.cn';
 		return(
 
@@ -130,8 +130,8 @@ class EditPic extends React.Component{
                             innerstyle={{width:500,height:344,padding:10,marginLeft:-80}}
                             photoSize={'199*300'}
                             pictureFormat={'JPG,PNG,GIF'}
-                            pictureMemoryM={'1'}
-                            requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                            pictureMemoryM={'5'}
+                            requestURI = {host + '/api/krspace-finance-web/por-mobile-pic/upload-pic'}
                             deviation = {"50*50"}
                             defaultValue={photoUrl}
 							onDeleteImg ={this.deletePhoto}
@@ -149,7 +149,7 @@ class EditPic extends React.Component{
                             photoSize={'199*300'}
                             pictureFormat={'JPG,PNG,GIF'}
                             pictureMemory={'200'}
-                            requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                            requestURI = {host + '/api/krspace-finance-web/por-mobile-pic/upload-pic'}
                             deviation = {"50*50"}
                             label="上传缩略图(尺寸:160*90)"
                             inline={false}
@@ -165,8 +165,8 @@ class EditPic extends React.Component{
                             innerstyle={{width:400,height:250,padding:10,marginLeft:-80}}
                             photoSize={'199*300'}
                             pictureFormat={'JPG,PNG,GIF'}
-                            pictureMemory={'500'}
-                            requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                            pictureMemoryM={'3'}
+                            requestURI = {host + '/api/krspace-finance-web/por-mobile-pic/upload-pic'}
                             deviation = {"50*50"}
                             label="上传M站图(尺寸:1125*843)"
                             inline={false}
