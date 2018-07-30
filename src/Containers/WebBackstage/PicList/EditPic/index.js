@@ -166,7 +166,7 @@ class EditPic extends React.Component{
                             photoSize={'199*300'}
                             pictureFormat={'JPG,PNG,GIF'}
                             pictureMemoryM={'3'}
-                            requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                            requestURI = {host + '/api/krspace-finance-web/por-mobile-pic/upload-pic'}
                             deviation = {"50*50"}
                             label="上传M站图(尺寸:1125*843)"
                             inline={false}
