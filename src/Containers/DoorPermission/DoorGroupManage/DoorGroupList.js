@@ -437,7 +437,7 @@ export default class DoorGroupManage extends React.Component {
 			          title="新建门禁组"
 			          open={State.openNewCreateDoorGroup}
 			          onClose={this.openNewCreateDoorGoupDialog}
-			          contentStyle={{width:625}}
+			          contentStyle={{width:640}}
 			        >
 			          <NewCreateDoorGroup
 			            onCancel={this.NewCreateDoorGroup}
@@ -449,7 +449,7 @@ export default class DoorGroupManage extends React.Component {
 			          title="编辑门禁组"
 			          open={State.openEditDoorGroup}
 			          onClose={this.openEditDoorGroupFun}
-			          contentStyle={{width:625}}
+			          contentStyle={{width:640}}
 			        >
 			          <EditDoorGroup
 			            onCancel={this.openEditDoorGroupFun}
