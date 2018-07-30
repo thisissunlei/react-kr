@@ -118,15 +118,15 @@ export default class DoorGroupManage extends React.Component {
 			let {clickAddMemberBtn} =this.props;
 			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
 		}
-
+		console.log("itemDetail",itemDetail,"itemDetail.groupId",itemDetail.id,"itemDetail.groupLevel",itemDetail.groupLevel,"itemDetail.name",itemDetail.name);
 		if(type=="powerOwner"){
-			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.groupId}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
+			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
 			return;
 		}
 
 		if(type=='powerOrigin'){
 			
-			window.open(`../doorpermmision/powerOrigin?groupid=${itemDetail.groupId}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
+			window.open(`../doorpermmision/powerOrigin?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
 			return;
 			
 		}
