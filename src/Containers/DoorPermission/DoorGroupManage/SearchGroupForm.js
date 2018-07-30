@@ -56,7 +56,7 @@ class GroupListSearchForm extends React.Component{
 	}
 
 	render(){
-		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
+		const { error, handleSubmit, pristine, reset,content,filter,showAddMultiple} = this.props;
 		let {groupLevelOptions} = State;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="door-permission-group-search">
@@ -110,9 +110,15 @@ class GroupListSearchForm extends React.Component{
 					<ListGroupItem style={{marginBottom:15}}>
 						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />
 					</ListGroupItem>
-					<ListGroupItem style={{marginBottom:15}}>
-						<Button  label="批量加入" type="button"  cancle={true} onTouchTap={this.addSelected} />
-					</ListGroupItem>
+					{showAddMultiple && showAddMultiple == true &&
+					
+						<ListGroupItem style={{marginBottom:15}}>
+							<Button  label="批量加入" type="button"  cancle={true} onTouchTap={this.addSelected} />
+						</ListGroupItem>
+						
+
+
+					}
 					
 				</ListGroup>
 			</form>

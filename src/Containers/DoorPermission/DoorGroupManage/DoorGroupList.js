@@ -278,7 +278,7 @@ export default class DoorGroupManage extends React.Component {
 		} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
 		let that = this;
-		let {rootPage}=this.props;
+		let {rootPage,showAddMultiple}=this.props;
 		return (
 		    <div className="door-permission-manage" style={{minHeight:'910',backgroundColor:"#fff"}} >
 				
@@ -290,7 +290,9 @@ export default class DoorGroupManage extends React.Component {
 					<div>
 						<SearchGroupForm 
 							addSelected ={this.addSelected}
-							submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
+							submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}
+							showAddMultiple = {showAddMultiple}
+						/>
 					</div>
 
 					<Table

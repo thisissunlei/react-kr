@@ -382,6 +382,7 @@ export default class BelongOfDoorGroup extends React.Component {
                             </div>                
                             <AllGroupList rootPage="personalDoorPermmision" clickAddMemberBtn={this.clickAddMemberBtn}
                                 sendAddReq={this.sendAddReq}
+                                showAddMultiple = {true}
                             /> 
                         </div>  
 
