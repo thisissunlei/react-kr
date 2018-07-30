@@ -13,6 +13,7 @@ const HappyPack = require('happypack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const node_modules_dir = path.join(process.cwd(), 'node_modules');
+const pluginsDomain  = require('./config/plugins.env')[process.env.NODE_ENV].plugins;
 
 
 const config = {
@@ -123,6 +124,9 @@ const config = {
 				removeAttributeQuotes: true,
 				minifyJS: true,
 				minifyCSS: true
+			},
+			files:{
+				favicon:pluginsDomain + '/plugins/public/images/favicon.ico'
 			}
 		}),
 		new HtmlWebpackPlugin({
@@ -133,6 +137,9 @@ const config = {
 			inject: 'body',
 			cache: false,
 			showErrors: false,
+			files:{
+				favicon:pluginsDomain + '/plugins/public/images/favicon.ico'
+			}
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
 		new CopyWebpackPlugin([
