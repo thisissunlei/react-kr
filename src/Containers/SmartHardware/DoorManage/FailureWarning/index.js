@@ -49,8 +49,7 @@ export default class List extends React.Component {
 	componentDidMount(){
 
 		let {deviceId} = this.props.params;
-		const {NavModel} = this.props;
-		NavModel.setSidebar(false);
+		
 		this.setState({
 			initailDeviceId :deviceId
 		})

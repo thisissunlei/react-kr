@@ -28,19 +28,7 @@ class GroupListSearchForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			logTypeOptions : [{
-				label:"普通组",
-				value: "NORMAL"
-			},{
-				label:"全国通开组",
-				value: "ROOT"
-			},{
-				label:"社区通开组",
-				value: "COMMUNITY"
-			},{
-				label:"客户默认组",
-				value: "CUSTOMER"
-			}],
+			
 		}
 	}
 	componentDidMount(){
@@ -62,9 +50,14 @@ class GroupListSearchForm extends React.Component{
 		clearParams && clearParams();
 	}
 
+	addSelected=()=>{
+		let {addSelected} = this.props;
+		addSelected && addSelected();
+	}
+
 	render(){
-		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {logTypeOptions} = this.state;
+		const { error, handleSubmit, pristine, reset,content,filter,showAddMultiple} = this.props;
+		let {groupLevelOptions} = State;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="door-permission-group-search">
 				<ListGroup className="fir-list">
@@ -81,7 +74,7 @@ class GroupListSearchForm extends React.Component{
 					</ListGroupItem>
 					<ListGroupItem>
 						<KrField name="customerId" 
-							component="searchMemberCompany" 
+							component="searchSmartHardCompany" 
 							label="公司：" 
 							style={{width:'237px'}}
 							inline={true}
@@ -89,16 +82,18 @@ class GroupListSearchForm extends React.Component{
 
 					</ListGroupItem>
 					
-					<ListGroupItem >
-						
-						<KrField name="groupLevel" 
-							component="select" 
-							label="组级别：" 
-							options = {logTypeOptions}
-							style={{width:237}}
-						/>
+					<ListGroupItem className="special-style">
+						<span className="special-style-innner">
+							<KrField name="groupLevel"
+
+								component="select" 
+								label="组级别：" 
+								options = {groupLevelOptions}
+								style={{width:237}}
+							/>
+						</span>
 					</ListGroupItem>
-					<ListGroupItem >
+					<ListGroupItem  className="special-style">
 						
 						<KrField
 							name="name" 
@@ -115,6 +110,15 @@ class GroupListSearchForm extends React.Component{
 					<ListGroupItem style={{marginBottom:15}}>
 						<Button  label="清空" type="button"  cancle={true} onTouchTap={this.onClearAll} />
 					</ListGroupItem>
+					{showAddMultiple && showAddMultiple == true &&
+					
+						<ListGroupItem style={{marginBottom:15}}>
+							<Button  label="批量加入" type="button"  cancle={true} onTouchTap={this.addSelected} />
+						</ListGroupItem>
+						
+
+
+					}
 					
 				</ListGroup>
 			</form>

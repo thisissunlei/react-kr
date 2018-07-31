@@ -86,6 +86,16 @@ module.exports = {
         url: '/api/iot-platform/auth/user-group/actions/set-auto-add-user',
         method: 'post'
     },
+    // 修改新增员工自动加入客户默认组
+    'get-smart-hard-company':{
+        url: '/api/iot-platform/customer/select-items?companyName={companyName}',
+        method: 'get'
+    },
+    // 将会员批量加入一堆组
+    'put-member-to-groups':{
+        url: '/api/iot-platform/auth/user/actions/grant-group',
+        method: 'post'
+    },
 
 
     
