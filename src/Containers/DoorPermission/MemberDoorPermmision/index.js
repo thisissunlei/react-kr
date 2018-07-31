@@ -25,6 +25,7 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
+@inject("NavModel")
 @observer
 
 export default class MemberDoorPermissionManage extends React.Component {
@@ -41,9 +42,10 @@ export default class MemberDoorPermissionManage extends React.Component {
 	
 
 	componentDidMount(){
-		
+		const {NavModel} = this.props;
         this.getDicOptions();
 		this.getMemberDetail();
+		NavModel.setSidebar(false);
 		
 
 	}

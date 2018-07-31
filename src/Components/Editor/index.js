@@ -157,6 +157,7 @@ export default class Editor extends React.Component {
     var _this = this;
     UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
     UE.Editor.prototype.getActionUrl = function (action) {
+ 
       if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
         return '/api/krspace-finance-web/activity/ue-upload-pic';
       } else {

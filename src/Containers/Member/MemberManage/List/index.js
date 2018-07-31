@@ -499,7 +499,8 @@ export default class List extends React.Component {
 														<div>
 															<Button label="详情" onClick={this.openView.bind(this,itemDetail)} type="operation"/>
 															<Button operateCode="mbr_list_edit" onClick={this.openEditDetailDialog.bind(this,itemDetail)} label="编辑"  type="operation"/>
-															{logFlag?<Button operateCode="mbr_list_leave" onClick={this.openLeave.bind(this,itemDetail)} label="离场"  type="operation" operation="leave"/>:<Button operateCode="mbr_list_leave" label="恢复" onClick={this.openBack.bind(this,itemDetail)}  type="operation" operation="back"/>}
+															 {logFlag?<Button operateCode="mbr_list_leave" onClick={this.openLeave.bind(this,itemDetail)} label="离场"  type="operation" operation="leave"/>:''} 
+															{/* <Button operateCode="mbr_list_leave" label="恢复" onClick={this.openBack.bind(this,itemDetail)}  type="operation" operation="back"/> */}
 															<Button operateCode="mbr_list_bind" onClick={this.openBindCode.bind(this,itemDetail)} label="绑卡"  type="operation" operation="bindcode"/>
 															<Button operateCode="mbr_list_delete" onClick={this.openDelete.bind(this,itemDetail)} label="删除"  type="operation" operation="delete"/>
 															<Button  onClick={this.toMemberDoorPermmision.bind(this,itemDetail)} label="门禁权限"  type="operation" operation="doorpermmision"/>
