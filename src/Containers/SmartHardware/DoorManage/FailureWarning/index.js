@@ -25,6 +25,7 @@ import {
 	observer,
 	inject
 } from 'mobx-react';
+@inject("NavModel")
 @observer
 
 export default class List extends React.Component {
@@ -48,6 +49,7 @@ export default class List extends React.Component {
 	componentDidMount(){
 
 		let {deviceId} = this.props.params;
+		
 		this.setState({
 			initailDeviceId :deviceId
 		})

@@ -242,7 +242,7 @@ export default class CanOperationEquipment extends React.Component {
         let {getAllEquipmentParams,itemDetail} = this.state;
 
 		return (
-		    <div className="all-equipment" style={{paddingTop:20}}>
+		    <div className="all-equipment all-device-list-line-low" >
               
                 {/* <Section title={`所有设备`} description="" > */}
                     <SearchAllEquipment submitSearchParams={this.submitSearch}/>

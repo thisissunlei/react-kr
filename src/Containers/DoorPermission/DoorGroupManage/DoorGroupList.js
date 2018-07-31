@@ -20,8 +20,8 @@ import NewCreateDoorGroup from './NewCreateDoorGroup';
 import EditDoorGroup from './EditDoorGroup';
 import SearchGroupForm from './SearchGroupForm';
 import DeleteGroupDialog from './DeleteGroupDialog';
-import ChangeMember from './ChangeMember';
-import ChangeEquipment from './ChangeEquipment';
+// import ChangeMember from './ChangeMember';
+// import ChangeEquipment from './ChangeEquipment';
 
 
 import State from './State';
@@ -39,6 +39,7 @@ export default class DoorGroupManage extends React.Component {
 			itemDetail:{},
 			page : 1,
 			realPage : 1,
+			selected : [],
 			getDoorPermissionListParams:{
 				communityId : '',
 				customerId : '',
@@ -80,6 +81,16 @@ export default class DoorGroupManage extends React.Component {
 		State.openDeleteGroup = !State.openDeleteGroup;
 	}
 
+
+	onSelect=(selected,selectItems)=>{
+
+		console.log("selected",selected,"selectItems",selectItems);
+		this.setState({
+			selected :selectItems
+		})
+
+	}
+
 	//操作相关
 	onOperation=(type,itemDetail,event)=>{
 		let _this = this;
@@ -97,19 +108,27 @@ export default class DoorGroupManage extends React.Component {
 			return;
 			
 		}
-		if(type=='changeMember'){
-			_this.openChangeMemeberFun();
-			return;
+		// if(type=='changeMember'){
+		// 	_this.openChangeMemeberFun();
+		// 	return;
 			
-		}
-		if(type=='changeEquipment'){
-			_this.openChangeEquipmentFun();
-			return;
-			
-		}
+		// }
+		
 		if(type=="addMemberToGroup"){
 			let {clickAddMemberBtn} =this.props;
 			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
+		}
+		console.log("itemDetail",itemDetail,"itemDetail.groupId",itemDetail.id,"itemDetail.groupLevel",itemDetail.groupLevel,"itemDetail.name",itemDetail.name);
+		if(type=="powerOwner"){
+			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
+			return;
+		}
+
+		if(type=='powerOrigin'){
+			
+			window.open(`../doorpermmision/powerOrigin?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
+			return;
+			
 		}
 		
 	}
@@ -160,7 +179,8 @@ export default class DoorGroupManage extends React.Component {
 
 	submitEditDoorGroup=(values)=>{
 		let that= this;
-		let {getDoorPermissionListParams} = this.state;
+		console.log("values",values);
+		
 		Http.request('editDoorGroupApi',{},values).then(function(response) {
 
 			that.openEditDoorGroupFun();
@@ -209,25 +229,43 @@ export default class DoorGroupManage extends React.Component {
 		});
 	}
 
-	openChangeMemeberFun=()=>{
+	// openChangeMemeberFun=()=>{
 
-		State.openChangeMemeberDialog = !State.openChangeMemeberDialog;
-	}
+	// 	State.openChangeMemeberDialog = !State.openChangeMemeberDialog;
+	// }
 
-	openChangeEquipmentFun=()=>{
-		State.openChangeEquipmentDialog = !State.openChangeEquipmentDialog;
+	// openChangeEquipmentFun=()=>{
+	// 	State.openChangeEquipmentDialog = !State.openChangeEquipmentDialog;
 		
-	}
+	// }
 
 	openEditDoorGroupFun=()=>{
 		State.openEditDoorGroup = !State.openEditDoorGroup;
 	}
 
-	
+	addSelected=()=>{
+		console.log("eee")
+		let {selected} = this.state;
+		if(selected.length<1){
+			Message.warntimeout("请选择要加入的组","error");
+			return;
+		}
+		this.sendAddReq()
+	}
 
-
-
-
+	sendAddReq=()=>{
+		let {selected} = this.state;
+		var selectedGrouppid = selected.map(function(item,index){
+			return item.id;
+		})
+		var selectedStr = selectedGrouppid.join(",");
+		var param ={
+			groupIds : selectedStr
+		}
+		let {sendAddReq} = this.props;
+		sendAddReq && sendAddReq(selectedStr);
+		
+	}
 
 	
 
@@ -240,7 +278,7 @@ export default class DoorGroupManage extends React.Component {
 		} = this.state;
 		let groupLevelOptions = State.groupLevelOptions;
 		let that = this;
-		let {rootPage}=this.props;
+		let {rootPage,showAddMultiple}=this.props;
 		return (
 		    <div className="door-permission-manage" style={{minHeight:'910',backgroundColor:"#fff"}} >
 				
@@ -250,7 +288,11 @@ export default class DoorGroupManage extends React.Component {
 						<Button label="新建门禁组"  onTouchTap={this.openNewCreateDoorGoupDialog} className="button-list"/>
 					</div>
 					<div>
-						<SearchGroupForm submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}/>
+						<SearchGroupForm 
+							addSelected ={this.addSelected}
+							submitSearchParams={this.submitSearchParams} clearParams={this.clearParams}
+							showAddMultiple = {showAddMultiple}
+						/>
 					</div>
 
 					<Table
@@ -267,7 +309,8 @@ export default class DoorGroupManage extends React.Component {
 						ajaxUrlName='getDoorPermissionList'
 						ajaxParams={getDoorPermissionListParams}
 						onPageChange={this.onPageChange}
-						displayCheckbox={false}
+						displayCheckbox={true}
+                        onSelect={this.onSelect}
 					>
 						<TableHeader>
 							<TableHeaderColumn>组名称</TableHeaderColumn>
@@ -282,7 +325,7 @@ export default class DoorGroupManage extends React.Component {
 							<TableRow>
 
 							<TableRowColumn 
-								style={{width:"12%",overflow:"visible"}} 
+								// style={{width:"12%",overflow:"visible"}} 
 								name="name" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -297,7 +340,7 @@ export default class DoorGroupManage extends React.Component {
 							}} ></TableRowColumn>
 
 							<TableRowColumn name="groupLevel"
-							style={{width:"5%",overflow:"visible"}} 
+							// style={{width:"5%",overflow:"visible"}} 
 							options={groupLevelOptions}
 							component={(value,oldValue)=>{
 								if(value==""){
@@ -318,7 +361,7 @@ export default class DoorGroupManage extends React.Component {
 
 
 							<TableRowColumn 
-								style={{width:"10%",overflow:"visible"}} 
+								// style={{width:"10%",overflow:"visible"}} 
 								name="customerName" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -338,14 +381,14 @@ export default class DoorGroupManage extends React.Component {
 								name="ctime" 
 								type="date" 
 								format="yyyy-mm-dd HH:MM:ss"
-								style={{width:"12%"}}
+								// style={{width:"12%"}}
 							>
 							</TableRowColumn>
 
 							
 
 							<TableRowColumn 
-								style={{width:"10%",overflow:"visible"}} 
+								// style={{width:"10%",overflow:"visible"}} 
 								name="creatorName" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -361,7 +404,7 @@ export default class DoorGroupManage extends React.Component {
 
 							
 							<TableRowColumn type="operation"
-								style={{width:"15%"}}
+								// style={{width:"15%"}}
 								component={
 									(itemData)=>{
 										return (
@@ -372,11 +415,10 @@ export default class DoorGroupManage extends React.Component {
 												</div>
 												:<div>
 													
-													<Button  label="成员"  type="operation" operation="changeMember" onClick={that.onOperation.bind(this,"changeMember",itemData)}/>
-													{
-														(itemData.groupLevel == "NORMAL" || itemData.groupLevel == "CUSTOMER" ) &&
-														<Button  label="已授权设备"  type="operation" operation="changeEquipment" onClick={that.onOperation.bind(this,"changeEquipment",itemData)}/>
-													}
+													
+													<Button  label="已有权限"  type="operation" operation="powerOrigin" onClick={that.onOperation.bind(this,"powerOrigin",itemData)}/>
+													<Button  label="授予详情"  type="operation" operation="powerOwner" onClick={that.onOperation.bind(this,"powerOwner",itemData)}/>
+
 													<Button  label="编辑"  type="operation" operation="edit"  onClick={that.onOperation.bind(this,"edit",itemData)}/>
 													<Button  label="删除"  type="operation" operation="delete" onClick={that.onOperation.bind(this,"delete",itemData)}/>
 
@@ -395,7 +437,7 @@ export default class DoorGroupManage extends React.Component {
 			          title="新建门禁组"
 			          open={State.openNewCreateDoorGroup}
 			          onClose={this.openNewCreateDoorGoupDialog}
-			          contentStyle={{width:625}}
+			          contentStyle={{width:640}}
 			        >
 			          <NewCreateDoorGroup
 			            onCancel={this.NewCreateDoorGroup}
@@ -407,7 +449,7 @@ export default class DoorGroupManage extends React.Component {
 			          title="编辑门禁组"
 			          open={State.openEditDoorGroup}
 			          onClose={this.openEditDoorGroupFun}
-			          contentStyle={{width:625}}
+			          contentStyle={{width:640}}
 			        >
 			          <EditDoorGroup
 			            onCancel={this.openEditDoorGroupFun}
@@ -432,25 +474,23 @@ export default class DoorGroupManage extends React.Component {
 			        </Dialog>
 
 
-					<Drawer 
+					{/* <Drawer 
 			        	open={State.openChangeMemeberDialog}
 			        	onClose = {this.openChangeMemeberFun}
 					    width={"70%"} 
 					    openSecondary={true} 
 					>
 						<ChangeMember onCancel={this.openChangeMemeberFun} itemDetail={itemDetail} closeChangeMember={this.openChangeMemeberFun}/>
-					</Drawer>
+					</Drawer> */}
 
-					<Drawer 
+					{/* <Drawer 
 			        	open={State.openChangeEquipmentDialog}
 			        	onClose = {this.openChangeEquipmentFun}
 					    width={"70%"} 
 					    openSecondary={true} 
 					>
 						<ChangeEquipment onCancel={this.openChangeEquipmentFun} itemDetail={itemDetail} closeChangeMember={this.openChangeEquipmentFun}/>
-					</Drawer>
-
-					
+					</Drawer> */}
 
 
 				</Section>
