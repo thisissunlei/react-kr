@@ -31,7 +31,7 @@ export default class SidebarNav extends React.Component {
 					port = ":" + port;
 				}
 				if(path.indexOf('http://')==-1&&path.indexOf('https://')==-1){
-					path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
+					path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  + path;
 				}else{
 					return path;
 				}
