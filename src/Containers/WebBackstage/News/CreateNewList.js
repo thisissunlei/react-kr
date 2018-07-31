@@ -152,10 +152,11 @@ class CreateNewList extends React.Component {
 								component="editor" 
 								name="newsContent" 
 								label="新闻内容" 
-								style={{width:560}}
+								style={{width:560,zIndex:'1'}}
 								requireLabel={true}
 								defaultValue=''
 								/>
+								
 						<Grid style={{marginTop:50,width:'81%'}}>
 							<Row >
 								<Col md={12} align="center">
