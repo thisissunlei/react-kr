@@ -51,7 +51,7 @@ export default class News extends React.Component {
       } else if (type == 'edit') {
         this.openEditDialog();
       }else if(type == 'toMain'){
-				window.open(`http://krspace.cn/news/${itemDetail.id}/detail`);
+				window.open(`https://krspace.cn/news/${itemDetail.id}`);
 			}
     }
     openNewCreateDialog=()=>{
