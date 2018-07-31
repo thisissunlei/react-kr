@@ -458,7 +458,7 @@ export default class CanOperationEquipment extends React.Component {
 			        	open={State.openNewCreateAuthoriazation}
                         onClose = {this.openNewCreateAuthoriazationFun}
                         noMaxHeight = {true}
-                        bodyStyle={{width:962,height:465}}
+                        bodyStyle={{width:962,height:465,overflow:"scroll"}}
                         contentStyle={{width:1016,height:545}}
 					>
                     
