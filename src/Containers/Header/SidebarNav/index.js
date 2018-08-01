@@ -31,20 +31,38 @@ export default class SidebarNav extends React.Component {
 				}
 				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
 			}
-			console.log(path,"ppppppp")
+			
 			// 三级跳转
 			if(location.href.indexOf('new/#') !==-1 ){
 						if(type === 'admin'){
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type === 'vue'){
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
-						}else {
+						}else if(type==='project'){
+							path  = '/project/#' + path;
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+						}else{
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
 						}
-				}else{
+				}else if(location.href.indexOf('project/#') !==-1){
+					if(type === 'admin'){
+						path  = '/new/#' + path;
+						return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+					}else if(type === 'project'){
+						path  = '/project/#' + path;
+						return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+					}else if(type === 'vue'){
+						return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+					}else {
+						return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+					}
+				}{
 						if(type ==='admin'){
 							path  = '/new/#' + path;
 							return <a  href={path} className={item.isActive?'u-sidebar-nav-active':'curson'} >{label}</a>
+						}else if(type === 'project'){
+							path  = '/project/#' + path;
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type ==='vue'){
 							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
 						}else{
