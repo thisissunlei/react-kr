@@ -41,8 +41,8 @@ const NavItem = ({ ...props }) => {
 
 
 const More = ({ ...props }) => {
-	let { Navs, NavModel } = props;
-	var navs = Navs;
+	let { Navs, NavModel ,self} = props;
+	var navs = Navs;	
 	function setSidebar() {
 		NavModel.setSidebar(true);
 	}
@@ -68,7 +68,7 @@ const More = ({ ...props }) => {
 				
 									return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 										onClick={() => {
-											this.setSidebar(item)
+											self.setSidebar(item)
 										}
 										} />)
 								
@@ -315,7 +315,7 @@ export default class Header extends React.Component {
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					{this.renderNav(navs)}
-					{more && more.length ? <More Navs={more} NavModel={NavModel} /> : ''}
+					{more && more.length ? <More Navs={more} NavModel={NavModel} self={this}/> : ''}
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} logout={this.logout} />
 				</div>
 				<Drawer
