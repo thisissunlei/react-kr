@@ -62,6 +62,9 @@ const More = ({ ...props }) => {
 										// }
 				
 									}
+									if(item.childList[0].childList[0].projectType === 'project'){
+										type = '/project/#'
+									}
 				
 									return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 										onClick={() => {
@@ -129,7 +132,8 @@ export default class Header extends React.Component {
 		const _this = this;
 		Http.request('get-menu-catalog').then(function (res) {
 			if (!res.length) return;
-			let first = location.hash.split('#')[1];
+			console.log(location,"llllllll")
+			let first = location.hash.split('#')[1].split('?')[0];
 			var nowData = _this.recursiveAssign(res, first);	
 			let headActive = (first==='/' )? true : false;
 			_this.setState({
@@ -150,7 +154,7 @@ export default class Header extends React.Component {
 	recursiveAssign(data, url) {
 		var isOpen = false;
 		var allData = data.map((item, index) => {
-			if (item.url == url) {
+			if (url==item.url) {
 				item.isActive = true;
 				isOpen = true;
 			} else {
@@ -170,13 +174,13 @@ export default class Header extends React.Component {
 	}
 	//route发生变化
 	refresh() {
+		
 		let { firstNav } = this.state;
-		let first = location.hash.split('#')[1];
+		let first = location.hash.split('#')[1].split('?')[0];
 		let {headActive} = this.state;
 		headActive = first ? false : true;
 		this.setState({headActive});
-	
-		console.log('#', firstNav);
+		console.log(first,"ppppp")
 		var nowData = this.recursiveAssign(firstNav, first);
 		nowData.allData && nowData.allData.map((item, index) => {
 			if (item.isActive) {
@@ -275,6 +279,11 @@ export default class Header extends React.Component {
 					if (item.childList[0].childList[0].projectType === 'admin') {
 						// if(location.href.indexOf('new') ===-1){
 						type = '/new/#'
+						// }
+					}
+					if (item.childList[0].childList[0].projectType === 'project') {
+						// if(location.href.indexOf('new') ===-1){
+						type = '/project/#'
 						// }
 					}
 					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
