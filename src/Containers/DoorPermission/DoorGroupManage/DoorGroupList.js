@@ -296,7 +296,7 @@ export default class DoorGroupManage extends React.Component {
 					</div>
 
 					<Table
-						className="member-list-table"
+						className="member-list-table door-group-list"
 						style={{marginTop:0,position:'inherit'}}
 						onLoaded={this.onLoaded}
 						ajax={true}
@@ -314,7 +314,12 @@ export default class DoorGroupManage extends React.Component {
 					>
 						<TableHeader>
 							<TableHeaderColumn>组名称</TableHeaderColumn>
-							<TableHeaderColumn>组级别</TableHeaderColumn>
+							<TableHeaderColumn>组级别
+								<Tooltip offsetTop={5} place='top'>
+									<p>复合组中只能添加设备组，设备组中只能添加设备</p>
+									<p>例子：若想建一个北京通开组，只需建一个复合组，然后把北京所有社区通开组加入该组即可</p>
+								</Tooltip>
+							</TableHeaderColumn>
 							<TableHeaderColumn>所属社区</TableHeaderColumn>
 							<TableHeaderColumn>公司名称</TableHeaderColumn>
 							<TableHeaderColumn>创建时间</TableHeaderColumn>
