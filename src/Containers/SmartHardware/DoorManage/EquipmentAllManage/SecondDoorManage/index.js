@@ -465,7 +465,7 @@ export default class SecondDoorManage  extends React.Component{
 	}
 
 	toFailureWarning=()=>{
-		window.open(`./#/smarthardware/doorManage/warning/${State.itemDetail.deviceId}`,'_blank');
+		window.open(`./#/smarthardware/doorManage/warning?deviceId=${State.itemDetail.deviceId}`,'_blank');
 	}
 	openPowerOwner=()=>{
 		window.open(`../smarthardware/powerowner?id=${State.itemDetail.id}`,'_blank');

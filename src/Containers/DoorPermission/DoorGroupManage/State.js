@@ -17,17 +17,11 @@ let State = observable({
 	openAddEquipmentDialog :false,
 	doorTypeOptions : [],
 	groupLevelOptions: [{
-		label:"普通组",
+		label:"设备组",
 		value: "NORMAL"
 	},{
-		label:"全国通开组",
-		value: "ROOT"
-	},{
-		label:"社区通开组",
-		value: "COMMUNITY"
-	},{
-		label:"客户默认组",
-		value: "CUSTOMER"
+		label:"复合组",
+		value: "PARENT"
 	}],
 	
 

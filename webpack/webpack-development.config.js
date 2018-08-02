@@ -14,7 +14,7 @@ const HappyPack = require('happypack');
 const Envs = require(path.join(process.cwd(), 'src', 'Configs', 'Envs'));
 
 const node_modules_dir = path.join(process.cwd(), 'node_modules');
-
+const pluginsDomain  = require('./config/plugins.env')[process.env.NODE_ENV].plugins;
 var env = process.env.NODE_ENV || 'development';
 
 const webpackConfigs = {
@@ -89,6 +89,9 @@ const webpackConfigs = {
 			excludeChunks: ['page_login'],
 			cache: true,
 			showErrors: true,
+			files:{
+				favicon:pluginsDomain + '/plugins/public/images/favicon.ico'
+			}
 		}),
 		new HtmlWebpackPlugin({
 			title: '登录-氪空间后台管理系统',
@@ -98,6 +101,9 @@ const webpackConfigs = {
 			inject: 'body',
 			cache: true,
 			showErrors: true,
+			files:{
+				favicon:pluginsDomain + '/plugins/public/images/favicon.ico'
+			}
 		}),
 		new CopyWebpackPlugin([
 			{ from: path.join(process.cwd(), 'public', 'vendors'), to: path.join(process.cwd(), 'dist', 'vendors') }
