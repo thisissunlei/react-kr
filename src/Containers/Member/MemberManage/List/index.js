@@ -342,14 +342,13 @@ export default class List extends React.Component {
 	// 选择社区
 	onChangeCommunity=(item)=>{
 		let _this = this;
-		console.log('item---',item)
 		if(!item){
 			_this.setState({
 				realPage:1,
 				searchParams:{
 					cmtId : '',
-					type:_this.state.searchParams.filter,
-				    value:_this.state.searchParams.content,
+					type:_this.state.searchParams.filter || '', 
+				    value:_this.state.searchParams.content || '',
 					page : 1,
 					pageSize:15,
 				}
@@ -359,8 +358,8 @@ export default class List extends React.Component {
 			realPage:1,
 			searchParams:{
 				cmtId : item.id,
-				type:_this.state.searchParams.filter,
-				value:_this.state.searchParams.content,
+				type:_this.state.searchParams.filter || '',
+				value:_this.state.searchParams.content || '',
 				page :1,
 				pageSize:15,
 			}
