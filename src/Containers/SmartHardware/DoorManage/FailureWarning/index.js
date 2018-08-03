@@ -48,7 +48,7 @@ export default class List extends React.Component {
 
 	componentDidMount(){
 
-		let {deviceId} = this.props.params;
+		let {deviceId} = this.props.location.query;
 		
 		this.setState({
 			initailDeviceId :deviceId
