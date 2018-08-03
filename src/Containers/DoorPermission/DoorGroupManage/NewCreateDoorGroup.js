@@ -88,7 +88,7 @@ class NewCreateDoorGroup extends React.Component{
 					options={groupLevelOptions}  
 					requireLabel={true} 
 					errors={{requiredValue:'组级别为必填项'}} 
-					style={{width:'252px',margin:'0 35px 5px 0'}}
+					style={{width:'252px',margin:'0 0 5px 0'}}
 				/>
 
 				<KrField name="communityId" 
@@ -102,7 +102,7 @@ class NewCreateDoorGroup extends React.Component{
 				<KrField  name="customerId" 
 					component="searchSmartHardCompany" 
 					label="公司" 
-					style={{width:'252px',marginRight:'30px'}}
+					style={{width:'252px',marginRight:'0'}}
 					onChange={this.changeCustomerId}
 					inline={false}
 				/>
@@ -118,6 +118,10 @@ class NewCreateDoorGroup extends React.Component{
 					maxSize = {40}
 					
 				/>
+				<div className="tip-box">
+					<p>复合组中只能添加设备组，设备组中只能添加设备</p>
+					<p>例子：若想建一个北京通开组，只需建一个复合组，然后把北京所有社区通开组加入该组即可</p>
+				</div>
 
 				<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px'}}>
@@ -131,6 +135,7 @@ class NewCreateDoorGroup extends React.Component{
 							</ListGroup>					
 						</Row>
 					</Grid>
+					
 			</form>
 		);
 	}
