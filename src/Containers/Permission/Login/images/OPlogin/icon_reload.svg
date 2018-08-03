@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="59px" viewBox="0 0 58 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_刷新</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="25" cy="25" r="25"></circle>
+        <filter x="-12.0%" y="-12.0%" width="124.0%" height="124.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="正式" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02_二维码登录2" transform="translate(-1067.000000, -576.000000)">
+            <g id="icon_刷新" transform="translate(1096.150635, 605.150635) scale(-1, 1) rotate(-120.000000) translate(-1096.150635, -605.150635) translate(1071.150635, 580.150635)">
+                <g id="Oval">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="Group-2" transform="translate(14.000000, 14.000000)" stroke="#666666" stroke-linecap="round" stroke-width="2">
+                    <path d="M21.2807882,10.6403941 C21.2807882,16.5169215 16.5169215,21.2807882 10.6403941,21.2807882 C4.7638667,21.2807882 0,16.5169215 0,10.6403941 C0,4.7638667 4.7638667,4.54747351e-13 10.6403941,4.54747351e-13 C13.3830546,4.54747351e-13 15.8833527,1.03767699 17.7701035,2.74184614" id="Oval-5"></path>
+                    <polyline id="Path-5" stroke-linejoin="round" transform="translate(21.341551, 12.208438) rotate(-45.000000) translate(-21.341551, -12.208438) " points="19.2658249 10.1327124 23.4172769 10.1327124 23.4172769 14.2841644"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
