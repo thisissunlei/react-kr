@@ -233,6 +233,13 @@ export default class Header extends React.Component {
 	}
 	//退出
 	logout = () => {
+		if(typeof(Storage)!=="undefined"){
+			if(sessionStorage.user){
+				sessionStorage.navs = '';
+            	sessionStorage.user = '';
+			}
+			
+		}
 		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
 		if (communityId) {
 			localStorage.removeItem('OP_HOME_COMMUNITY');
