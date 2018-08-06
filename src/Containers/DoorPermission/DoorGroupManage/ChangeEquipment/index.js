@@ -70,7 +70,6 @@ export default class ChangeMember extends React.Component{
 		let {freshGroupEquipment} = this.state;
 		let doorTypeOptions=State.doorTypeOptions;
 		let titleText =  "组授权设备 | 组名称："+itemDetail.name ;
-		console.log("itemDetail",itemDetail);
 		return (
 			<div className="change-member">
 				<div style={{width:"100%",height:30}}>

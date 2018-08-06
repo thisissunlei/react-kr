@@ -84,7 +84,6 @@ export default class DoorGroupManage extends React.Component {
 
 	onSelect=(selected,selectItems)=>{
 
-		console.log("selected",selected,"selectItems",selectItems);
 		this.setState({
 			selected :selectItems
 		})
@@ -118,7 +117,6 @@ export default class DoorGroupManage extends React.Component {
 			let {clickAddMemberBtn} =this.props;
 			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
 		}
-		console.log("itemDetail",itemDetail,"itemDetail.groupId",itemDetail.id,"itemDetail.groupLevel",itemDetail.groupLevel,"itemDetail.name",itemDetail.name);
 		if(type=="powerOwner"){
 			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
 			return;
@@ -179,7 +177,6 @@ export default class DoorGroupManage extends React.Component {
 
 	submitEditDoorGroup=(values)=>{
 		let that= this;
-		console.log("values",values);
 		
 		Http.request('editDoorGroupApi',{},values).then(function(response) {
 
@@ -244,7 +241,6 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	addSelected=()=>{
-		console.log("eee")
 		let {selected} = this.state;
 		if(selected.length<1){
 			Message.warntimeout("请选择要加入的组","error");
