@@ -224,27 +224,27 @@ export default class InputDate extends React.Component {
 	}
 	componentDidUpdate (){
 		const {openCalendar} = this.state;
-		if(openCalendar){
-			var calendar = this.calendar.calendar;
+		// if(openCalendar){
+		// 	var calendar = this.calendar.calendar;
 			
-			var calendarData = this.calendar.calendarData;
-			var dateInput = this.dateInput.getBoundingClientRect();
+		// 	var calendarData = this.calendar.calendarData;
+		// 	var dateInput = this.dateInput.getBoundingClientRect();
 			
-			var mask = {
-				height: window.innerHeight
-			}
-			var calendarChange = (calendarData.bottom - mask.height) > 0
+		// 	var mask = {
+		// 		height: window.innerHeight
+		// 	}
+		// 	var calendarChange = (calendarData.bottom - mask.height) > 0
 			
 			
-			if(calendarChange){
+		// 	if(calendarChange){
 
-				// console.log(calendarData.height + dateInput.height,"PPP");
-				calendar.style.top = -(calendarData.height-10) + 'px';
-			}
+		// 		// console.log(calendarData.height + dateInput.height,"PPP");
+		// 		calendar.style.top = -(calendarData.height-10) + 'px';
+		// 	}
 
 			
 
-		}
+		// }
 	}
 
 
