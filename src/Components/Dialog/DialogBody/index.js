@@ -10,9 +10,9 @@ export default class DialogBody extends React.Component {
 
 	componentDidMount(){
 
-			window.addEventListener('resize',function(){
-				this.initializeDialogBodyStyles();
-			}.bind(this));
+			// window.addEventListener('resize',function(){
+			// 	this.initializeDialogBodyStyles();
+			// }.bind(this));
 
 			let _this = this;
 			_this.initializeDialogBodyStyles();
@@ -30,8 +30,11 @@ export default class DialogBody extends React.Component {
 
 	initializeDialogBodyStyles = ()=>{
 
-		const {fixed,noMaxHeight} = this.props;
+		const {fixed,noMaxHeight,overflow} = this.props;
 
+		if(overflow == 'auto'){
+			return ;
+		}
 		var ele = null;
 
 		try{
@@ -55,7 +58,7 @@ export default class DialogBody extends React.Component {
 		}catch(err){
 			eleBoxStyle = {width:0,height:0};
 		}
-		return ;
+		
 		if(!noMaxHeight){
 			ele.style.maxHeight = page.height-200+'px';
 			ele.style.minHeight = 100 +'px';

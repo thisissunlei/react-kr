@@ -415,6 +415,7 @@ class CommunityList  extends React.Component{
 										onClose={this.openSearchUpperDialog}
 										open={State.openSearchUpper}
 										contentStyle ={{ width: '666px',height:'385px'}}
+										overflow="auto"
 										>
 											<SearchUpperForm
 													onCancel={this.openSearchUpperDialog}
