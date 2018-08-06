@@ -55,6 +55,7 @@ export default class DialogBody extends React.Component {
 		}catch(err){
 			eleBoxStyle = {width:0,height:0};
 		}
+		return ;
 		if(!noMaxHeight){
 			ele.style.maxHeight = page.height-200+'px';
 			ele.style.minHeight = 100 +'px';
