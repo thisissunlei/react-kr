@@ -16,7 +16,7 @@ import {Http,DateFormat} from 'kr/Utils';
 import './index.less';
 
 import DropOutGroup from './DropOutGroup';
-import MemberAuthoriazationEquipment from '../MemberAuthoriazationEquipment';
+// import MemberAuthoriazationEquipment from '../MemberAuthoriazationEquipment';
 import AllGroupList from '../../DoorGroupManage/DoorGroupList';
 import AddMemberIntoGroup from './AddMemberIntoGroup';
 import close from "../images/close.svg";
@@ -100,28 +100,11 @@ export default class BelongOfDoorGroup extends React.Component {
             itemDetail: item
         })
             
-        _this.getgetGroupAuthorizeEquipmentList(item)
+        window.open(`../doorpermmision/powerOrigin?groupid=${item.groupId}&groupname=${item.name}&groupLevel=${item.groupLevel}`,'_blank');
+			
        
     }
 
-    getgetGroupAuthorizeEquipmentList=(item)=>{
-
-        let that =this;
-        let params = {granteeId:item.id,granteeType:"USER_GROUP",page:1,pageSize:25}
-        Http.request('getGroupAuthorizeEquipmentApi',params).then(function(response) {
-            that.setState({
-                authorazitionEquipmentList : response.items
-            })
-            that.showAuthorizationEquipmentFun();
-
-        }).catch(function(err) {
-            Message.error(err.message);
-        });
-    }
-
-    showAuthorizationEquipmentFun=()=>{
-        State.showAuthorizationEquipmentDialog = !State.showAuthorizationEquipmentDialog;
-    }
 
 
     openAllGroupList=()=>{
@@ -177,6 +160,24 @@ export default class BelongOfDoorGroup extends React.Component {
 
     openAddTipDialogFun=()=>{
         State.openAddTipDialog = !State.openAddTipDialog;
+    }
+
+    sendAddReq=(slectedIdsAtr)=>{
+        let {memberDetailInfo} = this.props;
+        let that= this;
+        var param ={
+            groupIds : slectedIdsAtr,
+            uid : memberDetailInfo.accountInfo.uid
+        }
+        Http.request('put-member-to-groups',{},param).then(function(response) {
+			
+			
+            Message.success("添加成功");
+            that.refreshPage();
+			
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
     }
 
 
@@ -311,12 +312,9 @@ export default class BelongOfDoorGroup extends React.Component {
                                         return (
                                                 <div>
                                                     <Button  label="移出组"  type="operation" operation="dropOutGroup" onClick={that.clickShowDropOutGroup.bind(this,itemData)}/>
-                                                    {
-                                                        itemData.groupLevel == "NORMAL" &&
+                                                     
+                                                    <Button  label="已有权限"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,itemData)}/>
                                                         
-                                                        <Button  label="组授权设备"  type="operation" operation="changeEquipment" onClick={that.clickShowAuthorizationEquipment.bind(this,itemData)}/>
-                                                        
-                                                    }
 
                                                 </div>
                                             )
@@ -350,7 +348,7 @@ export default class BelongOfDoorGroup extends React.Component {
 			          />
 			        </Dialog>
 
-                    <Drawer 
+                    {/* <Drawer 
 			        	open={State.showAuthorizationEquipmentDialog}
 			        	onClose = {this.showAuthorizationEquipmentFun}
 					    width={"90%"} 
@@ -371,18 +369,21 @@ export default class BelongOfDoorGroup extends React.Component {
                             /> 
                         </div>  
 
-					</Drawer>
+					</Drawer> */}
                     <Drawer 
 			        	open={State.openAllGroupListDialog}
 			        	onClose = {this.openAllGroupList}
-					    width={"70%"} 
+					    width={900} 
 					    openSecondary={true} 
 					>
                         <div className="person-group-items-list">   
                             <div className="person-group-item-list-close-btn">
                                 <img src={close} onClick={this.openAllGroupList}/>
                             </div>                
-                            <AllGroupList rootPage="personalDoorPermmision" clickAddMemberBtn={this.clickAddMemberBtn}/> 
+                            <AllGroupList rootPage="personalDoorPermmision" clickAddMemberBtn={this.clickAddMemberBtn}
+                                sendAddReq={this.sendAddReq}
+                                showAddMultiple = {true}
+                            /> 
                         </div>  
 
 					</Drawer>

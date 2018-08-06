@@ -342,14 +342,13 @@ export default class List extends React.Component {
 	// 选择社区
 	onChangeCommunity=(item)=>{
 		let _this = this;
-		console.log('item---',item)
 		if(!item){
 			_this.setState({
 				realPage:1,
 				searchParams:{
 					cmtId : '',
-					type:_this.state.searchParams.filter,
-				    value:_this.state.searchParams.content,
+					type:_this.state.searchParams.filter || '', 
+				    value:_this.state.searchParams.content || '',
 					page : 1,
 					pageSize:15,
 				}
@@ -359,8 +358,8 @@ export default class List extends React.Component {
 			realPage:1,
 			searchParams:{
 				cmtId : item.id,
-				type:_this.state.searchParams.filter,
-				value:_this.state.searchParams.content,
+				type:_this.state.searchParams.filter || '',
+				value:_this.state.searchParams.content || '',
 				page :1,
 				pageSize:15,
 			}
@@ -499,7 +498,8 @@ export default class List extends React.Component {
 														<div>
 															<Button label="详情" onClick={this.openView.bind(this,itemDetail)} type="operation"/>
 															<Button operateCode="mbr_list_edit" onClick={this.openEditDetailDialog.bind(this,itemDetail)} label="编辑"  type="operation"/>
-															{logFlag?<Button operateCode="mbr_list_leave" onClick={this.openLeave.bind(this,itemDetail)} label="离场"  type="operation" operation="leave"/>:<Button operateCode="mbr_list_leave" label="恢复" onClick={this.openBack.bind(this,itemDetail)}  type="operation" operation="back"/>}
+															 {logFlag?<Button operateCode="mbr_list_leave" onClick={this.openLeave.bind(this,itemDetail)} label="离场"  type="operation" operation="leave"/>:''} 
+															{/* <Button operateCode="mbr_list_leave" label="恢复" onClick={this.openBack.bind(this,itemDetail)}  type="operation" operation="back"/> */}
 															<Button operateCode="mbr_list_bind" onClick={this.openBindCode.bind(this,itemDetail)} label="绑卡"  type="operation" operation="bindcode"/>
 															<Button operateCode="mbr_list_delete" onClick={this.openDelete.bind(this,itemDetail)} label="删除"  type="operation" operation="delete"/>
 															<Button  onClick={this.toMemberDoorPermmision.bind(this,itemDetail)} label="门禁权限"  type="operation" operation="doorpermmision"/>

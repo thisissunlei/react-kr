@@ -146,7 +146,6 @@ export default class CanOperationEquipment extends React.Component {
         this.setState({
             getMemberAuthorizeEquipmentParams : params
         })
-        console.log("param",param)
         if(param && param==true){
             this.openNewCreateAuthoriazationFun();
         }
@@ -171,7 +170,10 @@ export default class CanOperationEquipment extends React.Component {
     }
 
     renderBatchCancleAuthoriazation=()=>{
-
+        let {memberDetailInfo} = this.props;
+        if(memberDetailInfo.groupLevel=="CUSTOMER"){
+            return null
+        }
         return (
 
             <a 
@@ -243,7 +245,7 @@ export default class CanOperationEquipment extends React.Component {
 
 
 	render() {
-        let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage} = this.props;
+        let {memberDetailInfo,doorTypeOptions,noShowAddNew,granteeType,granteeId,rootPage,deviceId} = this.props;
         let {getMemberAuthorizeEquipmentParams,itemDetail,selectedListData,ids} = this.state;
         return (
 		    <div className="new-create-authoriazation">
@@ -254,7 +256,7 @@ export default class CanOperationEquipment extends React.Component {
                         </div>
                     }
                    
-                    <SearchForm submitSearchParams={this.submitSearchParams} doorTypeOptions={doorTypeOptions}/>
+                    <SearchForm submitSearchParams={this.submitSearchParams} doorTypeOptions={doorTypeOptions} deviceId={deviceId}/>
                     {
                         granteeId &&
                     <Table
@@ -283,7 +285,7 @@ export default class CanOperationEquipment extends React.Component {
                         <TableHeaderColumn>授权时间</TableHeaderColumn>
                         <TableHeaderColumn>备注</TableHeaderColumn>
                         {
-                            (rootPage && rootPage=="personal")?null:<TableHeaderColumn>操作</TableHeaderColumn>
+                            ((rootPage && rootPage=="personal")|| memberDetailInfo.groupLevel=="CUSTOMER")?null:<TableHeaderColumn>操作</TableHeaderColumn>
                         }
                         
                     </TableHeader>
@@ -402,7 +404,7 @@ export default class CanOperationEquipment extends React.Component {
                         }} ></TableRowColumn>
 
                         {
-                                (rootPage && rootPage=="personal")?null:
+                                ((rootPage && rootPage=="personal")||memberDetailInfo.groupLevel=="CUSTOMER")?null:
                                 <TableRowColumn type="operation" style={{width:"6%",overflow:"visible"}} >
                                 
                                     <Button  label="取消授权"  type="operation" operation="cancleAuthorization"/>
@@ -455,9 +457,9 @@ export default class CanOperationEquipment extends React.Component {
                         title="设备列表"
 			        	open={State.openNewCreateAuthoriazation}
                         onClose = {this.openNewCreateAuthoriazationFun}
-                        bodyStyle={{overflow:"scroll",maxHeight:600}}
                         noMaxHeight = {true}
-                        contentStyle={{width:1016,maxHeight:750}}
+                        bodyStyle={{width:962,height:465,overflow:"scroll"}}
+                        contentStyle={{width:1016,height:545}}
 					>
                     
                         

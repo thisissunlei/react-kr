@@ -32,19 +32,7 @@ class NewCreateDoorGroup extends React.Component{
 		this.state={
 			
 			communityId : '',
-			customerId : '',
-			showCompany : true,
-			showCommunity : true,
-			groupLevelOptions : [{
-				label:"普通组",
-				value: "NORMAL"
-			},{
-				label:"全国通开组",
-				value: "ROOT"
-			},{
-				label:"社区通开组",
-				value: "COMMUNITY"
-			}]
+			customerId : ''
 
 		}
 	}
@@ -53,7 +41,7 @@ class NewCreateDoorGroup extends React.Component{
 	}
 
 	onSubmit=(values)=>{
-		
+		// console.log("values",values);
 		let {submitNewCreateDoorGoup} = this.props;
 		submitNewCreateDoorGoup && submitNewCreateDoorGoup(values);
 		
@@ -64,39 +52,7 @@ class NewCreateDoorGroup extends React.Component{
 		State.openNewCreateDoorGroup = false;
 	}
 
-	changGroupLevel=(option)=>{
-
-		let {communityId,customerId} = this.state;
-		if(option.value == "ROOT"){
-
-			this.setState({
-				showCommunity : false,
-				showCompany : false
-			})
-			Store.dispatch(change('NewCreateDoorGroup','communityId',''));
-			Store.dispatch(change('NewCreateDoorGroup','customerId',''));
-			return;
-		}
-		if(option.value == "COMMUNITY"){
-			
-			this.setState({
-				showCompany : false,
-				showCommunity : true 
-			})
-			Store.dispatch(change('NewCreateDoorGroup','communityId',communityId));
-			Store.dispatch(change('NewCreateDoorGroup','customerId',''));
-			return;
-		}
-		
-
-
-		this.setState({
-			showCommunity : true,
-			showCompany : true
-		})
-		Store.dispatch(change('NewCreateDoorGroup','communityId',communityId));
-		Store.dispatch(change('NewCreateDoorGroup','customerId', customerId));
-	}
+	
 
 	changeCommunityId=(option)=>{
 		this.setState({
@@ -113,7 +69,7 @@ class NewCreateDoorGroup extends React.Component{
 
 	render(){
 		const { error, handleSubmit, pristine, reset,content,filter} = this.props;
-		let {showCompany,showCommunity,groupLevelOptions} = this.state;
+		let groupLevelOptions = State.groupLevelOptions;
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="new-creat-door-group">
 				<KrField grid={1/2} 
@@ -132,24 +88,25 @@ class NewCreateDoorGroup extends React.Component{
 					options={groupLevelOptions}  
 					requireLabel={true} 
 					errors={{requiredValue:'组级别为必填项'}} 
-					style={{width:'252px',margin:'0 35px 5px 0'}}
-					onChange={this.changGroupLevel}
+					style={{width:'252px',margin:'0 0 5px 0'}}
 				/>
 
-				{showCommunity && <KrField name="communityId" 
+				<KrField name="communityId" 
 					component="searchCommunityAll" 
 					label="社区名称"  
 					style={{width:'252px',margin:'0 35px 5px 0'}}
 					inline={false}
 					onChange={this.changeCommunityId}
-				/>}
+				/>
 
-				{showCompany && <KrField grid={1/2} name="customerId" 
-					component="searchMemberCompany" 
+				<KrField  name="customerId" 
+					component="searchSmartHardCompany" 
 					label="公司" 
-					style={{width:'252px',marginRight:'30px'}}
+					style={{width:'252px',marginRight:'0'}}
 					onChange={this.changeCustomerId}
-				/>}
+					inline={false}
+				/>
+			
 				
 				
 					
@@ -161,6 +118,10 @@ class NewCreateDoorGroup extends React.Component{
 					maxSize = {40}
 					
 				/>
+				<div className="tip-box">
+					<p>复合组中只能添加设备组，设备组中只能添加设备</p>
+					<p>例子：若想建一个北京通开组，只需建一个复合组，然后把北京所有社区通开组加入该组即可</p>
+				</div>
 
 				<Grid>
 						<Row style={{textAlign:'center',marginLeft:'-40px'}}>
@@ -174,6 +135,7 @@ class NewCreateDoorGroup extends React.Component{
 							</ListGroup>					
 						</Row>
 					</Grid>
+					
 			</form>
 		);
 	}
@@ -185,12 +147,6 @@ const validate = values => {
 	}
 	if (!values.groupLevel) {
 		errors.groupLevel = '请选择组级别';
-	}
-	if((values.groupLevel=="COMMUNITY"||values.groupLevel=="CUSTOMER") && !values.communityId){
-		errors.communityId = "请选择社区";
-	}
-	if(values.groupLevel=="CUSTOMER" && !values.customerId){
-		errors.customerId = "请选择公司";
 	}
 	return errors
 }

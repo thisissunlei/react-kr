@@ -78,7 +78,7 @@ module.exports = {
     },
     //权限--账户列表--获取账户列表
     'getSsoUserList': {
-      url: '/api/krspace-sso-web/sso/ssoUser/getSsoUserList?accountName={accountName}&email={email}&mobilePhone={mobilePhone}&realName={realName}&page={page}&pageSize={pageSize}&accountStatus={accountStatus}',
+      url: '/api/krspace-erp-web/erp/ssoUser/list?accountName={accountName}&email={email}&mobilePhone={mobilePhone}&realName={realName}&page={page}&pageSize={pageSize}&accountStatus={accountStatus}',
       method: 'get'
     },
     //权限--账户列表--获取数据权限
@@ -656,9 +656,25 @@ module.exports = {
     url: '/api/krspace-sso-web/member/mobile-phone?phone={phone}',
     method: 'get'
    },
+   // 获取二维码 
+  'getQrCode':{
+    // url: 'http://sun.krspace.cn/api/krspace-sso-web/sso/login/getQrCode',
+    url: '/api/krspace-sso-web/sso/login/getQrCode',
+    method: 'get'
+  },
+  // 登录状态查询  
+  'getQrLoginStatus':{
+    url: '/api/krspace-sso-web/sso/login/getQrLoginStatus?uuid={uuid}',
+  //  url: 'http://sun.krspace.cn/api/krspace-sso-web/sso/login/getQrLoginStatus?uuid={uuid}',
   // 获取菜单目录
+  },
   'get-menu-catalog': {
     url: '/api/krspace-sso-web/sso/sysOwn/getUserMenu',
     method: 'get'
-  }
+  },
+   //账户列表-人员获取id
+   'get-bill-person-id':{
+    url: '/api/krspace-erp-web/erp/ssoUser/resource-id?ssoId={ssoId}',
+    method: 'get'
+   },
 }

@@ -62,7 +62,7 @@ export default class  SearchMemberCompany extends React.Component {
 				let items=response.items;
 				items.forEach(function(item,index){
 					item.value = item.id;
-					item.label = item.companyName;
+					item.label = item.company;
 					if(ValueInfo.csrId){
 						if(item.id==ValueInfo.csrId){
 							flag.push('0');

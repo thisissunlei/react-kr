@@ -248,8 +248,8 @@ export default class PicList extends Component{
 				<TableHeader>
 					<TableHeaderColumn>编号</TableHeaderColumn>
 					<TableHeaderColumn>轮播图</TableHeaderColumn>
-					<TableHeaderColumn>标题</TableHeaderColumn>	
-					<TableHeaderColumn>简介</TableHeaderColumn>
+					<TableHeaderColumn>社区名称</TableHeaderColumn>	
+					<TableHeaderColumn>社区概述</TableHeaderColumn>
 					<TableHeaderColumn>排序号</TableHeaderColumn>
 					<TableHeaderColumn>状态</TableHeaderColumn>
 					<TableHeaderColumn>操作</TableHeaderColumn>
@@ -265,7 +265,7 @@ export default class PicList extends Component{
 							}}
 						></TableRowColumn>
 						<TableRowColumn 
-							name="title"
+							name="communityName"
 							component={(value,oldValue)=>{
 								
 								var maxWidth=10;
@@ -278,7 +278,7 @@ export default class PicList extends Component{
 						
 						></TableRowColumn>
 						<TableRowColumn 
-							name="desrc"
+							name="communityDesc"
 							component={(value,oldValue)=>{	
 								var maxWidth=10;
 								

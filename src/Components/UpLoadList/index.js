@@ -59,10 +59,7 @@ export default class UpLoadList extends React.Component {
 			},function(){
 				this.renderHover();
 				// document.addEventListener('click', this.docClick)
-
-
 			})
-
 		}
 	}
 	componentWillUnmount(){

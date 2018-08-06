@@ -22,12 +22,15 @@ class EditPic extends React.Component{
             jobTypes:[],
             isType :false,
             photoUrl:'',
+            smallPic:'',
+            mobilePic:'',
         }
 	}
 
     componentDidMount(){
         var id = this.props.detail.id;
         var _this = this;
+        _this.getCity();
         Http.request("web-pclist-listdetall",{id:id}).then(function (response) {
          Store.dispatch(initialize('EditPic',response));
          if(response.published==1){
@@ -36,8 +39,12 @@ class EditPic extends React.Component{
             Store.dispatch(change('EditPic','published','0'))  
          }
          _this.setState({
-             photoUrl:response.logo
+             photoUrl:response.logo,
+             smallPic:response.smallPic,
+             mobilePic:response.mobilePic
+
          })
+         
          
      }).catch(function (err) {
          Message.error(err.message);
@@ -58,6 +65,22 @@ class EditPic extends React.Component{
         })
     }
 
+    getCity=()=>{
+        var _this = this;
+        Http.request('get-city', {}).then(function(response) {
+            var data = response.items;
+            data.map((item,index)=>{
+                item.label = item.name;
+                item.value = item.id;
+            })
+            _this.setState({
+                cityData:data,
+            })
+            // Store.dispatch(initialize('editNewList',response));
+            
+        })
+    }
+
     onSubmit=(values)=>{
         const {onSubmit}=this.props;
         onSubmit && onSubmit(values);
@@ -71,8 +94,9 @@ class EditPic extends React.Component{
 	render(){
 
         let {handleSubmit,subCompany,detail}=this.props;
-        let {jobTypes,isType,photoUrl} = this.state;
-        let host = "http://"+window.location.host;
+        let {jobTypes,isType,photoUrl,smallPic,mobilePic} = this.state;
+        let host = location.protocol +"//"+window.location.host;
+        // let host = 'http://optest03.krspace.cn';
 		return(
 
 			<div className='m-edit-pic'>
@@ -82,14 +106,23 @@ class EditPic extends React.Component{
 				</div>
 
 				<div className="kk" style={{marginTop:30,paddingLeft:10}}>
-                <KrField grid={1/2} label="名称" name="title" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-                <KrField grid={1/2} label="简介" name="desrc" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-                <KrField grid={1/2} label="跳转url" name="targetUrl" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-                <KrField grid={1/2} label="排序号" name="orderNum" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
-                <KrField grid={1/2} label="是否上线" name="published" style={{width:262,marginLeft:30,marginRight:13,marginTop:14}} component="group" requireLabel={true} >
-                    <KrField name="published" label="是" type="radio" value="1" style={{marginTop:5,display:'inline-block',width:84}}/>
-                    <KrField name="published" label="否" type="radio" value="0" style={{marginTop:5,display:'inline-block',width:53}}/>
-                </KrField>
+                    <KrField grid={1/2} label="社区名称" name="communityName" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="社区状态" name="communityStatus" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="社区概述" name="communityDesc" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="小图标题" name="communityTitle" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="社区ID" name="communityId" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    <KrField grid={1/2} label="排序号" name="orderNum" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/>
+                    {/* <KrField grid={1/2} label="简介" name="desrc" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/> */}
+					{/* <KrField grid={1/2} label="跳转url" name="targetUrl" style={{width:262,marginLeft:30,marginTop:14}} component="input" requireLabel={true} inline={false}/> */}
+                   
+                    <KrField grid={1/2} label="是否上线" name="published" style={{width:262,marginLeft:30,marginTop:14}} component="group" requireLabel={true} >
+                        <KrField name="published" label="是" type="radio" value="1" style={{marginTop:5,display:'inline-block',width:84}}/>
+                        <KrField name="published" label="否" type="radio" value="0" style={{marginTop:5,display:'inline-block',width:53}}/>
+                    </KrField>
+                    <KrField grid={1/2} equireLabel={true} label="社区所在城市" name="cityId" component="select" style={{width:262,marginLeft:28,marginTop:14}}
+                        options={this.state.cityData}
+                        requireLabel={true}
+                    />
                     <div style = {{marginLeft:30,marginTop:14}}>
                         <KrField
                             name="logo"
@@ -97,14 +130,48 @@ class EditPic extends React.Component{
                             innerstyle={{width:500,height:344,padding:10,marginLeft:-80}}
                             photoSize={'199*300'}
                             pictureFormat={'JPG,PNG,GIF'}
-                            pictureMemoryM={'1'}
-                            requestURI = {host + '/api/krspace-finance-web/activity/upload-pic'}
+                            pictureMemoryM={'5'}
+                            requestURI = {host + '/api/krspace-finance-web/por-mobile-pic/upload-pic'}
                             deviation = {"50*50"}
                             defaultValue={photoUrl}
 							onDeleteImg ={this.deletePhoto}
-                            label="上传图片"
+                            label="上传图片(尺寸:1920*600)"
                             inline={false}
                             requireLabel={true}
+                        />
+                    </div>
+                    <div style = {{marginLeft:30,marginTop:14}}>
+                        <KrField
+                            name="smallPic"
+                            defaultValue={smallPic}
+                            component="mainNewsUploadImage"
+                            innerstyle={{width:200,height:100,padding:10,marginLeft:-80}}
+                            photoSize={'199*300'}
+                            pictureFormat={'JPG,PNG,GIF'}
+                            pictureMemory={'200'}
+                            requestURI = {host + '/api/krspace-finance-web/por-mobile-pic/upload-pic'}
+                            deviation = {"50*50"}
+                            label="上传缩略图(尺寸:160*90)"
+                            inline={false}
+                            requireLabel={true}
+
+                        />
+                    </div>
+                    <div style = {{marginLeft:30,marginTop:14}}>
+                        <KrField
+                            name="mobilePic"
+                            defaultValue={mobilePic}
+                            component="mainNewsUploadImage"
+                            innerstyle={{width:400,height:250,padding:10,marginLeft:-80}}
+                            photoSize={'199*300'}
+                            pictureFormat={'JPG,PNG,GIF'}
+                            pictureMemoryM={'3'}
+                            requestURI = {host + '/api/krspace-finance-web/por-mobile-pic/upload-pic'}
+                            deviation = {"50*50"}
+                            label="上传M站图(尺寸:1125*843)"
+                            inline={false}
+                            requireLabel={true}
+
                         />
                     </div>
 
@@ -134,33 +201,46 @@ const validate = values =>{
     let numContr =/^[1-9]\d{0,4}$/;
     var reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
     var ord = /^[1-9]\d*$/;
-    if(!values.title){
-        errors.title='请填写名称';
-     }else if(values.title.length>15){
-        errors.title='名称不能超过15个字符';
-     }
-    if(!values.desrc){
-     errors.desrc='请填写简介';
-    }else if(values.desrc.length>30){
-     errors.desrc='简介长度不能超过30个字符';
-    }
-    if(!values.targetUrl){
-        errors.targetUrl='链接地址为必填字段';
-    }else if(!reg.test(values.targetUrl)){
-        errors.targetUrl='链接地址格式有误';
-    }
+    
     if(!values.orderNum){
         errors.orderNum='请填写排序号'
     }
-     if(values.orderNum){
-        var orderNum = (values.orderNum+'').replace(/(^\s*)|(\s*$)/g, "");
-		if(!numContr.test(orderNum)){
-			errors.orderNum = '排序号必须为五位以内正整数';
-		}
-	}
-    if(!values.logo){
-        errors.logo='请上传图片';
+    if(!values.communityName){
+        errors.communityName='communityName';
+     }else if(values.communityName.length>15){
+        errors.communityName='社区名称不能超过15个字符';
+     }
+    if(!values.communityStatus){
+     errors.communityStatus='请填写社区状态';
+    }else if(values.communityStatus.length>8){
+     errors.communityStatus='社区状态长度不能超过8个字符';
     }
+    if(!values.communityDesc){
+     errors.communityDesc='请填写社区概述';
+    }else if(values.communityDesc.length>20){
+     errors.communityDesc='社区状态概述不能超过20个字符';
+    }
+    if(!values.communityTitle){
+     errors.communityTitle='请填写小图标题';
+    }else if(values.communityTitle.length>15){
+     errors.communityTitle='小图标题不能超过15个字符';
+    }
+    if(!values.communityId){
+     errors.communityId='请填写社区ID';
+    }
+    if(!values.cityId){
+     errors.cityId='请选择城市';
+    }
+    if(!values.logo){
+        errors.logo='请上传PC轮播图';
+    }
+ 
+    if(!values.smallPic){
+         errors.smallPic='请上传PC缩略图';
+     }
+     if(!values.mobilePic){
+         errors.mobilePic='请上传M站图';
+     }
    return errors
 }
 

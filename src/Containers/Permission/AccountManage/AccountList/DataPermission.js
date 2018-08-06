@@ -60,6 +60,7 @@ export default class DataPermission extends React.Component{
 			}).then(function(response){
 			  _this.setState({
 					cityList: response.cities,
+					outSelect:response.allCities==1?true:false
 				});
 			}).catch(function(err){
 			})
@@ -85,21 +86,21 @@ export default class DataPermission extends React.Component{
 			})
 		}
 		list[index] = item;
-		var allSelect = 0;
-		list.map((itemA,indexA)=>{
-			if(itemA.flag==1){
-				allSelect++;
-			}
-		})
-		if (allSelect==list.length) {
-			_this.setState({
-				outSelect:true,
-			})
-		}else{
-			_this.setState({
-				outSelect:false,
-			})
-		}
+		// var allSelect = 0;
+		// list.map((itemA,indexA)=>{
+		// 	if(itemA.flag==1){
+		// 		allSelect++;
+		// 	}
+		// })
+		// if (allSelect==list.length) {
+		// 	_this.setState({
+		// 		outSelect:true,
+		// 	})
+		// }else{
+		// 	_this.setState({
+		// 		outSelect:false,
+		// 	})
+		// }
 		_this.setState({
 			cityList:list,
 		})
@@ -118,37 +119,38 @@ export default class DataPermission extends React.Component{
 		item.communities.map((itemA, index) => {
 			checked.push(itemA.ownFlag);
 		})
-		if (checked.indexOf(0) == -1) {
-			item.flag = 1;
-		} else {
-			item.flag = 0;
-		}
+		// if (checked.indexOf(0) == -1) {
+		// 	item.flag = 1;
+		// } else {
+		// 	item.flag = 0;
+		// }
 		list[index] = item;
-		var allSelect = 0;
-		list.map((itemA,indexA)=>{
-			if(itemA.flag==1){
-				allSelect++;
-			}
-		})
-		if (allSelect==list.length) {
-			_this.setState({
-				outSelect:true,
-			})
-		}else{
-			_this.setState({
-				outSelect:false,
-			})
-		}
+		// var allSelect = 0;
+		// list.map((itemA,indexA)=>{
+		// 	if(itemA.flag==1){
+		// 		allSelect++;
+		// 	}
+		// })
+		// if (allSelect==list.length) {
+		// 	_this.setState({
+		// 		outSelect:true,
+		// 	})
+		// }else{
+		// 	_this.setState({
+		// 		outSelect:false,
+		// 	})
+		// }
 		_this.setState({
 			cityList:list,
 		})
 	}
 	renderData=(item,index)=>{
+		let {outSelect}=this.state;
 		return (
 			<div key={index}>
 				<div style={{display:'block',textAlign:'left',lineHeigitemht:'32px',color:'#333',marginBottom:8}}>
 						<div style={{color:'#333',fontWeight:500,fontSize:14}}>{item.name}</div>
-						<Checkbox label="全选" style={{color:'#333',display:'inline-block'}} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item,index)}/>
+						<Checkbox label="本城市" style={{color:'#333',display:'inline-block'}} readOnly={outSelect?true:false} checked={item.flag==1?true:false} onCheck={this.allSelect.bind(this,item,index)}/>
 						{item.communities.map((itemC,indexC)=>{return (
 								<div style={{display:'inline-block',lineHeight:'32px'}} key={indexC}>
 									<Checkbox
@@ -156,6 +158,7 @@ export default class DataPermission extends React.Component{
 											label={itemC.communityName}
 											checked={itemC.ownFlag==1?true:false}
 											onCheck={this.checked.bind(this,item,itemC,index,indexC)}
+											readOnly={item.flag==1?true:false}
 									/>
 								</div>
 							)
@@ -166,20 +169,42 @@ export default class DataPermission extends React.Component{
 		);
 	}
 	onSubmit = () => {
-		let {cityList} = this.state;
+		let {cityList,outSelect} = this.state;
 		const {detail,onSubmit} = this.props;
 		var idList = [];
+		var cityRender=[];
+		var someCityRender=[];
 		cityList.map((item, index) => {
 			item.communities.map((itemC,indexC)=>{
 				if(itemC.ownFlag==1){
 					idList.push(itemC.communityId);
 				}
 			})
+			cityRender.push(item.id);
+			if(item.flag){
+				someCityRender.push(item.id);
+			}
 		})
-		Http.request('editUserCommunity',{},{
-			id:detail.id,
-			communityIds:idList
-		}).then(function(response) {
+		let params={};
+		if(outSelect){
+			params={
+				id:detail.id,
+				cityIds:-1	
+			}
+		}else if(someCityRender.length){
+			params={
+				id:detail.id,
+				communityIds:idList,
+				cityIds:someCityRender	
+			}
+		}else{
+			params={
+				id:detail.id,
+				communityIds:idList,
+				cityIds:''	
+			}
+		}
+		Http.request('editUserCommunity',{},params).then(function(response) {
 				Message.success('修改成功')
 				onSubmit();
 		}).catch(function(err) {
@@ -228,7 +253,7 @@ export default class DataPermission extends React.Component{
 		let {cityList,outSelect} = this.state;
 		return(
 			<div className="g-DataPermission">
-				<Checkbox label="全选" style={{display:'inline-block',lineHeight:'30px',marginBottom:6,color:'#000'}} checked={outSelect?true:false} onCheck={this.outSelect}/>
+				<Checkbox label="全国" style={{display:'inline-block',lineHeight:'30px',marginBottom:6,color:'#000'}} checked={outSelect?true:false} onCheck={this.outSelect}/>
           <div className="leftSec">
 						{cityList.map((item,index)=>{return this.renderData(item,index)})}
           </div>

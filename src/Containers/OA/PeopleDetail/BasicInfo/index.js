@@ -93,6 +93,9 @@ export default class BasicInfo  extends React.Component{
            _this.basicData(params.id);
 		   chengLeft && chengLeft(params.id);
 		   _this.cancelEdit();
+		   if(params.roleType=='OPERATE'){
+			  Message.successClose('保存成功！社区数据权限已清空，请联系王鹏重新设置');
+		   }
         }).catch(function(err) {
           Message.error(err.message);
         });

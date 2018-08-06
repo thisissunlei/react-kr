@@ -39,6 +39,10 @@ class CreateThird extends React.Component {
               {
                 name: 'member',
                 value: 'member'
+              },
+              {
+                name: 'project',
+                value: 'project'
               }
             ]
         }
@@ -90,8 +94,9 @@ class CreateThird extends React.Component {
             projectType,
             sideFoldFlag,
             topFoldFlag,
-            descr,
-            showFlag
+            descr: descr || '',
+            showFlag,
+            sort:form.sort
         }
 		onSubmit && onSubmit(params);
     }
@@ -129,6 +134,15 @@ class CreateThird extends React.Component {
                     requireLabel={true}
                    
 				/>
+                <KrField
+                    style={{width:314,marginTop:20}}
+                    inline={true}
+                    label="排序"
+                    component="input"
+                    name="sort"
+                    placeholder="输入排序"
+                    requireLabel={true}
+                />
                 <div>
                     <KrField
                         inline={true}
