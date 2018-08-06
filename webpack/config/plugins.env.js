@@ -25,5 +25,16 @@ const envs = {
     },
 }
 
-module.exports = envs;
+// const pluginsDomain  = envs[process.env.NODE_ENV].plugins;
+const jsFiles=[
+    'https://web.krspace.cn/kr-op/umeditor/ueditor.config.js',
+    'https://web.krspace.cn/kr-op/umeditor/ueditor.all.js',
+    'https://web.krspace.cn/kr-op/umeditor/lang/zh-cn/zh-cn.js',
+];
+const cssFiles=[];
+
+module.exports = {
+    cssFiles,
+    jsFiles
+};
 

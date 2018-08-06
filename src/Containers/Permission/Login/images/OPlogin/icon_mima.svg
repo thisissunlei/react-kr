@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_密码</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="正式" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03_密码登录" transform="translate(-1011.000000, -571.000000)">
+            <g id="请输入密码" transform="translate(997.000000, 555.000000)">
+                <g id="icon_密码" transform="translate(14.000000, 16.000000)">
+                    <rect id="Rectangle-28-Copy" fill="#FFEB00" x="1" y="1" width="24" height="24" rx="10"></rect>
+                    <rect id="Rectangle-28-Copy" stroke="#333333" stroke-width="1.2" fill="#FFFFFF" x="0.6" y="0.6" width="22.8" height="22.8" rx="10"></rect>
+                    <path d="M7,11 L17,11 L17,17 C17,18.1045695 16.1045695,19 15,19 L9,19 C7.8954305,19 7,18.1045695 7,17 L7,11 Z" id="Rectangle-34-Copy" stroke="#333333" stroke-width="1.2" fill="#FFDF00" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M12,5 L12,5 C14.209139,5 16,6.790861 16,9 L16,11 L8,11 L8,9 C8,6.790861 9.790861,5 12,5 Z" id="Rectangle-40-Copy" stroke="#333333" stroke-width="1.2"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
