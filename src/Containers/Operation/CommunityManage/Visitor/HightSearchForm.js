@@ -81,9 +81,9 @@ import './index.less';
 					>
 						<div className='ui-listDate'>
 							<ListGroup>
-								<ListGroupItem><div className='ui-date-start' style={{width:252}} ><KrField  style={{width:252,marginLeft:-10,marginTop:2}} name="startTime" component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-start' style={{width:252}} ><KrField isInput={false}  style={{width:252,marginLeft:-10,marginTop:2}} name="startTime" component="date" /></div></ListGroupItem>
 									<div className='ui-line-down'  style={{marginTop:25}}><span style={{display:'inline-block',color:'#666',fontSize:'14'}}>至</span></div>
-								<ListGroupItem><div className='ui-date-end'><KrField name="endTime" style={{width:252,marginTop:2}} component="date" /></div></ListGroupItem>
+								<ListGroupItem><div className='ui-date-end'><KrField name="endTime" isInput={false} style={{width:252,marginTop:2}} component="date" /></div></ListGroupItem>
 							</ListGroup>
 		                </div>
 					</KrField>

@@ -253,6 +253,9 @@ export default class InputDate extends React.Component {
 		let {
 			openCalendar
 		} = this.state;
+		let {
+			isInput
+		} = this.props;
 		return (
 			<div className="ui-calendar" ref="calendar">
 				<div className="calendar-content" 
@@ -266,6 +269,7 @@ export default class InputDate extends React.Component {
 				</div>
 				{openCalendar && 
 					<Calendar 
+					    isInput = {isInput}
 						onChange={this.onChange} 
 						value={this.state.value}
 						ref = {(ref) =>{

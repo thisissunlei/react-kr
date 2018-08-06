@@ -16,7 +16,9 @@ export default class Calendar extends React.Component {
 	static displayName = 'Calendar';
 
 	static defaultProps = {
-		value:'2016-12-7'
+		value:'2016-12-7',
+		isInput:true
+
 	}
 	static propTypes = {
 		/**
@@ -226,18 +228,23 @@ export default class Calendar extends React.Component {
 
 
 		let {year,month,date,openYearSelector,openMonthSelector} = this.state;
+		let {isInput} = this.props;
 
 		return (
 				<div 
 					className="calendar-wrap"
+					
 					ref = {(ref)=>{
 						this.calendar = ref;
+					}}
+					style={{
+						height:isInput?380:270
 					}}
 					
 				>
 				<div className="calendar  animated slideInDown" style={{'animationDuration':'0.2s'}}>
 
-					<CalendarInput year={year} month={month} date={date} />
+					{isInput &&<CalendarInput  year={year} month={month} date={date} /> }
 					<CalendarToolbar year={year} month={month} openYearSelectorDialog={this.openYearSelectorDialog} openMonthSelectorDialog={this.openMonthSelectorDialog}/>
 					<CalendarDayDisplay />
           {year && month && date && <CalendarMonthDate year={year} month={month} date={date} />}
