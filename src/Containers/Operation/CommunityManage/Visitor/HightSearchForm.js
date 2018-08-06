@@ -91,9 +91,9 @@ import './index.less';
 					<KrField  
 							style={{width:252,marginLeft:40,marginTop:4}}
 							name="communityId" 
-							type="select" 
-							component="input" 
+							component='searchCommunityAll' 
 							label="社区名称" 
+							inline={false}  
 					 />
 					 <KrField  
 							style={{width:252,marginLeft:40,marginTop:4}}
