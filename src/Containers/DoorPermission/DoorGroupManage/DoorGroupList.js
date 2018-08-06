@@ -309,7 +309,7 @@ export default class DoorGroupManage extends React.Component {
 						ajaxUrlName='getDoorPermissionList'
 						ajaxParams={getDoorPermissionListParams}
 						onPageChange={this.onPageChange}
-						displayCheckbox={true}
+						displayCheckbox={false}
                         onSelect={this.onSelect}
 					>
 						<TableHeader>
@@ -330,7 +330,7 @@ export default class DoorGroupManage extends React.Component {
 							<TableRow>
 
 							<TableRowColumn 
-								// style={{width:"12%",overflow:"visible"}} 
+								style={{width:"12%",overflow:"visible"}} 
 								name="name" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -345,7 +345,7 @@ export default class DoorGroupManage extends React.Component {
 							}} ></TableRowColumn>
 
 							<TableRowColumn name="groupLevel"
-							// style={{width:"5%",overflow:"visible"}} 
+							style={{width:"5%",overflow:"visible"}} 
 							options={groupLevelOptions}
 							component={(value,oldValue)=>{
 								if(value==""){
@@ -366,7 +366,7 @@ export default class DoorGroupManage extends React.Component {
 
 
 							<TableRowColumn 
-								// style={{width:"10%",overflow:"visible"}} 
+								style={{width:"10%",overflow:"visible"}} 
 								name="customerName" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -386,14 +386,14 @@ export default class DoorGroupManage extends React.Component {
 								name="ctime" 
 								type="date" 
 								format="yyyy-mm-dd HH:MM:ss"
-								// style={{width:"12%"}}
+								style={{width:"12%"}}
 							>
 							</TableRowColumn>
 
 							
 
 							<TableRowColumn 
-								// style={{width:"10%",overflow:"visible"}} 
+								style={{width:"10%",overflow:"visible"}} 
 								name="creatorName" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -409,7 +409,7 @@ export default class DoorGroupManage extends React.Component {
 
 							
 							<TableRowColumn type="operation"
-								// style={{width:"15%"}}
+								style={{width:"15%"}}
 								component={
 									(itemData)=>{
 										return (
