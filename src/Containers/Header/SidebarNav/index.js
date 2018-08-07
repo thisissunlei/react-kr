@@ -15,6 +15,7 @@ export default class SidebarNav extends React.Component {
            sidebarNavs:props.item
 		}
 		this.sidebarRef = null;
+		this.isDom = false;
 	}
 
 	renderMenuItems=(menuItems)=>{
@@ -76,14 +77,26 @@ export default class SidebarNav extends React.Component {
 		})
 	}
 	componentDidMount(){
-		if(this.sidebarRef){
+		if(this.sidebarRef && !this.isDom){
+			this.isDom = true;
 			console.log(this.sidebarRef,"pppppp")
+			this.sidebarRef.addEventListener('DOMMouseScroll',()=>{
+				console.log(1111);
+			})
 		}
 	}
+	componentWillUnmount(){
+
+	}
     componentWillReceiveProps(nextProps){
-			this.setState({
-				sidebarNavs:nextProps.item
+		if(this.sidebarRef && !this.isDom){
+			this.sidebarRef.addEventListener('DOMMouseScroll',()=>{
+				console.log(1111);
 			})
+		}
+		this.setState({
+			sidebarNavs:nextProps.item
+		})
 	}
 
 	render() {
@@ -93,7 +106,7 @@ export default class SidebarNav extends React.Component {
 
 		// const {sidebarNavs} = this.state;
 		// const sidebarNavs2 = NavModel.sidebarNavs;
-		console.log('item--',sidebarNavs);
+		console.log(sidebarNavs,"pppppp")
 		
 			return (
 				<div className="g-sidebar-nav">
