@@ -77,6 +77,7 @@ export default class SidebarNav extends React.Component {
 		})
 	}
 	componentDidMount(){
+		c
 		if(this.sidebarRef && !this.isDom){
 			this.isDom = true;
 			console.log(this.sidebarRef,"pppppp")
@@ -106,7 +107,7 @@ export default class SidebarNav extends React.Component {
 
 		// const {sidebarNavs} = this.state;
 		// const sidebarNavs2 = NavModel.sidebarNavs;
-		console.log(sidebarNavs,"pppppp")
+		// console.log(sidebarNavs,"pppppp")
 		
 			return (
 				<div className="g-sidebar-nav">
