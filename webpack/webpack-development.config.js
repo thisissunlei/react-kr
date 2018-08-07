@@ -14,7 +14,7 @@ const HappyPack = require('happypack');
 const Envs = require(path.join(process.cwd(), 'src', 'Configs', 'Envs'));
 
 const node_modules_dir = path.join(process.cwd(), 'node_modules');
-const pluginsDomain  = require('./config/plugins.env')[process.env.NODE_ENV].plugins;
+const pluginsDomain  = require('./config/plugins.env');
 var env = process.env.NODE_ENV || 'development';
 
 const webpackConfigs = {
@@ -90,7 +90,9 @@ const webpackConfigs = {
 			cache: true,
 			showErrors: true,
 			files:{
-				favicon:pluginsDomain + '/plugins/public/images/favicon.ico'
+				js:pluginsDomain.jsFiles,
+				css:pluginsDomain.cssFiles,
+				favicon:'/plugins/public/images/favicon.ico'
 			}
 		}),
 		new HtmlWebpackPlugin({
@@ -102,7 +104,7 @@ const webpackConfigs = {
 			cache: true,
 			showErrors: true,
 			files:{
-				favicon:pluginsDomain + '/plugins/public/images/favicon.ico'
+				favicon:'/plugins/public/images/favicon.ico'
 			}
 		}),
 		new CopyWebpackPlugin([

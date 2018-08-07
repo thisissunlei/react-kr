@@ -22,46 +22,44 @@ export default class SidebarNav extends React.Component {
 			let type = item.projectType;
 			let path = item.url || item.originUrl || `.#${item.router}`;
 			let label = item.name;
+			if(path.indexOf('http://')!=-1 && path.indexOf('https://')!=-1){
+				return  <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>;
+			}
 			if(type=="member"){
 					
 				var hostname = location.hostname;
 				var port = location.port || '';
+				
 				if (port) {
 					port = ":" + port;
 				}
 				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
+				
 			}
-			
 			// 三级跳转
 			if(location.href.indexOf('new/#') !==-1 ){
 						if(type === 'admin'){
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type === 'vue'){
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+						}else if(type === 'product'){
+							path  = '/product/#' + path;
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type==='project'){
 							path  = '/project/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
 						}else{
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
 						}
-				}else if(location.href.indexOf('project/#') !==-1){
-					if(type === 'admin'){
-						path  = '/new/#' + path;
-						return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
-					}else if(type === 'project'){
-						path  = '/project/#' + path;
-						return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
-					}else if(type === 'vue'){
-						return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
-					}else {
-						return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
-					}
-				}{
+				}else {
 						if(type ==='admin'){
 							path  = '/new/#' + path;
 							return <a  href={path} className={item.isActive?'u-sidebar-nav-active':'curson'} >{label}</a>
 						}else if(type === 'project'){
 							path  = '/project/#' + path;
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+						}else  if(type === 'product'){
+							path  = '/product/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type ==='vue'){
 							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>

@@ -135,6 +135,7 @@ export default class Visitor extends React.Component{
 									open={this.state.openSearchDialog}
 									onClose={this.openSearchDialog}
 									contentStyle={{width:687}}
+									overflow="auto"
 								>
 									<HightSearchForm 
 											onSubmit={this.onHightSubmit}

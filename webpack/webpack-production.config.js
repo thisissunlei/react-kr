@@ -13,7 +13,7 @@ const HappyPack = require('happypack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const node_modules_dir = path.join(process.cwd(), 'node_modules');
-const pluginsDomain  = require('./config/plugins.env')[process.env.NODE_ENV].plugins;
+const pluginsDomain  = require('./config/plugins.env');
 
 
 const config = {
@@ -129,7 +129,9 @@ const config = {
 				minifyCSS: true
 			},
 			files:{
-				favicon:pluginsDomain + '/plugins/public/images/favicon.ico'
+				js:pluginsDomain.jsFiles,
+				css:pluginsDomain.cssFiles,
+				favicon:'/plugins/public/images/favicon.ico'
 			}
 			
 		}),

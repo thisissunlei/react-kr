@@ -5,7 +5,7 @@ module.exports = {
       url: '/api-old/sys/sysfunrights/sysMenu/getSelfMenuInfo',
       method: 'get'
   },
-
+  //获取user
   'newMenuInfo': {
       url: '/api/krspace-sso-web/sso/sysOwn/findUserData?forceUpdate=1',
       method: 'get'
