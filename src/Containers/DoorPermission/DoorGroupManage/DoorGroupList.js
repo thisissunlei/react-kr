@@ -84,7 +84,6 @@ export default class DoorGroupManage extends React.Component {
 
 	onSelect=(selected,selectItems)=>{
 
-		console.log("selected",selected,"selectItems",selectItems);
 		this.setState({
 			selected :selectItems
 		})
@@ -118,7 +117,6 @@ export default class DoorGroupManage extends React.Component {
 			let {clickAddMemberBtn} =this.props;
 			clickAddMemberBtn &&clickAddMemberBtn(itemDetail)
 		}
-		console.log("itemDetail",itemDetail,"itemDetail.groupId",itemDetail.id,"itemDetail.groupLevel",itemDetail.groupLevel,"itemDetail.name",itemDetail.name);
 		if(type=="powerOwner"){
 			window.open(`../doorpermmision/powerOwner?groupid=${itemDetail.id}&groupname=${itemDetail.name}&groupLevel=${itemDetail.groupLevel}`,'_blank');
 			return;
@@ -179,7 +177,6 @@ export default class DoorGroupManage extends React.Component {
 
 	submitEditDoorGroup=(values)=>{
 		let that= this;
-		console.log("values",values);
 		
 		Http.request('editDoorGroupApi',{},values).then(function(response) {
 
@@ -244,7 +241,6 @@ export default class DoorGroupManage extends React.Component {
 	}
 
 	addSelected=()=>{
-		console.log("eee")
 		let {selected} = this.state;
 		if(selected.length<1){
 			Message.warntimeout("请选择要加入的组","error");
@@ -309,7 +305,7 @@ export default class DoorGroupManage extends React.Component {
 						ajaxUrlName='getDoorPermissionList'
 						ajaxParams={getDoorPermissionListParams}
 						onPageChange={this.onPageChange}
-						displayCheckbox={true}
+						displayCheckbox={false}
                         onSelect={this.onSelect}
 					>
 						<TableHeader>
@@ -330,7 +326,7 @@ export default class DoorGroupManage extends React.Component {
 							<TableRow>
 
 							<TableRowColumn 
-								// style={{width:"12%",overflow:"visible"}} 
+								style={{width:"12%",overflow:"visible"}} 
 								name="name" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -345,7 +341,7 @@ export default class DoorGroupManage extends React.Component {
 							}} ></TableRowColumn>
 
 							<TableRowColumn name="groupLevel"
-							// style={{width:"5%",overflow:"visible"}} 
+							style={{width:"5%",overflow:"visible"}} 
 							options={groupLevelOptions}
 							component={(value,oldValue)=>{
 								if(value==""){
@@ -366,7 +362,7 @@ export default class DoorGroupManage extends React.Component {
 
 
 							<TableRowColumn 
-								// style={{width:"10%",overflow:"visible"}} 
+								style={{width:"10%",overflow:"visible"}} 
 								name="customerName" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -386,14 +382,14 @@ export default class DoorGroupManage extends React.Component {
 								name="ctime" 
 								type="date" 
 								format="yyyy-mm-dd HH:MM:ss"
-								// style={{width:"12%"}}
+								style={{width:"12%"}}
 							>
 							</TableRowColumn>
 
 							
 
 							<TableRowColumn 
-								// style={{width:"10%",overflow:"visible"}} 
+								style={{width:"10%",overflow:"visible"}} 
 								name="creatorName" 
 								component={(value,oldValue,itemData)=>{
 								var TooltipStyle=""
@@ -409,7 +405,7 @@ export default class DoorGroupManage extends React.Component {
 
 							
 							<TableRowColumn type="operation"
-								// style={{width:"15%"}}
+								style={{width:"15%"}}
 								component={
 									(itemData)=>{
 										return (

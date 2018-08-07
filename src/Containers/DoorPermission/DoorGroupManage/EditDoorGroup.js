@@ -44,7 +44,6 @@ class EditDoorGroup extends React.Component{
 	}
 
 	onSubmit=(values)=>{
-		// console.log("values",values);
 		let {submitEditDoorGroup} = this.props;
 		submitEditDoorGroup && submitEditDoorGroup(values);
 		

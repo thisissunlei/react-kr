@@ -41,7 +41,6 @@ class NewCreateDoorGroup extends React.Component{
 	}
 
 	onSubmit=(values)=>{
-		// console.log("values",values);
 		let {submitNewCreateDoorGoup} = this.props;
 		submitNewCreateDoorGoup && submitNewCreateDoorGoup(values);
 		
