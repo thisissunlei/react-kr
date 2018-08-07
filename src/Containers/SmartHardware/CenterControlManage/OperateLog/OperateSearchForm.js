@@ -66,6 +66,7 @@ class OpenLogForm extends React.Component{
 
 	onchangeSerialNo=(value)=>{
 		Store.dispatch(change('OpenLogForm','serialNo',value));
+		State.openLogSearchParams.serialNo =value;
 	}
 
 	onClearAll=()=>{

@@ -237,7 +237,7 @@ export default class PlanMapComponent extends React.Component {
                         scale:0.5,
                         contextMenuEnable:true
                     },
-					backgroundImageUrl:"http://"+window.location.host + data[i].graphFilePath
+					backgroundImageUrl:location.protocol +"//"+window.location.host + data[i].graphFilePath
 				}
 			}
 

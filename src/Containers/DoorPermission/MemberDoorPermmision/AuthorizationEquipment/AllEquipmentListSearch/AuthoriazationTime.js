@@ -115,7 +115,7 @@ class AddEquipmentToGroup extends React.Component {
 		return (
 			<form onSubmit={handleSubmit(this.onSubmit)} className="search-form-second-door">
 			
-				<div style={{marginTop:20}}>
+				<div style={{marginTop:20}} className="authoriazation-time">
 					<ListGroup>
 						<ListGroupItem>
 							

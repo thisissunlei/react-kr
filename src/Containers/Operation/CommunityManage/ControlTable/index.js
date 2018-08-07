@@ -337,7 +337,7 @@ getScrollTop = () => {
    //导出
    onExport = () =>{
 	   const {searchParams} = this.state;
-     const host = "http://"+window.location.host;
+     const host = location.protocol +"//"+window.location.host;
 		var url = `/api/krspace-finance-web/cmt/sell-control/list/export?communityId=${searchParams.communityId}&customerName=${searchParams.customerName}`;
 		window.location.href = url;
    }

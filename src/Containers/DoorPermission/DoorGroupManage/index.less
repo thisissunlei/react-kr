@@ -31,10 +31,19 @@
 	.ui-form-controller,.ui-form-label{
 		display:inline-block;
 	}
-	.ui-form-label{
-		vertical-align: top;
-    	margin-top: 10px;
+	.special-style{
+		.ui-form-label{
+			// vertical-align: top;
+			// margin-top: 10px;
+		}
 	}
+	.special-style-innner{
+		.ui-form-label{
+			vertical-align: top;
+    		margin-top: 10px;
+		}
+	}
+	
 	.communityId-span{
 		.ui-form-label{
 			vertical-align: top;
@@ -44,6 +53,17 @@
 }
 .new-creat-door-group{
 	padding-top:30px;
+	.tip-box{
+		margin-bottom: 10px;
+		margin-top: -20px;
+		padding-left: 10px;
+		p{
+			color : #FF9D00;
+			font-size : 12px;
+			-webkit-margin-before : 0;
+			-webkit-margin-after : 0;
+		}
+	}
 }
 
 .door-permission-manage {
@@ -53,6 +73,20 @@
 	tbody{
 		tr:hover{
 			background : #d4e7fe;
+		}
+	}
+	.door-group-list{
+		thead{
+			th{
+				.ui-tooltip{
+					width: 260px;
+					p{
+						color : #fff;
+						font-size: 12px;
+						text-align:left;
+					}
+				}
+			}
 		}
 	}
 }

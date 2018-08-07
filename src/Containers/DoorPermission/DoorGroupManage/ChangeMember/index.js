@@ -85,7 +85,6 @@ export default class ChangeMember extends React.Component{
 	render(){
 		let {itemDetail}  = this.props;
 		let {freshGroupMemberList,toggleChoosed} = this.state;
-		console.log("itemDetail",itemDetail)
 		return (
 			<div className="change-member">
 				<div style={{width:"100%",height:30}}>

@@ -155,6 +155,7 @@ export default class DialogComponent extends React.Component {
 			fixed,
 			noMaxHeight,
 			dialogHeaderStyle,
+			overflow,
 			...other
 		} = this.props;
 
@@ -173,6 +174,9 @@ export default class DialogComponent extends React.Component {
 		if (typeof onClose != 'function') {
 			closeStyle.display = 'none';
 		}
+		if(overflow=="auto"){
+			styles.overflow = 'auto'
+		}
 
 		return (
 			<div className="ui-dialog" ref="dialog" style={styles}>
@@ -182,7 +186,7 @@ export default class DialogComponent extends React.Component {
 						<div className="dialog-header-title"> {title} </div>
 						<span className="close" onClick={this.onClose} style={closeStyle}></span>
 					</div>
-					{open && <DialogBody noMaxHeight = {noMaxHeight} bodyStyle={bodyStyle} fixed={fixed}> {children} </DialogBody>}
+					{open && <DialogBody noMaxHeight = {noMaxHeight} bodyStyle={bodyStyle} fixed={fixed} overflow={overflow}> {children} </DialogBody>}
 					{open && actions && <DialogFooter footerStyle={footerStyle}> {actions} </DialogFooter>}
 				</div>
 			</div>

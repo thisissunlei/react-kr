@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_验证码</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="正式" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="03_密码登录" transform="translate(-1043.000000, -571.000000)">
+            <g id="请输入密码" transform="translate(997.000000, 555.000000)">
+                <g id="icon_验证码" transform="translate(46.000000, 16.000000)">
+                    <rect id="Rectangle-28-Copy" fill="#FFEB00" x="1" y="1" width="24" height="24" rx="10"></rect>
+                    <rect id="Rectangle-28-Copy" stroke="#333333" stroke-width="1.2" fill="#FFFFFF" x="0.6" y="0.6" width="22.8" height="22.8" rx="10"></rect>
+                    <g id="Group" transform="translate(5.000000, 4.000000)">
+                        <path d="M4.63623047,0.889648438 L4.63623047,0.889648438 C6.84536947,0.889648437 8.63623047,2.68050944 8.63623047,4.88964844 L8.63623047,4.88964844 C8.63623047,7.09878744 6.84536947,8.88964844 4.63623047,8.88964844 L4.63623047,8.88964844 C2.42709147,8.88964844 0.636230469,7.09878744 0.636230469,4.88964844 L0.636230469,4.88964844 C0.636230469,2.68050944 2.42709147,0.889648438 4.63623047,0.889648438 Z" id="Rectangle-34-Copy" stroke="#333333" stroke-width="1.2" fill="#FFDF00" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <rect id="Rectangle-3" fill="#333333" transform="translate(10.544721, 11.125898) rotate(-45.000000) translate(-10.544721, -11.125898) " x="9.94472114" y="6.62589792" width="1.20000005" height="9" rx="0.600000024"></rect>
+                        <rect id="Rectangle-5" fill="#333333" transform="translate(10.838478, 8.838478) rotate(-315.000000) translate(-10.838478, -8.838478) " x="10.2384776" y="6.83847765" width="1.20000005" height="4" rx="0.600000024"></rect>
+                        <rect id="Rectangle-5" fill="#333333" transform="translate(12.838478, 10.838478) rotate(-315.000000) translate(-12.838478, -10.838478) " x="12.2384776" y="8.83847765" width="1.20000005" height="4" rx="0.600000024"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
