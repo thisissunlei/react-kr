@@ -22,7 +22,7 @@ export default class SidebarNav extends React.Component {
 			let type = item.projectType;
 			let path = item.url || item.originUrl || `.#${item.router}`;
 			let label = item.name;
-			if(path.indexOf('http://')!=-1 && path.indexOf('https://')!=-1){
+			if(path.indexOf('http://')!=-1 || path.indexOf('https://')!=-1){
 				return  <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>;
 			}
 			if(type=="member"){
