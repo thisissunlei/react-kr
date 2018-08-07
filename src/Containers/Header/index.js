@@ -128,11 +128,12 @@ export default class Header extends React.Component {
 		NavModel.setSidebar(true);
 		window.addEventListener('hashchange', this.refresh.bind(this), false);
 	}
+	//获取菜单信息
 	getNavData() {
 		const _this = this;
 		Http.request('get-menu-catalog').then(function (res) {
 			if (!res.length) return;
-			console.log(location,"llllllll")
+			
 			let first = location.hash.split('#')[1].split('?')[0];
 			var nowData = _this.recursiveAssign(res, first);	
 			let headActive = (first==='/' )? true : false;
@@ -180,7 +181,7 @@ export default class Header extends React.Component {
 		let {headActive} = this.state;
 		headActive = first ? false : true;
 		this.setState({headActive});
-		console.log(first,"ppppp")
+		//最终数据
 		var nowData = this.recursiveAssign(firstNav, first);
 		nowData.allData && nowData.allData.map((item, index) => {
 			if (item.isActive) {
