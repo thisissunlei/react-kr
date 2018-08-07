@@ -14,6 +14,7 @@ export default class SidebarNav extends React.Component {
 		this.state = {
            sidebarNavs:props.item
 		}
+		this.sidebarRef = null;
 	}
 
 	renderMenuItems=(menuItems)=>{
@@ -74,6 +75,11 @@ export default class SidebarNav extends React.Component {
 			// }
 		})
 	}
+	componentDidMount(){
+		if(this.sidebarRef){
+			console.log(this.sidebarRef,"pppppp")
+		}
+	}
     componentWillReceiveProps(nextProps){
 			this.setState({
 				sidebarNavs:nextProps.item
@@ -100,7 +106,12 @@ export default class SidebarNav extends React.Component {
 											<span className={item.iconUrl} style={{color:`${item.iconColor}`}}></span>
 											<span style={{paddingLeft:40}}>{item.name}</span>
 										</div>
-										<div className="u-sidebar-navlist">
+										<div  
+											className="u-sidebar-navlist" 
+											ref={(ref)=>{
+												this.sidebarRef = ref;
+											}}
+										>
 											{this.renderMenuItems(item.childList)}
 										</div>
 									</div>

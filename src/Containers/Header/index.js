@@ -210,7 +210,11 @@ export default class Header extends React.Component {
 		// }
 
 		const { NavModel } = this.props;
-		
+		const href = location.href;
+		const hash = href.split("#")[1];
+		if(hash == '/'){
+			return ;
+		}
 		// var navIsActive = NavModel.items.map((item, index) => {
 		// 	return item.isActive;
 		// })
