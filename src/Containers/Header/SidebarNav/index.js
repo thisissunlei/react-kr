@@ -77,7 +77,7 @@ export default class SidebarNav extends React.Component {
 		})
 	}
 	componentDidMount(){
-		c
+		console.log()
 		if(this.sidebarRef && !this.isDom){
 			this.isDom = true;
 			console.log(this.sidebarRef,"pppppp")
@@ -89,12 +89,9 @@ export default class SidebarNav extends React.Component {
 	componentWillUnmount(){
 
 	}
+
     componentWillReceiveProps(nextProps){
-		if(this.sidebarRef && !this.isDom){
-			this.sidebarRef.addEventListener('DOMMouseScroll',()=>{
-				console.log(1111);
-			})
-		}
+		
 		this.setState({
 			sidebarNavs:nextProps.item
 		})
