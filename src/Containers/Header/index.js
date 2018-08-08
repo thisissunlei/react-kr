@@ -297,6 +297,11 @@ export default class Header extends React.Component {
 						type = '/project/#'
 						// }
 					}
+					if (item.childList[0].childList[0].projectType === 'product') {
+						// if(location.href.indexOf('new') ===-1){
+						type = '/product/#'
+						// }
+					}
 					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 						onClick={() => {
 							this.setSidebar(item)

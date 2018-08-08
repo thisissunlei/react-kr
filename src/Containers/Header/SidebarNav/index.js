@@ -44,7 +44,7 @@ export default class SidebarNav extends React.Component {
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
 						}else if(type === 'product'){
 							path  = '/product/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
 						}else if(type==='project'){
 							path  = '/project/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
