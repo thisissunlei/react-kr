@@ -64,7 +64,7 @@ export default class List extends React.Component {
 
 		return (
 			    <div className="second-door-open-log" style={{minHeight:'910',backgroundColor:"#fff"}} >
-					<Title value="操作记录"/>
+					<Title value="操作记录-氪空间后台管理系统"/>
 					<Section title={`操作记录`} description="" >
 						<div>
 							<OperateSearchForm/>

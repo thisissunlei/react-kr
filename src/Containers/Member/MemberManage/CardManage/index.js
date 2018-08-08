@@ -307,7 +307,7 @@ export default class List extends React.Component {
 		let {personInfo}=this.state;
 		return(
 			<div className="switchhover card-manage-table">
-			<Title value="会员卡管理"/>
+			<Title value="会员卡-氪空间后台管理系统"/>
 
 					<Section title="会员卡管理" description="" style={{minHeight:"900px"}}>
 

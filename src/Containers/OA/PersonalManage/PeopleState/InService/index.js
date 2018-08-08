@@ -493,7 +493,7 @@ export default class InService  extends React.Component{
 		return(
 
 			<div className='m-inservice-list'>
-					<Title value="在职列表"/>
+					<Title value="工作人员-氪空间后台管理系统"/>
 						<Row style={{marginBottom:11,position:'relative',zIndex:5,marginTop:20}}>
 
 							<Col

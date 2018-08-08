@@ -113,7 +113,7 @@ export default class List extends React.Component {
 
 		return (
 			    <div className="second-door-open-log" style={{minHeight:'910',backgroundColor:"#fff"}} >
-					<Title value="打印配置"/>
+					<Title value="社区打印配置-氪空间后台管理系统"/>
 					<Section title={`打印配置`} description="" >
 						<div>
 							<Button label="新增"  onTouchTap={this.openNewCreateDialog}/>

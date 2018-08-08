@@ -38,7 +38,7 @@ export default class AgingAccount  extends React.Component{
 		return(
 
 			<div className="equipment-all">
-				<Title value="费用配置"/>
+				<Title value="费用配置-氪空间后台管理系统"/>
 				<Section title={`费用配置`} description="" >
 					<PriceManage />
 				</Section>
