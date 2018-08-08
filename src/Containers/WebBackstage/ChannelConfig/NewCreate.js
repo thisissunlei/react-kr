@@ -174,33 +174,11 @@ const validate = values=>{
 	if(!values.csrSourceName){
 		errors.csrSourceName = '渠道来源为必填项';
 	}
-	if(!values.matchName){
-		errors.matchName = '传参姓名为必填项';
-	}
+	
     if(!values.matchPhone){
 		errors.matchPhone = '传参电话为必填项';
 	}
-	if(!values.matchCommunityName){
-		errors.matchCommunityName = '传参社区为必填项';
-	}
-	if(!values.matchCommunityId){
-		errors.matchCommunityId = '社区ID为必填项';
-    }
-	if(!values.matchCommunitySplit){
-		errors.matchCommunitySplit = '传参规则为必填项';
-    }
-    if(!values.matchArrayName){
-		errors.matchArrayName = '解析name为必填项';
-    }
-    if(!values.matchArrayValue){
-		errors.matchArrayValue = '解析value为必填项';
-    }
-	if(!values.parsingNum){
-		errors.parsingNum = '传参次数为必填项';
-	}
-	if(!values.matchCityName){
-		errors.matchCityName = '传参城市为必填项';
-    }
+	
 	return errors;
 }
 export default NewCreateDefinitionForm = reduxForm({
