@@ -77,14 +77,16 @@ export default class SidebarNav extends React.Component {
 		})
 	}
 	componentDidMount(){
-		console.log()
-		if(this.sidebarRef && !this.isDom){
-			this.isDom = true;
-			console.log(this.sidebarRef,"pppppp")
-			this.sidebarRef.addEventListener('DOMMouseScroll',()=>{
-				console.log(1111);
-			})
-		}
+		setTimeout(()=>{
+			if(this.sidebarRef && !this.isDom){
+				this.isDom = true;
+				console.log(this.sidebarRef,"pppppp")
+				this.sidebarRef.addEventListener('mousewheel',()=>{
+					console.log(1111);
+				})
+			}
+		},500)
+	
 	}
 	componentWillUnmount(){
 
