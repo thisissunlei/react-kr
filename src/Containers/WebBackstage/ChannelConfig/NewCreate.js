@@ -22,8 +22,21 @@ class NewCreateDefinitionForm extends React.Component{
 		this.state={
             cityType:'',
             titleUrl:[],
-            componentItem:[]
+            componentItem:[],
+            parsingType:[],
 		}
+    }
+    componentDidMount(){
+        var that = this;
+        Http.request('parsingType-list').then(function(response) {
+            console.log(response);
+            that.setState({
+                parsingType:response
+            })
+        }).catch(function(err) {
+            
+            Message.error(err.message);
+        });	
     }
 	onCancel=()=>{
 		const {onCancel}=this.props;
@@ -35,6 +48,7 @@ class NewCreateDefinitionForm extends React.Component{
     }
 	render(){
         const { error, handleSubmit, reset} = this.props;
+        const {parsingType} = this.state;
 		return(
 			<div>
 				<form style={{'margin':'20px 0 0 10px'}} onSubmit={handleSubmit(this.onSubmit)}>
@@ -59,7 +73,7 @@ class NewCreateDefinitionForm extends React.Component{
                         name="matchName" 
                         style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
-                        requireLabel={true} 
+                        requireLabel={false} 
                         inline={false}  
                     />
                     <KrField 
@@ -75,7 +89,7 @@ class NewCreateDefinitionForm extends React.Component{
                         name="matchCommunityName" 
                         style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
-                        requireLabel={true} 
+                        requireLabel={false} 
                         inline={false}
                     />
                     <KrField 
@@ -83,7 +97,7 @@ class NewCreateDefinitionForm extends React.Component{
                         name="matchCommunityId" 
                         style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
-                        requireLabel={true} 
+                        requireLabel={false} 
                         inline={false}
                     />
                     <KrField 
@@ -91,7 +105,7 @@ class NewCreateDefinitionForm extends React.Component{
                         name="matchCommunitySplit" 
                         style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
-                        requireLabel={true} 
+                        requireLabel={false} 
                         inline={false}
                     />
                     <KrField 
@@ -99,7 +113,7 @@ class NewCreateDefinitionForm extends React.Component{
                         name="matchArrayName" 
                         style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
-                        requireLabel={true} 
+                        requireLabel={false} 
                         inline={false}
                     />
                     <KrField 
@@ -107,7 +121,7 @@ class NewCreateDefinitionForm extends React.Component{
                         name="matchArrayValue" 
                         style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
-                        requireLabel={true} 
+                        requireLabel={false} 
                         inline={false}
                     />
                     <KrField 
@@ -115,15 +129,24 @@ class NewCreateDefinitionForm extends React.Component{
                         name="parsingNum" 
                         style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
-                        requireLabel={true} 
+                        requireLabel={false} 
                         inline={false}
                     />
+                    <KrField 
+                        label="解析类型" 
+                        name="parsingType" 
+                        component="select"
+                        requireLabel={false} 
+                        options={parsingType}
+						style={{width:'330px',margin:'0 35px 5px 0'}}
+						inline={false}
+					/>
                     <KrField 
                         label="传参城市" 
                         name="matchCityName" 
                         style={{width:'330px',margin:'0 35px 5px 0'}} 
                         component="input" 
-                        requireLabel={true} 
+                        requireLabel={false} 
                         inline={false}
                     />
 					<Grid>
