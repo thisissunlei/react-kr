@@ -131,12 +131,15 @@ export default class Header extends React.Component {
 	//获取菜单信息
 	getNavData() {
 		const _this = this;
+		
 		Http.request('get-menu-catalog').then(function (res) {
 			if (!res.length) return;
 			
 			let first = location.hash.split('#')[1].split('?')[0];
 			var nowData = _this.recursiveAssign(res, first);	
+			
 			let headActive = (first==='/' )? true : false;
+			console.log(nowData.allData,"ppppppp",headActive)
 			_this.setState({
 				firstNav: nowData.allData,headActive,
 			})
@@ -314,7 +317,6 @@ export default class Header extends React.Component {
 
 		var navs = NavModel.items;
 		var person = NavModel.getUser();
-		console.log('nav--', NavModel.openSidebar);
 		return (
 			<div className="no-print">
 				<div className="g-header-nav u-clearfix">
