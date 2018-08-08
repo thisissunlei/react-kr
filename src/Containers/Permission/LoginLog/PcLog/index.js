@@ -15,6 +15,7 @@ import {
 	Button,
 	Section,
 	Grid,
+	Title,
 	Row,
 	Col,
 	ListGroupItem,
@@ -66,6 +67,7 @@ export default class PcLog extends React.Component {
 
 		return (
 			<div className="g-loginlog">
+				<Title value="登录日志-氪空间后台管理系统"/>
 				<Section title="PC登录日志" >
 					<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 						<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>

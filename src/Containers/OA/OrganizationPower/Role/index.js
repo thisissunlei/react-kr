@@ -202,6 +202,7 @@ export default class Role extends Component{
 
 		return(
       	<div className="oa-or-role">
+		  	<Title value="其他合同角色权限-氪空间后台管理系统"/>
 		    <Section title="角色列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 

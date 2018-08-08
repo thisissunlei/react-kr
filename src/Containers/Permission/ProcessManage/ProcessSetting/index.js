@@ -19,6 +19,7 @@ import {
 	Button,
 	Tooltip,
 	Section,
+	Title,
 	Grid,
 	Row,
 	Col,
@@ -233,6 +234,7 @@ export default class ProcessSetting extends React.Component {
 		console.log(this.state.treeIndex.index,"index");
 		return (
 			<div className="g-process-setting">
+				 <Title value="类型配置-氪空间后台管理系统"/>
 				<div className="left">
 					<div className="search">
 						<input type="text" onChange={this.change} placeholder="请输入类型名称" ref="searchKey"/>
