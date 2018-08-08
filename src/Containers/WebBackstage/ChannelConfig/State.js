@@ -48,7 +48,7 @@ State.deleteChannelConfig = action(function(values){
 })
 //编辑
 State.editHouseConfig = action(function(values,cmtId){
-	Http.request('house-city-list-edit',{},values ).then(function(response) {
+	Http.request('channel-add-list',{},values ).then(function(response) {
 		State.channelConfigListParams = {
 			page:State.page,
 			pageSize:10,
