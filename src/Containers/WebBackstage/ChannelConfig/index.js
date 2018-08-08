@@ -92,7 +92,7 @@ export default class Channel extends React.Component {
 					<Title value="渠道接口配置"/>
 					<Section title={`渠道接口配置`} description="" >
 						<div>
-							<Button label="新增"  onTouchTap={this.openNewCreateDialog}/>
+							<Button operateCode="external_promote_save_edit" label="新增"  onTouchTap={this.openNewCreateDialog}/>
 						</div>
 						<Table
 							className="member-list-table"
@@ -194,8 +194,8 @@ export default class Channel extends React.Component {
 											}
 											return (
                                                 <div>
-                                                    <Button  label="编辑"  type="operation" operation="edit" onTouchTap={this.editList.bind(this,value)}/>
-                                                    <Button  label="删除"  type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)}/>
+                                                    <Button  label="编辑" operateCode="external_promote_save_edit" type="operation" operation="edit" onTouchTap={this.editList.bind(this,value)}/>
+                                                    <Button  label="删除" operateCode="external_promote_delete" type="operation" operation="delete" onTouchTap={this.onClickDelete.bind(this,value,itemData)}/>
                                                 </div>
 											)
 										}

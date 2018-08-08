@@ -124,7 +124,7 @@ module.exports = [
                     },
                     {
                         primaryText: '渠道接口配置',
-                        menuCode: 'sem_list',
+                        menuCode: 'external_promote_list',
                         router: '/WebBackstage/ChannelConfig',
                     },
 				]
