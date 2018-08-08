@@ -88,7 +88,7 @@ export default class Visitor extends React.Component{
 		
 		return (
 			 <div style={{minHeight:'910',backgroundColor:"#fff"}}>
-								<Title value="访客登记"/>
+								<Title value="预约访客-氪空间后台管理系统"/>
 								<Section title="访客登记" description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 										<Button   type='search'  searchClick={this.openSearchDialog} searchStyle={{marginLeft:'30',marginTop:'10',display:'inline-block',float:'right'}}/>
