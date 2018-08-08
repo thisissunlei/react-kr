@@ -80,10 +80,10 @@ export default class SidebarNav extends React.Component {
 		setTimeout(()=>{
 			if(this.sidebarRef && !this.isDom){
 				this.isDom = true;
-				console.log(this.sidebarRef,"pppppp")
-				this.sidebarRef.addEventListener('mousewheel',()=>{
-					console.log(1111);
-				})
+				// console.log(this.sidebarRef,"pppppp")
+				// this.sidebarRef.addEventListener('mousewheel',()=>{
+				// 	console.log(1111);
+				// })
 			}
 		},500)
 	
