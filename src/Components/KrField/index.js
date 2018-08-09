@@ -97,6 +97,7 @@ import SearchMemeber from './SearchMemeber';
 import SearchPersonName from './SearchPersonName';
 import SearchRegCommunity from './SearchRegCommunity';
 import SearchHouseCity from './SearchHouseCity';
+import SearchChannel from './SearchChannel'
 import SearchHouseCommunity from './SearchHouseCommunity'
 import MoreRadioComponent from './MoreRadioComponent';
 import SearchSelectComponent from './SearchSelectComponent';
@@ -452,6 +453,11 @@ class FieldRevert extends React.Component {
             if (component === 'searchHouseCity') {
 				return (
 					<FieldRevert {...this.props} component={SearchHouseCity}  style={WrapStyles} {...other}/>
+				);
+            }
+            if (component === 'searchChannel') {
+				return (
+					<FieldRevert {...this.props} component={SearchChannel}  style={WrapStyles} {...other}/>
 				);
             }
             if (component === 'searchHouseCommunity') {
