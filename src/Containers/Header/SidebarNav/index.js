@@ -77,15 +77,7 @@ export default class SidebarNav extends React.Component {
 		})
 	}
 	componentDidMount(){
-		setTimeout(()=>{
-			if(this.sidebarRef && !this.isDom){
-				this.isDom = true;
-				// console.log(this.sidebarRef,"pppppp")
-				// this.sidebarRef.addEventListener('mousewheel',()=>{
-				// 	console.log(1111);
-				// })
-			}
-		},500)
+		
 	
 	}
 	componentWillUnmount(){
@@ -99,18 +91,32 @@ export default class SidebarNav extends React.Component {
 		})
 	}
 
+	siderbarOnWheel(e){
+		var dom = e.target;
+		// console.log()
+		// console.log(this.sidebarRef.scrollTop,"ppppp",this.sidebarRef)
+		if(typeof(Storage)!=="undefined"){
+			sessionStorage.scrollTop = this.sidebarRef.scrollTop;
+			
+		}
+
+	}
+
 	render() {
-
-		//const {NavModel,item} = this.props;
 		let {sidebarNavs}=this.state;
-
-		// const {sidebarNavs} = this.state;
-		// const sidebarNavs2 = NavModel.sidebarNavs;
-		// console.log(sidebarNavs,"pppppp")
 		
 			return (
 				<div className="g-sidebar-nav">
-					<div className="m-siderbar-list">
+					<div 
+						className="m-siderbar-list"
+
+						onWheel={(e)=>{
+							this.siderbarOnWheel(e)
+						}}
+						ref={(ref)=>{
+							this.sidebarRef = ref;
+					}}>
+					
 					{sidebarNavs.childList&&sidebarNavs.childList.map((item,index)=>{
 						if(item.childList&&item.childList.length>0){
 							return(
@@ -121,11 +127,14 @@ export default class SidebarNav extends React.Component {
 										</div>
 										<div  
 											className="u-sidebar-navlist" 
-											ref={(ref)=>{
-												this.sidebarRef = ref;
-											}}
+											
+											
 										>
-											{this.renderMenuItems(item.childList)}
+											<div className="..." ref={(ref)=>{
+												this.sidebarRef = ref;
+											}}>
+												{this.renderMenuItems(item.childList)}
+											</div>
 										</div>
 									</div>
 								)

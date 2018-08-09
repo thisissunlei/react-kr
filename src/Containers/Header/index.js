@@ -12,6 +12,19 @@ import './index.less';
 const Nav = ({ ...props }) => {
 	return <ul className="u-header-nav" {...props}></ul>
 }
+function goLocation(type,herf){
+	if(typeof(Storage)!=="undefined"){
+		sessionStorage.scrollTop = 0;
+		
+	}
+	if(type == 'hash'){
+		location.hash = herf;
+	}else{
+		location.herf = herf;
+	}
+
+	
+}
 //菜单组建
 const NavItem = ({ ...props }) => {
 	const { label, path, isActive, originUrl, isPermission, df } = props;
@@ -24,7 +37,7 @@ const NavItem = ({ ...props }) => {
 	}
 	if (location.href.indexOf('new/#') !== -1 && originUrl.indexOf('new/#') !== -1) {
 		//	if(originUrl.indexOf('new/#') !==-1){
-		return <li className={isActive ? 'u-header-active' : ''} {...props}><a onClick={() => { location.hash = df }} >{label}</a></li>
+		return <li className={isActive ? 'u-header-active' : ''} {...props}><a onClick={() => { goLocation('hash',df) }} >{label}</a></li>
 		//	}else{
 		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
 		//	}
@@ -32,7 +45,7 @@ const NavItem = ({ ...props }) => {
 		//	if(originUrl.indexOf('new/#') !==-1){
 		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url} >{label}</a></li>
 		//	}else{
-		return <li className={isActive ? 'u-header-active' : ''} {...props}><a href={url}>{label}</a></li>
+		return <li className={isActive ? 'u-header-active' : ''} {...props}><a onClick={() => { goLocation('href',url) }}>{label}</a></li>
 		//		}
 	}
 
