@@ -19,6 +19,7 @@ import {
 	ListGroup,
 	Dialog,
 	SearchForms,
+	Title,
 	KrDate,
 	Message,
 	Drawer,
