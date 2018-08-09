@@ -386,7 +386,8 @@ export default class CommunityAllocation  extends React.Component{
          
 		return(
            <div className='m-web-community'>
-				<Title value="官网社区配置"/>
+                <Title value="社区信息-氪空间后台管理系统"/>
+				
 				<Section title="社区显示配置" description="" style={{marginBottom:-5,minHeight:910}}>
 				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
                       <Col  style={{marginTop:0,float:"right",marginRight:-10}}>

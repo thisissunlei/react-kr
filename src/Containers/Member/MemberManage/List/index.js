@@ -392,7 +392,7 @@ export default class List extends React.Component {
 		}];
 		return (
 			    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
-								<Title value="全部会员 "/>
+								<Title value="会员-氪空间后台管理系统"/>
 								<Section title={`全部会员 (${list.totalCount})`} description="" >
 									<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45,width:'40%',float: 'left'}}>
 									<div className="u-member-btn-list">

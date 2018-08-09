@@ -28,6 +28,7 @@ import {
 	TableFooter,
 	Button,
 	Tooltip,
+	Title,
 	Section,
 	Grid,
 	Row,
@@ -111,6 +112,7 @@ export default class OperationsLogs extends Component {
 
 		return (
 			<div className="m-opera-logs">
+				<Title value="操作日志-氪空间后台管理系统"/>
 				<Section title="操作日志" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>

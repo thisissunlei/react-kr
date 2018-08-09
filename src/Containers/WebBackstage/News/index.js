@@ -114,7 +114,7 @@ export default class News extends React.Component {
 
 		return (
 			    <div className="g-news-list"  >
-					<Title value="新闻列表"/>
+					 <Title value="新闻动态-氪空间后台管理系统"/>
 					<Section title="新闻列表"  >
 						<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
 								<Button label="新建新闻" operateCode="main_news_add" onTouchTap={this.openNewCreateDialog} />

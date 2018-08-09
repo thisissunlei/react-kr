@@ -14,6 +14,8 @@ export default class SidebarNav extends React.Component {
 		this.state = {
            sidebarNavs:props.item
 		}
+		this.sidebarRef = null;
+		this.isDom = false;
 	}
 
 	renderMenuItems=(menuItems)=>{
@@ -74,24 +76,47 @@ export default class SidebarNav extends React.Component {
 			// }
 		})
 	}
+	componentDidMount(){
+		
+	
+	}
+	componentWillUnmount(){
+
+	}
+
     componentWillReceiveProps(nextProps){
-			this.setState({
-				sidebarNavs:nextProps.item
-			})
+		
+		this.setState({
+			sidebarNavs:nextProps.item
+		})
+	}
+
+	siderbarOnWheel(e){
+		var dom = e.target;
+		// console.log()
+		// console.log(this.sidebarRef.scrollTop,"ppppp",this.sidebarRef)
+		if(typeof(Storage)!=="undefined"){
+			sessionStorage.scrollTop = this.sidebarRef.scrollTop;
+			
+		}
+
 	}
 
 	render() {
-
-		//const {NavModel,item} = this.props;
 		let {sidebarNavs}=this.state;
-
-		// const {sidebarNavs} = this.state;
-		// const sidebarNavs2 = NavModel.sidebarNavs;
-		console.log('item--',sidebarNavs);
 		
 			return (
 				<div className="g-sidebar-nav">
-					<div className="m-siderbar-list">
+					<div 
+						className="m-siderbar-list"
+
+						onWheel={(e)=>{
+							this.siderbarOnWheel(e)
+						}}
+						ref={(ref)=>{
+							this.sidebarRef = ref;
+					}}>
+					
 					{sidebarNavs.childList&&sidebarNavs.childList.map((item,index)=>{
 						if(item.childList&&item.childList.length>0){
 							return(
@@ -100,8 +125,16 @@ export default class SidebarNav extends React.Component {
 											<span className={item.iconUrl} style={{color:`${item.iconColor}`}}></span>
 											<span style={{paddingLeft:40}}>{item.name}</span>
 										</div>
-										<div className="u-sidebar-navlist">
-											{this.renderMenuItems(item.childList)}
+										<div  
+											className="u-sidebar-navlist" 
+											
+											
+										>
+											<div className="..." ref={(ref)=>{
+												this.sidebarRef = ref;
+											}}>
+												{this.renderMenuItems(item.childList)}
+											</div>
 										</div>
 									</div>
 								)

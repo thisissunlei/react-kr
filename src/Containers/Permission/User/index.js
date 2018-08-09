@@ -19,6 +19,7 @@ import {
 	ListGroup,
 	Dialog,
 	SearchForms,
+	Title,
 	KrDate,
 	Message,
 	Drawer,
@@ -187,6 +188,7 @@ class Operations extends React.Component {
 
 		return (
 			<div className="g-operation">
+				<Title value="角色权限-氪空间后台管理系统"/>
 				<Section title="角色列表" >
 					<SearchForm onSubmit={this.onSearch} onCreate={this.openCreateDialog}/>
 	        		<Table

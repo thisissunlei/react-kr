@@ -114,7 +114,7 @@ export default class List extends React.Component {
 		
 		return (
 		    <div className="second-door-upgrade" style={{minHeight:'910',backgroundColor:"#fff"}} >
-				<Title value="升级包管理"/>
+				<Title value="升级管理-氪空间后台管理系统"/>
 				<Section title={`升级包管理`} description="" >
 					<div>
 						<Button label="上传升级包"  onTouchTap={this.openNewCreateUpgradeDialog} className="button-list"/>

@@ -204,7 +204,7 @@ export default class LessorManageList extends Component {
 		return (
 
 			<div className="hireFn">
-						<Title value="出租方管理_社区经营"/>
+						<Title value="我方合同主体-氪空间后台管理系统"/>
 					<BreadCrumbs children={['系统运营','合同信息','出租方管理']}/>
 					<Section title="出租方管理" description="" style={{marginBottom:-5,minHeight:910}}>
 

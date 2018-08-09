@@ -8,6 +8,7 @@ import {
 	Grid,
 	Row,
 	Col,
+	Title
 } from 'kr-ui';
 import {
 	SelectCity
@@ -29,6 +30,7 @@ class  CommunityPlanList extends React.Component{
 		return(
 
 			<div>
+				<Title value="工位平面图-氪空间后台管理系统" />
 				<SelectCity type='GRAPH'/>
 			</div>
 		);

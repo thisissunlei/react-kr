@@ -95,7 +95,7 @@ export default class List extends React.Component {
 		} = this.state;
 		return (
 			    <div className="second-door-warn-table" style={{minHeight:'910',backgroundColor:"#fff"}} >
-					<Title value="故障报警"/>
+					<Title value="故障报警-氪空间后台管理系统"/>
 					<Section title={`故障报警`} description="" >
 						<div>
 							<WarnSearchForm initailDeviceId={initailDeviceId} submitDate={this.submitDate}/>

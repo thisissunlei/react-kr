@@ -19,7 +19,8 @@ export default class DateComponent extends React.Component {
 	static displayName = 'DateComponent';
 
 	static defaultProps = {
-		inline: false
+		inline: false,
+		isInput:true
 	}
 
 	static PropTypes = {
@@ -123,7 +124,8 @@ export default class DateComponent extends React.Component {
 			defaultValue,
 			inline,
 			onlyRead,
-			className
+			className,
+			isInput
 		} = this.props;
 
 		const styles = {
@@ -146,7 +148,8 @@ export default class DateComponent extends React.Component {
 
 			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel} inline={inline} search={search} className={className}>
 					<div className="date-component">
-									<InputDate
+									<InputDate 
+									 			isInput = {isInput}
 												value = {input.value}
 												placeholder={placeholder}
 												name={input.name}

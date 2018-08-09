@@ -538,7 +538,7 @@ class CommunityPlanMap extends React.Component {
         let title=`平面图配置(${communityName})`;
 		return (
 			<div>
-				<Title value="平面图配置" />
+				<Title value="工位平面图-氪空间后台管理系统" />
 				<Section title={title} description="" style={{ marginBottom: -5, minHeight: 910 }}>
 					<div className="wrap">
 						<form onSubmit={handleSubmit(this.onSubmit)} >

@@ -171,6 +171,7 @@ export default class SqlModel extends Component{
 
 		return(
       	<div className="m-sql-list">
+		  	<Title value="sql模版-氪空间后台管理系统"/>
 		    <Section title="sql模版" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 

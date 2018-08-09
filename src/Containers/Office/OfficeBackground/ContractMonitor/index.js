@@ -8,6 +8,7 @@ import {
 	Grid,
 	Row,
 	Col,
+	Title
 } from 'kr-ui';
 import {
 	ContractList
@@ -28,6 +29,7 @@ class  ContractMonitor extends React.Component{
 		return(
 
 			<div>
+				<Title value="合同库-氪空间后台管理系统"/>
 				<ContractList treeUrl='contract-monitor-tree' listUrl='contract-monitor-list'/>
 			</div>
 		);
