@@ -29,7 +29,7 @@ import {
 	Button,
 	Section,
 	Grid,
-	title,
+	Title,
 	Row,
 	Col,
 	ListGroupItem,
