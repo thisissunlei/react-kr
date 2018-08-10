@@ -12,15 +12,17 @@ import './index.less';
 const Nav = ({ ...props }) => {
 	return <ul className="u-header-nav" {...props}></ul>
 }
-function goLocation(type,herf){
+function goLocation(type,href){
+	console.log(type,'--------',href)
 	if(typeof(Storage)!=="undefined"){
 		sessionStorage.scrollTop = 0;
 		
 	}
+	
 	if(type == 'hash'){
-		location.hash = herf;
+		location.hash = href;
 	}else{
-		location.herf = herf;
+		location.href = href;
 	}
 
 	
