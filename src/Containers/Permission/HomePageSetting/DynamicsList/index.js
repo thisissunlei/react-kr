@@ -357,7 +357,7 @@ export default class DynamicsList extends Component{
 						></TableRowColumn>
 
 						<TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation" operateCode="sys_dynamic_edit" operation="edit" operateCode="hrm_role_edit"/>
+                            <Button label="编辑"  type="operation" operateCode="sys_dynamic_edit" operation="edit"/>
 			                <Button label="删除"  type="operation" operateCode="sys_dynamic_delete" operation="delete" />
 			            </TableRowColumn>
 					</TableRow>
