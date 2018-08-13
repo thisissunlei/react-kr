@@ -73,7 +73,7 @@ export default class MemeberEditMemberForm extends React.Component {
 
 		let _this = this;
 		Http.request('get-member-base-info', {uid:detail.uid}).then(function(response) {
-			response.leader=String(response.leader);
+			//response.leader=String(response.leader);
 			Store.dispatch(initialize('memeberEditMemberForm', response));
 
 			_this.setState({
@@ -194,10 +194,10 @@ export default class MemeberEditMemberForm extends React.Component {
 					<KrField name="email" grid={1/2} label="邮箱:" type="text" right={30}  onBlur={this.communityChange} requireLabel={true}/>
 					<KrField name="job" grid={1/2} label="职位" right={30}  />
 					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
-					<KrField name="leader" component="group" label="企业管理员"  style={{width:252}} >
+					{/* <KrField name="leader" component="group" label="企业管理员"  style={{width:252}} >
 						<KrField name="leader" label="是" type="radio" value="1" />
 						<KrField name="leader" label="否" type="radio" value='0' />
-					</KrField>
+					</KrField> */}
 					<Grid style={{margin:'20px 0',marginBottom:'0'}}>
 						<Row>
 							<ListGroup>

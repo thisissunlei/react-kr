@@ -32,6 +32,12 @@ const WebBackstage_Housing_Config = (location, callback) => {
     }, 'WebBackstage_Housing_Config')
 }
 
+const WebBackstage_Channel_Config = (location, callback) => {
+    require.ensure([], require => {
+      callback(null, require('kr/Containers/WebBackstage/ChannelConfig').default)
+    }, 'WebBackstage_Channel_Config')
+}
+
 const WebBackstage_CommunityAllocation = (location, callback) => {
   require.ensure([], require => {
     callback(null, require('kr/Containers/WebBackstage/CommunityAllocation').default)
@@ -65,6 +71,7 @@ module.exports =()=>{
 			<Route path="picList" getComponent={WebBackstage_PicList}/>
             <Route path="keyword" getComponent={WebBackstage_Keyword}/>
             <Route path="HousingConfig" getComponent={WebBackstage_Housing_Config}/>
+            <Route path="ChannelConfig" getComponent={WebBackstage_Channel_Config}/>
 		</Route>
 	);
 };

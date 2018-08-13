@@ -200,4 +200,28 @@ module.exports = {
     url: '/api/krspace-finance-web/haozu/edit',
     method: 'post'
 },
+//官网-渠道接口配置-列表
+'channel-list':{
+    url: '/api/op/promote-config/list?page={page}&pageSize={pageSize}',
+    method: 'get'
+},
+//官网-渠道接口配置-渠道来源下拉列表
+'channel-source':{
+    url: '/api/op/promote-config/csrSourceList',
+    method: 'get'
+},
+//官网-渠道接口配置-传参解析类型下拉列表
+'parsingType-list':{
+    url: '/api/op/promote-config/parsing-type-list',
+    method: 'get'
+},
+//官网-渠道接口配置-渠道列表删除
+'channel-delete':{
+    url: '/api/op/promote-config/delete',
+    method: 'post'
+},
+'channel-add-list':{
+    url: '/api/op/promote-config/addOrUpdate',
+    method: 'post'
+}
 }
