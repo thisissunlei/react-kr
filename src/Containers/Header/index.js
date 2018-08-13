@@ -13,7 +13,6 @@ const Nav = ({ ...props }) => {
 	return <ul className="u-header-nav" {...props}></ul>
 }
 function goLocation(type,href){
-	console.log(type,'--------',href)
 	if(typeof(Storage)!=="undefined"){
 		sessionStorage.scrollTop = 0;
 		
@@ -154,7 +153,7 @@ export default class Header extends React.Component {
 			var nowData = _this.recursiveAssign(res, first);	
 			
 			let headActive = (first==='/' )? true : false;
-			console.log(nowData.allData,"ppppppp",headActive)
+		
 			_this.setState({
 				firstNav: nowData.allData,headActive,
 			})
@@ -318,7 +317,7 @@ export default class Header extends React.Component {
 					}
 					if (item.childList[0].childList[0].projectType === 'product') {
 						// if(location.href.indexOf('new') ===-1){
-						type = '/product/#'
+						type = '/admin-product/#'
 						// }
 					}
 					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
