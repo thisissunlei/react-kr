@@ -100,8 +100,6 @@ export default class SidebarNav extends React.Component {
 
 	siderbarOnWheel(e){
 		var dom = e.target;
-		// console.log()
-		// console.log(this.sidebarRef.scrollTop,"ppppp",this.sidebarRef)
 		if(typeof(Storage)!=="undefined"){
 			sessionStorage.scrollTop = this.sidebarRef.scrollTop;
 			
