@@ -77,8 +77,9 @@ export default class SidebarNav extends React.Component {
 		})
 	}
 	componentDidMount(){
+		console.log("sidebarRef",this.sidebarRef)
+		this.sidebarRef.addEventListener('scroll',this.siderbarOnWheel.bind(this),true)
 		
-	
 	}
 	componentWillUnmount(){
 
@@ -91,14 +92,16 @@ export default class SidebarNav extends React.Component {
 		})
 	}
 	componentDidUpdate(){
+	
 		if(typeof(Storage)!=="undefined" && this.sidebarRef){
-			// sessionStorage.scrollTop = this.sidebarRef.scrollTop;
+		
 			this.sidebarRef.scrollTop = sessionStorage.scrollTop || 0;
 		}
 	}
 
-	siderbarOnWheel(e){
-		var dom = e.target;
+	siderbarOnWheel(){
+		console.log(this.sidebarRef.scrollTop,"pppppp")
+		// if(location.href.indexOf('new/#'))
 		if(typeof(Storage)!=="undefined"){
 			sessionStorage.scrollTop = this.sidebarRef.scrollTop;
 			
@@ -114,9 +117,6 @@ export default class SidebarNav extends React.Component {
 					<div 
 						className="m-siderbar-list"
 
-						onWheel={(e)=>{
-							this.siderbarOnWheel(e)
-						}}
 						ref={(ref)=>{
 							this.sidebarRef = ref;
 					}}>
