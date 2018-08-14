@@ -85,10 +85,7 @@ export default class SidebarNav extends React.Component {
 	}
 
     componentWillReceiveProps(nextProps){
-		if(typeof(Storage)!=="undefined" &&  this.sidebarRef){
-			sessionStorage.scrollTop = this.sidebarRef.scrollTop;
-			
-		}
+		
 		this.setState({
 			sidebarNavs:nextProps.item
 		})
