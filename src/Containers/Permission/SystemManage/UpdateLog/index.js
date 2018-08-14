@@ -21,7 +21,8 @@ import {
     Col,
     Dialog,
     KrDate,
-    Message
+    Message,
+    Title
 } from 'kr-ui';
 
 import {

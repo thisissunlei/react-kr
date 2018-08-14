@@ -29,6 +29,7 @@ import {
     ListGroup,
     SearchForms,
     Dialog,
+    Title
 } from 'kr-ui';
 import './index.less';
 import BindMember from './BindMember';
