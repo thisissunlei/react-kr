@@ -105,7 +105,7 @@ class NewCreateDefinitionForm extends React.Component{
                         innerBoxStyle={{width:254,height:70}}
                         innerStyle={{left:110,top:12}}
                         inline={false}
-                        requireLabel={true}
+                        requireLabel={false}
                         label='上传工位图片'
                         sort={true}
                     />
