@@ -204,7 +204,7 @@ export default class DynamicsList extends Component{
 
 		return(
       	<div className="dynamics-list">
-		  	<Title value="首页动态-氪空间后台管理系统"/>	
+		  	<Title value="首页动态配置-氪空间后台管理系统"/>	
 		    <Section title="最近动态列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 				<Col
@@ -358,7 +358,7 @@ export default class DynamicsList extends Component{
 						></TableRowColumn>
 
 						<TableRowColumn type="operation">
-                            <Button label="编辑"  type="operation" operateCode="sys_dynamic_edit" operation="edit" operateCode="hrm_role_edit"/>
+                            <Button label="编辑"  type="operation" operateCode="sys_dynamic_edit" operation="edit"/>
 			                <Button label="删除"  type="operation" operateCode="sys_dynamic_delete" operation="delete" />
 			            </TableRowColumn>
 					</TableRow>

@@ -86,7 +86,7 @@ openHighSearch = () => {
 
 		return (
 			<div className="g-version-list">
-				<Title value="APP登录日志-氪空间后台管理系统"/>
+				<Title value="登录日志-氪空间后台管理系统"/>
 				<Section title="APP登录日志" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>

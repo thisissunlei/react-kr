@@ -223,8 +223,8 @@ export default class BelongOfDoorGroup extends React.Component {
                         <TableHeaderColumn>组级别</TableHeaderColumn>
                         <TableHeaderColumn>所属社区</TableHeaderColumn>
                         <TableHeaderColumn>公司名称</TableHeaderColumn>
-                        <TableHeaderColumn>加入时间</TableHeaderColumn>
                         <TableHeaderColumn>操作人</TableHeaderColumn>
+                        <TableHeaderColumn>操作时间</TableHeaderColumn>
                         <TableHeaderColumn>操作</TableHeaderColumn>
                         
                     </TableHeader>
@@ -284,14 +284,6 @@ export default class BelongOfDoorGroup extends React.Component {
                                     <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                             }} ></TableRowColumn>
 
-                            <TableRowColumn 
-                                style={{width:"15%"}}
-                                name="ctime" 
-                                type="date" 
-                                format="yyyy-mm-dd HH:MM:ss" 
-                            >
-                            </TableRowColumn>
-
                             <TableRowColumn name="creatorName"
                             style={{width:"6%"}}
                             options={doorTypeOptions}
@@ -301,6 +293,17 @@ export default class BelongOfDoorGroup extends React.Component {
                                 }
                                 return (<span>{value}</span>)}}
                             ></TableRowColumn>
+
+
+                            <TableRowColumn 
+                                style={{width:"15%"}}
+                                name="ctime" 
+                                type="date" 
+                                format="yyyy/mm/dd HH:MM" 
+                            >
+                            </TableRowColumn>
+
+                            
 
 
                             
