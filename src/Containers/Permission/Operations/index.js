@@ -256,7 +256,7 @@ class Operations extends Component {
 		} = this.state;
 		return (
 			<div className="g-operation">
-			 	<Title value="操作项限-氪空间后台管理系统"/>
+			 	<Title value="操作项权限-氪空间后台管理系统"/>
 				<Section title="操作项" >
 					<SearchForm onCreate={this.openCreateDialog} onSubmit={this.onSearch} />
 	        		<Table
