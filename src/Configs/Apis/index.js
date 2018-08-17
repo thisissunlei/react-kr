@@ -20,9 +20,7 @@ import OAApi from './OAApi';
 import SmartHardware from './SmartHardware';
 import PublicPageApi from './PublicPageApi';
 import DoorPermissionApi from './DoorPermissionApi';
-
-
-
+import GlobalApi from './GlobalApi';
 module.exports = {
   ...AgreementApi,
   ...OtherApi,
@@ -44,5 +42,6 @@ module.exports = {
   ...SynchronizationApi,
   ...OAApi,
   ...PublicPageApi,
-  ...DoorPermissionApi
+  ...DoorPermissionApi,
+  ...GlobalApi
 }
