@@ -1,11 +1,13 @@
 import React from 'react';
 import Notify from '../../../Notify';
-import Promise from 'promise-polyfill';
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
 
+import {
+	Http,
+} from "kr/Utils";
 
 import WrapComponent from '../WrapComponent';
 
@@ -63,7 +65,6 @@ export default class FileUploadComponent extends React.Component {
 			defaultValue
 		} = this.props;
 	}
-
 
 	componentWillReceiveProps(nextProps) {
 		this.setInitValue(nextProps.defaultValue);
@@ -138,20 +139,12 @@ export default class FileUploadComponent extends React.Component {
 		});
 	}
 
-
-
-	onSuccess(response) {
-		response = Object.assign({}, response);
-
-		let {
-			form
-		} = this.state;
-
-		let fileUrl = `/krspace_oa_web/doc/docFile/downFile?sourceservicetoken=${form.sourceservicetoken}&operater=${form.operater}&fileId=${response.id}`;
-
-		response.fileUrl = fileUrl;
-		response.fileName = response.filename;
-
+	//上传成功
+	onSuccess = (response,name) => {
+		var params = {
+			fileUrl:response.url,
+			fileName:name
+		}
 		let {
 			input,
 			onChange
@@ -160,21 +153,19 @@ export default class FileUploadComponent extends React.Component {
 			files
 		} = this.state;
 
-		files.unshift(response);
+		files.unshift(params);
 
 		this.setState({
 			files,
 			progress: 0,
 			isUploading: false
 		});
-
 		this.onSetInputValue();
-
 		Notify.show([{
 			message: '上传文件成功',
 			type: 'success',
 		}]);
-		onChange && onChange(files);
+		// onChange && onChange(files);
 	}
 
 	onTokenSuccess(form) {
@@ -189,29 +180,20 @@ export default class FileUploadComponent extends React.Component {
 			type: 'danger',
 		}]);
 	}
-
-	onChange(event) {
-
+	//进度条
+	progressBar = () =>{
 		var _this = this;
-
-
-		let file = event.target.files[0];
-		if (!file) {
-			return;
-		}
-
 		this.setState({
 			isUploading: true
 		});
 
-
 		if (file) {
-			var progress = 0;
+			var progress = 10;
 			var timer = window.setInterval(function() {
-				if (progress >= 100) {
+				if (progress >= 90) {
 					window.clearInterval(timer);
 					_this.setState({
-						progress: 0,
+						progress: 10,
 						isUploading: false
 					});
 				}
@@ -220,67 +202,70 @@ export default class FileUploadComponent extends React.Component {
 					progress
 				});
 			}, 300);
-
-
 		}
+		
+	}
 
+	onChange(event) {
+		var _this = this;
+		let file = event.target.files[0];
+		if (!file) {
+			return;
+		}
+		this.progressBar();
+		
+		this.getUpFileUrl(file);
+		return ;
+	}
+	//获取上传路径
+	getUpFileUrl = (file) =>{
 		var form = new FormData();
-		form.append('file', file);
+		let _this = this;
+		let params = {category:'op/upload',isPublic:'false'}
+	
+		Http.request("global-get-up-files-url",params).then(function (res) {
+			/**
+			 * 一下数据赋值必须按顺序  必须 必须  必须
+			*/
+			form.append('OSSAccessKeyId', res.ossAccessKeyId);
+			form.append('policy', res.policy);
+			form.append('Signature', res.sign);
+			form.append('key', res.pathPrefix+'/'+file.name);
+			form.append('uid', res.uid);
+			form.append('callback', res.callback);
+			form.append('x:original_name', file.name);
+			form.append('file', file);
+			_this.doUpFile(res.serverUrl,form,file.name)
 
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4) {
-				if (xhr.status === 200) {
+		}).catch(function (err) {
+			_this.onError(err.message)
+		});
+	}
+	//文件上传方法
+	doUpFile = (serverUrl,form,name) => {
+		var _this = this;
+		var xhrfile = new XMLHttpRequest();
+		xhrfile.onreadystatechange = function() {
+			if (xhrfile.readyState === 4) {
+				var fileResponse = xhrfile.response;
+				if (xhrfile.status === 200) {
+					if (fileResponse && fileResponse.code > 0) {
+						_this.onSuccess(fileResponse.data,name);
+					} else {
+						_this.onError(fileResponse.msg);
+					}
+				} else if (xhrfile.status == 413) {
 
-					var response = xhr.response.data;
-					form.append('sourceservicetoken', response.token);
-					form.append('docTypeCode', response.docTypeCode);
-					form.append('operater', response.operater);
-
-					_this.onTokenSuccess({
-						sourceservicetoken: response.token,
-						docTypeCode: response.docTypeCode,
-						operater: response.operater
-					});
-
-					var xhrfile = new XMLHttpRequest();
-					xhrfile.onreadystatechange = function() {
-						if (xhrfile.readyState === 4) {
-							var fileResponse = xhrfile.response;
-							if (xhrfile.status === 200) {
-								if (fileResponse && fileResponse.code > 0) {
-									_this.onSuccess(fileResponse.data);
-
-								} else {
-									_this.onError(fileResponse.msg);
-								}
-							} else if (xhrfile.status == 413) {
-
-								_this.onError('您上传的文件过大！');
-							} else {
-								_this.onError('后台报错请联系管理员！');
-							}
-						}
-					};
-					xhrfile.onerror = function(e) {
-					};
-
-					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
-					xhrfile.responseType = 'json';
-					xhrfile.send(form);
+					_this.onError('您上传的文件过大！');
 				} else {
-					_this.onTokenError();
+					_this.onError('后台报错请联系管理员！');
 				}
 			}
 		};
-
-		xhr.onerror = function(e) {
-		};
-		xhr.open('GET', '/api/krspace-finance-web/finacontractdetail/getSourceServiceToken', true);
-		xhr.responseType = 'json';
-		xhr.send(null);
+		xhrfile.open('POST', serverUrl, true);
+		xhrfile.responseType = 'json';
+		xhrfile.send(form);
 	}
-
 	render() {
 
 		let {

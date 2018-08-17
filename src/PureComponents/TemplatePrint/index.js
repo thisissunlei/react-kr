@@ -41,7 +41,6 @@ import {
 	Drawer,
 	Tooltip,
 	Message,
-	UpLoadList,
 	FontIcon,
 	Pagination,
 	Loading,
