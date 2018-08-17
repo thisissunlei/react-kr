@@ -3,6 +3,7 @@ import {
   SliderTree,
   TabCs,
   TabC,
+  Title,
   Message,
 } from 'kr-ui';
 import {
@@ -119,6 +120,7 @@ export default class Form  extends React.Component{
 		return(
 
       <div className="g-oa-labour pessi-form-type">
+        <Title value="表单配置-氪空间后台管理系统"/>
 				<div className="left">
 					<div className="search">
 						<input type="text" onChange={this.change} placeholder="输入表单名称" ref="searchKey"/>

@@ -29,6 +29,7 @@ import {
 	Button,
 	Section,
 	Grid,
+	Title,
 	Row,
 	Col,
 	ListGroupItem,
@@ -211,6 +212,7 @@ class OpCode extends Component {
 		} = this.state;
 		return (
 			<div className="g-operation">
+				<Title value="业务代码配置-氪空间后台管理系统"/>
 				<Section title="业务代码" >
 					<SearchForm onCreate={this.openCreateDialog} onSubmit={this.onSearch} />
 	        		<Table

@@ -200,6 +200,7 @@ export default class SwperList extends Component{
 
 		return(
       	<div className="swper-list">
+		  <Title value="首页轮播图配置-氪空间后台管理系统"/>
 		    <Section title="轮播图列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 				<Col

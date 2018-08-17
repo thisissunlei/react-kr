@@ -12,6 +12,19 @@ import './index.less';
 const Nav = ({ ...props }) => {
 	return <ul className="u-header-nav" {...props}></ul>
 }
+function goLocation(type,href){
+	if(typeof(Storage)!=="undefined"){
+		sessionStorage.scrollTop = 0;
+		
+	}
+	if(type == 'hash'){
+		location.hash = href;
+	}else{
+		location.href = href;
+	}
+
+	
+}
 //菜单组建
 const NavItem = ({ ...props }) => {
 	const { label, path, isActive, originUrl, isPermission, df } = props;
@@ -24,7 +37,7 @@ const NavItem = ({ ...props }) => {
 	}
 	if (location.href.indexOf('new/#') !== -1 && originUrl.indexOf('new/#') !== -1) {
 		//	if(originUrl.indexOf('new/#') !==-1){
-		return <li className={isActive ? 'u-header-active' : ''} {...props}><a onClick={() => { location.hash = df }} >{label}</a></li>
+		return <li className={isActive ? 'u-header-active' : ''} {...props}><a onClick={() => { goLocation('hash',df) }} >{label}</a></li>
 		//	}else{
 		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
 		//	}
@@ -32,7 +45,7 @@ const NavItem = ({ ...props }) => {
 		//	if(originUrl.indexOf('new/#') !==-1){
 		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url} >{label}</a></li>
 		//	}else{
-		return <li className={isActive ? 'u-header-active' : ''} {...props}><a href={url}>{label}</a></li>
+		return <li className={isActive ? 'u-header-active' : ''} {...props}><a onClick={() => { goLocation('href',url) }}>{label}</a></li>
 		//		}
 	}
 
@@ -132,7 +145,7 @@ export default class Header extends React.Component {
 		const _this = this;
 		Http.request('get-menu-catalog').then(function (res) {
 			if (!res.length) return;
-			console.log(location,"llllllll")
+			
 			let first = location.hash.split('#')[1].split('?')[0];
 			var nowData = _this.recursiveAssign(res, first);	
 			let headActive = (first==='/' )? true : false;
@@ -210,7 +223,11 @@ export default class Header extends React.Component {
 		// }
 
 		const { NavModel } = this.props;
-		
+		const href = location.href;
+		const hash = href.split("#")[1];
+		if(hash == '/'){
+			return ;
+		}
 		// var navIsActive = NavModel.items.map((item, index) => {
 		// 	return item.isActive;
 		// })
@@ -313,7 +330,7 @@ export default class Header extends React.Component {
 
 		var navs = NavModel.items;
 		var person = NavModel.getUser();
-		console.log('nav--', NavModel.openSidebar);
+		// console.log('nav--', NavModel.openSidebar);
 		return (
 			<div className="no-print">
 				<div className="g-header-nav u-clearfix">

@@ -111,7 +111,7 @@ export default class List extends React.Component {
 		
 		return (
 			    <div className="second-door-warn-table" style={{minHeight:'910',backgroundColor:"#fff"}} >
-					<Title value="打印记录"/>
+					<Title value="打印记录-氪空间后台管理系统"/>
 					<Section title={`打印记录`} description="" >
 						<div>
 							<WarnSearchForm/>

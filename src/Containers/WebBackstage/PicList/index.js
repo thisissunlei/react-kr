@@ -214,6 +214,7 @@ export default class PicList extends Component{
 
 		return(
       	<div className="pic-list">
+		   <Title value="轮播图列表-氪空间后台管理系统"/>
 		    <Section title="轮播图列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 				<Col

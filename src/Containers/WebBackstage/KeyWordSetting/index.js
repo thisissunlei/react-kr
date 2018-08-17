@@ -212,7 +212,7 @@ export default class Keyword extends React.Component{
         }];
         return(
             <div className='g-keyword'>
-                <Title value="关键词配置"/>
+                <Title value="关键词配置-氪空间后台管理系统"/>
                 <Section title='关键词配置' description="" >
                     <form name="searchForm" className="searchForm searchList" style={{marginBottom:10,height:45}}>
                     <div className="u-member-btn-list">

@@ -232,7 +232,7 @@ export default class GroupMemberManage extends React.Component {
 		
 		return (
 		    <div className="change-member-item-box" style={{backgroundColor:"#fff"}} >
-				<Title value="门禁组管理"/>
+				<Title value="会员门禁权限组-氪空间后台管理系统"/>
 				<Section title={str} description="" >
 					<div style={{    float: "right", marginTop: "-60px"}}>
 						<Button label="添加成员"  onTouchTap={this.openAddMemberDialogFun} className="button-list"/>

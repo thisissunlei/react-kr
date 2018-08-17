@@ -107,7 +107,7 @@ export default class AppManage extends React.Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
-			<Title value="App后台"/>
+			<Title value="会员APP禁言-氪空间后台管理系统"/>
 
 			<Tabs className="tabs">
 					

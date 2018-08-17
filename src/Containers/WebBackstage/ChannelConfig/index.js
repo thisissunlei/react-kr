@@ -89,7 +89,7 @@ export default class Channel extends React.Component {
         let {itemDetail} = this.state;
 		return (
 			    <div className='house-config-box'>
-					<Title value="渠道接口配置"/>
+					<Title value="对外统一配置-氪空间后台管理系统"/>
 					<Section title={`渠道接口配置`} description="" >
 						<div>
 							<Button operateCode="external_promote_save_edit" label="新增"  onTouchTap={this.openNewCreateDialog}/>

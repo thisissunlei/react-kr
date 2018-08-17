@@ -12,7 +12,8 @@ import {
 	SearchForms,
 	KrDate,
 	Drawer,
-	Message
+  Message,
+  Title
 } from 'kr-ui';
 import {
 	Http
@@ -176,6 +177,7 @@ export default class NewOffice extends React.Component {
    
     return (
       <div className="g-deal-newthings">
+        <Title value="其他合同-氪空间后台管理系统"/>
         <Section borderBool={false} title="我的常用">
             <div className="first-main">
                 {this.state.thingsType.length?this.state.thingsType.map((item,index)=>{

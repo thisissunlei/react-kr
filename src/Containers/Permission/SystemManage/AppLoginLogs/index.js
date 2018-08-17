@@ -24,7 +24,8 @@ import {
 	Col,
 	Dialog,
 	KrDate,
-	Message
+	Message,
+	Title
 } from 'kr-ui';
 import './index.less';
 import SearchForm from './SearchForm';
@@ -144,6 +145,7 @@ openHighSearch = () => {
 
 		return (
 			<div className="g-applogin-list">
+				<Title value="版本更新通知-氪空间后台管理系统"/>
 				<Section title="APP版本管理" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>

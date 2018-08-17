@@ -207,6 +207,7 @@ export default class PostList extends Component{
 		const {openNew,openEdit,openDel} = this.allConfig;
 		return(
       	<div className="basic-post-list">
+		    <Title value="工作人员职务-氪空间后台管理系统"/>
 		  	<Section title="职务列表" description="" style={{marginBottom:-5,minHeight:910}}>
 	        <Row style={{marginBottom:21}}>
 			    <Col

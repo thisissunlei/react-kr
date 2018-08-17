@@ -245,7 +245,8 @@ export default class CustomerSource  extends Component{
 		
 		return(
 			<div className="customer-source">
-			    <Title value="客户来源配置"/>
+			
+			    <Title value="客户来源配置-氪空间后台管理系统"/>
 
 					<Section title="客户来源配置" description="" style={{minHeight:"900px"}}>
 							<Grid style={{marginBottom:22,marginTop:2}}>

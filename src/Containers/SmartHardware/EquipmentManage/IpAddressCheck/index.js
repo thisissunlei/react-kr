@@ -41,7 +41,7 @@ export default class IpAddressCheck  extends React.Component{
 		return(
 
 			<div className="ip-adress-check">
-				<Title value="IP冲突检测"/>
+				<Title value="IP冲突检测-氪空间后台管理系统"/>
 				<Section title={`IP冲突检测`} description="" bodyPadding="0 20px">
 					<IpAddressCheckBox/>
 				</Section>
