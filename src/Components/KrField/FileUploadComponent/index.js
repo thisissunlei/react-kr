@@ -156,6 +156,10 @@ export default class FileUploadComponent extends React.Component {
 	}
 	//上传成功
 	onSuccess = (response,name) => {
+		let {
+			input,
+			onChange
+		} = this.props;
 		var params = {
 			fileUrl:response.url,
 			fileName:name
@@ -180,7 +184,7 @@ export default class FileUploadComponent extends React.Component {
 			message: '上传文件成功',
 			type: 'success',
 		}]);
-		// onChange && onChange(files);
+		onChange && onChange(files);
 	}
 	
 	onTokenSuccess = (form) => {

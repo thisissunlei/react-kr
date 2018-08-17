@@ -141,14 +141,13 @@ export default class FileUploadComponent extends React.Component {
 
 	//上传成功
 	onSuccess = (response,name) => {
+		let {
+			onChange
+		} = this.props;
 		var params = {
 			fileUrl:response.url,
 			fileName:name
-		}
-		let {
-			input,
-			onChange
-		} = this.props;
+		};
 		let {
 			files
 		} = this.state;
@@ -165,7 +164,7 @@ export default class FileUploadComponent extends React.Component {
 			message: '上传文件成功',
 			type: 'success',
 		}]);
-		// onChange && onChange(files);
+		onChange && onChange(files);
 	}
 
 	onTokenSuccess(form) {
@@ -180,31 +179,7 @@ export default class FileUploadComponent extends React.Component {
 			type: 'danger',
 		}]);
 	}
-	//进度条
-	progressBar = () =>{
-		var _this = this;
-		this.setState({
-			isUploading: true
-		});
-
-		if (file) {
-			var progress = 10;
-			var timer = window.setInterval(function() {
-				if (progress >= 90) {
-					window.clearInterval(timer);
-					_this.setState({
-						progress: 10,
-						isUploading: false
-					});
-				}
-				progress += 10;
-				_this.setState({
-					progress
-				});
-			}, 300);
-		}
-		
-	}
+	
 
 	onChange(event) {
 		var _this = this;
@@ -265,6 +240,31 @@ export default class FileUploadComponent extends React.Component {
 		xhrfile.open('POST', serverUrl, true);
 		xhrfile.responseType = 'json';
 		xhrfile.send(form);
+	}
+	//进度条
+	progressBar = () =>{
+		var _this = this;
+		this.setState({
+			isUploading: true
+		});
+
+		if (file) {
+			var progress = 10;
+			var timer = window.setInterval(function() {
+				if (progress >= 90) {
+					window.clearInterval(timer);
+					_this.setState({
+						progress: 10,
+						isUploading: false
+					});
+				}
+				progress += 10;
+				_this.setState({
+					progress
+				});
+			}, 300);
+		}
+		
 	}
 	render() {
 
