@@ -187,7 +187,7 @@ export default class FileUploadComponent extends React.Component {
 		if (!file) {
 			return;
 		}
-		this.progressBar();
+		this.progressBar(file);
 		
 		this.getUpFileUrl(file);
 		return ;
@@ -242,7 +242,7 @@ export default class FileUploadComponent extends React.Component {
 		xhrfile.send(form);
 	}
 	//进度条
-	progressBar = () =>{
+	progressBar = (file) =>{
 		var _this = this;
 		this.setState({
 			isUploading: true

@@ -363,6 +363,8 @@ class CommunityPlanMap extends React.Component {
 		var href =this.context.router.params.communityId;
 		var _this = this;
 		let { fileData } = this.state;
+		this.getUpFileUrl(fileData);
+		return ;
 		var form = new FormData();
 		form.append('file', fileData);
 		var xhr = new XMLHttpRequest();
@@ -403,9 +405,58 @@ class CommunityPlanMap extends React.Component {
 		xhr.responseType = 'json';
 		xhr.send(null);
 	}
+	//获取上传路径
+	getUpFileUrl = (file) =>{
+		var form = new FormData();
+		let _this = this;
+		let params = {category:'op/upload',isPublic:'false'}
+	
+		Http.request("global-get-up-files-url",params).then(function (res) {
+			/**
+			 * 一下数据赋值必须按顺序  必须 必须  必须
+			*/
+			form.append('OSSAccessKeyId', res.ossAccessKeyId);
+			form.append('policy', res.policy);
+			form.append('Signature', res.sign);
+			form.append('key', res.pathPrefix+'/'+file.name);
+			form.append('uid', res.uid);
+			form.append('callback', res.callback);
+			form.append('x:original_name', file.name);
+			form.append('file', file);
+			_this.doUpFile(res.serverUrl,form,file.name)
+
+		}).catch(function (err) {
+			_this.onError(err.message)
+		});
+	}
+	//文件上传方法
+	doUpFile = (serverUrl,form,name) => {
+		var _this = this;
+		var xhrfile = new XMLHttpRequest();
+		xhrfile.onreadystatechange = function() {
+			if (xhrfile.readyState === 4) {
+				var fileResponse = xhrfile.response;
+				if (xhrfile.status === 200) {
+					if (fileResponse && fileResponse.code > 0) {
+						_this.endUpload(fileResponse.data,name);
+					} else {
+						_this.onError(fileResponse.msg);
+					}
+				} else if (xhrfile.status == 413) {
+
+					_this.onError('您上传的文件过大！');
+				} else {
+					_this.onError('后台报错请联系管理员！');
+				}
+			}
+		};
+		xhrfile.open('POST', serverUrl, true);
+		xhrfile.responseType = 'json';
+		xhrfile.send(form);
+	}
 
 	//上传保存
-	endUpload = (data) => {
+	endUpload = (data,name) => {
 		let { selectFloor, planMapId } = this.state;
 		var _this = this;
 		var href = _this.context.router.params.communityId;
@@ -413,7 +464,7 @@ class CommunityPlanMap extends React.Component {
 			communityId: href,
 			floor: selectFloor,
 			graphFileId: data.id,
-			graphFileName: data.filename,
+			graphFileName: name,
 			id: planMapId,
 		}).then(function (response) {
 			_this.setState({

@@ -118,7 +118,7 @@ export default class FileUploadComponent extends React.Component {
 		this.onSetInputValue();
 	}
 	//进度条
-	progressBar = () =>{
+	progressBar = (file) =>{
 		var _this = this;
 		this.setState({
 			isUploading: true
@@ -156,10 +156,7 @@ export default class FileUploadComponent extends React.Component {
 	}
 	//上传成功
 	onSuccess = (response,name) => {
-		let {
-			input,
-			onChange
-		} = this.props;
+		
 		var params = {
 			fileUrl:response.url,
 			fileName:name
@@ -206,8 +203,7 @@ export default class FileUploadComponent extends React.Component {
 		if (!file) {
 			return;
 		}
-		this.progressBar();
-		
+		this.progressBar(file);
 		this.getUpFileUrl(file);
 		return ;
 	}

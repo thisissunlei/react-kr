@@ -173,10 +173,6 @@ export default class UpLoadList extends React.Component {
 			fileName:name
 		}
 		let {
-			input,
-			onChange
-		} = this.props;
-		let {
 			files
 		} = this.state;
 
@@ -218,92 +214,91 @@ export default class UpLoadList extends React.Component {
 		}]);
 	}
 	onChange=(event)=> {
-
 		var _this = this;
-
 		let file = event.target.files[0];
 		if (!file) {
 			return;
 		}
-		this.progressBar(file.name);
+		this.progressBar(file);
+		this.getUpFileUrl(file)
 
 	}
 
-		//获取上传路径
-		getUpFileUrl = (file) =>{
-			var form = new FormData();
-			let _this = this;
-			let params = {category:'op/upload',isPublic:'false'}
-		
-			Http.request("global-get-up-files-url",params).then(function (res) {
-				/**
-				 * 一下数据赋值必须按顺序  必须 必须  必须
-				*/
-				form.append('OSSAccessKeyId', res.ossAccessKeyId);
-				form.append('policy', res.policy);
-				form.append('Signature', res.sign);
-				form.append('key', res.pathPrefix+'/'+file.name);
-				form.append('uid', res.uid);
-				form.append('callback', res.callback);
-				form.append('x:original_name', file.name);
-				form.append('file', file);
-				_this.doUpFile(res.serverUrl,form,file.name)
+	//获取上传路径
+	getUpFileUrl = (file) =>{
+		var form = new FormData();
+		let _this = this;
+		let params = {category:'op/upload',isPublic:'false'}
 	
-			}).catch(function (err) {
-				_this.onError(err.message)
-			});
-		}
-		//文件上传方法
-		doUpFile = (serverUrl,form,name) => {
-			var _this = this;
-			var xhrfile = new XMLHttpRequest();
-			xhrfile.onreadystatechange = function() {
-				if (xhrfile.readyState === 4) {
-					var fileResponse = xhrfile.response;
-					if (xhrfile.status === 200) {
-						if (fileResponse && fileResponse.code > 0) {
-							_this.onSuccess(fileResponse.data,name);
-						} else {
-							_this.onError(fileResponse.msg);
-						}
-					} else if (xhrfile.status == 413) {
-	
-						_this.onError('您上传的文件过大！');
+		Http.request("global-get-up-files-url",params).then(function (res) {
+			/**
+			 * 一下数据赋值必须按顺序  必须 必须  必须
+			*/
+			form.append('OSSAccessKeyId', res.ossAccessKeyId);
+			form.append('policy', res.policy);
+			form.append('Signature', res.sign);
+			form.append('key', res.pathPrefix+'/'+file.name);
+			form.append('uid', res.uid);
+			form.append('callback', res.callback);
+			form.append('x:original_name', file.name);
+			form.append('file', file);
+			_this.doUpFile(res.serverUrl,form,file.name)
+
+		}).catch(function (err) {
+			_this.onError(err.message)
+		});
+	}
+	//文件上传方法
+	doUpFile = (serverUrl,form,name) => {
+		var _this = this;
+		var xhrfile = new XMLHttpRequest();
+		xhrfile.onreadystatechange = function() {
+			if (xhrfile.readyState === 4) {
+				var fileResponse = xhrfile.response;
+				if (xhrfile.status === 200) {
+					if (fileResponse && fileResponse.code > 0) {
+						_this.onSuccess(fileResponse.data,name);
 					} else {
-						_this.onError('后台报错请联系管理员！');
+						_this.onError(fileResponse.msg);
 					}
+				} else if (xhrfile.status == 413) {
+
+					_this.onError('您上传的文件过大！');
+				} else {
+					_this.onError('后台报错请联系管理员！');
 				}
-			};
-			xhrfile.open('POST', serverUrl, true);
-			xhrfile.responseType = 'json';
-			xhrfile.send(form);
-		}
-		//进度条
-		progressBar = (name) =>{
-			var _this = this;
-			this.setState({
-				isUploading: true,
-				fileName:name,
-			});
-	
-			if (file) {
-				var progress = 10;
-				var timer = window.setInterval(function() {
-					if (progress >= 90) {
-						window.clearInterval(timer);
-						_this.setState({
-							progress: 10,
-							isUploading: false
-						});
-					}
-					progress += 10;
-					_this.setState({
-						progress
-					});
-				}, 300);
 			}
-			
+		};
+		xhrfile.open('POST', serverUrl, true);
+		xhrfile.responseType = 'json';
+		xhrfile.send(form);
+	}
+	//进度条
+	progressBar = (file) =>{
+		var _this = this;
+		this.setState({
+			isUploading: true,
+			fileName:file.name,
+		});
+
+		if (file) {
+			var progress = 10;
+			var timer = window.setInterval(function() {
+				if (progress >= 90) {
+					window.clearInterval(timer);
+					_this.setState({
+						progress: 10,
+						isUploading: false
+					});
+				}
+				progress += 10;
+				_this.setState({
+					progress
+				});
+			}, 300);
 		}
+		
+	}
 
 
 	renderLoad=()=>{
