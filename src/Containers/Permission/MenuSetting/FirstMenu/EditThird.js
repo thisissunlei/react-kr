@@ -45,6 +45,10 @@ class EditThird extends React.Component {
               {
                 name: 'project',
                 value: 'project'
+              },
+              {
+                name: 'product',
+                value: 'product'
               }
             ]
         }

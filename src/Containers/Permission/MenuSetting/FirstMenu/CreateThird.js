@@ -43,6 +43,10 @@ class CreateThird extends React.Component {
               {
                 name: 'project',
                 value: 'project'
+              },
+              {
+                name: 'product',
+                value: 'product'
               }
             ]
         }

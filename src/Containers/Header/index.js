@@ -17,6 +17,7 @@ function goLocation(type,href){
 		sessionStorage.scrollTop = 0;
 		
 	}
+	
 	if(type == 'hash'){
 		location.hash = href;
 	}else{
@@ -37,7 +38,7 @@ const NavItem = ({ ...props }) => {
 	}
 	if (location.href.indexOf('new/#') !== -1 && originUrl.indexOf('new/#') !== -1) {
 		//	if(originUrl.indexOf('new/#') !==-1){
-		return <li className={isActive ? 'u-header-active' : ''} {...props}><a onClick={() => { goLocation('hash',df) }} >{label}</a></li>
+		return <li className={isActive ? 'u-header-active' : ''} {...props}><a name={label} onClick={() => { goLocation('hash',df) }} >{label}</a></li>
 		//	}else{
 		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
 		//	}
@@ -45,7 +46,7 @@ const NavItem = ({ ...props }) => {
 		//	if(originUrl.indexOf('new/#') !==-1){
 		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url} >{label}</a></li>
 		//	}else{
-		return <li className={isActive ? 'u-header-active' : ''} {...props}><a onClick={() => { goLocation('href',url) }}>{label}</a></li>
+		return <li className={isActive ? 'u-header-active' : ''} {...props}><a name={label} onClick={() => { goLocation('href',url) }}>{label}</a></li>
 		//		}
 	}
 
@@ -141,14 +142,18 @@ export default class Header extends React.Component {
 		NavModel.setSidebar(true);
 		window.addEventListener('hashchange', this.refresh.bind(this), false);
 	}
+	//获取菜单信息
 	getNavData() {
 		const _this = this;
+		
 		Http.request('get-menu-catalog').then(function (res) {
 			if (!res.length) return;
 			
 			let first = location.hash.split('#')[1].split('?')[0];
 			var nowData = _this.recursiveAssign(res, first);	
+			
 			let headActive = (first==='/' )? true : false;
+		
 			_this.setState({
 				firstNav: nowData.allData,headActive,
 			})
@@ -193,7 +198,7 @@ export default class Header extends React.Component {
 		let {headActive} = this.state;
 		headActive = first ? false : true;
 		this.setState({headActive});
-		console.log(first,"ppppp")
+		//最终数据
 		var nowData = this.recursiveAssign(firstNav, first);
 		nowData.allData && nowData.allData.map((item, index) => {
 			if (item.isActive) {
@@ -310,6 +315,11 @@ export default class Header extends React.Component {
 						type = '/project/#'
 						// }
 					}
+					if (item.childList[0].childList[0].projectType === 'product') {
+						// if(location.href.indexOf('new') ===-1){
+						type = '/admin-product/#'
+						// }
+					}
 					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 						onClick={() => {
 							this.setSidebar(item)
@@ -330,7 +340,7 @@ export default class Header extends React.Component {
 
 		var navs = NavModel.items;
 		var person = NavModel.getUser();
-		// console.log('nav--', NavModel.openSidebar);
+
 		return (
 			<div className="no-print">
 				<div className="g-header-nav u-clearfix">
