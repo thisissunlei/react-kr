@@ -132,13 +132,15 @@ export default class Header extends React.Component {
 		const _this = this;
 		Http.request('get-menu-catalog').then(function (res) {
 			if (!res.length) return;
-			console.log(location,"llllllll")
+			console.log(location,"llllllll");
+
 			let first = location.hash.split('#')[1].split('?')[0];
 			var nowData = _this.recursiveAssign(res, first);	
 			let headActive = (first==='/' )? true : false;
 			_this.setState({
 				firstNav: nowData.allData,headActive,
 			})
+			
 			nowData.allData && nowData.allData.map((item, index) => {
 				if (item.isActive) {
 					_this.setState({

@@ -104,6 +104,8 @@ const webpackConfigs = {
 			cache: true,
 			showErrors: true,
 			files:{
+				js:pluginsDomain.jsFiles,
+				css:pluginsDomain.cssFiles,
 				favicon:'/plugins/public/images/favicon.ico'
 			}
 		}),

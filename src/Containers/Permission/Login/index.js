@@ -62,6 +62,12 @@ class Login extends Component {
 			timedisabled: 'S后重新获取',
 			saltStr: '',
 			imgCode: '',
+			// 首页手机验证码
+			togetPhonetest: true,
+			gettingPhone: false,
+			PhoneTimeDisabledState: false,
+			timeminPhone: 60,
+			regettestPhoneState: false,
 			//邮箱
 			verifyByMail: true,
 			togetMailtest: true,
@@ -340,6 +346,138 @@ class Login extends Component {
 			nonePwd: false,
 			noneName: false,
 		})
+	}
+	// 首页登录获取手机验证码
+	getPhonetestCode = () => {
+		this.refs.imgCode.value = '';
+		var _this = this;
+//  gi.js
+Http.request('startCaptcha',{phone:phone}).then(function(response) {
+	// that.verify.innerHTML = '等待验证';
+	initGeetest({
+	  // 以下配置参数来自服务端 SDK
+	  gt: response.gt,
+	  challenge: response.challenge,
+	  offline: !response.success,
+	  new_captcha: response.new_captcha,
+	  product: 'bind',
+	}, function (captchaObj) {
+		  // 这里可以调用验证实例 captchaObj 的实例方法
+		  captchaObj.onReady(function () {
+			captchaObj.verify();
+		});
+		captchaObj.onSuccess(function () {
+		  var verifySuccess = captchaObj.getValidate();
+		  var timer = 60;
+		//  that.verify.innerHTML='正在发送...';
+		  //调接口
+		  Http.request('get-verifyCode',{},{phone:phone,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
+
+			//   var InterTimer = setInterval(function(){
+			// 	timer--;
+			// 	var text = timer+'S后再次获取';
+			// 	that.verify.innerHTML=text;
+			// 	if(timer<=0){
+			// 	  clearInterval(InterTimer);
+			// 	  that.verify.innerHTML='获取验证码';
+			// 	}
+			//   },1000)
+
+			_this.setState({
+				gettingPhone: true,
+				regettestPhoneState: false,
+				togetPhonetest: false,
+			}, function () {
+	
+				Http.request('getVcodeByMail', {  // todo  
+					email: _this.refs.loginName.value,
+				}, {}).then(function (response) {
+					_this.togetPhonetest()
+				}).catch(function (err) {
+					if (err.code < 0) {
+						Message.error(err.message)
+					}
+					_this.setState({
+						gettingPhone: false,
+						togetPhonetest: true,
+					})
+				});
+			})
+			
+
+			}).catch(function(err) {
+				if (err.code < 0) {
+					Message.error(err.message)
+				}
+			});
+
+	  });
+	  captchaObj.onClose(function () {
+		//that.verify.innerHTML = '获取验证码';
+		_this.setState({
+			regettestPhoneState: true,
+			PhoneTimeDisabledState: false,
+			togetPhonetest: false,
+		})
+	  });
+	})
+
+  }).catch(function(err) {
+	if (err.code < 0) {
+		Message.error(err.message)
+	}
+  });
+//
+		// this.setState({
+		// 	gettingPhone: true,
+		// 	regettestPhoneState: false,
+		// 	togetPhonetest: false,
+		// }, function () {
+
+		// 	Http.request('getVcodeByMail', {  // todo  
+		// 		email: _this.refs.loginName.value,
+		// 	}, {}).then(function (response) {
+		// 		_this.togetPhonetest()
+		// 	}).catch(function (err) {
+		// 		if (err.code < 0) {
+		// 			Message.error(err.message)
+		// 		}
+		// 		_this.setState({
+		// 			gettingPhone: false,
+		// 			togetPhonetest: true,
+		// 		})
+		// 	});
+		// })
+	}
+	// 验证手机验证
+	togetPhonetest = () => {
+		window.clearTimeout(this.timerPhone);
+		var _this = this;
+		this.setState({
+			PhoneTimeDisabledState: true,
+			regettestPhoneState: false,
+			timeminPhone: 60,
+			gettingPhone: false,
+		}, function () {
+			time()
+		})
+		function time() {
+			if (_this.state.timeminPhone == 0) {
+				_this.setState({
+					regettestPhoneState: true,
+					PhoneTimeDisabledState: false,
+					togetPhonetest: false,
+				})
+			} else {
+				_this.setState({
+					timeminPhone: --_this.state.timeminPhone,
+				})
+				_this.timerPhone = window.setTimeout(function () {
+					time()
+				},
+					1000)
+			}
+		}
 	}
 	//邮箱验证
 	togetMailtestCode = () => {
@@ -780,14 +918,43 @@ class Login extends Component {
 
 												{/* { this.state.nonePwd && <span className="redErr">请输入密码</span>} */}
 											</li>
-											{this.state.errThree &&
+											<li className="loginPwd1">
+												<div className="outer-pwd1">
+													<span className="pre-loginpwd1">
+
+													</span>
+													<input
+														type='text'
+													//	name="loginPwds"
+														ref="imgCode"
+														placeholder="请输入验证码"
+													/>
+													<div className='new_sendCode'>
+														{this.state.togetPhonetest && <div className='read_sendCode' onClick={this.getPhonetestCode} >发送验证码</div> }
+														{this.state.PhoneTimeDisabledState && <div className='read_second'>{this.state.timeminPhone + 's'}</div> }
+														{this.state.regettestPhoneState && <div className='read_reload' onClick={this.getPhonetestCode}>重新获取</div>}
+													</div>
+												</div>
+
+												{/* { this.state.nonePwd && <span className="redErr">请输入密码</span>} */}
+											</li>
+											{/* <li className="clearfix errThree_check ">
+													<div className="input-verifycode">
+														<input ref="imgCode" type="text" placeholder="请输入验证码" />
+														<div className='new_sendCode'>
+														<div className='read_sendCode' onClick={this.togetMailtestCode} >发送验证码</div> 
+													</div>
+													</div>
+													
+												</li> */}
+											{/* {this.state.errThree &&
 												<li className="clearfix errThree_check">
 													<div className="input-verifycode">
 														<input ref="imgCode" type="text" placeholder="请输入验证码" />
 													</div>
 													<img className="input-verifycode-img" onClick={this.updateCode} src={imgCode || `http://op.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`}></img>
 												</li>
-											}
+											} */}
 											<li>
 												<p className="login-btn" onClick={this.submitLogin}>登&nbsp;&nbsp;&nbsp;录</p>
 											</li>
@@ -851,7 +1018,7 @@ class Login extends Component {
 												<li className="input-txt loginpwds clearfix ">
 													<input className='' type="text" ref="verifyCodeByMail" placeholder="请输入验证码" />
 		
-														<div className="new_sendCode" >
+													<div className="new_sendCode" >
 														{this.state.togetMailtest && <div className='read_sendCode' onClick={this.togetMailtestCode} >发送验证码</div> }
 														{this.state.MailTimeDisabledState && <div className='read_second'>{this.state.timeminMail + 's'}</div> }
 														{this.state.regettestMailState && <div className='read_reload' onClick={this.togetMailtestCode}>重新获取</div>}
