@@ -78,7 +78,7 @@ class Login extends Component {
 			timeminMobile: 60,
 			//重置
 			editPwd: false,
-			canLogin: true,
+			canLogin: false,   //临时修改 取反
 			pwdOneHide: true,
 			pwdTwoHide: true,
 			notSame: false,
@@ -87,7 +87,7 @@ class Login extends Component {
 			timeToLogin: 3,
 			LoginHeight: 0,
 			//二维码
-			QRCode: false,
+			QRCode: true,  //临时修改 取反
 			QrcodeExpired: false,
 			headPic: icon_QRblank,
 		}
@@ -104,6 +104,8 @@ class Login extends Component {
 		// this.windowResize();
 		// window.onresize = this.windowResize;
 
+		// 临时修改 
+		this.getQRCode();
 	}
 	windowResize = () => {
 		var width = document.body.clientWidth;
@@ -694,6 +696,7 @@ class Login extends Component {
 		}
 
 	}
+	
 
 	render() {
 		const { handleSubmit } = this.props;
@@ -724,7 +727,7 @@ class Login extends Component {
 					<div className="content-wrap">
 						<div className="login-title">
 							氪空间管理平台
-              </div>
+              	</div>
 						<div className="login-box">
 							<div className={headPic === icon_QRblue ? 'QR-show QR-state' : 'QR-hide QR-state'} >
 								二维码登录
@@ -732,11 +735,11 @@ class Login extends Component {
 							<div className={headPic === icon_Cblue ? 'QR-show QR-state' : 'QR-hide QR-state'} >
 								密码登录
 								</div>
-							<div className='head-mask' onClick={() => { this.getQRCode() }} onMouseLeave={this.mouseleave} onMouseEnter={this.mouseenter} ></div>
+							{/* <div className='head-mask' onClick={() => { this.getQRCode() }} onMouseLeave={this.mouseleave} onMouseEnter={this.mouseenter} ></div>
 							<div className='headPic'  >
 								<img src={headPic}></img>
-							</div>
-							{/*<div className="logos"></div>*/}
+							</div>  临时修改  */ }
+							
 							{this.state.canLogin &&
 								<div className='login-newLogin'>
 									<div className="login-tip">
