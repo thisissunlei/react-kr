@@ -24,7 +24,7 @@ export default class SidebarNav extends React.Component {
 			let type = item.projectType;
 			let path = item.url || item.originUrl || `.#${item.router}`;
 			let label = item.name;
-			if(path.indexOf('http://')!=-1 && path.indexOf('https://')!=-1){
+			if(path.indexOf('http://')!=-1 || path.indexOf('https://')!=-1){
 				return  <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>;
 			}
 			if(type=="member"){
@@ -45,8 +45,8 @@ export default class SidebarNav extends React.Component {
 						}else if(type === 'vue'){
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
 						}else if(type === 'product'){
-							path  = '/product/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+							path  = '/admin-product/#' + path;
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
 						}else if(type==='project'){
 							path  = '/project/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
@@ -61,7 +61,7 @@ export default class SidebarNav extends React.Component {
 							path  = '/project/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else  if(type === 'product'){
-							path  = '/product/#' + path;
+							path  = '/admin-product/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type ==='vue'){
 							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
@@ -77,8 +77,9 @@ export default class SidebarNav extends React.Component {
 		})
 	}
 	componentDidMount(){
+		console.log("sidebarRef",this.sidebarRef)
+		this.sidebarRef.addEventListener('scroll',this.siderbarOnWheel.bind(this),true)
 		
-	
 	}
 	componentWillUnmount(){
 
@@ -90,11 +91,17 @@ export default class SidebarNav extends React.Component {
 			sidebarNavs:nextProps.item
 		})
 	}
+	componentDidUpdate(){
+	
+		if(typeof(Storage)!=="undefined" && this.sidebarRef){
+		
+			this.sidebarRef.scrollTop = sessionStorage.scrollTop || 0;
+		}
+	}
 
-	siderbarOnWheel(e){
-		var dom = e.target;
-		// console.log()
-		// console.log(this.sidebarRef.scrollTop,"ppppp",this.sidebarRef)
+	siderbarOnWheel(){
+		console.log(this.sidebarRef.scrollTop,"pppppp")
+		// if(location.href.indexOf('new/#'))
 		if(typeof(Storage)!=="undefined"){
 			sessionStorage.scrollTop = this.sidebarRef.scrollTop;
 			
@@ -110,9 +117,6 @@ export default class SidebarNav extends React.Component {
 					<div 
 						className="m-siderbar-list"
 
-						onWheel={(e)=>{
-							this.siderbarOnWheel(e)
-						}}
 						ref={(ref)=>{
 							this.sidebarRef = ref;
 					}}>
