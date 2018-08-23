@@ -151,7 +151,7 @@ module.exports =()=>{
 	return (
 		<Route path="permission" getComponent={Basic}>
       <IndexRedirect to="accountManage/accountList"/>
-      <Route path="user" getComponent={Permission_User}/>
+      {/* <Route path="user" getComponent={Permission_User}/> */}
 		  <Route path="user/:page" getComponent={Permission_User}/>
 		  <Route path="operations" getComponent={Permission_Operations}/>
       <Route path="loginlog" getComponent={Permission_LoginLog_PC}/>

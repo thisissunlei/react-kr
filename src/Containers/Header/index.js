@@ -156,7 +156,9 @@ export default class Header extends React.Component {
 	recursiveAssign(data, url) {
 		var isOpen = false;
 		var allData = data.map((item, index) => {
-			if (url==item.url) {
+				let matchUrl = url && url.replace(/\/\d+/g,'/1');
+				let matchSource = item.url && item.url.replace(/\/\:(\w+)/g,'/1');
+			if (matchUrl == matchSource) {
 				item.isActive = true;
 				isOpen = true;
 			} else {
