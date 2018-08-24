@@ -43,7 +43,7 @@ import icon_Cblank from './images/OPlogin/icon_Cblank.png'
 import icon_Cblue from './images/OPlogin/icon_Cblue.png'
 import icon_QRblank from './images/OPlogin/icon_QRblank.png'
 import icon_QRblue from './images/OPlogin/icon_QRblue.png'
-
+var env = process.env.NODE_ENV;
 var timer;
 @observer
 class Login extends Component {
@@ -84,7 +84,7 @@ class Login extends Component {
 			timeminMobile: 60,
 			//重置
 			editPwd: false,
-			canLogin: false,   //临时修改 取反
+			canLogin: true,   //临时修改 取反
 			pwdOneHide: true,
 			pwdTwoHide: true,
 			notSame: false,
@@ -93,7 +93,8 @@ class Login extends Component {
 			timeToLogin: 3,
 			LoginHeight: 0,
 			//二维码
-			QRCode: true,  //临时修改 取反
+			QRCode: false,  //临时修改 取反
+		//	test: true,  //临时修改 取反
 			QrcodeExpired: false,
 			headPic: icon_QRblank,
 		}
@@ -111,8 +112,20 @@ class Login extends Component {
 		// window.onresize = this.windowResize;
 
 		// 临时修改 
-		this.getQRCode();
+		if(env=='production'){
+			// 临时修改 
+		   this.handleProduction()
+		}
 	}
+	// 当前环境为线上时触发 
+	handleProduction = () =>{
+		// this.setState({
+		// 	canLogin:false,
+		// 	QRCode:true,
+		// 	test:false,
+		// },() =>{ this.getQRCode()})
+		
+	} 
 	windowResize = () => {
 		var width = document.body.clientWidth;
 		var height = document.body.clientHeight;
@@ -919,10 +932,10 @@ class Login extends Component {
 							<div className={headPic === icon_Cblue ? 'QR-show QR-state' : 'QR-hide QR-state'} >
 								密码登录
 								</div>
-							{/* <div className='head-mask' onClick={() => { this.getQRCode() }} onMouseLeave={this.mouseleave} onMouseEnter={this.mouseenter} ></div>
+							 <div className='head-mask' onClick={() => { this.getQRCode() }} onMouseLeave={this.mouseleave} onMouseEnter={this.mouseenter} ></div>
 							<div className='headPic'  >
 								<img src={headPic}></img>
-							</div>  临时修改  */ }
+							</div>
 							
 							{this.state.canLogin &&
 								<div className='login-newLogin'>
