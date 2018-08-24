@@ -168,12 +168,12 @@ export default class Home extends React.Component {
    }
 	applyRender = () =>{
 		var applyArr = [
-			{ text: '氪空间官网', href: 'http://krspace.cn/', url: './images/main.png' },
+			{ text: '氪空间官网', href: 'http://krspace.cn/', url: './images/home-first.png' },
 		//	{ text: '氪星小镇', href: 'http://bbs.corp.36kr.com', url: './images/forum.png' },
 			{ text: 'EHR', href: 'http://www.italent.cn/', url:'./images/bei.jpg'},
 			// { text: '云快报', href: 'https://baoxiao.corp.36kr.com/', url: './images/cloud.png' },
 			{ text: 'E-learning', href: 'https://elearnplus.com', url: './images/learning.png' },
-			{ text: 'salesforce', href: 'https://krspace.my.salesforce.com', url: './images/sellEasy.png' },
+			{ text: 'salesforce', href: 'https://krspace.my.salesforce.com', url: './images/salesforce.png' },
 			{ text: 'Udesk', href: 'http://krspace.udesk.cn/users/sign_in', url: './images/Udesk.png' },
 			{ text: 'OA', href: 'http://oa.xlzc.com', url: './images/oa.jpg' },
 			{ text: '敬请期待', href: '', url:'./images/more-apply.png'}
@@ -185,7 +185,7 @@ export default class Home extends React.Component {
 						{item.url && <div className="pic krspace-logo" 
 							style={{ 
 									height: this.applyItemWidth, 
-									background: 'background: url('+item.url+') no-repeat center center' 
+									
 								}}
 						></div>}
 						{item.url && <div className="text">{item.text}</div>}

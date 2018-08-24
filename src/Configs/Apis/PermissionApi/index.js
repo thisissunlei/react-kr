@@ -48,7 +48,8 @@ module.exports = {
     },
     //权限--登录
     'loginSubmit': {
-      url: '/api/krspace-sso-web/sso/login/loginSubmit',
+      url: '/api/krspace-sso-web/sso/login/validateCodeLogin',
+     // url: '/api/krspace-sso-web/sso/login/loginSubmit',
       method: 'post'
     },
     //权限--手机获取验证码
@@ -56,9 +57,19 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/login/getVcodeByPhone?mobile={mobile}',
       method: 'get'
     },
+    // 权限--获取滑块验证
+    'startCaptcha':{
+      url: '/api/krspace-sso-web/sso/login/startCaptcha?loginName={loginName}&loginPwd={loginPwd}',
+      method: 'get'
+    },
+    // 权限--获取手机验证码 
+    'get-verifyCode':{
+      url: '/api/krspace-sso-web/sso/login/getVcodeByPhone?geetest_challenge={geetest_challenge}&geetest_seccode={geetest_seccode}&geetest_validate={geetest_validate}&mobile={mobile}',
+      method: 'get'
+    },
     //权限--邮箱获取验证码
     'getVcodeByMail': {
-      url: '/api/krspace-sso-web/sso/login/getVcodeByMail?email={email}',
+      url: '/api/krspace-sso-web/sso/login/getVcodeByMail?email={email}&geetest_seccode={geetest_seccode}&geetest_validate={geetest_validate}&geetest_challenge={geetest_challenge}',
       method: 'get'
     },
     //权限--提交手机验证码

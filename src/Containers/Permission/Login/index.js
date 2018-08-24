@@ -242,17 +242,18 @@ class Login extends Component {
 	//登录部分
 	submitLogin = () => {
 		if (!this.refs.loginName.value) {
-			this.setState({
-				noneName: true,
-			})
-
+			Message.error('请输入账号');
+			return;
 		}
 		if (!this.refs.loginPwds.value) {
-			this.setState({
-				nonePwd: true,
-			})
+			Message.error('请输入密码');
+			return;
 		}
-		if (this.refs.loginName.value && this.refs.loginPwds.value) {
+		if (!this.refs.imgCode.value) {
+			Message.error('请输入手机验证码');
+			return;
+		}
+		if (this.refs.loginName.value && this.refs.loginPwds.value && this.refs.imgCode.value) {
 			this.setState({
 				forgetPwd: false,
 				canLogin: true,
@@ -275,6 +276,7 @@ class Login extends Component {
 			obj = {
 				loginName: this.refs.loginName.value,
 				loginPwd: this.refs.loginPwds.value,
+				loginValicode:this.refs.imgCode.value,
 			}
 		}
 		var _this = this;
@@ -290,17 +292,18 @@ class Login extends Component {
 
 		Http.request('loginSubmit', {}, obj).then(function (response) {
 			//跳转？
+			debugger;
 			const redirectUrl = getQueryString('RU');
 			window.location.href = (redirectUrl ? redirectUrl : './');
 		}).catch(function (err) {
 			if (err.code == -1) {
 				Message.error(err.message)
 			}
-			if (err.code == -2) {
-				_this.setState({
-					errThree: true,
-				})
-			}
+			// if (err.code == -2) {
+			// 	_this.setState({
+			// 		errThree: true,
+			// 	})
+			// }
 		});
 	}
 	//验证码切换
@@ -351,9 +354,10 @@ class Login extends Component {
 	getPhonetestCode = () => {
 		this.refs.imgCode.value = '';
 		var _this = this;
+		let phone =this.refs.loginName.value ;
+		let password = this.refs.loginPwds.value||'';
 //  gi.js
-Http.request('startCaptcha',{phone:phone}).then(function(response) {
-	// that.verify.innerHTML = '等待验证';
+	Http.request('startCaptcha',{loginName:phone,loginPwd:password}).then(function(response) {
 	initGeetest({
 	  // 以下配置参数来自服务端 SDK
 	  gt: response.gt,
@@ -368,40 +372,28 @@ Http.request('startCaptcha',{phone:phone}).then(function(response) {
 		});
 		captchaObj.onSuccess(function () {
 		  var verifySuccess = captchaObj.getValidate();
-		  var timer = 60;
-		//  that.verify.innerHTML='正在发送...';
-		  //调接口
-		  Http.request('get-verifyCode',{},{phone:phone,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
-
-			//   var InterTimer = setInterval(function(){
-			// 	timer--;
-			// 	var text = timer+'S后再次获取';
-			// 	that.verify.innerHTML=text;
-			// 	if(timer<=0){
-			// 	  clearInterval(InterTimer);
-			// 	  that.verify.innerHTML='获取验证码';
-			// 	}
-			//   },1000)
-
+		  Http.request('get-verifyCode',{mobile:response.mobile,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
 			_this.setState({
-				gettingPhone: true,
+				PhoneTimeDisabledState: true,
 				regettestPhoneState: false,
 				togetPhonetest: false,
+				timeminPhone: 60,
 			}, function () {
+				let {timeminPhone} = _this.state;
+				var InterTimer = setInterval(function(){
+				timeminPhone--;
+				_this.setState({timeminPhone},()=>{
+					if(timeminPhone<=0){
+						clearInterval(InterTimer);
+						_this.setState({
+						  regettestPhoneState: true,
+						  PhoneTimeDisabledState: false,
+						  togetPhonetest: false,
+					  })
+					  }  
+				})
 	
-				Http.request('getVcodeByMail', {  // todo  
-					email: _this.refs.loginName.value,
-				}, {}).then(function (response) {
-					_this.togetPhonetest()
-				}).catch(function (err) {
-					if (err.code < 0) {
-						Message.error(err.message)
-					}
-					_this.setState({
-						gettingPhone: false,
-						togetPhonetest: true,
-					})
-				});
+			  },1000)
 			})
 			
 
@@ -413,7 +405,6 @@ Http.request('startCaptcha',{phone:phone}).then(function(response) {
 
 	  });
 	  captchaObj.onClose(function () {
-		//that.verify.innerHTML = '获取验证码';
 		_this.setState({
 			regettestPhoneState: true,
 			PhoneTimeDisabledState: false,
@@ -427,28 +418,9 @@ Http.request('startCaptcha',{phone:phone}).then(function(response) {
 		Message.error(err.message)
 	}
   });
-//
-		// this.setState({
-		// 	gettingPhone: true,
-		// 	regettestPhoneState: false,
-		// 	togetPhonetest: false,
-		// }, function () {
-
-		// 	Http.request('getVcodeByMail', {  // todo  
-		// 		email: _this.refs.loginName.value,
-		// 	}, {}).then(function (response) {
-		// 		_this.togetPhonetest()
-		// 	}).catch(function (err) {
-		// 		if (err.code < 0) {
-		// 			Message.error(err.message)
-		// 		}
-		// 		_this.setState({
-		// 			gettingPhone: false,
-		// 			togetPhonetest: true,
-		// 		})
-		// 	});
-		// })
 	}
+
+	
 	// 验证手机验证
 	togetPhonetest = () => {
 		window.clearTimeout(this.timerPhone);
@@ -479,31 +451,67 @@ Http.request('startCaptcha',{phone:phone}).then(function(response) {
 			}
 		}
 	}
+
 	//邮箱验证
 	togetMailtestCode = () => {
-		this.refs.verifyCodeByMail.value = '';
-		var _this = this;
-		this.setState({
-			gettingMail: true,
-			regettestMailState: false,
-			togetMailtest: false,
-		}, function () {
-
-			Http.request('getVcodeByMail', {
-				email: _this.refs.loginMail.value,
-			}, {}).then(function (response) {
-				_this.togetMailtest()
-			}).catch(function (err) {
+	//  gi.js
+	let phone = this.refs.loginMail.value;
+	var _this = this;
+	Http.request('startCaptcha',{loginName:phone,loginPwd:''}).then(function(response) {
+		initGeetest({
+		  // 以下配置参数来自服务端 SDK
+		  gt: response.gt,
+		  challenge: response.challenge,
+		  offline: !response.success,
+		  new_captcha: response.new_captcha,
+		  product: 'bind',
+		}, function (captchaObj) {
+			  // 这里可以调用验证实例 captchaObj 的实例方法
+			  captchaObj.onReady(function () {
+			  captchaObj.verify();
+			});
+			captchaObj.onSuccess(function () {
+				// 
+			  var verifySuccess = captchaObj.getValidate();
+			  _this.refs.verifyCodeByMail.value = '';
+			  _this.setState({
+		  gettingMail: true,
+		  regettestMailState: false,
+		  togetMailtest: false,
+		  MailTimeDisabledState:true,
+	  },()=>{
+		Http.request('getVcodeByMail',{email:phone,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
+			_this.togetMailtest()
+		}).catch(function (err) {
 				if (err.code < 0) {
 					Message.error(err.message)
 				}
 				_this.setState({
 					gettingMail: false,
 					togetMailtest: true,
+					MailTimeDisabledState:false,
 				})
-			});
+		});
+		
+	  })	  });
+		  captchaObj.onClose(function () {
+			_this.setState({
+				gettingMail: false,
+				togetMailtest: true,
+				MailTimeDisabledState:false,
+			})
+		  });
 		})
+	
+	  }).catch(function(err) {
+		if (err.code < 0) {
+			Message.error(err.message)
+		}
+	  });
 	}
+
+
+
 	//邮箱验证点击获取验证码函数zhangchi@krspace.cn
 	togetMailtest = () => {
 		window.clearTimeout(this.timerMail);
@@ -513,6 +521,7 @@ Http.request('startCaptcha',{phone:phone}).then(function(response) {
 			regettestMailState: false,
 			timeminMail: 60,
 			gettingMail: false,
+			togetMailtest:false,
 		}, function () {
 			time()
 		})
@@ -564,29 +573,66 @@ Http.request('startCaptcha',{phone:phone}).then(function(response) {
 			}
 		});
 	}
+
 	//手机验证
 	togetMobiletestCode = () => {
-		this.refs.verifyCodeByMobile.value = '';
-		this.setState({
-			regettestMobileState: false,
-			gettingMobile: true,
-			togetMobiletest: false,
-		}, function () {
-			var _this = this;
-			Http.request('getVcodeByPhone', {
-				mobile: _this.refs.loginMobile.value,
-			}).then(function (response) {
-				_this.togetMobiletest()
-			}).catch(function (err) {
-				if (err.code < 0) {
-					Message.error(err.message)
-				}
-				_this.setState({
-					gettingMobile: false,
-					togetMobiletest: true,
-				})
+				//  gi.js
+				let phone = this.refs.loginMobile.value;
+				var _this = this;
+				Http.request('startCaptcha',{loginName:phone,loginPwd:''}).then(function(response) {
+					initGeetest({
+					// 以下配置参数来自服务端 SDK
+					gt: response.gt,
+					challenge: response.challenge,
+					offline: !response.success,
+					new_captcha: response.new_captcha,
+					product: 'bind',
+					}, function (captchaObj) {
+						// 这里可以调用验证实例 captchaObj 的实例方法
+						captchaObj.onReady(function () {
+						captchaObj.verify();
+						});
+						captchaObj.onSuccess(function () {
+							// 
+						var verifySuccess = captchaObj.getValidate();
+						_this.refs.verifyCodeByMobile.value = '';
+						_this.setState({
+							regettestMobileState: false,
+							MobileTimeDisabledState:true,
+							togetMobiletest: false,
+				},()=>{
+					Http.request('get-verifyCode',{mobile:phone,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
+						_this.togetMobiletest();
+					}).catch(function (err) {
+							if (err.code < 0) {
+								Message.error(err.message)
+							}
+							
+								_this.setState({
+									regettestMobileState: false,
+									togetMobiletest: true,
+									MobileTimeDisabledState:false,
+								})
+						
+					});
+					
+				})	  
 			});
-		})
+					captchaObj.onClose(function () {
+						_this.setState({
+							regettestMailState: false,
+							togetMailtest: true,
+							MailTimeDisabledState:false,
+						})
+					});
+					})
+
+				}).catch(function(err) {
+					if (err.code < 0) {
+						Message.error(err.message)
+					}
+				});
+
 	}
 	//手机验证点击获取验证码函数old
 	togetMobiletest = () => {
@@ -925,7 +971,7 @@ Http.request('startCaptcha',{phone:phone}).then(function(response) {
 													</span>
 													<input
 														type='text'
-													//	name="loginPwds"
+														name="imgCode"
 														ref="imgCode"
 														placeholder="请输入验证码"
 													/>
@@ -938,23 +984,7 @@ Http.request('startCaptcha',{phone:phone}).then(function(response) {
 
 												{/* { this.state.nonePwd && <span className="redErr">请输入密码</span>} */}
 											</li>
-											{/* <li className="clearfix errThree_check ">
-													<div className="input-verifycode">
-														<input ref="imgCode" type="text" placeholder="请输入验证码" />
-														<div className='new_sendCode'>
-														<div className='read_sendCode' onClick={this.togetMailtestCode} >发送验证码</div> 
-													</div>
-													</div>
-													
-												</li> */}
-											{/* {this.state.errThree &&
-												<li className="clearfix errThree_check">
-													<div className="input-verifycode">
-														<input ref="imgCode" type="text" placeholder="请输入验证码" />
-													</div>
-													<img className="input-verifycode-img" onClick={this.updateCode} src={imgCode || `http://op.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`}></img>
-												</li>
-											} */}
+										
 											<li>
 												<p className="login-btn" onClick={this.submitLogin}>登&nbsp;&nbsp;&nbsp;录</p>
 											</li>
