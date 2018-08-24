@@ -14,6 +14,8 @@ export default class SidebarNav extends React.Component {
 		this.state = {
            sidebarNavs:props.item
 		}
+		this.sidebarRef = null;
+		this.isDom = false;
 	}
 
 	renderMenuItems=(menuItems)=>{
@@ -22,7 +24,7 @@ export default class SidebarNav extends React.Component {
 			let type = item.projectType;
 			let path = item.url || item.originUrl || `.#${item.router}`;
 			let label = item.name;
-			if(path.indexOf('http://')!=-1 && path.indexOf('https://')!=-1){
+			if(path.indexOf('http://')!=-1 || path.indexOf('https://')!=-1){
 				return  <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>;
 			}
 			if(type=="member"){
@@ -43,8 +45,8 @@ export default class SidebarNav extends React.Component {
 						}else if(type === 'vue'){
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
 						}else if(type === 'product'){
-							path  = '/product/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+							path  = '/admin-product/#' + path;
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
 						}else if(type==='project'){
 							path  = '/project/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
@@ -59,7 +61,7 @@ export default class SidebarNav extends React.Component {
 							path  = '/project/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else  if(type === 'product'){
-							path  = '/product/#' + path;
+							path  = '/admin-product/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type ==='vue'){
 							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
@@ -74,24 +76,51 @@ export default class SidebarNav extends React.Component {
 			// }
 		})
 	}
+	componentDidMount(){
+		console.log("sidebarRef",this.sidebarRef)
+		this.sidebarRef.addEventListener('scroll',this.siderbarOnWheel.bind(this),true)
+		
+	}
+	componentWillUnmount(){
+
+	}
+
     componentWillReceiveProps(nextProps){
-			this.setState({
-				sidebarNavs:nextProps.item
-			})
+		
+		this.setState({
+			sidebarNavs:nextProps.item
+		})
+	}
+	componentDidUpdate(){
+	
+		if(typeof(Storage)!=="undefined" && this.sidebarRef){
+		
+			this.sidebarRef.scrollTop = sessionStorage.scrollTop || 0;
+		}
+	}
+
+	siderbarOnWheel(){
+		console.log(this.sidebarRef.scrollTop,"pppppp")
+		// if(location.href.indexOf('new/#'))
+		if(typeof(Storage)!=="undefined"){
+			sessionStorage.scrollTop = this.sidebarRef.scrollTop;
+			
+		}
+
 	}
 
 	render() {
-
-		//const {NavModel,item} = this.props;
 		let {sidebarNavs}=this.state;
-
-		// const {sidebarNavs} = this.state;
-		// const sidebarNavs2 = NavModel.sidebarNavs;
-		console.log('item--',sidebarNavs);
 		
 			return (
 				<div className="g-sidebar-nav">
-					<div className="m-siderbar-list">
+					<div 
+						className="m-siderbar-list"
+
+						ref={(ref)=>{
+							this.sidebarRef = ref;
+					}}>
+					
 					{sidebarNavs.childList&&sidebarNavs.childList.map((item,index)=>{
 						if(item.childList&&item.childList.length>0){
 							return(
@@ -100,8 +129,16 @@ export default class SidebarNav extends React.Component {
 											<span className={item.iconUrl} style={{color:`${item.iconColor}`}}></span>
 											<span style={{paddingLeft:40}}>{item.name}</span>
 										</div>
-										<div className="u-sidebar-navlist">
-											{this.renderMenuItems(item.childList)}
+										<div  
+											className="u-sidebar-navlist" 
+											
+											
+										>
+											<div className="..." ref={(ref)=>{
+												this.sidebarRef = ref;
+											}}>
+												{this.renderMenuItems(item.childList)}
+											</div>
 										</div>
 									</div>
 								)

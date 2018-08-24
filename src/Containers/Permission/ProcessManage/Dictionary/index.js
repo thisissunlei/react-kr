@@ -19,6 +19,7 @@ import {
 	Button,
 	Tooltip,
 	Section,
+	Title,
 	Grid,
 	Row,
 	Col,
@@ -77,6 +78,7 @@ export default class ProcessSetting extends React.Component {
 		let options = [{label:'字典名称',value:'name'},{label:'字典编码',value:'code'}]
 		return (
 			<div className="g-process-setting-dict">
+				<Title value="公共字典-氪空间后台管理系统"/>
 				<Section title="公共字典列表" >
 				<form name="searchForm" className="searchForm searchList" style={{marginBottom:10}}>
 					<Button label="新建" operateCode="main_activity_add" onTouchTap={this.openNewCreate} />

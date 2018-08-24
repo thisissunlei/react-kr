@@ -25,6 +25,7 @@ import {
 	TableRowColumn,
 	TableFooter,
 	Button,
+	Title,
 	Tooltip,
 	Section,
 	Grid,
@@ -80,6 +81,7 @@ openHighSearch = () => {
 
 		return (
 			<div className="g-message-list">
+				<Title value="消息日志-氪空间后台管理系统"/>
 				<Section title="消息日志" >
 					<Grid style={{marginBottom:22,marginTop:2}}>
 						<Row>

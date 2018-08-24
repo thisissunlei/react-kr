@@ -21,7 +21,8 @@ import {
     Col,
     Dialog,
     KrDate,
-    Message
+    Message,
+    Title
 } from 'kr-ui';
 
 import {
@@ -143,6 +144,7 @@ class UpdateLog extends React.Component {
 
         return (
             <div className="g-applogin-list">
+                <Title value="版本更新通知-氪空间后台管理系统"/>
                 <Section title="PC版本管理" >
                     <Grid style={{ marginBottom: 22, marginTop: 2 }}>
                         <Row>

@@ -29,6 +29,7 @@ import {
     ListGroup,
     SearchForms,
     Dialog,
+    Title
 } from 'kr-ui';
 import './index.less';
 import BindMember from './BindMember';
@@ -331,6 +332,7 @@ class AccountList extends React.Component {
         ];
         return (
             <div className="g-account-list">
+                <Title value="账号权限-氪空间后台管理系统"/>
                 <Section title="账户列表">
                     <Row style={{
                         position: 'relative',

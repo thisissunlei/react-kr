@@ -36,7 +36,8 @@ import {
 	Dialog,
 	SearchForms,
 	KrDate,
-	Message
+	Message,
+	Title
 } from 'kr-ui';
 import './index.less';
 import FirstMenu from './FirstMenu';
@@ -113,6 +114,7 @@ export default class MenuSetting extends Component {
 		//console.log(data);
 		return (
 			<div className="g-menu">
+			<Title value="菜单配置-氪空间后台管理系统"/>
                 <Section title="菜单配置" >
 					<div className="new-nav">
 						<Button label="新增导航" type="button" onClick={this.openFirstCreate} width={82} height={30} fontSize={14}/>

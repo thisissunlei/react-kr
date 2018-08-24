@@ -157,7 +157,7 @@ export default class ActivityList extends React.Component {
 		return (
 
 			<div className="g-activitys" >
-			<Title value="活动管理"/>
+			<Title value="活动-氪空间后台管理系统"/>
 				<Section title="活动列表" description="" style={{marginBottom:-5,minHeight:910}}>
 					<div className="m-btn">
 						<Button

@@ -97,7 +97,7 @@ export default class List extends React.Component {
         let {itemDetail} = this.state;
 		return (
 			    <div className='house-config-box'>
-					<Title value="好租房源配置"/>
+					<Title value="好租房源配置-氪空间后台管理系统"/>
 					<Section title={`好租房源配置`} description="" >
 						<div>
 							<Button label="新增"  onTouchTap={this.openNewCreateDialog} operateCode="haozu_crud"/>

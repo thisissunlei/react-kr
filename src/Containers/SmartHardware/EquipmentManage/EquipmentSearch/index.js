@@ -41,7 +41,7 @@ export default class EquipmentSearch  extends React.Component{
 		return(
 
 			<div className="ip-adress-check">
-				<Title value="设备查询"/>
+				<Title value="设备查询-氪空间后台管理系统"/>
 				<Section title={`设备查询`} description="" bodyPadding="0 20px">
 					<EquipmentSearchBox/>
 				</Section>

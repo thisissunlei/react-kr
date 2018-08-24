@@ -278,11 +278,12 @@ export default class CanOperationEquipment extends React.Component {
                     >
                     <TableHeader>
                         <TableHeaderColumn>社区名称</TableHeaderColumn>
-                        <TableHeaderColumn>屏幕显示标题</TableHeaderColumn>
-                        <TableHeaderColumn>屏幕显示编号</TableHeaderColumn>
+                        <TableHeaderColumn>屏幕显示标题+显示编号</TableHeaderColumn>
                         <TableHeaderColumn>智能硬件ID</TableHeaderColumn>
                         <TableHeaderColumn>门类型</TableHeaderColumn>
                         <TableHeaderColumn>授权时间</TableHeaderColumn>
+                        <TableHeaderColumn>操作人</TableHeaderColumn>
+                        <TableHeaderColumn>操作时间</TableHeaderColumn>
                         <TableHeaderColumn>备注</TableHeaderColumn>
                         {
                             ((rootPage && rootPage=="personal")|| memberDetailInfo.groupLevel=="CUSTOMER")?null:<TableHeaderColumn>操作</TableHeaderColumn>
@@ -292,20 +293,28 @@ export default class CanOperationEquipment extends React.Component {
                     <TableBody style={{position:'inherit'}}>
                         <TableRow>
                             
-                        <TableRowColumn name="communityName"
-                            style={{width:"12%"}}
-                            
-                        component={(value,oldValue)=>{
-                            if(value==""){
-                                value="-"
+                        
+                        <TableRowColumn 
+                            style={{width:"8%"}}
+                            name="communityName" 
+                            component={(value,oldValue,itemData)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                                TooltipStyle="none"
+
+                            }else{
+                                TooltipStyle="block";
                             }
-                            return (<span>{value}</span>)}}
-                        ></TableRowColumn>
+                                return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+                                <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                        }} ></TableRowColumn>
+
 
                         <TableRowColumn 
-                            style={{width:"10%"}}
+                            style={{width:"16%"}}
                             name="title" 
                             component={(value,oldValue,itemData)=>{
+                            var value = itemData.title + "+"+itemData.doorCode
                             var TooltipStyle=""
                             if(value.length==""){
                                 TooltipStyle="none"
@@ -319,24 +328,10 @@ export default class CanOperationEquipment extends React.Component {
 
                        
 
-                        <TableRowColumn 
-                            name="doorCode" 
-                            style={{width:"10%"}}
-                            component={(value,oldValue,itemData)=>{
-                            var TooltipStyle=""
-                            if(value.length==""){
-                                TooltipStyle="none"
-
-                            }else{
-                                TooltipStyle="block";
-                            }
-                                return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
-                                <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
-                        }} ></TableRowColumn>
 
                         <TableRowColumn 
                             name="serialNo" 
-                            style={{width:"12%"}}
+                            style={{width:"14%"}}
                             component={(value,oldValue,itemData)=>{
                             var TooltipStyle=""
                             if(value.length==""){
@@ -350,7 +345,7 @@ export default class CanOperationEquipment extends React.Component {
                         }} ></TableRowColumn>
 
                         <TableRowColumn name="doorTypeName"
-                        style={{width:"8%"}}
+                        style={{width:"7%"}}
                         options={doorTypeOptions}
                         component={(value,oldValue)=>{
                             if(value==""){
@@ -359,13 +354,14 @@ export default class CanOperationEquipment extends React.Component {
                             return (<span>{value}</span>)}}
                         ></TableRowColumn>
 
+                        
 
                         
                         <TableRowColumn 
                             name="startEndTime" 
-                            style={{width:300}}
+                            style={{width:220}}
                             component={(value,oldValue,itemData)=>{
-                                var timers = DateFormat(itemData.startAt,"yyyy-mm-dd HH:MM:ss")+" —— "+DateFormat(itemData.endAt,"yyyy-mm-dd HH:MM:ss")
+                                var timers = DateFormat(itemData.startAt,"yy/mm/dd HH:MM")+"—"+DateFormat(itemData.endAt,"yy/mm/dd HH:MM")
                                 var TooltipStyle=""
                                 if(timers.length==""){
                                     TooltipStyle="none"
@@ -384,6 +380,53 @@ export default class CanOperationEquipment extends React.Component {
                                     </div>)
                             }} >
                         </TableRowColumn>
+                        
+
+                        
+
+                        <TableRowColumn 
+                            style={{width:"4%"}}
+                            name="creatorName" 
+                            component={(value,oldValue,itemData)=>{
+                            var TooltipStyle=""
+                            if(value.length==""){
+                                TooltipStyle="none"
+
+                            }else{
+                                TooltipStyle="block";
+                            }
+                                return (<div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'><span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}} >{value}</span>
+                                <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
+                        }} ></TableRowColumn>
+
+
+
+                        <TableRowColumn 
+                            style={{width:"7%"}}
+                            name="ctime" 
+                            component={(value,oldValue,itemData)=>{
+                                var timers = DateFormat(itemData.ctime,"yy/mm/dd HH:MM")
+                                var TooltipStyle=""
+                                if(timers.length==""){
+                                    TooltipStyle="none"
+
+                                }else{
+                                    TooltipStyle="block";
+                                }
+                                return (
+                                    <div style={{display:TooltipStyle,paddingTop:5}} className='financeDetail-hover'>
+                                        <span className='tableOver' style={{width:"100%",display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap",fontSize:12}} >
+                                            {timers}
+                                        </span>
+                                        <Tooltip offsetTop={5} place='top'>
+                                            <span  className="start-end">{timers}</span>
+                                        </Tooltip>
+                                    </div>)
+                            }} >
+                        </TableRowColumn>
+
+                        
+                        
 
                         <TableRowColumn 
                             name="memo" 

@@ -11,6 +11,7 @@ import {
 	ListGroupItem,
 	Message,
 	Section,
+	Title
 } from 'kr-ui';
 import {
 	Http
@@ -535,6 +536,7 @@ export default class PersonalCenter extends React.Component {
 		return (
 			<div className="g-personal-center">
 				<Section title="个人中心" />
+				<Title value="个人中心-氪空间后台管理系统"/>
 				<div className="personal-data">
 
 

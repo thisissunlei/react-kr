@@ -64,7 +64,7 @@ class PersonalManage extends React.Component {
 		return (
 
 			<div className="tab-personal" style={{minHeight:910,background:'#fff'}}>
-			       <Title value="人员管理"/>
+			       <Title value="工作人员-氪空间后台管理系统"/>
 
                     <Tabs className="tabs">
                             <Tab label="在职" onActive={this.inServiceClick} style={serviceStyle}>

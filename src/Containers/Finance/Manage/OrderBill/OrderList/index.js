@@ -132,7 +132,7 @@ export default class AttributeSetting extends React.Component {
 		return (
 
 			<div className='m-order-list'>
-					<Title value="订单账单列表_财务管理"/>
+					<Title value="回款(老数据)-氪空间后台管理系统"/>
 					<Section title="订单账单列表" description="" style={{marginBottom:-5,minHeight:910}}>
 
 					<div  className='ui-orderList'><Grid style={{marginTop:-5}}>

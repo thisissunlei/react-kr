@@ -179,7 +179,7 @@ export default class RegisteredAddress extends React.Component {
 
 		return (
 			<div className="g-notice" >
-			<Title value="注册地址列表"/>
+			<Title value="注册地址-氪空间后台管理系统"/>
 				<Section title="注册地址列表" description="" style={{marginBottom:-5,minHeight:910}}>
 					<div className="m-btn">
 						<Button

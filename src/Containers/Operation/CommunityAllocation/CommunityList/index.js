@@ -299,7 +299,7 @@ class CommunityList  extends React.Component{
 		return(
 
 			<div className='community-list'>
-				<Title value="社区列表"/>
+				<Title value="社区-氪空间后台管理系统"/>
 				<Section title="社区列表" description="" style={{marginBottom:-5,minHeight:910}}>
 				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
 

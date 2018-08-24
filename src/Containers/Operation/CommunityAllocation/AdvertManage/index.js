@@ -91,7 +91,7 @@ export default class AdvertManage extends React.Component {
 		return (
 
 			<div className="tab-container" style={{minHeight:910,background:'#fff'}}>
-			<Title value="广告管理"/>
+			<Title value="广告-氪空间后台管理系统"/>
 
 			<Tabs className="tabs">
 				<Tab label="启动页配置" onActive={this.personal}  style={personalStyle}>
