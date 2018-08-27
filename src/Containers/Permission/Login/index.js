@@ -43,7 +43,7 @@ import icon_Cblank from './images/OPlogin/icon_Cblank.png'
 import icon_Cblue from './images/OPlogin/icon_Cblue.png'
 import icon_QRblank from './images/OPlogin/icon_QRblank.png'
 import icon_QRblue from './images/OPlogin/icon_QRblue.png'
-var env = process.env.NODE_ENV;
+//var env = process.env.NODE_ENV;
 var timer;
 @observer
 class Login extends Component {
@@ -112,20 +112,20 @@ class Login extends Component {
 		// window.onresize = this.windowResize;
 
 		// 临时修改 
-		if(env=='production'){
-			// 临时修改 
-		   this.handleProduction()
-		}
+		// if(env=='production'){
+		// 	// 临时修改 
+		//    this.handleProduction()
+		// }
 	}
 	// 当前环境为线上时触发 
-	handleProduction = () =>{
-		// this.setState({
-		// 	canLogin:false,
-		// 	QRCode:true,
-		// 	test:false,
-		// },() =>{ this.getQRCode()})
+	// handleProduction = () =>{
+	// 	// this.setState({
+	// 	// 	canLogin:false,
+	// 	// 	QRCode:true,
+	// 	// 	test:false,
+	// 	// },() =>{ this.getQRCode()})
 		
-	} 
+	// } 
 	windowResize = () => {
 		var width = document.body.clientWidth;
 		var height = document.body.clientHeight;
