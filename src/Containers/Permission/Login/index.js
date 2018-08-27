@@ -980,9 +980,9 @@ class Login extends Component {
 
 												{/* { this.state.nonePwd && <span className="redErr">请输入密码</span>} */}
 											</li>
-											<li className="loginPwd1">
-												<div className="outer-pwd1">
-													<span className="pre-loginpwd1">
+											<li className="login-imgCode">
+												<div className="outer-imgCode">
+													<span className="pre-imgCode">
 
 													</span>
 													<input
@@ -991,7 +991,7 @@ class Login extends Component {
 														ref="imgCode"
 														placeholder="请输入验证码"
 													/>
-													<div className='new_sendCode'>
+													<div className='new_sendCode' disabled ={true}>
 														{this.state.togetPhonetest && <div className='read_sendCode' onClick={this.getPhonetestCode} >发送验证码</div> }
 														{this.state.PhoneTimeDisabledState && <div className='read_second'>{this.state.timeminPhone + 's'}</div> }
 														{this.state.regettestPhoneState && <div className='read_reload' onClick={this.getPhonetestCode}>重新获取</div>}
