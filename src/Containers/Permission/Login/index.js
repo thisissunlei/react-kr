@@ -371,7 +371,7 @@ class Login extends Component {
 		var _this = this;
 		let phone =this.refs.loginName.value ;
 		let password = this.refs.loginPwds.value||'';
-//  gi.js
+	//  gi.js
 	Http.request('startCaptcha',{loginName:phone,loginPwd:password}).then(function(response) {
 	initGeetest({
 	  // 以下配置参数来自服务端 SDK
@@ -393,7 +393,7 @@ class Login extends Component {
 				regettestPhoneState: false,
 				togetPhonetest: false,
 				timeminPhone: 60,
-			}, function () {
+			}, ()=>{
 				let {timeminPhone} = _this.state;
 				var InterTimer = setInterval(function(){
 				timeminPhone--;
@@ -410,8 +410,6 @@ class Login extends Component {
 	
 			  },1000)
 			})
-			
-
 			}).catch(function(err) {
 				if (err.code < 0) {
 					Message.error(err.message)
@@ -445,7 +443,7 @@ class Login extends Component {
 			regettestPhoneState: false,
 			timeminPhone: 60,
 			gettingPhone: false,
-		}, function () {
+		}, ()=>{
 			time()
 		})
 		function time() {
@@ -537,7 +535,7 @@ class Login extends Component {
 			timeminMail: 60,
 			gettingMail: false,
 			togetMailtest:false,
-		}, function () {
+		}, ()=> {
 			time()
 		})
 		function time() {
@@ -659,7 +657,7 @@ class Login extends Component {
 			MobileTimeDisabledState: true,
 			regettestMobileState: false,
 			timeminMobile: 60,
-		}, function () {
+		}, ()=>{
 			time()
 		})
 		function time() {
@@ -699,16 +697,10 @@ class Login extends Component {
 		}).then(function (response) {
 			_this.setState({
 				isLegal: true,
-				//timeminMobile:"",//
-				//timeminMail:"",//
 				saltStr: response.saltStr,
 				editPwd: true,
 				forgetPwd: false,
 				canLogin: false,
-			}, function () {
-				_this.setState({
-
-				})
 			})
 		}).catch(function (err) {
 			if (err.code < 0) {

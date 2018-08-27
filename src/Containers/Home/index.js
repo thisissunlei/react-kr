@@ -167,6 +167,7 @@ export default class Home extends React.Component {
 	   window.open(`${item.linkUrl}`,'_blank');
    }
 	applyRender = () =>{
+		// 具体的url 在对应的css里面配置 
 		var applyArr = [
 			{ text: '氪空间官网', href: 'http://krspace.cn/', url: './images/home-first.png' },
 		//	{ text: '氪星小镇', href: 'http://bbs.corp.36kr.com', url: './images/forum.png' },
