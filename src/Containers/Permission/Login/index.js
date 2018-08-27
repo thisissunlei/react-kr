@@ -1279,7 +1279,7 @@ class Login extends Component {
 				</div>}
 				<img src='./images/man.png' />
 				<div className="footer-wrap">
-					<p style={{ color: "#fff" }}>© 2011~2016 36氪 | 京ICP备12031756号 | 京公网安备11010802012285号</p>
+					<p style={{ color: "#fff" }}>© 2011-2018 氪空间(北京)信息技术有限公司 | 京ICP备16012805号</p>
 				</div>
 			</div>
 
