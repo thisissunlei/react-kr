@@ -68,6 +68,7 @@ class Login extends Component {
 			PhoneTimeDisabledState: false,
 			timeminPhone: 60,
 			regettestPhoneState: false,
+			clickable:true,
 			//邮箱
 			verifyByMail: true,
 			togetMailtest: true,
@@ -367,73 +368,81 @@ class Login extends Component {
 	}
 	// 首页登录获取手机验证码
 	getPhonetestCode = () => {
+		// 防止多次点击 
+		let{clickable} = this.state; 
 		this.refs.imgCode.value = '';
 		var _this = this;
 		let phone =this.refs.loginName.value ;
 		let password = this.refs.loginPwds.value||'';
+
 	//  gi.js
-	Http.request('startCaptcha',{loginName:phone,loginPwd:password}).then(function(response) {
-	initGeetest({
-	  // 以下配置参数来自服务端 SDK
-	  gt: response.gt,
-	  challenge: response.challenge,
-	  offline: !response.success,
-	  new_captcha: response.new_captcha,
-	  product: 'bind',
-	}, function (captchaObj) {
-		  // 这里可以调用验证实例 captchaObj 的实例方法
-		  captchaObj.onReady(function () {
-			captchaObj.verify();
-		});
-		captchaObj.onSuccess(function () {
-		  var verifySuccess = captchaObj.getValidate();
-		  Http.request('get-verifyCode',{mobile:response.mobile,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
-			_this.setState({
-				PhoneTimeDisabledState: true,
-				regettestPhoneState: false,
-				togetPhonetest: false,
-				timeminPhone: 60,
-			}, ()=>{
-				let {timeminPhone} = _this.state;
-				var InterTimer = setInterval(function(){
-				timeminPhone--;
-				_this.setState({timeminPhone},()=>{
-					if(timeminPhone<=0){
-						clearInterval(InterTimer);
-						_this.setState({
-						  regettestPhoneState: true,
-						  PhoneTimeDisabledState: false,
-						  togetPhonetest: false,
-					  })
-					  }  
+	this.setState({clickable: false},()=>{
+		Http.request('startCaptcha',{loginName:phone,loginPwd:password}).then(function(response) {
+			
+			initGeetest({
+			  // 以下配置参数来自服务端 SDK
+			  gt: response.gt,
+			  challenge: response.challenge,
+			  offline: !response.success,
+			  new_captcha: response.new_captcha,
+			  product: 'bind',
+			}, function (captchaObj) {
+				  // 这里可以调用验证实例 captchaObj 的实例方法
+				  captchaObj.onReady(function () {
+					captchaObj.verify();
+				});
+				captchaObj.onSuccess(function () {
+				  var verifySuccess = captchaObj.getValidate();
+				  Http.request('get-verifyCode',{mobile:response.mobile,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
+					_this.setState({
+						PhoneTimeDisabledState: true,
+						regettestPhoneState: false,
+						togetPhonetest: false,
+						timeminPhone: 60,
+						clickable:true
+					}, ()=>{
+						let {timeminPhone} = _this.state;
+						var InterTimer = setInterval(function(){
+						timeminPhone--;
+						_this.setState({timeminPhone},()=>{
+							if(timeminPhone<=0){
+								clearInterval(InterTimer);
+								_this.setState({
+								  regettestPhoneState: true,
+								  PhoneTimeDisabledState: false,
+								  togetPhonetest: false,
+							  })
+							  }  
+						})
+			
+					  },1000)
+					})
+					}).catch(function(err) {
+						if (err.code < 0) {
+							Message.error(err.message)
+						}
+					});
+		
+			  });
+			  captchaObj.onClose(function () {
+				_this.setState({
+					regettestPhoneState: true,
+					PhoneTimeDisabledState: false,
+					togetPhonetest: false,
+					clickable:true
 				})
-	
-			  },1000)
+			  });
 			})
-			}).catch(function(err) {
-				if (err.code < 0) {
-					Message.error(err.message)
-				}
-			});
-
-	  });
-	  captchaObj.onClose(function () {
-		_this.setState({
-			regettestPhoneState: true,
-			PhoneTimeDisabledState: false,
-			togetPhonetest: false,
-		})
-	  });
+		
+		  }).catch(function(err) {
+			if (err.code < 0) {
+				_this.setState({clickable:true})
+				Message.error(err.message)
+			}
+		  });	
 	})
-
-  }).catch(function(err) {
-	if (err.code < 0) {
-		Message.error(err.message)
-	}
-  });
-	}
-
 	
+}
 	// 验证手机验证
 	togetPhonetest = () => {
 		window.clearTimeout(this.timerPhone);
@@ -983,10 +992,10 @@ class Login extends Component {
 														ref="imgCode"
 														placeholder="请输入验证码"
 													/>
-													<div className='new_sendCode' disabled ={true}>
-														{this.state.togetPhonetest && <div className='read_sendCode' onClick={this.getPhonetestCode} >发送验证码</div> }
+													<div className='new_sendCode' >
+														{this.state.togetPhonetest && <div  className='read_sendCode' onClick={()=>{this.state.clickable?this.getPhonetestCode():null} } >发送验证码</div> }
 														{this.state.PhoneTimeDisabledState && <div className='read_second'>{this.state.timeminPhone + 's'}</div> }
-														{this.state.regettestPhoneState && <div className='read_reload' onClick={this.getPhonetestCode}>重新获取</div>}
+														{this.state.regettestPhoneState && <div   className='read_reload'  onClick={()=>{this.state.clickable?this.getPhonetestCode():null}}>重新获取</div>}
 													</div>
 												</div>
 
