@@ -26,7 +26,8 @@ export default class Footer extends React.Component {
 
 		return (
 			<div className="g-footer no-print" style={containerStyles}>
-				<p> © 2011~2016 36氪 | 京ICP备12031756号 | 京公网安备11010802012285号 </p>
+				{/* | 京公网安备11010802012285号 */}
+				<p> © 2011-2018 氪空间(北京)信息技术有限公司 | 京ICP备16012805号   </p>
 			</div>
 		);
 
