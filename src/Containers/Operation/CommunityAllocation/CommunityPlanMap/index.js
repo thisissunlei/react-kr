@@ -364,46 +364,7 @@ class CommunityPlanMap extends React.Component {
 		var _this = this;
 		let { fileData } = this.state;
 		this.getUpFileUrl(fileData);
-		return ;
-		var form = new FormData();
-		form.append('file', fileData);
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState === 4) {
-				if (xhr.status === 200) {
-					var response = xhr.response.data;
-					form.append('sourceservicetoken', response.sourceservicetoken);
-					form.append('docTypeCode', response.docTypeCode);
-					form.append('operater', response.operater);
-
-					var xhrfile = new XMLHttpRequest();
-					xhrfile.onreadystatechange = function () {
-						if (xhrfile.readyState === 4) {
-							var fileResponse = xhrfile.response;
-							if (xhrfile.status === 200) {
-								if (fileResponse && fileResponse.code > 0) {
-									_this.endUpload(fileResponse.data);
-								}
-							} else if (xhrfile.status == 413) {
-								Message.error('您上传的文件过大！');
-							} else {
-								Message.error('后台报错请联系管理员！');
-							}
-						}
-					};
-
-					xhrfile.open('POST', '/api-old/krspace_oa_web/doc/docFile/uploadSingleFile', true);
-					xhrfile.responseType = 'json';
-					xhrfile.withCredentials = true;
-					xhrfile.send(form);
-				} else {
-					Message.error('初始化文件上传失败');
-				}
-			}
-		};
-		xhr.open('GET', '/api/krspace-finance-web/cmt/floor-graph/upload-token', true);
-		xhr.responseType = 'json';
-		xhr.send(null);
+		
 	}
 	//获取上传路径
 	getUpFileUrl = (file) =>{
