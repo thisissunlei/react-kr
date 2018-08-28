@@ -15,7 +15,8 @@ import {
 	Message
 } from 'kr-ui';
 import {
-	Http
+	Http,
+	DateFormat
 } from "kr/Utils";
 import './index.less';
 import UpdateLog from '../UpdateLog';
@@ -138,7 +139,7 @@ export default class Home extends React.Component {
 					{item.title}
 				</span>
 				<span className="item-date">
-					{item.dynamicDate}
+				{DateFormat(item.dynamicDate,"yyyy-mm-dd")}
 				</span>
 			</div>
       );
