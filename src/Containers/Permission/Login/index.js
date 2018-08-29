@@ -945,7 +945,7 @@ class Login extends Component {
 										<span className='logins-denglu'>登录</span>
 										<span className='logins-yellow'> </span>
 									</div>
-									<div className="login-content"  >
+									<div className="login-content" style={{marginTop:'-10px'}} >
 										<ul className="login-content-ul">
 											{/*<li className="hideInput">
 												<input type="text" />
