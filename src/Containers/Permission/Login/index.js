@@ -90,7 +90,7 @@ class Login extends Component {
 			pwdTwoHide: true,
 			notSame: false,
 			//重置成功
-			edited: false,
+			edited: false,  // 临时修改 
 			timeToLogin: 3,
 			LoginHeight: 0,
 			//二维码
@@ -1263,9 +1263,9 @@ class Login extends Component {
                 } */}
 							{this.state.edited &&
 								<div className="edited">
-									<div className="login-tip">重置完成</div>
+									<div className="login-tip" style={{paddingLeft:'40%'}}>重置完成</div>
 									<div className="login-content">
-										<ul className="login-content-ul">
+										<ul className="login-content-ul" style={{paddingLeft:'40%'}}>
 											<li className="editOk"><span>重置成功，请牢记新的登录密码</span></li>
 											<li className="timeToLogin"><span>该页面在{this.state.timeToLogin}秒后自动跳转到登陆页</span></li>
 										</ul>
