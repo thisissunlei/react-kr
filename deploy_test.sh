@@ -11,6 +11,8 @@ test01_ip=ali-docker-test01
 test02_ip=ali-docker-test02
 test03_ip=ali-docker-test03
 test04_ip=ali-docker-test04
+test05_ip=ali-docker-test05
+test06_ip=ali-docker-test06
 dev01_ip=10.4.15.241
 dev02_ip=10.4.15.242
 
@@ -41,6 +43,18 @@ case $1 in
     target_site_port=22
 
     npm run build:test04
+  ;;
+  test05)
+    target_site="www@${test05_ip}"
+    target_site_port=22
+
+    npm run build:test05
+  ;;
+  test06)
+    target_site="www@${test06_ip}"
+    target_site_port=22
+
+    npm run build:test06
   ;;
   dev01)
     target_site="www@${dev01_ip}"
