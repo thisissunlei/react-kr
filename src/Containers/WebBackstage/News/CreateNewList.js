@@ -28,15 +28,15 @@ class CreateNewList extends React.Component {
           value: "COMPANY_DYNAMIC"
         },
         {
-          label: "会员故事",
+          label: "社区报道",
           value: "MREMBER_STORY"
         },
         {
-          label: "社区故事",
+          label: "会员报道",
           value: "CMT_STORY"
         },
         {
-          label: "会员服务",
+          label: "行业动态",
           value: "MEMBER_SERVICE"
         }
       ]
