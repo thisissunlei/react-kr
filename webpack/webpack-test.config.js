@@ -140,7 +140,9 @@ const config = {
 			cache: false,
 			showErrors: false,
 			files:{
-				favicon: '/plugins/public/images/favicon.ico'
+				js:pluginsDomain.jsFiles,
+        		css:pluginsDomain.cssFiles,
+				favicon:'/plugins/public/images/favicon.ico'
 			}
 		}),
 		new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),

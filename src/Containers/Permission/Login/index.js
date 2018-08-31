@@ -43,7 +43,7 @@ import icon_Cblank from './images/OPlogin/icon_Cblank.png'
 import icon_Cblue from './images/OPlogin/icon_Cblue.png'
 import icon_QRblank from './images/OPlogin/icon_QRblank.png'
 import icon_QRblue from './images/OPlogin/icon_QRblue.png'
-
+//var env = process.env.NODE_ENV;
 var timer;
 @observer
 class Login extends Component {
@@ -62,6 +62,13 @@ class Login extends Component {
 			timedisabled: 'S后重新获取',
 			saltStr: '',
 			imgCode: '',
+			// 首页手机验证码
+			togetPhonetest: true,
+			gettingPhone: false,
+			PhoneTimeDisabledState: false,
+			timeminPhone: 60,
+			regettestPhoneState: false,
+			clickable:true,
 			//邮箱
 			verifyByMail: true,
 			togetMailtest: true,
@@ -78,16 +85,17 @@ class Login extends Component {
 			timeminMobile: 60,
 			//重置
 			editPwd: false,
-			canLogin: false,   //临时修改 取反
+			canLogin: true,   //临时修改 取反
 			pwdOneHide: true,
 			pwdTwoHide: true,
 			notSame: false,
 			//重置成功
-			edited: false,
+			edited: false,  // 临时修改 
 			timeToLogin: 3,
 			LoginHeight: 0,
 			//二维码
-			QRCode: true,  //临时修改 取反
+			QRCode: false,  //临时修改 取反
+		//	test: true,  //临时修改 取反
 			QrcodeExpired: false,
 			headPic: icon_QRblank,
 		}
@@ -105,8 +113,20 @@ class Login extends Component {
 		// window.onresize = this.windowResize;
 
 		// 临时修改 
-		this.getQRCode();
+		// if(env=='production'){
+		// 	// 临时修改 
+		//    this.handleProduction()
+		// }
 	}
+	// 当前环境为线上时触发 
+	// handleProduction = () =>{
+	// 	// this.setState({
+	// 	// 	canLogin:false,
+	// 	// 	QRCode:true,
+	// 	// 	test:false,
+	// 	// },() =>{ this.getQRCode()})
+		
+	// } 
 	windowResize = () => {
 		var width = document.body.clientWidth;
 		var height = document.body.clientHeight;
@@ -238,17 +258,18 @@ class Login extends Component {
 	//登录部分
 	submitLogin = () => {
 		if (!this.refs.loginName.value) {
-			this.setState({
-				noneName: true,
-			})
-
+			Message.error('请输入账号');
+			return;
 		}
 		if (!this.refs.loginPwds.value) {
-			this.setState({
-				nonePwd: true,
-			})
+			Message.error('请输入密码');
+			return;
 		}
-		if (this.refs.loginName.value && this.refs.loginPwds.value) {
+		if (!this.refs.imgCode.value) {
+			Message.error('请输入手机验证码');
+			return;
+		}
+		if (this.refs.loginName.value && this.refs.loginPwds.value && this.refs.imgCode.value) {
 			this.setState({
 				forgetPwd: false,
 				canLogin: true,
@@ -271,6 +292,7 @@ class Login extends Component {
 			obj = {
 				loginName: this.refs.loginName.value,
 				loginPwd: this.refs.loginPwds.value,
+				loginValicode:this.refs.imgCode.value,
 			}
 		}
 		var _this = this;
@@ -286,17 +308,18 @@ class Login extends Component {
 
 		Http.request('loginSubmit', {}, obj).then(function (response) {
 			//跳转？
+			debugger;
 			const redirectUrl = getQueryString('RU');
 			window.location.href = (redirectUrl ? redirectUrl : './');
 		}).catch(function (err) {
 			if (err.code == -1) {
 				Message.error(err.message)
 			}
-			if (err.code == -2) {
-				_this.setState({
-					errThree: true,
-				})
-			}
+			// if (err.code == -2) {
+			// 	_this.setState({
+			// 		errThree: true,
+			// 	})
+			// }
 		});
 	}
 	//验证码切换
@@ -343,31 +366,174 @@ class Login extends Component {
 			noneName: false,
 		})
 	}
-	//邮箱验证
-	togetMailtestCode = () => {
-		this.refs.verifyCodeByMail.value = '';
+	// 首页登录获取手机验证码
+	getPhonetestCode = () => {
+		// 防止多次点击 
+		let{clickable} = this.state; 
+		this.refs.imgCode.value = '';
+		var _this = this;
+		let phone =this.refs.loginName.value ;
+		let password = this.refs.loginPwds.value||'';
+
+	//  gi.js
+	this.setState({clickable: false},()=>{
+		Http.request('startCaptcha',{loginName:phone,loginPwd:password}).then(function(response) {
+			
+			initGeetest({
+			  // 以下配置参数来自服务端 SDK
+			  gt: response.gt,
+			  challenge: response.challenge,
+			  offline: !response.success,
+			  new_captcha: response.new_captcha,
+			  product: 'bind',
+			}, function (captchaObj) {
+				  // 这里可以调用验证实例 captchaObj 的实例方法
+				  captchaObj.onReady(function () {
+					captchaObj.verify();
+				});
+				captchaObj.onSuccess(function () {
+				  var verifySuccess = captchaObj.getValidate();
+				  Http.request('get-verifyCode',{mobile:response.mobile,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
+					_this.setState({
+						PhoneTimeDisabledState: true,
+						regettestPhoneState: false,
+						togetPhonetest: false,
+						timeminPhone: 60,
+						clickable:true
+					}, ()=>{
+						let {timeminPhone} = _this.state;
+						var InterTimer = setInterval(function(){
+						timeminPhone--;
+						_this.setState({timeminPhone},()=>{
+							if(timeminPhone<=0){
+								clearInterval(InterTimer);
+								_this.setState({
+								  regettestPhoneState: true,
+								  PhoneTimeDisabledState: false,
+								  togetPhonetest: false,
+							  })
+							  }  
+						})
+			
+					  },1000)
+					})
+					}).catch(function(err) {
+						if (err.code < 0) {
+							Message.error(err.message)
+						}
+					});
+		
+			  });
+			  captchaObj.onClose(function () {
+				_this.setState({
+					regettestPhoneState: true,
+					PhoneTimeDisabledState: false,
+					togetPhonetest: false,
+					clickable:true
+				})
+			  });
+			})
+		
+		  }).catch(function(err) {
+			if (err.code < 0) {
+				_this.setState({clickable:true})
+				Message.error(err.message)
+			}
+		  });	
+	})
+	
+}
+	// 验证手机验证
+	togetPhonetest = () => {
+		window.clearTimeout(this.timerPhone);
 		var _this = this;
 		this.setState({
-			gettingMail: true,
-			regettestMailState: false,
-			togetMailtest: false,
-		}, function () {
+			PhoneTimeDisabledState: true,
+			regettestPhoneState: false,
+			timeminPhone: 60,
+			gettingPhone: false,
+		}, ()=>{
+			time()
+		})
+		function time() {
+			if (_this.state.timeminPhone == 0) {
+				_this.setState({
+					regettestPhoneState: true,
+					PhoneTimeDisabledState: false,
+					togetPhonetest: false,
+				})
+			} else {
+				_this.setState({
+					timeminPhone: --_this.state.timeminPhone,
+				})
+				_this.timerPhone = window.setTimeout(function () {
+					time()
+				},
+					1000)
+			}
+		}
+	}
 
-			Http.request('getVcodeByMail', {
-				email: _this.refs.loginMail.value,
-			}, {}).then(function (response) {
-				_this.togetMailtest()
-			}).catch(function (err) {
+	//邮箱验证
+	togetMailtestCode = () => {
+	//  gi.js
+	let phone = this.refs.loginMail.value;
+	var _this = this;
+	Http.request('startCaptcha',{loginName:phone,loginPwd:''}).then(function(response) {
+		initGeetest({
+		  // 以下配置参数来自服务端 SDK
+		  gt: response.gt,
+		  challenge: response.challenge,
+		  offline: !response.success,
+		  new_captcha: response.new_captcha,
+		  product: 'bind',
+		}, function (captchaObj) {
+			  // 这里可以调用验证实例 captchaObj 的实例方法
+			  captchaObj.onReady(function () {
+			  captchaObj.verify();
+			});
+			captchaObj.onSuccess(function () {
+				// 
+			  var verifySuccess = captchaObj.getValidate();
+			  _this.refs.verifyCodeByMail.value = '';
+			  _this.setState({
+		  gettingMail: true,
+		  regettestMailState: false,
+		  togetMailtest: false,
+		  MailTimeDisabledState:true,
+	  },()=>{
+		Http.request('getVcodeByMail',{email:phone,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
+			_this.togetMailtest()
+		}).catch(function (err) {
 				if (err.code < 0) {
 					Message.error(err.message)
 				}
 				_this.setState({
 					gettingMail: false,
 					togetMailtest: true,
+					MailTimeDisabledState:false,
 				})
-			});
+		});
+		
+	  })	  });
+		  captchaObj.onClose(function () {
+			_this.setState({
+				gettingMail: false,
+				togetMailtest: true,
+				MailTimeDisabledState:false,
+			})
+		  });
 		})
+	
+	  }).catch(function(err) {
+		if (err.code < 0) {
+			Message.error(err.message)
+		}
+	  });
 	}
+
+
+
 	//邮箱验证点击获取验证码函数zhangchi@krspace.cn
 	togetMailtest = () => {
 		window.clearTimeout(this.timerMail);
@@ -377,7 +543,8 @@ class Login extends Component {
 			regettestMailState: false,
 			timeminMail: 60,
 			gettingMail: false,
-		}, function () {
+			togetMailtest:false,
+		}, ()=> {
 			time()
 		})
 		function time() {
@@ -428,29 +595,66 @@ class Login extends Component {
 			}
 		});
 	}
+
 	//手机验证
 	togetMobiletestCode = () => {
-		this.refs.verifyCodeByMobile.value = '';
-		this.setState({
-			regettestMobileState: false,
-			gettingMobile: true,
-			togetMobiletest: false,
-		}, function () {
-			var _this = this;
-			Http.request('getVcodeByPhone', {
-				mobile: _this.refs.loginMobile.value,
-			}).then(function (response) {
-				_this.togetMobiletest()
-			}).catch(function (err) {
-				if (err.code < 0) {
-					Message.error(err.message)
-				}
-				_this.setState({
-					gettingMobile: false,
-					togetMobiletest: true,
-				})
+				//  gi.js
+				let phone = this.refs.loginMobile.value;
+				var _this = this;
+				Http.request('startCaptcha',{loginName:phone,loginPwd:''}).then(function(response) {
+					initGeetest({
+					// 以下配置参数来自服务端 SDK
+					gt: response.gt,
+					challenge: response.challenge,
+					offline: !response.success,
+					new_captcha: response.new_captcha,
+					product: 'bind',
+					}, function (captchaObj) {
+						// 这里可以调用验证实例 captchaObj 的实例方法
+						captchaObj.onReady(function () {
+						captchaObj.verify();
+						});
+						captchaObj.onSuccess(function () {
+							// 
+						var verifySuccess = captchaObj.getValidate();
+						_this.refs.verifyCodeByMobile.value = '';
+						_this.setState({
+							regettestMobileState: false,
+							MobileTimeDisabledState:true,
+							togetMobiletest: false,
+				},()=>{
+					Http.request('get-verifyCode',{mobile:phone,geetest_challenge:verifySuccess.geetest_challenge,geetest_seccode:verifySuccess.geetest_seccode,geetest_validate:verifySuccess.geetest_validate}).then(function(response) {
+						_this.togetMobiletest();
+					}).catch(function (err) {
+							if (err.code < 0) {
+								Message.error(err.message)
+							}
+							
+								_this.setState({
+									regettestMobileState: false,
+									togetMobiletest: true,
+									MobileTimeDisabledState:false,
+								})
+						
+					});
+					
+				})	  
 			});
-		})
+					captchaObj.onClose(function () {
+						_this.setState({
+							regettestMailState: false,
+							togetMailtest: true,
+							MailTimeDisabledState:false,
+						})
+					});
+					})
+
+				}).catch(function(err) {
+					if (err.code < 0) {
+						Message.error(err.message)
+					}
+				});
+
 	}
 	//手机验证点击获取验证码函数old
 	togetMobiletest = () => {
@@ -462,7 +666,7 @@ class Login extends Component {
 			MobileTimeDisabledState: true,
 			regettestMobileState: false,
 			timeminMobile: 60,
-		}, function () {
+		}, ()=>{
 			time()
 		})
 		function time() {
@@ -502,16 +706,10 @@ class Login extends Component {
 		}).then(function (response) {
 			_this.setState({
 				isLegal: true,
-				//timeminMobile:"",//
-				//timeminMail:"",//
 				saltStr: response.saltStr,
 				editPwd: true,
 				forgetPwd: false,
 				canLogin: false,
-			}, function () {
-				_this.setState({
-
-				})
 			})
 		}).catch(function (err) {
 			if (err.code < 0) {
@@ -735,10 +933,10 @@ class Login extends Component {
 							<div className={headPic === icon_Cblue ? 'QR-show QR-state' : 'QR-hide QR-state'} >
 								密码登录
 								</div>
-							{/* <div className='head-mask' onClick={() => { this.getQRCode() }} onMouseLeave={this.mouseleave} onMouseEnter={this.mouseenter} ></div>
+							 <div className='head-mask' onClick={() => { this.getQRCode() }} onMouseLeave={this.mouseleave} onMouseEnter={this.mouseenter} ></div>
 							<div className='headPic'  >
 								<img src={headPic}></img>
-							</div>  临时修改  */ }
+							</div>
 							
 							{this.state.canLogin &&
 								<div className='login-newLogin'>
@@ -747,7 +945,7 @@ class Login extends Component {
 										<span className='logins-denglu'>登录</span>
 										<span className='logins-yellow'> </span>
 									</div>
-									<div className="login-content"  >
+									<div className="login-content" style={{marginTop:'-10px'}} >
 										<ul className="login-content-ul">
 											{/*<li className="hideInput">
 												<input type="text" />
@@ -783,14 +981,27 @@ class Login extends Component {
 
 												{/* { this.state.nonePwd && <span className="redErr">请输入密码</span>} */}
 											</li>
-											{this.state.errThree &&
-												<li className="clearfix errThree_check">
-													<div className="input-verifycode">
-														<input ref="imgCode" type="text" placeholder="请输入验证码" />
+											<li className="login-imgCode">
+												<div className="outer-imgCode">
+													<span className="pre-imgCode">
+
+													</span>
+													<input
+														type='text'
+														name="imgCode"
+														ref="imgCode"
+														placeholder="请输入验证码"
+													/>
+													<div className='new_sendCode' >
+														{this.state.togetPhonetest && <div  className='read_sendCode' onClick={()=>{this.state.clickable?this.getPhonetestCode():null} } >发送验证码</div> }
+														{this.state.PhoneTimeDisabledState && <div className='read_second'>{this.state.timeminPhone + 's'}</div> }
+														{this.state.regettestPhoneState && <div   className='read_reload'  onClick={()=>{this.state.clickable?this.getPhonetestCode():null}}>重新获取</div>}
 													</div>
-													<img className="input-verifycode-img" onClick={this.updateCode} src={imgCode || `http://op.krspace.cn/api/krspace-sso-web/sso/login/getImageCode?loginName=${this.refs.loginName.value}&time=${time}`}></img>
-												</li>
-											}
+												</div>
+
+												{/* { this.state.nonePwd && <span className="redErr">请输入密码</span>} */}
+											</li>
+										
 											<li>
 												<p className="login-btn" onClick={this.submitLogin}>登&nbsp;&nbsp;&nbsp;录</p>
 											</li>
@@ -854,7 +1065,7 @@ class Login extends Component {
 												<li className="input-txt loginpwds clearfix ">
 													<input className='' type="text" ref="verifyCodeByMail" placeholder="请输入验证码" />
 		
-														<div className="new_sendCode" >
+													<div className="new_sendCode" >
 														{this.state.togetMailtest && <div className='read_sendCode' onClick={this.togetMailtestCode} >发送验证码</div> }
 														{this.state.MailTimeDisabledState && <div className='read_second'>{this.state.timeminMail + 's'}</div> }
 														{this.state.regettestMailState && <div className='read_reload' onClick={this.togetMailtestCode}>重新获取</div>}
@@ -1052,9 +1263,9 @@ class Login extends Component {
                 } */}
 							{this.state.edited &&
 								<div className="edited">
-									<div className="login-tip">重置完成</div>
+									<div className="login-tip" style={{paddingLeft:'40%'}}>重置完成</div>
 									<div className="login-content">
-										<ul className="login-content-ul">
+										<ul className="login-content-ul" style={{paddingLeft:'40%'}}>
 											<li className="editOk"><span>重置成功，请牢记新的登录密码</span></li>
 											<li className="timeToLogin"><span>该页面在{this.state.timeToLogin}秒后自动跳转到登陆页</span></li>
 										</ul>
