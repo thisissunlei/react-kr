@@ -27,9 +27,10 @@ const envs = {
 
 // const pluginsDomain  = envs[process.env.NODE_ENV].plugins;
 const jsFiles=[
-    'https://web.krspace.cn/kr-op/umeditor/ueditor.config.js',
-    'https://web.krspace.cn/kr-op/umeditor/ueditor.all.js',
-    'https://web.krspace.cn/kr-op/umeditor/lang/zh-cn/zh-cn.js',
+  //  'https://web.krspace.cn/kr-op/umeditor/ueditor.config.js',
+  //  'https://web.krspace.cn/kr-op/umeditor/ueditor.all.js',
+   // 'https://web.krspace.cn/kr-op/umeditor/lang/zh-cn/zh-cn.js',
+    'https://web.krspace.cn/kr-op/gt/1.0.0/gt.js',
 ];
 const cssFiles=[];
 

@@ -157,6 +157,7 @@ export default class Header extends React.Component {
 			_this.setState({
 				firstNav: nowData.allData,headActive,
 			})
+			
 			nowData.allData && nowData.allData.map((item, index) => {
 				if (item.isActive) {
 					_this.setState({
@@ -172,6 +173,8 @@ export default class Header extends React.Component {
 	recursiveAssign(data, url) {
 		var isOpen = false;
 		var allData = data.map((item, index) => {
+		//		let matchUrl = url && url.replace(/\/\d+/g,'/1');
+		//		let matchSource = item.url && item.url.replace(/\/\:(\w+)/g,'/1');
 			if (url==item.url) {
 				item.isActive = true;
 				isOpen = true;
