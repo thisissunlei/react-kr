@@ -25,6 +25,7 @@ class CreateThird extends React.Component {
     }
     constructor(props, context) {
         super(props, context);
+        console.log(PRODUCTTYPELIST,'shiyan');
         this.state={
             infoList:{},
             projectTypeList: [
