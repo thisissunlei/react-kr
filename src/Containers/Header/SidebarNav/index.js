@@ -50,6 +50,9 @@ export default class SidebarNav extends React.Component {
 						}else if(type==='project'){
 							path  = '/project/#' + path;
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+						}else if(type==='admin-applet'){
+							path  = '/admin-applet/#' + path;
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
 						}else{
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
 						}
@@ -65,6 +68,9 @@ export default class SidebarNav extends React.Component {
 							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
 						}else if(type ==='vue'){
 							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
+						}else if(type==='admin-applet'){
+							path  = '/admin-applet/#' + path;
+							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
 						}else{
 							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
 						}

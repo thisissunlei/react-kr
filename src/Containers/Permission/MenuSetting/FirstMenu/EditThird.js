@@ -49,6 +49,10 @@ class EditThird extends React.Component {
               {
                 name: 'product',
                 value: 'product'
+              },
+              {
+                name: 'admin-applet',
+                value: 'admin-applet'
               }
             ]
         }
