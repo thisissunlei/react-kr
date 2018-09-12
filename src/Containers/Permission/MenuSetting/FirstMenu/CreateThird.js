@@ -28,7 +28,7 @@ class CreateThird extends React.Component {
         console.log(PRODUCTTYPELIST,'shiyan');
         this.state={
             infoList:{},
-            projectTypeList: [].concat(PRODUCTTYPELIST)
+            projectTypeList: [].concat($nav_global.types)
         }
     }
     componentDidMount() {

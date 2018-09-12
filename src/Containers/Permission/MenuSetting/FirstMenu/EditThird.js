@@ -29,7 +29,7 @@ class EditThird extends React.Component {
             SecondSelect:[],
             FirstSelect:[],
             infoList:{},
-            projectTypeList: [].concat(PRODUCTTYPELIST)
+            projectTypeList: [].concat($nav_global.types)
         }
         this.getFirstData();
     }

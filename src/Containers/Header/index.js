@@ -313,23 +313,8 @@ export default class Header extends React.Component {
 			<Nav>
 				<NavItem label="首页" originUrl="./" isActive={this.state.headActive} onClick={this.clearSidebar} />
 				{navs && navs.map((item, index) => {
-					let type = '';
-					if (item.childList[0].childList[0].projectType === 'admin') {
-						// if(location.href.indexOf('new') ===-1){
-						type = '/new/#'
-						// }
-					}
-					if (item.childList[0].childList[0].projectType === 'project') {
-						// if(location.href.indexOf('new') ===-1){
-						type = '/project/#'
-						// }
-					}
-					if (item.childList[0].childList[0].projectType === 'product') {
-						// if(location.href.indexOf('new') ===-1){
-						type = '/admin-product/#'
-						// }
-					}
-					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
+					let path = $nav_global.setHref(item.childList[0].childList[0].projectType,path,item.childList[0].childList[0].url)
+					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={path} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 						onClick={() => {
 							this.setSidebar(item)
 						}

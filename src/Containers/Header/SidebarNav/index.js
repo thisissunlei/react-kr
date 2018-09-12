@@ -70,7 +70,7 @@ export default class SidebarNav extends React.Component {
 			// 			}
 			// 	}
 				
-				return <a href={this.getalias(type,path)} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
+				return <a href={$nav_global.setHref(type,path)} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
 			// if(!item.target){
 			// 	return <a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.name}</a>
 			// }else{
