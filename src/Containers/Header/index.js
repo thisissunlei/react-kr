@@ -69,24 +69,24 @@ const More = ({ ...props }) => {
 				<ul className="u-header-more-list">
 					{navs.map((item, index) => {
 								
-									let type = '';
-									if (item.childList[0].childList[0].projectType === 'admin') {
-										// if(location.href.indexOf('new') ===-1){
-										type = '/new/#'
-										// }
+									// let type = '';
+									// if (item.childList[0].childList[0].projectType === 'admin') {
+									// 	// if(location.href.indexOf('new') ===-1){
+									// 	type = '/new/#'
+									// 	// }
 				
-									}
-									if(item.childList[0].childList[0].projectType === 'project'){
-										type = '/project/#'
-									}
-									if(item.childList[0].childList[0].projectType === 'product'){
-										type = '/product/#'
-									}
-									if(item.childList[0].childList[0].projectType === 'admin-applet'){
-										type = '/admin-applet/#'
-									}
-				
-									return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
+									// }
+									// if(item.childList[0].childList[0].projectType === 'project'){
+									// 	type = '/project/#'
+									// }
+									// if(item.childList[0].childList[0].projectType === 'product'){
+									// 	type = '/product/#'
+									// }
+									// if(item.childList[0].childList[0].projectType === 'admin-applet'){
+									// 	type = '/admin-applet/#'
+									// }
+									let path = $nav_global.setHref(item.childList[0].childList[0].projectType,item.childList[0].childList[0].url)
+									return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={path} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 										onClick={() => {
 											self.setSidebar(item)
 										}
