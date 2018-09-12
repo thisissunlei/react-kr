@@ -79,6 +79,12 @@ const More = ({ ...props }) => {
 									if(item.childList[0].childList[0].projectType === 'project'){
 										type = '/project/#'
 									}
+									if(item.childList[0].childList[0].projectType === 'product'){
+										type = '/product/#'
+									}
+									if(item.childList[0].childList[0].projectType === 'admin-applet'){
+										type = '/admin-applet/#'
+									}
 				
 									return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 										onClick={() => {

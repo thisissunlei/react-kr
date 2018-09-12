@@ -107,6 +107,10 @@ export default class SidebarNav extends React.Component {
 				alias = '/admin-product/#'
 				return '/admin-product/#' + router;
 		}
+		if(type && type == 'admin-applet'){
+			alias = '/admin-applet/#'
+			return '/admin-applet/#' + router;
+		}
 		if (type && type == "member") {
 				alias = '/';
 				hostname = 'memberadmin.krspace.cn';
