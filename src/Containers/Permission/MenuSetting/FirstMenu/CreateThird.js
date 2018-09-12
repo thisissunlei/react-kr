@@ -28,36 +28,7 @@ class CreateThird extends React.Component {
         console.log(PRODUCTTYPELIST,'shiyan');
         this.state={
             infoList:{},
-<<<<<<< HEAD
             projectTypeList: [].concat(PRODUCTTYPELIST)
-=======
-            projectTypeList: [
-              {
-                name: 'admin',
-                value: 'admin'
-              },
-              {
-                name: 'vue',
-                value: 'vue'
-              },
-              {
-                name: 'member',
-                value: 'member'
-              },
-              {
-                name: 'project',
-                value: 'project'
-              },
-              {
-                name: 'product',
-                value: 'product'
-              },
-              {
-                name: 'admin-applet',
-                value: 'admin-applet'
-              }
-            ]
->>>>>>> master
         }
     }
     componentDidMount() {
