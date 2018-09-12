@@ -38,43 +38,81 @@ export default class SidebarNav extends React.Component {
 				path =  location.protocol + "//" + "memberadmin.krspace.cn" + port  +"/"+ path;
 				
 			}
-			// 三级跳转
-			if(location.href.indexOf('new/#') !==-1 ){
-						if(type === 'admin'){
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
-						}else if(type === 'vue'){
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
-						}else if(type === 'product'){
-							path  = '/admin-product/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
-						}else if(type==='project'){
-							path  = '/project/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
-						}else{
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
-						}
-				}else {
-						if(type ==='admin'){
-							path  = '/new/#' + path;
-							return <a  href={path} className={item.isActive?'u-sidebar-nav-active':'curson'} >{label}</a>
-						}else if(type === 'project'){
-							path  = '/project/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
-						}else  if(type === 'product'){
-							path  = '/admin-product/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
-						}else if(type ==='vue'){
-							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
-						}else{
-							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
-						}
-				}
+			// // 三级跳转
+			// if(location.href.indexOf('new/#') !==-1 ){
+			// 			if(type === 'admin'){
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+			// 			}else if(type === 'vue'){
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+			// 			}else if(type === 'product'){
+			// 				path  = '/admin-product/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
+			// 			}else if(type==='project'){
+			// 				path  = '/project/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+			// 			}else{
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+			// 			}
+			// 	}else {
+			// 			if(type ==='admin'){
+			// 				path  = '/new/#' + path;
+			// 				return <a  href={path} className={item.isActive?'u-sidebar-nav-active':'curson'} >{label}</a>
+			// 			}else if(type === 'project'){
+			// 				path  = '/project/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+			// 			}else  if(type === 'product'){
+			// 				path  = '/admin-product/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+			// 			}else if(type ==='vue'){
+			// 				return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
+			// 			}else{
+			// 				return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
+			// 			}
+			// 	}
+				
+				return <a href={this.getalias(type,path)} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
 			// if(!item.target){
 			// 	return <a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.name}</a>
 			// }else{
 			// 	return <a href={path}  target={item.target} className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.name}</a>
 			// }
 		})
+	}
+	getalias =(type,router)=>{
+		var href = '';
+		var alias = '/new/#';
+		var hostname = location.hostname;
+		var port = location.port || '';
+
+		if (port) {
+				port = ":" + port;
+		}
+		if (type && type == 'admin') {
+
+				alias = '/new/#'
+				return '/new/#' + router;
+		}
+		if (type && type == "vue") {
+				alias = '';
+				return router;
+		}
+		if (type && type == 'project') {
+
+
+				alias = '/project/#'
+				return '/project/#' + router;
+		}
+		if (type && type == 'product') {
+
+				alias = '/admin-product/#'
+				return '/admin-product/#' + router;
+		}
+		if (type && type == "member") {
+				alias = '/';
+				hostname = 'memberadmin.krspace.cn';
+				href = location.protocol + "//" + hostname + port + alias + router;
+				return href;
+		}
 	}
 	componentDidMount(){
 		console.log("sidebarRef",this.sidebarRef)
