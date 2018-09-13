@@ -27,32 +27,7 @@ class CreateThird extends React.Component {
         super(props, context);
         this.state={
             infoList:{},
-            projectTypeList: [
-              {
-                name: 'admin',
-                value: 'admin'
-              },
-              {
-                name: 'vue',
-                value: 'vue'
-              },
-              {
-                name: 'member',
-                value: 'member'
-              },
-              {
-                name: 'project',
-                value: 'project'
-              },
-              {
-                name: 'product',
-                value: 'product'
-              },
-              {
-                name: 'admin-applet',
-                value: 'admin-applet'
-              }
-            ]
+            projectTypeList: [].concat($nav_global.types)
         }
     }
     componentDidMount() {
