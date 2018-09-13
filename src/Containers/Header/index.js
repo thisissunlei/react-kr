@@ -329,11 +329,12 @@ export default class Header extends React.Component {
 						type = '/admin-product/#'
 						// }
 					}
-					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
-						onClick={() => {
-							this.setSidebar(item)
-						}
-						} />)
+					let path = $nav_global.setHref(item.childList[0].childList[0].projectType,item.childList[0].childList[0].url)
+					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={path} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
+					// 	onClick={() => {
+					// 		this.setSidebar(item)
+					// 	}
+					// 	} />)
 				}
 				)}
 			</Nav>
