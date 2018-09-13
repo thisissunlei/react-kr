@@ -25,7 +25,7 @@ const envs = {
     },
 }
 
-const pluginsDomain  = envs[process.env.NODE_ENV].plugins;
+const pluginsDomain  = envs[process.env.NODE_ENV].plugins+'/plugins';
 const jsFiles=[
        pluginsDomain+'/nav/1.0.0/nav.js',
   //  'https://web.krspace.cn/kr-op/umeditor/ueditor.config.js',
