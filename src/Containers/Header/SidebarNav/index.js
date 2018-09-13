@@ -39,42 +39,43 @@ export default class SidebarNav extends React.Component {
 				
 			}
 			// 三级跳转
-			if(location.href.indexOf('new/#') !==-1 ){
-						if(type === 'admin'){
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
-						}else if(type === 'vue'){
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
-						}else if(type === 'product'){
-							path  = '/admin-product/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
-						}else if(type==='project'){
-							path  = '/project/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
-						}else if(type==='admin-applet'){
-							path  = '/admin-applet/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
-						}else{
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
-						}
-				}else {
-						if(type ==='admin'){
-							path  = '/new/#' + path;
-							return <a  href={path} className={item.isActive?'u-sidebar-nav-active':'curson'} >{label}</a>
-						}else if(type === 'project'){
-							path  = '/project/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
-						}else  if(type === 'product'){
-							path  = '/admin-product/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
-						}else if(type ==='vue'){
-							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
-						}else if(type==='admin-applet'){
-							path  = '/admin-applet/#' + path;
-							return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
-						}else{
-							return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
-						}
-				}
+			// if(location.href.indexOf('new/#') !==-1 ){
+			// 			if(type === 'admin'){
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+			// 			}else if(type === 'vue'){
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+			// 			}else if(type === 'product'){
+			// 				path  = '/admin-product/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
+			// 			}else if(type==='project'){
+			// 				path  = '/project/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+			// 			}else if(type==='admin-applet'){
+			// 				path  = '/admin-applet/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
+			// 			}else{
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>	
+			// 			}
+			// 	}else {
+			// 			if(type ==='admin'){
+			// 				path  = '/new/#' + path;
+			// 				return <a  href={path} className={item.isActive?'u-sidebar-nav-active':'curson'} >{label}</a>
+			// 			}else if(type === 'project'){
+			// 				path  = '/project/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+			// 			}else  if(type === 'product'){
+			// 				path  = '/admin-product/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} onClick ={()=>{location.hash = path}} >{label}</a>
+			// 			}else if(type ==='vue'){
+			// 				return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
+			// 			}else if(type==='admin-applet'){
+			// 				path  = '/admin-applet/#' + path;
+			// 				return <a key ={index} className={item.isActive?'u-sidebar-nav-active':'curson'} href={path} >{label}</a>
+			// 			}else{
+			// 				return <a href={path} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
+			// 			}
+			// 	}
+				return <a href={$nav_global.setHref(type,path)} className={item.isActive?'u-sidebar-nav-active':'curson'}>{label}</a>
 			// if(!item.target){
 			// 	return <a href={path}  className={item.isActive?'u-sidebar-nav-active':''} key={index}>{item.name}</a>
 			// }else{
