@@ -24,16 +24,13 @@ const envs = {
         'plugins':'http://op.krspace.cn',
     },
 }
-//const envs = require('./dev.deomin');
-const pluginsDomain  = envs[process.env.NODE_ENV].plugins+'/plugins';
+
 // const pluginsDomain  = envs[process.env.NODE_ENV].plugins;
 const jsFiles=[
-    pluginsDomain+'/nav/1.0.0/nav.js',
   //  'https://web.krspace.cn/kr-op/umeditor/ueditor.config.js',
   //  'https://web.krspace.cn/kr-op/umeditor/ueditor.all.js',
    // 'https://web.krspace.cn/kr-op/umeditor/lang/zh-cn/zh-cn.js',
     'https://web.krspace.cn/kr-op/gt/1.0.0/gt.js',
-
 ];
 const cssFiles=[];
 
