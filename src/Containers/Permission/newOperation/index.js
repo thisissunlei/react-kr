@@ -5,7 +5,6 @@ import {
 	Tab,
 	Title,
 } from 'kr-ui';
-//vimport './index.less';
 import Start from './Operations';
 import BannerConfig from './OpCode';
 
@@ -15,7 +14,7 @@ export default class AdvertManage extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			tab: 'table',
+			tab: 'menu',
 			communityId: '',
 			initSearch:'',
 			Ifpost:false,
@@ -31,13 +30,13 @@ export default class AdvertManage extends React.Component {
 
 	
 
-	personal = () => {
+	menu = () => {
 		let {
 			tab,
 			initSearch
 		} = this.state;
 		var timer = new Date();
-		tab = 'personal';
+		tab = 'menu';
 		initSearch='p';
 		this.setState({
 			tab,
@@ -45,13 +44,13 @@ export default class AdvertManage extends React.Component {
 			timer:timer,
 		});
 	}
-	home = () => {
+	business = () => {
 		let {
 			tab,
 			initSearch
 		} = this.state;
 		var timer = new Date();
-		tab = 'home';
+		tab = 'business';
 		initSearch='h';
 		this.setState({
 			tab,
@@ -79,8 +78,8 @@ export default class AdvertManage extends React.Component {
             fontSize:'16px'
 		}
 
-		let personalStyle = (tab == 'personal') ? activeTab : commenTab;
-		let homeStyle = (tab == 'home') ? activeTab : commenTab;
+		let personalStyle = (tab == 'menu') ? activeTab : commenTab;
+		let homeStyle = (tab == 'business') ? activeTab : commenTab;
 
 		const inkBarStyle = {
 			background: '＃499df1',
@@ -94,11 +93,11 @@ export default class AdvertManage extends React.Component {
 			<Title value="广告-氪空间后台管理系统"/>
 
 			<Tabs className="tabs">
-				<Tab label="操作项" onActive={this.personal}  style={personalStyle}>
+				<Tab label="菜单+按钮" onActive={this.menu}  style={personalStyle}>
 					<Start timer={this.state.timer}/>
 				</Tab>
 	
-				<Tab label="业务代码" onActive={this.home} style={homeStyle}>
+				<Tab label="业务" onActive={this.business} style={homeStyle}>
 					<BannerConfig timer={this.state.timer}/>
 				</Tab>	
 			</Tabs>

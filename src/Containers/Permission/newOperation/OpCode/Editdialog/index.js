@@ -27,7 +27,14 @@ class Editdialog extends React.Component {
         super(props, context);
 		this.state={
 			infoList:{},
+			ModuleList: [],
+			childModule: [],
+			childModuleList: [],
+			ModuleId: '',
+			moduleVoList: [],
 		}
+		this.getModuleList();
+		this.getResourcesData();
     }
     componentDidMount() {
 
@@ -47,7 +54,188 @@ class Editdialog extends React.Component {
 				});
             }).catch(function(err) {});
 
-    }
+	}
+	// todo 修改的点 只要菜单 不要方法 
+	getResourcesData = () => {
+		let {
+			detail
+		} = this.props;
+		var _this = this;
+	//	var renderMethod = this.state.ControllerRender;
+	//	var ControllerId = this.state.ControllerId;
+		Http.request('getResourcesData', {
+			id: detail.id
+		}, {}).then(function(response) {
+			var moduleVoList = response.resources.moduleVoList.map((item, index) => {
+				item.label = item.name;
+				item.value = item.id;
+				return item;
+			})
+			var EditDate = detail;
+			EditDate.module = moduleVoList[0];
+			if (moduleVoList[1]) {
+				EditDate.moduleChild = moduleVoList[1];
+				var arr = [];
+				arr.push(moduleVoList[1])
+				_this.setState({
+					childModule: arr
+				})
+			}
+
+			if (moduleVoList[2]) {
+				EditDate.moduleChildList = moduleVoList[2];
+				var arr1 = [];
+				arr1.push(moduleVoList[2])
+				_this.setState({
+					childModuleList: arr1
+				})
+			}
+
+
+
+			Store.dispatch(initialize('editdialog', EditDate));
+			// response.methods && response.methods.map((item, index) => {
+			// 	var comKrspaceStart = /^com.krspace./.test(item.controllerName);
+			// 	var strTime = item.controllerName+"";
+			// 	if(comKrspaceStart){
+			// 		strTime = strTime.replace(/com.krspace./,"")
+			// 	}
+
+			// 	var strTimes= `${strTime}#${item.methodName}`;
+
+
+			// 	var str = {
+			// 		controller: strTimes
+					
+			// 	};
+
+			// 	var id = item.id;
+			// 	renderMethod.push(str);
+			// 	ControllerId.push(id);
+
+			// })
+
+			_this.setState({
+			//	ControllerRender: renderMethod,
+			//	ControllerId: ControllerId,
+				moduleVoList: moduleVoList,
+
+
+			})
+		}).catch(function(err) {
+
+		});
+	}
+	//存储模块Id
+	onSetModuleId = (item) => {
+		this.setState({
+			ModuleId: item.id
+		})
+	}
+	getModuleList = () => {
+		let {
+			Params
+		} = this.state;
+		var _this = this;
+		Http.request('getModule', Params, {}).then(function(response) {
+			var ModuleList = response.ssoModuleList.map((item, index) => {
+				item.value = item.id;
+				item.label = item.name;
+				return item;
+			})
+			_this.setState({
+				ModuleList: ModuleList
+			})
+		}).catch(function(err) {
+
+		});
+	}
+	onSelect = (item) => {
+		var _this = this;
+		Store.dispatch(change('editdialog', 'moduleChild', ''));
+		Store.dispatch(change('editdialog', 'moduleChildList', ''));
+		this.setState({
+			Params: {
+				parentId: item.id
+			}
+		}, function() {
+			Http.request('getModule', _this.state.Params, {}).then(function(response) {
+				if (response.ssoModuleList.length > 0) {
+					var ModuleList = response.ssoModuleList.map((item, index) => {
+						item.value = item.id;
+						item.label = item.name;
+						return item;
+					})
+					_this.setState({
+						childModule: ModuleList,
+						childModuleList: []
+					})
+				} else {
+					_this.setState({
+						ModuleId: item.id,
+						childModule: response.ssoModuleList,
+						childModuleList: []
+					})
+				}
+			}).catch(function(err) {
+
+			});
+		})
+
+	}
+	onSelectChild = (item) => {
+		var _this = this;
+		Store.dispatch(change('editdialog', 'moduleChildList', ''));
+		
+		this.setState({
+			Params: {
+				parentId: item.id
+			}
+		}, function() {
+			Http.request('getModule', _this.state.Params, {}).then(function(response) {
+				if (response.ssoModuleList.length > 0) {
+					var ModuleList = response.ssoModuleList.map((item, index) => {
+						item.value = item.id;
+						item.label = item.name;
+						return item;
+					})
+					_this.setState({
+						childModuleList: ModuleList
+					})
+				} else {
+					_this.setState({
+						ModuleId: item.id,
+						childModuleList: response.ssoModuleList
+					})
+				}
+
+			}).catch(function(err) {
+
+			});
+		})
+
+	}
+	renderModule = () => {
+		let {
+			childModule
+		} = this.state;
+		return (
+			<KrField name="moduleChild"  style={{width:220}}  component="select" label="" options={childModule} inline={true} onChange={this.onSelectChild}/>
+		)
+
+
+	}
+	renderchildModule = () => {
+		let {
+			childModuleList
+		} = this.state;
+		return (
+			<KrField name="moduleChildList"  style={{width:220}}  component="select" label="" options={childModuleList} inline={true}  onChange={this.onSetModuleId}/>
+		)
+
+
+	}
+
     onCancel = () => {
         const {onCancel} = this.props;
         onCancel && onCancel()
@@ -59,7 +247,11 @@ class Editdialog extends React.Component {
 
     render() {
         const {handleSubmit} = this.props;
-
+		let {
+			ModuleList,
+			childModule,
+			childModuleList
+		} = this.state;
         return (
 
             <div className="g-opcode-create">
@@ -113,10 +305,25 @@ class Editdialog extends React.Component {
                   left={42}
                   name="desc"
                   component="textarea"
-                  maxSize={300}
+				  maxSize={300}
+				  requireLabel={true}
                   style={{marginTop:4,height:130}}
                   label="备注"
                 />
+					<div className="u-operations-menu">
+						<KrField
+								name="module"
+								style={{width:310,marginLeft:14}}
+								component="select"
+								label="所属菜单"
+								options={ModuleList}
+								inline={true}
+								requireLabel={true}
+								onChange={this.onSelect}
+						/>
+						{childModule.length>0?this.renderModule():''}
+						{childModuleList.length>0?this.renderchildModule():''}
+					</div>
                 <Row style={{marginTop:80,marginBottom:15}}>
       					<Col md={12} align="center">
       						<ButtonGroup>
@@ -158,6 +365,9 @@ const validate = values => {
  
     if (!values.enableFlag) {
 		errors.enableFlag = '请选择是否启用';
+	}
+	if (!values.desc) {
+		errors.desc = '请填写备注';
 	}
 	return errors;
 }

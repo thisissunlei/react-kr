@@ -155,9 +155,11 @@ class OpCode extends Component {
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
+		console.log(params,'params')
 		params = Object.assign({},params);
 		params.codeName = _this.Trim(params.codeName);
 		params.name = _this.Trim(params.name);
+		params.desc = _this.Trim(params.desc);
 		Http.request('op-code-edit', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
@@ -227,7 +229,9 @@ class OpCode extends Component {
 						>
 						<TableHeader>
 						<TableHeaderColumn>名称</TableHeaderColumn>
+						<TableHeaderColumn>备注</TableHeaderColumn>
 						<TableHeaderColumn>编码</TableHeaderColumn>
+						<TableHeaderColumn>菜单</TableHeaderColumn>
 						<TableHeaderColumn>创建人</TableHeaderColumn>
 						<TableHeaderColumn>创建时间</TableHeaderColumn>
 						<TableHeaderColumn>操作</TableHeaderColumn>
@@ -236,6 +240,7 @@ class OpCode extends Component {
 					<TableBody>
 						<TableRow>
 							<TableRowColumn name="name"></TableRowColumn>
+							<TableRowColumn name="descr"></TableRowColumn>
 							<TableRowColumn name="codeName" 
 								 component={(value)=>{
                   var styles = {
@@ -252,6 +257,7 @@ class OpCode extends Component {
                     <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                  }}
 							></TableRowColumn>
+							<TableRowColumn name="moduleName"></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
 							<TableRowColumn type="date" name="createDate" component={(value)=>{
 								return (
