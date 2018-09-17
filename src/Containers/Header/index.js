@@ -12,19 +12,19 @@ import './index.less';
 const Nav = ({ ...props }) => {
 	return <ul className="u-header-nav" {...props}></ul>
 }
-function goLocation(type,href){
-	if(typeof(Storage)!=="undefined"){
+function goLocation(type, href) {
+	if (typeof (Storage) !== "undefined") {
 		sessionStorage.scrollTop = 0;
-		
+
 	}
-	
-	if(type == 'hash'){
+
+	if (type == 'hash') {
 		location.hash = href;
-	}else{
+	} else {
 		location.href = href;
 	}
 
-	
+
 }
 //菜单组建
 const NavItem = ({ ...props }) => {
@@ -38,7 +38,7 @@ const NavItem = ({ ...props }) => {
 	}
 	if (location.href.indexOf('new/#') !== -1 && originUrl.indexOf('new/#') !== -1) {
 		//	if(originUrl.indexOf('new/#') !==-1){
-		return <li className={isActive ? 'u-header-active' : ''} {...props}><a name={label} onClick={() => { goLocation('hash',df) }} >{label}</a></li>
+		return <li className={isActive ? 'u-header-active' : ''} {...props}><a name={label} onClick={() => { goLocation('hash', df) }} >{label}</a></li>
 		//	}else{
 		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
 		//	}
@@ -46,7 +46,7 @@ const NavItem = ({ ...props }) => {
 		//	if(originUrl.indexOf('new/#') !==-1){
 		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url} >{label}</a></li>
 		//	}else{
-		return <li className={isActive ? 'u-header-active' : ''} {...props}><a name={label} onClick={() => { goLocation('href',url) }}>{label}</a></li>
+		return <li className={isActive ? 'u-header-active' : ''} {...props}><a name={label} onClick={() => { goLocation('href', url) }}>{label}</a></li>
 		//		}
 	}
 
@@ -55,8 +55,8 @@ const NavItem = ({ ...props }) => {
 
 
 const More = ({ ...props }) => {
-	let { Navs, NavModel ,self} = props;
-	var navs = Navs;	
+	let { Navs, NavModel, self } = props;
+	var navs = Navs;
 	function setSidebar() {
 		NavModel.setSidebar(true);
 	}
@@ -68,30 +68,30 @@ const More = ({ ...props }) => {
 				<p className="u-single"></p>
 				<ul className="u-header-more-list">
 					{navs.map((item, index) => {
-								
-									let type = '';
-									if (item.childList[0].childList[0].projectType === 'admin') {
-										// if(location.href.indexOf('new') ===-1){
-										type = '/new/#'
-										// }
-				
-									}
-									if(item.childList[0].childList[0].projectType === 'project'){
-										type = '/project/#'
-									}
-									if(item.childList[0].childList[0].projectType === 'product'){
-										type = '/product/#'
-									}
-									if(item.childList[0].childList[0].projectType === 'admin-applet'){
-										type = '/admin-applet/#'
-									}
-				
-									return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
-										onClick={() => {
-											self.setSidebar(item)
-										}
-										} />)
-								
+
+						let type = '';
+						if (item.childList[0].childList[0].projectType === 'admin') {
+							// if(location.href.indexOf('new') ===-1){
+							type = '/new/#'
+							// }
+
+						}
+						if (item.childList[0].childList[0].projectType === 'project') {
+							type = '/project/#'
+						}
+						if (item.childList[0].childList[0].projectType === 'product') {
+							type = '/product/#'
+						}
+						if (item.childList[0].childList[0].projectType === 'admin-applet') {
+							type = '/admin-applet/#'
+						}
+
+						return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
+							onClick={() => {
+								self.setSidebar(item)
+							}
+							} />)
+
 						// return (
 						// 	<NavItem key={index} label={item.primaryText} originUrl={item.originUrl} isActive={item.isActive} path={item.router} onClick={setSidebar} />
 						// )
@@ -130,7 +130,7 @@ export default class Header extends React.Component {
 			Isperson: false,
 			firstNav: [],
 			secondBarNavs: [],
-			headActive:true,
+			headActive: true,
 		}
 		this.nav = [];
 		const { NavModel } = this.props;
@@ -151,19 +151,19 @@ export default class Header extends React.Component {
 	//获取菜单信息
 	getNavData() {
 		const _this = this;
-		
+
 		Http.request('get-menu-catalog').then(function (res) {
 			if (!res.length) return;
-			
+
 			let first = location.hash.split('#')[1].split('?')[0];
-			var nowData = _this.recursiveAssign(res, first);	
-			
-			let headActive = (first==='/' )? true : false;
-		
+			var nowData = _this.recursiveAssign(res, first);
+
+			let headActive = (first === '/') ? true : false;
+
 			_this.setState({
-				firstNav: nowData.allData,headActive,
+				firstNav: nowData.allData, headActive,
 			})
-			
+
 			nowData.allData && nowData.allData.map((item, index) => {
 				if (item.isActive) {
 					_this.setState({
@@ -179,9 +179,9 @@ export default class Header extends React.Component {
 	recursiveAssign(data, url) {
 		var isOpen = false;
 		var allData = data.map((item, index) => {
-		//		let matchUrl = url && url.replace(/\/\d+/g,'/1');
-		//		let matchSource = item.url && item.url.replace(/\/\:(\w+)/g,'/1');
-			if (url==item.url) {
+			//		let matchUrl = url && url.replace(/\/\d+/g,'/1');
+			//		let matchSource = item.url && item.url.replace(/\/\:(\w+)/g,'/1');
+			if (url == item.url) {
 				item.isActive = true;
 				isOpen = true;
 			} else {
@@ -201,12 +201,12 @@ export default class Header extends React.Component {
 	}
 	//route发生变化
 	refresh() {
-		
+
 		let { firstNav } = this.state;
 		let first = location.hash.split('#')[1].split('?')[0];
-		let {headActive} = this.state;
+		let { headActive } = this.state;
 		headActive = first ? false : true;
-		this.setState({headActive});
+		this.setState({ headActive });
 		//最终数据
 		var nowData = this.recursiveAssign(firstNav, first);
 		nowData.allData && nowData.allData.map((item, index) => {
@@ -239,8 +239,8 @@ export default class Header extends React.Component {
 		const { NavModel } = this.props;
 		const href = location.href;
 		const hash = href.split("#")[1];
-		if(hash == '/'){
-			return ;
+		if (hash == '/') {
+			return;
 		}
 		// var navIsActive = NavModel.items.map((item, index) => {
 		// 	return item.isActive;
@@ -264,12 +264,12 @@ export default class Header extends React.Component {
 	}
 	//退出
 	logout = () => {
-		if(typeof(Storage)!=="undefined"){
-			if(sessionStorage.user){
+		if (typeof (Storage) !== "undefined") {
+			if (sessionStorage.user) {
 				sessionStorage.navs = '';
-            	sessionStorage.user = '';
+				sessionStorage.user = '';
 			}
-			
+
 		}
 		let communityId = localStorage.getItem('OP_HOME_COMMUNITY');
 		if (communityId) {
@@ -307,7 +307,7 @@ export default class Header extends React.Component {
 	//上边的菜单
 	renderNav = (Navs) => {
 		let { firstNav } = this.state;
-		var navs=firstNav.slice(0,7);
+		var navs = firstNav.slice(0, 7);
 
 		return (
 			<Nav>
@@ -329,7 +329,8 @@ export default class Header extends React.Component {
 						type = '/admin-product/#'
 						// }
 					}
-					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
+					let path = $nav_global.setHref(item.childList[0].childList[0].projectType, item.childList[0].childList[0].url)
+					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={path} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 						onClick={() => {
 							this.setSidebar(item)
 						}
@@ -358,7 +359,7 @@ export default class Header extends React.Component {
 					</div>
 					<div className="u-header-logo" onClick={this.clickLogo}></div>
 					{this.renderNav(navs)}
-					{more && more.length ? <More Navs={more} NavModel={NavModel} self={this}/> : ''}
+					{more && more.length ? <More Navs={more} NavModel={NavModel} self={this} /> : ''}
 					<MorePerson person={NavModel.userInfo} personShow={this.personShow} open={Isperson} logout={this.logout} />
 				</div>
 				<Drawer

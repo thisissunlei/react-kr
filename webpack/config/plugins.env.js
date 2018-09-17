@@ -21,12 +21,13 @@ const envs = {
         'plugins':'http://dev02.krspace.cn',
     },
     'production':{
-        'plugins':'http://op.krspace.cn',
+        'plugins':'' ,
     },
 }
-
-// const pluginsDomain  = envs[process.env.NODE_ENV].plugins;
+const time = (new Date()).getTime();
+const pluginsDomain  = envs[process.env.NODE_ENV].plugins+'/plugins';
 const jsFiles=[
+       pluginsDomain+'/nav/1.0.0/nav.js'+'?version='+time,
   //  'https://web.krspace.cn/kr-op/umeditor/ueditor.config.js',
   //  'https://web.krspace.cn/kr-op/umeditor/ueditor.all.js',
    // 'https://web.krspace.cn/kr-op/umeditor/lang/zh-cn/zh-cn.js',
