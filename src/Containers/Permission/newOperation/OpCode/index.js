@@ -56,7 +56,6 @@ class SearchForm extends Component {
 		let {
 			onFilter
 		} = this.props;
-		console.log(value,'value')
 		onFilter && onFilter(value);
 	}
 
@@ -153,7 +152,7 @@ class OpCode extends Component {
 		params.name = _this.Trim(params.name);
 		params.desc = _this.Trim(params.desc);
 		if(!params.moduleId){
-			Message.error('请选择第三纪菜单');
+			Message.error('请选择第三级菜单');
 			return;
 		}
 		Http.request('op-code-insert', {}, params).then(function(response) {
@@ -172,7 +171,7 @@ class OpCode extends Component {
 		params.name = _this.Trim(params.name);
 		params.desc = _this.Trim(params.desc);
 		if(!params.moduleId){
-			Message.error('请选择第三纪菜单');
+			Message.error('请选择第三级菜单');
 			return;
 		}
 		Http.request('op-code-edit', {}, params).then(function(response) {
