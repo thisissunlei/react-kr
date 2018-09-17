@@ -37,7 +37,7 @@ export default class AdvertManage extends React.Component {
 		} = this.state;
 		var timer = new Date();
 		tab = 'menu';
-		initSearch='p';
+		initSearch='m';
 		this.setState({
 			tab,
 			initSearch,
@@ -51,7 +51,7 @@ export default class AdvertManage extends React.Component {
 		} = this.state;
 		var timer = new Date();
 		tab = 'business';
-		initSearch='h';
+		initSearch='b';
 		this.setState({
 			tab,
 			initSearch,
@@ -94,11 +94,11 @@ export default class AdvertManage extends React.Component {
 
 			<Tabs className="tabs">
 				<Tab label="菜单+按钮" onActive={this.menu}  style={personalStyle}>
-					<Start timer={this.state.timer}/>
+					{tab==='menu'?<Start timer={this.state.timer}/>:'null'}
 				</Tab>
 	
 				<Tab label="业务" onActive={this.business} style={homeStyle}>
-					<BannerConfig timer={this.state.timer}/>
+					{tab==='business'?<BannerConfig timer={this.state.timer}/>:'null'}
 				</Tab>	
 			</Tabs>
 

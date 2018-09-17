@@ -52,6 +52,13 @@ class SearchForm extends Component {
 
 	}
 
+	onFilter = (value) => {
+		let {
+			onFilter
+		} = this.props;
+		console.log(value,'value')
+		onFilter && onFilter(value);
+	}
 
 	onSubmit = (form) => {
 		let {
@@ -94,7 +101,7 @@ class SearchForm extends Component {
 }
 
 SearchForm = reduxForm({
-	form: 'searchForm'
+	form: 'SearchForm'
 })(SearchForm);
 
 class OpCode extends Component {
