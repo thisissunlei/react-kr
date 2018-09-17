@@ -144,6 +144,11 @@ class OpCode extends Component {
 		params = Object.assign({},params);
 		params.codeName = _this.Trim(params.codeName);
 		params.name = _this.Trim(params.name);
+		params.desc = _this.Trim(params.desc);
+		if(!params.moduleId){
+			Message.error('请选择第三纪菜单');
+			return;
+		}
 		Http.request('op-code-insert', {}, params).then(function(response) {
 			_this.openCreateDialog();
 			Message.success('新建成功');
@@ -155,11 +160,14 @@ class OpCode extends Component {
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
-		console.log(params,'params')
 		params = Object.assign({},params);
 		params.codeName = _this.Trim(params.codeName);
 		params.name = _this.Trim(params.name);
 		params.desc = _this.Trim(params.desc);
+		if(!params.moduleId){
+			Message.error('请选择第三纪菜单');
+			return;
+		}
 		Http.request('op-code-edit', {}, params).then(function(response) {
 			_this.openEditDialog();
 			Message.success('修改成功');
@@ -192,7 +200,7 @@ class OpCode extends Component {
     changeP=()=>{
         var timer = new Date();
 		var searchParams = Object.assign({},this.state.searchParams);
-		console.log(searchParams);
+	//	console.log(searchParams);
 		searchParams.timer=timer;
 		this.setState({
             searchParams:searchParams,
@@ -201,7 +209,7 @@ class OpCode extends Component {
 	onPageChange=(page)=>{
 		var searchParams = Object.assign({},this.state.searchParams);
 		searchParams.page=page;
-		console.log(searchParams);
+	//	console.log(searchParams);
 		this.setState({
             searchParams:searchParams,
         })
@@ -240,7 +248,7 @@ class OpCode extends Component {
 					<TableBody>
 						<TableRow>
 							<TableRowColumn name="name"></TableRowColumn>
-							<TableRowColumn name="descr"></TableRowColumn>
+							<TableRowColumn name="desc"></TableRowColumn>
 							<TableRowColumn name="codeName" 
 								 component={(value)=>{
                   var styles = {

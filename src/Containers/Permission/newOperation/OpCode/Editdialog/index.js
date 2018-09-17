@@ -34,7 +34,7 @@ class Editdialog extends React.Component {
 			moduleVoList: [],
 		}
 		this.getModuleList();
-		this.getResourcesData();
+	//	this.getResourcesData();
     }
     componentDidMount() {
 
@@ -42,90 +42,116 @@ class Editdialog extends React.Component {
         var id = this.props.detail.id;
         Http.request('op-code-detail', {
                 id: id
-            },{}).then(function(response) {
-				// if(response.enableFlag==1){
-				// 	response.enableFlag="1";
-				// }else{
-				// 	response.enableFlag="0";
-				// }
+            },{}).then( (response)=> {
 				Store.dispatch(initialize('editdialog', response));
-				_this.setState({
+				this.setState({
 					infoList:response,
+				},()=>{
+					let {
+						detail
+					} = this.props;
+					var moduleVoList = response.moduleVoList.map((item, index) => {
+						item.label = item.name;
+						item.value = item.id;
+						return item;
+					})
+					var EditDate = detail;
+					EditDate.module = moduleVoList[0];
+					if (moduleVoList[1]) {
+						EditDate.moduleChild = moduleVoList[1];
+						var arr = [];
+						arr.push(moduleVoList[1])
+						_this.setState({
+							childModule: arr
+						})
+					}
+		
+					if (moduleVoList[2]) {
+						EditDate.moduleChildList = moduleVoList[2];
+						var arr1 = [];
+						arr1.push(moduleVoList[2])
+						_this.setState({
+							childModuleList: arr1,
+							ModuleId:moduleVoList[2].id
+						})
+					}
+					Store.dispatch(initialize('editdialog', EditDate));
+					//Store.dispatch(change('editdialog', 'moduleChild', ''));
 				});
             }).catch(function(err) {});
 
 	}
 	// todo 修改的点 只要菜单 不要方法 
-	getResourcesData = () => {
-		let {
-			detail
-		} = this.props;
-		var _this = this;
-	//	var renderMethod = this.state.ControllerRender;
-	//	var ControllerId = this.state.ControllerId;
-		Http.request('getResourcesData', {
-			id: detail.id
-		}, {}).then(function(response) {
-			var moduleVoList = response.resources.moduleVoList.map((item, index) => {
-				item.label = item.name;
-				item.value = item.id;
-				return item;
-			})
-			var EditDate = detail;
-			EditDate.module = moduleVoList[0];
-			if (moduleVoList[1]) {
-				EditDate.moduleChild = moduleVoList[1];
-				var arr = [];
-				arr.push(moduleVoList[1])
-				_this.setState({
-					childModule: arr
-				})
-			}
+	// getResourcesData = () => {
+	// 	let {
+	// 		detail
+	// 	} = this.props;
+	// 	var _this = this;
+	// //	var renderMethod = this.state.ControllerRender;
+	// //	var ControllerId = this.state.ControllerId;
+	// 	Http.request('getResourcesData', {
+	// 		id: detail.id
+	// 	}, {}).then(function(response) {
+	// 		var moduleVoList = response.resources.moduleVoList.map((item, index) => {
+	// 			item.label = item.name;
+	// 			item.value = item.id;
+	// 			return item;
+	// 		})
+	// 		var EditDate = detail;
+	// 		EditDate.module = moduleVoList[0];
+	// 		if (moduleVoList[1]) {
+	// 			EditDate.moduleChild = moduleVoList[1];
+	// 			var arr = [];
+	// 			arr.push(moduleVoList[1])
+	// 			_this.setState({
+	// 				childModule: arr
+	// 			})
+	// 		}
 
-			if (moduleVoList[2]) {
-				EditDate.moduleChildList = moduleVoList[2];
-				var arr1 = [];
-				arr1.push(moduleVoList[2])
-				_this.setState({
-					childModuleList: arr1
-				})
-			}
-
-
-
-			Store.dispatch(initialize('editdialog', EditDate));
-			// response.methods && response.methods.map((item, index) => {
-			// 	var comKrspaceStart = /^com.krspace./.test(item.controllerName);
-			// 	var strTime = item.controllerName+"";
-			// 	if(comKrspaceStart){
-			// 		strTime = strTime.replace(/com.krspace./,"")
-			// 	}
-
-			// 	var strTimes= `${strTime}#${item.methodName}`;
+	// 		if (moduleVoList[2]) {
+	// 			EditDate.moduleChildList = moduleVoList[2];
+	// 			var arr1 = [];
+	// 			arr1.push(moduleVoList[2])
+	// 			_this.setState({
+	// 				childModuleList: arr1
+	// 			})
+	// 		}
 
 
-			// 	var str = {
-			// 		controller: strTimes
+
+	// 		Store.dispatch(initialize('editdialog', EditDate));
+	// 		// response.methods && response.methods.map((item, index) => {
+	// 		// 	var comKrspaceStart = /^com.krspace./.test(item.controllerName);
+	// 		// 	var strTime = item.controllerName+"";
+	// 		// 	if(comKrspaceStart){
+	// 		// 		strTime = strTime.replace(/com.krspace./,"")
+	// 		// 	}
+
+	// 		// 	var strTimes= `${strTime}#${item.methodName}`;
+
+
+	// 		// 	var str = {
+	// 		// 		controller: strTimes
 					
-			// 	};
+	// 		// 	};
 
-			// 	var id = item.id;
-			// 	renderMethod.push(str);
-			// 	ControllerId.push(id);
+	// 		// 	var id = item.id;
+	// 		// 	renderMethod.push(str);
+	// 		// 	ControllerId.push(id);
 
-			// })
+	// 		// })
 
-			_this.setState({
-			//	ControllerRender: renderMethod,
-			//	ControllerId: ControllerId,
-				moduleVoList: moduleVoList,
+	// 		_this.setState({
+	// 		//	ControllerRender: renderMethod,
+	// 		//	ControllerId: ControllerId,
+	// 			moduleVoList: moduleVoList,
 
 
-			})
-		}).catch(function(err) {
+	// 		})
+	// 	}).catch(function(err) {
 
-		});
-	}
+	// 	});
+	// }
 	//存储模块Id
 	onSetModuleId = (item) => {
 		this.setState({
@@ -241,8 +267,15 @@ class Editdialog extends React.Component {
         onCancel && onCancel()
     }
     onSubmit = (form) => {
-        const {onSubmit} = this.props;
-        onSubmit && onSubmit(form);
+		let {
+			detail
+		} = this.props;
+		//console.log(form,'form');
+		let{ModuleId} =  this.state;
+		const {onSubmit} = this.props;
+		let params = {...form,moduleId:ModuleId};
+	//	console.log(params,'params');
+        onSubmit && onSubmit(params);
     }
 
     render() {
