@@ -257,7 +257,7 @@ class Operations extends Component {
 		return (
 			<div className="g-operation">
 			 	<Title value="操作项权限-氪空间后台管理系统"/>
-				<Section title="操作项" >
+				{/* <Section title="操作项" > */}
 					<SearchForm onCreate={this.openCreateDialog} onSubmit={this.onSearch} />
 	        		<Table
 							style={{marginTop:10}}
@@ -337,7 +337,7 @@ class Operations extends Component {
 						<Editdialog  detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
 
 					 </Drawer>
-				</Section>
+				
 
 			</div>
 		);
