@@ -33,7 +33,7 @@ const Permission_User = (location, callback) => {
 }
 const Permission_Operations = (location, callback) => {
   require.ensure([], require => {
-    callback(null, require('kr/Containers/Permission/Operations').default)
+    callback(null, require('kr/Containers/Permission/newOperation').default) //
   }, 'Permission_Operations')
 }
 const Permission_AccountManage_AccountList = (location, callback) => {
