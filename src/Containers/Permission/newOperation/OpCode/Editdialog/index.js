@@ -65,7 +65,6 @@ class Editdialog extends React.Component {
 							childModule: arr
 						})
 					}
-		
 					if (moduleVoList[2]) {
 						EditDate.moduleChildList = moduleVoList[2];
 						var arr1 = [];
@@ -81,77 +80,6 @@ class Editdialog extends React.Component {
             }).catch(function(err) {});
 
 	}
-	// todo 修改的点 只要菜单 不要方法 
-	// getResourcesData = () => {
-	// 	let {
-	// 		detail
-	// 	} = this.props;
-	// 	var _this = this;
-	// //	var renderMethod = this.state.ControllerRender;
-	// //	var ControllerId = this.state.ControllerId;
-	// 	Http.request('getResourcesData', {
-	// 		id: detail.id
-	// 	}, {}).then(function(response) {
-	// 		var moduleVoList = response.resources.moduleVoList.map((item, index) => {
-	// 			item.label = item.name;
-	// 			item.value = item.id;
-	// 			return item;
-	// 		})
-	// 		var EditDate = detail;
-	// 		EditDate.module = moduleVoList[0];
-	// 		if (moduleVoList[1]) {
-	// 			EditDate.moduleChild = moduleVoList[1];
-	// 			var arr = [];
-	// 			arr.push(moduleVoList[1])
-	// 			_this.setState({
-	// 				childModule: arr
-	// 			})
-	// 		}
-
-	// 		if (moduleVoList[2]) {
-	// 			EditDate.moduleChildList = moduleVoList[2];
-	// 			var arr1 = [];
-	// 			arr1.push(moduleVoList[2])
-	// 			_this.setState({
-	// 				childModuleList: arr1
-	// 			})
-	// 		}
-
-
-
-	// 		Store.dispatch(initialize('editdialog', EditDate));
-	// 		// response.methods && response.methods.map((item, index) => {
-	// 		// 	var comKrspaceStart = /^com.krspace./.test(item.controllerName);
-	// 		// 	var strTime = item.controllerName+"";
-	// 		// 	if(comKrspaceStart){
-	// 		// 		strTime = strTime.replace(/com.krspace./,"")
-	// 		// 	}
-
-	// 		// 	var strTimes= `${strTime}#${item.methodName}`;
-
-
-	// 		// 	var str = {
-	// 		// 		controller: strTimes
-					
-	// 		// 	};
-
-	// 		// 	var id = item.id;
-	// 		// 	renderMethod.push(str);
-	// 		// 	ControllerId.push(id);
-
-	// 		// })
-
-	// 		_this.setState({
-	// 		//	ControllerRender: renderMethod,
-	// 		//	ControllerId: ControllerId,
-	// 			moduleVoList: moduleVoList,
-
-
-	// 		})
-	// 	}).catch(function(err) {
-
-	// 	});
-	// }
 	//存储模块Id
 	onSetModuleId = (item) => {
 		this.setState({
@@ -182,7 +110,7 @@ class Editdialog extends React.Component {
 		Store.dispatch(change('editdialog', 'moduleChildList', ''));
 		this.setState({
 			Params: {
-				parentId: item.id
+				parentId: item && item.id
 			}
 		}, function() {
 			Http.request('getModule', _this.state.Params, {}).then(function(response) {
@@ -215,7 +143,7 @@ class Editdialog extends React.Component {
 		
 		this.setState({
 			Params: {
-				parentId: item.id
+				parentId: item && item.id
 			}
 		}, function() {
 			Http.request('getModule', _this.state.Params, {}).then(function(response) {

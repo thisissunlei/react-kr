@@ -242,7 +242,7 @@ class Editdialog extends React.Component {
 		Store.dispatch(change('editdialog', 'moduleChildList', ''));
 		this.setState({
 			Params: {
-				parentId: item.id
+				parentId: item && item.id
 			}
 		}, function() {
 			Http.request('getModule', _this.state.Params, {}).then(function(response) {
@@ -275,7 +275,7 @@ class Editdialog extends React.Component {
 		
 		this.setState({
 			Params: {
-				parentId: item.id
+				parentId: item && item.id
 			}
 		}, function() {
 			Http.request('getModule', _this.state.Params, {}).then(function(response) {

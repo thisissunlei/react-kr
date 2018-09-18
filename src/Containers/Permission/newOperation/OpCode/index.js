@@ -267,7 +267,7 @@ class OpCode extends Component {
                   }else{
                     styles.display="block";
                   }
-                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:220,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                     <Tooltip  offsetTop={5} place='top'>{value}</Tooltip></div>)
                  }}
 							>
@@ -284,7 +284,7 @@ class OpCode extends Component {
                   }else{
                     styles.display="block";
                   }
-                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:200,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:160,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
                     <Tooltip offsetTop={5} place='top'>{value}</Tooltip></div>)
                  }}
 							></TableRowColumn>

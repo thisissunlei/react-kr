@@ -183,7 +183,7 @@ class Createdialog extends React.Component {
 		
 		this.setState({
 			Params: {
-				parentId: item.id
+				parentId: item && item.id
 			}
 		}, function() {
 			Http.request('getModule', _this.state.Params, {}).then(function(response) {
@@ -220,7 +220,7 @@ class Createdialog extends React.Component {
 		
 		this.setState({
 			Params: {
-				parentId: item.id
+				parentId: item && item.id
 			}
 		}, function() {
 			Http.request('getModule', _this.state.Params, {}).then(function(response) {
