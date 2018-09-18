@@ -254,7 +254,24 @@ class OpCode extends Component {
 					<TableBody>
 						<TableRow>
 							<TableRowColumn name="name"></TableRowColumn>
-							<TableRowColumn name="desc"></TableRowColumn>
+							{/* <TableRowColumn name="desc"></TableRowColumn> */}
+							<TableRowColumn name="desc" 
+								 component={(value)=>{
+                  var styles = {
+                    display:'block',
+                    paddingTop:5
+                  };
+                  if(value.length==""){
+                    styles.display="none"
+
+                  }else{
+                    styles.display="block";
+                  }
+                   return (<div style={styles} className='financeDetail-hover'><span className='tableOver' style={{maxWidth:220,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{value}</span>
+                    <Tooltip  offsetTop={5} place='top'>{value}</Tooltip></div>)
+                 }}
+							>
+				</TableRowColumn>			
 							<TableRowColumn name="codeName" 
 								 component={(value)=>{
                   var styles = {
