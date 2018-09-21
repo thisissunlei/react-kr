@@ -153,16 +153,16 @@ export default class Header extends React.Component {
 		const _this = this;
 		if( typeof (Storage) !== "undefined" && sessionStorage.navs){
 			
-		
+			
 			let first = location.hash.split('#')[1].split('?')[0];
-			var nowData = _this.recursiveAssign(sessionStorage.navs, first);
+			var nowData = _this.recursiveAssign(JSON.parse(sessionStorage.navs), first);
 
 			let headActive = (first === '/') ? true : false;
 
 			_this.setState({
 				firstNav: nowData.allData, headActive,
 			})
-
+			return ;
 		}
 
 	
@@ -174,7 +174,10 @@ export default class Header extends React.Component {
 			var nowData = _this.recursiveAssign(res, first);
 
 			let headActive = (first === '/') ? true : false;
-
+			if( typeof (Storage) !== "undefined"){
+				sessionStorage.navs = JSON.stringify(res);
+			}
+		
 			_this.setState({
 				firstNav: nowData.allData, headActive,
 			})
