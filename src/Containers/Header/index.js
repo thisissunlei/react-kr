@@ -162,6 +162,13 @@ export default class Header extends React.Component {
 			_this.setState({
 				firstNav: nowData.allData, headActive,
 			})
+			nowData.allData && nowData.allData.map((item, index) => {
+				if (item.isActive) {
+					_this.setState({
+						secondBarNavs: item
+					})
+				}
+			})
 			return ;
 		}
 
