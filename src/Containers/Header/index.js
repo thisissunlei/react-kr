@@ -151,6 +151,21 @@ export default class Header extends React.Component {
 	//获取菜单信息
 	getNavData() {
 		const _this = this;
+		if( typeof (Storage) !== "undefined" && sessionStorage.navs){
+			
+		
+			let first = location.hash.split('#')[1].split('?')[0];
+			var nowData = _this.recursiveAssign(sessionStorage.navs, first);
+
+			let headActive = (first === '/') ? true : false;
+
+			_this.setState({
+				firstNav: nowData.allData, headActive,
+			})
+
+		}
+
+	
 
 		Http.request('get-menu-catalog').then(function (res) {
 			if (!res.length) return;
