@@ -33,6 +33,7 @@ import {
 } from 'kr-ui';
 
 import State from './State';
+import zqBg from './images/zhongQiu/bg.jpg'
 import './index.less';
 import loginEarth from './images/newYear/earth.png'
 import loginParents from './images/newYear/parents.png'
@@ -106,7 +107,7 @@ class Login extends Component {
 		this.setState({
 			LoginHeight: docuW
 		})
-		this.getCanvas();
+		// this.getCanvas();
 		this.HandleEnterKey();
 		//=======
 		// this.windowResize();
@@ -903,6 +904,9 @@ class Login extends Component {
 		return (
 			<div className="g-permission-login" style={{ height: `${LoginHeight}` }}>
 				<canvas id="canvas"></canvas>
+				<div style={{position:'absolute',top:'0px',left:'0px',right:'0px',bottom:'0px'}}>
+					<img   src={zqBg} />
+				</div>
 				{/* <div className="login-bg" ref = {(ref)=>{
 							this.loginBg = ref;
 						}}>
