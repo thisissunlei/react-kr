@@ -13,7 +13,6 @@ test02_ip=ali-docker-test02
 test03_ip=ali-docker-test03
 test04_ip=ali-docker-test04
 test05_ip=ali-docker-test05
-test06_ip=ali-docker-test06
 dev01_ip=10.4.15.241
 dev02_ip=10.4.15.242
 
@@ -42,11 +41,6 @@ case $1 in
   ;;
   test05)
     environment_array=(www@${test05_ip})
-    target_site_port=22
-
-  ;;
-  test06)
-    environment_array=(www@${test06_ip})
     target_site_port=22
 
   ;;
