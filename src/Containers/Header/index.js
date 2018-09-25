@@ -105,7 +105,7 @@ export default class Header extends React.Component {
 			firstNav: [],
 			secondBarNavs: [],
 			headActive: true,
-			navNum: $nav_global.navNum||7,
+			navNum: sessionStorage.navNum||7,
 		}
 		this.nav = [];
 		const { NavModel } = this.props;
@@ -133,8 +133,8 @@ export default class Header extends React.Component {
 	}
 	windowResize = () => {
 		const { navNum } = this.state;
-		if ($nav_global.navNum != navNum) {
-			this.setState({ navNum: $nav_global.navNum })
+		if (sessionStorage.navNum != navNum) {
+			this.setState({ navNum: sessionStorage.navNum })
 		}
 
 	}
