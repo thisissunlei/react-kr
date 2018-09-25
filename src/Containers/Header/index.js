@@ -37,17 +37,12 @@ const NavItem = ({ ...props }) => {
 		url = './#/' + path;
 	}
 	if (location.href.indexOf('new/#') !== -1 && originUrl.indexOf('new/#') !== -1) {
-		//	if(originUrl.indexOf('new/#') !==-1){
+
 		return <li className={isActive ? 'u-header-active' : ''} {...props}><a name={label} onClick={() => { goLocation('hash', df) }} >{label}</a></li>
-		//	}else{
-		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url}>{label}</a></li>
-		//	}
+
 	} else {
-		//	if(originUrl.indexOf('new/#') !==-1){
-		//		return <li className={isActive?'u-header-active':''} {...props}><a href={url} >{label}</a></li>
-		//	}else{
+
 		return <li className={isActive ? 'u-header-active' : ''} {...props}><a name={label} onClick={() => { goLocation('href', url) }}>{label}</a></li>
-		//		}
 	}
 
 };
@@ -68,33 +63,12 @@ const More = ({ ...props }) => {
 				<p className="u-single"></p>
 				<ul className="u-header-more-list">
 					{navs.map((item, index) => {
-
-						let type = '';
-						if (item.childList[0].childList[0].projectType === 'admin') {
-							// if(location.href.indexOf('new') ===-1){
-							type = '/new/#'
-							// }
-
-						}
-						if (item.childList[0].childList[0].projectType === 'project') {
-							type = '/project/#'
-						}
-						if (item.childList[0].childList[0].projectType === 'product') {
-							type = '/product/#'
-						}
-						if (item.childList[0].childList[0].projectType === 'admin-applet') {
-							type = '/admin-applet/#'
-						}
-
-						return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={type + item.childList[0].childList[0].url} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
+						let path = $nav_global.setHref(item.childList[0].childList[0].projectType, item.childList[0].childList[0].url)
+						return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={path} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 							onClick={() => {
 								self.setSidebar(item)
-							}
-							} />)
-
-						// return (
-						// 	<NavItem key={index} label={item.primaryText} originUrl={item.originUrl} isActive={item.isActive} path={item.router} onClick={setSidebar} />
-						// )
+							}}
+						/>)
 					})}
 				</ul>
 			</div>
@@ -131,6 +105,7 @@ export default class Header extends React.Component {
 			firstNav: [],
 			secondBarNavs: [],
 			headActive: true,
+			navNum: $nav_global.navNum||7,
 		}
 		this.nav = [];
 		const { NavModel } = this.props;
@@ -147,18 +122,32 @@ export default class Header extends React.Component {
 		window.addEventListener("click", this.personHide, false);
 		NavModel.setSidebar(true);
 		window.addEventListener('hashchange', this.refresh.bind(this), false);
+		window.addEventListener('resize', this.windowResize, false);
+	}
+
+	componentWillUnmount() {
+		removeEventListener('resize', this.windowResize, false)
+		removeEventListener('hashchange', this.refresh.bind(this), false);
+		removeEventListener('click', this.personHide, false);
+
+	}
+	windowResize = () => {
+		const { navNum } = this.state;
+		if ($nav_global.navNum != navNum) {
+			this.setState({ navNum: $nav_global.navNum })
+		}
+
 	}
 	//获取菜单信息
 	getNavData() {
 		const _this = this;
-		if( typeof (Storage) !== "undefined" && sessionStorage.navs){
-			
-			
+		if (typeof (Storage) !== "undefined" && sessionStorage.navs) {
+
+
 			let first = location.hash.split('#')[1].split('?')[0];
 			var navArr = JSON.parse(sessionStorage.navs)
 			delete navArr[0]
 			var nowData = _this.recursiveAssign(navArr, first);
-			console.log(nowData,"kkkkkk")
 			let headActive = (first === '/') ? true : false;
 
 			_this.setState({
@@ -171,10 +160,10 @@ export default class Header extends React.Component {
 					})
 				}
 			})
-			return ;
+			return;
 		}
 
-	
+
 
 		Http.request('get-menu-catalog').then(function (res) {
 			if (!res.length) return;
@@ -183,17 +172,17 @@ export default class Header extends React.Component {
 			var nowData = _this.recursiveAssign(res, first);
 
 			let headActive = (first === '/') ? true : false;
-			if( typeof (Storage) !== "undefined"){
+			if (typeof (Storage) !== "undefined") {
 				sessionStorage.navs = JSON.stringify([{
-						iconUrl: "icon-card",
+					iconUrl: "icon-card",
 
-						name: "首页",
+					name: "首页",
 
-						showFlag: "YES",
-						sideFoldFlag: "YES",
+					showFlag: "YES",
+					sideFoldFlag: "YES",
 
-						topFoldFlag: "YES",
-						url: "/"
+					topFoldFlag: "YES",
+					url: "/"
 				}].concat(res));
 			}
 			_this.setState({
@@ -267,10 +256,6 @@ export default class Header extends React.Component {
 	}
 	//打开侧边栏
 	openSidebar = () => {
-		// let { secondBarNavs }= this.state;
-		// if(secondBarNavs){
-
-		// }
 
 		const { NavModel } = this.props;
 		const href = location.href;
@@ -278,14 +263,7 @@ export default class Header extends React.Component {
 		if (hash == '/') {
 			return;
 		}
-		// var navIsActive = NavModel.items.map((item, index) => {
-		// 	return item.isActive;
-		// })
-		// var isActive = navIsActive.indexOf(true) == -1 ? true : false;
-		// if (isActive) {
-		// 	NavModel.clearSidebar();
-		// 	return;
-		// }
+
 		NavModel.toggleSidebar();
 	}
 	//logo点击
@@ -315,7 +293,6 @@ export default class Header extends React.Component {
 		Http.request('user-logout').then(function (response) {
 			let redirectUrl = encodeURIComponent(window.location.href);
 			window.location.href = `/new/login.html?RU=${redirectUrl}`;
-			// window.location.href = "/new/login.html";
 		}).catch(function (err) {
 
 		});
@@ -343,34 +320,19 @@ export default class Header extends React.Component {
 	//上边的菜单
 	renderNav = (Navs) => {
 		let { firstNav } = this.state;
-		var navs = firstNav.slice(0, 7);
+		var navs = firstNav.slice(0, $nav_global.navNum);
 
 		return (
 			<Nav>
 				<NavItem label="首页" originUrl="./" isActive={this.state.headActive} onClick={this.clearSidebar} />
 				{navs && navs.map((item, index) => {
-					let type = '';
-					if (item.childList[0].childList[0].projectType === 'admin') {
-						// if(location.href.indexOf('new') ===-1){
-						type = '/new/#'
-						// }
-					}
-					if (item.childList[0].childList[0].projectType === 'project') {
-						// if(location.href.indexOf('new') ===-1){
-						type = '/project/#'
-						// }
-					}
-					if (item.childList[0].childList[0].projectType === 'product') {
-						// if(location.href.indexOf('new') ===-1){
-						type = '/admin-product/#'
-						// }
-					}
+
 					let path = $nav_global.setHref(item.childList[0].childList[0].projectType, item.childList[0].childList[0].url)
 					return (<NavItem key={index} label={item.name} df={item.childList[0].childList[0].url} originUrl={path} isActive={item.isActive} path={item.router} isPermission={item.isPermission}
 						onClick={() => {
 							this.setSidebar(item)
-						}
-						} />)
+						}}
+					/>)
 				}
 				)}
 			</Nav>
@@ -380,7 +342,8 @@ export default class Header extends React.Component {
 
 	render() {
 		let { firstNav } = this.state;
-		let more = firstNav && firstNav.slice(7);
+		let more = firstNav && firstNav.slice($nav_global.navNum);
+		console.log(more, "kkkkkkkkk")
 		const { NavModel } = this.props;
 		let { Isperson, secondBarNavs } = this.state;
 
