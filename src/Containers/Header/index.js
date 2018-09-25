@@ -105,7 +105,7 @@ export default class Header extends React.Component {
 			firstNav: [],
 			secondBarNavs: [],
 			headActive: true,
-			navNum: sessionStorage.navNum||7,
+			navNum: +sessionStorage.navNum||8,
 		}
 		this.nav = [];
 		const { NavModel } = this.props;
@@ -319,8 +319,8 @@ export default class Header extends React.Component {
 	}
 	//上边的菜单
 	renderNav = (Navs) => {
-		let { firstNav } = this.state;
-		var navs = firstNav.slice(0, $nav_global.navNum);
+		let { firstNav,navNum } = this.state;
+		var navs = firstNav.slice(0, navNum);
 
 		return (
 			<Nav>
@@ -341,8 +341,8 @@ export default class Header extends React.Component {
 	}
 
 	render() {
-		let { firstNav } = this.state;
-		let more = firstNav && firstNav.slice($nav_global.navNum);
+		let { firstNav,navNum } = this.state;
+		let more = firstNav && firstNav.slice(navNum);
 		console.log(more, "kkkkkkkkk")
 		const { NavModel } = this.props;
 		let { Isperson, secondBarNavs } = this.state;
