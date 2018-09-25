@@ -155,9 +155,7 @@ render() {
 									options={options}
 									onChange={this.onChange}
 									placeholder={placeholder}
-									onValueClick={function(){
-
-									}}
+									// onValueClick={()=>{this.onChange()}}
 								/>
 
 					{touched && error && <div className="error-wrap"> <span>{error}</span> </div> }

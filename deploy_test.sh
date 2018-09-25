@@ -1,10 +1,11 @@
 #!/bin/bash
-
+npm run build:test
 
 
 buildEnvDir=$1
 target_site=www@10.1.60.201
 target_site_port=9830
+environment_array=(www@10.1.60.201)
 
 
 test01_ip=ali-docker-test01
@@ -12,7 +13,6 @@ test02_ip=ali-docker-test02
 test03_ip=ali-docker-test03
 test04_ip=ali-docker-test04
 test05_ip=ali-docker-test05
-test06_ip=ali-docker-test06
 dev01_ip=10.4.15.241
 dev02_ip=10.4.15.242
 
@@ -20,64 +20,59 @@ case $1 in
   
 
   test01 )
-    target_site="www@${test01_ip}"
+    environment_array=(www@${test01_ip})
     target_site_port=22
-    
-    npm run build:test01 
   ;;
 
   test02 )
-    target_site="www@${test02_ip}"
+    environment_array=(www@${test02_ip})
     target_site_port=22
 
-    npm run  build:test02 
   ;;
   test03)
-    target_site="www@${test03_ip}"
+    environment_array=(www@${test03_ip})
     target_site_port=22
 
-    npm run build:test03
   ;;
   test04)
-    target_site="www@${test04_ip}"
+    environment_array=(www@${test04_ip})
     target_site_port=22
 
-    npm run build:test04
   ;;
   test05)
-    target_site="www@${test05_ip}"
+    environment_array=(www@${test05_ip})
     target_site_port=22
 
-    npm run build:test05
   ;;
-  test06)
-    target_site="www@${test06_ip}"
-    target_site_port=22
 
-    npm run build:test06
+  all)
+    environment_array=(www@${test01_ip} www@${test02_ip} www@${test03_ip} www@${test04_ip} www@${test05_ip} www@${dev01_ip} www@${dev02_ip})
+    target_site_port=22
   ;;
+  
   dev01)
-    target_site="www@${dev01_ip}"
+    environment_array=(www@${dev01_ip})
     target_site_port=22
 
-    npm run build:dev01
   ;;
   dev02)
-    target_site="www@${dev02_ip}"
+    environment_array=(www@${dev02_ip})
     target_site_port=22
 
-    npm run build:dev02
   ;;
   *)
-  target_site=www@10.1.60.201
+  environment_array=(www@10.1.60.201)
   target_site_port=9830
-
-    npm run  build:test 
 
   ;;
 esac
 
 echo $1
-echo $target_site
+echo $environment_array
 
-rsync -cza --delete-before  -e "ssh -p ${target_site_port}"  ./dist/* ${target_site}:/data/work/frontend/kr-admin/${buildEnvDir} >/dev/null
+for data in ${environment_array[@]}  
+do  
+     rsync -cza --delete-before  -e "ssh -p ${target_site_port}"  ./dist/* ${data}:/data/work/frontend/kr-admin/ >/dev/null
+done  
+
+

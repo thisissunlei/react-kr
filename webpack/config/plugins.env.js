@@ -23,6 +23,9 @@ const envs = {
     'production':{
         'plugins':'' ,
     },
+    'test':{
+        'plugins':'' ,
+    },
 }
 const time = (new Date()).getTime();
 const pluginsDomain  = envs[process.env.NODE_ENV].plugins+'/plugins';

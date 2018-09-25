@@ -33,6 +33,7 @@ import {
 } from 'kr-ui';
 
 import State from './State';
+import MidAutumn from './midAutum'
 import './index.less';
 import loginEarth from './images/newYear/earth.png'
 import loginParents from './images/newYear/parents.png'
@@ -85,17 +86,17 @@ class Login extends Component {
 			timeminMobile: 60,
 			//重置
 			editPwd: false,
-			canLogin: true,   //临时修改 取反
+			canLogin: true,   
 			pwdOneHide: true,
 			pwdTwoHide: true,
 			notSame: false,
 			//重置成功
-			edited: false,  // 临时修改 
+			edited: false,  
 			timeToLogin: 3,
 			LoginHeight: 0,
 			//二维码
-			QRCode: false,  //临时修改 取反
-		//	test: true,  //临时修改 取反
+			QRCode: false,  
+		//	test: true,  
 			QrcodeExpired: false,
 			headPic: icon_QRblank,
 		}
@@ -106,7 +107,7 @@ class Login extends Component {
 		this.setState({
 			LoginHeight: docuW
 		})
-		this.getCanvas();
+		// this.getCanvas();
 		this.HandleEnterKey();
 		//=======
 		// this.windowResize();
@@ -835,20 +836,6 @@ class Login extends Component {
 	}
 	//重置密码完成
 	goToEdited = () => {
-		// this.setState({
-		// 	notSame:fasle,
-		// })
-		// var _this = this;
-		// if(_this.refs.onePwd!==_this.refs.twoPwd){
-		// 	_this.setState({
-		// 		notSame:true,
-		// 	})
-		// 	return;
-		// }
-		// if(_this.refs.onePwd.value==_this.refs.twoPwd){
-		//
-		// 	return;
-		// }
 		var _this = this;
 		window.clearTimeout(this.timerLogin)
 
@@ -903,6 +890,7 @@ class Login extends Component {
 		return (
 			<div className="g-permission-login" style={{ height: `${LoginHeight}` }}>
 				<canvas id="canvas"></canvas>
+				<MidAutumn/>
 				{/* <div className="login-bg" ref = {(ref)=>{
 							this.loginBg = ref;
 						}}>
