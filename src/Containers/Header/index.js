@@ -155,8 +155,10 @@ export default class Header extends React.Component {
 			
 			
 			let first = location.hash.split('#')[1].split('?')[0];
-			var nowData = _this.recursiveAssign(JSON.parse(sessionStorage.navs), first);
-
+			var navArr = JSON.parse(sessionStorage.navs)
+			delete navArr[0]
+			var nowData = _this.recursiveAssign(navArr, first);
+			console.log(nowData,"kkkkkk")
 			let headActive = (first === '/') ? true : false;
 
 			_this.setState({
@@ -182,9 +184,18 @@ export default class Header extends React.Component {
 
 			let headActive = (first === '/') ? true : false;
 			if( typeof (Storage) !== "undefined"){
-				sessionStorage.navs = JSON.stringify(res);
+				sessionStorage.navs = JSON.stringify([{
+						iconUrl: "icon-card",
+
+						name: "首页",
+
+						showFlag: "YES",
+						sideFoldFlag: "YES",
+
+						topFoldFlag: "YES",
+						url: "/"
+				}].concat(res));
 			}
-		
 			_this.setState({
 				firstNav: nowData.allData, headActive,
 			})
