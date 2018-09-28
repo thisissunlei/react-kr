@@ -134,7 +134,7 @@ module.exports = {
     },
     //权限--角色列表--获取角色列表
     'UserfindPage': {
-      url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}',
+      url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}&group={group}', // todo 
       method: 'get'
     },
     //权限--操作项列表--获取操作项列表

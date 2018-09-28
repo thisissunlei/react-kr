@@ -118,6 +118,10 @@ class Operations extends React.Component {
 			searchParams = {
 				code: form.content
 			}
+		}else{
+			searchParams = {
+				group: form.content // todo 
+			}
 		}
 		this.setState({
 			searchParams: searchParams

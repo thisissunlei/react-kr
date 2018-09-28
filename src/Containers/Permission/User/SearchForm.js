@@ -44,26 +44,25 @@ class SearchForm extends Component {
 		} = this.props;
 		onCreate && onCreate();
 	}
-
-
-
 	render() {
-
-
-
 		let options = [{
 			label: '名称',
 			value: 'name'
 		}, {
 			label: '编码',
 			value: 'code'
-		}];
+		},{
+			label: '分组',
+			value: 'group'
+		}
+	];
 
 		return (
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
 
-					<Button label="新建" operateCode="sso_roleList_edit"  onTouchTap={this.openCreateDialog} />
-
+					<Button size='large' label="新建角色" operateCode="sso_roleList_edit"  onTouchTap={this.openCreateDialog} />
+					<Button size='large' label="新建角色分组" operateCode="sso_roleList_edit"  onTouchTap={this.openCreateGroup} />
+					<Button size='large' label="管理角色分组" operateCode="sso_roleList_edit"  onTouchTap={this.openManageGroup} />
 				<SearchForms
 						onSubmit={this.onSubmit}
 						searchFilter={options}
