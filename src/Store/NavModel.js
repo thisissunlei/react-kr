@@ -163,7 +163,6 @@ State.getNavsData = action(function(){
 })
 //设置菜单
 State.setPermissionNav = action(function (menusCode) {
-	console.log(menusCode,"ooooo==")
 	this.items = menusCode;
 	this.isLoadedPermissionNav = true;
 	this.setRouter();
@@ -320,4 +319,5 @@ State.checkMenus= action(function(menusCode){
 	return false;
 
 });
+
 module.exports = State;
