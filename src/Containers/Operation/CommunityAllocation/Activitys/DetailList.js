@@ -52,6 +52,11 @@ export default class DetailList extends React.Component {
 		onCancel && onCancel();
 	}
 	
+	onExport=(values)=>{
+		let id=this.props.detail.id;
+		var url = `/api/krspace-finance-web/activity/management/export-actor?id=${id}`;
+		window.location.href = url;
+	}
 	
 	render() {
 			
@@ -69,7 +74,8 @@ export default class DetailList extends React.Component {
 			                  ajax={true}
 			                  ajaxUrlName='actor-page'
 			                  ajaxParams={this.state.searchParams}
-			                  
+							  onExport={this.onExport}
+							  exportSwitch={true}
 						  >
 					            <TableHeader>
 					              <TableHeaderColumn>姓名</TableHeaderColumn>

@@ -172,7 +172,8 @@ export default class ActivityList extends React.Component {
 		                  ajaxUrlName='activity-page'
 		                  ajaxParams={this.state.searchParams}
 		                  onOperation={this.onOperation}
-		                  onPageChange = {this.pageChange}
+						  onPageChange = {this.pageChange}
+						 
 					  >
 				            <TableHeader>
 				              <TableHeaderColumn>标题</TableHeaderColumn>
