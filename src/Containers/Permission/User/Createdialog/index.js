@@ -22,18 +22,46 @@ class Createdialog extends React.Component {
 		this.state = {
 			moduleDetail: [],
 			resourceIds: [],
-			errorTip: false
+			errorTip: false,
+			roleList:[]
 		}
 		
 	}
 	componentDidMount() {
 		this.getInfo();
+		this.getRoleList()
 	}
 	onCancel = () => {
 		let {
 			onCancel
 		} = this.props;
 		onCancel && onCancel();
+	}
+	onSelect = (item)=>{
+		let idList=[]; 
+		Http.request('getRoleData', {
+			id: item.id
+		}).then( (response) =>{
+			response.moduleAndResources.map((item)=>{
+				item.check=false;
+				if(item.resources.length>0){
+					item.resources.map((items)=>{
+						if(items.ownFlag==1){
+							if(idList.indexOf(items.id)==-1){
+								idList.push(items.id)
+							}
+							
+						}
+					})
+				}
+			})
+			this.setState({
+				moduleDetail: response.moduleAndResources,
+				resourceIds:idList
+			})
+		}).catch(function(err) {
+
+		});
 	}
 	onSubmit = (form) => {
 		let {
@@ -55,10 +83,23 @@ class Createdialog extends React.Component {
 		}
 
 	}
+	getRoleList = () =>{
+		Http.request('getRoleListData').then( (response) =>{
+			let roleList =[];
+			response.reduce((pre,v,i,self)=>{
+				pre.push({id:v.id,label:v.name,value:v.id,name:v.name})
+				return pre;
+			},roleList)
+			this.setState({
+				roleList
+			})
+		}).catch(function(err) {
+
+		});
+	}
 	getInfo = () => {
-		var _this = this;
-		Http.request('getModuleData').then(function(response) {
-			_this.setState({
+		Http.request('getModuleData').then( (response)=> {
+			this.setState({
 				moduleDetail: response.moduleAndResources
 			})
 		}).catch(function(err) {
@@ -168,10 +209,7 @@ class Createdialog extends React.Component {
 				}
 				
 				
-			})
-
-			
-			
+			})	
 	}
 	
 	
@@ -182,14 +220,13 @@ class Createdialog extends React.Component {
 		let {
 			moduleDetail,
 			resourceIds,
-			errorTip
+			errorTip,
+			roleList
 		} = this.state;
-
 		return (
 			<div className="g-create">
 				<div className="u-create-title">
 			     	<DrawerTitle title ="新建角色" onCancel = {this.onCancel}/>
-
 			     </div>
 
 				<form onSubmit={handleSubmit(this.onSubmit)} >
@@ -224,7 +261,18 @@ class Createdialog extends React.Component {
 								 values={resourceIds}
 						/>
 
+							<div style={{margin:'0 0 20px 40px',fontWeight:'500'}}>
+								<KrField
+								name="module"
+								component="select"
+								label="复制其他的操作项角色当前配置"
+								options={roleList}
+								inline={true}
+								onChange={this.onSelect}
+						/>
+							</div>
 					</div>
+	
 					<Row style={{marginTop:10,marginBottom:15}}>
 					<Col md={12} align="center"> 
 						<ButtonGroup>
