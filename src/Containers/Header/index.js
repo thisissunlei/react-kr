@@ -203,10 +203,12 @@ export default class Header extends React.Component {
 	//递归赋值
 	recursiveAssign(data, url) {
 		var isOpen = false;
+		let urls = JSON.parse(localStorage.brightRouter).path;
 		var allData = data.map((item, index) => {
+				
 			//		let matchUrl = url && url.replace(/\/\d+/g,'/1');
 			//		let matchSource = item.url && item.url.replace(/\/\:(\w+)/g,'/1');
-			if (url == item.url) {
+			if (urls == item.url) {
 				item.isActive = true;
 				isOpen = true;
 			} else {
