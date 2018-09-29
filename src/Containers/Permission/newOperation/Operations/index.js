@@ -215,7 +215,7 @@ class Operations extends Component {
 			var content;
 			if (form.content == '菜单') {
 				content = 'MENU'
-			} else if (form.content == '操作') {
+			} else if (form.content == '按钮') {
 				content = 'OPERATION'
 			}
 			searchParams = {
@@ -288,7 +288,7 @@ class Operations extends Component {
 									name="type"
 									options={[
 										{label:'菜单',value:'MENU'},
-										{label:'操作',value:'OPERATION'}
+										{label:'按钮',value:'OPERATION'}
 									]}
 							></TableRowColumn>
 							<TableRowColumn name="code"></TableRowColumn>

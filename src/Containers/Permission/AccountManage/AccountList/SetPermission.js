@@ -147,7 +147,7 @@ export default class SetPermission extends React.Component {
       let {roleList}=this.state;
       return(
         <div className="g-SetPermission">
-            <div style={{textAlign:'left',marginTop:20}}>
+            <div style={{textAlign:'left',marginTop:20,maxHeight:'300px',overflow:'auto'}}>
               <Checkbox label="全选" style={{display:'block',color:'#333'}} onCheck={this.allSelect} checked={this.state.allCheck}/>
               {roleList.map((item,index)=>{return this.renderData(item,index)})}
             </div>
