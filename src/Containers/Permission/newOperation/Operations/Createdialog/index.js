@@ -440,7 +440,7 @@ class Createdialog extends React.Component {
 	                	/>
 	               		 <KrField
 	               		 		name="type"
-	               		 		label="操作"
+	               		 		label="按钮"
 	               		 		type="radio"
 	               		 		value="OPERATION"
 	               		 />
