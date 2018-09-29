@@ -281,6 +281,16 @@ class Editdialog extends React.Component {
 							value={detail.code}
 							inline={false}
 					/>
+					<div style={{margin:'0 0 10px 95px',fontWeight:'500'}}>
+								<KrField
+								name="module"
+								component="select"
+								label="复制其他的操作项角色当前配置"
+								options={roleList}
+								inline={true}
+								onChange={this.onSelect}
+						/>
+							</div>
 					<div className="u-operation">
 						<div className="u-operation-label">
 							<span className="u-require">*</span>操作项：
@@ -295,16 +305,7 @@ class Editdialog extends React.Component {
 								 name="resourceIds"
 								 values={resourceIds}
 						/>
-						<div style={{margin:'0 0 20px 40px',fontWeight:'500'}}>
-								<KrField
-								name="module"
-								component="select"
-								label="复制其他的操作项角色当前配置"
-								options={roleList}
-								inline={true}
-								onChange={this.onSelect}
-						/>
-							</div>
+						
 					</div>
 					<Row style={{marginTop:10,marginBottom:15}}>
 					<Col md={12} align="center"> 
