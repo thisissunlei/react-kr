@@ -44,16 +44,11 @@ class Createdialog extends React.Component {
 		}).then( (response) =>{
 			response.moduleAndResources.map((item)=>{
 				item.check=false;
-				if(item.resources.length>0){
-					item.resources.map((items)=>{
-						if(items.ownFlag==1){
-							if(idList.indexOf(items.id)==-1){
-								idList.push(items.id)
-							}
-							
+					item.resources.length && item.resources.map((items)=>{
+						if(items.ownFlag==1 && idList.indexOf(items.id)==-1 ){
+								idList.push(items.id)					
 						}
 					})
-				}
 			})
 			this.setState({
 				moduleDetail: response.moduleAndResources,
