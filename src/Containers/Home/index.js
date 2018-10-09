@@ -50,7 +50,6 @@ export default class Home extends React.Component {
 		}).catch(function (err) { });
 		_this.swiperWidth = (document.getElementsByClassName('g-home-bottom')[0].clientWidth + 180) * 0.15 * 0.7;
 		_this.applyItemWidth = (document.getElementsByClassName('g-home-middle-item')[2].clientWidth + 60) * 0.175;
-		// document.getElementsByClassName('g-home-middle-item')[2].getElementsByClassName('pic').style.height = _this.applyItemWidth+'px';
 	}
 	toLoadSwiper = () => {
 		var swiper = new Swiper('.swiper-container', {
@@ -59,9 +58,7 @@ export default class Home extends React.Component {
 			loop: false,
 			prevButton: '.oa-swiper-prev',
 			nextButton: '.oa-swiper-next',
-			// spaceBetween: width,
 			onSlideChangeEnd: function (swiper) {
-				//alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
 			}
 
 		});
@@ -79,6 +76,7 @@ export default class Home extends React.Component {
 		});
 	}
 
+	//最近入职同事轮播
 	renderSwiper = (item, index) => {
 		if (!item) {
 			return;
@@ -86,7 +84,6 @@ export default class Home extends React.Component {
 		var height = this.swiperWidth;
 		var styles = {};
 		styles.backgroundImage = `url(${item.avatar || initImg})`;
-		//styles.backgroundSize = `${page.width}px 520px`;
 		styles.backgroundSize = 'cover';
 		styles.backgroundPosition = 'center center';
 		styles.backgroundRepeat = 'no-repeat';
@@ -106,6 +103,7 @@ export default class Home extends React.Component {
 			</div>
 		);
 	}
+	//最新开业社区轮播
 	renderSwiperOne = (item, index) => {
 		if (!item) {
 			return;
@@ -113,7 +111,6 @@ export default class Home extends React.Component {
 
 		var styles = {};
 		styles.backgroundImage = `url(${item.photoUrl})`;
-		//styles.backgroundSize = `${page.width}px 520px`;
 		styles.backgroundSize = 'cover';
 		styles.backgroundPosition = 'center center';
 		styles.backgroundRepeat = 'no-repeat';
@@ -127,6 +124,7 @@ export default class Home extends React.Component {
 			</div>
 		);
 	}
+	//最新动态
 	renderDynamicList = (item, index) => {
 		if (!item) {
 			return;
@@ -145,6 +143,7 @@ export default class Home extends React.Component {
 			</div>
 		);
 	}
+	//最新动态跳转详情页
 	goDetail = (data) => {
 		let id = data.id;
 		var _this = this;
@@ -182,7 +181,6 @@ export default class Home extends React.Component {
 			{ text: '敬请期待', href: ''}
 		]
 		var elems = applyArr.map((item, index) => {
-
 			return (
 				<a className="apply-item" key={index} href={item.href ? item.href : "javascript: void(0);"} target="_blank">
 					{item.href && <div className="pic krspace-logo"
