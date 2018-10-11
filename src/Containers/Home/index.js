@@ -92,8 +92,8 @@ export default class Home extends React.Component {
 		styles.backgroundRepeat = 'no-repeat';
 		styles.height = `${height}px`;
 		styles.lineHeight = `${height}px`;
-		styles.maxWidth = `200px`;
-		styles.maxHeight = `200px`;
+		styles.maxWidth = `150px`;
+		styles.maxHeight = `150px`;
 		styles.color = `#666`;
 
 		return (
