@@ -91,7 +91,7 @@ export default class Home extends React.Component {
 		styles.backgroundPosition = 'center center';
 		styles.backgroundRepeat = 'no-repeat';
 		styles.height = `${height}px`;
-		styles.lineHeight = `${height}px`;
+		styles.lineHeight = height>=150? `150px`: `${height}px`;
 		styles.maxWidth = `150px`;
 		styles.maxHeight = `150px`;
 		styles.color = `#666`;
