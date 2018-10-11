@@ -83,16 +83,23 @@ export default class Home extends React.Component {
 		}
 		var height = this.swiperWidth;
 		var styles = {};
-		styles.backgroundImage = `url(${item.avatar || initImg})`;
+		if(item.avatar){
+			styles.backgroundImage = `url(${item.avatar})`;
+		}
+		styles.backgroundColor="#F9F9FC";
 		styles.backgroundSize = 'cover';
 		styles.backgroundPosition = 'center center';
 		styles.backgroundRepeat = 'no-repeat';
 		styles.height = `${height}px`;
+		styles.lineHeight = `${height}px`;
+		styles.maxWidth = `200px`;
+		styles.maxHeight = `200px`;
+		styles.color = `#666`;
 
 		return (
 			<div key={index} className="swiper-slide">
 				<div className="swiper-pic" style={styles}>
-
+					{(!item.avatar && item.name)?item.name.slice(-2):''}
 				</div>
 				<div className="name">
 					{item.name}
