@@ -58,7 +58,7 @@ const More = ({ ...props }) => {
 
 	return (
 		<div className="u-header-more">
-			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
+			<span className="u-header-more-title">更多</span>
 			<div className="u-header-more-box">
 				<p className="u-single"></p>
 				<ul className="u-header-more-list">
@@ -105,7 +105,7 @@ export default class Header extends React.Component {
 			firstNav: [],
 			secondBarNavs: [],
 			headActive: true,
-			navNum: +sessionStorage.navNum||7,
+			navNum: +sessionStorage.navNum+1||8,
 		}
 		this.nav = [];
 		const { NavModel } = this.props;
