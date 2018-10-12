@@ -105,7 +105,7 @@ export default class Header extends React.Component {
 			firstNav: [],
 			secondBarNavs: [],
 			headActive: true,
-			navNum: +sessionStorage.navNum+1||8,
+			navNum: +sessionStorage.navNum||7,
 		}
 		this.nav = [];
 		const { NavModel } = this.props;
