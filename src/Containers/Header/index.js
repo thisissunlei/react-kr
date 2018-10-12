@@ -58,7 +58,7 @@ const More = ({ ...props }) => {
 
 	return (
 		<div className="u-header-more">
-			<span className="u-header-more-title">更多<span className="icon-return"></span></span>
+			<span className="u-header-more-title">更多</span>
 			<div className="u-header-more-box">
 				<p className="u-single"></p>
 				<ul className="u-header-more-list">
