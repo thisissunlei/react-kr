@@ -187,9 +187,9 @@ export default class ViewMember extends React.Component {
 							/>
 							<KrField
 									grid={1/2} 
-									label="性别："
+									label="姓名："
 									component="labelText"
-									value={baseInfo.gender}
+									value={companyInfo.mbrName}
 									defaultValue="-"
 							/>
 							<KrField
@@ -201,9 +201,9 @@ export default class ViewMember extends React.Component {
 							/>
 							<KrField
 									grid={1/2} 
-									label="常驻地区："
+									label="性别："
 									component="labelText"
-									value={baseInfo.residentArea}
+									value={baseInfo.gender}
 									defaultValue="-"
 							/>
 							<KrField
@@ -215,9 +215,9 @@ export default class ViewMember extends React.Component {
 							/>
 							<KrField
 									grid={1/2} 
-									label="兴趣爱好："
+									label="常驻地区："
 									component="labelText"
-									value={baseInfo.hobbies}
+									value={baseInfo.residentArea}
 									defaultValue="-"
 							/>
 							<KrField
@@ -225,6 +225,13 @@ export default class ViewMember extends React.Component {
 									label="身份证号："
 									component="labelText"
 									value={baseInfo.identityCode}
+									defaultValue="-"
+							/>
+							<KrField
+									grid={1/2} 
+									label="兴趣爱好："
+									component="labelText"
+									value={baseInfo.hobbies}
 									defaultValue="-"
 							/>
 						</div>
@@ -277,13 +284,7 @@ export default class ViewMember extends React.Component {
 							<span className="ui-circle">入驻相关信息（当前状态）</span>
 						</div>
 						<div className="u-info-content">
-							<KrField
-									grid={1/2} 
-									label="姓名："
-									component="labelText"
-									value={companyInfo.mbrName}
-									defaultValue="-"
-							/>
+							
 							{this.renderStatus(companyInfo)}
 							<KrField
 									grid={1/2} 
@@ -301,23 +302,32 @@ export default class ViewMember extends React.Component {
 							/>
 							<KrField
 									grid={1/2} 
-									label="企业管理员："
+									label="入驻时间："
 									component="labelText"
-									value={companyInfo.leader}
+									value={companyInfo.enterDate}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
-									label="入驻时间："
+									label="企业管理员："
 									component="labelText"
-									value={companyInfo.enterDate}
+									value={companyInfo.leader}
 									defaultValue="-"
 							/>
 						</div>
 					</div>
 					<div className="ui-detail-layout">
 						<div className="ui-content-title">
-							<span className="ui-circle">业务信息</span>
+							<span className="ui-circle">企业管理员信息</span>
+						</div>
+						<div className="u-info-content">
+
+						</div>
+
+					</div>
+					<div className="ui-detail-layout">
+						<div className="ui-content-title">
+							<span className="ui-circle">APP业务信息</span>
 						</div>
 						<div className="u-info-content"> 
 							<KrField
@@ -336,16 +346,37 @@ export default class ViewMember extends React.Component {
 							/>
 							<KrField
 									grid={1/2} 
+									label="打印次数："
+									component="labelText"
+									value={workInfo.print}
+									defaultValue="-"
+							/>
+							<KrField
+									grid={1/2} 
 									label="预约的访客："
 									component="labelText"
 									value={workInfo.visiter}
 									defaultValue="-"
 							/>
+						</div>
+					</div>
+					<div className="ui-detail-layout">
+						<div className="ui-content-title">
+							<span className="ui-circle">小程序业务信息</span>
+						</div>
+						<div className="u-info-content"> 
 							<KrField
 									grid={1/2} 
-									label="打印次数："
+									label="预订KM会议室：" 
 									component="labelText"
-									value={workInfo.print}
+									value={workInfo.feedback}
+									defaultValue="-"
+							/>
+							<KrField
+									grid={1/2} 
+									label="预订散座数量："
+									component="labelText"
+									value={workInfo.reservation}
 									defaultValue="-"
 							/>
 						</div>
@@ -379,6 +410,20 @@ export default class ViewMember extends React.Component {
 							<KrField
 									grid={1/2} 
 									label="点赞数："
+									component="labelText"
+									value={socialDynamic.tipNum}
+									defaultValue="-"
+							/>
+							<KrField
+									grid={1/2} 
+									label="团队打Call数："
+									component="labelText"
+									value={socialDynamic.replyNum}
+									defaultValue="-"
+							/>
+							<KrField
+									grid={1/2} 
+									label="创建话题数："
 									component="labelText"
 									value={socialDynamic.tipNum}
 									defaultValue="-"
