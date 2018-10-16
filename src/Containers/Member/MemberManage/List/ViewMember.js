@@ -75,21 +75,21 @@ export default class ViewMember extends React.Component {
 			return(
 				<div  className="u-info-photo">
 					<span>入驻状态：</span>
-					<div className="u-text u-green">{companyInfo.enterStatus}</div>
+					<div className="u-text">{companyInfo.enterStatus}</div>
 				</div>
 			)
 		}else if(companyInfo.enterStatusCode=="1"){
 			return(
 				<div  className="u-info-photo">
 					<span>入驻状态：</span>
-					<div className="u-text u-orange">{companyInfo.enterStatus}</div>
+					<div className="u-text u-red">{companyInfo.enterStatus}</div>
 				</div>
 			)
 		}else if(companyInfo.enterStatusCode=="2"){
 			return(
 				<div  className="u-info-photo">
 					<span>入驻状态：</span>
-					<div className="u-text u-red">{companyInfo.enterStatus}</div>
+					<div className="u-text u-orange">{companyInfo.enterStatus}</div>
 				</div>
 			)
 		}
