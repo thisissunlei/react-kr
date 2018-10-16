@@ -15,11 +15,12 @@ import {
 	Title,
 	Section,
 	KrField,
-	KrDate,
-	Message
+	Message,
+	Dialog,
 } from 'kr-ui';
 import { observer, inject } from 'mobx-react';
 import './index.less';
+import JoinList from './JoinList';
 @inject("NavModel")
 @observer
 export default class ViewMember extends React.Component {
@@ -34,6 +35,9 @@ export default class ViewMember extends React.Component {
 			contacts:{},
 			socialDynamic:{},
 			workInfo:{},
+			joinCount:0,
+			openJoin:false,
+			memberId:''
 		}
 	}
 	
@@ -41,6 +45,15 @@ export default class ViewMember extends React.Component {
 		const {NavModel} = this.props;
 		NavModel.setSidebar(false);
 		this.getBacicInfo();
+	}
+	
+	openJoinDialog=(memberId)=>{
+			this.setState({
+				openJoin:!this.state.openJoin,
+				memberId:memberId || ''
+			})
+		
+		
 	}
 	
 	getBacicInfo=()=>{
@@ -53,6 +66,8 @@ export default class ViewMember extends React.Component {
 				baseInfo:response.baseInfo || {},
 				companyInfo:response.companyInfo || {},
 				contacts:response.contacts || {},
+				joinCount:response.joinCount || 1,
+				
 			})
 		}).catch(function (err) { 
 			Message.error(err.message)
@@ -104,9 +119,10 @@ export default class ViewMember extends React.Component {
 				companyInfo,
 				contacts,
 				socialDynamic,
-				workInfo
+				workInfo,
+				joinCount
 			}=this.state;
-			
+		let memberId=this.props.params.memberId;
 			
 		return (
 			<div className="g-member-detail">
@@ -314,6 +330,7 @@ export default class ViewMember extends React.Component {
 									value={companyInfo.leader}
 									defaultValue="-"
 							/>
+							{joinCount>0?<div className="u-join-tip"  onClick={this.openJoinDialog.bind(this,memberId)}>查看入驻记录 （{joinCount}）>></div>:''}
 						</div>
 					</div>
 					<div className="ui-detail-layout">
@@ -432,6 +449,15 @@ export default class ViewMember extends React.Component {
 					</div>
 				</div>
 			</Section>
+			<Dialog
+					title={`入驻记录（${joinCount}）`}
+					modal={true}
+					open={this.state.openJoin}
+					onClose={this.openJoinDialog}
+					contentStyle={{width:750}}
+				>
+						<JoinList  memberId={this.state.memberId} />
+				</Dialog>
 			</div>
 		);
 	}
