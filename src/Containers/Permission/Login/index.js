@@ -308,8 +308,6 @@ class Login extends Component {
 		}
 
 		Http.request('loginSubmit', {}, obj).then(function (response) {
-			//跳转？
-			debugger;
 			const redirectUrl = getQueryString('RU');
 			window.location.href = (redirectUrl ? redirectUrl : './');
 		}).catch(function (err) {

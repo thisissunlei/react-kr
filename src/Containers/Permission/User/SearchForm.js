@@ -44,6 +44,18 @@ class SearchForm extends Component {
 		} = this.props;
 		onCreate && onCreate();
 	}
+	openCreateGroup = () =>{
+		let {
+			openCreateGroup
+		} = this.props;
+		openCreateGroup && openCreateGroup();
+	}
+	openManageGroup = () =>{
+		let {
+			openRoleManage
+		} = this.props;
+		openRoleManage && openRoleManage();
+	}
 	render() {
 		let options = [{
 			label: '名称',
@@ -60,9 +72,9 @@ class SearchForm extends Component {
 		return (
 			<form name="searchForm" className="searchForm searchList" style={{marginBottom:10,marginTop:12,height:45,zIndex:100}}>
 
-					<Button size='large' label="新建角色" operateCode="sso_roleList_edit"  onTouchTap={this.openCreateDialog} />
-					<Button size='large' label="新建角色分组" operateCode="sso_roleList_edit"  onTouchTap={this.openCreateGroup} />
-					<Button size='large' label="管理角色分组" operateCode="sso_roleList_edit"  onTouchTap={this.openManageGroup} />
+					<Button style={{width:'100px',marginRight:'15px'}} label="新建角色"  operateCode="sso_roleList_edit"  onTouchTap={this.openCreateDialog} />
+					<Button style={{width:'100px',marginRight:'15px'}} label="新建角色分组" operateCode="sso_roleList_edit"  onTouchTap={this.openCreateGroup} />
+					<Button style={{width:'100px',marginRight:'15px'}} label="管理角色分组" operateCode="sso_roleList_edit"  onTouchTap={this.openManageGroup} />
 				<SearchForms
 						onSubmit={this.onSubmit}
 						searchFilter={options}

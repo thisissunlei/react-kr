@@ -94,7 +94,7 @@ module.exports = {
     },
     //权限--账户列表--获取数据权限
     'findRoleData': {
-      url: '/api/krspace-sso-web/sso/ssoUser/findRoleData?id={id}',
+      url: '/api/krspace-sso-web/sso/ssoUser/findUserGroupRoles?userSsoId={userSsoId}',
       method: 'get'
     },
     //权限--账户列表--删除
@@ -134,7 +134,32 @@ module.exports = {
     },
     //权限--角色列表--获取角色列表
     'UserfindPage': {
-      url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}&group={group}', // todo 
+      url: '/api/krspace-sso-web/sso/role/findPage?page={page}&pageSize={pageSize}&name={name}&code={code}&groupName={groupName}', 
+      method: 'get'
+    },
+    //权限--角色分组列表--获取角色分组列表
+    'UserGroupList': {
+      url: '/api/krspace-sso-web/sso/group/list', 
+      method: 'get'
+    },
+    //权限--角色分组列表--删除角色分组
+    'delRoleList': {
+      url: '/api/krspace-sso-web/sso/group/delete?id={id}', 
+      method: 'get'
+    },
+    //权限--角色分组列表--编辑单个角色分组
+    'editRoleGroup': {
+      url: '/api/krspace-sso-web/sso/role/editRoleGroup?groupId={groupId}&roleId={roleId}',  
+      method: 'get'
+    },
+    //权限--角色分组列表--授予角色分组列表
+    'giveRoleGroup': {
+      url: '/api/krspace-sso-web/sso/ssoUser/findUserGroupRoles?id={id}', 
+      method: 'get'
+    },
+    //权限--角色分组列表--授予角色分组列表
+    'giveGroup': {
+      url: '/api/krspace-sso-web/sso/role/getRoleGroups?roleId={roleId}', 
       method: 'get'
     },
     //权限--操作项列表--获取操作项列表
@@ -176,6 +201,11 @@ module.exports = {
     'createRole': {
       url: '/api/krspace-sso-web/sso/role/createRole',
       method: 'post'
+    },
+    // 权限--角色分组--新建--保存
+    'createRoleGroup':{
+      url: '/api/krspace-sso-web/sso/group/add?name={name}&descr={descr}',
+      method: 'get'
     },
     //权限--角色--新建--获取操作项列表
     'getModuleData': {

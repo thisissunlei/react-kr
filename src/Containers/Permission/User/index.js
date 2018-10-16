@@ -18,6 +18,7 @@ import {
 	ListGroupItem,
 	ListGroup,
 	Dialog,
+	DialogInner,
 	SearchForms,
 	Title,
 	KrDate,
@@ -27,7 +28,10 @@ import {
 import './index.less';
 import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
-import Editdialog from './Editdialog';
+import Editdialog from './Editdialog'; 
+import CreateGroup from './CreateGroup';
+import EditGroup from './EditGroup';
+import EditRole from './EditRole';
 import SearchForm from './SearchForm';
 import CodeDialog from './CodeDialog';
 
@@ -47,6 +51,9 @@ class Operations extends React.Component {
 			openCreateDialog: false,
 			openEditDialog: false,
 			openCodeDialog:false,
+			openRoleGroup:false,
+			openRoleManage:false,
+			openRoleManage:false,
 			moduleDetail: '',
 			newPage:1,
 		}
@@ -80,6 +87,8 @@ class Operations extends React.Component {
 			this.openView(itemDetail.id,this.state.newPage);
 		}else if (type == 'code') {
 			this.openCodeDialog();
+		}else if (type == 'group') {
+			this.openRoleEdit();
 		}
 	}
 	openView = (id,page) => {
@@ -120,7 +129,7 @@ class Operations extends React.Component {
 			}
 		}else{
 			searchParams = {
-				group: form.content // todo 
+				groupName: form.content // todo 
 			}
 		}
 		this.setState({
@@ -163,10 +172,27 @@ class Operations extends React.Component {
 			Message.error(err.message);
 		});
 	}
+
 	onCodeSubmit=()=>{
 		this.changeP();
 		this.openCodeDialog();
 	}
+
+	onRoleGroupSubmit =(form)=>{
+		Http.request('createRoleGroup', form).then( (response) =>{
+			Message.success('新建成功');
+			this.changeP();
+        	this.openCreateGroup();
+		}).catch((err)=> {
+			Message.error(err.message);
+		});
+	}
+
+	onRoleManageSubmit = ()=>{
+		this.openRoleManage();
+		this.changeP();
+	}
+
 	//改变页码
     changeP=()=>{
         var timer = new Date();
@@ -177,7 +203,31 @@ class Operations extends React.Component {
 					pageSize:10,
             }
         })
-    }
+	}
+	// 新建角色分组 
+	openCreateGroup = () =>{
+		this.setState({
+			openRoleGroup: !this.state.openRoleGroup
+		})
+	}
+	// 管理角色分组 
+	openRoleManage = () =>{
+		this.setState({
+			openRoleManage: !this.state.openRoleManage
+		})
+	}
+	// 修改单个角色弹框
+	openRoleEdit = ()=>{
+		this.setState({
+			openRoleEdit: !this.state.openRoleEdit
+		})
+	}
+	// 修改单独一个角色 
+	onRoleEditSubmit = ()=>{
+		
+		this.openRoleEdit();
+		this.changeP();
+	}
     onPageChange=(page)=>{
         this.setState({
             newPage:page,
@@ -191,10 +241,10 @@ class Operations extends React.Component {
 		} = this.state;
 
 		return (
-			<div className="g-operation">
+			<div className="g-userAuth">
 				<Title value="角色权限-氪空间后台管理系统"/>
 				<Section title="角色列表" >
-					<SearchForm onSubmit={this.onSearch} onCreate={this.openCreateDialog}/>
+					<SearchForm onSubmit={this.onSearch} openCreateGroup={this.openCreateGroup} openRoleManage={this.openRoleManage}  onCreate={this.openCreateDialog}/>
 	        		<Table
 							style={{marginTop:10}}
 							displayCheckbox={false}
@@ -207,6 +257,7 @@ class Operations extends React.Component {
 							  >
 						<TableHeader>
 						<TableHeaderColumn>编码</TableHeaderColumn>
+						<TableHeaderColumn>分组</TableHeaderColumn>
 						<TableHeaderColumn>名称</TableHeaderColumn>
 						<TableHeaderColumn>创建人</TableHeaderColumn>
 						<TableHeaderColumn>创建时间</TableHeaderColumn>
@@ -216,6 +267,7 @@ class Operations extends React.Component {
 					<TableBody>
 						<TableRow>
 							<TableRowColumn name="code"></TableRowColumn>
+							<TableRowColumn name="groupName"></TableRowColumn>
 							<TableRowColumn name="name" ></TableRowColumn>
 							<TableRowColumn name="creater"></TableRowColumn>
 							<TableRowColumn name="createTime" type="date" component={(value)=>{
@@ -224,8 +276,9 @@ class Operations extends React.Component {
 								)
 							}}></TableRowColumn>
 							<TableRowColumn>
+									<Button label="分组"   type="operation" operation="group"/>
 									<Button label="编辑"   type="operation" operation="edit"/>
-									<Button label="删除"  type="operation" operation="delete"/>
+									<Button label="删除"  	type="operation" operation="delete"/>
 									<Button label="查看人员"  type="operation" operation="view"/>
 									<Button label="业务代码"  type="operation" operation="code"/>
 							 </TableRowColumn>
@@ -251,6 +304,33 @@ class Operations extends React.Component {
 						>
 						<CodeDialog detail={itemDetail} onCancel={this.openCodeDialog} onSubmit={this.onCodeSubmit} />
 					</Dialog>
+					<Dialog
+						title="新建角色分组"
+						modal={true}
+						onClose={this.openCreateGroup}
+						open={this.state.openRoleGroup}
+						contentStyle={{width:580}}
+						>
+						<CreateGroup  onCancel={this.openCreateGroup} onSubmit={this.onRoleGroupSubmit} />
+					</Dialog>
+					<DialogInner
+						title="管理角色分组"
+						modal={true}
+						onClose={this.openRoleManage}
+						open={this.state.openRoleManage}
+						contentStyle={{width:580}}
+						>
+						<EditGroup  onCancel={this.openRoleManage} onSubmit={this.onRoleManageSubmit} />
+					</DialogInner>
+					<DialogInner
+						title="设置所属分组"
+						modal={true}
+						onClose={this.openRoleEdit}
+						open={this.state.openRoleEdit}
+						contentStyle={{width:580}}
+						>
+						<EditRole detail={itemDetail} onCancel={this.openRoleEdit} onSubmit={this.onRoleEditSubmit} />
+					</DialogInner>
 					 <Drawer
 					 	 modal={true}
 			             width={750}
