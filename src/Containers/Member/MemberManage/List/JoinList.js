@@ -99,16 +99,16 @@ export default class List extends React.Component {
 								</TableHeader>
 								<TableBody style={{position:'inherit'}}>
 										<TableRow displayCheckbox={false}>
-                                                <TableRowColumn name="createTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
-                                                <TableRowColumn name="createTime" type="date" format="yyyy-mm-dd"></TableRowColumn>
-                                                <TableRowColumn name="name"
+                                                <TableRowColumn name="enterDate" ></TableRowColumn>
+                                                <TableRowColumn name="leaveDate"></TableRowColumn>
+                                                <TableRowColumn name="company"
                                                 component={(value,oldValue)=>{
                                                     if(value==""){
                                                         value="-"
                                                     }
                                                     return (<span>{value}</span>)}}
                                                 ></TableRowColumn>
-                                                <TableRowColumn name="phone"
+                                                <TableRowColumn name="cmtName"
                                                 component={(value,oldValue)=>{
                                                     if(value==""){
                                                         value="-"
