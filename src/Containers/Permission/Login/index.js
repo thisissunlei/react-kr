@@ -107,7 +107,7 @@ class Login extends Component {
 		this.setState({
 			LoginHeight: docuW
 		})
-		// this.getCanvas();
+		this.getCanvas();
 		this.HandleEnterKey();
 		//=======
 		// this.windowResize();
@@ -888,7 +888,7 @@ class Login extends Component {
 		return (
 			<div className="g-permission-login" style={{ height: `${LoginHeight}` }}>
 				<canvas id="canvas"></canvas>
-				<MidAutumn/>
+				{/* <MidAutumn/> */}
 				{/* <div className="login-bg" ref = {(ref)=>{
 							this.loginBg = ref;
 						}}>

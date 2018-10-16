@@ -27,6 +27,7 @@ class Editdialog extends React.Component {
 			resourceIds: [],
 			errorTip: false,
 			moduleDetail:[],
+			roleList:[],
 		}
 
 	}
@@ -35,6 +36,7 @@ class Editdialog extends React.Component {
 			detail,
 		} = this.props;
 		this.getInfo();
+		this.getRoleList()
 		Store.dispatch(initialize('editdialog', detail));
 	}
 	getInfo=()=>{
@@ -68,6 +70,42 @@ class Editdialog extends React.Component {
 			}).catch(function(err) {
 
 			});
+	}
+	getRoleList = () =>{
+		Http.request('getRoleListData').then( (response) =>{
+			let roleList =[];
+			response.reduce((pre,v,i,self)=>{
+				pre.push({id:v.id,label:v.name,value:v.id,name:v.name})
+				return pre;
+			},roleList)
+			this.setState({
+				roleList
+			})
+		}).catch(function(err) {
+
+		});
+	}
+	onSelect = (item)=>{
+		let idList=[]; 
+		Http.request('getRoleData', {
+			id: item.id
+		}).then( (response) =>{
+			response.moduleAndResources.map((item)=>{
+				item.check=false;
+				item.resources.length && item.resources.map((items)=>{
+						if(items.ownFlag==1 && idList.indexOf(items.id)==-1 ){
+								idList.push(items.id)
+							
+						}
+					})
+			})
+			this.setState({
+				moduleDetail: response.moduleAndResources,
+				resourceIds:idList
+			})
+		}).catch(function(err) {
+
+		});
 	}
 	onCancel = () => {
 		let {
@@ -210,7 +248,8 @@ class Editdialog extends React.Component {
 		let {
 			resourceIds,
 			errorTip,
-			moduleDetail
+			moduleDetail,
+			roleList
 		} = this.state;
 
 		return (
@@ -238,6 +277,16 @@ class Editdialog extends React.Component {
 							value={detail.code}
 							inline={false}
 					/>
+					<div style={{margin:'0 0 10px 95px',fontWeight:'500'}}>
+								<KrField
+								name="module"
+								component="select"
+								label="复制其他的操作项角色当前配置"
+								options={roleList}
+								inline={true}
+								onChange={this.onSelect}
+						/>
+							</div>
 					<div className="u-operation">
 						<div className="u-operation-label">
 							<span className="u-require">*</span>操作项：
@@ -252,7 +301,7 @@ class Editdialog extends React.Component {
 								 name="resourceIds"
 								 values={resourceIds}
 						/>
-
+						
 					</div>
 					<Row style={{marginTop:10,marginBottom:15}}>
 					<Col md={12} align="center"> 

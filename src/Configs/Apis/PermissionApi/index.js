@@ -212,6 +212,11 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/role/getModuleData',
       method: 'get'
     },
+    // 权限--角色--获取角色列表
+    'getRoleListData': {
+      url: '/api/krspace-sso-web/sso/role/list',
+      method: 'get'
+    },
     //权限--角色--获取编辑数据
     'getRoleData': {
       url: '/api/krspace-sso-web/sso/role/getRoleData?id={id}',
