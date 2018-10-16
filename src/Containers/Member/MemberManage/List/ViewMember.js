@@ -37,7 +37,10 @@ export default class ViewMember extends React.Component {
 			workInfo:{},
 			joinCount:0,
 			openJoin:false,
-			memberId:''
+			memberId:'',
+			miniApplicationInfo:{},
+			managerInfo:[]
+			
 		}
 	}
 	
@@ -59,6 +62,7 @@ export default class ViewMember extends React.Component {
 	getBacicInfo=()=>{
 		let memberId=this.props.params.memberId;
 		let _this=this;
+		
 		Http.request('get-member-detail',{uid:memberId}).then(function (response) {
 		
 			_this.setState({
@@ -66,7 +70,8 @@ export default class ViewMember extends React.Component {
 				baseInfo:response.baseInfo || {},
 				companyInfo:response.companyInfo || {},
 				contacts:response.contacts || {},
-				joinCount:response.joinCount || 1,
+				joinCount:response.companyInfo.enterTimes || 1,
+				managerInfo:response.managerInfo || []
 				
 			})
 		}).catch(function (err) { 
@@ -76,7 +81,8 @@ export default class ViewMember extends React.Component {
 			
 			_this.setState({
 				socialDynamic:response.socialDynamic || {},
-				workInfo:response.workInfo || {}
+				workInfo:response.workInfo || {},
+				miniApplicationInfo: response.miniApplicationInfo|| {}
 			})
 		}).catch(function (err) { 
 			Message.error(err.message)
@@ -120,7 +126,9 @@ export default class ViewMember extends React.Component {
 				contacts,
 				socialDynamic,
 				workInfo,
-				joinCount
+				joinCount,
+				miniApplicationInfo,
+				managerInfo
 			}=this.state;
 		let memberId=this.props.params.memberId;
 			
@@ -338,7 +346,24 @@ export default class ViewMember extends React.Component {
 							<span className="ui-circle">企业管理员信息</span>
 						</div>
 						<div className="u-info-content">
-
+							<table className="u-company-info-table">
+								<thead>
+									<tr className="u-thead">
+										<th>管理的企业</th>
+										<th>管理的社区</th>
+									</tr>
+								</thead>
+								<tbody className="u-tabody">
+									{managerInfo && managerInfo.map((item,index)=>{
+										return(
+											<tr>
+												<td>{item.companyName}</td>
+												<td>{item.communityName}</td>
+											</tr>
+										)
+									})}
+								</tbody>
+							</table>
 						</div>
 
 					</div>
@@ -386,14 +411,14 @@ export default class ViewMember extends React.Component {
 									grid={1/2} 
 									label="预订KM会议室：" 
 									component="labelText"
-									value={workInfo.feedback}
+									value={miniApplicationInfo.meetingOrderTimes}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="预订散座数量："
 									component="labelText"
-									value={workInfo.reservation}
+									value={miniApplicationInfo.orderSeatNum}
 									defaultValue="-"
 							/>
 						</div>
@@ -435,14 +460,14 @@ export default class ViewMember extends React.Component {
 									grid={1/2} 
 									label="团队打Call数："
 									component="labelText"
-									value={socialDynamic.replyNum}
+									value={socialDynamic.teamTipNum}
 									defaultValue="-"
 							/>
 							<KrField
 									grid={1/2} 
 									label="创建话题数："
 									component="labelText"
-									value={socialDynamic.tipNum}
+									value={socialDynamic.talkpointNum}
 									defaultValue="-"
 							/>
 						</div>

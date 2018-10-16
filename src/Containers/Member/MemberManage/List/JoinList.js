@@ -30,11 +30,13 @@ export default class List extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		
-		this.params = this.context.router.params;
+        this.params = this.context.router.params;
+        let {memberId}=this.props;
 		this.state = {
 			searchParams: {
 				page: 1,
-				pageSize: 8,
+                pageSize: 8,
+                uid:memberId
 			},
 
 		}
@@ -85,7 +87,7 @@ export default class List extends React.Component {
                                         return state;
                                     }}
                                     ajaxFieldListName='items'
-                                    ajaxUrlName='membersList'
+                                    ajaxUrlName='get-member-enter-log-page'
                                     ajaxParams={this.state.searchParams}
                                     onPageChange={this.onPageChange}
                                 >
