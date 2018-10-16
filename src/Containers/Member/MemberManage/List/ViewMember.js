@@ -70,7 +70,7 @@ export default class ViewMember extends React.Component {
 				baseInfo:response.baseInfo || {},
 				companyInfo:response.companyInfo || {},
 				contacts:response.contacts || {},
-				joinCount:response.companyInfo.enterTimes || 1,
+				joinCount:response.companyInfo.enterTimes || 0,
 				managerInfo:response.managerInfo || []
 				
 			})
@@ -346,7 +346,8 @@ export default class ViewMember extends React.Component {
 							<span className="ui-circle">企业管理员信息</span>
 						</div>
 						<div className="u-info-content">
-							<table className="u-company-info-table">
+						  {managerInfo.length>0?(
+							  <table className="u-company-info-table">
 								<thead>
 									<tr className="u-thead">
 										<th>管理的企业</th>
@@ -364,6 +365,13 @@ export default class ViewMember extends React.Component {
 									})}
 								</tbody>
 							</table>
+						  ):(
+							  <div className="u-company-info-nothing">
+								<div className="u-noting-img"></div>
+								<div className="u-noting-txt">尚未成为任何企业的管理员</div>
+							  </div>
+						  )}
+							
 						</div>
 
 					</div>
