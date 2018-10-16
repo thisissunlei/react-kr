@@ -29,8 +29,6 @@ export default class List extends React.Component {
 	}
 	constructor(props, context) {
 		super(props, context);
-		
-        this.params = this.context.router.params;
         let {memberId}=this.props;
 		this.state = {
 			searchParams: {
@@ -53,19 +51,8 @@ export default class List extends React.Component {
 		this.setState({
 			realPage : page
 		})
-	}
-	
-
-	
-
-	
-   
-	
-	
-
-	
-
-
+    }
+    
 
 	render() {
 		let {
@@ -99,7 +86,7 @@ export default class List extends React.Component {
 								</TableHeader>
 								<TableBody style={{position:'inherit'}}>
 										<TableRow displayCheckbox={false}>
-                                                <TableRowColumn name="enterDate" ></TableRowColumn>
+                                                <TableRowColumn name="enterDate"></TableRowColumn>
                                                 <TableRowColumn name="leaveDate"></TableRowColumn>
                                                 <TableRowColumn name="company"
                                                 component={(value,oldValue)=>{
