@@ -472,8 +472,8 @@ class AccountList extends React.Component {
                 }}>
                     <DataPermission detail={this.state.itemDetail} onSubmit = {this.onDataSubimt} onCancel={this.openDataPermission}/>
                 </Dialog>
-                <Dialog title="授予" modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
-                    width: 600,
+                <Dialog title="授予" bodyStyle={{overflow:"scroll",maxHeight:600}} modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
+                    width: 1016,
                 }}>
                     <SetPermission detail={this.state.itemDetail} onSubmit = {this.onSetSubimt} onCancel={this.openSetAcc}/>
                 </Dialog>
