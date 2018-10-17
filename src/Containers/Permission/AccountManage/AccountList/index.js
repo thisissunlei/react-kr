@@ -472,7 +472,7 @@ class AccountList extends React.Component {
                 }}>
                     <DataPermission detail={this.state.itemDetail} onSubmit = {this.onDataSubimt} onCancel={this.openDataPermission}/>
                 </Dialog>
-                <Dialog title="授予" bodyStyle={{overflow:"scroll",maxHeight:600}} modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
+                <Dialog className='setPermission' title="注意：社区经理请同时选中社区负责人+社区运营；其他部门同事（含技术部）请勿授予招商与运营的角色；其他部门同事转岗运营时需减少数据权限；组长与超级管理员权限请通过邮件申请" bodyStyle={{overflow:"scroll",maxHeight:600}}  modal={true} open={this.state.openSetAcc} onClose={this.openSetAcc} contentStyle={{
                     width: 1016,
                 }}>
                     <SetPermission detail={this.state.itemDetail} onSubmit = {this.onSetSubimt} onCancel={this.openSetAcc}/>

@@ -57,19 +57,10 @@ class searchRole extends React.Component {
 
 	}
 	handleRole = (id) => {
-	//	openView = (id,page) => {
 			window.open(`./#/permission/userlist/${id}/1`,'_blank');
-			
-	//	}
 	}
 	renderGroppList = (list) => {
 	return	list.map((v,i)=>{
-			// if(v.name ==='默认'){
-			// 	return (<div className='flex-role' key={i}>
-			// 		<span  className='flex-name'>{v.name}</span>
-			// 		<span className='flex-desc'>{v.descr}</span>
-			// 		</div>)
-			// }
 			return (<div className='flex-role' key={i}>
 				<span className='flex-name'>{v.groupName}</span>
 				<Button label={v.roleName}  type="operation" onTouchTap={()=>{this.handleRole(v.roleId)}} />	

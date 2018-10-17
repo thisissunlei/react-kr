@@ -18,7 +18,8 @@ import {
 	ButtonGroup,
 	Message,
 	DialogInner,
-	Dialog
+	Dialog,
+	Tooltip
 } from 'kr-ui';
 import './index.less';
 import Deletedialog from '../Deletedialog';
@@ -66,7 +67,10 @@ class CreateGroup extends React.Component {
 			}
 			return (<div className='flex-role' key={i}>
 				<span className='flex-name'>{v.name}</span>
-				<span className='flex-desc'>{v.descr}</span>
+				<div className='flex-desc financeDetail-hover'>
+						<span className='tableOver' style={{maxWidth:160,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{v.descr}</span> 
+						<Tooltip  offsetTop={5} place='top'>{v.descr}</Tooltip>
+				</div>
 				<span className='flex-dele'>
 					<Button label="删除" type="button"  onTouchTap={()=>{this.removeList(v.id)}} cancle={true} height={30} width={80}/>
 				</span>

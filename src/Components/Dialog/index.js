@@ -158,7 +158,7 @@ export default class DialogComponent extends React.Component {
 			overflow,
 			...other
 		} = this.props;
-
+		let name = '';
 		let styles = {};
 		let closeStyle = {};
 		if (open) {
@@ -177,11 +177,14 @@ export default class DialogComponent extends React.Component {
 		if(overflow=="auto"){
 			styles.overflow = 'auto'
 		}
+		if(other.className){
+			name = other.className
+		}
 
 		return (
 			<div className="ui-dialog" ref="dialog" style={styles}>
-				<div className="dialog-modal" ></div>
-				<div id="dialog-content" ref="dialogContent" className="dialog-content" style={contentStyle}>
+				<div className="dialog-modal"></div>
+				<div id="dialog-content" ref="dialogContent" className={ name + " "+ "dialog-content"} style={contentStyle}>
 					<div className="dialog-header" style={dialogHeaderStyle}>
 						<div className="dialog-header-title"> {title} </div>
 						<span className="close" onClick={this.onClose} style={closeStyle}></span>

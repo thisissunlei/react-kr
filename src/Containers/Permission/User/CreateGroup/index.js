@@ -55,6 +55,7 @@ class CreateGroup extends React.Component {
 							name="name" 
 							type="text"
 							component="input" 
+							maxLength='10'
 							label="分组名称"
 							requireLabel={true}
 							inline={true}
@@ -65,6 +66,7 @@ class CreateGroup extends React.Component {
 							type="text"
 							component="input" 
 							label="分组描述"
+							maxLength='30'
 							requireLabel={true}
 							inline={true}
 					/>
