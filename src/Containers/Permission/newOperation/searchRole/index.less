@@ -1,0 +1,120 @@
+.g-roleSearch{
+	width:100%;
+	max-height: 500px;
+	overflow-y: auto;
+	box-sizing: border-box;
+	form{
+		width:600px;
+		height:100%;
+	}
+	.modal-role{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		top:0;
+		left:0;
+		.ui-dialog{ 
+			left:  -75% !important;
+			top:-60% !important;
+		}
+	}
+	.flex-role{
+		display: flex;
+		 margin:10px 0;
+		 height: 30px;
+		 line-height: 30px;
+		.flex-name{
+			width: 30%;
+			text-align: center;
+			font-weight: 500;
+		}
+		.flex-desc{
+			width: 30%;
+			text-align: center;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.flex-dele{
+			width: 40%;
+			text-align: center;
+		}
+	}
+	.u-create-title{
+		width:598px;
+		height:25px;
+		box-sizing: border-box;
+		margin:56px 44px 44px 60px;
+		font-size:18px;
+		color:#333333;
+	}
+	.ui-form-controller{
+		width:300px;
+	}
+	.ui-form-label{
+		padding-right:20px;
+	}
+	.u-operation{
+		width:600px;
+		min-height:100px;
+		display:inline-block;
+	}
+	.u-operation-label{
+		font-size:14px;
+		color:#333333;
+		padding-left:40px;
+		margin-bottom:10px;
+		position:relative;
+		.u-require{
+			font-size: 14px;
+			color:red;
+			position: absolute;
+		    left: 26px;
+		    top: 3px
+		}
+	}
+	.u-operation-content{
+		position: relative;
+		width:600px;
+		margin-left:40px;
+		box-sizing: border-box;
+	}
+	.u-module{
+		margin-bottom: 10px;
+	}
+	.u-module-list{
+		width:100%;
+		float:left;
+		margin-bottom: 8px;
+		font-size:14px;
+		line-height:20px;
+	}
+	.u-resources-list{
+		float:left;
+		margin-right:10px;
+		font-size:12px;
+		margin-bottom:8px;
+		line-height:20px;
+		input{
+			margin-right:5px;
+		}
+	}
+	
+	.u-error-tip{
+		color:red;
+		font-size:14px;
+		margin-top:14px;
+		text-align: left;
+	}
+	.ui-btn-center{
+		margin-top: 100px;
+	}
+}
+.u-clearfix { zoom:1; }
+.u-clearfix:after {
+  clear: both;
+  content: '.';
+  height: 0;
+  display: block;
+  visibility: hidden;
+}

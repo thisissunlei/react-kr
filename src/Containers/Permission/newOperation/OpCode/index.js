@@ -44,7 +44,7 @@ import {
 import './index.less';
 import Createdialog from './Createdialog';
 import Editdialog from './Editdialog';
-
+import EditRoledialog from '../searchRole';
 
 class SearchForm extends Component {
 	constructor(props, context) {
@@ -120,6 +120,7 @@ class OpCode extends Component {
 			openDeleteDialog: false,
 			openCreateDialog: false,
 			openEditDialog: false,
+			openCreateDialog: false,
 		}
 	}
 
@@ -132,12 +133,19 @@ class OpCode extends Component {
 
 		if (type == 'edit') {
 			this.openEditDialog();
+		}else if(type == 'role'){
+			this.openEditRole()
 		}
 	}
 	
 	openCreateDialog = () => {
 		this.setState({
 			openCreateDialog: !this.state.openCreateDialog
+		})
+	}
+	openEditRole = () => {
+		this.setState({
+			openEditRoleDialog: !this.state.openEditRoleDialog
 		})
 	}
 	openEditDialog = () => {
@@ -182,6 +190,26 @@ class OpCode extends Component {
 			Message.error(err.message)
 		});
 	}
+	// 角色提交
+	onEditRoleSubmit = (params) => {
+		var _this = this;
+		params = Object.assign({},params);
+		params.codeName = _this.Trim(params.codeName);
+		params.name = _this.Trim(params.name);
+		params.desc = _this.Trim(params.desc);
+		if(!params.moduleId){
+			Message.error('请选择第三级菜单');
+			return;
+		}
+		Http.request('op-code-edit', {}, params).then(function(response) {
+			_this.openEditDialog();
+			Message.success('修改成功');
+			_this.changeP();
+		}).catch(function(err) {
+			Message.error(err.message)
+		});
+	}
+
 	onSearch = (form) => {
 		var searchParams = {};
 		if (form.filter == "name") {
@@ -296,6 +324,7 @@ class OpCode extends Component {
 								)
 							}}> </TableRowColumn>
 							<TableRowColumn>
+									<Button label="角色"   type="operation" operateCode="sso_resource_edit" operation="role"/>	
 									<Button label="编辑"   type="operation" operateCode="sso_resource_edit" operation="edit"/>
 							 </TableRowColumn>
 						 </TableRow>
@@ -323,8 +352,18 @@ class OpCode extends Component {
 						<Editdialog  detail={itemDetail} onCancel={this.openEditDialog} onSubmit={this.onEditSubmit} />
 
 					 </Drawer>
-				
+					 <Dialog
+					 	title="使用此操作项的角色"
+						modal={true}
+						contentStyle={{
+							width: 624,
+					}}
+						open={this.state.openEditRoleDialog}
+						onClose={this.openEditRole}
+						>
+						<EditRoledialog  detail={itemDetail} onCancel={this.openEditRole} onSubmit={this.onEditRoleSubmit} />
 
+					 </Dialog>		
 			</div>
 		);
 	}

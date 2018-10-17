@@ -142,6 +142,11 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/group/list', 
       method: 'get'
     },
+    //权限--角色分组列表--获取角色反查列表
+    'BusinessRoleList': {
+      url: '/api/krspace-sso-web/sso/business/roleList?businessCodeId={businessCodeId}', 
+      method: 'get'
+    },
     //权限--角色分组列表--删除角色分组
     'delRoleList': {
       url: '/api/krspace-sso-web/sso/group/delete?id={id}', 
