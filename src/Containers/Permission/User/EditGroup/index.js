@@ -69,7 +69,7 @@ class CreateGroup extends React.Component {
 				<span className='flex-name'>{v.name}</span>
 				<div className='flex-desc financeDetail-hover'>
 						<span className='tableOver' style={{maxWidth:160,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{v.descr}</span> 
-						<Tooltip style={{whiteSpace:'noWrap',top:'-48px'}} offsetTop={5} place='top'>{v.descr}</Tooltip>
+						<Tooltip  offsetTop={5} place='top'>{v.descr}</Tooltip>
 				</div>
 				<span className='flex-dele'>
 					<Button label="删除" type="button"  onTouchTap={()=>{this.removeList(v.id)}} cancle={true} height={30} width={80}/>
