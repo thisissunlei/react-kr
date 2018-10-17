@@ -140,12 +140,6 @@ class searchRole extends React.Component {
 const validate = values => {
 
 	const errors = {}
-	if (!values.name) {
-		errors.group = '请输入名称';
-	}
-	if (!values.descr) {
-		errors.desc = '请输入描述';
-	}
 	return errors
 }
 export default searchRole = reduxForm({
