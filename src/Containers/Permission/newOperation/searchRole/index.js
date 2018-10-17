@@ -18,13 +18,12 @@ import {
 	ButtonGroup,
 	Message,
 	DialogInner,
-	Dialog,
-	Tooltip
+	Dialog
 } from 'kr-ui';
 import './index.less';
-import Deletedialog from '../Deletedialog';
+import Deletedialog from './Deletedialog';
 
-class CreateGroup extends React.Component {
+class searchRole extends React.Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
@@ -35,7 +34,8 @@ class CreateGroup extends React.Component {
 	}
 
 	componentDidMount(){
-		Http.request('UserGroupList', {}).then( (response) =>{
+		let {id} = this.props.detail;
+		Http.request('BusinessRoleList', {businessCodeId:id}).then( (response) =>{
 			this.setState({groupList:response})
 		}).catch((err)=> {
 			Message.error(err.message);
@@ -56,21 +56,15 @@ class CreateGroup extends React.Component {
 			onSubmit && onSubmit(form);
 
 	}
-	
+	handleRole = (id) => {
+			window.open(`./#/permission/userlist/${id}/1`,'_blank');
+	}
 	renderGroppList = (list) => {
 	return	list.map((v,i)=>{
-			if(v.name ==='默认'){
-				return (<div className='flex-role' key={i}>
-					<span  className='flex-name'>{v.name}</span>
-					<span className='flex-desc'>{v.descr}</span>
-					</div>)
-			}
 			return (<div className='flex-role' key={i}>
-				<span className='flex-name'>{v.name}</span>
-				<div className='flex-desc financeDetail-hover'>
-						<span className='tableOver' style={{maxWidth:160,display:"inline-block",whiteSpace: "nowrap",textOverflow: "ellipsis",overflow:"hidden"}}>{v.descr}</span> 
-						<Tooltip offsetTop={5} place='top'>{v.descr}</Tooltip>
-				</div>
+				<span className='flex-name'>{v.groupName}</span>
+				<Button label={v.roleName}  type="operation" onTouchTap={()=>{this.handleRole(v.roleId)}} />	
+				{/* <a href='' className='flex-desc'>{v.roleName}</a> */}
 				<span className='flex-dele'>
 					<Button label="删除" type="button"  onTouchTap={()=>{this.removeList(v.id)}} cancle={true} height={30} width={80}/>
 				</span>
@@ -114,9 +108,18 @@ class CreateGroup extends React.Component {
 		} = this.state;
 
 		return (
-			<div className="g-roleMange">
+			<div className="g-roleSearch">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:10}}  >
 					{groupList.length && this.renderGroppList(groupList)}
+					<Row style={{marginTop:10,marginBottom:15}}>
+					<Col md={12} align="center"> 
+						<ButtonGroup>
+							<div  className='ui-btn-center'><Button  label="确定" type="button"  type="submit"  height={34} width={90}/></div>
+							<Button  label="取消" type="button"  onTouchTap={this.onCancel} cancle={true} height={33} width={90}/>
+						</ButtonGroup>
+						
+					 </Col>
+					 </Row>
 				</form>
 				<div className='modal-role'>
 					<Dialog
@@ -126,7 +129,7 @@ class CreateGroup extends React.Component {
 							open={this.state.openDeleteDialog}
 							contentStyle={{width:460}}
 							>
-							<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
+						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
 						</Dialog>
 					</div>
 			</div>
@@ -145,9 +148,9 @@ const validate = values => {
 	}
 	return errors
 }
-export default CreateGroup = reduxForm({
-	form: 'CreateGroup',
+export default searchRole = reduxForm({
+	form: 'searchRole',
 	validate,
 	enableReinitialize: true,
 	keepDirtyOnReinitialize: true,
-})(CreateGroup);
+})(searchRole);

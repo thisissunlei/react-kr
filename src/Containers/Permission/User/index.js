@@ -129,7 +129,7 @@ class Operations extends React.Component {
 			}
 		}else{
 			searchParams = {
-				groupName: form.content // todo 
+				groupName: form.content 
 			}
 		}
 		this.setState({
@@ -309,7 +309,7 @@ class Operations extends React.Component {
 						modal={true}
 						onClose={this.openCreateGroup}
 						open={this.state.openRoleGroup}
-						contentStyle={{width:580}}
+						contentStyle={{width:624}}
 						>
 						<CreateGroup  onCancel={this.openCreateGroup} onSubmit={this.onRoleGroupSubmit} />
 					</Dialog>
@@ -318,7 +318,7 @@ class Operations extends React.Component {
 						modal={true}
 						onClose={this.openRoleManage}
 						open={this.state.openRoleManage}
-						contentStyle={{width:580}}
+						contentStyle={{width:624}}
 						>
 						<EditGroup  onCancel={this.openRoleManage} onSubmit={this.onRoleManageSubmit} />
 					</DialogInner>

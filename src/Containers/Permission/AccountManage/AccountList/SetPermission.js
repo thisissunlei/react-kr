@@ -26,6 +26,7 @@ import {
 } from 'kr-ui';
 import './DataPermission.less';
 
+
 export default class SetPermission extends React.Component {
 
     static PropTypes = {
