@@ -89,8 +89,8 @@ class EditStart extends React.Component {
 						 	/>
 							  <KrField  
 					 			style={{width:262,marginRight:25,margintop:20}} 
-					 			name="cmtId"
-					 			component='searchAllCommunity'  
+					 			name="cityIds"
+					 			component='searchAppCity'  
 					 			label="可见城市" 
 					 			inline={false}  
 					 			placeholder='请输入可见城市' 
