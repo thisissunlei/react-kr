@@ -152,6 +152,11 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/group/delete?id={id}', 
       method: 'get'
     },
+     //权限--角色分组列表--删除业务代码角色关联关系
+     'delRoleDetail': {
+      url: '/api/krspace-sso-web/sso/business/role/delete?id={id}', 
+      method: 'get'
+    },
     //权限--角色分组列表--编辑单个角色分组
     'editRoleGroup': {
       url: '/api/krspace-sso-web/sso/role/editRoleGroup?groupId={groupId}&roleId={roleId}',  

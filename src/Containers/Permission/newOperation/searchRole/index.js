@@ -60,17 +60,17 @@ class searchRole extends React.Component {
 			window.open(`./#/permission/userlist/${id}/1`,'_blank');
 	}
 	renderGroppList = (list) => {
-	return	list.map((v,i)=>{
-			return (<div className='flex-role' key={i}>
-				<span className='flex-name'>{v.groupName}</span>
-				<Button label={v.roleName}  type="operation" onTouchTap={()=>{this.handleRole(v.roleId)}} />	
-				{/* <a href='' className='flex-desc'>{v.roleName}</a> */}
-				<span className='flex-dele'>
-					<Button label="删除" type="button"  onTouchTap={()=>{this.removeList(v.id)}} cancle={true} height={30} width={80}/>
-				</span>
-				
-				</div>)
-		})
+		if(list.length){
+			return	list.map((v,i)=>{
+				return (<div className='flex-role' key={i}>
+					<span className='flex-name'>{v.groupName}</span>
+					<Button label={v.roleName}  type="operation" onTouchTap={()=>{this.handleRole(v.roleId)}} />	
+					<span className='flex-dele'>
+						<Button label="删除" type="button"  onTouchTap={()=>{this.removeList(v.id)}} cancle={true} height={30} width={80}/>
+					</span>
+					</div>)
+			})
+		}
 	}
 	removeList = (id) =>{
 		this.setState({id},()=>{
@@ -82,7 +82,7 @@ class searchRole extends React.Component {
 		let {
 			id
 		} = this.state;
-		Http.request('delRoleList', {
+		Http.request('delRoleDetail', {
 			id: id
 		}).then((response) =>{
 			Message.success('删除成功')
@@ -110,8 +110,11 @@ class searchRole extends React.Component {
 		return (
 			<div className="g-roleSearch">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:10}}  >
-					{groupList.length && this.renderGroppList(groupList)}
-					<Row style={{marginTop:10,marginBottom:15}}>
+					{groupList.length>0 ?
+					 this.renderGroppList(groupList)
+					 : null}
+					<Row style={{marginTop:50,marginBottom:15}}>
+
 					<Col md={12} align="center"> 
 						<ButtonGroup>
 							<div  className='ui-btn-center'><Button  label="确定" type="button"  type="submit"  height={34} width={90}/></div>

@@ -192,22 +192,8 @@ class OpCode extends Component {
 	}
 	// 角色提交
 	onEditRoleSubmit = (params) => {
-		var _this = this;
-		params = Object.assign({},params);
-		params.codeName = _this.Trim(params.codeName);
-		params.name = _this.Trim(params.name);
-		params.desc = _this.Trim(params.desc);
-		if(!params.moduleId){
-			Message.error('请选择第三级菜单');
-			return;
-		}
-		Http.request('op-code-edit', {}, params).then(function(response) {
-			_this.openEditDialog();
-			Message.success('修改成功');
-			_this.changeP();
-		}).catch(function(err) {
-			Message.error(err.message)
-		});
+		this.openEditRole();
+		this.changeP();
 	}
 
 	onSearch = (form) => {
