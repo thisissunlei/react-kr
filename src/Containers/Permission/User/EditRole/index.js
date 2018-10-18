@@ -66,12 +66,15 @@ class EditRole extends React.Component {
 
 	onSubmit = () => {
 		let{groupId,roleId} = this.state;
+		if(!groupId){
+			return	Message.error('请选择一项分组值');
+		}
 		let params= {groupId,roleId};
 		let {
 			onSubmit
 		} = this.props;
 		Http.request('editRoleGroup', params).then( (response) =>{
-			Message.success('新建成功');
+			Message.success('设置成功');
 			onSubmit && onSubmit();
 		}).catch((err)=> {
 			Message.error(err.message);
