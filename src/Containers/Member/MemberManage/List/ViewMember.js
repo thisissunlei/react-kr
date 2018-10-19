@@ -213,7 +213,7 @@ export default class ViewMember extends React.Component {
 									grid={1/2} 
 									label="姓名："
 									component="labelText"
-									value={companyInfo.mbrName}
+									value={baseInfo.mbrName}
 									defaultValue="-"
 							/>
 							<KrField
