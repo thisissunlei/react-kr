@@ -347,7 +347,7 @@ class OpCode extends Component {
 						open={this.state.openEditRoleDialog}
 						onClose={this.openEditRole}
 						>
-						<EditRoledialog  detail={itemDetail} onCancel={this.openEditRole} onSubmit={this.onEditRoleSubmit} />
+						<EditRoledialog type='opcode'  detail={itemDetail} onCancel={this.openEditRole} onSubmit={this.onEditRoleSubmit} />
 
 					 </Dialog>		
 			</div>

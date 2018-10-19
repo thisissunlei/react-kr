@@ -147,6 +147,11 @@ module.exports = {
       url: '/api/krspace-sso-web/sso/business/roleList?businessCodeId={businessCodeId}', 
       method: 'get'
     },
+    //权限--角色分组列表--获取角色项角色列表
+    'ResourceRoleList': {
+      url: '/api/krspace-sso-web/sso/resource/roleList?resourceId={resourceId}', 
+      method: 'get'
+    },
     //权限--角色分组列表--删除角色分组
     'delRoleList': {
       url: '/api/krspace-sso-web/sso/group/delete?id={id}', 
@@ -155,6 +160,11 @@ module.exports = {
      //权限--角色分组列表--删除业务代码角色关联关系
      'delRoleDetail': {
       url: '/api/krspace-sso-web/sso/business/role/delete?id={id}', 
+      method: 'get'
+    },
+     //权限--角色分组列表--删除操作项关联关系
+     'delRoleResourceDetail': {
+      url: '/api/krspace-sso-web/sso/resource/role/delete?id={id}', 
       method: 'get'
     },
     //权限--角色分组列表--编辑单个角色分组
