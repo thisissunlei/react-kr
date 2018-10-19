@@ -27,7 +27,6 @@ export default class SearchAppCity extends React.Component {
 
 	constructor(props) {
 		super(props)
-
 		this.onChange = this.onChange.bind(this);
 		this.getOptions = this.getOptions.bind(this);
 	}
@@ -49,6 +48,7 @@ export default class SearchAppCity extends React.Component {
 			onChange
 		} = this.props;
 		var value = (item && item.value) || '';
+		
 		input.onChange(value);
 		onChange && onChange(item);
 	}
@@ -58,7 +58,7 @@ export default class SearchAppCity extends React.Component {
 					cityName: lastname
 				}).then(function(response) {
 					var obj = [].concat(response.cityList);
-					obj.forEach(function(item, index) {
+					obj.forEach(function(item) {
 						item.value = item.id;
 						item.label = item.name;
 					});
