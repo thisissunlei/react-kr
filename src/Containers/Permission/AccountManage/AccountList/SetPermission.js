@@ -26,6 +26,7 @@ import {
 } from 'kr-ui';
 import './DataPermission.less';
 
+
 export default class SetPermission extends React.Component {
 
     static PropTypes = {
@@ -36,7 +37,6 @@ export default class SetPermission extends React.Component {
         super(props, context);
         this.onCancel = this.onCancel.bind(this);
         this.state = {
-          allCheck:false,
           roleList:[],
           idList:[],
         }
@@ -49,32 +49,38 @@ export default class SetPermission extends React.Component {
         onCancel && onCancel()
     }
     getInfo=()=>{
-
     		let {roleList}=this.state;
     		let id=this.props.detail.id;
-    		var _this = this;
-    	Http.request('findRoleData',{id:id}).then(function(response) {
-    		  _this.setState({
-    				roleList: response.roleList
+    	  Http.request('findRoleData',{userSsoId:id}).then((response)=> {
+    		  this.setState({
+    				roleList: response.groupList
     			});
-    		}).catch(function(err) {
-
+    		}).catch((err)=> {
+          Message.error(err.message);
     		});
 
     }
     renderData=(item,index)=>{
-      let disabled = (item.id==39|| item.id == 79)?true:false;
-    	return (
-    		<div key={index} style={{width:'33%',display:'inline-block'}}>
-    			<Checkbox
-    					style={{display:'block',width:'100%',lineHeigitemht:'32px',color:'#333'}}
-    					label={item.name}
-    					checked={item.ownFlag==1?true:false}
-              readOnly={disabled}
-    					onCheck={this.checked.bind(this,item,index)}
-    			/>
-    		</div>
-    	);
+      if(item.roles.length){
+        return (
+          <div key={index} style={{display:'flex',margin:"10px",width:'1000px',flexWrap:'wrap'}}>
+            <div style={{width:'8%',fontWeight:'bold'}}>{item.groupName}</div>
+            <div style={{display:'flex',flexWrap:'wrap',width:'90%'}}>
+                {item.roles.map((v,i)=>{
+                   let disabled = (v.id==39|| v.id == 79)?true:false;
+                  return 	 <Checkbox
+                    style={{display:'inline-block',minWidth:'210px',lineHeigitemht:'32px',color:'#333'}}
+                    label={v.name}
+                    checked={v.ownFlag==1?true:false}
+                    readOnly={disabled}
+                    key={i}
+                    onCheck={this.checked.bind(this,v,i)}
+                /> 
+                }) }
+            </div>
+          </div>
+        );
+      }
     }
     checked=(item,index)=>{
       let {roleList} = this.state;
@@ -84,76 +90,41 @@ export default class SetPermission extends React.Component {
       }else{
         item.ownFlag=0;
       }
-      roleList.map((item, index) => {
-        checked.push(item.ownFlag);
-      })
-      if (checked.indexOf(0) == -1) {
-        this.setState({
-          allCheck:true,
-        })
-      } else {
-        this.setState({
-          allCheck:false,
-        })
-      }
+      this.setState({roleList})
     }
-    //点击全选
-  	allSelect = () => {
-      var _this = this;
-      var id = [];
-      let {roleList}=this.state;
-      var list;
-      _this.setState({
-        allCheck:!_this.state.allCheck,
-      },function(){
-        if (_this.state.allCheck) {
-          list=roleList.map((item, index) => {
-                item.ownFlag = 1;
-                return item;
-            })
-          } else {
-            list=roleList.map((item, index) => {
-                  item.ownFlag = 0;
-                  return item;
-              })
-         }
-         this.setState({
-           roleList:list
-         })
-      })
-  	}
+  
     onSubmit = () => {
         let {roleList} = this.state;
         const {detail,onSubmit} = this.props;
         var idList = [];
         roleList.map((item, index) => {
-          if(item.ownFlag==1){
-            idList.push(item.id);
-          }
+            item.roles.map((v,i)=>{
+              if(v.ownFlag==1){
+                idList.push(v.id);
+              }
+            })
         })
 
         Http.request('editUserRole', {}, {
           id:detail.id,
           roleIds:idList
-        }).then(function(response) {
+        }).then((response) =>{
             Message.success('修改成功')
             onSubmit();
-        }).catch(function(err) {
+        }).catch((err) =>{
             Message.error(err.message);
         });
-
     }
     render() {
       let {roleList}=this.state;
       return(
         <div className="g-SetPermission">
-            <div style={{textAlign:'left',marginTop:20,maxHeight:'300px',overflow:'auto'}}>
-              <Checkbox label="全选" style={{display:'block',color:'#333'}} onCheck={this.allSelect} checked={this.state.allCheck}/>
+            <div style={{textAlign:'left',maxHeight:250,overflowY:"auto",overflowX:'hidden'}}>
               {roleList.map((item,index)=>{return this.renderData(item,index)})}
             </div>
             <ListGroup>
                 <ListGroupItem style={{
-                    paddingLeft: 170,
+                    paddingLeft: 400,
                     paddingRight: 40,
                     paddingTop: 20,
                     paddingBottom: 6
