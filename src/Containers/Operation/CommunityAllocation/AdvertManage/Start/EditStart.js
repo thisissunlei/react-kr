@@ -45,7 +45,21 @@ class EditStart extends React.Component {
 		this.setState({
 			imgUrl:detail.imgUrl
 		})
-		Store.dispatch(initialize('editStart', detail));
+		Http.request('get-app-advertising-boot-detail',{id:detail.id}).then(function(response) {
+			let arr=[]
+			response.cityIds.map((item)=>{
+				arr.push(item.id*1)
+				//return arr.join(',')
+			})
+			let cityIds=arr.join(',')
+			response.cityIds=cityIds*1;
+			console.log('response.cityIds',response)
+			Store.dispatch(initialize('editStart', response));
+		}).catch(function(err) {
+			Message.error(err.message);
+		});
+	
+		
 	}
 	onSubmit=(form)=>{
 		let {onSubmit} = this.props;
@@ -86,6 +100,16 @@ class EditStart extends React.Component {
 								type="text"
 								component="input"
 								label="跳转地址"
+						 	/>
+							  <KrField  
+					 			style={{width:262,marginRight:25,margintop:20}} 
+					 			name="cityIds"
+					 			component='searchAppCity'  
+					 			label="可见城市" 
+					 			inline={false}  
+					 			placeholder='请输入可见城市' 
+						 		requireLabel={true}
+						 		
 						 	/>
 						 	
 							<KrField

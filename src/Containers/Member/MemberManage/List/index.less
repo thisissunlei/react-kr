@@ -268,23 +268,83 @@
 			}
 			.u-text{
 				display: inline-block;
+				color: #666666;
 			}
 
 		}
 	}
 	.u-green{
-		color: #7ED321;
+		color: #7ED321 !important;
 	}
 	.u-orange{
-		color: #F5A623;
+		color: #FF9D00 !important;
 	}
 	.u-red{
-		color: #FF6868;
+		color: #FF6868 !important;
 	}
 	.u-info-photo-img{
 		width:35px;
 		height:35px;
 		border-radius: 100% 100%;
 		vertical-align:top;
+	}
+	.u-join-tip{
+		font-size: 14px;
+		color: #499DF1;	
+		margin-top:21px;
+		text-align: center;
+		cursor: pointer;
+	}
+
+	.u-company-info-table{
+		width:100%;
+		border:1px solid #E1E6EB;
+		border-collapse:collapse;
+		font-size: 14px;
+		td,th{
+			height:40px;
+			border:1px solid #E1E6EB;
+			color: #666666;
+			text-align: center;
+			width:50%;
+		}
+		.u-thead{
+			background: #F5F6FA;
+			th{
+				color: #333333;
+				font-weight: 400;
+				
+				
+			}
+		}
+		.u-tabody{
+			tr{
+				&:hover{
+					background: #F6F6F6;
+				}
+			}
+		}
+		
+	}
+	.u-company-info-nothing{
+		height:50px;
+		padding-left:14px;
+		box-sizing: border-box;
+		.u-noting-img{
+			width:41px;
+			height:38px;
+			background: url('./images/nothing.png') no-repeat center center;
+			background-size: 100% 100%;
+			margin-right:10px;
+			float:left;
+		}
+		.u-noting-txt{
+			font-size:14px;
+			line-height:38px;
+			color:#999999;
+			font-weight: 500;
+			float:left;
+		}
+		
 	}
 }

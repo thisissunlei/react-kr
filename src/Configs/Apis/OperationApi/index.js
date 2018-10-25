@@ -1112,4 +1112,14 @@ module.exports = {
         url: '/api/krspace-op-web/krmting/room/stock/info?orderNo={orderNo}&orderSource={orderSource}',
         method: 'get'
     },
+    //App--广告--启动页--城市列表
+    'get-app-common-enter-citis': {
+        url: '/api/krspace-finance-web/app/common/enter-citis?cityName={cityName}',
+        method: 'get'
+    },
+    //App--广告--启动页--详情
+    'get-app-advertising-boot-detail': {
+        url: '/api/krspace-finance-web/advertising/boot/detail?id={id}',
+        method: 'get'
+    },
 }
