@@ -160,4 +160,11 @@ module.exports = {
         url:'/api/krspace-sso-web/member/base/info?uid={uid}',
         method:'get'
     },
+     //会员列表-会员详情-入驻历史
+     'get-member-enter-log-page':{
+        url:'/api/krspace-sso-web/member/enter-log-page?uid={uid}&page={page}&pageSize={pageSize}',
+        method:'get'
+    },
+    
+
 }

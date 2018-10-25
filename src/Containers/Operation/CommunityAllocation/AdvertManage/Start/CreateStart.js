@@ -67,7 +67,17 @@ class CreateStart extends React.Component {
 								component="input"
 								label="跳转地址"
 						 	/>
-						 	
+							 <KrField  
+					 			style={{width:262,marginRight:25,margintop:20}} 
+					 			name="cityIds"
+					 			component='searchAppCity'  
+					 			label="可见城市" 
+					 			inline={false}  
+					 			placeholder='请输入可见城市' 
+						 		requireLabel={true}
+						 		
+						 	/>
+							
 							<KrField
  								label="启动图片"
  								name="imgUrl"
