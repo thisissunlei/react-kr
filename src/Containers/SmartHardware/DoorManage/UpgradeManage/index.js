@@ -77,7 +77,7 @@ export default class List extends React.Component {
 
 	}
 	openUpgradeLog=()=>{
-		window.open(`../smarthardware/upgradelist?upgradeId=${State.itemDetail.id}&typeName=${State.itemDetail.typeName}&versionCode=${State.itemDetail.versionCode}`,'_blank');
+		window.open(`../smarthardware/upgradelist?upgradeId=${State.itemDetail.id}&typeName=${State.itemDetail.upgradeTypeName}&versionCode=${State.itemDetail.versionCode}`,'_blank');
 	}
 
 	openBatchUpgrade=()=>{
