@@ -71,6 +71,13 @@ export default class List extends React.Component {
 		if(type == 'upgradeBtach'){
 			_this.openBatchUpgrade();
 		}
+		if(type == 'upgradeLog'){
+			_this.openUpgradeLog();
+		}
+
+	}
+	openUpgradeLog=()=>{
+		window.open(`../smarthardware/upgradelist?upgradeId=${State.itemDetail.id}&typeName=${State.itemDetail.upgradeTypeName}&versionCode=${State.itemDetail.versionCode}`,'_blank');
 	}
 
 	openBatchUpgrade=()=>{
@@ -196,6 +203,7 @@ export default class List extends React.Component {
 								<Button  label="删除"  type="operation" operation="delete"/>
 								<Button  label="升级包地址"  type="operation" operation="detail"/>
 								<Button  label="升级"  type="operation" operation="upgradeBtach"/>
+								<Button  label="记录"  type="operation" operation="upgradeLog"/>
 							</TableRowColumn>
 
 						</TableRow>
