@@ -85,8 +85,6 @@ class Operations extends React.Component {
 
 		} else if (type == 'view') {
 			this.openView(itemDetail.id,this.state.newPage);
-		}else if (type == 'code') {
-			this.openCodeDialog();
 		}else if (type == 'group') {
 			this.openRoleEdit();
 		}
@@ -141,11 +139,12 @@ class Operations extends React.Component {
 			openCreateDialog: !this.state.openCreateDialog
 		})
 	}
-	openCodeDialog = () => {
-		this.setState({
-			openCodeDialog: !this.state.openCodeDialog
-		})
-	}
+	// 去除 业务代码显示 
+	// openCodeDialog = () => {
+	// 	this.setState({
+	// 		openCodeDialog: !this.state.openCodeDialog
+	// 	})
+	// }
 	onCreatSubmit = (form) => {
 		var _this = this;
 		Http.request('createRole', {}, form).then(function(response) {
@@ -175,7 +174,7 @@ class Operations extends React.Component {
 
 	onCodeSubmit=()=>{
 		this.changeP();
-		this.openCodeDialog();
+	//	this.openCodeDialog();
 	}
 
 	onRoleGroupSubmit =(form)=>{
@@ -280,7 +279,7 @@ class Operations extends React.Component {
 									<Button label="编辑"   type="operation" operation="edit"/>
 									<Button label="删除"  	type="operation" operation="delete"/>
 									<Button label="查看人员"  type="operation" operation="view"/>
-									<Button label="业务代码"  type="operation" operation="code"/>
+									{/* <Button label="业务代码"  type="operation" operation="code"/> */}
 							 </TableRowColumn>
 						 </TableRow>
 					</TableBody>
@@ -295,7 +294,7 @@ class Operations extends React.Component {
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
 					</Dialog>
-					<Dialog
+					{/* <Dialog
 						title="业务代码"
 						modal={true}
 						onClose={this.openCodeDialog}
@@ -303,7 +302,7 @@ class Operations extends React.Component {
 						contentStyle={{width:580}}
 						>
 						<CodeDialog detail={itemDetail} onCancel={this.openCodeDialog} onSubmit={this.onCodeSubmit} />
-					</Dialog>
+					</Dialog> */}
 					<Dialog
 						title="新建角色分组"
 						modal={true}
