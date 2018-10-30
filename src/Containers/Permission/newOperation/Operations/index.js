@@ -44,7 +44,7 @@ import './index.less';
 import Deletedialog from './Deletedialog';
 import Createdialog from './Createdialog';
 import Editdialog from './Editdialog';
-
+import EditRoledialog from '../searchRole';
 
 class SearchForm extends Component {
 	constructor(props, context) {
@@ -133,6 +133,7 @@ class Operations extends Component {
 			openDeleteDialog: false,
 			openCreateDialog: false,
 			openEditDialog: false,
+			openEditRoleDialog:false,
 		}
 	}
 
@@ -147,6 +148,8 @@ class Operations extends Component {
 			this.openDeleteDialog();
 		} else if (type == 'edit') {
 			this.openEditDialog();
+		} else if(type == 'role'){
+			this.openEditRole()
 		}
 	}
 	openDeleteDialog = () => {
@@ -190,6 +193,16 @@ class Operations extends Component {
 			Message.error(err.message)
 		});
 
+	}
+	openEditRole = () => {
+		this.setState({
+			openEditRoleDialog: !this.state.openEditRoleDialog
+		})
+	}
+	// 角色提交
+	onEditRoleSubmit = (params) => {
+		this.openEditRole();
+		this.changeP();
 	}
 	onEditSubmit = (params) => {
 		var _this = this;
@@ -300,6 +313,7 @@ class Operations extends Component {
 								)
 							}}> </TableRowColumn>
 							<TableRowColumn>
+									<Button label="角色"   type="operation" operateCode="sso_resource_edit" operation="role"/>	
 									<Button label="编辑"   type="operation" operateCode="sso_resource_edit" operation="edit"/>
 									<Button label="删除"  type="operation" operateCode="sso_resource_del" operation="delete"/>
 							 </TableRowColumn>
@@ -315,6 +329,18 @@ class Operations extends Component {
 						contentStyle={{width:460}}
 						>
 						<Deletedialog  onCancel={this.openDeleteDialog} onSubmit={this.onDeleteSubmit} />
+
+					 </Dialog>
+					 <Dialog
+					 	title="使用此操作项的角色"
+						modal={true}
+						contentStyle={{
+							width: 624,
+					}}
+						open={this.state.openEditRoleDialog}
+						onClose={this.openEditRole}
+						>
+						<EditRoledialog type='operation'  detail={itemDetail} onCancel={this.openEditRole} onSubmit={this.onEditRoleSubmit} />
 
 					 </Dialog>
 					 <Drawer

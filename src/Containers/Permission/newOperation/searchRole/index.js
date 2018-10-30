@@ -32,14 +32,24 @@ class searchRole extends React.Component {
 			id:'',
 		}
 	}
-
+	
 	componentDidMount(){
 		let {id} = this.props.detail;
-		Http.request('BusinessRoleList', {businessCodeId:id}).then( (response) =>{
-			this.setState({groupList:response})
-		}).catch((err)=> {
-			Message.error(err.message);
-		});
+		let {type} = this.props;
+		if(type === 'opcode'){
+			Http.request('BusinessRoleList', {businessCodeId:id}).then( (response) =>{
+				this.setState({groupList:response})
+			}).catch((err)=> {
+				Message.error(err.message);
+			});
+		}else if(type === 'operation'){
+			Http.request('ResourceRoleList', {resourceId:id}).then( (response) =>{
+				this.setState({groupList:response})
+			}).catch((err)=> {
+				Message.error(err.message);
+			});
+		}
+	
 	}
 
 	onCancel = () => {
@@ -56,43 +66,62 @@ class searchRole extends React.Component {
 			onSubmit && onSubmit(form);
 
 	}
+	// 查看该角色人员 
 	handleRole = (id) => {
 			window.open(`./#/permission/userlist/${id}/1`,'_blank');
 	}
-	renderGroppList = (list) => {
-	return	list.map((v,i)=>{
-			return (<div className='flex-role' key={i}>
-				<span className='flex-name'>{v.groupName}</span>
-				<Button label={v.roleName}  type="operation" onTouchTap={()=>{this.handleRole(v.roleId)}} />	
-				{/* <a href='' className='flex-desc'>{v.roleName}</a> */}
-				<span className='flex-dele'>
-					<Button label="删除" type="button"  onTouchTap={()=>{this.removeList(v.id)}} cancle={true} height={30} width={80}/>
-				</span>
-				
-				</div>)
-		})
+	// 渲染角色列表
+	renderGroupList = (list) => {
+		if(list.length){
+			return	list.map((v,i)=>{
+				return (<div className='flex-role' key={i}>
+					<span className='flex-name'>{v.groupName}</span>
+					<Button className='flex-desc' label={v.roleName}  type="operation" onTouchTap={()=>{this.handleRole(v.roleId)}} />	
+					<span className='flex-dele'>
+						<Button label="删除" type="button"  onTouchTap={()=>{this.removeList(v.id)}} cancle={true} height={30} width={80}/>
+					</span>
+					</div>)
+			})
+		}
 	}
+	// 确认打开删除弹框
 	removeList = (id) =>{
 		this.setState({id},()=>{
-
 			this.openDeleteDialog()
 		})
 	}
+	// 点击确认删除 
 	onDeleteSubmit = () => {
 		let {
 			id
 		} = this.state;
-		Http.request('delRoleList', {
-			id: id
-		}).then((response) =>{
-			Message.success('删除成功')
-			this.openDeleteDialog()
-			this.onSubmit()
-		}).catch(function(err) {
-			this.openDeleteDialog()
-			Message.error(err.message);
-		});
+		let {type} = this.props;
+		if(type === 'opcode'){
+			Http.request('delRoleDetail', {
+				id: id
+			}).then((response) =>{
+				Message.success('删除成功')
+				this.openDeleteDialog()
+				this.onSubmit()
+			}).catch(function(err) {
+				this.openDeleteDialog()
+				Message.error(err.message);
+			});
+		}else if(type === 'operation'){
+			Http.request('delRoleResourceDetail', {
+				id: id
+			}).then((response) =>{
+				Message.success('删除成功')
+				this.openDeleteDialog()
+				this.onSubmit()
+			}).catch(function(err) {
+				this.openDeleteDialog()
+				Message.error(err.message);
+			});
+		}
+		
 	}
+	// 打开与关闭删除弹框 
 	openDeleteDialog = ()=>{
 
 		this.setState({
@@ -106,12 +135,16 @@ class searchRole extends React.Component {
 		let {
 			groupList
 		} = this.state;
-
 		return (
 			<div className="g-roleSearch">
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:10}}  >
-					{groupList.length && this.renderGroppList(groupList)}
-					<Row style={{marginTop:10,marginBottom:15}}>
+					<div className = 'role-form'>
+							{groupList.length>0 ?
+								this.renderGroupList(groupList)
+								: null}
+					</div>
+
+					<Row style={{marginTop:50,marginBottom:15}}>
 					<Col md={12} align="center"> 
 						<ButtonGroup>
 							<div  className='ui-btn-center'><Button  label="确定" type="button"  type="submit"  height={34} width={90}/></div>
