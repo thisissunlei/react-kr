@@ -66,9 +66,11 @@ class searchRole extends React.Component {
 			onSubmit && onSubmit(form);
 
 	}
+	// 查看该角色人员 
 	handleRole = (id) => {
 			window.open(`./#/permission/userlist/${id}/1`,'_blank');
 	}
+	// 渲染角色列表
 	renderGroupList = (list) => {
 		if(list.length){
 			return	list.map((v,i)=>{
@@ -82,11 +84,13 @@ class searchRole extends React.Component {
 			})
 		}
 	}
+	// 确认打开删除弹框
 	removeList = (id) =>{
 		this.setState({id},()=>{
 			this.openDeleteDialog()
 		})
 	}
+	// 点击确认删除 
 	onDeleteSubmit = () => {
 		let {
 			id
@@ -117,7 +121,7 @@ class searchRole extends React.Component {
 		}
 		
 	}
-	
+	// 打开与关闭删除弹框 
 	openDeleteDialog = ()=>{
 
 		this.setState({
