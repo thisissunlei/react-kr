@@ -207,18 +207,18 @@ export default class Header extends React.Component {
 			//		let matchUrl = url && url.replace(/\/\d+/g,'/1');
 			//		let matchSource = item.url && item.url.replace(/\/\:(\w+)/g,'/1');
 			if (url == item.url) {
-				item.isActive = true;
-				isOpen = true;
+				item.isActive = true;   // 下一级服务 
+				isOpen = true;   // 本级服务
 			} else {
 				item.isActive = false;
 			}
 			if (item.childList && item.childList.length) {
 				let middle = this.recursiveAssign(item.childList, url);
 				if (middle.isOpen) {
-					item.isActive = true;
-					isOpen = true;
+					item.isActive = true; //  自己
+					isOpen = true;  //  上一级
 				}
-				item.childList = middle.allData;
+				item.childList = middle.allData; // 本级 
 			}
 			return item;
 		})
