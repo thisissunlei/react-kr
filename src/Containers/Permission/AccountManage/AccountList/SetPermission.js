@@ -67,12 +67,12 @@ export default class SetPermission extends React.Component {
             <div style={{width:'8%',fontWeight:'bold'}}>{item.groupName}</div>
             <div style={{display:'flex',flexWrap:'wrap',width:'90%'}}>
                 {item.roles.map((v,i)=>{
-                   let disabled = (v.id==39|| v.id == 79)?true:false;
+                 //  let disabled = (v.id==39|| v.id == 79)?true:false;
                   return 	 <Checkbox
                     style={{display:'inline-block',minWidth:'210px',lineHeigitemht:'32px',color:'#333'}}
                     label={v.name}
                     checked={v.ownFlag==1?true:false}
-                    readOnly={disabled}
+                 //   readOnly={disabled}
                     key={i}
                     onCheck={this.checked.bind(this,v,i)}
                 /> 
