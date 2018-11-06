@@ -11,9 +11,14 @@ elif [ $1 = 'prod02' ]; then
 
 rsync -rvltOD ./dist/* ali-krspace-web-02:/data/work/kr-admin-new/
 
+elif [ $1 = 'sim' ]; then
+
+rsync -rvltOD ./dist/* ali-krspace-sim-01:/data/work/kr-admin-new/
+
 elif [ $1 = 'all' ]; then
 
 rsync -rvltOD ./dist/* ali-krspace-web-01:/data/work/kr-admin-new/
 rsync -rvltOD ./dist/* ali-krspace-web-02:/data/work/kr-admin-new/
+rsync -rvltOD ./dist/* ali-krspace-sim-01:/data/work/kr-admin-new/
 
 fi
