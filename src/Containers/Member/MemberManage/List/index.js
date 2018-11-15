@@ -227,6 +227,7 @@ export default class List extends React.Component {
 	// 查询
 	onSearchSubmit=(value)=>{
 		let _this = this;
+
 		let searchParam = {
 			value :value.content,
 			type :value.filter
@@ -249,7 +250,6 @@ export default class List extends React.Component {
 	openAdvancedQueryDialog(){
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
-
 		});
 	}
 	// 高级查询
@@ -389,7 +389,11 @@ export default class List extends React.Component {
 		}, {
 			label: '姓名',
 			value: 'NAME'
-		}];
+		},{
+			label: '昵称',
+			value: 'NICK'
+		}
+	];
 		return (
 			    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
 								<Title value="会员-氪空间后台管理系统"/>
@@ -483,6 +487,9 @@ export default class List extends React.Component {
 													}else if(value==0){
 														Style="u-txt-green";
 														status='已入驻';
+													}else if(value==2){
+														Style="u-txt-green";
+														status='未入驻';
 													}
 													return (<span className={Style}>{status}</span>)
 												}}

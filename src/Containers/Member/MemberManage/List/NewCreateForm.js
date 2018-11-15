@@ -12,6 +12,7 @@ import {
 	Message,
 	ListGroup,
 	ListGroupItem
+
 } from 'kr-ui';
 
 import $ from 'jquery';
@@ -48,8 +49,10 @@ class NewCreateForm extends React.Component{
 			name:'',
 			foreignCode:'',
 			identityCard:'',
+			areaCode:'86',
 			//leader:'0'
 		}
+
 		Store.dispatch(initialize('NewCreateForm',response));
 	}
 	// 点确定提交时候如果有错误提示返回，否则提交,,如果邮箱存在有错误提示，不能提交
@@ -192,36 +195,70 @@ class NewCreateForm extends React.Component{
 		const { error, handleSubmit, pristine, reset} = this.props;
 		let communityText = '';
 		let {selectOption} =this.state;
-		let options = [{
-			label: '公司名称',
-			value: 'COMP_NAME'
+		let groupLevelOptions = [
+			{
+				label: '中国 +86',
+				value: '86'
+			},
+			{
+			label: '中国澳门 +853',
+			value: '853'
 		}, {
-			label: '手机号',
-			value: 'PHONE'
+			label: '中国台湾 +886',
+			value: '886'
 		}, {
-			label: '微信',
-			value: 'WECHAT'
+			label: '澳大利亚 +61',
+			value: '61'
 		}, {
-			label: '姓名',
-			value: 'NAME'
-		}];
+			label: '韩国 +82',
+			value: '82'
+		},{
+			label: '加拿大 +1',
+			value: '1'
+		}, {
+			label: '马来西亚 +60',
+			value: '60'
+		}, {
+			label: '美国 +1',
+			value: '1'
+		},
+		{
+			label: '日本 +81',
+			value: '81'
+		}, {
+			label: '新加坡 +65',
+			value: '65'
+		}, {
+			label: '英国 +44',
+			value: '44'
+		},
+	];
 		return (
 			<div>
 				<form onSubmit={handleSubmit(this.onSubmit)} style={{marginTop:20,marginLeft:'40px'}}>
-					<KrField grid={1/2} name="phone" type="text" onBlur={this.onBlur} label="手机号" requireLabel={true} style={{display:'block',width:'252px'}}/>
+				<KrField name="areaCode" 
+					component="select" 
+					label="区域"
+					options={groupLevelOptions}  
+					requireLabel={true} 
+					grid={1/2}
+					right={30}
+					errors={{requiredValue:'选择区域码'}} 
+				/>
+					<KrField  name="phone" grid={1/2} 	right={30}  type="text" onBlur={this.onBlur} label="手机号" requireLabel={true}/>
 					<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8,marginLeft:'-30px'}}>
 						<img src={imgLine}/>
 					</div>
-					<KrField grid={1/2} name="communityId" component="searchCommunityAll" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true}  inline={false} style={{width:'252px',marginRight:'30px'}}/>
-					<KrField grid={1/2} name="csrId" component="searchMemberCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true}  style={{width:'252px',marginRight:'30px'}}/>
-					<KrField grid={1/2} name="name" type="text" label="姓名" requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} style={{width:'252px',marginRight:'30px'}}/>
-					<KrField grid={1/2} name="email" type="text" label="邮箱"  onBlur={this.EmailonBlur} style={{width:252,marginRight:30}} requireLabel={true}/>
-					<KrField name="job"  grid={1/2}  label="职位"  style={{width:252,marginRight:30}}/>
+					<KrField grid={1/2} name="communityId" component="searchCommunityAll" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true}  inline={false} 	right={30}/>
+					<KrField grid={1/2} name="csrId" right={30}  component="searchMemberCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true}/>
+					<KrField grid={1/2} name="name" type="text" label="姓名" 	right={30} requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} />
+					<KrField grid={1/2} name="email" type="text" label="邮箱"   onBlur={this.EmailonBlur} right={30} requireLabel={true}/>
+					<KrField name="job" 	right={30}   grid={1/2}  label="职位" />
 					{/* <KrField name="leader" component="group" label="企业管理员"  style={{width:252}} >
 						<KrField name="leader" label="是" type="radio" value="1" />
 						<KrField name="leader" label="否" type="radio" value='0' />
 					</KrField> */}
-					<KrField grid={1/2} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}}/>
+					<KrField grid={1/2} name="identityCard" type="text" label="身份证号"  right={30} />
 					<Grid style={{marginTop:18,marginBottom:'4px'}}>
 						<Row>
 							<ListGroup>
@@ -258,6 +295,9 @@ const validate = values => {
 
 	if (!values.csrId) {
 		errors.csrId = '请输入公司';
+	}
+	if (!values.areaCode) {
+		errors.areaCode = '请输入区域码';
 	}
 	if (!values.name || /^\s+$/.test(values.name)) {
 		errors.name = '请输入姓名';
