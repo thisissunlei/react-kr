@@ -181,39 +181,39 @@ export default class MemeberEditMemberForm extends React.Component {
 		let groupLevelOptions = [
 			{
 				label: '中国 +86',
-				value: '86'
+				value: '0086'
 			},
 			{
 			label: '中国澳门 +853',
-			value: '853'
+			value: '0853'
 		}, {
 			label: '中国台湾 +886',
-			value: '886'
+			value: '0886'
 		}, {
 			label: '澳大利亚 +61',
-			value: '61'
+			value: '0061'
 		}, {
 			label: '韩国 +82',
-			value: '82'
+			value: '0082'
 		},{
 			label: '加拿大 +1',
-			value: '1'
+			value: '0001'
 		}, {
 			label: '马来西亚 +60',
-			value: '60'
+			value: '0060'
 		}, {
 			label: '美国 +1',
-			value: '1'
+			value: '0001'
 		},
 		{
 			label: '日本 +81',
-			value: '81'
+			value: '0081'
 		}, {
 			label: '新加坡 +65',
-			value: '65'
+			value: '0065'
 		}, {
 			label: '英国 +44',
-			value: '44'
+			value: '0044'
 		},
 	];
 		return (
