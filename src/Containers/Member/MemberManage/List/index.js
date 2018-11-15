@@ -70,10 +70,18 @@ export default class List extends React.Component {
 				type:'',
 				value:'',
 				status:false,
+				teamId: this.getTeamId()
 			},
-
 		}
 	}
+
+	// 获取teamId
+	getTeamId =() => {
+		let result = window.location.href.match(/\S*?teamId=(\d+)/);
+		let teamId = result && result.length && result[1];
+		return teamId || '';
+	}
+
 	importData=()=>{
 		this.setState({
 			importdata:!this.state.importdata
