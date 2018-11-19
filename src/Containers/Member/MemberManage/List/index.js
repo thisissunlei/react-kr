@@ -238,8 +238,7 @@ export default class List extends React.Component {
 	}
 	// 查询
 	onSearchSubmit=(value)=>{ // todo 结合社区的值 
-		let _this = this;
-		debugger
+		let _this = this;	
 		let searchParam = {
 			value :value.content,
 			type :value.filter
@@ -356,7 +355,6 @@ export default class List extends React.Component {
 	// 选择社区
 	onChangeCommunity=(item)=>{ // tood  结合原有的filter  
 		let _this = this;
-		debugger;
 		if(!item){
 			_this.setState({
 				realPage:1,
