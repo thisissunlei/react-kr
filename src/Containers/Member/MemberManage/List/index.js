@@ -28,7 +28,6 @@ import ImportData from './ImportData';
 import CodeManage from './CodeManage';
 import SearchCommunityForm from './SearchCommunityForm';
 import './index.less';
-
 export default class List extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
@@ -72,6 +71,7 @@ export default class List extends React.Component {
 				status:false,
 				teamId: this.getTeamId()
 			},
+			oldSearchParams:''
 		}
 	}
 
@@ -81,7 +81,10 @@ export default class List extends React.Component {
 		let teamId = result && result.length && result[1];
 		return teamId || '';
 	}
-
+	// 保存一份初始请求state
+	componentDidMount(){
+		this.setState({oldSearchParams: this.state.searchParams})
+	}
 	importData=()=>{
 		this.setState({
 			importdata:!this.state.importdata
@@ -193,6 +196,7 @@ export default class List extends React.Component {
 					registerSourceId:_this.state.searchParams.registerSourceId,
 					job:_this.state.searchParams.job,
 					cityId:_this.state.searchParams.cityId,
+					teamId: _this.state.searchParams.teamId,
 				}
 			})
 		}).catch(function(err){
@@ -233,9 +237,9 @@ export default class List extends React.Component {
 						});
 	}
 	// 查询
-	onSearchSubmit=(value)=>{
+	onSearchSubmit=(value)=>{ // todo 结合社区的值 
 		let _this = this;
-
+		debugger
 		let searchParam = {
 			value :value.content,
 			type :value.filter
@@ -251,6 +255,8 @@ export default class List extends React.Component {
 				page :1,
 				pageSize:15,
 				companyId:0,
+				cmtId: _this.state.searchParams.cmtId || '',
+				teamId: _this.state.searchParams.teamId || '',
 			}
 		})
 	}
@@ -348,17 +354,19 @@ export default class List extends React.Component {
 	}
 
 	// 选择社区
-	onChangeCommunity=(item)=>{
+	onChangeCommunity=(item)=>{ // tood  结合原有的filter  
 		let _this = this;
+		debugger;
 		if(!item){
 			_this.setState({
 				realPage:1,
 				searchParams:{
 					cmtId : '',
 					type:_this.state.searchParams.filter || '', 
-				    value:_this.state.searchParams.content || '',
+				  value:_this.state.searchParams.content || '',
 					page : 1,
 					pageSize:15,
+					teamId: _this.state.searchParams.teamId || '',
 				}
 			})
 		}else{
@@ -368,6 +376,7 @@ export default class List extends React.Component {
 				cmtId : item.id,
 				type:_this.state.searchParams.filter || '',
 				value:_this.state.searchParams.content || '',
+				teamId:this.state.searchParams.teamId || '',
 				page :1,
 				pageSize:15,
 			}
@@ -375,8 +384,6 @@ export default class List extends React.Component {
 		}
 
 	}
-
-
 
 	render() {
 		let {
