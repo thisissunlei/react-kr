@@ -222,7 +222,7 @@ export default class MemeberEditMemberForm extends React.Component {
 					<div className="person-info">
 						{/* <span className="person-name">{detail.name}</span>
 						{detail.checkStatus?<span className="person-status-not">已验证</span>:<span className="person-status">未验证</span>} */}
-						<span className="person-id">员工UserID：{detail.uid}</span>
+						<span className="person-id">UserID：{detail.uid}</span>
 					</div>
 					<div className="split-lines"></div>
 					
@@ -239,7 +239,7 @@ export default class MemeberEditMemberForm extends React.Component {
 					{/* <KrField name="phone"  label="手机号" inline={false} right={30}   requireLabel={true}/> */}
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunityAll" right={30}   requireLabel={true} inline={false}/>
 					<KrField name="csrId" grid={1/2} label="公司" component="searchMemberCompany" onChange={this.changeCompany} ValueInfo={companyInfo}   right={30} requiredValue={true} requireLabel={true}/>
-					<KrField name="name" grid={1/2}  label="姓名"  right={30}  requireLabel={true} requiredValue={true} />
+					<KrField name="name" grid={1/2}  label="姓名"  right={30}  maxLength='10'  requireLabel={true} requiredValue={true} />
 					<KrField name="email" grid={1/2} label="邮箱:" right={30}  onBlur={this.communityChange} requireLabel={true}/>
 					<KrField name="job" grid={1/2} label="职位" right={30}  />
 					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" />

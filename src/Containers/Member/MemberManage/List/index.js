@@ -453,7 +453,7 @@ export default class List extends React.Component {
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
 											<TableRowColumn name="uid"></TableRowColumn>
-											<TableRowColumn name="name"
+											<TableRowColumn name="name" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
