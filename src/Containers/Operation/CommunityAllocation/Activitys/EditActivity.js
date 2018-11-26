@@ -100,7 +100,7 @@ class EditActivity extends React.Component {
 			if(response.hasRight==1){
 				_this.setState({
 					groupType:[
-						{label:'全国活动',value:'1'},
+						{label:'线上活动',value:'1'},
 						{label:'社区活动',value:'0'}
 					]
 				})
@@ -333,7 +333,7 @@ class EditActivity extends React.Component {
 					 			style={{width:262,marginRight:25}} 
 					 			name="cmtId"
 					 			component='searchCommunityAll'  
-					 			label="所属社区" 
+					 			label="举办社区" 
 					 			inline={false}  
 					 			placeholder='请输入社区名称' 
 						 		requireLabel={true}
