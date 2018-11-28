@@ -178,22 +178,71 @@ export default class MemeberEditMemberForm extends React.Component {
 		let {companyInfo}=this.state;
 		let images = `./images/all.png`;
 		// itemData.phone = '13314619606';
+		let groupLevelOptions = [
+			{
+				label: '中国 +86',
+				value: '0086'
+			},
+			{
+			label: '中国澳门 +853',
+			value: '0853'
+		}, {
+			label: '中国台湾 +886',
+			value: '0886'
+		}, {
+			label: '澳大利亚 +61',
+			value: '0061'
+		}, {
+			label: '韩国 +82',
+			value: '0082'
+		},{
+			label: '加拿大 +1',
+			value: '0001'
+		}, {
+			label: '马来西亚 +60',
+			value: '0060'
+		}, {
+			label: '美国 +1',
+			value: '0001'
+		},
+		{
+			label: '日本 +81',
+			value: '0081'
+		}, {
+			label: '新加坡 +65',
+			value: '0065'
+		}, {
+			label: '英国 +44',
+			value: '0044'
+		},
+	];
 		return (
 			<div className="edit-form" style={{paddingBottom:"3"}}>
 				<form onSubmit={handleSubmit(this.onSubmit)} >
 					<div className="person-info">
 						{/* <span className="person-name">{detail.name}</span>
 						{detail.checkStatus?<span className="person-status-not">已验证</span>:<span className="person-status">未验证</span>} */}
-						<span className="person-id">员工UserID：{detail.uid}</span>
+						<span className="person-id">UserID：{detail.uid}</span>
 					</div>
 					<div className="split-lines"></div>
-					<KrField name="phone" grid={1/2} label="手机号" inline={false} right={30}   requireLabel={true}/>
+					
+				<KrField name="areaCode" 
+					component="select" 
+					label="区域"
+					grid={1/2}
+					options={groupLevelOptions}  
+					requireLabel={true} 
+					errors={{requiredValue:'选择区域码'}} 
+					right={30}
+				/>
+					<KrField  name="phone" type="text" grid={1/2}   label="手机号" requireLabel={true} right={30}/>
+					{/* <KrField name="phone"  label="手机号" inline={false} right={30}   requireLabel={true}/> */}
 					<KrField name="communityId" grid={1/2} label="社区" component="searchCommunityAll" right={30}   requireLabel={true} inline={false}/>
 					<KrField name="csrId" grid={1/2} label="公司" component="searchMemberCompany" onChange={this.changeCompany} ValueInfo={companyInfo}   right={30} requiredValue={true} requireLabel={true}/>
-					<KrField name="name" grid={1/2}  label="姓名" type="text" right={30}  requireLabel={true} requiredValue={true} />
-					<KrField name="email" grid={1/2} label="邮箱:" type="text" right={30}  onBlur={this.communityChange} requireLabel={true}/>
+					<KrField name="name" grid={1/2}  label="姓名"  right={30}  maxLength='10'  requireLabel={true} requiredValue={true} />
+					<KrField name="email" grid={1/2} label="邮箱:" right={30}  onBlur={this.communityChange} requireLabel={true}/>
 					<KrField name="job" grid={1/2} label="职位" right={30}  />
-					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" style={{width:'252px',marginRight:'30'}} />
+					<KrField grid={1/2} right={30} name="identityCard" type="text" label="身份证号" />
 					{/* <KrField name="leader" component="group" label="企业管理员"  style={{width:252}} >
 						<KrField name="leader" label="是" type="radio" value="1" />
 						<KrField name="leader" label="否" type="radio" value='0' />
@@ -239,6 +288,9 @@ const validate = values => {
 	}
 	if (!values.csrId) {
 		errors.csrId = '请输入公司名称';
+	}
+	if (!values.areaCode) {
+		errors.areaCode = '请输入区域码';
 	}
 
 	if (!values.name || /^\s+$/.test(values.name)) {

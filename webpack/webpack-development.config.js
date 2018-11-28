@@ -58,6 +58,10 @@ const webpackConfigs = {
 			'/api': {
 				target: Envs[process.env.NODE_ENV],
 				changeOrigin: true
+			},
+			'/z': {
+				target: Envs[process.env.NODE_ENV],
+				changeOrigin: true
 			}
 		}
 	},

@@ -28,7 +28,6 @@ import ImportData from './ImportData';
 import CodeManage from './CodeManage';
 import SearchCommunityForm from './SearchCommunityForm';
 import './index.less';
-
 export default class List extends React.Component {
 	static contextTypes = {
 		router: React.PropTypes.object.isRequired
@@ -70,9 +69,21 @@ export default class List extends React.Component {
 				type:'',
 				value:'',
 				status:false,
+				teamId: this.getTeamId()
 			},
-
+			oldSearchParams:''
 		}
+	}
+
+	// 获取teamId
+	getTeamId =() => {
+		let result = window.location.href.match(/\S*?teamId=(\d+)/);
+		let teamId = result && result.length && result[1];
+		return teamId || '';
+	}
+	// 保存一份初始请求state
+	componentDidMount(){
+		this.setState({oldSearchParams: this.state.searchParams})
 	}
 	importData=()=>{
 		this.setState({
@@ -185,6 +196,7 @@ export default class List extends React.Component {
 					registerSourceId:_this.state.searchParams.registerSourceId,
 					job:_this.state.searchParams.job,
 					cityId:_this.state.searchParams.cityId,
+					teamId: _this.state.searchParams.teamId,
 				}
 			})
 		}).catch(function(err){
@@ -225,8 +237,8 @@ export default class List extends React.Component {
 						});
 	}
 	// 查询
-	onSearchSubmit=(value)=>{
-		let _this = this;
+	onSearchSubmit=(value)=>{ // todo 结合社区的值 
+		let _this = this;	
 		let searchParam = {
 			value :value.content,
 			type :value.filter
@@ -242,6 +254,8 @@ export default class List extends React.Component {
 				page :1,
 				pageSize:15,
 				companyId:0,
+				cmtId: _this.state.searchParams.cmtId || '',
+				teamId: _this.state.searchParams.teamId || '',
 			}
 		})
 	}
@@ -249,7 +263,6 @@ export default class List extends React.Component {
 	openAdvancedQueryDialog(){
 		this.setState({
 			openAdvancedQuery: !this.state.openAdvancedQuery,
-
 		});
 	}
 	// 高级查询
@@ -340,7 +353,7 @@ export default class List extends React.Component {
 	}
 
 	// 选择社区
-	onChangeCommunity=(item)=>{
+	onChangeCommunity=(item)=>{ // tood  结合原有的filter  
 		let _this = this;
 		if(!item){
 			_this.setState({
@@ -348,9 +361,10 @@ export default class List extends React.Component {
 				searchParams:{
 					cmtId : '',
 					type:_this.state.searchParams.filter || '', 
-				    value:_this.state.searchParams.content || '',
+				  value:_this.state.searchParams.content || '',
 					page : 1,
 					pageSize:15,
+					teamId: _this.state.searchParams.teamId || '',
 				}
 			})
 		}else{
@@ -360,6 +374,7 @@ export default class List extends React.Component {
 				cmtId : item.id,
 				type:_this.state.searchParams.filter || '',
 				value:_this.state.searchParams.content || '',
+				teamId:this.state.searchParams.teamId || '',
 				page :1,
 				pageSize:15,
 			}
@@ -367,8 +382,6 @@ export default class List extends React.Component {
 		}
 
 	}
-
-
 
 	render() {
 		let {
@@ -389,7 +402,11 @@ export default class List extends React.Component {
 		}, {
 			label: '姓名',
 			value: 'NAME'
-		}];
+		},{
+			label: '昵称',
+			value: 'NICK'
+		}
+	];
 		return (
 			    <div className="member-list-div" style={{minHeight:'910',backgroundColor:"#fff"}} >
 								<Title value="会员-氪空间后台管理系统"/>
@@ -436,7 +453,7 @@ export default class List extends React.Component {
 									<TableBody style={{position:'inherit'}}>
 											<TableRow displayCheckbox={true}>
 											<TableRowColumn name="uid"></TableRowColumn>
-											<TableRowColumn name="name"
+											<TableRowColumn name="name" style={{overflow:"hidden"}}
 											component={(value,oldValue)=>{
 												if(value==""){
 													value="-"
@@ -483,6 +500,9 @@ export default class List extends React.Component {
 													}else if(value==0){
 														Style="u-txt-green";
 														status='已入驻';
+													}else if(value==2){
+														Style="u-txt-green";
+														status='未入驻';
 													}
 													return (<span className={Style}>{status}</span>)
 												}}
@@ -553,14 +573,14 @@ export default class List extends React.Component {
 									</div>
 								</Dialog>
 								<Dialog
-								title="离职"
+								title="离场"
 								modal={true}
 								contentStyle ={{ width: '444',overflow:'visible'}}
 								open={this.state.openLeave}
 								onClose={this.openLeave}
 								>
 								<div className='u-list-delete'>
-									<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认此会员已离职吗？</p>
+									<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认此会员已离场吗？</p>
 									<div style={{textAlign:'center',marginBottom:10}}>
 										<div  className='ui-btn-center'>
 											<Button  label="确定" onClick={this.onLeave}/></div>
