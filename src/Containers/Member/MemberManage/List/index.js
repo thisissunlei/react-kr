@@ -573,14 +573,14 @@ export default class List extends React.Component {
 									</div>
 								</Dialog>
 								<Dialog
-								title="离职"
+								title="离场"
 								modal={true}
 								contentStyle ={{ width: '444',overflow:'visible'}}
 								open={this.state.openLeave}
 								onClose={this.openLeave}
 								>
 								<div className='u-list-delete'>
-									<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认此会员已离职吗？</p>
+									<p className='u-delete-title' style={{textAlign:'center',color:'#333'}}>确认此会员已离场吗？</p>
 									<div style={{textAlign:'center',marginBottom:10}}>
 										<div  className='ui-btn-center'>
 											<Button  label="确定" onClick={this.onLeave}/></div>
