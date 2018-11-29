@@ -201,7 +201,7 @@ export default class Header extends React.Component {
 			// 都没有 取localstorage
 			if(!matchUrl){
 				let local = localStorage.getItem('brightRouter'); 
-				let urls = local && local.url;
+				let urls = local && local.path;
 				let newData = _this.recursiveAssign(res, urls);
 				_this.setState({
 					firstNav: newData.allData
@@ -265,7 +265,7 @@ export default class Header extends React.Component {
 			// 都没有 取localstorage
 			if(!matchUrl){
 				let local = localStorage.getItem('brightRouter'); 
-				let urls = local && local.url;
+				let urls = local && local.path;
 				let newData = _this.recursiveAssign(firstNav, urls);
 				_this.setState({
 					firstNav: newData.allData
