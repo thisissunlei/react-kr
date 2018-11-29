@@ -184,18 +184,37 @@ export default class Header extends React.Component {
 					topFoldFlag: "YES",
 					url: "/"
 				}].concat(res));
-			}
+			};
 			_this.setState({
 				firstNav: nowData.allData, headActive,
-			})
-
+			});
+			let matchUrl = false;
+			// 正常匹配 
 			nowData.allData && nowData.allData.map((item, index) => {
 				if (item.isActive) {
+					matchUrl = true;
 					_this.setState({
 						secondBarNavs: item
 					})
 				}
 			})
+			// 都没有 取localstorage
+			if(!matchUrl){
+				let local = localStorage.getItem('brightRouter'); 
+				let urls = local && local.url;
+				let newData = _this.recursiveAssign(res, urls);
+				_this.setState({
+					firstNav: newData.allData
+				})
+				newData.allData && newData.allData.map((item, index) => {
+					if (item.isActive) {
+						matchUrl = true;
+						_this.setState({
+							secondBarNavs: item
+						})
+					}
+				})
+			}
 		}).catch(function (err) {
 			console.log('err', err);
 		});
@@ -204,21 +223,19 @@ export default class Header extends React.Component {
 	recursiveAssign(data, url) {
 		var isOpen = false;
 		var allData = data.map((item, index) => {
-			//		let matchUrl = url && url.replace(/\/\d+/g,'/1');
-			//		let matchSource = item.url && item.url.replace(/\/\:(\w+)/g,'/1');
 			if (url == item.url) {
-				item.isActive = true;   // 下一级服务 
-				isOpen = true;   // 本级服务
+				item.isActive = true;  
+				isOpen = true;   
 			} else {
 				item.isActive = false;
 			}
 			if (item.childList && item.childList.length) {
 				let middle = this.recursiveAssign(item.childList, url);
 				if (middle.isOpen) {
-					item.isActive = true; //  自己
-					isOpen = true;  //  上一级
+					item.isActive = true; 
+					isOpen = true; 
 				}
-				item.childList = middle.allData; // 本级 
+				item.childList = middle.allData; 
 			}
 			return item;
 		})
@@ -226,7 +243,7 @@ export default class Header extends React.Component {
 	}
 	//route发生变化
 	refresh() {
-
+		const _this = this;
 		let { firstNav } = this.state;
 		let first = location.hash.split('#')[1].split('?')[0];
 		let { headActive } = this.state;
@@ -234,13 +251,34 @@ export default class Header extends React.Component {
 		this.setState({ headActive });
 		//最终数据
 		var nowData = this.recursiveAssign(firstNav, first);
+		let matchUrl = false;
+		// 
 		nowData.allData && nowData.allData.map((item, index) => {
 			if (item.isActive) {
+				matchUrl = true;
 				this.setState({
 					secondBarNavs: item
 				})
 			}
 		})
+
+			// 都没有 取localstorage
+			if(!matchUrl){
+				let local = localStorage.getItem('brightRouter'); 
+				let urls = local && local.url;
+				let newData = _this.recursiveAssign(firstNav, urls);
+				_this.setState({
+					firstNav: newData.allData
+				})
+				newData.allData && newData.allData.map((item, index) => {
+					if (item.isActive) {
+						matchUrl = true;
+						_this.setState({
+							secondBarNavs: item
+						})
+					}
+				})
+			}
 	}
 	componentWillUnmount() {
 		window.removeEventListener("click", this.personHide, false);
