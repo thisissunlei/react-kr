@@ -143,7 +143,6 @@ export default class Header extends React.Component {
 		const _this = this;
 		if (typeof (Storage) !== "undefined" && sessionStorage.navs) {
 
-
 			let first = location.hash.split('#')[1].split('?')[0];
 			var navArr = JSON.parse(sessionStorage.navs)
 			delete navArr[0]
@@ -160,7 +159,7 @@ export default class Header extends React.Component {
 					})
 				}
 			})
-			return;
+			//return;
 		}
 
 
@@ -200,15 +199,14 @@ export default class Header extends React.Component {
 			})
 			// 都没有 取localstorage
 			if(!matchUrl){
-				let local = localStorage.getItem('brightRouter'); 
+				let local = JSON.parse(localStorage.getItem('brightRouter')); 
 				let urls = local && local.path;
 				let newData = _this.recursiveAssign(res, urls);
-				_this.setState({
-					firstNav: newData.allData
-				})
+				// _this.setState({
+				// 	firstNav: newData.allData
+				// })
 				newData.allData && newData.allData.map((item, index) => {
 					if (item.isActive) {
-						matchUrl = true;
 						_this.setState({
 							secondBarNavs: item
 						})
@@ -264,15 +262,14 @@ export default class Header extends React.Component {
 
 			// 都没有 取localstorage
 			if(!matchUrl){
-				let local = localStorage.getItem('brightRouter'); 
+				let local =JSON.parse(localStorage.getItem('brightRouter')) ; 
 				let urls = local && local.path;
 				let newData = _this.recursiveAssign(firstNav, urls);
-				_this.setState({
-					firstNav: newData.allData
-				})
+				// _this.setState({
+				// 	firstNav: newData.allData
+				// })
 				newData.allData && newData.allData.map((item, index) => {
 					if (item.isActive) {
-						matchUrl = true;
 						_this.setState({
 							secondBarNavs: item
 						})
