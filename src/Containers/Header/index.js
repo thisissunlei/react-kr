@@ -141,18 +141,18 @@ export default class Header extends React.Component {
 	//获取菜单信息
 	getNavData() {
 		const _this = this;
-		let matchUrl = false;
+		var matchUrl = false;
 		if (typeof (Storage) !== "undefined" && sessionStorage.navs) {
 
 			let first = location.hash.split('#')[1].split('?')[0];
 			var navArr = JSON.parse(sessionStorage.navs)
 			delete navArr[0]
-			var nowData = _this.recursiveAssign(navArr, first);
+			let nowData = _this.recursiveAssign(navArr, first);
 			let headActive = (first === '/') ? true : false;
-
 			_this.setState({
-				firstNav: nowData.allData, headActive,
+				 headActive,
 			})
+			
 			nowData.allData && nowData.allData.map((item, index) => {
 				if (item.isActive) {
 					matchUrl = true;
@@ -161,19 +161,23 @@ export default class Header extends React.Component {
 					})
 				}
 			})
-			if(!matchUrl){
+			if(!matchUrl &&  !headActive ){
 				let local = JSON.parse(localStorage.getItem('brightRouter')); 
 				let urls = local && local.path;
 				let newData = _this.recursiveAssign(navArr, urls);
-				_this.setState({
-					firstNav: newData.allData
-				})
+				// _this.setState({
+				// 	firstNav: newData.allData
+				// })
 				newData.allData && newData.allData.map((item, index) => {
 					if (item.isActive) {
 						_this.setState({
-							secondBarNavs: item
+							secondBarNavs: item, firstNav: newData.allData
 						})
 					}
+				})
+			}else{
+				_this.setState({
+					firstNav: nowData.allData
 				})
 			}
 			return;
@@ -185,9 +189,12 @@ export default class Header extends React.Component {
 			if (!res.length) return;
 
 			let first = location.hash.split('#')[1].split('?')[0];
-			var nowData = _this.recursiveAssign(res, first);
+			let nowData = _this.recursiveAssign(res, first);
 
 			let headActive = (first === '/') ? true : false;
+			_this.setState({
+				headActive,
+		 });
 			if (typeof (Storage) !== "undefined") {
 				sessionStorage.navs = JSON.stringify([{
 					iconUrl: "icon-card",
@@ -201,9 +208,7 @@ export default class Header extends React.Component {
 					url: "/"
 				}].concat(res));
 			};
-			_this.setState({
-				firstNav: nowData.allData, headActive,
-			});
+		
 		//	let matchUrl = false;
 			// 正常匹配 
 			nowData.allData && nowData.allData.map((item, index) => {
@@ -215,20 +220,21 @@ export default class Header extends React.Component {
 				}
 			})
 			// 都没有 取localstorage
-			if(!matchUrl){
+			if(!matchUrl && !headActive){
 				let local = JSON.parse(localStorage.getItem('brightRouter')); 
 				let urls = local && local.path;
 				let newData = _this.recursiveAssign(res, urls);
-				// _this.setState({
-				// 	firstNav: newData.allData
-				// })
 				newData.allData && newData.allData.map((item, index) => {
 					if (item.isActive) {
 						_this.setState({
-							secondBarNavs: item
+							secondBarNavs: item, firstNav: newData.allData,
 						})
 					}
 				})
+			}else{
+				_this.setState({
+					firstNav: nowData.allData,
+				});
 			}
 		}).catch(function (err) {
 			console.log('err', err);
@@ -278,7 +284,7 @@ export default class Header extends React.Component {
 		})
 
 			// 都没有 取localstorage
-			if(!matchUrl){
+			if(!matchUrl && !headActive){
 				let local =JSON.parse(localStorage.getItem('brightRouter')) ; 
 				let urls = local && local.path;
 				let newData = _this.recursiveAssign(firstNav, urls);
