@@ -141,6 +141,7 @@ export default class Header extends React.Component {
 	//获取菜单信息
 	getNavData() {
 		const _this = this;
+		let matchUrl = false;
 		if (typeof (Storage) !== "undefined" && sessionStorage.navs) {
 
 			let first = location.hash.split('#')[1].split('?')[0];
@@ -154,12 +155,28 @@ export default class Header extends React.Component {
 			})
 			nowData.allData && nowData.allData.map((item, index) => {
 				if (item.isActive) {
+					matchUrl = true;
 					_this.setState({
 						secondBarNavs: item
 					})
 				}
 			})
-			//return;
+			if(!matchUrl){
+				let local = JSON.parse(localStorage.getItem('brightRouter')); 
+				let urls = local && local.path;
+				let newData = _this.recursiveAssign(navArr, urls);
+				_this.setState({
+					firstNav: newData.allData
+				})
+				newData.allData && newData.allData.map((item, index) => {
+					if (item.isActive) {
+						_this.setState({
+							secondBarNavs: item
+						})
+					}
+				})
+			}
+			return;
 		}
 
 
@@ -187,7 +204,7 @@ export default class Header extends React.Component {
 			_this.setState({
 				firstNav: nowData.allData, headActive,
 			});
-			let matchUrl = false;
+		//	let matchUrl = false;
 			// 正常匹配 
 			nowData.allData && nowData.allData.map((item, index) => {
 				if (item.isActive) {
