@@ -1,5 +1,5 @@
 import React from "react";
-import { reduxForm, initialize } from "redux-form";
+import {reduxForm,change,initialize}  from 'redux-form';
 import { Store } from "kr/Redux";
 import { Http } from "kr/Utils";
 import {
@@ -60,6 +60,11 @@ class EditNewList extends React.Component {
           photoUrl: response.photoUrl
         });
         Store.dispatch(initialize("editNewList", response));
+        if(response.recommend== true){
+            Store.dispatch(change('editNewList','recommend','true'))   
+        }else{
+            Store.dispatch(change('editNewList','recommend','false'))  
+        }
       });
     }, 500);
   }
@@ -179,7 +184,6 @@ class EditNewList extends React.Component {
 						 		name="webReadCount" 
 						 		component="input"
 								inline={false}
-                value='0'
                 disabled={true}
 						 		label="WEB"
 						 />
@@ -188,6 +192,7 @@ class EditNewList extends React.Component {
                 name="appReadCount" 
                 component="input"
                 inline={false}
+                disabled={true}
                 label="APP"
               />
 						<KrField 

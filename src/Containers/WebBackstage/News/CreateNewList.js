@@ -166,7 +166,6 @@ class CreateNewList extends React.Component {
 						 		name="webReadCount" 
 						 		component="input"
 								inline={false}
-                value='0'
                 disabled={true}
 						 		label="WEB"
 						 />
@@ -176,6 +175,7 @@ class CreateNewList extends React.Component {
                 component="input"
                 inline={false}
                 label="APP"
+                disabled={true}
               />
 						<KrField 
                 style={{width:130,marginBottom:10}}
