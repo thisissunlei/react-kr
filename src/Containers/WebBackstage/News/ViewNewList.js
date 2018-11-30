@@ -67,6 +67,13 @@ class ViewNewList extends React.Component {
 							value={State.newsDate.publishedTime}
 							label="发布时间"
 					 	/>
+						 <KrField
+							style={{ width: 548 }}
+							name="teamName"
+							type="labelText"
+							value={State.newsDate.teamName}
+							label="团队信息"
+						/>
 					 	<KrField
 							style={{width:260}}
 							type="labelText"

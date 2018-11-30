@@ -29,11 +29,11 @@ class CreateNewList extends React.Component {
         },
         {
           label: "社区报道",
-          value: "MREMBER_STORY"
+          value: "CMT_STORY"
         },
         {
           label: "会员报道",
-          value: "CMT_STORY"
+          value: "MREMBER_STORY"
         },
         {
           label: "行业动态",
@@ -96,6 +96,12 @@ class CreateNewList extends React.Component {
               component="date"
               label="发布时间"
               requireLabel={true}
+            />
+            <KrField
+              style={{ width: 548 }}
+              name="teamId"
+              component="searchTeam"
+              label="团队信息"
             />
             <KrField
               style={{ width: 548 }}

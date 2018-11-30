@@ -33,11 +33,11 @@ class EditNewList extends React.Component {
         },
         {
           label: "社区报道",
-          value: "MREMBER_STORY"
+          value: "CMT_STORY"
         },
         {
           label: "会员报道",
-          value: "CMT_STORY"
+          value: "MREMBER_STORY"
         },
         {
           label: "行业动态",
@@ -117,7 +117,7 @@ class EditNewList extends React.Component {
             />
             <KrField
               style={{ width: 548 }}
-              name="relateCmt"
+              name="teamId"
               component="searchTeam"
               label="团队信息"
             />
