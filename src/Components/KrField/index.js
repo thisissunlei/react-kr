@@ -24,6 +24,7 @@ import SearchCustomerSourceComponent from './SearchCustomerSourceComponent';
 import SearchSourceAddComponent from './SearchSourceAddComponent';
 import SearchSignBillTypeComponent from './SearchSignBillTypeComponent';
 import SearchSignCompanyName from './SearchSignCompanyName';
+import SearchTeam from './SearchTeam';
 
 import SearchBelongCommunity from './SearchBelongCommunity';
 import SearchCompanyName from "./SearchCompanyName";
@@ -440,6 +441,12 @@ class FieldRevert extends React.Component {
 			if (component === 'searchCompany') {
 				return (
 					<FieldRevert {...this.props} component={SearchCompanyComponent}  style={WrapStyles} {...other}/>
+				);
+			}
+
+			if (component === 'searchTeam') {
+				return (
+					<FieldRevert {...this.props} component={SearchTeam}  style={WrapStyles} {...other}/>
 				);
 			}
 			if (component === 'searchMemberCompany') {

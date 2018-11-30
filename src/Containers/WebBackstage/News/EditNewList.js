@@ -111,7 +111,13 @@ class EditNewList extends React.Component {
               requireLabel={true}
             />
             <KrField
-              style={{ width: 260 }}
+              style={{ width: 548 }}
+              name="relateCmt"
+              component="searchTeam"
+              label="团队信息"
+            />
+            <KrField
+              style={{ width: 260, marginRight: 25 }}
               name="orderNum"
               type="text"
               component="input"
@@ -119,7 +125,7 @@ class EditNewList extends React.Component {
               requireLabel={true}
             />
             <KrField
-              style={{ width: 260, marginRight: 25, marginBottom: 10 }}
+              style={{ width: 260, marginTop: 10 }}
               name="publishedStatus"
               component="group"
               label="发布状态"
@@ -160,6 +166,57 @@ class EditNewList extends React.Component {
                 label="未置顶"
                 type="radio"
                 value="UNSTICKED"
+              />
+            </KrField>
+            <KrField
+							style={{width:548,height:20}}
+							type="labelText"
+							inline={false}
+							label="阅读人数"
+					 	/>
+            <KrField 
+						 		style={{width:130,marginRight:25,marginBottom:10}}
+						 		name="webReadCount" 
+						 		component="input"
+								inline={false}
+                value='0'
+                disabled={true}
+						 		label="WEB"
+						 />
+              <KrField 
+                style={{width:130,marginRight:25,marginBottom:10}}
+                name="appReadCount" 
+                component="input"
+                inline={false}
+                label="APP"
+              />
+						<KrField 
+                style={{width:130,marginBottom:10}}
+                name="baseReadCount" 
+                component="input"
+                inline={false}
+                label="基数"
+            />
+            <KrField
+              style={{ width: 260, marginRight: 25, marginBottom: 10 }}
+              name="recommend"
+              component="group"
+              label="是否HOT"
+              requireLabel={true}
+            >
+              <KrField
+                name="recommend"
+                grid={1 / 2}
+                label="是"
+                type="radio"
+                value="true"
+              />
+              <KrField
+                name="recommend"
+                grid={1 / 2}
+                label="否"
+                type="radio"
+                value="false"
               />
             </KrField>
             <KrField

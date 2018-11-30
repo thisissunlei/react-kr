@@ -74,6 +74,7 @@ class ViewNewList extends React.Component {
 							value={State.newsDate.orderNum}
 							label="排序号"
 					 	/>
+						 
 					 	 <KrField 
 						 		style={{width:260,marginRight:25,marginBottom:10}}
 						 		name="publishedStatus" 
@@ -89,6 +90,36 @@ class ViewNewList extends React.Component {
 								inline={false}
 								value={State.newsDate.stickStatus=='STICKED'?'置顶':'未置顶'}
 		                		label="置顶状态"
+	                	/>
+						<KrField
+							style={{width:548,height:20}}
+							type="labelText"
+							inline={false}
+							label="阅读人数"
+					 	/>
+						 <KrField 
+						 		style={{width:130,marginRight:25,marginBottom:10}}
+						 		name="webReadCount" 
+						 		type="labelText"
+								inline={false}
+								value={State.newsDate.webReadCount}
+						 		label="WEB"
+						 />
+	                    <KrField 
+		                		style={{width:130,marginBottom:10}}
+		                		name="appReadCount" 
+		                		type="labelText"
+								inline={false}
+								value={State.newsDate.appReadCount}
+		                		label="APP"
+	                	/>
+						<KrField 
+		                		style={{width:130,marginBottom:10}}
+		                		name="baseReadCount" 
+		                		type="labelText"
+								inline={false}
+								value={State.newsDate.baseReadCount}
+		                		label="基数"
 	                	/>
 			                   
 	                	<KrField
