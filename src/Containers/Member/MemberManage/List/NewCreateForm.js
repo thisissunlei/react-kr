@@ -201,9 +201,14 @@ class NewCreateForm extends React.Component{
 				value: '0086'
 			},
 			{
+				label: '中国香港 +852',
+				value: '0852'
+			},
+			{
 			label: '中国澳门 +853',
 			value: '0853'
-		}, {
+		}, 
+		{
 			label: '中国台湾 +886',
 			value: '0886'
 		}, {
