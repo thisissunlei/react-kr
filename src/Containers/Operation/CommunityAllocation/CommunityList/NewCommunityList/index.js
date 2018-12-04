@@ -21,6 +21,7 @@ import {
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
+import CommunityButton from './../CommunityButton/index.js'
 
 
 const renderField = ({ input, label, placeholder,type, meta: { touched, error }}) => (
@@ -213,26 +214,42 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
           <DrawerTitle title ='新建社区' onCancel = {this.onCancel}/>
 				</div>
 				<div className="cheek">
-							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
+        <div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">关联项目</label></div>
 							<div className="small-cheek">
-                                    <KrField grid={1/2} type='hidden' name='latitude' component="input" style={{width:0}}/>
-                                    <KrField grid={1/2} type='hidden' name='cityId' component="input" style={{width:0}}/>
-                                    <KrField grid={1/2} type='hidden' name='longitude' component="input" style={{width:0}}/>
-									                  <div style={nameStyle}><div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.communityNameChange} onBlur={this.communityNameFocus}/>
-                                      {State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该社区名称已存在</div>}
-                                    </div>
-                                    <div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true} onChange={this.communityCodeChange}/>
+                  <CommunityButton></CommunityButton>
+                  <div className="middle-round"></div>
+                  <Grid style={{marginTop:30}}>
+                    <Row>
+                      <Col md={12} align="center">
+                        <ButtonGroup>
+                          <div  className='list-btn-center'><Button  label="确定" type="submit"/></div>
+                          <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/>
+                        </ButtonGroup>
+                      </Col>
+                    </Row>
+                  </Grid>
+						  </div>
 
-                                     {State.isCorpCode && <div style={{fontSize:14,color:"red",paddingLeft:40,paddingBottom:7}}>该社区编码已存在</div>}
-                                    </div>
-                                    </div>
-                                    <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">m<sup>2</sup></span></div>
+							<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">基本信息</label></div>
+							<div className="small-cheek">
+                  <KrField grid={1/2} type='hidden' name='latitude' component="input" style={{width:0}}/>
+                  <KrField grid={1/2} type='hidden' name='cityId' component="input" style={{width:0}}/>
+                  <KrField grid={1/2} type='hidden' name='longitude' component="input" style={{width:0}}/>
+                  <div style={nameStyle}><div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.communityNameChange} onBlur={this.communityNameFocus}/>
+                    {State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该社区名称已存在</div>}
+                  </div>
+                  <div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true} onChange={this.communityCodeChange}/>
 
-                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false}
-                                      options={toJS(State.searchData)}
-                                    />
- 
-                                    <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
+                    {State.isCorpCode && <div style={{fontSize:14,color:"red",paddingLeft:40,paddingBottom:7}}>该社区编码已存在</div>}
+                  </div>
+                  </div>
+                  <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">m<sup>2</sup></span></div>
+
+                  <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false}
+                    options={toJS(State.searchData)}
+                  />
+
+                  <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
 
 									<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
 
@@ -258,11 +275,21 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
 									<div className="krFlied-box"><KrField grid={1/2} label="得房率" name="efficientRate" style={{width:239,marginLeft:16,marginRight:3}} component="input" ></KrField><span className="unit">%</span></div>
 									<div className="krFlied-box"><KrField grid={1/2} label="绿化率" name="greenRate" style={{width:239,marginLeft:36,marginRight:3}} component="input" ></KrField><span className="unit">%</span></div>
                                     <div className="middle-round"></div>
+              <Grid style={{marginTop:30}}>
+							<Row>
+								<Col md={12} align="center">
+									<ButtonGroup>
+										<div  className='list-btn-center'><Button  label="确定" type="submit"/></div>
+										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/>
+									</ButtonGroup>
+								</Col>
+							</Row>
+						</Grid>
 						</div>
 
 
 
-						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
+						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
                 <KrField grid={1/2} label="排序" name="orderNum" style={{width:'262px',marginLeft:15}} component="input" onChange={this.orderChange}></KrField>
 								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:'262px',marginLeft:32}} component="date" requireLabel={true}/>
