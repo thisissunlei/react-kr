@@ -177,7 +177,7 @@ class EditCustomerSource extends Component {
 		}
 
 		State.names = names;
-		var value = { id: sourceId || '', code: data }
+		var value = {  code: data }
 		ajax.get('check-name-source', value).then(function (response) {
 
 			if (index == "no" && response.code == "-1") {
@@ -213,8 +213,8 @@ class EditCustomerSource extends Component {
 		}
 		State.codes = codes;
 
-		var value = { id: sourceId || '', code: data }
-		Http.request('check-code-source', value).then(function (response) {
+		var value = { code: data }
+		ajax.get('check-code-source', value).then(function (response) {
 			if (index == "no" && response.code == "-1") {
 				State.isCode = false;
 			}
@@ -249,8 +249,8 @@ class EditCustomerSource extends Component {
 		}
 		State.orderNums = orderNums;
 		if (index == "no") {
-			var value = { id: sourceId || '', orderNum: data }
-			Http.request('check-order-source', value).then(function (response) {
+			var value = { orderNum: data }
+			ajax.get('check-order-source', value).then(function (response) {
 				if (response.code == "-1") {
 					State.isOrderName = false;
 				}
