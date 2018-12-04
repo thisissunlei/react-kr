@@ -22,7 +22,7 @@ import {
 	DrawerTitle
 } from 'kr-ui';
 import './index.less';
-import { Http } from 'kr/Utils';
+import { Http,ajax } from 'kr/Utils';
 import State from './State';
 import {
 	observer,
@@ -178,7 +178,7 @@ class EditCustomerSource extends Component {
 
 		State.names = names;
 		var value = { id: sourceId || '', code: data }
-		Http.request('check-name-source', value).then(function (response) {
+		ajax.get('check-name-source', value).then(function (response) {
 
 			if (index == "no" && response.code == "-1") {
 				State.isName = false;
@@ -200,7 +200,7 @@ class EditCustomerSource extends Component {
 			}
 
 		}).catch(function (err) {
-
+			
 		});
 	}
 	//监听code发生变化

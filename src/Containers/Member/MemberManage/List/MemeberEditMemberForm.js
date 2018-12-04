@@ -268,7 +268,8 @@ const validate = values => {
 
 	const errors = {}
 	let code = /^\d{10}$/;
-	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+	let phone = /^\d+$/;
+//	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 	let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 	if (!values.communityId) {
 		errors.communityId = '请输入社区名称';

@@ -1,5 +1,4 @@
 module.exports = {
-
   'delete-enter-contract': {
     url: '/api/krspace-finance-web/checkinagreement/delete-enter-contract?contractId={contractId}',
     method: 'delete'

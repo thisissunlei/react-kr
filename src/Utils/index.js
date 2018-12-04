@@ -14,7 +14,7 @@ import Baidu from './Baidu';
 import PublicFn from './PublicFn';
 import clamp from './Clamp';
 import Money from './Money';
-
+import ajax from './ajax';
 module.exports = {
 	...ClassNames,
 	...IsPhoneNumber,
@@ -30,6 +30,7 @@ module.exports = {
 	Mouse,
 	Baidu,
 	...PublicFn,
-	clamp
+	clamp,
+	ajax
 
 }

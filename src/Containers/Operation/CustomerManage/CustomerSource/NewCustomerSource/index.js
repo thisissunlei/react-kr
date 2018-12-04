@@ -194,7 +194,7 @@ class NewCustomerSource extends Component {
 		}
 		State.names = names;
 		var value = { id: '', name: data }
-		Http.request('check-name-source', value).then(function (response) {
+		ajax.get('check-name-source', value).then(function (response) {
 
 			if (index == "no" && response.code == "-1") {
 				State.isName = false;
