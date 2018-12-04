@@ -234,7 +234,7 @@ class NewCustomerSource extends Component {
 		State.codes = codes;
 
 		var value = { id: '', code: data }
-		Http.request('check-code-source', value).then(function (response) {
+		ajax.get('check-code-source', value).then(function (response) {
 			if (index == "no" && response.code == "-1") {
 				State.isCode = false;
 			}
@@ -266,7 +266,7 @@ class NewCustomerSource extends Component {
 		State.orderNums = orderNums;
 		if (index == "no") {
 			var value = { id: '', orderNum: data }
-			Http.request('check-order-source', value).then(function (response) {
+			ajax.get('check-order-source', value).then(function (response) {
 				if (response.code == "-1") {
 					State.isOrderName = false;
 				}

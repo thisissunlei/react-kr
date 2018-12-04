@@ -632,12 +632,14 @@ module.exports = {
     },
     //客户来源配置-校验客户来源编码
     'check-code-source': {
-        url: '/api/krspace-finance-web/csr/source/check/code?id={id}&code={code}',
+        url:'/z/us/csr/source/check/code',
+       // url: '/api/krspace-finance-web/csr/source/check/code?id={id}&code={code}',
         method: 'get'
     },
     //客户来源配置-校验客户来源编码
     'check-order-source': {
-        url: '/api/krspace-finance-web/csr/source/check/order?id={id}&orderNum={orderNum}',
+        url: '/z/us/csr/source/check/order',
+      //  url: '/api/krspace-finance-web/csr/source/check/order?id={id}&orderNum={orderNum}',
         method: 'get'
     },
     //客户来源配置-获取客户来源信息
