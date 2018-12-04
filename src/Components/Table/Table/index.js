@@ -136,7 +136,7 @@ export default class Table extends React.Component {
 				loading: nextProps.loading
 			});
 
-			this.onLoadData(1, nextProps.ajaxParams);
+		//	this.onLoadData(1, nextProps.ajaxParams);
 		}
 
 
@@ -185,14 +185,14 @@ export default class Table extends React.Component {
 	}
 
 	onInitial = (state) => {
-			debugger
+			if(!state.response){
+				return
+			}
 			state = Object.assign({},state);
 
 		let {
 			defaultSelectedRows
 		} = this.props;
-		console.log(state.response,'22222')
-		console.log(state.response.items,'11111')
 		if(state.response.items){
 			for(var i=0;i<state.response.items.length;i++){
 				state.response.items[i].identifier=i+1;
@@ -278,7 +278,6 @@ export default class Table extends React.Component {
 		} = this.props;
 
 		onPageChange && onPageChange(page);
-		
 		this.onLoadData(page);
 	}
 
@@ -350,7 +349,7 @@ export default class Table extends React.Component {
 		var _this = this;
 
 		if(ajaxType){
-			console.log(ajaxType,'33333')
+			
 			ajax.get(ajaxUrlName, ajaxParams).then(function(response) {
 				
 				_this.onInitial({
@@ -365,19 +364,16 @@ export default class Table extends React.Component {
 				});
 	
 			}).catch(function(err) {
-			console.log("请求失败一次11",err);
-				// _this.onInitial({
-				// 	isLoaded: true,
-				// 	loading: false,
-				// 	allRowsSelected: false,
-				// 	res
-				// });
-	
+			console.log("请求失败一次",err);
+				_this.onInitial({
+					isLoaded: true,
+					loading: false,
+					allRowsSelected: false,
+				});
 				// Notify.show([{
 				// 	message: err.message,
 				// 	type: 'error',
 				// }]);
-	
 			});
 		}else{
 			Http.request(ajaxUrlName, ajaxParams).then(function(response) {

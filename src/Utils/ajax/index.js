@@ -102,13 +102,13 @@ export default {
       }
       axios.get(APIS[url].url, {params:params})
       .then(function (response) {
-        debugger
+        
             response=response.data;
             success && success(response)
             resolve(response)
         })
         .catch(function (error) {
-          debugger
+          
           if (error && error.data) {
             error = error.data;
             failure && failure(error)
