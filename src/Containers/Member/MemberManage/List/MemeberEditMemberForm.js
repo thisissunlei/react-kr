@@ -58,6 +58,9 @@ export default class MemeberEditMemberForm extends React.Component {
 	}
 
 	onSubmit=(values)=>{
+		if(!values.teamId){
+			delete values.teamId
+		}
 		//this.communityChange(values.email);
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);

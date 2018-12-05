@@ -59,6 +59,9 @@ class NewCreateForm extends React.Component{
 	onSubmit=(values)=>{
 		//this.EmailonBlur(values.email);
 		//this.foreignCodeBlur(values.foreignCode);
+		if(!values.teamId){
+			delete values.teamId
+		}
 		let {onsubmit,onSubmitCode} = this.state;
 		if(onsubmit && onSubmitCode){
 			const {onSubmit} = this.props;
