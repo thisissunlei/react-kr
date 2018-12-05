@@ -177,7 +177,7 @@ class EditCustomerSource extends Component {
 		}
 
 		State.names = names;
-		var value = {  code: data }
+		var value = {  name: data }
 		ajax.get('check-name-source', value).then(function (response) {
 
 			if (index == "no" && response.code == "-1") {

@@ -4,7 +4,6 @@ class statusFn{
     }
     
     getStatus(response){
-        console.log(response.status,'respos')
       switch (response.status) {
          case 401:
             if(response.data.code==='not login'){
