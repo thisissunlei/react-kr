@@ -196,7 +196,7 @@ export default class List extends React.Component {
 					registerSourceId:_this.state.searchParams.registerSourceId,
 					job:_this.state.searchParams.job,
 					cityId:_this.state.searchParams.cityId,
-					teamId: _this.state.searchParams.teamId,
+					teamId: _this.state.searchParams.teamId || '',
 				}
 			})
 		}).catch(function(err){
