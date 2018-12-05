@@ -295,15 +295,9 @@ export default class CustomerSource extends Component {
 								<TableRowColumn name="name"></TableRowColumn>
 								<TableRowColumn name="brokerage"></TableRowColumn>
 								<TableRowColumn name="orderNum"></TableRowColumn>
-								<TableRowColumn name="enabled" component={(value, oldValue) => {
-									var label = "是";
-									if (value == "false") {
-										var label = "否";
-									}
-									return <div>{label}</div>
-								}}></TableRowColumn>
+								<TableRowColumn name="enabledName"></TableRowColumn>
 								<TableRowColumn name="creatorName"></TableRowColumn>
-								<TableRowColumn name="cTime" component={(value, oldValue) => {
+								<TableRowColumn name="ctime" component={(value, oldValue) => {
 									let show = "inline-block";
 									if (value.length == 0) {
 										show = "none";
