@@ -78,8 +78,13 @@ export default class TableRow extends React.Component {
 		let value = '';
 
 		if(name && itemData && itemData.hasOwnProperty(name)){
+		
 			value = itemData[name];
-			value = value.toString();
+	
+			if(value){
+				value = value.toString();
+			}	
+			
 		}
 		var _this = this;
 		let children = React.Children.map(basic.props.children,function(child,index){
