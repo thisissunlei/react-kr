@@ -60,16 +60,7 @@ class Operations extends React.Component {
 		}
 	}
 	componentDidMount() {
-		debugger
-		let params={};
-		ajax.get('test-ajax',params).then((res)=>{
-			console.log(res)
-			debugger
-		}).catch((error)=>{
-			debugger
-		})
-
-
+		
 		// if(!this.props.params.page){
 		// 	window.location.href = window.location.href+'/1';
 		// }
