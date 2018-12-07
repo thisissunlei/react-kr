@@ -106,7 +106,9 @@ import State from '../State';
 
 
 
-		const {handleSubmit} = this.props;
+    const {handleSubmit} = this.props;
+    
+    console.log('=======',State.cardOne)
 
 		return (
            <div className='communityList-m' style={{paddingLeft:9}}>
@@ -114,7 +116,17 @@ import State from '../State';
           <DrawerTitle title ='社区详情' onCancel = {this.onCancel}/>
 				</div>
 				<div className="cheek">
-							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
+              <div className="titleBar">
+                <span className="order-number">1</span>
+                <span className="wire"></span>
+                <label className="small-title">关联项目</label>
+              </div>
+							<div className="small-cheek">
+                <KrField grid={2/2} label="关联项目"  component="labelText" style={{marginLeft:15}} inline={false} value={toJS(State.cardOne.projects)?toJS(State.cardOne.projects):'无'}/>
+                <KrField grid={2/2} label="关联项目数据"  component="labelText" style={{marginLeft:15}} inline={false} value={toJS(State.cardOne.needSyncCommunity)?'是':'否'}/>
+              </div>
+
+							<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 									<KrField grid={1/2} label="社区名称"  component="labelText" style={{width:262,marginLeft:15}} inline={false} value={toJS(State.detailData.name)?toJS(State.detailData.name):'无'}/>
 
@@ -151,7 +163,7 @@ import State from '../State';
                                     <div className="middle-round"></div>
 						</div>
 
-						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
+						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 
 								<KrField grid={1/2} label="社区状态"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={inforStyle?inforStyle:'无'}/>

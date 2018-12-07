@@ -45,7 +45,8 @@ let State = observable({
 		projects:[],
 		stepStatus:1,
 		showLoading:false,
-		communityList:[]
+		communityList:[],
+		cardOne:{}
 });
 //参数修改
 State.setSearchParams = action(function(params) {
@@ -85,20 +86,21 @@ State.newCommunitySubmit= action(function(data) {
 		var data = response;
 		console.log('======',data)
 		_this.showLoading = true;
-		return;
 		//调用关联接口
-		_this.relatedCommunity(id)
+		_this.relatedCommunity(data)
    }).catch(function(err) {
 		Message.error(err.message);
    });
 });
 State.relatedCommunity = action(function(id){
 	var _this=this;
-	 var page=''
-	 if(!data.id){
-		 page=1;
+	 var page=1
+	 let data = {
+		communityId:id,
+		needSyncCommunity:_this.needSyncCommunity,
+		projectIds:_this.projects.map(item=>{return item.projectId})
 	 }
-	Http.request('get-community-list',data).then(function(response) {
+	Http.request('post-community-save',{},data).then(function(response) {
 		var data = Object.assign({},_this.searchParams);
 		data.page = page==1?1:_this.searchParams.page;
 		data.pageSize = 15;
@@ -107,8 +109,10 @@ State.relatedCommunity = action(function(id){
 	   _this.openNewCommunity=false;
 	   _this.openEditCommunity=false;
 	   _this.searchParams=data;
+	   _this.stepStatus = 1;
 	  ;
    }).catch(function(err) {
+		_this.showLoading = false
 		Message.error(err.message);
    });
 })
@@ -213,7 +217,7 @@ State.communityRank = action(function(params,id,communityId) {
 	});
 });
 
-//获取关联社区
+//获取关联社区列表
 State.getRelatedCommunity = action(function(id) {
 	var _this=this;
 	 Http.request('get-project-community-list',{}).then(function(response) {
@@ -225,6 +229,19 @@ State.getRelatedCommunity = action(function(id) {
 			return item;
 		});
 		console.log('=====',_this.communityList)
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});
+})
+
+//获取社区的关联社区信息
+State.getRelatedCommunityInfo = action(function(id) {
+	var _this=this;
+	 Http.request('get-community-edit-info',{communityId:id}).then(function(response) {
+		console.log('获取关联社区====',response)
+		let projects = JSON.stringify(response.projectIds)
+		response.projects = projects;
+	    _this.cardOne = response;
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});

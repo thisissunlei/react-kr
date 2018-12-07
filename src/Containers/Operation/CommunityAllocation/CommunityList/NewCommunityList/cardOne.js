@@ -36,7 +36,8 @@ class CommunityButton extends React.Component {
             needSyncCommunity: '2',
             projects:[],
             used:false,
-            showWarnOne:false
+            showWarnOne:false,
+            showWarnTwo:false,
         }
     }
     componentDidMount(){
@@ -47,14 +48,20 @@ class CommunityButton extends React.Component {
 
 
     handleChange=(event)=>{
+        let {projects} = this.state;
+        let showWarn = true;
+        if(projects.length ==1){
+            showWarn = projects[0].canSelect;
+        }
+        
         this.setState({
             needSyncCommunity: event.target.value,
-            showWarnOne:event.target.value==1?true:false
+            showWarnOne:(!showWarn&&event.target.value==1)?true:false
         }, ()=> {
             console.log(this.state.needSyncCommunity);
-        
+            State.needSyncCommunity = event.target.value==='2'?false:true
         });
-        State.needSyncCommunity = event.target.value==='2'?false:true
+        
     }
     addItem=(e)=>{
         console.log(e)
@@ -108,6 +115,12 @@ class CommunityButton extends React.Component {
 
     onSubmit = (values) => {
         console.log('onsubmit',values)
+        if(this.state.needSyncCommunity=='1'){
+            this.setState({
+                showWarnTwo:true
+            })
+            return
+        }
         State.stepStatus = 2;
     }
     nextStep=()=>{
@@ -115,6 +128,7 @@ class CommunityButton extends React.Component {
     }
 
     onCancel = () =>{
+        State.switchNewCommunityList();
         console.log('==========')
     }
 
@@ -123,11 +137,30 @@ class CommunityButton extends React.Component {
             showWarnOne:false
         })
     }
-
+    closeDialog=()=>{
+        this.setState({
+            showWarnOne : false
+        })
+    }
+    onsubmitDialg=()=>{
+        State.stepStatus = 2;
+        this.setState({
+            showWarnTwo:false
+        })
+    }
+    onCancelDialg=()=>{
+        this.setState({
+            showWarnTwo:false
+        })
+    }
     render() {
-      let {selectArr ,projects,used,showWarnOne} = this.state;
+      let {selectArr ,projects,used,showWarnOne,showWarnTwo} = this.state;
       const {handleSubmit} = this.props;
+      let cname = ''
       console.log('step1--->',State.projects)
+      if(projects.length===1){
+        cname = projects[0].communityName;
+      }
 
 
         return (
@@ -166,13 +199,36 @@ class CommunityButton extends React.Component {
 					title="提示信息"
 					onClose={this.whiteClose}
 					open={showWarnOne}
-					contentStyle ={{ width: '666px',height:'385px'}}
+					contentStyle ={{ width: '666px',height:'215px',textAlign:'center'}}
 					overflow="auto"
 					>
-                    <p>所选项目信息将同步至当前社区，是否确认提交</p>	
-					<p>当前所选项目信息已同步到xxx社区，清闲取消关联数据</p>
-										
+
+					<p style={{color:'#333',margin:'36px 0'}}>当前所选项目信息已同步到{cname}，清闲取消关联数据</p>
+                    <Button  label="关闭" type="button" onTouchTap={this.closeDialog}/>
 				</Dialog>
+
+
+                <Dialog
+					title="提示信息"
+					onClose={this.onCancelDialg}
+					open={showWarnTwo}
+					contentStyle ={{ width: '666px',height:'215px',textAlign:'center'}}
+					overflow="auto"
+					>
+
+                    <p  style={{color:'#333',margin:'36px 0'}}>所选项目信息将同步至当前社区，是否确认提交</p>	
+                    <Grid style={{marginTop:30}}>
+                        <Row>
+                        <Col md={12} align="center">
+                            <ButtonGroup>
+                            <div  className='list-btn-center'><Button  label="确定" type="button" onTouchTap={this.onsubmitDialg}/> </div>
+                            <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancelDialg}/>
+                            </ButtonGroup>
+                        </Col>
+                        </Row>
+                    </Grid>
+				</Dialog> 
+
             </div>
         )
     }

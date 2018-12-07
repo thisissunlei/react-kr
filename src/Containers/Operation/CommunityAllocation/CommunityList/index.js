@@ -108,7 +108,8 @@ class CommunityList  extends React.Component{
 				State.searchDataHere();
 				this.ajaxSendData(itemDetail.id);
 		 }else if(type=='watch'){
-			  State.getEditList(itemDetail.id)
+				State.getEditList(itemDetail.id)
+				State.getRelatedCommunityInfo(itemDetail.id)
 		   	State.switchWatchList();
 		 }else if(type=='select'){
 				State.openStagingFun();

@@ -154,8 +154,8 @@ class cardTwo extends React.Component {
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>
-										<div  className='list-btn-center'><Button  label="确定" type="submit"/></div>
-										<Button  label="上一步" type="button" cancle={true} onTouchTap={this.onCancel}/>
+										<div  className='list-btn-center'><Button  label="上一步" type="button" cancle={true} onTouchTap={this.onCancel}/></div>
+										<Button  label="确定" type="submit"/>
 									</ButtonGroup>
 								</Col>
 							</Row>
