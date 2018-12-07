@@ -42,6 +42,10 @@ let State = observable({
 
 		//分期回血数据
 		stageData:'',
+		projects:[],
+		stepStatus:1,
+		showLoading:false,
+		communityList:[]
 });
 //参数修改
 State.setSearchParams = action(function(params) {
@@ -70,6 +74,44 @@ State.onNewCommunitySubmit= action(function(data) {
 		 Message.error(err.message);
 	});
 });
+//改版后--新建社区的提交
+State.newCommunitySubmit= action(function(data) {
+	var _this=this;
+	var page=''
+	if(!data.id){
+		page=1;
+	}
+	Http.request('actions-edit',{},data).then(function(response) {
+		var data = response;
+		console.log('======',data)
+		_this.showLoading = true;
+		return;
+		//调用关联接口
+		_this.relatedCommunity(id)
+   }).catch(function(err) {
+		Message.error(err.message);
+   });
+});
+State.relatedCommunity = action(function(id){
+	var _this=this;
+	 var page=''
+	 if(!data.id){
+		 page=1;
+	 }
+	Http.request('get-community-list',data).then(function(response) {
+		var data = Object.assign({},_this.searchParams);
+		data.page = page==1?1:_this.searchParams.page;
+		data.pageSize = 15;
+		_this.showLoading = false
+		data.time=+new Date();
+	   _this.openNewCommunity=false;
+	   _this.openEditCommunity=false;
+	   _this.searchParams=data;
+	  ;
+   }).catch(function(err) {
+		Message.error(err.message);
+   });
+})
 //高级查询的开关
 State.searchUpperCustomer = action(function() {
 	this.openSearchUpper=!this.openSearchUpper;
@@ -170,5 +212,22 @@ State.communityRank = action(function(params,id,communityId) {
 		}
 	});
 });
+
+//获取关联社区
+State.getRelatedCommunity = action(function(id) {
+	var _this=this;
+	 Http.request('get-project-community-list',{}).then(function(response) {
+		 console.log('获取关联社区====',response)
+	    _this.communityList=response.map(item=>{
+			item.value = item.projectId;
+			// item.label = item.communityName;
+			item.label = item.projectName;
+			return item;
+		});
+		console.log('=====',_this.communityList)
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});
+})
 
 module.exports = State;
