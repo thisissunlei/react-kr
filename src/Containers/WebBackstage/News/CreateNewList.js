@@ -97,12 +97,12 @@ class CreateNewList extends React.Component {
               label="发布时间"
               requireLabel={true}
             />
-            <KrField
+            /*<KrField
               style={{ width: 548 }}
               name="teamId"
               component="searchTeam"
               label="团队信息"
-            />
+            />*/
             <KrField
               style={{ width: 260, marginRight: 25 }}
               name="orderNum"
