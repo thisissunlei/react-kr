@@ -122,7 +122,7 @@ import State from '../State';
                 <label className="small-title">关联项目</label>
               </div>
 							<div className="small-cheek">
-                <KrField grid={2/2} label="关联项目"  component="labelText" style={{marginLeft:15}} inline={false} value={toJS(State.cardOne.projects)?toJS(State.cardOne.projects):'无'}/>
+                <KrField grid={2/2} label="关联项目"  component="labelText" style={{marginLeft:15}} inline={false} value={toJS(State.cardOne.projectName)?toJS(State.cardOne.projectName):'无'}/>
                 <KrField grid={2/2} label="关联项目数据"  component="labelText" style={{marginLeft:15}} inline={false} value={toJS(State.cardOne.needSyncCommunity)?'是':'否'}/>
               </div>
 

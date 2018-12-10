@@ -67,30 +67,40 @@ class CommunityButton extends React.Component {
         console.log(e)
 
         this.chipData = this.state.projects;
-        const chipToDelete = this.chipData.map((chip) => chip.label).indexOf(e.label);
-        if(chipToDelete!=-1){
-            return
+        let used = false;
+        if(e.value === '0'){
+            this.chipData = []
+            used = true;
+            State.communityList = State.communityOption;
+            console.log('========>>>',State.communityOption)
+        }else{
+            const chipToDelete = this.chipData.map((chip) => chip.label).indexOf(e.label);
+            if(chipToDelete!=-1){
+                return
+            }
+            this.chipData.push(e)
+            used = this.chipData.length>1?true:false;
+            this.deleteOption(e)
         }
-        console.log('add======')
-        this.chipData.push(e)
         this.setState({
             projects: this.chipData,
-            used:this.chipData.length>1?true:false,
-            needSyncCommunity:'2'
+            used: used,
+            needSyncCommunity: '2'
         })
         this.setStateData(this.chipData,'2')
     }
-
-    renderCommunity=()=>{
-        let arr = State.projects.map((i,item)=> {
-            return <span>{item.label} <span>X</span></span>
-         })
-         
-         return (<div>
-             {
-                arr
-             }
-         </div>)
+    deleteOption=(obj)=>{
+        let options = State.communityList;
+        const chipToDelete = options.map((chip) => chip.label).indexOf(obj.label);
+        options.splice(chipToDelete,1)
+        console.log(chipToDelete,'deleteOption',options)
+        State.communityList = options;
+    }
+    addOption=(obj)=>{
+        let options = State.communityList;
+        options.splice(-1,0,obj)
+        State.communityList = options
+        console.log('addOption',toJS(options))
     }
 
     deletItem=(value)=>{
@@ -106,6 +116,7 @@ class CommunityButton extends React.Component {
         if(this.chipData.length==0){
             Store.dispatch(reset('CommunityButton'));
         }
+        this.addOption(value)
         this.setStateData(this.chipData,'2')
     }
     setStateData=(arr,bool)=>{

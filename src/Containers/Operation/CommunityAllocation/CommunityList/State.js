@@ -46,6 +46,7 @@ let State = observable({
 		stepStatus:1,
 		showLoading:false,
 		communityList:[],
+		communityOption:[],
 		cardOne:{}
 });
 //参数修改
@@ -92,13 +93,15 @@ State.newCommunitySubmit= action(function(data) {
 		Message.error(err.message);
    });
 });
+//保存关联关系
 State.relatedCommunity = action(function(id){
 	var _this=this;
+	var ids =  _this.projects.map(item=>{return item.projectId})
 	 var page=1
 	 let data = {
 		communityId:id,
 		needSyncCommunity:_this.needSyncCommunity,
-		projectIds:_this.projects.map(item=>{return item.projectId})
+		projectIds:ids 
 	 }
 	Http.request('post-community-save',{},data).then(function(response) {
 		var data = Object.assign({},_this.searchParams);
@@ -228,6 +231,18 @@ State.getRelatedCommunity = action(function(id) {
 			item.label = item.projectName;
 			return item;
 		});
+		_this.communityOption=response.map(item=>{
+			item.value = item.projectId;
+			// item.label = item.communityName;
+			item.label = item.projectName;
+			return item;
+		});
+		let obj = {
+			label: '不关联项目',
+			value:'0',
+		}
+		_this.communityList.push(obj)
+		_this.communityOption.push(obj);
 		console.log('=====',_this.communityList)
 	}).catch(function(err) {
 		 Message.error(err.message);
@@ -238,9 +253,6 @@ State.getRelatedCommunity = action(function(id) {
 State.getRelatedCommunityInfo = action(function(id) {
 	var _this=this;
 	 Http.request('get-community-edit-info',{communityId:id}).then(function(response) {
-		console.log('获取关联社区====',response)
-		let projects = JSON.stringify(response.projectIds)
-		response.projects = projects;
 	    _this.cardOne = response;
 	}).catch(function(err) {
 		 Message.error(err.message);
