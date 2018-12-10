@@ -37,6 +37,7 @@ class CommunityButton extends React.Component {
             projects:[],
             used:false,
             showWarnOne:false,
+            cname:'',
             showWarnTwo:false,
         }
     }
@@ -72,8 +73,16 @@ class CommunityButton extends React.Component {
             this.chipData = []
             used = true;
             State.communityList = State.communityOption;
-            console.log('========>>>',State.communityOption)
         }else{
+            if(!e.canSelect){
+                this.setState({
+                    cname:e.communityName,
+                    showWarnOne:true
+                },function(){
+                    // Store.dispatch(reset('CommunityButton'));
+                })
+                return
+            }
             const chipToDelete = this.chipData.map((chip) => chip.label).indexOf(e.label);
             if(chipToDelete!=-1){
                 return
@@ -93,21 +102,18 @@ class CommunityButton extends React.Component {
         let options = State.communityList;
         const chipToDelete = options.map((chip) => chip.label).indexOf(obj.label);
         options.splice(chipToDelete,1)
-        console.log(chipToDelete,'deleteOption',options)
         State.communityList = options;
     }
     addOption=(obj)=>{
         let options = State.communityList;
         options.splice(-1,0,obj)
         State.communityList = options
-        console.log('addOption',toJS(options))
     }
 
     deletItem=(value)=>{
         this.chipData = this.state.projects;
 		const chipToDelete = this.chipData.map((chip) => chip.label).indexOf(value.label);
 		this.chipData.splice(chipToDelete, 1);
-        console.log('chipData',this.chipData)
         this.setState({
             projects:this.chipData,
             used:this.chipData.length>1?true:false,
@@ -165,13 +171,11 @@ class CommunityButton extends React.Component {
         })
     }
     render() {
-      let {selectArr ,projects,used,showWarnOne,showWarnTwo} = this.state;
+      let {selectArr ,projects,used,showWarnOne,showWarnTwo,cname} = this.state;
       const {handleSubmit} = this.props;
-      let cname = ''
-      console.log('step1--->',State.projects)
-      if(projects.length===1){
-        cname = projects[0].communityName;
-      }
+    //   if(projects.length===1){
+    //     cname = projects[0].communityName;
+    //   }
 
 
         return (

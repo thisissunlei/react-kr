@@ -137,6 +137,7 @@ class EditCommunityList extends React.Component {
 	}
 	onCancelEdit=()=>{
 		State.cardThirdEdit = !State.cardThirdEdit;
+		Store.dispatch(reset('CardTwo'));
 	}
 
   render() {

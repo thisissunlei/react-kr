@@ -38,7 +38,8 @@ class CommunityButton extends React.Component {
             used:false,
             showWarnOne:false,
             showWarnTwo:false,
-            showEdit:false
+            showEdit:false,
+            cname:''
         }
     }
     componentDidMount(){
@@ -73,6 +74,16 @@ class CommunityButton extends React.Component {
             State.communityList = State.communityOption;
             console.log('========>>>',State.communityOption)
         }else{
+
+            if(!e.canSelect){
+                this.setState({
+                    cname:e.communityName,
+                    showWarnOne:true
+                },function(){
+                    // Store.dispatch(reset('CommunityButton'));
+                })
+                return
+            }
             const chipToDelete = this.chipData.map((chip) => chip.label).indexOf(e.label);
             if(chipToDelete!=-1){
                 return
@@ -178,13 +189,13 @@ class CommunityButton extends React.Component {
         })
     }
     render() {
-      let {selectArr ,used,showWarnOne,showWarnTwo,showEdit} = this.state;
+      let {selectArr ,used,showWarnOne,showWarnTwo,showEdit,cname} = this.state;
       const {handleSubmit} = this.props;
-      let cname = ''
+    //   let cname = ''
       let projects = toJS(State.projects);
-      if(projects.length===1){
-        cname = projects[0].communityName;
-      }
+    //   if(projects.length===1){
+    //     cname = projects[0].communityName;
+    //   }
       console.log('cardone--->',projects)
 
 

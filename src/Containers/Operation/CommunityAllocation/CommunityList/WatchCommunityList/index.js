@@ -170,7 +170,7 @@ import State from '../State';
 								<KrField grid={1/2} label="开业时间"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={openTime?openTime:'无'}/>
 								<KrField grid={1/2} label="签约开始时间"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={startTime?startTime:'无'}/>
 								<KrField grid={1/2} label="签约结束时间"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={endTime?endTime:'无'}/>
-                                <KrField grid={1/2} label="工位总数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={toJS(State.detailData.stationNum)?toJS(State.detailData.stationNum)+'个':'无'}></KrField>
+                                <KrField grid={1/2} label="设计工位数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={toJS(State.detailData.stationNum)?toJS(State.detailData.stationNum)+'个':'无'}></KrField>
 								<KrField grid={1/2} label="会议室总数"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.meetNum)?toJS(State.detailData.meetNum)+'间':'无'}></KrField>
 
                                {
@@ -191,7 +191,7 @@ import State from '../State';
 								<KrField grid={1/2} label="联系方式" style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.contract)?toJS(State.detailData.contract):'无'}/>
                 
                     <div className="end-round" style={{left:'-42px'}}></div>
-                </div>
+            </div>
 
 				    </div>
 
