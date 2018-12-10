@@ -47,7 +47,12 @@ let State = observable({
 		showLoading:false,
 		communityList:[],
 		communityOption:[],
-		cardOne:{}
+		cardOne:{},
+		editCommunityId:'',
+		editSuccess:false,
+		cardTwoEdit:false,
+		cardThirdEdit:false,
+		initProjects:[]
 });
 //参数修改
 State.setSearchParams = action(function(params) {
@@ -64,6 +69,8 @@ State.onNewCommunitySubmit= action(function(data) {
 	 if(!data.id){
 		 page=1;
 	 }
+	 console.log('新建社区的提交',data)
+	 return;
 	 Http.request('actions-edit',{},data).then(function(response) {
 		 var data = Object.assign({},_this.searchParams);
 		 data.page = page==1?1:_this.searchParams.page;
@@ -77,23 +84,23 @@ State.onNewCommunitySubmit= action(function(data) {
 	});
 });
 //改版后--新建社区的提交
-State.newCommunitySubmit= action(function(data) {
+State.newCommunitySubmit= action(function(formData,card) {
 	var _this=this;
-	var page=''
-	if(!data.id){
-		page=1;
-	}
-	Http.request('actions-edit',{},data).then(function(response) {
+	Http.request('actions-edit',{},formData).then(function(response) {
 		var data = response;
-		console.log('======',data)
 		_this.showLoading = true;
 		//调用关联接口
-		_this.relatedCommunity(data)
+		if(!formData.id){
+			_this.relatedCommunity(data)
+		}else{
+			_this.getEditList(formData.id,'edit',card)
+		}
+		
    }).catch(function(err) {
 		Message.error(err.message);
    });
 });
-//保存关联关系
+//保存关联关系--新建
 State.relatedCommunity = action(function(id){
 	var _this=this;
 	var ids =  _this.projects.map(item=>{return item.projectId})
@@ -114,6 +121,29 @@ State.relatedCommunity = action(function(id){
 	   _this.searchParams=data;
 	   _this.stepStatus = 1;
 	  ;
+   }).catch(function(err) {
+		_this.showLoading = false
+		Message.error(err.message);
+   });
+})
+
+//保存关联关系--编辑
+State.saveRelatedCommunity = action(function(){
+	var _this=this;
+	var ids =  _this.projects.map(item=>{return item.projectId})
+	 var page=1
+	 let data = {
+		communityId:_this.editCommunityId,
+		needSyncCommunity:_this.needSyncCommunity,
+		projectIds:ids 
+	 }
+	Http.request('post-community-save',{},data).then(function(response) {
+		let projectName = _this.projects.map(item=>{return item.label})
+		_this.cardOne = {
+			needSyncCommunity:_this.needSyncCommunity?'1':'2',
+			projectName:projectName.join()
+		}
+		_this.initProjects = _this.projects
    }).catch(function(err) {
 		_this.showLoading = false
 		Message.error(err.message);
@@ -160,10 +190,19 @@ State.openStagingFun = action(function() {
 
 
 //获取详情信息
-State.getEditList = action(function(id) {
+State.getEditList = action(function(id,type,card) {
 	var _this=this;
 	 Http.request('communityGetEdit',{id:id}).then(function(response) {
-	    _this.detailData=response;
+		_this.detailData=response;
+		if(type=='edit' && card === '2'){
+			console.log('获取详情信息=============')
+			_this.cardTwoEdit = false
+		}
+		if(type=='edit' && card === '3'){
+			console.log('获取详情信息=============')
+			_this.cardThirdEdit = false
+		}
+		
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});
@@ -249,11 +288,36 @@ State.getRelatedCommunity = action(function(id) {
 	});
 })
 
-//获取社区的关联社区信息
+//获取社区的关联社区信息--查看
 State.getRelatedCommunityInfo = action(function(id) {
 	var _this=this;
 	 Http.request('get-community-edit-info',{communityId:id}).then(function(response) {
+		 console.log('获取社区的关联社区信息=====',response)
 	    _this.cardOne = response;
+	}).catch(function(err) {
+		 Message.error(err.message);
+	});
+})
+//获取社区的关联社区信息==编辑
+State.getRelatedCommunityInfos = action(function(id) {
+	var _this=this;
+	console.log('获取社区的关联社区信息')
+	 Http.request('get-community-edit-info',{communityId:id}).then(function(response) {
+		response.needSyncCommunityBool = response.needSyncCommunity;
+		let needSyncCommunity = response.needSyncCommunity?'1':'2';
+		response.needSyncCommunity = needSyncCommunity
+		_this.cardOne = response;
+		let pro = []
+		_this.communityList.map(item=>{
+			console.log('=====>edit--',item)
+			if(response.projectIds.indexOf(item.value)!=-1){
+				pro.push(item)
+			}
+		})
+		_this.projects = pro;
+		_this.initProjects = pro;
+
+
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});

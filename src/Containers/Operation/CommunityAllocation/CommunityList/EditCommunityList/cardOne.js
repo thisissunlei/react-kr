@@ -34,16 +34,15 @@ class CommunityButton extends React.Component {
                 {value:'Coconut',label:"Coconut"},
             ],
             needSyncCommunity: '2',
-            projects:[],
+            projects:toJS(State.projects),
             used:false,
             showWarnOne:false,
             showWarnTwo:false,
+            showEdit:false
         }
     }
     componentDidMount(){
         let {selectArr} = this.state;
-        State.getRelatedCommunity()
-   
     }
 
 
@@ -132,15 +131,22 @@ class CommunityButton extends React.Component {
             })
             return
         }
-        State.stepStatus = 2;
+        State.saveRelatedCommunity()
+        this.setState({
+            showEdit:false
+        })
+        
     }
     nextStep=()=>{
         State.stepStatus = 2;
     }
 
     onCancel = () =>{
-        State.switchNewCommunityList();
-        console.log('==========')
+        this.setState({
+            showEdit: false
+        },function(){
+            State.projects = State.initProjects
+        })
     }
 
     whiteClose = () =>{
@@ -154,8 +160,10 @@ class CommunityButton extends React.Component {
         })
     }
     onsubmitDialg=()=>{
-        State.stepStatus = 2;
+    
+        State.saveRelatedCommunity()
         this.setState({
+            showEdit:false,
             showWarnTwo:false
         })
     }
@@ -164,47 +172,72 @@ class CommunityButton extends React.Component {
             showWarnTwo:false
         })
     }
+    changeEdit=()=>{
+        this.setState({
+            showEdit: true
+        })
+    }
     render() {
-      let {selectArr ,projects,used,showWarnOne,showWarnTwo} = this.state;
+      let {selectArr ,used,showWarnOne,showWarnTwo,showEdit} = this.state;
       const {handleSubmit} = this.props;
       let cname = ''
-      console.log('step1--->',State.projects)
+      let projects = toJS(State.projects);
       if(projects.length===1){
         cname = projects[0].communityName;
       }
+      console.log('cardone--->',projects)
 
 
         return (
-            <div className='community'>
-			   
-                    <div className="community-button-label"><span style={{color:'red',position:'absolute',left:0,top:'5px'}}>*</span>关联项目</div>
-                    <div style={{margin:'10px 0 10px 12px;'}}>
-                        { projects.map(item=>{
-                            return <span key={item.value} className="project-item">{item.label} <span className="icon-close" onClick={()=>{this.deletItem(item)}}></span></span>
-                        })}
-                    </div>
+            <div className="community">
                 <form  style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)} onClick={this.closemm} >
-                    <KrField  grid={1/2}  name="needSyncCommunity" type="select"  style={{width:262}} label="" 
-                    options={toJS(State.communityList)} onChange={this.addItem}
-                    ></KrField>
-                    <div className="community-button-label"><span style={{color:'red',position:'absolute',left:0,top:'5px'}}>*</span>关联项目数据</div>
-                    <div className="communitybutton-input" style={{border:'none'}}>
-                        <input type='radio'  type="radio"  value="1" checked={1 == this.state.needSyncCommunity} onChange={this.handleChange} disabled={used}/>是
-                        <span style={{width:'30px',display:'inline-block'}}></span>
-                        <input type='radio'  type="radio"  value="2" checked={2 == this.state.needSyncCommunity} onChange={this.handleChange} />否
+                    <div>
+                        <Grid style={{display:showEdit?'block':'none'}}>
+                            <Row>
+                            <Col md={12} align="right">
+                                <ButtonGroup>
+                                <div  className='list-btn-center'> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/></div>
+                                <Button  label="确定" type="submit"/>
+                                
+                                </ButtonGroup>
+                            </Col>
+                            </Row>
+                        </Grid>
+                        <Grid style={{display:showEdit?'none':'block'}}>
+                            <Row>
+                            <Col md={12} align="right">
+                                <Button  label="编辑" type="button"  onTouchTap={this.changeEdit}/>
+                                
+                            </Col>
+                            </Row>
+                        </Grid>
                     </div>
-                    <Grid style={{marginTop:30}}>
-                        <Row>
-                        <Col md={12} align="center">
-                            <ButtonGroup>
-                            <div  className='list-btn-center'> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/></div>
-                            <Button  label="确定" type="submit"/>
-                            
-                            </ButtonGroup>
-                        </Col>
-                        </Row>
-                    </Grid>
+                    <div  style={{display:showEdit?'block':'none'}} className="small-cheek">
+                        <div className="community-button-label"><span style={{color:'red',position:'absolute',left:0,top:'5px'}}>*</span>关联项目</div>
+                        <div style={{margin:'10px 0 10px 12px;'}}>
+                            { projects.map(item=>{
+                                return <span key={item.value} className="project-item">{item.label} <span className="icon-close" onClick={()=>{this.deletItem(item)}}></span></span>
+                            })}
+                        </div>
+                        
+                            <KrField  grid={1/2}  name="needSyncCommunity" type="select"  style={{width:262}} label="" 
+                            options={toJS(State.communityList)} onChange={this.addItem}
+                            ></KrField>
+                            <div className="community-button-label"><span style={{color:'red',position:'absolute',left:0,top:'5px'}}>*</span>关联项目数据</div>
+                            <div className="communitybutton-input" style={{border:'none'}}>
+                                <input type='radio'  type="radio"  value="1" checked={1 == this.state.needSyncCommunity} onChange={this.handleChange} disabled={used}/>是
+                                <span style={{width:'30px',display:'inline-block'}}></span>
+                                <input type='radio'  type="radio"  value="2" checked={2 == this.state.needSyncCommunity} onChange={this.handleChange} />否
+                            </div>
+                        
+                    </div>
                 </form>
+                <div className="small-cheek"  style={{display:showEdit?'none':'block'}}>
+                    <KrField grid={2/2} label="关联项目"  component="labelText" style={{marginLeft:15}} inline={false} value={toJS(State.cardOne.projectName)?toJS(State.cardOne.projectName):'无'}/>
+                    <KrField grid={2/2} label="关联项目数据"  component="labelText" style={{marginLeft:15}} inline={false} value={State.cardOne.needSyncCommunityBool?'是':'否'}/>
+                </div>
+
+                
             
                 <Dialog
 					title="提示信息"
@@ -245,7 +278,6 @@ class CommunityButton extends React.Component {
     }
 }
 const validate = values =>{
-console.log('======')
     const errors = {};
     if(!values.needSyncCommunity){
         errors.needSyncCommunity='请选择关联项目';

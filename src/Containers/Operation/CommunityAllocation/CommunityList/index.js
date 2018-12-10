@@ -61,6 +61,7 @@ class CommunityList  extends React.Component{
 
 	componentDidMount(){
 		State.searchDataHere();
+		State.getRelatedCommunity()
 	}
 
    //新建社区开关
@@ -107,6 +108,8 @@ class CommunityList  extends React.Component{
 				State.isCorpRank=false;
 				State.searchDataHere();
 				this.ajaxSendData(itemDetail.id);
+				State.getRelatedCommunityInfos(itemDetail.id)
+				State.editCommunityId = itemDetail.id
 		 }else if(type=='watch'){
 				State.getEditList(itemDetail.id)
 				State.getRelatedCommunityInfo(itemDetail.id)
@@ -153,9 +156,13 @@ class CommunityList  extends React.Component{
           response.signStartDate=DateFormat(response.signStartDate,"yyyy-mm-dd hh:MM:ss");
           response.signEndDate=DateFormat(response.signEndDate,"yyyy-mm-dd hh:MM:ss");
 
-          Store.dispatch(initialize('editCommunityList',response));
+					Store.dispatch(initialize('editCommunityList',response));
+					Store.dispatch(initialize('CardTwo',response));
+					State.detailData= response;
+					
 
           Store.dispatch(change('editCommunityList','local',response.longitude+','+response.latitude));
+          Store.dispatch(change('CardTwo','local',response.longitude+','+response.latitude));
 
 
 
@@ -169,9 +176,12 @@ class CommunityList  extends React.Component{
 
           if(response.opened==true){
             Store.dispatch(change('editCommunityList','opened','1'));
+            Store.dispatch(change('CardTwo','opened','1'));
           }
           if(response.opened==false){
-            Store.dispatch(change('editCommunityList','opened','0'));
+						Store.dispatch(change('editCommunityList','opened','0'));
+						Store.dispatch(change('CardTwo','opened','0'));
+						
           }
 
           State.switchEditList();

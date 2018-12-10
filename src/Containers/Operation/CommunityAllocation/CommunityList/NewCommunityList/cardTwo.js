@@ -80,6 +80,7 @@ class cardTwo extends React.Component {
       this.setState({
         cityId:cityId
       })
+      State.cityId = cityId;
       Store.dispatch(change('cardTwo','cityId',cityId));
       Store.dispatch(change('cardTwo','countyId',communityId));
     }

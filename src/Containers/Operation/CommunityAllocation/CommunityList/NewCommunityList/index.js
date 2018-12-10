@@ -105,14 +105,12 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
   }
 
 	onSubmit = (values) => {
-    console.log('1------->',values)
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
         Message.error('签约开始时间不能大于签约结束时间');
        return ;
      }
-     console.log('2------->',values)
 		 if(values.businessBegin!=''&&values.businessEnd!=''&&values.businessEnd<values.businessBegin){
 				Message.error('营业开始时间不能大于营业结束时间');
 			 return ;
@@ -126,8 +124,6 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
          //图片结束
    	State.newCommunitySubmit(data);
      
-     console.log('3------->',values)
-     console.log('State------->',data)
      return
 		const {onSubmit} = this.props;
 		onSubmit && onSubmit(values);
@@ -189,7 +185,7 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
    
     //排序
 	 orderChange=(params)=>{
-		   let {cityId}=this.state;
+		   let cityId = State.cityId;
 			 let {communityId}=this.props;
        	if(!cityId){
 					 Message.error('请先填写城市');
