@@ -33,7 +33,7 @@ class CommunityButton extends React.Component {
                 {value:'lime',label:"lime"},
                 {value:'Coconut',label:"Coconut"},
             ],
-            needSyncCommunity: '2',
+            needSyncCommunity: State.needSyncCommunity?'1':'2',
             projects:toJS(State.projects),
             used:false,
             showWarnOne:false,
@@ -43,6 +43,7 @@ class CommunityButton extends React.Component {
             showError:false,
             chooseNone:false,
         }
+        console.log('constructor',State.needSyncCommunity,State.needSyncCommunity?'1':'2')
     }
     componentDidMount(){
         let {selectArr} = this.state;
@@ -216,12 +217,9 @@ class CommunityButton extends React.Component {
     render() {
       let {selectArr ,used,showWarnOne,showWarnTwo,showEdit,cname,showError} = this.state;
       const {handleSubmit} = this.props;
-    //   let cname = ''
+      let needSyncCommunity = State.needSyncCommunity?'1':'2'
       let projects = toJS(State.projects);
-    //   if(projects.length===1){
-    //     cname = projects[0].communityName;
-    //   }
-      console.log('cardone--->',projects)
+      console.log('cardone--->',needSyncCommunity)
 
 
         return (
@@ -262,9 +260,9 @@ class CommunityButton extends React.Component {
                             <div className="error-warn" style={{display:showError?'block':'none'}}>请选择关联项目</div>
                             <div className="community-button-label"><span style={{color:'red',position:'absolute',left:0,top:'5px'}}>*</span>关联项目数据</div>
                             <div className="communitybutton-input" style={{border:'none'}}>
-                                <input type='radio'  type="radio"  value="1" checked={1 == this.state.needSyncCommunity} onChange={this.handleChange} disabled={used}/>是
+                                <input type='radio'  type="radio"  value="1" checked={1 == needSyncCommunity} onChange={this.handleChange} disabled={used}/>是
                                 <span style={{width:'30px',display:'inline-block'}}></span>
-                                <input type='radio'  type="radio"  value="2" checked={2 == this.state.needSyncCommunity} onChange={this.handleChange} />否
+                                <input type='radio'  type="radio"  value="2" checked={2 == needSyncCommunity} onChange={this.handleChange} />否
                             </div>
                         
                     </div>

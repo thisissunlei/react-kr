@@ -305,6 +305,7 @@ State.getRelatedCommunityInfos = action(function(id) {
 	 Http.request('get-community-edit-info',{communityId:id}).then(function(response) {
 		response.needSyncCommunityBool = response.needSyncCommunity;
 		let needSyncCommunity = response.needSyncCommunity?'1':'2';
+		_this.needSyncCommunity = response.needSyncCommunity?'1':'2';
 		response.needSyncCommunity = needSyncCommunity
 		_this.cardOne = response;
 		let pro = []
@@ -316,6 +317,7 @@ State.getRelatedCommunityInfos = action(function(id) {
 		})
 		_this.projects = pro;
 		_this.initProjects = pro;
+		
 
 
 	}).catch(function(err) {
