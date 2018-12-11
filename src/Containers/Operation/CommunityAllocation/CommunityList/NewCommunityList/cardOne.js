@@ -39,6 +39,8 @@ class CommunityButton extends React.Component {
             showWarnOne:false,
             cname:'',
             showWarnTwo:false,
+            showError:false,
+            chooceNone:false
         }
     }
     componentDidMount(){
@@ -66,12 +68,19 @@ class CommunityButton extends React.Component {
     }
     addItem=(e)=>{
         console.log(e)
-
+        if(!e){
+            this.setState({
+                chooceNone:false
+            })
+            return;
+        }
+        let chooceNone = false;
         this.chipData = this.state.projects;
         let used = false;
         if(e.value === '0'){
             this.chipData = []
             used = true;
+            chooceNone = true;
             State.communityList = State.communityOption;
         }else{
             if(!e.canSelect){
@@ -79,7 +88,7 @@ class CommunityButton extends React.Component {
                     cname:e.communityName,
                     showWarnOne:true
                 },function(){
-                    // Store.dispatch(reset('CommunityButton'));
+                    Store.dispatch(reset('CommunityButton'));
                 })
                 return
             }
@@ -89,12 +98,16 @@ class CommunityButton extends React.Component {
             }
             this.chipData.push(e)
             used = this.chipData.length>1?true:false;
+            chooceNone = false
+            Store.dispatch(reset('CommunityButton'));
             this.deleteOption(e)
         }
         this.setState({
             projects: this.chipData,
             used: used,
-            needSyncCommunity: '2'
+            showError:false,
+            needSyncCommunity: '2',
+            chooceNone: chooceNone
         })
         this.setStateData(this.chipData,'2')
     }
@@ -132,6 +145,17 @@ class CommunityButton extends React.Component {
 
     onSubmit = (values) => {
         console.log('onsubmit',values)
+        let {chooceNone} = this.state;
+        if(State.projects.length === 0 && !chooceNone){
+            this.setState({
+                showError:true
+            })
+            return;
+        }else{
+            this.setState({
+                showError:false
+            })
+        }
         if(this.state.needSyncCommunity=='1'){
             this.setState({
                 showWarnTwo:true
@@ -171,7 +195,7 @@ class CommunityButton extends React.Component {
         })
     }
     render() {
-      let {selectArr ,projects,used,showWarnOne,showWarnTwo,cname} = this.state;
+      let {selectArr ,projects,used,showWarnOne,showWarnTwo,cname,showError} = this.state;
       const {handleSubmit} = this.props;
     //   if(projects.length===1){
     //     cname = projects[0].communityName;
@@ -191,6 +215,8 @@ class CommunityButton extends React.Component {
                     <KrField  grid={1/2}  name="needSyncCommunity" type="select"  style={{width:262}} label="" 
                     options={toJS(State.communityList)} onChange={this.addItem}
                     ></KrField>
+                    <div className="error-warn" style={{display:showError?'block':'none'}}>请选择关联项目</div>
+
                     <div className="community-button-label"><span style={{color:'red',position:'absolute',left:0,top:'5px'}}>*</span>关联项目数据</div>
                     <div className="communitybutton-input" style={{border:'none'}}>
                         <input type='radio'  type="radio"  value="1" checked={1 == this.state.needSyncCommunity} onChange={this.handleChange} disabled={used}/>是
@@ -249,11 +275,11 @@ class CommunityButton extends React.Component {
     }
 }
 const validate = values =>{
-console.log('======')
+console.log('======',State.projects.length)
     const errors = {};
-    if(!values.needSyncCommunity){
-        errors.needSyncCommunity='请选择关联项目';
-    }
+    // if(!State.projects.length){
+    //     errors.needSyncCommunity='请选择关联项目';
+    // }
     return errors
 }
 export default reduxForm({ form: 'CommunityButton',validate})(CommunityButton);

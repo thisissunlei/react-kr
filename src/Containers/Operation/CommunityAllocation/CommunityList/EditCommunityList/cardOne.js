@@ -39,7 +39,9 @@ class CommunityButton extends React.Component {
             showWarnOne:false,
             showWarnTwo:false,
             showEdit:false,
-            cname:''
+            cname:'',
+            showError:false,
+            chooseNone:false,
         }
     }
     componentDidMount(){
@@ -64,14 +66,22 @@ class CommunityButton extends React.Component {
         
     }
     addItem=(e)=>{
-        console.log(e)
-
         this.chipData = this.state.projects;
         let used = false;
+        let  chooseNone ;
+        console.log('addItem',e)
+        if(!e){
+            this.setState({
+                chooseNone : false
+            })
+            
+            return;
+        }
         if(e.value === '0'){
             this.chipData = []
             used = true;
             State.communityList = State.communityOption;
+            chooseNone=true
             console.log('========>>>',State.communityOption)
         }else{
 
@@ -80,7 +90,7 @@ class CommunityButton extends React.Component {
                     cname:e.communityName,
                     showWarnOne:true
                 },function(){
-                    // Store.dispatch(reset('CommunityButton'));
+                    Store.dispatch(reset('CommunityButton'));
                 })
                 return
             }
@@ -90,12 +100,16 @@ class CommunityButton extends React.Component {
             }
             this.chipData.push(e)
             used = this.chipData.length>1?true:false;
+            Store.dispatch(reset('CommunityButton'));
             this.deleteOption(e)
+            chooseNone=false
         }
         this.setState({
             projects: this.chipData,
             used: used,
-            needSyncCommunity: '2'
+            showError:false,
+            needSyncCommunity: '2',
+            chooseNone:chooseNone
         })
         this.setStateData(this.chipData,'2')
     }
@@ -135,7 +149,18 @@ class CommunityButton extends React.Component {
     }
 
     onSubmit = (values) => {
-        console.log('onsubmit',values)
+        console.log('onsubmit',values,State.projects.length)
+        let {chooseNone} = this.state;
+        if(toJS(State.projects.length) === 0 && !chooseNone){
+            this.setState({
+                showError:true
+            })
+            return
+        }else{
+            this.setState({
+                showError:false
+            })
+        }
         if(this.state.needSyncCommunity=='1'){
             this.setState({
                 showWarnTwo:true
@@ -189,7 +214,7 @@ class CommunityButton extends React.Component {
         })
     }
     render() {
-      let {selectArr ,used,showWarnOne,showWarnTwo,showEdit,cname} = this.state;
+      let {selectArr ,used,showWarnOne,showWarnTwo,showEdit,cname,showError} = this.state;
       const {handleSubmit} = this.props;
     //   let cname = ''
       let projects = toJS(State.projects);
@@ -234,6 +259,7 @@ class CommunityButton extends React.Component {
                             <KrField  grid={1/2}  name="needSyncCommunity" type="select"  style={{width:262}} label="" 
                             options={toJS(State.communityList)} onChange={this.addItem}
                             ></KrField>
+                            <div className="error-warn" style={{display:showError?'block':'none'}}>请选择关联项目</div>
                             <div className="community-button-label"><span style={{color:'red',position:'absolute',left:0,top:'5px'}}>*</span>关联项目数据</div>
                             <div className="communitybutton-input" style={{border:'none'}}>
                                 <input type='radio'  type="radio"  value="1" checked={1 == this.state.needSyncCommunity} onChange={this.handleChange} disabled={used}/>是
@@ -290,9 +316,10 @@ class CommunityButton extends React.Component {
 }
 const validate = values =>{
     const errors = {};
-    if(!values.needSyncCommunity){
-        errors.needSyncCommunity='请选择关联项目';
-    }
+    console.log('validate=============>',State.projects.length)
+    // if(!State.projects.length){
+    //     errors.needSyncCommunity='请选择关联项目';
+    // }
     return errors
 }
 export default reduxForm({ form: 'CommunityButton',validate})(CommunityButton);
