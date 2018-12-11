@@ -114,6 +114,8 @@ class EditCommunityList extends React.Component {
   };
 
   onCancel = () => {
+		State.cardTwoEdit = false;
+		State.cardThirdEdit = false;
     const { onCancel } = this.props;
     onCancel && onCancel();
   };
@@ -229,7 +231,7 @@ class EditCommunityList extends React.Component {
               <span className="wire" />
               <label className="small-title">运营信息</label>
             </div>
-            <div className="small-cheek">
+            <div className="small-cheek" style={{marginRight:20}}>
               <Grid style={{ marginBottom: 30,display:State.cardThirdEdit?'block':'none' }}>
                 <Row>
                   <Col md={12} align="right">
@@ -267,14 +269,6 @@ class EditCommunityList extends React.Component {
                   component="input"
                   onChange={this.orderChange}
                 />
-                <KrField
-                  grid={1 / 2}
-                  label="开业时间"
-                  name="openDate"
-                  style={{ width: "262px", marginLeft: 32 }}
-                  component="date"
-                  requireLabel={true}
-                />
                 {State.isCorpRank && (
                   <div
                     style={{
@@ -287,6 +281,22 @@ class EditCommunityList extends React.Component {
                     该序号已存在
                   </div>
                 )}
+                <KrField
+                  grid={1 / 2}
+                  label="开业时间"
+                  style={{ width: 262, marginLeft: 28,display:State.chooceType?'inline-block':'none' }}
+                  component="labelText"
+                  inline={false}
+                  value={openTime ? openTime : "无"}
+                />
+                <KrField
+                  grid={1 / 2}
+                  label="开业时间"
+                  name="openDate"
+                  style={{ width: "262px", marginLeft: 28,display:State.chooceType?'none':"inline-block" }}
+                  component="date"
+                  requireLabel={true}
+                />
                 <KrField
                   grid={1 / 2}
                   label="签约开始时间"
@@ -319,7 +329,7 @@ class EditCommunityList extends React.Component {
                     grid={1 / 2}
                     label="会议室总数"
                     name="meetNum"
-                    style={{ width: 239, marginLeft: 32, marginRight: 3 }}
+                    style={{ width: 239, marginLeft: 28, marginRight: 3 }}
                     component="input"
                     requireLabel={true}
                   />
@@ -404,7 +414,7 @@ class EditCommunityList extends React.Component {
                   value={endTime ? endTime : "无"}
                 />
                 <KrField
-                  grid={1 / 2}
+                  grid={1/2}
                   label="设计工位数"
                   style={{ width: 262, marginLeft: 15 }}
                   component="labelText"
@@ -416,7 +426,7 @@ class EditCommunityList extends React.Component {
                   }
                 />
                 <KrField
-                  grid={1 / 2}
+                  grid={1/2}
                   label="会议室总数"
                   style={{ width: 262, marginLeft: 28 }}
                   component="labelText"

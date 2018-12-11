@@ -68,6 +68,7 @@ class CommunityList  extends React.Component{
    openAddCommunity=()=>{
    	  cityDataState.setCity("请选择");
 			State.isCorpRank=false;
+			State.stepStatus = 1;
    	  State.searchDataHere();
       State.switchNewCommunityList();
    }
@@ -105,9 +106,12 @@ class CommunityList  extends React.Component{
 	
 	 onOperation=(type,itemDetail)=>{
      if(type=='edit'){
+			State.cardTwoEdit = false;
+			State.cardThirdEdit = false;
 				State.isCorpRank=false;
 				State.searchDataHere();
 				this.ajaxSendData(itemDetail.id);
+				State.getRelatedCommunity(itemDetail.id)
 				State.getRelatedCommunityInfos(itemDetail.id)
 				State.editCommunityId = itemDetail.id
 		 }else if(type=='watch'){
@@ -184,7 +188,7 @@ class CommunityList  extends React.Component{
 						
           }
 
-          State.switchEditList();
+          // State.switchEditList();
 
         }).catch(function(err) {
           Message.error(err.message);
@@ -197,7 +201,7 @@ class CommunityList  extends React.Component{
    }
    //编辑取消
    switchEditList=()=>{
-   	   State.switchEditList();
+   	  State.switchEditList();
    }
 
    //高级查询
