@@ -134,16 +134,17 @@ State.saveRelatedCommunity = action(function(){
 	 var page=1
 	 let data = {
 		communityId:_this.editCommunityId,
-		needSyncCommunity:_this.needSyncCommunity,
+		needSyncCommunity:_this.needSyncCommunity==='1'?true:false,
 		projectIds:ids 
 	 }
 	Http.request('post-community-save',{},data).then(function(response) {
 		let projectName = _this.projects.map(item=>{return item.label})
 		_this.cardOne = {
-			needSyncCommunity:_this.needSyncCommunity?'1':'2',
+			needSyncCommunity:_this.needSyncCommunity,
 			projectName:projectName.join()
 		}
-		_this.initProjects = _this.projects
+		_this.initProjects = _this.projects;
+		_this.getRelatedCommunityInfos(_this.editCommunityId)
    }).catch(function(err) {
 		_this.showLoading = false
 		Message.error(err.message);
@@ -309,12 +310,15 @@ State.getRelatedCommunityInfos = action(function(id) {
 		response.needSyncCommunity = needSyncCommunity
 		_this.cardOne = response;
 		let pro = []
-		_this.communityList.map(item=>{
+		_this.communityList = _this.communityOption.filter(item=>{
 			console.log('=====>edit--',item)
 			if(response.projectIds.indexOf(item.value)!=-1){
 				pro.push(item)
+			}else{
+				return true;
 			}
 		})
+		console.log('======>',pro)
 		_this.projects = pro;
 		_this.initProjects = pro;
 		

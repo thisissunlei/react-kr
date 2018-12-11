@@ -47,6 +47,20 @@ class CommunityButton extends React.Component {
     }
     componentDidMount(){
         let {selectArr} = this.state;
+        console.log('componentDidMount',toJS(State.projects))
+        if(toJS(State.projects).length===0){
+            Store.dispatch(change('CommunityButton','needSyncCommunity','0')); 
+            this.setState({
+                chooseNone:true
+            })
+        }
+        if(toJS(State.projects).length>1){
+            this.setState({
+                used:true
+            })
+        }
+        
+
     }
 
 
@@ -56,13 +70,10 @@ class CommunityButton extends React.Component {
         if(projects.length ==1){
             showWarn = projects[0].canSelect;
         }
-        
+        State.needSyncCommunity = event.target.value
         this.setState({
             needSyncCommunity: event.target.value,
             showWarnOne:(!showWarn&&event.target.value==1)?true:false
-        }, ()=> {
-            console.log(this.state.needSyncCommunity);
-            State.needSyncCommunity = event.target.value==='2'?false:true
         });
         
     }
@@ -146,7 +157,7 @@ class CommunityButton extends React.Component {
     }
     setStateData=(arr,bool)=>{
         State.projects = arr;
-        State.needSyncCommunity = bool==='2'?false:true
+        State.needSyncCommunity = bool
     }
 
     onSubmit = (values) => {
@@ -162,7 +173,7 @@ class CommunityButton extends React.Component {
                 showError:false
             })
         }
-        if(this.state.needSyncCommunity=='1'){
+        if(State.needSyncCommunity=='1'){
             this.setState({
                 showWarnTwo:true
             })
@@ -217,7 +228,7 @@ class CommunityButton extends React.Component {
     render() {
       let {selectArr ,used,showWarnOne,showWarnTwo,showEdit,cname,showError} = this.state;
       const {handleSubmit} = this.props;
-      let needSyncCommunity = State.needSyncCommunity?'1':'2'
+      let needSyncCommunity = State.needSyncCommunity
       let projects = toJS(State.projects);
       console.log('cardone--->',needSyncCommunity)
 
