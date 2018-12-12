@@ -97,7 +97,9 @@ class CommunityButton extends React.Component {
                 return
             }
             this.chipData.push(e)
-            used = this.chipData.length>1?true:false;
+            if(this.chipData.length>1 || !e.canSyncData){
+                used = true
+            }
             chooceNone = false
             Store.dispatch(reset('CommunityButton'));
             this.deleteOption(e)

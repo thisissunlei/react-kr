@@ -43,18 +43,17 @@ class CommunityButton extends React.Component {
             showError:false,
             chooseNone:false,
         }
-        console.log('constructor',State.needSyncCommunity,State.needSyncCommunity?'1':'2')
     }
     componentDidMount(){
         let {selectArr} = this.state;
-        console.log('componentDidMount',toJS(State.projects))
         if(toJS(State.projects).length===0){
             Store.dispatch(change('CommunityButton','needSyncCommunity','0')); 
             this.setState({
-                chooseNone:true
+                chooseNone:true,
+                used:true
             })
         }
-        if(toJS(State.projects).length>1){
+        if(toJS(State.projects).length>1 || (toJS(State.projects).length==1 && !toJS(State.projects)[0].canSyncData)){
             this.setState({
                 used:true
             })
@@ -81,7 +80,6 @@ class CommunityButton extends React.Component {
         this.chipData = this.state.projects;
         let used = false;
         let  chooseNone ;
-        console.log('addItem',e)
         if(!e){
             this.setState({
                 chooseNone : false
@@ -94,7 +92,6 @@ class CommunityButton extends React.Component {
             used = true;
             State.communityList = State.communityOption;
             chooseNone=true
-            console.log('========>>>',State.communityOption)
         }else{
 
             if(!e.canSelect){
@@ -111,7 +108,9 @@ class CommunityButton extends React.Component {
                 return
             }
             this.chipData.push(e)
-            used = this.chipData.length>1?true:false;
+            if(this.chipData.length>1 || !e.canSyncData){
+                used = true
+            }
             Store.dispatch(reset('CommunityButton'));
             this.deleteOption(e)
             chooseNone=false
@@ -129,21 +128,18 @@ class CommunityButton extends React.Component {
         let options = State.communityList;
         const chipToDelete = options.map((chip) => chip.label).indexOf(obj.label);
         options.splice(chipToDelete,1)
-        console.log(chipToDelete,'deleteOption',options)
         State.communityList = options;
     }
     addOption=(obj)=>{
         let options = State.communityList;
         options.splice(-1,0,obj)
         State.communityList = options
-        console.log('addOption',toJS(options))
     }
 
     deletItem=(value)=>{
         this.chipData = this.state.projects;
 		const chipToDelete = this.chipData.map((chip) => chip.label).indexOf(value.label);
 		this.chipData.splice(chipToDelete, 1);
-        console.log('chipData',this.chipData)
         this.setState({
             projects:this.chipData,
             used:this.chipData.length>1?true:false,
@@ -161,7 +157,6 @@ class CommunityButton extends React.Component {
     }
 
     onSubmit = (values) => {
-        console.log('onsubmit',values,State.projects.length)
         let {chooseNone} = this.state;
         if(toJS(State.projects.length) === 0 && !chooseNone){
             this.setState({
@@ -230,7 +225,6 @@ class CommunityButton extends React.Component {
       const {handleSubmit} = this.props;
       let needSyncCommunity = State.needSyncCommunity
       let projects = toJS(State.projects);
-      console.log('cardone--->',needSyncCommunity)
 
 
         return (
@@ -323,12 +317,4 @@ class CommunityButton extends React.Component {
         )
     }
 }
-const validate = values =>{
-    const errors = {};
-    console.log('validate=============>',State.projects.length)
-    // if(!State.projects.length){
-    //     errors.needSyncCommunity='请选择关联项目';
-    // }
-    return errors
-}
-export default reduxForm({ form: 'CommunityButton',validate})(CommunityButton);
+export default reduxForm({ form: 'CommunityButton'})(CommunityButton);

@@ -71,19 +71,6 @@ State.onNewCommunitySubmit= action(function(data) {
 	 if(!data.id){
 		 page=1;
 	 }
-	 console.log('新建社区的提交',data)
-	 return;
-	 Http.request('actions-edit',{},data).then(function(response) {
-		 var data = Object.assign({},_this.searchParams);
-		 data.page = page==1?1:_this.searchParams.page;
-		 data.pageSize = 15;
-		 data.time=+new Date();
-		_this.openNewCommunity=false;
-		_this.openEditCommunity=false;
-		_this.searchParams=data;
-	}).catch(function(err) {
-		 Message.error(err.message);
-	});
 });
 //改版后--新建社区的提交
 State.newCommunitySubmit= action(function(formData,card) {
@@ -199,11 +186,9 @@ State.getEditList = action(function(id,type,card) {
 		_this.detailData=response;
 		_this.detailData.cityData = response.provinceName+'/'+response.cityName+'/'+response.countyName 
 		if(type=='edit' && card === '2'){
-			console.log('获取详情信息=============')
 			_this.cardTwoEdit = false
 		}
 		if(type=='edit' && card === '3'){
-			console.log('获取详情信息=============')
 			_this.cardThirdEdit = false
 		}
 		
@@ -266,8 +251,8 @@ State.communityRank = action(function(params,id,communityId) {
 //获取关联社区列表
 State.getRelatedCommunity = action(function(id) {
 	var _this=this;
+	id = id|| ''; 
 	 Http.request('get-project-community-list',{communityId:id}).then(function(response) {
-		 console.log('获取关联社区====',response)
 	    _this.communityList=response.map(item=>{
 			item.value = item.projectId;
 			// item.label = item.communityName;
@@ -286,7 +271,6 @@ State.getRelatedCommunity = action(function(id) {
 		}
 		_this.communityList.push(obj)
 		_this.communityOption.push(obj);
-		console.log('=====',_this.communityList)
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});
@@ -296,7 +280,6 @@ State.getRelatedCommunity = action(function(id) {
 State.getRelatedCommunityInfo = action(function(id) {
 	var _this=this;
 	 Http.request('get-community-edit-info',{communityId:id}).then(function(response) {
-		 console.log('获取社区的关联社区信息=====',response)
 	    _this.cardOne = response;
 	}).catch(function(err) {
 		 Message.error(err.message);
@@ -305,34 +288,34 @@ State.getRelatedCommunityInfo = action(function(id) {
 //获取社区的关联社区信息==编辑
 State.getRelatedCommunityInfos = action(function(id) {
 	var _this=this;
-	console.log('获取社区的关联社区信息')
 	 Http.request('get-community-edit-info',{communityId:id}).then(function(response) {
 		response.needSyncCommunityBool = response.needSyncCommunity;
 		_this.chooceType = false;
-
-		if(response.needSyncCommunity){
-			_this.getRelatedCommunityData(response.projectIds[0])
-			_this.chooceType = true;
-
-		}else{
-			_this.openEditCommunity = true;
-		}
+		let needs = response.needSyncCommunity;
+		
+		
 		let needSyncCommunity = response.needSyncCommunity?'1':'2';
 		_this.needSyncCommunity = response.needSyncCommunity?'1':'2';
 		response.needSyncCommunity = needSyncCommunity
 		_this.cardOne = response;
 		let pro = []
 		_this.communityList = _this.communityOption.filter(item=>{
-			console.log('=====>edit--',item)
 			if(response.projectIds.indexOf(item.value)!=-1){
 				pro.push(item)
 			}else{
 				return true;
 			}
 		})
-		console.log('======>',pro)
 		_this.projects = pro;
 		_this.initProjects = pro;
+
+		if(needs){
+			_this.getRelatedCommunityData(response.projectIds[0])
+			_this.chooceType = true;
+
+		}else{
+			_this.openEditCommunity = true;
+		}
 		
 		
 
@@ -344,27 +327,14 @@ State.getRelatedCommunityInfos = action(function(id) {
 //获取关联社区的关联数据
 State.getRelatedCommunityData = action(function(id) {
 	var _this=this;
-	console.log('获取社区的关联社区信息')
 	 Http.request('get-community-info-related',{projectId:id}).then(function(response) {
-		//  let res = {
-		// 	buildingName:'本地联调',
-		// 	communityName:'本地联调',
-		// 	detailAddress:'本地联调',
-		// 	openDate:new Date().getTime(),
-		// 	countyId:1,
-		// 	cityName:'heilongjiang',
-		// 	countyName:'ddddd',
-		// 	provinceName:'111'
-		//  }
 		let res = response
 	  _this.detailData.name  = res.communityName;
 	  _this.detailData.address = res.detailAddress;
 	  _this.detailData.buildName = res.buildingName; 
 	  _this.detailData.cityData = res.provinceName+'/'+res.cityName+'/'+res.countyName 
 	  _this.detailData.openDate = res.openDate
-		// _this.relatedInfo = response;
 		_this.relatedInfo = res;
-		 console.log('======111111111111111111',res)
 		 _this.openEditCommunity = true;
 	}).catch(function(err) {
 		 Message.error(err.message);

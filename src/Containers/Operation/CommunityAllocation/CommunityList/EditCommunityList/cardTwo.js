@@ -32,7 +32,6 @@ class CardTwo extends React.Component {
 
   componentDidMount() {
     if (State.chooceType) {
-      console.log("componentDidMount------", State.relatedInfo);
       Store.dispatch(
         change("CardTwo", "buildName", State.relatedInfo.buildingName)
       );
@@ -208,7 +207,6 @@ class CardTwo extends React.Component {
     const { handleSubmit, timeStart, timeEnd } = this.props;
     let cityData = this.state.cityName || this.props.cityData;
     let showEdit = State.cardTwoEdit;
-    console.log(cityData, "==render", State.cardTwoEdit);
 
     return (
       <div>
