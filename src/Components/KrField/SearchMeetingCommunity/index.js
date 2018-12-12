@@ -1,7 +1,8 @@
 import React from 'react';
 
 import {
-	Http
+	Http,
+	ajax
 } from "kr/Utils";
 import ReactSelectAsync from '../../Select/Async';
 
@@ -55,10 +56,10 @@ export default class SearchCommunity extends React.Component {
 
 	getOptions(lastname) {
 		return new Promise((resolve, reject) => {
-			Http.request('get-community-new-list', {
+			ajax.get('get-community-new-list', {
 				cmtName: lastname
 			}).then(function(response) {
-				var obj = [].concat(response.items);
+				var obj = [].concat(response);
 				obj.forEach(function(item, index) {
 					item.value = item.id;
 					item.label = item.name;
