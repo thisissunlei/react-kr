@@ -302,12 +302,11 @@ State.getRelatedCommunityInfos = action(function(id) {
 		_this.communityList = _this.communityOption.filter(item=>{
 			if(response.projectIds.indexOf(item.value)!=-1){
 				pro.push(item)
-			}else{
-				return true;
 			}
+				return true;
 		})
-		_this.projects = _this.communityOption;
-		_this.initProjects = _this.communityOption;
+		_this.projects =pro;
+		_this.initProjects = pro;
 
 		if(needs){
 			_this.getRelatedCommunityData(response.projectIds[0])
