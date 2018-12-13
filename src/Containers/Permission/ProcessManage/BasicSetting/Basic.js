@@ -147,6 +147,7 @@ class Basic extends Component {
                   maxSize={200}
                   style={{marginTop:12,height:56,width:590}}
                   label="描述"
+                  disabled={true}
                 />
                 <Row style={{marginTop:78,marginBottom:6}}>
       					<Col md={12} align="center">
