@@ -1,7 +1,7 @@
 import React from "react";
 import { toJS } from "mobx";
 import { DateFormat, Http } from "kr/Utils";
-import { reduxForm, initialize, change, FieldArray } from "redux-form";
+import { reduxForm, initialize, change, FieldArray, reset} from "redux-form";
 import { Store } from "kr/Redux";
 import { observer } from "mobx-react";
 import {

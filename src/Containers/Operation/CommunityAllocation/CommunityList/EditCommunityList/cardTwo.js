@@ -41,7 +41,12 @@ class CardTwo extends React.Component {
       Store.dispatch(
         change("CardTwo", "address", State.relatedInfo.detailAddress)
       );
-      Store.dispatch(change("CardTwo", "openDate", State.relatedInfo.openDate));
+      
+      if(State.relatedInfo.openDate){
+        console.log("???>>>",State.relatedInfo);
+        Store.dispatch(change("CardTwo", "openDate", State.relatedInfo.openDate));
+      }
+      
       this.setState({
         cityName:
           State.relatedInfo.provinceName +

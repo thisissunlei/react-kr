@@ -10,6 +10,7 @@
     "dev:test02": " export NODE_ENV=test02  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
     "dev:test03": " export NODE_ENV=test03  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
     "dev:test04": " export NODE_ENV=test04  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
+    "dev:test08": " export NODE_ENV=test08  &&  webpack-dev-server --config ./webpack/webpack-development.config.js --progress --colors --profile  --inline --hot",
     "dic:test": " export NODE_ENV=test &&  node ./task/loadDictionary.js",
     "dic:test01": " export NODE_ENV=test01 &&  node ./task/loadDictionary.js",
     "dic:test02": " export NODE_ENV=test02 &&  node ./task/loadDictionary.js",

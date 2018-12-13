@@ -332,8 +332,10 @@ State.getRelatedCommunityData = action(function(id) {
 	  _this.detailData.name  = res.communityName;
 	  _this.detailData.address = res.detailAddress;
 	  _this.detailData.buildName = res.buildingName; 
-	  _this.detailData.cityData = res.provinceName+'/'+res.cityName+'/'+res.countyName 
-	  _this.detailData.openDate = res.openDate
+	  _this.detailData.cityData = res.provinceName+'/'+res.cityName+'/'+res.countyName
+	  if(res.openDate){
+		_this.detailData.openDate = res.openDate
+	  } 
 		_this.relatedInfo = res;
 		 _this.openEditCommunity = true;
 	}).catch(function(err) {
