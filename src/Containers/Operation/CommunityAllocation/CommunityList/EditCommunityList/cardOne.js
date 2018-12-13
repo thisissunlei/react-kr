@@ -87,13 +87,16 @@ class CommunityButton extends React.Component {
             
             return;
         }
+        console.log('addItem--->1',e)
         if(e.value === '0'){
+            console.log('addItem--->2',e)
             this.chipData = []
             used = true;
-            State.communityList = State.communityOption;
+            State.communityList = toJS(State.communityOption);
             chooseNone=true
+            console.log('addItem--->3',State.communityOption)
         }else{
-
+            console.log('addItem--->4',e)
             if(!e.canSelect){
                 this.setState({
                     cname:e.communityName,
@@ -112,7 +115,7 @@ class CommunityButton extends React.Component {
                 used = true
             }
             Store.dispatch(reset('CommunityButton'));
-            this.deleteOption(e)
+            // this.deleteOption(e)
             chooseNone=false
         }
         this.setState({
@@ -148,7 +151,7 @@ class CommunityButton extends React.Component {
         if(this.chipData.length==0){
             Store.dispatch(reset('CommunityButton'));
         }
-        this.addOption(value)
+        // this.addOption(value)
         this.setStateData(this.chipData,'2')
     }
     setStateData=(arr,bool)=>{
