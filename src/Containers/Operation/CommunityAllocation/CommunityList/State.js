@@ -306,8 +306,8 @@ State.getRelatedCommunityInfos = action(function(id) {
 				return true;
 			}
 		})
-		_this.projects = pro;
-		_this.initProjects = pro;
+		_this.projects = _this.communityOption;
+		_this.initProjects = _this.communityOption;
 
 		if(needs){
 			_this.getRelatedCommunityData(response.projectIds[0])
