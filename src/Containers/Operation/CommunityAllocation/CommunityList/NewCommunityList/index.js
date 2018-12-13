@@ -103,6 +103,11 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
       Store.dispatch(change('NewCommunityList','portalShow','0'))
       Store.dispatch(change('NewCommunityList','wherefloors',[{}]));
   }
+  componentWillReceiveProps(){
+    if(State.createType){
+      Store.dispatch(change('NewCommunityList','openDate', State.relatedInfo.openDate));
+    }
+  }
 
 	onSubmit = (values) => {
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
@@ -115,18 +120,20 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
 				Message.error('营业开始时间不能大于营业结束时间');
 			 return ;
      }
+     
 
      values.wherefloorsStr=JSON.stringify(values.wherefloors);
         //楼层结束
 
     delete values.wherefloors;
      let data = Object.assign(values,State.cardTwoData)
+     if(State.createType){
+      data.openDate = DateFormat(data.openDate,"yyyy-mm-dd 00:00:00")
+    }
+    console.log('========',data)
          //图片结束
    	State.newCommunitySubmit(data);
      
-     return
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
     }
 
 	onCancel = () => {
@@ -213,6 +220,7 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
            height:'auto'
         }
        }
+       let openTime = DateFormat(toJS(State.detailData.openDate), "yyyy-mm-dd");
 
 
 		const {handleSubmit} = this.props;
@@ -250,7 +258,15 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
             </div>
 						<div className="small-cheek"  style={stepStatus==3?{}:{display:'none'}}>
                 <KrField grid={1/2} label="排序" name="orderNum" style={{width:'262px',marginLeft:15}} component="input" onChange={this.orderChange}></KrField>
-								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:'262px',marginLeft:32}} component="date" requireLabel={true}/>
+                <KrField
+                  grid={1 / 2}
+                  label="开业时间"
+                  style={{ width: 262, marginLeft: 28,display:State.createType?'inline-block':'none' }}
+                  component="labelText"
+                  inline={false}
+                  value={openTime ? openTime : "无"}
+                />
+                <KrField grid={1/2} label="开业时间" name="openDate" style={{width:'262px',marginLeft:32,display:State.createType?'none':'inline-block'}} component="date" requireLabel={true}/>
                 {State.isCorpRank&&<div style={{display:'block',color:'red',paddingLeft:'25px',paddingBottom:'10px'}}>该序号已存在</div>}
 								<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:32}} component="date" requireLabel={true}/>

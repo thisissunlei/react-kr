@@ -186,7 +186,7 @@ class CommunityButton extends React.Component {
         })
     }
     onsubmitDialg=()=>{
-        State.stepStatus = 2;
+        State.getRelatedCommunityData(this.state.projects[0].projectId,'create')
         this.setState({
             showWarnTwo:false
         })
