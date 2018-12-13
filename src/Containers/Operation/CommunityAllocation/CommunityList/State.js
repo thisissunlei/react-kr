@@ -55,6 +55,7 @@ let State = observable({
 		initProjects:[],
 		relatedInfo:{},
 		chooceType:false,
+		createType: false
 });
 //参数修改
 State.setSearchParams = action(function(params) {
@@ -302,11 +303,10 @@ State.getRelatedCommunityInfos = action(function(id) {
 		_this.communityList = _this.communityOption.filter(item=>{
 			if(response.projectIds.indexOf(item.value)!=-1){
 				pro.push(item)
-			}else{
-				return true;
 			}
+				return true;
 		})
-		_this.projects = pro;
+		_this.projects =pro;
 		_this.initProjects = pro;
 
 		if(needs){
@@ -325,7 +325,7 @@ State.getRelatedCommunityInfos = action(function(id) {
 	});
 })
 //获取关联社区的关联数据
-State.getRelatedCommunityData = action(function(id) {
+State.getRelatedCommunityData = action(function(id,type) {
 	var _this=this;
 	 Http.request('get-community-info-related',{projectId:id}).then(function(response) {
 		let res = response
@@ -337,7 +337,13 @@ State.getRelatedCommunityData = action(function(id) {
 		_this.detailData.openDate = res.openDate
 	  } 
 		_this.relatedInfo = res;
-		 _this.openEditCommunity = true;
+		if(type === 'create'){
+			State.stepStatus = 2;
+			_this.createType = true;
+		}else{
+			_this.openEditCommunity = true;
+		}
+		
 	}).catch(function(err) {
 		 Message.error(err.message);
 	});

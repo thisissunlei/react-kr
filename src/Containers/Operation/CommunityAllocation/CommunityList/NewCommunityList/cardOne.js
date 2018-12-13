@@ -81,7 +81,7 @@ class CommunityButton extends React.Component {
             this.chipData = []
             used = true;
             chooceNone = true;
-            State.communityList = State.communityOption;
+            State.communityList = toJS(State.communityOption);
         }else{
             if(!e.canSelect){
                 this.setState({
@@ -102,7 +102,7 @@ class CommunityButton extends React.Component {
             }
             chooceNone = false
             Store.dispatch(reset('CommunityButton'));
-            this.deleteOption(e)
+            // this.deleteOption(e)
         }
         this.setState({
             projects: this.chipData,
@@ -137,7 +137,7 @@ class CommunityButton extends React.Component {
         if(this.chipData.length==0){
             Store.dispatch(reset('CommunityButton'));
         }
-        this.addOption(value)
+        // this.addOption(value)
         this.setStateData(this.chipData,'2')
     }
     setStateData=(arr,bool)=>{
@@ -186,7 +186,7 @@ class CommunityButton extends React.Component {
         })
     }
     onsubmitDialg=()=>{
-        State.stepStatus = 2;
+        State.getRelatedCommunityData(this.state.projects[0].projectId,'create')
         this.setState({
             showWarnTwo:false
         })
