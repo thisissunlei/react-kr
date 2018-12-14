@@ -377,10 +377,10 @@ export default class AllTypes extends React.Component {
                                 <TableRow>
                                 <TableRowColumn name="name" 
 										component={(value,oldValue)=>{
-                                                        var maxWidth=10;
+                                                        var maxWidth=7;
                                                         if(value){
                                                             if(value.length>maxWidth){
-                                                                value = value.substring(0,10)+"...";
+                                                                value = value.substring(0,7)+"...";
                                                             }
                                                         }else{
                                                             value="无";
@@ -440,18 +440,18 @@ export default class AllTypes extends React.Component {
                                     <TableRowColumn name="formName"
 									  
 									component={(value,oldValue)=>{
-		 										var maxWidth=10;
+		 										var maxWidth=7;
 		 										if(value.length>maxWidth){
-		 										 value = value.substring(0,10)+"...";
+		 										 value = value.substring(0,7)+"...";
 		 										}
 		 										return (<div  className='tooltipParent'><span className='tableOver'>{value}</span><Tooltip offsetTop={8} place='top'>{oldValue}</Tooltip></div>)
 		 								 }} ></TableRowColumn>
                                     <TableRowColumn name="descr"
 									component={(value,oldValue)=>{
-		 										var maxWidth=10;
+		 										var maxWidth=6;
 		 										if(value){
                                                     if(value.length>maxWidth){
-                                                        value = value.substring(0,10)+"...";
+                                                        value = value.substring(0,6)+"...";
                                                     }
                                                 }else{
                                                     value="无";
