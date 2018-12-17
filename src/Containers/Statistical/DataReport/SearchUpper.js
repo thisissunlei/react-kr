@@ -11,7 +11,7 @@ import {
     ButtonGroup,
     Button	
 } from 'kr-ui';
-import {Http} from 'kr/Utils';
+import {Http,ajax} from 'kr/Utils';
 
 class SearchUpper  extends React.Component{
 
@@ -26,9 +26,9 @@ class SearchUpper  extends React.Component{
 
 	componentWillMount(){
         var _this=this;
-        Http.request('report-data-list').then(function(response) {
+        ajax.get('report-data-list').then(function(response) {
                var cityArr=[];
-                response.items.map((item,index)=>{
+                response.map((item,index)=>{
                     var list={};
                     list.label=item.label;
                     list.value=item.value;
@@ -39,7 +39,7 @@ class SearchUpper  extends React.Component{
                     city:cityArr
                 }) 
         }).catch(function(err) {
-            Message.error(err.message);
+            Message.error(err.msg);
         });
 
         Http.request('getTheCommunity').then(function(response) {

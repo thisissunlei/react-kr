@@ -1077,7 +1077,8 @@ module.exports = {
     },
      //App管理--公告管理--所有社区接口
      'get-all-list': {
-        url: '/api/krspace-finance-web/cmt/community/all/list?communityName={communityName}',
+        url: '/z/bs/cmt/community/all/list',
+       // url: '/api/krspace-finance-web/cmt/community/all/list?communityName={communityName}',
         method: 'get'
     },
     //App管理--公告管理--过期
@@ -1101,7 +1102,8 @@ module.exports = {
     },
     //社区运营--社区运营--会议室--社区列表
     'get-community-new-list': {
-        url: '/api/krspace-op-web/cmt/community/all/list?cmtName={cmtName}',
+        url: '/z/bs/cmt/community/all/list',
+      //  url: '/api/krspace-op-web/cmt/community/all/list?cmtName={cmtName}',
         method: 'get'
     },
     

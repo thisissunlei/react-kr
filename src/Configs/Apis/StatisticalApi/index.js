@@ -88,8 +88,9 @@ module.exports = {
    },
     //数据报表－高级查询
    'report-data-list':{
-      url: '/api/krspace-finance-web/cmt/city/select/use/type/list',
-      method: 'get'
+        url: '/z/bs/cmt/city/select/use/type/list',
+    //  url: '/api/krspace-finance-web/cmt/city/select/use/type/list',
+        method: 'get'
    },
 
 }

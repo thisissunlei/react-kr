@@ -5,7 +5,7 @@ import mobx, {
 	computed,
 	extendObservable
 } from 'mobx';
-import {Http} from 'kr/Utils';
+import {Http,ajax} from 'kr/Utils';
 import {reduxForm,formValueSelector,initialize,change} from 'redux-form';
 import {
     Message
@@ -126,10 +126,10 @@ State.communityName = action(function(params,id) {
 	 let data={};
 	 data.id=id;
 	 data.name=params;
-	 Http.request('check-name',data).then(function(response) {
+	 ajax.get('check-name',data).then(function(response) {
 	    _this.isCorpName=false;
 	}).catch(function(err) {
-		if(err.message.indexOf("该名称已存在")!=-1){
+		if(err.msg.indexOf("该名称已存在")!=-1){
 			 _this.isCorpName=true;
 		}else{
 			 _this.isCorpName=false;
@@ -142,10 +142,10 @@ State.communityCode = action(function(params,id) {
 	 let data={};
 	 data.id=id;
 	 data.code=params;
-	 Http.request('check-code',data).then(function(response) {
+	 ajax.get('check-code',data).then(function(response) {
 	   _this.isCorpCode=false;
 	}).catch(function(err) {
-		 if(err.message.indexOf("该编码已存在")!=-1){
+		 if(err.msg.indexOf("该编码已存在")!=-1){
 			 _this.isCorpCode=true;
 		}else{
 			 _this.isCorpCode=false;
@@ -160,10 +160,10 @@ State.communityRank = action(function(params,id,communityId) {
 	 data.cityId=id;
 	 data.orderNum=params;
 	 data.id=communityId;
-	 Http.request('check-rank',data).then(function(response) {
+	 ajax.get('check-rank',data).then(function(response) {
 	     _this.isCorpRank=false;
 	}).catch(function(err) {
-		 if(err.message.indexOf("该序号已存在")!=-1){
+		 if(err.msg.indexOf("该序号已存在")!=-1){
 			 _this.isCorpRank=true;
 		}else{
 			 _this.isCorpRank=false;
