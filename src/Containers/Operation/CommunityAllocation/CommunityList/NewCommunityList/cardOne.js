@@ -230,7 +230,7 @@ class CommunityButton extends React.Component {
                         <Col md={12} align="center">
                             <ButtonGroup>
                             <div  className='list-btn-center'> <Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/></div>
-                            <Button  label="确定" type="submit"/>
+                            <Button  label="下一步" type="submit"/>
                             
                             </ButtonGroup>
                         </Col>

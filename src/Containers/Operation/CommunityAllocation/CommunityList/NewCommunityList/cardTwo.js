@@ -465,7 +465,7 @@ class cardTwo extends React.Component {
                       onTouchTap={this.onCancel}
                     />
                   </div>
-                  <Button label="确定" type="submit" />
+                  <Button label="下一步" type="submit" />
                 </ButtonGroup>
               </Col>
             </Row>
