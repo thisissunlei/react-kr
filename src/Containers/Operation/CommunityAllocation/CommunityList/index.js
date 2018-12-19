@@ -397,6 +397,7 @@ class CommunityList  extends React.Component{
 														onClose={this.whiteClose}
 													>
 												<NewCommunityList
+														v-if={State.openNewCommunity}
 														onSubmit={this.onNewCommunitySubmit}
 														onCancel={this.cancelAddCommunity}
 														communityId={communityId}

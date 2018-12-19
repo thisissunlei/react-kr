@@ -333,6 +333,7 @@ State.getRelatedCommunityData = action(function(id,type) {
 	  _this.detailData.address = res.detailAddress;
 	  _this.detailData.buildName = res.buildingName; 
 	  _this.detailData.cityData = res.provinceName+'/'+res.cityName+'/'+res.countyName
+	  _this.cityId = res.cityId; 
 	  if(res.openDate){
 		_this.detailData.openDate = res.openDate
 	  } 
