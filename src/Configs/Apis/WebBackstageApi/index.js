@@ -69,6 +69,11 @@ module.exports = {
     url: "/api/krspace-finance-web/news/get-news-detail?id={id}",
     method: "get"
   },
+  //新闻列表--团队下拉
+  "get-team-select": {
+    url: "/api/op/news/team-down-list?teamName={teamName}",
+    method: "get"
+  },
   //官网社区配置列表
   "web-community-list": {
     url:

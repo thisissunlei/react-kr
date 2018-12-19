@@ -1,6 +1,6 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { ShallowEqual,Http } from 'kr/Utils';
+import { ShallowEqual,Http,ajax } from 'kr/Utils';
 
 import Loading from '../../Loading';
 import TableBody from '../TableBody';
@@ -27,6 +27,7 @@ export default class Table extends React.Component {
 		fold: false,
 		foldSize: 10,
 		foldOpen: false,
+		ajaxType:false,
 	}
 
 	static propTypes = {
@@ -111,7 +112,7 @@ export default class Table extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-
+		
 		if (!ShallowEqual(this.props.ajaxParams, nextProps.ajaxParams)) {
 			this.setState({
 				isLoaded: false
@@ -135,7 +136,7 @@ export default class Table extends React.Component {
 				loading: nextProps.loading
 			});
 
-			this.onLoadData(1, nextProps.ajaxParams);
+		//	this.onLoadData(1, nextProps.ajaxParams);
 		}
 
 
@@ -184,7 +185,9 @@ export default class Table extends React.Component {
 	}
 
 	onInitial = (state) => {
-
+			if(!state.response){
+				return
+			}
 			state = Object.assign({},state);
 
 		let {
@@ -337,41 +340,71 @@ export default class Table extends React.Component {
 
 
 		var {
-			ajaxUrlName
+			ajaxUrlName,
+			ajaxType
 		} = this.props;
 
 		ajaxParams.page = page;
 
 		var _this = this;
 
-
-		Http.request(ajaxUrlName, ajaxParams).then(function(response) {
-
-			_this.onInitial({
-				response: response,
-				listData: response[_this.props.ajaxFieldListName],
-				page: response.page,
-				pageSize: response.pageSize,
-				totalCount: response.totalCount,
-				isLoaded: true,
-				loading: false,
-				allRowsSelected: false
+		if(ajaxType){
+			
+			ajax.get(ajaxUrlName, ajaxParams).then(function(response) {
+				
+				_this.onInitial({
+					response: response,
+					listData: response[_this.props.ajaxFieldListName],
+					page: response.page,
+					pageSize: response.pageSize,
+					totalCount: response.totalCount,
+					isLoaded: true,
+					loading: false,
+					allRowsSelected: false
+				});
+	
+			}).catch(function(err) {
+			console.log("请求失败一次",err);
+				_this.onInitial({
+					isLoaded: true,
+					loading: false,
+					allRowsSelected: false,
+				});
+				// Notify.show([{
+				// 	message: err.message,
+				// 	type: 'error',
+				// }]);
 			});
+		}else{
+			Http.request(ajaxUrlName, ajaxParams).then(function(response) {
 
-		}).catch(function(err) {
-		console.log("请求失败一次",err);
-			_this.onInitial({
-				isLoaded: true,
-				loading: false,
-				allRowsSelected: false
+				_this.onInitial({
+					response: response,
+					listData: response[_this.props.ajaxFieldListName],
+					page: response.page,
+					pageSize: response.pageSize,
+					totalCount: response.totalCount,
+					isLoaded: true,
+					loading: false,
+					allRowsSelected: false
+				});
+	
+			}).catch(function(err) {
+			console.log("请求失败一次2",err);
+				_this.onInitial({
+					isLoaded: true,
+					loading: false,
+					allRowsSelected: false
+				});
+	
+				// Notify.show([{
+				// 	message: err.message,
+				// 	type: 'error',
+				// }]);
+	
 			});
-
-			// Notify.show([{
-			// 	message: err.message,
-			// 	type: 'error',
-			// }]);
-
-		});
+		}
+	
 
 	}
 

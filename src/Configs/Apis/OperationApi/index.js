@@ -597,22 +597,26 @@ module.exports = {
 
     //客户来源配置-删除客户来源
     'delete-source': {
-        url: '/api/order/csr/source/actions/delete?id={id}',
+        url: '/z/us/csr/source/actions/delete?',
+     //   url: '/api/order/csr/source/actions/delete?id={id}',
         method: 'delete'
     },
     //客户来源配置-客户来源列表
     'list-source': {
-        url: '/api/order/csr/source/list/type/search?page={page}&pageSize={pageSize}&searchKey={searchKey}',
+        url:'/z/us/csr/source/list/type/search',
+       // url: '/api/order/csr/source/list/type/search?page={page}&pageSize={pageSize}&searchKey={searchKey}',
         method: 'get'
     },
     //客户来源配置-新增客户来源
     'new-source': {
-        url: '/api/order/csr/source/actions/save',
+        url: '/z/us/csr/source/actions/save',
+     //   url: '/api/order/csr/source/actions/save',
         method: 'post'
     },
     //客户来源配置-编辑客户来源
     'edit-source': {
-        url: '/api/order/csr/source/actions/edit',
+        url: '/z/us/csr/source/actions/edit',
+      //  url: '/api/order/csr/source/actions/edit',
         method: 'post'
     },
      //客户来源配置-子项是否可删除
@@ -622,22 +626,26 @@ module.exports = {
     },
      //客户来源配置-校验客户来源名称
     'check-name-source': {
-        url: '/api/order/csr/source/check/name?id={id}&name={name}',
+        url: '/z/us/csr/source/check/name',
+     //   url: '/api/order/csr/source/check/name?id={id}&name={name}',
         method: 'get'
     },
     //客户来源配置-校验客户来源编码
     'check-code-source': {
-        url: '/api/krspace-finance-web/csr/source/check/code?id={id}&code={code}',
+        url:'/z/us/csr/source/check/code',
+       // url: '/api/krspace-finance-web/csr/source/check/code?id={id}&code={code}',
         method: 'get'
     },
     //客户来源配置-校验客户来源编码
     'check-order-source': {
-        url: '/api/krspace-finance-web/csr/source/check/order?id={id}&orderNum={orderNum}',
+        url: '/z/us/csr/source/check/order',
+      //  url: '/api/krspace-finance-web/csr/source/check/order?id={id}&orderNum={orderNum}',
         method: 'get'
     },
     //客户来源配置-获取客户来源信息
     'get-detail-source': {
-        url: '/api/order/csr/source/info/type/edit?id={id}',
+        url: '/z/us/csr/source/info/type/edit',
+     //   url: '/api/order/csr/source/info/type/edit?id={id}',
         method: 'get'
     },
 
@@ -1069,7 +1077,8 @@ module.exports = {
     },
      //App管理--公告管理--所有社区接口
      'get-all-list': {
-        url: '/api/krspace-finance-web/cmt/community/all/list?communityName={communityName}',
+        url: '/z/bs/cmt/community/all/list',
+       // url: '/api/krspace-finance-web/cmt/community/all/list?communityName={communityName}',
         method: 'get'
     },
     //App管理--公告管理--过期
@@ -1093,7 +1102,8 @@ module.exports = {
     },
     //社区运营--社区运营--会议室--社区列表
     'get-community-new-list': {
-        url: '/api/krspace-op-web/cmt/community/all/list?cmtName={cmtName}',
+        url: '/z/bs/cmt/community/all/list',
+      //  url: '/api/krspace-op-web/cmt/community/all/list?cmtName={cmtName}',
         method: 'get'
     },
     

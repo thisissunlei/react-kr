@@ -1,24 +1,22 @@
 import React from 'react';
 
-import {
-	Http,
-	ajax
-} from "kr/Utils";
+
 import ReactSelectAsync from '../../Select/Async';
 
 import {
 	Actions,
 	Store
 } from 'kr/Redux';
-
+import {
+	Http
+} from "kr/Utils";
 
 import WrapComponent from '../WrapComponent';
 
-export default class SearchCommunity extends React.Component {
+export default class SearchCommunitys extends React.Component {
 
 	static defaultProps = {
-		placeholder: '请输入...',
-		inline: true
+		placeholder: '请输入...'
 	}
 
 	static PropTypes = {
@@ -56,16 +54,17 @@ export default class SearchCommunity extends React.Component {
 
 	getOptions(lastname) {
 		return new Promise((resolve, reject) => {
-			ajax.get('get-community-new-list', {
-				cmtName: lastname
+			Http.request('get-team-select', {
+				teamName: lastname
 			}).then(function(response) {
-				var obj = [].concat(response);
-				obj.forEach(function(item, index) {
-					item.value = item.id;
-					item.label = item.name;
+                console.log(response,">>>");
+				response.forEach(function(item, index) {
+					item.value = item.teamId;
+					item.label = item.teamName;
+					return item;
 				});
 				resolve({
-					options: obj
+					options: response
 				});
 			}).catch(function(err) {
 				reject(err);
@@ -79,7 +78,6 @@ export default class SearchCommunity extends React.Component {
 			input,
 			label,
 			type,
-			inline,
 			meta: {
 				touched,
 				error
@@ -91,8 +89,9 @@ export default class SearchCommunity extends React.Component {
 			requireLabel,
 			...other
 		} = this.props;
+
 		return (
-			<WrapComponent label={label} wrapStyle={style} inline={inline} requireLabel={requireLabel}>
+			<WrapComponent label={label} wrapStyle={style} requireLabel={requireLabel}>
 					<ReactSelectAsync
 					name={input.name}
 					value={input.value}

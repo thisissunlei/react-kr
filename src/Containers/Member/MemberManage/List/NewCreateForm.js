@@ -59,6 +59,7 @@ class NewCreateForm extends React.Component{
 	onSubmit=(values)=>{
 		//this.EmailonBlur(values.email);
 		//this.foreignCodeBlur(values.foreignCode);
+	
 		let {onsubmit,onSubmitCode} = this.state;
 		if(onsubmit && onSubmitCode){
 			const {onSubmit} = this.props;
@@ -250,15 +251,15 @@ class NewCreateForm extends React.Component{
 					right={30}
 					errors={{requiredValue:'选择区域码'}} 
 				/>
-					<KrField  name="phone" grid={1/2} 	right={30}  type="text" onBlur={this.onBlur} label="手机号" requireLabel={true}/>
+					<KrField  name="phone" grid={1/2} 	right={30}  maxLength={20}  type="text" onBlur={this.onBlur} label="手机号" requireLabel={true}/>
 					<div style={{width:'100%',textAlign:'center',height:25,marginBottom:8,marginLeft:'-30px'}}>
 						<img src={imgLine}/>
 					</div>
 					<KrField grid={1/2} name="communityId" component="searchCommunityAll" label="社区" onChange={this.onChangeSearchCommunity} requireLabel={true} requiredValue={true}  inline={false} 	right={30}/>
 					<KrField grid={1/2} name="csrId" right={30}  component="searchMemberCompany" label="公司" onChange={this.onChangeSearchCompany} requireLabel={true} requiredValue={true}/>
-					<KrField grid={1/2} name="name" type="text" label="姓名" 	right={30} requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} />
+					<KrField grid={1/2} name="name"  maxLength={100} type="text" label="姓名" 	right={30} requireLabel={true} requiredValue={true} errors={{requiredValue:'姓名为必填项'}} />
 					<KrField grid={1/2} name="email" type="text" label="邮箱"   onBlur={this.EmailonBlur} right={30} requireLabel={true}/>
-					<KrField name="job" 	right={30}   grid={1/2}  label="职位" />
+					<KrField name="job" 	right={30}   maxLength={60} grid={1/2}  label="职位" />
 					{/* <KrField name="leader" component="group" label="企业管理员"  style={{width:252}} >
 						<KrField name="leader" label="是" type="radio" value="1" />
 						<KrField name="leader" label="否" type="radio" value='0' />
@@ -279,7 +280,8 @@ class NewCreateForm extends React.Component{
 const validate = values => {
 	const errors = {}
 	let code = /^\d{10}$/;
-	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
+	let phone = /^\d+$/;
+//	let phone = /(^((\+86)|(86))?[1][3456789][0-9]{9}$)|(^(0\d{2,3}-\d{7,8})(-\d{1,4})?$)/;
 	let email = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
 	if (!values.phone) {
 		errors.phone = '请输入电话号码';

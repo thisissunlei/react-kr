@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-	Http
+	Http,
+	ajax
 } from "kr/Utils";
 import {
 	reduxForm
@@ -59,6 +60,7 @@ class Operations extends React.Component {
 		}
 	}
 	componentDidMount() {
+		
 		// if(!this.props.params.page){
 		// 	window.location.href = window.location.href+'/1';
 		// }

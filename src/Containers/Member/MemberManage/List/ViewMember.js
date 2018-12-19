@@ -64,25 +64,72 @@ export default class ViewMember extends React.Component {
 		let _this=this;
 		
 		Http.request('get-member-detail',{uid:memberId}).then(function (response) {
-		
+			// 区域code  
+			let area = response && response.accountInfo && response.accountInfo.areaCode || '';
+			let phone = response && response.accountInfo && response.accountInfo.phone || '';
+			let groupLevelOptions = [
+				{
+					label: '中国 +86',
+					value: '0086'
+				},
+				{
+					label: '中国香港 +852',
+					value: '0852'
+				},
+				{
+				label: '中国澳门 +853',
+				value: '0853'
+			}, 
+			{
+				label: '中国台湾 +886',
+				value: '0886'
+			}, {
+				label: '澳大利亚 +61',
+				value: '0061'
+			}, {
+				label: '韩国 +82',
+				value: '0082'
+			},{
+				label: '加拿大 +1',
+				value: '0001'
+			}, {
+				label: '马来西亚 +60',
+				value: '0060'
+			}, {
+				label: '美国 +1',
+				value: '0001'
+			},
+			{
+				label: '日本 +81',
+				value: '0081'
+			}, {
+				label: '新加坡 +65',
+				value: '0065'
+			}, {
+				label: '英国 +44',
+				value: '0044'
+			},
+		];
+		let resultAreaCode = (groupLevelOptions.filter((v)=>{
+			return v.value === area
+		})[0].label || '') + ' '+ phone;
 			_this.setState({
 				accountInfo:response.accountInfo || {},
 				baseInfo:response.baseInfo || {},
 				companyInfo:response.companyInfo || {},
 				contacts:response.contacts || {},
 				joinCount:response.companyInfo.enterTimes || 0,
-				managerInfo:response.managerInfo || []
-				
+				managerInfo:response.managerInfo || [],
+				resultAreaCode
 			})
 		}).catch(function (err) { 
 			Message.error(err.message)
 		});
 		Http.request('get-user-business-info',{uid:memberId}).then(function (response) {
-			
 			_this.setState({
 				socialDynamic:response.socialDynamic || {},
 				workInfo:response.workInfo || {},
-				miniApplicationInfo: response.miniApplicationInfo|| {}
+				miniApplicationInfo: response.miniApplicationInfo|| {},
 			})
 		}).catch(function (err) { 
 			Message.error(err.message)
@@ -128,7 +175,8 @@ export default class ViewMember extends React.Component {
 				workInfo,
 				joinCount,
 				miniApplicationInfo,
-				managerInfo
+				managerInfo,
+				resultAreaCode
 			}=this.state;
 		let memberId=this.props.params.memberId;
 			
@@ -160,7 +208,7 @@ export default class ViewMember extends React.Component {
 								grid={1/2} 
 								label="手机号："
 								component="labelText"
-								value={accountInfo.phone}
+								value={resultAreaCode}
 								defaultValue="-"
 							/>
 							<KrField
