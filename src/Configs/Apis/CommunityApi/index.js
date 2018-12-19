@@ -90,4 +90,15 @@ module.exports = {
     method: 'get'
   },
 
+  // 关闭社区 设置停业  
+  'close-comunity-time':{
+    url: '/z/bs/cmt/setCloseDate',
+    method: 'get'
+  },
+  // 关闭社区 系统关闭 
+  'close-comunity-system':{
+    url: '/z/bs/cmt/sysClose',
+    method: 'get'
+  }
+
 }
