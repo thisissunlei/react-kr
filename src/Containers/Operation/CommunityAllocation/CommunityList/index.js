@@ -273,7 +273,8 @@ class CommunityList  extends React.Component{
 	openSearchUpperDialog=()=>{
 	  State.searchDataHere();
       var params={
-      opened:'',
+			opened:'',
+			closed:'',
       openDateEnd:'',
       openDateBegin:'',
       businessAreaId:'',
@@ -313,7 +314,8 @@ class CommunityList  extends React.Component{
 		let {searchParams} = State;
     let defaultParams = {
       searchKey:'',
-      opened:'',
+			opened:'',
+			closed:'',
       openDateEnd:'',
       openDateBegin:'',
       businessAreaId:'',
