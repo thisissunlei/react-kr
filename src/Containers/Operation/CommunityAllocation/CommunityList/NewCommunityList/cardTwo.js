@@ -190,6 +190,7 @@ class cardTwo extends React.Component {
                     : "无"
                 }
               />
+              
               <KrField
                 grid={1 / 2}
                 label="社区名称"
@@ -217,6 +218,22 @@ class cardTwo extends React.Component {
                 </div>
               )}
             </div>
+            <KrField
+                  grid={1 / 2}
+                  label="社区名称"
+                  name="namess"
+                  component="input"
+                  style={{ width: 0,height:0,display:'none'}}
+                  requireLabel={false}
+                />
+                <KrField
+                  grid={1 / 2}
+                  label="社区编码"
+                  name="codess"
+                  component="input"
+                  style={{ width: 0,height:0,display:'none'}}
+                  requireLabel={false}
+                />
             <div
               style={{ height: "auto", display: "inline-block", float: "left" }}
             >
@@ -538,11 +555,14 @@ const validate = values => {
     errors.local = "请填写正确的坐标格式";
   }
 
+  console.log(State.isCorpName);
   if (
     !values.name ||
     (values.name && regs.test(values.name.toString().trim()))
   ) {
     errors.name = "请填写社区名称";
+  }else if(State.isCorpName){
+    errors.namess = "       ";
   }
 
   if (
@@ -550,6 +570,8 @@ const validate = values => {
     (values.code && regs.test(values.code.toString().trim()))
   ) {
     errors.code = "请填写社区编码";
+  }else if(State.isCorpCode){
+    errors.codess = "       ";
   }
 
   if (
@@ -584,7 +606,7 @@ const validate = values => {
     errors.address = "请输入详细地址";
   }
 
-  console.log("=====>>", errors);
+  console.log("=====>>！！！！！！！", errors);
   return errors;
 };
 export default reduxForm({ form: "cardTwo", validate })(cardTwo);

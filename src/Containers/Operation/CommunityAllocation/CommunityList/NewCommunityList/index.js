@@ -110,6 +110,7 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
   }
 
 	onSubmit = (values) => {
+    console.log('========',values)
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
@@ -126,13 +127,16 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
         //楼层结束
 
     delete values.wherefloors;
+    
      let data = Object.assign(values,State.cardTwoData)
+     console.log("cardtwo>>>>>>>>>>>>",values,State.cardTwoData)
      if(State.createType){
       data.openDate = DateFormat(data.openDate,"yyyy-mm-dd 00:00:00")
     }
-    console.log('========',data)
+    
          //图片结束
-   	State.newCommunitySubmit(data);
+     State.newCommunitySubmit(data);
+     values.wherefloors = JSON.parse(values.wherefloorsStr);
      
     }
 
@@ -193,7 +197,7 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
     //排序
 	 orderChange=(params)=>{
 		   let cityId = State.cityId;
-			 let {communityId}=this.props;
+       let {communityId}=this.props;
        	if(!cityId){
 					 Message.error('请先填写城市');
            return ;
@@ -258,6 +262,7 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
             </div>
 						<div className="small-cheek"  style={stepStatus==3?{}:{display:'none'}}>
                 <KrField grid={1/2} label="排序" name="orderNum" style={{width:'262px',marginLeft:15}} component="input" onChange={this.orderChange}></KrField>
+                <KrField grid={1/2} label="排序" name="orderNumss" style={{width:0,height:0,display:'none'}} component="input"></KrField>
                 <KrField
                   grid={1 / 2}
                   label="开业时间"
@@ -425,7 +430,9 @@ const validate = values =>{
       if(!values.contract||(values.contract&&regs.test(values.contract.toString().trim()))){
         errors.contract='请输入联系方式'
       }
-
+      if(State.isCorpRank){
+        errors.orderNumss='   '
+      }
       console.log('======',errors)
 
 		return errors

@@ -35,10 +35,10 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
   
   //楼层增加与减少
   const renderMembers = ({ fields, meta: { touched, error }}) => {
-  
+      console.log("fields>>>,",fields);
      return (
         <ul style={{padding:0,margin:0}}>
-      {fields.map((item, index) => {
+      {fields.map((wherefloorsStr, index) => {
   
         return (
           <li key={index} style={{width:600,listStyle:'none'}}>
@@ -47,7 +47,7 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
             style={{width:239,marginLeft:16,marginRight:3}}
             requireLabel={true}
             grid={1/2}
-            name={`${item}.floor`}
+            name={`${wherefloorsStr}.floor`}
             type="text"
             component={renderField}
             label="所在楼层"/>
@@ -57,7 +57,7 @@ const renderField = ({ input, label, placeholder,type, meta: { touched, error }}
             style={{width:201,marginLeft:33,marginRight:3}}
             requireLabel={true}
             grid={1/2}
-            name={`${item}.stationCount`}
+            name={`${wherefloorsStr}.stationCount`}
             type="text"
             component={renderField}
             label="可出租工位数"/>
@@ -159,6 +159,10 @@ const validate = values =>{
 
       if (!values.signStartDate) {
         errors.signStartDate= '请输入签约开始时间';
+      }
+
+      if (State.isCorpRank) {
+        errors.orderNum= '  ';
       }
 
       if (!values.signEndDate) {

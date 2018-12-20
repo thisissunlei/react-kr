@@ -31,6 +31,7 @@ class CardTwo extends React.Component {
   }
 
   componentDidMount() {
+    console.log("ssass.>>",State.chooceType,State.detailData.cityData);
     if (State.chooceType) {
       Store.dispatch(
         change("CardTwo", "buildName", State.relatedInfo.buildingName)
@@ -68,6 +69,8 @@ class CardTwo extends React.Component {
 
   onCancel = () => {
     State.cardTwoEdit = false;
+    State.isCorpCode = false;
+    State.isCorpName = false;
     Store.dispatch(reset("CardTwo"));
     Store.dispatch(
       change(
@@ -118,6 +121,7 @@ class CardTwo extends React.Component {
     Store.dispatch(change("CardTwo", "longitude", yLocation));
   };
   editChange = () => {
+    
     State.cardTwoEdit = true;
   };
 
@@ -487,6 +491,22 @@ class CardTwo extends React.Component {
                     : "无"
                 }
               />
+              <KrField
+                  grid={1 / 2}
+                  label="社区名称"
+                  name="namess"
+                  component="input"
+                  style={{ width: 0,height:0,display:'none'}}
+                  requireLabel={false}
+                />
+                <KrField
+                  grid={1 / 2}
+                  label="社区编码"
+                  name="codess"
+                  component="input"
+                  style={{ width: 0,height:0,display:'none'}}
+                  requireLabel={false}
+                />
                 <KrField
                   grid={1 / 2}
                   label="社区名称"
@@ -793,18 +813,36 @@ const validate = values => {
     errors.local = "请填写正确的坐标格式";
   }
 
+  
   if (
     !values.name ||
     (values.name && regs.test(values.name.toString().trim()))
   ) {
     errors.name = "请填写社区名称";
   }
+  if(State.isCorpName){
+    errors.namess = "  ";
+  }else{
+    errors.namess = "";
+  }
+  // setTimeout(() => {
+  //   if(State.isCorpName){
+  //     errors.name = "ssss";
+  //   }else{
+  //     errors.name = "";
+  //   }
+  //   console.log(State.isCorpName);
+  // }, 200);
 
   if (
     !values.code ||
     (values.code && regs.test(values.code.toString().trim()))
   ) {
     errors.code = "请填写社区编码";
+  }else if(State.isCorpCode){
+    errors.codess = " ";
+  }else{
+    errors.codess = "";
   }
 
   if (
@@ -842,7 +880,11 @@ const validate = values => {
   if (!values.opened) {
     errors.opened = "请输入社区状态";
   }
-
+  setTimeout(() => {
+    console.log('======',errors)
+  }, 250);
+  
+  
   return errors;
 };
 export default reduxForm({ form: "CardTwo", validate })(CardTwo);

@@ -186,6 +186,7 @@ State.getEditList = action(function(id,type,card) {
 	 Http.request('communityGetEdit',{id:id}).then(function(response) {
 		_this.detailData=response;
 		_this.detailData.cityData = response.provinceName+'/'+response.cityName+'/'+response.countyName 
+		_this.cityId = response.cityId; 
 		if(type=='edit' && card === '2'){
 			_this.cardTwoEdit = false
 		}
@@ -204,13 +205,16 @@ State.communityName = action(function(params,id) {
 	 let data={};
 	 data.id=id;
 	 data.name=params;
+	 _this.isCorpName=false;
 	 ajax.get('check-name',data).then(function(response) {
-	    _this.isCorpName=false;
 	}).catch(function(err) {
 		if(err.msg.indexOf("该名称已存在")!=-1){
 			 _this.isCorpName=true;
+			 setTimeout(() => {
+				console.log("存在",_this.isCorpName);
+			 }, 100);
 		}else{
-			 _this.isCorpName=false;
+			_this.isCorpName=false;
 		}
 	});
 });
@@ -225,8 +229,6 @@ State.communityCode = action(function(params,id) {
 	}).catch(function(err) {
 		 if(err.msg.indexOf("该编码已存在")!=-1){
 			 _this.isCorpCode=true;
-		}else{
-			 _this.isCorpCode=false;
 		}
 	});
 });
@@ -243,8 +245,7 @@ State.communityRank = action(function(params,id,communityId) {
 	}).catch(function(err) {
 		 if(err.msg.indexOf("该序号已存在")!=-1){
 			 _this.isCorpRank=true;
-		}else{
-			 _this.isCorpRank=false;
+			 console.log("存在");
 		}
 	});
 });

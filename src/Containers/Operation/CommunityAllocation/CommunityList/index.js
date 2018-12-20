@@ -78,13 +78,14 @@ class CommunityList  extends React.Component{
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
+		 console.log("zhuindex",value);
    	    value = Object.assign({},value);
 
         //楼层开始
    	    value.wherefloorsStr=JSON.stringify(value.wherefloors);
         //楼层结束
 
-         delete value.wherefloors;
+        //  delete value.wherefloors;
 
          //图片结束
    	     State.onNewCommunitySubmit(value);
@@ -163,7 +164,7 @@ class CommunityList  extends React.Component{
 					Store.dispatch(initialize('editCommunityList',response));
 					Store.dispatch(initialize('CardTwo',response));
 					State.detailData= response;
-					
+					State.cityId=response.cityId;
 
           Store.dispatch(change('editCommunityList','local',response.longitude+','+response.latitude));
           Store.dispatch(change('CardTwo','local',response.longitude+','+response.latitude));

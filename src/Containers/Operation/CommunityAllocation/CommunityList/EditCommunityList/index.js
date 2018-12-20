@@ -84,6 +84,7 @@ class EditCommunityList extends React.Component {
   }
 
   onSubmit = values => {
+    console.log(values,"1111<<<<values");
     var signStartDate = DateFormat(values.signStartDate, "yyyy-mm-dd hh:MM:ss");
     var signEndDate = DateFormat(values.signEndDate, "yyyy-mm-dd hh:MM:ss");
     if (
@@ -109,6 +110,7 @@ class EditCommunityList extends React.Component {
     delete values.wherefloors;
 
     //图片结束
+    
 		State.newCommunitySubmit(values,'3');
 		values.wherefloors = JSON.parse(values.wherefloorsStr)
   };
@@ -122,7 +124,8 @@ class EditCommunityList extends React.Component {
 
   //排序
   orderChange = params => {
-    let { cityId } = this.state;
+    let  cityId  = this.props.cityId;
+    // console.log(State,this.props.cityId,this.state.cityId);
     let { communityId } = this.props;
     if (!cityId) {
       Message.error("请先填写城市");
@@ -138,6 +141,7 @@ class EditCommunityList extends React.Component {
     });
 	}
 	onCancelEdit=()=>{
+    State.isCorpRank = false;
 		State.cardThirdEdit = !State.cardThirdEdit;
 		Store.dispatch(reset('CardTwo'));
 	}
@@ -564,6 +568,10 @@ const validate = values => {
   if (values.floorHeight && isNaN(values.floorHeight)) {
     errors.floorHeight = "请输入数字";
   }
+  // if (State.isCorpRank) {
+  //   errors.orderNum= " ";
+  // }
+  // console.log(State.isCorpRank);
   if (
     values.entryNum &&
     values.entryNum.toString().trim() &&
@@ -689,6 +697,8 @@ const validate = values => {
   ) {
     errors.contract = "请输入联系方式";
   }
+
+  console.log('======',errors)
 
   /*
 	 			else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
