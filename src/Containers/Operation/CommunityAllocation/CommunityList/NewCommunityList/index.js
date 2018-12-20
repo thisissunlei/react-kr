@@ -430,9 +430,9 @@ const validate = values =>{
       if(!values.contract||(values.contract&&regs.test(values.contract.toString().trim()))){
         errors.contract='请输入联系方式'
       }
-      if(State.isCorpRank){
-        errors.orderNumss='   '
-      }
+      // if(State.isCorpRank){
+      //   errors.orderNumss='   '
+      // }
       console.log('======',errors)
 
 		return errors
