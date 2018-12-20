@@ -311,9 +311,7 @@ class CardTwo extends React.Component {
                 style={{ width: 262, marginLeft: 15 }}
                 component="labelText"
                 inline={false}
-                value={
-                  State.detailData.cityData 
-                }
+                value={cityData}
               />
 
               <KrField

@@ -374,7 +374,7 @@ class CommunityList  extends React.Component{
 			                <TableRowColumn name="openDate" component={(value,oldValue)=>{
 														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
-			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
+			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:false}]}></TableRowColumn>
 											<TableRowColumn name="hasZoneStr" component={(value,oldValue)=>{
                               return <div style={value=='是'?{color:'red'}:{}}>{value}</div>
                            }}></TableRowColumn>
