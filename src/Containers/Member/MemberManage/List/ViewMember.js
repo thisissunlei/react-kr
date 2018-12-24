@@ -111,7 +111,7 @@ export default class ViewMember extends React.Component {
 			},
 		];
 		let resultAreaCode = (groupLevelOptions.filter((v)=>{
-			return v.value === area
+			return + (v.value) === +area
 		})[0].label || '') + ' '+ phone;
 			_this.setState({
 				accountInfo:response.accountInfo || {},
