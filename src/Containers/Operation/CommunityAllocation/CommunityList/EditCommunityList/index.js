@@ -172,11 +172,14 @@ class EditCommunityList extends React.Component {
     startTime = DateFormat(toJS(State.detailData.signStartDate), "yyyy-mm-dd");
     endTime = DateFormat(toJS(State.detailData.signEndDate), "yyyy-mm-dd");
 
-    if (toJS(State.detailData.opened) == true) {
-      inforStyle = "已开业";
+    if (toJS(State.detailData.status) === 'WAIT') {
+      inforStyle = "待营业";
     }
-    if (toJS(State.detailData.opened) == false) {
-      inforStyle = "未开业";
+    if (toJS(State.detailData.status) === 'OPEN') {
+      inforStyle = "营业";
+    }
+    if (toJS(State.detailData.status) === 'CLOSE') {
+      inforStyle = "停业";
     }
 
     var whereFloor = [];
