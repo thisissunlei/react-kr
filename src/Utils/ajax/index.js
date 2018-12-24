@@ -102,7 +102,6 @@ export default {
       }
       axios.get(APIS[url].url, {params:params})
       .then(function (response) {
-        
             response=response.data;
             success && success(response)
             resolve(response)
