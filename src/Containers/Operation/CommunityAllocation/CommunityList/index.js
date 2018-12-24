@@ -31,7 +31,9 @@ import {
 	ListGroup,
 	ListGroupItem,
 	Message,
-  CheckPermission
+	Tooltip,
+	CheckPermission,
+	DialogInner
 } from 'kr-ui';
 
 import './index.less'
@@ -41,6 +43,11 @@ import EditCommunityList from './EditCommunityList';
 import SearchUpperForm from './SearchUpperForm';
 import WatchCommunityList from './WatchCommunityList';
 import StagingCommunity from './StagingCommunity';
+import EditRole from './EditRole';
+import SetClose from './SetClose';
+import SetSystemClose from './SetSystemClose';
+
+
 //todo:城市组件值不清空，后期补上
 import cityDataState from "../../../../Components/KrField/CityComponent/State";
 
@@ -56,6 +63,10 @@ class CommunityList  extends React.Component{
       communityId:'',
 			cityId:'',
 			floor:[],
+			itemDetail:'',
+			openRoleEdit:false,
+			openSetClose:false,
+			SetSystemClose:false,
     }
 	}
 
@@ -116,7 +127,12 @@ class CommunityList  extends React.Component{
 				this.setState({
 					communityId:itemDetail.id
 				}) 
-		 }
+		 }else if(type=='close'){
+			this.openRoleEdit()
+			this.setState({
+				itemDetail:itemDetail
+			}) 
+	 	}
 	 }
 
 	
@@ -178,7 +194,71 @@ class CommunityList  extends React.Component{
         }).catch(function(err) {
           Message.error(err.message);
         });
-      }
+			}
+				// 关闭二级 系统关闭  
+				SetSystemClose = ()=>{
+					this.setState({
+						SetSystemClose: !this.state.SetSystemClose
+					})
+				}
+			// 二级提交 关闭时间 
+			openSetCloseSubmit = ()=>{
+				let {page} = this.state;
+				page = page || 1;
+				this.setState({
+					openSetClose: !this.state.openSetClose
+				},()=>{
+					this.onPageChange(page)
+				})
+			}
+			// 二级提交 系统关闭  
+			openSetSystemSubmit = ()=>{
+				let {page} = this.state;
+				page = page || 1;
+				this.setState({
+					SetSystemClose: !this.state.SetSystemClose
+				},()=>{
+					this.onPageChange(page)
+				})
+			}
+			// 关闭二级 关闭社区  
+			openSetClose = ()=>{
+				this.setState({
+					openSetClose: !this.state.openSetClose
+				})
+			}
+			// 关闭社区弹框 
+			openRoleEdit = ()=>{
+				this.setState({
+					openRoleEdit: !this.state.openRoleEdit
+				})
+			}
+				// 关闭社区弹框提交  
+				onRoleEditSubmit = (type)=>{
+					switch(type){
+						case 'closeDown':
+						// 停业
+						setTimeout(()=>{
+							this.openSetClose()
+						},0)
+						break; 
+						case 'system':
+						// 系统关闭 
+						setTimeout(()=>{
+							this.SetSystemClose()
+						},0)
+						break; 
+						case 'website':
+						// 官网 
+						window.open('/new/#/WebBackstage/communityAllocation')
+						break; 
+						case 'program':
+						// 小程序 
+						window.open('/krmeeting-seat')
+						break; 
+					}	
+					this.openRoleEdit();
+				}
 
    //查看取消
    onSwitchCancelWatchList=()=>{
@@ -193,7 +273,8 @@ class CommunityList  extends React.Component{
 	openSearchUpperDialog=()=>{
 	  State.searchDataHere();
       var params={
-      opened:'',
+			opened:'',
+			closed:'',
       openDateEnd:'',
       openDateBegin:'',
       businessAreaId:'',
@@ -233,7 +314,8 @@ class CommunityList  extends React.Component{
 		let {searchParams} = State;
     let defaultParams = {
       searchKey:'',
-      opened:'',
+			opened:'',
+			closed:'',
       openDateEnd:'',
       openDateBegin:'',
       businessAreaId:'',
@@ -274,9 +356,10 @@ class CommunityList  extends React.Component{
 
     onPageChange=(page)=>{
       var searchParams={
-        page:page
-      }
-
+				page:page,
+				time: new Date()
+			};
+			this.setState({page:page})
       State.searchParams=Object.assign({},State.searchParams,searchParams);
     }
 
@@ -293,8 +376,7 @@ class CommunityList  extends React.Component{
             },
 
 		]
-
-    let {cityData,timeStart,timeEnd,communityId,cityId,floor}=this.state;
+    let {cityData,timeStart,timeEnd,communityId,cityId,floor,itemDetail}=this.state;
 
 		return(
 
@@ -303,18 +385,18 @@ class CommunityList  extends React.Component{
 				<Section title="社区列表" description="" style={{marginBottom:-5,minHeight:910}}>
 				<Row style={{marginBottom:21,position:'relative',zIndex:5}}>
 
-			          <Col
+			  <Col
 					     style={{float:'left'}}
 					   >
-									<Button
-											label="新建社区"
-											type='button'
-											onTouchTap={this.openAddCommunity}
-                      operateCode="oper_cmt_community_edit"
-									/>
+								<Button
+										label="新建社区"
+										type='button'
+										onTouchTap={this.openAddCommunity}
+										operateCode="oper_cmt_community_edit"
+								/>
 					  </Col>
 
-                      <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
+                <Col  style={{marginTop:0,float:"right",marginRight:-10}}>
 				          <ListGroup>
 				            <ListGroupItem><div className='list-outSearch'><SearchForms placeholder='请输入关键字' searchFilter={searchFilter} onSubmit={this.onSearchSubmit}/></div></ListGroupItem>
 				            <ListGroupItem><Button searchClick={this.openSearchUpperDialog}  type='search' searchStyle={{marginLeft:'20',marginTop:'3'}}/></ListGroupItem>
@@ -359,7 +441,31 @@ class CommunityList  extends React.Component{
 			                <TableRowColumn name="openDate" component={(value,oldValue)=>{
 														 return (<KrDate value={value} format="yyyy-mm-dd"/>)
 													 }}></TableRowColumn>
-			                <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn>
+
+									 <TableRowColumn name="opened" 
+										component={(value,oldValue,itemDetail)=>{
+																		let TooltipStyle="block";
+																		let hover='';
+																		let display=false;
+																		let isClose = false;
+																		if(itemDetail.closed){
+																			isClose = itemDetail.sysClosed;
+																			value = '已停业';
+																			hover = (<div style={{textAlign:'left'}}>
+																							<p>停业时间：{<KrDate value={ itemDetail.closeDate} format="yyyy-mm-dd"/>}</p>	
+																							<p>{isClose?'已系统关闭':''}</p>	
+																						</div>)
+																			display = true;			
+																		}else{
+																			value = value?'已开业':'未开业'
+																		}
+				                             return (<div style={{display:TooltipStyle,paddingTop:5}} ><span style={{maxWidth:160,display:"inline-block",overflowX:"hidden",textOverflow:" ellipsis",whiteSpace:" nowrap"}}>{value}</span>
+				                           {display && <Tooltip offsetTop={8} place='top'>{hover}</Tooltip> } </div>)
+				                      }}>
+										</TableRowColumn>
+
+
+			                {/* <TableRowColumn name="opened" options={[{label:'已开业',value:'true'},{label:'未开业',value:'false'}]}></TableRowColumn> */}
 											<TableRowColumn name="hasZoneStr" component={(value,oldValue)=>{
                               return <div style={value=='是'?{color:'red'}:{}}>{value}</div>
                            }}></TableRowColumn>
@@ -367,6 +473,7 @@ class CommunityList  extends React.Component{
 													     <Button label="编辑"  type="operation"  operation="edit" operateCode='oper_cmt_community_edit'/>
 															 <Button label="查看"  type="operation"  operation="watch"/>
 															 <Button label="分期"  type="operation"  operation="select"/>
+															 <Button label="关闭"  type="operation"  operation="close"/>
 			                </TableRowColumn>
 			               </TableRow>
 			        </TableBody>
@@ -374,7 +481,7 @@ class CommunityList  extends React.Component{
             </Table>
 
                    {/*新建*/}
-											<Drawer
+										<Drawer
 														open={State.openNewCommunity}
 														width={750}
 														openSecondary={true}
@@ -455,7 +562,38 @@ class CommunityList  extends React.Component{
 												/>
 
 											</Drawer>
-
+										{/*关闭社区 */}
+											<Dialog
+												title="关闭社区"
+												modal={true}
+												onClose={this.openRoleEdit}
+												open={this.state.openRoleEdit}
+												contentStyle={{width:580}}
+												>
+												<EditRole detail={itemDetail} onCancel={this.openRoleEdit} onSubmit={this.onRoleEditSubmit} />
+											</Dialog>
+									
+										{/*关闭社区第二步--关闭社区时间 */}
+										<Dialog
+												title="关闭社区（设置停业）"
+												modal={true}
+												onClose={this.openSetClose}
+												open={this.state.openSetClose}
+												contentStyle={{width:580}}
+												>
+												<SetClose detail={itemDetail} onCancel={this.openSetClose} onSubmit={this.openSetCloseSubmit} />
+										</Dialog>
+											
+													{/*关闭社区第二步--系统关毕 */}
+										<Dialog
+												title="关闭社区（系统关闭）"
+												modal={true}
+												onClose={this.SetSystemClose}
+												open={this.state.SetSystemClose}
+												contentStyle={{width:580}}
+												>
+												<SetSystemClose detail={itemDetail} onCancel={this.SetSystemClose} onSubmit={this.openSetSystemSubmit} />
+										</Dialog>
        </Section>
 
 	 </div>
