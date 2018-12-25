@@ -1132,4 +1132,25 @@ module.exports = {
         url: '/api/krspace-finance-web/advertising/boot/detail?id={id}',
         method: 'get'
     },
+    //项目-社区联动-获取社区关联情况
+    'get-community-edit-info': {
+        url: '/api/pm/project-community/edit-info?communityId={communityId}',
+        method: 'get'
+    },
+    //项目-社区联动-可选关联项目列表
+    'get-project-community-list': {
+        url: '/api/pm/project-community/list?communityId={communityId}',
+        method: 'get'
+    },
+    //项目-社区联动-保存项目-社区关联关系
+    'post-community-save': {
+        url: '/api/pm/project-community/save',
+        method: 'post'
+    },
+    //查询项目-社区关联字段数据
+    'get-community-info-related': {
+        url: '/api/pm/project-community/community-info?projectId={projectId}',
+        method: 'get'
+    },
+
 }

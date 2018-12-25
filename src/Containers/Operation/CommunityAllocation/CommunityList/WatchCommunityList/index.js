@@ -106,7 +106,9 @@ import State from '../State';
 
 
 
-		const {handleSubmit} = this.props;
+    const {handleSubmit} = this.props;
+    
+    console.log('=======',State.cardOne)
 
 		return (
            <div className='communityList-m' style={{paddingLeft:9}}>
@@ -114,7 +116,17 @@ import State from '../State';
           <DrawerTitle title ='社区详情' onCancel = {this.onCancel}/>
 				</div>
 				<div className="cheek">
-							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
+              <div className="titleBar">
+                <span className="order-number">1</span>
+                <span className="wire"></span>
+                <label className="small-title">关联项目</label>
+              </div>
+							<div className="small-cheek">
+                <KrField grid={2/2} label="关联项目"  component="labelText" style={{marginLeft:15}} inline={false} value={toJS(State.cardOne.projectName)?toJS(State.cardOne.projectName):'无'}/>
+                <KrField grid={2/2} label="关联项目数据"  component="labelText" style={{marginLeft:15}} inline={false} value={toJS(State.cardOne.needSyncCommunity)?'是':'否'}/>
+              </div>
+
+							<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">基本信息</label></div>
 							<div className="small-cheek">
 									<KrField grid={1/2} label="社区名称"  component="labelText" style={{width:262,marginLeft:15}} inline={false} value={toJS(State.detailData.name)?toJS(State.detailData.name):'无'}/>
 
@@ -151,14 +163,14 @@ import State from '../State';
                                     <div className="middle-round"></div>
 						</div>
 
-						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
+						<div className="titleBar"><span className="order-number">3</span><span className="wire"></span><label className="small-title">运营信息</label></div>
 						<div className="small-cheek">
 
 								<KrField grid={1/2} label="社区状态"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={inforStyle?inforStyle:'无'}/>
 								<KrField grid={1/2} label="开业时间"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={openTime?openTime:'无'}/>
 								<KrField grid={1/2} label="签约开始时间"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={startTime?startTime:'无'}/>
 								<KrField grid={1/2} label="签约结束时间"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={endTime?endTime:'无'}/>
-                                <KrField grid={1/2} label="工位总数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={toJS(State.detailData.stationNum)?toJS(State.detailData.stationNum)+'个':'无'}></KrField>
+                                <KrField grid={1/2} label="设计工位数"  style={{width:262,marginLeft:15}} component="labelText" inline={false} value={toJS(State.detailData.stationNum)?toJS(State.detailData.stationNum)+'个':'无'}></KrField>
 								<KrField grid={1/2} label="会议室总数"  style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.meetNum)?toJS(State.detailData.meetNum)+'间':'无'}></KrField>
 
                                {
@@ -179,7 +191,7 @@ import State from '../State';
 								<KrField grid={1/2} label="联系方式" style={{width:262,marginLeft:28}} component="labelText" inline={false} value={toJS(State.detailData.contract)?toJS(State.detailData.contract):'无'}/>
                 
                     <div className="end-round" style={{left:'-42px'}}></div>
-                </div>
+            </div>
 
 				    </div>
 

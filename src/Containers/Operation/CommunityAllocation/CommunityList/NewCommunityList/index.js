@@ -17,10 +17,14 @@ import {
 	Button,
 	ButtonGroup,
   DrawerTitle,
-	Message,
+  Message,
+  Dialog
 } from 'kr-ui';
 import './index.less';
 import State from '../State';
+import CommunityButton from './cardOne.js'
+import LastCard from './lastCard.js'
+import CardTwo from './cardTwo.js'
 
 
 const renderField = ({ input, label, placeholder,type, meta: { touched, error }}) => (
@@ -90,7 +94,8 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
 		this.state={
 			cityId:'',
       communityName:'',
-      codeName:''
+      codeName:'',
+      // stepStatus:1,
 		}
 	}
   componentDidMount(){
@@ -98,8 +103,14 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
       Store.dispatch(change('NewCommunityList','portalShow','0'))
       Store.dispatch(change('NewCommunityList','wherefloors',[{}]));
   }
+  componentWillReceiveProps(){
+    if(State.createType){
+      Store.dispatch(change('NewCommunityList','openDate', State.relatedInfo.openDate));
+    }
+  }
 
 	onSubmit = (values) => {
+    console.log('========',values)
      var signStartDate=DateFormat(values.signStartDate,"yyyy-mm-dd hh:MM:ss");
      var signEndDate=DateFormat(values.signEndDate,"yyyy-mm-dd hh:MM:ss");
      if(signStartDate!=''&&signEndDate!=''&&signEndDate<signStartDate){
@@ -109,13 +120,28 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
 		 if(values.businessBegin!=''&&values.businessEnd!=''&&values.businessEnd<values.businessBegin){
 				Message.error('营业开始时间不能大于营业结束时间');
 			 return ;
-		 }
+     }
+     
 
-		const {onSubmit} = this.props;
-		onSubmit && onSubmit(values);
+     values.wherefloorsStr=JSON.stringify(values.wherefloors);
+        //楼层结束
+
+    delete values.wherefloors;
+    
+     let data = Object.assign(values,State.cardTwoData)
+     console.log("cardtwo>>>>>>>>>>>>",values,State.cardTwoData)
+     if(State.createType){
+      data.openDate = DateFormat(data.openDate,"yyyy-mm-dd 00:00:00")
+    }
+    
+         //图片结束
+     State.newCommunitySubmit(data);
+     values.wherefloors = JSON.parse(values.wherefloorsStr);
+     
     }
 
 	onCancel = () => {
+    State.stepStatus = 1;
 		const {onCancel} = this.props;
 		onCancel && onCancel();
 	}
@@ -151,9 +177,6 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
 
    	 State.communityCode(value.toString().trim(),'');
    }
-
-
-
     //所属区县
     cityValue=(communityId,cityId,city)=>{
       this.setState({
@@ -162,12 +185,6 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
       Store.dispatch(change('NewCommunityList','cityId',cityId));
       Store.dispatch(change('NewCommunityList','countyId',communityId));
     }
-
-
-
-	componentWillReceiveProps(nextProps) {
-	}
-
     //地图坐标
     locationMap=(value)=>{
       var xLocation=value.split(',')[1];
@@ -179,20 +196,25 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
    
     //排序
 	 orderChange=(params)=>{
-		   let {cityId}=this.state;
-			 let {communityId}=this.props;
+		   let cityId = State.cityId;
+       let {communityId}=this.props;
        	if(!cityId){
 					 Message.error('请先填写城市');
            return ;
 				}
 		   State.communityRank(params.toString().trim(),cityId,communityId);
-	 }
+   }
+  
+   preNext=()=>{
+     State.stepStatus = 2
+   }
 
 
 	render(){
 
        let {communityName,codeName}=this.state;
        var nameStyle={}
+       let stepStatus = State.stepStatus;
        if(State.isCorpName||State.isCorpCode||communityName=='无'||(codeName&&!communityName)){
         nameStyle={
            height:'105px'
@@ -202,74 +224,58 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
            height:'auto'
         }
        }
+       let openTime = DateFormat(toJS(State.detailData.openDate), "yyyy-mm-dd");
 
 
 		const {handleSubmit} = this.props;
-
+       console.log('===index',stepStatus)
 		return (
-           <div>
-			<form className="communityList-m" style={{paddingLeft:9}} onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
-				<div className="title">
-          <DrawerTitle title ='新建社区' onCancel = {this.onCancel}/>
-				</div>
+           <div className="communityList-m" style={{paddingLeft:9}}>
+              <div className="title">
+                <DrawerTitle title ='新建社区' onCancel = {this.onCancel}/>
+              </div>
+              <div className="cheek">
+                <div className="titleBar" style={stepStatus==1?{}:{display:'none'}}>
+                  <span className="order-number">1</span>
+                  <span className="wire"></span>
+                  <label className="small-title">关联社区</label>
+                </div>
+                <div className="small-cheek"  style={stepStatus==1?{}:{display:'none'}}>
+                      <CommunityButton></CommunityButton>
+                </div>
+                <div className="titleBar" style={stepStatus==2?{}:{display:'none'}}>
+                  <span className="order-number">2</span>
+                  <span className="wire"></span>
+                  <label className="small-title">基本信息</label>
+                </div>
+                <div className="small-cheek"  style={stepStatus==2?{}:{display:'none'}}>
+                  <CardTwo></CardTwo>
+                </div>
+              </div>
+			<form  onSubmit={handleSubmit(this.onSubmit)}  onClick={this.closemm}>
+				
 				<div className="cheek">
-							<div className="titleBar"><span className="order-number">1</span><span className="wire"></span><label className="small-title">基本信息</label></div>
-							<div className="small-cheek">
-                                    <KrField grid={1/2} type='hidden' name='latitude' component="input" style={{width:0}}/>
-                                    <KrField grid={1/2} type='hidden' name='cityId' component="input" style={{width:0}}/>
-                                    <KrField grid={1/2} type='hidden' name='longitude' component="input" style={{width:0}}/>
-									                  <div style={nameStyle}><div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区名称" name="name" component="input" style={{width:262,marginLeft:15}}  requireLabel={true} onChange={this.communityNameChange} onBlur={this.communityNameFocus}/>
-                                      {State.isCorpName && <div style={{fontSize:14,color:"red",paddingLeft:26,paddingBottom:7}}>该社区名称已存在</div>}
-                                    </div>
-                                    <div style={{height:'auto',display:'inline-block',float:'left'}}><KrField grid={1/2} label="社区编码" name="code" style={{width:262,marginLeft:28}} component="input" requireLabel={true} onChange={this.communityCodeChange}/>
-
-                                     {State.isCorpCode && <div style={{fontSize:14,color:"red",paddingLeft:40,paddingBottom:7}}>该社区编码已存在</div>}
-                                    </div>
-                                    </div>
-                                    <div className="krFlied-box"><KrField grid={1/2} label="社区面积" name="area" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">m<sup>2</sup></span></div>
-
-                                    <KrField  grid={1/2}  name="businessAreaId" style={{width:262,marginLeft:22}} component='select'  label="所属商圈" inline={false}
-                                      options={toJS(State.searchData)}
-                                    />
- 
-                                    <KrField grid={1/2} label="所属区县" name="countyId"  style={{width:262,marginLeft:16,position:'relative',zIndex:5}} component="city" onSubmit={this.cityValue} requireLabel={true}/>
-
-									<KrField grid={1/2} label="详细地址" name="address" style={{width:262,marginLeft:28}} component="input" requireLabel={true}/>
-
-								   	<div className='location-m'><KrField grid={1/2} label="社区坐标" component="input" name='local' style={{width:262,marginLeft:16}}  requireLabel={true}  onChange={this.locationMap}>
-									</KrField>
-
-									<a className='mapLocation' href={`http:\/\/api.map.baidu.com/lbsapi/getpoint/index.html`} target='_blank'/>
-
-									<KrField grid={1/2} label="大厦名称" name="buildName" style={{width:262,marginLeft:28}} component="input" requireLabel={false}/></div>
-									<KrField grid={1/2} label="装修情况" name="decoration"  style={{width:262,marginLeft:16,zIndex:2}} component="select"
-									  options={[{label:'毛坯',value:'ROUGHCAST'},{label:'简装',value:'PAPERBACK'},{label:'精装',value:'HARDCOVER'},{label:'豪装',value:'LUXURIOUS'}]}
-									/>
-									<KrField  grid={1/2}  name="orientation" style={{width:262,marginLeft:28}} component='select'  label="社区朝向" inline={false}
-                                      options={[{label:'东',value:'EAST'},{label:'南',value:'SOUTH'},{label:'西',value:'WEST'},{label:'北',value:'NORTH'},{label:'东南',value:'SOUTHEAST'},{label:'东北',value:'NORTHEAST'},{label:'西南',value:'SOUTHWEST'},{label:'西北',value:'NORTHWEST'}]}
-									/>
-
-									<div className="krFlied-box"><KrField grid={1/2} label="标准层高" name="floorHeight" style={{width:239,marginLeft:16,marginRight:3}} component="input" ></KrField><span className="unit">m</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="社区入口" name="entryNum" style={{width:239,marginLeft:33,marginRight:3}} component="input" ></KrField><span className="unit">个</span></div>
-
-									<div className="krFlied-box"><KrField grid={1/2} label="客梯数量" name="elevatorNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" ></KrField><span className="unit">部</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="货梯数量" name="cargoNum" style={{width:239,marginLeft:33,marginRight:3}} component="input" ></KrField><span className="unit">部</span></div>
-
-									<div className="krFlied-box"><KrField grid={1/2} label="得房率" name="efficientRate" style={{width:239,marginLeft:16,marginRight:3}} component="input" ></KrField><span className="unit">%</span></div>
-									<div className="krFlied-box"><KrField grid={1/2} label="绿化率" name="greenRate" style={{width:239,marginLeft:36,marginRight:3}} component="input" ></KrField><span className="unit">%</span></div>
-                                    <div className="middle-round"></div>
-						</div>
-
-
-
-						<div className="titleBar"><span className="order-number">2</span><span className="wire"></span><label className="small-title">运营信息</label></div>
-						<div className="small-cheek">
+            <div className="titleBar" style={stepStatus==3?{}:{display:'none'}}>
+                <span className="order-number">3</span>
+                <span className="wire"></span>
+                <label className="small-title">运营信息</label>
+            </div>
+						<div className="small-cheek"  style={stepStatus==3?{}:{display:'none'}}>
                 <KrField grid={1/2} label="排序" name="orderNum" style={{width:'262px',marginLeft:15}} component="input" onChange={this.orderChange}></KrField>
-								<KrField grid={1/2} label="开业时间" name="openDate" style={{width:'262px',marginLeft:32}} component="date" requireLabel={true}/>
+                <KrField grid={1/2} label="排序" name="orderNumss" style={{width:0,height:0,display:'none'}} component="input"></KrField>
+                <KrField
+                  grid={1 / 2}
+                  label="开业时间"
+                  style={{ width: 262, marginLeft: 28,display:State.createType?'inline-block':'none' }}
+                  component="labelText"
+                  inline={false}
+                  value={openTime ? openTime : "无"}
+                />
+                <KrField grid={1/2} label="开业时间" name="openDate" style={{width:'262px',marginLeft:32,display:State.createType?'none':'inline-block'}} component="date" requireLabel={true}/>
                 {State.isCorpRank&&<div style={{display:'block',color:'red',paddingLeft:'25px',paddingBottom:'10px'}}>该序号已存在</div>}
 								<KrField grid={1/2} label="签约开始时间" name="signStartDate" style={{width:260,marginLeft:15}} component="date" requireLabel={true}/>
 								<KrField grid={1/2} label="签约结束时间" name="signEndDate" style={{width:260,marginLeft:32}} component="date" requireLabel={true}/>
-                                <div className="krFlied-box"><KrField grid={1/2} label="工位总数" name="stationNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
+                                <div className="krFlied-box"><KrField grid={1/2} label="设计工位数" name="stationNum" style={{width:239,marginLeft:16,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">个</span></div>
 								<div className="krFlied-box"><KrField grid={1/2} label="会议室总数" name="meetNum" style={{width:239,marginLeft:32,marginRight:3}} component="input" requireLabel={true}></KrField><span className="unit">间</span></div>
 
                                 <FieldArray name="wherefloors" component={renderMembers}/>
@@ -281,24 +287,32 @@ const renderMembers = ({ fields, meta: { touched, error }}) => {
                                 </div>
 
 								<KrField grid={1/2} label="联系方式" name="contract" style={{width:262,marginLeft:11}} component="input" requireLabel={true}/>
-
-          
 						<div className="end-round" style={{left:'-42px'}}></div>
-          </div>
-
-
-				    </div>
-						<Grid style={{marginTop:30}}>
+            <Grid style={{marginTop:30}}>
 							<Row>
 								<Col md={12} align="center">
 									<ButtonGroup>
-										<div  className='list-btn-center'><Button  label="确定" type="submit"/></div>
-										<Button  label="取消" type="button" cancle={true} onTouchTap={this.onCancel}/>
+										<div  className='list-btn-center'><Button  label="上一步" type="button" cancle={true} onTouchTap={this.preNext}/></div>
+										<Button  label="确定" type="submit"/>
 									</ButtonGroup>
 								</Col>
 							</Row>
 						</Grid>
+          </div>
+				    </div>
+						
 				 </form>
+
+        <Dialog
+					title="提示信息"
+					open={State.showLoading}
+					contentStyle ={{ width: '400px',height:'200px'}}
+					overflow="auto"
+					>
+                    <p>新建社区中，请勿关闭页面</p>	
+										
+				</Dialog>
+         
 			 </div>
 		);
 	}
@@ -383,37 +397,15 @@ const validate = values =>{
       errors.local='请填写正确的坐标格式';
     }
 
-      if(!values.name||(values.name&&regs.test(values.name.toString().trim()))){
-        errors.name = '请填写社区名称';
-      }
+     
+     
 
-      if(!values.code||(values.code&&regs.test(values.code.toString().trim()))){
-        errors.code='请填写社区编码';
-      }
-
-      if(!values.local||(values.local&&regs.test(values.local.toString().trim()))){
-        errors.local='请输入社区坐标';
-      }
-
-      if(!values.area||(values.area&&regs.test(values.area.toString().trim()))){
-        errors.area='请输入社区面积';
-      }
-      if(values.area&&values.area.toString().trim()&&!numberNotZero.test(values.area.toString().trim())){
-        errors.area='请输入正整数';
-      }
-
-      if (!values.countyId) {
-        errors.countyId= '请填写所属区县';
-      }
-
-      if (!values.address||(values.address&&regs.test(values.address.toString().trim()))) {
-        errors.address= '请输入详细地址';
-      }
+     
 
 
-      if (!values.opened) {
-        errors.opened= '请输入社区状态';
-      }
+      // if (!values.opened) {
+      //   errors.opened= '请输入社区状态';
+      // }
 
       if (!values.openDate) {
         errors.openDate= '请输入开业时间';
@@ -438,12 +430,10 @@ const validate = values =>{
       if(!values.contract||(values.contract&&regs.test(values.contract.toString().trim()))){
         errors.contract='请输入联系方式'
       }
-
-			/*
-			else if(values.contract.toString().trim()&&!phone.test(values.contract.toString().trim())||!checkTel.test(values.contract.toString().trim())){
-        errors.contract='联系方式错误'
-      }
-			*/
+      // if(State.isCorpRank){
+      //   errors.orderNumss='   '
+      // }
+      console.log('======',errors)
 
 		return errors
 	}

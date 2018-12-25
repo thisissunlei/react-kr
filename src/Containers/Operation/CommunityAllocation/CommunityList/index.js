@@ -72,12 +72,14 @@ class CommunityList  extends React.Component{
 
 	componentDidMount(){
 		State.searchDataHere();
+		State.getRelatedCommunity()
 	}
 
    //新建社区开关
    openAddCommunity=()=>{
    	  cityDataState.setCity("请选择");
 			State.isCorpRank=false;
+			State.stepStatus = 1;
    	  State.searchDataHere();
       State.switchNewCommunityList();
    }
@@ -87,13 +89,14 @@ class CommunityList  extends React.Component{
    }
    //新建社区提交
    onNewCommunitySubmit=(value)=>{
+		 console.log("zhuindex",value);
    	    value = Object.assign({},value);
 
         //楼层开始
    	    value.wherefloorsStr=JSON.stringify(value.wherefloors);
         //楼层结束
 
-         delete value.wherefloors;
+        //  delete value.wherefloors;
 
          //图片结束
    	     State.onNewCommunitySubmit(value);
@@ -115,11 +118,17 @@ class CommunityList  extends React.Component{
 	
 	 onOperation=(type,itemDetail)=>{
      if(type=='edit'){
+			State.cardTwoEdit = false;
+			State.cardThirdEdit = false;
 				State.isCorpRank=false;
 				State.searchDataHere();
 				this.ajaxSendData(itemDetail.id);
+				State.getRelatedCommunity(itemDetail.id)
+				State.getRelatedCommunityInfos(itemDetail.id)
+				State.editCommunityId = itemDetail.id
 		 }else if(type=='watch'){
-			  State.getEditList(itemDetail.id)
+				State.getEditList(itemDetail.id)
+				State.getRelatedCommunityInfo(itemDetail.id)
 		   	State.switchWatchList();
 		 }else if(type=='select'){
 				State.openStagingFun();
@@ -168,9 +177,13 @@ class CommunityList  extends React.Component{
           response.signStartDate=DateFormat(response.signStartDate,"yyyy-mm-dd hh:MM:ss");
           response.signEndDate=DateFormat(response.signEndDate,"yyyy-mm-dd hh:MM:ss");
 
-          Store.dispatch(initialize('editCommunityList',response));
+					Store.dispatch(initialize('editCommunityList',response));
+					Store.dispatch(initialize('CardTwo',response));
+					State.detailData= response;
+					State.cityId=response.cityId;
 
           Store.dispatch(change('editCommunityList','local',response.longitude+','+response.latitude));
+          Store.dispatch(change('CardTwo','local',response.longitude+','+response.latitude));
 
 
 
@@ -184,12 +197,15 @@ class CommunityList  extends React.Component{
 
           if(response.opened==true){
             Store.dispatch(change('editCommunityList','opened','1'));
+            Store.dispatch(change('CardTwo','opened','1'));
           }
           if(response.opened==false){
-            Store.dispatch(change('editCommunityList','opened','0'));
+						Store.dispatch(change('editCommunityList','opened','0'));
+						Store.dispatch(change('CardTwo','opened','0'));
+						
           }
 
-          State.switchEditList();
+          // State.switchEditList();
 
         }).catch(function(err) {
           Message.error(err.message);
@@ -266,7 +282,7 @@ class CommunityList  extends React.Component{
    }
    //编辑取消
    switchEditList=()=>{
-   	   State.switchEditList();
+   	  State.switchEditList();
    }
 
    //高级查询
@@ -470,8 +486,8 @@ class CommunityList  extends React.Component{
                               return <div style={value=='是'?{color:'red'}:{}}>{value}</div>
                            }}></TableRowColumn>
 			                <TableRowColumn type="operation">
-													     <Button label="编辑"  type="operation"  operation="edit" operateCode='oper_cmt_community_edit'/>
-															 <Button label="查看"  type="operation"  operation="watch"/>
+													     <Button label="查看"  type="operation"  operation="edit" operateCode='oper_cmt_community_edit'/>
+															 {/* <Button label="查看"  type="operation"  operation="watch"/> 圣威说去掉*/}
 															 <Button label="分期"  type="operation"  operation="select"/>
 															 <Button label="关闭"  type="operation"  operation="close"/>
 			                </TableRowColumn>
@@ -489,6 +505,7 @@ class CommunityList  extends React.Component{
 														onClose={this.whiteClose}
 													>
 												<NewCommunityList
+														v-if={State.openNewCommunity}
 														onSubmit={this.onNewCommunitySubmit}
 														onCancel={this.cancelAddCommunity}
 														communityId={communityId}
